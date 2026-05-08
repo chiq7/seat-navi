@@ -1,0 +1,9 @@
+{
+  "regions": ["nrt1"],
+  "crons": [
+    {
+      "path": "/api/cron/fetch-events",
+      "schedule": "0 2 * * 1"
+    }
+  ]
+}

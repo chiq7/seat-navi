@@ -1,0 +1,197 @@
+2026-05-08 13:19:59,568 [INFO] ============================================================
+2026-05-08 13:19:59,569 [INFO] fetch_events.py 開始: 2026-05-08 13:19:59
+2026-05-08 13:19:59,574 [INFO] ============================================================
+2026-05-08 13:20:00,269 [INFO] [01/23] 東京ドーム
+2026-05-08 13:20:01,079 [INFO]   HTTP 200 (301,720 chars)
+2026-05-08 13:20:10,550 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-08 13:20:10,566 [INFO]   Claude抽出: 22 件
+2026-05-08 13:20:11,805 [INFO] HTTP Request: POST https://sibjmyabcwpojtzbnqnc.supabase.co/rest/v1/events?on_conflict=id&columns=%22venue_id%22%2C%22title%22%2C%22date%22%2C%22id%22%2C%22venue%22%2C%22genre%22 "HTTP/2 201 Created"
+2026-05-08 13:20:11,807 [INFO]   Supabase upsert: 22 件
+2026-05-08 13:20:15,250 [INFO] [02/23] 京セラドーム大阪
+2026-05-08 13:20:15,297 [WARNING]   取得失敗: HTTPSConnectionPool(host='www.kyocera-dome.jp', port=443): Max retries exceeded with url: /schedule/ (Caused by NameResolutionError("HTTPSConnection(host='www.kyocera-dome.jp', port=443): Failed to resolve 'www.kyocera-dome.jp' ([Errno 11001] getaddrinfo failed)"))
+2026-05-08 13:20:17,297 [INFO] [03/23] バンテリンドームナゴヤ
+2026-05-08 13:20:17,347 [WARNING]   取得失敗: HTTPSConnectionPool(host='www.vantelin-dome-nagoya.jp', port=443): Max retries exceeded with url: /schedule/ (Caused by NameResolutionError("HTTPSConnection(host='www.vantelin-dome-nagoya.jp', port=443): Failed to resolve 'www.vantelin-dome-nagoya.jp' ([Errno 11001] getaddrinfo failed)"))
+2026-05-08 13:20:19,348 [INFO] [04/23] 福岡PayPayドーム
+2026-05-08 13:20:21,159 [WARNING]   HTTPエラー: 404 https://www.softbankhawks.co.jp/stadium/schedule/
+2026-05-08 13:20:23,161 [INFO] [05/23] 札幌ドーム
+2026-05-08 13:20:24,284 [INFO]   HTTP 200 (199,198 chars)
+2026-05-08 13:20:26,219 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-08 13:20:26,221 [INFO]   Claude抽出: 1 件
+2026-05-08 13:20:26,451 [INFO] HTTP Request: POST https://sibjmyabcwpojtzbnqnc.supabase.co/rest/v1/events?on_conflict=id&columns=%22venue_id%22%2C%22title%22%2C%22date%22%2C%22id%22%2C%22venue%22%2C%22genre%22 "HTTP/2 201 Created"
+2026-05-08 13:20:26,455 [INFO]   Supabase upsert: 1 件
+2026-05-08 13:20:30,134 [INFO] [06/23] ベルーナドーム
+2026-05-08 13:20:31,583 [WARNING]   HTTPエラー: 404 https://www.seibulions.jp/stadium/schedule/
+2026-05-08 13:20:33,584 [INFO] [07/23] ZOZOマリンスタジアム
+2026-05-08 13:20:34,175 [INFO]   HTTP 200 (148,174 chars)
+2026-05-08 13:20:35,300 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-08 13:20:35,302 [INFO]   Claude抽出: 0 件
+2026-05-08 13:20:38,114 [INFO] [08/23] 阪神甲子園球場
+2026-05-08 13:20:38,693 [WARNING]   HTTPエラー: 404 https://hanshintigers.jp/game/stadium/
+2026-05-08 13:20:40,696 [INFO] [09/23] さいたまスーパーアリーナ
+2026-05-08 13:20:41,241 [INFO]   HTTP 200 (126,189 chars)
+2026-05-08 13:20:42,782 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-08 13:20:42,794 [INFO]   Claude抽出: 2 件
+2026-05-08 13:20:43,101 [INFO] HTTP Request: POST https://sibjmyabcwpojtzbnqnc.supabase.co/rest/v1/events?on_conflict=id&columns=%22venue_id%22%2C%22title%22%2C%22date%22%2C%22id%22%2C%22venue%22%2C%22genre%22 "HTTP/2 201 Created"
+2026-05-08 13:20:43,102 [INFO]   Supabase upsert: 2 件
+2026-05-08 13:20:45,648 [INFO] [10/23] 横浜アリーナ
+2026-05-08 13:20:46,419 [WARNING]   HTTPエラー: 404 https://www.yokohama-arena.co.jp/schedule/
+2026-05-08 13:20:48,422 [INFO] [11/23] ぴあアリーナMM
+2026-05-08 13:20:48,891 [WARNING]   取得失敗: HTTPSConnectionPool(host='www.pia-arena-mm.jp', port=443): Max retries exceeded with url: /schedule/ (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1028)')))
+2026-05-08 13:20:50,893 [INFO] [12/23] 有明アリーナ
+2026-05-08 13:20:51,821 [INFO]   HTTP 200 (10,997 chars)
+2026-05-08 13:20:52,695 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-08 13:20:52,700 [INFO]   Claude抽出: 0 件
+2026-05-08 13:20:56,275 [INFO] [13/23] 日本武道館
+2026-05-08 13:20:57,108 [INFO]   HTTP 200 (78,563 chars)
+2026-05-08 13:20:58,082 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-08 13:20:58,084 [INFO]   Claude抽出: 0 件
+2026-05-08 13:21:01,939 [INFO] [14/23] 代々木第一体育館
+2026-05-08 13:21:02,399 [WARNING]   HTTPエラー: 404 https://www.tef.or.jp/yoyogi/schedule/
+2026-05-08 13:21:04,401 [INFO] [15/23] 幕張メッセ
+2026-05-08 13:21:05,004 [WARNING]   HTTPエラー: 404 https://www.m-messe.co.jp/schedule/
+2026-05-08 13:21:07,007 [INFO] [16/23] Kアリーナ横浜
+2026-05-08 13:21:07,100 [WARNING]   取得失敗: HTTPSConnectionPool(host='k-arena-yokohama.com', port=443): Max retries exceeded with url: /schedule/ (Caused by NameResolutionError("HTTPSConnection(host='k-arena-yokohama.com', port=443): Failed to resolve 'k-arena-yokohama.com' ([Errno 11001] getaddrinfo failed)"))
+2026-05-08 13:21:09,101 [INFO] [17/23] 大阪城ホール
+2026-05-08 13:21:09,803 [WARNING]   HTTPエラー: 404 https://www.osaka-johall.com/schedule/
+2026-05-08 13:21:11,807 [INFO] [18/23] 大阪エディオンアリーナ
+2026-05-08 13:21:11,851 [WARNING]   取得失敗: HTTPSConnectionPool(host='osaka-edion-arena.jp', port=443): Max retries exceeded with url: /schedule/ (Caused by NameResolutionError("HTTPSConnection(host='osaka-edion-arena.jp', port=443): Failed to resolve 'osaka-edion-arena.jp' ([Errno 11001] getaddrinfo failed)"))
+2026-05-08 13:21:13,852 [INFO] [19/23] マリンメッセ福岡
+2026-05-08 13:21:14,602 [WARNING]   HTTPエラー: 404 https://www.marinemesse.or.jp/schedule/
+2026-05-08 13:21:16,605 [INFO] [20/23] セキスイハイムスーパーアリーナ
+2026-05-08 13:21:16,651 [WARNING]   取得失敗: HTTPSConnectionPool(host='miyagi-arena.jp', port=443): Max retries exceeded with url: /schedule/ (Caused by NameResolutionError("HTTPSConnection(host='miyagi-arena.jp', port=443): Failed to resolve 'miyagi-arena.jp' ([Errno 11001] getaddrinfo failed)"))
+2026-05-08 13:21:18,652 [INFO] [21/23] 広島グリーンアリーナ
+2026-05-08 13:21:18,692 [WARNING]   取得失敗: HTTPSConnectionPool(host='h-green-arena.jp', port=443): Max retries exceeded with url: /schedule/ (Caused by NameResolutionError("HTTPSConnection(host='h-green-arena.jp', port=443): Failed to resolve 'h-green-arena.jp' ([Errno 11001] getaddrinfo failed)"))
+2026-05-08 13:21:20,693 [INFO] [22/23] 名古屋ガイシホール
+2026-05-08 13:21:20,734 [WARNING]   取得失敗: HTTPSConnectionPool(host='www.gaishi-hall.co.jp', port=443): Max retries exceeded with url: /schedule/ (Caused by NameResolutionError("HTTPSConnection(host='www.gaishi-hall.co.jp', port=443): Failed to resolve 'www.gaishi-hall.co.jp' ([Errno 11001] getaddrinfo failed)"))
+2026-05-08 13:21:22,735 [INFO] [23/23] 朱鷺メッセ
+2026-05-08 13:21:23,217 [WARNING]   HTTPエラー: 404 https://www.tokimesse.com/schedule/
+2026-05-08 13:21:25,219 [INFO] ============================================================
+2026-05-08 13:21:25,219 [INFO] 完了: 25 件保存
+2026-05-08 13:21:25,219 [WARNING] 取得失敗 (17 会場): 京セラドーム大阪, バンテリンドームナゴヤ, 福岡PayPayドーム, ベルーナドーム, 阪神甲子園球場, 横浜アリーナ, ぴあアリーナMM, 代々木第一体育館, 幕張メッセ, Kアリーナ横浜, 大阪城ホール, 大阪エディオンアリーナ, マリンメッセ福岡, セキスイハイムスーパーアリーナ, 広島グリーンアリーナ, 名古屋ガイシホール, 朱鷺メッセ
+2026-05-08 13:21:25,219 [INFO] ============================================================
+2026-05-08 13:25:55,304 [INFO] ============================================================
+2026-05-08 13:25:55,304 [INFO] fetch_events.py 開始: 2026-05-08 13:25:55
+2026-05-08 13:25:55,304 [INFO] ============================================================
+2026-05-08 13:25:55,946 [INFO] [01/23] 東京ドーム
+2026-05-08 13:25:56,970 [INFO]   HTTP 200 (301,702 chars)
+2026-05-08 13:26:05,847 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-08 13:26:05,865 [INFO]   Claude抽出: 22 件
+2026-05-08 13:26:07,122 [INFO] HTTP Request: POST https://sibjmyabcwpojtzbnqnc.supabase.co/rest/v1/events?on_conflict=id&columns=%22title%22%2C%22venue%22%2C%22genre%22%2C%22date%22%2C%22id%22%2C%22venue_id%22 "HTTP/2 200 OK"
+2026-05-08 13:26:07,127 [INFO]   Supabase upsert: 22 件
+2026-05-08 13:26:09,766 [INFO] [02/23] 京セラドーム大阪
+2026-05-08 13:26:10,802 [INFO]   HTTP 200 (38,690 chars)
+2026-05-08 13:26:12,568 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-08 13:26:12,570 [INFO]   Claude抽出: 2 件
+2026-05-08 13:26:12,779 [INFO] HTTP Request: POST https://sibjmyabcwpojtzbnqnc.supabase.co/rest/v1/events?on_conflict=id&columns=%22title%22%2C%22venue%22%2C%22genre%22%2C%22date%22%2C%22id%22%2C%22venue_id%22 "HTTP/2 201 Created"
+2026-05-08 13:26:12,780 [INFO]   Supabase upsert: 2 件
+2026-05-08 13:26:16,894 [INFO] [03/23] バンテリンドームナゴヤ
+2026-05-08 13:26:17,588 [INFO]   HTTP 200 (49,678 chars)
+2026-05-08 13:26:21,209 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-08 13:26:21,211 [INFO]   Claude抽出: 7 件
+2026-05-08 13:26:21,388 [INFO] HTTP Request: POST https://sibjmyabcwpojtzbnqnc.supabase.co/rest/v1/events?on_conflict=id&columns=%22title%22%2C%22venue%22%2C%22genre%22%2C%22date%22%2C%22id%22%2C%22venue_id%22 "HTTP/2 201 Created"
+2026-05-08 13:26:21,390 [INFO]   Supabase upsert: 7 件
+2026-05-08 13:26:23,900 [INFO] [04/23] 福岡PayPayドーム
+2026-05-08 13:26:24,442 [INFO]   HTTP 200 (133,445 chars)
+2026-05-08 13:26:29,056 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-08 13:26:29,058 [INFO]   Claude抽出: 10 件
+2026-05-08 13:26:29,299 [INFO] HTTP Request: POST https://sibjmyabcwpojtzbnqnc.supabase.co/rest/v1/events?on_conflict=id&columns=%22title%22%2C%22venue%22%2C%22genre%22%2C%22date%22%2C%22id%22%2C%22venue_id%22 "HTTP/2 201 Created"
+2026-05-08 13:26:29,300 [INFO]   Supabase upsert: 10 件
+2026-05-08 13:26:32,549 [INFO] [05/23] 札幌ドーム
+2026-05-08 13:26:33,591 [INFO]   HTTP 200 (199,198 chars)
+2026-05-08 13:26:35,456 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-08 13:26:35,458 [INFO]   Claude抽出: 1 件
+2026-05-08 13:26:35,657 [INFO] HTTP Request: POST https://sibjmyabcwpojtzbnqnc.supabase.co/rest/v1/events?on_conflict=id&columns=%22title%22%2C%22venue%22%2C%22genre%22%2C%22date%22%2C%22id%22%2C%22venue_id%22 "HTTP/2 200 OK"
+2026-05-08 13:26:35,660 [INFO]   Supabase upsert: 1 件
+2026-05-08 13:26:38,342 [INFO] [06/23] ベルーナドーム
+2026-05-08 13:26:38,788 [INFO]   HTTP 200 (65,901 chars)
+2026-05-08 13:26:39,936 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-08 13:26:39,937 [INFO]   Claude抽出: 1 件
+2026-05-08 13:26:40,054 [INFO] HTTP Request: POST https://sibjmyabcwpojtzbnqnc.supabase.co/rest/v1/events?on_conflict=id&columns=%22title%22%2C%22venue%22%2C%22genre%22%2C%22date%22%2C%22id%22%2C%22venue_id%22 "HTTP/2 201 Created"
+2026-05-08 13:26:40,056 [INFO]   Supabase upsert: 1 件
+2026-05-08 13:26:42,972 [INFO] [07/23] ZOZOマリンスタジアム
+2026-05-08 13:26:43,534 [INFO]   HTTP 200 (148,174 chars)
+2026-05-08 13:26:44,645 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-08 13:26:44,646 [INFO]   Claude抽出: 0 件
+2026-05-08 13:26:48,212 [INFO] [08/23] 阪神甲子園球場
+2026-05-08 13:26:48,674 [INFO]   HTTP 200 (171 chars)
+2026-05-08 13:26:50,172 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-08 13:26:50,173 [WARNING]   JSONパースエラー: Expecting value: line 1 column 1 (char 0) — raw: 'テキストが提供されていないようです。スケジュール内容を貼り付けていただければ、「コンサート・ライブ公演」のみを抽出してJSONで返します。'
+2026-05-08 13:26:53,995 [INFO] [09/23] さいたまスーパーアリーナ
+2026-05-08 13:26:54,596 [INFO]   HTTP 200 (126,189 chars)
+2026-05-08 13:26:57,105 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-08 13:26:57,107 [INFO]   Claude抽出: 2 件
+2026-05-08 13:26:57,280 [INFO] HTTP Request: POST https://sibjmyabcwpojtzbnqnc.supabase.co/rest/v1/events?on_conflict=id&columns=%22title%22%2C%22venue%22%2C%22genre%22%2C%22date%22%2C%22id%22%2C%22venue_id%22 "HTTP/2 200 OK"
+2026-05-08 13:26:57,281 [INFO]   Supabase upsert: 2 件
+2026-05-08 13:27:00,252 [INFO] [10/23] 横浜アリーナ
+2026-05-08 13:27:01,456 [INFO]   HTTP 200 (31,629 chars)
+2026-05-08 13:27:02,319 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-08 13:27:02,320 [INFO]   Claude抽出: 1 件
+2026-05-08 13:27:02,492 [INFO] HTTP Request: POST https://sibjmyabcwpojtzbnqnc.supabase.co/rest/v1/events?on_conflict=id&columns=%22title%22%2C%22venue%22%2C%22genre%22%2C%22date%22%2C%22id%22%2C%22venue_id%22 "HTTP/2 201 Created"
+2026-05-08 13:27:02,493 [INFO]   Supabase upsert: 1 件
+2026-05-08 13:27:06,053 [INFO] [11/23] ぴあアリーナMM
+2026-05-08 13:27:06,570 [INFO]   HTTP 200 (25,950 chars)
+2026-05-08 13:27:07,925 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-08 13:27:07,927 [INFO]   Claude抽出: 3 件
+2026-05-08 13:27:08,101 [INFO] HTTP Request: POST https://sibjmyabcwpojtzbnqnc.supabase.co/rest/v1/events?on_conflict=id&columns=%22title%22%2C%22venue%22%2C%22genre%22%2C%22date%22%2C%22id%22%2C%22venue_id%22 "HTTP/2 201 Created"
+2026-05-08 13:27:08,105 [INFO]   Supabase upsert: 3 件
+2026-05-08 13:27:11,264 [INFO] [12/23] 有明アリーナ
+2026-05-08 13:27:12,146 [INFO]   HTTP 200 (11,017 chars)
+2026-05-08 13:27:12,832 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-08 13:27:12,834 [INFO]   Claude抽出: 0 件
+2026-05-08 13:27:15,540 [INFO] [13/23] 日本武道館
+2026-05-08 13:27:16,891 [INFO]   HTTP 200 (78,563 chars)
+2026-05-08 13:27:17,731 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-08 13:27:17,732 [INFO]   Claude抽出: 0 件
+2026-05-08 13:27:20,840 [INFO] [14/23] 代々木第一体育館
+2026-05-08 13:27:21,410 [INFO]   HTTP 200 (32,864 chars)
+2026-05-08 13:27:22,720 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-08 13:27:22,722 [INFO]   Claude抽出: 3 件
+2026-05-08 13:27:22,982 [INFO] HTTP Request: POST https://sibjmyabcwpojtzbnqnc.supabase.co/rest/v1/events?on_conflict=id&columns=%22title%22%2C%22venue%22%2C%22genre%22%2C%22date%22%2C%22id%22%2C%22venue_id%22 "HTTP/2 201 Created"
+2026-05-08 13:27:22,984 [INFO]   Supabase upsert: 3 件
+2026-05-08 13:27:26,738 [INFO] [15/23] 幕張メッセ
+2026-05-08 13:27:27,553 [INFO]   HTTP 200 (53,676 chars)
+2026-05-08 13:27:29,544 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-08 13:27:29,545 [INFO]   Claude抽出: 2 件
+2026-05-08 13:27:29,751 [INFO] HTTP Request: POST https://sibjmyabcwpojtzbnqnc.supabase.co/rest/v1/events?on_conflict=id&columns=%22title%22%2C%22venue%22%2C%22genre%22%2C%22date%22%2C%22id%22%2C%22venue_id%22 "HTTP/2 201 Created"
+2026-05-08 13:27:29,752 [INFO]   Supabase upsert: 2 件
+2026-05-08 13:27:33,567 [INFO] [16/23] Kアリーナ横浜
+2026-05-08 13:27:34,129 [INFO]   HTTP 200 (7,632 chars)
+2026-05-08 13:27:34,900 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-08 13:27:34,904 [INFO]   Claude抽出: 0 件
+2026-05-08 13:27:38,907 [INFO] [17/23] 大阪城ホール
+2026-05-08 13:27:39,510 [INFO]   HTTP 200 (50,361 chars)
+2026-05-08 13:27:42,387 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-08 13:27:42,389 [INFO]   Claude抽出: 12 件
+2026-05-08 13:27:42,592 [INFO] HTTP Request: POST https://sibjmyabcwpojtzbnqnc.supabase.co/rest/v1/events?on_conflict=id&columns=%22title%22%2C%22venue%22%2C%22genre%22%2C%22date%22%2C%22id%22%2C%22venue_id%22 "HTTP/2 201 Created"
+2026-05-08 13:27:42,594 [INFO]   Supabase upsert: 12 件
+2026-05-08 13:27:45,815 [INFO] [18/23] 大阪エディオンアリーナ
+2026-05-08 13:27:46,842 [INFO]   HTTP 200 (22,632 chars)
+2026-05-08 13:27:47,780 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-08 13:27:47,782 [INFO]   Claude抽出: 0 件
+2026-05-08 13:27:51,885 [INFO] [19/23] マリンメッセ福岡
+2026-05-08 13:27:52,552 [INFO]   HTTP 200 (59,334 chars)
+2026-05-08 13:27:53,403 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-08 13:27:53,405 [INFO]   Claude抽出: 0 件
+2026-05-08 13:27:56,439 [INFO] [20/23] セキスイハイムスーパーアリーナ
+2026-05-08 13:27:57,061 [INFO]   HTTP 200 (35,195 chars)
+2026-05-08 13:27:59,710 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-08 13:27:59,712 [INFO]   Claude抽出: 7 件
+2026-05-08 13:27:59,903 [INFO] HTTP Request: POST https://sibjmyabcwpojtzbnqnc.supabase.co/rest/v1/events?on_conflict=id&columns=%22title%22%2C%22venue%22%2C%22genre%22%2C%22date%22%2C%22id%22%2C%22venue_id%22 "HTTP/2 201 Created"
+2026-05-08 13:27:59,904 [INFO]   Supabase upsert: 7 件
+2026-05-08 13:28:04,329 [INFO] [21/23] 広島グリーンアリーナ
+2026-05-08 13:28:05,804 [INFO]   HTTP 200 (139,076 chars)
+2026-05-08 13:28:06,636 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-08 13:28:06,638 [INFO]   Claude抽出: 0 件
+2026-05-08 13:28:10,307 [INFO] [22/23] 名古屋ガイシホール
+2026-05-08 13:28:11,331 [INFO]   HTTP 200 (21,276 chars)
+2026-05-08 13:28:12,094 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-08 13:28:12,096 [INFO]   Claude抽出: 0 件
+2026-05-08 13:28:14,873 [INFO] [23/23] 朱鷺メッセ
+2026-05-08 13:28:15,407 [INFO]   HTTP 200 (25,661 chars)
+2026-05-08 13:28:16,594 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-08 13:28:16,595 [INFO]   Claude抽出: 1 件
+2026-05-08 13:28:16,772 [INFO] HTTP Request: POST https://sibjmyabcwpojtzbnqnc.supabase.co/rest/v1/events?on_conflict=id&columns=%22title%22%2C%22venue%22%2C%22genre%22%2C%22date%22%2C%22id%22%2C%22venue_id%22 "HTTP/2 201 Created"
+2026-05-08 13:28:16,789 [INFO]   Supabase upsert: 1 件
+2026-05-08 13:28:20,311 [INFO] ============================================================
+2026-05-08 13:28:20,311 [INFO] 完了: 74 件保存
+2026-05-08 13:28:20,311 [INFO] ============================================================
