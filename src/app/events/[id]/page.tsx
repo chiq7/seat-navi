@@ -4,8 +4,7 @@ import { use, useEffect, useState, useCallback, useRef } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
-import { SEAT_LOTTERY_OPTIONS } from "@/lib/types";
-import type { CrawledEvent, SeatReport, EventLayout, HistoricalPattern } from "@/lib/types";
+import type { CrawledEvent, SeatReport, EventLayout } from "@/lib/types";
 
 // ---------------------------------------------------------------------------
 // 定数
@@ -188,17 +187,6 @@ function BlockCard({ block, reports }: { block: string; reports: SeatReport[] })
   );
 }
 
-// ---------------------------------------------------------------------------
-// ブロック名パーサー
-// ---------------------------------------------------------------------------
-
-/** "A3" → { prefix:"A", num:3 }  /  "SS2" → { prefix:"SS", num:2 }
- *  末尾の連続する数字を列番号、それ以前を行プレフィックスとして解釈。 */
-function parseBlock(name: string): { prefix: string; num: number } | null {
-  const m = name.match(/^(.*?)(\d+)$/);
-  if (!m) return null;
-  return { prefix: m[1], num: parseInt(m[2], 10) };
-}
 
 // ---------------------------------------------------------------------------
 // 全体図（報告データが地図になる）
@@ -207,13 +195,7 @@ function parseBlock(name: string): { prefix: string; num: number } | null {
 /** 報告数がこれ未満のブロックは「疎ブロック」として花道・センテ候補扱い */
 const SPARSE_THRESHOLD = 3;
 
-function AllBlocksOverview({
-  blockMap,
-  patterns,
-}: {
-  blockMap: Map<string, SeatReport[]>;
-  patterns: HistoricalPattern[];
-}) {
+function AllBlocksOverview({ blockMap }: { blockMap: Map<string, SeatReport[]> }) {
   const [tooltip, setTooltip] = useState<TooltipState>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -228,169 +210,98 @@ function AllBlocksOverview({
     setTooltip(null);
   }
 
-  // historical_patterns のブロックサイズ上限（同名複数ある場合は最大値）
-  const patternLookup = new Map<string, { maxRow: number; maxSeat: number }>();
-  for (const p of patterns) {
-    if (!p.max_row || !p.max_seat) continue;
-    const ex = patternLookup.get(p.block);
-    patternLookup.set(p.block, {
-      maxRow:  Math.max(p.max_row,  ex?.maxRow  ?? 0),
-      maxSeat: Math.max(p.max_seat, ex?.maxSeat ?? 0),
-    });
-  }
+  const activeEntries = [...blockMap.entries()]
+    .filter(([, r]) => r.length > 0)
+    .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }));
 
-  // 報告0件のブロックは非表示
-  const activeBlocks = new Map([...blockMap.entries()].filter(([, r]) => r.length > 0));
-  if (activeBlocks.size === 0) return null;
-
-  // ブロック名パース
-  const parsedMap = new Map<string, { prefix: string; num: number }>();
-  const unparsed: string[] = [];
-  for (const block of activeBlocks.keys()) {
-    const p = parseBlock(block);
-    if (p) parsedMap.set(block, p);
-    else   unparsed.push(block);
-  }
-
-  const prefixes = [...new Set([...parsedMap.values()].map((p) => p.prefix))]
-    .sort((a, b) => a.localeCompare(b, "ja"));
-  const nums = [...new Set([...parsedMap.values()].map((p) => p.num))]
-    .sort((a, b) => a - b);
-
-  const cKey = (prefix: string, num: number) => `${prefix}___${num}`;
-  const lookup = new Map<string, string>();
-  for (const [block, { prefix, num }] of parsedMap) lookup.set(cKey(prefix, num), block);
-
-  // ── ブロック1つのレンダリング ──────────────────────────────────────────
-  function renderBlock(block: string) {
-    const reports  = activeBlocks.get(block) ?? [];
-    const isSparse = reports.length < SPARSE_THRESHOLD;
-    const isHana   = detectHanamichi(reports);
-    const isCen    = detectCenterStage(reports);
-
-    // 報告データから上限を計算し、historical で補正（上限として使う）
-    const reportedMaxRow  = Math.max(...reports.map((r) => r.row_num),  1);
-    const reportedMaxSeat = Math.max(...reports.map((r) => r.seat_num), 1);
-    const pat = patternLookup.get(block);
-    const displayMaxRow  = pat ? Math.min(reportedMaxRow,  pat.maxRow)  : reportedMaxRow;
-    const displayMaxSeat = pat ? Math.min(reportedMaxSeat, pat.maxSeat) : reportedMaxSeat;
-
-    const reportedMap = new Map<string, string>();
-    for (const r of reports) reportedMap.set(`${r.row_num}-${r.seat_num}`, r.lottery_type);
-
-    const labelColor = isSparse ? "text-gray-400" : "text-gray-700";
-
-    return (
-      <div className="flex flex-col items-start gap-0.5">
-        {/* ブロック名 + バッジ */}
-        <div className="flex items-center gap-0.5">
-          <span className={`text-[8px] font-bold ${labelColor}`}>{block}</span>
-          {isHana && <span className="text-[7px]" title="花道の可能性">🌸</span>}
-          {isCen  && <span className="text-[7px]" title="センテの可能性">⭕</span>}
-        </div>
-
-        {isSparse ? (
-          /* 疎ブロック: 報告数が少ない → グレーの枠で存在を示す */
-          <div
-            className="flex items-center justify-center rounded bg-gray-100"
-            style={{
-              width:  Math.max(displayMaxSeat * 4, 28) + "px",
-              height: Math.max(displayMaxRow  * 4, 16) + "px",
-            }}
-          >
-            <span className="text-[7px] font-bold text-gray-300">少</span>
-          </div>
-        ) : (
-          /* 通常ブロック: 全セルを row1〜maxRow × seat1〜maxSeat で描画
-             reported = 抽選種別色、unreported = 白、gap がグリッド線になる */
-          <div
-            className="flex flex-col gap-[1px] rounded-sm bg-gray-200"
-            style={{ padding: "1px" }}
-          >
-            {Array.from({ length: displayMaxRow },  (_, i) => i + 1).map((row) => (
-              <div key={row} className="flex gap-[1px]">
-                {Array.from({ length: displayMaxSeat }, (_, i) => i + 1).map((seat) => {
-                  const lt  = reportedMap.get(`${row}-${seat}`);
-                  const tip = lt
-                    ? `[${block}] ${row}列 ${seat}番・${LOTTERY_LABEL[lt] ?? lt}`
-                    : undefined;
-                  return (
-                    <div
-                      key={seat}
-                      className={`h-1 w-1 shrink-0 ${
-                        lt ? (LOTTERY_COLOR[lt] ?? "bg-pink-400") : "bg-white"
-                      } ${lt ? "cursor-pointer" : ""}`}
-                      onMouseEnter={(e) => tip && showTip(e, tip)}
-                      onMouseLeave={hideTip}
-                      onTouchStart={(e) => {
-                        if (tip) { e.preventDefault(); showTip(e, tip); }
-                      }}
-                    />
-                  );
-                })}
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    );
-  }
-
-  const hasGrid = prefixes.length > 0 && nums.length > 0;
+  if (activeEntries.length === 0) return null;
 
   return (
     <>
-      <div className="overflow-x-auto hide-scrollbar pb-1">
-        <div style={{ display: "inline-block" }}>
+      <div className="overflow-x-auto pb-1">
+        <div className="inline-flex gap-4 pb-1">
+          {activeEntries.map(([block, reports]) => {
+            const isSparse = reports.length < SPARSE_THRESHOLD;
+            const isHana   = !isSparse && detectHanamichi(reports);
+            const isCen    = !isSparse && detectCenterStage(reports);
 
-          {/* ── 格子配置（prefix=行, num=列）── */}
-          {hasGrid && (
-            <div
-              className="gap-3"
-              style={{
-                display: "grid",
-                gridTemplateColumns: `auto repeat(${nums.length}, auto)`,
-                alignItems: "start",
-              }}
-            >
-              {/* ヘッダー行 */}
-              <div />
-              {nums.map((num) => (
-                <div key={num} className="pb-0.5 text-center text-[8px] font-bold text-gray-400">
-                  {num}
-                </div>
-              ))}
+            const rows  = reports.map((r) => r.row_num);
+            const seats = reports.map((r) => r.seat_num);
+            const minRow  = Math.min(...rows),  maxRow  = Math.max(...rows);
+            const minSeat = Math.min(...seats), maxSeat = Math.max(...seats);
 
-              {/* データ行 */}
-              {prefixes.map((prefix) => (
-                <>
-                  <div
-                    key={`lbl-${prefix}`}
-                    className="pr-1.5 text-right text-[8px] font-bold text-gray-400 self-start pt-1"
-                  >
-                    {prefix || "—"}
+            const reportedMap = new Map<string, string>();
+            for (const r of reports) reportedMap.set(`${r.row_num}-${r.seat_num}`, r.lottery_type);
+
+            return (
+              <div key={block} className="flex shrink-0 flex-col items-center gap-0.5">
+                <span className="text-[8px] font-bold text-gray-600">{block}</span>
+                {(isHana || isCen) && (
+                  <div className="flex gap-0.5">
+                    {isHana && <span className="text-[6px]" title="花道の可能性">🌸</span>}
+                    {isCen  && <span className="text-[6px]" title="センテの可能性">⭕</span>}
                   </div>
-                  {nums.map((num) => {
-                    const block = lookup.get(cKey(prefix, num));
-                    return (
-                      <div key={num}>
-                        {block ? renderBlock(block) : <div />}
+                )}
+                {isSparse ? (
+                  <div className="flex h-6 w-10 items-center justify-center rounded border border-dashed border-gray-300 bg-gray-100">
+                    <span className="text-center text-[5px] font-bold leading-tight text-gray-400">
+                      花道/<br />候補
+                    </span>
+                  </div>
+                ) : (
+                  <div
+                    className="flex flex-col gap-[1px] rounded-sm bg-gray-200"
+                    style={{ padding: "1px" }}
+                  >
+                    {Array.from({ length: maxRow - minRow + 1 }, (_, i) => minRow + i).map((row) => (
+                      <div key={row} className="flex gap-[1px]">
+                        {Array.from({ length: maxSeat - minSeat + 1 }, (_, i) => minSeat + i).map((seat) => {
+                          const lt  = reportedMap.get(`${row}-${seat}`);
+                          const tip = lt
+                            ? `[${block}] ${row}列 ${seat}番・${LOTTERY_LABEL[lt] ?? lt}`
+                            : undefined;
+                          return (
+                            <div
+                              key={seat}
+                              className={`h-1.5 w-1.5 shrink-0 ${
+                                lt ? (LOTTERY_COLOR[lt] ?? "bg-pink-400") : "bg-white"
+                              } ${lt ? "cursor-pointer" : ""}`}
+                              onMouseEnter={(e) => tip && showTip(e, tip)}
+                              onMouseLeave={hideTip}
+                              onTouchStart={(e) => {
+                                if (tip) { e.preventDefault(); showTip(e, tip); }
+                              }}
+                            />
+                          );
+                        })}
                       </div>
-                    );
-                  })}
-                </>
-              ))}
-            </div>
-          )}
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
 
-          {/* ── パターン外ブロック（名前に数字なし） ── */}
-          {unparsed.length > 0 && (
-            <div className={`flex flex-wrap gap-3 ${hasGrid ? "mt-3 border-t border-gray-100 pt-3" : ""}`}>
-              {unparsed.map((block) => (
-                <div key={block}>{renderBlock(block)}</div>
-              ))}
-            </div>
-          )}
+      {/* 凡例 */}
+      <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-gray-100 pt-2.5">
+        {[
+          { key: "fc1",        label: "FC1次",   cls: "bg-blue-500" },
+          { key: "fc2",        label: "FC2次",   cls: "bg-cyan-400" },
+          { key: "general",    label: "一般",     cls: "bg-emerald-500" },
+          { key: "upgrade",    label: "アプグレ", cls: "bg-orange-400" },
+          { key: "revival",    label: "復活",     cls: "bg-red-500" },
+          { key: "production", label: "制作",     cls: "bg-purple-500" },
+        ].map(({ key, label, cls }) => (
+          <div key={key} className="flex items-center gap-1">
+            <div className={`h-2 w-2 shrink-0 rounded-sm ${cls}`} />
+            <span className="text-[10px] text-gray-500">{label}</span>
+          </div>
+        ))}
+        <div className="flex items-center gap-1">
+          <div className="h-2 w-2 shrink-0 rounded-sm border border-dashed border-gray-300 bg-gray-100" />
+          <span className="text-[10px] text-gray-500">花道/候補</span>
         </div>
       </div>
 
@@ -405,27 +316,6 @@ function AllBlocksOverview({
         </div>
       )}
     </>
-  );
-}
-
-// ---------------------------------------------------------------------------
-// 凡例
-// ---------------------------------------------------------------------------
-
-function Legend() {
-  return (
-    <div className="flex flex-wrap gap-x-3 gap-y-1">
-      {SEAT_LOTTERY_OPTIONS.map((opt) => (
-        <div key={opt.value} className="flex items-center gap-1">
-          <div className={`h-2.5 w-2.5 rounded-sm ${LOTTERY_COLOR[opt.value]}`} />
-          <span className="text-[10px] text-gray-500">{opt.label}</span>
-        </div>
-      ))}
-      <div className="flex items-center gap-1">
-        <div className="h-2.5 w-2.5 rounded-sm bg-gray-100 border border-gray-200" />
-        <span className="text-[10px] text-gray-500">未報告</span>
-      </div>
-    </div>
   );
 }
 
@@ -445,7 +335,6 @@ export default function EventDetailPage({
   const [event,     setEvent]     = useState<CrawledEvent | null>(null);
   const [reports,   setReports]   = useState<SeatReport[]>([]);
   const [layout,    setLayout]    = useState<EventLayout | null>(null);
-  const [patterns,  setPatterns]  = useState<HistoricalPattern[]>([]);
   const [loading,   setLoading]   = useState(true);
   const [analysis,  setAnalysis]  = useState("");
   const [analyzing, setAnalyzing] = useState(false);
@@ -476,16 +365,6 @@ export default function EventDetailPage({
       if (evRes.data)     setEvent(evRes.data as CrawledEvent);
       if (repRes.data)    setReports(repRes.data as SeatReport[]);
       if (layoutRes.data) setLayout(layoutRes.data as EventLayout);
-
-      // 同会場の historical_patterns を取得（ブロックサイズ上限用）
-      if (evRes.data?.venue) {
-        const { data: patData } = await supabase
-          .from("historical_patterns")
-          .select("block, max_row, max_seat, event_name")
-          .eq("venue", evRes.data.venue)
-          .limit(50);
-        if (patData) setPatterns(patData as HistoricalPattern[]);
-      }
 
       setLoading(false);
     }
@@ -605,19 +484,18 @@ export default function EventDetailPage({
             </div>
           )}
 
-          {/* 報告数 + 凡例 */}
+          {/* 報告数 */}
           <div>
             <span className="text-sm font-bold text-gray-900">
               報告数: <span className="text-[var(--accent)]">{reports.length}</span>件
             </span>
           </div>
-          <Legend />
 
           {/* 全体図 */}
           {blocks.length > 0 && (
             <div className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
               <p className="mb-3 text-xs font-bold text-gray-700">全体図</p>
-              <AllBlocksOverview blockMap={blockMap} patterns={patterns} />
+              <AllBlocksOverview blockMap={blockMap} />
             </div>
           )}
 
