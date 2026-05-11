@@ -4,7 +4,7 @@ import { use, useEffect, useState, useCallback, useRef } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
-import type { CrawledEvent, SeatReport, EventLayout } from "@/lib/types";
+import type { CrawledEvent, SeatReport, EventLayout, HistoricalPattern } from "@/lib/types";
 
 // ---------------------------------------------------------------------------
 // 定数
@@ -189,13 +189,26 @@ function BlockCard({ block, reports }: { block: string; reports: SeatReport[] })
 
 
 // ---------------------------------------------------------------------------
-// 全体図（報告データが地図になる）
+// ブロック名パーサー
 // ---------------------------------------------------------------------------
 
-/** 報告数がこれ未満のブロックは「疎ブロック」として花道・センテ候補扱い */
-const SPARSE_THRESHOLD = 3;
+function parseBlock(name: string): { prefix: string; num: number } | null {
+  const m = name.match(/^(.*?)(\d+)$/);
+  if (!m) return null;
+  return { prefix: m[1], num: parseInt(m[2], 10) };
+}
 
-function AllBlocksOverview({ blockMap }: { blockMap: Map<string, SeatReport[]> }) {
+// ---------------------------------------------------------------------------
+// 全体図（2D 会場マップ）
+// ---------------------------------------------------------------------------
+
+function AllBlocksOverview({
+  blockMap,
+  patterns,
+}: {
+  blockMap: Map<string, SeatReport[]>;
+  patterns: HistoricalPattern[];
+}) {
   const [tooltip, setTooltip] = useState<TooltipState>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -210,77 +223,135 @@ function AllBlocksOverview({ blockMap }: { blockMap: Map<string, SeatReport[]> }
     setTooltip(null);
   }
 
-  const activeEntries = [...blockMap.entries()]
-    .filter(([, r]) => r.length > 0)
-    .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }));
+  // historical_patterns からブロックサイズ上限を収集
+  const dimLookup = new Map<string, { maxRow: number; maxSeat: number }>();
+  for (const p of patterns) {
+    if (!p.max_row || !p.max_seat) continue;
+    const ex = dimLookup.get(p.block);
+    dimLookup.set(p.block, {
+      maxRow:  Math.max(p.max_row,  ex?.maxRow  ?? 0),
+      maxSeat: Math.max(p.max_seat, ex?.maxSeat ?? 0),
+    });
+  }
 
-  if (activeEntries.length === 0) return null;
+  // 報告済み + historical 既知ブロックの合算
+  const reportedSet = new Set(
+    [...blockMap.entries()].filter(([, r]) => r.length > 0).map(([k]) => k)
+  );
+  const allBlocks = new Set([...reportedSet, ...dimLookup.keys()]);
+  if (allBlocks.size === 0) return null;
+
+  // ブロック名 → 2D グリッド位置
+  const positions = new Map<string, { prefix: string; num: number }>();
+  for (const block of allBlocks) {
+    const p = parseBlock(block);
+    if (p) positions.set(block, p);
+  }
+
+  const prefixes = [...new Set([...positions.values()].map((p) => p.prefix))]
+    .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+  const nums = [...new Set([...positions.values()].map((p) => p.num))]
+    .sort((a, b) => a - b);
+
+  const cellLookup = new Map<string, string>();
+  for (const [block, { prefix, num }] of positions) {
+    cellLookup.set(`${prefix}__${num}`, block);
+  }
+
+  function renderBlock(block: string) {
+    const reports    = blockMap.get(block) ?? [];
+    const hasReports = reports.length > 0;
+    const dim        = dimLookup.get(block);
+    const isHana     = hasReports && detectHanamichi(reports);
+    const isCen      = hasReports && detectCenterStage(reports);
+
+    const maxRow  = dim?.maxRow  ?? (hasReports ? Math.max(...reports.map((r) => r.row_num))  : 8);
+    const maxSeat = dim?.maxSeat ?? (hasReports ? Math.max(...reports.map((r) => r.seat_num)) : 10);
+
+    const reportedMap = new Map<string, string>();
+    for (const r of reports) reportedMap.set(`${r.row_num}-${r.seat_num}`, r.lottery_type);
+
+    return (
+      <div className="flex flex-col items-center gap-[2px]">
+        <div className="flex items-center gap-[2px]">
+          <span className={`text-[7px] font-bold leading-none ${!hasReports ? "text-gray-400" : "text-gray-600"}`}>
+            {block}
+          </span>
+          {isHana && <span className="text-[5px] leading-none" title="花道">🌸</span>}
+          {isCen  && <span className="text-[5px] leading-none" title="センテ">⭕</span>}
+        </div>
+
+        {!hasReports ? (
+          /* 報告ゼロ: 斜線グレー */
+          <div
+            className="flex items-center justify-center rounded-sm"
+            style={{
+              width:  `${maxSeat * 5 + maxSeat - 1 + 2}px`,
+              height: `${maxRow  * 5 + maxRow  - 1 + 2}px`,
+              backgroundImage: "repeating-linear-gradient(45deg,#e5e7eb,#e5e7eb 3px,#d1d5db 3px,#d1d5db 6px)",
+            }}
+          >
+            <span className="text-center text-[5px] font-bold leading-tight text-gray-400/80">
+              花道/<br />候補
+            </span>
+          </div>
+        ) : (
+          /* 通常: 全座席グリッド（white=未報告, 色=報告済み） */
+          <div
+            className="flex flex-col gap-[1px] rounded-sm bg-gray-300"
+            style={{ padding: "1px" }}
+          >
+            {Array.from({ length: maxRow }, (_, i) => i + 1).map((row) => (
+              <div key={row} className="flex gap-[1px]">
+                {Array.from({ length: maxSeat }, (_, i) => i + 1).map((seat) => {
+                  const lt  = reportedMap.get(`${row}-${seat}`);
+                  const tip = lt
+                    ? `[${block}] ${row}列 ${seat}番・${LOTTERY_LABEL[lt] ?? lt}`
+                    : undefined;
+                  return (
+                    <div
+                      key={seat}
+                      className={`h-[5px] w-[5px] shrink-0 ${
+                        lt ? (LOTTERY_COLOR[lt] ?? "bg-pink-400") : "bg-white"
+                      } ${lt ? "cursor-pointer" : ""}`}
+                      onMouseEnter={(e) => tip && showTip(e, tip)}
+                      onMouseLeave={hideTip}
+                      onTouchStart={(e) => {
+                        if (tip) { e.preventDefault(); showTip(e, tip); }
+                      }}
+                    />
+                  );
+                })}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  }
 
   return (
     <>
-      <div className="overflow-x-auto pb-1">
-        <div className="inline-flex gap-4 pb-1">
-          {activeEntries.map(([block, reports]) => {
-            const isSparse = reports.length < SPARSE_THRESHOLD;
-            const isHana   = !isSparse && detectHanamichi(reports);
-            const isCen    = !isSparse && detectCenterStage(reports);
-
-            const rows  = reports.map((r) => r.row_num);
-            const seats = reports.map((r) => r.seat_num);
-            const minRow  = Math.min(...rows),  maxRow  = Math.max(...rows);
-            const minSeat = Math.min(...seats), maxSeat = Math.max(...seats);
-
-            const reportedMap = new Map<string, string>();
-            for (const r of reports) reportedMap.set(`${r.row_num}-${r.seat_num}`, r.lottery_type);
-
-            return (
-              <div key={block} className="flex shrink-0 flex-col items-center gap-0.5">
-                <span className="text-[8px] font-bold text-gray-600">{block}</span>
-                {(isHana || isCen) && (
-                  <div className="flex gap-0.5">
-                    {isHana && <span className="text-[6px]" title="花道の可能性">🌸</span>}
-                    {isCen  && <span className="text-[6px]" title="センテの可能性">⭕</span>}
+      <div className="overflow-x-auto pb-2">
+        <div className="inline-block">
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: `repeat(${nums.length}, auto)`,
+              gap: "6px",
+            }}
+          >
+            {prefixes.flatMap((prefix) =>
+              nums.map((num) => {
+                const block = cellLookup.get(`${prefix}__${num}`);
+                return (
+                  <div key={`${prefix}__${num}`}>
+                    {block ? renderBlock(block) : null}
                   </div>
-                )}
-                {isSparse ? (
-                  <div className="flex h-6 w-10 items-center justify-center rounded border border-dashed border-gray-300 bg-gray-100">
-                    <span className="text-center text-[5px] font-bold leading-tight text-gray-400">
-                      花道/<br />候補
-                    </span>
-                  </div>
-                ) : (
-                  <div
-                    className="flex flex-col gap-[1px] rounded-sm bg-gray-200"
-                    style={{ padding: "1px" }}
-                  >
-                    {Array.from({ length: maxRow - minRow + 1 }, (_, i) => minRow + i).map((row) => (
-                      <div key={row} className="flex gap-[1px]">
-                        {Array.from({ length: maxSeat - minSeat + 1 }, (_, i) => minSeat + i).map((seat) => {
-                          const lt  = reportedMap.get(`${row}-${seat}`);
-                          const tip = lt
-                            ? `[${block}] ${row}列 ${seat}番・${LOTTERY_LABEL[lt] ?? lt}`
-                            : undefined;
-                          return (
-                            <div
-                              key={seat}
-                              className={`h-1.5 w-1.5 shrink-0 ${
-                                lt ? (LOTTERY_COLOR[lt] ?? "bg-pink-400") : "bg-white"
-                              } ${lt ? "cursor-pointer" : ""}`}
-                              onMouseEnter={(e) => tip && showTip(e, tip)}
-                              onMouseLeave={hideTip}
-                              onTouchStart={(e) => {
-                                if (tip) { e.preventDefault(); showTip(e, tip); }
-                              }}
-                            />
-                          );
-                        })}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            );
-          })}
+                );
+              })
+            )}
+          </div>
         </div>
       </div>
 
@@ -300,7 +371,10 @@ function AllBlocksOverview({ blockMap }: { blockMap: Map<string, SeatReport[]> }
           </div>
         ))}
         <div className="flex items-center gap-1">
-          <div className="h-2 w-2 shrink-0 rounded-sm border border-dashed border-gray-300 bg-gray-100" />
+          <div
+            className="h-2 w-2 shrink-0 rounded-sm"
+            style={{ backgroundImage: "repeating-linear-gradient(45deg,#e5e7eb,#e5e7eb 1px,#d1d5db 1px,#d1d5db 2px)" }}
+          />
           <span className="text-[10px] text-gray-500">花道/候補</span>
         </div>
       </div>
@@ -335,6 +409,7 @@ export default function EventDetailPage({
   const [event,     setEvent]     = useState<CrawledEvent | null>(null);
   const [reports,   setReports]   = useState<SeatReport[]>([]);
   const [layout,    setLayout]    = useState<EventLayout | null>(null);
+  const [patterns,  setPatterns]  = useState<HistoricalPattern[]>([]);
   const [loading,   setLoading]   = useState(true);
   const [analysis,  setAnalysis]  = useState("");
   const [analyzing, setAnalyzing] = useState(false);
@@ -365,6 +440,15 @@ export default function EventDetailPage({
       if (evRes.data)     setEvent(evRes.data as CrawledEvent);
       if (repRes.data)    setReports(repRes.data as SeatReport[]);
       if (layoutRes.data) setLayout(layoutRes.data as EventLayout);
+
+      if (evRes.data?.venue) {
+        const { data: patData } = await supabase
+          .from("historical_patterns")
+          .select("block, max_row, max_seat, event_name")
+          .eq("venue", evRes.data.venue)
+          .limit(50);
+        if (patData) setPatterns(patData as HistoricalPattern[]);
+      }
 
       setLoading(false);
     }
@@ -492,25 +576,16 @@ export default function EventDetailPage({
           </div>
 
           {/* 全体図 */}
-          {blocks.length > 0 && (
+          {blocks.length > 0 ? (
             <div className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
               <p className="mb-3 text-xs font-bold text-gray-700">全体図</p>
-              <AllBlocksOverview blockMap={blockMap} />
+              <AllBlocksOverview blockMap={blockMap} patterns={patterns} />
             </div>
-          )}
-
-          {/* ブロックカード一覧 */}
-          {blocks.length === 0 ? (
+          ) : (
             <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-gray-200 bg-gray-50 py-14 text-center">
               <div className="text-4xl">🪑</div>
               <p className="mt-3 text-sm font-semibold text-gray-700">まだ報告がありません</p>
               <p className="mt-1 text-xs text-gray-400">最初の報告者になってね！</p>
-            </div>
-          ) : (
-            <div className="space-y-4">
-              {blocks.map(([b, reps]) => (
-                <BlockCard key={b} block={b} reports={reps} />
-              ))}
             </div>
           )}
         </div>
