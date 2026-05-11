@@ -1,12 +1,10 @@
+// src/app/api/events/[id]/analysis/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
+import { createClient } from "@/lib/supabase/server";
 import type { SeatReport } from "@/lib/types";
 
 const client = new Anthropic();
-
-// ---------------------------------------------------------------------------
-// 予測ロジック（サーバー側）
-// ---------------------------------------------------------------------------
 
 function detectHanamichi(rows: number[], seats: number[]): boolean {
   const byRow = new Map<number, number[]>();
@@ -31,10 +29,6 @@ function detectCenterStage(rows: number[], seats: number[]): boolean {
   return rowSpread <= 3 && seatSpread >= 15;
 }
 
-// ---------------------------------------------------------------------------
-// POST /api/events/[id]/analysis
-// ---------------------------------------------------------------------------
-
 export async function POST(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -44,10 +38,11 @@ export async function POST(
   const body = await req.json() as {
     eventTitle: string;
     venue: string;
+    artist: string;
     reports: SeatReport[];
   };
 
-  const { eventTitle, venue, reports } = body;
+  const { eventTitle, venue, artist, reports } = body;
   if (!reports || reports.length === 0) {
     return NextResponse.json({ analysis: "" });
   }
@@ -63,16 +58,15 @@ export async function POST(
     b.types.push(r.lottery_type);
   }
 
-  // 予測フラグを計算
+  // 予測フラグ
   const hanamichiBlocks: string[]   = [];
   const centerStageBlocks: string[] = [];
-
   for (const [block, d] of blockMap.entries()) {
     if (detectHanamichi(d.rows, d.seats))   hanamichiBlocks.push(block);
     if (detectCenterStage(d.rows, d.seats)) centerStageBlocks.push(block);
   }
 
-  // ブロックサマリー文字列
+  // ブロックサマリー
   const summary = Array.from(blockMap.entries())
     .map(([block, d]) => {
       const rowMin = Math.min(...d.rows),  rowMax = Math.max(...d.rows);
@@ -88,22 +82,46 @@ export async function POST(
     })
     .join("\n");
 
-  // 予測注記
   const predictionNotes = [
-    hanamichiBlocks.length   > 0 ? `・花道の可能性があるブロック: ${hanamichiBlocks.join("、")}（同一列内に席番号の大きな空白あり）` : "",
-    centerStageBlocks.length > 0 ? `・センターステージの可能性があるブロック: ${centerStageBlocks.join("、")}（列変化が少なく席番号が広範囲）` : "",
+    hanamichiBlocks.length   > 0 ? `・花道の可能性があるブロック: ${hanamichiBlocks.join("、")}` : "",
+    centerStageBlocks.length > 0 ? `・センターステージの可能性があるブロック: ${centerStageBlocks.join("、")}` : "",
   ].filter(Boolean).join("\n");
 
+  // historical_patterns から同会場の過去データを取得
+  let historicalSummary = "";
+  try {
+    const supabase = await createClient();
+    const { data: patterns } = await supabase
+      .from("historical_patterns")
+      .select("block, max_row, max_seat, upgrade_blocks, image_url, image_description, event_name, artist")
+      .eq("venue", venue)
+      .limit(20);
+
+    if (patterns && patterns.length > 0) {
+      // 同アーティストの過去データを優先
+      const sameArtist = patterns.filter(p => p.artist === artist);
+      const otherVenue = patterns.filter(p => p.artist !== artist);
+      const ordered = [...sameArtist, ...otherVenue].slice(0, 10);
+
+      historicalSummary = ordered
+        .map(p => `[${p.event_name}] ${p.block}: 最大${p.max_row}列・${p.max_seat}番, アプグレ対象:${p.upgrade_blocks}`)
+        .join("\n");
+    }
+  } catch (e) {
+    console.error("historical_patterns fetch error:", e);
+  }
+
   const prompt = `あなたはコンサート会場・座席配置の専門家です。
-以下の当選報告データと予測フラグを分析し、250文字以内で日本語のコメントを書いてください。
+以下の当選報告データと過去の実績データを分析し、250文字以内で日本語のコメントを書いてください。
 花道・センターステージの可能性、視認性、当選傾向など、ファンが「どんな席が取れそうか」を判断できる情報を簡潔に伝えてください。
 
 公演: ${eventTitle}
 会場: ${venue}
 
-ブロック別報告データ:
+【今回の報告データ】
 ${summary}
-${predictionNotes ? `\n予測フラグ:\n${predictionNotes}` : ""}`;
+${predictionNotes ? `\n予測フラグ:\n${predictionNotes}` : ""}
+${historicalSummary ? `\n【同会場の過去実績データ】\n${historicalSummary}\n※過去データは参考情報です。今回の報告データを優先してください。` : ""}`;
 
   try {
     const message = await client.messages.create({

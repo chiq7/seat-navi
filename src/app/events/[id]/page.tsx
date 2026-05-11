@@ -487,7 +487,7 @@ export default function EventDetailPage({
       const res = await fetch(`/api/events/${eventId}/analysis`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ eventTitle: event.title, venue: event.venue, reports }),
+        body: JSON.stringify({ eventTitle: event.title, venue: event.venue, artist: event.title.split(" ")[0], reports }),
       });
       const data = await res.json();
       setAnalysis(data.analysis ?? "");
