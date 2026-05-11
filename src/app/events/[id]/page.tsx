@@ -32,33 +32,6 @@ const LOTTERY_LABEL: Record<string, string> = {
 // 予測ロジック
 // ---------------------------------------------------------------------------
 
-/** 同一行で隣り合う報告席の間に gap > 3 の空白があれば花道候補 */
-function detectHanamichi(reports: SeatReport[]): boolean {
-  const byRow = new Map<number, number[]>();
-  for (const r of reports) {
-    if (!byRow.has(r.row_num)) byRow.set(r.row_num, []);
-    byRow.get(r.row_num)!.push(r.seat_num);
-  }
-  for (const seats of byRow.values()) {
-    if (seats.length < 2) continue;
-    const sorted = [...seats].sort((a, b) => a - b);
-    for (let i = 0; i < sorted.length - 1; i++) {
-      if (sorted[i + 1] - sorted[i] > 3) return true;
-    }
-  }
-  return false;
-}
-
-/** 列の広がりが少ない（≤3）のに席番号の広がりが大きい（≥15）→センステ候補 */
-function detectCenterStage(reports: SeatReport[]): boolean {
-  if (reports.length < 3) return false;
-  const rows  = reports.map((r) => r.row_num);
-  const seats = reports.map((r) => r.seat_num);
-  return (
-    Math.max(...rows)  - Math.min(...rows)  <= 3 &&
-    Math.max(...seats) - Math.min(...seats) >= 15
-  );
-}
 
 // ---------------------------------------------------------------------------
 // SeatGrid
@@ -158,34 +131,6 @@ function SeatGrid({ reports }: { reports: SeatReport[] }) {
   );
 }
 
-// ---------------------------------------------------------------------------
-// BlockCard
-// ---------------------------------------------------------------------------
-
-function BlockCard({ block, reports }: { block: string; reports: SeatReport[] }) {
-  const isHanamichi   = reports.length >= 2 && detectHanamichi(reports);
-  const isCenterStage = detectCenterStage(reports);
-
-  return (
-    <div className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
-      <div className="mb-2 flex flex-wrap items-center gap-2">
-        <span className="text-sm font-bold text-gray-900">{block}</span>
-        {isHanamichi && (
-          <span className="rounded-full bg-pink-100 px-2 py-0.5 text-[10px] font-bold text-pink-600">
-            🌸 花道の可能性
-          </span>
-        )}
-        {isCenterStage && (
-          <span className="rounded-full bg-sky-100 px-2 py-0.5 text-[10px] font-bold text-sky-600">
-            ⭕ センテの可能性
-          </span>
-        )}
-        <span className="ml-auto text-xs text-gray-400">報告 {reports.length}件</span>
-      </div>
-      <SeatGrid reports={reports} />
-    </div>
-  );
-}
 
 
 // ---------------------------------------------------------------------------
@@ -262,8 +207,6 @@ function AllBlocksOverview({
     const reports    = blockMap.get(block) ?? [];
     const hasReports = reports.length > 0;
     const dim        = dimLookup.get(block);
-    const isHana     = hasReports && detectHanamichi(reports);
-    const isCen      = hasReports && detectCenterStage(reports);
 
     const maxRow  = dim?.maxRow  ?? (hasReports ? Math.max(...reports.map((r) => r.row_num))  : 8);
     const maxSeat = dim?.maxSeat ?? (hasReports ? Math.max(...reports.map((r) => r.seat_num)) : 10);
@@ -273,13 +216,9 @@ function AllBlocksOverview({
 
     return (
       <div className="flex flex-col items-center gap-[2px]">
-        <div className="flex items-center gap-[2px]">
-          <span className={`text-[7px] font-bold leading-none ${!hasReports ? "text-gray-400" : "text-gray-600"}`}>
-            {block}
-          </span>
-          {isHana && <span className="text-[5px] leading-none" title="花道">🌸</span>}
-          {isCen  && <span className="text-[5px] leading-none" title="センテ">⭕</span>}
-        </div>
+        <span className={`text-[7px] font-bold leading-none ${!hasReports ? "text-gray-400" : "text-gray-600"}`}>
+          {block}
+        </span>
 
         {!hasReports ? (
           /* 報告ゼロ: 斜線グレー */
