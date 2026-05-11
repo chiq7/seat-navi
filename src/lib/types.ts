@@ -113,6 +113,14 @@ export type CrawledEvent = {
   genre: Event["genre"];
 };
 
+/** 同会場の過去公演座席実績 (historical_patternsテーブル) */
+export type HistoricalPattern = {
+  block:    string;
+  max_row:  number | null;
+  max_seat: number | null;
+  event_name: string;
+};
+
 /** 座席報告 (seat_reportsテーブル) */
 export type SeatReport = {
   id: string;

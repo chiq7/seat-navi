@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
 import { SEAT_LOTTERY_OPTIONS } from "@/lib/types";
-import type { CrawledEvent, SeatReport, EventLayout } from "@/lib/types";
+import type { CrawledEvent, SeatReport, EventLayout, HistoricalPattern } from "@/lib/types";
 
 // ---------------------------------------------------------------------------
 // 定数
@@ -201,61 +201,19 @@ function parseBlock(name: string): { prefix: string; num: number } | null {
 }
 
 // ---------------------------------------------------------------------------
-// MiniBlockGrid（全体図内の1ブロック分グリッド）
+// 全体図（報告データが地図になる）
 // ---------------------------------------------------------------------------
 
-function MiniBlockGrid({
-  block,
-  reports,
-  onShowTip,
-  onHideTip,
+/** 報告数がこれ未満のブロックは「疎ブロック」として花道・センテ候補扱い */
+const SPARSE_THRESHOLD = 3;
+
+function AllBlocksOverview({
+  blockMap,
+  patterns,
 }: {
-  block: string;
-  reports: SeatReport[];
-  onShowTip: (e: React.MouseEvent | React.TouchEvent, text: string) => void;
-  onHideTip: () => void;
+  blockMap: Map<string, SeatReport[]>;
+  patterns: HistoricalPattern[];
 }) {
-  const rows  = reports.map((r) => r.row_num);
-  const seats = reports.map((r) => r.seat_num);
-  const minRow  = Math.min(...rows),  maxRow  = Math.max(...rows);
-  const minSeat = Math.min(...seats), maxSeat = Math.max(...seats);
-
-  const reportedMap = new Map<string, string>();
-  for (const r of reports) reportedMap.set(`${r.row_num}-${r.seat_num}`, r.lottery_type);
-
-  const rowRange  = Array.from({ length: maxRow  - minRow  + 1 }, (_, i) => minRow  + i);
-  const seatRange = Array.from({ length: maxSeat - minSeat + 1 }, (_, i) => minSeat + i);
-
-  return (
-    <div>
-      {rowRange.map((row) => (
-        <div key={row} className="flex">
-          {seatRange.map((seat) => {
-            const lt  = reportedMap.get(`${row}-${seat}`);
-            const tip = lt ? `[${block}] ${row}列 ${seat}番・${LOTTERY_LABEL[lt] ?? lt}` : undefined;
-            return (
-              <div
-                key={seat}
-                className={`h-2 w-2 shrink-0 ${
-                  lt ? (LOTTERY_COLOR[lt] ?? "bg-pink-400") : "bg-gray-100"
-                } ${lt ? "cursor-pointer" : ""}`}
-                onMouseEnter={(e) => tip && onShowTip(e, tip)}
-                onMouseLeave={onHideTip}
-                onTouchStart={(e) => { if (tip) { e.preventDefault(); onShowTip(e, tip); } }}
-              />
-            );
-          })}
-        </div>
-      ))}
-    </div>
-  );
-}
-
-// ---------------------------------------------------------------------------
-// 全体図（ブロック名から格子配置を自動推測）
-// ---------------------------------------------------------------------------
-
-function AllBlocksOverview({ blockMap }: { blockMap: Map<string, SeatReport[]> }) {
   const [tooltip, setTooltip] = useState<TooltipState>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -270,27 +228,112 @@ function AllBlocksOverview({ blockMap }: { blockMap: Map<string, SeatReport[]> }
     setTooltip(null);
   }
 
-  // ── ブロック名をパース ──────────────────────────────────────────────────
-  const parsedMap  = new Map<string, { prefix: string; num: number }>(); // blockName → parsed
-  const unparsed: string[] = [];
+  // historical_patterns のブロックサイズ上限（同名複数ある場合は最大値）
+  const patternLookup = new Map<string, { maxRow: number; maxSeat: number }>();
+  for (const p of patterns) {
+    if (!p.max_row || !p.max_seat) continue;
+    const ex = patternLookup.get(p.block);
+    patternLookup.set(p.block, {
+      maxRow:  Math.max(p.max_row,  ex?.maxRow  ?? 0),
+      maxSeat: Math.max(p.max_seat, ex?.maxSeat ?? 0),
+    });
+  }
 
-  for (const block of blockMap.keys()) {
+  // 報告0件のブロックは非表示
+  const activeBlocks = new Map([...blockMap.entries()].filter(([, r]) => r.length > 0));
+  if (activeBlocks.size === 0) return null;
+
+  // ブロック名パース
+  const parsedMap = new Map<string, { prefix: string; num: number }>();
+  const unparsed: string[] = [];
+  for (const block of activeBlocks.keys()) {
     const p = parseBlock(block);
     if (p) parsedMap.set(block, p);
     else   unparsed.push(block);
   }
 
-  // 行（prefix）・列（num）を収集してソート
   const prefixes = [...new Set([...parsedMap.values()].map((p) => p.prefix))]
     .sort((a, b) => a.localeCompare(b, "ja"));
   const nums = [...new Set([...parsedMap.values()].map((p) => p.num))]
     .sort((a, b) => a - b);
 
-  // (prefix, num) → blockName のルックアップ
-  const cellKey = (prefix: string, num: number) => `${prefix}___${num}`;
-  const lookup  = new Map<string, string>();
-  for (const [block, { prefix, num }] of parsedMap) {
-    lookup.set(cellKey(prefix, num), block);
+  const cKey = (prefix: string, num: number) => `${prefix}___${num}`;
+  const lookup = new Map<string, string>();
+  for (const [block, { prefix, num }] of parsedMap) lookup.set(cKey(prefix, num), block);
+
+  // ── ブロック1つのレンダリング ──────────────────────────────────────────
+  function renderBlock(block: string) {
+    const reports  = activeBlocks.get(block) ?? [];
+    const isSparse = reports.length < SPARSE_THRESHOLD;
+    const isHana   = detectHanamichi(reports);
+    const isCen    = detectCenterStage(reports);
+
+    // 報告データから上限を計算し、historical で補正（上限として使う）
+    const reportedMaxRow  = Math.max(...reports.map((r) => r.row_num),  1);
+    const reportedMaxSeat = Math.max(...reports.map((r) => r.seat_num), 1);
+    const pat = patternLookup.get(block);
+    const displayMaxRow  = pat ? Math.min(reportedMaxRow,  pat.maxRow)  : reportedMaxRow;
+    const displayMaxSeat = pat ? Math.min(reportedMaxSeat, pat.maxSeat) : reportedMaxSeat;
+
+    const reportedMap = new Map<string, string>();
+    for (const r of reports) reportedMap.set(`${r.row_num}-${r.seat_num}`, r.lottery_type);
+
+    const labelColor = isSparse ? "text-gray-400" : "text-gray-700";
+
+    return (
+      <div className="flex flex-col items-start gap-0.5">
+        {/* ブロック名 + バッジ */}
+        <div className="flex items-center gap-0.5">
+          <span className={`text-[8px] font-bold ${labelColor}`}>{block}</span>
+          {isHana && <span className="text-[7px]" title="花道の可能性">🌸</span>}
+          {isCen  && <span className="text-[7px]" title="センテの可能性">⭕</span>}
+        </div>
+
+        {isSparse ? (
+          /* 疎ブロック: 報告数が少ない → グレーの枠で存在を示す */
+          <div
+            className="flex items-center justify-center rounded bg-gray-100"
+            style={{
+              width:  Math.max(displayMaxSeat * 4, 28) + "px",
+              height: Math.max(displayMaxRow  * 4, 16) + "px",
+            }}
+          >
+            <span className="text-[7px] font-bold text-gray-300">少</span>
+          </div>
+        ) : (
+          /* 通常ブロック: 全セルを row1〜maxRow × seat1〜maxSeat で描画
+             reported = 抽選種別色、unreported = 白、gap がグリッド線になる */
+          <div
+            className="flex flex-col gap-[1px] rounded-sm bg-gray-200"
+            style={{ padding: "1px" }}
+          >
+            {Array.from({ length: displayMaxRow },  (_, i) => i + 1).map((row) => (
+              <div key={row} className="flex gap-[1px]">
+                {Array.from({ length: displayMaxSeat }, (_, i) => i + 1).map((seat) => {
+                  const lt  = reportedMap.get(`${row}-${seat}`);
+                  const tip = lt
+                    ? `[${block}] ${row}列 ${seat}番・${LOTTERY_LABEL[lt] ?? lt}`
+                    : undefined;
+                  return (
+                    <div
+                      key={seat}
+                      className={`h-1 w-1 shrink-0 ${
+                        lt ? (LOTTERY_COLOR[lt] ?? "bg-pink-400") : "bg-white"
+                      } ${lt ? "cursor-pointer" : ""}`}
+                      onMouseEnter={(e) => tip && showTip(e, tip)}
+                      onMouseLeave={hideTip}
+                      onTouchStart={(e) => {
+                        if (tip) { e.preventDefault(); showTip(e, tip); }
+                      }}
+                    />
+                  );
+                })}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    );
   }
 
   const hasGrid = prefixes.length > 0 && nums.length > 0;
@@ -298,18 +341,19 @@ function AllBlocksOverview({ blockMap }: { blockMap: Map<string, SeatReport[]> }
   return (
     <>
       <div className="overflow-x-auto hide-scrollbar pb-1">
-        <div style={{ display: "inline-block", minWidth: "100%" }}>
+        <div style={{ display: "inline-block" }}>
 
-          {/* ── 格子配置 ── */}
+          {/* ── 格子配置（prefix=行, num=列）── */}
           {hasGrid && (
             <div
-              className="gap-2"
+              className="gap-3"
               style={{
                 display: "grid",
                 gridTemplateColumns: `auto repeat(${nums.length}, auto)`,
+                alignItems: "start",
               }}
             >
-              {/* ヘッダー行：空セル + 列番号 */}
+              {/* ヘッダー行 */}
               <div />
               {nums.map((num) => (
                 <div key={num} className="pb-0.5 text-center text-[8px] font-bold text-gray-400">
@@ -320,44 +364,17 @@ function AllBlocksOverview({ blockMap }: { blockMap: Map<string, SeatReport[]> }
               {/* データ行 */}
               {prefixes.map((prefix) => (
                 <>
-                  {/* 行ラベル */}
                   <div
-                    key={`label-${prefix}`}
-                    className="pr-1.5 text-right text-[8px] font-bold text-gray-400 self-start pt-0.5"
+                    key={`lbl-${prefix}`}
+                    className="pr-1.5 text-right text-[8px] font-bold text-gray-400 self-start pt-1"
                   >
                     {prefix || "—"}
                   </div>
-
-                  {/* 各セル */}
                   {nums.map((num) => {
-                    const block   = lookup.get(cellKey(prefix, num));
-                    const reports = block ? (blockMap.get(block) ?? []) : [];
-                    const isHana  = block && reports.length >= 2 && detectHanamichi(reports);
-                    const isCen   = block && detectCenterStage(reports);
-
+                    const block = lookup.get(cKey(prefix, num));
                     return (
-                      <div key={num} className="flex flex-col items-center gap-0.5">
-                        {block ? (
-                          <>
-                            {/* バッジ行 */}
-                            <div className="flex items-center gap-0.5 leading-none">
-                              {isHana && <span className="text-[7px]">🌸</span>}
-                              {isCen  && <span className="text-[7px]">⭕</span>}
-                            </div>
-                            {/* ミニグリッド */}
-                            <MiniBlockGrid
-                              block={block}
-                              reports={reports}
-                              onShowTip={showTip}
-                              onHideTip={hideTip}
-                            />
-                          </>
-                        ) : (
-                          /* 報告0件の推定ブロック */
-                          <div className="flex h-8 w-8 items-center justify-center rounded bg-gray-100 text-[10px] font-bold text-gray-300">
-                            ?
-                          </div>
-                        )}
+                      <div key={num}>
+                        {block ? renderBlock(block) : <div />}
                       </div>
                     );
                   })}
@@ -366,29 +383,12 @@ function AllBlocksOverview({ blockMap }: { blockMap: Map<string, SeatReport[]> }
             </div>
           )}
 
-          {/* ── パターン外ブロック（名前に数字なし）を横並びで追記 ── */}
+          {/* ── パターン外ブロック（名前に数字なし） ── */}
           {unparsed.length > 0 && (
             <div className={`flex flex-wrap gap-3 ${hasGrid ? "mt-3 border-t border-gray-100 pt-3" : ""}`}>
-              {unparsed.map((block) => {
-                const reports = blockMap.get(block) ?? [];
-                const isHana  = reports.length >= 2 && detectHanamichi(reports);
-                const isCen   = detectCenterStage(reports);
-                return (
-                  <div key={block} className="flex flex-col items-center gap-0.5">
-                    <div className="flex items-center gap-0.5">
-                      <span className="text-[9px] font-bold text-gray-600">{block}</span>
-                      {isHana && <span className="text-[8px]">🌸</span>}
-                      {isCen  && <span className="text-[8px]">⭕</span>}
-                    </div>
-                    <MiniBlockGrid
-                      block={block}
-                      reports={reports}
-                      onShowTip={showTip}
-                      onHideTip={hideTip}
-                    />
-                  </div>
-                );
-              })}
+              {unparsed.map((block) => (
+                <div key={block}>{renderBlock(block)}</div>
+              ))}
             </div>
           )}
         </div>
@@ -445,6 +445,7 @@ export default function EventDetailPage({
   const [event,     setEvent]     = useState<CrawledEvent | null>(null);
   const [reports,   setReports]   = useState<SeatReport[]>([]);
   const [layout,    setLayout]    = useState<EventLayout | null>(null);
+  const [patterns,  setPatterns]  = useState<HistoricalPattern[]>([]);
   const [loading,   setLoading]   = useState(true);
   const [analysis,  setAnalysis]  = useState("");
   const [analyzing, setAnalyzing] = useState(false);
@@ -475,6 +476,17 @@ export default function EventDetailPage({
       if (evRes.data)     setEvent(evRes.data as CrawledEvent);
       if (repRes.data)    setReports(repRes.data as SeatReport[]);
       if (layoutRes.data) setLayout(layoutRes.data as EventLayout);
+
+      // 同会場の historical_patterns を取得（ブロックサイズ上限用）
+      if (evRes.data?.venue) {
+        const { data: patData } = await supabase
+          .from("historical_patterns")
+          .select("block, max_row, max_seat, event_name")
+          .eq("venue", evRes.data.venue)
+          .limit(50);
+        if (patData) setPatterns(patData as HistoricalPattern[]);
+      }
+
       setLoading(false);
     }
     load();
@@ -605,7 +617,7 @@ export default function EventDetailPage({
           {blocks.length > 0 && (
             <div className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
               <p className="mb-3 text-xs font-bold text-gray-700">全体図</p>
-              <AllBlocksOverview blockMap={blockMap} />
+              <AllBlocksOverview blockMap={blockMap} patterns={patterns} />
             </div>
           )}
 
