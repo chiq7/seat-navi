@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
 import { SEAT_LOTTERY_OPTIONS } from "@/lib/types";
-import type { CrawledEvent, SeatReport } from "@/lib/types";
+import type { CrawledEvent, SeatReport, EventLayout } from "@/lib/types";
 
 // ---------------------------------------------------------------------------
 // 定数
@@ -224,6 +224,7 @@ export default function EventDetailPage({
 
   const [event,     setEvent]     = useState<CrawledEvent | null>(null);
   const [reports,   setReports]   = useState<SeatReport[]>([]);
+  const [layout,    setLayout]    = useState<EventLayout | null>(null);
   const [loading,   setLoading]   = useState(true);
   const [analysis,  setAnalysis]  = useState("");
   const [analyzing, setAnalyzing] = useState(false);
@@ -231,7 +232,7 @@ export default function EventDetailPage({
 
   useEffect(() => {
     async function load() {
-      const [evRes, repRes] = await Promise.all([
+      const [evRes, repRes, layoutRes] = await Promise.all([
         supabase
           .from("events")
           .select("id, title, venue, venue_id, date, genre")
@@ -244,9 +245,16 @@ export default function EventDetailPage({
           .order("block")
           .order("row_num")
           .order("seat_num"),
+        supabase
+          .from("event_layouts")
+          .select("id, event_id, image_url, created_at")
+          .eq("event_id", eventId)
+          .limit(1)
+          .maybeSingle(),
       ]);
-      if (evRes.data)  setEvent(evRes.data as CrawledEvent);
-      if (repRes.data) setReports(repRes.data as SeatReport[]);
+      if (evRes.data)     setEvent(evRes.data as CrawledEvent);
+      if (repRes.data)    setReports(repRes.data as SeatReport[]);
+      if (layoutRes.data) setLayout(layoutRes.data as EventLayout);
       setLoading(false);
     }
     load();
@@ -342,6 +350,26 @@ export default function EventDetailPage({
               ) : (
                 <p className="text-xs leading-relaxed opacity-90">{analysis}</p>
               )}
+            </div>
+          )}
+
+          {/* 参考予想図 */}
+          {layout && (
+            <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
+              <div className="flex items-center gap-2 border-b border-gray-100 px-4 py-2.5">
+                <svg className="h-3.5 w-3.5 text-[var(--accent)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 16l4.553 2.276A1 1 0 0021 24.382V8.618a1 1 0 00-.553-.894L15 5m0 2v14" />
+                </svg>
+                <span className="text-xs font-bold text-gray-700">参考予想図</span>
+                <span className="ml-auto text-[10px] text-gray-400">ユーザー提供</span>
+              </div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={layout.image_url}
+                alt="座席予想図"
+                className="w-full object-contain"
+                style={{ maxHeight: "320px" }}
+              />
             </div>
           )}
 

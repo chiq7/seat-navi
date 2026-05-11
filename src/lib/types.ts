@@ -125,6 +125,14 @@ export type SeatReport = {
   created_at: string;
 };
 
+/** 会場予想レイアウト画像 (event_layoutsテーブル) */
+export type EventLayout = {
+  id: string;
+  event_id: string;
+  image_url: string;
+  created_at: string;
+};
+
 export const SEAT_LOTTERY_OPTIONS = [
   { value: "fc1",        label: "FC1次" },
   { value: "fc2",        label: "FC2次" },
