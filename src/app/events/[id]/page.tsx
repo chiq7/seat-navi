@@ -189,6 +189,109 @@ function BlockCard({ block, reports }: { block: string; reports: SeatReport[] })
 }
 
 // ---------------------------------------------------------------------------
+// 全体図（全ブロック横並び）
+// ---------------------------------------------------------------------------
+
+function AllBlocksOverview({
+  blockMap,
+}: {
+  blockMap: Map<string, SeatReport[]>;
+}) {
+  const [tooltip, setTooltip] = useState<TooltipState>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  function showTip(e: React.MouseEvent | React.TouchEvent, text: string) {
+    const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+    setTooltip({ text, x: rect.left + rect.width / 2, y: rect.top - 6 });
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => setTooltip(null), 1800);
+  }
+  function hideTip() {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    setTooltip(null);
+  }
+
+  const blocks = Array.from(blockMap.entries());
+
+  return (
+    <>
+      <div className="overflow-x-auto pb-1 hide-scrollbar">
+        <div className="flex gap-3 pb-1" style={{ width: "max-content" }}>
+          {blocks.map(([block, reports]) => {
+            const rows  = reports.map((r) => r.row_num);
+            const seats = reports.map((r) => r.seat_num);
+            const minRow  = Math.min(...rows),  maxRow  = Math.max(...rows);
+            const minSeat = Math.min(...seats), maxSeat = Math.max(...seats);
+            const reportedMap = new Map<string, string>();
+            for (const r of reports) reportedMap.set(`${r.row_num}-${r.seat_num}`, r.lottery_type);
+            const rowRange  = Array.from({ length: maxRow  - minRow  + 1 }, (_, i) => minRow  + i);
+            const seatRange = Array.from({ length: maxSeat - minSeat + 1 }, (_, i) => minSeat + i);
+            const isHanamichi   = reports.length >= 2 && detectHanamichi(reports);
+            const isCenterStage = detectCenterStage(reports);
+
+            return (
+              <div key={block} className="flex flex-col items-center gap-0.5">
+                {/* ブロック名 + バッジ */}
+                <div className="flex items-center gap-1">
+                  <span className="text-[9px] font-bold text-gray-600">{block}</span>
+                  {isHanamichi   && <span className="text-[8px]">🌸</span>}
+                  {isCenterStage && <span className="text-[8px]">⭕</span>}
+                </div>
+
+                {/* グリッド */}
+                <div>
+                  {/* 席番号ヘッダー */}
+                  <div className="flex">
+                    <div className="w-4 shrink-0" />
+                    {seatRange.map((s) => (
+                      <div key={s} className="w-2 shrink-0 text-center leading-none text-[6px] text-gray-300">
+                        {s % 5 === 0 ? s : ""}
+                      </div>
+                    ))}
+                  </div>
+                  {rowRange.map((row) => (
+                    <div key={row} className="flex items-center">
+                      <div className="w-4 shrink-0 pr-0.5 text-right leading-none text-[6px] text-gray-300">
+                        {row % 5 === 0 ? row : ""}
+                      </div>
+                      {seatRange.map((seat) => {
+                        const lt  = reportedMap.get(`${row}-${seat}`);
+                        const tip = lt ? `[${block}] ${row}列 ${seat}番・${LOTTERY_LABEL[lt] ?? lt}` : undefined;
+                        return (
+                          <div
+                            key={seat}
+                            className={`h-2 w-2 shrink-0 ${
+                              lt ? (LOTTERY_COLOR[lt] ?? "bg-pink-400") : "bg-gray-100"
+                            } ${lt ? "cursor-pointer" : ""}`}
+                            onMouseEnter={(e) => tip && showTip(e, tip)}
+                            onMouseLeave={hideTip}
+                            onTouchStart={(e) => { if (tip) { e.preventDefault(); showTip(e, tip); } }}
+                          />
+                        );
+                      })}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {tooltip && (
+        <div
+          className="pointer-events-none fixed z-[200] -translate-x-1/2 -translate-y-full rounded-lg bg-gray-900 px-2.5 py-1 text-[10px] font-semibold text-white shadow-lg"
+          style={{ left: tooltip.x, top: tooltip.y }}
+        >
+          {tooltip.text}
+          <div className="absolute left-1/2 top-full -translate-x-1/2 border-4 border-transparent border-t-gray-900" />
+        </div>
+      )}
+    </>
+  );
+}
+
+// ---------------------------------------------------------------------------
 // 凡例
 // ---------------------------------------------------------------------------
 
@@ -380,6 +483,14 @@ export default function EventDetailPage({
             </span>
           </div>
           <Legend />
+
+          {/* 全体図 */}
+          {blocks.length > 0 && (
+            <div className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
+              <p className="mb-3 text-xs font-bold text-gray-700">全体図</p>
+              <AllBlocksOverview blockMap={blockMap} />
+            </div>
+          )}
 
           {/* ブロックカード一覧 */}
           {blocks.length === 0 ? (
