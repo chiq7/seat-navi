@@ -189,14 +189,73 @@ function BlockCard({ block, reports }: { block: string; reports: SeatReport[] })
 }
 
 // ---------------------------------------------------------------------------
-// 全体図（全ブロック横並び）
+// ブロック名パーサー
 // ---------------------------------------------------------------------------
 
-function AllBlocksOverview({
-  blockMap,
+/** "A3" → { prefix:"A", num:3 }  /  "SS2" → { prefix:"SS", num:2 }
+ *  末尾の連続する数字を列番号、それ以前を行プレフィックスとして解釈。 */
+function parseBlock(name: string): { prefix: string; num: number } | null {
+  const m = name.match(/^(.*?)(\d+)$/);
+  if (!m) return null;
+  return { prefix: m[1], num: parseInt(m[2], 10) };
+}
+
+// ---------------------------------------------------------------------------
+// MiniBlockGrid（全体図内の1ブロック分グリッド）
+// ---------------------------------------------------------------------------
+
+function MiniBlockGrid({
+  block,
+  reports,
+  onShowTip,
+  onHideTip,
 }: {
-  blockMap: Map<string, SeatReport[]>;
+  block: string;
+  reports: SeatReport[];
+  onShowTip: (e: React.MouseEvent | React.TouchEvent, text: string) => void;
+  onHideTip: () => void;
 }) {
+  const rows  = reports.map((r) => r.row_num);
+  const seats = reports.map((r) => r.seat_num);
+  const minRow  = Math.min(...rows),  maxRow  = Math.max(...rows);
+  const minSeat = Math.min(...seats), maxSeat = Math.max(...seats);
+
+  const reportedMap = new Map<string, string>();
+  for (const r of reports) reportedMap.set(`${r.row_num}-${r.seat_num}`, r.lottery_type);
+
+  const rowRange  = Array.from({ length: maxRow  - minRow  + 1 }, (_, i) => minRow  + i);
+  const seatRange = Array.from({ length: maxSeat - minSeat + 1 }, (_, i) => minSeat + i);
+
+  return (
+    <div>
+      {rowRange.map((row) => (
+        <div key={row} className="flex">
+          {seatRange.map((seat) => {
+            const lt  = reportedMap.get(`${row}-${seat}`);
+            const tip = lt ? `[${block}] ${row}列 ${seat}番・${LOTTERY_LABEL[lt] ?? lt}` : undefined;
+            return (
+              <div
+                key={seat}
+                className={`h-2 w-2 shrink-0 ${
+                  lt ? (LOTTERY_COLOR[lt] ?? "bg-pink-400") : "bg-gray-100"
+                } ${lt ? "cursor-pointer" : ""}`}
+                onMouseEnter={(e) => tip && onShowTip(e, tip)}
+                onMouseLeave={onHideTip}
+                onTouchStart={(e) => { if (tip) { e.preventDefault(); onShowTip(e, tip); } }}
+              />
+            );
+          })}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// 全体図（ブロック名から格子配置を自動推測）
+// ---------------------------------------------------------------------------
+
+function AllBlocksOverview({ blockMap }: { blockMap: Map<string, SeatReport[]> }) {
   const [tooltip, setTooltip] = useState<TooltipState>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -211,73 +270,131 @@ function AllBlocksOverview({
     setTooltip(null);
   }
 
-  const blocks = Array.from(blockMap.entries());
+  // ── ブロック名をパース ──────────────────────────────────────────────────
+  const parsedMap  = new Map<string, { prefix: string; num: number }>(); // blockName → parsed
+  const unparsed: string[] = [];
+
+  for (const block of blockMap.keys()) {
+    const p = parseBlock(block);
+    if (p) parsedMap.set(block, p);
+    else   unparsed.push(block);
+  }
+
+  // 行（prefix）・列（num）を収集してソート
+  const prefixes = [...new Set([...parsedMap.values()].map((p) => p.prefix))]
+    .sort((a, b) => a.localeCompare(b, "ja"));
+  const nums = [...new Set([...parsedMap.values()].map((p) => p.num))]
+    .sort((a, b) => a - b);
+
+  // (prefix, num) → blockName のルックアップ
+  const cellKey = (prefix: string, num: number) => `${prefix}___${num}`;
+  const lookup  = new Map<string, string>();
+  for (const [block, { prefix, num }] of parsedMap) {
+    lookup.set(cellKey(prefix, num), block);
+  }
+
+  const hasGrid = prefixes.length > 0 && nums.length > 0;
 
   return (
     <>
-      <div className="overflow-x-auto pb-1 hide-scrollbar">
-        <div className="flex gap-3 pb-1" style={{ width: "max-content" }}>
-          {blocks.map(([block, reports]) => {
-            const rows  = reports.map((r) => r.row_num);
-            const seats = reports.map((r) => r.seat_num);
-            const minRow  = Math.min(...rows),  maxRow  = Math.max(...rows);
-            const minSeat = Math.min(...seats), maxSeat = Math.max(...seats);
-            const reportedMap = new Map<string, string>();
-            for (const r of reports) reportedMap.set(`${r.row_num}-${r.seat_num}`, r.lottery_type);
-            const rowRange  = Array.from({ length: maxRow  - minRow  + 1 }, (_, i) => minRow  + i);
-            const seatRange = Array.from({ length: maxSeat - minSeat + 1 }, (_, i) => minSeat + i);
-            const isHanamichi   = reports.length >= 2 && detectHanamichi(reports);
-            const isCenterStage = detectCenterStage(reports);
+      <div className="overflow-x-auto hide-scrollbar pb-1">
+        <div style={{ display: "inline-block", minWidth: "100%" }}>
 
-            return (
-              <div key={block} className="flex flex-col items-center gap-0.5">
-                {/* ブロック名 + バッジ */}
-                <div className="flex items-center gap-1">
-                  <span className="text-[9px] font-bold text-gray-600">{block}</span>
-                  {isHanamichi   && <span className="text-[8px]">🌸</span>}
-                  {isCenterStage && <span className="text-[8px]">⭕</span>}
+          {/* ── 格子配置 ── */}
+          {hasGrid && (
+            <div
+              className="gap-2"
+              style={{
+                display: "grid",
+                gridTemplateColumns: `auto repeat(${nums.length}, auto)`,
+              }}
+            >
+              {/* ヘッダー行：空セル + 列番号 */}
+              <div />
+              {nums.map((num) => (
+                <div key={num} className="pb-0.5 text-center text-[8px] font-bold text-gray-400">
+                  {num}
                 </div>
+              ))}
 
-                {/* グリッド */}
-                <div>
-                  {/* 席番号ヘッダー */}
-                  <div className="flex">
-                    <div className="w-4 shrink-0" />
-                    {seatRange.map((s) => (
-                      <div key={s} className="w-2 shrink-0 text-center leading-none text-[6px] text-gray-300">
-                        {s % 5 === 0 ? s : ""}
-                      </div>
-                    ))}
+              {/* データ行 */}
+              {prefixes.map((prefix) => (
+                <>
+                  {/* 行ラベル */}
+                  <div
+                    key={`label-${prefix}`}
+                    className="pr-1.5 text-right text-[8px] font-bold text-gray-400 self-start pt-0.5"
+                  >
+                    {prefix || "—"}
                   </div>
-                  {rowRange.map((row) => (
-                    <div key={row} className="flex items-center">
-                      <div className="w-4 shrink-0 pr-0.5 text-right leading-none text-[6px] text-gray-300">
-                        {row % 5 === 0 ? row : ""}
+
+                  {/* 各セル */}
+                  {nums.map((num) => {
+                    const block   = lookup.get(cellKey(prefix, num));
+                    const reports = block ? (blockMap.get(block) ?? []) : [];
+                    const isHana  = block && reports.length >= 2 && detectHanamichi(reports);
+                    const isCen   = block && detectCenterStage(reports);
+
+                    return (
+                      <div key={num} className="flex flex-col items-center gap-0.5">
+                        {block ? (
+                          <>
+                            {/* バッジ行 */}
+                            <div className="flex items-center gap-0.5 leading-none">
+                              {isHana && <span className="text-[7px]">🌸</span>}
+                              {isCen  && <span className="text-[7px]">⭕</span>}
+                            </div>
+                            {/* ミニグリッド */}
+                            <MiniBlockGrid
+                              block={block}
+                              reports={reports}
+                              onShowTip={showTip}
+                              onHideTip={hideTip}
+                            />
+                          </>
+                        ) : (
+                          /* 報告0件の推定ブロック */
+                          <div className="flex h-8 w-8 items-center justify-center rounded bg-gray-100 text-[10px] font-bold text-gray-300">
+                            ?
+                          </div>
+                        )}
                       </div>
-                      {seatRange.map((seat) => {
-                        const lt  = reportedMap.get(`${row}-${seat}`);
-                        const tip = lt ? `[${block}] ${row}列 ${seat}番・${LOTTERY_LABEL[lt] ?? lt}` : undefined;
-                        return (
-                          <div
-                            key={seat}
-                            className={`h-2 w-2 shrink-0 ${
-                              lt ? (LOTTERY_COLOR[lt] ?? "bg-pink-400") : "bg-gray-100"
-                            } ${lt ? "cursor-pointer" : ""}`}
-                            onMouseEnter={(e) => tip && showTip(e, tip)}
-                            onMouseLeave={hideTip}
-                            onTouchStart={(e) => { if (tip) { e.preventDefault(); showTip(e, tip); } }}
-                          />
-                        );
-                      })}
+                    );
+                  })}
+                </>
+              ))}
+            </div>
+          )}
+
+          {/* ── パターン外ブロック（名前に数字なし）を横並びで追記 ── */}
+          {unparsed.length > 0 && (
+            <div className={`flex flex-wrap gap-3 ${hasGrid ? "mt-3 border-t border-gray-100 pt-3" : ""}`}>
+              {unparsed.map((block) => {
+                const reports = blockMap.get(block) ?? [];
+                const isHana  = reports.length >= 2 && detectHanamichi(reports);
+                const isCen   = detectCenterStage(reports);
+                return (
+                  <div key={block} className="flex flex-col items-center gap-0.5">
+                    <div className="flex items-center gap-0.5">
+                      <span className="text-[9px] font-bold text-gray-600">{block}</span>
+                      {isHana && <span className="text-[8px]">🌸</span>}
+                      {isCen  && <span className="text-[8px]">⭕</span>}
                     </div>
-                  ))}
-                </div>
-              </div>
-            );
-          })}
+                    <MiniBlockGrid
+                      block={block}
+                      reports={reports}
+                      onShowTip={showTip}
+                      onHideTip={hideTip}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
 
+      {/* 固定ツールチップ */}
       {tooltip && (
         <div
           className="pointer-events-none fixed z-[200] -translate-x-1/2 -translate-y-full rounded-lg bg-gray-900 px-2.5 py-1 text-[10px] font-semibold text-white shadow-lg"
