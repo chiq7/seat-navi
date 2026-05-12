@@ -363,9 +363,6 @@ export default function EventDetailPage({
   const [analyzing, setAnalyzing] = useState(false);
   const [showToast, setShowToast] = useState(justReported || justAfterReported);
 
-  const isPast = event?.date
-    ? event.date < new Date().toISOString().slice(0, 10)
-    : false;
 
   useEffect(() => {
     async function load() {
@@ -545,24 +542,23 @@ export default function EventDetailPage({
         <div className="px-4 pt-8 text-center text-sm text-gray-500">公演が見つかりません</div>
       )}
 
-      {/* FAB: 公演前→座席報告 / 公演後→答え合わせ */}
-      {isPast ? (
-        <Link
-          href={`/events/${eventId}/after-report`}
-          className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 flex items-center gap-2 rounded-full bg-rose-500 px-6 py-3.5 text-sm font-bold text-white shadow-lg transition-all hover:bg-rose-600 active:scale-95"
-        >
-          <span>🎉</span>
-          <span>答え合わせを投稿する</span>
-        </Link>
-      ) : (
+      {/* FAB: 2ボタン縦並び */}
+      <div className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 flex flex-col items-center gap-2">
         <Link
           href={`/events/${eventId}/report`}
-          className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 flex items-center gap-2 rounded-full bg-[var(--accent)] px-6 py-3.5 text-sm font-bold text-white shadow-lg transition-all hover:bg-[var(--accent-dark)] active:scale-95"
+          className="flex items-center gap-2 rounded-full bg-[var(--accent)] px-6 py-3.5 text-sm font-bold text-white shadow-lg transition-all hover:bg-[var(--accent-dark)] active:scale-95"
         >
           <span>✍️</span>
           <span>座席を報告する</span>
         </Link>
-      )}
+        <Link
+          href={`/events/${eventId}/after-report`}
+          className="flex items-center gap-2 rounded-full bg-rose-500 px-6 py-3.5 text-sm font-bold text-white shadow-lg transition-all hover:bg-rose-600 active:scale-95"
+        >
+          <span>🎉</span>
+          <span>答え合わせを投稿する</span>
+        </Link>
+      </div>
 
       {/* 完了トースト */}
       {showToast && (
