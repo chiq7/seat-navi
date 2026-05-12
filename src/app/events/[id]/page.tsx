@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useEffect, useState, useCallback, useRef } from "react";
+import { use, useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
@@ -359,8 +359,6 @@ export default function EventDetailPage({
   const [layout,    setLayout]    = useState<EventLayout | null>(null);
   const [patterns,  setPatterns]  = useState<HistoricalPattern[]>([]);
   const [loading,   setLoading]   = useState(true);
-  const [analysis,  setAnalysis]  = useState("");
-  const [analyzing, setAnalyzing] = useState(false);
   const [showToast, setShowToast] = useState(justReported || justAfterReported);
 
 
@@ -403,26 +401,6 @@ export default function EventDetailPage({
     }
     load();
   }, [eventId]);
-
-  const runAnalysis = useCallback(async () => {
-    if (!event || reports.length === 0) return;
-    setAnalyzing(true);
-    try {
-      const res = await fetch(`/api/events/${eventId}/analysis`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ eventTitle: event.title, venue: event.venue, artist: event.title.split(" ")[0], reports }),
-      });
-      const data = await res.json();
-      setAnalysis(data.analysis ?? "");
-    } finally {
-      setAnalyzing(false);
-    }
-  }, [event, reports, eventId]);
-
-  useEffect(() => {
-    if (!loading && reports.length > 0) runAnalysis();
-  }, [loading, reports.length, runAnalysis]);
 
   useEffect(() => {
     if (!showToast) return;
@@ -477,25 +455,6 @@ export default function EventDetailPage({
             <p className="mt-1 text-base font-extrabold leading-snug text-gray-900">{event.title}</p>
             <p className="mt-1 text-sm text-gray-600">{fmtDate(event.date)}</p>
           </div>
-
-          {/* AI分析カード */}
-          {(analyzing || analysis) && (
-            <div className="rounded-2xl bg-gradient-to-br from-[var(--accent)] to-[var(--accent-dark)] p-4 text-white shadow-sm">
-              <div className="mb-2 flex items-center gap-1.5">
-                <span>🎀</span>
-                <span className="text-xs font-bold">AI座席分析</span>
-              </div>
-              {analyzing ? (
-                <div className="flex gap-1.5 py-1">
-                  <span className="typing-dot h-1.5 w-1.5 rounded-full bg-white/70" />
-                  <span className="typing-dot h-1.5 w-1.5 rounded-full bg-white/70" />
-                  <span className="typing-dot h-1.5 w-1.5 rounded-full bg-white/70" />
-                </div>
-              ) : (
-                <p className="text-xs leading-relaxed opacity-90">{analysis}</p>
-              )}
-            </div>
-          )}
 
           {/* 参考予想図 */}
           {layout && (
