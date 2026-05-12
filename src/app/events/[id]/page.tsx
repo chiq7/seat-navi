@@ -7,6 +7,62 @@ import { supabase } from "@/lib/supabase/client";
 import { AllBlocksOverview } from "@/components/AllBlocksOverview";
 import type { CrawledEvent, SeatReport, EventLayout, HistoricalPattern } from "@/lib/types";
 
+function randomId() {
+  return crypto.randomUUID().replace(/-/g, "").slice(0, 20);
+}
+
+const BLOCK_PREFIXES = ["A", "B", "C", "D", "E", "SS", "SA", "SB", "SC", "SD", "SE"];
+
+const ALL_LOTTERY_OPTIONS = [
+  { value: "fc1",        label: "FC1次（最速含む）" },
+  { value: "fc2",        label: "FC2次" },
+  { value: "general",    label: "一般" },
+  { value: "revival",    label: "復活当選" },
+  { value: "production", label: "制作開放" },
+];
+
+function Label({ children, required }: { children: React.ReactNode; required?: boolean }) {
+  return (
+    <label className="mb-1.5 block text-xs font-bold text-gray-700">
+      {children}
+      {required && <span className="ml-1 text-red-500">*</span>}
+    </label>
+  );
+}
+
+function Card({ children }: { children: React.ReactNode }) {
+  return <div className="rounded-2xl bg-white p-4 shadow-sm">{children}</div>;
+}
+
+function PillGroup({
+  options,
+  value,
+  onChange,
+}: {
+  options: { value: string; label: string }[];
+  value: string;
+  onChange: (v: string) => void;
+}) {
+  return (
+    <div className="flex flex-wrap gap-2">
+      {options.map((opt) => (
+        <button
+          key={opt.value}
+          type="button"
+          onClick={() => onChange(opt.value)}
+          className={`rounded-full border px-3.5 py-1.5 text-xs font-semibold transition-all ${
+            value === opt.value
+              ? "border-[var(--accent)] bg-[var(--accent)] text-white"
+              : "border-gray-200 bg-white text-gray-600 hover:border-[var(--accent)]"
+          }`}
+        >
+          {opt.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
 export default function EventDetailPage({
   params,
 }: {
@@ -14,15 +70,29 @@ export default function EventDetailPage({
 }) {
   const { id: eventId } = use(params);
   const searchParams = useSearchParams();
-  const justReported      = searchParams.get("reported")       === "1";
   const justAfterReported = searchParams.get("after_reported") === "1";
 
-  const [event,     setEvent]     = useState<CrawledEvent | null>(null);
-  const [reports,   setReports]   = useState<SeatReport[]>([]);
-  const [layout,    setLayout]    = useState<EventLayout | null>(null);
-  const [patterns,  setPatterns]  = useState<HistoricalPattern[]>([]);
-  const [loading,   setLoading]   = useState(true);
-  const [showToast, setShowToast] = useState(justReported || justAfterReported);
+  // ページデータ
+  const [event,    setEvent]    = useState<CrawledEvent | null>(null);
+  const [reports,  setReports]  = useState<SeatReport[]>([]);
+  const [layout,   setLayout]   = useState<EventLayout | null>(null);
+  const [patterns, setPatterns] = useState<HistoricalPattern[]>([]);
+  const [loading,  setLoading]  = useState(true);
+
+  // トースト
+  const [toast, setToast] = useState(justAfterReported ? "答え合わせ投稿ありがとう！ 🎉" : "");
+
+  // フォーム
+  const [blockPrefix,   setBlockPrefix]   = useState("");
+  const [blockNum,      setBlockNum]      = useState("");
+  const [rowNum,        setRowNum]        = useState("");
+  const [ticketCount,   setTicketCount]   = useState(1);
+  const [leftSeatNum,   setLeftSeatNum]   = useState("");
+  const [lotteryType,   setLotteryType]   = useState("");
+  const [isUpgrade,     setIsUpgrade]     = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState("");
+  const [submitting,    setSubmitting]    = useState(false);
+  const [formError,     setFormError]     = useState("");
 
   useEffect(() => {
     async function load() {
@@ -36,9 +106,7 @@ export default function EventDetailPage({
           .from("seat_reports")
           .select("*")
           .eq("event_id", eventId)
-          .order("block")
-          .order("row_num")
-          .order("seat_num"),
+          .order("block").order("row_num").order("seat_num"),
         supabase
           .from("event_layouts")
           .select("id, event_id, image_url, created_at")
@@ -58,24 +126,86 @@ export default function EventDetailPage({
           .limit(50);
         if (patData) setPatterns(patData as HistoricalPattern[]);
       }
-
       setLoading(false);
     }
     load();
   }, [eventId]);
 
+  // トースト自動消去
   useEffect(() => {
-    if (!showToast) return;
-    const t = setTimeout(() => setShowToast(false), 3000);
+    if (!toast) return;
+    const t = setTimeout(() => setToast(""), 3000);
     return () => clearTimeout(t);
-  }, [showToast]);
+  }, [toast]);
+
+  const blockFull = blockPrefix + blockNum;
+
+  const lotteryOptions = event?.lottery_types?.length
+    ? ALL_LOTTERY_OPTIONS.filter((o) => event.lottery_types!.includes(o.value))
+    : ALL_LOTTERY_OPTIONS;
 
   const blockMap = new Map<string, SeatReport[]>();
   for (const r of reports) {
     if (!blockMap.has(r.block)) blockMap.set(r.block, []);
     blockMap.get(r.block)!.push(r);
   }
-  const blocks = Array.from(blockMap.entries());
+
+  const seatHint = ticketCount === 1
+    ? "お手元の番号を入力してください。"
+    : "一番左（最小番号）を入力してください。不明な場合はお手元の番号で構いません。";
+
+  const previewSeats = leftSeatNum
+    ? Array.from({ length: ticketCount }, (_, i) => parseInt(leftSeatNum, 10) + i).filter((n) => !isNaN(n))
+    : [];
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setFormError("");
+
+    const row      = parseInt(rowNum, 10);
+    const leftSeat = parseInt(leftSeatNum, 10);
+
+    if (!blockPrefix)              { setFormError("ブロックを選択してください"); return; }
+    if (!blockNum.trim())          { setFormError("ブロック番号を入力してください"); return; }
+    if (!row || row < 1)           { setFormError("列番号は1以上の数値を入力してください"); return; }
+    if (!leftSeat || leftSeat < 1) { setFormError("座席番号は1以上の数値を入力してください"); return; }
+
+    setSubmitting(true);
+
+    const effectiveLottery = isUpgrade ? "upgrade" : (lotteryType || "fc1");
+    const newRows: SeatReport[] = Array.from({ length: ticketCount }, (_, i) => ({
+      id: randomId(),
+      event_id: eventId,
+      block: blockFull.trim(),
+      row_num: row,
+      seat_num: leftSeat + i,
+      lottery_type: effectiveLottery as SeatReport["lottery_type"],
+      comment: null,
+      created_at: new Date().toISOString(),
+    }));
+
+    const { error: dbErr } = await supabase.from("seat_reports").insert(newRows);
+    if (dbErr) {
+      setFormError("投稿に失敗しました: " + dbErr.message);
+      setSubmitting(false);
+      return;
+    }
+
+    // 全体図をその場で更新
+    setReports((prev) => [...prev, ...newRows]);
+
+    // フォームリセット
+    setBlockPrefix("");
+    setBlockNum("");
+    setRowNum("");
+    setTicketCount(1);
+    setLeftSeatNum("");
+    setLotteryType("");
+    setIsUpgrade(false);
+    setPaymentMethod("");
+    setSubmitting(false);
+    setToast("報告ありがとう！ 🎉");
+  };
 
   function fmtDate(d: string | null) {
     if (!d) return "日程未定";
@@ -86,6 +216,7 @@ export default function EventDetailPage({
 
   return (
     <div className="min-h-screen bg-gray-50 pb-10">
+      {/* ヘッダー */}
       <header className="sticky top-0 z-40 border-b border-gray-100 bg-white/90 px-4 py-3 backdrop-blur-md">
         <div className="flex items-center gap-3">
           <Link href="/" className="text-gray-500 hover:text-gray-700">
@@ -109,9 +240,9 @@ export default function EventDetailPage({
           ))}
         </div>
       ) : event ? (
-        <div className="space-y-4 px-4 pt-4">
+        <div className="px-4 pt-4">
           {/* 公演情報 */}
-          <div className="rounded-2xl bg-white p-4 shadow-sm">
+          <div className="mb-4 rounded-2xl bg-white p-4 shadow-sm">
             <p className="text-xs text-gray-500">{event.venue}</p>
             <p className="mt-1 text-base font-extrabold leading-snug text-gray-900">{event.title}</p>
             <p className="mt-1 text-sm text-gray-600">{fmtDate(event.date)}</p>
@@ -119,45 +250,192 @@ export default function EventDetailPage({
 
           {/* 参考予想図 */}
           {layout && (
-            <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
+            <div className="mb-4 overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
               <div className="flex items-center gap-2 border-b border-gray-100 px-4 py-2.5">
                 <span className="text-xs font-bold text-gray-700">参考予想図</span>
                 <span className="ml-auto text-[10px] text-gray-400">ユーザー提供</span>
               </div>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={layout.image_url} alt="座席予想図" className="w-full object-contain" style={{ maxHeight: "320px" }} />
+              <img src={layout.image_url} alt="座席予想図" className="w-full object-contain" style={{ maxHeight: "280px" }} />
             </div>
           )}
 
-          {/* 報告数 */}
-          <div>
-            <span className="text-sm font-bold text-gray-900">
-              報告数: <span className="text-[var(--accent)]">{reports.length}</span>件
-            </span>
+          {/* 2カラム: PC=左フォーム(40%) 右マップ(60%) / スマホ=上マップ 下フォーム */}
+          <div className="flex flex-col gap-4 md:flex-row md:items-start">
+
+            {/* 全体図（スマホ: 上 / PC: 右） */}
+            <div className="order-first md:order-last md:sticky md:top-20" style={{ flex: "0 0 60%" }}>
+              <div className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
+                <div className="mb-3 flex items-center justify-between">
+                  <p className="text-xs font-bold text-gray-700">全体図</p>
+                  <span className="text-[10px] text-gray-400">報告数: {reports.length}件</span>
+                </div>
+                {blockMap.size > 0 ? (
+                  <AllBlocksOverview blockMap={blockMap} patterns={patterns} />
+                ) : (
+                  <div className="flex flex-col items-center justify-center py-10 text-center">
+                    <div className="text-3xl">🪑</div>
+                    <p className="mt-2 text-xs text-gray-400">まだ報告がありません</p>
+                    <p className="text-[11px] text-gray-300">最初の報告者になってね！</p>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* フォーム（スマホ: 下 / PC: 左） */}
+            <form
+              onSubmit={handleSubmit}
+              className="order-last md:order-first space-y-3"
+              style={{ flex: "0 0 40%" }}
+            >
+              <p className="text-xs font-bold text-gray-700">座席を報告する</p>
+
+              {/* ブロック */}
+              <Card>
+                <Label required>ブロック</Label>
+                <div className="flex gap-2">
+                  <select
+                    value={blockPrefix}
+                    onChange={(e) => setBlockPrefix(e.target.value)}
+                    className="w-24 rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/20"
+                  >
+                    <option value="">--</option>
+                    {BLOCK_PREFIXES.map((p) => (
+                      <option key={p} value={p}>{p}</option>
+                    ))}
+                  </select>
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    value={blockNum}
+                    onChange={(e) => setBlockNum(e.target.value.replace(/[^0-9]/g, ""))}
+                    placeholder="番号（例: 3）"
+                    className="flex-1 rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/20"
+                  />
+                </div>
+                {blockFull && (
+                  <p className="mt-1.5 text-[11px] text-gray-400">
+                    ブロック名: <span className="font-bold text-gray-600">{blockFull}</span>
+                  </p>
+                )}
+              </Card>
+
+              {/* 列 */}
+              <Card>
+                <Label required>列</Label>
+                <input
+                  type="number"
+                  inputMode="numeric"
+                  min="1"
+                  value={rowNum}
+                  onChange={(e) => setRowNum(e.target.value)}
+                  placeholder="例: 5"
+                  className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/20"
+                />
+              </Card>
+
+              {/* 申込枚数 */}
+              <Card>
+                <Label required>申込枚数</Label>
+                <div className="flex gap-2">
+                  {[1, 2, 3, 4].map((n) => (
+                    <button
+                      key={n}
+                      type="button"
+                      onClick={() => setTicketCount(n)}
+                      className={`flex-1 rounded-xl border py-2.5 text-sm font-bold transition-all ${
+                        ticketCount === n
+                          ? "border-[var(--accent)] bg-[var(--accent)] text-white"
+                          : "border-gray-200 bg-white text-gray-600 hover:border-[var(--accent)]"
+                      }`}
+                    >
+                      {n}枚
+                    </button>
+                  ))}
+                </div>
+              </Card>
+
+              {/* 座席番号 */}
+              <Card>
+                <Label required>座席番号</Label>
+                <p className="mb-2 text-[11px] leading-snug text-gray-500">{seatHint}</p>
+                <input
+                  type="number"
+                  inputMode="numeric"
+                  min="1"
+                  value={leftSeatNum}
+                  onChange={(e) => setLeftSeatNum(e.target.value)}
+                  placeholder="例: 12"
+                  className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/20"
+                />
+                {previewSeats.length > 1 && (
+                  <p className="mt-1.5 text-[11px] text-gray-400">
+                    保存される座席: <span className="font-bold text-gray-600">{previewSeats.join("・")}番</span>
+                  </p>
+                )}
+              </Card>
+
+              {/* 任意項目 */}
+              <Card>
+                <p className="mb-3 text-xs font-bold text-gray-400">任意項目</p>
+
+                <div className="mb-4">
+                  <Label>抽選枠</Label>
+                  <PillGroup options={lotteryOptions} value={lotteryType} onChange={setLotteryType} />
+                </div>
+
+                <div className="mb-4 flex items-center gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setIsUpgrade((v) => !v)}
+                    className={`flex h-5 w-9 shrink-0 items-center rounded-full transition-colors ${
+                      isUpgrade ? "bg-[var(--accent)]" : "bg-gray-200"
+                    }`}
+                  >
+                    <span className={`h-4 w-4 rounded-full bg-white shadow transition-transform ${
+                      isUpgrade ? "translate-x-4" : "translate-x-0.5"
+                    }`} />
+                  </button>
+                  <span className="text-xs text-gray-700">アップグレード当選だった</span>
+                </div>
+
+                <div>
+                  <Label>支払い方法</Label>
+                  <PillGroup
+                    options={[
+                      { value: "credit",      label: "クレカ" },
+                      { value: "convenience", label: "コンビニ" },
+                      { value: "other",       label: "その他" },
+                    ]}
+                    value={paymentMethod}
+                    onChange={setPaymentMethod}
+                  />
+                </div>
+              </Card>
+
+              {formError && (
+                <div className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-600">{formError}</div>
+              )}
+
+              <button
+                type="submit"
+                disabled={submitting}
+                className="w-full rounded-2xl bg-[var(--accent)] py-3.5 text-sm font-bold text-white shadow-sm transition-all hover:bg-[var(--accent-dark)] active:scale-95 disabled:opacity-60"
+              >
+                {submitting ? "投稿中..." : "報告する ✍️"}
+              </button>
+            </form>
+
           </div>
-
-          {/* 全体図 */}
-          {blocks.length > 0 ? (
-            <div className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
-              <p className="mb-3 text-xs font-bold text-gray-700">全体図</p>
-              <AllBlocksOverview blockMap={blockMap} patterns={patterns} />
-            </div>
-          ) : (
-            <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-gray-200 bg-gray-50 py-14 text-center">
-              <div className="text-4xl">🪑</div>
-              <p className="mt-3 text-sm font-semibold text-gray-700">まだ報告がありません</p>
-              <p className="mt-1 text-xs text-gray-400">最初の報告者になってね！</p>
-            </div>
-          )}
         </div>
       ) : (
         <div className="px-4 pt-8 text-center text-sm text-gray-500">公演が見つかりません</div>
       )}
 
-      {/* 完了トースト */}
-      {showToast && (
+      {/* トースト */}
+      {toast && (
         <div className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 rounded-2xl bg-gray-900 px-5 py-3 text-xs font-semibold text-white shadow-lg">
-          {justAfterReported ? "答え合わせ投稿ありがとう！ 🎉" : "報告ありがとう！ 🎉"}
+          {toast}
         </div>
       )}
     </div>
