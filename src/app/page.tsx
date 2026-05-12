@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase/client";
 import { genreLabel } from "@/lib/utils";
@@ -28,14 +29,6 @@ const GENRE_STRIP: Record<string, string> = {
   other:       "bg-gray-50    text-gray-500    border-gray-100",
 };
 
-const GENRE_BADGE: Record<string, string> = {
-  kpop:        "bg-violet-100 text-violet-700",
-  johnnys:     "bg-blue-100   text-blue-700",
-  female_idol: "bg-pink-100   text-pink-700",
-  male_idol:   "bg-sky-100    text-sky-700",
-  other:       "bg-gray-100   text-gray-600",
-};
-
 // ---------------------------------------------------------------------------
 // ユーティリティ
 // ---------------------------------------------------------------------------
@@ -57,18 +50,21 @@ function daysUntil(dateStr: string | null): number | null {
 }
 
 // ---------------------------------------------------------------------------
-// コンポーネント
+// 公演カード
 // ---------------------------------------------------------------------------
 
-function EventCard({ ev }: { ev: CrawledEvent }) {
+function EventCard({ ev, onTap }: { ev: CrawledEvent; onTap: (ev: CrawledEvent) => void }) {
   const date = formatDate(ev.date);
   const days = daysUntil(ev.date);
   const strip = GENRE_STRIP[ev.genre] ?? GENRE_STRIP.other;
   const isUpcoming = days !== null && days >= 0 && days <= 7;
 
   return (
-    <Link href={`/events/${ev.id}`} className="card-hover flex flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
-      {/* ジャンルストリップ */}
+    <button
+      type="button"
+      onClick={() => onTap(ev)}
+      className="card-hover flex w-full flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm text-left"
+    >
       <div className={`flex items-center justify-between border-b px-3 py-2 ${strip}`}>
         <span className="text-[11px] font-semibold">{genreLabel(ev.genre)}</span>
         {isUpcoming && (
@@ -77,10 +73,7 @@ function EventCard({ ev }: { ev: CrawledEvent }) {
           </span>
         )}
       </div>
-
-      {/* 本体 */}
       <div className="flex flex-1 flex-col p-3">
-        {/* 日付 */}
         {date ? (
           <div className="flex items-baseline gap-1">
             <span className="text-2xl font-extrabold leading-none text-gray-900">
@@ -91,16 +84,74 @@ function EventCard({ ev }: { ev: CrawledEvent }) {
         ) : (
           <span className="text-xs text-gray-400">日程未定</span>
         )}
-
-        {/* 会場 */}
         <p className="mt-1.5 truncate text-[11px] text-gray-500">{ev.venue}</p>
-
-        {/* タイトル */}
-        <p className="mt-1 line-clamp-2 text-xs font-bold leading-snug text-gray-800">
-          {ev.title}
-        </p>
+        <p className="mt-1 line-clamp-2 text-xs font-bold leading-snug text-gray-800">{ev.title}</p>
       </div>
-    </Link>
+    </button>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// ボトムシート
+// ---------------------------------------------------------------------------
+
+function BottomSheet({
+  ev,
+  onClose,
+}: {
+  ev: CrawledEvent;
+  onClose: () => void;
+}) {
+  const router = useRouter();
+
+  function go(path: string) {
+    onClose();
+    router.push(path);
+  }
+
+  return (
+    <>
+      {/* オーバーレイ */}
+      <div
+        className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm"
+        onClick={onClose}
+      />
+      {/* シート */}
+      <div className="fixed bottom-0 left-0 right-0 z-50 rounded-t-3xl bg-white px-5 pb-10 pt-5 shadow-2xl">
+        {/* ハンドル */}
+        <div className="mx-auto mb-4 h-1 w-10 rounded-full bg-gray-200" />
+
+        {/* 公演名 */}
+        <p className="mb-1 text-[11px] text-gray-400">{ev.venue}</p>
+        <p className="mb-5 text-sm font-bold leading-snug text-gray-900">{ev.title}</p>
+
+        {/* 2択ボタン */}
+        <div className="flex flex-col gap-3">
+          <button
+            type="button"
+            onClick={() => go(`/events/${ev.id}/report`)}
+            className="flex items-center gap-3 rounded-2xl bg-[var(--accent)] px-5 py-4 text-left text-white transition-all active:scale-95"
+          >
+            <span className="text-2xl">✍️</span>
+            <div>
+              <p className="text-sm font-bold">座席を報告する</p>
+              <p className="text-[11px] opacity-80">当選席・抽選情報を共有</p>
+            </div>
+          </button>
+          <button
+            type="button"
+            onClick={() => go(`/events/${ev.id}/after-report`)}
+            className="flex items-center gap-3 rounded-2xl bg-rose-500 px-5 py-4 text-left text-white transition-all active:scale-95"
+          >
+            <span className="text-2xl">🎉</span>
+            <div>
+              <p className="text-sm font-bold">答え合わせを投稿する</p>
+              <p className="text-[11px] opacity-80">花道・視認性・満足度を共有</p>
+            </div>
+          </button>
+        </div>
+      </div>
+    </>
   );
 }
 
@@ -109,10 +160,11 @@ function EventCard({ ev }: { ev: CrawledEvent }) {
 // ---------------------------------------------------------------------------
 
 export default function Home() {
-  const [events, setEvents] = useState<CrawledEvent[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [genre, setGenre] = useState("all");
-  const [search, setSearch] = useState("");
+  const [events,        setEvents]        = useState<CrawledEvent[]>([]);
+  const [loading,       setLoading]       = useState(true);
+  const [genre,         setGenre]         = useState("all");
+  const [search,        setSearch]        = useState("");
+  const [selectedEvent, setSelectedEvent] = useState<CrawledEvent | null>(null);
 
   useEffect(() => {
     async function load() {
@@ -144,7 +196,6 @@ export default function Home() {
 
       {/* ===== ヘッダー ===== */}
       <header className="sticky top-0 z-40 border-b border-gray-100 bg-white/90 px-4 pb-3 pt-4 backdrop-blur-md">
-        {/* ロゴ行 */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[var(--accent)] text-white">
@@ -163,7 +214,6 @@ export default function Home() {
           </Link>
         </div>
 
-        {/* 検索バー */}
         <div className="mt-3 flex items-center gap-2.5 rounded-2xl border-2 border-gray-200 bg-gray-50 px-4 py-2.5 transition-all focus-within:border-[var(--accent)] focus-within:bg-white focus-within:shadow-md">
           <svg className="h-4 w-4 shrink-0 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -234,7 +284,6 @@ export default function Home() {
       {/* ===== イベントグリッド ===== */}
       <section className="mt-3 px-4">
         {loading ? (
-          /* スケルトン */
           <div className="grid grid-cols-2 gap-3">
             {Array.from({ length: 6 }).map((_, i) => (
               <div key={i} className="animate-pulse rounded-2xl border border-gray-100 bg-gray-50">
@@ -268,33 +317,14 @@ export default function Home() {
         ) : (
           <div className="grid grid-cols-2 gap-3">
             {filtered.map((ev) => (
-              <EventCard key={ev.id} ev={ev} />
+              <EventCard key={ev.id} ev={ev} onTap={setSelectedEvent} />
             ))}
           </div>
         )}
       </section>
 
-      {/* ===== 報告 CTA ===== */}
-      {!loading && (
-        <section className="mt-6 px-4">
-          <div className="overflow-hidden rounded-3xl bg-gradient-to-br from-[var(--accent)] to-[var(--accent-dark)] p-5 text-white">
-            <p className="text-xs font-medium opacity-80">当選した席を教えてね</p>
-            <p className="mt-1 text-base font-extrabold leading-snug">
-              報告するほど<br />予想が正確になるよ 🎯
-            </p>
-            <Link
-              href="/chat"
-              className="mt-4 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-bold text-[var(--accent)] shadow transition-all hover:shadow-md active:scale-95"
-            >
-              <span>✍️</span>
-              当選席を報告する
-            </Link>
-          </div>
-        </section>
-      )}
-
       {/* ===== ボトムナビ ===== */}
-      <nav className="fixed bottom-0 left-1/2 z-50 flex w-full max-w-md -translate-x-1/2 border-t border-gray-100 bg-white/95 backdrop-blur-md">
+      <nav className="fixed bottom-0 left-1/2 z-30 flex w-full max-w-md -translate-x-1/2 border-t border-gray-100 bg-white/95 backdrop-blur-md">
         <Link href="/" className="flex flex-1 flex-col items-center gap-0.5 py-3 text-[var(--accent)]">
           <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
             <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
@@ -308,6 +338,11 @@ export default function Home() {
           <span className="text-[10px] font-semibold">AIチャット</span>
         </Link>
       </nav>
+
+      {/* ===== ボトムシート ===== */}
+      {selectedEvent && (
+        <BottomSheet ev={selectedEvent} onClose={() => setSelectedEvent(null)} />
+      )}
     </div>
   );
 }

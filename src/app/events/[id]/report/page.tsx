@@ -4,7 +4,8 @@ import { useState, use, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase/client";
-import type { CrawledEvent } from "@/lib/types";
+import { AllBlocksOverview } from "@/components/AllBlocksOverview";
+import type { CrawledEvent, SeatReport, HistoricalPattern } from "@/lib/types";
 
 function randomId() {
   return crypto.randomUUID().replace(/-/g, "").slice(0, 20);
@@ -79,6 +80,10 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
   const [submitting,      setSubmitting]      = useState(false);
   const [error,           setError]           = useState("");
 
+  // マップ用データ
+  const [mapReports,  setMapReports]  = useState<SeatReport[]>([]);
+  const [mapPatterns, setMapPatterns] = useState<HistoricalPattern[]>([]);
+
   useEffect(() => {
     supabase
       .from("events")
@@ -87,6 +92,28 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
       .limit(200)
       .then(({ data }) => { if (data) setEvents(data as CrawledEvent[]); });
   }, []);
+
+  // 選択イベント変更時にマップデータを取得
+  useEffect(() => {
+    if (!selectedEventId) { setMapReports([]); setMapPatterns([]); return; }
+
+    supabase
+      .from("seat_reports")
+      .select("*")
+      .eq("event_id", selectedEventId)
+      .order("block").order("row_num").order("seat_num")
+      .then(({ data }) => { if (data) setMapReports(data as SeatReport[]); });
+
+    const venue = events.find((ev) => ev.id === selectedEventId)?.venue;
+    if (venue) {
+      supabase
+        .from("historical_patterns")
+        .select("block, max_row, max_seat, event_name")
+        .eq("venue", venue)
+        .limit(50)
+        .then(({ data }) => { if (data) setMapPatterns(data as HistoricalPattern[]); });
+    }
+  }, [selectedEventId, events]);
 
   function fmtDate(d: string | null) {
     if (!d) return "日程未定";
@@ -102,6 +129,13 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
     ? ALL_LOTTERY_OPTIONS.filter((o) => selectedEvent.lottery_types!.includes(o.value))
     : ALL_LOTTERY_OPTIONS;
 
+  // マップ用 blockMap
+  const blockMap = new Map<string, SeatReport[]>();
+  for (const r of mapReports) {
+    if (!blockMap.has(r.block)) blockMap.set(r.block, []);
+    blockMap.get(r.block)!.push(r);
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
@@ -109,15 +143,14 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
     const row      = parseInt(rowNum, 10);
     const leftSeat = parseInt(leftSeatNum, 10);
 
-    if (!selectedEventId)      { setError("ツアー日程を選択してください"); return; }
-    if (!blockPrefix)          { setError("ブロックを選択してください"); return; }
-    if (!blockNum.trim())      { setError("ブロック番号を入力してください"); return; }
-    if (!row || row < 1)       { setError("列番号は1以上の数値を入力してください"); return; }
-    if (!leftSeat || leftSeat < 1) { setError("座席番号は1以上の数値を入力してください"); return; }
+    if (!selectedEventId)           { setError("ツアー日程を選択してください"); return; }
+    if (!blockPrefix)               { setError("ブロックを選択してください"); return; }
+    if (!blockNum.trim())           { setError("ブロック番号を入力してください"); return; }
+    if (!row || row < 1)            { setError("列番号は1以上の数値を入力してください"); return; }
+    if (!leftSeat || leftSeat < 1)  { setError("座席番号は1以上の数値を入力してください"); return; }
 
     setSubmitting(true);
 
-    // 連番の座席を生成
     const effectiveLottery = isUpgrade ? "upgrade" : (lotteryType || "fc1");
     const rows = Array.from({ length: ticketCount }, (_, i) => ({
       id: randomId(),
@@ -144,8 +177,7 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
     : "一番左（最小番号）を入力してください。不明な場合はお手元の番号で構いません。";
 
   const previewSeats = leftSeatNum
-    ? Array.from({ length: ticketCount }, (_, i) => parseInt(leftSeatNum, 10) + i)
-        .filter((n) => !isNaN(n))
+    ? Array.from({ length: ticketCount }, (_, i) => parseInt(leftSeatNum, 10) + i).filter((n) => !isNaN(n))
     : [];
 
   return (
@@ -161,178 +193,192 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
         </div>
       </header>
 
-      <form onSubmit={handleSubmit} className="mx-auto max-w-md space-y-3 px-4 pt-5">
+      {/* 2カラムレイアウト: PC=左フォーム右マップ / スマホ=上マップ下フォーム */}
+      <div className="mx-auto max-w-5xl px-4 pt-5">
+        <div className="flex flex-col gap-4 md:flex-row md:items-start">
 
-        {/* ① ツアー選択 */}
-        <Card>
-          <Label required>ツアー・日程</Label>
-          <select
-            value={selectedEventId}
-            onChange={(e) => setSelectedEventId(e.target.value)}
-            className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/20"
-          >
-            <option value="">選択してください</option>
-            {events.map((ev) => (
-              <option key={ev.id} value={ev.id}>
-                {fmtDate(ev.date)}　{ev.title}　{ev.venue}
-              </option>
-            ))}
-          </select>
-        </Card>
-
-        {/* ② ブロック + ブロック番号 */}
-        <Card>
-          <Label required>ブロック</Label>
-          <div className="flex gap-2">
-            {/* ブロック選択 */}
-            <select
-              value={blockPrefix}
-              onChange={(e) => setBlockPrefix(e.target.value)}
-              className="w-24 rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/20"
-            >
-              <option value="">--</option>
-              {BLOCK_PREFIXES.map((p) => (
-                <option key={p} value={p}>{p}</option>
-              ))}
-            </select>
-            {/* ブロック番号 */}
-            <div className="flex-1">
-              <input
-                type="text"
-                inputMode="numeric"
-                value={blockNum}
-                onChange={(e) => setBlockNum(e.target.value.replace(/[^0-9]/g, ""))}
-                placeholder="番号（例: 3）"
-                className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/20"
-              />
+          {/* 全体図（スマホ: 上、PC: 右） */}
+          <div className="order-first md:order-last md:flex-1 md:sticky md:top-20">
+            <div className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
+              <p className="mb-3 text-xs font-bold text-gray-700">全体図</p>
+              {blockMap.size > 0 ? (
+                <AllBlocksOverview blockMap={blockMap} patterns={mapPatterns} />
+              ) : (
+                <div className="flex flex-col items-center justify-center py-10 text-center">
+                  <div className="text-3xl">🪑</div>
+                  <p className="mt-2 text-xs text-gray-400">まだ報告がありません</p>
+                </div>
+              )}
             </div>
           </div>
-          {blockFull && (
-            <p className="mt-1.5 text-[11px] text-gray-400">
-              ブロック名: <span className="font-bold text-gray-600">{blockFull}</span>
-            </p>
-          )}
-        </Card>
 
-        {/* ③ 列 */}
-        <Card>
-          <Label required>列</Label>
-          <input
-            type="number"
-            inputMode="numeric"
-            min="1"
-            value={rowNum}
-            onChange={(e) => setRowNum(e.target.value)}
-            placeholder="例: 5"
-            className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/20"
-          />
-        </Card>
+          {/* フォーム（スマホ: 下、PC: 左） */}
+          <form onSubmit={handleSubmit} className="order-last md:order-first md:w-96 md:shrink-0 space-y-3">
 
-        {/* ④ 申込枚数 */}
-        <Card>
-          <Label required>申込枚数</Label>
-          <div className="flex gap-2">
-            {[1, 2, 3, 4].map((n) => (
-              <button
-                key={n}
-                type="button"
-                onClick={() => setTicketCount(n)}
-                className={`flex-1 rounded-xl border py-2.5 text-sm font-bold transition-all ${
-                  ticketCount === n
-                    ? "border-[var(--accent)] bg-[var(--accent)] text-white"
-                    : "border-gray-200 bg-white text-gray-600 hover:border-[var(--accent)]"
-                }`}
+            {/* ① ツアー選択 */}
+            <Card>
+              <Label required>ツアー・日程</Label>
+              <select
+                value={selectedEventId}
+                onChange={(e) => setSelectedEventId(e.target.value)}
+                className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/20"
               >
-                {n}枚
-              </button>
-            ))}
-          </div>
-        </Card>
+                <option value="">選択してください</option>
+                {events.map((ev) => (
+                  <option key={ev.id} value={ev.id}>
+                    {fmtDate(ev.date)}　{ev.title}　{ev.venue}
+                  </option>
+                ))}
+              </select>
+            </Card>
 
-        {/* ⑤ 座席番号 */}
-        <Card>
-          <Label required>座席番号</Label>
-          <p className="mb-2 text-[11px] leading-snug text-gray-500">{seatHint}</p>
-          <input
-            type="number"
-            inputMode="numeric"
-            min="1"
-            value={leftSeatNum}
-            onChange={(e) => setLeftSeatNum(e.target.value)}
-            placeholder="例: 12"
-            className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/20"
-          />
-          {previewSeats.length > 1 && (
-            <p className="mt-1.5 text-[11px] text-gray-400">
-              保存される座席:&nbsp;
-              <span className="font-bold text-gray-600">{previewSeats.join("・")}番</span>
-            </p>
-          )}
-        </Card>
+            {/* ② ブロック */}
+            <Card>
+              <Label required>ブロック</Label>
+              <div className="flex gap-2">
+                <select
+                  value={blockPrefix}
+                  onChange={(e) => setBlockPrefix(e.target.value)}
+                  className="w-24 rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/20"
+                >
+                  <option value="">--</option>
+                  {BLOCK_PREFIXES.map((p) => (
+                    <option key={p} value={p}>{p}</option>
+                  ))}
+                </select>
+                <div className="flex-1">
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    value={blockNum}
+                    onChange={(e) => setBlockNum(e.target.value.replace(/[^0-9]/g, ""))}
+                    placeholder="番号（例: 3）"
+                    className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/20"
+                  />
+                </div>
+              </div>
+              {blockFull && (
+                <p className="mt-1.5 text-[11px] text-gray-400">
+                  ブロック名: <span className="font-bold text-gray-600">{blockFull}</span>
+                </p>
+              )}
+            </Card>
 
-        {/* ⑥ 任意項目 */}
-        <Card>
-          <p className="mb-3 text-xs font-bold text-gray-400">任意項目</p>
-
-          {/* 抽選枠 */}
-          <div className="mb-4">
-            <Label>抽選枠</Label>
-            <PillGroup
-              options={lotteryOptions}
-              value={lotteryType as string}
-              onChange={setLotteryType}
-            />
-          </div>
-
-          {/* アプグレ */}
-          <div className="mb-4 flex items-center gap-3">
-            <button
-              type="button"
-              onClick={() => setIsUpgrade((v) => !v)}
-              className={`flex h-5 w-9 shrink-0 items-center rounded-full transition-colors ${
-                isUpgrade ? "bg-[var(--accent)]" : "bg-gray-200"
-              }`}
-            >
-              <span
-                className={`h-4 w-4 rounded-full bg-white shadow transition-transform ${
-                  isUpgrade ? "translate-x-4" : "translate-x-0.5"
-                }`}
+            {/* ③ 列 */}
+            <Card>
+              <Label required>列</Label>
+              <input
+                type="number"
+                inputMode="numeric"
+                min="1"
+                value={rowNum}
+                onChange={(e) => setRowNum(e.target.value)}
+                placeholder="例: 5"
+                className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/20"
               />
+            </Card>
+
+            {/* ④ 申込枚数 */}
+            <Card>
+              <Label required>申込枚数</Label>
+              <div className="flex gap-2">
+                {[1, 2, 3, 4].map((n) => (
+                  <button
+                    key={n}
+                    type="button"
+                    onClick={() => setTicketCount(n)}
+                    className={`flex-1 rounded-xl border py-2.5 text-sm font-bold transition-all ${
+                      ticketCount === n
+                        ? "border-[var(--accent)] bg-[var(--accent)] text-white"
+                        : "border-gray-200 bg-white text-gray-600 hover:border-[var(--accent)]"
+                    }`}
+                  >
+                    {n}枚
+                  </button>
+                ))}
+              </div>
+            </Card>
+
+            {/* ⑤ 座席番号 */}
+            <Card>
+              <Label required>座席番号</Label>
+              <p className="mb-2 text-[11px] leading-snug text-gray-500">{seatHint}</p>
+              <input
+                type="number"
+                inputMode="numeric"
+                min="1"
+                value={leftSeatNum}
+                onChange={(e) => setLeftSeatNum(e.target.value)}
+                placeholder="例: 12"
+                className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/20"
+              />
+              {previewSeats.length > 1 && (
+                <p className="mt-1.5 text-[11px] text-gray-400">
+                  保存される座席:&nbsp;
+                  <span className="font-bold text-gray-600">{previewSeats.join("・")}番</span>
+                </p>
+              )}
+            </Card>
+
+            {/* ⑥ 任意項目 */}
+            <Card>
+              <p className="mb-3 text-xs font-bold text-gray-400">任意項目</p>
+
+              <div className="mb-4">
+                <Label>抽選枠</Label>
+                <PillGroup
+                  options={lotteryOptions}
+                  value={lotteryType as string}
+                  onChange={setLotteryType}
+                />
+              </div>
+
+              <div className="mb-4 flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => setIsUpgrade((v) => !v)}
+                  className={`flex h-5 w-9 shrink-0 items-center rounded-full transition-colors ${
+                    isUpgrade ? "bg-[var(--accent)]" : "bg-gray-200"
+                  }`}
+                >
+                  <span
+                    className={`h-4 w-4 rounded-full bg-white shadow transition-transform ${
+                      isUpgrade ? "translate-x-4" : "translate-x-0.5"
+                    }`}
+                  />
+                </button>
+                <span className="text-xs text-gray-700">アップグレード当選だった</span>
+              </div>
+
+              <div>
+                <Label>支払い方法</Label>
+                <PillGroup
+                  options={[
+                    { value: "credit",      label: "クレカ" },
+                    { value: "convenience", label: "コンビニ" },
+                    { value: "other",       label: "その他" },
+                  ]}
+                  value={paymentMethod as string}
+                  onChange={setPaymentMethod}
+                />
+              </div>
+            </Card>
+
+            {error && (
+              <div className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-600">{error}</div>
+            )}
+
+            <button
+              type="submit"
+              disabled={submitting}
+              className="w-full rounded-2xl bg-[var(--accent)] py-3.5 text-sm font-bold text-white shadow-sm transition-all hover:bg-[var(--accent-dark)] active:scale-95 disabled:opacity-60"
+            >
+              {submitting ? "投稿中..." : "報告する ✍️"}
             </button>
-            <span className="text-xs text-gray-700">アップグレード当選だった</span>
-          </div>
+          </form>
 
-          {/* 支払い方法 */}
-          <div>
-            <Label>支払い方法</Label>
-            <PillGroup
-              options={[
-                { value: "credit",       label: "クレカ" },
-                { value: "convenience",  label: "コンビニ" },
-                { value: "other",        label: "その他" },
-              ]}
-              value={paymentMethod as string}
-              onChange={setPaymentMethod}
-            />
-          </div>
-        </Card>
-
-        {/* エラー */}
-        {error && (
-          <div className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-600">
-            {error}
-          </div>
-        )}
-
-        {/* 送信 */}
-        <button
-          type="submit"
-          disabled={submitting}
-          className="w-full rounded-2xl bg-[var(--accent)] py-3.5 text-sm font-bold text-white shadow-sm transition-all hover:bg-[var(--accent-dark)] active:scale-95 disabled:opacity-60"
-        >
-          {submitting ? "投稿中..." : "報告する ✍️"}
-        </button>
-      </form>
+        </div>
+      </div>
     </div>
   );
 }
