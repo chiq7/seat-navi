@@ -1,64 +1,155 @@
 "use client";
 
-import { useState, use } from "react";
+import { useState, use, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase/client";
-import { SEAT_LOTTERY_OPTIONS } from "@/lib/types";
+import type { CrawledEvent } from "@/lib/types";
 
 function randomId() {
   return crypto.randomUUID().replace(/-/g, "").slice(0, 20);
 }
 
-export default function ReportPage({
-  params,
+const BLOCK_PREFIXES = ["A", "B", "C", "D", "E", "SS", "SA", "SB", "SC", "SD", "SE"];
+
+const ALL_LOTTERY_OPTIONS: { value: string; label: string }[] = [
+  { value: "fc1",        label: "FC1次（最速含む）" },
+  { value: "fc2",        label: "FC2次" },
+  { value: "general",    label: "一般" },
+  { value: "revival",    label: "復活当選" },
+  { value: "production", label: "制作開放" },
+];
+
+function Label({ children, required }: { children: React.ReactNode; required?: boolean }) {
+  return (
+    <label className="mb-1.5 block text-xs font-bold text-gray-700">
+      {children}
+      {required && <span className="ml-1 text-red-500">*</span>}
+    </label>
+  );
+}
+
+function Card({ children }: { children: React.ReactNode }) {
+  return <div className="rounded-2xl bg-white p-4 shadow-sm">{children}</div>;
+}
+
+function PillGroup<T extends string>({
+  options,
+  value,
+  onChange,
 }: {
-  params: Promise<{ id: string }>;
+  options: { value: T; label: string }[];
+  value: T | "";
+  onChange: (v: T) => void;
 }) {
+  return (
+    <div className="flex flex-wrap gap-2">
+      {options.map((opt) => (
+        <button
+          key={opt.value}
+          type="button"
+          onClick={() => onChange(opt.value)}
+          className={`rounded-full border px-3.5 py-1.5 text-xs font-semibold transition-all ${
+            value === opt.value
+              ? "border-[var(--accent)] bg-[var(--accent)] text-white"
+              : "border-gray-200 bg-white text-gray-600 hover:border-[var(--accent)]"
+          }`}
+        >
+          {opt.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+export default function ReportPage({ params }: { params: Promise<{ id: string }> }) {
   const { id: eventId } = use(params);
   const router = useRouter();
 
-  const [block, setBlock] = useState("");
-  const [rowNum, setRowNum] = useState("");
-  const [seatNum, setSeatNum] = useState("");
-  const [lotteryType, setLotteryType] = useState<string>("fc1");
-  const [comment, setComment] = useState("");
-  const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState("");
+  const [events,          setEvents]          = useState<CrawledEvent[]>([]);
+  const [selectedEventId, setSelectedEventId] = useState(eventId);
+  const [blockPrefix,     setBlockPrefix]     = useState("");
+  const [blockNum,        setBlockNum]        = useState("");
+  const [rowNum,          setRowNum]          = useState("");
+  const [ticketCount,     setTicketCount]     = useState(1);
+  const [leftSeatNum,     setLeftSeatNum]     = useState("");
+  const [lotteryType,     setLotteryType]     = useState<string>("");
+  const [isUpgrade,       setIsUpgrade]       = useState(false);
+  const [paymentMethod,   setPaymentMethod]   = useState<string>("");
+  const [submitting,      setSubmitting]      = useState(false);
+  const [error,           setError]           = useState("");
+
+  useEffect(() => {
+    supabase
+      .from("events")
+      .select("id, title, venue, venue_id, date, genre, lottery_types")
+      .order("date", { ascending: true })
+      .limit(200)
+      .then(({ data }) => { if (data) setEvents(data as CrawledEvent[]); });
+  }, []);
+
+  function fmtDate(d: string | null) {
+    if (!d) return "日程未定";
+    const [y, m, day] = d.split("-").map(Number);
+    const w = ["日","月","火","水","木","金","土"][new Date(y, m - 1, day).getDay()];
+    return `${y}/${m}/${day}(${w})`;
+  }
+
+  const blockFull = blockPrefix + blockNum;
+
+  const selectedEvent = events.find((ev) => ev.id === selectedEventId);
+  const lotteryOptions = selectedEvent?.lottery_types?.length
+    ? ALL_LOTTERY_OPTIONS.filter((o) => selectedEvent.lottery_types!.includes(o.value))
+    : ALL_LOTTERY_OPTIONS;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
-    const row = parseInt(rowNum, 10);
-    const seat = parseInt(seatNum, 10);
-    if (!block.trim()) { setError("ブロック名を入力してください"); return; }
-    if (!row || row < 1) { setError("列番号は1以上の数値を入力してください"); return; }
-    if (!seat || seat < 1) { setError("席番号は1以上の数値を入力してください"); return; }
+    const row      = parseInt(rowNum, 10);
+    const leftSeat = parseInt(leftSeatNum, 10);
+
+    if (!selectedEventId)      { setError("ツアー日程を選択してください"); return; }
+    if (!blockPrefix)          { setError("ブロックを選択してください"); return; }
+    if (!blockNum.trim())      { setError("ブロック番号を入力してください"); return; }
+    if (!row || row < 1)       { setError("列番号は1以上の数値を入力してください"); return; }
+    if (!leftSeat || leftSeat < 1) { setError("座席番号は1以上の数値を入力してください"); return; }
 
     setSubmitting(true);
-    const { error: dbErr } = await supabase.from("seat_reports").insert({
-      id: randomId(),
-      event_id: eventId,
-      block: block.trim(),
-      row_num: row,
-      seat_num: seat,
-      lottery_type: lotteryType,
-      comment: comment.trim() || null,
-    });
 
+    // 連番の座席を生成
+    const effectiveLottery = isUpgrade ? "upgrade" : (lotteryType || "fc1");
+    const rows = Array.from({ length: ticketCount }, (_, i) => ({
+      id: randomId(),
+      event_id: selectedEventId,
+      block: blockFull.trim(),
+      row_num: row,
+      seat_num: leftSeat + i,
+      lottery_type: effectiveLottery,
+      comment: null,
+    }));
+
+    const { error: dbErr } = await supabase.from("seat_reports").insert(rows);
     if (dbErr) {
       setError("投稿に失敗しました: " + dbErr.message);
       setSubmitting(false);
       return;
     }
 
-    router.push(`/events/${eventId}?reported=1`);
+    router.push(`/events/${selectedEventId}?reported=1`);
   };
+
+  const seatHint = ticketCount === 1
+    ? "お手元の番号を入力してください。"
+    : "一番左（最小番号）を入力してください。不明な場合はお手元の番号で構いません。";
+
+  const previewSeats = leftSeatNum
+    ? Array.from({ length: ticketCount }, (_, i) => parseInt(leftSeatNum, 10) + i)
+        .filter((n) => !isNaN(n))
+    : [];
 
   return (
     <div className="min-h-screen bg-gray-50 pb-10">
-      {/* ヘッダー */}
       <header className="sticky top-0 z-40 border-b border-gray-100 bg-white/90 px-4 py-3 backdrop-blur-md">
         <div className="flex items-center gap-3">
           <Link href={`/events/${eventId}`} className="text-gray-500 hover:text-gray-700">
@@ -70,89 +161,161 @@ export default function ReportPage({
         </div>
       </header>
 
-      <form onSubmit={handleSubmit} className="mx-auto max-w-md space-y-4 px-4 pt-5">
-        {/* ブロック */}
-        <div className="rounded-2xl bg-white p-4 shadow-sm">
-          <label className="mb-1.5 block text-xs font-bold text-gray-700">
-            ブロック / エリア名 <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="text"
-            value={block}
-            onChange={(e) => setBlock(e.target.value)}
-            placeholder="例: A3, アリーナB, SS席"
-            className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/20"
-          />
-        </div>
+      <form onSubmit={handleSubmit} className="mx-auto max-w-md space-y-3 px-4 pt-5">
 
-        {/* 列・席 */}
-        <div className="rounded-2xl bg-white p-4 shadow-sm">
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className="mb-1.5 block text-xs font-bold text-gray-700">
-                列番号 <span className="text-red-500">*</span>
-              </label>
+        {/* ① ツアー選択 */}
+        <Card>
+          <Label required>ツアー・日程</Label>
+          <select
+            value={selectedEventId}
+            onChange={(e) => setSelectedEventId(e.target.value)}
+            className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/20"
+          >
+            <option value="">選択してください</option>
+            {events.map((ev) => (
+              <option key={ev.id} value={ev.id}>
+                {fmtDate(ev.date)}　{ev.title}　{ev.venue}
+              </option>
+            ))}
+          </select>
+        </Card>
+
+        {/* ② ブロック + ブロック番号 */}
+        <Card>
+          <Label required>ブロック</Label>
+          <div className="flex gap-2">
+            {/* ブロック選択 */}
+            <select
+              value={blockPrefix}
+              onChange={(e) => setBlockPrefix(e.target.value)}
+              className="w-24 rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/20"
+            >
+              <option value="">--</option>
+              {BLOCK_PREFIXES.map((p) => (
+                <option key={p} value={p}>{p}</option>
+              ))}
+            </select>
+            {/* ブロック番号 */}
+            <div className="flex-1">
               <input
-                type="number"
-                min="1"
-                value={rowNum}
-                onChange={(e) => setRowNum(e.target.value)}
-                placeholder="例: 5"
-                className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/20"
-              />
-            </div>
-            <div>
-              <label className="mb-1.5 block text-xs font-bold text-gray-700">
-                席番号 <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="number"
-                min="1"
-                value={seatNum}
-                onChange={(e) => setSeatNum(e.target.value)}
-                placeholder="例: 12"
+                type="text"
+                inputMode="numeric"
+                value={blockNum}
+                onChange={(e) => setBlockNum(e.target.value.replace(/[^0-9]/g, ""))}
+                placeholder="番号（例: 3）"
                 className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/20"
               />
             </div>
           </div>
-        </div>
+          {blockFull && (
+            <p className="mt-1.5 text-[11px] text-gray-400">
+              ブロック名: <span className="font-bold text-gray-600">{blockFull}</span>
+            </p>
+          )}
+        </Card>
 
-        {/* 抽選種別 */}
-        <div className="rounded-2xl bg-white p-4 shadow-sm">
-          <label className="mb-2 block text-xs font-bold text-gray-700">
-            抽選種別 <span className="text-red-500">*</span>
-          </label>
-          <div className="flex flex-wrap gap-2">
-            {SEAT_LOTTERY_OPTIONS.map((opt) => (
+        {/* ③ 列 */}
+        <Card>
+          <Label required>列</Label>
+          <input
+            type="number"
+            inputMode="numeric"
+            min="1"
+            value={rowNum}
+            onChange={(e) => setRowNum(e.target.value)}
+            placeholder="例: 5"
+            className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/20"
+          />
+        </Card>
+
+        {/* ④ 申込枚数 */}
+        <Card>
+          <Label required>申込枚数</Label>
+          <div className="flex gap-2">
+            {[1, 2, 3, 4].map((n) => (
               <button
-                key={opt.value}
+                key={n}
                 type="button"
-                onClick={() => setLotteryType(opt.value)}
-                className={`rounded-full border px-3.5 py-1.5 text-xs font-semibold transition-all ${
-                  lotteryType === opt.value
+                onClick={() => setTicketCount(n)}
+                className={`flex-1 rounded-xl border py-2.5 text-sm font-bold transition-all ${
+                  ticketCount === n
                     ? "border-[var(--accent)] bg-[var(--accent)] text-white"
                     : "border-gray-200 bg-white text-gray-600 hover:border-[var(--accent)]"
                 }`}
               >
-                {opt.label}
+                {n}枚
               </button>
             ))}
           </div>
-        </div>
+        </Card>
 
-        {/* コメント */}
-        <div className="rounded-2xl bg-white p-4 shadow-sm">
-          <label className="mb-1.5 block text-xs font-bold text-gray-700">
-            コメント（任意）
-          </label>
-          <textarea
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-            placeholder="花道が近かった、見やすかった など"
-            rows={3}
-            className="w-full resize-none rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/20"
+        {/* ⑤ 座席番号 */}
+        <Card>
+          <Label required>座席番号</Label>
+          <p className="mb-2 text-[11px] leading-snug text-gray-500">{seatHint}</p>
+          <input
+            type="number"
+            inputMode="numeric"
+            min="1"
+            value={leftSeatNum}
+            onChange={(e) => setLeftSeatNum(e.target.value)}
+            placeholder="例: 12"
+            className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/20"
           />
-        </div>
+          {previewSeats.length > 1 && (
+            <p className="mt-1.5 text-[11px] text-gray-400">
+              保存される座席:&nbsp;
+              <span className="font-bold text-gray-600">{previewSeats.join("・")}番</span>
+            </p>
+          )}
+        </Card>
+
+        {/* ⑥ 任意項目 */}
+        <Card>
+          <p className="mb-3 text-xs font-bold text-gray-400">任意項目</p>
+
+          {/* 抽選枠 */}
+          <div className="mb-4">
+            <Label>抽選枠</Label>
+            <PillGroup
+              options={lotteryOptions}
+              value={lotteryType as string}
+              onChange={setLotteryType}
+            />
+          </div>
+
+          {/* アプグレ */}
+          <div className="mb-4 flex items-center gap-3">
+            <button
+              type="button"
+              onClick={() => setIsUpgrade((v) => !v)}
+              className={`flex h-5 w-9 shrink-0 items-center rounded-full transition-colors ${
+                isUpgrade ? "bg-[var(--accent)]" : "bg-gray-200"
+              }`}
+            >
+              <span
+                className={`h-4 w-4 rounded-full bg-white shadow transition-transform ${
+                  isUpgrade ? "translate-x-4" : "translate-x-0.5"
+                }`}
+              />
+            </button>
+            <span className="text-xs text-gray-700">アップグレード当選だった</span>
+          </div>
+
+          {/* 支払い方法 */}
+          <div>
+            <Label>支払い方法</Label>
+            <PillGroup
+              options={[
+                { value: "credit",       label: "クレカ" },
+                { value: "convenience",  label: "コンビニ" },
+                { value: "other",        label: "その他" },
+              ]}
+              value={paymentMethod as string}
+              onChange={setPaymentMethod}
+            />
+          </div>
+        </Card>
 
         {/* エラー */}
         {error && (

@@ -111,6 +111,28 @@ export type CrawledEvent = {
   venue_id: string;
   date: string | null;
   genre: Event["genre"];
+  lottery_types?: string[];
+};
+
+/** 答え合わせ報告 (after_reportsテーブル) */
+export type AfterReport = {
+  id: string;
+  event_id: string;
+  photo_paths: string[];
+  hanamichi: "yes" | "no" | "unknown" | null;
+  hanamichi_blocks: string[];
+  torokko: "yes" | "no" | "unknown" | null;
+  torokko_route: string | null;
+  center_stage: "yes" | "no" | "unknown" | null;
+  center_stage_pos: string | null;
+  kyakukudari: "yes" | "no" | "unknown" | null;
+  kyakukudari_blocks: string[];
+  silver_tape_rows: number | null;
+  visibility: number | null;
+  fansa: boolean | null;
+  satisfaction: number | null;
+  memo: string | null;
+  created_at: string;
 };
 
 /** 同会場の過去公演座席実績 (historical_patternsテーブル) */

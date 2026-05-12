@@ -206,10 +206,18 @@ function AllBlocksOverview({
   function renderBlock(block: string) {
     const reports    = blockMap.get(block) ?? [];
     const hasReports = reports.length > 0;
-    const dim        = dimLookup.get(block);
 
-    const maxRow  = dim?.maxRow  ?? (hasReports ? Math.max(...reports.map((r) => r.row_num))  : 8);
-    const maxSeat = dim?.maxSeat ?? (hasReports ? Math.max(...reports.map((r) => r.seat_num)) : 10);
+    let maxRow: number;
+    let maxSeat: number;
+    if (!hasReports) {
+      maxRow = 5; maxSeat = 8;
+    } else if (reports.length <= 3) {
+      maxRow  = Math.min(Math.max(...reports.map((r) => r.row_num))  + 2, 6);
+      maxSeat = Math.min(Math.max(...reports.map((r) => r.seat_num)) + 3, 10);
+    } else {
+      maxRow  = Math.min(Math.max(...reports.map((r) => r.row_num))  + 2, 20);
+      maxSeat = Math.min(Math.max(...reports.map((r) => r.seat_num)) + 3, 30);
+    }
 
     const reportedMap = new Map<string, string>();
     for (const r of reports) reportedMap.set(`${r.row_num}-${r.seat_num}`, r.lottery_type);
@@ -343,7 +351,8 @@ export default function EventDetailPage({
 }) {
   const { id: eventId } = use(params);
   const searchParams = useSearchParams();
-  const justReported = searchParams.get("reported") === "1";
+  const justReported      = searchParams.get("reported")       === "1";
+  const justAfterReported = searchParams.get("after_reported") === "1";
 
   const [event,     setEvent]     = useState<CrawledEvent | null>(null);
   const [reports,   setReports]   = useState<SeatReport[]>([]);
@@ -352,14 +361,18 @@ export default function EventDetailPage({
   const [loading,   setLoading]   = useState(true);
   const [analysis,  setAnalysis]  = useState("");
   const [analyzing, setAnalyzing] = useState(false);
-  const [showToast, setShowToast] = useState(justReported);
+  const [showToast, setShowToast] = useState(justReported || justAfterReported);
+
+  const isPast = event?.date
+    ? event.date < new Date().toISOString().slice(0, 10)
+    : false;
 
   useEffect(() => {
     async function load() {
       const [evRes, repRes, layoutRes] = await Promise.all([
         supabase
           .from("events")
-          .select("id, title, venue, venue_id, date, genre")
+          .select("id, title, venue, venue_id, date, genre, lottery_types")
           .eq("id", eventId)
           .single(),
         supabase
@@ -532,19 +545,29 @@ export default function EventDetailPage({
         <div className="px-4 pt-8 text-center text-sm text-gray-500">公演が見つかりません</div>
       )}
 
-      {/* 報告 FAB */}
-      <Link
-        href={`/events/${eventId}/report`}
-        className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 flex items-center gap-2 rounded-full bg-[var(--accent)] px-6 py-3.5 text-sm font-bold text-white shadow-lg transition-all hover:bg-[var(--accent-dark)] active:scale-95"
-      >
-        <span>✍️</span>
-        <span>座席を報告する</span>
-      </Link>
+      {/* FAB: 公演前→座席報告 / 公演後→答え合わせ */}
+      {isPast ? (
+        <Link
+          href={`/events/${eventId}/after-report`}
+          className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 flex items-center gap-2 rounded-full bg-rose-500 px-6 py-3.5 text-sm font-bold text-white shadow-lg transition-all hover:bg-rose-600 active:scale-95"
+        >
+          <span>🎉</span>
+          <span>答え合わせを投稿する</span>
+        </Link>
+      ) : (
+        <Link
+          href={`/events/${eventId}/report`}
+          className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 flex items-center gap-2 rounded-full bg-[var(--accent)] px-6 py-3.5 text-sm font-bold text-white shadow-lg transition-all hover:bg-[var(--accent-dark)] active:scale-95"
+        >
+          <span>✍️</span>
+          <span>座席を報告する</span>
+        </Link>
+      )}
 
-      {/* 報告完了トースト */}
+      {/* 完了トースト */}
       {showToast && (
         <div className="fixed bottom-20 left-1/2 z-50 -translate-x-1/2 rounded-2xl bg-gray-900 px-5 py-3 text-xs font-semibold text-white shadow-lg">
-          報告ありがとう！ 🎉
+          {justAfterReported ? "答え合わせ投稿ありがとう！ 🎉" : "報告ありがとう！ 🎉"}
         </div>
       )}
     </div>
