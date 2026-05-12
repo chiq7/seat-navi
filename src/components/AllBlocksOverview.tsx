@@ -130,19 +130,44 @@ export function AllBlocksOverview({
     );
   }
 
-  const sortedBlocks = [...allBlocks].sort((a, b) => {
-    const pa = parseBlock(a), pb = parseBlock(b);
-    if (!pa || !pb) return a.localeCompare(b);
-    if (pa.prefix !== pb.prefix) return pa.prefix.localeCompare(pb.prefix);
-    return pa.num - pb.num;
-  });
+  // ブロック名 → prefix / num に分解して2Dグリッド配置
+  const positions = new Map<string, { prefix: string; num: number }>();
+  for (const block of allBlocks) {
+    const p = parseBlock(block);
+    if (p) positions.set(block, p);
+  }
+
+  const prefixes = [...new Set([...positions.values()].map((p) => p.prefix))]
+    .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+  const nums = [...new Set([...positions.values()].map((p) => p.num))]
+    .sort((a, b) => a - b);
+
+  const cellLookup = new Map<string, string>();
+  for (const [block, { prefix, num }] of positions) {
+    cellLookup.set(`${prefix}__${num}`, block);
+  }
 
   return (
     <>
-      <div className="flex flex-wrap gap-3">
-        {sortedBlocks.map((block) => (
-          <div key={block}>{renderBlock(block)}</div>
-        ))}
+      <div className="overflow-x-auto">
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: `repeat(${nums.length}, auto)`,
+            gap: "6px",
+          }}
+        >
+          {prefixes.flatMap((prefix) =>
+            nums.map((num) => {
+              const block = cellLookup.get(`${prefix}__${num}`);
+              return (
+                <div key={`${prefix}__${num}`}>
+                  {block ? renderBlock(block) : null}
+                </div>
+              );
+            })
+          )}
+        </div>
       </div>
 
       <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-gray-100 pt-2.5">
