@@ -285,136 +285,157 @@ export default function EventDetailPage({
             {/* フォーム（スマホ: 下 / PC: 左） */}
             <form
               onSubmit={handleSubmit}
-              className="order-last md:order-first space-y-3"
+              className="order-last md:order-first rounded-2xl bg-white p-4 shadow-sm"
               style={{ flex: "0 0 40%" }}
             >
-              <p className="text-xs font-bold text-gray-700">座席を報告する</p>
+              <p className="mb-3 text-xs font-bold text-gray-700">座席を報告する</p>
 
-              {/* ブロック */}
-              <Card>
-                <Label required>ブロック</Label>
-                <div className="flex gap-2">
-                  <select
-                    value={blockPrefix}
-                    onChange={(e) => setBlockPrefix(e.target.value)}
-                    className="w-24 rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/20"
-                  >
-                    <option value="">--</option>
-                    {BLOCK_PREFIXES.map((p) => (
-                      <option key={p} value={p}>{p}</option>
-                    ))}
-                  </select>
-                  <input
-                    type="text"
-                    inputMode="numeric"
-                    value={blockNum}
-                    onChange={(e) => setBlockNum(e.target.value.replace(/[^0-9]/g, ""))}
-                    placeholder="番号（例: 3）"
-                    className="flex-1 rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/20"
-                  />
-                </div>
-                {blockFull && (
-                  <p className="mt-1.5 text-[11px] text-gray-400">
-                    ブロック名: <span className="font-bold text-gray-600">{blockFull}</span>
-                  </p>
-                )}
-              </Card>
-
-              {/* 列 */}
-              <Card>
-                <Label required>列</Label>
-                <input
-                  type="number"
-                  inputMode="numeric"
-                  min="1"
-                  value={rowNum}
-                  onChange={(e) => setRowNum(e.target.value)}
-                  placeholder="例: 5"
-                  className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/20"
-                />
-              </Card>
-
-              {/* 申込枚数 */}
-              <Card>
-                <Label required>申込枚数</Label>
-                <div className="flex gap-2">
-                  {[1, 2, 3, 4].map((n) => (
-                    <button
-                      key={n}
-                      type="button"
-                      onClick={() => setTicketCount(n)}
-                      className={`flex-1 rounded-xl border py-2.5 text-sm font-bold transition-all ${
-                        ticketCount === n
-                          ? "border-[var(--accent)] bg-[var(--accent)] text-white"
-                          : "border-gray-200 bg-white text-gray-600 hover:border-[var(--accent)]"
-                      }`}
-                    >
-                      {n}枚
-                    </button>
-                  ))}
-                </div>
-              </Card>
-
-              {/* 座席番号 */}
-              <Card>
-                <Label required>座席番号</Label>
-                <p className="mb-2 text-[11px] leading-snug text-gray-500">{seatHint}</p>
-                <input
-                  type="number"
-                  inputMode="numeric"
-                  min="1"
-                  value={leftSeatNum}
-                  onChange={(e) => setLeftSeatNum(e.target.value)}
-                  placeholder="例: 12"
-                  className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/20"
-                />
-                {previewSeats.length > 1 && (
-                  <p className="mt-1.5 text-[11px] text-gray-400">
-                    保存される座席: <span className="font-bold text-gray-600">{previewSeats.join("・")}番</span>
-                  </p>
-                )}
-              </Card>
-
-              {/* 任意項目 */}
-              <Card>
-                <p className="mb-3 text-xs font-bold text-gray-400">任意項目</p>
-
-                <div className="mb-4">
-                  <Label>抽選枠</Label>
-                  <PillGroup options={lotteryOptions} value={lotteryType} onChange={setLotteryType} />
-                </div>
-
-                <div className="mb-4 flex items-center gap-3">
-                  <button
-                    type="button"
-                    onClick={() => setIsUpgrade((v) => !v)}
-                    className={`flex h-5 w-9 shrink-0 items-center rounded-full transition-colors ${
-                      isUpgrade ? "bg-[var(--accent)]" : "bg-gray-200"
-                    }`}
-                  >
-                    <span className={`h-4 w-4 rounded-full bg-white shadow transition-transform ${
-                      isUpgrade ? "translate-x-4" : "translate-x-0.5"
-                    }`} />
-                  </button>
-                  <span className="text-xs text-gray-700">アップグレード当選だった</span>
-                </div>
-
+              <div className="space-y-3">
+                {/* 申込枚数 */}
                 <div>
-                  <Label>支払い方法</Label>
-                  <PillGroup
-                    options={[
-                      { value: "credit",      label: "クレカ" },
-                      { value: "convenience", label: "コンビニ" },
-                      { value: "other",       label: "その他" },
-                    ]}
-                    value={paymentMethod}
-                    onChange={setPaymentMethod}
-                  />
+                  <p className="mb-1 text-[11px] font-bold text-gray-500">申込枚数 <span className="text-red-400">*</span></p>
+                  <div className="flex gap-1.5">
+                    {[1, 2, 3, 4].map((n) => (
+                      <button
+                        key={n}
+                        type="button"
+                        onClick={() => setTicketCount(n)}
+                        className={`flex-1 rounded-lg border py-2 text-xs font-bold transition-all ${
+                          ticketCount === n
+                            ? "border-[var(--accent)] bg-[var(--accent)] text-white"
+                            : "border-gray-200 bg-gray-50 text-gray-600"
+                        }`}
+                      >
+                        {n}枚
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </Card>
+
+                {/* ブロック・番号・列 横一列 */}
+                <div>
+                  <p className="mb-1 text-[11px] font-bold text-gray-500">ブロック / 列 <span className="text-red-400">*</span></p>
+                  <div className="flex gap-1.5">
+                    <select
+                      value={blockPrefix}
+                      onChange={(e) => setBlockPrefix(e.target.value)}
+                      className="w-16 rounded-lg border border-gray-200 bg-gray-50 px-1.5 py-2 text-xs outline-none focus:border-[var(--accent)]"
+                    >
+                      <option value="">--</option>
+                      {BLOCK_PREFIXES.map((p) => (
+                        <option key={p} value={p}>{p}</option>
+                      ))}
+                    </select>
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      value={blockNum}
+                      onChange={(e) => setBlockNum(e.target.value.replace(/[^0-9]/g, ""))}
+                      placeholder="番号"
+                      className="w-16 rounded-lg border border-gray-200 bg-gray-50 px-2 py-2 text-xs outline-none focus:border-[var(--accent)]"
+                    />
+                    <input
+                      type="number"
+                      inputMode="numeric"
+                      min="1"
+                      value={rowNum}
+                      onChange={(e) => setRowNum(e.target.value)}
+                      placeholder="列"
+                      className="w-16 rounded-lg border border-gray-200 bg-gray-50 px-2 py-2 text-xs outline-none focus:border-[var(--accent)]"
+                    />
+                  </div>
+                  {blockFull && (
+                    <p className="mt-1 text-[10px] text-gray-400">
+                      ブロック: <span className="font-bold text-gray-600">{blockFull}</span>
+                    </p>
+                  )}
+                </div>
+
+                {/* 座席番号 */}
+                <div>
+                  <p className="mb-1 text-[11px] font-bold text-gray-500">座席番号 <span className="text-red-400">*</span></p>
+                  <p className="mb-1 text-[10px] text-gray-400">{seatHint}</p>
+                  <input
+                    type="number"
+                    inputMode="numeric"
+                    min="1"
+                    value={leftSeatNum}
+                    onChange={(e) => setLeftSeatNum(e.target.value)}
+                    placeholder="例: 12"
+                    className="w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm outline-none focus:border-[var(--accent)]"
+                  />
+                  {previewSeats.length > 1 && (
+                    <p className="mt-1 text-[10px] text-gray-400">
+                      保存: <span className="font-bold text-gray-600">{previewSeats.join("・")}番</span>
+                    </p>
+                  )}
+                </div>
+
+                {/* 任意項目 */}
+                <div className="border-t border-gray-100 pt-3">
+                  <p className="mb-2 text-[10px] font-bold text-gray-400">任意</p>
+
+                  {/* 抽選枠 */}
+                  <div className="mb-2">
+                    <p className="mb-1 text-[10px] text-gray-500">抽選枠</p>
+                    <div className="flex flex-wrap gap-1">
+                      {lotteryOptions.map((opt) => (
+                        <button
+                          key={opt.value}
+                          type="button"
+                          onClick={() => setLotteryType(opt.value)}
+                          className={`rounded-full border px-2.5 py-1 text-[10px] font-semibold transition-all ${
+                            lotteryType === opt.value
+                              ? "border-[var(--accent)] bg-[var(--accent)] text-white"
+                              : "border-gray-200 bg-gray-50 text-gray-500"
+                          }`}
+                        >
+                          {opt.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* アプグレ + 支払い 横並び */}
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+                    <button
+                      type="button"
+                      onClick={() => setIsUpgrade((v) => !v)}
+                      className="flex items-center gap-1.5"
+                    >
+                      <span className={`flex h-4 w-8 shrink-0 items-center rounded-full transition-colors ${isUpgrade ? "bg-[var(--accent)]" : "bg-gray-200"}`}>
+                        <span className={`h-3 w-3 rounded-full bg-white shadow transition-transform ${isUpgrade ? "translate-x-4" : "translate-x-0.5"}`} />
+                      </span>
+                      <span className="text-[10px] text-gray-600">アプグレ</span>
+                    </button>
+
+                    <div className="flex items-center gap-1">
+                      <span className="text-[10px] text-gray-500">支払い</span>
+                      {[
+                        { value: "credit", label: "クレカ" },
+                        { value: "convenience", label: "コンビニ" },
+                        { value: "other", label: "他" },
+                      ].map((opt) => (
+                        <button
+                          key={opt.value}
+                          type="button"
+                          onClick={() => setPaymentMethod(opt.value)}
+                          className={`rounded-full border px-2 py-0.5 text-[10px] font-semibold transition-all ${
+                            paymentMethod === opt.value
+                              ? "border-[var(--accent)] bg-[var(--accent)] text-white"
+                              : "border-gray-200 bg-gray-50 text-gray-500"
+                          }`}
+                        >
+                          {opt.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
 
               {formError && (
-                <div className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-600">{formError}</div>
+                <div className="mt-2 rounded-lg bg-red-50 px-3 py-2 text-xs text-red-600">{formError}</div>
               )}
 
               <button
