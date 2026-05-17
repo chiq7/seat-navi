@@ -47,80 +47,126 @@ function daysUntil(dateStr: string | null): number | null {
 }
 
 // ---------------------------------------------------------------------------
-// 座席予想フォーム
+// リアルタイム座席予想マップカード
 // ---------------------------------------------------------------------------
 
-function ArtistSeatCheckForm({
+type BlockStat = { count: number; upgrade: number; fc: number };
+
+function SeatPredictionMapCard({
   artistName,
   totalSeat,
+  reports,
+  firstEventId,
 }: {
   artistName: string;
   totalSeat: number;
+  reports: (SeatReport & { event_id: string })[];
+  firstEventId?: string;
 }) {
-  const [venue,  setVenue]  = useState("");
-  const [event,  setEvent]  = useState("");
-  const [seat,   setSeat]   = useState("");
+  const blockStats = useMemo(() => {
+    const map = new Map<string, BlockStat>();
+    for (const r of reports) {
+      if (!map.has(r.block)) map.set(r.block, { count: 0, upgrade: 0, fc: 0 });
+      const s = map.get(r.block)!;
+      s.count++;
+      if (r.lottery_type === "upgrade") s.upgrade++;
+      if (r.lottery_type === "fc1" || r.lottery_type === "fc2") s.fc++;
+    }
+    return [...map.entries()].sort((a, b) => b[1].count - a[1].count);
+  }, [reports]);
+
+  const maxCount = blockStats[0]?.[1].count ?? 1;
+  const upgradeBlocks = blockStats.filter(([, s]) => s.upgrade > 0).map(([b]) => b);
+  const fcBlocks      = blockStats.filter(([, s]) => s.fc > 0).map(([b]) => b);
 
   return (
     <div className="rounded-2xl bg-white shadow-sm overflow-hidden">
-      {/* ヘッダー帯 */}
-      <div className="bg-[var(--accent)] px-4 pt-4 pb-4">
-        <p className="text-sm font-extrabold text-white">{artistName}の座席を調べる</p>
-        {totalSeat > 0 ? (
-          <p className="mt-0.5 text-[11px] text-violet-200">{totalSeat}件の座席報告からリアルタイム予想</p>
-        ) : (
-          <p className="mt-0.5 text-[11px] text-violet-200">会場・座席番号を入力して調べよう</p>
-        )}
+      {/* ヘッダー */}
+      <div className="px-4 pt-4 pb-3 border-b border-gray-100">
+        <p className="text-sm font-extrabold text-gray-900">{artistName} 座席予想マップ</p>
+        <p className="mt-0.5 text-xs text-gray-500">
+          {totalSeat > 0
+            ? `${totalSeat}件の座席報告をもとに、ブロック配置・良席傾向・アプグレ傾向を予想中`
+            : "まだ座席報告がありません。最初の報告者になりませんか？"}
+        </p>
       </div>
 
-      {/* 入力エリア */}
-      <div className="px-4 pt-4 pb-4 space-y-3">
-        <div>
-          <label className="mb-1 block text-[10px] font-bold text-gray-500">会場</label>
-          <input
-            type="text"
-            value={venue}
-            onChange={(e) => setVenue(e.target.value)}
-            placeholder="例：東京ドーム、京セラドーム"
-            className="w-full rounded-xl border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-gray-900 outline-none placeholder:text-gray-400 focus:border-[var(--accent)] focus:bg-white transition-colors"
-          />
+      {/* 本体 */}
+      {totalSeat > 0 && blockStats.length > 0 ? (
+        <div className="px-4 py-4 space-y-3">
+
+          {/* ブロック別報告数バー */}
+          <div>
+            <p className="mb-2 text-[10px] font-bold uppercase tracking-wide text-gray-400">報告が多いブロック</p>
+            <div className="space-y-2">
+              {blockStats.slice(0, 6).map(([block, stats]) => (
+                <div key={block} className="flex items-center gap-2">
+                  <span className="w-10 shrink-0 text-right text-xs font-bold text-gray-700">{block}</span>
+                  <div className="flex-1 overflow-hidden rounded-full bg-gray-100 h-2">
+                    <div
+                      className="h-2 rounded-full bg-[var(--accent)]"
+                      style={{ width: `${Math.round((stats.count / maxCount) * 100)}%` }}
+                    />
+                  </div>
+                  <span className="w-6 shrink-0 text-[10px] text-gray-400 text-right">{stats.count}</span>
+                  {stats.upgrade > 0 && (
+                    <span className="rounded bg-amber-100 px-1.5 py-0.5 text-[9px] font-bold text-amber-600">UP</span>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* 傾向チップ */}
+          <div className="flex flex-wrap gap-2">
+            {upgradeBlocks.length > 0 && (
+              <div className="rounded-xl bg-amber-50 px-3 py-2 flex-1 min-w-0">
+                <p className="text-[10px] font-bold text-amber-700">⚡ アプグレ報告あり</p>
+                <p className="mt-0.5 truncate text-xs text-amber-800">{upgradeBlocks.slice(0,4).join(" / ")}</p>
+              </div>
+            )}
+            {fcBlocks.length > 0 && (
+              <div className="rounded-xl bg-violet-50 px-3 py-2 flex-1 min-w-0">
+                <p className="text-[10px] font-bold text-violet-700">🎫 FC報告あり</p>
+                <p className="mt-0.5 truncate text-xs text-violet-800">{fcBlocks.slice(0,4).join(" / ")}</p>
+              </div>
+            )}
+          </div>
         </div>
-        <div>
-          <label className="mb-1 block text-[10px] font-bold text-gray-500">公演</label>
-          <input
-            type="text"
-            value={event}
-            onChange={(e) => setEvent(e.target.value)}
-            placeholder="例：SEVENTEEN TOUR 2025"
-            className="w-full rounded-xl border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-gray-900 outline-none placeholder:text-gray-400 focus:border-[var(--accent)] focus:bg-white transition-colors"
-          />
+      ) : (
+        <div className="flex flex-col items-center py-8 text-center">
+          <span className="text-4xl">🗺️</span>
+          <p className="mt-2 text-xs text-gray-400">報告が集まり次第、予想マップを表示します</p>
         </div>
-        <div>
-          <label className="mb-1 block text-[10px] font-bold text-gray-500">座席情報</label>
-          <input
-            type="text"
-            value={seat}
-            onChange={(e) => setSeat(e.target.value)}
-            placeholder="例：1塁側 24列 180番"
-            className="w-full rounded-xl border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-gray-900 outline-none placeholder:text-gray-400 focus:border-[var(--accent)] focus:bg-white transition-colors"
-          />
-        </div>
-        <Link
-          href={`/chat?venue=${encodeURIComponent(venue)}&event=${encodeURIComponent(event)}&seat=${encodeURIComponent(seat)}&artist=${encodeURIComponent(artistName)}`}
-          className="flex w-full items-center justify-center gap-2 rounded-xl bg-[var(--accent)] py-3 text-sm font-bold text-white transition-all active:scale-95"
-        >
-          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
-          座席の見え方をチェック
-        </Link>
+      )}
+
+      {/* CTA */}
+      <div className="px-4 pb-4 flex gap-2">
+        {firstEventId ? (
+          <>
+            <Link
+              href={`/events/${firstEventId}`}
+              className="flex flex-1 items-center justify-center rounded-xl bg-[var(--accent)] py-2.5 text-xs font-bold text-white transition-all active:scale-95"
+            >
+              この公演の座席を見る
+            </Link>
+            <Link
+              href={`/events/${firstEventId}/report`}
+              className="flex flex-1 items-center justify-center rounded-xl border border-gray-200 bg-white py-2.5 text-xs font-semibold text-gray-700 transition-all active:scale-95"
+            >
+              座席を報告する
+            </Link>
+          </>
+        ) : (
+          <p className="w-full text-center text-xs text-gray-400 py-2">公演情報を読み込み中…</p>
+        )}
       </div>
     </div>
   );
 }
 
 // ---------------------------------------------------------------------------
-// 公演カード
+// 公演カード（セトリリンクなし）
 // ---------------------------------------------------------------------------
 
 function EventCard({
@@ -137,7 +183,6 @@ function EventCard({
 
   return (
     <div className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
-      {/* 公演情報 */}
       <div className="mb-3">
         <div className="flex flex-wrap items-center gap-1.5 mb-1">
           <span className="text-xs font-bold text-gray-500">{fmtDate(ev.date)}</span>
@@ -149,7 +194,6 @@ function EventCard({
         <p className="mt-0.5 text-xs text-gray-500">{ev.venue}</p>
       </div>
 
-      {/* カウント行 */}
       <div className="flex gap-2 mb-3">
         <div className={`flex-1 rounded-xl px-3 py-2 text-center ${seatCount > 0 ? "bg-[var(--accent-light)]" : "bg-gray-50"}`}>
           <p className={`text-base font-extrabold ${seatCount > 0 ? "text-[var(--accent)]" : "text-gray-400"}`}>{seatCount}</p>
@@ -161,8 +205,7 @@ function EventCard({
         </div>
       </div>
 
-      {/* メインボタン行 */}
-      <div className="flex gap-2 mb-2">
+      <div className="flex gap-2">
         <Link
           href={`/events/${ev.id}`}
           className="flex flex-1 items-center justify-center rounded-xl bg-[var(--accent)] py-2.5 text-xs font-bold text-white transition-all active:scale-95"
@@ -170,22 +213,10 @@ function EventCard({
           座席を見る
         </Link>
         <Link
-          href={`/events/${ev.id}`}
+          href={`/events/${ev.id}/report`}
           className="flex flex-1 items-center justify-center rounded-xl border border-gray-200 bg-white py-2.5 text-xs font-semibold text-gray-700 transition-all active:scale-95"
         >
-          答え合わせ投稿
-        </Link>
-      </div>
-
-      {/* セトリリンク */}
-      <div className="text-center">
-        <Link
-          href={`/events/${ev.id}`}
-          className="inline-flex items-center gap-1 text-[11px] text-gray-400 underline-offset-2 hover:text-gray-600"
-        >
-          <span>🎵</span>
-          <span>セトリを見る</span>
-          <span className="text-[10px] text-red-400">※ネタバレ注意</span>
+          座席を報告
         </Link>
       </div>
     </div>
@@ -193,18 +224,22 @@ function EventCard({
 }
 
 // ---------------------------------------------------------------------------
-// 最新の座席報告
+// 最新の座席報告（3件）
 // ---------------------------------------------------------------------------
 
 function RecentReportsSection({
   reports,
   venueMap,
+  firstEventId,
   loading,
 }: {
   reports: (SeatReport & { event_id: string })[];
   venueMap: Map<string, string>;
+  firstEventId?: string;
   loading: boolean;
 }) {
+  const displayed = reports.slice(0, 3);
+
   return (
     <section>
       <p className="mb-3 text-sm font-extrabold text-gray-900">最新の座席報告</p>
@@ -218,38 +253,54 @@ function RecentReportsSection({
             </div>
           ))}
         </div>
-      ) : reports.length === 0 ? (
+      ) : displayed.length === 0 ? (
         <div className="flex flex-col items-center rounded-2xl bg-white py-10 shadow-sm">
           <span className="text-3xl">🪑</span>
           <p className="mt-2 text-sm font-semibold text-gray-600">まだ座席報告はありません</p>
           <p className="mt-1 text-xs text-gray-400">公演後に報告してね</p>
         </div>
       ) : (
-        <div className="space-y-2">
-          {reports.map((r) => (
-            <div key={r.id} className="rounded-2xl bg-white px-4 py-3.5 shadow-sm">
-              <div className="flex items-start justify-between gap-2">
-                <div className="min-w-0 flex-1">
-                  <div className="flex flex-wrap items-center gap-1.5 mb-1">
-                    <span className="rounded-md bg-[var(--accent-light)] px-2 py-0.5 text-xs font-bold text-[var(--accent)]">
-                      {r.block}ブロック
-                    </span>
-                    <span className="text-xs text-gray-700">{r.row_num}列 {r.seat_num}番</span>
-                    {r.lottery_type && (
-                      <span className="rounded-md bg-gray-100 px-2 py-0.5 text-[10px] text-gray-500">
-                        {LOTTERY_LABEL[r.lottery_type] ?? r.lottery_type}
+        <>
+          <div className="space-y-2">
+            {displayed.map((r) => (
+              <div key={r.id} className="rounded-2xl bg-white px-4 py-3.5 shadow-sm">
+                <div className="flex items-start justify-between gap-2">
+                  <div className="min-w-0 flex-1">
+                    <div className="flex flex-wrap items-center gap-1.5 mb-0.5">
+                      <span className="rounded-md bg-[var(--accent-light)] px-2 py-0.5 text-xs font-bold text-[var(--accent)]">
+                        {r.block}
                       </span>
+                      <span className="text-xs text-gray-700">{r.row_num}列 {r.seat_num}番</span>
+                      {r.lottery_type && (
+                        <span className="rounded-md bg-gray-100 px-2 py-0.5 text-[10px] text-gray-500">
+                          {LOTTERY_LABEL[r.lottery_type] ?? r.lottery_type}
+                        </span>
+                      )}
+                    </div>
+                    {venueMap.get(r.event_id) && (
+                      <p className="text-[11px] text-gray-400">{venueMap.get(r.event_id)}</p>
                     )}
                   </div>
-                  {venueMap.get(r.event_id) && (
-                    <p className="text-[11px] text-gray-400">{venueMap.get(r.event_id)}</p>
-                  )}
+                  <span className="shrink-0 text-[10px] text-gray-400">{fmtDatetime(r.created_at)}</span>
                 </div>
-                <span className="shrink-0 text-[10px] text-gray-400">{fmtDatetime(r.created_at)}</span>
               </div>
+            ))}
+          </div>
+
+          {firstEventId && (
+            <div className="mt-2 text-center">
+              <Link
+                href={`/events/${firstEventId}`}
+                className="inline-flex items-center gap-1 text-xs font-semibold text-[var(--accent)] underline-offset-2 hover:underline"
+              >
+                すべての座席報告を見る
+                <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
             </div>
-          ))}
-        </div>
+          )}
+        </>
       )}
     </section>
   );
@@ -272,9 +323,9 @@ function SetlistAccordion() {
         >
           <div>
             <p className="text-sm font-extrabold text-gray-900">セトリ情報</p>
-            <p className="mt-0.5 text-[11px] text-amber-600">ネタバレを含む可能性があります</p>
+            <p className="mt-0.5 text-[11px] text-amber-600">ネタバレを含む可能性があります。見たい人だけ開いてください。</p>
           </div>
-          <div className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gray-100 transition-transform ${open ? "rotate-180" : ""}`}>
+          <div className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gray-100 transition-transform duration-200 ${open ? "rotate-180" : ""}`}>
             <svg className="h-4 w-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
             </svg>
@@ -282,10 +333,10 @@ function SetlistAccordion() {
         </button>
 
         {open && (
-          <div className="border-t border-gray-100 px-4 py-6 text-center">
+          <div className="border-t border-gray-100 px-4 py-8 text-center">
             <span className="text-3xl">🎵</span>
-            <p className="mt-2 text-sm font-semibold text-gray-500">セトリ情報は準備中です</p>
-            <p className="mt-1 text-xs text-gray-400">近日公開予定。お楽しみに！</p>
+            <p className="mt-2 text-sm font-semibold text-gray-600">セトリ情報は準備中です</p>
+            <p className="mt-1 text-xs text-gray-400">公演後に更新予定です</p>
           </div>
         )}
       </div>
@@ -333,7 +384,7 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
 
       const ids = allEvs.map((e) => e.id);
 
-      // 座席報告：件数集計 + 最新10件
+      // 座席報告：件数集計 + 最新20件（マップ分析用）
       const [{ data: seatData }, { data: recentData }] = await Promise.all([
         supabase.from("seat_reports").select("event_id").in("event_id", ids),
         supabase
@@ -341,7 +392,7 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
           .select("*")
           .in("event_id", ids)
           .order("created_at", { ascending: false })
-          .limit(10),
+          .limit(20),
       ]);
 
       const sCounts = new Map<string, number>();
@@ -381,6 +432,8 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
     () => events.filter((ev) => ev.date && ev.date >= today),
     [events, today]
   );
+
+  const firstEventId = upcomingEvents[0]?.id;
 
   const venueMap = useMemo(
     () => new Map(events.map((ev) => [ev.id, ev.venue])),
@@ -425,7 +478,7 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
 
       <div className="mx-auto max-w-2xl space-y-4 px-4 pt-4">
 
-        {/* ① アーティストヒーロー */}
+        {/* ① アーティストヘッダー */}
         <div className={`overflow-hidden rounded-2xl bg-gradient-to-br ${artist.grad} p-5 shadow-md`}>
           <div className="flex items-center gap-4">
             <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-white/20 backdrop-blur-sm">
@@ -468,8 +521,13 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
           </div>
         )}
 
-        {/* ③ 座席予想フォーム */}
-        <ArtistSeatCheckForm artistName={artist.name} totalSeat={totalSeat} />
+        {/* ③ リアルタイム座席予想マップ */}
+        <SeatPredictionMapCard
+          artistName={artist.name}
+          totalSeat={totalSeat}
+          reports={recentReports}
+          firstEventId={firstEventId}
+        />
 
         {/* ④ 直近の公演 */}
         <section>
@@ -482,7 +540,7 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
 
           {loading ? (
             <div className="space-y-3">
-              {[0,1,2].map((i) => (
+              {[0,1].map((i) => (
                 <div key={i} className="animate-pulse rounded-2xl bg-white p-4 shadow-sm">
                   <div className="mb-2 h-3 w-24 rounded bg-gray-100" />
                   <div className="mb-1 h-4 w-full rounded bg-gray-100" />
@@ -510,10 +568,11 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
           )}
         </section>
 
-        {/* ⑤ 最新の座席報告 */}
+        {/* ⑤ 最新の座席報告（3件） */}
         <RecentReportsSection
           reports={recentReports}
           venueMap={venueMap}
+          firstEventId={firstEventId}
           loading={loading}
         />
 
