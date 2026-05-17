@@ -416,26 +416,18 @@ export default function EventDetailPage({
                 {/* 抽選情報（任意） */}
                 <div>
                   <p className="mb-1 text-[11px] font-bold text-gray-500">抽選情報 <span className="text-[10px] font-normal text-gray-400">任意</span></p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {[
-                      { value: "first",      label: "1次抽選" },
-                      { value: "second",     label: "2次抽選" },
-                      { value: "third_plus", label: "3次抽選以上" },
-                      { value: "other",      label: "その他" },
-                      { value: "unknown",    label: "わからない" },
-                    ].map((opt) => (
-                      <button key={opt.value} type="button"
-                        onClick={() => setLotteryRound(lotteryRound === opt.value ? "" : opt.value)}
-                        className={`rounded-lg border px-3 py-1.5 text-xs font-semibold transition-all ${
-                          lotteryRound === opt.value
-                            ? "border-[var(--accent)] bg-[var(--accent)] text-white"
-                            : "border-gray-200 bg-gray-50 text-gray-500"
-                        }`}
-                      >
-                        {opt.label}
-                      </button>
-                    ))}
-                  </div>
+                  <select
+                    value={lotteryRound}
+                    onChange={(e) => setLotteryRound(e.target.value)}
+                    className="w-full rounded-lg border border-gray-200 bg-gray-50 px-2 py-1.5 text-xs outline-none focus:border-[var(--accent)]"
+                  >
+                    <option value="">選択しない</option>
+                    <option value="first">1次抽選</option>
+                    <option value="second">2次抽選</option>
+                    <option value="third_plus">3次抽選以上</option>
+                    <option value="other">その他</option>
+                    <option value="unknown">わからない</option>
+                  </select>
                   <p className="mt-1.5 mb-1 text-[11px] font-bold text-gray-500">正確な抽選名を教えてください</p>
                   <input
                     type="text"
