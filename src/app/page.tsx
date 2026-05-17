@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase/client";
 import { genreLabel } from "@/lib/utils";
+import { ARTISTS, findArtistByKeyword } from "@/lib/artists";
 import type { CrawledEvent } from "@/lib/types";
 
 // ---------------------------------------------------------------------------
@@ -28,14 +29,6 @@ const GENRE_BADGE: Record<string, string> = {
   other:       "bg-gray-100   text-gray-600",
 };
 
-const POPULAR_ARTISTS = [
-  { name: "乃木坂46",    genre: "female_idol", initials: "乃", grad: "from-pink-400 to-rose-500" },
-  { name: "日向坂46",    genre: "female_idol", initials: "日", grad: "from-orange-300 to-pink-400" },
-  { name: "SEVENTEEN",   genre: "kpop",        initials: "SE", grad: "from-violet-400 to-purple-600" },
-  { name: "嵐",          genre: "johnnys",     initials: "嵐", grad: "from-blue-400 to-indigo-600" },
-  { name: "B'z",         genre: "other",       initials: "Bz", grad: "from-slate-500 to-gray-700" },
-  { name: "Mr.Children", genre: "other",       initials: "Mr", grad: "from-teal-400 to-cyan-600" },
-];
 
 // ---------------------------------------------------------------------------
 // ユーティリティ
@@ -293,6 +286,11 @@ export default function Home() {
     });
   }, [events, genre, search]);
 
+  const matchedArtist = useMemo(
+    () => (search.trim() ? findArtistByKeyword(search.trim()) : undefined),
+    [search]
+  );
+
   return (
     <div className="min-h-screen bg-gray-50 pb-24">
 
@@ -372,11 +370,10 @@ export default function Home() {
           <span className="text-[11px] text-gray-400">→ スクロール</span>
         </div>
         <div className="flex gap-3 overflow-x-auto hide-scrollbar px-4 pb-1">
-          {POPULAR_ARTISTS.map((artist) => (
-            <button
-              key={artist.name}
-              type="button"
-              onClick={() => setSearch(artist.name)}
+          {ARTISTS.map((artist) => (
+            <Link
+              key={artist.slug}
+              href={`/artists/${artist.slug}`}
               className="shrink-0 w-[88px] overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all active:scale-95"
             >
               <div className={`flex h-16 items-center justify-center bg-gradient-to-br ${artist.grad}`}>
@@ -386,7 +383,7 @@ export default function Home() {
                 <p className="truncate text-[11px] font-bold text-gray-800">{artist.name}</p>
                 <p className="mt-0.5 text-[10px] text-gray-400">{genreLabel(artist.genre)}</p>
               </div>
-            </button>
+            </Link>
           ))}
         </div>
       </section>
@@ -403,6 +400,26 @@ export default function Home() {
             <span className="text-[11px] text-gray-400">{filtered.length}件</span>
           )}
         </div>
+
+        {/* アーティスト検索カード */}
+        {matchedArtist && (
+          <Link
+            href={`/artists/${matchedArtist.slug}`}
+            className="mx-4 mb-3 flex items-center gap-3 overflow-hidden rounded-2xl border border-[var(--accent)]/20 bg-white p-3.5 shadow-sm transition-all active:scale-95"
+          >
+            <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${matchedArtist.grad}`}>
+              <span className="text-lg font-extrabold text-white drop-shadow-sm">{matchedArtist.initials}</span>
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-[10px] font-bold text-[var(--accent)]">アーティストページ</p>
+              <p className="mt-0.5 text-sm font-bold text-gray-900">{matchedArtist.name}</p>
+              <p className="mt-0.5 truncate text-[11px] text-gray-500">{matchedArtist.description}</p>
+            </div>
+            <svg className="h-4 w-4 shrink-0 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </Link>
+        )}
 
         <div className="mx-4 overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm divide-y divide-gray-100">
           {loading ? (
