@@ -89,7 +89,7 @@ export default function EventDetailPage({
   const [ticketCount,   setTicketCount]   = useState(1);
   const [leftSeatNum,   setLeftSeatNum]   = useState("");
   const [lotteryType,   setLotteryType]   = useState("");
-  const [isUpgrade,     setIsUpgrade]     = useState(false);
+  const [isUpgrade,     setIsUpgrade]     = useState<boolean | null>(null);
   const [paymentMethod, setPaymentMethod] = useState("");
   const [submitting,    setSubmitting]    = useState(false);
   const [formError,     setFormError]     = useState("");
@@ -165,6 +165,7 @@ export default function EventDetailPage({
     const row      = parseInt(rowNum, 10);
     const leftSeat = parseInt(leftSeatNum, 10);
 
+    if (isUpgrade === null)        { setFormError("アップグレード当選かどうかを選択してください"); return; }
     if (!blockPrefix)              { setFormError("ブロックを選択してください"); return; }
     if (!blockNum.trim())          { setFormError("ブロック番号を入力してください"); return; }
     if (!row || row < 1)           { setFormError("列番号は1以上の数値を入力してください"); return; }
@@ -201,7 +202,7 @@ export default function EventDetailPage({
     setTicketCount(1);
     setLeftSeatNum("");
     setLotteryType("");
-    setIsUpgrade(false);
+    setIsUpgrade(null);
     setPaymentMethod("");
     setSubmitting(false);
     setToast("報告ありがとう！ 🎉");
@@ -288,19 +289,17 @@ export default function EventDetailPage({
               className="order-last md:order-first rounded-2xl bg-white p-4 shadow-sm"
               style={{ flex: "0 0 40%" }}
             >
-              <p className="mb-3 text-xs font-bold text-gray-700">座席を報告する</p>
+              <p className="mb-2 text-xs font-bold text-gray-700">座席を報告する</p>
 
-              <div className="space-y-3">
+              <div className="space-y-2">
+
                 {/* 申込枚数 */}
                 <div>
                   <p className="mb-1 text-[11px] font-bold text-gray-500">申込枚数 <span className="text-red-400">*</span></p>
                   <div className="flex gap-1.5">
                     {[1, 2, 3, 4].map((n) => (
-                      <button
-                        key={n}
-                        type="button"
-                        onClick={() => setTicketCount(n)}
-                        className={`flex-1 rounded-lg border py-2 text-xs font-bold transition-all ${
+                      <button key={n} type="button" onClick={() => setTicketCount(n)}
+                        className={`flex-1 rounded-lg border py-1.5 text-xs font-bold transition-all ${
                           ticketCount === n
                             ? "border-[var(--accent)] bg-[var(--accent)] text-white"
                             : "border-gray-200 bg-gray-50 text-gray-600"
@@ -312,65 +311,88 @@ export default function EventDetailPage({
                   </div>
                 </div>
 
-                {/* 1行目: ブロック＋番号 */}
+                {/* アプグレ当選？ */}
                 <div>
-                  <p className="mb-1 text-[11px] font-bold text-gray-500">ブロック <span className="text-red-400">*</span></p>
+                  <p className="mb-1 text-[11px] font-bold text-gray-500">アプグレ当選？ <span className="text-red-400">*</span></p>
                   <div className="flex gap-1.5">
+                    {([true, false] as const).map((v) => (
+                      <button key={String(v)} type="button" onClick={() => setIsUpgrade(v)}
+                        className={`flex-1 rounded-lg border py-1.5 text-xs font-bold transition-all ${
+                          isUpgrade === v
+                            ? "border-[var(--accent)] bg-[var(--accent)] text-white"
+                            : "border-gray-200 bg-gray-50 text-gray-600"
+                        }`}
+                      >
+                        {v ? "はい" : "いいえ"}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* 抽選枠（任意・プルダウン）アプグレいいえの時のみ */}
+                {isUpgrade === false && (
+                  <div>
+                    <p className="mb-1 text-[11px] font-bold text-gray-500">抽選枠 <span className="text-[10px] font-normal text-gray-400">任意</span></p>
                     <select
-                      value={blockPrefix}
-                      onChange={(e) => setBlockPrefix(e.target.value)}
-                      className="w-20 rounded-lg border border-gray-200 bg-gray-50 px-1.5 py-2 text-xs outline-none focus:border-[var(--accent)]"
+                      value={lotteryType}
+                      onChange={(e) => setLotteryType(e.target.value)}
+                      className="w-full rounded-lg border border-gray-200 bg-gray-50 px-2 py-1.5 text-xs outline-none focus:border-[var(--accent)]"
                     >
-                      <option value="">--</option>
-                      {BLOCK_PREFIXES.map((p) => (
-                        <option key={p} value={p}>{p}</option>
+                      <option value="">選択しない</option>
+                      {lotteryOptions.map((opt) => (
+                        <option key={opt.value} value={opt.value}>{opt.label}</option>
                       ))}
                     </select>
-                    <input
-                      type="text"
-                      inputMode="numeric"
-                      value={blockNum}
-                      onChange={(e) => setBlockNum(e.target.value.replace(/[^0-9]/g, ""))}
-                      placeholder="番号（例: 3）"
-                      className="flex-1 rounded-lg border border-gray-200 bg-gray-50 px-2 py-2 text-xs outline-none focus:border-[var(--accent)]"
-                    />
+                  </div>
+                )}
+
+                {/* ブロック＋番号 / 列＋座席番号（2行） */}
+                <div>
+                  <p className="mb-1 text-[11px] font-bold text-gray-500">ブロック・座席 <span className="text-red-400">*</span></p>
+                  <div className="space-y-1.5">
+                    <div className="flex gap-1.5">
+                      <select
+                        value={blockPrefix}
+                        onChange={(e) => setBlockPrefix(e.target.value)}
+                        className="w-20 rounded-lg border border-gray-200 bg-gray-50 px-1.5 py-1.5 text-xs outline-none focus:border-[var(--accent)]"
+                      >
+                        <option value="">--</option>
+                        {BLOCK_PREFIXES.map((p) => (
+                          <option key={p} value={p}>{p}</option>
+                        ))}
+                      </select>
+                      <input
+                        type="text"
+                        inputMode="numeric"
+                        value={blockNum}
+                        onChange={(e) => setBlockNum(e.target.value.replace(/[^0-9]/g, ""))}
+                        placeholder="番号（例: 3）"
+                        className="flex-1 rounded-lg border border-gray-200 bg-gray-50 px-2 py-1.5 text-xs outline-none focus:border-[var(--accent)]"
+                      />
+                    </div>
+                    <div className="flex gap-1.5">
+                      <input
+                        type="number" inputMode="numeric" min="1"
+                        value={rowNum}
+                        onChange={(e) => setRowNum(e.target.value)}
+                        placeholder="列（例: 5）"
+                        className="flex-1 rounded-lg border border-gray-200 bg-gray-50 px-2 py-1.5 text-xs outline-none focus:border-[var(--accent)]"
+                      />
+                      <input
+                        type="number" inputMode="numeric" min="1"
+                        value={leftSeatNum}
+                        onChange={(e) => setLeftSeatNum(e.target.value)}
+                        placeholder="座席番号（例: 12）"
+                        className="flex-1 rounded-lg border border-gray-200 bg-gray-50 px-2 py-1.5 text-xs outline-none focus:border-[var(--accent)]"
+                      />
+                    </div>
                   </div>
                   {blockFull && (
-                    <p className="mt-1 text-[10px] text-gray-400">
+                    <p className="mt-0.5 text-[10px] text-gray-400">
                       ブロック: <span className="font-bold text-gray-600">{blockFull}</span>
                     </p>
                   )}
-                </div>
-
-                {/* 2行目: 列＋座席番号 */}
-                <div>
-                  <div className="flex gap-1.5">
-                    <div className="flex-1">
-                      <p className="mb-1 text-[11px] font-bold text-gray-500">列 <span className="text-red-400">*</span></p>
-                      <input
-                        type="number"
-                        inputMode="numeric"
-                        min="1"
-                        value={rowNum}
-                        onChange={(e) => setRowNum(e.target.value)}
-                        placeholder="例: 5"
-                        className="w-full rounded-lg border border-gray-200 bg-gray-50 px-2 py-2 text-xs outline-none focus:border-[var(--accent)]"
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <p className="mb-1 text-[11px] font-bold text-gray-500">座席番号 <span className="text-red-400">*</span></p>
-                      <input
-                        type="number"
-                        inputMode="numeric"
-                        min="1"
-                        value={leftSeatNum}
-                        onChange={(e) => setLeftSeatNum(e.target.value)}
-                        placeholder="例: 12"
-                        className="w-full rounded-lg border border-gray-200 bg-gray-50 px-2 py-2 text-xs outline-none focus:border-[var(--accent)]"
-                      />
-                    </div>
-                  </div>
-                  <p className="mt-1 text-[10px] text-gray-400">{seatHint}</p>
+                  <p className="mt-0.5 text-[10px] text-gray-400">{seatHint}</p>
                   {previewSeats.length > 1 && (
                     <p className="mt-0.5 text-[10px] text-gray-400">
                       保存: <span className="font-bold text-gray-600">{previewSeats.join("・")}番</span>
@@ -378,67 +400,28 @@ export default function EventDetailPage({
                   )}
                 </div>
 
-                {/* 任意項目 */}
-                <div className="border-t border-gray-100 pt-3">
-                  <p className="mb-2 text-[10px] font-bold text-gray-400">任意</p>
-
-                  {/* 抽選枠 */}
-                  <div className="mb-2">
-                    <p className="mb-1 text-[10px] text-gray-500">抽選枠</p>
-                    <div className="flex flex-wrap gap-1">
-                      {lotteryOptions.map((opt) => (
-                        <button
-                          key={opt.value}
-                          type="button"
-                          onClick={() => setLotteryType(opt.value)}
-                          className={`rounded-full border px-2.5 py-1 text-[10px] font-semibold transition-all ${
-                            lotteryType === opt.value
-                              ? "border-[var(--accent)] bg-[var(--accent)] text-white"
-                              : "border-gray-200 bg-gray-50 text-gray-500"
-                          }`}
-                        >
-                          {opt.label}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* アプグレ + 支払い 横並び */}
-                  <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-                    <button
-                      type="button"
-                      onClick={() => setIsUpgrade((v) => !v)}
-                      className="flex items-center gap-1.5"
-                    >
-                      <span className={`flex h-4 w-8 shrink-0 items-center rounded-full transition-colors ${isUpgrade ? "bg-[var(--accent)]" : "bg-gray-200"}`}>
-                        <span className={`h-3 w-3 rounded-full bg-white shadow transition-transform ${isUpgrade ? "translate-x-4" : "translate-x-0.5"}`} />
-                      </span>
-                      <span className="text-[10px] text-gray-600">アプグレ</span>
-                    </button>
-
-                    <div className="flex items-center gap-1">
-                      <span className="text-[10px] text-gray-500">支払い</span>
-                      {[
-                        { value: "credit", label: "クレカ" },
-                        { value: "convenience", label: "コンビニ" },
-                        { value: "other", label: "他" },
-                      ].map((opt) => (
-                        <button
-                          key={opt.value}
-                          type="button"
-                          onClick={() => setPaymentMethod(opt.value)}
-                          className={`rounded-full border px-2 py-0.5 text-[10px] font-semibold transition-all ${
-                            paymentMethod === opt.value
-                              ? "border-[var(--accent)] bg-[var(--accent)] text-white"
-                              : "border-gray-200 bg-gray-50 text-gray-500"
-                          }`}
-                        >
-                          {opt.label}
-                        </button>
-                      ))}
-                    </div>
+                {/* 支払い方法（任意・タグタップ） */}
+                <div className="border-t border-gray-100 pt-1.5">
+                  <p className="mb-1 text-[11px] font-bold text-gray-500">支払い方法 <span className="text-[10px] font-normal text-gray-400">任意</span></p>
+                  <div className="flex gap-1.5">
+                    {[
+                      { value: "credit",      label: "クレカ" },
+                      { value: "convenience", label: "コンビニ" },
+                      { value: "other",       label: "その他" },
+                    ].map((opt) => (
+                      <button key={opt.value} type="button" onClick={() => setPaymentMethod(opt.value)}
+                        className={`rounded-lg border px-3 py-1.5 text-xs font-semibold transition-all ${
+                          paymentMethod === opt.value
+                            ? "border-[var(--accent)] bg-[var(--accent)] text-white"
+                            : "border-gray-200 bg-gray-50 text-gray-500"
+                        }`}
+                      >
+                        {opt.label}
+                      </button>
+                    ))}
                   </div>
                 </div>
+
               </div>
 
               {formError && (
@@ -448,7 +431,7 @@ export default function EventDetailPage({
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full rounded-2xl bg-[var(--accent)] py-3.5 text-sm font-bold text-white shadow-sm transition-all hover:bg-[var(--accent-dark)] active:scale-95 disabled:opacity-60"
+                className="mt-3 w-full rounded-2xl bg-[var(--accent)] py-3 text-sm font-bold text-white shadow-sm transition-all hover:bg-[var(--accent-dark)] active:scale-95 disabled:opacity-60"
               >
                 {submitting ? "投稿中..." : "報告する ✍️"}
               </button>
