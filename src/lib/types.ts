@@ -151,6 +151,8 @@ export type SeatReport = {
   row_num: number;
   seat_num: number;
   lottery_type: "fc1" | "fc2" | "general" | "upgrade" | "revival" | "production";
+  lottery_round: string | null;
+  lottery_name: string | null;
   comment: string | null;
   created_at: string;
 };

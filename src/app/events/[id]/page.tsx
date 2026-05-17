@@ -11,7 +11,10 @@ function randomId() {
   return crypto.randomUUID().replace(/-/g, "").slice(0, 20);
 }
 
-const BLOCK_PREFIXES = ["A", "B", "C", "D", "E", "SS", "SA", "SB", "SC", "SD", "SE"];
+const BLOCK_GROUPS = [
+  { label: "アリーナ中央", options: ["A", "B", "C", "D", "E", "F", "G"] },
+  { label: "サイド・特殊",  options: ["SS", "SA", "SB", "SC", "SD", "SE", "SF"] },
+];
 
 const ALL_LOTTERY_OPTIONS = [
   { value: "fc1",        label: "FC1次（最速含む）" },
@@ -90,6 +93,8 @@ export default function EventDetailPage({
   const [leftSeatNum,   setLeftSeatNum]   = useState("");
   const [lotteryType,   setLotteryType]   = useState("");
   const [isUpgrade,     setIsUpgrade]     = useState<boolean | null>(null);
+  const [lotteryRound,  setLotteryRound]  = useState("");
+  const [lotteryName,   setLotteryName]   = useState("");
   const [paymentMethod, setPaymentMethod] = useState("");
   const [submitting,    setSubmitting]    = useState(false);
   const [formError,     setFormError]     = useState("");
@@ -181,6 +186,8 @@ export default function EventDetailPage({
       row_num: row,
       seat_num: leftSeat + i,
       lottery_type: effectiveLottery as SeatReport["lottery_type"],
+      lottery_round: lotteryRound || null,
+      lottery_name: lotteryName.trim() || null,
       comment: null,
       created_at: new Date().toISOString(),
     }));
@@ -203,6 +210,8 @@ export default function EventDetailPage({
     setLeftSeatNum("");
     setLotteryType("");
     setIsUpgrade(null);
+    setLotteryRound("");
+    setLotteryName("");
     setPaymentMethod("");
     setSubmitting(false);
     setToast("報告ありがとう！ 🎉");
@@ -354,11 +363,15 @@ export default function EventDetailPage({
                       <select
                         value={blockPrefix}
                         onChange={(e) => setBlockPrefix(e.target.value)}
-                        className="w-20 rounded-lg border border-gray-200 bg-gray-50 px-1.5 py-1.5 text-xs outline-none focus:border-[var(--accent)]"
+                        className="w-24 rounded-lg border border-gray-200 bg-gray-50 px-1.5 py-1.5 text-xs outline-none focus:border-[var(--accent)]"
                       >
                         <option value="">--</option>
-                        {BLOCK_PREFIXES.map((p) => (
-                          <option key={p} value={p}>{p}</option>
+                        {BLOCK_GROUPS.map((group) => (
+                          <optgroup key={group.label} label={group.label}>
+                            {group.options.map((p) => (
+                              <option key={p} value={p}>{p}</option>
+                            ))}
+                          </optgroup>
                         ))}
                       </select>
                       <input
@@ -398,6 +411,39 @@ export default function EventDetailPage({
                       保存: <span className="font-bold text-gray-600">{previewSeats.join("・")}番</span>
                     </p>
                   )}
+                </div>
+
+                {/* 抽選情報（任意） */}
+                <div>
+                  <p className="mb-1 text-[11px] font-bold text-gray-500">抽選情報 <span className="text-[10px] font-normal text-gray-400">任意</span></p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {[
+                      { value: "first",      label: "1次抽選" },
+                      { value: "second",     label: "2次抽選" },
+                      { value: "third_plus", label: "3次抽選以上" },
+                      { value: "other",      label: "その他" },
+                      { value: "unknown",    label: "わからない" },
+                    ].map((opt) => (
+                      <button key={opt.value} type="button"
+                        onClick={() => setLotteryRound(lotteryRound === opt.value ? "" : opt.value)}
+                        className={`rounded-lg border px-3 py-1.5 text-xs font-semibold transition-all ${
+                          lotteryRound === opt.value
+                            ? "border-[var(--accent)] bg-[var(--accent)] text-white"
+                            : "border-gray-200 bg-gray-50 text-gray-500"
+                        }`}
+                      >
+                        {opt.label}
+                      </button>
+                    ))}
+                  </div>
+                  <p className="mt-1.5 mb-1 text-[11px] font-bold text-gray-500">正確な抽選名を教えてください</p>
+                  <input
+                    type="text"
+                    value={lotteryName}
+                    onChange={(e) => setLotteryName(e.target.value)}
+                    placeholder="例：FC先行1次、Lawson特別抽選"
+                    className="w-full rounded-lg border border-gray-200 bg-gray-50 px-2 py-1.5 text-xs outline-none focus:border-[var(--accent)]"
+                  />
                 </div>
 
                 {/* 支払い方法（任意・タグタップ） */}
