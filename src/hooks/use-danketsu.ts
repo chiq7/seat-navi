@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useState, useCallback } from "react";
 
 const DANKETSU_KEY_PREFIX = "danketsu_";
 const GATE_KEY = "gate_unlocked";
@@ -27,25 +27,21 @@ function todayKey(): string {
  * - Lvは雰囲気表示のみ（実数は出さない）
  */
 export function useDanketsu(eventId: string) {
-  const [danketsuLv, setDanketsuLv] = useState(0);
-  const [pushedToday, setPushedToday] = useState(false);
-  const [pushAnimation, setPushAnimation] = useState(false);
-
-  useEffect(() => {
-    // Load saved Lv
+  const [danketsuLv, setDanketsuLv] = useState(() => {
+    if (typeof window === "undefined") return 0;
     try {
       const saved = localStorage.getItem(`${DANKETSU_KEY_PREFIX}lv_${eventId}`);
-      if (saved) setDanketsuLv(parseInt(saved) || 0);
-
-      // Check if already pushed today
-      const todayPushed = localStorage.getItem(
-        `${DANKETSU_KEY_PREFIX}${eventId}_${todayKey()}`
-      );
-      setPushedToday(todayPushed === "1");
-    } catch {
-      // ignore
-    }
-  }, [eventId]);
+      return saved ? parseInt(saved) || 0 : 0;
+    } catch { return 0; }
+  });
+  const [pushedToday, setPushedToday] = useState(() => {
+    if (typeof window === "undefined") return false;
+    try {
+      const v = localStorage.getItem(`${DANKETSU_KEY_PREFIX}${eventId}_${todayKey()}`);
+      return v === "1";
+    } catch { return false; }
+  });
+  const [pushAnimation, setPushAnimation] = useState(false);
 
   const pushDanketsu = useCallback(() => {
     if (pushedToday) return false;
@@ -103,16 +99,12 @@ export function useDanketsu(eventId: string) {
  * 解放条件: 当選報告 / 当落報告 / 今日の団結 のどれか1つ
  */
 export function useGate(eventId: string) {
-  const [unlocked, setUnlocked] = useState(false);
-
-  useEffect(() => {
+  const [unlocked, setUnlocked] = useState(() => {
+    if (typeof window === "undefined") return false;
     try {
-      const saved = localStorage.getItem(`${GATE_KEY}_${eventId}`);
-      setUnlocked(saved === "1");
-    } catch {
-      // ignore
-    }
-  }, [eventId]);
+      return localStorage.getItem(`${GATE_KEY}_${eventId}`) === "1";
+    } catch { return false; }
+  });
 
   const unlock = useCallback(
     (method: "report" | "result" | "danketsu") => {

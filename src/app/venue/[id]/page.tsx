@@ -55,9 +55,13 @@ export default function EventPage() {
 
   useEffect(() => {
     const found = SAMPLE_EVENTS.find((e) => e.id === eventId);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setEvent(found ?? null);
+     
     setSections(getSampleSections(eventId));
+     
     setReports(getSampleReportsByEvent(eventId));
+     
     setLoading(false);
   }, [eventId]);
 

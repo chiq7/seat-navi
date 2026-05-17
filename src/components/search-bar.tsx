@@ -14,10 +14,7 @@ export function SearchBar() {
 
   useEffect(() => {
     const q = query.trim();
-    if (!q) {
-      setSuggestions([]);
-      return;
-    }
+    if (!q) return;
     const controller = new AbortController();
     supabase
       .from("events")
@@ -64,7 +61,7 @@ export function SearchBar() {
         />
       </div>
 
-      {showSuggestions && suggestions.length > 0 && (
+      {showSuggestions && query.trim() && suggestions.length > 0 && (
         <div className="absolute top-full left-0 right-0 z-50 mt-1.5 overflow-hidden rounded-xl border border-gray-100 bg-white shadow-lg">
           {suggestions.map((ev) => (
             <button

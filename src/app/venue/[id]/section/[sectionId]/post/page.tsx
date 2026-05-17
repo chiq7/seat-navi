@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { PostForm } from "@/components/post-form";
-import { SAMPLE_EVENTS, getSampleSections } from "@/lib/sample-data";
+import { getSampleSections } from "@/lib/sample-data";
 
 export default function PostPage() {
   const params = useParams();
@@ -18,8 +18,10 @@ export default function PostPage() {
     const sections = getSampleSections(eventId);
     const section = sections.find((s) => s.id === sectionId);
     if (section) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSectionName(section.name);
     }
+     
     setLoading(false);
   }, [eventId, sectionId]);
 

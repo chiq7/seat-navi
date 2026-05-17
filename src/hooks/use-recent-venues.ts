@@ -1,26 +1,24 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useState, useCallback } from "react";
 
 const STORAGE_KEY = "recentVenues";
 const MAX_RECENT = 10;
 
 export function useRecentVenues() {
-  const [recentIds, setRecentIds] = useState<string[]>([]);
-
-  useEffect(() => {
+  const [recentIds, setRecentIds] = useState<string[]>(() => {
+    if (typeof window === "undefined") return [];
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
         const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed)) {
-          setRecentIds(parsed);
-        }
+        if (Array.isArray(parsed)) return parsed;
       }
     } catch {
       // ignore
     }
-  }, []);
+    return [];
+  });
 
   const addRecent = useCallback((venueId: string) => {
     setRecentIds((prev) => {

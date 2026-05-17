@@ -24,47 +24,6 @@ const ALL_LOTTERY_OPTIONS = [
   { value: "production", label: "制作開放" },
 ];
 
-function Label({ children, required }: { children: React.ReactNode; required?: boolean }) {
-  return (
-    <label className="mb-1.5 block text-xs font-bold text-gray-700">
-      {children}
-      {required && <span className="ml-1 text-red-500">*</span>}
-    </label>
-  );
-}
-
-function Card({ children }: { children: React.ReactNode }) {
-  return <div className="rounded-2xl bg-white p-4 shadow-sm">{children}</div>;
-}
-
-function PillGroup({
-  options,
-  value,
-  onChange,
-}: {
-  options: { value: string; label: string }[];
-  value: string;
-  onChange: (v: string) => void;
-}) {
-  return (
-    <div className="flex flex-wrap gap-2">
-      {options.map((opt) => (
-        <button
-          key={opt.value}
-          type="button"
-          onClick={() => onChange(opt.value)}
-          className={`rounded-full border px-3.5 py-1.5 text-xs font-semibold transition-all ${
-            value === opt.value
-              ? "border-[var(--accent)] bg-[var(--accent)] text-white"
-              : "border-gray-200 bg-white text-gray-600 hover:border-[var(--accent)]"
-          }`}
-        >
-          {opt.label}
-        </button>
-      ))}
-    </div>
-  );
-}
 
 export default function EventDetailPage({
   params,

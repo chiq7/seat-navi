@@ -95,7 +95,13 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
 
   // 選択イベント変更時にマップデータを取得
   useEffect(() => {
-    if (!selectedEventId) { setMapReports([]); setMapPatterns([]); return; }
+    if (!selectedEventId) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setMapReports([]);
+       
+      setMapPatterns([]);
+      return;
+    }
 
     supabase
       .from("seat_reports")

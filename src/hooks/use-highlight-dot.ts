@@ -19,7 +19,9 @@ export function useHighlightDot() {
     try {
       const saved = localStorage.getItem(HIGHLIGHT_KEY);
       if (saved) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setHighlightBlock(saved);
+         
         setShowHighlight(true);
         localStorage.removeItem(HIGHLIGHT_KEY);
 

@@ -52,11 +52,15 @@ export default function SectionDetailPage() {
 
   useEffect(() => {
     const ev = SAMPLE_EVENTS.find((e) => e.id === eventId);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setEvent(ev ?? null);
     const secs = getSampleSections(eventId);
     const sec = secs.find((s) => s.id === sectionId);
+     
     setSection(sec ?? null);
+     
     setReports(getSampleReports(sectionId));
+     
     setLoading(false);
   }, [eventId, sectionId]);
 
