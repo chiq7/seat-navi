@@ -61,11 +61,18 @@ function daysUntil(dateStr: string | null): number | null {
 // 公演リスト行
 // ---------------------------------------------------------------------------
 
-function EventRow({ ev, onTap }: { ev: CrawledEvent; onTap: (ev: CrawledEvent) => void }) {
+function EventRow({ ev, onTap, reportCount }: { ev: CrawledEvent; onTap: (ev: CrawledEvent) => void; reportCount: number }) {
   const date = formatDate(ev.date);
   const days = daysUntil(ev.date);
   const badge = GENRE_BADGE[ev.genre] ?? GENRE_BADGE.other;
   const soon = days !== null && days >= 0 && days <= 7;
+
+  const countBadge =
+    reportCount === 0
+      ? { label: "未投稿", cls: "bg-gray-100 text-gray-400" }
+      : reportCount < 5
+      ? { label: `${reportCount}件`, cls: "bg-amber-100 text-amber-600" }
+      : { label: `${reportCount}件`, cls: "bg-green-100 text-green-600" };
 
   return (
     <button
@@ -106,6 +113,11 @@ function EventRow({ ev, onTap }: { ev: CrawledEvent; onTap: (ev: CrawledEvent) =
         <p className="mt-1 truncate text-xs font-bold leading-snug text-gray-900">{ev.title}</p>
         <p className="mt-0.5 truncate text-[11px] text-gray-500">{ev.venue}</p>
       </div>
+
+      {/* 件数バッジ */}
+      <span className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-bold ${countBadge.cls}`}>
+        {countBadge.label}
+      </span>
 
       <svg className="h-4 w-4 shrink-0 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -164,7 +176,7 @@ function SeatCheckForm() {
 // ボトムシート
 // ---------------------------------------------------------------------------
 
-function BottomSheet({ ev, onClose }: { ev: CrawledEvent; onClose: () => void }) {
+function BottomSheet({ ev, reportCount, onClose }: { ev: CrawledEvent; reportCount: number; onClose: () => void }) {
   const router = useRouter();
 
   function go(path: string) {
@@ -178,28 +190,49 @@ function BottomSheet({ ev, onClose }: { ev: CrawledEvent; onClose: () => void })
       <div className="fixed bottom-0 left-0 right-0 z-50 rounded-t-3xl bg-white px-5 pb-10 pt-5 shadow-2xl">
         <div className="mx-auto mb-4 h-1 w-10 rounded-full bg-gray-200" />
         <p className="mb-0.5 text-[11px] text-gray-400">{ev.venue}</p>
-        <p className="mb-4 text-sm font-bold leading-snug text-gray-900">{ev.title}</p>
-        <div className="flex flex-col gap-3">
+        <p className="mb-3 text-sm font-bold leading-snug text-gray-900">{ev.title}</p>
+
+        {/* 座席レポート状況 */}
+        <div className="mb-4 rounded-xl bg-gray-50 px-3.5 py-2.5">
+          {reportCount === 0 ? (
+            <>
+              <p className="text-xs font-bold text-gray-700">まだ座席レポートはありません</p>
+              <p className="mt-0.5 text-[11px] text-gray-500">最初の見え方を投稿しませんか？</p>
+            </>
+          ) : reportCount < 5 ? (
+            <>
+              <p className="text-xs font-bold text-gray-700">現在 {reportCount} 件の座席レポート</p>
+              <p className="mt-0.5 text-[11px] text-amber-600">あと {5 - reportCount} 件でリアルタイム予想可能</p>
+            </>
+          ) : (
+            <>
+              <p className="text-xs font-bold text-gray-700">現在 {reportCount} 件の座席レポート</p>
+              <p className="mt-0.5 text-[11px] text-green-600">✓ リアルタイム予想が利用できます</p>
+            </>
+          )}
+        </div>
+
+        <div className="flex flex-col gap-2.5">
           <button
             type="button"
             onClick={() => go(`/events/${ev.id}`)}
-            className="flex items-center gap-3 rounded-2xl bg-[var(--accent)] px-5 py-4 text-left text-white transition-all active:scale-95"
+            className="flex items-center gap-3 rounded-2xl bg-[var(--accent)] px-5 py-3.5 text-left text-white transition-all active:scale-95"
           >
-            <span className="text-2xl">🪑</span>
+            <span className="text-xl">🪑</span>
             <div>
-              <p className="text-sm font-bold">座席・報告を見る</p>
-              <p className="text-[11px] opacity-80">報告一覧・座席の見え方を確認</p>
+              <p className="text-sm font-bold">座席・見え方を見る</p>
+              <p className="text-[11px] opacity-75">参加者の座席レポートを確認</p>
             </div>
           </button>
           <button
             type="button"
-            onClick={() => go(`/events/${ev.id}/after-report`)}
-            className="flex items-center gap-3 rounded-2xl bg-rose-500 px-5 py-4 text-left text-white transition-all active:scale-95"
+            onClick={() => go(`/events/${ev.id}`)}
+            className="flex items-center gap-3 rounded-2xl border border-gray-200 bg-white px-5 py-3 text-left text-gray-700 transition-all active:scale-95"
           >
-            <span className="text-2xl">🎉</span>
+            <span className="text-xl">✍️</span>
             <div>
-              <p className="text-sm font-bold">答え合わせを投稿する</p>
-              <p className="text-[11px] opacity-80">花道・視認性・満足度を共有</p>
+              <p className="text-sm font-semibold">見え方を投稿</p>
+              <p className="text-[11px] text-gray-400">見え方レポートを追加する</p>
             </div>
           </button>
         </div>
@@ -218,6 +251,7 @@ export default function Home() {
   const [genre,         setGenre]         = useState("all");
   const [search,        setSearch]        = useState("");
   const [selectedEvent, setSelectedEvent] = useState<CrawledEvent | null>(null);
+  const [reportCounts,  setReportCounts]  = useState<Map<string, number>>(new Map());
 
   useEffect(() => {
     async function load() {
@@ -229,7 +263,22 @@ export default function Home() {
         .order("date", { ascending: true })
         .limit(300);
       if (error) console.error("Supabase fetch error:", error);
-      setEvents((data as CrawledEvent[]) ?? []);
+      const evList = (data as CrawledEvent[]) ?? [];
+      setEvents(evList);
+
+      // 座席レポート件数を取得
+      if (evList.length) {
+        const { data: repData } = await supabase
+          .from("seat_reports")
+          .select("event_id")
+          .in("event_id", evList.map((e) => e.id));
+        const counts = new Map<string, number>();
+        for (const r of repData ?? []) {
+          counts.set(r.event_id, (counts.get(r.event_id) ?? 0) + 1);
+        }
+        setReportCounts(counts);
+      }
+
       setLoading(false);
     }
     load();
@@ -389,7 +438,7 @@ export default function Home() {
             </div>
           ) : (
             filtered.map((ev) => (
-              <EventRow key={ev.id} ev={ev} onTap={setSelectedEvent} />
+              <EventRow key={ev.id} ev={ev} onTap={setSelectedEvent} reportCount={reportCounts.get(ev.id) ?? 0} />
             ))
           )}
         </div>
@@ -413,7 +462,11 @@ export default function Home() {
 
       {/* ===== ボトムシート ===== */}
       {selectedEvent && (
-        <BottomSheet ev={selectedEvent} onClose={() => setSelectedEvent(null)} />
+        <BottomSheet
+          ev={selectedEvent}
+          reportCount={reportCounts.get(selectedEvent.id) ?? 0}
+          onClose={() => setSelectedEvent(null)}
+        />
       )}
     </div>
   );
