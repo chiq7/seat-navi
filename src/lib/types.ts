@@ -153,6 +153,7 @@ export type SeatReport = {
   lottery_type: "fc1" | "fc2" | "general" | "upgrade" | "revival" | "production";
   lottery_round: string | null;
   lottery_name: string | null;
+  payment_method?: string | null;
   comment: string | null;
   created_at: string;
 };
@@ -162,6 +163,58 @@ export type EventLayout = {
   id: string;
   event_id: string;
   image_url: string;
+  created_at: string;
+};
+
+/** X（Twitter）由来の座席予想図・結果図・答え合わせ投稿 (x_seat_postsテーブル) */
+export type XSeatPost = {
+  id: string;
+
+  // 公演情報
+  artist_name: string;
+  tour_name: string | null;
+  venue_name: string;
+  performance_date: string | null;   // "YYYY-MM-DD"
+
+  // X投稿ソース
+  post_type: "prediction" | "result" | "after_report" | "unknown";
+  source_account: string | null;
+  source_post_url: string | null;
+  posted_at: string | null;          // ISO 8601
+
+  // 画像
+  image_url: string | null;
+  image_summary: string | null;
+
+  // 会場構造
+  stage_position: string | null;
+  hanamichi_position: string | null;
+  center_stage_position: string | null;
+  trolley_route: string | null;
+  audience_walkway: string | null;
+  silver_tape_area: string | null;
+
+  // ブロック配列
+  blocks_detected: string[];
+  stage_near_blocks: string[];
+  hanamichi_candidate_blocks: string[];
+  center_stage_candidate_blocks: string[];
+  actual_hanamichi_blocks: string[];
+  actual_center_stage_blocks: string[];
+  upgrade_blocks: string[];
+  fc1_blocks: string[];
+  fc2_blocks: string[];
+  general_blocks: string[];
+
+  // 予想 vs 結果の紐づけ・精度評価
+  prediction_post_url: string | null;
+  result_post_url: string | null;
+  matched_points: string | null;
+  missed_points: string | null;
+  prediction_vs_result_summary: string | null;
+  source_reasoning_summary: string | null;
+
+  notes: string | null;
   created_at: string;
 };
 

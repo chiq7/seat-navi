@@ -114,9 +114,7 @@ export default function EventDetailPage({
     blockMap.get(r.block)!.push(r);
   }
 
-  const seatHint = ticketCount === 1
-    ? "お手元の番号を入力してください。"
-    : "一番左（最小番号）を入力してください。不明な場合はお手元の番号で構いません。";
+  const seatHint = "お手元の番号を入力してください。";
 
   const previewSeats = leftSeatNum
     ? Array.from({ length: ticketCount }, (_, i) => parseInt(leftSeatNum, 10) + i).filter((n) => !isNaN(n))
@@ -147,6 +145,7 @@ export default function EventDetailPage({
       lottery_type: effectiveLottery as SeatReport["lottery_type"],
       lottery_round: lotteryRound || null,
       lottery_name: lotteryName.trim() || null,
+      payment_method: paymentMethod || null,
       comment: null,
       created_at: new Date().toISOString(),
     }));
@@ -364,7 +363,18 @@ export default function EventDetailPage({
                       ブロック: <span className="font-bold text-gray-600">{blockFull}</span>
                     </p>
                   )}
-                  <p className="mt-0.5 text-[10px] text-gray-400">{seatHint}</p>
+                  {ticketCount === 1 ? (
+                    <p className="mt-0.5 text-[10px] text-gray-400">{seatHint}</p>
+                  ) : (
+                    <>
+                      <p className="mt-0.5 text-[10px] font-semibold text-red-500">
+                        2枚以上の場合は、連番の一番左の席番号を入力してください。
+                      </p>
+                      <p className="mt-0.5 text-[10px] text-gray-400">
+                        わからない場合は、お手元の席番号でも大丈夫です。
+                      </p>
+                    </>
+                  )}
                   {previewSeats.length > 1 && (
                     <p className="mt-0.5 text-[10px] text-gray-400">
                       保存: <span className="font-bold text-gray-600">{previewSeats.join("・")}番</span>
