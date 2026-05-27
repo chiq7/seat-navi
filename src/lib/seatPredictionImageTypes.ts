@@ -13,7 +13,11 @@ export type Rect = {
 
 export type CutSide = "left" | "right" | "both" | "none";
 export type CandidateHint = "hanamichi" | "centerStage";
-export type LayoutHint = { cutSide?: CutSide; candidate?: CandidateHint };
+export type LayoutHint = {
+  cutSide?: CutSide;
+  candidate?: CandidateHint;
+  frameExpandX?: number;
+};
 export type SeatPredictionLayoutHints = Record<string, LayoutHint>;
 
 export type PositionedBlock = {
@@ -45,6 +49,10 @@ export type ShapeCandidate = {
   y: number;
   w: number;
   h: number;
+  frameX?: number;
+  frameY?: number;
+  frameW?: number;
+  frameH?: number;
   label: string;
 };
 

@@ -245,8 +245,10 @@ function buildShapeCandidates(
   const manualCandidates = new Set<string>();
 
   for (const block of positioned) {
-    const candidate = layoutHints[block.block]?.candidate;
+    const hint = layoutHints[block.block];
+    const candidate = hint?.candidate;
     if (!candidate) continue;
+    const frameExpandX = candidate === "centerStage" ? hint?.frameExpandX ?? 0 : 0;
 
     out.push({
       kind: candidate,
@@ -254,6 +256,10 @@ function buildShapeCandidates(
       y: block.y - 2,
       w: block.blockW + 3,
       h: block.blockH + 4,
+      frameX: block.x - 1.5 - frameExpandX,
+      frameY: block.y - 2,
+      frameW: block.blockW + 3 + frameExpandX * 2,
+      frameH: block.blockH + 4,
       label: candidate === "centerStage" ? "センステ候補" : "花道候補",
     });
     manualCandidates.add(`${candidate}:${block.block}`);
@@ -617,13 +623,17 @@ export function SeatPredictionImage({
 
         {shapeCandidates.map((shape, i) => {
           const stroke = shape.kind === "centerStage" ? "#F59E0B" : "#22C55E";
+          const frameX = shape.frameX ?? shape.x;
+          const frameY = shape.frameY ?? shape.y;
+          const frameW = shape.frameW ?? shape.w;
+          const frameH = shape.frameH ?? shape.h;
           return (
             <g key={`shape-${shape.kind}-${i}`}>
               <rect
-                x={shape.x}
-                y={shape.y}
-                width={shape.w}
-                height={shape.h}
+                x={frameX}
+                y={frameY}
+                width={frameW}
+                height={frameH}
                 rx={3}
                 fill="none"
                 stroke={stroke}
@@ -632,8 +642,8 @@ export function SeatPredictionImage({
               />
               {shape.kind === "hanamichi" ? (
                 <text
-                  x={shape.x + shape.w / 2}
-                  y={shape.y + shape.h / 2}
+                  x={frameX + frameW / 2}
+                  y={frameY + frameH / 2}
                   textAnchor="middle"
                   dominantBaseline="middle"
                   fontSize={6}
@@ -646,8 +656,8 @@ export function SeatPredictionImage({
                 </text>
               ) : (
                 <text
-                  x={shape.x + shape.w / 2}
-                  y={shape.y + shape.h / 2}
+                  x={frameX + frameW / 2}
+                  y={frameY + frameH / 2}
                   textAnchor="middle"
                   dominantBaseline="middle"
                   fontSize={6}
