@@ -1,11 +1,17 @@
 "use client";
 
-import { use, useEffect, useState } from "react";
+import { use, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
 import { AllBlocksOverview } from "@/components/AllBlocksOverview";
 import type { CrawledEvent, SeatReport, EventLayout, HistoricalPattern } from "@/lib/types";
+import { buildPredictionMap } from "@/lib/seatPrediction";
+import {
+  getSeatPredictionExpectedBlocks,
+  getSeatPredictionLayoutHints,
+} from "@/lib/seatPredictionLayoutHints";
+import { SeatPredictionImage } from "@/components/SeatPredictionImage";
 
 function randomId() {
   return crypto.randomUUID().replace(/-/g, "").slice(0, 20);
@@ -113,6 +119,16 @@ export default function EventDetailPage({
     if (!blockMap.has(r.block)) blockMap.set(r.block, []);
     blockMap.get(r.block)!.push(r);
   }
+
+  const predictionMap = useMemo(() => buildPredictionMap(reports), [reports]);
+  const layoutHints = useMemo(
+    () => getSeatPredictionLayoutHints({ eventId, venueId: event?.venue_id }),
+    [eventId, event?.venue_id],
+  );
+  const expectedBlocks = useMemo(
+    () => getSeatPredictionExpectedBlocks({ eventId, venueId: event?.venue_id }),
+    [eventId, event?.venue_id],
+  );
 
   const seatHint = "お手元の番号を入力してください。";
 
@@ -227,6 +243,13 @@ export default function EventDetailPage({
               <img src={layout.image_url} alt="座席予想図" className="w-full object-contain" style={{ maxHeight: "280px" }} />
             </div>
           )}
+
+          {/* 座席予想図 */}
+          <SeatPredictionImage
+            prediction={predictionMap}
+            layoutHints={layoutHints}
+            expectedBlocks={expectedBlocks}
+          />
 
           {/* 2カラム: PC=左フォーム(40%) 右マップ(60%) / スマホ=上マップ 下フォーム */}
           <div className="flex flex-col gap-4 md:flex-row md:items-start">
