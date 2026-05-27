@@ -16,6 +16,7 @@ type PreviewCase = {
   description: string;
   rows: RawSeat[];
   layoutHints?: SeatPredictionLayoutHints;
+  expectedBlocks?: string[];
 };
 
 function blockRows(block: string, rows: [number, number[]][]): RawSeat[] {
@@ -29,6 +30,32 @@ const CUT_SIDE_HINTS: SeatPredictionLayoutHints = {
   B4: { cutSide: "left" },
 };
 
+const MANUAL_CANDIDATE_HINTS: SeatPredictionLayoutHints = {
+  A3: { candidate: "hanamichi" },
+  B3: { candidate: "centerStage", frameExpandX: 12 },
+};
+
+const MANUAL_CANDIDATE_EXPECTED_BLOCKS = [
+  "A1",
+  "A2",
+  "A3",
+  "A4",
+  "A5",
+  "B1",
+  "B2",
+  "B3",
+  "B4",
+  "B5",
+  "C1",
+  "C2",
+  "C3",
+  "C4",
+  "C5",
+  "SS1",
+  "SS2",
+  "SS3",
+  "SS4",
+];
 const A_NORMAL: RawSeat[] = [
   ...blockRows("A1", [[1, [3, 11]], [2, [6, 15]], [3, [4, 13]], [4, [8, 18]], [5, [5, 16]]]),
   ...blockRows("A2", [[1, [2, 10]], [2, [7, 17]], [3, [5, 14]], [4, [9, 19]], [5, [6, 15]]]),
@@ -113,6 +140,14 @@ const PREVIEW_CASES: PreviewCase[] = [
     rows: [...A_WITH_HANAMICHI_GAP, ...B_SIDES, ...B3_MANY_REPORTS, ...C_D_NORMAL],
     layoutHints: CUT_SIDE_HINTS,
   },
+  {
+    id: "manual-a3-hanamichi-b3-center-stage",
+    title: "manual A3花道 + B3センステ",
+    description: "A3を花道候補、B3をセンステ候補として手動指定。B2/B4 cutSideなしで、報告0件ブロックは未報告グリッドのまま確認。",
+    rows: [...A_NORMAL, ...B_SIDES, ...C_D_NORMAL],
+    layoutHints: MANUAL_CANDIDATE_HINTS,
+    expectedBlocks: MANUAL_CANDIDATE_EXPECTED_BLOCKS,
+  },
 ];
 
 function toReports(rows: RawSeat[], eventId: string): SeatReport[] {
@@ -145,7 +180,11 @@ function PreviewPattern({ pattern }: { pattern: PreviewCase }) {
         confidence: {prediction.confidence} / reports: {prediction.totalReports} / missing blocks:{" "}
         {prediction.missingBlockCandidates.join(", ") || "none"}
       </p>
-      <SeatPredictionImage prediction={prediction} layoutHints={pattern.layoutHints} />
+      <SeatPredictionImage
+        prediction={prediction}
+        layoutHints={pattern.layoutHints}
+        expectedBlocks={pattern.expectedBlocks}
+      />
     </section>
   );
 }
