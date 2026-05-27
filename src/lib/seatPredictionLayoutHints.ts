@@ -1,4 +1,4 @@
-import type { SeatPredictionLayoutHints } from "@/components/SeatPredictionImage";
+import type { SeatPredictionLayoutHints } from "@/lib/seatPredictionImageTypes";
 
 type SeatPredictionLayoutHintParams = {
   eventId: string;

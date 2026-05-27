@@ -2,6 +2,15 @@
 
 import { useMemo } from "react";
 import type { PredictionMap, BlockAnalysis } from "@/lib/seatPrediction";
+import type {
+  LayoutHint,
+  MissingMarker,
+  PositionedBlock,
+  Rect,
+  SeatPredictionLayoutHints,
+  ShapeCandidate,
+  Slot,
+} from "@/lib/seatPredictionImageTypes";
 
 // ── レイアウト定数 ───────────────────────────────────────────────
 const SVG_W = 320;
@@ -46,48 +55,7 @@ function blockCols(b: BlockAnalysis): number {
   return clamp(b.maxSeat - b.minSeat + 1, MIN_COLS, MAX_COLS);
 }
 
-type Rect = {
-  x: number;
-  y: number;
-  w: number;
-  h: number;
-  axis: "seat" | "row";
-  source?: "gap" | "cut";
-  cutSide?: CutSide;
-  gapKind?: "hanamichi" | "yokoHanamichi" | "passage";
-};
-type CutSide = "left" | "right" | "both" | "none";
-type CandidateHint = "hanamichi" | "centerStage";
-type LayoutHint = { cutSide?: CutSide; candidate?: CandidateHint };
-export type SeatPredictionLayoutHints = Record<string, LayoutHint>;
 const EMPTY_LAYOUT_HINTS: SeatPredictionLayoutHints = {};
-
-type PositionedBlock = {
-  block: string;
-  x: number;
-  y: number;
-  blockW: number;
-  blockH: number;
-  cells: { x: number; y: number }[];
-  vLines: number[];
-  hLines: number[];
-  whiteRects: Rect[];
-  topRightLabel: { label: string; color: string } | null;
-};
-
-type MissingMarker = { block: string; prefix: string; num: number; x: number; y: number; w: number; h: number };
-type ShapeCandidate = {
-  kind: "hanamichi" | "centerStage";
-  x: number;
-  y: number;
-  w: number;
-  h: number;
-  label: string;
-};
-
-type Slot =
-  | { kind: "block"; b: BlockAnalysis; cols: number }
-  | { kind: "missing"; prefix: string; num: number; cols: number };
 
 function makePositioned(
   b: BlockAnalysis,

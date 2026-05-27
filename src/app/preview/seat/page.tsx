@@ -5,7 +5,7 @@
 import { useMemo } from "react";
 import { buildPredictionMap } from "@/lib/seatPrediction";
 import { SeatPredictionImage } from "@/components/SeatPredictionImage";
-import type { SeatPredictionLayoutHints } from "@/components/SeatPredictionImage";
+import type { SeatPredictionLayoutHints } from "@/lib/seatPredictionImageTypes";
 import type { SeatReport } from "@/lib/types";
 
 type RawSeat = { block: string; row_num: number; seat_num: number };
