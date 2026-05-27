@@ -11,6 +11,12 @@ import type {
   ShapeCandidate,
   Slot,
 } from "@/lib/seatPredictionImageTypes";
+import {
+  blockCols,
+  clamp,
+  parsePositionedBlockName,
+  unionRects,
+} from "@/lib/seatPredictionImageLayout";
 
 // ── レイアウト定数 ───────────────────────────────────────────────
 const SVG_W = 320;
@@ -19,7 +25,6 @@ const AVAIL_W = SVG_W - 2 * MX;
 const CELL_MAX = 7; // セルサイズ上限（全ブロック統一・正方形）
 const MIN_ROWS = 10; // 高さの最低行数
 const MIN_COLS = 16; // 各ブロック幅の最低列数
-const MAX_COLS = 30; // 各ブロック幅の上限列数（超過分は右端を圧縮）
 const BLOCK_GAP_COLS = 2;
 const MISSING_COLS = 5; // 欠番ブロックの白抜き幅
 const STAGE_TOP = 4;
@@ -34,10 +39,6 @@ const GRID_STROKE = "#E3DEF2"; // 未報告席のグリッド線
 const GAP_FILL = "#FFFFFF"; // 白抜きgap（グリッドを消す）
 const GAP_EDGE_STROKE = "#D4C9A8";
 
-function clamp(v: number, min: number, max: number): number {
-  return Math.max(min, Math.min(max, v));
-}
-
 function formatDatetime(iso: string): string {
   const d = new Date(iso);
   const p = (n: number) => String(n).padStart(2, "0");
@@ -51,10 +52,6 @@ function kindToLabel(kind: string): { label: string; color: string } {
 }
 
 // 各ブロック幅: 自分のseat spanを基準に16〜30列。小さいブロックは無駄に広げない。
-function blockCols(b: BlockAnalysis): number {
-  return clamp(b.maxSeat - b.minSeat + 1, MIN_COLS, MAX_COLS);
-}
-
 const EMPTY_LAYOUT_HINTS: SeatPredictionLayoutHints = {};
 
 function makePositioned(
@@ -184,20 +181,6 @@ function makePositioned(
     whiteRects,
     topRightLabel: primary ? kindToLabel(primary) : null,
   };
-}
-
-function unionRects(rects: { x: number; y: number; w: number; h: number }[]) {
-  const minX = Math.min(...rects.map((r) => r.x));
-  const minY = Math.min(...rects.map((r) => r.y));
-  const maxX = Math.max(...rects.map((r) => r.x + r.w));
-  const maxY = Math.max(...rects.map((r) => r.y + r.h));
-  return { x: minX, y: minY, w: maxX - minX, h: maxY - minY };
-}
-
-function parsePositionedBlockName(name: string): { prefix: string; num: number } | null {
-  const m = name.match(/^(.*?)(\d+)$/);
-  if (!m) return null;
-  return { prefix: m[1], num: parseInt(m[2], 10) };
 }
 
 function makeExpectedBlock(block: string, rowSpan: number): BlockAnalysis | null {
