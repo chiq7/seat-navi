@@ -249,16 +249,21 @@ function buildShapeCandidates(
     const candidate = hint?.candidate;
     if (!candidate) continue;
     const frameExpandX = candidate === "centerStage" ? hint?.frameExpandX ?? 0 : 0;
+    const isCenterBand = candidate === "hanamichi" && hint?.candidateScope === "centerBand";
+    const bandW = isCenterBand
+      ? block.blockW * clamp(hint?.bandWidthRatio ?? 0.28, 0.05, 1)
+      : block.blockW;
+    const candidateX = isCenterBand ? block.x + (block.blockW - bandW) / 2 : block.x;
 
     out.push({
       kind: candidate,
-      x: block.x - 1.5,
+      x: candidateX - 1.5,
       y: block.y - 2,
-      w: block.blockW + 3,
+      w: bandW + 3,
       h: block.blockH + 4,
-      frameX: block.x - 1.5 - frameExpandX,
+      frameX: candidateX - 1.5 - frameExpandX,
       frameY: block.y - 2,
-      frameW: block.blockW + 3 + frameExpandX * 2,
+      frameW: bandW + 3 + frameExpandX * 2,
       frameH: block.blockH + 4,
       label: candidate === "centerStage" ? "センステ候補" : "花道候補",
     });

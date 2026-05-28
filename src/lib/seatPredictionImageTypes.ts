@@ -13,9 +13,12 @@ export type Rect = {
 
 export type CutSide = "left" | "right" | "both" | "none";
 export type CandidateHint = "hanamichi" | "centerStage";
+export type CandidateScope = "block" | "centerBand";
 export type LayoutHint = {
   cutSide?: CutSide;
   candidate?: CandidateHint;
+  candidateScope?: CandidateScope;
+  bandWidthRatio?: number;
   frameExpandX?: number;
 };
 export type SeatPredictionLayoutHints = Record<string, LayoutHint>;

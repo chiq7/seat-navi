@@ -31,7 +31,7 @@ const CUT_SIDE_HINTS: SeatPredictionLayoutHints = {
 };
 
 const MANUAL_CANDIDATE_HINTS: SeatPredictionLayoutHints = {
-  A3: { candidate: "hanamichi" },
+  A3: { candidate: "hanamichi", candidateScope: "centerBand", bandWidthRatio: 0.28 },
   B3: { candidate: "centerStage", frameExpandX: 12 },
 };
 
