@@ -72,12 +72,6 @@ const PAYMENT_COLORS: Record<string, string> = {
   other: "#6B7280",
 };
 
-function formatDatetime(iso: string): string {
-  const d = new Date(iso);
-  const p = (n: number) => String(n).padStart(2, "0");
-  return `${d.getFullYear()}/${p(d.getMonth() + 1)}/${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`;
-}
-
 function kindToLabel(kind: string): { label: string; color: string } {
   if (kind === "hanamichi") return { label: "花道候補", color: "#D97706" };
   if (kind === "yokoHanamichi") return { label: "横花候補", color: "#2563EB" };
@@ -442,7 +436,7 @@ export function SeatPredictionImage({
   expectedBlocks?: string[];
   submitPredictionHref?: string;
 }) {
-  const { totalReports, confidence, latestReportAt, blocks, missingBlockCandidates } = prediction;
+  const { totalReports, confidence, blocks, missingBlockCandidates } = prediction;
   const [shareStatus, setShareStatus] = useState("");
   const [colorMode, setColorMode] = useState<ColorMode>("lottery");
 
@@ -587,13 +581,13 @@ export function SeatPredictionImage({
 
   return (
     <div className="mb-4 overflow-hidden rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
-      <div className="mb-2 flex items-center gap-2">
+      <div className="mb-2">
         <p className="text-xs font-bold text-gray-700">座席報告マップ</p>
-        <span className="rounded-full bg-gray-100 px-2 py-0.5 text-[10px] text-gray-500">
-          報告ベース / 更新中
-        </span>
+        <p className="mt-1 text-[11px] font-bold text-gray-600">
+          {BRAND_NAME}｜{BRAND_DOMAIN}
+        </p>
         {confidence === "low" && (
-          <span className="rounded-full bg-amber-50 px-2 py-0.5 text-[10px] text-amber-600">報告少</span>
+          <span className="mt-1 inline-flex rounded-full bg-amber-50 px-2 py-0.5 text-[10px] text-amber-600">報告少</span>
         )}
       </div>
 
@@ -624,33 +618,13 @@ export function SeatPredictionImage({
         <rect x={SVG_W / 2 - 90} y={STAGE_TOP} width={180} height={STAGE_H} rx={5} fill="#1F2937" />
         <text
           x={SVG_W / 2}
-          y={STAGE_TOP + 7}
+          y={STAGE_TOP + STAGE_H / 2 + 2}
           textAnchor="middle"
           fill="white"
-          fontSize={6.5}
+          fontSize={8}
           fontWeight="bold"
         >
           メインステージ
-        </text>
-        <text
-          x={SVG_W / 2}
-          y={STAGE_TOP + 16}
-          textAnchor="middle"
-          fill="white"
-          fontSize={7}
-          fontWeight="bold"
-        >
-          {BRAND_NAME}
-        </text>
-        <text
-          x={SVG_W / 2}
-          y={STAGE_TOP + STAGE_H - 4}
-          textAnchor="middle"
-          fill="#D1D5DB"
-          fontSize={6}
-          fontWeight="bold"
-        >
-          {BRAND_DOMAIN}
         </text>
 
         {/* ブロック */}
@@ -855,11 +829,6 @@ export function SeatPredictionImage({
         </p>
       )}
 
-      <div className="mt-2 border-t border-gray-100 pt-2">
-        <p className="text-[10px] text-gray-400">
-          報告ベースの参考マップです{latestReportAt ? ` / 更新 ${formatDatetime(latestReportAt)}` : ""}
-        </p>
-      </div>
     </div>
   );
 }
