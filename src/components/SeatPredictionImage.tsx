@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import type { PredictionMap, BlockAnalysis } from "@/lib/seatPrediction";
 import type {
   LayoutHint,
@@ -38,6 +38,39 @@ const UNREPORTED_FILL = "#F6F4FB"; // 未報告席グリッドの背景（全row
 const GRID_STROKE = "#E3DEF2"; // 未報告席のグリッド線
 const GAP_FILL = "#FFFFFF"; // 白抜きgap（グリッドを消す）
 const GAP_EDGE_STROKE = "#D4C9A8";
+const BRAND_NAME = "座席予想ナビ";
+const BRAND_DOMAIN = "zaseki-yosou.jp";
+
+type ColorMode = "lottery" | "fcHistory" | "ticketCount" | "payment" | "upgrade";
+
+const COLOR_MODE_OPTIONS: { value: ColorMode; label: string; disabled?: boolean }[] = [
+  { value: "lottery", label: "抽選順" },
+  { value: "fcHistory", label: "FC歴" },
+  { value: "ticketCount", label: "枚数", disabled: true },
+  { value: "payment", label: "支払い" },
+  { value: "upgrade", label: "アプグレ" },
+];
+
+const LOTTERY_COLORS: Record<string, string> = {
+  fc1: "#5B2BE0",
+  fc2: "#2563EB",
+  general: "#0F766E",
+  upgrade: "#DC2626",
+  revival: "#D97706",
+  production: "#7C3AED",
+};
+
+const FC_HISTORY_COLORS: Record<string, string> = {
+  under_1_year: "#38BDF8",
+  one_to_three_years: "#22C55E",
+  over_3_years: "#A855F7",
+};
+
+const PAYMENT_COLORS: Record<string, string> = {
+  credit: "#2563EB",
+  convenience: "#F59E0B",
+  other: "#6B7280",
+};
 
 function formatDatetime(iso: string): string {
   const d = new Date(iso);
@@ -49,6 +82,21 @@ function kindToLabel(kind: string): { label: string; color: string } {
   if (kind === "hanamichi") return { label: "花道候補", color: "#D97706" };
   if (kind === "yokoHanamichi") return { label: "横花候補", color: "#2563EB" };
   return { label: "通路候補", color: "#6B7280" };
+}
+
+function seatCellFill(
+  cell: PositionedBlock["cells"][number],
+  colorMode: ColorMode,
+): string {
+  if (colorMode === "lottery") return LOTTERY_COLORS[cell.lotteryType] ?? REPORTED_FILL;
+  if (colorMode === "fcHistory") {
+    return cell.fcHistory ? FC_HISTORY_COLORS[cell.fcHistory] ?? REPORTED_FILL : REPORTED_FILL;
+  }
+  if (colorMode === "payment") {
+    return cell.paymentMethod ? PAYMENT_COLORS[cell.paymentMethod] ?? REPORTED_FILL : REPORTED_FILL;
+  }
+  if (colorMode === "upgrade") return cell.lotteryType === "upgrade" ? "#DC2626" : REPORTED_FILL;
+  return REPORTED_FILL;
 }
 
 // 各ブロック幅: 自分のseat spanを基準に16〜30列。小さいブロックは無駄に広げない。
@@ -94,6 +142,7 @@ function makePositioned(
   };
 
   const cells = b.seatCells.map((c) => ({
+    ...c,
     x: blockX + col(c.seat) * cell,
     y: blockY + (c.row - b.minRow) * cell,
   }));
@@ -392,6 +441,8 @@ export function SeatPredictionImage({
   expectedBlocks?: string[];
 }) {
   const { totalReports, confidence, latestReportAt, blocks, missingBlockCandidates } = prediction;
+  const [shareStatus, setShareStatus] = useState("");
+  const [colorMode, setColorMode] = useState<ColorMode>("lottery");
 
   const layout = useMemo(() => {
     const rowSpan = blocks.length
@@ -492,12 +543,31 @@ export function SeatPredictionImage({
     return { svgH, positioned, missingMarkers, shapeCandidates, cell };
   }, [blocks, expectedBlocks, missingBlockCandidates, layoutHints, totalReports]);
 
+  async function handleShare() {
+    const url = window.location.href;
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: `${BRAND_NAME}の座席報告マップ`,
+          text: "この座席報告マップ、どう見える？",
+          url,
+        });
+        setShareStatus("共有を開きました");
+      } else {
+        await navigator.clipboard.writeText(url);
+        setShareStatus("URLをコピーしました");
+      }
+    } catch {
+      setShareStatus("");
+    }
+  }
+
   if (totalReports === 0) return null;
 
   if (confidence === "insufficient" || !layout) {
     return (
       <div className="mb-4 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
-        <p className="text-xs font-bold text-gray-700">座席予想図（参考・模式図）</p>
+        <p className="text-xs font-bold text-gray-700">座席報告マップ</p>
         <p className="mt-2 text-[11px] leading-relaxed text-gray-500">
           報告が少ないため、詳細な予想は控えています。座席報告にご協力ください。
         </p>
@@ -516,13 +586,30 @@ export function SeatPredictionImage({
   return (
     <div className="mb-4 overflow-hidden rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
       <div className="mb-2 flex items-center gap-2">
-        <p className="text-xs font-bold text-gray-700">座席予想図（参考・模式図）</p>
+        <p className="text-xs font-bold text-gray-700">座席報告マップ</p>
         <span className="rounded-full bg-gray-100 px-2 py-0.5 text-[10px] text-gray-500">
           報告ベース / 更新中
         </span>
         {confidence === "low" && (
           <span className="rounded-full bg-amber-50 px-2 py-0.5 text-[10px] text-amber-600">報告少</span>
         )}
+      </div>
+
+      <div className="mb-2 flex flex-wrap items-center gap-1.5">
+        <span className="mr-1 text-[10px] font-bold text-gray-500">色分け</span>
+        {COLOR_MODE_OPTIONS.map((option) => (
+          <button
+            key={option.value}
+            type="button"
+            disabled={option.disabled}
+            onClick={() => setColorMode(option.value)}
+            className={`rounded-full px-2 py-1 text-[10px] font-bold ${
+              colorMode === option.value ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-500"
+            } disabled:cursor-not-allowed disabled:opacity-45`}
+          >
+            {option.label}
+          </button>
+        ))}
       </div>
 
       <svg
@@ -535,13 +622,33 @@ export function SeatPredictionImage({
         <rect x={SVG_W / 2 - 90} y={STAGE_TOP} width={180} height={STAGE_H} rx={5} fill="#1F2937" />
         <text
           x={SVG_W / 2}
-          y={STAGE_TOP + STAGE_H / 2 + 4}
+          y={STAGE_TOP + 7}
           textAnchor="middle"
           fill="white"
-          fontSize={10}
+          fontSize={6.5}
           fontWeight="bold"
         >
-          メインステージ（予想）
+          メインステージ
+        </text>
+        <text
+          x={SVG_W / 2}
+          y={STAGE_TOP + 16}
+          textAnchor="middle"
+          fill="white"
+          fontSize={7}
+          fontWeight="bold"
+        >
+          {BRAND_NAME}
+        </text>
+        <text
+          x={SVG_W / 2}
+          y={STAGE_TOP + STAGE_H - 4}
+          textAnchor="middle"
+          fill="#D1D5DB"
+          fontSize={6}
+          fontWeight="bold"
+        >
+          {BRAND_DOMAIN}
         </text>
 
         {/* ブロック */}
@@ -619,12 +726,27 @@ export function SeatPredictionImage({
                 width={cellSize}
                 height={cellSize}
                 rx={0.5}
-                fill={REPORTED_FILL}
+                fill={seatCellFill(c, colorMode)}
                 fillOpacity={0.9}
               />
             ))}
           </g>
         ))}
+
+        <text
+          x={SVG_W / 2}
+          y={svgH / 2}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill="#111827"
+          fillOpacity={0.14}
+          fontSize={22}
+          fontWeight="bold"
+          transform={`rotate(-18 ${SVG_W / 2} ${svgH / 2})`}
+          pointerEvents="none"
+        >
+          {BRAND_DOMAIN}
+        </text>
 
         {shapeCandidates.map((shape, i) => {
           const stroke = shape.kind === "centerStage" ? "#F59E0B" : "#22C55E";
@@ -678,6 +800,30 @@ export function SeatPredictionImage({
         })}
       </svg>
 
+      <div className="mt-3 rounded-xl border border-gray-100 bg-gray-50 p-3">
+        <p className="text-[11px] font-bold text-gray-700">この座席報告マップ、どう見える？</p>
+        <p className="mt-1 text-[10px] leading-relaxed text-gray-500">
+          スクショに花道・センステ予想を書き込んで投稿できます。
+        </p>
+        <div className="mt-3 grid grid-cols-2 gap-2">
+          <button
+            type="button"
+            onClick={handleShare}
+            className="rounded-full bg-gray-900 px-3 py-2 text-[11px] font-bold text-white"
+          >
+            このマップを共有する
+          </button>
+          <button
+            type="button"
+            disabled
+            className="rounded-full bg-gray-200 px-3 py-2 text-[11px] font-bold text-gray-500"
+          >
+            予想画像を投稿する（準備中）
+          </button>
+        </div>
+        {shareStatus && <p className="mt-2 text-[10px] text-gray-500">{shareStatus}</p>}
+      </div>
+
       {/* 凡例（最小限） */}
       <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-gray-100 pt-2">
         <div className="flex items-center gap-1">
@@ -699,15 +845,9 @@ export function SeatPredictionImage({
         </p>
       )}
 
-      {/* 必須注記 */}
-      <div className="mt-2 space-y-0.5 border-t border-gray-100 pt-2">
-        <p className="text-[10px] text-gray-400">{totalReports}件の報告に基づく参考予想図（模式図）です</p>
-        <p className="text-[10px] text-gray-400">実際の会場レイアウトとは異なる可能性があります</p>
+      <div className="mt-2 border-t border-gray-100 pt-2">
         <p className="text-[10px] text-gray-400">
-          Aブロックを前方、Bブロックを中間、Cブロックを後方として模式的に配置しています
-        </p>
-        <p className="text-[10px] text-gray-400">
-          報告ベース / 更新中{latestReportAt ? `・更新日時: ${formatDatetime(latestReportAt)}` : ""}
+          報告ベースの参考マップです{latestReportAt ? ` / 更新 ${formatDatetime(latestReportAt)}` : ""}
         </p>
       </div>
     </div>

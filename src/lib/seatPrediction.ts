@@ -28,6 +28,8 @@ export type SeatCell = {
   row: number;
   seat: number;
   lotteryType: string;
+  fcHistory?: string | null;
+  paymentMethod?: string | null;
 };
 
 /** 白抜きgapとして描く候補（seat軸=縦の空白 / row軸=横の空白）。confidenceでゲート済み。 */
@@ -239,6 +241,8 @@ export function buildPredictionMap(reports: SeatReport[]): PredictionMap {
       row: r.row_num,
       seat: r.seat_num,
       lotteryType: r.lottery_type,
+      fcHistory: r.fc_history ?? null,
+      paymentMethod: r.payment_method ?? null,
     }));
 
     blocks.push({

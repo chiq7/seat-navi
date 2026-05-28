@@ -1,4 +1,4 @@
-import type { BlockAnalysis } from "@/lib/seatPrediction";
+import type { BlockAnalysis, SeatCell } from "@/lib/seatPrediction";
 
 export type Rect = {
   x: number;
@@ -29,7 +29,7 @@ export type PositionedBlock = {
   y: number;
   blockW: number;
   blockH: number;
-  cells: { x: number; y: number }[];
+  cells: ({ x: number; y: number } & SeatCell)[];
   vLines: number[];
   hLines: number[];
   whiteRects: Rect[];
