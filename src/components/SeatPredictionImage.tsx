@@ -551,7 +551,7 @@ export function SeatPredictionImage({
       if (navigator.share) {
         await navigator.share({
           title: `${BRAND_NAME}の座席報告マップ`,
-          text: "この座席報告マップ、どう見える？",
+          text: "このマップをスクショして、花道・センステ予想を書き込んで投稿しよう",
           url,
         });
         setShareStatus("共有を開きました");
@@ -802,10 +802,9 @@ export function SeatPredictionImage({
         })}
       </svg>
 
-      <div className="mt-3 rounded-xl border border-gray-100 bg-gray-50 p-3">
-        <p className="text-[11px] font-bold text-gray-700">この座席報告マップ、どう見える？</p>
-        <p className="mt-1 text-[10px] leading-relaxed text-gray-500">
-          スクショに花道・センステ予想を書き込んで投稿できます。
+      <div className="mt-3 rounded-xl border border-purple-100 bg-purple-50/60 p-3">
+        <p className="text-[11px] font-bold text-gray-800">
+          このマップをスクショして、花道・センステ予想を書き込んで投稿しよう
         </p>
         <div className="mt-3 grid grid-cols-2 gap-2">
           <button
@@ -818,7 +817,7 @@ export function SeatPredictionImage({
           {submitPredictionHref ? (
             <a
               href={submitPredictionHref}
-              className="rounded-full bg-purple-600 px-3 py-2 text-center text-[11px] font-bold text-white"
+              className="rounded-full bg-purple-600 px-3 py-2 text-center text-[11px] font-bold text-white shadow-sm shadow-purple-200 active:scale-95"
             >
               予想画像を投稿する
             </a>

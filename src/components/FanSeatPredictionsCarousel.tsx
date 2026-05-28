@@ -109,7 +109,7 @@ export function FanSeatPredictionsCarousel({
       <div className="mb-3">
         <p className="text-xs font-bold text-gray-700">みんなの座席予想</p>
         <p className="mt-1 text-[11px] leading-relaxed text-gray-500">
-          ファンが投稿した座席予想です。公式情報ではありません
+          みんなが投稿したステージ構成予想です。これっぽいと思った予想を選べます。
         </p>
       </div>
 
