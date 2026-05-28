@@ -5,11 +5,7 @@ type SeatPredictionLayoutHintParams = {
   venueId?: string | null;
 };
 
-const EVENT_LAYOUT_HINTS: Record<string, SeatPredictionLayoutHints> = {
-  "svtn-tokyo-dome-20260614": {
-    B3: { candidate: "centerStage", frameExpandX: 12 },
-  },
-};
+const EVENT_LAYOUT_HINTS: Record<string, SeatPredictionLayoutHints> = {};
 const EVENT_EXPECTED_BLOCKS: Record<string, string[]> = {
   "svtn-tokyo-dome-20260614": [
     "A1",
