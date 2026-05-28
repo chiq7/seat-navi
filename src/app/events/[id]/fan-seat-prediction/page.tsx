@@ -121,7 +121,7 @@ export default function FanSeatPredictionPostPage({
         comment: comment.trim() || null,
         prediction_tags: tags,
         display_name: displayName.trim() || null,
-        approved: false,
+        approved: true,
       });
       if (insertError) throw new Error(insertError.message);
 
@@ -155,13 +155,13 @@ export default function FanSeatPredictionPostPage({
           <div>
             <p className="text-sm font-bold text-gray-800">みんなの座席予想</p>
             <p className="mt-1 text-xs leading-relaxed text-gray-500">
-              座席報告マップのスクショに、花道・センステ予想を書き込んだ画像を投稿できます。投稿は承認後に掲載されます。
+              座席報告マップのスクショに、花道・センステ予想を書き込んだ画像を投稿できます。投稿後すぐに掲載されます。
             </p>
           </div>
 
           {submitted && (
             <div className="rounded-xl bg-green-50 px-4 py-3 text-sm font-bold text-green-700">
-              投稿ありがとうございます。承認後に掲載されます。
+              投稿ありがとうございます。みんなの座席予想に掲載されました。
             </div>
           )}
 
