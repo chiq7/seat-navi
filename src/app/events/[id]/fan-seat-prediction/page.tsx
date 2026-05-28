@@ -49,6 +49,17 @@ export default function FanSeatPredictionPostPage({
 
   const canSubmit = useMemo(() => !!file && !submitting && !submitted, [file, submitting, submitted]);
 
+  function resetForm() {
+    if (previewUrl) URL.revokeObjectURL(previewUrl);
+    setFile(null);
+    setPreviewUrl("");
+    setComment("");
+    setDisplayName("");
+    setTags([]);
+    setError("");
+    setSubmitted(false);
+  }
+
   function handleFileChange(e: ChangeEvent<HTMLInputElement>) {
     const selected = e.target.files?.[0] ?? null;
     setError("");
@@ -126,12 +137,12 @@ export default function FanSeatPredictionPostPage({
       if (insertError) throw new Error(insertError.message);
 
       setSubmitted(true);
+      if (previewUrl) URL.revokeObjectURL(previewUrl);
       setFile(null);
+      setPreviewUrl("");
       setComment("");
       setDisplayName("");
       setTags([]);
-      if (previewUrl) URL.revokeObjectURL(previewUrl);
-      setPreviewUrl("");
     } catch (err) {
       setError(`投稿に失敗しました: ${err instanceof Error ? err.message : String(err)}`);
     } finally {
@@ -151,6 +162,32 @@ export default function FanSeatPredictionPostPage({
       </header>
 
       <main className="mx-auto max-w-md px-4 pt-4">
+        {submitted ? (
+          <div className="rounded-2xl bg-white p-5 text-center shadow-sm">
+            <p className="text-base font-extrabold text-gray-900">投稿ありがとうございます！</p>
+            <p className="mt-2 text-sm font-bold text-purple-700">
+              みんなの座席予想に掲載されました。
+            </p>
+            <p className="mt-1 text-xs leading-relaxed text-gray-500">
+              イベントページで投稿を確認できます。
+            </p>
+            <div className="mt-5 grid grid-cols-1 gap-2">
+              <Link
+                href={`/events/${eventId}`}
+                className="rounded-2xl bg-gray-900 px-4 py-3 text-sm font-bold text-white"
+              >
+                イベントページに戻る
+              </Link>
+              <button
+                type="button"
+                onClick={resetForm}
+                className="rounded-2xl bg-gray-100 px-4 py-3 text-sm font-bold text-gray-700"
+              >
+                もう1枚投稿する
+              </button>
+            </div>
+          </div>
+        ) : (
         <form onSubmit={handleSubmit} className="space-y-4 rounded-2xl bg-white p-4 shadow-sm">
           <div>
             <p className="text-sm font-bold text-gray-800">みんなの座席予想</p>
@@ -158,12 +195,6 @@ export default function FanSeatPredictionPostPage({
               座席報告マップのスクショに、花道・センステ予想を書き込んだ画像を投稿できます。投稿後すぐに掲載されます。
             </p>
           </div>
-
-          {submitted && (
-            <div className="rounded-xl bg-green-50 px-4 py-3 text-sm font-bold text-green-700">
-              投稿ありがとうございます。みんなの座席予想に掲載されました。
-            </div>
-          )}
 
           <div>
             <label className="mb-1.5 block text-xs font-bold text-gray-700">
@@ -237,6 +268,7 @@ export default function FanSeatPredictionPostPage({
             {submitting ? "投稿中..." : "投稿する"}
           </button>
         </form>
+        )}
       </main>
     </div>
   );
