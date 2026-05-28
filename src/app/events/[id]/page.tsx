@@ -259,6 +259,7 @@ export default function EventDetailPage({
             prediction={predictionMap}
             layoutHints={layoutHints}
             expectedBlocks={expectedBlocks}
+            submitPredictionHref={`/events/${eventId}/fan-seat-prediction`}
           />
 
           <FanSeatPredictionsCarousel predictions={fanSeatPredictions} />

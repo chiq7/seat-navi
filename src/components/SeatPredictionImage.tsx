@@ -435,10 +435,12 @@ export function SeatPredictionImage({
   prediction,
   layoutHints = EMPTY_LAYOUT_HINTS,
   expectedBlocks,
+  submitPredictionHref,
 }: {
   prediction: PredictionMap;
   layoutHints?: SeatPredictionLayoutHints;
   expectedBlocks?: string[];
+  submitPredictionHref?: string;
 }) {
   const { totalReports, confidence, latestReportAt, blocks, missingBlockCandidates } = prediction;
   const [shareStatus, setShareStatus] = useState("");
@@ -813,13 +815,22 @@ export function SeatPredictionImage({
           >
             このマップを共有する
           </button>
-          <button
-            type="button"
-            disabled
-            className="rounded-full bg-gray-200 px-3 py-2 text-[11px] font-bold text-gray-500"
-          >
-            予想画像を投稿する（準備中）
-          </button>
+          {submitPredictionHref ? (
+            <a
+              href={submitPredictionHref}
+              className="rounded-full bg-purple-600 px-3 py-2 text-center text-[11px] font-bold text-white"
+            >
+              予想画像を投稿する
+            </a>
+          ) : (
+            <button
+              type="button"
+              disabled
+              className="rounded-full bg-gray-200 px-3 py-2 text-[11px] font-bold text-gray-500"
+            >
+              予想画像を投稿する（準備中）
+            </button>
+          )}
         </div>
         {shareStatus && <p className="mt-2 text-[10px] text-gray-500">{shareStatus}</p>}
       </div>

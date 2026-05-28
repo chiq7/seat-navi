@@ -1,3 +1,4 @@
+import { supabase } from "@/lib/supabase/client";
 import type { FanSeatPrediction } from "@/lib/types";
 
 function formatDate(iso: string): string {
@@ -7,7 +8,8 @@ function formatDate(iso: string): string {
 }
 
 function imageSrc(path: string): string {
-  return path;
+  if (/^https?:\/\//.test(path)) return path;
+  return supabase.storage.from("fan-seat-predictions").getPublicUrl(path).data.publicUrl;
 }
 
 export function FanSeatPredictionsCarousel({
