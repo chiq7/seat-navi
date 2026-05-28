@@ -141,7 +141,7 @@ export function FanSeatPredictionsCarousel({
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={imageSrc(prediction.image_path)}
-                        alt="ファン投稿の座席予想"
+                        alt="ファン投稿のステージ構成予想"
                         className="aspect-[4/3] w-full rounded-xl bg-white object-cover"
                       />
                     </div>

@@ -571,10 +571,10 @@ export function SeatPredictionImage({
       <div className="mb-4 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
         <p className="text-xs font-bold text-gray-700">座席報告マップ</p>
         <p className="mt-2 text-[11px] leading-relaxed text-gray-500">
-          報告が少ないため、詳細な予想は控えています。座席報告にご協力ください。
+          報告が少ないため、まだマップを作成できません。座席報告にご協力ください。
         </p>
         <p className="mt-1 text-[10px] text-gray-400">
-          現在 {totalReports}件の報告（10件以上で予想図を表示）
+          現在 {totalReports}件の報告（10件以上でマップ表示）
         </p>
       </div>
     );
@@ -617,7 +617,7 @@ export function SeatPredictionImage({
       <svg
         viewBox={`0 0 ${SVG_W} ${svgH}`}
         width="100%"
-        aria-label="座席予想図（参考・模式図）"
+        aria-label="座席報告マップ（参考・模式図）"
         style={{ overflow: "visible" }}
       >
         {/* メインステージ */}
