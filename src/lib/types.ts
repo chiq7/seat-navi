@@ -166,6 +166,18 @@ export type EventLayout = {
   created_at: string;
 };
 
+/** ファン投稿の座席予想 (fan_seat_predictionsテーブル) */
+export type FanSeatPrediction = {
+  id: string;
+  event_id: string;
+  image_path: string;
+  comment: string | null;
+  prediction_tags: string[];
+  display_name: string | null;
+  approved: boolean;
+  created_at: string;
+};
+
 /** X（Twitter）由来の座席予想図・結果図・答え合わせ投稿 (x_seat_postsテーブル) */
 export type XSeatPost = {
   id: string;

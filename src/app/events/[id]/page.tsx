@@ -5,13 +5,14 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
 import { AllBlocksOverview } from "@/components/AllBlocksOverview";
-import type { CrawledEvent, SeatReport, EventLayout, HistoricalPattern } from "@/lib/types";
+import type { CrawledEvent, FanSeatPrediction, SeatReport, EventLayout, HistoricalPattern } from "@/lib/types";
 import { buildPredictionMap } from "@/lib/seatPrediction";
 import {
   getSeatPredictionExpectedBlocks,
   getSeatPredictionLayoutHints,
 } from "@/lib/seatPredictionLayoutHints";
 import { SeatPredictionImage } from "@/components/SeatPredictionImage";
+import { FanSeatPredictionsCarousel } from "@/components/FanSeatPredictionsCarousel";
 
 function randomId() {
   return crypto.randomUUID().replace(/-/g, "").slice(0, 20);
@@ -46,6 +47,7 @@ export default function EventDetailPage({
   const [layout,   setLayout]   = useState<EventLayout | null>(null);
   const [patterns, setPatterns] = useState<HistoricalPattern[]>([]);
   const [loading,  setLoading]  = useState(true);
+  const [fanSeatPredictions, setFanSeatPredictions] = useState<FanSeatPrediction[]>([]);
 
   // トースト
   const [toast, setToast] = useState(justAfterReported ? "答え合わせ投稿ありがとう！ 🎉" : "");
@@ -66,7 +68,7 @@ export default function EventDetailPage({
 
   useEffect(() => {
     async function load() {
-      const [evRes, repRes, layoutRes] = await Promise.all([
+      const [evRes, repRes, layoutRes, fanPredictionsRes] = await Promise.all([
         supabase
           .from("events")
           .select("id, title, venue, venue_id, date, genre, lottery_types")
@@ -83,10 +85,18 @@ export default function EventDetailPage({
           .eq("event_id", eventId)
           .limit(1)
           .maybeSingle(),
+        supabase
+          .from("fan_seat_predictions")
+          .select("id, event_id, image_path, comment, prediction_tags, display_name, approved, created_at")
+          .eq("event_id", eventId)
+          .eq("approved", true)
+          .order("created_at", { ascending: false })
+          .limit(20),
       ]);
       if (evRes.data)     setEvent(evRes.data as CrawledEvent);
       if (repRes.data)    setReports(repRes.data as SeatReport[]);
       if (layoutRes.data) setLayout(layoutRes.data as EventLayout);
+      if (fanPredictionsRes.data) setFanSeatPredictions(fanPredictionsRes.data as FanSeatPrediction[]);
 
       if (evRes.data?.venue) {
         const { data: patData } = await supabase
@@ -250,6 +260,8 @@ export default function EventDetailPage({
             layoutHints={layoutHints}
             expectedBlocks={expectedBlocks}
           />
+
+          <FanSeatPredictionsCarousel predictions={fanSeatPredictions} />
 
           {/* 2カラム: PC=左フォーム(40%) 右マップ(60%) / スマホ=上マップ 下フォーム */}
           <div className="flex flex-col gap-4 md:flex-row md:items-start">
