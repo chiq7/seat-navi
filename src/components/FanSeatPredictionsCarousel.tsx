@@ -81,9 +81,10 @@ export function FanSeatPredictionsCarousel({
                     <button
                       type="button"
                       disabled
-                      className="rounded-full bg-gray-100 px-3 py-1.5 text-[10px] font-bold text-gray-500"
+                      className="rounded-xl bg-gray-100 px-3 py-1.5 text-[10px] font-bold leading-tight text-gray-500"
                     >
-                      これが本命 0
+                      <span className="block">これっぽい</span>
+                      <span className="block font-normal">0人が選択</span>
                     </button>
                   </div>
                 </div>
