@@ -153,7 +153,7 @@ export default function FanSeatPredictionPostPage({
   return (
     <div className="min-h-screen bg-gray-50 pb-10">
       <header className="sticky top-0 z-40 border-b border-gray-100 bg-white/90 px-4 py-3 backdrop-blur-md">
-        <div className="mx-auto flex max-w-md items-center gap-3">
+        <div className="mx-auto flex max-w-[360px] items-center gap-3">
           <Link href={`/events/${eventId}`} className="text-sm font-bold text-gray-500">
             戻る
           </Link>
@@ -161,9 +161,9 @@ export default function FanSeatPredictionPostPage({
         </div>
       </header>
 
-      <main className="mx-auto max-w-md px-4 pt-4">
+      <main className="mx-auto w-full max-w-[360px] overflow-hidden px-4 pt-4">
         {submitted ? (
-          <div className="rounded-2xl bg-white p-5 text-center shadow-sm">
+          <div className="w-full min-w-0 rounded-2xl bg-white p-5 text-center shadow-sm">
             <p className="text-base font-extrabold text-gray-900">投稿ありがとうございます！</p>
             <p className="mt-2 text-sm font-bold text-purple-700">
               みんなの座席予想に掲載されました。
@@ -188,7 +188,7 @@ export default function FanSeatPredictionPostPage({
             </div>
           </div>
         ) : (
-        <form onSubmit={handleSubmit} className="space-y-4 rounded-2xl bg-white p-4 shadow-sm">
+        <form onSubmit={handleSubmit} className="w-full min-w-0 space-y-4 rounded-2xl bg-white p-4 shadow-sm">
           <div>
             <p className="text-sm font-bold text-gray-800">みんなの座席予想</p>
             <p className="mt-1 text-xs leading-relaxed text-gray-500">
@@ -204,7 +204,7 @@ export default function FanSeatPredictionPostPage({
               type="file"
               accept="image/*"
               onChange={handleFileChange}
-              className="block w-full text-xs text-gray-600 file:mr-3 file:rounded-full file:border-0 file:bg-gray-900 file:px-3 file:py-2 file:text-xs file:font-bold file:text-white"
+              className="block w-full min-w-0 max-w-full text-xs text-gray-600 file:mr-3 file:rounded-full file:border-0 file:bg-gray-900 file:px-3 file:py-2 file:text-xs file:font-bold file:text-white"
             />
             <p className="mt-1 text-[10px] text-gray-400">image/*、5MB以下</p>
             {previewUrl && (
@@ -215,13 +215,13 @@ export default function FanSeatPredictionPostPage({
 
           <div>
             <label className="mb-1.5 block text-xs font-bold text-gray-700">予想タグ</label>
-            <div className="flex flex-wrap gap-2">
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
               {TAG_OPTIONS.map((tag) => (
                 <button
                   key={tag}
                   type="button"
                   onClick={() => toggleTag(tag)}
-                  className={`rounded-full border px-3 py-1.5 text-xs font-bold ${
+                  className={`min-w-0 truncate rounded-full border px-3 py-1.5 text-xs font-bold ${
                     tags.includes(tag)
                       ? "border-purple-600 bg-purple-600 text-white"
                       : "border-gray-200 bg-white text-gray-600"
