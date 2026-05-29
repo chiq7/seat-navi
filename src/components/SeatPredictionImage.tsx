@@ -38,8 +38,8 @@ const UNREPORTED_FILL = "#F6F4FB"; // 未報告席グリッドの背景（全row
 const GRID_STROKE = "#E3DEF2"; // 未報告席のグリッド線
 const GAP_FILL = "#FFFFFF"; // 白抜きgap（グリッドを消す）
 const GAP_EDGE_STROKE = "#D4C9A8";
-const BRAND_NAME = "座席予想ナビ";
-const BRAND_DOMAIN = "zaseki-yosou.jp";
+const BRAND_NAME = "公演なう";
+const BRAND_DOMAIN = "koen-now.com";
 
 type ColorMode = "lottery" | "fcHistory" | "ticketCount" | "payment" | "upgrade";
 
