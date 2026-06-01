@@ -4,8 +4,8 @@ import { use, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
-import { AllBlocksOverview } from "@/components/AllBlocksOverview";
-import type { CrawledEvent, FanSeatPrediction, SeatReport, EventLayout, HistoricalPattern } from "@/lib/types";
+import { findArtistByKeyword } from "@/lib/artists";
+import type { CrawledEvent, EventLayout, FanSeatPrediction, SeatReport } from "@/lib/types";
 import { buildPredictionMap } from "@/lib/seatPrediction";
 import {
   getSeatPredictionExpectedBlocks,
@@ -13,24 +13,113 @@ import {
 } from "@/lib/seatPredictionLayoutHints";
 import { SeatPredictionImage } from "@/components/SeatPredictionImage";
 import { FanSeatPredictionsCarousel } from "@/components/FanSeatPredictionsCarousel";
+import { SeatReportForm } from "@/components/SeatReportForm";
 
-function randomId() {
-  return crypto.randomUUID().replace(/-/g, "").slice(0, 20);
+const LOTTERY_LABELS: Record<string, string> = {
+  fc1: "FC1次", fc2: "FC2次", general: "一般", upgrade: "アプグレ",
+  revival: "復活当選", production: "制作開放",
+};
+const LOTTERY_ORDER = ["fc1", "fc2", "general", "upgrade", "revival", "production"];
+const FC_LABELS: Record<string, string> = {
+  over_3_years: "FC歴3年以上", one_to_three_years: "FC歴1〜3年",
+  under_1_year: "FC歴1年未満",
+};
+const FC_ORDER = ["over_3_years", "one_to_three_years", "under_1_year"];
+const PM_LABELS: Record<string, string> = { credit: "クレカ", convenience: "コンビニ", other: "その他" };
+
+function isArenaBlock(block: string): boolean {
+  return /^(A|SA|SB|SC|SD|SE)\d/i.test(block);
 }
 
-const BLOCK_GROUPS = [
-  { label: "アリーナ中央", options: ["A", "B", "C", "D", "E", "F", "G"] },
-  { label: "サイド・特殊",  options: ["SS", "SA", "SB", "SC", "SD", "SE", "SF"] },
-];
+type TrendItem = { key: string; label: string; count: number; topBlocks: string[]; arenaRatio: number };
+type SeatSummary = {
+  totalReports: number;
+  topBlocks: string[];
+  arenaCount: number;
+  standCount: number;
+  arenaRatio: number;
+  lotteryTypeTrends: TrendItem[];
+  fcHistoryTrends: TrendItem[];
+  paymentMethodTrends: TrendItem[];
+  predictionComment: string;
+};
 
-const ALL_LOTTERY_OPTIONS = [
-  { value: "fc1",        label: "FC1次（最速含む）" },
-  { value: "fc2",        label: "FC2次" },
-  { value: "general",    label: "一般" },
-  { value: "revival",    label: "復活当選" },
-  { value: "production", label: "制作開放" },
-];
+function topBlocksFor(reports: SeatReport[], n = 3): string[] {
+  const cnt = new Map<string, number>();
+  for (const r of reports) cnt.set(r.block, (cnt.get(r.block) ?? 0) + 1);
+  return [...cnt.entries()].sort((a, b) => b[1] - a[1]).slice(0, n).map(([k]) => k);
+}
 
+function arenaRatioFor(reports: SeatReport[]): number {
+  if (!reports.length) return 0;
+  return reports.filter(r => isArenaBlock(r.block)).length / reports.length;
+}
+
+function buildPredictionComment(total: number, arenaRatio: number, lotteryTrends: TrendItem[]): string {
+  if (total === 0) return "";
+  const lines: string[] = [];
+  if (total < 10) {
+    lines.push("報告数がまだ少ないため、傾向は参考程度にご確認ください。");
+  } else if (arenaRatio >= 0.7) {
+    lines.push("報告ベースでは、アリーナブロックが多い傾向が見られます。");
+  } else if (arenaRatio <= 0.3) {
+    lines.push("報告ベースでは、スタンド席が多い傾向が見られます。");
+  } else {
+    lines.push("報告ベースでは、アリーナ・スタンドに幅広い分布が見られます。");
+  }
+  const fc1 = lotteryTrends.find(t => t.key === "fc1");
+  if (fc1 && fc1.topBlocks.length > 0) {
+    lines.push(`FC1次当選者の多い報告ブロック: ${fc1.topBlocks.join("・")}（参考傾向）`);
+  }
+  return lines.join(" ");
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function computeSeatSummary(reports: SeatReport[]): SeatSummary | null {
+  if (reports.length === 0) return null;
+  const arenaCount = reports.filter(r => isArenaBlock(r.block)).length;
+  const standCount = reports.length - arenaCount;
+  const arenaRatio = arenaCount / reports.length;
+
+  function buildTrends(
+    order: string[],
+    labels: Record<string, string>,
+    getKey: (r: SeatReport) => string | null | undefined,
+  ): TrendItem[] {
+    const allKeys = new Set(reports.map(getKey).filter((k): k is string => k != null));
+    const orderedKeys = [
+      ...order.filter(k => allKeys.has(k)),
+      ...[...allKeys].filter(k => !order.includes(k)),
+    ];
+    return orderedKeys.map(k => {
+      const subset = reports.filter(r => getKey(r) === k);
+      return {
+        key: k,
+        label: labels[k] ?? k,
+        count: subset.length,
+        topBlocks: topBlocksFor(subset),
+        arenaRatio: arenaRatioFor(subset),
+      };
+    }).filter(t => t.count > 0);
+  }
+
+  const lotteryTypeTrends = buildTrends(LOTTERY_ORDER, LOTTERY_LABELS, r => r.lottery_type);
+  const fcHistoryTrends   = buildTrends(FC_ORDER, FC_LABELS, r => r.fc_history ?? null);
+  const paymentMethodTrends = buildTrends(Object.keys(PM_LABELS), PM_LABELS, r => r.payment_method ?? null);
+  const predictionComment = buildPredictionComment(reports.length, arenaRatio, lotteryTypeTrends);
+
+  return {
+    totalReports: reports.length,
+    topBlocks: topBlocksFor(reports),
+    arenaCount,
+    standCount,
+    arenaRatio,
+    lotteryTypeTrends,
+    fcHistoryTrends,
+    paymentMethodTrends,
+    predictionComment,
+  };
+}
 
 export default function EventDetailPage({
   params,
@@ -42,49 +131,36 @@ export default function EventDetailPage({
   const justAfterReported = searchParams.get("after_reported") === "1";
 
   // ページデータ
-  const [event,    setEvent]    = useState<CrawledEvent | null>(null);
-  const [reports,  setReports]  = useState<SeatReport[]>([]);
-  const [layout,   setLayout]   = useState<EventLayout | null>(null);
-  const [patterns, setPatterns] = useState<HistoricalPattern[]>([]);
-  const [loading,  setLoading]  = useState(true);
+  const [event,   setEvent]   = useState<CrawledEvent | null>(null);
+  const [layout,  setLayout]  = useState<EventLayout | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [seatReports, setSeatReports] = useState<SeatReport[]>([]);
   const [fanSeatPredictions, setFanSeatPredictions] = useState<FanSeatPrediction[]>([]);
+  const [relatedEvents, setRelatedEvents] = useState<CrawledEvent[]>([]);
 
   // トースト
   const [toast, setToast] = useState(justAfterReported ? "答え合わせ投稿ありがとう！ 🎉" : "");
 
-  // フォーム
-  const [blockPrefix,   setBlockPrefix]   = useState("");
-  const [blockNum,      setBlockNum]      = useState("");
-  const [rowNum,        setRowNum]        = useState("");
-  const [ticketCount,   setTicketCount]   = useState(1);
-  const [leftSeatNum,   setLeftSeatNum]   = useState("");
-  const [lotteryType,   setLotteryType]   = useState("");
-  const [isUpgrade,     setIsUpgrade]     = useState<boolean | null>(null);
-  const [lotteryRound,  setLotteryRound]  = useState("");
-  const [lotteryName,   setLotteryName]   = useState("");
-  const [paymentMethod, setPaymentMethod] = useState("");
-  const [submitting,    setSubmitting]    = useState(false);
-  const [formError,     setFormError]     = useState("");
-
   useEffect(() => {
     async function load() {
-      const [evRes, repRes, layoutRes, fanPredictionsRes] = await Promise.all([
+      const [evRes, layoutRes, reportsRes, fanPredictionsRes] = await Promise.all([
         supabase
           .from("events")
           .select("id, title, venue, venue_id, date, genre, lottery_types")
           .eq("id", eventId)
           .single(),
         supabase
-          .from("seat_reports")
-          .select("*")
-          .eq("event_id", eventId)
-          .order("block").order("row_num").order("seat_num"),
-        supabase
           .from("event_layouts")
           .select("id, event_id, image_url, created_at")
           .eq("event_id", eventId)
           .limit(1)
           .maybeSingle(),
+        supabase
+          .from("seat_reports")
+          .select("id, event_id, block, row_num, seat_num, lottery_type, fc_history, payment_method, lottery_round, lottery_name, comment, created_at")
+          .eq("event_id", eventId)
+          .order("created_at", { ascending: false })
+          .limit(500),
         supabase
           .from("fan_seat_predictions")
           .select("id, event_id, image_path, comment, prediction_tags, display_name, approved, created_at")
@@ -93,19 +169,10 @@ export default function EventDetailPage({
           .order("created_at", { ascending: false })
           .limit(20),
       ]);
-      if (evRes.data)     setEvent(evRes.data as CrawledEvent);
-      if (repRes.data)    setReports(repRes.data as SeatReport[]);
-      if (layoutRes.data) setLayout(layoutRes.data as EventLayout);
+      if (evRes.data)      setEvent(evRes.data as CrawledEvent);
+      if (layoutRes.data)  setLayout(layoutRes.data as EventLayout);
+      if (reportsRes.data) setSeatReports(reportsRes.data as SeatReport[]);
       if (fanPredictionsRes.data) setFanSeatPredictions(fanPredictionsRes.data as FanSeatPrediction[]);
-
-      if (evRes.data?.venue) {
-        const { data: patData } = await supabase
-          .from("historical_patterns")
-          .select("block, max_row, max_seat, event_name")
-          .eq("venue", evRes.data.venue)
-          .limit(50);
-        if (patData) setPatterns(patData as HistoricalPattern[]);
-      }
       setLoading(false);
     }
     load();
@@ -118,19 +185,7 @@ export default function EventDetailPage({
     return () => clearTimeout(t);
   }, [toast]);
 
-  const blockFull = blockPrefix + blockNum;
-
-  const lotteryOptions = event?.lottery_types?.length
-    ? ALL_LOTTERY_OPTIONS.filter((o) => event.lottery_types!.includes(o.value))
-    : ALL_LOTTERY_OPTIONS;
-
-  const blockMap = new Map<string, SeatReport[]>();
-  for (const r of reports) {
-    if (!blockMap.has(r.block)) blockMap.set(r.block, []);
-    blockMap.get(r.block)!.push(r);
-  }
-
-  const predictionMap = useMemo(() => buildPredictionMap(reports), [reports]);
+  const predictionMap = useMemo(() => buildPredictionMap(seatReports), [seatReports]);
   const layoutHints = useMemo(
     () => getSeatPredictionLayoutHints({ eventId, venueId: event?.venue_id }),
     [eventId, event?.venue_id],
@@ -140,66 +195,61 @@ export default function EventDetailPage({
     [eventId, event?.venue_id],
   );
 
-  const seatHint = "お手元の番号を入力してください。";
+  const artist = event ? findArtistByKeyword(event.title) : undefined;
+  const relatedEventFilter = useMemo(
+    () => artist?.keywords.map(kw => `title.ilike.%${kw}%`).join(",") ?? "",
+    [artist],
+  );
 
-  const previewSeats = leftSeatNum
-    ? Array.from({ length: ticketCount }, (_, i) => parseInt(leftSeatNum, 10) + i).filter((n) => !isNaN(n))
-    : [];
+  useEffect(() => {
+    if (!event || !relatedEventFilter) return;
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setFormError("");
-
-    const row      = parseInt(rowNum, 10);
-    const leftSeat = parseInt(leftSeatNum, 10);
-
-    if (isUpgrade === null)        { setFormError("アップグレード当選かどうかを選択してください"); return; }
-    if (!blockPrefix)              { setFormError("ブロックを選択してください"); return; }
-    if (!blockNum.trim())          { setFormError("ブロック番号を入力してください"); return; }
-    if (!row || row < 1)           { setFormError("列番号は1以上の数値を入力してください"); return; }
-    if (!leftSeat || leftSeat < 1) { setFormError("座席番号は1以上の数値を入力してください"); return; }
-
-    setSubmitting(true);
-
-    const effectiveLottery = isUpgrade ? "upgrade" : (lotteryType || "fc1");
-    const newRows: SeatReport[] = Array.from({ length: ticketCount }, (_, i) => ({
-      id: randomId(),
-      event_id: eventId,
-      block: blockFull.trim(),
-      row_num: row,
-      seat_num: leftSeat + i,
-      lottery_type: effectiveLottery as SeatReport["lottery_type"],
-      lottery_round: lotteryRound || null,
-      lottery_name: lotteryName.trim() || null,
-      payment_method: paymentMethod || null,
-      comment: null,
-      created_at: new Date().toISOString(),
-    }));
-
-    const { error: dbErr } = await supabase.from("seat_reports").insert(newRows);
-    if (dbErr) {
-      setFormError("投稿に失敗しました: " + dbErr.message);
-      setSubmitting(false);
-      return;
+    let cancelled = false;
+    async function loadRelatedEvents() {
+      const { data } = await supabase
+        .from("events")
+        .select("id, title, venue, venue_id, date, genre, lottery_types")
+        .or(relatedEventFilter)
+        .order("date", { ascending: true });
+      if (!cancelled) setRelatedEvents((data as CrawledEvent[]) ?? [event]);
     }
+    loadRelatedEvents();
+    return () => {
+      cancelled = true;
+    };
+  }, [event, relatedEventFilter]);
 
-    // 全体図をその場で更新
-    setReports((prev) => [...prev, ...newRows]);
+  const relatedVenueEvents = useMemo(() => {
+    if (!event) return [];
+    const source = relatedEventFilter && relatedEvents.length > 0 ? relatedEvents : [event];
+    return source
+      .filter(ev => ev.venue === event.venue)
+      .sort((a, b) => (a.date ?? "").localeCompare(b.date ?? ""));
+  }, [event, relatedEventFilter, relatedEvents]);
 
-    // フォームリセット
-    setBlockPrefix("");
-    setBlockNum("");
-    setRowNum("");
-    setTicketCount(1);
-    setLeftSeatNum("");
-    setLotteryType("");
-    setIsUpgrade(null);
-    setLotteryRound("");
-    setLotteryName("");
-    setPaymentMethod("");
-    setSubmitting(false);
-    setToast("報告ありがとう！ 🎉");
-  };
+  // 全会場リスト（ツアー内のユニーク会場を日程順で）
+  const allVenues = useMemo(() => {
+    const seen = new Set<string>();
+    const venues: string[] = [];
+    const source = relatedEvents.length > 0 ? relatedEvents : (event ? [event] : []);
+    for (const ev of source) {
+      if (ev.venue && !seen.has(ev.venue)) {
+        seen.add(ev.venue);
+        venues.push(ev.venue);
+      }
+    }
+    return venues;
+  }, [relatedEvents, event]);
+
+  // 会場ごとの先頭イベントID（会場タブのリンク先）
+  const firstEventByVenue = useMemo(() => {
+    const m = new Map<string, string>();
+    const source = relatedEvents.length > 0 ? relatedEvents : (event ? [event] : []);
+    for (const ev of source) {
+      if (ev.venue && !m.has(ev.venue)) m.set(ev.venue, ev.id);
+    }
+    return m;
+  }, [relatedEvents, event]);
 
   function fmtDate(d: string | null) {
     if (!d) return "日程未定";
@@ -208,24 +258,44 @@ export default function EventDetailPage({
     return `${y}年${m}月${day}日(${w})`;
   }
 
+  function fmtShortDate(d: string | null) {
+    if (!d) return "日程未定";
+    const [y, m, day] = d.split("-").map(Number);
+    const w = ["日","月","火","水","木","金","土"][new Date(y, m - 1, day).getDay()];
+    return `${m}/${day}(${w})`;
+  }
+
   return (
-    <div className="min-h-screen bg-gray-50 pb-10">
+    <div className="min-h-screen bg-gray-50 pb-28">
       {/* ヘッダー */}
-      <header className="sticky top-0 z-40 border-b border-gray-100 bg-white/90 px-4 py-3 backdrop-blur-md">
-        <div className="flex items-center gap-3">
-          <Link href="/" className="text-gray-500 hover:text-gray-700">
-            <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <header
+        className="fixed left-1/2 top-0 z-50 flex h-14 w-full max-w-[430px] -translate-x-1/2 items-center justify-between px-4"
+        style={{
+          background: "rgba(255,255,255,0.88)",
+          backdropFilter: "blur(16px)",
+          borderBottom: "1px solid rgba(0,0,0,0.06)",
+        }}
+      >
+          <Link
+            href="/"
+            className="flex h-9 w-9 items-center justify-center rounded-full transition-transform active:scale-95"
+            style={{ background: "rgba(0,104,118,0.06)" }}
+          >
+            <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: "#006876" }}>
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </Link>
-          <h1 className="flex-1 truncate text-sm font-bold text-gray-900">
-            {loading ? "読み込み中..." : (event?.title ?? "公演詳細")}
-          </h1>
-        </div>
+          <div className="text-center">
+            <p className="text-sm font-bold tracking-tight" style={{ color: "#006876" }}>
+              {loading ? "読み込み中..." : (artist?.name ?? event?.title ?? "公演詳細")}
+            </p>
+            <p className="text-[10px] text-gray-400">座席予想</p>
+          </div>
+          <div className="w-9" />
       </header>
 
       {loading ? (
-        <div className="space-y-3 px-4 pt-5">
+        <div className="space-y-3 px-4 pt-[76px]">
           {[1, 2].map((i) => (
             <div key={i} className="animate-pulse rounded-2xl bg-white p-4 shadow-sm">
               <div className="h-4 w-32 rounded bg-gray-200" />
@@ -234,13 +304,45 @@ export default function EventDetailPage({
           ))}
         </div>
       ) : event ? (
-        <div className="px-4 pt-4">
-          {/* 公演情報 */}
-          <div className="mb-4 rounded-2xl bg-white p-4 shadow-sm">
-            <p className="text-xs text-gray-500">{event.venue}</p>
-            <p className="mt-1 text-base font-extrabold leading-snug text-gray-900">{event.title}</p>
-            <p className="mt-1 text-sm text-gray-600">{fmtDate(event.date)}</p>
-          </div>
+        <div className="mx-auto max-w-md px-4 pt-[72px]">
+          {/* 会場タブ */}
+          {allVenues.length > 1 && (
+            <div className="mb-2 flex gap-1.5 overflow-x-auto pb-1" style={{ scrollbarWidth: "none" }}>
+              {allVenues.map(venue => {
+                const isSel = venue === event.venue;
+                const targetId = firstEventByVenue.get(venue);
+                return (
+                  <Link
+                    key={venue}
+                    href={targetId ? `/events/${targetId}` : "#"}
+                    className="whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-semibold transition-all active:scale-95"
+                    style={isSel ? { background: "#006876", color: "#fff" } : { background: "#edf3f4", color: "#4b6870" }}
+                  >
+                    {venue}
+                  </Link>
+                );
+              })}
+            </div>
+          )}
+
+          {/* 日付タブ */}
+          {relatedVenueEvents.length > 0 && (
+            <div className="mb-4 flex gap-1.5 overflow-x-auto pb-1" style={{ scrollbarWidth: "none" }}>
+              {relatedVenueEvents.map(ev => {
+                const isSel = ev.id === eventId;
+                return (
+                  <Link
+                    key={ev.id}
+                    href={`/events/${ev.id}`}
+                    className="whitespace-nowrap rounded-full px-3 py-1 text-[11px] font-semibold transition-all active:scale-95"
+                    style={isSel ? { background: "#006876", color: "#fff" } : { background: "#edf3f4", color: "#4b6870" }}
+                  >
+                    {fmtShortDate(ev.date)}
+                  </Link>
+                );
+              })}
+            </div>
+          )}
 
           {/* 参考予想図 */}
           {layout && (
@@ -262,225 +364,11 @@ export default function EventDetailPage({
             submitPredictionHref={`/events/${eventId}/fan-seat-prediction`}
           />
 
+          {/* フォーム */}
+          <SeatReportForm eventId={eventId} event={event} successMode="inline" variant="progressive" />
+
           <FanSeatPredictionsCarousel predictions={fanSeatPredictions} />
 
-          {/* 2カラム: PC=左フォーム(40%) 右マップ(60%) / スマホ=上マップ 下フォーム */}
-          <div className="flex flex-col gap-4 md:flex-row md:items-start">
-
-            {/* 全体図（スマホ: 上 / PC: 右） */}
-            <div className="order-first md:order-last md:sticky md:top-20" style={{ flex: "0 0 60%" }}>
-              <div className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
-                <div className="mb-3 flex items-center justify-between">
-                  <p className="text-xs font-bold text-gray-700">全体図</p>
-                  <span className="text-[10px] text-gray-400">報告数: {reports.length}件</span>
-                </div>
-                {blockMap.size > 0 ? (
-                  <AllBlocksOverview blockMap={blockMap} patterns={patterns} />
-                ) : (
-                  <div className="flex flex-col items-center justify-center py-10 text-center">
-                    <div className="text-3xl">🪑</div>
-                    <p className="mt-2 text-xs text-gray-400">まだ報告がありません</p>
-                    <p className="text-[11px] text-gray-300">最初の報告者になってね！</p>
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {/* フォーム（スマホ: 下 / PC: 左） */}
-            <form
-              onSubmit={handleSubmit}
-              className="order-last md:order-first rounded-2xl bg-white p-4 shadow-sm"
-              style={{ flex: "0 0 40%" }}
-            >
-              <p className="mb-2 text-xs font-bold text-gray-700">座席を報告する</p>
-
-              <div className="space-y-2">
-
-                {/* 申込枚数 */}
-                <div>
-                  <p className="mb-1 text-[11px] font-bold text-gray-500">申込枚数 <span className="text-red-400">*</span></p>
-                  <div className="flex gap-1.5">
-                    {[1, 2, 3, 4].map((n) => (
-                      <button key={n} type="button" onClick={() => setTicketCount(n)}
-                        className={`flex-1 rounded-lg border py-1.5 text-xs font-bold transition-all ${
-                          ticketCount === n
-                            ? "border-[var(--accent)] bg-[var(--accent)] text-white"
-                            : "border-gray-200 bg-gray-50 text-gray-600"
-                        }`}
-                      >
-                        {n}枚
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* アプグレ当選？ */}
-                <div>
-                  <p className="mb-1 text-[11px] font-bold text-gray-500">アプグレ当選？ <span className="text-red-400">*</span></p>
-                  <div className="flex gap-1.5">
-                    {([true, false] as const).map((v) => (
-                      <button key={String(v)} type="button" onClick={() => setIsUpgrade(v)}
-                        className={`flex-1 rounded-lg border py-1.5 text-xs font-bold transition-all ${
-                          isUpgrade === v
-                            ? "border-[var(--accent)] bg-[var(--accent)] text-white"
-                            : "border-gray-200 bg-gray-50 text-gray-600"
-                        }`}
-                      >
-                        {v ? "はい" : "いいえ"}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* 抽選枠（任意・プルダウン）アプグレいいえの時のみ */}
-                {isUpgrade === false && (
-                  <div>
-                    <p className="mb-1 text-[11px] font-bold text-gray-500">抽選枠 <span className="text-[10px] font-normal text-gray-400">任意</span></p>
-                    <select
-                      value={lotteryType}
-                      onChange={(e) => setLotteryType(e.target.value)}
-                      className="w-full rounded-lg border border-gray-200 bg-gray-50 px-2 py-1.5 text-xs outline-none focus:border-[var(--accent)]"
-                    >
-                      <option value="">選択しない</option>
-                      {lotteryOptions.map((opt) => (
-                        <option key={opt.value} value={opt.value}>{opt.label}</option>
-                      ))}
-                    </select>
-                  </div>
-                )}
-
-                {/* ブロック＋番号 / 列＋座席番号（2行） */}
-                <div>
-                  <p className="mb-1 text-[11px] font-bold text-gray-500">ブロック・座席 <span className="text-red-400">*</span></p>
-                  <div className="space-y-1.5">
-                    <div className="flex gap-1.5">
-                      <select
-                        value={blockPrefix}
-                        onChange={(e) => setBlockPrefix(e.target.value)}
-                        className="w-24 rounded-lg border border-gray-200 bg-gray-50 px-1.5 py-1.5 text-xs outline-none focus:border-[var(--accent)]"
-                      >
-                        <option value="">--</option>
-                        {BLOCK_GROUPS.map((group) => (
-                          <optgroup key={group.label} label={group.label}>
-                            {group.options.map((p) => (
-                              <option key={p} value={p}>{p}</option>
-                            ))}
-                          </optgroup>
-                        ))}
-                      </select>
-                      <input
-                        type="text"
-                        inputMode="numeric"
-                        value={blockNum}
-                        onChange={(e) => setBlockNum(e.target.value.replace(/[^0-9]/g, ""))}
-                        placeholder="番号（例: 3）"
-                        className="flex-1 rounded-lg border border-gray-200 bg-gray-50 px-2 py-1.5 text-xs outline-none focus:border-[var(--accent)]"
-                      />
-                    </div>
-                    <div className="flex gap-1.5">
-                      <input
-                        type="number" inputMode="numeric" min="1"
-                        value={rowNum}
-                        onChange={(e) => setRowNum(e.target.value)}
-                        placeholder="列（例: 5）"
-                        className="flex-1 rounded-lg border border-gray-200 bg-gray-50 px-2 py-1.5 text-xs outline-none focus:border-[var(--accent)]"
-                      />
-                      <input
-                        type="number" inputMode="numeric" min="1"
-                        value={leftSeatNum}
-                        onChange={(e) => setLeftSeatNum(e.target.value)}
-                        placeholder="座席番号（例: 12）"
-                        className="flex-1 rounded-lg border border-gray-200 bg-gray-50 px-2 py-1.5 text-xs outline-none focus:border-[var(--accent)]"
-                      />
-                    </div>
-                  </div>
-                  {blockFull && (
-                    <p className="mt-0.5 text-[10px] text-gray-400">
-                      ブロック: <span className="font-bold text-gray-600">{blockFull}</span>
-                    </p>
-                  )}
-                  {ticketCount === 1 ? (
-                    <p className="mt-0.5 text-[10px] text-gray-400">{seatHint}</p>
-                  ) : (
-                    <>
-                      <p className="mt-0.5 text-[10px] font-semibold text-red-500">
-                        2枚以上の場合は、連番の一番左の席番号を入力してください。
-                      </p>
-                      <p className="mt-0.5 text-[10px] text-gray-400">
-                        わからない場合は、お手元の席番号でも大丈夫です。
-                      </p>
-                    </>
-                  )}
-                  {previewSeats.length > 1 && (
-                    <p className="mt-0.5 text-[10px] text-gray-400">
-                      保存: <span className="font-bold text-gray-600">{previewSeats.join("・")}番</span>
-                    </p>
-                  )}
-                </div>
-
-                {/* 抽選情報（任意） */}
-                <div>
-                  <p className="mb-1 text-[11px] font-bold text-gray-500">抽選情報 <span className="text-[10px] font-normal text-gray-400">任意</span></p>
-                  <select
-                    value={lotteryRound}
-                    onChange={(e) => setLotteryRound(e.target.value)}
-                    className="w-full rounded-lg border border-gray-200 bg-gray-50 px-2 py-1.5 text-xs outline-none focus:border-[var(--accent)]"
-                  >
-                    <option value="">選択しない</option>
-                    <option value="first">1次抽選</option>
-                    <option value="second">2次抽選</option>
-                    <option value="third_plus">3次抽選以上</option>
-                    <option value="other">その他</option>
-                    <option value="unknown">わからない</option>
-                  </select>
-                  <p className="mt-1.5 mb-1 text-[11px] font-bold text-gray-500">正確な抽選名を教えてください</p>
-                  <input
-                    type="text"
-                    value={lotteryName}
-                    onChange={(e) => setLotteryName(e.target.value)}
-                    placeholder="例：FC先行1次、Lawson特別抽選"
-                    className="w-full rounded-lg border border-gray-200 bg-gray-50 px-2 py-1.5 text-xs outline-none focus:border-[var(--accent)]"
-                  />
-                </div>
-
-                {/* 支払い方法（任意・タグタップ） */}
-                <div className="border-t border-gray-100 pt-1.5">
-                  <p className="mb-1 text-[11px] font-bold text-gray-500">支払い方法 <span className="text-[10px] font-normal text-gray-400">任意</span></p>
-                  <div className="flex gap-1.5">
-                    {[
-                      { value: "credit",      label: "クレカ" },
-                      { value: "convenience", label: "コンビニ" },
-                      { value: "other",       label: "その他" },
-                    ].map((opt) => (
-                      <button key={opt.value} type="button" onClick={() => setPaymentMethod(opt.value)}
-                        className={`rounded-lg border px-3 py-1.5 text-xs font-semibold transition-all ${
-                          paymentMethod === opt.value
-                            ? "border-[var(--accent)] bg-[var(--accent)] text-white"
-                            : "border-gray-200 bg-gray-50 text-gray-500"
-                        }`}
-                      >
-                        {opt.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-              </div>
-
-              {formError && (
-                <div className="mt-2 rounded-lg bg-red-50 px-3 py-2 text-xs text-red-600">{formError}</div>
-              )}
-
-              <button
-                type="submit"
-                disabled={submitting}
-                className="mt-3 w-full rounded-2xl bg-[var(--accent)] py-3 text-sm font-bold text-white shadow-sm transition-all hover:bg-[var(--accent-dark)] active:scale-95 disabled:opacity-60"
-              >
-                {submitting ? "投稿中..." : "報告する ✍️"}
-              </button>
-            </form>
-
-          </div>
         </div>
       ) : (
         <div className="px-4 pt-8 text-center text-sm text-gray-500">公演が見つかりません</div>
@@ -492,6 +380,54 @@ export default function EventDetailPage({
           {toast}
         </div>
       )}
+
+      <nav
+        className="fixed bottom-0 left-1/2 z-50 w-full max-w-[430px] -translate-x-1/2 border-t border-gray-100"
+        style={{ background: "rgba(255,255,255,0.92)", backdropFilter: "blur(16px)" }}
+      >
+        <div className="flex items-center justify-around px-2 py-2 pb-safe">
+          <Link
+            href={artist ? `/artists/${artist.slug}` : "#"}
+            className="flex flex-col items-center gap-0.5 px-4 py-1.5"
+          >
+            <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
+            <span className="text-[10px] font-semibold text-gray-400">集計まとめ</span>
+          </Link>
+
+          <Link
+            href={`/events/${eventId}`}
+            className="flex flex-col items-center gap-0.5 px-4 py-1.5"
+          >
+            <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: "#006876" }}>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
+            </svg>
+            <span className="text-[10px] font-bold" style={{ color: "#006876" }}>座席予想</span>
+          </Link>
+
+          <Link href={`/events/${eventId}/after-report`} className="flex flex-col items-center gap-0.5 px-4 py-1.5">
+            <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            <span className="text-[10px] font-semibold text-gray-400">現地レポ</span>
+          </Link>
+
+          <Link
+            href={artist ? `/artists/${artist.slug}/setlist` : "#"}
+            className="flex flex-col items-center gap-0.5 px-4 py-1.5"
+          >
+            <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+            </svg>
+            <span className="text-[10px] font-semibold text-gray-400">セトリ</span>
+          </Link>
+        </div>
+      </nav>
     </div>
   );
 }

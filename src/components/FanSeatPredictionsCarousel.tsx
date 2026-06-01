@@ -5,6 +5,8 @@ import { supabase } from "@/lib/supabase/client";
 import type { FanSeatPrediction } from "@/lib/types";
 
 const VOTER_KEY_STORAGE = "seat-navi-voter-key";
+const BRAND_NAME = "公演なう";
+const BRAND_DOMAIN = "koen-now.com";
 
 type VoteRow = {
   prediction_id: string;
@@ -105,12 +107,9 @@ export function FanSeatPredictionsCarousel({
   }
 
   return (
-    <section className="mb-4 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
+    <section className="mt-5 mb-4 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
       <div className="mb-3">
         <p className="text-xs font-bold text-gray-700">みんなの座席予想</p>
-        <p className="mt-1 text-[11px] leading-relaxed text-gray-500">
-          みんなが投稿したステージ構成予想です。これっぽいと思った予想を選べます。
-        </p>
       </div>
 
       {predictions.length === 0 ? (
@@ -129,14 +128,16 @@ export function FanSeatPredictionsCarousel({
           <div className="-mx-4 overflow-x-auto px-4 pb-2 [scrollbar-width:none]">
             <div className="flex snap-x snap-mandatory gap-3">
               {sortedPredictions.map((prediction) => {
-                const pickCount = voteCounts[prediction.id] ?? 0;
                 const picked = pickedIds.has(prediction.id);
 
                 return (
                   <article
                     key={prediction.id}
-                    className="w-[82vw] max-w-[320px] shrink-0 snap-start overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm"
+                    className="w-[82vw] max-w-[320px] shrink-0 snap-start overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-md shadow-gray-200/70"
                   >
+                    <div className="px-3 pt-2 text-[10px] font-semibold text-gray-400">
+                      {formatDate(prediction.created_at)}　{BRAND_NAME}｜{BRAND_DOMAIN}
+                    </div>
                     <div className="bg-gray-50 p-2">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
@@ -145,9 +146,12 @@ export function FanSeatPredictionsCarousel({
                         className="aspect-[4/3] w-full rounded-xl bg-white object-cover"
                       />
                     </div>
-                    <div className="space-y-3 p-3">
-                      {prediction.prediction_tags.length > 0 && (
-                        <div className="flex flex-wrap gap-1.5">
+                    <div className="space-y-2.5 p-3">
+                      <p className="text-[10px] font-semibold text-gray-500">
+                        合ってると思ったら「👍 いいね」で応援してね
+                      </p>
+                      <div className="flex items-start gap-2">
+                        <div className="flex min-w-0 flex-1 flex-wrap gap-1.5">
                           {prediction.prediction_tags.map((tag) => (
                             <span
                               key={tag}
@@ -157,32 +161,29 @@ export function FanSeatPredictionsCarousel({
                             </span>
                           ))}
                         </div>
-                      )}
-                      <div>
-                        <p className="text-[11px] font-bold text-gray-700">
-                          {prediction.display_name || "匿名"}
-                        </p>
-                        {prediction.comment && (
-                          <p className="mt-1 line-clamp-3 text-[12px] leading-relaxed text-gray-700">
-                            {prediction.comment}
-                          </p>
-                        )}
-                      </div>
-                      <div className="flex items-center justify-between gap-2 border-t border-gray-100 pt-2">
-                        <span className="text-[10px] text-gray-400">{formatDate(prediction.created_at)}</span>
                         <button
                           type="button"
                           disabled={picked}
                           onClick={() => handlePick(prediction.id)}
-                          className={`rounded-xl px-3 py-1.5 text-[10px] font-bold leading-tight ${
+                          className={`shrink-0 rounded-xl border px-3 py-1.5 text-[10px] font-bold leading-tight shadow-sm transition-all ${
                             picked
-                              ? "bg-purple-50 text-purple-700"
-                              : "bg-gray-100 text-gray-600 active:scale-95"
+                              ? "border-[#006876] bg-[#006876] text-white"
+                              : "border-[#006876] bg-white text-[#006876] hover:bg-teal-50 active:scale-95"
                           } disabled:cursor-default`}
                         >
-                          <span className="block">{picked ? "これっぽい済み" : "これっぽい"}</span>
-                          <span className="block font-normal">{pickCount}人が選択</span>
+                          <span className="mr-1" aria-hidden="true">👍</span>
+                          {picked ? "いいね済み" : "いいね"}
                         </button>
+                      </div>
+                      <div className="text-[12px] leading-relaxed text-gray-700">
+                        <span className="font-bold">
+                          {prediction.display_name || "匿名"}
+                        </span>
+                        {prediction.comment && (
+                          <span className="ml-2">
+                            {prediction.comment}
+                          </span>
+                        )}
                       </div>
                     </div>
                   </article>

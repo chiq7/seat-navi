@@ -1,250 +1,134 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase/client";
-import { genreLabel } from "@/lib/utils";
-import { ARTISTS, findArtistByKeyword } from "@/lib/artists";
+import { ARTISTS, findArtistByKeyword, type Artist } from "@/lib/artists";
 import type { CrawledEvent } from "@/lib/types";
 
-// ---------------------------------------------------------------------------
-// 定数
-// ---------------------------------------------------------------------------
+const ACCENT = "#006a63";
 
-const GENRE_TABS = [
-  { key: "all",         label: "すべて" },
-  { key: "kpop",        label: "K-POP" },
-  { key: "johnnys",     label: "ジャニーズ" },
-  { key: "female_idol", label: "女性アイドル" },
-  { key: "male_idol",   label: "男性アイドル" },
-  { key: "other",       label: "その他" },
-];
+const TEXT = {
+  all: "\u3059\u3079\u3066",
+  femaleIdol: "\u5973\u6027\u30a2\u30a4\u30c9\u30eb",
+  maleIdol: "\u7537\u6027\u30a2\u30a4\u30c9\u30eb",
+  pending: "\u6e96\u5099\u4e2d",
+  latestEvent: "\u6700\u65b0\u516c\u6f14",
+  seatPrediction: "\u5ea7\u5e2d\u4e88\u60f3",
+  accepting: "\u53d7\u4ed8\u4e2d",
+  winRate: "\u5f53\u9078\u7387",
+  aggregating: "\u96c6\u8a08\u4e2d",
+  afterReport: "\u73fe\u5730\u30ec\u30dd",
+  normal: "\u901a\u5e38",
+  setlist: "\u30bb\u30c8\u30ea",
+  exists: "\u3042\u308a",
+  koenNow: "\u516c\u6f14\u306a\u3046",
+  searchPlaceholder: "\u30a2\u30fc\u30c6\u30a3\u30b9\u30c8\u3001\u30a4\u30d9\u30f3\u30c8\u540d\u3067\u691c\u7d22",
+  clear: "\u30af\u30ea\u30a2",
+  bannerTitle: "\u30e9\u30a4\u30d6\u306e\u77e5\u308a\u305f\u3044\u304c\u96c6\u307e\u308b",
+  bannerLine1: "\u5f53\u9078\u30c7\u30fc\u30bf\u3068\u30d5\u30a1\u30f3\u306e\u5831\u544a\u304b\u3089\u3001",
+  bannerLine2: "\u5ea7\u5e2d\u4e88\u60f3\u30fb\u30bb\u30c8\u30ea\u30fb\u73fe\u5730\u30ec\u30dd\u3092\u66f4\u65b0\u4e2d\uff01",
+  upcoming: "\u958b\u50ac\u304c\u8fd1\u3044\u516c\u6f14",
+  notFound: "\u516c\u6f14\u304c\u898b\u3064\u304b\u308a\u307e\u305b\u3093",
+  retry: "\u691c\u7d22\u30ef\u30fc\u30c9\u3084\u30b8\u30e3\u30f3\u30eb\u3092\u5909\u3048\u3066\u8a66\u3057\u3066\u304f\u3060\u3055\u3044\u3002",
+  seeAll: "\u3059\u3079\u3066\u898b\u308b",
+  home: "\u30db\u30fc\u30e0",
+  search: "\u691c\u7d22",
+  report: "\u5831\u544a",
+  myPage: "\u30de\u30a4\u30da\u30fc\u30b8",
+} as const;
 
-const GENRE_BADGE: Record<string, string> = {
-  kpop:        "bg-violet-100 text-violet-700",
-  johnnys:     "bg-blue-100   text-blue-700",
-  female_idol: "bg-pink-100   text-pink-700",
-  male_idol:   "bg-sky-100    text-sky-700",
-  other:       "bg-gray-100   text-gray-600",
+const GENRE_CHIPS = [
+  { key: "all", label: TEXT.all, genres: null },
+  { key: "female_idol", label: TEXT.femaleIdol, genres: ["female_idol"] },
+  { key: "male_idol", label: TEXT.maleIdol, genres: ["male_idol", "johnnys"] },
+  { key: "kpop", label: "K-POP", genres: ["kpop"] },
+  { key: "jpop", label: "J-POP", genres: ["other"] },
+] as const;
+
+const PUBLISHED_EVENT_ARTIST_SLUGS = new Set(["nogizaka46", "sakurazaka46", "niziu", "equal-love", "fruits-zipper"]);
+
+type TopEventCard = {
+  id: string;
+  artist: Artist;
+  title: string;
+  dateLabel: string;
+  href: string;
+  hasAfterReportNew: boolean;
 };
 
-
-// ---------------------------------------------------------------------------
-// ユーティリティ
-// ---------------------------------------------------------------------------
-
-function formatDate(dateStr: string | null): { month: number; day: number; weekday: string } | null {
-  if (!dateStr) return null;
-  const [y, m, d] = dateStr.split("-").map(Number);
-  const weekday = ["日", "月", "火", "水", "木", "金", "土"][new Date(y, m - 1, d).getDay()];
-  return { month: m, day: d, weekday };
+function formatDate(dateStr: string | null) {
+  if (!dateStr) return TEXT.pending;
+  const [, month, day] = dateStr.split("-").map(Number);
+  if (!month || !day) return TEXT.pending;
+  return `${month}/${day}`;
 }
 
-function daysUntil(dateStr: string | null): number | null {
-  if (!dateStr) return null;
-  const [y, m, d] = dateStr.split("-").map(Number);
-  const event = new Date(y, m - 1, d);
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  return Math.round((event.getTime() - today.getTime()) / 86_400_000);
+function normalizeEventTitle(event: CrawledEvent, artist: Artist) {
+  const matchedKeyword = artist.keywords
+    .slice()
+    .sort((a, b) => b.length - a.length)
+    .find((keyword) => event.title.toLowerCase().startsWith(keyword.toLowerCase()));
+
+  const title = matchedKeyword
+    ? event.title.slice(matchedKeyword.length).trim()
+    : event.title.replace(new RegExp(`^${artist.name}\\s*`, "i"), "").trim();
+
+  return title && title !== artist.name ? title : TEXT.latestEvent;
 }
 
-// ---------------------------------------------------------------------------
-// 公演リスト行
-// ---------------------------------------------------------------------------
-
-function EventRow({ ev, onTap, reportCount }: { ev: CrawledEvent; onTap: (ev: CrawledEvent) => void; reportCount: number }) {
-  const date = formatDate(ev.date);
-  const days = daysUntil(ev.date);
-  const badge = GENRE_BADGE[ev.genre] ?? GENRE_BADGE.other;
-  const soon = days !== null && days >= 0 && days <= 7;
-
-  const countBadge =
-    reportCount === 0
-      ? { label: "未投稿", cls: "bg-gray-100 text-gray-400" }
-      : reportCount < 5
-      ? { label: `${reportCount}件`, cls: "bg-amber-100 text-amber-600" }
-      : { label: `${reportCount}件`, cls: "bg-green-100 text-green-600" };
-
+function EventCard({ card }: { card: TopEventCard }) {
   return (
-    <button
-      type="button"
-      onClick={() => onTap(ev)}
-      className="flex w-full items-center gap-3 bg-white px-4 py-3.5 text-left transition-colors active:bg-gray-50"
+    <Link
+      href={card.href}
+      className="flex min-h-[198px] w-full min-w-0 flex-col overflow-hidden rounded-[22px] border border-slate-200 bg-white shadow-sm transition active:scale-[0.99] sm:min-h-[220px]"
     >
-      {/* 日付列 */}
-      <div className="w-12 shrink-0 text-center">
-        {date ? (
-          <>
-            <p className="text-sm font-extrabold leading-none text-gray-900">
-              {date.month}/{date.day}
+      <div className="min-w-0 bg-gradient-to-b from-cyan-50 to-white px-3.5 pb-2.5 pt-3 sm:px-4 sm:pt-3.5">
+        <div className="flex min-w-0 items-start gap-2">
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-xs font-extrabold" style={{ color: ACCENT }}>
+              {card.artist.name}
             </p>
-            <p className={`mt-1 text-[10px] font-semibold ${soon ? "text-red-500" : "text-gray-400"}`}>
-              ({date.weekday})
-            </p>
-          </>
-        ) : (
-          <p className="text-[11px] text-gray-400">未定</p>
-        )}
-      </div>
-
-      <div className="h-9 w-px shrink-0 bg-gray-100" />
-
-      {/* 公演情報 */}
-      <div className="min-w-0 flex-1">
-        <div className="flex flex-wrap items-center gap-1">
-          <span className={`rounded px-1.5 py-0.5 text-[10px] font-bold ${badge}`}>
-            {genreLabel(ev.genre)}
+            {card.title && (
+              <h3 className="mt-1 line-clamp-2 text-sm font-extrabold leading-snug text-slate-950 sm:text-base">
+                {card.title}
+              </h3>
+            )}
+          </div>
+          <span className="shrink-0 rounded-full border border-cyan-100 bg-white px-2 py-0.5 text-[10px] font-extrabold text-slate-500">
+            {card.dateLabel}
           </span>
-          {soon && (
-            <span className="rounded bg-red-500 px-1.5 py-0.5 text-[10px] font-bold text-white">
-              もうすぐ
-            </span>
-          )}
-        </div>
-        <p className="mt-1 truncate text-xs font-bold leading-snug text-gray-900">{ev.title}</p>
-        <p className="mt-0.5 truncate text-[11px] text-gray-500">{ev.venue}</p>
-      </div>
-
-      {/* 件数バッジ */}
-      <span className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-bold ${countBadge.cls}`}>
-        {countBadge.label}
-      </span>
-
-      <svg className="h-4 w-4 shrink-0 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-      </svg>
-    </button>
-  );
-}
-
-// ---------------------------------------------------------------------------
-// 座席チェックフォーム
-// ---------------------------------------------------------------------------
-
-function SeatCheckForm() {
-  const [venue, setVenue] = useState("");
-  const [seat,  setSeat]  = useState("");
-
-  return (
-    <section className="mx-4 overflow-hidden rounded-2xl shadow-md">
-      {/* ヘッダー帯 */}
-      <div className="bg-[var(--accent)] px-4 pt-4 pb-3">
-        <p className="text-[10px] font-bold uppercase tracking-widest text-violet-200">Seat Navigator</p>
-        <p className="mt-0.5 text-base font-extrabold text-white">座席の見え方をチェック</p>
-        <p className="text-[11px] text-violet-200">会場・座席番号を入力して調べよう</p>
-      </div>
-      {/* フォーム */}
-      <div className="space-y-2 bg-white px-4 py-3.5">
-        <input
-          type="text"
-          value={venue}
-          onChange={(e) => setVenue(e.target.value)}
-          placeholder="会場名（例：東京ドーム、京セラドーム）"
-          className="w-full rounded-xl border border-gray-200 bg-gray-50 px-3 py-2.5 text-xs text-gray-900 outline-none placeholder:text-gray-400 focus:border-[var(--accent)] focus:bg-white"
-        />
-        <input
-          type="text"
-          value={seat}
-          onChange={(e) => setSeat(e.target.value)}
-          placeholder="座席情報（例：1階 3塁側 24列 180番）"
-          className="w-full rounded-xl border border-gray-200 bg-gray-50 px-3 py-2.5 text-xs text-gray-900 outline-none placeholder:text-gray-400 focus:border-[var(--accent)] focus:bg-white"
-        />
-        <Link
-          href={`/chat?venue=${encodeURIComponent(venue)}&seat=${encodeURIComponent(seat)}`}
-          className="flex w-full items-center justify-center gap-2 rounded-xl bg-[var(--accent)] py-2.5 text-xs font-bold text-white transition-all active:scale-95"
-        >
-          <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
-          座席の見え方をチェック
-        </Link>
-      </div>
-    </section>
-  );
-}
-
-// ---------------------------------------------------------------------------
-// ボトムシート
-// ---------------------------------------------------------------------------
-
-function BottomSheet({ ev, reportCount, onClose }: { ev: CrawledEvent; reportCount: number; onClose: () => void }) {
-  const router = useRouter();
-
-  function go(path: string) {
-    onClose();
-    router.push(path);
-  }
-
-  return (
-    <>
-      <div className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm" onClick={onClose} />
-      <div className="fixed bottom-0 left-0 right-0 z-50 rounded-t-3xl bg-white px-5 pb-10 pt-5 shadow-2xl">
-        <div className="mx-auto mb-4 h-1 w-10 rounded-full bg-gray-200" />
-        <p className="mb-0.5 text-[11px] text-gray-400">{ev.venue}</p>
-        <p className="mb-3 text-sm font-bold leading-snug text-gray-900">{ev.title}</p>
-
-        {/* 座席レポート状況 */}
-        <div className="mb-4 rounded-xl bg-gray-50 px-3.5 py-2.5">
-          {reportCount === 0 ? (
-            <>
-              <p className="text-xs font-bold text-gray-700">まだ座席レポートはありません</p>
-              <p className="mt-0.5 text-[11px] text-gray-500">最初の見え方を投稿しませんか？</p>
-            </>
-          ) : reportCount < 5 ? (
-            <>
-              <p className="text-xs font-bold text-gray-700">現在 {reportCount} 件の座席レポート</p>
-              <p className="mt-0.5 text-[11px] text-amber-600">あと {5 - reportCount} 件でリアルタイム予想可能</p>
-            </>
-          ) : (
-            <>
-              <p className="text-xs font-bold text-gray-700">現在 {reportCount} 件の座席レポート</p>
-              <p className="mt-0.5 text-[11px] text-green-600">✓ リアルタイム予想が利用できます</p>
-            </>
-          )}
-        </div>
-
-        <div className="flex flex-col gap-2.5">
-          <button
-            type="button"
-            onClick={() => go(`/events/${ev.id}`)}
-            className="flex items-center gap-3 rounded-2xl bg-[var(--accent)] px-5 py-3.5 text-left text-white transition-all active:scale-95"
-          >
-            <span className="text-xl">🪑</span>
-            <div>
-              <p className="text-sm font-bold">座席・見え方を見る</p>
-              <p className="text-[11px] opacity-75">参加者の座席レポートを確認</p>
-            </div>
-          </button>
-          <button
-            type="button"
-            onClick={() => go(`/events/${ev.id}`)}
-            className="flex items-center gap-3 rounded-2xl border border-gray-200 bg-white px-5 py-3 text-left text-gray-700 transition-all active:scale-95"
-          >
-            <span className="text-xl">✍️</span>
-            <div>
-              <p className="text-sm font-semibold">見え方を投稿</p>
-              <p className="text-[11px] text-gray-400">見え方レポートを追加する</p>
-            </div>
-          </button>
         </div>
       </div>
-    </>
+
+      <div className="mt-auto grid grid-cols-2 gap-2 border-t border-slate-200 px-3.5 pb-3.5 pt-3.5 sm:px-4 sm:pb-4">
+        {[
+          { label: TEXT.seatPrediction, value: TEXT.accepting, className: "border-teal-200 bg-teal-50 text-teal-700" },
+          { label: TEXT.winRate, value: TEXT.aggregating, className: "border-cyan-100 bg-cyan-50 text-cyan-700" },
+          {
+            label: TEXT.afterReport,
+            value: card.hasAfterReportNew ? "NEW" : TEXT.normal,
+            className: card.hasAfterReportNew
+              ? "border-rose-200 bg-rose-50 text-rose-600"
+              : "border-slate-200 bg-slate-50 text-slate-700",
+          },
+          { label: TEXT.setlist, value: TEXT.exists, className: "border-slate-200 bg-slate-50 text-slate-700" },
+        ].map((chip) => (
+          <div key={chip.label} className={`rounded-xl border px-2.5 py-2 ${chip.className}`}>
+            <p className="text-[9px] font-bold leading-none text-slate-400 sm:text-[10px]">{chip.label}</p>
+            <p className="mt-1.5 text-[11px] font-extrabold leading-none sm:text-xs">{chip.value}</p>
+          </div>
+        ))}
+      </div>
+    </Link>
   );
 }
-
-// ---------------------------------------------------------------------------
-// ページ
-// ---------------------------------------------------------------------------
 
 export default function Home() {
-  const [events,        setEvents]        = useState<CrawledEvent[]>([]);
-  const [loading,       setLoading]       = useState(true);
-  const [genre,         setGenre]         = useState("all");
-  const [search,        setSearch]        = useState("");
-  const [selectedEvent, setSelectedEvent] = useState<CrawledEvent | null>(null);
-  const [reportCounts,  setReportCounts]  = useState<Map<string, number>>(new Map());
+  const [events, setEvents] = useState<CrawledEvent[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [activeGenre, setActiveGenre] = useState("all");
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     async function load() {
@@ -255,236 +139,194 @@ export default function Home() {
         .gte("date", today)
         .order("date", { ascending: true })
         .limit(300);
+
       if (error) console.error("Supabase fetch error:", error);
-      const evList = (data as CrawledEvent[]) ?? [];
-      setEvents(evList);
-
-      // 座席レポート件数を取得
-      if (evList.length) {
-        const { data: repData } = await supabase
-          .from("seat_reports")
-          .select("event_id")
-          .in("event_id", evList.map((e) => e.id));
-        const counts = new Map<string, number>();
-        for (const r of repData ?? []) {
-          counts.set(r.event_id, (counts.get(r.event_id) ?? 0) + 1);
-        }
-        setReportCounts(counts);
-      }
-
+      setEvents((data as CrawledEvent[]) ?? []);
       setLoading(false);
     }
+
     load();
   }, []);
 
-  const filtered = useMemo(() => {
-    const q = search.trim().toLowerCase();
-    return events.filter((ev) => {
-      if (genre !== "all" && ev.genre !== genre) return false;
-      if (q && !ev.title.toLowerCase().includes(q) && !ev.venue.toLowerCase().includes(q)) return false;
-      return true;
-    });
-  }, [events, genre, search]);
+  const cards = useMemo(() => {
+    const eventByArtist = new Map<string, CrawledEvent>();
 
-  const matchedArtist = useMemo(
-    () => (search.trim() ? findArtistByKeyword(search.trim()) : undefined),
-    [search]
-  );
+    events.forEach((event) => {
+      const artist = findArtistByKeyword(event.title);
+      if (!artist || eventByArtist.has(artist.slug)) return;
+      eventByArtist.set(artist.slug, event);
+    });
+
+    return ARTISTS.flatMap((artist) => {
+      if (!PUBLISHED_EVENT_ARTIST_SLUGS.has(artist.slug)) return [];
+      const event = eventByArtist.get(artist.slug);
+      if (!event) return [];
+      return {
+        id: event?.id ?? `artist-${artist.slug}`,
+        artist,
+        title: normalizeEventTitle(event, artist),
+        dateLabel: formatDate(event.date),
+        href: `/artists/${artist.slug}`,
+        hasAfterReportNew: true,
+      };
+    });
+  }, [events]);
+
+  const filteredCards = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    const chip = GENRE_CHIPS.find((item) => item.key === activeGenre);
+
+    return cards.filter((card) => {
+      if (chip?.genres && !(chip.genres as readonly CrawledEvent["genre"][]).includes(card.artist.genre)) return false;
+      if (!q) return true;
+      return (
+        card.artist.name.toLowerCase().includes(q) ||
+        card.artist.keywords.some((keyword) => keyword.toLowerCase().includes(q)) ||
+        card.title.toLowerCase().includes(q)
+      );
+    });
+  }, [activeGenre, cards, search]);
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-24">
-
-      {/* ===== ヘッダー ===== */}
-      <header className="sticky top-0 z-40 bg-white shadow-sm">
-        {/* ロゴ行 */}
-        <div className="flex items-center gap-2 px-4 pt-3 pb-2">
-          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[var(--accent)]">
-            <svg className="h-3.5 w-3.5 text-white" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
-            </svg>
-          </div>
-          <span className="text-sm font-extrabold tracking-tight text-gray-900">座席ナビ</span>
-          <Link
-            href="/chat"
-            className="ml-auto flex items-center gap-1 rounded-full bg-violet-50 px-3 py-1.5 text-[11px] font-bold text-violet-700"
-          >
-            <span>🎀</span><span>AIに聞く</span>
+    <div className="min-h-screen bg-white pb-20 text-slate-950 md:pb-0">
+      <header className="sticky top-0 z-40 border-b border-slate-100 bg-white/95 backdrop-blur">
+        <div className="mx-auto flex w-full max-w-7xl items-center px-4 py-3 sm:px-6 lg:px-8">
+          <Link href="/" className="text-lg font-extrabold tracking-tight" style={{ color: ACCENT }}>
+            {TEXT.koenNow}
           </Link>
-        </div>
-
-        {/* 検索バー */}
-        <div className="px-4 pb-2">
-          <div className="flex items-center gap-2 rounded-xl border border-gray-200 bg-gray-50 px-3 py-2.5 transition-all focus-within:border-[var(--accent)] focus-within:bg-white focus-within:shadow-sm">
-            <svg className="h-4 w-4 shrink-0 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-            <input
-              type="text"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="公演名・会場名・アーティスト名で検索"
-              className="w-full bg-transparent text-sm text-gray-900 outline-none placeholder:text-gray-400"
-            />
-            {search && (
-              <button type="button" onClick={() => setSearch("")} className="text-gray-400">
-                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            )}
-          </div>
-        </div>
-
-        {/* ジャンルタブ */}
-        <div className="flex overflow-x-auto hide-scrollbar border-t border-gray-100">
-          {GENRE_TABS.map((tab) => {
-            const active = genre === tab.key;
-            return (
-              <button
-                key={tab.key}
-                type="button"
-                onClick={() => setGenre(active && tab.key !== "all" ? "all" : tab.key)}
-                className={`relative shrink-0 px-3.5 py-2.5 text-xs font-semibold transition-colors ${
-                  active ? "text-[var(--accent)]" : "text-gray-500"
-                }`}
-              >
-                {tab.label}
-                {active && (
-                  <span className="absolute bottom-0 left-2 right-2 h-0.5 rounded-t-full bg-[var(--accent)]" />
-                )}
-              </button>
-            );
-          })}
         </div>
       </header>
 
-      {/* ===== 座席チェックフォーム ===== */}
-      <div className="pt-4">
-        <SeatCheckForm />
-      </div>
+      <main className="mx-auto w-full max-w-7xl px-4 pt-4 sm:px-6 lg:px-8">
+        <section>
+          <div className="rounded-[26px] bg-gradient-to-b from-cyan-50 to-white p-4 sm:p-6">
+            <div className="rounded-[22px] border border-cyan-100 bg-white p-2 shadow-sm">
+              <div className="flex items-center gap-3 rounded-[18px] bg-slate-50 px-4 py-3.5">
+                <svg className="h-5 w-5 shrink-0 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.4} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <input
+                  value={search}
+                  onChange={(event) => setSearch(event.target.value)}
+                  placeholder={TEXT.searchPlaceholder}
+                  className="w-full bg-transparent text-sm font-bold text-slate-900 outline-none placeholder:text-slate-400 sm:text-base"
+                />
+                {search && (
+                  <button type="button" onClick={() => setSearch("")} className="text-xs font-bold text-slate-400">
+                    {TEXT.clear}
+                  </button>
+                )}
+              </div>
+            </div>
 
-      {/* ===== 人気アーティスト ===== */}
-      <section className="mt-5">
-        <div className="mb-3 flex items-center justify-between px-4">
-          <p className="text-sm font-extrabold text-gray-900">人気アーティスト</p>
-          <span className="text-[11px] text-gray-400">→ スクロール</span>
-        </div>
-        <div className="flex gap-3 overflow-x-auto hide-scrollbar px-4 pb-1">
-          {ARTISTS.map((artist) => (
+            <div className="mt-4 flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              {ARTISTS.map((artist, index) => {
+                const className =
+                  index === 0
+                    ? "shrink-0 rounded-full px-4 py-2 text-xs font-extrabold text-white shadow-sm"
+                    : "shrink-0 rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-bold text-slate-600";
+                const style = index === 0 ? { background: ACCENT } : undefined;
+
+                return (
+                  <Link key={artist.slug} href={`/artists/${artist.slug}`} className={className} style={style}>
+                    {artist.name}
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        <section className="mt-4">
+          <div className="rounded-[26px] bg-gradient-to-br from-[#006a63] via-[#2fb8b0] to-[#dff8ff] px-5 py-5 text-center text-white shadow-sm sm:px-8 sm:py-6">
+            <p className="text-xl font-extrabold leading-snug sm:text-2xl">{TEXT.bannerTitle}</p>
+            <p className="mx-auto mt-2 max-w-2xl text-xs font-semibold leading-6 text-white/90 sm:text-sm">
+              <span>{TEXT.bannerLine1}</span>
+              <span className="block">{TEXT.bannerLine2}</span>
+            </p>
+          </div>
+        </section>
+
+        <section className="mt-7">
+          <div className="mb-3">
+            <h1 className="text-xl font-extrabold text-slate-950 sm:text-2xl">{TEXT.upcoming}</h1>
+          </div>
+
+          <div className="mb-4 flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {GENRE_CHIPS.map((chip) => {
+              const active = activeGenre === chip.key;
+              return (
+                <button
+                  key={chip.key}
+                  type="button"
+                  onClick={() => setActiveGenre(chip.key)}
+                  className={`shrink-0 rounded-full border px-4 py-2 text-xs font-bold transition sm:text-sm ${
+                    active ? "border-transparent text-white" : "border-slate-200 bg-white text-slate-500"
+                  }`}
+                  style={active ? { background: ACCENT } : undefined}
+                >
+                  {chip.label}
+                </button>
+              );
+            })}
+          </div>
+
+          <div id="events">
+            {loading ? (
+              <div className="grid w-full grid-cols-2 gap-3">
+                {Array.from({ length: 8 }).map((_, index) => (
+                  <div key={index} className="h-[216px] animate-pulse rounded-[22px] bg-slate-100" />
+                ))}
+              </div>
+            ) : filteredCards.length === 0 ? (
+              <div className="rounded-[22px] border border-slate-100 bg-white px-6 py-12 text-center shadow-sm">
+                <p className="text-sm font-bold text-slate-700">{TEXT.notFound}</p>
+                <p className="mt-1 text-xs text-slate-400">{TEXT.retry}</p>
+              </div>
+            ) : (
+              <div className="grid w-full grid-cols-2 gap-3">
+                {filteredCards.map((card) => (
+                  <EventCard key={card.id} card={card} />
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div className="mt-5 flex justify-center">
             <Link
-              key={artist.slug}
-              href={`/artists/${artist.slug}`}
-              className="shrink-0 w-[88px] overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all active:scale-95"
+              href="#events"
+              className="rounded-full border border-cyan-100 bg-white px-5 py-2.5 text-xs font-extrabold shadow-sm"
+              style={{ color: ACCENT }}
             >
-              <div className={`flex h-16 items-center justify-center bg-gradient-to-br ${artist.grad}`}>
-                <span className="text-xl font-extrabold text-white drop-shadow-sm">{artist.initials}</span>
-              </div>
-              <div className="px-2 py-2">
-                <p className="truncate text-[11px] font-bold text-gray-800">{artist.name}</p>
-                <p className="mt-0.5 text-[10px] text-gray-400">{genreLabel(artist.genre)}</p>
-              </div>
+              {TEXT.seeAll}
             </Link>
+          </div>
+        </section>
+      </main>
+
+      <nav className="fixed bottom-0 left-0 right-0 z-40 border-t border-slate-100 bg-white/95 backdrop-blur md:hidden">
+        <div className="grid grid-cols-4 px-2 py-2">
+          {[
+            [TEXT.home, "M3 12l9-9 9 9M5 10v10h14V10"],
+            [TEXT.search, "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"],
+            [TEXT.report, "M12 4v16m8-8H4"],
+            [TEXT.myPage, "M16 7a4 4 0 11-8 0 4 4 0 018 0zM4 20c0-2.5 3.6-4.5 8-4.5s8 2 8 4.5"],
+          ].map(([label, d], index) => (
+            <button
+              key={label}
+              type="button"
+              className={`flex flex-col items-center gap-0.5 py-1.5 text-[10px] font-bold ${
+                index === 0 ? "text-teal-700" : "text-slate-400"
+              }`}
+            >
+              <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={d} />
+              </svg>
+              {label}
+            </button>
           ))}
         </div>
-      </section>
-
-      {/* ===== 公演一覧 ===== */}
-      <section className="mt-5">
-        <div className="mb-3 flex items-center justify-between px-4">
-          <p className="text-sm font-extrabold text-gray-900">
-            {search
-              ? <><span className="text-[var(--accent)]">「{search}」</span>の検索結果</>
-              : "開催が近い公演"}
-          </p>
-          {!loading && (
-            <span className="text-[11px] text-gray-400">{filtered.length}件</span>
-          )}
-        </div>
-
-        {/* アーティスト検索カード */}
-        {matchedArtist && (
-          <Link
-            href={`/artists/${matchedArtist.slug}`}
-            className="mx-4 mb-3 flex items-center gap-3 overflow-hidden rounded-2xl border border-[var(--accent)]/20 bg-white p-3.5 shadow-sm transition-all active:scale-95"
-          >
-            <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${matchedArtist.grad}`}>
-              <span className="text-lg font-extrabold text-white drop-shadow-sm">{matchedArtist.initials}</span>
-            </div>
-            <div className="min-w-0 flex-1">
-              <p className="text-[10px] font-bold text-[var(--accent)]">アーティストページ</p>
-              <p className="mt-0.5 text-sm font-bold text-gray-900">{matchedArtist.name}</p>
-              <p className="mt-0.5 truncate text-[11px] text-gray-500">{matchedArtist.description}</p>
-            </div>
-            <svg className="h-4 w-4 shrink-0 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </Link>
-        )}
-
-        <div className="mx-4 overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm divide-y divide-gray-100">
-          {loading ? (
-            <div className="space-y-0">
-              {Array.from({ length: 6 }).map((_, i) => (
-                <div key={i} className="flex items-center gap-3 px-4 py-3.5 animate-pulse">
-                  <div className="h-8 w-12 shrink-0 rounded bg-gray-100" />
-                  <div className="h-9 w-px shrink-0 bg-gray-100" />
-                  <div className="flex-1 space-y-2">
-                    <div className="h-3 w-16 rounded bg-gray-100" />
-                    <div className="h-3 w-full rounded bg-gray-100" />
-                    <div className="h-3 w-2/3 rounded bg-gray-100" />
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : filtered.length === 0 ? (
-            <div className="flex flex-col items-center py-14 text-center">
-              <span className="text-4xl">🎤</span>
-              <p className="mt-3 text-sm font-semibold text-gray-700">公演が見つかりません</p>
-              <p className="mt-1 text-xs text-gray-400">
-                {search ? "検索ワードを変えてみて" : "また後でチェックしてね"}
-              </p>
-              {search && (
-                <button
-                  type="button"
-                  onClick={() => setSearch("")}
-                  className="mt-4 rounded-full border border-gray-200 px-4 py-2 text-xs text-gray-500"
-                >
-                  検索をクリア
-                </button>
-              )}
-            </div>
-          ) : (
-            filtered.map((ev) => (
-              <EventRow key={ev.id} ev={ev} onTap={setSelectedEvent} reportCount={reportCounts.get(ev.id) ?? 0} />
-            ))
-          )}
-        </div>
-      </section>
-
-      {/* ===== ボトムナビ ===== */}
-      <nav className="fixed bottom-0 left-1/2 z-30 flex w-full max-w-md -translate-x-1/2 border-t border-gray-100 bg-white/95 backdrop-blur-md">
-        <Link href="/" className="flex flex-1 flex-col items-center gap-0.5 py-3 text-[var(--accent)]">
-          <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-          </svg>
-          <span className="text-[10px] font-semibold">ホーム</span>
-        </Link>
-        <Link href="/chat" className="flex flex-1 flex-col items-center gap-0.5 py-3 text-gray-400">
-          <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-          </svg>
-          <span className="text-[10px] font-semibold">AIチャット</span>
-        </Link>
       </nav>
-
-      {/* ===== ボトムシート ===== */}
-      {selectedEvent && (
-        <BottomSheet
-          ev={selectedEvent}
-          reportCount={reportCounts.get(selectedEvent.id) ?? 0}
-          onClose={() => setSelectedEvent(null)}
-        />
-      )}
     </div>
   );
 }

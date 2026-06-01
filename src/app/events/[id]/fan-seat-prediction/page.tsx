@@ -1,9 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { use, useMemo, useState } from "react";
+import { use, useEffect, useMemo, useState } from "react";
 import type { ChangeEvent, FormEvent } from "react";
 import { supabase } from "@/lib/supabase/client";
+import { findArtistByKeyword } from "@/lib/artists";
+import type { CrawledEvent } from "@/lib/types";
 
 const BUCKET = "fan-seat-predictions";
 const MAX_IMAGE_SIZE = 5 * 1024 * 1024;
@@ -11,12 +13,12 @@ const COMMENT_MAX = 300;
 const DISPLAY_NAME_MAX = 30;
 
 const TAG_OPTIONS = [
-  "センステあり",
-  "花道あり",
-  "外周あり",
-  "ムビステあり",
-  "機材席あり",
-  "その他",
+  { value: "センステあり", label: "センステ" },
+  { value: "花道あり", label: "花道" },
+  { value: "外周あり", label: "外周" },
+  { value: "ムビステあり", label: "トロッコ" },
+  { value: "機材席あり", label: "機材席" },
+  { value: "その他", label: "その他" },
 ];
 
 function randomId() {
@@ -32,12 +34,22 @@ function safeFileName(name: string): string {
   return cleaned || fallback;
 }
 
+function fmtEventOptionDate(d: string | null) {
+  if (!d) return "日程未定";
+  const [y, m, day] = d.split("-").map(Number);
+  const w = ["日", "月", "火", "水", "木", "金", "土"][new Date(y, m - 1, day).getDay()];
+  return `${m}/${day}(${w})`;
+}
+
 export default function FanSeatPredictionPostPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
   const { id: eventId } = use(params);
+  const [currentEvent, setCurrentEvent] = useState<CrawledEvent | null>(null);
+  const [eventOptions, setEventOptions] = useState<CrawledEvent[]>([]);
+  const [selectedEventId, setSelectedEventId] = useState(eventId);
   const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState("");
   const [comment, setComment] = useState("");
@@ -47,7 +59,51 @@ export default function FanSeatPredictionPostPage({
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  const canSubmit = useMemo(() => !!file && !submitting && !submitted, [file, submitting, submitted]);
+  const canSubmit = useMemo(
+    () => !!file && !!selectedEventId && !submitting && !submitted,
+    [file, selectedEventId, submitting, submitted],
+  );
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadEventOptions() {
+      const { data: evData } = await supabase
+        .from("events")
+        .select("id, title, venue, venue_id, date, genre, lottery_types")
+        .eq("id", eventId)
+        .maybeSingle();
+
+      if (cancelled) return;
+
+      const loadedEvent = evData as CrawledEvent | null;
+      setCurrentEvent(loadedEvent);
+
+      const artist = loadedEvent ? findArtistByKeyword(loadedEvent.title) : undefined;
+      if (!artist) {
+        setEventOptions(loadedEvent ? [loadedEvent] : []);
+        return;
+      }
+
+      const orFilter = artist.keywords.map(kw => `title.ilike.%${kw}%`).join(",");
+      const { data: relatedData } = await supabase
+        .from("events")
+        .select("id, title, venue, venue_id, date, genre, lottery_types")
+        .or(orFilter)
+        .order("date", { ascending: true });
+
+      if (cancelled) return;
+
+      const relatedEvents = ((relatedData as CrawledEvent[]) ?? [])
+        .filter(ev => ev.date || ev.id === eventId);
+      setEventOptions(relatedEvents.length > 0 ? relatedEvents : loadedEvent ? [loadedEvent] : []);
+    }
+
+    loadEventOptions();
+    return () => {
+      cancelled = true;
+    };
+  }, [eventId]);
 
   function resetForm() {
     if (previewUrl) URL.revokeObjectURL(previewUrl);
@@ -115,7 +171,8 @@ export default function FanSeatPredictionPostPage({
     setSubmitting(true);
     try {
       const id = randomId();
-      const imagePath = `${eventId}/${id}-${safeFileName(file.name)}`;
+      const targetEventId = selectedEventId;
+      const imagePath = `${targetEventId}/${id}-${safeFileName(file.name)}`;
       const { error: uploadError } = await supabase.storage
         .from(BUCKET)
         .upload(imagePath, file, {
@@ -127,7 +184,7 @@ export default function FanSeatPredictionPostPage({
 
       const { error: insertError } = await supabase.from("fan_seat_predictions").insert({
         id,
-        event_id: eventId,
+        event_id: targetEventId,
         image_path: imagePath,
         comment: comment.trim() || null,
         prediction_tags: tags,
@@ -173,7 +230,7 @@ export default function FanSeatPredictionPostPage({
             </p>
             <div className="mt-5 grid grid-cols-1 gap-2">
               <Link
-                href={`/events/${eventId}`}
+                href={`/events/${selectedEventId}`}
                 className="rounded-2xl bg-gray-900 px-4 py-3 text-sm font-bold text-white"
               >
                 イベントページに戻る
@@ -194,6 +251,40 @@ export default function FanSeatPredictionPostPage({
             <p className="mt-1 text-xs leading-relaxed text-gray-500">
               座席報告マップのスクショに、花道・センステ予想を書き込んだ画像を投稿できます。投稿後すぐに掲載されます。
             </p>
+          </div>
+
+          <div>
+            <label className="mb-1.5 block text-xs font-bold text-gray-700">表示名</label>
+            <input
+              type="text"
+              value={displayName}
+              maxLength={DISPLAY_NAME_MAX}
+              onChange={(e) => setDisplayName(e.target.value)}
+              placeholder="未入力なら匿名"
+              className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none"
+            />
+          </div>
+
+          <div>
+            <label className="mb-1.5 block text-xs font-bold text-gray-700">
+              投稿する公演 <span className="text-red-500">*</span>
+            </label>
+            <select
+              value={selectedEventId}
+              onChange={(e) => setSelectedEventId(e.target.value)}
+              className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm outline-none"
+            >
+              {eventOptions.length === 0 && (
+                <option value={eventId}>
+                  {currentEvent ? `${fmtEventOptionDate(currentEvent.date)} ${currentEvent.venue}` : "読み込み中..."}
+                </option>
+              )}
+              {eventOptions.map((ev) => (
+                <option key={ev.id} value={ev.id}>
+                  {fmtEventOptionDate(ev.date)} {ev.venue}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div>
@@ -218,16 +309,16 @@ export default function FanSeatPredictionPostPage({
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
               {TAG_OPTIONS.map((tag) => (
                 <button
-                  key={tag}
+                  key={tag.value}
                   type="button"
-                  onClick={() => toggleTag(tag)}
+                  onClick={() => toggleTag(tag.value)}
                   className={`min-w-0 truncate rounded-full border px-3 py-1.5 text-xs font-bold ${
-                    tags.includes(tag)
+                    tags.includes(tag.value)
                       ? "border-purple-600 bg-purple-600 text-white"
                       : "border-gray-200 bg-white text-gray-600"
                   }`}
                 >
-                  {tag}
+                  {tag.label}
                 </button>
               ))}
             </div>
@@ -244,18 +335,6 @@ export default function FanSeatPredictionPostPage({
               className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none"
             />
             <p className="mt-1 text-right text-[10px] text-gray-400">{comment.length}/{COMMENT_MAX}</p>
-          </div>
-
-          <div>
-            <label className="mb-1.5 block text-xs font-bold text-gray-700">表示名</label>
-            <input
-              type="text"
-              value={displayName}
-              maxLength={DISPLAY_NAME_MAX}
-              onChange={(e) => setDisplayName(e.target.value)}
-              placeholder="未入力なら匿名"
-              className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none"
-            />
           </div>
 
           {error && <div className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-600">{error}</div>}

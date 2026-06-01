@@ -28,6 +28,13 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Seat-navi brand focus ring */
+.accent-focus:focus {
+  outline: none;
+  border-color: #0B7A88 !important;
+  box-shadow: 0 0 0 2px rgba(11, 122, 136, 0.2);
+}
+
 /* Hide scrollbar utility */
 .hide-scrollbar {
   -ms-overflow-style: none;

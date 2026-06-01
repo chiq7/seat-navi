@@ -154,7 +154,21 @@ export type SeatReport = {
   lottery_round: string | null;
   lottery_name: string | null;
   payment_method?: string | null;
+  fc_history?: string | null;
   comment: string | null;
+  created_at: string;
+};
+
+/** event_id 単位の当落結果 (event_ticket_resultsテーブル) */
+export type EventTicketResult = {
+  id: string;
+  event_id: string;
+  result: "won" | "lost";
+  lost_application_count: number;
+  ticket_count: number | null;
+  lottery_type: "1次抽選" | "2次抽選" | "その他" | null;
+  fc_history: "1年未満" | "1〜3年" | "3年以上" | null;
+  payment_method: "クレカ" | "その他" | null;
   created_at: string;
 };
 

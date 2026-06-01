@@ -5,86 +5,16 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
 import { findArtistBySlug } from "@/lib/artists";
-import { genreLabel } from "@/lib/utils";
-import type { CrawledEvent } from "@/lib/types";
+import type { CrawledEvent, EventTicketResult, SeatReport } from "@/lib/types";
+import { buildPredictionMap } from "@/lib/seatPrediction";
+import {
+  getSeatPredictionExpectedBlocks,
+  getSeatPredictionLayoutHints,
+} from "@/lib/seatPredictionLayoutHints";
+import { SeatPredictionImage } from "@/components/SeatPredictionImage";
+import { SeatReportForm } from "@/components/SeatReportForm";
 
-// ---------------------------------------------------------------------------
-// 定数
-// ---------------------------------------------------------------------------
-
-const GENRE_BADGE: Record<string, string> = {
-  kpop:        "bg-violet-100 text-violet-700",
-  johnnys:     "bg-blue-100   text-blue-700",
-  female_idol: "bg-pink-100   text-pink-700",
-  male_idol:   "bg-sky-100    text-sky-700",
-  other:       "bg-gray-100   text-gray-600",
-};
-
-const LOTTERY_LABEL: Record<string, string> = {
-  fc1:        "FC1次",
-  fc2:        "FC2次",
-  general:    "一般",
-  upgrade:    "アプグレ",
-  revival:    "復活当選",
-  production: "制作開放",
-};
-
-const LOTTERY_COLOR: Record<string, string> = {
-  fc1:        "bg-violet-100 text-violet-700",
-  fc2:        "bg-purple-100 text-purple-700",
-  general:    "bg-gray-100   text-gray-600",
-  upgrade:    "bg-amber-100  text-amber-700",
-  revival:    "bg-green-100  text-green-700",
-  production: "bg-blue-100   text-blue-700",
-};
-
-const BLOCK_GROUPS = [
-  { label: "アリーナ中央", options: ["A","B","C","D","E","F","G"] },
-  { label: "サイド・特殊",  options: ["SS","SA","SB","SC","SD","SE","SF"] },
-];
-
-const ALL_LOTTERY_OPTIONS = [
-  { value: "fc1",        label: "FC1次（最速含む）" },
-  { value: "fc2",        label: "FC2次" },
-  { value: "general",    label: "一般" },
-  { value: "revival",    label: "復活当選" },
-  { value: "production", label: "制作開放" },
-];
-
-const ARENA_PREFIXES  = ["A","B","C","D","E","F","G"];
-const SPECIAL_PREFIXES = ["SS","SA","SB","SC","SD","SE","SF"];
-
-// ---------------------------------------------------------------------------
-// ユーティリティ
-// ---------------------------------------------------------------------------
-
-function fmtDate(d: string | null) {
-  if (!d) return "日程未定";
-  const [y, m, day] = d.split("-").map(Number);
-  const w = ["日","月","火","水","木","金","土"][new Date(y, m - 1, day).getDay()];
-  return `${m}/${day}(${w})`;
-}
-
-function fmtDatetime(iso: string) {
-  const d = new Date(iso);
-  return `${d.getMonth()+1}/${d.getDate()} ${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
-}
-
-function daysUntil(dateStr: string | null): number | null {
-  if (!dateStr) return null;
-  const [y, m, d] = dateStr.split("-").map(Number);
-  const event = new Date(y, m - 1, d);
-  const today = new Date(); today.setHours(0, 0, 0, 0);
-  return Math.round((event.getTime() - today.getTime()) / 86_400_000);
-}
-
-function randomId() {
-  return crypto.randomUUID().replace(/-/g, "").slice(0, 20);
-}
-
-// ---------------------------------------------------------------------------
-// 型
-// ---------------------------------------------------------------------------
+// 笏笏笏 Types 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
 
 type AnalyticsReport = {
   id: string;
@@ -93,968 +23,1386 @@ type AnalyticsReport = {
   row_num: number;
   seat_num: number;
   lottery_type: string;
+  fc_history: string | null;
+  payment_method?: string | null;
   created_at: string;
 };
 
-type BlockStat = { count: number; upgrade: number; fc: number; general: number };
+type TicketResultAnalytics = Pick<
+  EventTicketResult,
+  "event_id" | "result" | "lost_application_count" | "ticket_count" | "lottery_type" | "fc_history" | "payment_method"
+>;
 
-type AfterSummary = {
+type AfterReportCard = {
   id: string;
   event_id: string;
-  hanamichi: string | null;
+  seat_area_type: string | null;
+  seat_block: string | null;
+  seat_row: string | null;
+  seat_view_photo_paths: string[] | null;
   torokko: string | null;
-  center_stage: string | null;
   kyakukudari: string | null;
-  visibility: number | null;
   fansa: boolean | null;
-  satisfaction: number | null;
-  photo_paths: string[];
+  memo: string | null;
   created_at: string;
 };
 
-// ---------------------------------------------------------------------------
-// ブロック図
-// ---------------------------------------------------------------------------
+type VoteResult = "won" | "lost" | "not_applied";
 
-function BlockDiagram({ reports }: { reports: AnalyticsReport[] }) {
-  const [selectedBlock, setSelectedBlock] = useState<string | null>(null);
+// 笏笏笏 Helpers 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
 
-  const blockStats = useMemo<Map<string, BlockStat>>(() => {
-    const map = new Map<string, BlockStat>();
-    for (const r of reports) {
-      const b = r.block.trim();
-      if (!map.has(b)) map.set(b, { count: 0, upgrade: 0, fc: 0, general: 0 });
-      const s = map.get(b)!;
-      s.count++;
-      if (r.lottery_type === "upgrade") s.upgrade++;
-      if (r.lottery_type === "fc1" || r.lottery_type === "fc2") s.fc++;
-      if (r.lottery_type === "general") s.general++;
-    }
-    return map;
-  }, [reports]);
-
-  const grouped = useMemo(() => {
-    const map = new Map<string, string[]>();
-    for (const block of blockStats.keys()) {
-      const prefix = block.replace(/\d+$/, "") || block;
-      if (!map.has(prefix)) map.set(prefix, []);
-      map.get(prefix)!.push(block);
-    }
-    for (const blocks of map.values()) {
-      blocks.sort((a, b) => (parseInt(a.replace(/\D/g,""))||0) - (parseInt(b.replace(/\D/g,""))||0));
-    }
-    return map;
-  }, [blockStats]);
-
-  const arenaBlocks  = ARENA_PREFIXES.flatMap(p => grouped.get(p) ?? []);
-  const specialBlocks = SPECIAL_PREFIXES.flatMap(p => grouped.get(p) ?? []);
-  const otherBlocks  = [...grouped.entries()]
-    .filter(([p]) => !ARENA_PREFIXES.includes(p) && !SPECIAL_PREFIXES.includes(p))
-    .flatMap(([, b]) => b);
-
-  function tileClass(block: string): string {
-    const s = blockStats.get(block);
-    const c = s?.count ?? 0;
-    const base = "rounded-lg border px-2.5 py-2 text-xs font-bold transition-all active:scale-95";
-    const ring = selectedBlock === block ? " ring-2 ring-[var(--accent)] ring-offset-1" : "";
-    if (c >= 6) return `${base} bg-[var(--accent)] text-white border-[var(--accent)]${ring}`;
-    if (c >= 3) return `${base} bg-violet-300 text-white border-violet-300${ring}`;
-    if (c >= 1) return `${base} bg-violet-100 text-violet-700 border-violet-200${ring}`;
-    return `${base} bg-gray-100 text-gray-400 border-gray-200${ring}`;
-  }
-
-  function BlockTile({ block }: { block: string }) {
-    const cnt = blockStats.get(block)?.count ?? 0;
-    return (
-      <button
-        type="button"
-        onClick={() => setSelectedBlock(selectedBlock === block ? null : block)}
-        className={tileClass(block)}
-      >
-        {block}
-        <span className="ml-1 text-[9px] opacity-70">{cnt}</span>
-      </button>
-    );
-  }
-
-  const sel = selectedBlock ? blockStats.get(selectedBlock) : null;
-
-  if (blockStats.size === 0) {
-    return (
-      <div className="flex flex-col items-center py-10 text-center">
-        <span className="text-4xl">🗺️</span>
-        <p className="mt-2 text-sm font-semibold text-gray-500">まだ座席報告がありません</p>
-        <p className="mt-1 text-xs text-gray-400">最初の報告者になって予想図を作ろう！</p>
-      </div>
-    );
-  }
-
-  return (
-    <div>
-      {/* ステージ */}
-      <div className="mb-5 flex justify-center">
-        <div className="rounded-xl bg-gray-800 px-12 py-2.5 text-xs font-bold tracking-widest text-white">
-          STAGE
-        </div>
-      </div>
-
-      {/* スタンド・特殊（ステージ側） */}
-      {specialBlocks.length > 0 && (
-        <div className="mb-4">
-          <p className="mb-2 text-[10px] font-bold uppercase tracking-wide text-gray-400">スタンド・特殊</p>
-          <div className="flex flex-wrap gap-1.5">
-            {specialBlocks.map(b => <BlockTile key={b} block={b} />)}
-          </div>
-        </div>
-      )}
-
-      {/* アリーナ */}
-      {arenaBlocks.length > 0 && (
-        <div className="mb-4">
-          <p className="mb-2 text-[10px] font-bold uppercase tracking-wide text-gray-400">アリーナ</p>
-          <div className="flex flex-wrap gap-1.5">
-            {arenaBlocks.map(b => <BlockTile key={b} block={b} />)}
-          </div>
-        </div>
-      )}
-
-      {/* その他ブロック */}
-      {otherBlocks.length > 0 && (
-        <div className="mb-4">
-          <div className="flex flex-wrap gap-1.5">
-            {otherBlocks.map(b => <BlockTile key={b} block={b} />)}
-          </div>
-        </div>
-      )}
-
-      {/* 選択ブロック詳細 */}
-      {selectedBlock && sel && (
-        <div className="mb-3 rounded-xl bg-violet-50 px-4 py-3">
-          <p className="text-xs font-bold text-violet-900">{selectedBlock}ブロック — {sel.count}件の報告</p>
-          <div className="mt-2 flex flex-wrap gap-1.5">
-            {sel.fc > 0 && <span className="rounded-full bg-violet-100 px-2 py-0.5 text-[10px] font-semibold text-violet-700">FC {sel.fc}件</span>}
-            {sel.upgrade > 0 && <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-semibold text-amber-700">アプグレ {sel.upgrade}件</span>}
-            {sel.general > 0 && <span className="rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-semibold text-gray-600">一般 {sel.general}件</span>}
-          </div>
-        </div>
-      )}
-
-      {/* 凡例 */}
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[10px] text-gray-400">
-        <span className="flex items-center gap-1"><span className="inline-block h-2.5 w-2.5 rounded border border-gray-200 bg-gray-100"/>未報告</span>
-        <span className="flex items-center gap-1"><span className="inline-block h-2.5 w-2.5 rounded bg-violet-100"/>1〜2件</span>
-        <span className="flex items-center gap-1"><span className="inline-block h-2.5 w-2.5 rounded bg-violet-300"/>3〜5件</span>
-        <span className="flex items-center gap-1"><span className="inline-block h-2.5 w-2.5 rounded bg-[var(--accent)]"/>6件以上</span>
-      </div>
-    </div>
-  );
+function fmtDate(d: string | null) {
+  if (!d) return "日程未定";
+  const [y, m, day] = d.split("-").map(Number);
+  const w = ["日", "月", "火", "水", "木", "金", "土"][new Date(y, m - 1, day).getDay()];
+  return `${m}/${day}(${w})`;
 }
 
-// ---------------------------------------------------------------------------
-// アンケートリザルト
-// ---------------------------------------------------------------------------
-
-function SurveyResults({ reports }: { reports: AnalyticsReport[] }) {
-  const stats = useMemo(() => {
-    if (reports.length === 0) return null;
-
-    const total = reports.length;
-    const lotteryMap = new Map<string, number>();
-    const blockMap   = new Map<string, number>();
-
-    for (const r of reports) {
-      lotteryMap.set(r.lottery_type, (lotteryMap.get(r.lottery_type) ?? 0) + 1);
-      blockMap.set(r.block, (blockMap.get(r.block) ?? 0) + 1);
-    }
-
-    const upgradeCount = lotteryMap.get("upgrade") ?? 0;
-    const lotteryEntries = [...lotteryMap.entries()]
-      .filter(([k]) => k !== "upgrade")
-      .sort((a, b) => b[1] - a[1]);
-
-    const sortedBlocks = [...blockMap.entries()].sort((a, b) => b[1] - a[1]);
-    const topBlocks    = sortedBlocks.slice(0, 5).map(([b]) => b);
-    const lowBlocks    = sortedBlocks.filter(([, n]) => n < 3).map(([b]) => b);
-
-    return { total, upgradeCount, lotteryEntries, topBlocks, lowBlocks };
-  }, [reports]);
-
-  if (!stats || stats.total === 0) return null;
-
-  const maxLottery = Math.max(...stats.lotteryEntries.map(([,n]) => n), 1);
-
-  return (
-    <div className="space-y-4">
-      {/* アプグレ割合 */}
-      {stats.upgradeCount > 0 && (
-        <div className="flex items-center gap-3 rounded-xl bg-amber-50 px-3 py-2.5">
-          <span className="text-lg">⚡</span>
-          <div>
-            <p className="text-xs font-bold text-amber-800">アップグレード当選</p>
-            <p className="text-[11px] text-amber-700">
-              {stats.upgradeCount}件 / {stats.total}件中 ({Math.round(stats.upgradeCount / stats.total * 100)}%)
-            </p>
-          </div>
-        </div>
-      )}
-
-      {/* 抽選枠分布 */}
-      {stats.lotteryEntries.length > 0 && (
-        <div>
-          <p className="mb-2 text-[10px] font-bold uppercase tracking-wide text-gray-400">抽選枠の内訳</p>
-          <div className="space-y-1.5">
-            {stats.lotteryEntries.map(([key, count]) => (
-              <div key={key} className="flex items-center gap-2">
-                <span className="w-16 shrink-0 text-[10px] font-semibold text-gray-600">{LOTTERY_LABEL[key] ?? key}</span>
-                <div className="flex-1 overflow-hidden rounded-full bg-gray-100 h-1.5">
-                  <div
-                    className="h-1.5 rounded-full bg-[var(--accent)]"
-                    style={{ width: `${Math.round((count / maxLottery) * 100)}%` }}
-                  />
-                </div>
-                <span className="w-6 shrink-0 text-right text-[10px] text-gray-400">{count}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* 情報不足ブロック */}
-      {stats.lowBlocks.length > 0 && (
-        <div className="rounded-xl border border-dashed border-gray-200 p-3">
-          <p className="mb-1.5 text-[10px] font-bold text-gray-500">📢 情報が足りないブロック（3件未満）</p>
-          <p className="text-xs text-gray-600">{stats.lowBlocks.join(" / ")}</p>
-          <p className="mt-1 text-[10px] text-gray-400">このブロックに当選した方の報告をお待ちしています</p>
-        </div>
-      )}
-
-      {/* 報告が多いブロック */}
-      {stats.topBlocks.length > 0 && (
-        <div>
-          <p className="mb-1.5 text-[10px] font-bold text-gray-400 uppercase tracking-wide">報告が多いブロック</p>
-          <div className="flex flex-wrap gap-1.5">
-            {stats.topBlocks.map(b => (
-              <span key={b} className="rounded-full bg-violet-100 px-2.5 py-1 text-[10px] font-bold text-violet-700">{b}</span>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
-  );
+function photoUrl(path: string): string {
+  return supabase.storage.from("after-report-photos").getPublicUrl(path).data.publicUrl;
 }
 
-// ---------------------------------------------------------------------------
-// インライン座席報告フォーム
-// ---------------------------------------------------------------------------
-
-function InlineReportForm({
-  events,
-  defaultEventId,
-  onSuccess,
-}: {
-  events: CrawledEvent[];
-  defaultEventId?: string;
-  onSuccess: () => void;
-}) {
-  const [selectedEventId, setSelectedEventId] = useState(defaultEventId ?? "");
-  const [blockPrefix,   setBlockPrefix]   = useState("");
-  const [blockNum,      setBlockNum]      = useState("");
-  const [rowNum,        setRowNum]        = useState("");
-  const [ticketCount,   setTicketCount]   = useState(1);
-  const [leftSeatNum,   setLeftSeatNum]   = useState("");
-  const [lotteryType,   setLotteryType]   = useState("");
-  const [isUpgrade,     setIsUpgrade]     = useState<boolean | null>(null);
-  const [lotteryRound,  setLotteryRound]  = useState("");
-  const [lotteryName,   setLotteryName]   = useState("");
-  const [paymentMethod, setPaymentMethod] = useState("");
-  const [submitting,    setSubmitting]    = useState(false);
-  const [formError,     setFormError]     = useState("");
-
-  const selectedEvent = events.find(ev => ev.id === selectedEventId);
-  const lotteryOptions = selectedEvent?.lottery_types?.length
-    ? ALL_LOTTERY_OPTIONS.filter(o => selectedEvent.lottery_types!.includes(o.value))
-    : ALL_LOTTERY_OPTIONS;
-
-  const blockFull = blockPrefix + blockNum;
-  const previewSeats = leftSeatNum
-    ? Array.from({ length: ticketCount }, (_, i) => parseInt(leftSeatNum, 10) + i).filter(n => !isNaN(n))
-    : [];
-
-  function fmtOption(ev: CrawledEvent) {
-    if (!ev.date) return `${ev.title} ${ev.venue}`;
-    const [y, m, d] = ev.date.split("-").map(Number);
-    const w = ["日","月","火","水","木","金","土"][new Date(y, m-1, d).getDay()];
-    return `${m}/${d}(${w}) ${ev.title} ${ev.venue}`;
-  }
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setFormError("");
-
-    const row      = parseInt(rowNum, 10);
-    const leftSeat = parseInt(leftSeatNum, 10);
-
-    if (!selectedEventId)           { setFormError("ツアー・日程を選択してください"); return; }
-    if (isUpgrade === null)          { setFormError("アップグレード当選かどうかを選択してください"); return; }
-    if (!blockPrefix)               { setFormError("ブロックを選択してください"); return; }
-    if (!blockNum.trim())           { setFormError("ブロック番号を入力してください"); return; }
-    if (!row || row < 1)            { setFormError("列番号は1以上の数値を入力してください"); return; }
-    if (!leftSeat || leftSeat < 1)  { setFormError("座席番号は1以上の数値を入力してください"); return; }
-
-    setSubmitting(true);
-    const effectiveLottery = isUpgrade ? "upgrade" : (lotteryType || "fc1");
-    const rows = Array.from({ length: ticketCount }, (_, i) => ({
-      id: randomId(),
-      event_id: selectedEventId,
-      block: blockFull.trim(),
-      row_num: row,
-      seat_num: leftSeat + i,
-      lottery_type: effectiveLottery,
-      lottery_round: lotteryRound || null,
-      lottery_name: lotteryName.trim() || null,
-      comment: null,
-    }));
-
-    const { error: dbErr } = await supabase.from("seat_reports").insert(rows);
-    if (dbErr) { setFormError("投稿に失敗しました: " + dbErr.message); setSubmitting(false); return; }
-
-    // リセット
-    setBlockPrefix(""); setBlockNum(""); setRowNum("");
-    setTicketCount(1); setLeftSeatNum(""); setLotteryType("");
-    setIsUpgrade(null); setLotteryRound(""); setLotteryName("");
-    setPaymentMethod(""); setSubmitting(false);
-    onSuccess();
+function seatAreaLabel(type: string | null): string {
+  const map: Record<string, string> = {
+    arena: "アリーナ",
+    stand_1f: "1階スタンド",
+    stand_2f: "2階スタンド",
+    stand_3f_or_higher: "3階以上",
+    other_unknown: "その他",
   };
-
-  const f = "w-full rounded-lg border border-gray-200 bg-gray-50 px-2 py-1.5 text-xs outline-none focus:border-[var(--accent)] focus:bg-white";
-
-  return (
-    <form onSubmit={handleSubmit} className="space-y-3">
-
-      {/* ツアー・日程 */}
-      <div>
-        <p className="mb-1 text-[11px] font-bold text-gray-500">ツアー・日程 <span className="text-red-400">*</span></p>
-        <select value={selectedEventId} onChange={e => setSelectedEventId(e.target.value)} className={f}>
-          <option value="">選択してください</option>
-          {events.map(ev => <option key={ev.id} value={ev.id}>{fmtOption(ev)}</option>)}
-        </select>
-      </div>
-
-      {/* 申込枚数 */}
-      <div>
-        <p className="mb-1 text-[11px] font-bold text-gray-500">申込枚数 <span className="text-red-400">*</span></p>
-        <div className="flex gap-1.5">
-          {[1,2,3,4].map(n => (
-            <button key={n} type="button" onClick={() => setTicketCount(n)}
-              className={`flex-1 rounded-lg border py-1.5 text-xs font-bold transition-all ${
-                ticketCount === n ? "border-[var(--accent)] bg-[var(--accent)] text-white" : "border-gray-200 bg-gray-50 text-gray-600"
-              }`}
-            >{n}枚</button>
-          ))}
-        </div>
-      </div>
-
-      {/* アプグレ */}
-      <div>
-        <p className="mb-1 text-[11px] font-bold text-gray-500">アプグレ当選？ <span className="text-red-400">*</span></p>
-        <div className="flex gap-1.5">
-          {([true, false] as const).map(v => (
-            <button key={String(v)} type="button" onClick={() => setIsUpgrade(v)}
-              className={`flex-1 rounded-lg border py-1.5 text-xs font-bold transition-all ${
-                isUpgrade === v ? "border-[var(--accent)] bg-[var(--accent)] text-white" : "border-gray-200 bg-gray-50 text-gray-600"
-              }`}
-            >{v ? "はい" : "いいえ"}</button>
-          ))}
-        </div>
-      </div>
-
-      {/* 抽選枠（アプグレいいえの時のみ） */}
-      {isUpgrade === false && (
-        <div>
-          <p className="mb-1 text-[11px] font-bold text-gray-500">抽選枠 <span className="text-[10px] font-normal text-gray-400">任意</span></p>
-          <select value={lotteryType} onChange={e => setLotteryType(e.target.value)} className={f}>
-            <option value="">選択しない</option>
-            {lotteryOptions.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
-          </select>
-        </div>
-      )}
-
-      {/* ブロック・座席 */}
-      <div>
-        <p className="mb-1 text-[11px] font-bold text-gray-500">ブロック・座席 <span className="text-red-400">*</span></p>
-        <div className="space-y-1.5">
-          <div className="flex gap-1.5">
-            <select value={blockPrefix} onChange={e => setBlockPrefix(e.target.value)}
-              className="w-24 rounded-lg border border-gray-200 bg-gray-50 px-1.5 py-1.5 text-xs outline-none focus:border-[var(--accent)]"
-            >
-              <option value="">--</option>
-              {BLOCK_GROUPS.map(g => (
-                <optgroup key={g.label} label={g.label}>
-                  {g.options.map(p => <option key={p} value={p}>{p}</option>)}
-                </optgroup>
-              ))}
-            </select>
-            <input
-              type="text" inputMode="numeric"
-              value={blockNum} onChange={e => setBlockNum(e.target.value.replace(/[^0-9]/g,""))}
-              placeholder="番号（例: 3）" className="flex-1 rounded-lg border border-gray-200 bg-gray-50 px-2 py-1.5 text-xs outline-none focus:border-[var(--accent)]"
-            />
-          </div>
-          <div className="flex gap-1.5">
-            <input type="number" inputMode="numeric" min="1"
-              value={rowNum} onChange={e => setRowNum(e.target.value)}
-              placeholder="列（例: 5）"
-              className="flex-1 rounded-lg border border-gray-200 bg-gray-50 px-2 py-1.5 text-xs outline-none focus:border-[var(--accent)]"
-            />
-            <input type="number" inputMode="numeric" min="1"
-              value={leftSeatNum} onChange={e => setLeftSeatNum(e.target.value)}
-              placeholder="座席番号（例: 12）"
-              className="flex-1 rounded-lg border border-gray-200 bg-gray-50 px-2 py-1.5 text-xs outline-none focus:border-[var(--accent)]"
-            />
-          </div>
-        </div>
-        {blockFull && <p className="mt-0.5 text-[10px] text-gray-400">ブロック: <span className="font-bold text-gray-600">{blockFull}</span></p>}
-        {previewSeats.length > 1 && <p className="mt-0.5 text-[10px] text-gray-400">保存: <span className="font-bold text-gray-600">{previewSeats.join("・")}番</span></p>}
-      </div>
-
-      {/* 抽選情報（任意） */}
-      <div>
-        <p className="mb-1 text-[11px] font-bold text-gray-500">抽選情報 <span className="text-[10px] font-normal text-gray-400">任意</span></p>
-        <select value={lotteryRound} onChange={e => setLotteryRound(e.target.value)} className={`${f} mb-1.5`}>
-          <option value="">選択しない</option>
-          <option value="first">1次抽選</option>
-          <option value="second">2次抽選</option>
-          <option value="third_plus">3次抽選以上</option>
-          <option value="other">その他</option>
-          <option value="unknown">わからない</option>
-        </select>
-        <input type="text" value={lotteryName} onChange={e => setLotteryName(e.target.value)}
-          placeholder="正確な抽選名（例：FC先行1次）" className={f} />
-      </div>
-
-      {/* 支払い方法（任意） */}
-      <div>
-        <p className="mb-1 text-[11px] font-bold text-gray-500">支払い方法 <span className="text-[10px] font-normal text-gray-400">任意</span></p>
-        <div className="flex gap-1.5">
-          {[{v:"credit",l:"クレカ"},{v:"convenience",l:"コンビニ"},{v:"other",l:"その他"}].map(o => (
-            <button key={o.v} type="button" onClick={() => setPaymentMethod(o.v)}
-              className={`rounded-lg border px-3 py-1.5 text-xs font-semibold transition-all ${
-                paymentMethod === o.v ? "border-[var(--accent)] bg-[var(--accent)] text-white" : "border-gray-200 bg-gray-50 text-gray-500"
-              }`}
-            >{o.l}</button>
-          ))}
-        </div>
-      </div>
-
-      {formError && <div className="rounded-xl bg-red-50 px-3 py-2 text-xs text-red-600">{formError}</div>}
-
-      <button type="submit" disabled={submitting}
-        className="w-full rounded-2xl bg-[var(--accent)] py-3 text-sm font-bold text-white shadow-sm transition-all hover:bg-[var(--accent-dark)] active:scale-95 disabled:opacity-60"
-      >
-        {submitting ? "投稿中..." : "報告する ✍️"}
-      </button>
-    </form>
-  );
+  return type ? (map[type] ?? type) : "不明";
 }
 
-// ---------------------------------------------------------------------------
-// 公演カード
-// ---------------------------------------------------------------------------
+function fmtPct(n: number): string {
+  const rounded = Math.round(n);
+  if (rounded === 0 && n > 0) return n.toFixed(1);
+  return String(rounded);
+}
 
-function EventCard({ ev, seatCount, afterCount }: { ev: CrawledEvent; seatCount: number; afterCount: number }) {
-  const days = daysUntil(ev.date);
-  const soon = days !== null && days >= 0 && days <= 7;
+// 笏笏笏 逕ｻ蜒丞ｮ壽焚 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
+// 逕ｻ蜒上′縺ｧ縺阪◆繧牙推螳壽焚繧貞ｷｮ縺玲崛縺医ｋ縺縺代〒OK
+const HERO_BG = "/images/concert-hero.png";
+const MENU_CARD_BG: Record<"seat" | "report" | "setlist", string | null> = {
+  seat:    null, // TODO: "/images/menu-seat.png"
+  report:  null, // TODO: "/images/menu-report.png"
+  setlist: null, // TODO: "/images/menu-setlist.png"
+};
+
+const VENUE_TAB_ORDER = ["東京ドーム", "バンテリンドーム ナゴヤ", "京セラドーム大阪"];
+
+const SHOW_INLINE_TICKET_SURVEY = false;
+
+// 笏笏笏 TicketVoteCard 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
+
+function TicketVoteCard({ slug }: { slug: string }) {
+  const [myVote, setMyVote] = useState<VoteResult | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    const t = localStorage.getItem(`seat-navi:vote:${slug}:ticket`) as VoteResult | null;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMyVote(t);
+  }, [slug]);
+
+  async function handleVote(result: VoteResult) {
+    const lsKey = `seat-navi:vote:${slug}:ticket`;
+    if (localStorage.getItem(lsKey) || submitting) return;
+    setSubmitting(true);
+    setMyVote(result);
+    localStorage.setItem(lsKey, result);
+    await supabase.from("ticket_result_votes").insert({ artist_slug: slug, vote_type: "ticket", result });
+    setSubmitting(false);
+  }
+
+  if (myVote) {
+    return (
+      <div className="rounded-xl border border-gray-100 bg-white px-4 py-3 text-center text-xs text-gray-400 shadow-sm">
+        チケット投票ありがとうございました
+      </div>
+    );
+  }
+
   return (
-    <div className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
-      <div className="mb-3">
-        <div className="flex flex-wrap items-center gap-1.5 mb-1">
-          <span className="text-xs font-bold text-gray-500">{fmtDate(ev.date)}</span>
-          {soon && <span className="rounded bg-red-500 px-1.5 py-0.5 text-[10px] font-bold text-white">もうすぐ</span>}
-        </div>
-        <p className="text-sm font-bold leading-snug text-gray-900">{ev.title}</p>
-        <p className="mt-0.5 text-xs text-gray-500">{ev.venue}</p>
-      </div>
-      <div className="flex gap-2 mb-3">
-        <div className={`flex-1 rounded-xl px-3 py-2 text-center ${seatCount > 0 ? "bg-[var(--accent-light)]" : "bg-gray-50"}`}>
-          <p className={`text-base font-extrabold ${seatCount > 0 ? "text-[var(--accent)]" : "text-gray-400"}`}>{seatCount}</p>
-          <p className="text-[10px] text-gray-500">座席報告</p>
-        </div>
-        <div className={`flex-1 rounded-xl px-3 py-2 text-center ${afterCount > 0 ? "bg-amber-50" : "bg-gray-50"}`}>
-          <p className={`text-base font-extrabold ${afterCount > 0 ? "text-amber-600" : "text-gray-400"}`}>{afterCount}</p>
-          <p className="text-[10px] text-gray-500">答え合わせ</p>
-        </div>
-      </div>
-      <div className="flex gap-2">
-        <Link href={`/events/${ev.id}`}
-          className="flex flex-1 items-center justify-center rounded-xl bg-[var(--accent)] py-2.5 text-xs font-bold text-white transition-all active:scale-95"
-        >座席を見る</Link>
-        <Link href={`/events/${ev.id}/after-report`}
-          className="flex flex-1 items-center justify-center rounded-xl border border-gray-200 bg-white py-2.5 text-xs font-semibold text-gray-700 transition-all active:scale-95"
-        >答え合わせ投稿</Link>
+    <div className="rounded-xl border border-gray-100 bg-white px-4 py-3 shadow-sm">
+      <p className="mb-0.5 text-sm font-bold text-gray-700">チケット結果を教えてください</p>
+      <p className="mb-3 text-[10px] text-gray-400">回答するとリアルタイムで反映されます</p>
+      <div className="grid grid-cols-2 gap-2">
+        <button
+          type="button"
+          onClick={() => handleVote("won")}
+          disabled={submitting}
+          className="flex items-center justify-center gap-1.5 rounded-xl py-2.5 text-sm font-bold text-white active:scale-95 transition-transform disabled:opacity-50"
+          style={{ background: "#006876" }}
+        >
+          当選した
+        </button>
+        <button
+          type="button"
+          onClick={() => handleVote("lost")}
+          disabled={submitting}
+          className="flex items-center justify-center gap-1.5 rounded-xl border border-gray-200 bg-gray-100 py-2.5 text-sm font-semibold text-gray-500 active:scale-95 transition-transform disabled:opacity-50"
+        >
+          落選した
+        </button>
       </div>
     </div>
   );
 }
 
-// ---------------------------------------------------------------------------
-// 最新の座席報告（3件）
-// ---------------------------------------------------------------------------
+// 笏笏笏 UpgradeVoteCard 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
 
-function RecentReports({
-  reports,
-  venueMap,
-  firstEventId,
-}: {
-  reports: AnalyticsReport[];
-  venueMap: Map<string, string>;
-  firstEventId?: string;
-}) {
-  const displayed = reports.slice(0, 3);
-  if (displayed.length === 0) {
-    return (
-      <div className="flex flex-col items-center rounded-2xl bg-white py-10 shadow-sm">
-        <span className="text-3xl">🪑</span>
-        <p className="mt-2 text-sm font-semibold text-gray-600">まだ座席報告はありません</p>
-      </div>
-    );
-  }
-  return (
-    <>
-      <div className="space-y-2">
-        {displayed.map(r => (
-          <div key={r.id} className="rounded-2xl bg-white px-4 py-3.5 shadow-sm">
-            <div className="flex items-start justify-between gap-2">
-              <div className="min-w-0 flex-1">
-                <div className="flex flex-wrap items-center gap-1.5 mb-0.5">
-                  <span className="rounded-md bg-[var(--accent-light)] px-2 py-0.5 text-xs font-bold text-[var(--accent)]">{r.block}</span>
-                  <span className="text-xs text-gray-700">{r.row_num}列 {r.seat_num}番</span>
-                  {r.lottery_type && (
-                    <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${LOTTERY_COLOR[r.lottery_type] ?? "bg-gray-100 text-gray-600"}`}>
-                      {LOTTERY_LABEL[r.lottery_type] ?? r.lottery_type}
-                    </span>
-                  )}
-                </div>
-                {venueMap.get(r.event_id) && <p className="text-[11px] text-gray-400">{venueMap.get(r.event_id)}</p>}
-              </div>
-              <span className="shrink-0 text-[10px] text-gray-400">{fmtDatetime(r.created_at)}</span>
-            </div>
-          </div>
-        ))}
-      </div>
-      {firstEventId && (
-        <div className="mt-2 text-center">
-          <Link href={`/events/${firstEventId}`}
-            className="inline-flex items-center gap-1 text-xs font-semibold text-[var(--accent)]"
-          >
-            すべての座席報告を見る
-            <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </Link>
-        </div>
-      )}
-    </>
-  );
-}
+function UpgradeVoteCard({ slug }: { slug: string }) {
+  const [myVote, setMyVote] = useState<VoteResult | null>(null);
+  const [submitting, setSubmitting] = useState(false);
 
-// ---------------------------------------------------------------------------
-// 答え合わせサマリー
-// ---------------------------------------------------------------------------
+  useEffect(() => {
+    const u = localStorage.getItem(`seat-navi:vote:${slug}:upgrade`) as VoteResult | null;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMyVote(u);
+  }, [slug]);
 
-function AfterReportSummary({
-  reports,
-  firstEventId,
-}: {
-  reports: AfterSummary[];
-  firstEventId?: string;
-}) {
-  if (reports.length === 0) {
-    return (
-      <div className="flex flex-col items-center rounded-2xl bg-white py-8 shadow-sm text-center">
-        <span className="text-3xl">📸</span>
-        <p className="mt-2 text-sm font-semibold text-gray-600">答え合わせ報告を募集中</p>
-        <p className="mt-1 text-xs text-gray-400">公演後の見え方・花道・トロッコ情報を教えてください</p>
-        {firstEventId && (
-          <Link href={`/events/${firstEventId}/after-report`}
-            className="mt-4 rounded-full bg-[var(--accent)] px-5 py-2 text-xs font-bold text-white"
-          >答え合わせを投稿する</Link>
-        )}
-      </div>
-    );
+  async function handleVote(result: VoteResult) {
+    const lsKey = `seat-navi:vote:${slug}:upgrade`;
+    if (localStorage.getItem(lsKey) || submitting) return;
+    setSubmitting(true);
+    setMyVote(result);
+    localStorage.setItem(lsKey, result);
+    await supabase.from("ticket_result_votes").insert({ artist_slug: slug, vote_type: "upgrade", result });
+    setSubmitting(false);
   }
 
-  const total   = reports.length;
-  const hanamichi    = reports.filter(r => r.hanamichi    === "yes").length;
-  const torokko      = reports.filter(r => r.torokko      === "yes").length;
-  const centerStage  = reports.filter(r => r.center_stage === "yes").length;
-  const kyakukudari  = reports.filter(r => r.kyakukudari  === "yes").length;
-  const fansaCount   = reports.filter(r => r.fansa        === true).length;
-  const hasPhoto     = reports.filter(r => r.photo_paths?.length > 0).length;
-  const avgVis  = reports.filter(r => r.visibility).map(r => r.visibility!).reduce((a,b) => a+b, 0) / (reports.filter(r => r.visibility).length || 1);
-  const avgSat  = reports.filter(r => r.satisfaction).map(r => r.satisfaction!).reduce((a,b) => a+b, 0) / (reports.filter(r => r.satisfaction).length || 1);
-
-  const items = [
-    { label: "花道",           value: `${hanamichi}/${total}件`, active: hanamichi > 0 },
-    { label: "トロッコ",        value: `${torokko}/${total}件`,   active: torokko > 0 },
-    { label: "センターステージ", value: `${centerStage}/${total}件`, active: centerStage > 0 },
-    { label: "客降り",          value: `${kyakukudari}/${total}件`, active: kyakukudari > 0 },
-    { label: "ファンサ",        value: `${fansaCount}/${total}件`, active: fansaCount > 0 },
-    { label: "写真投稿",        value: `${hasPhoto}件あり`,       active: hasPhoto > 0 },
-    { label: "視認性",          value: avgVis > 0 ? `★${avgVis.toFixed(1)}` : "未評価", active: avgVis > 0 },
-    { label: "満足度",          value: avgSat > 0 ? `★${avgSat.toFixed(1)}` : "未評価", active: avgSat > 0 },
-  ];
+  if (myVote) {
+    return <p className="text-center text-xs text-gray-400">アップグレード投票ありがとうございました</p>;
+  }
 
   return (
     <div>
-      <div className="mb-2 flex items-center justify-between">
-        <span className="text-xs text-gray-500">{total}件の答え合わせ報告</span>
-        {firstEventId && (
-          <Link href={`/events/${firstEventId}/after-report`}
-            className="text-[11px] font-semibold text-[var(--accent)]"
-          >投稿する →</Link>
-        )}
-      </div>
-      <div className="grid grid-cols-2 gap-2">
-        {items.map(item => (
-          <div key={item.label} className={`rounded-xl px-3 py-2 ${item.active ? "bg-[var(--accent-light)]" : "bg-gray-50"}`}>
-            <p className="text-[10px] text-gray-500">{item.label}</p>
-            <p className={`text-xs font-bold ${item.active ? "text-[var(--accent)]" : "text-gray-400"}`}>{item.value}</p>
-          </div>
-        ))}
+      <p className="mb-0.5 text-sm font-bold text-gray-700">アップグレード結果を教えてください</p>
+      <p className="mb-2 text-[10px] text-gray-400">回答するとリアルタイムで反映されます</p>
+      <div className="grid grid-cols-3 gap-2">
+        <button
+          type="button"
+          onClick={() => handleVote("won")}
+          disabled={submitting}
+          className="flex items-center justify-center rounded-xl bg-amber-500 py-2.5 text-sm font-bold text-white active:scale-95 transition-transform disabled:opacity-50"
+        >
+          当選
+        </button>
+        <button
+          type="button"
+          onClick={() => handleVote("lost")}
+          disabled={submitting}
+          className="flex items-center justify-center rounded-xl border border-gray-200 bg-gray-100 py-2.5 text-sm font-semibold text-gray-500 active:scale-95 transition-transform disabled:opacity-50"
+        >
+          落選
+        </button>
+        <button
+          type="button"
+          onClick={() => handleVote("not_applied")}
+          disabled={submitting}
+          className="flex items-center justify-center rounded-xl border border-gray-100 bg-gray-50 py-2.5 text-sm font-semibold text-gray-400 active:scale-95 transition-transform disabled:opacity-50"
+        >
+          未応募
+        </button>
       </div>
     </div>
   );
 }
 
-// ---------------------------------------------------------------------------
-// セトリアコーディオン
-// ---------------------------------------------------------------------------
-
-function SetlistAccordion() {
-  const [open, setOpen] = useState(false);
-  return (
-    <div className="rounded-2xl bg-white shadow-sm overflow-hidden">
-      <button type="button" onClick={() => setOpen(v => !v)}
-        className="flex w-full items-center justify-between px-4 py-4 text-left"
-      >
-        <div>
-          <p className="text-sm font-extrabold text-gray-900">セトリ情報</p>
-          <p className="mt-0.5 text-[11px] text-amber-600">ネタバレを含む可能性があります</p>
-        </div>
-        <div className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gray-100 transition-transform duration-200 ${open ? "rotate-180" : ""}`}>
-          <svg className="h-4 w-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-          </svg>
-        </div>
-      </button>
-      {open && (
-        <div className="border-t border-gray-100 px-4 py-8 text-center">
-          <span className="text-3xl">🎵</span>
-          <p className="mt-2 text-sm font-semibold text-gray-600">セトリ情報は準備中です</p>
-          <p className="mt-1 text-xs text-gray-400">公演後に更新予定です</p>
-        </div>
-      )}
-    </div>
-  );
-}
-
-// ---------------------------------------------------------------------------
-// ページ
-// ---------------------------------------------------------------------------
+// 笏笏笏 Page 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
 
 export default function ArtistPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
   const router = useRouter();
   const artist = findArtistBySlug(slug);
 
-  const [events,          setEvents]          = useState<CrawledEvent[]>([]);
-  const [analyticsReports,setAnalyticsReports]= useState<AnalyticsReport[]>([]);
-  const [afterReports,    setAfterReports]    = useState<AfterSummary[]>([]);
-  const [seatCounts,      setSeatCounts]      = useState<Map<string, number>>(new Map());
-  const [afterCounts,     setAfterCounts]     = useState<Map<string, number>>(new Map());
-  const [loading,         setLoading]         = useState(true);
-  const [toast,           setToast]           = useState("");
+  const [events, setEvents] = useState<CrawledEvent[]>([]);
+  const [analyticsReports, setAnalyticsReports] = useState<AnalyticsReport[]>([]);
+  const [ticketResultReports, setTicketResultReports] = useState<TicketResultAnalytics[]>([]);
+  const [seatCounts, setSeatCounts] = useState<Map<string, number>>(new Map());
+  const [afterCounts, setAfterCounts] = useState<Map<string, number>>(new Map());
+  const [latestAfterReports, setLatestAfterReports] = useState<AfterReportCard[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [fetchError, setFetchError] = useState<string | null>(null);
+  const [selectedVenue, setSelectedVenue] = useState<string | null>(null);
+  const [selectedMapEventId, setSelectedMapEventId] = useState<string | null>(null);
+  const [heroTicketRate, setHeroTicketRate] = useState<number | null>(null);
+  const [heroUpgradeRate, setHeroUpgradeRate] = useState<number | null>(null);
+  const [heroTicketCount, setHeroTicketCount] = useState(0);
+  const [heroUpgradeCount, setHeroUpgradeCount] = useState(0);
 
-  async function loadData(artist: NonNullable<ReturnType<typeof findArtistBySlug>>) {
-    const orFilter = artist.keywords.map(kw => `title.ilike.%${kw}%`).join(",");
+  async function loadData(a: NonNullable<ReturnType<typeof findArtistBySlug>>) {
+    setFetchError(null);
+    const orFilter = a.keywords.map(kw => `title.ilike.%${kw}%`).join(",");
 
-    const { data: allEvData } = await supabase
+    const { data: evData, error: evError } = await supabase
       .from("events")
       .select("id, title, venue, venue_id, date, genre, lottery_types")
       .or(orFilter)
-      .order("date", { ascending: true });
+      .order("date", { ascending: false });
 
-    const allEvs = (allEvData as CrawledEvent[]) ?? [];
+    if (evError) {
+      setFetchError("公演情報を取得できませんでした。時間をおいて再度お試しください。");
+      setLoading(false);
+      return;
+    }
+
+    const allEvs = (evData as CrawledEvent[]) ?? [];
     setEvents(allEvs);
+
     if (allEvs.length === 0) { setLoading(false); return; }
 
     const ids = allEvs.map(e => e.id);
 
-    const [seatRes, afterRes] = await Promise.all([
+    const [seatRes, ticketResultRes, afterRes, latestAfterRes] = await Promise.all([
       supabase.from("seat_reports")
-        .select("id, event_id, block, row_num, seat_num, lottery_type, created_at")
+        .select("id, event_id, block, row_num, seat_num, lottery_type, fc_history, payment_method, lottery_round, lottery_name, comment, created_at")
         .in("event_id", ids)
         .order("created_at", { ascending: false })
         .limit(500),
-      supabase.from("after_reports")
-        .select("id, event_id, hanamichi, torokko, center_stage, kyakukudari, visibility, fansa, satisfaction, photo_paths, created_at")
+      supabase.from("event_ticket_results")
+        .select("event_id, result, lost_application_count, ticket_count, lottery_type, fc_history, payment_method")
         .in("event_id", ids)
         .order("created_at", { ascending: false })
-        .limit(50),
+        .limit(1000),
+      supabase.from("after_reports")
+        .select("id, event_id")
+        .in("event_id", ids),
+      supabase.from("after_reports")
+        .select("id, event_id, seat_area_type, seat_block, seat_row, seat_view_photo_paths, torokko, kyakukudari, fansa, memo, created_at")
+        .in("event_id", ids)
+        .order("created_at", { ascending: false })
+        .limit(20),
     ]);
 
-    const seatData  = (seatRes.data as AnalyticsReport[]) ?? [];
-    const afterData = (afterRes.data as AfterSummary[]) ?? [];
+    const seatData = (seatRes.data as AnalyticsReport[]) ?? [];
+    const ticketResultData = (ticketResultRes.data as TicketResultAnalytics[]) ?? [];
+    const afterData = (afterRes.data as { id: string; event_id: string }[]) ?? [];
+    const latestAfterData = (latestAfterRes.data as AfterReportCard[]) ?? [];
 
-    // per-event counts
     const sCounts = new Map<string, number>();
     for (const r of seatData) sCounts.set(r.event_id, (sCounts.get(r.event_id) ?? 0) + 1);
     const aCounts = new Map<string, number>();
     for (const r of afterData) aCounts.set(r.event_id, (aCounts.get(r.event_id) ?? 0) + 1);
 
     setAnalyticsReports(seatData);
-    setAfterReports(afterData);
+    setTicketResultReports(ticketResultData);
     setSeatCounts(sCounts);
     setAfterCounts(aCounts);
+    setLatestAfterReports(latestAfterData);
     setLoading(false);
   }
 
   useEffect(() => {
     if (!artist) return;
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     loadData(artist);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [artist]);
 
-  // トースト自動消去
   useEffect(() => {
-    if (!toast) return;
-    const t = setTimeout(() => setToast(""), 3000);
-    return () => clearTimeout(t);
-  }, [toast]);
+    (async () => {
+      const { data } = await supabase
+        .from("ticket_result_votes")
+        .select("vote_type, result")
+        .eq("artist_slug", slug);
+      if (!data) return;
+      let tw = 0, tl = 0, uw = 0, ul = 0;
+      for (const row of data) {
+        if (row.vote_type === "ticket") {
+          if (row.result === "won") tw++;
+          else if (row.result === "lost") tl++;
+        } else {
+          if (row.result === "won") uw++;
+          else if (row.result === "lost") ul++;
+        }
+      }
+      const tt = tw + tl;
+      const ut = uw + ul;
+      setHeroTicketRate(tt > 0 ? Math.round((tw / tt) * 100) : null);
+      setHeroUpgradeRate(ut > 0 ? Math.round((uw / ut) * 100) : null);
+      setHeroTicketCount(tt);
+      setHeroUpgradeCount(ut);
+    })();
+  }, [slug]);
 
   const today = new Date().toISOString().split("T")[0];
-  const upcomingEvents = useMemo(() => events.filter(ev => ev.date && ev.date >= today), [events, today]);
-  const firstEventId   = upcomingEvents[0]?.id;
-  const totalSeat      = analyticsReports.length;
-  const totalAfter     = afterReports.length;
 
-  const venueMap = useMemo(() => new Map(events.map(ev => [ev.id, ev.venue])), [events]);
+  const sortedEvents = useMemo(() => {
+    const upcoming = events
+      .filter(ev => ev.date && ev.date >= today)
+      .sort((a, b) => (a.date ?? "").localeCompare(b.date ?? ""));
+    const past = events
+      .filter(ev => !ev.date || ev.date < today)
+      .sort((a, b) => (b.date ?? "").localeCompare(a.date ?? ""));
+    const pastWithData = past.filter(ev => (seatCounts.get(ev.id) ?? 0) > 0);
+    const pastNoData = past.filter(ev => (seatCounts.get(ev.id) ?? 0) === 0);
+    return [...upcoming, ...pastWithData, ...pastNoData];
+  }, [events, seatCounts, today]);
 
-  function handleReportSuccess() {
-    setToast("報告ありがとう！ 🎉");
-    if (artist) loadData(artist);
-  }
+  const pastEvents = useMemo(
+    () =>
+      events
+        .filter(ev => ev.date && ev.date < today)
+        .sort((a, b) => (b.date ?? "").localeCompare(a.date ?? "")),
+    [events, today],
+  );
+
+  const venueGroups = useMemo(() => {
+    const map = new Map<string, CrawledEvent[]>();
+    for (const ev of sortedEvents) {
+      const group = map.get(ev.venue) ?? [];
+      group.push(ev);
+      map.set(ev.venue, group);
+    }
+    return map;
+  }, [sortedEvents]);
+
+  const venuesSorted = useMemo(() => {
+    return [...venueGroups.keys()].sort((a, b) => {
+      const orderA = VENUE_TAB_ORDER.indexOf(a);
+      const orderB = VENUE_TAB_ORDER.indexOf(b);
+      if (orderA !== -1 || orderB !== -1) {
+        if (orderA === -1) return 1;
+        if (orderB === -1) return -1;
+        return orderA - orderB;
+      }
+      const nearA = (venueGroups.get(a) ?? [])
+        .filter(ev => ev.date && ev.date >= today)
+        .sort((x, y) => (x.date ?? "").localeCompare(y.date ?? ""))[0]?.date;
+      const nearB = (venueGroups.get(b) ?? [])
+        .filter(ev => ev.date && ev.date >= today)
+        .sort((x, y) => (x.date ?? "").localeCompare(y.date ?? ""))[0]?.date;
+      if (nearA && !nearB) return -1;
+      if (!nearA && nearB) return 1;
+      if (nearA && nearB) return nearA.localeCompare(nearB);
+      const latA = (venueGroups.get(a) ?? [])[0]?.date ?? "";
+      const latB = (venueGroups.get(b) ?? [])[0]?.date ?? "";
+      return latB.localeCompare(latA);
+    });
+  }, [venueGroups, today]);
+
+  const effectiveVenue = selectedVenue ?? venuesSorted[0] ?? null;
+  const selectedVenueEvents = useMemo(
+    () => venueGroups.get(effectiveVenue ?? "") ?? [],
+    [venueGroups, effectiveVenue],
+  );
+
+  const defaultVenueEvent = useMemo(() => {
+    const upcoming = selectedVenueEvents
+      .filter(ev => ev.date && ev.date >= today)
+      .sort((a, b) => (a.date ?? "").localeCompare(b.date ?? ""));
+    return (
+      upcoming[0] ??
+      [...selectedVenueEvents].sort((a, b) =>
+        (b.date ?? "").localeCompare(a.date ?? ""),
+      )[0]
+    );
+  }, [selectedVenueEvents, today]);
+
+  const selectedCTAEvent = useMemo(
+    () => selectedVenueEvents.find(ev => ev.id === selectedMapEventId) ?? defaultVenueEvent,
+    [defaultVenueEvent, selectedMapEventId, selectedVenueEvents],
+  );
+
+  useEffect(() => {
+    if (selectedVenueEvents.length === 0) {
+      if (selectedMapEventId !== null) setSelectedMapEventId(null);
+      return;
+    }
+    if (selectedMapEventId && selectedVenueEvents.some(ev => ev.id === selectedMapEventId)) return;
+    setSelectedMapEventId(defaultVenueEvent?.id ?? null);
+  }, [defaultVenueEvent?.id, selectedMapEventId, selectedVenueEvents]);
+
+  const selectedVenueDateLabel = useMemo(() => {
+    return selectedCTAEvent?.date ? fmtDate(selectedCTAEvent.date) : null;
+  }, [selectedCTAEvent?.date]);
+
+  const sortedSelectedVenueEvents = useMemo(
+    () => [...selectedVenueEvents].sort((a, b) => (a.date ?? "").localeCompare(b.date ?? "")),
+    [selectedVenueEvents],
+  );
+
+  const selectedSeatReports = useMemo(
+    () => analyticsReports.filter(report => report.event_id === selectedCTAEvent?.id),
+    [analyticsReports, selectedCTAEvent?.id],
+  );
+
+  const selectedPredictionMap = useMemo(
+    () => buildPredictionMap(selectedSeatReports as SeatReport[]),
+    [selectedSeatReports],
+  );
+
+  const selectedLayoutHints = useMemo(
+    () =>
+      selectedCTAEvent
+        ? getSeatPredictionLayoutHints({
+            eventId: selectedCTAEvent.id,
+            venueId: selectedCTAEvent.venue_id,
+          })
+        : undefined,
+    [selectedCTAEvent],
+  );
+
+  const selectedExpectedBlocks = useMemo(
+    () =>
+      selectedCTAEvent
+        ? getSeatPredictionExpectedBlocks({
+            eventId: selectedCTAEvent.id,
+            venueId: selectedCTAEvent.venue_id,
+          })
+        : undefined,
+    [selectedCTAEvent],
+  );
+
+  // First upcoming event for bottom nav links
+  const nextEvent = useMemo(
+    () =>
+      events
+        .filter(ev => ev.date && ev.date >= today)
+        .sort((a, b) => (a.date ?? "").localeCompare(b.date ?? ""))[0] ?? selectedCTAEvent,
+    [events, today, selectedCTAEvent],
+  );
+
+  // Hero header info: tour name, date range, cities/performances
+  const tourInfo = useMemo(() => {
+    const upcoming = events
+      .filter(ev => ev.date && ev.date >= today)
+      .sort((a, b) => (a.date ?? "").localeCompare(b.date ?? ""));
+
+    if (upcoming.length === 0) {
+      return { fullTitle: artist?.name ?? "", dateRange: null, summary: null };
+    }
+
+    // Derive tour name: longest common prefix of all upcoming titles, with artist name stripped
+    const stripped = upcoming.map(ev => {
+      const t = ev.title;
+      return t.startsWith((artist?.name ?? "") + " ")
+        ? t.slice((artist?.name ?? "").length + 1)
+        : t;
+    });
+    let common = stripped[0];
+    for (const s of stripped.slice(1)) {
+      while (common && !s.startsWith(common)) {
+        common = common.slice(0, common.length - 1);
+      }
+    }
+    const tourName = common.trim();
+    const fullTitle = tourName
+      ? `${artist?.name ?? ""} ${tourName}`
+      : (artist?.name ?? "");
+
+    // Date range
+    const first = upcoming[0].date!;
+    const last  = upcoming[upcoming.length - 1].date!;
+    const fmt = (d: string) => d.replace(/-/g, ".").slice(2); // "26.05.23"
+    const dateRange = first === last ? fmt(first) : `${fmt(first)} - ${fmt(last).slice(3)}`;
+
+    // Cities / Performances
+    const cities = new Set(upcoming.map(ev => ev.venue)).size;
+    const shows  = upcoming.length;
+    const summary = `${cities} Cities / ${shows} Performances`;
+
+    return { fullTitle, dateRange, summary };
+  }, [events, today, artist]);
+
+  // Group past events into tours by title
+  const pastTours = useMemo(() => {
+    const tourMap = new Map<
+      string,
+      { title: string; years: string[]; venues: string[]; firstEventId: string }
+    >();
+    for (const ev of pastEvents) {
+      const cleanTitle =
+        ev.title
+          .replace(new RegExp(`^${artist?.name ?? ""}\\s*`, "i"), "")
+          .trim() || ev.title;
+      const year = ev.date?.split("-")[0] ?? "不明";
+      const existing = tourMap.get(cleanTitle);
+      if (existing) {
+        if (!existing.years.includes(year)) existing.years.push(year);
+        if (!existing.venues.includes(ev.venue)) existing.venues.push(ev.venue);
+      } else {
+        tourMap.set(cleanTitle, {
+          title: cleanTitle,
+          years: [year],
+          venues: [ev.venue],
+          firstEventId: ev.id,
+        });
+      }
+    }
+    return [...tourMap.values()].slice(0, 5);
+  }, [pastEvents, artist]);
+
+  // Compute stats from seat_reports
+  const seatStats = useMemo(() => {
+    const total = analyticsReports.length;
+    if (total === 0) return null;
+
+    const lotteryCount: Record<string, number> = {};
+    const fcCount: Record<string, number> = {};
+    let nonUpgradeCount = 0;
+    let nonUpgradeArena = 0;
+
+    for (const r of analyticsReports) {
+      lotteryCount[r.lottery_type] = (lotteryCount[r.lottery_type] ?? 0) + 1;
+      if (r.fc_history) fcCount[r.fc_history] = (fcCount[r.fc_history] ?? 0) + 1;
+      if (r.lottery_type !== "upgrade") {
+        nonUpgradeCount++;
+        if (/^(A|SA|SB|SC|SD|SE)\d/i.test(r.block)) nonUpgradeArena++;
+      }
+    }
+
+    const pct = (n: number, d: number) => (d > 0 ? Math.round((n / d) * 1000) / 10 : 0);
+
+    return {
+      total,
+      nonUpgradeCount,
+      normalArenaRate: pct(nonUpgradeArena, nonUpgradeCount),
+      lotteryPct: {
+        fc1: pct(lotteryCount.fc1 ?? 0, total),
+        fc2: pct(lotteryCount.fc2 ?? 0, total),
+        general: pct(lotteryCount.general ?? 0, total),
+      },
+      fcPct: {
+        under1: pct(fcCount.under_1_year ?? 0, total),
+        one3: pct(fcCount.one_to_three_years ?? 0, total),
+        over3: pct(fcCount.over_3_years ?? 0, total),
+      },
+    };
+  }, [analyticsReports]);
+
+  const ticketResultStats = useMemo(() => {
+    const pct = (won: number, total: number) => (total > 0 ? Math.round((won / total) * 1000) / 10 : null);
+    const buildRate = (rows: TicketResultAnalytics[]) => {
+      let won = 0;
+      let lost = 0;
+      for (const row of rows) {
+        if (row.result === "won") won++;
+        lost += Math.max(0, row.lost_application_count ?? 0);
+      }
+      return { won, lost, total: won + lost, rate: pct(won, won + lost) };
+    };
+    const groupRate = (predicate: (row: TicketResultAnalytics) => boolean) =>
+      buildRate(ticketResultReports.filter(predicate)).rate;
+    const result = buildRate(ticketResultReports);
+
+    return {
+      ...result,
+      fc: {
+        under1: groupRate((row) => row.fc_history === "1年未満"),
+        one3: groupRate((row) => row.fc_history === "1〜3年"),
+        over3: groupRate((row) => row.fc_history === "3年以上"),
+      },
+      ticketCount: {
+        one: groupRate((row) => row.ticket_count === 1),
+        two: groupRate((row) => row.ticket_count === 2),
+        three: groupRate((row) => row.ticket_count === 3),
+        four: groupRate((row) => row.ticket_count === 4),
+      },
+      lottery: {
+        first: groupRate((row) => row.lottery_type === "1次抽選"),
+        second: groupRate((row) => row.lottery_type === "2次抽選"),
+        other: groupRate((row) => row.lottery_type === "その他"),
+      },
+      payment: {
+        credit: groupRate((row) => row.payment_method === "クレカ"),
+        other: groupRate((row) => row.payment_method === "その他"),
+      },
+    };
+  }, [ticketResultReports]);
+
+  const rateText = (rate: number | null) => (rate === null ? "--" : fmtPct(rate));
+  const detailRateText = (rate: number | null) => (rate === null ? "集計中" : `${fmtPct(rate)}%`);
+
+  const arenaDetailStats = useMemo(() => {
+    const normalReports = analyticsReports.filter((report) => report.lottery_type !== "upgrade");
+    const pct = (arena: number, total: number) =>
+      total > 0 ? Math.round((arena / total) * 1000) / 10 : null;
+    const isArena = (report: AnalyticsReport) => /^(A|SA|SB|SC|SD|SE)\d/i.test(report.block);
+    const groupRate = (predicate: (report: AnalyticsReport) => boolean) => {
+      const rows = normalReports.filter(predicate);
+      return {
+        rate: pct(rows.filter(isArena).length, rows.length),
+        total: rows.length,
+      };
+    };
+
+    return {
+      fc: {
+        under1: groupRate((report) => report.fc_history === "under_1_year"),
+        one3: groupRate((report) => report.fc_history === "one_to_three_years"),
+        over3: groupRate((report) => report.fc_history === "over_3_years"),
+      },
+      lottery: {
+        first: groupRate((report) => report.lottery_type === "fc1"),
+        second: groupRate((report) => report.lottery_type === "fc2"),
+        other: groupRate((report) => report.lottery_type === "general"),
+      },
+      payment: {
+        credit: groupRate((report) => report.payment_method === "credit"),
+        other: groupRate((report) => report.payment_method === "other"),
+      },
+    };
+  }, [analyticsReports]);
+
+  // Event lookup for after-report cards
+  const eventMap = useMemo(() => {
+    const m = new Map<string, CrawledEvent>();
+    for (const ev of events) m.set(ev.id, ev);
+    return m;
+  }, [events]);
+
+  // Suppress unused warning 窶・afterCounts kept for future use
+  void afterCounts;
+  void heroTicketRate;
+  void heroTicketCount;
+  void heroUpgradeCount;
 
   if (!artist) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-gray-50">
         <p className="text-sm text-gray-500">アーティストが見つかりません</p>
-        <Link href="/" className="rounded-full bg-[var(--accent)] px-5 py-2.5 text-xs font-bold text-white">ホームに戻る</Link>
+        <Link
+          href="/"
+          className="rounded-full px-5 py-2.5 text-xs font-bold text-white"
+          style={{ background: "#006876" }}
+        >
+          ホームに戻る
+        </Link>
       </div>
     );
   }
 
-  return (
-    <div className="min-h-screen bg-gray-50 pb-24">
+  const afterHref = nextEvent ? `/events/${nextEvent.id}/after-report` : "#";
 
-      {/* ヘッダー */}
-      <header className="sticky top-0 z-40 border-b border-gray-100 bg-white/90 px-4 py-3 backdrop-blur-md">
-        <div className="flex items-center gap-3">
-          <button type="button" onClick={() => router.back()}
-            className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 text-gray-600"
+  return (
+    <div className="min-h-screen" style={{ background: "#e8edf0" }}>
+      <div
+        className="mx-auto w-full max-w-[430px] min-h-screen relative shadow-2xl"
+        style={{ background: "#f3f6f8" }}
+      >
+
+        {/* Header */}
+        <header
+          className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] z-50 flex justify-between items-center px-4 h-14"
+          style={{
+            background: "rgba(255,255,255,0.88)",
+            backdropFilter: "blur(16px)",
+            borderBottom: "1px solid rgba(0,0,0,0.06)",
+          }}
+        >
+          <Link
+            href="/"
+            className="w-9 h-9 flex items-center justify-center rounded-full active:scale-95 transition-transform"
+            style={{ background: "rgba(0,104,118,0.06)" }}
           >
-            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: "#006876" }}>
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
-          </button>
-          <span className="text-sm font-bold text-gray-900">{artist.name}</span>
-          <Link href="/chat" className="ml-auto flex items-center gap-1 rounded-full bg-violet-50 px-3 py-1.5 text-[11px] font-bold text-violet-700">
-            <span>🎀</span><span>AIに聞く</span>
           </Link>
-        </div>
-      </header>
+          <h1 className="text-base font-bold tracking-tight" style={{ color: "#006876" }}>
+            {artist.name}
+          </h1>
+          <div className="w-9" />
+        </header>
 
-      <div className="mx-auto max-w-2xl space-y-4 px-4 pt-4">
+        <main className="pt-14 pb-24">
 
-        {/* ① アーティストヘッダー */}
-        <div className={`overflow-hidden rounded-2xl bg-gradient-to-br ${artist.grad} p-5 shadow-md`}>
-          <div className="flex items-center gap-4">
-            <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-white/20 backdrop-blur-sm">
-              <span className="text-3xl font-extrabold text-white drop-shadow-sm">{artist.initials}</span>
-            </div>
-            <div className="min-w-0 flex-1">
-              <p className="text-xl font-extrabold text-white leading-tight">{artist.name}</p>
-              <span className={`mt-1 inline-block rounded px-2 py-0.5 text-[10px] font-bold ${GENRE_BADGE[artist.genre] ?? GENRE_BADGE.other}`}>
-                {genreLabel(artist.genre)}
-              </span>
-            </div>
-          </div>
-          <p className="mt-4 text-xs leading-relaxed text-white/80">{artist.description}</p>
-        </div>
-
-        {/* 件数カード */}
-        {loading ? (
-          <div className="grid grid-cols-3 gap-2">
-            {[0,1,2].map(i => (
-              <div key={i} className="animate-pulse rounded-2xl bg-white p-3 shadow-sm text-center">
-                <div className="mx-auto mb-1 h-6 w-12 rounded bg-gray-100" />
-                <div className="mx-auto h-2.5 w-10 rounded bg-gray-100" />
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="grid grid-cols-3 gap-2">
-            <div className="rounded-2xl bg-white p-3 shadow-sm text-center">
-              <p className="text-xl font-extrabold text-[var(--accent)]">{totalSeat}</p>
-              <p className="mt-0.5 text-[10px] text-gray-500">座席報告</p>
-            </div>
-            <div className="rounded-2xl bg-white p-3 shadow-sm text-center">
-              <p className="text-xl font-extrabold text-amber-500">{totalAfter}</p>
-              <p className="mt-0.5 text-[10px] text-gray-500">答え合わせ</p>
-            </div>
-            <div className="rounded-2xl bg-white p-3 shadow-sm text-center">
-              <p className="text-xl font-extrabold text-gray-700">{events.length}</p>
-              <p className="mt-0.5 text-[10px] text-gray-500">対象公演</p>
-            </div>
-          </div>
-        )}
-
-        {/* ② 直近の公演 */}
-        <section>
-          <div className="mb-3 flex items-center justify-between">
-            <p className="text-sm font-extrabold text-gray-900">直近の公演</p>
-            {!loading && <span className="text-[11px] text-gray-400">{upcomingEvents.length}件</span>}
-          </div>
-          {loading ? (
-            <div className="space-y-3">
-              {[0,1].map(i => (
-                <div key={i} className="animate-pulse rounded-2xl bg-white p-4 shadow-sm">
-                  <div className="mb-2 h-3 w-24 rounded bg-gray-100" />
-                  <div className="mb-1 h-4 w-full rounded bg-gray-100" />
-                  <div className="h-3 w-2/3 rounded bg-gray-100" />
-                </div>
-              ))}
-            </div>
-          ) : upcomingEvents.length === 0 ? (
-            <div className="flex flex-col items-center rounded-2xl bg-white py-12 shadow-sm">
-              <span className="text-4xl">🎤</span>
-              <p className="mt-3 text-sm font-semibold text-gray-700">直近の公演はありません</p>
-            </div>
-          ) : (
-            <div className="space-y-3">
-              {upcomingEvents.map(ev => (
-                <EventCard key={ev.id} ev={ev}
-                  seatCount={seatCounts.get(ev.id) ?? 0}
-                  afterCount={afterCounts.get(ev.id) ?? 0}
-                />
-              ))}
-            </div>
-          )}
-        </section>
-
-        {/* ③ 座席予想図 */}
-        <section>
-          <p className="mb-3 text-sm font-extrabold text-gray-900">{artist.name} 座席予想図</p>
-          <div className="rounded-2xl bg-white p-4 shadow-sm">
-            <p className="mb-4 text-xs text-gray-500">
-              {totalSeat > 0
-                ? `${totalSeat}件の座席報告をもとに作成。ブロックをタップすると詳細が見られます。`
-                : "座席報告が集まると、ブロックが点灯していきます。"}
-            </p>
-            {loading ? (
-              <div className="flex justify-center py-10">
-                <div className="h-8 w-8 animate-spin rounded-full border-2 border-[var(--accent)] border-t-transparent" />
-              </div>
-            ) : (
-              <BlockDiagram reports={analyticsReports} />
-            )}
-          </div>
-        </section>
-
-        {/* ④ 座席報告フォーム */}
-        <section>
-          <p className="mb-3 text-sm font-extrabold text-gray-900">座席を報告する</p>
-          <div className="rounded-2xl bg-white p-4 shadow-sm">
-            <p className="mb-3 text-xs text-gray-500">報告するとブロック図が更新されます。あなたの報告が予想図を完成させます！</p>
-            {events.length > 0 ? (
-              <InlineReportForm
-                events={events}
-                defaultEventId={firstEventId}
-                onSuccess={handleReportSuccess}
+          {/* 1. Hero Card */}
+          <section className="mx-4 mt-3">
+            <div
+              className="relative h-[148px] overflow-hidden rounded-2xl"
+              style={{
+                backgroundImage: `url('${HERO_BG}')`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundColor: "#0a0e1a",
+              }}
+            >
+              <div
+                className="absolute inset-0"
+                style={{
+                  background: `
+                    radial-gradient(ellipse 75% 55% at 38% 28%, rgba(0,104,118,0.52) 0%, transparent 52%),
+                    radial-gradient(ellipse 52% 40% at 72% 18%, rgba(6,182,212,0.38) 0%, transparent 44%),
+                    linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.1) 60%, transparent 100%)
+                  `,
+                }}
               />
-            ) : (
-              <p className="text-center text-xs text-gray-400 py-6">公演情報を読み込み中...</p>
-            )}
-          </div>
-        </section>
-
-        {/* ⑤ アンケートリザルト */}
-        {!loading && totalSeat > 0 && (
-          <section>
-            <p className="mb-3 text-sm font-extrabold text-gray-900">アンケートリザルト</p>
-            <div className="rounded-2xl bg-white p-4 shadow-sm">
-              <SurveyResults reports={analyticsReports} />
+              <div className="absolute inset-0 flex flex-col justify-end px-4 pb-4">
+                <span className="mb-1.5 w-fit rounded-full border border-white/40 bg-white/10 px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-widest text-white/90 backdrop-blur-sm">
+                  Live Announcement
+                </span>
+                <h2
+                  className="text-[14px] font-bold leading-snug text-white"
+                  style={{ textShadow: "0 1px 8px rgba(0,0,0,0.6)" }}
+                >
+                  {tourInfo.fullTitle || artist.name}
+                </h2>
+                {tourInfo.dateRange && (
+                  <p className="mt-1 flex items-center gap-1.5 text-[10px] font-medium tracking-wide text-white/70">
+                    <span>{tourInfo.dateRange}</span>
+                    {tourInfo.summary && (
+                      <>
+                        <span className="text-white/40">|</span>
+                        <span>{tourInfo.summary}</span>
+                      </>
+                    )}
+                  </p>
+                )}
+              </div>
             </div>
           </section>
-        )}
 
-        {/* ⑥ 最新の座席報告 */}
-        <section>
-          <p className="mb-3 text-sm font-extrabold text-gray-900">最新の座席報告</p>
-          {loading ? (
-            <div className="space-y-2">
-              {[0,1,2].map(i => (
-                <div key={i} className="animate-pulse rounded-2xl bg-white p-4 shadow-sm">
-                  <div className="h-3 w-32 rounded bg-gray-100" />
+          {fetchError && (
+            <div className="mx-4 mt-3 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-600">
+              {fetchError}
+            </div>
+          )}
+
+          {/* 2. 繝｡繧､繝ｳ繝｡繝九Η繝ｼ 3繧ｫ繝ｼ繝・*/}
+          <section className="px-4 pt-3">
+            <div className="mb-2.5 flex justify-center">
+              <span
+                className="rounded-full px-4 py-1 text-xs font-bold tracking-wide"
+                style={{ background: "rgba(0,104,118,0.1)", color: "#006876" }}
+              >
+                メインメニュー
+              </span>
+            </div>
+
+            <div className="grid grid-cols-3 gap-2.5">
+
+              {/* 繧｢繝ｪ繝ｼ繝雁ｱ蜻翫・繝・・ */}
+              {selectedCTAEvent ? (
+                <Link
+                  href={`/events/${selectedCTAEvent.id}`}
+                  className="relative overflow-hidden rounded-2xl border border-gray-200/70 shadow-md transition-transform active:scale-[0.97]"
+                  style={{ height: "96px" }}
+                >
+                  {/* 閭梧勹: 逕ｻ蜒上′縺ゅｌ縺ｰ陦ｨ遉ｺ縲√↑縺代ｌ縺ｰ莉ｮ繧ｰ繝ｩ繝・・繧ｷ繝ｧ繝ｳ */}
+                  <div
+                    className="absolute inset-0"
+                    style={
+                      MENU_CARD_BG.seat
+                        ? { backgroundImage: `url('${MENU_CARD_BG.seat}')`, backgroundSize: "cover", backgroundPosition: "center" }
+                        : { background: "linear-gradient(145deg, #00545f 0%, #006876 100%)" }
+                    }
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-black/10" />
+                  <div className="absolute inset-x-0 bottom-0 p-2.5">
+                    <p className="text-xs font-bold leading-tight text-white">アリーナ報告</p>
+                    <p className="text-[10px] text-white/70">見る・報告</p>
+                  </div>
+                </Link>
+              ) : (
+                <div
+                  className="relative overflow-hidden rounded-2xl border border-gray-200/70 opacity-50 shadow-md"
+                  style={{ height: "96px" }}
+                >
+                  <div className="absolute inset-0" style={{ background: "linear-gradient(145deg, #00545f 0%, #006876 100%)" }} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-black/10" />
+                  <div className="absolute inset-x-0 bottom-0 p-2.5">
+                    <p className="text-xs font-bold leading-tight text-white">アリーナ報告</p>
+                    <p className="text-[10px] text-white/70">見る・報告</p>
+                  </div>
                 </div>
-              ))}
-            </div>
-          ) : (
-            <RecentReports reports={analyticsReports} venueMap={venueMap} firstEventId={firstEventId} />
-          )}
-        </section>
+              )}
 
-        {/* ⑦ 答え合わせ情報 */}
-        <section>
-          <p className="mb-3 text-sm font-extrabold text-gray-900">答え合わせ情報</p>
-          {loading ? (
-            <div className="animate-pulse rounded-2xl bg-white p-4 shadow-sm h-24" />
-          ) : (
-            <div className="rounded-2xl bg-white p-4 shadow-sm">
-              <AfterReportSummary reports={afterReports} firstEventId={firstEventId} />
-            </div>
-          )}
-        </section>
+              {/* 迴ｾ蝨ｰ繝ｬ繝・*/}
+              <Link
+                href={afterHref}
+                className="relative overflow-hidden rounded-2xl border border-gray-200/70 shadow-md transition-transform active:scale-[0.97]"
+                style={{ height: "96px" }}
+              >
+                <div
+                  className="absolute inset-0"
+                  style={
+                    MENU_CARD_BG.report
+                      ? { backgroundImage: `url('${MENU_CARD_BG.report}')`, backgroundSize: "cover", backgroundPosition: "center" }
+                      : { background: "linear-gradient(145deg, #005869 0%, #006876 100%)" }
+                  }
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-black/10" />
+                <div className="absolute inset-x-0 bottom-0 p-2.5">
+                  <p className="text-xs font-bold leading-tight text-white">現地レポ</p>
+                  <p className="text-[10px] text-white/70">見る・報告</p>
+                </div>
+              </Link>
 
-        {/* ⑧ セトリ情報 */}
-        <section>
-          <p className="mb-3 text-sm font-extrabold text-gray-900">セトリ情報</p>
-          <SetlistAccordion />
-        </section>
+              {/* 繧ｻ繝医Μ */}
+              <Link
+                href={`/artists/${slug}/setlist`}
+                className="relative overflow-hidden rounded-2xl border border-gray-200/70 shadow-md transition-transform active:scale-[0.97]"
+                style={{ height: "96px" }}
+              >
+                <div
+                  className="absolute inset-0"
+                  style={
+                    MENU_CARD_BG.setlist
+                      ? { backgroundImage: `url('${MENU_CARD_BG.setlist}')`, backgroundSize: "cover", backgroundPosition: "center" }
+                      : { background: "linear-gradient(145deg, #3b1fa3 0%, #5B2BE0 100%)" }
+                  }
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-black/10" />
+                <div className="absolute inset-x-0 bottom-0 p-2.5">
+                  <p className="text-xs font-bold leading-tight text-white">セトリ</p>
+                  <p className="text-[10px] text-white/70">見る・報告</p>
+                </div>
+              </Link>
+
+            </div>
+          </section>
+
+          {/* 3. アリーナ報告マップ */}
+          <section className="mt-5 px-4">
+            <h3 className="mb-3 flex items-center gap-2 text-base font-bold text-gray-900">
+              <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: "#006876" }}>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                  d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+              </svg>
+              アリーナ報告マップ
+            </h3>
+            <div className="overflow-hidden rounded-2xl bg-white">
+              {/* 莨壼ｴ繧ｿ繝・*/}
+              {venuesSorted.length > 1 && (
+                <div className="border-b border-gray-100 p-3" style={{ background: "rgba(243,246,248,0.6)" }}>
+                  <div className="flex gap-2 overflow-x-auto" style={{ scrollbarWidth: "none" }}>
+                    {venuesSorted.map(venue => {
+                      const isSel = venue === effectiveVenue;
+                      return (
+                        <button
+                          key={venue}
+                          type="button"
+                          onClick={() => {
+                            setSelectedVenue(venue);
+                            setSelectedMapEventId(null);
+                          }}
+                          className="whitespace-nowrap rounded-full px-4 py-1.5 text-xs font-semibold transition-all active:scale-95"
+                          style={
+                            isSel
+                              ? { background: "#006876", color: "#fff" }
+                              : { background: "#e2e8ea", color: "#4b6870" }
+                          }
+                        >
+                          {venue}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {sortedSelectedVenueEvents.length > 0 && (
+                <div className="border-b border-gray-100 px-3 py-2" style={{ background: "rgba(243,246,248,0.42)" }}>
+                  <div className="flex gap-1.5 overflow-x-auto" style={{ scrollbarWidth: "none" }}>
+                    {sortedSelectedVenueEvents.map(ev => {
+                      const isSel = ev.id === selectedCTAEvent?.id;
+                      return (
+                        <button
+                          key={ev.id}
+                          type="button"
+                          onClick={() => setSelectedMapEventId(ev.id)}
+                          className="whitespace-nowrap rounded-full px-3 py-1 text-[11px] font-semibold transition-all active:scale-95"
+                          style={
+                            isSel
+                              ? { background: "#006876", color: "#fff" }
+                              : { background: "#edf3f4", color: "#4b6870" }
+                          }
+                        >
+                          {fmtDate(ev.date)}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {(() => {
+                if (loading) {
+                  return (
+                    <div className="flex aspect-[4/3] items-center justify-center">
+                      <div
+                        className="h-6 w-6 animate-spin rounded-full border-2"
+                        style={{ borderColor: "#006876", borderTopColor: "transparent" }}
+                      />
+                    </div>
+                  );
+                }
+                if (!selectedCTAEvent) {
+                  return (
+                    <div className="flex aspect-[4/3] items-center justify-center">
+                      <p className="text-xs text-gray-400">公演情報がありません</p>
+                    </div>
+                  );
+                }
+                return (
+                  <Link href={`/events/${selectedCTAEvent.id}`} className="group block">
+                    <div className="bg-white">
+                      <SeatPredictionImage
+                        prediction={selectedPredictionMap}
+                        layoutHints={selectedLayoutHints}
+                        expectedBlocks={selectedExpectedBlocks}
+                        variant="compact"
+                        compactVenueName={effectiveVenue}
+                        compactDateLabel={selectedVenueDateLabel}
+                      />
+                    </div>
+                    <div className="px-1 pt-2 pb-1">
+                      <div
+                        className="flex w-full items-center justify-center rounded-xl py-2.5 text-xs font-bold text-white transition-transform active:scale-[0.98]"
+                        style={{ background: "#006876" }}
+                      >
+                        みんなの予想を見る
+                      </div>
+                    </div>
+                  </Link>
+                );
+              })()}
+            </div>
+            {selectedCTAEvent && (
+              <div id="seat-report" className="mt-3">
+                <SeatReportForm
+                  eventId={selectedCTAEvent.id}
+                  event={selectedCTAEvent}
+                  successMode="inline"
+                  variant="progressive"
+                />
+              </div>
+            )}
+          </section>
+
+          {/* 4. 蠖馴∈邇・ョ繝ｼ繧ｿ */}
+          <section className="mt-5 px-4">
+            <h3 className="mb-3 flex items-center gap-2 text-base font-bold text-gray-900">
+              <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: "#006876" }}>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+              当選率データ
+            </h3>
+
+            {SHOW_INLINE_TICKET_SURVEY && (
+              <div className="mb-3">
+                <TicketVoteCard slug={slug} />
+              </div>
+            )}
+
+            <div className="space-y-3">
+              <div className="grid grid-cols-3 gap-2">
+                {[
+                  {
+                    label: "チケット当選率",
+                    value: rateText(ticketResultStats.rate),
+                    unit: "%",
+                    note: `落選報告を含む / n=${ticketResultStats.total}`,
+                    color: "#006876",
+                  },
+                  {
+                    label: "通常当選アリーナ率",
+                    value: seatStats ? fmtPct(seatStats.normalArenaRate) : "--",
+                    unit: "%",
+                    note: `seat_reports / n=${seatStats?.nonUpgradeCount ?? 0}`,
+                    color: "#006876",
+                  },
+                  {
+                    label: "アップグレード当選率",
+                    value: heroUpgradeRate !== null ? String(heroUpgradeRate) : "--",
+                    unit: "%",
+                    note: `既存投票 / n=${heroUpgradeCount}`,
+                    color: "#f59e0b",
+                  },
+                ].map((card) => (
+                  <div key={card.label} className="rounded-2xl border border-slate-100 bg-white p-3 text-center shadow-sm">
+                    <p className="mb-1 text-[11px] font-bold text-gray-500">{card.label}</p>
+                    <div className="flex items-end justify-center gap-0.5">
+                      <span className="text-3xl font-bold leading-none" style={{ color: card.color }}>
+                        {card.value}
+                      </span>
+                      {card.value !== "--" && (
+                        <span className="mb-0.5 text-sm font-bold" style={{ color: card.color }}>
+                          {card.unit}
+                        </span>
+                      )}
+                    </div>
+                    <p className="mt-1 text-[10px] font-semibold text-gray-400">{card.note}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="rounded-2xl border border-slate-100 bg-white p-3 shadow-sm">
+                <p className="mb-2.5 text-sm font-semibold" style={{ color: "#006876" }}>主要傾向</p>
+                <div className="space-y-3">
+                  {[
+                    {
+                      label: "FC歴別 チケット当選率",
+                      items: [
+                        ["1年未満", rateText(ticketResultStats.fc.under1)],
+                        ["1〜3年", rateText(ticketResultStats.fc.one3)],
+                        ["3年以上", rateText(ticketResultStats.fc.over3)],
+                      ],
+                      cols: "grid-cols-3",
+                    },
+                    {
+                      label: "申込枚数別 チケット当選率",
+                      items: [
+                        ["1枚", rateText(ticketResultStats.ticketCount.one)],
+                        ["2枚", rateText(ticketResultStats.ticketCount.two)],
+                        ["3枚", rateText(ticketResultStats.ticketCount.three)],
+                        ["4枚", rateText(ticketResultStats.ticketCount.four)],
+                      ],
+                      cols: "grid-cols-4",
+                    },
+                    {
+                      label: "抽選回別 チケット当選率",
+                      items: [
+                        ["1次抽選", rateText(ticketResultStats.lottery.first)],
+                        ["2次抽選", rateText(ticketResultStats.lottery.second)],
+                        ["その他", rateText(ticketResultStats.lottery.other)],
+                      ],
+                      cols: "grid-cols-3",
+                    },
+                    {
+                      label: "決済方法別 チケット当選率",
+                      items: [
+                        ["クレカ", rateText(ticketResultStats.payment.credit)],
+                        ["その他", rateText(ticketResultStats.payment.other)],
+                      ],
+                      cols: "grid-cols-2",
+                    },
+                  ].map((group) => (
+                    <div key={group.label}>
+                      <p className="mb-1 border-b border-slate-100 pb-0.5 text-[11px] font-bold text-gray-400">
+                        {group.label}
+                      </p>
+                      <div className={`grid ${group.cols} gap-1.5 text-center`}>
+                        {group.items.map(([label, val]) => (
+                          <div key={label} className="rounded-lg border border-slate-100 bg-slate-50 px-2 py-1.5">
+                            <p className="mb-0.5 text-[10px] text-gray-400">{label}</p>
+                            <p className="text-sm font-bold" style={{ color: "#006876" }}>
+                              {val === "--" ? val : `${val}%`}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {SHOW_INLINE_TICKET_SURVEY && (
+                <div className="rounded-2xl border border-slate-100 bg-white p-3 shadow-sm">
+                  <UpgradeVoteCard slug={slug} />
+                </div>
+              )}
+            </div>
+          </section>
+
+          <section className="mt-5 px-4">
+            <h3 className="mb-3 flex items-center gap-2 text-base font-bold text-gray-900">
+              <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: "#006876" }}>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                  d="M11 3a1 1 0 012 0v2.06a8.001 8.001 0 016.94 6.94H22a1 1 0 110 2h-2.06A8.001 8.001 0 0113 20.94V23a1 1 0 11-2 0v-2.06A8.001 8.001 0 014.06 14H2a1 1 0 110-2h2.06A8.001 8.001 0 0111 5.06V3z" />
+              </svg>
+              詳細傾向
+            </h3>
+
+            <div className="space-y-3">
+              <div className="rounded-2xl border border-slate-100 bg-white p-3 shadow-sm">
+                <p className="mb-2.5 text-sm font-semibold" style={{ color: "#006876" }}>アリーナ当選率</p>
+                <div className="space-y-3">
+                  {[
+                    {
+                      label: "FC歴別",
+                      items: [
+                        ["1年未満", arenaDetailStats.fc.under1.rate, arenaDetailStats.fc.under1.total],
+                        ["1〜3年", arenaDetailStats.fc.one3.rate, arenaDetailStats.fc.one3.total],
+                        ["3年以上", arenaDetailStats.fc.over3.rate, arenaDetailStats.fc.over3.total],
+                      ],
+                      cols: "grid-cols-3",
+                    },
+                    {
+                      label: "抽選回別",
+                      items: [
+                        ["1次抽選", arenaDetailStats.lottery.first.rate, arenaDetailStats.lottery.first.total],
+                        ["2次抽選", arenaDetailStats.lottery.second.rate, arenaDetailStats.lottery.second.total],
+                        ["その他", arenaDetailStats.lottery.other.rate, arenaDetailStats.lottery.other.total],
+                      ],
+                      cols: "grid-cols-3",
+                    },
+                    {
+                      label: "申込枚数別",
+                      items: [
+                        ["1枚", null, 0],
+                        ["2枚", null, 0],
+                        ["3枚", null, 0],
+                        ["4枚", null, 0],
+                      ],
+                      cols: "grid-cols-4",
+                    },
+                  ].map((group) => (
+                    <div key={group.label}>
+                      <p className="mb-1 border-b border-slate-100 pb-0.5 text-[11px] font-bold text-gray-400">
+                        {group.label}
+                      </p>
+                      <div className={`grid ${group.cols} gap-1.5 text-center`}>
+                        {group.items.map(([label, rate, total]) => (
+                          <div key={label} className="rounded-lg border border-slate-100 bg-slate-50 px-2 py-1.5">
+                            <p className="mb-0.5 text-[10px] text-gray-400">{label}</p>
+                            <p className="text-sm font-bold" style={{ color: "#006876" }}>
+                              {detailRateText(rate as number | null)}
+                            </p>
+                            <p className="text-[9px] font-semibold text-gray-300">n={total}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+          {/* 5. 譛譁ｰ縺ｮ迴ｾ蝨ｰ繝ｬ繝・*/}
+          <section className="mt-5">
+            <div className="mb-3 flex items-end justify-between px-4">
+              <h3 className="flex items-center gap-2 text-base font-bold text-gray-900">
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: "#006876" }}>
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                    d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                </svg>
+                最新の現地レポ
+              </h3>
+              <Link
+                href={afterHref}
+                className="text-xs font-semibold"
+                style={{ color: "#006876" }}
+              >
+                すべて見る
+              </Link>
+            </div>
+
+            {latestAfterReports.length > 0 ? (
+              <div
+                className="flex gap-3 overflow-x-auto pb-2 px-4"
+                style={{ scrollbarWidth: "none" }}
+              >
+                {latestAfterReports.map(report => {
+                  const ev = eventMap.get(report.event_id);
+                  const thumb = report.seat_view_photo_paths?.[0];
+                  const thumbUrl = thumb ? photoUrl(thumb) : null;
+
+                  return (
+                    <Link
+                      key={report.id}
+                      href={afterHref}
+                      className="min-w-[260px] snap-start overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm active:scale-[0.98] transition-transform"
+                    >
+                      <div className="relative aspect-video bg-gray-100">
+                        {thumbUrl ? (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img src={thumbUrl} alt="" className="h-full w-full object-cover" />
+                        ) : (
+                          <div className="flex h-full items-center justify-center">
+                            <svg className="h-8 w-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+                                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                          </div>
+                        )}
+                        {ev?.date && (
+                          <div className="absolute right-2 top-2 rounded bg-black/60 px-2 py-0.5 text-[10px] text-white backdrop-blur-sm">
+                            {fmtDate(ev.date)} {ev.venue}
+                          </div>
+                        )}
+                        <div className="absolute bottom-2 left-2 flex gap-1">
+                          {report.torokko === "yes" && (
+                            <span className="rounded bg-teal-600 px-1.5 py-0.5 text-[10px] font-semibold text-white">
+                              トロッコ
+                            </span>
+                          )}
+                          {report.kyakukudari === "yes" && (
+                            <span className="rounded bg-purple-600 px-1.5 py-0.5 text-[10px] font-semibold text-white">
+                              客降り
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      <div className="p-3">
+                        <p className="text-xs font-bold" style={{ color: "#006876" }}>
+                          {seatAreaLabel(report.seat_area_type)}
+                          {report.seat_block ? ` ${report.seat_block}` : ""}
+                          {report.seat_row ? ` ${report.seat_row}列` : ""}
+                        </p>
+                        {report.memo && (
+                          <p className="mt-1 line-clamp-1 text-xs text-gray-500">{report.memo}</p>
+                        )}
+                        <div className="mt-2 flex flex-wrap gap-1">
+                          {report.fansa === true && (
+                            <span className="rounded bg-rose-50 px-2 py-0.5 text-[10px] font-semibold text-rose-600">
+                              ファンサ
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="mx-4 rounded-2xl border border-gray-100 bg-white p-8 text-center shadow-sm">
+                <p className="text-sm text-gray-400">現地レポートはまだありません</p>
+                <Link
+                  href={afterHref}
+                  className="mt-3 inline-block rounded-xl px-5 py-2.5 text-xs font-bold text-white"
+                  style={{ background: "#006876" }}
+                >
+                  最初のレポートを投稿する
+                </Link>
+              </div>
+            )}
+          </section>
+
+          {/* 6. 繧ｻ繝医Μ繝ｻ譖ｲ鬆・*/}
+          <section id="section-setlist" className="mt-5 px-4 scroll-mt-16">
+            <h3 className="mb-3 flex items-center gap-2 text-base font-bold text-gray-900">
+              <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: "#006876" }}>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                  d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+              </svg>
+              セトリ・曲順
+            </h3>
+            <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+              <p className="mb-4 flex items-center gap-1.5 text-xs font-semibold text-red-500">
+                <svg className="h-4 w-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+                ネタバレを含む可能性があります
+              </p>
+              <div className="space-y-2.5">
+                <Link
+                  href={`/artists/${slug}/setlist`}
+                  className="block w-full rounded-xl border-2 py-3.5 text-center text-sm font-semibold active:scale-[0.98] transition-transform"
+                  style={{ borderColor: "#006876", color: "#006876" }}
+                >
+                  セトリを見る
+                </Link>
+                <Link
+                  href={`/artists/${slug}/setlist`}
+                  className="block w-full rounded-xl bg-gray-100 py-3.5 text-center text-sm font-semibold text-gray-600 active:scale-[0.98] transition-transform"
+                >
+                  セトリを投稿する
+                </Link>
+              </div>
+            </div>
+          </section>
+
+          {/* 7. 驕主悉蜈ｬ貍斐ョ繝ｼ繧ｿ */}
+          <section className="mt-5 px-4">
+            <h3 className="mb-3 flex items-center gap-2 text-base font-bold text-gray-900">
+              <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: "#006876" }}>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              過去公演データ
+            </h3>
+            <div className="rounded-2xl border border-gray-100 bg-white shadow-sm overflow-hidden">
+              {!loading && pastTours.length > 0 ? (
+                pastTours.map((tour, i) => (
+                  <Link
+                    key={tour.firstEventId}
+                    href={`/events/${tour.firstEventId}`}
+                    className={`flex items-center justify-between px-4 py-3.5 active:bg-gray-50 transition-colors group ${
+                      i < pastTours.length - 1 ? "border-b border-gray-50" : ""
+                    }`}
+                  >
+                    <div className="min-w-0">
+                      <p className="text-[11px] font-bold" style={{ color: "#006876" }}>
+                        {[...tour.years].sort().join("・")}
+                      </p>
+                      <h4 className="mt-0.5 line-clamp-1 text-sm font-semibold text-gray-800">
+                        {tour.title}
+                      </h4>
+                      <p className="mt-0.5 text-[11px] text-gray-400">
+                        {tour.venues.slice(0, 3).join(" ﾂｷ ")}
+                        {tour.venues.length > 3 ? " 他" : ""}
+                      </p>
+                    </div>
+                    <svg
+                      className="ml-2 h-4 w-4 shrink-0 text-gray-300 group-hover:translate-x-0.5 transition-transform"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </Link>
+                ))
+              ) : (
+                <div className="p-8 text-center">
+                  <p className="text-sm text-gray-400">
+                    {loading ? "読み込み中..." : "過去公演データなし"}
+                  </p>
+                </div>
+              )}
+            </div>
+          </section>
+
+        </main>
+
+        {/* 繝懊ヨ繝繝翫ン 窶・4蛻・牡 */}
+        <nav
+          className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] z-50 border-t border-gray-100"
+          style={{ background: "rgba(255,255,255,0.92)", backdropFilter: "blur(16px)" }}
+        >
+          <div className="flex items-center justify-around px-2 py-2 pb-safe">
+            <button
+              type="button"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              className="flex flex-col items-center gap-0.5 px-4 py-1.5"
+            >
+              <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: "#006876" }}>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+              </svg>
+              <span className="text-[10px] font-semibold" style={{ color: "#006876" }}>集計まとめ</span>
+            </button>
+
+            <Link
+              href={selectedCTAEvent ? `/events/${selectedCTAEvent.id}` : "#"}
+              className="flex flex-col items-center gap-0.5 px-4 py-1.5"
+            >
+              <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                  d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
+              </svg>
+              <span className="text-[10px] font-semibold text-gray-500">座席予想</span>
+            </Link>
+
+            <Link href={afterHref} className="flex flex-col items-center gap-0.5 px-4 py-1.5">
+              <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                  d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <span className="text-[10px] font-semibold text-gray-500">現地レポ</span>
+            </Link>
+
+            <Link
+              href={`/artists/${slug}/setlist`}
+              className="flex flex-col items-center gap-0.5 px-4 py-1.5"
+            >
+              <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                  d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+              </svg>
+              <span className="text-[10px] font-semibold text-gray-500">セトリ</span>
+            </Link>
+          </div>
+        </nav>
 
       </div>
-
-      {/* ボトムナビ */}
-      <nav className="fixed bottom-0 left-1/2 z-30 flex w-full max-w-md -translate-x-1/2 border-t border-gray-100 bg-white/95 backdrop-blur-md">
-        <Link href="/" className="flex flex-1 flex-col items-center gap-0.5 py-3 text-gray-400">
-          <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" /></svg>
-          <span className="text-[10px] font-semibold">ホーム</span>
-        </Link>
-        <Link href="/chat" className="flex flex-1 flex-col items-center gap-0.5 py-3 text-gray-400">
-          <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-          </svg>
-          <span className="text-[10px] font-semibold">AIチャット</span>
-        </Link>
-      </nav>
-
-      {/* トースト */}
-      {toast && (
-        <div className="fixed bottom-20 left-1/2 z-50 -translate-x-1/2 rounded-2xl bg-gray-900 px-5 py-3 text-xs font-semibold text-white shadow-lg">
-          {toast}
-        </div>
-      )}
     </div>
   );
 }

@@ -51,25 +51,70 @@ const COLOR_MODE_OPTIONS: { value: ColorMode; label: string; disabled?: boolean 
   { value: "upgrade", label: "アプグレ" },
 ];
 
+const LEGEND_RED = "#EF4444";
+const LEGEND_GREEN = "#22C55E";
+const LEGEND_YELLOW = "#F59E0B";
+const LEGEND_BLUE = "#3B82F6";
+
 const LOTTERY_COLORS: Record<string, string> = {
-  fc1: "#5B2BE0",
-  fc2: "#2563EB",
-  general: "#0F766E",
-  upgrade: "#DC2626",
-  revival: "#D97706",
-  production: "#7C3AED",
+  fc1: LEGEND_RED,
+  fc2: LEGEND_GREEN,
+  other: LEGEND_YELLOW,
+  general: LEGEND_BLUE,
+  upgrade: LEGEND_BLUE,
+  revival: LEGEND_YELLOW,
+  production: LEGEND_BLUE,
 };
 
 const FC_HISTORY_COLORS: Record<string, string> = {
-  under_1_year: "#38BDF8",
-  one_to_three_years: "#22C55E",
-  over_3_years: "#A855F7",
+  over_3_years: LEGEND_RED,
+  one_to_three_years: LEGEND_GREEN,
+  under_1_year: LEGEND_YELLOW,
 };
 
 const PAYMENT_COLORS: Record<string, string> = {
-  credit: "#2563EB",
-  convenience: "#F59E0B",
-  other: "#6B7280",
+  credit: LEGEND_RED,
+  convenience: LEGEND_YELLOW,
+  other: LEGEND_GREEN,
+};
+
+const TICKET_COUNT_COLORS: Record<string, string> = {
+  "4": LEGEND_RED,
+  "3": LEGEND_GREEN,
+  "2": LEGEND_YELLOW,
+  "1": LEGEND_BLUE,
+};
+
+const UPGRADE_COLORS = {
+  yes: LEGEND_RED,
+  no: LEGEND_GREEN,
+};
+
+const COLOR_MODE_LEGENDS: Record<ColorMode, { label: string; color: string }[]> = {
+  lottery: [
+    { label: "1次抽選", color: LOTTERY_COLORS.fc1 },
+    { label: "2次抽選", color: LOTTERY_COLORS.fc2 },
+    { label: "その他", color: LOTTERY_COLORS.other },
+  ],
+  fcHistory: [
+    { label: "3年以上", color: FC_HISTORY_COLORS.over_3_years },
+    { label: "1〜3年", color: FC_HISTORY_COLORS.one_to_three_years },
+    { label: "1年未満", color: FC_HISTORY_COLORS.under_1_year },
+  ],
+  ticketCount: [
+    { label: "4枚", color: TICKET_COUNT_COLORS["4"] },
+    { label: "3枚", color: TICKET_COUNT_COLORS["3"] },
+    { label: "2枚", color: TICKET_COUNT_COLORS["2"] },
+    { label: "1枚", color: TICKET_COUNT_COLORS["1"] },
+  ],
+  payment: [
+    { label: "クレカ", color: PAYMENT_COLORS.credit },
+    { label: "その他", color: LEGEND_GREEN },
+  ],
+  upgrade: [
+    { label: "有", color: UPGRADE_COLORS.yes },
+    { label: "なし", color: UPGRADE_COLORS.no },
+  ],
 };
 
 function kindToLabel(kind: string): { label: string; color: string } {
@@ -87,9 +132,11 @@ function seatCellFill(
     return cell.fcHistory ? FC_HISTORY_COLORS[cell.fcHistory] ?? REPORTED_FILL : REPORTED_FILL;
   }
   if (colorMode === "payment") {
-    return cell.paymentMethod ? PAYMENT_COLORS[cell.paymentMethod] ?? REPORTED_FILL : REPORTED_FILL;
+    if (cell.paymentMethod === "credit") return LEGEND_RED;
+    if (cell.paymentMethod) return LEGEND_GREEN;
+    return REPORTED_FILL;
   }
-  if (colorMode === "upgrade") return cell.lotteryType === "upgrade" ? "#DC2626" : REPORTED_FILL;
+  if (colorMode === "upgrade") return cell.lotteryType === "upgrade" ? UPGRADE_COLORS.yes : UPGRADE_COLORS.no;
   return REPORTED_FILL;
 }
 
@@ -430,15 +477,24 @@ export function SeatPredictionImage({
   layoutHints = EMPTY_LAYOUT_HINTS,
   expectedBlocks,
   submitPredictionHref,
+  variant = "full",
+  compactVenueName,
+  compactDateLabel,
 }: {
   prediction: PredictionMap;
   layoutHints?: SeatPredictionLayoutHints;
   expectedBlocks?: string[];
   submitPredictionHref?: string;
+  variant?: "full" | "compact";
+  compactVenueName?: string | null;
+  compactDateLabel?: string | null;
 }) {
   const { totalReports, confidence, blocks, missingBlockCandidates } = prediction;
   const [shareStatus, setShareStatus] = useState("");
   const [colorMode, setColorMode] = useState<ColorMode>("lottery");
+  const isCompact = variant === "compact";
+  const compactHeaderH = isCompact && (compactVenueName || compactDateLabel) ? 20 : 0;
+  const stageTop = STAGE_TOP + compactHeaderH;
 
   const layout = useMemo(() => {
     const rowSpan = blocks.length
@@ -504,7 +560,7 @@ export function SeatPredictionImage({
 
     const positioned: PositionedBlock[] = [];
     const missingMarkers: MissingMarker[] = [];
-    let y = STAGE_TOP + STAGE_H + STAGE_GAP;
+    let y = stageTop + STAGE_H + STAGE_GAP;
     const blockH = hRows * cell;
     for (const prefix of prefixes) {
       const slots = groupSlots.get(prefix)!;
@@ -537,7 +593,7 @@ export function SeatPredictionImage({
     const shapeCandidates = buildShapeCandidates(positioned, missingMarkers, layoutHints, totalReports);
 
     return { svgH, positioned, missingMarkers, shapeCandidates, cell };
-  }, [blocks, expectedBlocks, missingBlockCandidates, layoutHints, totalReports]);
+  }, [blocks, expectedBlocks, missingBlockCandidates, layoutHints, totalReports, stageTop]);
 
   async function handleShare() {
     const url = window.location.href;
@@ -545,7 +601,7 @@ export function SeatPredictionImage({
       if (navigator.share) {
         await navigator.share({
           title: `${BRAND_NAME}の座席報告マップ`,
-          text: "このマップをスクショして、花道・センステ予想を書き込んで投稿しよう",
+          text: "このマップをスクショして、スマホの編集機能で花道・センステ予想を書き込んで投稿しよう",
           url,
         });
         setShareStatus("共有を開きました");
@@ -561,6 +617,16 @@ export function SeatPredictionImage({
   if (totalReports === 0) return null;
 
   if (confidence === "insufficient" || !layout) {
+    if (isCompact) {
+      return (
+        <div className="flex aspect-[4/3] items-center justify-center bg-white">
+          <p className="px-4 text-center text-xs leading-relaxed text-gray-400">
+            報告が少ないため、まだマップを作成できません。
+          </p>
+        </div>
+      );
+    }
+
     return (
       <div className="mb-4 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
         <p className="text-xs font-bold text-gray-700">座席報告マップ</p>
@@ -578,35 +644,62 @@ export function SeatPredictionImage({
   const cellInset = cell * 0.06;
   const cellSize = cell - cellInset * 2;
   const hasCenterAreaCandidate = blocks.some((b) => b.isCenterStageCandidate);
+  const activeLegend = COLOR_MODE_LEGENDS[colorMode];
 
   return (
-    <div className="mb-4 overflow-hidden rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
-      <div className="mb-2">
-        <p className="text-xs font-bold text-gray-700">座席報告マップ</p>
-        <p className="mt-1 text-[11px] font-bold text-gray-600">
-          {BRAND_NAME}｜{BRAND_DOMAIN}
-        </p>
-        {confidence === "low" && (
-          <span className="mt-1 inline-flex rounded-full bg-amber-50 px-2 py-0.5 text-[10px] text-amber-600">報告少</span>
-        )}
-      </div>
+    <div
+      className={
+        isCompact
+          ? "overflow-visible bg-white"
+          : "mb-4 overflow-hidden rounded-2xl border border-gray-100 bg-white p-4 shadow-sm"
+      }
+    >
+      {!isCompact && (
+        <>
+          <div className="mb-2 text-center">
+            <p className="text-xs font-bold text-gray-700">
+              座席報告マップ
+              <span className="ml-2 text-[11px] font-bold text-gray-600">
+                {BRAND_NAME}｜{BRAND_DOMAIN}
+              </span>
+            </p>
+            {confidence === "low" && (
+              <span className="mt-1 inline-flex rounded-full bg-amber-50 px-2 py-0.5 text-[10px] text-amber-600">報告少</span>
+            )}
+          </div>
 
-      <div className="mb-2 flex flex-wrap items-center gap-1.5">
-        <span className="mr-1 text-[10px] font-bold text-gray-500">色分け</span>
-        {COLOR_MODE_OPTIONS.map((option) => (
-          <button
-            key={option.value}
-            type="button"
-            disabled={option.disabled}
-            onClick={() => setColorMode(option.value)}
-            className={`rounded-full px-2 py-1 text-[10px] font-bold ${
-              colorMode === option.value ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-500"
-            } disabled:cursor-not-allowed disabled:opacity-45`}
-          >
-            {option.label}
-          </button>
-        ))}
-      </div>
+          <div className="mb-1 rounded-lg border border-gray-200 bg-gray-50 px-1.5 py-1">
+            <div className="flex flex-wrap items-center justify-center gap-1">
+              {COLOR_MODE_OPTIONS.map((option) => (
+                <button
+                  key={option.value}
+                  type="button"
+                  disabled={option.disabled}
+                  onClick={() => setColorMode(option.value)}
+                  className={`rounded-full border px-2 py-0.5 text-[9px] font-bold shadow-sm transition-all active:scale-95 ${
+                    colorMode === option.value
+                      ? "border-gray-900 bg-gray-900 text-white"
+                      : "border-gray-200 bg-white text-gray-600"
+                  } disabled:cursor-not-allowed disabled:opacity-45`}
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
+            <div className="mt-1 flex flex-wrap items-center justify-center gap-x-2 gap-y-0.5">
+              {activeLegend.map((item) => (
+                <div key={item.label} className="flex items-center gap-0.5">
+                  <span
+                    className="inline-block h-2 w-2 shrink-0 rounded-[2px] shadow-sm ring-1 ring-black/5"
+                    style={{ backgroundColor: item.color }}
+                  />
+                  <span className="text-[8px] font-semibold text-gray-600">{item.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </>
+      )}
 
       <svg
         viewBox={`0 0 ${SVG_W} ${svgH}`}
@@ -614,11 +707,27 @@ export function SeatPredictionImage({
         aria-label="座席報告マップ（参考・模式図）"
         style={{ overflow: "visible" }}
       >
+        {isCompact && (compactVenueName || compactDateLabel) && (
+          <text x={SVG_W / 2} y={11} textAnchor="middle" fill="#374151">
+            {compactVenueName && (
+              <tspan fontSize={8.5} fontWeight="bold">
+                {compactVenueName}
+              </tspan>
+            )}
+            {compactVenueName && compactDateLabel && <tspan dx={7}> </tspan>}
+            {compactDateLabel && (
+              <tspan fontSize={7.2} fontWeight="600" fill="#6B7280">
+                {compactDateLabel}
+              </tspan>
+            )}
+          </text>
+        )}
+
         {/* メインステージ */}
-        <rect x={SVG_W / 2 - 90} y={STAGE_TOP} width={180} height={STAGE_H} rx={5} fill="#1F2937" />
+        <rect x={SVG_W / 2 - 90} y={stageTop} width={180} height={STAGE_H} rx={5} fill="#1F2937" />
         <text
           x={SVG_W / 2}
-          y={STAGE_TOP + STAGE_H / 2 + 2}
+          y={stageTop + STAGE_H / 2 + 2}
           textAnchor="middle"
           fill="white"
           fontSize={8}
@@ -702,27 +811,29 @@ export function SeatPredictionImage({
                 width={cellSize}
                 height={cellSize}
                 rx={0.5}
-                fill={seatCellFill(c, colorMode)}
+                fill={isCompact ? REPORTED_FILL : seatCellFill(c, colorMode)}
                 fillOpacity={0.9}
               />
             ))}
           </g>
         ))}
 
-        <text
-          x={SVG_W / 2}
-          y={svgH / 2}
-          textAnchor="middle"
-          dominantBaseline="middle"
-          fill="#111827"
-          fillOpacity={0.14}
-          fontSize={22}
-          fontWeight="bold"
-          transform={`rotate(-18 ${SVG_W / 2} ${svgH / 2})`}
-          pointerEvents="none"
-        >
-          {BRAND_DOMAIN}
-        </text>
+        {!isCompact && (
+          <text
+            x={SVG_W / 2}
+            y={svgH / 2}
+            textAnchor="middle"
+            dominantBaseline="middle"
+            fill="#111827"
+            fillOpacity={0.14}
+            fontSize={22}
+            fontWeight="bold"
+            transform={`rotate(-18 ${SVG_W / 2} ${svgH / 2})`}
+            pointerEvents="none"
+          >
+            {BRAND_DOMAIN}
+          </text>
+        )}
 
         {shapeCandidates.map((shape, i) => {
           const stroke = shape.kind === "centerStage" ? "#F59E0B" : "#22C55E";
@@ -776,57 +887,46 @@ export function SeatPredictionImage({
         })}
       </svg>
 
-      <div className="mt-3 rounded-xl border border-purple-100 bg-purple-50/60 p-3">
-        <p className="text-[11px] font-bold text-gray-800">
-          このマップをスクショして、花道・センステ予想を書き込んで投稿しよう
-        </p>
-        <div className="mt-3 grid grid-cols-2 gap-2">
-          <button
-            type="button"
-            onClick={handleShare}
-            className="rounded-full bg-gray-900 px-3 py-2 text-[11px] font-bold text-white"
-          >
-            このマップを共有する
-          </button>
-          {submitPredictionHref ? (
-            <a
-              href={submitPredictionHref}
-              className="rounded-full bg-purple-600 px-3 py-2 text-center text-[11px] font-bold text-white shadow-sm shadow-purple-200 active:scale-95"
-            >
-              予想画像を投稿する
-            </a>
-          ) : (
-            <button
-              type="button"
-              disabled
-              className="rounded-full bg-gray-200 px-3 py-2 text-[11px] font-bold text-gray-500"
-            >
-              予想画像を投稿する（準備中）
-            </button>
-          )}
-        </div>
-        {shareStatus && <p className="mt-2 text-[10px] text-gray-500">{shareStatus}</p>}
-      </div>
+      {!isCompact && (
+        <>
+          <div className="mt-3 rounded-xl border border-purple-100 bg-purple-50/60 p-3">
+            <p className="text-[11px] font-bold text-gray-800">
+              このマップをスクショして、スマホの編集機能で花道・センステ予想を書き込んで投稿しよう
+            </p>
+            <div className="mt-3 grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={handleShare}
+                className="rounded-full bg-gray-900 px-3 py-2 text-[11px] font-bold text-white"
+              >
+                このマップを共有する
+              </button>
+              {submitPredictionHref ? (
+                <a
+                  href={submitPredictionHref}
+                  className="rounded-full bg-purple-600 px-3 py-2 text-center text-[11px] font-bold text-white shadow-sm shadow-purple-200 active:scale-95"
+                >
+                  予想画像を投稿する
+                </a>
+              ) : (
+                <button
+                  type="button"
+                  disabled
+                  className="rounded-full bg-gray-200 px-3 py-2 text-[11px] font-bold text-gray-500"
+                >
+                  予想画像を投稿する（準備中）
+                </button>
+              )}
+            </div>
+            {shareStatus && <p className="mt-2 text-[10px] text-gray-500">{shareStatus}</p>}
+          </div>
 
-      {/* 凡例（最小限） */}
-      <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-gray-100 pt-2">
-        <div className="flex items-center gap-1">
-          <span className="inline-block h-2.5 w-2.5 shrink-0 rounded-sm" style={{ backgroundColor: REPORTED_FILL }} />
-          <span className="text-[10px] text-gray-500">報告席</span>
-        </div>
-        <div className="flex items-center gap-1">
-          <span className="inline-block h-2.5 w-2.5 shrink-0 rounded-sm border" style={{ backgroundColor: UNREPORTED_FILL, borderColor: GRID_STROKE }} />
-          <span className="text-[10px] text-gray-500">未報告</span>
-        </div>
-        <div className="flex items-center gap-1">
-          <span className="inline-block h-2.5 w-3.5 shrink-0 rounded-sm ring-1 ring-gray-200" style={{ backgroundColor: GAP_FILL }} />
-          <span className="text-[10px] text-gray-500">白抜き=花道・通路候補</span>
-        </div>
-      </div>
-      {hasCenterAreaCandidate && (
-        <p className="mt-1 text-[10px] leading-relaxed text-gray-400">
-          中央付近に未報告エリア候補があります
-        </p>
+          {hasCenterAreaCandidate && (
+            <p className="mt-1 text-[10px] leading-relaxed text-gray-400">
+              中央付近に未報告エリア候補があります
+            </p>
+          )}
+        </>
       )}
 
     </div>
