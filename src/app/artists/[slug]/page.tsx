@@ -1172,13 +1172,12 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
                         {group.label}
                       </p>
                       <div className={`grid ${group.cols} gap-1.5 text-center`}>
-                        {group.items.map(([label, rate, total]) => (
+                        {group.items.map(([label, rate]) => (
                           <div key={label} className="rounded-lg border border-slate-100 bg-slate-50 px-2 py-1.5">
                             <p className="mb-0.5 text-[10px] text-gray-400">{label}</p>
                             <p className="text-sm font-bold" style={{ color: "#006876" }}>
                               {detailRateText(rate as number | null)}
                             </p>
-                            <p className="text-[9px] font-semibold text-gray-300">n={total}</p>
                           </div>
                         ))}
                       </div>
