@@ -2,7 +2,6 @@
 
 import { use, useEffect, useState, useMemo } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
 import { findArtistBySlug } from "@/lib/artists";
 import type { CrawledEvent } from "@/lib/types";
@@ -132,7 +131,6 @@ function ItemControls({
 
 export default function SetlistPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
-  const router = useRouter();
   const artist = findArtistBySlug(slug);
 
   const [events, setEvents]                     = useState<CrawledEvent[]>([]);

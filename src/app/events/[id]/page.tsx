@@ -251,13 +251,6 @@ export default function EventDetailPage({
     return m;
   }, [relatedEvents, event]);
 
-  function fmtDate(d: string | null) {
-    if (!d) return "日程未定";
-    const [y, m, day] = d.split("-").map(Number);
-    const w = ["日","月","火","水","木","金","土"][new Date(y, m - 1, day).getDay()];
-    return `${y}年${m}月${day}日(${w})`;
-  }
-
   function fmtShortDate(d: string | null) {
     if (!d) return "日程未定";
     const [y, m, day] = d.split("-").map(Number);

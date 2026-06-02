@@ -2,7 +2,6 @@
 
 import { use, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
 import { findArtistBySlug } from "@/lib/artists";
 import type { CrawledEvent, EventTicketResult, SeatReport } from "@/lib/types";
@@ -47,8 +46,6 @@ type AfterReportCard = {
   created_at: string;
 };
 
-type VoteResult = "won" | "lost" | "not_applied";
-
 // 笏笏笏 Helpers 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
 
 function fmtDate(d: string | null) {
@@ -90,130 +87,10 @@ const MENU_CARD_BG: Record<"seat" | "report" | "setlist", string | null> = {
 
 const VENUE_TAB_ORDER = ["東京ドーム", "バンテリンドーム ナゴヤ", "京セラドーム大阪"];
 
-const SHOW_INLINE_TICKET_SURVEY = false;
-
-// 笏笏笏 TicketVoteCard 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
-
-function TicketVoteCard({ slug }: { slug: string }) {
-  const [myVote, setMyVote] = useState<VoteResult | null>(null);
-  const [submitting, setSubmitting] = useState(false);
-
-  useEffect(() => {
-    const t = localStorage.getItem(`seat-navi:vote:${slug}:ticket`) as VoteResult | null;
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setMyVote(t);
-  }, [slug]);
-
-  async function handleVote(result: VoteResult) {
-    const lsKey = `seat-navi:vote:${slug}:ticket`;
-    if (localStorage.getItem(lsKey) || submitting) return;
-    setSubmitting(true);
-    setMyVote(result);
-    localStorage.setItem(lsKey, result);
-    await supabase.from("ticket_result_votes").insert({ artist_slug: slug, vote_type: "ticket", result });
-    setSubmitting(false);
-  }
-
-  if (myVote) {
-    return (
-      <div className="rounded-xl border border-gray-100 bg-white px-4 py-3 text-center text-xs text-gray-400 shadow-sm">
-        チケット投票ありがとうございました
-      </div>
-    );
-  }
-
-  return (
-    <div className="rounded-xl border border-gray-100 bg-white px-4 py-3 shadow-sm">
-      <p className="mb-0.5 text-sm font-bold text-gray-700">チケット結果を教えてください</p>
-      <p className="mb-3 text-[10px] text-gray-400">回答するとリアルタイムで反映されます</p>
-      <div className="grid grid-cols-2 gap-2">
-        <button
-          type="button"
-          onClick={() => handleVote("won")}
-          disabled={submitting}
-          className="flex items-center justify-center gap-1.5 rounded-xl py-2.5 text-sm font-bold text-white active:scale-95 transition-transform disabled:opacity-50"
-          style={{ background: "#006876" }}
-        >
-          当選した
-        </button>
-        <button
-          type="button"
-          onClick={() => handleVote("lost")}
-          disabled={submitting}
-          className="flex items-center justify-center gap-1.5 rounded-xl border border-gray-200 bg-gray-100 py-2.5 text-sm font-semibold text-gray-500 active:scale-95 transition-transform disabled:opacity-50"
-        >
-          落選した
-        </button>
-      </div>
-    </div>
-  );
-}
-
-// 笏笏笏 UpgradeVoteCard 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
-
-function UpgradeVoteCard({ slug }: { slug: string }) {
-  const [myVote, setMyVote] = useState<VoteResult | null>(null);
-  const [submitting, setSubmitting] = useState(false);
-
-  useEffect(() => {
-    const u = localStorage.getItem(`seat-navi:vote:${slug}:upgrade`) as VoteResult | null;
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setMyVote(u);
-  }, [slug]);
-
-  async function handleVote(result: VoteResult) {
-    const lsKey = `seat-navi:vote:${slug}:upgrade`;
-    if (localStorage.getItem(lsKey) || submitting) return;
-    setSubmitting(true);
-    setMyVote(result);
-    localStorage.setItem(lsKey, result);
-    await supabase.from("ticket_result_votes").insert({ artist_slug: slug, vote_type: "upgrade", result });
-    setSubmitting(false);
-  }
-
-  if (myVote) {
-    return <p className="text-center text-xs text-gray-400">アップグレード投票ありがとうございました</p>;
-  }
-
-  return (
-    <div>
-      <p className="mb-0.5 text-sm font-bold text-gray-700">アップグレード結果を教えてください</p>
-      <p className="mb-2 text-[10px] text-gray-400">回答するとリアルタイムで反映されます</p>
-      <div className="grid grid-cols-3 gap-2">
-        <button
-          type="button"
-          onClick={() => handleVote("won")}
-          disabled={submitting}
-          className="flex items-center justify-center rounded-xl bg-amber-500 py-2.5 text-sm font-bold text-white active:scale-95 transition-transform disabled:opacity-50"
-        >
-          当選
-        </button>
-        <button
-          type="button"
-          onClick={() => handleVote("lost")}
-          disabled={submitting}
-          className="flex items-center justify-center rounded-xl border border-gray-200 bg-gray-100 py-2.5 text-sm font-semibold text-gray-500 active:scale-95 transition-transform disabled:opacity-50"
-        >
-          落選
-        </button>
-        <button
-          type="button"
-          onClick={() => handleVote("not_applied")}
-          disabled={submitting}
-          className="flex items-center justify-center rounded-xl border border-gray-100 bg-gray-50 py-2.5 text-sm font-semibold text-gray-400 active:scale-95 transition-transform disabled:opacity-50"
-        >
-          未応募
-        </button>
-      </div>
-    </div>
-  );
-}
-
 // 笏笏笏 Page 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
 
 export default function ArtistPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
-  const router = useRouter();
   const artist = findArtistBySlug(slug);
 
   const [events, setEvents] = useState<CrawledEvent[]>([]);
@@ -227,10 +104,7 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
   const [selectedVenue, setSelectedVenue] = useState<string | null>(null);
   const [hasUserSelectedVenue, setHasUserSelectedVenue] = useState(false);
   const [selectedMapEventId, setSelectedMapEventId] = useState<string | null>(null);
-  const [heroTicketRate, setHeroTicketRate] = useState<number | null>(null);
   const [heroUpgradeRate, setHeroUpgradeRate] = useState<number | null>(null);
-  const [heroTicketCount, setHeroTicketCount] = useState(0);
-  const [heroUpgradeCount, setHeroUpgradeCount] = useState(0);
 
   async function loadData(a: NonNullable<ReturnType<typeof findArtistBySlug>>) {
     setFetchError(null);
@@ -294,14 +168,15 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
     setLoading(false);
   }
 
+  /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
     if (!artist) return;
     setSelectedVenue(null);
     setHasUserSelectedVenue(false);
     setSelectedMapEventId(null);
     loadData(artist);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [artist]);
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   useEffect(() => {
     (async () => {
@@ -310,22 +185,15 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
         .select("vote_type, result")
         .eq("artist_slug", slug);
       if (!data) return;
-      let tw = 0, tl = 0, uw = 0, ul = 0;
+      let uw = 0, ul = 0;
       for (const row of data) {
-        if (row.vote_type === "ticket") {
-          if (row.result === "won") tw++;
-          else if (row.result === "lost") tl++;
-        } else {
+        if (row.vote_type !== "ticket") {
           if (row.result === "won") uw++;
           else if (row.result === "lost") ul++;
         }
       }
-      const tt = tw + tl;
       const ut = uw + ul;
-      setHeroTicketRate(tt > 0 ? Math.round((tw / tt) * 100) : null);
       setHeroUpgradeRate(ut > 0 ? Math.round((uw / ut) * 100) : null);
-      setHeroTicketCount(tt);
-      setHeroUpgradeCount(ut);
     })();
   }, [slug]);
 
@@ -422,6 +290,7 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
     [defaultVenueEvent, selectedMapEventId, selectedVenueEvents],
   );
 
+  /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
     if (selectedVenueEvents.length === 0) {
       if (selectedMapEventId !== null) setSelectedMapEventId(null);
@@ -430,7 +299,9 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
     if (selectedMapEventId && selectedVenueEvents.some(ev => ev.id === selectedMapEventId)) return;
     setSelectedMapEventId(defaultVenueEvent?.id ?? null);
   }, [defaultVenueEvent?.id, selectedMapEventId, selectedVenueEvents]);
+  /* eslint-enable react-hooks/set-state-in-effect */
 
+  // eslint-disable-next-line react-hooks/preserve-manual-memoization
   const selectedVenueDateLabel = useMemo(() => {
     return selectedCTAEvent?.date ? fmtDate(selectedCTAEvent.date) : null;
   }, [selectedCTAEvent?.date]);
@@ -561,17 +432,12 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
 
   // Compute stats from seat_reports
   const seatStats = useMemo(() => {
-    const total = analyticsReports.length;
-    if (total === 0) return null;
+    if (analyticsReports.length === 0) return null;
 
-    const lotteryCount: Record<string, number> = {};
-    const fcCount: Record<string, number> = {};
     let nonUpgradeCount = 0;
     let nonUpgradeArena = 0;
 
     for (const r of analyticsReports) {
-      lotteryCount[r.lottery_type] = (lotteryCount[r.lottery_type] ?? 0) + 1;
-      if (r.fc_history) fcCount[r.fc_history] = (fcCount[r.fc_history] ?? 0) + 1;
       if (r.lottery_type !== "upgrade") {
         nonUpgradeCount++;
         if (/^(A|SA|SB|SC|SD|SE)\d/i.test(r.block)) nonUpgradeArena++;
@@ -581,19 +447,7 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
     const pct = (n: number, d: number) => (d > 0 ? Math.round((n / d) * 1000) / 10 : 0);
 
     return {
-      total,
-      nonUpgradeCount,
       normalArenaRate: pct(nonUpgradeArena, nonUpgradeCount),
-      lotteryPct: {
-        fc1: pct(lotteryCount.fc1 ?? 0, total),
-        fc2: pct(lotteryCount.fc2 ?? 0, total),
-        general: pct(lotteryCount.general ?? 0, total),
-      },
-      fcPct: {
-        under1: pct(fcCount.under_1_year ?? 0, total),
-        one3: pct(fcCount.one_to_three_years ?? 0, total),
-        over3: pct(fcCount.over_3_years ?? 0, total),
-      },
     };
   }, [analyticsReports]);
 
@@ -680,9 +534,6 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
 
   // Suppress unused warning 窶・afterCounts kept for future use
   void afterCounts;
-  void heroTicketRate;
-  void heroTicketCount;
-  void heroUpgradeCount;
 
   if (!artist) {
     return (
@@ -1009,12 +860,6 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
               当選率データ
             </h3>
 
-            {SHOW_INLINE_TICKET_SURVEY && (
-              <div className="mb-3">
-                <TicketVoteCard slug={slug} />
-              </div>
-            )}
-
             <div className="space-y-3">
               <div className="grid grid-cols-3 gap-2">
                 {[
@@ -1022,21 +867,18 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
                     label: "チケット当選率",
                     value: rateText(ticketResultStats.rate),
                     unit: "%",
-                    note: `落選報告を含む / n=${ticketResultStats.total}`,
                     color: "#006876",
                   },
                   {
                     label: "通常当選アリーナ率",
                     value: seatStats ? fmtPct(seatStats.normalArenaRate) : "--",
                     unit: "%",
-                    note: `seat_reports / n=${seatStats?.nonUpgradeCount ?? 0}`,
                     color: "#006876",
                   },
                   {
                     label: "アプグレ当選率",
                     value: heroUpgradeRate !== null ? String(heroUpgradeRate) : "--",
                     unit: "%",
-                    note: `既存投票 / n=${heroUpgradeCount}`,
                     color: "#f59e0b",
                   },
                 ].map((card) => (
@@ -1116,11 +958,6 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
                 </div>
               </div>
 
-              {SHOW_INLINE_TICKET_SURVEY && (
-                <div className="rounded-2xl border border-slate-100 bg-white p-3 shadow-sm">
-                  <UpgradeVoteCard slug={slug} />
-                </div>
-              )}
             </div>
           </section>
 
