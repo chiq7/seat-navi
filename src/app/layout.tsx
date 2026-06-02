@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 const SITE_TITLE = "公演なう｜当落・座席・現地レポ共有";
@@ -45,6 +46,7 @@ export default function RootLayout({
         <div className="mx-auto max-w-md min-h-screen bg-white shadow-sm">
           {children}
         </div>
+        <Analytics />
       </body>
     </html>
   );
