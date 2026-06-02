@@ -1,14 +1,23 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
+const SITE_TITLE = "公演なう｜当落・座席・現地レポ共有";
+const SITE_DESCRIPTION =
+  "ライブ・公演の当落結果、座席報告、現地レポをみんなで共有。座席傾向や会場情報を公演ごとに見える化します。";
+
 export const metadata: Metadata = {
-  title: "座席ナビ | ライブ座席の体験価値がわかる",
-  description:
-    "ライブ会場の座席体験を可視化。座席番号から神席度・花道遭遇率・トロッコ遭遇率がわかるサイト。",
+  metadataBase: new URL("https://koen-now.com"),
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
   openGraph: {
-    title: "座席ナビ",
-    description: "ライブ座席の体験価値がわかるサイト",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
     type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
   },
 };
 

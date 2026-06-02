@@ -78,7 +78,7 @@ export default function ChatPage() {
               🎀
             </div>
             <div>
-              <div className="text-sm font-bold text-gray-900">座席ナビAI</div>
+              <div className="text-sm font-bold text-gray-900">公演なうAI</div>
               <div className="text-[10px] text-green-500">オンライン</div>
             </div>
           </div>

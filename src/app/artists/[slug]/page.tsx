@@ -225,6 +225,7 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
   const [loading, setLoading] = useState(true);
   const [fetchError, setFetchError] = useState<string | null>(null);
   const [selectedVenue, setSelectedVenue] = useState<string | null>(null);
+  const [hasUserSelectedVenue, setHasUserSelectedVenue] = useState(false);
   const [selectedMapEventId, setSelectedMapEventId] = useState<string | null>(null);
   const [heroTicketRate, setHeroTicketRate] = useState<number | null>(null);
   const [heroUpgradeRate, setHeroUpgradeRate] = useState<number | null>(null);
@@ -295,6 +296,9 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
 
   useEffect(() => {
     if (!artist) return;
+    setSelectedVenue(null);
+    setHasUserSelectedVenue(false);
+    setSelectedMapEventId(null);
     loadData(artist);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [artist]);
@@ -357,6 +361,14 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
     return map;
   }, [sortedEvents]);
 
+  const nearestUpcomingEvent = useMemo(
+    () =>
+      events
+        .filter(ev => ev.date && ev.date >= today)
+        .sort((a, b) => (a.date ?? "").localeCompare(b.date ?? ""))[0] ?? null,
+    [events, today],
+  );
+
   const venuesSorted = useMemo(() => {
     return [...venueGroups.keys()].sort((a, b) => {
       const nearA = (venueGroups.get(a) ?? [])
@@ -381,7 +393,13 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
     });
   }, [venueGroups, today]);
 
-  const effectiveVenue = selectedVenue ?? venuesSorted[0] ?? null;
+  const selectedVenueHasUpcoming = selectedVenue
+    ? (venueGroups.get(selectedVenue) ?? []).some(ev => ev.date && ev.date >= today)
+    : false;
+  const effectiveVenue =
+    selectedVenue && (hasUserSelectedVenue || !nearestUpcomingEvent || selectedVenueHasUpcoming)
+      ? selectedVenue
+      : nearestUpcomingEvent?.venue ?? venuesSorted[0] ?? null;
   const selectedVenueEvents = useMemo(
     () => venueGroups.get(effectiveVenue ?? "") ?? [],
     [venueGroups, effectiveVenue],
@@ -883,6 +901,7 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
                           key={venue}
                           type="button"
                           onClick={() => {
+                            setHasUserSelectedVenue(true);
                             setSelectedVenue(venue);
                             setSelectedMapEventId(null);
                           }}
