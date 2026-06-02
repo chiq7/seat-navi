@@ -638,7 +638,7 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
   }, [ticketResultReports]);
 
   const rateText = (rate: number | null) => (rate === null ? "--" : fmtPct(rate));
-  const detailRateText = (rate: number | null) => (rate === null ? "集計中" : `${fmtPct(rate)}%`);
+  const detailRateText = (rate: number | null) => (rate === null ? "--" : `${fmtPct(rate)}%`);
 
   const arenaDetailStats = useMemo(() => {
     const normalReports = analyticsReports.filter((report) => report.lottery_type !== "upgrade");
@@ -1033,7 +1033,7 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
                     color: "#006876",
                   },
                   {
-                    label: "アップグレード当選率",
+                    label: "アプグレ当選率",
                     value: heroUpgradeRate !== null ? String(heroUpgradeRate) : "--",
                     unit: "%",
                     note: `既存投票 / n=${heroUpgradeCount}`,
@@ -1052,7 +1052,6 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
                         </span>
                       )}
                     </div>
-                    <p className="mt-1 text-[10px] font-semibold text-gray-400">{card.note}</p>
                   </div>
                 ))}
               </div>
