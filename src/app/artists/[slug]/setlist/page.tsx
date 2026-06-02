@@ -5,15 +5,10 @@ import Link from "next/link";
 import { supabase } from "@/lib/supabase/client";
 import { findArtistBySlug } from "@/lib/artists";
 import type { CrawledEvent } from "@/lib/types";
-
-// ─── Types ───────────────────────────────────────────────────────────────────
-
-type EditableItem =
-  | { id: string; type: "song"; title: string }
-  | { id: string; type: "mc" }
-  | { id: string; type: "encore" }
-  | { id: string; type: "separator"; label: string };
-
+import { type EditableItem, computeSongNumbers } from "@/lib/setlistHelpers";
+import { SetlistBottomNav } from "@/components/setlist/SetlistBottomNav";
+import { EventDateTabs } from "@/components/setlist/EventDateTabs";
+import { SetlistItemsSection } from "@/components/setlist/SetlistItemsSection";
 // ─── Constants ────────────────────────────────────────────────────────────────
 
 const SUGGESTION_SONGS = ["HOT", "Super", "Rock with you", "VERY NICE", "CLAP", "God of Music"];
@@ -40,91 +35,6 @@ const INITIAL_SETLIST: EditableItem[] = [
 
 function newId(): string {
   return Math.random().toString(36).slice(2, 11);
-}
-
-function computeSongNumbers(items: EditableItem[]): Map<string, string> {
-  const map = new Map<string, string>();
-  let count = 0;
-  let encCount = 0;
-  let inEncore = false;
-  for (const item of items) {
-    if (item.type === "encore") {
-      inEncore = true;
-      encCount = 0;
-    } else if (item.type === "song") {
-      if (inEncore) {
-        encCount++;
-        map.set(item.id, `EN${encCount}`);
-      } else {
-        count++;
-        map.set(item.id, String(count));
-      }
-    }
-  }
-  return map;
-}
-
-function fmtDateShort(d: string | null) {
-  if (!d) return "未定";
-  const [, m, day] = d.split("-").map(Number);
-  return `${m}/${day}`;
-}
-
-function fmtDateFull(d: string | null) {
-  if (!d) return "日程未定";
-  const [y, m, day] = d.split("-").map(Number);
-  const w = ["日", "月", "火", "水", "木", "金", "土"][new Date(y, m - 1, day).getDay()];
-  return `${m}/${day}(${w})`;
-}
-
-// ─── ItemControls ─────────────────────────────────────────────────────────────
-
-function ItemControls({
-  index,
-  total,
-  onUp,
-  onDown,
-  onRemove,
-}: {
-  index: number;
-  total: number;
-  onUp: () => void;
-  onDown: () => void;
-  onRemove: () => void;
-}) {
-  return (
-    <div className="flex shrink-0 items-center">
-      <button
-        type="button"
-        onClick={onUp}
-        disabled={index === 0}
-        className="flex h-7 w-7 items-center justify-center rounded-md text-gray-400 transition-colors disabled:opacity-20 active:bg-gray-100"
-      >
-        <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 15l7-7 7 7" />
-        </svg>
-      </button>
-      <button
-        type="button"
-        onClick={onDown}
-        disabled={index === total - 1}
-        className="flex h-7 w-7 items-center justify-center rounded-md text-gray-400 transition-colors disabled:opacity-20 active:bg-gray-100"
-      >
-        <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-        </svg>
-      </button>
-      <button
-        type="button"
-        onClick={onRemove}
-        className="flex h-7 w-7 items-center justify-center rounded-md text-gray-300 transition-colors active:bg-red-50 active:text-red-400"
-      >
-        <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
-    </div>
-  );
 }
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
@@ -249,7 +159,6 @@ export default function SetlistPage({ params }: { params: Promise<{ slug: string
   }
 
   const afterHref = nextEvent ? `/events/${nextEvent.id}/after-report` : "#";
-  const songCount = setlistItems.filter(i => i.type === "song").length;
 
   return (
     <div className="min-h-screen" style={{ background: "#e8edf0" }}>
@@ -298,48 +207,13 @@ export default function SetlistPage({ params }: { params: Promise<{ slug: string
             </div>
           </div>
 
-          {/* 公演日選択 */}
-          <section className="mt-5">
-            <div
-              className="flex gap-2 overflow-x-auto px-4 pb-1"
-              style={{ scrollbarWidth: "none" }}
-            >
-              {sortedEvents.length === 0 && (
-                <p className="py-2 text-xs text-gray-400">公演情報を読み込み中...</p>
-              )}
-              {sortedEvents.map(ev => {
-                const isPast = ev.date && ev.date < today;
-                const isSelected = ev.id === selectedEventId;
-                return (
-                  <button
-                    key={ev.id}
-                    type="button"
-                    onClick={() => setSelectedEventId(ev.id)}
-                    className="shrink-0 rounded-xl border px-3 py-2 text-center transition-all active:scale-95"
-                    style={
-                      isSelected
-                        ? { background: "#006876", borderColor: "#006876", color: "#fff" }
-                        : {
-                            background: "#fff",
-                            borderColor: "#e5e7eb",
-                            color: isPast ? "#9ca3af" : "#374151",
-                          }
-                    }
-                  >
-                    <p className="text-[11px] font-bold leading-tight">{fmtDateShort(ev.date)}</p>
-                    <p className="mt-0.5 max-w-[72px] truncate text-[10px] leading-tight opacity-75">
-                      {ev.venue}
-                    </p>
-                  </button>
-                );
-              })}
-            </div>
-            {selectedEvent && (
-              <p className="mt-2 px-4 text-[11px] text-gray-400">
-                {fmtDateFull(selectedEvent.date)}　{selectedEvent.venue}
-              </p>
-            )}
-          </section>
+          <EventDateTabs
+            sortedEvents={sortedEvents}
+            selectedEventId={selectedEventId}
+            today={today}
+            selectedEvent={selectedEvent}
+            onSelect={setSelectedEventId}
+          />
 
           {/* 追加フォーム + セトリリスト */}
           <section className="mt-4 px-4 pb-4">
@@ -419,106 +293,12 @@ export default function SetlistPage({ params }: { params: Promise<{ slug: string
                   </button>
                 </div>
 
-                {/* セトリリスト */}
-                <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
-
-                  {/* カードヘッダー */}
-                  <div className="flex items-center justify-between border-b border-gray-50 px-4 py-3">
-                    <div className="flex items-center gap-2">
-                      <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: "#006876" }}>
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                          d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
-                      </svg>
-                      <span className="text-xs font-bold" style={{ color: "#006876" }}>セトリ</span>
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <span className="rounded-full bg-amber-50 px-2 py-0.5 text-[10px] font-semibold text-amber-600">
-                        仮データ
-                      </span>
-                      <span className="rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-semibold text-gray-400">
-                        {songCount}曲
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* 曲リスト */}
-                  {setlistItems.length === 0 ? (
-                    <p className="p-8 text-center text-xs text-gray-400">
-                      セトリはまだ投稿されていません
-                    </p>
-                  ) : (
-                    <div className="divide-y divide-gray-50">
-                      {setlistItems.map((item, index) => {
-                        const total = setlistItems.length;
-                        const controls = (
-                          <ItemControls
-                            index={index}
-                            total={total}
-                            onUp={() => moveItem(index, "up")}
-                            onDown={() => moveItem(index, "down")}
-                            onRemove={() => removeItem(item.id)}
-                          />
-                        );
-
-                        if (item.type === "mc") {
-                          return (
-                            <div key={item.id} className="flex items-center justify-between px-3 py-2">
-                              <span className="rounded-full bg-gray-100 px-3 py-1 text-[11px] font-semibold text-gray-400">
-                                MC
-                              </span>
-                              {controls}
-                            </div>
-                          );
-                        }
-
-                        if (item.type === "encore") {
-                          return (
-                            <div key={item.id} className="flex items-center justify-between px-3 py-2">
-                              <span
-                                className="rounded-full px-3 py-1 text-[11px] font-bold"
-                                style={{ background: "rgba(0,104,118,0.08)", color: "#006876" }}
-                              >
-                                アンコール
-                              </span>
-                              {controls}
-                            </div>
-                          );
-                        }
-
-                        if (item.type === "separator") {
-                          return (
-                            <div key={item.id} className="flex items-center justify-between px-3 py-2">
-                              <span className="rounded-full bg-slate-100 px-3 py-1 text-[11px] font-semibold text-slate-500">
-                                {item.label}
-                              </span>
-                              {controls}
-                            </div>
-                          );
-                        }
-
-                        // song
-                        const num = songNumbers.get(item.id) ?? "";
-                        return (
-                          <div key={item.id} className="flex items-center gap-2 px-3 py-2.5">
-                            {/* ドラッグハンドル（装飾） */}
-                            <svg className="h-4 w-4 shrink-0 text-gray-200" fill="currentColor" viewBox="0 0 20 20">
-                              <path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
-                            </svg>
-                            {/* 番号 */}
-                            <span className="w-7 shrink-0 text-right text-[11px] font-bold text-gray-300">
-                              {num}
-                            </span>
-                            {/* 曲名 */}
-                            <span className="min-w-0 flex-1 truncate text-sm font-semibold text-gray-800">
-                              {item.title}
-                            </span>
-                            {controls}
-                          </div>
-                        );
-                      })}
-                    </div>
-                  )}
-                </div>
+                <SetlistItemsSection
+                  setlistItems={setlistItems}
+                  songNumbers={songNumbers}
+                  onMove={moveItem}
+                  onRemove={removeItem}
+                />
 
             </div>
           </section>
@@ -535,52 +315,7 @@ export default function SetlistPage({ params }: { params: Promise<{ slug: string
           </div>
         )}
 
-        {/* ボトムナビ */}
-        <nav
-          className="fixed bottom-0 left-1/2 z-50 w-full max-w-[430px] -translate-x-1/2 border-t border-gray-100"
-          style={{ background: "rgba(255,255,255,0.92)", backdropFilter: "blur(16px)" }}
-        >
-          <div className="flex items-center justify-around px-2 py-2 pb-safe">
-            <Link
-              href={`/artists/${slug}`}
-              className="flex flex-col items-center gap-0.5 px-4 py-1.5"
-            >
-              <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-              </svg>
-              <span className="text-[10px] font-semibold text-gray-400">集計まとめ</span>
-            </Link>
-
-            <Link
-              href={nextEvent ? `/events/${nextEvent.id}` : "#"}
-              className="flex flex-col items-center gap-0.5 px-4 py-1.5"
-            >
-              <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                  d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
-              </svg>
-              <span className="text-[10px] font-semibold text-gray-400">座席予想</span>
-            </Link>
-
-            <Link href={afterHref} className="flex flex-col items-center gap-0.5 px-4 py-1.5">
-              <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                  d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-              <span className="text-[10px] font-semibold text-gray-400">現地レポ</span>
-            </Link>
-
-            {/* アクティブ */}
-            <div className="flex flex-col items-center gap-0.5 px-4 py-1.5">
-              <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: "#006876" }}>
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                  d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
-              </svg>
-              <span className="text-[10px] font-bold" style={{ color: "#006876" }}>セトリ</span>
-            </div>
-          </div>
-        </nav>
+        <SetlistBottomNav slug={slug} nextEventId={nextEvent?.id} afterHref={afterHref} />
 
       </div>
     </div>
