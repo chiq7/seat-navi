@@ -52,6 +52,7 @@ type TopEventCard = {
   id: string;
   artist: Artist;
   title: string;
+  date: string;
   dateLabel: string;
   href: string;
   hasAfterReportNew: boolean;
@@ -160,16 +161,17 @@ export default function Home() {
     return ARTISTS.flatMap((artist) => {
       if (!PUBLISHED_EVENT_ARTIST_SLUGS.has(artist.slug)) return [];
       const event = eventByArtist.get(artist.slug);
-      if (!event) return [];
+      if (!event?.date) return [];
       return {
         id: event?.id ?? `artist-${artist.slug}`,
         artist,
         title: normalizeEventTitle(event, artist),
+        date: event.date,
         dateLabel: formatDate(event.date),
         href: `/artists/${artist.slug}`,
         hasAfterReportNew: true,
       };
-    });
+    }).sort((a, b) => a.date.localeCompare(b.date));
   }, [events]);
 
   const filteredCards = useMemo(() => {

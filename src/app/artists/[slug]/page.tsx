@@ -359,13 +359,6 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
 
   const venuesSorted = useMemo(() => {
     return [...venueGroups.keys()].sort((a, b) => {
-      const orderA = VENUE_TAB_ORDER.indexOf(a);
-      const orderB = VENUE_TAB_ORDER.indexOf(b);
-      if (orderA !== -1 || orderB !== -1) {
-        if (orderA === -1) return 1;
-        if (orderB === -1) return -1;
-        return orderA - orderB;
-      }
       const nearA = (venueGroups.get(a) ?? [])
         .filter(ev => ev.date && ev.date >= today)
         .sort((x, y) => (x.date ?? "").localeCompare(y.date ?? ""))[0]?.date;
@@ -375,6 +368,13 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
       if (nearA && !nearB) return -1;
       if (!nearA && nearB) return 1;
       if (nearA && nearB) return nearA.localeCompare(nearB);
+      const orderA = VENUE_TAB_ORDER.indexOf(a);
+      const orderB = VENUE_TAB_ORDER.indexOf(b);
+      if (orderA !== -1 || orderB !== -1) {
+        if (orderA === -1) return 1;
+        if (orderB === -1) return -1;
+        return orderA - orderB;
+      }
       const latA = (venueGroups.get(a) ?? [])[0]?.date ?? "";
       const latB = (venueGroups.get(b) ?? [])[0]?.date ?? "";
       return latB.localeCompare(latA);
@@ -418,8 +418,16 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
   }, [selectedCTAEvent?.date]);
 
   const sortedSelectedVenueEvents = useMemo(
-    () => [...selectedVenueEvents].sort((a, b) => (a.date ?? "").localeCompare(b.date ?? "")),
-    [selectedVenueEvents],
+    () => {
+      const upcoming = selectedVenueEvents
+        .filter(ev => ev.date && ev.date >= today)
+        .sort((a, b) => (a.date ?? "").localeCompare(b.date ?? ""));
+      const past = selectedVenueEvents
+        .filter(ev => !ev.date || ev.date < today)
+        .sort((a, b) => (b.date ?? "").localeCompare(a.date ?? ""));
+      return [...upcoming, ...past];
+    },
+    [selectedVenueEvents, today],
   );
 
   const selectedSeatReports = useMemo(

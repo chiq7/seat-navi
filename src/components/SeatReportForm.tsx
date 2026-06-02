@@ -50,6 +50,14 @@ function Card({ children, className = "" }: { children: React.ReactNode; classNa
   return <div className={`rounded-2xl bg-white p-3 shadow-sm ${className}`}>{children}</div>;
 }
 
+function formatEventDate(dateStr: string | null | undefined) {
+  if (!dateStr) return null;
+  const [year, month, day] = dateStr.split("-").map(Number);
+  if (!year || !month || !day) return dateStr;
+  const weekday = ["日", "月", "火", "水", "木", "金", "土"][new Date(year, month - 1, day).getDay()];
+  return `${year}年${month}月${day}日(${weekday})`;
+}
+
 function CompactButton({
   children,
   selected,
@@ -91,6 +99,7 @@ type SeatReportFormProps = {
 
 export function SeatReportForm({
   eventId,
+  event,
   successMode = "redirect",
   variant = "full",
   successRedirectHref,
@@ -129,6 +138,14 @@ export function SeatReportForm({
   const revealDetails = () => {
     if (variant === "progressive") setDetailsVisible(true);
   };
+  const eventDateLabel = formatEventDate(event?.date);
+  const eventSummary = event ? (
+    <div className="rounded-xl border border-cyan-100 bg-white/80 px-3 py-2.5 shadow-sm">
+      <p className="text-[11px] font-bold text-cyan-700">報告する公演</p>
+      <p className="mt-1 text-sm font-extrabold leading-snug text-gray-900">{event.venue}</p>
+      {eventDateLabel && <p className="mt-0.5 text-xs font-bold text-gray-500">{eventDateLabel}</p>}
+    </div>
+  ) : null;
 
   const lotteryResultLabel = (value: string, fallbackToFirst: boolean) => {
     const target = value || (fallbackToFirst ? "fc1" : "");
@@ -529,6 +546,7 @@ export function SeatReportForm({
             座席を報告する
           </h4>
           <div className="space-y-3">
+            {eventSummary}
             {resultSelector}
             {ticketResult === "won" ? (
               <>
@@ -561,6 +579,7 @@ export function SeatReportForm({
 
   return (
     <form onSubmit={handleSubmit} className={`space-y-2.5 ${className}`}>
+      {eventSummary}
       {resultSelector}
 
       {ticketResult === "won" ? (
