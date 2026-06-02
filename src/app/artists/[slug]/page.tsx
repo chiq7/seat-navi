@@ -4,7 +4,7 @@ import { use, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase/client";
 import { findArtistBySlug } from "@/lib/artists";
-import type { CrawledEvent, EventTicketResult, SeatReport } from "@/lib/types";
+import type { CrawledEvent, SeatReport } from "@/lib/types";
 import { buildPredictionMap } from "@/lib/seatPrediction";
 import {
   getSeatPredictionExpectedBlocks,
@@ -15,68 +15,14 @@ import { SeatReportForm } from "@/components/SeatReportForm";
 import { HeroCard } from "@/components/artist/HeroCard";
 import { SetlistSection } from "@/components/artist/SetlistSection";
 import { PastToursSection } from "@/components/artist/PastToursSection";
-
-// 笏笏笏 Types 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
-
-type AnalyticsReport = {
-  id: string;
-  event_id: string;
-  block: string;
-  row_num: number;
-  seat_num: number;
-  lottery_type: string;
-  fc_history: string | null;
-  payment_method?: string | null;
-  created_at: string;
-};
-
-type TicketResultAnalytics = Pick<
-  EventTicketResult,
-  "event_id" | "result" | "lost_application_count" | "ticket_count" | "lottery_type" | "fc_history" | "payment_method"
->;
-
-type AfterReportCard = {
-  id: string;
-  event_id: string;
-  seat_area_type: string | null;
-  seat_block: string | null;
-  seat_row: string | null;
-  seat_view_photo_paths: string[] | null;
-  torokko: string | null;
-  kyakukudari: string | null;
-  fansa: boolean | null;
-  memo: string | null;
-  created_at: string;
-};
+import type { AnalyticsReport, TicketResultAnalytics, AfterReportCard } from "@/lib/artistPageTypes";
+import { fmtDate, fmtPct, seatAreaLabel, rateText, detailRateText } from "@/lib/artistPageHelpers";
+import { computeSeatStats, computeTicketResultStats, computeArenaDetailStats, computeTourInfo, computePastTours } from "@/lib/artistPageStats";
 
 // 笏笏笏 Helpers 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
 
-function fmtDate(d: string | null) {
-  if (!d) return "日程未定";
-  const [y, m, day] = d.split("-").map(Number);
-  const w = ["日", "月", "火", "水", "木", "金", "土"][new Date(y, m - 1, day).getDay()];
-  return `${m}/${day}(${w})`;
-}
-
 function photoUrl(path: string): string {
   return supabase.storage.from("after-report-photos").getPublicUrl(path).data.publicUrl;
-}
-
-function seatAreaLabel(type: string | null): string {
-  const map: Record<string, string> = {
-    arena: "アリーナ",
-    stand_1f: "1階スタンド",
-    stand_2f: "2階スタンド",
-    stand_3f_or_higher: "3階以上",
-    other_unknown: "その他",
-  };
-  return type ? (map[type] ?? type) : "不明";
-}
-
-function fmtPct(n: number): string {
-  const rounded = Math.round(n);
-  if (rounded === 0 && n > 0) return n.toFixed(1);
-  return String(rounded);
 }
 
 // 笏笏笏 逕ｻ蜒丞ｮ壽焚 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
@@ -363,169 +309,33 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
   );
 
   // Hero header info: tour name, date range, cities/performances
-  const tourInfo = useMemo(() => {
-    const upcoming = events
-      .filter(ev => ev.date && ev.date >= today)
-      .sort((a, b) => (a.date ?? "").localeCompare(b.date ?? ""));
-
-    if (upcoming.length === 0) {
-      return { fullTitle: artist?.name ?? "", dateRange: null, summary: null };
-    }
-
-    // Derive tour name: longest common prefix of all upcoming titles, with artist name stripped
-    const stripped = upcoming.map(ev => {
-      const t = ev.title;
-      return t.startsWith((artist?.name ?? "") + " ")
-        ? t.slice((artist?.name ?? "").length + 1)
-        : t;
-    });
-    let common = stripped[0];
-    for (const s of stripped.slice(1)) {
-      while (common && !s.startsWith(common)) {
-        common = common.slice(0, common.length - 1);
-      }
-    }
-    const tourName = common.trim();
-    const fullTitle = tourName
-      ? `${artist?.name ?? ""} ${tourName}`
-      : (artist?.name ?? "");
-
-    // Date range
-    const first = upcoming[0].date!;
-    const last  = upcoming[upcoming.length - 1].date!;
-    const fmt = (d: string) => d.replace(/-/g, ".").slice(2); // "26.05.23"
-    const dateRange = first === last ? fmt(first) : `${fmt(first)} - ${fmt(last).slice(3)}`;
-
-    // Cities / Performances
-    const cities = new Set(upcoming.map(ev => ev.venue)).size;
-    const shows  = upcoming.length;
-    const summary = `${cities} Cities / ${shows} Performances`;
-
-    return { fullTitle, dateRange, summary };
-  }, [events, today, artist]);
+  const tourInfo = useMemo(
+    () => computeTourInfo(events, today, artist?.name),
+    [events, today, artist],
+  );
 
   // Group past events into tours by title
-  const pastTours = useMemo(() => {
-    const tourMap = new Map<
-      string,
-      { title: string; years: string[]; venues: string[]; firstEventId: string }
-    >();
-    for (const ev of pastEvents) {
-      const cleanTitle =
-        ev.title
-          .replace(new RegExp(`^${artist?.name ?? ""}\\s*`, "i"), "")
-          .trim() || ev.title;
-      const year = ev.date?.split("-")[0] ?? "不明";
-      const existing = tourMap.get(cleanTitle);
-      if (existing) {
-        if (!existing.years.includes(year)) existing.years.push(year);
-        if (!existing.venues.includes(ev.venue)) existing.venues.push(ev.venue);
-      } else {
-        tourMap.set(cleanTitle, {
-          title: cleanTitle,
-          years: [year],
-          venues: [ev.venue],
-          firstEventId: ev.id,
-        });
-      }
-    }
-    return [...tourMap.values()].slice(0, 5);
-  }, [pastEvents, artist]);
+  const pastTours = useMemo(
+    () => computePastTours(pastEvents, artist?.name),
+    [pastEvents, artist],
+  );
 
   // Compute stats from seat_reports
-  const seatStats = useMemo(() => {
-    if (analyticsReports.length === 0) return null;
+  const seatStats = useMemo(
+    () => computeSeatStats(analyticsReports),
+    [analyticsReports],
+  );
 
-    let nonUpgradeCount = 0;
-    let nonUpgradeArena = 0;
+  const ticketResultStats = useMemo(
+    () => computeTicketResultStats(ticketResultReports),
+    [ticketResultReports],
+  );
 
-    for (const r of analyticsReports) {
-      if (r.lottery_type !== "upgrade") {
-        nonUpgradeCount++;
-        if (/^(A|SA|SB|SC|SD|SE)\d/i.test(r.block)) nonUpgradeArena++;
-      }
-    }
 
-    const pct = (n: number, d: number) => (d > 0 ? Math.round((n / d) * 1000) / 10 : 0);
-
-    return {
-      normalArenaRate: pct(nonUpgradeArena, nonUpgradeCount),
-    };
-  }, [analyticsReports]);
-
-  const ticketResultStats = useMemo(() => {
-    const pct = (won: number, total: number) => (total > 0 ? Math.round((won / total) * 1000) / 10 : null);
-    const buildRate = (rows: TicketResultAnalytics[]) => {
-      let won = 0;
-      let lost = 0;
-      for (const row of rows) {
-        if (row.result === "won") won++;
-        lost += Math.max(0, row.lost_application_count ?? 0);
-      }
-      return { won, lost, total: won + lost, rate: pct(won, won + lost) };
-    };
-    const groupRate = (predicate: (row: TicketResultAnalytics) => boolean) =>
-      buildRate(ticketResultReports.filter(predicate)).rate;
-    const result = buildRate(ticketResultReports);
-
-    return {
-      ...result,
-      fc: {
-        under1: groupRate((row) => row.fc_history === "1年未満"),
-        one3: groupRate((row) => row.fc_history === "1〜3年"),
-        over3: groupRate((row) => row.fc_history === "3年以上"),
-      },
-      ticketCount: {
-        one: groupRate((row) => row.ticket_count === 1),
-        two: groupRate((row) => row.ticket_count === 2),
-        three: groupRate((row) => row.ticket_count === 3),
-        four: groupRate((row) => row.ticket_count === 4),
-      },
-      lottery: {
-        first: groupRate((row) => row.lottery_type === "1次抽選"),
-        second: groupRate((row) => row.lottery_type === "2次抽選"),
-        other: groupRate((row) => row.lottery_type === "その他"),
-      },
-      payment: {
-        credit: groupRate((row) => row.payment_method === "クレカ"),
-        other: groupRate((row) => row.payment_method === "その他"),
-      },
-    };
-  }, [ticketResultReports]);
-
-  const rateText = (rate: number | null) => (rate === null ? "--" : fmtPct(rate));
-  const detailRateText = (rate: number | null) => (rate === null ? "--" : `${fmtPct(rate)}%`);
-
-  const arenaDetailStats = useMemo(() => {
-    const normalReports = analyticsReports.filter((report) => report.lottery_type !== "upgrade");
-    const pct = (arena: number, total: number) =>
-      total > 0 ? Math.round((arena / total) * 1000) / 10 : null;
-    const isArena = (report: AnalyticsReport) => /^(A|SA|SB|SC|SD|SE)\d/i.test(report.block);
-    const groupRate = (predicate: (report: AnalyticsReport) => boolean) => {
-      const rows = normalReports.filter(predicate);
-      return {
-        rate: pct(rows.filter(isArena).length, rows.length),
-        total: rows.length,
-      };
-    };
-
-    return {
-      fc: {
-        under1: groupRate((report) => report.fc_history === "under_1_year"),
-        one3: groupRate((report) => report.fc_history === "one_to_three_years"),
-        over3: groupRate((report) => report.fc_history === "over_3_years"),
-      },
-      lottery: {
-        first: groupRate((report) => report.lottery_type === "fc1"),
-        second: groupRate((report) => report.lottery_type === "fc2"),
-        other: groupRate((report) => report.lottery_type === "general"),
-      },
-      payment: {
-        credit: groupRate((report) => report.payment_method === "credit"),
-        other: groupRate((report) => report.payment_method === "other"),
-      },
-    };
-  }, [analyticsReports]);
+  const arenaDetailStats = useMemo(
+    () => computeArenaDetailStats(analyticsReports),
+    [analyticsReports],
+  );
 
   // Event lookup for after-report cards
   const eventMap = useMemo(() => {
