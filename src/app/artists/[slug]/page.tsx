@@ -12,6 +12,9 @@ import {
 } from "@/lib/seatPredictionLayoutHints";
 import { SeatPredictionImage } from "@/components/SeatPredictionImage";
 import { SeatReportForm } from "@/components/SeatReportForm";
+import { HeroCard } from "@/components/artist/HeroCard";
+import { SetlistSection } from "@/components/artist/SetlistSection";
+import { PastToursSection } from "@/components/artist/PastToursSection";
 
 // 笏笏笏 Types 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
 
@@ -78,7 +81,6 @@ function fmtPct(n: number): string {
 
 // 笏笏笏 逕ｻ蜒丞ｮ壽焚 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
 // 逕ｻ蜒上′縺ｧ縺阪◆繧牙推螳壽焚繧貞ｷｮ縺玲崛縺医ｋ縺縺代〒OK
-const HERO_BG = "/images/concert-hero.png";
 const MENU_CARD_BG: Record<"seat" | "report" | "setlist", string | null> = {
   seat:    null, // TODO: "/images/menu-seat.png"
   report:  null, // TODO: "/images/menu-report.png"
@@ -586,50 +588,7 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
         <main className="pt-14 pb-24">
 
           {/* 1. Hero Card */}
-          <section className="mx-4 mt-3">
-            <div
-              className="relative h-[148px] overflow-hidden rounded-2xl"
-              style={{
-                backgroundImage: `url('${HERO_BG}')`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                backgroundColor: "#0a0e1a",
-              }}
-            >
-              <div
-                className="absolute inset-0"
-                style={{
-                  background: `
-                    radial-gradient(ellipse 75% 55% at 38% 28%, rgba(0,104,118,0.52) 0%, transparent 52%),
-                    radial-gradient(ellipse 52% 40% at 72% 18%, rgba(6,182,212,0.38) 0%, transparent 44%),
-                    linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.1) 60%, transparent 100%)
-                  `,
-                }}
-              />
-              <div className="absolute inset-0 flex flex-col justify-end px-4 pb-4">
-                <span className="mb-1.5 w-fit rounded-full border border-white/40 bg-white/10 px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-widest text-white/90 backdrop-blur-sm">
-                  Live Announcement
-                </span>
-                <h2
-                  className="text-[14px] font-bold leading-snug text-white"
-                  style={{ textShadow: "0 1px 8px rgba(0,0,0,0.6)" }}
-                >
-                  {tourInfo.fullTitle || artist.name}
-                </h2>
-                {tourInfo.dateRange && (
-                  <p className="mt-1 flex items-center gap-1.5 text-[10px] font-medium tracking-wide text-white/70">
-                    <span>{tourInfo.dateRange}</span>
-                    {tourInfo.summary && (
-                      <>
-                        <span className="text-white/40">|</span>
-                        <span>{tourInfo.summary}</span>
-                      </>
-                    )}
-                  </p>
-                )}
-              </div>
-            </div>
-          </section>
+          <HeroCard tourInfo={tourInfo} artistName={artist.name} />
 
           {fetchError && (
             <div className="mx-4 mt-3 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-600">
@@ -1127,90 +1086,10 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
           </section>
 
           {/* 6. 繧ｻ繝医Μ繝ｻ譖ｲ鬆・*/}
-          <section id="section-setlist" className="mt-5 px-4 scroll-mt-16">
-            <h3 className="mb-3 flex items-center gap-2 text-base font-bold text-gray-900">
-              <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: "#006876" }}>
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                  d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
-              </svg>
-              セトリ・曲順
-            </h3>
-            <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
-              <p className="mb-4 flex items-center gap-1.5 text-xs font-semibold text-red-500">
-                <svg className="h-4 w-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                </svg>
-                ネタバレを含む可能性があります
-              </p>
-              <div className="space-y-2.5">
-                <Link
-                  href={`/artists/${slug}/setlist`}
-                  className="block w-full rounded-xl border-2 py-3.5 text-center text-sm font-semibold active:scale-[0.98] transition-transform"
-                  style={{ borderColor: "#006876", color: "#006876" }}
-                >
-                  セトリを見る
-                </Link>
-                <Link
-                  href={`/artists/${slug}/setlist`}
-                  className="block w-full rounded-xl bg-gray-100 py-3.5 text-center text-sm font-semibold text-gray-600 active:scale-[0.98] transition-transform"
-                >
-                  セトリを投稿する
-                </Link>
-              </div>
-            </div>
-          </section>
+          <SetlistSection slug={slug} />
 
           {/* 7. 驕主悉蜈ｬ貍斐ョ繝ｼ繧ｿ */}
-          <section className="mt-5 px-4">
-            <h3 className="mb-3 flex items-center gap-2 text-base font-bold text-gray-900">
-              <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: "#006876" }}>
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              過去公演データ
-            </h3>
-            <div className="rounded-2xl border border-gray-100 bg-white shadow-sm overflow-hidden">
-              {!loading && pastTours.length > 0 ? (
-                pastTours.map((tour, i) => (
-                  <Link
-                    key={tour.firstEventId}
-                    href={`/events/${tour.firstEventId}`}
-                    className={`flex items-center justify-between px-4 py-3.5 active:bg-gray-50 transition-colors group ${
-                      i < pastTours.length - 1 ? "border-b border-gray-50" : ""
-                    }`}
-                  >
-                    <div className="min-w-0">
-                      <p className="text-[11px] font-bold" style={{ color: "#006876" }}>
-                        {[...tour.years].sort().join("・")}
-                      </p>
-                      <h4 className="mt-0.5 line-clamp-1 text-sm font-semibold text-gray-800">
-                        {tour.title}
-                      </h4>
-                      <p className="mt-0.5 text-[11px] text-gray-400">
-                        {tour.venues.slice(0, 3).join(" ﾂｷ ")}
-                        {tour.venues.length > 3 ? " 他" : ""}
-                      </p>
-                    </div>
-                    <svg
-                      className="ml-2 h-4 w-4 shrink-0 text-gray-300 group-hover:translate-x-0.5 transition-transform"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </Link>
-                ))
-              ) : (
-                <div className="p-8 text-center">
-                  <p className="text-sm text-gray-400">
-                    {loading ? "読み込み中..." : "過去公演データなし"}
-                  </p>
-                </div>
-              )}
-            </div>
-          </section>
+          <PastToursSection loading={loading} pastTours={pastTours} />
 
         </main>
 
