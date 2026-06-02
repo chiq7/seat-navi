@@ -11,6 +11,10 @@ import {
   getSeatPredictionExpectedBlocks,
   getSeatPredictionLayoutHints,
 } from "@/lib/seatPredictionLayoutHints";
+import {
+  getInitialSeatReferenceReports,
+  getInitialTicketReferenceRate,
+} from "@/lib/initialReferenceData";
 import { SeatPredictionImage } from "@/components/SeatPredictionImage";
 import { SeatReportForm } from "@/components/SeatReportForm";
 
@@ -452,10 +456,22 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
     () => analyticsReports.filter(report => report.event_id === selectedCTAEvent?.id),
     [analyticsReports, selectedCTAEvent?.id],
   );
+  const selectedInitialSeatReferenceReports = useMemo(
+    () =>
+      selectedCTAEvent
+        ? getInitialSeatReferenceReports(selectedCTAEvent.id, selectedSeatReports.length)
+        : [],
+    [selectedCTAEvent, selectedSeatReports.length],
+  );
+  const selectedSeatMapReports = useMemo(
+    () => [...(selectedSeatReports as SeatReport[]), ...selectedInitialSeatReferenceReports],
+    [selectedInitialSeatReferenceReports, selectedSeatReports],
+  );
+  const usesInitialSeatReference = selectedInitialSeatReferenceReports.length > 0;
 
   const selectedPredictionMap = useMemo(
-    () => buildPredictionMap(selectedSeatReports as SeatReport[]),
-    [selectedSeatReports],
+    () => buildPredictionMap(selectedSeatMapReports),
+    [selectedSeatMapReports],
   );
 
   const selectedLayoutHints = useMemo(
@@ -637,8 +653,17 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
     };
   }, [ticketResultReports]);
 
+  const initialTicketReferenceRate = useMemo(
+    () =>
+      selectedCTAEvent
+        ? getInitialTicketReferenceRate(selectedCTAEvent.id, ticketResultStats.total)
+        : null,
+    [selectedCTAEvent, ticketResultStats.total],
+  );
+  const displayedTicketRate = initialTicketReferenceRate?.wonRate ?? ticketResultStats.rate;
+
   const rateText = (rate: number | null) => (rate === null ? "--" : fmtPct(rate));
-  const detailRateText = (rate: number | null) => (rate === null ? "集計中" : `${fmtPct(rate)}%`);
+  const detailRateText = (rate: number | null) => (rate === null ? "--" : `${fmtPct(rate)}%`);
 
   const arenaDetailStats = useMemo(() => {
     const normalReports = analyticsReports.filter((report) => report.lottery_type !== "upgrade");
@@ -974,6 +999,11 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
                         compactVenueName={effectiveVenue}
                         compactDateLabel={selectedVenueDateLabel}
                       />
+                      {usesInitialSeatReference && (
+                        <p className="-mt-1 px-3 pb-1 text-[10px] leading-relaxed text-gray-400">
+                          ※一部参考データを含みます。
+                        </p>
+                      )}
                     </div>
                     <div className="px-1 pt-2 pb-1">
                       <div
@@ -1020,23 +1050,24 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
                 {[
                   {
                     label: "チケット当選率",
-                    value: rateText(ticketResultStats.rate),
+                    value: rateText(displayedTicketRate),
                     unit: "%",
-                    note: `落選報告を含む / n=${ticketResultStats.total}`,
+                    note: initialTicketReferenceRate ? `落選${initialTicketReferenceRate.lostRate}%` : null,
+                    footnote: initialTicketReferenceRate ? "※一部参考データを含みます。" : null,
                     color: "#006876",
                   },
                   {
                     label: "通常当選アリーナ率",
                     value: seatStats ? fmtPct(seatStats.normalArenaRate) : "--",
                     unit: "%",
-                    note: `seat_reports / n=${seatStats?.nonUpgradeCount ?? 0}`,
+                    note: null,
                     color: "#006876",
                   },
                   {
-                    label: "アップグレード当選率",
+                    label: "アプグレ当選率",
                     value: heroUpgradeRate !== null ? String(heroUpgradeRate) : "--",
                     unit: "%",
-                    note: `既存投票 / n=${heroUpgradeCount}`,
+                    note: null,
                     color: "#f59e0b",
                   },
                 ].map((card) => (
@@ -1052,7 +1083,10 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
                         </span>
                       )}
                     </div>
-                    <p className="mt-1 text-[10px] font-semibold text-gray-400">{card.note}</p>
+                    {card.note && <p className="mt-1 text-[10px] font-semibold text-gray-400">{card.note}</p>}
+                    {card.footnote && (
+                      <p className="mt-0.5 text-[9px] font-normal leading-relaxed text-gray-400">{card.footnote}</p>
+                    )}
                   </div>
                 ))}
               </div>
@@ -1142,28 +1176,28 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
                     {
                       label: "FC歴別",
                       items: [
-                        ["1年未満", arenaDetailStats.fc.under1.rate, arenaDetailStats.fc.under1.total],
-                        ["1〜3年", arenaDetailStats.fc.one3.rate, arenaDetailStats.fc.one3.total],
-                        ["3年以上", arenaDetailStats.fc.over3.rate, arenaDetailStats.fc.over3.total],
+                        ["1年未満", arenaDetailStats.fc.under1.rate],
+                        ["1〜3年", arenaDetailStats.fc.one3.rate],
+                        ["3年以上", arenaDetailStats.fc.over3.rate],
                       ],
                       cols: "grid-cols-3",
                     },
                     {
                       label: "抽選回別",
                       items: [
-                        ["1次抽選", arenaDetailStats.lottery.first.rate, arenaDetailStats.lottery.first.total],
-                        ["2次抽選", arenaDetailStats.lottery.second.rate, arenaDetailStats.lottery.second.total],
-                        ["その他", arenaDetailStats.lottery.other.rate, arenaDetailStats.lottery.other.total],
+                        ["1次抽選", arenaDetailStats.lottery.first.rate],
+                        ["2次抽選", arenaDetailStats.lottery.second.rate],
+                        ["その他", arenaDetailStats.lottery.other.rate],
                       ],
                       cols: "grid-cols-3",
                     },
                     {
                       label: "申込枚数別",
                       items: [
-                        ["1枚", null, 0],
-                        ["2枚", null, 0],
-                        ["3枚", null, 0],
-                        ["4枚", null, 0],
+                        ["1枚", null],
+                        ["2枚", null],
+                        ["3枚", null],
+                        ["4枚", null],
                       ],
                       cols: "grid-cols-4",
                     },
@@ -1173,13 +1207,12 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
                         {group.label}
                       </p>
                       <div className={`grid ${group.cols} gap-1.5 text-center`}>
-                        {group.items.map(([label, rate, total]) => (
+                        {group.items.map(([label, rate]) => (
                           <div key={label} className="rounded-lg border border-slate-100 bg-slate-50 px-2 py-1.5">
                             <p className="mb-0.5 text-[10px] text-gray-400">{label}</p>
                             <p className="text-sm font-bold" style={{ color: "#006876" }}>
                               {detailRateText(rate as number | null)}
                             </p>
-                            <p className="text-[9px] font-semibold text-gray-300">n={total}</p>
                           </div>
                         ))}
                       </div>
