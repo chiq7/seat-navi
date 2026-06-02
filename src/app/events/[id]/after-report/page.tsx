@@ -1,172 +1,22 @@
 "use client";
 
-import { useState, use, useRef, useEffect } from "react";
+import { useState, use, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase/client";
 import { findArtistByKeyword } from "@/lib/artists";
 import type { Artist } from "@/lib/artists";
-
-type AfterReportCard = {
-  id: string;
-  event_id: string;
-  seat_area_type: string | null;
-  seat_block: string | null;
-  seat_row: string | null;
-  seat_view_photo_paths: string[] | null;
-  torokko: string | null;
-  kyakukudari: string | null;
-  fansa: boolean | null;
-  memo: string | null;
-  created_at: string;
-};
-
-function photoUrl(path: string): string {
-  return supabase.storage.from("after-report-photos").getPublicUrl(path).data.publicUrl;
-}
-
-function seatAreaLabel(type: string | null): string {
-  const map: Record<string, string> = {
-    arena: "アリーナ",
-    stand_1f: "1階スタンド",
-    stand_2f: "2階スタンド",
-    stand_3f_or_higher: "3階以上",
-    other_unknown: "その他",
-  };
-  return type ? (map[type] ?? type) : "不明";
-}
+import type { AfterReportCard } from "@/lib/artistPageTypes";
+import { type TriState, SELECTED_STYLE, Label, Card, TriToggle, PhotoUpload } from "@/components/after-report/AfterReportFormParts";
+import { LatestAfterReportsSection } from "@/components/after-report/LatestAfterReportsSection";
+import { AfterReportBottomNav } from "@/components/after-report/AfterReportBottomNav";
 
 function randomId() {
   return crypto.randomUUID().replace(/-/g, "").slice(0, 20);
 }
 
-type TriState = "yes" | "no" | "unknown";
-
-const SELECTED_STYLE: React.CSSProperties = {
-  backgroundColor: "#5B2BE0",
-  borderColor: "#5B2BE0",
-  color: "#fff",
-};
-
 const INPUT_CLS =
   "w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none accent-focus";
-
-function Label({ children, required }: { children: React.ReactNode; required?: boolean }) {
-  return (
-    <label className="mb-1.5 block text-xs font-bold text-gray-700">
-      {children}
-      {required && <span className="ml-1 text-red-500">*</span>}
-    </label>
-  );
-}
-
-function Card({ children }: { children: React.ReactNode }) {
-  return <div className="rounded-2xl bg-white p-3.5 shadow-sm">{children}</div>;
-}
-
-function TriToggle({
-  value,
-  onChange,
-}: {
-  value: TriState | "";
-  onChange: (v: TriState) => void;
-}) {
-  const opts: { value: TriState; label: string }[] = [
-    { value: "yes",     label: "あり" },
-    { value: "no",      label: "なし" },
-    { value: "unknown", label: "不明" },
-  ];
-  return (
-    <div className="flex gap-2">
-      {opts.map((o) => (
-        <button
-          key={o.value}
-          type="button"
-          onClick={() => onChange(o.value)}
-          className="flex-1 rounded-xl border py-2 text-xs font-semibold transition-all"
-          style={value === o.value
-            ? SELECTED_STYLE
-            : { borderColor: "#e5e7eb", backgroundColor: "#fff", color: "#4b5563" }}
-        >
-          {o.label}
-        </button>
-      ))}
-    </div>
-  );
-}
-
-function PhotoUpload({
-  files,
-  previews,
-  onChange,
-  max = 4,
-}: {
-  files: File[];
-  previews: string[];
-  onChange: (files: File[], previews: string[]) => void;
-  max?: number;
-}) {
-  const ref = useRef<HTMLInputElement>(null);
-
-  function handleAdd(e: React.ChangeEvent<HTMLInputElement>) {
-    const incoming = Array.from(e.target.files ?? []);
-    const toAdd = incoming.slice(0, max - files.length);
-    onChange(
-      [...files, ...toAdd],
-      [...previews, ...toAdd.map((f) => URL.createObjectURL(f))],
-    );
-    e.target.value = "";
-  }
-
-  function handleRemove(idx: number) {
-    URL.revokeObjectURL(previews[idx]);
-    onChange(
-      files.filter((_, i) => i !== idx),
-      previews.filter((_, i) => i !== idx),
-    );
-  }
-
-  return (
-    <>
-      <input ref={ref} type="file" accept="image/*" multiple className="hidden" onChange={handleAdd} />
-      {previews.length > 0 ? (
-        <div className="grid grid-cols-2 gap-2">
-          {previews.map((src, i) => (
-            <div key={i} className="relative">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={src} alt="" className="h-24 w-full rounded-xl object-cover" />
-              <button
-                type="button"
-                onClick={() => handleRemove(i)}
-                className="absolute right-1 top-1 flex h-5 w-5 items-center justify-center rounded-full bg-black/60 text-xs text-white"
-              >
-                ×
-              </button>
-            </div>
-          ))}
-          {previews.length < max && (
-            <button
-              type="button"
-              onClick={() => ref.current?.click()}
-              className="flex h-24 items-center justify-center rounded-xl border-2 border-dashed border-gray-200 text-2xl text-gray-300"
-            >
-              ＋
-            </button>
-          )}
-        </div>
-      ) : (
-        <button
-          type="button"
-          onClick={() => ref.current?.click()}
-          className="flex w-full flex-col items-center gap-1.5 rounded-2xl border-2 border-dashed border-gray-200 py-5 text-gray-400 transition hover:border-gray-400"
-        >
-          <span className="text-2xl">📷</span>
-          <span className="text-xs">写真を追加</span>
-        </button>
-      )}
-    </>
-  );
-}
 
 const BUCKET = "after-report-photos";
 
@@ -374,84 +224,12 @@ export default function AfterReportPage({ params }: { params: Promise<{ id: stri
           <div className="w-9" />
       </header>
 
-      {/* 最新の現地レポ（横スライド） */}
-      <section className="mt-[72px]">
-        <div className="mb-3 px-4">
-          <h2 className="flex items-center gap-2 text-base font-bold text-gray-900">
-            <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: "#006876" }}>
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-            </svg>
-            最新の現地レポ
-          </h2>
-        </div>
-
-        {reportsLoading ? (
-          <div className="mx-4 rounded-2xl border border-gray-100 bg-white p-6 text-center shadow-sm">
-            <p className="text-xs text-gray-400">読み込み中...</p>
-          </div>
-        ) : afterReports.length > 0 ? (
-          <div className="flex gap-3 overflow-x-auto px-4 pb-2" style={{ scrollbarWidth: "none" }}>
-            {afterReports.map(report => {
-              const thumb = report.seat_view_photo_paths?.[0];
-              const thumbUrl = thumb ? photoUrl(thumb) : null;
-              return (
-                <div
-                  key={report.id}
-                  className="min-w-[260px] snap-start overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm"
-                >
-                  <div className="relative aspect-video bg-gray-100">
-                    {thumbUrl ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img src={thumbUrl} alt="" className="h-full w-full object-cover" />
-                    ) : (
-                      <div className="flex h-full items-center justify-center">
-                        <svg className="h-8 w-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                      </div>
-                    )}
-                    {eventDate && (
-                      <div className="absolute right-2 top-2 rounded bg-black/60 px-2 py-0.5 text-[10px] text-white backdrop-blur-sm">
-                        {eventDate.slice(5).replace("-", "/")} {eventVenue ?? ""}
-                      </div>
-                    )}
-                    <div className="absolute bottom-2 left-2 flex gap-1">
-                      {report.torokko === "yes" && (
-                        <span className="rounded bg-teal-600 px-1.5 py-0.5 text-[10px] font-semibold text-white">トロッコ</span>
-                      )}
-                      {report.kyakukudari === "yes" && (
-                        <span className="rounded bg-purple-600 px-1.5 py-0.5 text-[10px] font-semibold text-white">客降り</span>
-                      )}
-                    </div>
-                  </div>
-                  <div className="p-3">
-                    <p className="text-xs font-bold" style={{ color: "#006876" }}>
-                      {seatAreaLabel(report.seat_area_type)}
-                      {report.seat_block ? ` ${report.seat_block}` : ""}
-                      {report.seat_row ? ` ${report.seat_row}列` : ""}
-                    </p>
-                    {report.memo && (
-                      <p className="mt-1 line-clamp-1 text-xs text-gray-500">{report.memo}</p>
-                    )}
-                    <div className="mt-2 flex flex-wrap gap-1">
-                      {report.fansa === true && (
-                        <span className="rounded bg-rose-50 px-2 py-0.5 text-[10px] font-semibold text-rose-600">ファンサ</span>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        ) : (
-          <div className="mx-4 rounded-2xl border border-gray-100 bg-white p-8 text-center shadow-sm">
-            <p className="text-sm text-gray-400">現地レポートはまだありません</p>
-            <p className="mt-2 text-xs text-gray-400">最初のレポートを投稿する ↓</p>
-          </div>
-        )}
-      </section>
+      <LatestAfterReportsSection
+        reports={afterReports}
+        loading={reportsLoading}
+        eventDate={eventDate}
+        eventVenue={eventVenue}
+      />
 
       {/* 投稿フォームの見出し */}
       <div className="mx-auto max-w-md px-3 pb-2 pt-5">
@@ -714,54 +492,7 @@ export default function AfterReportPage({ params }: { params: Promise<{ id: stri
 
       </form>
 
-      {/* ボトムナビ */}
-      <nav
-        className="fixed bottom-0 left-1/2 z-50 w-full max-w-[430px] -translate-x-1/2 border-t border-gray-100"
-        style={{ background: "rgba(255,255,255,0.92)", backdropFilter: "blur(16px)" }}
-      >
-        <div className="flex items-center justify-around px-2 py-2 pb-safe">
-          <Link
-            href={artist ? `/artists/${artist.slug}` : "#"}
-            className="flex flex-col items-center gap-0.5 px-4 py-1.5"
-          >
-            <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-            </svg>
-            <span className="text-[10px] font-semibold text-gray-400">集計まとめ</span>
-          </Link>
-
-          <Link
-            href={`/events/${eventId}`}
-            className="flex flex-col items-center gap-0.5 px-4 py-1.5"
-          >
-            <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
-            </svg>
-            <span className="text-[10px] font-semibold text-gray-400">座席予想</span>
-          </Link>
-
-          <div className="flex flex-col items-center gap-0.5 px-4 py-1.5">
-            <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: "#006876" }}>
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-            <span className="text-[10px] font-bold" style={{ color: "#006876" }}>現地レポ</span>
-          </div>
-
-          <Link
-            href={artist ? `/artists/${artist.slug}/setlist` : "#"}
-            className="flex flex-col items-center gap-0.5 px-4 py-1.5"
-          >
-            <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
-            </svg>
-            <span className="text-[10px] font-semibold text-gray-400">セトリ</span>
-          </Link>
-        </div>
-      </nav>
+      <AfterReportBottomNav artist={artist} eventId={eventId} />
     </div>
   );
 }
