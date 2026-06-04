@@ -2,14 +2,19 @@
 
 import { useState, use, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import { supabase } from "@/lib/supabase/client";
 import { findArtistByKeyword } from "@/lib/artists";
 import type { Artist } from "@/lib/artists";
 import type { AfterReportCard } from "@/lib/artistPageTypes";
-import { type TriState, SELECTED_STYLE, Label, Card, TriToggle, PhotoUpload } from "@/components/after-report/AfterReportFormParts";
+import { type TriState, Label, Card, TriToggle, PhotoUpload } from "@/components/after-report/AfterReportFormParts";
 import { LatestAfterReportsSection } from "@/components/after-report/LatestAfterReportsSection";
 import { AfterReportBottomNav } from "@/components/after-report/AfterReportBottomNav";
+import { AfterReportPageHeader } from "@/components/after-report/AfterReportPageHeader";
+import { AfterReportSeatInfoCard } from "@/components/after-report/AfterReportSeatInfoCard";
+import { AfterReportSeatPhotoCard } from "@/components/after-report/AfterReportSeatPhotoCard";
+import { AfterReportFansaCard } from "@/components/after-report/AfterReportFansaCard";
+import { AfterReportTapeCard } from "@/components/after-report/AfterReportTapeCard";
+import { AfterReportMemoCard } from "@/components/after-report/AfterReportMemoCard";
 
 function randomId() {
   return crypto.randomUUID().replace(/-/g, "").slice(0, 20);
@@ -19,17 +24,6 @@ const INPUT_CLS =
   "w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none accent-focus";
 
 const BUCKET = "after-report-photos";
-
-const BLOCK_PREFIXES = ["A", "B", "C", "D", "E", "SS", "SA", "SB", "SC", "SD", "SE"];
-
-const SEAT_AREA_OPTIONS = [
-  { value: "arena",              label: "アリーナ" },
-  { value: "stand_1f",           label: "1階" },
-  { value: "stand_2f",           label: "2階" },
-  { value: "stand_3f_or_higher", label: "3階" },
-  { value: "other_unknown",      label: "その他/不明" },
-] as const;
-
 export default function AfterReportPage({ params }: { params: Promise<{ id: string }> }) {
   const { id: eventId } = use(params);
   const router = useRouter();
@@ -198,31 +192,7 @@ export default function AfterReportPage({ params }: { params: Promise<{ id: stri
 
   return (
     <div className="min-h-screen bg-gray-50 pb-28">
-      <header
-        className="fixed left-1/2 top-0 z-50 flex h-14 w-full max-w-[430px] -translate-x-1/2 items-center justify-between px-4"
-        style={{
-          background: "rgba(255,255,255,0.88)",
-          backdropFilter: "blur(16px)",
-          borderBottom: "1px solid rgba(0,0,0,0.06)",
-        }}
-      >
-          <Link
-            href={`/events/${eventId}`}
-            className="flex h-9 w-9 items-center justify-center rounded-full transition-transform active:scale-95"
-            style={{ background: "rgba(0,104,118,0.06)" }}
-          >
-            <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: "#006876" }}>
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-          </Link>
-          <div className="text-center">
-            <p className="text-sm font-bold tracking-tight" style={{ color: "#006876" }}>
-              {artist?.name ?? "現地レポート"}
-            </p>
-            <p className="text-[10px] text-gray-400">現地レポート</p>
-          </div>
-          <div className="w-9" />
-      </header>
+      <AfterReportPageHeader artistName={artist?.name ?? null} eventId={eventId} />
 
       <LatestAfterReportsSection
         reports={afterReports}
@@ -239,107 +209,20 @@ export default function AfterReportPage({ params }: { params: Promise<{ id: stri
       <form onSubmit={handleSubmit} className="mx-auto max-w-md space-y-2.5 px-4 pt-2">
 
         {/* ① あなたの席は？（必須） */}
-        <Card>
-          <p className="mb-3 text-sm font-bold text-gray-800">
-            あなたの席は？<span className="ml-1 text-red-500">*</span>
-          </p>
+        <AfterReportSeatInfoCard
+          seatAreaType={seatAreaType} setSeatAreaType={setSeatAreaType}
+          blockSelect={blockSelect} setBlockSelect={setBlockSelect}
+          blockNum={blockNum} setBlockNum={setBlockNum}
+          blockFree={blockFree} setBlockFree={setBlockFree}
+          seatRow={seatRow} setSeatRow={setSeatRow}
+          seatNumber={seatNumber} setSeatNumber={setSeatNumber}
+        />
 
-          <div className="mb-3">
-            <Label required>席種・エリア</Label>
-            <div className="flex flex-wrap gap-1.5">
-              {SEAT_AREA_OPTIONS.map((o) => (
-                <button
-                  key={o.value}
-                  type="button"
-                  onClick={() => setSeatAreaType(o.value)}
-                  className="rounded-full border px-3 py-1.5 text-xs font-semibold transition-all"
-                  style={seatAreaType === o.value
-                    ? SELECTED_STYLE
-                    : { borderColor: "#e5e7eb", backgroundColor: "#fff", color: "#4b5563" }}
-                >
-                  {o.label}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <div>
-              <Label required>ブロック・エリア</Label>
-              <select
-                value={blockSelect}
-                onChange={(e) => {
-                  setBlockSelect(e.target.value);
-                  setBlockNum("");
-                  setBlockFree("");
-                }}
-                className={INPUT_CLS}
-              >
-                <option value="">選択してください</option>
-                {BLOCK_PREFIXES.map((p) => (
-                  <option key={p} value={p}>{p}</option>
-                ))}
-                <option value="other">その他/選択肢なし</option>
-              </select>
-              {blockSelect && blockSelect !== "other" && (
-                <input
-                  type="text"
-                  inputMode="numeric"
-                  value={blockNum}
-                  onChange={(e) => setBlockNum(e.target.value)}
-                  placeholder="番号（例: 3）"
-                  className={`mt-2 ${INPUT_CLS}`}
-                />
-              )}
-              {blockSelect === "other" && (
-                <input
-                  type="text"
-                  value={blockFree}
-                  onChange={(e) => setBlockFree(e.target.value)}
-                  placeholder="例：B3 / 1塁側 / 3階中央 / 注釈席"
-                  className={`mt-2 ${INPUT_CLS}`}
-                />
-              )}
-            </div>
-            <div className="flex gap-2">
-              <input
-                type="text"
-                inputMode="numeric"
-                value={seatRow}
-                onChange={(e) => setSeatRow(e.target.value)}
-                placeholder="列（例: 5）"
-                className={INPUT_CLS}
-              />
-              <input
-                type="text"
-                inputMode="numeric"
-                value={seatNumber}
-                onChange={(e) => setSeatNumber(e.target.value)}
-                placeholder="座席番号（例: 12）"
-                className={INPUT_CLS}
-              />
-            </div>
-          </div>
-        </Card>
-
-        {/* ② 席写真 */}
-        <Card>
-          <p className="mb-1 text-xs font-bold text-gray-700">
-            あなたの席からの写真
-            <span className="ml-1.5 text-[10px] font-normal text-gray-400">（任意）</span>
-          </p>
-          <p className="mb-2.5 text-[11px] text-gray-500">
-            席からの見え方が分かる写真があれば追加してください。
-          </p>
-          <PhotoUpload
-            files={seatViewFiles}
-            previews={seatViewPreviews}
-            onChange={(f, p) => { setSeatViewFiles(f); setSeatViewPreviews(p); }}
-          />
-          <p className="mt-1.5 text-[10px] text-gray-400">
-            ※顔・座席番号・チケット情報は隠してください。
-          </p>
-        </Card>
+        <AfterReportSeatPhotoCard
+          files={seatViewFiles}
+          previews={seatViewPreviews}
+          onChange={(f, pr) => { setSeatViewFiles(f); setSeatViewPreviews(pr); }}
+        />
 
         {/* ③ 会場演出 */}
         <Card>
@@ -426,54 +309,11 @@ export default function AfterReportPage({ params }: { params: Promise<{ id: stri
           </div>
         </Card>
 
-        {/* ④ ファンサ */}
-        <Card>
-          <Label>ファンサもらえた？</Label>
-          <div className="flex gap-2">
-            {([true, false] as const).map((v) => (
-              <button
-                key={String(v)}
-                type="button"
-                onClick={() => setFansa(fansa === v ? null : v)}
-                className="flex-1 rounded-xl border py-2 text-sm font-semibold transition-all"
-                style={fansa === v
-                  ? SELECTED_STYLE
-                  : { borderColor: "#e5e7eb", backgroundColor: "#fff", color: "#4b5563" }}
-              >
-                {v ? "もらえた！" : "なかった"}
-              </button>
-            ))}
-          </div>
-        </Card>
+        <AfterReportFansaCard value={fansa} onChange={setFansa} />
 
-        {/* ⑤ 銀テープ */}
-        <Card>
-          <Label>銀テープ飛距離（何列目まで飛んできた？）</Label>
-          <div className="flex items-center gap-2">
-            <input
-              type="number"
-              inputMode="numeric"
-              min="1"
-              value={silverTape}
-              onChange={(e) => setSilverTape(e.target.value)}
-              placeholder="例: 10"
-              className="w-24 rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none accent-focus"
-            />
-            <span className="text-sm text-gray-500">列目</span>
-          </div>
-        </Card>
+        <AfterReportTapeCard value={silverTape} onChange={setSilverTape} />
 
-        {/* ⑥ 感想メモ */}
-        <Card>
-          <Label>感想メモ</Label>
-          <textarea
-            rows={3}
-            value={memo}
-            onChange={(e) => setMemo(e.target.value)}
-            placeholder="公演の感想・気づいたことなど（任意）"
-            className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none accent-focus"
-          />
-        </Card>
+        <AfterReportMemoCard value={memo} onChange={setMemo} />
 
         {error && (
           <div className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-600">
