@@ -5,12 +5,7 @@ import Link from "next/link";
 import { supabase } from "@/lib/supabase/client";
 import { findArtistBySlug } from "@/lib/artists";
 import type { CrawledEvent, SeatReport } from "@/lib/types";
-import { buildPredictionMap } from "@/lib/seatPrediction";
-import {
-  getSeatPredictionExpectedBlocks,
-  getSeatPredictionLayoutHints,
-} from "@/lib/seatPredictionLayoutHints";
-import { SeatPredictionImage } from "@/components/SeatPredictionImage";
+import { ArenaReportMap } from "@/components/arena-map/ArenaReportMap";
 import { SeatReportForm } from "@/components/SeatReportForm";
 import { HeroCard } from "@/components/artist/HeroCard";
 import { SetlistSection } from "@/components/artist/SetlistSection";
@@ -270,32 +265,6 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
     [analyticsReports, selectedCTAEvent?.id],
   );
 
-  const selectedPredictionMap = useMemo(
-    () => buildPredictionMap(selectedSeatReports as SeatReport[]),
-    [selectedSeatReports],
-  );
-
-  const selectedLayoutHints = useMemo(
-    () =>
-      selectedCTAEvent
-        ? getSeatPredictionLayoutHints({
-            eventId: selectedCTAEvent.id,
-            venueId: selectedCTAEvent.venue_id,
-          })
-        : undefined,
-    [selectedCTAEvent],
-  );
-
-  const selectedExpectedBlocks = useMemo(
-    () =>
-      selectedCTAEvent
-        ? getSeatPredictionExpectedBlocks({
-            eventId: selectedCTAEvent.id,
-            venueId: selectedCTAEvent.venue_id,
-          })
-        : undefined,
-    [selectedCTAEvent],
-  );
 
   // First upcoming event for bottom nav links
   const nextEvent = useMemo(
@@ -584,10 +553,9 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
                 return (
                   <Link href={`/events/${selectedCTAEvent.id}`} className="group block">
                     <div className="bg-white">
-                      <SeatPredictionImage
-                        prediction={selectedPredictionMap}
-                        layoutHints={selectedLayoutHints}
-                        expectedBlocks={selectedExpectedBlocks}
+                      <ArenaReportMap
+                        eventId={selectedCTAEvent.id}
+                        reports={selectedSeatReports as SeatReport[]}
                         variant="compact"
                         compactVenueName={effectiveVenue}
                         compactDateLabel={selectedVenueDateLabel}

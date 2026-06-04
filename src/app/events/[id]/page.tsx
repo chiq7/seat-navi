@@ -6,12 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
 import { findArtistByKeyword } from "@/lib/artists";
 import type { CrawledEvent, EventLayout, FanSeatPrediction, SeatReport } from "@/lib/types";
-import { buildPredictionMap } from "@/lib/seatPrediction";
-import {
-  getSeatPredictionExpectedBlocks,
-  getSeatPredictionLayoutHints,
-} from "@/lib/seatPredictionLayoutHints";
-import { SeatPredictionImage } from "@/components/SeatPredictionImage";
+import { ArenaReportMap } from "@/components/arena-map/ArenaReportMap";
 import { FanSeatPredictionsCarousel } from "@/components/FanSeatPredictionsCarousel";
 import { SeatReportForm } from "@/components/SeatReportForm";
 
@@ -185,16 +180,6 @@ export default function EventDetailPage({
     return () => clearTimeout(t);
   }, [toast]);
 
-  const predictionMap = useMemo(() => buildPredictionMap(seatReports), [seatReports]);
-  const layoutHints = useMemo(
-    () => getSeatPredictionLayoutHints({ eventId, venueId: event?.venue_id }),
-    [eventId, event?.venue_id],
-  );
-  const expectedBlocks = useMemo(
-    () => getSeatPredictionExpectedBlocks({ eventId, venueId: event?.venue_id }),
-    [eventId, event?.venue_id],
-  );
-
   const artist = event ? findArtistByKeyword(event.title) : undefined;
   const relatedEventFilter = useMemo(
     () => artist?.keywords.map(kw => `title.ilike.%${kw}%`).join(",") ?? "",
@@ -349,11 +334,11 @@ export default function EventDetailPage({
             </div>
           )}
 
-          {/* 座席予想図 */}
-          <SeatPredictionImage
-            prediction={predictionMap}
-            layoutHints={layoutHints}
-            expectedBlocks={expectedBlocks}
+          {/* 座席報告マップ */}
+          <ArenaReportMap
+            eventId={eventId}
+            reports={seatReports}
+            variant="full"
             submitPredictionHref={`/events/${eventId}/fan-seat-prediction`}
           />
 
