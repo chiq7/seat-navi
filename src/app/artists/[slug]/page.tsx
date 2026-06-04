@@ -12,20 +12,12 @@ import { SetlistSection } from "@/components/artist/SetlistSection";
 import { PastToursSection } from "@/components/artist/PastToursSection";
 import { AfterReportsSection } from "@/components/artist/AfterReportsSection";
 import { TicketStatsSection } from "@/components/artist/TicketStatsSection";
+import { ArtistPageHeader } from "@/components/artist/ArtistPageHeader";
+import { ArtistMainMenuSection } from "@/components/artist/ArtistMainMenuSection";
+import { ArtistBottomNav } from "@/components/artist/ArtistBottomNav";
 import type { AnalyticsReport, TicketResultAnalytics, AfterReportCard } from "@/lib/artistPageTypes";
 import { fmtDate } from "@/lib/artistPageHelpers";
 import { computeSeatStats, computeTicketResultStats, computeArenaDetailStats, computeTourInfo, computePastTours } from "@/lib/artistPageStats";
-
-// 笏笏笏 Helpers 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
-
-// 笏笏笏 逕ｻ蜒丞ｮ壽焚 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
-// 逕ｻ蜒上′縺ｧ縺阪◆繧牙推螳壽焚繧貞ｷｮ縺玲崛縺医ｋ縺縺代〒OK
-const MENU_CARD_BG: Record<"seat" | "report" | "setlist", string | null> = {
-  seat:    null, // TODO: "/images/menu-seat.png"
-  report:  null, // TODO: "/images/menu-report.png"
-  setlist: null, // TODO: "/images/menu-setlist.png"
-};
-
 const VENUE_TAB_ORDER = ["東京ドーム", "バンテリンドーム ナゴヤ", "京セラドーム大阪"];
 
 // 笏笏笏 Page 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
@@ -338,29 +330,7 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
         style={{ background: "#f3f6f8" }}
       >
 
-        {/* Header */}
-        <header
-          className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] z-50 flex justify-between items-center px-4 h-14"
-          style={{
-            background: "rgba(255,255,255,0.88)",
-            backdropFilter: "blur(16px)",
-            borderBottom: "1px solid rgba(0,0,0,0.06)",
-          }}
-        >
-          <Link
-            href="/"
-            className="w-9 h-9 flex items-center justify-center rounded-full active:scale-95 transition-transform"
-            style={{ background: "rgba(0,104,118,0.06)" }}
-          >
-            <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: "#006876" }}>
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-          </Link>
-          <h1 className="text-base font-bold tracking-tight" style={{ color: "#006876" }}>
-            {artist.name}
-          </h1>
-          <div className="w-9" />
-        </header>
+        <ArtistPageHeader artistName={artist.name} />
 
         <main className="pt-14 pb-24">
 
@@ -373,99 +343,7 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
             </div>
           )}
 
-          {/* 2. 繝｡繧､繝ｳ繝｡繝九Η繝ｼ 3繧ｫ繝ｼ繝・*/}
-          <section className="px-4 pt-3">
-            <div className="mb-2.5 flex justify-center">
-              <span
-                className="rounded-full px-4 py-1 text-xs font-bold tracking-wide"
-                style={{ background: "rgba(0,104,118,0.1)", color: "#006876" }}
-              >
-                メインメニュー
-              </span>
-            </div>
-
-            <div className="grid grid-cols-3 gap-2.5">
-
-              {/* 繧｢繝ｪ繝ｼ繝雁ｱ蜻翫・繝・・ */}
-              {selectedCTAEvent ? (
-                <Link
-                  href={`/events/${selectedCTAEvent.id}`}
-                  className="relative overflow-hidden rounded-2xl border border-gray-200/70 shadow-md transition-transform active:scale-[0.97]"
-                  style={{ height: "96px" }}
-                >
-                  {/* 閭梧勹: 逕ｻ蜒上′縺ゅｌ縺ｰ陦ｨ遉ｺ縲√↑縺代ｌ縺ｰ莉ｮ繧ｰ繝ｩ繝・・繧ｷ繝ｧ繝ｳ */}
-                  <div
-                    className="absolute inset-0"
-                    style={
-                      MENU_CARD_BG.seat
-                        ? { backgroundImage: `url('${MENU_CARD_BG.seat}')`, backgroundSize: "cover", backgroundPosition: "center" }
-                        : { background: "linear-gradient(145deg, #00545f 0%, #006876 100%)" }
-                    }
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-black/10" />
-                  <div className="absolute inset-x-0 bottom-0 p-2.5">
-                    <p className="text-xs font-bold leading-tight text-white">アリーナ報告</p>
-                    <p className="text-[10px] text-white/70">見る・報告</p>
-                  </div>
-                </Link>
-              ) : (
-                <div
-                  className="relative overflow-hidden rounded-2xl border border-gray-200/70 opacity-50 shadow-md"
-                  style={{ height: "96px" }}
-                >
-                  <div className="absolute inset-0" style={{ background: "linear-gradient(145deg, #00545f 0%, #006876 100%)" }} />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-black/10" />
-                  <div className="absolute inset-x-0 bottom-0 p-2.5">
-                    <p className="text-xs font-bold leading-tight text-white">アリーナ報告</p>
-                    <p className="text-[10px] text-white/70">見る・報告</p>
-                  </div>
-                </div>
-              )}
-
-              {/* 迴ｾ蝨ｰ繝ｬ繝・*/}
-              <Link
-                href={afterHref}
-                className="relative overflow-hidden rounded-2xl border border-gray-200/70 shadow-md transition-transform active:scale-[0.97]"
-                style={{ height: "96px" }}
-              >
-                <div
-                  className="absolute inset-0"
-                  style={
-                    MENU_CARD_BG.report
-                      ? { backgroundImage: `url('${MENU_CARD_BG.report}')`, backgroundSize: "cover", backgroundPosition: "center" }
-                      : { background: "linear-gradient(145deg, #005869 0%, #006876 100%)" }
-                  }
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-black/10" />
-                <div className="absolute inset-x-0 bottom-0 p-2.5">
-                  <p className="text-xs font-bold leading-tight text-white">現地レポ</p>
-                  <p className="text-[10px] text-white/70">見る・報告</p>
-                </div>
-              </Link>
-
-              {/* 繧ｻ繝医Μ */}
-              <Link
-                href={`/artists/${slug}/setlist`}
-                className="relative overflow-hidden rounded-2xl border border-gray-200/70 shadow-md transition-transform active:scale-[0.97]"
-                style={{ height: "96px" }}
-              >
-                <div
-                  className="absolute inset-0"
-                  style={
-                    MENU_CARD_BG.setlist
-                      ? { backgroundImage: `url('${MENU_CARD_BG.setlist}')`, backgroundSize: "cover", backgroundPosition: "center" }
-                      : { background: "linear-gradient(145deg, #3b1fa3 0%, #5B2BE0 100%)" }
-                  }
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-black/10" />
-                <div className="absolute inset-x-0 bottom-0 p-2.5">
-                  <p className="text-xs font-bold leading-tight text-white">セトリ</p>
-                  <p className="text-[10px] text-white/70">見る・報告</p>
-                </div>
-              </Link>
-
-            </div>
-          </section>
+          <ArtistMainMenuSection slug={slug} selectedEventId={selectedCTAEvent?.id} afterHref={afterHref} />
 
           {/* 3. アリーナ報告マップ */}
           <section className="mt-5 px-4">
@@ -607,55 +485,7 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
 
         </main>
 
-        {/* 繝懊ヨ繝繝翫ン 窶・4蛻・牡 */}
-        <nav
-          className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] z-50 border-t border-gray-100"
-          style={{ background: "rgba(255,255,255,0.92)", backdropFilter: "blur(16px)" }}
-        >
-          <div className="flex items-center justify-around px-2 py-2 pb-safe">
-            <button
-              type="button"
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="flex flex-col items-center gap-0.5 px-4 py-1.5"
-            >
-              <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: "#006876" }}>
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-              </svg>
-              <span className="text-[10px] font-semibold" style={{ color: "#006876" }}>集計まとめ</span>
-            </button>
-
-            <Link
-              href={selectedCTAEvent ? `/events/${selectedCTAEvent.id}` : "#"}
-              className="flex flex-col items-center gap-0.5 px-4 py-1.5"
-            >
-              <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                  d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
-              </svg>
-              <span className="text-[10px] font-semibold text-gray-500">座席予想</span>
-            </Link>
-
-            <Link href={afterHref} className="flex flex-col items-center gap-0.5 px-4 py-1.5">
-              <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                  d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-              <span className="text-[10px] font-semibold text-gray-500">現地レポ</span>
-            </Link>
-
-            <Link
-              href={`/artists/${slug}/setlist`}
-              className="flex flex-col items-center gap-0.5 px-4 py-1.5"
-            >
-              <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                  d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
-              </svg>
-              <span className="text-[10px] font-semibold text-gray-500">セトリ</span>
-            </Link>
-          </div>
-        </nav>
+        <ArtistBottomNav slug={slug} selectedEventId={selectedCTAEvent?.id} afterHref={afterHref} />
 
       </div>
     </div>
