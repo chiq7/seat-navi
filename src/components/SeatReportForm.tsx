@@ -70,6 +70,28 @@ export function SeatReportForm({
   const revealDetails = () => {
     if (variant === "progressive") setDetailsVisible(true);
   };
+
+  const resetForm = () => {
+    setTicketResult("won");
+    setLostApplicationCount(0);
+    setLostApplicationCountMode(0);
+    setBlockPrefix("");
+    setBlockNum("");
+    setBlockCustom("");
+    setRowNum("");
+    setLeftSeatNum("");
+    setTicketCount(1);
+    setSeatType("");
+    setUpgradeResult("not_applied");
+    setLotteryType("");
+    setLotteryName("");
+    setFcHistory("");
+    setPaymentMethod("");
+    setSubmitting(false);
+    setError("");
+    setSubmitted(null);
+    setDetailsVisible(variant === "full");
+  };
   const eventDateLabel = formatEventDate(event?.date);
   const eventSummary = event ? (
     <div className="rounded-xl border border-cyan-100 bg-white/80 px-3 py-2.5 shadow-sm">
@@ -245,6 +267,15 @@ export function SeatReportForm({
             ? "報告ありがとうございます！同じ会場・別日で当選した情報もあれば入力してください♪"
             : "落選情報を保存しました。ありがとうございます！"}
         </p>
+        {successMode === "inline" && (
+          <button
+            type="button"
+            onClick={resetForm}
+            className="mt-3 w-full rounded-2xl border border-cyan-600 py-2.5 text-sm font-bold text-cyan-700 transition-all hover:bg-cyan-50 active:scale-95"
+          >
+            同じ公演でもう一度報告する
+          </button>
+        )}
       </div>
     );
   }
@@ -328,8 +359,10 @@ export function SeatReportForm({
             value={blockPrefix}
             onChange={(e) => {
               revealDetails();
-              setBlockPrefix(e.target.value);
+              const val = e.target.value;
+              setBlockPrefix(val);
               setBlockNum("");
+              if (val !== "other") setBlockCustom("");
             }}
             className={COMPACT_INPUT_CLS}
             aria-label="ブロック"
