@@ -45,9 +45,11 @@ export function SeatReportForm({
   const [rowNum, setRowNum] = useState("");
   const [ticketCount, setTicketCount] = useState(1);
   const [leftSeatNum, setLeftSeatNum] = useState("");
+  const [blockCustom, setBlockCustom] = useState("");
+  const [seatType, setSeatType] = useState<string>("");
+  const [upgradeResult, setUpgradeResult] = useState<string>("not_applied");
   const [lotteryType, setLotteryType] = useState<string>("");
   const [lotteryName, setLotteryName] = useState("");
-  const [isUpgrade, setIsUpgrade] = useState(false);
   const [fcHistory, setFcHistory] = useState<string>("");
   const [paymentMethod, setPaymentMethod] = useState<string>("");
   const [submitting, setSubmitting] = useState(false);
@@ -59,7 +61,7 @@ export function SeatReportForm({
     setDetailsVisible(variant === "full");
   }, [variant]);
 
-  const blockFull = blockPrefix + blockNum;
+  const blockFull = blockPrefix === "other" ? blockCustom : blockPrefix + blockNum;
   const previewSeats = leftSeatNum
     ? Array.from({ length: ticketCount }, (_, i) => parseInt(leftSeatNum, 10) + i).filter((n) => !isNaN(n))
     : [];
@@ -104,6 +106,8 @@ export function SeatReportForm({
       lottery_type: lotteryResultLabel(lotteryType, result === "won"),
       fc_history: fcHistoryLabel(fcHistory),
       payment_method: paymentMethodLabel(paymentMethod),
+      seat_type: result === "won" ? (seatType || null) : null,
+      upgrade_result: result === "won" ? (upgradeResult || null) : "not_applied",
     });
   };
 
@@ -157,24 +161,39 @@ export function SeatReportForm({
       return;
     }
 
-    const row = parseInt(rowNum, 10);
-    const leftSeat = parseInt(leftSeatNum, 10);
+    if (!seatType) {
+      setError("席種を選択してください");
+      return;
+    }
 
-    if (!blockPrefix) {
-      setError("ブロックを選択してください");
-      return;
-    }
-    if (!blockNum.trim()) {
-      setError("ブロック番号を入力してください");
-      return;
-    }
-    if (!row || row < 1) {
-      setError("列は1以上の数字で入力してください");
-      return;
-    }
-    if (!leftSeat || leftSeat < 1) {
-      setError("席番は1以上の数字で入力してください");
-      return;
+    let row = 0;
+    let leftSeat = 0;
+
+    if (seatType === "arena") {
+      row = parseInt(rowNum, 10);
+      leftSeat = parseInt(leftSeatNum, 10);
+
+      if (!blockPrefix) {
+        setError("ブロックを選択してください");
+        return;
+      }
+      if (blockPrefix === "other") {
+        if (!blockCustom.trim()) {
+          setError("ブロックを入力してください");
+          return;
+        }
+      } else if (!blockNum.trim()) {
+        setError("ブロック番号を入力してください");
+        return;
+      }
+      if (!row || row < 1) {
+        setError("列は1以上の数字で入力してください");
+        return;
+      }
+      if (!leftSeat || leftSeat < 1) {
+        setError("席番は1以上の数字で入力してください");
+        return;
+      }
     }
 
     setSubmitting(true);
@@ -186,25 +205,27 @@ export function SeatReportForm({
       return;
     }
 
-    const effectiveLottery = isUpgrade ? "upgrade" : lotteryType === "other" ? "general" : lotteryType || "fc1";
-    const rows = Array.from({ length: ticketCount }, (_, i) => ({
-      id: randomId(),
-      event_id: eventId,
-      block: blockFull.trim(),
-      row_num: row,
-      seat_num: leftSeat + i,
-      lottery_type: effectiveLottery,
-      lottery_name: lotteryName.trim() || null,
-      payment_method: paymentMethod || null,
-      fc_history: fcHistory || null,
-      comment: null,
-    }));
+    if (seatType === "arena") {
+      const effectiveLottery = lotteryType === "other" ? "general" : lotteryType || "fc1";
+      const rows = Array.from({ length: ticketCount }, (_, i) => ({
+        id: randomId(),
+        event_id: eventId,
+        block: blockFull.trim(),
+        row_num: row,
+        seat_num: leftSeat + i,
+        lottery_type: effectiveLottery,
+        lottery_name: lotteryName.trim() || null,
+        payment_method: paymentMethod || null,
+        fc_history: fcHistory || null,
+        comment: null,
+      }));
 
-    const { error: dbErr } = await supabase.from("seat_reports").insert(rows);
-    if (dbErr) {
-      setError("投稿に失敗しました: " + dbErr.message);
-      setSubmitting(false);
-      return;
+      const { error: dbErr } = await supabase.from("seat_reports").insert(rows);
+      if (dbErr) {
+        setError("投稿に失敗しました: " + dbErr.message);
+        setSubmitting(false);
+        return;
+      }
     }
 
     if (successMode === "inline") {
@@ -308,6 +329,7 @@ export function SeatReportForm({
             onChange={(e) => {
               revealDetails();
               setBlockPrefix(e.target.value);
+              setBlockNum("");
             }}
             className={COMPACT_INPUT_CLS}
             aria-label="ブロック"
@@ -318,19 +340,34 @@ export function SeatReportForm({
                 {p}
               </option>
             ))}
+            <option value="other">その他</option>
           </select>
-          <input
-            type="text"
-            inputMode="numeric"
-            value={blockNum}
-            onChange={(e) => {
-              revealDetails();
-              setBlockNum(e.target.value.replace(/[^0-9]/g, ""));
-            }}
-            placeholder="番号"
-            className={COMPACT_INPUT_CLS}
-            aria-label="番号"
-          />
+          {blockPrefix === "other" ? (
+            <input
+              type="text"
+              value={blockCustom}
+              onChange={(e) => {
+                revealDetails();
+                setBlockCustom(e.target.value);
+              }}
+              placeholder="例: SS3"
+              className={COMPACT_INPUT_CLS}
+              aria-label="ブロック手動入力"
+            />
+          ) : (
+            <input
+              type="text"
+              inputMode="numeric"
+              value={blockNum}
+              onChange={(e) => {
+                revealDetails();
+                setBlockNum(e.target.value.replace(/[^0-9]/g, ""));
+              }}
+              placeholder="番号"
+              className={COMPACT_INPUT_CLS}
+              aria-label="番号"
+            />
+          )}
           <input
             type="number"
             inputMode="numeric"
@@ -369,26 +406,14 @@ export function SeatReportForm({
 
   const ticketCountAndUpgradeFields = (
     <div className={isProgressive ? PROGRESSIVE_GROUP_CLS : ""}>
-      <Label required>{ticketResult === "won" ? "枚数・アプグレ" : "申込枚数"}</Label>
-      <div className={ticketResult === "won" ? "grid grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)] gap-1.5" : ""}>
-        <CompactGroup label="枚数">
-          {[1, 2, 3, 4].map((n) => (
-            <CompactButton key={n} selected={ticketCount === n} onClick={() => setTicketCount(n)}>
-              {n}枚
-            </CompactButton>
-          ))}
-        </CompactGroup>
-        {ticketResult === "won" && (
-          <CompactGroup label="アプグレ">
-            <CompactButton selected={isUpgrade} onClick={() => setIsUpgrade(true)}>
-              有
-            </CompactButton>
-            <CompactButton selected={!isUpgrade} onClick={() => setIsUpgrade(false)}>
-              なし
-            </CompactButton>
-          </CompactGroup>
-        )}
-      </div>
+      <Label required>申込枚数</Label>
+      <CompactGroup label="枚数">
+        {[1, 2, 3, 4].map((n) => (
+          <CompactButton key={n} selected={ticketCount === n} onClick={() => setTicketCount(n)}>
+            {n}枚
+          </CompactButton>
+        ))}
+      </CompactGroup>
     </div>
   );
 
@@ -424,7 +449,7 @@ export function SeatReportForm({
   const lotteryFields = (
     <div className={isProgressive ? PROGRESSIVE_GROUP_CLS : ""}>
       <Label>抽選</Label>
-      <div className={ticketResult === "won" ? "grid grid-cols-[112px_minmax(0,1fr)] gap-1.5" : ""}>
+      <div className={ticketResult === "won" ? "grid grid-cols-[145px_minmax(0,1fr)] gap-1.5" : ""}>
         <select
           value={lotteryType}
           onChange={(e) => setLotteryType(e.target.value)}
@@ -451,6 +476,52 @@ export function SeatReportForm({
           />
         )}
       </div>
+    </div>
+  );
+
+  const seatTypeFields = (
+    <div className={isProgressive ? PROGRESSIVE_GROUP_CLS : ""}>
+      <Label required>席種</Label>
+      <div className="grid grid-cols-3 gap-1.5">
+        {[
+          { value: "arena",      label: "アリーナ" },
+          { value: "stand",      label: "スタンド" },
+          { value: "seated",     label: "着席指定" },
+          { value: "restricted", label: "注釈付き" },
+          { value: "obstructed", label: "見切れ" },
+          { value: "unknown",    label: "その他/不明" },
+        ].map((opt) => (
+          <CompactButton
+            key={opt.value}
+            selected={seatType === opt.value}
+            onClick={() => {
+              setSeatType(opt.value);
+              revealDetails();
+            }}
+          >
+            {opt.label}
+          </CompactButton>
+        ))}
+      </div>
+    </div>
+  );
+
+  const upgradeResultFields = (
+    <div className={isProgressive ? PROGRESSIVE_GROUP_CLS : ""}>
+      <Label>
+        アプグレ応募状況 <span className="font-normal text-gray-400">任意</span>
+      </Label>
+      <CompactGroup label="アプグレ">
+        <CompactButton selected={upgradeResult === "not_applied"} onClick={() => setUpgradeResult("not_applied")}>
+          応募なし
+        </CompactButton>
+        <CompactButton selected={upgradeResult === "applied_lost"} onClick={() => setUpgradeResult("applied_lost")}>
+          落選
+        </CompactButton>
+        <CompactButton selected={upgradeResult === "applied_won"} onClick={() => setUpgradeResult("applied_won")}>
+          当選
+        </CompactButton>
+      </CompactGroup>
     </div>
   );
 
@@ -482,9 +553,11 @@ export function SeatReportForm({
               <>
                 <p className="text-xs font-bold text-cyan-950">当選した座席は1件ずつ報告をお願いします♪</p>
                 {lostCountInput}
-                {seatFields}
+                {seatTypeFields}
+                {seatType === "arena" && seatFields}
                 {showDetails && (
                   <>
+                    {upgradeResultFields}
                     {ticketCountAndUpgradeFields}
                     {fcAndPaymentFields}
                     {lotteryFields}
@@ -518,9 +591,11 @@ export function SeatReportForm({
             <p className="mb-3 text-xs font-bold text-gray-700">当選した座席は1件ずつ報告をお願いします♪</p>
             {lostCountInput}
           </Card>
-          <Card>{seatFields}</Card>
+          <Card>{seatTypeFields}</Card>
+          {seatType === "arena" && <Card>{seatFields}</Card>}
           {showDetails && (
             <>
+              <Card>{upgradeResultFields}</Card>
               <Card>{ticketCountAndUpgradeFields}</Card>
               <Card>{fcAndPaymentFields}</Card>
               <Card>{lotteryFields}</Card>

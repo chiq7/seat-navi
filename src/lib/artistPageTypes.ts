@@ -14,7 +14,7 @@ export type AnalyticsReport = {
 
 export type TicketResultAnalytics = Pick<
   EventTicketResult,
-  "event_id" | "result" | "lost_application_count" | "ticket_count" | "lottery_type" | "fc_history" | "payment_method"
+  "event_id" | "result" | "lost_application_count" | "ticket_count" | "lottery_type" | "fc_history" | "payment_method" | "seat_type" | "upgrade_result"
 >;
 
 export type AfterReportCard = {

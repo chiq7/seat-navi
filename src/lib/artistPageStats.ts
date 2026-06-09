@@ -42,6 +42,24 @@ export function computeTicketResultStats(rows: TicketResultAnalytics[]) {
     buildRate(rows.filter(predicate)).rate;
   const result = buildRate(rows);
 
+  const wonWithSeatType = rows.filter((r) => r.result === "won" && r.seat_type != null);
+  const arenaRate = pct(
+    wonWithSeatType.filter((r) => r.seat_type === "arena").length,
+    wonWithSeatType.length,
+  );
+  const wonNonUpgrade = wonWithSeatType.filter((r) => r.upgrade_result !== "applied_won");
+  const normalArenaRate = pct(
+    wonNonUpgrade.filter((r) => r.seat_type === "arena").length,
+    wonNonUpgrade.length,
+  );
+  const upgradeApplied = rows.filter(
+    (r) => r.upgrade_result === "applied_lost" || r.upgrade_result === "applied_won",
+  );
+  const upgradeRate = pct(
+    upgradeApplied.filter((r) => r.upgrade_result === "applied_won").length,
+    upgradeApplied.length,
+  );
+
   return {
     ...result,
     fc: {
@@ -64,36 +82,45 @@ export function computeTicketResultStats(rows: TicketResultAnalytics[]) {
       credit: groupRate((row) => row.payment_method === "クレカ"),
       other: groupRate((row) => row.payment_method === "その他"),
     },
+    arenaRate,
+    normalArenaRate,
+    upgradeRate,
   };
 }
 
-export function computeArenaDetailStats(reports: AnalyticsReport[]) {
-  const normalReports = reports.filter((report) => report.lottery_type !== "upgrade");
+export function computeArenaDetailStats(rows: TicketResultAnalytics[]) {
   const pct = (arena: number, total: number) =>
     total > 0 ? Math.round((arena / total) * 1000) / 10 : null;
-  const isArena = (report: AnalyticsReport) => /^(A|SA|SB|SC|SD|SE)\d/i.test(report.block);
-  const groupRate = (predicate: (report: AnalyticsReport) => boolean) => {
-    const rows = normalReports.filter(predicate);
+  const groupRate = (predicate: (row: TicketResultAnalytics) => boolean) => {
+    const subset = rows.filter(
+      (r) => r.result === "won" && r.seat_type != null && r.upgrade_result !== "applied_won" && predicate(r),
+    );
     return {
-      rate: pct(rows.filter(isArena).length, rows.length),
-      total: rows.length,
+      rate: pct(subset.filter((r) => r.seat_type === "arena").length, subset.length),
+      total: subset.length,
     };
   };
 
   return {
     fc: {
-      under1: groupRate((report) => report.fc_history === "under_1_year"),
-      one3: groupRate((report) => report.fc_history === "one_to_three_years"),
-      over3: groupRate((report) => report.fc_history === "over_3_years"),
+      under1: groupRate((r) => r.fc_history === "1年未満"),
+      one3: groupRate((r) => r.fc_history === "1〜3年"),
+      over3: groupRate((r) => r.fc_history === "3年以上"),
     },
     lottery: {
-      first: groupRate((report) => report.lottery_type === "fc1"),
-      second: groupRate((report) => report.lottery_type === "fc2"),
-      other: groupRate((report) => report.lottery_type === "general"),
+      first: groupRate((r) => r.lottery_type === "1次抽選"),
+      second: groupRate((r) => r.lottery_type === "2次抽選"),
+      other: groupRate((r) => r.lottery_type === "その他"),
+    },
+    ticketCount: {
+      one: groupRate((r) => r.ticket_count === 1),
+      two: groupRate((r) => r.ticket_count === 2),
+      three: groupRate((r) => r.ticket_count === 3),
+      four: groupRate((r) => r.ticket_count === 4),
     },
     payment: {
-      credit: groupRate((report) => report.payment_method === "credit"),
-      other: groupRate((report) => report.payment_method === "other"),
+      credit: groupRate((r) => r.payment_method === "クレカ"),
+      other: groupRate((r) => r.payment_method === "その他"),
     },
   };
 }

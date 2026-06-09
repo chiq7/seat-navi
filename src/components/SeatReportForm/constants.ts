@@ -1,9 +1,13 @@
-export const BLOCK_PREFIXES = ["A", "B", "C", "D", "E", "SS", "SA", "SB", "SC", "SD", "SE"];
+export const BLOCK_PREFIXES = ["A", "B", "C", "D", "E", "F", "G", "H"];
 
 export const LOTTERY_OPTIONS = [
-  { value: "fc1", label: "1次抽選", resultLabel: "1次抽選" },
-  { value: "fc2", label: "2次抽選", resultLabel: "2次抽選" },
-  { value: "other", label: "その他", resultLabel: "その他" },
+  { value: "fc1",        label: "FC1次",    resultLabel: "1次抽選" },
+  { value: "fc2",        label: "FC2次",    resultLabel: "2次抽選" },
+  { value: "revival",    label: "復活当選", resultLabel: "その他" },
+  { value: "production", label: "制作開放", resultLabel: "その他" },
+  { value: "upgrade",    label: "アプグレ", resultLabel: "その他" },
+  { value: "general",    label: "一般",     resultLabel: "その他" },
+  { value: "other",      label: "その他",   resultLabel: "その他" },
 ] as const;
 
 export const SELECTED_STYLE = {

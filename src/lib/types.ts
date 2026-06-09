@@ -169,6 +169,8 @@ export type EventTicketResult = {
   lottery_type: "1次抽選" | "2次抽選" | "その他" | null;
   fc_history: "1年未満" | "1〜3年" | "3年以上" | null;
   payment_method: "クレカ" | "その他" | null;
+  seat_type?: "arena" | "stand" | "seated" | "restricted" | "obstructed" | "unknown" | null;
+  upgrade_result?: "not_applied" | "applied_lost" | "applied_won" | null;
   created_at: string;
 };
 

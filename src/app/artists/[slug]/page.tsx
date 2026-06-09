@@ -69,7 +69,7 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
         .order("created_at", { ascending: false })
         .limit(500),
       supabase.from("event_ticket_results")
-        .select("event_id, result, lost_application_count, ticket_count, lottery_type, fc_history, payment_method")
+        .select("event_id, result, lost_application_count, ticket_count, lottery_type, fc_history, payment_method, seat_type, upgrade_result")
         .in("event_id", ids)
         .order("created_at", { ascending: false })
         .limit(1000),
@@ -292,8 +292,8 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
 
 
   const arenaDetailStats = useMemo(
-    () => computeArenaDetailStats(analyticsReports),
-    [analyticsReports],
+    () => computeArenaDetailStats(ticketResultReports),
+    [ticketResultReports],
   );
 
   // Event lookup for after-report cards

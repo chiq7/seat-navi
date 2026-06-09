@@ -37,13 +37,17 @@ export function TicketStatsSection({
               },
               {
                 label: "通常当選アリーナ率",
-                value: seatStats ? fmtPct(seatStats.normalArenaRate) : "--",
+                value: ticketResultStats.normalArenaRate !== null
+                  ? fmtPct(ticketResultStats.normalArenaRate)
+                  : seatStats ? fmtPct(seatStats.normalArenaRate) : "--",
                 unit: "%",
                 color: "#006876",
               },
               {
                 label: "アプグレ当選率",
-                value: heroUpgradeRate !== null ? String(heroUpgradeRate) : "--",
+                value: ticketResultStats.upgradeRate !== null
+                  ? fmtPct(ticketResultStats.upgradeRate)
+                  : heroUpgradeRate !== null ? String(heroUpgradeRate) : "--",
                 unit: "%",
                 color: "#f59e0b",
               },
@@ -163,10 +167,10 @@ export function TicketStatsSection({
                 {
                   label: "申込枚数別",
                   items: [
-                    ["1枚", null, 0],
-                    ["2枚", null, 0],
-                    ["3枚", null, 0],
-                    ["4枚", null, 0],
+                    ["1枚", arenaDetailStats.ticketCount.one.rate, arenaDetailStats.ticketCount.one.total],
+                    ["2枚", arenaDetailStats.ticketCount.two.rate, arenaDetailStats.ticketCount.two.total],
+                    ["3枚", arenaDetailStats.ticketCount.three.rate, arenaDetailStats.ticketCount.three.total],
+                    ["4枚", arenaDetailStats.ticketCount.four.rate, arenaDetailStats.ticketCount.four.total],
                   ],
                   cols: "grid-cols-4",
                 },
