@@ -6,14 +6,27 @@ import type { ArenaBlock, ArenaCell, ParsedBlockName, BlockPosition } from "./ar
 export const SVG_W      = 320;
 export const MX         = 8;
 export const AVAIL_W    = SVG_W - 2 * MX;
-export const CELL_MAX   = 7;
-export const MIN_COLS   = 6;   // グリッドの最低列数（ブロック数基準）
-export const MIN_ROWS   = 6;   // グリッドの最低行数（プレフィックス数基準）
-export const BLOCK_GAP  = 3;   // ブロック間の余白（px）
+export const CELL_MAX   = 7;   // 席セル描画用（ブロック内詳細表示で使用予定）
+export const MIN_COLS   = 6;
+export const MIN_ROWS   = 6;
+export const BLOCK_GAP  = 2;   // 固定グリッドのブロック間隔（px）
+export const BLOCK_SIZE = 32;  // 固定グリッドのブロック1マスのサイズ（px）
 export const STAGE_TOP  = 4;
 export const STAGE_H    = 26;
 export const STAGE_GAP  = 16;
 export const LABEL_H    = 12;
+
+// ─── 固定グリッド定数 ───────────────────────────────────────────────────────
+
+export const FIXED_PREFIXES = ["A", "B", "C", "D", "E", "F", "G", "H"] as const;
+export const FIXED_NUMS     = [1, 2, 3, 4, 5, 6, 7, 8] as const;
+
+// ブロック1ステップ（サイズ＋ギャップ）
+export const GRID_STEP = BLOCK_SIZE + BLOCK_GAP;
+
+// グリッド全体幅・開始X（SVG内で水平中央揃え）
+export const GRID_TOTAL_W = FIXED_NUMS.length * BLOCK_SIZE + (FIXED_NUMS.length - 1) * BLOCK_GAP;
+export const GRID_START_X = MX + Math.floor((AVAIL_W - GRID_TOTAL_W) / 2);
 
 export const BRAND_NAME   = "公演なう";
 export const BRAND_DOMAIN = "koen-now.com";
@@ -140,4 +153,69 @@ export function computeGridSize(blocks: ArenaBlock[]): { gridRows: number; gridC
  */
 export function computeCellSize(gridCols: number): number {
   return Math.min(Math.floor(AVAIL_W / gridCols), CELL_MAX);
+}
+
+// ─── 固定グリッドビルダー ────────────────────────────────────────────────────
+
+/**
+ * A〜H × 1〜8 の64固定ブロックを生成し、reports を重ね合わせる。
+ * 固定グリッド外のブロックは overflowBlocks に分離する。
+ */
+export function buildFixedArenaGrid(reports: SeatReport[]): {
+  gridBlocks: ArenaBlock[];
+  overflowBlocks: ArenaBlock[];
+} {
+  // 64ブロック（A〜H × 1〜8）を初期化
+  const fixedMap = new Map<string, ArenaBlock>();
+  for (let ri = 0; ri < FIXED_PREFIXES.length; ri++) {
+    for (let ci = 0; ci < FIXED_NUMS.length; ci++) {
+      const blockName = `${FIXED_PREFIXES[ri]}${FIXED_NUMS[ci]}`;
+      fixedMap.set(blockName, {
+        blockName,
+        position: { row: ri, col: ci },
+        cells: [],
+        minRow: 0,
+        maxRow: 0,
+        minSeat: 0,
+        maxSeat: 0,
+        hasReports: false,
+      });
+    }
+  }
+
+  // レポートを固定ブロックへ振り分け、グリッド外は overflowMap へ
+  const overflowMap = new Map<string, ArenaBlock>();
+  for (const r of reports) {
+    const cell: ArenaCell = {
+      row:           r.row_num,
+      seat:          r.seat_num,
+      lotteryType:   r.lottery_type,
+      fcHistory:     r.fc_history ?? null,
+      paymentMethod: r.payment_method ?? null,
+    };
+    if (fixedMap.has(r.block)) {
+      const b = fixedMap.get(r.block)!;
+      b.cells.push(cell);
+      b.hasReports = true;
+    } else {
+      if (!overflowMap.has(r.block)) {
+        overflowMap.set(r.block, {
+          blockName: r.block,
+          position: { row: 0, col: 0 },
+          cells: [],
+          minRow: 0,
+          maxRow: 0,
+          minSeat: 0,
+          maxSeat: 0,
+          hasReports: true,
+        });
+      }
+      overflowMap.get(r.block)!.cells.push(cell);
+    }
+  }
+
+  return {
+    gridBlocks: [...fixedMap.values()],
+    overflowBlocks: [...overflowMap.values()],
+  };
 }

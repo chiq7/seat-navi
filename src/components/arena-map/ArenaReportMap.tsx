@@ -1,33 +1,36 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import type { ArenaReportMapProps, ColorMode } from "@/lib/arena-map/arenaMapTypes";
+import type { ArenaReportMapProps, ColorMode, ArenaBlock } from "@/lib/arena-map/arenaMapTypes";
 import {
   COLOR_MODE_OPTIONS,
   COLOR_MODE_LEGENDS,
   cellFillColor,
   REPORTED_FILL,
   UNREPORTED_FILL,
-  GRID_STROKE,
 } from "@/lib/arena-map/arenaMapColors";
 import {
   SVG_W,
-  MX,
   STAGE_TOP,
   STAGE_H,
   STAGE_GAP,
-  LABEL_H,
   BRAND_NAME,
   BRAND_DOMAIN,
-  buildArenaBlocks,
-  computeGridSize,
-  computeCellSize,
+  BLOCK_SIZE,
+  BLOCK_GAP,
+  GRID_STEP,
+  GRID_START_X,
+  FIXED_PREFIXES,
+  buildFixedArenaGrid,
 } from "@/lib/arena-map/arenaMapLayout";
 
-// ─── 定数 ──────────────────────────────────────────────────────────────────
+// ─── ブロック色決定 ──────────────────────────────────────────────────────────
 
-const CELL_INSET_RATIO = 0.06;
-const BLOCK_LABEL_OFFSET = 3; // ブロック名テキストの上オフセット
+function blockFill(block: ArenaBlock, colorMode: ColorMode, isCompact: boolean): string {
+  if (!block.hasReports || block.cells.length === 0) return UNREPORTED_FILL;
+  if (isCompact) return REPORTED_FILL;
+  return cellFillColor(block.cells[0], colorMode);
+}
 
 // ─── コンポーネント ───────────────────────────────────────────────────────────
 
@@ -41,7 +44,7 @@ export function ArenaReportMap({
 }: ArenaReportMapProps) {
   const [colorMode, setColorMode] = useState<ColorMode>("lottery");
   const [shareStatus, setShareStatus] = useState("");
-  void eventId; // 将来のブロッククリック遷移で使用予定
+  void eventId;
   const isCompact = variant === "compact";
   const compactHeaderH = isCompact && (compactVenueName || compactDateLabel) ? 20 : 0;
   const stageTop = STAGE_TOP + compactHeaderH;
@@ -49,39 +52,21 @@ export function ArenaReportMap({
   // ─── レイアウト計算 ─────────────────────────────────────────────────────────
 
   const layout = useMemo(() => {
-    const blocks = buildArenaBlocks(reports);
-    const { gridRows, gridCols } = computeGridSize(blocks);
-    const cell = computeCellSize(gridCols);
-    const cellInset = cell * CELL_INSET_RATIO;
-    const cellSize  = cell - cellInset * 2;
-
-    // ブロックの SVG 座標を計算する
+    const { gridBlocks, overflowBlocks } = buildFixedArenaGrid(reports);
     const bandTop = stageTop + STAGE_H + STAGE_GAP;
 
-    type PositionedBlock = (typeof blocks)[number] & {
-      svgX: number;
-      svgY: number;
-      blockW: number;
-      blockH: number;
-    };
+    const positioned = gridBlocks.map((b) => ({
+      ...b,
+      svgX: GRID_START_X + b.position.col * GRID_STEP,
+      svgY: bandTop + b.position.row * GRID_STEP,
+    }));
 
-    // 各ブロックの最大 row span / seat span を計算してセルサイズを決定
-    // ブロック内セルグリッドは (maxSeat - minSeat + 1) × (maxRow - minRow + 1)
-    const positioned: PositionedBlock[] = blocks.map((b) => {
-      const wCols = b.hasReports ? b.maxSeat - b.minSeat + 1 : 1;
-      const hRows = b.hasReports ? b.maxRow  - b.minRow  + 1 : 1;
-      const blockW = wCols * cell;
-      const blockH = hRows * cell;
-      const svgX = MX + b.position.col * (cell + 3);
-      const svgY = bandTop + LABEL_H + b.position.row * (blockH + LABEL_H + 4);
-      return { ...b, svgX, svgY, blockW, blockH };
-    });
+    const gridH = FIXED_PREFIXES.length * BLOCK_SIZE + (FIXED_PREFIXES.length - 1) * BLOCK_GAP;
+    const overflowY = bandTop + gridH + 22;
+    const overflowH = overflowBlocks.length > 0 ? BLOCK_SIZE + 20 : 0;
+    const svgH = bandTop + gridH + 12 + overflowH;
 
-    const svgH = positioned.length > 0
-      ? Math.max(...positioned.map((b) => b.svgY + b.blockH)) + 12
-      : stageTop + STAGE_H + STAGE_GAP + 60;
-
-    return { cell, cellInset, cellSize, positioned, gridRows, gridCols, svgH };
+    return { positioned, overflowBlocks, svgH, overflowY };
   }, [reports, stageTop]);
 
   // ─── 共有処理 ────────────────────────────────────────────────────────────────
@@ -105,7 +90,7 @@ export function ArenaReportMap({
     }
   }
 
-  const { cell, cellInset, cellSize, positioned, svgH } = layout;
+  const { positioned, overflowBlocks, svgH, overflowY } = layout;
   const activeLegend = COLOR_MODE_LEGENDS[colorMode];
 
   // ─── JSX ────────────────────────────────────────────────────────────────────
@@ -197,88 +182,76 @@ export function ArenaReportMap({
           メインステージ
         </text>
 
-        {/* 報告なし時の空グリッド表示 */}
-        {positioned.length === 0 && (
-          <text
-            x={SVG_W / 2}
-            y={stageTop + STAGE_H + STAGE_GAP + 30}
-            textAnchor="middle"
-            fill="#9CA3AF"
-            fontSize={9}
-          >
-            報告データがありません
-          </text>
-        )}
-
-        {/* ブロック描画 */}
+        {/* A〜H × 1〜8 固定ブロックグリッド */}
         {positioned.map((pb) => (
           <g key={pb.blockName}>
-            {/* ブロック名ラベル */}
-            <text
+            <rect
               x={pb.svgX}
-              y={pb.svgY - BLOCK_LABEL_OFFSET}
-              fill="#6B7280"
-              fontSize={6.5}
+              y={pb.svgY}
+              width={BLOCK_SIZE}
+              height={BLOCK_SIZE}
+              rx={2}
+              fill={blockFill(pb, colorMode, isCompact)}
+            />
+            <text
+              x={pb.svgX + BLOCK_SIZE / 2}
+              y={pb.svgY + BLOCK_SIZE / 2 + 3}
+              textAnchor="middle"
+              fill={pb.hasReports ? "#ffffff" : "#C4B5DC"}
+              fontSize={7}
               fontWeight="bold"
             >
               {pb.blockName}
             </text>
+            {/* 件数バッジ（2件以上の場合のみ） */}
+            {pb.hasReports && pb.cells.length > 1 && (
+              <text
+                x={pb.svgX + BLOCK_SIZE - 2}
+                y={pb.svgY + 7}
+                textAnchor="end"
+                fill="#ffffff"
+                fillOpacity={0.85}
+                fontSize={5.5}
+              >
+                {pb.cells.length}
+              </text>
+            )}
+          </g>
+        ))}
 
-            {/* 未報告席の背景 */}
-            <rect
-              x={pb.svgX}
-              y={pb.svgY}
-              width={pb.blockW}
-              height={pb.blockH}
-              rx={2}
-              fill={UNREPORTED_FILL}
-            />
-
-            {/* グリッド線 (縦) */}
-            {Array.from({ length: pb.blockW / cell - 1 }, (_, i) => (
-              <line
-                key={`v${i}`}
-                x1={pb.svgX + (i + 1) * cell}
-                y1={pb.svgY}
-                x2={pb.svgX + (i + 1) * cell}
-                y2={pb.svgY + pb.blockH}
-                stroke={GRID_STROKE}
-                strokeWidth={0.4}
-              />
-            ))}
-
-            {/* グリッド線 (横) */}
-            {Array.from({ length: pb.blockH / cell - 1 }, (_, i) => (
-              <line
-                key={`h${i}`}
-                x1={pb.svgX}
-                y1={pb.svgY + (i + 1) * cell}
-                x2={pb.svgX + pb.blockW}
-                y2={pb.svgY + (i + 1) * cell}
-                stroke={GRID_STROKE}
-                strokeWidth={0.4}
-              />
-            ))}
-
-            {/* 報告席セル */}
-            {pb.cells.map((c, i) => {
-              const colIdx = c.seat - pb.minSeat;
-              const rowIdx = c.row  - pb.minRow;
+        {/* その他（グリッド外）ブロック */}
+        {overflowBlocks.length > 0 && (
+          <g>
+            <text x={GRID_START_X} y={overflowY - 5} fill="#9CA3AF" fontSize={7} fontWeight="bold">
+              その他ブロック
+            </text>
+            {overflowBlocks.map((ob, i) => {
+              const ox = GRID_START_X + i * (BLOCK_SIZE + BLOCK_GAP);
               return (
-                <rect
-                  key={`c${i}`}
-                  x={pb.svgX + colIdx * cell + cellInset}
-                  y={pb.svgY + rowIdx * cell + cellInset}
-                  width={cellSize}
-                  height={cellSize}
-                  rx={0.5}
-                  fill={isCompact ? REPORTED_FILL : cellFillColor(c, colorMode)}
-                  fillOpacity={0.9}
-                />
+                <g key={ob.blockName}>
+                  <rect
+                    x={ox}
+                    y={overflowY}
+                    width={BLOCK_SIZE}
+                    height={BLOCK_SIZE}
+                    rx={2}
+                    fill={blockFill(ob, colorMode, isCompact)}
+                  />
+                  <text
+                    x={ox + BLOCK_SIZE / 2}
+                    y={overflowY + BLOCK_SIZE / 2 + 3}
+                    textAnchor="middle"
+                    fill="#ffffff"
+                    fontSize={6}
+                    fontWeight="bold"
+                  >
+                    {ob.blockName}
+                  </text>
+                </g>
               );
             })}
           </g>
-        ))}
+        )}
 
         {/* ウォーターマーク（fullのみ） */}
         {!isCompact && (
