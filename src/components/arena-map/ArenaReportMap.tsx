@@ -1,13 +1,14 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import type { ArenaReportMapProps, ColorMode, ArenaBlock } from "@/lib/arena-map/arenaMapTypes";
+import type { ArenaReportMapProps, ColorMode } from "@/lib/arena-map/arenaMapTypes";
 import {
   COLOR_MODE_OPTIONS,
   COLOR_MODE_LEGENDS,
   cellFillColor,
   REPORTED_FILL,
   UNREPORTED_FILL,
+  GRID_STROKE,
 } from "@/lib/arena-map/arenaMapColors";
 import {
   SVG_W,
@@ -16,21 +17,21 @@ import {
   STAGE_GAP,
   BRAND_NAME,
   BRAND_DOMAIN,
-  BLOCK_SIZE,
-  BLOCK_GAP,
-  GRID_STEP,
+  BLOCK_W,
+  BLOCK_H,
+  BLOCK_GAP_X,
+  BLOCK_GAP_Y,
+  GRID_STEP_X,
+  GRID_STEP_Y,
   GRID_START_X,
+  COL_HEADER_H,
+  DEFAULT_BLOCK_SEATS,
+  DEFAULT_BLOCK_ROWS,
+  GRID_STROKE_W,
   FIXED_PREFIXES,
+  FIXED_NUMS,
   buildFixedArenaGrid,
 } from "@/lib/arena-map/arenaMapLayout";
-
-// ─── ブロック色決定 ──────────────────────────────────────────────────────────
-
-function blockFill(block: ArenaBlock, colorMode: ColorMode, isCompact: boolean): string {
-  if (!block.hasReports || block.cells.length === 0) return UNREPORTED_FILL;
-  if (isCompact) return REPORTED_FILL;
-  return cellFillColor(block.cells[0], colorMode);
-}
 
 // ─── コンポーネント ───────────────────────────────────────────────────────────
 
@@ -57,16 +58,16 @@ export function ArenaReportMap({
 
     const positioned = gridBlocks.map((b) => ({
       ...b,
-      svgX: GRID_START_X + b.position.col * GRID_STEP,
-      svgY: bandTop + b.position.row * GRID_STEP,
+      svgX: GRID_START_X + b.position.col * GRID_STEP_X,
+      svgY: bandTop + COL_HEADER_H + b.position.row * GRID_STEP_Y,
     }));
 
-    const gridH = FIXED_PREFIXES.length * BLOCK_SIZE + (FIXED_PREFIXES.length - 1) * BLOCK_GAP;
-    const overflowY = bandTop + gridH + 22;
-    const overflowH = overflowBlocks.length > 0 ? BLOCK_SIZE + 20 : 0;
-    const svgH = bandTop + gridH + 12 + overflowH;
+    const gridH = FIXED_PREFIXES.length * BLOCK_H + (FIXED_PREFIXES.length - 1) * BLOCK_GAP_Y;
+    const overflowY = bandTop + COL_HEADER_H + gridH + 16;
+    const overflowH = overflowBlocks.length > 0 ? BLOCK_H + 16 : 0;
+    const svgH = bandTop + COL_HEADER_H + gridH + 10 + overflowH;
 
-    return { positioned, overflowBlocks, svgH, overflowY };
+    return { positioned, overflowBlocks, svgH, overflowY, bandTop };
   }, [reports, stageTop]);
 
   // ─── 共有処理 ────────────────────────────────────────────────────────────────
@@ -90,7 +91,7 @@ export function ArenaReportMap({
     }
   }
 
-  const { positioned, overflowBlocks, svgH, overflowY } = layout;
+  const { positioned, overflowBlocks, svgH, overflowY, bandTop } = layout;
   const activeLegend = COLOR_MODE_LEGENDS[colorMode];
 
   // ─── JSX ────────────────────────────────────────────────────────────────────
@@ -182,42 +183,77 @@ export function ArenaReportMap({
           メインステージ
         </text>
 
-        {/* A〜H × 1〜8 固定ブロックグリッド */}
-        {positioned.map((pb) => (
-          <g key={pb.blockName}>
-            <rect
-              x={pb.svgX}
-              y={pb.svgY}
-              width={BLOCK_SIZE}
-              height={BLOCK_SIZE}
-              rx={2}
-              fill={blockFill(pb, colorMode, isCompact)}
-            />
-            <text
-              x={pb.svgX + BLOCK_SIZE / 2}
-              y={pb.svgY + BLOCK_SIZE / 2 + 3}
-              textAnchor="middle"
-              fill={pb.hasReports ? "#ffffff" : "#C4B5DC"}
-              fontSize={7}
-              fontWeight="bold"
-            >
-              {pb.blockName}
-            </text>
-            {/* 件数バッジ（2件以上の場合のみ） */}
-            {pb.hasReports && pb.cells.length > 1 && (
-              <text
-                x={pb.svgX + BLOCK_SIZE - 2}
-                y={pb.svgY + 7}
-                textAnchor="end"
-                fill="#ffffff"
-                fillOpacity={0.85}
-                fontSize={5.5}
-              >
-                {pb.cells.length}
-              </text>
-            )}
-          </g>
+        {/* 列ヘッダー (1〜8) */}
+        {FIXED_NUMS.map((num, ci) => (
+          <text
+            key={num}
+            x={GRID_START_X + ci * GRID_STEP_X + BLOCK_W / 2}
+            y={bandTop + COL_HEADER_H - 1}
+            textAnchor="middle"
+            fill="#9CA3AF"
+            fontSize={5}
+            fontWeight="600"
+          >
+            {num}
+          </text>
         ))}
+
+        {/* 行ヘッダー (A〜H) */}
+        {FIXED_PREFIXES.map((prefix, ri) => (
+          <text
+            key={prefix}
+            x={GRID_START_X - 3}
+            y={bandTop + COL_HEADER_H + ri * GRID_STEP_Y + BLOCK_H / 2 + 2}
+            textAnchor="end"
+            fill="#9CA3AF"
+            fontSize={5}
+            fontWeight="600"
+          >
+            {prefix}
+          </text>
+        ))}
+
+        {/* A〜H × 1〜8 固定ブロックグリッド（座席セル表示） */}
+        {positioned.map((pb) => {
+          const bRows  = Math.max(DEFAULT_BLOCK_ROWS,  pb.maxRow);
+          const bSeats = Math.max(DEFAULT_BLOCK_SEATS, pb.maxSeat);
+          const cellW  = BLOCK_W / bSeats;
+          const cellH  = BLOCK_H / bRows;
+
+          const hPath = Array.from({ length: bRows - 1 }, (_, i) => {
+            const ly = pb.svgY + (i + 1) * cellH;
+            return `M${pb.svgX},${ly}H${pb.svgX + BLOCK_W}`;
+          }).join("");
+          const vPath = Array.from({ length: bSeats - 1 }, (_, i) => {
+            const lx = pb.svgX + (i + 1) * cellW;
+            return `M${lx},${pb.svgY}V${pb.svgY + BLOCK_H}`;
+          }).join("");
+
+          return (
+            <g key={pb.blockName}>
+              {/* 背景 */}
+              <rect x={pb.svgX} y={pb.svgY} width={BLOCK_W} height={BLOCK_H} fill={UNREPORTED_FILL} />
+              {/* グリッド線 */}
+              {hPath && (
+                <path d={hPath} stroke={GRID_STROKE} strokeWidth={GRID_STROKE_W} fill="none" />
+              )}
+              {vPath && (
+                <path d={vPath} stroke={GRID_STROKE} strokeWidth={GRID_STROKE_W} fill="none" />
+              )}
+              {/* 報告済み座席セル */}
+              {pb.cells.map((c) => (
+                <rect
+                  key={`${c.row}:${c.seat}`}
+                  x={pb.svgX + (c.seat - 1) * cellW}
+                  y={pb.svgY + (c.row - 1) * cellH}
+                  width={cellW}
+                  height={cellH}
+                  fill={isCompact ? REPORTED_FILL : cellFillColor(c, colorMode)}
+                />
+              ))}
+            </g>
+          );
+        })}
 
         {/* その他（グリッド外）ブロック */}
         {overflowBlocks.length > 0 && (
@@ -226,23 +262,44 @@ export function ArenaReportMap({
               その他ブロック
             </text>
             {overflowBlocks.map((ob, i) => {
-              const ox = GRID_START_X + i * (BLOCK_SIZE + BLOCK_GAP);
+              const ox = GRID_START_X + i * (BLOCK_W + BLOCK_GAP_X);
+              const bRows  = Math.max(DEFAULT_BLOCK_ROWS,  ob.maxRow);
+              const bSeats = Math.max(DEFAULT_BLOCK_SEATS, ob.maxSeat);
+              const cellW  = BLOCK_W / bSeats;
+              const cellH  = BLOCK_H / bRows;
+              const hPath = Array.from({ length: bRows - 1 }, (_, i2) => {
+                const ly = overflowY + (i2 + 1) * cellH;
+                return `M${ox},${ly}H${ox + BLOCK_W}`;
+              }).join("");
+              const vPath = Array.from({ length: bSeats - 1 }, (_, i2) => {
+                const lx = ox + (i2 + 1) * cellW;
+                return `M${lx},${overflowY}V${overflowY + BLOCK_H}`;
+              }).join("");
               return (
                 <g key={ob.blockName}>
-                  <rect
-                    x={ox}
-                    y={overflowY}
-                    width={BLOCK_SIZE}
-                    height={BLOCK_SIZE}
-                    rx={2}
-                    fill={blockFill(ob, colorMode, isCompact)}
-                  />
+                  <rect x={ox} y={overflowY} width={BLOCK_W} height={BLOCK_H} fill={UNREPORTED_FILL} />
+                  {hPath && (
+                    <path d={hPath} stroke={GRID_STROKE} strokeWidth={GRID_STROKE_W} fill="none" />
+                  )}
+                  {vPath && (
+                    <path d={vPath} stroke={GRID_STROKE} strokeWidth={GRID_STROKE_W} fill="none" />
+                  )}
+                  {ob.cells.map((c) => (
+                    <rect
+                      key={`${c.row}:${c.seat}`}
+                      x={ox + (c.seat - 1) * cellW}
+                      y={overflowY + (c.row - 1) * cellH}
+                      width={cellW}
+                      height={cellH}
+                      fill={isCompact ? REPORTED_FILL : cellFillColor(c, colorMode)}
+                    />
+                  ))}
                   <text
-                    x={ox + BLOCK_SIZE / 2}
-                    y={overflowY + BLOCK_SIZE / 2 + 3}
+                    x={ox + BLOCK_W / 2}
+                    y={overflowY + BLOCK_H + 6}
                     textAnchor="middle"
-                    fill="#ffffff"
-                    fontSize={6}
+                    fill="#9CA3AF"
+                    fontSize={5}
                     fontWeight="bold"
                   >
                     {ob.blockName}
