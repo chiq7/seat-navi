@@ -8,7 +8,7 @@ export const FIXED_NUMS     = [1, 2, 3, 4, 5, 6, 7, 8] as const;
 
 // ─── SVGレイアウト定数 ──────────────────────────────────────────────────────
 
-export const SVG_W   = 462;
+export const SVG_W   = 526;
 export const MX      = 10;
 export const AVAIL_W = SVG_W - 2 * MX;
 
@@ -17,9 +17,9 @@ export const SEAT_CELL           = 2;
 export const DEFAULT_BLOCK_SEATS = 24;
 export const DEFAULT_BLOCK_ROWS  = 10;
 
-// ブロックの表示サイズ（px）
-export const BLOCK_W = 52;
-export const BLOCK_H = 24;
+// ブロックの表示サイズ（px）— cellW=2.5px, cellH=3px
+export const BLOCK_W = 60;
+export const BLOCK_H = 30;
 
 // グリッドヘッダー
 export const COL_HEADER_H = 8;

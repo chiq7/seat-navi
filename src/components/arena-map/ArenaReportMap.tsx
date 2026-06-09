@@ -150,12 +150,12 @@ export function ArenaReportMap({
         </>
       )}
 
-      {/* SVGマップ */}
+      {/* SVGマップ — overflow-x-auto でスマホ横スクロール対応 */}
+      <div className="overflow-x-auto">
       <svg
         viewBox={`0 0 ${SVG_W} ${svgH}`}
-        width="100%"
+        style={{ width: `${SVG_W}px`, display: "block", overflow: "visible" }}
         aria-label="座席報告マップ（参考・模式図）"
-        style={{ overflow: "visible" }}
       >
         {/* コンパクト見出し */}
         {isCompact && (compactVenueName || compactDateLabel) && (
@@ -328,6 +328,7 @@ export function ArenaReportMap({
           </text>
         )}
       </svg>
+      </div>
 
       {/* 共有・投稿ボタン（fullのみ） */}
       {!isCompact && (
