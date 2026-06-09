@@ -4,88 +4,18 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
 import type { CrawledEvent } from "@/lib/types";
+import {
+  BLOCK_PREFIXES,
+  LOTTERY_OPTIONS,
+  COMPACT_INPUT_CLS,
+  PROGRESSIVE_GROUP_CLS,
+} from "./SeatReportForm/constants";
+import { Label, Card, CompactButton, CompactGroup, formatEventDate } from "./SeatReportForm/parts";
 
 type TicketResult = "won" | "lost";
 
-const BLOCK_PREFIXES = ["A", "B", "C", "D", "E", "SS", "SA", "SB", "SC", "SD", "SE"];
-
-const LOTTERY_OPTIONS = [
-  { value: "fc1", label: "1次抽選", resultLabel: "1次抽選" },
-  { value: "fc2", label: "2次抽選", resultLabel: "2次抽選" },
-  { value: "other", label: "その他", resultLabel: "その他" },
-] as const;
-
-const SELECTED_STYLE = {
-  backgroundColor: "#5B2BE0",
-  borderColor: "#5B2BE0",
-  color: "#fff",
-};
-
-const DEFAULT_STYLE = {
-  borderColor: "#e5e7eb",
-  backgroundColor: "#fff",
-  color: "#4b5563",
-};
-
-const COMPACT_INPUT_CLS =
-  "min-w-0 rounded-lg border border-gray-200 bg-white px-2 py-2 text-[11px] outline-none accent-focus";
-const COMPACT_BUTTON_CLS =
-  "rounded-lg border px-1 py-1.5 text-[10px] font-bold leading-tight transition-all";
-const PROGRESSIVE_GROUP_CLS = "border-t border-cyan-200/70 pt-3";
-
 function randomId() {
   return crypto.randomUUID().replace(/-/g, "").slice(0, 20);
-}
-
-function Label({ children, required }: { children: React.ReactNode; required?: boolean }) {
-  return (
-    <label className="mb-1.5 block text-xs font-bold text-gray-700">
-      {children}
-      {required && <span className="ml-1 text-red-500">*</span>}
-    </label>
-  );
-}
-
-function Card({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  return <div className={`rounded-2xl bg-white p-3 shadow-sm ${className}`}>{children}</div>;
-}
-
-function formatEventDate(dateStr: string | null | undefined) {
-  if (!dateStr) return null;
-  const [year, month, day] = dateStr.split("-").map(Number);
-  if (!year || !month || !day) return dateStr;
-  const weekday = ["日", "月", "火", "水", "木", "金", "土"][new Date(year, month - 1, day).getDay()];
-  return `${year}年${month}月${day}日(${weekday})`;
-}
-
-function CompactButton({
-  children,
-  selected,
-  onClick,
-}: {
-  children: React.ReactNode;
-  selected: boolean;
-  onClick: () => void;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={COMPACT_BUTTON_CLS}
-      style={selected ? SELECTED_STYLE : DEFAULT_STYLE}
-    >
-      {children}
-    </button>
-  );
-}
-
-function CompactGroup({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <div className="flex min-w-0 items-center gap-1 rounded-xl border border-gray-200 bg-gray-50 p-1">
-      <span className="shrink-0 text-[10px] font-bold leading-none text-gray-500">{label}</span>
-      <div className="grid min-w-0 flex-1 grid-flow-col auto-cols-fr gap-1">{children}</div>
-    </div>
-  );
 }
 
 type SeatReportFormProps = {
