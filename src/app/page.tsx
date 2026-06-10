@@ -14,14 +14,9 @@ const TEXT = {
   maleIdol: "\u7537\u6027\u30a2\u30a4\u30c9\u30eb",
   pending: "\u6e96\u5099\u4e2d",
   latestEvent: "\u6700\u65b0\u516c\u6f14",
-  seatPrediction: "\u5ea7\u5e2d\u4e88\u60f3",
+  seatPrediction: "\u5ea7\u5e2d\u5831\u544a",
   accepting: "\u53d7\u4ed8\u4e2d",
   winRate: "\u5f53\u9078\u7387",
-  aggregating: "\u96c6\u8a08\u4e2d",
-  afterReport: "\u73fe\u5730\u30ec\u30dd",
-  normal: "\u901a\u5e38",
-  setlist: "\u30bb\u30c8\u30ea",
-  exists: "\u3042\u308a",
   koenNow: "\u516c\u6f14\u306a\u3046",
   searchPlaceholder: "\u30a2\u30fc\u30c6\u30a3\u30b9\u30c8\u3001\u30a4\u30d9\u30f3\u30c8\u540d\u3067\u691c\u7d22",
   clear: "\u30af\u30ea\u30a2",
@@ -55,7 +50,6 @@ type TopEventCard = {
   date: string;
   dateLabel: string;
   href: string;
-  hasAfterReportNew: boolean;
 };
 
 function formatDate(dateStr: string | null) {
@@ -105,15 +99,7 @@ function EventCard({ card }: { card: TopEventCard }) {
       <div className="mt-auto grid grid-cols-2 gap-2 border-t border-slate-200 px-3.5 pb-3.5 pt-3.5 sm:px-4 sm:pb-4">
         {[
           { label: TEXT.seatPrediction, value: TEXT.accepting, className: "border-teal-200 bg-teal-50 text-teal-700" },
-          { label: TEXT.winRate, value: TEXT.aggregating, className: "border-cyan-100 bg-cyan-50 text-cyan-700" },
-          {
-            label: TEXT.afterReport,
-            value: card.hasAfterReportNew ? "NEW" : TEXT.normal,
-            className: card.hasAfterReportNew
-              ? "border-rose-200 bg-rose-50 text-rose-600"
-              : "border-slate-200 bg-slate-50 text-slate-700",
-          },
-          { label: TEXT.setlist, value: TEXT.exists, className: "border-slate-200 bg-slate-50 text-slate-700" },
+          { label: TEXT.winRate, value: TEXT.accepting, className: "border-cyan-100 bg-cyan-50 text-cyan-700" },
         ].map((chip) => (
           <div key={chip.label} className={`rounded-xl border px-2.5 py-2 ${chip.className}`}>
             <p className="text-[9px] font-bold leading-none text-slate-400 sm:text-[10px]">{chip.label}</p>
@@ -169,7 +155,6 @@ export default function Home() {
         date: event.date,
         dateLabel: formatDate(event.date),
         href: `/artists/${artist.slug}`,
-        hasAfterReportNew: true,
       };
     }).sort((a, b) => a.date.localeCompare(b.date));
   }, [events]);
