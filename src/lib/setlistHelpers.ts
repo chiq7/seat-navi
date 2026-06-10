@@ -2,7 +2,8 @@ export type EditableItem =
   | { id: string; type: "song"; title: string }
   | { id: string; type: "mc" }
   | { id: string; type: "encore" }
-  | { id: string; type: "separator"; label: string };
+  | { id: string; type: "separator"; label: string }
+  | { id: string; type: "tag"; label: string };
 
 export function fmtDateShort(d: string | null): string {
   if (!d) return "未定";

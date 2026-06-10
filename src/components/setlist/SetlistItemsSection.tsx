@@ -23,14 +23,9 @@ export function SetlistItemsSection({ setlistItems, songNumbers, onMove, onRemov
           </svg>
           <span className="text-xs font-bold" style={{ color: "#006876" }}>セトリ</span>
         </div>
-        <div className="flex items-center gap-1.5">
-          <span className="rounded-full bg-amber-50 px-2 py-0.5 text-[10px] font-semibold text-amber-600">
-            仮データ
-          </span>
-          <span className="rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-semibold text-gray-400">
-            {songCount}曲
-          </span>
-        </div>
+        <span className="rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-semibold text-gray-400">
+          {songCount}曲
+        </span>
       </div>
 
       {/* 曲リスト */}
@@ -81,6 +76,17 @@ export function SetlistItemsSection({ setlistItems, songNumbers, onMove, onRemov
               return (
                 <div key={item.id} className="flex items-center justify-between px-3 py-2">
                   <span className="rounded-full bg-slate-100 px-3 py-1 text-[11px] font-semibold text-slate-500">
+                    {item.label}
+                  </span>
+                  {controls}
+                </div>
+              );
+            }
+
+            if (item.type === "tag") {
+              return (
+                <div key={item.id} className="flex items-center justify-between px-3 py-2">
+                  <span className="rounded-full bg-purple-50 px-3 py-1 text-[11px] font-semibold text-purple-600">
                     {item.label}
                   </span>
                   {controls}

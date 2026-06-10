@@ -9,27 +9,12 @@ import { type EditableItem, computeSongNumbers } from "@/lib/setlistHelpers";
 import { SetlistBottomNav } from "@/components/setlist/SetlistBottomNav";
 import { EventDateTabs } from "@/components/setlist/EventDateTabs";
 import { SetlistItemsSection } from "@/components/setlist/SetlistItemsSection";
+
 // ─── Constants ────────────────────────────────────────────────────────────────
 
 const SUGGESTION_SONGS = ["HOT", "Super", "Rock with you", "VERY NICE", "CLAP", "God of Music"];
 
-const INITIAL_SETLIST: EditableItem[] = [
-  { id: "i01", type: "song",   title: "HOT" },
-  { id: "i02", type: "song",   title: "Rock with you" },
-  { id: "i03", type: "song",   title: "MAESTRO" },
-  { id: "i04", type: "mc" },
-  { id: "i05", type: "song",   title: "VERY NICE" },
-  { id: "i06", type: "song",   title: "Left & Right" },
-  { id: "i07", type: "song",   title: "READY TO LOVE" },
-  { id: "i08", type: "song",   title: "HOME;RUN" },
-  { id: "i09", type: "mc" },
-  { id: "i10", type: "song",   title: "Adore U" },
-  { id: "i11", type: "song",   title: "Snap Shoot" },
-  { id: "i12", type: "song",   title: "Oh My!" },
-  { id: "i13", type: "encore" },
-  { id: "i14", type: "song",   title: "만세 (MANSAE)" },
-  { id: "i15", type: "song",   title: "아낀다 (Ajouter)" },
-];
+const TAG_LABELS = ["VCR", "ダンスチャレンジ", "ラストMC"] as const;
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -46,9 +31,13 @@ export default function SetlistPage({ params }: { params: Promise<{ slug: string
   const [events, setEvents]                     = useState<CrawledEvent[]>([]);
   const [selectedEventId, setSelectedEventId]   = useState<string | null>(null);
   const [toast, setToast]                       = useState<string | null>(null);
-  const [setlistItems, setSetlistItems]         = useState<EditableItem[]>(() => slug === "seventeen" ? INITIAL_SETLIST : []);
+  const [setlistItems, setSetlistItems]         = useState<EditableItem[]>([]);
   const [searchQuery, setSearchQuery]           = useState("");
   const [showSuggestions, setShowSuggestions]   = useState(false);
+  const [saveStatus, setSaveStatus]             = useState<"idle" | "saving" | "saved" | "error">("idle");
+  const [saveError, setSaveError]               = useState<string | null>(null);
+
+  // ─── イベント一覧取得 ────────────────────────────────────────────────────────
 
   useEffect(() => {
     if (!artist) return;
@@ -70,6 +59,28 @@ export default function SetlistPage({ params }: { params: Promise<{ slug: string
         if (def) setSelectedEventId(def.id);
       });
   }, [artist]);
+
+  // ─── セトリ読み込み（イベント切替時） ─────────────────────────────────────────
+
+  useEffect(() => {
+    if (!selectedEventId) return;
+    supabase
+      .from("setlists")
+      .select("items")
+      .eq("event_id", selectedEventId)
+      .maybeSingle()
+      .then(({ data }) => {
+        setSaveStatus("idle");
+        setSaveError(null);
+        if (data?.items && Array.isArray(data.items)) {
+          setSetlistItems(data.items as EditableItem[]);
+        } else {
+          setSetlistItems([]);
+        }
+      });
+  }, [selectedEventId]);
+
+  // ─── 派生値 ──────────────────────────────────────────────────────────────────
 
   const today = new Date().toISOString().split("T")[0];
 
@@ -103,6 +114,8 @@ export default function SetlistPage({ params }: { params: Promise<{ slug: string
     );
   }, [searchQuery, slug]);
 
+  // ─── アクション ──────────────────────────────────────────────────────────────
+
   function showToast(msg: string) {
     setToast(msg);
     setTimeout(() => setToast(null), 3000);
@@ -129,6 +142,10 @@ export default function SetlistPage({ params }: { params: Promise<{ slug: string
     setSetlistItems(prev => [...prev, { id: newId(), type: "separator" as const, label }]);
   }
 
+  function addTag(label: string) {
+    setSetlistItems(prev => [...prev, { id: newId(), type: "tag" as const, label }]);
+  }
+
   function moveItem(index: number, dir: "up" | "down") {
     setSetlistItems(prev => {
       const next = [...prev];
@@ -142,6 +159,28 @@ export default function SetlistPage({ params }: { params: Promise<{ slug: string
   function removeItem(id: string) {
     setSetlistItems(prev => prev.filter(item => item.id !== id));
   }
+
+  async function saveSetlist() {
+    if (!selectedEventId) return;
+    setSaveStatus("saving");
+    setSaveError(null);
+    const { error } = await supabase
+      .from("setlists")
+      .upsert(
+        { event_id: selectedEventId, items: setlistItems, updated_at: new Date().toISOString() },
+        { onConflict: "event_id" },
+      );
+    if (error) {
+      console.error("setlist save error:", error);
+      setSaveStatus("error");
+      setSaveError("保存に失敗しました。時間をおいて再度お試しください。");
+    } else {
+      setSaveStatus("saved");
+      setTimeout(() => setSaveStatus("idle"), 3000);
+    }
+  }
+
+  // ─── 未対応アーティスト ───────────────────────────────────────────────────────
 
   if (!artist) {
     return (
@@ -159,6 +198,8 @@ export default function SetlistPage({ params }: { params: Promise<{ slug: string
   }
 
   const afterHref = nextEvent ? `/events/${nextEvent.id}/after-report` : "#";
+
+  // ─── JSX ─────────────────────────────────────────────────────────────────────
 
   return (
     <div className="min-h-screen" style={{ background: "#e8edf0" }}>
@@ -219,86 +260,117 @@ export default function SetlistPage({ params }: { params: Promise<{ slug: string
           <section className="mt-4 px-4 pb-4">
             <div className="space-y-3">
 
-                {/* セトリ追加フォーム */}
-                <div className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
-                  <p className="mb-3 text-sm font-bold text-gray-800">セトリを追加</p>
+              {/* セトリ追加フォーム */}
+              <div className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
+                <p className="mb-3 text-sm font-bold text-gray-800">セトリを追加</p>
 
-                  {/* 曲名検索 + サジェスト */}
-                  <div className="relative mb-3">
-                    <input
-                      type="text"
-                      value={searchQuery}
-                      onChange={e => setSearchQuery(e.target.value)}
-                      onFocus={() => setShowSuggestions(true)}
-                      onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
-                      onKeyDown={e => { if (e.key === "Enter") addSong(); }}
-                      placeholder="曲名を入力"
-                      className="w-full rounded-xl border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm outline-none transition-colors focus:border-teal-600"
-                    />
-                    {showSuggestions && filteredSuggestions.length > 0 && (
-                      <div className="absolute left-0 right-0 top-full z-20 mt-1 overflow-hidden rounded-xl border border-gray-100 bg-white shadow-lg">
-                        {filteredSuggestions.map(s => (
-                          <button
-                            key={s}
-                            type="button"
-                            onPointerDown={e => { e.preventDefault(); addSong(s); }}
-                            className="flex w-full items-center gap-2.5 px-3 py-2.5 text-left transition-colors active:bg-gray-100 hover:bg-gray-50"
-                          >
-                            <svg className="h-3.5 w-3.5 shrink-0 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                                d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
-                            </svg>
-                            <span className="text-sm text-gray-700">{s}</span>
-                          </button>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-
-                  {/* 区切り追加 */}
-                  <div className="mb-3 flex flex-wrap gap-2">
-                    <button
-                      type="button"
-                      onClick={addMC}
-                      className="rounded-full border border-gray-200 px-3 py-1.5 text-xs font-semibold text-gray-500 transition-transform active:scale-95"
-                    >
-                      + MC
-                    </button>
-                    <button
-                      type="button"
-                      onClick={addEncore}
-                      className="rounded-full border px-3 py-1.5 text-xs font-semibold transition-transform active:scale-95"
-                      style={{ borderColor: "rgba(0,104,118,0.3)", color: "#006876" }}
-                    >
-                      + アンコール
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => addSeparator("トーク")}
-                      className="rounded-full border border-gray-200 px-3 py-1.5 text-xs font-semibold text-gray-500 transition-transform active:scale-95"
-                    >
-                      + トーク
-                    </button>
-                  </div>
-
-                  {/* 追加ボタン */}
-                  <button
-                    type="button"
-                    onClick={() => addSong()}
-                    disabled={!searchQuery.trim()}
-                    className="w-full rounded-xl py-2.5 text-sm font-bold text-white transition-all disabled:opacity-40 active:opacity-80"
-                    style={{ background: "linear-gradient(90deg, #0B7A88, #5B2BE0)" }}
-                  >
-                    ＋ セトリに追加
-                  </button>
+                {/* 曲名検索 + サジェスト */}
+                <div className="relative mb-3">
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={e => setSearchQuery(e.target.value)}
+                    onFocus={() => setShowSuggestions(true)}
+                    onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
+                    onKeyDown={e => { if (e.key === "Enter") addSong(); }}
+                    placeholder="曲名を入力"
+                    className="w-full rounded-xl border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm outline-none transition-colors focus:border-teal-600"
+                  />
+                  {showSuggestions && filteredSuggestions.length > 0 && (
+                    <div className="absolute left-0 right-0 top-full z-20 mt-1 overflow-hidden rounded-xl border border-gray-100 bg-white shadow-lg">
+                      {filteredSuggestions.map(s => (
+                        <button
+                          key={s}
+                          type="button"
+                          onPointerDown={e => { e.preventDefault(); addSong(s); }}
+                          className="flex w-full items-center gap-2.5 px-3 py-2.5 text-left transition-colors active:bg-gray-100 hover:bg-gray-50"
+                        >
+                          <svg className="h-3.5 w-3.5 shrink-0 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                              d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+                          </svg>
+                          <span className="text-sm text-gray-700">{s}</span>
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
-                <SetlistItemsSection
-                  setlistItems={setlistItems}
-                  songNumbers={songNumbers}
-                  onMove={moveItem}
-                  onRemove={removeItem}
-                />
+                {/* 区切り・タグ追加 */}
+                <div className="mb-3 flex flex-wrap gap-2">
+                  <button
+                    type="button"
+                    onClick={addMC}
+                    className="rounded-full border border-gray-200 px-3 py-1.5 text-xs font-semibold text-gray-500 transition-transform active:scale-95"
+                  >
+                    + MC
+                  </button>
+                  <button
+                    type="button"
+                    onClick={addEncore}
+                    className="rounded-full border px-3 py-1.5 text-xs font-semibold transition-transform active:scale-95"
+                    style={{ borderColor: "rgba(0,104,118,0.3)", color: "#006876" }}
+                  >
+                    + アンコール
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => addSeparator("トーク")}
+                    className="rounded-full border border-gray-200 px-3 py-1.5 text-xs font-semibold text-gray-500 transition-transform active:scale-95"
+                  >
+                    + トーク
+                  </button>
+                  {TAG_LABELS.map(label => (
+                    <button
+                      key={label}
+                      type="button"
+                      onClick={() => addTag(label)}
+                      className="rounded-full border border-purple-200 px-3 py-1.5 text-xs font-semibold text-purple-600 transition-transform active:scale-95"
+                    >
+                      + {label}
+                    </button>
+                  ))}
+                </div>
+
+                {/* 追加ボタン */}
+                <button
+                  type="button"
+                  onClick={() => addSong()}
+                  disabled={!searchQuery.trim()}
+                  className="w-full rounded-xl py-2.5 text-sm font-bold text-white transition-all disabled:opacity-40 active:opacity-80"
+                  style={{ background: "linear-gradient(90deg, #0B7A88, #5B2BE0)" }}
+                >
+                  ＋ セトリに追加
+                </button>
+              </div>
+
+              <SetlistItemsSection
+                setlistItems={setlistItems}
+                songNumbers={songNumbers}
+                onMove={moveItem}
+                onRemove={removeItem}
+              />
+
+              {/* 保存ボタン */}
+              {selectedEventId && (
+                <div>
+                  <button
+                    type="button"
+                    onClick={saveSetlist}
+                    disabled={saveStatus === "saving"}
+                    className="w-full rounded-xl py-2.5 text-sm font-bold text-white transition-all disabled:opacity-50 active:opacity-80"
+                    style={{ background: "linear-gradient(90deg, #006876, #0B7A88)" }}
+                  >
+                    {saveStatus === "saving" ? "保存中..." : "セトリを保存"}
+                  </button>
+                  {saveStatus === "saved" && (
+                    <p className="mt-2 text-center text-xs font-semibold text-teal-600">保存しました</p>
+                  )}
+                  {saveStatus === "error" && saveError && (
+                    <p className="mt-2 text-center text-xs font-semibold text-red-500">{saveError}</p>
+                  )}
+                </div>
+              )}
 
             </div>
           </section>
