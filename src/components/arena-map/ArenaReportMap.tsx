@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { ArenaReportMapProps, ColorMode } from "@/lib/arena-map/arenaMapTypes";
 import {
   COLOR_MODE_OPTIONS,
@@ -45,8 +45,15 @@ export function ArenaReportMap({
 }: ArenaReportMapProps) {
   const [colorMode, setColorMode] = useState<ColorMode>("lottery");
   const [shareStatus, setShareStatus] = useState("");
+  const scrollRef = useRef<HTMLDivElement>(null);
   void eventId;
   const isCompact = variant === "compact";
+
+  useEffect(() => {
+    if (isCompact || !scrollRef.current) return;
+    const el = scrollRef.current;
+    el.scrollLeft = (el.scrollWidth - el.clientWidth) / 2;
+  }, [isCompact]);
   const compactHeaderH = isCompact && (compactVenueName || compactDateLabel) ? 20 : 0;
   const stageTop = STAGE_TOP + compactHeaderH;
 
@@ -150,8 +157,8 @@ export function ArenaReportMap({
         </>
       )}
 
-      {/* SVGマップ — full: 横スクロール, compact: 中央固定・スクロールなし */}
-      <div className={isCompact ? "overflow-hidden" : "overflow-x-auto"}>
+      {/* SVGマップ — full: 横スクロール(初期位置中央), compact: 中央固定・スクロールなし */}
+      <div ref={isCompact ? undefined : scrollRef} className={isCompact ? "overflow-hidden" : "overflow-x-auto"}>
       <svg
         viewBox={`0 0 ${SVG_W} ${svgH}`}
         style={{
