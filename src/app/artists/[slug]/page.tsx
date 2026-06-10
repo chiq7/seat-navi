@@ -347,14 +347,13 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
 
           {/* 3. アリーナ報告マップ */}
           <section className="mt-5 px-4">
-            <h3 className="mb-1 flex items-center gap-2 text-base font-bold text-gray-900">
+            <h3 className="mb-3 flex items-center gap-2 text-base font-bold text-gray-900">
               <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: "#006876" }}>
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                   d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
               </svg>
               アリーナ報告マップ · 速報プレビュー
             </h3>
-            <p className="mb-3 text-[11px] text-gray-500">列・席番・抽選回・FC歴・枚数・支払い・アプグレごとの色分けは詳細ページで確認できます</p>
             <div className="overflow-hidden rounded-2xl bg-white">
               {/* 莨壼ｴ繧ｿ繝・*/}
               {venuesSorted.length > 1 && (
@@ -432,7 +431,7 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
                 return (
                   <Link href={`/events/${selectedCTAEvent.id}`} className="group block cursor-pointer">
                     {/* 速報プレビュー：上部のみ切り取り表示 */}
-                    <div className="relative h-[200px] overflow-hidden bg-white">
+                    <div className="relative h-[220px] overflow-hidden bg-white">
                       <ArenaReportMap
                         eventId={selectedCTAEvent.id}
                         reports={selectedSeatReports as SeatReport[]}
@@ -441,12 +440,14 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
                         compactDateLabel={selectedVenueDateLabel}
                       />
                       {/* 下部フェード */}
-                      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent" />
-                      {/* タップ誘導 */}
-                      <div className="pointer-events-none absolute inset-x-0 bottom-4 flex justify-center">
-                        <span className="rounded-full bg-black/40 px-3 py-1 text-[11px] font-bold text-white">
-                          タップで詳細マップへ
-                        </span>
+                      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-white to-transparent" />
+                      {/* ドット部分オーバーレイ */}
+                      <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-end pb-6">
+                        <div className="rounded-2xl bg-black/45 px-3 py-2 text-center">
+                          <p className="text-[11px] font-bold text-white">列・席番・色分けは詳細へ</p>
+                          <p className="mt-0.5 text-[9px] font-semibold text-white/90">抽選回・FC歴・枚数・支払い・アプグレ</p>
+                          <p className="mt-1.5 text-[10px] font-bold text-white/80">タップで詳細マップへ ›</p>
+                        </div>
                       </div>
                     </div>
                     <div className="px-1 pt-2 pb-1">
