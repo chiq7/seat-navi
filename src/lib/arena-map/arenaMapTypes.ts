@@ -45,4 +45,7 @@ export type ArenaReportMapProps = {
   compactVenueName?: string | null;
   compactDateLabel?: string | null;
   submitPredictionHref?: string;
+  colorModeExternal?: ColorMode;
+  hideShareSection?: boolean;
+  mapFullBleed?: boolean;
 };

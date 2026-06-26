@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const BASE = "https://koen-now.com";
+const BASE = "https://tixrepo.com";
 
 const PUBLISHED_ARTIST_SLUGS = [
   "nogizaka46",

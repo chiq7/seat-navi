@@ -10,11 +10,10 @@ import { SeatReportForm } from "@/components/SeatReportForm";
 import { HeroCard } from "@/components/artist/HeroCard";
 import { SetlistSection } from "@/components/artist/SetlistSection";
 import { PastToursSection } from "@/components/artist/PastToursSection";
-import { AfterReportsSection } from "@/components/artist/AfterReportsSection";
 import { TicketStatsSection } from "@/components/artist/TicketStatsSection";
 import { ArtistPageHeader } from "@/components/artist/ArtistPageHeader";
 import { ArtistMainMenuSection } from "@/components/artist/ArtistMainMenuSection";
-import { ArtistBottomNav } from "@/components/artist/ArtistBottomNav";
+import { BottomNav } from "@/components/common/BottomNav";
 import type { AnalyticsReport, TicketResultAnalytics, AfterReportCard } from "@/lib/artistPageTypes";
 import { fmtDate } from "@/lib/artistPageHelpers";
 import { computeSeatStats, computeTicketResultStats, computeArenaDetailStats, computeTourInfo, computePastTours } from "@/lib/artistPageStats";
@@ -481,12 +480,6 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
             heroUpgradeRate={heroUpgradeRate}
             arenaDetailStats={arenaDetailStats}
           />
-          {/* 5. 最新の現地レポ */}
-          <AfterReportsSection
-            reports={latestAfterReports}
-            eventMap={eventMap}
-            afterHref={afterHref}
-          />
 
           {/* 6. 繧ｻ繝医Μ繝ｻ譖ｲ鬆・*/}
           <SetlistSection slug={slug} />
@@ -496,7 +489,7 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
 
         </main>
 
-        <ArtistBottomNav slug={slug} selectedEventId={selectedCTAEvent?.id} afterHref={afterHref} />
+        <BottomNav active="artist" artistSlug={slug} eventId={selectedCTAEvent?.id} />
 
       </div>
     </div>

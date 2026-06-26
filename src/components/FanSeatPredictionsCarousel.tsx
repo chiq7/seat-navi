@@ -5,8 +5,8 @@ import { supabase } from "@/lib/supabase/client";
 import type { FanSeatPrediction } from "@/lib/types";
 
 const VOTER_KEY_STORAGE = "seat-navi-voter-key";
-const BRAND_NAME = "公演なう";
-const BRAND_DOMAIN = "koen-now.com";
+const BRAND_NAME = "ちけレポ";
+const BRAND_DOMAIN = "tixrepo.com";
 
 type VoteRow = {
   prediction_id: string;

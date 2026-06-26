@@ -1,12 +1,10 @@
 import type { CrawledEvent } from "@/lib/types";
 import { fmtDateShort } from "@/lib/setlistHelpers";
-import { fmtDate } from "@/lib/artistPageHelpers";
 
 type Props = {
   sortedEvents: CrawledEvent[];
   selectedEventId: string | null;
   today: string;
-  selectedEvent: CrawledEvent | undefined;
   onSelect: (id: string) => void;
 };
 
@@ -14,7 +12,6 @@ export function EventDateTabs({
   sortedEvents,
   selectedEventId,
   today,
-  selectedEvent,
   onSelect,
 }: Props) {
   return (
@@ -37,7 +34,7 @@ export function EventDateTabs({
               className="shrink-0 rounded-xl border px-3 py-2 text-center transition-all active:scale-95"
               style={
                 isSelected
-                  ? { background: "#006876", borderColor: "#006876", color: "#fff" }
+                  ? { background: "#FF6B9D", borderColor: "#FF6B9D", color: "#fff" }
                   : {
                       background: "#fff",
                       borderColor: "#e5e7eb",
@@ -53,11 +50,6 @@ export function EventDateTabs({
           );
         })}
       </div>
-      {selectedEvent && (
-        <p className="mt-2 px-4 text-[11px] text-gray-400">
-          {fmtDate(selectedEvent.date)}　{selectedEvent.venue}
-        </p>
-      )}
     </section>
   );
 }

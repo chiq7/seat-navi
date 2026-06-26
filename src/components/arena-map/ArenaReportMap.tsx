@@ -13,7 +13,6 @@ import {
 import {
   SVG_W,
   STAGE_TOP,
-  STAGE_H,
   STAGE_GAP,
   BRAND_NAME,
   BRAND_DOMAIN,
@@ -33,6 +32,8 @@ import {
   buildFixedArenaGrid,
 } from "@/lib/arena-map/arenaMapLayout";
 
+const STAGE_H_DISPLAY = 40;
+
 // ─── コンポーネント ───────────────────────────────────────────────────────────
 
 export function ArenaReportMap({
@@ -42,12 +43,17 @@ export function ArenaReportMap({
   compactVenueName,
   compactDateLabel,
   submitPredictionHref,
+  colorModeExternal,
+  hideShareSection = false,
+  mapFullBleed = false,
 }: ArenaReportMapProps) {
   const [colorMode, setColorMode] = useState<ColorMode>("lottery");
   const [shareStatus, setShareStatus] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
   void eventId;
   const isCompact = variant === "compact";
+  const isControlled = colorModeExternal !== undefined;
+  const activeColorMode = colorModeExternal ?? colorMode;
 
   useEffect(() => {
     if (isCompact || !scrollRef.current) return;
@@ -61,7 +67,7 @@ export function ArenaReportMap({
 
   const layout = useMemo(() => {
     const { gridBlocks, overflowBlocks } = buildFixedArenaGrid(reports);
-    const bandTop = stageTop + STAGE_H + STAGE_GAP;
+    const bandTop = stageTop + STAGE_H_DISPLAY + STAGE_GAP;
 
     const positioned = gridBlocks.map((b) => ({
       ...b,
@@ -99,7 +105,7 @@ export function ArenaReportMap({
   }
 
   const { positioned, overflowBlocks, svgH, overflowY, bandTop } = layout;
-  const activeLegend = COLOR_MODE_LEGENDS[colorMode];
+  const activeLegend = COLOR_MODE_LEGENDS[activeColorMode];
 
   // ─── JSX ────────────────────────────────────────────────────────────────────
 
@@ -108,23 +114,16 @@ export function ArenaReportMap({
       className={
         isCompact
           ? "overflow-visible bg-white"
-          : "mb-4 overflow-hidden rounded-2xl border border-gray-100 bg-white p-4 shadow-sm"
+          : mapFullBleed
+            ? "overflow-hidden pb-4 pt-1.5"
+            : "mb-4 overflow-hidden rounded-2xl border border-gray-100 bg-white p-4 shadow-sm"
       }
     >
       {!isCompact && (
         <>
-          <div className="mb-2 text-center">
-            <p className="text-xs font-bold text-gray-700">
-              座席報告マップ
-              <span className="ml-2 text-[11px] font-bold text-gray-600">
-                {BRAND_NAME}｜{BRAND_DOMAIN}
-              </span>
-            </p>
-          </div>
-
-          {/* 色分け切替 */}
-          <div className="mb-1 rounded-lg border border-gray-200 bg-gray-50 px-1.5 py-1">
-            <div className="flex flex-wrap items-center justify-center gap-1">
+          {/* 色分け切替（外部制御時は非表示） */}
+          {!isControlled && (
+            <div className={`mb-1 flex flex-wrap items-center justify-center gap-1${mapFullBleed ? " mx-4" : ""}`}>
               {COLOR_MODE_OPTIONS.map((option) => (
                 <button
                   key={option.value}
@@ -132,7 +131,7 @@ export function ArenaReportMap({
                   disabled={option.disabled}
                   onClick={() => setColorMode(option.value)}
                   className={`rounded-full border px-2 py-0.5 text-[9px] font-bold shadow-sm transition-all active:scale-95 ${
-                    colorMode === option.value
+                    activeColorMode === option.value
                       ? "border-gray-900 bg-gray-900 text-white"
                       : "border-gray-200 bg-white text-gray-600"
                   } disabled:cursor-not-allowed disabled:opacity-45`}
@@ -141,15 +140,17 @@ export function ArenaReportMap({
                 </button>
               ))}
             </div>
-            {/* 凡例 */}
-            <div className="mt-1 flex flex-wrap items-center justify-center gap-x-2 gap-y-0.5">
+          )}
+          {/* 凡例 */}
+          <div className={`mb-1 overflow-hidden rounded-lg border border-gray-200 bg-gray-50${mapFullBleed ? " mx-4" : ""}`}>
+            <div className="flex divide-x divide-gray-200">
               {activeLegend.map((item) => (
-                <div key={item.label} className="flex items-center gap-0.5">
+                <div key={item.label} className="flex flex-1 items-center justify-center gap-1 py-1">
                   <span
-                    className="inline-block h-2 w-2 shrink-0 rounded-[2px] shadow-sm ring-1 ring-black/5"
+                    className="inline-block h-2 w-2 shrink-0 rounded-full ring-1 ring-black/5"
                     style={{ backgroundColor: item.color }}
                   />
-                  <span className="text-[8px] font-semibold text-gray-600">{item.label}</span>
+                  <span className="text-[9px] font-semibold text-gray-600">{item.label}</span>
                 </div>
               ))}
             </div>
@@ -183,17 +184,14 @@ export function ArenaReportMap({
         )}
 
         {/* メインステージ */}
-        <rect x={SVG_W / 2 - 90} y={stageTop} width={180} height={STAGE_H} rx={5} fill="#1F2937" />
-        <text
-          x={SVG_W / 2}
-          y={stageTop + STAGE_H / 2 + 2}
-          textAnchor="middle"
-          fill="white"
-          fontSize={8}
-          fontWeight="bold"
-        >
-          メインステージ
-        </text>
+        <image
+          href="/images/arena-prediction/main-stag7.png"
+          x={84}
+          y={4}
+          width={370}
+          height={40}
+          preserveAspectRatio="xMidYMid meet"
+        />
 
         {/* 列ヘッダー (1〜8) */}
         {FIXED_NUMS.map((num, ci) => (
@@ -202,28 +200,35 @@ export function ArenaReportMap({
             x={GRID_START_X + ci * GRID_STEP_X + BLOCK_W / 2}
             y={bandTop + COL_HEADER_H - 1}
             textAnchor="middle"
-            fill="#9CA3AF"
-            fontSize={5}
+            fill="#6B7280"
+            fontSize={7}
             fontWeight="600"
           >
             {num}
           </text>
         ))}
 
-        {/* 行ヘッダー (A〜H) */}
-        {FIXED_PREFIXES.map((prefix, ri) => (
-          <text
-            key={prefix}
-            x={GRID_START_X - 3}
-            y={bandTop + COL_HEADER_H + ri * GRID_STEP_Y + BLOCK_H / 2 + 2}
-            textAnchor="end"
-            fill="#9CA3AF"
-            fontSize={5}
-            fontWeight="600"
-          >
-            {prefix}
-          </text>
-        ))}
+        {/* 行ヘッダー (A〜H) 左右 */}
+        {FIXED_PREFIXES.map((prefix, ri) => {
+          const cy = bandTop + COL_HEADER_H + ri * GRID_STEP_Y + BLOCK_H / 2;
+          const textY = cy + 2.5;
+          const lx = GRID_START_X - 9;
+          const rx = GRID_START_X + (FIXED_NUMS.length - 1) * GRID_STEP_X + BLOCK_W + 9;
+          return (
+            <g key={prefix}>
+              {/* 左 */}
+              <circle cx={lx} cy={cy} r={5} fill="rgba(232,95,145,0.12)" />
+              <text x={lx} y={textY} textAnchor="middle" fill="#E85F91" fontSize={6} fontWeight="700">
+                {prefix}
+              </text>
+              {/* 右 */}
+              <circle cx={Math.min(rx, SVG_W - 6)} cy={cy} r={5} fill="rgba(232,95,145,0.12)" />
+              <text x={Math.min(rx, SVG_W - 6)} y={textY} textAnchor="middle" fill="#E85F91" fontSize={6} fontWeight="700">
+                {prefix}
+              </text>
+            </g>
+          );
+        })}
 
         {/* A〜H × 1〜8 固定ブロックグリッド（座席セル表示） */}
         {positioned.map((pb) => {
@@ -260,7 +265,7 @@ export function ArenaReportMap({
                   y={pb.svgY + (c.row - 1) * cellH}
                   width={cellW}
                   height={cellH}
-                  fill={isCompact ? REPORTED_FILL : cellFillColor(c, colorMode)}
+                  fill={isCompact ? REPORTED_FILL : cellFillColor(c, activeColorMode)}
                 />
               ))}
             </g>
@@ -303,7 +308,7 @@ export function ArenaReportMap({
                       y={overflowY + (c.row - 1) * cellH}
                       width={cellW}
                       height={cellH}
-                      fill={isCompact ? REPORTED_FILL : cellFillColor(c, colorMode)}
+                      fill={isCompact ? REPORTED_FILL : cellFillColor(c, activeColorMode)}
                     />
                   ))}
                   <text
@@ -342,9 +347,9 @@ export function ArenaReportMap({
       </svg>
       </div>
 
-      {/* 共有・投稿ボタン（fullのみ） */}
-      {!isCompact && (
-        <div className="mt-3 rounded-xl border border-purple-100 bg-purple-50/60 p-3">
+      {/* 共有・投稿ボタン（fullのみ・hideShareSection時は非表示） */}
+      {!isCompact && !hideShareSection && (
+        <div className={`mt-3 rounded-xl border border-purple-100 bg-purple-50/60 p-3${mapFullBleed ? " mx-4" : ""}`}>
           <p className="text-[11px] font-bold text-gray-800">
             このマップをスクショして、スマホの編集機能で花道・センステ予想を書き込んで投稿しよう
           </p>

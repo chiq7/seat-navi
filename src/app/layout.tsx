@@ -5,12 +5,12 @@ import "./globals.css";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
-const SITE_TITLE = "公演なう｜当落・座席・現地レポ共有";
+const SITE_TITLE = "ちけレポ｜当落・座席・現地レポ共有";
 const SITE_DESCRIPTION =
-  "ライブ・公演の当落結果、座席報告、現地レポをみんなで共有。座席傾向や会場情報を公演ごとに見える化します。";
+  "ちけレポ｜ライブ・公演の当落結果、座席報告、現地レポをみんなで共有。座席傾向や会場情報を公演ごとに見える化します。";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://koen-now.com"),
+  metadataBase: new URL("https://tixrepo.com"),
   title: SITE_TITLE,
   description: SITE_DESCRIPTION,
   openGraph: {
@@ -45,7 +45,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="min-h-screen bg-background text-foreground antialiased">
+      <body className="min-h-screen bg-[#F3F4F6] text-foreground antialiased">
         <div className="mx-auto max-w-md min-h-screen bg-white shadow-sm">
           {children}
         </div>

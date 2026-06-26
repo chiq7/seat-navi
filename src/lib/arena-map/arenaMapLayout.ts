@@ -49,8 +49,8 @@ export const LABEL_H   = 12;
 // グリッド線の描画幅
 export const GRID_STROKE_W = 0.3;
 
-export const BRAND_NAME   = "公演なう";
-export const BRAND_DOMAIN = "koen-now.com";
+export const BRAND_NAME   = "ちけレポ";
+export const BRAND_DOMAIN = "tixrepo.com";
 
 // ─── ブロック名パース ────────────────────────────────────────────────────────
 

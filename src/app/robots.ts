@@ -5,7 +5,8 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
+      disallow: "/report/live/detail",
     },
-    sitemap: "https://koen-now.com/sitemap.xml",
+    sitemap: "https://tixrepo.com/sitemap.xml",
   };
 }
