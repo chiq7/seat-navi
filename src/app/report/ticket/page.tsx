@@ -1,9 +1,57 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ChevronLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { supabase } from "@/lib/supabase/client";
+import { findArtistByKeyword } from "@/lib/artists";
+
+function randomId() {
+  return crypto.randomUUID().replace(/-/g, "").slice(0, 20);
+}
+
+function toLotteryTypeTicketResults(v: string): string | null {
+  if (v === "FC1次") return "1次抽選";
+  if (v === "FC2次") return "2次抽選";
+  if (v === "その他") return "その他";
+  return null;
+}
+
+function toLotteryTypeSeatReports(v: string): string {
+  if (v === "FC1次") return "fc1";
+  if (v === "FC2次") return "fc2";
+  return "general";
+}
+
+function toFcHistoryTicketResults(v: string): string | null {
+  if (v === "1年未満") return "1年未満";
+  if (v === "1〜3年") return "1〜3年";
+  if (v === "3年以上") return "3年以上";
+  return null;
+}
+
+function toFcHistorySeatReports(v: string): string | null {
+  if (v === "1年未満") return "under_1_year";
+  if (v === "1〜3年") return "one_to_three_years";
+  if (v === "3年以上") return "over_3_years";
+  return null;
+}
+
+function toSeatType(ticketTypeVal: string, seatAreaVal: string): string | null {
+  if (!ticketTypeVal) return null;
+  if (ticketTypeVal === "条件付き") return "restricted";
+  if (seatAreaVal === "アリーナ") return "arena";
+  if (seatAreaVal === "スタンド") return "stand";
+  return "unknown";
+}
+
+function toUpgradeResult(upgradeStatusVal: string, isWon: boolean): string {
+  if (!isWon) return "not_applied";
+  if (upgradeStatusVal === "当選") return "applied_won";
+  if (upgradeStatusVal === "落選") return "applied_lost";
+  return "not_applied";
+}
 
 type VenueType = "arena_dome_stadium" | "hall_theater" | "livehouse_other";
 
@@ -13,11 +61,21 @@ const SEAT_AREAS: Record<VenueType, string[]> = {
   livehouse_other: ["指定席", "スタンディング", "整理番号", "その他"],
 };
 
-const EVENTS: { id: string; date: string; venue: string; day: string; venueType: VenueType }[] = [
-  { id: "tokyo-0712", date: "7/12（土）", venue: "東京ドーム", day: "Day1", venueType: "arena_dome_stadium" },
-  { id: "tokyo-0713", date: "7/13（日）", venue: "東京ドーム", day: "Day2", venueType: "arena_dome_stadium" },
-  { id: "kyocera-0720", date: "7/20（土）", venue: "京セラドーム", day: "Day1", venueType: "arena_dome_stadium" },
-];
+type EventRow = { id: string; title: string; venue: string; date: string | null };
+
+function getVenueType(venue: string): VenueType {
+  if (/ドーム|アリーナ|スタジアム|Stadium|Arena|Dome/i.test(venue)) return "arena_dome_stadium";
+  if (/ホール|Hall|劇場|シアター|Theater|Theatre/i.test(venue)) return "hall_theater";
+  if (/ライブハウス|Zepp|zepp|ZEPP/.test(venue)) return "livehouse_other";
+  return "arena_dome_stadium";
+}
+
+function fmtEventDate(d: string | null): string {
+  if (!d) return "日程未定";
+  const parts = d.split("-").map(Number);
+  const dow = ["日", "月", "火", "水", "木", "金", "土"][new Date(parts[0], parts[1] - 1, parts[2]).getDay()];
+  return `${parts[1]}/${parts[2]}（${dow}）`;
+}
 
 const STAND_DIRECTIONS = ["1塁側", "3塁側", "外野", "その他", "北", "南", "西", "東"] as const;
 
@@ -150,9 +208,11 @@ function SeatInput({
 function SuccessScreen({
   onRepeat,
   onOther,
+  artistSlug,
 }: {
   onRepeat: () => void;
   onOther: () => void;
+  artistSlug: string | null;
 }) {
   return (
     <div className="relative flex min-h-screen flex-col">
@@ -213,6 +273,14 @@ function SuccessScreen({
             >
               別の公演を報告する
             </button>
+            {artistSlug && (
+              <Link
+                href={`/artists/${artistSlug}`}
+                className="flex h-[48px] w-full items-center justify-center rounded-full border border-gray-200 bg-white text-[14px] font-bold text-gray-700 transition-opacity active:opacity-80"
+              >
+                アーティストページを見る
+              </Link>
+            )}
           </div>
         </div>
       </div>
@@ -223,7 +291,9 @@ function SuccessScreen({
 export default function TicketReportPage() {
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
-  const [selectedEvent, setSelectedEvent] = useState("tokyo-0712");
+  const [events, setEvents] = useState<EventRow[]>([]);
+  const [eventsLoading, setEventsLoading] = useState(true);
+  const [selectedEvent, setSelectedEvent] = useState("");
   const [result, setResult] = useState("");
   const [lotteryType, setLotteryType] = useState("");
   const [ticketType, setTicketType] = useState("");
@@ -245,7 +315,27 @@ export default function TicketReportPage() {
   const [fcHistory, setFcHistory] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("");
   const [comment, setComment] = useState("");
-  const currentVenueType = EVENTS.find((e) => e.id === selectedEvent)?.venueType ?? "arena_dome_stadium";
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
+  const [submittedArtistSlug, setSubmittedArtistSlug] = useState<string | null>(null);
+  useEffect(() => {
+    const pastDate = new Date(Date.now() - 30 * 86400 * 1000).toISOString().split("T")[0];
+    supabase
+      .from("events")
+      .select("id, title, venue, date")
+      .gte("date", pastDate)
+      .order("date", { ascending: true })
+      .limit(50)
+      .then(({ data }) => {
+        const rows = (data ?? []) as EventRow[];
+        setEvents(rows);
+        if (rows.length > 0) setSelectedEvent(rows[0].id);
+        setEventsLoading(false);
+      });
+  }, []);
+
+  const selectedVenue = events.find((e) => e.id === selectedEvent)?.venue ?? "";
+  const currentVenueType = selectedVenue ? getVenueType(selectedVenue) : "arena_dome_stadium";
   const seatAreaOptions = SEAT_AREAS[currentVenueType];
 
   const step2CanProceed = (() => {
@@ -263,6 +353,54 @@ export default function TicketReportPage() {
     if (!step2CanProceed) return;
     setStep(3);
   };
+
+  async function handleSubmit() {
+    setError("");
+    setSubmitting(true);
+    try {
+      const isWon = result === "当選した";
+
+      const { error: ticketErr } = await supabase.from("event_ticket_results").insert({
+        event_id:               selectedEvent,
+        result:                 isWon ? "won" : "lost",
+        lost_application_count: isWon ? 0 : 1,
+        ticket_count:           isWon ? (parseInt(ticketCount, 10) || null) : null,
+        lottery_type:           toLotteryTypeTicketResults(lotteryType),
+        fc_history:             toFcHistoryTicketResults(fcHistory),
+        payment_method:         paymentMethod || null,
+        seat_type:              isWon ? toSeatType(ticketType, seatArea) : null,
+        upgrade_result:         toUpgradeResult(upgradeStatus, isWon),
+      });
+      if (ticketErr) throw new Error(ticketErr.message);
+
+      if (isWon && seatArea === "アリーナ") {
+        const rowNum = parseInt(row, 10);
+        const seatNum = parseInt(seatNumber, 10);
+        if (block.trim() && rowNum >= 1 && seatNum >= 1) {
+          const { error: seatErr } = await supabase.from("seat_reports").insert({
+            id:             randomId(),
+            event_id:       selectedEvent,
+            block:          block.trim(),
+            row_num:        rowNum,
+            seat_num:       seatNum,
+            lottery_type:   toLotteryTypeSeatReports(lotteryType),
+            payment_method: paymentMethod || null,
+            fc_history:     toFcHistorySeatReports(fcHistory),
+            comment:        comment || null,
+          });
+          if (seatErr) throw new Error(seatErr.message);
+        }
+      }
+
+      const ev = events.find(e => e.id === selectedEvent);
+      setSubmittedArtistSlug(ev ? (findArtistByKeyword(ev.title)?.slug ?? null) : null);
+      setSubmitted(true);
+    } catch (err) {
+      setError("投稿に失敗しました: " + (err instanceof Error ? err.message : String(err)));
+    } finally {
+      setSubmitting(false);
+    }
+  }
 
   if (submitted) {
     return (
@@ -285,10 +423,11 @@ export default function TicketReportPage() {
               setSubmitted(false);
             }}
             onOther={() => {
-              setSelectedEvent("tokyo-0712");
+              setSelectedEvent(events[0]?.id ?? "");
               setStep(1);
               setSubmitted(false);
             }}
+            artistSlug={submittedArtistSlug}
           />
         </div>
       </div>
@@ -333,49 +472,44 @@ export default function TicketReportPage() {
                 <h2 className="text-center text-[13px] font-bold text-gray-900">報告する公演</h2>
               </div>
               <div className="-mx-1 overflow-x-auto pb-1 hide-scrollbar">
-                <div className="flex min-w-max gap-2 px-1">
-                  {EVENTS.map((event) => {
-                    const isSelected = selectedEvent === event.id;
-                    return (
-                      <button
-                        key={event.id}
-                        type="button"
-                        onClick={() => {
-                          const newVenueType = event.venueType;
-                          const areas = SEAT_AREAS[newVenueType];
-                          if (seatArea !== "" && !areas.includes(seatArea)) setSeatArea("");
-                          setSelectedEvent(event.id);
-                        }}
-                        className={`relative h-[74px] w-[96px] shrink-0 rounded-xl px-2 py-2 text-left transition-colors ${
-                          isSelected
-                            ? "border-2 border-[#FF6B9D] bg-[#FFF1F6]"
-                            : "border border-gray-200 bg-white"
-                        }`}
-                      >
-                        {isSelected && (
-                          <span className="absolute right-1.5 top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-[#FF6B9D] text-[9px] text-white">
-                            ✓
-                          </span>
-                        )}
-                        <div className="text-[12px] font-bold text-gray-900">
-                          {event.date}
-                        </div>
-                        <div className="mt-1 text-[10px] font-semibold text-gray-800">
-                          {event.venue}
-                        </div>
-                        <div
-                          className={`mt-1 inline-flex rounded-full px-2 py-0.5 text-[8px] font-bold ${
+                {eventsLoading ? (
+                  <div className="flex h-[74px] items-center justify-center">
+                    <div className="h-5 w-5 animate-spin rounded-full border-2 border-[#FF6B9D] border-t-transparent" />
+                  </div>
+                ) : events.length === 0 ? (
+                  <p className="py-4 text-[12px] text-gray-400">公演がありません</p>
+                ) : (
+                  <div className="flex min-w-max gap-2 px-1">
+                    {events.map((event) => {
+                      const isSelected = selectedEvent === event.id;
+                      return (
+                        <button
+                          key={event.id}
+                          type="button"
+                          onClick={() => {
+                            const newVenueType = getVenueType(event.venue);
+                            const areas = SEAT_AREAS[newVenueType];
+                            if (seatArea !== "" && !areas.includes(seatArea)) setSeatArea("");
+                            setSelectedEvent(event.id);
+                          }}
+                          className={`relative h-[74px] w-[96px] shrink-0 rounded-xl px-2 py-2 text-left transition-colors ${
                             isSelected
-                              ? "bg-[#FF6B9D] text-white"
-                              : "bg-gray-100 text-gray-500"
+                              ? "border-2 border-[#FF6B9D] bg-[#FFF1F6]"
+                              : "border border-gray-200 bg-white"
                           }`}
                         >
-                          {event.day}
-                        </div>
-                      </button>
-                    );
-                  })}
-                </div>
+                          {isSelected && (
+                            <span className="absolute right-1.5 top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-[#FF6B9D] text-[9px] text-white">
+                              ✓
+                            </span>
+                          )}
+                          <div className="text-[12px] font-bold text-gray-900">{fmtEventDate(event.date)}</div>
+                          <div className="mt-1 line-clamp-2 text-[10px] font-semibold text-gray-800">{event.venue}</div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
             </section>
 
@@ -739,13 +873,17 @@ export default function TicketReportPage() {
             </section>
 
             {/* ボタン */}
+            {error && (
+              <div className="rounded-xl bg-red-50 px-4 py-3 text-[12px] text-red-600">{error}</div>
+            )}
             <div className="mt-5">
               <button
                 type="button"
-                onClick={() => setSubmitted(true)}
-                className="flex h-12 w-full items-center justify-center rounded-full bg-[#FF6B9D] text-[13px] font-bold text-white shadow-[0_8px_20px_rgba(255,107,157,0.25)] transition-opacity active:opacity-80"
+                onClick={handleSubmit}
+                disabled={submitting}
+                className="flex h-12 w-full items-center justify-center rounded-full bg-[#FF6B9D] text-[13px] font-bold text-white shadow-[0_8px_20px_rgba(255,107,157,0.25)] transition-opacity active:opacity-80 disabled:opacity-60"
               >
-                報告を送信する
+                {submitting ? "投稿中..." : "報告を送信する"}
               </button>
               <button
                 type="button"

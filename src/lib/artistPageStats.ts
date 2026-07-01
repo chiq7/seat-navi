@@ -1,5 +1,5 @@
 import type { CrawledEvent } from "@/lib/types";
-import type { AnalyticsReport, TicketResultAnalytics } from "@/lib/artistPageTypes";
+import type { AnalyticsReport, TicketResultAnalytics, AfterReportCard } from "@/lib/artistPageTypes";
 
 export type PastTour = {
   title: string;
@@ -163,6 +163,51 @@ export function computeTourInfo(
   const summary = `${cities} Cities / ${shows} Performances`;
 
   return { fullTitle, dateRange, summary };
+}
+
+export function computeUpgradeDetailStats(rows: TicketResultAnalytics[]) {
+  const pct = (won: number, total: number) =>
+    total > 0 ? Math.round((won / total) * 1000) / 10 : null;
+  const groupRate = (predicate: (row: TicketResultAnalytics) => boolean) => {
+    const subset = rows.filter(
+      (r) =>
+        (r.upgrade_result === "applied_won" || r.upgrade_result === "applied_lost") &&
+        predicate(r),
+    );
+    return {
+      rate: pct(subset.filter((r) => r.upgrade_result === "applied_won").length, subset.length),
+      total: subset.length,
+    };
+  };
+
+  return {
+    fc: {
+      under1: groupRate((r) => r.fc_history === "1年未満"),
+      one3:   groupRate((r) => r.fc_history === "1〜3年"),
+      over3:  groupRate((r) => r.fc_history === "3年以上"),
+    },
+    ticketCount: {
+      one:   groupRate((r) => r.ticket_count === 1),
+      two:   groupRate((r) => r.ticket_count === 2),
+      three: groupRate((r) => r.ticket_count === 3),
+      four:  groupRate((r) => r.ticket_count === 4),
+    },
+    payment: {
+      credit: groupRate((r) => r.payment_method === "クレカ"),
+      other:  groupRate((r) => r.payment_method === "その他"),
+    },
+  };
+}
+
+export function computeLiveEffects(reports: AfterReportCard[]): Record<string, boolean> {
+  const hasRating = (v: string | null) => v === "1" || v === "2" || v === "3" || v === "4" || v === "5";
+  return {
+    "center-stage": reports.some((r) => hasRating(r.center_stage)),
+    "trolley":      reports.some((r) => hasRating(r.torokko)),
+    "aisle-walk":   reports.some((r) => hasRating(r.kyakukudari)),
+    "silver-tape":  reports.some((r) => r.silver_tape_rows === 1),
+    "fanservice":   reports.some((r) => r.fansa === true),
+  };
 }
 
 export function computePastTours(

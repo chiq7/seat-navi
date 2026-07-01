@@ -15,6 +15,18 @@ export type Artist = {
 const DESC = "\u5ea7\u5e2d\u4e88\u60f3\u3001\u5f53\u9078\u7387\u3001\u73fe\u5730\u30ec\u30dd\u3001\u30bb\u30c8\u30ea\u3092\u307e\u3068\u3081\u3066\u3044\u307e\u3059\u3002";
 
 export const ARTISTS: Artist[] = [
+  // TEST用・削除可
+  {
+    slug: "test",
+    name: "テストアーティスト",
+    genre: "female_idol",
+    description: `テストアーティストの${DESC}`,
+    keywords: ["【TEST】", "テスト", "TEST", "テストアーティスト"],
+    initials: "TE",
+    grad: "from-gray-400 to-gray-600",
+    accentColor: "#6B7280",
+    accentDark: "#4B5563",
+  },
   {
     slug: "nogizaka46",
     name: "\u4e43\u6728\u574246",

@@ -22,8 +22,8 @@ import { randomUUID } from "crypto";
 // Supabase 接続情報（service_role）
 // ---------------------------------------------------------------------------
 
-const SUPABASE_URL     = "https://sibjmyabcwpojtzbnqnc.supabase.co";
-const SERVICE_ROLE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNpYmpteWFiY3dwb2p0emJucW5jIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NzIyNTY5NCwiZXhwIjoyMDkyODAxNjk0fQ.fbbb6wVJh4FNHmKOMC1yAUYP4jgNQRZwRovOhnQ9NiE";
+const SUPABASE_URL     = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 const VALID_POST_TYPES = new Set(["prediction", "result", "after_report", "unknown"]);
 const BATCH_SIZE = 50;

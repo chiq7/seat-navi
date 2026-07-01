@@ -51,13 +51,6 @@ function ReportHero() {
         </p>
       </div>
 
-      <div className="absolute bottom-4 left-1/2 z-20 w-[300px] -translate-x-1/2">
-        <div className="flex h-[78px] flex-col items-center justify-center rounded-[20px] border border-white/50 bg-white/62 text-center shadow-[0_8px_24px_rgba(17,24,39,0.06)] backdrop-blur-xl">
-          <p className="text-[13px] font-semibold tracking-[0.08em] text-[#FF6B9D]">NiziU</p>
-          <p className="mt-0.5 text-[15px] font-bold text-[#111827]">NiziU Live Tour 2026</p>
-          <p className="mt-0.5 text-[11px] text-[#6B7280]">2026.07.12 - 2026.09.28</p>
-        </div>
-      </div>
     </section>
   );
 }

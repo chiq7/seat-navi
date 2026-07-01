@@ -1,25 +1,41 @@
-const venues = ["東京ドーム", "京セラ", "福岡", "札幌"];
+"use client";
 
-export default function MapPreviewSection() {
+import Image from "next/image";
+import { useState } from "react";
+
+type Props = {
+  venues: string[];
+  topPredictionImageUrl?: string | null;
+};
+
+export default function MapPreviewSection({ venues, topPredictionImageUrl = null }: Props) {
+  const displayVenues = venues.slice(0, 4);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
   return (
     <section className="mt-4 px-4">
       <h2 className="mb-2 text-[22px] font-bold leading-none text-gray-900">マップ</h2>
-      <div className="mb-2.5 grid grid-cols-4 gap-2">
-        {venues.map((venue, index) => (
-          <button
-            key={venue}
-            type="button"
-            className={`h-8 rounded-full border text-[13px] font-bold ${
-              index === 0 ? "border-[#FF6B9D] bg-[#FF6B9D] text-white" : "border-gray-200 bg-white text-gray-900"
-            }`}
-          >
-            {venue}
-          </button>
-        ))}
-      </div>
+      {displayVenues.length > 0 && (
+        <div className="mb-2.5 grid grid-cols-4 gap-2">
+          {displayVenues.map((venue, index) => (
+            <button
+              key={venue}
+              type="button"
+              onClick={() => setSelectedIndex(index)}
+              className={`h-8 truncate rounded-full border text-[11px] font-bold ${
+                index === selectedIndex
+                  ? "border-[#FF6B9D] bg-[#FF6B9D] text-white"
+                  : "border-gray-200 bg-white text-gray-900"
+              }`}
+            >
+              {venue}
+            </button>
+          ))}
+        </div>
+      )}
       <div className="grid grid-cols-2 gap-2">
         <MapCard title="全報告の埋まり具合" />
-        <MapCard title="いいね1位のファン予想図" />
+        <MapCard title="いいね1位のファン予想図" imageUrl={topPredictionImageUrl} />
       </div>
       <div className="mt-2 flex justify-center gap-2">
         <span className="h-3 w-3 rounded-full bg-[#FF6B9D]" />
@@ -35,11 +51,17 @@ export default function MapPreviewSection() {
   );
 }
 
-function MapCard({ title }: { title: string }) {
+function MapCard({ title, imageUrl }: { title: string; imageUrl?: string | null }) {
   return (
     <div className="rounded-2xl border border-gray-100 bg-white px-2 py-2 shadow-sm">
       <h3 className="mb-1 text-center text-[13px] font-bold leading-none text-gray-900">{title}</h3>
-      <StadiumMap />
+      {imageUrl ? (
+        <div className="relative mx-auto h-[68px] max-w-[160px] overflow-hidden rounded-lg">
+          <Image src={imageUrl} alt="ファン予想図" fill className="object-cover" />
+        </div>
+      ) : (
+        <StadiumMap />
+      )}
     </div>
   );
 }

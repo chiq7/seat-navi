@@ -4,22 +4,17 @@ import { use, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase/client";
 import { findArtistBySlug } from "@/lib/artists";
-import type { CrawledEvent, SeatReport } from "@/lib/types";
-import { ArenaReportMap } from "@/components/arena-map/ArenaReportMap";
-import { SeatReportForm } from "@/components/SeatReportForm";
-import { HeroCard } from "@/components/artist/HeroCard";
-import { SetlistSection } from "@/components/artist/SetlistSection";
-import { PastToursSection } from "@/components/artist/PastToursSection";
-import { TicketStatsSection } from "@/components/artist/TicketStatsSection";
-import { ArtistPageHeader } from "@/components/artist/ArtistPageHeader";
-import { ArtistMainMenuSection } from "@/components/artist/ArtistMainMenuSection";
-import { BottomNav } from "@/components/common/BottomNav";
+import type { CrawledEvent } from "@/lib/types";
 import type { AnalyticsReport, TicketResultAnalytics, AfterReportCard } from "@/lib/artistPageTypes";
-import { fmtDate } from "@/lib/artistPageHelpers";
-import { computeSeatStats, computeTicketResultStats, computeArenaDetailStats, computeTourInfo, computePastTours } from "@/lib/artistPageStats";
-const VENUE_TAB_ORDER = ["東京ドーム", "バンテリンドーム ナゴヤ", "京セラドーム大阪"];
+import { computeTicketResultStats, computeArenaDetailStats, computeUpgradeDetailStats, computeLiveEffects, computeTourInfo } from "@/lib/artistPageStats";
 
-// 笏笏笏 Page 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
+import HeroSection from "@/components/artist-page/HeroSection";
+import TrendSection from "@/components/artist-page/TrendSection";
+import EventSection, { type VenueGroup } from "@/components/artist-page/EventSection";
+import ReportSection from "@/components/artist-page/ReportSection";
+import MapPreviewSection from "@/components/artist-page/MapPreviewSection";
+import LiveEffectsSection from "@/components/artist-page/LiveEffectsSection";
+import ArtistPageBottomNav from "@/components/artist-page/ArtistPageBottomNav";
 
 export default function ArtistPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
@@ -29,17 +24,14 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
   const [analyticsReports, setAnalyticsReports] = useState<AnalyticsReport[]>([]);
   const [ticketResultReports, setTicketResultReports] = useState<TicketResultAnalytics[]>([]);
   const [seatCounts, setSeatCounts] = useState<Map<string, number>>(new Map());
-  const [afterCounts, setAfterCounts] = useState<Map<string, number>>(new Map());
   const [latestAfterReports, setLatestAfterReports] = useState<AfterReportCard[]>([]);
+  const [topPredictionImageUrl, setTopPredictionImageUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [fetchError, setFetchError] = useState<string | null>(null);
-  const [selectedVenue, setSelectedVenue] = useState<string | null>(null);
-  const [hasUserSelectedVenue, setHasUserSelectedVenue] = useState(false);
-  const [selectedMapEventId, setSelectedMapEventId] = useState<string | null>(null);
-  const [heroUpgradeRate, setHeroUpgradeRate] = useState<number | null>(null);
 
   async function loadData(a: NonNullable<ReturnType<typeof findArtistBySlug>>) {
     setFetchError(null);
+    setTopPredictionImageUrl(null);
     const orFilter = a.keywords.map(kw => `title.ilike.%${kw}%`).join(",");
 
     const { data: evData, error: evError } = await supabase
@@ -61,7 +53,7 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
 
     const ids = allEvs.map(e => e.id);
 
-    const [seatRes, ticketResultRes, afterRes, latestAfterRes] = await Promise.all([
+    const [seatRes, ticketResultRes, latestAfterRes] = await Promise.all([
       supabase.from("seat_reports")
         .select("id, event_id, block, row_num, seat_num, lottery_type, fc_history, payment_method, lottery_round, lottery_name, comment, created_at")
         .in("event_id", ids)
@@ -73,10 +65,7 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
         .order("created_at", { ascending: false })
         .limit(1000),
       supabase.from("after_reports")
-        .select("id, event_id")
-        .in("event_id", ids),
-      supabase.from("after_reports")
-        .select("id, event_id, seat_area_type, seat_block, seat_row, seat_view_photo_paths, torokko, kyakukudari, fansa, memo, created_at")
+        .select("id, event_id, seat_area_type, seat_block, seat_row, seat_view_photo_paths, center_stage, torokko, kyakukudari, silver_tape_rows, fansa, memo, created_at")
         .in("event_id", ids)
         .order("created_at", { ascending: false })
         .limit(20),
@@ -84,50 +73,66 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
 
     const seatData = (seatRes.data as AnalyticsReport[]) ?? [];
     const ticketResultData = (ticketResultRes.data as TicketResultAnalytics[]) ?? [];
-    const afterData = (afterRes.data as { id: string; event_id: string }[]) ?? [];
     const latestAfterData = (latestAfterRes.data as AfterReportCard[]) ?? [];
 
     const sCounts = new Map<string, number>();
     for (const r of seatData) sCounts.set(r.event_id, (sCounts.get(r.event_id) ?? 0) + 1);
-    const aCounts = new Map<string, number>();
-    for (const r of afterData) aCounts.set(r.event_id, (aCounts.get(r.event_id) ?? 0) + 1);
 
     setAnalyticsReports(seatData);
     setTicketResultReports(ticketResultData);
     setSeatCounts(sCounts);
-    setAfterCounts(aCounts);
     setLatestAfterReports(latestAfterData);
+
+    // Fan prediction: most-liked image for the most recent event
+    const recentEventId = allEvs[0]?.id ?? null;
+    if (recentEventId) {
+      const { data: predData } = await supabase
+        .from("fan_seat_predictions")
+        .select("id, image_path")
+        .eq("event_id", recentEventId)
+        .eq("approved", true);
+
+      if (predData && predData.length > 0) {
+        const predIds = predData.map((p: { id: string; image_path: string }) => p.id);
+        const { data: voteData } = await supabase
+          .from("fan_seat_prediction_votes")
+          .select("prediction_id")
+          .in("prediction_id", predIds);
+
+        let topImagePath: string | null = null;
+        if (voteData && voteData.length > 0) {
+          const counts = new Map<string, number>();
+          for (const v of voteData as { prediction_id: string }[]) {
+            counts.set(v.prediction_id, (counts.get(v.prediction_id) ?? 0) + 1);
+          }
+          const topId = [...counts.entries()].sort((a, b) => b[1] - a[1])[0]?.[0];
+          topImagePath = predData.find((p: { id: string; image_path: string }) => p.id === topId)?.image_path ?? null;
+        } else {
+          topImagePath = predData[0].image_path;
+        }
+
+        if (topImagePath) {
+          const { data: urlData } = supabase.storage
+            .from("fan-seat-predictions")
+            .getPublicUrl(topImagePath);
+          setTopPredictionImageUrl(urlData.publicUrl);
+        }
+      }
+    }
+
     setLoading(false);
   }
+
+  // Suppress unused warning — analyticsReports kept for future seat map use
+  void analyticsReports;
 
   /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
     if (!artist) return;
-    setSelectedVenue(null);
-    setHasUserSelectedVenue(false);
-    setSelectedMapEventId(null);
+    setLoading(true);
     loadData(artist);
   }, [artist]);
   /* eslint-enable react-hooks/set-state-in-effect */
-
-  useEffect(() => {
-    (async () => {
-      const { data } = await supabase
-        .from("ticket_result_votes")
-        .select("vote_type, result")
-        .eq("artist_slug", slug);
-      if (!data) return;
-      let uw = 0, ul = 0;
-      for (const row of data) {
-        if (row.vote_type !== "ticket") {
-          if (row.result === "won") uw++;
-          else if (row.result === "lost") ul++;
-        }
-      }
-      const ut = uw + ul;
-      setHeroUpgradeRate(ut > 0 ? Math.round((uw / ut) * 100) : null);
-    })();
-  }, [slug]);
 
   const today = new Date().toISOString().split("T")[0];
 
@@ -143,11 +148,11 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
     return [...upcoming, ...pastWithData, ...pastNoData];
   }, [events, seatCounts, today]);
 
-  const pastEvents = useMemo(
+  const nearestUpcomingEvent = useMemo(
     () =>
       events
-        .filter(ev => ev.date && ev.date < today)
-        .sort((a, b) => (b.date ?? "").localeCompare(a.date ?? "")),
+        .filter(ev => ev.date && ev.date >= today)
+        .sort((a, b) => (a.date ?? "").localeCompare(b.date ?? ""))[0] ?? null,
     [events, today],
   );
 
@@ -161,14 +166,6 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
     return map;
   }, [sortedEvents]);
 
-  const nearestUpcomingEvent = useMemo(
-    () =>
-      events
-        .filter(ev => ev.date && ev.date >= today)
-        .sort((a, b) => (a.date ?? "").localeCompare(b.date ?? ""))[0] ?? null,
-    [events, today],
-  );
-
   const venuesSorted = useMemo(() => {
     return [...venueGroups.keys()].sort((a, b) => {
       const nearA = (venueGroups.get(a) ?? [])
@@ -180,108 +177,15 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
       if (nearA && !nearB) return -1;
       if (!nearA && nearB) return 1;
       if (nearA && nearB) return nearA.localeCompare(nearB);
-      const orderA = VENUE_TAB_ORDER.indexOf(a);
-      const orderB = VENUE_TAB_ORDER.indexOf(b);
-      if (orderA !== -1 || orderB !== -1) {
-        if (orderA === -1) return 1;
-        if (orderB === -1) return -1;
-        return orderA - orderB;
-      }
       const latA = (venueGroups.get(a) ?? [])[0]?.date ?? "";
       const latB = (venueGroups.get(b) ?? [])[0]?.date ?? "";
       return latB.localeCompare(latA);
     });
   }, [venueGroups, today]);
 
-  const selectedVenueHasUpcoming = selectedVenue
-    ? (venueGroups.get(selectedVenue) ?? []).some(ev => ev.date && ev.date >= today)
-    : false;
-  const effectiveVenue =
-    selectedVenue && (hasUserSelectedVenue || !nearestUpcomingEvent || selectedVenueHasUpcoming)
-      ? selectedVenue
-      : nearestUpcomingEvent?.venue ?? venuesSorted[0] ?? null;
-  const selectedVenueEvents = useMemo(
-    () => venueGroups.get(effectiveVenue ?? "") ?? [],
-    [venueGroups, effectiveVenue],
-  );
-
-  const defaultVenueEvent = useMemo(() => {
-    const upcoming = selectedVenueEvents
-      .filter(ev => ev.date && ev.date >= today)
-      .sort((a, b) => (a.date ?? "").localeCompare(b.date ?? ""));
-    return (
-      upcoming[0] ??
-      [...selectedVenueEvents].sort((a, b) =>
-        (b.date ?? "").localeCompare(a.date ?? ""),
-      )[0]
-    );
-  }, [selectedVenueEvents, today]);
-
-  const selectedCTAEvent = useMemo(
-    () => selectedVenueEvents.find(ev => ev.id === selectedMapEventId) ?? defaultVenueEvent,
-    [defaultVenueEvent, selectedMapEventId, selectedVenueEvents],
-  );
-
-  /* eslint-disable react-hooks/set-state-in-effect */
-  useEffect(() => {
-    if (selectedVenueEvents.length === 0) {
-      if (selectedMapEventId !== null) setSelectedMapEventId(null);
-      return;
-    }
-    if (selectedMapEventId && selectedVenueEvents.some(ev => ev.id === selectedMapEventId)) return;
-    setSelectedMapEventId(defaultVenueEvent?.id ?? null);
-  }, [defaultVenueEvent?.id, selectedMapEventId, selectedVenueEvents]);
-  /* eslint-enable react-hooks/set-state-in-effect */
-
-  // eslint-disable-next-line react-hooks/preserve-manual-memoization
-  const selectedVenueDateLabel = useMemo(() => {
-    return selectedCTAEvent?.date ? fmtDate(selectedCTAEvent.date) : null;
-  }, [selectedCTAEvent?.date]);
-
-  const sortedSelectedVenueEvents = useMemo(
-    () => {
-      const upcoming = selectedVenueEvents
-        .filter(ev => ev.date && ev.date >= today)
-        .sort((a, b) => (a.date ?? "").localeCompare(b.date ?? ""));
-      const past = selectedVenueEvents
-        .filter(ev => !ev.date || ev.date < today)
-        .sort((a, b) => (b.date ?? "").localeCompare(a.date ?? ""));
-      return [...upcoming, ...past];
-    },
-    [selectedVenueEvents, today],
-  );
-
-  const selectedSeatReports = useMemo(
-    () => analyticsReports.filter(report => report.event_id === selectedCTAEvent?.id),
-    [analyticsReports, selectedCTAEvent?.id],
-  );
-
-
-  // First upcoming event for bottom nav links
-  const nextEvent = useMemo(
-    () =>
-      events
-        .filter(ev => ev.date && ev.date >= today)
-        .sort((a, b) => (a.date ?? "").localeCompare(b.date ?? ""))[0] ?? selectedCTAEvent,
-    [events, today, selectedCTAEvent],
-  );
-
-  // Hero header info: tour name, date range, cities/performances
   const tourInfo = useMemo(
     () => computeTourInfo(events, today, artist?.name),
     [events, today, artist],
-  );
-
-  // Group past events into tours by title
-  const pastTours = useMemo(
-    () => computePastTours(pastEvents, artist?.name),
-    [pastEvents, artist],
-  );
-
-  // Compute stats from seat_reports
-  const seatStats = useMemo(
-    () => computeSeatStats(analyticsReports),
-    [analyticsReports],
   );
 
   const ticketResultStats = useMemo(
@@ -289,21 +193,81 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
     [ticketResultReports],
   );
 
-
   const arenaDetailStats = useMemo(
     () => computeArenaDetailStats(ticketResultReports),
     [ticketResultReports],
   );
 
-  // Event lookup for after-report cards
+  const upgradeDetailStats = useMemo(
+    () => computeUpgradeDetailStats(ticketResultReports),
+    [ticketResultReports],
+  );
+
+  const liveEffects = useMemo(
+    () => computeLiveEffects(latestAfterReports),
+    [latestAfterReports],
+  );
+
   const eventMap = useMemo(() => {
     const m = new Map<string, CrawledEvent>();
     for (const ev of events) m.set(ev.id, ev);
     return m;
   }, [events]);
 
-  // Suppress unused warning 窶・afterCounts kept for future use
-  void afterCounts;
+  const countdownDays = useMemo(() => {
+    if (!nearestUpcomingEvent?.date) return null;
+    const diff = new Date(nearestUpcomingEvent.date).getTime() - new Date(today).getTime();
+    return Math.ceil(diff / 86400000);
+  }, [nearestUpcomingEvent?.date, today]);
+
+  const tourStops = useMemo(() => {
+    return events
+      .filter(ev => ev.date && ev.date >= today)
+      .sort((a, b) => (a.date ?? "").localeCompare(b.date ?? ""))
+      .slice(0, 4)
+      .map((ev, i) => ({ date: ev.date!, label: ev.venue, active: i === 0 }));
+  }, [events, today]);
+
+  const afterHref = `/artists/${slug}/after-reports`;
+
+  const venueGroupsForEvents = useMemo((): VenueGroup[] => {
+    const map = new Map<string, { dates: string[]; totalReports: number; nearestUpcoming: string | null }>();
+    for (const ev of events) {
+      const entry = map.get(ev.venue);
+      const isUpcoming = ev.date != null && ev.date >= today;
+      const reports = seatCounts.get(ev.id) ?? 0;
+      if (entry) {
+        if (ev.date) entry.dates.push(ev.date);
+        entry.totalReports += reports;
+        if (isUpcoming && (!entry.nearestUpcoming || ev.date! < entry.nearestUpcoming)) {
+          entry.nearestUpcoming = ev.date!;
+        }
+      } else {
+        map.set(ev.venue, {
+          dates: ev.date ? [ev.date] : [],
+          totalReports: reports,
+          nearestUpcoming: isUpcoming ? ev.date! : null,
+        });
+      }
+    }
+    return [...map.entries()]
+      .map(([venue, { dates, totalReports, nearestUpcoming }]) => ({
+        venue,
+        dates: [...dates].sort(),
+        totalReports,
+        nearestUpcoming,
+      }))
+      .sort((a, b) => {
+        if (a.nearestUpcoming && !b.nearestUpcoming) return -1;
+        if (!a.nearestUpcoming && b.nearestUpcoming) return 1;
+        if (a.nearestUpcoming && b.nearestUpcoming) return a.nearestUpcoming.localeCompare(b.nearestUpcoming);
+        const latA = a.dates[a.dates.length - 1] ?? "";
+        const latB = b.dates[b.dates.length - 1] ?? "";
+        return latB.localeCompare(latA);
+      })
+      .slice(0, 5)
+      .map(({ venue, dates, totalReports }) => ({ venue, dates, totalReports }));
+  }, [events, seatCounts, today]);
 
   if (!artist) {
     return (
@@ -320,178 +284,57 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
     );
   }
 
-  const afterHref = nextEvent ? `/events/${nextEvent.id}/after-report` : "#";
-
   return (
-    <div className="min-h-screen" style={{ background: "#e8edf0" }}>
-      <div
-        className="mx-auto w-full max-w-[430px] min-h-screen relative shadow-2xl"
-        style={{ background: "#f3f6f8" }}
-      >
+    <main className="mx-auto min-h-screen max-w-[390px] bg-white font-sans text-gray-900">
+      <HeroSection
+        artistName={artist.name}
+        tourTitle={nearestUpcomingEvent === null ? "公演発表待機中" : tourInfo.fullTitle}
+        dateRange={tourInfo.dateRange}
+        ticketRate={ticketResultStats.rate}
+        normalArenaRate={ticketResultStats.normalArenaRate}
+        upgradeRate={ticketResultStats.upgradeRate}
+        nextEvent={
+          nearestUpcomingEvent
+            ? { date: nearestUpcomingEvent.date!, venue: nearestUpcomingEvent.venue }
+            : null
+        }
+        countdownDays={countdownDays}
+        tourStops={tourStops}
+      />
 
-        <ArtistPageHeader artistName={artist.name} />
+      {fetchError && (
+        <div className="mx-4 mt-3 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-600">
+          {fetchError}
+        </div>
+      )}
 
-        <main className="pt-14 pb-24">
-
-          {/* 1. Hero Card */}
-          <HeroCard tourInfo={tourInfo} artistName={artist.name} />
-
-          {fetchError && (
-            <div className="mx-4 mt-3 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-600">
-              {fetchError}
-            </div>
-          )}
-
-          <ArtistMainMenuSection slug={slug} selectedEventId={selectedCTAEvent?.id} afterHref={afterHref} />
-
-          {/* 3. アリーナ報告マップ */}
-          <section className="mt-5 px-4">
-            <h3 className="mb-3 flex items-center gap-2 text-base font-bold text-gray-900">
-              <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: "#006876" }}>
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                  d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-              </svg>
-              アリーナ報告マップ · 速報プレビュー
-            </h3>
-            <div className="overflow-hidden rounded-2xl bg-white">
-              {/* 莨壼ｴ繧ｿ繝・*/}
-              {venuesSorted.length > 1 && (
-                <div className="border-b border-gray-100 p-3" style={{ background: "rgba(243,246,248,0.6)" }}>
-                  <div className="flex gap-2 overflow-x-auto" style={{ scrollbarWidth: "none" }}>
-                    {venuesSorted.map(venue => {
-                      const isSel = venue === effectiveVenue;
-                      return (
-                        <button
-                          key={venue}
-                          type="button"
-                          onClick={() => {
-                            setHasUserSelectedVenue(true);
-                            setSelectedVenue(venue);
-                            setSelectedMapEventId(null);
-                          }}
-                          className="whitespace-nowrap rounded-full px-4 py-1.5 text-xs font-semibold transition-all active:scale-95"
-                          style={
-                            isSel
-                              ? { background: "#006876", color: "#fff" }
-                              : { background: "#e2e8ea", color: "#4b6870" }
-                          }
-                        >
-                          {venue}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
-
-              {sortedSelectedVenueEvents.length > 0 && (
-                <div className="border-b border-gray-100 px-3 py-2" style={{ background: "rgba(243,246,248,0.42)" }}>
-                  <div className="flex gap-1.5 overflow-x-auto" style={{ scrollbarWidth: "none" }}>
-                    {sortedSelectedVenueEvents.map(ev => {
-                      const isSel = ev.id === selectedCTAEvent?.id;
-                      return (
-                        <button
-                          key={ev.id}
-                          type="button"
-                          onClick={() => setSelectedMapEventId(ev.id)}
-                          className="whitespace-nowrap rounded-full px-3 py-1 text-[11px] font-semibold transition-all active:scale-95"
-                          style={
-                            isSel
-                              ? { background: "#006876", color: "#fff" }
-                              : { background: "#edf3f4", color: "#4b6870" }
-                          }
-                        >
-                          {fmtDate(ev.date)}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
-
-              {(() => {
-                if (loading) {
-                  return (
-                    <div className="flex aspect-[4/3] items-center justify-center">
-                      <div
-                        className="h-6 w-6 animate-spin rounded-full border-2"
-                        style={{ borderColor: "#006876", borderTopColor: "transparent" }}
-                      />
-                    </div>
-                  );
-                }
-                if (!selectedCTAEvent) {
-                  return (
-                    <div className="flex aspect-[4/3] items-center justify-center">
-                      <p className="text-xs text-gray-400">公演情報がありません</p>
-                    </div>
-                  );
-                }
-                return (
-                  <Link href={`/events/${selectedCTAEvent.id}`} className="group block cursor-pointer">
-                    {/* 速報プレビュー：上部のみ切り取り表示 */}
-                    <div className="relative h-[220px] overflow-hidden bg-white">
-                      <ArenaReportMap
-                        eventId={selectedCTAEvent.id}
-                        reports={selectedSeatReports as SeatReport[]}
-                        variant="compact"
-                        compactVenueName={effectiveVenue}
-                        compactDateLabel={selectedVenueDateLabel}
-                      />
-                      {/* 下部フェード */}
-                      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-white to-transparent" />
-                      {/* ドット部分オーバーレイ */}
-                      <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-end pb-6">
-                        <div className="rounded-2xl bg-black/45 px-3 py-2 text-center">
-                          <p className="text-[11px] font-bold text-white">列・席番・色分けは詳細へ</p>
-                          <p className="mt-0.5 text-[9px] font-semibold text-white/90">抽選回・FC歴・枚数・支払い・アプグレ</p>
-                          <p className="mt-1.5 text-[10px] font-bold text-white/80">タップで詳細マップへ ›</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="px-1 pt-2 pb-1">
-                      <div
-                        className="flex w-full items-center justify-center rounded-xl py-2.5 text-xs font-bold text-white transition-transform active:scale-[0.98]"
-                        style={{ background: "#006876" }}
-                      >
-                        詳細な座席分布を見る
-                      </div>
-                    </div>
-                  </Link>
-                );
-              })()}
-            </div>
-            {selectedCTAEvent && (
-              <div id="seat-report" className="mt-3">
-                <SeatReportForm
-                  eventId={selectedCTAEvent.id}
-                  event={selectedCTAEvent}
-                  successMode="inline"
-                  variant="progressive"
-                />
-              </div>
-            )}
-          </section>
-
-          {/* 4. 当選率データ・詳細傾向 */}
-          <TicketStatsSection
-            ticketResultStats={ticketResultStats}
-            seatStats={seatStats}
-            heroUpgradeRate={heroUpgradeRate}
-            arenaDetailStats={arenaDetailStats}
+      {loading ? (
+        <div className="flex h-48 items-center justify-center">
+          <div className="h-6 w-6 animate-spin rounded-full border-2 border-[#FF6B9D] border-t-transparent" />
+        </div>
+      ) : (
+        <div className="bg-gradient-to-b from-white via-[#FFF8FB] to-white pb-24">
+          <div id="trend">
+            <TrendSection
+              ticketStats={ticketResultStats}
+              arenaStats={arenaDetailStats}
+              upgradeStats={upgradeDetailStats}
+            />
+          </div>
+          <div id="map">
+            <MapPreviewSection venues={venuesSorted} topPredictionImageUrl={topPredictionImageUrl} />
+          </div>
+          <LiveEffectsSection liveEffects={liveEffects} />
+          <ReportSection
+            reports={latestAfterReports}
+            eventMap={eventMap}
+            afterHref={afterHref}
           />
+          <EventSection venueGroups={venueGroupsForEvents} />
+        </div>
+      )}
 
-          {/* 6. 繧ｻ繝医Μ繝ｻ譖ｲ鬆・*/}
-          <SetlistSection slug={slug} />
-
-          {/* 7. 驕主悉蜈ｬ貍斐ョ繝ｼ繧ｿ */}
-          <PastToursSection loading={loading} pastTours={pastTours} />
-
-        </main>
-
-        <BottomNav active="artist" artistSlug={slug} eventId={selectedCTAEvent?.id} />
-
-      </div>
-    </div>
+      <ArtistPageBottomNav slug={slug} />
+    </main>
   );
 }

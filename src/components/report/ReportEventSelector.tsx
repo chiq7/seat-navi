@@ -86,7 +86,7 @@ export function ReportEventSelector() {
   }, [events]);
 
   const arenaHref = selectedEvent ? `/events/${selectedEvent.id}/fan-seat-prediction` : null;
-  const liveHref = selectedEvent ? `/events/${selectedEvent.id}/after-report` : null;
+  const liveHref = "/report/live";
   const setlistHref = artistSlug ? `/artists/${artistSlug}/setlist` : null;
 
   return (
@@ -154,8 +154,8 @@ export function ReportEventSelector() {
         </div>
 
         <div className="space-y-3">
-          {/* 当落・座席を報告（準備中） */}
-          <div className="flex cursor-default items-center gap-4 rounded-[24px] border border-[#F3F4F6] bg-white p-4 opacity-40 shadow-sm">
+          {/* 当落・座席を報告 */}
+          <CardLink href="/report/ticket">
             <div className="h-16 w-16 shrink-0 overflow-hidden rounded-[18px]">
               <Image
                 src="/images/report/icons/report-ticket-seat-icon1.png"
@@ -170,9 +170,10 @@ export function ReportEventSelector() {
               <p className="mt-1 text-[13px] leading-snug text-[#6B7280]">
                 当選・落選、抽選種別、座席情報をまとめて共有
               </p>
-              <p className="mt-1 text-[11px] font-semibold text-[#6B7280]">準備中</p>
+              <p className="mt-1 text-[11px] font-semibold text-[#FF6B9D]">当落・座席レポートページへ</p>
             </div>
-          </div>
+            <ChevronRight size={20} strokeWidth={2} className="shrink-0 text-[#D1D5DB]" />
+          </CardLink>
 
           {/* アリーナ予想図を投稿 */}
           <CardLink href={arenaHref}>

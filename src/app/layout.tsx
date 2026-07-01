@@ -13,6 +13,10 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://tixrepo.com"),
   title: SITE_TITLE,
   description: SITE_DESCRIPTION,
+  icons: {
+    icon: { url: "/favicon.ico", type: "image/x-icon" },
+    shortcut: { url: "/favicon.ico", type: "image/x-icon" },
+  },
   openGraph: {
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,

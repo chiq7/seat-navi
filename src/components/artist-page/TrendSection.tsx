@@ -2,121 +2,137 @@
 
 import { useState } from "react";
 import { CalendarDays, ChevronDown, ChevronUp, CreditCard, Ticket, UsersRound } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+import { computeTicketResultStats, computeArenaDetailStats, computeUpgradeDetailStats } from "@/lib/artistPageStats";
+import { detailRateText } from "@/lib/artistPageHelpers";
 
-const trendRows = [
-  {
-    icon: UsersRound,
-    label: "FC歴",
-    cells: [
-      { label: "1年未満", value: "58%" },
-      { label: "1〜3年", value: "65%" },
-      { label: "3年以上", value: "71%" },
-      null,
-    ],
-  },
-  {
-    icon: Ticket,
-    label: "申込枚数",
-    cells: [
-      { label: "1枚", value: "67%" },
-      { label: "2枚", value: "61%" },
-      { label: "3枚", value: "--" },
-      { label: "4枚", value: "49%" },
-    ],
-  },
-  {
-    icon: CalendarDays,
-    label: "抽選回",
-    cells: [
-      { label: "1次抽選", value: "68%" },
-      { label: "2次抽選", value: "54%" },
-      { label: "その他", value: "39%" },
-      null,
-    ],
-  },
-  {
-    icon: CreditCard,
-    label: "決済方法",
-    cells: [
-      { label: "クレカ", value: "63%" },
-      { label: "その他", value: "57%" },
-      null,
-      null,
-    ],
-  },
-];
+type TicketStats = ReturnType<typeof computeTicketResultStats>;
+type ArenaStats = ReturnType<typeof computeArenaDetailStats>;
+type UpgradeStats = ReturnType<typeof computeUpgradeDetailStats>;
 
-const arenaRows = [
-  {
-    icon: UsersRound,
-    label: "FC歴",
-    cells: [
-      { label: "1年未満", value: "33%" },
-      { label: "1〜3年", value: "--" },
-      { label: "3年以上", value: "--" },
-      null,
-    ],
-  },
-  {
-    icon: Ticket,
-    label: "申込枚数",
-    cells: [
-      { label: "1枚", value: "50%" },
-      { label: "2枚", value: "100%" },
-      { label: "3枚", value: "--" },
-      { label: "4枚", value: "--" },
-    ],
-  },
-  {
-    icon: CalendarDays,
-    label: "抽選",
-    cells: [
-      { label: "1次抽選", value: "75%" },
-      { label: "2次抽選", value: "--" },
-      { label: "その他", value: "0%" },
-      null,
-    ],
-  },
-];
+type Props = {
+  ticketStats: TicketStats;
+  arenaStats: ArenaStats;
+  upgradeStats: UpgradeStats;
+};
 
-const upgradeRows = [
-  {
-    icon: UsersRound,
-    label: "FC歴",
-    cells: [
-      { label: "1年未満", value: "--" },
-      { label: "1〜3年", value: "--" },
-      { label: "3年以上", value: "--" },
-      null,
-    ],
-  },
-  {
-    icon: Ticket,
-    label: "申込枚数",
-    cells: [
-      { label: "1枚", value: "--" },
-      { label: "2枚", value: "--" },
-      { label: "3枚", value: "--" },
-      { label: "4枚", value: "--" },
-    ],
-  },
-  {
-    icon: CreditCard,
-    label: "決済方法",
-    cells: [
-      { label: "クレカ", value: "--" },
-      { label: "その他", value: "--" },
-      null,
-      null,
-    ],
-  },
-];
+type Cell = { label: string; value: string } | null;
+type TrendRowData = { icon: LucideIcon; label: string; cells: Cell[] };
 
-type TrendRowData = (typeof trendRows)[number];
 type ArenaTab = "arena" | "upgrade";
 
-export default function TrendSection() {
+export default function TrendSection({ ticketStats, arenaStats, upgradeStats }: Props) {
   const [activeArenaTab, setActiveArenaTab] = useState<ArenaTab>("arena");
+
+  const trendRows: TrendRowData[] = [
+    {
+      icon: UsersRound,
+      label: "FC歴",
+      cells: [
+        { label: "1年未満", value: detailRateText(ticketStats.fc.under1) },
+        { label: "1〜3年",  value: detailRateText(ticketStats.fc.one3) },
+        { label: "3年以上", value: detailRateText(ticketStats.fc.over3) },
+        null,
+      ],
+    },
+    {
+      icon: Ticket,
+      label: "申込枚数",
+      cells: [
+        { label: "1枚", value: detailRateText(ticketStats.ticketCount.one) },
+        { label: "2枚", value: detailRateText(ticketStats.ticketCount.two) },
+        { label: "3枚", value: detailRateText(ticketStats.ticketCount.three) },
+        { label: "4枚", value: detailRateText(ticketStats.ticketCount.four) },
+      ],
+    },
+    {
+      icon: CalendarDays,
+      label: "抽選回",
+      cells: [
+        { label: "1次抽選", value: detailRateText(ticketStats.lottery.first) },
+        { label: "2次抽選", value: detailRateText(ticketStats.lottery.second) },
+        { label: "その他",  value: detailRateText(ticketStats.lottery.other) },
+        null,
+      ],
+    },
+    {
+      icon: CreditCard,
+      label: "決済方法",
+      cells: [
+        { label: "クレカ",  value: detailRateText(ticketStats.payment.credit) },
+        { label: "その他",  value: detailRateText(ticketStats.payment.other) },
+        null,
+        null,
+      ],
+    },
+  ];
+
+  const arenaRows: TrendRowData[] = [
+    {
+      icon: UsersRound,
+      label: "FC歴",
+      cells: [
+        { label: "1年未満", value: detailRateText(arenaStats.fc.under1.rate) },
+        { label: "1〜3年",  value: detailRateText(arenaStats.fc.one3.rate) },
+        { label: "3年以上", value: detailRateText(arenaStats.fc.over3.rate) },
+        null,
+      ],
+    },
+    {
+      icon: Ticket,
+      label: "申込枚数",
+      cells: [
+        { label: "1枚", value: detailRateText(arenaStats.ticketCount.one.rate) },
+        { label: "2枚", value: detailRateText(arenaStats.ticketCount.two.rate) },
+        { label: "3枚", value: detailRateText(arenaStats.ticketCount.three.rate) },
+        { label: "4枚", value: detailRateText(arenaStats.ticketCount.four.rate) },
+      ],
+    },
+    {
+      icon: CalendarDays,
+      label: "抽選",
+      cells: [
+        { label: "1次抽選", value: detailRateText(arenaStats.lottery.first.rate) },
+        { label: "2次抽選", value: detailRateText(arenaStats.lottery.second.rate) },
+        { label: "その他",  value: detailRateText(arenaStats.lottery.other.rate) },
+        null,
+      ],
+    },
+  ];
+
+  const upgradeRows: TrendRowData[] = [
+    {
+      icon: UsersRound,
+      label: "FC歴",
+      cells: [
+        { label: "1年未満", value: detailRateText(upgradeStats.fc.under1.rate) },
+        { label: "1〜3年",  value: detailRateText(upgradeStats.fc.one3.rate) },
+        { label: "3年以上", value: detailRateText(upgradeStats.fc.over3.rate) },
+        null,
+      ],
+    },
+    {
+      icon: Ticket,
+      label: "申込枚数",
+      cells: [
+        { label: "1枚", value: detailRateText(upgradeStats.ticketCount.one.rate) },
+        { label: "2枚", value: detailRateText(upgradeStats.ticketCount.two.rate) },
+        { label: "3枚", value: detailRateText(upgradeStats.ticketCount.three.rate) },
+        { label: "4枚", value: detailRateText(upgradeStats.ticketCount.four.rate) },
+      ],
+    },
+    {
+      icon: CreditCard,
+      label: "決済方法",
+      cells: [
+        { label: "クレカ",  value: detailRateText(upgradeStats.payment.credit.rate) },
+        { label: "その他",  value: detailRateText(upgradeStats.payment.other.rate) },
+        null,
+        null,
+      ],
+    },
+  ];
+
   const detailRows = activeArenaTab === "arena" ? arenaRows : upgradeRows;
 
   return (
@@ -127,6 +143,7 @@ export default function TrendSection() {
         </div>
         <div className="border-t border-gray-100">
           <TrendCard
+            trendRows={trendRows}
             activeTab={activeArenaTab}
             rows={detailRows}
             onTabChange={setActiveArenaTab}
@@ -151,10 +168,12 @@ export function TrendTabs() {
 }
 
 function TrendCard({
+  trendRows,
   activeTab,
   rows,
   onTabChange,
 }: {
+  trendRows: TrendRowData[];
   activeTab: ArenaTab;
   rows: TrendRowData[];
   onTabChange: (tab: ArenaTab) => void;
@@ -166,11 +185,7 @@ function TrendCard({
           <TrendRow key={row.label} row={row} />
         ))}
       </div>
-      <ArenaDetailCard
-        activeTab={activeTab}
-        rows={rows}
-        onTabChange={onTabChange}
-      />
+      <ArenaDetailCard activeTab={activeTab} rows={rows} onTabChange={onTabChange} />
     </div>
   );
 }

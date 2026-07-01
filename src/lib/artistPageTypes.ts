@@ -24,8 +24,10 @@ export type AfterReportCard = {
   seat_block: string | null;
   seat_row: string | null;
   seat_view_photo_paths: string[] | null;
+  center_stage: string | null;
   torokko: string | null;
   kyakukudari: string | null;
+  silver_tape_rows: number | null;
   fansa: boolean | null;
   memo: string | null;
   created_at: string;

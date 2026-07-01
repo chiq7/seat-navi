@@ -1,9 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Camera, ChevronLeft, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { supabase } from "@/lib/supabase/client";
+import { findArtistByKeyword } from "@/lib/artists";
+
+function randomId() {
+  return crypto.randomUUID().replace(/-/g, "").slice(0, 20);
+}
 
 type VenueType = "arena_dome_stadium" | "hall_theater" | "livehouse_other";
 
@@ -13,11 +19,33 @@ const SEAT_AREAS: Record<VenueType, string[]> = {
   livehouse_other: ["指定席", "スタンディング", "整理番号", "その他"],
 };
 
-const EVENTS: { id: string; date: string; venue: string; day: string; venueType: VenueType }[] = [
-  { id: "tokyo-0712", date: "7/12（土）", venue: "東京ドーム", day: "Day1", venueType: "arena_dome_stadium" },
-  { id: "tokyo-0713", date: "7/13（日）", venue: "東京ドーム", day: "Day2", venueType: "arena_dome_stadium" },
-  { id: "kyocera-0720", date: "7/20（土）", venue: "京セラドーム", day: "Day1", venueType: "arena_dome_stadium" },
-];
+type EventRow = { id: string; title: string; venue: string; date: string | null };
+
+function getVenueType(venue: string): VenueType {
+  if (/ドーム|アリーナ|スタジアム|Stadium|Arena|Dome/i.test(venue)) return "arena_dome_stadium";
+  if (/ホール|Hall|劇場|シアター|Theater|Theatre/i.test(venue)) return "hall_theater";
+  if (/ライブハウス|Zepp|zepp|ZEPP/.test(venue)) return "livehouse_other";
+  return "arena_dome_stadium";
+}
+
+function fmtEventDate(d: string | null): string {
+  if (!d) return "日程未定";
+  const parts = d.split("-").map(Number);
+  const dow = ["日", "月", "火", "水", "木", "金", "土"][new Date(parts[0], parts[1] - 1, parts[2]).getDay()];
+  return `${parts[1]}/${parts[2]}（${dow}）`;
+}
+
+function toSeatAreaType(seatArea: string, standFloor: string): string {
+  if (seatArea === "アリーナ") return "arena";
+  if (seatArea === "スタンド") {
+    if (standFloor === "2階") return "stand_2f";
+    if (standFloor === "3階以上") return "stand_3f_or_higher";
+    return "stand_1f";
+  }
+  if (seatArea === "1階席") return "stand_1f";
+  if (seatArea === "2階席以上") return "stand_2f";
+  return "other_unknown";
+}
 
 const STAND_DIRECTIONS = ["1塁側", "3塁側", "外野", "その他", "北", "南", "西", "東"] as const;
 const STAND_FLOORS = ["1階", "2階", "3階以上", "その他"] as const;
@@ -42,6 +70,30 @@ const EMPTY_PERF: Record<PerfKey, PerfValue> = {
   fansa: "",
   ginte: "",
 };
+
+function PhotoThumb({ file, onRemove }: { file: File; onRemove: () => void }) {
+  const [url, setUrl] = useState("");
+  useEffect(() => {
+    const u = URL.createObjectURL(file);
+    setUrl(u);
+    return () => URL.revokeObjectURL(u);
+  }, [file]);
+  return (
+    <div className="relative h-[72px] w-[72px] shrink-0 overflow-hidden rounded-lg bg-gray-100">
+      {url && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={url} alt="" className="h-full w-full object-cover" />
+      )}
+      <button
+        type="button"
+        onClick={onRemove}
+        className="absolute right-0.5 top-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-gray-900/60 text-white"
+      >
+        <X size={10} />
+      </button>
+    </div>
+  );
+}
 
 function StepIndicator({ step }: { step: number }) {
   const steps = [
@@ -111,9 +163,11 @@ function Btn({
 function SuccessScreen({
   onRepeat,
   onOther,
+  artistSlug,
 }: {
   onRepeat: () => void;
   onOther: () => void;
+  artistSlug: string | null;
 }) {
   return (
     <div className="relative flex min-h-screen flex-col">
@@ -170,6 +224,14 @@ function SuccessScreen({
             >
               別の公演を投稿する
             </button>
+            {artistSlug && (
+              <Link
+                href={`/artists/${artistSlug}`}
+                className="flex h-[48px] w-full items-center justify-center rounded-full border border-gray-200 bg-white text-[14px] font-bold text-gray-700 transition-opacity active:opacity-80"
+              >
+                アーティストページを見る
+              </Link>
+            )}
           </div>
         </div>
       </div>
@@ -180,7 +242,9 @@ function SuccessScreen({
 export default function LiveReportPage() {
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
-  const [selectedEvent, setSelectedEvent] = useState("tokyo-0712");
+  const [events, setEvents] = useState<EventRow[]>([]);
+  const [eventsLoading, setEventsLoading] = useState(true);
+  const [selectedEvent, setSelectedEvent] = useState("");
   const [seatArea, setSeatArea] = useState("");
   const [blockInfo, setBlockInfo] = useState("");
   const [row, setRow] = useState("");
@@ -190,9 +254,29 @@ export default function LiveReportPage() {
   const [standFloor, setStandFloor] = useState("");
   const [standFloorOther, setStandFloorOther] = useState("");
   const [otherSeatInfo, setOtherSeatInfo] = useState("");
-  const [photoSelected, setPhotoSelected] = useState(false);
+  const [photos, setPhotos] = useState<File[]>([]);
+  const photoInputRef = useRef<HTMLInputElement>(null);
   const [perf, setPerf] = useState<Record<PerfKey, PerfValue>>(EMPTY_PERF);
   const [memo, setMemo] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
+  const [submittedArtistSlug, setSubmittedArtistSlug] = useState<string | null>(null);
+
+  useEffect(() => {
+    const pastDate = new Date(Date.now() - 30 * 86400 * 1000).toISOString().split("T")[0];
+    supabase
+      .from("events")
+      .select("id, title, venue, date")
+      .gte("date", pastDate)
+      .order("date", { ascending: true })
+      .limit(50)
+      .then(({ data }) => {
+        const rows = (data ?? []) as EventRow[];
+        setEvents(rows);
+        if (rows.length > 0) setSelectedEvent(rows[0].id);
+        setEventsLoading(false);
+      });
+  }, []);
 
   const setPerfValue = (key: PerfKey, value: PerfValue) =>
     setPerf((prev) => ({ ...prev, [key]: value }));
@@ -207,12 +291,63 @@ export default function LiveReportPage() {
     setStandFloor("");
     setStandFloorOther("");
     setOtherSeatInfo("");
-    setPhotoSelected(false);
+    setPhotos([]);
     setPerf(EMPTY_PERF);
     setMemo("");
+    setError("");
   };
 
-  const currentVenueType = EVENTS.find((e) => e.id === selectedEvent)?.venueType ?? "arena_dome_stadium";
+  async function handleSubmit() {
+    setError("");
+    setSubmitting(true);
+    try {
+      const uploadedPaths: string[] = [];
+      for (const file of photos) {
+        const ext = file.name.split(".").pop()?.toLowerCase() ?? "jpg";
+        const path = `${randomId()}.${ext}`;
+        const { error: uploadErr } = await supabase.storage
+          .from("after-report-photos")
+          .upload(path, file, { contentType: file.type });
+        if (uploadErr) throw new Error(`写真のアップロードに失敗しました: ${uploadErr.message}`);
+        uploadedPaths.push(path);
+      }
+
+      const dbRow = {
+        id:                        randomId(),
+        event_id:                  selectedEvent,
+        seat_area_type:            toSeatAreaType(seatArea, standFloor),
+        seat_block:                blockInfo.trim(),
+        seat_row:                  row.trim()        || null,
+        seat_number:               seatNumber.trim() || null,
+        photo_paths:               uploadedPaths,
+        seat_view_photo_paths:     uploadedPaths,
+        trolley_photo_paths:       [] as string[],
+        audience_walk_photo_paths: [] as string[],
+        center_stage:              perf.censtage  || null,
+        torokko:                   perf.torocco   || null,
+        torokko_route:             null,
+        kyakukudari:               perf.kyakuori  || null,
+        kyakukudari_route:         null,
+        silver_tape_rows:          perf.ginte === "あり" ? 1 : perf.ginte === "なし" ? 0 : null,
+        fansa:                     perf.fansa === "" ? null : perf.fansa !== "なし",
+        memo:                      memo || null,
+      };
+
+      const { error: dbErr } = await supabase.from("after_reports").insert(dbRow);
+      if (dbErr) throw new Error(dbErr.message);
+
+      const ev = events.find(e => e.id === selectedEvent);
+      setSubmittedArtistSlug(ev ? (findArtistByKeyword(ev.title)?.slug ?? null) : null);
+      setSubmitted(true);
+    } catch (err) {
+      setError("投稿に失敗しました: " + (err instanceof Error ? err.message : String(err)));
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  const selectedVenue = events.find((e) => e.id === selectedEvent)?.venue ?? "";
+  const currentVenueType = selectedVenue ? getVenueType(selectedVenue) : "arena_dome_stadium";
   const seatAreaOptions = SEAT_AREAS[currentVenueType];
 
   const step1CanProceed = (() => {
@@ -238,11 +373,12 @@ export default function LiveReportPage() {
               setSubmitted(false);
             }}
             onOther={() => {
-              setSelectedEvent("tokyo-0712");
+              setSelectedEvent(events[0]?.id ?? "");
               resetForm();
               setStep(1);
               setSubmitted(false);
             }}
+            artistSlug={submittedArtistSlug}
           />
         </div>
       </div>
@@ -284,53 +420,54 @@ export default function LiveReportPage() {
                 <h2 className="text-center text-[13px] font-bold text-gray-900">報告する公演</h2>
               </div>
               <div className="-mx-1 overflow-x-auto pb-1 hide-scrollbar">
-                <div className="flex min-w-max gap-2 px-1">
-                  {EVENTS.map((event) => {
-                    const isSelected = selectedEvent === event.id;
-                    return (
-                      <button
-                        key={event.id}
-                        type="button"
-                        onClick={() => {
-                          const newVenueType = event.venueType;
-                          const areas = SEAT_AREAS[newVenueType];
-                          if (seatArea !== "" && !areas.includes(seatArea)) {
-                            setSeatArea("");
-                            setBlockInfo("");
-                            setRow("");
-                            setSeatNumber("");
-                            setStandDirection("");
-                            setStandDirectionOther("");
-                            setStandFloor("");
-                            setStandFloorOther("");
-                            setOtherSeatInfo("");
-                          }
-                          setSelectedEvent(event.id);
-                        }}
-                        className={`relative h-[74px] w-[96px] shrink-0 rounded-xl px-2 py-2 text-left transition-colors ${
-                          isSelected
-                            ? "border-2 border-[#FF6B9D] bg-[#FFF1F6]"
-                            : "border border-gray-200 bg-white"
-                        }`}
-                      >
-                        {isSelected && (
-                          <span className="absolute right-1.5 top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-[#FF6B9D] text-[9px] text-white">
-                            ✓
-                          </span>
-                        )}
-                        <div className="text-[12px] font-bold text-gray-900">{event.date}</div>
-                        <div className="mt-1 text-[10px] font-semibold text-gray-800">{event.venue}</div>
-                        <div
-                          className={`mt-1 inline-flex rounded-full px-2 py-0.5 text-[8px] font-bold ${
-                            isSelected ? "bg-[#FF6B9D] text-white" : "bg-gray-100 text-gray-500"
+                {eventsLoading ? (
+                  <div className="flex h-[74px] items-center justify-center">
+                    <div className="h-5 w-5 animate-spin rounded-full border-2 border-[#FF6B9D] border-t-transparent" />
+                  </div>
+                ) : events.length === 0 ? (
+                  <p className="py-4 text-[12px] text-gray-400">公演がありません</p>
+                ) : (
+                  <div className="flex min-w-max gap-2 px-1">
+                    {events.map((event) => {
+                      const isSelected = selectedEvent === event.id;
+                      return (
+                        <button
+                          key={event.id}
+                          type="button"
+                          onClick={() => {
+                            const newVenueType = getVenueType(event.venue);
+                            const areas = SEAT_AREAS[newVenueType];
+                            if (seatArea !== "" && !areas.includes(seatArea)) {
+                              setSeatArea("");
+                              setBlockInfo("");
+                              setRow("");
+                              setSeatNumber("");
+                              setStandDirection("");
+                              setStandDirectionOther("");
+                              setStandFloor("");
+                              setStandFloorOther("");
+                              setOtherSeatInfo("");
+                            }
+                            setSelectedEvent(event.id);
+                          }}
+                          className={`relative h-[74px] w-[96px] shrink-0 rounded-xl px-2 py-2 text-left transition-colors ${
+                            isSelected
+                              ? "border-2 border-[#FF6B9D] bg-[#FFF1F6]"
+                              : "border border-gray-200 bg-white"
                           }`}
                         >
-                          {event.day}
-                        </div>
-                      </button>
-                    );
-                  })}
-                </div>
+                          {isSelected && (
+                            <span className="absolute right-1.5 top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-[#FF6B9D] text-[9px] text-white">
+                              ✓
+                            </span>
+                          )}
+                          <div className="text-[12px] font-bold text-gray-900">{fmtEventDate(event.date)}</div>
+                          <div className="mt-1 line-clamp-2 text-[10px] font-semibold text-gray-800">{event.venue}</div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
             </section>
 
@@ -608,25 +745,39 @@ export default function LiveReportPage() {
               <p className="mb-3 text-[9px] text-gray-400">
                 席から見た実際の風景を優先してください。スマホの写真でOKです。
               </p>
-              {photoSelected ? (
-                <div className="relative flex h-[120px] items-center justify-center rounded-xl bg-gray-100">
-                  <p className="text-[11px] text-gray-500">写真が選択されています</p>
-                  <button
-                    type="button"
-                    onClick={() => setPhotoSelected(false)}
-                    className="absolute right-2 top-2 flex h-6 w-6 items-center justify-center rounded-full bg-gray-400 text-white"
-                  >
-                    <X size={12} />
-                  </button>
+              <input
+                ref={photoInputRef}
+                type="file"
+                multiple
+                accept="image/*"
+                className="hidden"
+                onChange={(e) => {
+                  const files = Array.from(e.target.files ?? []);
+                  setPhotos((prev) => [...prev, ...files].slice(0, 5));
+                  e.target.value = "";
+                }}
+              />
+              {photos.length > 0 && (
+                <div className="mb-3 flex flex-wrap gap-2">
+                  {photos.map((file, i) => (
+                    <PhotoThumb
+                      key={i}
+                      file={file}
+                      onRemove={() => setPhotos((prev) => prev.filter((_, idx) => idx !== i))}
+                    />
+                  ))}
                 </div>
-              ) : (
+              )}
+              {photos.length < 5 && (
                 <button
                   type="button"
-                  onClick={() => setPhotoSelected(true)}
+                  onClick={() => photoInputRef.current?.click()}
                   className="flex h-[120px] w-full flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-gray-200 bg-gray-50 transition-colors active:bg-gray-100"
                 >
                   <Camera size={24} className="text-gray-300" />
-                  <p className="text-[10px] text-gray-400">席からの見え方写真を選ぶ</p>
+                  <p className="text-[10px] text-gray-400">
+                    {photos.length === 0 ? "席からの見え方写真を選ぶ" : `写真を追加（${photos.length}/5）`}
+                  </p>
                 </button>
               )}
             </section>
@@ -713,13 +864,18 @@ export default function LiveReportPage() {
               </div>
             </section>
 
+            {error && (
+              <div className="rounded-xl bg-red-50 px-4 py-3 text-[12px] text-red-600">{error}</div>
+            )}
+
             <div className="mt-5">
               <button
                 type="button"
-                onClick={() => setSubmitted(true)}
-                className="flex h-12 w-full items-center justify-center rounded-full bg-[#FF6B9D] text-[13px] font-bold text-white shadow-[0_8px_20px_rgba(255,107,157,0.25)] transition-opacity active:opacity-80"
+                onClick={handleSubmit}
+                disabled={submitting}
+                className="flex h-12 w-full items-center justify-center rounded-full bg-[#FF6B9D] text-[13px] font-bold text-white shadow-[0_8px_20px_rgba(255,107,157,0.25)] transition-opacity active:opacity-80 disabled:opacity-60"
               >
-                投稿する
+                {submitting ? "投稿中..." : "投稿する"}
               </button>
               <button
                 type="button"

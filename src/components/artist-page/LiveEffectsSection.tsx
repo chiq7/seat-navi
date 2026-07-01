@@ -1,20 +1,25 @@
 import Image from "next/image";
 
-const EFFECTS: { key: string; label: string; active: boolean }[] = [
-  { key: "center-stage", label: "センステ", active: true },
-  { key: "trolley", label: "トロッコ", active: true },
-  { key: "aisle-walk", label: "客降り", active: true },
-  { key: "silver-tape", label: "銀テープ", active: false },
-  { key: "fanservice", label: "ファンサ", active: true },
+const EFFECT_DEFS: { key: string; label: string }[] = [
+  { key: "center-stage", label: "センステ" },
+  { key: "trolley",      label: "トロッコ" },
+  { key: "aisle-walk",   label: "客降り" },
+  { key: "silver-tape",  label: "銀テープ" },
+  { key: "fanservice",   label: "ファンサ" },
 ];
 
-export default function LiveEffectsSection() {
+type Props = {
+  liveEffects: Record<string, boolean>;
+};
+
+export default function LiveEffectsSection({ liveEffects }: Props) {
   return (
     <section className="mt-5 px-4">
       <h2 className="mb-2.5 text-[13px] font-bold text-gray-900">この公演で見られた演出</h2>
       <div className="flex gap-2">
-        {EFFECTS.map((effect) => {
-          const src = `/images/reports/ive-effects/${effect.key}-${effect.active ? "active" : "inactive"}.png`;
+        {EFFECT_DEFS.map((effect) => {
+          const active = liveEffects[effect.key] ?? false;
+          const src = `/images/reports/ive-effects/${effect.key}-${active ? "active" : "inactive"}.png`;
           return (
             <div
               key={effect.key}

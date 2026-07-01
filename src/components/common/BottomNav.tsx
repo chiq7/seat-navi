@@ -57,7 +57,7 @@ function Item({
 export function BottomNav({ active, artistSlug, eventId }: Props) {
   const artistHref = artistSlug ? `/artists/${artistSlug}` : "/";
   const seatHref = eventId ? `/events/${eventId}` : null;
-  const afterHref = eventId ? `/events/${eventId}/after-report` : null;
+  const afterHref = "/report/live";
   const setlistHref = artistSlug ? `/artists/${artistSlug}/setlist` : null;
 
   return (
