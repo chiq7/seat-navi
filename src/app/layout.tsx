@@ -13,6 +13,9 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://tixrepo.com"),
   title: SITE_TITLE,
   description: SITE_DESCRIPTION,
+  alternates: {
+    canonical: "https://tixrepo.com",
+  },
   icons: {
     icon: { url: "/favicon.ico", type: "image/x-icon" },
     shortcut: { url: "/favicon.ico", type: "image/x-icon" },
@@ -21,11 +24,14 @@ export const metadata: Metadata = {
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
     type: "website",
+    url: "https://tixrepo.com",
+    images: ["/opengraph-image"],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
+    images: ["/opengraph-image"],
   },
 };
 
