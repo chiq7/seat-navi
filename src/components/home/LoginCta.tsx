@@ -24,14 +24,13 @@ export default function LoginCta() {
         </p>
       </div>
 
-      {/* Login button */}
-      <button
-        type="button"
-        className="shrink-0 rounded-full px-3.5 py-2 text-[12px] font-bold text-white"
-        style={{ backgroundColor: "#FF6B9D" }}
+      {/* ログイン機能は準備中 */}
+      <span
+        className="shrink-0 rounded-full px-3.5 py-2 text-[11px] font-bold text-gray-400"
+        style={{ backgroundColor: "#F3F4F6" }}
       >
-        ログイン
-      </button>
+        準備中
+      </span>
     </div>
   );
 }
