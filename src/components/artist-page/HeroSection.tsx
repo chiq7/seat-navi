@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Fragment } from "react";
-import { CalendarDays, ChevronLeft, Heart } from "lucide-react";
+import { CalendarDays, ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { rateText } from "@/lib/artistPageHelpers";
 
@@ -84,13 +84,7 @@ export default function HeroSection({
           <h1 className="font-serif font-semibold text-white" style={{ fontSize: "21px", letterSpacing: "0.22em" }}>
             {artistName}
           </h1>
-          <button
-            type="button"
-            aria-label="お気に入り"
-            className="flex h-10 w-10 items-center justify-center text-white"
-          >
-            <Heart size={23} strokeWidth={2.4} />
-          </button>
+          <div className="h-10 w-10" aria-hidden="true" />
         </header>
 
         <div className="absolute z-10 text-center" style={{ top: "82px", left: "24px", right: "24px" }}>

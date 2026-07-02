@@ -322,7 +322,11 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
             />
           </div>
           <div id="map">
-            <MapPreviewSection venues={venuesSorted} topPredictionImageUrl={topPredictionImageUrl} />
+            <MapPreviewSection
+              venues={venuesSorted}
+              topPredictionImageUrl={topPredictionImageUrl}
+              predictionHref={nearestUpcomingEvent ? `/events/${nearestUpcomingEvent.id}/fan-seat-prediction` : null}
+            />
           </div>
           <LiveEffectsSection liveEffects={liveEffects} />
           <ReportSection

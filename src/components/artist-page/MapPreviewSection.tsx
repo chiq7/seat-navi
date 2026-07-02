@@ -1,16 +1,14 @@
-"use client";
-
 import Image from "next/image";
-import { useState } from "react";
+import Link from "next/link";
 
 type Props = {
   venues: string[];
   topPredictionImageUrl?: string | null;
+  predictionHref?: string | null;
 };
 
-export default function MapPreviewSection({ venues, topPredictionImageUrl = null }: Props) {
+export default function MapPreviewSection({ venues, topPredictionImageUrl = null, predictionHref = null }: Props) {
   const displayVenues = venues.slice(0, 4);
-  const [selectedIndex, setSelectedIndex] = useState(0);
 
   return (
     <section className="mt-4 px-4">
@@ -18,18 +16,16 @@ export default function MapPreviewSection({ venues, topPredictionImageUrl = null
       {displayVenues.length > 0 && (
         <div className="mb-2.5 grid grid-cols-4 gap-2">
           {displayVenues.map((venue, index) => (
-            <button
+            <span
               key={venue}
-              type="button"
-              onClick={() => setSelectedIndex(index)}
-              className={`h-8 truncate rounded-full border text-[11px] font-bold ${
-                index === selectedIndex
+              className={`flex h-8 items-center justify-center truncate rounded-full border px-1 text-[11px] font-bold ${
+                index === 0
                   ? "border-[#FF6B9D] bg-[#FF6B9D] text-white"
                   : "border-gray-200 bg-white text-gray-900"
               }`}
             >
               {venue}
-            </button>
+            </span>
           ))}
         </div>
       )}
@@ -41,12 +37,14 @@ export default function MapPreviewSection({ venues, topPredictionImageUrl = null
         <span className="h-3 w-3 rounded-full bg-[#FF6B9D]" />
         <span className="h-3 w-3 rounded-full bg-gray-200" />
       </div>
-      <button
-        type="button"
-        className="mx-auto mt-3 flex h-12 w-[76%] items-center justify-center rounded-full bg-[#FF6B9D] text-[17px] font-bold text-white shadow-sm"
-      >
-        詳しく見る・予想を投稿する
-      </button>
+      {predictionHref && (
+        <Link
+          href={predictionHref}
+          className="mx-auto mt-3 flex h-12 w-[76%] items-center justify-center rounded-full bg-[#FF6B9D] text-[17px] font-bold text-white shadow-sm no-underline"
+        >
+          詳しく見る・予想を投稿する
+        </Link>
+      )}
     </section>
   );
 }

@@ -139,7 +139,9 @@ export default function TrendSection({ ticketStats, arenaStats, upgradeStats }: 
     <section className="mt-1.5 px-4">
       <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
         <div className="p-1.5">
-          <TrendTabs />
+          <h2 className="flex h-11 items-center justify-center text-[16px] font-bold text-gray-900">
+            全公演
+          </h2>
         </div>
         <div className="border-t border-gray-100">
           <TrendCard
@@ -151,19 +153,6 @@ export default function TrendSection({ ticketStats, arenaStats, upgradeStats }: 
         </div>
       </div>
     </section>
-  );
-}
-
-export function TrendTabs() {
-  return (
-    <div className="grid h-11 grid-cols-2 rounded-full border border-gray-200 p-1">
-      <button className="rounded-full bg-[#FF6B9D] text-[16px] font-bold text-white" type="button">
-        全公演
-      </button>
-      <button className="rounded-full text-[16px] font-bold text-gray-900" type="button">
-        会場別
-      </button>
-    </div>
   );
 }
 

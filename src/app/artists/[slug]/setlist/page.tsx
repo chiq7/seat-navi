@@ -12,10 +12,6 @@ import { BottomNav } from "@/components/common/BottomNav";
 import { EventDateTabs } from "@/components/setlist/EventDateTabs";
 import { SetlistItemsSection } from "@/components/setlist/SetlistItemsSection";
 
-// ─── Constants ────────────────────────────────────────────────────────────────
-
-const SUGGESTION_SONGS = ["HOT", "Super", "Rock with you", "VERY NICE", "CLAP", "God of Music"];
-
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
 function newId(): string {
@@ -125,13 +121,8 @@ export default function SetlistPage({ params }: { params: Promise<{ slug: string
 
   const songNumbers = useMemo(() => computeSongNumbers(setlistItems), [setlistItems]);
 
-  const filteredSuggestions = useMemo(() => {
-    if (slug !== "seventeen") return [];
-    if (!searchQuery.trim()) return SUGGESTION_SONGS;
-    return SUGGESTION_SONGS.filter(s =>
-      s.toLowerCase().includes(searchQuery.toLowerCase()),
-    );
-  }, [searchQuery, slug]);
+  // 曲名サジェストは未実装（将来アーティストごとの楽曲データを持たせて汎用化する）
+  const filteredSuggestions: string[] = [];
 
   // ─── アクション ──────────────────────────────────────────────────────────────
 
