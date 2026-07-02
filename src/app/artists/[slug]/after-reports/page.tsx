@@ -2,7 +2,7 @@
 
 import { use, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { supabase } from "@/lib/supabase/client";
 import { findArtistBySlug } from "@/lib/artists";
 import type { CrawledEvent } from "@/lib/types";
@@ -159,10 +159,11 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
             return (
               <div
                 key={report.id}
-                className="grid min-h-11 grid-cols-[56px_1fr] items-center gap-3 border-b border-gray-100 px-2.5 py-1.5 last:border-b-0"
+                className="grid min-h-11 grid-cols-[56px_1fr_18px] items-center gap-3 border-b border-gray-100 px-2.5 py-1.5 last:border-b-0"
               >
                 <ReportThumb index={index} />
                 <p className="truncate text-[14px] font-medium text-gray-900">{text}</p>
+                <ChevronRight size={19} strokeWidth={2.2} className="text-gray-500" />
               </div>
             );
           })}
