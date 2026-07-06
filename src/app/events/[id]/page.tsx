@@ -6,7 +6,8 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ChevronLeft, Share2 } from "lucide-react";
 import { supabase } from "@/lib/supabase/client";
-import { findArtistByKeyword } from "@/lib/artists";
+import { resolveArtist } from "@/lib/artists";
+import { getEventsForArtist } from "@/lib/events";
 import type { CrawledEvent, FanSeatPrediction, SeatReport } from "@/lib/types";
 import type { ColorMode } from "@/lib/arena-map/arenaMapTypes";
 import { ArenaReportMap } from "@/components/arena-map/ArenaReportMap";
@@ -99,7 +100,7 @@ export default function EventDetailPage({
       const [evRes, reportsRes, fanPredictionsRes] = await Promise.all([
         supabase
           .from("events")
-          .select("id, title, venue, venue_id, date, genre, lottery_types")
+          .select("id, title, venue, venue_id, date, genre, lottery_types, artist_slug")
           .eq("id", eventId)
           .single(),
         supabase
@@ -151,29 +152,22 @@ export default function EventDetailPage({
     return () => clearTimeout(t);
   }, [toast]);
 
-  const artist = event ? findArtistByKeyword(event.title) : undefined;
-
-  const relatedEventFilter = useMemo(
-    () => artist?.keywords.map((kw) => `title.ilike.%${kw}%`).join(",") ?? "",
-    [artist],
-  );
+  const artist = event ? resolveArtist(event) : undefined;
 
   useEffect(() => {
-    if (!event || !relatedEventFilter) return;
+    if (!event || !artist) return;
+    const currentEvent = event;
+    const currentArtist = artist;
     let cancelled = false;
     async function loadRelated() {
-      const { data } = await supabase
-        .from("events")
-        .select("id, title, venue, venue_id, date, genre, lottery_types")
-        .or(relatedEventFilter)
-        .order("date", { ascending: true });
-      if (!cancelled) setRelatedEvents((data as CrawledEvent[]) ?? [event!]);
+      const evs = await getEventsForArtist(currentArtist.slug);
+      if (!cancelled) setRelatedEvents(evs.length > 0 ? evs : [currentEvent]);
     }
     loadRelated();
     return () => {
       cancelled = true;
     };
-  }, [event, relatedEventFilter]);
+  }, [event, artist]);
 
   // Day番号：同一会場内での日付順インデックス（1始まり）
   const dayMap = useMemo(() => {

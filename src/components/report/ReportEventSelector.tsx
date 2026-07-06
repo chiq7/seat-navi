@@ -1,18 +1,31 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ChevronRight, Sparkles } from "lucide-react";
-import { supabase } from "@/lib/supabase/client";
-import { findArtistByKeyword } from "@/lib/artists";
+import { ChevronRight } from "lucide-react";
 import type { CrawledEvent } from "@/lib/types";
 
-function fmtShortDate(d: string | null): string {
-  if (!d) return "日程未定";
-  const [, m, day] = d.split("-").map(Number);
-  const w = ["日", "月", "火", "水", "木", "金", "土"][new Date(d).getDay()];
-  return `${m}/${day}(${w})`;
+function Sparkle({
+  size = 8,
+  color = "#FF6B9D",
+  className = "",
+}: {
+  size?: number;
+  color?: string;
+  className?: string;
+}) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill={color}
+      className={className}
+      style={{ flexShrink: 0 }}
+    >
+      <path d="M12 2L13.8 9.2L21 10.5L13.8 12.5L12 20L10.2 12.5L3 10.5L10.2 9.2L12 2Z" />
+    </svg>
+  );
 }
 
 type CardLinkProps = {
@@ -38,124 +51,64 @@ function CardLink({ href, children }: CardLinkProps) {
   );
 }
 
-export function ReportEventSelector() {
-  const [events, setEvents] = useState<CrawledEvent[]>([]);
-  const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
+type Props = {
+  selectedEvent: CrawledEvent | null;
+  artistName: string | null;
+  artistSlug: string | null;
+};
 
-  useEffect(() => {
-    async function load() {
-      const today = new Date().toISOString().split("T")[0];
-      const { data } = await supabase
-        .from("events")
-        .select("id, title, venue, venue_id, date, genre, lottery_types")
-        .gte("date", today)
-        .order("date", { ascending: true })
-        .limit(50);
-      const list = (data as CrawledEvent[]) ?? [];
-      setEvents(list);
-      if (list.length > 0) setSelectedId(list[0].id);
-      setLoading(false);
-    }
-    load();
-  }, []);
-
-  const selectedEvent = useMemo(
-    () => events.find((e) => e.id === selectedId) ?? null,
-    [events, selectedId],
-  );
-
-  const artistSlug = useMemo(
-    () => (selectedEvent ? (findArtistByKeyword(selectedEvent.title)?.slug ?? null) : null),
-    [selectedEvent],
-  );
-
-  const dayMap = useMemo(() => {
-    const map = new Map<string, number>();
-    const venueGroups = new Map<string, CrawledEvent[]>();
-    for (const ev of events) {
-      const v = ev.venue ?? "";
-      if (!venueGroups.has(v)) venueGroups.set(v, []);
-      venueGroups.get(v)!.push(ev);
-    }
-    for (const [, evs] of venueGroups) {
-      const sorted = [...evs].sort((a, b) => (a.date ?? "").localeCompare(b.date ?? ""));
-      sorted.forEach((ev, i) => map.set(ev.id, i + 1));
-    }
-    return map;
-  }, [events]);
-
+export function ReportEventSelector({
+  selectedEvent,
+  artistName,
+  artistSlug,
+}: Props) {
+  const ticketHref = selectedEvent ? `/report/ticket?event=${selectedEvent.id}` : null;
   const arenaHref = selectedEvent ? `/events/${selectedEvent.id}/fan-seat-prediction` : null;
-  const liveHref = "/report/live";
+  const liveHref = selectedEvent ? `/report/live?event=${selectedEvent.id}` : null;
   const setlistHref = artistSlug ? `/artists/${artistSlug}/setlist` : null;
 
   return (
     <>
-      {/* 公演を選択 */}
-      <section className="mt-5">
-        <p className="mb-2 px-4 text-[13px] font-bold text-[#111827]">公演を選択</p>
-
-        {loading ? (
-          <div className="flex gap-2 px-4">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="h-[72px] w-[128px] shrink-0 animate-pulse rounded-lg bg-gray-100" />
-            ))}
-          </div>
-        ) : events.length === 0 ? (
-          <p className="px-4 text-[12px] text-gray-400">公演情報が見つかりませんでした</p>
-        ) : (
-          <div className="overflow-x-auto px-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            <div className="flex gap-2">
-              {events.map((ev) => {
-                const isSel = ev.id === selectedId;
-                const dayNum = dayMap.get(ev.id) ?? 1;
-                return (
-                  <button
-                    key={ev.id}
-                    type="button"
-                    onClick={() => setSelectedId(ev.id)}
-                    className={`relative flex w-[128px] shrink-0 flex-col rounded-lg p-2.5 text-left transition-all active:scale-95 ${
-                      isSel
-                        ? "border-2 border-[#FF6B9D] bg-[#FFF1F6]"
-                        : "border border-gray-200 bg-white"
-                    }`}
-                  >
-                    <p
-                      className={`text-[12px] font-bold leading-tight ${
-                        isSel ? "text-[#FF6B9D]" : "text-[#111827]"
-                      }`}
-                    >
-                      {fmtShortDate(ev.date)}
-                    </p>
-                    <p className="mt-0.5 overflow-hidden truncate whitespace-nowrap text-[10px] text-gray-500">
-                      {ev.venue}
-                    </p>
-                    <span
-                      className={`mt-1.5 w-fit rounded-full px-1.5 py-px text-[9px] font-bold ${
-                        isSel ? "bg-[#FF6B9D] text-white" : "bg-gray-100 text-gray-500"
-                      }`}
-                    >
-                      Day{dayNum}
-                    </span>
-                  </button>
-                );
-              })}
-              <div className="w-1 shrink-0" />
+      {/* アーティスト情報（アリーナ予想図ページと同じ見た目） */}
+      {selectedEvent && (
+        <section className="px-4 pt-3">
+          <div className="flex items-start gap-2">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" className="mt-0.5 shrink-0">
+              <rect x="9" y="2" width="6" height="11" rx="3" fill="#FF6B9D" />
+              <path d="M5 10a7 7 0 0014 0" stroke="#FF6B9D" strokeWidth="2" strokeLinecap="round" fill="none" />
+              <line x1="12" y1="17" x2="12" y2="22" stroke="#FF6B9D" strokeWidth="2" strokeLinecap="round" />
+              <line x1="8" y1="22" x2="16" y2="22" stroke="#FF6B9D" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+            <div className="min-w-0 flex-1">
+              {artistName ? (
+                <>
+                  <p className="text-[15px] font-bold leading-snug text-gray-900">{artistName}</p>
+                  <p className="mt-0.5 text-[12px] leading-snug text-gray-500">{selectedEvent.title}</p>
+                </>
+              ) : (
+                <p className="text-[14px] font-bold leading-snug text-gray-900">{selectedEvent.title}</p>
+              )}
             </div>
+            <Sparkle size={9} color="#FBBF24" className="mt-0.5" />
           </div>
-        )}
-      </section>
+        </section>
+      )}
 
       {/* 報告タイプカード */}
       <div className="mt-5 px-4">
-        <div className="mb-3 flex items-center gap-1.5">
-          <Sparkles size={17} strokeWidth={2} className="text-[#FF6B9D]" />
-          <h2 className="text-[18px] font-bold text-[#111827]">報告する内容を選んでください</h2>
+        <div className="mb-3">
+          <Image
+            src="/images/report/report-form-title.png"
+            alt="報告する内容を選んでください"
+            width={2172}
+            height={724}
+            className="h-[40px] w-auto max-w-full object-contain"
+          />
         </div>
 
         <div className="space-y-3">
           {/* 当落・座席を報告 */}
-          <CardLink href="/report/ticket">
+          <CardLink href={ticketHref}>
             <div className="h-16 w-16 shrink-0 overflow-hidden rounded-[18px]">
               <Image
                 src="/images/report/icons/report-ticket-seat-icon1.png"
@@ -170,9 +123,11 @@ export function ReportEventSelector() {
               <p className="mt-1 text-[13px] leading-snug text-[#6B7280]">
                 当選・落選、抽選種別、座席情報をまとめて共有
               </p>
-              <p className="mt-1 text-[11px] font-semibold text-[#FF6B9D]">当落・座席レポートページへ</p>
+              <p className={`mt-1 text-[11px] font-semibold ${ticketHref ? "text-[#FF6B9D]" : "text-[#6B7280]"}`}>
+                {ticketHref ? "当落・座席レポートページへ" : "公演を選択してください"}
+              </p>
             </div>
-            <ChevronRight size={20} strokeWidth={2} className="shrink-0 text-[#D1D5DB]" />
+            {ticketHref && <ChevronRight size={20} strokeWidth={2} className="shrink-0 text-[#D1D5DB]" />}
           </CardLink>
 
           {/* アリーナ予想図を投稿 */}

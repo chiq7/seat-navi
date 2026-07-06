@@ -1,11 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { Camera, ChevronLeft, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase/client";
-import { findArtistByKeyword } from "@/lib/artists";
+import { resolveArtist } from "@/lib/artists";
+import { getEventsForArtist } from "@/lib/events";
 
 function randomId() {
   return crypto.randomUUID().replace(/-/g, "").slice(0, 20);
@@ -19,7 +21,7 @@ const SEAT_AREAS: Record<VenueType, string[]> = {
   livehouse_other: ["指定席", "スタンディング", "整理番号", "その他"],
 };
 
-type EventRow = { id: string; title: string; venue: string; date: string | null };
+type EventRow = { id: string; title: string; venue: string; date: string | null; artist_slug?: string | null };
 
 function getVenueType(venue: string): VenueType {
   if (/ドーム|アリーナ|スタジアム|Stadium|Arena|Dome/i.test(venue)) return "arena_dome_stadium";
@@ -240,6 +242,15 @@ function SuccessScreen({
 }
 
 export default function LiveReportPage() {
+  return (
+    <Suspense fallback={null}>
+      <LiveReportPageInner />
+    </Suspense>
+  );
+}
+
+function LiveReportPageInner() {
+  const searchParams = useSearchParams();
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
   const [events, setEvents] = useState<EventRow[]>([]);
@@ -263,20 +274,55 @@ export default function LiveReportPage() {
   const [submittedArtistSlug, setSubmittedArtistSlug] = useState<string | null>(null);
 
   useEffect(() => {
-    const pastDate = new Date(Date.now() - 30 * 86400 * 1000).toISOString().split("T")[0];
-    supabase
-      .from("events")
-      .select("id, title, venue, date")
-      .gte("date", pastDate)
-      .order("date", { ascending: true })
-      .limit(50)
-      .then(({ data }) => {
-        const rows = (data ?? []) as EventRow[];
-        setEvents(rows);
-        if (rows.length > 0) setSelectedEvent(rows[0].id);
-        setEventsLoading(false);
-      });
+    async function load() {
+      const preselectedEventId = searchParams.get("event");
+      const pastDate = new Date(Date.now() - 30 * 86400 * 1000).toISOString().split("T")[0];
+
+      let anchorEvent: EventRow | null = null;
+      if (preselectedEventId) {
+        const { data: single } = await supabase
+          .from("events")
+          .select("id, title, venue, date, artist_slug")
+          .eq("id", preselectedEventId)
+          .maybeSingle();
+        anchorEvent = (single as EventRow) ?? null;
+      }
+
+      const targetArtistSlug = anchorEvent
+        ? (anchorEvent.artist_slug ?? resolveArtist(anchorEvent)?.slug ?? null)
+        : null;
+
+      let rows: EventRow[];
+      if (targetArtistSlug) {
+        rows = (await getEventsForArtist(targetArtistSlug)) as EventRow[];
+      } else {
+        const { data } = await supabase
+          .from("events")
+          .select("id, title, venue, date, artist_slug")
+          .gte("date", pastDate)
+          .order("date", { ascending: true })
+          .limit(50);
+        rows = (data ?? []) as EventRow[];
+      }
+      if (anchorEvent && !rows.some((r) => r.id === anchorEvent!.id)) {
+        rows = [anchorEvent, ...rows];
+      }
+
+      setEvents(rows);
+      const initial = preselectedEventId && rows.some((r) => r.id === preselectedEventId)
+        ? preselectedEventId
+        : rows[0]?.id;
+      if (initial) setSelectedEvent(initial);
+      setEventsLoading(false);
+    }
+    load();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const currentArtistSlug = useMemo(() => {
+    const ev = events.find((e) => e.id === selectedEvent);
+    return ev ? (resolveArtist(ev)?.slug ?? null) : null;
+  }, [events, selectedEvent]);
 
   const setPerfValue = (key: PerfKey, value: PerfValue) =>
     setPerf((prev) => ({ ...prev, [key]: value }));
@@ -337,7 +383,7 @@ export default function LiveReportPage() {
       if (dbErr) throw new Error(dbErr.message);
 
       const ev = events.find(e => e.id === selectedEvent);
-      setSubmittedArtistSlug(ev ? (findArtistByKeyword(ev.title)?.slug ?? null) : null);
+      setSubmittedArtistSlug(ev ? (resolveArtist(ev)?.slug ?? null) : null);
       setSubmitted(true);
     } catch (err) {
       setError("投稿に失敗しました: " + (err instanceof Error ? err.message : String(err)));

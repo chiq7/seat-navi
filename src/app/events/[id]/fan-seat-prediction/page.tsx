@@ -7,9 +7,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { ChevronLeft } from "lucide-react";
 import { supabase } from "@/lib/supabase/client";
-import { findArtistByKeyword } from "@/lib/artists";
+import { resolveArtist } from "@/lib/artists";
+import { getEventsForArtist } from "@/lib/events";
 import type { CrawledEvent } from "@/lib/types";
 import { BottomNav } from "@/components/common/BottomNav";
+
+const EVENT_COLUMNS = "id, title, venue, venue_id, date, genre, lottery_types, artist_slug";
 
 const BUCKET = "fan-seat-predictions";
 const MAX_IMAGE_SIZE = 5 * 1024 * 1024;
@@ -29,6 +32,13 @@ function fmtDate(d: string | null): string {
   const [y, m, day] = d.split("-").map(Number);
   const w = ["日", "月", "火", "水", "木", "金", "土"][new Date(y, m - 1, day).getDay()];
   return `${y}.${String(m).padStart(2, "0")}.${String(day).padStart(2, "0")}（${w}）`;
+}
+
+function fmtEventDate(d: string | null): string {
+  if (!d) return "日程未定";
+  const [y, m, day] = d.split("-").map(Number);
+  const w = ["日", "月", "火", "水", "木", "金", "土"][new Date(y, m - 1, day).getDay()];
+  return `${m}/${day}（${w}）`;
 }
 
 function randomId() {
@@ -86,7 +96,9 @@ export default function FanSeatPredictionPage({
   const { id: eventId } = use(params);
   const router = useRouter();
 
-  const [event, setEvent] = useState<CrawledEvent | null>(null);
+  const [events, setEvents] = useState<CrawledEvent[]>([]);
+  const [eventsLoading, setEventsLoading] = useState(true);
+  const [selectedEventId, setSelectedEventId] = useState(eventId);
   const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState("");
   const [comment, setComment] = useState("");
@@ -97,16 +109,34 @@ export default function FanSeatPredictionPage({
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
+    setSelectedEventId(eventId);
+  }, [eventId]);
+
+  useEffect(() => {
     async function load() {
-      const { data } = await supabase
+      setEventsLoading(true);
+      const { data: anchor } = await supabase
         .from("events")
-        .select("id, title, venue, venue_id, date, genre, lottery_types")
+        .select(EVENT_COLUMNS)
         .eq("id", eventId)
         .maybeSingle();
-      setEvent(data as CrawledEvent | null);
+      const anchorEvent = (anchor as CrawledEvent | null) ?? null;
+      const targetSlug = anchorEvent
+        ? (anchorEvent.artist_slug ?? resolveArtist(anchorEvent)?.slug ?? null)
+        : null;
+
+      let list = targetSlug ? await getEventsForArtist(targetSlug) : [];
+      if (anchorEvent && !list.some((e) => e.id === anchorEvent.id)) {
+        list = [anchorEvent, ...list];
+      }
+
+      setEvents(list);
+      setEventsLoading(false);
     }
     load();
   }, [eventId]);
+
+  const event = events.find((e) => e.id === selectedEventId) ?? null;
 
   function handleFileChange(e: ChangeEvent<HTMLInputElement>) {
     const selected = e.target.files?.[0] ?? null;
@@ -147,7 +177,7 @@ export default function FanSeatPredictionPage({
     setSubmitting(true);
     try {
       const id = randomId();
-      const imagePath = `${eventId}/${id}-${safeFileName(file.name)}`;
+      const imagePath = `${selectedEventId}/${id}-${safeFileName(file.name)}`;
       const { error: uploadErr } = await supabase.storage
         .from(BUCKET)
         .upload(imagePath, file, { cacheControl: "3600", contentType: file.type, upsert: false });
@@ -155,7 +185,7 @@ export default function FanSeatPredictionPage({
 
       const { error: insertErr } = await supabase.from("fan_seat_predictions").insert({
         id,
-        event_id: eventId,
+        event_id: selectedEventId,
         image_path: imagePath,
         comment: comment.trim() || null,
         prediction_tags: tags,
@@ -184,7 +214,7 @@ export default function FanSeatPredictionPage({
     setSubmitted(false);
   }
 
-  const artistSlug = event ? findArtistByKeyword(event.title)?.slug : undefined;
+  const artistSlug = event ? resolveArtist(event)?.slug : undefined;
 
   /* ── 完了画面（Step 2） ─────────────────────────────── */
   if (submitted) {
@@ -203,7 +233,7 @@ export default function FanSeatPredictionPage({
             </div>
             <header className="relative z-10 flex h-[44px] items-center justify-center border-b border-gray-100 bg-white/80 backdrop-blur-sm">
               <Link
-                href={`/events/${eventId}`}
+                href={`/events/${selectedEventId}`}
                 className="absolute left-2 flex h-8 w-8 items-center justify-center text-gray-700"
               >
                 <ChevronLeft size={18} strokeWidth={2.5} />
@@ -233,7 +263,7 @@ export default function FanSeatPredictionPage({
                 <div className="mt-6 space-y-3">
                   <button
                     type="button"
-                    onClick={() => router.push(`/events/${eventId}`)}
+                    onClick={() => router.push(`/events/${selectedEventId}`)}
                     className="flex h-[52px] w-full items-center justify-center rounded-full bg-[#FF6B9D] text-[14px] font-bold text-white shadow-[0_4px_14px_rgba(255,107,157,0.35)] transition-opacity active:opacity-80"
                   >
                     公演ページに戻る
@@ -248,7 +278,7 @@ export default function FanSeatPredictionPage({
                 </div>
               </div>
             </div>
-            <BottomNav active="event" artistSlug={artistSlug} eventId={eventId} />
+            <BottomNav active="event" artistSlug={artistSlug} eventId={selectedEventId} />
           </div>
         </div>
       </div>
@@ -261,7 +291,7 @@ export default function FanSeatPredictionPage({
       <div className="mx-auto min-h-screen w-full max-w-[390px] bg-white">
         <header className="sticky top-0 z-30 flex h-[44px] items-center justify-center border-b border-gray-100 bg-white">
           <Link
-            href={`/events/${eventId}`}
+            href={`/events/${selectedEventId}`}
             className="absolute left-2 flex h-8 w-8 items-center justify-center text-gray-700 active:bg-gray-50"
           >
             <ChevronLeft size={18} strokeWidth={2.5} />
@@ -275,14 +305,46 @@ export default function FanSeatPredictionPage({
           {/* 対象公演 */}
           <section className="rounded-2xl border border-gray-100 bg-white p-3 shadow-sm">
             <h2 className="text-[13px] font-bold text-gray-900">対象公演</h2>
-            {event ? (
-              <div className="mt-2 space-y-0.5">
-                <p className="text-[13px] font-bold text-[#111827]">{event.title}</p>
-                <p className="text-[11px] text-gray-500">{event.venue}</p>
-                <p className="text-[11px] text-gray-500">{fmtDate(event.date)}</p>
-              </div>
-            ) : (
+            {eventsLoading ? (
               <div className="mt-2 h-10 animate-pulse rounded-lg bg-gray-100" />
+            ) : events.length === 0 ? (
+              <p className="mt-2 text-[11px] text-gray-400">公演が見つかりませんでした</p>
+            ) : (
+              <>
+                {event && (
+                  <div className="mt-2 space-y-0.5">
+                    <p className="truncate text-[12px] font-bold text-[#111827]">{event.title}</p>
+                    <p className="text-[11px] text-gray-500">{fmtDate(event.date)}</p>
+                  </div>
+                )}
+                <div className="-mx-1 mt-2 overflow-x-auto pb-1 hide-scrollbar">
+                  <div className="flex min-w-max gap-2 px-1">
+                    {events.map((ev) => {
+                      const isSelected = ev.id === selectedEventId;
+                      return (
+                        <button
+                          key={ev.id}
+                          type="button"
+                          onClick={() => setSelectedEventId(ev.id)}
+                          className={`relative h-[74px] w-[96px] shrink-0 rounded-xl px-2 py-2 text-left transition-colors ${
+                            isSelected
+                              ? "border-2 border-[#FF6B9D] bg-[#FFF1F6]"
+                              : "border border-gray-200 bg-white"
+                          }`}
+                        >
+                          {isSelected && (
+                            <span className="absolute right-1.5 top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-[#FF6B9D] text-[9px] text-white">
+                              ✓
+                            </span>
+                          )}
+                          <div className="text-[12px] font-bold text-gray-900">{fmtEventDate(ev.date)}</div>
+                          <div className="mt-1 line-clamp-2 text-[10px] font-semibold text-gray-800">{ev.venue}</div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              </>
             )}
           </section>
 
@@ -400,14 +462,14 @@ export default function FanSeatPredictionPage({
           </button>
 
           <Link
-            href={`/events/${eventId}`}
+            href={`/events/${selectedEventId}`}
             className="flex h-10 w-full items-center justify-center rounded-xl border border-gray-200 bg-white text-[12px] font-bold text-gray-500 transition-opacity active:opacity-70"
           >
             キャンセル
           </Link>
         </main>
 
-        <BottomNav active="event" artistSlug={artistSlug} eventId={eventId} />
+        <BottomNav active="event" artistSlug={artistSlug} eventId={selectedEventId} />
       </div>
     </div>
   );

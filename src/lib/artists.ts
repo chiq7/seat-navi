@@ -125,6 +125,17 @@ export const ARTISTS: Artist[] = [
     accentColor: "#f59e0b",
     accentDark: "#d97706",
   },
+  {
+    slug: "test",
+    name: "\u30c6\u30b9\u30c8\u7528\u30a2\u30fc\u30c6\u30a3\u30b9\u30c8",
+    genre: "other",
+    description: "\u30c6\u30b9\u30c8\u7528\u30a2\u30fc\u30c6\u30a3\u30b9\u30c8\u306e\u5ea7\u5e2d\u4e88\u60f3\u3001\u5f53\u9078\u7387\u3001\u73fe\u5730\u30ec\u30dd\u3001\u30bb\u30c8\u30ea\u3092\u307e\u3068\u3081\u3066\u3044\u307e\u3059\u3002",
+    keywords: ["\u30c6\u30b9\u30c8\u7528\u30a2\u30fc\u30c6\u30a3\u30b9\u30c8", "TestArtist"],
+    initials: "TE",
+    grad: "from-gray-300 to-gray-500",
+    accentColor: "#6b7280",
+    accentDark: "#4b5563",
+  },
 ];
 
 export function findArtistBySlug(slug: string): Artist | undefined {
@@ -137,7 +148,16 @@ export function findArtistByKeyword(query: string): Artist | undefined {
   return ARTISTS.find((a) =>
     a.keywords.some((kw) => {
       const k = kw.toLowerCase();
-      return k === q || k.startsWith(q) || q.startsWith(k);
+      return k === q || k.startsWith(q) || q.includes(k);
     })
   );
+}
+
+/** event.artist_slug があれば優先、無ければ従来通りタイトルのkeyword一致にフォールバック */
+export function resolveArtist(event: { artist_slug?: string | null; title: string }): Artist | undefined {
+  if (event.artist_slug) {
+    const bySlug = findArtistBySlug(event.artist_slug);
+    if (bySlug) return bySlug;
+  }
+  return findArtistByKeyword(event.title);
 }

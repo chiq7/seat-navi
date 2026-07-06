@@ -5,9 +5,11 @@ import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { supabase } from "@/lib/supabase/client";
 import { findArtistBySlug } from "@/lib/artists";
+import { getEventsForArtist } from "@/lib/events";
 import type { CrawledEvent } from "@/lib/types";
 import type { AfterReportCard } from "@/lib/artistPageTypes";
 import { fmtDate, seatAreaLabel } from "@/lib/artistPageHelpers";
+import { BottomNav } from "@/components/common/BottomNav";
 
 export default function AfterReportsPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
@@ -21,13 +23,7 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
   const [filterBlock, setFilterBlock] = useState("all");
 
   async function loadData(a: NonNullable<ReturnType<typeof findArtistBySlug>>) {
-    const orFilter = a.keywords.map(kw => `title.ilike.%${kw}%`).join(",");
-    const { data: evData, error: evError } = await supabase
-      .from("events")
-      .select("id, title, venue, venue_id, date, genre, lottery_types")
-      .or(orFilter)
-      .order("date", { ascending: false });
-    const allEvs = (evData as CrawledEvent[]) ?? [];
+    const allEvs = await getEventsForArtist(a.slug);
     setEvents(allEvs);
     if (allEvs.length === 0) { setLoading(false); return; }
     const ids = allEvs.map(e => e.id);
@@ -53,6 +49,16 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
     for (const ev of events) m.set(ev.id, ev);
     return m;
   }, [events]);
+
+  const today = new Date().toISOString().split("T")[0];
+
+  const nextEvent = useMemo(
+    () =>
+      events
+        .filter(ev => ev.date && ev.date >= today)
+        .sort((a, b) => (a.date ?? "").localeCompare(b.date ?? ""))[0] ?? events[0],
+    [events, today],
+  );
 
   const dateOptions = useMemo(() => {
     const seen = new Set<string>();
@@ -97,7 +103,7 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
   }
 
   return (
-    <main className="mx-auto min-h-screen max-w-[390px] bg-[#F3F4F6] font-sans text-gray-900">
+    <main className="mx-auto min-h-screen max-w-[390px] bg-[#F3F4F6] pb-24 font-sans text-gray-900">
       <header className="sticky top-0 z-30 flex h-[44px] items-center justify-center border-b border-gray-100 bg-white">
         <Link
           href={`/artists/${slug}`}
@@ -169,6 +175,8 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
           })}
         </div>
       )}
+
+      <BottomNav active="after-report" artistSlug={slug} eventId={nextEvent?.id} />
     </main>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import Image from "next/image";
 import type { EditableItem } from "@/lib/setlistHelpers";
 
@@ -19,12 +19,44 @@ type Props = {
   songNumbers: Map<string, string>;
   onMove: (index: number, dir: "up" | "down") => void;
   onRemove: (id: string) => void;
+  showAddForm: boolean;
+  onOpenAddForm: () => void;
+  addFormNode: ReactNode;
 };
 
-export function SetlistItemsSection({ setlistItems, songNumbers, onMove, onRemove }: Props) {
+function AddSetlistButton({ onClick }: { onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="flex w-full items-center justify-center active:opacity-70"
+    >
+      <Image
+        src="/images/setlist/setlist-add-button.png"
+        alt="セトリを追加"
+        width={2172}
+        height={724}
+        className="h-16 w-auto object-contain"
+      />
+    </button>
+  );
+}
+
+export function SetlistItemsSection({
+  setlistItems,
+  songNumbers,
+  onMove,
+  onRemove,
+  showAddForm,
+  onOpenAddForm,
+  addFormNode,
+}: Props) {
   const [isEditMode, setIsEditMode] = useState(false);
   const songCount = setlistItems.filter(i => i.type === "song").length;
   const total = setlistItems.length;
+  const addSlot = showAddForm
+    ? <div className="w-full">{addFormNode}</div>
+    : <AddSetlistButton onClick={onOpenAddForm} />;
 
   return (
     <div className="relative overflow-hidden rounded-xl border border-gray-100 bg-gradient-to-b from-white via-[#FFF8FB] to-white shadow-[0_4px_14px_rgba(15,23,42,0.05)]">
@@ -58,9 +90,12 @@ export function SetlistItemsSection({ setlistItems, songNumbers, onMove, onRemov
       </div>
 
       {setlistItems.length === 0 ? (
-        <p className="p-8 text-center text-[12px] text-gray-400">
-          まだ曲が追加されていません
-        </p>
+        <div className={`flex flex-col items-center px-4 pt-6 ${showAddForm ? "gap-1 pb-1" : "gap-0.5 pb-0.5"}`}>
+          <p className="text-center text-[12px] text-gray-400">
+            まだ曲が追加されていません
+          </p>
+          {addSlot}
+        </div>
       ) : (
         <div className="divide-y divide-gray-100/60">
           {setlistItems.map((item, index) => {
@@ -119,10 +154,10 @@ export function SetlistItemsSection({ setlistItems, songNumbers, onMove, onRemov
               const label = item.type === "mc" ? "MC" : item.label;
               const iconSrc = LABEL_ICONS[label];
               return (
-                <div key={item.id} className="flex items-center px-3 py-0.5">
+                <div key={item.id} className="flex items-center px-3 py-0">
                   <div className="h-px flex-1 bg-[#FF6B9D]/15" />
-                  <span className="mx-2 inline-flex shrink-0 items-center gap-0.5 rounded-full bg-[#FFF1F6] px-1.5 py-0 text-[10px] font-semibold text-[#FF6B9D]">
-                    {iconSrc && <Image src={iconSrc} alt="" width={16} height={16} className="object-contain" />}
+                  <span className="mx-1.5 inline-flex shrink-0 items-center gap-0.5 rounded-full border border-gray-200 bg-white px-1.5 py-0 text-[10px] font-semibold leading-none text-[#FF6B9D]">
+                    {iconSrc && <Image src={iconSrc} alt="" width={14} height={14} className="object-contain" />}
                     {label}
                   </span>
                   <div className="h-px flex-1 bg-[#FF6B9D]/15" />
@@ -145,6 +180,11 @@ export function SetlistItemsSection({ setlistItems, songNumbers, onMove, onRemov
               </div>
             );
           })}
+        </div>
+      )}
+      {setlistItems.length > 0 && (
+        <div className={`border-t border-gray-100/60 ${showAddForm ? "px-2 py-0.5" : "px-3 py-0.5"}`}>
+          {addSlot}
         </div>
       )}
     </div>

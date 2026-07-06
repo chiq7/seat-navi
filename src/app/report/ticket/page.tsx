@@ -1,11 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { ChevronLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase/client";
-import { findArtistByKeyword } from "@/lib/artists";
+import { resolveArtist } from "@/lib/artists";
+import { getEventsForArtist } from "@/lib/events";
 
 function randomId() {
   return crypto.randomUUID().replace(/-/g, "").slice(0, 20);
@@ -61,7 +63,7 @@ const SEAT_AREAS: Record<VenueType, string[]> = {
   livehouse_other: ["指定席", "スタンディング", "整理番号", "その他"],
 };
 
-type EventRow = { id: string; title: string; venue: string; date: string | null };
+type EventRow = { id: string; title: string; venue: string; date: string | null; artist_slug?: string | null };
 
 function getVenueType(venue: string): VenueType {
   if (/ドーム|アリーナ|スタジアム|Stadium|Arena|Dome/i.test(venue)) return "arena_dome_stadium";
@@ -289,6 +291,15 @@ function SuccessScreen({
 }
 
 export default function TicketReportPage() {
+  return (
+    <Suspense fallback={null}>
+      <TicketReportPageInner />
+    </Suspense>
+  );
+}
+
+function TicketReportPageInner() {
+  const searchParams = useSearchParams();
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
   const [events, setEvents] = useState<EventRow[]>([]);
@@ -319,24 +330,59 @@ export default function TicketReportPage() {
   const [error, setError] = useState("");
   const [submittedArtistSlug, setSubmittedArtistSlug] = useState<string | null>(null);
   useEffect(() => {
-    const pastDate = new Date(Date.now() - 30 * 86400 * 1000).toISOString().split("T")[0];
-    supabase
-      .from("events")
-      .select("id, title, venue, date")
-      .gte("date", pastDate)
-      .order("date", { ascending: true })
-      .limit(50)
-      .then(({ data }) => {
-        const rows = (data ?? []) as EventRow[];
-        setEvents(rows);
-        if (rows.length > 0) setSelectedEvent(rows[0].id);
-        setEventsLoading(false);
-      });
+    async function load() {
+      const preselectedEventId = searchParams.get("event");
+      const pastDate = new Date(Date.now() - 30 * 86400 * 1000).toISOString().split("T")[0];
+
+      let anchorEvent: EventRow | null = null;
+      if (preselectedEventId) {
+        const { data: single } = await supabase
+          .from("events")
+          .select("id, title, venue, date, artist_slug")
+          .eq("id", preselectedEventId)
+          .maybeSingle();
+        anchorEvent = (single as EventRow) ?? null;
+      }
+
+      const targetArtistSlug = anchorEvent
+        ? (anchorEvent.artist_slug ?? resolveArtist(anchorEvent)?.slug ?? null)
+        : null;
+
+      let rows: EventRow[];
+      if (targetArtistSlug) {
+        rows = (await getEventsForArtist(targetArtistSlug)) as EventRow[];
+      } else {
+        const { data } = await supabase
+          .from("events")
+          .select("id, title, venue, date, artist_slug")
+          .gte("date", pastDate)
+          .order("date", { ascending: true })
+          .limit(50);
+        rows = (data ?? []) as EventRow[];
+      }
+      if (anchorEvent && !rows.some((r) => r.id === anchorEvent!.id)) {
+        rows = [anchorEvent, ...rows];
+      }
+
+      setEvents(rows);
+      const initial = preselectedEventId && rows.some((r) => r.id === preselectedEventId)
+        ? preselectedEventId
+        : rows[0]?.id;
+      if (initial) setSelectedEvent(initial);
+      setEventsLoading(false);
+    }
+    load();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const selectedVenue = events.find((e) => e.id === selectedEvent)?.venue ?? "";
   const currentVenueType = selectedVenue ? getVenueType(selectedVenue) : "arena_dome_stadium";
   const seatAreaOptions = SEAT_AREAS[currentVenueType];
+
+  const currentArtistSlug = useMemo(() => {
+    const ev = events.find((e) => e.id === selectedEvent);
+    return ev ? (resolveArtist(ev)?.slug ?? null) : null;
+  }, [events, selectedEvent]);
 
   const step2CanProceed = (() => {
     if (!lotteryType || !ticketType || !ticketCount) return false;
@@ -359,17 +405,26 @@ export default function TicketReportPage() {
     setSubmitting(true);
     try {
       const isWon = result === "当選した";
+      const resolvedStandDirection = standDirection === "その他" ? standDirectionOther : standDirection;
+      const resolvedStandFloor = standFloor === "その他" ? standFloorOther : standFloor;
 
       const { error: ticketErr } = await supabase.from("event_ticket_results").insert({
         event_id:               selectedEvent,
         result:                 isWon ? "won" : "lost",
         lost_application_count: isWon ? 0 : 1,
-        ticket_count:           isWon ? (parseInt(ticketCount, 10) || null) : null,
+        ticket_count:           parseInt(ticketCount, 10) || null,
         lottery_type:           toLotteryTypeTicketResults(lotteryType),
         fc_history:             toFcHistoryTicketResults(fcHistory),
         payment_method:         paymentMethod || null,
         seat_type:              isWon ? toSeatType(ticketType, seatArea) : null,
         upgrade_result:         toUpgradeResult(upgradeStatus, isWon),
+        comment:                comment || null,
+        seat_block:             block.trim() || null,
+        seat_row:               row || null,
+        seat_number:            seatNumber || null,
+        stand_direction:        resolvedStandDirection || null,
+        stand_floor:            resolvedStandFloor || null,
+        other_seat_info:        otherSeatInfo || null,
       });
       if (ticketErr) throw new Error(ticketErr.message);
 
@@ -393,7 +448,7 @@ export default function TicketReportPage() {
       }
 
       const ev = events.find(e => e.id === selectedEvent);
-      setSubmittedArtistSlug(ev ? (findArtistByKeyword(ev.title)?.slug ?? null) : null);
+      setSubmittedArtistSlug(ev ? (resolveArtist(ev)?.slug ?? null) : null);
       setSubmitted(true);
     } catch (err) {
       setError("投稿に失敗しました: " + (err instanceof Error ? err.message : String(err)));

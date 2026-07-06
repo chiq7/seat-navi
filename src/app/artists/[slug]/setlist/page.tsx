@@ -6,6 +6,7 @@ import Image from "next/image";
 import { ChevronLeft } from "lucide-react";
 import { supabase } from "@/lib/supabase/client";
 import { findArtistBySlug } from "@/lib/artists";
+import { getEventsForArtist } from "@/lib/events";
 import type { CrawledEvent } from "@/lib/types";
 import { type EditableItem, computeSongNumbers } from "@/lib/setlistHelpers";
 import { BottomNav } from "@/components/common/BottomNav";
@@ -32,6 +33,7 @@ export default function SetlistPage({ params }: { params: Promise<{ slug: string
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [saveStatus, setSaveStatus]           = useState<"idle" | "saving" | "saved" | "error">("idle");
   const [saveError, setSaveError]             = useState<string | null>(null);
+  const [showAddForm, setShowAddForm]         = useState(false);
   const autoSaveTimer                         = useRef<ReturnType<typeof setTimeout> | null>(null);
   const skipNextSave                          = useRef(false);
 
@@ -39,23 +41,15 @@ export default function SetlistPage({ params }: { params: Promise<{ slug: string
 
   useEffect(() => {
     if (!artist) return;
-    const orFilter = artist.keywords.map(kw => `title.ilike.%${kw}%`).join(",");
-    supabase
-      .from("events")
-      .select("id, title, venue, venue_id, date, genre, lottery_types")
-      .or(orFilter)
-      .order("date", { ascending: false })
-      .then(({ data }) => {
-        if (!data) return;
-        const evs = data as CrawledEvent[];
-        setEvents(evs);
-        const t = new Date().toISOString().split("T")[0];
-        const upcoming = evs
-          .filter(ev => ev.date && ev.date >= t)
-          .sort((a, b) => (a.date ?? "").localeCompare(b.date ?? ""));
-        const def = upcoming[0] ?? evs[0];
-        if (def) setSelectedEventId(def.id);
-      });
+    getEventsForArtist(artist.slug).then((evs) => {
+      setEvents(evs);
+      const t = new Date().toISOString().split("T")[0];
+      const upcoming = evs
+        .filter(ev => ev.date && ev.date >= t)
+        .sort((a, b) => (a.date ?? "").localeCompare(b.date ?? ""));
+      const def = upcoming[0] ?? evs[0];
+      if (def) setSelectedEventId(def.id);
+    });
   }, [artist]);
 
   // ─── セトリ読み込み（イベント切替時） ─────────────────────────────────────────
@@ -63,6 +57,7 @@ export default function SetlistPage({ params }: { params: Promise<{ slug: string
   useEffect(() => {
     if (!selectedEventId) return;
     skipNextSave.current = true;
+    setShowAddForm(false);
     supabase
       .from("setlists")
       .select("items")
@@ -208,6 +203,103 @@ export default function SetlistPage({ params }: { params: Promise<{ slug: string
 
 
 
+  // ─── セトリ追加フォーム（既存UIそのまま。表示位置と表示/非表示のみ切替） ──────────
+
+  const addFormNode = (
+    <div className="rounded-xl border border-gray-100 bg-white px-3 py-2 shadow-[0_4px_14px_rgba(15,23,42,0.05)]">
+      {/* 曲名入力 + 追加ボタン */}
+      <div className="mb-1.5 flex items-center gap-1.5">
+        <div className="relative flex-1">
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value)}
+            onFocus={() => setShowSuggestions(true)}
+            onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
+            onKeyDown={e => { if (e.key === "Enter") addSong(); }}
+            placeholder="曲名を入力"
+            className="h-9 w-full rounded-lg border border-gray-200 bg-gray-50 px-2.5 text-[13px] outline-none transition-colors focus:border-[#FF6B9D]"
+          />
+          {showSuggestions && filteredSuggestions.length > 0 && (
+            <div className="absolute left-0 right-0 top-full z-20 mt-1 overflow-hidden rounded-xl border border-gray-100 bg-white shadow-lg">
+              {filteredSuggestions.map(s => (
+                <button
+                  key={s}
+                  type="button"
+                  onPointerDown={e => { e.preventDefault(); addSong(s); }}
+                  className="flex w-full items-center gap-2.5 px-3 py-2.5 text-left transition-colors active:bg-gray-100 hover:bg-gray-50"
+                >
+                  <svg
+                    className="h-3.5 w-3.5 shrink-0 text-gray-300"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"
+                    />
+                  </svg>
+                  <span className="text-[13px] text-gray-700">{s}</span>
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+        <button
+          type="button"
+          onClick={() => addSong()}
+          disabled={!searchQuery.trim()}
+          className="flex h-9 shrink-0 items-center gap-1 rounded-lg border border-[#FF6B9D]/30 bg-[#FFF1F6] px-2.5 text-[11px] font-semibold text-[#FF6B9D] transition-opacity disabled:opacity-40 active:opacity-75"
+        >
+          <Image src="/images/setlist/icons/setlist-song.png" alt="" width={16} height={16} className="object-contain" />
+          <span className="whitespace-nowrap">曲を追加</span>
+        </button>
+      </div>
+
+      {/* 特殊項目チップ（横スクロール） */}
+      <div
+        className="-mx-3 flex gap-1.5 overflow-x-auto px-3"
+        style={{ scrollbarWidth: "none" }}
+      >
+        <button type="button" onClick={addMC}
+          className="flex shrink-0 items-center gap-1 rounded-lg border border-gray-200 bg-white px-2 py-0.5 text-[10px] font-medium text-gray-600 active:bg-gray-50">
+          <Image src="/images/setlist/icons/setlist-mc.png" alt="" width={16} height={16} className="object-contain" />MC
+        </button>
+        <button type="button" onClick={() => addSeparator("トーク")}
+          className="flex shrink-0 items-center gap-1 rounded-lg border border-gray-200 bg-white px-2 py-0.5 text-[10px] font-medium text-gray-600 active:bg-gray-50">
+          <Image src="/images/setlist/icons/setlist-talk.png" alt="" width={16} height={16} className="object-contain" />トーク
+        </button>
+        <button type="button" onClick={() => addTag("VCR")}
+          className="flex shrink-0 items-center gap-1 rounded-lg border border-gray-200 bg-white px-2 py-0.5 text-[10px] font-medium text-gray-600 active:bg-gray-50">
+          <Image src="/images/setlist/icons/setlist-vcr.png" alt="" width={16} height={16} className="object-contain" />VCR
+        </button>
+        <button type="button" onClick={() => addSeparator("メドレー開始")}
+          className="flex shrink-0 items-center gap-1 rounded-lg border border-gray-200 bg-white px-2 py-0.5 text-[10px] font-medium text-gray-600 active:bg-gray-50">
+          <Image src="/images/setlist/icons/setlist-medley-start.png" alt="" width={16} height={16} className="object-contain" />メドレー開始
+        </button>
+        <button type="button" onClick={() => addSeparator("メドレー終了")}
+          className="flex shrink-0 items-center gap-1 rounded-lg border border-gray-200 bg-white px-2 py-0.5 text-[10px] font-medium text-gray-600 active:bg-gray-50">
+          <Image src="/images/setlist/icons/setlist-medley-end.png" alt="" width={16} height={16} className="object-contain" />メドレー終了
+        </button>
+        <button type="button" onClick={() => addTag("ダンスチャレンジ")}
+          className="flex shrink-0 items-center gap-1 rounded-lg border border-gray-200 bg-white px-2 py-0.5 text-[10px] font-medium text-gray-600 active:bg-gray-50">
+          <Image src="/images/setlist/icons/setlist-dance-challenge.png" alt="" width={16} height={16} className="object-contain" />ダンスチャレンジ
+        </button>
+        <button type="button" onClick={() => addTag("ラストMC")}
+          className="flex shrink-0 items-center gap-1 rounded-lg border border-gray-200 bg-white px-2 py-0.5 text-[10px] font-medium text-gray-600 active:bg-gray-50">
+          <Image src="/images/setlist/icons/setlist-mc.png" alt="" width={16} height={16} className="object-contain" />ラストMC
+        </button>
+        <button type="button" onClick={addEncore}
+          className="flex shrink-0 items-center gap-1 rounded-lg border border-[#FF6B9D]/20 bg-[#FFF8FB] px-2 py-0.5 text-[10px] font-medium text-[#FF6B9D] active:bg-[#FFF1F6]">
+          <Image src="/images/setlist/icons/setlist-encore.png" alt="" width={16} height={16} className="object-contain" />アンコール
+        </button>
+      </div>
+    </div>
+  );
+
   // ─── JSX ─────────────────────────────────────────────────────────────────────
 
   return (
@@ -238,104 +330,8 @@ export default function SetlistPage({ params }: { params: Promise<{ slug: string
             onSelect={setSelectedEventId}
           />
 
-          {/* フォーム + セトリリスト */}
+          {/* セトリリスト */}
           <section className="mt-4 space-y-3 px-4 pb-4">
-
-            {/* セトリ追加カード */}
-            <div className="rounded-xl border border-gray-100 bg-white p-4 shadow-[0_4px_14px_rgba(15,23,42,0.05)]">
-              <p className="mb-3 text-[13px] font-bold text-gray-900">セトリを追加</p>
-
-              {/* 曲名入力 + 追加ボタン */}
-              <div className="mb-3 flex items-center gap-2">
-                <div className="relative flex-1">
-                  <input
-                    type="text"
-                    value={searchQuery}
-                    onChange={e => setSearchQuery(e.target.value)}
-                    onFocus={() => setShowSuggestions(true)}
-                    onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
-                    onKeyDown={e => { if (e.key === "Enter") addSong(); }}
-                    placeholder="曲名を入力"
-                    className="h-11 w-full rounded-xl border border-gray-200 bg-gray-50 px-3 text-[13px] outline-none transition-colors focus:border-[#FF6B9D]"
-                  />
-                  {showSuggestions && filteredSuggestions.length > 0 && (
-                    <div className="absolute left-0 right-0 top-full z-20 mt-1 overflow-hidden rounded-xl border border-gray-100 bg-white shadow-lg">
-                      {filteredSuggestions.map(s => (
-                        <button
-                          key={s}
-                          type="button"
-                          onPointerDown={e => { e.preventDefault(); addSong(s); }}
-                          className="flex w-full items-center gap-2.5 px-3 py-2.5 text-left transition-colors active:bg-gray-100 hover:bg-gray-50"
-                        >
-                          <svg
-                            className="h-3.5 w-3.5 shrink-0 text-gray-300"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"
-                            />
-                          </svg>
-                          <span className="text-[13px] text-gray-700">{s}</span>
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-                <button
-                  type="button"
-                  onClick={() => addSong()}
-                  disabled={!searchQuery.trim()}
-                  className="flex h-11 shrink-0 items-center gap-1.5 rounded-xl border border-[#FF6B9D]/30 bg-[#FFF1F6] px-3 text-[11px] font-semibold text-[#FF6B9D] transition-opacity disabled:opacity-40 active:opacity-75"
-                >
-                  <Image src="/images/setlist/icons/setlist-song.png" alt="" width={20} height={20} className="object-contain" />
-                  <span className="whitespace-nowrap">曲を追加</span>
-                </button>
-              </div>
-
-              {/* 特殊項目チップ（横スクロール） */}
-              <div
-                className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-2 pt-0.5"
-                style={{ scrollbarWidth: "none" }}
-              >
-                <button type="button" onClick={addMC}
-                  className="flex shrink-0 items-center gap-1 rounded-lg border border-gray-200 bg-white px-2.5 py-1 text-[10px] font-medium text-gray-600 active:bg-gray-50">
-                  <Image src="/images/setlist/icons/setlist-mc.png" alt="" width={20} height={20} className="object-contain" />MC
-                </button>
-                <button type="button" onClick={() => addSeparator("トーク")}
-                  className="flex shrink-0 items-center gap-1 rounded-lg border border-gray-200 bg-white px-2.5 py-1 text-[10px] font-medium text-gray-600 active:bg-gray-50">
-                  <Image src="/images/setlist/icons/setlist-talk.png" alt="" width={20} height={20} className="object-contain" />トーク
-                </button>
-                <button type="button" onClick={() => addTag("VCR")}
-                  className="flex shrink-0 items-center gap-1 rounded-lg border border-gray-200 bg-white px-2.5 py-1 text-[10px] font-medium text-gray-600 active:bg-gray-50">
-                  <Image src="/images/setlist/icons/setlist-vcr.png" alt="" width={20} height={20} className="object-contain" />VCR
-                </button>
-                <button type="button" onClick={() => addSeparator("メドレー開始")}
-                  className="flex shrink-0 items-center gap-1 rounded-lg border border-gray-200 bg-white px-2.5 py-1 text-[10px] font-medium text-gray-600 active:bg-gray-50">
-                  <Image src="/images/setlist/icons/setlist-medley-start.png" alt="" width={20} height={20} className="object-contain" />メドレー開始
-                </button>
-                <button type="button" onClick={() => addSeparator("メドレー終了")}
-                  className="flex shrink-0 items-center gap-1 rounded-lg border border-gray-200 bg-white px-2.5 py-1 text-[10px] font-medium text-gray-600 active:bg-gray-50">
-                  <Image src="/images/setlist/icons/setlist-medley-end.png" alt="" width={20} height={20} className="object-contain" />メドレー終了
-                </button>
-                <button type="button" onClick={() => addTag("ダンスチャレンジ")}
-                  className="flex shrink-0 items-center gap-1 rounded-lg border border-gray-200 bg-white px-2.5 py-1 text-[10px] font-medium text-gray-600 active:bg-gray-50">
-                  <Image src="/images/setlist/icons/setlist-dance-challenge.png" alt="" width={20} height={20} className="object-contain" />ダンスチャレンジ
-                </button>
-                <button type="button" onClick={() => addTag("ラストMC")}
-                  className="flex shrink-0 items-center gap-1 rounded-lg border border-gray-200 bg-white px-2.5 py-1 text-[10px] font-medium text-gray-600 active:bg-gray-50">
-                  <Image src="/images/setlist/icons/setlist-mc.png" alt="" width={20} height={20} className="object-contain" />ラストMC
-                </button>
-                <button type="button" onClick={addEncore}
-                  className="flex shrink-0 items-center gap-1 rounded-lg border border-[#FF6B9D]/20 bg-[#FFF8FB] px-2.5 py-1 text-[10px] font-medium text-[#FF6B9D] active:bg-[#FFF1F6]">
-                  <Image src="/images/setlist/icons/setlist-encore.png" alt="" width={20} height={20} className="object-contain" />アンコール
-                </button>
-              </div>
-            </div>
 
             {/* 自動保存ステータス */}
             {saveStatus !== "idle" && (
@@ -346,12 +342,15 @@ export default function SetlistPage({ params }: { params: Promise<{ slug: string
               </p>
             )}
 
-            {/* セトリ一覧 */}
+            {/* セトリ一覧（+ セトリを追加ボタン／フォーム） */}
             <SetlistItemsSection
               setlistItems={setlistItems}
               songNumbers={songNumbers}
               onMove={moveItem}
               onRemove={removeItem}
+              showAddForm={showAddForm}
+              onOpenAddForm={() => setShowAddForm(true)}
+              addFormNode={addFormNode}
             />
 
           </section>

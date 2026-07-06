@@ -142,7 +142,7 @@ export function ArenaReportMap({
             </div>
           )}
           {/* 凡例 */}
-          <div className={`mb-1 overflow-hidden rounded-lg border border-gray-200 bg-gray-50${mapFullBleed ? " mx-4" : ""}`}>
+          <div className={`mb-1.5 overflow-hidden rounded-lg border border-gray-200 bg-gray-50${mapFullBleed ? " mx-4" : ""}`}>
             <div className="flex divide-x divide-gray-200">
               {activeLegend.map((item) => (
                 <div key={item.label} className="flex flex-1 items-center justify-center gap-1 py-1">
@@ -192,6 +192,19 @@ export function ArenaReportMap({
           height={40}
           preserveAspectRatio="xMidYMid meet"
         />
+        <text
+          x={84 + 370 / 2}
+          y={4 + 40 / 2}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          pointerEvents="none"
+          fontSize={17}
+          fontWeight="bold"
+          fill="#1F2937"
+          style={{ letterSpacing: "0.05em", filter: "drop-shadow(0 1px 1px rgba(0,0,0,0.12))" }}
+        >
+          STAGE
+        </text>
 
         {/* 列ヘッダー (1〜8) */}
         {FIXED_NUMS.map((num, ci) => (

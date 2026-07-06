@@ -112,6 +112,7 @@ export type CrawledEvent = {
   date: string | null;
   genre: Event["genre"];
   lottery_types?: string[];
+  artist_slug?: string | null;
 };
 
 /** 答え合わせ報告 (after_reportsテーブル) */
@@ -171,6 +172,13 @@ export type EventTicketResult = {
   payment_method: "クレカ" | "その他" | null;
   seat_type?: "arena" | "stand" | "seated" | "restricted" | "obstructed" | "unknown" | null;
   upgrade_result?: "not_applied" | "applied_lost" | "applied_won" | null;
+  comment?: string | null;
+  seat_block?: string | null;
+  seat_row?: string | null;
+  seat_number?: string | null;
+  stand_direction?: string | null;
+  stand_floor?: string | null;
+  other_seat_info?: string | null;
   created_at: string;
 };
 

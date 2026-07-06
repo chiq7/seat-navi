@@ -1,7 +1,10 @@
+import Link from "next/link";
+
 export type VenueGroup = {
   venue: string;
   dates: string[];       // "YYYY-MM-DD" sorted ascending
   totalReports: number;
+  eventId: string | null;
 };
 
 type Props = {
@@ -21,11 +24,9 @@ export default function EventSection({ venueGroups }: Props) {
       </div>
       <div className="-mx-4 flex gap-3 overflow-x-auto px-4 pb-1 hide-scrollbar">
         {venueGroups.length > 0 ? (
-          venueGroups.map((group) => (
-            <article
-              key={group.venue}
-              className="w-[164px] shrink-0 rounded-2xl border border-gray-100 bg-white p-3 shadow-sm"
-            >
+          venueGroups.map((group) => {
+            const cardClassName = "w-[164px] shrink-0 rounded-2xl border border-gray-100 bg-white p-3 shadow-sm";
+            const content = (
               <div className="min-w-0">
                 <p className="truncate text-[15px] font-bold leading-tight text-gray-900">{group.venue}</p>
                 <p className="mt-1 line-clamp-2 text-[13px] font-semibold leading-snug text-gray-500">
@@ -35,8 +36,17 @@ export default function EventSection({ venueGroups }: Props) {
                   報告 <span className="font-bold text-[#FF6B9D]">{group.totalReports}件</span>
                 </p>
               </div>
-            </article>
-          ))
+            );
+            return group.eventId ? (
+              <Link key={group.venue} href={`/events/${group.eventId}`} className={`${cardClassName} no-underline active:opacity-80`}>
+                {content}
+              </Link>
+            ) : (
+              <article key={group.venue} className={cardClassName}>
+                {content}
+              </article>
+            );
+          })
         ) : (
           <p className="py-4 text-sm text-gray-400">公演情報がありません</p>
         )}

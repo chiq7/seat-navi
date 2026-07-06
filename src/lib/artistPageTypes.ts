@@ -1,20 +1,10 @@
-import type { EventTicketResult } from "@/lib/types";
+import type { EventTicketResult, SeatReport } from "@/lib/types";
 
-export type AnalyticsReport = {
-  id: string;
-  event_id: string;
-  block: string;
-  row_num: number;
-  seat_num: number;
-  lottery_type: string;
-  fc_history: string | null;
-  payment_method?: string | null;
-  created_at: string;
-};
+export type AnalyticsReport = SeatReport;
 
 export type TicketResultAnalytics = Pick<
   EventTicketResult,
-  "event_id" | "result" | "lost_application_count" | "ticket_count" | "lottery_type" | "fc_history" | "payment_method" | "seat_type" | "upgrade_result"
+  "id" | "event_id" | "result" | "lost_application_count" | "ticket_count" | "lottery_type" | "fc_history" | "payment_method" | "seat_type" | "upgrade_result" | "comment" | "seat_block" | "seat_row" | "seat_number" | "stand_direction" | "stand_floor" | "other_seat_info" | "created_at"
 >;
 
 export type AfterReportCard = {

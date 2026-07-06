@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { Fragment } from "react";
 import { CalendarDays, ChevronLeft } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { rateText } from "@/lib/artistPageHelpers";
 
 type TourStop = { date: string; label: string; active: boolean };
@@ -48,8 +48,6 @@ export default function HeroSection({
   countdownDays,
   tourStops,
 }: Props) {
-  const router = useRouter();
-
   const summaryMetrics = [
     { label: "チケット当選率", value: rateText(ticketRate) },
     { label: "通常アリーナ率", value: rateText(normalArenaRate) },
@@ -73,14 +71,13 @@ export default function HeroSection({
           className="absolute inset-x-0 top-0 z-10 flex items-center justify-between"
           style={{ height: "56px", paddingLeft: "14px", paddingRight: "14px" }}
         >
-          <button
-            type="button"
-            aria-label="戻る"
-            onClick={() => router.back()}
-            className="flex h-10 w-10 items-center justify-center text-white"
+          <Link
+            href="/"
+            aria-label="TOPへ戻る"
+            className="flex h-10 w-10 shrink-0 items-center justify-center text-white"
           >
             <ChevronLeft size={26} strokeWidth={2.7} />
-          </button>
+          </Link>
           <h1 className="font-serif font-semibold text-white" style={{ fontSize: "21px", letterSpacing: "0.22em" }}>
             {artistName}
           </h1>
@@ -89,7 +86,7 @@ export default function HeroSection({
 
         <div className="absolute z-10 text-center" style={{ top: "82px", left: "24px", right: "24px" }}>
           <h2 className="font-extrabold text-white" style={{ fontSize: "25px", lineHeight: "1.1" }}>
-            {tourTitle || artistName}
+            {nextEvent ? (tourTitle || artistName) : artistName}
           </h2>
           {dateRange && (
             <p
@@ -101,77 +98,86 @@ export default function HeroSection({
           )}
         </div>
 
-        {nextEvent && (
-          <div
-            className="absolute z-10"
-            style={{
-              bottom: `${countdownBottom}px`,
-              left: "48px",
-              right: "48px",
-              height: `${countdownCardHeight}px`,
-              background: "rgba(0,0,0,0.55)",
-              backdropFilter: "blur(10px)",
-              border: "1px solid rgba(255,255,255,0.55)",
-              borderRadius: "22px",
-              boxShadow: "0 8px 22px rgba(0,0,0,0.22)",
-              padding: "8px 14px",
-            }}
-          >
-            <div className="grid h-full items-center" style={{ gridTemplateColumns: "38% 62%" }}>
-              <div className="flex flex-col items-center justify-center">
-                <div className="mb-1 flex items-center justify-center gap-1" style={{ color: "rgba(255,255,255,0.82)" }}>
-                  <CalendarDays size={11} strokeWidth={2.1} />
-                  <p style={{ fontSize: "10px", fontWeight: 500 }}>次の公演まで</p>
-                </div>
-                <div className="flex items-end justify-center gap-1">
-                  <span
-                    className="drop-shadow-[0_0_10px_rgba(255,79,163,0.9)]"
-                    style={{ fontSize: "36px", fontWeight: 700, lineHeight: 1, color: "#ff4fa3" }}
-                  >
-                    {countdownDays ?? "--"}
-                  </span>
-                  <span style={{ fontSize: "10px", fontWeight: 500, letterSpacing: "0.12em", color: "#ff8ac5", paddingBottom: "4px" }}>
-                    DAYS
-                  </span>
-                </div>
+        <div
+          className="absolute z-10"
+          style={{
+            bottom: `${countdownBottom}px`,
+            left: "48px",
+            right: "48px",
+            height: `${countdownCardHeight}px`,
+            background: "rgba(0,0,0,0.55)",
+            backdropFilter: "blur(10px)",
+            border: "1px solid rgba(255,255,255,0.55)",
+            borderRadius: "22px",
+            boxShadow: "0 8px 22px rgba(0,0,0,0.22)",
+            padding: "8px 14px",
+          }}
+        >
+          <div className="grid h-full items-center" style={{ gridTemplateColumns: "38% 62%" }}>
+            <div className="flex flex-col items-center justify-center">
+              <div className="mb-1 flex items-center justify-center gap-1" style={{ color: "rgba(255,255,255,0.82)" }}>
+                <CalendarDays size={11} strokeWidth={2.1} />
+                <p style={{ fontSize: "10px", fontWeight: 500 }}>次の公演まで</p>
               </div>
-              <div
-                className="flex min-w-0 flex-col justify-center"
-                style={{ borderLeft: "1px solid rgba(255,255,255,0.16)", paddingLeft: "14px" }}
-              >
-                <p style={{ fontSize: "10px", fontWeight: 500, color: "rgba(255,255,255,0.78)" }}>
-                  {fmtDateLabel(nextEvent.date)}
-                </p>
-                <p
-                  className="truncate text-white"
-                  style={{ fontSize: "16px", fontWeight: 600, lineHeight: "1.2", marginTop: "1px" }}
+              <div className="flex items-end justify-center gap-1">
+                <span
+                  className="drop-shadow-[0_0_10px_rgba(255,79,163,0.9)]"
+                  style={{ fontSize: "36px", fontWeight: 700, lineHeight: 1, color: "#ff4fa3" }}
                 >
-                  {nextEvent.venue}
-                </p>
-                {tourStops.length > 0 && (
-                  <div className="mt-1 flex w-[150px] items-end">
-                    {tourStops.map((stop, index) => (
-                      <Fragment key={stop.date}>
-                        <div className="flex flex-col items-center">
-                          <span className="mb-1 text-[8px] leading-none text-white/65">{fmtShort(stop.date)}</span>
-                          <span
-                            className={
-                              stop.active
-                                ? "h-2 w-2 rounded-full border border-[#ff5fb7] bg-[#ff5fb7] shadow-[0_0_8px_rgba(255,95,183,0.85)]"
-                                : "h-1.5 w-1.5 rounded-full border border-white/50 bg-white/10"
-                            }
-                            aria-label={stop.label}
-                          />
-                        </div>
-                        {index < tourStops.length - 1 ? <div className="mb-[3px] h-px w-7 bg-white/30" /> : null}
-                      </Fragment>
-                    ))}
-                  </div>
-                )}
+                  {countdownDays ?? "--"}
+                </span>
+                <span style={{ fontSize: "10px", fontWeight: 500, letterSpacing: "0.12em", color: "#ff8ac5", paddingBottom: "4px" }}>
+                  DAYS
+                </span>
               </div>
             </div>
+            <div
+              className="flex min-w-0 flex-col justify-center"
+              style={{ borderLeft: "1px solid rgba(255,255,255,0.16)", paddingLeft: "14px" }}
+            >
+              {nextEvent ? (
+                <>
+                  <p style={{ fontSize: "10px", fontWeight: 500, color: "rgba(255,255,255,0.78)" }}>
+                    {fmtDateLabel(nextEvent.date)}
+                  </p>
+                  <p
+                    className="truncate text-white"
+                    style={{ fontSize: "16px", fontWeight: 600, lineHeight: "1.2", marginTop: "1px" }}
+                  >
+                    {nextEvent.venue}
+                  </p>
+                  {tourStops.length > 0 && (
+                    <div className="mt-1 flex w-[150px] items-end">
+                      {tourStops.map((stop, index) => (
+                        <Fragment key={stop.date}>
+                          <div className="flex flex-col items-center">
+                            <span className="mb-1 text-[8px] leading-none text-white/65">{fmtShort(stop.date)}</span>
+                            <span
+                              className={
+                                stop.active
+                                  ? "h-2 w-2 rounded-full border border-[#ff5fb7] bg-[#ff5fb7] shadow-[0_0_8px_rgba(255,95,183,0.85)]"
+                                  : "h-1.5 w-1.5 rounded-full border border-white/50 bg-white/10"
+                              }
+                              aria-label={stop.label}
+                            />
+                          </div>
+                          {index < tourStops.length - 1 ? <div className="mb-[3px] h-px w-7 bg-white/30" /> : null}
+                        </Fragment>
+                      ))}
+                    </div>
+                  )}
+                </>
+              ) : (
+                <p
+                  className="truncate text-white"
+                  style={{ fontSize: "16px", fontWeight: 600, lineHeight: "1.2" }}
+                >
+                  次回公演 発表待ち
+                </p>
+              )}
+            </div>
           </div>
-        )}
+        </div>
 
         <div
           className="absolute z-10 overflow-hidden rounded-2xl border border-white/45 bg-white/80 shadow-sm backdrop-blur-md"
