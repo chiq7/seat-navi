@@ -11,6 +11,26 @@ import type { AfterReportCard } from "@/lib/artistPageTypes";
 import { fmtDate, seatAreaLabel } from "@/lib/artistPageHelpers";
 import { BottomNav } from "@/components/common/BottomNav";
 
+function withSuffix(v: string | null | undefined, suffix: string): string | null {
+  if (!v) return null;
+  return v.endsWith(suffix) ? v : `${v}${suffix}`;
+}
+
+function fmtShortDate(d: string | null | undefined): string {
+  if (!d) return "";
+  const parts = d.split("-").map(Number);
+  return `${parts[1]}/${parts[2]}`;
+}
+
+function seatInfoText(report: AfterReportCard, ev: CrawledEvent | undefined): string | null {
+  const parts = [withSuffix(report.seat_block, "ブロック"), withSuffix(report.seat_row, "列")].filter(
+    (v): v is string => Boolean(v),
+  );
+  const venueDate = ev ? `${ev.venue}・${fmtShortDate(ev.date)}` : null;
+  const all = [...parts, venueDate].filter((v): v is string => Boolean(v));
+  return all.length > 0 ? all.join("　") : null;
+}
+
 export default function AfterReportsPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
   const artist = findArtistBySlug(slug);
@@ -162,13 +182,19 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
             const text =
               report.memo?.trim() ||
               (ev ? `${fmtDate(ev.date)} ${ev.venue}` : "現地レポ");
+            const seatInfo = seatInfoText(report, ev);
             return (
               <div
                 key={report.id}
                 className="grid min-h-11 grid-cols-[56px_1fr_18px] items-center gap-3 border-b border-gray-100 px-2.5 py-1.5 last:border-b-0"
               >
                 <ReportThumb index={index} />
-                <p className="truncate text-[14px] font-medium text-gray-900">{text}</p>
+                <div className="min-w-0">
+                  {seatInfo && (
+                    <p className="truncate text-[12px] font-bold text-gray-700">{seatInfo}</p>
+                  )}
+                  <p className="truncate text-[14px] font-medium text-gray-900">{text}</p>
+                </div>
                 <ChevronRight size={19} strokeWidth={2.2} className="text-gray-500" />
               </div>
             );
