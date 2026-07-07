@@ -18,6 +18,7 @@ import ReportSection from "@/components/artist-page/ReportSection";
 import MapPreviewSection from "@/components/artist-page/MapPreviewSection";
 import LiveEffectsSection from "@/components/artist-page/LiveEffectsSection";
 import { BottomNav } from "@/components/common/BottomNav";
+import type { TopPrediction } from "@/components/artist-page/MapPreviewSection";
 
 export default function ArtistPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
@@ -28,7 +29,7 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
   const [ticketResultReports, setTicketResultReports] = useState<TicketResultAnalytics[]>([]);
   const [seatCounts, setSeatCounts] = useState<Map<string, number>>(new Map());
   const [venueAfterReports, setVenueAfterReports] = useState<AfterReportCard[]>([]);
-  const [topPredictionImageUrl, setTopPredictionImageUrl] = useState<string | null>(null);
+  const [topPrediction, setTopPrediction] = useState<TopPrediction | null>(null);
   const [loading, setLoading] = useState(true);
   const [fetchError, setFetchError] = useState<string | null>(null);
   const [selectedVenue, setSelectedVenue] = useState<string | null>(null);
@@ -38,7 +39,7 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
 
   async function loadData(a: NonNullable<ReturnType<typeof findArtistBySlug>>) {
     setFetchError(null);
-    setTopPredictionImageUrl(null);
+    setTopPrediction(null);
 
     const allEvs = await getEventsForArtist(a.slug);
     setEvents(allEvs);
@@ -75,34 +76,40 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
     if (recentEventId) {
       const { data: predData } = await supabase
         .from("fan_seat_predictions")
-        .select("id, image_path")
+        .select("id, image_path, comment, prediction_tags, created_at")
         .eq("event_id", recentEventId)
         .eq("approved", true);
 
+      type PredRow = { id: string; image_path: string; comment: string | null; prediction_tags: string[]; created_at: string };
+
       if (predData && predData.length > 0) {
-        const predIds = predData.map((p: { id: string; image_path: string }) => p.id);
+        const predIds = predData.map((p: PredRow) => p.id);
         const { data: voteData } = await supabase
           .from("fan_seat_prediction_votes")
           .select("prediction_id")
           .in("prediction_id", predIds);
 
-        let topImagePath: string | null = null;
-        if (voteData && voteData.length > 0) {
-          const counts = new Map<string, number>();
-          for (const v of voteData as { prediction_id: string }[]) {
-            counts.set(v.prediction_id, (counts.get(v.prediction_id) ?? 0) + 1);
-          }
-          const topId = [...counts.entries()].sort((a, b) => b[1] - a[1])[0]?.[0];
-          topImagePath = predData.find((p: { id: string; image_path: string }) => p.id === topId)?.image_path ?? null;
-        } else {
-          topImagePath = predData[0].image_path;
+        const MIN_VOTES_TO_SHOW = 3;
+        const counts = new Map<string, number>();
+        for (const v of (voteData ?? []) as { prediction_id: string }[]) {
+          counts.set(v.prediction_id, (counts.get(v.prediction_id) ?? 0) + 1);
         }
+        const top = [...counts.entries()].sort((a, b) => b[1] - a[1])[0];
 
-        if (topImagePath) {
-          const { data: urlData } = supabase.storage
-            .from("fan-seat-predictions")
-            .getPublicUrl(topImagePath);
-          setTopPredictionImageUrl(urlData.publicUrl);
+        if (top && top[1] >= MIN_VOTES_TO_SHOW) {
+          const topPred = predData.find((p: PredRow) => p.id === top[0]);
+          if (topPred) {
+            const { data: urlData } = supabase.storage
+              .from("fan-seat-predictions")
+              .getPublicUrl(topPred.image_path);
+            setTopPrediction({
+              imageUrl: urlData.publicUrl,
+              comment: topPred.comment,
+              tags: topPred.prediction_tags ?? [],
+              createdAt: topPred.created_at,
+              voteCount: top[1],
+            });
+          }
         }
       }
     }
@@ -455,7 +462,7 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
                   venues={venueChips}
                   activeVenue={mapActiveVenue}
                   onSelectVenue={handleSelectVenue}
-                  topPredictionImageUrl={topPredictionImageUrl}
+                  topPrediction={topPrediction}
                   mapEvent={mapEvent}
                   detailHref={detailHref}
                 />
