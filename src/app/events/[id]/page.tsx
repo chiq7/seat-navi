@@ -471,6 +471,11 @@ export default function EventDetailPage({
                           </div>
                           <div className="flex min-w-0 flex-1 flex-col justify-between py-1">
                             <div className="min-w-0 overflow-hidden">
+                              {event && (
+                                <p className="mb-1 truncate text-[10px] font-bold text-gray-500">
+                                  {event.venue}・{fmtShortDate(event.date)}
+                                </p>
+                              )}
                               {prediction.prediction_tags.length > 0 && (
                                 <div className="mb-1.5 flex flex-wrap gap-1">
                                   {prediction.prediction_tags.map((tag) => (
