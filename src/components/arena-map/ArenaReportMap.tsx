@@ -46,6 +46,7 @@ export function ArenaReportMap({
   colorModeExternal,
   hideShareSection = false,
   mapFullBleed = false,
+  svgRef,
 }: ArenaReportMapProps) {
   const [colorMode, setColorMode] = useState<ColorMode>("lottery");
   const [shareStatus, setShareStatus] = useState("");
@@ -161,6 +162,7 @@ export function ArenaReportMap({
       {/* SVGマップ — full: 横スクロール(初期位置中央), compact: 中央固定・スクロールなし */}
       <div ref={isCompact ? undefined : scrollRef} className={isCompact ? "overflow-hidden" : "overflow-x-auto"}>
       <svg
+        ref={svgRef}
         viewBox={`0 0 ${SVG_W} ${svgH}`}
         style={{
           width: `${SVG_W}px`,

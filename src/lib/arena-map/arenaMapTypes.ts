@@ -1,3 +1,4 @@
+import type { RefObject } from "react";
 import type { SeatReport } from "@/lib/types";
 
 export type { SeatReport };
@@ -48,4 +49,5 @@ export type ArenaReportMapProps = {
   colorModeExternal?: ColorMode;
   hideShareSection?: boolean;
   mapFullBleed?: boolean;
+  svgRef?: RefObject<SVGSVGElement | null>;
 };

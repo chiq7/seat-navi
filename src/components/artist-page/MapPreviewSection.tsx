@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { SeatReport } from "@/lib/types";
 import type { ColorMode } from "@/lib/arena-map/arenaMapTypes";
 import { ArenaReportMap } from "@/components/arena-map/ArenaReportMap";
+import { exportMapImageAsPng } from "@/lib/arena-map/exportMapImage";
 
 // /events/[id] の「みんなの座席報告マップ」と同一の色分けタブ
 const COLOR_TABS: { value: ColorMode; label: string }[] = [
@@ -23,24 +24,53 @@ type VenueChip = {
   eventId: string;
 };
 
+export type TopPrediction = {
+  imageUrl: string;
+  comment: string | null;
+  tags: string[];
+  createdAt: string;
+  voteCount: number;
+};
+
 type Props = {
   venues: VenueChip[];
   activeVenue?: string | null;
   onSelectVenue?: (venue: string) => void;
-  topPredictionImageUrl?: string | null;
+  topPrediction?: TopPrediction | null;
   mapEvent: MapEvent | null;
   detailHref?: string | null;
 };
+
+function fmtRelTime(iso: string): string {
+  const mins = Math.floor((Date.now() - new Date(iso).getTime()) / 60000);
+  if (mins < 60) return `${mins}分前`;
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 24) return `${hrs}時間前`;
+  return `${Math.floor(hrs / 24)}日前`;
+}
 
 export default function MapPreviewSection({
   venues,
   activeVenue = null,
   onSelectVenue,
-  topPredictionImageUrl = null,
+  topPrediction = null,
   mapEvent,
   detailHref = null,
 }: Props) {
   const [colorMode, setColorMode] = useState<ColorMode>("lottery");
+  const mapSvgRef = useRef<SVGSVGElement>(null);
+
+  async function handleSaveMapImage() {
+    if (!mapSvgRef.current) return;
+    try {
+      await exportMapImageAsPng(mapSvgRef.current, {
+        scale: 2,
+        filename: `seat-map-${mapEvent?.id ?? "export"}.png`,
+      });
+    } catch (err) {
+      console.error("マップ画像の保存に失敗しました", err);
+    }
+  }
 
   return (
     <section className="mt-4 px-4">
@@ -110,15 +140,70 @@ export default function MapPreviewSection({
               hideShareSection
               mapFullBleed
               colorModeExternal={colorMode}
+              svgRef={mapSvgRef}
             />
+          </div>
+          <button
+            type="button"
+            onClick={handleSaveMapImage}
+            className="mx-auto mt-1 flex h-9 items-center gap-1.5 rounded-full border border-[#FF6B9D]/40 bg-white px-4 text-[12px] font-bold text-[#FF6B9D] transition-transform active:scale-95"
+          >
+            マップ画像を保存
+          </button>
+        </div>
+      )}
+      {topPrediction ? (
+        <article className="mt-3 rounded-[18px] border border-gray-100 bg-white p-2 shadow-sm">
+          <div className="flex gap-2">
+            <div className="h-[120px] w-[140px] shrink-0 overflow-hidden rounded-[14px] bg-gray-50">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={topPrediction.imageUrl}
+                alt="予想図"
+                className="h-full w-full object-cover"
+              />
+            </div>
+            <div className="flex min-w-0 flex-1 flex-col justify-between py-1">
+              <div className="min-w-0 overflow-hidden">
+                {topPrediction.tags.length > 0 && (
+                  <div className="mb-1.5 flex flex-wrap gap-1">
+                    {topPrediction.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-full bg-[#FFF5F8] px-1.5 py-0.5 text-[9px] font-bold text-[#FF6B9D]"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                {topPrediction.comment && (
+                  <p className="line-clamp-2 overflow-hidden text-[11px] leading-snug text-[#111827]">
+                    {topPrediction.comment}
+                  </p>
+                )}
+              </div>
+              <div>
+                <div className="my-1.5 h-px bg-gray-100" />
+                <div className="flex items-center justify-between gap-1.5">
+                  <span className="flex h-7 shrink-0 items-center gap-1 rounded-full border border-[#FF6B9D]/40 bg-[#FFF1F6] px-2 text-[10px] font-semibold text-[#FF6B9D]">
+                    <span>♡</span>
+                    <span>参考</span>
+                    {topPrediction.voteCount > 0 && <span>{topPrediction.voteCount}</span>}
+                  </span>
+                  <span className="shrink-0 text-[10px] text-[#6B7280]">{fmtRelTime(topPrediction.createdAt)}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+      ) : (
+        <div className="mt-3 rounded-2xl border border-gray-100 bg-white px-3 py-3 shadow-sm">
+          <div className="relative mx-auto h-[140px] w-full max-w-[280px] overflow-hidden rounded-xl bg-white">
+            <Image src="/images/artist-page/seat-map-preparing2.png" alt="準備中" fill className="object-contain" />
           </div>
         </div>
       )}
-      <div className="mt-3 rounded-2xl border border-gray-100 bg-white px-3 py-3 shadow-sm">
-        <div className="relative mx-auto h-[140px] w-full max-w-[280px]">
-          <Image src="/images/artist-page/seat-map-preparing2.png" alt="準備中" fill className="object-contain" />
-        </div>
-      </div>
       {mapEvent && detailHref && (
         <Link
           href={detailHref}
