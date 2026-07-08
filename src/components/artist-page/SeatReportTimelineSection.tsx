@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { TicketResultAnalytics } from "@/lib/artistPageTypes";
 import type { CrawledEvent } from "@/lib/types";
 
@@ -68,10 +67,9 @@ export default function SeatReportTimelineSection({ items, eventMap }: Props) {
           ].filter((v): v is string => Boolean(v));
 
           return (
-            <Link
+            <div
               key={item.id}
-              href={`/events/${item.event_id}`}
-              className="block px-4 py-3 no-underline transition-colors active:bg-gray-50"
+              className="px-4 py-3"
             >
               {/* 1層目：当落バッジ + アプグレバッジ + 会場・日付 */}
               <div className="flex flex-wrap items-center gap-1.5">
@@ -130,7 +128,7 @@ export default function SeatReportTimelineSection({ items, eventMap }: Props) {
               {item.comment && (
                 <p className="mt-2 truncate text-[11px] text-gray-400">{item.comment}</p>
               )}
-            </Link>
+            </div>
           );
         })}
       </div>

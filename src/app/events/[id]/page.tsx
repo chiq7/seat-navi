@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useEffect, useMemo, useState } from "react";
+import { use, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -11,6 +11,7 @@ import { getEventsForArtist } from "@/lib/events";
 import type { CrawledEvent, FanSeatPrediction, SeatReport } from "@/lib/types";
 import type { ColorMode } from "@/lib/arena-map/arenaMapTypes";
 import { ArenaReportMap } from "@/components/arena-map/ArenaReportMap";
+import { exportMapImageAsPng } from "@/lib/arena-map/exportMapImage";
 import { BottomNav } from "@/components/common/BottomNav";
 
 const COLOR_TABS: { value: ColorMode; label: string }[] = [
@@ -89,6 +90,19 @@ export default function EventDetailPage({
   const [fanSeatPredictions, setFanSeatPredictions] = useState<FanSeatPrediction[]>([]);
   const [relatedEvents, setRelatedEvents] = useState<CrawledEvent[]>([]);
   const [colorMode, setColorMode] = useState<ColorMode>("lottery");
+  const mapSvgRef = useRef<SVGSVGElement>(null);
+
+  async function handleSaveMapImage() {
+    if (!mapSvgRef.current) return;
+    try {
+      await exportMapImageAsPng(mapSvgRef.current, {
+        scale: 2,
+        filename: `seat-map-${eventId}.png`,
+      });
+    } catch (err) {
+      console.error("マップ画像の保存に失敗しました", err);
+    }
+  }
   const [sortOrder, setSortOrder] = useState<"hot" | "new">("hot");
   const [voteCounts, setVoteCounts] = useState<Record<string, number>>({});
   const [pickedIds, setPickedIds] = useState<Set<string>>(new Set());
@@ -384,11 +398,19 @@ export default function EventDetailPage({
                   colorModeExternal={colorMode}
                   hideShareSection
                   mapFullBleed
+                  svgRef={mapSvgRef}
                 />
               </div>
+              <button
+                type="button"
+                onClick={handleSaveMapImage}
+                className="mx-auto -mt-2 flex h-8 items-center gap-1.5 rounded-full border border-[#FF6B9D]/40 bg-white px-3.5 text-[11px] font-bold text-[#FF6B9D] transition-transform active:scale-95"
+              >
+                マップ画像を保存
+              </button>
 
               {/* スクショ案内カード + 投稿ボタン */}
-              <div className="mt-4 flex items-center gap-3 rounded-2xl border border-pink-100 bg-white p-3 shadow-sm">
+              <div className="mt-2 flex items-center gap-3 rounded-2xl border border-pink-100 bg-white p-3 shadow-sm">
                 <div className="min-w-0 flex-1">
                   <p className="text-[13px] font-bold text-[#111827]">スクショで予想を書こう</p>
                   <p className="mt-0.5 text-[11px] leading-snug text-[#4B5563] line-clamp-2">

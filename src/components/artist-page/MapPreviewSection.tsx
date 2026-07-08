@@ -146,14 +146,14 @@ export default function MapPreviewSection({
           <button
             type="button"
             onClick={handleSaveMapImage}
-            className="mx-auto mt-1 flex h-9 items-center gap-1.5 rounded-full border border-[#FF6B9D]/40 bg-white px-4 text-[12px] font-bold text-[#FF6B9D] transition-transform active:scale-95"
+            className="mx-auto -mt-2 flex h-8 items-center gap-1.5 rounded-full border border-[#FF6B9D]/40 bg-white px-3.5 text-[11px] font-bold text-[#FF6B9D] transition-transform active:scale-95"
           >
             マップ画像を保存
           </button>
         </div>
       )}
       {topPrediction ? (
-        <article className="mt-3 rounded-[18px] border border-gray-100 bg-white p-2 shadow-sm">
+        <article className="mt-2 rounded-[18px] border border-gray-100 bg-white p-2 shadow-sm">
           <div className="flex gap-2">
             <div className="h-[120px] w-[140px] shrink-0 overflow-hidden rounded-[14px] bg-gray-50">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -198,7 +198,7 @@ export default function MapPreviewSection({
           </div>
         </article>
       ) : (
-        <div className="mt-3 rounded-2xl border border-gray-100 bg-white px-3 py-3 shadow-sm">
+        <div className="mt-2 rounded-2xl border border-gray-100 bg-white px-3 py-3 shadow-sm">
           <div className="relative mx-auto h-[140px] w-full max-w-[280px] overflow-hidden rounded-xl bg-white">
             <Image src="/images/artist-page/seat-map-preparing2.png" alt="準備中" fill className="object-contain" />
           </div>
