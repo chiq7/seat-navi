@@ -472,6 +472,7 @@ export default function ArtistPage({ params }: { params: Promise<{ slug: string 
                 reports={venueAfterReports}
                 eventMap={eventMap}
                 afterHref={afterHref}
+                slug={slug}
               />
             </>
           ) : (

@@ -31,6 +31,12 @@ function seatInfoText(report: AfterReportCard, ev: CrawledEvent | undefined): st
   return all.length > 0 ? all.join("　") : null;
 }
 
+function getReportPhotoUrl(report: AfterReportCard): string | null {
+  const path = report.seat_view_photo_paths?.[0];
+  if (!path) return null;
+  return supabase.storage.from("after-report-photos").getPublicUrl(path).data.publicUrl;
+}
+
 export default function AfterReportsPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
   const artist = findArtistBySlug(slug);
@@ -183,12 +189,14 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
               report.memo?.trim() ||
               (ev ? `${fmtDate(ev.date)} ${ev.venue}` : "現地レポ");
             const seatInfo = seatInfoText(report, ev);
+            const photoUrl = getReportPhotoUrl(report);
             return (
-              <div
+              <Link
                 key={report.id}
-                className="grid min-h-11 grid-cols-[56px_1fr_18px] items-center gap-3 border-b border-gray-100 px-2.5 py-1.5 last:border-b-0"
+                href={`/artists/${slug}/after-reports/${report.id}`}
+                className="grid min-h-11 grid-cols-[56px_1fr_18px] items-center gap-3 border-b border-gray-100 px-2.5 py-1.5 no-underline last:border-b-0"
               >
-                <ReportThumb index={index} />
+                <ReportThumb index={index} photoUrl={photoUrl} />
                 <div className="min-w-0">
                   {seatInfo && (
                     <p className="truncate text-[12px] font-bold text-gray-700">{seatInfo}</p>
@@ -196,7 +204,7 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
                   <p className="truncate text-[14px] font-medium text-gray-900">{text}</p>
                 </div>
                 <ChevronRight size={19} strokeWidth={2.2} className="text-gray-500" />
-              </div>
+              </Link>
             );
           })}
         </div>
@@ -207,8 +215,24 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
   );
 }
 
-function ReportThumb({ index }: { index: number }) {
+function ReportThumb({ index, photoUrl }: { index: number; photoUrl?: string | null }) {
+  const [imgError, setImgError] = useState(false);
   const positions = ["30%", "45%", "70%", "52%"];
+
+  if (photoUrl && !imgError) {
+    return (
+      <div className="h-[34px] w-14 overflow-hidden rounded-md bg-gray-100">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={photoUrl}
+          alt="現地レポ写真"
+          className="h-full w-full object-cover"
+          onError={() => setImgError(true)}
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="h-[34px] w-14 overflow-hidden rounded-md bg-[#100716]">
       <div

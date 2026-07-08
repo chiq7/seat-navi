@@ -1,5 +1,7 @@
+import { useState } from "react";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
+import { supabase } from "@/lib/supabase/client";
 import type { AfterReportCard } from "@/lib/artistPageTypes";
 import type { CrawledEvent } from "@/lib/types";
 import { fmtDate } from "@/lib/artistPageHelpers";
@@ -8,6 +10,7 @@ type Props = {
   reports: AfterReportCard[];
   eventMap: Map<string, CrawledEvent>;
   afterHref: string;
+  slug: string;
 };
 
 function withSuffix(v: string | null | undefined, suffix: string): string | null {
@@ -30,7 +33,13 @@ function seatInfoText(report: AfterReportCard, ev: CrawledEvent | undefined): st
   return all.length > 0 ? all.join("　") : null;
 }
 
-export default function ReportSection({ reports, eventMap, afterHref }: Props) {
+function getReportPhotoUrl(report: AfterReportCard): string | null {
+  const path = report.seat_view_photo_paths?.[0];
+  if (!path) return null;
+  return supabase.storage.from("after-report-photos").getPublicUrl(path).data.publicUrl;
+}
+
+export default function ReportSection({ reports, eventMap, afterHref, slug }: Props) {
   const displayReports = reports.slice(0, 4);
 
   return (
@@ -49,13 +58,14 @@ export default function ReportSection({ reports, eventMap, afterHref }: Props) {
               report.memo?.trim() ||
               (ev ? `${fmtDate(ev.date)} ${ev.venue}` : "現地レポ");
             const seatInfo = seatInfoText(report, ev);
+            const photoUrl = getReportPhotoUrl(report);
             return (
               <Link
                 key={report.id}
-                href={afterHref}
+                href={`/artists/${slug}/after-reports/${report.id}`}
                 className="grid min-h-11 grid-cols-[56px_1fr_18px] items-center gap-3 border-b border-gray-100 px-2.5 py-1.5 no-underline last:border-b-0"
               >
-                <ReportThumb index={index} />
+                <ReportThumb index={index} photoUrl={photoUrl} />
                 <div className="min-w-0">
                   {seatInfo && (
                     <p className="truncate text-[12px] font-bold text-gray-700">{seatInfo}</p>
@@ -74,8 +84,24 @@ export default function ReportSection({ reports, eventMap, afterHref }: Props) {
   );
 }
 
-function ReportThumb({ index }: { index: number }) {
+function ReportThumb({ index, photoUrl }: { index: number; photoUrl?: string | null }) {
+  const [imgError, setImgError] = useState(false);
   const positions = ["30%", "45%", "70%", "52%"];
+
+  if (photoUrl && !imgError) {
+    return (
+      <div className="h-[34px] w-14 overflow-hidden rounded-md bg-gray-100">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={photoUrl}
+          alt="現地レポ写真"
+          className="h-full w-full object-cover"
+          onError={() => setImgError(true)}
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="h-[34px] w-14 overflow-hidden rounded-md bg-[#100716]">
       <div
