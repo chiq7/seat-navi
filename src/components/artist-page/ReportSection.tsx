@@ -10,7 +10,6 @@ type Props = {
   reports: AfterReportCard[];
   eventMap: Map<string, CrawledEvent>;
   afterHref: string;
-  slug: string;
 };
 
 function withSuffix(v: string | null | undefined, suffix: string): string | null {
@@ -39,7 +38,7 @@ function getReportPhotoUrl(report: AfterReportCard): string | null {
   return supabase.storage.from("after-report-photos").getPublicUrl(path).data.publicUrl;
 }
 
-export default function ReportSection({ reports, eventMap, afterHref, slug }: Props) {
+export default function ReportSection({ reports, eventMap, afterHref }: Props) {
   const displayReports = reports.slice(0, 4);
 
   return (
@@ -62,7 +61,7 @@ export default function ReportSection({ reports, eventMap, afterHref, slug }: Pr
             return (
               <Link
                 key={report.id}
-                href={`/artists/${slug}/after-reports/${report.id}`}
+                href={afterHref}
                 className="grid min-h-11 grid-cols-[56px_1fr_18px] items-center gap-3 border-b border-gray-100 px-2.5 py-1.5 no-underline last:border-b-0"
               >
                 <ReportThumb index={index} photoUrl={photoUrl} />

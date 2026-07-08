@@ -191,10 +191,9 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
             const seatInfo = seatInfoText(report, ev);
             const photoUrl = getReportPhotoUrl(report);
             return (
-              <Link
+              <div
                 key={report.id}
-                href={`/artists/${slug}/after-reports/${report.id}`}
-                className="grid min-h-11 grid-cols-[56px_1fr_18px] items-center gap-3 border-b border-gray-100 px-2.5 py-1.5 no-underline last:border-b-0"
+                className="grid min-h-11 grid-cols-[56px_1fr_18px] items-center gap-3 border-b border-gray-100 px-2.5 py-1.5 last:border-b-0"
               >
                 <ReportThumb index={index} photoUrl={photoUrl} />
                 <div className="min-w-0">
@@ -204,7 +203,7 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
                   <p className="truncate text-[14px] font-medium text-gray-900">{text}</p>
                 </div>
                 <ChevronRight size={19} strokeWidth={2.2} className="text-gray-500" />
-              </Link>
+              </div>
             );
           })}
         </div>
