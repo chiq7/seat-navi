@@ -28,7 +28,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Seat-navi brand focus ring */
+/* TixRepo brand focus ring */
 .accent-focus:focus {
   outline: none;
   border-color: #0B7A88 !important;
