@@ -14,8 +14,8 @@ type Props = {
 
 export default function LiveEffectsSection({ liveEffects }: Props) {
   return (
-    <section className="mt-5 px-4">
-      <h2 className="mb-2.5 text-[13px] font-bold text-gray-900">この公演で見られた演出</h2>
+    <div>
+      <h2 className="mb-2.5 text-center text-[13px] font-bold text-gray-900">この公演で見られた演出</h2>
       <div className="flex gap-2">
         {EFFECT_DEFS.map((effect) => {
           const active = liveEffects[effect.key] ?? false;
@@ -39,6 +39,6 @@ export default function LiveEffectsSection({ liveEffects }: Props) {
           );
         })}
       </div>
-    </section>
+    </div>
   );
 }

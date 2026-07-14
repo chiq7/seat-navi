@@ -38,6 +38,18 @@ export type ArenaBlock = {
   hasReports: boolean;
 };
 
+/** buildFixedArenaGrid の戻り値。A〜H×1〜8を最小に、報告状況に応じて拡張された動的グリッド */
+export type ArenaGridResult = {
+  /** グリッド内の全マス（報告のないマスも含む） */
+  gridBlocks: ArenaBlock[];
+  /** パース失敗、またはグリッド範囲外の報告。件数降順・同数はブロック名昇順でソート済み */
+  overflowBlocks: ArenaBlock[];
+  /** 実際に描画するグリッドの行（A〜最終行） */
+  gridRowPrefixes: string[];
+  /** 実際に描画するグリッドの列（1〜最終列） */
+  gridColNums: number[];
+};
+
 /** ArenaReportMap コンポーネントのprops */
 export type ArenaReportMapProps = {
   eventId: string;

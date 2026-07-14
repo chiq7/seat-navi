@@ -37,6 +37,10 @@ yarn-error.log*
 # vercel
 .vercel
 
+# crawler runtime artifacts
+scripts/__pycache__/
+scripts/fetch_events.log
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

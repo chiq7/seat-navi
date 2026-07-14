@@ -2,34 +2,28 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Fragment } from "react";
 import { CalendarDays, ChevronLeft } from "lucide-react";
 import { rateText } from "@/lib/artistPageHelpers";
-
-type TourStop = { date: string; label: string; active: boolean };
+import { ShareButton } from "@/components/common/ShareButton";
 
 type Props = {
   artistName: string;
+  slug: string;
   tourTitle: string;
+  isTestData?: boolean;
   dateRange: string | null;
   ticketRate: number | null;
   normalArenaRate: number | null;
   upgradeRate: number | null;
   nextEvent: { date: string; venue: string } | null;
   countdownDays: number | null;
-  tourStops: TourStop[];
 };
 
 const summaryCardHeight = 70;
 const summaryBottom = 8;
 const cardGap = 6;
-const countdownCardHeight = 84;
+const countdownCardHeight = 66;
 const countdownBottom = summaryBottom + summaryCardHeight + cardGap;
-
-function fmtShort(d: string): string {
-  const [, m, day] = d.split("-");
-  return `${m}.${day}`;
-}
 
 function fmtDateLabel(d: string): string {
   const [y, m, day] = d.split("-").map(Number);
@@ -39,14 +33,15 @@ function fmtDateLabel(d: string): string {
 
 export default function HeroSection({
   artistName,
+  slug,
   tourTitle,
+  isTestData = false,
   dateRange,
   ticketRate,
   normalArenaRate,
   upgradeRate,
   nextEvent,
   countdownDays,
-  tourStops,
 }: Props) {
   const summaryMetrics = [
     { label: "チケット当選率", value: rateText(ticketRate) },
@@ -81,12 +76,31 @@ export default function HeroSection({
           <h1 className="font-serif font-semibold text-white" style={{ fontSize: "21px", letterSpacing: "0.22em" }}>
             {artistName}
           </h1>
-          <div className="h-10 w-10" aria-hidden="true" />
+          <ShareButton
+            url={`${typeof window !== "undefined" ? window.location.origin : ""}/artists/${slug}`}
+            text={`${artistName} の当落データ・座席情報 #ちけレポ`}
+            className="flex h-10 w-10 items-center justify-center rounded-full text-white transition-colors active:bg-white/15"
+          />
         </header>
 
         <div className="absolute z-10 text-center" style={{ top: "82px", left: "24px", right: "24px" }}>
           <h2 className="font-extrabold text-white" style={{ fontSize: "25px", lineHeight: "1.1" }}>
             {nextEvent ? (tourTitle || artistName) : artistName}
+            {nextEvent && isTestData && (
+              <span
+                className="ml-1.5 inline-block align-middle font-bold text-white"
+                style={{
+                  fontSize: "9px",
+                  lineHeight: 1,
+                  padding: "3px 7px",
+                  borderRadius: "999px",
+                  background: "rgba(255,255,255,0.22)",
+                  border: "1px solid rgba(255,255,255,0.55)",
+                }}
+              >
+                テストデータ
+              </span>
+            )}
           </h2>
           {dateRange && (
             <p
@@ -146,26 +160,6 @@ export default function HeroSection({
                   >
                     {nextEvent.venue}
                   </p>
-                  {tourStops.length > 0 && (
-                    <div className="mt-1 flex w-[150px] items-end">
-                      {tourStops.map((stop, index) => (
-                        <Fragment key={stop.date}>
-                          <div className="flex flex-col items-center">
-                            <span className="mb-1 text-[8px] leading-none text-white/65">{fmtShort(stop.date)}</span>
-                            <span
-                              className={
-                                stop.active
-                                  ? "h-2 w-2 rounded-full border border-[#ff5fb7] bg-[#ff5fb7] shadow-[0_0_8px_rgba(255,95,183,0.85)]"
-                                  : "h-1.5 w-1.5 rounded-full border border-white/50 bg-white/10"
-                              }
-                              aria-label={stop.label}
-                            />
-                          </div>
-                          {index < tourStops.length - 1 ? <div className="mb-[3px] h-px w-7 bg-white/30" /> : null}
-                        </Fragment>
-                      ))}
-                    </div>
-                  )}
                 </>
               ) : (
                 <p

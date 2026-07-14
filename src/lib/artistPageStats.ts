@@ -85,6 +85,9 @@ export function computeTicketResultStats(rows: TicketResultAnalytics[]) {
     arenaRate,
     normalArenaRate,
     upgradeRate,
+    // 各率の算出母数（信頼性の低い少数サンプルでの数値表示を避ける用途などに使う）
+    normalArenaCount: wonNonUpgrade.length,
+    upgradeCount: upgradeApplied.length,
   };
 }
 
@@ -123,46 +126,6 @@ export function computeArenaDetailStats(rows: TicketResultAnalytics[]) {
       other: groupRate((r) => r.payment_method === "その他"),
     },
   };
-}
-
-export function computeTourInfo(
-  events: CrawledEvent[],
-  today: string,
-  artistName: string | undefined,
-): { fullTitle: string; dateRange: string | null; summary: string | null } {
-  const upcoming = events
-    .filter(ev => ev.date && ev.date >= today)
-    .sort((a, b) => (a.date ?? "").localeCompare(b.date ?? ""));
-
-  if (upcoming.length === 0) {
-    return { fullTitle: artistName ?? "", dateRange: null, summary: null };
-  }
-
-  const stripped = upcoming.map(ev => {
-    const t = ev.title;
-    return t.startsWith((artistName ?? "") + " ")
-      ? t.slice((artistName ?? "").length + 1)
-      : t;
-  });
-  let common = stripped[0];
-  for (const s of stripped.slice(1)) {
-    while (common && !s.startsWith(common)) {
-      common = common.slice(0, common.length - 1);
-    }
-  }
-  const tourName = common.trim();
-  const fullTitle = tourName ? `${artistName ?? ""} ${tourName}` : (artistName ?? "");
-
-  const first = upcoming[0].date!;
-  const last  = upcoming[upcoming.length - 1].date!;
-  const fmt = (d: string) => d.replace(/-/g, ".").slice(2);
-  const dateRange = first === last ? fmt(first) : `${fmt(first)} - ${fmt(last).slice(3)}`;
-
-  const cities = new Set(upcoming.map(ev => ev.venue)).size;
-  const shows  = upcoming.length;
-  const summary = `${cities} Cities / ${shows} Performances`;
-
-  return { fullTitle, dateRange, summary };
 }
 
 export function computeUpgradeDetailStats(rows: TicketResultAnalytics[]) {

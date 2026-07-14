@@ -136,23 +136,21 @@ export default function TrendSection({ ticketStats, arenaStats, upgradeStats }: 
   const detailRows = activeArenaTab === "arena" ? arenaRows : upgradeRows;
 
   return (
-    <section className="mt-1.5 px-4">
-      <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
-        <div className="p-1.5">
-          <h2 className="flex h-11 items-center justify-center text-[16px] font-bold text-gray-900">
-            全公演
-          </h2>
-        </div>
-        <div className="border-t border-gray-100">
-          <TrendCard
-            trendRows={trendRows}
-            activeTab={activeArenaTab}
-            rows={detailRows}
-            onTabChange={setActiveArenaTab}
-          />
-        </div>
+    <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
+      <div className="p-1.5">
+        <h2 className="flex h-11 items-center justify-center text-[16px] font-bold text-gray-900">
+          全公演
+        </h2>
       </div>
-    </section>
+      <div className="border-t border-gray-100">
+        <TrendCard
+          trendRows={trendRows}
+          activeTab={activeArenaTab}
+          rows={detailRows}
+          onTabChange={setActiveArenaTab}
+        />
+      </div>
+    </div>
   );
 }
 

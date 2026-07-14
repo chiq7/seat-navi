@@ -1,28 +1,33 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ChevronDown } from "lucide-react";
+import { parseEventTitle } from "@/lib/eventTitle";
 
 export type PastTourEvent = {
   id: string;
   date: string | null;
   venue: string;
+  /** 生のevent.title。ツアー名の補助表示・テストデータ判定に使う */
+  title: string;
 };
 
 export type PastTourGroup = {
   key: string;
+  /** 年見出し（例: "2026年"） */
   title: string;
-  /** 昇順（日付順） */
+  /** 降順（新しい日付順） */
   events: PastTourEvent[];
 };
 
 type Props = {
-  /** 直近のツアーが先頭に来る順で渡す */
+  /** 新しい年が先頭に来る順で渡す */
   tours: PastTourGroup[];
   /** 公演行タップ時：ページ遷移せず現在の公演タブのマップをその公演に切り替える */
   onSelectEvent: (ev: PastTourEvent) => void;
-  /** ツアー名タップ時：現在の公演タブの当選率をそのツアーのデータに絞り込む */
+  /** 年見出しタップ時：現在の公演タブの当選率をその年のデータに絞り込む */
   onSelectTour: (tour: PastTourGroup) => void;
+  artistName?: string | null;
 };
 
 function fmtDateLabel(d: string | null): string {
@@ -31,8 +36,16 @@ function fmtDateLabel(d: string | null): string {
   return `${m}/${String(day).padStart(2, "0")}`;
 }
 
-export default function PastTourSection({ tours, onSelectEvent, onSelectTour }: Props) {
+export default function PastTourSection({ tours, onSelectEvent, onSelectTour, artistName = null }: Props) {
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
+
+  // 初期状態は最新年だけ開く
+  useEffect(() => {
+    if (tours.length > 0) {
+      setExpanded((prev) => (prev.size === 0 ? new Set([tours[0].key]) : prev));
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tours.length > 0 ? tours[0].key : null]);
 
   function toggle(key: string) {
     setExpanded((prev) => {
@@ -45,14 +58,14 @@ export default function PastTourSection({ tours, onSelectEvent, onSelectTour }: 
 
   if (tours.length === 0) {
     return (
-      <section className="px-4 py-10 text-center">
+      <section className="px-3 py-10 text-center">
         <p className="text-[12px] text-gray-400">過去の公演はまだありません</p>
       </section>
     );
   }
 
   return (
-    <section className="px-4 pt-4">
+    <section className="px-3 pt-3">
       <div className="divide-y divide-gray-100 overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
         {tours.map((tour) => {
           const isOpen = expanded.has(tour.key);
@@ -77,17 +90,30 @@ export default function PastTourSection({ tours, onSelectEvent, onSelectTour }: 
               </button>
               {isOpen && (
                 <div className="space-y-1 px-4 pb-3">
-                  {tour.events.map((ev) => (
-                    <button
-                      key={ev.id}
-                      type="button"
-                      onClick={() => onSelectEvent(ev)}
-                      className="flex w-full items-center gap-2 rounded-lg px-2 py-2 text-left text-[13px] transition-colors active:bg-gray-50"
-                    >
-                      <span className="w-10 shrink-0 font-bold text-gray-700">{fmtDateLabel(ev.date)}</span>
-                      <span className="min-w-0 flex-1 truncate text-gray-600">{ev.venue}</span>
-                    </button>
-                  ))}
+                  {tour.events.map((ev) => {
+                    const { tourName, isTestData } = parseEventTitle(ev.title, artistName);
+                    return (
+                      <button
+                        key={ev.id}
+                        type="button"
+                        onClick={() => onSelectEvent(ev)}
+                        className="flex w-full items-center gap-2 rounded-lg px-2 py-2 text-left text-[13px] transition-colors active:bg-gray-50"
+                      >
+                        <span className="w-10 shrink-0 font-bold text-gray-700">{fmtDateLabel(ev.date)}</span>
+                        <span className="min-w-0 flex-1">
+                          <span className="block truncate text-gray-600">{ev.venue}</span>
+                          <span className="mt-0.5 flex items-center gap-1">
+                            <span className="truncate text-[10px] text-gray-400">{tourName}</span>
+                            {isTestData && (
+                              <span className="shrink-0 rounded bg-gray-200 px-1 py-0.5 text-[8px] font-bold leading-none text-gray-500">
+                                テストデータ
+                              </span>
+                            )}
+                          </span>
+                        </span>
+                      </button>
+                    );
+                  })}
                 </div>
               )}
             </div>

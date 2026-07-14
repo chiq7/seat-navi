@@ -1,24 +1,36 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { Calendar } from "lucide-react";
 import SectionHeader from "./SectionHeader";
 import UpcomingEventCard, { type UpcomingEvent } from "./UpcomingEventCard";
-
-const upcomingEvents: UpcomingEvent[] = [
-  { id: "1", artist: "TOMORROW X TOGETHER", date: "6.07(土)", venue: "東京ドーム", count: "2,345" },
-  { id: "2", artist: "INI", date: "6.08(日)", venue: "ぴあアリーナMM", count: "1,987" },
-  { id: "3", artist: "Snow Man", date: "6.14(土)", venue: "京セラドーム大阪", count: "3,456" },
-  { id: "4", artist: "&TEAM", date: "6.15(日)", venue: "横浜アリーナ", count: "1,452" },
-  { id: "5", artist: "LE SSERAFIM", date: "6.21(土)", venue: "マリンメッセ福岡", count: "1,268" },
-];
+import { getUpcomingHomeEvents } from "@/lib/homeData";
 
 export default function UpcomingEventsSection() {
+  const [events, setEvents] = useState<UpcomingEvent[]>([]);
+
+  useEffect(() => {
+    let cancelled = false;
+    getUpcomingHomeEvents().then((rows) => {
+      const uniqueEvents = new Map<string, UpcomingEvent>();
+      for (const event of rows) {
+        if (!uniqueEvents.has(event.artistSlug)) uniqueEvents.set(event.artistSlug, event);
+      }
+      if (!cancelled) setEvents([...uniqueEvents.values()]);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   return (
-    <section className="mt-5">
+    <section className="mt-3">
       <SectionHeader
         icon={<Calendar size={16} color="#FF6B9D" />}
         title="開催が近い公演"
       />
-      <div className="flex gap-2.5 overflow-x-auto px-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-        {upcomingEvents.map((item) => (
+      <div className="flex w-full gap-2 overflow-x-auto px-3 pb-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [&>a]:w-[120px]">
+        {events.map((item) => (
           <UpcomingEventCard key={item.id} item={item} />
         ))}
         <div className="shrink-0 w-1" />

@@ -1,10 +1,9 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { SeatReport } from "@/lib/types";
 import type { ColorMode } from "@/lib/arena-map/arenaMapTypes";
-import { ArenaReportMap } from "@/components/arena-map/ArenaReportMap";
-import { exportMapImageAsPng } from "@/lib/arena-map/exportMapImage";
+import { EventArenaMap } from "@/components/arena-map/EventArenaMap";
 
 // /events/[id] の「みんなの座席報告マップ」と同一の色分けタブ
 const COLOR_TABS: { value: ColorMode; label: string }[] = [
@@ -19,199 +18,66 @@ type MapEvent = {
   reports: SeatReport[];
 };
 
-type VenueChip = {
-  venue: string;
-  eventId: string;
-};
-
-export type TopPrediction = {
-  imageUrl: string;
-  comment: string | null;
-  tags: string[];
-  createdAt: string;
-  voteCount: number;
-};
-
 type Props = {
-  venues: VenueChip[];
-  activeVenue?: string | null;
-  onSelectVenue?: (venue: string) => void;
-  topPrediction?: TopPrediction | null;
   mapEvent: MapEvent | null;
-  detailHref?: string | null;
 };
 
-function fmtRelTime(iso: string): string {
-  const mins = Math.floor((Date.now() - new Date(iso).getTime()) / 60000);
-  if (mins < 60) return `${mins}分前`;
-  const hrs = Math.floor(mins / 60);
-  if (hrs < 24) return `${hrs}時間前`;
-  return `${Math.floor(hrs / 24)}日前`;
-}
-
-export default function MapPreviewSection({
-  venues,
-  activeVenue = null,
-  onSelectVenue,
-  topPrediction = null,
-  mapEvent,
-  detailHref = null,
-}: Props) {
+export default function MapPreviewSection({ mapEvent }: Props) {
   const [colorMode, setColorMode] = useState<ColorMode>("lottery");
-  const mapSvgRef = useRef<SVGSVGElement>(null);
 
-  async function handleSaveMapImage() {
-    if (!mapSvgRef.current) return;
-    try {
-      await exportMapImageAsPng(mapSvgRef.current, {
-        scale: 2,
-        filename: `seat-map-${mapEvent?.id ?? "export"}.png`,
-      });
-    } catch (err) {
-      console.error("マップ画像の保存に失敗しました", err);
-    }
-  }
+  if (!mapEvent) return null;
 
   return (
-    <section className="mt-4 px-4">
-      <h2 className="mb-2 text-[22px] font-bold leading-none text-gray-900">マップ</h2>
-      {mapEvent && venues.length > 0 && (
-        <div className="mb-3 rounded-2xl border border-gray-100 bg-white p-3 shadow-sm">
-          <p className="mb-1.5 text-[11px] font-semibold text-gray-400">会場を選択</p>
-          <div className="flex gap-2 overflow-x-auto pb-1 hide-scrollbar">
-            {venues.map(({ venue }) => (
+    <>
+      <div className="border border-gray-100 bg-white px-3 pt-3 shadow-sm">
+        <div className="-mx-3">
+          <div className="px-3">
+            <Image
+              src="/images/arena-prediction/seat-report-map-logo.png"
+              alt="みんなの座席報告マップ"
+              width={2396}
+              height={232}
+              className="h-[40px] w-auto max-w-full object-contain"
+            />
+          </div>
+
+          {/* 区切り線: タイトル段 / ボタン・ナビ段 */}
+          <div className="mt-3 border-t-2 border-gray-200" />
+
+          <div className="mt-3 flex gap-1 px-3">
+            {COLOR_TABS.map((tab) => (
               <button
-                key={venue}
+                key={tab.value}
                 type="button"
-                onClick={() => onSelectVenue?.(venue)}
-                aria-pressed={venue === activeVenue}
-                className={`w-[84px] shrink-0 rounded-lg p-2.5 text-left transition-all active:scale-95 ${
-                  venue === activeVenue
-                    ? "border-2 border-[#FF6B9D] bg-[#FFF1F6]"
-                    : "border border-gray-200 bg-white"
+                onClick={() => setColorMode(tab.value)}
+                className={`flex-1 rounded-xl py-1.5 text-[11px] font-semibold transition-all active:scale-95 ${
+                  colorMode === tab.value
+                    ? "bg-[#FF6B9D] text-white"
+                    : "border border-gray-200 bg-white text-[#111827]"
                 }`}
               >
-                <p
-                  className={`truncate text-[12px] font-bold leading-tight ${
-                    venue === activeVenue ? "text-[#FF6B9D]" : "text-gray-600"
-                  }`}
-                >
-                  {venue}
-                </p>
+                {tab.label}
               </button>
             ))}
           </div>
-        </div>
-      )}
-      {mapEvent && (
-        <div className="rounded-2xl border border-gray-100 bg-white p-3 shadow-sm">
-          <div className="-mx-3">
-            <div className="px-3">
-              <Image
-                src="/images/arena-prediction/seat-report-map-logo.png"
-                alt="みんなの座席報告マップ"
-                width={2396}
-                height={232}
-                className="h-[40px] w-auto max-w-full object-contain"
-              />
-            </div>
 
-            <div className="mt-3 flex gap-1 px-3">
-              {COLOR_TABS.map((tab) => (
-                <button
-                  key={tab.value}
-                  type="button"
-                  onClick={() => setColorMode(tab.value)}
-                  className={`flex-1 rounded-xl py-1.5 text-[11px] font-semibold transition-all active:scale-95 ${
-                    colorMode === tab.value
-                      ? "bg-[#FF6B9D] text-white"
-                      : "border border-gray-200 bg-white text-[#111827]"
-                  }`}
-                >
-                  {tab.label}
-                </button>
-              ))}
-            </div>
+          {/* ArenaReportMap（共通部品: SVG描画・PNG保存はEventArenaMapが再利用） */}
+          <EventArenaMap
+            eventId={mapEvent.id}
+            reports={mapEvent.reports}
+            colorMode={colorMode}
+            mapFullBleed
+          />
+        </div>
+      </div>
 
-            <ArenaReportMap
-              eventId={mapEvent.id}
-              reports={mapEvent.reports}
-              variant="full"
-              hideShareSection
-              mapFullBleed
-              colorModeExternal={colorMode}
-              svgRef={mapSvgRef}
-            />
-          </div>
-          <button
-            type="button"
-            onClick={handleSaveMapImage}
-            className="mx-auto -mt-2 flex h-8 items-center gap-1.5 rounded-full border border-[#FF6B9D]/40 bg-white px-3.5 text-[11px] font-bold text-[#FF6B9D] transition-transform active:scale-95"
-          >
-            マップ画像を保存
-          </button>
-        </div>
-      )}
-      {topPrediction ? (
-        <article className="mt-2 rounded-[18px] border border-gray-100 bg-white p-2 shadow-sm">
-          <div className="flex gap-2">
-            <div className="h-[120px] w-[140px] shrink-0 overflow-hidden rounded-[14px] bg-gray-50">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={topPrediction.imageUrl}
-                alt="予想図"
-                className="h-full w-full object-cover"
-              />
-            </div>
-            <div className="flex min-w-0 flex-1 flex-col justify-between py-1">
-              <div className="min-w-0 overflow-hidden">
-                {topPrediction.tags.length > 0 && (
-                  <div className="mb-1.5 flex flex-wrap gap-1">
-                    {topPrediction.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-full bg-[#FFF5F8] px-1.5 py-0.5 text-[9px] font-bold text-[#FF6B9D]"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                )}
-                {topPrediction.comment && (
-                  <p className="line-clamp-2 overflow-hidden text-[11px] leading-snug text-[#111827]">
-                    {topPrediction.comment}
-                  </p>
-                )}
-              </div>
-              <div>
-                <div className="my-1.5 h-px bg-gray-100" />
-                <div className="flex items-center justify-between gap-1.5">
-                  <span className="flex h-7 shrink-0 items-center gap-1 rounded-full border border-[#FF6B9D]/40 bg-[#FFF1F6] px-2 text-[10px] font-semibold text-[#FF6B9D]">
-                    <span>♡</span>
-                    <span>参考</span>
-                    {topPrediction.voteCount > 0 && <span>{topPrediction.voteCount}</span>}
-                  </span>
-                  <span className="shrink-0 text-[10px] text-[#6B7280]">{fmtRelTime(topPrediction.createdAt)}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </article>
-      ) : (
-        <div className="mt-2 rounded-2xl border border-gray-100 bg-white px-3 py-3 shadow-sm">
-          <div className="relative mx-auto h-[140px] w-full max-w-[280px] overflow-hidden rounded-xl bg-white">
-            <Image src="/images/artist-page/seat-map-preparing2.png" alt="準備中" fill className="object-contain" />
-          </div>
-        </div>
-      )}
-      {mapEvent && detailHref && (
-        <Link
-          href={detailHref}
-          className="mx-auto mt-3 flex h-12 w-[76%] items-center justify-center rounded-full bg-[#FF6B9D] text-[17px] font-bold text-white shadow-sm no-underline"
-        >
-          詳しく見る
-        </Link>
-      )}
-    </section>
+      {/* 投稿ボタン（/events/[id]と同じ横長CTAデザイン） */}
+      <Link
+        href={`/events/${mapEvent.id}/fan-seat-prediction`}
+        className="mt-1 flex h-9 w-full items-center justify-center rounded-xl bg-[#FF6B9D] text-[13px] font-bold text-white shadow-[0_8px_20px_rgba(255,107,157,0.25)] transition-opacity active:opacity-80"
+      >
+        予想図を投稿する
+      </Link>
+    </>
   );
 }

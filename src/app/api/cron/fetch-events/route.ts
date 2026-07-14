@@ -16,46 +16,13 @@ import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
 import { createClient, SupabaseClient } from "@supabase/supabase-js";
 import crypto from "crypto";
+import { generateVenueUrls, VENUES } from "@/lib/eventCrawlerConfig";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnySupabaseClient = SupabaseClient<any, any, any>;
 
 export const maxDuration = 300;
 export const dynamic = "force-dynamic";
-
-// ---------------------------------------------------------------------------
-// 会場リスト
-// ---------------------------------------------------------------------------
-const PAYPAY_DOME_YEAR = new Date().getFullYear();
-
-const VENUES = [
-  // ドーム
-  { id: "tokyo-dome",    name: "東京ドーム",             url: "https://www.tokyo-dome.co.jp/en/dome/event/schedule.html" },
-  { id: "kyocera-dome",  name: "京セラドーム大阪",       url: "https://www.kyoceradome-osaka.jp/schedule/" },
-  { id: "vantelin-dome", name: "バンテリンドームナゴヤ", url: "https://www.nagoya-dome.co.jp/sp/eventcalen.php" },
-  { id: "paypay-dome",   name: "福岡PayPayドーム",       url: `https://www.softbankhawks.co.jp/stadium/event_schedule/${PAYPAY_DOME_YEAR}/` },
-  { id: "sapporo-dome",  name: "札幌ドーム",             url: "https://www.sapporo-dome.co.jp/schedule/" },
-  { id: "belluna-dome",  name: "ベルーナドーム",         url: "https://bellunadome.seibulions.co.jp/schedule/" },
-  { id: "zozo-marine",   name: "ZOZOマリンスタジアム",   url: "https://www.marines.co.jp/stadium/schedule/" },
-  { id: "koshien",       name: "阪神甲子園球場",         url: "https://koshien.hanshin.co.jp/event/" },
-  // アリーナ（関東）
-  { id: "saitama-super-arena", name: "さいたまスーパーアリーナ", url: "https://www.saitama-arena.co.jp/schedule/" },
-  { id: "yokohama-arena",      name: "横浜アリーナ",             url: "https://www.yokohama-arena.co.jp/event" },
-  { id: "pia-arena-mm",        name: "ぴあアリーナMM",           url: "https://pia-arena-mm.jp/" },
-  { id: "ariake-arena",        name: "有明アリーナ",             url: "https://ariake-arena.com/schedule/" },
-  { id: "budokan",             name: "日本武道館",               url: "https://www.nipponbudokan.or.jp/schedule/" },
-  { id: "yoyogi",              name: "代々木第一体育館",         url: "https://www.jpnsport.go.jp/yoyogi/event/tabid/59/default.aspx" },
-  { id: "makuhari-messe",      name: "幕張メッセ",               url: "https://www.m-messe.co.jp/event/" },
-  { id: "k-arena",             name: "Kアリーナ横浜",            url: "https://k-arena.com/en/schedule/" },
-  // アリーナ（関西・地方）
-  { id: "osaka-jo-hall",   name: "大阪城ホール",               url: "https://www.osaka-johall.com/event/" },
-  { id: "edion-arena",     name: "大阪エディオンアリーナ",     url: "https://www.furitutaiikukaikan.ne.jp/" },
-  { id: "marine-messe",    name: "マリンメッセ福岡",           url: "https://www.marinemesse.or.jp/messe/" },
-  { id: "miyagi-arena",    name: "セキスイハイムスーパーアリーナ", url: "https://www.mspf.jp/grande21/" },
-  { id: "hiroshima-arena", name: "広島グリーンアリーナ",       url: "https://h-jigyoudan.or.jp/sports-center/center-events/" },
-  { id: "gaishi-hall",     name: "名古屋ガイシホール",         url: "https://www.nespa.or.jp/hall/" },
-  { id: "toki-messe",      name: "朱鷺メッセ",                 url: "https://www.tokimesse.com/sp/visitor/event/index" },
-] as const;
 
 const USER_AGENTS = [
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
@@ -128,10 +95,32 @@ function stripHtml(html: string): string {
   return text;
 }
 
-async function fetchHtml(venue: { id: string; name: string; url: string }): Promise<string | null> {
+type FetchResult = {
+  url: string;
+  status: number | "ERROR";
+  html: string | null;
+  chars: number;
+  error: string | null;
+};
+
+type EventRow = {
+  id: string;
+  title: string;
+  venue: string;
+  venue_id: string;
+  date: string | null;
+  genre: string;
+};
+
+type DuplicateCandidate = {
+  extracted: { title: string; date: string | null };
+  existing: { id: string; title: string; date: string | null };
+};
+
+async function fetchPage(url: string): Promise<FetchResult> {
   const ua = USER_AGENTS[Math.floor(Math.random() * USER_AGENTS.length)];
   try {
-    const res = await fetch(venue.url, {
+    const res = await fetch(url, {
       headers: {
         "User-Agent": ua,
         Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
@@ -143,13 +132,13 @@ async function fetchHtml(venue: { id: string; name: string; url: string }): Prom
       signal: AbortSignal.timeout(15_000),
     });
     if (!res.ok) {
-      console.warn(`[${venue.name}] HTTP ${res.status}`);
-      return null;
+      return { url, status: res.status, html: null, chars: 0, error: `HTTP ${res.status}` };
     }
-    return await res.text();
+    const html = await res.text();
+    return { url, status: res.status, html, chars: html.length, error: null };
   } catch (err) {
-    console.warn(`[${venue.name}] 取得失敗:`, err instanceof Error ? err.message : err);
-    return null;
+    const error = err instanceof Error ? err.message : String(err);
+    return { url, status: "ERROR", html: null, chars: 0, error };
   }
 }
 
@@ -163,7 +152,7 @@ async function extractEvents(
   html: string,
   venue: { id: string; name: string },
   claude: Anthropic
-): Promise<ExtractedEvent[]> {
+): Promise<{ events: ExtractedEvent[]; error: string | null }> {
   const text = stripHtml(html).slice(0, MAX_TEXT_CHARS);
   const prompt = EXTRACT_PROMPT(venue.name, text);
 
@@ -186,24 +175,20 @@ async function extractEvents(
     const events = JSON.parse(raw);
     if (!Array.isArray(events)) throw new Error("配列ではありません");
 
-    console.log(`[${venue.name}] 抽出: ${events.length} 件`);
-    return events as ExtractedEvent[];
+    return { events: events as ExtractedEvent[], error: null };
   } catch (err) {
-    console.warn(`[${venue.name}] 抽出エラー:`, err instanceof Error ? err.message : err);
-    return [];
+    const error = err instanceof Error ? err.message : String(err);
+    return { events: [], error: `Claude抽出エラー: ${error}` };
   }
 }
 
 const VALID_GENRES = new Set(["kpop", "johnnys", "female_idol", "male_idol", "other"]);
 
-async function upsertEvents(
+function toEventRows(
   events: ExtractedEvent[],
-  venue: { id: string; name: string },
-  sb: AnySupabaseClient
-): Promise<number> {
-  if (events.length === 0) return 0;
-
-  const rows = events
+  venue: { id: string; name: string }
+): EventRow[] {
+  return events
     .filter((ev) => ev.title?.trim())
     .map((ev) => {
       const title = ev.title.trim();
@@ -218,17 +203,49 @@ async function upsertEvents(
         genre,
       };
     });
+}
 
-  if (rows.length === 0) return 0;
+async function upsertEvents(rows: EventRow[], sb: AnySupabaseClient): Promise<{ saved: number; error: string | null }> {
+  if (rows.length === 0) return { saved: 0, error: null };
 
-  try {
-    await sb.from("events").upsert(rows, { onConflict: "id" });
-    console.log(`[${venue.name}] upsert: ${rows.length} 件`);
-    return rows.length;
-  } catch (err) {
-    console.error(`[${venue.name}] upsertエラー:`, err);
-    return 0;
-  }
+  const { error } = await sb.from("events").upsert(rows, { onConflict: "id" });
+  return error
+    ? { saved: 0, error: `DB保存エラー: ${error.message}` }
+    : { saved: rows.length, error: null };
+}
+
+function normalizeTitle(title: string): string {
+  return title
+    .normalize("NFKC")
+    .trim()
+    .replace(/[「」『』“”‘’\"']/g, "")
+    .replace(/\s+/g, " ");
+}
+
+async function findDuplicateCandidates(
+  rows: EventRow[],
+  venueId: string,
+  sb: AnySupabaseClient
+): Promise<{ candidates: DuplicateCandidate[]; error: string | null }> {
+  if (rows.length === 0) return { candidates: [], error: null };
+
+  const { data, error } = await sb
+    .from("events")
+    .select("id,title,date")
+    .eq("venue_id", venueId);
+  if (error) return { candidates: [], error: `重複候補取得エラー: ${error.message}` };
+
+  const existing = (data ?? []) as Array<{ id: string; title: string; date: string | null }>;
+  const candidates = rows.flatMap((row) => {
+    const normalized = normalizeTitle(row.title);
+    const match = existing.find(
+      (event) => event.date === row.date && normalizeTitle(event.title) === normalized
+    );
+    return match
+      ? [{ extracted: { title: row.title, date: row.date }, existing: match }]
+      : [];
+  });
+  return { candidates, error: null };
 }
 
 function sleep(ms: number) {
@@ -252,6 +269,7 @@ export async function GET(req: NextRequest) {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY ?? "";
   const anthropicKey = process.env.ANTHROPIC_API_KEY ?? "";
+  const dryRun = ["1", "true"].includes(req.nextUrl.searchParams.get("dryRun")?.toLowerCase() ?? "");
 
   if (!supabaseUrl || !serviceKey || !anthropicKey) {
     return NextResponse.json({ error: "必要な環境変数が未設定です" }, { status: 500 });
@@ -262,22 +280,78 @@ export async function GET(req: NextRequest) {
 
   let totalSaved = 0;
   const failed: string[] = [];
+  const reports: Array<Record<string, unknown>> = [];
 
-  console.log(`=== fetch-events cron 開始: ${new Date().toISOString()} ===`);
+  console.log(`=== fetch-events cron 開始: ${new Date().toISOString()} / dry-run=${dryRun} ===`);
 
   for (const venue of VENUES) {
-    console.log(`処理中: ${venue.name}`);
-
-    const html = await fetchHtml(venue);
-    if (!html) {
-      failed.push(venue.name);
-      await sleep(2000);
+    if (venue.type === "disabled") {
+      const report = {
+        venueId: venue.id,
+        venueName: venue.name,
+        type: venue.type,
+        skipped: true,
+        error: venue.reason,
+      };
+      reports.push(report);
+      console.log(`[${venue.name}] disabled / 理由=${venue.reason}`);
       continue;
     }
 
-    const events = await extractEvents(html, venue, claude);
-    const saved = await upsertEvents(events, venue, sb);
+    const urls = [...new Set(generateVenueUrls(venue))];
+    const pages = await Promise.all(urls.map(fetchPage));
+    const successfulPages = pages.filter((page) => page.html !== null);
+    const html = successfulPages.map((page) => page.html).join("\n\n");
+    const errors = pages.flatMap((page) => page.error ? [`${page.url}: ${page.error}`] : []);
+
+    let events: ExtractedEvent[] = [];
+    let rows: EventRow[] = [];
+    let duplicates: DuplicateCandidate[] = [];
+    let saved = 0;
+
+    if (html) {
+      const extracted = await extractEvents(html, venue, claude);
+      events = extracted.events;
+      if (extracted.error) errors.push(extracted.error);
+      rows = toEventRows(events, venue);
+
+      if (dryRun) {
+        const duplicateResult = await findDuplicateCandidates(rows, venue.id, sb);
+        duplicates = duplicateResult.candidates;
+        if (duplicateResult.error) errors.push(duplicateResult.error);
+      } else {
+        const saveResult = await upsertEvents(rows, sb);
+        saved = saveResult.saved;
+        if (saveResult.error) errors.push(saveResult.error);
+      }
+    }
+
+    if (successfulPages.length === 0 || errors.some((error) => error.startsWith("Claude") || error.startsWith("DB"))) {
+      failed.push(venue.name);
+    }
     totalSaved += saved;
+
+    const report = {
+      venueId: venue.id,
+      venueName: venue.name,
+      type: venue.type,
+      pageCount: successfulPages.length,
+      requestedPageCount: urls.length,
+      httpStatuses: pages.map(({ url, status }) => ({ url, status })),
+      fetchedChars: pages.reduce((total, page) => total + page.chars, 0),
+      claudeExtracted: events.length,
+      titles: events.map((event) => event.title).filter(Boolean),
+      duplicateCandidates: dryRun ? duplicates : undefined,
+      plannedSaves: dryRun ? rows.length : undefined,
+      dbSaved: saved,
+      errors,
+    };
+    reports.push(report);
+    console.log(
+      `[${venue.name}] HTTP=${pages.map((page) => page.status).join(",")} / ` +
+      `取得ページ=${successfulPages.length}/${urls.length} / 文字数=${report.fetchedChars} / Claude抽出=${events.length} / ` +
+      `DB保存=${saved} / エラー=${errors.join(" | ") || "なし"}`
+    );
 
     await sleep(2500 + Math.random() * 2000);
   }
@@ -286,8 +360,10 @@ export async function GET(req: NextRequest) {
 
   return NextResponse.json({
     ok: true,
+    dryRun,
     totalSaved,
     failed,
+    reports,
     processedAt: new Date().toISOString(),
   });
 }

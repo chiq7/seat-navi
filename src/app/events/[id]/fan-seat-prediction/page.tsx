@@ -1,16 +1,20 @@
 "use client";
 
-import { use, useEffect, useRef, useState } from "react";
+import { use, useEffect, useMemo, useRef, useState } from "react";
 import type { ChangeEvent } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { ChevronLeft } from "lucide-react";
 import { supabase } from "@/lib/supabase/client";
 import { resolveArtist } from "@/lib/artists";
 import { getEventsForArtist } from "@/lib/events";
-import type { CrawledEvent } from "@/lib/types";
+import { parseEventTitle } from "@/lib/eventTitle";
+import type { CrawledEvent, SeatReport } from "@/lib/types";
 import { BottomNav } from "@/components/common/BottomNav";
+import { Header } from "@/components/common/Header";
+import { EventCarouselPicker } from "@/components/common/EventPicker";
+import { EventInfoRow } from "@/components/common/EventInfoRow";
+import { EventArenaMap } from "@/components/arena-map/EventArenaMap";
 
 const EVENT_COLUMNS = "id, title, venue, venue_id, date, genre, lottery_types, artist_slug";
 
@@ -26,20 +30,6 @@ const TAG_OPTIONS = [
   { value: "トロッコあり", label: "トロッコ" },
   { value: "演出予想", label: "演出予想" },
 ];
-
-function fmtDate(d: string | null): string {
-  if (!d) return "日程未定";
-  const [y, m, day] = d.split("-").map(Number);
-  const w = ["日", "月", "火", "水", "木", "金", "土"][new Date(y, m - 1, day).getDay()];
-  return `${y}.${String(m).padStart(2, "0")}.${String(day).padStart(2, "0")}（${w}）`;
-}
-
-function fmtEventDate(d: string | null): string {
-  if (!d) return "日程未定";
-  const [y, m, day] = d.split("-").map(Number);
-  const w = ["日", "月", "火", "水", "木", "金", "土"][new Date(y, m - 1, day).getDay()];
-  return `${m}/${day}（${w}）`;
-}
 
 function randomId() {
   return crypto.randomUUID().replace(/-/g, "").slice(0, 20);
@@ -94,7 +84,6 @@ export default function FanSeatPredictionPage({
   params: Promise<{ id: string }>;
 }) {
   const { id: eventId } = use(params);
-  const router = useRouter();
 
   const [events, setEvents] = useState<CrawledEvent[]>([]);
   const [eventsLoading, setEventsLoading] = useState(true);
@@ -106,6 +95,9 @@ export default function FanSeatPredictionPage({
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [mapOpen, setMapOpen] = useState(false);
+  const [mapSaved, setMapSaved] = useState(false);
+  const [groupSeatReports, setGroupSeatReports] = useState<SeatReport[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -137,6 +129,73 @@ export default function FanSeatPredictionPage({
   }, [eventId]);
 
   const event = events.find((e) => e.id === selectedEventId) ?? null;
+
+  // 同一会場（venue_id一致）×隣接日程（間隔3日以内）でつながる公演群。
+  // /events/[id]と同じロジックで、マップに表示する座席報告を近接日程間で統合する。
+  const ADJACENT_GAP_DAYS = 3;
+  const groupEventIds = useMemo(() => {
+    if (!event) return [];
+    if (!event.venue_id) return [event.id];
+    const sameVenue = events.filter((ev) => ev.venue_id === event.venue_id && ev.date);
+    const sorted = [...sameVenue].sort((a, b) => (a.date ?? "").localeCompare(b.date ?? ""));
+    const groups: CrawledEvent[][] = [];
+    let current: CrawledEvent[] = [];
+    for (const ev of sorted) {
+      if (current.length === 0) {
+        current = [ev];
+        continue;
+      }
+      const prevDate = current[current.length - 1].date!;
+      const gapDays = Math.round(
+        (new Date(ev.date!).getTime() - new Date(prevDate).getTime()) / 86400000,
+      );
+      if (gapDays <= ADJACENT_GAP_DAYS) {
+        current.push(ev);
+      } else {
+        groups.push(current);
+        current = [ev];
+      }
+    }
+    if (current.length > 0) groups.push(current);
+    const myGroup = groups.find((g) => g.some((ev) => ev.id === event.id));
+    return myGroup ? myGroup.map((ev) => ev.id) : [event.id];
+  }, [event, events]);
+
+  useEffect(() => {
+    if (groupEventIds.length === 0) {
+      setGroupSeatReports([]);
+      return;
+    }
+    let cancelled = false;
+    async function loadGroupReports() {
+      const { data } = await supabase
+        .from("seat_reports")
+        .select("id, event_id, block, row_num, seat_num, lottery_type, fc_history, payment_method, lottery_round, lottery_name, comment, created_at")
+        .in("event_id", groupEventIds)
+        .order("created_at", { ascending: false })
+        .limit(500);
+      if (!cancelled && data) setGroupSeatReports(data as SeatReport[]);
+    }
+    loadGroupReports();
+    return () => {
+      cancelled = true;
+    };
+  }, [groupEventIds]);
+
+  // マップ表示用：同一座席に複数報告がある場合、選択中の日程の報告を優先する。
+  const dedupedSeatReports = useMemo(() => {
+    const byPosition = new Map<string, SeatReport[]>();
+    for (const r of groupSeatReports) {
+      const key = `${r.block}:${r.row_num}:${r.seat_num}`;
+      if (!byPosition.has(key)) byPosition.set(key, []);
+      byPosition.get(key)!.push(r);
+    }
+    const result: SeatReport[] = [];
+    for (const reps of byPosition.values()) {
+      result.push(reps.find((r) => r.event_id === selectedEventId) ?? reps[0]);
+    }
+    return result;
+  }, [groupSeatReports, selectedEventId]);
 
   function handleFileChange(e: ChangeEvent<HTMLInputElement>) {
     const selected = e.target.files?.[0] ?? null;
@@ -214,13 +273,18 @@ export default function FanSeatPredictionPage({
     setSubmitted(false);
   }
 
-  const artistSlug = event ? resolveArtist(event)?.slug : undefined;
+  const artist = event ? resolveArtist(event) : undefined;
+  const artistSlug = artist?.slug;
+  const { tourName, isTestData } = event
+    ? parseEventTitle(event.title, artist?.name)
+    : { tourName: "", isTestData: false };
+  const reportEntryHref = `/report?event=${selectedEventId}`;
 
   /* ── 完了画面（Step 2） ─────────────────────────────── */
   if (submitted) {
     return (
       <div className="min-h-screen bg-[#F8FAFC] font-sans">
-        <div className="mx-auto min-h-screen w-full max-w-[390px]">
+        <div className="min-h-screen w-full">
           <div className="relative flex min-h-screen flex-col">
             <div className="absolute inset-0 overflow-hidden">
               <Image
@@ -263,18 +327,17 @@ export default function FanSeatPredictionPage({
                 <div className="mt-6 space-y-3">
                   <button
                     type="button"
-                    onClick={() => router.push(`/events/${selectedEventId}`)}
+                    onClick={resetForm}
                     className="flex h-[52px] w-full items-center justify-center rounded-full bg-[#FF6B9D] text-[14px] font-bold text-white shadow-[0_4px_14px_rgba(255,107,157,0.35)] transition-opacity active:opacity-80"
                   >
-                    公演ページに戻る
+                    別の予想を投稿する
                   </button>
-                  <button
-                    type="button"
-                    onClick={resetForm}
-                    className="flex h-[48px] w-full items-center justify-center rounded-full border-2 border-[#FF6B9D] bg-white text-[14px] font-bold text-[#FF6B9D] transition-opacity active:opacity-80"
+                  <Link
+                    href={`/events/${selectedEventId}`}
+                    className="flex h-[48px] w-full items-center justify-center rounded-full border border-gray-200 bg-white text-[14px] font-bold text-gray-700 transition-opacity active:opacity-80"
                   >
-                    もう1枚投稿する
-                  </button>
+                    座席予想ページを見る
+                  </Link>
                 </div>
               </div>
             </div>
@@ -287,17 +350,9 @@ export default function FanSeatPredictionPage({
 
   /* ── 入力画面（Step 1） ─────────────────────────────── */
   return (
-    <div className="min-h-screen bg-[#F8FAFC] font-sans">
-      <div className="mx-auto min-h-screen w-full max-w-[390px] bg-white">
-        <header className="sticky top-0 z-30 flex h-[44px] items-center justify-center border-b border-gray-100 bg-white">
-          <Link
-            href={`/events/${selectedEventId}`}
-            className="absolute left-2 flex h-8 w-8 items-center justify-center text-gray-700 active:bg-gray-50"
-          >
-            <ChevronLeft size={18} strokeWidth={2.5} />
-          </Link>
-          <h1 className="text-[12px] font-bold tracking-wide text-gray-900">予想図を投稿</h1>
-        </header>
+    <div className="min-h-screen bg-[#FFF8FB] font-sans">
+      <div className="min-h-screen w-full bg-white">
+        <Header title="予想図を投稿" backHref={reportEntryHref} />
 
         <StepIndicator step={1} />
 
@@ -305,47 +360,24 @@ export default function FanSeatPredictionPage({
           {/* 対象公演 */}
           <section className="rounded-2xl border border-gray-100 bg-white p-3 shadow-sm">
             <h2 className="text-[13px] font-bold text-gray-900">対象公演</h2>
-            {eventsLoading ? (
-              <div className="mt-2 h-10 animate-pulse rounded-lg bg-gray-100" />
-            ) : events.length === 0 ? (
-              <p className="mt-2 text-[11px] text-gray-400">公演が見つかりませんでした</p>
-            ) : (
+            {event && (
               <>
-                {event && (
-                  <div className="mt-2 space-y-0.5">
-                    <p className="truncate text-[12px] font-bold text-[#111827]">{event.title}</p>
-                    <p className="text-[11px] text-gray-500">{fmtDate(event.date)}</p>
-                  </div>
-                )}
-                <div className="-mx-1 mt-2 overflow-x-auto pb-1 hide-scrollbar">
-                  <div className="flex min-w-max gap-2 px-1">
-                    {events.map((ev) => {
-                      const isSelected = ev.id === selectedEventId;
-                      return (
-                        <button
-                          key={ev.id}
-                          type="button"
-                          onClick={() => setSelectedEventId(ev.id)}
-                          className={`relative h-[74px] w-[96px] shrink-0 rounded-xl px-2 py-2 text-left transition-colors ${
-                            isSelected
-                              ? "border-2 border-[#FF6B9D] bg-[#FFF1F6]"
-                              : "border border-gray-200 bg-white"
-                          }`}
-                        >
-                          {isSelected && (
-                            <span className="absolute right-1.5 top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-[#FF6B9D] text-[9px] text-white">
-                              ✓
-                            </span>
-                          )}
-                          <div className="text-[12px] font-bold text-gray-900">{fmtEventDate(ev.date)}</div>
-                          <div className="mt-1 line-clamp-2 text-[10px] font-semibold text-gray-800">{ev.venue}</div>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
+                <EventInfoRow
+                  className="mt-0.5"
+                  title={tourName}
+                  artistName={artist?.name ?? null}
+                  isTestData={isTestData}
+                />
+                <div className="mb-1 mt-0.5 border-t border-gray-100" />
               </>
             )}
+            <EventCarouselPicker
+              events={events}
+              selectedEventId={selectedEventId}
+              onSelect={setSelectedEventId}
+              artistName={artist?.name}
+              loading={eventsLoading}
+            />
           </section>
 
           {/* 予想図画像 */}
@@ -357,8 +389,49 @@ export default function FanSeatPredictionPage({
               </span>
             </div>
             <p className="mt-0.5 text-[9px] text-gray-400">
-              マップをスクショしてスマホの編集機能で花道・センステを書き込んだ画像
+              会場マップの画像に花道・センステの位置を書き込んで投稿できます
             </p>
+
+            {!previewUrl && event && (
+              <div className="mt-2">
+                <button
+                  type="button"
+                  onClick={() => setMapOpen((o) => !o)}
+                  className="flex w-full items-center justify-center gap-1 rounded-lg border border-[#FF6B9D]/30 bg-[#FFF1F6] py-2 text-[11px] font-bold text-[#FF6B9D]"
+                >
+                  {mapOpen ? "▲ マップを閉じる" : "▼ 会場マップから予想図を作る"}
+                </button>
+
+                {mapOpen && (
+                  <div className="mt-2 rounded-xl border border-[#FF6B9D]/20 bg-[#FFF8FB] p-3">
+                    <ol className="space-y-1 text-[10px] leading-relaxed text-gray-600">
+                      <li>
+                        <span className="font-bold text-[#FF6B9D]">①</span> 下のボタンでマップ画像をスマホに保存
+                      </li>
+                      <li>
+                        <span className="font-bold text-[#FF6B9D]">②</span> 写真アプリなどの編集機能で花道・センステの位置を書き込む
+                      </li>
+                      <li>
+                        <span className="font-bold text-[#FF6B9D]">③</span> 書き込んだ画像を下の「画像を選択」からアップロード
+                      </li>
+                    </ol>
+                    <div className="mt-3">
+                      <EventArenaMap
+                        eventId={selectedEventId}
+                        reports={dedupedSeatReports}
+                        showSaveButton
+                        onSaved={() => setMapSaved(true)}
+                      />
+                    </div>
+                    {mapSaved && (
+                      <p className="mt-2 text-center text-[10px] font-bold text-[#FF6B9D]">
+                        保存できました！②③の手順で編集してから、下の「画像を選択」からアップロードしてください
+                      </p>
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
 
             {previewUrl ? (
               <div className="relative mt-2">
@@ -382,7 +455,11 @@ export default function FanSeatPredictionPage({
               <button
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
-                className="mt-2 flex h-[96px] w-full flex-col items-center justify-center gap-1.5 rounded-xl border border-dashed border-gray-300 bg-gray-50 text-gray-400 transition-colors active:bg-gray-100"
+                className={`mt-2 flex h-[96px] w-full flex-col items-center justify-center gap-1.5 rounded-xl border border-dashed transition-colors active:bg-gray-100 ${
+                  mapSaved
+                    ? "border-[#FF6B9D] bg-[#FFF1F6] text-[#FF6B9D]"
+                    : "border-gray-300 bg-gray-50 text-gray-400"
+                }`}
               >
                 <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}

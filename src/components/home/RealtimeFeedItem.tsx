@@ -1,48 +1,37 @@
-export type FeedItem = {
-  id: string;
-  type: "当選" | "座席情報" | "落選";
-  text: string;
-  time: string;
-  likes: number;
+import Link from "next/link";
+import type { HomeFeedItem } from "@/lib/homeData";
+import { formatRelativeTime, fmtFeedDate } from "@/lib/homeData";
+
+const tagStyles: Record<HomeFeedItem["type"], { bg: string; color: string }> = {
+  座席報告: { bg: "#EFF6FF", color: "#3B82F6" },
+  座席予想: { bg: "#F5F3FF", color: "#7C3AED" },
+  現地レポ: { bg: "#FDF0F4", color: "#FF6B9D" },
+  セトリ: { bg: "#ECFDF5", color: "#059669" },
 };
 
-const tagStyles: Record<FeedItem["type"], { bg: string; color: string }> = {
-  当選: { bg: "#FDF0F4", color: "#FF6B9D" },
-  座席情報: { bg: "#EFF6FF", color: "#3B82F6" },
-  落選: { bg: "#F3F4F6", color: "#6B7280" },
-};
-
-export default function RealtimeFeedItem({ item }: { item: FeedItem }) {
+export default function RealtimeFeedItem({ item }: { item: HomeFeedItem }) {
   const tag = tagStyles[item.type];
   return (
-    <div className="flex items-center gap-2 px-3 py-2.5">
-      <span
-        className="shrink-0 text-[10px] font-bold rounded-full py-0.5"
-        style={{ backgroundColor: tag.bg, color: tag.color, width: "56px", textAlign: "center", display: "inline-block" }}
-      >
-        {item.type}
-      </span>
-      <p className="flex-1 text-[12px] text-gray-700 truncate min-w-0 leading-none">
-        {item.text}
-      </p>
-      <span className="shrink-0 text-[10px] text-gray-400 whitespace-nowrap">
-        {item.time}
-      </span>
-      <div className="shrink-0 flex items-center gap-0.5">
-        <svg
-          className="w-3.5 h-3.5"
-          viewBox="0 0 24 24"
-          fill="#FF6B9D"
-        >
-          <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-        </svg>
-        <span
-          className="text-[10px] font-semibold"
-          style={{ color: "#FF6B9D" }}
-        >
-          {item.likes}
+    <Link
+      href={item.href}
+      className="flex flex-col gap-1.5 px-3 py-2.5 no-underline active:bg-gray-50"
+    >
+      <div className="flex min-w-0 items-center gap-2">
+        <p className="min-w-0 flex-1 truncate text-[15px] font-bold text-gray-900">{item.artistName}</p>
+        <span className="max-w-[62%] shrink-0 truncate text-right text-[12px] text-gray-500">
+          {item.venue} {fmtFeedDate(item.date)}
         </span>
       </div>
-    </div>
+      <div className="flex min-w-0 items-center gap-2">
+        <span
+          className="shrink-0 whitespace-nowrap rounded px-2 py-0.5 text-[12px] font-bold"
+          style={{ backgroundColor: tag.bg, color: tag.color }}
+        >
+          {item.type}
+        </span>
+        <span className="min-w-0 flex-1 truncate text-[13px] font-semibold text-gray-800">{item.detail}</span>
+        <span className="shrink-0 text-[11px] text-gray-400">{formatRelativeTime(item.createdAt)}</span>
+      </div>
+    </Link>
   );
 }

@@ -51,9 +51,10 @@ export default function SeatReportTimelineSection({ items, eventMap }: Props) {
   if (items.length === 0) return null;
 
   return (
-    <section className="mt-4 px-4">
-      <h2 className="text-[14px] font-bold text-gray-900">座席報告タイムライン</h2>
-      <div className="mt-2 divide-y divide-gray-200 bg-white shadow-sm">
+    <div>
+      <h3 className="text-center text-[14px] font-bold text-gray-900">座席報告タイムライン</h3>
+      <div className="-mx-3 mt-3 border-t border-gray-200" />
+      <div className="-mx-3 divide-y divide-gray-200">
         {items.map((item) => {
           const ev = eventMap.get(item.event_id);
           const isWon = item.result === "won";
@@ -69,10 +70,10 @@ export default function SeatReportTimelineSection({ items, eventMap }: Props) {
           return (
             <div
               key={item.id}
-              className="px-4 py-3"
+              className="px-4 py-2"
             >
               {/* 1層目：当落バッジ + アプグレバッジ + 会場・日付 */}
-              <div className="flex flex-wrap items-center gap-1.5">
+              <div className="flex flex-wrap items-center gap-1">
                 <span
                   className={`shrink-0 rounded px-3 py-0.5 text-[13px] font-bold text-white ${
                     isWon ? "bg-[#FF9EBF]" : "bg-gray-400"
@@ -88,7 +89,7 @@ export default function SeatReportTimelineSection({ items, eventMap }: Props) {
                   アプグレ
                 </span>
                 {ev && (
-                  <span className="min-w-0 flex-1 truncate text-[12px] font-medium text-[#333333]">
+                  <span className="min-w-0 flex-1 text-[12px] font-medium text-[#333333]">
                     🎪 {ev.venue}・{fmtDateWithDow(ev.date)}
                   </span>
                 )}
@@ -96,7 +97,7 @@ export default function SeatReportTimelineSection({ items, eventMap }: Props) {
 
               {/* 2層目：座席情報 */}
               {seatInfo && (
-                <div className="mt-2 leading-tight">
+                <div className="mt-1.5 leading-tight">
                   {seatInfo.typeLabel && (
                     <span className="mr-1.5 text-[13px] font-bold text-gray-900">
                       {seatInfo.typeLabel}
@@ -112,7 +113,7 @@ export default function SeatReportTimelineSection({ items, eventMap }: Props) {
 
               {/* 3層目：補助バッジ */}
               {detailBadges.length > 0 && (
-                <div className="mt-2 flex flex-wrap items-center gap-1.5">
+                <div className="mt-1.5 flex flex-wrap items-center gap-1">
                   {detailBadges.map((label, i) => (
                     <span
                       key={i}
@@ -126,12 +127,12 @@ export default function SeatReportTimelineSection({ items, eventMap }: Props) {
 
               {/* 4層目：コメント */}
               {item.comment && (
-                <p className="mt-2 truncate text-[11px] text-gray-400">{item.comment}</p>
+                <p className="mt-1.5 truncate text-[11px] text-gray-400">{item.comment}</p>
               )}
             </div>
           );
         })}
       </div>
-    </section>
+    </div>
   );
 }

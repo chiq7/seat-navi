@@ -29,12 +29,10 @@ function ReportEntryPageInner() {
     async function load() {
       const preselectedEventId = searchParams.get("event");
       const preselectedArtistSlug = searchParams.get("artist");
-      const today = new Date().toISOString().split("T")[0];
       const { data } = await supabase
         .from("events")
         .select("id, title, venue, venue_id, date, genre, lottery_types, artist_slug")
-        .gte("date", today)
-        .order("date", { ascending: true })
+        .order("date", { ascending: false })
         .limit(50);
       let list = (data as CrawledEvent[]) ?? [];
 
@@ -83,10 +81,11 @@ function ReportEntryPageInner() {
     () => (selectedEvent ? resolveArtist(selectedEvent) : undefined),
     [selectedEvent],
   );
+  const backHref = artist ? `/artists/${artist.slug}` : "/";
 
   return (
-    <main className="mx-auto min-h-screen max-w-[390px] bg-white pb-28 font-sans text-[#111827]">
-      <ReportHero artistName={artist?.name} />
+    <main className="min-h-screen bg-[#FFF8FB] pb-28 font-sans text-[#111827]">
+      <ReportHero artistName={artist?.name} backHref={backHref} />
       <ReportEventSelector
         selectedEvent={selectedEvent}
         artistName={artist?.name ?? null}
@@ -97,27 +96,27 @@ function ReportEntryPageInner() {
   );
 }
 
-function ReportHero({ artistName }: { artistName?: string }) {
+function ReportHero({ artistName, backHref }: { artistName?: string; backHref: string }) {
   return (
-    <section className="relative h-[286px] w-full overflow-hidden">
+    <section className="relative h-[220px] w-full overflow-hidden">
       <Image
         src="/images/report/backgrounds/report-hero-choice-a-bg1.png"
         alt=""
         fill
         priority
         sizes="(max-width: 390px) 100vw, 390px"
-        className="object-cover object-[center_62%]"
+        className="object-cover object-bottom"
       />
       <div className="absolute inset-0 bg-white/22" />
 
       <header className="absolute left-0 right-0 top-0 z-10 flex h-16 items-center justify-between px-4">
         <Link
-          href="/"
+          href={backHref}
           className="flex h-10 w-10 items-center justify-center rounded-full bg-white/40"
         >
           <ChevronLeft size={24} strokeWidth={2.5} className="text-[#111827]" />
         </Link>
-        <h1 className="absolute left-1/2 -translate-x-1/2 truncate px-14 text-[18px] font-bold tracking-[0.02em] text-[#111827]">
+        <h1 className="pointer-events-none absolute left-1/2 -translate-x-1/2 truncate px-14 text-[18px] font-bold tracking-[0.02em] text-[#111827]">
           {artistName || "報告する"}
         </h1>
         <div className="h-10 w-10" />

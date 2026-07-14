@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
+import Footer from "@/components/common/Footer";
 import "./globals.css";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
@@ -58,6 +59,7 @@ export default function RootLayout({
       <body className="min-h-screen bg-[#F3F4F6] text-foreground antialiased">
         <div className="mx-auto max-w-md min-h-screen bg-white shadow-sm">
           {children}
+          <Footer />
         </div>
         <Analytics />
         {GA_ID && (

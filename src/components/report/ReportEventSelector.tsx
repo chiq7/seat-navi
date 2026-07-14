@@ -5,29 +5,6 @@ import Image from "next/image";
 import { ChevronRight } from "lucide-react";
 import type { CrawledEvent } from "@/lib/types";
 
-function Sparkle({
-  size = 8,
-  color = "#FF6B9D",
-  className = "",
-}: {
-  size?: number;
-  color?: string;
-  className?: string;
-}) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill={color}
-      className={className}
-      style={{ flexShrink: 0 }}
-    >
-      <path d="M12 2L13.8 9.2L21 10.5L13.8 12.5L12 20L10.2 12.5L3 10.5L10.2 9.2L12 2Z" />
-    </svg>
-  );
-}
-
 type CardLinkProps = {
   href: string | null;
   children: React.ReactNode;
@@ -38,14 +15,14 @@ function CardLink({ href, children }: CardLinkProps) {
     return (
       <Link
         href={href}
-        className="flex items-center gap-4 rounded-[24px] border border-[#F3F4F6] bg-white p-4 shadow-sm transition-transform active:scale-[0.99]"
+        className="flex items-center gap-4 rounded-[24px] border border-[#F3F4F6] bg-white p-3 shadow-sm transition-transform active:scale-[0.99]"
       >
         {children}
       </Link>
     );
   }
   return (
-    <div className="flex cursor-default items-center gap-4 rounded-[24px] border border-[#F3F4F6] bg-white p-4 opacity-40 shadow-sm">
+    <div className="flex cursor-default items-center gap-4 rounded-[24px] border border-[#F3F4F6] bg-white p-3 opacity-40 shadow-sm">
       {children}
     </div>
   );
@@ -59,7 +36,6 @@ type Props = {
 
 export function ReportEventSelector({
   selectedEvent,
-  artistName,
   artistSlug,
 }: Props) {
   const ticketHref = selectedEvent ? `/report/ticket?event=${selectedEvent.id}` : null;
@@ -69,40 +45,15 @@ export function ReportEventSelector({
 
   return (
     <>
-      {/* アーティスト情報（アリーナ予想図ページと同じ見た目） */}
-      {selectedEvent && (
-        <section className="px-4 pt-3">
-          <div className="flex items-start gap-2">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" className="mt-0.5 shrink-0">
-              <rect x="9" y="2" width="6" height="11" rx="3" fill="#FF6B9D" />
-              <path d="M5 10a7 7 0 0014 0" stroke="#FF6B9D" strokeWidth="2" strokeLinecap="round" fill="none" />
-              <line x1="12" y1="17" x2="12" y2="22" stroke="#FF6B9D" strokeWidth="2" strokeLinecap="round" />
-              <line x1="8" y1="22" x2="16" y2="22" stroke="#FF6B9D" strokeWidth="2" strokeLinecap="round" />
-            </svg>
-            <div className="min-w-0 flex-1">
-              {artistName ? (
-                <>
-                  <p className="text-[15px] font-bold leading-snug text-gray-900">{artistName}</p>
-                  <p className="mt-0.5 text-[12px] leading-snug text-gray-500">{selectedEvent.title}</p>
-                </>
-              ) : (
-                <p className="text-[14px] font-bold leading-snug text-gray-900">{selectedEvent.title}</p>
-              )}
-            </div>
-            <Sparkle size={9} color="#FBBF24" className="mt-0.5" />
-          </div>
-        </section>
-      )}
-
       {/* 報告タイプカード */}
-      <div className="mt-5 px-4">
-        <div className="mb-3">
+      <div className="mt-5 px-3">
+        <div className="-mb-1">
           <Image
             src="/images/report/report-form-title.png"
             alt="報告する内容を選んでください"
             width={2172}
             height={724}
-            className="h-[40px] w-auto max-w-full object-contain"
+            className="h-[60px] w-auto max-w-full object-contain"
           />
         </div>
 
@@ -121,7 +72,7 @@ export function ReportEventSelector({
             <div className="min-w-0 flex-1">
               <p className="text-[17px] font-bold leading-tight text-[#111827]">当落・座席を報告</p>
               <p className="mt-1 text-[13px] leading-snug text-[#6B7280]">
-                当選・落選、抽選種別、座席情報をまとめて共有
+                当落・抽選種別・座席情報をまとめて共有
               </p>
               <p className={`mt-1 text-[11px] font-semibold ${ticketHref ? "text-[#FF6B9D]" : "text-[#6B7280]"}`}>
                 {ticketHref ? "当落・座席レポートページへ" : "公演を選択してください"}

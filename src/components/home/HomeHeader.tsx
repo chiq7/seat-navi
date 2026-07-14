@@ -1,19 +1,18 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function HomeHeader() {
   return (
     <header className="bg-white px-4 py-2.5 flex items-center gap-3">
       <Link href="/" className="shrink-0">
-        <span
-          style={{
-            color: "#FF6B9D",
-            fontSize: "18px",
-            fontWeight: 700,
-            fontFamily: "'Noto Sans JP', sans-serif",
-          }}
-        >
-          ちけレポ
-        </span>
+        <Image
+          src="/images/logo.png"
+          alt="ちけレポ"
+          width={112}
+          height={28}
+          priority
+          className="h-7 w-auto object-contain"
+        />
       </Link>
 
       <div className="flex-1 flex items-center gap-2 bg-gray-100 rounded-full px-4 h-[44px]">

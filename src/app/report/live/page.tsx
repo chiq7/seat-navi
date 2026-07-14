@@ -8,9 +8,31 @@ import Link from "next/link";
 import { supabase } from "@/lib/supabase/client";
 import { resolveArtist } from "@/lib/artists";
 import { getEventsForArtist } from "@/lib/events";
+import { parseEventTitle } from "@/lib/eventTitle";
+import { Header } from "@/components/common/Header";
+import { EventCarouselPicker } from "@/components/common/EventPicker";
+import { EventInfoRow } from "@/components/common/EventInfoRow";
 
 function randomId() {
   return crypto.randomUUID().replace(/-/g, "").slice(0, 20);
+}
+
+/** 全角英数字を半角化し、アルファベットを大文字化する（座席系入力用） */
+function toHalfWidthUpper(v: string): string {
+  return v
+    .replace(/[０-９Ａ-Ｚａ-ｚ]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) - 0xfee0))
+    .toUpperCase();
+}
+
+/** 座席系入力の自動整形: 全角→半角・大文字化・末尾の単位(ブロック/列/番)の重複除去 */
+function normalizeSeatField(v: string, suffix: string): string {
+  const converted = toHalfWidthUpper(v);
+  return converted.endsWith(suffix) ? converted.slice(0, -suffix.length) : converted;
+}
+
+/** 席番号の自動整形: 全角→半角・末尾の「番」除去に加え、数字以外を許可しない */
+function normalizeSeatNumber(v: string): string {
+  return normalizeSeatField(v, "番").replace(/[^0-9]/g, "");
 }
 
 type VenueType = "arena_dome_stadium" | "hall_theater" | "livehouse_other";
@@ -21,20 +43,13 @@ const SEAT_AREAS: Record<VenueType, string[]> = {
   livehouse_other: ["指定席", "スタンディング", "整理番号", "その他"],
 };
 
-type EventRow = { id: string; title: string; venue: string; date: string | null; artist_slug?: string | null };
+type EventRow = { id: string; title: string; venue: string; venue_id?: string | null; date: string | null; artist_slug?: string | null };
 
 function getVenueType(venue: string): VenueType {
   if (/ドーム|アリーナ|スタジアム|Stadium|Arena|Dome/i.test(venue)) return "arena_dome_stadium";
   if (/ホール|Hall|劇場|シアター|Theater|Theatre/i.test(venue)) return "hall_theater";
   if (/ライブハウス|Zepp|zepp|ZEPP/.test(venue)) return "livehouse_other";
   return "arena_dome_stadium";
-}
-
-function fmtEventDate(d: string | null): string {
-  if (!d) return "日程未定";
-  const parts = d.split("-").map(Number);
-  const dow = ["日", "月", "火", "水", "木", "金", "土"][new Date(parts[0], parts[1] - 1, parts[2]).getDay()];
-  return `${parts[1]}/${parts[2]}（${dow}）`;
 }
 
 function toSeatAreaType(seatArea: string, standFloor: string): string {
@@ -52,20 +67,23 @@ function toSeatAreaType(seatArea: string, standFloor: string): string {
 const STAND_DIRECTIONS = ["1塁側", "3塁側", "外野", "その他", "北", "南", "西", "東"] as const;
 const STAND_FLOORS = ["1階", "2階", "3階以上", "その他"] as const;
 
-type PerfKey = "censtage" | "torocco" | "kyakuori" | "fansa" | "ginte";
+type PerfKey = "mainstage" | "censtage" | "fansa" | "torocco" | "kyakuori" | "ginte";
 type PerfValue = "あり" | "なし" | "わからない" | "1" | "2" | "3" | "4" | "5" | "";
 
-const RATING_ITEMS: { key: Exclude<PerfKey, "ginte">; label: string }[] = [
+// 表示順: メインステージ→センステ→ファンサ→トロッコ→客降り→銀テ
+const RATING_ITEMS: { key: "mainstage" | "censtage" | "fansa" | "torocco" | "kyakuori"; label: string }[] = [
+  { key: "mainstage", label: "メインステージ" },
   { key: "censtage", label: "センステ" },
+  { key: "fansa", label: "ファンサ" },
   { key: "torocco", label: "トロッコ" },
   { key: "kyakuori", label: "客降り" },
-  { key: "fansa", label: "ファンサ" },
 ];
 
 const RATING_OPTIONS = ["なし", "1", "2", "3", "4", "5"] as const;
 const GINTE_OPTIONS = ["あり", "なし", "わからない"] as const;
 
 const EMPTY_PERF: Record<PerfKey, PerfValue> = {
+  mainstage: "",
   censtage: "",
   torocco: "",
   kyakuori: "",
@@ -163,11 +181,9 @@ function Btn({
 }
 
 function SuccessScreen({
-  onRepeat,
   onOther,
   artistSlug,
 }: {
-  onRepeat: () => void;
   onOther: () => void;
   artistSlug: string | null;
 }) {
@@ -214,24 +230,17 @@ function SuccessScreen({
           <div className="mt-6 space-y-3">
             <button
               type="button"
-              onClick={onRepeat}
+              onClick={onOther}
               className="flex h-[52px] w-full items-center justify-center rounded-full bg-[#FF6B9D] text-[14px] font-bold text-white shadow-[0_4px_14px_rgba(255,107,157,0.35)] transition-opacity active:opacity-80"
             >
-              もう1件投稿する
-            </button>
-            <button
-              type="button"
-              onClick={onOther}
-              className="flex h-[48px] w-full items-center justify-center rounded-full border-2 border-[#FF6B9D] bg-white text-[14px] font-bold text-[#FF6B9D] transition-opacity active:opacity-80"
-            >
-              別の公演を投稿する
+              別の現地レポを投稿する
             </button>
             {artistSlug && (
               <Link
-                href={`/artists/${artistSlug}`}
+                href={`/artists/${artistSlug}/after-reports`}
                 className="flex h-[48px] w-full items-center justify-center rounded-full border border-gray-200 bg-white text-[14px] font-bold text-gray-700 transition-opacity active:opacity-80"
               >
-                アーティストページを見る
+                現地レポページを見る
               </Link>
             )}
           </div>
@@ -276,13 +285,12 @@ function LiveReportPageInner() {
   useEffect(() => {
     async function load() {
       const preselectedEventId = searchParams.get("event");
-      const pastDate = new Date(Date.now() - 30 * 86400 * 1000).toISOString().split("T")[0];
 
       let anchorEvent: EventRow | null = null;
       if (preselectedEventId) {
         const { data: single } = await supabase
           .from("events")
-          .select("id, title, venue, date, artist_slug")
+          .select("id, title, venue, venue_id, date, artist_slug")
           .eq("id", preselectedEventId)
           .maybeSingle();
         anchorEvent = (single as EventRow) ?? null;
@@ -298,9 +306,8 @@ function LiveReportPageInner() {
       } else {
         const { data } = await supabase
           .from("events")
-          .select("id, title, venue, date, artist_slug")
-          .gte("date", pastDate)
-          .order("date", { ascending: true })
+          .select("id, title, venue, venue_id, date, artist_slug")
+          .order("date", { ascending: false })
           .limit(50);
         rows = (data ?? []) as EventRow[];
       }
@@ -323,6 +330,16 @@ function LiveReportPageInner() {
     const ev = events.find((e) => e.id === selectedEvent);
     return ev ? (resolveArtist(ev)?.slug ?? null) : null;
   }, [events, selectedEvent]);
+
+  const currentArtistName = useMemo(() => {
+    const ev = events.find((e) => e.id === selectedEvent);
+    return ev ? (resolveArtist(ev)?.name ?? null) : null;
+  }, [events, selectedEvent]);
+
+  const selectedEventObj = events.find((e) => e.id === selectedEvent) ?? null;
+  const { tourName, isTestData } = selectedEventObj
+    ? parseEventTitle(selectedEventObj.title, currentArtistName)
+    : { tourName: "", isTestData: false };
 
   const setPerfValue = (key: PerfKey, value: PerfValue) =>
     setPerf((prev) => ({ ...prev, [key]: value }));
@@ -369,13 +386,14 @@ function LiveReportPageInner() {
         seat_view_photo_paths:     uploadedPaths,
         trolley_photo_paths:       [] as string[],
         audience_walk_photo_paths: [] as string[],
+        main_stage:                perf.mainstage || null,
         center_stage:              perf.censtage  || null,
+        fansa_rating:              perf.fansa     || null,
         torokko:                   perf.torocco   || null,
         torokko_route:             null,
         kyakukudari:               perf.kyakuori  || null,
         kyakukudari_route:         null,
         silver_tape_rows:          perf.ginte === "あり" ? 1 : perf.ginte === "なし" ? 0 : null,
-        fansa:                     perf.fansa === "" ? null : perf.fansa !== "なし",
         memo:                      memo || null,
       };
 
@@ -395,6 +413,7 @@ function LiveReportPageInner() {
   const selectedVenue = events.find((e) => e.id === selectedEvent)?.venue ?? "";
   const currentVenueType = selectedVenue ? getVenueType(selectedVenue) : "arena_dome_stadium";
   const seatAreaOptions = SEAT_AREAS[currentVenueType];
+  const reportEntryHref = selectedEvent ? `/report?event=${selectedEvent}` : "/report";
 
   const step1CanProceed = (() => {
     if (!seatArea) return false;
@@ -411,13 +430,8 @@ function LiveReportPageInner() {
   if (submitted) {
     return (
       <div className="min-h-screen bg-[#F8FAFC] font-sans">
-        <div className="mx-auto min-h-screen w-full max-w-[390px]">
+        <div className="min-h-screen w-full">
           <SuccessScreen
-            onRepeat={() => {
-              resetForm();
-              setStep(1);
-              setSubmitted(false);
-            }}
             onOther={() => {
               setSelectedEvent(events[0]?.id ?? "");
               resetForm();
@@ -432,28 +446,14 @@ function LiveReportPageInner() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] font-sans">
-      <div className="mx-auto min-h-screen w-full max-w-[390px] bg-white">
+    <div className="min-h-screen bg-[#FFF8FB] font-sans">
+      <div className="min-h-screen w-full bg-white">
         {/* ヘッダー */}
-        <header className="sticky top-0 z-30 flex h-[44px] items-center justify-center border-b border-gray-100 bg-white">
-          {step === 1 ? (
-            <Link
-              href="/report"
-              className="absolute left-2 flex h-8 w-8 items-center justify-center text-gray-700 active:bg-gray-50"
-            >
-              <ChevronLeft size={18} strokeWidth={2.5} />
-            </Link>
-          ) : (
-            <button
-              type="button"
-              onClick={() => setStep(step - 1)}
-              className="absolute left-2 flex h-8 w-8 items-center justify-center text-gray-700 active:bg-gray-50"
-            >
-              <ChevronLeft size={18} strokeWidth={2.5} />
-            </button>
-          )}
-          <h1 className="text-[12px] font-bold tracking-wide text-gray-900">現地レポを投稿</h1>
-        </header>
+        <Header
+          title="現地レポを投稿"
+          backHref={step === 1 ? reportEntryHref : undefined}
+          onBack={step === 1 ? undefined : () => setStep(step - 1)}
+        />
 
         <StepIndicator step={step} />
 
@@ -462,59 +462,44 @@ function LiveReportPageInner() {
           <main className="space-y-3 px-3 pb-8 pt-1">
             {/* 公演選択 */}
             <section className="rounded-xl border border-gray-100 bg-white p-3 shadow-[0_4px_14px_rgba(15,23,42,0.05)]">
-              <div className="mb-2">
+              <div className="mb-0.5">
                 <h2 className="text-center text-[13px] font-bold text-gray-900">報告する公演</h2>
               </div>
-              <div className="-mx-1 overflow-x-auto pb-1 hide-scrollbar">
-                {eventsLoading ? (
-                  <div className="flex h-[74px] items-center justify-center">
-                    <div className="h-5 w-5 animate-spin rounded-full border-2 border-[#FF6B9D] border-t-transparent" />
-                  </div>
-                ) : events.length === 0 ? (
-                  <p className="py-4 text-[12px] text-gray-400">公演がありません</p>
-                ) : (
-                  <div className="flex min-w-max gap-2 px-1">
-                    {events.map((event) => {
-                      const isSelected = selectedEvent === event.id;
-                      return (
-                        <button
-                          key={event.id}
-                          type="button"
-                          onClick={() => {
-                            const newVenueType = getVenueType(event.venue);
-                            const areas = SEAT_AREAS[newVenueType];
-                            if (seatArea !== "" && !areas.includes(seatArea)) {
-                              setSeatArea("");
-                              setBlockInfo("");
-                              setRow("");
-                              setSeatNumber("");
-                              setStandDirection("");
-                              setStandDirectionOther("");
-                              setStandFloor("");
-                              setStandFloorOther("");
-                              setOtherSeatInfo("");
-                            }
-                            setSelectedEvent(event.id);
-                          }}
-                          className={`relative h-[74px] w-[96px] shrink-0 rounded-xl px-2 py-2 text-left transition-colors ${
-                            isSelected
-                              ? "border-2 border-[#FF6B9D] bg-[#FFF1F6]"
-                              : "border border-gray-200 bg-white"
-                          }`}
-                        >
-                          {isSelected && (
-                            <span className="absolute right-1.5 top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-[#FF6B9D] text-[9px] text-white">
-                              ✓
-                            </span>
-                          )}
-                          <div className="text-[12px] font-bold text-gray-900">{fmtEventDate(event.date)}</div>
-                          <div className="mt-1 line-clamp-2 text-[10px] font-semibold text-gray-800">{event.venue}</div>
-                        </button>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
+              {selectedEventObj && (
+                <>
+                  <EventInfoRow
+                    title={tourName}
+                    artistName={currentArtistName}
+                    isTestData={isTestData}
+                  />
+                  <div className="mb-1 mt-0.5 border-t border-gray-100" />
+                </>
+              )}
+              <EventCarouselPicker
+                events={events}
+                selectedEventId={selectedEvent}
+                loading={eventsLoading}
+                artistName={currentArtistName}
+                onSelect={(id) => {
+                  const targetEvent = events.find((e) => e.id === id);
+                  if (targetEvent) {
+                    const newVenueType = getVenueType(targetEvent.venue);
+                    const areas = SEAT_AREAS[newVenueType];
+                    if (seatArea !== "" && !areas.includes(seatArea)) {
+                      setSeatArea("");
+                      setBlockInfo("");
+                      setRow("");
+                      setSeatNumber("");
+                      setStandDirection("");
+                      setStandDirectionOther("");
+                      setStandFloor("");
+                      setStandFloorOther("");
+                      setOtherSeatInfo("");
+                    }
+                  }
+                  setSelectedEvent(id);
+                }}
+              />
             </section>
 
             {/* 座席情報 */}
@@ -562,7 +547,7 @@ function LiveReportPageInner() {
                       <input
                         type="text"
                         value={blockInfo}
-                        onChange={(e) => setBlockInfo(e.target.value)}
+                        onChange={(e) => setBlockInfo(normalizeSeatField(e.target.value, "ブロック"))}
                         placeholder="例：A10 / センターA"
                         className="h-[36px] flex-1 rounded-lg border border-gray-200 bg-white px-3 text-[10px] outline-none placeholder:text-gray-300 focus:border-[#FF6B9D]"
                       />
@@ -574,8 +559,8 @@ function LiveReportPageInner() {
                       <input
                         type="text"
                         value={row}
-                        onChange={(e) => setRow(e.target.value)}
-                        placeholder="例：5列 / C列"
+                        onChange={(e) => setRow(normalizeSeatField(e.target.value, "列"))}
+                        placeholder="例：3"
                         className="h-[36px] flex-1 rounded-lg border border-gray-200 bg-white px-3 text-[10px] outline-none placeholder:text-gray-300 focus:border-[#FF6B9D]"
                       />
                     </div>
@@ -586,8 +571,8 @@ function LiveReportPageInner() {
                       <input
                         type="text"
                         value={seatNumber}
-                        onChange={(e) => setSeatNumber(e.target.value)}
-                        placeholder="例：12番"
+                        onChange={(e) => setSeatNumber(normalizeSeatNumber(e.target.value))}
+                        placeholder="例：1"
                         className="h-[36px] flex-1 rounded-lg border border-gray-200 bg-white px-3 text-[10px] outline-none placeholder:text-gray-300 focus:border-[#FF6B9D]"
                       />
                     </div>
@@ -672,8 +657,8 @@ function LiveReportPageInner() {
                       <input
                         type="text"
                         value={row}
-                        onChange={(e) => setRow(e.target.value)}
-                        placeholder="例：15列 / C列"
+                        onChange={(e) => setRow(normalizeSeatField(e.target.value, "列"))}
+                        placeholder="例：3"
                         className="h-[36px] flex-1 rounded-lg border border-gray-200 bg-white px-3 text-[10px] outline-none placeholder:text-gray-300 focus:border-[#FF6B9D]"
                       />
                     </div>
@@ -684,8 +669,8 @@ function LiveReportPageInner() {
                       <input
                         type="text"
                         value={seatNumber}
-                        onChange={(e) => setSeatNumber(e.target.value)}
-                        placeholder="例：25番"
+                        onChange={(e) => setSeatNumber(normalizeSeatNumber(e.target.value))}
+                        placeholder="例：1"
                         className="h-[36px] flex-1 rounded-lg border border-gray-200 bg-white px-3 text-[10px] outline-none placeholder:text-gray-300 focus:border-[#FF6B9D]"
                       />
                     </div>
@@ -714,8 +699,8 @@ function LiveReportPageInner() {
                       <input
                         type="text"
                         value={row}
-                        onChange={(e) => setRow(e.target.value)}
-                        placeholder="例：10列 / C列"
+                        onChange={(e) => setRow(normalizeSeatField(e.target.value, "列"))}
+                        placeholder="例：3"
                         className="h-[36px] flex-1 rounded-lg border border-gray-200 bg-white px-3 text-[10px] outline-none placeholder:text-gray-300 focus:border-[#FF6B9D]"
                       />
                     </div>
@@ -726,8 +711,8 @@ function LiveReportPageInner() {
                       <input
                         type="text"
                         value={seatNumber}
-                        onChange={(e) => setSeatNumber(e.target.value)}
-                        placeholder="例：25番"
+                        onChange={(e) => setSeatNumber(normalizeSeatNumber(e.target.value))}
+                        placeholder="例：1"
                         className="h-[36px] flex-1 rounded-lg border border-gray-200 bg-white px-3 text-[10px] outline-none placeholder:text-gray-300 focus:border-[#FF6B9D]"
                       />
                     </div>
@@ -744,7 +729,7 @@ function LiveReportPageInner() {
                       <input
                         type="text"
                         value={blockInfo}
-                        onChange={(e) => setBlockInfo(e.target.value)}
+                        onChange={(e) => setBlockInfo(normalizeSeatField(e.target.value, "ブロック"))}
                         placeholder="例：1階A列 / バルコニー上手"
                         className="h-[36px] flex-1 rounded-lg border border-gray-200 bg-white px-3 text-[10px] outline-none placeholder:text-gray-300 focus:border-[#FF6B9D]"
                       />
@@ -756,8 +741,8 @@ function LiveReportPageInner() {
                       <input
                         type="text"
                         value={row}
-                        onChange={(e) => setRow(e.target.value)}
-                        placeholder="例：5列"
+                        onChange={(e) => setRow(normalizeSeatField(e.target.value, "列"))}
+                        placeholder="例：3"
                         className="h-[36px] flex-1 rounded-lg border border-gray-200 bg-white px-3 text-[10px] outline-none placeholder:text-gray-300 focus:border-[#FF6B9D]"
                       />
                     </div>
@@ -768,8 +753,8 @@ function LiveReportPageInner() {
                       <input
                         type="text"
                         value={seatNumber}
-                        onChange={(e) => setSeatNumber(e.target.value)}
-                        placeholder="例：12番"
+                        onChange={(e) => setSeatNumber(normalizeSeatNumber(e.target.value))}
+                        placeholder="例：1"
                         className="h-[36px] flex-1 rounded-lg border border-gray-200 bg-white px-3 text-[10px] outline-none placeholder:text-gray-300 focus:border-[#FF6B9D]"
                       />
                     </div>
@@ -869,6 +854,7 @@ function LiveReportPageInner() {
               <h2 className="text-[13px] font-bold text-gray-900">見え方チェック</h2>
               <p className="mb-4 mt-0.5 text-[9px] text-gray-400">見え方を教えてください</p>
               <div className="space-y-4">
+                {/* メインステージ・センステ・ファンサ・トロッコ・客降り（5段階） */}
                 {RATING_ITEMS.map((item) => (
                   <div key={item.key}>
                     <p className="mb-1.5 text-[11px] font-bold text-gray-800">{item.label}</p>
