@@ -10,7 +10,12 @@ import type { CrawledEvent } from "@/lib/types";
 export const SITE_URL = "https://tixrepo.com";
 
 export function isTestArtist(
-  artist: Pick<Artist, "slug"> | { slug?: string | null; artist_slug?: string | null } | string | null | undefined,
+  artist:
+    | (Pick<Artist, "slug"> & { artist_slug?: string | null })
+    | { slug?: string | null; artist_slug?: string | null }
+    | string
+    | null
+    | undefined,
 ): boolean {
   if (typeof artist === "string") return artist === "test";
   return artist?.slug === "test" || artist?.artist_slug === "test";

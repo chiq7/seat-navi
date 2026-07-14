@@ -244,7 +244,7 @@ export function buildFixedArenaGrid(reports: SeatReport[]): ArenaGridResult {
   }
 
   const baseColNum = FIXED_NUMS.length; // 8
-  let finalColNum = baseColNum;
+  let finalColNum: number = baseColNum;
   for (const [num, count] of colCounts) {
     if (num > baseColNum && num > finalColNum && count >= colExpansionThreshold(num)) {
       finalColNum = num;
