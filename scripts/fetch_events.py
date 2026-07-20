@@ -29,7 +29,7 @@ import sys
 import time
 import unicodedata
 from concurrent.futures import ThreadPoolExecutor
-from datetime import datetime
+from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Literal, Optional, TypedDict, Union
 from urllib.parse import urljoin, urlparse
@@ -161,7 +161,7 @@ EXTRACT_PROMPT = """\
 [
   {{
     "title": "イベントタイトル（アーティスト名を含む完全な名称）",
-    "date": "YYYY-MM-DD（複数日程なら初日。不明なら null）",
+    "date": "公演日。元ページの表記のままで構いません（例: 2026-10-31 / 2026年10月31日 / 10/31 / 10.31）。不明なら null",
     "genre": "kpop | johnnys | female_idol | male_idol | other"
   }}
 ]
@@ -172,6 +172,17 @@ EXTRACT_PROMPT = """\
 - female_idol: 日本女性アイドル（乃木坂46, AKB48, NiziU 等）
 - male_idol: 日本男性アイドル（BE:FIRST, JO1, BOYS AND MEN 等）
 - other: バンド, 演歌, クラシック, スポーツイベント, 展示会, 会議 等
+
+複数日程の扱い（重要）:
+- 同一公演が複数の日付で開催される場合（例: 10/31・11/1の2日間公演）、1つのオブジェクトに日付をまとめず、日付ごとに別々のオブジェクトとして出力してください。
+- その際、titleは全ての日付で同じ文字列にしてください。
+- 例:
+  入力（ページ内テキストの一部）: "10.31 Sat 開場16:00/開演17:00　11.1 Sun 開場15:00/開演16:00　Mr.Children Tour 2026"
+  出力:
+  [
+    {{ "title": "Mr.Children Tour 2026", "date": "10.31", "genre": "other" }},
+    {{ "title": "Mr.Children Tour 2026", "date": "11.1", "genre": "other" }}
+  ]
 
 注意:
 - スポーツ試合・展示会・会議・卒業式等はコンサート/ライブではないので除外
@@ -554,29 +565,176 @@ def extract_events_from_text(text: str, venue: VenueConfig, claude: anthropic.An
         return [], f"Claude抽出エラー: {e}", elapsed_ms
 
 
-def prepare_rows(events: list[dict], venue: VenueConfig) -> list[dict]:
+# ---------------------------------------------------------------------------
+# 日付正規化（YYYY-MM-DD統一・複数日程の展開）
+# ---------------------------------------------------------------------------
+
+def is_valid_calendar_date(year: int, month: int, day: int) -> bool:
+    try:
+        date(year, month, day)
+        return True
+    except ValueError:
+        return False
+
+
+def reference_year_month(page_year: Optional[int], page_month: Optional[int],
+                          now: Optional[datetime] = None) -> tuple[int, int]:
+    """ページ固有の年月(monthly_pattern/follow_month_links)が無ければ、Asia/Tokyo基準のnow年月を使う"""
+    if page_year is not None and page_month is not None:
+        return page_year, page_month
+    current = now_jst(now)
+    return current.year, current.month
+
+
+def nearest_year_for_month_day(month: int, day: int, ref_year: int, ref_month: int,
+                                now: Optional[datetime] = None) -> int:
+    """年なし月日(例: 10/31)の年を補完する。
+    イベントカレンダーは常に前方(未来方向)へ掲載される前提で、
+    「now基準で過去45日を超えない範囲での直近の未来」を最優先する。
+    (例: 7月クロール時に単一ページ内の"1.11"が2027年1月を指す長期先行掲載でも、
+     従来の「基準年月に最も近い年」判定だと誤って前年寄りの年を選んでしまうため)
+    該当候補が無い場合のみ、従来通り基準年月(ref_year/ref_month)に最も近い年へフォールバックする。"""
+    current = now_jst(now)
+    now_date = current.date()
+    grace = timedelta(days=45)
+    ref_date = date(ref_year, ref_month, 1)
+
+    best_future: Optional[tuple[int, date]] = None
+    best_overall: Optional[tuple[int, int]] = None
+
+    for y in (ref_year - 1, ref_year, ref_year + 1, ref_year + 2):
+        if not is_valid_calendar_date(y, month, day):
+            continue
+        candidate = date(y, month, day)
+        if candidate >= now_date - grace:
+            if best_future is None or candidate < best_future[1]:
+                best_future = (y, candidate)
+        diff = abs((candidate - ref_date).days)
+        if best_overall is None or diff < best_overall[1]:
+            best_overall = (y, diff)
+
+    if best_future is not None:
+        return best_future[0]
+    if best_overall is not None:
+        return best_overall[0]
+    return ref_year
+
+
+_FULL_DATE_PATTERNS = [
+    re.compile(r"(\d{4})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日?"),
+    re.compile(r"(\d{4})[./](\d{1,2})[./](\d{1,2})"),
+    re.compile(r"(\d{4})-(\d{1,2})-(\d{1,2})"),
+]
+_EN_DATE_PATTERN = re.compile(r"\b([A-Za-z]+)\s+(\d{1,2}),?\s+(\d{4})\b")
+_EN_MONTHS: dict[str, int] = {
+    "jan": 1, "january": 1, "feb": 2, "february": 2, "mar": 3, "march": 3,
+    "apr": 4, "april": 4, "may": 5, "jun": 6, "june": 6, "jul": 7, "july": 7,
+    "aug": 8, "august": 8, "sep": 9, "sept": 9, "september": 9,
+    "oct": 10, "october": 10, "nov": 11, "november": 11, "dec": 12, "december": 12,
+}
+_NO_YEAR_PATTERNS = [
+    re.compile(r"(\d{1,2})[./](\d{1,2})(?!\d)"),
+    re.compile(r"(\d{1,2})\s*月\s*(\d{1,2})\s*日"),
+]
+
+
+def split_date_tokens(raw_date: Optional[str], page_year: Optional[int], page_month: Optional[int],
+                       now: Optional[datetime] = None) -> list[str]:
+    """Claude抽出のdate文字列から、含まれる日付を全て「YYYY-MM-DD」として抽出する。
+    複数日程が1つの文字列にまとまっている場合(例: "10.31・11.1")も、それぞれ別の日付として返す。
+    年なし月日は page_year/page_month（無ければ now基準のAsia/Tokyo年月）で年を補完する。
+    無効な日付・解釈できない文字列は結果に含めない(呼び出し側で0件ならdate=Noneとして扱う)。"""
+    if not raw_date:
+        return []
+    text = raw_date
+    found: list[tuple[int, int, str]] = []  # (start, end, date_str)
+
+    for pattern in _FULL_DATE_PATTERNS:
+        for m in pattern.finditer(text):
+            y, mo, d = int(m.group(1)), int(m.group(2)), int(m.group(3))
+            if is_valid_calendar_date(y, mo, d):
+                found.append((m.start(), m.end(), f"{y:04d}-{mo:02d}-{d:02d}"))
+
+    # 英語表記「Month D, YYYY」/「Month D YYYY」(4桁年つき。月名を限定して誤検出を防止)
+    for m in _EN_DATE_PATTERN.finditer(text):
+        month_num = _EN_MONTHS.get(m.group(1).lower())
+        if not month_num:
+            continue
+        d, y = int(m.group(2)), int(m.group(3))
+        if is_valid_calendar_date(y, month_num, d):
+            found.append((m.start(), m.end(), f"{y:04d}-{month_num:02d}-{d:02d}"))
+
+    # 消費済み範囲をマスクしてから、年なしの月日系(MM/DD, MM.DD, MM月DD日)を拾う
+    masked = list(text)
+    for start, end, _ in sorted(found, key=lambda t: -t[0]):
+        for i in range(start, end):
+            masked[i] = " "
+    masked_text = "".join(masked)
+
+    ref_year, ref_month = reference_year_month(page_year, page_month, now)
+    for pattern in _NO_YEAR_PATTERNS:
+        for m in pattern.finditer(masked_text):
+            mo, d = int(m.group(1)), int(m.group(2))
+            y = nearest_year_for_month_day(mo, d, ref_year, ref_month, now)
+            if is_valid_calendar_date(y, mo, d):
+                found.append((m.start(), m.end(), f"{y:04d}-{mo:02d}-{d:02d}"))
+
+    found.sort(key=lambda t: t[0])
+    result: list[str] = []
+    for _, _, date_str in found:
+        if date_str not in result:
+            result.append(date_str)
+    return result
+
+
+def prepare_rows(events: list[dict], venue: VenueConfig, page_year: Optional[int] = None,
+                  page_month: Optional[int] = None, now: Optional[datetime] = None,
+                  source_url: str = "") -> tuple[list[dict], list[dict], list[dict]]:
+    """Claude抽出結果(events)をEventRow行へ変換する。
+    日付が1件も解釈できないイベントは行を作らずinvalid_datesへ回す(保存対象から除外)。
+    1イベントから2件以上の日付が展開された場合はmulti_day_expansionsに記録する(調査用)。
+    戻り値: (rows, invalid_dates, multi_day_expansions)"""
     valid_genres = {"kpop", "johnnys", "female_idol", "male_idol", "other"}
-    rows = []
+    rows: list[dict] = []
+    invalid_dates: list[dict] = []
+    multi_day_expansions: list[dict] = []
+
     for ev in events:
         title = (ev.get("title") or "").strip()
         if not title:
             continue
-        date = ev.get("date") or None
-        if date and not re.match(r"^\d{4}-\d{2}-\d{2}$", date):
-            date = None
         genre = ev.get("genre", "other")
         if genre not in valid_genres:
             genre = "other"
-        rows.append({
-            "id": make_event_id(venue["id"], date, title),
-            "title": title,
-            "venue": venue["name"],
-            "venue_id": venue["id"],
-            "date": date,
-            "genre": genre,
-        })
 
-    return rows
+        raw_date = ev.get("date")
+        dates = split_date_tokens(raw_date, page_year, page_month, now)
+
+        if not dates:
+            # YYYY-MM-DDへ正規化できない(不明/無効)場合は保存対象にせず、invalid_datesとして報告する
+            invalid_dates.append({
+                "title": title, "venue": venue["name"], "venue_id": venue["id"],
+                "raw_date": raw_date, "source_url": source_url,
+            })
+            continue
+
+        if len(dates) > 1:
+            multi_day_expansions.append({
+                "title": title, "venue_id": venue["id"], "raw_date": raw_date,
+                "expanded_dates": dates, "source_url": source_url,
+            })
+
+        for d in dates:
+            rows.append({
+                "id": make_event_id(venue["id"], d, title),
+                "title": title,
+                "venue": venue["name"],
+                "venue_id": venue["id"],
+                "date": d,
+                "genre": genre,
+            })
+
+    return rows, invalid_dates, multi_day_expansions
 
 
 def normalize_title(title: str) -> str:
@@ -585,12 +743,19 @@ def normalize_title(title: str) -> str:
     return re.sub(r"\s+", " ", normalized)
 
 
+def normalize_title_ignoring_spacing(title: str) -> str:
+    """同一venue_id+date時の第二判定用: normalize_title後にUnicode空白を全て除去した比較キー。
+    「第123 回」と「第123回」のような空白の入り方だけが異なる表記揺れを同一視するために使う。
+    normalize_title()自体の定義・保存するtitle自体は変更しない。"""
+    return re.sub(r"\s+", "", normalize_title(title))
+
+
 def dedupe_rows(rows: list[dict]) -> list[dict]:
-    """同一 venue_id / date / 正規化title の完全一致のみを重複とみなす"""
+    """同一 venue_id / date は、正規化title後さらに空白を除去した比較キーで重複とみなす"""
     seen: set[tuple[str, Optional[str], str]] = set()
     result = []
     for row in rows:
-        key = (row["venue_id"], row["date"], normalize_title(row["title"]))
+        key = (row["venue_id"], row["date"], normalize_title_ignoring_spacing(row["title"]))
         if key in seen:
             continue
         seen.add(key)
@@ -608,29 +773,60 @@ def upsert_events(rows: list[dict], sb) -> tuple[int, Optional[str]]:
         return 0, f"DB保存エラー: {e}"
 
 
-def find_duplicate_candidates(rows: list[dict], venue_id: str, sb) -> tuple[list[dict], Optional[str]]:
+def classify_against_existing(rows: list[dict], venue_id: str, sb) -> tuple[list[dict], list[dict], list[dict], Optional[str]]:
+    """保存前に「会場IDエイリアス + date完全一致 + normalize_title(空白除去後)一致」で既存eventsと照合する。
+    dry-run・本番upsertの両方の経路から共通で呼ばれる(本番でも書き込み前に必ず照合する)。
+
+    戻り値: (new_rows, matched_existing, skipped_ambiguous, error)
+      0件一致 → new_rows (現行make_event_idのidのまま新規保存対象)
+      1件一致 → matched_existing (既存公演として扱い、保存対象から外す。既存idへの差し替えはしない=既存行は一切更新しない)
+      2件以上 → skipped_ambiguous (どれを既存とするか自動選択せず、保存対象から外して要確認とする)
+    """
     if not rows:
-        return [], None
+        return [], [], [], None
     try:
-        # 重複判定のみ、本番DBに残る旧venue_idエイリアスも含めて既存レコードを見る。
-        # 新規保存(upsert_events)は常に正式ID(venue_id)で行われ、ここでは変更しない。
         alias_ids = get_venue_id_aliases(venue_id)
         response = sb.table("events").select("id,title,date,venue_id").in_("venue_id", alias_ids).execute()
         existing = response.data or []
-        candidates = []
-        for row in rows:
-            normalized = normalize_title(row["title"])
-            match = next((event for event in existing
-                          if event.get("date") == row["date"]
-                          and normalize_title(event.get("title") or "") == normalized), None)
-            if match:
-                candidates.append({
-                    "extracted": {"title": row["title"], "date": row["date"]},
-                    "existing": match,
-                })
-        return candidates, None
     except Exception as e:
-        return [], f"重複候補取得エラー: {e}"
+        # 既存照合ができない場合は安全側に倒し、この会場のどの行も新規/既存判定せず保留する(=保存しない)。
+        return [], [], [], f"既存公演照合エラー(DB): {e}"
+
+    new_rows: list[dict] = []
+    matched_existing: list[dict] = []
+    skipped_ambiguous: list[dict] = []
+
+    for row in rows:
+        normalized = normalize_title_ignoring_spacing(row["title"])
+        matches = [
+            event for event in existing
+            if event.get("date") == row["date"] and normalize_title_ignoring_spacing(event.get("title") or "") == normalized
+        ]
+
+        if len(matches) == 0:
+            new_rows.append(row)
+        elif len(matches) == 1:
+            match = matches[0]
+            matched_existing.append({
+                "extracted_title": row["title"],
+                "existing_title": match.get("title"),
+                "date": row["date"],
+                "extracted_venue_id": row["venue_id"],
+                "existing_venue_id": match.get("venue_id"),
+                "existing_id": match.get("id"),
+            })
+        else:
+            skipped_ambiguous.append({
+                "extracted_title": row["title"],
+                "date": row["date"],
+                "extracted_venue_id": row["venue_id"],
+                "matches": [
+                    {"id": m.get("id"), "title": m.get("title"), "venue_id": m.get("venue_id")}
+                    for m in matches
+                ],
+            })
+
+    return new_rows, matched_existing, skipped_ambiguous, None
 
 
 # ---------------------------------------------------------------------------
@@ -707,17 +903,30 @@ def process_venue(venue: VenueConfig, sb, claude: anthropic.Anthropic, executor:
     page_reports.sort(key=lambda r: order.get(r["page"]["url"], 0))
 
     all_events = [ev for r in page_reports for ev in r["events"]]
-    rows = prepare_rows(all_events, venue)
+    # ページごとのyear/month(monthly_pattern/follow_month_links)を使って年なし日付を補完するため、
+    # ページ単位でprepare_rowsを呼んでから連結する(single_urlはyear=month=Noneでnow基準補完になる)。
+    rows: list[dict] = []
+    invalid_dates: list[dict] = []
+    multi_day_expansions: list[dict] = []
+    for r in page_reports:
+        page_rows, page_invalid, page_multi = prepare_rows(
+            r["events"], venue, r["page"].get("year"), r["page"].get("month"), now, r["page"]["url"]
+        )
+        rows.extend(page_rows)
+        invalid_dates.extend(page_invalid)
+        multi_day_expansions.extend(page_multi)
     rows = dedupe_rows(rows)
 
-    duplicates: list[dict] = []
+    # dry-run・本番upsertの両方で、書き込み前に必ず既存公演と照合する。
+    new_rows, matched_existing, skipped_ambiguous, classify_error = classify_against_existing(rows, venue["id"], sb)
+    if classify_error:
+        errors.append(classify_error)
+
     saved = 0
-    if dry_run:
-        duplicates, dup_error = find_duplicate_candidates(rows, venue["id"], sb)
-        if dup_error:
-            errors.append(dup_error)
-    else:
-        saved, save_error = upsert_events(rows, sb)
+    if not dry_run:
+        # 一致0件(new_rows)のみを保存する。一致1件(matched_existing)は既存行なので保存も更新もしない。
+        # 一致2件以上(skipped_ambiguous)は自動判定せず保存しない。
+        saved, save_error = upsert_events(new_rows, sb)
         if save_error:
             errors.append(save_error)
 
@@ -734,7 +943,11 @@ def process_venue(venue: VenueConfig, sb, claude: anthropic.Anthropic, executor:
         "unreachable_months": unreachable_months,
         "all_events_count": len(all_events),
         "rows": rows,
-        "duplicates": duplicates,
+        "new_rows": new_rows,
+        "matched_existing": matched_existing,
+        "skipped_ambiguous": skipped_ambiguous,
+        "invalid_dates": invalid_dates,
+        "multi_day_expansions": multi_day_expansions,
         "saved": saved,
         "errors": errors,
         "failed": failed,
@@ -758,6 +971,11 @@ def main() -> None:
     claude = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
 
     total_saved = 0
+    total_extracted = 0
+    total_new_rows = 0
+    total_matched_existing = 0
+    total_skipped_ambiguous = 0
+    total_invalid_dates = 0
     failed_venues: list[str] = []
     reports: list[dict] = []
 
@@ -773,6 +991,11 @@ def main() -> None:
 
             result = process_venue(venue, sb, claude, executor, dry_run, now)
             total_saved += result["saved"]
+            total_extracted += result["all_events_count"]
+            total_new_rows += len(result["new_rows"])
+            total_matched_existing += len(result["matched_existing"])
+            total_skipped_ambiguous += len(result["skipped_ambiguous"])
+            total_invalid_dates += len(result["invalid_dates"])
             if result["failed"]:
                 failed_venues.append(venue["name"])
 
@@ -790,14 +1013,19 @@ def main() -> None:
 
             log.info(
                 f"  会場合計: 取得試行ページ={len(result['page_reports'])}"
-                f" / 全期間抽出={result['all_events_count']} / 重複除外後保存予定={len(result['rows'])}"
+                f" / 全期間抽出={result['all_events_count']} / 新規保存予定={len(result['new_rows'])}"
+                f" / 既存一致={len(result['matched_existing'])} / 要確認(複数一致)={len(result['skipped_ambiguous'])}"
+                f" / 日付不明・無効(除外)={len(result['invalid_dates'])}"
                 f" / DB保存={result['saved']} / 所要時間={result['elapsed_ms']:,}ms"
                 f" / エラー={' | '.join(result['errors']) or 'なし'}"
             )
             if dry_run:
                 titles = [row["title"] for row in result["rows"]]
                 log.info(f"  抽出タイトル一覧: {json.dumps(titles, ensure_ascii=False)}")
-                log.info(f"  重複候補: {json.dumps(result['duplicates'], ensure_ascii=False)}")
+                log.info(f"  既存一致(matched_existing): {json.dumps(result['matched_existing'], ensure_ascii=False)}")
+                log.info(f"  要確認(skipped_ambiguous): {json.dumps(result['skipped_ambiguous'], ensure_ascii=False)}")
+                log.info(f"  日付不明・無効のため除外(invalid_dates): {json.dumps(result['invalid_dates'], ensure_ascii=False)}")
+                log.info(f"  複数日展開(multi_day_expansions): {json.dumps(result['multi_day_expansions'], ensure_ascii=False)}")
 
             reports.append({
                 "venue_id": venue["id"],
@@ -818,27 +1046,50 @@ def main() -> None:
                     for r in result["page_reports"]
                 ],
                 "unreachable_months": [f"{y}-{m:02d}" for y, m in result["unreachable_months"]],
-                "all_events_count": result["all_events_count"],
-                "planned_saves": len(result["rows"]) if dry_run else None,
+                "extracted_count": result["all_events_count"],
+                "new_rows_count": len(result["new_rows"]),
+                "matched_existing_count": len(result["matched_existing"]),
+                "skipped_ambiguous_count": len(result["skipped_ambiguous"]),
+                # 保存予定件数には new_rows のみを含める(既存一致・要確認は含めない)
+                "planned_saves": len(result["new_rows"]) if dry_run else None,
                 "titles": [row["title"] for row in result["rows"]],
-                "duplicate_candidates": result["duplicates"] if dry_run else None,
+                "matched_existing": result["matched_existing"],
+                "skipped_ambiguous": result["skipped_ambiguous"],
+                "invalid_dates_count": len(result["invalid_dates"]),
+                "invalid_dates": result["invalid_dates"],
+                "multi_day_expansions": result["multi_day_expansions"],
                 "db_saved": result["saved"],
                 "errors": result["errors"],
+                "failed": result["failed"],
             })
 
             time.sleep(random.uniform(2.5, 4.5))
 
     total_elapsed_ms = round((time.monotonic() - run_start) * 1000)
     log.info("=" * 60)
-    log.info(f"完了: {total_saved} 件保存 / 総実行時間={total_elapsed_ms:,}ms ({total_elapsed_ms / 1000:.1f}秒)")
+    log.info(
+        f"完了: {total_saved} 件保存 / 全期間抽出={total_extracted} / 新規={total_new_rows}"
+        f" / 既存一致={total_matched_existing} / 要確認(複数一致)={total_skipped_ambiguous}"
+        f" / 日付不明・無効(除外)={total_invalid_dates}"
+        f" / 総実行時間={total_elapsed_ms:,}ms ({total_elapsed_ms / 1000:.1f}秒)"
+    )
     if failed_venues:
         log.warning(f"取得失敗 ({len(failed_venues)} 会場): {', '.join(failed_venues)}")
     if dry_run:
-        log.info(f"dry-run 完了: 保存予定合計 {sum(r.get('planned_saves') or 0 for r in reports):,} 件 / DB書き込み 0 件")
+        log.info(
+            f"dry-run 完了: 全期間抽出合計={total_extracted:,} / 新規保存予定合計={total_new_rows:,}"
+            f" / 既存一致合計={total_matched_existing:,} / 要確認(複数一致)合計={total_skipped_ambiguous:,}"
+            f" / 日付不明・無効(除外)合計={total_invalid_dates:,}"
+            f" / DB書き込み 0 件"
+        )
         report_path = Path(__file__).parent / "fetch_events_dry_run_report.json"
         report_path.write_text(
             json.dumps({"generated_at": now.isoformat(), "reports": reports,
-                        "failed": failed_venues, "total_elapsed_ms": total_elapsed_ms},
+                        "failed": failed_venues, "total_elapsed_ms": total_elapsed_ms,
+                        "total_extracted": total_extracted, "total_new_rows": total_new_rows,
+                        "total_matched_existing": total_matched_existing,
+                        "total_skipped_ambiguous": total_skipped_ambiguous,
+                        "total_invalid_dates": total_invalid_dates},
                        ensure_ascii=False, indent=2),
             encoding="utf-8",
         )

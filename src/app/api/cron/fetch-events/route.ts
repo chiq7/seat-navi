@@ -49,6 +49,11 @@ export async function GET(req: NextRequest) {
   const runStart = Date.now();
 
   let totalSaved = 0;
+  let totalExtracted = 0;
+  let totalNewRows = 0;
+  let totalMatchedExisting = 0;
+  let totalSkippedAmbiguous = 0;
+  let totalInvalidDates = 0;
   const failed: string[] = [];
   const reports: Array<Record<string, unknown>> = [];
 
@@ -70,6 +75,11 @@ export async function GET(req: NextRequest) {
 
     const result = await processVenue(venue, claude, sb, dryRun, now);
     totalSaved += result.saved;
+    totalExtracted += result.allEventsCount;
+    totalNewRows += result.newRows.length;
+    totalMatchedExisting += result.matchedExisting.length;
+    totalSkippedAmbiguous += result.skippedAmbiguous.length;
+    totalInvalidDates += result.invalidDates.length;
     if (result.failed) failed.push(venue.name);
 
     for (const r of result.pageReports) {
@@ -87,8 +97,9 @@ export async function GET(req: NextRequest) {
 
     console.log(
       `[${venue.name}] 取得試行ページ=${result.pageReports.length} / 全期間抽出=${result.allEventsCount} / ` +
-      `重複除外後保存予定=${result.rows.length} / DB保存=${result.saved} / 所要時間=${result.elapsedMs}ms / ` +
-      `エラー=${result.errors.join(" | ") || "なし"}`
+      `新規保存予定=${result.newRows.length} / 既存一致=${result.matchedExisting.length} / ` +
+      `要確認(複数一致)=${result.skippedAmbiguous.length} / DB保存=${result.saved} / ` +
+      `所要時間=${result.elapsedMs}ms / エラー=${result.errors.join(" | ") || "なし"}`
     );
 
     const report = {
@@ -107,12 +118,21 @@ export async function GET(req: NextRequest) {
         claudeElapsedMs: r.elapsedMs,
       })),
       unreachableMonths: result.unreachableMonths.map((m) => `${m.year}-${String(m.month).padStart(2, "0")}`),
-      allEventsCount: result.allEventsCount,
+      extractedCount: result.allEventsCount,
+      newRowsCount: result.newRows.length,
+      matchedExistingCount: result.matchedExisting.length,
+      skippedAmbiguousCount: result.skippedAmbiguous.length,
       titles: result.rows.map((row) => row.title),
-      duplicateCandidates: dryRun ? result.duplicates : undefined,
-      plannedSaves: dryRun ? result.rows.length : undefined,
+      matchedExisting: result.matchedExisting,
+      skippedAmbiguous: result.skippedAmbiguous,
+      invalidDatesCount: result.invalidDates.length,
+      invalidDates: result.invalidDates,
+      multiDayExpansions: result.multiDayExpansions,
+      // 保存予定件数には newRows のみを含める(既存一致・要確認・invalidDatesは含めない)
+      plannedSaves: dryRun ? result.newRows.length : undefined,
       dbSaved: result.saved,
       errors: result.errors,
+      failed: result.failed,
     };
     reports.push(report);
 
@@ -132,6 +152,11 @@ export async function GET(req: NextRequest) {
     ok: true,
     dryRun,
     totalSaved,
+    totalExtracted,
+    totalNewRows,
+    totalMatchedExisting,
+    totalSkippedAmbiguous,
+    totalInvalidDates,
     failed,
     reports,
     totalElapsedMs,

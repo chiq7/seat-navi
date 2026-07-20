@@ -34,6 +34,10 @@ async function main() {
   const claude = new Anthropic({ apiKey: ANTHROPIC_API_KEY });
 
   let totalPlanned = 0;
+  let totalExtracted = 0;
+  let totalMatchedExisting = 0;
+  let totalSkippedAmbiguous = 0;
+  let totalInvalidDates = 0;
   const failed: string[] = [];
   const reports: Array<Record<string, unknown>> = [];
 
@@ -47,7 +51,12 @@ async function main() {
     }
 
     const result = await processVenue(venue, claude, sb, true, now);
-    totalPlanned += result.rows.length;
+    // 保存予定件数には newRows のみを含める(既存一致・要確認は含めない)
+    totalPlanned += result.newRows.length;
+    totalExtracted += result.allEventsCount;
+    totalMatchedExisting += result.matchedExisting.length;
+    totalSkippedAmbiguous += result.skippedAmbiguous.length;
+    totalInvalidDates += result.invalidDates.length;
     if (result.failed) failed.push(venue.name);
 
     for (const r of result.pageReports) {
@@ -65,11 +74,22 @@ async function main() {
 
     console.log(
       `  会場合計: 取得試行ページ=${result.pageReports.length} / 全期間抽出=${result.allEventsCount} / ` +
-      `重複除外後保存予定=${result.rows.length} / 所要時間=${result.elapsedMs}ms / エラー=${result.errors.join(" | ") || "なし"}`
+      `新規保存予定=${result.newRows.length} / 既存一致=${result.matchedExisting.length} / ` +
+      `要確認(複数一致)=${result.skippedAmbiguous.length} / 日付不明・無効(除外)=${result.invalidDates.length} / ` +
+      `所要時間=${result.elapsedMs}ms / エラー=${result.errors.join(" | ") || "なし"}`
     );
     console.log(`  抽出タイトル一覧: ${JSON.stringify(result.rows.map((r) => r.title))}`);
-    if (result.duplicates.length > 0) {
-      console.log(`  重複候補: ${JSON.stringify(result.duplicates)}`);
+    if (result.matchedExisting.length > 0) {
+      console.log(`  既存一致(matched_existing): ${JSON.stringify(result.matchedExisting)}`);
+    }
+    if (result.skippedAmbiguous.length > 0) {
+      console.log(`  要確認(skipped_ambiguous): ${JSON.stringify(result.skippedAmbiguous)}`);
+    }
+    if (result.invalidDates.length > 0) {
+      console.log(`  日付不明・無効のため除外(invalid_date): ${JSON.stringify(result.invalidDates)}`);
+    }
+    if (result.multiDayExpansions.length > 0) {
+      console.log(`  複数日展開: ${JSON.stringify(result.multiDayExpansions)}`);
     }
 
     reports.push({
@@ -88,11 +108,22 @@ async function main() {
         claudeElapsedMs: r.elapsedMs,
       })),
       unreachableMonths: result.unreachableMonths.map((m) => `${m.year}-${String(m.month).padStart(2, "0")}`),
-      allEventsCount: result.allEventsCount,
-      plannedSaves: result.rows.length,
+      extractedCount: result.allEventsCount,
+      newRowsCount: result.newRows.length,
+      matchedExistingCount: result.matchedExisting.length,
+      skippedAmbiguousCount: result.skippedAmbiguous.length,
+      // 保存予定件数には newRows のみを含める(既存一致・要確認は含めない)
+      plannedSaves: result.newRows.length,
       titles: result.rows.map((r) => r.title),
-      duplicateCandidates: result.duplicates,
+      // 検証用: newRowsのtitle/dateも記録する(日付形式・空白重複の独立確認のため)
+      newRows: result.newRows.map((r) => ({ title: r.title, date: r.date })),
+      matchedExisting: result.matchedExisting,
+      skippedAmbiguous: result.skippedAmbiguous,
+      invalidDatesCount: result.invalidDates.length,
+      invalidDates: result.invalidDates,
+      multiDayExpansions: result.multiDayExpansions,
       errors: result.errors,
+      failed: result.failed,
     });
 
     await sleep(1500 + Math.random() * 1500);
@@ -101,7 +132,10 @@ async function main() {
   const totalElapsedMs = Date.now() - runStart;
   console.log("=".repeat(60));
   console.log(
-    `dry-run 完了: 保存予定合計 ${totalPlanned} 件 / DB書き込み 0 件 / 総実行時間=${totalElapsedMs}ms (${(totalElapsedMs / 1000).toFixed(1)}秒)`
+    `dry-run 完了: 全期間抽出合計=${totalExtracted} / 新規保存予定合計=${totalPlanned} / ` +
+    `既存一致合計=${totalMatchedExisting} / 要確認(複数一致)合計=${totalSkippedAmbiguous} / ` +
+    `日付不明・無効(除外)合計=${totalInvalidDates} / ` +
+    `DB書き込み 0 件 / 総実行時間=${totalElapsedMs}ms (${(totalElapsedMs / 1000).toFixed(1)}秒)`
   );
   if (failed.length > 0) console.warn(`取得失敗 (${failed.length} 会場): ${failed.join(", ")}`);
   console.log("=".repeat(60));
@@ -111,7 +145,21 @@ async function main() {
   const reportPath = path.join(import.meta.dirname, "fetch_events_ts_dry_run_report.json");
   await fs.writeFile(
     reportPath,
-    JSON.stringify({ generatedAt: now.toISOString(), reports, failed, totalElapsedMs }, null, 2),
+    JSON.stringify(
+      {
+        generatedAt: now.toISOString(),
+        reports,
+        failed,
+        totalElapsedMs,
+        totalExtracted,
+        totalNewRows: totalPlanned,
+        totalMatchedExisting,
+        totalSkippedAmbiguous,
+        totalInvalidDates,
+      },
+      null,
+      2
+    ),
     "utf-8"
   );
   console.log(`詳細レポート: ${reportPath}`);

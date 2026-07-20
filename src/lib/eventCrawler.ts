@@ -33,7 +33,7 @@ export const EXTRACT_PROMPT = (venueName: string, text: string) => `\
 [
   {
     "title": "イベントタイトル（アーティスト名を含む完全な名称）",
-    "date": "YYYY-MM-DD（複数日程なら初日。不明なら null）",
+    "date": "公演日。元ページの表記のままで構いません（例: 2026-10-31 / 2026年10月31日 / 10/31 / 10.31）。不明なら null",
     "genre": "kpop | johnnys | female_idol | male_idol | other"
   }
 ]
@@ -44,6 +44,17 @@ export const EXTRACT_PROMPT = (venueName: string, text: string) => `\
 - female_idol: 日本女性アイドル（乃木坂46, AKB48, NiziU 等）
 - male_idol: 日本男性アイドル（BE:FIRST, JO1, BOYS AND MEN 等）
 - other: バンド, 演歌, クラシック, スポーツイベント, 展示会, 会議 等
+
+複数日程の扱い（重要）:
+- 同一公演が複数の日付で開催される場合（例: 10/31・11/1の2日間公演）、1つのオブジェクトに日付をまとめず、日付ごとに別々のオブジェクトとして出力してください。
+- その際、titleは全ての日付で同じ文字列にしてください。
+- 例:
+  入力（ページ内テキストの一部）: "10.31 Sat 開場16:00/開演17:00　11.1 Sun 開場15:00/開演16:00　Mr.Children Tour 2026"
+  出力:
+  [
+    { "title": "Mr.Children Tour 2026", "date": "10.31", "genre": "other" },
+    { "title": "Mr.Children Tour 2026", "date": "11.1", "genre": "other" }
+  ]
 
 注意:
 - スポーツ試合・展示会・会議・卒業式等は除外
@@ -119,9 +130,36 @@ export type EventRow = {
   genre: string;
 };
 
-export type DuplicateCandidate = {
-  extracted: { title: string; date: string | null };
-  existing: { id: string; title: string; date: string | null; venue_id: string };
+export type MatchedExistingEvent = {
+  extractedTitle: string;
+  existingTitle: string;
+  date: string | null;
+  extractedVenueId: string;
+  existingVenueId: string;
+  existingId: string;
+};
+
+export type AmbiguousMatch = {
+  extractedTitle: string;
+  date: string | null;
+  extractedVenueId: string;
+  matches: Array<{ id: string; title: string; venue_id: string }>;
+};
+
+export type InvalidDateEntry = {
+  title: string;
+  venue: string;
+  venueId: string;
+  rawDate: string | null;
+  sourceUrl: string;
+};
+
+export type MultiDayExpansion = {
+  title: string;
+  venueId: string;
+  rawDate: string | null;
+  expandedDates: string[];
+  sourceUrl: string;
 };
 
 // ---------------------------------------------------------------------------
@@ -501,22 +539,184 @@ export async function mapWithConcurrency<T, R>(items: T[], limit: number, fn: (i
 
 const VALID_GENRES = new Set(["kpop", "johnnys", "female_idol", "male_idol", "other"]);
 
-export function toEventRows(events: ExtractedEvent[], venue: { id: string; name: string }): EventRow[] {
-  return events
-    .filter((ev) => ev.title?.trim())
-    .map((ev) => {
-      const title = ev.title.trim();
-      const date = /^\d{4}-\d{2}-\d{2}$/.test(ev.date ?? "") ? ev.date : null;
-      const genre = VALID_GENRES.has(ev.genre) ? ev.genre : "other";
-      return {
-        id: makeEventId(venue.id, date, title),
-        title,
-        venue: venue.name,
-        venue_id: venue.id,
-        date,
-        genre,
-      };
-    });
+// ---------------------------------------------------------------------------
+// 日付正規化（YYYY-MM-DD統一・複数日程の展開）
+// ---------------------------------------------------------------------------
+
+function isValidCalendarDate(year: number, month: number, day: number): boolean {
+  if (month < 1 || month > 12 || day < 1 || day > 31) return false;
+  const d = new Date(Date.UTC(year, month - 1, day));
+  return d.getUTCFullYear() === year && d.getUTCMonth() === month - 1 && d.getUTCDate() === day;
+}
+
+function formatYmd(year: number, month: number, day: number): string {
+  return `${String(year).padStart(4, "0")}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+}
+
+/** ページ固有の年月(monthly_pattern/follow_month_links)が無ければ、Asia/Tokyo基準のnow年月を使う */
+function referenceYearMonth(pageYear: number | null, pageMonth: number | null, now: Date): { year: number; month: number } {
+  if (pageYear !== null && pageMonth !== null) return { year: pageYear, month: pageMonth };
+  const parts = new Intl.DateTimeFormat("en-US", { timeZone: "Asia/Tokyo", year: "numeric", month: "numeric" }).formatToParts(now);
+  return {
+    year: Number(parts.find((p) => p.type === "year")?.value),
+    month: Number(parts.find((p) => p.type === "month")?.value),
+  };
+}
+
+/**
+ * 年なし月日(例: 10/31)の年を補完する。
+ * イベントカレンダーは常に前方(未来方向)へ掲載される前提で、
+ * 「now基準で過去45日を超えない範囲での直近の未来」を最優先する。
+ * (例: 7月クロール時に単一ページ内の"1.11"が2027年1月を指す長期先行掲載でも、
+ *  従来の「基準年月に最も近い年」判定だと誤って前年寄りの年を選んでしまうため)
+ * 該当候補が無い場合のみ、従来通り基準年月(refYear/refMonth)に最も近い年へフォールバックする。
+ */
+function nearestYearForMonthDay(month: number, day: number, refYear: number, refMonth: number, now: Date): number {
+  const GRACE_MS = 45 * 24 * 60 * 60 * 1000; // 45日
+  const nowMs = now.getTime();
+  const refDate = Date.UTC(refYear, refMonth - 1, 1);
+  const candidateYears = [refYear - 1, refYear, refYear + 1, refYear + 2];
+
+  let bestFuture: { year: number; ms: number } | null = null;
+  let bestOverall: { year: number; diff: number } | null = null;
+
+  for (const y of candidateYears) {
+    const ms = Date.UTC(y, month - 1, day);
+    if (ms >= nowMs - GRACE_MS && (!bestFuture || ms < bestFuture.ms)) {
+      bestFuture = { year: y, ms };
+    }
+    const diff = Math.abs(ms - refDate);
+    if (!bestOverall || diff < bestOverall.diff) {
+      bestOverall = { year: y, diff };
+    }
+  }
+
+  return bestFuture ? bestFuture.year : (bestOverall ? bestOverall.year : refYear);
+}
+
+const EN_MONTHS: Readonly<Record<string, number>> = {
+  jan: 1, january: 1,
+  feb: 2, february: 2,
+  mar: 3, march: 3,
+  apr: 4, april: 4,
+  may: 5,
+  jun: 6, june: 6,
+  jul: 7, july: 7,
+  aug: 8, august: 8,
+  sep: 9, sept: 9, september: 9,
+  oct: 10, october: 10,
+  nov: 11, november: 11,
+  dec: 12, december: 12,
+};
+
+/**
+ * Claude抽出のdate文字列から、含まれる日付を全て「YYYY-MM-DD」として抽出する。
+ * 複数日程が1つの文字列にまとまっている場合(例: "10.31・11.1")も、それぞれ別の日付として返す。
+ * 年なし月日は pageYear/pageMonth（無ければ now基準のAsia/Tokyo年月）で年を補完する。
+ * 無効な日付・解釈できない文字列は結果に含めない（呼び出し側で0件ならdate=nullとして扱う）。
+ */
+export function splitDateTokens(
+  rawDate: string | null | undefined,
+  pageYear: number | null,
+  pageMonth: number | null,
+  now: Date
+): string[] {
+  if (!rawDate) return [];
+  const text = rawDate;
+  const found: { start: number; end: number; date: string }[] = [];
+
+  // 4桁年つきの完全な日付を先に拾う(優先度高。この範囲は後続のMM/DD走査から除外する)
+  const fullDatePatterns = [
+    /(\d{4})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日?/g,
+    /(\d{4})[./](\d{1,2})[./](\d{1,2})/g,
+    /(\d{4})-(\d{1,2})-(\d{1,2})/g,
+  ];
+  for (const re of fullDatePatterns) {
+    let m: RegExpExecArray | null;
+    while ((m = re.exec(text))) {
+      const y = Number(m[1]);
+      const mo = Number(m[2]);
+      const d = Number(m[3]);
+      if (isValidCalendarDate(y, mo, d)) {
+        found.push({ start: m.index, end: m.index + m[0].length, date: formatYmd(y, mo, d) });
+      }
+    }
+  }
+
+  // 英語表記「Month D, YYYY」/「Month D YYYY」(4桁年つき。曜日名等の誤検出防止のため月名を限定)
+  const enDateRe = /\b([A-Za-z]+)\s+(\d{1,2}),?\s+(\d{4})\b/g;
+  let enMatch: RegExpExecArray | null;
+  while ((enMatch = enDateRe.exec(text))) {
+    const monthNum = EN_MONTHS[enMatch[1].toLowerCase()];
+    if (!monthNum) continue;
+    const d = Number(enMatch[2]);
+    const y = Number(enMatch[3]);
+    if (isValidCalendarDate(y, monthNum, d)) {
+      found.push({ start: enMatch.index, end: enMatch.index + enMatch[0].length, date: formatYmd(y, monthNum, d) });
+    }
+  }
+
+  // 消費済み範囲をマスクしてから、年なしの月日系(MM/DD, MM.DD, MM月DD日)を拾う
+  let masked = text;
+  for (const f of [...found].sort((a, b) => b.start - a.start)) {
+    masked = masked.slice(0, f.start) + " ".repeat(f.end - f.start) + masked.slice(f.end);
+  }
+  const { year: refYear, month: refMonth } = referenceYearMonth(pageYear, pageMonth, now);
+  const noYearPatterns = [/(\d{1,2})[./](\d{1,2})(?!\d)/g, /(\d{1,2})\s*月\s*(\d{1,2})\s*日/g];
+  for (const re of noYearPatterns) {
+    let m: RegExpExecArray | null;
+    while ((m = re.exec(masked))) {
+      const mo = Number(m[1]);
+      const d = Number(m[2]);
+      const y = nearestYearForMonthDay(mo, d, refYear, refMonth, now);
+      if (isValidCalendarDate(y, mo, d)) {
+        found.push({ start: m.index, end: m.index + m[0].length, date: formatYmd(y, mo, d) });
+      }
+    }
+  }
+
+  found.sort((a, b) => a.start - b.start);
+  return Array.from(new Set(found.map((f) => f.date)));
+}
+
+/**
+ * Claude抽出結果(events)をEventRowへ変換する。
+ * 日付が1件も解釈できないイベントはEventRowを作らず invalidDates へ回す(保存対象から除外)。
+ * 1イベントから2件以上の日付が展開された場合は multiDayExpansions に記録する(調査用)。
+ */
+export function toEventRows(
+  events: ExtractedEvent[],
+  venue: { id: string; name: string },
+  pageYear: number | null,
+  pageMonth: number | null,
+  now: Date,
+  sourceUrl: string
+): { rows: EventRow[]; invalidDates: InvalidDateEntry[]; multiDayExpansions: MultiDayExpansion[] } {
+  const rows: EventRow[] = [];
+  const invalidDates: InvalidDateEntry[] = [];
+  const multiDayExpansions: MultiDayExpansion[] = [];
+
+  for (const ev of events) {
+    if (!ev.title?.trim()) continue;
+    const title = ev.title.trim();
+    const genre = VALID_GENRES.has(ev.genre) ? ev.genre : "other";
+    const dates = splitDateTokens(ev.date, pageYear, pageMonth, now);
+
+    if (dates.length === 0) {
+      // YYYY-MM-DDへ正規化できない(不明/無効)場合は保存対象にせず、invalidDatesとして報告する
+      invalidDates.push({ title, venue: venue.name, venueId: venue.id, rawDate: ev.date ?? null, sourceUrl });
+      continue;
+    }
+
+    if (dates.length > 1) {
+      multiDayExpansions.push({ title, venueId: venue.id, rawDate: ev.date ?? null, expandedDates: dates, sourceUrl });
+    }
+
+    for (const date of dates) {
+      rows.push({ id: makeEventId(venue.id, date, title), title, venue: venue.name, venue_id: venue.id, date, genre });
+    }
+  }
+  return { rows, invalidDates, multiDayExpansions };
 }
 
 export function normalizeTitle(title: string): string {
@@ -527,12 +727,21 @@ export function normalizeTitle(title: string): string {
     .replace(/\s+/g, " ");
 }
 
+/**
+ * 同一venue_id+date時の第二判定用: normalizeTitle後にUnicode空白を全て除去した比較キー。
+ * 「第123 回」と「第123回」のような空白の入り方だけが異なる表記揺れを同一視するために使う。
+ * normalizeTitle()自体の定義・保存するtitle自体は変更しない。
+ */
+export function normalizeTitleIgnoringSpacing(title: string): string {
+  return normalizeTitle(title).replace(/\s+/g, "");
+}
+
 export function dedupeRows(rows: EventRow[]): EventRow[] {
-  // 同一 venue_id / date / 正規化title の完全一致のみを重複とみなす
+  // 同一 venue_id / date は、normalizeTitle後さらに空白を除去した比較キーで重複とみなす
   const seen = new Set<string>();
   const result: EventRow[] = [];
   for (const row of rows) {
-    const key = `${row.venue_id}::${row.date ?? ""}::${normalizeTitle(row.title)}`;
+    const key = `${row.venue_id}::${row.date ?? ""}::${normalizeTitleIgnoringSpacing(row.title)}`;
     if (seen.has(key)) continue;
     seen.add(key);
     result.push(row);
@@ -549,33 +758,72 @@ export async function upsertEvents(rows: EventRow[], sb: AnySupabaseClient): Pro
     : { saved: rows.length, error: null };
 }
 
-export async function findDuplicateCandidates(
+/**
+ * 保存前に「会場IDエイリアス + date完全一致 + normalizeTitle(空白除去後)一致」で既存eventsと照合する。
+ * dry-run・本番upsertの両方の経路から共通で呼ばれる（本番でも書き込み前に必ず照合する）。
+ *
+ * 分岐:
+ *   0件一致 → newRows（現行makeEventIdのidのまま新規保存対象）
+ *   1件一致 → matchedExisting（既存公演として扱い、保存対象からは外す。既存idへの差し替えはしない＝既存行は一切更新しない）
+ *   2件以上 → skippedAmbiguous（どれを既存とするか自動選択せず、保存対象から外して要確認とする）
+ */
+export async function classifyAgainstExisting(
   rows: EventRow[],
   venueId: string,
   sb: AnySupabaseClient
-): Promise<{ candidates: DuplicateCandidate[]; error: string | null }> {
-  if (rows.length === 0) return { candidates: [], error: null };
+): Promise<{
+  newRows: EventRow[];
+  matchedExisting: MatchedExistingEvent[];
+  skippedAmbiguous: AmbiguousMatch[];
+  error: string | null;
+}> {
+  if (rows.length === 0) return { newRows: [], matchedExisting: [], skippedAmbiguous: [], error: null };
 
-  // 重複判定のみ、本番DBに残る旧venue_idエイリアスも含めて既存レコードを見る。
-  // 新規保存(upsertEvents)は常に正式ID(venueId)で行われ、ここでは変更しない。
   const aliasIds = getVenueIdAliases(venueId);
   const { data, error } = await sb
     .from("events")
     .select("id,title,date,venue_id")
     .in("venue_id", aliasIds);
-  if (error) return { candidates: [], error: `重複候補取得エラー: ${error.message}` };
+
+  if (error) {
+    // 既存照合ができない場合は安全側に倒し、この会場のどの行も新規/既存判定せず保留する(=保存しない)。
+    return { newRows: [], matchedExisting: [], skippedAmbiguous: [], error: `既存公演照合エラー(DB): ${error.message}` };
+  }
 
   const existing = (data ?? []) as Array<{ id: string; title: string; date: string | null; venue_id: string }>;
-  const candidates = rows.flatMap((row) => {
-    const normalized = normalizeTitle(row.title);
-    const match = existing.find(
-      (event) => event.date === row.date && normalizeTitle(event.title) === normalized
+
+  const newRows: EventRow[] = [];
+  const matchedExisting: MatchedExistingEvent[] = [];
+  const skippedAmbiguous: AmbiguousMatch[] = [];
+
+  for (const row of rows) {
+    const normalized = normalizeTitleIgnoringSpacing(row.title);
+    const matches = existing.filter(
+      (event) => event.date === row.date && normalizeTitleIgnoringSpacing(event.title) === normalized
     );
-    return match
-      ? [{ extracted: { title: row.title, date: row.date }, existing: match }]
-      : [];
-  });
-  return { candidates, error: null };
+
+    if (matches.length === 0) {
+      newRows.push(row);
+    } else if (matches.length === 1) {
+      matchedExisting.push({
+        extractedTitle: row.title,
+        existingTitle: matches[0].title,
+        date: row.date,
+        extractedVenueId: row.venue_id,
+        existingVenueId: matches[0].venue_id,
+        existingId: matches[0].id,
+      });
+    } else {
+      skippedAmbiguous.push({
+        extractedTitle: row.title,
+        date: row.date,
+        extractedVenueId: row.venue_id,
+        matches: matches.map((m) => ({ id: m.id, title: m.title, venue_id: m.venue_id })),
+      });
+    }
+  }
+
+  return { newRows, matchedExisting, skippedAmbiguous, error: null };
 }
 
 export function sleep(ms: number) {
@@ -602,7 +850,11 @@ export type VenueResult = {
   unreachableMonths: { year: number; month: number }[];
   allEventsCount: number;
   rows: EventRow[];
-  duplicates: DuplicateCandidate[];
+  newRows: EventRow[];
+  matchedExisting: MatchedExistingEvent[];
+  skippedAmbiguous: AmbiguousMatch[];
+  invalidDates: InvalidDateEntry[];
+  multiDayExpansions: MultiDayExpansion[];
   saved: number;
   errors: string[];
   failed: boolean;
@@ -679,17 +931,24 @@ export async function processVenue(
   pageReports.sort((a, b) => (order.get(a.page.url) ?? 0) - (order.get(b.page.url) ?? 0));
 
   const allEvents = pageReports.flatMap((r) => r.events);
-  let rows = toEventRows(allEvents, venue);
+  // ページごとのyear/month(monthly_pattern/follow_month_links)を使って年なし日付を補完するため、
+  // ページ単位でtoEventRowsを呼んでから連結する(single_urlはyear=month=nullでnow基準補完になる)。
+  const perPage = pageReports.map((r) => toEventRows(r.events, venue, r.page.year, r.page.month, now, r.page.url));
+  let rows = perPage.flatMap((p) => p.rows);
+  const invalidDates = perPage.flatMap((p) => p.invalidDates);
+  const multiDayExpansions = perPage.flatMap((p) => p.multiDayExpansions);
   rows = dedupeRows(rows);
 
-  let duplicates: DuplicateCandidate[] = [];
+  // dry-run・本番upsertの両方で、書き込み前に必ず既存公演と照合する。
+  const classified = await classifyAgainstExisting(rows, venue.id, sb);
+  if (classified.error) errors.push(classified.error);
+  const { newRows, matchedExisting, skippedAmbiguous } = classified;
+
   let saved = 0;
-  if (dryRun) {
-    const dup = await findDuplicateCandidates(rows, venue.id, sb);
-    duplicates = dup.candidates;
-    if (dup.error) errors.push(dup.error);
-  } else {
-    const saveResult = await upsertEvents(rows, sb);
+  if (!dryRun) {
+    // 一致0件(newRows)のみを保存する。一致1件(matchedExisting)は既存行なので保存も更新もしない。
+    // 一致2件以上(skippedAmbiguous)は自動判定せず保存しない。
+    const saveResult = await upsertEvents(newRows, sb);
     saved = saveResult.saved;
     if (saveResult.error) errors.push(saveResult.error);
   }
@@ -708,7 +967,11 @@ export async function processVenue(
     unreachableMonths,
     allEventsCount: allEvents.length,
     rows,
-    duplicates,
+    newRows,
+    matchedExisting,
+    skippedAmbiguous,
+    invalidDates,
+    multiDayExpansions,
     saved,
     errors,
     failed,
