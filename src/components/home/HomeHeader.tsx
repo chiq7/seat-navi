@@ -15,7 +15,10 @@ export default function HomeHeader() {
         />
       </Link>
 
-      <div className="flex-1 flex items-center gap-2 bg-gray-100 rounded-full px-4 h-[44px]">
+      <Link
+        href="/search"
+        className="flex-1 flex items-center gap-2 bg-gray-100 rounded-full px-4 h-[44px] no-underline"
+      >
         <svg
           className="w-4 h-4 shrink-0 text-gray-400"
           fill="none"
@@ -32,7 +35,7 @@ export default function HomeHeader() {
         <span className="text-sm text-gray-400 truncate">
           アーティスト・公演名を検索
         </span>
-      </div>
+      </Link>
     </header>
   );
 }

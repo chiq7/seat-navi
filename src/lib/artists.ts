@@ -571,7 +571,7 @@ export const ARTISTS: Artist[] = [
     name: "JO1",
     genre: "male_idol",
     description: `JO1の${DESC}`,
-    keywords: ["JO1"],
+    keywords: ["JO1", "JO1DER"],
     initials: "JO",
     grad: "from-slate-300 to-slate-500",
     accentColor: "#64748b",
