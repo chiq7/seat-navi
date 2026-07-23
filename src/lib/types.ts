@@ -113,6 +113,8 @@ export type CrawledEvent = {
   genre: Event["genre"];
   lottery_types?: string[];
   artist_slug?: string | null;
+  /** DBカラムではなく、アーティストページ内の決定的ソート用取得元。 */
+  artist_match_source?: "explicit" | "keyword";
 };
 
 /** 答え合わせ報告 (after_reportsテーブル) */
@@ -252,6 +254,41 @@ export type XSeatPost = {
 
   notes: string | null;
   created_at: string;
+};
+
+/** 公式サイトNEWS (official_newsテーブル、Gemini分類済み) */
+export type OfficialNewsCategory = "live" | "ticket" | "release" | "media" | "goods" | "fanclub" | "other";
+
+export type OfficialNews = {
+  id: string;
+  artist_slug: string;
+  article_title: string;
+  article_url: string;
+  published_date: string | null;
+  thumbnail_url: string | null;
+  category: OfficialNewsCategory | null;
+  is_event_candidate: boolean | null;
+  event_name: string | null;
+  tour_name: string | null;
+  event_dates: string[];
+  venue_names: string[];
+  ticket_sale_start: string | null;
+  ticket_sale_end: string | null;
+  confidence: "high" | "medium" | "low" | null;
+  needs_review: boolean;
+  review_reason: string | null;
+  fetched_at: string | null;
+  created_at: string;
+};
+
+export const OFFICIAL_NEWS_CATEGORY_LABELS: Record<OfficialNewsCategory, string> = {
+  live: "ライブ",
+  ticket: "チケット",
+  release: "リリース",
+  media: "メディア",
+  goods: "グッズ",
+  fanclub: "ファンクラブ",
+  other: "その他",
 };
 
 export const SEAT_LOTTERY_OPTIONS = [

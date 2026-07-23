@@ -4,6 +4,7 @@ import { getEventsForArtist } from "@/lib/events";
 import { parseEventTitle } from "@/lib/eventTitle";
 import { computeTicketResultStats } from "@/lib/artistPageStats";
 import type { TicketResultAnalytics } from "@/lib/artistPageTypes";
+import { daysUntilJstDate, getJstDateString, selectNextEvent } from "@/lib/artistPageData";
 
 const TICKET_RESULT_COLUMNS =
   "id, event_id, result, lost_application_count, ticket_count, lottery_type, fc_history, payment_method, seat_type, upgrade_result, comment, seat_block, seat_row, seat_number, stand_direction, stand_floor, other_seat_info, created_at";
@@ -12,12 +13,6 @@ const TICKET_RESULT_COLUMNS =
 const MIN_REPORTS_FOR_RATE = 10;
 
 const WEEKDAY_LABELS = ["日", "月", "火", "水", "木", "金", "土"];
-
-/** サーバーのタイムゾーンに依存せず、日本時間基準の"YYYY-MM-DD"を返す */
-function todayJST(): string {
-  const jstMs = Date.now() + 9 * 60 * 60 * 1000;
-  return new Date(jstMs).toISOString().split("T")[0];
-}
 
 /** HeroSection.tsx の fmtDateLabel と同じ表示形式（例: "08.01（土）"）をOGP用に複製 */
 function fmtEventDateLabel(dateStr: string): string {
@@ -69,12 +64,8 @@ export async function getArtistOgInfo(slug: string): Promise<ArtistOgInfo | null
     };
   }
 
-  const today = todayJST();
-
-  const upcomingEvents = events
-    .filter((ev) => ev.date && ev.date >= today)
-    .sort((a, b) => (a.date ?? "").localeCompare(b.date ?? ""));
-  const nextUpcoming = upcomingEvents[0] ?? null;
+  const today = getJstDateString();
+  const nextUpcoming = selectNextEvent(events, today);
 
   // HeroSection.tsxと同じロジック: 次の公演が無い場合は「公演発表待機中」、isTestDataもfalse固定
   // （過去公演にフォールバックしてテストデータ判定はしない）
@@ -88,9 +79,7 @@ export async function getArtistOgInfo(slug: string): Promise<ArtistOgInfo | null
       ? {
           venue: nextUpcoming.venue,
           dateLabel: fmtEventDateLabel(nextUpcoming.date),
-          countdownDays: Math.ceil(
-            (new Date(nextUpcoming.date).getTime() - new Date(today).getTime()) / 86400000,
-          ),
+          countdownDays: daysUntilJstDate(nextUpcoming.date, today) ?? 0,
         }
       : null;
 

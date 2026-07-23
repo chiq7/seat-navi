@@ -1,0 +1,130 @@
+name: Official News Crawler
+
+# 公式NEWS取得(週1回)。実行本体は scripts/crawlOfficialNews.mts。
+# 対応済み13組は scripts/officialNews/legacySites.ts (Tier3/special) の既存ロジックをそのまま再利用する。
+#
+# スケジュール: UTC日曜19:00 = JST月曜4:00(深夜帯)。
+# 手動実行(workflow_dispatch)では artist_slug / dry_run / group を指定できる。
+#
+# 1サイト/1記事の失敗後も残りを処理し、レポートを保存してからジョブを失敗させる。
+
+on:
+  schedule:
+    - cron: "0 19 * * 0"
+  workflow_dispatch:
+    inputs:
+      artist_slug:
+        description: "特定アーティストのみ実行する場合のslug(例: exo)。空なら全対象サイトを実行。"
+        required: false
+        type: string
+      dry_run:
+        description: "trueならSupabaseへ接続しない。Geminiも別入力で明示しない限り呼び出さない。"
+        required: false
+        type: boolean
+        default: true
+      classify_with_gemini:
+        description: "Gemini API分類を有効化する。dry-runとは独立し、API利用量が発生します。"
+        required: false
+        type: boolean
+        default: false
+      group:
+        description: "特定グループのみ実行する場合の名前(specialParserNameまたはcmsGroup)。空なら全対象。"
+        required: false
+        type: string
+
+# 二重実行防止: 同じgroupの実行中ジョブがあれば、新しい実行は待機させる(キャンセルはしない)。
+concurrency:
+  group: official-news-crawler
+  cancel-in-progress: false
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+    # exo-jp.netのCrawl-delay(30秒)等、待機を含むため余裕を持たせる。
+    timeout-minutes: 90
+    env:
+      INPUT_ARTIST_SLUG: ${{ inputs.artist_slug }}
+      INPUT_GROUP: ${{ inputs.group }}
+      INPUT_DRY_RUN: ${{ inputs.dry_run }}
+      INPUT_CLASSIFY_WITH_GEMINI: ${{ inputs.classify_with_gemini }}
+      WORKFLOW_EVENT_NAME: ${{ github.event_name }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate workflow inputs
+        shell: bash
+        run: |
+          allowed='^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$'
+          if [[ -n "$INPUT_ARTIST_SLUG" && ! "$INPUT_ARTIST_SLUG" =~ $allowed ]]; then
+            echo "Invalid artist_slug. Allowed: ASCII letters, digits, underscore, hyphen (1-64 chars)." >&2
+            exit 2
+          fi
+          if [[ -n "$INPUT_GROUP" && ! "$INPUT_GROUP" =~ $allowed ]]; then
+            echo "Invalid group. Allowed: ASCII letters, digits, underscore, hyphen (1-64 chars)." >&2
+            exit 2
+          fi
+
+      - name: Typecheck crawler
+        run: npm run typecheck:crawler
+
+      - name: Run official news crawler
+        shell: bash
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          OFFICIAL_NEWS_ALLOW_PRODUCTION_WRITE: ${{ vars.OFFICIAL_NEWS_ALLOW_PRODUCTION_WRITE }}
+        run: |
+          ARGS=()
+          if [[ "$WORKFLOW_EVENT_NAME" == "schedule" ]]; then
+            # Scheduled ingestion is intentionally live and explicit. The CLI still requires the
+            # repository variable OFFICIAL_NEWS_ALLOW_PRODUCTION_WRITE=true as a second confirmation.
+            ARGS+=(--execute --classify)
+          else
+            if [[ "$INPUT_DRY_RUN" == "true" ]]; then
+              ARGS+=(--dry-run)
+            else
+              ARGS+=(--execute)
+            fi
+            if [[ "$INPUT_CLASSIFY_WITH_GEMINI" == "true" ]]; then
+              ARGS+=(--classify)
+            fi
+          fi
+          if [[ -n "$INPUT_ARTIST_SLUG" ]]; then ARGS+=("--artist=$INPUT_ARTIST_SLUG"); fi
+          if [[ -n "$INPUT_GROUP" ]]; then ARGS+=("--group=$INPUT_GROUP"); fi
+          node --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/crawlOfficialNews.mts "${ARGS[@]}"
+
+      - name: Ensure artifact fallback report exists
+        if: always()
+        shell: bash
+        env:
+          JOB_STATUS: ${{ job.status }}
+          RUN_ID: ${{ github.run_id }}
+          RUN_ATTEMPT: ${{ github.run_attempt }}
+        run: |
+          mkdir -p official-news-reports
+          if ! find official-news-reports -type f -print -quit | grep -q .; then
+            printf 'status=%s\nrun_id=%s\nrun_attempt=%s\nnote=%s\n' \
+              "$JOB_STATUS" "$RUN_ID" "$RUN_ATTEMPT" \
+              "Crawler report was not created; an earlier workflow step failed or was cancelled." \
+              > official-news-reports/workflow-fallback.txt
+          fi
+
+      - name: Upload crawl report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: official-news-report-${{ github.run_id }}
+          path: official-news-reports/
+          retention-days: 90
+          if-no-files-found: error

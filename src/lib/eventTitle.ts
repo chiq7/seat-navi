@@ -10,22 +10,38 @@ export type ParsedEventTitle = {
   isTestData: boolean;
 };
 
-/** イベントタイトルからアーティスト名の重複部分と【テストデータ】タグを分離する。 */
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+/**
+ * イベントタイトルから先頭付近のアーティスト名と【テストデータ】タグを分離する。
+ * アーティスト名より前に許容するのは西暦表記だけで、タイトル途中の名称は削除しない。
+ */
 export function parseEventTitle(
   title: string,
   artistName?: string | null,
 ): ParsedEventTitle {
-  let rawStripped = title;
-  if (artistName && title.startsWith(artistName)) {
-    const rest = title.slice(artistName.length).trim();
-    rawStripped = rest || title;
+  const isTestData = title.includes(TEST_DATA_TAG);
+  const cleanedTitle = title.split(TEST_DATA_TAG).join("").trim() || title;
+  let rawStripped = cleanedTitle;
+
+  if (artistName) {
+    const escapedName = escapeRegExp(artistName.trim());
+    const leadingPattern = new RegExp(
+      `^(?<prefix>\\s*(?:(?:19|20)\\d{2}(?:年)?[\\s.:：/_\\-–—|]*)?)(?<artist>${escapedName})(?=$|[\\s:：/_\\-–—|「『\"'【(])`,
+      "i",
+    );
+    const match = cleanedTitle.match(leadingPattern);
+    if (match?.groups) {
+      const rest = cleanedTitle.slice(match[0].length).trim();
+      const prefix = match.groups.prefix.trim();
+      const candidate = [prefix, rest].filter(Boolean).join(" ").trim();
+      rawStripped = candidate || cleanedTitle;
+    }
   }
 
-  const isTestData = rawStripped.includes(TEST_DATA_TAG);
-  const cleaned = isTestData
-    ? rawStripped.split(TEST_DATA_TAG).join("").trim()
-    : rawStripped;
-  const tourName = cleaned || rawStripped;
+  const tourName = rawStripped.trim() || cleanedTitle || title;
 
   return { rawStripped, tourName, isTestData };
 }

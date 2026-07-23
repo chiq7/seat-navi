@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { TicketResultAnalytics } from "@/lib/artistPageTypes";
 import type { CrawledEvent } from "@/lib/types";
 
@@ -5,6 +6,7 @@ type Props = {
   /** アーティスト全体・created_at降順で既に上位3件に絞り込み済みのものを渡す */
   items: TicketResultAnalytics[];
   eventMap: Map<string, CrawledEvent>;
+  reportHref: string;
 };
 
 function seatTypeLabel(v: string | null | undefined): string | null {
@@ -47,15 +49,15 @@ function buildSeatInfo(item: TicketResultAnalytics): { typeLabel: string | null;
   return { typeLabel, values };
 }
 
-export default function SeatReportTimelineSection({ items, eventMap }: Props) {
-  if (items.length === 0) return null;
-
+export default function SeatReportTimelineSection({ items, eventMap, reportHref }: Props) {
   return (
     <div>
       <h3 className="text-center text-[14px] font-bold text-gray-900">座席報告タイムライン</h3>
-      <div className="-mx-3 mt-3 border-t border-gray-200" />
-      <div className="-mx-3 divide-y divide-gray-200">
-        {items.map((item) => {
+      {items.length > 0 ? (
+        <>
+          <div className="-mx-3 mt-3 border-t border-gray-200" />
+          <div className="-mx-3 divide-y divide-gray-200">
+            {items.map((item) => {
           const ev = eventMap.get(item.event_id);
           const isWon = item.result === "won";
           const isUpgradeWon = item.upgrade_result === "applied_won";
@@ -131,8 +133,20 @@ export default function SeatReportTimelineSection({ items, eventMap }: Props) {
               )}
             </div>
           );
-        })}
-      </div>
+            })}
+          </div>
+        </>
+      ) : (
+        <div className="mt-3 rounded-xl bg-[#FFF8FB] px-4 py-3 text-center">
+          <p className="text-[12px] text-gray-500">まだ座席報告はありません</p>
+          <Link
+            href={reportHref}
+            className="mt-2 inline-flex rounded-full bg-[#FF6B9D] px-4 py-2 text-[12px] font-bold text-white"
+          >
+            最初の座席情報を報告する
+          </Link>
+        </div>
+      )}
     </div>
   );
 }

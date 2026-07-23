@@ -2,11 +2,9 @@ import { ImageResponse } from "next/og";
 import type { NextRequest } from "next/server";
 import { getArtistOgInfo, type ArtistOgNextEvent } from "@/lib/og/artistOgData";
 import { SIZE, fallbackImage, getLogoDataUrl, Logo, TestDataBadge, readPublicImageDataUrl } from "@/lib/og/ogShared";
+import { DEFAULT_ARTIST_HERO_IMAGE, resolveArtistHeroImage } from "@/lib/artistPageData";
 
 export const runtime = "nodejs";
-
-// アーティストTOPの実際のHeroSection.tsxが使う背景画像をそのまま再利用する（OGP用の新規保存処理は作らない）
-const HERO_PATH = "images/hero/artist-top.png";
 
 /** 当落指標カード。中央揃えの行に固定幅で横並びさせるため、幅を明示指定する（flex:1で全幅に伸ばさない） */
 function MetricCard({ label, value }: { label: string; value: number }) {
@@ -67,8 +65,11 @@ function renderArtistImage(input: {
       >
         {/* 背景: ヒーロー画像（無ければ単色背景にフォールバック。CSSグラデーションは使わない） */}
         {heroDataUrl ? (
+          // ImageResponse内ではnext/imageを利用できない。
+          // eslint-disable-next-line @next/next/no-img-element
           <img
             src={heroDataUrl}
+            alt=""
             width={SIZE.width}
             height={SIZE.height}
             style={{ position: "absolute", left: 0, top: 0, width: SIZE.width, height: SIZE.height, objectFit: "cover" }}
@@ -216,7 +217,9 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ slug
     if (!info) return fallbackImage();
 
     const logoDataUrl = getLogoDataUrl();
-    const heroDataUrl = readPublicImageDataUrl(HERO_PATH);
+    const heroPath = resolveArtistHeroImage(info.artist.heroImage).replace(/^\/+/, "");
+    const fallbackHeroPath = DEFAULT_ARTIST_HERO_IMAGE.replace(/^\/+/, "");
+    const heroDataUrl = readPublicImageDataUrl(heroPath) ?? readPublicImageDataUrl(fallbackHeroPath);
 
     return renderArtistImage({
       artistName: info.artist.name,

@@ -42,6 +42,8 @@ scripts/__pycache__/
 scripts/fetch_events.log
 scripts/fetch_events_dry_run_report.json
 scripts/fetch_events_ts_dry_run_report.json
+official-news-reports/
+discovery-reports/
 
 # typescript
 *.tsbuildinfo

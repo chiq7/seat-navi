@@ -91,6 +91,10 @@ async function main() {
     if (result.multiDayExpansions.length > 0) {
       console.log(`  複数日展開: ${JSON.stringify(result.multiDayExpansions)}`);
     }
+    const unresolvedArtists = result.artistAssociations.filter((item) => item.status !== "matched");
+    if (unresolvedArtists.length > 0) {
+      console.log(`  アーティスト未確定: ${JSON.stringify(unresolvedArtists)}`);
+    }
 
     reports.push({
       venueId: venue.id,
@@ -122,6 +126,7 @@ async function main() {
       invalidDatesCount: result.invalidDates.length,
       invalidDates: result.invalidDates,
       multiDayExpansions: result.multiDayExpansions,
+      artistAssociations: result.artistAssociations,
       errors: result.errors,
       failed: result.failed,
     });

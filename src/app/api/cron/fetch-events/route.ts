@@ -128,6 +128,7 @@ export async function GET(req: NextRequest) {
       invalidDatesCount: result.invalidDates.length,
       invalidDates: result.invalidDates,
       multiDayExpansions: result.multiDayExpansions,
+      artistAssociations: result.artistAssociations,
       // 保存予定件数には newRows のみを含める(既存一致・要確認・invalidDatesは含めない)
       plannedSaves: dryRun ? result.newRows.length : undefined,
       dbSaved: result.saved,

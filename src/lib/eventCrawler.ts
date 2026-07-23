@@ -8,6 +8,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import crypto from "crypto";
 import type { DisabledVenue, FollowMonthLinksVenue, MonthlyPatternVenue, VenueConfig } from "@/lib/eventCrawlerConfig";
 import { generateMonthlyPages, getVenueIdAliases, targetMonths } from "@/lib/eventCrawlerConfig";
+import { ARTISTS, assignArtistSlug, type Artist } from "@/lib/artists";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type AnySupabaseClient = SupabaseClient<any, any, any>;
@@ -128,6 +129,15 @@ export type EventRow = {
   venue_id: string;
   date: string | null;
   genre: string;
+  artist_slug: string | null;
+};
+
+export type ArtistAssociationReport = {
+  title: string;
+  status: "matched" | "none" | "ambiguous";
+  artistSlug: string | null;
+  candidateSlugs: string[];
+  reason: string;
 };
 
 export type MatchedExistingEvent = {
@@ -690,16 +700,36 @@ export function toEventRows(
   pageYear: number | null,
   pageMonth: number | null,
   now: Date,
-  sourceUrl: string
-): { rows: EventRow[]; invalidDates: InvalidDateEntry[]; multiDayExpansions: MultiDayExpansion[] } {
+  sourceUrl: string,
+  artists: readonly Artist[] = ARTISTS,
+): {
+  rows: EventRow[];
+  invalidDates: InvalidDateEntry[];
+  multiDayExpansions: MultiDayExpansion[];
+  artistAssociations: ArtistAssociationReport[];
+} {
   const rows: EventRow[] = [];
   const invalidDates: InvalidDateEntry[] = [];
   const multiDayExpansions: MultiDayExpansion[] = [];
+  const artistAssociations: ArtistAssociationReport[] = [];
 
   for (const ev of events) {
     if (!ev.title?.trim()) continue;
     const title = ev.title.trim();
     const genre = VALID_GENRES.has(ev.genre) ? ev.genre : "other";
+    const assigned = assignArtistSlug({ title, artist_slug: null }, artists);
+    artistAssociations.push({
+      title,
+      status:
+        assigned.match.status === "matched"
+          ? "matched"
+          : assigned.match.status === "ambiguous"
+            ? "ambiguous"
+            : "none",
+      artistSlug: assigned.event.artist_slug,
+      candidateSlugs: assigned.match.candidateSlugs,
+      reason: assigned.match.reason,
+    });
     const dates = splitDateTokens(ev.date, pageYear, pageMonth, now);
 
     if (dates.length === 0) {
@@ -713,10 +743,18 @@ export function toEventRows(
     }
 
     for (const date of dates) {
-      rows.push({ id: makeEventId(venue.id, date, title), title, venue: venue.name, venue_id: venue.id, date, genre });
+      rows.push({
+        id: makeEventId(venue.id, date, title),
+        title,
+        venue: venue.name,
+        venue_id: venue.id,
+        date,
+        genre,
+        artist_slug: assigned.event.artist_slug,
+      });
     }
   }
-  return { rows, invalidDates, multiDayExpansions };
+  return { rows, invalidDates, multiDayExpansions, artistAssociations };
 }
 
 export function normalizeTitle(title: string): string {
@@ -855,6 +893,7 @@ export type VenueResult = {
   skippedAmbiguous: AmbiguousMatch[];
   invalidDates: InvalidDateEntry[];
   multiDayExpansions: MultiDayExpansion[];
+  artistAssociations: ArtistAssociationReport[];
   saved: number;
   errors: string[];
   failed: boolean;
@@ -937,6 +976,7 @@ export async function processVenue(
   let rows = perPage.flatMap((p) => p.rows);
   const invalidDates = perPage.flatMap((p) => p.invalidDates);
   const multiDayExpansions = perPage.flatMap((p) => p.multiDayExpansions);
+  const artistAssociations = perPage.flatMap((p) => p.artistAssociations);
   rows = dedupeRows(rows);
 
   // dry-run・本番upsertの両方で、書き込み前に必ず既存公演と照合する。
@@ -972,6 +1012,7 @@ export async function processVenue(
     skippedAmbiguous,
     invalidDates,
     multiDayExpansions,
+    artistAssociations,
     saved,
     errors,
     failed,

@@ -30,6 +30,7 @@ type Props = {
   topPrediction?: TopPrediction | null;
   mapEvent: MapEvent | null;
   detailHref?: string | null;
+  emptyPostHref?: string | null;
 };
 
 function fmtShortDate(iso: string): string {
@@ -44,6 +45,7 @@ export default function SeatPredictionPreviewSection({
   topPrediction = null,
   mapEvent,
   detailHref = null,
+  emptyPostHref = null,
 }: Props) {
   return (
     <section className="mt-3 px-3">
@@ -99,6 +101,16 @@ export default function SeatPredictionPreviewSection({
             <div className="relative mx-auto h-[140px] w-full max-w-[280px] overflow-hidden rounded-xl bg-white">
               <Image src="/images/artist-page/seat-map-preparing2.png" alt="準備中" fill className="object-contain" />
             </div>
+            {!mapEvent && emptyPostHref && (
+              <div className="pt-2 text-center">
+                <Link
+                  href={emptyPostHref}
+                  className="inline-flex rounded-full bg-[#FF6B9D] px-4 py-2 text-[12px] font-bold text-white"
+                >
+                  予想図を投稿する
+                </Link>
+              </div>
+            )}
           </div>
         )}
         {mapEvent && detailHref && (

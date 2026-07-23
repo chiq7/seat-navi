@@ -5,10 +5,19 @@ import Link from "next/link";
 import { supabase } from "@/lib/supabase/client";
 import { findArtistBySlug } from "@/lib/artists";
 import { getEventsForArtist } from "@/lib/events";
-import type { CrawledEvent } from "@/lib/types";
+import { queryLatestOfficialNewsForArtist } from "@/lib/officialNews";
+import type { CrawledEvent, OfficialNews } from "@/lib/types";
 import type { AnalyticsReport, TicketResultAnalytics, AfterReportCard } from "@/lib/artistPageTypes";
 import { computeTicketResultStats, computeArenaDetailStats, computeUpgradeDetailStats, computeLiveEffects } from "@/lib/artistPageStats";
 import { parseEventTitle } from "@/lib/eventTitle";
+import {
+  daysUntilJstDate,
+  getJstDateString,
+  getPastEvents,
+  getUpcomingEvents,
+  selectNextEvent,
+  selectPredictionEventId,
+} from "@/lib/artistPageData";
 
 import HeroSection from "@/components/artist-page/HeroSection";
 import PastTourSection, { type PastTourGroup, type PastTourEvent } from "@/components/artist-page/PastTourSection";
@@ -18,6 +27,8 @@ import { type VenueGroup } from "@/components/artist-page/EventSection";
 import ReportSection from "@/components/artist-page/ReportSection";
 import SeatPredictionPreviewSection from "@/components/artist-page/SeatPredictionPreviewSection";
 import LiveEffectsSection from "@/components/artist-page/LiveEffectsSection";
+import OfficialNewsSection from "@/components/artist-page/OfficialNewsSection";
+import UpcomingEventsSection from "@/components/artist-page/UpcomingEventsSection";
 import { BottomNav } from "@/components/common/BottomNav";
 import type { TopPrediction } from "@/components/artist-page/SeatPredictionPreviewSection";
 
@@ -30,6 +41,7 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
   const [ticketResultReports, setTicketResultReports] = useState<TicketResultAnalytics[]>([]);
   const [seatCounts, setSeatCounts] = useState<Map<string, number>>(new Map());
   const [venueAfterReports, setVenueAfterReports] = useState<AfterReportCard[]>([]);
+  const [officialNews, setOfficialNews] = useState<OfficialNews[]>([]);
   const [topPrediction, setTopPrediction] = useState<TopPrediction | null>(null);
   const [loading, setLoading] = useState(true);
   const [fetchError, setFetchError] = useState<string | null>(null);
@@ -41,11 +53,17 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
   async function loadData(a: NonNullable<ReturnType<typeof findArtistBySlug>>) {
     setFetchError(null);
     setTopPrediction(null);
+    setOfficialNews([]);
 
     const allEvs = await getEventsForArtist(a.slug);
     setEvents(allEvs);
 
-    if (allEvs.length === 0) { setLoading(false); return; }
+    queryLatestOfficialNewsForArtist(a.slug, 3).then((result) => setOfficialNews(result.data));
+
+    if (allEvs.length === 0) {
+      setLoading(false);
+      return;
+    }
 
     const ids = allEvs.map(e => e.id);
 
@@ -72,54 +90,9 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
     setTicketResultReports(ticketResultData);
     setSeatCounts(sCounts);
 
-    // Fan prediction: most-liked image for the most recent event
-    const recentEventId = allEvs[0]?.id ?? null;
-    if (recentEventId) {
-      const { data: predData } = await supabase
-        .from("fan_seat_predictions")
-        .select("id, image_path, comment, prediction_tags, created_at")
-        .eq("event_id", recentEventId)
-        .eq("approved", true);
-
-      type PredRow = { id: string; image_path: string; comment: string | null; prediction_tags: string[]; created_at: string };
-
-      if (predData && predData.length > 0) {
-        const predIds = predData.map((p: PredRow) => p.id);
-        const { data: voteData } = await supabase
-          .from("fan_seat_prediction_votes")
-          .select("prediction_id")
-          .in("prediction_id", predIds);
-
-        const MIN_VOTES_TO_SHOW = 3;
-        const counts = new Map<string, number>();
-        for (const v of (voteData ?? []) as { prediction_id: string }[]) {
-          counts.set(v.prediction_id, (counts.get(v.prediction_id) ?? 0) + 1);
-        }
-        const top = [...counts.entries()].sort((a, b) => b[1] - a[1])[0];
-
-        if (top && top[1] >= MIN_VOTES_TO_SHOW) {
-          const topPred = predData.find((p: PredRow) => p.id === top[0]);
-          if (topPred) {
-            const { data: urlData } = supabase.storage
-              .from("fan-seat-predictions")
-              .getPublicUrl(topPred.image_path);
-            setTopPrediction({
-              id: topPred.id,
-              imageUrl: urlData.publicUrl,
-              comment: topPred.comment,
-              tags: topPred.prediction_tags ?? [],
-              createdAt: topPred.created_at,
-              voteCount: top[1],
-            });
-          }
-        }
-      }
-    }
-
     setLoading(false);
   }
 
-  /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
     if (!artist) return;
     setLoading(true);
@@ -128,15 +101,16 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
     setSelectedTourEventIds(null);
     loadData(artist);
   }, [artist]);
-  /* eslint-enable react-hooks/set-state-in-effect */
 
-  const today = new Date().toISOString().split("T")[0];
+  const today = getJstDateString();
+
+  const upcomingEvents = useMemo(
+    () => getUpcomingEvents(events, today),
+    [events, today],
+  );
 
   const nearestUpcomingEvent = useMemo(
-    () =>
-      events
-        .filter(ev => ev.date && ev.date >= today)
-        .sort((a, b) => (a.date ?? "").localeCompare(b.date ?? ""))[0] ?? null,
+    () => selectNextEvent(events, today),
     [events, today],
   );
 
@@ -144,8 +118,7 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
   // 各行のツアー名補助表示・テストデータ判定はPastTourSection側でparseEventTitle()を使って行う
   const pastTourGroups = useMemo((): PastTourGroup[] => {
     const map = new Map<string, { id: string; date: string | null; venue: string; title: string }[]>();
-    for (const ev of events) {
-      if (ev.date && ev.date >= today) continue;
+    for (const ev of getPastEvents(events, today)) {
       const year = (ev.date ?? "").slice(0, 4) || "不明";
       if (!map.has(year)) map.set(year, []);
       map.get(year)!.push({ id: ev.id, date: ev.date, venue: ev.venue, title: ev.title });
@@ -155,7 +128,9 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
       key: year,
       title: `${year}年`,
       // 一覧は新しい日付順
-      events: [...evs].sort((a, b) => (b.date ?? "").localeCompare(a.date ?? "")),
+      events: [...evs].sort(
+        (a, b) => (b.date ?? "").localeCompare(a.date ?? "") || a.id.localeCompare(b.id),
+      ),
     }));
 
     // 新しい年が先頭
@@ -181,16 +156,6 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
   // Hero等、アーティスト全体集計として使う（過去ツアー選択の影響を受けない）
   const ticketResultStats = useMemo(
     () => computeTicketResultStats(ticketResultReports),
-    [ticketResultReports],
-  );
-
-  const arenaDetailStats = useMemo(
-    () => computeArenaDetailStats(ticketResultReports),
-    [ticketResultReports],
-  );
-
-  const upgradeDetailStats = useMemo(
-    () => computeUpgradeDetailStats(ticketResultReports),
     [ticketResultReports],
   );
 
@@ -229,9 +194,7 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
   );
 
   const countdownDays = useMemo(() => {
-    if (!nearestUpcomingEvent?.date) return null;
-    const diff = new Date(nearestUpcomingEvent.date).getTime() - new Date(today).getTime();
-    return Math.ceil(diff / 86400000);
+    return daysUntilJstDate(nearestUpcomingEvent?.date, today);
   }, [nearestUpcomingEvent?.date, today]);
 
   const afterHref = `/artists/${slug}/after-reports`;
@@ -367,7 +330,67 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
     };
   }, [mapTargetEventId, analyticsReports]);
 
+  const predictionTargetEventId = useMemo(
+    () => selectPredictionEventId(events, today, mapTargetEventId),
+    [events, today, mapTargetEventId],
+  );
+
+  useEffect(() => {
+    setTopPrediction(null);
+    if (!predictionTargetEventId) return;
+    let cancelled = false;
+
+    async function loadTopPrediction() {
+      const { data: predData } = await supabase
+        .from("fan_seat_predictions")
+        .select("id, image_path, comment, prediction_tags, created_at")
+        .eq("event_id", predictionTargetEventId)
+        .eq("approved", true);
+
+      type PredRow = { id: string; image_path: string; comment: string | null; prediction_tags: string[]; created_at: string };
+      const predictions = (predData ?? []) as PredRow[];
+      if (predictions.length === 0 || cancelled) return;
+
+      const { data: voteData } = await supabase
+        .from("fan_seat_prediction_votes")
+        .select("prediction_id")
+        .in("prediction_id", predictions.map((prediction) => prediction.id));
+      if (cancelled) return;
+
+      const counts = new Map<string, number>();
+      for (const vote of (voteData ?? []) as { prediction_id: string }[]) {
+        counts.set(vote.prediction_id, (counts.get(vote.prediction_id) ?? 0) + 1);
+      }
+      const top = predictions
+        .map((prediction) => ({ prediction, votes: counts.get(prediction.id) ?? 0 }))
+        .sort((a, b) => b.votes - a.votes || a.prediction.id.localeCompare(b.prediction.id))[0];
+      if (!top || top.votes < 3) return;
+
+      const { data: urlData } = supabase.storage
+        .from("fan-seat-predictions")
+        .getPublicUrl(top.prediction.image_path);
+      setTopPrediction({
+        id: top.prediction.id,
+        imageUrl: urlData.publicUrl,
+        comment: top.prediction.comment,
+        tags: top.prediction.prediction_tags ?? [],
+        createdAt: top.prediction.created_at,
+        voteCount: top.votes,
+      });
+    }
+
+    loadTopPrediction();
+    return () => { cancelled = true; };
+  }, [predictionTargetEventId]);
+
   const detailHref = mapTargetEventId ? `/events/${mapTargetEventId}` : null;
+  const reportSelectorHref = `/report?artist=${encodeURIComponent(slug)}`;
+  const ticketReportHref = mapTargetEventId
+    ? `/report/ticket?event=${encodeURIComponent(mapTargetEventId)}`
+    : "/report/ticket";
+  const liveReportHref = mapTargetEventId
+    ? `/report/live?event=${encodeURIComponent(mapTargetEventId)}`
+    : "/report/live";
 
   if (!artist) {
     return (
@@ -387,8 +410,10 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
   return (
     <main className="min-h-screen bg-white font-sans text-gray-900">
       <HeroSection
+        key={artist.slug}
         artistName={artist.name}
         slug={slug}
+        heroImage={artist.heroImage}
         tourTitle={nearestUpcomingEvent === null ? "公演発表待機中" : (nextEventTitle?.tourName ?? artist.name)}
         isTestData={nextEventTitle?.isTestData ?? false}
         dateRange={nextEventDateLabel}
@@ -443,6 +468,8 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
 
           {activeEventTab === "current" ? (
             <>
+              <UpcomingEventsSection artistName={artist.name} events={upcomingEvents} />
+
               {/* ===== 座席データ区画: 全公演の傾向カード + 座席報告タイムライン ===== */}
               <div id="trend">
                 <section className="mt-3 px-3">
@@ -452,11 +479,13 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
                       arenaStats={trendArenaStats}
                       upgradeStats={trendUpgradeStats}
                     />
-                    {seatReportTimeline.length > 0 && (
-                      <div className="mt-3 overflow-hidden rounded-xl border border-gray-100 bg-white p-3">
-                        <SeatReportTimelineSection items={seatReportTimeline} eventMap={eventMap} />
-                      </div>
-                    )}
+                    <div className="mt-3 overflow-hidden rounded-xl border border-gray-100 bg-white p-3">
+                      <SeatReportTimelineSection
+                        items={seatReportTimeline}
+                        eventMap={eventMap}
+                        reportHref={ticketReportHref}
+                      />
+                    </div>
                   </div>
                 </section>
               </div>
@@ -470,6 +499,7 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
                   topPrediction={topPrediction}
                   mapEvent={mapEvent}
                   detailHref={detailHref}
+                  emptyPostHref={reportSelectorHref}
                 />
               </div>
 
@@ -478,6 +508,7 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
                 reports={venueAfterReports}
                 eventMap={eventMap}
                 afterHref={afterHref}
+                reportHref={liveReportHref}
               >
                 <LiveEffectsSection liveEffects={liveEffects} />
               </ReportSection>
@@ -490,6 +521,8 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
               artistName={artist?.name}
             />
           )}
+
+          <OfficialNewsSection news={officialNews} moreHref={`/artists/${slug}/news`} />
         </div>
       )}
 

@@ -11,7 +11,76 @@ export type Artist = {
   grad: string;
   accentColor: string;
   accentDark: string;
+  /** public配下の画像パス。未設定・読込失敗時は共通ヒーローへフォールバックする。 */
+  heroImage?: string;
+  /** 公式NEWS crawler設定。未設定でもNEWS一覧ページ自体は利用できる。 */
+  officialNews?: OfficialNewsConfig;
 };
+
+type OfficialNewsBaseConfig = {
+  /** 公式サイト上の表記がページ表示名と異なる場合だけ指定する。 */
+  artistName?: string;
+  newsUrl: string;
+  enabled: boolean;
+  notes: string;
+};
+
+export type OfficialNewsConfig = OfficialNewsBaseConfig & (
+  | {
+      /** 取得確認済み13組など、共通strategyで扱えないサイトだけが使用する。 */
+      parserGroup: "exo" | "generations" | "asobisystem" | "lapone" | "universal-music-wp" | "befirst" | "fujiikaze";
+      strategy?: never;
+    }
+  | {
+      /** 新規サイトは原則としてこちらの共通strategyを使用する。 */
+      strategy: "rss" | "wordpress" | "json_api" | "embedded_json" | "sitemap" | "static_html";
+      parserGroup?: never;
+      verificationStatus: "unverified" | "candidate" | "verified" | "rejected";
+      strategyPriority?: Array<"rss" | "wordpress" | "json_api" | "embedded_json" | "sitemap" | "static_html">;
+      crawlDelayMs?: number;
+      rssUrl?: string;
+      wordpressApiUrl?: string;
+      jsonApi?: {
+        url: string;
+        itemsPath?: string;
+        titleField: string;
+        urlField: string;
+        dateField?: string;
+        bodyField?: string;
+        thumbnailField?: string;
+      };
+      listSelectors?: {
+        item: string;
+        link: string;
+        title: string;
+        date?: string;
+        dateFormat?: string;
+      };
+      detailSelectors?: {
+        title?: string;
+        body: string;
+        date?: string;
+        dateFormat?: string;
+        thumbnail?: string;
+        exclude?: string[];
+      };
+      pagination?: {
+        type: "query_param" | "path_segment" | "none";
+        param?: string;
+        maxPages?: number;
+      };
+      urlRules?: {
+        allow?: string[];
+        deny?: string[];
+        normalize?: {
+          stripQuery?: boolean;
+          stripTrailingSlash?: boolean;
+          forceHttps?: boolean;
+        };
+      };
+      cmsGroup?: string;
+    }
+);
 
 const DESC = "\u5ea7\u5e2d\u4e88\u60f3\u3001\u5f53\u9078\u7387\u3001\u73fe\u5730\u30ec\u30dd\u3001\u30bb\u30c8\u30ea\u3092\u307e\u3068\u3081\u3066\u3044\u307e\u3059\u3002";
 
@@ -125,6 +194,12 @@ export const ARTISTS: Artist[] = [
     grad: "from-amber-300 to-pink-500",
     accentColor: "#f59e0b",
     accentDark: "#d97706",
+    officialNews: {
+      newsUrl: "https://fruitszipper.asobisystem.com/news/1/",
+      parserGroup: "asobisystem",
+      enabled: true,
+      notes: "ASOBISYSTEM「KAWAII LAB.」テンプレート。本文は詳細ページのog:descriptionに格納。",
+    },
   },
   {
     slug: "acees",
@@ -158,6 +233,12 @@ export const ARTISTS: Artist[] = [
     grad: "from-slate-300 to-slate-500",
     accentColor: "#64748b",
     accentDark: "#475569",
+    officialNews: {
+      newsUrl: "https://me-i.jp/news/1",
+      parserGroup: "lapone",
+      enabled: true,
+      notes: "LAPONE系(JO1と同一構造)。一覧URL形式は/news/1。",
+    },
   },
   {
     slug: "roselia",
@@ -213,6 +294,12 @@ export const ARTISTS: Artist[] = [
     grad: "from-slate-300 to-slate-500",
     accentColor: "#64748b",
     accentDark: "#475569",
+    officialNews: {
+      newsUrl: "https://cutiestreet.asobisystem.com/news/1",
+      parserGroup: "asobisystem",
+      enabled: true,
+      notes: "ASOBISYSTEM系(FRUITS ZIPPERと同一構造)。",
+    },
   },
   {
     slug: "ballistik-boyz",
@@ -235,6 +322,12 @@ export const ARTISTS: Artist[] = [
     grad: "from-slate-300 to-slate-500",
     accentColor: "#64748b",
     accentDark: "#475569",
+    officialNews: {
+      newsUrl: "https://www.generations-ldh.com/sys_inc/newsdat.php?p=0&y=",
+      parserGroup: "generations",
+      enabled: true,
+      notes: "独自PHP+AJAX JSON API。一覧取得時点で本文が埋め込まれている。",
+    },
   },
   {
     slug: "shinee",
@@ -268,6 +361,13 @@ export const ARTISTS: Artist[] = [
     grad: "from-slate-300 to-slate-500",
     accentColor: "#64748b",
     accentDark: "#475569",
+    officialNews: {
+      artistName: "しぐれうい",
+      newsUrl: "https://www.universal-music.co.jp/shigureui/wp-json/wp/v2/posts?per_page=20",
+      parserGroup: "universal-music-wp",
+      enabled: true,
+      notes: "Universal Music Japan WordPress REST API。",
+    },
   },
   {
     slug: "g-i-dle",
@@ -411,6 +511,12 @@ export const ARTISTS: Artist[] = [
     grad: "from-slate-300 to-slate-500",
     accentColor: "#64748b",
     accentDark: "#475569",
+    officialNews: {
+      newsUrl: "https://www.universal-music.co.jp/ado/wp-json/wp/v2/posts?per_page=20",
+      parserGroup: "universal-music-wp",
+      enabled: true,
+      notes: "同上。",
+    },
   },
   {
     slug: "aespa",
@@ -433,6 +539,12 @@ export const ARTISTS: Artist[] = [
     grad: "from-slate-300 to-slate-500",
     accentColor: "#64748b",
     accentDark: "#475569",
+    officialNews: {
+      newsUrl: "https://exo-jp.net/news/index.php",
+      parserGroup: "exo",
+      enabled: true,
+      notes: "PHP静的サイト。detail.php?id=形式。robots.txtにCrawl-delay:30あり(遵守要)。",
+    },
   },
   {
     slug: "nexz",
@@ -554,6 +666,12 @@ export const ARTISTS: Artist[] = [
     grad: "from-slate-300 to-slate-500",
     accentColor: "#64748b",
     accentDark: "#475569",
+    officialNews: {
+      newsUrl: "https://ini-official.com/news/1",
+      parserGroup: "lapone",
+      enabled: true,
+      notes: "LAPONE系(JO1と同一構造)。一覧URL形式は/news/1。",
+    },
   },
   {
     slug: "newjeans",
@@ -576,6 +694,12 @@ export const ARTISTS: Artist[] = [
     grad: "from-slate-300 to-slate-500",
     accentColor: "#64748b",
     accentDark: "#475569",
+    officialNews: {
+      newsUrl: "https://jo1.jp/news/list/1/3/",
+      parserGroup: "lapone",
+      enabled: true,
+      notes: "LAPONE Entertainmentテンプレート。本文は詳細ページのog:descriptionに格納。",
+    },
   },
   {
     slug: "2pm",
@@ -631,6 +755,12 @@ export const ARTISTS: Artist[] = [
     grad: "from-slate-300 to-slate-500",
     accentColor: "#64748b",
     accentDark: "#475569",
+    officialNews: {
+      newsUrl: "https://befirst.tokyo/news/",
+      parserGroup: "befirst",
+      enabled: true,
+      notes: "静的HTML。一覧ページの<article class=\"entry\">に本文が直接埋め込まれている。",
+    },
   },
   {
     slug: "da-ice",
@@ -719,6 +849,12 @@ export const ARTISTS: Artist[] = [
     grad: "from-slate-300 to-slate-500",
     accentColor: "#64748b",
     accentDark: "#475569",
+    officialNews: {
+      newsUrl: "https://candytune.asobisystem.com/news/1",
+      parserGroup: "asobisystem",
+      enabled: true,
+      notes: "ASOBISYSTEM系(FRUITS ZIPPERと同一構造)。",
+    },
   },
   {
     slug: "beyooooonds",
@@ -862,6 +998,12 @@ export const ARTISTS: Artist[] = [
     grad: "from-slate-300 to-slate-500",
     accentColor: "#64748b",
     accentDark: "#475569",
+    officialNews: {
+      newsUrl: "https://fujiikaze.com/wp-json/wp/v2/posts?per_page=20",
+      parserGroup: "fujiikaze",
+      enabled: true,
+      notes: "藤井風独自WordPress REST API。",
+    },
   },
   {
     slug: "ateez",
@@ -939,6 +1081,12 @@ export const ARTISTS: Artist[] = [
     grad: "from-slate-300 to-slate-500",
     accentColor: "#64748b",
     accentDark: "#475569",
+    officialNews: {
+      newsUrl: "https://zerobaseone.jp/news/list/1/3/",
+      parserGroup: "lapone",
+      enabled: true,
+      notes: "LAPONE系と同一URL構造。運営はWAKEONE/ソニーミュージック系。",
+    },
   },
   {
     slug: "itzy",
@@ -1078,9 +1226,75 @@ export function findArtistBySlug(slug: string): Artist | undefined {
   return ARTISTS.find((a) => a.slug === slug);
 }
 
+export type ArtistMatch = {
+  artist: Artist;
+  matchedTerms: string[];
+};
+
+export type ArtistMatchResult =
+  | { status: "explicit" | "matched"; artist: Artist; candidateSlugs: string[]; reason: string }
+  | { status: "none" | "ambiguous"; artist: null; candidateSlugs: string[]; reason: string };
+
+/** nameとkeywordsを同じ正規化・境界判定で照合し、全候補を返す。 */
+export function findArtistMatches(query: string, artists: readonly Artist[] = ARTISTS): ArtistMatch[] {
+  if (query.trim().length < 2) return [];
+  return artists.flatMap((artist) => {
+    const terms = [...new Set([artist.name, ...artist.keywords])];
+    const matchedTerms = terms.filter((term) => keywordMatchesTitle(term, query));
+    return matchedTerms.length > 0 ? [{ artist, matchedTerms }] : [];
+  });
+}
+
+/** 1組だけに一致した場合だけ採用し、曖昧一致を先頭候補で決めない。 */
+export function resolveUniqueArtistMatch(
+  query: string,
+  artists: readonly Artist[] = ARTISTS,
+): ArtistMatchResult {
+  const matches = findArtistMatches(query, artists);
+  if (matches.length === 0) {
+    return { status: "none", artist: null, candidateSlugs: [], reason: "name/keywords一致なし" };
+  }
+  if (matches.length > 1) {
+    return {
+      status: "ambiguous",
+      artist: null,
+      candidateSlugs: matches.map(({ artist }) => artist.slug),
+      reason: `複数候補: ${matches.map(({ artist }) => artist.slug).join(", ")}`,
+    };
+  }
+  const [{ artist, matchedTerms }] = matches;
+  return {
+    status: "matched",
+    artist,
+    candidateSlugs: [artist.slug],
+    reason: `一致語: ${matchedTerms.join(", ")}`,
+  };
+}
+
 export function findArtistByKeyword(query: string): Artist | undefined {
-  if (query.trim().length < 2) return undefined;
-  return ARTISTS.find((a) => a.keywords.some((kw) => keywordMatchesTitle(kw, query)));
+  const result = resolveUniqueArtistMatch(query);
+  return result.artist ?? undefined;
+}
+
+/** 既存の明示slugを保持し、未設定時だけ一意なname/keywords一致を補完する。 */
+export function assignArtistSlug<T extends { artist_slug?: string | null; title: string }>(
+  event: T,
+  artists: readonly Artist[] = ARTISTS,
+): { event: T & { artist_slug: string | null }; match: ArtistMatchResult } {
+  if (event.artist_slug) {
+    const explicit = artists.find((artist) => artist.slug === event.artist_slug);
+    return {
+      event: { ...event, artist_slug: event.artist_slug },
+      match: explicit
+        ? { status: "explicit", artist: explicit, candidateSlugs: [explicit.slug], reason: "既存artist_slugを保持" }
+        : { status: "none", artist: null, candidateSlugs: [], reason: `未登録の既存artist_slug: ${event.artist_slug}` },
+    };
+  }
+  const match = resolveUniqueArtistMatch(event.title, artists);
+  return {
+    event: { ...event, artist_slug: match.artist?.slug ?? null },
+    match,
+  };
 }
 
 /** event.artist_slug があれば優先、無ければ従来通りタイトルのkeyword一致にフォールバック */

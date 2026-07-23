@@ -1,14 +1,17 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { CalendarDays, ChevronLeft } from "lucide-react";
 import { rateText } from "@/lib/artistPageHelpers";
 import { ShareButton } from "@/components/common/ShareButton";
+import { DEFAULT_ARTIST_HERO_IMAGE, resolveArtistHeroImage } from "@/lib/artistPageData";
 
 type Props = {
   artistName: string;
   slug: string;
+  heroImage?: string | null;
   tourTitle: string;
   isTestData?: boolean;
   dateRange: string | null;
@@ -34,6 +37,7 @@ function fmtDateLabel(d: string): string {
 export default function HeroSection({
   artistName,
   slug,
+  heroImage,
   tourTitle,
   isTestData = false,
   dateRange,
@@ -43,6 +47,9 @@ export default function HeroSection({
   nextEvent,
   countdownDays,
 }: Props) {
+  const configuredHeroImage = resolveArtistHeroImage(heroImage);
+  const [heroImageSrc, setHeroImageSrc] = useState(configuredHeroImage);
+
   const summaryMetrics = [
     { label: "チケット当選率", value: rateText(ticketRate) },
     { label: "通常アリーナ率", value: rateText(normalArenaRate) },
@@ -52,13 +59,16 @@ export default function HeroSection({
   return (
     <section className="relative h-[340px] w-full overflow-hidden bg-[#080512]">
       <Image
-        src="/images/hero/artist-top.png"
+        src={heroImageSrc}
         alt=""
         fill
         priority
         sizes="390px"
         className="object-cover"
         style={{ objectPosition: "center 8%" }}
+        onError={() => {
+          if (heroImageSrc !== DEFAULT_ARTIST_HERO_IMAGE) setHeroImageSrc(DEFAULT_ARTIST_HERO_IMAGE);
+        }}
       />
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/15" />
       <div className="relative z-10 h-full w-full">

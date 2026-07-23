@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "typecheck:crawler": "tsc --project tsconfig.scripts.json",
+    "test:crawler-safety": "node --test --experimental-test-isolation=none --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/officialNews/safety.test.mts",
+    "test:artist-platform": "node --test --experimental-test-isolation=none --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/artistPlatform.test.mts",
+    "backfill:event-artists": "node --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/backfill-event-artist-slugs.mts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.95.1",

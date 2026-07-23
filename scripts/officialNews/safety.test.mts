@@ -1,0 +1,477 @@
+import assert from "node:assert/strict";
+import fs from "node:fs";
+import path from "node:path";
+import test from "node:test";
+import { fileURLToPath } from "node:url";
+import type { SupabaseClient } from "@supabase/supabase-js";
+import { runCrawler, type CrawlerDependencies } from "../crawlOfficialNews.mts";
+import { OFFICIAL_NEWS_SOURCES } from "../officialNewsConfig.mjs";
+import {
+  CliArgumentError,
+  parseCrawlerArgs,
+  validateExecutionSafety,
+} from "./cliArgs";
+import {
+  articleIdentityKey,
+  isPersistableAiStatus,
+  loadExistingArticleKeys,
+  upsertOfficialNewsArticle,
+} from "./db";
+import { classifyArticleWithGemini } from "./gemini";
+import { LEGACY_SOURCES } from "./legacySites";
+import { selectRoundRobin } from "./roundRobin";
+import type { CrawledArticle, SiteConfig } from "./types";
+import { normalizeOfficialNewsUrl } from "./urlIdentity.mjs";
+
+const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
+
+test("no arguments is dry-run with Gemini disabled", () => {
+  const args = parseCrawlerArgs([]);
+  assert.equal(args.dryRun, true);
+  assert.equal(args.execute, false);
+  assert.equal(args.classify, false);
+});
+
+const fixtureSite = (slug: string): SiteConfig => ({
+  artistSlug: slug,
+  artistName: `Fixture ${slug}`,
+  officialUrl: `https://example.com/${slug}`,
+  newsListUrl: `https://example.com/${slug}/news`,
+  strategy: "special",
+  specialParserName: "exo",
+  enabled: true,
+  verificationStatus: "verified",
+});
+
+const fixtureArticle = (slug: string, index = 1): CrawledArticle => ({
+  title: `Fixture ${slug} ${index}`,
+  published_date: "2026-01-01",
+  article_url: `https://example.com/${slug}/news/${index}`,
+  body: "fixture body",
+  thumbnail_url: null,
+});
+
+const classifiedResult = {
+  ai_status: "classified" as const,
+  category: "other" as const,
+  is_event_candidate: false,
+  event_name: null,
+  tour_name: null,
+  event_dates: [],
+  venue_names: [],
+  ticket_sale_start: null,
+  ticket_sale_end: null,
+  confidence: "high" as const,
+  needs_review: false,
+  review_reason: "fixture",
+  usage: null,
+  quota_error: null,
+};
+
+function offlineCrawlerDeps(
+  counters: { gemini: number; supabase: number },
+): Partial<CrawlerDependencies> {
+  const site = fixtureSite("artist-a");
+  return {
+    env: {},
+    loadEnvironment: () => ({ loaded: false, setCount: 0 }),
+    getSites: () => [site],
+    fetchList: async () => ({
+      method: "special" as const,
+      robots: { allowed: true, crawlDelay: 0, reason: "fixture" },
+      articles: [fixtureArticle(site.artistSlug)],
+      needsDetailFetch: false,
+    }),
+    classify: async () => {
+      counters.gemini++;
+      return classifiedResult;
+    },
+    createSupabase: async () => {
+      counters.supabase++;
+      return {} as SupabaseClient;
+    },
+    sleep: async () => {},
+    createReport: () => ({ reportPath: "fixture-report.json", save: () => {} }),
+    log: { log: () => {}, error: () => {} },
+  };
+}
+
+test("crawler mode matrix controls Gemini and Supabase calls", async () => {
+  for (const argv of [[], ["--dry-run"]]) {
+    const counters = { gemini: 0, supabase: 0 };
+    assert.equal(await runCrawler(argv, offlineCrawlerDeps(counters)), 0);
+    assert.deepEqual(counters, { gemini: 0, supabase: 0 });
+  }
+
+  const previewCounters = { gemini: 0, supabase: 0 };
+  assert.equal(
+    await runCrawler(["--dry-run", "--classify"], offlineCrawlerDeps(previewCounters)),
+    0,
+  );
+  assert.deepEqual(previewCounters, { gemini: 1, supabase: 0 });
+
+  const executeOnlyCounters = { gemini: 0, supabase: 0 };
+  const executeOnlyDeps = offlineCrawlerDeps(executeOnlyCounters);
+  executeOnlyDeps.env = {
+    OFFICIAL_NEWS_ALLOW_PRODUCTION_WRITE: "true",
+    SUPABASE_URL: "fixture",
+    SUPABASE_SERVICE_ROLE_KEY: "fixture",
+  };
+  assert.equal(await runCrawler(["--execute"], executeOnlyDeps), 1);
+  assert.deepEqual(executeOnlyCounters, { gemini: 0, supabase: 0 });
+
+  const missingEnvCounters = { gemini: 0, supabase: 0 };
+  assert.equal(
+    await runCrawler(["--execute", "--classify"], offlineCrawlerDeps(missingEnvCounters)),
+    1,
+  );
+  assert.deepEqual(missingEnvCounters, { gemini: 0, supabase: 0 });
+});
+
+test("round-robin gives every site a turn before second items and reallocates empty capacity", () => {
+  const buckets = [["a1", "a2", "a3"], ["b1"], ["c1", "c2"]];
+  const result = selectRoundRobin(buckets, 5);
+  assert.deepEqual(
+    result.selected.map(({ item }) => item),
+    ["a1", "b1", "c1", "a2", "c2"],
+  );
+  assert.deepEqual(result.deferred, [["a3"], [], []]);
+});
+
+test("classification failure does not prevent later round-robin sites from running", async () => {
+  const sites = [fixtureSite("artist-a"), fixtureSite("artist-b"), fixtureSite("artist-c")];
+  const attempted: string[] = [];
+  const deps = offlineCrawlerDeps({ gemini: 0, supabase: 0 });
+  deps.getSites = () => sites;
+  deps.fetchList = async (site) => ({
+    method: "special",
+    robots: { allowed: true, crawlDelay: 0, reason: "fixture" },
+    articles: [fixtureArticle(site.artistSlug, 1), fixtureArticle(site.artistSlug, 2)],
+    needsDetailFetch: false,
+  });
+  deps.classify = async (input) => {
+    attempted.push(input.artist_name);
+    if (input.artist_name.endsWith("artist-a")) throw new Error("fixture classification failure");
+    return classifiedResult;
+  };
+  assert.equal(await runCrawler(["--dry-run", "--classify"], deps), 1);
+  assert.deepEqual(attempted, [
+    "Fixture artist-a",
+    "Fixture artist-b",
+    "Fixture artist-c",
+    "Fixture artist-a",
+    "Fixture artist-b",
+    "Fixture artist-c",
+  ]);
+});
+
+test("one site failure does not stop later sites and limit-deferred articles are reported", async () => {
+  const sites = Array.from({ length: 17 }, (_, index) => fixtureSite(`artist-${index}`));
+  type FinalizedReport = {
+    selected_article_count: number;
+    limit_deferred_count: number;
+    sites: Array<{
+      artist_slug: string;
+      status: string;
+      limit_deferred_count?: number;
+      limit_deferred_articles?: string[];
+    }>;
+  };
+  const captured: { current: FinalizedReport | null } = { current: null };
+  const deps = offlineCrawlerDeps({ gemini: 0, supabase: 0 });
+  deps.getSites = () => sites;
+  deps.fetchList = async (site) => {
+    if (site.artistSlug === "artist-1") throw new Error("fixture list failure");
+    return {
+      method: "special",
+      robots: { allowed: true, crawlDelay: 0, reason: "fixture" },
+      articles: [fixtureArticle(site.artistSlug)],
+      needsDetailFetch: false,
+    };
+  };
+  deps.createReport = (report) => ({
+    reportPath: "fixture-report.json",
+    save: () => {
+      captured.current = JSON.parse(JSON.stringify(report));
+    },
+  });
+
+  assert.equal(await runCrawler(["--dry-run"], deps), 1);
+  const finalizedReport = captured.current;
+  assert.ok(finalizedReport);
+  assert.equal(finalizedReport.selected_article_count, 15);
+  assert.equal(finalizedReport.limit_deferred_count, 1);
+  assert.equal(finalizedReport.sites.length, 17);
+  assert.equal(
+    finalizedReport.sites.find((site) => site.artist_slug === "artist-1")?.status,
+    "failed",
+  );
+  const deferredSite = finalizedReport.sites.find((site) => site.artist_slug === "artist-16");
+  assert.equal(deferredSite?.limit_deferred_count, 1);
+  assert.deepEqual(deferredSite?.limit_deferred_articles, [
+    "https://example.com/artist-16/news/1",
+  ]);
+});
+
+test("dry-run and execute are mutually exclusive and unknown arguments fail", () => {
+  assert.throws(() => parseCrawlerArgs(["--dry-run", "--execute"]), CliArgumentError);
+  assert.throws(() => parseCrawlerArgs(["--unknown"]), CliArgumentError);
+});
+
+test("filter values reject shell metacharacters before crawling", () => {
+  assert.throws(() => parseCrawlerArgs(["--artist=$(touch-pwned)"]), CliArgumentError);
+  assert.throws(() => parseCrawlerArgs(["--group=x;curl_bad"]), CliArgumentError);
+  assert.equal(parseCrawlerArgs(["--group=universal-music-wp"]).group, "universal-music-wp");
+});
+
+test("execute requires both classification and the production confirmation environment", () => {
+  const execute = parseCrawlerArgs(["--execute", "--classify"]);
+  assert.throws(() => validateExecutionSafety(execute, {}), /ALLOW_PRODUCTION_WRITE/);
+  assert.doesNotThrow(() =>
+    validateExecutionSafety(execute, { OFFICIAL_NEWS_ALLOW_PRODUCTION_WRITE: "true" }),
+  );
+  assert.throws(
+    () =>
+      validateExecutionSafety(parseCrawlerArgs(["--execute"]), {
+        OFFICIAL_NEWS_ALLOW_PRODUCTION_WRITE: "true",
+      }),
+    /requires --classify/,
+  );
+});
+
+test("database SELECT and upsert errors cannot be reported as success", async () => {
+  const selectFailure = {
+    from: () => ({
+      select: async () => ({ data: null, error: { code: "42501", message: "permission denied" } }),
+    }),
+  } as unknown as SupabaseClient;
+  await assert.rejects(() => loadExistingArticleKeys(selectFailure), /42501.*permission denied/);
+
+  const upsertFailure = {
+    from: () => ({
+      upsert: async () => ({ data: null, error: { code: "23505", message: "unique violation" } }),
+    }),
+  } as unknown as SupabaseClient;
+  const result = await upsertOfficialNewsArticle(upsertFailure, {
+    artist_slug: "artist-a",
+    article_url: "https://example.com/news/1",
+  });
+  assert.deepEqual(result, { ok: false, error: "23505 | unique violation" });
+
+  const thrownFailure = {
+    from: () => ({
+      upsert: async () => {
+        throw new Error("network fixture failure");
+      },
+    }),
+  } as unknown as SupabaseClient;
+  const thrownResult = await upsertOfficialNewsArticle(thrownFailure, {
+    artist_slug: "artist-a",
+    article_url: "https://example.com/news/2",
+  });
+  assert.deepEqual(thrownResult, { ok: false, error: "upsert threw: network fixture failure" });
+});
+
+test("only classified Gemini results are persistable", () => {
+  assert.equal(isPersistableAiStatus("classified"), true);
+  for (const status of [
+    "not_configured",
+    "quota_exhausted",
+    "error",
+    "max_output_tokens",
+    "json_parse_error",
+    "timeout",
+  ]) {
+    assert.equal(isPersistableAiStatus(status), false);
+  }
+});
+
+test("missing Gemini key performs no API request and remains retryable", async () => {
+  const previous = process.env.GEMINI_API_KEY;
+  delete process.env.GEMINI_API_KEY;
+  try {
+    const result = await classifyArticleWithGemini(
+      {
+        artist_name: "Fixture Artist",
+        article_title: "Fixture",
+        published_date: null,
+        article_body: "fixture body",
+        article_url: "https://example.com/news/fixture",
+      },
+      { fetchImpl: async () => assert.fail("fetch must not be called without an API key") },
+    );
+    assert.equal(result.ai_status, "not_configured");
+    assert.equal(isPersistableAiStatus(result.ai_status), false);
+  } finally {
+    if (previous === undefined) delete process.env.GEMINI_API_KEY;
+    else process.env.GEMINI_API_KEY = previous;
+  }
+});
+
+test("Gemini quota, max-token, API, JSON, and timeout failures remain retryable", async () => {
+  const previous = process.env.GEMINI_API_KEY;
+  process.env.GEMINI_API_KEY = "fixture-key-never-sent-to-network";
+  const input = {
+    artist_name: "Fixture Artist",
+    article_title: "Fixture",
+    published_date: null,
+    article_body: "fixture body",
+    article_url: "https://example.com/news/fixture",
+  };
+  const jsonResponse = (body: unknown, status = 200) =>
+    new Response(JSON.stringify(body), {
+      status,
+      headers: { "content-type": "application/json" },
+    });
+
+  try {
+    const fixtures: Array<{ name: string; fetchImpl: typeof fetch; expected: string; timeoutMs?: number }> = [
+      {
+        name: "quota",
+        fetchImpl: async () => jsonResponse({ error: { details: [] } }, 429),
+        expected: "quota_exhausted",
+      },
+      {
+        name: "max tokens",
+        fetchImpl: async () => jsonResponse({ candidates: [{ finishReason: "MAX_TOKENS" }] }),
+        expected: "error",
+      },
+      {
+        name: "API error",
+        fetchImpl: async () => jsonResponse({ error: "fixture" }, 500),
+        expected: "error",
+      },
+      {
+        name: "JSON parse",
+        fetchImpl: async () =>
+          jsonResponse({ candidates: [{ content: { parts: [{ text: "not-json" }] } }] }),
+        expected: "error",
+      },
+      {
+        name: "timeout",
+        fetchImpl: ((_url: string | URL | Request, init?: RequestInit) =>
+          new Promise<Response>((_resolve, reject) => {
+            init?.signal?.addEventListener("abort", () => {
+              const error = new Error("aborted");
+              error.name = "AbortError";
+              reject(error);
+            });
+          })) as typeof fetch,
+        expected: "error",
+        timeoutMs: 1,
+      },
+    ];
+
+    for (const fixture of fixtures) {
+      const result = await classifyArticleWithGemini(input, {
+        fetchImpl: fixture.fetchImpl,
+        timeoutMs: fixture.timeoutMs,
+      });
+      assert.equal(result.ai_status, fixture.expected, fixture.name);
+      assert.equal(isPersistableAiStatus(result.ai_status), false, fixture.name);
+    }
+  } finally {
+    if (previous === undefined) delete process.env.GEMINI_API_KEY;
+    else process.env.GEMINI_API_KEY = previous;
+  }
+});
+
+test("URL identity keeps shared URLs separate by artist and matches documented normalization", () => {
+  assert.equal(
+    normalizeOfficialNewsUrl(" HTTPS://EXAMPLE.COM/news/ "),
+    "https://example.com/news",
+  );
+  assert.equal(
+    normalizeOfficialNewsUrl("https://example.com/news.php#article-2"),
+    "https://example.com/news.php#article-2",
+  );
+  assert.notEqual(
+    articleIdentityKey("artist-a", "https://example.com/shared"),
+    articleIdentityKey("artist-b", "https://example.com/shared"),
+  );
+});
+
+test("public view excludes article_body and base table grants are revoked", () => {
+  const migration = fs.readFileSync(
+    path.join(projectRoot, "supabase/migrations/031_official_news.sql"),
+    "utf8",
+  );
+  const afterView = migration.split("create view public.official_news_public", 2)[1] ?? "";
+  const publicProjection = afterView.split(
+    "revoke all on table public.official_news_public",
+    1,
+  )[0] ?? "";
+  assert.ok(publicProjection);
+  assert.doesNotMatch(publicProjection, /article_body/);
+  assert.match(
+    migration,
+    /revoke all on table public\.official_news from public, anon, authenticated/,
+  );
+  assert.match(migration, /unique \(artist_slug, normalized_article_url\)/);
+});
+
+test("workflow keeps inputs out of the shell program and uses validation plus Bash arrays", () => {
+  const workflow = fs.readFileSync(
+    path.join(projectRoot, ".github/workflows/official-news.yml"),
+    "utf8",
+  );
+  const afterCrawlerStep = workflow.split("- name: Run official news crawler", 2)[1] ?? "";
+  const crawlerStep = afterCrawlerStep.split("- name: Ensure artifact fallback report exists", 1)[0] ?? "";
+  assert.ok(crawlerStep);
+  assert.doesNotMatch(crawlerStep, /\$\{\{\s*inputs\./);
+  assert.match(workflow, /allowed='\^\[A-Za-z0-9\]/);
+  assert.match(crawlerStep, /ARGS=\(\)/);
+  assert.match(crawlerStep, /ARGS\+=\(--execute --classify\)/);
+  assert.match(workflow, /- name: Ensure artifact fallback report exists[\s\S]*if: always\(\)/);
+  assert.match(workflow, /workflow-fallback\.txt/);
+  assert.match(workflow, /- name: Upload crawl report[\s\S]*if: always\(\)/);
+  assert.match(workflow, /if-no-files-found: error/);
+});
+
+test("crawl-run schema remains an unnumbered draft outside pending migrations", () => {
+  const pendingMigrations = fs.readdirSync(path.join(projectRoot, "supabase/migrations"));
+  assert.equal(pendingMigrations.some((name) => name.includes("official_news_crawl_runs")), false);
+  const draftPath = path.join(
+    projectRoot,
+    "supabase/migration-drafts/official_news_crawl_runs.sql",
+  );
+  assert.equal(fs.existsSync(draftPath), true);
+  assert.match(fs.readFileSync(draftPath, "utf8"), /その時点の次番号/);
+});
+
+test("the existing 13 site settings exactly match the preserved legacy configuration", () => {
+  assert.equal(LEGACY_SOURCES.length, 13);
+  assert.equal(OFFICIAL_NEWS_SOURCES.length, 13);
+  const pick = (site: {
+    artistSlug: string;
+    newsUrl: string;
+    parserGroup: string;
+    enabled: boolean;
+  }) => ({
+    artistSlug: site.artistSlug,
+    newsUrl: site.newsUrl,
+    parserGroup: site.parserGroup,
+    enabled: site.enabled,
+  });
+  assert.deepEqual(OFFICIAL_NEWS_SOURCES.map(pick), LEGACY_SOURCES.map(pick));
+});
+
+test("public NEWS queries check Supabase errors and retain safe diagnostics", () => {
+  const source = fs.readFileSync(path.join(projectRoot, "src/lib/officialNews.ts"), "utf8");
+  assert.equal((source.match(/const \{ data, error \}/g) ?? []).length, 2);
+  assert.match(source, /check migration 031 and view grants/);
+  assert.match(source, /if \(error\)[\s\S]*return \{ data: \[\], error: true \}/);
+  assert.doesNotMatch(source, /JSON\.stringify\(error\)/);
+});
+
+test("import dry-run sample does not print article_body contents", () => {
+  const importer = fs.readFileSync(
+    path.join(projectRoot, "scripts/import-official-news.mjs"),
+    "utf8",
+  );
+  assert.doesNotMatch(importer, /JSON\.stringify\(rows\[0\]/);
+  assert.match(importer, /article_body_chars/);
+  assert.match(importer, /article_body_sha256/);
+  assert.match(importer, /OFFICIAL_NEWS_ALLOW_PRODUCTION_WRITE=true/);
+  assert.match(importer, /Unknown argument/);
+});
