@@ -468,7 +468,12 @@ export async function runCrawler(
         state.reasons.push(`${state.geminiError} Gemini classification(s) deferred/failed`);
       }
       if (state.dbFail > 0) state.reasons.push(`${state.dbFail} database write(s) failed`);
-      const failed = state.bodyFail > 0 || state.geminiError > 0 || state.dbFail > 0;
+      // A single article/detail or Gemini failure should remain visible in the
+      // report without failing the other sites or the scheduled run. Database
+      // write failures remain fatal so a partial production write is never
+      // reported as a successful run.
+      const failed = state.dbFail > 0;
+      const hasWarnings = state.bodyFail > 0 || state.geminiError > 0;
       reportsBySlug.set(state.site.config.artistSlug, {
         artist_slug: state.site.config.artistSlug,
         strategy: state.site.config.strategy,
@@ -494,7 +499,7 @@ export async function runCrawler(
       report.db_success_count += state.dbSuccess;
       report.db_failure_count += state.dbFail;
       deps.log.log(
-        `[${failed ? "FAILED" : "OK"}] ${state.site.config.artistSlug}: candidates=${state.site.candidates.length} selected=${state.selectedCount} deferred=${state.deferredUrls.length} gemini_ok=${state.geminiClassified} db_ok=${state.dbSuccess}`,
+        `[${failed ? "FAILED" : hasWarnings ? "WARN" : "OK"}] ${state.site.config.artistSlug}: candidates=${state.site.candidates.length} selected=${state.selectedCount} deferred=${state.deferredUrls.length} gemini_ok=${state.geminiClassified} db_ok=${state.dbSuccess}`,
       );
     }
 

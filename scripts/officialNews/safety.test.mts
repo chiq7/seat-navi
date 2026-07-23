@@ -141,6 +141,12 @@ test("round-robin gives every site a turn before second items and reallocates em
 test("classification failure does not prevent later round-robin sites from running", async () => {
   const sites = [fixtureSite("artist-a"), fixtureSite("artist-b"), fixtureSite("artist-c")];
   const attempted: string[] = [];
+  type FinalizedReport = {
+    failed_site_count: number;
+    total_gemini_error: number;
+    sites: Array<{ artist_slug: string; status: string; reason?: string }>;
+  };
+  const captured: { current: FinalizedReport | null } = { current: null };
   const deps = offlineCrawlerDeps({ gemini: 0, supabase: 0 });
   deps.getSites = () => sites;
   deps.fetchList = async (site) => ({
@@ -154,7 +160,13 @@ test("classification failure does not prevent later round-robin sites from runni
     if (input.artist_name.endsWith("artist-a")) throw new Error("fixture classification failure");
     return classifiedResult;
   };
-  assert.equal(await runCrawler(["--dry-run", "--classify"], deps), 1);
+  deps.createReport = (report) => ({
+    reportPath: "fixture-report.json",
+    save: () => {
+      captured.current = JSON.parse(JSON.stringify(report));
+    },
+  });
+  assert.equal(await runCrawler(["--dry-run", "--classify"], deps), 0);
   assert.deepEqual(attempted, [
     "Fixture artist-a",
     "Fixture artist-b",
@@ -163,6 +175,18 @@ test("classification failure does not prevent later round-robin sites from runni
     "Fixture artist-b",
     "Fixture artist-c",
   ]);
+  const finalizedReport = captured.current;
+  assert.ok(finalizedReport);
+  assert.equal(finalizedReport.failed_site_count, 0);
+  assert.equal(finalizedReport.total_gemini_error, 2);
+  assert.equal(
+    finalizedReport.sites.find((site) => site.artist_slug === "artist-a")?.status,
+    "success",
+  );
+  assert.match(
+    finalizedReport.sites.find((site) => site.artist_slug === "artist-a")?.reason ?? "",
+    /Gemini classification/,
+  );
 });
 
 test("one site failure does not stop later sites and limit-deferred articles are reported", async () => {
