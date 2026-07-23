@@ -758,8 +758,8 @@ export const ARTISTS: Artist[] = [
     officialNews: {
       newsUrl: "https://befirst.tokyo/news/",
       parserGroup: "befirst",
-      enabled: true,
-      notes: "静的HTML。一覧ページの<article class=\"entry\">に本文が直接埋め込まれている。",
+      enabled: false,
+      notes: "GitHub hosted runnerからHTTP 403となるため、公式NEWS取得のみ一時停止。アーティストページは継続公開。",
     },
   },
   {

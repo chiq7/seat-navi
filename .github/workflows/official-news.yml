@@ -1,7 +1,8 @@
 name: Official News Crawler
 
 # 公式NEWS取得(週1回)。実行本体は scripts/crawlOfficialNews.mts。
-# 対応済み13組は scripts/officialNews/legacySites.ts (Tier3/special) の既存ロジックをそのまま再利用する。
+# 対応済み13組のうち、GitHub Runnerから403となるBE:FIRSTを除く12組を週次取得する。
+# parser定義自体は scripts/officialNews/legacySites.ts (Tier3/special) に維持する。
 #
 # スケジュール: UTC日曜19:00 = JST月曜4:00(深夜帯)。
 # 手動実行(workflow_dispatch)では artist_slug / dry_run / group を指定できる。

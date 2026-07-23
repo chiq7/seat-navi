@@ -222,7 +222,7 @@ test("one classified NEWS item feeds both TOP and list without replacing its tit
   assert.match(getOfficialNewsSummary(item), /Fixture Live/);
 });
 
-test("existing 13 NEWS configs and all existing artist slugs remain intact", () => {
+test("existing 13 NEWS configs remain intact with 12 enabled sites", () => {
   const expected = new Map([
     ["exo", ["https://exo-jp.net/news/index.php", "exo"]],
     ["generations", ["https://www.generations-ldh.com/sys_inc/newsdat.php?p=0&y=", "generations"]],
@@ -242,9 +242,10 @@ test("existing 13 NEWS configs and all existing artist slugs remain intact", () 
   assert.equal(SITE_CONFIGS.length, 13);
   for (const source of LEGACY_SOURCES) {
     assert.deepEqual([source.newsUrl, source.parserGroup], expected.get(source.artistSlug));
-    assert.equal(source.enabled, true);
+    assert.equal(source.enabled, source.artistSlug !== "be-first");
     assert.equal(SITE_CONFIGS.find((site) => site.artistSlug === source.artistSlug)?.strategy, "special");
   }
+  assert.equal(SITE_CONFIGS.filter((site) => site.enabled).length, 12);
 
   assert.equal(ARTISTS.length, 96);
   assert.equal(new Set(ARTISTS.map((artist) => artist.slug)).size, ARTISTS.length);
