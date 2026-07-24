@@ -10,7 +10,7 @@
 //   - APIキーはHTTPヘッダ(x-goog-api-key)で送る(URLのクエリパラメータには含めない)。
 //   - APIキー・記事本文の値そのものはこのファイルのどこでもログ出力しない。
 //   - 呼び出しは1件ずつ・逐次のみ(並列送信はしない。呼び出し側でも並列化しないこと)。
-//   - maxOutputTokens=512、thinkingBudget=0に固定。
+//   - maxOutputTokens=1024、thinkingBudget=0に固定。
 //   - 429(quota)時は既定でretryOn429:false(自動再試行しない)。quotaMetric/quotaId/
 //     quotaValue/retryDelayを記録してai_status:"quota_exhausted"を返す。
 //   - 有料モデルへの自動フォールバックは実装しない。
@@ -19,7 +19,9 @@ const DEFAULT_MODEL = "gemini-3.1-flash-lite";
 const API_BASE = "https://generativelanguage.googleapis.com/v1beta/models";
 const REQUEST_TIMEOUT_MS = 30000;
 const MAX_BODY_CHARS = 4000;
-const MAX_OUTPUT_TOKENS = 512;
+// 公演日程・会場が多い記事でも、構造化JSONが途中で切れない余裕を持たせる。
+// 入力本文はMAX_BODY_CHARS、実行件数はcrawler側の上限で別途制限している。
+const MAX_OUTPUT_TOKENS = 1024;
 const MAX_RETRY_WAIT_MS = 90000;
 
 export type OfficialNewsCategory = "live" | "ticket" | "release" | "media" | "goods" | "fanclub" | "other";
