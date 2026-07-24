@@ -1,7 +1,7 @@
 // Tier2: CSSセレクタ設定で動く汎用静的HTMLパーサ。
 // フルCSSセレクタ仕様には対応しない(../htmlSelect.tsのコメント参照)。単純な構造の
 // 静的HTMLサイト向け。JS描画(SPA)前提のサイトはこの戦略では取得できない。
-import { fetchWithTimeout, checkRobotsAllowed } from "../httpUtils";
+import { applyUrlRules, fetchWithTimeout, checkRobotsAllowed } from "../httpUtils";
 import { selectAll, selectText, selectAttr, removeSelectors } from "../htmlSelect";
 import { extractArticleFromJsonLd, extractArticleFromOgp } from "./jsonLd";
 import type { SiteConfig, ListFetchResult, CrawledArticle, DetailSelectors } from "../types";
@@ -35,10 +35,12 @@ export async function fetchStaticHtmlList(config: SiteConfig): Promise<ListFetch
     if (!title || !href) continue;
     const dateRaw = sel.date ? selectText(block, sel.date) : null;
 
+    const articleUrl = applyUrlRules(new URL(href, res.url || u.origin).toString(), config.urlRules);
+    if (!articleUrl) continue;
     articles.push({
       title,
       published_date: normalizeDateWithFormat(dateRaw, sel.dateFormat),
-      article_url: new URL(href, u.origin).toString(),
+      article_url: articleUrl,
       body: null,
       thumbnail_url: null,
     });

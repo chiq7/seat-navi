@@ -19,12 +19,39 @@ import {
 } from "./db";
 import { classifyArticleWithGemini } from "./gemini";
 import { mapJsonApiArticles, parseJsonApiPayload } from "./strategies/jsonApi";
+import { extractAutoHtmlArticles } from "./strategies/autoHtml";
 import { LEGACY_SOURCES } from "./legacySites";
 import { selectRoundRobin } from "./roundRobin";
 import type { CrawledArticle, SiteConfig } from "./types";
 import { normalizeOfficialNewsUrl } from "./urlIdentity.mjs";
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
+
+test("auto HTML strategy keeps same-site article links and rejects navigation or external links", () => {
+  const config: SiteConfig = {
+    artistSlug: "sample",
+    artistName: "Sample",
+    officialUrl: "https://www.example.com/news/",
+    newsListUrl: "https://www.example.com/news/",
+    strategy: "auto_html",
+    enabled: true,
+    verificationStatus: "verified",
+  };
+  const articles = extractAutoHtmlArticles(`
+    <a href="/news/">NEWS</a>
+    <a href="/news/detail/123">2026&#x5E74;7&#x6708;24&#x65E5; 新しい公演のお知らせ</a>
+    <a href="https://example.com/information/456?ref=list">追加公演のチケット受付を開始します</a>
+    <a href="https://outside.example/news/789">外部サイトの長いニュースタイトル</a>
+    <a href="/profile">プロフィールを見る</a>
+  `, "https://www.example.com/news/", config);
+
+  assert.deepEqual(articles.map((article) => article.article_url), [
+    "https://www.example.com/news/detail/123",
+    "https://example.com/information/456?ref=list",
+  ]);
+  assert.equal(articles[0].published_date, "2026-07-24");
+  assert.equal(articles[0].title, "2026年7月24日 新しい公演のお知らせ");
+});
 
 test("JSON API strategy parses JSONP and maps nested fields with relative URLs", () => {
   const payload = parseJsonApiPayload(

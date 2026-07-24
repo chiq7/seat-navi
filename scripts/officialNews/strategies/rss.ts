@@ -1,5 +1,5 @@
 // Tier1: RSS / Atom フィード。
-import { fetchWithTimeout, checkRobotsAllowed, stripHtml } from "../httpUtils";
+import { applyUrlRules, fetchWithTimeout, checkRobotsAllowed, stripHtml } from "../httpUtils";
 import type { SiteConfig, ListFetchResult, CrawledArticle } from "../types";
 
 function extractTag(xml: string, tag: string): string | null {
@@ -57,10 +57,19 @@ export async function fetchRss(config: SiteConfig): Promise<ListFetchResult> {
     const description = extractTag(block, "description") ?? extractTag(block, "content") ?? extractTag(block, "summary");
     const enclosureUrl = extractAttr(block, "enclosure", "url") ?? extractAttr(block, "media:content", "url");
 
+    let resolvedLink: string;
+    try {
+      resolvedLink = new URL(link.trim(), feedUrl).toString();
+    } catch {
+      continue;
+    }
+    const articleUrl = applyUrlRules(resolvedLink, config.urlRules);
+    if (!articleUrl) continue;
+
     articles.push({
       title: stripHtml(title) || title.trim(),
       published_date: normalizeDate(rawDate),
-      article_url: link.trim(),
+      article_url: articleUrl,
       body: description ? stripHtml(description) : null,
       thumbnail_url: enclosureUrl,
     });

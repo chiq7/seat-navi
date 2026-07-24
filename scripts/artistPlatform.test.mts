@@ -21,6 +21,7 @@ import {
 import { parseEventTitle } from "@/lib/eventTitle";
 import { toEventRows } from "@/lib/eventCrawler";
 import type { CrawledEvent, OfficialNews } from "@/lib/types";
+import { OFFICIAL_NEWS_AUDIT_COUNTS } from "@/lib/officialNewsRegistry";
 import { LEGACY_SOURCES } from "./officialNews/legacySites";
 import { SITE_CONFIGS, toSiteConfig } from "./officialNews/sites/index";
 import { loadEnvLocal } from "./loadEnvLocal.mjs";
@@ -254,7 +255,7 @@ test("existing 13 NEWS configs remain intact with 12 enabled sites", () => {
   assert.equal(digest, "5308bc07818a827b03178ca4166e5a907eeb49f26fe3d560f2c9ecb51d923a60");
 });
 
-test("new common NEWS configs keep verified sites enabled and robots-blocked NiziU disabled", () => {
+test("all audited NEWS configs keep only verified sites enabled", () => {
   const expected = new Map([
     ["one-ok-rock", "rss"],
     ["aimyon", "static_html"],
@@ -272,8 +273,16 @@ test("new common NEWS configs keep verified sites enabled and robots-blocked Niz
   assert.equal(niziu?.strategy, "json_api");
   assert.equal(niziu?.verificationStatus, "rejected");
   assert.equal(niziu?.enabled, false);
-  assert.equal(SITE_CONFIGS.length, 18);
-  assert.equal(SITE_CONFIGS.filter((site) => site.enabled).length, 16);
+  assert.deepEqual(OFFICIAL_NEWS_AUDIT_COUNTS, {
+    total: 75,
+    verified: 47,
+    robotsBlocked: 12,
+    needsDedicatedParser: 16,
+  });
+  assert.equal(SITE_CONFIGS.length, 93);
+  assert.equal(SITE_CONFIGS.filter((site) => site.enabled).length, 63);
+  assert.equal(SITE_CONFIGS.filter((site) => site.strategy === "auto_html").length, 75);
+  assert.equal(SITE_CONFIGS.filter((site) => site.verificationStatus === "rejected").length, 13);
 });
 
 test("a new common NEWS site is generated from the artist definition without special routing", () => {

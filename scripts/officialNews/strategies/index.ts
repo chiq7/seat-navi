@@ -11,6 +11,7 @@ import { fetchJsonApi } from "./jsonApi";
 import { fetchEmbeddedJson } from "./embeddedJson";
 import { fetchSitemap } from "./sitemap";
 import { fetchStaticHtmlList } from "./staticHtml";
+import { fetchAutoHtmlList } from "./autoHtml";
 
 export type ListFetcher = (config: SiteConfig) => Promise<ListFetchResult>;
 
@@ -23,6 +24,7 @@ export const STRATEGY_REGISTRY: Record<Exclude<SiteConfig["strategy"], "special"
   embedded_json: fetchEmbeddedJson,
   sitemap: fetchSitemap,
   static_html: fetchStaticHtmlList,
+  auto_html: fetchAutoHtmlList,
 };
 
 export { fetchGenericDetail } from "./staticHtml";

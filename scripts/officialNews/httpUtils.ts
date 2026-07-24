@@ -87,6 +87,12 @@ export async function checkRobotsAllowed(origin: string, path: string): Promise<
 
 export function stripHtml(html: string | null | undefined): string {
   if (!html) return "";
+  const decodeNumericEntity = (entity: string, value: string, radix: number): string => {
+    const codePoint = Number.parseInt(value, radix);
+    return Number.isInteger(codePoint) && codePoint >= 0 && codePoint <= 0x10ffff
+      ? String.fromCodePoint(codePoint)
+      : entity;
+  };
   return html
     .replace(/<script[\s\S]*?<\/script>/gi, "")
     .replace(/<style[\s\S]*?<\/style>/gi, "")
@@ -99,6 +105,8 @@ export function stripHtml(html: string | null | undefined): string {
     .replace(/&gt;/g, ">")
     .replace(/&quot;/g, '"')
     .replace(/&#0?39;/g, "'")
+    .replace(/&#x([0-9a-f]+);/gi, (entity, hex: string) => decodeNumericEntity(entity, hex, 16))
+    .replace(/&#(\d+);/g, (entity, decimal: string) => decodeNumericEntity(entity, decimal, 10))
     .replace(/\n{3,}/g, "\n\n")
     .trim();
 }

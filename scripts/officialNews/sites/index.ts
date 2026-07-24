@@ -43,6 +43,7 @@ export function toSiteConfig(artist: Artist): SiteConfig | null {
     detailSelectors: news.detailSelectors,
     pagination: news.pagination,
     urlRules: news.urlRules,
+    articleRules: news.articleRules,
     cmsGroup: news.cmsGroup,
   };
 }

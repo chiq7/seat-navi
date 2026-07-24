@@ -24,7 +24,7 @@ npm run backfill:event-artists
 
 ## 5. 公式ニュース設定
 
-同じアーティスト定義の `officialNews` に `newsUrl`, 共通 `strategy`, `verificationStatus`, `enabled`, `notes` とstrategy固有設定を追加します。公式表記だけページ名と異なる場合は `artistName` も指定します。新規サイトは `rss` / `wordpress` / `json_api` / `embedded_json` / `sitemap` / `static_html` の共通strategyを優先し、共通化できない特殊サイトだけ `parserGroup` を指定します。既存13組はspecial parserを維持します。表示側のslug allowlist追加は不要です。NEWSが0件でも `/artists/<slug>/news` は空状態で表示されます。
+同じアーティスト定義の `officialNews` に `newsUrl`, 共通 `strategy`, `verificationStatus`, `enabled`, `notes` とstrategy固有設定を追加します。全件監査でまとめて管理する設定は `src/lib/officialNewsRegistry.ts` に追加し、アーティスト定義へ自動統合します。公式表記だけページ名と異なる場合は `artistName` も指定します。新規サイトは `rss` / `wordpress` / `json_api` / `embedded_json` / `sitemap` / `static_html` / `auto_html` の共通strategyを優先し、共通化できない特殊サイトだけ `parserGroup` を指定します。既存13組はspecial parserを維持します。共有NEWSサイトでは `articleRules.includeAny` で対象アーティストの記事だけに限定します。表示側のslug allowlist追加は不要です。NEWSが0件でも `/artists/<slug>/news` は空状態で表示されます。
 
 ## 6. 自動更新される項目
 

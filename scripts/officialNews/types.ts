@@ -9,7 +9,7 @@
 //   Tier3 (special):
 //     既存13組の7パーサグループ(legacySites.ts)。無理に汎用化せずそのまま再利用する。
 //
-// 新規82組は基本的にTier1→Tier2の順で追加し、どうしても合わない場合のみTier3(専用実装)を書く。
+// 新規サイトは基本的にTier1→Tier2の順で追加し、どうしても合わない場合のみTier3(専用実装)を書く。
 
 // 注: "json_ld" は一覧取得の主strategyとしては未サポート(strategies/index.tsの
 // STRATEGY_REGISTRYに未登録)。JSON-LD/OGPは詳細ページの補完抽出
@@ -23,6 +23,7 @@ export type CrawlStrategy =
   | "sitemap"
   | "json_ld"
   | "static_html"
+  | "auto_html"
   | "special";
 
 /** Tier2 (static_html) の一覧ページ用CSSセレクタ設定。 */
@@ -84,6 +85,13 @@ export type UrlRules = {
   };
 };
 
+export type ArticleRules = {
+  /** タイトル・本文・URLのいずれかに、少なくとも1語を含む記事だけを残す。 */
+  includeAny?: string[];
+  /** タイトル・本文・URLのいずれかに含まれる場合は除外する。 */
+  excludeAny?: string[];
+};
+
 export type VerificationStatus = "unverified" | "candidate" | "verified" | "rejected";
 
 export type SiteConfig = {
@@ -106,6 +114,7 @@ export type SiteConfig = {
   detailSelectors?: DetailSelectors;
   pagination?: PaginationConfig;
   urlRules?: UrlRules;
+  articleRules?: ArticleRules;
 
   enabled: boolean;
   /** strategy==="special" の場合のみ使用。legacySites.tsのparserGroup名。 */
@@ -136,7 +145,7 @@ export type ListFetchResult = {
  * 自身のフィールドで上書きできる(例: 同じCSSセレクタ構造を使う複数アーティスト)。 */
 export const CMS_GROUPS: Record<string, Partial<SiteConfig>> = {
   // 例: 将来「XXXテンプレート系」が複数アーティストで見つかった場合にここへ追加する。
-  // asobisystem/laponeは13組側で既にspecial扱いのため、ここでは新規82組向けの
+  // asobisystem/laponeは13組側で既にspecial扱いのため、ここでは新規サイト向けの
   // 汎用Tier1/Tier2グループのみを登録していく想定。
 };
 

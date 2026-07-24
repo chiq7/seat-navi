@@ -1,6 +1,6 @@
 // Tier1: WordPress REST API (/wp-json/wp/v2/posts)。
 // 既存13組のうち universal-music-wp / fujiikaze も実質同じ仕組みだが、それらは
-// legacySites.ts側でspecial扱いのまま維持する(このファイルは新規82組向けの汎用版)。
+// legacySites.ts側でspecial扱いのまま維持する(このファイルは新規サイト向けの汎用版)。
 import { fetchWithTimeout, checkRobotsAllowed, stripHtml } from "../httpUtils";
 import type { SiteConfig, ListFetchResult, CrawledArticle } from "../types";
 

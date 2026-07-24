@@ -1,5 +1,6 @@
 import type { CrawledEvent } from "./types";
 import { keywordMatchesTitle } from "./keywordMatch";
+import { DISCOVERED_OFFICIAL_NEWS_CONFIGS } from "./officialNewsRegistry";
 
 export type Artist = {
   slug: string;
@@ -33,10 +34,10 @@ export type OfficialNewsConfig = OfficialNewsBaseConfig & (
     }
   | {
       /** 新規サイトは原則としてこちらの共通strategyを使用する。 */
-      strategy: "rss" | "wordpress" | "json_api" | "embedded_json" | "sitemap" | "static_html";
+      strategy: "rss" | "wordpress" | "json_api" | "embedded_json" | "sitemap" | "static_html" | "auto_html";
       parserGroup?: never;
       verificationStatus: "unverified" | "candidate" | "verified" | "rejected";
-      strategyPriority?: Array<"rss" | "wordpress" | "json_api" | "embedded_json" | "sitemap" | "static_html">;
+      strategyPriority?: Array<"rss" | "wordpress" | "json_api" | "embedded_json" | "sitemap" | "static_html" | "auto_html">;
       crawlDelayMs?: number;
       rssUrl?: string;
       wordpressApiUrl?: string;
@@ -80,13 +81,17 @@ export type OfficialNewsConfig = OfficialNewsBaseConfig & (
           forceHttps?: boolean;
         };
       };
+      articleRules?: {
+        includeAny?: string[];
+        excludeAny?: string[];
+      };
       cmsGroup?: string;
     }
 );
 
 const DESC = "\u5ea7\u5e2d\u4e88\u60f3\u3001\u5f53\u9078\u7387\u3001\u73fe\u5730\u30ec\u30dd\u3001\u30bb\u30c8\u30ea\u3092\u307e\u3068\u3081\u3066\u3044\u307e\u3059\u3002";
 
-export const ARTISTS: Artist[] = [
+const ARTIST_DEFINITIONS: Artist[] = [
   {
     slug: "nogizaka46",
     name: "\u4e43\u6728\u574246",
@@ -1330,6 +1335,12 @@ export const ARTISTS: Artist[] = [
     accentDark: "#4b5563",
   },
 ];
+
+/** 個別に手書き済みの設定を優先し、全件監査レジストリを未設定アーティストへ統合する。 */
+export const ARTISTS: Artist[] = ARTIST_DEFINITIONS.map((artist) => ({
+  ...artist,
+  officialNews: artist.officialNews ?? DISCOVERED_OFFICIAL_NEWS_CONFIGS[artist.slug],
+}));
 
 export function findArtistBySlug(slug: string): Artist | undefined {
   return ARTISTS.find((a) => a.slug === slug);
