@@ -7,6 +7,7 @@ import {
   extractArticleLinkCandidates,
   extractRssLinks,
   extractScriptEndpointCandidates,
+  extractScriptRouteFragments,
 } from "../discoverOfficialNewsSite.mjs";
 import { getByPath } from "./strategies/embeddedJson.ts";
 import { selectAllOuter, selectAttr, selectText } from "./htmlSelect.ts";
@@ -79,6 +80,11 @@ test("Discovery extracts only news-like public endpoint strings from site script
     "https://cms.example.com/contents/posts",
     "https://example.com/api/news?limit=20",
   ]);
+});
+
+test("Discovery keeps concatenated news route fragments for manual API confirmation", () => {
+  const script = `const base="artists/"; const route="/news/"; const image="/contents/logo.svg";`;
+  assert.deepEqual(extractScriptRouteFragments(script), ["artists/", "/news/"]);
 });
 
 test("Discovery article candidates require article signals and remain same-site", () => {

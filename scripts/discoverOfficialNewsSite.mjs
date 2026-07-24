@@ -214,6 +214,20 @@ export function extractScriptEndpointCandidates(script, scriptUrl) {
   return endpoints;
 }
 
+export function extractScriptRouteFragments(script) {
+  const decoded = script.replace(/\\\//g, "/");
+  const fragments = [];
+  for (const match of decoded.matchAll(/["'`]([^"'`\s]{2,200})["'`]/g)) {
+    const value = match[1];
+    if (value.length > 160 || !/^(?:https?:\/\/|\/|[A-Za-z0-9_-]+\/)/.test(value)) continue;
+    if (!/(?:news|info(?:rmation)?|posts?|artists?|contents?)/i.test(value)) continue;
+    if (/\.(?:png|jpe?g|gif|svg|webp|css|woff2?)(?:[?#]|$)/i.test(value)) continue;
+    if (!fragments.includes(value)) fragments.push(value);
+    if (fragments.length >= 80) break;
+  }
+  return fragments;
+}
+
 function extractInlineScriptText(html) {
   return [...html.matchAll(/<script\b(?![^>]*\bsrc\s*=)[^>]*>([\s\S]*?)<\/script>/gi)]
     .map((match) => match[1])
@@ -424,6 +438,7 @@ export async function discoverOfficialNewsSite(targetUrl, options = {}) {
   const embeddedJsonArrays = mainHtml ? discoverEmbeddedJsonArrays(mainHtml) : [];
   const markupDiagnostics = mainHtml ? extractMarkupDiagnostics(mainHtml, targetUrl) : { dateContexts: [], scriptSources: [] };
   const scriptApiCandidates = [];
+  const scriptRouteFragments = [];
   if (mainHtml) {
     const inlineEndpoints = extractScriptEndpointCandidates(extractInlineScriptText(mainHtml), targetUrl);
     if (inlineEndpoints.length > 0) scriptApiCandidates.push({ scriptUrl: `${targetUrl}#inline`, endpoints: inlineEndpoints });
@@ -437,6 +452,8 @@ export async function discoverOfficialNewsSite(targetUrl, options = {}) {
       if (!response.ok || !response.text) continue;
       const endpoints = extractScriptEndpointCandidates(response.text, scriptUrl);
       if (endpoints.length > 0) scriptApiCandidates.push({ scriptUrl, endpoints });
+      const fragments = extractScriptRouteFragments(response.text);
+      if (fragments.length > 0) scriptRouteFragments.push({ scriptUrl, fragments });
     }
   }
   const publicEndpointProbes = [];
@@ -525,6 +542,7 @@ export async function discoverOfficialNewsSite(targetUrl, options = {}) {
   probes.no_articles = { detected: noArticlesDetected };
   probes.markup_diagnostics = markupDiagnostics;
   probes.script_api_candidates = scriptApiCandidates;
+  probes.script_route_fragments = scriptRouteFragments;
   probes.public_endpoint_probes = publicEndpointProbes;
   probes.js_rendering = jsRendering;
 
