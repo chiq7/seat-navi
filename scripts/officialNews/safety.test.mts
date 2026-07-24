@@ -16,6 +16,7 @@ import {
   countExistingArticlesByArtist,
   isPersistableAiStatus,
   loadExistingArticleKeys,
+  sanitizePostgresText,
   upsertOfficialNewsArticle,
 } from "./db";
 import { classifyArticleWithGemini } from "./gemini";
@@ -520,6 +521,11 @@ test("existing article counts support fair backfill ordering", () => {
     "invalid-key-without-separator",
   ]));
   assert.deepEqual(Object.fromEntries(counts), { "artist-a": 2, "artist-b": 1 });
+});
+
+test("database text sanitizer removes PostgreSQL-incompatible NUL characters", () => {
+  assert.equal(sanitizePostgresText("本文\u0000続き"), "本文続き");
+  assert.equal(sanitizePostgresText(null), null);
 });
 
 test("public view excludes article_body and base table grants are revoked", () => {

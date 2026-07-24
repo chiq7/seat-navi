@@ -33,6 +33,12 @@ export function isPersistableAiStatus(status: string): status is "classified" {
   return status === "classified";
 }
 
+/** PostgreSQL text/jsonbが受け付けないNULを公式サイト由来文字列から除去する。 */
+export function sanitizePostgresText(value: string | null | undefined): string | null {
+  if (value == null) return null;
+  return value.replace(/\u0000/g, "");
+}
+
 export async function loadExistingArticleKeys(client: SupabaseClient): Promise<Set<string>> {
   const { data, error } = await client
     .from("official_news")

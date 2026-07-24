@@ -21,6 +21,7 @@ import {
   countExistingArticlesByArtist,
   isPersistableAiStatus,
   loadExistingArticleKeys,
+  sanitizePostgresText,
   upsertOfficialNewsArticle,
   type OfficialNewsWriteRow,
 } from "./officialNews/db";
@@ -183,22 +184,22 @@ function toWriteRow(
 ): OfficialNewsWriteRow {
   return {
     artist_slug: artistSlug,
-    article_title: article.title,
+    article_title: sanitizePostgresText(article.title),
     article_url: article.article_url,
     published_date: article.published_date,
-    article_body: body,
-    thumbnail_url: thumbnail,
+    article_body: sanitizePostgresText(body),
+    thumbnail_url: sanitizePostgresText(thumbnail),
     category: ai.category,
     is_event_candidate: ai.is_event_candidate,
-    event_name: ai.event_name,
-    tour_name: ai.tour_name,
-    event_dates: ai.event_dates ?? [],
-    venue_names: ai.venue_names ?? [],
+    event_name: sanitizePostgresText(ai.event_name),
+    tour_name: sanitizePostgresText(ai.tour_name),
+    event_dates: (ai.event_dates ?? []).map((value) => sanitizePostgresText(value) ?? ""),
+    venue_names: (ai.venue_names ?? []).map((value) => sanitizePostgresText(value) ?? ""),
     ticket_sale_start: ai.ticket_sale_start,
     ticket_sale_end: ai.ticket_sale_end,
     confidence: ai.confidence,
     needs_review: ai.needs_review,
-    review_reason: ai.review_reason,
+    review_reason: sanitizePostgresText(ai.review_reason),
     fetched_at: new Date().toISOString(),
   };
 }

@@ -112,6 +112,10 @@ type GenericOfficialNewsConfig = Extract<OfficialNewsConfig, { strategy: string 
 
 /** Discovery後に共通strategyで実URL・構造まで確認できたサイトの上書き設定。 */
 const DEDICATED_CONFIGS: Record<string, Partial<GenericOfficialNewsConfig>> = {
+  "equal-love": {
+    urlRules: { allow: ["^https://equal-love\\.jp/news/detail/\\d+(?:[/?#]|$)"] },
+    notes: "2026-07-24 公開NEWSから記事詳細URLのみを取得するよう安全フィルターを確認済み。",
+  },
   "stray-kids": {
     notes: "2026-07-24 一覧HTMLは空で、Sony Music共通JSによる描画を確認。公式側の安定した記事URL/APIを確定できるまで無効。",
   },
