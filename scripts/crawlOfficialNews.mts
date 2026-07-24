@@ -365,6 +365,7 @@ export async function runCrawler(
       const { config, needsDetailFetch } = state.site;
       let body = article.body;
       let thumbnail = article.thumbnail_url;
+      let publishedDate = article.published_date;
       let detailFetchFailed = false;
 
       if (needsDetailFetch) {
@@ -373,6 +374,7 @@ export async function runCrawler(
           if (detail.success) {
             body = detail.body;
             thumbnail = detail.thumbnail ?? thumbnail;
+            publishedDate = publishedDate ?? detail.publishedDate;
           } else {
             body = null;
             detailFetchFailed = true;
@@ -394,6 +396,9 @@ export async function runCrawler(
         ai_status: "not_requested",
         db_status: "skipped",
       };
+      const enrichedArticle = publishedDate === article.published_date
+        ? article
+        : { ...article, published_date: publishedDate };
 
       if (!args.classify) {
         articleReport.ai_status = "not_requested";
@@ -410,7 +415,7 @@ export async function runCrawler(
           const ai = await deps.classify({
             artist_name: config.artistName,
             article_title: article.title,
-            published_date: article.published_date,
+            published_date: enrichedArticle.published_date,
             article_body: body,
             article_url: article.article_url,
           });
@@ -420,7 +425,7 @@ export async function runCrawler(
             if (args.execute && supabase) {
               const dbResult = await deps.upsert(
                 supabase,
-                toWriteRow(config.artistSlug, article, body, thumbnail, ai),
+                toWriteRow(config.artistSlug, enrichedArticle, body, thumbnail, ai),
               );
               if (dbResult.ok) {
                 articleReport.db_status = "success";

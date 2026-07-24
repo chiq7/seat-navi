@@ -12,7 +12,8 @@
 - アーティスト基本情報の正本は `src/lib/artists.ts` の `ARTISTS`。`slug`, `name`, `genre`, `description`, `keywords`, 表示色、任意の `heroImage`, 任意の `officialNews` をここで管理する。
 - 公演取得は `vercel.json` の `/api/cron/fetch-events` をVercel Cronから週1回実行する。公式NEWSはこの経路では実行しない。
 - 公式NEWS取得は `.github/workflows/official-news.yml` から `scripts/crawlOfficialNews.mts` を実行する。同一処理のVercel Cronルートは存在しない。
-- 取得確認済みの既存13組は、従来の7 parserGroupを `special` strategyとして維持する。URL・parserGroup・enabledは `artists.ts` の定義から生成する。
+- 取得確認済みの旧13組は、従来の7 parserGroupを `special` strategyとして維持する。URL・parserGroup・enabledは `artists.ts` の定義から生成する。
+- ローカルではONE OK ROCKを `rss`、あいみょん・back number・Mrs. GREEN APPLEを `static_html` の共通strategyで追加検証済み。旧special parserには混ぜない。
 - 新規公式NEWSサイトは `rss`, `wordpress`, `json_api`, `embedded_json`, `sitemap`, `static_html` の共通strategyを優先し、共通化できない特殊サイトだけspecial parserを追加する。
 - 表示側に公式NEWS用slug allowlistは置かない。`artists.ts` に登録済みならNEWS一覧ページを表示でき、0件なら空状態にする。
 
@@ -83,7 +84,8 @@ UGCが0件の場合、各セクションは架空値や0%を作らず、投稿�
 ## 6. 未実施・未対応
 
 - `events.artist_slug is null` の既存公演backfillは21件を本番更新済み。更新後のdry-runは `matched=0 / ambiguous=0`。`npm run backfill:event-artists` は引数なしでは引き続きdry-runとして動作する。
-- 既存13組以外の残り82組の公式NEWS設定は未対応。既存の `test` 定義はこの82組の対象外。
+- 旧13組以外の82組のうち、ONE OK ROCK、あいみょん、back number、Mrs. GREEN APPLEの4組はローカル取得検証済みで、本番反映前。NiziUはデータ元Sony Music、日向坂46・櫻坂46は各公式サイトのrobots.txtがAI crawlerを禁止するため有効化しない。残り未調査は75組。既存の `test` 定義はこの集計の対象外。
+- 共通JSON API strategyはJSONP、入れ子フィールド、相対URLに対応したが、robots.txt禁止を回避するためには使わない。static HTML一覧で年が省略される場合は、詳細ページの公開日で補完する。
 - BE:FIRSTはローカル取得に成功するがGitHub RunnerからHTTP 403となるため、公式NEWS取得だけ一時無効。アーティストページと公演機能は有効のまま。
 - `official_news_crawl_runs` のmigration、migration baseline整理、032適用は未実施。
 - 複数候補へ一致する公演の手動確認、新規公式NEWSサイトの初回strategy検証、UGC投稿は引き続き人の操作が必要。

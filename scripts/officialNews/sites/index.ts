@@ -4,7 +4,8 @@
 // 新規アーティストを追加する手順:
 //   1. node scripts/discoverOfficialNewsSite.mjs <公式NEWS URL> で調査
 //   2. 出力されたJSONレポートの推奨strategy・セレクタ候補を確認
-//   3. node scripts/validateOfficialNewsConfig.mjs <config> で検証(合格/要確認/不合格)
+//   3. node --experimental-strip-types --import ./scripts/ts-loader.mjs
+//        ./scripts/validateOfficialNewsConfig.mts <config> で検証(合格/要確認/不合格)
 //   4. 合格したら、src/lib/artists.ts の対象artistへofficialNews設定を追加
 //   5. 要確認/不合格の場合は enabled:false のまま、人間が内容を確認してから有効化する
 import { ARTISTS, type Artist } from "@/lib/artists";

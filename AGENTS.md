@@ -46,7 +46,8 @@
 ## 公式NEWSの現在方針
 
 - BE:FIRSTのGitHub Runner上のHTTP 403調査は後回し。公式NEWS取得だけを一時無効化し、アーティストページや公演機能には影響させない。
-- 既存の成功済み12組を優先し、残り約82組の追加には着手しない。
+- 本番成功済み12組を維持する。ローカルではONE OK ROCK、あいみょん、back number、Mrs. GREEN APPLEの4組を検証済みで、push・GitHub Actions・本番保存はユーザー確認後に行う。
+- 未調査は残り75組。robots.txt禁止サイトを無理に回避せず、許可サイトを少数ずつ追加する。
 - 1サイト・1記事の失敗で全体を止めず、失敗内容はレポートに残す。DBエラーは成功扱いにしない。
 - 1回の新規処理上限は15件。上限超過分を `limit_deferred` として次回へ繰り越すのは意図した仕様。
 - 再実行の重複判定は `(artist_slug, normalized_article_url)` を基準にする。繰越中の別記事追加と、同一記事の重複追加を混同しない。
@@ -55,6 +56,7 @@
 ## 当面の対象外
 
 - BE:FIRSTの403調査
+- NiziU、日向坂46、櫻坂46などrobots.txtがAI crawlerを禁止している公式NEWSサイトの回避実装
 - migration baseline整理、032適用、crawl_runs用migration適用
 - 重複公演のマージ、testデータ削除
 - ヒーロー画像の追加作成、座席予想・現地レポ詳細UIの変更

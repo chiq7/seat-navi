@@ -18,12 +18,44 @@ import {
   upsertOfficialNewsArticle,
 } from "./db";
 import { classifyArticleWithGemini } from "./gemini";
+import { mapJsonApiArticles, parseJsonApiPayload } from "./strategies/jsonApi";
 import { LEGACY_SOURCES } from "./legacySites";
 import { selectRoundRobin } from "./roundRobin";
 import type { CrawledArticle, SiteConfig } from "./types";
 import { normalizeOfficialNewsUrl } from "./urlIdentity.mjs";
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
+
+test("JSON API strategy parses JSONP and maps nested fields with relative URLs", () => {
+  const payload = parseJsonApiPayload(
+    'callback({"items":[{"title":"<b>NEWS</b>","date":"2026.7.3","link":"/artist/sample/info/1","article":"<p>本文</p>","images":{"image":"/images/1.jpg"}}]});',
+    "jsonp",
+  );
+  const articles = mapJsonApiArticles(
+    payload,
+    {
+      url: "https://api.example.com/news",
+      responseFormat: "jsonp",
+      itemsPath: "items",
+      titleField: "title",
+      urlField: "link",
+      dateField: "date",
+      bodyField: "article",
+      thumbnailField: "images.image",
+      articleUrlBase: "https://www.example.com",
+    },
+    "https://official.example.com/news",
+    { allow: ["^https://www\\.example\\.com/artist/sample/info/"] },
+  );
+
+  assert.deepEqual(articles, [{
+    title: "NEWS",
+    published_date: "2026-07-03",
+    article_url: "https://www.example.com/artist/sample/info/1",
+    body: "本文",
+    thumbnail_url: "https://www.example.com/images/1.jpg",
+  }]);
+});
 
 test("no arguments is dry-run with Gemini disabled", () => {
   const args = parseCrawlerArgs([]);
@@ -126,6 +158,32 @@ test("crawler mode matrix controls Gemini and Supabase calls", async () => {
     1,
   );
   assert.deepEqual(missingEnvCounters, { gemini: 0, supabase: 0 });
+});
+
+test("detail page date fills a missing list date before classification", async () => {
+  const capturedDates: Array<string | null> = [];
+  const deps = offlineCrawlerDeps({ gemini: 0, supabase: 0 });
+  deps.fetchList = async () => ({
+    method: "static_html",
+    robots: { allowed: true, crawlDelay: 0, reason: "fixture" },
+    articles: [{ ...fixtureArticle("artist-a"), published_date: null, body: null }],
+    needsDetailFetch: true,
+  });
+  deps.fetchDetail = async () => ({
+    success: true,
+    title: "Fixture detail",
+    publishedDate: "2026-07-24",
+    thumbnail: null,
+    body: "fixture detail body",
+    crawlDelay: 0,
+  });
+  deps.classify = async (input) => {
+    capturedDates.push(input.published_date);
+    return classifiedResult;
+  };
+
+  assert.equal(await runCrawler(["--dry-run", "--classify"], deps), 0);
+  assert.deepEqual(capturedDates, ["2026-07-24"]);
 });
 
 test("round-robin gives every site a turn before second items and reallocates empty capacity", () => {

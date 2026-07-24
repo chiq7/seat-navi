@@ -238,19 +238,42 @@ test("existing 13 NEWS configs remain intact with 12 enabled sites", () => {
     ["ini", ["https://ini-official.com/news/1", "lapone"]],
     ["zerobaseone", ["https://zerobaseone.jp/news/list/1/3/", "lapone"]],
   ]);
+  const legacySiteConfigs = SITE_CONFIGS.filter((site) => site.strategy === "special");
   assert.equal(LEGACY_SOURCES.length, 13);
-  assert.equal(SITE_CONFIGS.length, 13);
+  assert.equal(legacySiteConfigs.length, 13);
   for (const source of LEGACY_SOURCES) {
     assert.deepEqual([source.newsUrl, source.parserGroup], expected.get(source.artistSlug));
     assert.equal(source.enabled, source.artistSlug !== "be-first");
     assert.equal(SITE_CONFIGS.find((site) => site.artistSlug === source.artistSlug)?.strategy, "special");
   }
-  assert.equal(SITE_CONFIGS.filter((site) => site.enabled).length, 12);
+  assert.equal(legacySiteConfigs.filter((site) => site.enabled).length, 12);
 
   assert.equal(ARTISTS.length, 96);
   assert.equal(new Set(ARTISTS.map((artist) => artist.slug)).size, ARTISTS.length);
   const digest = crypto.createHash("sha256").update(ARTISTS.map((artist) => artist.slug).join("\n")).digest("hex");
   assert.equal(digest, "5308bc07818a827b03178ca4166e5a907eeb49f26fe3d560f2c9ecb51d923a60");
+});
+
+test("new common NEWS configs keep verified sites enabled and robots-blocked NiziU disabled", () => {
+  const expected = new Map([
+    ["one-ok-rock", "rss"],
+    ["aimyon", "static_html"],
+    ["back-number", "static_html"],
+    ["mrs-green-apple", "static_html"],
+  ]);
+  for (const [slug, strategy] of expected) {
+    const site = SITE_CONFIGS.find((candidate) => candidate.artistSlug === slug);
+    assert.equal(site?.strategy, strategy);
+    assert.equal(site?.verificationStatus, "verified");
+    assert.equal(site?.enabled, true);
+  }
+
+  const niziu = SITE_CONFIGS.find((site) => site.artistSlug === "niziu");
+  assert.equal(niziu?.strategy, "json_api");
+  assert.equal(niziu?.verificationStatus, "rejected");
+  assert.equal(niziu?.enabled, false);
+  assert.equal(SITE_CONFIGS.length, 18);
+  assert.equal(SITE_CONFIGS.filter((site) => site.enabled).length, 16);
 });
 
 test("a new common NEWS site is generated from the artist definition without special routing", () => {

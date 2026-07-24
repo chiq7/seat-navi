@@ -53,6 +53,8 @@ export type DetailSelectors = {
 /** Tier1 (json_api) 向けの一般化されたJSON API設定。 */
 export type JsonApiConfig = {
   url: string;
+  /** APIレスポンス形式。Sony Music等のcallback({...})はjsonpを指定する。 */
+  responseFormat?: "json" | "jsonp";
   /** レスポンス内の記事配列へのパス(ドット区切り、例: "data.posts") 。省略時はレスポンス自体が配列。 */
   itemsPath?: string;
   titleField: string;
@@ -60,6 +62,8 @@ export type JsonApiConfig = {
   dateField?: string;
   bodyField?: string;
   thumbnailField?: string;
+  /** urlFieldが相対URLを返す場合の解決基準。省略時はofficialUrlを使用する。 */
+  articleUrlBase?: string;
 };
 
 export type PaginationConfig = {

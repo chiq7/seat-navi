@@ -42,12 +42,14 @@ export type OfficialNewsConfig = OfficialNewsBaseConfig & (
       wordpressApiUrl?: string;
       jsonApi?: {
         url: string;
+        responseFormat?: "json" | "jsonp";
         itemsPath?: string;
         titleField: string;
         urlField: string;
         dateField?: string;
         bodyField?: string;
         thumbnailField?: string;
+        articleUrlBase?: string;
       };
       listSelectors?: {
         item: string;
@@ -117,6 +119,28 @@ export const ARTISTS: Artist[] = [
     grad: "from-sky-300 to-cyan-500",
     accentColor: "#0891b2",
     accentDark: "#0e7490",
+    officialNews: {
+      newsUrl: "https://niziu.com/s/n123/page/news",
+      enabled: false,
+      notes: "NiziU公式サイトのデータ元Sony MusicがAI crawlerをrobots.txtで全域禁止しているため無効。ファンクラブNEWSは対象外。",
+      strategy: "json_api",
+      verificationStatus: "rejected",
+      jsonApi: {
+        url: "https://www.sonymusic.co.jp/json/v2/artist/niziu/information/start/0/count/30",
+        responseFormat: "jsonp",
+        itemsPath: "items",
+        titleField: "title",
+        urlField: "link",
+        dateField: "date",
+        bodyField: "article",
+        thumbnailField: "images.image",
+        articleUrlBase: "https://www.sonymusic.co.jp",
+      },
+      urlRules: {
+        allow: ["^https://www\\.sonymusic\\.co\\.jp/artist/niziu/info/"],
+        normalize: { stripQuery: true, forceHttps: true },
+      },
+    },
   },
   {
     slug: "hinatazaka46",
@@ -910,6 +934,18 @@ export const ARTISTS: Artist[] = [
     grad: "from-slate-300 to-slate-500",
     accentColor: "#64748b",
     accentDark: "#475569",
+    officialNews: {
+      newsUrl: "https://www.oneokrock.com/jp/news/",
+      enabled: true,
+      notes: "日本語公式NEWSのWordPress RSSを取得。",
+      strategy: "rss",
+      verificationStatus: "verified",
+      rssUrl: "https://www.oneokrock.com/jp/news/feed/",
+      urlRules: {
+        allow: ["^https://www\\.oneokrock\\.com/jp/news/"],
+        normalize: { stripQuery: true, stripTrailingSlash: true, forceHttps: true },
+      },
+    },
   },
   {
     slug: "back-number",
@@ -921,6 +957,31 @@ export const ARTISTS: Artist[] = [
     grad: "from-slate-300 to-slate-500",
     accentColor: "#64748b",
     accentDark: "#475569",
+    officialNews: {
+      newsUrl: "https://backnumber.info/news/list/6",
+      enabled: true,
+      notes: "公開NEWS一覧と詳細本文を静的HTMLから取得。本文中の問い合わせ案内は正規記事内容。",
+      strategy: "static_html",
+      verificationStatus: "verified",
+      listSelectors: {
+        item: ".block--list .list--information li",
+        link: "a",
+        title: ".tit",
+        date: ".date",
+        dateFormat: "YYYY.MM.DD",
+      },
+      detailSelectors: {
+        title: ".section--detail .tit",
+        body: ".section--detail .txt",
+        date: ".section--detail .date",
+        dateFormat: "YYYY.MM.DD",
+        exclude: [".block--share", ".detail__btn"],
+      },
+      urlRules: {
+        allow: ["^https://backnumber\\.info/news/detail/"],
+        normalize: { stripQuery: true, forceHttps: true },
+      },
+    },
   },
   {
     slug: "mrs-green-apple",
@@ -932,6 +993,29 @@ export const ARTISTS: Artist[] = [
     grad: "from-slate-300 to-slate-500",
     accentColor: "#64748b",
     accentDark: "#475569",
+    officialNews: {
+      newsUrl: "https://mrsgreenapple.com/news/1/",
+      enabled: true,
+      notes: "公開NEWS一覧と詳細本文を静的HTMLから取得。一覧日付は月日のみのため詳細日付で補完する。",
+      strategy: "static_html",
+      verificationStatus: "verified",
+      listSelectors: {
+        item: ".block--list .list--information li",
+        link: "a",
+        title: ".tit",
+      },
+      detailSelectors: {
+        title: ".section--detail .tit",
+        body: ".section--detail .txt",
+        date: ".section--detail .date",
+        dateFormat: "YYYY.MM.DD",
+        exclude: [".block--share", ".detail__btn"],
+      },
+      urlRules: {
+        allow: ["^https://mrsgreenapple\\.com/news/detail/"],
+        normalize: { stripQuery: true, forceHttps: true },
+      },
+    },
   },
   {
     slug: "yuzu",
@@ -965,6 +1049,31 @@ export const ARTISTS: Artist[] = [
     grad: "from-slate-300 to-slate-500",
     accentColor: "#64748b",
     accentDark: "#475569",
+    officialNews: {
+      newsUrl: "https://www.aimyong.net/news/1/",
+      enabled: true,
+      notes: "公開NEWS一覧と詳細本文を静的HTMLから取得。",
+      strategy: "static_html",
+      verificationStatus: "verified",
+      listSelectors: {
+        item: ".section--list .list--information li",
+        link: "a",
+        title: ".tit",
+        date: ".date",
+        dateFormat: "YYYY.MM.DD",
+      },
+      detailSelectors: {
+        title: ".section--detail .tit",
+        body: ".section--detail .txt",
+        date: ".section--detail .date",
+        dateFormat: "YYYY.MM.DD",
+        exclude: [".block--share", ".detail__btn"],
+      },
+      urlRules: {
+        allow: ["^https://www\\.aimyong\\.net/news/detail/"],
+        normalize: { stripQuery: true, forceHttps: true },
+      },
+    },
   },
   {
     slug: "and2ble",

@@ -13,13 +13,14 @@
 //   - ブラウザ実行・Playwrightは使わない(HTMLの静的取得のみ)。
 //   - 本番設定(sites/index.ts)への自動反映は一切行わない。結果はJSONレポートに保存するのみ。
 //   - このツールは候補を提示するだけで、有効化の判断は人間が行う
-//     (scripts/validateOfficialNewsConfig.mjs で検証してから、手動でsites/index.tsへ追加する)。
+//     (scripts/validateOfficialNewsConfig.mts で検証してから、手動でartists.tsへ追加する)。
 
 import fs from "fs";
 import path from "path";
 
 const UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
+const RELEVANT_ROBOTS_AGENTS = new Set(["*", "claudebot", "claude-web", "claude-searchbot", "anthropic-ai"]);
 
 async function fetchSafe(url, timeoutMs = 10000) {
   const controller = new AbortController();
@@ -36,13 +37,13 @@ async function fetchSafe(url, timeoutMs = 10000) {
 
 async function checkRobots(origin) {
   const res = await fetchSafe(new URL("/robots.txt", origin).toString());
-  if (!res.ok) return { exists: false, disallowAll: false, crawlDelay: 0, sitemaps: [] };
+  if (!res.ok) return { exists: false, ruleGroups: [], crawlDelay: 0, sitemaps: [] };
 
   const lines = (res.text || "").split(/\r?\n/);
-  let collecting = false;
-  const disallow = [];
+  const groups = [];
+  let current = null;
+  let ruleSeenSinceAgent = false;
   const sitemaps = [];
-  let crawlDelay = 0;
   for (const raw of lines) {
     const line = raw.split("#")[0].trim();
     if (!line) continue;
@@ -51,21 +52,41 @@ async function checkRobots(origin) {
     const key = line.slice(0, idx).trim().toLowerCase();
     const value = line.slice(idx + 1).trim();
     if (key === "user-agent") {
-      collecting = value === "*";
-    } else if (key === "disallow" && collecting) {
-      if (value) disallow.push(value);
-    } else if (key === "crawl-delay" && collecting) {
+      if (!current || ruleSeenSinceAgent) {
+        current = { agents: [], rules: [], crawlDelay: 0 };
+        groups.push(current);
+        ruleSeenSinceAgent = false;
+      }
+      current.agents.push(value.toLowerCase());
+    } else if ((key === "disallow" || key === "allow") && current) {
+      if (value) current.rules.push({ type: key, path: value });
+      ruleSeenSinceAgent = true;
+    } else if (key === "crawl-delay" && current) {
       const n = parseFloat(value);
-      if (!Number.isNaN(n)) crawlDelay = Math.max(crawlDelay, n);
+      if (!Number.isNaN(n)) current.crawlDelay = Math.max(current.crawlDelay, n);
+      ruleSeenSinceAgent = true;
     } else if (key === "sitemap") {
       sitemaps.push(value);
     }
   }
-  return { exists: true, disallowAll: disallow.includes("/"), disallow, crawlDelay, sitemaps };
+  const ruleGroups = groups.filter((group) => group.agents.some((agent) => RELEVANT_ROBOTS_AGENTS.has(agent)));
+  const crawlDelay = ruleGroups.reduce((max, group) => Math.max(max, group.crawlDelay), 0);
+  return { exists: true, ruleGroups, crawlDelay, sitemaps };
 }
 
-function isPathAllowed(disallowList, pathname) {
-  return !disallowList.some((d) => d && pathname.startsWith(d));
+function isPathAllowed(ruleGroups, pathname) {
+  for (const group of ruleGroups) {
+    let matched = null;
+    for (const rule of group.rules) {
+      if (!rule.path || !pathname.startsWith(rule.path)) continue;
+      if (!matched || rule.path.length > matched.path.length ||
+        (rule.path.length === matched.path.length && rule.type === "allow")) {
+        matched = rule;
+      }
+    }
+    if (matched?.type === "disallow") return false;
+  }
+  return true;
 }
 
 function extractRssLinks(html) {
@@ -165,15 +186,16 @@ async function main() {
 
   console.log(`調査対象: ${targetUrl}`);
   const robots = await checkRobots(origin);
-  console.log(`robots.txt: ${robots.exists ? "あり" : "なし(制限なしとみなす)"} / crawl-delay=${robots.crawlDelay}s / disallowAll=${robots.disallowAll}`);
+  const targetAllowed = isPathAllowed(robots.ruleGroups, u.pathname);
+  console.log(`robots.txt: ${robots.exists ? "あり" : "なし(制限なしとみなす)"} / crawl-delay=${robots.crawlDelay}s / targetAllowed=${targetAllowed}`);
 
-  if (robots.disallowAll) {
-    console.log("robots.txtが全体を禁止しているため、これ以上のprobeを行わず終了します。");
+  if (!targetAllowed) {
+    console.log("robots.txtが対象パスへのcrawlerアクセスを禁止しているため、これ以上のprobeを行わず終了します。");
     const report = {
       target_url: targetUrl,
       generated_at: new Date().toISOString(),
       robots,
-      aborted_reason: "robots.txt disallows all paths for User-agent: *",
+      aborted_reason: "robots.txt disallows the target path for * or a known AI crawler agent",
     };
     writeReport(u, report);
     return;
@@ -187,7 +209,7 @@ async function main() {
 
   // 1. 対象ページ本体を取得(RSS link tag / JSON-LD / OGP / embedded JSON / 一覧候補推定に使う)。
   let mainHtml = null;
-  if (isPathAllowed(robots.disallow || [], u.pathname)) {
+  if (isPathAllowed(robots.ruleGroups, u.pathname)) {
     const res = await fetchSafe(targetUrl);
     if (res.ok) mainHtml = res.text;
     probes.main_page = { url: targetUrl, ok: res.ok, status: res.status };
@@ -207,7 +229,7 @@ async function main() {
   const rssCandidatePaths = ["/feed", "/feed/", "/rss", "/rss.xml", "/atom.xml", "/news/feed"];
   const rssFound = [...rssLinksFromHtml];
   for (const p of rssCandidatePaths) {
-    if (!isPathAllowed(robots.disallow || [], p)) continue;
+    if (!isPathAllowed(robots.ruleGroups, p)) continue;
     await delayIfNeeded();
     const res = await fetchSafe(new URL(p, origin).toString());
     if (res.ok && res.text && /<rss|<feed/i.test(res.text)) rssFound.push(new URL(p, origin).toString());
@@ -217,7 +239,7 @@ async function main() {
   // 3. WordPress REST API probe
   const wpPath = "/wp-json/wp/v2/posts";
   let wpFound = false;
-  if (isPathAllowed(robots.disallow || [], wpPath)) {
+  if (isPathAllowed(robots.ruleGroups, wpPath)) {
     await delayIfNeeded();
     const res = await fetchSafe(new URL(wpPath, origin).toString());
     if (res.ok && res.text) {
@@ -237,7 +259,7 @@ async function main() {
   for (const sm of sitemapCandidates) {
     const smUrl = sm.startsWith("http") ? sm : new URL(sm, origin).toString();
     const smPath = new URL(smUrl).pathname;
-    if (!isPathAllowed(robots.disallow || [], smPath)) continue;
+    if (!isPathAllowed(robots.ruleGroups, smPath)) continue;
     await delayIfNeeded();
     const res = await fetchSafe(smUrl);
     if (res.ok && res.text && /<urlset|<sitemapindex/i.test(res.text)) {
@@ -285,7 +307,7 @@ async function main() {
     recommended_strategy: recommendedStrategy,
     recommendation_reasons: reasons,
     css_selector_candidates: listItemCandidates.map((c) => ({ item: `.${c.className}`, occurrences: c.occurrences })),
-    note: "この結果は候補提示のみ。sites/index.tsへの自動反映は行っていない。scripts/validateOfficialNewsConfig.mjsで検証してから手動で追加すること。",
+    note: "この結果は候補提示のみ。artists.tsへの自動反映は行っていない。scripts/validateOfficialNewsConfig.mtsで検証してから手動で追加すること。",
   };
 
   writeReport(u, report);

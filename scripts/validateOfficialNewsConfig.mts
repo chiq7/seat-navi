@@ -12,7 +12,7 @@
  * 重複率、詳細本文の最小文字数、サムネイルURL妥当性、ナビ/フッター混入の疑い。
  *
  * 重要: このツールはスコア化して合格/要確認/不合格を出すだけで、設定を自動的に有効化しない。
- * sites/index.tsへの追加は、この結果を見た人間が判断して手動で行う。
+ * artists.tsへの追加は、この結果を見た人間が判断して手動で行う。
  */
 import fs from "node:fs";
 import { fetchListForConfig, fetchDetailForConfig } from "./officialNews/runStrategy";
@@ -185,7 +185,7 @@ async function main() {
     verdict,
     checks,
     article_count: articles.length,
-    note: "この結果は検証のみ。sites/index.tsへの反映(enabled:trueへの変更)は行っていない。人間が確認のうえ手動で反映すること。",
+    note: "この結果は検証のみ。artists.tsへの反映(enabled:trueへの変更)は行っていない。人間が確認のうえ手動で反映すること。",
   };
 
   console.log(JSON.stringify(report, null, 2));

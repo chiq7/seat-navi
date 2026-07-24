@@ -1,6 +1,6 @@
 // Tier1: 汎用JSON API(サイト固有のAPI形式をSiteConfig.jsonApiのフィールドマッピングで吸収する)。
-import { fetchWithTimeout, checkRobotsAllowed, stripHtml } from "../httpUtils";
-import type { SiteConfig, ListFetchResult, CrawledArticle } from "../types";
+import { applyUrlRules, fetchWithTimeout, checkRobotsAllowed, stripHtml } from "../httpUtils";
+import type { SiteConfig, ListFetchResult, CrawledArticle, JsonApiConfig } from "../types";
 
 function getByPath(obj: unknown, path: string | undefined): unknown {
   if (!path) return obj;
@@ -10,6 +10,65 @@ function getByPath(obj: unknown, path: string | undefined): unknown {
     }
     return undefined;
   }, obj);
+}
+
+export function parseJsonApiPayload(text: string, format: "json" | "jsonp" = "json"): unknown {
+  if (format === "json") return JSON.parse(text);
+  const match = text.trim().match(/^[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*)*\s*\(([\s\S]*)\)\s*;?$/);
+  if (!match) throw new Error("JSONP response did not match callback(payload)");
+  return JSON.parse(match[1]);
+}
+
+function normalizeDate(value: unknown): string | null {
+  if (typeof value !== "string") return null;
+  const match = value.match(/(\d{4})[.\/-](\d{1,2})[.\/-](\d{1,2})/);
+  if (!match) return value.slice(0, 10);
+  return `${match[1]}-${match[2].padStart(2, "0")}-${match[3].padStart(2, "0")}`;
+}
+
+export function mapJsonApiArticles(
+  payload: unknown,
+  cfg: JsonApiConfig,
+  officialUrl: string,
+  urlRules?: SiteConfig["urlRules"],
+): CrawledArticle[] {
+  const items = getByPath(payload, cfg.itemsPath);
+  if (!Array.isArray(items)) throw new Error(`itemsPath "${cfg.itemsPath ?? "(root)"}" did not resolve to an array`);
+
+  return items
+    .map((item): CrawledArticle | null => {
+      const title = getByPath(item, cfg.titleField);
+      const rawUrl = getByPath(item, cfg.urlField);
+      if (typeof title !== "string" || typeof rawUrl !== "string") return null;
+
+      let resolvedUrl: string;
+      try {
+        resolvedUrl = new URL(rawUrl, cfg.articleUrlBase ?? officialUrl).toString();
+      } catch {
+        return null;
+      }
+      const articleUrl = applyUrlRules(resolvedUrl, urlRules);
+      if (!articleUrl) return null;
+
+      const bodyRaw = cfg.bodyField ? getByPath(item, cfg.bodyField) : undefined;
+      const thumbRaw = cfg.thumbnailField ? getByPath(item, cfg.thumbnailField) : undefined;
+      let thumbnailUrl: string | null = null;
+      if (typeof thumbRaw === "string" && thumbRaw) {
+        try {
+          thumbnailUrl = new URL(thumbRaw, cfg.articleUrlBase ?? officialUrl).toString();
+        } catch {
+          thumbnailUrl = null;
+        }
+      }
+      return {
+        title: stripHtml(title) || title,
+        published_date: normalizeDate(cfg.dateField ? getByPath(item, cfg.dateField) : undefined),
+        article_url: articleUrl,
+        body: typeof bodyRaw === "string" ? stripHtml(bodyRaw) : null,
+        thumbnail_url: thumbnailUrl,
+      };
+    })
+    .filter((article): article is CrawledArticle => article !== null);
 }
 
 export async function fetchJsonApi(config: SiteConfig): Promise<ListFetchResult> {
@@ -22,28 +81,8 @@ export async function fetchJsonApi(config: SiteConfig): Promise<ListFetchResult>
 
   const res = await fetchWithTimeout(cfg.url);
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  const json = await res.json();
-  const items = getByPath(json, cfg.itemsPath);
-  if (!Array.isArray(items)) throw new Error(`itemsPath "${cfg.itemsPath ?? "(root)"}" did not resolve to an array`);
-
-  const articles: CrawledArticle[] = items
-    .map((item): CrawledArticle | null => {
-      const record = item as Record<string, unknown>;
-      const title = record[cfg.titleField];
-      const url = record[cfg.urlField];
-      if (typeof title !== "string" || typeof url !== "string") return null;
-      const dateRaw = cfg.dateField ? record[cfg.dateField] : undefined;
-      const bodyRaw = cfg.bodyField ? record[cfg.bodyField] : undefined;
-      const thumbRaw = cfg.thumbnailField ? record[cfg.thumbnailField] : undefined;
-      return {
-        title: stripHtml(title) || title,
-        published_date: typeof dateRaw === "string" ? dateRaw.slice(0, 10) : null,
-        article_url: url,
-        body: typeof bodyRaw === "string" ? stripHtml(bodyRaw) : null,
-        thumbnail_url: typeof thumbRaw === "string" ? thumbRaw : null,
-      };
-    })
-    .filter((a): a is CrawledArticle => a !== null);
+  const payload = parseJsonApiPayload(await res.text(), cfg.responseFormat);
+  const articles = mapJsonApiArticles(payload, cfg, config.officialUrl, config.urlRules);
 
   return { method: "json_api", robots, articles, needsDetailFetch: false };
 }
