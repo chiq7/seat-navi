@@ -4,12 +4,13 @@
 
 ## 結果
 
-- 実記事抽出まで合格・有効化: 47組
+- 実記事抽出まで合格・有効化: 49組
 - 主要AI crawlerをrobots.txtで禁止・無効: 12組
-- 公式サイト到達済みだが汎用抽出で記事0件・無効: 16組
+- 公式サイトは許可だが、参照先APIがrobots.txtで禁止・無効: 1組（YOASOBI）
+- 公式サイト到達済みだが安全な実記事取得を確定できず無効: 13組
 - 未調査: 0組
 
-既存18設定を合わせると、公式NEWS設定は93組、そのうち有効は63組。
+既存18設定を合わせると、公式NEWS設定は93組、そのうち有効は65組。
 
 ## robots.txt禁止（12組）
 
@@ -17,11 +18,15 @@
 
 禁止を回避する実装は行っていない。今後の扱いはまとめて決定する。
 
-## 専用API・RSS・個別解析待ち（16組）
+## 専用API・RSS・個別解析の再調査結果
 
-Stray Kids、SEVENTEEN、Roselia、山田涼介、YOASOBI、Juice=Juice、幾田りら、秘密結社holoX、2PM、IVE、桃鈴ねね、うらたぬき、DOH KYUNG SOO、BEYOOOOONDS、IMP.、ROIROM。
+- 有効化: SEVENTEEN（onclick型static_html、20件合格）、DOH KYUNG SOO（公式RSS、10件合格）
+- 共有サイトの取得方式まで確定・直近対象記事なし: Roselia、秘密結社holoX、桃鈴ねね、うらたぬき
+- 現在公式NEWSが0件: ROIROM
+- 外部データ元のrobots.txt禁止: YOASOBI（Sony Music公開JSON API）
+- 安全な記事URL・公開GETの追加確認待ち: Stray Kids、山田涼介、Juice=Juice、幾田りら、2PM、IVE、BEYOOOOONDS、IMP.
 
-これらはrobots.txt上の取得禁止ではない。SSR HTMLに実記事リンクがない、埋め込みJSON、共有サイト内に直近該当記事がない、現在公式NEWSが0件、のいずれか。誤記事を保存しないため、有効化せず専用対応へ回した。
+`npm.cmd run discover:official-news:pending` でcandidate状態を一括調査できる。同一URLは1回だけ取得し、RSS、WordPress、埋め込みJSON、静的HTML、公式JS内の公開GET候補、現在0件を分類する。結果だけで自動有効化はせず、`validateOfficialNewsConfig.mts` の安全ゲートに合格した設定のみ有効化する。
 
 ## 安全条件
 

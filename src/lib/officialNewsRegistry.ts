@@ -84,6 +84,7 @@ const SOURCES: Record<string, string> = {
 };
 
 const VERIFIED = new Set([
+  "seventeen", "doh-kyung-soo-d-o",
   "sixtones", "equal-love", "fantastics", "treasure", "hiromitsu-kitayama", "ballistik-boyz", "shinee", "team",
   "g-i-dle", "joy", "le-sserafim", "king-prince", "j-soul-brothers", "buddiis", "timelesz", "aespa",
   "strawberry-prince", "number-i", "bigbang", "bts", "newjeans", "bullet-train", "enhypen", "da-ice", "m-lk",
@@ -107,11 +108,122 @@ const ARTICLE_FILTERS: Record<string, string[]> = {
   "uratanuki": ["うらたぬき", "浦田わたる"],
 };
 
+type GenericOfficialNewsConfig = Extract<OfficialNewsConfig, { strategy: string }>;
+
+/** Discovery後に共通strategyで実URL・構造まで確認できたサイトの上書き設定。 */
+const DEDICATED_CONFIGS: Record<string, Partial<GenericOfficialNewsConfig>> = {
+  "stray-kids": {
+    notes: "2026-07-24 一覧HTMLは空で、Sony Music共通JSによる描画を確認。公式側の安定した記事URL/APIを確定できるまで無効。",
+  },
+  "ryosuke-yamada": {
+    notes: "2026-07-24 公式JSON assets/data/news.jsonを発見し48件・date/title/categoryを確認。ただし記事ごとの安定URLが存在しないため無効。",
+  },
+  "juice-juice": {
+    notes: "2026-07-24 静的HTML・公式JS・公開GET候補を再調査したが、サーバー取得できる実記事一覧を確定できず無効。",
+  },
+  "lilas-ikuta": {
+    notes: "2026-07-24 公式JSがSony Music JSONを参照する構成を確認。外部API側robots.txt禁止と安定URL未確定のため無効。",
+  },
+  "2pm": {
+    notes: "2026-07-24 一覧HTMLは空で、Sony Music共通JSによる描画を確認。公式側の安定した記事URL/APIを確定できるまで無効。",
+  },
+  "ive": {
+    notes: "2026-07-24 公式INDEXに16件を確認したが、記事リンクはFCログイン用modalとdata-numのみ。認証回避を行わず無効。",
+  },
+  "uratanuki": {
+    strategy: "static_html",
+    verificationStatus: "candidate",
+    notes: "2026-07-24 公式共有NEWSのHTML構造を確認。直近11件にうらたぬき該当記事がないため、名前フィルター付き・無効のまま待機。",
+    listSelectors: {
+      item: ".news__item",
+      link: "a",
+      title: ".news__title",
+      date: ".news__date",
+      dateFormat: "YYYY.MM.DD",
+    },
+    urlRules: { allow: ["^https://wmg\\.jp/usss/news/\\d+(?:[/?#]|$)"] },
+  },
+  "beyooooonds": {
+    notes: "2026-07-24 静的HTML・公式JS・公開GET候補を再調査したが、サーバー取得できる実記事一覧を確定できず無効。",
+  },
+  "imp": {
+    notes: "2026-07-24 __NEXT_DATA__と公式API基点 https://api.tobe-official.jp/api/v1 を確認。NEWSの公開GETパスを確定できるまで無効。",
+  },
+  "seventeen": {
+    strategy: "static_html",
+    verificationStatus: "verified",
+    notes: "2026-07-24 onclick型の公式NEWS一覧を個別HTML設定で20件検証し、安全ゲート全項目合格。",
+    listSelectors: {
+      item: ".news_list dl",
+      link: "dl",
+      linkAttribute: "onclick",
+      linkValuePattern: "location\\.href=['\"]([^'\"]+)",
+      title: "dd",
+      date: "dt",
+      dateFormat: "YYYY.M.D",
+    },
+    urlRules: {
+      allow: ["^https://www\\.seventeen-17\\.jp/posts/information/[a-z0-9]+(?:[/?#]|$)"],
+      normalize: { forceHttps: true },
+    },
+  },
+  "doh-kyung-soo-d-o": {
+    strategy: "rss",
+    verificationStatus: "verified",
+    rssUrl: "https://dohkyungsoo.jp/feed",
+    notes: "2026-07-24 公式RSSを10件検証し、安全ゲート全項目合格。コメントフィードは使用しない。",
+    urlRules: {
+      allow: ["^https://dohkyungsoo\\.jp/archives/\\d+(?:[/?#]|$)"],
+      deny: ["/comments?/"],
+    },
+  },
+  "roselia": {
+    strategy: "rss",
+    verificationStatus: "candidate",
+    rssUrl: "https://bang-dream.com/news/feed/",
+    notes: "2026-07-24 公式共有NEWSのRSSを確認済み。直近フィードにRoselia該当記事がないため、名前フィルター付き・無効のまま待機。",
+  },
+  "holox": {
+    strategy: "rss",
+    verificationStatus: "candidate",
+    rssUrl: "https://hololive.hololivepro.com/news/feed/",
+    notes: "2026-07-24 公式共有NEWSのRSSを確認済み。直近フィードにholoX該当記事がないため、名前フィルター付き・無効のまま待機。",
+  },
+  "momosuzu-nene": {
+    strategy: "rss",
+    verificationStatus: "candidate",
+    rssUrl: "https://hololive.hololivepro.com/news/feed/",
+    notes: "2026-07-24 公式共有NEWSのRSSを確認済み。直近フィードに桃鈴ねね該当記事がないため、名前フィルター付き・無効のまま待機。",
+  },
+  "yoasobi": {
+    strategy: "json_api",
+    verificationStatus: "rejected",
+    notes: "2026-07-24 公式サイトが使うSony Music公開APIを特定したが、API側robots.txtが主要AI crawlerを全域禁止しているため無効。回避しない。",
+    jsonApi: {
+      url: "https://www.sonymusic.co.jp/json/v2/artist/YOASOBI/information/start/0/count/100/callback/InfoCallcack",
+      responseFormat: "jsonp",
+      itemsPath: "items",
+      titleField: "title",
+      urlField: "link",
+      dateField: "date",
+      bodyField: "article",
+      thumbnailField: "images.image",
+      articleUrlBase: "https://www.sonymusic.co.jp",
+    },
+    urlRules: { allow: ["^https://www\\.sonymusic\\.co\\.jp/artist/YOASOBI/info/"] },
+  },
+  "roirom": {
+    strategy: "auto_html",
+    verificationStatus: "candidate",
+    notes: "2026-07-24 公式NEWSページの『お知らせがありません』を自動検出。記事公開まで無効のまま再調査待ち。",
+  },
+};
+
 export const DISCOVERED_OFFICIAL_NEWS_CONFIGS: Record<string, OfficialNewsConfig> = Object.fromEntries(
   Object.entries(SOURCES).map(([slug, newsUrl]) => {
     const enabled = VERIFIED.has(slug);
     const blocked = ROBOTS_BLOCKED.has(slug);
-    return [slug, {
+    const base = {
       newsUrl,
       enabled,
       notes: enabled
@@ -122,7 +234,8 @@ export const DISCOVERED_OFFICIAL_NEWS_CONFIGS: Record<string, OfficialNewsConfig
       strategy: "auto_html" as const,
       verificationStatus: enabled ? "verified" as const : blocked ? "rejected" as const : "candidate" as const,
       articleRules: ARTICLE_FILTERS[slug] ? { includeAny: ARTICLE_FILTERS[slug] } : undefined,
-    } satisfies OfficialNewsConfig];
+    } satisfies OfficialNewsConfig;
+    return [slug, { ...base, ...DEDICATED_CONFIGS[slug] } as OfficialNewsConfig];
   }),
 );
 
@@ -130,5 +243,6 @@ export const OFFICIAL_NEWS_AUDIT_COUNTS = {
   total: Object.keys(SOURCES).length,
   verified: VERIFIED.size,
   robotsBlocked: ROBOTS_BLOCKED.size,
-  needsDedicatedParser: Object.keys(SOURCES).length - VERIFIED.size - ROBOTS_BLOCKED.size,
+  externalSourceBlocked: 1,
+  needsDedicatedParser: Object.keys(SOURCES).length - VERIFIED.size - ROBOTS_BLOCKED.size - 1,
 } as const;

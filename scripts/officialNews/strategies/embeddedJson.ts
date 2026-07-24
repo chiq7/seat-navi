@@ -1,10 +1,11 @@
 // Tier1: ページ内に埋め込まれたJSON(__NEXT_DATA__ / __NUXT__ / window.__INITIAL_STATE__ 等)。
 // SPA/SSRサイトでよく見られる、HTML内<script>タグに初期state用JSONが埋め込まれるパターン。
-import { fetchWithTimeout, checkRobotsAllowed, stripHtml } from "../httpUtils";
+import { applyUrlRules, fetchWithTimeout, checkRobotsAllowed, stripHtml } from "../httpUtils";
 import type { SiteConfig, ListFetchResult, CrawledArticle } from "../types";
 
 const KNOWN_PATTERNS: { name: string; re: RegExp }[] = [
   { name: "__NEXT_DATA__", re: /<script id="__NEXT_DATA__"[^>]*type="application\/json"[^>]*>([\s\S]*?)<\/script>/i },
+  { name: "__NUXT_DATA__", re: /<script[^>]*id=["']__NUXT_DATA__["'][^>]*>([\s\S]*?)<\/script>/i },
   { name: "__NUXT__", re: /<script[^>]*>\s*window\.__NUXT__\s*=\s*([\s\S]*?);?\s*<\/script>/i },
   { name: "window.__INITIAL_STATE__", re: /window\.__INITIAL_STATE__\s*=\s*(\{[\s\S]*?\});?\s*<\/script>/i },
 ];
@@ -24,7 +25,7 @@ export function detectEmbeddedJson(html: string): { name: string; json: unknown 
   return null;
 }
 
-function getByPath(obj: unknown, path: string | undefined): unknown {
+export function getByPath(obj: unknown, path: string | undefined): unknown {
   if (!path) return obj;
   return path.split(".").reduce<unknown>((acc, key) => {
     if (acc && typeof acc === "object" && key in (acc as Record<string, unknown>)) {
@@ -55,16 +56,20 @@ export async function fetchEmbeddedJson(config: SiteConfig): Promise<ListFetchRe
   const articles: CrawledArticle[] = items
     .map((item): CrawledArticle | null => {
       const record = item as Record<string, unknown>;
-      const title = record[cfg.titleField];
-      const url = record[cfg.urlField];
+      const title = getByPath(record, cfg.titleField);
+      const url = getByPath(record, cfg.urlField);
       if (typeof title !== "string" || typeof url !== "string") return null;
-      const dateRaw = cfg.dateField ? record[cfg.dateField] : undefined;
-      const bodyRaw = cfg.bodyField ? record[cfg.bodyField] : undefined;
-      const thumbRaw = cfg.thumbnailField ? record[cfg.thumbnailField] : undefined;
+      const dateRaw = cfg.dateField ? getByPath(record, cfg.dateField) : undefined;
+      const bodyRaw = cfg.bodyField ? getByPath(record, cfg.bodyField) : undefined;
+      const thumbRaw = cfg.thumbnailField ? getByPath(record, cfg.thumbnailField) : undefined;
+      const resolvedUrl = new URL(url, cfg.articleUrlBase ?? u.origin);
+      if (!config.urlRules?.allow?.length && resolvedUrl.hostname.replace(/^www\./i, "") !== u.hostname.replace(/^www\./i, "")) return null;
+      const articleUrl = applyUrlRules(resolvedUrl.toString(), config.urlRules);
+      if (!articleUrl) return null;
       return {
         title: stripHtml(title) || title,
         published_date: typeof dateRaw === "string" ? dateRaw.slice(0, 10) : null,
-        article_url: new URL(url, u.origin).toString(),
+        article_url: articleUrl,
         body: typeof bodyRaw === "string" ? stripHtml(bodyRaw) : null,
         thumbnail_url: typeof thumbRaw === "string" ? thumbRaw : null,
       };

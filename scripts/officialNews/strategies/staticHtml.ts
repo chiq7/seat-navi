@@ -2,7 +2,7 @@
 // フルCSSセレクタ仕様には対応しない(../htmlSelect.tsのコメント参照)。単純な構造の
 // 静的HTMLサイト向け。JS描画(SPA)前提のサイトはこの戦略では取得できない。
 import { applyUrlRules, fetchWithTimeout, checkRobotsAllowed } from "../httpUtils";
-import { selectAll, selectText, selectAttr, removeSelectors } from "../htmlSelect";
+import { selectAll, selectAllOuter, selectText, selectAttr, removeSelectors } from "../htmlSelect";
 import { extractArticleFromJsonLd, extractArticleFromOgp } from "./jsonLd";
 import type { SiteConfig, ListFetchResult, CrawledArticle, DetailSelectors } from "../types";
 
@@ -27,11 +27,14 @@ export async function fetchStaticHtmlList(config: SiteConfig): Promise<ListFetch
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const html = await res.text();
 
-  const itemBlocks = selectAll(html, sel.item);
+  const itemBlocks = selectAllOuter(html, sel.item);
   const articles: CrawledArticle[] = [];
   for (const block of itemBlocks) {
     const title = selectText(block, sel.title);
-    const href = selectAttr(block, sel.link, "href");
+    const rawLink = selectAttr(block, sel.link, sel.linkAttribute ?? "href");
+    const href = rawLink && sel.linkValuePattern
+      ? new RegExp(sel.linkValuePattern, "i").exec(rawLink)?.[1] ?? null
+      : rawLink;
     if (!title || !href) continue;
     const dateRaw = sel.date ? selectText(block, sel.date) : null;
 

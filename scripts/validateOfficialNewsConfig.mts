@@ -19,7 +19,7 @@ import { fetchListForConfig, fetchDetailForConfig } from "./officialNews/runStra
 import type { SiteConfig, CrawledArticle } from "./officialNews/types";
 
 const MIN_ARTICLE_COUNT = 3;
-const MAX_ARTICLE_COUNT = 200;
+const MAX_ARTICLE_COUNT = 60;
 const MAX_DUPLICATE_RATE = 0.1;
 const MIN_BODY_CHARS = 50;
 const DETAIL_SAMPLE_SIZE = 3; // 詳細ページ検証は全件でなくサンプルのみ(crawl-delay等を考慮)
@@ -102,11 +102,17 @@ async function main() {
     checks.push({
       name: "domain_match",
       passed: offDomainCount === 0,
-      critical: false,
+      critical: true,
       detail: `公式ドメイン(${officialHost})外のURL: ${offDomainCount}/${articles.length}件`,
     });
 
     const datedArticles = articles.filter((a) => a.published_date);
+    checks.push({
+      name: "dates_present",
+      passed: datedArticles.length === articles.length,
+      critical: true,
+      detail: `日付あり: ${datedArticles.length}/${articles.length}件`,
+    });
     const badDateCount = datedArticles.filter((a) => !isPlausibleDate(a.published_date!)).length;
     checks.push({
       name: "dates_plausible",

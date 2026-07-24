@@ -105,6 +105,22 @@ export function selectAll(html: string, selector: string): string[] {
   return contexts;
 }
 
+/** 最終要素の属性も参照したい一覧item向けに、マッチ要素のouterHTMLを返す。 */
+export function selectAllOuter(html: string, selector: string): string[] {
+  const steps = parseSelector(selector);
+  let contexts = [html];
+  for (let index = 0; index < steps.length; index++) {
+    const step = steps[index];
+    const isLast = index === steps.length - 1;
+    const next: string[] = [];
+    for (const ctx of contexts) {
+      for (const el of findElements(ctx, step)) next.push(isLast ? el.outerHTML : (el.innerHTML || el.outerHTML));
+    }
+    contexts = next;
+  }
+  return contexts;
+}
+
 /** セレクタにマッチする最初の要素のテキスト内容(タグ除去済み)を返す。 */
 export function selectText(html: string, selector: string): string | null {
   const matches = selectAll(html, selector);

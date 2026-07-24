@@ -55,6 +55,8 @@ export type OfficialNewsConfig = OfficialNewsBaseConfig & (
       listSelectors?: {
         item: string;
         link: string;
+        linkAttribute?: string;
+        linkValuePattern?: string;
         title: string;
         date?: string;
         dateFormat?: string;

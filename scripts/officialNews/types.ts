@@ -32,6 +32,10 @@ export type ListSelectors = {
   item: string;
   /** itemの中で詳細ページへのリンクを持つ要素(<a>のhref、または要素自体がaでも可) */
   link: string;
+  /** href以外からリンクを取る場合の属性名(例: onclick)。既定はhref。 */
+  linkAttribute?: string;
+  /** 属性値からURL部分を取り出す正規表現。第1キャプチャをURLとして使用する。 */
+  linkValuePattern?: string;
   /** タイトルを持つ要素 */
   title: string;
   /** 公開日を持つ要素(省略時は日付なしで進める) */
