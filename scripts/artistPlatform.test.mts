@@ -282,11 +282,14 @@ test("all audited NEWS configs keep only verified sites enabled", () => {
   });
   assert.equal(SITE_CONFIGS.length, 93);
   assert.equal(SITE_CONFIGS.filter((site) => site.enabled).length, 66);
-  assert.equal(SITE_CONFIGS.filter((site) => site.strategy === "auto_html").length, 67);
+  assert.equal(SITE_CONFIGS.filter((site) => site.strategy === "auto_html").length, 64);
   assert.equal(SITE_CONFIGS.filter((site) => site.verificationStatus === "rejected").length, 14);
   assert.equal(SITE_CONFIGS.find((site) => site.artistSlug === "seventeen")?.strategy, "static_html");
   assert.equal(SITE_CONFIGS.find((site) => site.artistSlug === "doh-kyung-soo-d-o")?.strategy, "rss");
   assert.equal(SITE_CONFIGS.find((site) => site.artistSlug === "ive")?.strategy, "static_html");
+  assert.equal(SITE_CONFIGS.find((site) => site.artistSlug === "timelesz")?.strategy, "wordpress");
+  assert.equal(SITE_CONFIGS.find((site) => site.artistSlug === "mazzel")?.strategy, "rss");
+  assert.equal(SITE_CONFIGS.find((site) => site.artistSlug === "domoto")?.strategy, "json_api");
 });
 
 test("a new common NEWS site is generated from the artist definition without special routing", () => {

@@ -52,6 +52,15 @@ export type OfficialNewsConfig = OfficialNewsBaseConfig & (
         thumbnailField?: string;
         articleUrlBase?: string;
       };
+      jsonDetailApi?: {
+        urlTemplate: string;
+        responseFormat?: "json" | "jsonp";
+        rootPath?: string;
+        titleField?: string;
+        bodyField: string;
+        dateField?: string;
+        thumbnailField?: string;
+      };
       listSelectors?: {
         item: string;
         link: string;

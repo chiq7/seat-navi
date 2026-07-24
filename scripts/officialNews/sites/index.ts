@@ -39,6 +39,7 @@ export function toSiteConfig(artist: Artist): SiteConfig | null {
     rssUrl: news.rssUrl,
     wordpressApiUrl: news.wordpressApiUrl,
     jsonApi: news.jsonApi,
+    jsonDetailApi: news.jsonDetailApi,
     listSelectors: news.listSelectors,
     detailSelectors: news.detailSelectors,
     pagination: news.pagination,

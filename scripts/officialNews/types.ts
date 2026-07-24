@@ -73,6 +73,19 @@ export type JsonApiConfig = {
   articleUrlBase?: string;
 };
 
+/** 一覧APIとは別のJSON APIから記事本文を取得するサイト向け設定。 */
+export type JsonDetailApiConfig = {
+  /** 記事URL末尾のIDを {slug} に埋め込む。 */
+  urlTemplate: string;
+  responseFormat?: "json" | "jsonp";
+  /** レスポンス内の記事オブジェクトへのパス。省略時はルート。 */
+  rootPath?: string;
+  titleField?: string;
+  bodyField: string;
+  dateField?: string;
+  thumbnailField?: string;
+};
+
 export type PaginationConfig = {
   type: "query_param" | "path_segment" | "none";
   param?: string;
@@ -118,6 +131,7 @@ export type SiteConfig = {
   rssUrl?: string;
   wordpressApiUrl?: string;
   jsonApi?: JsonApiConfig;
+  jsonDetailApi?: JsonDetailApiConfig;
   listSelectors?: ListSelectors;
   detailSelectors?: DetailSelectors;
   pagination?: PaginationConfig;

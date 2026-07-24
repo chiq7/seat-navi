@@ -2,6 +2,7 @@
 // crawlOfficialNews.mts と validateOfficialNewsConfig.mts の両方から使う(重複実装を避ける)。
 import { LIST_FETCHERS as LEGACY_LIST_FETCHERS, fetchArticleDetail as legacyFetchDetail } from "./legacySites";
 import { STRATEGY_REGISTRY, fetchGenericDetail } from "./strategies/index";
+import { fetchJsonApiDetail } from "./strategies/jsonApi";
 import type { SiteConfig, ListFetchResult, CrawledArticle } from "./types";
 
 function matchesArticleRules(article: CrawledArticle, config: SiteConfig): boolean {
@@ -34,5 +35,6 @@ export async function fetchListForConfig(config: SiteConfig): Promise<ListFetchR
 
 export async function fetchDetailForConfig(config: SiteConfig, articleUrl: string) {
   if (config.strategy === "special") return legacyFetchDetail(articleUrl);
+  if (config.jsonDetailApi) return fetchJsonApiDetail(config, articleUrl);
   return fetchGenericDetail(articleUrl, config.detailSelectors);
 }

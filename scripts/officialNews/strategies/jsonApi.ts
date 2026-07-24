@@ -20,6 +20,11 @@ export function parseJsonApiPayload(text: string, format: "json" | "jsonp" = "js
 }
 
 function normalizeDate(value: unknown): string | null {
+  if (typeof value === "number" && Number.isFinite(value)) {
+    const millis = value < 10_000_000_000 ? value * 1000 : value;
+    const date = new Date(millis);
+    return Number.isNaN(date.getTime()) ? null : date.toISOString().slice(0, 10);
+  }
   if (typeof value !== "string") return null;
   const match = value.match(/(\d{4})[.\/-](\d{1,2})[.\/-](\d{1,2})/);
   if (!match) return value.slice(0, 10);
@@ -84,5 +89,51 @@ export async function fetchJsonApi(config: SiteConfig): Promise<ListFetchResult>
   const payload = parseJsonApiPayload(await res.text(), cfg.responseFormat);
   const articles = mapJsonApiArticles(payload, cfg, config.officialUrl, config.urlRules);
 
-  return { method: "json_api", robots, articles, needsDetailFetch: false };
+  return { method: "json_api", robots, articles, needsDetailFetch: Boolean(config.jsonDetailApi && !cfg.bodyField) };
+}
+
+export async function fetchJsonApiDetail(config: SiteConfig, articleUrl: string) {
+  const cfg = config.jsonDetailApi;
+  if (!cfg) throw new Error("jsonDetailApi config is required");
+
+  const articlePath = new URL(articleUrl).pathname.split("/").filter(Boolean);
+  const slug = articlePath.at(-1);
+  if (!slug) return { success: false as const, error: "article URL has no slug" };
+
+  const apiUrl = cfg.urlTemplate.replace("{slug}", encodeURIComponent(slug));
+  const api = new URL(apiUrl);
+  const robots = await checkRobotsAllowed(api.origin, api.pathname);
+  if (!robots.allowed) return { success: false as const, error: `blocked by robots.txt: ${robots.reason}` };
+
+  try {
+    const res = await fetchWithTimeout(apiUrl);
+    if (!res.ok) return { success: false as const, error: `HTTP ${res.status}`, crawlDelay: robots.crawlDelay };
+    const payload = parseJsonApiPayload(await res.text(), cfg.responseFormat);
+    const root = getByPath(payload, cfg.rootPath);
+    const bodyRaw = getByPath(root, cfg.bodyField);
+    const body = typeof bodyRaw === "string" ? stripHtml(bodyRaw) : "";
+    if (!body) return { success: false as const, error: "detail API body was empty", crawlDelay: robots.crawlDelay };
+
+    const titleRaw = cfg.titleField ? getByPath(root, cfg.titleField) : undefined;
+    const thumbnailRaw = cfg.thumbnailField ? getByPath(root, cfg.thumbnailField) : undefined;
+    let thumbnail: string | null = null;
+    if (typeof thumbnailRaw === "string" && thumbnailRaw) {
+      try {
+        thumbnail = new URL(thumbnailRaw, config.officialUrl).toString();
+      } catch {
+        thumbnail = null;
+      }
+    }
+
+    return {
+      success: true as const,
+      title: typeof titleRaw === "string" ? stripHtml(titleRaw) : null,
+      publishedDate: normalizeDate(cfg.dateField ? getByPath(root, cfg.dateField) : undefined),
+      thumbnail,
+      body,
+      crawlDelay: robots.crawlDelay,
+    };
+  } catch (error) {
+    return { success: false as const, error: String((error as Error)?.message ?? error) };
+  }
 }
