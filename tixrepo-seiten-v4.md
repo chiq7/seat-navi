@@ -3,7 +3,7 @@
 > この文書は、現在のTixRepo実装・実行基盤・未反映作業を固定する正典です。
 > v3までの整理履歴は `tixrepo-seiten-v3.md` を参照してください。
 >
-> 最終更新：2026-07-23（アーティストページ基盤・公式NEWS commit前ゲート）
+> 最終更新：2026-07-24（アーティストページ基盤・公式NEWS本番反映後）
 
 ---
 
@@ -69,22 +69,24 @@ UGCが0件の場合、各セクションは架空値や0%を作らず、投稿�
 
 ---
 
-## 5. migration 031と本番反映手順
+## 5. migration 031と公式NEWSの本番状況
 
-- `supabase/migrations/031_official_news.sql` が公式NEWS本体のpending migration。base tableはservice role専用で、anon/authenticatedには `official_news_public` viewだけを公開し、`article_body` と `normalized_article_url` を公開しない。
+- `supabase/migrations/031_official_news.sql` は本番適用済み。base tableはservice role専用で、anon/authenticatedには `official_news_public` viewだけを公開し、`article_body` と `normalized_article_url` を公開しない。
 - `official_news_crawl_runs` は `supabase/migration-drafts/official_news_crawl_runs.sql` に置いたdraftであり、pending migrationではない。
-- migration 031はstagingで隔離検証済みだが、本番DBはまだ無変更。
-- 本番反映時は、対象projectが本番であることを明示確認し、migration一覧で031だけがpendingであることを再確認し、バックアップ/復旧手段を確保してから031だけを適用する。適用後にRLS、public viewの投影、service roleの書込み、一意制約、`updated_at` を確認する。
-- GitHub ActionsのSecrets/Variablesを登録し、手動dry-runを確認してから本番NEWS実行を有効にする。これらの本番作業は現時点では未実施。
+- 本番適用後にtable/view、RLS、権限、一意制約、非公開列を確認済み。既存schemaと既存データへの意図しない変更はない。
+- GitHub ActionsのSecrets/Variablesは登録済み。BE:FIRSTを除く12組を対象に、週次production実行を有効化済み。
+- 2026-07-24確認時点の本番 `official_news` は55件・12組で、`(artist_slug, normalized_article_url)` の重複は0件。`official_news_public` から同じ55件を参照できる。
+- 1回の新規処理上限は15件。`limit_deferred` は別記事を次回へ繰り越す安全機構であり、同一記事の重複追加ではない。
 
 ---
 
 ## 6. 未実施・未対応
 
-- `events.artist_slug is null` の既存公演に対するbackfillは未実施。`npm run backfill:event-artists` は引数なしでdry-runし、候補slugと理由だけを表示する。本番更新には `--execute` と書込み許可環境変数の両方が必要。
+- `events.artist_slug is null` の既存公演backfillは21件を本番更新済み。更新後のdry-runは `matched=0 / ambiguous=0`。`npm run backfill:event-artists` は引数なしでは引き続きdry-runとして動作する。
 - 既存13組以外の残り82組の公式NEWS設定は未対応。既存の `test` 定義はこの82組の対象外。
-- migration 031の本番適用、GitHub Secrets/Variables登録、本番NEWS取得、本番backfill、deployは未実施。本番環境は無変更。
-- 複数候補へ一致する公演の手動確認、公式NEWSサイトの初回strategy検証、UGC投稿は引き続き人の操作が必要。
+- BE:FIRSTはローカル取得に成功するがGitHub RunnerからHTTP 403となるため、公式NEWS取得だけ一時無効。アーティストページと公演機能は有効のまま。
+- `official_news_crawl_runs` のmigration、migration baseline整理、032適用は未実施。
+- 複数候補へ一致する公演の手動確認、新規公式NEWSサイトの初回strategy検証、UGC投稿は引き続き人の操作が必要。
 
 ---
 

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { createPortal } from "react-dom";
 import { supabase } from "@/lib/supabase/client";
 import { ShareButton } from "@/components/common/ShareButton";
@@ -58,12 +58,20 @@ export function SeatPredictionCard({
   open,
   onOpenChange,
 }: SeatPredictionCardProps) {
-  const [count, setCount] = useState(likeCount);
-  const [picked, setPicked] = useState(liked);
+  const [localVote, setLocalVote] = useState<{
+    predictionId: string;
+    baseCount: number;
+    increment: boolean;
+  } | null>(null);
   const [internalModalOpen, setInternalModalOpen] = useState(false);
   const isControlled = open !== undefined;
   const modalOpen = isControlled ? open : internalModalOpen;
   const isTop = rank === 1;
+  const activeLocalVote = localVote?.predictionId === predictionId ? localVote : null;
+  const picked = liked || activeLocalVote !== null;
+  const count =
+    likeCount +
+    (activeLocalVote?.increment && !liked && likeCount <= activeLocalVote.baseCount ? 1 : 0);
 
   function openModal() {
     if (!isControlled) setInternalModalOpen(true);
@@ -75,9 +83,6 @@ export function SeatPredictionCard({
     onOpenChange?.(false);
   }
 
-  useEffect(() => setCount(likeCount), [likeCount]);
-  useEffect(() => setPicked(liked), [liked]);
-
   async function handleLike() {
     if (picked) return;
     const voterKey = getOrCreateVoterKey();
@@ -87,11 +92,12 @@ export function SeatPredictionCard({
       voter_key: voterKey,
     });
     if (error) {
-      if (error.code === "23505") setPicked(true);
+      if (error.code === "23505") {
+        setLocalVote({ predictionId, baseCount: likeCount, increment: false });
+      }
       return;
     }
-    setCount((c) => c + 1);
-    setPicked(true);
+    setLocalVote({ predictionId, baseCount: likeCount, increment: true });
     onLiked?.();
   }
 

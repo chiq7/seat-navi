@@ -92,18 +92,12 @@ const EMPTY_PERF: Record<PerfKey, PerfValue> = {
 };
 
 function PhotoThumb({ file, onRemove }: { file: File; onRemove: () => void }) {
-  const [url, setUrl] = useState("");
-  useEffect(() => {
-    const u = URL.createObjectURL(file);
-    setUrl(u);
-    return () => URL.revokeObjectURL(u);
-  }, [file]);
+  const [url] = useState(() => URL.createObjectURL(file));
+  useEffect(() => () => URL.revokeObjectURL(url), [url]);
   return (
     <div className="relative h-[72px] w-[72px] shrink-0 overflow-hidden rounded-lg bg-gray-100">
-      {url && (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={url} alt="" className="h-full w-full object-cover" />
-      )}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={url} alt="" className="h-full w-full object-cover" />
       <button
         type="button"
         onClick={onRemove}
@@ -792,7 +786,7 @@ function LiveReportPageInner() {
                 <div className="mb-3 flex flex-wrap gap-2">
                   {photos.map((file, i) => (
                     <PhotoThumb
-                      key={i}
+                      key={`${file.name}-${file.lastModified}-${file.size}-${i}`}
                       file={file}
                       onRemove={() => setPhotos((prev) => prev.filter((_, idx) => idx !== i))}
                     />
