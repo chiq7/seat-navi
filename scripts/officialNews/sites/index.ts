@@ -42,6 +42,7 @@ export function toSiteConfig(artist: Artist): SiteConfig | null {
     jsonDetailApi: news.jsonDetailApi,
     listSelectors: news.listSelectors,
     detailSelectors: news.detailSelectors,
+    skipDetailFetch: news.skipDetailFetch,
     pagination: news.pagination,
     urlRules: news.urlRules,
     articleRules: news.articleRules,

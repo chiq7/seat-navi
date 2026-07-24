@@ -134,6 +134,8 @@ export type SiteConfig = {
   jsonDetailApi?: JsonDetailApiConfig;
   listSelectors?: ListSelectors;
   detailSelectors?: DetailSelectors;
+  /** 公式一覧のタイトル・日付だけで登録し、外部詳細ページの本文取得を省略する。 */
+  skipDetailFetch?: boolean;
   pagination?: PaginationConfig;
   urlRules?: UrlRules;
   articleRules?: ArticleRules;

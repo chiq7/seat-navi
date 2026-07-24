@@ -1,7 +1,7 @@
 name: Official News Crawler
 
 # 公式NEWS取得(週1回)。実行本体は scripts/crawlOfficialNews.mts。
-# レジストリでenabled=trueの公式NEWS（現在66組）を週次取得する。
+# レジストリでenabled=trueの公式NEWS（現在79組）を週次取得する。
 # 旧13組の専用parserは scripts/officialNews/legacySites.ts (Tier3/special) に維持する。
 #
 # スケジュール: UTC日曜19:00 = JST月曜4:00(深夜帯)。

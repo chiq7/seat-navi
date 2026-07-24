@@ -49,7 +49,7 @@ export async function fetchStaticHtmlList(config: SiteConfig): Promise<ListFetch
     });
   }
 
-  return { method: "static_html", robots, articles, needsDetailFetch: true };
+  return { method: "static_html", robots, articles, needsDetailFetch: !config.skipDetailFetch };
 }
 
 export type GenericDetailResult =

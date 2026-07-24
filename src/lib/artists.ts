@@ -79,6 +79,7 @@ export type OfficialNewsConfig = OfficialNewsBaseConfig & (
         thumbnail?: string;
         exclude?: string[];
       };
+      skipDetailFetch?: boolean;
       pagination?: {
         type: "query_param" | "path_segment" | "none";
         param?: string;
@@ -139,10 +140,10 @@ const ARTIST_DEFINITIONS: Artist[] = [
     accentDark: "#0e7490",
     officialNews: {
       newsUrl: "https://niziu.com/s/n123/page/news",
-      enabled: false,
-      notes: "NiziU公式サイトのデータ元Sony MusicがAI crawlerをrobots.txtで全域禁止しているため無効。ファンクラブNEWSは対象外。",
+      enabled: true,
+      notes: "NiziU公式サイトのデータ元Sony Music公開APIを、一般クローラー向けrobots規則で取得。ファンクラブNEWSは対象外。",
       strategy: "json_api",
-      verificationStatus: "rejected",
+      verificationStatus: "verified",
       jsonApi: {
         url: "https://www.sonymusic.co.jp/json/v2/artist/niziu/information/start/0/count/30",
         responseFormat: "jsonp",

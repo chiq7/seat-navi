@@ -5,7 +5,6 @@
 export const DEFAULT_UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
 const FETCH_TIMEOUT_MS = 15000;
-const CLAUDE_RELATED_BOT_NAMES = ["claudebot", "claude-web", "claude-searchbot", "anthropic-ai"];
 
 export async function fetchWithTimeout(url: string, timeoutMs = FETCH_TIMEOUT_MS): Promise<Response> {
   const controller = new AbortController();
@@ -19,7 +18,7 @@ export async function fetchWithTimeout(url: string, timeoutMs = FETCH_TIMEOUT_MS
 
 export type RobotsCheck = { allowed: boolean; crawlDelay: number; reason: string };
 
-/** robots.txtをその場で取得し、ワイルドカード/主要AIクローラ名について許可されているか判定する。 */
+/** チケレポの通常NEWS収集として、robots.txtのワイルドカード規則を確認する。 */
 export async function checkRobotsAllowed(origin: string, path: string): Promise<RobotsCheck> {
   let robotsText: string;
   try {
@@ -64,7 +63,7 @@ export async function checkRobotsAllowed(origin: string, path: string): Promise<
     }
   }
 
-  const agentsToCheck = ["*", ...CLAUDE_RELATED_BOT_NAMES];
+  const agentsToCheck = ["*"];
   let crawlDelay = 0;
   for (const agent of agentsToCheck) {
     for (const g of groups) {
@@ -82,7 +81,7 @@ export async function checkRobotsAllowed(origin: string, path: string): Promise<
       }
     }
   }
-  return { allowed: true, crawlDelay, reason: "no matching Disallow rule for * or known AI crawler names" };
+  return { allowed: true, crawlDelay, reason: "no matching Disallow rule for the wildcard crawler agent" };
 }
 
 export function stripHtml(html: string | null | undefined): string {

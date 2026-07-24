@@ -1,7 +1,7 @@
 // 新規アーティストの公式NEWS URLを渡すと、取得方式の候補を自動調査するCLI。
 //
 // 実行方法:
-//   node scripts/discoverOfficialNewsSite.mjs <公式NEWS一覧ページのURL>
+//   node scripts/discoverOfficialNewsSite.mjs <公式NEWS一覧ページのURL> [--standard-robots]
 //
 // 調査内容: robots.txt / RSS・Atom / WordPress REST API / sitemap(news sitemap含む) /
 // JSON-LD / OGP / __NEXT_DATA__・__NUXT__・window初期データ / HTML内ニュース一覧候補 /
@@ -36,7 +36,7 @@ async function fetchSafe(url, timeoutMs = 10000) {
   }
 }
 
-async function checkRobots(origin) {
+async function checkRobots(origin, policy = "strict_ai") {
   const res = await fetchSafe(new URL("/robots.txt", origin).toString());
   if (!res.ok) return { exists: false, ruleGroups: [], crawlDelay: 0, sitemaps: [] };
 
@@ -70,7 +70,8 @@ async function checkRobots(origin) {
       sitemaps.push(value);
     }
   }
-  const ruleGroups = groups.filter((group) => group.agents.some((agent) => RELEVANT_ROBOTS_AGENTS.has(agent)));
+  const relevantAgents = policy === "standard" ? new Set(["*"]) : RELEVANT_ROBOTS_AGENTS;
+  const ruleGroups = groups.filter((group) => group.agents.some((agent) => relevantAgents.has(agent)));
   const crawlDelay = ruleGroups.reduce((max, group) => Math.max(max, group.crawlDelay), 0);
   return { exists: true, ruleGroups, crawlDelay, sitemaps };
 }
@@ -386,18 +387,22 @@ export async function discoverOfficialNewsSite(targetUrl, options = {}) {
   const origin = u.origin;
 
   log(`調査対象: ${targetUrl}`);
-  const robots = await checkRobots(origin);
+  const robotsPolicy = options.robotsPolicy === "standard" ? "standard" : "strict_ai";
+  const robots = await checkRobots(origin, robotsPolicy);
   const targetAllowed = isPathAllowed(robots.ruleGroups, u.pathname);
-  log(`robots.txt: ${robots.exists ? "あり" : "なし(制限なしとみなす)"} / crawl-delay=${robots.crawlDelay}s / targetAllowed=${targetAllowed}`);
+  log(`robots.txt: ${robots.exists ? "あり" : "なし(制限なしとみなす)"} / policy=${robotsPolicy} / crawl-delay=${robots.crawlDelay}s / targetAllowed=${targetAllowed}`);
 
   if (!targetAllowed) {
     log("robots.txtが対象パスへのcrawlerアクセスを禁止しているため、これ以上のprobeを行わず終了します。");
     const report = {
       target_url: targetUrl,
       generated_at: new Date().toISOString(),
+      robots_policy: robotsPolicy,
       robots,
       classification: "robots_blocked",
-      aborted_reason: "robots.txt disallows the target path for * or a known AI crawler agent",
+      aborted_reason: robotsPolicy === "standard"
+        ? "robots.txt disallows the target path for the wildcard crawler agent"
+        : "robots.txt disallows the target path for * or a known AI crawler agent",
     };
     if (options.writeReport !== false) writeReport(u, report, options.outputDir, log);
     return report;
@@ -577,6 +582,7 @@ export async function discoverOfficialNewsSite(targetUrl, options = {}) {
   const report = {
     target_url: targetUrl,
     generated_at: new Date().toISOString(),
+    robots_policy: robotsPolicy,
     robots,
     probes,
     classification,
@@ -606,11 +612,12 @@ function writeReport(u, report, outputDir, log = console.log) {
 const isDirectRun = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
 if (isDirectRun) {
   const targetUrl = process.argv[2];
+  const robotsPolicy = process.argv.includes("--standard-robots") ? "standard" : "strict_ai";
   if (!targetUrl) {
-    console.error("使い方: node scripts/discoverOfficialNewsSite.mjs <公式NEWS一覧ページのURL>");
+    console.error("使い方: node scripts/discoverOfficialNewsSite.mjs <公式NEWS一覧ページのURL> [--standard-robots]");
     process.exitCode = 1;
   } else {
-    discoverOfficialNewsSite(targetUrl).catch((e) => {
+    discoverOfficialNewsSite(targetUrl, { robotsPolicy }).catch((e) => {
       console.error("FATAL:", e);
       process.exitCode = 1;
     });

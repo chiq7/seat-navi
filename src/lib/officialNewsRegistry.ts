@@ -2,8 +2,8 @@ import type { OfficialNewsConfig } from "./artists";
 
 /**
  * 2026-07-24に全未調査アーティストを公式サイトまで確認した結果。
- * enabledはrobots.txt確認と実記事抽出の両方に合格したサイトだけtrueにする。
- * 禁止・記事0件も調査をやり直さないよう設定と理由を残す。
+ * enabledは一般クローラー向けrobots.txt確認と、公開API・RSS・実記事抽出の確認後にtrueにする。
+ * 記事0件・公開NEWSなしも調査をやり直さないよう設定と理由を残す。
  */
 const SOURCES: Record<string, string> = {
   "nogizaka46": "https://www.nogizaka46.com/news/",
@@ -40,7 +40,7 @@ const SOURCES: Record<string, string> = {
   "yoasobi": "https://www.yoasobi-music.jp/news",
   "bigbang": "https://ygex.jp/bigbang/news/",
   "juice-juice": "https://www.helloproject.com/juicejuice/news/",
-  "alpha-drive-one": "https://alphadriveone.com/news/",
+  "alpha-drive-one": "https://alphadriveone.com/",
   "lilas-ikuta": "https://www.lilasikuta.jp/news",
   "holox": "https://hololive.hololivepro.com/news/",
   "bts": "https://bts-official.jp/news/",
@@ -84,6 +84,7 @@ const SOURCES: Record<string, string> = {
 };
 
 const VERIFIED = new Set([
+  "nogizaka46", "snow-man", "acees", "news", "arashi", "the-rampage", "naniwa-danshi", "kis-my-ft2", "nexz", "yoasobi", "kento-nakajima", "kat-tun",
   "seventeen", "doh-kyung-soo-d-o", "ive",
   "sixtones", "equal-love", "fantastics", "treasure", "hiromitsu-kitayama", "ballistik-boyz", "shinee", "team",
   "g-i-dle", "joy", "le-sserafim", "king-prince", "j-soul-brothers", "buddiis", "timelesz", "aespa",
@@ -93,9 +94,8 @@ const VERIFIED = new Set([
   "boynextdoor", "ikon", "travis-japan", "domoto",
 ]);
 
-const ROBOTS_BLOCKED = new Set([
-  "nogizaka46", "snow-man", "acees", "news", "arashi", "the-rampage", "naniwa-danshi", "kis-my-ft2", "nexz",
-  "alpha-drive-one", "kento-nakajima", "kat-tun",
+const UNAVAILABLE = new Set([
+  "alpha-drive-one",
 ]);
 
 const ARTICLE_FILTERS: Record<string, string[]> = {
@@ -112,6 +112,124 @@ type GenericOfficialNewsConfig = Extract<OfficialNewsConfig, { strategy: string 
 
 /** Discovery後に共通strategyで実URL・構造まで確認できたサイトの上書き設定。 */
 const DEDICATED_CONFIGS: Record<string, Partial<GenericOfficialNewsConfig>> = {
+  "nogizaka46": {
+    strategy: "json_api",
+    verificationStatus: "verified",
+    newsUrl: "https://www.nogizaka46.com/s/n46/news/list",
+    notes: "2026-07-24 公式ページが使う公開JSON APIを確認。本文付き最新20件を取得。",
+    jsonApi: {
+      url: "https://www.nogizaka46.com/s/n46/api/list/news_v2?rw=20",
+      itemsPath: "data",
+      titleField: "title",
+      urlField: "link_url",
+      dateField: "date",
+      bodyField: "text",
+      articleUrlBase: "https://www.nogizaka46.com",
+    },
+    urlRules: { allow: ["^https://www\\.nogizaka46\\.com/s/n46/news/detail/\\d+(?:[/?#]|$)"] },
+  },
+  "snow-man": {
+    strategy: "auto_html",
+    verificationStatus: "verified",
+    notes: "2026-07-24 一般クローラー向けrobots規則とCrawl-delay 30秒を守り、実記事3件を検証。",
+    urlRules: { allow: ["^https://mentrecording\\.jp/snowman/news/detail\\.php\\?id=\\d+$"] },
+  },
+  "acees": {
+    strategy: "static_html",
+    verificationStatus: "verified",
+    newsUrl: "https://starto.jp/s/p/news/list?tag=105&list[]=105&artist=105",
+    notes: "2026-07-24 STARTO共通公開NEWSの一覧構造を確認。",
+    listSelectors: { item: ".p-in_news__list-item", link: ".c-news__ttl-inner", title: ".c-ttl-2", date: ".c-date", dateFormat: "YYYY.MM.DD" },
+    skipDetailFetch: true,
+  },
+  "news": {
+    strategy: "static_html",
+    verificationStatus: "verified",
+    newsUrl: "https://starto.jp/s/p/news/list?tag=12&list[]=12&artist=12",
+    notes: "2026-07-24 STARTO共通公開NEWSの一覧構造を確認。現在0件でも今後の公開を自動取得。",
+    listSelectors: { item: ".p-in_news__list-item", link: ".c-news__ttl-inner", title: ".c-ttl-2", date: ".c-date", dateFormat: "YYYY.MM.DD" },
+    skipDetailFetch: true,
+  },
+  "arashi": {
+    strategy: "static_html",
+    verificationStatus: "verified",
+    newsUrl: "https://starto.jp/s/p/news/list?tag=10&list[]=10&artist=10",
+    notes: "2026-07-24 STARTO共通公開NEWSの一覧構造と外部公式詳細リンクを確認。",
+    listSelectors: { item: ".p-in_news__list-item", link: ".c-news__ttl-inner", title: ".c-ttl-2", date: ".c-date", dateFormat: "YYYY.MM.DD" },
+    skipDetailFetch: true,
+  },
+  "the-rampage": {
+    strategy: "auto_html",
+    verificationStatus: "verified",
+    newsUrl: "https://therampage-ldh.jp/s/ldh05o/news/list?ima=0000",
+    notes: "2026-07-24 現行の公式NEWS URLを再発見し、実記事一覧を確認。",
+    urlRules: { allow: ["^https://therampage-ldh\\.jp/s/ldh05o/news/detail/[A-Za-z0-9]+(?:[/?#]|$)"] },
+  },
+  "naniwa-danshi": {
+    strategy: "json_api",
+    verificationStatus: "verified",
+    newsUrl: "https://web.storm-labels.co.jp/s/st/news/list?arti=J0011",
+    notes: "2026-07-24 公式ページが使う公開JSONP APIを確認。最新10件を取得。",
+    jsonApi: {
+      url: "https://web.storm-labels.co.jp/s/st/api/list/st_INFO?rw=10&dy=&ct=&arti=J0011&st=0",
+      responseFormat: "jsonp",
+      itemsPath: "data",
+      titleField: "title",
+      urlField: "link",
+      dateField: "date",
+      articleUrlBase: "https://web.storm-labels.co.jp",
+    },
+    urlRules: { allow: ["^https://web\\.storm-labels\\.co\\.jp/s/st/news/detail/\\d+(?:[/?#]|$)"] },
+  },
+  "kis-my-ft2": {
+    strategy: "auto_html",
+    verificationStatus: "verified",
+    notes: "2026-07-24 一般クローラー向けrobots規則とCrawl-delay 30秒を守り、実記事3件を検証。",
+    urlRules: { allow: ["^https://mentrecording\\.jp/kismyft2/news/detail\\.php\\?id=\\d+$"] },
+  },
+  "kento-nakajima": {
+    strategy: "json_api",
+    verificationStatus: "verified",
+    notes: "2026-07-24 Sony Music一般公開NEWS APIから100件取得を検証。",
+    jsonApi: {
+      url: "https://www.sonymusic.co.jp/json/v2/artist/KentoNakajima/information/start/0/count/100",
+      responseFormat: "jsonp",
+      itemsPath: "items",
+      titleField: "title",
+      urlField: "link",
+      dateField: "date",
+      bodyField: "article",
+      thumbnailField: "images.image",
+      articleUrlBase: "https://www.sonymusic.co.jp",
+    },
+    urlRules: { allow: ["^https://www\\.sonymusic\\.co\\.jp/artist/KentoNakajima/info/"] },
+  },
+  "kat-tun": {
+    strategy: "static_html",
+    verificationStatus: "verified",
+    newsUrl: "https://starto.jp/s/p/news/list?tag=14&list[]=14&artist=14",
+    notes: "2026-07-24 STARTO共通公開NEWSの一覧構造を確認。現在0件でも今後の公開を自動取得。",
+    listSelectors: { item: ".p-in_news__list-item", link: ".c-news__ttl-inner", title: ".c-ttl-2", date: ".c-date", dateFormat: "YYYY.MM.DD" },
+    skipDetailFetch: true,
+  },
+  "nexz": {
+    strategy: "json_api",
+    verificationStatus: "verified",
+    newsUrl: "https://nexz-official.com/s/n180/news/list",
+    notes: "2026-07-24 現行公式URLと、公式ページが使うSony Music公開APIを確認。",
+    jsonApi: {
+      url: "https://www.sonymusic.co.jp/json/v2/artist/NEXZ/information/start/0/count/30",
+      responseFormat: "jsonp",
+      itemsPath: "items",
+      titleField: "title",
+      urlField: "link",
+      dateField: "date",
+      bodyField: "article",
+      thumbnailField: "images.image",
+      articleUrlBase: "https://www.sonymusic.co.jp",
+    },
+    urlRules: { allow: ["^https://www\\.sonymusic\\.co\\.jp/artist/NEXZ/info/"] },
+  },
   "equal-love": {
     urlRules: { allow: ["^https://equal-love\\.jp/news/detail/\\d+(?:[/?#]|$)"] },
     notes: "2026-07-24 公開NEWSから記事詳細URLのみを取得するよう安全フィルターを確認済み。",
@@ -153,6 +271,10 @@ const DEDICATED_CONFIGS: Record<string, Partial<GenericOfficialNewsConfig>> = {
   },
   "stray-kids": {
     notes: "2026-07-24 一覧HTMLは空で、Sony Music共通JSによる描画を確認。公式側の安定した記事URL/APIを確定できるまで無効。",
+  },
+  "alpha-drive-one": {
+    verificationStatus: "candidate",
+    notes: "2026-07-24 トップページは公開中だが旧/news/は404。公式サイト内に公開NEWS一覧・APIを確認できず待機。",
   },
   "ryosuke-yamada": {
     notes: "2026-07-24 公式JSON assets/data/news.jsonを発見し48件・date/title/categoryを確認。ただし記事ごとの安定URLが存在しないため無効。",
@@ -258,8 +380,8 @@ const DEDICATED_CONFIGS: Record<string, Partial<GenericOfficialNewsConfig>> = {
   },
   "yoasobi": {
     strategy: "json_api",
-    verificationStatus: "rejected",
-    notes: "2026-07-24 公式サイトが使うSony Music公開APIを特定したが、API側robots.txtが主要AI crawlerを全域禁止しているため無効。回避しない。",
+    verificationStatus: "verified",
+    notes: "2026-07-24 公式サイトが使うSony Music公開APIの本文・記事URLを確認。",
     jsonApi: {
       url: "https://www.sonymusic.co.jp/json/v2/artist/YOASOBI/information/start/0/count/100/callback/InfoCallcack",
       responseFormat: "jsonp",
@@ -271,7 +393,7 @@ const DEDICATED_CONFIGS: Record<string, Partial<GenericOfficialNewsConfig>> = {
       thumbnailField: "images.image",
       articleUrlBase: "https://www.sonymusic.co.jp",
     },
-    urlRules: { allow: ["^https://www\\.sonymusic\\.co\\.jp/artist/YOASOBI/info/"] },
+    urlRules: { allow: ["^https://www\\.sonymusic\\.co\\.jp/PR/YOASOBI/info/"] },
   },
   "roirom": {
     strategy: "auto_html",
@@ -283,17 +405,17 @@ const DEDICATED_CONFIGS: Record<string, Partial<GenericOfficialNewsConfig>> = {
 export const DISCOVERED_OFFICIAL_NEWS_CONFIGS: Record<string, OfficialNewsConfig> = Object.fromEntries(
   Object.entries(SOURCES).map(([slug, newsUrl]) => {
     const enabled = VERIFIED.has(slug);
-    const blocked = ROBOTS_BLOCKED.has(slug);
+    const unavailable = UNAVAILABLE.has(slug);
     const base = {
       newsUrl,
       enabled,
       notes: enabled
         ? "2026-07-24 公式サイトのrobots.txt・一覧到達・実記事抽出をローカル検証済み。"
-        : blocked
-          ? "2026-07-24 公式サイトを確認済み。主要AI crawlerをrobots.txtで禁止しているため無効。禁止サイトの扱いは後で一括検討する。"
+        : unavailable
+          ? "2026-07-24 公式サイトは公開中だが、取得できる公開NEWS一覧がないため待機。"
           : "2026-07-24 公式サイトとrobots.txtを確認済み。現行の安全な汎用抽出では実記事0件のため無効。専用API/RSS対応候補。",
       strategy: "auto_html" as const,
-      verificationStatus: enabled ? "verified" as const : blocked ? "rejected" as const : "candidate" as const,
+      verificationStatus: enabled ? "verified" as const : "candidate" as const,
       articleRules: ARTICLE_FILTERS[slug] ? { includeAny: ARTICLE_FILTERS[slug] } : undefined,
     } satisfies OfficialNewsConfig;
     return [slug, { ...base, ...DEDICATED_CONFIGS[slug] } as OfficialNewsConfig];
@@ -303,7 +425,6 @@ export const DISCOVERED_OFFICIAL_NEWS_CONFIGS: Record<string, OfficialNewsConfig
 export const OFFICIAL_NEWS_AUDIT_COUNTS = {
   total: Object.keys(SOURCES).length,
   verified: VERIFIED.size,
-  robotsBlocked: ROBOTS_BLOCKED.size,
-  externalSourceBlocked: 1,
-  needsDedicatedParser: Object.keys(SOURCES).length - VERIFIED.size - ROBOTS_BLOCKED.size - 1,
+  unavailable: UNAVAILABLE.size,
+  needsDedicatedParser: Object.keys(SOURCES).length - VERIFIED.size - UNAVAILABLE.size,
 } as const;
