@@ -123,9 +123,14 @@ export function selectAllOuter(html: string, selector: string): string[] {
 
 /** セレクタにマッチする最初の要素のテキスト内容(タグ除去済み)を返す。 */
 export function selectText(html: string, selector: string): string | null {
+  return selectTextAt(html, selector, 0);
+}
+
+/** セレクタにマッチする指定位置の要素からテキスト内容を返す。 */
+export function selectTextAt(html: string, selector: string, index: number): string | null {
   const matches = selectAll(html, selector);
-  if (matches.length === 0) return null;
-  const text = matches[0]
+  if (index < 0 || index >= matches.length) return null;
+  const text = matches[index]
     .replace(/<[^>]+>/g, " ")
     .replace(/&nbsp;/g, " ")
     .replace(/&amp;/g, "&")

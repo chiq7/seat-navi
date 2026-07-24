@@ -23,7 +23,9 @@ const MAX_ARTICLE_COUNT = 60;
 const MAX_DUPLICATE_RATE = 0.1;
 const MIN_BODY_CHARS = 50;
 const DETAIL_SAMPLE_SIZE = 3; // 詳細ページ検証は全件でなくサンプルのみ(crawl-delay等を考慮)
-const NAV_FOOTER_KEYWORDS = ["プライバシーポリシー", "利用規約", "お問い合わせ", "サイトマップ", "COPYRIGHT", "All Rights Reserved"];
+// 「お問い合わせ」は記事本文中の正規の問い合わせ先にも頻出するため、単独では
+// ナビ/フッター混入の根拠にしない。
+const NAV_FOOTER_KEYWORDS = ["プライバシーポリシー", "利用規約", "サイトマップ", "COPYRIGHT", "All Rights Reserved"];
 
 type CheckResult = { name: string; passed: boolean; critical: boolean; detail: string };
 

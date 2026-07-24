@@ -38,6 +38,8 @@ export type ListSelectors = {
   linkValuePattern?: string;
   /** タイトルを持つ要素 */
   title: string;
+  /** titleに複数要素が一致する場合の0始まり位置。既定は先頭。 */
+  titleIndex?: number;
   /** 公開日を持つ要素(省略時は日付なしで進める) */
   date?: string;
   /** 日付のフォーマット(例: "YYYY.MM.DD" 、datetime属性がある場合は "attr:datetime") */
@@ -84,6 +86,8 @@ export type UrlRules = {
   deny?: string[];
   normalize?: {
     stripQuery?: boolean;
+    /** 記事ID以外の追跡・セッション系queryだけを除去する。 */
+    dropQueryParams?: string[];
     stripTrailingSlash?: boolean;
     forceHttps?: boolean;
   };

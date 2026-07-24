@@ -10,7 +10,7 @@ import {
   extractScriptRouteFragments,
 } from "../discoverOfficialNewsSite.mjs";
 import { getByPath } from "./strategies/embeddedJson.ts";
-import { selectAllOuter, selectAttr, selectText } from "./htmlSelect.ts";
+import { selectAllOuter, selectAttr, selectText, selectTextAt } from "./htmlSelect.ts";
 
 test("Discovery finds RSS alternate links regardless of attribute order and quote style", () => {
   const html = `
@@ -72,6 +72,12 @@ test("static HTML selectors can read an onclick URL from the item root", () => {
   assert.equal(onclick, "location.href='/posts/information/abc'");
   assert.equal(selectText(blocks[0], "dd"), "記事タイトル");
   assert.equal(/location\.href=['\"]([^'\"]+)/i.exec(onclick)[1], "/posts/information/abc");
+});
+
+test("static HTML selectors can select a repeated title element by index", () => {
+  const html = `<div class="entry_panel"><p class="date">2026.07.24</p><p>記事タイトル</p></div>`;
+  assert.equal(selectText(html, "p"), "2026.07.24");
+  assert.equal(selectTextAt(html, "p", 1), "記事タイトル");
 });
 
 test("Discovery extracts only news-like public endpoint strings from site scripts", () => {

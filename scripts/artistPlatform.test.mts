@@ -275,17 +275,18 @@ test("all audited NEWS configs keep only verified sites enabled", () => {
   assert.equal(niziu?.enabled, false);
   assert.deepEqual(OFFICIAL_NEWS_AUDIT_COUNTS, {
     total: 75,
-    verified: 49,
+    verified: 50,
     robotsBlocked: 12,
     externalSourceBlocked: 1,
-    needsDedicatedParser: 13,
+    needsDedicatedParser: 12,
   });
   assert.equal(SITE_CONFIGS.length, 93);
-  assert.equal(SITE_CONFIGS.filter((site) => site.enabled).length, 65);
-  assert.equal(SITE_CONFIGS.filter((site) => site.strategy === "auto_html").length, 68);
+  assert.equal(SITE_CONFIGS.filter((site) => site.enabled).length, 66);
+  assert.equal(SITE_CONFIGS.filter((site) => site.strategy === "auto_html").length, 67);
   assert.equal(SITE_CONFIGS.filter((site) => site.verificationStatus === "rejected").length, 14);
   assert.equal(SITE_CONFIGS.find((site) => site.artistSlug === "seventeen")?.strategy, "static_html");
   assert.equal(SITE_CONFIGS.find((site) => site.artistSlug === "doh-kyung-soo-d-o")?.strategy, "rss");
+  assert.equal(SITE_CONFIGS.find((site) => site.artistSlug === "ive")?.strategy, "static_html");
 });
 
 test("a new common NEWS site is generated from the artist definition without special routing", () => {

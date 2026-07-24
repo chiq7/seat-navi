@@ -18,6 +18,7 @@ import {
   upsertOfficialNewsArticle,
 } from "./db";
 import { classifyArticleWithGemini } from "./gemini";
+import { applyUrlRules } from "./httpUtils";
 import { mapJsonApiArticles, parseJsonApiPayload } from "./strategies/jsonApi";
 import { extractAutoHtmlArticles } from "./strategies/autoHtml";
 import { LEGACY_SOURCES } from "./legacySites";
@@ -82,6 +83,16 @@ test("JSON API strategy parses JSONP and maps nested fields with relative URLs",
     body: "本文",
     thumbnail_url: "https://www.example.com/images/1.jpg",
   }]);
+});
+
+test("URL rules remove volatile query parameters without removing article identity", () => {
+  assert.equal(
+    applyUrlRules(
+      "https://ive-official.jp/mob/news/newsShw.php?site=DIVE&ima=5426&cd=OF10423",
+      { normalize: { dropQueryParams: ["ima", "aff"] } },
+    ),
+    "https://ive-official.jp/mob/news/newsShw.php?site=DIVE&cd=OF10423",
+  );
 });
 
 test("no arguments is dry-run with Gemini disabled", () => {

@@ -58,6 +58,7 @@ export type OfficialNewsConfig = OfficialNewsBaseConfig & (
         linkAttribute?: string;
         linkValuePattern?: string;
         title: string;
+        titleIndex?: number;
         date?: string;
         dateFormat?: string;
       };
@@ -79,6 +80,7 @@ export type OfficialNewsConfig = OfficialNewsBaseConfig & (
         deny?: string[];
         normalize?: {
           stripQuery?: boolean;
+          dropQueryParams?: string[];
           stripTrailingSlash?: boolean;
           forceHttps?: boolean;
         };

@@ -46,7 +46,7 @@ const SOURCES: Record<string, string> = {
   "bts": "https://bts-official.jp/news/",
   "newjeans": "https://www.newjeans.jp/news",
   "2pm": "https://www.2pmjapan.com/info/",
-  "ive": "https://ive-official.jp/mob/news/newsShw.php?site=DIVE",
+  "ive": "https://ive-official.jp/mob/news/newsLis.php?site=DIVE&aff=ROBO004",
   "bullet-train": "https://bullettrain.jp/news/",
   "enhypen": "https://enhypen-jp.weverse.io/news/",
   "da-ice": "https://da-ice.jp/news/",
@@ -84,7 +84,7 @@ const SOURCES: Record<string, string> = {
 };
 
 const VERIFIED = new Set([
-  "seventeen", "doh-kyung-soo-d-o",
+  "seventeen", "doh-kyung-soo-d-o", "ive",
   "sixtones", "equal-love", "fantastics", "treasure", "hiromitsu-kitayama", "ballistik-boyz", "shinee", "team",
   "g-i-dle", "joy", "le-sserafim", "king-prince", "j-soul-brothers", "buddiis", "timelesz", "aespa",
   "strawberry-prince", "number-i", "bigbang", "bts", "newjeans", "bullet-train", "enhypen", "da-ice", "m-lk",
@@ -128,7 +128,29 @@ const DEDICATED_CONFIGS: Record<string, Partial<GenericOfficialNewsConfig>> = {
     notes: "2026-07-24 一覧HTMLは空で、Sony Music共通JSによる描画を確認。公式側の安定した記事URL/APIを確定できるまで無効。",
   },
   "ive": {
-    notes: "2026-07-24 公式INDEXに16件を確認したが、記事リンクはFCログイン用modalとdata-numのみ。認証回避を行わず無効。",
+    strategy: "static_html",
+    verificationStatus: "verified",
+    notes: "2026-07-24 公開NEWS一覧と個別記事をログインなしで再確認。10件を検証し、安全ゲート全項目合格。",
+    listSelectors: {
+      item: ".entry_panel",
+      link: "a",
+      title: "p",
+      titleIndex: 1,
+      date: ".date",
+      dateFormat: "YYYY.MM.DD",
+    },
+    detailSelectors: {
+      title: ".entry_detail h3",
+      body: ".entry_detail",
+      date: ".entry_detail .date",
+      dateFormat: "YYYY.MM.DD",
+      thumbnail: ".entry_detail img",
+      exclude: [".category_label", ".date", "h3"],
+    },
+    urlRules: {
+      allow: ["^https://ive-official\\.jp/mob/news/newsShw\\.php\\?(?=[^#]*\\bsite=DIVE\\b)(?=[^#]*\\bcd=OF[0-9]+\\b)[^#]+$"],
+      normalize: { dropQueryParams: ["ima", "aff"], forceHttps: true },
+    },
   },
   "uratanuki": {
     strategy: "static_html",

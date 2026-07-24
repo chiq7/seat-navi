@@ -2,7 +2,7 @@
 // フルCSSセレクタ仕様には対応しない(../htmlSelect.tsのコメント参照)。単純な構造の
 // 静的HTMLサイト向け。JS描画(SPA)前提のサイトはこの戦略では取得できない。
 import { applyUrlRules, fetchWithTimeout, checkRobotsAllowed } from "../httpUtils";
-import { selectAll, selectAllOuter, selectText, selectAttr, removeSelectors } from "../htmlSelect";
+import { selectAll, selectAllOuter, selectText, selectTextAt, selectAttr, removeSelectors } from "../htmlSelect";
 import { extractArticleFromJsonLd, extractArticleFromOgp } from "./jsonLd";
 import type { SiteConfig, ListFetchResult, CrawledArticle, DetailSelectors } from "../types";
 
@@ -30,7 +30,7 @@ export async function fetchStaticHtmlList(config: SiteConfig): Promise<ListFetch
   const itemBlocks = selectAllOuter(html, sel.item);
   const articles: CrawledArticle[] = [];
   for (const block of itemBlocks) {
-    const title = selectText(block, sel.title);
+    const title = selectTextAt(block, sel.title, sel.titleIndex ?? 0);
     const rawLink = selectAttr(block, sel.link, sel.linkAttribute ?? "href");
     const href = rawLink && sel.linkValuePattern
       ? new RegExp(sel.linkValuePattern, "i").exec(rawLink)?.[1] ?? null
@@ -87,7 +87,14 @@ export async function fetchGenericDetail(articleUrl: string, detailSelectors: De
       publishedDate = detailSelectors.date
         ? normalizeDateWithFormat(selectText(html, detailSelectors.date), detailSelectors.dateFormat)
         : null;
-      thumbnail = detailSelectors.thumbnail ? selectAttr(html, detailSelectors.thumbnail, "src") : null;
+      const thumbnailSrc = detailSelectors.thumbnail ? selectAttr(html, detailSelectors.thumbnail, "src") : null;
+      if (thumbnailSrc) {
+        try {
+          thumbnail = new URL(thumbnailSrc, res.url || articleUrl).toString();
+        } catch {
+          thumbnail = null;
+        }
+      }
     }
 
     if (!body) {

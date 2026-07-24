@@ -114,7 +114,11 @@ export function stripHtml(html: string | null | undefined): string {
 /** 記事URLの許可/除外/正規化ルールを適用する。 */
 export function applyUrlRules(
   url: string,
-  rules?: { allow?: string[]; deny?: string[]; normalize?: { stripQuery?: boolean; stripTrailingSlash?: boolean; forceHttps?: boolean } },
+  rules?: {
+    allow?: string[];
+    deny?: string[];
+    normalize?: { stripQuery?: boolean; dropQueryParams?: string[]; stripTrailingSlash?: boolean; forceHttps?: boolean };
+  },
 ): string | null {
   if (!rules) return url;
   if (rules.deny?.some((p) => new RegExp(p).test(url))) return null;
@@ -122,7 +126,13 @@ export function applyUrlRules(
 
   let out = url;
   if (rules.normalize?.forceHttps) out = out.replace(/^http:\/\//, "https://");
-  if (rules.normalize?.stripQuery) out = out.split("?")[0];
+  if (rules.normalize?.stripQuery) {
+    out = out.split("?")[0];
+  } else if (rules.normalize?.dropQueryParams?.length) {
+    const parsed = new URL(out);
+    for (const param of rules.normalize.dropQueryParams) parsed.searchParams.delete(param);
+    out = parsed.toString();
+  }
   if (rules.normalize?.stripTrailingSlash) out = out.replace(/\/$/, "");
   return out;
 }
