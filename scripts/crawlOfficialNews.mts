@@ -18,6 +18,7 @@ import {
 } from "./officialNews/cliArgs";
 import {
   articleIdentityKey,
+  countExistingArticlesByArtist,
   isPersistableAiStatus,
   loadExistingArticleKeys,
   upsertOfficialNewsArticle,
@@ -275,7 +276,7 @@ export async function runCrawler(
     let supabase: SupabaseClient | null = null;
     let existingArticleKeys = new Set<string>();
     if (args.execute) {
-      const supabaseUrl = deps.env.SUPABASE_URL ?? "";
+      const supabaseUrl = deps.env.SUPABASE_URL ?? deps.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
       const serviceKey = deps.env.SUPABASE_SERVICE_ROLE_KEY ?? "";
       if (!supabaseUrl || !serviceKey) {
         throw new Error("SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY is not configured.");
@@ -333,9 +334,14 @@ export async function runCrawler(
       }
     }
 
+    const existingArticleCounts = countExistingArticlesByArtist(existingArticleKeys);
     const candidateSites = sites
       .map((site) => candidatesBySlug.get(site.artistSlug))
-      .filter((site): site is CandidateSite => site !== undefined);
+      .filter((site): site is CandidateSite => site !== undefined)
+      .sort((left, right) =>
+        (existingArticleCounts.get(left.config.artistSlug) ?? 0)
+        - (existingArticleCounts.get(right.config.artistSlug) ?? 0),
+      );
     const allocation = selectRoundRobin(
       candidateSites.map((site) => site.candidates),
       MAX_TOTAL_NEW_PER_RUN,

@@ -13,6 +13,7 @@ import {
 } from "./cliArgs";
 import {
   articleIdentityKey,
+  countExistingArticlesByArtist,
   isPersistableAiStatus,
   loadExistingArticleKeys,
   upsertOfficialNewsArticle,
@@ -509,6 +510,16 @@ test("URL identity keeps shared URLs separate by artist and matches documented n
     articleIdentityKey("artist-a", "https://example.com/shared"),
     articleIdentityKey("artist-b", "https://example.com/shared"),
   );
+});
+
+test("existing article counts support fair backfill ordering", () => {
+  const counts = countExistingArticlesByArtist(new Set([
+    articleIdentityKey("artist-a", "https://example.com/news/1"),
+    articleIdentityKey("artist-a", "https://example.com/news/2"),
+    articleIdentityKey("artist-b", "https://example.com/news/1"),
+    "invalid-key-without-separator",
+  ]));
+  assert.deepEqual(Object.fromEntries(counts), { "artist-a": 2, "artist-b": 1 });
 });
 
 test("public view excludes article_body and base table grants are revoked", () => {

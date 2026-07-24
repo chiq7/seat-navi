@@ -17,6 +17,18 @@ export function articleIdentityKey(artistSlug: string, articleUrl: string): stri
   return `${artistSlug}\u0000${normalizeOfficialNewsUrl(articleUrl)}`;
 }
 
+/** 既存記事数が少ないアーティストを初回backfillで優先するための件数集計。 */
+export function countExistingArticlesByArtist(keys: Iterable<string>): Map<string, number> {
+  const counts = new Map<string, number>();
+  for (const key of keys) {
+    const separator = key.indexOf("\u0000");
+    if (separator <= 0) continue;
+    const artistSlug = key.slice(0, separator);
+    counts.set(artistSlug, (counts.get(artistSlug) ?? 0) + 1);
+  }
+  return counts;
+}
+
 export function isPersistableAiStatus(status: string): status is "classified" {
   return status === "classified";
 }
