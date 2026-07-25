@@ -7,6 +7,7 @@ export type UpcomingEvent = {
   id: string;
   artistSlug: string;
   artist: string;
+  eventName: string;
   date: string;
   venue: string;
   count: string;
@@ -106,6 +107,7 @@ export async function getUpcomingHomeEvents(): Promise<UpcomingEvent[]> {
     id: ev.id,
     artistSlug: artist.slug,
     artist: artist.name,
+    eventName: parseEventTitle(ev.title, artist.name).tourName || ev.title,
     date: fmtDate(ev.date),
     venue: ev.venue,
     count: (counts.get(ev.id) ?? 0).toLocaleString("ja-JP"),

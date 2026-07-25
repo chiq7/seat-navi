@@ -47,15 +47,15 @@ export default function UpcomingEventCard({ item, backgroundImage, featured }: U
             {item.venue}
           </p>
           <p
-            className="absolute left-0 right-0 m-0 text-center text-[10px] font-bold text-white"
+            className="absolute left-0 right-0 m-0 overflow-hidden text-ellipsis whitespace-nowrap px-[6px] text-center text-[10px] font-bold text-white"
             style={{ bottom: "14px", textShadow: "0 1px 3px rgba(0,0,0,0.5)" }}
           >
-            {item.date}
+            {item.eventName}
           </p>
         </div>
         <div className="box-border flex h-[56px] flex-col" style={{ padding: "2px 8px 5px" }}>
           <p className="m-0 mt-[3px] text-center text-[10px] font-bold leading-none text-[#555]">
-            直近の注目公演
+            {item.date}
           </p>
           <span className="mt-[7px] block w-full rounded-[16px] bg-[#FF6B9D] py-[4px] text-center text-[9px] font-bold text-white">
             公演を見る

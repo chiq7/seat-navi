@@ -120,10 +120,10 @@ test("search event cards open the artist hub with a safe event fallback", () => 
 
 test("home featured events use popular artists while preserving nearest-date order", () => {
   const upcoming = [
-    { id: "other", artistSlug: "other", artist: "Other", date: "7/26", venue: "A", count: "0" },
-    { id: "niziu", artistSlug: "niziu", artist: "NiziU", date: "7/27", venue: "B", count: "0" },
-    { id: "snow-man", artistSlug: "snow-man", artist: "Snow Man", date: "7/28", venue: "C", count: "0" },
-    { id: "seventeen", artistSlug: "seventeen", artist: "SEVENTEEN", date: "7/29", venue: "D", count: "0" },
+    { id: "other", artistSlug: "other", artist: "Other", eventName: "OTHER LIVE", date: "7/26", venue: "A", count: "0" },
+    { id: "niziu", artistSlug: "niziu", artist: "NiziU", eventName: "NiziU LIVE", date: "7/27", venue: "B", count: "0" },
+    { id: "snow-man", artistSlug: "snow-man", artist: "Snow Man", eventName: "Snow Man LIVE", date: "7/28", venue: "C", count: "0" },
+    { id: "seventeen", artistSlug: "seventeen", artist: "SEVENTEEN", eventName: "SEVENTEEN LIVE", date: "7/29", venue: "D", count: "0" },
   ];
 
   assert.deepEqual(
