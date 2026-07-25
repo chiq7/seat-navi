@@ -2,6 +2,7 @@ import crypto from "node:crypto";
 import { ARTISTS } from "@/lib/artists";
 import { getVenueIdAliases, VENUES } from "@/lib/eventCrawlerConfig";
 import { makeEventId } from "@/lib/eventCrawler";
+import { MANUAL_EVENT_REVIEWS, type ManualEvent } from "./manualReviews";
 
 export type OfficialNewsEventCandidate = {
   id: string;
@@ -41,7 +42,7 @@ export type PlannedNewsEvent = {
 export type SyncDecision = {
   news_id: string;
   artist_slug: string;
-  status: "planned" | "already_exists" | "deferred";
+  status: "planned" | "already_exists" | "deferred" | "ignored";
   reason: string;
   event_count: number;
 };
@@ -165,7 +166,61 @@ export function planOfficialNewsEvents(
   const decisions: SyncDecision[] = [];
   const plannedKeys = new Set<string>();
 
+  const planRows = (candidate: OfficialNewsEventCandidate, manualEvents: ManualEvent[], reason: string) => {
+    let plannedCount = 0;
+    let existingCount = 0;
+    for (const manualEvent of manualEvents) {
+      const artistSlug = manualEvent.artist_slug ?? candidate.artist_slug;
+      const venue = resolveVenue(manualEvent.venue);
+      const row: PlannedNewsEvent = {
+        id: makeEventId(venue.id, manualEvent.date, `${artistSlug}:${manualEvent.title}`),
+        title: manualEvent.title,
+        venue: venue.name,
+        venue_id: venue.id,
+        date: manualEvent.date,
+        genre: genreByArtist.get(artistSlug) ?? "other",
+        artist_slug: artistSlug,
+        source_news_id: candidate.id,
+      };
+      const key = `${row.artist_slug}\u0000${row.date}\u0000${row.venue_id}`;
+      if (hasExistingMatch(existing, row)) {
+        existingRows.push(row);
+        existingCount++;
+      } else if (!plannedKeys.has(key)) {
+        plannedKeys.add(key);
+        newRows.push(row);
+        plannedCount++;
+      }
+    }
+
+    decisions.push({
+      news_id: candidate.id,
+      artist_slug: candidate.artist_slug,
+      status: plannedCount > 0 ? "planned" : "already_exists",
+      reason: plannedCount > 0
+        ? `${reason}（新規${plannedCount}件${existingCount > 0 ? `、既存${existingCount}件` : ""}）`
+        : `${reason}（対象${existingCount}件は登録済み）`,
+      event_count: plannedCount > 0 ? plannedCount : existingCount,
+    });
+  };
+
   for (const candidate of candidates) {
+    const manualReview = MANUAL_EVENT_REVIEWS[candidate.id];
+    if (manualReview?.action === "ignore") {
+      decisions.push({
+        news_id: candidate.id,
+        artist_slug: candidate.artist_slug,
+        status: "ignored",
+        reason: manualReview.reason,
+        event_count: 0,
+      });
+      continue;
+    }
+    if (manualReview?.action === "replace") {
+      planRows(candidate, manualReview.events, manualReview.reason);
+      continue;
+    }
+
     const title = (candidate.tour_name || candidate.event_name || candidate.article_title).trim();
     const searchable = `${title}\n${candidate.article_title}`;
     if (!candidate.is_event_candidate || !["live", "ticket"].includes(candidate.category ?? "")) {
@@ -211,7 +266,7 @@ export function planOfficialNewsEvents(
     let existingCount = 0;
     for (const pair of pairs) {
       const row: PlannedNewsEvent = {
-        id: makeEventId(pair.venue.id, pair.date, title),
+        id: makeEventId(pair.venue.id, pair.date, `${candidate.artist_slug}:${title}`),
         title,
         venue: pair.venue.name,
         venue_id: pair.venue.id,

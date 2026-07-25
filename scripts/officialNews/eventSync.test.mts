@@ -118,3 +118,38 @@ test("long-running date ranges and festival-wide dates are retained for review i
   assert.equal(plan.newRows.length, 0);
   assert.equal(plan.decisions.filter((item) => item.status === "deferred").length, 2);
 });
+
+test("a reviewed vague-venue article uses its confirmed manual events", () => {
+  const plan = planOfficialNewsEvents([candidate({
+    id: "00873e2d-bb0b-4d07-ba73-827a64ba7d13",
+    artist_slug: "me-i",
+    venue_names: ["都内某所"],
+    needs_review: true,
+  })], []);
+  assert.equal(plan.newRows.length, 1);
+  assert.equal(plan.newRows[0].venue, "都内某所");
+  assert.equal(plan.decisions[0].status, "planned");
+});
+
+test("a reviewed mixed-artist article is assigned to its actual registered artists", () => {
+  const plan = planOfficialNewsEvents([candidate({
+    id: "6db1aac9-6618-4721-9da3-3ac34d3d983a",
+    artist_slug: "acees",
+    event_dates: [],
+    venue_names: [],
+    needs_review: true,
+  })], []);
+  assert.equal(plan.newRows.length, 4);
+  assert.deepEqual(new Set(plan.newRows.map((row) => row.artist_slug)), new Set(["kento-nakajima", "travis-japan"]));
+  assert.equal(plan.newRows.some((row) => row.artist_slug === "acees"), false);
+});
+
+test("reviewed non-events are recorded as ignored instead of deferred", () => {
+  const plan = planOfficialNewsEvents([candidate({
+    id: "98cf63b4-eb71-49ab-b5b4-0811f3296921",
+    artist_slug: "nogizaka46",
+    article_title: "野球の試合",
+  })], []);
+  assert.equal(plan.newRows.length, 0);
+  assert.equal(plan.decisions[0].status, "ignored");
+});
