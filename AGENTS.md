@@ -32,7 +32,7 @@
 2. プロジェクト正典と実装・本番状況の食い違いをなくす。
 3. 主要ページをローカルで画面確認する。
 4. まとまった変更をcommitし、ユーザー確認後にpush・deployする。
-5. ローカル実装済みのSupabase Authを検証し、本番migration・Google Provider・Redirect URL・メール送信設定をデプロイ工程で反映する。
+5. 本番適用済みのSupabase Auth用DBを維持し、Google Provider・Redirect URL・メール送信設定を認証開通工程で反映する。
 
 ## 完成扱いにする既存機能
 

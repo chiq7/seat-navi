@@ -120,4 +120,4 @@ DB更新、commit、push、deployは、対象差分と上記検証結果を確�
 - ログイン中の当落・座席・現地レポは `user_id` で所有者に紐づく。未ログイン投稿は引き続き許可し、既存の匿名投稿は自動的に過去履歴へ紐づけない。
 - アーティストページから推し登録でき、ログイン中のTOPは推しの直近公演を「推しの公演」として優先表示する。推しに直近公演がない場合は従来の「注目の公演」へ戻す。
 - 投稿者がX公開をONにした場合だけ、現地レポ詳細から `x.com/{handle}` へ移動できる。Xログインは使用しない。
-- ローカルmigration `20260725051156_auth_profiles_and_favorites.sql` を作成済み。本番Supabaseへの適用、Google Provider設定、Redirect URL／メール送信設定、Vercel環境変数反映はデプロイ工程で実施する。
+- migration `20260725051156_auth_profiles_and_favorites.sql` とRLS最適化migrationを2026-07-25に本番Supabaseへ適用済み。テーブル・所有者カラム・22ポリシーを検証し、認証追加由来のSecurity Advisor警告は0件。Google Provider設定、Redirect URL／メール送信設定、Vercel環境変数反映は引き続き認証開通工程で実施する。
