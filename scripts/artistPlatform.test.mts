@@ -9,6 +9,7 @@ import {
   assignArtistSlug,
   type Artist,
 } from "@/lib/artists";
+import { ARTIST_SEARCH_ALIASES } from "@/lib/artistSearchAliases";
 import {
   buildArtistPageData,
   buildArtistPageData as buildPage,
@@ -64,11 +65,34 @@ test("search supports partial artist names while keeping short acronym boundarie
   assert.equal(searchArtists("Nizi")[0]?.slug, "niziu");
   assert.equal(searchArtists("ｎｉｚｉ")[0]?.slug, "niziu");
   assert.equal(searchArtists("にじゅー")[0]?.slug, "niziu");
+  assert.equal(searchArtists("ニジュー")[0]?.slug, "niziu");
   assert.equal(searchArtists("IVE")[0]?.slug, "ive");
   assert.equal(searchArtists("に")[0]?.slug, "naniwa-danshi");
   assert.equal(searchArtists("に").some((artist) => artist.slug === "niziu"), false);
   assert.equal(shouldSearchEventText("に"), false);
   assert.equal(shouldSearchEventText("Nizi"), true);
+});
+
+test("kana readings and common nicknames are available without changing crawler keywords", () => {
+  assert.equal(searchArtists("のぎざか")[0]?.slug, "nogizaka46");
+  assert.equal(searchArtists("サクラザカ")[0]?.slug, "sakurazaka46");
+  assert.equal(searchArtists("みーあい")[0]?.slug, "me-i");
+  assert.equal(searchArtists("キンプリ")[0]?.slug, "king-prince");
+  assert.equal(searchArtists("ひげだん")[0]?.slug, "officialdism");
+  assert.equal(searchArtists("わんおく")[0]?.slug, "one-ok-rock");
+});
+
+test("every production artist has a kana search path", () => {
+  const kana = /[ぁ-んァ-ヶ]/;
+  const missing = ARTISTS
+    .filter((artist) => artist.slug !== "test")
+    .filter((artist) => ![
+      artist.name,
+      ...artist.keywords,
+      ...(ARTIST_SEARCH_ALIASES[artist.slug] ?? []),
+    ].some((value) => kana.test(value)))
+    .map((artist) => artist.slug);
+  assert.deepEqual(missing, []);
 });
 
 test("single-character event search keeps artist events and removes unrelated title noise", () => {

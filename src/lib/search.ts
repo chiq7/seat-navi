@@ -1,4 +1,5 @@
 import { ARTISTS, type Artist } from "@/lib/artists";
+import { ARTIST_SEARCH_ALIASES } from "@/lib/artistSearchAliases";
 import { normalizeForSearch, searchTextScore } from "@/lib/keywordMatch";
 import { isTestArtist, isTestEvent } from "@/lib/seoData";
 import { supabase } from "@/lib/supabase/client";
@@ -27,6 +28,7 @@ export function searchArtists(query: string, limit = 20): Artist[] {
     const fields = [
       { value: artist.name, boost: 40 },
       ...artist.keywords.map((value) => ({ value, boost: 30 })),
+      ...(ARTIST_SEARCH_ALIASES[artist.slug] ?? []).map((value) => ({ value, boost: 35 })),
       { value: artist.initials, boost: 20 },
       { value: artist.slug, boost: 10 },
     ];
