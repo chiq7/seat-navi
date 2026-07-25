@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Heart, LogOut } from "lucide-react";
@@ -9,11 +9,12 @@ import { MyPostsSection, type OwnedSeatPrediction } from "@/components/mypage/My
 import { PersonalTicketStats } from "@/components/mypage/PersonalTicketStats";
 import { findArtistBySlug } from "@/lib/artists";
 import type { AfterReportCard, TicketResultAnalytics } from "@/lib/artistPageTypes";
+import type { PostAuthor } from "@/lib/postAuthors";
 import { supabase } from "@/lib/supabase/client";
 import type { CrawledEvent, FanSeatPrediction } from "@/lib/types";
 
-const TICKET_COLUMNS = "id, event_id, result, lost_application_count, ticket_count, lottery_type, fc_history, payment_method, seat_type, upgrade_result, comment, seat_block, seat_row, seat_number, stand_direction, stand_floor, other_seat_info, created_at";
-const LIVE_COLUMNS = "id, event_id, seat_area_type, seat_block, seat_row, seat_number, seat_view_photo_paths, main_stage, center_stage, fansa_rating, torokko, kyakukudari, silver_tape_rows, fansa, memo, created_at";
+const TICKET_COLUMNS = "id, event_id, user_id, result, lost_application_count, ticket_count, lottery_type, fc_history, payment_method, seat_type, upgrade_result, comment, seat_block, seat_row, seat_number, stand_direction, stand_floor, other_seat_info, created_at";
+const LIVE_COLUMNS = "id, event_id, user_id, seat_area_type, seat_block, seat_row, seat_number, seat_view_photo_paths, main_stage, center_stage, fansa_rating, torokko, kyakukudari, silver_tape_rows, fansa, memo, created_at";
 const PREDICTION_COLUMNS = "id, event_id, user_id, image_path, comment, prediction_tags, display_name, approved, created_at";
 
 type Profile = { display_name: string | null; x_handle: string | null; show_x_on_posts: boolean };
@@ -31,11 +32,30 @@ export default function MyPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
+  const [loadError, setLoadError] = useState("");
+  const [reloadKey, setReloadKey] = useState(0);
+
+  const authorMap = useMemo(() => {
+    const map = new Map<string, PostAuthor>();
+    if (userId) {
+      map.set(userId, { id: userId, ...profile });
+    }
+    return map;
+  }, [profile, userId]);
 
   useEffect(() => {
     let cancelled = false;
     async function load() {
-      const { data: authData } = await supabase.auth.getUser();
+      setLoading(true);
+      setLoadError("");
+      const { data: authData, error: authError } = await supabase.auth.getUser();
+      if (authError) {
+        if (!cancelled) {
+          setLoadError("ログイン情報を確認できませんでした。通信環境を確認して再試行してください。");
+          setLoading(false);
+        }
+        return;
+      }
       const user = authData.user;
       if (!user) {
         router.replace("/login?next=/mypage");
@@ -54,6 +74,13 @@ export default function MyPage() {
       ]);
       if (cancelled) return;
 
+      const firstError = [profileRes.error, favoriteRes.error, ticketRes.error, predictionRes.error, liveRes.error].find(Boolean);
+      if (firstError) {
+        setLoadError("マイページのデータを読み込めませんでした。少し待ってから再試行してください。");
+        setLoading(false);
+        return;
+      }
+
       if (profileRes.data) setProfile(profileRes.data as Profile);
       setFavorites((favoriteRes.data ?? []).map((row: { artist_slug: string }) => row.artist_slug));
       const tickets = (ticketRes.data ?? []) as TicketResultAnalytics[];
@@ -64,10 +91,17 @@ export default function MyPage() {
 
       const voteCounts = new Map<string, number>();
       if (rawPredictions.length > 0) {
-        const { data: votes } = await supabase
+        const { data: votes, error: voteError } = await supabase
           .from("fan_seat_prediction_votes")
           .select("prediction_id")
           .in("prediction_id", rawPredictions.map((prediction) => prediction.id));
+        if (voteError) {
+          if (!cancelled) {
+            setLoadError("投稿データの一部を読み込めませんでした。再試行してください。");
+            setLoading(false);
+          }
+          return;
+        }
         (votes ?? []).forEach((vote: { prediction_id: string }) => {
           voteCounts.set(vote.prediction_id, (voteCounts.get(vote.prediction_id) ?? 0) + 1);
         });
@@ -85,10 +119,17 @@ export default function MyPage() {
         ...lives.map((post) => post.event_id),
       ])];
       if (eventIds.length > 0) {
-        const { data: events } = await supabase
+        const { data: events, error: eventError } = await supabase
           .from("events")
           .select("id, title, venue, date, artist_slug")
           .in("id", eventIds);
+        if (eventError) {
+          if (!cancelled) {
+            setLoadError("公演情報を読み込めませんでした。再試行してください。");
+            setLoading(false);
+          }
+          return;
+        }
         if (!cancelled) {
           setEventMap(new Map(((events ?? []) as CrawledEvent[]).map((event) => [event.id, event])));
         }
@@ -97,7 +138,7 @@ export default function MyPage() {
     }
     load();
     return () => { cancelled = true; };
-  }, [router]);
+  }, [router, reloadKey]);
 
   async function saveProfile() {
     if (!userId) return;
@@ -128,6 +169,94 @@ export default function MyPage() {
     if (!error) setFavorites((items) => items.filter((item) => item !== slug));
   }
 
+  async function updateTicket(id: string, comment: string) {
+    if (!userId) return { error: "ログイン情報を確認できません。" };
+    const value = comment || null;
+    const { data, error } = await supabase
+      .from("event_ticket_results")
+      .update({ comment: value })
+      .eq("id", id)
+      .eq("user_id", userId)
+      .select("id")
+      .maybeSingle();
+    if (error || !data) return { error: "当落レポを保存できませんでした。" };
+    setTicketPosts((items) => items.map((item) => item.id === id ? { ...item, comment: value } : item));
+    return {};
+  }
+
+  async function deleteTicket(id: string) {
+    if (!userId) return { error: "ログイン情報を確認できません。" };
+    const { data, error } = await supabase
+      .from("event_ticket_results")
+      .delete()
+      .eq("id", id)
+      .eq("user_id", userId)
+      .select("id")
+      .maybeSingle();
+    if (error || !data) return { error: "当落レポを削除できませんでした。" };
+    setTicketPosts((items) => items.filter((item) => item.id !== id));
+    return {};
+  }
+
+  async function updatePrediction(id: string, comment: string) {
+    if (!userId) return { error: "ログイン情報を確認できません。" };
+    const value = comment || null;
+    const { data, error } = await supabase
+      .from("fan_seat_predictions")
+      .update({ comment: value })
+      .eq("id", id)
+      .eq("user_id", userId)
+      .select("id")
+      .maybeSingle();
+    if (error || !data) return { error: "座席予想を保存できませんでした。" };
+    setPredictions((items) => items.map((item) => item.id === id ? { ...item, comment: value } : item));
+    return {};
+  }
+
+  async function deletePrediction(prediction: OwnedSeatPrediction) {
+    if (!userId) return { error: "ログイン情報を確認できません。" };
+    const { data, error } = await supabase
+      .from("fan_seat_predictions")
+      .delete()
+      .eq("id", prediction.id)
+      .eq("user_id", userId)
+      .select("id")
+      .maybeSingle();
+    if (error || !data) return { error: "座席予想を削除できませんでした。" };
+    setPredictions((items) => items.filter((item) => item.id !== prediction.id));
+    const { error: storageError } = await supabase.storage.from("fan-seat-predictions").remove([prediction.image_path]);
+    return storageError ? { warning: "投稿は削除しましたが、画像の整理に失敗しました。" } : {};
+  }
+
+  async function updateLive(id: string, memo: string) {
+    if (!userId) return { error: "ログイン情報を確認できません。" };
+    const value = memo || null;
+    const { data, error } = await supabase
+      .from("after_reports")
+      .update({ memo: value })
+      .eq("id", id)
+      .eq("user_id", userId)
+      .select("id")
+      .maybeSingle();
+    if (error || !data) return { error: "現地レポを保存できませんでした。" };
+    setLivePosts((items) => items.map((item) => item.id === id ? { ...item, memo: value } : item));
+    return {};
+  }
+
+  async function deleteLive(id: string) {
+    if (!userId) return { error: "ログイン情報を確認できません。" };
+    const { data, error } = await supabase
+      .from("after_reports")
+      .delete()
+      .eq("id", id)
+      .eq("user_id", userId)
+      .select("id")
+      .maybeSingle();
+    if (error || !data) return { error: "現地レポを削除できませんでした。" };
+    setLivePosts((items) => items.filter((item) => item.id !== id));
+    return {};
+  }
+
   async function logout() {
     await supabase.auth.signOut();
     router.replace("/");
@@ -137,9 +266,30 @@ export default function MyPage() {
     return <div className="flex min-h-screen items-center justify-center"><div className="h-6 w-6 animate-spin rounded-full border-2 border-[#FF6B9D] border-t-transparent" /></div>;
   }
 
+  if (loadError) {
+    return (
+      <main className="min-h-screen bg-[#FFF8FB]">
+        <Header title="マイページ" backHref="/" showAccount={false} />
+        <div className="px-4 pt-12 text-center">
+          <div className="rounded-2xl border border-red-100 bg-white px-5 py-8 shadow-sm">
+            <p className="text-[13px] font-bold text-gray-800">読み込みに失敗しました</p>
+            <p className="mt-2 text-[11px] leading-relaxed text-gray-500">{loadError}</p>
+            <button
+              type="button"
+              onClick={() => setReloadKey((value) => value + 1)}
+              className="mt-5 h-10 rounded-full bg-[#FF6B9D] px-6 text-[12px] font-bold text-white"
+            >
+              再試行する
+            </button>
+          </div>
+        </div>
+      </main>
+    );
+  }
+
   return (
     <main className="min-h-screen bg-[#FFF8FB] pb-10">
-      <Header title="マイページ" backHref="/" />
+      <Header title="マイページ" backHref="/" showAccount={false} />
       <div className="space-y-4 px-3 pt-3">
         <section className="flex items-center justify-between rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
           <div className="min-w-0">
@@ -170,7 +320,19 @@ export default function MyPage() {
           )}
         </section>
 
-        <MyPostsSection ticketPosts={ticketPosts} predictions={predictions} livePosts={livePosts} eventMap={eventMap} />
+        <MyPostsSection
+          ticketPosts={ticketPosts}
+          predictions={predictions}
+          livePosts={livePosts}
+          eventMap={eventMap}
+          authorMap={authorMap}
+          onUpdateTicket={updateTicket}
+          onDeleteTicket={deleteTicket}
+          onUpdatePrediction={updatePrediction}
+          onDeletePrediction={deletePrediction}
+          onUpdateLive={updateLive}
+          onDeleteLive={deleteLive}
+        />
 
         <section className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
           <h2 className="text-[14px] font-bold text-gray-900">プロフィール・X</h2>

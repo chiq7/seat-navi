@@ -4,12 +4,13 @@ export type AnalyticsReport = SeatReport;
 
 export type TicketResultAnalytics = Pick<
   EventTicketResult,
-  "id" | "event_id" | "result" | "lost_application_count" | "ticket_count" | "lottery_type" | "fc_history" | "payment_method" | "seat_type" | "upgrade_result" | "comment" | "seat_block" | "seat_row" | "seat_number" | "stand_direction" | "stand_floor" | "other_seat_info" | "created_at"
+  "id" | "event_id" | "user_id" | "result" | "lost_application_count" | "ticket_count" | "lottery_type" | "fc_history" | "payment_method" | "seat_type" | "upgrade_result" | "comment" | "seat_block" | "seat_row" | "seat_number" | "stand_direction" | "stand_floor" | "other_seat_info" | "created_at"
 >;
 
 export type AfterReportCard = {
   id: string;
   event_id: string;
+  user_id: string | null;
   seat_area_type: string | null;
   seat_block: string | null;
   seat_row: string | null;

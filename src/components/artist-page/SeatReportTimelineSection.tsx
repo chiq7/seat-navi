@@ -1,6 +1,9 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
 import type { TicketResultAnalytics } from "@/lib/artistPageTypes";
 import type { CrawledEvent } from "@/lib/types";
+import type { PostAuthor } from "@/lib/postAuthors";
+import { PostAuthorLink } from "@/components/common/PostAuthorLink";
 
 type Props = {
   /** アーティスト全体・created_at降順で既に上位3件に絞り込み済みのものを渡す */
@@ -9,6 +12,8 @@ type Props = {
   reportHref?: string;
   title?: string | null;
   emptyText?: string;
+  authorMap?: Map<string, PostAuthor>;
+  actions?: (item: TicketResultAnalytics) => ReactNode;
 };
 
 function seatTypeLabel(v: string | null | undefined): string | null {
@@ -57,6 +62,8 @@ export default function SeatReportTimelineSection({
   reportHref,
   title = "座席報告タイムライン",
   emptyText = "まだ座席報告はありません",
+  authorMap,
+  actions,
 }: Props) {
   return (
     <div>
@@ -139,6 +146,8 @@ export default function SeatReportTimelineSection({
               {item.comment && (
                 <p className="mt-1.5 truncate text-[11px] text-gray-400">{item.comment}</p>
               )}
+              <PostAuthorLink author={item.user_id ? authorMap?.get(item.user_id) : null} className="mt-1.5" />
+              {actions?.(item)}
             </div>
           );
             })}

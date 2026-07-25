@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { AccountLink } from "@/components/auth/AccountLink";
 
 export default function HomeHeader() {
   return (
@@ -36,6 +37,7 @@ export default function HomeHeader() {
           アーティスト・公演名を検索
         </span>
       </Link>
+      <AccountLink className="shrink-0" />
     </header>
   );
 }

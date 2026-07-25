@@ -5,6 +5,8 @@ import { useState } from "react";
 import { createPortal } from "react-dom";
 import { supabase } from "@/lib/supabase/client";
 import { ShareButton } from "@/components/common/ShareButton";
+import { PostAuthorLink } from "@/components/common/PostAuthorLink";
+import type { PostAuthor } from "@/lib/postAuthors";
 
 const VOTER_KEY_STORAGE = "seat-navi-voter-key";
 
@@ -40,6 +42,7 @@ export type SeatPredictionCardProps = {
   /** 指定時はモーダル開閉を外部制御（URL連動など）。未指定時は従来通りカード内部で開閉を管理する */
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
+  author?: PostAuthor | null;
 };
 
 export function SeatPredictionCard({
@@ -57,6 +60,7 @@ export function SeatPredictionCard({
   onLiked,
   open,
   onOpenChange,
+  author = null,
 }: SeatPredictionCardProps) {
   const [localVote, setLocalVote] = useState<{
     predictionId: string;
@@ -206,6 +210,7 @@ export function SeatPredictionCard({
             )}
           </div>
         </div>
+        <PostAuthorLink author={author} className="mx-2 mt-1" />
       </article>
 
       {modalOpen &&
@@ -265,6 +270,7 @@ export function SeatPredictionCard({
                       {comment}
                     </p>
                   )}
+                  <PostAuthorLink author={author} className="mt-3" />
 
                   {/* 下部アクション領域（いいねはカード上部にあるためここでは共有のみ） */}
                   {eventId && (

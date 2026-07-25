@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { SeatReport } from "@/lib/types";
 import MapPreviewSection from "@/components/artist-page/MapPreviewSection";
 import { SeatPredictionCard } from "@/components/common/SeatPredictionCard";
+import type { PostAuthor } from "@/lib/postAuthors";
 
 type MapEvent = {
   id: string;
@@ -21,6 +22,7 @@ export type TopPrediction = {
   tags: string[];
   createdAt: string;
   voteCount: number;
+  author?: PostAuthor | null;
 };
 
 type Props = {
@@ -95,6 +97,7 @@ export default function SeatPredictionPreviewSection({
             likeCount={topPrediction.voteCount}
             rank={1}
             detailHref={detailHref}
+            author={topPrediction.author}
           />
         ) : (
           <div className="rounded-2xl border border-gray-100 bg-white px-3 py-3 shadow-sm">

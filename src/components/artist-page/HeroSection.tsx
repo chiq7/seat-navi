@@ -6,6 +6,7 @@ import Link from "next/link";
 import { CalendarDays, ChevronLeft } from "lucide-react";
 import { rateText } from "@/lib/artistPageHelpers";
 import { ShareButton } from "@/components/common/ShareButton";
+import { AccountLink } from "@/components/auth/AccountLink";
 import { DEFAULT_ARTIST_HERO_IMAGE, resolveArtistHeroImage } from "@/lib/artistPageData";
 
 type Props = {
@@ -73,7 +74,7 @@ export default function HeroSection({
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/15" />
       <div className="relative z-10 h-full w-full">
         <header
-          className="absolute inset-x-0 top-0 z-10 flex items-center justify-between"
+          className="absolute inset-x-0 top-0 z-10 grid grid-cols-[80px_1fr_80px] items-center"
           style={{ height: "56px", paddingLeft: "14px", paddingRight: "14px" }}
         >
           <Link
@@ -83,14 +84,17 @@ export default function HeroSection({
           >
             <ChevronLeft size={26} strokeWidth={2.7} />
           </Link>
-          <h1 className="font-serif font-semibold text-white" style={{ fontSize: "21px", letterSpacing: "0.22em" }}>
+          <h1 className="truncate text-center font-serif font-semibold text-white" style={{ fontSize: "21px", letterSpacing: "0.22em" }}>
             {artistName}
           </h1>
-          <ShareButton
-            url={`${typeof window !== "undefined" ? window.location.origin : ""}/artists/${slug}`}
-            text={`${artistName} の当落データ・座席情報 #ちけレポ`}
-            className="flex h-10 w-10 items-center justify-center rounded-full text-white transition-colors active:bg-white/15"
-          />
+          <div className="flex items-center justify-end">
+            <AccountLink tone="light" iconSize={22} />
+            <ShareButton
+              url={`${typeof window !== "undefined" ? window.location.origin : ""}/artists/${slug}`}
+              text={`${artistName} の当落データ・座席情報 #ちけレポ`}
+              className="flex h-10 w-10 items-center justify-center rounded-full text-white transition-colors active:bg-white/15"
+            />
+          </div>
         </header>
 
         <div className="absolute z-10 text-center" style={{ top: "82px", left: "24px", right: "24px" }}>

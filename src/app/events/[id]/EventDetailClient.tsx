@@ -16,6 +16,8 @@ import { SeatPredictionCard } from "@/components/common/SeatPredictionCard";
 import { EventInfoRow } from "@/components/common/EventInfoRow";
 import { EventCarouselPicker } from "@/components/common/EventPicker";
 import { ShareButton } from "@/components/common/ShareButton";
+import { AccountLink } from "@/components/auth/AccountLink";
+import { fetchVisiblePostAuthors, type PostAuthor } from "@/lib/postAuthors";
 
 const COLOR_TABS: { value: ColorMode; label: string }[] = [
   { value: "lottery",   label: "🎫 抽選回" },
@@ -69,6 +71,7 @@ export function EventDetailClient({
   const [loading, setLoading] = useState(true);
   const [seatReports, setSeatReports] = useState<SeatReport[]>([]);
   const [fanSeatPredictions, setFanSeatPredictions] = useState<FanSeatPrediction[]>([]);
+  const [predictionAuthorMap, setPredictionAuthorMap] = useState<Map<string, PostAuthor>>(new Map());
   const [relatedEvents, setRelatedEvents] = useState<CrawledEvent[]>([]);
   const [colorMode, setColorMode] = useState<ColorMode>("lottery");
   const [sortOrder, setSortOrder] = useState<"hot" | "new">("hot");
@@ -86,14 +89,18 @@ export function EventDetailClient({
           .single(),
         supabase
           .from("fan_seat_predictions")
-          .select("id, event_id, image_path, comment, prediction_tags, display_name, approved, created_at")
+          .select("id, event_id, user_id, image_path, comment, prediction_tags, display_name, approved, created_at")
           .eq("event_id", eventId)
           .eq("approved", true)
           .order("created_at", { ascending: false })
           .limit(20),
       ]);
       if (evRes.data) setEvent(evRes.data as CrawledEvent);
-      if (fanPredictionsRes.data) setFanSeatPredictions(fanPredictionsRes.data as FanSeatPrediction[]);
+      if (fanPredictionsRes.data) {
+        const predictions = fanPredictionsRes.data as FanSeatPrediction[];
+        setFanSeatPredictions(predictions);
+        setPredictionAuthorMap(await fetchVisiblePostAuthors(predictions.map((prediction) => prediction.user_id)));
+      }
       setLoading(false);
     }
     load();
@@ -260,14 +267,16 @@ export function EventDetailClient({
     <div className="min-h-screen bg-[#FFF8FB] text-[#111827]">
       {/* ヘッダー */}
       <header className="sticky top-0 z-20 border-b border-gray-100 bg-white/95 backdrop-blur">
-        <div className="flex h-14 items-center justify-between px-4">
+        <div className="grid h-14 grid-cols-[80px_1fr_80px] items-center px-4">
           <Link
             href={backHref}
             className="flex h-10 w-10 items-center justify-center rounded-full text-[#111827] active:bg-gray-100"
           >
             <ChevronLeft size={24} />
           </Link>
-          <h1 className="text-[18px] font-bold tracking-wide">アリーナ予想図</h1>
+          <h1 className="text-center text-[18px] font-bold tracking-wide">アリーナ予想図</h1>
+          <div className="flex items-center justify-end">
+          <AccountLink />
           {event ? (
             <ShareButton
               url={`${window.location.origin}/events/${eventId}`}
@@ -277,6 +286,7 @@ export function EventDetailClient({
           ) : (
             <div className="h-10 w-10" />
           )}
+          </div>
         </div>
       </header>
 
@@ -374,6 +384,7 @@ export function EventDetailClient({
                   likeCount={voteCounts[topPrediction.id] ?? 0}
                   liked={pickedIds.has(topPrediction.id)}
                   rank={1}
+                  author={topPrediction.user_id ? predictionAuthorMap.get(topPrediction.user_id) : null}
                   onLiked={() => {
                     setVoteCounts((prev) => ({ ...prev, [topPrediction.id]: (prev[topPrediction.id] ?? 0) + 1 }));
                     setPickedIds((prev) => new Set(prev).add(topPrediction.id));
@@ -444,6 +455,7 @@ export function EventDetailClient({
                       createdAt={prediction.created_at}
                       likeCount={voteCounts[prediction.id] ?? 0}
                       liked={pickedIds.has(prediction.id)}
+                      author={prediction.user_id ? predictionAuthorMap.get(prediction.user_id) : null}
                       onLiked={() => {
                         setVoteCounts((prev) => ({ ...prev, [prediction.id]: (prev[prediction.id] ?? 0) + 1 }));
                         setPickedIds((prev) => new Set(prev).add(prediction.id));

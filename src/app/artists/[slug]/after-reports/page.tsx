@@ -19,6 +19,8 @@ import { BottomNav } from "@/components/common/BottomNav";
 import { Header } from "@/components/common/Header";
 import { ReportThumb } from "@/components/artist-page/ReportThumb";
 import { EventInfoRow } from "@/components/common/EventInfoRow";
+import { PostAuthorLink } from "@/components/common/PostAuthorLink";
+import { fetchVisiblePostAuthors, type PostAuthor } from "@/lib/postAuthors";
 
 function fmtShortDate(d: string | null | undefined): string {
   if (!d) return "";
@@ -44,6 +46,7 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
 
   const [events, setEvents] = useState<CrawledEvent[]>([]);
   const [reports, setReports] = useState<AfterReportCard[]>([]);
+  const [authorMap, setAuthorMap] = useState<Map<string, PostAuthor>>(new Map());
   const [loading, setLoading] = useState(true);
   const [filterDate, setFilterDate] = useState("all");
   const [filterArea, setFilterArea] = useState("all");
@@ -54,13 +57,15 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
     setEvents(allEvs);
     if (allEvs.length === 0) { setLoading(false); return; }
     const ids = allEvs.map(e => e.id);
-    const { data: repData, error: repError } = await supabase
+    const { data: repData } = await supabase
       .from("after_reports")
-      .select("id, event_id, seat_area_type, seat_block, seat_row, seat_number, seat_view_photo_paths, main_stage, center_stage, fansa_rating, torokko, kyakukudari, silver_tape_rows, fansa, memo, created_at")
+      .select("id, event_id, user_id, seat_area_type, seat_block, seat_row, seat_number, seat_view_photo_paths, main_stage, center_stage, fansa_rating, torokko, kyakukudari, silver_tape_rows, fansa, memo, created_at")
       .in("event_id", ids)
       .order("created_at", { ascending: false })
       .limit(500);
-    setReports((repData as AfterReportCard[]) ?? []);
+    const nextReports = (repData as AfterReportCard[]) ?? [];
+    setReports(nextReports);
+    setAuthorMap(await fetchVisiblePostAuthors(nextReports.map((report) => report.user_id)));
     setLoading(false);
   }
 
@@ -242,10 +247,10 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
                   const comment = report.memo?.trim() || null;
                   const bgImage = overallBadgeBgImage(overallBadge);
                   return (
+                    <div key={report.id} className="border-b border-gray-100 last:border-b-0">
                     <Link
-                      key={report.id}
                       href={`/report/live/detail?reportId=${report.id}`}
-                      className="flex min-h-[104px] items-stretch gap-2 overflow-hidden border-b border-gray-100 no-underline last:border-b-0"
+                      className="flex min-h-[104px] items-stretch gap-2 overflow-hidden no-underline"
                     >
                       <div className="self-center">
                         <ReportThumb index={index} photoUrl={photoUrl} />
@@ -296,6 +301,12 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
                         </div>
                       </div>
                     </Link>
+                    {report.user_id && authorMap.get(report.user_id) && (
+                      <div className="px-3 pb-2">
+                        <PostAuthorLink author={authorMap.get(report.user_id)} />
+                      </div>
+                    )}
+                    </div>
                   );
                 })}
               </div>

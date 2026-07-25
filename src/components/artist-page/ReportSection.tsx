@@ -9,6 +9,8 @@ import {
   structureBadgeLabels,
 } from "@/lib/afterReportCard";
 import { ReportThumb } from "@/components/artist-page/ReportThumb";
+import { PostAuthorLink } from "@/components/common/PostAuthorLink";
+import type { PostAuthor } from "@/lib/postAuthors";
 
 type Props = {
   reports: AfterReportCard[];
@@ -16,12 +18,15 @@ type Props = {
   afterHref: string;
   reportHref: string;
   children?: ReactNode;
+  authorMap?: Map<string, PostAuthor>;
 };
 
 type TimelineProps = {
   reports: AfterReportCard[];
   emptyText?: string;
   reportHref?: string;
+  authorMap?: Map<string, PostAuthor>;
+  actions?: (report: AfterReportCard) => ReactNode;
 };
 
 /** 神席/良席バッジは背景画像で表現する(after-reports一覧ページと同じ) */
@@ -35,6 +40,8 @@ export function ReportTimelineList({
   reports,
   emptyText = "現地レポはまだありません",
   reportHref,
+  authorMap,
+  actions,
 }: TimelineProps) {
   return (
     <div className="overflow-hidden border border-gray-100">
@@ -47,10 +54,10 @@ export function ReportTimelineList({
           const comment = report.memo?.trim() || null;
           const bgImage = overallBadgeBgImage(overallBadge);
           return (
+            <div key={report.id} className="border-b border-gray-100 last:border-b-0">
             <Link
-              key={report.id}
               href={`/report/live/detail?reportId=${report.id}`}
-              className="flex min-h-[104px] items-stretch gap-2 overflow-hidden border-b border-gray-100 no-underline last:border-b-0"
+              className="flex min-h-[104px] items-stretch gap-2 overflow-hidden no-underline"
             >
               <div className="self-center">
                 <ReportThumb index={index} photoUrl={photoUrl} />
@@ -92,6 +99,13 @@ export function ReportTimelineList({
                 </div>
               </div>
             </Link>
+            {report.user_id && authorMap?.get(report.user_id) && (
+              <div className="px-3 pb-2">
+                <PostAuthorLink author={authorMap.get(report.user_id)} />
+              </div>
+            )}
+            {actions && <div className="px-3 pb-2">{actions(report)}</div>}
+            </div>
           );
         })
       ) : (
@@ -111,7 +125,7 @@ export function ReportTimelineList({
   );
 }
 
-export default function ReportSection({ reports, afterHref, reportHref, children }: Props) {
+export default function ReportSection({ reports, afterHref, reportHref, children, authorMap }: Props) {
   const displayReports = reports.slice(0, 4);
 
   return (
@@ -120,7 +134,7 @@ export default function ReportSection({ reports, afterHref, reportHref, children
       <div className="rounded-[24px] border border-pink-100 bg-white p-3 shadow-sm">
         {children && <div className="mb-3">{children}</div>}
         <h3 className="mb-1.5 text-center text-[12px] font-semibold text-gray-500">現地レポタイムライン</h3>
-        <ReportTimelineList reports={displayReports} reportHref={reportHref} />
+        <ReportTimelineList reports={displayReports} reportHref={reportHref} authorMap={authorMap} />
         <div className="mt-3 text-center">
           <Link href={afterHref} className="text-[14px] font-bold text-[#FF6B9D]">
             もっと見る

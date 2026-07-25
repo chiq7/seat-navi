@@ -23,7 +23,7 @@ export default function PasswordResetPage() {
 
   return (
     <main className="min-h-screen bg-[#FFF8FB]">
-      <Header title="パスワード再設定" backHref="/login" />
+      <Header title="パスワード再設定" backHref="/login" showAccount={false} />
       <form onSubmit={submit} className="space-y-4 px-5 pt-8">
         <label className="block text-[11px] font-bold text-gray-700">
           新しいパスワード

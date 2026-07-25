@@ -32,6 +32,7 @@ import UpcomingEventsSection from "@/components/artist-page/UpcomingEventsSectio
 import { BottomNav } from "@/components/common/BottomNav";
 import type { TopPrediction } from "@/components/artist-page/SeatPredictionPreviewSection";
 import FavoriteArtistButton from "@/components/auth/FavoriteArtistButton";
+import { fetchVisiblePostAuthors, type PostAuthor } from "@/lib/postAuthors";
 
 export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
@@ -44,6 +45,7 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
   const [venueAfterReports, setVenueAfterReports] = useState<AfterReportCard[]>([]);
   const [officialNews, setOfficialNews] = useState<OfficialNews[]>([]);
   const [topPrediction, setTopPrediction] = useState<TopPrediction | null>(null);
+  const [postAuthorMap, setPostAuthorMap] = useState<Map<string, PostAuthor>>(new Map());
   const [loading, setLoading] = useState(true);
   const [fetchError, setFetchError] = useState<string | null>(null);
   const [selectedVenue, setSelectedVenue] = useState<string | null>(null);
@@ -54,6 +56,7 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
   async function loadData(a: NonNullable<ReturnType<typeof findArtistBySlug>>) {
     setFetchError(null);
     setTopPrediction(null);
+    setPostAuthorMap(new Map());
     setOfficialNews([]);
 
     const allEvs = await getEventsForArtist(a.slug);
@@ -75,7 +78,7 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
         .order("created_at", { ascending: false })
         .limit(500),
       supabase.from("event_ticket_results")
-        .select("id, event_id, result, lost_application_count, ticket_count, lottery_type, fc_history, payment_method, seat_type, upgrade_result, comment, seat_block, seat_row, seat_number, stand_direction, stand_floor, other_seat_info, created_at")
+        .select("id, event_id, user_id, result, lost_application_count, ticket_count, lottery_type, fc_history, payment_method, seat_type, upgrade_result, comment, seat_block, seat_row, seat_number, stand_direction, stand_floor, other_seat_info, created_at")
         .in("event_id", ids)
         .order("created_at", { ascending: false })
         .limit(1000),
@@ -83,6 +86,8 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
 
     const seatData = (seatRes.data as AnalyticsReport[]) ?? [];
     const ticketResultData = (ticketResultRes.data as TicketResultAnalytics[]) ?? [];
+    const ticketAuthors = await fetchVisiblePostAuthors(ticketResultData.map((report) => report.user_id));
+    setPostAuthorMap((current) => new Map([...current, ...ticketAuthors]));
 
     const sCounts = new Map<string, number>();
     for (const r of seatData) sCounts.set(r.event_id, (sCounts.get(r.event_id) ?? 0) + 1);
@@ -292,11 +297,16 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
     async function loadVenueAfterReports() {
       const { data } = await supabase
         .from("after_reports")
-        .select("id, event_id, seat_area_type, seat_block, seat_row, seat_number, seat_view_photo_paths, main_stage, center_stage, fansa_rating, torokko, kyakukudari, silver_tape_rows, fansa, memo, created_at")
+        .select("id, event_id, user_id, seat_area_type, seat_block, seat_row, seat_number, seat_view_photo_paths, main_stage, center_stage, fansa_rating, torokko, kyakukudari, silver_tape_rows, fansa, memo, created_at")
         .in("event_id", venueEventIds)
         .order("created_at", { ascending: false })
         .limit(200);
-      if (!cancelled) setVenueAfterReports((data as AfterReportCard[]) ?? []);
+      const reports = (data as AfterReportCard[]) ?? [];
+      const authors = await fetchVisiblePostAuthors(reports.map((report) => report.user_id));
+      if (!cancelled) {
+        setVenueAfterReports(reports);
+        setPostAuthorMap((current) => new Map([...current, ...authors]));
+      }
     }
     loadVenueAfterReports();
     return () => { cancelled = true; };
@@ -344,11 +354,11 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
     async function loadTopPrediction() {
       const { data: predData } = await supabase
         .from("fan_seat_predictions")
-        .select("id, image_path, comment, prediction_tags, created_at")
+        .select("id, user_id, image_path, comment, prediction_tags, created_at")
         .eq("event_id", predictionTargetEventId)
         .eq("approved", true);
 
-      type PredRow = { id: string; image_path: string; comment: string | null; prediction_tags: string[]; created_at: string };
+      type PredRow = { id: string; user_id: string | null; image_path: string; comment: string | null; prediction_tags: string[]; created_at: string };
       const predictions = (predData ?? []) as PredRow[];
       if (predictions.length === 0 || cancelled) return;
 
@@ -370,6 +380,10 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
       const { data: urlData } = supabase.storage
         .from("fan-seat-predictions")
         .getPublicUrl(top.prediction.image_path);
+      const author = top.prediction.user_id
+        ? (await fetchVisiblePostAuthors([top.prediction.user_id])).get(top.prediction.user_id) ?? null
+        : null;
+      if (cancelled) return;
       setTopPrediction({
         id: top.prediction.id,
         imageUrl: urlData.publicUrl,
@@ -377,6 +391,7 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
         tags: top.prediction.prediction_tags ?? [],
         createdAt: top.prediction.created_at,
         voteCount: top.votes,
+        author,
       });
     }
 
@@ -486,6 +501,7 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
                         items={seatReportTimeline}
                         eventMap={eventMap}
                         reportHref={ticketReportHref}
+                        authorMap={postAuthorMap}
                       />
                     </div>
                   </div>
@@ -511,6 +527,7 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
                 eventMap={eventMap}
                 afterHref={afterHref}
                 reportHref={liveReportHref}
+                authorMap={postAuthorMap}
               >
                 <LiveEffectsSection liveEffects={liveEffects} />
               </ReportSection>

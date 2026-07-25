@@ -166,6 +166,7 @@ export type SeatReport = {
 export type EventTicketResult = {
   id: string;
   event_id: string;
+  user_id: string | null;
   result: "won" | "lost";
   lost_application_count: number;
   ticket_count: number | null;

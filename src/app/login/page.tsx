@@ -81,7 +81,7 @@ function LoginPageInner() {
 
   return (
     <main className="min-h-screen bg-[#FFF8FB] pb-10">
-      <Header title={mode === "login" ? "ログイン" : "新規登録"} backHref="/" />
+      <Header title={mode === "login" ? "ログイン" : "新規登録"} backHref="/" showAccount={false} />
       <div className="mx-auto max-w-sm px-5 pt-8">
         <button
           type="button"
