@@ -6,7 +6,9 @@ type Props = {
   /** アーティスト全体・created_at降順で既に上位3件に絞り込み済みのものを渡す */
   items: TicketResultAnalytics[];
   eventMap: Map<string, CrawledEvent>;
-  reportHref: string;
+  reportHref?: string;
+  title?: string | null;
+  emptyText?: string;
 };
 
 function seatTypeLabel(v: string | null | undefined): string | null {
@@ -49,10 +51,16 @@ function buildSeatInfo(item: TicketResultAnalytics): { typeLabel: string | null;
   return { typeLabel, values };
 }
 
-export default function SeatReportTimelineSection({ items, eventMap, reportHref }: Props) {
+export default function SeatReportTimelineSection({
+  items,
+  eventMap,
+  reportHref,
+  title = "座席報告タイムライン",
+  emptyText = "まだ座席報告はありません",
+}: Props) {
   return (
     <div>
-      <h3 className="text-center text-[14px] font-bold text-gray-900">座席報告タイムライン</h3>
+      {title && <h3 className="text-center text-[14px] font-bold text-gray-900">{title}</h3>}
       {items.length > 0 ? (
         <>
           <div className="-mx-3 mt-3 border-t border-gray-200" />
@@ -138,13 +146,15 @@ export default function SeatReportTimelineSection({ items, eventMap, reportHref 
         </>
       ) : (
         <div className="mt-3 rounded-xl bg-[#FFF8FB] px-4 py-3 text-center">
-          <p className="text-[12px] text-gray-500">まだ座席報告はありません</p>
-          <Link
-            href={reportHref}
-            className="mt-2 inline-flex rounded-full bg-[#FF6B9D] px-4 py-2 text-[12px] font-bold text-white"
-          >
-            最初の座席情報を報告する
-          </Link>
+          <p className="text-[12px] text-gray-500">{emptyText}</p>
+          {reportHref && (
+            <Link
+              href={reportHref}
+              className="mt-2 inline-flex rounded-full bg-[#FF6B9D] px-4 py-2 text-[12px] font-bold text-white"
+            >
+              最初の座席情報を報告する
+            </Link>
+          )}
         </div>
       )}
     </div>

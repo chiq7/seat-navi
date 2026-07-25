@@ -14,6 +14,7 @@ type Props = {
   ticketStats: TicketStats;
   arenaStats: ArenaStats;
   upgradeStats: UpgradeStats;
+  title?: string;
 };
 
 type Cell = { label: string; value: string } | null;
@@ -21,7 +22,7 @@ type TrendRowData = { icon: LucideIcon; label: string; cells: Cell[] };
 
 type ArenaTab = "arena" | "upgrade";
 
-export default function TrendSection({ ticketStats, arenaStats, upgradeStats }: Props) {
+export default function TrendSection({ ticketStats, arenaStats, upgradeStats, title = "全公演" }: Props) {
   const [activeArenaTab, setActiveArenaTab] = useState<ArenaTab>("arena");
 
   const trendRows: TrendRowData[] = [
@@ -139,7 +140,7 @@ export default function TrendSection({ ticketStats, arenaStats, upgradeStats }: 
     <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
       <div className="p-1.5">
         <h2 className="flex h-11 items-center justify-center text-[16px] font-bold text-gray-900">
-          全公演
+          {title}
         </h2>
       </div>
       <div className="border-t border-gray-100">

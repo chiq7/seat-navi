@@ -196,6 +196,7 @@ export type EventLayout = {
 export type FanSeatPrediction = {
   id: string;
   event_id: string;
+  user_id: string | null;
   image_path: string;
   comment: string | null;
   prediction_tags: string[];

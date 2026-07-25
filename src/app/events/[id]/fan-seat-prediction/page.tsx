@@ -236,7 +236,11 @@ export default function FanSeatPredictionPage({
     setSubmitting(true);
     try {
       const id = randomId();
-      const imagePath = `${selectedEventId}/${id}-${safeFileName(file.name)}`;
+      const { data: authData } = await supabase.auth.getUser();
+      const userId = authData.user?.id ?? null;
+      const imagePath = userId
+        ? `${userId}/${selectedEventId}/${id}-${safeFileName(file.name)}`
+        : `${selectedEventId}/${id}-${safeFileName(file.name)}`;
       const { error: uploadErr } = await supabase.storage
         .from(BUCKET)
         .upload(imagePath, file, { cacheControl: "3600", contentType: file.type, upsert: false });
@@ -245,6 +249,7 @@ export default function FanSeatPredictionPage({
       const { error: insertErr } = await supabase.from("fan_seat_predictions").insert({
         id,
         event_id: selectedEventId,
+        user_id: userId,
         image_path: imagePath,
         comment: comment.trim() || null,
         prediction_tags: tags,
