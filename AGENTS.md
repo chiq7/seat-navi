@@ -44,19 +44,18 @@
 ## 公式NEWSの現在方針
 
 - BE:FIRSTのGitHub Runner上のHTTP 403調査は後回し。公式NEWS取得だけを一時無効化し、アーティストページや公演機能には影響させない。
-- 本番成功済み12組を維持する。ローカルではONE OK ROCK、あいみょん、back number、Mrs. GREEN APPLEの4組を検証済みで、push・GitHub Actions・本番保存はユーザー確認後に行う。
-- 未調査75組は2026-07-24に全件監査済み。再調査でSEVENTEEN、DOH KYUNG SOO、IVEも合格・有効化し、計50組を追加有効化した。公式サイトrobots.txt禁止12組、参照先API禁止1組、今回は省く個別対応12組は理由付きで無効登録した。既存設定と合わせて93組中66組が有効。
+- 2026-07-24時点で93組中79組の公式NEWS取得を有効化済み。本番には78組・296件を保存済み。KAT-TUNは取得設定済みだが現在0件、ALPHA DRIVE ONEは公開NEWS一覧がないため待機。
 - 1サイト・1記事の失敗で全体を止めず、失敗内容はレポートに残す。DBエラーは成功扱いにしない。
 - 1回の新規処理上限は15件。上限超過分を `limit_deferred` として次回へ繰り越すのは意図した仕様。
 - 再実行の重複判定は `(artist_slug, normalized_article_url)` を基準にする。繰越中の別記事追加と、同一記事の重複追加を混同しない。
 - 公開側は `official_news_public` を使用し、`article_body` と `normalized_article_url` を公開しない。
+- 公演情報は「主要会場スケジュール」と「公式NEWSのイベント候補」の二段構えにする。公式NEWSからの自動反映は、登録済みアーティスト・年付き日付・具体的会場・high confidence・needs_review=falseを必須とし、同一アーティスト・同日・同会場を重複登録しない。
+- ライブに限定せず、販売・発売記念イベント、ファンミ、オフラインサイン会、ミーグリ等の現地イベントも対象にする。野球等の明確なスポーツ、会場未定、出演日未確定フェス、長期開催は自動反映せずレポートで保留する。
 
 ## 当面の対象外
 
 - BE:FIRSTの403調査
-- IVEとYOASOBI以外の個別解析待ち公式NEWS、およびrobots.txt禁止サイトの追加対応
-- YOASOBI（ページ閲覧は公開だが、画面が参照するSony Music JSON APIはChatGPT系自動取得をrobots.txtで禁止）
-- NiziU、日向坂46、櫻坂46などrobots.txtがAI crawlerを禁止している公式NEWSサイトの回避実装
+- 公開NEWS一覧・安定URLを確認できない残りの個別解析候補
 - migration baseline整理、032適用、crawl_runs用migration適用
 - 重複公演のマージ、testデータ削除
 - ヒーロー画像の追加作成、座席予想・現地レポ詳細UIの変更

@@ -104,6 +104,9 @@ jobs:
           if [[ -n "$INPUT_ARTIST_SLUG" ]]; then ARGS+=("--artist=$INPUT_ARTIST_SLUG"); fi
           if [[ -n "$INPUT_GROUP" ]]; then ARGS+=("--group=$INPUT_GROUP"); fi
           node --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/crawlOfficialNews.mts "${ARGS[@]}"
+          if [[ "$WORKFLOW_EVENT_NAME" == "schedule" || ("$INPUT_DRY_RUN" != "true" && "$INPUT_CLASSIFY_WITH_GEMINI" == "true") ]]; then
+            node --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/syncOfficialNewsEvents.mts --execute
+          fi
 
       - name: Ensure artifact fallback report exists
         if: always()
