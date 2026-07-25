@@ -109,9 +109,10 @@ function ReportHero({ artistName, backHref }: { artistName?: string; backHref: s
       />
       <div className="absolute inset-0 bg-white/22" />
 
-      <header className="absolute left-0 right-0 top-0 z-10 flex h-16 items-center justify-between px-4">
+      <header className="absolute left-0 right-0 top-0 z-20 flex h-16 items-center justify-between px-4">
         <Link
           href={backHref}
+          aria-label="アーティストページに戻る"
           className="flex h-10 w-10 items-center justify-center rounded-full bg-white/40"
         >
           <ChevronLeft size={24} strokeWidth={2.5} className="text-[#111827]" />

@@ -415,6 +415,15 @@ test("TOP empty states remain present without a setlist section", () => {
   assert.match(artistClient, /: "\/report\/live"/);
 });
 
+test("report entry back link stays above the hero content layer", () => {
+  const reportEntry = fs.readFileSync(
+    path.join(projectRoot, "src/app/report/page.tsx"),
+    "utf8",
+  );
+  assert.match(reportEntry, /top-0 z-20 flex/);
+  assert.match(reportEntry, /aria-label="アーティストページに戻る"/);
+});
+
 test("configured hero image has a runtime missing-file fallback", () => {
   const hero = fs.readFileSync(
     path.join(projectRoot, "src/components/artist-page/HeroSection.tsx"),
