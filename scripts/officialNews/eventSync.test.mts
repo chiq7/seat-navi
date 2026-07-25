@@ -119,16 +119,25 @@ test("long-running date ranges and festival-wide dates are retained for review i
   assert.equal(plan.decisions.filter((item) => item.status === "deferred").length, 2);
 });
 
-test("a reviewed vague-venue article uses its confirmed manual events", () => {
+test("a reviewed vague-venue offline event uses its confirmed manual events", () => {
   const plan = planOfficialNewsEvents([candidate({
-    id: "00873e2d-bb0b-4d07-ba73-827a64ba7d13",
-    artist_slug: "me-i",
-    venue_names: ["都内某所"],
+    id: "6151972d-0f48-4b34-ae2d-3398a36979e4",
+    artist_slug: "zerobaseone",
+    venue_names: ["東京都某所"],
     needs_review: true,
   })], []);
-  assert.equal(plan.newRows.length, 1);
-  assert.equal(plan.newRows[0].venue, "都内某所");
+  assert.equal(plan.newRows.length, 3);
+  assert.equal(plan.newRows[0].venue, "東京都某所");
   assert.equal(plan.decisions[0].status, "planned");
+});
+
+test("screenings and online meet-and-greets stay in news for their future dedicated page", () => {
+  const plan = planOfficialNewsEvents([
+    candidate({ id: "00873e2d-bb0b-4d07-ba73-827a64ba7d13", artist_slug: "me-i" }),
+    candidate({ id: "9590aa79-540a-4ffe-b699-0ad8ecce7614", artist_slug: "nogizaka46" }),
+  ], []);
+  assert.equal(plan.newRows.length, 0);
+  assert.deepEqual(plan.decisions.map((decision) => decision.status), ["ignored", "ignored"]);
 });
 
 test("a reviewed mixed-artist article is assigned to its actual registered artists", () => {
