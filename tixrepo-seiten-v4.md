@@ -3,7 +3,7 @@
 > この文書は、現在のTixRepo実装・実行基盤・未反映作業を固定する正典です。
 > v3までの整理履歴は `tixrepo-seiten-v3.md` を参照してください。
 >
-> 最終更新：2026-07-24（アーティストページ基盤・公式NEWS本番反映後）
+> 最終更新：2026-07-25（公式NEWS全件監査・公演同期・重複整理後）
 
 ---
 
@@ -13,7 +13,7 @@
 - 公演取得は `vercel.json` の `/api/cron/fetch-events` をVercel Cronから週1回実行する。公式NEWSはこの経路では実行しない。
 - 公式NEWS取得は `.github/workflows/official-news.yml` から `scripts/crawlOfficialNews.mts` を実行する。同一処理のVercel Cronルートは存在しない。
 - 取得確認済みの旧13組は、従来の7 parserGroupを `special` strategyとして維持する。URL・parserGroup・enabledは `artists.ts` の定義から生成する。
-- ローカルではONE OK ROCKを `rss`、あいみょん・back number・Mrs. GREEN APPLEを `static_html` の共通strategyで追加検証済み。旧special parserには混ぜない。
+- 93組すべてに公式NEWS設定があり、79組を取得有効化済み。旧13組以外も `rss`, `wordpress`, `json_api`, `embedded_json`, `sitemap`, `static_html`, `auto_html` の共通strategyまたは確認済み専用設定で処理する。
 - 新規公式NEWSサイトは `rss`, `wordpress`, `json_api`, `embedded_json`, `sitemap`, `static_html` の共通strategyを優先し、共通化できない特殊サイトだけspecial parserを追加する。
 - 表示側に公式NEWS用slug allowlistは置かない。`artists.ts` に登録済みならNEWS一覧ページを表示でき、0件なら空状態にする。
 
@@ -70,13 +70,15 @@ UGCが0件の場合、各セクションは架空値や0%を作らず、投稿�
 
 ---
 
-## 5. migration 031と公式NEWSの本番状況
+## 5. migration 031・公式NEWS・公演同期の本番状況
 
 - `supabase/migrations/031_official_news.sql` は本番適用済み。base tableはservice role専用で、anon/authenticatedには `official_news_public` viewだけを公開し、`article_body` と `normalized_article_url` を公開しない。
 - `official_news_crawl_runs` は `supabase/migration-drafts/official_news_crawl_runs.sql` に置いたdraftであり、pending migrationではない。
 - 本番適用後にtable/view、RLS、権限、一意制約、非公開列を確認済み。既存schemaと既存データへの意図しない変更はない。
-- GitHub ActionsのSecrets/Variablesは登録済み。BE:FIRSTを除く12組を対象に、週次production実行を有効化済み。
-- 2026-07-24確認時点の本番 `official_news` は55件・12組で、`(artist_slug, normalized_article_url)` の重複は0件。`official_news_public` から同じ55件を参照できる。
+- GitHub ActionsのSecrets/Variablesは登録済み。設定済み93組のうち79組を対象に、週次production実行を有効化済み。取得・Gemini分類後に `syncOfficialNewsEvents.mts` を実行し、安全条件を満たす公演を反映する。
+- 2026-07-25確認時点の本番 `official_news` は296件・78組で、`(artist_slug, normalized_article_url)` の重複は0件。`official_news_public` から同じ296件を参照できる。KAT-TUNは取得設定済みだが現在0件。
+- 公式NEWSのイベント候補65記事は、登録済み・既存・人手確認済み除外のいずれかに確定し、保留0件。試写会とオンラインミーグリはNEWSだけを保持し、公演一覧には反映しない。
+- 本番 `events` は518件。重複候補14組のうち真の重複10組・12行を整理済み。残る4組は別出演者・第一部/第二部等の別公演として保持する。
 - 1回の新規処理上限は15件。`limit_deferred` は別記事を次回へ繰り越す安全機構であり、同一記事の重複追加ではない。
 
 ---
@@ -84,11 +86,13 @@ UGCが0件の場合、各セクションは架空値や0%を作らず、投稿�
 ## 6. 未実施・未対応
 
 - `events.artist_slug is null` の既存公演backfillは21件を本番更新済み。更新後のdry-runは `matched=0 / ambiguous=0`。`npm run backfill:event-artists` は引数なしでは引き続きdry-runとして動作する。
-- 旧13組以外の82組のうち、ONE OK ROCK、あいみょん、back number、Mrs. GREEN APPLEの4組はローカル取得検証済みで、本番反映前。NiziUはデータ元Sony Music、日向坂46・櫻坂46は各公式サイトのrobots.txtがAI crawlerを禁止するため有効化しない。残り未調査は75組。既存の `test` 定義はこの集計の対象外。
-- 共通JSON API strategyはJSONP、入れ子フィールド、相対URLに対応したが、robots.txt禁止を回避するためには使わない。static HTML一覧で年が省略される場合は、詳細ページの公開日で補完する。
+- 旧設定を含む93組の調査は完了し、未調査0組。追加監査75組の内訳は取得確認済み62組、公開NEWS一覧なし1組、現行の安全な取得方式では実記事0件の専用対応候補12組。
+- 専用対応候補12組は Stray Kids、Roselia、山田涼介、Juice=Juice、幾田りら、秘密結社holoX、2PM、桃鈴ねね、うらたぬき、BEYOOOOONDS、IMP.、ROIROM。ALPHA DRIVE ONEは公開NEWS一覧がないため待機する。
+- 共通JSON API strategyはJSONP、入れ子フィールド、相対URLに対応する。static HTML一覧で年が省略される場合は、詳細ページの公開日で補完する。
 - BE:FIRSTはローカル取得に成功するがGitHub RunnerからHTTP 403となるため、公式NEWS取得だけ一時無効。アーティストページと公演機能は有効のまま。
 - `official_news_crawl_runs` のmigration、migration baseline整理、032適用は未実施。
 - 複数候補へ一致する公演の手動確認、新規公式NEWSサイトの初回strategy検証、UGC投稿は引き続き人の操作が必要。
+- 試写会・オンラインミーグリは取得済み公式NEWSを再利用し、将来イベント種別を分けた専用ページとして実装する。現時点では公演一覧へ混ぜない。
 
 ---
 
