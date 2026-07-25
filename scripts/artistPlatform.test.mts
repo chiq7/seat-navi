@@ -30,6 +30,7 @@ import { loadEnvLocal } from "./loadEnvLocal.mjs";
 loadEnvLocal();
 const { buildOfficialNewsCollections, getOfficialNewsSummary } = await import("@/lib/officialNews");
 const {
+  getSearchEventDestination,
   rankEventSearchResults,
   searchArtists,
   shouldSearchEventText,
@@ -103,6 +104,17 @@ test("single-character event search keeps artist events and removes unrelated ti
     fixtureEvent({ id: "noise", title: "母に感謝のコンサート", artist_slug: "other" }),
   ], [naniwa]);
   assert.deepEqual(ranked.map((event) => event.id), ["naniwa"]);
+});
+
+test("search event cards open the artist hub with a safe event fallback", () => {
+  assert.equal(
+    getSearchEventDestination(fixtureEvent({ id: "niziu-event", artist_slug: "niziu" })),
+    "/artists/niziu",
+  );
+  assert.equal(
+    getSearchEventDestination(fixtureEvent({ id: "unlinked-event", artist_slug: null })),
+    "/events/unlinked-event",
+  );
 });
 
 test("artist fixture produces page data and hero image fallbacks", () => {

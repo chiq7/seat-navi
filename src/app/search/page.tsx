@@ -4,9 +4,9 @@ import { Suspense, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Header } from "@/components/common/Header";
-import { searchArtists, searchEvents } from "@/lib/search";
+import { findArtistBySlug, type Artist } from "@/lib/artists";
+import { getSearchEventDestination, searchArtists, searchEvents } from "@/lib/search";
 import { fmtDate } from "@/lib/artistPageHelpers";
-import type { Artist } from "@/lib/artists";
 import type { CrawledEvent } from "@/lib/types";
 
 export default function SearchPage() {
@@ -126,17 +126,22 @@ function SearchPageInner() {
           <section>
             <h2 className="mb-2 text-[11px] font-semibold text-gray-400">公演</h2>
             <div className="space-y-1.5">
-              {eventResults.map((event) => (
-                <Link
-                  key={event.id}
-                  href={`/events/${event.id}`}
-                  className="block rounded-lg border border-gray-100 bg-white px-3 py-2.5 no-underline active:scale-[0.99]"
-                >
-                  <p className="text-[10px] font-bold text-gray-400">{fmtDate(event.date)}</p>
-                  <p className="truncate text-[13px] font-bold text-gray-900">{event.title}</p>
-                  <p className="truncate text-[11px] text-gray-400">{event.venue}</p>
-                </Link>
-              ))}
+              {eventResults.map((event) => {
+                const eventArtist = event.artist_slug ? findArtistBySlug(event.artist_slug) : null;
+                return (
+                  <Link
+                    key={event.id}
+                    href={getSearchEventDestination(event)}
+                    className="block rounded-lg border border-gray-100 bg-white px-3 py-2.5 no-underline active:scale-[0.99]"
+                  >
+                    <p className="text-[10px] font-bold text-gray-400">{fmtDate(event.date)}</p>
+                    <p className="truncate text-[13px] font-bold text-gray-900">{event.title}</p>
+                    <p className="truncate text-[11px] text-gray-400">
+                      {eventArtist ? `${eventArtist.name} · ${event.venue}` : event.venue}
+                    </p>
+                  </Link>
+                );
+              })}
             </div>
           </section>
         )}

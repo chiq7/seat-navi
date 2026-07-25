@@ -51,6 +51,14 @@ export function shouldSearchEventText(query: string): boolean {
   return [...normalizeForSearch(query)].length >= 2;
 }
 
+/** 検索結果の公演はアーティストの総合ページを入口にし、未紐付けだけ公演詳細へ送る。 */
+export function getSearchEventDestination(event: Pick<CrawledEvent, "id" | "artist_slug">): string {
+  const artist = event.artist_slug
+    ? ARTISTS.find((candidate) => candidate.slug === event.artist_slug && !isTestArtist(candidate))
+    : null;
+  return artist ? `/artists/${artist.slug}` : `/events/${event.id}`;
+}
+
 export function rankEventSearchResults(
   query: string,
   events: CrawledEvent[],
