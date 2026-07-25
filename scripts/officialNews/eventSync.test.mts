@@ -131,13 +131,15 @@ test("a reviewed vague-venue offline event uses its confirmed manual events", ()
   assert.equal(plan.decisions[0].status, "planned");
 });
 
-test("screenings and online meet-and-greets stay in news for their future dedicated page", () => {
+test("screenings, exhibitions, and online meet-and-greets stay in news for their future dedicated page", () => {
   const plan = planOfficialNewsEvents([
     candidate({ id: "00873e2d-bb0b-4d07-ba73-827a64ba7d13", artist_slug: "me-i" }),
     candidate({ id: "9590aa79-540a-4ffe-b699-0ad8ecce7614", artist_slug: "nogizaka46" }),
+    candidate({ id: "f2b91648-9c6a-4ce8-8f90-19ffb2476530", artist_slug: "tomorrow-x-together" }),
+    candidate({ id: "e876ee3b-633c-42ab-85e1-8522290a75b6", artist_slug: "yoasobi" }),
   ], []);
   assert.equal(plan.newRows.length, 0);
-  assert.deepEqual(plan.decisions.map((decision) => decision.status), ["ignored", "ignored"]);
+  assert.deepEqual(plan.decisions.map((decision) => decision.status), ["ignored", "ignored", "ignored", "ignored"]);
 });
 
 test("a reviewed mixed-artist article is assigned to its actual registered artists", () => {

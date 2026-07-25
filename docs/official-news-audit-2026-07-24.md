@@ -39,5 +39,5 @@ Stray Kids、Roselia、山田涼介、Juice=Juice、幾田りら、秘密結社h
 - `official_news_public`: 296件
 - `(artist_slug, normalized_article_url)` の重複: 0件
 - イベント候補65記事: 保留0件
-- `events`: 518件
-- 試写会・オンラインミーグリはNEWSだけを保持し、将来の専用ページまで公演一覧には反映しない。
+- `events`: 510件
+- 試写会・映画館上映・展示・オンラインミーグリはNEWSだけを保持し、将来の専用ページまで公演一覧には反映しない。

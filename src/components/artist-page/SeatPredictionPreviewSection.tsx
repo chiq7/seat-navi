@@ -99,7 +99,13 @@ export default function SeatPredictionPreviewSection({
         ) : (
           <div className="rounded-2xl border border-gray-100 bg-white px-3 py-3 shadow-sm">
             <div className="relative mx-auto h-[140px] w-full max-w-[280px] overflow-hidden rounded-xl bg-white">
-              <Image src="/images/artist-page/seat-map-preparing2.png" alt="準備中" fill className="object-contain" />
+              <Image
+                src="/images/artist-page/seat-map-preparing2.png"
+                alt="準備中"
+                fill
+                sizes="(max-width: 320px) 100vw, 280px"
+                className="object-contain"
+              />
             </div>
             {!mapEvent && emptyPostHref && (
               <div className="pt-2 text-center">
