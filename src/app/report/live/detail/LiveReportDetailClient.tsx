@@ -4,7 +4,7 @@ import { Suspense, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, ExternalLink } from "lucide-react";
 import { supabase } from "@/lib/supabase/client";
 import { resolveArtist } from "@/lib/artists";
 import { parseEventTitle } from "@/lib/eventTitle";
@@ -51,6 +51,7 @@ const SEAT_AREA_LABELS: Record<string, string> = {
 
 type ReportRow = {
   id: string;
+  user_id: string | null;
   event_id: string;
   seat_area_type: string | null;
   seat_block: string | null;
@@ -65,6 +66,12 @@ type ReportRow = {
   silver_tape_rows: number | null;
   memo: string | null;
   created_at: string;
+};
+
+type PublicAuthor = {
+  display_name: string | null;
+  x_handle: string | null;
+  show_x_on_posts: boolean;
 };
 
 type RelatedReport = {
@@ -154,6 +161,7 @@ function LiveReportDetailPageInner() {
   const [report, setReport] = useState<ReportRow | null>(null);
   const [event, setEvent] = useState<CrawledEvent | null>(null);
   const [related, setRelated] = useState<RelatedReport[]>([]);
+  const [author, setAuthor] = useState<PublicAuthor | null>(null);
 
   /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
@@ -161,14 +169,24 @@ function LiveReportDetailPageInner() {
     let cancelled = false;
 
     async function load() {
+      setAuthor(null);
       const { data: reportData } = await supabase
         .from("after_reports")
-        .select("id, event_id, seat_area_type, seat_block, seat_row, seat_number, seat_view_photo_paths, main_stage, center_stage, fansa_rating, torokko, kyakukudari, silver_tape_rows, memo, created_at")
+        .select("id, user_id, event_id, seat_area_type, seat_block, seat_row, seat_number, seat_view_photo_paths, main_stage, center_stage, fansa_rating, torokko, kyakukudari, silver_tape_rows, memo, created_at")
         .eq("id", reportId)
         .maybeSingle();
       if (cancelled) return;
       if (!reportData) { setStatus("not-found"); return; }
       const r = reportData as ReportRow;
+
+      if (r.user_id) {
+        const { data: profileData } = await supabase
+          .from("profiles")
+          .select("display_name, x_handle, show_x_on_posts")
+          .eq("id", r.user_id)
+          .maybeSingle();
+        if (!cancelled) setAuthor((profileData as PublicAuthor | null) ?? null);
+      }
 
       const { data: eventData } = await supabase
         .from("events")
@@ -299,6 +317,17 @@ function LiveReportDetailPageInner() {
             dateLabel={fmtDate(event.date)}
           />
           <p className="mt-1.5 text-[10px] text-gray-400">投稿日 {fmtPostDate(report.created_at)}</p>
+          {author?.show_x_on_posts && author.x_handle && (
+            <a
+              href={`https://x.com/${author.x_handle}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2 inline-flex items-center gap-1 rounded-full bg-gray-100 px-2.5 py-1 text-[10px] font-bold text-gray-700 no-underline"
+            >
+              {author.display_name ? `${author.display_name} ` : ""}@{author.x_handle}
+              <ExternalLink size={11} />
+            </a>
+          )}
         </section>
 
         {/* 投稿写真 */}

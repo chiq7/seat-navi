@@ -1,4 +1,17 @@
+"use client";
+
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { supabase } from "@/lib/supabase/client";
+
 export default function LoginCta() {
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => setLoggedIn(Boolean(data.user)));
+    const { data } = supabase.auth.onAuthStateChange((_event, session) => setLoggedIn(Boolean(session?.user)));
+    return () => data.subscription.unsubscribe();
+  }, []);
   return (
     <div
       className="mx-4 mt-5 rounded-2xl border p-4 flex items-center gap-3"
@@ -17,21 +30,21 @@ export default function LoginCta() {
       {/* Text */}
       <div className="flex-1 min-w-0">
         <p className="text-[13px] font-bold text-gray-800 leading-snug">
-          推し優先表示にするにはログイン
+          {loggedIn ? "マイページ" : "推し優先表示にするにはログイン"}
         </p>
         <p className="text-[11px] text-gray-500 mt-0.5 leading-snug">
-          お気に入り登録や推しの公演を優先表示できます
+          {loggedIn ? "投稿履歴・当選率・推し設定を確認できます" : "お気に入り登録や推しの公演を優先表示できます"}
         </p>
       </div>
 
       {/* Login button */}
-      <button
-        type="button"
+      <Link
+        href={loggedIn ? "/mypage" : "/login"}
         className="shrink-0 rounded-full px-3.5 py-2 text-[12px] font-bold text-white"
         style={{ backgroundColor: "#FF6B9D" }}
       >
-        ログイン
-      </button>
+        {loggedIn ? "開く" : "ログイン"}
+      </Link>
     </div>
   );
 }

@@ -358,6 +358,8 @@ function LiveReportPageInner() {
     setError("");
     setSubmitting(true);
     try {
+      const { data: authData } = await supabase.auth.getUser();
+      const userId = authData.user?.id ?? null;
       const uploadedPaths: string[] = [];
       for (const file of photos) {
         const ext = file.name.split(".").pop()?.toLowerCase() ?? "jpg";
@@ -371,6 +373,7 @@ function LiveReportPageInner() {
 
       const dbRow = {
         id:                        randomId(),
+        user_id:                   userId,
         event_id:                  selectedEvent,
         seat_area_type:            toSeatAreaType(seatArea, standFloor),
         seat_block:                blockInfo.trim(),

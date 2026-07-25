@@ -416,11 +416,14 @@ function TicketReportPageInner() {
     setError("");
     setSubmitting(true);
     try {
+      const { data: authData } = await supabase.auth.getUser();
+      const userId = authData.user?.id ?? null;
       const isWon = result === "当選した";
       const resolvedStandDirection = standDirection === "その他" ? standDirectionOther : standDirection;
       const resolvedStandFloor = standFloor === "その他" ? standFloorOther : standFloor;
 
       const { error: ticketErr } = await supabase.from("event_ticket_results").insert({
+        user_id:                userId,
         event_id:               selectedEvent,
         result:                 isWon ? "won" : "lost",
         lost_application_count: isWon ? 0 : 1,
@@ -446,6 +449,7 @@ function TicketReportPageInner() {
         if (block.trim() && rowNum >= 1 && seatNum >= 1) {
           const { error: seatErr } = await supabase.from("seat_reports").insert({
             id:             randomId(),
+            user_id:        userId,
             event_id:       selectedEvent,
             block:          block.trim(),
             row_num:        rowNum,
