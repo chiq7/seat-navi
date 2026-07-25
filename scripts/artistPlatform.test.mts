@@ -28,6 +28,11 @@ import { loadEnvLocal } from "./loadEnvLocal.mjs";
 
 loadEnvLocal();
 const { buildOfficialNewsCollections, getOfficialNewsSummary } = await import("@/lib/officialNews");
+const {
+  rankEventSearchResults,
+  searchArtists,
+  shouldSearchEventText,
+} = await import("@/lib/search");
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 const fixtureArtist = (overrides: Partial<Artist> = {}): Artist => ({
@@ -53,6 +58,27 @@ const fixtureEvent = (overrides: Partial<CrawledEvent> = {}): CrawledEvent => ({
   artist_slug: "fixture-artist",
   artist_match_source: "explicit",
   ...overrides,
+});
+
+test("search supports partial artist names while keeping short acronym boundaries", () => {
+  assert.equal(searchArtists("Nizi")[0]?.slug, "niziu");
+  assert.equal(searchArtists("ｎｉｚｉ")[0]?.slug, "niziu");
+  assert.equal(searchArtists("にじゅー")[0]?.slug, "niziu");
+  assert.equal(searchArtists("IVE")[0]?.slug, "ive");
+  assert.equal(searchArtists("に")[0]?.slug, "naniwa-danshi");
+  assert.equal(searchArtists("に").some((artist) => artist.slug === "niziu"), false);
+  assert.equal(shouldSearchEventText("に"), false);
+  assert.equal(shouldSearchEventText("Nizi"), true);
+});
+
+test("single-character event search keeps artist events and removes unrelated title noise", () => {
+  const naniwa = ARTISTS.find((artist) => artist.slug === "naniwa-danshi");
+  assert.ok(naniwa);
+  const ranked = rankEventSearchResults("に", [
+    fixtureEvent({ id: "naniwa", title: "ARENA TOUR", artist_slug: "naniwa-danshi" }),
+    fixtureEvent({ id: "noise", title: "母に感謝のコンサート", artist_slug: "other" }),
+  ], [naniwa]);
+  assert.deepEqual(ranked.map((event) => event.id), ["naniwa"]);
 });
 
 test("artist fixture produces page data and hero image fallbacks", () => {

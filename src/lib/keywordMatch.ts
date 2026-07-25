@@ -19,6 +19,18 @@ export function normalizeForMatch(s: string): string {
   return s.normalize("NFKC").toLowerCase().trim();
 }
 
+const SEARCH_SEPARATORS = /[\s\-‐‑‒–—―_.・･:：/\\'’"“”()[\]{}]+/g;
+
+/**
+ * 検索欄向けの正規化。照合用のNFKC・小文字化に加えて、ひらがな/カタカナと
+ * 名前中の区切り記号を揃える（例: "にじゅー" → "ニジュー"、"Nizi U" → "NiziU"）。
+ */
+export function normalizeForSearch(s: string): string {
+  return normalizeForMatch(s)
+    .replace(/[ァ-ヶ]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) - 0x60))
+    .replace(SEARCH_SEPARATORS, "");
+}
+
 /**
  * 純ASCII英数字(末尾の"."は除いて判定)で構成され、かつ短い(4文字以下)keywordは、
  * 単純な部分一致だと別の単語の内部にたまたま出現して誤爆する
@@ -75,4 +87,34 @@ export function keywordMatchesTitle(keyword: string, title: string): boolean {
     return includesWithBoundary(t, k);
   }
   return t.includes(k);
+}
+
+/**
+ * ユーザー検索専用の一致度。crawlerの厳格な紐付け判定とは分離し、短い英字でも
+ * 候補名の先頭なら部分入力を許可する（Nizi → NiziU）。一方、語中の偶然一致
+ * （IVE → LIVE）は従来どおり英数字境界で除外する。
+ */
+export function searchTextScore(query: string, candidate: string): number {
+  const q = normalizeForMatch(query);
+  const c = normalizeForMatch(candidate);
+  if (!q || !c) return 0;
+
+  if (q === c) return 100;
+  if (c.startsWith(q)) return 90;
+
+  const compactQuery = normalizeForSearch(query);
+  const compactCandidate = normalizeForSearch(candidate);
+  if (!compactQuery || !compactCandidate) return 0;
+  // 1文字からひらがな/カタカナ変換を広げると候補が多すぎるため、表記ゆれ検索は2文字以上。
+  const allowCompactMatch = [...compactQuery].length >= 2;
+  if (allowCompactMatch && compactQuery === compactCandidate) return 95;
+  if (allowCompactMatch && compactCandidate.startsWith(compactQuery)) return 85;
+
+  if (isBoundarySensitive(q)) {
+    return includesWithBoundary(c, q) ? 70 : 0;
+  }
+
+  if (c.includes(q)) return 60;
+  if (allowCompactMatch && compactCandidate.includes(compactQuery)) return 50;
+  return 0;
 }
