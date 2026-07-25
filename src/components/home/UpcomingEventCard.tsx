@@ -1,22 +1,16 @@
 import Link from "next/link";
+import type { UpcomingEvent } from "@/lib/homeData";
 
-export type UpcomingEvent = {
-  id: string;
-  artistSlug: string;
-  artist: string;
-  date: string;
-  venue: string;
-  count: string;
-};
+export type { UpcomingEvent } from "@/lib/homeData";
 
 type UpcomingEventCardProps = {
   item: UpcomingEvent;
   backgroundImage?: string;
-  legacyHot?: boolean;
+  featured?: boolean;
 };
 
-export default function UpcomingEventCard({ item, backgroundImage, legacyHot }: UpcomingEventCardProps) {
-  if (legacyHot && backgroundImage) {
+export default function UpcomingEventCard({ item, backgroundImage, featured }: UpcomingEventCardProps) {
+  if (featured && backgroundImage) {
     return (
       <Link href={`/artists/${item.artistSlug}`} className="block h-[132px] w-[135px] shrink-0 overflow-hidden rounded-[16px] bg-white shadow-sm no-underline">
         <div className="relative h-[76px]">
@@ -60,15 +54,11 @@ export default function UpcomingEventCard({ item, backgroundImage, legacyHot }: 
           </p>
         </div>
         <div className="box-border flex h-[56px] flex-col" style={{ padding: "2px 8px 5px" }}>
-          <div className="mt-[2px] flex items-center justify-center gap-2 leading-none">
-            <span className="text-[11px] font-bold text-[#111]">報告数</span>
-            <span className="flex items-center">
-              <span className="text-[18px] font-bold text-[#FF6B9D]">{item.count}</span>
-              <span className="text-[11px] font-bold text-[#111]">件</span>
-            </span>
-          </div>
-          <span className="mt-[2px] block w-full rounded-[16px] bg-[#FF6B9D] py-[3px] text-center text-[9px] font-bold text-white">
-            報告する
+          <p className="m-0 mt-[3px] text-center text-[10px] font-bold leading-none text-[#555]">
+            直近の注目公演
+          </p>
+          <span className="mt-[7px] block w-full rounded-[16px] bg-[#FF6B9D] py-[4px] text-center text-[9px] font-bold text-white">
+            公演を見る
           </span>
         </div>
       </Link>

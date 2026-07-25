@@ -35,6 +35,7 @@ const {
   searchArtists,
   shouldSearchEventText,
 } = await import("@/lib/search");
+const { selectProvisionalFeaturedEvents } = await import("@/lib/homeData");
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 const fixtureArtist = (overrides: Partial<Artist> = {}): Artist => ({
@@ -114,6 +115,20 @@ test("search event cards open the artist hub with a safe event fallback", () => 
   assert.equal(
     getSearchEventDestination(fixtureEvent({ id: "unlinked-event", artist_slug: null })),
     "/events/unlinked-event",
+  );
+});
+
+test("home featured events use popular artists while preserving nearest-date order", () => {
+  const upcoming = [
+    { id: "other", artistSlug: "other", artist: "Other", date: "7/26", venue: "A", count: "0" },
+    { id: "niziu", artistSlug: "niziu", artist: "NiziU", date: "7/27", venue: "B", count: "0" },
+    { id: "snow-man", artistSlug: "snow-man", artist: "Snow Man", date: "7/28", venue: "C", count: "0" },
+    { id: "seventeen", artistSlug: "seventeen", artist: "SEVENTEEN", date: "7/29", venue: "D", count: "0" },
+  ];
+
+  assert.deepEqual(
+    selectProvisionalFeaturedEvents(upcoming, 2).map((event) => event.id),
+    ["niziu", "snow-man"],
   );
 });
 

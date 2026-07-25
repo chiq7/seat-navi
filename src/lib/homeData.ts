@@ -2,7 +2,15 @@ import { supabase } from "@/lib/supabase/client";
 import { resolveArtist, type Artist } from "@/lib/artists";
 import { parseEventTitle } from "@/lib/eventTitle";
 import { fmtDate, seatAreaLabel } from "@/lib/artistPageHelpers";
-import type { UpcomingEvent } from "@/components/home/UpcomingEventCard";
+
+export type UpcomingEvent = {
+  id: string;
+  artistSlug: string;
+  artist: string;
+  date: string;
+  venue: string;
+  count: string;
+};
 
 const EVENT_COLUMNS = "id, title, venue, date, artist_slug";
 
@@ -104,50 +112,60 @@ export async function getUpcomingHomeEvents(): Promise<UpcomingEvent[]> {
   }));
 }
 
-// ─── 報告急増中の公演 ────────────────────────────────────────────────────────
+// ─── 注目の公演 ──────────────────────────────────────────────────────────────
 
-/** 直近days日間のseat_reportsを公演ごとに集計し、件数が多い順に上位topN件を返す */
-export async function getHotHomeEvents(days = 7, topN = 5): Promise<UpcomingEvent[]> {
-  const since = new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString();
+/**
+ * アクセス数がまだ蓄積されていない期間だけ使う暫定の人気アーティスト候補。
+ * 公演日は getUpcomingHomeEvents 側の昇順を優先し、この配列は対象判定にだけ使う。
+ * ページアクセス集計を導入したら getFeaturedHomeEvents の選定ロジックを差し替える。
+ */
+export const PROVISIONAL_POPULAR_ARTIST_SLUGS = new Set([
+  "snow-man",
+  "mrs-green-apple",
+  "nogizaka46",
+  "sixtones",
+  "number-i",
+  "niziu",
+  "seventeen",
+  "stray-kids",
+  "le-sserafim",
+  "aespa",
+  "twice",
+  "ive",
+  "enhypen",
+  "bts",
+  "king-prince",
+  "naniwa-danshi",
+  "timelesz",
+  "be-first",
+  "yoasobi",
+  "officialdism",
+  "one-ok-rock",
+  "back-number",
+  "fujii-kaze",
+  "ado",
+  "aimyon",
+  "fruits-zipper",
+  "me-i",
+  "jo1",
+  "ini",
+  "tomorrow-x-together",
+]);
 
-  const { data } = await supabase
-    .from("seat_reports")
-    .select("event_id")
-    .gte("created_at", since);
+/** 日付昇順の公演から、暫定人気候補に該当する上位件数だけを選ぶ。 */
+export function selectProvisionalFeaturedEvents(
+  events: UpcomingEvent[],
+  topN = 5,
+): UpcomingEvent[] {
+  return events
+    .filter((event) => PROVISIONAL_POPULAR_ARTIST_SLUGS.has(event.artistSlug))
+    .slice(0, Math.max(0, topN));
+}
 
-  const rows = (data as { event_id: string }[]) ?? [];
-  if (rows.length === 0) return [];
-
-  const counts = new Map<string, number>();
-  for (const r of rows) counts.set(r.event_id, (counts.get(r.event_id) ?? 0) + 1);
-
-  const eventIds = [...counts.keys()];
-  const { data: eventsData } = await supabase
-    .from("events")
-    .select(EVENT_COLUMNS)
-    .in("id", eventIds);
-
-  const events = (eventsData as HomeEventRow[]) ?? [];
-
-  const candidates: { ev: HomeEventRow; artist: Artist; count: number }[] = [];
-  for (const ev of events) {
-    const artist = resolveArtist(ev);
-    if (!artist || isTestEvent(ev, artist)) continue;
-    candidates.push({ ev, artist, count: counts.get(ev.id) ?? 0 });
-  }
-
-  // 同一アーティストが複数公演で報告急増している場合、開催日が現在日時に最も近い1件だけ残す
-  const deduped = dedupeNearestByArtist(candidates, (c) => c.artist.slug, (c) => c.ev.date);
-
-  deduped.sort((a, b) => b.count - a.count);
-  return deduped.slice(0, topN).map(({ ev, artist, count }) => ({
-    id: ev.id,
-    artistSlug: artist.slug,
-    artist: artist.name,
-    date: fmtDate(ev.date),
-    venue: ev.venue,
-    count: count.toLocaleString("ja-JP"),
-  }));
+/** 当面は、2ヶ月以内の人気アーティスト公演を開催日が近い順に返す。 */
+export async function getFeaturedHomeEvents(topN = 5): Promise<UpcomingEvent[]> {
+  const upcoming = await getUpcomingHomeEvents();
+  return selectProvisionalFeaturedEvents(upcoming, topN);
 }
 
 // ─── リアルタイム速報 ────────────────────────────────────────────────────────
