@@ -55,7 +55,7 @@ export default function UpcomingEventCard({ item, backgroundImage, featured }: U
         </div>
         <div className="box-border flex h-[56px] flex-col" style={{ padding: "2px 8px 5px" }}>
           <p className="m-0 mt-[3px] text-center text-[10px] font-bold leading-none text-[#555]">
-            {item.date}
+            {item.period}
           </p>
           <span className="mt-[7px] block w-full rounded-[16px] bg-[#FF6B9D] py-[4px] text-center text-[9px] font-bold text-white">
             公演を見る

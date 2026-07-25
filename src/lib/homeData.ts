@@ -9,6 +9,7 @@ export type UpcomingEvent = {
   artist: string;
   eventName: string;
   date: string;
+  period: string;
   venue: string;
   count: string;
 };
@@ -34,6 +35,19 @@ function toDateStr(d: Date): string {
   const m = String(d.getMonth() + 1).padStart(2, "0");
   const day = String(d.getDate()).padStart(2, "0");
   return `${y}-${m}-${day}`;
+}
+
+function getEventName(event: HomeEventRow, artist: Artist): string {
+  return parseEventTitle(event.title, artist.name).tourName || event.title;
+}
+
+/** 同じ公演の開催日一覧を「初日〜最終日」へ整形する。単日の場合は従来どおり1日だけ返す。 */
+export function formatEventPeriod(dates: Array<string | null>): string {
+  const sorted = [...new Set(dates.filter((date): date is string => Boolean(date)))].sort();
+  if (sorted.length === 0) return "日程未定";
+  const first = sorted[0];
+  const last = sorted[sorted.length - 1];
+  return first === last ? fmtDate(first) : `${fmtDate(first)}〜${fmtDate(last)}`;
 }
 
 /**
@@ -103,15 +117,26 @@ export async function getUpcomingHomeEvents(): Promise<UpcomingEvent[]> {
     counts.set(r.event_id, (counts.get(r.event_id) ?? 0) + 1);
   }
 
-  return deduped.map(({ ev, artist }) => ({
-    id: ev.id,
-    artistSlug: artist.slug,
-    artist: artist.name,
-    eventName: parseEventTitle(ev.title, artist.name).tourName || ev.title,
-    date: fmtDate(ev.date),
-    venue: ev.venue,
-    count: (counts.get(ev.id) ?? 0).toLocaleString("ja-JP"),
-  }));
+  return deduped.map(({ ev, artist }) => {
+    const eventName = getEventName(ev, artist);
+    const periodDates = validRows
+      .filter((candidate) => (
+        candidate.artist.slug === artist.slug
+        && getEventName(candidate.ev, candidate.artist) === eventName
+      ))
+      .map((candidate) => candidate.ev.date);
+
+    return {
+      id: ev.id,
+      artistSlug: artist.slug,
+      artist: artist.name,
+      eventName,
+      date: fmtDate(ev.date),
+      period: formatEventPeriod(periodDates),
+      venue: ev.venue,
+      count: (counts.get(ev.id) ?? 0).toLocaleString("ja-JP"),
+    };
+  });
 }
 
 // ─── 注目の公演 ──────────────────────────────────────────────────────────────

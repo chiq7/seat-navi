@@ -35,7 +35,7 @@ const {
   searchArtists,
   shouldSearchEventText,
 } = await import("@/lib/search");
-const { selectProvisionalFeaturedEvents } = await import("@/lib/homeData");
+const { formatEventPeriod, selectProvisionalFeaturedEvents } = await import("@/lib/homeData");
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 const fixtureArtist = (overrides: Partial<Artist> = {}): Artist => ({
@@ -120,16 +120,22 @@ test("search event cards open the artist hub with a safe event fallback", () => 
 
 test("home featured events use popular artists while preserving nearest-date order", () => {
   const upcoming = [
-    { id: "other", artistSlug: "other", artist: "Other", eventName: "OTHER LIVE", date: "7/26", venue: "A", count: "0" },
-    { id: "niziu", artistSlug: "niziu", artist: "NiziU", eventName: "NiziU LIVE", date: "7/27", venue: "B", count: "0" },
-    { id: "snow-man", artistSlug: "snow-man", artist: "Snow Man", eventName: "Snow Man LIVE", date: "7/28", venue: "C", count: "0" },
-    { id: "seventeen", artistSlug: "seventeen", artist: "SEVENTEEN", eventName: "SEVENTEEN LIVE", date: "7/29", venue: "D", count: "0" },
+    { id: "other", artistSlug: "other", artist: "Other", eventName: "OTHER LIVE", date: "7/26", period: "7/26(日)", venue: "A", count: "0" },
+    { id: "niziu", artistSlug: "niziu", artist: "NiziU", eventName: "NiziU LIVE", date: "7/27", period: "7/27(月)", venue: "B", count: "0" },
+    { id: "snow-man", artistSlug: "snow-man", artist: "Snow Man", eventName: "Snow Man LIVE", date: "7/28", period: "7/28(火)", venue: "C", count: "0" },
+    { id: "seventeen", artistSlug: "seventeen", artist: "SEVENTEEN", eventName: "SEVENTEEN LIVE", date: "7/29", period: "7/29(水)", venue: "D", count: "0" },
   ];
 
   assert.deepEqual(
     selectProvisionalFeaturedEvents(upcoming, 2).map((event) => event.id),
     ["niziu", "snow-man"],
   );
+});
+
+test("home event periods use the first and last unique performance dates", () => {
+  assert.equal(formatEventPeriod(["2026-08-02", "2026-08-01", "2026-08-02"]), "8/1(土)〜8/2(日)");
+  assert.equal(formatEventPeriod([null, "2026-08-01"]), "8/1(土)");
+  assert.equal(formatEventPeriod([null]), "日程未定");
 });
 
 test("artist fixture produces page data and hero image fallbacks", () => {
