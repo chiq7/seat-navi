@@ -48,6 +48,18 @@ export default function MyPage() {
     async function load() {
       setLoading(true);
       setLoadError("");
+      const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+      if (sessionError) {
+        if (!cancelled) {
+          setLoadError("ログイン情報を確認できませんでした。通信環境を確認して再試行してください。");
+          setLoading(false);
+        }
+        return;
+      }
+      if (!sessionData.session) {
+        router.replace("/login?next=/mypage");
+        return;
+      }
       const { data: authData, error: authError } = await supabase.auth.getUser();
       if (authError) {
         if (!cancelled) {
