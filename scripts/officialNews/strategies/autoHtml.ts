@@ -5,7 +5,7 @@ import { applyUrlRules, checkRobotsAllowed, fetchWithTimeout, stripHtml } from "
 import type { CrawledArticle, ListFetchResult, SiteConfig } from "../types";
 
 const ARTICLE_PATH_HINT = /(?:news|info(?:rmation)?|notice|topics?|posts?|contents?|article|detail)/i;
-const NAV_LABEL = /^(?:news|info(?:rmation)?|お知らせ|ニュース|一覧|view\s*more|more|next|prev|次へ|前へ|schedule|discography|profile|live|media|movie|video|release|topics|goods|blog|report|ticket|archive|contents|special|event\s*(?:&|\/)?\s*live|live\s*(?:&|\/)?\s*event)$/i;
+const NAV_LABEL = /^(?:news|info(?:rmation)?|お知らせ|ニュース|一覧|view\s*(?:all|more)|more|next|prev|次へ|前へ|schedule|discography|profile|live|media|movie|video|release|topics|goods|blog|premium\s*blog|membership|report|ticket|archive|contents|special|special\s*and\s*more|ldh\s*information|ライブ[・\s\/]*イベント|event\s*(?:&|\/)?\s*live|live\s*(?:&|\/)?\s*event)$/i;
 
 function decodeAttribute(value: string): string {
   return value.replace(/&amp;/gi, "&").replace(/&#0?39;/gi, "'").replace(/&quot;/gi, '"');

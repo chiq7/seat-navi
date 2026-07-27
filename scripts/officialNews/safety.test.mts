@@ -46,6 +46,12 @@ test("auto HTML strategy keeps same-site article links and rejects navigation or
     <a href="https://example.com/information/456?ref=list">追加公演のチケット受付を開始します</a>
     <a href="https://outside.example/news/789">外部サイトの長いニュースタイトル</a>
     <a href="/profile">プロフィールを見る</a>
+    <a href="/news/archive">view all</a>
+    <a href="/contents/member_blog">PREMIUM BLOG</a>
+    <a href="/news/membership">MEMBERSHIP</a>
+    <a href="/news/category/live">ライブ・イベント</a>
+    <a href="/common/info/list">LDH Information</a>
+    <a href="/static/topics/special_and_more">SPECIAL and MORE</a>
   `, "https://www.example.com/news/", config);
 
   assert.deepEqual(articles.map((article) => article.article_url), [

@@ -1,27 +1,12 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import { Calendar } from "lucide-react";
 import SectionHeader from "./SectionHeader";
 import UpcomingEventCard, { type UpcomingEvent } from "./UpcomingEventCard";
-import { getUpcomingHomeEvents } from "@/lib/homeData";
 
-export default function UpcomingEventsSection() {
-  const [events, setEvents] = useState<UpcomingEvent[]>([]);
+type UpcomingEventsSectionProps = {
+  events: UpcomingEvent[];
+};
 
-  useEffect(() => {
-    let cancelled = false;
-    getUpcomingHomeEvents().then((rows) => {
-      const uniqueEvents = new Map<string, UpcomingEvent>();
-      for (const event of rows) {
-        if (!uniqueEvents.has(event.artistSlug)) uniqueEvents.set(event.artistSlug, event);
-      }
-      if (!cancelled) setEvents([...uniqueEvents.values()]);
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+export default function UpcomingEventsSection({ events }: UpcomingEventsSectionProps) {
 
   return (
     <section className="mt-3">

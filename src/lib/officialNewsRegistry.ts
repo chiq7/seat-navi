@@ -12,7 +12,7 @@ const SOURCES: Record<string, string> = {
   "seventeen": "https://www.seventeen-17.jp/posts/information?page=1",
   "sixtones": "https://www.sixtones.jp/news/",
   "equal-love": "https://equal-love.jp/news/",
-  "acees": "https://starto.jp/s/p/artist/105",
+  "acees": "https://jr-official.starto.jp/s/jr/news/list",
   "fantastics": "https://m.tribe-m.jp/news/?group_id=168",
   "roselia": "https://bang-dream.com/news",
   "treasure": "https://ygex.jp/treasure/news/",
@@ -21,7 +21,7 @@ const SOURCES: Record<string, string> = {
   "ballistik-boyz": "https://ballistikboyz.com/",
   "shinee": "https://shinee.jp/news/",
   "team": "https://www.andteam-official.jp/news/",
-  "g-i-dle": "https://gidle.cubeent.jp/news",
+  "g-i-dle": "https://i-dle.cubeent.co.jp/news/",
   "joy": "https://nearly-equal-joy.jp/",
   "le-sserafim": "https://www.le-sserafim.jp/news",
   "king-prince": "https://www.universal-music.co.jp/king-and-prince/news/",
@@ -38,7 +38,7 @@ const SOURCES: Record<string, string> = {
   "strawberry-prince": "https://www.stpr.com/news/1/",
   "number-i": "https://wmg.jp/number-i/news/",
   "yoasobi": "https://www.yoasobi-music.jp/news",
-  "bigbang": "https://ygex.jp/bigbang/news/",
+  "bigbang": "https://ygex.jp/bigbang/20th-anniv/news/",
   "juice-juice": "https://www.helloproject.com/juicejuice/news/",
   "alpha-drive-one": "https://alphadriveone.com/",
   "lilas-ikuta": "https://www.lilasikuta.jp/news",
@@ -84,9 +84,9 @@ const SOURCES: Record<string, string> = {
 };
 
 const VERIFIED = new Set([
-  "nogizaka46", "snow-man", "acees", "news", "arashi", "the-rampage", "naniwa-danshi", "kis-my-ft2", "nexz", "yoasobi", "kento-nakajima", "kat-tun",
+  "nogizaka46", "snow-man", "news", "arashi", "the-rampage", "naniwa-danshi", "kis-my-ft2", "nexz", "yoasobi", "kento-nakajima", "kat-tun",
   "seventeen", "doh-kyung-soo-d-o", "ive",
-  "sixtones", "equal-love", "fantastics", "treasure", "hiromitsu-kitayama", "ballistik-boyz", "shinee", "team",
+  "sixtones", "equal-love", "treasure", "hiromitsu-kitayama", "ballistik-boyz", "shinee", "team",
   "g-i-dle", "joy", "le-sserafim", "king-prince", "j-soul-brothers", "buddiis", "timelesz", "aespa",
   "strawberry-prince", "number-i", "bigbang", "bts", "newjeans", "bullet-train", "enhypen", "da-ice", "m-lk",
   "ano", "mazzel", "riize", "yuzu", "officialdism", "and2ble", "chanmina", "ateez", "nct-wish", "nmixx",
@@ -135,12 +135,35 @@ const DEDICATED_CONFIGS: Record<string, Partial<GenericOfficialNewsConfig>> = {
     urlRules: { allow: ["^https://mentrecording\\.jp/snowman/news/detail\\.php\\?id=\\d+$"] },
   },
   "acees": {
-    strategy: "static_html",
-    verificationStatus: "verified",
-    newsUrl: "https://starto.jp/s/p/news/list?tag=105&list[]=105&artist=105",
-    notes: "2026-07-24 STARTO共通公開NEWSの一覧構造を確認。",
-    listSelectors: { item: ".p-in_news__list-item", link: ".c-news__ttl-inner", title: ".c-ttl-2", date: ".c-date", dateFormat: "YYYY.MM.DD" },
-    skipDetailFetch: true,
+    strategy: "auto_html",
+    verificationStatus: "candidate",
+    newsUrl: "https://jr-official.starto.jp/s/jr/news/list",
+    notes: "2026-07-27 STARTO artist=105はWEST.系の別アーティストであることを確認し廃止。ACEes公式プロフィールはジュニア公式groups/21。共有NEWSをメンバー名まで安全に絞る専用設定が完成するまで無効。",
+    articleRules: { includeAny: ["ACEes", "浮所飛貴", "那須雄登", "作間龍斗", "深田竜生", "佐藤龍我"] },
+  },
+  "fantastics": {
+    verificationStatus: "candidate",
+    notes: "2026-07-27 EXILE TRIBE mobileのgroup_id=168がFANTASTICSであることを再確認。サーバーHTMLには記事詳細がなく共通ナビだけだったため、専用取得が完成するまで無効。",
+    urlRules: {
+      allow: ["^https://m\\.tribe-m\\.jp/news/detail\\?(?=[^#]*\\bgroup_id=168\\b)(?=[^#]*\\bnews_id=\\d+\\b)[^#]+$"],
+      normalize: { forceHttps: true },
+    },
+  },
+  "g-i-dle": {
+    notes: "2026-07-27 現行のi-dle日本公式ドメインへの移転を確認。数字の記事詳細URLだけを許可し、カテゴリ一覧を除外。",
+    urlRules: { allow: ["^https://i-dle\\.cubeent\\.co\\.jp/news/\\d+(?:[/?#]|$)"] },
+  },
+  "bigbang": {
+    notes: "2026-07-27 BIGBANG 20周年公式NEWSへ更新。detail.phpの記事だけを許可し、view all等の導線を除外。",
+    urlRules: { allow: ["^https://ygex\\.jp/bigbang/20th-anniv/news/detail\\.php\\?id=\\d+$"] },
+  },
+  "m-lk": {
+    notes: "2026-07-27 M!LK公式NEWSの記事ID URLだけを許可し、PREMIUM BLOG等のナビを除外。",
+    urlRules: { allow: ["^https://sd-milk\\.com/contents/\\d+(?:[/?#]|$)"] },
+  },
+  "boynextdoor": {
+    notes: "2026-07-27 BOYNEXTDOOR日本公式NEWSの記事slug URLだけを許可し、MEMBERSHIPカテゴリ導線を除外。",
+    urlRules: { allow: ["^https://boynextdoor-official\\.jp/news/[a-z0-9]+(?:[/?#]|$)"] },
   },
   "news": {
     strategy: "static_html",

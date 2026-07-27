@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabase/client";
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { resolveArtist, type Artist } from "@/lib/artists";
 import { parseEventTitle } from "@/lib/eventTitle";
 import { fmtDate, seatAreaLabel } from "@/lib/artistPageHelpers";
@@ -80,13 +80,13 @@ function dedupeNearestByArtist<T>(
 // ─── 開催が近い公演 ──────────────────────────────────────────────────────────
 
 /** 今日〜2ヶ月以内の公演を日付昇順で全アーティスト取得し、seat_reportsの実件数を付与する */
-export async function getUpcomingHomeEvents(): Promise<UpcomingEvent[]> {
+export async function getUpcomingHomeEvents(client: SupabaseClient): Promise<UpcomingEvent[]> {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const until = new Date(today);
   until.setMonth(until.getMonth() + 2);
 
-  const { data } = await supabase
+  const { data } = await client
     .from("events")
     .select(EVENT_COLUMNS)
     .gte("date", toDateStr(today))
@@ -109,7 +109,7 @@ export async function getUpcomingHomeEvents(): Promise<UpcomingEvent[]> {
   deduped.sort((a, b) => (a.ev.date ?? "").localeCompare(b.ev.date ?? ""));
 
   const eventIds = deduped.map(({ ev }) => ev.id);
-  const { data: reportRows } = await supabase
+  const { data: reportRows } = await client
     .from("seat_reports")
     .select("event_id")
     .in("event_id", eventIds);
@@ -193,8 +193,8 @@ export function selectProvisionalFeaturedEvents(
 }
 
 /** 当面は、2ヶ月以内の人気アーティスト公演を開催日が近い順に返す。 */
-export async function getFeaturedHomeEvents(topN = 5): Promise<UpcomingEvent[]> {
-  const upcoming = await getUpcomingHomeEvents();
+export async function getFeaturedHomeEvents(client: SupabaseClient, topN = 5): Promise<UpcomingEvent[]> {
+  const upcoming = await getUpcomingHomeEvents(client);
   return selectProvisionalFeaturedEvents(upcoming, topN);
 }
 
@@ -340,30 +340,34 @@ export function buildSupplementalFeedItems(
 }
 
 /** 当落・座席報告・座席予想・現地レポ・セトリの最新投稿を統合し、不足分だけ補助カードを返す */
-export async function getRealtimeFeedItems(limit = 20): Promise<HomeFeedItem[]> {
+export async function getRealtimeFeedItems(
+  client: SupabaseClient,
+  limit = 20,
+  prefetchedUpcoming?: UpcomingEvent[],
+): Promise<HomeFeedItem[]> {
   const [ticketResultsRes, seatReportsRes, predictionsRes, afterReportsRes, setlistsRes] = await Promise.all([
-    supabase
+    client
       .from("event_ticket_results")
       .select("id, event_id, result, lost_application_count, comment, seat_type, seat_block, created_at")
       .order("created_at", { ascending: false })
       .limit(FEED_SOURCE_LIMIT),
-    supabase
+    client
       .from("seat_reports")
       .select("id, event_id, created_at, block, row_num, seat_num")
       .order("created_at", { ascending: false })
       .limit(FEED_SOURCE_LIMIT),
-    supabase
+    client
       .from("fan_seat_predictions")
       .select("id, event_id, created_at")
       .eq("approved", true)
       .order("created_at", { ascending: false })
       .limit(FEED_SOURCE_LIMIT),
-    supabase
+    client
       .from("after_reports")
       .select("id, event_id, created_at, seat_area_type, seat_block, seat_row, seat_number, seat_view_photo_paths")
       .order("created_at", { ascending: false })
       .limit(FEED_SOURCE_LIMIT),
-    supabase
+    client
       .from("setlists")
       .select("id, event_id, created_at")
       .order("created_at", { ascending: false })
@@ -441,7 +445,7 @@ export async function getRealtimeFeedItems(limit = 20): Promise<HomeFeedItem[]> 
 
   const eventIds = [...new Set(raw.map((r) => r.event_id))];
   const { data: eventsData } = eventIds.length > 0
-    ? await supabase.from("events").select(EVENT_COLUMNS).in("id", eventIds)
+    ? await client.from("events").select(EVENT_COLUMNS).in("id", eventIds)
     : { data: [] };
   const eventMap = new Map(((eventsData as HomeEventRow[]) ?? []).map((e) => [e.id, e]));
 
@@ -479,7 +483,7 @@ export async function getRealtimeFeedItems(limit = 20): Promise<HomeFeedItem[]> 
   const realItems = items.slice(0, Math.max(0, limit - cappedSupplementalCount));
   if (supplementalCount === 0) return realItems;
 
-  const upcoming = await getUpcomingHomeEvents();
+  const upcoming = prefetchedUpcoming ?? await getUpcomingHomeEvents(client);
   const supplemental = buildSupplementalFeedItems(upcoming, realTicketResultCount)
     .slice(0, cappedSupplementalCount);
   return [...realItems, ...supplemental];

@@ -389,13 +389,13 @@ test("all audited NEWS configs keep only verified sites enabled", () => {
   assert.equal(niziu?.enabled, true);
   assert.deepEqual(OFFICIAL_NEWS_AUDIT_COUNTS, {
     total: 75,
-    verified: 62,
+    verified: 60,
     unavailable: 1,
-    needsDedicatedParser: 12,
+    needsDedicatedParser: 14,
   });
   assert.equal(SITE_CONFIGS.length, 93);
-  assert.equal(SITE_CONFIGS.filter((site) => site.enabled).length, 79);
-  assert.equal(SITE_CONFIGS.filter((site) => site.strategy === "auto_html").length, 56);
+  assert.equal(SITE_CONFIGS.filter((site) => site.enabled).length, 77);
+  assert.equal(SITE_CONFIGS.filter((site) => site.strategy === "auto_html").length, 57);
   assert.equal(SITE_CONFIGS.filter((site) => site.verificationStatus === "rejected").length, 0);
   assert.equal(SITE_CONFIGS.find((site) => site.artistSlug === "seventeen")?.strategy, "static_html");
   assert.equal(SITE_CONFIGS.find((site) => site.artistSlug === "doh-kyung-soo-d-o")?.strategy, "rss");
@@ -403,6 +403,67 @@ test("all audited NEWS configs keep only verified sites enabled", () => {
   assert.equal(SITE_CONFIGS.find((site) => site.artistSlug === "timelesz")?.strategy, "wordpress");
   assert.equal(SITE_CONFIGS.find((site) => site.artistSlug === "mazzel")?.strategy, "rss");
   assert.equal(SITE_CONFIGS.find((site) => site.artistSlug === "domoto")?.strategy, "json_api");
+  const acees = SITE_CONFIGS.find((site) => site.artistSlug === "acees");
+  assert.equal(acees?.newsListUrl, "https://jr-official.starto.jp/s/jr/news/list");
+  assert.equal(acees?.enabled, false);
+  assert.equal(acees?.verificationStatus, "candidate");
+  assert.ok(acees?.articleRules?.includeAny?.includes("ACEes"));
+  const fantastics = SITE_CONFIGS.find((site) => site.artistSlug === "fantastics");
+  assert.equal(fantastics?.enabled, false);
+  assert.equal(fantastics?.verificationStatus, "candidate");
+
+  const niziuHosts = [niziu?.officialUrl, niziu?.jsonApi?.url]
+    .filter((url): url is string => !!url)
+    .map((url) => new URL(url).hostname);
+  assert.deepEqual(niziuHosts, ["niziu.com", "www.sonymusic.co.jp"]);
+  assert.match(niziu?.jsonApi?.url ?? "", /\/artist\/niziu\/information\//i);
+  assert.match(niziu?.urlRules?.allow?.[0] ?? "", /artist\/niziu\/info/i);
+});
+
+test("shared official NEWS domains keep explicit artist-specific routing", () => {
+  const hosts = new Map<string, string[]>();
+  for (const site of SITE_CONFIGS) {
+    const urls = [site.newsListUrl, site.jsonApi?.url, site.wordpressApiUrl, site.rssUrl]
+      .filter((url): url is string => !!url);
+    for (const host of new Set(urls.map((url) => new URL(url).hostname.replace(/^www\./, "")))) {
+      hosts.set(host, [...(hosts.get(host) ?? []), site.artistSlug]);
+    }
+  }
+  const shared = Object.fromEntries(
+    [...hosts.entries()]
+      .filter(([, slugs]) => slugs.length > 1)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([host, slugs]) => [host, [...slugs].sort()]),
+  );
+  assert.deepEqual(shared, {
+    "helloproject.com": ["beyooooonds", "juice-juice"],
+    "hololive.hololivepro.com": ["holox", "momosuzu-nene"],
+    "mentrecording.jp": ["kis-my-ft2", "snow-man"],
+    "nct-jp.net": ["nct-dream", "nct-wish"],
+    "sonymusic.co.jp": ["kento-nakajima", "nexz", "niziu", "yoasobi"],
+    "starto.jp": ["arashi", "kat-tun", "news"],
+    "universal-music.co.jp": ["ado", "king-prince", "shigure-ui", "travis-japan"],
+    "wmg.jp": ["chanmina", "number-i", "uratanuki"],
+    "ygex.jp": ["bigbang", "blackpink", "ikon", "treasure"],
+  });
+
+  const sonyPaths = new Map([
+    ["niziu", /\/artist\/niziu\//i],
+    ["nexz", /\/artist\/NEXZ\//],
+    ["yoasobi", /\/PR\/YOASOBI\//],
+    ["kento-nakajima", /\/artist\/KentoNakajima\//],
+  ]);
+  for (const [slug, expectedPath] of sonyPaths) {
+    const site = SITE_CONFIGS.find((candidate) => candidate.artistSlug === slug);
+    const urls = [site?.officialUrl, site?.jsonApi?.url, ...(site?.urlRules?.allow ?? [])].join("\n");
+    assert.match(urls, expectedPath, `${slug} must use its own Sony Music artist path`);
+  }
+
+  for (const slug of ["nct-wish", "nct-dream"]) {
+    const site = SITE_CONFIGS.find((candidate) => candidate.artistSlug === slug);
+    assert.ok(site?.articleRules?.includeAny?.length, `${slug} must filter the shared NCT feed by name`);
+  }
+  assert.equal(SITE_CONFIGS.some((site) => site.newsListUrl.includes("artist=105")), false);
 });
 
 test("a new common NEWS site is generated from the artist definition without special routing", () => {
