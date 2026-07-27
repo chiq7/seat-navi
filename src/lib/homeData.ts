@@ -343,7 +343,7 @@ export function buildSupplementalFeedItems(
 export async function getRealtimeFeedItems(
   client: SupabaseClient,
   limit = 20,
-  prefetchedUpcoming?: UpcomingEvent[],
+  prefetchedUpcoming?: UpcomingEvent[] | Promise<UpcomingEvent[]>,
 ): Promise<HomeFeedItem[]> {
   const [ticketResultsRes, seatReportsRes, predictionsRes, afterReportsRes, setlistsRes] = await Promise.all([
     client
@@ -483,7 +483,9 @@ export async function getRealtimeFeedItems(
   const realItems = items.slice(0, Math.max(0, limit - cappedSupplementalCount));
   if (supplementalCount === 0) return realItems;
 
-  const upcoming = prefetchedUpcoming ?? await getUpcomingHomeEvents(client);
+  const upcoming = prefetchedUpcoming
+    ? await prefetchedUpcoming
+    : await getUpcomingHomeEvents(client);
   const supplemental = buildSupplementalFeedItems(upcoming, realTicketResultCount)
     .slice(0, cappedSupplementalCount);
   return [...realItems, ...supplemental];
