@@ -24,15 +24,18 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
   const seatPart = seatText ? `座席${seatText}からの見え方、` : "";
   const description = `${name} ${event.venue} ${dateLabel}の現地レポート。${seatPart}会場の様子。`;
   const ogImagePath = `/api/og/report/${reportId}`;
+  const canonical = `${SITE_URL}/report/live/detail?reportId=${encodeURIComponent(reportId)}`;
 
   return {
     title,
     description,
-    alternates: { canonical: `${SITE_URL}/report/live/detail?reportId=${encodeURIComponent(reportId)}` },
+    alternates: { canonical },
     robots: { index: !isTestData, follow: true },
     openGraph: {
       title,
       description,
+      url: canonical,
+      type: "article",
       images: [{ url: ogImagePath, width: 1200, height: 630 }],
     },
     twitter: {

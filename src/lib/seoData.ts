@@ -92,13 +92,24 @@ export async function getArtistContentCounts(slug: string): Promise<{ setlists: 
   };
 }
 
+export async function getArtistNewsCount(slug: string): Promise<number> {
+  if (!getSeoArtist(slug)) return 0;
+  const { count } = await supabase
+    .from("official_news_public")
+    .select("artist_slug", { count: "exact", head: true })
+    .eq("artist_slug", slug);
+  return count ?? 0;
+}
+
 type SitemapEventRow = CrawledEvent & { created_at: string | null };
 type TimestampRow = { event_id: string; created_at: string | null };
 type SetlistTimestampRow = TimestampRow & { updated_at: string | null };
 type ReportTimestampRow = TimestampRow & { id: string };
+type NewsTimestampRow = { artist_slug: string; created_at: string | null };
 
 export type SeoSitemapData = {
   artists: { slug: string; lastModified?: string }[];
+  newsArtists: { slug: string; lastModified?: string }[];
   events: { id: string; lastModified?: string }[];
   setlistArtists: { slug: string; lastModified?: string }[];
   afterReportArtists: { slug: string; lastModified?: string }[];
@@ -112,12 +123,13 @@ function keepLatest(map: Map<string, string>, key: string, value: string | null 
 }
 
 export async function getSeoSitemapData(): Promise<SeoSitemapData> {
-  const [eventsResult, setlistsResult, reportsResult, seatsResult, predictionsResult] = await Promise.all([
+  const [eventsResult, setlistsResult, reportsResult, seatsResult, predictionsResult, newsResult] = await Promise.all([
     supabase.from("events").select("id, title, venue, venue_id, date, genre, artist_slug, created_at").limit(10000),
     supabase.from("setlists").select("event_id, created_at, updated_at").limit(10000),
     supabase.from("after_reports").select("id, event_id, created_at").limit(10000),
     supabase.from("seat_reports").select("event_id, created_at").limit(10000),
     supabase.from("fan_seat_predictions").select("event_id, created_at").eq("approved", true).limit(10000),
+    supabase.from("official_news_public").select("artist_slug, created_at").limit(10000),
   ]);
 
   const allEvents = (eventsResult.data as SitemapEventRow[]) ?? [];
@@ -171,7 +183,14 @@ export async function getSeoSitemapData(): Promise<SeoSitemapData> {
   for (const event of publicEvents) {
     const slug = eventArtistSlug.get(event.id);
     if (!slug) continue;
-    keepLatest(latestByArtist, slug, latestByEvent.get(event.id) ?? event.date);
+    // 公演日は更新日ではない。投稿更新かevents行の作成日時だけをlastmodに使う。
+    keepLatest(latestByArtist, slug, latestByEvent.get(event.id) ?? event.created_at);
+  }
+
+  const latestNewsByArtist = new Map<string, string>();
+  for (const news of (newsResult.data as NewsTimestampRow[]) ?? []) {
+    if (!findArtistBySlug(news.artist_slug) || isTestArtist(news.artist_slug)) continue;
+    keepLatest(latestNewsByArtist, news.artist_slug, news.created_at);
   }
 
   const artists = ARTISTS.filter((artist) => !isTestArtist(artist)).map((artist) => ({
@@ -181,10 +200,14 @@ export async function getSeoSitemapData(): Promise<SeoSitemapData> {
 
   return {
     artists,
+    newsArtists: [...latestNewsByArtist].map(([slug, lastModified]) => ({
+      slug,
+      lastModified,
+    })),
     events: publicEvents.map((event) => ({
       id: event.id,
-      ...(latestByEvent.get(event.id) || event.date
-        ? { lastModified: latestByEvent.get(event.id) ?? event.date ?? undefined }
+      ...(latestByEvent.get(event.id) || event.created_at
+        ? { lastModified: latestByEvent.get(event.id) ?? event.created_at ?? undefined }
         : {}),
     })),
     setlistArtists: [...artistsWithSetlists].map((slug) => ({

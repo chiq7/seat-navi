@@ -3,6 +3,7 @@ import { ImageResponse } from "next/og";
 export const alt = "Tix Repo（ちけレポ）";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
+export const revalidate = 86400;
 
 export default function OpengraphImage() {
   return new ImageResponse(
@@ -27,6 +28,11 @@ export default function OpengraphImage() {
         </div>
       </div>
     ),
-    { ...size }
+    {
+      ...size,
+      headers: {
+        "Cache-Control": "public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800",
+      },
+    }
   );
 }

@@ -158,6 +158,7 @@ export default function Home() {
     <div className="min-h-screen bg-[#FFF8FB]">
       <HomeHeader />
       <main>
+        <h1 className="sr-only">ライブチケットの当落・座席・現地レポを共有する ちけレポ</h1>
         <HeroBanner />
         <Suspense fallback={<EventSectionsSkeleton />}>
           <HomeEventSections />

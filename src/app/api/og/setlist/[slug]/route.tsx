@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import type { NextRequest } from "next/server";
 import { getSetlistOgInfo } from "@/lib/og/setlistOgData";
-import { SIZE, fallbackImage, getLogoDataUrl, Logo, TestDataBadge } from "@/lib/og/ogShared";
+import { SIZE, OG_IMAGE_OPTIONS, fallbackImage, getLogoDataUrl, Logo, TestDataBadge } from "@/lib/og/ogShared";
 
 export const runtime = "nodejs";
 
@@ -79,7 +79,7 @@ function renderSetlistImage(input: {
         {isTestData && <TestDataBadge />}
       </div>
     ),
-    SIZE,
+    OG_IMAGE_OPTIONS,
   );
 }
 

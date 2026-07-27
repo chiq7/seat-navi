@@ -22,6 +22,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.8,
       }),
     ),
+    ...data.newsArtists.map((artist) =>
+      sitemapEntry(`${SITE_URL}/artists/${artist.slug}/news`, artist.lastModified, {
+        changeFrequency: "daily",
+        priority: 0.7,
+      }),
+    ),
     ...data.events.map((event) =>
       sitemapEntry(`${SITE_URL}/events/${event.id}`, event.lastModified, {
         changeFrequency: "weekly",

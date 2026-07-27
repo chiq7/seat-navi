@@ -8,7 +8,7 @@ import {
   getValidPrediction,
   type MiniSeatRow,
 } from "@/lib/og/eventOgData";
-import { SIZE, fallbackImage, getLogoDataUrl, Logo, TestDataBadge } from "@/lib/og/ogShared";
+import { SIZE, OG_IMAGE_OPTIONS, fallbackImage, getLogoDataUrl, Logo, TestDataBadge } from "@/lib/og/ogShared";
 import {
   BLOCK_W,
   BLOCK_H,
@@ -294,7 +294,7 @@ function renderEventImage(input: {
         {isTestData && <TestDataBadge />}
       </div>
     ),
-    SIZE,
+    OG_IMAGE_OPTIONS,
   );
 }
 
@@ -387,7 +387,7 @@ function renderPredictionImage(input: {
         {isTestData && <TestDataBadge />}
       </div>
     ),
-    SIZE,
+    OG_IMAGE_OPTIONS,
   );
 }
 

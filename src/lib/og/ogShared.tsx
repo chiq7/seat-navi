@@ -5,6 +5,14 @@ import { ImageResponse } from "next/og";
 /** 4つのOGPルート（event/report/setlist/artist）共通のキャンバスサイズ */
 export const SIZE = { width: 1200, height: 630 };
 
+/** OGP画像は公開情報なのでCDNで再利用し、SNSクローラーからの連続生成を避ける。 */
+export const OG_IMAGE_OPTIONS = {
+  ...SIZE,
+  headers: {
+    "Cache-Control": "public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800",
+  },
+};
+
 const CONTENT_TYPE_BY_EXT: Record<string, string> = {
   ".png": "image/png",
   ".jpg": "image/jpeg",
@@ -143,6 +151,6 @@ export function fallbackImage(label?: string) {
         {label && <div style={{ display: "flex", fontSize: 28, marginTop: 32, opacity: 0.9 }}>{label}</div>}
       </div>
     ),
-    SIZE,
+    OG_IMAGE_OPTIONS,
   );
 }

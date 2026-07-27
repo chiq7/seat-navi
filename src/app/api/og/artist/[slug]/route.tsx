@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import type { NextRequest } from "next/server";
 import { getArtistOgInfo, type ArtistOgNextEvent } from "@/lib/og/artistOgData";
-import { SIZE, fallbackImage, getLogoDataUrl, Logo, TestDataBadge, readPublicImageDataUrl } from "@/lib/og/ogShared";
+import { SIZE, OG_IMAGE_OPTIONS, fallbackImage, getLogoDataUrl, Logo, TestDataBadge, readPublicImageDataUrl } from "@/lib/og/ogShared";
 import { DEFAULT_ARTIST_HERO_IMAGE, resolveArtistHeroImage } from "@/lib/artistPageData";
 
 export const runtime = "nodejs";
@@ -206,7 +206,7 @@ function renderArtistImage(input: {
         {isTestData && <TestDataBadge />}
       </div>
     ),
-    SIZE,
+    OG_IMAGE_OPTIONS,
   );
 }
 

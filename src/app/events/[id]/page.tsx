@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { EventDetailClient } from "./EventDetailClient";
 import { getCachedSeoEvent, getEventSeoCounts, SITE_URL } from "@/lib/seoData";
+import { buildEventStructuredData, serializeJsonLd } from "@/lib/structuredData";
 
 type PageProps = {
   params: Promise<{ id: string }>;
@@ -33,6 +34,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     openGraph: {
       title,
       description,
+      url: `${SITE_URL}/events/${eventId}`,
+      type: "website",
       images: [{ url: ogImagePath, width: 1200, height: 630 }],
     },
     twitter: {
@@ -46,6 +49,30 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function EventDetailPage({ params }: PageProps) {
   const { id } = await params;
-  if (!(await getCachedSeoEvent(id))) notFound();
-  return <EventDetailClient params={params} />;
+  const info = await getCachedSeoEvent(id);
+  if (!info) notFound();
+
+  const { event, artist, tourName, dateLabel } = info;
+  const artistName = artist?.name ?? null;
+  const eventName = artistName ? `${artistName} ${tourName}` : event.title;
+  const description = `${eventName} ${event.venue} ${dateLabel}の座席予想・座席報告・当落情報。`;
+  const structuredData = buildEventStructuredData({
+    id,
+    name: eventName,
+    description,
+    startDate: event.date,
+    venue: event.venue,
+    artistName,
+    artistSlug: artist?.slug ?? event.artist_slug ?? null,
+  });
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(structuredData) }}
+      />
+      <EventDetailClient params={params} />
+    </>
+  );
 }

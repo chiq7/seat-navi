@@ -26,6 +26,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     openGraph: {
       title,
       description,
+      url: `${SITE_URL}/artists/${slug}/setlist`,
+      type: "website",
       images: [{ url: ogImagePath, width: 1200, height: 630 }],
     },
     twitter: {

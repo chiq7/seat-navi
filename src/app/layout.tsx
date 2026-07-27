@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
 import Footer from "@/components/common/Footer";
+import { buildSiteStructuredData, serializeJsonLd } from "@/lib/structuredData";
 import "./globals.css";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
@@ -26,6 +27,8 @@ export const metadata: Metadata = {
     description: SITE_DESCRIPTION,
     type: "website",
     url: "https://tixrepo.com",
+    siteName: "ちけレポ",
+    locale: "ja_JP",
     images: ["/opengraph-image"],
   },
   twitter: {
@@ -57,6 +60,10 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen bg-[#F3F4F6] text-foreground antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(buildSiteStructuredData()) }}
+        />
         <div className="mx-auto max-w-md min-h-screen bg-white shadow-sm">
           {children}
           <Footer />
