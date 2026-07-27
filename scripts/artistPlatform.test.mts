@@ -35,7 +35,12 @@ const {
   searchArtists,
   shouldSearchEventText,
 } = await import("@/lib/search");
-const { formatEventPeriod, selectProvisionalFeaturedEvents } = await import("@/lib/homeData");
+const {
+  buildSupplementalFeedItems,
+  formatEventPeriod,
+  selectProvisionalFeaturedEvents,
+  supplementalFeedCount,
+} = await import("@/lib/homeData");
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 const fixtureArtist = (overrides: Partial<Artist> = {}): Artist => ({
@@ -136,6 +141,32 @@ test("home event periods use the first and last unique performance dates", () =>
   assert.equal(formatEventPeriod(["2026-08-02", "2026-08-01", "2026-08-02"]), "8/1(土)〜8/2(日)");
   assert.equal(formatEventPeriod([null, "2026-08-01"]), "8/1(土)");
   assert.equal(formatEventPeriod([null]), "日程未定");
+});
+
+test("home supplemental feed shrinks as real posts arrive and never enters aggregate data", () => {
+  const upcoming = [{
+    id: "niziu-tokyo",
+    artistSlug: "niziu",
+    artist: "NiziU",
+    eventName: "NiziU LIVE",
+    date: "7/28(火)",
+    dateIso: "2026-07-28",
+    period: "7/28(火)",
+    venue: "東京ドーム",
+    count: "0",
+  }];
+
+  assert.deepEqual([0, 1, 2, 3, 4, 5].map(supplementalFeedCount), [5, 3, 2, 1, 1, 0]);
+
+  const emptyState = buildSupplementalFeedItems(upcoming, 0, new Date("2026-07-27T12:00:00+09:00"));
+  assert.equal(emptyState.length, 5);
+  assert.equal(emptyState[0]?.type, "公演情報");
+  assert.equal(emptyState[0]?.source, "editorial");
+  assert.equal(emptyState[0]?.timeLabel, "受付中");
+  assert.equal(emptyState[0]?.href, "/report/ticket?event=niziu-tokyo");
+  assert.equal(emptyState[2]?.source, "sample");
+  assert.equal(emptyState[2]?.type, "当落レポ");
+  assert.equal(buildSupplementalFeedItems(upcoming, 5).length, 0);
 });
 
 test("artist fixture produces page data and hero image fallbacks", () => {

@@ -19,12 +19,19 @@ export default function RealtimeFeedSection() {
     };
   }, []);
 
+  const hasSupplementalItems = items?.some((item) => item.source !== "real") ?? false;
+
   return (
     <section className="mt-3">
       <SectionHeader
         icon={<Zap size={16} color="#FF6B9D" />}
         title="リアルタイム速報"
       />
+      {hasSupplementalItems && (
+        <p className="mx-4 mb-1.5 text-[10px] leading-relaxed text-gray-400">
+          編集部投稿・投稿イメージを含みます（集計対象外）
+        </p>
+      )}
       <div className="mx-4 rounded-xl border border-gray-100 bg-white shadow-sm">
       {items && items.length > 0 ? (
         <div className="divide-y divide-gray-100">

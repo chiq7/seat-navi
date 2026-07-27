@@ -3,6 +3,8 @@ import type { HomeFeedItem } from "@/lib/homeData";
 import { formatRelativeTime, fmtFeedDate } from "@/lib/homeData";
 
 const tagStyles: Record<HomeFeedItem["type"], { bg: string; color: string }> = {
+  当落レポ: { bg: "#FFF1F2", color: "#E11D48" },
+  公演情報: { bg: "#FFF7ED", color: "#EA580C" },
   座席報告: { bg: "#EFF6FF", color: "#3B82F6" },
   座席予想: { bg: "#F5F3FF", color: "#7C3AED" },
   現地レポ: { bg: "#FDF0F4", color: "#FF6B9D" },
@@ -30,7 +32,9 @@ export default function RealtimeFeedItem({ item }: { item: HomeFeedItem }) {
           {item.type}
         </span>
         <span className="min-w-0 flex-1 truncate text-[13px] font-semibold text-gray-800">{item.detail}</span>
-        <span className="shrink-0 text-[11px] text-gray-400">{formatRelativeTime(item.createdAt)}</span>
+        <span className="shrink-0 text-[11px] text-gray-400">
+          {item.timeLabel ?? formatRelativeTime(item.createdAt)}
+        </span>
       </div>
     </Link>
   );

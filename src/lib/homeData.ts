@@ -9,6 +9,8 @@ export type UpcomingEvent = {
   artist: string;
   eventName: string;
   date: string;
+  /** 自動案内の残日数計算に使うISO日付。表示にはdateを使う。 */
+  dateIso?: string | null;
   period: string;
   venue: string;
   count: string;
@@ -132,6 +134,7 @@ export async function getUpcomingHomeEvents(): Promise<UpcomingEvent[]> {
       artist: artist.name,
       eventName,
       date: fmtDate(ev.date),
+      dateIso: ev.date,
       period: formatEventPeriod(periodDates),
       venue: ev.venue,
       count: (counts.get(ev.id) ?? 0).toLocaleString("ja-JP"),
@@ -197,7 +200,9 @@ export async function getFeaturedHomeEvents(topN = 5): Promise<UpcomingEvent[]> 
 
 // ─── リアルタイム速報 ────────────────────────────────────────────────────────
 
-export type HomeFeedType = "座席報告" | "座席予想" | "現地レポ" | "セトリ";
+export type HomeFeedType = "当落レポ" | "公演情報" | "座席報告" | "座席予想" | "現地レポ" | "セトリ";
+
+export type HomeFeedSource = "real" | "editorial" | "sample";
 
 export type HomeFeedItem = {
   id: string;
@@ -209,6 +214,10 @@ export type HomeFeedItem = {
   date: string | null;
   createdAt: string;
   href: string;
+  /** 実投稿と、集計対象外の編集部投稿・投稿イメージを表示側で区別する。 */
+  source: HomeFeedSource;
+  /** 自動生成カードは架空の投稿時刻を作らず、「受付中」などの正確な表示へ差し替える。 */
+  timeLabel?: string;
 };
 
 /** 統合前にソースごとに取得する上限件数（統合後に全体の上位N件へ絞り込む前段のバッファ） */
@@ -247,10 +256,97 @@ type AfterReportFeedRow = {
   seat_view_photo_paths: string[] | null;
 };
 type SetlistFeedRow = { id: string; event_id: string; created_at: string };
+type TicketResultFeedRow = {
+  id: string;
+  event_id: string;
+  result: "won" | "lost";
+  lost_application_count: number;
+  comment: string | null;
+  seat_type: string | null;
+  seat_block: string | null;
+  created_at: string;
+};
 
-/** 座席報告・座席予想・現地レポ・セトリの最新投稿をcreated_at降順で統合し、全体の上位limit件を返す */
+/** 実投稿数が増えるほど、集計対象外の補助カードを段階的に減らす。 */
+export function supplementalFeedCount(realItemCount: number): number {
+  if (realItemCount <= 0) return 5;
+  if (realItemCount === 1) return 3;
+  if (realItemCount === 2) return 2;
+  if (realItemCount <= 4) return 1;
+  return 0;
+}
+
+const SUPPLEMENTAL_COPY = [
+  "第1希望で当選しました！公演日までまだ先だけど今から楽しみです",
+  "今回は残念ながら全滅でした…。次の先行があればもう一度申し込みたい",
+  "最後の1公演だけ当選！結果を見るまでずっと緊張していました",
+  "友達とそれぞれ申し込んで、片方だけ当選しました",
+  "第一希望は落選、第二希望で当選しました。参加できるだけでうれしい！",
+  "当落メールを見るのが怖くて、しばらく開けませんでした",
+  "複数公演に申し込んで1公演当選。どの日も激戦だったのかな",
+  "初めて申し込んだ公演に当選しました！今から楽しみです",
+  "今回は落選でした。みなさんの結果も気になります",
+  "当選の文字を見た瞬間、思わず何度も確認しました",
+  "同行者と一緒に結果確認。無事に当選してひと安心です",
+  "次の申込みの参考にしたいので、みなさんの結果も教えてください",
+] as const;
+
+function daysUntil(date: string | null, now: Date): number | null {
+  if (!date) return null;
+  const target = new Date(`${date}T00:00:00`);
+  const today = new Date(now);
+  today.setHours(0, 0, 0, 0);
+  return Math.round((target.getTime() - today.getTime()) / 86400000);
+}
+
+/**
+ * DBへ保存しない編集部投稿・投稿イメージを作る。
+ * sourceがrealではないため、当選率・投稿数・人気順の集計には入らない。
+ */
+export function buildSupplementalFeedItems(
+  events: UpcomingEvent[],
+  realItemCount: number,
+  now = new Date(),
+): HomeFeedItem[] {
+  const count = supplementalFeedCount(realItemCount);
+  if (count === 0 || events.length === 0) return [];
+
+  return Array.from({ length: count }, (_, index) => {
+    const event = events[index % events.length];
+    const remainingDays = daysUntil(event.dateIso ?? null, now);
+    // 公演直前でも案内だけに偏らないよう、最大2件を編集部のカウントダウンにする。
+    const isCountdown = index < 2 && remainingDays !== null && remainingDays >= 0 && remainingDays <= 7;
+    const detail = isCountdown
+      ? remainingDays === 0
+        ? "本日開催！座席が分かったら、ブロックや列をレポできます"
+        : remainingDays === 1
+          ? "公演まであと1日。参加予定の方は準備できましたか？"
+          : `公演まであと${remainingDays}日。参加予定の方は準備できましたか？`
+      : SUPPLEMENTAL_COPY[index % SUPPLEMENTAL_COPY.length];
+
+    return {
+      id: `supplemental-${event.id}-${index}`,
+      type: isCountdown ? "公演情報" : "当落レポ",
+      detail,
+      artistName: event.artist,
+      venue: event.venue,
+      date: event.dateIso ?? null,
+      createdAt: now.toISOString(),
+      href: `/report/ticket?event=${encodeURIComponent(event.id)}`,
+      source: isCountdown ? "editorial" : "sample",
+      timeLabel: "受付中",
+    };
+  });
+}
+
+/** 当落・座席報告・座席予想・現地レポ・セトリの最新投稿を統合し、不足分だけ補助カードを返す */
 export async function getRealtimeFeedItems(limit = 20): Promise<HomeFeedItem[]> {
-  const [seatReportsRes, predictionsRes, afterReportsRes, setlistsRes] = await Promise.all([
+  const [ticketResultsRes, seatReportsRes, predictionsRes, afterReportsRes, setlistsRes] = await Promise.all([
+    supabase
+      .from("event_ticket_results")
+      .select("id, event_id, result, lost_application_count, comment, seat_type, seat_block, created_at")
+      .order("created_at", { ascending: false })
+      .limit(FEED_SOURCE_LIMIT),
     supabase
       .from("seat_reports")
       .select("id, event_id, created_at, block, row_num, seat_num")
@@ -273,6 +369,28 @@ export async function getRealtimeFeedItems(limit = 20): Promise<HomeFeedItem[]> 
       .order("created_at", { ascending: false })
       .limit(FEED_SOURCE_LIMIT),
   ]);
+
+  const publicTicketResults = ((ticketResultsRes.data as TicketResultFeedRow[]) ?? [])
+    .filter((r) => !r.comment?.trim().startsWith("[TEST]"));
+
+  const ticketResultCandidates: FeedCandidate[] = publicTicketResults
+    // 当選時に同時作成されるアリーナ座席報告との二重表示を避ける。
+    .filter((r) => !(r.result === "won" && r.seat_type === "arena" && r.seat_block))
+    .map((r) => {
+      const resultLabel = r.result === "won"
+        ? "当選"
+        : r.lost_application_count > 1
+          ? `落選（${r.lost_application_count}件）`
+          : "落選";
+      const comment = r.comment?.trim();
+      return {
+        id: r.id,
+        event_id: r.event_id,
+        created_at: r.created_at,
+        type: "当落レポ",
+        detail: comment ? `${resultLabel}・${comment}` : `${resultLabel}の結果が投稿されました`,
+      };
+    });
 
   const seatReportCandidates: FeedCandidate[] = ((seatReportsRes.data as SeatReportFeedRow[]) ?? []).map((r) => ({
     id: r.id,
@@ -314,19 +432,17 @@ export async function getRealtimeFeedItems(limit = 20): Promise<HomeFeedItem[]> 
   }));
 
   const raw: FeedCandidate[] = [
+    ...ticketResultCandidates,
     ...seatReportCandidates,
     ...predictionCandidates,
     ...afterReportCandidates,
     ...setlistCandidates,
   ];
 
-  if (raw.length === 0) return [];
-
   const eventIds = [...new Set(raw.map((r) => r.event_id))];
-  const { data: eventsData } = await supabase
-    .from("events")
-    .select(EVENT_COLUMNS)
-    .in("id", eventIds);
+  const { data: eventsData } = eventIds.length > 0
+    ? await supabase.from("events").select(EVENT_COLUMNS).in("id", eventIds)
+    : { data: [] };
   const eventMap = new Map(((eventsData as HomeEventRow[]) ?? []).map((e) => [e.id, e]));
 
   const items: HomeFeedItem[] = [];
@@ -339,6 +455,7 @@ export async function getRealtimeFeedItems(limit = 20): Promise<HomeFeedItem[]> 
     const href =
       r.type === "現地レポ" ? `/report/live/detail?reportId=${r.id}`
       : r.type === "セトリ" ? `/artists/${artist.slug}/setlist`
+      : r.type === "当落レポ" ? `/artists/${artist.slug}`
       : `/events/${ev.id}`;
 
     items.push({
@@ -350,11 +467,22 @@ export async function getRealtimeFeedItems(limit = 20): Promise<HomeFeedItem[]> 
       date: ev.date,
       createdAt: r.created_at,
       href,
+      source: "real",
     });
   }
 
   items.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-  return items.slice(0, limit);
+  // 座席・セトリが多くても、実際に表示できる当落レポが育つまでは投稿イメージを残す。
+  const realTicketResultCount = items.filter((item) => item.type === "当落レポ").length;
+  const supplementalCount = supplementalFeedCount(realTicketResultCount);
+  const cappedSupplementalCount = Math.min(supplementalCount, Math.max(0, limit));
+  const realItems = items.slice(0, Math.max(0, limit - cappedSupplementalCount));
+  if (supplementalCount === 0) return realItems;
+
+  const upcoming = await getUpcomingHomeEvents();
+  const supplemental = buildSupplementalFeedItems(upcoming, realTicketResultCount)
+    .slice(0, cappedSupplementalCount);
+  return [...realItems, ...supplemental];
 }
 
 /** 投稿日時を「3分前」のような相対表示にする */
