@@ -9,6 +9,7 @@ import { supabase } from "@/lib/supabase/client";
 import { resolveArtist } from "@/lib/artists";
 import { getEventsForArtist } from "@/lib/events";
 import type { CrawledEvent, FanSeatPrediction, SeatReport } from "@/lib/types";
+import type { ExternalSeatObservation } from "@/lib/external-seats/types";
 import type { ColorMode } from "@/lib/arena-map/arenaMapTypes";
 import { EventArenaMap } from "@/components/arena-map/EventArenaMap";
 import { BottomNav } from "@/components/common/BottomNav";
@@ -70,6 +71,7 @@ export function EventDetailClient({
   const [event, setEvent] = useState<CrawledEvent | null>(null);
   const [loading, setLoading] = useState(true);
   const [seatReports, setSeatReports] = useState<SeatReport[]>([]);
+  const [externalSeatObservations, setExternalSeatObservations] = useState<ExternalSeatObservation[]>([]);
   const [fanSeatPredictions, setFanSeatPredictions] = useState<FanSeatPrediction[]>([]);
   const [predictionAuthorMap, setPredictionAuthorMap] = useState<Map<string, PostAuthor>>(new Map());
   const [relatedEvents, setRelatedEvents] = useState<CrawledEvent[]>([]);
@@ -192,13 +194,26 @@ export function EventDetailClient({
     if (groupEventIds.length === 0) return;
     let cancelled = false;
     async function loadGroupReports() {
-      const { data } = await supabase
-        .from("seat_reports")
-        .select("id, event_id, block, row_num, seat_num, lottery_type, fc_history, payment_method, lottery_round, lottery_name, comment, created_at")
-        .in("event_id", groupEventIds)
-        .order("created_at", { ascending: false })
-        .limit(500);
-      if (!cancelled && data) setSeatReports(data as SeatReport[]);
+      const [seatResult, externalResult] = await Promise.all([
+        supabase
+          .from("seat_reports")
+          .select("id, event_id, block, row_num, seat_num, lottery_type, fc_history, payment_method, lottery_round, lottery_name, comment, created_at")
+          .in("event_id", groupEventIds)
+          .order("created_at", { ascending: false })
+          .limit(500),
+        supabase
+          .from("external_seat_observations")
+          .select("id, event_id, source_type, source_url, observed_at, seat_area, block, row_min, row_max, seat_min, seat_max, gate, level, confidence, evidence_summary, review_status")
+          .in("event_id", groupEventIds)
+          .eq("review_status", "approved")
+          .eq("seat_area", "arena")
+          .order("observed_at", { ascending: false })
+          .limit(500),
+      ]);
+      if (cancelled) return;
+      if (seatResult.data) setSeatReports(seatResult.data as SeatReport[]);
+      // 移行適用前や一時障害時も既存の座席マップはそのまま表示する。
+      setExternalSeatObservations((externalResult.data as ExternalSeatObservation[] | null) ?? []);
     }
     loadGroupReports();
     return () => {
@@ -361,6 +376,7 @@ export function EventDetailClient({
                 <EventArenaMap
                   eventId={eventId}
                   reports={dedupedSeatReports}
+                  externalObservations={externalSeatObservations}
                   colorMode={colorMode}
                   mapFullBleed
                 />

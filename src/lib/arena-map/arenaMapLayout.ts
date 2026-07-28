@@ -1,5 +1,5 @@
 import type { SeatReport } from "@/lib/types";
-import type { ArenaBlock, ArenaCell, ArenaGridResult, ParsedBlockName, BlockPosition } from "./arenaMapTypes";
+import type { ArenaBlock, ArenaCell, ArenaGridResult, ParsedBlockName, BlockPosition, ArenaMapReport } from "./arenaMapTypes";
 
 // ─── 固定グリッド定数 ───────────────────────────────────────────────────────
 
@@ -114,6 +114,8 @@ export function buildArenaBlocks(reports: SeatReport[]): ArenaBlock[] {
       lotteryType:   r.lottery_type,
       fcHistory:     r.fc_history ?? null,
       paymentMethod: r.payment_method ?? null,
+      sourceKind: "user",
+      externalConfidence: null,
     }));
     const rows  = reps.map((r) => r.row_num);
     const seats = reps.map((r) => r.seat_num);
@@ -213,10 +215,10 @@ function letterAt(index: number): string {
  * 報告状況に応じて必要な分だけ行・列を拡張した固定グリッドを組み立てる（グリッドは縮小しない）。
  * パースできない、または拡張後のグリッド範囲を超える報告は overflowBlocks（その他ブロック）に分離する。
  */
-export function buildFixedArenaGrid(reports: SeatReport[]): ArenaGridResult {
-  type Parsed = { report: SeatReport; prefix: string; num: number; rowIndex: number };
+export function buildFixedArenaGrid(reports: ArenaMapReport[]): ArenaGridResult {
+  type Parsed = { report: ArenaMapReport; prefix: string; num: number; rowIndex: number };
   const parsed: Parsed[] = [];
-  const failed: SeatReport[] = [];
+  const failed: ArenaMapReport[] = [];
   for (const r of reports) {
     const p = parseGridBlockName(r.block);
     if (!p) {
@@ -273,14 +275,20 @@ export function buildFixedArenaGrid(reports: SeatReport[]): ArenaGridResult {
   }
 
   const overflowMap = new Map<string, ArenaBlock>();
-  function addToOverflow(r: SeatReport) {
-    const cell: ArenaCell = {
-      row:           r.row_num,
-      seat:          r.seat_num,
-      lotteryType:   r.lottery_type,
-      fcHistory:     r.fc_history ?? null,
+  function toArenaCell(r: ArenaMapReport): ArenaCell {
+    return {
+      row: r.row_num,
+      seat: r.seat_num,
+      lotteryType: r.lottery_type,
+      fcHistory: r.fc_history ?? null,
       paymentMethod: r.payment_method ?? null,
+      sourceKind: r.sourceKind ?? "user",
+      externalConfidence: r.externalConfidence ?? null,
     };
+  }
+
+  function addToOverflow(r: ArenaMapReport) {
+    const cell = toArenaCell(r);
     if (!overflowMap.has(r.block)) {
       overflowMap.set(r.block, {
         blockName: r.block,
@@ -313,13 +321,7 @@ export function buildFixedArenaGrid(reports: SeatReport[]): ArenaGridResult {
       addToOverflow(p.report);
       continue;
     }
-    const cell: ArenaCell = {
-      row:           p.report.row_num,
-      seat:          p.report.seat_num,
-      lotteryType:   p.report.lottery_type,
-      fcHistory:     p.report.fc_history ?? null,
-      paymentMethod: p.report.payment_method ?? null,
-    };
+    const cell = toArenaCell(p.report);
     const isFirst = b.cells.length === 0;
     b.cells.push(cell);
     b.hasReports = true;

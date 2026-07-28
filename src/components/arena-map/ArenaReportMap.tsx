@@ -6,6 +6,8 @@ import {
   COLOR_MODE_OPTIONS,
   COLOR_MODE_LEGENDS,
   cellFillColor,
+  EXTERNAL_EXACT_FILL,
+  EXTERNAL_RANGE_FILL,
   REPORTED_FILL,
   UNREPORTED_FILL,
   GRID_STROKE,
@@ -32,6 +34,8 @@ import {
   computeGridCenterX,
   computeWatermarkPositions,
 } from "@/lib/arena-map/arenaMapLayout";
+import { externalObservationsToArenaReports } from "@/lib/external-seats/arena";
+import type { ArenaMapReport } from "@/lib/arena-map/arenaMapTypes";
 
 const STAGE_H_DISPLAY = 40;
 
@@ -56,6 +60,7 @@ type DragState = {
 export function ArenaReportMap({
   eventId,
   reports,
+  externalObservations = [],
   variant = "full",
   compactVenueName,
   compactDateLabel,
@@ -74,6 +79,22 @@ export function ArenaReportMap({
   const isCompact = variant === "compact";
   const isControlled = colorModeExternal !== undefined;
   const activeColorMode = colorModeExternal ?? colorMode;
+
+  const arenaReports = useMemo(() => {
+    const byPosition = new Map<string, ArenaMapReport>();
+    for (const report of externalObservationsToArenaReports(externalObservations)) {
+      byPosition.set(`${report.block}:${report.row_num}:${report.seat_num}`, report);
+    }
+    // 同じ座席ならユーザー本人の報告を優先し、外部情報は背面扱いにする。
+    for (const report of reports) {
+      byPosition.set(`${report.block}:${report.row_num}:${report.seat_num}`, {
+        ...report,
+        sourceKind: "user",
+      });
+    }
+    return [...byPosition.values()];
+  }, [externalObservations, reports]);
+  const hasExternalCells = arenaReports.some((report) => report.sourceKind === "external");
 
   useEffect(() => {
     if (isCompact || !scrollRef.current) return;
@@ -133,7 +154,7 @@ export function ArenaReportMap({
   // ─── レイアウト計算 ─────────────────────────────────────────────────────────
 
   const layout = useMemo(() => {
-    const { gridBlocks, overflowBlocks, gridRowPrefixes, gridColNums } = buildFixedArenaGrid(reports);
+    const { gridBlocks, overflowBlocks, gridRowPrefixes, gridColNums } = buildFixedArenaGrid(arenaReports);
     const gridCols = gridColNums.length;
     const gridRows = gridRowPrefixes.length;
     const svgW = computeDynamicSvgWidth(gridCols);
@@ -188,7 +209,7 @@ export function ArenaReportMap({
       overflowY,
       bandTop,
     };
-  }, [reports, stageTop, showAllOverflow]);
+  }, [arenaReports, stageTop, showAllOverflow]);
 
   // ─── 共有処理 ────────────────────────────────────────────────────────────────
 
@@ -277,6 +298,19 @@ export function ArenaReportMap({
                 </div>
               ))}
             </div>
+            {hasExternalCells && (
+              <div className="flex items-center justify-center gap-3 border-t border-gray-200 bg-white py-1">
+                <span className="flex items-center gap-1 text-[9px] font-semibold text-gray-600">
+                  <span className="h-2 w-2 rounded-full" style={{ backgroundColor: EXTERNAL_EXACT_FILL }} />
+                  外部参考・位置確定
+                </span>
+                <span className="flex items-center gap-1 text-[9px] font-semibold text-gray-600">
+                  <span className="h-2 w-2 rounded-full" style={{ backgroundColor: EXTERNAL_RANGE_FILL }} />
+                  外部参考・範囲
+                </span>
+                <span className="text-[8px] text-gray-400">集計対象外</span>
+              </div>
+            )}
           </div>
           {/* 区切り線: ボタン・ナビ段 / ステージ段 */}
           <div className="mt-2 mb-2 border-t-2 border-gray-200" />
@@ -402,7 +436,7 @@ export function ArenaReportMap({
                 y={pb.svgY + (c.row - 1) * pb.cellH}
                 width={pb.cellW}
                 height={pb.cellH}
-                fill={isCompact ? REPORTED_FILL : cellFillColor(c, activeColorMode)}
+                fill={isCompact && c.sourceKind !== "external" ? REPORTED_FILL : cellFillColor(c, activeColorMode)}
               />
             ))}
           </g>
@@ -484,7 +518,7 @@ export function ArenaReportMap({
                       y={oy + (c.row - 1) * cellH}
                       width={cellW}
                       height={cellH}
-                      fill={isCompact ? REPORTED_FILL : cellFillColor(c, activeColorMode)}
+                      fill={isCompact && c.sourceKind !== "external" ? REPORTED_FILL : cellFillColor(c, activeColorMode)}
                     />
                   ))}
                   <text

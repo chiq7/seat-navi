@@ -1,9 +1,19 @@
 import type { RefObject } from "react";
 import type { SeatReport } from "@/lib/types";
+import type { ExternalSeatConfidence, ExternalSeatObservation } from "@/lib/external-seats/types";
 
 export type { SeatReport };
 
 export type ColorMode = "lottery" | "fcHistory" | "ticketCount" | "payment" | "upgrade";
+
+/** ユーザー報告と外部由来データを同じ座席グリッドへ安全に渡すための最小形。 */
+export type ArenaMapReport = Pick<
+  SeatReport,
+  "block" | "row_num" | "seat_num" | "lottery_type" | "fc_history" | "payment_method"
+> & {
+  sourceKind?: "user" | "external";
+  externalConfidence?: ExternalSeatConfidence;
+};
 
 /** ブロック名をパースした結果 */
 export type ParsedBlockName = {
@@ -24,6 +34,8 @@ export type ArenaCell = {
   lotteryType: SeatReport["lottery_type"];
   fcHistory: string | null;
   paymentMethod: string | null;
+  sourceKind: "user" | "external";
+  externalConfidence: ExternalSeatConfidence | null;
 };
 
 /** グリッド上に配置された1ブロックの情報 */
@@ -54,6 +66,7 @@ export type ArenaGridResult = {
 export type ArenaReportMapProps = {
   eventId: string;
   reports: SeatReport[];
+  externalObservations?: ExternalSeatObservation[];
   variant?: "full" | "compact";
   compactVenueName?: string | null;
   compactDateLabel?: string | null;

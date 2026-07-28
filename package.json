@@ -10,6 +10,7 @@
     "typecheck:crawler": "tsc --project tsconfig.scripts.json",
     "test:crawler-safety": "node --test --experimental-test-isolation=none --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/officialNews/safety.test.mts ./scripts/officialNews/discovery.test.mjs ./scripts/officialNews/eventSync.test.mts",
     "test:artist-platform": "node --test --experimental-test-isolation=none --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/artistPlatform.test.mts",
+    "test:external-seats": "node --test --experimental-test-isolation=none --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/externalSeats.test.mts",
     "discover:official-news:pending": "node --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/discoverPendingOfficialNews.mts",
     "backfill:event-artists": "node --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/backfill-event-artist-slugs.mts",
     "sync:official-news-events": "node --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/syncOfficialNewsEvents.mts"

@@ -8,6 +8,8 @@ const LEGEND_YELLOW = "#F59E0B";
 const LEGEND_BLUE   = "#3B82F6";
 
 export const REPORTED_FILL   = "#5B2BE0";
+export const EXTERNAL_EXACT_FILL = "#8B5CF6";
+export const EXTERNAL_RANGE_FILL = "#C4B5FD";
 export const UNREPORTED_FILL = "#F6F4FB";
 export const GRID_STROKE     = "#E3DEF2";
 
@@ -87,6 +89,9 @@ export const COLOR_MODE_LEGENDS: Record<ColorMode, { label: string; color: strin
 // ─── 色決定純粋関数 ──────────────────────────────────────────────────────────
 
 export function cellFillColor(cell: ArenaCell, colorMode: ColorMode): string {
+  if (cell.sourceKind === "external") {
+    return cell.externalConfidence === "exact" ? EXTERNAL_EXACT_FILL : EXTERNAL_RANGE_FILL;
+  }
   switch (colorMode) {
     case "lottery":
       return LOTTERY_COLORS[cell.lotteryType] ?? REPORTED_FILL;
