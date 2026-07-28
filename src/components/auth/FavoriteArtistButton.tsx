@@ -51,7 +51,7 @@ export default function FavoriteArtistButton({
       if (!cancelled) setFavorite(Boolean(row));
     });
     return () => { cancelled = true; };
-  }, [artistSlug, initialFavorite, initialUserId]);
+  }, [artistSlug, initialUserId]);
 
   useEffect(() => {
     function syncFavorite(event: Event) {
