@@ -38,6 +38,7 @@ export async function GET(request: NextRequest) {
 
   const sources = (data ?? []) as ExternalSeatSource[];
   const results: Array<Record<string, unknown>> = [];
+  const robotsByOrigin = new Map<string, { allowed: boolean; reason?: string }>();
   for (const source of sources) {
     const eventDate = source.target_date;
     const daysUntil = daysUntilEventInJst(eventDate);
@@ -51,13 +52,34 @@ export async function GET(request: NextRequest) {
     }
     try {
       const sourceUrl = new URL(source.source_url);
-      const robotsResponse = await fetch(`${sourceUrl.origin}/robots.txt`, {
-        headers: { "user-agent": BOT_USER_AGENT },
-        signal: AbortSignal.timeout(10_000),
-        cache: "no-store",
-      });
-      if (robotsResponse.ok && !robotsAllowsPath(await robotsResponse.text(), source.source_url, BOT_USER_AGENT)) {
-        results.push({ sourceId: source.id, status: "skipped", reason: "robots.txtで取得不可" });
+      let robots = robotsByOrigin.get(sourceUrl.origin);
+      if (!robots) {
+        try {
+          const robotsResponse = await fetch(`${sourceUrl.origin}/robots.txt`, {
+            headers: { "user-agent": BOT_USER_AGENT },
+            signal: AbortSignal.timeout(10_000),
+            cache: "no-store",
+          });
+          if (robotsResponse.ok) {
+            robots = robotsAllowsPath(await robotsResponse.text(), source.source_url, BOT_USER_AGENT)
+              ? { allowed: true }
+              : { allowed: false, reason: "robots.txtで取得不可" };
+          } else if (robotsResponse.status === 404) {
+            robots = { allowed: true };
+          } else {
+            robots = { allowed: false, reason: `robots.txt HTTP ${robotsResponse.status}` };
+          }
+        } catch {
+          robots = { allowed: false, reason: "robots.txtを確認できません" };
+        }
+        robotsByOrigin.set(sourceUrl.origin, robots);
+      }
+      if (!robots.allowed) {
+        await supabase
+          .from("external_seat_sources")
+          .update({ last_fetched_at: new Date().toISOString(), last_error: robots.reason })
+          .eq("id", source.id);
+        results.push({ sourceId: source.id, status: "skipped", reason: robots.reason, daysUntil });
         continue;
       }
       const response = await fetch(source.source_url, {
