@@ -43,8 +43,7 @@ export default function FavoriteArtistButton({ artistSlug }: { artistSlug: strin
     if (!error) {
       const nextFavorite = !favorite;
       setFavorite(nextFavorite);
-      trackEvent("favorite_artist", {
-        action: nextFavorite ? "add" : "remove",
+      trackEvent(nextFavorite ? "favorite_artist_add" : "favorite_artist_remove", {
         artist_slug: artistSlug,
       });
     }
