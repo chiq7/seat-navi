@@ -25,7 +25,7 @@ export default function RealtimeFeedItem({ item }: { item: HomeFeedItem }) {
         >
           {item.type}
         </span>
-        <p className="min-w-0 max-w-[30%] shrink truncate text-[14px] font-bold text-gray-900">
+        <p className="min-w-0 max-w-[30%] shrink truncate text-[14px] font-bold text-[#D93673]">
           {item.artistName}
         </p>
         <span className="ml-auto min-w-0 flex-1 truncate text-right text-[11px] text-gray-500">
