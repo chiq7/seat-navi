@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Header } from "@/components/common/Header";
+import SeoEditorialSection from "@/components/seo/SeoEditorialSection";
 import { resolveArtist } from "@/lib/artists";
 import { fmtDate } from "@/lib/artistPageHelpers";
 import { parseEventTitle } from "@/lib/eventTitle";
+import { getVenueSeoProfile } from "@/lib/seoProfiles";
 import { serializeJsonLd } from "@/lib/structuredData";
 import { SEO_VENUES, findSeoVenue, getVenueEvents, splitVenueEvents } from "@/lib/venueSeo";
 import type { CrawledEvent } from "@/lib/types";
@@ -21,10 +23,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
   const venue = findSeoVenue(id);
   if (!venue) return { title: "会場が見つかりません" };
+  const profile = getVenueSeoProfile(venue.id);
   const canonical = `${SITE_URL}/venues/${venue.id}`;
   return {
     title: `${venue.name}のライブ・座席情報｜公演予定・座席レポ`,
-    description: `${venue.name}で開催されるライブ・コンサートの公演予定、座席報告、当落レポ、アリーナ予想をまとめて確認できます。`,
+    description: profile?.metaDescription ?? `${venue.name}で開催されるライブ・コンサートの公演予定、座席報告、当落レポ、アリーナ予想をまとめて確認できます。`,
     alternates: { canonical },
     openGraph: {
       title: `${venue.name}のライブ・座席情報`,
@@ -66,11 +69,40 @@ export default async function VenuePage({ params }: Props) {
 
   const events = await getVenueEvents(venue.id);
   const { upcoming, past } = splitVenueEvents(events);
+  const profile = getVenueSeoProfile(venue.id);
+  const pastArtists = Array.from(
+    new Map(
+      past.flatMap((event) => {
+        const artist = resolveArtist(event);
+        return artist ? [[artist.slug, artist] as const] : [];
+      }),
+    ).values(),
+  ).slice(0, 30);
   const venueUrl = `${SITE_URL}/venues/${venue.id}`;
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
-      { "@type": "Place", "@id": `${venueUrl}#place`, name: venue.name, url: venueUrl },
+      {
+        "@type": profile ? "MusicVenue" : "Place",
+        "@id": `${venueUrl}#place`,
+        name: venue.name,
+        url: venueUrl,
+        ...(profile
+          ? {
+              sameAs: profile.officialUrl,
+              maximumAttendeeCapacity: profile.capacity,
+              openingDate: profile.openedAt,
+              address: {
+                "@type": "PostalAddress",
+                postalCode: profile.address.postalCode,
+                addressRegion: profile.address.region,
+                addressLocality: profile.address.locality,
+                streetAddress: profile.address.streetAddress,
+                addressCountry: "JP",
+              },
+            }
+          : {}),
+      },
       {
         "@type": "BreadcrumbList",
         itemListElement: [
@@ -95,6 +127,14 @@ export default async function VenuePage({ params }: Props) {
           {venue.name}で開催されるライブ・コンサートの公演予定と、みんなの当落・座席・現地レポを公演ごとに確認できます。
         </p>
 
+        {profile && (
+          <SeoEditorialSection
+            title={`${venue.name}とは`}
+            profile={profile}
+            className="mt-6"
+          />
+        )}
+
         <section className="mt-6">
           <h2 className="mb-3 text-[16px] font-bold text-gray-900">これから開催される公演</h2>
           <EventList events={upcoming} emptyText="現在、登録されている開催予定はありません" />
@@ -106,8 +146,24 @@ export default async function VenuePage({ params }: Props) {
             <EventList events={past.slice(0, 30)} emptyText="過去の公演はありません" />
           </section>
         )}
+
+        {pastArtists.length > 0 && (
+          <section className="mt-7">
+            <h2 className="mb-3 text-[16px] font-bold text-gray-900">この会場で公演したアーティスト</h2>
+            <div className="flex flex-wrap gap-2">
+              {pastArtists.map((artist) => (
+                <Link
+                  key={artist.slug}
+                  href={`/artists/${artist.slug}`}
+                  className="rounded-full border border-pink-100 bg-white px-3 py-2 text-[11px] font-bold text-gray-700 shadow-sm"
+                >
+                  {artist.name}
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
       </div>
     </main>
   );
 }
-

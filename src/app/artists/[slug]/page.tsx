@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ArtistClient } from "./ArtistClient";
 import { getSeoArtist, isTestArtist, SITE_URL } from "@/lib/seoData";
+import { getArtistSeoProfile } from "@/lib/seoProfiles";
+import { serializeJsonLd } from "@/lib/structuredData";
 
 type PageProps = { params: Promise<{ slug: string }> };
 
@@ -13,9 +15,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params;
   const artist = getSeoArtist(slug);
   if (!artist) notFound();
+  const profile = getArtistSeoProfile(slug);
 
   const title = `${artist.name}の当落・座席・現地レポ｜ちけレポ`;
-  const description = `${artist.name}のチケット当選率、座席報告、アリーナ予想図、現地レポ、セットリストをまとめて確認。ファンの実際の報告データを掲載。`;
+  const description = profile?.metaDescription ?? `${artist.name}のチケット当選率、座席報告、アリーナ予想図、現地レポ、セットリストをまとめて確認。ファンの実際の報告データを掲載。`;
   const ogImagePath = `/api/og/artist/${slug}`;
 
   return {
@@ -41,6 +44,30 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function Page({ params }: PageProps) {
   const { slug } = await params;
-  if (!getSeoArtist(slug)) notFound();
-  return <ArtistClient params={params} />;
+  const artist = getSeoArtist(slug);
+  if (!artist) notFound();
+  const profile = getArtistSeoProfile(slug);
+  const structuredData = profile
+    ? {
+        "@context": "https://schema.org",
+        "@type": profile.schemaType,
+        name: artist.name,
+        ...(profile.alternateName ? { alternateName: profile.alternateName } : {}),
+        url: `${SITE_URL}/artists/${slug}`,
+        sameAs: profile.officialUrl,
+        description: profile.summary,
+      }
+    : null;
+
+  return (
+    <>
+      {structuredData && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(structuredData) }}
+        />
+      )}
+      <ArtistClient params={params} />
+    </>
+  );
 }

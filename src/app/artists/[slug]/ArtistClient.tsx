@@ -32,11 +32,14 @@ import UpcomingEventsSection from "@/components/artist-page/UpcomingEventsSectio
 import { BottomNav } from "@/components/common/BottomNav";
 import type { TopPrediction } from "@/components/artist-page/SeatPredictionPreviewSection";
 import FavoriteArtistButton from "@/components/auth/FavoriteArtistButton";
+import SeoEditorialSection from "@/components/seo/SeoEditorialSection";
 import { fetchVisiblePostAuthors, type PostAuthor } from "@/lib/postAuthors";
+import { getArtistSeoProfile } from "@/lib/seoProfiles";
 
 export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
   const artist = findArtistBySlug(slug);
+  const seoProfile = getArtistSeoProfile(slug);
 
   const [events, setEvents] = useState<CrawledEvent[]>([]);
   const [analyticsReports, setAnalyticsReports] = useState<AnalyticsReport[]>([]);
@@ -544,6 +547,13 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
           )}
 
           <OfficialNewsSection news={officialNews} moreHref={`/artists/${slug}/news`} />
+          {seoProfile && artist && (
+            <SeoEditorialSection
+              title={`${artist.name}とは`}
+              profile={seoProfile}
+              className="mt-7 px-3"
+            />
+          )}
         </div>
       )}
 

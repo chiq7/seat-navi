@@ -542,6 +542,22 @@ test("favorite controls are functional, compact, and outside navigation links", 
   assert.match(searchPage, /<\/Link>\s*\{favoritesReady \? \(\s*<FavoriteArtistButton/);
 });
 
+test("curated SEO profiles use sourced substantial content instead of thin generated pages", async () => {
+  const { getArtistSeoProfile, getVenueSeoProfile } = await import("@/lib/seoProfiles");
+  const venue = getVenueSeoProfile("k-arena");
+  const artist = getArtistSeoProfile("niziu");
+
+  assert.ok(venue);
+  assert.ok(artist);
+  assert.ok(venue.summary.length >= 80);
+  assert.ok(venue.sections.length >= 3);
+  assert.ok(venue.sources.length >= 3);
+  assert.equal(venue.capacity, 20000);
+  assert.ok(artist.summary.length >= 80);
+  assert.ok(artist.sections.length >= 2);
+  assert.ok(artist.sources.every((source) => source.url.startsWith("https://")));
+});
+
 test("report entry back link stays above the hero content layer", () => {
   const reportEntry = fs.readFileSync(
     path.join(projectRoot, "src/app/report/page.tsx"),
