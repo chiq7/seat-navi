@@ -16,28 +16,25 @@ type IngestParams = {
 export type IngestResult = {
   parsed: number;
   accepted: number;
-  skippedNonArena: number;
+  skippedInvalid: number;
   rows: Array<Record<string, unknown>>;
 };
 
 function sourceKey(eventId: string, sourceType: ExternalSeatSourceType, row: Record<string, unknown>): string {
   return createHash("sha256")
-    .update(JSON.stringify([eventId, sourceType, row.block, row.row_min, row.row_max, row.seat_min, row.seat_max]))
+    .update(JSON.stringify([eventId, sourceType, row.seat_area, row.block, row.level, row.gate, row.row_min, row.row_max, row.seat_min, row.seat_max]))
     .digest("hex");
 }
 
-/** アリーナと判定できる派生座席情報だけを保存する。価格・出品者・本文は保存しない。 */
+/** 派生座席情報だけを保存する。アリーナ以外は保存してもマップ・集計には使わない。 */
 export async function ingestExternalSeatText(params: IngestParams): Promise<IngestResult> {
   const parsed = parseExternalSeatText(params.text);
-  const accepted = parsed.filter(
-    (row) =>
-      row.seat_area === "arena" &&
-      row.block &&
-      row.row_min != null &&
-      row.row_max != null &&
-      row.seat_min != null &&
-      row.seat_max != null &&
-      row.confidence !== "candidate",
+  const accepted = parsed.filter((row) =>
+    row.seat_area !== "unknown" &&
+    row.row_min != null &&
+    row.row_max != null &&
+    row.seat_min != null &&
+    row.seat_max != null,
   );
   const observedAt = new Date().toISOString();
   const rows = accepted.map((row) => {
@@ -63,8 +60,7 @@ export async function ingestExternalSeatText(params: IngestParams): Promise<Inge
   return {
     parsed: parsed.length,
     accepted: rows.length,
-    skippedNonArena: parsed.length - rows.length,
+    skippedInvalid: parsed.length - rows.length,
     rows,
   };
 }
-

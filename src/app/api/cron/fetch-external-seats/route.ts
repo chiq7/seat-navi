@@ -1,7 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { ingestExternalSeatText } from "@/lib/external-seats/ingest";
-import { htmlToVisibleText, isAllowedOfficialResaleUrl, robotsAllowsPath } from "@/lib/external-seats/sourcePolicy";
+import {
+  daysUntilEventInJst,
+  htmlToVisibleText,
+  isAllowedOfficialResaleUrl,
+  isResaleCollectionWindow,
+  robotsAllowsPath,
+} from "@/lib/external-seats/sourcePolicy";
 import type { ExternalSeatSource } from "@/lib/external-seats/types";
 
 export const maxDuration = 120;
@@ -24,7 +30,7 @@ export async function GET(request: NextRequest) {
   });
   const { data, error } = await supabase
     .from("external_seat_sources")
-    .select("id, event_id, source_type, source_url, active, last_fetched_at")
+    .select("id, event_id, source_type, source_url, active, target_date, last_fetched_at")
     .eq("active", true)
     .order("last_fetched_at", { ascending: true, nullsFirst: true })
     .limit(10);
@@ -33,6 +39,12 @@ export async function GET(request: NextRequest) {
   const sources = (data ?? []) as ExternalSeatSource[];
   const results: Array<Record<string, unknown>> = [];
   for (const source of sources) {
+    const eventDate = source.target_date;
+    const daysUntil = daysUntilEventInJst(eventDate);
+    if (!isResaleCollectionWindow(eventDate)) {
+      results.push({ sourceId: source.id, status: "skipped", reason: "巡回対象期間外", daysUntil });
+      continue;
+    }
     if (!isAllowedOfficialResaleUrl(source.source_url)) {
       results.push({ sourceId: source.id, status: "skipped", reason: "許可対象外のドメイン" });
       continue;
@@ -70,7 +82,7 @@ export async function GET(request: NextRequest) {
         .from("external_seat_sources")
         .update({ last_fetched_at: new Date().toISOString(), last_error: null })
         .eq("id", source.id);
-      results.push({ sourceId: source.id, status: "ok", accepted: imported.accepted });
+      results.push({ sourceId: source.id, status: "ok", accepted: imported.accepted, daysUntil });
     } catch (caught) {
       const message = caught instanceof Error ? caught.message.slice(0, 300) : "取得失敗";
       await supabase

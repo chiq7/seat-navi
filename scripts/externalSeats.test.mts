@@ -2,7 +2,13 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { parseExternalSeatText } from "@/lib/external-seats/parser";
 import { externalObservationsToArenaReports } from "@/lib/external-seats/arena";
-import { htmlToVisibleText, isAllowedOfficialResaleUrl, robotsAllowsPath } from "@/lib/external-seats/sourcePolicy";
+import {
+  daysUntilEventInJst,
+  htmlToVisibleText,
+  isAllowedOfficialResaleUrl,
+  isResaleCollectionWindow,
+  robotsAllowsPath,
+} from "@/lib/external-seats/sourcePolicy";
 import type { ExternalSeatObservation } from "@/lib/external-seats/types";
 
 test("LEVEL/GATEのリセール情報をアリーナと誤判定しない", () => {
@@ -78,4 +84,13 @@ test("robots.txtは最長一致のAllowを優先する", () => {
   `;
   assert.equal(robotsAllowsPath(robots, "https://example.com/resale/private/", "TixRepoSeatFactsBot"), false);
   assert.equal(robotsAllowsPath(robots, "https://example.com/resale/public/list", "TixRepoSeatFactsBot"), true);
+});
+
+test("リセール巡回は公演の5〜3日前だけに絞る", () => {
+  const now = new Date("2026-07-28T00:00:00.000Z"); // JST 7/28 09:00
+  assert.equal(daysUntilEventInJst("2026-08-02", now), 5);
+  assert.equal(isResaleCollectionWindow("2026-08-02", now), true);
+  assert.equal(isResaleCollectionWindow("2026-07-31", now), true);
+  assert.equal(isResaleCollectionWindow("2026-07-30", now), false);
+  assert.equal(isResaleCollectionWindow("2026-08-03", now), false);
 });

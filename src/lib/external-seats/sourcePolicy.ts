@@ -32,6 +32,33 @@ export function htmlToVisibleText(html: string): string {
     .trim();
 }
 
+function jstDateParts(now: Date): { year: number; month: number; day: number } {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "Asia/Tokyo",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(now);
+  const value = (type: "year" | "month" | "day") => Number(parts.find((part) => part.type === type)?.value);
+  return { year: value("year"), month: value("month"), day: value("day") };
+}
+
+/** 公演日までのJST日数。日付が不正ならnull。 */
+export function daysUntilEventInJst(eventDate: string | null | undefined, now = new Date()): number | null {
+  const match = eventDate?.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!match) return null;
+  const eventDay = Date.UTC(Number(match[1]), Number(match[2]) - 1, Number(match[3]));
+  const today = jstDateParts(now);
+  const todayDay = Date.UTC(today.year, today.month - 1, today.day);
+  return Math.round((eventDay - todayDay) / 86_400_000);
+}
+
+/** リセール公開が多い、公演の5〜3日前だけを巡回対象にする。 */
+export function isResaleCollectionWindow(eventDate: string | null | undefined, now = new Date()): boolean {
+  const days = daysUntilEventInJst(eventDate, now);
+  return days !== null && days >= 3 && days <= 5;
+}
+
 type RobotsRule = { path: string; allowed: boolean };
 
 /** robots.txt の最長一致ルールで、対象パスを取得可能か判定する。 */

@@ -38,6 +38,6 @@ export type ExternalSeatSource = {
   source_type: ExternalSeatSourceType;
   source_url: string;
   active: boolean;
+  target_date: string | null;
   last_fetched_at: string | null;
 };
-
