@@ -4,10 +4,12 @@ import { Suspense, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Header } from "@/components/common/Header";
+import FavoriteArtistButton from "@/components/auth/FavoriteArtistButton";
 import { trackEvent } from "@/lib/analytics";
 import { findArtistBySlug, type Artist } from "@/lib/artists";
 import { getSearchEventDestination, searchArtists, searchEvents } from "@/lib/search";
 import { fmtDate } from "@/lib/artistPageHelpers";
+import { supabase } from "@/lib/supabase/client";
 import type { CrawledEvent } from "@/lib/types";
 
 export default function SearchPage() {
@@ -27,7 +29,43 @@ function SearchPageInner() {
   const [artistResults, setArtistResults] = useState<Artist[]>([]);
   const [eventResults, setEventResults] = useState<CrawledEvent[]>([]);
   const [loading, setLoading] = useState(false);
+  const [favoriteUserId, setFavoriteUserId] = useState<string | null>(null);
+  const [favoriteSlugs, setFavoriteSlugs] = useState<Set<string>>(new Set());
+  const [favoritesReady, setFavoritesReady] = useState(false);
   const lastTrackedQuery = useRef("");
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadFavorites() {
+      const { data } = await supabase.auth.getUser();
+      const userId = data.user?.id ?? null;
+      if (cancelled) return;
+      setFavoriteUserId(userId);
+
+      if (userId) {
+        const { data: rows } = await supabase
+          .from("favorite_artists")
+          .select("artist_slug")
+          .eq("user_id", userId);
+        if (cancelled) return;
+        setFavoriteSlugs(new Set((rows ?? []).map((row) => row.artist_slug)));
+      }
+      setFavoritesReady(true);
+    }
+
+    void loadFavorites();
+    return () => { cancelled = true; };
+  }, []);
+
+  function updateFavorite(artistSlug: string, favorite: boolean) {
+    setFavoriteSlugs((current) => {
+      const next = new Set(current);
+      if (favorite) next.add(artistSlug);
+      else next.delete(artistSlug);
+      return next;
+    });
+  }
 
   // クエリ変更時にURLを同期(共有可能な検索結果URLにするため)
   useEffect(() => {
@@ -121,18 +159,30 @@ function SearchPageInner() {
             <h2 className="mb-2 text-[11px] font-semibold text-gray-400">アーティスト</h2>
             <div className="space-y-1.5">
               {artistResults.map((artist) => (
-                <Link
-                  key={artist.slug}
-                  href={`/artists/${artist.slug}`}
-                  onClick={() => trackEvent("select_search_result", {
-                    result_type: "artist",
-                    result_id: artist.slug,
-                    search_term: query.trim(),
-                  })}
-                  className="block rounded-lg border border-gray-100 bg-white px-3 py-2.5 no-underline active:scale-[0.99]"
-                >
-                  <span className="truncate text-[13px] font-bold text-gray-900">{artist.name}</span>
-                </Link>
+                <div key={artist.slug} className="relative">
+                  <Link
+                    href={`/artists/${artist.slug}`}
+                    onClick={() => trackEvent("select_search_result", {
+                      result_type: "artist",
+                      result_id: artist.slug,
+                      search_term: query.trim(),
+                    })}
+                    className="block rounded-lg border border-gray-100 bg-white px-3 py-3 pr-14 no-underline active:scale-[0.99]"
+                  >
+                    <span className="block truncate text-[13px] font-bold text-gray-900">{artist.name}</span>
+                  </Link>
+                  {favoritesReady ? (
+                    <FavoriteArtistButton
+                      artistSlug={artist.slug}
+                      initialUserId={favoriteUserId}
+                      initialFavorite={favoriteSlugs.has(artist.slug)}
+                      onChange={(favorite) => updateFavorite(artist.slug, favorite)}
+                      className="absolute right-2 top-1/2 z-10 -translate-y-1/2"
+                    />
+                  ) : (
+                    <span aria-hidden="true" className="absolute right-2 top-1/2 h-8 w-8 -translate-y-1/2 rounded-full bg-gray-100" />
+                  )}
+                </div>
               ))}
             </div>
           </section>

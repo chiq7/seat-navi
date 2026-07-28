@@ -513,6 +513,35 @@ test("TOP empty states remain present without a setlist section", () => {
   assert.match(artistClient, /: "\/report\/live"/);
 });
 
+test("favorite controls are functional, compact, and outside navigation links", () => {
+  const favoriteButton = fs.readFileSync(
+    path.join(projectRoot, "src/components/auth/FavoriteArtistButton.tsx"),
+    "utf8",
+  );
+  const homeCard = fs.readFileSync(
+    path.join(projectRoot, "src/components/home/UpcomingEventCard.tsx"),
+    "utf8",
+  );
+  const artistClient = fs.readFileSync(
+    path.join(projectRoot, "src/app/artists/[slug]/ArtistClient.tsx"),
+    "utf8",
+  );
+  const searchPage = fs.readFileSync(
+    path.join(projectRoot, "src/app/search/page.tsx"),
+    "utf8",
+  );
+
+  assert.match(favoriteButton, /from\("favorite_artists"\)\.insert/);
+  assert.match(favoriteButton, /from\("favorite_artists"\)\.delete/);
+  assert.match(favoriteButton, /aria-pressed=\{favorite\}/);
+  assert.match(homeCard, /<FavoriteArtistButton/);
+  assert.doesNotMatch(homeCard, /<button/);
+  assert.doesNotMatch(homeCard, /M4\.318 6\.318/);
+  assert.match(artistClient, /過去の公演[\s\S]*border-l border-gray-100[\s\S]*<FavoriteArtistButton/);
+  assert.doesNotMatch(artistClient, /<HeroSection[\s\S]*\/>\s*<FavoriteArtistButton/);
+  assert.match(searchPage, /<\/Link>\s*\{favoritesReady \? \(\s*<FavoriteArtistButton/);
+});
+
 test("report entry back link stays above the hero content layer", () => {
   const reportEntry = fs.readFileSync(
     path.join(projectRoot, "src/app/report/page.tsx"),

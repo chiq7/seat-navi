@@ -443,7 +443,6 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
         }
         countdownDays={countdownDays}
       />
-      <FavoriteArtistButton artistSlug={slug} />
 
       {fetchError && (
         <div className="mx-3 mt-3 rounded-xl bg-red-50 px-3 py-3 text-sm text-red-600">
@@ -481,6 +480,9 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
             >
               過去の公演
             </button>
+            <div className="flex items-center border-l border-gray-100 px-2">
+              <FavoriteArtistButton artistSlug={slug} />
+            </div>
           </div>
 
           {activeEventTab === "current" ? (

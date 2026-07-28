@@ -39,31 +39,34 @@ const getHomeRequestContext = cache(async () => {
 async function HomeEventSections() {
   const context = await getHomeRequestContext();
   if (!context) {
+    const emptyFavorites = new Set<string>();
     return (
       <>
-        <HotReportsSection events={[]} title="注目の公演" />
-        <UpcomingEventsSection events={[]} />
+        <HotReportsSection events={[]} title="注目の公演" favoriteUserId={null} favoriteSlugs={emptyFavorites} />
+        <UpcomingEventsSection events={[]} favoriteUserId={null} favoriteSlugs={emptyFavorites} />
       </>
     );
   }
 
-  const favoriteSlugsPromise = context.auth.then(async (authResult) => {
+  const favoriteStatePromise = context.auth.then(async (authResult) => {
     const userId = authResult.data.user?.id;
-    if (!userId) return new Set<string>();
+    if (!userId) return { userId: null, slugs: new Set<string>() };
 
     const { data: favorites } = await context.client
       .from("favorite_artists")
       .select("artist_slug")
       .eq("user_id", userId);
-    return new Set(
-      (favorites ?? []).map((item: { artist_slug: string }) => item.artist_slug),
-    );
+    return {
+      userId,
+      slugs: new Set((favorites ?? []).map((item: { artist_slug: string }) => item.artist_slug)),
+    };
   });
 
-  const [upcomingEvents, favoriteSlugs] = await Promise.all([
+  const [upcomingEvents, favoriteState] = await Promise.all([
     context.upcomingEvents,
-    favoriteSlugsPromise,
+    favoriteStatePromise,
   ]);
+  const favoriteSlugs = favoriteState.slugs;
   let featuredEvents: UpcomingEvent[] = [];
   let featuredTitle = "注目の公演";
 
@@ -80,8 +83,17 @@ async function HomeEventSections() {
 
   return (
     <>
-      <HotReportsSection events={featuredEvents} title={featuredTitle} />
-      <UpcomingEventsSection events={upcomingEvents} />
+      <HotReportsSection
+        events={featuredEvents}
+        title={featuredTitle}
+        favoriteUserId={favoriteState.userId}
+        favoriteSlugs={favoriteSlugs}
+      />
+      <UpcomingEventsSection
+        events={upcomingEvents}
+        favoriteUserId={favoriteState.userId}
+        favoriteSlugs={favoriteSlugs}
+      />
     </>
   );
 }

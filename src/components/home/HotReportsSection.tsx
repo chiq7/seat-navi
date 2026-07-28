@@ -13,9 +13,11 @@ const cardBackgrounds = [
 type HotReportsSectionProps = {
   events: UpcomingEvent[];
   title: string;
+  favoriteUserId: string | null;
+  favoriteSlugs: ReadonlySet<string>;
 };
 
-export default function HotReportsSection({ events, title }: HotReportsSectionProps) {
+export default function HotReportsSection({ events, title, favoriteUserId, favoriteSlugs }: HotReportsSectionProps) {
 
   return (
     <section className="mt-3">
@@ -24,13 +26,15 @@ export default function HotReportsSection({ events, title }: HotReportsSectionPr
         title={title}
       />
       {events.length > 0 ? (
-        <div className="flex w-full gap-2 overflow-x-auto px-3 pb-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [&>a]:w-[150px]">
+        <div className="flex w-full gap-2 overflow-x-auto px-3 pb-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {events.map((item, index) => (
             <UpcomingEventCard
               key={item.id}
               item={item}
               backgroundImage={cardBackgrounds[index % cardBackgrounds.length]}
               featured
+              favoriteUserId={favoriteUserId}
+              initialFavorite={favoriteSlugs.has(item.artistSlug)}
             />
           ))}
           <div className="shrink-0 w-1" />

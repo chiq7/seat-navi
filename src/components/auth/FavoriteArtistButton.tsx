@@ -6,13 +6,36 @@ import { Heart } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 import { supabase } from "@/lib/supabase/client";
 
-export default function FavoriteArtistButton({ artistSlug }: { artistSlug: string }) {
+type FavoriteArtistButtonProps = {
+  artistSlug: string;
+  initialUserId?: string | null;
+  initialFavorite?: boolean;
+  className?: string;
+  onChange?: (favorite: boolean) => void;
+};
+
+type FavoriteChangeDetail = {
+  artistSlug: string;
+  favorite: boolean;
+};
+
+const FAVORITE_CHANGE_EVENT = "tixrepo:favorite-change";
+
+export default function FavoriteArtistButton({
+  artistSlug,
+  initialUserId,
+  initialFavorite = false,
+  className = "",
+  onChange,
+}: FavoriteArtistButtonProps) {
   const router = useRouter();
-  const [userId, setUserId] = useState<string | null>(null);
-  const [favorite, setFavorite] = useState(false);
+  const [userId, setUserId] = useState<string | null>(initialUserId ?? null);
+  const [favorite, setFavorite] = useState(initialFavorite);
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
+    if (initialUserId !== undefined) return;
+
     let cancelled = false;
     supabase.auth.getUser().then(async ({ data }) => {
       const id = data.user?.id ?? null;
@@ -28,6 +51,15 @@ export default function FavoriteArtistButton({ artistSlug }: { artistSlug: strin
       if (!cancelled) setFavorite(Boolean(row));
     });
     return () => { cancelled = true; };
+  }, [artistSlug, initialFavorite, initialUserId]);
+
+  useEffect(() => {
+    function syncFavorite(event: Event) {
+      const detail = (event as CustomEvent<FavoriteChangeDetail>).detail;
+      if (detail.artistSlug === artistSlug) setFavorite(detail.favorite);
+    }
+    window.addEventListener(FAVORITE_CHANGE_EVENT, syncFavorite);
+    return () => window.removeEventListener(FAVORITE_CHANGE_EVENT, syncFavorite);
   }, [artistSlug]);
 
   async function toggle() {
@@ -46,21 +78,29 @@ export default function FavoriteArtistButton({ artistSlug }: { artistSlug: strin
       trackEvent(nextFavorite ? "favorite_artist_add" : "favorite_artist_remove", {
         artist_slug: artistSlug,
       });
+      window.dispatchEvent(new CustomEvent<FavoriteChangeDetail>(FAVORITE_CHANGE_EVENT, {
+        detail: { artistSlug, favorite: nextFavorite },
+      }));
+      onChange?.(nextFavorite);
     }
     setBusy(false);
   }
 
   return (
-    <div className="flex justify-end px-3 pt-2">
-      <button
-        type="button"
-        onClick={toggle}
-        disabled={busy}
-        className={`flex h-9 items-center gap-1.5 rounded-full border px-3 text-[11px] font-bold transition-colors disabled:opacity-60 ${favorite ? "border-[#FF6B9D] bg-[#FFF1F6] text-[#FF6B9D]" : "border-gray-200 bg-white text-gray-600"}`}
-      >
-        <Heart size={15} fill={favorite ? "currentColor" : "none"} />
-        {favorite ? "推し登録済み" : "推しに登録"}
-      </button>
-    </div>
+    <button
+      type="button"
+      onClick={toggle}
+      disabled={busy}
+      aria-label={favorite ? "推し登録を解除" : "推しに登録"}
+      aria-pressed={favorite}
+      title={favorite ? "推し登録を解除" : "推しに登録"}
+      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border shadow-sm transition-colors disabled:opacity-60 ${
+        favorite
+          ? "border-[#FF6B9D] bg-[#FF6B9D] text-white"
+          : "border-pink-100 bg-white/95 text-[#FF6B9D]"
+      } ${className}`}
+    >
+      <Heart size={16} strokeWidth={1.8} fill={favorite ? "currentColor" : "none"} />
+    </button>
   );
 }
