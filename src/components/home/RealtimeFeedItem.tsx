@@ -3,11 +3,11 @@ import type { HomeFeedItem } from "@/lib/homeData";
 import { fmtFeedDate } from "@/lib/homeData";
 
 const tagStyles: Record<HomeFeedItem["type"], { bg: string; color: string }> = {
-  当落レポ: { bg: "#FFF1F2", color: "#E11D48" },
+  当落レポ: { bg: "#FEF3C7", color: "#B45309" },
   公演情報: { bg: "#FFF7ED", color: "#EA580C" },
   座席報告: { bg: "#EFF6FF", color: "#3B82F6" },
   座席予想: { bg: "#F5F3FF", color: "#7C3AED" },
-  現地レポ: { bg: "#FDF0F4", color: "#FF6B9D" },
+  現地レポ: { bg: "#F0FDFA", color: "#0F766E" },
   セトリ: { bg: "#ECFDF5", color: "#059669" },
 };
 
@@ -25,7 +25,7 @@ export default function RealtimeFeedItem({ item }: { item: HomeFeedItem }) {
         >
           {item.type}
         </span>
-        <p className="min-w-0 max-w-[30%] shrink truncate text-[14px] font-bold text-[#D93673]">
+        <p className="min-w-0 max-w-[30%] shrink truncate text-[14px] font-bold text-[#FF6B9D]">
           {item.artistName}
         </p>
         <span className="ml-auto min-w-0 flex-1 truncate text-right text-[11px] text-gray-500">
