@@ -3,12 +3,12 @@ import type { HomeFeedItem } from "@/lib/homeData";
 import { fmtFeedDate } from "@/lib/homeData";
 
 const tagStyles: Record<HomeFeedItem["type"], { bg: string; color: string }> = {
-  当落レポ: { bg: "#FEF3C7", color: "#B45309" },
-  公演情報: { bg: "#FFF7ED", color: "#EA580C" },
-  座席報告: { bg: "#EFF6FF", color: "#3B82F6" },
-  座席予想: { bg: "#F5F3FF", color: "#7C3AED" },
-  現地レポ: { bg: "#F0FDFA", color: "#0F766E" },
-  セトリ: { bg: "#ECFDF5", color: "#059669" },
+  当落レポ: { bg: "#F3F4F6", color: "#6B7280" },
+  公演情報: { bg: "#F3F4F6", color: "#6B7280" },
+  座席報告: { bg: "#F3F4F6", color: "#6B7280" },
+  座席予想: { bg: "#F3F4F6", color: "#6B7280" },
+  現地レポ: { bg: "#F3F4F6", color: "#6B7280" },
+  セトリ: { bg: "#F3F4F6", color: "#6B7280" },
 };
 
 export default function RealtimeFeedItem({ item }: { item: HomeFeedItem }) {
@@ -16,7 +16,7 @@ export default function RealtimeFeedItem({ item }: { item: HomeFeedItem }) {
   return (
     <Link
       href={item.href}
-      className="flex flex-col gap-2 px-3 py-2.5 no-underline active:bg-gray-50"
+      className="flex flex-col gap-2.5 px-3 py-3 no-underline active:bg-gray-50"
     >
       <div className="flex min-w-0 items-center gap-1.5">
         <span
@@ -29,11 +29,10 @@ export default function RealtimeFeedItem({ item }: { item: HomeFeedItem }) {
           {item.artistName}
         </p>
         <span className="ml-auto min-w-0 flex-1 truncate text-right text-[11px] text-gray-500">
-          {item.venue}
+          {item.venue}・{fmtFeedDate(item.date)}
         </span>
-        <span className="shrink-0 text-[11px] text-gray-500">{fmtFeedDate(item.date)}</span>
       </div>
-      <p className="line-clamp-2 text-[13px] font-semibold leading-relaxed text-gray-800">
+      <p className="line-clamp-2 text-[13px] font-normal leading-relaxed text-gray-700">
         {item.detail}
       </p>
     </Link>
