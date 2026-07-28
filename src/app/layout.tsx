@@ -22,6 +22,9 @@ export const metadata: Metadata = {
     icon: { url: "/favicon.ico", type: "image/x-icon" },
     shortcut: { url: "/favicon.ico", type: "image/x-icon" },
   },
+  verification: {
+    google: "3aO7Z39e_8aJ5G5-ahLLZ19x1d0jYU4iVHpMllkdn1Q",
+  },
   openGraph: {
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
