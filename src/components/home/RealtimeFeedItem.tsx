@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { HomeFeedItem } from "@/lib/homeData";
-import { formatRelativeTime, fmtFeedDate } from "@/lib/homeData";
+import { fmtFeedDate } from "@/lib/homeData";
 
 const tagStyles: Record<HomeFeedItem["type"], { bg: string; color: string }> = {
   当落レポ: { bg: "#FFF1F2", color: "#E11D48" },
@@ -16,26 +16,26 @@ export default function RealtimeFeedItem({ item }: { item: HomeFeedItem }) {
   return (
     <Link
       href={item.href}
-      className="flex flex-col gap-1.5 px-3 py-2.5 no-underline active:bg-gray-50"
+      className="flex flex-col gap-2 px-3 py-2.5 no-underline active:bg-gray-50"
     >
-      <div className="flex min-w-0 items-center gap-2">
-        <p className="min-w-0 flex-1 truncate text-[15px] font-bold text-gray-900">{item.artistName}</p>
-        <span className="max-w-[62%] shrink-0 truncate text-right text-[12px] text-gray-500">
-          {item.venue} {fmtFeedDate(item.date)}
-        </span>
-      </div>
-      <div className="flex min-w-0 items-center gap-2">
+      <div className="flex min-w-0 items-center gap-1.5">
         <span
           className="shrink-0 whitespace-nowrap rounded px-2 py-0.5 text-[12px] font-bold"
           style={{ backgroundColor: tag.bg, color: tag.color }}
         >
           {item.type}
         </span>
-        <span className="min-w-0 flex-1 truncate text-[13px] font-semibold text-gray-800">{item.detail}</span>
-        <span className="shrink-0 text-[11px] text-gray-400">
-          {item.timeLabel ?? formatRelativeTime(item.createdAt)}
+        <p className="min-w-0 max-w-[30%] shrink truncate text-[14px] font-bold text-gray-900">
+          {item.artistName}
+        </p>
+        <span className="ml-auto min-w-0 flex-1 truncate text-right text-[11px] text-gray-500">
+          {item.venue}
         </span>
+        <span className="shrink-0 text-[11px] text-gray-500">{fmtFeedDate(item.date)}</span>
       </div>
+      <p className="line-clamp-2 text-[13px] font-semibold leading-relaxed text-gray-800">
+        {item.detail}
+      </p>
     </Link>
   );
 }

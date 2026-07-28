@@ -137,15 +137,13 @@ function RealtimeFeedSkeleton() {
       <div className="mx-4 divide-y divide-gray-100 rounded-xl border border-gray-100 bg-white shadow-sm">
         {[0, 1, 2].map((index) => (
           <div key={index} className="animate-pulse px-3 py-2.5">
-            <div className="flex items-center justify-between">
-              <div className="h-3 w-24 rounded-full bg-gray-200" />
-              <div className="h-2.5 w-28 rounded-full bg-gray-100" />
-            </div>
-            <div className="mt-2 flex items-center gap-2">
+            <div className="flex items-center gap-1.5">
               <div className="h-5 w-16 rounded bg-pink-100" />
-              <div className="h-3 flex-1 rounded-full bg-gray-100" />
-              <div className="h-2.5 w-10 rounded-full bg-gray-100" />
+              <div className="h-3 w-20 rounded-full bg-gray-200" />
+              <div className="ml-auto h-2.5 w-24 rounded-full bg-gray-100" />
+              <div className="h-2.5 w-8 rounded-full bg-gray-100" />
             </div>
+            <div className="mt-2 h-3 w-4/5 rounded-full bg-gray-100" />
           </div>
         ))}
       </div>

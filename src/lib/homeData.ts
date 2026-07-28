@@ -216,8 +216,6 @@ export type HomeFeedItem = {
   href: string;
   /** 実投稿と、集計対象外の編集部投稿・投稿イメージを表示側で区別する。 */
   source: HomeFeedSource;
-  /** 自動生成カードは架空の投稿時刻を作らず、「受付中」などの正確な表示へ差し替える。 */
-  timeLabel?: string;
 };
 
 /** 統合前にソースごとに取得する上限件数（統合後に全体の上位N件へ絞り込む前段のバッファ） */
@@ -291,6 +289,43 @@ const SUPPLEMENTAL_COPY = [
   "次の申込みの参考にしたいので、みなさんの結果も教えてください",
 ] as const;
 
+function buildCountdownDetail(remainingDays: number, index: number): string {
+  if (remainingDays === 0) {
+    const variants = [
+      "本日開催！座席が分かったら、ブロックや列をレポできます",
+      "いよいよ本番当日。会場で分かった座席情報を共有できます",
+    ] as const;
+    return variants[index % variants.length];
+  }
+  if (remainingDays === 1) {
+    const variants = [
+      "公演まであと1日。参加予定の方は準備できましたか？",
+      "明日開催！座席が分かったら、会場からレポできます",
+    ] as const;
+    return variants[index % variants.length];
+  }
+  const variants = [
+    `公演まであと${remainingDays}日。参加予定の方は準備できましたか？`,
+    `開催まであと${remainingDays}日。座席が分かったらレポで共有できます`,
+  ];
+  return variants[index % variants.length];
+}
+
+function normalizedFeedDetail(detail: string): string {
+  return detail.normalize("NFKC").replace(/\s+/g, " ").trim().toLocaleLowerCase("ja-JP");
+}
+
+/** 同じ本文が連続表示されないよう、並び順を保ったまま最初の1件だけ残す。 */
+export function dedupeFeedItemsByDetail(items: HomeFeedItem[]): HomeFeedItem[] {
+  const seen = new Set<string>();
+  return items.filter((item) => {
+    const key = normalizedFeedDetail(item.detail);
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
 function daysUntil(date: string | null, now: Date): number | null {
   if (!date) return null;
   const target = new Date(`${date}T00:00:00`);
@@ -317,11 +352,7 @@ export function buildSupplementalFeedItems(
     // 公演直前でも案内だけに偏らないよう、最大2件を編集部のカウントダウンにする。
     const isCountdown = index < 2 && remainingDays !== null && remainingDays >= 0 && remainingDays <= 7;
     const detail = isCountdown
-      ? remainingDays === 0
-        ? "本日開催！座席が分かったら、ブロックや列をレポできます"
-        : remainingDays === 1
-          ? "公演まであと1日。参加予定の方は準備できましたか？"
-          : `公演まであと${remainingDays}日。参加予定の方は準備できましたか？`
+      ? buildCountdownDetail(remainingDays, index)
       : SUPPLEMENTAL_COPY[index % SUPPLEMENTAL_COPY.length];
 
     return {
@@ -334,7 +365,6 @@ export function buildSupplementalFeedItems(
       createdAt: now.toISOString(),
       href: `/report/ticket?event=${encodeURIComponent(event.id)}`,
       source: isCountdown ? "editorial" : "sample",
-      timeLabel: "受付中",
     };
   });
 }
@@ -476,11 +506,12 @@ export async function getRealtimeFeedItems(
   }
 
   items.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  const uniqueItems = dedupeFeedItemsByDetail(items);
   // 座席・セトリが多くても、実際に表示できる当落レポが育つまでは投稿イメージを残す。
-  const realTicketResultCount = items.filter((item) => item.type === "当落レポ").length;
+  const realTicketResultCount = uniqueItems.filter((item) => item.type === "当落レポ").length;
   const supplementalCount = supplementalFeedCount(realTicketResultCount);
   const cappedSupplementalCount = Math.min(supplementalCount, Math.max(0, limit));
-  const realItems = items.slice(0, Math.max(0, limit - cappedSupplementalCount));
+  const realItems = uniqueItems.slice(0, Math.max(0, limit - cappedSupplementalCount));
   if (supplementalCount === 0) return realItems;
 
   const upcoming = prefetchedUpcoming
@@ -488,23 +519,7 @@ export async function getRealtimeFeedItems(
     : await getUpcomingHomeEvents(client);
   const supplemental = buildSupplementalFeedItems(upcoming, realTicketResultCount)
     .slice(0, cappedSupplementalCount);
-  return [...realItems, ...supplemental];
-}
-
-/** 投稿日時を「3分前」のような相対表示にする */
-export function formatRelativeTime(iso: string): string {
-  const diffMs = Date.now() - new Date(iso).getTime();
-  const minutes = Math.floor(diffMs / 60000);
-  if (minutes < 1) return "たった今";
-  if (minutes < 60) return `${minutes}分前`;
-  const hours = Math.floor(minutes / 60);
-  if (hours < 24) return `${hours}時間前`;
-  const days = Math.floor(hours / 24);
-  if (days < 30) return `${days}日前`;
-  const months = Math.floor(days / 30);
-  if (months < 12) return `${months}ヶ月前`;
-  const years = Math.floor(days / 365);
-  return `${years}年前`;
+  return dedupeFeedItemsByDetail([...realItems, ...supplemental]).slice(0, limit);
 }
 
 /** フィード表示用の短い日付（例: 7/12）。曜日は付けない */

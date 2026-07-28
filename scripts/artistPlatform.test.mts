@@ -37,6 +37,7 @@ const {
 } = await import("@/lib/search");
 const {
   buildSupplementalFeedItems,
+  dedupeFeedItemsByDetail,
   formatEventPeriod,
   selectProvisionalFeaturedEvents,
   supplementalFeedCount,
@@ -162,10 +163,15 @@ test("home supplemental feed shrinks as real posts arrive and never enters aggre
   assert.equal(emptyState.length, 5);
   assert.equal(emptyState[0]?.type, "公演情報");
   assert.equal(emptyState[0]?.source, "editorial");
-  assert.equal(emptyState[0]?.timeLabel, "受付中");
   assert.equal(emptyState[0]?.href, "/report/ticket?event=niziu-tokyo");
   assert.equal(emptyState[2]?.source, "sample");
   assert.equal(emptyState[2]?.type, "当落レポ");
+  assert.equal(new Set(emptyState.map((item) => item.detail)).size, emptyState.length);
+  assert.deepEqual(
+    dedupeFeedItemsByDetail([emptyState[0], { ...emptyState[1], detail: emptyState[0].detail }, emptyState[2]])
+      .map((item) => item.id),
+    [emptyState[0].id, emptyState[2].id],
+  );
   assert.equal(buildSupplementalFeedItems(upcoming, 5).length, 0);
 });
 
