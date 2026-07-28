@@ -3,12 +3,12 @@ import type { HomeFeedItem } from "@/lib/homeData";
 import { fmtFeedDate } from "@/lib/homeData";
 
 const tagStyles: Record<HomeFeedItem["type"], { bg: string; color: string }> = {
-  当落レポ: { bg: "#F3F4F6", color: "#6B7280" },
+  当落レポ: { bg: "#FEF3C7", color: "#92400E" },
   公演情報: { bg: "#F3F4F6", color: "#6B7280" },
-  座席報告: { bg: "#F3F4F6", color: "#6B7280" },
-  座席予想: { bg: "#F3F4F6", color: "#6B7280" },
-  現地レポ: { bg: "#F3F4F6", color: "#6B7280" },
-  セトリ: { bg: "#F3F4F6", color: "#6B7280" },
+  座席報告: { bg: "#DBEAFE", color: "#1D4ED8" },
+  座席予想: { bg: "#DBEAFE", color: "#1D4ED8" },
+  現地レポ: { bg: "#D1FAE5", color: "#047857" },
+  セトリ: { bg: "#EDE9FE", color: "#6D28D9" },
 };
 
 export default function RealtimeFeedItem({ item }: { item: HomeFeedItem }) {
