@@ -7,6 +7,7 @@ import { supabase } from "@/lib/supabase/client";
 import { findArtistBySlug } from "@/lib/artists";
 import { getEventsForArtist } from "@/lib/events";
 import { parseEventTitle } from "@/lib/eventTitle";
+import { trackEvent } from "@/lib/analytics";
 import type { CrawledEvent } from "@/lib/types";
 import { type EditableItem, computeSongNumbers } from "@/lib/setlistHelpers";
 import { BottomNav } from "@/components/common/BottomNav";
@@ -39,6 +40,7 @@ export function SetlistClient({ params }: { params: Promise<{ slug: string }> })
   const [showAddForm, setShowAddForm]         = useState(false);
   const autoSaveTimer                         = useRef<ReturnType<typeof setTimeout> | null>(null);
   const skipNextSave                          = useRef(false);
+  const lastTrackedSetlistEvent               = useRef<string | null>(null);
 
   // ─── イベント一覧取得 ────────────────────────────────────────────────────────
 
@@ -181,6 +183,14 @@ export function SetlistClient({ params }: { params: Promise<{ slug: string }> })
       setSaveStatus("error");
       setSaveError("保存に失敗しました。時間をおいて再度お試しください。");
     } else {
+      if (setlistItems.length > 0 && lastTrackedSetlistEvent.current !== selectedEventId) {
+        lastTrackedSetlistEvent.current = selectedEventId;
+        trackEvent("report_submit", {
+          report_type: "setlist",
+          event_id: selectedEventId,
+          item_count: setlistItems.length,
+        });
+      }
       setSaveStatus("saved");
       setTimeout(() => setSaveStatus("idle"), 3000);
     }

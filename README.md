@@ -31,6 +31,11 @@ cp .env.local.example .env.local
 - `NEXT_PUBLIC_SUPABASE_URL` - Supabase プロジェクトURL
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY` - Supabase 匿名キー
 - `OPENAI_API_KEY` - OpenAI APIキー
+- `NEXT_PUBLIC_GA_MEASUREMENT_ID` - GA4の測定ID（例: `G-XXXXXXXXXX`）
+- `NEXT_PUBLIC_BING_SITE_VERIFICATION` - Bing Webmaster Toolsの確認コード（未設定時はタグを出力しない）
+- `CRON_SECRET` - Vercel CronとIndexNow手動通知APIの認証値
+
+公演・公式NEWSの更新URLはIndexNowへ通知する。IndexNow通知が失敗しても、公演データの保存結果は成功扱いを維持する。
 
 ### 3. Supabase セットアップ
 

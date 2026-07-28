@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Heart } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 import { supabase } from "@/lib/supabase/client";
 
 export default function FavoriteArtistButton({ artistSlug }: { artistSlug: string }) {
@@ -39,7 +40,14 @@ export default function FavoriteArtistButton({ artistSlug }: { artistSlug: strin
       ? supabase.from("favorite_artists").delete().eq("user_id", userId).eq("artist_slug", artistSlug)
       : supabase.from("favorite_artists").insert({ user_id: userId, artist_slug: artistSlug });
     const { error } = await query;
-    if (!error) setFavorite(!favorite);
+    if (!error) {
+      const nextFavorite = !favorite;
+      setFavorite(nextFavorite);
+      trackEvent("favorite_artist", {
+        action: nextFavorite ? "add" : "remove",
+        artist_slug: artistSlug,
+      });
+    }
     setBusy(false);
   }
 

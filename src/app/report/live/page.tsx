@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { Camera, ChevronLeft, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { trackEvent } from "@/lib/analytics";
 import { supabase } from "@/lib/supabase/client";
 import { resolveArtist } from "@/lib/artists";
 import { getEventsForArtist } from "@/lib/events";
@@ -399,6 +400,12 @@ function LiveReportPageInner() {
 
       const ev = events.find(e => e.id === selectedEvent);
       setSubmittedArtistSlug(ev ? (resolveArtist(ev)?.slug ?? null) : null);
+      trackEvent("report_submit", {
+        report_type: "live",
+        event_id: selectedEvent,
+        has_comment: Boolean(memo.trim()),
+        has_photo: photos.length > 0,
+      });
       setSubmitted(true);
     } catch (err) {
       setError("投稿に失敗しました: " + (err instanceof Error ? err.message : String(err)));

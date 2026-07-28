@@ -20,6 +20,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import { createClient } from "@supabase/supabase-js";
 import { VENUES } from "@/lib/eventCrawlerConfig";
 import { processVenue, sleep } from "@/lib/eventCrawler";
+import { submitIndexNowUrls } from "@/lib/indexNow";
 
 export const maxDuration = 300;
 export const dynamic = "force-dynamic";
@@ -56,6 +57,7 @@ export async function GET(req: NextRequest) {
   let totalInvalidDates = 0;
   const failed: string[] = [];
   const reports: Array<Record<string, unknown>> = [];
+  const indexNowUrls = new Set<string>();
 
   console.log(`=== fetch-events cron 開始: ${now.toISOString()} / dry-run=${dryRun} ===`);
 
@@ -81,6 +83,15 @@ export async function GET(req: NextRequest) {
     totalSkippedAmbiguous += result.skippedAmbiguous.length;
     totalInvalidDates += result.invalidDates.length;
     if (result.failed) failed.push(venue.name);
+    if (!dryRun && result.saved > 0) {
+      for (const row of result.newRows) {
+        indexNowUrls.add(`https://tixrepo.com/events/${row.id}`);
+        indexNowUrls.add(`https://tixrepo.com/venues/${row.venue_id}`);
+        if (row.artist_slug) indexNowUrls.add(`https://tixrepo.com/artists/${row.artist_slug}`);
+      }
+      indexNowUrls.add("https://tixrepo.com/");
+      indexNowUrls.add("https://tixrepo.com/sitemap.xml");
+    }
 
     for (const r of result.pageReports) {
       const p = r.page;
@@ -149,6 +160,13 @@ export async function GET(req: NextRequest) {
   console.log(`=== 完了: ${totalSaved} 件保存, 失敗: ${failed.join(", ") || "なし"} / 総実行時間=${totalElapsedMs}ms ===`);
   if (maxDurationWarning) console.warn(maxDurationWarning);
 
+  const indexNow = dryRun
+    ? { submitted: 0, status: null, error: null }
+    : await submitIndexNowUrls([...indexNowUrls]);
+  if (indexNow.error) {
+    console.warn(`IndexNow通知に失敗しました（公演保存は成功扱いを維持）: ${indexNow.error}`);
+  }
+
   return NextResponse.json({
     ok: true,
     dryRun,
@@ -162,6 +180,7 @@ export async function GET(req: NextRequest) {
     reports,
     totalElapsedMs,
     maxDurationWarning,
+    indexNow,
     processedAt: new Date().toISOString(),
   });
 }

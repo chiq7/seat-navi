@@ -1,11 +1,14 @@
 import type { Metadata, Viewport } from "next";
+import { Suspense } from "react";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
+import { AnalyticsNavigationTracker } from "@/components/analytics/AnalyticsNavigationTracker";
 import Footer from "@/components/common/Footer";
 import { buildSiteStructuredData, serializeJsonLd } from "@/lib/structuredData";
 import "./globals.css";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+const BING_VERIFICATION = process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION;
 
 const SITE_TITLE = "ちけレポ｜当落・座席・現地レポ共有";
 const SITE_DESCRIPTION =
@@ -24,6 +27,9 @@ export const metadata: Metadata = {
   },
   verification: {
     google: "3aO7Z39e_8aJ5G5-ahLLZ19x1d0jYU4iVHpMllkdn1Q",
+    ...(BING_VERIFICATION
+      ? { other: { "msvalidate.01": BING_VERIFICATION } }
+      : {}),
   },
   openGraph: {
     title: SITE_TITLE,
@@ -72,6 +78,11 @@ export default function RootLayout({
           <Footer />
         </div>
         <Analytics />
+        {GA_ID && (
+          <Suspense fallback={null}>
+            <AnalyticsNavigationTracker />
+          </Suspense>
+        )}
         {GA_ID && (
           <>
             <Script

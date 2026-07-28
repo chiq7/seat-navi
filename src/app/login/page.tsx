@@ -3,6 +3,7 @@
 import { Suspense, type FormEvent, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
+import { trackEvent } from "@/lib/analytics";
 import { supabase } from "@/lib/supabase/client";
 import { Header } from "@/components/common/Header";
 
@@ -26,6 +27,7 @@ function LoginPageInner() {
   const [error, setError] = useState(searchParams.get("error") ? "ログイン処理を完了できませんでした。もう一度お試しください。" : "");
 
   async function signInWithGoogle() {
+    trackEvent("login_start", { method: "google" });
     setBusy(true);
     setError("");
     const redirectTo = `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`;
@@ -34,6 +36,7 @@ function LoginPageInner() {
       options: { redirectTo },
     });
     if (authError) {
+      trackEvent("auth_error", { method: "google", flow: "login" });
       setError(authError.message);
       setBusy(false);
     }
@@ -46,6 +49,7 @@ function LoginPageInner() {
     setMessage("");
 
     if (mode === "signup") {
+      trackEvent("sign_up_start", { method: "email" });
       const { data, error: authError } = await supabase.auth.signUp({
         email,
         password,
@@ -53,13 +57,24 @@ function LoginPageInner() {
           emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`,
         },
       });
-      if (authError) setError(authError.message);
-      else if (data.session) router.replace(next);
-      else setMessage("確認メールを送りました。メール内のリンクを押すと登録が完了します。");
+      if (authError) {
+        trackEvent("auth_error", { method: "email", flow: "sign_up" });
+        setError(authError.message);
+      } else {
+        trackEvent("sign_up", { method: "email" });
+        if (data.session) router.replace(next);
+        else setMessage("確認メールを送りました。メール内のリンクを押すと登録が完了します。");
+      }
     } else {
+      trackEvent("login_start", { method: "email" });
       const { error: authError } = await supabase.auth.signInWithPassword({ email, password });
-      if (authError) setError("メールアドレスかパスワードが正しくありません。");
-      else router.replace(next);
+      if (authError) {
+        trackEvent("auth_error", { method: "email", flow: "login" });
+        setError("メールアドレスかパスワードが正しくありません。");
+      } else {
+        trackEvent("login", { method: "email" });
+        router.replace(next);
+      }
     }
     setBusy(false);
   }
@@ -75,7 +90,10 @@ function LoginPageInner() {
       redirectTo: `${window.location.origin}/auth/callback?next=/password-reset`,
     });
     if (authError) setError(authError.message);
-    else setMessage("パスワード再設定メールを送りました。");
+    else {
+      trackEvent("password_reset_request", { method: "email" });
+      setMessage("パスワード再設定メールを送りました。");
+    }
     setBusy(false);
   }
 

@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getSeoSitemapData, SITE_URL } from "@/lib/seoData";
+import { SEO_VENUES } from "@/lib/venueSeo";
 
 export const revalidate = 86400;
 
@@ -16,6 +17,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     sitemapEntry(`${SITE_URL}/`, undefined, { changeFrequency: "daily", priority: 1 }),
+    sitemapEntry(`${SITE_URL}/venues`, undefined, { changeFrequency: "weekly", priority: 0.8 }),
+    ...SEO_VENUES.map((venue) =>
+      sitemapEntry(`${SITE_URL}/venues/${venue.id}`, undefined, {
+        changeFrequency: "daily",
+        priority: 0.8,
+      }),
+    ),
     ...data.artists.map((artist) =>
       sitemapEntry(`${SITE_URL}/artists/${artist.slug}`, artist.lastModified, {
         changeFrequency: "weekly",

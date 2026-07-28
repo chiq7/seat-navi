@@ -5,6 +5,7 @@ import type { ChangeEvent } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ChevronLeft } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 import { supabase } from "@/lib/supabase/client";
 import { resolveArtist } from "@/lib/artists";
 import { getEventsForArtist } from "@/lib/events";
@@ -258,6 +259,12 @@ export default function FanSeatPredictionPage({
       });
       if (insertErr) throw new Error(insertErr.message);
 
+      trackEvent("report_submit", {
+        report_type: "arena_prediction",
+        event_id: selectedEventId,
+        tag_count: tags.length,
+        has_comment: Boolean(comment.trim()),
+      });
       setSubmitted(true);
     } catch (err) {
       setError(`投稿に失敗しました。もう一度お試しください。`);

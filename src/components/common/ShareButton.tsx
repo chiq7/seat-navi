@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Share2 } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 
 export type ShareButtonProps = {
   /** 共有する絶対URL */
@@ -45,6 +46,7 @@ export function ShareButton({ url, text, className }: ShareButtonProps) {
     if (typeof navigator !== "undefined" && navigator.share) {
       try {
         await navigator.share({ title: text, text, url });
+        trackEvent("share", { method: "web_share", content_url: url });
       } catch (err) {
         // ユーザーが共有シートを閉じた場合(AbortError)は何もしない。実際の共有エラー時のみPC用メニューへ
         if (err instanceof Error && err.name === "AbortError") return;
@@ -56,6 +58,7 @@ export function ShareButton({ url, text, className }: ShareButtonProps) {
   }
 
   function handleTweet() {
+    trackEvent("share", { method: "x", content_url: url });
     const intent = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
     window.open(intent, "_blank", "noopener,noreferrer");
     closeMenu();
@@ -64,6 +67,7 @@ export function ShareButton({ url, text, className }: ShareButtonProps) {
   async function handleCopy() {
     try {
       await navigator.clipboard.writeText(url);
+      trackEvent("share", { method: "copy", content_url: url });
       setCopied(true);
       setTimeout(closeMenu, 1500);
     } catch {

@@ -13,6 +13,9 @@ export default function Footer() {
         <Link href="/contact" className="hover:text-gray-700">
           お問い合わせ
         </Link>
+        <Link href="/venues" className="hover:text-gray-700">
+          ライブ会場一覧
+        </Link>
         <p className="basis-full text-center text-[10px] text-gray-400">© ちけレポ</p>
       </div>
     </footer>

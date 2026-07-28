@@ -1,9 +1,10 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Header } from "@/components/common/Header";
+import { trackEvent } from "@/lib/analytics";
 import { findArtistBySlug, type Artist } from "@/lib/artists";
 import { getSearchEventDestination, searchArtists, searchEvents } from "@/lib/search";
 import { fmtDate } from "@/lib/artistPageHelpers";
@@ -26,6 +27,7 @@ function SearchPageInner() {
   const [artistResults, setArtistResults] = useState<Artist[]>([]);
   const [eventResults, setEventResults] = useState<CrawledEvent[]>([]);
   const [loading, setLoading] = useState(false);
+  const lastTrackedQuery = useRef("");
 
   // クエリ変更時にURLを同期(共有可能な検索結果URLにするため)
   useEffect(() => {
@@ -55,6 +57,15 @@ function SearchPageInner() {
       setArtistResults(artists);
       setEventResults(events);
       setLoading(false);
+      if (lastTrackedQuery.current !== trimmed) {
+        lastTrackedQuery.current = trimmed;
+        trackEvent("search", {
+          search_term: trimmed,
+          artist_results: artists.length,
+          event_results: events.length,
+          has_results: artists.length + events.length > 0,
+        });
+      }
     }, 300);
 
     return () => clearTimeout(timer);
@@ -113,6 +124,11 @@ function SearchPageInner() {
                 <Link
                   key={artist.slug}
                   href={`/artists/${artist.slug}`}
+                  onClick={() => trackEvent("select_search_result", {
+                    result_type: "artist",
+                    result_id: artist.slug,
+                    search_term: query.trim(),
+                  })}
                   className="block rounded-lg border border-gray-100 bg-white px-3 py-2.5 no-underline active:scale-[0.99]"
                 >
                   <span className="truncate text-[13px] font-bold text-gray-900">{artist.name}</span>
@@ -132,6 +148,11 @@ function SearchPageInner() {
                   <Link
                     key={event.id}
                     href={getSearchEventDestination(event)}
+                    onClick={() => trackEvent("select_search_result", {
+                      result_type: "event",
+                      result_id: event.id,
+                      search_term: query.trim(),
+                    })}
                     className="block rounded-lg border border-gray-100 bg-white px-3 py-2.5 no-underline active:scale-[0.99]"
                   >
                     <p className="text-[10px] font-bold text-gray-400">{fmtDate(event.date)}</p>

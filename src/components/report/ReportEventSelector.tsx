@@ -3,18 +3,25 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ChevronRight } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 import type { CrawledEvent } from "@/lib/types";
 
 type CardLinkProps = {
   href: string | null;
+  reportType: "ticket" | "arena_prediction" | "live" | "setlist";
+  eventId?: string | null;
   children: React.ReactNode;
 };
 
-function CardLink({ href, children }: CardLinkProps) {
+function CardLink({ href, reportType, eventId = null, children }: CardLinkProps) {
   if (href) {
     return (
       <Link
         href={href}
+        onClick={() => trackEvent("report_start", {
+          report_type: reportType,
+          event_id: eventId,
+        })}
         className="flex items-center gap-4 rounded-[24px] border border-[#F3F4F6] bg-white p-3 shadow-sm transition-transform active:scale-[0.99]"
       >
         {children}
@@ -59,7 +66,7 @@ export function ReportEventSelector({
 
         <div className="space-y-3">
           {/* 当落・座席を報告 */}
-          <CardLink href={ticketHref}>
+          <CardLink href={ticketHref} reportType="ticket" eventId={selectedEvent?.id}>
             <div className="h-16 w-16 shrink-0 overflow-hidden rounded-[18px]">
               <Image
                 src="/images/report/icons/report-ticket-seat-icon1.png"
@@ -82,7 +89,7 @@ export function ReportEventSelector({
           </CardLink>
 
           {/* アリーナ予想図を投稿 */}
-          <CardLink href={arenaHref}>
+          <CardLink href={arenaHref} reportType="arena_prediction" eventId={selectedEvent?.id}>
             <div className="h-16 w-16 shrink-0 overflow-hidden rounded-[18px]">
               <Image
                 src="/images/report/icons/report-arena-prediction-icon1.png"
@@ -105,7 +112,7 @@ export function ReportEventSelector({
           </CardLink>
 
           {/* 現地レポを投稿 */}
-          <CardLink href={liveHref}>
+          <CardLink href={liveHref} reportType="live" eventId={selectedEvent?.id}>
             <div className="h-16 w-16 shrink-0 overflow-hidden rounded-[18px]">
               <Image
                 src="/images/report/icons/report-local-icon1.png"
@@ -128,7 +135,7 @@ export function ReportEventSelector({
           </CardLink>
 
           {/* セトリを投稿 */}
-          <CardLink href={setlistHref}>
+          <CardLink href={setlistHref} reportType="setlist" eventId={selectedEvent?.id}>
             <div className="h-16 w-16 shrink-0 overflow-hidden rounded-[18px]">
               <Image
                 src="/images/report/icons/report-setlist-icon1.png"

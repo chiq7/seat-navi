@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { ChevronLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { trackEvent } from "@/lib/analytics";
 import { supabase } from "@/lib/supabase/client";
 import { resolveArtist } from "@/lib/artists";
 import { getEventsForArtist } from "@/lib/events";
@@ -465,6 +466,13 @@ function TicketReportPageInner() {
 
       const ev = events.find(e => e.id === selectedEvent);
       setSubmittedArtistSlug(ev ? (resolveArtist(ev)?.slug ?? null) : null);
+      trackEvent("report_submit", {
+        report_type: "ticket",
+        event_id: selectedEvent,
+        result: isWon ? "won" : "lost",
+        has_comment: Boolean(comment.trim()),
+        has_seat: isWon && Boolean(seatArea),
+      });
       setSubmitted(true);
     } catch (err) {
       setError("投稿に失敗しました: " + (err instanceof Error ? err.message : String(err)));

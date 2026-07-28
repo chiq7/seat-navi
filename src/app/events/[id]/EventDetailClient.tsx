@@ -312,6 +312,14 @@ export function EventDetailClient({
                 onSelect={(id) => router.push(`/events/${id}`)}
                 artistName={artist?.name}
               />
+              {event.venue_id && (
+                <Link
+                  href={`/venues/${event.venue_id}`}
+                  className="mt-2 block text-right text-[11px] font-semibold text-[#FF6B9D]"
+                >
+                  {event.venue}の公演・座席情報を見る
+                </Link>
+              )}
             </section>
 
             {/* マップカード */}
