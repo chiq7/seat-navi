@@ -150,11 +150,19 @@ export default function HeroSection({
               <div className="flex flex-1 items-center justify-center gap-1">
                 <span
                   className="drop-shadow-[0_0_10px_rgba(255,79,163,0.9)]"
-                  style={{ fontSize: "36px", fontWeight: 700, lineHeight: 1, color: "#ff4fa3" }}
+                  style={{ fontSize: "36px", fontWeight: 700, lineHeight: 1, color: "#ff4fa3", transform: "translateY(-4px)" }}
                 >
                   {countdownDays ?? "--"}
                 </span>
-                <span style={{ fontSize: "10px", fontWeight: 500, letterSpacing: "0.12em", color: "#ff8ac5" }}>
+                <span
+                  style={{
+                    fontSize: "10px",
+                    fontWeight: 500,
+                    letterSpacing: "0.12em",
+                    color: "#ff8ac5",
+                    transform: "translateY(5px)",
+                  }}
+                >
                   DAYS
                 </span>
               </div>
