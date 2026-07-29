@@ -1,14 +1,28 @@
 import crypto from "node:crypto";
 import { fetchPage, makeEventId, type AnySupabaseClient, type EventRow } from "@/lib/eventCrawler";
 
-type OfficialTourSource = {
+type StartoOfficialTourSource = {
   id: string;
   artistSlug: string;
   artistTerms: readonly string[];
-  genre: "johnnys";
+  genre: string;
   url: string;
   parser: "starto_live";
 };
+
+type StaticOfficialTourSource = {
+  id: string;
+  artistSlug: string;
+  artistTerms: readonly string[];
+  genre: string;
+  /** 公式発表のURL。日程を確認して手動登録するソースも、このURLを根拠として保持する。 */
+  url: string;
+  parser: "static";
+  title: string;
+  items: readonly OfficialTourScheduleItem[];
+};
+
+type OfficialTourSource = StartoOfficialTourSource | StaticOfficialTourSource;
 
 export type OfficialTourScheduleItem = {
   date: string;
@@ -46,6 +60,102 @@ export const OFFICIAL_TOUR_SOURCES: readonly OfficialTourSource[] = [
     genre: "johnnys",
     url: "https://starto.jp/s/p/live/10431",
     parser: "starto_live",
+  },
+  {
+    id: "bullet-train-2026-tokyo-dome",
+    artistSlug: "bullet-train",
+    artistTerms: ["超特急", "bullet train"],
+    genre: "idol",
+    url: "https://bullettrain.jp/live/live25696/",
+    parser: "static",
+    title: "超特急 東京ドーム公演",
+    items: [
+      { date: "2026-11-25", venue: "東京ドーム", venueId: "tokyo-dome" },
+      { date: "2026-11-26", venue: "東京ドーム", venueId: "tokyo-dome" },
+    ],
+  },
+  {
+    id: "kis-my-ft2-2026-fan-is",
+    artistSlug: "kis-my-ft2",
+    artistTerms: ["kis-my-ft2", "キスマイ"],
+    genre: "johnnys",
+    url: "https://mentrecording.jp/kismyft2/live/tour.php?id=1002973",
+    parser: "static",
+    title: "Kis-My-Ft2 LIVE TOUR 2026 fan IS ･･････",
+    items: [
+      { date: "2026-08-03", venue: "大阪城ホール", venueId: "osaka-jo-hall" },
+      { date: "2026-08-04", venue: "大阪城ホール", venueId: "osaka-jo-hall" },
+    ],
+  },
+  {
+    id: "le-sserafim-2026-pureflow",
+    artistSlug: "le-sserafim",
+    artistTerms: ["le sserafim", "ルセラフィム"],
+    genre: "kpop",
+    url: "https://www.le-sserafim.jp/news/15da601c7f27",
+    parser: "static",
+    title: "2026 LE SSERAFIM TOUR 'PUREFLOW' IN JAPAN",
+    items: [
+      { date: "2026-07-30", venue: "Kアリーナ横浜", venueId: "k-arena" },
+      { date: "2026-08-18", venue: "セキスイハイムスーパーアリーナ", venueId: "miyagi-arena" },
+      { date: "2026-08-19", venue: "セキスイハイムスーパーアリーナ", venueId: "miyagi-arena" },
+    ],
+  },
+  {
+    id: "naniwa-danshi-2026-nd5",
+    artistSlug: "naniwa-danshi",
+    artistTerms: ["なにわ男子", "naniwa danshi"],
+    genre: "johnnys",
+    url: "https://web.storm-labels.co.jp/s/st/news/detail/14577?ima=2438",
+    parser: "static",
+    title: "なにわ男子 LIVE TOUR 2026「ND⁵」",
+    items: [
+      { date: "2026-07-29", venue: "大阪城ホール", venueId: "osaka-jo-hall" },
+      { date: "2026-08-15", venue: "セキスイハイムスーパーアリーナ", venueId: "miyagi-arena" },
+      { date: "2026-08-16", venue: "セキスイハイムスーパーアリーナ", venueId: "miyagi-arena" },
+    ],
+  },
+  {
+    id: "news-2026-kmk-miyagi",
+    artistSlug: "news",
+    artistTerms: ["news"],
+    genre: "johnnys",
+    url: "https://starto.jp/s/p/live/10507",
+    parser: "static",
+    title: "NEWS LIVE TOUR 2026 /// KMK",
+    items: [
+      { date: "2026-09-05", venue: "セキスイハイムスーパーアリーナ", venueId: "miyagi-arena" },
+      { date: "2026-09-06", venue: "セキスイハイムスーパーアリーナ", venueId: "miyagi-arena" },
+    ],
+  },
+  {
+    id: "one-ok-rock-2026-detox-japan-tour-final",
+    artistSlug: "one-ok-rock",
+    artistTerms: ["one ok rock"],
+    genre: "rock",
+    url: "https://www.oneokrock.com/jp/news/5036",
+    parser: "static",
+    title: "ONE OK ROCK DETOX JAPAN TOUR FINAL 2026",
+    items: [
+      { date: "2026-08-25", venue: "セキスイハイムスーパーアリーナ", venueId: "miyagi-arena" },
+      { date: "2026-08-26", venue: "セキスイハイムスーパーアリーナ", venueId: "miyagi-arena" },
+    ],
+  },
+  {
+    id: "sakurazaka46-2026-whats-lonesome",
+    artistSlug: "sakurazaka46",
+    artistTerms: ["櫻坂46", "sakurazaka46"],
+    genre: "idol",
+    url: "https://sakurazaka46.com/s/s46/page/nationaltour2026?ima=0000",
+    parser: "static",
+    title: "Sakurazaka46 ARENA TOUR 2026 -What’s lonesome?-",
+    items: [
+      { date: "2026-07-29", venue: "神戸ワールド記念ホール", venueId: "kobe-world-hall" },
+      { date: "2026-08-08", venue: "広島グリーンアリーナ", venueId: "hiroshima-arena" },
+      { date: "2026-08-09", venue: "広島グリーンアリーナ", venueId: "hiroshima-arena" },
+      { date: "2026-08-22", venue: "セキスイハイムスーパーアリーナ", venueId: "miyagi-arena" },
+      { date: "2026-08-23", venue: "セキスイハイムスーパーアリーナ", venueId: "miyagi-arena" },
+    ],
   },
 ];
 
@@ -145,24 +255,17 @@ export async function syncOfficialTourSources(
   const reports: OfficialTourSyncReport[] = [];
 
   for (const source of OFFICIAL_TOUR_SOURCES) {
-    const page = await fetchPage(source.url);
-    if (!page.html) {
-      reports.push({
-        sourceId: source.id,
-        sourceUrl: source.url,
-        artistSlug: source.artistSlug,
-        title: null,
-        parsedDates: 0,
-        created: 0,
-        updated: 0,
-        skippedAmbiguous: 0,
-        error: page.error ?? `HTTP ${page.status}`,
-      });
-      continue;
-    }
-
     try {
-      const parsed = parseStartoLivePage(page.html);
+      let parsed: ParsedOfficialTour;
+      if (source.parser === "static") {
+        // 公式ページを確認した時点の確定日程。毎回のHTTP取得に依存せず、
+        // 会場カレンダーの短縮タイトルを確実に補正できるようにする。
+        parsed = { title: source.title, items: [...source.items] };
+      } else {
+        const page = await fetchPage(source.url);
+        if (!page.html) throw new Error(page.error ?? `HTTP ${page.status}`);
+        parsed = parseStartoLivePage(page.html);
+      }
       const dates = [...new Set(parsed.items.map((item) => item.date))];
       const { data, error } = await sb
         .from("events")

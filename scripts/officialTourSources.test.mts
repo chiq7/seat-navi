@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { parseStartoLivePage } from "@/lib/officialTourSources";
+import { OFFICIAL_TOUR_SOURCES, parseStartoLivePage } from "@/lib/officialTourSources";
 
 test("STARTOの構造化日程からツアー名・会場・日付を抽出し、昼夜公演を日単位へまとめる", () => {
   const html = `
@@ -21,4 +21,16 @@ test("STARTOの構造化日程からツアー名・会場・日付を抽出し�
     { date: "2026-08-01", venue: "大阪城ホール", venueId: "osaka-jo-hall" },
     { date: "2026-08-30", venue: "セキスイハイムスーパーアリーナ", venueId: "miyagi-arena" },
   ]);
+});
+
+test("手動登録した公式ツアー情報は、日付・会場の重複がなくタイトルを持つ", () => {
+  const staticSources = OFFICIAL_TOUR_SOURCES.filter((source) => source.parser === "static");
+  assert.ok(staticSources.length > 0);
+
+  for (const source of staticSources) {
+    assert.ok(source.title.trim());
+    assert.ok(source.url.startsWith("https://"));
+    const slots = source.items.map((item) => `${item.date}\u0000${item.venue}`);
+    assert.equal(new Set(slots).size, slots.length, `${source.id} has duplicate date/venue entries`);
+  }
 });
