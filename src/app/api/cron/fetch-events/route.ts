@@ -21,6 +21,7 @@ import { createClient } from "@supabase/supabase-js";
 import { VENUES } from "@/lib/eventCrawlerConfig";
 import { processVenue, sleep } from "@/lib/eventCrawler";
 import { submitIndexNowUrls } from "@/lib/indexNow";
+import { syncOfficialTourSources } from "@/lib/officialTourSources";
 
 export const maxDuration = 300;
 export const dynamic = "force-dynamic";
@@ -151,6 +152,20 @@ export async function GET(req: NextRequest) {
     await sleep(2500 + Math.random() * 2000);
   }
 
+  // 会場カレンダーでは短縮タイトルになりやすいため、アーティスト公式のツアー詳細で補正する。
+  // 既存公演は日付・会場・アーティストが一致するものだけ更新し、別公演は保留する。
+  const officialTourReports = await syncOfficialTourSources(sb, dryRun);
+  for (const report of officialTourReports) {
+    if (report.error) failed.push(`公式ツアー情報:${report.sourceId}`);
+    totalSaved += report.created + report.updated;
+    totalNewRows += report.created;
+    if (!dryRun && (report.created > 0 || report.updated > 0)) {
+      indexNowUrls.add("https://tixrepo.com/");
+      indexNowUrls.add(`https://tixrepo.com/artists/${report.artistSlug}`);
+      indexNowUrls.add("https://tixrepo.com/sitemap.xml");
+    }
+  }
+
   const totalElapsedMs = Date.now() - runStart;
   const maxDurationWarning =
     totalElapsedMs > maxDuration * 1000 * 0.9
@@ -176,6 +191,7 @@ export async function GET(req: NextRequest) {
     totalMatchedExisting,
     totalSkippedAmbiguous,
     totalInvalidDates,
+    officialTourReports,
     failed,
     reports,
     totalElapsedMs,
