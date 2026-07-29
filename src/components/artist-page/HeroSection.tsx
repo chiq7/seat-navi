@@ -142,25 +142,25 @@ export default function HeroSection({
           }}
         >
           <div className="grid h-full items-center" style={{ gridTemplateColumns: "38% 62%" }}>
-            <div className="flex flex-col items-center justify-center">
+            <div className="flex h-full flex-col items-center">
               <div className="mb-1 flex items-center justify-center gap-1" style={{ color: "rgba(255,255,255,0.82)" }}>
                 <CalendarDays size={11} strokeWidth={2.1} />
                 <p style={{ fontSize: "10px", fontWeight: 500 }}>次の公演まで</p>
               </div>
-              <div className="flex items-end justify-center gap-1">
+              <div className="flex flex-1 items-center justify-center gap-1">
                 <span
                   className="drop-shadow-[0_0_10px_rgba(255,79,163,0.9)]"
                   style={{ fontSize: "36px", fontWeight: 700, lineHeight: 1, color: "#ff4fa3" }}
                 >
                   {countdownDays ?? "--"}
                 </span>
-                <span style={{ fontSize: "10px", fontWeight: 500, letterSpacing: "0.12em", color: "#ff8ac5", paddingBottom: "4px" }}>
+                <span style={{ fontSize: "10px", fontWeight: 500, letterSpacing: "0.12em", color: "#ff8ac5" }}>
                   DAYS
                 </span>
               </div>
             </div>
             <div
-              className="flex min-w-0 flex-col justify-center"
+              className="flex h-full min-w-0 flex-col justify-between"
               style={{ borderLeft: "1px solid rgba(255,255,255,0.16)", paddingLeft: "14px" }}
             >
               {nextEvent ? (
@@ -170,7 +170,7 @@ export default function HeroSection({
                   </p>
                   <p
                     className="truncate text-white"
-                    style={{ fontSize: "16px", fontWeight: 600, lineHeight: "1.2", marginTop: "1px" }}
+                    style={{ fontSize: "16px", fontWeight: 600, lineHeight: "1.2" }}
                   >
                     {nextEvent.venue}
                   </p>
