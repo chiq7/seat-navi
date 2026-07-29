@@ -168,7 +168,7 @@ export default function HeroSection({
               </div>
             </div>
             <div
-              className="flex h-full min-w-0 flex-col justify-between"
+              className="flex h-full min-w-0 flex-col"
               style={{ borderLeft: "1px solid rgba(255,255,255,0.16)", paddingLeft: "14px" }}
             >
               {nextEvent ? (
@@ -176,12 +176,14 @@ export default function HeroSection({
                   <p style={{ fontSize: "10px", fontWeight: 500, color: "rgba(255,255,255,0.78)" }}>
                     {fmtDateLabel(nextEvent.date)}
                   </p>
-                  <p
-                    className="truncate text-white"
-                    style={{ fontSize: "16px", fontWeight: 600, lineHeight: "1.2" }}
-                  >
-                    {nextEvent.venue}
-                  </p>
+                  <div className="flex flex-1 items-center">
+                    <p
+                      className="truncate text-white"
+                      style={{ fontSize: "16px", fontWeight: 600, lineHeight: "1.2" }}
+                    >
+                      {nextEvent.venue}
+                    </p>
+                  </div>
                 </>
               ) : (
                 <p
