@@ -22,6 +22,14 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://tixrepo.com",
   },
+  icons: {
+    icon: [
+      { url: "/favicon-48.png", type: "image/png", sizes: "48x48" },
+      { url: "/favicon.ico", type: "image/x-icon", sizes: "64x64" },
+      { url: "/icon.png", type: "image/png", sizes: "512x512" },
+    ],
+    apple: [{ url: "/apple-icon.png", type: "image/png", sizes: "180x180" }],
+  },
   verification: {
     google: "3aO7Z39e_8aJ5G5-ahLLZ19x1d0jYU4iVHpMllkdn1Q",
     ...(BING_VERIFICATION
