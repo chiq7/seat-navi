@@ -96,6 +96,8 @@ export const OFFICIAL_TOUR_SOURCES: readonly OfficialTourSource[] = [
     parser: "static",
     title: "2026 LE SSERAFIM TOUR 'PUREFLOW' IN JAPAN",
     items: [
+      { date: "2026-07-25", venue: "大阪城ホール", venueId: "osaka-jo-hall" },
+      { date: "2026-07-26", venue: "大阪城ホール", venueId: "osaka-jo-hall" },
       { date: "2026-07-30", venue: "Kアリーナ横浜", venueId: "k-arena" },
       { date: "2026-08-18", venue: "セキスイハイムスーパーアリーナ", venueId: "miyagi-arena" },
       { date: "2026-08-19", venue: "セキスイハイムスーパーアリーナ", venueId: "miyagi-arena" },
@@ -110,6 +112,7 @@ export const OFFICIAL_TOUR_SOURCES: readonly OfficialTourSource[] = [
     parser: "static",
     title: "なにわ男子 LIVE TOUR 2026「ND⁵」",
     items: [
+      { date: "2026-07-28", venue: "大阪城ホール", venueId: "osaka-jo-hall" },
       { date: "2026-07-29", venue: "大阪城ホール", venueId: "osaka-jo-hall" },
       { date: "2026-08-15", venue: "セキスイハイムスーパーアリーナ", venueId: "miyagi-arena" },
       { date: "2026-08-16", venue: "セキスイハイムスーパーアリーナ", venueId: "miyagi-arena" },
