@@ -25,11 +25,13 @@ test("STARTOの構造化日程からツアー名・会場・日付を抽出し�
 
 test("手動登録した公式ツアー情報は、日付・会場の重複がなくタイトルを持つ", () => {
   const staticSources = OFFICIAL_TOUR_SOURCES.filter((source) => source.parser === "static");
+  const eventGenres = new Set(["kpop", "johnnys", "female_idol", "male_idol", "other"]);
   assert.ok(staticSources.length > 0);
 
   for (const source of staticSources) {
     assert.ok(source.title.trim());
     assert.ok(source.url.startsWith("https://"));
+    assert.ok(eventGenres.has(source.genre), `${source.id} has an unsupported events.genre value`);
     const slots = source.items.map((item) => `${item.date}\u0000${item.venue}`);
     assert.equal(new Set(slots).size, slots.length, `${source.id} has duplicate date/venue entries`);
   }
