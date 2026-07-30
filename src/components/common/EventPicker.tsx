@@ -201,15 +201,18 @@ function NearTermChip<T extends PickerEvent>({
       <div className="mt-0.5 truncate text-[10px] font-semibold leading-tight text-gray-800">
         {event.venue}
       </div>
-      {dayLabel && (
-        <span
-          className={`mt-[1px] inline-block w-fit whitespace-nowrap rounded-full px-1.5 py-px text-[9px] font-bold leading-none ${
-            isSelected ? "bg-[#FF6B9D] text-white" : "bg-gray-100 text-gray-500"
-          }`}
-        >
-          {dayLabel}
-        </span>
-      )}
+      {/* Day表記がない単日公演でも、日付・会場の見える位置を複数日公演と揃える。 */}
+      <div className="mt-[1px] h-[9px]">
+        {dayLabel && (
+          <span
+            className={`inline-block w-fit whitespace-nowrap rounded-full px-1.5 py-px text-[9px] font-bold leading-none ${
+              isSelected ? "bg-[#FF6B9D] text-white" : "bg-gray-100 text-gray-500"
+            }`}
+          >
+            {dayLabel}
+          </span>
+        )}
+      </div>
     </button>
   );
 }

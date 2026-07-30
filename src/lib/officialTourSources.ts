@@ -88,6 +88,19 @@ export const OFFICIAL_TOUR_SOURCES: readonly OfficialTourSource[] = [
     ],
   },
   {
+    id: "snow-man-2025-2026-on",
+    artistSlug: "snow-man",
+    artistTerms: ["snow man"],
+    genre: "johnnys",
+    url: "https://starto.jp/s/p/news/list?ct=release&tag=123",
+    parser: "static",
+    title: "Snow Man Dome Tour 2025-2026 ON",
+    items: [
+      { date: "2025-12-06", venue: "みずほPayPayドーム福岡", venueId: "fukuoka-paypay-dome" },
+      { date: "2025-12-23", venue: "東京ドーム", venueId: "tokyo-dome" },
+    ],
+  },
+  {
     id: "le-sserafim-2026-pureflow",
     artistSlug: "le-sserafim",
     artistTerms: ["le sserafim", "ルセラフィム"],
