@@ -91,7 +91,7 @@ export default async function VenuePage({ params }: Props) {
           ? {
               sameAs: profile.officialUrl,
               maximumAttendeeCapacity: profile.capacity,
-              openingDate: profile.openedAt,
+              ...(profile.openedAt ? { openingDate: profile.openedAt } : {}),
               address: {
                 "@type": "PostalAddress",
                 postalCode: profile.address.postalCode,

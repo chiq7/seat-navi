@@ -25,7 +25,8 @@ export type EditorialSeoProfile = {
 export type VenueSeoProfile = EditorialSeoProfile & {
   officialUrl: string;
   capacity: number;
-  openedAt: string;
+  /** 開業日まで公式に確認できる会場だけをISO日付で保持する。 */
+  openedAt?: string;
   address: {
     postalCode: string;
     region: string;
@@ -41,6 +42,50 @@ export type ArtistSeoProfile = EditorialSeoProfile & {
 };
 
 const VENUE_SEO_PROFILES: Record<string, VenueSeoProfile> = {
+  "saitama-super-arena": {
+    summary:
+      "さいたまスーパーアリーナ（現在の施設愛称：GMOアリーナさいたま）は、可動する客席・壁面の仕組みにより、ライブの規模やステージ構成に合わせて会場形状を変えられる大型多目的アリーナです。2026年1月13日から2027年春にかけて、スタジアム・メインアリーナ・コミュニティアリーナは大規模改修工事のため利用できません。",
+    metaDescription:
+      "さいたまスーパーアリーナ（GMOアリーナさいたま）の収容人数、座席構成、アクセス、改修期間中の利用状況、公演予定と座席レポを確認できます。",
+    facts: [
+      { label: "施設愛称", value: "GMOアリーナさいたま" },
+      { label: "最大収容規模", value: "約37,000席（スタジアム形式）" },
+      { label: "最寄り駅", value: "さいたま新都心駅 徒歩3分" },
+      { label: "改修期間", value: "2026年1月13日〜2027年春（主要アリーナ）" },
+    ],
+    sections: [
+      {
+        heading: "公演前に最初に確認したい改修期間",
+        body:
+          "現在は大規模改修工事により、スタジアム・メインアリーナ・コミュニティアリーナを利用できません。展示ホール、TOIRO、けやきひろばは一部休館日を除いて営業が続いています。公演を探すときは、会場名だけで判断せず、主催者の開催案内と公式の施設営業情報を同時に確認してください。",
+      },
+      {
+        heading: "座席構成と見え方の考え方",
+        body:
+          "この会場は約9,000席を伴う可動ブロックによって、スタジアム形式とアリーナ形式を切り替えられます。最大収容規模はスタジアム形式で約37,000席、メインアリーナのセンターステージ形式では約22,500席と公式案内されています。ライブごとにステージ位置、花道、機材席、アリーナブロックが変わるため、固定席の案内だけではアリーナ内の位置を断定できません。ちけレポでは、同じ公演の座席報告・アリーナ予想図を公式座席案内とあわせて確認するのがおすすめです。",
+      },
+      {
+        heading: "アクセスと入場口",
+        body:
+          "最寄りはさいたま新都心駅から徒歩3分、北与野駅から徒歩7分です。施設は2階デッキで駅周辺とつながっており、入場口はチケットや主催者案内に記載されたGATEを優先して確認します。公式は公共交通機関の利用を案内しているため、終演後の混雑も見込み、帰路の乗車経路を決めてから向かうと安心です。",
+      },
+    ],
+    sources: [
+      { label: "GMOアリーナさいたま 公式サイト", url: "https://www.saitama-arena.co.jp/" },
+      { label: "公式アクセス案内", url: "https://www.saitama-arena.co.jp/access/train.html" },
+      { label: "公式施設案内（座席構成・収容規模）", url: "https://www.saitama-arena.co.jp/e/facility/" },
+      { label: "2026年以降の主要アリーナ改修に関する公式案内", url: "https://www.saitama-arena.co.jp/news/2026/01083293.html" },
+    ],
+    updatedAt: "2026-07-31",
+    officialUrl: "https://www.saitama-arena.co.jp/",
+    capacity: 37000,
+    address: {
+      postalCode: "330-9111",
+      region: "埼玉県",
+      locality: "さいたま市中央区",
+      streetAddress: "新都心8番地",
+    },
+  },
   "k-arena": {
     summary:
       "Kアリーナ横浜は、横浜・みなとみらいに2023年9月29日に開業した約2万席の音楽専用アリーナです。すべての座席をステージ正面へ向けた扇形の配置を特徴とし、音楽ライブを中心に利用されています。",
@@ -131,4 +176,3 @@ export function getVenueSeoProfile(id: string): VenueSeoProfile | null {
 export function getArtistSeoProfile(slug: string): ArtistSeoProfile | null {
   return ARTIST_SEO_PROFILES[slug] ?? null;
 }
-
