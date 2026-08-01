@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-const OFFICIAL_X_URL = "https://x.com/REPLACE_WITH_OFFICIAL_ACCOUNT";
+const OFFICIAL_X_URL = "https://x.com/tixrepo";
 
 export default function ContactPage() {
   return (

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import Link from "next/link";
 import { CalendarDays, CircleDollarSign, Clock3, MapPin, Users } from "lucide-react";
 import { Header } from "@/components/common/Header";
 import { serializeJsonLd } from "@/lib/structuredData";
@@ -153,6 +154,9 @@ export default function TixRepoMolkkyNewsPage() {
             <h2 className="text-[16px] font-bold text-gray-900">参加申込について</h2>
             <p className="mt-2 text-[13px] leading-7 text-gray-700">
               参加受付は外部のイベント募集ページで行います。募集ページの公開後、このお知らせにも申込先を追加します。
+            </p>
+            <p className="mt-2 text-[13px] leading-7 text-gray-700">
+              大会についてのお問い合わせは、<Link href="/contact" className="font-bold text-[#D94878] underline underline-offset-2">ちけレポのお問い合わせページ</Link>からお願いします。
             </p>
           </section>
         </article>
