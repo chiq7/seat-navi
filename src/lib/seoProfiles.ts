@@ -42,6 +42,51 @@ export type ArtistSeoProfile = EditorialSeoProfile & {
 };
 
 const VENUE_SEO_PROFILES: Record<string, VenueSeoProfile> = {
+  "yokohama-arena": {
+    summary:
+      "横浜アリーナは、新横浜にある最大約17,000人規模の多目的イベント会場です。ライブではステージの向きや客席レイアウトを変えられるため、同じ会場でもチケットのセンター席・アリーナ席・スタンド席の位置関係は公演ごとに異なります。",
+    metaDescription:
+      "横浜アリーナの収容人数、座席の見え方、A・Bステージの違い、最寄り駅からのアクセス、公演予定と座席レポを確認できます。",
+    facts: [
+      { label: "最大収容規模", value: "約17,000人" },
+      { label: "アリーナ面積", value: "約8,000㎡（114m×78m）" },
+      { label: "所在地", value: "横浜市港北区新横浜3-10" },
+      { label: "最寄り", value: "新横浜駅" },
+    ],
+    sections: [
+      {
+        heading: "ライブの座席は公演ごとのステージ形式で変わる",
+        body:
+          "横浜アリーナでは、縦長に使うAステージと横長に使うBステージを基本に、変形ステージにも対応しています。公式の案内ではAステージは立見込み約13,000人、Bステージは立見込み約12,000人の例が示されています。座席番号だけで見え方を決めず、当日のステージ形式、花道・機材席の有無、同じ公演の座席報告をあわせて確認してください。",
+      },
+      {
+        heading: "センター席・アリーナ席・スタンド席の見方",
+        body:
+          "センター席は公演ごとにアリーナ床面へ設けられる仮設席で、ブロックや列の配置は固定ではありません。アリーナ席とスタンド席は会場の座席案内で大まかな位置を確認できますが、ステージの向きで正面・側面・背面の意味が変わります。ちけレポのアリーナ予想図は確定図ではなく、投稿が集まった公演ごとの参考情報として利用してください。",
+      },
+      {
+        heading: "新横浜での入退場と帰り道",
+        body:
+          "横浜アリーナは新横浜駅から徒歩圏です。終演直後は駅、会場周辺、飲食店の導線が同時に混みやすいため、チケットに記載された入場案内を確認し、帰りの路線と待ち合わせ場所を公演前に決めておくと動きやすくなります。主催者が指定する入場時間や規制退場がある場合は、そちらを優先してください。",
+      },
+    ],
+    sources: [
+      { label: "横浜アリーナ 公式サイト", url: "https://www.yokohama-arena.co.jp/" },
+      { label: "公式座席案内", url: "https://www.yokohama-arena.co.jp/seatguide/" },
+      { label: "公式設備案内（最大収容人数）", url: "https://www.yokohama-arena.co.jp/organizer/equipment/" },
+      { label: "公式コンサート・ショー利用プラン", url: "https://www.yokohama-arena.co.jp/organizer/plans/" },
+      { label: "公式交通アクセス", url: "https://www.yokohama-arena.co.jp/access/" },
+    ],
+    updatedAt: "2026-08-01",
+    officialUrl: "https://www.yokohama-arena.co.jp/",
+    capacity: 17000,
+    address: {
+      postalCode: "222-0033",
+      region: "神奈川県",
+      locality: "横浜市港北区",
+      streetAddress: "新横浜3丁目10番地",
+    },
+  },
   "saitama-super-arena": {
     summary:
       "さいたまスーパーアリーナ（現在の施設愛称：GMOアリーナさいたま）は、可動する客席・壁面の仕組みにより、ライブの規模やステージ構成に合わせて会場形状を変えられる大型多目的アリーナです。2026年1月13日から2027年春にかけて、スタジアム・メインアリーナ・コミュニティアリーナは大規模改修工事のため利用できません。",
