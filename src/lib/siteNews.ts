@@ -12,6 +12,22 @@ export type SiteNewsPost = {
  */
 export const SITE_NEWS: readonly SiteNewsPost[] = [
   {
+    slug: "how-to-use-tixrepo",
+    category: "ちけレポの使い方",
+    publishedAt: "2026-08-01",
+    title: "ちけレポでできること｜当落・座席・現地レポの使い方",
+    summary:
+      "公演の探し方、当落・座席報告、現地レポ、セトリの確認方法をまとめました。",
+  },
+  {
+    slug: "favorites-and-mypage",
+    category: "機能のお知らせ",
+    publishedAt: "2026-08-01",
+    title: "推し登録とマイページの使い方",
+    summary:
+      "推しの公演をTOPで見つけやすくする推し登録と、投稿履歴をまとめて確認できるマイページを紹介します。",
+  },
+  {
     slug: "tixrepo-molkky-2026",
     category: "ちけレポ主催イベント",
     publishedAt: "2026-08-01",
