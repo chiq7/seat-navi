@@ -4,7 +4,9 @@ import SiteNewsList from "@/components/news/SiteNewsList";
 import { SITE_NEWS } from "@/lib/siteNews";
 
 export default function SiteNewsSection() {
-  const latestPosts = SITE_NEWS.slice(0, 2);
+  // TOPは導線を増やしすぎないため、最新のお知らせ1件だけを表示する。
+  // 2件目以降は「一覧を見る」から確認できる。
+  const latestPosts = SITE_NEWS.slice(0, 1);
   if (latestPosts.length === 0) return null;
 
   return (
