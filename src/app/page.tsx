@@ -6,6 +6,7 @@ import HeroBanner from "@/components/home/HeroBanner";
 import HotReportsSection from "@/components/home/HotReportsSection";
 import UpcomingEventsSection from "@/components/home/UpcomingEventsSection";
 import RealtimeFeedSection from "@/components/home/RealtimeFeedSection";
+import SiteNewsSection from "@/components/home/SiteNewsSection";
 import LoginCta from "@/components/home/LoginCta";
 import SectionHeader from "@/components/home/SectionHeader";
 import {
@@ -176,6 +177,7 @@ export default function Home() {
           <HomeRealtimeSection />
         </Suspense>
         <LoginCta />
+        <SiteNewsSection />
         <div className="h-6" />
       </main>
     </div>
