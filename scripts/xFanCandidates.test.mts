@@ -65,11 +65,27 @@ test("詳細確認は投稿URL・日時・一致数だけを残す", () => {
   assert.equal(reviewed.latestOriginalPostAt, "2026-08-02T12:00:00.000Z");
   assert.deepEqual(reviewed.recentOriginalPostUrls, ["https://x.com/withu_example/status/post-2"]);
   assert.equal(reviewed.artistKeywordPostCount, 1);
+  assert.equal(reviewed.status, "insufficient_fandom_context");
   assert.equal(JSON.stringify(reviewed).includes("ライブが楽しみ"), false);
 });
 
 test("キーワード照合は全角英数にも対応する", () => {
   assert.deepEqual(matchingKeywords("ＮｉｚｉＵが好き", ["NiziU", "マユカ"]), ["NiziU"]);
+});
+
+test("紹介候補はプロフィールと直近投稿の両方に十分な推し文脈を要する", () => {
+  const candidate = candidateFromProfile({
+    id: "1", name: "FEARNOT", username: "fearnot_example", description: "LE SSERAFIM CHAEWON FEARNOT",
+  }, ["LE SSERAFIM", "FEARNOT", "CHAEWON", "PUREFLOW"]);
+  assert.ok(candidate);
+  const posts = Array.from({ length: 10 }, (_, index) => ({
+    id: `post-${index}`,
+    created_at: `2026-08-02T${String(index).padStart(2, "0")}:00:00.000Z`,
+    text: index < 6 ? ["LE SSERAFIM", "FEARNOT", "CHAEWON", "PUREFLOW", "LE SSERAFIM", "FEARNOT"][index] : "別の話題",
+  }));
+  const review = reviewCandidate(candidate, posts, ["LE SSERAFIM", "FEARNOT", "CHAEWON", "PUREFLOW"]);
+  assert.equal(review.status, "eligible_for_manual_review");
+  assert.deepEqual([...review.distinctArtistKeywords].sort(), ["LE SSERAFIM", "FEARNOT", "CHAEWON", "PUREFLOW"].sort());
 });
 
 test("48時間より前の候補と公式・転売用プロフィールを除外できる", () => {

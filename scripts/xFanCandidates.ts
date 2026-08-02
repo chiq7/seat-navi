@@ -33,7 +33,8 @@ export type CandidateReview = FanCandidate & {
   latestOriginalPostAt: string | null;
   recentOriginalPostUrls: string[];
   artistKeywordPostCount: number;
-  status: "needs_manual_review" | "profile_context_missing";
+  distinctArtistKeywords: string[];
+  status: "eligible_for_manual_review" | "insufficient_fandom_context";
 };
 
 function escapeHtml(value: string): string {
@@ -59,6 +60,9 @@ export function renderCandidateReviewHtml(input: {
         `<a class=\"post-link\" href=\"${escapeHtml(url)}\" target=\"_blank\" rel=\"noreferrer\">投稿 ${postIndex + 1} をXで開く</a>`,
       ).join("")
       : "<span class=\"muted\">直近のオリジナル投稿は取得できませんでした</span>";
+    const status = candidate.status === "eligible_for_manual_review"
+      ? "紹介文作成候補"
+      : "ルセラの公開投稿が不足";
     const sourcePost = candidate.sourcePost
       ? `<dt>検索で見つけた投稿</dt><dd><a href=\"${escapeHtml(candidate.sourcePost.url)}\" target=\"_blank\" rel=\"noreferrer\">Xで開く</a>（${escapeHtml(candidate.sourcePost.createdAt)}）</dd>`
       : "<dt>候補化の根拠</dt><dd>公開プロフィールの推し関連語</dd>";
@@ -66,9 +70,11 @@ export function renderCandidateReviewHtml(input: {
       <div class=\"number\">候補 ${index + 1}</div>
       <h2>${escapeHtml(candidate.displayName)} <span>@${escapeHtml(candidate.handle)}</span></h2>
       <dl>
+        <dt>判定</dt><dd><strong>${status}</strong></dd>
         <dt>プロフィールで確認できた語</dt><dd>${profileTerms}</dd>
         ${sourcePost}
-        <dt>直近5投稿内の関連投稿数</dt><dd>${candidate.artistKeywordPostCount}件</dd>
+        <dt>直近投稿内の関連投稿数</dt><dd>${candidate.artistKeywordPostCount}件</dd>
+        <dt>確認できたルセラ関連語</dt><dd>${candidate.distinctArtistKeywords.map(escapeHtml).join(" / ") || "なし"}</dd>
       </dl>
       <div class=\"links\">${postLinks}</div>
     </article>`;
@@ -177,11 +183,22 @@ export function reviewCandidate(
     .filter((post) => post.id && post.created_at)
     .sort((a, b) => Date.parse(b.created_at!) - Date.parse(a.created_at!));
 
+  const keywordMatches = chronological.map((post) => matchingKeywords(post.text, keywords));
+  const artistKeywordPostCount = keywordMatches.filter((matches) => matches.length > 0).length;
+  const distinctArtistKeywords = uniqueKeywords(keywordMatches.flat());
+  const minimumRelevantPosts = chronological.length >= 10 ? 6 : 3;
+  const status = candidate.profileKeywordMatches.length >= 2
+    && artistKeywordPostCount >= minimumRelevantPosts
+    && distinctArtistKeywords.length >= 3
+    ? "eligible_for_manual_review"
+    : "insufficient_fandom_context";
+
   return {
     ...candidate,
     latestOriginalPostAt: chronological[0]?.created_at ?? null,
     recentOriginalPostUrls: chronological.map((post) => toPostUrl(candidate.handle, post.id)),
-    artistKeywordPostCount: chronological.filter((post) => matchingKeywords(post.text, keywords).length > 0).length,
-    status: candidate.profileKeywordMatches.length > 0 ? "needs_manual_review" : "profile_context_missing",
+    artistKeywordPostCount,
+    distinctArtistKeywords,
+    status,
   };
 }
