@@ -9,8 +9,10 @@ import {
   hasPositiveFanSignal,
   hasTradingSignals,
   isLikelyNonFanProfile,
+  isLikelyMixedInterestProfile,
   isWithinHours,
   matchingKeywords,
+  matchingArtistKeywords,
   reviewCandidate,
   renderCandidateReviewHtml,
 } from "./xFanCandidates.ts";
@@ -87,6 +89,14 @@ test("日本語中心ではないプロフィールを候補化しない", () =>
   }, ["LE SSERAFIM", "FEARNOT", "CHAEWON"]), null);
 });
 
+test("雑多な趣味アカウントと短すぎる略称の誤検出を候補化しない", () => {
+  assert.equal(isLikelyMixedInterestProfile({ name: "趣味垢", description: "ルセラフィムも好き" }), true);
+  assert.equal(candidateFromProfile({
+    id: "1", name: "趣味垢", username: "mixed", description: "ルセラフィム FEARNOT 趣味垢",
+  }, ["ルセラフィム", "FEARNOT"]), null);
+  assert.deepEqual(matchingArtistKeywords("クラリネットが好き", ["クラ", "サクラ"]), []);
+});
+
 test("紹介候補はプロフィールと直近投稿の両方に十分な推し文脈を要する", () => {
   const candidate = candidateFromProfile({
     id: "1", name: "FEARNOT", username: "fearnot_example", description: "LE SSERAFIM CHAEWON FEARNOTをずっと応援中",
@@ -161,7 +171,7 @@ test("確認ページは投稿本文を含めず、Xへのリンクだけを表�
   }, ["NiziU"]);
   assert.ok(candidate);
   const review = reviewCandidate(candidate, [{ id: "post-2", created_at: "2026-08-02T12:00:00.000Z", text: "NiziUのライブが楽しみ" }], ["NiziU"]);
-  const html = renderCandidateReviewHtml({ artist: "NiziU", generatedAt: "2026-08-02T13:00:00.000Z", reviewed: [review] });
+  const html = renderCandidateReviewHtml({ artist: "NiziU", generatedAt: "2026-08-02T13:00:00.000Z", reviewed: [{ ...review, status: "eligible_for_manual_review" }] });
   assert.match(html, /https:\/\/x\.com\/withu_example\/status\/post-2/);
   assert.doesNotMatch(html, /ライブが楽しみ/);
 });

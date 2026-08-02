@@ -64,6 +64,12 @@ const FANDOM_IDENTITY_SIGNALS = [
   "推し", "大好き", "好き", "応援", "ピオナ", "fearnot", "fan", "ファン", "オタク", "ヲタク", "オタ", "一生", "愛",
 ] as const;
 
+/** 略称としては短すぎ、音楽・日常語にも頻出するためファン判定には使わない語。 */
+const AMBIGUOUS_FAN_KEYWORDS = ["クラ"] as const;
+
+/** アイドル専用・推し活専用ではなく、雑多な趣味アカウントだと明示するプロフィール語。 */
+const MIXED_INTEREST_PROFILE_SIGNALS = ["趣味垢", "雑多垢", "雑多", "日常垢", "なんでも垢", "雑垢"] as const;
+
 function escapeHtml(value: string): string {
   return value
     .replaceAll("&", "&amp;")
@@ -78,7 +84,8 @@ export function renderCandidateReviewHtml(input: {
   generatedAt: string;
   reviewed: readonly CandidateReview[];
 }): string {
-  const cards = input.reviewed.map((candidate, index) => {
+  const eligible = input.reviewed.filter((candidate) => candidate.status === "eligible_for_manual_review");
+  const cards = eligible.map((candidate, index) => {
     const profileTerms = candidate.profileKeywordMatches.length > 0
       ? candidate.profileKeywordMatches.map(escapeHtml).join(" / ")
       : "プロフィール文脈なし";
@@ -117,7 +124,7 @@ export function renderCandidateReviewHtml(input: {
 <html lang=\"ja\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><title>${escapeHtml(input.artist)} ファン候補確認</title>
 <style>
 body{margin:0;background:#f7f8fc;color:#17233b;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}main{max-width:760px;margin:auto;padding:28px 16px 56px}h1{font-size:24px;margin:0 0 8px}.notice,.muted{color:#64748b}.card{margin-top:16px;padding:20px;background:#fff;border:1px solid #e4e8f0;border-radius:16px;box-shadow:0 2px 8px #17233b0d}.number{color:#f35c97;font-size:13px;font-weight:700}h2{font-size:18px;margin:8px 0 16px}h2 span{font-size:14px;font-weight:500;color:#64748b}dl{margin:0;display:grid;gap:5px}dt{font-size:12px;color:#64748b}dd{margin:0 0 8px;font-size:14px;line-height:1.5}.links{display:grid;gap:8px;margin-top:8px}.post-link,a{color:#1669c8}.post-link{padding:9px 10px;border-radius:8px;background:#f2f7fe;text-decoration:none;font-size:14px}
-</style></head><body><main><h1>${escapeHtml(input.artist)}｜紹介候補の確認</h1><p class=\"notice\">公開情報から絞った候補です。本文は保存していません。各リンクを開き、紹介してよい内容かを確認してください。</p><p class=\"notice\">作成日時：${escapeHtml(input.generatedAt)}</p>${cards || "<p class=\"notice\">確認対象はありません。</p>"}</main></body></html>`;
+</style></head><body><main><h1>${escapeHtml(input.artist)}｜紹介文作成候補</h1><p class=\"notice\">日本語中心・取引なし・継続した推し活の条件をすべて通過した公開アカウントだけを表示しています。投稿本文は保存していません。</p><p class=\"notice\">作成日時：${escapeHtml(input.generatedAt)}</p>${cards || "<p class=\"notice\">今回の条件をすべて満たす紹介候補はありません。</p>"}</main></body></html>`;
 }
 
 export function normalizeText(value: string | null | undefined): string {
@@ -172,6 +179,17 @@ export function hasFandomIdentitySignal(text: string | null | undefined): boolea
   return FANDOM_IDENTITY_SIGNALS.some((term) => normalized.includes(normalizeText(term)));
 }
 
+export function isLikelyMixedInterestProfile(user: Pick<XApiUser, "name" | "description">): boolean {
+  const normalized = normalizeText(`${user.name}\n${user.description ?? ""}`);
+  return MIXED_INTEREST_PROFILE_SIGNALS.some((term) => normalized.includes(normalizeText(term)));
+}
+
+/** 本名・フルネーム・固有のファンダム名を優先し、短すぎる略称は候補判定から除く。 */
+export function matchingArtistKeywords(text: string | null | undefined, keywords: readonly string[]): string[] {
+  const safeKeywords = keywords.filter((keyword) => !AMBIGUOUS_FAN_KEYWORDS.some((ambiguous) => normalizeText(keyword) === normalizeText(ambiguous)));
+  return matchingKeywords(text, safeKeywords);
+}
+
 /** 日本のファン向け紹介に限るため、ひらがな・カタカナ・漢字を含むかを確認する。 */
 export function hasJapaneseText(text: string | null | undefined): boolean {
   return /[ぁ-んァ-ヶー一-龠々〆〤]/u.test(text ?? "");
@@ -197,9 +215,9 @@ export function candidateFromSearch(
   keywords: readonly string[],
 ): FanCandidate | null {
   const profileText = `${user.name}\n${user.description ?? ""}`;
-  if (user.protected || !post.created_at || !post.id || isLikelyNonFanProfile(user) || hasTradingSignals(post.text) || !hasJapaneseText(profileText)) return null;
+  if (user.protected || !post.created_at || !post.id || isLikelyNonFanProfile(user) || isLikelyMixedInterestProfile(user) || hasTradingSignals(post.text) || !hasJapaneseText(profileText)) return null;
 
-  const profileKeywordMatches = matchingKeywords(profileText, keywords);
+  const profileKeywordMatches = matchingArtistKeywords(profileText, keywords);
   return {
     handle: user.username,
     displayName: user.name,
@@ -218,8 +236,8 @@ export function candidateFromSearch(
 /** プロフィールの推し関連語が複数一致する、公開アカウントだけを候補化する。 */
 export function candidateFromProfile(user: XApiUser, keywords: readonly string[], minimumMatches = 2): FanCandidate | null {
   const profileText = `${user.name}\n${user.description ?? ""}`;
-  if (user.protected || isLikelyNonFanProfile(user) || !hasJapaneseText(profileText)) return null;
-  const profileKeywordMatches = matchingKeywords(profileText, keywords);
+  if (user.protected || isLikelyNonFanProfile(user) || isLikelyMixedInterestProfile(user) || !hasJapaneseText(profileText)) return null;
+  const profileKeywordMatches = matchingArtistKeywords(profileText, keywords);
   const hasFandomIdentity = hasFandomIdentitySignal(profileText);
   if (profileKeywordMatches.length < minimumMatches && !(profileKeywordMatches.length >= 1 && hasFandomIdentity)) return null;
 
@@ -243,7 +261,7 @@ export function reviewCandidate(
     .filter((post) => post.id && post.created_at)
     .sort((a, b) => Date.parse(b.created_at!) - Date.parse(a.created_at!));
 
-  const keywordMatches = chronological.map((post) => matchingKeywords(post.text, keywords));
+  const keywordMatches = chronological.map((post) => matchingArtistKeywords(post.text, keywords));
   const artistKeywordPostCount = keywordMatches.filter((matches) => matches.length > 0).length;
   const positiveArtistPostCount = chronological.filter((post, index) =>
     keywordMatches[index].length > 0 && hasPositiveFanSignal(post.text),
