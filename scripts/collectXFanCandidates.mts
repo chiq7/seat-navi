@@ -56,13 +56,15 @@ function parseArgs(argv: string[]): Args {
   }
 
   const artist = values.get("artist")?.trim() ?? "";
-  const query = values.get("query")?.trim() ?? "";
+  const explicitQuery = values.get("query")?.trim() ?? "";
+  const terms = uniqueKeywords((values.get("terms") ?? "").split(","));
+  const query = explicitQuery || terms.map((term) => (/\s/.test(term) ? `"${term}"` : term)).join(" OR ");
   const keywords = uniqueKeywords((values.get("keywords") ?? artist).split(","));
   const limit = Math.max(10, Math.min(100, Number(values.get("limit") ?? "30")));
   const detailLimit = Math.max(0, Math.min(25, Number(values.get("detail-limit") ?? "10")));
 
   if (!artist || !query) {
-    throw new Error("使い方: --artist=アーティスト名 --query=検索式 [--keywords=語句1,語句2] [--limit=30] [--detail-limit=10] [--dry-run]");
+    throw new Error("使い方: --artist=アーティスト名 --terms=語句1,語句2 または --query=検索式 [--keywords=語句1,語句2] [--limit=30] [--detail-limit=10] [--dry-run]");
   }
   if (!Number.isFinite(limit) || !Number.isFinite(detailLimit)) throw new Error("limit は数値で指定してください。");
 
