@@ -26,6 +26,7 @@ export type FanCandidate = {
   verified: boolean;
   sourcePost: CandidateSourcePost | null;
   profileKeywordMatches: string[];
+  hasFandomIdentity: boolean;
   matchReason: "profile_search" | "profile_and_recent_artist_post" | "recent_artist_post_only";
 };
 
@@ -56,6 +57,11 @@ const POSITIVE_FAN_SIGNALS = [
   "大好き", "好きすぎ", "可愛い", "かわいい", "かっこいい", "最高", "ありがとう",
   "楽しい", "楽しすぎ", "幸せ", "嬉しい", "うれしい", "おめでとう", "尊い",
   "素敵", "美しい", "綺麗", "愛してる", "会えてよかった",
+] as const;
+
+/** 推し名と組み合わさっていれば、本人がファンだと判断できるプロフィール上の意思表示。 */
+const FANDOM_IDENTITY_SIGNALS = [
+  "推し", "大好き", "好き", "応援", "ピオナ", "fearnot", "fan", "ファン", "オタク", "ヲタク", "オタ", "一生", "愛",
 ] as const;
 
 function escapeHtml(value: string): string {
@@ -161,6 +167,11 @@ export function hasPositiveFanSignal(text: string | null | undefined): boolean {
   return POSITIVE_FAN_SIGNALS.some((term) => normalized.includes(normalizeText(term)));
 }
 
+export function hasFandomIdentitySignal(text: string | null | undefined): boolean {
+  const normalized = normalizeText(text);
+  return FANDOM_IDENTITY_SIGNALS.some((term) => normalized.includes(normalizeText(term)));
+}
+
 /** 日本のファン向け紹介に限るため、ひらがな・カタカナ・漢字を含むかを確認する。 */
 export function hasJapaneseText(text: string | null | undefined): boolean {
   return /[ぁ-んァ-ヶー一-龠々〆〤]/u.test(text ?? "");
@@ -199,6 +210,7 @@ export function candidateFromSearch(
       url: toPostUrl(user.username, post.id),
     },
     profileKeywordMatches,
+    hasFandomIdentity: hasFandomIdentitySignal(profileText),
     matchReason: profileKeywordMatches.length > 0 ? "profile_and_recent_artist_post" : "recent_artist_post_only",
   };
 }
@@ -208,7 +220,8 @@ export function candidateFromProfile(user: XApiUser, keywords: readonly string[]
   const profileText = `${user.name}\n${user.description ?? ""}`;
   if (user.protected || isLikelyNonFanProfile(user) || !hasJapaneseText(profileText)) return null;
   const profileKeywordMatches = matchingKeywords(profileText, keywords);
-  if (profileKeywordMatches.length < minimumMatches) return null;
+  const hasFandomIdentity = hasFandomIdentitySignal(profileText);
+  if (profileKeywordMatches.length < minimumMatches && !(profileKeywordMatches.length >= 1 && hasFandomIdentity)) return null;
 
   return {
     handle: user.username,
@@ -216,6 +229,7 @@ export function candidateFromProfile(user: XApiUser, keywords: readonly string[]
     verified: user.verified === true,
     sourcePost: null,
     profileKeywordMatches,
+    hasFandomIdentity,
     matchReason: "profile_search",
   };
 }
@@ -239,13 +253,15 @@ export function reviewCandidate(
   // 20件を取得できる候補では半数以上が推し関連であることを求める。
   // 投稿数が少ない場合でも、たまたまの単発投稿だけでは候補にしない。
   const minimumRelevantPosts = chronological.length >= 15 ? 10 : chronological.length >= 10 ? 6 : 3;
-  const minimumPositivePosts = Math.max(2, Math.ceil(minimumRelevantPosts * 0.6));
+  // 感情表現の語彙は人によって大きく違うため、前向き語は補助判定に留める。
+  // 本人のファン意思・継続的な推し関連投稿・取引なしを主な基準とする。
+  const minimumPositivePosts = Math.min(chronological.length, 2);
   const minimumJapanesePosts = Math.min(chronological.length, Math.max(2, Math.ceil(chronological.length * 0.6)));
   const status = chronological.some((post) => hasTradingSignals(post.text))
     ? "excluded_trading_activity"
     : japaneseOriginalPostCount < minimumJapanesePosts
       ? "excluded_non_japanese_account"
-    : candidate.profileKeywordMatches.length >= 2
+    : (candidate.profileKeywordMatches.length >= 2 || (candidate.profileKeywordMatches.length >= 1 && candidate.hasFandomIdentity))
     && artistKeywordPostCount >= minimumRelevantPosts
     && positiveArtistPostCount >= minimumPositivePosts
     && distinctArtistKeywords.length >= 3

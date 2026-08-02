@@ -4,6 +4,7 @@ import {
   buildRecentSearchQuery,
   candidateFromSearch,
   candidateFromProfile,
+  hasFandomIdentitySignal,
   hasJapaneseText,
   hasPositiveFanSignal,
   hasTradingSignals,
@@ -34,6 +35,7 @@ test("候補出力にプロフィール本文を保存せず、キーワード�
 
   assert.ok(candidate);
   assert.deepEqual(candidate.profileKeywordMatches, ["NiziU", "マユカ"]);
+  assert.equal(candidate.hasFandomIdentity, true);
   assert.equal(JSON.stringify(candidate).includes("大好きです"), false);
 });
 
@@ -44,7 +46,8 @@ test("プロフィール検索は推し関連語が複数ある公開アカウ�
   assert.ok(candidate);
   assert.equal(candidate.matchReason, "profile_search");
   assert.equal(candidate.sourcePost, null);
-  assert.equal(candidateFromProfile({ id: "2", name: "ファン", username: "fan", description: "LE SSERAFIMが好き" }, ["LE SSERAFIM", "FEARNOT", "CHAEWON"]), null);
+  assert.equal(candidateFromProfile({ id: "2", name: "話題用", username: "fan", description: "LE SSERAFIMについて時々投稿" }, ["LE SSERAFIM", "FEARNOT", "CHAEWON"]), null);
+  assert.ok(candidateFromProfile({ id: "3", name: "チェウォン推し", username: "fan_chae", description: "チェウォンが大好き" }, ["LE SSERAFIM", "FEARNOT", "CHAEWON", "チェウォン"]));
 });
 
 test("詳細確認は投稿URL・日時・一致数だけを残す", () => {
@@ -110,6 +113,8 @@ test("48時間より前の候補と公式・転売用プロフィールを除外
   assert.equal(hasTradingSignals("ライブチケットが当たって楽しみ"), false);
   assert.equal(hasPositiveFanSignal("ウンチェが世界一かわいい"), true);
   assert.equal(hasPositiveFanSignal("会場に着きました"), false);
+  assert.equal(hasFandomIdentitySignal("チェウォン推しです"), true);
+  assert.equal(hasFandomIdentitySignal("今日は暑い"), false);
 });
 
 test("20件のうち推し関連が少ない、または前向きな本人の言葉が少ない候補は紹介しない", () => {
