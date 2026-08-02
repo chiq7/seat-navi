@@ -4,6 +4,7 @@ import {
   buildRecentSearchQuery,
   candidateFromSearch,
   candidateFromProfile,
+  hasJapaneseText,
   hasPositiveFanSignal,
   hasTradingSignals,
   isLikelyNonFanProfile,
@@ -75,9 +76,17 @@ test("キーワード照合は全角英数にも対応する", () => {
   assert.deepEqual(matchingKeywords("ＮｉｚｉＵが好き", ["NiziU", "マユカ"]), ["NiziU"]);
 });
 
+test("日本語中心ではないプロフィールを候補化しない", () => {
+  assert.equal(hasJapaneseText("FEARNOT always with LE SSERAFIM"), false);
+  assert.equal(hasJapaneseText("ルセラが大好きなFEARNOT"), true);
+  assert.equal(candidateFromProfile({
+    id: "1", name: "FEARNOT", username: "english_fan", description: "LE SSERAFIM CHAEWON forever",
+  }, ["LE SSERAFIM", "FEARNOT", "CHAEWON"]), null);
+});
+
 test("紹介候補はプロフィールと直近投稿の両方に十分な推し文脈を要する", () => {
   const candidate = candidateFromProfile({
-    id: "1", name: "FEARNOT", username: "fearnot_example", description: "LE SSERAFIM CHAEWON FEARNOT",
+    id: "1", name: "FEARNOT", username: "fearnot_example", description: "LE SSERAFIM CHAEWON FEARNOTをずっと応援中",
   }, ["LE SSERAFIM", "FEARNOT", "CHAEWON", "PUREFLOW"]);
   assert.ok(candidate);
   const posts = Array.from({ length: 10 }, (_, index) => ({
@@ -105,7 +114,7 @@ test("48時間より前の候補と公式・転売用プロフィールを除外
 
 test("20件のうち推し関連が少ない、または前向きな本人の言葉が少ない候補は紹介しない", () => {
   const candidate = candidateFromProfile({
-    id: "1", name: "FEARNOT", username: "fearnot_example", description: "LE SSERAFIM CHAEWON FEARNOT",
+    id: "1", name: "FEARNOT", username: "fearnot_example", description: "LE SSERAFIM CHAEWON FEARNOTをずっと応援中",
   }, ["LE SSERAFIM", "FEARNOT", "CHAEWON", "PUREFLOW"]);
   assert.ok(candidate);
   const weakPosts = Array.from({ length: 20 }, (_, index) => ({
@@ -116,9 +125,22 @@ test("20件のうち推し関連が少ない、または前向きな本人の言
   assert.equal(reviewCandidate(candidate, weakPosts, ["LE SSERAFIM", "FEARNOT", "CHAEWON", "PUREFLOW"]).status, "insufficient_fandom_context");
 });
 
+test("日本語以外が大半の直近投稿を持つ候補は紹介しない", () => {
+  const candidate = candidateFromProfile({
+    id: "1", name: "ピオナ", username: "jp_profile", description: "ルセラフィム LE SSERAFIM CHAEWONが好き",
+  }, ["LE SSERAFIM", "FEARNOT", "CHAEWON", "PUREFLOW"]);
+  assert.ok(candidate);
+  const posts = Array.from({ length: 20 }, (_, index) => ({
+    id: `post-${index}`,
+    created_at: `2026-08-02T${String(index).padStart(2, "0")}:00:00.000Z`,
+    text: index < 10 ? "LE SSERAFIM 최고" : "LE SSERAFIM is the best",
+  }));
+  assert.equal(reviewCandidate(candidate, posts, ["LE SSERAFIM", "FEARNOT", "CHAEWON", "PUREFLOW"]).status, "excluded_non_japanese_account");
+});
+
 test("取引・交換の投稿が一つでもある候補は紹介対象から除外する", () => {
   const candidate = candidateFromProfile({
-    id: "1", name: "FEARNOT", username: "fearnot_example", description: "LE SSERAFIM CHAEWON FEARNOT",
+    id: "1", name: "FEARNOT", username: "fearnot_example", description: "LE SSERAFIM CHAEWON FEARNOTをずっと応援中",
   }, ["LE SSERAFIM", "FEARNOT", "CHAEWON", "PUREFLOW"]);
   assert.ok(candidate);
   const review = reviewCandidate(candidate, [
