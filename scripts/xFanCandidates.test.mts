@@ -7,6 +7,7 @@ import {
   isWithinHours,
   matchingKeywords,
   reviewCandidate,
+  renderCandidateReviewHtml,
 } from "./xFanCandidates.ts";
 
 test("検索式はリポストと返信を除外する", () => {
@@ -66,4 +67,15 @@ test("48時間より前の候補と公式・転売用プロフィールを除外
   assert.equal(isWithinHours("2026-07-31T11:59:59.000Z", 48, now), false);
   assert.equal(isLikelyNonFanProfile({ name: "NiziU公式", description: "公式アカウント" }), true);
   assert.equal(isLikelyNonFanProfile({ name: "WithU", description: "マユカ推し" }), false);
+});
+
+test("確認ページは投稿本文を含めず、Xへのリンクだけを表示する", () => {
+  const candidate = candidateFromSearch({ id: "1", name: "WithU", username: "withu_example", description: "NiziUが好き" }, {
+    id: "post-1", author_id: "1", created_at: "2026-08-02T10:00:00.000Z",
+  }, ["NiziU"]);
+  assert.ok(candidate);
+  const review = reviewCandidate(candidate, [{ id: "post-2", created_at: "2026-08-02T12:00:00.000Z", text: "NiziUのライブが楽しみ" }], ["NiziU"]);
+  const html = renderCandidateReviewHtml({ artist: "NiziU", generatedAt: "2026-08-02T13:00:00.000Z", reviewed: [review] });
+  assert.match(html, /https:\/\/x\.com\/withu_example\/status\/post-2/);
+  assert.doesNotMatch(html, /ライブが楽しみ/);
 });

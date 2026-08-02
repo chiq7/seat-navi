@@ -36,6 +36,48 @@ export type CandidateReview = FanCandidate & {
   status: "needs_manual_review" | "profile_context_missing";
 };
 
+function escapeHtml(value: string): string {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+export function renderCandidateReviewHtml(input: {
+  artist: string;
+  generatedAt: string;
+  reviewed: readonly CandidateReview[];
+}): string {
+  const cards = input.reviewed.map((candidate, index) => {
+    const profileTerms = candidate.profileKeywordMatches.length > 0
+      ? candidate.profileKeywordMatches.map(escapeHtml).join(" / ")
+      : "プロフィール文脈なし";
+    const postLinks = candidate.recentOriginalPostUrls.length > 0
+      ? candidate.recentOriginalPostUrls.map((url, postIndex) =>
+        `<a class=\"post-link\" href=\"${escapeHtml(url)}\" target=\"_blank\" rel=\"noreferrer\">投稿 ${postIndex + 1} をXで開く</a>`,
+      ).join("")
+      : "<span class=\"muted\">直近のオリジナル投稿は取得できませんでした</span>";
+    return `<article class=\"card\">
+      <div class=\"number\">候補 ${index + 1}</div>
+      <h2>${escapeHtml(candidate.displayName)} <span>@${escapeHtml(candidate.handle)}</span></h2>
+      <dl>
+        <dt>プロフィールで確認できた語</dt><dd>${profileTerms}</dd>
+        <dt>検索で見つけた投稿</dt><dd><a href=\"${escapeHtml(candidate.sourcePost.url)}\" target=\"_blank\" rel=\"noreferrer\">Xで開く</a>（${escapeHtml(candidate.sourcePost.createdAt)}）</dd>
+        <dt>直近5投稿内の関連投稿数</dt><dd>${candidate.artistKeywordPostCount}件</dd>
+      </dl>
+      <div class=\"links\">${postLinks}</div>
+    </article>`;
+  }).join("\n");
+
+  return `<!doctype html>
+<html lang=\"ja\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><title>${escapeHtml(input.artist)} ファン候補確認</title>
+<style>
+body{margin:0;background:#f7f8fc;color:#17233b;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}main{max-width:760px;margin:auto;padding:28px 16px 56px}h1{font-size:24px;margin:0 0 8px}.notice,.muted{color:#64748b}.card{margin-top:16px;padding:20px;background:#fff;border:1px solid #e4e8f0;border-radius:16px;box-shadow:0 2px 8px #17233b0d}.number{color:#f35c97;font-size:13px;font-weight:700}h2{font-size:18px;margin:8px 0 16px}h2 span{font-size:14px;font-weight:500;color:#64748b}dl{margin:0;display:grid;gap:5px}dt{font-size:12px;color:#64748b}dd{margin:0 0 8px;font-size:14px;line-height:1.5}.links{display:grid;gap:8px;margin-top:8px}.post-link,a{color:#1669c8}.post-link{padding:9px 10px;border-radius:8px;background:#f2f7fe;text-decoration:none;font-size:14px}
+</style></head><body><main><h1>${escapeHtml(input.artist)}｜紹介候補の確認</h1><p class=\"notice\">公開情報から絞った候補です。本文は保存していません。各リンクを開き、紹介してよい内容かを確認してください。</p><p class=\"notice\">作成日時：${escapeHtml(input.generatedAt)}</p>${cards || "<p class=\"notice\">確認対象はありません。</p>"}</main></body></html>`;
+}
+
 export function normalizeText(value: string | null | undefined): string {
   return (value ?? "").normalize("NFKC").toLocaleLowerCase("ja-JP");
 }

@@ -14,6 +14,7 @@
     "test:external-seats": "node --test --experimental-test-isolation=none --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/externalSeats.test.mts",
     "test:x-fan-candidates": "node --test --experimental-test-isolation=none --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/xFanCandidates.test.mts",
     "collect:x-fan-candidates": "node --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/collectXFanCandidates.mts",
+    "render:x-fan-candidate-review": "node --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/renderXFanCandidateReview.mts",
     "discover:official-news:pending": "node --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/discoverPendingOfficialNews.mts",
     "backfill:event-artists": "node --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/backfill-event-artist-slugs.mts",
     "sync:official-news-events": "node --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/syncOfficialNewsEvents.mts",

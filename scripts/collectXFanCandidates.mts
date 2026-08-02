@@ -7,6 +7,7 @@ import {
   isLikelyNonFanProfile,
   isWithinHours,
   reviewCandidate,
+  renderCandidateReviewHtml,
   uniqueKeywords,
   type XApiPost,
   type XApiUser,
@@ -159,7 +160,13 @@ async function main() {
   const safeArtist = args.artist.replace(/[^a-zA-Z0-9_-]+/g, "-").replace(/^-+|-+$/g, "") || "artist";
   const filename = `${safeArtist}-${generatedAt.slice(0, 10)}.json`;
   fs.writeFileSync(path.join(outputDir, filename), `${JSON.stringify(output, null, 2)}\n`, "utf8");
-  console.log(`候補 ${candidates.length}件、詳細確認 ${reviewed.length}件を x-fan-candidates/${filename} に保存しました。`);
+  const reviewFilename = `${safeArtist}-${generatedAt.slice(0, 10)}.html`;
+  fs.writeFileSync(path.join(outputDir, reviewFilename), renderCandidateReviewHtml({
+    artist: args.artist,
+    generatedAt,
+    reviewed,
+  }), "utf8");
+  console.log(`候補 ${candidates.length}件、詳細確認 ${reviewed.length}件を x-fan-candidates/${filename} と ${reviewFilename} に保存しました。`);
 }
 
 main().catch((error: unknown) => {
