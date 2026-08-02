@@ -32,6 +32,7 @@ type SearchResponse = {
 
 type UserPostsResponse = { data?: XApiPost[] };
 type ProfileSearchResponse = { data?: XApiUser[] };
+type UserLookupResponse = { data?: XApiUser };
 
 const PROJECT_ROOT = path.resolve(import.meta.dirname, "..");
 
@@ -89,6 +90,20 @@ async function xGet<T>(token: string, pathname: string, params: Record<string, s
   return response.json() as Promise<T>;
 }
 
+/** 候補化直前にIDを再照合し、削除・凍結・取得不可のアカウントを出力しない。 */
+async function lookupPublicUser(token: string, username: string): Promise<XApiUser | null> {
+  const url = new URL(`/2/users/by/username/${encodeURIComponent(username)}`, "https://api.x.com");
+  url.searchParams.set("user.fields", "id,name,username,description,protected,verified");
+  const response = await fetch(url, { headers: { Authorization: `Bearer ${token}` } });
+  if (response.status === 403 || response.status === 404) return null;
+  if (!response.ok) {
+    const text = await response.text();
+    throw new Error(`X API user lookup failed (${response.status}): ${text.slice(0, 300)}`);
+  }
+  const body = await response.json() as UserLookupResponse;
+  return body.data?.protected ? null : body.data ?? null;
+}
+
 async function main() {
   const args = parseArgs(process.argv.slice(2));
   const query = args.query ? buildRecentSearchQuery(args.query) : null;
@@ -110,8 +125,14 @@ async function main() {
     return;
   }
 
-  const token = process.env.X_API_BEARER_TOKEN ?? readDotEnvValue("X_API_BEARER_TOKEN");
-  if (!token) throw new Error("X_API_BEARER_TOKEN が .env.local に設定されていません。");
+  const appToken = process.env.X_API_BEARER_TOKEN ?? readDotEnvValue("X_API_BEARER_TOKEN");
+  const userToken = process.env.X_API_USER_ACCESS_TOKEN ?? readDotEnvValue("X_API_USER_ACCESS_TOKEN");
+  const token = args.profileTerms.length > 0 ? userToken : appToken;
+  if (!token) {
+    throw new Error(args.profileTerms.length > 0
+      ? "プロフィール検索にはX_API_USER_ACCESS_TOKEN（OAuth 2.0 User Context）が .env.local に必要です。"
+      : "X_API_BEARER_TOKEN が .env.local に設定されていません。");
+  }
 
   const users = new Map<string, XApiUser>();
   const profileCandidates = [];
@@ -163,9 +184,11 @@ async function main() {
     .slice(0, args.detailLimit);
 
   const reviewed = [];
+  const verifiedCandidates = [];
   for (const candidate of detailTargets) {
-    const user = [...users.values()].find((entry) => entry.username === candidate.handle);
+    const user = await lookupPublicUser(token, candidate.handle);
     if (!user) continue;
+    verifiedCandidates.push(candidate);
     const posts = await xGet<UserPostsResponse>(token, `/2/users/${encodeURIComponent(user.id)}/tweets`, {
       max_results: "20",
       exclude: "retweets,replies",
@@ -185,7 +208,7 @@ async function main() {
       notCollected: ["DM", "フォロー・フォロワー一覧", "位置情報", "連絡先", "投稿本文の永続保存", "私生活・交際の詳細"],
       actions: "Xへの投稿・フォロー・いいね・DM・Supabase書き込みは行いません。",
     },
-    candidates,
+    candidates: verifiedCandidates,
     reviewed,
   };
   fs.mkdirSync(outputDir, { recursive: true });
