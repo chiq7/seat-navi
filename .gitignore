@@ -44,6 +44,7 @@ scripts/fetch_events_dry_run_report.json
 scripts/fetch_events_ts_dry_run_report.json
 official-news-reports/
 discovery-reports/
+x-fan-candidates/
 
 # typescript
 *.tsbuildinfo
