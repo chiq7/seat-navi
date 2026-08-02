@@ -3,6 +3,7 @@ import path from "node:path";
 import process from "node:process";
 import {
   buildRecentSearchQuery,
+  candidateFromProfile,
   candidateFromSearch,
   isLikelyNonFanProfile,
   isWithinHours,
@@ -19,6 +20,8 @@ type Args = {
   keywords: string[];
   limit: number;
   detailLimit: number;
+  profileTerms: string[];
+  profileLimit: number;
   dryRun: boolean;
 };
 
@@ -28,6 +31,7 @@ type SearchResponse = {
 };
 
 type UserPostsResponse = { data?: XApiPost[] };
+type ProfileSearchResponse = { data?: XApiUser[] };
 
 const PROJECT_ROOT = path.resolve(import.meta.dirname, "..");
 
@@ -61,15 +65,17 @@ function parseArgs(argv: string[]): Args {
   const terms = uniqueKeywords((values.get("terms") ?? "").split(","));
   const query = explicitQuery || terms.map((term) => (/\s/.test(term) ? `"${term}"` : term)).join(" OR ");
   const keywords = uniqueKeywords((values.get("keywords") ?? artist).split(","));
+  const profileTerms = uniqueKeywords((values.get("profile-terms") ?? "").split(","));
   const limit = Math.max(10, Math.min(100, Number(values.get("limit") ?? "30")));
   const detailLimit = Math.max(0, Math.min(25, Number(values.get("detail-limit") ?? "10")));
+  const profileLimit = Math.max(1, Math.min(100, Number(values.get("profile-limit") ?? "50")));
 
-  if (!artist || !query) {
-    throw new Error("使い方: --artist=アーティスト名 --terms=語句1,語句2 または --query=検索式 [--keywords=語句1,語句2] [--limit=30] [--detail-limit=10] [--dry-run]");
+  if (!artist || (!query && profileTerms.length === 0)) {
+    throw new Error("使い方: --artist=アーティスト名 --profile-terms=語句1,語句2 または --terms=語句1,語句2 / --query=検索式 [--keywords=語句1,語句2] [--limit=30] [--detail-limit=10] [--dry-run]");
   }
-  if (!Number.isFinite(limit) || !Number.isFinite(detailLimit)) throw new Error("limit は数値で指定してください。");
+  if (!Number.isFinite(limit) || !Number.isFinite(detailLimit) || !Number.isFinite(profileLimit)) throw new Error("limit は数値で指定してください。");
 
-  return { artist, query, keywords, limit, detailLimit, dryRun: flags.has("--dry-run") };
+  return { artist, query, keywords, limit, detailLimit, profileTerms, profileLimit, dryRun: flags.has("--dry-run") };
 }
 
 async function xGet<T>(token: string, pathname: string, params: Record<string, string>): Promise<T> {
@@ -85,7 +91,7 @@ async function xGet<T>(token: string, pathname: string, params: Record<string, s
 
 async function main() {
   const args = parseArgs(process.argv.slice(2));
-  const query = buildRecentSearchQuery(args.query);
+  const query = args.query ? buildRecentSearchQuery(args.query) : null;
   const outputDir = path.join(PROJECT_ROOT, "x-fan-candidates");
   const generatedAt = new Date().toISOString();
 
@@ -95,6 +101,8 @@ async function main() {
       artist: args.artist,
       query,
       keywords: args.keywords,
+      profileSearchTerms: args.profileTerms,
+      profileSearchResultLimit: args.profileLimit,
       searchResultLimit: args.limit,
       detailCandidateLimit: args.detailLimit,
       writes: "ローカル候補JSONのみ。Xへの投稿・フォロー・いいね・DM・Supabase書き込みは行いません。",
@@ -105,16 +113,31 @@ async function main() {
   const token = process.env.X_API_BEARER_TOKEN ?? readDotEnvValue("X_API_BEARER_TOKEN");
   if (!token) throw new Error("X_API_BEARER_TOKEN が .env.local に設定されていません。");
 
-  const search = await xGet<SearchResponse>(token, "/2/tweets/search/recent", {
+  const users = new Map<string, XApiUser>();
+  const profileCandidates = [];
+  for (const term of args.profileTerms) {
+    const profileSearch = await xGet<ProfileSearchResponse>(token, "/2/users/search", {
+      query: term,
+      max_results: String(args.profileLimit),
+      "user.fields": "id,name,username,description,protected,verified",
+    });
+    for (const user of profileSearch.data ?? []) {
+      users.set(user.id, user);
+      const candidate = candidateFromProfile(user, args.keywords);
+      if (candidate) profileCandidates.push(candidate);
+    }
+  }
+
+  const search = query ? await xGet<SearchResponse>(token, "/2/tweets/search/recent", {
     query,
     max_results: String(args.limit),
     "tweet.fields": "author_id,created_at",
     expansions: "author_id",
     "user.fields": "id,name,username,description,protected,verified",
-  });
-  const users = new Map((search.includes?.users ?? []).map((user) => [user.id, user]));
-  const seen = new Set<string>();
-  const candidates = (search.data ?? [])
+  }) : { data: [], includes: { users: [] } };
+  for (const user of search.includes?.users ?? []) users.set(user.id, user);
+  const postSeen = new Set<string>();
+  const postCandidates = (search.data ?? [])
     .filter((post) => isWithinHours(post.created_at, 48))
     .map((post) => {
       const user = post.author_id ? users.get(post.author_id) : undefined;
@@ -122,8 +145,16 @@ async function main() {
     })
     .filter((candidate): candidate is NonNullable<typeof candidate> => candidate !== null)
     .filter((candidate) => {
-      if (seen.has(candidate.handle)) return false;
-      seen.add(candidate.handle);
+      if (postSeen.has(candidate.handle)) return false;
+      postSeen.add(candidate.handle);
+      return true;
+    });
+
+  const candidatesSeen = new Set<string>();
+  const candidates = [...profileCandidates, ...postCandidates]
+    .filter((candidate) => {
+      if (candidatesSeen.has(candidate.handle)) return false;
+      candidatesSeen.add(candidate.handle);
       return true;
     });
 
@@ -136,7 +167,7 @@ async function main() {
     const user = [...users.values()].find((entry) => entry.username === candidate.handle);
     if (!user) continue;
     const posts = await xGet<UserPostsResponse>(token, `/2/users/${encodeURIComponent(user.id)}/tweets`, {
-      max_results: "5",
+      max_results: "20",
       exclude: "retweets,replies",
       "tweet.fields": "created_at",
     });
@@ -147,9 +178,10 @@ async function main() {
     generatedAt,
     artist: args.artist,
     query,
+    profileSearchTerms: args.profileTerms,
     keywords: args.keywords,
     collectionPolicy: {
-      collected: ["48時間以内の公開ポストURLと日時", "公開プロフィールの表示名・ID・キーワード一致", "候補者だけの最新オリジナル投稿5件のURLと日時"],
+      collected: ["公開プロフィールの表示名・ID・推し関連キーワード一致", "候補者だけの最新オリジナル投稿20件のURLと日時", "投稿検索を併用した場合だけ48時間以内の公開ポストURLと日時"],
       notCollected: ["DM", "フォロー・フォロワー一覧", "位置情報", "連絡先", "投稿本文の永続保存", "私生活・交際の詳細"],
       actions: "Xへの投稿・フォロー・いいね・DM・Supabase書き込みは行いません。",
     },

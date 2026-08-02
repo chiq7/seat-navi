@@ -3,6 +3,7 @@ import test from "node:test";
 import {
   buildRecentSearchQuery,
   candidateFromSearch,
+  candidateFromProfile,
   isLikelyNonFanProfile,
   isWithinHours,
   matchingKeywords,
@@ -31,6 +32,16 @@ test("候補出力にプロフィール本文を保存せず、キーワード�
   assert.ok(candidate);
   assert.deepEqual(candidate.profileKeywordMatches, ["NiziU", "マユカ"]);
   assert.equal(JSON.stringify(candidate).includes("大好きです"), false);
+});
+
+test("プロフィール検索は推し関連語が複数ある公開アカウントだけを候補にする", () => {
+  const candidate = candidateFromProfile({
+    id: "1", name: "FEARNOT", username: "fearnot_example", description: "LE SSERAFIMとCHAEWONをずっと応援中",
+  }, ["LE SSERAFIM", "FEARNOT", "CHAEWON"]);
+  assert.ok(candidate);
+  assert.equal(candidate.matchReason, "profile_search");
+  assert.equal(candidate.sourcePost, null);
+  assert.equal(candidateFromProfile({ id: "2", name: "ファン", username: "fan", description: "LE SSERAFIMが好き" }, ["LE SSERAFIM", "FEARNOT", "CHAEWON"]), null);
 });
 
 test("詳細確認は投稿URL・日時・一致数だけを残す", () => {

@@ -24,9 +24,9 @@ export type FanCandidate = {
   handle: string;
   displayName: string;
   verified: boolean;
-  sourcePost: CandidateSourcePost;
+  sourcePost: CandidateSourcePost | null;
   profileKeywordMatches: string[];
-  matchReason: "profile_and_recent_artist_post" | "recent_artist_post_only";
+  matchReason: "profile_search" | "profile_and_recent_artist_post" | "recent_artist_post_only";
 };
 
 export type CandidateReview = FanCandidate & {
@@ -59,12 +59,15 @@ export function renderCandidateReviewHtml(input: {
         `<a class=\"post-link\" href=\"${escapeHtml(url)}\" target=\"_blank\" rel=\"noreferrer\">投稿 ${postIndex + 1} をXで開く</a>`,
       ).join("")
       : "<span class=\"muted\">直近のオリジナル投稿は取得できませんでした</span>";
+    const sourcePost = candidate.sourcePost
+      ? `<dt>検索で見つけた投稿</dt><dd><a href=\"${escapeHtml(candidate.sourcePost.url)}\" target=\"_blank\" rel=\"noreferrer\">Xで開く</a>（${escapeHtml(candidate.sourcePost.createdAt)}）</dd>`
+      : "<dt>候補化の根拠</dt><dd>公開プロフィールの推し関連語</dd>";
     return `<article class=\"card\">
       <div class=\"number\">候補 ${index + 1}</div>
       <h2>${escapeHtml(candidate.displayName)} <span>@${escapeHtml(candidate.handle)}</span></h2>
       <dl>
         <dt>プロフィールで確認できた語</dt><dd>${profileTerms}</dd>
-        <dt>検索で見つけた投稿</dt><dd><a href=\"${escapeHtml(candidate.sourcePost.url)}\" target=\"_blank\" rel=\"noreferrer\">Xで開く</a>（${escapeHtml(candidate.sourcePost.createdAt)}）</dd>
+        ${sourcePost}
         <dt>直近5投稿内の関連投稿数</dt><dd>${candidate.artistKeywordPostCount}件</dd>
       </dl>
       <div class=\"links\">${postLinks}</div>
@@ -146,6 +149,22 @@ export function candidateFromSearch(
     },
     profileKeywordMatches,
     matchReason: profileKeywordMatches.length > 0 ? "profile_and_recent_artist_post" : "recent_artist_post_only",
+  };
+}
+
+/** プロフィールの推し関連語が複数一致する、公開アカウントだけを候補化する。 */
+export function candidateFromProfile(user: XApiUser, keywords: readonly string[], minimumMatches = 2): FanCandidate | null {
+  if (user.protected || isLikelyNonFanProfile(user)) return null;
+  const profileKeywordMatches = matchingKeywords(`${user.name}\n${user.description ?? ""}`, keywords);
+  if (profileKeywordMatches.length < minimumMatches) return null;
+
+  return {
+    handle: user.username,
+    displayName: user.name,
+    verified: user.verified === true,
+    sourcePost: null,
+    profileKeywordMatches,
+    matchReason: "profile_search",
   };
 }
 
