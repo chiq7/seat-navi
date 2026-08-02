@@ -33,6 +33,7 @@ export type CandidateReview = FanCandidate & {
   latestOriginalPostAt: string | null;
   recentOriginalPostUrls: string[];
   artistKeywordPostCount: number;
+  positiveArtistPostCount: number;
   distinctArtistKeywords: string[];
   status: "eligible_for_manual_review" | "insufficient_fandom_context" | "excluded_trading_activity";
 };
@@ -47,6 +48,13 @@ const TRADING_SIGNALS = [
   "譲渡", "お譲り", "チケット譲", "チケット求", "チケット交換", "チケット買取",
   "買取希望", "買取り", "代行", "枠交換", "相互協力", "郵送交換", "手渡し交換",
   "トレカ交換", "トレカ譲", "トレカ求", "ticket sale",
+] as const;
+
+/** 本人の前向きな推し活として読める、広すぎない感情表現。 */
+const POSITIVE_FAN_SIGNALS = [
+  "大好き", "好きすぎ", "可愛い", "かわいい", "かっこいい", "最高", "ありがとう",
+  "楽しい", "楽しすぎ", "幸せ", "嬉しい", "うれしい", "おめでとう", "尊い",
+  "素敵", "美しい", "綺麗", "愛してる", "会えてよかった",
 ] as const;
 
 function escapeHtml(value: string): string {
@@ -88,6 +96,7 @@ export function renderCandidateReviewHtml(input: {
         <dt>プロフィールで確認できた語</dt><dd>${profileTerms}</dd>
         ${sourcePost}
         <dt>直近投稿内の関連投稿数</dt><dd>${candidate.artistKeywordPostCount}件</dd>
+        <dt>前向きな推し活投稿数</dt><dd>${candidate.positiveArtistPostCount}件</dd>
         <dt>確認できたルセラ関連語</dt><dd>${candidate.distinctArtistKeywords.map(escapeHtml).join(" / ") || "なし"}</dd>
       </dl>
       <div class=\"links\">${postLinks}</div>
@@ -141,6 +150,11 @@ export function isLikelyNonFanProfile(user: Pick<XApiUser, "name" | "description
 export function hasTradingSignals(text: string | null | undefined): boolean {
   const normalized = normalizeText(text);
   return TRADING_SIGNALS.some((term) => normalized.includes(normalizeText(term)));
+}
+
+export function hasPositiveFanSignal(text: string | null | undefined): boolean {
+  const normalized = normalizeText(text);
+  return POSITIVE_FAN_SIGNALS.some((term) => normalized.includes(normalizeText(term)));
 }
 
 export function toPostUrl(username: string, postId: string): string {
@@ -206,12 +220,19 @@ export function reviewCandidate(
 
   const keywordMatches = chronological.map((post) => matchingKeywords(post.text, keywords));
   const artistKeywordPostCount = keywordMatches.filter((matches) => matches.length > 0).length;
+  const positiveArtistPostCount = chronological.filter((post, index) =>
+    keywordMatches[index].length > 0 && hasPositiveFanSignal(post.text),
+  ).length;
   const distinctArtistKeywords = uniqueKeywords(keywordMatches.flat());
-  const minimumRelevantPosts = chronological.length >= 10 ? 6 : 3;
+  // 20件を取得できる候補では半数以上が推し関連であることを求める。
+  // 投稿数が少ない場合でも、たまたまの単発投稿だけでは候補にしない。
+  const minimumRelevantPosts = chronological.length >= 15 ? 10 : chronological.length >= 10 ? 6 : 3;
+  const minimumPositivePosts = Math.max(2, Math.ceil(minimumRelevantPosts * 0.6));
   const status = chronological.some((post) => hasTradingSignals(post.text))
     ? "excluded_trading_activity"
     : candidate.profileKeywordMatches.length >= 2
     && artistKeywordPostCount >= minimumRelevantPosts
+    && positiveArtistPostCount >= minimumPositivePosts
     && distinctArtistKeywords.length >= 3
     ? "eligible_for_manual_review"
     : "insufficient_fandom_context";
@@ -221,6 +242,7 @@ export function reviewCandidate(
     latestOriginalPostAt: chronological[0]?.created_at ?? null,
     recentOriginalPostUrls: chronological.map((post) => toPostUrl(candidate.handle, post.id)),
     artistKeywordPostCount,
+    positiveArtistPostCount,
     distinctArtistKeywords,
     status,
   };

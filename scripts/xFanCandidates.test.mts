@@ -4,6 +4,7 @@ import {
   buildRecentSearchQuery,
   candidateFromSearch,
   candidateFromProfile,
+  hasPositiveFanSignal,
   hasTradingSignals,
   isLikelyNonFanProfile,
   isWithinHours,
@@ -82,7 +83,7 @@ test("紹介候補はプロフィールと直近投稿の両方に十分な推�
   const posts = Array.from({ length: 10 }, (_, index) => ({
     id: `post-${index}`,
     created_at: `2026-08-02T${String(index).padStart(2, "0")}:00:00.000Z`,
-    text: index < 6 ? ["LE SSERAFIM", "FEARNOT", "CHAEWON", "PUREFLOW", "LE SSERAFIM", "FEARNOT"][index] : "別の話題",
+    text: index < 6 ? `${["LE SSERAFIM", "FEARNOT", "CHAEWON", "PUREFLOW", "LE SSERAFIM", "FEARNOT"][index]}が最高` : "別の話題",
   }));
   const review = reviewCandidate(candidate, posts, ["LE SSERAFIM", "FEARNOT", "CHAEWON", "PUREFLOW"]);
   assert.equal(review.status, "eligible_for_manual_review");
@@ -98,6 +99,21 @@ test("48時間より前の候補と公式・転売用プロフィールを除外
   assert.equal(isLikelyNonFanProfile({ name: "WithU", description: "マユカ推し" }), false);
   assert.equal(hasTradingSignals("チケットの譲渡先を探しています"), true);
   assert.equal(hasTradingSignals("ライブチケットが当たって楽しみ"), false);
+  assert.equal(hasPositiveFanSignal("ウンチェが世界一かわいい"), true);
+  assert.equal(hasPositiveFanSignal("会場に着きました"), false);
+});
+
+test("20件のうち推し関連が少ない、または前向きな本人の言葉が少ない候補は紹介しない", () => {
+  const candidate = candidateFromProfile({
+    id: "1", name: "FEARNOT", username: "fearnot_example", description: "LE SSERAFIM CHAEWON FEARNOT",
+  }, ["LE SSERAFIM", "FEARNOT", "CHAEWON", "PUREFLOW"]);
+  assert.ok(candidate);
+  const weakPosts = Array.from({ length: 20 }, (_, index) => ({
+    id: `post-${index}`,
+    created_at: `2026-08-02T${String(index).padStart(2, "0")}:00:00.000Z`,
+    text: index < 6 ? "LE SSERAFIM CHAEWON" : "別の話題",
+  }));
+  assert.equal(reviewCandidate(candidate, weakPosts, ["LE SSERAFIM", "FEARNOT", "CHAEWON", "PUREFLOW"]).status, "insufficient_fandom_context");
 });
 
 test("取引・交換の投稿が一つでもある候補は紹介対象から除外する", () => {
