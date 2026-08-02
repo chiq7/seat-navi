@@ -4,6 +4,7 @@ import {
   buildRecentSearchQuery,
   candidateFromSearch,
   candidateFromProfile,
+  hasTradingSignals,
   isLikelyNonFanProfile,
   isWithinHours,
   matchingKeywords,
@@ -93,7 +94,22 @@ test("48時間より前の候補と公式・転売用プロフィールを除外
   assert.equal(isWithinHours("2026-07-31T12:00:00.000Z", 48, now), true);
   assert.equal(isWithinHours("2026-07-31T11:59:59.000Z", 48, now), false);
   assert.equal(isLikelyNonFanProfile({ name: "NiziU公式", description: "公式アカウント" }), true);
+  assert.equal(isLikelyNonFanProfile({ name: "WithU", description: "グッズ交換・郵送希望" }), true);
   assert.equal(isLikelyNonFanProfile({ name: "WithU", description: "マユカ推し" }), false);
+  assert.equal(hasTradingSignals("チケットの譲渡先を探しています"), true);
+  assert.equal(hasTradingSignals("ライブチケットが当たって楽しみ"), false);
+});
+
+test("取引・交換の投稿が一つでもある候補は紹介対象から除外する", () => {
+  const candidate = candidateFromProfile({
+    id: "1", name: "FEARNOT", username: "fearnot_example", description: "LE SSERAFIM CHAEWON FEARNOT",
+  }, ["LE SSERAFIM", "FEARNOT", "CHAEWON", "PUREFLOW"]);
+  assert.ok(candidate);
+  const review = reviewCandidate(candidate, [
+    { id: "post-1", created_at: "2026-08-02T12:00:00.000Z", text: "LE SSERAFIM PUREFLOW CHAEWON" },
+    { id: "post-2", created_at: "2026-08-02T11:00:00.000Z", text: "グッズ交換を探しています" },
+  ], ["LE SSERAFIM", "FEARNOT", "CHAEWON", "PUREFLOW"]);
+  assert.equal(review.status, "excluded_trading_activity");
 });
 
 test("確認ページは投稿本文を含めず、Xへのリンクだけを表示する", () => {

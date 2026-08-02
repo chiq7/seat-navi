@@ -34,8 +34,20 @@ export type CandidateReview = FanCandidate & {
   recentOriginalPostUrls: string[];
   artistKeywordPostCount: number;
   distinctArtistKeywords: string[];
-  status: "eligible_for_manual_review" | "insufficient_fandom_context";
+  status: "eligible_for_manual_review" | "insufficient_fandom_context" | "excluded_trading_activity";
 };
+
+/**
+ * 取引・交換を主目的にしたアカウントを、ファン紹介候補に混ぜないための語句。
+ * 「チケット」「グッズ」単体はライブを楽しむ一般のファンにも使われるため、
+ * 譲渡・交換・買取など取引を示す組み合わせだけを対象にする。
+ */
+const TRADING_SIGNALS = [
+  "取引垢", "取引アカウント", "交換垢", "交換アカウント", "グッズ交換",
+  "譲渡", "お譲り", "チケット譲", "チケット求", "チケット交換", "チケット買取",
+  "買取希望", "買取り", "代行", "枠交換", "相互協力", "郵送交換", "手渡し交換",
+  "トレカ交換", "トレカ譲", "トレカ求", "ticket sale",
+] as const;
 
 function escapeHtml(value: string): string {
   return value
@@ -62,7 +74,9 @@ export function renderCandidateReviewHtml(input: {
       : "<span class=\"muted\">直近のオリジナル投稿は取得できませんでした</span>";
     const status = candidate.status === "eligible_for_manual_review"
       ? "紹介文作成候補"
-      : "ルセラの公開投稿が不足";
+      : candidate.status === "excluded_trading_activity"
+        ? "取引・交換の文脈があるため除外"
+        : "ルセラの公開投稿が不足";
     const sourcePost = candidate.sourcePost
       ? `<dt>検索で見つけた投稿</dt><dd><a href=\"${escapeHtml(candidate.sourcePost.url)}\" target=\"_blank\" rel=\"noreferrer\">Xで開く</a>（${escapeHtml(candidate.sourcePost.createdAt)}）</dd>`
       : "<dt>候補化の根拠</dt><dd>公開プロフィールの推し関連語</dd>";
@@ -119,7 +133,14 @@ export function isWithinHours(value: string | null | undefined, hours: number, n
 
 export function isLikelyNonFanProfile(user: Pick<XApiUser, "name" | "description">): boolean {
   const text = normalizeText(`${user.name}\n${user.description ?? ""}`);
-  return ["公式", "official", "スタッフ", "staff", "運営", "チケット譲", "チケット交換", "チケット買取", "ticket sale"].some((term) => text.includes(term));
+  return ["公式", "official", "スタッフ", "staff", "運営"].some((term) => text.includes(term))
+    || hasTradingSignals(text);
+}
+
+/** 取引・交換を示す具体的な語句があるか。入力本文は保存せず、この真偽値だけを判定に使う。 */
+export function hasTradingSignals(text: string | null | undefined): boolean {
+  const normalized = normalizeText(text);
+  return TRADING_SIGNALS.some((term) => normalized.includes(normalizeText(term)));
 }
 
 export function toPostUrl(username: string, postId: string): string {
@@ -141,7 +162,7 @@ export function candidateFromSearch(
   post: XApiPost,
   keywords: readonly string[],
 ): FanCandidate | null {
-  if (user.protected || !post.created_at || !post.id) return null;
+  if (user.protected || !post.created_at || !post.id || isLikelyNonFanProfile(user) || hasTradingSignals(post.text)) return null;
 
   const profileKeywordMatches = matchingKeywords(`${user.name}\n${user.description ?? ""}`, keywords);
   return {
@@ -187,7 +208,9 @@ export function reviewCandidate(
   const artistKeywordPostCount = keywordMatches.filter((matches) => matches.length > 0).length;
   const distinctArtistKeywords = uniqueKeywords(keywordMatches.flat());
   const minimumRelevantPosts = chronological.length >= 10 ? 6 : 3;
-  const status = candidate.profileKeywordMatches.length >= 2
+  const status = chronological.some((post) => hasTradingSignals(post.text))
+    ? "excluded_trading_activity"
+    : candidate.profileKeywordMatches.length >= 2
     && artistKeywordPostCount >= minimumRelevantPosts
     && distinctArtistKeywords.length >= 3
     ? "eligible_for_manual_review"
