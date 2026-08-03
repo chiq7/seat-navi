@@ -1,4 +1,5 @@
 import type { EditorialSeoProfile } from "@/lib/seoProfiles";
+import { ExternalLink } from "lucide-react";
 
 type SeoEditorialSectionProps = {
   title: string;
@@ -13,40 +14,41 @@ export default function SeoEditorialSection({
 }: SeoEditorialSectionProps) {
   return (
     <section className={className}>
-      <h2 className="mb-3 text-[16px] font-bold text-gray-900">{title}</h2>
-      <div className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
-        <p className="text-[13px] leading-6 text-gray-700">{profile.summary}</p>
+      <p className="artist-kicker">About &amp; Access</p>
+      <h2 className="artist-heading">{title}</h2>
+      <div className="mt-7 border border-[#ded8dc] bg-white">
+        <p className="px-5 py-6 text-[13px] font-medium leading-7 text-[#625a61] sm:px-7 sm:py-8">{profile.summary}</p>
 
-        <dl className="mt-4 grid grid-cols-2 gap-2">
+        <dl className="grid grid-cols-2 border-l border-t border-[#ded8dc] sm:grid-cols-4">
           {profile.facts.map((fact) => (
-            <div key={fact.label} className="rounded-xl bg-[#FFF8FB] px-3 py-2.5">
-              <dt className="text-[10px] font-bold text-gray-400">{fact.label}</dt>
-              <dd className="mt-1 text-[12px] font-bold leading-5 text-gray-800">{fact.value}</dd>
+            <div key={fact.label} className="min-w-0 border-b border-r border-[#ded8dc] bg-[#fcfbfc] px-4 py-4">
+              <dt className="text-[9px] font-black tracking-[0.12em] text-[#958d93]">{fact.label}</dt>
+              <dd className="mt-2 text-[12px] font-black leading-5 text-[#1c171b]">{fact.value}</dd>
             </div>
           ))}
         </dl>
 
-        <div className="mt-5 space-y-4">
+        <div>
           {profile.sections.map((section) => (
-            <div key={section.heading}>
-              <h3 className="text-[14px] font-bold text-gray-900">{section.heading}</h3>
-              <p className="mt-1.5 text-[12px] leading-6 text-gray-600">{section.body}</p>
+            <div key={section.heading} className="border-b border-[#ded8dc] px-5 py-5 last:border-b-0 sm:grid sm:grid-cols-[180px_1fr] sm:gap-7 sm:px-7 sm:py-6">
+              <h3 className="text-[13px] font-black tracking-[-0.02em] text-[#1c171b]">{section.heading}</h3>
+              <p className="mt-2 text-[12px] font-medium leading-6 text-[#625a61] sm:mt-0">{section.body}</p>
             </div>
           ))}
         </div>
 
-        <div className="mt-5 border-t border-gray-100 pt-3">
-          <p className="text-[10px] text-gray-400">情報確認日：{profile.updatedAt}</p>
-          <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1">
+        <div className="border-t border-[#ded8dc] bg-[#1c171b] px-5 py-5 text-white sm:px-7">
+          <p className="text-[9px] font-black tracking-[0.12em] text-white/42">情報確認日：{profile.updatedAt}</p>
+          <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2">
             {profile.sources.map((source) => (
               <a
                 key={source.url}
                 href={source.url}
                 target="_blank"
                 rel="noreferrer"
-                className="text-[10px] font-medium text-[#FF6B9D] underline underline-offset-2"
+                className="zr-focus inline-flex min-h-8 items-center gap-1.5 text-[10px] font-black text-[#ff5b96] underline underline-offset-4"
               >
-                {source.label}
+                {source.label}<ExternalLink size={11} />
               </a>
             ))}
           </div>
@@ -55,4 +57,3 @@ export default function SeoEditorialSection({
     </section>
   );
 }
-

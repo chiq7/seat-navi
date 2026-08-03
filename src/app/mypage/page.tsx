@@ -3,8 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Heart, LogOut } from "lucide-react";
-import { Header } from "@/components/common/Header";
+import { ChevronLeft, Heart, LogOut, Save, UserRound } from "lucide-react";
 import { MyPostsSection, type OwnedSeatPrediction } from "@/components/mypage/MyPostsSection";
 import { PersonalTicketStats } from "@/components/mypage/PersonalTicketStats";
 import { findArtistBySlug } from "@/lib/artists";
@@ -280,16 +279,20 @@ export default function MyPage() {
 
   if (loadError) {
     return (
-      <main className="min-h-screen bg-[#FFF8FB]">
-        <Header title="マイページ" backHref="/" showAccount={false} />
-        <div className="px-4 pt-12 text-center">
-          <div className="rounded-2xl border border-red-100 bg-white px-5 py-8 shadow-sm">
-            <p className="text-[13px] font-bold text-gray-800">読み込みに失敗しました</p>
-            <p className="mt-2 text-[11px] leading-relaxed text-gray-500">{loadError}</p>
+      <main className="min-h-screen bg-[#f7f5f6] text-[#1c171b]">
+        <header className="bg-[#0d090d] text-white">
+          <div className="zr-container flex h-16 items-center">
+            <Link href="/" aria-label="TOPへ戻る" className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/8"><ChevronLeft size={26} /></Link>
+          </div>
+        </header>
+        <div className="zr-container pt-12 text-center">
+          <div className="border border-red-200 bg-white px-5 py-10">
+            <p className="text-[16px] font-black">読み込みに失敗しました</p>
+            <p className="mt-2 text-[11px] font-medium leading-6 text-[#817981]">{loadError}</p>
             <button
               type="button"
               onClick={() => setReloadKey((value) => value + 1)}
-              className="mt-5 h-10 rounded-full bg-[#FF6B9D] px-6 text-[12px] font-bold text-white"
+              className="zr-focus mt-6 min-h-12 bg-[#f43679] px-7 text-[12px] font-black text-white"
             >
               再試行する
             </button>
@@ -300,32 +303,51 @@ export default function MyPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#FFF8FB] pb-10">
-      <Header title="マイページ" backHref="/" showAccount={false} />
-      <div className="space-y-4 px-3 pt-3">
-        <section className="flex items-center justify-between rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
-          <div className="min-w-0">
-            <p className="text-[10px] text-gray-400">ログイン中</p>
-            <p className="mt-1 truncate text-[13px] font-bold text-gray-800">{profile.display_name || email}</p>
+    <main className="min-h-screen bg-[#f7f5f6] pb-16 text-[#1c171b]">
+      <section className="bg-[#0d090d] text-white">
+        <header className="zr-container flex h-16 items-center">
+          <Link
+            href="/"
+            aria-label="TOPへ戻る"
+            className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/8 text-white"
+          >
+            <ChevronLeft size={26} strokeWidth={2.7} />
+          </Link>
+        </header>
+        <div className="zr-container pb-10 pt-5 sm:pb-14 sm:pt-9">
+          <p className="text-[10px] font-black tracking-[0.24em] text-[#ff5b96]">MY TIXREPO</p>
+          <h1 className="mt-3 text-[39px] font-black leading-[1.08] tracking-[-0.055em] sm:text-[58px]">ライブの記録を、<br />自分だけの一冊に。</h1>
+          <div className="mt-7 grid border-y border-white/18 sm:grid-cols-[1fr_180px]">
+            <div className="flex min-w-0 items-center gap-3 py-4 sm:border-r sm:border-white/18 sm:pr-5">
+              <UserRound size={19} className="shrink-0 text-[#ff5b96]" />
+              <div className="min-w-0">
+                <p className="text-[9px] font-black tracking-[0.13em] text-white/42">SIGNED IN</p>
+                <p className="mt-1 truncate text-[14px] font-black">{profile.display_name || email}</p>
+              </div>
+            </div>
+            <div className="flex items-end justify-between border-t border-white/18 py-4 sm:border-t-0 sm:pl-5">
+              <p className="text-[9px] font-black tracking-[0.13em] text-white/42">TOTAL POSTS</p>
+              <p className="text-[30px] font-black text-[#ff5b96]">{ticketPosts.length + predictions.length + livePosts.length}</p>
+            </div>
           </div>
-          <div className="shrink-0 text-right">
-            <p className="text-xl font-extrabold text-[#FF6B9D]">{ticketPosts.length + predictions.length + livePosts.length}</p>
-            <p className="text-[8px] text-gray-400">総投稿数</p>
-          </div>
-        </section>
+        </div>
+      </section>
+
+      <div className="zr-container space-y-10 py-10 sm:space-y-14 sm:py-14">
 
         <PersonalTicketStats ticketPosts={ticketPosts} eventMap={eventMap} displayName={profile.display_name} />
 
-        <section className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
-          <div className="flex items-center gap-2"><Heart size={16} className="text-[#FF6B9D]" /><h2 className="text-[14px] font-bold text-gray-900">推しアーティスト</h2></div>
+        <section className="border-b border-[#ded8dc] pb-10 sm:pb-14" aria-labelledby="favorite-artists-title">
+          <p className="artist-kicker">Favorite Artists</p>
+          <div className="mt-2 flex items-center gap-2"><Heart size={19} className="text-[#f43679]" /><h2 id="favorite-artists-title" className="text-[25px] font-black tracking-[-0.04em]">推しアーティスト</h2></div>
           {favorites.length === 0 ? (
-            <p className="mt-4 text-[11px] text-gray-400">アーティストページの「推しに登録」から追加できます。</p>
+            <p className="mt-5 border border-dashed border-[#d9cfd4] bg-white px-4 py-8 text-center text-[11px] font-bold text-[#958d93]">アーティストページの「推しに登録」から追加できます。</p>
           ) : (
-            <div className="mt-3 space-y-2">
+            <div className="mt-6 grid border-l border-t border-[#ded8dc] sm:grid-cols-2 lg:grid-cols-3">
               {favorites.map((slug) => (
-                <div key={slug} className="flex items-center justify-between rounded-xl bg-[#FFF8FB] px-3 py-2">
-                  <Link href={`/artists/${slug}`} className="text-[12px] font-bold text-gray-800">{findArtistBySlug(slug)?.name ?? slug}</Link>
-                  <button type="button" onClick={() => removeFavorite(slug)} className="text-[10px] font-semibold text-gray-400">解除</button>
+                <div key={slug} className="flex min-h-16 items-center justify-between gap-3 border-b border-r border-[#ded8dc] bg-white px-4">
+                  <Link href={`/artists/${slug}`} className="zr-focus min-w-0 truncate text-[13px] font-black">{findArtistBySlug(slug)?.name ?? slug}</Link>
+                  <button type="button" onClick={() => removeFavorite(slug)} className="zr-focus min-h-11 shrink-0 text-[10px] font-black text-[#958d93]">解除</button>
                 </div>
               ))}
             </div>
@@ -346,17 +368,22 @@ export default function MyPage() {
           onDeleteLive={deleteLive}
         />
 
-        <section className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
-          <h2 className="text-[14px] font-bold text-gray-900">プロフィール・X</h2>
-          <p className="mt-1 text-[10px] text-gray-400">表示を許可した投稿からXプロフィールへ移動できるようになります。</p>
-          <label className="mt-4 block text-[10px] font-bold text-gray-600">表示名<input value={profile.display_name ?? ""} maxLength={40} onChange={(event) => setProfile((value) => ({ ...value, display_name: event.target.value }))} className="mt-1 h-10 w-full rounded-xl border border-gray-200 px-3 text-[12px] outline-none focus:border-[#FF6B9D]" placeholder="投稿で表示する名前" /></label>
-          <label className="mt-3 block text-[10px] font-bold text-gray-600">Xユーザー名<input value={profile.x_handle ?? ""} maxLength={16} onChange={(event) => setProfile((value) => ({ ...value, x_handle: event.target.value }))} className="mt-1 h-10 w-full rounded-xl border border-gray-200 px-3 text-[12px] outline-none focus:border-[#FF6B9D]" placeholder="@を除いたユーザー名" /></label>
-          <label className="mt-3 flex items-center gap-2 text-[11px] font-semibold text-gray-700"><input type="checkbox" checked={profile.show_x_on_posts} onChange={(event) => setProfile((value) => ({ ...value, show_x_on_posts: event.target.checked }))} className="h-4 w-4 accent-[#FF6B9D]" />投稿にXアカウントを表示する</label>
-          {message && <p className="mt-3 text-[10px] text-gray-500">{message}</p>}
-          <button type="button" onClick={saveProfile} disabled={saving} className="mt-4 h-10 w-full rounded-full bg-[#FF6B9D] text-[12px] font-bold text-white disabled:opacity-60">{saving ? "保存中..." : "プロフィールを保存"}</button>
+        <section className="border-b border-[#ded8dc] pb-10 sm:pb-14" aria-labelledby="profile-title">
+          <p className="artist-kicker">Profile &amp; X</p>
+          <h2 id="profile-title" className="artist-heading">プロフィール・X</h2>
+          <p className="mt-3 text-[11px] font-medium leading-6 text-[#817981]">表示を許可した投稿からXプロフィールへ移動できるようになります。</p>
+          <div className="mt-6 border border-[#ded8dc] bg-white p-4 sm:p-6">
+            <div className="grid gap-5 sm:grid-cols-2">
+              <label className="block text-[10px] font-black text-[#625a61]">表示名<input value={profile.display_name ?? ""} maxLength={40} onChange={(event) => setProfile((value) => ({ ...value, display_name: event.target.value }))} className="zr-focus mt-2 h-12 w-full border border-[#cfc8cc] px-3 text-[13px] font-bold outline-none focus:border-[#f43679]" placeholder="投稿で表示する名前" /></label>
+              <label className="block text-[10px] font-black text-[#625a61]">Xユーザー名<input value={profile.x_handle ?? ""} maxLength={16} onChange={(event) => setProfile((value) => ({ ...value, x_handle: event.target.value }))} className="zr-focus mt-2 h-12 w-full border border-[#cfc8cc] px-3 text-[13px] font-bold outline-none focus:border-[#f43679]" placeholder="@を除いたユーザー名" /></label>
+            </div>
+            <label className="mt-5 flex min-h-11 items-center gap-3 text-[11px] font-bold text-[#625a61]"><input type="checkbox" checked={profile.show_x_on_posts} onChange={(event) => setProfile((value) => ({ ...value, show_x_on_posts: event.target.checked }))} className="h-5 w-5 accent-[#f43679]" />投稿にXアカウントを表示する</label>
+            {message && <p className="mt-3 border-l-2 border-[#f43679] bg-[#fff0f5] px-3 py-2 text-[10px] font-bold text-[#625a61]">{message}</p>}
+            <button type="button" onClick={saveProfile} disabled={saving} className="zr-focus mt-5 flex min-h-13 w-full items-center justify-center gap-2 bg-[#f43679] text-[12px] font-black text-white disabled:opacity-60"><Save size={15} />{saving ? "保存中..." : "プロフィールを保存"}</button>
+          </div>
         </section>
 
-        <button type="button" onClick={logout} className="flex h-11 w-full items-center justify-center gap-2 rounded-full border border-gray-200 bg-white text-[12px] font-bold text-gray-600"><LogOut size={15} />ログアウト</button>
+        <button type="button" onClick={logout} className="zr-focus flex min-h-13 w-full items-center justify-center gap-2 border border-[#cfc8cc] bg-white text-[12px] font-black text-[#625a61]"><LogOut size={15} />ログアウト</button>
       </div>
     </main>
   );

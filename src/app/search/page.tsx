@@ -3,8 +3,9 @@
 import { Suspense, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Header } from "@/components/common/Header";
+import { CalendarDays, ChevronLeft, MapPin, Search, X } from "lucide-react";
 import FavoriteArtistButton from "@/components/auth/FavoriteArtistButton";
+import { AccountLink } from "@/components/auth/AccountLink";
 import { trackEvent } from "@/lib/analytics";
 import { findArtistBySlug, type Artist } from "@/lib/artists";
 import { getSearchEventDestination, searchArtists, searchEvents } from "@/lib/search";
@@ -113,53 +114,103 @@ function SearchPageInner() {
   const hasResults = artistResults.length > 0 || eventResults.length > 0;
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-8">
-      <Header title="検索" backHref="/" />
+    <main className="min-h-screen bg-[#f7f5f6] pb-16 text-[#1c171b]">
+      <section className="bg-[#0d090d] text-white">
+        <header className="zr-container flex h-16 items-center justify-between">
+          <Link
+            href="/"
+            aria-label="TOPへ戻る"
+            className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/8 text-white"
+          >
+            <ChevronLeft size={26} strokeWidth={2.7} />
+          </Link>
+          <AccountLink tone="light" iconSize={22} />
+        </header>
 
-      <div className="px-4 py-3">
-        <div className="flex items-center gap-2 rounded-full bg-white border border-gray-200 px-4 h-[44px]">
-          <svg className="w-4 h-4 shrink-0 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            />
-          </svg>
-          <input
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="アーティスト・公演名・会場名を検索"
-            autoFocus
-            className="flex-1 min-w-0 bg-transparent text-sm text-gray-900 placeholder:text-gray-400 outline-none"
-          />
-        </div>
-      </div>
-
-      <div className="px-4">
-        {!hasQuery && (
-          <p className="py-8 text-center text-[13px] text-gray-400">
-            アーティスト名・公演名・会場名で検索できます
+        <div className="zr-container pb-9 pt-4 sm:pb-12 sm:pt-8">
+          <p className="text-[10px] font-black tracking-[0.24em] text-[#ff5b96]">SEARCH TIXREPO</p>
+          <h1 className="mt-3 text-[38px] font-black leading-[1.08] tracking-[-0.055em] sm:text-[58px]">
+            次のライブを、<br />会場と座席から探す。
+          </h1>
+          <p className="mt-4 text-[12px] font-bold leading-6 text-white/58 sm:text-[14px]">
+            アーティスト、公演名、ライブ会場、座席表をまとめて検索できます。
           </p>
+
+          <label className="mt-7 flex min-h-16 items-center gap-3 border border-white/28 bg-white px-4 text-[#1c171b] shadow-[0_18px_50px_rgba(0,0,0,.22)]">
+            <span className="sr-only">アーティスト・公演・会場を検索</span>
+            <Search size={21} strokeWidth={2.2} className="shrink-0 text-[#f43679]" />
+            <input
+              type="text"
+              inputMode="search"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="アーティスト・公演名・会場名"
+              autoFocus
+              className="min-w-0 flex-1 bg-transparent text-[15px] font-bold text-[#1c171b] outline-none placeholder:text-[#aaa2a8]"
+            />
+            {query && (
+              <button
+                type="button"
+                onClick={() => setQuery("")}
+                aria-label="検索語を消す"
+                className="zr-focus flex h-11 w-11 shrink-0 items-center justify-center text-[#817981]"
+              >
+                <X size={19} />
+              </button>
+            )}
+          </label>
+        </div>
+      </section>
+
+      <div className="zr-container py-8">
+        {!hasQuery && (
+          <section aria-labelledby="search-hint-title">
+            <p className="artist-kicker">Search Ideas</p>
+            <h2 id="search-hint-title" className="mt-2 text-[22px] font-black tracking-[-0.04em]">こんなワードで探せます</h2>
+            <div className="mt-5 grid grid-cols-2 border-l border-t border-[#ded8dc] sm:grid-cols-4">
+              {["YOASOBI", "東京ドーム", "Kアリーナ", "アリーナ座席表"].map((word) => (
+                <button
+                  key={word}
+                  type="button"
+                  onClick={() => setQuery(word)}
+                  className="zr-focus min-h-14 border-b border-r border-[#ded8dc] bg-white px-3 text-left text-[12px] font-black transition-colors hover:bg-[#fff0f5]"
+                >
+                  {word}<span className="ml-1 text-[#f43679]">→</span>
+                </button>
+              ))}
+            </div>
+            <p className="mt-5 text-[11px] font-medium leading-6 text-[#817981]">
+              「会場名 座席表」「アーティスト名 会場」のように組み合わせても検索できます。
+            </p>
+          </section>
         )}
 
         {hasQuery && loading && (
-          <div className="flex justify-center py-8">
+          <div className="flex justify-center py-16">
             <div className="h-5 w-5 animate-spin rounded-full border-2 border-[#FF6B9D] border-t-transparent" />
           </div>
         )}
 
         {hasQuery && !loading && !hasResults && (
-          <p className="py-8 text-center text-[13px] text-gray-400">検索結果が見つかりませんでした</p>
+          <section className="border-b border-[#ded8dc] py-14 text-center">
+            <Search size={29} strokeWidth={1.5} className="mx-auto text-[#f43679]" />
+            <p className="mt-4 text-[18px] font-black">検索結果が見つかりませんでした</p>
+            <p className="mt-2 text-[11px] font-medium text-[#817981]">短い名前、読み方、会場名でもう一度試してください。</p>
+          </section>
         )}
 
         {hasQuery && !loading && artistResults.length > 0 && (
-          <section className="mb-5">
-            <h2 className="mb-2 text-[11px] font-semibold text-gray-400">アーティスト</h2>
-            <div className="space-y-1.5">
-              {artistResults.map((artist) => (
-                <div key={artist.slug} className="relative">
+          <section className="border-b border-[#ded8dc] pb-10" aria-labelledby="artist-results-title">
+            <div className="flex items-end justify-between gap-3">
+              <div>
+                <p className="artist-kicker">Artists</p>
+                <h2 id="artist-results-title" className="mt-2 text-[24px] font-black tracking-[-0.04em]">アーティスト</h2>
+              </div>
+              <p className="text-[10px] font-black text-[#817981]">{artistResults.length} RESULTS</p>
+            </div>
+            <div className="mt-5 grid border-l border-t border-[#ded8dc] sm:grid-cols-2 lg:grid-cols-3">
+              {artistResults.map((artist, index) => (
+                <div key={artist.slug} className="relative min-w-0 border-b border-r border-[#ded8dc] bg-white">
                   <Link
                     href={`/artists/${artist.slug}`}
                     onClick={() => trackEvent("select_search_result", {
@@ -167,9 +218,10 @@ function SearchPageInner() {
                       result_id: artist.slug,
                       search_term: query.trim(),
                     })}
-                    className="block rounded-lg border border-gray-100 bg-white px-3 py-3 pr-14 no-underline active:scale-[0.99]"
+                    className="zr-focus block min-h-[92px] px-4 py-4 pr-16 no-underline"
                   >
-                    <span className="block truncate text-[13px] font-bold text-gray-900">{artist.name}</span>
+                    <span className="text-[9px] font-black tracking-[0.16em] text-[#f43679]">ARTIST {String(index + 1).padStart(2, "0")}</span>
+                    <span className="mt-2 block truncate text-[19px] font-black tracking-[-0.035em] text-[#1c171b]">{artist.name}</span>
                   </Link>
                   {favoritesReady ? (
                     <FavoriteArtistButton
@@ -177,10 +229,10 @@ function SearchPageInner() {
                       initialUserId={favoriteUserId}
                       initialFavorite={favoriteSlugs.has(artist.slug)}
                       onChange={(favorite) => updateFavorite(artist.slug, favorite)}
-                      className="absolute right-2 top-1/2 z-10 -translate-y-1/2"
+                      className="absolute right-3 top-1/2 z-10 -translate-y-1/2"
                     />
                   ) : (
-                    <span aria-hidden="true" className="absolute right-2 top-1/2 h-8 w-8 -translate-y-1/2 rounded-full bg-gray-100" />
+                    <span aria-hidden="true" className="absolute right-3 top-1/2 h-8 w-8 -translate-y-1/2 rounded-full bg-[#eee9ec]" />
                   )}
                 </div>
               ))}
@@ -189,9 +241,15 @@ function SearchPageInner() {
         )}
 
         {hasQuery && !loading && eventResults.length > 0 && (
-          <section>
-            <h2 className="mb-2 text-[11px] font-semibold text-gray-400">公演</h2>
-            <div className="space-y-1.5">
+          <section className={artistResults.length > 0 ? "pt-10" : ""} aria-labelledby="event-results-title">
+            <div className="flex items-end justify-between gap-3">
+              <div>
+                <p className="artist-kicker">Live & Venue</p>
+                <h2 id="event-results-title" className="mt-2 text-[24px] font-black tracking-[-0.04em]">公演・会場</h2>
+              </div>
+              <p className="text-[10px] font-black text-[#817981]">{eventResults.length} RESULTS</p>
+            </div>
+            <div className="mt-5 border-l border-t border-[#ded8dc]">
               {eventResults.map((event) => {
                 const eventArtist = event.artist_slug ? findArtistBySlug(event.artist_slug) : null;
                 return (
@@ -203,13 +261,16 @@ function SearchPageInner() {
                       result_id: event.id,
                       search_term: query.trim(),
                     })}
-                    className="block rounded-lg border border-gray-100 bg-white px-3 py-2.5 no-underline active:scale-[0.99]"
+                    className="zr-focus grid min-h-[104px] gap-3 border-b border-r border-[#ded8dc] bg-white px-4 py-4 no-underline sm:grid-cols-[135px_1fr] sm:items-center"
                   >
-                    <p className="text-[10px] font-bold text-gray-400">{fmtDate(event.date)}</p>
-                    <p className="truncate text-[13px] font-bold text-gray-900">{event.title}</p>
-                    <p className="truncate text-[11px] text-gray-400">
-                      {eventArtist ? `${eventArtist.name} · ${event.venue}` : event.venue}
-                    </p>
+                    <div>
+                      <p className="flex items-center gap-1.5 text-[10px] font-black text-[#f43679]"><CalendarDays size={13} />{fmtDate(event.date)}</p>
+                      <p className="mt-2 flex items-center gap-1.5 truncate text-[10px] font-bold text-[#817981]"><MapPin size={12} />{event.venue}</p>
+                    </div>
+                    <div className="min-w-0">
+                      <p className="line-clamp-2 text-[15px] font-black leading-6 tracking-[-0.025em] text-[#1c171b]">{event.title}</p>
+                      {eventArtist && <p className="mt-1 truncate text-[10px] font-bold text-[#817981]">{eventArtist.name}</p>}
+                    </div>
                   </Link>
                 );
               })}
@@ -217,6 +278,6 @@ function SearchPageInner() {
           </section>
         )}
       </div>
-    </div>
+    </main>
   );
 }

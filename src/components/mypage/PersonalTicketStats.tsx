@@ -152,40 +152,40 @@ export function PersonalTicketStats({ ticketPosts, eventMap, displayName }: Prop
   }
 
   return (
-    <section className="space-y-3">
-      <div className="rounded-2xl border border-pink-100 bg-white p-4 shadow-sm">
+    <section className="space-y-5 border-b border-[#ded8dc] pb-10 sm:pb-14" aria-labelledby="personal-ticket-title">
+      <div className="border border-[#ded8dc] bg-white p-4 sm:p-6">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <p className="text-[10px] font-bold text-[#FF6B9D]">MY TICKET DATA</p>
-            <h2 className="mt-0.5 text-[17px] font-extrabold text-gray-900">わたしの当選データ</h2>
+            <p className="artist-kicker">My Ticket Data</p>
+            <h2 id="personal-ticket-title" className="mt-2 text-[24px] font-black tracking-[-0.04em]">わたしの当選データ</h2>
           </div>
-          <button type="button" onClick={handleShare} disabled={sharing || ticketStats.total === 0} className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded-full bg-[#FF6B9D] px-3 text-[11px] font-bold text-white disabled:opacity-40">
+          <button type="button" onClick={handleShare} disabled={sharing || ticketStats.total === 0} className="zr-focus inline-flex min-h-11 shrink-0 items-center gap-1.5 bg-[#f43679] px-3 text-[10px] font-black text-white disabled:opacity-40">
             {sharing ? <Download size={14} /> : <Share2 size={14} />}
             {sharing ? "作成中" : "SNSで見せる"}
           </button>
         </div>
         <div className="mt-3 grid grid-cols-2 gap-2">
           <label className="text-[9px] font-bold text-gray-500">アーティスト
-            <select value={artistFilter} onChange={(event) => setArtistFilter(event.target.value)} className="mt-1 h-9 w-full rounded-xl border border-gray-200 bg-white px-2 text-[11px] font-semibold text-gray-800 outline-none focus:border-[#FF6B9D]">
+            <select value={artistFilter} onChange={(event) => setArtistFilter(event.target.value)} className="zr-focus mt-1 h-11 w-full border border-[#cfc8cc] bg-white px-2 text-[11px] font-bold text-[#1c171b] outline-none focus:border-[#f43679]">
               <option value="all">すべて</option>
               {artistOptions.map((artist) => <option key={artist.slug} value={artist.slug}>{artist.name}</option>)}
             </select>
           </label>
           <label className="text-[9px] font-bold text-gray-500">期間
-            <select value={yearFilter} onChange={(event) => setYearFilter(event.target.value)} className="mt-1 h-9 w-full rounded-xl border border-gray-200 bg-white px-2 text-[11px] font-semibold text-gray-800 outline-none focus:border-[#FF6B9D]">
+            <select value={yearFilter} onChange={(event) => setYearFilter(event.target.value)} className="zr-focus mt-1 h-11 w-full border border-[#cfc8cc] bg-white px-2 text-[11px] font-bold text-[#1c171b] outline-none focus:border-[#f43679]">
               <option value="all">全期間</option>
               {yearOptions.map((year) => <option key={year} value={year}>{year}年</option>)}
             </select>
           </label>
         </div>
-        <div className="mt-3 overflow-hidden rounded-2xl bg-gradient-to-br from-[#FFF4F8] to-[#FFE6EF] p-4">
-          <p className="truncate text-[10px] font-bold text-gray-500">{scopeLabel}</p>
+        <div className="mt-4 overflow-hidden bg-[#1c171b] p-4 text-white sm:p-5">
+          <p className="truncate text-[10px] font-bold text-white/48">{scopeLabel}</p>
           <div className="mt-1 flex items-end justify-between gap-3">
-            <div><p className="text-[9px] font-semibold text-gray-400">当選率</p><p className="text-[42px] font-extrabold leading-none text-[#FF6B9D]">{ticketStats.rate === null ? "--" : `${ticketStats.rate}%`}</p></div>
+            <div><p className="text-[9px] font-semibold text-white/42">当選率</p><p className="text-[42px] font-extrabold leading-none text-[#ff5b96]">{ticketStats.rate === null ? "--" : `${ticketStats.rate}%`}</p></div>
             <div className="grid grid-cols-3 gap-3 pb-1 text-center">
-              <div><p className="text-[17px] font-extrabold text-gray-800">{ticketStats.won}</p><p className="text-[8px] text-gray-400">当選</p></div>
-              <div><p className="text-[17px] font-extrabold text-gray-800">{ticketStats.lost}</p><p className="text-[8px] text-gray-400">落選</p></div>
-              <div><p className="text-[17px] font-extrabold text-gray-800">{ticketStats.total}</p><p className="text-[8px] text-gray-400">申込</p></div>
+              <div><p className="text-[17px] font-extrabold text-white">{ticketStats.won}</p><p className="text-[8px] text-white/42">当選</p></div>
+              <div><p className="text-[17px] font-extrabold text-white">{ticketStats.lost}</p><p className="text-[8px] text-white/42">落選</p></div>
+              <div><p className="text-[17px] font-extrabold text-white">{ticketStats.total}</p><p className="text-[8px] text-white/42">申込</p></div>
             </div>
           </div>
         </div>

@@ -51,23 +51,23 @@ export function MyPostsSection({
   ];
 
   return (
-    <section className="rounded-2xl border border-gray-100 bg-white p-3 shadow-sm">
-      <div className="flex items-end justify-between px-1">
+    <section className="border-b border-[#ded8dc] pb-10 sm:pb-14" aria-labelledby="my-posts-title">
+      <div className="flex items-end justify-between gap-4">
         <div>
-          <p className="text-[10px] font-bold text-[#FF6B9D]">MY POSTS</p>
-          <h2 className="text-[17px] font-extrabold text-gray-900">自分の投稿</h2>
+          <p className="artist-kicker">My Posts</p>
+          <h2 id="my-posts-title" className="artist-heading">自分の投稿</h2>
         </div>
-        <p className="text-[10px] text-gray-400">種類ごとに確認できます</p>
+        <p className="text-[9px] font-black text-[#958d93]">EDIT &amp; MANAGE</p>
       </div>
 
-      <div className="mt-3 grid grid-cols-3 rounded-xl bg-gray-100 p-1">
+      <div className="mt-7 grid grid-cols-3 border border-[#1c171b] bg-white">
         {tabs.map((item) => (
           <button
             key={item.id}
             type="button"
             onClick={() => setTab(item.id)}
-            className={`rounded-lg py-2 text-[10px] font-bold transition-colors ${
-              tab === item.id ? "bg-white text-[#FF6B9D] shadow-sm" : "text-gray-500"
+            className={`zr-focus min-h-12 border-r border-[#1c171b] px-1 text-[10px] font-black transition-colors last:border-r-0 ${
+              tab === item.id ? "bg-[#1c171b] text-white" : "text-[#625a61]"
             }`}
           >
             {item.label}<span className="ml-1 text-[9px]">{item.count}</span>
@@ -75,7 +75,7 @@ export function MyPostsSection({
         ))}
       </div>
 
-      <div className="mt-3">
+      <div className="mt-5 border border-[#ded8dc] bg-white p-3 sm:p-5">
         {tab === "ticket" && (
           <SeatReportTimelineSection
             items={ticketPosts}
@@ -126,7 +126,7 @@ export function MyPostsSection({
               })}
             </div>
           ) : (
-            <div className="rounded-xl bg-[#FFF8FB] px-4 py-6 text-center text-[12px] text-gray-500">座席予想の投稿はまだありません</div>
+            <div className="border border-dashed border-[#d9cfd4] bg-[#fcfbfc] px-4 py-8 text-center text-[12px] font-bold text-[#817981]">座席予想の投稿はまだありません</div>
           )
         )}
 

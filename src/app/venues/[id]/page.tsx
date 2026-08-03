@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Header } from "@/components/common/Header";
+import { CalendarDays, ChevronLeft, MapPin, MoveRight, Users } from "lucide-react";
+import { AccountLink } from "@/components/auth/AccountLink";
 import SeoEditorialSection from "@/components/seo/SeoEditorialSection";
 import { resolveArtist } from "@/lib/artists";
 import { fmtDate } from "@/lib/artistPageHelpers";
@@ -39,22 +40,28 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 function EventList({ events, emptyText }: { events: CrawledEvent[]; emptyText: string }) {
   if (events.length === 0) {
-    return <p className="rounded-xl bg-white px-4 py-6 text-center text-[12px] text-gray-400">{emptyText}</p>;
+    return <p className="border border-dashed border-[#d9cfd4] bg-white px-4 py-9 text-center text-[12px] font-bold text-[#958d93]">{emptyText}</p>;
   }
   return (
-    <div className="space-y-2">
-      {events.map((event) => {
+    <div className="border-l border-t border-[#ded8dc]">
+      {events.map((event, index) => {
         const artist = resolveArtist(event);
         const title = parseEventTitle(event.title, artist?.name).tourName;
         return (
           <Link
             key={event.id}
             href={`/events/${event.id}`}
-            className="block rounded-xl border border-gray-100 bg-white px-4 py-3 shadow-sm transition-transform active:scale-[0.99]"
+            className="zr-focus group grid min-h-[112px] gap-3 border-b border-r border-[#ded8dc] bg-white px-4 py-4 transition-colors hover:bg-[#fff0f5] sm:grid-cols-[150px_1fr_34px] sm:items-center"
           >
-            <p className="text-[11px] font-bold text-[#FF6B9D]">{fmtDate(event.date)}</p>
-            <p className="mt-1 text-[14px] font-bold leading-5 text-gray-900">{title}</p>
-            {artist && <p className="mt-1 text-[11px] text-gray-500">{artist.name}</p>}
+            <div>
+              <p className="text-[9px] font-black tracking-[0.14em] text-[#958d93]">LIVE {String(index + 1).padStart(2, "0")}</p>
+              <p className="mt-2 flex items-center gap-1.5 text-[11px] font-black text-[#f43679]"><CalendarDays size={14} />{fmtDate(event.date)}</p>
+            </div>
+            <div className="min-w-0">
+              <p className="line-clamp-2 text-[15px] font-black leading-6 tracking-[-0.025em] text-[#1c171b]">{title}</p>
+              {artist && <p className="mt-1 text-[10px] font-bold text-[#817981]">{artist.name}</p>}
+            </div>
+            <MoveRight size={18} className="hidden text-[#f43679] transition-transform group-hover:translate-x-1 sm:block" />
           </Link>
         );
       })}
@@ -115,53 +122,85 @@ export default async function VenuePage({ params }: Props) {
   };
 
   return (
-    <main className="min-h-screen bg-[#FFF8FB] pb-12">
+    <main className="min-h-screen bg-[#f7f5f6] pb-16 text-[#1c171b]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(structuredData) }}
       />
-      <Header title={venue.name} backHref="/venues" />
-      <div className="px-4 pt-5">
-        <h1 className="text-xl font-bold leading-8 text-gray-900">{venue.name}のライブ・座席情報</h1>
-        <p className="mt-2 text-[12px] leading-6 text-gray-500">
-          {venue.name}で開催されるライブ・コンサートの公演予定と、みんなの当落・座席・現地レポを公演ごとに確認できます。
-        </p>
+      <section className="bg-[#0d090d] text-white">
+        <header className="zr-container flex h-16 items-center justify-between">
+          <Link
+            href="/venues"
+            aria-label="ライブ会場一覧へ戻る"
+            className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/8 text-white"
+          >
+            <ChevronLeft size={26} strokeWidth={2.7} />
+          </Link>
+          <AccountLink tone="light" iconSize={22} />
+        </header>
+
+        <div className="zr-container pb-10 pt-5 sm:pb-14 sm:pt-9">
+          <p className="text-[10px] font-black tracking-[0.24em] text-[#ff5b96]">VENUE LIVE GUIDE</p>
+          <h1 className="mt-3 max-w-[980px] text-[37px] font-black leading-[1.1] tracking-[-0.055em] sm:text-[58px] lg:text-[70px]">
+            <span className="block">{venue.name}の</span>
+            <span className="block">公演と座席表。</span>
+          </h1>
+          <p className="mt-5 max-w-[720px] text-[12px] font-bold leading-6 text-white/62 sm:text-[14px]">
+            ライブ予定、会場の座席報告、アリーナ予想、現地からの見え方を公演ごとに確認できます。
+          </p>
+          <div className="mt-7 grid grid-cols-2 border-y border-white/18 py-4">
+            <div>
+              <p className="text-[9px] font-black tracking-[0.14em] text-white/42">UPCOMING</p>
+              <p className="mt-1 text-[27px] font-black">{upcoming.length}</p>
+            </div>
+            <div className="border-l border-white/18 pl-5">
+              <p className="text-[9px] font-black tracking-[0.14em] text-white/42">PAST LIVE</p>
+              <p className="mt-1 text-[27px] font-black">{past.length}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="zr-container">
+        <section className="border-b border-[#ded8dc] py-10 sm:py-14" aria-labelledby="upcoming-events-title">
+          <p className="artist-kicker">Upcoming Live</p>
+          <h2 id="upcoming-events-title" className="artist-heading">これから開催される公演</h2>
+          <p className="mt-3 flex items-center gap-2 text-[11px] font-bold text-[#817981]"><MapPin size={14} className="text-[#f43679]" />{venue.name}のライブ予定</p>
+          <div className="mt-7"><EventList events={upcoming} emptyText="現在、登録されている開催予定はありません" /></div>
+        </section>
+
+        {past.length > 0 && (
+          <section className="border-b border-[#ded8dc] py-10 sm:py-14" aria-labelledby="past-events-title">
+            <p className="artist-kicker">Live Archive</p>
+            <h2 id="past-events-title" className="artist-heading">過去の公演・座席レポ</h2>
+            <div className="mt-7"><EventList events={past.slice(0, 30)} emptyText="過去の公演はありません" /></div>
+          </section>
+        )}
+
+        {pastArtists.length > 0 && (
+          <section className="border-b border-[#ded8dc] py-10 sm:py-14" aria-labelledby="venue-artists-title">
+            <p className="artist-kicker">Artists Archive</p>
+            <h2 id="venue-artists-title" className="artist-heading">この会場で公演したアーティスト</h2>
+            <div className="mt-7 grid border-l border-t border-[#ded8dc] sm:grid-cols-2 lg:grid-cols-3">
+              {pastArtists.map((artist) => (
+                <Link
+                  key={artist.slug}
+                  href={`/artists/${artist.slug}`}
+                  className="zr-focus flex min-h-14 items-center gap-2 border-b border-r border-[#ded8dc] bg-white px-4 text-[12px] font-black"
+                >
+                  <Users size={14} className="text-[#f43679]" />{artist.name}
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
 
         {profile && (
           <SeoEditorialSection
             title={`${venue.name}とは`}
             profile={profile}
-            className="mt-6"
+            className="py-10 sm:py-14"
           />
-        )}
-
-        <section className="mt-6">
-          <h2 className="mb-3 text-[16px] font-bold text-gray-900">これから開催される公演</h2>
-          <EventList events={upcoming} emptyText="現在、登録されている開催予定はありません" />
-        </section>
-
-        {past.length > 0 && (
-          <section className="mt-7">
-            <h2 className="mb-3 text-[16px] font-bold text-gray-900">過去の公演・座席レポ</h2>
-            <EventList events={past.slice(0, 30)} emptyText="過去の公演はありません" />
-          </section>
-        )}
-
-        {pastArtists.length > 0 && (
-          <section className="mt-7">
-            <h2 className="mb-3 text-[16px] font-bold text-gray-900">この会場で公演したアーティスト</h2>
-            <div className="flex flex-wrap gap-2">
-              {pastArtists.map((artist) => (
-                <Link
-                  key={artist.slug}
-                  href={`/artists/${artist.slug}`}
-                  className="rounded-full border border-pink-100 bg-white px-3 py-2 text-[11px] font-bold text-gray-700 shadow-sm"
-                >
-                  {artist.name}
-                </Link>
-              ))}
-            </div>
-          </section>
         )}
       </div>
     </main>
