@@ -9,14 +9,15 @@ type RealtimeFeedSectionProps = {
 
 export default function RealtimeFeedSection({ items }: RealtimeFeedSectionProps) {
   return (
-    <section className="mt-3">
+    <section className="zr-section bg-[#171117] text-white">
+      <div className="zr-container">
       <SectionHeader
         icon={<Zap size={16} color="#FF6B9D" />}
         title="リアルタイム速報"
       />
-      <div className="mx-4 rounded-xl border border-gray-100 bg-white shadow-sm">
+      <div className="border-t border-white/18">
       {items.length > 0 ? (
-        <div className="divide-y divide-gray-100">
+        <div className="grid md:grid-cols-2">
           {items.map((item) => (
             <RealtimeFeedItem key={item.id} item={item} />
           ))}
@@ -26,6 +27,7 @@ export default function RealtimeFeedSection({ items }: RealtimeFeedSectionProps)
           <p className="text-[13px] text-gray-400">まだデータがありません</p>
         </div>
       )}
+      </div>
       </div>
     </section>
   );

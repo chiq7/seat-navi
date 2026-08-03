@@ -73,12 +73,12 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="min-h-screen bg-[#F3F4F6] text-foreground antialiased">
+      <body className="min-h-screen bg-[#f7f5f6] text-foreground antialiased">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: serializeJsonLd(buildSiteStructuredData()) }}
         />
-        <div className="mx-auto max-w-md min-h-screen bg-white shadow-sm">
+        <div className="min-h-screen">
           {children}
           <Footer />
         </div>

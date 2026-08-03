@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { CalendarDays, ChevronLeft } from "lucide-react";
+import { CalendarDays, ChevronLeft, MapPin } from "lucide-react";
 import { rateText } from "@/lib/artistPageHelpers";
 import { ShareButton } from "@/components/common/ShareButton";
 import { AccountLink } from "@/components/auth/AccountLink";
@@ -23,12 +23,6 @@ type Props = {
   countdownDays: number | null;
 };
 
-const summaryCardHeight = 70;
-const summaryBottom = 8;
-const cardGap = 6;
-const countdownCardHeight = 66;
-const countdownBottom = summaryBottom + summaryCardHeight + cardGap;
-
 function fmtDateLabel(d: string): string {
   const [y, m, day] = d.split("-").map(Number);
   const w = ["日", "月", "火", "水", "木", "金", "土"][new Date(y, m - 1, day).getDay()];
@@ -41,7 +35,6 @@ export default function HeroSection({
   heroImage,
   tourTitle,
   isTestData = false,
-  dateRange,
   ticketRate,
   normalArenaRate,
   upgradeRate,
@@ -58,36 +51,31 @@ export default function HeroSection({
   ];
 
   return (
-    <section className="relative h-[340px] w-full overflow-hidden bg-[#080512]">
+    <section className="relative min-h-[570px] w-full overflow-hidden bg-[#0d090d] text-white sm:min-h-[620px] lg:min-h-[670px]">
       <Image
         src={heroImageSrc}
         alt=""
         fill
         priority
-        sizes="390px"
+        sizes="100vw"
         className="object-cover"
-        style={{ objectPosition: "center 8%" }}
+        style={{ objectPosition: "center 18%" }}
         onError={() => {
           if (heroImageSrc !== DEFAULT_ARTIST_HERO_IMAGE) setHeroImageSrc(DEFAULT_ARTIST_HERO_IMAGE);
         }}
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/15" />
-      <div className="relative z-10 h-full w-full">
-        <header
-          className="absolute inset-x-0 top-0 z-10 grid grid-cols-[80px_1fr_80px] items-center"
-          style={{ height: "56px", paddingLeft: "14px", paddingRight: "14px" }}
-        >
+      <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/5 to-[#0d090d]" />
+      <div className="absolute inset-x-0 bottom-0 h-[62%] bg-gradient-to-t from-[#0d090d] via-[#0d090d]/88 to-transparent" />
+      <div className="relative z-10 min-h-[570px] sm:min-h-[620px] lg:min-h-[670px]">
+        <header className="zr-container flex h-16 items-center justify-between sm:h-[72px]">
           <Link
             href="/"
             aria-label="TOPへ戻る"
-            className="flex h-10 w-10 shrink-0 items-center justify-center text-white"
+            className="zr-focus flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-black/20 text-white backdrop-blur-md"
           >
             <ChevronLeft size={26} strokeWidth={2.7} />
           </Link>
-          <h1 className="truncate text-center font-serif font-semibold text-white" style={{ fontSize: "21px", letterSpacing: "0.22em" }}>
-            {artistName}
-          </h1>
-          <div className="flex items-center justify-end">
+          <div className="ml-auto flex items-center justify-end gap-1">
             <AccountLink tone="light" iconSize={22} />
             <ShareButton
               url={`${typeof window !== "undefined" ? window.location.origin : ""}/artists/${slug}`}
@@ -97,124 +85,43 @@ export default function HeroSection({
           </div>
         </header>
 
-        <div className="absolute z-10 text-center" style={{ top: "82px", left: "24px", right: "24px" }}>
-          <h2 className="font-extrabold text-white" style={{ fontSize: "25px", lineHeight: "1.1" }}>
-            {nextEvent ? (tourTitle || artistName) : artistName}
-            {nextEvent && isTestData && (
-              <span
-                className="ml-1.5 inline-block align-middle font-bold text-white"
-                style={{
-                  fontSize: "9px",
-                  lineHeight: 1,
-                  padding: "3px 7px",
-                  borderRadius: "999px",
-                  background: "rgba(255,255,255,0.22)",
-                  border: "1px solid rgba(255,255,255,0.55)",
-                }}
-              >
-                テストデータ
-              </span>
-            )}
-          </h2>
-          {dateRange && (
-            <p
-              className="font-semibold"
-              style={{ marginTop: "6px", fontSize: "12px", color: "rgba(255,255,255,0.86)" }}
-            >
-              {dateRange}
+        <div className="zr-container absolute inset-x-0 bottom-0 pb-7 sm:pb-10">
+          <p className="text-[10px] font-black tracking-[0.24em] text-[#ff5b96]">ARTIST LIVE ARCHIVE</p>
+          <h1 className="mt-3 text-[44px] font-black leading-none tracking-[-0.055em] text-white sm:text-[64px] lg:text-[82px]">{artistName}</h1>
+          <div className="mt-5 flex flex-wrap items-center gap-2">
+            <p className="max-w-[680px] text-[14px] font-bold leading-6 text-white/82 sm:text-[17px]">
+              {nextEvent ? (tourTitle || artistName) : "次回公演 発表待ち"}
             </p>
-          )}
-        </div>
+            {nextEvent && isTestData && <span className="rounded-full border border-white/35 px-2 py-1 text-[9px] font-bold text-white/72">テストデータ</span>}
+          </div>
 
-        <div
-          className="absolute z-10"
-          style={{
-            bottom: `${countdownBottom}px`,
-            left: "48px",
-            right: "48px",
-            height: `${countdownCardHeight}px`,
-            background: "rgba(0,0,0,0.55)",
-            backdropFilter: "blur(10px)",
-            border: "1px solid rgba(255,255,255,0.55)",
-            borderRadius: "22px",
-            boxShadow: "0 8px 22px rgba(0,0,0,0.22)",
-            padding: "8px 14px",
-          }}
-        >
-          <div className="grid h-full items-center" style={{ gridTemplateColumns: "38% 62%" }}>
-            <div className="flex h-full flex-col items-center">
-              <div className="mb-1 flex items-center justify-center gap-1" style={{ color: "rgba(255,255,255,0.82)" }}>
-                <CalendarDays size={11} strokeWidth={2.1} />
-                <p style={{ fontSize: "10px", fontWeight: 500 }}>次の公演まで</p>
-              </div>
-              <div className="flex flex-1 items-center justify-center gap-1">
-                <span
-                  className="drop-shadow-[0_0_10px_rgba(255,79,163,0.9)]"
-                  style={{ fontSize: "36px", fontWeight: 700, lineHeight: 1, color: "#ff4fa3", transform: "translateY(-4px)" }}
-                >
-                  {countdownDays ?? "--"}
-                </span>
-                <span
-                  style={{
-                    fontSize: "10px",
-                    fontWeight: 500,
-                    letterSpacing: "0.12em",
-                    color: "#ff8ac5",
-                    transform: "translateY(5px)",
-                  }}
-                >
-                  DAYS
-                </span>
-              </div>
-            </div>
-            <div
-              className="flex h-full min-w-0 flex-col"
-              style={{ borderLeft: "1px solid rgba(255,255,255,0.16)", paddingLeft: "14px" }}
-            >
+          <div className="mt-6 grid border-y border-white/20 sm:grid-cols-[1.35fr_.65fr]">
+            <div className="flex min-w-0 items-center gap-4 py-4 sm:border-r sm:border-white/20 sm:pr-5">
               {nextEvent ? (
                 <>
-                  <p style={{ fontSize: "10px", fontWeight: 500, color: "rgba(255,255,255,0.78)" }}>
-                    {fmtDateLabel(nextEvent.date)}
-                  </p>
-                  <div className="flex flex-1 items-center">
-                    <p
-                      className="truncate text-white"
-                      style={{ fontSize: "16px", fontWeight: 600, lineHeight: "1.2" }}
-                    >
-                      {nextEvent.venue}
-                    </p>
+                  <CalendarDays size={18} className="shrink-0 text-[#ff5b96]" />
+                  <div className="min-w-0">
+                    <p className="text-[11px] font-bold text-white/52">{fmtDateLabel(nextEvent.date)}</p>
+                    <p className="mt-1 flex items-center gap-1.5 truncate text-[14px] font-bold"><MapPin size={13} className="shrink-0" />{nextEvent.venue}</p>
                   </div>
                 </>
-              ) : (
-                <p
-                  className="truncate text-white"
-                  style={{ fontSize: "16px", fontWeight: 600, lineHeight: "1.2" }}
-                >
-                  次回公演 発表待ち
-                </p>
-              )}
+              ) : <p className="py-1 text-[13px] font-bold text-white/62">次回公演の発表を待っています</p>}
+            </div>
+            <div className="flex items-end justify-between border-t border-white/20 py-4 sm:border-t-0 sm:pl-5">
+              <span className="text-[10px] font-bold tracking-[0.12em] text-white/48">NEXT LIVE</span>
+              <p className="font-black leading-none text-[#ff5b96]"><span className="text-[34px]">{countdownDays ?? "--"}</span><span className="ml-1 text-[10px] tracking-[0.12em]">DAYS</span></p>
             </div>
           </div>
-        </div>
 
-        <div
-          className="absolute z-10 overflow-hidden rounded-2xl border border-white/45 bg-white/80 shadow-sm backdrop-blur-md"
-          style={{
-            bottom: `${summaryBottom}px`,
-            left: "16px",
-            right: "16px",
-            height: `${summaryCardHeight}px`,
-          }}
-        >
-          <div className="grid grid-cols-3 py-2.5">
+          <div className="grid grid-cols-3 pt-5">
             {summaryMetrics.map((metric, index) => (
               <div
                 key={metric.label}
-                className={`px-1 text-center ${index < summaryMetrics.length - 1 ? "border-r border-gray-200" : ""}`}
+                className={`min-w-0 px-2 text-left ${index > 0 ? "border-l border-white/16" : ""}`}
               >
-                <p className="whitespace-nowrap text-[12px] font-bold leading-none text-gray-900">{metric.label}</p>
-                <p className="mt-1 text-[31px] font-bold leading-none text-[#FF6B9D]">
-                  {metric.value === "--" ? "--" : <>{metric.value}<span className="text-[18px]">%</span></>}
+                <p className="truncate text-[9px] font-bold text-white/46 sm:text-[11px]">{metric.label}</p>
+                <p className="mt-2 text-[24px] font-black leading-none text-white sm:text-[30px]">
+                  {metric.value === "--" ? "--" : <>{metric.value}<span className="ml-0.5 text-[12px] text-[#ff5b96]">%</span></>}
                 </p>
               </div>
             ))}

@@ -10,10 +10,13 @@ export default function SectionHeader({
   title,
 }: SectionHeaderProps) {
   return (
-    <div className="flex items-center justify-between px-4 mb-3">
-      <div className="flex items-center gap-1.5">
-        {icon}
-        <h2 className="text-[15px] font-extrabold text-gray-900">{title}</h2>
+    <div className="mb-8 flex items-end justify-between gap-5 sm:mb-10">
+      <div>
+        <div className="mb-3 flex items-center gap-2 text-[#f43679]">
+          {icon}
+          <span className="text-[10px] font-black tracking-[0.22em]">TIXREPO NOW</span>
+        </div>
+        <h2 className="text-[28px] font-black tracking-[-0.04em] text-[#1c171b] sm:text-[38px]">{title}</h2>
       </div>
     </div>
   );

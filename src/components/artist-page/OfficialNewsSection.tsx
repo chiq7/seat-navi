@@ -18,17 +18,18 @@ export default function OfficialNewsSection({ news, moreHref }: Props) {
   if (news.length === 0) return null;
 
   return (
-    <section className="mt-3 px-3" id="official-news">
-      <h2 className="mb-3 text-[18px] font-bold leading-none text-gray-900">公式ニュース</h2>
-      <div className="rounded-[24px] border border-pink-100 bg-white p-3 shadow-sm">
-        <div className="overflow-hidden rounded-xl border border-gray-100">
+    <section className="artist-section" id="official-news">
+      <p className="artist-kicker">Official News</p>
+      <h2 className="artist-heading">公式ニュース</h2>
+      <div className="mt-8 border-t border-[#ded8dc]">
+        <div>
           {news.map((n) => (
             <a
               key={n.id}
               href={n.article_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 border-b border-gray-100 px-3 py-2.5 no-underline last:border-b-0 active:bg-gray-50"
+              className="zr-focus flex min-h-[110px] items-center gap-3 border-b border-[#ded8dc] py-4 no-underline transition-colors hover:bg-white sm:px-4"
             >
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-1.5">
@@ -51,7 +52,7 @@ export default function OfficialNewsSection({ news, moreHref }: Props) {
             </a>
           ))}
         </div>
-        <div className="mt-3 flex justify-center">
+        <div className="mt-5 flex justify-center">
           <Link href={moreHref} className="inline-flex items-center text-[14px] font-bold text-[#FF6B9D]">
             もっと見る
             <ChevronRight size={16} aria-hidden="true" />

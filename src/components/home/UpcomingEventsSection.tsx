@@ -11,12 +11,13 @@ type UpcomingEventsSectionProps = {
 export default function UpcomingEventsSection({ events, favoriteUserId, favoriteSlugs }: UpcomingEventsSectionProps) {
 
   return (
-    <section className="mt-3">
+    <section className="zr-section bg-white">
+      <div className="zr-container">
       <SectionHeader
         icon={<Calendar size={16} color="#FF6B9D" />}
         title="開催が近い公演"
       />
-      <div className="flex w-full gap-2 overflow-x-auto px-3 pb-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div className="grid gap-x-8 border-t border-[#d8d1d6] md:grid-cols-2">
         {events.map((item) => (
           <UpcomingEventCard
             key={item.id}
@@ -25,7 +26,7 @@ export default function UpcomingEventsSection({ events, favoriteUserId, favorite
             initialFavorite={favoriteSlugs.has(item.artistSlug)}
           />
         ))}
-        <div className="shrink-0 w-1" />
+      </div>
       </div>
     </section>
   );

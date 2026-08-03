@@ -10,6 +10,7 @@ type UpcomingEventCardProps = {
   featured?: boolean;
   favoriteUserId: string | null;
   initialFavorite: boolean;
+  index?: number;
 };
 
 export default function UpcomingEventCard({
@@ -18,94 +19,62 @@ export default function UpcomingEventCard({
   featured,
   favoriteUserId,
   initialFavorite,
+  index,
 }: UpcomingEventCardProps) {
-  if (featured && backgroundImage) {
+  void backgroundImage;
+  if (featured) {
     return (
-      <div className="relative h-[132px] w-[150px] shrink-0">
-        <Link href={`/artists/${item.artistSlug}`} className="block h-full w-full overflow-hidden rounded-[16px] bg-white shadow-sm no-underline">
-          <div className="relative h-[76px]">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={backgroundImage}
-            alt={item.artist}
-            className="h-full w-full object-cover"
-            style={{ objectPosition: "center 100%" }}
-          />
-          <div
-            aria-hidden="true"
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 60%, rgba(255,255,255,1) 100%)",
-            }}
-          />
-          <p
-            className="absolute left-0 right-0 m-0 text-center text-[14px] font-bold text-white"
-            style={{ bottom: "49px", textShadow: "0 1px 3px rgba(0,0,0,0.5)" }}
-          >
-            {item.artist}
-          </p>
-          <p
-            className="absolute left-0 right-0 m-0 overflow-hidden text-ellipsis whitespace-nowrap text-center text-[10px] font-normal text-white"
-            style={{ bottom: "31px", padding: "0 6px", textShadow: "0 1px 3px rgba(0,0,0,0.5)" }}
-          >
-            {item.venue}
-          </p>
-          <p
-            className="absolute left-0 right-0 m-0 overflow-hidden text-ellipsis whitespace-nowrap px-[6px] text-center text-[10px] font-bold text-white"
-            style={{ bottom: "14px", textShadow: "0 1px 3px rgba(0,0,0,0.5)" }}
-          >
-            {item.eventName}
-          </p>
+      <div className="group relative min-h-[250px] border-b border-[#d8d1d6] px-1 py-6 sm:px-5 lg:border-r lg:last:border-r-0">
+        <Link href={`/artists/${item.artistSlug}`} className="zr-focus flex h-full flex-col rounded-sm no-underline">
+          <div className="flex items-start justify-between gap-4">
+            <span className="text-[11px] font-black tabular-nums tracking-[0.18em] text-[#f43679]">{String(index ?? 1).padStart(2, "0")}</span>
+            <span className="pr-9 text-[11px] font-bold text-[#777078]">{item.period}</span>
           </div>
-          <div className="box-border flex h-[56px] flex-col" style={{ padding: "2px 8px 5px" }}>
-            <p className="m-0 mt-[3px] text-center text-[10px] font-bold leading-none text-[#555]">
-              {item.period}
-            </p>
-            <span className="mt-[7px] block w-full rounded-[16px] bg-[#FF6B9D] py-[4px] text-center text-[9px] font-bold text-white">
-              公演を見る
-            </span>
+          <div className="mt-9">
+            <p className="text-[22px] font-black leading-tight tracking-[-0.04em] text-[#1c171b]">{item.artist}</p>
+            <p className="mt-2 line-clamp-2 text-[12px] font-bold leading-5 text-[#514a50]">{item.eventName}</p>
+            <p className="mt-4 text-[11px] text-[#817981]">{item.venue}</p>
+          </div>
+          <div className="mt-auto flex items-end justify-between pt-7">
+            <span className="text-[11px] font-bold text-[#f43679]">公演・座席表を見る →</span>
+            <span className="text-[10px] text-[#938b92]">{item.count} reports</span>
           </div>
         </Link>
         <FavoriteArtistButton
           artistSlug={item.artistSlug}
           initialUserId={favoriteUserId}
           initialFavorite={initialFavorite}
-          className="absolute right-1 top-1 z-10"
+          className="absolute right-1 top-5 z-10 sm:right-4"
         />
       </div>
     );
   }
 
   return (
-    <div className="relative w-[120px] shrink-0">
+    <div className="group relative border-b border-[#ded8dc]">
       <Link
         href={`/artists/${item.artistSlug}`}
-        className="block w-full rounded-xl border border-gray-100 bg-white p-3 shadow-sm no-underline transition-transform active:scale-[0.98]"
-        style={
-          backgroundImage
-            ? {
-                backgroundImage: `url('${backgroundImage}')`,
-                backgroundPosition: "center bottom",
-                backgroundSize: "cover",
-              }
-            : undefined
-        }
+        className="zr-focus grid min-h-[126px] w-full grid-cols-[84px_1fr] items-center gap-5 py-5 pr-12 no-underline transition-colors hover:bg-[#fff7fa] sm:grid-cols-[96px_1fr_auto]"
       >
-        <p className="mb-[4px] mt-[4px] pr-7 text-[10px] font-bold leading-none text-gray-500">{item.date}</p>
-        <p className="mb-[2px] mt-[4px] truncate text-[15px] font-bold text-gray-900">{item.artist}</p>
-        <p className="mb-[2px] truncate text-[9px] text-gray-400">{item.venue}</p>
-        <div className="flex items-baseline gap-0.5">
-          <span className="mr-[2px] text-[9px] text-gray-400">報告数</span>
-          <span className="text-[13px] font-bold text-[#FF6B9D]">{item.count}</span>
-          <span className="text-[9px] text-gray-400">件</span>
+        <div className="border-r border-[#ded8dc] pr-5 text-center">
+          <p className="text-[18px] font-black tabular-nums text-[#1c171b]">{item.date}</p>
+          <p className="mt-2 text-[9px] font-bold uppercase tracking-[0.14em] text-[#f43679]">LIVE</p>
+        </div>
+        <div className="min-w-0">
+          <p className="truncate text-[16px] font-black text-[#1c171b]">{item.artist}</p>
+          <p className="mt-1 truncate text-[11px] font-medium text-[#665e65]">{item.eventName}</p>
+          <p className="mt-2 truncate text-[10px] text-[#948c93]">{item.venue}</p>
+        </div>
+        <div className="hidden text-right sm:block">
+          <p className="text-[20px] font-black text-[#f43679]">{item.count}</p>
+          <p className="text-[9px] text-[#938b92]">REPORTS</p>
         </div>
       </Link>
       <FavoriteArtistButton
         artistSlug={item.artistSlug}
         initialUserId={favoriteUserId}
         initialFavorite={initialFavorite}
-        className="absolute right-1.5 top-1.5 z-10"
+        className="absolute right-1 top-1/2 z-10 -translate-y-1/2"
       />
     </div>
   );

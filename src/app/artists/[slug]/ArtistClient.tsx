@@ -427,7 +427,7 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
   }
 
   return (
-    <main className="min-h-screen bg-white font-sans text-gray-900">
+    <main className="min-h-screen bg-[#f7f5f6] font-sans text-[#1c171b]">
       <HeroSection
         key={artist.slug}
         artistName={artist.name}
@@ -448,7 +448,7 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
       />
 
       {fetchError && (
-        <div className="mx-3 mt-3 rounded-xl bg-red-50 px-3 py-3 text-sm text-red-600">
+        <div className="zr-container mt-4 border-l-2 border-red-500 bg-red-50 px-4 py-3 text-sm text-red-600">
           {fetchError}
         </div>
       )}
@@ -458,16 +458,17 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
           <div className="h-6 w-6 animate-spin rounded-full border-2 border-[#FF6B9D] border-t-transparent" />
         </div>
       ) : (
-        <div className="bg-gradient-to-b from-white via-[#FFF8FB] to-white pb-24">
+        <div className="pb-24">
           {/* 現在の公演 / 過去の公演 タブ */}
-          <div className="flex border-b border-gray-100 bg-white">
+          <div className="sticky top-0 z-30 border-b border-[#ded8dc] bg-white/94 backdrop-blur-xl">
+            <div className="zr-container flex min-h-14 items-center">
             <button
               type="button"
               onClick={() => setActiveEventTab("current")}
-              className={`flex-1 py-3 text-center text-[14px] font-bold transition-colors ${
+              className={`zr-focus min-h-14 flex-1 border-b-2 px-2 text-center text-[13px] font-bold transition-colors ${
                 activeEventTab === "current"
-                  ? "border-b-2 border-[#FF6B9D] text-[#FF6B9D]"
-                  : "border-b-2 border-transparent text-gray-400"
+                  ? "border-[#f43679] text-[#f43679]"
+                  : "border-transparent text-[#8d858c]"
               }`}
             >
               現在の公演
@@ -475,33 +476,36 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
             <button
               type="button"
               onClick={() => setActiveEventTab("past")}
-              className={`flex-1 py-3 text-center text-[14px] font-bold transition-colors ${
+              className={`zr-focus min-h-14 flex-1 border-b-2 px-2 text-center text-[13px] font-bold transition-colors ${
                 activeEventTab === "past"
-                  ? "border-b-2 border-[#FF6B9D] text-[#FF6B9D]"
-                  : "border-b-2 border-transparent text-gray-400"
+                  ? "border-[#f43679] text-[#f43679]"
+                  : "border-transparent text-[#8d858c]"
               }`}
             >
               過去の公演
             </button>
-            <div className="flex items-center border-l border-gray-100 px-2">
+            <div className="flex items-center border-l border-[#ded8dc] pl-2">
               <FavoriteArtistButton artistSlug={slug} />
+            </div>
             </div>
           </div>
 
           {activeEventTab === "current" ? (
-            <>
+            <div className="zr-container">
               <UpcomingEventsSection artistName={artist.name} events={upcomingEvents} />
 
               {/* ===== 座席データ区画: 全公演の傾向カード + 座席報告タイムライン ===== */}
               <div id="trend">
-                <section className="mt-3 px-3">
-                  <div className="rounded-2xl border border-gray-100 bg-white p-3 shadow-sm">
+                <section className="artist-section">
+                  <p className="artist-kicker">Ticket & Seat Data</p>
+                  <h2 className="artist-heading">当落・座席データ</h2>
+                  <div className="mt-8 grid gap-6 lg:grid-cols-[1.25fr_.75fr]">
                     <TrendSection
                       ticketStats={trendTicketStats}
                       arenaStats={trendArenaStats}
                       upgradeStats={trendUpgradeStats}
                     />
-                    <div className="mt-3 overflow-hidden rounded-xl border border-gray-100 bg-white p-3">
+                    <div className="min-w-0 border-t border-[#ded8dc] pt-5 lg:border-l lg:border-t-0 lg:pl-6 lg:pt-0">
                       <SeatReportTimelineSection
                         items={seatReportTimeline}
                         eventMap={eventMap}
@@ -536,22 +540,22 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
               >
                 <LiveEffectsSection liveEffects={liveEffects} />
               </ReportSection>
-            </>
+            </div>
           ) : (
-            <PastTourSection
+            <div className="zr-container py-8"><PastTourSection
               tours={pastTourGroups}
               onSelectEvent={handleSelectPastEvent}
               onSelectTour={handleSelectTour}
               artistName={artist?.name}
-            />
+            /></div>
           )}
 
-          <OfficialNewsSection news={officialNews} moreHref={`/artists/${slug}/news`} />
+          <div className="zr-container"><OfficialNewsSection news={officialNews} moreHref={`/artists/${slug}/news`} /></div>
           {seoProfile && artist && (
             <SeoEditorialSection
               title={`${artist.name}とは`}
               profile={seoProfile}
-              className="mt-7 px-3"
+              className="zr-container mt-10"
             />
           )}
         </div>

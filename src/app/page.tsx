@@ -165,7 +165,7 @@ function RealtimeFeedSkeleton() {
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#FFF8FB]">
+    <div className="min-h-screen bg-[#f7f5f6]">
       <HomeHeader />
       <main>
         <h1 className="sr-only">ライブチケットの当落・座席・現地レポを共有する ちけレポ</h1>

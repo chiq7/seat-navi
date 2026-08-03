@@ -144,13 +144,13 @@ export default function TrendSection({
   const detailRows = activeArenaTab === "arena" ? arenaRows : upgradeRows;
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
-      <div className="p-1.5">
-        <h2 className="flex h-11 items-center justify-center text-[16px] font-bold text-gray-900">
+    <div className="overflow-hidden border-y border-[#ded8dc] bg-white">
+      <div className="px-4 py-4">
+        <h2 className="text-left text-[15px] font-black text-[#1c171b]">
           {title}
         </h2>
       </div>
-      <div className="border-t border-gray-100">
+      <div className="border-t border-[#ded8dc]">
         <TrendCard
           trendRows={trendRows}
           activeTab={activeArenaTab}
@@ -178,7 +178,7 @@ function TrendCard({
 }) {
   return (
     <div>
-      <div className="divide-y divide-gray-100">
+      <div className="divide-y divide-[#e9e4e8]">
         {trendRows.map((row) => (
           <TrendRow key={row.label} row={row} />
         ))}
@@ -208,7 +208,7 @@ function ArenaDetailCard({
   const ToggleIcon = isOpen ? ChevronUp : ChevronDown;
 
   return (
-    <div className="border-t border-gray-100">
+    <div className="border-t border-[#ded8dc]">
       <button
         type="button"
         onClick={() => setIsOpen((current) => !current)}
@@ -223,12 +223,12 @@ function ArenaDetailCard({
       {isOpen ? (
         <>
           <div className="px-4">
-            <div className="grid h-10 grid-cols-2 rounded-full border border-gray-200 p-1">
+            <div className="grid h-11 grid-cols-2 border border-[#ded8dc] p-1">
               <button
                 type="button"
                 onClick={() => onTabChange("arena")}
                 className={`rounded-full text-[14px] font-bold ${
-                  activeTab === "arena" ? "bg-[#FF6B9D] text-white" : "text-gray-900"
+                  activeTab === "arena" ? "bg-[#f43679] text-white" : "text-gray-900"
                 }`}
               >
                 通常アリーナ
@@ -237,14 +237,14 @@ function ArenaDetailCard({
                 type="button"
                 onClick={() => onTabChange("upgrade")}
                 className={`rounded-full text-[14px] font-bold ${
-                  activeTab === "upgrade" ? "bg-[#FF6B9D] text-white" : "text-gray-900"
+                  activeTab === "upgrade" ? "bg-[#f43679] text-white" : "text-gray-900"
                 }`}
               >
                 アプグレ
               </button>
             </div>
           </div>
-          <div className="mt-3 divide-y divide-gray-100 border-t border-gray-100">
+          <div className="mt-3 divide-y divide-[#e9e4e8] border-t border-[#ded8dc]">
             {rows.map((row) => (
               <TrendRow key={row.label} row={row} valueColorClass="text-[#D9467A]" valueSizeClass="text-[14px]" />
             ))}
@@ -267,15 +267,15 @@ function TrendRow({
   const Icon = row.icon;
 
   return (
-    <div className="grid grid-cols-[30px_98px_1fr] items-center gap-1 px-3.5 py-2.5">
+    <div className="grid min-h-[66px] grid-cols-[28px_88px_minmax(0,1fr)] items-center gap-1 px-3 py-2.5 sm:grid-cols-[30px_110px_minmax(0,1fr)] sm:px-4">
       <Icon size={24} strokeWidth={1.9} className="text-gray-500" />
       <div className="min-w-0">
-        <p className="truncate text-[15px] font-bold leading-tight text-gray-900">{row.label}</p>
+        <p className="truncate text-[14px] font-bold leading-tight text-gray-900 sm:text-[15px]">{row.label}</p>
       </div>
-      <div className="ml-auto grid grid-cols-4 items-center justify-items-end gap-1">
+      <div className="ml-auto grid min-w-0 grid-cols-4 items-center justify-items-stretch gap-0.5">
         {row.cells.map((item, index) =>
           item ? (
-            <div key={item.label} className="w-[60px] min-w-0 text-center">
+            <div key={item.label} className="min-w-0 text-center">
               <p className="truncate text-center text-[10px] font-medium leading-tight text-gray-500">{item.label}</p>
               <p
                 className={`text-center ${valueSizeClass} font-bold leading-tight ${
@@ -286,7 +286,7 @@ function TrendRow({
               </p>
             </div>
           ) : (
-            <div key={`empty-${index}`} className="w-[60px]" />
+            <div key={`empty-${index}`} className="min-w-0" />
           ),
         )}
       </div>

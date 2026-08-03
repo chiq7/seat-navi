@@ -1,9 +1,17 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-pink-100 bg-white">
-      <div className="flex flex-wrap justify-center gap-x-4 gap-y-2 px-3 pb-[96px] pt-5 text-[11px] text-gray-500">
+    <footer className="bg-[#100b10] text-white">
+      <div className="zr-container grid gap-10 pb-[110px] pt-14 md:grid-cols-[1fr_auto] md:items-end md:pb-16 md:pt-20">
+        <div>
+          <Link href="/" className="zr-focus inline-block rounded-md bg-white px-4 py-3">
+            <Image src="/images/logo.png" alt="ちけレポ トップへ" width={132} height={34} className="h-7 w-auto" />
+          </Link>
+          <p className="mt-6 max-w-[520px] text-[12px] leading-6 text-white/48">ライブの当落、座席表、会場の見え方、現地の熱をファン同士で共有するライブ情報コミュニティ。</p>
+        </div>
+        <div className="flex flex-wrap gap-x-5 gap-y-3 text-[11px] font-bold text-white/65 md:justify-end">
         <Link href="/terms" className="hover:text-gray-700">
           利用規約
         </Link>
@@ -16,7 +24,8 @@ export default function Footer() {
         <Link href="/venues" className="hover:text-gray-700">
           ライブ会場一覧
         </Link>
-        <p className="basis-full text-center text-[10px] text-gray-400">© ちけレポ</p>
+        </div>
+        <p className="text-[9px] tracking-[0.12em] text-white/28 md:col-span-2 md:text-right">© TIXREPO</p>
       </div>
     </footer>
   );

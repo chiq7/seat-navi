@@ -67,7 +67,7 @@ export default function SeatReportTimelineSection({
 }: Props) {
   return (
     <div>
-      {title && <h3 className="text-center text-[14px] font-bold text-gray-900">{title}</h3>}
+      {title && <h3 className="text-left text-[13px] font-black text-[#1c171b]">{title}</h3>}
       {items.length > 0 ? (
         <>
           <div className="-mx-3 mt-3 border-t border-gray-200" />
@@ -154,7 +154,7 @@ export default function SeatReportTimelineSection({
           </div>
         </>
       ) : (
-        <div className="mt-3 rounded-xl bg-[#FFF8FB] px-4 py-3 text-center">
+        <div className="mt-3 border-y border-[#ded8dc] bg-white px-4 py-6 text-center">
           <p className="text-[12px] text-gray-500">{emptyText}</p>
           {reportHref && (
             <Link

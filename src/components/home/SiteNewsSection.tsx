@@ -10,9 +10,9 @@ export default function SiteNewsSection() {
   if (latestPosts.length === 0) return null;
 
   return (
-    <section className="mt-4">
-      <div className="mb-3 flex items-center justify-between px-4">
-        <h2 className="flex items-center gap-1.5 text-[15px] font-extrabold text-gray-900">
+    <section className="zr-container border-t border-[#d8d1d6] pb-20 pt-8">
+      <div className="mb-5 flex items-center justify-between">
+        <h2 className="flex items-center gap-2 text-[18px] font-black text-[#1c171b]">
           <Megaphone size={16} color="#FF6B9D" aria-hidden="true" />
           ちけレポからのお知らせ
         </h2>
@@ -20,7 +20,7 @@ export default function SiteNewsSection() {
           一覧を見る
         </Link>
       </div>
-      <div className="mx-4">
+      <div>
         <SiteNewsList posts={latestPosts} compact />
       </div>
     </section>

@@ -129,13 +129,14 @@ export default function ReportSection({ reports, afterHref, reportHref, children
   const displayReports = reports.slice(0, 4);
 
   return (
-    <section className="mt-3 px-3" id="reports">
-      <h2 className="mb-3 text-[18px] font-bold leading-none text-gray-900">現地レポ</h2>
-      <div className="rounded-[24px] border border-pink-100 bg-white p-3 shadow-sm">
+    <section className="artist-section" id="reports">
+      <p className="artist-kicker">Live Reports</p>
+      <h2 className="artist-heading">現地レポ</h2>
+      <div className="mt-8 bg-white p-4 sm:p-6">
         {children && <div className="mb-3">{children}</div>}
-        <h3 className="mb-1.5 text-center text-[12px] font-semibold text-gray-500">現地レポタイムライン</h3>
+        <h3 className="mb-3 text-[11px] font-bold tracking-[0.12em] text-[#8d858c]">現地レポタイムライン</h3>
         <ReportTimelineList reports={displayReports} reportHref={reportHref} authorMap={authorMap} />
-        <div className="mt-3 text-center">
+        <div className="mt-4 border-t border-[#ded8dc] pt-4 text-center">
           <Link href={afterHref} className="text-[14px] font-bold text-[#FF6B9D]">
             もっと見る
           </Link>

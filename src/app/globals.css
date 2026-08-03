@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #111827;
-  --accent: #7C3AED;
-  --accent-light: #EDE9FE;
-  --accent-dark: #5B21B6;
+  --background: #f7f5f6;
+  --foreground: #1c171b;
+  --accent: #f43679;
+  --accent-light: #ffe9f1;
+  --accent-dark: #c91558;
   --card-bg: #ffffff;
   --card-border: #E5E7EB;
   --text-muted: #9CA3AF;
@@ -26,6 +26,76 @@ body {
   color: var(--foreground);
   font-family: "Noto Sans JP", system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: #f43679;
+  color: #fff;
+}
+
+.zr-container {
+  width: min(100% - 40px, 1240px);
+  margin-inline: auto;
+}
+
+.zr-section {
+  padding-block: clamp(72px, 8vw, 120px);
+}
+
+.zr-focus:focus-visible {
+  outline: 3px solid rgba(244, 54, 121, 0.34);
+  outline-offset: 3px;
+}
+
+.artist-section {
+  padding-block: 56px;
+  border-bottom: 1px solid #ded8dc;
+}
+
+.artist-kicker {
+  color: #f43679;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.artist-heading {
+  margin-top: 10px;
+  color: #1c171b;
+  font-size: clamp(26px, 7vw, 38px);
+  font-weight: 900;
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+}
+
+@media (max-width: 640px) {
+  .zr-container {
+    width: min(100% - 32px, 1240px);
+  }
+
+  .zr-section {
+    padding-block: 64px;
+  }
+
+  .artist-section {
+    padding-block: 48px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* TixRepo brand focus ring */

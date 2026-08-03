@@ -16,7 +16,7 @@ export default function RealtimeFeedItem({ item }: { item: HomeFeedItem }) {
   return (
     <Link
       href={item.href}
-      className="flex flex-col gap-2.5 px-3 py-3 no-underline active:bg-gray-50"
+      className="group flex min-h-[150px] min-w-0 flex-col gap-4 overflow-hidden border-b border-white/14 py-6 no-underline transition-colors hover:bg-white/[0.035] md:px-6 md:even:border-l"
     >
       <div className="flex min-w-0 items-center gap-1.5">
         <span
@@ -25,14 +25,14 @@ export default function RealtimeFeedItem({ item }: { item: HomeFeedItem }) {
         >
           {item.type}
         </span>
-        <p className="min-w-0 max-w-[30%] shrink truncate text-[14px] font-bold text-[#FF6B9D]">
+        <p className="min-w-0 max-w-[38%] shrink truncate text-[14px] font-bold text-[#ff5b96]">
           {item.artistName}
         </p>
-        <span className="ml-auto min-w-0 flex-1 truncate text-right text-[11px] text-gray-500">
+        <span className="ml-auto min-w-0 flex-1 truncate text-right text-[10px] text-white/42">
           {item.venue}・{fmtFeedDate(item.date)}
         </span>
       </div>
-      <p className="line-clamp-2 text-[13px] font-normal leading-relaxed text-gray-700">
+      <p className="line-clamp-2 text-[14px] font-medium leading-7 text-white/74">
         {item.detail}
       </p>
     </Link>
