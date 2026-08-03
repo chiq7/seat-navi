@@ -96,7 +96,6 @@ export default function AdDemoClient({
             ticketStats={ticketStats}
             arenaStats={arenaStats}
             upgradeStats={upgradeStats}
-            initialArenaDetailOpen
           />
         ) : (
           <MapPreviewSection mapEvent={{ id: "ad-demo-event", reports: mapReports }} />

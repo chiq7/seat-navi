@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { CalendarDays, ChevronDown, ChevronUp, CreditCard, Ticket, UsersRound } from "lucide-react";
+import { CalendarDays, CreditCard, Ticket, UsersRound } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { computeTicketResultStats, computeArenaDetailStats, computeUpgradeDetailStats } from "@/lib/artistPageStats";
 import { detailRateText } from "@/lib/artistPageHelpers";
@@ -15,38 +15,63 @@ type Props = {
   arenaStats: ArenaStats;
   upgradeStats: UpgradeStats;
   title?: string;
-  initialArenaDetailOpen?: boolean;
 };
 
-type Cell = { label: string; value: string } | null;
-type TrendRowData = { icon: LucideIcon; label: string; cells: Cell[] };
-
+type Metric = { label: string; value: string };
+type MetricGroupData = { icon: LucideIcon; label: string; metrics: Metric[] };
 type ArenaTab = "arena" | "upgrade";
 
-export default function TrendSection({
-  ticketStats,
-  arenaStats,
-  upgradeStats,
-  title = "全公演",
-  initialArenaDetailOpen = false,
-}: Props) {
+function MetricGroup({ group, accent = false }: { group: MetricGroupData; accent?: boolean }) {
+  const Icon = group.icon;
+
+  return (
+    <section className="border-b border-r border-[#ded8dc] bg-white p-4 sm:p-5">
+      <div className="flex items-center gap-2">
+        <Icon size={18} strokeWidth={1.8} className={accent ? "text-[#f43679]" : "text-[#625a61]"} />
+        <h3 className="text-[13px] font-black text-[#1c171b]">{group.label}</h3>
+      </div>
+      <div
+        className="mt-4 grid border-l border-t border-[#eee8ec]"
+        style={{ gridTemplateColumns: `repeat(${group.metrics.length}, minmax(0, 1fr))` }}
+      >
+        {group.metrics.map((metric) => (
+          <div key={metric.label} className="min-w-0 border-b border-r border-[#eee8ec] px-1.5 py-2 text-center sm:px-2">
+            <p className="truncate text-[9px] font-bold leading-4 text-[#817981]">{metric.label}</p>
+            <p className={`mt-1 text-[14px] font-black tracking-[-0.02em] ${metric.value === "--" ? "text-[#aaa2a8]" : accent ? "text-[#f43679]" : "text-[#1c171b]"}`}>
+              {metric.value}
+            </p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function DataGrid({ groups, accent = false }: { groups: MetricGroupData[]; accent?: boolean }) {
+  return (
+    <div className="grid border-l border-t border-[#ded8dc] sm:grid-cols-2">
+      {groups.map((group) => <MetricGroup key={group.label} group={group} accent={accent} />)}
+    </div>
+  );
+}
+
+export default function TrendSection({ ticketStats, arenaStats, upgradeStats, title = "全公演" }: Props) {
   const [activeArenaTab, setActiveArenaTab] = useState<ArenaTab>("arena");
 
-  const trendRows: TrendRowData[] = [
+  const ticketGroups: MetricGroupData[] = [
     {
       icon: UsersRound,
       label: "FC歴",
-      cells: [
+      metrics: [
         { label: "1年未満", value: detailRateText(ticketStats.fc.under1) },
-        { label: "1〜3年",  value: detailRateText(ticketStats.fc.one3) },
+        { label: "1〜3年", value: detailRateText(ticketStats.fc.one3) },
         { label: "3年以上", value: detailRateText(ticketStats.fc.over3) },
-        null,
       ],
     },
     {
       icon: Ticket,
       label: "申込枚数",
-      cells: [
+      metrics: [
         { label: "1枚", value: detailRateText(ticketStats.ticketCount.one) },
         { label: "2枚", value: detailRateText(ticketStats.ticketCount.two) },
         { label: "3枚", value: detailRateText(ticketStats.ticketCount.three) },
@@ -56,240 +81,125 @@ export default function TrendSection({
     {
       icon: CalendarDays,
       label: "抽選回",
-      cells: [
+      metrics: [
         { label: "1次抽選", value: detailRateText(ticketStats.lottery.first) },
         { label: "2次抽選", value: detailRateText(ticketStats.lottery.second) },
-        { label: "その他",  value: detailRateText(ticketStats.lottery.other) },
-        null,
+        { label: "その他", value: detailRateText(ticketStats.lottery.other) },
       ],
     },
     {
       icon: CreditCard,
       label: "決済方法",
-      cells: [
-        { label: "クレカ",  value: detailRateText(ticketStats.payment.credit) },
-        { label: "その他",  value: detailRateText(ticketStats.payment.other) },
-        null,
-        null,
+      metrics: [
+        { label: "クレカ", value: detailRateText(ticketStats.payment.credit) },
+        { label: "その他", value: detailRateText(ticketStats.payment.other) },
       ],
     },
   ];
 
-  const arenaRows: TrendRowData[] = [
-    {
-      icon: UsersRound,
-      label: "FC歴",
-      cells: [
-        { label: "1年未満", value: detailRateText(arenaStats.fc.under1.rate) },
-        { label: "1〜3年",  value: detailRateText(arenaStats.fc.one3.rate) },
-        { label: "3年以上", value: detailRateText(arenaStats.fc.over3.rate) },
-        null,
-      ],
-    },
-    {
-      icon: Ticket,
-      label: "申込枚数",
-      cells: [
-        { label: "1枚", value: detailRateText(arenaStats.ticketCount.one.rate) },
-        { label: "2枚", value: detailRateText(arenaStats.ticketCount.two.rate) },
-        { label: "3枚", value: detailRateText(arenaStats.ticketCount.three.rate) },
-        { label: "4枚", value: detailRateText(arenaStats.ticketCount.four.rate) },
-      ],
-    },
-    {
-      icon: CalendarDays,
-      label: "抽選",
-      cells: [
-        { label: "1次抽選", value: detailRateText(arenaStats.lottery.first.rate) },
-        { label: "2次抽選", value: detailRateText(arenaStats.lottery.second.rate) },
-        { label: "その他",  value: detailRateText(arenaStats.lottery.other.rate) },
-        null,
-      ],
-    },
-  ];
-
-  const upgradeRows: TrendRowData[] = [
-    {
-      icon: UsersRound,
-      label: "FC歴",
-      cells: [
-        { label: "1年未満", value: detailRateText(upgradeStats.fc.under1.rate) },
-        { label: "1〜3年",  value: detailRateText(upgradeStats.fc.one3.rate) },
-        { label: "3年以上", value: detailRateText(upgradeStats.fc.over3.rate) },
-        null,
-      ],
-    },
-    {
-      icon: Ticket,
-      label: "申込枚数",
-      cells: [
-        { label: "1枚", value: detailRateText(upgradeStats.ticketCount.one.rate) },
-        { label: "2枚", value: detailRateText(upgradeStats.ticketCount.two.rate) },
-        { label: "3枚", value: detailRateText(upgradeStats.ticketCount.three.rate) },
-        { label: "4枚", value: detailRateText(upgradeStats.ticketCount.four.rate) },
-      ],
-    },
-    {
-      icon: CreditCard,
-      label: "決済方法",
-      cells: [
-        { label: "クレカ",  value: detailRateText(upgradeStats.payment.credit.rate) },
-        { label: "その他",  value: detailRateText(upgradeStats.payment.other.rate) },
-        null,
-        null,
-      ],
-    },
-  ];
-
-  const detailRows = activeArenaTab === "arena" ? arenaRows : upgradeRows;
+  const arenaGroups: MetricGroupData[] = activeArenaTab === "arena"
+    ? [
+        {
+          icon: UsersRound,
+          label: "FC歴",
+          metrics: [
+            { label: "1年未満", value: detailRateText(arenaStats.fc.under1.rate) },
+            { label: "1〜3年", value: detailRateText(arenaStats.fc.one3.rate) },
+            { label: "3年以上", value: detailRateText(arenaStats.fc.over3.rate) },
+          ],
+        },
+        {
+          icon: Ticket,
+          label: "申込枚数",
+          metrics: [
+            { label: "1枚", value: detailRateText(arenaStats.ticketCount.one.rate) },
+            { label: "2枚", value: detailRateText(arenaStats.ticketCount.two.rate) },
+            { label: "3枚", value: detailRateText(arenaStats.ticketCount.three.rate) },
+            { label: "4枚", value: detailRateText(arenaStats.ticketCount.four.rate) },
+          ],
+        },
+        {
+          icon: CalendarDays,
+          label: "抽選回",
+          metrics: [
+            { label: "1次抽選", value: detailRateText(arenaStats.lottery.first.rate) },
+            { label: "2次抽選", value: detailRateText(arenaStats.lottery.second.rate) },
+            { label: "その他", value: detailRateText(arenaStats.lottery.other.rate) },
+          ],
+        },
+      ]
+    : [
+        {
+          icon: UsersRound,
+          label: "FC歴",
+          metrics: [
+            { label: "1年未満", value: detailRateText(upgradeStats.fc.under1.rate) },
+            { label: "1〜3年", value: detailRateText(upgradeStats.fc.one3.rate) },
+            { label: "3年以上", value: detailRateText(upgradeStats.fc.over3.rate) },
+          ],
+        },
+        {
+          icon: Ticket,
+          label: "申込枚数",
+          metrics: [
+            { label: "1枚", value: detailRateText(upgradeStats.ticketCount.one.rate) },
+            { label: "2枚", value: detailRateText(upgradeStats.ticketCount.two.rate) },
+            { label: "3枚", value: detailRateText(upgradeStats.ticketCount.three.rate) },
+            { label: "4枚", value: detailRateText(upgradeStats.ticketCount.four.rate) },
+          ],
+        },
+        {
+          icon: CreditCard,
+          label: "決済方法",
+          metrics: [
+            { label: "クレカ", value: detailRateText(upgradeStats.payment.credit.rate) },
+            { label: "その他", value: detailRateText(upgradeStats.payment.other.rate) },
+          ],
+        },
+      ];
 
   return (
-    <div className="overflow-hidden border-y border-[#ded8dc] bg-white">
-      <div className="px-4 py-4">
-        <h2 className="text-left text-[15px] font-black text-[#1c171b]">
-          {title}
-        </h2>
-      </div>
-      <div className="border-t border-[#ded8dc]">
-        <TrendCard
-          trendRows={trendRows}
-          activeTab={activeArenaTab}
-          rows={detailRows}
-          onTabChange={setActiveArenaTab}
-          initialArenaDetailOpen={initialArenaDetailOpen}
-        />
-      </div>
-    </div>
-  );
-}
-
-function TrendCard({
-  trendRows,
-  activeTab,
-  rows,
-  onTabChange,
-  initialArenaDetailOpen,
-}: {
-  trendRows: TrendRowData[];
-  activeTab: ArenaTab;
-  rows: TrendRowData[];
-  onTabChange: (tab: ArenaTab) => void;
-  initialArenaDetailOpen: boolean;
-}) {
-  return (
-    <div>
-      <div className="divide-y divide-[#e9e4e8]">
-        {trendRows.map((row) => (
-          <TrendRow key={row.label} row={row} />
-        ))}
-      </div>
-      <ArenaDetailCard
-        activeTab={activeTab}
-        rows={rows}
-        onTabChange={onTabChange}
-        initialArenaDetailOpen={initialArenaDetailOpen}
-      />
-    </div>
-  );
-}
-
-function ArenaDetailCard({
-  activeTab,
-  rows,
-  onTabChange,
-  initialArenaDetailOpen,
-}: {
-  activeTab: ArenaTab;
-  rows: TrendRowData[];
-  onTabChange: (tab: ArenaTab) => void;
-  initialArenaDetailOpen: boolean;
-}) {
-  const [isOpen, setIsOpen] = useState(initialArenaDetailOpen);
-  const ToggleIcon = isOpen ? ChevronUp : ChevronDown;
-
-  return (
-    <div className="border-t border-[#ded8dc]">
-      <button
-        type="button"
-        onClick={() => setIsOpen((current) => !current)}
-        className="flex w-full items-center justify-between px-4 py-3"
-      >
-        <h3 className="text-[17px] font-bold leading-tight text-gray-900">アリーナ当選率</h3>
-        <div className="ml-auto flex items-center gap-1 text-[#FF6B9D]">
-          <span className="text-[14px] font-bold leading-tight">詳細を見る</span>
-          <ToggleIcon size={18} strokeWidth={2.2} />
+    <section className="overflow-hidden border border-[#282127] bg-white" aria-label={`${title}の当落・座席データ`}>
+      <header className="bg-[#1c171b] px-5 py-5 text-white sm:px-6">
+        <p className="text-[10px] font-black tracking-[0.22em] text-[#ff5b96]">TICKET ANALYTICS</p>
+        <div className="mt-2 flex items-end justify-between gap-4">
+          <h2 className="text-[23px] font-black tracking-[-0.045em]">{title}の当落傾向</h2>
+          <span className="mb-1 text-[9px] font-black tracking-[0.14em] text-white/50">ALL RESULTS</span>
         </div>
-      </button>
-      {isOpen ? (
-        <>
-          <div className="px-4">
-            <div className="grid h-11 grid-cols-2 border border-[#ded8dc] p-1">
-              <button
-                type="button"
-                onClick={() => onTabChange("arena")}
-                className={`rounded-full text-[14px] font-bold ${
-                  activeTab === "arena" ? "bg-[#f43679] text-white" : "text-gray-900"
-                }`}
-              >
-                通常アリーナ
-              </button>
-              <button
-                type="button"
-                onClick={() => onTabChange("upgrade")}
-                className={`rounded-full text-[14px] font-bold ${
-                  activeTab === "upgrade" ? "bg-[#f43679] text-white" : "text-gray-900"
-                }`}
-              >
-                アプグレ
-              </button>
-            </div>
-          </div>
-          <div className="mt-3 divide-y divide-[#e9e4e8] border-t border-[#ded8dc]">
-            {rows.map((row) => (
-              <TrendRow key={row.label} row={row} valueColorClass="text-[#D9467A]" valueSizeClass="text-[14px]" />
-            ))}
-          </div>
-        </>
-      ) : null}
-    </div>
-  );
-}
+      </header>
 
-function TrendRow({
-  row,
-  valueColorClass = "text-[#F4A0BC]",
-  valueSizeClass = "text-[13px]",
-}: {
-  row: TrendRowData;
-  valueColorClass?: string;
-  valueSizeClass?: string;
-}) {
-  const Icon = row.icon;
+      <div className="p-4 sm:p-6">
+        <DataGrid groups={ticketGroups} />
+      </div>
 
-  return (
-    <div className="grid min-h-[66px] grid-cols-[28px_88px_minmax(0,1fr)] items-center gap-1 px-3 py-2.5 sm:grid-cols-[30px_110px_minmax(0,1fr)] sm:px-4">
-      <Icon size={24} strokeWidth={1.9} className="text-gray-500" />
-      <div className="min-w-0">
-        <p className="truncate text-[14px] font-bold leading-tight text-gray-900 sm:text-[15px]">{row.label}</p>
-      </div>
-      <div className="ml-auto grid min-w-0 grid-cols-4 items-center justify-items-stretch gap-0.5">
-        {row.cells.map((item, index) =>
-          item ? (
-            <div key={item.label} className="min-w-0 text-center">
-              <p className="truncate text-center text-[10px] font-medium leading-tight text-gray-500">{item.label}</p>
-              <p
-                className={`text-center ${valueSizeClass} font-bold leading-tight ${
-                  item.value === "--" ? "text-[#9CA3AF]" : valueColorClass
-                }`}
-              >
-                {item.value}
-              </p>
-            </div>
-          ) : (
-            <div key={`empty-${index}`} className="min-w-0" />
-          ),
-        )}
-      </div>
-    </div>
+      <section className="border-t border-[#282127] bg-[#fff8fa]" aria-labelledby="arena-rate-title">
+        <div className="flex items-end justify-between gap-4 px-5 py-5 sm:px-6">
+          <div>
+            <p className="text-[10px] font-black tracking-[0.2em] text-[#f43679]">SEAT RATE</p>
+            <h2 id="arena-rate-title" className="mt-1 text-[21px] font-black tracking-[-0.04em] text-[#1c171b]">アリーナ当選率</h2>
+          </div>
+          <span className="mb-1 text-[9px] font-black tracking-[0.12em] text-[#817981]">BY PROFILE</span>
+        </div>
+        <div className="grid grid-cols-2 border-y border-[#ded8dc] bg-white">
+          <button
+            type="button"
+            onClick={() => setActiveArenaTab("arena")}
+            className={`zr-focus min-h-12 border-r border-[#ded8dc] text-[12px] font-black transition-colors ${activeArenaTab === "arena" ? "bg-[#f43679] text-white" : "text-[#625a61] hover:bg-[#fff0f5]"}`}
+          >
+            通常アリーナ
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveArenaTab("upgrade")}
+            className={`zr-focus min-h-12 text-[12px] font-black transition-colors ${activeArenaTab === "upgrade" ? "bg-[#f43679] text-white" : "text-[#625a61] hover:bg-[#fff0f5]"}`}
+          >
+            アプグレ
+          </button>
+        </div>
+        <div className="p-4 sm:p-6">
+          <DataGrid groups={arenaGroups} accent />
+        </div>
+      </section>
+    </section>
   );
 }
