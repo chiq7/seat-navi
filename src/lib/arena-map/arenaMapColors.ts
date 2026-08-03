@@ -10,8 +10,8 @@ const LEGEND_BLUE   = "#3B82F6";
 export const REPORTED_FILL   = "#5B2BE0";
 export const EXTERNAL_EXACT_FILL = "#8B5CF6";
 export const EXTERNAL_RANGE_FILL = "#C4B5FD";
-export const UNREPORTED_FILL = "#F6F4FB";
-export const GRID_STROKE     = "#E3DEF2";
+export const UNREPORTED_FILL = "#f3f0f2";
+export const GRID_STROKE     = "#ded8dc";
 
 // ─── カラーパレット ────────────────────────────────────────────────────────
 

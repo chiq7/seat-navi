@@ -346,6 +346,31 @@ export function ArenaReportMap({
         }}
         aria-label="座席報告マップ（参考・模式図）"
       >
+        <defs>
+          <linearGradient id="arena-stage-surface" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stopColor="#2a2028" />
+            <stop offset="100%" stopColor="#0d090d" />
+          </linearGradient>
+          <linearGradient id="arena-stage-edge" x1="0" x2="1" y1="0" y2="0">
+            <stop offset="0%" stopColor="#f43679" stopOpacity="0" />
+            <stop offset="28%" stopColor="#ff8ab1" />
+            <stop offset="72%" stopColor="#ff8ab1" />
+            <stop offset="100%" stopColor="#f43679" stopOpacity="0" />
+          </linearGradient>
+          <linearGradient id="arena-light-left" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0%" stopColor="#ff5b96" stopOpacity="0.24" />
+            <stop offset="100%" stopColor="#ff5b96" stopOpacity="0" />
+          </linearGradient>
+          <linearGradient id="arena-light-right" x1="1" x2="0" y1="0" y2="1">
+            <stop offset="0%" stopColor="#c4b5fd" stopOpacity="0.2" />
+            <stop offset="100%" stopColor="#c4b5fd" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+
+        {/* 会場の外周。客席ブロックの背面に薄く敷き、会場図としてのまとまりを作る。 */}
+        <rect x={4} y={stageTop} width={svgW - 8} height={svgH - stageTop - 4} fill="#faf8fa" stroke="#ded8dc" strokeWidth="1" />
+        <path d={`M${stageX + 20},${stageTop + 18} L${GRID_START_X + 3},${bandTop + COL_HEADER_H + 20} L${GRID_START_X + 3},${bandTop + COL_HEADER_H + 82} Z`} fill="url(#arena-light-left)" />
+        <path d={`M${stageX + STAGE_W - 20},${stageTop + 18} L${svgW - GRID_START_X - 3},${bandTop + COL_HEADER_H + 20} L${svgW - GRID_START_X - 3},${bandTop + COL_HEADER_H + 82} Z`} fill="url(#arena-light-right)" />
         {/* コンパクト見出し */}
         {isCompact && (compactVenueName || compactDateLabel) && (
           <text x={svgW / 2} y={11} textAnchor="middle" fill="#374151">
@@ -359,28 +384,24 @@ export function ArenaReportMap({
           </text>
         )}
 
-        {/* 1. ステージ（列数の中央に自動配置） */}
-        <image
-          href="/images/arena-prediction/main-stag7.png"
-          x={stageX}
-          y={4}
-          width={STAGE_W}
-          height={40}
-          preserveAspectRatio="xMidYMid meet"
-        />
-        <text
-          x={gridCenterX}
-          y={4 + 40 / 2}
-          textAnchor="middle"
-          dominantBaseline="middle"
-          pointerEvents="none"
-          fontSize={17}
-          fontWeight="bold"
-          fill="#1F2937"
-          style={{ letterSpacing: "0.05em", filter: "drop-shadow(0 1px 1px rgba(0,0,0,0.12))" }}
-        >
-          STAGE
-        </text>
+        {/* 1. メインステージ。画像ではなく、保存時にも崩れない会場図として描画する。 */}
+        <g>
+          <rect x={stageX - 15} y={stageTop + 7} width={10} height={27} fill="#171217" />
+          <rect x={stageX + STAGE_W + 5} y={stageTop + 7} width={10} height={27} fill="#171217" />
+          <rect x={stageX - 12} y={stageTop + 11} width={4} height={4} fill="#ff5b96" />
+          <rect x={stageX - 12} y={stageTop + 20} width={4} height={4} fill="#ff5b96" />
+          <rect x={stageX + STAGE_W + 8} y={stageTop + 11} width={4} height={4} fill="#ff5b96" />
+          <rect x={stageX + STAGE_W + 8} y={stageTop + 20} width={4} height={4} fill="#ff5b96" />
+          <path d={`M${stageX},${stageTop + 5} H${stageX + STAGE_W} L${stageX + STAGE_W - 12},${stageTop + 39} H${stageX + 12} Z`} fill="url(#arena-stage-surface)" stroke="#0d090d" strokeWidth="1" />
+          <rect x={stageX + 16} y={stageTop + 8} width={STAGE_W - 32} height={2} fill="url(#arena-stage-edge)" />
+          <path d={`M${stageX + 18},${stageTop + 31} H${stageX + STAGE_W - 18}`} stroke="#55404f" strokeWidth="1" />
+          <text x={gridCenterX} y={stageTop + 23} textAnchor="middle" dominantBaseline="middle" pointerEvents="none" fontSize={13} fontWeight="800" fill="#ffffff" style={{ letterSpacing: "0.16em" }}>
+            MAIN STAGE
+          </text>
+          <text x={gridCenterX} y={stageTop + 33} textAnchor="middle" pointerEvents="none" fontSize={5.5} fontWeight="700" fill="#ff9dbc" style={{ letterSpacing: "0.18em" }}>
+            LIVE FLOOR PLAN
+          </text>
+        </g>
 
         {/* 2. グリッドのセル（背景・グリッド線のみ。報告ドットはまだ描かない） */}
         {positioned.map((pb) => {
