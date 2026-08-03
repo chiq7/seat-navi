@@ -20,16 +20,16 @@ export default function LiveEffectsSection({ liveEffects }: Props) {
         </div>
         <p className="mb-1 text-right text-[9px] font-black tracking-[0.12em] text-[#817981]">FAN REPORTS</p>
       </div>
-      <div className="mt-5 grid grid-cols-2 border-l border-t border-[#ded8dc] sm:grid-cols-5">
+      <div className="mt-4 flex overflow-x-auto border-y border-l border-[#ded8dc] hide-scrollbar sm:grid sm:grid-cols-5">
         {EFFECT_DEFS.map((effect) => {
           const active = liveEffects[effect.key] ?? false;
           return (
             <div
               key={effect.key}
-              className={`flex min-h-[86px] flex-col justify-between border-b border-r border-[#ded8dc] px-3 py-3 ${active ? "bg-[#fff0f5]" : "bg-white"}`}
+              className={`flex min-h-[74px] min-w-[112px] shrink-0 flex-col justify-between border-r border-[#ded8dc] px-3 py-2.5 sm:min-w-0 ${active ? "bg-[#fff0f5]" : "bg-white"}`}
             >
               <span className="text-[9px] font-black tracking-[0.16em] text-[#958d93]">{String(EFFECT_DEFS.indexOf(effect) + 1).padStart(2, "0")}</span>
-              <div className="mt-3 flex items-end justify-between gap-2">
+              <div className="mt-2 flex items-end justify-between gap-2">
                 <span className="text-[13px] font-black text-[#1c171b]">{effect.label}</span>
                 <span className={`text-[8px] font-black tracking-[0.08em] ${active ? "text-[#f43679]" : "text-[#aaa2a8]"}`}>{active ? "SEEN" : "—"}</span>
               </div>
