@@ -2,14 +2,21 @@
 
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import Image from "next/image";
-import { ChevronLeft } from "lucide-react";
+import { CalendarDays, ChevronLeft, MapPin, Radio } from "lucide-react";
 import Link from "next/link";
 import { BottomNav } from "@/components/common/BottomNav";
 import { ReportEventSelector } from "@/components/report/ReportEventSelector";
 import { supabase } from "@/lib/supabase/client";
 import { resolveArtist } from "@/lib/artists";
 import type { CrawledEvent } from "@/lib/types";
+import { AccountLink } from "@/components/auth/AccountLink";
+
+function fmtDate(date: string | null): string {
+  if (!date) return "日程未定";
+  const [year, month, day] = date.split("-").map(Number);
+  const week = ["日", "月", "火", "水", "木", "金", "土"][new Date(year, month - 1, day).getDay()];
+  return `${year}.${String(month).padStart(2, "0")}.${String(day).padStart(2, "0")}（${week}）`;
+}
 
 export default function ReportEntryPage() {
   return (
@@ -84,8 +91,35 @@ function ReportEntryPageInner() {
   const backHref = artist ? `/artists/${artist.slug}` : "/";
 
   return (
-    <main className="min-h-screen bg-[#FFF8FB] pb-28 font-sans text-[#111827]">
-      <ReportHero artistName={artist?.name} backHref={backHref} />
+    <main className="min-h-screen bg-[#f7f5f6] pb-28 font-sans text-[#1c171b]">
+      <ReportHero artistName={artist?.name} backHref={backHref} selectedEvent={selectedEvent} />
+
+      <section className="zr-container border-b border-[#ded8dc] py-7" aria-labelledby="report-event-title">
+        <div className="flex items-end justify-between gap-4">
+          <div>
+            <p className="artist-kicker">Select Your Live</p>
+            <h2 id="report-event-title" className="mt-2 text-[23px] font-black tracking-[-0.04em]">報告する公演</h2>
+          </div>
+          <Radio size={21} strokeWidth={1.8} className="text-[#f43679]" />
+        </div>
+        <label className="mt-5 block">
+          <span className="sr-only">報告する公演を選択</span>
+          <select
+            value={selectedId ?? ""}
+            onChange={(event) => setSelectedId(event.target.value)}
+            disabled={loading}
+            className="zr-focus h-14 w-full border border-[#cfc8cc] bg-white px-4 text-[12px] font-black text-[#1c171b] disabled:opacity-50"
+          >
+            {loading && <option value="">公演を読み込み中...</option>}
+            {events.map((event) => (
+              <option key={event.id} value={event.id}>
+                {fmtDate(event.date)}｜{event.venue}｜{event.title}
+              </option>
+            ))}
+          </select>
+        </label>
+      </section>
+
       <ReportEventSelector
         selectedEvent={selectedEvent}
         artistName={artist?.name ?? null}
@@ -96,44 +130,53 @@ function ReportEntryPageInner() {
   );
 }
 
-function ReportHero({ artistName, backHref }: { artistName?: string; backHref: string }) {
+function ReportHero({
+  artistName,
+  backHref,
+  selectedEvent,
+}: {
+  artistName?: string;
+  backHref: string;
+  selectedEvent: CrawledEvent | null;
+}) {
   return (
-    <section className="relative h-[220px] w-full overflow-hidden">
-      <Image
-        src="/images/report/backgrounds/report-hero-choice-a-bg1.png"
-        alt=""
-        fill
-        priority
-        sizes="(max-width: 390px) 100vw, 390px"
-        className="object-cover object-bottom"
-      />
-      <div className="absolute inset-0 bg-white/22" />
+    <section className="relative min-h-[390px] w-full overflow-hidden bg-[#0d090d] text-white sm:min-h-[440px]">
+      <div className="absolute inset-0 opacity-75" style={{ background: "radial-gradient(circle at 76% 18%, rgba(244,54,121,.72), transparent 24%), radial-gradient(circle at 22% 38%, rgba(60,160,190,.28), transparent 28%), linear-gradient(135deg, #0d090d 0%, #25101d 55%, #080608 100%)" }} />
+      <div className="absolute inset-0" style={{ backgroundImage: "repeating-linear-gradient(112deg, transparent 0 40px, rgba(255,255,255,.035) 41px 42px)" }} />
 
-      <header className="absolute left-0 right-0 top-0 z-20 flex h-16 items-center justify-between px-4">
+      <header className="zr-container relative top-0 z-20 flex h-16 items-center justify-between">
         <Link
           href={backHref}
           aria-label="アーティストページに戻る"
-          className="flex h-10 w-10 items-center justify-center rounded-full bg-white/40"
+          className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-black/20 text-white backdrop-blur-md"
         >
-          <ChevronLeft size={24} strokeWidth={2.5} className="text-[#111827]" />
+          <ChevronLeft size={26} strokeWidth={2.7} />
         </Link>
-        <h1 className="pointer-events-none absolute left-1/2 -translate-x-1/2 truncate px-14 text-[18px] font-bold tracking-[0.02em] text-[#111827]">
-          {artistName || "報告する"}
-        </h1>
-        <div className="h-10 w-10" />
+        <AccountLink tone="light" iconSize={22} />
       </header>
 
-      <div className="relative z-10 px-6 pt-[76px] text-center">
-        <p className="text-[24px] font-bold leading-[1.45] text-[#111827]">
-          あなたの報告が、
-          <br />
-          次の参戦の<span className="text-[#FF6B9D]">ヒント</span>になる
+      <div className="zr-container relative z-10 pb-9 pt-9 sm:pb-12 sm:pt-12">
+        <p className="text-[10px] font-black tracking-[0.24em] text-[#ff5b96]">SHARE THE LIVE</p>
+        <h1 className="mt-3 text-[39px] font-black leading-[1.08] tracking-[-0.055em] sm:text-[60px] lg:text-[74px]">
+          あなたの一席が、<br />次の誰かのヒントになる。
+        </h1>
+        <p className="mt-5 text-[12px] font-bold leading-6 text-white/62 sm:text-[15px]">
+          {artistName ? `${artistName}の当落・座席表・会場の景色をファンへ` : "当落・座席表・会場の景色をファンへ"}
         </p>
-        <p className="mt-3 text-[13px] text-[#374151]">
-          当落・座席・現地の様子をみんなで共有しよう
-        </p>
-      </div>
 
+        {selectedEvent && (
+          <div className="mt-7 grid border-y border-white/18 sm:grid-cols-2">
+            <div className="flex items-center gap-3 py-4 sm:border-r sm:border-white/18 sm:pr-5">
+              <CalendarDays size={17} className="shrink-0 text-[#ff5b96]" />
+              <p className="text-[12px] font-black">{fmtDate(selectedEvent.date)}</p>
+            </div>
+            <div className="flex min-w-0 items-center gap-3 border-t border-white/18 py-4 sm:border-t-0 sm:pl-5">
+              <MapPin size={17} className="shrink-0 text-[#ff5b96]" />
+              <p className="truncate text-[12px] font-black">{selectedEvent.venue}</p>
+            </div>
+          </div>
+        )}
+      </div>
     </section>
   );
 }

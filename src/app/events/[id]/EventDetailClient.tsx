@@ -1,10 +1,18 @@
 "use client";
 
 import { use, useEffect, useMemo, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { ChevronLeft } from "lucide-react";
+import {
+  CalendarDays,
+  ChevronLeft,
+  Crown,
+  MapPin,
+  Sparkles,
+  Ticket,
+  WalletCards,
+} from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { supabase } from "@/lib/supabase/client";
 import { resolveArtist } from "@/lib/artists";
 import { getEventsForArtist } from "@/lib/events";
@@ -14,17 +22,16 @@ import type { ColorMode } from "@/lib/arena-map/arenaMapTypes";
 import { EventArenaMap } from "@/components/arena-map/EventArenaMap";
 import { BottomNav } from "@/components/common/BottomNav";
 import { SeatPredictionCard } from "@/components/common/SeatPredictionCard";
-import { EventInfoRow } from "@/components/common/EventInfoRow";
 import { EventCarouselPicker } from "@/components/common/EventPicker";
 import { ShareButton } from "@/components/common/ShareButton";
 import { AccountLink } from "@/components/auth/AccountLink";
 import { fetchVisiblePostAuthors, type PostAuthor } from "@/lib/postAuthors";
 
-const COLOR_TABS: { value: ColorMode; label: string }[] = [
-  { value: "lottery",   label: "🎫 抽選回" },
-  { value: "fcHistory", label: "👑 FC歴" },
-  { value: "payment",   label: "💳 支払い" },
-  { value: "upgrade",   label: "⭐ アプグレ" },
+const COLOR_TABS: { value: ColorMode; label: string; Icon: LucideIcon }[] = [
+  { value: "lottery", label: "抽選回", Icon: Ticket },
+  { value: "fcHistory", label: "FC歴", Icon: Crown },
+  { value: "payment", label: "支払い", Icon: WalletCards },
+  { value: "upgrade", label: "アプグレ", Icon: Sparkles },
 ];
 
 const VOTER_KEY_STORAGE = "seat-navi-voter-key";
@@ -279,174 +286,162 @@ export function EventDetailClient({
   );
 
   return (
-    <div className="min-h-screen bg-[#FFF8FB] text-[#111827]">
-      {/* ヘッダー */}
-      <header className="sticky top-0 z-20 border-b border-gray-100 bg-white/95 backdrop-blur">
-        <div className="grid h-14 grid-cols-[80px_1fr_80px] items-center px-4">
-          <Link
-            href={backHref}
-            className="flex h-10 w-10 items-center justify-center rounded-full text-[#111827] active:bg-gray-100"
-          >
-            <ChevronLeft size={24} />
-          </Link>
-          <h1 className="text-center text-[18px] font-bold tracking-wide">アリーナ予想図</h1>
-          <div className="flex items-center justify-end">
-          <AccountLink />
-          {event ? (
-            <ShareButton
-              url={`${window.location.origin}/events/${eventId}`}
-              text={`${event.venue} ${fmtShortDate(event.date)} の座席予想・座席報告🎫 #ちけレポ`}
-              className="flex h-10 w-10 items-center justify-center rounded-full text-[#111827] transition-colors active:bg-gray-100"
-            />
-          ) : (
-            <div className="h-10 w-10" />
-          )}
-          </div>
-        </div>
-      </header>
-
-      <main className="pb-32 pt-3">
+    <div className="min-h-screen bg-[#f7f5f6] text-[#1c171b]">
+      <main className="pb-32">
         {loading ? (
-          <div className="space-y-3 px-3 pt-3">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="animate-pulse rounded-[24px] bg-white p-4 shadow-sm">
-                <div className="h-4 w-32 rounded bg-gray-200" />
-                <div className="mt-3 h-20 rounded bg-gray-100" />
-              </div>
-            ))}
+          <div className="zr-container space-y-5 py-8">
+            <div className="h-[270px] animate-pulse bg-[#211b20]" />
+            <div className="h-[520px] animate-pulse border border-[#ded8dc] bg-white" />
           </div>
         ) : event ? (
           <>
-            {/* 公演情報 + 公演選択カード */}
-            <section className="mx-3 overflow-hidden border border-gray-100 bg-white p-3 shadow-sm">
-              <EventInfoRow title={event.title} artistName={artist?.name ?? null} />
-              <div className="mb-1 mt-0.5 border-t border-gray-100" />
-              <EventCarouselPicker
-                events={allRelatedEvents}
-                selectedEventId={eventId}
-                onSelect={(id) => router.push(`/events/${id}`)}
-                artistName={artist?.name}
-              />
+            <section className="bg-[#0d090d] text-white">
+              <header className="zr-container flex h-16 items-center justify-between">
+                <Link
+                  href={backHref}
+                  aria-label="アーティストページへ戻る"
+                  className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/8 text-white"
+                >
+                  <ChevronLeft size={26} strokeWidth={2.7} />
+                </Link>
+                <div className="flex items-center gap-1">
+                  <AccountLink tone="light" iconSize={22} />
+                  <ShareButton
+                    url={`${typeof window !== "undefined" ? window.location.origin : ""}/events/${eventId}`}
+                    text={`${event.venue} ${fmtShortDate(event.date)} の座席表・座席予想 #ちけレポ`}
+                    className="zr-focus flex h-10 w-10 items-center justify-center rounded-full text-white transition-colors active:bg-white/15"
+                  />
+                </div>
+              </header>
+
+              <div className="zr-container pb-9 pt-5 sm:pb-12 sm:pt-9">
+                <p className="text-[10px] font-black tracking-[0.24em] text-[#ff5b96]">VENUE SEAT GUIDE</p>
+                <h1 className="mt-3 max-w-[850px] text-[36px] font-black leading-[1.08] tracking-[-0.055em] sm:text-[58px] lg:text-[72px]">
+                  会場の座席表と、<br />みんなのアリーナ予想。
+                </h1>
+                <p className="mt-5 max-w-[780px] text-[13px] font-bold leading-6 text-white/65 sm:text-[16px]">
+                  {event.title}
+                </p>
+
+                <div className="mt-7 grid border-y border-white/18 sm:grid-cols-2">
+                  <div className="flex items-center gap-3 py-4 sm:border-r sm:border-white/18 sm:pr-5">
+                    <CalendarDays size={18} className="shrink-0 text-[#ff5b96]" />
+                    <div>
+                      <p className="text-[9px] font-black tracking-[0.14em] text-white/42">LIVE DATE</p>
+                      <p className="mt-1 text-[16px] font-black">{fmtShortDate(event.date)}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 border-t border-white/18 py-4 sm:border-t-0 sm:pl-5">
+                    <MapPin size={18} className="shrink-0 text-[#ff5b96]" />
+                    <div className="min-w-0">
+                      <p className="text-[9px] font-black tracking-[0.14em] text-white/42">VENUE</p>
+                      <p className="mt-1 truncate text-[16px] font-black">{event.venue}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section className="zr-container border-b border-[#ded8dc] py-7" aria-labelledby="event-picker-title">
+              <div className="flex items-end justify-between gap-4">
+                <div>
+                  <p className="artist-kicker">Select Live Date</p>
+                  <h2 id="event-picker-title" className="mt-2 text-[23px] font-black tracking-[-0.04em]">公演日を切り替える</h2>
+                </div>
+                <p className="shrink-0 text-[10px] font-black text-[#817981]">{allRelatedEvents.length} DATES</p>
+              </div>
+              <div className="mt-5 border border-[#ded8dc] bg-white p-3">
+                <EventCarouselPicker
+                  events={allRelatedEvents}
+                  selectedEventId={eventId}
+                  onSelect={(id) => router.push(`/events/${id}`)}
+                  artistName={artist?.name}
+                />
+              </div>
               {event.venue_id && (
                 <Link
                   href={`/venues/${event.venue_id}`}
-                  className="mt-2 block text-right text-[11px] font-semibold text-[#FF6B9D]"
+                  className="zr-focus mt-4 inline-flex min-h-11 items-center gap-2 text-[12px] font-black text-[#f43679]"
                 >
-                  {event.venue}の公演・座席情報を見る
+                  <MapPin size={15} />{event.venue}の会場・座席表をもっと見る →
                 </Link>
               )}
             </section>
 
-            {/* マップカード */}
-            <section className="mt-3 overflow-hidden border border-gray-100 bg-white px-3 pt-3 shadow-sm mx-3">
-              {/* 見出し */}
-              <div>
-                <Image
-                  src="/images/arena-prediction/seat-report-map-logo.png"
-                  alt="みんなの座席報告マップ"
-                  width={2396}
-                  height={232}
-                  className="h-[40px] w-auto max-w-full object-contain"
-                />
-              </div>
+            <section className="bg-white py-12 sm:py-16" aria-labelledby="seat-map-title">
+              <div className="zr-container">
+                <div className="flex flex-col gap-5 border-b border-[#ded8dc] pb-6 sm:flex-row sm:items-end sm:justify-between">
+                  <div>
+                    <p className="artist-kicker">Live Seat Map</p>
+                    <h2 id="seat-map-title" className="artist-heading">みんなの座席報告マップ</h2>
+                    <p className="mt-3 text-[12px] font-medium leading-6 text-[#817981]">
+                      実際の座席報告を色分け。会場の座席表と照らし合わせて確認できます。
+                    </p>
+                  </div>
+                  <p className="shrink-0 text-[10px] font-black tracking-[0.1em] text-[#817981]">
+                    {dedupedSeatReports.length} SEAT REPORTS
+                  </p>
+                </div>
 
-              {/* 区切り線: タイトル段 / ボタン・ナビ段 */}
-              <div className="-mx-3 mt-3 border-t-2 border-gray-200" />
+                <div className="grid grid-cols-4 border-x border-b border-[#ded8dc]">
+                  {COLOR_TABS.map(({ value, label, Icon }) => (
+                    <button
+                      key={value}
+                      type="button"
+                      onClick={() => setColorMode(value)}
+                      aria-pressed={colorMode === value}
+                      className={`zr-focus flex min-h-[66px] flex-col items-center justify-center gap-1.5 border-r border-[#ded8dc] px-1 text-[9px] font-black transition-colors last:border-r-0 sm:min-h-[72px] sm:flex-row sm:text-[11px] ${
+                        colorMode === value
+                          ? "bg-[#1c171b] text-white"
+                          : "bg-white text-[#625a61] hover:bg-[#fff0f5]"
+                      }`}
+                    >
+                      <Icon size={17} strokeWidth={1.8} className={colorMode === value ? "text-[#ff5b96]" : "text-[#f43679]"} />
+                      {label}
+                    </button>
+                  ))}
+                </div>
 
-              {/* 色分けタブ */}
-              <div className="mt-3 flex gap-1">
-                {COLOR_TABS.map((tab) => (
-                  <button
-                    key={tab.value}
-                    type="button"
-                    onClick={() => setColorMode(tab.value)}
-                    className={`flex-1 rounded-xl py-1.5 text-[11px] font-semibold transition-all active:scale-95 ${
-                      colorMode === tab.value
-                        ? "bg-[#FF6B9D] text-white"
-                        : "border border-gray-200 bg-white text-[#111827]"
-                    }`}
-                  >
-                    {tab.label}
-                  </button>
-                ))}
-              </div>
+                <div className="border-x border-b border-[#ded8dc] bg-[#fcfbfc]">
+                  <EventArenaMap
+                    eventId={eventId}
+                    reports={dedupedSeatReports}
+                    externalObservations={externalSeatObservations}
+                    colorMode={colorMode}
+                    mapFullBleed
+                  />
+                </div>
 
-              {/* ArenaReportMap（共通部品: SVG描画・PNG保存はEventArenaMapが再利用） */}
-              <div className="-mx-3 mt-1">
-                <EventArenaMap
-                  eventId={eventId}
-                  reports={dedupedSeatReports}
-                  externalObservations={externalSeatObservations}
-                  colorMode={colorMode}
-                  mapFullBleed
-                />
+                <Link
+                  href={`/events/${eventId}/fan-seat-prediction`}
+                  className="zr-focus mt-5 flex min-h-14 w-full items-center justify-center gap-2 bg-[#f43679] px-6 text-[13px] font-black text-white shadow-[0_12px_28px_rgba(150,16,66,.20)]"
+                >
+                  <Sparkles size={17} />この会場のアリーナ予想図を投稿する
+                </Link>
               </div>
             </section>
 
-            {/* 投稿ボタン（fan-seat-predictionの投稿ボタンと同じ横長CTAデザイン） */}
-            <div className="mt-3 mx-3">
-              <Link
-                href={`/events/${eventId}/fan-seat-prediction`}
-                className="flex h-9 w-full items-center justify-center rounded-xl bg-[#FF6B9D] text-[13px] font-bold text-white shadow-[0_8px_20px_rgba(255,107,157,0.25)] transition-opacity active:opacity-80"
-              >
-                予想図を投稿する
-              </Link>
-            </div>
-
-            {/* 座席予想1位の投稿（特別枠） */}
-            {topPrediction && (
-              <section className="mt-3 mx-3">
-                <SeatPredictionCard
-                  eventId={eventId}
-                  predictionId={topPrediction.id}
-                  imageUrl={imageSrc(topPrediction.image_path)}
-                  comment={topPrediction.comment}
-                  tags={topPrediction.prediction_tags}
-                  venue={event?.venue ?? null}
-                  dateLabel={fmtShortDate(event?.date ?? null)}
-                  createdAt={topPrediction.created_at}
-                  likeCount={voteCounts[topPrediction.id] ?? 0}
-                  liked={pickedIds.has(topPrediction.id)}
-                  rank={1}
-                  author={topPrediction.user_id ? predictionAuthorMap.get(topPrediction.user_id) : null}
-                  onLiked={() => {
-                    setVoteCounts((prev) => ({ ...prev, [topPrediction.id]: (prev[topPrediction.id] ?? 0) + 1 }));
-                    setPickedIds((prev) => new Set(prev).add(topPrediction.id));
-                  }}
-                  open={openPredictionId === topPrediction.id}
-                  onOpenChange={(isOpen) => setPredictionParam(isOpen ? topPrediction.id : null)}
-                />
-              </section>
-            )}
-
-            {/* みんなの予想図一覧 */}
-            <section className="mt-3 rounded-[24px] border border-pink-100 bg-white/80 p-3 shadow-sm mx-3">
-              <div className="flex items-center justify-between gap-2">
-                <div className="flex items-center gap-2">
-                  <Image
-                    src="/images/arena-prediction/fan-prediction-logo.png"
-                    alt="みんなの予想図"
-                    width={2286}
-                    height={282}
-                    className="h-[40px] w-auto max-w-full object-contain"
-                  />
+            <section className="zr-container border-b border-[#ded8dc] py-12 sm:py-16" aria-labelledby="fan-prediction-title">
+              <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+                <div>
+                  <p className="artist-kicker">Fan Prediction</p>
+                  <h2 id="fan-prediction-title" className="artist-heading">ファンのアリーナ予想図</h2>
+                  <p className="mt-3 text-[12px] font-medium leading-6 text-[#817981]">会場構成を予想して、参考になった図に投票できます。</p>
                 </div>
-                <div className="flex h-9 shrink-0 items-center rounded-full border border-gray-200 bg-white p-1">
+                <div className="grid h-11 shrink-0 grid-cols-2 border border-[#1c171b] bg-white">
                   <button
                     type="button"
                     onClick={() => setSortOrder("hot")}
-                    className={`h-7 rounded-full px-4 text-[12px] font-bold transition-colors ${
-                      sortOrder === "hot" ? "bg-[#FF6B9D] text-white" : "text-[#111827]"
-                    }`}
+                    aria-pressed={sortOrder === "hot"}
+                    className={`zr-focus min-w-[88px] px-4 text-[11px] font-black ${sortOrder === "hot" ? "bg-[#1c171b] text-white" : "text-[#1c171b]"}`}
                   >
                     有力順
                   </button>
                   <button
                     type="button"
                     onClick={() => setSortOrder("new")}
-                    className={`h-7 rounded-full px-4 text-[12px] font-bold transition-colors ${
-                      sortOrder === "new" ? "bg-[#FF6B9D] text-white" : "text-[#111827]"
-                    }`}
+                    aria-pressed={sortOrder === "new"}
+                    className={`zr-focus min-w-[88px] border-l border-[#1c171b] px-4 text-[11px] font-black ${sortOrder === "new" ? "bg-[#1c171b] text-white" : "text-[#1c171b]"}`}
                   >
                     新着順
                   </button>
@@ -454,51 +449,79 @@ export function EventDetailClient({
               </div>
 
               {fanSeatPredictions.length === 0 ? (
-                <div className="mt-4 rounded-[18px] border border-dashed border-pink-200 bg-[#FFF5F8] px-4 py-8 text-center">
-                  <p className="text-[15px] font-bold text-[#111827]">まだ予想図がありません</p>
-                  <p className="mt-1 text-[13px] text-[#6B7280]">最初の予想図を投稿してみよう</p>
+                <div className="mt-8 border border-dashed border-[#efb6ca] bg-[#fff0f5] px-5 py-12 text-center">
+                  <Sparkles size={29} strokeWidth={1.5} className="mx-auto text-[#f43679]" />
+                  <p className="mt-4 text-[18px] font-black">まだ予想図がありません</p>
+                  <p className="mt-2 text-[12px] font-medium text-[#817981]">この会場の最初の予想図を投稿してみよう。</p>
                   <Link
                     href={`/events/${eventId}/fan-seat-prediction`}
-                    className="mt-4 inline-flex h-10 items-center rounded-full bg-[#FF6B9D] px-6 text-[14px] font-bold text-white shadow-sm"
+                    className="zr-focus mt-6 inline-flex min-h-12 items-center bg-[#f43679] px-6 text-[13px] font-black text-white"
                   >
                     予想図を投稿する
                   </Link>
                 </div>
-              ) : otherPredictions.length > 0 ? (
-                <div className="mt-3 space-y-3">
-                  {otherPredictions.map((prediction) => (
-                    <SeatPredictionCard
-                      key={prediction.id}
-                      eventId={eventId}
-                      predictionId={prediction.id}
-                      imageUrl={imageSrc(prediction.image_path)}
-                      comment={prediction.comment}
-                      tags={prediction.prediction_tags}
-                      venue={event?.venue ?? null}
-                      dateLabel={fmtShortDate(event?.date ?? null)}
-                      createdAt={prediction.created_at}
-                      likeCount={voteCounts[prediction.id] ?? 0}
-                      liked={pickedIds.has(prediction.id)}
-                      author={prediction.user_id ? predictionAuthorMap.get(prediction.user_id) : null}
-                      onLiked={() => {
-                        setVoteCounts((prev) => ({ ...prev, [prediction.id]: (prev[prediction.id] ?? 0) + 1 }));
-                        setPickedIds((prev) => new Set(prev).add(prediction.id));
-                      }}
-                      open={openPredictionId === prediction.id}
-                      onOpenChange={(isOpen) => setPredictionParam(isOpen ? prediction.id : null)}
-                    />
+              ) : (
+                <div className="mt-8 grid gap-5 lg:grid-cols-2">
+                  {topPrediction && (
+                    <div className="min-w-0">
+                      <p className="mb-3 text-[10px] font-black tracking-[0.18em] text-[#f43679]">MOST TRUSTED / 01</p>
+                      <SeatPredictionCard
+                        eventId={eventId}
+                        predictionId={topPrediction.id}
+                        imageUrl={imageSrc(topPrediction.image_path)}
+                        comment={topPrediction.comment}
+                        tags={topPrediction.prediction_tags}
+                        venue={event.venue}
+                        dateLabel={fmtShortDate(event.date)}
+                        createdAt={topPrediction.created_at}
+                        likeCount={voteCounts[topPrediction.id] ?? 0}
+                        liked={pickedIds.has(topPrediction.id)}
+                        rank={1}
+                        author={topPrediction.user_id ? predictionAuthorMap.get(topPrediction.user_id) : null}
+                        onLiked={() => {
+                          setVoteCounts((prev) => ({ ...prev, [topPrediction.id]: (prev[topPrediction.id] ?? 0) + 1 }));
+                          setPickedIds((prev) => new Set(prev).add(topPrediction.id));
+                        }}
+                        open={openPredictionId === topPrediction.id}
+                        onOpenChange={(isOpen) => setPredictionParam(isOpen ? topPrediction.id : null)}
+                      />
+                    </div>
+                  )}
+                  {otherPredictions.map((prediction, index) => (
+                    <div key={prediction.id} className="min-w-0">
+                      <p className="mb-3 text-[10px] font-black tracking-[0.18em] text-[#817981]">PREDICTION / {String(index + 2).padStart(2, "0")}</p>
+                      <SeatPredictionCard
+                        eventId={eventId}
+                        predictionId={prediction.id}
+                        imageUrl={imageSrc(prediction.image_path)}
+                        comment={prediction.comment}
+                        tags={prediction.prediction_tags}
+                        venue={event.venue}
+                        dateLabel={fmtShortDate(event.date)}
+                        createdAt={prediction.created_at}
+                        likeCount={voteCounts[prediction.id] ?? 0}
+                        liked={pickedIds.has(prediction.id)}
+                        author={prediction.user_id ? predictionAuthorMap.get(prediction.user_id) : null}
+                        onLiked={() => {
+                          setVoteCounts((prev) => ({ ...prev, [prediction.id]: (prev[prediction.id] ?? 0) + 1 }));
+                          setPickedIds((prev) => new Set(prev).add(prediction.id));
+                        }}
+                        open={openPredictionId === prediction.id}
+                        onOpenChange={(isOpen) => setPredictionParam(isOpen ? prediction.id : null)}
+                      />
+                    </div>
                   ))}
                 </div>
-              ) : null}
+              )}
             </section>
           </>
         ) : (
-          <div className="pt-16 text-center text-sm text-gray-500">公演が見つかりません</div>
+          <div className="zr-container py-24 text-center text-sm font-bold text-[#817981]">公演が見つかりません</div>
         )}
       </main>
 
       {toast && (
-        <div className="fixed bottom-24 left-1/2 z-50 -translate-x-1/2 rounded-2xl bg-gray-900 px-5 py-3 text-xs font-semibold text-white shadow-lg">
+        <div className="fixed bottom-24 left-1/2 z-50 -translate-x-1/2 bg-[#1c171b] px-5 py-3 text-xs font-bold text-white shadow-lg">
           {toast}
         </div>
       )}

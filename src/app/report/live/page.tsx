@@ -2,8 +2,7 @@
 
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { Camera, ChevronLeft, X } from "lucide-react";
-import Image from "next/image";
+import { Camera, CheckCircle2, ChevronLeft, RotateCcw, X } from "lucide-react";
 import Link from "next/link";
 import { trackEvent } from "@/lib/analytics";
 import { supabase } from "@/lib/supabase/client";
@@ -13,6 +12,7 @@ import { parseEventTitle } from "@/lib/eventTitle";
 import { Header } from "@/components/common/Header";
 import { EventCarouselPicker } from "@/components/common/EventPicker";
 import { EventInfoRow } from "@/components/common/EventInfoRow";
+import { ShareButton } from "@/components/common/ShareButton";
 
 function randomId() {
   return crypto.randomUUID().replace(/-/g, "").slice(0, 20);
@@ -178,69 +178,94 @@ function Btn({
 function SuccessScreen({
   onOther,
   artistSlug,
+  artistName,
+  reportId,
+  event,
 }: {
   onOther: () => void;
   artistSlug: string | null;
+  artistName: string | null;
+  reportId: string | null;
+  event: EventRow | null;
 }) {
+  const reportUrl = `${typeof window !== "undefined" ? window.location.origin : ""}${
+    reportId ? `/report/live/detail?reportId=${reportId}` : artistSlug ? `/artists/${artistSlug}/after-reports` : "/"
+  }`;
+  const shareText = `${artistName ? `${artistName} ` : ""}${event?.venue ?? "ライブ会場"}の現地レポを投稿しました！ 座席からの見え方を共有します #ちけレポ`;
+  const xShareHref = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(reportUrl)}`;
+
   return (
-    <div className="relative flex min-h-screen flex-col">
-      <div className="absolute inset-0 overflow-hidden">
-        <Image
-          src="/images/report/success/report-success-bg.png"
-          alt=""
-          fill
-          priority
-          className="object-cover object-top"
-        />
-      </div>
-      <header className="relative z-10 flex h-[44px] items-center justify-center border-b border-gray-100 bg-white/80 backdrop-blur-sm">
+    <div className="relative flex min-h-screen flex-col bg-[#f7f5f6] text-[#1c171b]">
+      <header className="relative z-10 flex h-16 items-center justify-center bg-[#0d090d] text-white">
         <Link
           href="/report"
-          className="absolute left-2 flex h-8 w-8 items-center justify-center text-gray-700"
+          className="zr-focus absolute left-4 flex h-11 w-11 items-center justify-center rounded-full bg-white/8 text-white"
+          aria-label="報告メニューへ戻る"
         >
-          <ChevronLeft size={18} strokeWidth={2.5} />
+          <ChevronLeft size={24} strokeWidth={2.7} />
         </Link>
-        <h1 className="text-[12px] font-bold tracking-wide text-gray-900">現地レポを投稿</h1>
+        <p className="text-[10px] font-black tracking-[0.18em] text-white/55">REPORT COMPLETE</p>
       </header>
-      <div className="relative z-10 bg-white/80 backdrop-blur-sm">
-        <StepIndicator step={3} />
-      </div>
-      <div className="relative z-10 flex flex-1 items-center justify-center px-4 py-8">
-        <div className="w-full rounded-3xl bg-white px-4 pb-8 pt-6 text-center shadow-[0_8px_40px_rgba(17,24,39,0.10)]">
-          <div className="mb-4 flex justify-center">
-            <Image
-              src="/images/report/success/report-success-ticket-icon.png"
-              alt=""
-              width={140}
-              height={140}
-              className="object-contain"
-            />
-          </div>
-          <p className="text-[18px] font-bold text-[#111827]">投稿ありがとうございます！</p>
-          <p className="mt-3 text-[13px] leading-relaxed text-[#6B7280]">
-            あなたのレポを受け付けました。
-            <br />
-            現地情報が、次に参戦するみんなの参考になります♪
+
+      <section className="bg-[#0d090d] pb-12 pt-5 text-white sm:pb-16" aria-labelledby="success-title">
+        <div className="zr-container">
+          <CheckCircle2 size={38} strokeWidth={1.6} className="text-[#ff5b96]" />
+          <p className="mt-6 text-[10px] font-black tracking-[0.24em] text-[#ff5b96]">YOUR VIEW IS LIVE</p>
+          <h1 id="success-title" className="mt-3 text-[39px] font-black leading-[1.08] tracking-[-0.055em] sm:text-[58px]">
+            投稿できました。<br />次は、ファンへ届けよう。
+          </h1>
+          <p className="mt-5 max-w-[620px] text-[12px] font-bold leading-6 text-white/62 sm:text-[14px]">
+            あなたの座席から見えた景色が、次にこの会場へ行くファンの参考になります。
           </p>
-          <div className="mt-6 space-y-3">
-            <button
-              type="button"
-              onClick={onOther}
-              className="flex h-[52px] w-full items-center justify-center rounded-full bg-[#FF6B9D] text-[14px] font-bold text-white shadow-[0_4px_14px_rgba(255,107,157,0.35)] transition-opacity active:opacity-80"
-            >
-              別の現地レポを投稿する
-            </button>
-            {artistSlug && (
-              <Link
-                href={`/artists/${artistSlug}/after-reports`}
-                className="flex h-[48px] w-full items-center justify-center rounded-full border border-gray-200 bg-white text-[14px] font-bold text-gray-700 transition-opacity active:opacity-80"
-              >
-                現地レポページを見る
-              </Link>
-            )}
-          </div>
+          {event && (
+            <div className="mt-7 border-y border-white/18 py-4">
+              <p className="text-[10px] font-black tracking-[0.12em] text-white/42">SHARED LIVE</p>
+              <p className="mt-2 text-[15px] font-black">{event.venue}</p>
+              <p className="mt-1 truncate text-[11px] font-bold text-white/55">{event.title}</p>
+            </div>
+          )}
         </div>
-      </div>
+      </section>
+
+      <section className="zr-container flex-1 py-9" aria-labelledby="share-title">
+        <p className="artist-kicker">Share Report</p>
+        <h2 id="share-title" className="artist-heading">この現地レポを共有</h2>
+        <p className="mt-3 text-[12px] font-medium leading-6 text-[#817981]">Xでファンへ届けるか、スマホの共有メニューから送れます。</p>
+
+        <div className="mt-7 grid gap-2 sm:grid-cols-2">
+          <a
+            href={xShareHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="zr-focus flex min-h-14 items-center justify-center gap-3 bg-[#1c171b] px-6 text-[13px] font-black text-white"
+          >
+            <span className="text-[18px]">𝕏</span>Xで共有する
+          </a>
+          <ShareButton
+            url={reportUrl}
+            text={shareText}
+            className="zr-focus flex min-h-14 w-full items-center justify-center gap-3 bg-[#f43679] px-6 text-[13px] font-black text-white"
+          />
+        </div>
+
+        <div className="mt-8 grid border-l border-t border-[#ded8dc] sm:grid-cols-2">
+          <button
+            type="button"
+            onClick={onOther}
+            className="zr-focus flex min-h-16 items-center justify-center gap-2 border-b border-r border-[#ded8dc] bg-white px-4 text-[12px] font-black"
+          >
+            <RotateCcw size={16} className="text-[#f43679]" />別の現地レポを投稿
+          </button>
+          {artistSlug && (
+            <Link
+              href={`/artists/${artistSlug}/after-reports`}
+              className="zr-focus flex min-h-16 items-center justify-center border-b border-r border-[#ded8dc] bg-white px-4 text-[12px] font-black"
+            >
+              現地レポ一覧を見る →
+            </Link>
+          )}
+        </div>
+      </section>
     </div>
   );
 }
@@ -276,6 +301,9 @@ function LiveReportPageInner() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [submittedArtistSlug, setSubmittedArtistSlug] = useState<string | null>(null);
+  const [submittedArtistName, setSubmittedArtistName] = useState<string | null>(null);
+  const [submittedReportId, setSubmittedReportId] = useState<string | null>(null);
+  const [submittedEvent, setSubmittedEvent] = useState<EventRow | null>(null);
 
   useEffect(() => {
     async function load() {
@@ -320,11 +348,6 @@ function LiveReportPageInner() {
     load();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const currentArtistSlug = useMemo(() => {
-    const ev = events.find((e) => e.id === selectedEvent);
-    return ev ? (resolveArtist(ev)?.slug ?? null) : null;
-  }, [events, selectedEvent]);
 
   const currentArtistName = useMemo(() => {
     const ev = events.find((e) => e.id === selectedEvent);
@@ -372,8 +395,9 @@ function LiveReportPageInner() {
         uploadedPaths.push(path);
       }
 
+      const reportId = randomId();
       const dbRow = {
-        id:                        randomId(),
+        id:                        reportId,
         user_id:                   userId,
         event_id:                  selectedEvent,
         seat_area_type:            toSeatAreaType(seatArea, standFloor),
@@ -400,6 +424,9 @@ function LiveReportPageInner() {
 
       const ev = events.find(e => e.id === selectedEvent);
       setSubmittedArtistSlug(ev ? (resolveArtist(ev)?.slug ?? null) : null);
+      setSubmittedArtistName(ev ? (resolveArtist(ev)?.name ?? null) : null);
+      setSubmittedReportId(reportId);
+      setSubmittedEvent(ev ?? null);
       trackEvent("report_submit", {
         report_type: "live",
         event_id: selectedEvent,
@@ -429,8 +456,6 @@ function LiveReportPageInner() {
     }
     return blockInfo.trim() !== "";
   })();
-  const canSubmit = true;
-
   if (submitted) {
     return (
       <div className="min-h-screen bg-[#F8FAFC] font-sans">
@@ -443,6 +468,9 @@ function LiveReportPageInner() {
               setSubmitted(false);
             }}
             artistSlug={submittedArtistSlug}
+            artistName={submittedArtistName}
+            reportId={submittedReportId}
+            event={submittedEvent}
           />
         </div>
       </div>
