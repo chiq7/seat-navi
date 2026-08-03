@@ -15,6 +15,7 @@ type Props = {
   arenaStats: ArenaStats;
   upgradeStats: UpgradeStats;
   title?: string;
+  initialArenaDetailOpen?: boolean;
 };
 
 type Cell = { label: string; value: string } | null;
@@ -22,7 +23,13 @@ type TrendRowData = { icon: LucideIcon; label: string; cells: Cell[] };
 
 type ArenaTab = "arena" | "upgrade";
 
-export default function TrendSection({ ticketStats, arenaStats, upgradeStats, title = "全公演" }: Props) {
+export default function TrendSection({
+  ticketStats,
+  arenaStats,
+  upgradeStats,
+  title = "全公演",
+  initialArenaDetailOpen = false,
+}: Props) {
   const [activeArenaTab, setActiveArenaTab] = useState<ArenaTab>("arena");
 
   const trendRows: TrendRowData[] = [
@@ -149,6 +156,7 @@ export default function TrendSection({ ticketStats, arenaStats, upgradeStats, ti
           activeTab={activeArenaTab}
           rows={detailRows}
           onTabChange={setActiveArenaTab}
+          initialArenaDetailOpen={initialArenaDetailOpen}
         />
       </div>
     </div>
@@ -160,11 +168,13 @@ function TrendCard({
   activeTab,
   rows,
   onTabChange,
+  initialArenaDetailOpen,
 }: {
   trendRows: TrendRowData[];
   activeTab: ArenaTab;
   rows: TrendRowData[];
   onTabChange: (tab: ArenaTab) => void;
+  initialArenaDetailOpen: boolean;
 }) {
   return (
     <div>
@@ -173,7 +183,12 @@ function TrendCard({
           <TrendRow key={row.label} row={row} />
         ))}
       </div>
-      <ArenaDetailCard activeTab={activeTab} rows={rows} onTabChange={onTabChange} />
+      <ArenaDetailCard
+        activeTab={activeTab}
+        rows={rows}
+        onTabChange={onTabChange}
+        initialArenaDetailOpen={initialArenaDetailOpen}
+      />
     </div>
   );
 }
@@ -182,12 +197,14 @@ function ArenaDetailCard({
   activeTab,
   rows,
   onTabChange,
+  initialArenaDetailOpen,
 }: {
   activeTab: ArenaTab;
   rows: TrendRowData[];
   onTabChange: (tab: ArenaTab) => void;
+  initialArenaDetailOpen: boolean;
 }) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(initialArenaDetailOpen);
   const ToggleIcon = isOpen ? ChevronUp : ChevronDown;
 
   return (
