@@ -3,6 +3,7 @@ import { cache, Suspense } from "react";
 import { Calendar, Flame, Zap } from "lucide-react";
 import HomeHeader from "@/components/home/HomeHeader";
 import HeroBanner from "@/components/home/HeroBanner";
+import VenueDiscoveryCta from "@/components/home/VenueDiscoveryCta";
 import HotReportsSection from "@/components/home/HotReportsSection";
 import UpcomingEventsSection from "@/components/home/UpcomingEventsSection";
 import RealtimeFeedSection from "@/components/home/RealtimeFeedSection";
@@ -170,6 +171,7 @@ export default function Home() {
       <main>
         <h1 className="sr-only">ライブチケットの当落・座席・現地レポを共有する ちけレポ</h1>
         <HeroBanner />
+        <VenueDiscoveryCta />
         <Suspense fallback={<EventSectionsSkeleton />}>
           <HomeEventSections />
         </Suspense>
