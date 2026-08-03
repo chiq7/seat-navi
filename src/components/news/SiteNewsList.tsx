@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import { CalendarDays, MoveRight } from "lucide-react";
 import { formatSiteNewsDate, type SiteNewsPost } from "@/lib/siteNews";
 
 type SiteNewsListProps = {
@@ -9,30 +9,29 @@ type SiteNewsListProps = {
 
 export default function SiteNewsList({ posts, compact = false }: SiteNewsListProps) {
   return (
-    <div className="overflow-hidden rounded-xl border border-pink-100 bg-white shadow-sm">
-      {posts.map((post, index) => (
+    <div className="border-l border-t border-[#ded8dc] bg-white">
+      {posts.map((post) => (
         <Link
           key={post.slug}
           href={`/news/${post.slug}`}
-          className={`flex min-h-11 items-center gap-2.5 px-3 py-3 no-underline transition-colors active:bg-[#FFF8FB] ${
-            index > 0 ? "border-t border-pink-50" : ""
-          }`}
+          className="zr-focus group grid min-h-[112px] gap-3 border-b border-r border-[#ded8dc] px-4 py-4 no-underline transition-colors hover:bg-[#fff0f5] sm:grid-cols-[140px_1fr_28px] sm:items-center"
         >
-          <div className="min-w-0 flex-1">
-            <div className="flex items-center gap-2">
-              <span className="shrink-0 rounded-full bg-[#FFF0F6] px-2 py-0.5 text-[10px] font-bold text-[#D94878]">
+          <div>
+            <span className="inline-flex border border-[#efb6ca] px-2 py-1 text-[9px] font-black text-[#c91558]">
                 {post.category}
-              </span>
-              <time className="text-[11px] tabular-nums text-gray-400" dateTime={post.publishedAt}>
+            </span>
+            <time className="mt-2 flex items-center gap-1.5 text-[10px] font-bold tabular-nums text-[#958d93]" dateTime={post.publishedAt}>
+                <CalendarDays size={12} />
                 {formatSiteNewsDate(post.publishedAt)}
-              </time>
-            </div>
-            <p className={`mt-1 font-bold leading-5 text-gray-900 ${compact ? "truncate text-[13px]" : "text-[14px]"}`}>
+            </time>
+          </div>
+          <div className="min-w-0">
+            <p className={`font-black leading-6 tracking-[-0.025em] text-[#1c171b] ${compact ? "truncate text-[13px]" : "text-[15px]"}`}>
               {post.title}
             </p>
-            {!compact && <p className="mt-1 text-[12px] leading-5 text-gray-500">{post.summary}</p>}
+            {!compact && <p className="mt-2 line-clamp-2 text-[11px] font-medium leading-5 text-[#817981]">{post.summary}</p>}
           </div>
-          <ChevronRight size={17} className="shrink-0 text-gray-300" aria-hidden="true" />
+          <MoveRight size={17} className="hidden shrink-0 text-[#f43679] transition-transform group-hover:translate-x-1 sm:block" aria-hidden="true" />
         </Link>
       ))}
     </div>

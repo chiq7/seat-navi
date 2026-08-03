@@ -2,7 +2,7 @@
 
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, Send, TicketCheck } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { trackEvent } from "@/lib/analytics";
@@ -10,9 +10,10 @@ import { supabase } from "@/lib/supabase/client";
 import { resolveArtist } from "@/lib/artists";
 import { getEventsForArtist } from "@/lib/events";
 import { parseEventTitle } from "@/lib/eventTitle";
-import { Header } from "@/components/common/Header";
+import { AccountLink } from "@/components/auth/AccountLink";
 import { EventCarouselPicker } from "@/components/common/EventPicker";
 import { EventInfoRow } from "@/components/common/EventInfoRow";
+import { ShareButton } from "@/components/common/ShareButton";
 
 function randomId() {
   return crypto.randomUUID().replace(/-/g, "").slice(0, 20);
@@ -112,20 +113,20 @@ function StepIndicator({ step }: { step: number }) {
     { num: 4, label: "完了" },
   ];
   return (
-    <div className="flex items-center justify-center py-3">
+    <div className="zr-container flex items-start justify-between border-b border-[#ded8dc] py-5">
       {steps.map((s, i) => (
-        <div key={s.num} className="flex items-center">
+        <div key={s.num} className="flex min-w-0 flex-1 items-start last:flex-none">
           <div className="flex flex-col items-center">
             <div
-              className={`flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-bold transition-colors ${
-                step >= s.num ? "bg-[#FF6B9D] text-white" : "bg-gray-200 text-gray-400"
+              className={`flex h-7 w-7 items-center justify-center border text-[10px] font-black transition-colors ${
+                step >= s.num ? "border-[#f43679] bg-[#f43679] text-white" : "border-[#cfc7cc] text-[#958d93]"
               }`}
             >
               {s.num}
             </div>
             <span
-              className={`mt-0.5 text-[9px] font-semibold ${
-                step >= s.num ? "text-[#FF6B9D]" : "text-gray-400"
+              className={`mt-1.5 text-[9px] font-black ${
+                step >= s.num ? "text-[#f43679]" : "text-[#958d93]"
               }`}
             >
               {s.label}
@@ -133,8 +134,8 @@ function StepIndicator({ step }: { step: number }) {
           </div>
           {i < steps.length - 1 && (
             <div
-              className={`mb-4 h-[2px] w-8 transition-colors ${
-                step > s.num ? "bg-[#FF6B9D]" : "bg-gray-200"
+              className={`mt-3 h-px flex-1 transition-colors ${
+                step > s.num ? "bg-[#f43679]" : "bg-[#ded8dc]"
               }`}
             />
           )}
@@ -159,10 +160,10 @@ function Btn({
     <button
       type="button"
       onClick={onClick}
-      className={`h-8 w-full rounded-lg transition-colors ${xs ? "text-[10px]" : "text-[11px]"} ${
+      className={`zr-focus min-h-11 w-full border transition-colors ${xs ? "text-[10px]" : "text-[11px]"} ${
         selected
-          ? "bg-[#FF6B9D] font-bold text-white shadow-[0_4px_10px_rgba(255,107,157,0.18)]"
-          : "border border-gray-200 bg-white font-semibold text-gray-700"
+          ? "border-[#f43679] bg-[#f43679] font-black text-white"
+          : "border-[#ded8dc] bg-white font-black text-[#544e52]"
       }`}
     >
       {children}
@@ -181,11 +182,11 @@ function Row({
 }) {
   return (
     <div
-      className={`grid grid-cols-[76px_1fr] gap-2 ${
-        align === "start" ? "items-start" : "items-center"
+      className={`grid grid-cols-1 gap-2 border-b border-[#ebe7e9] pb-4 last:border-b-0 last:pb-0 sm:grid-cols-[112px_1fr] ${
+        align === "start" ? "items-start" : "sm:items-center"
       }`}
     >
-      <p className="text-[11px] font-bold leading-snug text-gray-900">{label}</p>
+      <p className="text-[11px] font-black leading-snug text-[#1c171b]">{label}</p>
       <div>{children}</div>
     </div>
   );
@@ -206,7 +207,7 @@ function SeatInput({
 }) {
   return (
     <div className="flex items-center gap-2">
-      <span className="w-[56px] shrink-0 text-[10px] font-bold text-gray-700">
+      <span className="w-[64px] shrink-0 text-[10px] font-black text-[#544e52]">
         {label}{required && <span className="ml-0.5 text-red-400">*</span>}
       </span>
       <input
@@ -214,7 +215,7 @@ function SeatInput({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="h-[36px] flex-1 rounded-lg border border-gray-200 bg-white px-3 text-[10px] outline-none placeholder:text-gray-300 focus:border-[#FF6B9D]"
+        className="zr-focus h-11 min-w-0 flex-1 border border-[#ded8dc] bg-white px-3 text-[12px] font-bold outline-none placeholder:text-[#b5adb2] focus:border-[#f43679]"
       />
     </div>
   );
@@ -227,69 +228,66 @@ function SuccessScreen({
   onOther: () => void;
   artistSlug: string | null;
 }) {
+  const shareUrl = typeof window !== "undefined" ? (artistSlug ? `${window.location.origin}/artists/${artistSlug}` : window.location.origin) : "";
+  const shareText = "ライブの当落・座席をちけレポに投稿しました！ #ちけレポ";
+  const xShareHref = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
+
   return (
-    <div className="relative flex min-h-screen flex-col">
-      <div className="absolute inset-0 overflow-hidden">
-        <Image
-          src="/images/report/success/report-success-bg.png"
-          alt=""
-          fill
-          priority
-          className="object-cover object-top"
-        />
-      </div>
-      <header className="relative z-10 flex h-[44px] items-center justify-center border-b border-gray-100 bg-white/80 backdrop-blur-sm">
+    <div className="flex min-h-screen flex-col bg-[#f7f5f6] text-[#1c171b]">
+      <header className="zr-container flex h-16 items-center justify-between bg-[#0d090d] text-white">
         <Link
           href="/report"
-          className="absolute left-2 flex h-8 w-8 items-center justify-center text-gray-700"
+          className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/8"
+          aria-label="報告画面へ戻る"
         >
-          <ChevronLeft size={18} strokeWidth={2.5} />
+          <ChevronLeft size={25} />
         </Link>
-        <h1 className="text-[12px] font-bold tracking-wide text-gray-900">
-          当落・座席を報告
-        </h1>
+        <AccountLink tone="light" iconSize={22} />
       </header>
-      <div className="relative z-10 bg-white/80 backdrop-blur-sm">
-        <StepIndicator step={4} />
-      </div>
-      <div className="relative z-10 flex flex-1 items-center justify-center px-6 py-8">
-        <div className="w-full rounded-3xl bg-white px-6 pb-8 pt-6 text-center shadow-[0_8px_40px_rgba(17,24,39,0.10)]">
-          <div className="mb-4 flex justify-center">
+      <section className="bg-[#0d090d] pb-11 pt-5 text-white">
+        <div className="zr-container text-center">
+          <p className="text-[10px] font-black tracking-[0.22em] text-[#ff5b96]">REPORT COMPLETE</p>
+          <h1 className="mt-4 text-[38px] font-black leading-tight tracking-[-0.05em]">投稿できました。</h1>
+          <p className="mt-3 text-[12px] font-bold leading-6 text-white/62">あなたの記録が、次に同じ会場へ行く人の助けになります。</p>
+        </div>
+      </section>
+      <StepIndicator step={4} />
+      <main className="zr-container flex-1 py-9">
+        <section className="border border-[#ded8dc] bg-white p-5 text-center sm:p-7">
+          <div className="flex justify-center">
             <Image
               src="/images/report/success/report-success-ticket-icon.png"
               alt=""
-              width={140}
-              height={140}
+              width={110}
+              height={110}
               className="object-contain"
             />
           </div>
-          <p className="text-[18px] font-bold text-[#111827]">
-            報告ありがとうございます！
-          </p>
-          <p className="mt-3 text-[13px] leading-relaxed text-[#6B7280]">
-            あなたの報告を受け付けました。
-            <br />
-            みんなのレポが、次の参戦の参考になります♪
-          </p>
-          <div className="mt-6 space-y-3">
+          <p className="mt-3 text-[17px] font-black">結果をXで共有しよう</p>
+          <p className="mt-2 text-[11px] font-medium leading-5 text-[#817981]">投稿内容の詳細は含めず、ちけレポへの投稿完了をシェアします。</p>
+          <div className="mt-6 grid grid-cols-[1fr_52px] gap-2">
+            <a href={xShareHref} target="_blank" rel="noopener noreferrer" className="zr-focus flex min-h-[52px] items-center justify-center bg-[#1c171b] text-[13px] font-black text-white">Xで共有する</a>
+            <ShareButton url={shareUrl} text={shareText} className="zr-focus flex h-[52px] w-[52px] items-center justify-center border border-[#1c171b] text-[#1c171b]" />
+          </div>
+          <div className="mt-7 space-y-2 border-t border-[#ded8dc] pt-6">
             <button
               type="button"
               onClick={onOther}
-              className="flex h-[52px] w-full items-center justify-center rounded-full bg-[#FF6B9D] text-[14px] font-bold text-white shadow-[0_4px_14px_rgba(255,107,157,0.35)] transition-opacity active:opacity-80"
+              className="zr-focus flex min-h-[52px] w-full items-center justify-center bg-[#f43679] text-[13px] font-black text-white"
             >
               別の当落・座席を報告する
             </button>
             {artistSlug && (
               <Link
                 href={`/artists/${artistSlug}`}
-                className="flex h-[48px] w-full items-center justify-center rounded-full border border-gray-200 bg-white text-[14px] font-bold text-gray-700 transition-opacity active:opacity-80"
+                className="zr-focus flex min-h-12 w-full items-center justify-center border border-[#ded8dc] bg-white text-[13px] font-black text-[#544e52]"
               >
                 まとめページに戻る
               </Link>
             )}
           </div>
-        </div>
-      </div>
+        </section>
+      </main>
     </div>
   );
 }
@@ -381,11 +379,6 @@ function TicketReportPageInner() {
   const currentVenueType = selectedVenue ? getVenueType(selectedVenue) : "arena_dome_stadium";
   const seatAreaOptions = SEAT_AREAS[currentVenueType];
   const reportEntryHref = selectedEvent ? `/report?event=${selectedEvent}` : "/report";
-
-  const currentArtistSlug = useMemo(() => {
-    const ev = events.find((e) => e.id === selectedEvent);
-    return ev ? (resolveArtist(ev)?.slug ?? null) : null;
-  }, [events, selectedEvent]);
 
   const currentArtistName = useMemo(() => {
     const ev = events.find((e) => e.id === selectedEvent);
@@ -499,25 +492,35 @@ function TicketReportPageInner() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FFF8FB] font-sans">
-      <div className="min-h-screen w-full bg-white">
-        {/* ヘッダー */}
-        <Header
-          title="当落・座席を報告"
-          backHref={step === 1 ? reportEntryHref : undefined}
-          onBack={step === 1 ? undefined : () => setStep(step - 1)}
-        />
+    <div className="min-h-screen bg-[#f7f5f6] font-sans text-[#1c171b]">
+      <section className="bg-[#0d090d] text-white">
+        <header className="zr-container flex h-16 items-center justify-between">
+          {step === 1 ? (
+            <Link href={reportEntryHref} aria-label="報告メニューへ戻る" className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/8"><ChevronLeft size={26} /></Link>
+          ) : (
+            <button type="button" onClick={() => setStep(step - 1)} aria-label="前のステップへ戻る" className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/8"><ChevronLeft size={26} /></button>
+          )}
+          <AccountLink tone="light" iconSize={22} />
+        </header>
+        <div className="zr-container pb-9 pt-4">
+          <TicketCheck size={27} strokeWidth={1.6} className="text-[#ff5b96]" aria-hidden="true" />
+          <p className="mt-5 text-[10px] font-black tracking-[0.22em] text-[#ff5b96]">TICKET &amp; SEAT REPORT</p>
+          <h1 className="mt-3 text-[36px] font-black leading-[1.08] tracking-[-0.05em] sm:text-[52px]">当落と座席を、<br />次の人へ。</h1>
+          <p className="mt-4 text-[11px] font-bold leading-5 text-white/62">抽選結果と座席情報を匿名でも共有できます。</p>
+        </div>
+      </section>
 
         {/* ステップインジケーター */}
         <StepIndicator step={step} />
 
         {/* Step 1：当落確認 */}
         {step === 1 && (
-          <main className="space-y-3 px-3 pb-8 pt-1">
+          <main className="zr-container space-y-8 pb-12 pt-8">
             {/* 報告する公演 */}
-            <section className="rounded-xl border border-gray-100 bg-white p-3 shadow-[0_4px_14px_rgba(15,23,42,0.05)]">
-              <div className="mb-0.5">
-                <h2 className="text-center text-[13px] font-bold text-gray-900">報告する公演</h2>
+            <section className="border-t border-[#1c171b] pt-5">
+              <div className="mb-4">
+                <p className="artist-kicker">01 / SELECT LIVE</p>
+                <h2 className="artist-heading">報告する公演</h2>
               </div>
               {selectedEventObj && (
                 <>
@@ -548,17 +551,18 @@ function TicketReportPageInner() {
 
             {/* 今回の結果 */}
             <div>
-              <h2 className="mb-3 text-center text-[15px] font-bold text-gray-900">
+              <p className="artist-kicker">CHOOSE RESULT</p>
+              <h2 className="mb-5 mt-1 text-[22px] font-black tracking-[-0.035em]">
                 今回の結果を教えてください
               </h2>
               <div className="grid grid-cols-2 gap-3">
                 <button
                   type="button"
                   onClick={() => { setResult("当選した"); setStep(2); }}
-                  className={`overflow-hidden rounded-2xl transition-all ${
+                  className={`zr-focus overflow-hidden border-2 transition-all ${
                     result === "当選した"
-                      ? "ring-2 ring-[#FF6B9D] ring-offset-1"
-                      : "opacity-80"
+                      ? "border-[#f43679]"
+                      : "border-transparent opacity-80"
                   }`}
                 >
                   <Image
@@ -572,10 +576,10 @@ function TicketReportPageInner() {
                 <button
                   type="button"
                   onClick={() => { setResult("落選した"); setStep(2); }}
-                  className={`overflow-hidden rounded-2xl transition-all ${
+                  className={`zr-focus overflow-hidden border-2 transition-all ${
                     result === "落選した"
-                      ? "ring-2 ring-[#FF6B9D] ring-offset-1"
-                      : "opacity-80"
+                      ? "border-[#f43679]"
+                      : "border-transparent opacity-80"
                   }`}
                 >
                   <Image
@@ -594,12 +598,13 @@ function TicketReportPageInner() {
 
         {/* Step 2：必須情報 */}
         {step === 2 && (
-          <main className="space-y-3 px-3 pb-8 pt-1">
+          <main className="zr-container space-y-7 pb-12 pt-8">
             {/* 共通項目 */}
-            <section className="rounded-xl border border-gray-100 bg-white p-3 shadow-[0_4px_14px_rgba(15,23,42,0.05)]">
-              <h2 className="text-[13px] font-bold text-gray-900">必須情報</h2>
-              <p className="mb-3 mt-0.5 text-[9px] text-gray-400">報告に必要な項目です</p>
-              <div className="space-y-3">
+            <section className="border-t border-[#1c171b] pt-5">
+              <p className="artist-kicker">02 / REQUIRED</p>
+              <h2 className="artist-heading">必須情報</h2>
+              <p className="mb-6 mt-2 text-[10px] font-bold text-[#817981]">報告に必要な項目です</p>
+              <div className="space-y-4">
                 {/* 抽選種別 */}
                 <Row label="抽選種別">
                   <div className="grid grid-cols-3 gap-2">
@@ -642,10 +647,11 @@ function TicketReportPageInner() {
 
             {/* 当選者のみ：座席情報 */}
             {result === "当選した" && (
-              <section className="rounded-xl border border-gray-100 bg-white p-3 shadow-[0_4px_14px_rgba(15,23,42,0.05)]">
-                <h2 className="text-[13px] font-bold text-[#FF4F8B]">座席情報</h2>
-                <div className="mb-3 mt-0.5 h-px bg-gray-100" />
-                <div className="space-y-3">
+              <section className="border-t border-[#f43679] bg-white p-4 sm:p-5">
+                <p className="artist-kicker">SEAT DETAIL</p>
+                <h2 className="artist-heading text-[#f43679]">座席情報</h2>
+                <div className="mb-5 mt-3 h-px bg-[#ded8dc]" />
+                <div className="space-y-4">
 
                   {/* 座席エリア */}
                   <Row label="座席エリア" align="start">
@@ -826,10 +832,10 @@ function TicketReportPageInner() {
                 type="button"
                 onClick={handleStep2Next}
                 disabled={!step2CanProceed}
-                className={`flex h-12 w-full items-center justify-center rounded-full text-[13px] font-bold text-white transition-opacity ${
+                className={`zr-focus flex min-h-[52px] w-full items-center justify-center text-[13px] font-black text-white transition-opacity ${
                   step2CanProceed
-                    ? "bg-[#FF6B9D] shadow-[0_8px_20px_rgba(255,107,157,0.25)] active:opacity-80"
-                    : "bg-[#FF6B9D]/40 cursor-not-allowed"
+                    ? "bg-[#f43679]"
+                    : "cursor-not-allowed bg-[#f43679]/35"
                 }`}
               >
                 次へ進む
@@ -837,7 +843,7 @@ function TicketReportPageInner() {
               <button
                 type="button"
                 onClick={() => setStep(1)}
-                className="mt-3 flex h-10 w-full items-center justify-center rounded-full border border-gray-200 bg-white text-[12px] font-bold text-gray-500 transition-opacity active:opacity-70"
+                className="zr-focus mt-2 flex min-h-12 w-full items-center justify-center border border-[#ded8dc] bg-transparent text-[12px] font-black text-[#817981]"
               >
                 戻る
               </button>
@@ -847,11 +853,12 @@ function TicketReportPageInner() {
 
         {/* Step 3：任意・コメント */}
         {step === 3 && (
-          <main className="space-y-3 px-3 pb-8 pt-1">
-            <section className="rounded-xl border border-gray-100 bg-white p-3 shadow-[0_4px_14px_rgba(15,23,42,0.05)]">
-              <h2 className="text-[13px] font-bold text-gray-900">任意で詳しく</h2>
-              <p className="mb-3 mt-0.5 text-[9px] text-gray-400">入力は任意です</p>
-              <div className="space-y-3">
+          <main className="zr-container space-y-7 pb-12 pt-8">
+            <section className="border-t border-[#1c171b] pt-5">
+              <p className="artist-kicker">03 / OPTIONAL</p>
+              <h2 className="artist-heading">任意で詳しく</h2>
+              <p className="mb-6 mt-2 text-[10px] font-bold text-[#817981]">入力は任意です</p>
+              <div className="space-y-4">
                 {/* FC歴 */}
                 <Row label="FC歴">
                   <div className="grid grid-cols-4 gap-1.5">
@@ -886,7 +893,7 @@ function TicketReportPageInner() {
             </section>
 
             {/* ひとことコメント */}
-            <section className="rounded-xl border border-gray-100 bg-white p-3 shadow-[0_4px_14px_rgba(15,23,42,0.05)]">
+            <section className="border-t border-[#ded8dc] pt-5">
               <div className="mb-1 flex items-center gap-1.5">
                 <p className="text-[13px] font-bold text-gray-900">ひとことコメント</p>
                 <span className="text-[9px] text-gray-400">任意</span>
@@ -897,7 +904,7 @@ function TicketReportPageInner() {
               <textarea
                 value={comment}
                 onChange={(e) => setComment(e.target.value.slice(0, 200))}
-                className="mt-2 h-[92px] w-full resize-none rounded-lg border border-gray-200 bg-white px-2 py-2 text-[10px] leading-5 outline-none placeholder:text-gray-300 focus:border-[#FF6B9D]"
+                className="zr-focus mt-3 h-32 w-full resize-none border border-[#ded8dc] bg-white p-3 text-[12px] font-medium leading-6 outline-none placeholder:text-[#b5adb2] focus:border-[#f43679]"
                 placeholder={`例：FC2次で当選しました！\n例：FC1次は落選、FC2次で当選しました\n例：条件付きで当選しました\n例：アプグレ落選でした`}
               />
               <div className="mt-1 text-right text-[9px] text-gray-400">
@@ -907,21 +914,22 @@ function TicketReportPageInner() {
 
             {/* ボタン */}
             {error && (
-              <div className="rounded-xl bg-red-50 px-4 py-3 text-[12px] text-red-600">{error}</div>
+              <div className="border border-red-200 bg-red-50 px-4 py-3 text-[12px] font-bold text-red-600">{error}</div>
             )}
             <div className="mt-5">
               <button
                 type="button"
                 onClick={handleSubmit}
                 disabled={submitting}
-                className="flex h-12 w-full items-center justify-center rounded-full bg-[#FF6B9D] text-[13px] font-bold text-white shadow-[0_8px_20px_rgba(255,107,157,0.25)] transition-opacity active:opacity-80 disabled:opacity-60"
+                className="zr-focus flex min-h-[52px] w-full items-center justify-center gap-2 bg-[#f43679] text-[13px] font-black text-white transition-opacity disabled:opacity-50"
               >
+                <Send size={16} aria-hidden="true" />
                 {submitting ? "投稿中..." : "報告を送信する"}
               </button>
               <button
                 type="button"
                 onClick={() => setStep(2)}
-                className="mt-3 flex h-10 w-full items-center justify-center rounded-full border border-gray-200 bg-white text-[12px] font-bold text-gray-500 transition-opacity active:opacity-70"
+                className="zr-focus mt-2 flex min-h-12 w-full items-center justify-center border border-[#ded8dc] bg-transparent text-[12px] font-black text-[#817981]"
               >
                 戻る
               </button>
@@ -929,7 +937,6 @@ function TicketReportPageInner() {
           </main>
         )}
 
-      </div>
     </div>
   );
 }

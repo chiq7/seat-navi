@@ -1,13 +1,14 @@
 "use client";
 
 import { use, useEffect, useMemo, useState } from "react";
-import { ExternalLink } from "lucide-react";
+import Link from "next/link";
+import { ChevronLeft, ExternalLink, Newspaper } from "lucide-react";
 import { findArtistBySlug } from "@/lib/artists";
 import { getOfficialNewsSummary, queryAllOfficialNewsForArtist } from "@/lib/officialNews";
 import type { OfficialNews, OfficialNewsCategory } from "@/lib/types";
 import { OFFICIAL_NEWS_CATEGORY_LABELS } from "@/lib/types";
+import { AccountLink } from "@/components/auth/AccountLink";
 import { BottomNav } from "@/components/common/BottomNav";
-import { Header } from "@/components/common/Header";
 
 function fmtPublishedDate(d: string | null): string {
   if (!d) return "";
@@ -57,73 +58,81 @@ export default function ArtistNewsPage({ params }: { params: Promise<{ slug: str
   }
 
   return (
-    <main className="min-h-screen bg-[#FFF8FB] pb-24 font-sans text-gray-900">
-      <Header title={`${artist.name} 公式ニュース`} backHref={`/artists/${slug}`} />
-
-      {categoryOptions.length > 0 && (
-        <div className="px-3 py-3">
-          <select
-            value={filterCategory}
-            onChange={(e) => setFilterCategory(e.target.value as "all" | OfficialNewsCategory)}
-            className="w-full max-w-[160px] rounded-lg border border-gray-200 bg-white px-2 py-1.5 text-[12px] font-semibold text-gray-700"
-          >
-            <option value="all">すべて</option>
-            {categoryOptions.map((c) => (
-              <option key={c} value={c}>{OFFICIAL_NEWS_CATEGORY_LABELS[c]}</option>
-            ))}
-          </select>
+    <main className="min-h-screen bg-[#f7f5f6] pb-24 font-sans text-[#1c171b]">
+      <section className="bg-[#0d090d] text-white">
+        <header className="zr-container flex h-16 items-center justify-between">
+          <Link href={`/artists/${slug}`} aria-label={`${artist.name}へ戻る`} className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/8">
+            <ChevronLeft size={26} aria-hidden="true" />
+          </Link>
+          <AccountLink tone="light" iconSize={22} />
+        </header>
+        <div className="zr-container pb-10 pt-5 sm:pb-14 sm:pt-9">
+          <Newspaper size={28} strokeWidth={1.6} className="text-[#ff5b96]" aria-hidden="true" />
+          <p className="mt-6 text-[10px] font-black tracking-[0.24em] text-[#ff5b96]">OFFICIAL NEWS</p>
+          <h1 className="mt-3 text-[39px] font-black leading-[1.08] tracking-[-0.055em] sm:text-[60px]">{artist.name}の、<br />公式ニュース。</h1>
+          <p className="mt-5 max-w-xl text-[12px] font-bold leading-6 text-white/62 sm:text-[14px]">出演情報、リリース、ライブのお知らせを公式サイトからまとめています。</p>
         </div>
-      )}
+      </section>
 
-      {loading ? (
-        <div className="flex h-48 items-center justify-center">
-          <div className="h-6 w-6 animate-spin rounded-full border-2 border-[#FF6B9D] border-t-transparent" />
+      <section className="zr-container py-9 sm:py-14" aria-labelledby="official-news-title">
+        <div className="flex items-end justify-between gap-4">
+          <div>
+            <p className="artist-kicker">Artist Journal</p>
+            <h2 id="official-news-title" className="artist-heading">最新情報</h2>
+          </div>
+          <p className="text-[10px] font-black text-[#817981]">{filteredNews.length} ARTICLES</p>
         </div>
-      ) : filteredNews.length === 0 ? (
-        <p className="py-12 text-center text-sm text-gray-400">公式ニュースはまだありません</p>
-      ) : (
-        <div className="px-3">
-          <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
+
+        {categoryOptions.length > 0 && (
+          <label className="mt-7 block border-y border-[#ded8dc] py-3">
+            <span className="mb-2 block text-[9px] font-black tracking-[0.2em] text-[#817981]">CATEGORY</span>
+            <select
+              value={filterCategory}
+              onChange={(e) => setFilterCategory(e.target.value as "all" | OfficialNewsCategory)}
+              className="zr-focus h-11 w-full border-0 bg-transparent text-[13px] font-black text-[#1c171b] outline-none"
+            >
+              <option value="all">すべてのニュース</option>
+              {categoryOptions.map((c) => (
+                <option key={c} value={c}>{OFFICIAL_NEWS_CATEGORY_LABELS[c]}</option>
+              ))}
+            </select>
+          </label>
+        )}
+
+        {loading ? (
+          <div className="flex h-48 items-center justify-center" aria-label="読み込み中">
+            <div className="h-6 w-6 animate-spin rounded-full border-2 border-[#f43679] border-t-transparent" />
+          </div>
+        ) : filteredNews.length === 0 ? (
+          <p className="border-b border-[#ded8dc] py-14 text-center text-sm font-bold text-[#817981]">公式ニュースはまだありません</p>
+        ) : (
+          <div className="mt-7 border-t border-[#1c171b]">
             {filteredNews.map((n) => (
               <a
                 key={n.id}
                 href={n.article_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block border-b border-gray-100 px-4 py-4 no-underline last:border-b-0"
+                className="zr-focus group grid min-h-44 grid-cols-[72px_1fr] gap-4 border-b border-[#ded8dc] py-5 no-underline transition-colors hover:bg-white sm:grid-cols-[110px_1fr_auto] sm:items-center sm:px-3"
                 aria-label={`${n.article_title}を公式サイトで読む`}
               >
-                <div className="flex items-center gap-1.5">
-                  {n.category && (
-                    <span className="shrink-0 rounded-full bg-[#FFF1F6] px-1.5 py-0.5 text-[10px] font-bold text-[#FF6B9D]">
-                      {OFFICIAL_NEWS_CATEGORY_LABELS[n.category]}
-                    </span>
-                  )}
-                  {n.published_date ? (
-                    <time dateTime={n.published_date} className="shrink-0 text-[11px] text-gray-400">
-                      {fmtPublishedDate(n.published_date)}
-                    </time>
-                  ) : (
-                    <span className="shrink-0 text-[11px] text-gray-400">日付未定</span>
-                  )}
+                <div className="self-start">
+                  <time dateTime={n.published_date ?? undefined} className="block text-[10px] font-black tracking-[0.04em] text-[#817981]">
+                    {n.published_date ? fmtPublishedDate(n.published_date) : "DATE TBA"}
+                  </time>
+                  {n.category && <span className="mt-2 block text-[9px] font-black text-[#f43679]">{OFFICIAL_NEWS_CATEGORY_LABELS[n.category]}</span>}
                 </div>
-                <h2 className="mt-1.5 text-[14px] font-bold leading-snug text-gray-900">
-                  {n.article_title}
-                </h2>
-                <p className="mt-2 line-clamp-3 text-[12px] leading-relaxed text-gray-500">
-                  {getOfficialNewsSummary(n)}
-                </p>
-                <span
-                  className="mt-3 inline-flex items-center gap-1 text-[12px] font-bold text-[#FF6B9D]"
-                >
-                  公式サイトで読む
-                  <ExternalLink size={13} aria-hidden="true" />
-                </span>
+                <div className="min-w-0">
+                  <h3 className="text-[16px] font-black leading-[1.55] tracking-[-0.025em] text-[#1c171b] sm:text-[18px]">{n.article_title}</h3>
+                  <p className="mt-2 line-clamp-3 text-[12px] font-medium leading-6 text-[#817981]">{getOfficialNewsSummary(n)}</p>
+                  <span className="mt-4 inline-flex min-h-11 items-center gap-1.5 text-[11px] font-black text-[#f43679] sm:hidden">公式サイトで読む<ExternalLink size={14} aria-hidden="true" /></span>
+                </div>
+                <span className="hidden min-h-11 items-center gap-2 text-[11px] font-black text-[#f43679] sm:inline-flex">公式サイトで読む<ExternalLink size={15} aria-hidden="true" /></span>
               </a>
             ))}
           </div>
-        </div>
-      )}
+        )}
+      </section>
 
       <BottomNav active="artist" artistSlug={slug} />
     </main>

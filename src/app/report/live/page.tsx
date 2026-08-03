@@ -2,14 +2,14 @@
 
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { Camera, CheckCircle2, ChevronLeft, RotateCcw, X } from "lucide-react";
+import { Camera, CheckCircle2, ChevronLeft, RotateCcw, Send, X } from "lucide-react";
 import Link from "next/link";
 import { trackEvent } from "@/lib/analytics";
 import { supabase } from "@/lib/supabase/client";
 import { resolveArtist } from "@/lib/artists";
 import { getEventsForArtist } from "@/lib/events";
 import { parseEventTitle } from "@/lib/eventTitle";
-import { Header } from "@/components/common/Header";
+import { AccountLink } from "@/components/auth/AccountLink";
 import { EventCarouselPicker } from "@/components/common/EventPicker";
 import { EventInfoRow } from "@/components/common/EventInfoRow";
 import { ShareButton } from "@/components/common/ShareButton";
@@ -96,13 +96,14 @@ function PhotoThumb({ file, onRemove }: { file: File; onRemove: () => void }) {
   const [url] = useState(() => URL.createObjectURL(file));
   useEffect(() => () => URL.revokeObjectURL(url), [url]);
   return (
-    <div className="relative h-[72px] w-[72px] shrink-0 overflow-hidden rounded-lg bg-gray-100">
+    <div className="relative h-[76px] w-[76px] shrink-0 overflow-hidden border border-[#ded8dc] bg-[#f7f5f6]">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={url} alt="" className="h-full w-full object-cover" />
       <button
         type="button"
         onClick={onRemove}
-        className="absolute right-0.5 top-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-gray-900/60 text-white"
+        className="zr-focus absolute right-0 top-0 flex h-11 w-11 items-center justify-center bg-gray-900/70 text-white"
+        aria-label="写真を削除"
       >
         <X size={10} />
       </button>
@@ -117,20 +118,20 @@ function StepIndicator({ step }: { step: number }) {
     { num: 3, label: "完了" },
   ];
   return (
-    <div className="flex items-center justify-center py-3">
+    <div className="zr-container flex items-start justify-between border-b border-[#ded8dc] py-5">
       {steps.map((s, i) => (
-        <div key={s.num} className="flex items-center">
+        <div key={s.num} className="flex min-w-0 flex-1 items-start last:flex-none">
           <div className="flex flex-col items-center">
             <div
-              className={`flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-bold transition-colors ${
-                step >= s.num ? "bg-[#FF6B9D] text-white" : "bg-gray-200 text-gray-400"
+              className={`flex h-7 w-7 items-center justify-center border text-[10px] font-black transition-colors ${
+                step >= s.num ? "border-[#f43679] bg-[#f43679] text-white" : "border-[#cfc7cc] text-[#958d93]"
               }`}
             >
               {s.num}
             </div>
             <span
-              className={`mt-0.5 text-[9px] font-semibold ${
-                step >= s.num ? "text-[#FF6B9D]" : "text-gray-400"
+              className={`mt-1.5 text-[9px] font-black ${
+                step >= s.num ? "text-[#f43679]" : "text-[#958d93]"
               }`}
             >
               {s.label}
@@ -138,8 +139,8 @@ function StepIndicator({ step }: { step: number }) {
           </div>
           {i < steps.length - 1 && (
             <div
-              className={`mb-4 h-[2px] w-8 transition-colors ${
-                step > s.num ? "bg-[#FF6B9D]" : "bg-gray-200"
+              className={`mt-3 h-px flex-1 transition-colors ${
+                step > s.num ? "bg-[#f43679]" : "bg-[#ded8dc]"
               }`}
             />
           )}
@@ -164,10 +165,10 @@ function Btn({
     <button
       type="button"
       onClick={onClick}
-      className={`h-8 w-full rounded-lg transition-colors ${xs ? "text-[10px]" : "text-[11px]"} ${
+      className={`zr-focus min-h-11 w-full border transition-colors ${xs ? "text-[10px]" : "text-[11px]"} ${
         selected
-          ? "bg-[#FF6B9D] font-bold text-white shadow-[0_4px_10px_rgba(255,107,157,0.18)]"
-          : "border border-gray-200 bg-white font-semibold text-gray-700"
+          ? "border-[#f43679] bg-[#f43679] font-black text-white"
+          : "border-[#ded8dc] bg-white font-black text-[#544e52]"
       }`}
     >
       {children}
@@ -478,24 +479,34 @@ function LiveReportPageInner() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FFF8FB] font-sans">
-      <div className="min-h-screen w-full bg-white">
-        {/* ヘッダー */}
-        <Header
-          title="現地レポを投稿"
-          backHref={step === 1 ? reportEntryHref : undefined}
-          onBack={step === 1 ? undefined : () => setStep(step - 1)}
-        />
+    <div className="min-h-screen bg-[#f7f5f6] font-sans text-[#1c171b]">
+      <section className="bg-[#0d090d] text-white">
+        <header className="zr-container flex h-16 items-center justify-between">
+          {step === 1 ? (
+            <Link href={reportEntryHref} aria-label="報告メニューへ戻る" className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/8"><ChevronLeft size={26} /></Link>
+          ) : (
+            <button type="button" onClick={() => setStep(step - 1)} aria-label="前のステップへ戻る" className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/8"><ChevronLeft size={26} /></button>
+          )}
+          <AccountLink tone="light" iconSize={22} />
+        </header>
+        <div className="zr-container pb-9 pt-4">
+          <Camera size={28} strokeWidth={1.6} className="text-[#ff5b96]" aria-hidden="true" />
+          <p className="mt-5 text-[10px] font-black tracking-[0.22em] text-[#ff5b96]">LIVE VIEW REPORT</p>
+          <h1 className="mt-3 text-[36px] font-black leading-[1.08] tracking-[-0.05em] sm:text-[52px]">その席からの景色を、<br />次のファンへ。</h1>
+          <p className="mt-4 text-[11px] font-bold leading-5 text-white/62">座席・見え方・会場の写真をまとめて共有できます。</p>
+        </div>
+      </section>
 
         <StepIndicator step={step} />
 
         {/* Step 1：公演・座席・写真 */}
         {step === 1 && (
-          <main className="space-y-3 px-3 pb-8 pt-1">
+          <main className="zr-container space-y-8 pb-12 pt-8">
             {/* 公演選択 */}
-            <section className="rounded-xl border border-gray-100 bg-white p-3 shadow-[0_4px_14px_rgba(15,23,42,0.05)]">
+            <section className="border-t border-[#1c171b] pt-5">
               <div className="mb-0.5">
-                <h2 className="text-center text-[13px] font-bold text-gray-900">報告する公演</h2>
+                <p className="artist-kicker">01 / SELECT LIVE</p>
+                <h2 className="artist-heading">報告する公演</h2>
               </div>
               {selectedEventObj && (
                 <>
@@ -535,8 +546,9 @@ function LiveReportPageInner() {
             </section>
 
             {/* 座席情報 */}
-            <section className="rounded-xl border border-gray-100 bg-white p-3 shadow-[0_4px_14px_rgba(15,23,42,0.05)]">
-              <h2 className="text-[13px] font-bold text-gray-900">どの席から見たレポですか？</h2>
+            <section className="border-t border-[#1c171b] bg-white p-4 sm:p-5">
+              <p className="artist-kicker">SEAT DETAIL</p>
+              <h2 className="artist-heading">どの席から見た？</h2>
               <p className="mb-3 mt-0.5 text-[9px] text-gray-400">
                 座席エリアを選んでから詳細を入力してください。
               </p>
@@ -800,7 +812,7 @@ function LiveReportPageInner() {
             </section>
 
             {/* 写真（任意） */}
-            <section className="rounded-xl border border-gray-100 bg-white p-3 shadow-[0_4px_14px_rgba(15,23,42,0.05)]">
+            <section className="border-t border-[#ded8dc] pt-5">
               <div className="mb-1 flex items-center gap-1.5">
                 <p className="text-[13px] font-bold text-gray-900">ステージが見える写真</p>
                 <span className="text-[9px] text-gray-400">任意</span>
@@ -835,7 +847,7 @@ function LiveReportPageInner() {
                 <button
                   type="button"
                   onClick={() => photoInputRef.current?.click()}
-                  className="flex h-[120px] w-full flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-gray-200 bg-gray-50 transition-colors active:bg-gray-100"
+                  className="zr-focus flex min-h-[120px] w-full flex-col items-center justify-center gap-2 border border-dashed border-[#bfb6bc] bg-white transition-colors hover:border-[#f43679]"
                 >
                   <Camera size={24} className="text-gray-300" />
                   <p className="text-[10px] text-gray-400">
@@ -846,7 +858,7 @@ function LiveReportPageInner() {
             </section>
 
             {/* 見え方の感想・補足（任意） */}
-            <section className="rounded-xl border border-gray-100 bg-white p-3 shadow-[0_4px_14px_rgba(15,23,42,0.05)]">
+            <section className="border-t border-[#ded8dc] pt-5">
               <div className="mb-1 flex items-center gap-1.5">
                 <p className="text-[13px] font-bold text-gray-900">見え方の感想・補足</p>
                 <span className="text-[9px] text-gray-400">任意</span>
@@ -854,7 +866,7 @@ function LiveReportPageInner() {
               <textarea
                 value={memo}
                 onChange={(e) => setMemo(e.target.value.slice(0, 300))}
-                className="mt-2 h-[100px] w-full resize-none rounded-lg border border-gray-200 bg-white px-2 py-2 text-[10px] leading-5 outline-none placeholder:text-gray-300 focus:border-[#FF6B9D]"
+                className="zr-focus mt-3 h-32 w-full resize-none border border-[#ded8dc] bg-white p-3 text-[12px] font-medium leading-6 outline-none placeholder:text-[#b5adb2] focus:border-[#f43679]"
                 placeholder="例：前の方だったので表情までよく見えました。少し端でしたが全体はしっかり見えました。"
               />
               <div className="mt-1 text-right text-[9px] text-gray-400">
@@ -867,10 +879,10 @@ function LiveReportPageInner() {
                 type="button"
                 onClick={() => { if (step1CanProceed) setStep(2); }}
                 disabled={!step1CanProceed}
-                className={`flex h-12 w-full items-center justify-center rounded-full text-[13px] font-bold text-white transition-opacity ${
+                className={`zr-focus flex min-h-[52px] w-full items-center justify-center text-[13px] font-black text-white transition-opacity ${
                   step1CanProceed
-                    ? "bg-[#FF6B9D] shadow-[0_8px_20px_rgba(255,107,157,0.25)] active:opacity-80"
-                    : "bg-[#FF6B9D]/40 cursor-not-allowed"
+                    ? "bg-[#f43679]"
+                    : "cursor-not-allowed bg-[#f43679]/35"
                 }`}
               >
                 次へ進む
@@ -881,9 +893,10 @@ function LiveReportPageInner() {
 
         {/* Step 2：見え方チェック */}
         {step === 2 && (
-          <main className="space-y-3 px-3 pb-8 pt-1">
-            <section className="rounded-xl border border-gray-100 bg-white p-3 shadow-[0_4px_14px_rgba(15,23,42,0.05)]">
-              <h2 className="text-[13px] font-bold text-gray-900">見え方チェック</h2>
+          <main className="zr-container space-y-7 pb-12 pt-8">
+            <section className="border-t border-[#1c171b] pt-5">
+              <p className="artist-kicker">02 / VIEW RATING</p>
+              <h2 className="artist-heading">見え方チェック</h2>
               <p className="mb-4 mt-0.5 text-[9px] text-gray-400">見え方を教えてください</p>
               <div className="space-y-4">
                 {/* メインステージ・センステ・ファンサ・トロッコ・客降り（5段階） */}
@@ -929,7 +942,7 @@ function LiveReportPageInner() {
             </section>
 
             {error && (
-              <div className="rounded-xl bg-red-50 px-4 py-3 text-[12px] text-red-600">{error}</div>
+              <div className="border border-red-200 bg-red-50 px-4 py-3 text-[12px] font-bold text-red-600">{error}</div>
             )}
 
             <div className="mt-5">
@@ -937,14 +950,15 @@ function LiveReportPageInner() {
                 type="button"
                 onClick={handleSubmit}
                 disabled={submitting}
-                className="flex h-12 w-full items-center justify-center rounded-full bg-[#FF6B9D] text-[13px] font-bold text-white shadow-[0_8px_20px_rgba(255,107,157,0.25)] transition-opacity active:opacity-80 disabled:opacity-60"
+                className="zr-focus flex min-h-[52px] w-full items-center justify-center gap-2 bg-[#f43679] text-[13px] font-black text-white transition-opacity disabled:opacity-50"
               >
+                <Send size={16} aria-hidden="true" />
                 {submitting ? "投稿中..." : "投稿する"}
               </button>
               <button
                 type="button"
                 onClick={() => setStep(1)}
-                className="mt-3 flex h-10 w-full items-center justify-center rounded-full border border-gray-200 bg-white text-[12px] font-bold text-gray-500 transition-opacity active:opacity-70"
+                className="zr-focus mt-2 flex min-h-12 w-full items-center justify-center border border-[#ded8dc] bg-transparent text-[12px] font-black text-[#817981]"
               >
                 戻る
               </button>
@@ -952,7 +966,6 @@ function LiveReportPageInner() {
           </main>
         )}
 
-      </div>
     </div>
   );
 }

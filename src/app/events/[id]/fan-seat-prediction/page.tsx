@@ -3,18 +3,18 @@
 import { use, useEffect, useMemo, useRef, useState } from "react";
 import type { ChangeEvent } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, ImagePlus, Map as MapIcon, Send } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 import { supabase } from "@/lib/supabase/client";
 import { resolveArtist } from "@/lib/artists";
 import { getEventsForArtist } from "@/lib/events";
 import { parseEventTitle } from "@/lib/eventTitle";
 import type { CrawledEvent, SeatReport } from "@/lib/types";
+import { AccountLink } from "@/components/auth/AccountLink";
 import { BottomNav } from "@/components/common/BottomNav";
-import { Header } from "@/components/common/Header";
 import { EventCarouselPicker } from "@/components/common/EventPicker";
 import { EventInfoRow } from "@/components/common/EventInfoRow";
+import { ShareButton } from "@/components/common/ShareButton";
 import { EventArenaMap } from "@/components/arena-map/EventArenaMap";
 
 const EVENT_COLUMNS = "id, title, venue, venue_id, date, genre, lottery_types, artist_slug";
@@ -47,20 +47,20 @@ function StepIndicator({ step }: { step: number }) {
     { num: 2, label: "完了" },
   ];
   return (
-    <div className="flex items-center justify-center py-3">
+    <div className="zr-container flex items-start justify-between border-b border-[#ded8dc] py-5">
       {steps.map((s, i) => (
-        <div key={s.num} className="flex items-center">
+        <div key={s.num} className="flex min-w-0 flex-1 items-start last:flex-none">
           <div className="flex flex-col items-center">
             <div
-              className={`flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-bold transition-colors ${
-                step >= s.num ? "bg-[#FF6B9D] text-white" : "bg-gray-200 text-gray-400"
+              className={`flex h-7 w-7 items-center justify-center border text-[10px] font-black transition-colors ${
+                step >= s.num ? "border-[#f43679] bg-[#f43679] text-white" : "border-[#cfc7cc] text-[#958d93]"
               }`}
             >
               {s.num}
             </div>
             <span
-              className={`mt-0.5 text-[9px] font-semibold ${
-                step >= s.num ? "text-[#FF6B9D]" : "text-gray-400"
+              className={`mt-1.5 text-[9px] font-black ${
+                step >= s.num ? "text-[#f43679]" : "text-[#958d93]"
               }`}
             >
               {s.label}
@@ -68,8 +68,8 @@ function StepIndicator({ step }: { step: number }) {
           </div>
           {i < steps.length - 1 && (
             <div
-              className={`mb-4 h-[2px] w-8 transition-colors ${
-                step > s.num ? "bg-[#FF6B9D]" : "bg-gray-200"
+              className={`mt-3 h-px flex-1 transition-colors ${
+                step > s.num ? "bg-[#f43679]" : "bg-[#ded8dc]"
               }`}
             />
           )}
@@ -291,87 +291,69 @@ export default function FanSeatPredictionPage({
     ? parseEventTitle(event.title, artist?.name)
     : { tourName: "", isTestData: false };
   const reportEntryHref = `/report?event=${selectedEventId}`;
+  const shareUrl = typeof window !== "undefined" ? `${window.location.origin}/events/${selectedEventId}` : "";
+  const shareText = `${artist?.name ?? "ライブ"}の座席表・ステージ構成予想を投稿しました！ #ちけレポ`;
+  const xShareHref = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
 
   /* ── 完了画面（Step 2） ─────────────────────────────── */
   if (submitted) {
     return (
-      <div className="min-h-screen bg-[#F8FAFC] font-sans">
-        <div className="min-h-screen w-full">
-          <div className="relative flex min-h-screen flex-col">
-            <div className="absolute inset-0 overflow-hidden">
-              <Image
-                src="/images/report/success/report-success-bg.png"
-                alt=""
-                fill
-                priority
-                className="object-cover object-top"
-              />
-            </div>
-            <header className="relative z-10 flex h-[44px] items-center justify-center border-b border-gray-100 bg-white/80 backdrop-blur-sm">
-              <Link
-                href={`/events/${selectedEventId}`}
-                className="absolute left-2 flex h-8 w-8 items-center justify-center text-gray-700"
-              >
-                <ChevronLeft size={18} strokeWidth={2.5} />
-              </Link>
-              <h1 className="text-[12px] font-bold tracking-wide text-gray-900">予想図を投稿</h1>
-            </header>
-            <div className="relative z-10 bg-white/80 backdrop-blur-sm">
-              <StepIndicator step={2} />
-            </div>
-            <div className="relative z-10 flex flex-1 items-center justify-center px-4 py-8">
-              <div className="w-full rounded-3xl bg-white px-4 pb-8 pt-6 text-center shadow-[0_8px_40px_rgba(17,24,39,0.10)]">
-                <div className="mb-4 flex justify-center">
-                  <Image
-                    src="/images/report/success/report-success-ticket-icon.png"
-                    alt=""
-                    width={140}
-                    height={140}
-                    className="object-contain"
-                  />
-                </div>
-                <p className="text-[18px] font-bold text-[#111827]">投稿ありがとうございます！</p>
-                <p className="mt-3 text-[13px] leading-relaxed text-[#6B7280]">
-                  みんなの予想図に追加されました。
-                  <br />
-                  審査後に公演ページに表示されます。
-                </p>
-                <div className="mt-6 space-y-3">
-                  <button
-                    type="button"
-                    onClick={resetForm}
-                    className="flex h-[52px] w-full items-center justify-center rounded-full bg-[#FF6B9D] text-[14px] font-bold text-white shadow-[0_4px_14px_rgba(255,107,157,0.35)] transition-opacity active:opacity-80"
-                  >
-                    別の予想を投稿する
-                  </button>
-                  <Link
-                    href={`/events/${selectedEventId}`}
-                    className="flex h-[48px] w-full items-center justify-center rounded-full border border-gray-200 bg-white text-[14px] font-bold text-gray-700 transition-opacity active:opacity-80"
-                  >
-                    座席予想ページを見る
-                  </Link>
-                </div>
-              </div>
-            </div>
-            <BottomNav active="event" artistSlug={artistSlug} eventId={selectedEventId} />
+      <div className="flex min-h-screen flex-col bg-[#f7f5f6] pb-24 font-sans text-[#1c171b]">
+        <section className="bg-[#0d090d] text-white">
+          <header className="zr-container flex h-16 items-center justify-between">
+            <Link href={`/events/${selectedEventId}`} aria-label="公演ページへ戻る" className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/8"><ChevronLeft size={25} /></Link>
+            <AccountLink tone="light" iconSize={22} />
+          </header>
+          <div className="zr-container pb-11 pt-5 text-center">
+            <p className="text-[10px] font-black tracking-[0.22em] text-[#ff5b96]">PREDICTION COMPLETE</p>
+            <h1 className="mt-4 text-[38px] font-black leading-tight tracking-[-0.05em]">予想図を投稿しました。</h1>
+            <p className="mt-3 text-[12px] font-bold leading-6 text-white/62">会場の座席表を探すファンへ、あなたの予想が届きます。</p>
           </div>
-        </div>
+        </section>
+        <StepIndicator step={2} />
+        <main className="zr-container flex-1 py-9">
+          <section className="border border-[#ded8dc] bg-white p-5 text-center sm:p-7">
+            <ImagePlus size={32} strokeWidth={1.5} className="mx-auto text-[#f43679]" aria-hidden="true" />
+            <p className="mt-4 text-[17px] font-black">Xで座席予想を共有しよう</p>
+            <p className="mt-2 text-[11px] font-medium leading-5 text-[#817981]">公演ページのURLと一緒にシェアできます。</p>
+            <div className="mt-6 grid grid-cols-[1fr_52px] gap-2">
+              <a href={xShareHref} target="_blank" rel="noopener noreferrer" className="zr-focus flex min-h-[52px] items-center justify-center bg-[#1c171b] text-[13px] font-black text-white">Xで共有する</a>
+              <ShareButton url={shareUrl} text={shareText} className="zr-focus flex h-[52px] w-[52px] items-center justify-center border border-[#1c171b] text-[#1c171b]" />
+            </div>
+            <div className="mt-7 space-y-2 border-t border-[#ded8dc] pt-6">
+              <button type="button" onClick={resetForm} className="zr-focus flex min-h-[52px] w-full items-center justify-center bg-[#f43679] text-[13px] font-black text-white">別の予想を投稿する</button>
+              <Link href={`/events/${selectedEventId}`} className="zr-focus flex min-h-12 w-full items-center justify-center border border-[#ded8dc] bg-white text-[13px] font-black text-[#544e52]">座席予想ページを見る</Link>
+            </div>
+          </section>
+        </main>
+        <BottomNav active="event" artistSlug={artistSlug} eventId={selectedEventId} />
       </div>
     );
   }
 
   /* ── 入力画面（Step 1） ─────────────────────────────── */
   return (
-    <div className="min-h-screen bg-[#FFF8FB] font-sans">
-      <div className="min-h-screen w-full bg-white">
-        <Header title="予想図を投稿" backHref={reportEntryHref} />
+    <div className="min-h-screen bg-[#f7f5f6] pb-24 font-sans text-[#1c171b]">
+      <section className="bg-[#0d090d] text-white">
+        <header className="zr-container flex h-16 items-center justify-between">
+          <Link href={reportEntryHref} aria-label="報告メニューへ戻る" className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/8"><ChevronLeft size={26} /></Link>
+          <AccountLink tone="light" iconSize={22} />
+        </header>
+        <div className="zr-container pb-9 pt-4">
+          <MapIcon size={28} strokeWidth={1.6} className="text-[#ff5b96]" aria-hidden="true" />
+          <p className="mt-5 text-[10px] font-black tracking-[0.22em] text-[#ff5b96]">FAN SEAT PREDICTION</p>
+          <h1 className="mt-3 text-[36px] font-black leading-[1.08] tracking-[-0.05em] sm:text-[52px]">会場の座席表を、<br />みんなで予想。</h1>
+          <p className="mt-4 text-[11px] font-bold leading-5 text-white/62">花道・センステ・外周など、ライブ会場の構成予想を投稿できます。</p>
+        </div>
+      </section>
 
         <StepIndicator step={1} />
 
-        <main className="space-y-3 px-3 pb-8 pt-1">
+        <main className="zr-container space-y-8 pb-12 pt-8">
           {/* 対象公演 */}
-          <section className="rounded-2xl border border-gray-100 bg-white p-3 shadow-sm">
-            <h2 className="text-[13px] font-bold text-gray-900">対象公演</h2>
+          <section className="border-t border-[#1c171b] pt-5">
+            <p className="artist-kicker">01 / SELECT LIVE</p>
+            <h2 className="artist-heading">対象公演</h2>
             {event && (
               <>
                 <EventInfoRow
@@ -393,10 +375,10 @@ export default function FanSeatPredictionPage({
           </section>
 
           {/* 予想図画像 */}
-          <section className="rounded-2xl border border-gray-100 bg-white p-3 shadow-sm">
+          <section className="border-t border-[#1c171b] pt-5">
             <div className="flex items-center gap-1.5">
-              <h2 className="text-[13px] font-bold text-gray-900">予想図画像</h2>
-              <span className="rounded-md bg-[#FFF1F6] px-1.5 py-0.5 text-[9px] font-bold text-[#FF6B9D]">
+              <h2 className="artist-heading">予想図画像</h2>
+              <span className="border border-[#f43679] px-1.5 py-0.5 text-[9px] font-black text-[#f43679]">
                 必須
               </span>
             </div>
@@ -409,13 +391,13 @@ export default function FanSeatPredictionPage({
                 <button
                   type="button"
                   onClick={() => setMapOpen((o) => !o)}
-                  className="flex w-full items-center justify-center gap-1 rounded-lg border border-[#FF6B9D]/30 bg-[#FFF1F6] py-2 text-[11px] font-bold text-[#FF6B9D]"
+                  className="zr-focus flex min-h-12 w-full items-center justify-center gap-1 border border-[#f43679] bg-[#fff0f5] text-[11px] font-black text-[#f43679]"
                 >
                   {mapOpen ? "▲ マップを閉じる" : "▼ 会場マップから予想図を作る"}
                 </button>
 
                 {mapOpen && (
-                  <div className="mt-2 rounded-xl border border-[#FF6B9D]/20 bg-[#FFF8FB] p-3">
+                  <div className="mt-2 border border-[#f43679]/25 bg-[#fff0f5] p-4">
                     <ol className="space-y-1 text-[10px] leading-relaxed text-gray-600">
                       <li>
                         <span className="font-bold text-[#FF6B9D]">①</span> 下のボタンでマップ画像をスマホに保存
@@ -451,12 +433,13 @@ export default function FanSeatPredictionPage({
                 <img
                   src={previewUrl}
                   alt="投稿画像プレビュー"
-                  className="w-full rounded-xl bg-gray-50 object-contain"
+                  className="w-full border border-[#ded8dc] bg-[#f7f5f6] object-contain"
                 />
                 <button
                   type="button"
                   onClick={clearImage}
-                  className="absolute right-2 top-2 flex h-6 w-6 items-center justify-center rounded-md bg-black/50 text-white active:bg-black/70"
+                  className="zr-focus absolute right-2 top-2 flex h-11 w-11 items-center justify-center bg-black/65 text-white"
+                  aria-label="画像を削除"
                 >
                   <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
@@ -467,10 +450,10 @@ export default function FanSeatPredictionPage({
               <button
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
-                className={`mt-2 flex h-[96px] w-full flex-col items-center justify-center gap-1.5 rounded-xl border border-dashed transition-colors active:bg-gray-100 ${
+                className={`zr-focus mt-3 flex min-h-[112px] w-full flex-col items-center justify-center gap-2 border border-dashed transition-colors ${
                   mapSaved
-                    ? "border-[#FF6B9D] bg-[#FFF1F6] text-[#FF6B9D]"
-                    : "border-gray-300 bg-gray-50 text-gray-400"
+                    ? "border-[#f43679] bg-[#fff0f5] text-[#f43679]"
+                    : "border-[#bfb6bc] bg-white text-[#817981]"
                 }`}
               >
                 <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -491,7 +474,7 @@ export default function FanSeatPredictionPage({
           </section>
 
           {/* 予想タグ */}
-          <section className="rounded-2xl border border-gray-100 bg-white p-3 shadow-sm">
+          <section className="border-t border-[#ded8dc] pt-5">
             <div className="flex items-center gap-1.5">
               <h2 className="text-[13px] font-bold text-gray-900">予想タグ</h2>
               <span className="text-[9px] text-gray-400">任意</span>
@@ -502,10 +485,10 @@ export default function FanSeatPredictionPage({
                   key={tag.value}
                   type="button"
                   onClick={() => toggleTag(tag.value)}
-                  className={`h-8 w-full rounded-lg text-[11px] font-semibold transition-colors ${
+                  className={`zr-focus min-h-11 w-full border text-[10px] font-black transition-colors ${
                     tags.includes(tag.value)
-                      ? "bg-[#FF6B9D] text-white shadow-[0_2px_8px_rgba(255,107,157,0.2)]"
-                      : "border border-gray-200 bg-white text-gray-700"
+                      ? "border-[#f43679] bg-[#f43679] text-white"
+                      : "border-[#ded8dc] bg-white text-[#544e52]"
                   }`}
                 >
                   {tag.label}
@@ -515,7 +498,7 @@ export default function FanSeatPredictionPage({
           </section>
 
           {/* コメント */}
-          <section className="rounded-2xl border border-gray-100 bg-white p-3 shadow-sm">
+          <section className="border-t border-[#ded8dc] pt-5">
             <div className="flex items-center gap-1.5">
               <h2 className="text-[13px] font-bold text-gray-900">コメント</h2>
               <span className="text-[9px] text-gray-400">任意</span>
@@ -526,7 +509,7 @@ export default function FanSeatPredictionPage({
               onChange={(e) => setComment(e.target.value)}
               rows={4}
               placeholder={`例：センステがA3ブロック付近にありそう\n例：昨年の公演からして花道は外周ありそう`}
-              className="mt-2 w-full resize-none rounded-lg border border-gray-200 bg-white px-2 py-2 text-[10px] leading-5 outline-none placeholder:text-gray-300 focus:border-[#FF6B9D]"
+              className="zr-focus mt-3 w-full resize-none border border-[#ded8dc] bg-white p-3 text-[12px] font-medium leading-6 outline-none placeholder:text-[#b5adb2] focus:border-[#f43679]"
             />
             <div className="mt-1 text-right text-[9px] text-gray-400">
               {comment.length} / {COMMENT_MAX}
@@ -534,32 +517,32 @@ export default function FanSeatPredictionPage({
           </section>
 
           {error && (
-            <div className="rounded-xl bg-red-50 px-4 py-3 text-[11px] text-red-600">{error}</div>
+            <div className="border border-red-200 bg-red-50 px-4 py-3 text-[11px] font-bold text-red-600">{error}</div>
           )}
 
           <button
             type="button"
             disabled={!file || submitting}
             onClick={handleSubmit}
-            className={`flex h-12 w-full items-center justify-center rounded-xl text-[13px] font-bold text-white transition-opacity ${
+            className={`zr-focus flex min-h-[52px] w-full items-center justify-center gap-2 text-[13px] font-black text-white transition-opacity ${
               file && !submitting
-                ? "bg-[#FF6B9D] shadow-[0_8px_20px_rgba(255,107,157,0.25)] active:opacity-80"
-                : "cursor-not-allowed bg-[#FF6B9D]/40"
+                ? "bg-[#f43679]"
+                : "cursor-not-allowed bg-[#f43679]/35"
             }`}
           >
+            <Send size={16} aria-hidden="true" />
             {submitting ? "投稿中..." : "予想図を投稿する"}
           </button>
 
           <Link
             href={`/events/${selectedEventId}`}
-            className="flex h-10 w-full items-center justify-center rounded-xl border border-gray-200 bg-white text-[12px] font-bold text-gray-500 transition-opacity active:opacity-70"
+            className="zr-focus flex min-h-12 w-full items-center justify-center border border-[#ded8dc] bg-transparent text-[12px] font-black text-[#817981]"
           >
             キャンセル
           </Link>
         </main>
 
         <BottomNav active="event" artistSlug={artistSlug} eventId={selectedEventId} />
-      </div>
     </div>
   );
 }

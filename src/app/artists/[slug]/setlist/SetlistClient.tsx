@@ -2,7 +2,7 @@
 
 import { use, useEffect, useRef, useState, useMemo } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import { ChevronLeft, Film, ListEnd, ListStart, MessageCircle, Mic2, Music2, Plus, Sparkles, Star, Zap } from "lucide-react";
 import { supabase } from "@/lib/supabase/client";
 import { findArtistBySlug } from "@/lib/artists";
 import { getEventsForArtist } from "@/lib/events";
@@ -10,10 +10,9 @@ import { parseEventTitle } from "@/lib/eventTitle";
 import { trackEvent } from "@/lib/analytics";
 import type { CrawledEvent } from "@/lib/types";
 import { type EditableItem, computeSongNumbers } from "@/lib/setlistHelpers";
+import { AccountLink } from "@/components/auth/AccountLink";
 import { BottomNav } from "@/components/common/BottomNav";
-import { Header } from "@/components/common/Header";
 import { EventCarouselPicker } from "@/components/common/EventPicker";
-import { EventInfoRow } from "@/components/common/EventInfoRow";
 import { ShareButton } from "@/components/common/ShareButton";
 import { SetlistItemsSection } from "@/components/setlist/SetlistItemsSection";
 
@@ -214,14 +213,26 @@ export function SetlistClient({ params }: { params: Promise<{ slug: string }> })
 
 
 
-  // ─── セトリ追加フォーム（既存UIそのまま。表示位置と表示/非表示のみ切替） ──────────
+  const quickActions = [
+    { label: "MC", icon: Mic2, action: addMC },
+    { label: "トーク", icon: MessageCircle, action: () => addSeparator("トーク") },
+    { label: "VCR", icon: Film, action: () => addTag("VCR") },
+    { label: "メドレー開始", icon: ListStart, action: () => addSeparator("メドレー開始") },
+    { label: "メドレー終了", icon: ListEnd, action: () => addSeparator("メドレー終了") },
+    { label: "ダンスチャレンジ", icon: Zap, action: () => addTag("ダンスチャレンジ") },
+    { label: "ラストMC", icon: Star, action: () => addTag("ラストMC") },
+    { label: "アンコール", icon: Sparkles, action: addEncore },
+  ];
+
+  // ─── セトリ追加フォーム ─────────────────────────────────────────────────────
 
   const addFormNode = (
-    <div className="rounded-xl border border-gray-100 bg-white px-3 py-2 shadow-[0_4px_14px_rgba(15,23,42,0.05)]">
-      {/* 曲名入力 + 追加ボタン */}
-      <div className="mb-1.5 flex items-center gap-1.5">
+    <div className="border border-[#1c171b] bg-white p-4">
+      <div className="flex items-center gap-2">
         <div className="relative flex-1">
+          <label htmlFor="setlist-song-title" className="mb-2 block text-[9px] font-black tracking-[0.18em] text-[#817981]">SONG TITLE</label>
           <input
+            id="setlist-song-title"
             type="text"
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
@@ -229,31 +240,19 @@ export function SetlistClient({ params }: { params: Promise<{ slug: string }> })
             onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
             onKeyDown={e => { if (e.key === "Enter") addSong(); }}
             placeholder="曲名を入力"
-            className="h-9 w-full rounded-lg border border-gray-200 bg-gray-50 px-2.5 text-[13px] outline-none transition-colors focus:border-[#FF6B9D]"
+            className="zr-focus h-12 w-full border border-[#ded8dc] bg-[#f7f5f6] px-3 text-[14px] font-bold outline-none transition-colors focus:border-[#f43679]"
           />
           {showSuggestions && filteredSuggestions.length > 0 && (
-            <div className="absolute left-0 right-0 top-full z-20 mt-1 overflow-hidden rounded-xl border border-gray-100 bg-white shadow-lg">
+            <div className="absolute left-0 right-0 top-full z-20 mt-1 overflow-hidden border border-[#ded8dc] bg-white shadow-lg">
               {filteredSuggestions.map(s => (
                 <button
                   key={s}
                   type="button"
                   onPointerDown={e => { e.preventDefault(); addSong(s); }}
-                  className="flex w-full items-center gap-2.5 px-3 py-2.5 text-left transition-colors active:bg-gray-100 hover:bg-gray-50"
+                  className="zr-focus flex min-h-11 w-full items-center gap-2.5 border-b border-[#ded8dc] px-3 text-left transition-colors last:border-b-0 hover:bg-[#f7f5f6]"
                 >
-                  <svg
-                    className="h-3.5 w-3.5 shrink-0 text-gray-300"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"
-                    />
-                  </svg>
-                  <span className="text-[13px] text-gray-700">{s}</span>
+                  <Music2 size={15} className="shrink-0 text-[#f43679]" aria-hidden="true" />
+                  <span className="text-[13px] font-bold text-[#1c171b]">{s}</span>
                 </button>
               ))}
             </div>
@@ -263,50 +262,21 @@ export function SetlistClient({ params }: { params: Promise<{ slug: string }> })
           type="button"
           onClick={() => addSong()}
           disabled={!searchQuery.trim()}
-          className="flex h-9 shrink-0 items-center gap-1 rounded-lg border border-[#FF6B9D]/30 bg-[#FFF1F6] px-2.5 text-[11px] font-semibold text-[#FF6B9D] transition-opacity disabled:opacity-40 active:opacity-75"
+          className="zr-focus mt-[26px] flex h-12 w-12 shrink-0 items-center justify-center bg-[#f43679] text-white transition-opacity disabled:opacity-35"
+          aria-label="曲を追加"
         >
-          <Image src="/images/setlist/icons/setlist-song.png" alt="" width={16} height={16} className="object-contain" />
-          <span className="whitespace-nowrap">曲を追加</span>
+          <Plus size={21} aria-hidden="true" />
         </button>
       </div>
 
-      {/* 特殊項目チップ（横スクロール） */}
-      <div
-        className="-mx-3 flex gap-1.5 overflow-x-auto px-3"
-        style={{ scrollbarWidth: "none" }}
-      >
-        <button type="button" onClick={addMC}
-          className="flex shrink-0 items-center gap-1 rounded-lg border border-gray-200 bg-white px-2 py-0.5 text-[10px] font-medium text-gray-600 active:bg-gray-50">
-          <Image src="/images/setlist/icons/setlist-mc.png" alt="" width={16} height={16} className="object-contain" />MC
-        </button>
-        <button type="button" onClick={() => addSeparator("トーク")}
-          className="flex shrink-0 items-center gap-1 rounded-lg border border-gray-200 bg-white px-2 py-0.5 text-[10px] font-medium text-gray-600 active:bg-gray-50">
-          <Image src="/images/setlist/icons/setlist-talk.png" alt="" width={16} height={16} className="object-contain" />トーク
-        </button>
-        <button type="button" onClick={() => addTag("VCR")}
-          className="flex shrink-0 items-center gap-1 rounded-lg border border-gray-200 bg-white px-2 py-0.5 text-[10px] font-medium text-gray-600 active:bg-gray-50">
-          <Image src="/images/setlist/icons/setlist-vcr.png" alt="" width={16} height={16} className="object-contain" />VCR
-        </button>
-        <button type="button" onClick={() => addSeparator("メドレー開始")}
-          className="flex shrink-0 items-center gap-1 rounded-lg border border-gray-200 bg-white px-2 py-0.5 text-[10px] font-medium text-gray-600 active:bg-gray-50">
-          <Image src="/images/setlist/icons/setlist-medley-start.png" alt="" width={16} height={16} className="object-contain" />メドレー開始
-        </button>
-        <button type="button" onClick={() => addSeparator("メドレー終了")}
-          className="flex shrink-0 items-center gap-1 rounded-lg border border-gray-200 bg-white px-2 py-0.5 text-[10px] font-medium text-gray-600 active:bg-gray-50">
-          <Image src="/images/setlist/icons/setlist-medley-end.png" alt="" width={16} height={16} className="object-contain" />メドレー終了
-        </button>
-        <button type="button" onClick={() => addTag("ダンスチャレンジ")}
-          className="flex shrink-0 items-center gap-1 rounded-lg border border-gray-200 bg-white px-2 py-0.5 text-[10px] font-medium text-gray-600 active:bg-gray-50">
-          <Image src="/images/setlist/icons/setlist-dance-challenge.png" alt="" width={16} height={16} className="object-contain" />ダンスチャレンジ
-        </button>
-        <button type="button" onClick={() => addTag("ラストMC")}
-          className="flex shrink-0 items-center gap-1 rounded-lg border border-gray-200 bg-white px-2 py-0.5 text-[10px] font-medium text-gray-600 active:bg-gray-50">
-          <Image src="/images/setlist/icons/setlist-mc.png" alt="" width={16} height={16} className="object-contain" />ラストMC
-        </button>
-        <button type="button" onClick={addEncore}
-          className="flex shrink-0 items-center gap-1 rounded-lg border border-[#FF6B9D]/20 bg-[#FFF8FB] px-2 py-0.5 text-[10px] font-medium text-[#FF6B9D] active:bg-[#FFF1F6]">
-          <Image src="/images/setlist/icons/setlist-encore.png" alt="" width={16} height={16} className="object-contain" />アンコール
-        </button>
+      <p className="mb-2 mt-5 text-[9px] font-black tracking-[0.18em] text-[#817981]">LIVE MOMENT</p>
+      <div className="grid grid-cols-2 border-l border-t border-[#ded8dc]">
+        {quickActions.map(({ label, icon: Icon, action }) => (
+          <button key={label} type="button" onClick={action} className="zr-focus flex min-h-12 items-center gap-2 border-b border-r border-[#ded8dc] px-3 text-left text-[10px] font-black text-[#1c171b] transition-colors hover:bg-[#fff0f5]">
+            <Icon size={15} strokeWidth={1.8} className="shrink-0 text-[#f43679]" aria-hidden="true" />
+            {label}
+          </button>
+        ))}
       </div>
     </div>
   );
@@ -314,35 +284,44 @@ export function SetlistClient({ params }: { params: Promise<{ slug: string }> })
   // ─── JSX ─────────────────────────────────────────────────────────────────────
 
   return (
-    <div className="min-h-screen bg-[#FFF8FB] font-sans">
-      <div className="min-h-screen w-full bg-white">
-
-        {/* ヘッダー */}
-        <Header
-          title={`${artist.name} セトリ・曲順`}
-          backHref={`/artists/${slug}`}
-          rightSlot={
+    <div className="min-h-screen bg-[#f7f5f6] font-sans text-[#1c171b]">
+      <section className="bg-[#0d090d] text-white">
+        <header className="zr-container flex h-16 items-center justify-between">
+          <Link href={`/artists/${slug}`} aria-label={`${artist.name}へ戻る`} className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/8">
+            <ChevronLeft size={26} aria-hidden="true" />
+          </Link>
+          <div className="flex items-center gap-1">
+            <AccountLink tone="light" iconSize={22} />
             <ShareButton
               url={`${typeof window !== "undefined" ? window.location.origin : ""}/artists/${slug}/setlist`}
               text={`${artist.name} のセットリスト🎤 #ちけレポ`}
+              className="zr-focus flex h-11 w-11 items-center justify-center rounded-full text-white transition-colors hover:bg-white/10"
             />
-          }
-        />
+          </div>
+        </header>
+        <div className="zr-container pb-10 pt-5 sm:pb-14 sm:pt-9">
+          <Music2 size={29} strokeWidth={1.5} className="text-[#ff5b96]" aria-hidden="true" />
+          <p className="mt-6 text-[10px] font-black tracking-[0.24em] text-[#ff5b96]">SETLIST ARCHIVE</p>
+          <h1 className="mt-3 text-[39px] font-black leading-[1.06] tracking-[-0.055em] sm:text-[60px]">ライブの記憶を、<br />曲順で残す。</h1>
+          <p className="mt-5 text-[12px] font-bold leading-6 text-white/62 sm:text-[14px]">{artist.name}のセトリをみんなで編集。曲、MC、演出まで自動保存されます。</p>
+        </div>
+      </section>
 
-        <main className="pb-24">
-
-          {/* 公演日選択 */}
-          <div className="px-3 pt-0.5">
-            {selectedEvent && (
-              <>
-                <EventInfoRow
-                  title={tourName}
-                  artistName={artist.name}
-                  isTestData={isTestData}
-                />
-                <div className="mb-1 mt-0.5 border-t border-gray-100" />
-              </>
-            )}
+      <main className="pb-24">
+        <section className="zr-container py-8 sm:py-12" aria-labelledby="setlist-event-title">
+          <div className="border-b border-[#1c171b] pb-4">
+            <p className="artist-kicker">Select Live</p>
+            <h2 id="setlist-event-title" className="artist-heading">公演を選ぶ</h2>
+          </div>
+          {selectedEvent && (
+            <div className="border-b border-[#ded8dc] py-5">
+              <p className="text-[10px] font-black tracking-[0.12em] text-[#f43679]">NOW EDITING</p>
+              <p className="mt-2 text-[16px] font-black leading-6">{tourName || selectedEvent.title}</p>
+              <p className="mt-1 text-[11px] font-bold text-[#817981]">{selectedEvent.date ?? "日程未定"} / {selectedEvent.venue}</p>
+              {isTestData && <span className="mt-2 inline-block border border-[#ded8dc] px-2 py-1 text-[9px] font-black text-[#817981]">テストデータ</span>}
+            </div>
+          )}
+          <div className="mt-5">
             <EventCarouselPicker
               events={events}
               selectedEventId={selectedEventId}
@@ -351,47 +330,37 @@ export function SetlistClient({ params }: { params: Promise<{ slug: string }> })
               today={today}
             />
           </div>
+        </section>
 
-          {/* セトリリスト */}
-          <section className="mt-3 space-y-3 px-3 pb-4">
-
-            {/* 自動保存ステータス */}
+        <section className="zr-container pb-12">
+          <div className="mb-3 min-h-5">
             {saveStatus !== "idle" && (
-              <p className={`text-right text-[10px] font-medium ${saveStatus === "error" ? "text-red-400" : "text-gray-400"}`}>
+              <p aria-live="polite" className={`text-right text-[10px] font-black ${saveStatus === "error" ? "text-red-500" : "text-[#817981]"}`}>
                 {saveStatus === "saving" && "保存中..."}
                 {saveStatus === "saved" && "保存しました ✓"}
                 {saveStatus === "error" && (saveError ?? "保存に失敗しました")}
               </p>
             )}
-
-            {/* セトリ一覧（+ セトリを追加ボタン／フォーム） */}
-            <SetlistItemsSection
-              setlistItems={setlistItems}
-              songNumbers={songNumbers}
-              onMove={moveItem}
-              onRemove={removeItem}
-              showAddForm={showAddForm}
-              onOpenAddForm={() => setShowAddForm(true)}
-              addFormNode={addFormNode}
-            />
-
-          </section>
-
-        </main>
-
-        {/* トースト */}
-        {toast && (
-          <div
-            className="fixed bottom-24 left-1/2 z-50 -translate-x-1/2 rounded-xl bg-gray-800 px-4 py-2.5 text-[11px] font-semibold text-white shadow-lg"
-            style={{ maxWidth: "calc(100% - 32px)" }}
-          >
-            {toast}
           </div>
-        )}
+          <SetlistItemsSection
+            setlistItems={setlistItems}
+            songNumbers={songNumbers}
+            onMove={moveItem}
+            onRemove={removeItem}
+            showAddForm={showAddForm}
+            onOpenAddForm={() => setShowAddForm(true)}
+            addFormNode={addFormNode}
+          />
+        </section>
+      </main>
 
-        <BottomNav active="setlist" artistSlug={slug} eventId={nextEvent?.id} />
+      {toast && (
+        <div role="status" className="fixed bottom-24 left-1/2 z-50 max-w-[calc(100%_-_32px)] -translate-x-1/2 border border-white/15 bg-[#1c171b] px-4 py-3 text-[11px] font-black text-white shadow-xl">
+          {toast}
+        </div>
+      )}
 
-      </div>
+      <BottomNav active="setlist" artistSlug={slug} eventId={nextEvent?.id} />
     </div>
   );
 }
