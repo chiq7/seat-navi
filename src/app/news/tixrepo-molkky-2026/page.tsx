@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { CalendarDays, CircleDollarSign, Clock3, MapPin, Users } from "lucide-react";
-import { Header } from "@/components/common/Header";
+import { NewsArticleLayout } from "@/components/news/NewsArticleLayout";
 import { serializeJsonLd } from "@/lib/structuredData";
 
 const PAGE_URL = "https://tixrepo.com/news/tixrepo-molkky-2026";
@@ -83,7 +83,7 @@ const schedule = [
 
 function DetailRow({ icon, label, children }: { icon: ReactNode; label: string; children: ReactNode }) {
   return (
-    <div className="flex gap-3 border-b border-pink-100 py-3 last:border-b-0">
+    <div className="flex gap-3 border-b border-[#ded8dc] py-3 last:border-b-0">
       <div className="mt-0.5 shrink-0 text-[#FF6B9D]" aria-hidden="true">{icon}</div>
       <div className="min-w-0">
         <p className="text-[11px] font-bold text-gray-500">{label}</p>
@@ -95,24 +95,11 @@ function DetailRow({ icon, label, children }: { icon: ReactNode; label: string; 
 
 export default function TixRepoMolkkyNewsPage() {
   return (
-    <div className="min-h-screen bg-[#FFF8FB]">
+    <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(eventStructuredData) }} />
-      <Header title="ちけレポからのお知らせ" backHref="/news" />
-      <main className="px-4 py-5">
-        <article className="overflow-hidden rounded-2xl border border-pink-100 bg-white shadow-sm">
-          <div className="border-b border-pink-100 bg-gradient-to-br from-[#FFF0F6] to-white px-5 pb-6 pt-5">
-            <p className="text-[11px] font-bold tracking-[0.08em] text-[#E24C82]">
-              ちけレポ開設記念・スポーツ体験イベント第1弾
-            </p>
-            <h1 className="mt-3 text-[25px] font-bold leading-[1.45] tracking-tight text-gray-900">
-              モルック初心者交流大会を<br />開催します
-            </h1>
-            <p className="mt-3 text-[13px] leading-6 text-gray-600">
-              木の棒を投げてピンを倒す、北欧生まれのスポーツ「モルック」。ルールを知らない方も、ひとりでの参加も歓迎です。
-            </p>
-          </div>
-
-          <div className="px-5 py-2">
+      <NewsArticleLayout kicker="TIXREPO EVENT" title={<>モルック初心者交流大会を<br />開催します</>} lead="木の棒を投げてピンを倒す、北欧生まれのスポーツ「モルック」。ルールを知らない方も、ひとりでの参加も歓迎です。">
+        <div className="border-t border-[#1c171b] bg-white">
+          <div className="px-5 py-2 sm:px-7">
             <DetailRow icon={<CalendarDays size={18} />} label="日時">2026年12月1日（火）13:00〜17:00</DetailRow>
             <DetailRow icon={<MapPin size={18} />} label="会場">
               駒沢オリンピック公園
@@ -122,35 +109,35 @@ export default function TixRepoMolkkyNewsPage() {
             <DetailRow icon={<Users size={18} />} label="対象・定員">初心者歓迎・年齢問わず／10名</DetailRow>
           </div>
 
-          <section className="border-t border-pink-100 px-5 py-5">
+          <section className="border-t border-[#ded8dc] p-5 sm:p-7">
             <h2 className="text-[16px] font-bold text-gray-900">はじめてでも楽しめます</h2>
             <p className="mt-2 text-[13px] leading-7 text-gray-700">
               当日は最初にルールと道具の使い方を説明し、練習時間を取ってから試合を始めます。運動経験やモルック経験は問いません。友人との参加はもちろん、ひとりでの参加も歓迎します。
             </p>
           </section>
 
-          <section className="border-t border-pink-100 px-5 py-5">
+          <section className="border-t border-[#ded8dc] p-5 sm:p-7">
             <h2 className="flex items-center gap-2 text-[16px] font-bold text-gray-900">
               <Clock3 size={17} className="text-[#FF6B9D]" aria-hidden="true" />当日の流れ
             </h2>
-            <dl className="mt-3 overflow-hidden rounded-xl border border-gray-100 text-[13px]">
+            <dl className="mt-3 border border-[#ded8dc] text-[13px]">
               {schedule.map(([time, detail]) => (
                 <div key={time} className="grid grid-cols-[62px_1fr] border-b border-gray-100 last:border-b-0">
-                  <dt className="bg-[#FFF8FB] px-3 py-2.5 font-bold text-[#D94878]">{time}</dt>
+                  <dt className="bg-[#fff0f5] px-3 py-2.5 font-bold text-[#D94878]">{time}</dt>
                   <dd className="px-3 py-2.5 text-gray-700">{detail}</dd>
                 </div>
               ))}
             </dl>
           </section>
 
-          <section className="border-t border-pink-100 px-5 py-5">
+          <section className="border-t border-[#ded8dc] p-5 sm:p-7">
             <h2 className="text-[16px] font-bold text-gray-900">持ち物・参加にあたって</h2>
             <p className="mt-2 text-[13px] leading-7 text-gray-700">
               動きやすい服装と飲み物をご用意ください。屋外での開催を予定しているため、天候状況による変更や中止の案内は、参加受付ページでお知らせします。
             </p>
           </section>
 
-          <section className="border-t border-pink-100 bg-[#FFF8FB] px-5 py-5">
+          <section className="border-t border-[#ded8dc] bg-[#fff0f5] p-5 sm:p-7">
             <h2 className="text-[16px] font-bold text-gray-900">参加申込について</h2>
             <p className="mt-2 text-[13px] leading-7 text-gray-700">
               参加受付は外部のイベント募集ページで行います。募集ページの公開後、このお知らせにも申込先を追加します。
@@ -159,8 +146,8 @@ export default function TixRepoMolkkyNewsPage() {
               大会についてのお問い合わせは、<Link href="/contact" className="font-bold text-[#D94878] underline underline-offset-2">ちけレポのお問い合わせページ</Link>からお願いします。
             </p>
           </section>
-        </article>
-      </main>
-    </div>
+        </div>
+      </NewsArticleLayout>
+    </>
   );
 }

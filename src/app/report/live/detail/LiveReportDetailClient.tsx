@@ -4,14 +4,13 @@ import { Suspense, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { ChevronRight, ExternalLink } from "lucide-react";
+import { ChevronLeft, ChevronRight, ExternalLink, MapPinned } from "lucide-react";
 import { supabase } from "@/lib/supabase/client";
 import { resolveArtist } from "@/lib/artists";
 import { parseEventTitle } from "@/lib/eventTitle";
 import type { CrawledEvent } from "@/lib/types";
 import { fmtDate } from "@/lib/artistPageHelpers";
-import { Header } from "@/components/common/Header";
-import { EventInfoRow } from "@/components/common/EventInfoRow";
+import { AccountLink } from "@/components/auth/AccountLink";
 import { ShareButton } from "@/components/common/ShareButton";
 
 const RATING_IMAGES: Record<number, string> = {
@@ -118,29 +117,6 @@ function ratingLevel(raw: string | null): number | null {
 
 function boolText(v: boolean | null): string {
   return v === true ? "あり" : v === false ? "なし" : "わからない";
-}
-
-function Sparkle({
-  size = 8,
-  color = "#FF6B9D",
-  className = "",
-}: {
-  size?: number;
-  color?: string;
-  className?: string;
-}) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill={color}
-      className={className}
-      style={{ flexShrink: 0 }}
-    >
-      <path d="M12 2L13.8 9.2L21 10.5L13.8 12.5L12 20L10.2 12.5L3 10.5L10.2 9.2L12 2Z" />
-    </svg>
-  );
 }
 
 type Status = "loading" | "ok" | "not-found" | "no-report";
@@ -292,228 +268,103 @@ function LiveReportDetailPageInner() {
   ].filter((m) => (m.kind === "gauge" ? m.raw !== null : m.value !== null));
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA] font-sans">
-      <div className="w-full bg-[#FAFAFA] pb-36">
-
-        {/* ヘッダー */}
-        <Header
-          title="現地レポ詳細"
-          backHref={backHref}
-          rightSlot={
+    <div className="min-h-screen bg-[#f7f5f6] pb-32 font-sans text-[#1c171b]">
+      <section className="bg-[#0d090d] text-white">
+        <header className="zr-container flex h-16 items-center justify-between">
+          <Link href={backHref} aria-label="現地レポ一覧へ戻る" className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/8"><ChevronLeft size={26} /></Link>
+          <div className="flex items-center gap-1">
+            <AccountLink tone="light" iconSize={22} />
             <ShareButton
               url={`${typeof window !== "undefined" ? window.location.origin : ""}/report/live/detail?reportId=${report.id}`}
               text={`${event.venue} ${fmtDate(event.date)} の現地レポ📸 #ちけレポ`}
+              className="zr-focus flex h-11 w-11 items-center justify-center rounded-full text-white hover:bg-white/10"
             />
-          }
-        />
+          </div>
+        </header>
+        <div className="zr-container pb-9 pt-5">
+          <p className="text-[10px] font-black tracking-[0.22em] text-[#ff5b96]">LIVE VIEW REPORT</p>
+          <h1 className="mt-3 text-[36px] font-black leading-[1.08] tracking-[-0.05em] sm:text-[56px]">この席から、<br />こう見えました。</h1>
+          <div className="mt-6 border-y border-white/18 py-4">
+            <p className="text-[14px] font-black leading-6">{tourName || event.title}</p>
+            <p className="mt-1 text-[11px] font-bold text-white/55">{artist?.name ?? "アーティスト"} / {event.venue} / {fmtDate(event.date)}</p>
+            <p className="mt-1 text-[9px] font-bold text-white/35">投稿日 {fmtPostDate(report.created_at)}{isTestData ? " / テストデータ" : ""}</p>
+          </div>
+        </div>
+      </section>
 
-        {/* ライブ情報（公演情報は他ページと共通のEventInfoRowで統一） */}
-        <section className="bg-white px-3 py-2">
-          <EventInfoRow
-            title={tourName}
-            artistName={artist?.name ?? null}
-            isTestData={isTestData}
-            venue={event.venue}
-            dateLabel={fmtDate(event.date)}
-          />
-          <p className="mt-1.5 text-[10px] text-gray-400">投稿日 {fmtPostDate(report.created_at)}</p>
+      <main className="zr-container py-8">
+        <section aria-label="現地レポ写真" className="relative aspect-[16/10] w-full overflow-hidden bg-[#1c171b]">
+          {photos.length > 0 ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={photos[0]} alt="座席から見た会場の様子" className="h-full w-full object-cover" />
+          ) : (
+            <div className="absolute inset-0 overflow-hidden bg-[radial-gradient(circle_at_50%_100%,#f43679_0%,#3e1741_28%,#0d090d_72%)]">
+              <div className="absolute left-1/2 top-[28%] h-16 w-[58%] -translate-x-1/2 border border-white/15 bg-white/5" />
+              <div className="absolute inset-x-0 bottom-0 flex flex-wrap justify-center gap-1 px-5 pb-5 opacity-30">
+                {Array.from({ length: 80 }).map((_, i) => <span key={i} className="h-1 w-1 rounded-full bg-white" />)}
+              </div>
+            </div>
+          )}
+        </section>
+
+        <section className="mt-9 border-t border-[#1c171b] bg-white p-5 sm:p-7" aria-labelledby="seat-view-title">
+          <div className="flex items-start justify-between gap-4 border-b border-[#ded8dc] pb-5">
+            <div>
+              <p className="artist-kicker">Seat View</p>
+              <h2 id="seat-view-title" className="artist-heading">この席の見え方</h2>
+              {(seatAreaText || blockText || rowSeatParts.length > 0) && (
+                <div className="mt-4">
+                  <p className="text-[18px] font-black">{[seatAreaText, blockText].filter(Boolean).join(" ") || "座席エリア不明"}</p>
+                  {rowSeatParts.length > 0 && <p className="mt-1 text-[12px] font-bold text-[#817981]">{rowSeatParts.join(" / ")}</p>}
+                </div>
+              )}
+            </div>
+            {ratingImg && overallLevel && <Image src={ratingImg} alt={`総合評価 ${overallLevel}`} width={96} height={48} className="h-auto w-[86px] shrink-0 object-contain" />}
+          </div>
+
+          {meterRows.length > 0 && (
+            <div className="divide-y divide-[#ebe7e9]">
+              {meterRows.map((m) => {
+                const color = METER_COLORS[m.label];
+                const value = m.kind === "gauge" ? meterValue(m.raw) : 0;
+                return (
+                  <div key={m.label} className="grid min-h-[66px] grid-cols-[30px_76px_1fr_42px] items-center gap-2">
+                    <Image src={METER_ICONS[m.label]} alt="" width={30} height={30} className="object-contain" />
+                    <span className="text-[10px] font-black text-[#544e52]">{m.label}</span>
+                    {m.kind === "gauge" ? (
+                      <div className="flex gap-1">{Array.from({ length: 5 }).map((_, i) => <span key={i} className="h-2 flex-1" style={{ backgroundColor: i < value ? color : "#e6e0e4" }} />)}</div>
+                    ) : <span />}
+                    <span className="text-right text-[10px] font-black" style={{ color }}>{m.kind === "gauge" ? meterText(m.raw) : boolText(m.value)}</span>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+
+          <div className="border-t border-[#ded8dc] pt-5">
+            <p className="text-[9px] font-black tracking-[0.18em] text-[#817981]">COMMENT</p>
+            <p className="mt-3 break-words text-[13px] font-medium leading-7 text-[#544e52]">{report.memo || "コメントはありません"}</p>
+          </div>
           {author?.show_x_on_posts && author.x_handle && (
-            <a
-              href={`https://x.com/${author.x_handle}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-2 inline-flex items-center gap-1 rounded-full bg-gray-100 px-2.5 py-1 text-[10px] font-bold text-gray-700 no-underline"
-            >
-              {author.display_name ? `${author.display_name} ` : ""}@{author.x_handle}
-              <ExternalLink size={11} />
+            <a href={`https://x.com/${author.x_handle}`} target="_blank" rel="noopener noreferrer" className="zr-focus mt-5 inline-flex min-h-11 items-center gap-1.5 border border-[#ded8dc] px-3 text-[10px] font-black text-[#1c171b] no-underline">
+              {author.display_name ? `${author.display_name} ` : ""}@{author.x_handle}<ExternalLink size={12} />
             </a>
           )}
         </section>
 
-        {/* 投稿写真 */}
-        <section className="px-3 pt-3">
-          <div className="relative h-[190px] w-full overflow-hidden rounded-2xl">
-            {photos.length > 0 ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={photos[0]} alt="現地レポ写真" className="h-full w-full object-cover" />
-            ) : (
-              <div
-                className="absolute inset-0"
-                style={{
-                  background:
-                    "linear-gradient(135deg, #1a0533 0%, #2d1b69 28%, #5b21b6 58%, #c026d3 80%, #f472b6 100%)",
-                }}
-              >
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
-                  <div className="h-1.5 w-36 rounded-full bg-white/10" />
-                  <div className="h-14 w-52 rounded-lg border border-white/10 bg-white/5" />
-                </div>
-                <div className="absolute bottom-0 left-[28%] h-3/4 w-1.5 origin-bottom -rotate-[18deg] bg-gradient-to-t from-pink-400/25 to-transparent blur-[3px]" />
-                <div className="absolute bottom-0 left-1/2 h-full w-2 bg-gradient-to-t from-purple-400/35 to-transparent blur-[4px]" />
-                <div className="absolute bottom-0 right-[28%] h-3/4 w-1.5 origin-bottom rotate-[18deg] bg-gradient-to-t from-pink-300/25 to-transparent blur-[3px]" />
-                <div className="absolute bottom-3 left-0 right-0 flex flex-wrap justify-center gap-px px-6 opacity-25">
-                  {Array.from({ length: 90 }).map((_, i) => (
-                    <div key={i} className="h-1 w-1 rounded-full bg-white" />
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        </section>
-
-        {/* この席の見え方カード */}
-        <section className="mt-3 px-3">
-          <div className="relative overflow-hidden rounded-2xl border border-[#FECDD3] shadow-[0_2px_12px_rgba(255,107,157,0.06)]">
-            <div
-              className="absolute inset-0"
-              style={{
-                backgroundImage: "url('/images/reports/local-report-detail/review-section-bg.png')",
-                backgroundSize: "100% 100%",
-              }}
-            />
-
-            <div className="relative z-10">
-              <div className="flex items-center justify-center gap-2 px-4 pb-2.5 pt-3.5">
-                <Sparkle size={9} color="#FBBF24" />
-                <h3 className="text-[13px] font-bold text-gray-900">この席の見え方</h3>
-                <Sparkle size={9} color="#FBBF24" />
-              </div>
-
-              {/* 座席情報 + 総合評価（satisfactionが無い場合はバッジ非表示） */}
-              {(seatAreaText || blockText || rowSeatParts.length > 0 || ratingImg) && (
-                <div className="flex items-center justify-center gap-4 px-4 pb-3.5 pt-1">
-                  {(seatAreaText || blockText || rowSeatParts.length > 0) && (
-                    <div>
-                      <p className="text-[17px] font-bold tracking-wide text-gray-900">
-                        {[seatAreaText, blockText].filter(Boolean).join(" ")}
-                      </p>
-                      {rowSeatParts.length > 0 && (
-                        <p className="mt-0.5 text-[12px] font-semibold text-gray-500">
-                          {rowSeatParts.join(" / ")}
-                        </p>
-                      )}
-                    </div>
-                  )}
-                  {ratingImg && overallLevel && (
-                    <div className="w-[96px] shrink-0">
-                      <Image
-                        src={ratingImg}
-                        alt={`総合評価 ${overallLevel}`}
-                        width={96}
-                        height={48}
-                        className="h-auto w-full object-contain"
-                      />
-                    </div>
-                  )}
-                </div>
-              )}
-
-              <div className="mx-4 h-px bg-gradient-to-r from-transparent via-[#FECDD3] to-transparent" />
-
-              {/* 見え方・見やすさ + ファンサ・銀テ */}
-              <div className="px-6 pb-3 pt-3">
-                <p className="mb-3 text-center text-[10px] font-bold tracking-wide text-gray-400">
-                  見え方・見やすさ
-                </p>
-                <div className="space-y-3">
-                  {meterRows.map((m) => {
-                    const color = METER_COLORS[m.label];
-                    const value = m.kind === "gauge" ? meterValue(m.raw) : 0;
-                    return (
-                      <div
-                        key={m.label}
-                        className="grid items-center gap-x-2"
-                        style={{ gridTemplateColumns: "36px 90px 1fr 52px" }}
-                      >
-                        <div className="flex items-center justify-center">
-                          <Image
-                            src={METER_ICONS[m.label]}
-                            alt=""
-                            width={38}
-                            height={38}
-                            className="object-contain"
-                          />
-                        </div>
-                        <span className="whitespace-nowrap text-[11px] font-semibold text-gray-700">
-                          {m.label}
-                        </span>
-                        {m.kind === "gauge" ? (
-                          <>
-                            <div className="flex gap-[3px]">
-                              {Array.from({ length: 5 }).map((_, i) => (
-                                <div
-                                  key={i}
-                                  className="h-[9px] w-[17px] rounded-full"
-                                  style={{ backgroundColor: i < value ? color : "#E5E7EB" }}
-                                />
-                              ))}
-                            </div>
-                            <span className="text-right text-[11px] font-bold" style={{ color }}>
-                              {meterText(m.raw)}
-                            </span>
-                          </>
-                        ) : (
-                          <>
-                            <div />
-                            <span
-                              className="rounded-full px-2 py-0.5 text-right text-[11px] font-bold"
-                              style={{ color }}
-                            >
-                              {boolText(m.value)}
-                            </span>
-                          </>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-
-              <div className="mx-4 h-px bg-gradient-to-r from-transparent via-[#FECDD3] to-transparent" />
-
-              {/* コメント */}
-              <div className="px-4 pb-4 pt-3">
-                <p className="mb-2 text-center text-[10px] font-bold tracking-wide text-gray-400">コメント</p>
-                <div className="rounded-xl border border-pink-100 bg-white/80 px-3 py-2.5">
-                  <p className="break-words text-center text-[12px] leading-relaxed text-gray-700">
-                    {report.memo || "コメントはありません"}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* 同じブロックの他レポ */}
         {related.length > 0 && (
-          <section className="mt-3 px-3">
-            <div className="mb-2.5 flex items-center justify-between">
-              <h3 className="text-[13px] font-bold text-gray-900">同じブロックの他レポ</h3>
-            </div>
-            <div className="overflow-hidden rounded-xl border border-gray-100 bg-white shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
-              {related.map((r, i) => {
+          <section className="mt-10" aria-labelledby="related-reports-title">
+            <p className="artist-kicker">Nearby Reports</p>
+            <h2 id="related-reports-title" className="artist-heading">同じブロックの他レポ</h2>
+            <div className="mt-5 border-t border-[#1c171b]">
+              {related.map((r) => {
                 const rArea = r.seat_area_type ? (SEAT_AREA_LABELS[r.seat_area_type] ?? r.seat_area_type) : null;
-                const rParts = [rArea, withSuffix(r.seat_block, "ブロック"), withSuffix(r.seat_row, "列"), withSuffix(r.seat_number, "番")]
-                  .filter((v): v is string => Boolean(v));
+                const rParts = [rArea, withSuffix(r.seat_block, "ブロック"), withSuffix(r.seat_row, "列"), withSuffix(r.seat_number, "番")].filter((v): v is string => Boolean(v));
                 return (
-                  <Link
-                    key={r.id}
-                    href={`/report/live/detail?reportId=${r.id}`}
-                    className={`flex w-full items-center gap-3 p-3 no-underline active:bg-gray-50 ${i > 0 ? "border-t border-gray-100" : ""}`}
-                  >
-                    <div
-                      className="h-[54px] w-[72px] shrink-0 rounded-lg"
-                      style={{ background: "linear-gradient(135deg, #1a0533 0%, #2d1b69 45%, #c026d3 100%)" }}
-                    />
-                    <div className="flex min-w-0 flex-1 flex-col items-start gap-1">
-                      <p className="text-[12px] font-bold text-gray-900">
-                        {rParts.length > 0 ? rParts.join(" / ") : "座席情報なし"}
-                      </p>
-                      {r.memo && (
-                        <p className="line-clamp-1 text-left text-[10px] text-gray-500">{r.memo}</p>
-                      )}
-                    </div>
-                    <ChevronRight size={14} className="shrink-0 text-gray-300" />
+                  <Link key={r.id} href={`/report/live/detail?reportId=${r.id}`} className="zr-focus flex min-h-[76px] items-center gap-3 border-b border-[#ded8dc] py-3 no-underline hover:bg-white">
+                    <span className="h-12 w-16 shrink-0 bg-[linear-gradient(135deg,#1a0533_0%,#5b21b6_55%,#f43679_100%)]" />
+                    <span className="min-w-0 flex-1"><span className="block text-[12px] font-black">{rParts.length > 0 ? rParts.join(" / ") : "座席情報なし"}</span>{r.memo && <span className="mt-1 block truncate text-[10px] font-medium text-[#817981]">{r.memo}</span>}</span>
+                    <ChevronRight size={16} className="text-[#817981]" />
                   </Link>
                 );
               })}
@@ -521,38 +372,17 @@ function LiveReportDetailPageInner() {
           </section>
         )}
 
-        {/* アリーナ予想図リンク */}
-        <section className="mt-3 px-3">
-          <Link
-            href={`/events/${event.id}`}
-            className="flex w-full items-center gap-3 rounded-xl border border-gray-100 bg-white px-4 py-3.5 shadow-[0_2px_8px_rgba(0,0,0,0.04)] active:bg-gray-50"
-          >
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#EEF2FF]">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                <path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3V6Z" stroke="#6366F1" strokeWidth="1.5" fill="none" strokeLinejoin="round" />
-                <path d="M9 3v15M15 6v15" stroke="#6366F1" strokeWidth="1.5" />
-              </svg>
-            </div>
-            <div className="flex-1 text-left">
-              <p className="text-[13px] font-bold text-gray-900">アリーナ予想図を見る</p>
-              <p className="text-[10px] text-gray-400">{event.venue}</p>
-            </div>
-            <ChevronRight size={16} className="shrink-0 text-gray-300" />
-          </Link>
-        </section>
-      </div>
+        <Link href={`/events/${event.id}`} className="zr-focus mt-10 flex min-h-[76px] items-center gap-4 border border-[#1c171b] bg-[#1c171b] px-4 text-white">
+          <MapPinned size={24} className="shrink-0 text-[#ff5b96]" aria-hidden="true" />
+          <span className="min-w-0 flex-1"><span className="block text-[13px] font-black">座席表・アリーナ予想図を見る</span><span className="mt-1 block truncate text-[10px] font-bold text-white/50">{event.venue}</span></span>
+          <ChevronRight size={18} />
+        </Link>
+      </main>
 
-      {/* Fixed CTA */}
-      <div
-        className="fixed bottom-0 left-1/2 z-50 w-full max-w-[390px] -translate-x-1/2 px-4 pb-6 pt-4"
-        style={{ background: "linear-gradient(to top, white 72%, rgba(255,255,255,0))" }}
-      >
-        <Link
-          href={`/report/live?event=${event.id}`}
-          className="flex h-[54px] w-full flex-col items-center justify-center rounded-full bg-[#FF6B9D] shadow-[0_8px_24px_rgba(255,107,157,0.35)] active:opacity-90"
-        >
-          <span className="text-[14px] font-bold text-white">自分も現地レポを投稿する</span>
-          <span className="mt-0.5 text-[10px] text-white/75">あなたの座席情報もシェアしよう</span>
+      <div className="fixed inset-x-0 bottom-0 z-50 border-t border-[#ded8dc] bg-white/95 px-4 pb-[max(18px,env(safe-area-inset-bottom))] pt-3 backdrop-blur">
+        <Link href={`/report/live?event=${event.id}`} className="zr-focus mx-auto flex min-h-[54px] w-full max-w-[720px] flex-col items-center justify-center bg-[#f43679] text-white">
+          <span className="text-[13px] font-black">自分も現地レポを投稿する</span>
+          <span className="mt-0.5 text-[9px] font-bold text-white/70">この会場の座席情報をシェア</span>
         </Link>
       </div>
     </div>

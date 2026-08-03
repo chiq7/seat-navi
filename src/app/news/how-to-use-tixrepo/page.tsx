@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CheckCircle2, Search, Ticket, MapPinned, MessageSquareText, Music2 } from "lucide-react";
-import { Header } from "@/components/common/Header";
+import { NewsArticleLayout } from "@/components/news/NewsArticleLayout";
 
 const PAGE_URL = "https://tixrepo.com/news/how-to-use-tixrepo";
 
@@ -49,30 +49,20 @@ const features = [
 
 export default function HowToUseTixRepoPage() {
   return (
-    <div className="min-h-screen bg-[#FFF8FB]">
-      <Header title="ちけレポからのお知らせ" backHref="/news" />
-      <main className="px-4 py-5">
-        <article className="overflow-hidden rounded-2xl border border-pink-100 bg-white shadow-sm">
-          <div className="bg-gradient-to-br from-[#FFF0F6] to-white px-5 py-6">
-            <p className="text-[11px] font-bold tracking-[0.08em] text-[#D94878]">ちけレポの使い方</p>
-            <h1 className="mt-3 text-[24px] font-bold leading-[1.45] text-gray-900">ちけレポでできること</h1>
-            <p className="mt-3 text-[13px] leading-7 text-gray-600">
-              ちけレポは、ライブやイベントの当落・座席・現地レポ・セトリを、公演ごとに確認・共有できるサイトです。
-            </p>
-          </div>
-
-          <section className="border-t border-pink-100 px-5 py-5">
+    <NewsArticleLayout kicker="HOW TO USE" title="ちけレポでできること" lead="ライブやイベントの当落・座席表・会場の見え方・現地レポ・セトリを、公演ごとに確認・共有できるサイトです。">
+      <div className="border-t border-[#1c171b] bg-white">
+          <section className="border-b border-[#ded8dc] p-5 sm:p-7">
             <h2 className="text-[16px] font-bold text-gray-900">使い方はシンプルです</h2>
             <ol className="mt-3 space-y-2.5 text-[13px] leading-6 text-gray-700">
-              <li className="flex gap-2"><span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#FF6B9D] text-[11px] font-bold text-white">1</span>アーティスト名や公演名で、参加する公演を探す</li>
-              <li className="flex gap-2"><span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#FF6B9D] text-[11px] font-bold text-white">2</span>当落や座席、現地で分かったことを必要な範囲で報告する</li>
-              <li className="flex gap-2"><span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#FF6B9D] text-[11px] font-bold text-white">3</span>みんなの報告から、次の申込や参加準備の参考にする</li>
+              <li className="flex gap-3"><span className="flex h-6 w-6 shrink-0 items-center justify-center bg-[#f43679] text-[11px] font-black text-white">1</span>アーティスト名や公演名で、参加する公演を探す</li>
+              <li className="flex gap-3"><span className="flex h-6 w-6 shrink-0 items-center justify-center bg-[#f43679] text-[11px] font-black text-white">2</span>当落や座席、現地で分かったことを必要な範囲で報告する</li>
+              <li className="flex gap-3"><span className="flex h-6 w-6 shrink-0 items-center justify-center bg-[#f43679] text-[11px] font-black text-white">3</span>みんなの報告から、次の申込や参加準備の参考にする</li>
             </ol>
           </section>
 
-          <section className="border-t border-pink-100 px-5 py-5">
+          <section className="border-b border-[#ded8dc] p-5 sm:p-7">
             <h2 className="text-[16px] font-bold text-gray-900">主な機能</h2>
-            <div className="mt-3 divide-y divide-pink-100">
+            <div className="mt-3 divide-y divide-[#ded8dc]">
               {features.map((feature) => (
                 <div key={feature.title} className="flex gap-3 py-3 first:pt-0 last:pb-0">
                   <div className="mt-0.5 shrink-0 text-[#FF6B9D]" aria-hidden="true">{feature.icon}</div>
@@ -85,17 +75,16 @@ export default function HowToUseTixRepoPage() {
             </div>
           </section>
 
-          <section className="border-t border-pink-100 bg-[#FFF8FB] px-5 py-5">
+          <section className="bg-[#fff0f5] p-5 sm:p-7">
             <h2 className="flex items-center gap-2 text-[16px] font-bold text-gray-900"><CheckCircle2 size={18} className="text-[#FF6B9D]" aria-hidden="true" />正確な情報共有にご協力ください</h2>
             <p className="mt-2 text-[13px] leading-7 text-gray-700">
               投稿は、ご自身で確認できた内容を中心にお願いします。公演や座席の状況は変わることがあるため、公式案内もあわせてご確認ください。
             </p>
-            <Link href="/search" className="mt-4 flex min-h-11 items-center justify-center rounded-xl bg-[#FF6B9D] px-4 py-2.5 text-[13px] font-bold text-white no-underline">
+            <Link href="/search" className="zr-focus mt-4 flex min-h-12 items-center justify-center bg-[#f43679] px-4 py-2.5 text-[13px] font-black text-white no-underline">
               アーティスト・公演を探す
             </Link>
           </section>
-        </article>
-      </main>
-    </div>
+      </div>
+    </NewsArticleLayout>
   );
 }

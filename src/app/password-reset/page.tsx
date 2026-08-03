@@ -2,7 +2,8 @@
 
 import { type FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Header } from "@/components/common/Header";
+import Link from "next/link";
+import { ChevronLeft, KeyRound } from "lucide-react";
 import { supabase } from "@/lib/supabase/client";
 
 export default function PasswordResetPage() {
@@ -22,15 +23,25 @@ export default function PasswordResetPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#FFF8FB]">
-      <Header title="パスワード再設定" backHref="/login" showAccount={false} />
-      <form onSubmit={submit} className="space-y-4 px-5 pt-8">
-        <label className="block text-[11px] font-bold text-gray-700">
+    <main className="min-h-screen bg-[#f7f5f6] text-[#1c171b]">
+      <section className="bg-[#0d090d] text-white">
+        <header className="zr-container flex h-16 items-center">
+          <Link href="/login" aria-label="ログインへ戻る" className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/8"><ChevronLeft size={26} /></Link>
+        </header>
+        <div className="zr-container pb-10 pt-5">
+          <KeyRound size={28} strokeWidth={1.6} className="text-[#ff5b96]" aria-hidden="true" />
+          <p className="mt-6 text-[10px] font-black tracking-[0.22em] text-[#ff5b96]">RESET PASSWORD</p>
+          <h1 className="mt-3 text-[38px] font-black leading-tight tracking-[-0.05em]">新しいパスワードを<br />設定する。</h1>
+          <p className="mt-4 text-[11px] font-bold leading-5 text-white/62">8文字以上の新しいパスワードを入力してください。</p>
+        </div>
+      </section>
+      <form onSubmit={submit} className="zr-container space-y-5 py-9">
+        <label className="block text-[11px] font-black text-[#544e52]">
           新しいパスワード
-          <input type="password" minLength={8} required value={password} onChange={(event) => setPassword(event.target.value)} className="mt-1.5 h-12 w-full rounded-xl border border-gray-200 px-4 text-[13px] outline-none focus:border-[#FF6B9D]" />
+          <input type="password" minLength={8} required autoComplete="new-password" value={password} onChange={(event) => setPassword(event.target.value)} className="zr-focus mt-2 h-[52px] w-full border border-[#ded8dc] bg-white px-4 text-[14px] font-bold outline-none focus:border-[#f43679]" />
         </label>
-        {error && <p className="rounded-xl bg-red-50 px-3 py-2 text-[11px] text-red-600">{error}</p>}
-        <button disabled={busy} className="h-12 w-full rounded-full bg-[#FF6B9D] text-[13px] font-bold text-white disabled:opacity-60">
+        {error && <p className="border border-red-200 bg-red-50 px-3 py-3 text-[11px] font-bold text-red-600">{error}</p>}
+        <button disabled={busy} className="zr-focus min-h-[52px] w-full bg-[#f43679] text-[13px] font-black text-white disabled:opacity-50">
           {busy ? "更新中..." : "パスワードを更新"}
         </button>
       </form>
