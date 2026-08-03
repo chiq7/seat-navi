@@ -1,4 +1,3 @@
-import { ImagePlus, MessageCircleMore, ShieldCheck } from "lucide-react";
 import ArtistFanBoard from "@/components/artist-page/ArtistFanBoard";
 
 type Props = {
@@ -19,13 +18,8 @@ export default function ArtistBoardPreview({ artistSlug, artistName }: Props) {
             今日のライブ、座席からの景色、好きな曲。軽いひとことも写真も、同じファン同士で共有できます。
           </p>
         </div>
-        <div className="flex flex-col justify-between bg-[#fff0f5] p-6 sm:p-9">
-          <div className="space-y-4 text-[12px] font-bold text-[#40383e]">
-            <p className="flex items-center gap-3"><MessageCircleMore size={19} className="text-[#f43679]" />ログインなしで書き込み</p>
-            <p className="flex items-center gap-3"><ImagePlus size={19} className="text-[#f43679]" />写真は1投稿につき2枚まで</p>
-            <p className="flex items-center gap-3"><ShieldCheck size={19} className="text-[#f43679]" />通報・管理者削除に対応</p>
-          </div>
-          <a href="#fan-board-form" className="zr-focus mt-8 inline-flex min-h-12 w-full items-center justify-center bg-[#f43679] px-5 text-[12px] font-black text-white">
+        <div className="flex items-center bg-[#fff0f5] p-6 sm:p-9">
+          <a href="#fan-board-form" className="zr-focus inline-flex min-h-12 w-full items-center justify-center bg-[#f43679] px-5 text-[12px] font-black text-white">
             書き込む
           </a>
         </div>

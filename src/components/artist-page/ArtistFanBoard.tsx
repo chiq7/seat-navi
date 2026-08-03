@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Camera, Flag, ImagePlus, MessageCircle, Send, X } from "lucide-react";
+import { AtSign, Camera, Flag, ImagePlus, MessageCircle, Send, X } from "lucide-react";
 import type { FanBoardListResponse, FanBoardMutationResponse, FanBoardPost, FanBoardReply } from "@/lib/fanBoard/types";
 
 type BoardProps = {
@@ -47,9 +47,25 @@ function PostPhotos({ post }: { post: FanBoardReply }) {
   );
 }
 
+function XHandleLink({ xHandle }: { xHandle?: string }) {
+  if (!xHandle) return null;
+  return (
+    <a
+      href={`https://x.com/${xHandle}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="zr-focus mt-1 inline-flex min-h-8 items-center gap-1 text-[10px] font-black text-[#817981] hover:text-[#f43679]"
+      aria-label={`@${xHandle} をXで開く`}
+    >
+      <AtSign size={12} />{xHandle}
+    </a>
+  );
+}
+
 function BoardComposer({ artistSlug, artistName, parentId, compact = false, onCancel, onPosted }: ComposerProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [displayName, setDisplayName] = useState("");
+  const [xHandle, setXHandle] = useState("");
   const [body, setBody] = useState("");
   const [files, setFiles] = useState<File[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
@@ -87,6 +103,7 @@ function BoardComposer({ artistSlug, artistName, parentId, compact = false, onCa
     form.set("action", "post");
     form.set("artistSlug", artistSlug);
     form.set("displayName", displayName);
+    form.set("xHandle", xHandle);
     form.set("body", body);
     if (parentId) form.set("parentId", parentId);
     files.forEach((file) => form.append("photos", file));
@@ -96,6 +113,7 @@ function BoardComposer({ artistSlug, artistName, parentId, compact = false, onCa
       const result = (await response.json()) as FanBoardMutationResponse;
       if (!response.ok || !result.ok) throw new Error(result.error || "投稿できませんでした");
       setBody("");
+      setXHandle("");
       setFiles([]);
       if (inputRef.current) inputRef.current.value = "";
       setMessage(parentId ? "返信しました" : "掲示板に投稿しました");
@@ -127,6 +145,16 @@ function BoardComposer({ artistSlug, artistName, parentId, compact = false, onCa
           onChange={(event) => setDisplayName(event.target.value.slice(0, 24))}
           maxLength={24}
           placeholder="匿名ファン"
+          className="zr-focus mt-2 min-h-11 w-full border border-[#ded8dc] bg-white px-3 text-[13px] font-bold text-[#1c171b] placeholder:text-[#aaa2a8]"
+        />
+      </label>
+      <label className="mt-4 block text-[10px] font-black tracking-[0.12em] text-[#817981]">
+        Xアカウント（任意）
+        <input
+          value={xHandle}
+          onChange={(event) => setXHandle(event.target.value.slice(0, 16))}
+          maxLength={16}
+          placeholder="@fanname"
           className="zr-focus mt-2 min-h-11 w-full border border-[#ded8dc] bg-white px-3 text-[13px] font-bold text-[#1c171b] placeholder:text-[#aaa2a8]"
         />
       </label>
@@ -274,6 +302,7 @@ export default function ArtistFanBoard({ artistSlug, artistName }: BoardProps) {
                   <div className="flex items-start justify-between gap-3">
                     <div>
                       <p className="text-[12px] font-black text-[#1c171b]">{post.displayName}</p>
+                      <XHandleLink xHandle={post.xHandle} />
                       <time dateTime={post.createdAt} className="mt-1 block text-[9px] font-bold tracking-[0.1em] text-[#9a9298]">{formatDate(post.createdAt)}</time>
                     </div>
                     <button type="button" onClick={() => void reportPost(post.id)} className="zr-focus inline-flex min-h-10 items-center gap-1 px-2 text-[10px] font-bold text-[#9a9298]">
@@ -308,6 +337,7 @@ export default function ArtistFanBoard({ artistSlug, artistName }: BoardProps) {
                         <div className="flex items-start justify-between gap-2">
                           <div>
                             <p className="text-[11px] font-black text-[#1c171b]">{reply.displayName}</p>
+                            <XHandleLink xHandle={reply.xHandle} />
                             <time dateTime={reply.createdAt} className="mt-1 block text-[9px] font-bold text-[#9a9298]">{formatDate(reply.createdAt)}</time>
                           </div>
                           <button type="button" onClick={() => void reportPost(reply.id)} className="zr-focus grid size-10 place-items-center text-[#9a9298]" aria-label="返信を通報">
@@ -328,4 +358,3 @@ export default function ArtistFanBoard({ artistSlug, artistName }: BoardProps) {
     </div>
   );
 }
-

@@ -6,6 +6,7 @@ export type FanBoardPhoto = {
 export type FanBoardReply = {
   id: string;
   displayName: string;
+  xHandle?: string;
   body: string;
   photos: FanBoardPhoto[];
   createdAt: string;
@@ -23,4 +24,3 @@ export type FanBoardMutationResponse = {
   ok: boolean;
   error?: string;
 };
-

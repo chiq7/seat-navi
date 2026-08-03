@@ -44,7 +44,6 @@ export default function ArtistActionHub({ artistName }: Props) {
           <MessageCircle size={27} strokeWidth={1.8} />
           <div className="min-w-0 flex-1">
             <p className="text-[20px] font-black tracking-[-0.03em]">ファン掲示板で話す</p>
-            <p className="mt-1 text-[10px] font-bold text-white/72">ログインなし・写真2枚まで</p>
           </div>
           <MoveRight size={21} className="shrink-0 transition-transform group-hover:translate-x-1" />
         </a>

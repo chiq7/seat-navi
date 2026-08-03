@@ -5,6 +5,7 @@ import type { NextRequest } from "next/server";
 export const FAN_BOARD_BUCKET = "fan-board-photos";
 export const FAN_BOARD_BODY_MAX = 500;
 export const FAN_BOARD_NAME_MAX = 24;
+export const FAN_BOARD_X_HANDLE_MAX = 15;
 export const FAN_BOARD_PHOTO_MAX = 2;
 export const FAN_BOARD_PHOTO_BYTES_MAX = 4 * 1024 * 1024;
 
@@ -51,4 +52,3 @@ export async function hasValidImageSignature(file: File): Promise<boolean> {
   }
   return false;
 }
-

@@ -8,6 +8,7 @@ import {
   FAN_BOARD_NAME_MAX,
   FAN_BOARD_PHOTO_BYTES_MAX,
   FAN_BOARD_PHOTO_MAX,
+  FAN_BOARD_X_HANDLE_MAX,
   getRequestHash,
   hasValidImageSignature,
   imageExtension,
@@ -21,6 +22,7 @@ type PostRow = {
   id: string;
   parent_id: string | null;
   display_name: string;
+  x_handle: string | null;
   body: string;
   photo_paths: string[];
   created_at: string;
@@ -50,6 +52,7 @@ function safeReply(row: PostRow, urls: Map<string, string>): FanBoardReply {
   return {
     id: row.id,
     displayName: row.display_name,
+    xHandle: row.x_handle ?? undefined,
     body: row.body,
     photos: row.photo_paths.flatMap((path) => {
       const url = urls.get(path);
@@ -67,7 +70,7 @@ export async function GET(request: NextRequest) {
 
   const { data: rootData, error: rootError } = await supabase
     .from("fan_board_posts")
-    .select("id, parent_id, display_name, body, photo_paths, created_at")
+    .select("id, parent_id, display_name, x_handle, body, photo_paths, created_at")
     .eq("artist_slug", artistSlug)
     .eq("status", "visible")
     .is("parent_id", null)
@@ -81,7 +84,7 @@ export async function GET(request: NextRequest) {
   if (rootIds.length > 0) {
     const { data: replyData, error: replyError } = await supabase
       .from("fan_board_posts")
-      .select("id, parent_id, display_name, body, photo_paths, created_at")
+      .select("id, parent_id, display_name, x_handle, body, photo_paths, created_at")
       .eq("artist_slug", artistSlug)
       .eq("status", "visible")
       .in("parent_id", rootIds)
@@ -152,9 +155,13 @@ export async function POST(request: NextRequest) {
   }
 
   const displayName = String(form.get("displayName") ?? "").trim() || "匿名ファン";
+  const xHandle = String(form.get("xHandle") ?? "").trim().replace(/^@/, "");
   const body = String(form.get("body") ?? "").trim();
   const parentId = String(form.get("parentId") ?? "").trim() || null;
   if (displayName.length > FAN_BOARD_NAME_MAX) return errorResponse("名前は24文字以内で入力してください", 400);
+  if (xHandle && (xHandle.length > FAN_BOARD_X_HANDLE_MAX || !/^[A-Za-z0-9_]+$/.test(xHandle))) {
+    return errorResponse("Xアカウントは半角英数字と_で入力してください", 400);
+  }
   if (!body || body.length > FAN_BOARD_BODY_MAX) return errorResponse("本文は1〜500文字で入力してください", 400);
 
   const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000).toISOString();
@@ -208,6 +215,7 @@ export async function POST(request: NextRequest) {
     artist_slug: artistSlug,
     parent_id: parentId,
     display_name: displayName,
+    x_handle: xHandle || null,
     body,
     photo_paths: uploadedPaths,
     rate_limit_hash: actorHash,
