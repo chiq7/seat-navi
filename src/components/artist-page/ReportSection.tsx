@@ -44,7 +44,7 @@ export function ReportTimelineList({
   actions,
 }: TimelineProps) {
   return (
-    <div className="overflow-hidden border border-gray-100">
+    <div className="border-y border-[#ded8dc]">
       {reports.length > 0 ? (
         reports.map((report, index) => {
           const blockRow = blockRowText(report);
@@ -54,16 +54,16 @@ export function ReportTimelineList({
           const comment = report.memo?.trim() || null;
           const bgImage = overallBadgeBgImage(overallBadge);
           return (
-            <div key={report.id} className="border-b border-gray-100 last:border-b-0">
+            <div key={report.id} className="border-b border-[#ded8dc] last:border-b-0">
             <Link
               href={`/report/live/detail?reportId=${report.id}`}
-              className="flex min-h-[104px] items-stretch gap-2 overflow-hidden no-underline"
+              className="zr-focus flex min-h-[112px] items-stretch gap-3 bg-white px-4 py-3 no-underline transition-colors hover:bg-[#fff0f5]"
             >
               <div className="self-center">
                 <ReportThumb index={index} photoUrl={photoUrl} />
               </div>
               <div
-                className="m-0.5 flex min-w-0 flex-1 items-center self-stretch rounded-lg"
+                className="flex min-w-0 flex-1 items-center self-stretch"
                 style={
                   bgImage
                     ? {
@@ -82,7 +82,7 @@ export function ReportTimelineList({
                     {(structureBadges.length > 0 ? structureBadges.slice(0, 2) : ["-"]).map((label) => (
                       <span
                         key={label}
-                        className="shrink-0 whitespace-nowrap rounded-full bg-[#FFF1F6] px-1.5 py-0.5 text-[10px] font-bold text-[#FF6B9D]"
+                        className="shrink-0 whitespace-nowrap bg-[#fff0f5] px-1.5 py-0.5 text-[10px] font-bold text-[#f43679]"
                       >
                         {label}
                       </span>
@@ -109,12 +109,13 @@ export function ReportTimelineList({
           );
         })
       ) : (
-        <div className="px-4 py-6 text-center text-sm text-gray-400">
-          <p>{emptyText}</p>
+        <div className="bg-[#1c171b] px-5 py-8 text-center text-white sm:px-8 sm:py-10">
+          <p className="text-[10px] font-black tracking-[0.2em] text-[#ff5b96]">NO REPORTS YET</p>
+          <p className="mt-3 text-[16px] font-black tracking-[-0.03em]">{emptyText}</p>
           {reportHref && (
             <Link
               href={reportHref}
-              className="mt-2 inline-flex rounded-full bg-[#FF6B9D] px-4 py-2 text-[12px] font-bold text-white"
+              className="zr-focus mt-5 inline-flex min-h-11 items-center border border-white/35 px-4 text-[11px] font-black text-white transition-colors hover:bg-white hover:text-[#1c171b]"
             >
               最初の現地レポを投稿する
             </Link>
@@ -132,13 +133,20 @@ export default function ReportSection({ reports, afterHref, reportHref, children
     <section className="artist-section" id="reports">
       <p className="artist-kicker">Live Reports</p>
       <h2 className="artist-heading">現地レポ</h2>
-      <div className="mt-8 bg-white p-4 sm:p-6">
-        {children && <div className="mb-3">{children}</div>}
-        <h3 className="mb-3 text-[11px] font-bold tracking-[0.12em] text-[#8d858c]">現地レポタイムライン</h3>
+      <div className="mt-8 border border-[#282127] bg-[#fff8fa]">
+        {children && <div className="p-5 sm:p-7">{children}</div>}
+        <div className="flex items-end justify-between gap-4 border-t border-[#282127] bg-white px-5 py-4 sm:px-7">
+          <div>
+            <p className="text-[10px] font-black tracking-[0.2em] text-[#f43679]">RECENT VOICES</p>
+            <h3 className="mt-1 text-[17px] font-black tracking-[-0.03em] text-[#1c171b]">現地レポタイムライン</h3>
+          </div>
+          <span className="mb-1 text-[9px] font-black tracking-[0.12em] text-[#817981]">{reports.length} REPORTS</span>
+        </div>
         <ReportTimelineList reports={displayReports} reportHref={reportHref} authorMap={authorMap} />
-        <div className="mt-4 border-t border-[#ded8dc] pt-4 text-center">
-          <Link href={afterHref} className="text-[14px] font-bold text-[#FF6B9D]">
-            もっと見る
+        <div className="border-t border-[#282127] bg-white">
+          <Link href={afterHref} className="zr-focus group flex min-h-13 items-center justify-between px-5 text-[12px] font-black text-[#1c171b] sm:px-7">
+            すべての現地レポを見る
+            <span className="text-[20px] leading-none text-[#f43679] transition-transform group-hover:translate-x-1">→</span>
           </Link>
         </div>
       </div>

@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 const EFFECT_DEFS: { key: string; label: string }[] = [
   { key: "center-stage", label: "センステ" },
   { key: "trolley",      label: "トロッコ" },
@@ -14,31 +12,31 @@ type Props = {
 
 export default function LiveEffectsSection({ liveEffects }: Props) {
   return (
-    <div>
-      <h2 className="mb-2.5 text-center text-[13px] font-bold text-gray-900">この公演で見られた演出</h2>
-      <div className="flex gap-2">
+    <section aria-labelledby="live-effects-title">
+      <div className="flex items-end justify-between gap-4">
+        <div>
+          <p className="text-[10px] font-black tracking-[0.2em] text-[#f43679]">STAGE NOTES</p>
+          <h3 id="live-effects-title" className="mt-1 text-[18px] font-black tracking-[-0.035em] text-[#1c171b]">この公演で見られた演出</h3>
+        </div>
+        <p className="mb-1 text-right text-[9px] font-black tracking-[0.12em] text-[#817981]">FAN REPORTS</p>
+      </div>
+      <div className="mt-5 grid grid-cols-2 border-l border-t border-[#ded8dc] sm:grid-cols-5">
         {EFFECT_DEFS.map((effect) => {
           const active = liveEffects[effect.key] ?? false;
-          const src = `/images/reports/ive-effects/${effect.key}-${active ? "active" : "inactive"}.png`;
           return (
             <div
               key={effect.key}
-              className="flex flex-1 flex-col items-center gap-1.5 rounded-xl border border-[#FF6B9D]/20 bg-white px-1 py-2.5"
+              className={`flex min-h-[86px] flex-col justify-between border-b border-r border-[#ded8dc] px-3 py-3 ${active ? "bg-[#fff0f5]" : "bg-white"}`}
             >
-              <Image
-                src={src}
-                alt={effect.label}
-                width={36}
-                height={36}
-                className="object-contain"
-              />
-              <span className="whitespace-nowrap text-[9px] font-semibold text-gray-600">
-                {effect.label}
-              </span>
+              <span className="text-[9px] font-black tracking-[0.16em] text-[#958d93]">{String(EFFECT_DEFS.indexOf(effect) + 1).padStart(2, "0")}</span>
+              <div className="mt-3 flex items-end justify-between gap-2">
+                <span className="text-[13px] font-black text-[#1c171b]">{effect.label}</span>
+                <span className={`text-[8px] font-black tracking-[0.08em] ${active ? "text-[#f43679]" : "text-[#aaa2a8]"}`}>{active ? "SEEN" : "—"}</span>
+              </div>
             </div>
           );
         })}
       </div>
-    </div>
+    </section>
   );
 }
