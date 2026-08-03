@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, MapPinned, Search } from "lucide-react";
+import { ArrowRight, MapPinned, Search } from "lucide-react";
 
 export default function HeroBanner() {
   return (
@@ -31,11 +31,6 @@ export default function HeroBanner() {
             <Link href="/search" className="zr-focus group flex min-h-16 items-center gap-4 border-b border-white/18 py-4 text-[14px] font-bold">
               <Search size={20} className="text-[#ff4f8e]" />
               <span className="flex-1">アーティスト・会場・座席表を探す</span>
-              <ArrowRight size={19} className="transition-transform group-hover:translate-x-1" />
-            </Link>
-            <Link href="/report" className="zr-focus group flex min-h-16 items-center gap-4 border-b border-white/18 py-4 text-[14px] font-bold">
-              <ArrowUpRight size={20} className="text-[#ff4f8e]" />
-              <span className="flex-1">ライブの記録を投稿する</span>
               <ArrowRight size={19} className="transition-transform group-hover:translate-x-1" />
             </Link>
             <Link href="/venues" className="zr-focus group flex min-h-16 items-center gap-4 border-b border-white/18 py-4 text-[14px] font-bold">
