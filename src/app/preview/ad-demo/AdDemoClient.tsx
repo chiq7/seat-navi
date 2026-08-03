@@ -77,9 +77,18 @@ const ticketStats = computeTicketResultStats(ticketRows);
 const arenaStats = computeArenaDetailStats(ticketRows);
 const upgradeStats = computeUpgradeDetailStats(ticketRows);
 
-export default function AdDemoClient({ initialCard }: { initialCard: Card }) {
+export default function AdDemoClient({
+  initialCard,
+  captureMode = false,
+}: {
+  initialCard: Card;
+  captureMode?: boolean;
+}) {
   return (
-    <main className="min-h-screen bg-[#f8fafc] px-1 pb-5 pt-2">
+    <main
+      className={`min-h-screen bg-[#f8fafc] ${captureMode ? "fixed left-0 top-0 w-[400px] px-1 pb-5 pt-2" : "px-1 pb-5 pt-2"}`}
+      style={captureMode ? { zoom: initialCard === "map" ? 1.18 : 1.3 } : undefined}
+    >
       <div className="mx-auto w-full max-w-[430px]">
         {initialCard === "trend" ? (
           <TrendSection

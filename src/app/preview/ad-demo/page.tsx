@@ -9,8 +9,8 @@ export const metadata: Metadata = {
 export default async function AdDemoPage({
   searchParams,
 }: {
-  searchParams: Promise<{ card?: string }>;
+  searchParams: Promise<{ card?: string; capture?: string }>;
 }) {
-  const { card } = await searchParams;
-  return <AdDemoClient initialCard={card === "map" ? "map" : "trend"} />;
+  const { card, capture } = await searchParams;
+  return <AdDemoClient initialCard={card === "map" ? "map" : "trend"} captureMode={capture === "highres"} />;
 }
