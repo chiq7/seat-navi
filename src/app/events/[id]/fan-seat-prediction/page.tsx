@@ -8,12 +8,10 @@ import { trackEvent } from "@/lib/analytics";
 import { supabase } from "@/lib/supabase/client";
 import { resolveArtist } from "@/lib/artists";
 import { getEventsForArtist } from "@/lib/events";
-import { parseEventTitle } from "@/lib/eventTitle";
 import type { CrawledEvent, SeatReport } from "@/lib/types";
 import { AccountLink } from "@/components/auth/AccountLink";
 import { BottomNav } from "@/components/common/BottomNav";
 import { EventCarouselPicker } from "@/components/common/EventPicker";
-import { EventInfoRow } from "@/components/common/EventInfoRow";
 import { ShareButton } from "@/components/common/ShareButton";
 import { EventArenaMap } from "@/components/arena-map/EventArenaMap";
 
@@ -287,9 +285,6 @@ export default function FanSeatPredictionPage({
 
   const artist = event ? resolveArtist(event) : undefined;
   const artistSlug = artist?.slug;
-  const { tourName, isTestData } = event
-    ? parseEventTitle(event.title, artist?.name)
-    : { tourName: "", isTestData: false };
   const reportEntryHref = `/report?event=${selectedEventId}`;
   const shareUrl = typeof window !== "undefined" ? `${window.location.origin}/events/${selectedEventId}` : "";
   const shareText = `${artist?.name ?? "ライブ"}の座席表・ステージ構成予想を投稿しました！ #ちけレポ`;
@@ -354,22 +349,10 @@ export default function FanSeatPredictionPage({
           <section className="border-t border-[#1c171b] pt-5">
             <p className="artist-kicker">01 / SELECT LIVE</p>
             <h2 className="artist-heading">対象公演</h2>
-            {event && (
-              <>
-                <EventInfoRow
-                  className="mt-0.5"
-                  title={tourName}
-                  artistName={artist?.name ?? null}
-                  isTestData={isTestData}
-                />
-                <div className="mb-1 mt-0.5 border-t border-gray-100" />
-              </>
-            )}
             <EventCarouselPicker
               events={events}
               selectedEventId={selectedEventId}
               onSelect={setSelectedEventId}
-              artistName={artist?.name}
               loading={eventsLoading}
             />
           </section>

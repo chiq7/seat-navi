@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Camera, CheckCircle2, ChevronLeft, RotateCcw, Send, X } from "lucide-react";
 import Link from "next/link";
@@ -8,10 +8,8 @@ import { trackEvent } from "@/lib/analytics";
 import { supabase } from "@/lib/supabase/client";
 import { resolveArtist } from "@/lib/artists";
 import { getEventsForArtist } from "@/lib/events";
-import { parseEventTitle } from "@/lib/eventTitle";
 import { AccountLink } from "@/components/auth/AccountLink";
 import { EventCarouselPicker } from "@/components/common/EventPicker";
-import { EventInfoRow } from "@/components/common/EventInfoRow";
 import { ShareButton } from "@/components/common/ShareButton";
 
 function randomId() {
@@ -350,16 +348,6 @@ function LiveReportPageInner() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const currentArtistName = useMemo(() => {
-    const ev = events.find((e) => e.id === selectedEvent);
-    return ev ? (resolveArtist(ev)?.name ?? null) : null;
-  }, [events, selectedEvent]);
-
-  const selectedEventObj = events.find((e) => e.id === selectedEvent) ?? null;
-  const { tourName, isTestData } = selectedEventObj
-    ? parseEventTitle(selectedEventObj.title, currentArtistName)
-    : { tourName: "", isTestData: false };
-
   const setPerfValue = (key: PerfKey, value: PerfValue) =>
     setPerf((prev) => ({ ...prev, [key]: value }));
 
@@ -508,21 +496,10 @@ function LiveReportPageInner() {
                 <p className="artist-kicker">01 / SELECT LIVE</p>
                 <h2 className="artist-heading">報告する公演</h2>
               </div>
-              {selectedEventObj && (
-                <>
-                  <EventInfoRow
-                    title={tourName}
-                    artistName={currentArtistName}
-                    isTestData={isTestData}
-                  />
-                  <div className="mb-1 mt-0.5 border-t border-gray-100" />
-                </>
-              )}
               <EventCarouselPicker
                 events={events}
                 selectedEventId={selectedEvent}
                 loading={eventsLoading}
-                artistName={currentArtistName}
                 onSelect={(id) => {
                   const targetEvent = events.find((e) => e.id === id);
                   if (targetEvent) {

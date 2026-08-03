@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { ChevronLeft, Send, TicketCheck } from "lucide-react";
 import Image from "next/image";
@@ -9,10 +9,8 @@ import { trackEvent } from "@/lib/analytics";
 import { supabase } from "@/lib/supabase/client";
 import { resolveArtist } from "@/lib/artists";
 import { getEventsForArtist } from "@/lib/events";
-import { parseEventTitle } from "@/lib/eventTitle";
 import { AccountLink } from "@/components/auth/AccountLink";
 import { EventCarouselPicker } from "@/components/common/EventPicker";
-import { EventInfoRow } from "@/components/common/EventInfoRow";
 import { ShareButton } from "@/components/common/ShareButton";
 
 function randomId() {
@@ -380,16 +378,6 @@ function TicketReportPageInner() {
   const seatAreaOptions = SEAT_AREAS[currentVenueType];
   const reportEntryHref = selectedEvent ? `/report?event=${selectedEvent}` : "/report";
 
-  const currentArtistName = useMemo(() => {
-    const ev = events.find((e) => e.id === selectedEvent);
-    return ev ? (resolveArtist(ev)?.name ?? null) : null;
-  }, [events, selectedEvent]);
-
-  const selectedEventObj = events.find((e) => e.id === selectedEvent) ?? null;
-  const { tourName, isTestData } = selectedEventObj
-    ? parseEventTitle(selectedEventObj.title, currentArtistName)
-    : { tourName: "", isTestData: false };
-
   const step2CanProceed = (() => {
     if (!lotteryType || !ticketType || !ticketCount) return false;
     if (result === "当選した") {
@@ -522,21 +510,10 @@ function TicketReportPageInner() {
                 <p className="artist-kicker">01 / SELECT LIVE</p>
                 <h2 className="artist-heading">報告する公演</h2>
               </div>
-              {selectedEventObj && (
-                <>
-                  <EventInfoRow
-                    title={tourName}
-                    artistName={currentArtistName}
-                    isTestData={isTestData}
-                  />
-                  <div className="mb-1 mt-0.5 border-t border-gray-100" />
-                </>
-              )}
               <EventCarouselPicker
                 events={events}
                 selectedEventId={selectedEvent}
                 loading={eventsLoading}
-                artistName={currentArtistName}
                 onSelect={(id) => {
                   const targetEvent = events.find((e) => e.id === id);
                   if (targetEvent) {
