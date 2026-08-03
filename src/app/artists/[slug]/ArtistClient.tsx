@@ -536,7 +536,7 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
                 <LiveEffectsSection liveEffects={liveEffects} />
               </ReportSection>
 
-              <ArtistBoardPreview artistName={artist.name} />
+              <ArtistBoardPreview artistSlug={slug} artistName={artist.name} />
             </div>
           ) : (
             <div className="zr-container py-8"><PastTourSection

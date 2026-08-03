@@ -75,10 +75,10 @@ export function EventArenaMap({
         <button
           type="button"
           onClick={handleSaveMapImage}
-          className={`mx-auto -mt-2 flex h-10 items-center gap-1.5 rounded-full px-4 text-[12px] font-bold transition-all active:scale-95 ${
+          className={`zr-focus mx-auto mt-2 flex min-h-11 items-center gap-2 border px-4 text-[11px] font-black transition-colors ${
             saved
-              ? "border border-green-500/40 bg-green-50 text-green-600"
-              : "bg-[#FF6B9D] text-white shadow-[0_4px_14px_rgba(255,107,157,0.35)]"
+              ? "border-green-500/40 bg-green-50 text-green-700"
+              : "border-[#282127] bg-white text-[#1c171b] hover:bg-[#fff3f7]"
           }`}
         >
           {saved ? (
@@ -89,7 +89,7 @@ export function EventArenaMap({
           ) : (
             <>
               <Download size={14} strokeWidth={2.5} />
-              この画像をスマホに保存する
+              座席表を画像保存
             </>
           )}
         </button>

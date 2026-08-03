@@ -500,7 +500,8 @@ test("TOP empty states remain present without a setlist section", () => {
   assert.match(files, /現地レポはまだありません/);
   assert.match(files, /現地レポタイムライン/);
   assert.match(files, /最初の現地レポを投稿する/);
-  assert.match(files, /seat-map-preparing2\.png/);
+  assert.match(files, /まだ予想図がありません/);
+  assert.match(files, /会場の座席表から/);
   assert.match(files, /topPrediction \?/);
 
   const artistClient = fs.readFileSync(
@@ -537,7 +538,7 @@ test("favorite controls are functional, compact, and outside navigation links", 
   assert.match(homeCard, /<FavoriteArtistButton/);
   assert.doesNotMatch(homeCard, /<button/);
   assert.doesNotMatch(homeCard, /M4\.318 6\.318/);
-  assert.match(artistClient, /過去の公演[\s\S]*border-l border-gray-100[\s\S]*<FavoriteArtistButton/);
+  assert.match(artistClient, /過去の公演[\s\S]*<FavoriteArtistButton/);
   assert.doesNotMatch(artistClient, /<HeroSection[\s\S]*\/>\s*<FavoriteArtistButton/);
   assert.match(searchPage, /<\/Link>\s*\{favoritesReady \? \(\s*<FavoriteArtistButton/);
 });

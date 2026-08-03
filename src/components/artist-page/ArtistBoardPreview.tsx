@@ -1,10 +1,12 @@
 import { ImagePlus, MessageCircleMore, ShieldCheck } from "lucide-react";
+import ArtistFanBoard from "@/components/artist-page/ArtistFanBoard";
 
 type Props = {
+  artistSlug: string;
   artistName: string;
 };
 
-export default function ArtistBoardPreview({ artistName }: Props) {
+export default function ArtistBoardPreview({ artistSlug, artistName }: Props) {
   return (
     <section className="artist-section" id="fan-board">
       <div className="grid overflow-hidden border border-[#282127] md:grid-cols-[1.15fr_.85fr]">
@@ -23,10 +25,13 @@ export default function ArtistBoardPreview({ artistName }: Props) {
             <p className="flex items-center gap-3"><ImagePlus size={19} className="text-[#f43679]" />写真は1投稿につき2枚まで</p>
             <p className="flex items-center gap-3"><ShieldCheck size={19} className="text-[#f43679]" />通報・管理者削除に対応</p>
           </div>
-          <button type="button" disabled className="mt-8 min-h-12 w-full cursor-not-allowed bg-[#c9c2c7] px-5 text-[12px] font-black text-white" title="データベース接続後に利用できます">
-            投稿機能を接続中
-          </button>
+          <a href="#fan-board-form" className="zr-focus mt-8 inline-flex min-h-12 w-full items-center justify-center bg-[#f43679] px-5 text-[12px] font-black text-white">
+            書き込む
+          </a>
         </div>
+      </div>
+      <div id="fan-board-form">
+        <ArtistFanBoard artistSlug={artistSlug} artistName={artistName} />
       </div>
     </section>
   );

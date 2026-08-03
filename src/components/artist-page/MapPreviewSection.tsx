@@ -1,16 +1,18 @@
+"use client";
+
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
+import { ArrowUpRight, CreditCard, Crown, Star, Ticket } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import type { SeatReport } from "@/lib/types";
 import type { ColorMode } from "@/lib/arena-map/arenaMapTypes";
 import { EventArenaMap } from "@/components/arena-map/EventArenaMap";
 
-// /events/[id] の「みんなの座席報告マップ」と同一の色分けタブ
-const COLOR_TABS: { value: ColorMode; label: string }[] = [
-  { value: "lottery",   label: "🎫 抽選回" },
-  { value: "fcHistory", label: "👑 FC歴" },
-  { value: "payment",   label: "💳 支払い" },
-  { value: "upgrade",   label: "⭐ アプグレ" },
+const COLOR_TABS: { value: ColorMode; label: string; Icon: LucideIcon }[] = [
+  { value: "lottery", label: "抽選回", Icon: Ticket },
+  { value: "fcHistory", label: "FC歴", Icon: Crown },
+  { value: "payment", label: "支払い", Icon: CreditCard },
+  { value: "upgrade", label: "アプグレ", Icon: Star },
 ];
 
 type MapEvent = {
@@ -28,56 +30,51 @@ export default function MapPreviewSection({ mapEvent }: Props) {
   if (!mapEvent) return null;
 
   return (
-    <>
-      <div className="border border-gray-100 bg-white px-3 pt-3 shadow-sm">
-        <div className="-mx-3">
-          <div className="px-3">
-            <Image
-              src="/images/arena-prediction/seat-report-map-logo.png"
-              alt="みんなの座席報告マップ"
-              width={2396}
-              height={232}
-              className="h-[40px] w-auto max-w-full object-contain"
-            />
-          </div>
-
-          {/* 区切り線: タイトル段 / ボタン・ナビ段 */}
-          <div className="mt-3 border-t-2 border-gray-200" />
-
-          <div className="mt-3 flex gap-1 px-3">
-            {COLOR_TABS.map((tab) => (
-              <button
-                key={tab.value}
-                type="button"
-                onClick={() => setColorMode(tab.value)}
-                className={`flex-1 rounded-xl py-1.5 text-[11px] font-semibold transition-all active:scale-95 ${
-                  colorMode === tab.value
-                    ? "bg-[#FF6B9D] text-white"
-                    : "border border-gray-200 bg-white text-[#111827]"
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-
-          {/* ArenaReportMap（共通部品: SVG描画・PNG保存はEventArenaMapが再利用） */}
-          <EventArenaMap
-            eventId={mapEvent.id}
-            reports={mapEvent.reports}
-            colorMode={colorMode}
-            mapFullBleed
-          />
+    <div className="border border-[#282127] bg-white">
+      <div className="flex items-end justify-between gap-3 border-b border-[#282127] px-4 py-4 sm:px-6">
+        <div>
+          <p className="text-[9px] font-black tracking-[0.18em] text-[#f43679]">LIVE SEAT MAP</p>
+          <h3 className="mt-1 text-[20px] font-black tracking-[-0.04em] text-[#1c171b]">みんなの座席報告</h3>
         </div>
+        <span className="shrink-0 text-[10px] font-black text-[#817981]">{mapEvent.reports.length} REPORTS</span>
       </div>
 
-      {/* 投稿ボタン（/events/[id]と同じ横長CTAデザイン） */}
+      <div className="grid grid-cols-2 border-b border-[#282127] sm:grid-cols-4">
+        {COLOR_TABS.map(({ value, label, Icon }) => (
+          <button
+            key={value}
+            type="button"
+            onClick={() => setColorMode(value)}
+            aria-pressed={colorMode === value}
+            className={`zr-focus flex min-h-12 items-center justify-center gap-2 border-b border-r border-[#ded8dc] px-2 text-[11px] font-black transition-colors sm:border-b-0 ${
+              colorMode === value
+                ? "bg-[#1c171b] text-white"
+                : "bg-white text-[#5d555b] hover:bg-[#fff3f7]"
+            }`}
+          >
+            <Icon size={15} className={colorMode === value ? "text-[#ff5b96]" : "text-[#f43679]"} />
+            {label}
+          </button>
+        ))}
+      </div>
+
+      <div className="overflow-hidden bg-[#fbf8fa] px-1 pb-3 pt-2 sm:px-4">
+        <EventArenaMap
+          eventId={mapEvent.id}
+          reports={mapEvent.reports}
+          colorMode={colorMode}
+          mapFullBleed
+          showSaveButton
+        />
+      </div>
+
       <Link
         href={`/events/${mapEvent.id}/fan-seat-prediction`}
-        className="mt-1 flex h-9 w-full items-center justify-center rounded-xl bg-[#FF6B9D] text-[13px] font-bold text-white shadow-[0_8px_20px_rgba(255,107,157,0.25)] transition-opacity active:opacity-80"
+        className="zr-focus group flex min-h-14 w-full items-center justify-between gap-3 border-t border-[#282127] bg-[#f43679] px-5 text-[13px] font-black text-white sm:px-6"
       >
-        予想図を投稿する
+        <span>この会場の予想図を投稿する</span>
+        <ArrowUpRight size={18} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
       </Link>
-    </>
+    </div>
   );
 }

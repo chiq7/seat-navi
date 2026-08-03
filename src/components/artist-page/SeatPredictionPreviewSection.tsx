@@ -1,5 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
+import { ArrowRight, MapPinned, PenLine } from "lucide-react";
 import type { SeatReport } from "@/lib/types";
 import MapPreviewSection from "@/components/artist-page/MapPreviewSection";
 import { SeatPredictionCard } from "@/components/common/SeatPredictionCard";
@@ -52,79 +52,91 @@ export default function SeatPredictionPreviewSection({
   return (
     <section className="artist-section" id="seat-map">
       <p className="artist-kicker">Seat Map & Prediction</p>
-      <h2 className="artist-heading">会場の座席表・予想図</h2>
-      <div className="mt-8 min-w-0 bg-white p-4 sm:p-6">
+      <h2 className="artist-heading">会場の座席表から、<br />みんなの予想まで。</h2>
+      <p className="mt-4 max-w-2xl text-[12px] font-medium leading-6 text-[#817981]">
+        公演会場を選ぶと、集まった座席報告を抽選回・FC歴・支払い方法・アップグレード別に確認できます。
+      </p>
+
+      <div className="mt-8 min-w-0">
         {mapEvent && venues.length > 0 && (
-          <div className="mb-3">
-            <p className="mb-2 text-[10px] font-bold tracking-[0.12em] text-[#8d858c]">会場を選択</p>
-            <div className="flex gap-2 overflow-x-auto pb-1 hide-scrollbar">
-              {venues.map(({ venue }) => (
+          <div className="border-y border-[#282127] bg-white">
+            <div className="flex items-center gap-2 px-3 py-3 sm:px-5">
+              <MapPinned size={17} className="shrink-0 text-[#f43679]" />
+              <p className="text-[10px] font-black tracking-[0.12em] text-[#817981]">会場を選択</p>
+            </div>
+            <div className="flex overflow-x-auto border-t border-[#ded8dc] hide-scrollbar">
+              {venues.map(({ venue }, index) => (
                 <button
                   key={venue}
                   type="button"
                   onClick={() => onSelectVenue?.(venue)}
                   aria-pressed={venue === activeVenue}
-                  className={`zr-focus min-h-11 shrink-0 border px-4 py-2 text-left text-[12px] font-bold transition-colors ${
+                  className={`zr-focus min-h-[66px] min-w-[152px] shrink-0 border-r border-[#ded8dc] px-4 py-3 text-left transition-colors ${
                     venue === activeVenue
-                      ? "border-[#f43679] bg-[#f43679] text-white"
-                      : "border-[#ded8dc] bg-white text-[#5d555b]"
+                      ? "bg-[#1c171b] text-white"
+                      : "bg-white text-[#5d555b] hover:bg-[#fff3f7]"
                   }`}
                 >
-                  <p
-                    className="truncate"
-                  >
-                    {venue}
-                  </p>
+                  <span className={`block text-[9px] font-black tracking-[0.14em] ${venue === activeVenue ? "text-[#ff5b96]" : "text-[#aaa2a8]"}`}>
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span className="mt-1 block truncate text-[12px] font-black">{venue}</span>
                 </button>
               ))}
             </div>
           </div>
         )}
+
         {mapEvent && (
-          <div className="mb-4">
+          <div className="mt-4">
             <MapPreviewSection mapEvent={mapEvent} />
           </div>
         )}
-        {topPrediction ? (
-          <SeatPredictionCard
-            predictionId={topPrediction.id}
-            imageUrl={topPrediction.imageUrl}
-            comment={topPrediction.comment}
-            tags={topPrediction.tags}
-            venue={activeVenue}
-            dateLabel={fmtShortDate(topPrediction.createdAt)}
-            likeCount={topPrediction.voteCount}
-            rank={1}
-            detailHref={detailHref}
-            author={topPrediction.author}
-          />
-        ) : (
-          <div className="border border-[#ded8dc] bg-[#faf8f9] px-3 py-4">
-            <div className="relative mx-auto h-[140px] w-full max-w-[280px] overflow-hidden rounded-xl bg-white">
-              <Image
-                src="/images/artist-page/seat-map-preparing2.png"
-                alt="準備中"
-                fill
-                sizes="(max-width: 320px) 100vw, 280px"
-                className="object-contain"
-              />
+
+        <div className="mt-4 border border-[#282127] bg-[#fff8fa] p-4 sm:p-6">
+          <div className="mb-4 flex items-end justify-between gap-3">
+            <div>
+              <p className="text-[9px] font-black tracking-[0.18em] text-[#f43679]">FAN PREDICTION</p>
+              <h3 className="mt-1 text-[20px] font-black tracking-[-0.04em] text-[#1c171b]">ファンの有力予想</h3>
             </div>
-            {!mapEvent && emptyPostHref && (
-              <div className="pt-2 text-center">
+            <span className="text-[10px] font-black text-[#817981]">PICKED #01</span>
+          </div>
+
+          {topPrediction ? (
+            <SeatPredictionCard
+              predictionId={topPrediction.id}
+              imageUrl={topPrediction.imageUrl}
+              comment={topPrediction.comment}
+              tags={topPrediction.tags}
+              venue={activeVenue}
+              dateLabel={fmtShortDate(topPrediction.createdAt)}
+              likeCount={topPrediction.voteCount}
+              rank={1}
+              detailHref={detailHref}
+              author={topPrediction.author}
+            />
+          ) : (
+            <div className="border border-dashed border-[#cfc6cc] bg-white px-5 py-10 text-center">
+              <PenLine size={27} className="mx-auto text-[#f43679]" />
+              <p className="mt-3 text-[15px] font-black text-[#1c171b]">まだ予想図がありません</p>
+              <p className="mt-1 text-[11px] font-medium text-[#817981]">最初の予想を投稿して、会場の座席表を完成させよう。</p>
+              {!mapEvent && emptyPostHref && (
                 <Link
                   href={emptyPostHref}
-                  className="zr-focus inline-flex min-h-11 items-center rounded-full bg-[#f43679] px-5 text-[12px] font-bold text-white"
+                  className="zr-focus mt-5 inline-flex min-h-11 items-center gap-2 bg-[#f43679] px-5 text-[12px] font-black text-white"
                 >
-                  予想図を投稿する
+                  予想図を投稿する<ArrowRight size={16} />
                 </Link>
-              </div>
-            )}
-          </div>
-        )}
+              )}
+            </div>
+          )}
+        </div>
+
         {mapEvent && detailHref && (
-          <div className="border-t border-[#ded8dc] pt-4 text-center">
-            <Link href={detailHref} className="text-[14px] font-bold text-[#FF6B9D]">
-              他の投稿を見る
+          <div className="border-b border-x border-[#282127] bg-white">
+            <Link href={detailHref} className="zr-focus group flex min-h-14 items-center justify-between px-5 text-[12px] font-black text-[#1c171b]">
+              <span>すべての予想図を見る</span>
+              <ArrowRight size={17} className="text-[#f43679] transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
         )}
