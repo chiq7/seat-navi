@@ -350,7 +350,7 @@ export function EventDetailClient({
                 </div>
                 <p className="shrink-0 text-[10px] font-black text-[#817981]">{allRelatedEvents.length} DATES</p>
               </div>
-              <div className="mt-5 border border-[#ded8dc] bg-white p-3">
+              <div className="mt-5">
                 <EventCarouselPicker
                   events={allRelatedEvents}
                   selectedEventId={eventId}

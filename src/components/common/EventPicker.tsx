@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useId, useMemo } from "react";
+import { CalendarDays, ChevronDown } from "lucide-react";
 import { parseEventTitle } from "@/lib/eventTitle";
 
 /** ページごとに列が異なる公演行データを吸収するための最小限の形 */
@@ -165,8 +166,6 @@ export function EventPicker<T extends PickerEvent>({
   );
 }
 
-const DAY_MS = 86400 * 1000;
-
 /** 年をまたぐ公演が混在しても判別できるよう、短縮年を常に含める（例: 26.6/24（水）） */
 function fmtChipDate(d: string | null): string {
   if (!d) return "日程未定";
@@ -174,47 +173,6 @@ function fmtChipDate(d: string | null): string {
   const w = ["日", "月", "火", "水", "木", "金", "土"][new Date(y, m - 1, day).getDay()];
   const yy = String(y).slice(-2);
   return `${yy}.${m}/${day}（${w}）`;
-}
-
-function NearTermChip<T extends PickerEvent>({
-  event,
-  isSelected,
-  onSelect,
-  dayLabel,
-}: {
-  event: T;
-  isSelected: boolean;
-  onSelect: (id: string) => void;
-  dayLabel?: string | null;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={() => onSelect(event.id)}
-      className={`h-[64px] w-[96px] shrink-0 overflow-hidden rounded-xl px-2 py-1.5 text-left transition-colors ${
-        isSelected ? "border-2 border-[#FF6B9D] bg-[#FFF1F6]" : "border border-gray-200 bg-white"
-      }`}
-    >
-      <div className="whitespace-nowrap text-[12px] font-bold leading-tight text-gray-900">
-        {fmtChipDate(event.date)}
-      </div>
-      <div className="mt-0.5 truncate text-[10px] font-semibold leading-tight text-gray-800">
-        {event.venue}
-      </div>
-      {/* Day表記がない単日公演でも、日付・会場の見える位置を複数日公演と揃える。 */}
-      <div className="mt-[1px] h-[9px]">
-        {dayLabel && (
-          <span
-            className={`inline-block w-fit whitespace-nowrap rounded-full px-1.5 py-px text-[9px] font-bold leading-none ${
-              isSelected ? "bg-[#FF6B9D] text-white" : "bg-gray-100 text-gray-500"
-            }`}
-          >
-            {dayLabel}
-          </span>
-        )}
-      </div>
-    </button>
-  );
 }
 
 export type EventCarouselPickerProps<T extends PickerEvent = PickerEvent> = {
@@ -228,23 +186,17 @@ export type EventCarouselPickerProps<T extends PickerEvent = PickerEvent> = {
   className?: string;
 };
 
-/**
- * 直近公演（過去1か月〜今後）は横スライド、過去公演は「過去公演を見る」で開閉し年タブで絞り込む公演選択UI。
- * セトリページ専用。他ページの EventPicker（縦一覧＋過去は年グループ常時展開）とは別の見た目。
- */
+/** スマホではOS標準の選択シートが開く、1行型の公演切替UI。 */
 export function EventCarouselPicker<T extends PickerEvent>({
   events,
   selectedEventId,
   onSelect,
-  artistName = null,
   today,
   loading = false,
   className,
 }: EventCarouselPickerProps<T>) {
+  const selectId = useId();
   const todayStr = today ?? new Date().toISOString().split("T")[0];
-  const monthAgoStr = new Date(new Date(todayStr).getTime() - 30 * DAY_MS)
-    .toISOString()
-    .split("T")[0];
 
   // Day番号: 同一venue_id（無ければvenue文字列にフォールバック）内で日付昇順に採番する。
   // グループ内が1件のみ（1日限りの公演）の場合はDayを表示しない。
@@ -264,57 +216,26 @@ export function EventCarouselPicker<T extends PickerEvent>({
     return map;
   }, [events]);
 
-  // 初期表示時点で選択中の公演がアーカイブ（30日より前）側なら、
-  // 過去公演一覧を開いた状態・その年のタブを選択した状態で開始する。
-  const selectedEvent = events.find((ev) => ev.id === selectedEventId);
-  const selectedIsArchived = !!(selectedEvent?.date && selectedEvent.date < monthAgoStr);
-
-  const [showPast, setShowPast] = useState(selectedIsArchived);
-  const [selectedYear, setSelectedYear] = useState<string | null>(
-    selectedIsArchived ? (selectedEvent!.date as string).slice(0, 4) : null,
-  );
-
-  const nearTerm = useMemo(
+  const upcoming = useMemo(
     () =>
       events
-        .filter((ev) => ev.date && ev.date >= monthAgoStr)
+        .filter((ev) => ev.date && ev.date >= todayStr)
         .sort((a, b) => (a.date ?? "").localeCompare(b.date ?? "")),
-    [events, monthAgoStr],
+    [events, todayStr],
   );
 
-  // 選択中公演が30日より前の過去公演でnearTermに含まれない場合は、
-  // 上部チップに単独追加し重複なく日付昇順で表示する。
-  const displayedNearTerm = useMemo(() => {
-    if (
-      selectedEvent?.date &&
-      selectedEvent.date < monthAgoStr &&
-      !nearTerm.some((ev) => ev.id === selectedEvent.id)
-    ) {
-      return [...nearTerm, selectedEvent].sort((a, b) => (a.date ?? "").localeCompare(b.date ?? ""));
-    }
-    return nearTerm;
-  }, [nearTerm, selectedEvent, monthAgoStr]);
-
-  const archiveByYear = useMemo(() => {
-    const archive = events
-      .filter((ev) => ev.date && ev.date < monthAgoStr)
-      .sort((a, b) => (b.date ?? "").localeCompare(a.date ?? ""));
-    const map = new Map<string, T[]>();
-    for (const ev of archive) {
-      const year = (ev.date ?? "").slice(0, 4);
-      if (!map.has(year)) map.set(year, []);
-      map.get(year)!.push(ev);
-    }
-    return map;
-  }, [events, monthAgoStr]);
-
-  const years = useMemo(
-    () => [...archiveByYear.keys()].sort((a, b) => a.localeCompare(b)),
-    [archiveByYear],
+  const past = useMemo(
+    () =>
+      events
+        .filter((ev) => !ev.date || ev.date < todayStr)
+        .sort((a, b) => (b.date ?? "").localeCompare(a.date ?? "")),
+    [events, todayStr],
   );
 
-  const activeYear =
-    selectedYear && archiveByYear.has(selectedYear) ? selectedYear : (years[years.length - 1] ?? null);
+  const optionLabel = (event: T) => {
+    const day = dayMap.get(event.id);
+    return `${fmtChipDate(event.date)} / ${event.venue}${day ? ` / Day${day}` : ""}`;
+  };
 
   if (loading) {
     return (
@@ -334,82 +255,33 @@ export function EventCarouselPicker<T extends PickerEvent>({
 
   return (
     <div className={className}>
-      {/* 直近公演: 横スライド */}
-      <div className="-mx-1 overflow-x-auto pb-1 hide-scrollbar">
-        <div className="flex min-w-max gap-2 px-1">
-          {displayedNearTerm.length > 0 ? (
-            displayedNearTerm.map((ev) => (
-              <NearTermChip
-                key={ev.id}
-                event={ev}
-                isSelected={ev.id === selectedEventId}
-                onSelect={onSelect}
-                dayLabel={dayMap.has(ev.id) ? `Day${dayMap.get(ev.id)}` : null}
-              />
-            ))
-          ) : (
-            <p className="py-4 text-[12px] text-gray-400">直近の公演はありません</p>
-          )}
-        </div>
-      </div>
-
-      {/* 過去公演トグル */}
-      {years.length > 0 && (
-        <div className="mt-2">
-          <button
-            type="button"
-            onClick={() => setShowPast((s) => !s)}
-            className="flex items-center gap-0.5 text-[11px] font-bold text-[#FF6B9D]"
+      <label htmlFor={selectId} className="block border-y border-[#ded8dc] bg-white px-4 py-3 transition-colors focus-within:border-[#f43679]">
+        <span className="flex items-center gap-2 text-[9px] font-black tracking-[0.18em] text-[#f43679]">
+          <CalendarDays size={14} strokeWidth={1.8} aria-hidden="true" />
+          SELECT LIVE DATE
+        </span>
+        <span className="relative mt-1 block">
+          <select
+            id={selectId}
+            value={selectedEventId ?? ""}
+            onChange={(event) => onSelect(event.target.value)}
+            className="zr-focus h-12 w-full appearance-none border-0 bg-transparent pr-10 text-[14px] font-black tracking-[-0.02em] text-[#1c171b] outline-none"
           >
-            {showPast ? "他の公演を閉じる" : "他の公演を見る"}
-            <span
-              className={`inline-block transition-transform duration-200 ${showPast ? "rotate-90" : ""}`}
-            >
-              ＞
-            </span>
-          </button>
-
-          {showPast && (
-            <div className="mt-2">
-              {/* 年タブ */}
-              <div className="flex gap-1.5 overflow-x-auto pb-1 hide-scrollbar">
-                {years.map((year) => (
-                  <button
-                    key={year}
-                    type="button"
-                    onClick={() => setSelectedYear(year)}
-                    className={`shrink-0 rounded-full border px-3 py-1 text-[11px] font-bold transition-colors ${
-                      activeYear === year
-                        ? "border-[#FF6B9D] bg-[#FF6B9D] text-white"
-                        : "border-gray-200 bg-white text-gray-600"
-                    }`}
-                  >
-                    {year}
-                  </button>
-                ))}
-              </div>
-
-              {/* 選択中の年の公演一覧 */}
-              {activeYear && (
-                <div className="mt-2 space-y-1.5">
-                  {archiveByYear.get(activeYear)!.map((ev) => (
-                    <EventRow
-                      key={ev.id}
-                      event={ev}
-                      artistName={artistName}
-                      isSelected={ev.id === selectedEventId}
-                      onSelect={(id) => {
-                        setShowPast(false);
-                        onSelect(id);
-                      }}
-                    />
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
-        </div>
-      )}
+            {!selectedEventId && <option value="">公演を選択してください</option>}
+            {upcoming.length > 0 && (
+              <optgroup label="開催予定">
+                {upcoming.map((event) => <option key={event.id} value={event.id}>{optionLabel(event)}</option>)}
+              </optgroup>
+            )}
+            {past.length > 0 && (
+              <optgroup label="過去公演">
+                {past.map((event) => <option key={event.id} value={event.id}>{optionLabel(event)}</option>)}
+              </optgroup>
+            )}
+          </select>
+          <ChevronDown size={20} strokeWidth={1.8} className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 text-[#817981]" aria-hidden="true" />
+        </span>
+      </label>
     </div>
   );
 }
