@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { CalendarDays, CreditCard, Ticket, UsersRound } from "lucide-react";
+import { CalendarDays, ChevronDown, CreditCard, Ticket, UsersRound } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { computeTicketResultStats, computeArenaDetailStats, computeUpgradeDetailStats } from "@/lib/artistPageStats";
 import { detailRateText } from "@/lib/artistPageHelpers";
@@ -57,6 +57,7 @@ function DataGrid({ groups, accent = false }: { groups: MetricGroupData[]; accen
 
 export default function TrendSection({ ticketStats, arenaStats, upgradeStats, title = "全公演" }: Props) {
   const [activeArenaTab, setActiveArenaTab] = useState<ArenaTab>("arena");
+  const [isArenaRateOpen, setIsArenaRateOpen] = useState(false);
 
   const ticketGroups: MetricGroupData[] = [
     {
@@ -173,14 +174,24 @@ export default function TrendSection({ ticketStats, arenaStats, upgradeStats, ti
       </div>
 
       <section className="border-t border-[#282127] bg-[#fff8fa]" aria-labelledby="arena-rate-title">
-        <div className="flex items-end justify-between gap-4 px-5 py-5 sm:px-6">
+        <button
+          type="button"
+          aria-expanded={isArenaRateOpen}
+          aria-controls="arena-rate-details"
+          onClick={() => setIsArenaRateOpen((open) => !open)}
+          className="zr-focus flex min-h-[78px] w-full items-end justify-between gap-4 px-5 py-5 text-left sm:px-6"
+        >
           <div>
             <p className="text-[10px] font-black tracking-[0.2em] text-[#f43679]">SEAT RATE</p>
             <h2 id="arena-rate-title" className="mt-1 text-[21px] font-black tracking-[-0.04em] text-[#1c171b]">アリーナ当選率</h2>
           </div>
-          <span className="mb-1 text-[9px] font-black tracking-[0.12em] text-[#817981]">BY PROFILE</span>
-        </div>
-        <div className="grid grid-cols-2 border-y border-[#ded8dc] bg-white">
+          <span className="mb-1 inline-flex items-center gap-2 text-[10px] font-black tracking-[0.08em] text-[#625a61]">
+            {isArenaRateOpen ? "閉じる" : "詳細を見る"}
+            <ChevronDown size={16} className={`transition-transform ${isArenaRateOpen ? "rotate-180" : ""}`} />
+          </span>
+        </button>
+        {isArenaRateOpen && <div id="arena-rate-details">
+          <div className="grid grid-cols-2 border-y border-[#ded8dc] bg-white">
           <button
             type="button"
             onClick={() => setActiveArenaTab("arena")}
@@ -195,10 +206,11 @@ export default function TrendSection({ ticketStats, arenaStats, upgradeStats, ti
           >
             アプグレ
           </button>
-        </div>
-        <div className="p-4 sm:p-6">
-          <DataGrid groups={arenaGroups} accent />
-        </div>
+          </div>
+          <div className="p-4 sm:p-6">
+            <DataGrid groups={arenaGroups} accent />
+          </div>
+        </div>}
       </section>
     </section>
   );
