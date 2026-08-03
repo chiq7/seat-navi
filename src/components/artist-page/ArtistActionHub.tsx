@@ -20,7 +20,14 @@ export default function ArtistActionHub({ artistName }: Props) {
           </div>
           <div>
             <p className="text-[28px] font-black tracking-[-0.04em] sm:text-[36px]">会場の座席表</p>
-            <p className="mt-2 flex items-center gap-2 text-[11px] font-bold text-white/55">座席報告・座席予想を見る <MoveRight size={16} className="transition-transform group-hover:translate-x-1" /></p>
+            <div className="mt-3 flex items-center gap-2 text-[11px]">
+              <span className="font-bold text-white/55">座席表・座席報告</span>
+              <span aria-hidden="true" className="h-3 w-px bg-white/25" />
+              <span className="inline-flex items-center gap-1.5 font-black text-[#ff5b96]">
+                座席予想を見る
+                <MoveRight size={16} className="transition-transform group-hover:translate-x-1" />
+              </span>
+            </div>
           </div>
         </a>
 
