@@ -1,5 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
+import { Camera, LayoutGrid, ListMusic, Map, SquarePen } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
 export type ActiveTab = "artist" | "report" | "event" | "after-report" | "setlist";
 
@@ -16,25 +17,19 @@ function Item({
   href,
   isActive,
   label,
-  iconSrc,
+  Icon,
 }: {
   href: string | null;
   isActive: boolean;
   label: string;
-  iconSrc: string;
+  Icon: LucideIcon;
 }) {
   const color = isActive ? PINK : GRAY;
   const inner = (
     <>
-      <Image
-        src={iconSrc}
-        alt=""
-        width={60}
-        height={60}
-        className={`h-[60px] w-[60px] object-contain ${isActive ? "opacity-100" : "opacity-80"}`}
-      />
+      <Icon size={20} strokeWidth={isActive ? 2.4 : 1.8} aria-hidden="true" />
       <span
-        className={`hidden text-[10px] ${isActive ? "font-bold" : "font-semibold"}`}
+        className={`text-[9px] ${isActive ? "font-black" : "font-bold"}`}
         style={{ color }}
       >
         {label}
@@ -42,19 +37,19 @@ function Item({
     </>
   );
 
-  const itemClassName = `flex flex-1 flex-col items-center justify-center gap-0.5 rounded-2xl py-0.5 ${
-    isActive ? "bg-[#FFF1F6]" : ""
+  const itemClassName = `zr-focus flex min-h-[54px] flex-1 flex-col items-center justify-center gap-1 border-t-2 py-1.5 transition-colors ${
+    isActive ? "border-[#f43679] bg-[#fff3f7]" : "border-transparent"
   }`;
 
   if (href === null) {
     return (
-      <div className={`${itemClassName} cursor-default opacity-30`}>
+      <div className={`${itemClassName} cursor-default opacity-30`} style={{ color }}>
         {inner}
       </div>
     );
   }
   return (
-    <Link href={href} className={itemClassName}>
+    <Link href={href} className={itemClassName} style={{ color }}>
       {inner}
     </Link>
   );
@@ -73,39 +68,39 @@ export function BottomNav({ active, artistSlug, eventId }: Props) {
 
   return (
     <nav
-      className="fixed bottom-0 left-1/2 z-50 flex h-[72px] w-full max-w-[430px] -translate-x-1/2 items-center border-t border-gray-100 pb-safe"
-      style={{ background: "rgba(255,255,255,0.92)", backdropFilter: "blur(16px)" }}
+      className="fixed bottom-0 left-1/2 z-50 flex h-[70px] w-full max-w-[620px] -translate-x-1/2 items-center border border-[#ded8dc] bg-white/94 px-1 shadow-[0_-12px_35px_rgba(35,24,31,0.09)] backdrop-blur-xl md:bottom-5 md:rounded-2xl"
+      aria-label="ページ内ナビゲーション"
     >
-      <div className="flex w-full items-center justify-around gap-1 px-2">
+      <div className="flex w-full items-center justify-around gap-0.5">
         <Item
           href={artistHref}
           isActive={active === "artist"}
           label="アーティスト"
-          iconSrc="/images/bottom-nav/menu-matome5.png"
+          Icon={LayoutGrid}
         />
         <Item
           href={reportHref}
           isActive={active === "report"}
           label="報告"
-          iconSrc="/images/bottom-nav/menu-report5.png"
+          Icon={SquarePen}
         />
         <Item
           href={seatHref}
           isActive={active === "event"}
           label="座席予想"
-          iconSrc="/images/bottom-nav/menu-seat-prediction5.png"
+          Icon={Map}
         />
         <Item
           href={afterHref}
           isActive={active === "after-report"}
           label="現地レポ"
-          iconSrc="/images/bottom-nav/menu-live-report5.png"
+          Icon={Camera}
         />
         <Item
           href={setlistHref}
           isActive={active === "setlist"}
           label="セトリ"
-          iconSrc="/images/bottom-nav/menu-setlist5.png"
+          Icon={ListMusic}
         />
       </div>
     </nav>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { parseEventTitle } from "@/lib/eventTitle";
 
 export type PastTourEvent = {
@@ -58,38 +58,46 @@ export default function PastTourSection({ tours, onSelectEvent, onSelectTour, ar
 
   if (tours.length === 0) {
     return (
-      <section className="px-3 py-10 text-center">
-        <p className="text-[12px] text-gray-400">過去の公演はまだありません</p>
+      <section className="border-b border-[#ded8dc] py-16 text-center">
+        <p className="text-[12px] font-bold text-[#817981]">過去の公演はまだありません</p>
       </section>
     );
   }
 
   return (
-    <section className="px-3 pt-3">
-      <div className="divide-y divide-gray-100 overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
+    <section className="artist-section" aria-labelledby="past-tour-title">
+      <p className="artist-kicker">Live Archive</p>
+      <h2 id="past-tour-title" className="artist-heading">過去の公演を<br />年から探す。</h2>
+      <p className="mt-4 max-w-xl text-[12px] font-medium leading-6 text-[#817981]">
+        年を選ぶと、その時期の当落データと会場の座席表を振り返れます。
+      </p>
+
+      <div className="mt-8 border-t border-[#282127]">
         {tours.map((tour) => {
           const isOpen = expanded.has(tour.key);
           return (
-            <div key={tour.key}>
+            <div key={tour.key} className="border-b border-[#ded8dc]">
               <button
                 type="button"
                 onClick={() => {
                   toggle(tour.key);
                   onSelectTour(tour);
                 }}
-                className="flex w-full items-center justify-between gap-2 px-4 py-3 text-left"
+                className="zr-focus flex min-h-[76px] w-full items-center justify-between gap-4 py-4 text-left"
+                aria-expanded={isOpen}
               >
-                <span className="min-w-0 truncate text-[14px] font-bold text-gray-900">{tour.title}</span>
+                <span className="min-w-0 flex-1 text-[24px] font-black tracking-[-0.04em] text-[#1c171b]">{tour.title}</span>
+                <span className="text-[10px] font-black tracking-[0.12em] text-[#817981]">{tour.events.length} SHOWS</span>
                 <ChevronDown
                   size={18}
                   strokeWidth={2.2}
-                  className={`shrink-0 text-gray-400 transition-transform duration-200 ${
+                  className={`shrink-0 text-[#f43679] transition-transform duration-200 ${
                     isOpen ? "rotate-180" : ""
                   }`}
                 />
               </button>
               {isOpen && (
-                <div className="space-y-1 px-4 pb-3">
+                <div className="border-t border-[#ded8dc] bg-[#fff8fa]">
                   {tour.events.map((ev) => {
                     const { tourName, isTestData } = parseEventTitle(ev.title, artistName);
                     return (
@@ -97,20 +105,21 @@ export default function PastTourSection({ tours, onSelectEvent, onSelectTour, ar
                         key={ev.id}
                         type="button"
                         onClick={() => onSelectEvent(ev)}
-                        className="flex w-full items-center gap-2 rounded-lg px-2 py-2 text-left text-[13px] transition-colors active:bg-gray-50"
+                        className="zr-focus group grid min-h-[72px] w-full grid-cols-[48px_1fr_20px] items-center gap-3 border-b border-[#eadfe4] px-3 text-left transition-colors last:border-b-0 hover:bg-white sm:px-5"
                       >
-                        <span className="w-10 shrink-0 font-bold text-gray-700">{fmtDateLabel(ev.date)}</span>
+                        <span className="font-black text-[#f43679]">{fmtDateLabel(ev.date)}</span>
                         <span className="min-w-0 flex-1">
-                          <span className="block truncate text-gray-600">{ev.venue}</span>
+                          <span className="block truncate text-[13px] font-black text-[#1c171b]">{ev.venue}</span>
                           <span className="mt-0.5 flex items-center gap-1">
-                            <span className="truncate text-[10px] text-gray-400">{tourName}</span>
+                            <span className="truncate text-[10px] font-bold text-[#817981]">{tourName}</span>
                             {isTestData && (
-                              <span className="shrink-0 rounded bg-gray-200 px-1 py-0.5 text-[8px] font-bold leading-none text-gray-500">
+                              <span className="shrink-0 bg-[#e6e0e4] px-1.5 py-0.5 text-[8px] font-bold leading-none text-[#746c73]">
                                 テストデータ
                               </span>
                             )}
                           </span>
                         </span>
+                        <ArrowUpRight size={17} className="text-[#817981] transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                       </button>
                     );
                   })}

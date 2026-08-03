@@ -33,6 +33,8 @@ import { BottomNav } from "@/components/common/BottomNav";
 import type { TopPrediction } from "@/components/artist-page/SeatPredictionPreviewSection";
 import FavoriteArtistButton from "@/components/auth/FavoriteArtistButton";
 import SeoEditorialSection from "@/components/seo/SeoEditorialSection";
+import ArtistActionHub from "@/components/artist-page/ArtistActionHub";
+import ArtistBoardPreview from "@/components/artist-page/ArtistBoardPreview";
 import { fetchVisiblePostAuthors, type PostAuthor } from "@/lib/postAuthors";
 import { getArtistSeoProfile } from "@/lib/seoProfiles";
 
@@ -459,35 +461,28 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
         </div>
       ) : (
         <div className="pb-24">
-          {/* 現在の公演 / 過去の公演 タブ */}
-          <div className="sticky top-0 z-30 border-b border-[#ded8dc] bg-white/94 backdrop-blur-xl">
-            <div className="zr-container flex min-h-14 items-center">
-            <button
-              type="button"
-              onClick={() => setActiveEventTab("current")}
-              className={`zr-focus min-h-14 flex-1 border-b-2 px-2 text-center text-[13px] font-bold transition-colors ${
-                activeEventTab === "current"
-                  ? "border-[#f43679] text-[#f43679]"
-                  : "border-transparent text-[#8d858c]"
-              }`}
-            >
-              現在の公演
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveEventTab("past")}
-              className={`zr-focus min-h-14 flex-1 border-b-2 px-2 text-center text-[13px] font-bold transition-colors ${
-                activeEventTab === "past"
-                  ? "border-[#f43679] text-[#f43679]"
-                  : "border-transparent text-[#8d858c]"
-              }`}
-            >
-              過去の公演
-            </button>
-            <div className="flex items-center border-l border-[#ded8dc] pl-2">
-              <FavoriteArtistButton artistSlug={slug} />
-            </div>
-            </div>
+          <div className="zr-container">
+            <ArtistActionHub artistName={artist.name} />
+
+            <section className="border-b border-[#ded8dc] py-5" aria-label="公演の表示切り替え">
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setActiveEventTab("current")}
+                  className={`zr-focus min-h-11 flex-1 border px-3 text-[12px] font-black transition-colors ${activeEventTab === "current" ? "border-[#1c171b] bg-[#1c171b] text-white" : "border-[#ded8dc] bg-transparent text-[#746c73]"}`}
+                >
+                  これからの公演
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveEventTab("past")}
+                  className={`zr-focus min-h-11 flex-1 border px-3 text-[12px] font-black transition-colors ${activeEventTab === "past" ? "border-[#1c171b] bg-[#1c171b] text-white" : "border-[#ded8dc] bg-transparent text-[#746c73]"}`}
+                >
+                  過去の公演
+                </button>
+                <FavoriteArtistButton artistSlug={slug} />
+              </div>
+            </section>
           </div>
 
           {activeEventTab === "current" ? (
@@ -495,7 +490,7 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
               <UpcomingEventsSection artistName={artist.name} events={upcomingEvents} />
 
               {/* ===== 座席データ区画: 全公演の傾向カード + 座席報告タイムライン ===== */}
-              <div id="trend">
+              <div id="ticket-data">
                 <section className="artist-section">
                   <p className="artist-kicker">Ticket & Seat Data</p>
                   <h2 className="artist-heading">当落・座席データ</h2>
@@ -518,7 +513,7 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
               </div>
 
               {/* ===== マップ・座席予想区画: 会場選択 + みんなの座席報告マップ + 予想図 + 詳細導線 ===== */}
-              <div id="map">
+              <div>
                 <SeatPredictionPreviewSection
                   venues={venueChips}
                   activeVenue={mapActiveVenue}
@@ -540,6 +535,8 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
               >
                 <LiveEffectsSection liveEffects={liveEffects} />
               </ReportSection>
+
+              <ArtistBoardPreview artistName={artist.name} />
             </div>
           ) : (
             <div className="zr-container py-8"><PastTourSection
