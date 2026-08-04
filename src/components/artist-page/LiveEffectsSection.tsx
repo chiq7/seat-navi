@@ -1,13 +1,15 @@
+import Image from "next/image";
+
 type Props = {
   liveEffects: Record<string, boolean>;
 };
 
-const EFFECT_DEFS: { key: string; label: string }[] = [
-  { key: "center-stage", label: "センステ" },
-  { key: "trolley", label: "トロッコ" },
-  { key: "aisle-walk", label: "客降り" },
-  { key: "silver-tape", label: "銀テープ" },
-  { key: "fanservice", label: "ファンサ" },
+const EFFECT_DEFS: { key: string; label: string; activeIcon: string; inactiveIcon: string }[] = [
+  { key: "center-stage", label: "センステ", activeIcon: "/images/reports/ive-effects/center-stage-active.png", inactiveIcon: "/images/reports/ive-effects/center-stage-inactive.png" },
+  { key: "trolley", label: "トロッコ", activeIcon: "/images/reports/ive-effects/trolley-active.png", inactiveIcon: "/images/reports/ive-effects/trolley-inactive.png" },
+  { key: "aisle-walk", label: "客降り", activeIcon: "/images/reports/ive-effects/aisle-walk-active.png", inactiveIcon: "/images/reports/ive-effects/aisle-walk-inactive.png" },
+  { key: "silver-tape", label: "銀テープ", activeIcon: "/images/reports/ive-effects/silver-tape-active.png", inactiveIcon: "/images/reports/ive-effects/silver-tape-inactive.png" },
+  { key: "fanservice", label: "ファンサ", activeIcon: "/images/reports/ive-effects/fanservice-active.png", inactiveIcon: "/images/reports/ive-effects/fanservice-inactive.png" },
 ];
 
 export default function LiveEffectsSection({ liveEffects }: Props) {
@@ -24,12 +26,9 @@ export default function LiveEffectsSection({ liveEffects }: Props) {
         {EFFECT_DEFS.map((effect) => {
           const active = liveEffects[effect.key] ?? false;
           return (
-            <div key={effect.key} className={`flex min-h-[62px] min-w-0 flex-col justify-between border-r border-[#ded8dc] px-1.5 py-2 sm:px-3 ${active ? "bg-[#fff0f5]" : "bg-white"}`}>
-              <span className="text-[9px] font-black tracking-[0.16em] text-[#958d93]">{String(EFFECT_DEFS.indexOf(effect) + 1).padStart(2, "0")}</span>
-              <div className="mt-2 flex items-end justify-between gap-0.5">
-                <span className="min-w-0 truncate whitespace-nowrap text-[10px] font-black tracking-[-0.03em] text-[#1c171b] sm:text-[13px]">{effect.label}</span>
-                <span className={`text-[9px] font-black tracking-[0.08em] ${active ? "text-[#f43679]" : "text-[#aaa2a8]"}`}>{active ? "あり" : "なし"}</span>
-              </div>
+            <div key={effect.key} className={`flex min-h-[62px] min-w-0 flex-col items-center justify-center gap-1.5 border-r border-[#ded8dc] px-1 py-2 ${active ? "bg-[#fff0f5]" : "bg-white"}`}>
+              <Image src={active ? effect.activeIcon : effect.inactiveIcon} alt="" width={26} height={26} className="h-[26px] w-[26px] object-contain" />
+              <span className={`min-w-0 truncate whitespace-nowrap text-[10px] font-black tracking-[-0.03em] sm:text-[12px] ${active ? "text-[#f43679]" : "text-[#958d93]"}`}>{effect.label}</span>
             </div>
           );
         })}
