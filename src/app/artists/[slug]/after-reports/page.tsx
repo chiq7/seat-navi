@@ -355,7 +355,7 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
             <p className="mt-4 text-[18px] font-black">この条件の現地レポはまだありません</p>
             <p className="mt-2 text-[12px] font-medium text-[#817981]">座席からの見え方を、次のファンへ残しませんか。</p>
             <Link
-              href={nextEvent ? `/report?event=${nextEvent.id}` : `/report?artist=${slug}`}
+              href={nextEvent ? `/report/live?event=${nextEvent.id}` : "/report/live"}
               className="zr-focus mt-6 inline-flex min-h-12 items-center gap-2 bg-[#f43679] px-6 text-[13px] font-black text-white"
             >
               <SquarePen size={17} />現地レポを投稿する
@@ -432,7 +432,7 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
 
       {!loading && filteredReports.length > 0 && (
         <Link
-          href={nextEvent ? `/report?event=${nextEvent.id}` : `/report?artist=${slug}`}
+          href={nextEvent ? `/report/live?event=${nextEvent.id}` : "/report/live"}
           className="zr-focus fixed bottom-[82px] right-4 z-40 flex h-14 items-center gap-2 bg-[#f43679] px-5 text-[12px] font-black text-white shadow-[0_14px_35px_rgba(150,16,66,.28)] md:bottom-24 md:right-8"
         >
           <SquarePen size={18} />投稿する
