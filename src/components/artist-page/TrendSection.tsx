@@ -25,19 +25,19 @@ function MetricGroup({ group, accent = false }: { group: MetricGroupData; accent
   const Icon = group.icon;
 
   return (
-    <section className="border-b border-r border-[#ded8dc] bg-white p-4 sm:p-5">
+    <section className="border-b border-r border-[#ded8dc] bg-white p-3 sm:p-4">
       <div className="flex items-center gap-2">
-        <Icon size={18} strokeWidth={1.8} className={accent ? "text-[#f43679]" : "text-[#625a61]"} />
-        <h3 className="text-[13px] font-black text-[#1c171b]">{group.label}</h3>
+        <Icon size={16} strokeWidth={1.8} className={accent ? "text-[#f43679]" : "text-[#625a61]"} />
+        <h3 className="text-[12px] font-black text-[#1c171b]">{group.label}</h3>
       </div>
       <div
-        className="mt-4 grid border-l border-t border-[#eee8ec]"
+        className="mt-3 grid border-l border-t border-[#eee8ec]"
         style={{ gridTemplateColumns: `repeat(${group.metrics.length}, minmax(0, 1fr))` }}
       >
         {group.metrics.map((metric) => (
-          <div key={metric.label} className="min-w-0 border-b border-r border-[#eee8ec] px-1.5 py-2 text-center sm:px-2">
+          <div key={metric.label} className="min-w-0 border-b border-r border-[#eee8ec] px-0.5 py-1.5 text-center sm:px-2 sm:py-2">
             <p className="truncate text-[9px] font-bold leading-4 text-[#817981]">{metric.label}</p>
-            <p className={`mt-1 text-[14px] font-black tracking-[-0.02em] ${metric.value === "--" ? "text-[#aaa2a8]" : accent ? "text-[#f43679]" : "text-[#1c171b]"}`}>
+            <p className={`mt-0.5 text-[13px] font-black tracking-[-0.02em] sm:text-[14px] ${metric.value === "--" ? "text-[#aaa2a8]" : accent ? "text-[#f43679]" : "text-[#1c171b]"}`}>
               {metric.value}
             </p>
           </div>
@@ -49,7 +49,7 @@ function MetricGroup({ group, accent = false }: { group: MetricGroupData; accent
 
 function DataGrid({ groups, accent = false }: { groups: MetricGroupData[]; accent?: boolean }) {
   return (
-    <div className="grid border-l border-t border-[#ded8dc] sm:grid-cols-2">
+    <div className="grid grid-cols-2 border-l border-t border-[#ded8dc]">
       {groups.map((group) => <MetricGroup key={group.label} group={group} accent={accent} />)}
     </div>
   );
@@ -161,7 +161,7 @@ export default function TrendSection({ ticketStats, arenaStats, upgradeStats, ti
 
   return (
     <section className="overflow-hidden border border-[#282127] bg-white" aria-label={`${title}の当落・座席データ`}>
-      <header className="bg-[#1c171b] px-5 py-5 text-white sm:px-6">
+      <header className="bg-[#1c171b] px-5 py-4 text-white sm:px-6">
         <p className="text-[10px] font-black tracking-[0.22em] text-[#ff5b96]">TICKET ANALYTICS</p>
         <div className="mt-2 flex items-end justify-between gap-4">
           <h2 className="text-[23px] font-black tracking-[-0.045em]">{title}の当落傾向</h2>
@@ -169,7 +169,7 @@ export default function TrendSection({ ticketStats, arenaStats, upgradeStats, ti
         </div>
       </header>
 
-      <div className="p-4 sm:p-6">
+      <div className="p-3 sm:p-5">
         <DataGrid groups={ticketGroups} />
       </div>
 
@@ -179,7 +179,7 @@ export default function TrendSection({ ticketStats, arenaStats, upgradeStats, ti
           aria-expanded={isArenaRateOpen}
           aria-controls="arena-rate-details"
           onClick={() => setIsArenaRateOpen((open) => !open)}
-          className="zr-focus flex min-h-[78px] w-full items-end justify-between gap-4 px-5 py-5 text-left sm:px-6"
+          className="zr-focus flex min-h-[70px] w-full items-end justify-between gap-4 px-5 py-4 text-left sm:px-6"
         >
           <div>
             <p className="text-[10px] font-black tracking-[0.2em] text-[#f43679]">SEAT RATE</p>
@@ -207,7 +207,7 @@ export default function TrendSection({ ticketStats, arenaStats, upgradeStats, ti
             アプグレ
           </button>
           </div>
-          <div className="p-4 sm:p-6">
+          <div className="p-3 sm:p-5">
             <DataGrid groups={arenaGroups} accent />
           </div>
         </div>}

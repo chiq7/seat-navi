@@ -268,7 +268,7 @@ function LiveReportDetailPageInner() {
   ].filter((m) => (m.kind === "gauge" ? m.raw !== null : m.value !== null));
 
   return (
-    <div className="min-h-screen bg-[#f7f5f6] pb-32 font-sans text-[#1c171b]">
+    <div className="min-h-screen bg-[#f7f5f6] pb-20 font-sans text-[#1c171b]">
       <section className="bg-[#0d090d] text-white">
         <header className="zr-container flex h-16 items-center justify-between">
           <Link href={backHref} aria-label="現地レポ一覧へ戻る" className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/8"><ChevronLeft size={26} /></Link>

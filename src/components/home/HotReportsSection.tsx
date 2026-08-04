@@ -27,7 +27,7 @@ export default function HotReportsSection({ events, title, favoriteUserId, favor
         title={title}
       />
       {events.length > 0 ? (
-        <div className="grid border-t border-[#d8d1d6] sm:grid-cols-2 lg:grid-cols-5">
+        <div className="grid grid-cols-2 border-l border-t border-[#d8d1d6] [&>*:last-child:nth-child(odd)]:col-span-2 lg:grid-cols-5 lg:[&>*:last-child:nth-child(odd)]:col-span-1">
           {events.map((item, index) => (
             <UpcomingEventCard
               key={item.id}
@@ -41,7 +41,7 @@ export default function HotReportsSection({ events, title, favoriteUserId, favor
           ))}
         </div>
       ) : (
-        <div className="border-y border-[#d8d1d6] py-12 text-center">
+        <div className="border-y border-[#d8d1d6] py-8 text-center">
           <p className="text-[13px] text-gray-400">まだデータがありません</p>
         </div>
       )}

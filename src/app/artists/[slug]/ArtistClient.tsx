@@ -460,7 +460,7 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
           <div className="h-6 w-6 animate-spin rounded-full border-2 border-[#FF6B9D] border-t-transparent" />
         </div>
       ) : (
-        <div className="pb-24">
+        <div className="pb-20">
           <div className="zr-container">
             <ArtistActionHub artistName={artist.name} />
 
@@ -494,7 +494,7 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
                 <section className="artist-section">
                   <p className="artist-kicker">Ticket & Seat Data</p>
                   <h2 className="artist-heading">当落・座席データ</h2>
-                  <div className="mt-8 grid gap-6 lg:grid-cols-[1.25fr_.75fr]">
+                  <div className="mt-6 grid gap-4 lg:grid-cols-[1.25fr_.75fr]">
                     <TrendSection
                       ticketStats={trendTicketStats}
                       arenaStats={trendArenaStats}

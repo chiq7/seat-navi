@@ -214,7 +214,7 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
   }
 
   return (
-    <main className="min-h-screen bg-[#f7f5f6] pb-24 font-sans text-[#1c171b]">
+    <main className="min-h-screen bg-[#f7f5f6] pb-20 font-sans text-[#1c171b]">
       <section className="relative min-h-[356px] overflow-hidden bg-[#0d090d] text-white sm:min-h-[410px]">
         <Image
           src={heroImageSrc}

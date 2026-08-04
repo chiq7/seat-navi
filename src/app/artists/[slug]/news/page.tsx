@@ -58,7 +58,7 @@ export default function ArtistNewsPage({ params }: { params: Promise<{ slug: str
   }
 
   return (
-    <main className="min-h-screen bg-[#f7f5f6] pb-24 font-sans text-[#1c171b]">
+    <main className="min-h-screen bg-[#f7f5f6] pb-20 font-sans text-[#1c171b]">
       <section className="bg-[#0d090d] text-white">
         <header className="zr-container flex h-16 items-center justify-between">
           <Link href={`/artists/${slug}`} aria-label={`${artist.name}へ戻る`} className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/8">

@@ -16,7 +16,7 @@ export default function RealtimeFeedItem({ item }: { item: HomeFeedItem }) {
   return (
     <Link
       href={item.href}
-      className="group flex min-h-[150px] min-w-0 flex-col gap-4 overflow-hidden border-b border-white/14 py-6 no-underline transition-colors hover:bg-white/[0.035] md:px-6 md:even:border-l"
+      className="group flex min-h-[126px] min-w-0 flex-col gap-3 overflow-hidden border-b border-white/14 py-4 no-underline transition-colors hover:bg-white/[0.035] md:px-6 md:even:border-l"
     >
       <div className="flex min-w-0 items-center gap-1.5">
         <span

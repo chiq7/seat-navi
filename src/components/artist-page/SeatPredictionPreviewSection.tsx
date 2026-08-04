@@ -53,14 +53,14 @@ export default function SeatPredictionPreviewSection({
     <section className="artist-section" id="seat-map">
       <p className="artist-kicker">Seat Map & Prediction</p>
       <h2 className="artist-heading">会場の座席表から、<br />みんなの予想まで。</h2>
-      <p className="mt-4 max-w-2xl text-[12px] font-medium leading-6 text-[#817981]">
+      <p className="mt-3 max-w-2xl text-[12px] font-medium leading-6 text-[#817981]">
         公演会場を選ぶと、集まった座席報告を抽選回・FC歴・支払い方法・アップグレード別に確認できます。
       </p>
 
-      <div className="mt-8 min-w-0">
+      <div className="mt-6 min-w-0">
         {mapEvent && venues.length > 0 && (
           <div className="border-y border-[#282127] bg-white">
-            <div className="flex items-center gap-2 px-3 py-3 sm:px-5">
+            <div className="flex items-center gap-2 px-3 py-2.5 sm:px-5">
               <MapPinned size={17} className="shrink-0 text-[#f43679]" />
               <p className="text-[10px] font-black tracking-[0.12em] text-[#817981]">会場を選択</p>
             </div>
@@ -71,7 +71,7 @@ export default function SeatPredictionPreviewSection({
                   type="button"
                   onClick={() => onSelectVenue?.(venue)}
                   aria-pressed={venue === activeVenue}
-                  className={`zr-focus min-h-[66px] min-w-[152px] shrink-0 border-r border-[#ded8dc] px-4 py-3 text-left transition-colors ${
+                  className={`zr-focus min-h-[58px] min-w-[152px] shrink-0 border-r border-[#ded8dc] px-4 py-2 text-left transition-colors ${
                     venue === activeVenue
                       ? "bg-[#1c171b] text-white"
                       : "bg-white text-[#5d555b] hover:bg-[#fff3f7]"
@@ -88,13 +88,13 @@ export default function SeatPredictionPreviewSection({
         )}
 
         {mapEvent && (
-          <div className="mt-4">
+          <div className="mt-3">
             <MapPreviewSection mapEvent={mapEvent} />
           </div>
         )}
 
-        <div className="mt-4 border border-[#282127] bg-[#fff8fa] p-4 sm:p-6">
-          <div className="mb-4 flex items-end justify-between gap-3">
+        <div className="mt-3 border border-[#282127] bg-[#fff8fa] p-3 sm:p-5">
+          <div className="mb-3 flex items-end justify-between gap-3">
             <div>
               <p className="text-[9px] font-black tracking-[0.18em] text-[#f43679]">FAN PREDICTION</p>
               <h3 className="mt-1 text-[20px] font-black tracking-[-0.04em] text-[#1c171b]">ファンの有力予想</h3>
@@ -116,14 +116,14 @@ export default function SeatPredictionPreviewSection({
               author={topPrediction.author}
             />
           ) : (
-            <div className="border border-dashed border-[#cfc6cc] bg-white px-5 py-10 text-center">
+            <div className="border border-dashed border-[#cfc6cc] bg-white px-5 py-6 text-center">
               <PenLine size={27} className="mx-auto text-[#f43679]" />
               <p className="mt-3 text-[15px] font-black text-[#1c171b]">まだ予想図がありません</p>
               <p className="mt-1 text-[11px] font-medium text-[#817981]">最初の予想を投稿して、会場の座席表を完成させよう。</p>
               {!mapEvent && emptyPostHref && (
                 <Link
                   href={emptyPostHref}
-                  className="zr-focus mt-5 inline-flex min-h-11 items-center gap-2 bg-[#f43679] px-5 text-[12px] font-black text-white"
+                  className="zr-focus mt-4 inline-flex min-h-11 items-center gap-2 bg-[#f43679] px-5 text-[12px] font-black text-white"
                 >
                   予想図を投稿する<ArrowRight size={16} />
                 </Link>
@@ -134,7 +134,7 @@ export default function SeatPredictionPreviewSection({
 
         {mapEvent && detailHref && (
           <div className="border-b border-x border-[#282127] bg-white">
-            <Link href={detailHref} className="zr-focus group flex min-h-14 items-center justify-between px-5 text-[12px] font-black text-[#1c171b]">
+            <Link href={detailHref} className="zr-focus group flex min-h-12 items-center justify-between px-5 text-[12px] font-black text-[#1c171b]">
               <span>すべての予想図を見る</span>
               <ArrowRight size={17} className="text-[#f43679] transition-transform group-hover:translate-x-1" />
             </Link>

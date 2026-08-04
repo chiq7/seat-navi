@@ -38,7 +38,7 @@ function ReportChoiceLink({ choice, eventId, index }: { choice: ReportChoice; ev
         <p className={`mt-2 min-h-[40px] text-[11px] font-bold leading-5 ${choice.tone === "dark" || choice.tone === "pink" ? "text-white/62" : "text-[#817981]"}`}>
           {choice.description}
         </p>
-        <p className={`mt-5 flex items-center gap-2 text-[10px] font-black ${choice.href ? (choice.tone === "dark" || choice.tone === "pink" ? "text-white" : "text-[#f43679]") : "text-[#aaa2a8]"}`}>
+        <p className={`mt-3 flex items-center gap-2 text-[10px] font-black ${choice.href ? (choice.tone === "dark" || choice.tone === "pink" ? "text-white" : "text-[#f43679]") : "text-[#aaa2a8]"}`}>
           {choice.href ? choice.meta : "先に公演を選択してください"}
           {choice.href && <MoveRight size={16} className="transition-transform group-hover:translate-x-1" />}
         </p>
@@ -46,7 +46,7 @@ function ReportChoiceLink({ choice, eventId, index }: { choice: ReportChoice; ev
     </>
   );
 
-  const className = `group flex min-h-[230px] flex-col justify-between border-b border-r border-[#ded8dc] p-5 sm:p-7 ${
+  const className = `group flex min-h-[190px] flex-col justify-between border-b border-r border-[#ded8dc] p-4 sm:p-6 ${
     choice.tone === "dark"
       ? "bg-[#1c171b]"
       : choice.tone === "pink"
@@ -114,14 +114,14 @@ export function ReportEventSelector({ selectedEvent, artistSlug }: Props) {
   ];
 
   return (
-    <section className="zr-container py-10 sm:py-14" aria-labelledby="report-choice-title">
+    <section className="zr-container py-8 sm:py-10" aria-labelledby="report-choice-title">
       <p className="artist-kicker">Share Your Live</p>
       <h2 id="report-choice-title" className="artist-heading">何をレポートする？</h2>
       <p className="mt-3 text-[12px] font-medium leading-6 text-[#817981]">
         選んだ公演の当落、座席表、会場の様子を投稿できます。
       </p>
 
-      <div className="mt-8 grid border-l border-t border-[#ded8dc] sm:grid-cols-2">
+      <div className="mt-6 grid grid-cols-2 border-l border-t border-[#ded8dc]">
         {choices.map((choice, index) => (
           <ReportChoiceLink
             key={choice.type}

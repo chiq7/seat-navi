@@ -57,7 +57,7 @@ export function ReportTimelineList({
             <div key={report.id} className="border-b border-[#ded8dc] last:border-b-0">
             <Link
               href={`/report/live/detail?reportId=${report.id}`}
-              className="zr-focus flex min-h-[112px] items-stretch gap-3 bg-white px-4 py-3 no-underline transition-colors hover:bg-[#fff0f5]"
+              className="zr-focus flex min-h-[96px] items-stretch gap-3 bg-white px-4 py-2.5 no-underline transition-colors hover:bg-[#fff0f5]"
             >
               <div className="self-center">
                 <ReportThumb index={index} photoUrl={photoUrl} />
@@ -109,13 +109,13 @@ export function ReportTimelineList({
           );
         })
       ) : (
-        <div className="bg-[#1c171b] px-5 py-8 text-center text-white sm:px-8 sm:py-10">
+        <div className="bg-[#1c171b] px-5 py-6 text-center text-white sm:px-8 sm:py-8">
           <p className="text-[10px] font-black tracking-[0.2em] text-[#ff5b96]">NO REPORTS YET</p>
-          <p className="mt-3 text-[16px] font-black tracking-[-0.03em]">{emptyText}</p>
+          <p className="mt-2 text-[16px] font-black tracking-[-0.03em]">{emptyText}</p>
           {reportHref && (
             <Link
               href={reportHref}
-              className="zr-focus mt-5 inline-flex min-h-11 items-center border border-white/35 px-4 text-[11px] font-black text-white transition-colors hover:bg-white hover:text-[#1c171b]"
+              className="zr-focus mt-4 inline-flex min-h-11 items-center border border-white/35 px-4 text-[11px] font-black text-white transition-colors hover:bg-white hover:text-[#1c171b]"
             >
               最初の現地レポを投稿する
             </Link>
@@ -133,9 +133,9 @@ export default function ReportSection({ reports, afterHref, reportHref, children
     <section className="artist-section" id="reports">
       <p className="artist-kicker">Live Reports</p>
       <h2 className="artist-heading">現地レポ</h2>
-      <div className="mt-8 border border-[#282127] bg-[#fff8fa]">
-        {children && <div className="p-5 sm:p-7">{children}</div>}
-        <div className="flex items-end justify-between gap-4 border-t border-[#282127] bg-white px-5 py-4 sm:px-7">
+      <div className="mt-6 border border-[#282127] bg-[#fff8fa]">
+        {children && <div className="p-4 sm:p-5">{children}</div>}
+        <div className="flex items-end justify-between gap-4 border-t border-[#282127] bg-white px-5 py-3 sm:px-7">
           <div>
             <p className="text-[10px] font-black tracking-[0.2em] text-[#f43679]">RECENT VOICES</p>
             <h3 className="mt-1 text-[17px] font-black tracking-[-0.03em] text-[#1c171b]">現地レポタイムライン</h3>

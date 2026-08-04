@@ -127,9 +127,9 @@ function BoardComposer({ artistSlug, artistName, parentId, compact = false, onCa
   }
 
   return (
-    <form onSubmit={submit} className={compact ? "border-l-2 border-[#f43679] pl-4 pt-4" : "bg-white p-5 sm:p-7"}>
+    <form onSubmit={submit} className={compact ? "border-l-2 border-[#f43679] pl-4 pt-3" : "bg-white p-4 sm:p-5"}>
       {!compact && (
-        <div className="mb-5 flex items-center justify-between gap-3">
+        <div className="mb-4 flex items-center justify-between gap-3">
           <div>
             <p className="text-[10px] font-black tracking-[0.18em] text-[#f43679]">WRITE A MESSAGE</p>
             <h3 className="mt-1 text-[20px] font-black tracking-[-0.03em] text-[#1c171b]">{artistName}について話す</h3>
@@ -145,29 +145,29 @@ function BoardComposer({ artistSlug, artistName, parentId, compact = false, onCa
           onChange={(event) => setDisplayName(event.target.value.slice(0, 24))}
           maxLength={24}
           placeholder="匿名ファン"
-          className="zr-focus mt-2 min-h-11 w-full border border-[#ded8dc] bg-white px-3 text-[13px] font-bold text-[#1c171b] placeholder:text-[#aaa2a8]"
+          className="zr-focus mt-1.5 min-h-11 w-full border border-[#ded8dc] bg-white px-3 text-[13px] font-bold text-[#1c171b] placeholder:text-[#aaa2a8]"
         />
       </label>
-      <label className="mt-4 block text-[10px] font-black tracking-[0.12em] text-[#817981]">
+      <label className="mt-3 block text-[10px] font-black tracking-[0.12em] text-[#817981]">
         Xアカウント（任意）
         <input
           value={xHandle}
           onChange={(event) => setXHandle(event.target.value.slice(0, 16))}
           maxLength={16}
           placeholder="@fanname"
-          className="zr-focus mt-2 min-h-11 w-full border border-[#ded8dc] bg-white px-3 text-[13px] font-bold text-[#1c171b] placeholder:text-[#aaa2a8]"
+          className="zr-focus mt-1.5 min-h-11 w-full border border-[#ded8dc] bg-white px-3 text-[13px] font-bold text-[#1c171b] placeholder:text-[#aaa2a8]"
         />
       </label>
-      <label className="mt-4 block text-[10px] font-black tracking-[0.12em] text-[#817981]">
+      <label className="mt-3 block text-[10px] font-black tracking-[0.12em] text-[#817981]">
         {compact ? "返信" : "メッセージ"}
         <textarea
           value={body}
           onChange={(event) => setBody(event.target.value.slice(0, 500))}
           maxLength={500}
           required
-          rows={compact ? 3 : 5}
+          rows={compact ? 3 : 4}
           placeholder={compact ? "この投稿に返信する" : "今日のライブ、座席からの景色、好きな曲など"}
-          className="zr-focus mt-2 w-full resize-y border border-[#ded8dc] bg-white px-3 py-3 text-[14px] font-medium leading-6 text-[#1c171b] placeholder:text-[#aaa2a8]"
+          className="zr-focus mt-1.5 w-full resize-y border border-[#ded8dc] bg-white px-3 py-2.5 text-[14px] font-medium leading-6 text-[#1c171b] placeholder:text-[#aaa2a8]"
         />
       </label>
 
@@ -197,7 +197,7 @@ function BoardComposer({ artistSlug, artistName, parentId, compact = false, onCa
         onChange={selectFiles}
         className="sr-only"
       />
-      <div className="mt-4 flex flex-wrap items-center gap-2">
+      <div className="mt-3 flex flex-wrap items-center gap-2">
         <button
           type="button"
           onClick={() => inputRef.current?.click()}
@@ -209,7 +209,7 @@ function BoardComposer({ artistSlug, artistName, parentId, compact = false, onCa
         <span className="text-[10px] font-bold text-[#817981]">JPEG・PNG・WebP / 1枚4MBまで</span>
       </div>
 
-      <div className="mt-4 flex items-center justify-between gap-3">
+      <div className="mt-3 flex items-center justify-between gap-3">
         <p className="text-[10px] font-bold text-[#817981]" aria-live="polite">{message || `${body.length} / 500`}</p>
         <div className="flex gap-2">
           {onCancel && (
@@ -269,7 +269,7 @@ export default function ArtistFanBoard({ artistSlug, artistName }: BoardProps) {
     <div className="border-x border-b border-[#282127] bg-[#fff8fa]">
       <BoardComposer artistSlug={artistSlug} artistName={artistName} onPosted={loadPosts} />
 
-      <div className="border-t border-[#282127] px-4 py-5 sm:px-7">
+      <div className="border-t border-[#282127] px-4 py-4 sm:px-6">
         <div className="flex items-end justify-between gap-3">
           <div>
             <p className="text-[10px] font-black tracking-[0.18em] text-[#f43679]">LATEST TALK</p>
@@ -280,24 +280,24 @@ export default function ArtistFanBoard({ artistSlug, artistName }: BoardProps) {
         {notice && <p className="mt-3 text-[11px] font-bold text-[#f43679]" aria-live="polite">{notice}</p>}
 
         {loading ? (
-          <div className="mt-6 space-y-3" aria-label="掲示板を読み込み中">
+          <div className="mt-4 space-y-3" aria-label="掲示板を読み込み中">
             {[0, 1].map((item) => <div key={item} className="h-28 animate-pulse bg-[#ece6ea]" />)}
           </div>
         ) : error ? (
-          <div className="mt-6 border border-[#ded8dc] bg-white p-5 text-center">
+          <div className="mt-4 border border-[#ded8dc] bg-white p-4 text-center">
             <p className="text-[12px] font-bold text-[#817981]">{error}</p>
             <button type="button" onClick={() => void loadPosts()} className="zr-focus mt-3 min-h-11 px-4 text-[12px] font-black text-[#f43679]">もう一度読み込む</button>
           </div>
         ) : posts.length === 0 ? (
-          <div className="mt-6 border border-dashed border-[#cfc6cc] bg-white px-5 py-10 text-center">
+          <div className="mt-4 border border-dashed border-[#cfc6cc] bg-white px-5 py-6 text-center">
             <Camera size={26} className="mx-auto text-[#f43679]" aria-hidden="true" />
             <p className="mt-3 text-[14px] font-black text-[#1c171b]">最初の書き込みをしよう</p>
             <p className="mt-1 text-[11px] font-medium text-[#817981]">ライブのひとことや会場写真を気軽にどうぞ。</p>
           </div>
         ) : (
-          <div className="mt-6 divide-y divide-[#ded8dc] border-y border-[#282127]">
+          <div className="mt-4 divide-y divide-[#ded8dc] border-y border-[#282127]">
             {posts.map((post) => (
-              <article key={post.id} className="bg-white py-5">
+              <article key={post.id} className="bg-white py-4">
                 <div className="px-4 sm:px-5">
                   <div className="flex items-start justify-between gap-3">
                     <div>
@@ -309,12 +309,12 @@ export default function ArtistFanBoard({ artistSlug, artistName }: BoardProps) {
                       <Flag size={13} />通報
                     </button>
                   </div>
-                  <p className="mt-4 whitespace-pre-wrap break-words text-[14px] font-medium leading-7 text-[#292328]">{post.body}</p>
+                  <p className="mt-3 whitespace-pre-wrap break-words text-[14px] font-medium leading-6 text-[#292328]">{post.body}</p>
                   <PostPhotos post={post} />
                   <button
                     type="button"
                     onClick={() => setReplyingTo((current) => current === post.id ? null : post.id)}
-                    className="zr-focus mt-4 inline-flex min-h-10 items-center gap-2 text-[11px] font-black text-[#f43679]"
+                    className="zr-focus mt-3 inline-flex min-h-10 items-center gap-2 text-[11px] font-black text-[#f43679]"
                   >
                     <MessageCircle size={15} />返信する {post.replies.length > 0 ? `(${post.replies.length})` : ""}
                   </button>
@@ -331,7 +331,7 @@ export default function ArtistFanBoard({ artistSlug, artistName }: BoardProps) {
                 </div>
 
                 {post.replies.length > 0 && (
-                  <div className="ml-7 mt-5 border-l border-[#f3a3bf] bg-[#fff7fa] px-4 py-1 sm:ml-12 sm:px-5">
+                  <div className="ml-7 mt-3 border-l border-[#f3a3bf] bg-[#fff7fa] px-4 py-1 sm:ml-12 sm:px-5">
                     {post.replies.map((reply) => (
                       <div key={reply.id} className="border-b border-[#eadfe4] py-4 last:border-b-0">
                         <div className="flex items-start justify-between gap-2">

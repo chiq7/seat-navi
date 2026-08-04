@@ -287,7 +287,7 @@ export function EventDetailClient({
 
   return (
     <div className="min-h-screen bg-[#f7f5f6] text-[#1c171b]">
-      <main className="pb-32">
+      <main className="pb-20">
         {loading ? (
           <div className="zr-container space-y-5 py-8">
             <div className="h-[270px] animate-pulse bg-[#211b20]" />
@@ -314,7 +314,7 @@ export function EventDetailClient({
                 </div>
               </header>
 
-              <div className="zr-container pb-9 pt-5 sm:pb-12 sm:pt-9">
+              <div className="zr-container pb-7 pt-4 sm:pb-9 sm:pt-7">
                 <p className="text-[10px] font-black tracking-[0.24em] text-[#ff5b96]">VENUE SEAT GUIDE</p>
                 <h1 className="mt-3 max-w-[850px] text-[36px] font-black leading-[1.08] tracking-[-0.055em] sm:text-[58px] lg:text-[72px]">
                   会場の座席表と、<br />みんなのアリーナ予想。
@@ -342,7 +342,7 @@ export function EventDetailClient({
               </div>
             </section>
 
-            <section className="zr-container border-b border-[#ded8dc] py-7" aria-labelledby="event-picker-title">
+            <section className="zr-container border-b border-[#ded8dc] py-5" aria-labelledby="event-picker-title">
               <div className="flex items-end justify-between gap-4">
                 <div>
                   <p className="artist-kicker">Select Live Date</p>
@@ -350,7 +350,7 @@ export function EventDetailClient({
                 </div>
                 <p className="shrink-0 text-[10px] font-black text-[#817981]">{allRelatedEvents.length} DATES</p>
               </div>
-              <div className="mt-5">
+              <div className="mt-4">
                 <EventCarouselPicker
                   events={allRelatedEvents}
                   selectedEventId={eventId}
@@ -368,9 +368,9 @@ export function EventDetailClient({
               )}
             </section>
 
-            <section className="bg-white py-12 sm:py-16" aria-labelledby="seat-map-title">
+            <section className="bg-white py-8 sm:py-10" aria-labelledby="seat-map-title">
               <div className="zr-container">
-                <div className="flex flex-col gap-5 border-b border-[#ded8dc] pb-6 sm:flex-row sm:items-end sm:justify-between">
+                <div className="flex flex-col gap-4 border-b border-[#ded8dc] pb-4 sm:flex-row sm:items-end sm:justify-between">
                   <div>
                     <p className="artist-kicker">Live Seat Map</p>
                     <h2 id="seat-map-title" className="artist-heading">みんなの座席報告マップ</h2>
@@ -390,7 +390,7 @@ export function EventDetailClient({
                       type="button"
                       onClick={() => setColorMode(value)}
                       aria-pressed={colorMode === value}
-                      className={`zr-focus flex min-h-[66px] flex-col items-center justify-center gap-1.5 border-r border-[#ded8dc] px-1 text-[9px] font-black transition-colors last:border-r-0 sm:min-h-[72px] sm:flex-row sm:text-[11px] ${
+                      className={`zr-focus flex min-h-[58px] flex-col items-center justify-center gap-1 border-r border-[#ded8dc] px-1 text-[9px] font-black transition-colors last:border-r-0 sm:min-h-[64px] sm:flex-row sm:text-[11px] ${
                         colorMode === value
                           ? "bg-[#1c171b] text-white"
                           : "bg-white text-[#625a61] hover:bg-[#fff0f5]"
@@ -414,14 +414,14 @@ export function EventDetailClient({
 
                 <Link
                   href={`/events/${eventId}/fan-seat-prediction`}
-                  className="zr-focus mt-5 flex min-h-14 w-full items-center justify-center gap-2 bg-[#f43679] px-6 text-[13px] font-black text-white shadow-[0_12px_28px_rgba(150,16,66,.20)]"
+                  className="zr-focus mt-4 flex min-h-12 w-full items-center justify-center gap-2 bg-[#f43679] px-6 text-[13px] font-black text-white shadow-[0_12px_28px_rgba(150,16,66,.20)]"
                 >
                   <Sparkles size={17} />この会場のアリーナ予想図を投稿する
                 </Link>
               </div>
             </section>
 
-            <section className="zr-container border-b border-[#ded8dc] py-12 sm:py-16" aria-labelledby="fan-prediction-title">
+            <section className="zr-container border-b border-[#ded8dc] py-8 sm:py-10" aria-labelledby="fan-prediction-title">
               <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
                 <div>
                   <p className="artist-kicker">Fan Prediction</p>
@@ -449,19 +449,19 @@ export function EventDetailClient({
               </div>
 
               {fanSeatPredictions.length === 0 ? (
-                <div className="mt-8 border border-dashed border-[#efb6ca] bg-[#fff0f5] px-5 py-12 text-center">
+                <div className="mt-6 border border-dashed border-[#efb6ca] bg-[#fff0f5] px-5 py-8 text-center">
                   <Sparkles size={29} strokeWidth={1.5} className="mx-auto text-[#f43679]" />
                   <p className="mt-4 text-[18px] font-black">まだ予想図がありません</p>
                   <p className="mt-2 text-[12px] font-medium text-[#817981]">この会場の最初の予想図を投稿してみよう。</p>
                   <Link
                     href={`/events/${eventId}/fan-seat-prediction`}
-                    className="zr-focus mt-6 inline-flex min-h-12 items-center bg-[#f43679] px-6 text-[13px] font-black text-white"
+                    className="zr-focus mt-4 inline-flex min-h-12 items-center bg-[#f43679] px-6 text-[13px] font-black text-white"
                   >
                     予想図を投稿する
                   </Link>
                 </div>
               ) : (
-                <div className="mt-8 grid gap-5 lg:grid-cols-2">
+                <div className="mt-6 grid gap-5 lg:grid-cols-2">
                   {topPrediction && (
                     <div className="min-w-0">
                       <p className="mb-3 text-[10px] font-black tracking-[0.18em] text-[#f43679]">MOST TRUSTED / 01</p>

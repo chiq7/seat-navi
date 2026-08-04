@@ -58,7 +58,7 @@ export default function PastTourSection({ tours, onSelectEvent, onSelectTour, ar
 
   if (tours.length === 0) {
     return (
-      <section className="border-b border-[#ded8dc] py-16 text-center">
+      <section className="border-b border-[#ded8dc] py-12 text-center">
         <p className="text-[12px] font-bold text-[#817981]">過去の公演はまだありません</p>
       </section>
     );
@@ -72,7 +72,7 @@ export default function PastTourSection({ tours, onSelectEvent, onSelectTour, ar
         年を選ぶと、その時期の当落データと会場の座席表を振り返れます。
       </p>
 
-      <div className="mt-8 border-t border-[#282127]">
+      <div className="mt-6 border-t border-[#282127]">
         {tours.map((tour) => {
           const isOpen = expanded.has(tour.key);
           return (

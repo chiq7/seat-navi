@@ -226,7 +226,7 @@ function SuccessScreen({
         </div>
       </section>
 
-      <section className="zr-container flex-1 py-9" aria-labelledby="share-title">
+      <section className="zr-container flex-1 py-6" aria-labelledby="share-title">
         <p className="artist-kicker">Share Report</p>
         <h2 id="share-title" className="artist-heading">この現地レポを共有</h2>
         <p className="mt-3 text-[12px] font-medium leading-6 text-[#817981]">Xでファンへ届けるか、スマホの共有メニューから送れます。</p>
@@ -247,7 +247,7 @@ function SuccessScreen({
           />
         </div>
 
-        <div className="mt-8 grid border-l border-t border-[#ded8dc] sm:grid-cols-2">
+        <div className="mt-6 grid border-l border-t border-[#ded8dc] sm:grid-cols-2">
           <button
             type="button"
             onClick={onOther}

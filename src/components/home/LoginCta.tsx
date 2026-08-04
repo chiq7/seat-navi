@@ -15,17 +15,17 @@ export default function LoginCta() {
   }, []);
 
   return (
-    <div className="zr-container my-12">
+    <div className="zr-container my-8">
       <Link
         href={loggedIn ? "/mypage" : "/login"}
         className="zr-focus group block overflow-hidden border border-[#282127] bg-white"
       >
-        <div className="flex items-center justify-between bg-[#1c171b] px-4 py-3 text-white sm:px-5">
+        <div className="flex items-center justify-between bg-[#1c171b] px-4 py-2.5 text-white sm:px-5">
           <span className="text-[9px] font-black tracking-[0.2em] text-[#ff5b96]">YOUR ARCHIVE</span>
           <span className="text-[9px] font-black tracking-[0.16em] text-white/50">MY PAGE</span>
         </div>
-        <div className="grid min-h-[104px] grid-cols-[1fr_64px]">
-          <div className="flex min-w-0 items-center gap-4 px-4 py-5 sm:px-5">
+        <div className="grid min-h-[88px] grid-cols-[1fr_58px]">
+          <div className="flex min-w-0 items-center gap-3 px-4 py-3 sm:px-5">
             <Ticket size={24} strokeWidth={1.7} className="shrink-0 text-[#f43679]" />
             <div className="min-w-0">
               <p className="text-[18px] font-black leading-snug tracking-[-0.035em] text-[#1c171b]">

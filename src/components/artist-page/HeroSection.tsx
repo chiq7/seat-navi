@@ -51,7 +51,7 @@ export default function HeroSection({
   ];
 
   return (
-    <section className="relative min-h-[570px] w-full overflow-hidden bg-[#0d090d] text-white sm:min-h-[620px] lg:min-h-[670px]">
+    <section className="relative min-h-[500px] w-full overflow-hidden bg-[#0d090d] text-white sm:min-h-[550px] lg:min-h-[610px]">
       <Image
         src={heroImageSrc}
         alt=""
@@ -66,8 +66,8 @@ export default function HeroSection({
       />
       <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/5 to-[#0d090d]" />
       <div className="absolute inset-x-0 bottom-0 h-[62%] bg-gradient-to-t from-[#0d090d] via-[#0d090d]/88 to-transparent" />
-      <div className="relative z-10 min-h-[570px] sm:min-h-[620px] lg:min-h-[670px]">
-        <header className="zr-container flex h-16 items-center justify-between sm:h-[72px]">
+      <div className="relative z-10 min-h-[500px] sm:min-h-[550px] lg:min-h-[610px]">
+        <header className="zr-container flex h-14 items-center justify-between sm:h-16">
           <Link
             href="/"
             aria-label="TOPへ戻る"
@@ -85,18 +85,18 @@ export default function HeroSection({
           </div>
         </header>
 
-        <div className="zr-container absolute inset-x-0 bottom-0 pb-7 sm:pb-10">
+        <div className="zr-container absolute inset-x-0 bottom-0 pb-5 sm:pb-7">
           <p className="text-[10px] font-black tracking-[0.24em] text-[#ff5b96]">ARTIST LIVE ARCHIVE</p>
-          <h1 className="mt-3 text-[44px] font-black leading-none tracking-[-0.055em] text-white sm:text-[64px] lg:text-[82px]">{artistName}</h1>
-          <div className="mt-5 flex flex-wrap items-center gap-2">
+          <h1 className="mt-2 text-[40px] font-black leading-none tracking-[-0.055em] text-white sm:text-[58px] lg:text-[76px]">{artistName}</h1>
+          <div className="mt-3 flex flex-wrap items-center gap-2">
             <p className="max-w-[680px] text-[14px] font-bold leading-6 text-white/82 sm:text-[17px]">
               {nextEvent ? (tourTitle || artistName) : "次回公演 発表待ち"}
             </p>
             {nextEvent && isTestData && <span className="rounded-full border border-white/35 px-2 py-1 text-[9px] font-bold text-white/72">テストデータ</span>}
           </div>
 
-          <div className="mt-6 grid border-y border-white/20 sm:grid-cols-[1.35fr_.65fr]">
-            <div className="flex min-w-0 items-center gap-4 py-4 sm:border-r sm:border-white/20 sm:pr-5">
+          <div className="mt-4 grid border-y border-white/20 sm:grid-cols-[1.35fr_.65fr]">
+            <div className="flex min-w-0 items-center gap-4 py-3 sm:border-r sm:border-white/20 sm:pr-5">
               {nextEvent ? (
                 <>
                   <CalendarDays size={18} className="shrink-0 text-[#ff5b96]" />
@@ -107,20 +107,20 @@ export default function HeroSection({
                 </>
               ) : <p className="py-1 text-[13px] font-bold text-white/62">次回公演の発表を待っています</p>}
             </div>
-            <div className="flex items-end justify-between border-t border-white/20 py-4 sm:border-t-0 sm:pl-5">
+            <div className="flex items-end justify-between border-t border-white/20 py-3 sm:border-t-0 sm:pl-5">
               <span className="text-[10px] font-bold tracking-[0.12em] text-white/48">NEXT LIVE</span>
               <p className="font-black leading-none text-[#ff5b96]"><span className="text-[34px]">{countdownDays ?? "--"}</span><span className="ml-1 text-[10px] tracking-[0.12em]">DAYS</span></p>
             </div>
           </div>
 
-          <div className="grid grid-cols-3 pt-5">
+          <div className="grid grid-cols-3 pt-4">
             {summaryMetrics.map((metric, index) => (
               <div
                 key={metric.label}
                 className={`min-w-0 px-2 text-left ${index > 0 ? "border-l border-white/16" : ""}`}
               >
                 <p className="truncate text-[9px] font-bold text-white/46 sm:text-[11px]">{metric.label}</p>
-                <p className="mt-2 text-[24px] font-black leading-none text-white sm:text-[30px]">
+                <p className="mt-1.5 text-[22px] font-black leading-none text-white sm:text-[28px]">
                   {metric.value === "--" ? "--" : <>{metric.value}<span className="ml-0.5 text-[12px] text-[#ff5b96]">%</span></>}
                 </p>
               </div>

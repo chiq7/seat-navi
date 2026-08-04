@@ -51,7 +51,7 @@ function EventList({ events, emptyText }: { events: CrawledEvent[]; emptyText: s
           <Link
             key={event.id}
             href={`/events/${event.id}`}
-            className="zr-focus group grid min-h-[112px] gap-3 border-b border-r border-[#ded8dc] bg-white px-4 py-4 transition-colors hover:bg-[#fff0f5] sm:grid-cols-[150px_1fr_34px] sm:items-center"
+            className="zr-focus group grid min-h-[96px] gap-3 border-b border-r border-[#ded8dc] bg-white px-4 py-3 transition-colors hover:bg-[#fff0f5] sm:grid-cols-[150px_1fr_34px] sm:items-center"
           >
             <div>
               <p className="text-[9px] font-black tracking-[0.14em] text-[#958d93]">LIVE {String(index + 1).padStart(2, "0")}</p>
@@ -139,16 +139,16 @@ export default async function VenuePage({ params }: Props) {
           <AccountLink tone="light" iconSize={22} />
         </header>
 
-        <div className="zr-container pb-10 pt-5 sm:pb-14 sm:pt-9">
+        <div className="zr-container pb-7 pt-4 sm:pb-10 sm:pt-7">
           <p className="text-[10px] font-black tracking-[0.24em] text-[#ff5b96]">VENUE LIVE GUIDE</p>
           <h1 className="mt-3 max-w-[980px] text-[37px] font-black leading-[1.1] tracking-[-0.055em] sm:text-[58px] lg:text-[70px]">
             <span className="block">{venue.name}の</span>
             <span className="block">公演と座席表。</span>
           </h1>
-          <p className="mt-5 max-w-[720px] text-[12px] font-bold leading-6 text-white/62 sm:text-[14px]">
+          <p className="mt-4 max-w-[720px] text-[12px] font-bold leading-6 text-white/62 sm:text-[14px]">
             ライブ予定、会場の座席報告、アリーナ予想、現地からの見え方を公演ごとに確認できます。
           </p>
-          <div className="mt-7 grid grid-cols-2 border-y border-white/18 py-4">
+          <div className="mt-5 grid grid-cols-2 border-y border-white/18 py-3">
             <div>
               <p className="text-[9px] font-black tracking-[0.14em] text-white/42">UPCOMING</p>
               <p className="mt-1 text-[27px] font-black">{upcoming.length}</p>
@@ -162,26 +162,26 @@ export default async function VenuePage({ params }: Props) {
       </section>
 
       <div className="zr-container">
-        <section className="border-b border-[#ded8dc] py-10 sm:py-14" aria-labelledby="upcoming-events-title">
+        <section className="border-b border-[#ded8dc] py-8 sm:py-10" aria-labelledby="upcoming-events-title">
           <p className="artist-kicker">Upcoming Live</p>
           <h2 id="upcoming-events-title" className="artist-heading">これから開催される公演</h2>
           <p className="mt-3 flex items-center gap-2 text-[11px] font-bold text-[#817981]"><MapPin size={14} className="text-[#f43679]" />{venue.name}のライブ予定</p>
-          <div className="mt-7"><EventList events={upcoming} emptyText="現在、登録されている開催予定はありません" /></div>
+          <div className="mt-5"><EventList events={upcoming} emptyText="現在、登録されている開催予定はありません" /></div>
         </section>
 
         {past.length > 0 && (
-          <section className="border-b border-[#ded8dc] py-10 sm:py-14" aria-labelledby="past-events-title">
+          <section className="border-b border-[#ded8dc] py-8 sm:py-10" aria-labelledby="past-events-title">
             <p className="artist-kicker">Live Archive</p>
             <h2 id="past-events-title" className="artist-heading">過去の公演・座席レポ</h2>
-            <div className="mt-7"><EventList events={past.slice(0, 30)} emptyText="過去の公演はありません" /></div>
+            <div className="mt-5"><EventList events={past.slice(0, 30)} emptyText="過去の公演はありません" /></div>
           </section>
         )}
 
         {pastArtists.length > 0 && (
-          <section className="border-b border-[#ded8dc] py-10 sm:py-14" aria-labelledby="venue-artists-title">
+          <section className="border-b border-[#ded8dc] py-8 sm:py-10" aria-labelledby="venue-artists-title">
             <p className="artist-kicker">Artists Archive</p>
             <h2 id="venue-artists-title" className="artist-heading">この会場で公演したアーティスト</h2>
-            <div className="mt-7 grid border-l border-t border-[#ded8dc] sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-5 grid border-l border-t border-[#ded8dc] sm:grid-cols-2 lg:grid-cols-3">
               {pastArtists.map((artist) => (
                 <Link
                   key={artist.slug}
@@ -199,7 +199,7 @@ export default async function VenuePage({ params }: Props) {
           <SeoEditorialSection
             title={`${venue.name}とは`}
             profile={profile}
-            className="py-10 sm:py-14"
+            className="py-8 sm:py-10"
           />
         )}
       </div>

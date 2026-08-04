@@ -68,7 +68,7 @@ export default function SeatReportTimelineSection({
   return (
     <section className="border border-[#282127] bg-white" aria-label={title ?? undefined}>
       {title && (
-        <header className="border-b border-[#282127] px-4 py-4">
+        <header className="border-b border-[#282127] px-4 py-3">
           <p className="text-[9px] font-black tracking-[0.18em] text-[#f43679]">RECENT SEATS</p>
           <h3 className="mt-1 text-[15px] font-black tracking-[-0.03em] text-[#1c171b]">{title}</h3>
         </header>
@@ -158,7 +158,7 @@ export default function SeatReportTimelineSection({
           </div>
         </>
       ) : (
-        <div className="bg-[#1c171b] px-5 py-8 text-center text-white">
+        <div className="bg-[#1c171b] px-5 py-6 text-center text-white">
           <p className="text-[9px] font-black tracking-[0.18em] text-[#ff5b96]">NO SEAT REPORTS</p>
           <p className="mt-3 text-[14px] font-black">{emptyText}</p>
           {reportHref && (

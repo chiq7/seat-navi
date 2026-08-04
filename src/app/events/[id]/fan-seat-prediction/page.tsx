@@ -293,7 +293,7 @@ export default function FanSeatPredictionPage({
   /* ── 完了画面（Step 2） ─────────────────────────────── */
   if (submitted) {
     return (
-      <div className="flex min-h-screen flex-col bg-[#f7f5f6] pb-24 font-sans text-[#1c171b]">
+      <div className="flex min-h-screen flex-col bg-[#f7f5f6] pb-20 font-sans text-[#1c171b]">
         <section className="bg-[#0d090d] text-white">
           <header className="zr-container flex h-16 items-center justify-between">
             <Link href={`/events/${selectedEventId}`} aria-label="公演ページへ戻る" className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/8"><ChevronLeft size={25} /></Link>
@@ -306,7 +306,7 @@ export default function FanSeatPredictionPage({
           </div>
         </section>
         <StepIndicator step={2} />
-        <main className="zr-container flex-1 py-9">
+        <main className="zr-container flex-1 py-6">
           <section className="border border-[#ded8dc] bg-white p-5 text-center sm:p-7">
             <ImagePlus size={32} strokeWidth={1.5} className="mx-auto text-[#f43679]" aria-hidden="true" />
             <p className="mt-4 text-[17px] font-black">Xで座席予想を共有しよう</p>
@@ -328,7 +328,7 @@ export default function FanSeatPredictionPage({
 
   /* ── 入力画面（Step 1） ─────────────────────────────── */
   return (
-    <div className="min-h-screen bg-[#f7f5f6] pb-24 font-sans text-[#1c171b]">
+    <div className="min-h-screen bg-[#f7f5f6] pb-20 font-sans text-[#1c171b]">
       <section className="bg-[#0d090d] text-white">
         <header className="zr-container flex h-16 items-center justify-between">
           <Link href={reportEntryHref} aria-label="報告メニューへ戻る" className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/8"><ChevronLeft size={26} /></Link>

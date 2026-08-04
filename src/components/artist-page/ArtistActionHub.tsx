@@ -12,15 +12,15 @@ export default function ArtistActionHub({ artistName }: Props) {
         {artistName}を、<br />どこから見る？
       </h2>
 
-      <div className="mt-8 grid grid-cols-2 overflow-hidden border border-[#282127] lg:grid-cols-4">
-        <a href="#seat-map" className="zr-focus group col-span-2 flex min-h-[190px] flex-col justify-between bg-[#1c171b] p-5 text-white sm:p-7 lg:min-h-[220px]">
+      <div className="mt-6 grid grid-cols-2 overflow-hidden border border-[#282127] lg:grid-cols-4">
+        <a href="#seat-map" className="zr-focus group col-span-2 flex min-h-[165px] flex-col justify-between bg-[#1c171b] p-4 text-white sm:p-6 lg:min-h-[190px]">
           <div className="flex items-start justify-between">
             <Map size={27} strokeWidth={1.7} className="text-[#ff5b96]" />
             <span className="text-[10px] font-black tracking-[0.16em] text-white/40">01 / SEAT MAP</span>
           </div>
           <div>
-            <p className="text-[28px] font-black tracking-[-0.04em] sm:text-[36px]">会場の座席表</p>
-            <div className="mt-4 flex flex-wrap items-center gap-3">
+            <p className="text-[26px] font-black tracking-[-0.04em] sm:text-[34px]">会場の座席表</p>
+            <div className="mt-3 flex flex-wrap items-center gap-3">
               <span className="text-[11px] font-bold text-white/55">座席表・座席報告</span>
               <span className="inline-flex min-h-9 items-center gap-2 border border-[#ff5b96] px-3 text-[10px] font-black text-[#ff5b96] transition-colors group-hover:bg-[#ff5b96] group-hover:text-white">
                 座席予想を見る
@@ -30,7 +30,7 @@ export default function ArtistActionHub({ artistName }: Props) {
           </div>
         </a>
 
-        <a href="#ticket-data" className="zr-focus group flex min-h-[168px] flex-col justify-between border-r border-t border-[#282127] bg-white p-4 sm:p-6 lg:min-h-[220px] lg:border-l lg:border-t-0">
+        <a href="#ticket-data" className="zr-focus group flex min-h-[132px] flex-col justify-between border-r border-t border-[#282127] bg-white p-4 sm:p-5 lg:min-h-[190px] lg:border-l lg:border-t-0">
           <BarChart3 size={24} strokeWidth={1.7} className="text-[#f43679]" />
           <div>
             <p className="text-[20px] font-black tracking-[-0.04em] sm:text-[24px]">当落を見る</p>
@@ -38,7 +38,7 @@ export default function ArtistActionHub({ artistName }: Props) {
           </div>
         </a>
 
-        <a href="#reports" className="zr-focus group flex min-h-[168px] flex-col justify-between border-t border-[#282127] bg-[#fff0f5] p-4 sm:p-6 lg:min-h-[220px] lg:border-t-0">
+        <a href="#reports" className="zr-focus group flex min-h-[132px] flex-col justify-between border-t border-[#282127] bg-[#fff0f5] p-4 sm:p-5 lg:min-h-[190px] lg:border-t-0">
           <Camera size={24} strokeWidth={1.7} className="text-[#f43679]" />
           <div>
             <p className="text-[20px] font-black tracking-[-0.04em] sm:text-[24px]">現地を見る</p>
@@ -46,7 +46,7 @@ export default function ArtistActionHub({ artistName }: Props) {
           </div>
         </a>
 
-        <a href="#fan-board" className="zr-focus group col-span-2 flex min-h-[106px] items-center gap-4 bg-[#f43679] p-5 text-white lg:col-span-4 lg:px-7">
+        <a href="#fan-board" className="zr-focus group col-span-2 flex min-h-[84px] items-center gap-4 bg-[#f43679] p-4 text-white lg:col-span-4 lg:px-6">
           <MessageCircle size={27} strokeWidth={1.8} />
           <div className="min-w-0 flex-1">
             <p className="text-[20px] font-black tracking-[-0.03em]">ファン掲示板で話す</p>

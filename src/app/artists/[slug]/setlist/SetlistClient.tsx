@@ -307,7 +307,7 @@ export function SetlistClient({ params }: { params: Promise<{ slug: string }> })
         </div>
       </section>
 
-      <main className="pb-24">
+      <main className="pb-20">
         <section className="zr-container py-8 sm:py-12" aria-labelledby="setlist-event-title">
           <div className="border-b border-[#1c171b] pb-4">
             <p className="artist-kicker">Select Live</p>

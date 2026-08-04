@@ -28,18 +28,18 @@ export default function UpcomingEventsSection({ artistName, events }: Props) {
       <p className="artist-kicker">Upcoming Live</p>
       <h2 className="artist-heading">開催予定の公演</h2>
       {events.length === 0 ? (
-        <div className="mt-7 border-y border-[#ded8dc] px-4 py-8 text-center">
+        <div className="mt-5 border-y border-[#ded8dc] px-4 py-6 text-center">
           <p className="text-[12px] font-semibold text-gray-500">次回公演 発表待ち</p>
         </div>
       ) : (
-        <div className="mt-7 border-t border-[#ded8dc]">
+        <div className="mt-5 border-t border-[#ded8dc]">
           {visibleEvents.map((event) => {
             const parsed = parseEventTitle(event.title, artistName);
             return (
               <Link
                 key={event.id}
                 href={`/events/${event.id}`}
-                className="zr-focus group grid min-h-[112px] grid-cols-[72px_1fr_18px] items-center gap-4 border-b border-[#ded8dc] py-4 no-underline transition-colors hover:bg-white sm:grid-cols-[110px_1fr_22px] sm:px-4"
+                className="zr-focus group grid min-h-[96px] grid-cols-[72px_1fr_18px] items-center gap-4 border-b border-[#ded8dc] py-3 no-underline transition-colors hover:bg-white sm:grid-cols-[110px_1fr_22px] sm:px-4"
               >
                 <div className="border-r border-[#ded8dc] pr-3 text-[11px] font-semibold text-[#746c73]">
                   <span className="inline-flex flex-col items-start gap-1">

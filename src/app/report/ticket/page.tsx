@@ -250,7 +250,7 @@ function SuccessScreen({
         </div>
       </section>
       <StepIndicator step={4} />
-      <main className="zr-container flex-1 py-9">
+      <main className="zr-container flex-1 py-6">
         <section className="border border-[#ded8dc] bg-white p-5 text-center sm:p-7">
           <div className="flex justify-center">
             <Image

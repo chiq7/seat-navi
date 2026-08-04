@@ -20,13 +20,13 @@ export default function LiveEffectsSection({ liveEffects }: Props) {
         </div>
         <p className="mb-1 text-right text-[9px] font-black tracking-[0.12em] text-[#817981]">FAN REPORTS</p>
       </div>
-      <div className="mt-4 grid grid-cols-5 border-y border-l border-[#ded8dc]">
+      <div className="mt-3 grid grid-cols-5 border-y border-l border-[#ded8dc]">
         {EFFECT_DEFS.map((effect) => {
           const active = liveEffects[effect.key] ?? false;
           return (
             <div
               key={effect.key}
-              className={`flex min-h-[74px] min-w-0 flex-col justify-between overflow-hidden border-r border-[#ded8dc] px-1.5 py-2.5 sm:px-3 ${active ? "bg-[#fff0f5]" : "bg-white"}`}
+              className={`flex min-h-[62px] min-w-0 flex-col justify-between overflow-hidden border-r border-[#ded8dc] px-1.5 py-2 sm:px-3 ${active ? "bg-[#fff0f5]" : "bg-white"}`}
             >
               <span className="text-[9px] font-black tracking-[0.16em] text-[#958d93]">{String(EFFECT_DEFS.indexOf(effect) + 1).padStart(2, "0")}</span>
               <div className="mt-2 flex items-end justify-between gap-0.5">

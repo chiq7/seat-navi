@@ -21,7 +21,7 @@ export default function OfficialNewsSection({ news, moreHref }: Props) {
     <section className="artist-section" id="official-news">
       <p className="artist-kicker">Official News</p>
       <h2 className="artist-heading">公式ニュース</h2>
-      <div className="mt-8 border-t border-[#ded8dc]">
+      <div className="mt-6 border-t border-[#ded8dc]">
         <div>
           {news.map((n) => (
             <a
@@ -29,7 +29,7 @@ export default function OfficialNewsSection({ news, moreHref }: Props) {
               href={n.article_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="zr-focus flex min-h-[110px] items-center gap-3 border-b border-[#ded8dc] py-4 no-underline transition-colors hover:bg-white sm:px-4"
+              className="zr-focus flex min-h-[92px] items-center gap-3 border-b border-[#ded8dc] py-3 no-underline transition-colors hover:bg-white sm:px-4"
             >
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-1.5">

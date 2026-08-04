@@ -43,7 +43,7 @@ body {
 }
 
 .zr-section {
-  padding-block: clamp(72px, 8vw, 120px);
+  padding-block: clamp(56px, 6vw, 88px);
 }
 
 .zr-focus:focus-visible {
@@ -52,7 +52,7 @@ body {
 }
 
 .artist-section {
-  padding-block: 56px;
+  padding-block: 44px;
   border-bottom: 1px solid #ded8dc;
 }
 
@@ -65,7 +65,7 @@ body {
 }
 
 .artist-heading {
-  margin-top: 10px;
+  margin-top: 7px;
   color: #1c171b;
   font-size: clamp(26px, 7vw, 38px);
   font-weight: 900;
@@ -79,11 +79,11 @@ body {
   }
 
   .zr-section {
-    padding-block: 64px;
+    padding-block: 44px;
   }
 
   .artist-section {
-    padding-block: 48px;
+    padding-block: 34px;
   }
 }
 

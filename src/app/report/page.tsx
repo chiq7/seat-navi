@@ -91,10 +91,10 @@ function ReportEntryPageInner() {
   const backHref = artist ? `/artists/${artist.slug}` : "/";
 
   return (
-    <main className="min-h-screen bg-[#f7f5f6] pb-28 font-sans text-[#1c171b]">
+    <main className="min-h-screen bg-[#f7f5f6] pb-20 font-sans text-[#1c171b]">
       <ReportHero artistName={artist?.name} backHref={backHref} selectedEvent={selectedEvent} />
 
-      <section className="zr-container border-b border-[#ded8dc] py-7" aria-labelledby="report-event-title">
+      <section className="zr-container border-b border-[#ded8dc] py-5" aria-labelledby="report-event-title">
         <div className="flex items-end justify-between gap-4">
           <div>
             <p className="artist-kicker">Select Your Live</p>
@@ -102,7 +102,7 @@ function ReportEntryPageInner() {
           </div>
           <Radio size={21} strokeWidth={1.8} className="text-[#f43679]" />
         </div>
-        <label className="mt-5 block">
+        <label className="mt-4 block">
           <span className="sr-only">報告する公演を選択</span>
           <select
             value={selectedId ?? ""}
@@ -140,7 +140,7 @@ function ReportHero({
   selectedEvent: CrawledEvent | null;
 }) {
   return (
-    <section className="relative min-h-[390px] w-full overflow-hidden bg-[#0d090d] text-white sm:min-h-[440px]">
+    <section className="relative min-h-[340px] w-full overflow-hidden bg-[#0d090d] text-white sm:min-h-[390px]">
       <div className="absolute inset-0 opacity-75" style={{ background: "radial-gradient(circle at 76% 18%, rgba(244,54,121,.72), transparent 24%), radial-gradient(circle at 22% 38%, rgba(60,160,190,.28), transparent 28%), linear-gradient(135deg, #0d090d 0%, #25101d 55%, #080608 100%)" }} />
       <div className="absolute inset-0" style={{ backgroundImage: "repeating-linear-gradient(112deg, transparent 0 40px, rgba(255,255,255,.035) 41px 42px)" }} />
 
@@ -155,22 +155,22 @@ function ReportHero({
         <AccountLink tone="light" iconSize={22} />
       </header>
 
-      <div className="zr-container relative z-10 pb-9 pt-9 sm:pb-12 sm:pt-12">
+      <div className="zr-container relative z-10 pb-6 pt-6 sm:pb-8 sm:pt-8">
         <p className="text-[10px] font-black tracking-[0.24em] text-[#ff5b96]">SHARE THE LIVE</p>
         <h1 className="mt-3 text-[39px] font-black leading-[1.08] tracking-[-0.055em] sm:text-[60px] lg:text-[74px]">
           あなたの一席が、<br />次の誰かのヒントになる。
         </h1>
-        <p className="mt-5 text-[12px] font-bold leading-6 text-white/62 sm:text-[15px]">
+        <p className="mt-4 text-[12px] font-bold leading-6 text-white/62 sm:text-[15px]">
           {artistName ? `${artistName}の当落・座席表・会場の景色をファンへ` : "当落・座席表・会場の景色をファンへ"}
         </p>
 
         {selectedEvent && (
-          <div className="mt-7 grid border-y border-white/18 sm:grid-cols-2">
-            <div className="flex items-center gap-3 py-4 sm:border-r sm:border-white/18 sm:pr-5">
+          <div className="mt-5 grid border-y border-white/18 sm:grid-cols-2">
+            <div className="flex items-center gap-3 py-3 sm:border-r sm:border-white/18 sm:pr-5">
               <CalendarDays size={17} className="shrink-0 text-[#ff5b96]" />
               <p className="text-[12px] font-black">{fmtDate(selectedEvent.date)}</p>
             </div>
-            <div className="flex min-w-0 items-center gap-3 border-t border-white/18 py-4 sm:border-t-0 sm:pl-5">
+            <div className="flex min-w-0 items-center gap-3 border-t border-white/18 py-3 sm:border-t-0 sm:pl-5">
               <MapPin size={17} className="shrink-0 text-[#ff5b96]" />
               <p className="truncate text-[12px] font-black">{selectedEvent.venue}</p>
             </div>
