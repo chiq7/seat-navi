@@ -162,11 +162,15 @@ export function computeUpgradeDetailStats(rows: TicketResultAnalytics[]) {
   };
 }
 
-export function computeAisleWalkStatus(reports: AfterReportCard[]): "yes" | "no" | "unknown" {
+export function computeLiveEffects(reports: AfterReportCard[]): Record<string, boolean> {
   const hasRating = (v: string | null) => v === "1" || v === "2" || v === "3" || v === "4" || v === "5";
-  if (reports.some((r) => hasRating(r.kyakukudari))) return "yes";
-  if (reports.some((r) => r.kyakukudari === "なし")) return "no";
-  return "unknown";
+  return {
+    "center-stage": reports.some((r) => hasRating(r.center_stage)),
+    "trolley": reports.some((r) => hasRating(r.torokko)),
+    "aisle-walk": reports.some((r) => hasRating(r.kyakukudari)),
+    "silver-tape": reports.some((r) => r.silver_tape_rows === 1),
+    "fanservice": reports.some((r) => hasRating(r.fansa_rating)),
+  };
 }
 
 export function computePastTours(
