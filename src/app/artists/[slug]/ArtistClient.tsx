@@ -8,7 +8,7 @@ import { getEventsForArtist } from "@/lib/events";
 import { queryLatestOfficialNewsForArtist } from "@/lib/officialNews";
 import type { CrawledEvent, OfficialNews } from "@/lib/types";
 import type { AnalyticsReport, TicketResultAnalytics, AfterReportCard } from "@/lib/artistPageTypes";
-import { computeTicketResultStats, computeArenaDetailStats, computeUpgradeDetailStats, computeLiveEffects } from "@/lib/artistPageStats";
+import { computeTicketResultStats, computeArenaDetailStats, computeUpgradeDetailStats, computeAisleWalkStatus } from "@/lib/artistPageStats";
 import { parseEventTitle } from "@/lib/eventTitle";
 import {
   daysUntilJstDate,
@@ -318,8 +318,8 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [venueEventIds.join(",")]);
 
-  const liveEffects = useMemo(
-    () => computeLiveEffects(venueAfterReports),
+  const aisleWalkStatus = useMemo(
+    () => computeAisleWalkStatus(venueAfterReports),
     [venueAfterReports],
   );
 
@@ -533,7 +533,7 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
                 reportHref={liveReportHref}
                 authorMap={postAuthorMap}
               >
-                <LiveEffectsSection liveEffects={liveEffects} />
+                <LiveEffectsSection aisleWalkStatus={aisleWalkStatus} />
               </ReportSection>
 
               <ArtistBoardPreview artistSlug={slug} artistName={artist.name} />

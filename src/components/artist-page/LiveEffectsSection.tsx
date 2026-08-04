@@ -1,41 +1,25 @@
-const EFFECT_DEFS: { key: string; label: string }[] = [
-  { key: "center-stage", label: "センステ" },
-  { key: "trolley",      label: "トロッコ" },
-  { key: "aisle-walk",   label: "客降り" },
-  { key: "silver-tape",  label: "銀テープ" },
-  { key: "fanservice",   label: "ファンサ" },
-];
-
 type Props = {
-  liveEffects: Record<string, boolean>;
+  aisleWalkStatus: "yes" | "no" | "unknown";
 };
 
-export default function LiveEffectsSection({ liveEffects }: Props) {
+const STATUS_COPY = {
+  yes: { label: "客降りあり", detail: "ファンの現地レポで確認", tone: "bg-[#fff0f5] text-[#f43679]" },
+  no: { label: "客降りなし", detail: "現地レポでは確認されていません", tone: "bg-white text-[#1c171b]" },
+  unknown: { label: "客降り情報なし", detail: "現地レポが集まると表示されます", tone: "bg-white text-[#817981]" },
+} as const;
+
+export default function LiveEffectsSection({ aisleWalkStatus }: Props) {
+  const status = STATUS_COPY[aisleWalkStatus];
+
   return (
     <section aria-labelledby="live-effects-title">
-      <div className="flex items-end justify-between gap-4">
+      <p className="text-[10px] font-black tracking-[0.2em] text-[#f43679]">LOCAL NOTES</p>
+      <div className={`mt-2 flex items-center justify-between gap-4 border border-[#ded8dc] px-4 py-3 ${status.tone}`}>
         <div>
-          <p className="text-[10px] font-black tracking-[0.2em] text-[#f43679]">STAGE NOTES</p>
-          <h3 id="live-effects-title" className="mt-1 text-[18px] font-black tracking-[-0.035em] text-[#1c171b]">この公演で見られた演出</h3>
+          <h3 id="live-effects-title" className="text-[15px] font-black tracking-[-0.03em]">客降り</h3>
+          <p className="mt-0.5 text-[10px] font-bold text-[#817981]">{status.detail}</p>
         </div>
-        <p className="mb-1 text-right text-[9px] font-black tracking-[0.12em] text-[#817981]">FAN REPORTS</p>
-      </div>
-      <div className="mt-3 grid grid-cols-5 border-y border-l border-[#ded8dc]">
-        {EFFECT_DEFS.map((effect) => {
-          const active = liveEffects[effect.key] ?? false;
-          return (
-            <div
-              key={effect.key}
-              className={`flex min-h-[62px] min-w-0 flex-col justify-between overflow-hidden border-r border-[#ded8dc] px-1.5 py-2 sm:px-3 ${active ? "bg-[#fff0f5]" : "bg-white"}`}
-            >
-              <span className="text-[9px] font-black tracking-[0.16em] text-[#958d93]">{String(EFFECT_DEFS.indexOf(effect) + 1).padStart(2, "0")}</span>
-              <div className="mt-2 flex items-end justify-between gap-0.5">
-                <span className="min-w-0 truncate whitespace-nowrap text-[10px] font-black tracking-[-0.03em] text-[#1c171b] sm:text-[13px]">{effect.label}</span>
-                <span className={`text-[8px] font-black tracking-[0.08em] ${active ? "text-[#f43679]" : "text-[#aaa2a8]"}`}>{active ? "SEEN" : "—"}</span>
-              </div>
-            </div>
-          );
-        })}
+        <span className="shrink-0 text-[14px] font-black tracking-[-0.03em]">{status.label}</span>
       </div>
     </section>
   );
