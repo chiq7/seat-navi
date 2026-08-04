@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { Camera, CheckCircle2, ChevronLeft, RotateCcw, Send, X } from "lucide-react";
 import Link from "next/link";
 import { trackEvent } from "@/lib/analytics";
-import { supabase } from "@/lib/supabase/client";
+import { anonymousSupabase, supabase } from "@/lib/supabase/client";
 import { resolveArtist } from "@/lib/artists";
 import { getEventsForArtist } from "@/lib/events";
 import { AccountLink } from "@/components/auth/AccountLink";
@@ -371,13 +371,11 @@ function LiveReportPageInner() {
     setError("");
     setSubmitting(true);
     try {
-      const { data: authData } = await supabase.auth.getUser();
-      const userId = authData.user?.id ?? null;
       const uploadedPaths: string[] = [];
       for (const file of photos) {
         const ext = file.name.split(".").pop()?.toLowerCase() ?? "jpg";
         const path = `${randomId()}.${ext}`;
-        const { error: uploadErr } = await supabase.storage
+        const { error: uploadErr } = await anonymousSupabase.storage
           .from("after-report-photos")
           .upload(path, file, { contentType: file.type });
         if (uploadErr) throw new Error(`写真のアップロードに失敗しました: ${uploadErr.message}`);
@@ -387,7 +385,7 @@ function LiveReportPageInner() {
       const reportId = randomId();
       const dbRow = {
         id:                        reportId,
-        user_id:                   userId,
+        user_id:                   null,
         event_id:                  selectedEvent,
         seat_area_type:            toSeatAreaType(seatArea, standFloor),
         seat_block:                blockInfo.trim(),
@@ -408,7 +406,7 @@ function LiveReportPageInner() {
         memo:                      memo || null,
       };
 
-      const { error: dbErr } = await supabase.from("after_reports").insert(dbRow);
+      const { error: dbErr } = await anonymousSupabase.from("after_reports").insert(dbRow);
       if (dbErr) throw new Error(dbErr.message);
 
       const ev = events.find(e => e.id === selectedEvent);
