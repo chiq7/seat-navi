@@ -33,7 +33,7 @@ export default function ArtistActionHub({ artistName }: Props) {
         <a href="#ticket-data" className="zr-focus group flex min-h-[132px] flex-col justify-between border-r border-t border-[#282127] bg-white p-4 sm:p-5 lg:min-h-[190px] lg:border-l lg:border-t-0">
           <BarChart3 size={24} strokeWidth={1.7} className="text-[#f43679]" />
           <div>
-            <p className="text-[18px] font-black leading-tight tracking-[-0.04em] sm:text-[24px]">当落結果・<br />傾向を見る</p>
+            <p className="text-[18px] font-black leading-tight tracking-[-0.04em] sm:text-[24px]">当落結果・傾向</p>
             <p className="mt-2 text-[10px] font-bold leading-5 text-[#817981]">当選率・抽選傾向</p>
           </div>
         </a>
