@@ -35,7 +35,7 @@ export default function HeroBanner() {
             </Link>
             <Link href="/venues" className="zr-focus group flex min-h-14 items-center gap-4 border-b border-white/18 py-3 text-[14px] font-bold">
               <MapPinned size={20} className="text-[#ff4f8e]" />
-              <span className="flex-1">会場から公演を探す</span>
+              <span className="flex-1">ライブ会場一覧を見る</span>
               <ArrowRight size={19} className="transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
