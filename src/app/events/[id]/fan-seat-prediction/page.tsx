@@ -5,7 +5,7 @@ import type { ChangeEvent } from "react";
 import Link from "next/link";
 import { ChevronLeft, ImagePlus, Map as MapIcon, Send } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
-import { supabase } from "@/lib/supabase/client";
+import { anonymousSupabase, supabase } from "@/lib/supabase/client";
 import { resolveArtist } from "@/lib/artists";
 import { getEventsForArtist } from "@/lib/events";
 import type { CrawledEvent, SeatReport } from "@/lib/types";
@@ -235,20 +235,16 @@ export default function FanSeatPredictionPage({
     setSubmitting(true);
     try {
       const id = randomId();
-      const { data: authData } = await supabase.auth.getUser();
-      const userId = authData.user?.id ?? null;
-      const imagePath = userId
-        ? `${userId}/${selectedEventId}/${id}-${safeFileName(file.name)}`
-        : `${selectedEventId}/${id}-${safeFileName(file.name)}`;
-      const { error: uploadErr } = await supabase.storage
+      const imagePath = `${selectedEventId}/${id}-${safeFileName(file.name)}`;
+      const { error: uploadErr } = await anonymousSupabase.storage
         .from(BUCKET)
         .upload(imagePath, file, { cacheControl: "3600", contentType: file.type, upsert: false });
       if (uploadErr) throw new Error(uploadErr.message);
 
-      const { error: insertErr } = await supabase.from("fan_seat_predictions").insert({
+      const { error: insertErr } = await anonymousSupabase.from("fan_seat_predictions").insert({
         id,
         event_id: selectedEventId,
-        user_id: userId,
+        user_id: null,
         image_path: imagePath,
         comment: comment.trim() || null,
         prediction_tags: tags,

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { createPortal } from "react-dom";
-import { supabase } from "@/lib/supabase/client";
+import { anonymousSupabase } from "@/lib/supabase/client";
 import { ShareButton } from "@/components/common/ShareButton";
 import { PostAuthorLink } from "@/components/common/PostAuthorLink";
 import type { PostAuthor } from "@/lib/postAuthors";
@@ -90,7 +90,7 @@ export function SeatPredictionCard({
   async function handleLike() {
     if (picked) return;
     const voterKey = getOrCreateVoterKey();
-    const { error } = await supabase.from("fan_seat_prediction_votes").insert({
+    const { error } = await anonymousSupabase.from("fan_seat_prediction_votes").insert({
       id: crypto.randomUUID().replace(/-/g, "").slice(0, 20),
       prediction_id: predictionId,
       voter_key: voterKey,

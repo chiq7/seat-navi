@@ -3,7 +3,7 @@
 import { use, useEffect, useRef, useState, useMemo } from "react";
 import Link from "next/link";
 import { ChevronLeft, Film, ListEnd, ListStart, MessageCircle, Mic2, Music2, Plus, Sparkles, Star, Zap } from "lucide-react";
-import { supabase } from "@/lib/supabase/client";
+import { anonymousSupabase, supabase } from "@/lib/supabase/client";
 import { findArtistBySlug } from "@/lib/artists";
 import { getEventsForArtist } from "@/lib/events";
 import { parseEventTitle } from "@/lib/eventTitle";
@@ -171,7 +171,7 @@ export function SetlistClient({ params }: { params: Promise<{ slug: string }> })
     if (!selectedEventId) return;
     setSaveStatus("saving");
     setSaveError(null);
-    const { error } = await supabase
+    const { error } = await anonymousSupabase
       .from("setlists")
       .upsert(
         { event_id: selectedEventId, items: setlistItems, updated_at: new Date().toISOString() },

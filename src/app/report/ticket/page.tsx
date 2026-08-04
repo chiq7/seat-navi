@@ -6,7 +6,7 @@ import { ChevronLeft, Send, TicketCheck } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { trackEvent } from "@/lib/analytics";
-import { supabase } from "@/lib/supabase/client";
+import { anonymousSupabase, supabase } from "@/lib/supabase/client";
 import { resolveArtist } from "@/lib/artists";
 import { getEventsForArtist } from "@/lib/events";
 import { AccountLink } from "@/components/auth/AccountLink";
@@ -398,14 +398,12 @@ function TicketReportPageInner() {
     setError("");
     setSubmitting(true);
     try {
-      const { data: authData } = await supabase.auth.getUser();
-      const userId = authData.user?.id ?? null;
       const isWon = result === "当選した";
       const resolvedStandDirection = standDirection === "その他" ? standDirectionOther : standDirection;
       const resolvedStandFloor = standFloor === "その他" ? standFloorOther : standFloor;
 
-      const { error: ticketErr } = await supabase.from("event_ticket_results").insert({
-        user_id:                userId,
+      const { error: ticketErr } = await anonymousSupabase.from("event_ticket_results").insert({
+        user_id:                null,
         event_id:               selectedEvent,
         result:                 isWon ? "won" : "lost",
         lost_application_count: isWon ? 0 : 1,
@@ -429,9 +427,9 @@ function TicketReportPageInner() {
         const rowNum = parseInt(row, 10);
         const seatNum = parseInt(seatNumber, 10);
         if (block.trim() && rowNum >= 1 && seatNum >= 1) {
-          const { error: seatErr } = await supabase.from("seat_reports").insert({
+          const { error: seatErr } = await anonymousSupabase.from("seat_reports").insert({
             id:             randomId(),
-            user_id:        userId,
+            user_id:        null,
             event_id:       selectedEvent,
             block:          block.trim(),
             row_num:        rowNum,
