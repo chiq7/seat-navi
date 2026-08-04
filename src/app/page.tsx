@@ -171,13 +171,13 @@ export default function Home() {
       <main>
         <h1 className="sr-only">ライブチケットの当落・座席・現地レポを共有する ちけレポ</h1>
         <HeroBanner />
-        <VenueDiscoveryCta />
         <Suspense fallback={<EventSectionsSkeleton />}>
           <HomeEventSections />
         </Suspense>
         <Suspense fallback={<RealtimeFeedSkeleton />}>
           <HomeRealtimeSection />
         </Suspense>
+        <VenueDiscoveryCta />
         <LoginCta />
         <SiteNewsSection />
         <div className="h-6" />
