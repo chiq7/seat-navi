@@ -173,7 +173,7 @@ function SearchPageInner() {
             <p className="artist-kicker">Search Ideas</p>
             <h2 id="search-hint-title" className="mt-2 text-[22px] font-black tracking-[-0.04em]">こんなワードで探せます</h2>
             <div className="mt-5 grid grid-cols-2 border-l border-t border-[#ded8dc] sm:grid-cols-4">
-              {["YOASOBI", "東京ドーム", "Kアリーナ", "アリーナ座席表"].map((word) => (
+              {["YOASOBI 東京ドーム", "東京ドーム 座席表", "Kアリーナ 見え方", "さいたまアリーナ"].map((word) => (
                 <button
                   key={word}
                   type="button"
@@ -301,7 +301,7 @@ function SearchPageInner() {
                 return (
                   <Link
                     key={event.id}
-                    href={getSearchEventDestination(event)}
+                    href={getSearchEventDestination(event, query)}
                     onClick={() => trackEvent("select_search_result", {
                       result_type: "event",
                       result_id: event.id,

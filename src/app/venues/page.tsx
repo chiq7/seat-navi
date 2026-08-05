@@ -75,7 +75,7 @@ function VenueCards({ venueIds, compact = false }: { venueIds: readonly string[]
 }
 
 export const metadata: Metadata = {
-  title: "ライブ会場一覧｜公演予定・座席情報",
+  title: "ライブ会場一覧・座席表｜公演予定・会場の見え方",
   description:
     "東京ドーム、Kアリーナ横浜、横浜アリーナなど主要ライブ会場の公演予定、座席報告、アリーナ予想を確認できます。",
   alternates: { canonical: "https://tixrepo.com/venues" },

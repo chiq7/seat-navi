@@ -95,6 +95,7 @@ test("venue search recognizes seat-map intent and common venue aliases", () => {
   assert.equal(searchVenues("東京ドーム 座席表")[0]?.id, "tokyo-dome");
   assert.equal(searchVenues("さいたまアリーナ")[0]?.id, "saitama-super-arena");
   assert.equal(searchVenues("名古屋ドームの見え方")[0]?.id, "vantelin-dome");
+  assert.equal(searchVenues("横アリ 座席表")[0]?.id, "yokohama-arena");
 });
 
 test("every production artist has a kana search path", () => {
@@ -120,6 +121,17 @@ test("single-character event search keeps artist events and removes unrelated ti
   assert.deepEqual(ranked.map((event) => event.id), ["naniwa"]);
 });
 
+test("combined artist and venue search keeps only the matching performance", () => {
+  const yoasobi = ARTISTS.find((artist) => artist.slug === "yoasobi");
+  assert.ok(yoasobi);
+  const ranked = rankEventSearchResults("YOASOBI 東京ドーム", [
+    fixtureEvent({ id: "target", title: "YOASOBI DOME TOUR", venue: "東京ドーム", artist_slug: "yoasobi" }),
+    fixtureEvent({ id: "artist-only", title: "YOASOBI ARENA TOUR", venue: "Kアリーナ横浜", artist_slug: "yoasobi" }),
+    fixtureEvent({ id: "venue-only", title: "OTHER LIVE", venue: "東京ドーム", artist_slug: "other" }),
+  ], [yoasobi]);
+  assert.deepEqual(ranked.map((event) => event.id), ["target"]);
+});
+
 test("search event cards open the artist hub with a safe event fallback", () => {
   assert.equal(
     getSearchEventDestination(fixtureEvent({ id: "niziu-event", artist_slug: "niziu" })),
@@ -128,6 +140,13 @@ test("search event cards open the artist hub with a safe event fallback", () => 
   assert.equal(
     getSearchEventDestination(fixtureEvent({ id: "unlinked-event", artist_slug: null })),
     "/events/unlinked-event",
+  );
+  assert.equal(
+    getSearchEventDestination(
+      fixtureEvent({ id: "combined-event", artist_slug: "yoasobi", venue: "東京ドーム" }),
+      "YOASOBI 東京ドーム",
+    ),
+    "/events/combined-event",
   );
 });
 

@@ -52,9 +52,12 @@ export type SearchVenue = Pick<VenueConfig, "id" | "name">;
 const VENUE_SEARCH_ALIASES: Readonly<Record<string, readonly string[]>> = {
   "tokyo-dome": ["東京ドームシティ"],
   "vantelin-dome": ["名古屋ドーム", "ナゴヤドーム"],
+  "paypay-dome": ["福岡ドーム"],
   "saitama-super-arena": ["さいたまアリーナ", "SSA"],
+  "yokohama-arena": ["横アリ"],
   "yoyogi": ["代々木体育館", "代々木第一"],
   "k-arena": ["Kアリーナ"],
+  "osaka-jo-hall": ["城ホ"],
   "miyagi-arena": ["宮城スーパーアリーナ", "グランディ21"],
   "hiroshima-arena": ["広島アリーナ"],
 };
@@ -64,6 +67,33 @@ const VENUE_SEARCH_ALIASES: Readonly<Record<string, readonly string[]>> = {
  * "アリーナ" は会場固有名に含まれるため削除しない。
  */
 const VENUE_INTENT_WORD = /(?:の)?(?:ライブ|コンサート|公演|会場|座席表|座席|見え方|キャパ|収容人数)/g;
+
+/** 検索語を区切って、アーティスト名と会場名の複合検索に使う。 */
+const SEARCH_INTENT_TERMS = new Set([
+  "ライブ",
+  "コンサート",
+  "公演",
+  "会場",
+  "座席表",
+  "座席",
+  "見え方",
+  "当落",
+  "当選率",
+  "アリーナ予想",
+  "アリーナ",
+  "現地レポ",
+]);
+
+export function getSearchTerms(query: string): string[] {
+  const terms = query
+    .normalize("NFKC")
+    .split(/[\s　]+/)
+    .map((term) => term.trim())
+    .filter(Boolean)
+    .filter((term) => !SEARCH_INTENT_TERMS.has(normalizeForSearch(term)));
+
+  return Array.from(new Set(terms)).slice(0, 3);
+}
 
 function venueQueryVariants(query: string): string[] {
   const trimmed = query.trim();
@@ -104,8 +134,18 @@ export function shouldSearchEventText(query: string): boolean {
   return [...normalizeForSearch(query)].length >= 2;
 }
 
-/** 検索結果の公演はアーティストの総合ページを入口にし、未紐付けだけ公演詳細へ送る。 */
-export function getSearchEventDestination(event: Pick<CrawledEvent, "id" | "artist_slug">): string {
+/**
+ * アーティスト単体の検索は総合ページを入口にする。
+ * アーティスト名と会場名を組み合わせた検索は、意図が明確なので該当公演へ直接案内する。
+ */
+export function getSearchEventDestination(
+  event: Pick<CrawledEvent, "id" | "artist_slug" | "venue">,
+  query?: string,
+): string {
+  const searchTerms = query ? getSearchTerms(query) : [];
+  const includesVenueTerm = searchTerms.some((term) => searchTextScore(term, event.venue) > 0);
+  if (searchTerms.length >= 2 && includesVenueTerm) return `/events/${event.id}`;
+
   const artist = event.artist_slug
     ? ARTISTS.find((candidate) => candidate.slug === event.artist_slug && !isTestArtist(candidate))
     : null;
@@ -120,6 +160,8 @@ export function rankEventSearchResults(
 ): CrawledEvent[] {
   const artistRank = new Map(matchedArtists.map((artist, index) => [artist.slug, index]));
   const includeTextMatches = shouldSearchEventText(query);
+  const searchTerms = getSearchTerms(query);
+  const requiresAllTerms = searchTerms.length >= 2;
 
   return events
     .filter((event) => !isTestEvent(event))
@@ -127,12 +169,22 @@ export function rankEventSearchResults(
       const titleScore = includeTextMatches ? searchTextScore(query, event.title) : 0;
       const venueScore = includeTextMatches ? searchTextScore(query, event.venue) : 0;
       const matchedArtistIndex = event.artist_slug ? artistRank.get(event.artist_slug) : undefined;
+      const eventArtist = event.artist_slug ? ARTISTS.find((artist) => artist.slug === event.artist_slug) : null;
+      const termMatches = searchTerms.map((term) => [
+        event.title,
+        event.venue,
+        eventArtist?.name ?? "",
+        ...(eventArtist?.keywords ?? []),
+        eventArtist?.initials ?? "",
+      ].some((field) => searchTextScore(term, field) > 0));
+      const matchesAllTerms = !requiresAllTerms || termMatches.every(Boolean);
       const score = Math.max(
         titleScore > 0 ? 500 + titleScore : 0,
         matchedArtistIndex !== undefined ? 400 - matchedArtistIndex : 0,
         venueScore > 0 ? 300 + venueScore : 0,
+        requiresAllTerms && matchesAllTerms ? 600 + termMatches.length : 0,
       );
-      return { event, score };
+      return { event, score: matchesAllTerms ? score : 0 };
     })
     .filter(({ score }) => score > 0)
     .sort((a, b) => b.score - a.score || (b.event.date ?? "").localeCompare(a.event.date ?? ""))
@@ -153,48 +205,56 @@ export async function searchEvents(query: string, limit = 30): Promise<CrawledEv
   const q = query.trim();
   if (q.length < 1) return [];
 
-  const matchedArtists = searchArtists(q);
+  const searchTerms = getSearchTerms(q);
+  const matchedArtists = Array.from(
+    new Map(
+      [searchArtists(q), ...searchTerms.map((term) => searchArtists(term))]
+        .flat()
+        .map((artist) => [artist.slug, artist]),
+    ).values(),
+  );
   const matchedArtistSlugs = matchedArtists.map((artist) => artist.slug);
   const searchEventText = shouldSearchEventText(q);
-  const escaped = escapeIlikePattern(q);
+  const textTerms = searchTerms.length > 1
+    ? searchTerms.filter(shouldSearchEventText)
+    : searchEventText ? [q] : [];
   const columns = "id, title, venue, venue_id, date, genre, lottery_types, artist_slug";
   const emptyResult = Promise.resolve({ data: null, error: null });
-  const [titleResult, venueResult, artistResult] = await Promise.all([
-    searchEventText
-      ? supabase
+  const textResults = await Promise.all(textTerms.flatMap((term) => {
+    const escaped = escapeIlikePattern(term);
+    return [
+      supabase
         .from("events")
         .select(columns)
         .ilike("title", `%${escaped}%`)
         .order("date", { ascending: false })
-        .limit(PREFETCH_CAP)
-      : emptyResult,
-    searchEventText
-      ? supabase
+        .limit(PREFETCH_CAP),
+      supabase
         .from("events")
         .select(columns)
         .ilike("venue", `%${escaped}%`)
         .order("date", { ascending: false })
-        .limit(PREFETCH_CAP)
-      : emptyResult,
-    matchedArtistSlugs.length > 0
+        .limit(PREFETCH_CAP),
+    ];
+  }));
+  const artistResult = await (matchedArtistSlugs.length > 0
       ? supabase
         .from("events")
         .select(columns)
         .in("artist_slug", matchedArtistSlugs)
         .order("date", { ascending: false })
         .limit(PREFETCH_CAP)
-      : emptyResult,
-  ]);
-  const { data: byTitle, error: titleErr } = titleResult;
-  const { data: byVenue, error: venueErr } = venueResult;
+      : emptyResult);
   const { data: byArtist, error: artistErr } = artistResult;
-  if (titleErr) console.error(titleErr);
-  if (venueErr) console.error(venueErr);
+  for (const result of textResults) {
+    if (result.error) console.error(result.error);
+  }
   if (artistErr) console.error(artistErr);
 
   const merged = new Map<string, CrawledEvent>();
-  for (const e of (byTitle as CrawledEvent[] | null) ?? []) merged.set(e.id, e);
-  for (const e of (byVenue as CrawledEvent[] | null) ?? []) merged.set(e.id, e);
+  for (const result of textResults) {
+    for (const event of (result.data as CrawledEvent[] | null) ?? []) merged.set(event.id, event);
+  }
   for (const e of (byArtist as CrawledEvent[] | null) ?? []) merged.set(e.id, e);
 
   return rankEventSearchResults(q, [...merged.values()], matchedArtists, limit);

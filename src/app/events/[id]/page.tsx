@@ -17,14 +17,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const artistName = artist?.name ?? event.title;
   const { seatReports, predictions } = await getEventSeoCounts(info);
   const ogImagePath = `/api/og/event/${eventId}`;
-  const title = `${event.venue} ${dateLabel} の座席予想・座席報告｜${artistName}｜ちけレポ`;
+  const title = `${artistName} ${event.venue} ${dateLabel}｜座席表・当落・現地レポ｜ちけレポ`;
 
   const countParts = [
     seatReports > 0 ? `座席報告${seatReports}件` : null,
     predictions > 0 ? `座席予想${predictions}件` : null,
   ].filter((v): v is string => Boolean(v));
   const countText = countParts.length > 0 ? `${countParts.join("、")}。` : "";
-  const description = `${artistName} ${tourName} ${event.venue} ${dateLabel}の${countText}当落・座席位置・アリーナ予想図をチェック。`;
+  const description = `${artistName} ${tourName} ${event.venue} ${dateLabel}の${countText}当落、座席位置、アリーナ予想、現地レポを確認できます。`;
 
   return {
     title,
@@ -55,13 +55,14 @@ export default async function EventDetailPage({ params }: PageProps) {
   const { event, artist, tourName, dateLabel } = info;
   const artistName = artist?.name ?? null;
   const eventName = artistName ? `${artistName} ${tourName}` : event.title;
-  const description = `${eventName} ${event.venue} ${dateLabel}の座席予想・座席報告・当落情報。`;
+  const description = `${eventName} ${event.venue} ${dateLabel}の座席表、当落、アリーナ予想、現地レポ。`;
   const structuredData = buildEventStructuredData({
     id,
     name: eventName,
     description,
     startDate: event.date,
     venue: event.venue,
+    venueId: event.venue_id,
     artistName,
     artistSlug: artist?.slug ?? event.artist_slug ?? null,
   });

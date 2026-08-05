@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const profile = getVenueSeoProfile(venue.id);
   const canonical = `${SITE_URL}/venues/${venue.id}`;
   return {
-    title: `${venue.name}のライブ・座席情報｜公演予定・座席レポ`,
+    title: `${venue.name}の座席表・ライブ情報｜公演予定・座席レポ`,
     description: profile?.metaDescription ?? `${venue.name}で開催されるライブ・コンサートの公演予定、座席報告、当落レポ、アリーナ予想をまとめて確認できます。`,
     alternates: { canonical },
     openGraph: {

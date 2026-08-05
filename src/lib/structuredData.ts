@@ -38,6 +38,7 @@ export type EventStructuredDataInput = {
   description: string;
   startDate: string | null;
   venue: string;
+  venueId: string | null;
   artistName: string | null;
   artistSlug: string | null;
 };
@@ -57,6 +58,7 @@ export function buildEventStructuredData(input: EventStructuredDataInput) {
     location: {
       "@type": "Place",
       name: input.venue,
+      ...(input.venueId ? { url: `${SITE_URL}/venues/${input.venueId}` } : {}),
     },
     ...(input.artistName
       ? {
