@@ -3,12 +3,12 @@
 import { Suspense, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { CalendarDays, ChevronLeft, MapPin, Search, X } from "lucide-react";
+import { Building2, CalendarDays, ChevronLeft, MapPin, MoveRight, Search, X } from "lucide-react";
 import FavoriteArtistButton from "@/components/auth/FavoriteArtistButton";
 import { AccountLink } from "@/components/auth/AccountLink";
 import { trackEvent } from "@/lib/analytics";
 import { findArtistBySlug, type Artist } from "@/lib/artists";
-import { getSearchEventDestination, searchArtists, searchEvents } from "@/lib/search";
+import { getSearchEventDestination, searchArtists, searchEvents, searchVenues, type SearchVenue } from "@/lib/search";
 import { fmtDate } from "@/lib/artistPageHelpers";
 import { supabase } from "@/lib/supabase/client";
 import type { CrawledEvent } from "@/lib/types";
@@ -28,6 +28,7 @@ function SearchPageInner() {
 
   const [query, setQuery] = useState(initialQuery);
   const [artistResults, setArtistResults] = useState<Artist[]>([]);
+  const [venueResults, setVenueResults] = useState<SearchVenue[]>([]);
   const [eventResults, setEventResults] = useState<CrawledEvent[]>([]);
   const [loading, setLoading] = useState(false);
   const [favoriteUserId, setFavoriteUserId] = useState<string | null>(null);
@@ -82,6 +83,7 @@ function SearchPageInner() {
     const trimmed = query.trim();
     if (trimmed.length < 1) {
       setArtistResults([]);
+      setVenueResults([]);
       setEventResults([]);
       setLoading(false);
       return;
@@ -93,7 +95,9 @@ function SearchPageInner() {
         Promise.resolve(searchArtists(trimmed)),
         searchEvents(trimmed),
       ]);
+      const venues = searchVenues(trimmed);
       setArtistResults(artists);
+      setVenueResults(venues);
       setEventResults(events);
       setLoading(false);
       if (lastTrackedQuery.current !== trimmed) {
@@ -101,8 +105,9 @@ function SearchPageInner() {
         trackEvent("search", {
           search_term: trimmed,
           artist_results: artists.length,
+          venue_results: venues.length,
           event_results: events.length,
-          has_results: artists.length + events.length > 0,
+          has_results: artists.length + venues.length + events.length > 0,
         });
       }
     }, 300);
@@ -111,7 +116,7 @@ function SearchPageInner() {
   }, [query]);
 
   const hasQuery = query.trim().length > 0;
-  const hasResults = artistResults.length > 0 || eventResults.length > 0;
+  const hasResults = artistResults.length > 0 || venueResults.length > 0 || eventResults.length > 0;
 
   return (
     <main className="min-h-screen bg-[#f7f5f6] pb-16 text-[#1c171b]">
@@ -129,7 +134,7 @@ function SearchPageInner() {
 
         <div className="zr-container pb-9 pt-4 sm:pb-12 sm:pt-8">
           <p className="text-[10px] font-black tracking-[0.24em] text-[#ff5b96]">SEARCH TIXREPO</p>
-          <h1 className="mt-3 text-[38px] font-black leading-[1.08] tracking-[-0.055em] sm:text-[58px]">
+          <h1 className="mt-3 text-[34px] font-black leading-[1.08] tracking-[-0.055em] sm:text-[58px]">
             次のライブを、<br />会場と座席から探す。
           </h1>
           <p className="mt-4 text-[12px] font-bold leading-6 text-white/58 sm:text-[14px]">
@@ -196,11 +201,52 @@ function SearchPageInner() {
             <Search size={29} strokeWidth={1.5} className="mx-auto text-[#f43679]" />
             <p className="mt-4 text-[18px] font-black">検索結果が見つかりませんでした</p>
             <p className="mt-2 text-[11px] font-medium text-[#817981]">短い名前、読み方、会場名でもう一度試してください。</p>
+            <Link href="/venues" className="zr-focus mt-5 inline-flex min-h-11 items-center gap-2 border border-[#1c171b] px-4 text-[11px] font-black text-[#1c171b] transition-colors hover:bg-[#1c171b] hover:text-white">
+              ライブ会場一覧から座席表を探す<MoveRight size={15} className="text-[#f43679]" />
+            </Link>
+          </section>
+        )}
+
+        {hasQuery && !loading && venueResults.length > 0 && (
+          <section className="border-b border-[#ded8dc] pb-10" aria-labelledby="venue-results-title">
+            <div className="flex items-end justify-between gap-3">
+              <div>
+                <p className="artist-kicker">Venue seat map</p>
+                <h2 id="venue-results-title" className="mt-2 text-[24px] font-black tracking-[-0.04em]">会場の座席表</h2>
+              </div>
+              <p className="text-[10px] font-black text-[#817981]">{venueResults.length} VENUES</p>
+            </div>
+            <div className="mt-5 grid border-l border-t border-[#ded8dc] sm:grid-cols-2 lg:grid-cols-3">
+              {venueResults.map((venue, index) => (
+                <Link
+                  key={venue.id}
+                  href={`/venues/${venue.id}`}
+                  onClick={() => trackEvent("select_search_result", {
+                    result_type: "venue",
+                    result_id: venue.id,
+                    search_term: query.trim(),
+                  })}
+                  className="zr-focus group flex min-h-[104px] flex-col justify-between border-b border-r border-[#ded8dc] bg-white p-4 no-underline transition-colors hover:bg-[#fff0f5]"
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <Building2 size={20} strokeWidth={1.7} className="text-[#f43679]" />
+                    <span className="text-[9px] font-black tracking-[0.15em] text-[#958d93]">VENUE {String(index + 1).padStart(2, "0")}</span>
+                  </div>
+                  <div className="mt-4 flex items-end justify-between gap-3">
+                    <div className="min-w-0">
+                      <span className="block truncate text-[17px] font-black tracking-[-0.035em] text-[#1c171b]">{venue.name}</span>
+                      <span className="mt-1 block text-[10px] font-bold text-[#817981]">公演・座席表を見る</span>
+                    </div>
+                    <MoveRight size={17} className="shrink-0 text-[#f43679] transition-transform group-hover:translate-x-1" />
+                  </div>
+                </Link>
+              ))}
+            </div>
           </section>
         )}
 
         {hasQuery && !loading && artistResults.length > 0 && (
-          <section className="border-b border-[#ded8dc] pb-10" aria-labelledby="artist-results-title">
+          <section className={`${venueResults.length > 0 ? "pt-10 " : ""}border-b border-[#ded8dc] pb-10`} aria-labelledby="artist-results-title">
             <div className="flex items-end justify-between gap-3">
               <div>
                 <p className="artist-kicker">Artists</p>
@@ -241,7 +287,7 @@ function SearchPageInner() {
         )}
 
         {hasQuery && !loading && eventResults.length > 0 && (
-          <section className={artistResults.length > 0 ? "pt-10" : ""} aria-labelledby="event-results-title">
+          <section className={artistResults.length > 0 || venueResults.length > 0 ? "pt-10" : ""} aria-labelledby="event-results-title">
             <div className="flex items-end justify-between gap-3">
               <div>
                 <p className="artist-kicker">Live & Venue</p>

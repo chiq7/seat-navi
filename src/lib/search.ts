@@ -1,5 +1,6 @@
 import { ARTISTS, type Artist } from "@/lib/artists";
 import { ARTIST_SEARCH_ALIASES } from "@/lib/artistSearchAliases";
+import { VENUES, type VenueConfig } from "@/lib/eventCrawlerConfig";
 import { normalizeForSearch, searchTextScore } from "@/lib/keywordMatch";
 import { isTestArtist, isTestEvent } from "@/lib/seoData";
 import { supabase } from "@/lib/supabase/client";
@@ -38,6 +39,58 @@ export function searchArtists(query: string, limit = 20): Artist[] {
     .filter(({ artist, score }) => !isTestArtist(artist) && score > 40)
     .sort((a, b) => b.score - a.score || a.index - b.index)
     .map(({ artist }) => artist)
+    .slice(0, limit);
+}
+
+/** 検索結果で会場ページへ直接案内するための最小の会場情報。 */
+export type SearchVenue = Pick<VenueConfig, "id" | "name">;
+
+/**
+ * 正式名だけでは取りこぼす、検索でよく使われる会場の呼び方。
+ * 英数字・全半角・記号のゆれは searchTextScore 側で吸収する。
+ */
+const VENUE_SEARCH_ALIASES: Readonly<Record<string, readonly string[]>> = {
+  "tokyo-dome": ["東京ドームシティ"],
+  "vantelin-dome": ["名古屋ドーム", "ナゴヤドーム"],
+  "saitama-super-arena": ["さいたまアリーナ", "SSA"],
+  "yoyogi": ["代々木体育館", "代々木第一"],
+  "k-arena": ["Kアリーナ"],
+  "miyagi-arena": ["宮城スーパーアリーナ", "グランディ21"],
+  "hiroshima-arena": ["広島アリーナ"],
+};
+
+/**
+ * 「会場名 座席表」のような検索語では、意図語を外した候補でも会場名を照合する。
+ * "アリーナ" は会場固有名に含まれるため削除しない。
+ */
+const VENUE_INTENT_WORD = /(?:の)?(?:ライブ|コンサート|公演|会場|座席表|座席|見え方|キャパ|収容人数)/g;
+
+function venueQueryVariants(query: string): string[] {
+  const trimmed = query.trim();
+  if (!trimmed) return [];
+
+  const withoutIntent = trimmed.replace(VENUE_INTENT_WORD, " ").replace(/\s+/g, " ").trim();
+  return Array.from(new Set([trimmed, withoutIntent].filter(Boolean)));
+}
+
+/**
+ * 会場名・通称・「座席表」付き検索を会場詳細ページへつなぐ。
+ * DBの公演有無に左右されない静的な会場ディレクトリを対象にする。
+ */
+export function searchVenues(query: string, limit = 8): SearchVenue[] {
+  const variants = venueQueryVariants(query);
+  if (variants.length === 0) return [];
+
+  return VENUES.map((venue, index) => {
+    const fields = [venue.name, ...(VENUE_SEARCH_ALIASES[venue.id] ?? [])];
+    const score = Math.max(
+      ...variants.flatMap((variant) => fields.map((field) => searchTextScore(variant, field))),
+    );
+    return { venue: { id: venue.id, name: venue.name }, index, score };
+  })
+    .filter(({ score }) => score > 0)
+    .sort((a, b) => b.score - a.score || a.index - b.index)
+    .map(({ venue }) => venue)
     .slice(0, limit);
 }
 

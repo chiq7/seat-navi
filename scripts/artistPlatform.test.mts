@@ -33,6 +33,7 @@ const {
   getSearchEventDestination,
   rankEventSearchResults,
   searchArtists,
+  searchVenues,
   shouldSearchEventText,
 } = await import("@/lib/search");
 const {
@@ -88,6 +89,12 @@ test("kana readings and common nicknames are available without changing crawler 
   assert.equal(searchArtists("キンプリ")[0]?.slug, "king-prince");
   assert.equal(searchArtists("ひげだん")[0]?.slug, "officialdism");
   assert.equal(searchArtists("わんおく")[0]?.slug, "one-ok-rock");
+});
+
+test("venue search recognizes seat-map intent and common venue aliases", () => {
+  assert.equal(searchVenues("東京ドーム 座席表")[0]?.id, "tokyo-dome");
+  assert.equal(searchVenues("さいたまアリーナ")[0]?.id, "saitama-super-arena");
+  assert.equal(searchVenues("名古屋ドームの見え方")[0]?.id, "vantelin-dome");
 });
 
 test("every production artist has a kana search path", () => {
