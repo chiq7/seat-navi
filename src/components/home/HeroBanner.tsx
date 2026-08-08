@@ -1,43 +1,54 @@
 import Link from "next/link";
-import { ArrowRight, MapPinned, Search } from "lucide-react";
+import { ArrowRight, Heart, MessageCircle, Search } from "lucide-react";
 
 export default function HeroBanner() {
   return (
-    <section className="relative isolate min-h-[540px] overflow-hidden bg-[#0e0910] text-white sm:min-h-[590px] lg:min-h-[650px]">
-      <div className="absolute inset-0 opacity-90" style={{ background: "radial-gradient(circle at 72% 36%, rgba(244,54,121,.38), transparent 19%), radial-gradient(circle at 84% 58%, rgba(119,72,236,.28), transparent 25%), linear-gradient(128deg, #0d0910 6%, #201020 52%, #08070b 100%)" }} />
-      <div className="absolute -top-20 left-[54%] h-[540px] w-[110px] origin-top rotate-[19deg] bg-gradient-to-b from-white/28 via-[#ff4c94]/8 to-transparent blur-2xl" />
-      <div className="absolute -top-28 left-[74%] h-[610px] w-[130px] origin-top -rotate-[18deg] bg-gradient-to-b from-[#bca8ff]/25 via-[#ff4c94]/8 to-transparent blur-3xl" />
-      <div className="absolute inset-x-0 bottom-0 h-[46%] opacity-60" style={{ backgroundImage: "radial-gradient(circle, rgba(255,255,255,.28) 0 2px, transparent 2.5px)", backgroundSize: "29px 24px", maskImage: "linear-gradient(to top, black, transparent)" }} />
-
-      <div className="zr-container relative flex min-h-[540px] flex-col justify-between py-9 sm:min-h-[590px] sm:py-12 lg:min-h-[650px] lg:py-16">
-        <div className="flex items-center gap-3 text-[10px] font-bold tracking-[0.24em] text-white/52 sm:text-[11px]">
-          <span className="h-px w-10 bg-[#f43679]" />
-          LIVE REPORT / SEAT MAP / VENUE
+    <section className="relative isolate overflow-hidden bg-[#fff0f6] text-[#2b252b]">
+      <div className="absolute -right-28 -top-28 h-80 w-80 rounded-full bg-[#ff9fc1]/45 blur-3xl" />
+      <div className="absolute -bottom-36 left-[18%] h-72 w-72 rounded-full bg-[#d8cbff]/35 blur-3xl" />
+      <div className="zr-container relative grid gap-8 py-12 sm:py-16 lg:grid-cols-[1.15fr_.85fr] lg:items-center lg:py-20">
+        <div>
+          <p className="inline-flex items-center gap-2 rounded-full bg-white/80 px-3 py-2 text-[10px] font-black tracking-[0.12em] text-[#d83d72] shadow-sm">
+            <Heart size={14} fill="currentColor" aria-hidden="true" /> FAN COMMUNITY
+          </p>
+          <h1 className="mt-5 text-[42px] font-black leading-[1.08] tracking-[-0.06em] sm:text-[58px] lg:text-[54px] xl:text-[60px]">
+            <span className="block">ライブのこと、</span>
+            <span className="block text-[#ed4a83]">ファン同士で<span className="block sm:inline">話そう。</span></span>
+          </h1>
+          <p className="mt-5 max-w-[590px] text-[14px] font-medium leading-7 text-[#675860] sm:text-[16px]">
+            当落、座席の見え方、現地の熱、セットリストまで。実際にライブへ行ったファンの記録を、推しごと・公演ごとに集めています。
+          </p>
+          <div className="mt-7 flex flex-wrap gap-3">
+            <Link href="/search" className="zr-focus inline-flex min-h-12 items-center gap-2 rounded-full bg-[#ef4f87] px-5 text-[13px] font-black text-white shadow-[0_10px_24px_rgba(239,79,135,.24)] transition hover:bg-[#db3e73]">
+              <Search size={17} /> 推しの情報を見る <ArrowRight size={16} />
+            </Link>
+            <Link href="/report" className="zr-focus inline-flex min-h-12 items-center gap-2 rounded-full bg-white px-5 text-[13px] font-black text-[#6b5561] shadow-sm transition hover:bg-[#fffafd]">
+              <MessageCircle size={17} className="text-[#ef4f87]" /> レポを投稿する
+            </Link>
+          </div>
         </div>
 
-        <div className="grid items-end gap-7 lg:grid-cols-[1fr_380px] lg:gap-10">
-          <div>
-            <h1 className="text-[clamp(42px,7.2vw,98px)] font-black leading-[1.04] tracking-[-0.055em]">
-              <span className="block">当落・座席・</span>
-              <span className="block text-[#ff4f8e]">現地レポを。</span>
-            </h1>
-            <p className="mt-5 max-w-[650px] text-[14px] font-medium leading-6 text-white/66 sm:text-[16px] sm:leading-7">
-              公演ごとの当選率、座席表・アリーナ予想、会場での見え方を、ファンの投稿から確認・共有できます。
-            </p>
-          </div>
-
-          <div className="border-t border-white/18 pt-3 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0">
-            <Link href="/search" className="zr-focus group flex min-h-14 items-center gap-4 border-b border-white/18 py-3 text-[14px] font-bold">
-              <Search size={20} className="text-[#ff4f8e]" />
-              <span className="flex-1">アーティスト・会場・座席表を探す</span>
-              <ArrowRight size={19} className="transition-transform group-hover:translate-x-1" />
-            </Link>
-            <Link href="/venues" className="zr-focus group flex min-h-14 items-center gap-4 border-b border-white/18 py-3 text-[14px] font-bold">
-              <MapPinned size={20} className="text-[#ff4f8e]" />
-              <span className="flex-1">ライブ会場一覧を見る</span>
-              <ArrowRight size={19} className="transition-transform group-hover:translate-x-1" />
-            </Link>
-          </div>
+        <div className="grid grid-cols-2 gap-3 rounded-[28px] bg-white/65 p-3 shadow-[0_18px_50px_rgba(185,91,127,.12)] backdrop-blur-sm sm:p-4">
+          <Link href="/search" className="zr-focus min-h-[122px] rounded-[20px] bg-[#fff1f6] p-4 transition hover:-translate-y-0.5">
+            <span className="text-[10px] font-black tracking-[0.12em] text-[#de4678]">TICKET</span>
+            <p className="mt-3 text-[18px] font-black tracking-[-0.04em]">当落の記録</p>
+            <p className="mt-1 text-[11px] font-medium text-[#8b6f7b]">当選率・抽選傾向</p>
+          </Link>
+          <Link href="/search" className="zr-focus min-h-[122px] rounded-[20px] bg-[#eff2ff] p-4 transition hover:-translate-y-0.5">
+            <span className="text-[10px] font-black tracking-[0.12em] text-[#6176d7]">SEAT</span>
+            <p className="mt-3 text-[18px] font-black tracking-[-0.04em]">座席の見え方</p>
+            <p className="mt-1 text-[11px] font-medium text-[#68718e]">座席表・アリーナ予想</p>
+          </Link>
+          <Link href="/report/live" className="zr-focus min-h-[122px] rounded-[20px] bg-[#fff3ed] p-4 transition hover:-translate-y-0.5">
+            <span className="text-[10px] font-black tracking-[0.12em] text-[#cf744c]">LIVE</span>
+            <p className="mt-3 text-[18px] font-black tracking-[-0.04em]">現地のレポ</p>
+            <p className="mt-1 text-[11px] font-medium text-[#987363]">演出・会場の雰囲気</p>
+          </Link>
+          <Link href="/search" className="zr-focus min-h-[122px] rounded-[20px] bg-[#f5f0ff] p-4 transition hover:-translate-y-0.5">
+            <span className="text-[10px] font-black tracking-[0.12em] text-[#8165bb]">SETLIST</span>
+            <p className="mt-3 text-[18px] font-black tracking-[-0.04em]">セトリを探す</p>
+            <p className="mt-1 text-[11px] font-medium text-[#7c718e]">公演ごとの曲順</p>
+          </Link>
         </div>
       </div>
     </section>

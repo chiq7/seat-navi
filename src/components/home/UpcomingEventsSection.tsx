@@ -17,7 +17,7 @@ export default function UpcomingEventsSection({ events, favoriteUserId, favorite
         icon={<Calendar size={16} color="#FF6B9D" />}
         title="開催が近い公演"
       />
-      <div className="grid gap-x-8 border-t border-[#d8d1d6] md:grid-cols-2">
+      <div className="grid gap-3 md:grid-cols-2 md:gap-x-5">
         {events.map((item) => (
           <UpcomingEventCard
             key={item.id}

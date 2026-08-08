@@ -429,7 +429,7 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
   }
 
   return (
-    <main className="min-h-screen bg-[#f7f5f6] font-sans text-[#1c171b]">
+    <main className="min-h-screen bg-[#fff9fb] font-sans text-[#2b252b]">
       <HeroSection
         key={artist.slug}
         artistName={artist.name}
@@ -462,21 +462,21 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
       ) : (
         <div className="pb-20">
           <div className="zr-container">
-            <ArtistActionHub artistName={artist.name} />
+            <ArtistActionHub artistName={artist.name} slug={slug} />
 
-            <section className="border-b border-[#ded8dc] py-5" aria-label="公演の表示切り替え">
-              <div className="flex items-center gap-2">
+            <section className="py-2" aria-label="公演の表示切り替え">
+              <div className="flex items-center gap-2 rounded-full bg-white p-1.5 shadow-sm">
                 <button
                   type="button"
                   onClick={() => setActiveEventTab("current")}
-                  className={`zr-focus min-h-11 flex-1 border px-3 text-[12px] font-black transition-colors ${activeEventTab === "current" ? "border-[#1c171b] bg-[#1c171b] text-white" : "border-[#ded8dc] bg-transparent text-[#746c73]"}`}
+                  className={`zr-focus min-h-10 flex-1 rounded-full px-3 text-[12px] font-black transition-colors ${activeEventTab === "current" ? "bg-[#ef4f87] text-white shadow-sm" : "text-[#846d79] hover:bg-[#fff1f6]"}`}
                 >
                   これからの公演
                 </button>
                 <button
                   type="button"
                   onClick={() => setActiveEventTab("past")}
-                  className={`zr-focus min-h-11 flex-1 border px-3 text-[12px] font-black transition-colors ${activeEventTab === "past" ? "border-[#1c171b] bg-[#1c171b] text-white" : "border-[#ded8dc] bg-transparent text-[#746c73]"}`}
+                  className={`zr-focus min-h-10 flex-1 rounded-full px-3 text-[12px] font-black transition-colors ${activeEventTab === "past" ? "bg-[#ef4f87] text-white shadow-sm" : "text-[#846d79] hover:bg-[#fff1f6]"}`}
                 >
                   過去の公演
                 </button>

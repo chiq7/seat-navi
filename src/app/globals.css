@@ -1,15 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f7f5f6;
-  --foreground: #1c171b;
-  --accent: #f43679;
-  --accent-light: #ffe9f1;
-  --accent-dark: #c91558;
+  --background: #fff9fb;
+  --foreground: #2b252b;
+  --accent: #f04f87;
+  --accent-light: #ffe8f1;
+  --accent-dark: #c93868;
   --card-bg: #ffffff;
-  --card-border: #E5E7EB;
-  --text-muted: #9CA3AF;
-  --section-bg: #F9FAFB;
+  --card-border: #f0dfe6;
+  --text-muted: #897d85;
+  --section-bg: #fff2f7;
+  --category-ticket: #e94a7d;
+  --category-seat: #6176d7;
+  --category-live: #dd8053;
+  --category-setlist: #8165bb;
 }
 
 @theme inline {
@@ -38,12 +42,12 @@ body {
 }
 
 .zr-container {
-  width: min(100% - 40px, 1240px);
+  width: min(100% - 40px, 1160px);
   margin-inline: auto;
 }
 
 .zr-section {
-  padding-block: clamp(56px, 6vw, 88px);
+  padding-block: clamp(52px, 6vw, 80px);
 }
 
 .zr-focus:focus-visible {
@@ -52,12 +56,11 @@ body {
 }
 
 .artist-section {
-  padding-block: 44px;
-  border-bottom: 1px solid #ded8dc;
+  padding-block: 52px;
 }
 
 .artist-kicker {
-  color: #f43679;
+  color: var(--accent);
   font-size: 10px;
   font-weight: 900;
   letter-spacing: 0.2em;
@@ -65,8 +68,8 @@ body {
 }
 
 .artist-heading {
-  margin-top: 7px;
-  color: #1c171b;
+  margin-top: 8px;
+  color: var(--foreground);
   font-size: clamp(26px, 7vw, 38px);
   font-weight: 900;
   line-height: 1.2;
@@ -79,11 +82,11 @@ body {
   }
 
   .zr-section {
-    padding-block: 44px;
+    padding-block: 40px;
   }
 
   .artist-section {
-    padding-block: 34px;
+    padding-block: 40px;
   }
 }
 
