@@ -38,16 +38,13 @@ const getHomeRequestContext = cache(async () => {
   };
 });
 
-async function HomeEventSections() {
+const getHomeEventState = cache(async () => {
   const context = await getHomeRequestContext();
   if (!context) {
-    const emptyFavorites = new Set<string>();
-    return (
-      <>
-        <HotReportsSection events={[]} title="注目の公演" favoriteUserId={null} favoriteSlugs={emptyFavorites} />
-        <UpcomingEventsSection events={[]} favoriteUserId={null} favoriteSlugs={emptyFavorites} />
-      </>
-    );
+    return {
+      upcomingEvents: [] as UpcomingEvent[],
+      favoriteState: { userId: null, slugs: new Set<string>() },
+    };
   }
 
   const favoriteStatePromise = context.auth.then(async (authResult) => {
@@ -68,6 +65,12 @@ async function HomeEventSections() {
     context.upcomingEvents,
     favoriteStatePromise,
   ]);
+
+  return { upcomingEvents, favoriteState };
+});
+
+async function HomeFeaturedSection() {
+  const { upcomingEvents, favoriteState } = await getHomeEventState();
   const favoriteSlugs = favoriteState.slugs;
   let featuredEvents: UpcomingEvent[] = [];
   let featuredTitle = "注目の公演";
@@ -84,19 +87,23 @@ async function HomeEventSections() {
   }
 
   return (
-    <>
-      <HotReportsSection
-        events={featuredEvents}
-        title={featuredTitle}
-        favoriteUserId={favoriteState.userId}
-        favoriteSlugs={favoriteSlugs}
-      />
-      <UpcomingEventsSection
-        events={upcomingEvents}
-        favoriteUserId={favoriteState.userId}
-        favoriteSlugs={favoriteSlugs}
-      />
-    </>
+    <HotReportsSection
+      events={featuredEvents}
+      title={featuredTitle}
+      favoriteUserId={favoriteState.userId}
+      favoriteSlugs={favoriteSlugs}
+    />
+  );
+}
+
+async function HomeUpcomingSection() {
+  const { upcomingEvents, favoriteState } = await getHomeEventState();
+  return (
+    <UpcomingEventsSection
+      events={upcomingEvents}
+      favoriteUserId={favoriteState.userId}
+      favoriteSlugs={favoriteState.slugs}
+    />
   );
 }
 
@@ -112,35 +119,33 @@ async function HomeRealtimeSection() {
   return <RealtimeFeedSection items={feedItems} />;
 }
 
-function EventSectionsSkeleton() {
+function FeaturedEventsSkeleton() {
   return (
-    <div aria-hidden="true">
-      <section className="mt-3">
+    <section className="zr-section bg-[#fff5f8]" aria-hidden="true">
+      <div className="zr-container">
         <SectionHeader icon={<Flame size={16} color="#FF6B9D" />} title="注目の公演" />
-        <div className="flex w-full gap-2 overflow-hidden px-3">
-          {[0, 1, 2].map((index) => (
-            <div key={index} className="h-[132px] w-[135px] shrink-0 animate-pulse rounded-[16px] bg-white shadow-sm">
-              <div className="h-[76px] rounded-t-[16px] bg-pink-100" />
-              <div className="mx-3 mt-2 h-2 rounded-full bg-gray-100" />
-              <div className="mx-2 mt-2 h-5 rounded-full bg-pink-100" />
-            </div>
+        <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
+          {[0, 1, 2, 3, 4].map((index) => (
+            <div key={index} className="h-[210px] animate-pulse rounded-[22px] bg-white shadow-sm" />
           ))}
         </div>
-      </section>
-      <section className="mt-3">
+      </div>
+    </section>
+  );
+}
+
+function UpcomingEventsSkeleton() {
+  return (
+    <section className="zr-section bg-white" aria-hidden="true">
+      <div className="zr-container">
         <SectionHeader icon={<Calendar size={16} color="#FF6B9D" />} title="開催が近い公演" />
-        <div className="flex w-full gap-2 overflow-hidden px-3">
-          {[0, 1, 2, 3].map((index) => (
-            <div key={index} className="h-[104px] w-[104px] shrink-0 animate-pulse rounded-xl border border-gray-100 bg-white p-3 shadow-sm">
-              <div className="h-2 w-10 rounded-full bg-gray-100" />
-              <div className="mt-3 h-3 w-16 rounded-full bg-gray-200" />
-              <div className="mt-2 h-2 w-20 rounded-full bg-gray-100" />
-              <div className="mt-3 h-3 w-12 rounded-full bg-pink-100" />
-            </div>
+        <div className="grid gap-3 md:grid-cols-2">
+          {[0, 1, 2, 3, 4, 5].map((index) => (
+            <div key={index} className="h-[92px] animate-pulse rounded-2xl bg-[#faf7f8]" />
           ))}
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 }
 
@@ -166,21 +171,27 @@ function RealtimeFeedSkeleton() {
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#f7f5f6]">
+    <div className="min-h-screen bg-[#fff9fb]">
       <HomeHeader />
       <main>
         <h1 className="sr-only">ライブチケットの当落・座席・現地レポを共有する ちけレポ</h1>
         <HeroBanner />
-        <Suspense fallback={<EventSectionsSkeleton />}>
-          <HomeEventSections />
+        <Suspense fallback={<FeaturedEventsSkeleton />}>
+          <HomeFeaturedSection />
         </Suspense>
         <Suspense fallback={<RealtimeFeedSkeleton />}>
           <HomeRealtimeSection />
         </Suspense>
-        <VenueDiscoveryCta />
-        <LoginCta />
+        <Suspense fallback={<UpcomingEventsSkeleton />}>
+          <HomeUpcomingSection />
+        </Suspense>
+        <section className="bg-[#fff5f8] py-12 sm:py-16" aria-label="会場検索とマイページ">
+          <div className="zr-container grid gap-4 lg:grid-cols-[1.25fr_.75fr]">
+            <VenueDiscoveryCta />
+            <LoginCta />
+          </div>
+        </section>
         <SiteNewsSection />
-        <div className="h-6" />
       </main>
     </div>
   );

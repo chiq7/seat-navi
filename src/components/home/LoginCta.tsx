@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { ArrowUpRight, Ticket } from "lucide-react";
+import { ArrowUpRight, Heart } from "lucide-react";
 import { supabase } from "@/lib/supabase/client";
 
 export default function LoginCta() {
@@ -15,32 +15,25 @@ export default function LoginCta() {
   }, []);
 
   return (
-    <div className="zr-container my-8">
-      <Link
-        href={loggedIn ? "/mypage" : "/login"}
-        className="zr-focus group block overflow-hidden border border-[#282127] bg-white"
-      >
-        <div className="flex items-center justify-between bg-[#1c171b] px-4 py-2.5 text-white sm:px-5">
-          <span className="text-[9px] font-black tracking-[0.2em] text-[#ff5b96]">YOUR ARCHIVE</span>
-          <span className="text-[9px] font-black tracking-[0.16em] text-white/50">MY PAGE</span>
-        </div>
-        <div className="grid min-h-[88px] grid-cols-[1fr_58px]">
-          <div className="flex min-w-0 items-center gap-3 px-4 py-3 sm:px-5">
-            <Ticket size={24} strokeWidth={1.7} className="shrink-0 text-[#f43679]" />
-            <div className="min-w-0">
-              <p className="text-[18px] font-black leading-snug tracking-[-0.035em] text-[#1c171b]">
-                {loggedIn ? "自分のライブ記録" : "推しのライブを記録する"}
-              </p>
-              <p className="mt-1 text-[11px] font-medium leading-5 text-[#706870]">
-                {loggedIn ? "投稿履歴・当選率・推し設定を確認" : "ログインして推しの公演を優先表示"}
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center justify-center border-l border-[#282127] bg-[#fff0f5] text-[#f43679] transition-colors group-hover:bg-[#f43679] group-hover:text-white">
-            <ArrowUpRight size={22} strokeWidth={1.8} />
-          </div>
-        </div>
-      </Link>
-    </div>
+    <Link
+      href={loggedIn ? "/mypage" : "/login"}
+      className="zr-focus group flex min-h-[214px] flex-col justify-between rounded-[28px] bg-[#ffe9f1] p-6 transition hover:-translate-y-1 sm:p-8"
+    >
+      <div className="flex items-start justify-between gap-4">
+        <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/70 text-[#e94a7d]">
+          <Heart size={21} fill="currentColor" aria-hidden="true" />
+        </span>
+        <ArrowUpRight size={23} strokeWidth={2} className="shrink-0 text-[#e94a7d] transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
+      </div>
+      <div>
+        <p className="text-[10px] font-black tracking-[0.16em] text-[#e34b7c]">MY TIXREPO</p>
+        <p className="mt-2 text-[25px] font-black leading-[1.2] tracking-[-0.05em] text-[#49323c] sm:text-[30px]">
+          {loggedIn ? "自分のライブ記録" : "推しを登録する"}
+        </p>
+        <p className="mt-3 text-[12px] font-bold leading-6 text-[#916377] sm:text-[13px]">
+          {loggedIn ? "投稿履歴・当選率・推し設定を確認" : "推しの公演を優先表示して、投稿履歴を残す"}
+        </p>
+      </div>
+    </Link>
   );
 }

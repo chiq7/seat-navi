@@ -1,30 +1,28 @@
 import Link from "next/link";
-import { ArrowUpRight, Building2, MapPinned } from "lucide-react";
+import { ArrowUpRight, MapPinned } from "lucide-react";
 
 export default function VenueDiscoveryCta() {
   return (
-    <section className="zr-container py-5 sm:py-7" aria-labelledby="venue-discovery-title">
-      <Link
-        href="/venues"
-        className="zr-focus group relative block overflow-hidden border border-[#ded8dc] bg-white px-5 py-5 transition-colors hover:bg-[#fff0f5] sm:px-8 sm:py-6"
-      >
-        <div className="absolute -right-9 -top-8 text-[#f43679]/[0.08]">
-          <Building2 size={170} strokeWidth={1} />
-        </div>
-        <div className="relative flex items-start justify-between gap-4">
-          <div>
-            <p className="text-[10px] font-black tracking-[0.22em] text-[#f43679]">VENUE GUIDE</p>
-            <h2 id="venue-discovery-title" className="mt-2 text-[26px] font-black leading-[1.14] tracking-[-0.05em] sm:text-[34px]">
-              ライブ会場一覧・<br />座席表から探す
-            </h2>
-          </div>
-          <ArrowUpRight size={25} strokeWidth={2.2} className="mt-1 shrink-0 text-[#f43679] transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
-        </div>
-        <div className="relative mt-4 flex items-center gap-2 text-[12px] font-bold leading-5 text-[#5d555b] sm:text-[13px]">
-          <MapPinned size={16} className="shrink-0 text-[#f43679]" />
-          東京ドーム、Kアリーナ横浜など、ライブ会場ごとの公演・座席表をまとめて見る
-        </div>
-      </Link>
-    </section>
+    <Link
+      href="/venues"
+      className="zr-focus group flex min-h-[214px] flex-col justify-between rounded-[28px] bg-[#edf0ff] p-6 transition hover:-translate-y-1 sm:p-8"
+      aria-labelledby="venue-discovery-title"
+    >
+      <div className="flex items-start justify-between gap-4">
+        <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/70 text-[#6176d7]">
+          <MapPinned size={21} aria-hidden="true" />
+        </span>
+        <ArrowUpRight size={23} strokeWidth={2} className="shrink-0 text-[#6176d7] transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
+      </div>
+      <div>
+        <p className="text-[10px] font-black tracking-[0.16em] text-[#6176d7]">VENUE &amp; SEAT MAP</p>
+        <h2 id="venue-discovery-title" className="mt-2 text-[25px] font-black leading-[1.2] tracking-[-0.05em] text-[#2b3046] sm:text-[30px]">
+          会場・座席表から探す
+        </h2>
+        <p className="mt-3 max-w-[640px] text-[12px] font-bold leading-6 text-[#65708a] sm:text-[13px]">
+          東京ドーム、Kアリーナ横浜など、会場ごとの公演・座席情報を見る
+        </p>
+      </div>
+    </Link>
   );
 }
