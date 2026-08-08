@@ -46,7 +46,7 @@ const venueById = new Map(SEO_VENUES.map((venue) => [venue.id, venue]));
 
 function VenueCards({ venueIds, compact = false }: { venueIds: readonly string[]; compact?: boolean }) {
   return (
-    <div className={`grid grid-cols-2 border-l border-t border-[#ded8dc] ${compact ? "lg:grid-cols-4" : "lg:grid-cols-3"}`}>
+    <div className={`grid grid-cols-2 gap-3 ${compact ? "lg:grid-cols-4" : "lg:grid-cols-3"}`}>
       {venueIds.map((venueId, index) => {
         const venue = venueById.get(venueId);
         if (!venue) return null;
@@ -55,7 +55,7 @@ function VenueCards({ venueIds, compact = false }: { venueIds: readonly string[]
           <Link
             key={venue.id}
             href={`/venues/${venue.id}`}
-            className={`zr-focus group flex flex-col justify-between border-b border-r border-[#ded8dc] bg-white p-4 transition-colors hover:bg-[#fff0f5] ${compact ? "min-h-[112px]" : "min-h-[128px]"}`}
+            className={`community-card zr-focus group flex flex-col justify-between p-4 transition-colors hover:bg-[#fff0f5] ${compact ? "min-h-[112px]" : "min-h-[128px]"}`}
           >
             <div className="flex items-start justify-between gap-4">
               <Building2 size={compact ? 21 : 23} strokeWidth={1.6} className="text-[#f43679]" />
@@ -83,31 +83,31 @@ export const metadata: Metadata = {
 
 export default function VenuesPage() {
   return (
-    <main className="min-h-screen bg-[#f7f5f6] pb-16 text-[#1c171b]">
-      <section className="bg-[#0d090d] text-white">
+    <main className="community-page pb-16">
+      <section className="community-hero">
         <header className="zr-container flex h-16 items-center justify-between">
           <Link
             href="/"
             aria-label="TOPへ戻る"
-            className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/8 text-white"
+            className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-[#2b252b] shadow-sm"
           >
             <ChevronLeft size={26} strokeWidth={2.7} />
           </Link>
-          <AccountLink tone="light" iconSize={22} />
+          <AccountLink iconSize={22} />
         </header>
         <div className="zr-container pb-7 pt-4 sm:pb-10 sm:pt-7">
-          <p className="text-[10px] font-black tracking-[0.24em] text-[#ff5b96]">VENUE DIRECTORY</p>
-          <h1 className="mt-3 text-[39px] font-black leading-[1.08] tracking-[-0.055em] sm:text-[60px] lg:text-[72px]">
-            ライブ会場から、<br />公演と座席表を探す。
+          <p className="community-eyebrow">VENUE DIRECTORY</p>
+          <h1 className="community-title mt-3">
+            ライブ会場から、<br /><span className="text-[#ef4f87]">公演と座席表を探す。</span>
           </h1>
-          <p className="mt-4 max-w-[680px] text-[12px] font-bold leading-6 text-white/62 sm:text-[14px]">
+          <p className="community-subtitle mt-4 max-w-[680px]">
             主要ライブ会場の公演予定、座席報告、アリーナ予想、現地レポをまとめて確認できます。
           </p>
           <Link
             href="/search"
-            className="zr-focus mt-5 inline-flex min-h-12 items-center gap-2 border border-white/25 px-5 text-[12px] font-black text-white"
+            className="community-secondary-button mt-5"
           >
-            <Search size={16} className="text-[#ff5b96]" />会場名で検索する
+            <Search size={16} className="text-[#ef4f87]" />会場名で検索する
           </Link>
         </div>
       </section>
@@ -121,12 +121,12 @@ export default function VenuesPage() {
           <p className="shrink-0 text-[10px] font-black text-[#817981]">{SEO_VENUES.length} VENUES</p>
         </div>
 
-        <nav className="mt-5 grid grid-cols-2 border-l border-t border-[#ded8dc] text-[11px] font-black sm:flex" aria-label="会場タイプから探す">
+        <nav className="mt-5 grid grid-cols-2 gap-2 text-[11px] font-black sm:flex" aria-label="会場タイプから探す">
           {[
             ["popular", "よく見られる"],
             ...VENUE_TYPE_GROUPS.map((group) => [group.id, group.label]),
           ].map(([id, label]) => (
-            <a key={id} href={`#${id}`} className="zr-focus flex min-h-11 items-center justify-between border-b border-r border-[#ded8dc] bg-white px-3 text-[#4b4248] transition-colors hover:bg-[#fff0f5] last:col-span-2 sm:flex-1 sm:px-4 sm:last:col-span-1">
+            <a key={id} href={`#${id}`} className="community-card zr-focus flex min-h-11 items-center justify-between px-3 text-[#4b4248] transition-colors hover:bg-[#fff0f5] last:col-span-2 sm:flex-1 sm:px-4 sm:last:col-span-1">
               {label}<MoveRight size={14} className="text-[#f43679]" />
             </a>
           ))}

@@ -194,26 +194,26 @@ function SuccessScreen({
   const xShareHref = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(reportUrl)}`;
 
   return (
-    <div className="relative flex min-h-screen flex-col bg-[#f7f5f6] text-[#1c171b]">
-      <header className="relative z-10 flex h-16 items-center justify-center bg-[#0d090d] text-white">
+    <div className="community-page relative flex flex-col">
+      <header className="relative z-10 flex h-16 items-center justify-center">
         <Link
           href="/report"
-          className="zr-focus absolute left-4 flex h-11 w-11 items-center justify-center rounded-full bg-white/8 text-white"
+          className="zr-focus absolute left-4 flex h-11 w-11 items-center justify-center rounded-full bg-white text-[#2b252b] shadow-sm"
           aria-label="報告メニューへ戻る"
         >
           <ChevronLeft size={24} strokeWidth={2.7} />
         </Link>
-        <p className="text-[10px] font-black tracking-[0.18em] text-white/55">REPORT COMPLETE</p>
+        <p className="community-eyebrow">REPORT COMPLETE</p>
       </header>
 
-      <section className="bg-[#0d090d] pb-12 pt-5 text-white sm:pb-16" aria-labelledby="success-title">
+      <section className="community-hero pb-12 pt-5 sm:pb-16" aria-labelledby="success-title">
         <div className="zr-container">
           <CheckCircle2 size={38} strokeWidth={1.6} className="text-[#ff5b96]" />
           <p className="mt-6 text-[10px] font-black tracking-[0.24em] text-[#ff5b96]">YOUR VIEW IS LIVE</p>
           <h1 id="success-title" className="mt-3 text-[39px] font-black leading-[1.08] tracking-[-0.055em] sm:text-[58px]">
             投稿できました。<br />次は、ファンへ届けよう。
           </h1>
-          <p className="mt-5 max-w-[620px] text-[12px] font-bold leading-6 text-white/62 sm:text-[14px]">
+          <p className="community-subtitle mt-5 max-w-[620px]">
             あなたの座席から見えた景色が、次にこの会場へ行くファンの参考になります。
           </p>
           {event && (
@@ -247,18 +247,18 @@ function SuccessScreen({
           />
         </div>
 
-        <div className="mt-6 grid border-l border-t border-[#ded8dc] sm:grid-cols-2">
+        <div className="mt-6 grid gap-3 sm:grid-cols-2">
           <button
             type="button"
             onClick={onOther}
-            className="zr-focus flex min-h-16 items-center justify-center gap-2 border-b border-r border-[#ded8dc] bg-white px-4 text-[12px] font-black"
+            className="community-secondary-button min-h-16 gap-2 px-4"
           >
             <RotateCcw size={16} className="text-[#f43679]" />別の現地レポを投稿
           </button>
           {artistSlug && (
             <Link
               href={`/artists/${artistSlug}/after-reports`}
-              className="zr-focus flex min-h-16 items-center justify-center border-b border-r border-[#ded8dc] bg-white px-4 text-[12px] font-black"
+              className="community-secondary-button min-h-16 px-4"
             >
               現地レポ一覧を見る →
             </Link>
@@ -445,7 +445,7 @@ function LiveReportPageInner() {
   })();
   if (submitted) {
     return (
-      <div className="min-h-screen bg-[#F8FAFC] font-sans">
+      <div className="community-page font-sans">
         <div className="min-h-screen w-full">
           <SuccessScreen
             onOther={() => {
@@ -465,21 +465,21 @@ function LiveReportPageInner() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f7f5f6] font-sans text-[#1c171b]">
-      <section className="bg-[#0d090d] text-white">
+    <div className="community-page font-sans">
+      <section className="community-hero">
         <header className="zr-container flex h-16 items-center justify-between">
           {step === 1 ? (
-            <Link href={reportEntryHref} aria-label="報告メニューへ戻る" className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/8"><ChevronLeft size={26} /></Link>
+            <Link href={reportEntryHref} aria-label="報告メニューへ戻る" className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-[#2b252b] shadow-sm"><ChevronLeft size={26} /></Link>
           ) : (
-            <button type="button" onClick={() => setStep(step - 1)} aria-label="前のステップへ戻る" className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/8"><ChevronLeft size={26} /></button>
+            <button type="button" onClick={() => setStep(step - 1)} aria-label="前のステップへ戻る" className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-[#2b252b] shadow-sm"><ChevronLeft size={26} /></button>
           )}
-          <AccountLink tone="light" iconSize={22} />
+          <AccountLink iconSize={22} />
         </header>
         <div className="zr-container pb-9 pt-4">
-          <Camera size={28} strokeWidth={1.6} className="text-[#ff5b96]" aria-hidden="true" />
-          <p className="mt-5 text-[10px] font-black tracking-[0.22em] text-[#ff5b96]">LIVE VIEW REPORT</p>
-          <h1 className="mt-3 text-[36px] font-black leading-[1.08] tracking-[-0.05em] sm:text-[52px]">その席からの景色を、<br />次のファンへ。</h1>
-          <p className="mt-4 text-[11px] font-bold leading-5 text-white/62">座席・見え方・会場の写真をまとめて共有できます。</p>
+          <Camera size={28} strokeWidth={1.6} className="text-[#dd8053]" aria-hidden="true" />
+          <p className="community-eyebrow mt-5">LIVE VIEW REPORT</p>
+          <h1 className="community-title mt-3">その席からの景色を、<br /><span className="text-[#dd8053]">次のファンへ。</span></h1>
+          <p className="community-subtitle mt-4">座席・見え方・会場の写真をまとめて共有できます。</p>
         </div>
       </section>
 
@@ -489,7 +489,7 @@ function LiveReportPageInner() {
         {step === 1 && (
           <main className="zr-container space-y-8 pb-12 pt-8">
             {/* 公演選択 */}
-            <section className="border-t border-[#1c171b] pt-5">
+            <section className="community-panel p-5">
               <div className="mb-0.5">
                 <p className="artist-kicker">01 / SELECT LIVE</p>
                 <h2 className="artist-heading">報告する公演</h2>
@@ -521,7 +521,7 @@ function LiveReportPageInner() {
             </section>
 
             {/* 座席情報 */}
-            <section className="border-t border-[#1c171b] bg-white p-4 sm:p-5">
+            <section className="community-panel p-4 sm:p-5">
               <p className="artist-kicker">SEAT DETAIL</p>
               <h2 className="artist-heading">どの席から見た？</h2>
               <p className="mb-3 mt-0.5 text-[9px] text-gray-400">

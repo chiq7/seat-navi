@@ -231,27 +231,27 @@ function SuccessScreen({
   const xShareHref = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#f7f5f6] text-[#1c171b]">
-      <header className="zr-container flex h-16 items-center justify-between bg-[#0d090d] text-white">
+    <div className="community-page flex flex-col">
+      <header className="zr-container flex h-16 items-center justify-between">
         <Link
           href="/report"
-          className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/8"
+          className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white text-[#2b252b] shadow-sm"
           aria-label="報告画面へ戻る"
         >
           <ChevronLeft size={25} />
         </Link>
-        <AccountLink tone="light" iconSize={22} />
+        <AccountLink iconSize={22} />
       </header>
-      <section className="bg-[#0d090d] pb-11 pt-5 text-white">
+      <section className="community-hero pb-11 pt-5">
         <div className="zr-container text-center">
-          <p className="text-[10px] font-black tracking-[0.22em] text-[#ff5b96]">REPORT COMPLETE</p>
+          <p className="community-eyebrow">REPORT COMPLETE</p>
           <h1 className="mt-4 text-[38px] font-black leading-tight tracking-[-0.05em]">投稿できました。</h1>
-          <p className="mt-3 text-[12px] font-bold leading-6 text-white/62">あなたの記録が、次に同じ会場へ行く人の助けになります。</p>
+          <p className="community-subtitle mt-3">あなたの記録が、次に同じ会場へ行く人の助けになります。</p>
         </div>
       </section>
       <StepIndicator step={4} />
       <main className="zr-container flex-1 py-6">
-        <section className="border border-[#ded8dc] bg-white p-5 text-center sm:p-7">
+        <section className="community-panel p-5 text-center sm:p-7">
           <div className="flex justify-center">
             <Image
               src="/images/report/success/report-success-ticket-icon.png"
@@ -271,14 +271,14 @@ function SuccessScreen({
             <button
               type="button"
               onClick={onOther}
-              className="zr-focus flex min-h-[52px] w-full items-center justify-center bg-[#f43679] text-[13px] font-black text-white"
+              className="community-primary-button min-h-[52px] w-full"
             >
               別の当落・座席を報告する
             </button>
             {artistSlug && (
               <Link
                 href={`/artists/${artistSlug}`}
-                className="zr-focus flex min-h-12 w-full items-center justify-center border border-[#ded8dc] bg-white text-[13px] font-black text-[#544e52]"
+                className="community-secondary-button min-h-12 w-full"
               >
                 まとめページに戻る
               </Link>
@@ -462,7 +462,7 @@ function TicketReportPageInner() {
 
   if (submitted) {
     return (
-      <div className="min-h-screen bg-[#F8FAFC] font-sans">
+      <div className="community-page font-sans">
         <div className="min-h-screen w-full">
           <SuccessScreen
             onOther={() => {
@@ -478,21 +478,21 @@ function TicketReportPageInner() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f7f5f6] font-sans text-[#1c171b]">
-      <section className="bg-[#0d090d] text-white">
+    <div className="community-page font-sans">
+      <section className="community-hero">
         <header className="zr-container flex h-16 items-center justify-between">
           {step === 1 ? (
-            <Link href={reportEntryHref} aria-label="報告メニューへ戻る" className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/8"><ChevronLeft size={26} /></Link>
+            <Link href={reportEntryHref} aria-label="報告メニューへ戻る" className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-[#2b252b] shadow-sm"><ChevronLeft size={26} /></Link>
           ) : (
-            <button type="button" onClick={() => setStep(step - 1)} aria-label="前のステップへ戻る" className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/8"><ChevronLeft size={26} /></button>
+            <button type="button" onClick={() => setStep(step - 1)} aria-label="前のステップへ戻る" className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-[#2b252b] shadow-sm"><ChevronLeft size={26} /></button>
           )}
-          <AccountLink tone="light" iconSize={22} />
+          <AccountLink iconSize={22} />
         </header>
         <div className="zr-container pb-9 pt-4">
-          <TicketCheck size={27} strokeWidth={1.6} className="text-[#ff5b96]" aria-hidden="true" />
-          <p className="mt-5 text-[10px] font-black tracking-[0.22em] text-[#ff5b96]">TICKET &amp; SEAT REPORT</p>
-          <h1 className="mt-3 text-[36px] font-black leading-[1.08] tracking-[-0.05em] sm:text-[52px]">当落と座席を、<br />次の人へ。</h1>
-          <p className="mt-4 text-[11px] font-bold leading-5 text-white/62">抽選結果と座席情報を匿名でも共有できます。</p>
+          <TicketCheck size={27} strokeWidth={1.6} className="text-[#e94a7d]" aria-hidden="true" />
+          <p className="community-eyebrow mt-5">TICKET &amp; SEAT REPORT</p>
+          <h1 className="community-title mt-3">当落と座席を、<br /><span className="text-[#e94a7d]">次の人へ。</span></h1>
+          <p className="community-subtitle mt-4">抽選結果と座席情報を匿名でも共有できます。</p>
         </div>
       </section>
 
@@ -503,7 +503,7 @@ function TicketReportPageInner() {
         {step === 1 && (
           <main className="zr-container space-y-8 pb-12 pt-8">
             {/* 報告する公演 */}
-            <section className="border-t border-[#1c171b] pt-5">
+            <section className="community-panel p-5">
               <div className="mb-4">
                 <p className="artist-kicker">01 / SELECT LIVE</p>
                 <h2 className="artist-heading">報告する公演</h2>
@@ -575,7 +575,7 @@ function TicketReportPageInner() {
         {step === 2 && (
           <main className="zr-container space-y-7 pb-12 pt-8">
             {/* 共通項目 */}
-            <section className="border-t border-[#1c171b] pt-5">
+            <section className="community-panel p-5">
               <p className="artist-kicker">02 / REQUIRED</p>
               <h2 className="artist-heading">必須情報</h2>
               <p className="mb-6 mt-2 text-[10px] font-bold text-[#817981]">報告に必要な項目です</p>

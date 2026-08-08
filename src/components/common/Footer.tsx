@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#100b10] text-white">
+    <footer className="bg-[#2b252b] text-white">
       <div className="zr-container grid gap-10 pb-[110px] pt-14 md:grid-cols-[1fr_auto] md:items-end md:pb-16 md:pt-20">
         <div>
           <Link href="/" className="zr-focus inline-block rounded-md bg-white px-4 py-3">
@@ -11,17 +11,17 @@ export default function Footer() {
           </Link>
           <p className="mt-6 max-w-[520px] text-[12px] leading-6 text-white/48">ライブの当落、座席表、会場の見え方、現地の熱をファン同士で共有するライブ情報コミュニティ。</p>
         </div>
-        <div className="flex flex-wrap gap-x-5 gap-y-3 text-[11px] font-bold text-white/65 md:justify-end">
-        <Link href="/terms" className="hover:text-gray-700">
+        <div className="flex flex-wrap gap-x-5 gap-y-3 text-[11px] font-bold text-white/70 md:justify-end">
+        <Link href="/terms" className="hover:text-[#ff9fc1]">
           利用規約
         </Link>
-        <Link href="/privacy" className="hover:text-gray-700">
+        <Link href="/privacy" className="hover:text-[#ff9fc1]">
           プライバシーポリシー
         </Link>
-        <Link href="/contact" className="hover:text-gray-700">
+        <Link href="/contact" className="hover:text-[#ff9fc1]">
           お問い合わせ
         </Link>
-        <Link href="/venues" className="hover:text-gray-700">
+        <Link href="/venues" className="hover:text-[#ff9fc1]">
           ライブ会場一覧
         </Link>
         </div>

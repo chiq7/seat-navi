@@ -98,23 +98,23 @@ function LoginPageInner() {
   }
 
   return (
-    <main className="min-h-screen bg-[#f7f5f6] pb-10 text-[#1c171b]">
-      <section className="bg-[#0d090d] text-white">
+    <main className="community-page pb-10">
+      <section className="community-hero">
         <header className="zr-container flex h-16 items-center">
           <Link
             href="/"
             aria-label="TOPへ戻る"
-            className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/8 text-white"
+            className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-[#2b252b] shadow-sm"
           >
             <ChevronLeft size={26} strokeWidth={2.7} />
           </Link>
         </header>
         <div className="mx-auto w-[calc(100%-32px)] max-w-[560px] pb-10 pt-5 sm:pb-14 sm:pt-9">
-          <p className="text-[10px] font-black tracking-[0.24em] text-[#ff5b96]">MY TIXREPO</p>
-          <h1 className="mt-3 text-[39px] font-black leading-[1.08] tracking-[-0.055em] sm:text-[56px]">
+          <p className="community-eyebrow">MY TIXREPO</p>
+          <h1 className="community-title mt-3">
             {mode === "login" ? <>ライブの記録を、<br />自分の場所へ。</> : <>自分だけの、<br />ライブ記録を始める。</>}
           </h1>
-          <p className="mt-5 text-[12px] font-bold leading-6 text-white/58">
+          <p className="community-subtitle mt-5">
             当落データ、座席予想、現地レポ、推しアーティストをまとめて管理できます。
           </p>
         </div>
@@ -133,7 +133,7 @@ function LoginPageInner() {
           type="button"
           onClick={signInWithGoogle}
           disabled={busy}
-          className="zr-focus mt-7 flex min-h-14 w-full items-center justify-center gap-3 border border-[#cfc8cc] bg-white text-[13px] font-black text-[#1c171b] disabled:opacity-60"
+          className="community-secondary-button mt-7 w-full disabled:opacity-60"
         >
           <span className="text-lg font-bold text-[#4285F4]">G</span>
           Googleで続ける
@@ -146,7 +146,7 @@ function LoginPageInner() {
         <form onSubmit={submitEmail} className="space-y-5">
           <label className="block text-[10px] font-black tracking-[0.08em] text-[#625a61]">
             メールアドレス
-            <span className="mt-2 flex min-h-14 items-center gap-3 border border-[#cfc8cc] bg-white px-4 focus-within:border-[#f43679]">
+            <span className="community-input mt-2 flex min-h-14 items-center gap-3 px-4">
               <Mail size={17} className="shrink-0 text-[#f43679]" />
               <input
                 type="email"
@@ -160,7 +160,7 @@ function LoginPageInner() {
           </label>
           <label className="block text-[10px] font-black tracking-[0.08em] text-[#625a61]">
             パスワード
-            <span className="mt-2 flex min-h-14 items-center gap-3 border border-[#cfc8cc] bg-white px-4 focus-within:border-[#f43679]">
+            <span className="community-input mt-2 flex min-h-14 items-center gap-3 px-4">
               <LockKeyhole size={17} className="shrink-0 text-[#f43679]" />
               <input
                 type="password"
@@ -181,7 +181,7 @@ function LoginPageInner() {
           <button
             type="submit"
             disabled={busy}
-            className="zr-focus min-h-14 w-full bg-[#f43679] text-[13px] font-black text-white shadow-[0_12px_28px_rgba(150,16,66,.20)] disabled:opacity-60"
+            className="community-primary-button min-h-14 w-full disabled:opacity-60"
           >
             {busy ? "処理中..." : mode === "login" ? "ログイン" : "アカウントを作る"}
           </button>
@@ -196,7 +196,7 @@ function LoginPageInner() {
         <button
           type="button"
           onClick={() => { setMode(mode === "login" ? "signup" : "login"); setError(""); setMessage(""); }}
-          className="zr-focus mt-5 min-h-12 w-full border border-[#f43679] bg-transparent text-center text-[12px] font-black text-[#f43679]"
+          className="community-secondary-button mt-5 w-full"
         >
           {mode === "login" ? "メールアドレスで新規登録" : "すでにアカウントをお持ちの方"}
         </button>

@@ -40,10 +40,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 function EventList({ events, emptyText }: { events: CrawledEvent[]; emptyText: string }) {
   if (events.length === 0) {
-    return <p className="border border-dashed border-[#d9cfd4] bg-white px-4 py-9 text-center text-[12px] font-bold text-[#958d93]">{emptyText}</p>;
+    return <p className="community-panel px-4 py-9 text-center text-[12px] font-bold text-[#958d93]">{emptyText}</p>;
   }
   return (
-    <div className="border-l border-t border-[#ded8dc]">
+    <div className="grid gap-3">
       {events.map((event, index) => {
         const artist = resolveArtist(event);
         const title = parseEventTitle(event.title, artist?.name).tourName;
@@ -51,7 +51,7 @@ function EventList({ events, emptyText }: { events: CrawledEvent[]; emptyText: s
           <Link
             key={event.id}
             href={`/events/${event.id}`}
-            className="zr-focus group grid min-h-[96px] gap-3 border-b border-r border-[#ded8dc] bg-white px-4 py-3 transition-colors hover:bg-[#fff0f5] sm:grid-cols-[150px_1fr_34px] sm:items-center"
+            className="community-card zr-focus group grid min-h-[96px] gap-3 px-4 py-3 transition-colors hover:bg-[#fff0f5] sm:grid-cols-[150px_1fr_34px] sm:items-center"
           >
             <div>
               <p className="text-[9px] font-black tracking-[0.14em] text-[#958d93]">LIVE {String(index + 1).padStart(2, "0")}</p>
@@ -122,39 +122,39 @@ export default async function VenuePage({ params }: Props) {
   };
 
   return (
-    <main className="min-h-screen bg-[#f7f5f6] pb-16 text-[#1c171b]">
+    <main className="community-page pb-16">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(structuredData) }}
       />
-      <section className="bg-[#0d090d] text-white">
+      <section className="community-hero">
         <header className="zr-container flex h-16 items-center justify-between">
           <Link
             href="/venues"
             aria-label="ライブ会場一覧へ戻る"
-            className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/8 text-white"
+            className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-[#2b252b] shadow-sm"
           >
             <ChevronLeft size={26} strokeWidth={2.7} />
           </Link>
-          <AccountLink tone="light" iconSize={22} />
+          <AccountLink iconSize={22} />
         </header>
 
         <div className="zr-container pb-7 pt-4 sm:pb-10 sm:pt-7">
-          <p className="text-[10px] font-black tracking-[0.24em] text-[#ff5b96]">VENUE LIVE GUIDE</p>
-          <h1 className="mt-3 max-w-[980px] text-[37px] font-black leading-[1.1] tracking-[-0.055em] sm:text-[58px] lg:text-[70px]">
+          <p className="community-eyebrow">VENUE LIVE GUIDE</p>
+          <h1 className="community-title mt-3 max-w-[980px]">
             <span className="block">{venue.name}の</span>
-            <span className="block">公演と座席表。</span>
+            <span className="block text-[#ef4f87]">公演と座席表。</span>
           </h1>
-          <p className="mt-4 max-w-[720px] text-[12px] font-bold leading-6 text-white/62 sm:text-[14px]">
+          <p className="community-subtitle mt-4 max-w-[720px]">
             ライブ予定、会場の座席報告、アリーナ予想、現地からの見え方を公演ごとに確認できます。
           </p>
-          <div className="mt-5 grid grid-cols-2 border-y border-white/18 py-3">
+          <div className="mt-5 grid grid-cols-2 rounded-[22px] border border-white/80 bg-white/72 p-4 shadow-sm backdrop-blur-sm">
             <div>
-              <p className="text-[9px] font-black tracking-[0.14em] text-white/42">UPCOMING</p>
+              <p className="text-[9px] font-black tracking-[0.14em] text-[#958d93]">UPCOMING</p>
               <p className="mt-1 text-[27px] font-black">{upcoming.length}</p>
             </div>
-            <div className="border-l border-white/18 pl-5">
-              <p className="text-[9px] font-black tracking-[0.14em] text-white/42">PAST LIVE</p>
+            <div className="border-l border-[#eadfe4] pl-5">
+              <p className="text-[9px] font-black tracking-[0.14em] text-[#958d93]">PAST LIVE</p>
               <p className="mt-1 text-[27px] font-black">{past.length}</p>
             </div>
           </div>
@@ -162,7 +162,7 @@ export default async function VenuePage({ params }: Props) {
       </section>
 
       <div className="zr-container">
-        <section className="border-b border-[#ded8dc] py-8 sm:py-10" aria-labelledby="upcoming-events-title">
+        <section className="py-8 sm:py-10" aria-labelledby="upcoming-events-title">
           <p className="artist-kicker">Upcoming Live</p>
           <h2 id="upcoming-events-title" className="artist-heading">これから開催される公演</h2>
           <p className="mt-3 flex items-center gap-2 text-[11px] font-bold text-[#817981]"><MapPin size={14} className="text-[#f43679]" />{venue.name}のライブ予定</p>
@@ -170,7 +170,7 @@ export default async function VenuePage({ params }: Props) {
         </section>
 
         {past.length > 0 && (
-          <section className="border-b border-[#ded8dc] py-8 sm:py-10" aria-labelledby="past-events-title">
+          <section className="py-8 sm:py-10" aria-labelledby="past-events-title">
             <p className="artist-kicker">Live Archive</p>
             <h2 id="past-events-title" className="artist-heading">過去の公演・座席レポ</h2>
             <div className="mt-5"><EventList events={past.slice(0, 30)} emptyText="過去の公演はありません" /></div>
@@ -178,15 +178,15 @@ export default async function VenuePage({ params }: Props) {
         )}
 
         {pastArtists.length > 0 && (
-          <section className="border-b border-[#ded8dc] py-8 sm:py-10" aria-labelledby="venue-artists-title">
+          <section className="py-8 sm:py-10" aria-labelledby="venue-artists-title">
             <p className="artist-kicker">Artists Archive</p>
             <h2 id="venue-artists-title" className="artist-heading">この会場で公演したアーティスト</h2>
-            <div className="mt-5 grid border-l border-t border-[#ded8dc] sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {pastArtists.map((artist) => (
                 <Link
                   key={artist.slug}
                   href={`/artists/${artist.slug}`}
-                  className="zr-focus flex min-h-14 items-center gap-2 border-b border-r border-[#ded8dc] bg-white px-4 text-[12px] font-black"
+                  className="community-card zr-focus flex min-h-14 items-center gap-2 px-4 text-[12px] font-black"
                 >
                   <Users size={14} className="text-[#f43679]" />{artist.name}
                 </Link>

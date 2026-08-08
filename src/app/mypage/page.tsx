@@ -279,10 +279,10 @@ export default function MyPage() {
 
   if (loadError) {
     return (
-      <main className="min-h-screen bg-[#f7f5f6] text-[#1c171b]">
-        <header className="bg-[#0d090d] text-white">
+      <main className="community-page">
+        <header className="community-hero">
           <div className="zr-container flex h-16 items-center">
-            <Link href="/" aria-label="TOPへ戻る" className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/8"><ChevronLeft size={26} /></Link>
+            <Link href="/" aria-label="TOPへ戻る" className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-[#2b252b] shadow-sm"><ChevronLeft size={26} /></Link>
           </div>
         </header>
         <div className="zr-container pt-12 text-center">
@@ -303,31 +303,31 @@ export default function MyPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#f7f5f6] pb-16 text-[#1c171b]">
-      <section className="bg-[#0d090d] text-white">
+    <main className="community-page pb-16">
+      <section className="community-hero">
         <header className="zr-container flex h-16 items-center">
           <Link
             href="/"
             aria-label="TOPへ戻る"
-            className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/8 text-white"
+            className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-[#2b252b] shadow-sm"
           >
             <ChevronLeft size={26} strokeWidth={2.7} />
           </Link>
         </header>
         <div className="zr-container pb-10 pt-5 sm:pb-14 sm:pt-9">
-          <p className="text-[10px] font-black tracking-[0.24em] text-[#ff5b96]">MY TIXREPO</p>
-          <h1 className="mt-3 text-[39px] font-black leading-[1.08] tracking-[-0.055em] sm:text-[58px]">ライブの記録を、<br />自分だけの一冊に。</h1>
-          <div className="mt-7 grid border-y border-white/18 sm:grid-cols-[1fr_180px]">
-            <div className="flex min-w-0 items-center gap-3 py-4 sm:border-r sm:border-white/18 sm:pr-5">
-              <UserRound size={19} className="shrink-0 text-[#ff5b96]" />
+          <p className="community-eyebrow">MY TIXREPO</p>
+          <h1 className="community-title mt-3">ライブの記録を、<br /><span className="text-[#ef4f87]">自分だけの一冊に。</span></h1>
+          <div className="mt-7 grid rounded-[22px] border border-white/80 bg-white/72 px-4 shadow-sm backdrop-blur-sm sm:grid-cols-[1fr_180px]">
+            <div className="flex min-w-0 items-center gap-3 py-4 sm:border-r sm:border-[#eadfe4] sm:pr-5">
+              <UserRound size={19} className="shrink-0 text-[#ef4f87]" />
               <div className="min-w-0">
-                <p className="text-[9px] font-black tracking-[0.13em] text-white/42">SIGNED IN</p>
+                <p className="text-[9px] font-black tracking-[0.13em] text-[#958d93]">SIGNED IN</p>
                 <p className="mt-1 truncate text-[14px] font-black">{profile.display_name || email}</p>
               </div>
             </div>
-            <div className="flex items-end justify-between border-t border-white/18 py-4 sm:border-t-0 sm:pl-5">
-              <p className="text-[9px] font-black tracking-[0.13em] text-white/42">TOTAL POSTS</p>
-              <p className="text-[30px] font-black text-[#ff5b96]">{ticketPosts.length + predictions.length + livePosts.length}</p>
+            <div className="flex items-end justify-between border-t border-[#eadfe4] py-4 sm:border-t-0 sm:pl-5">
+              <p className="text-[9px] font-black tracking-[0.13em] text-[#958d93]">TOTAL POSTS</p>
+              <p className="text-[30px] font-black text-[#ef4f87]">{ticketPosts.length + predictions.length + livePosts.length}</p>
             </div>
           </div>
         </div>
@@ -337,15 +337,15 @@ export default function MyPage() {
 
         <PersonalTicketStats ticketPosts={ticketPosts} eventMap={eventMap} displayName={profile.display_name} />
 
-        <section className="border-b border-[#ded8dc] pb-10 sm:pb-14" aria-labelledby="favorite-artists-title">
+        <section className="pb-10 sm:pb-14" aria-labelledby="favorite-artists-title">
           <p className="artist-kicker">Favorite Artists</p>
           <div className="mt-2 flex items-center gap-2"><Heart size={19} className="text-[#f43679]" /><h2 id="favorite-artists-title" className="text-[25px] font-black tracking-[-0.04em]">推しアーティスト</h2></div>
           {favorites.length === 0 ? (
-            <p className="mt-5 border border-dashed border-[#d9cfd4] bg-white px-4 py-8 text-center text-[11px] font-bold text-[#958d93]">アーティストページの「推しに登録」から追加できます。</p>
+            <p className="community-panel mt-5 px-4 py-8 text-center text-[11px] font-bold text-[#958d93]">アーティストページの「推しに登録」から追加できます。</p>
           ) : (
-            <div className="mt-6 grid border-l border-t border-[#ded8dc] sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {favorites.map((slug) => (
-                <div key={slug} className="flex min-h-16 items-center justify-between gap-3 border-b border-r border-[#ded8dc] bg-white px-4">
+                <div key={slug} className="community-card flex min-h-16 items-center justify-between gap-3 px-4">
                   <Link href={`/artists/${slug}`} className="zr-focus min-w-0 truncate text-[13px] font-black">{findArtistBySlug(slug)?.name ?? slug}</Link>
                   <button type="button" onClick={() => removeFavorite(slug)} className="zr-focus min-h-11 shrink-0 text-[10px] font-black text-[#958d93]">解除</button>
                 </div>
@@ -368,11 +368,11 @@ export default function MyPage() {
           onDeleteLive={deleteLive}
         />
 
-        <section className="border-b border-[#ded8dc] pb-10 sm:pb-14" aria-labelledby="profile-title">
+        <section className="pb-10 sm:pb-14" aria-labelledby="profile-title">
           <p className="artist-kicker">Profile &amp; X</p>
           <h2 id="profile-title" className="artist-heading">プロフィール・X</h2>
           <p className="mt-3 text-[11px] font-medium leading-6 text-[#817981]">表示を許可した投稿からXプロフィールへ移動できるようになります。</p>
-          <div className="mt-6 border border-[#ded8dc] bg-white p-4 sm:p-6">
+          <div className="community-panel mt-6 p-4 sm:p-6">
             <div className="grid gap-5 sm:grid-cols-2">
               <label className="block text-[10px] font-black text-[#625a61]">表示名<input value={profile.display_name ?? ""} maxLength={40} onChange={(event) => setProfile((value) => ({ ...value, display_name: event.target.value }))} className="zr-focus mt-2 h-12 w-full border border-[#cfc8cc] px-3 text-[13px] font-bold outline-none focus:border-[#f43679]" placeholder="投稿で表示する名前" /></label>
               <label className="block text-[10px] font-black text-[#625a61]">Xユーザー名<input value={profile.x_handle ?? ""} maxLength={16} onChange={(event) => setProfile((value) => ({ ...value, x_handle: event.target.value }))} className="zr-focus mt-2 h-12 w-full border border-[#cfc8cc] px-3 text-[13px] font-bold outline-none focus:border-[#f43679]" placeholder="@を除いたユーザー名" /></label>

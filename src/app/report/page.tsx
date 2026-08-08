@@ -91,10 +91,10 @@ function ReportEntryPageInner() {
   const backHref = artist ? `/artists/${artist.slug}` : "/";
 
   return (
-    <main className="min-h-screen bg-[#f7f5f6] pb-20 font-sans text-[#1c171b]">
+    <main className="community-page pb-20 font-sans">
       <ReportHero artistName={artist?.name} backHref={backHref} selectedEvent={selectedEvent} />
 
-      <section className="zr-container border-b border-[#ded8dc] py-5" aria-labelledby="report-event-title">
+      <section className="zr-container py-6" aria-labelledby="report-event-title">
         <div className="flex items-end justify-between gap-4">
           <div>
             <p className="artist-kicker">Select Your Live</p>
@@ -108,7 +108,7 @@ function ReportEntryPageInner() {
             value={selectedId ?? ""}
             onChange={(event) => setSelectedId(event.target.value)}
             disabled={loading}
-            className="zr-focus h-14 w-full border border-[#cfc8cc] bg-white px-4 text-[12px] font-black text-[#1c171b] disabled:opacity-50"
+            className="community-input h-14 w-full px-4 text-[12px] font-black disabled:opacity-50"
           >
             {loading && <option value="">公演を読み込み中...</option>}
             {events.map((event) => (
@@ -140,38 +140,36 @@ function ReportHero({
   selectedEvent: CrawledEvent | null;
 }) {
   return (
-    <section className="relative min-h-[340px] w-full overflow-hidden bg-[#0d090d] text-white sm:min-h-[390px]">
-      <div className="absolute inset-0 opacity-75" style={{ background: "radial-gradient(circle at 76% 18%, rgba(244,54,121,.72), transparent 24%), radial-gradient(circle at 22% 38%, rgba(60,160,190,.28), transparent 28%), linear-gradient(135deg, #0d090d 0%, #25101d 55%, #080608 100%)" }} />
-      <div className="absolute inset-0" style={{ backgroundImage: "repeating-linear-gradient(112deg, transparent 0 40px, rgba(255,255,255,.035) 41px 42px)" }} />
+    <section className="community-hero relative min-h-[340px] w-full overflow-hidden sm:min-h-[390px]">
 
       <header className="zr-container relative top-0 z-20 flex h-16 items-center justify-between">
         <Link
           href={backHref}
           aria-label="アーティストページに戻る"
-          className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-black/20 text-white backdrop-blur-md"
+          className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-[#2b252b] shadow-sm backdrop-blur-md"
         >
           <ChevronLeft size={26} strokeWidth={2.7} />
         </Link>
-        <AccountLink tone="light" iconSize={22} />
+        <AccountLink iconSize={22} />
       </header>
 
       <div className="zr-container relative z-10 pb-6 pt-6 sm:pb-8 sm:pt-8">
-        <p className="text-[10px] font-black tracking-[0.24em] text-[#ff5b96]">SHARE THE LIVE</p>
-        <h1 className="mt-3 text-[39px] font-black leading-[1.08] tracking-[-0.055em] sm:text-[60px] lg:text-[74px]">
-          あなたの一席が、<br />次の誰かのヒントになる。
+        <p className="community-eyebrow">SHARE THE LIVE</p>
+        <h1 className="community-title mt-3">
+          あなたの一席が、<br /><span className="text-[#ef4f87]">次の誰かのヒントになる。</span>
         </h1>
-        <p className="mt-4 text-[12px] font-bold leading-6 text-white/62 sm:text-[15px]">
+        <p className="community-subtitle mt-4">
           {artistName ? `${artistName}の当落・座席表・会場の景色をファンへ` : "当落・座席表・会場の景色をファンへ"}
         </p>
 
         {selectedEvent && (
-          <div className="mt-5 grid border-y border-white/18 sm:grid-cols-2">
-            <div className="flex items-center gap-3 py-3 sm:border-r sm:border-white/18 sm:pr-5">
-              <CalendarDays size={17} className="shrink-0 text-[#ff5b96]" />
+          <div className="mt-5 grid rounded-[22px] border border-white/80 bg-white/72 px-4 shadow-sm backdrop-blur-sm sm:grid-cols-2">
+            <div className="flex items-center gap-3 py-3 sm:border-r sm:border-[#eadfe4] sm:pr-5">
+              <CalendarDays size={17} className="shrink-0 text-[#ef4f87]" />
               <p className="text-[12px] font-black">{fmtDate(selectedEvent.date)}</p>
             </div>
-            <div className="flex min-w-0 items-center gap-3 border-t border-white/18 py-3 sm:border-t-0 sm:pl-5">
-              <MapPin size={17} className="shrink-0 text-[#ff5b96]" />
+            <div className="flex min-w-0 items-center gap-3 border-t border-[#eadfe4] py-3 sm:border-t-0 sm:pl-5">
+              <MapPin size={17} className="shrink-0 text-[#ef4f87]" />
               <p className="truncate text-[12px] font-black">{selectedEvent.venue}</p>
             </div>
           </div>

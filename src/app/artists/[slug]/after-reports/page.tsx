@@ -214,7 +214,7 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
   }
 
   return (
-    <main className="min-h-screen bg-[#f7f5f6] pb-20 font-sans text-[#1c171b]">
+    <main className="community-page pb-20 font-sans">
       <section className="relative min-h-[356px] overflow-hidden bg-[#0d090d] text-white sm:min-h-[410px]">
         <Image
           src={heroImageSrc}
@@ -268,7 +268,7 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
       </section>
 
       <div className="zr-container">
-        <section className="border-b border-[#ded8dc] py-7" aria-labelledby="report-filter-title">
+        <section className="community-panel mt-6 p-5 sm:p-6" aria-labelledby="report-filter-title">
           <div className="flex items-center justify-between gap-3">
             <div>
               <p className="artist-kicker">Find Your View</p>
@@ -283,7 +283,7 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
               <select
                 value={filterDate}
                 onChange={(event) => setFilterDate(event.target.value)}
-                className="zr-focus h-12 w-full min-w-0 border border-[#cfc8cc] bg-white px-3 text-[12px] font-bold text-[#1c171b]"
+                className="community-input h-12 w-full min-w-0 px-3 text-[12px] font-bold"
               >
                 <option value="all">すべての公演</option>
                 {dateOptions.map((option) => (
@@ -296,7 +296,7 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
               <select
                 value={filterArea}
                 onChange={(event) => setFilterArea(event.target.value)}
-                className="zr-focus h-12 w-full min-w-0 border border-[#cfc8cc] bg-white px-3 text-[12px] font-bold text-[#1c171b]"
+                className="community-input h-12 w-full min-w-0 px-3 text-[12px] font-bold"
               >
                 <option value="all">すべてのエリア</option>
                 {areaOptions.map((area) => (
@@ -309,7 +309,7 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
               <select
                 value={filterBlock}
                 onChange={(event) => setFilterBlock(event.target.value)}
-                className="zr-focus h-12 w-full min-w-0 border border-[#cfc8cc] bg-white px-3 text-[12px] font-bold text-[#1c171b]"
+                className="community-input h-12 w-full min-w-0 px-3 text-[12px] font-bold"
               >
                 <option value="all">すべてのブロック</option>
                 {blockOptions.map((block) => (
@@ -340,7 +340,7 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
         </section>
 
         {loading ? (
-          <div className="grid gap-px border-x border-b border-[#ded8dc] bg-[#ded8dc] sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {[1, 2, 3].map((index) => (
               <div key={index} className="animate-pulse bg-white p-4">
                 <div className="aspect-[4/3] bg-[#eee9ec]" />
@@ -350,7 +350,7 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
             ))}
           </div>
         ) : filteredReports.length === 0 ? (
-          <section className="border-b border-[#ded8dc] py-16 text-center">
+              <section className="community-panel my-8 py-16 text-center">
             <Camera size={31} strokeWidth={1.5} className="mx-auto text-[#f43679]" />
             <p className="mt-4 text-[18px] font-black">この条件の現地レポはまだありません</p>
             <p className="mt-2 text-[12px] font-medium text-[#817981]">座席からの見え方を、次のファンへ残しませんか。</p>
@@ -364,7 +364,7 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
         ) : (
           <div className="pb-10">
             {groupedReports.map((group) => (
-              <section key={group.event?.id ?? group.date} className="border-b border-[#ded8dc] py-10">
+              <section key={group.event?.id ?? group.date} className="py-10">
                 <div className="mb-5 flex items-end justify-between gap-4">
                   <div className="min-w-0">
                     <p className="text-[10px] font-black tracking-[0.18em] text-[#f43679]">
@@ -378,7 +378,7 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
                   <p className="shrink-0 text-[10px] font-black text-[#817981]">{group.reports.length} REPORTS</p>
                 </div>
 
-                <div className="grid border-l border-t border-[#ded8dc] sm:grid-cols-2 lg:grid-cols-3">
+                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                   {group.reports.map((report, index) => {
                     const blockRow = blockRowText(report);
                     const photoUrl = getReportPhotoUrl(report);
@@ -387,7 +387,7 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
                     const comment = report.memo?.trim() || null;
 
                     return (
-                      <article key={report.id} className="group flex min-w-0 flex-col border-b border-r border-[#ded8dc] bg-white">
+                    <article key={report.id} className="community-card group flex min-w-0 flex-col overflow-hidden">
                         <Link href={`/report/live/detail?reportId=${report.id}`} className="zr-focus block no-underline">
                           <ReportMedia photoUrl={photoUrl} index={index} />
                           <div className="p-4">
@@ -433,7 +433,7 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
       {!loading && filteredReports.length > 0 && (
         <Link
           href={nextEvent ? `/report/live?event=${nextEvent.id}` : "/report/live"}
-          className="zr-focus fixed bottom-[82px] right-4 z-40 flex h-14 items-center gap-2 bg-[#f43679] px-5 text-[12px] font-black text-white shadow-[0_14px_35px_rgba(150,16,66,.28)] md:bottom-24 md:right-8"
+          className="community-primary-button fixed bottom-[82px] right-4 z-40 h-14 gap-2 px-5 md:bottom-24 md:right-8"
         >
           <SquarePen size={18} />投稿する
         </Link>

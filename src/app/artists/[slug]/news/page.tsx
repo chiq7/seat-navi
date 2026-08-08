@@ -58,19 +58,19 @@ export default function ArtistNewsPage({ params }: { params: Promise<{ slug: str
   }
 
   return (
-    <main className="min-h-screen bg-[#f7f5f6] pb-20 font-sans text-[#1c171b]">
-      <section className="bg-[#0d090d] text-white">
+    <main className="community-page pb-20 font-sans">
+      <section className="community-hero">
         <header className="zr-container flex h-16 items-center justify-between">
-          <Link href={`/artists/${slug}`} aria-label={`${artist.name}へ戻る`} className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/8">
+          <Link href={`/artists/${slug}`} aria-label={`${artist.name}へ戻る`} className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-[#2b252b] shadow-sm">
             <ChevronLeft size={26} aria-hidden="true" />
           </Link>
           <AccountLink tone="light" iconSize={22} />
         </header>
         <div className="zr-container pb-10 pt-5 sm:pb-14 sm:pt-9">
-          <Newspaper size={28} strokeWidth={1.6} className="text-[#ff5b96]" aria-hidden="true" />
-          <p className="mt-6 text-[10px] font-black tracking-[0.24em] text-[#ff5b96]">OFFICIAL NEWS</p>
-          <h1 className="mt-3 text-[39px] font-black leading-[1.08] tracking-[-0.055em] sm:text-[60px]">{artist.name}の、<br />公式ニュース。</h1>
-          <p className="mt-5 max-w-xl text-[12px] font-bold leading-6 text-white/62 sm:text-[14px]">出演情報、リリース、ライブのお知らせを公式サイトからまとめています。</p>
+          <Newspaper size={28} strokeWidth={1.6} className="text-[#ef4f87]" aria-hidden="true" />
+          <p className="community-eyebrow mt-6">OFFICIAL NEWS</p>
+          <h1 className="community-title mt-3">{artist.name}の、<br /><span className="text-[#ef4f87]">公式ニュース。</span></h1>
+          <p className="community-subtitle mt-5 max-w-xl">出演情報、リリース、ライブのお知らせを公式サイトからまとめています。</p>
         </div>
       </section>
 
@@ -84,7 +84,7 @@ export default function ArtistNewsPage({ params }: { params: Promise<{ slug: str
         </div>
 
         {categoryOptions.length > 0 && (
-          <label className="mt-7 block border-y border-[#ded8dc] py-3">
+        <label className="community-panel mt-7 block p-4">
             <span className="mb-2 block text-[9px] font-black tracking-[0.2em] text-[#817981]">CATEGORY</span>
             <select
               value={filterCategory}
@@ -104,16 +104,16 @@ export default function ArtistNewsPage({ params }: { params: Promise<{ slug: str
             <div className="h-6 w-6 animate-spin rounded-full border-2 border-[#f43679] border-t-transparent" />
           </div>
         ) : filteredNews.length === 0 ? (
-          <p className="border-b border-[#ded8dc] py-14 text-center text-sm font-bold text-[#817981]">公式ニュースはまだありません</p>
+          <p className="community-panel py-14 text-center text-sm font-bold text-[#817981]">公式ニュースはまだありません</p>
         ) : (
-          <div className="mt-7 border-t border-[#1c171b]">
+          <div className="mt-7 grid gap-3">
             {filteredNews.map((n) => (
               <a
                 key={n.id}
                 href={n.article_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="zr-focus group grid min-h-44 grid-cols-[72px_1fr] gap-4 border-b border-[#ded8dc] py-5 no-underline transition-colors hover:bg-white sm:grid-cols-[110px_1fr_auto] sm:items-center sm:px-3"
+                  className="community-card zr-focus group grid min-h-44 grid-cols-[72px_1fr] gap-4 p-5 no-underline transition-colors hover:bg-white sm:grid-cols-[110px_1fr_auto] sm:items-center"
                 aria-label={`${n.article_title}を公式サイトで読む`}
               >
                 <div className="self-start">

@@ -8,10 +8,10 @@ type StaticPageProps = {
 
 export default function StaticPage({ title, children }: StaticPageProps) {
   return (
-    <div className="min-h-screen bg-[#FFF8FB]">
+    <div className="community-page">
       <Header title={title} backHref="/" />
-      <main className="px-3 py-4">
-        <article className="rounded-lg border border-pink-100 bg-white px-4 py-5 text-[13px] leading-7 text-gray-700">
+      <main className="mx-auto w-full max-w-[860px] px-4 py-8 sm:px-6 sm:py-12">
+        <article className="community-panel px-5 py-7 text-[13px] leading-7 text-[#665a61] sm:px-8 sm:py-9">
           {children}
         </article>
       </main>

@@ -227,7 +227,7 @@ export function SetlistClient({ params }: { params: Promise<{ slug: string }> })
   // ─── セトリ追加フォーム ─────────────────────────────────────────────────────
 
   const addFormNode = (
-    <div className="border border-[#1c171b] bg-white p-4">
+  <div className="community-panel p-4">
       <div className="flex items-center gap-2">
         <div className="relative flex-1">
           <label htmlFor="setlist-song-title" className="mb-2 block text-[9px] font-black tracking-[0.18em] text-[#817981]">SONG TITLE</label>
@@ -240,7 +240,7 @@ export function SetlistClient({ params }: { params: Promise<{ slug: string }> })
             onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
             onKeyDown={e => { if (e.key === "Enter") addSong(); }}
             placeholder="曲名を入力"
-            className="zr-focus h-12 w-full border border-[#ded8dc] bg-[#f7f5f6] px-3 text-[14px] font-bold outline-none transition-colors focus:border-[#f43679]"
+            className="community-input h-12 w-full px-3 text-[14px] font-bold"
           />
           {showSuggestions && filteredSuggestions.length > 0 && (
             <div className="absolute left-0 right-0 top-full z-20 mt-1 overflow-hidden border border-[#ded8dc] bg-white shadow-lg">
@@ -270,9 +270,9 @@ export function SetlistClient({ params }: { params: Promise<{ slug: string }> })
       </div>
 
       <p className="mb-2 mt-5 text-[9px] font-black tracking-[0.18em] text-[#817981]">LIVE MOMENT</p>
-      <div className="grid grid-cols-2 border-l border-t border-[#ded8dc]">
+        <div className="grid grid-cols-2 gap-2">
         {quickActions.map(({ label, icon: Icon, action }) => (
-          <button key={label} type="button" onClick={action} className="zr-focus flex min-h-12 items-center gap-2 border-b border-r border-[#ded8dc] px-3 text-left text-[10px] font-black text-[#1c171b] transition-colors hover:bg-[#fff0f5]">
+            <button key={label} type="button" onClick={action} className="community-card zr-focus flex min-h-12 items-center gap-2 px-3 text-left text-[10px] font-black text-[#2b252b] transition-colors hover:bg-[#fff0f5]">
             <Icon size={15} strokeWidth={1.8} className="shrink-0 text-[#f43679]" aria-hidden="true" />
             {label}
           </button>
@@ -284,10 +284,10 @@ export function SetlistClient({ params }: { params: Promise<{ slug: string }> })
   // ─── JSX ─────────────────────────────────────────────────────────────────────
 
   return (
-    <div className="min-h-screen bg-[#f7f5f6] font-sans text-[#1c171b]">
-      <section className="bg-[#0d090d] text-white">
+    <div className="community-page font-sans">
+      <section className="community-hero">
         <header className="zr-container flex h-16 items-center justify-between">
-          <Link href={`/artists/${slug}`} aria-label={`${artist.name}へ戻る`} className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/8">
+          <Link href={`/artists/${slug}`} aria-label={`${artist.name}へ戻る`} className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-[#2b252b] shadow-sm">
             <ChevronLeft size={26} aria-hidden="true" />
           </Link>
           <div className="flex items-center gap-1">
@@ -295,26 +295,26 @@ export function SetlistClient({ params }: { params: Promise<{ slug: string }> })
             <ShareButton
               url={`${typeof window !== "undefined" ? window.location.origin : ""}/artists/${slug}/setlist`}
               text={`${artist.name} のセットリスト🎤 #ちけレポ`}
-              className="zr-focus flex h-11 w-11 items-center justify-center rounded-full text-white transition-colors hover:bg-white/10"
+              className="zr-focus flex h-11 w-11 items-center justify-center rounded-full text-[#2b252b] transition-colors hover:bg-white/60"
             />
           </div>
         </header>
         <div className="zr-container pb-10 pt-5 sm:pb-14 sm:pt-9">
-          <Music2 size={29} strokeWidth={1.5} className="text-[#ff5b96]" aria-hidden="true" />
-          <p className="mt-6 text-[10px] font-black tracking-[0.24em] text-[#ff5b96]">SETLIST ARCHIVE</p>
-          <h1 className="mt-3 text-[39px] font-black leading-[1.06] tracking-[-0.055em] sm:text-[60px]">ライブの記憶を、<br />曲順で残す。</h1>
-          <p className="mt-5 text-[12px] font-bold leading-6 text-white/62 sm:text-[14px]">{artist.name}のセトリをみんなで編集。曲、MC、演出まで自動保存されます。</p>
+          <Music2 size={29} strokeWidth={1.5} className="text-[#8165bb]" aria-hidden="true" />
+          <p className="community-eyebrow mt-6">SETLIST ARCHIVE</p>
+          <h1 className="community-title mt-3">ライブの記憶を、<br /><span className="text-[#8165bb]">曲順で残す。</span></h1>
+          <p className="community-subtitle mt-5">{artist.name}のセトリをみんなで編集。曲、MC、演出まで自動保存されます。</p>
         </div>
       </section>
 
       <main className="pb-20">
         <section className="zr-container py-8 sm:py-12" aria-labelledby="setlist-event-title">
-          <div className="border-b border-[#1c171b] pb-4">
+          <div className="pb-4">
             <p className="artist-kicker">Select Live</p>
             <h2 id="setlist-event-title" className="artist-heading">公演を選ぶ</h2>
           </div>
           {selectedEvent && (
-            <div className="border-b border-[#ded8dc] py-5">
+          <div className="community-panel py-5 px-4">
               <p className="text-[10px] font-black tracking-[0.12em] text-[#f43679]">NOW EDITING</p>
               <p className="mt-2 text-[16px] font-black leading-6">{tourName || selectedEvent.title}</p>
               <p className="mt-1 text-[11px] font-bold text-[#817981]">{selectedEvent.date ?? "日程未定"} / {selectedEvent.venue}</p>

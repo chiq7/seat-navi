@@ -286,7 +286,7 @@ export function EventDetailClient({
   );
 
   return (
-    <div className="min-h-screen bg-[#f7f5f6] text-[#1c171b]">
+    <div className="community-page">
       <main className="pb-20">
         {loading ? (
           <div className="zr-container space-y-5 py-8">
@@ -295,12 +295,12 @@ export function EventDetailClient({
           </div>
         ) : event ? (
           <>
-            <section className="bg-[#0d090d] text-white">
+          <section className="community-hero">
               <header className="zr-container flex h-16 items-center justify-between">
                 <Link
                   href={backHref}
                   aria-label="アーティストページへ戻る"
-                  className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/8 text-white"
+                className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-[#2b252b] shadow-sm"
                 >
                   <ChevronLeft size={26} strokeWidth={2.7} />
                 </Link>
@@ -309,32 +309,32 @@ export function EventDetailClient({
                   <ShareButton
                     url={`${typeof window !== "undefined" ? window.location.origin : ""}/events/${eventId}`}
                     text={`${event.venue} ${fmtShortDate(event.date)} の座席表・座席予想 #ちけレポ`}
-                    className="zr-focus flex h-10 w-10 items-center justify-center rounded-full text-white transition-colors active:bg-white/15"
+                className="zr-focus flex h-10 w-10 items-center justify-center rounded-full text-[#2b252b] transition-colors active:bg-white/60"
                   />
                 </div>
               </header>
 
               <div className="zr-container pb-7 pt-4 sm:pb-9 sm:pt-7">
-                <p className="text-[10px] font-black tracking-[0.24em] text-[#ff5b96]">VENUE SEAT GUIDE</p>
-                <h1 className="mt-3 max-w-[850px] text-[36px] font-black leading-[1.08] tracking-[-0.055em] sm:text-[58px] lg:text-[72px]">
+            <p className="community-eyebrow">VENUE SEAT GUIDE</p>
+            <h1 className="community-title mt-3 max-w-[850px]">
                   会場の座席表と、<br />みんなのアリーナ予想。
                 </h1>
-                <p className="mt-5 max-w-[780px] text-[13px] font-bold leading-6 text-white/65 sm:text-[16px]">
+            <p className="community-subtitle mt-5 max-w-[780px]">
                   {event.title}
                 </p>
 
-                <div className="mt-7 grid border-y border-white/18 sm:grid-cols-2">
-                  <div className="flex items-center gap-3 py-4 sm:border-r sm:border-white/18 sm:pr-5">
-                    <CalendarDays size={18} className="shrink-0 text-[#ff5b96]" />
+            <div className="mt-7 grid rounded-[22px] border border-white/80 bg-white/72 px-4 shadow-sm backdrop-blur-sm sm:grid-cols-2">
+              <div className="flex items-center gap-3 py-4 sm:border-r sm:border-[#eadfe4] sm:pr-5">
+                <CalendarDays size={18} className="shrink-0 text-[#ef4f87]" />
                     <div>
-                      <p className="text-[9px] font-black tracking-[0.14em] text-white/42">LIVE DATE</p>
+                  <p className="text-[9px] font-black tracking-[0.14em] text-[#958d93]">LIVE DATE</p>
                       <p className="mt-1 text-[16px] font-black">{fmtShortDate(event.date)}</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3 border-t border-white/18 py-4 sm:border-t-0 sm:pl-5">
-                    <MapPin size={18} className="shrink-0 text-[#ff5b96]" />
+              <div className="flex items-center gap-3 border-t border-[#eadfe4] py-4 sm:border-t-0 sm:pl-5">
+                <MapPin size={18} className="shrink-0 text-[#ef4f87]" />
                     <div className="min-w-0">
-                      <p className="text-[9px] font-black tracking-[0.14em] text-white/42">VENUE</p>
+                  <p className="text-[9px] font-black tracking-[0.14em] text-[#958d93]">VENUE</p>
                       <p className="mt-1 truncate text-[16px] font-black">{event.venue}</p>
                     </div>
                   </div>
@@ -342,7 +342,7 @@ export function EventDetailClient({
               </div>
             </section>
 
-            <section className="zr-container border-b border-[#ded8dc] py-5" aria-labelledby="event-picker-title">
+          <section className="zr-container py-6" aria-labelledby="event-picker-title">
               <div className="flex items-end justify-between gap-4">
                 <div>
                   <p className="artist-kicker">Select Live Date</p>
@@ -368,7 +368,7 @@ export function EventDetailClient({
               )}
             </section>
 
-            <section className="bg-white py-8 sm:py-10" aria-labelledby="seat-map-title">
+          <section className="py-8 sm:py-10" aria-labelledby="seat-map-title">
               <div className="zr-container">
                 <div className="flex flex-col gap-4 border-b border-[#ded8dc] pb-4 sm:flex-row sm:items-end sm:justify-between">
                   <div>
@@ -421,7 +421,7 @@ export function EventDetailClient({
               </div>
             </section>
 
-            <section className="zr-container border-b border-[#ded8dc] py-8 sm:py-10" aria-labelledby="fan-prediction-title">
+          <section className="zr-container py-8 sm:py-10" aria-labelledby="fan-prediction-title">
               <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
                 <div>
                   <p className="artist-kicker">Fan Prediction</p>

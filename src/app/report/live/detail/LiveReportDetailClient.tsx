@@ -268,26 +268,26 @@ function LiveReportDetailPageInner() {
   ].filter((m) => (m.kind === "gauge" ? m.raw !== null : m.value !== null));
 
   return (
-    <div className="min-h-screen bg-[#f7f5f6] pb-20 font-sans text-[#1c171b]">
-      <section className="bg-[#0d090d] text-white">
+    <div className="community-page pb-20 font-sans">
+      <section className="community-hero">
         <header className="zr-container flex h-16 items-center justify-between">
-          <Link href={backHref} aria-label="現地レポ一覧へ戻る" className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/8"><ChevronLeft size={26} /></Link>
+          <Link href={backHref} aria-label="現地レポ一覧へ戻る" className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-[#2b252b] shadow-sm"><ChevronLeft size={26} /></Link>
           <div className="flex items-center gap-1">
-            <AccountLink tone="light" iconSize={22} />
+            <AccountLink iconSize={22} />
             <ShareButton
               url={`${typeof window !== "undefined" ? window.location.origin : ""}/report/live/detail?reportId=${report.id}`}
               text={`${event.venue} ${fmtDate(event.date)} の現地レポ📸 #ちけレポ`}
-              className="zr-focus flex h-11 w-11 items-center justify-center rounded-full text-white hover:bg-white/10"
+              className="zr-focus flex h-11 w-11 items-center justify-center rounded-full text-[#2b252b] hover:bg-white/60"
             />
           </div>
         </header>
         <div className="zr-container pb-9 pt-5">
-          <p className="text-[10px] font-black tracking-[0.22em] text-[#ff5b96]">LIVE VIEW REPORT</p>
-          <h1 className="mt-3 text-[36px] font-black leading-[1.08] tracking-[-0.05em] sm:text-[56px]">この席から、<br />こう見えました。</h1>
-          <div className="mt-6 border-y border-white/18 py-4">
+          <p className="community-eyebrow">LIVE VIEW REPORT</p>
+          <h1 className="community-title mt-3">この席から、<br /><span className="text-[#dd8053]">こう見えました。</span></h1>
+          <div className="mt-6 rounded-[22px] border border-white/80 bg-white/72 p-4 shadow-sm backdrop-blur-sm">
             <p className="text-[14px] font-black leading-6">{tourName || event.title}</p>
-            <p className="mt-1 text-[11px] font-bold text-white/55">{artist?.name ?? "アーティスト"} / {event.venue} / {fmtDate(event.date)}</p>
-            <p className="mt-1 text-[9px] font-bold text-white/35">投稿日 {fmtPostDate(report.created_at)}{isTestData ? " / テストデータ" : ""}</p>
+            <p className="mt-1 text-[11px] font-bold text-[#817981]">{artist?.name ?? "アーティスト"} / {event.venue} / {fmtDate(event.date)}</p>
+            <p className="mt-1 text-[9px] font-bold text-[#958d93]">投稿日 {fmtPostDate(report.created_at)}{isTestData ? " / テストデータ" : ""}</p>
           </div>
         </div>
       </section>
@@ -307,7 +307,7 @@ function LiveReportDetailPageInner() {
           )}
         </section>
 
-        <section className="mt-9 border-t border-[#1c171b] bg-white p-5 sm:p-7" aria-labelledby="seat-view-title">
+        <section className="community-panel mt-9 p-5 sm:p-7" aria-labelledby="seat-view-title">
           <div className="flex items-start justify-between gap-4 border-b border-[#ded8dc] pb-5">
             <div>
               <p className="artist-kicker">Seat View</p>

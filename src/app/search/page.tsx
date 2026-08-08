@@ -119,31 +119,31 @@ function SearchPageInner() {
   const hasResults = artistResults.length > 0 || venueResults.length > 0 || eventResults.length > 0;
 
   return (
-    <main className="min-h-screen bg-[#f7f5f6] pb-16 text-[#1c171b]">
-      <section className="bg-[#0d090d] text-white">
+    <main className="community-page pb-16">
+      <section className="community-hero">
         <header className="zr-container flex h-16 items-center justify-between">
           <Link
             href="/"
             aria-label="TOPへ戻る"
-            className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/8 text-white"
+            className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-[#2b252b] shadow-sm"
           >
             <ChevronLeft size={26} strokeWidth={2.7} />
           </Link>
-          <AccountLink tone="light" iconSize={22} />
+          <AccountLink iconSize={22} />
         </header>
 
         <div className="zr-container pb-9 pt-4 sm:pb-12 sm:pt-8">
-          <p className="text-[10px] font-black tracking-[0.24em] text-[#ff5b96]">SEARCH TIXREPO</p>
-          <h1 className="mt-3 text-[34px] font-black leading-[1.08] tracking-[-0.055em] sm:text-[58px]">
-            次のライブを、<br />会場と座席から探す。
+          <p className="community-eyebrow">SEARCH TIXREPO</p>
+          <h1 className="community-title mt-3">
+            次のライブを、<br /><span className="text-[#ef4f87]">会場と座席から探す。</span>
           </h1>
-          <p className="mt-4 text-[12px] font-bold leading-6 text-white/58 sm:text-[14px]">
+          <p className="community-subtitle mt-4">
             アーティスト、公演名、ライブ会場、座席表をまとめて検索できます。
           </p>
 
-          <label className="mt-7 flex min-h-16 items-center gap-3 border border-white/28 bg-white px-4 text-[#1c171b] shadow-[0_18px_50px_rgba(0,0,0,.22)]">
+          <label className="mt-7 flex min-h-16 items-center gap-3 rounded-[22px] border border-[#eadfe4] bg-white px-4 text-[#2b252b] shadow-[0_16px_45px_rgba(99,67,82,.12)]">
             <span className="sr-only">アーティスト・公演・会場を検索</span>
-            <Search size={21} strokeWidth={2.2} className="shrink-0 text-[#f43679]" />
+            <Search size={21} strokeWidth={2.2} className="shrink-0 text-[#ef4f87]" />
             <input
               type="text"
               inputMode="search"
@@ -151,7 +151,7 @@ function SearchPageInner() {
               onChange={(event) => setQuery(event.target.value)}
               placeholder="アーティスト・公演名・会場名"
               autoFocus
-              className="min-w-0 flex-1 bg-transparent text-[15px] font-bold text-[#1c171b] outline-none placeholder:text-[#aaa2a8]"
+              className="min-w-0 flex-1 bg-transparent text-[15px] font-bold text-[#2b252b] outline-none placeholder:text-[#aaa2a8]"
             />
             {query && (
               <button
@@ -172,13 +172,13 @@ function SearchPageInner() {
           <section aria-labelledby="search-hint-title">
             <p className="artist-kicker">Search Ideas</p>
             <h2 id="search-hint-title" className="mt-2 text-[22px] font-black tracking-[-0.04em]">こんなワードで探せます</h2>
-            <div className="mt-5 grid grid-cols-2 border-l border-t border-[#ded8dc] sm:grid-cols-4">
+            <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
               {["YOASOBI 東京ドーム", "東京ドーム 座席表", "Kアリーナ 見え方", "さいたまアリーナ"].map((word) => (
                 <button
                   key={word}
                   type="button"
                   onClick={() => setQuery(word)}
-                  className="zr-focus min-h-14 border-b border-r border-[#ded8dc] bg-white px-3 text-left text-[12px] font-black transition-colors hover:bg-[#fff0f5]"
+                  className="community-card zr-focus min-h-14 px-3 text-left text-[12px] font-black transition-colors hover:bg-[#fff0f5]"
                 >
                   {word}<span className="ml-1 text-[#f43679]">→</span>
                 </button>
@@ -197,18 +197,18 @@ function SearchPageInner() {
         )}
 
         {hasQuery && !loading && !hasResults && (
-          <section className="border-b border-[#ded8dc] py-14 text-center">
+          <section className="community-panel py-14 text-center">
             <Search size={29} strokeWidth={1.5} className="mx-auto text-[#f43679]" />
             <p className="mt-4 text-[18px] font-black">検索結果が見つかりませんでした</p>
             <p className="mt-2 text-[11px] font-medium text-[#817981]">短い名前、読み方、会場名でもう一度試してください。</p>
-            <Link href="/venues" className="zr-focus mt-5 inline-flex min-h-11 items-center gap-2 border border-[#1c171b] px-4 text-[11px] font-black text-[#1c171b] transition-colors hover:bg-[#1c171b] hover:text-white">
+            <Link href="/venues" className="community-secondary-button mt-5">
               ライブ会場一覧から座席表を探す<MoveRight size={15} className="text-[#f43679]" />
             </Link>
           </section>
         )}
 
         {hasQuery && !loading && venueResults.length > 0 && (
-          <section className="border-b border-[#ded8dc] pb-10" aria-labelledby="venue-results-title">
+          <section className="pb-10" aria-labelledby="venue-results-title">
             <div className="flex items-end justify-between gap-3">
               <div>
                 <p className="artist-kicker">Venue seat map</p>
@@ -216,7 +216,7 @@ function SearchPageInner() {
               </div>
               <p className="text-[10px] font-black text-[#817981]">{venueResults.length} VENUES</p>
             </div>
-            <div className="mt-5 grid border-l border-t border-[#ded8dc] sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {venueResults.map((venue, index) => (
                 <Link
                   key={venue.id}
@@ -226,7 +226,7 @@ function SearchPageInner() {
                     result_id: venue.id,
                     search_term: query.trim(),
                   })}
-                  className="zr-focus group flex min-h-[104px] flex-col justify-between border-b border-r border-[#ded8dc] bg-white p-4 no-underline transition-colors hover:bg-[#fff0f5]"
+                  className="community-card zr-focus group flex min-h-[104px] flex-col justify-between p-4 no-underline transition-colors hover:bg-[#fff0f5]"
                 >
                   <div className="flex items-start justify-between gap-4">
                     <Building2 size={20} strokeWidth={1.7} className="text-[#f43679]" />
@@ -246,7 +246,7 @@ function SearchPageInner() {
         )}
 
         {hasQuery && !loading && artistResults.length > 0 && (
-          <section className={`${venueResults.length > 0 ? "pt-10 " : ""}border-b border-[#ded8dc] pb-10`} aria-labelledby="artist-results-title">
+          <section className={`${venueResults.length > 0 ? "pt-10 " : ""}pb-10`} aria-labelledby="artist-results-title">
             <div className="flex items-end justify-between gap-3">
               <div>
                 <p className="artist-kicker">Artists</p>
@@ -254,9 +254,9 @@ function SearchPageInner() {
               </div>
               <p className="text-[10px] font-black text-[#817981]">{artistResults.length} RESULTS</p>
             </div>
-            <div className="mt-5 grid border-l border-t border-[#ded8dc] sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {artistResults.map((artist, index) => (
-                <div key={artist.slug} className="relative min-w-0 border-b border-r border-[#ded8dc] bg-white">
+                <div key={artist.slug} className="community-card relative min-w-0">
                   <Link
                     href={`/artists/${artist.slug}`}
                     onClick={() => trackEvent("select_search_result", {
@@ -295,7 +295,7 @@ function SearchPageInner() {
               </div>
               <p className="text-[10px] font-black text-[#817981]">{eventResults.length} RESULTS</p>
             </div>
-            <div className="mt-5 border-l border-t border-[#ded8dc]">
+            <div className="mt-5 grid gap-3">
               {eventResults.map((event) => {
                 const eventArtist = event.artist_slug ? findArtistBySlug(event.artist_slug) : null;
                 return (
@@ -307,7 +307,7 @@ function SearchPageInner() {
                       result_id: event.id,
                       search_term: query.trim(),
                     })}
-                    className="zr-focus grid min-h-[104px] gap-3 border-b border-r border-[#ded8dc] bg-white px-4 py-4 no-underline sm:grid-cols-[135px_1fr] sm:items-center"
+                    className="community-card zr-focus grid min-h-[104px] gap-3 px-4 py-4 no-underline sm:grid-cols-[135px_1fr] sm:items-center"
                   >
                     <div>
                       <p className="flex items-center gap-1.5 text-[10px] font-black text-[#f43679]"><CalendarDays size={13} />{fmtDate(event.date)}</p>

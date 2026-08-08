@@ -19,31 +19,31 @@ export type HeaderProps = {
   className?: string;
 };
 
-/** 44px高さ・3スロット（戻る/タイトル/右要素）固定の共通ヘッダー */
+/** 3スロット（戻る/タイトル/右要素）の共通ページヘッダー */
 export function Header({ title, backHref, onBack, rightSlot, showAccount = true, className }: HeaderProps) {
   return (
     <header
-      className={`sticky top-0 z-30 grid h-[44px] grid-cols-[44px_1fr_44px] items-center border-b border-gray-100 bg-white ${className ?? ""}`}
+      className={`sticky top-0 z-30 grid h-14 grid-cols-[44px_1fr_44px] items-center border-b border-[#f0e2e8] bg-white/95 px-2 backdrop-blur-xl ${className ?? ""}`}
     >
       <div className="flex h-8 w-8 items-center justify-center justify-self-start">
         {onBack ? (
           <button
             type="button"
             onClick={onBack}
-            className="flex h-8 w-8 items-center justify-center text-gray-700 active:bg-gray-50"
+            className="zr-focus flex h-9 w-9 items-center justify-center rounded-full bg-[#fff0f5] text-[#6b5862] active:bg-[#ffe2ec]"
           >
             <ChevronLeft size={18} strokeWidth={2.5} />
           </button>
         ) : backHref ? (
           <Link
             href={backHref}
-            className="flex h-8 w-8 items-center justify-center text-gray-700 active:bg-gray-50"
+            className="zr-focus flex h-9 w-9 items-center justify-center rounded-full bg-[#fff0f5] text-[#6b5862] active:bg-[#ffe2ec]"
           >
             <ChevronLeft size={18} strokeWidth={2.5} />
           </Link>
         ) : null}
       </div>
-      <h1 className="min-w-0 truncate px-1 text-center text-[13px] font-bold tracking-wide text-gray-900">
+      <h1 className="min-w-0 truncate px-2 text-center text-[14px] font-black tracking-[-0.02em] text-[#2b252b]">
         {title}
       </h1>
       <div className="flex h-8 w-8 items-center justify-center justify-self-end">

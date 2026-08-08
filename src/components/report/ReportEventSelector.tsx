@@ -15,7 +15,7 @@ type ReportChoice = {
   description: string;
   meta: string;
   Icon: LucideIcon;
-  tone: "dark" | "pink" | "light";
+  tone: "ticket" | "seat" | "live" | "setlist";
 };
 
 function ReportChoiceLink({ choice, eventId, index }: { choice: ReportChoice; eventId?: string | null; index: number }) {
@@ -25,20 +25,20 @@ function ReportChoiceLink({ choice, eventId, index }: { choice: ReportChoice; ev
         <choice.Icon
           size={27}
           strokeWidth={1.7}
-          className={choice.tone === "dark" ? "text-[#ff5b96]" : choice.tone === "pink" ? "text-white" : "text-[#f43679]"}
+          className={{ ticket: "text-[#e94a7d]", seat: "text-[#6176d7]", live: "text-[#dd8053]", setlist: "text-[#8165bb]" }[choice.tone]}
         />
-        <span className={`text-[9px] font-black tracking-[0.16em] ${choice.tone === "dark" || choice.tone === "pink" ? "text-white/45" : "text-[#958d93]"}`}>
+        <span className="text-[9px] font-black tracking-[0.16em] text-[#958d93]">
           {String(index + 1).padStart(2, "0")} / REPORT
         </span>
       </div>
       <div className="mt-8">
-        <h3 className={`text-[23px] font-black tracking-[-0.04em] sm:text-[28px] ${choice.tone === "dark" || choice.tone === "pink" ? "text-white" : "text-[#1c171b]"}`}>
+        <h3 className="text-[23px] font-black tracking-[-0.04em] text-[#2b252b] sm:text-[28px]">
           {choice.label}
         </h3>
-        <p className={`mt-2 min-h-[40px] text-[11px] font-bold leading-5 ${choice.tone === "dark" || choice.tone === "pink" ? "text-white/62" : "text-[#817981]"}`}>
+        <p className="mt-2 min-h-[40px] text-[11px] font-bold leading-5 text-[#817981]">
           {choice.description}
         </p>
-        <p className={`mt-3 flex items-center gap-2 text-[10px] font-black ${choice.href ? (choice.tone === "dark" || choice.tone === "pink" ? "text-white" : "text-[#f43679]") : "text-[#aaa2a8]"}`}>
+        <p className={`mt-3 flex items-center gap-2 text-[10px] font-black ${choice.href ? "text-[#ef4f87]" : "text-[#aaa2a8]"}`}>
           {choice.href ? choice.meta : "先に公演を選択してください"}
           {choice.href && <MoveRight size={16} className="transition-transform group-hover:translate-x-1" />}
         </p>
@@ -46,12 +46,13 @@ function ReportChoiceLink({ choice, eventId, index }: { choice: ReportChoice; ev
     </>
   );
 
-  const className = `group flex min-h-[190px] flex-col justify-between border-b border-r border-[#ded8dc] p-4 sm:p-6 ${
-    choice.tone === "dark"
-      ? "bg-[#1c171b]"
-      : choice.tone === "pink"
-        ? "bg-[#f43679]"
-        : "bg-white"
+  const className = `group flex min-h-[190px] flex-col justify-between rounded-[24px] border border-white/80 p-4 shadow-[0_12px_35px_rgba(91,67,79,.07)] sm:p-6 ${
+    {
+      ticket: "bg-[#fff0f5]",
+      seat: "bg-[#edf0ff]",
+      live: "bg-[#fff1ea]",
+      setlist: "bg-[#f4efff]",
+    }[choice.tone]
   } ${choice.href ? "" : "cursor-default opacity-45"}`;
 
   if (!choice.href) return <div className={className}>{inner}</div>;
@@ -82,7 +83,7 @@ export function ReportEventSelector({ selectedEvent, artistSlug }: Props) {
       description: "当選・落選、抽選種別、実際の座席をまとめて共有。",
       meta: "当落・座席フォームへ",
       Icon: BarChart3,
-      tone: "dark",
+      tone: "ticket",
     },
     {
       href: selectedEvent ? `/events/${selectedEvent.id}/fan-seat-prediction` : null,
@@ -91,7 +92,7 @@ export function ReportEventSelector({ selectedEvent, artistSlug }: Props) {
       description: "会場の座席表を見ながら、花道やセンステ構成を予想。",
       meta: "座席予想を投稿",
       Icon: Map,
-      tone: "light",
+      tone: "seat",
     },
     {
       href: selectedEvent ? `/report/live?event=${selectedEvent.id}` : null,
@@ -100,7 +101,7 @@ export function ReportEventSelector({ selectedEvent, artistSlug }: Props) {
       description: "座席からの見え方、会場写真、ライブ演出をファンへ。",
       meta: "現地レポフォームへ",
       Icon: Camera,
-      tone: "pink",
+      tone: "live",
     },
     {
       href: artistSlug ? `/artists/${artistSlug}/setlist` : null,
@@ -109,7 +110,7 @@ export function ReportEventSelector({ selectedEvent, artistSlug }: Props) {
       description: "曲順、MC、演出メモをライブの記録として共有。",
       meta: "セトリページへ",
       Icon: ListMusic,
-      tone: "light",
+      tone: "setlist",
     },
   ];
 
@@ -121,7 +122,7 @@ export function ReportEventSelector({ selectedEvent, artistSlug }: Props) {
         選んだ公演の当落、座席表、会場の様子を投稿できます。
       </p>
 
-      <div className="mt-6 grid grid-cols-2 border-l border-t border-[#ded8dc]">
+      <div className="mt-6 grid grid-cols-2 gap-3">
         {choices.map((choice, index) => (
           <ReportChoiceLink
             key={choice.type}

@@ -289,21 +289,21 @@ export default function FanSeatPredictionPage({
   /* ── 完了画面（Step 2） ─────────────────────────────── */
   if (submitted) {
     return (
-      <div className="flex min-h-screen flex-col bg-[#f7f5f6] pb-20 font-sans text-[#1c171b]">
-        <section className="bg-[#0d090d] text-white">
+      <div className="community-page flex flex-col pb-20 font-sans">
+        <section className="community-hero">
           <header className="zr-container flex h-16 items-center justify-between">
-            <Link href={`/events/${selectedEventId}`} aria-label="公演ページへ戻る" className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/8"><ChevronLeft size={25} /></Link>
-            <AccountLink tone="light" iconSize={22} />
+            <Link href={`/events/${selectedEventId}`} aria-label="公演ページへ戻る" className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-[#2b252b] shadow-sm"><ChevronLeft size={25} /></Link>
+            <AccountLink iconSize={22} />
           </header>
           <div className="zr-container pb-11 pt-5 text-center">
-            <p className="text-[10px] font-black tracking-[0.22em] text-[#ff5b96]">PREDICTION COMPLETE</p>
+            <p className="community-eyebrow">PREDICTION COMPLETE</p>
             <h1 className="mt-4 text-[38px] font-black leading-tight tracking-[-0.05em]">予想図を投稿しました。</h1>
-            <p className="mt-3 text-[12px] font-bold leading-6 text-white/62">会場の座席表を探すファンへ、あなたの予想が届きます。</p>
+            <p className="community-subtitle mt-3">会場の座席表を探すファンへ、あなたの予想が届きます。</p>
           </div>
         </section>
         <StepIndicator step={2} />
         <main className="zr-container flex-1 py-6">
-          <section className="border border-[#ded8dc] bg-white p-5 text-center sm:p-7">
+          <section className="community-panel p-5 text-center sm:p-7">
             <ImagePlus size={32} strokeWidth={1.5} className="mx-auto text-[#f43679]" aria-hidden="true" />
             <p className="mt-4 text-[17px] font-black">Xで座席予想を共有しよう</p>
             <p className="mt-2 text-[11px] font-medium leading-5 text-[#817981]">公演ページのURLと一緒にシェアできます。</p>
@@ -312,8 +312,8 @@ export default function FanSeatPredictionPage({
               <ShareButton url={shareUrl} text={shareText} className="zr-focus flex h-[52px] w-[52px] items-center justify-center border border-[#1c171b] text-[#1c171b]" />
             </div>
             <div className="mt-7 space-y-2 border-t border-[#ded8dc] pt-6">
-              <button type="button" onClick={resetForm} className="zr-focus flex min-h-[52px] w-full items-center justify-center bg-[#f43679] text-[13px] font-black text-white">別の予想を投稿する</button>
-              <Link href={`/events/${selectedEventId}`} className="zr-focus flex min-h-12 w-full items-center justify-center border border-[#ded8dc] bg-white text-[13px] font-black text-[#544e52]">座席予想ページを見る</Link>
+              <button type="button" onClick={resetForm} className="community-primary-button min-h-[52px] w-full">別の予想を投稿する</button>
+              <Link href={`/events/${selectedEventId}`} className="community-secondary-button min-h-12 w-full">座席予想ページを見る</Link>
             </div>
           </section>
         </main>
@@ -324,17 +324,17 @@ export default function FanSeatPredictionPage({
 
   /* ── 入力画面（Step 1） ─────────────────────────────── */
   return (
-    <div className="min-h-screen bg-[#f7f5f6] pb-20 font-sans text-[#1c171b]">
-      <section className="bg-[#0d090d] text-white">
+    <div className="community-page pb-20 font-sans">
+      <section className="community-hero">
         <header className="zr-container flex h-16 items-center justify-between">
-          <Link href={reportEntryHref} aria-label="報告メニューへ戻る" className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/8"><ChevronLeft size={26} /></Link>
-          <AccountLink tone="light" iconSize={22} />
+          <Link href={reportEntryHref} aria-label="報告メニューへ戻る" className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-[#2b252b] shadow-sm"><ChevronLeft size={26} /></Link>
+          <AccountLink iconSize={22} />
         </header>
         <div className="zr-container pb-9 pt-4">
-          <MapIcon size={28} strokeWidth={1.6} className="text-[#ff5b96]" aria-hidden="true" />
-          <p className="mt-5 text-[10px] font-black tracking-[0.22em] text-[#ff5b96]">FAN SEAT PREDICTION</p>
-          <h1 className="mt-3 text-[36px] font-black leading-[1.08] tracking-[-0.05em] sm:text-[52px]">会場の座席表を、<br />みんなで予想。</h1>
-          <p className="mt-4 text-[11px] font-bold leading-5 text-white/62">花道・センステ・外周など、ライブ会場の構成予想を投稿できます。</p>
+          <MapIcon size={28} strokeWidth={1.6} className="text-[#6176d7]" aria-hidden="true" />
+          <p className="community-eyebrow mt-5">FAN SEAT PREDICTION</p>
+          <h1 className="community-title mt-3">会場の座席表を、<br /><span className="text-[#6176d7]">みんなで予想。</span></h1>
+          <p className="community-subtitle mt-4">花道・センステ・外周など、ライブ会場の構成予想を投稿できます。</p>
         </div>
       </section>
 
@@ -342,7 +342,7 @@ export default function FanSeatPredictionPage({
 
         <main className="zr-container space-y-8 pb-12 pt-8">
           {/* 対象公演 */}
-          <section className="border-t border-[#1c171b] pt-5">
+          <section className="community-panel p-5">
             <p className="artist-kicker">01 / SELECT LIVE</p>
             <h2 className="artist-heading">対象公演</h2>
             <EventCarouselPicker

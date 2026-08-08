@@ -55,6 +55,104 @@ body {
   outline-offset: 3px;
 }
 
+.community-page {
+  min-height: 100vh;
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.community-hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 88% 10%, rgba(255, 159, 193, 0.4), transparent 30%),
+    radial-gradient(circle at 14% 92%, rgba(216, 203, 255, 0.28), transparent 32%),
+    #fff0f6;
+}
+
+.community-eyebrow {
+  color: var(--accent);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.community-title {
+  color: var(--foreground);
+  font-size: clamp(34px, 7vw, 64px);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.055em;
+}
+
+.community-subtitle {
+  color: #76656f;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.9;
+}
+
+.community-panel {
+  border: 1px solid var(--card-border);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 12px 36px rgba(105, 63, 80, 0.06);
+}
+
+.community-card {
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 7px 22px rgba(105, 63, 80, 0.045);
+}
+
+.community-input {
+  min-height: 52px;
+  width: 100%;
+  border: 1px solid #eadfe4;
+  border-radius: 16px;
+  background: #fff;
+  color: var(--foreground);
+  outline: none;
+}
+
+.community-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(240, 79, 135, 0.1);
+}
+
+.community-primary-button,
+.community-secondary-button {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 999px;
+  padding-inline: 20px;
+  font-size: 12px;
+  font-weight: 900;
+  transition: transform 160ms ease, background-color 160ms ease;
+}
+
+.community-primary-button {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 10px 24px rgba(240, 79, 135, 0.22);
+}
+
+.community-secondary-button {
+  border: 1px solid #eadfe4;
+  background: #fff;
+  color: #6b5862;
+}
+
+.community-primary-button:hover,
+.community-secondary-button:hover {
+  transform: translateY(-1px);
+}
+
 .artist-section {
   padding-block: 52px;
 }
@@ -87,6 +185,14 @@ body {
 
   .artist-section {
     padding-block: 40px;
+  }
+
+  .community-panel {
+    border-radius: 22px;
+  }
+
+  .community-card {
+    border-radius: 18px;
   }
 }
 

@@ -37,8 +37,8 @@ function Item({
     </>
   );
 
-  const itemClassName = `zr-focus flex min-h-[54px] flex-1 flex-col items-center justify-center gap-1 border-t-2 py-1.5 transition-colors ${
-    isActive ? "border-[#f43679] bg-[#fff3f7]" : "border-transparent"
+  const itemClassName = `zr-focus flex min-h-[54px] flex-1 flex-col items-center justify-center gap-1 rounded-2xl py-1.5 transition-colors ${
+    isActive ? "bg-[#fff0f5]" : "hover:bg-[#fff9fb]"
   }`;
 
   if (href === null) {
@@ -68,7 +68,7 @@ export function BottomNav({ active, artistSlug, eventId }: Props) {
 
   return (
     <nav
-      className="fixed bottom-0 left-1/2 z-50 flex h-[70px] w-full max-w-[620px] -translate-x-1/2 items-center border border-[#ded8dc] bg-white/94 px-1 shadow-[0_-12px_35px_rgba(35,24,31,0.09)] backdrop-blur-xl md:bottom-5 md:rounded-2xl"
+      className="fixed bottom-0 left-1/2 z-50 flex h-[72px] w-full max-w-[620px] -translate-x-1/2 items-center rounded-t-[24px] border border-[#f0dfe6] bg-white/95 px-1.5 shadow-[0_-12px_35px_rgba(105,63,80,0.09)] backdrop-blur-xl md:bottom-5 md:rounded-[24px]"
       aria-label="ページ内ナビゲーション"
     >
       <div className="flex w-full items-center justify-around gap-0.5">
