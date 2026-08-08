@@ -14,7 +14,7 @@ export type ShareButtonProps = {
 };
 
 const DEFAULT_BUTTON_CLASS =
-  "flex h-8 w-8 items-center justify-center rounded-full text-gray-700 transition-colors active:bg-gray-100";
+  "flex h-11 w-11 items-center justify-center rounded-full text-gray-700 transition-colors active:bg-gray-100";
 
 /** アイコン型の共有ボタン。navigator.share対応時はOS共有シートを、非対応時（主にPC）はX共有/URLコピーのメニューを表示する */
 export function ShareButton({ url, text, className }: ShareButtonProps) {

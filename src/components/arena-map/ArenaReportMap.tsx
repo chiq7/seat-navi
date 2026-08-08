@@ -276,7 +276,7 @@ export function ArenaReportMap({
                   onClick={() => setColorMode(option.value)}
                   className={`rounded-full border px-2 py-0.5 text-[9px] font-bold shadow-sm transition-all active:scale-95 ${
                     activeColorMode === option.value
-                      ? "border-gray-900 bg-gray-900 text-white"
+                      ? "border-[#9da9e8] bg-[#eef0ff] text-[#5165c6]"
                       : "border-gray-200 bg-white text-gray-600"
                   } disabled:cursor-not-allowed disabled:opacity-45`}
                 >
@@ -291,7 +291,7 @@ export function ArenaReportMap({
               {activeLegend.map((item) => (
                 <div key={item.label} className="flex flex-1 items-center justify-center gap-1 py-1">
                   <span
-                    className="inline-block h-2 w-2 shrink-0 rounded-full ring-1 ring-black/5"
+                    className="inline-block h-2 w-2 shrink-0 rounded-full ring-1 ring-[#704e60]/10"
                     style={{ backgroundColor: item.color }}
                   />
                   <span className="text-[9px] font-semibold text-gray-600">{item.label}</span>
@@ -349,7 +349,7 @@ export function ArenaReportMap({
         <defs>
           <linearGradient id="arena-stage-surface" x1="0" x2="0" y1="0" y2="1">
             <stop offset="0%" stopColor="#2a2028" />
-            <stop offset="100%" stopColor="#0d090d" />
+            <stop offset="100%" stopColor="#704e60" />
           </linearGradient>
           <linearGradient id="arena-stage-edge" x1="0" x2="1" y1="0" y2="0">
             <stop offset="0%" stopColor="#f43679" stopOpacity="0" />
@@ -392,7 +392,7 @@ export function ArenaReportMap({
           <rect x={stageX - 12} y={stageTop + 20} width={4} height={4} fill="#ff5b96" />
           <rect x={stageX + STAGE_W + 8} y={stageTop + 11} width={4} height={4} fill="#ff5b96" />
           <rect x={stageX + STAGE_W + 8} y={stageTop + 20} width={4} height={4} fill="#ff5b96" />
-          <path d={`M${stageX},${stageTop + 5} H${stageX + STAGE_W} L${stageX + STAGE_W - 12},${stageTop + 39} H${stageX + 12} Z`} fill="url(#arena-stage-surface)" stroke="#0d090d" strokeWidth="1" />
+          <path d={`M${stageX},${stageTop + 5} H${stageX + STAGE_W} L${stageX + STAGE_W - 12},${stageTop + 39} H${stageX + 12} Z`} fill="url(#arena-stage-surface)" stroke="#6b4558" strokeWidth="1" />
           <rect x={stageX + 16} y={stageTop + 8} width={STAGE_W - 32} height={2} fill="url(#arena-stage-edge)" />
           <path d={`M${stageX + 18},${stageTop + 31} H${stageX + STAGE_W - 18}`} stroke="#55404f" strokeWidth="1" />
           <text x={gridCenterX} y={stageTop + 23} textAnchor="middle" dominantBaseline="middle" pointerEvents="none" fontSize={13} fontWeight="800" fill="#ffffff" style={{ letterSpacing: "0.16em" }}>
@@ -583,7 +583,7 @@ export function ArenaReportMap({
             <button
               type="button"
               onClick={handleShare}
-              className="rounded-full bg-gray-900 px-3 py-2 text-[11px] font-bold text-white"
+              className="rounded-full bg-[#ef4f87] px-3 py-2 text-[11px] font-bold text-white"
             >
               このマップを共有する
             </button>

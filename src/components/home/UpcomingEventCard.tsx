@@ -24,18 +24,18 @@ export default function UpcomingEventCard({
   void backgroundImage;
   if (featured) {
     return (
-      <div className="group relative min-h-[210px] rounded-[22px] border border-[#f0dfe6] bg-white px-3 py-4 shadow-[0_8px_22px_rgba(105,63,80,.05)] sm:min-h-[230px] sm:px-5 sm:py-5">
+      <div className="group relative min-h-[172px] rounded-[20px] border border-[#f0dfe6] bg-white px-3 py-3 shadow-[0_8px_22px_rgba(105,63,80,.05)] sm:min-h-[220px] sm:px-5 sm:py-5">
         <Link href={`/artists/${item.artistSlug}`} className="zr-focus flex h-full flex-col rounded-xl no-underline">
           <div className="flex items-start justify-between gap-4">
             <span className="text-[11px] font-black tabular-nums tracking-[0.18em] text-[#ef4f87]">{String(index ?? 1).padStart(2, "0")}</span>
-            <span className="pr-9 text-[11px] font-bold text-[#777078]">{item.period}</span>
+            <span className="pr-12 text-[11px] font-bold text-[#777078]">{item.period}</span>
           </div>
-          <div className="mt-4 sm:mt-6">
-            <p className="text-[18px] font-black leading-tight tracking-[-0.04em] text-[#1c171b] sm:text-[22px]">{item.artist}</p>
-            <p className="mt-2 line-clamp-2 text-[12px] font-bold leading-5 text-[#514a50]">{item.eventName}</p>
-            <p className="mt-3 text-[11px] text-[#817981]">{item.venue}</p>
+          <div className="mt-3 sm:mt-6">
+            <p className="text-[16px] font-black leading-tight tracking-[-0.04em] text-[#40383d] sm:text-[22px]">{item.artist}</p>
+            <p className="mt-1.5 line-clamp-2 text-[11px] font-bold leading-[1.45] text-[#514a50] sm:mt-2 sm:text-[12px] sm:leading-5">{item.eventName}</p>
+            <p className="mt-2 truncate text-[10px] text-[#817981] sm:mt-3 sm:text-[11px]">{item.venue}</p>
           </div>
-          <div className="mt-auto flex flex-col items-start gap-1 pt-4 sm:flex-row sm:items-end sm:justify-between sm:pt-7">
+          <div className="mt-auto flex flex-col items-start gap-1 pt-3 sm:flex-row sm:items-end sm:justify-between sm:pt-7">
             <span className="text-[10px] font-bold text-[#ef4f87] sm:text-[11px]">公演・座席表を見る →</span>
             <span className="text-[10px] text-[#938b92]">{item.count} reports</span>
           </div>

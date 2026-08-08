@@ -12,7 +12,7 @@ export function AccountLink({ className = "", iconSize = 21, tone = "dark" }: Pr
     <Link
       href="/mypage"
       aria-label="マイページ"
-      className={`flex h-10 w-10 items-center justify-center rounded-full transition-colors active:bg-gray-100/50 ${
+      className={`zr-focus flex h-11 w-11 items-center justify-center rounded-full transition-colors active:bg-gray-100/50 ${
         tone === "light" ? "text-white" : "text-gray-700"
       } ${className}`}
     >

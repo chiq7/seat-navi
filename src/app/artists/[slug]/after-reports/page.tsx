@@ -44,7 +44,7 @@ function ReportMedia({ photoUrl, index }: { photoUrl: string | null; index: numb
 
   if (photoUrl && !imgError) {
     return (
-      <div className="relative aspect-[4/3] overflow-hidden bg-[#1c171b]">
+      <div className="relative aspect-[4/3] overflow-hidden bg-[#f3e8ee]">
         {/* Supabaseの投稿画像URLは実行時に決まるため、通常のimgで表示する。 */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -59,7 +59,7 @@ function ReportMedia({ photoUrl, index }: { photoUrl: string | null; index: numb
 
   return (
     <div
-      className="relative aspect-[4/3] overflow-hidden bg-[#100716]"
+      className="relative aspect-[4/3] overflow-hidden bg-[#f3e8ee]"
       aria-label="会場写真なし"
       style={{
         background:
@@ -69,7 +69,7 @@ function ReportMedia({ photoUrl, index }: { photoUrl: string | null; index: numb
           "linear-gradient(180deg, #2b1230, #050306)",
       }}
     >
-      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent px-4 pb-3 pt-12">
+      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#5c3a4b]/80 to-transparent px-4 pb-3 pt-12">
         <p className="text-[9px] font-black tracking-[0.2em] text-white/55">LIVE VIEW REPORT</p>
       </div>
     </div>
@@ -215,7 +215,7 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
 
   return (
     <main className="community-page pb-20 font-sans">
-      <section className="relative min-h-[356px] overflow-hidden bg-[#0d090d] text-white sm:min-h-[410px]">
+      <section className="relative min-h-[316px] overflow-hidden bg-[#6b4558] text-white sm:min-h-[410px]">
         <Image
           src={heroImageSrc}
           alt=""
@@ -228,14 +228,14 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
             if (heroImageSrc !== DEFAULT_ARTIST_HERO_IMAGE) setHeroImageSrc(DEFAULT_ARTIST_HERO_IMAGE);
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/15 to-[#0d090d]" />
-        <div className="absolute inset-x-0 bottom-0 h-[70%] bg-gradient-to-t from-[#0d090d] via-[#0d090d]/82 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#5c3a4b]/60 via-[#6b4558]/10 to-[#6b4558]" />
+        <div className="absolute inset-x-0 bottom-0 h-[70%] bg-gradient-to-t from-[#6b4558] via-[#6b4558]/82 to-transparent" />
 
         <header className="zr-container relative z-10 flex h-16 items-center justify-between">
           <Link
             href={`/artists/${slug}`}
             aria-label={`${artist.name}のページへ戻る`}
-            className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-black/20 text-white backdrop-blur-md"
+            className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-[#6b4558]/55 text-white backdrop-blur-md"
           >
             <ChevronLeft size={26} strokeWidth={2.7} />
           </Link>
@@ -268,7 +268,7 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
       </section>
 
       <div className="zr-container">
-        <section className="community-panel mt-6 p-5 sm:p-6" aria-labelledby="report-filter-title">
+        <section className="community-panel mt-5 p-4 sm:mt-6 sm:p-6" aria-labelledby="report-filter-title">
           <div className="flex items-center justify-between gap-3">
             <div>
               <p className="artist-kicker">Find Your View</p>
@@ -277,8 +277,8 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
             <SlidersHorizontal size={22} strokeWidth={1.8} className="shrink-0 text-[#f43679]" />
           </div>
 
-          <div className="mt-5 grid gap-2 sm:grid-cols-3">
-            <label className="min-w-0">
+          <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3">
+            <label className="col-span-2 min-w-0 sm:col-span-1">
               <span className="mb-1.5 block text-[9px] font-black tracking-[0.14em] text-[#817981]">公演・会場</span>
               <select
                 value={filterDate}
@@ -356,7 +356,7 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
             <p className="mt-2 text-[12px] font-medium text-[#817981]">座席からの見え方を、次のファンへ残しませんか。</p>
             <Link
               href={nextEvent ? `/report/live?event=${nextEvent.id}` : "/report/live"}
-              className="zr-focus mt-6 inline-flex min-h-12 items-center gap-2 bg-[#f43679] px-6 text-[13px] font-black text-white"
+              className="community-primary-button mt-6 min-h-12"
             >
               <SquarePen size={17} />現地レポを投稿する
             </Link>

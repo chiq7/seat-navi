@@ -1,5 +1,5 @@
 import type { EditorialSeoProfile } from "@/lib/seoProfiles";
-import { ExternalLink } from "lucide-react";
+import { ChevronDown, ExternalLink } from "lucide-react";
 
 type SeoEditorialSectionProps = {
   title: string;
@@ -16,7 +16,13 @@ export default function SeoEditorialSection({
     <section className={className}>
       <p className="artist-kicker">About &amp; Access</p>
       <h2 className="artist-heading">{title}</h2>
-      <div className="mt-7 border border-[#ded8dc] bg-white">
+      <div className="mt-5 sm:mt-7">
+        <input id="seo-editorial-toggle" type="checkbox" className="peer sr-only sm:hidden" />
+        <label htmlFor="seo-editorial-toggle" className="zr-focus flex min-h-12 cursor-pointer items-center justify-between rounded-full bg-[#fff0f5] px-5 text-[12px] font-black text-[#c93868] sm:hidden">
+          詳しい情報・アクセスを見る
+          <ChevronDown size={16} aria-hidden="true" />
+        </label>
+      <div className="mt-4 hidden border border-[#ded8dc] bg-white peer-checked:block sm:mt-0 sm:block">
         <p className="px-5 py-6 text-[13px] font-medium leading-7 text-[#625a61] sm:px-7 sm:py-8">{profile.summary}</p>
 
         <dl className="grid grid-cols-2 border-l border-t border-[#ded8dc] sm:grid-cols-4">
@@ -37,8 +43,8 @@ export default function SeoEditorialSection({
           ))}
         </div>
 
-        <div className="border-t border-[#ded8dc] bg-[#1c171b] px-5 py-5 text-white sm:px-7">
-          <p className="text-[9px] font-black tracking-[0.12em] text-white/42">情報確認日：{profile.updatedAt}</p>
+        <div className="border-t border-[#eadfe4] bg-[#f8f1f5] px-5 py-5 text-[#51454c] sm:px-7">
+          <p className="text-[9px] font-black tracking-[0.12em] text-[#91838c]">情報確認日：{profile.updatedAt}</p>
           <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2">
             {profile.sources.map((source) => (
               <a
@@ -46,13 +52,14 @@ export default function SeoEditorialSection({
                 href={source.url}
                 target="_blank"
                 rel="noreferrer"
-                className="zr-focus inline-flex min-h-8 items-center gap-1.5 text-[10px] font-black text-[#ff5b96] underline underline-offset-4"
+                className="zr-focus inline-flex min-h-8 items-center gap-1.5 text-[10px] font-black text-[#c93868] underline underline-offset-4"
               >
                 {source.label}<ExternalLink size={11} />
               </a>
             ))}
           </div>
         </div>
+      </div>
       </div>
     </section>
   );

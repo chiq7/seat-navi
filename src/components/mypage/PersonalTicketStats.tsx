@@ -178,14 +178,14 @@ export function PersonalTicketStats({ ticketPosts, eventMap, displayName }: Prop
             </select>
           </label>
         </div>
-        <div className="mt-4 overflow-hidden bg-[#1c171b] p-4 text-white sm:p-5">
-          <p className="truncate text-[10px] font-bold text-white/48">{scopeLabel}</p>
+        <div className="mt-4 overflow-hidden rounded-[20px] border border-[#f2d6e1] bg-[#fff0f5] p-4 text-[#51454c] sm:p-5">
+          <p className="truncate text-[10px] font-bold text-[#8e7f88]">{scopeLabel}</p>
           <div className="mt-1 flex items-end justify-between gap-3">
-            <div><p className="text-[9px] font-semibold text-white/42">当選率</p><p className="text-[42px] font-extrabold leading-none text-[#ff5b96]">{ticketStats.rate === null ? "--" : `${ticketStats.rate}%`}</p></div>
+            <div><p className="text-[9px] font-semibold text-[#9b8b94]">当選率</p><p className="text-[42px] font-extrabold leading-none text-[#e94a7d]">{ticketStats.rate === null ? "--" : `${ticketStats.rate}%`}</p></div>
             <div className="grid grid-cols-3 gap-3 pb-1 text-center">
-              <div><p className="text-[17px] font-extrabold text-white">{ticketStats.won}</p><p className="text-[8px] text-white/42">当選</p></div>
-              <div><p className="text-[17px] font-extrabold text-white">{ticketStats.lost}</p><p className="text-[8px] text-white/42">落選</p></div>
-              <div><p className="text-[17px] font-extrabold text-white">{ticketStats.total}</p><p className="text-[8px] text-white/42">申込</p></div>
+              <div><p className="text-[17px] font-extrabold">{ticketStats.won}</p><p className="text-[8px] text-[#9b8b94]">当選</p></div>
+              <div><p className="text-[17px] font-extrabold">{ticketStats.lost}</p><p className="text-[8px] text-[#9b8b94]">落選</p></div>
+              <div><p className="text-[17px] font-extrabold">{ticketStats.total}</p><p className="text-[8px] text-[#9b8b94]">申込</p></div>
             </div>
           </div>
         </div>

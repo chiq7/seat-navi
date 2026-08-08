@@ -48,11 +48,11 @@ export default function MapPreviewSection({ mapEvent }: Props) {
             aria-pressed={colorMode === value}
             className={`zr-focus flex min-h-12 items-center justify-center gap-2 border-b border-r border-[#ded8dc] px-2 text-[11px] font-black transition-colors sm:border-b-0 ${
               colorMode === value
-                ? "bg-[#1c171b] text-white"
+                ? "bg-[#eef0ff] text-[#5165c6]"
                 : "bg-white text-[#5d555b] hover:bg-[#fff3f7]"
             }`}
           >
-            <Icon size={15} className={colorMode === value ? "text-[#ff5b96]" : "text-[#f43679]"} />
+            <Icon size={15} className={colorMode === value ? "text-[#6176d7]" : "text-[#9b91a0]"} />
             {label}
           </button>
         ))}

@@ -160,12 +160,12 @@ export default function TrendSection({ ticketStats, arenaStats, upgradeStats, ti
       ];
 
   return (
-    <section className="overflow-hidden border border-[#282127] bg-white" aria-label={`${title}の当落・座席データ`}>
-      <header className="bg-[#1c171b] px-5 py-4 text-white sm:px-6">
-        <p className="text-[10px] font-black tracking-[0.22em] text-[#ff5b96]">TICKET ANALYTICS</p>
+    <section className="community-panel overflow-hidden" aria-label={`${title}の当落・座席データ`}>
+      <header className="bg-[#fff0f5] px-5 py-4 text-[#51454c] sm:px-6">
+        <p className="text-[10px] font-black tracking-[0.22em] text-[#d64175]">TICKET ANALYTICS</p>
         <div className="mt-2 flex items-end justify-between gap-4">
           <h2 className="text-[23px] font-black tracking-[-0.045em]">{title}の当落傾向</h2>
-          <span className="mb-1 text-[9px] font-black tracking-[0.14em] text-white/50">ALL RESULTS</span>
+          <span className="mb-1 text-[9px] font-black tracking-[0.14em] text-[#9b8b94]">ALL RESULTS</span>
         </div>
       </header>
 

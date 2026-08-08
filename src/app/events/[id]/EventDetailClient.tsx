@@ -290,7 +290,7 @@ export function EventDetailClient({
       <main className="pb-20">
         {loading ? (
           <div className="zr-container space-y-5 py-8">
-            <div className="h-[270px] animate-pulse bg-[#211b20]" />
+            <div className="h-[270px] animate-pulse bg-[#f3e8ee]" />
             <div className="h-[520px] animate-pulse border border-[#ded8dc] bg-white" />
           </div>
         ) : event ? (
@@ -309,7 +309,7 @@ export function EventDetailClient({
                   <ShareButton
                     url={`${typeof window !== "undefined" ? window.location.origin : ""}/events/${eventId}`}
                     text={`${event.venue} ${fmtShortDate(event.date)} の座席表・座席予想 #ちけレポ`}
-                className="zr-focus flex h-10 w-10 items-center justify-center rounded-full text-[#2b252b] transition-colors active:bg-white/60"
+                className="zr-focus flex h-11 w-11 items-center justify-center rounded-full text-[#51454c] transition-colors active:bg-white/60"
                   />
                 </div>
               </header>
@@ -392,11 +392,11 @@ export function EventDetailClient({
                       aria-pressed={colorMode === value}
                       className={`zr-focus flex min-h-[58px] flex-col items-center justify-center gap-1 border-r border-[#ded8dc] px-1 text-[9px] font-black transition-colors last:border-r-0 sm:min-h-[64px] sm:flex-row sm:text-[11px] ${
                         colorMode === value
-                          ? "bg-[#1c171b] text-white"
+                          ? "bg-[#eef0ff] text-[#5165c6]"
                           : "bg-white text-[#625a61] hover:bg-[#fff0f5]"
                       }`}
                     >
-                      <Icon size={17} strokeWidth={1.8} className={colorMode === value ? "text-[#ff5b96]" : "text-[#f43679]"} />
+                      <Icon size={17} strokeWidth={1.8} className={colorMode === value ? "text-[#6176d7]" : "text-[#9b91a0]"} />
                       {label}
                     </button>
                   ))}
@@ -428,12 +428,12 @@ export function EventDetailClient({
                   <h2 id="fan-prediction-title" className="artist-heading">ファンのアリーナ予想図</h2>
                   <p className="mt-3 text-[12px] font-medium leading-6 text-[#817981]">会場構成を予想して、参考になった図に投票できます。</p>
                 </div>
-                <div className="grid h-11 shrink-0 grid-cols-2 border border-[#1c171b] bg-white">
+                <div className="grid h-11 shrink-0 grid-cols-2 overflow-hidden rounded-full border border-[#eadfe4] bg-white">
                   <button
                     type="button"
                     onClick={() => setSortOrder("hot")}
                     aria-pressed={sortOrder === "hot"}
-                    className={`zr-focus min-w-[88px] px-4 text-[11px] font-black ${sortOrder === "hot" ? "bg-[#1c171b] text-white" : "text-[#1c171b]"}`}
+                    className={`zr-focus min-w-[88px] px-4 text-[11px] font-black ${sortOrder === "hot" ? "bg-[#fff0f5] text-[#c93868]" : "text-[#665a61]"}`}
                   >
                     有力順
                   </button>
@@ -441,7 +441,7 @@ export function EventDetailClient({
                     type="button"
                     onClick={() => setSortOrder("new")}
                     aria-pressed={sortOrder === "new"}
-                    className={`zr-focus min-w-[88px] border-l border-[#1c171b] px-4 text-[11px] font-black ${sortOrder === "new" ? "bg-[#1c171b] text-white" : "text-[#1c171b]"}`}
+                    className={`zr-focus min-w-[88px] border-l border-[#eadfe4] px-4 text-[11px] font-black ${sortOrder === "new" ? "bg-[#fff0f5] text-[#c93868]" : "text-[#665a61]"}`}
                   >
                     新着順
                   </button>
@@ -521,7 +521,7 @@ export function EventDetailClient({
       </main>
 
       {toast && (
-        <div className="fixed bottom-24 left-1/2 z-50 -translate-x-1/2 bg-[#1c171b] px-5 py-3 text-xs font-bold text-white shadow-lg">
+        <div className="fixed bottom-24 left-1/2 z-50 -translate-x-1/2 rounded-full bg-[#704e60] px-5 py-3 text-xs font-bold text-white shadow-lg">
           {toast}
         </div>
       )}

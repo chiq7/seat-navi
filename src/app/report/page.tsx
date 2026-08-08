@@ -10,6 +10,7 @@ import { supabase } from "@/lib/supabase/client";
 import { resolveArtist } from "@/lib/artists";
 import type { CrawledEvent } from "@/lib/types";
 import { AccountLink } from "@/components/auth/AccountLink";
+import { EventCarouselPicker } from "@/components/common/EventPicker";
 
 function fmtDate(date: string | null): string {
   if (!date) return "日程未定";
@@ -94,7 +95,7 @@ function ReportEntryPageInner() {
     <main className="community-page pb-20 font-sans">
       <ReportHero artistName={artist?.name} backHref={backHref} selectedEvent={selectedEvent} />
 
-      <section className="zr-container py-6" aria-labelledby="report-event-title">
+      <section className="zr-container py-5 sm:py-6" aria-labelledby="report-event-title">
         <div className="flex items-end justify-between gap-4">
           <div>
             <p className="artist-kicker">Select Your Live</p>
@@ -102,22 +103,15 @@ function ReportEntryPageInner() {
           </div>
           <Radio size={21} strokeWidth={1.8} className="text-[#f43679]" />
         </div>
-        <label className="mt-4 block">
-          <span className="sr-only">報告する公演を選択</span>
-          <select
-            value={selectedId ?? ""}
-            onChange={(event) => setSelectedId(event.target.value)}
-            disabled={loading}
-            className="community-input h-14 w-full px-4 text-[12px] font-black disabled:opacity-50"
-          >
-            {loading && <option value="">公演を読み込み中...</option>}
-            {events.map((event) => (
-              <option key={event.id} value={event.id}>
-                {fmtDate(event.date)}｜{event.venue}｜{event.title}
-              </option>
-            ))}
-          </select>
-        </label>
+        <EventCarouselPicker
+          events={events}
+          selectedEventId={selectedId}
+          onSelect={setSelectedId}
+          loading={loading}
+          eyebrow="SELECT YOUR LIVE"
+          includeTitle
+          className="mt-4"
+        />
       </section>
 
       <ReportEventSelector
@@ -140,7 +134,7 @@ function ReportHero({
   selectedEvent: CrawledEvent | null;
 }) {
   return (
-    <section className="community-hero relative min-h-[340px] w-full overflow-hidden sm:min-h-[390px]">
+    <section className="community-hero relative min-h-[300px] w-full overflow-hidden sm:min-h-[390px]">
 
       <header className="zr-container relative top-0 z-20 flex h-16 items-center justify-between">
         <Link
@@ -153,17 +147,17 @@ function ReportHero({
         <AccountLink iconSize={22} />
       </header>
 
-      <div className="zr-container relative z-10 pb-6 pt-6 sm:pb-8 sm:pt-8">
+      <div className="zr-container relative z-10 pb-5 pt-3 sm:pb-8 sm:pt-8">
         <p className="community-eyebrow">SHARE THE LIVE</p>
         <h1 className="community-title mt-3">
-          あなたの一席が、<br /><span className="text-[#ef4f87]">次の誰かのヒントになる。</span>
+          あなたの一席が、<br /><span className="text-[#ef4f87]">次のファンへ届く。</span>
         </h1>
         <p className="community-subtitle mt-4">
           {artistName ? `${artistName}の当落・座席表・会場の景色をファンへ` : "当落・座席表・会場の景色をファンへ"}
         </p>
 
         {selectedEvent && (
-          <div className="mt-5 grid rounded-[22px] border border-white/80 bg-white/72 px-4 shadow-sm backdrop-blur-sm sm:grid-cols-2">
+          <div className="mt-4 grid rounded-[20px] border border-white/80 bg-white/72 px-4 shadow-sm backdrop-blur-sm sm:grid-cols-2">
             <div className="flex items-center gap-3 py-3 sm:border-r sm:border-[#eadfe4] sm:pr-5">
               <CalendarDays size={17} className="shrink-0 text-[#ef4f87]" />
               <p className="text-[12px] font-black">{fmtDate(selectedEvent.date)}</p>

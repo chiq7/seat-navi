@@ -217,7 +217,7 @@ export function SeatPredictionCard({
         typeof document !== "undefined" &&
         createPortal(
           <div
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4"
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-[#4f3442]/72 p-4"
             onClick={closeModal}
           >
             <div
@@ -228,7 +228,7 @@ export function SeatPredictionCard({
                 type="button"
                 onClick={closeModal}
                 aria-label="閉じる"
-                className="absolute right-3 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-black/45 text-[18px] text-white leading-none"
+                className="absolute right-3 top-3 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-[#704e60]/85 text-[18px] text-white leading-none"
               >
                 ×
               </button>

@@ -5,7 +5,7 @@ export default function VenueDiscoveryCta() {
   return (
     <Link
       href="/venues"
-      className="zr-focus group flex min-h-[214px] flex-col justify-between rounded-[28px] bg-[#edf0ff] p-6 transition hover:-translate-y-1 sm:p-8"
+      className="zr-focus group flex min-h-[166px] flex-col justify-between rounded-[22px] bg-[#edf0ff] p-4 transition hover:-translate-y-1 sm:min-h-[214px] sm:rounded-[28px] sm:p-8"
       aria-labelledby="venue-discovery-title"
     >
       <div className="flex items-start justify-between gap-4">
@@ -16,10 +16,10 @@ export default function VenueDiscoveryCta() {
       </div>
       <div>
         <p className="text-[10px] font-black tracking-[0.16em] text-[#6176d7]">VENUE &amp; SEAT MAP</p>
-        <h2 id="venue-discovery-title" className="mt-2 text-[25px] font-black leading-[1.2] tracking-[-0.05em] text-[#2b3046] sm:text-[30px]">
+        <h2 id="venue-discovery-title" className="mt-2 text-[17px] font-black leading-[1.25] tracking-[-0.05em] text-[#4b4c64] sm:text-[30px]">
           会場・座席表から探す
         </h2>
-        <p className="mt-3 max-w-[640px] text-[12px] font-bold leading-6 text-[#65708a] sm:text-[13px]">
+        <p className="mt-3 hidden max-w-[640px] text-[12px] font-bold leading-6 text-[#65708a] sm:block sm:text-[13px]">
           東京ドーム、Kアリーナ横浜など、会場ごとの公演・座席情報を見る
         </p>
       </div>

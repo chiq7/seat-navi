@@ -9,8 +9,8 @@ type UpcomingEventsSectionProps = {
 };
 
 export default function UpcomingEventsSection({ events, favoriteUserId, favoriteSlugs }: UpcomingEventsSectionProps) {
-  const visibleEvents = events.slice(0, 10);
-  const remainingEvents = events.slice(10);
+  const visibleEvents = events.slice(0, 5);
+  const remainingEvents = events.slice(5);
 
   return (
     <section className="zr-section bg-white">
@@ -30,7 +30,7 @@ export default function UpcomingEventsSection({ events, favoriteUserId, favorite
         ))}
       </div>
       {remainingEvents.length > 0 && (
-        <details className="group mt-7">
+        <details className="group mt-5">
           <summary className="zr-focus mx-auto flex min-h-11 w-fit cursor-pointer list-none items-center justify-center gap-2 rounded-full bg-[#fff0f5] px-5 text-[12px] font-black text-[#d83d72] transition hover:bg-[#ffe2ec]">
             残り{remainingEvents.length}件の公演を見る
             <ChevronDown size={15} className="transition-transform group-open:rotate-180" aria-hidden="true" />

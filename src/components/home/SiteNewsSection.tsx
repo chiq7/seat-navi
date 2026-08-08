@@ -10,14 +10,14 @@ export default function SiteNewsSection() {
   if (latestPosts.length === 0) return null;
 
   return (
-    <section className="bg-white py-12 sm:py-16">
+    <section className="bg-white py-8 sm:py-16">
       <div className="zr-container">
       <div className="mb-5 flex items-center justify-between gap-4">
         <h2 className="flex items-center gap-2 text-[18px] font-black text-[#1c171b]">
           <Megaphone size={16} color="#FF6B9D" aria-hidden="true" />
           ちけレポからのお知らせ
         </h2>
-        <Link href="/news" className="text-[11px] font-bold text-[#D94878] no-underline">
+        <Link href="/news" className="inline-flex min-h-11 items-center text-[11px] font-bold text-[#D94878] no-underline">
           一覧を見る
         </Link>
       </div>

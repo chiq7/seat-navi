@@ -293,12 +293,12 @@ function LiveReportDetailPageInner() {
       </section>
 
       <main className="zr-container py-8">
-        <section aria-label="現地レポ写真" className="relative aspect-[16/10] w-full overflow-hidden bg-[#1c171b]">
+        <section aria-label="現地レポ写真" className="relative aspect-[16/10] w-full overflow-hidden bg-[#f3e8ee]">
           {photos.length > 0 ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img src={photos[0]} alt="座席から見た会場の様子" className="h-full w-full object-cover" />
           ) : (
-            <div className="absolute inset-0 overflow-hidden bg-[radial-gradient(circle_at_50%_100%,#f43679_0%,#3e1741_28%,#0d090d_72%)]">
+            <div className="absolute inset-0 overflow-hidden bg-[radial-gradient(circle_at_50%_100%,#f43679_0%,#83536f_32%,#f3e8ee_76%)]">
               <div className="absolute left-1/2 top-[28%] h-16 w-[58%] -translate-x-1/2 border border-white/15 bg-white/5" />
               <div className="absolute inset-x-0 bottom-0 flex flex-wrap justify-center gap-1 px-5 pb-5 opacity-30">
                 {Array.from({ length: 80 }).map((_, i) => <span key={i} className="h-1 w-1 rounded-full bg-white" />)}
@@ -372,9 +372,9 @@ function LiveReportDetailPageInner() {
           </section>
         )}
 
-        <Link href={`/events/${event.id}`} className="zr-focus mt-10 flex min-h-[76px] items-center gap-4 border border-[#1c171b] bg-[#1c171b] px-4 text-white">
-          <MapPinned size={24} className="shrink-0 text-[#ff5b96]" aria-hidden="true" />
-          <span className="min-w-0 flex-1"><span className="block text-[13px] font-black">座席表・アリーナ予想図を見る</span><span className="mt-1 block truncate text-[10px] font-bold text-white/50">{event.venue}</span></span>
+        <Link href={`/events/${event.id}`} className="zr-focus mt-8 flex min-h-[68px] items-center gap-4 rounded-[20px] border border-[#d9def8] bg-[#eef0ff] px-4 text-[#5165c6]">
+          <MapPinned size={24} className="shrink-0 text-[#6176d7]" aria-hidden="true" />
+          <span className="min-w-0 flex-1"><span className="block text-[13px] font-black">座席表・アリーナ予想図を見る</span><span className="mt-1 block truncate text-[10px] font-bold text-[#7b84bd]">{event.venue}</span></span>
           <ChevronRight size={18} />
         </Link>
       </main>

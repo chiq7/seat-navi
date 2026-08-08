@@ -64,26 +64,17 @@ export default function SeatPredictionPreviewSection({
               <MapPinned size={17} className="shrink-0 text-[#f43679]" />
               <p className="text-[10px] font-black tracking-[0.12em] text-[#817981]">会場を選択</p>
             </div>
-            <div className="flex overflow-x-auto border-t border-[#ded8dc] hide-scrollbar">
-              {venues.map(({ venue }, index) => (
-                <button
-                  key={venue}
-                  type="button"
-                  onClick={() => onSelectVenue?.(venue)}
-                  aria-pressed={venue === activeVenue}
-                  className={`zr-focus min-h-[58px] min-w-[152px] shrink-0 border-r border-[#ded8dc] px-4 py-2 text-left transition-colors ${
-                    venue === activeVenue
-                      ? "bg-[#1c171b] text-white"
-                      : "bg-white text-[#5d555b] hover:bg-[#fff3f7]"
-                  }`}
-                >
-                  <span className={`block text-[9px] font-black tracking-[0.14em] ${venue === activeVenue ? "text-[#ff5b96]" : "text-[#aaa2a8]"}`}>
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <span className="mt-1 block truncate text-[12px] font-black">{venue}</span>
-                </button>
-              ))}
-            </div>
+            <label className="relative block border-t border-[#ded8dc] bg-[#eef0ff] px-4 py-2.5">
+              <span className="sr-only">会場を選択</span>
+              <select
+                value={activeVenue ?? ""}
+                onChange={(event) => onSelectVenue?.(event.target.value)}
+                className="zr-focus h-11 w-full appearance-none border-0 bg-transparent pr-8 text-[12px] font-black text-[#5165c6] outline-none"
+              >
+                {venues.map(({ venue }) => <option key={venue} value={venue}>{venue}</option>)}
+              </select>
+              <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#6176d7]" aria-hidden="true">⌄</span>
+            </label>
           </div>
         )}
 

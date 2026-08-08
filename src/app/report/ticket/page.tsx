@@ -12,6 +12,7 @@ import { getEventsForArtist } from "@/lib/events";
 import { AccountLink } from "@/components/auth/AccountLink";
 import { EventCarouselPicker } from "@/components/common/EventPicker";
 import { ShareButton } from "@/components/common/ShareButton";
+import { ProgressSteps } from "@/components/common/ProgressSteps";
 
 function randomId() {
   return crypto.randomUUID().replace(/-/g, "").slice(0, 20);
@@ -101,46 +102,6 @@ function normalizeBlock(v: string): string {
 /** 席番号の自動整形: 全角→半角・末尾の「番」除去に加え、数字以外を許可しない */
 function normalizeSeatNumber(v: string): string {
   return normalizeSeatField(v, "番").replace(/[^0-9]/g, "");
-}
-
-function StepIndicator({ step }: { step: number }) {
-  const steps = [
-    { num: 1, label: "結果" },
-    { num: 2, label: "詳細" },
-    { num: 3, label: "任意" },
-    { num: 4, label: "完了" },
-  ];
-  return (
-    <div className="zr-container flex items-start justify-between border-b border-[#ded8dc] py-5">
-      {steps.map((s, i) => (
-        <div key={s.num} className="flex min-w-0 flex-1 items-start last:flex-none">
-          <div className="flex flex-col items-center">
-            <div
-              className={`flex h-7 w-7 items-center justify-center border text-[10px] font-black transition-colors ${
-                step >= s.num ? "border-[#f43679] bg-[#f43679] text-white" : "border-[#cfc7cc] text-[#958d93]"
-              }`}
-            >
-              {s.num}
-            </div>
-            <span
-              className={`mt-1.5 text-[9px] font-black ${
-                step >= s.num ? "text-[#f43679]" : "text-[#958d93]"
-              }`}
-            >
-              {s.label}
-            </span>
-          </div>
-          {i < steps.length - 1 && (
-            <div
-              className={`mt-3 h-px flex-1 transition-colors ${
-                step > s.num ? "bg-[#f43679]" : "bg-[#ded8dc]"
-              }`}
-            />
-          )}
-        </div>
-      ))}
-    </div>
-  );
 }
 
 function Btn({
@@ -249,7 +210,7 @@ function SuccessScreen({
           <p className="community-subtitle mt-3">あなたの記録が、次に同じ会場へ行く人の助けになります。</p>
         </div>
       </section>
-      <StepIndicator step={4} />
+      <div className="zr-container border-b border-[#eadfe4]"><ProgressSteps steps={["結果", "詳細", "任意", "完了"]} currentStep={3} /></div>
       <main className="zr-container flex-1 py-6">
         <section className="community-panel p-5 text-center sm:p-7">
           <div className="flex justify-center">
@@ -264,8 +225,8 @@ function SuccessScreen({
           <p className="mt-3 text-[17px] font-black">結果をXで共有しよう</p>
           <p className="mt-2 text-[11px] font-medium leading-5 text-[#817981]">投稿内容の詳細は含めず、ちけレポへの投稿完了をシェアします。</p>
           <div className="mt-6 grid grid-cols-[1fr_52px] gap-2">
-            <a href={xShareHref} target="_blank" rel="noopener noreferrer" className="zr-focus flex min-h-[52px] items-center justify-center bg-[#1c171b] text-[13px] font-black text-white">Xで共有する</a>
-            <ShareButton url={shareUrl} text={shareText} className="zr-focus flex h-[52px] w-[52px] items-center justify-center border border-[#1c171b] text-[#1c171b]" />
+            <a href={xShareHref} target="_blank" rel="noopener noreferrer" className="community-primary-button min-h-[52px]">Xで共有する</a>
+            <ShareButton url={shareUrl} text={shareText} className="community-secondary-button h-[52px] w-[52px] px-0" />
           </div>
           <div className="mt-7 space-y-2 border-t border-[#ded8dc] pt-6">
             <button
@@ -497,7 +458,7 @@ function TicketReportPageInner() {
       </section>
 
         {/* ステップインジケーター */}
-        <StepIndicator step={step} />
+        <div className="zr-container border-b border-[#eadfe4]"><ProgressSteps steps={["結果", "詳細", "任意", "完了"]} currentStep={step - 1} /></div>
 
         {/* Step 1：当落確認 */}
         {step === 1 && (

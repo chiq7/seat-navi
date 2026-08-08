@@ -355,7 +355,7 @@ export function SetlistClient({ params }: { params: Promise<{ slug: string }> })
       </main>
 
       {toast && (
-        <div role="status" className="fixed bottom-24 left-1/2 z-50 max-w-[calc(100%_-_32px)] -translate-x-1/2 border border-white/15 bg-[#1c171b] px-4 py-3 text-[11px] font-black text-white shadow-xl">
+        <div role="status" className="fixed bottom-24 left-1/2 z-50 max-w-[calc(100%_-_32px)] -translate-x-1/2 rounded-full border border-[#d8c2ce] bg-[#704e60] px-4 py-3 text-[11px] font-black text-white shadow-xl">
           {toast}
         </div>
       )}

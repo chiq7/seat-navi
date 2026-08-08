@@ -66,8 +66,8 @@ export function MyPostsSection({
             key={item.id}
             type="button"
             onClick={() => setTab(item.id)}
-            className={`zr-focus min-h-12 border-r border-[#1c171b] px-1 text-[10px] font-black transition-colors last:border-r-0 ${
-              tab === item.id ? "bg-[#1c171b] text-white" : "text-[#625a61]"
+            className={`zr-focus min-h-12 border-r border-[#eadfe4] px-1 text-[10px] font-black transition-colors last:border-r-0 ${
+              tab === item.id ? "bg-[#fff0f5] text-[#c93868]" : "bg-white text-[#625a61]"
             }`}
           >
             {item.label}<span className="ml-1 text-[9px]">{item.count}</span>

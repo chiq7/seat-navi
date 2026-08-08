@@ -109,8 +109,8 @@ export function ReportTimelineList({
           );
         })
       ) : (
-        <div className="bg-[#1c171b] px-5 py-6 text-center text-white sm:px-8 sm:py-8">
-          <p className="text-[10px] font-black tracking-[0.2em] text-[#ff5b96]">NO REPORTS YET</p>
+        <div className="community-soft-panel rounded-[20px] px-5 py-5 text-center sm:px-8 sm:py-6">
+          <p className="text-[10px] font-black tracking-[0.2em] text-[#d64175]">NO REPORTS YET</p>
           <p className="mt-2 text-[16px] font-black tracking-[-0.03em]">{emptyText}</p>
           {reportHref && (
             <Link

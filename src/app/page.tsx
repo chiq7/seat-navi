@@ -185,8 +185,8 @@ export default function Home() {
         <Suspense fallback={<UpcomingEventsSkeleton />}>
           <HomeUpcomingSection />
         </Suspense>
-        <section className="bg-[#fff5f8] py-12 sm:py-16" aria-label="会場検索とマイページ">
-          <div className="zr-container grid gap-4 lg:grid-cols-[1.25fr_.75fr]">
+        <section className="bg-[#fff5f8] py-8 sm:py-16" aria-label="会場検索とマイページ">
+          <div className="zr-container grid grid-cols-2 gap-3 lg:grid-cols-[1.25fr_.75fr] lg:gap-4">
             <VenueDiscoveryCta />
             <LoginCta />
           </div>

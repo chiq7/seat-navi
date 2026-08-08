@@ -14,6 +14,7 @@ import { BottomNav } from "@/components/common/BottomNav";
 import { EventCarouselPicker } from "@/components/common/EventPicker";
 import { ShareButton } from "@/components/common/ShareButton";
 import { EventArenaMap } from "@/components/arena-map/EventArenaMap";
+import { ProgressSteps } from "@/components/common/ProgressSteps";
 
 const EVENT_COLUMNS = "id, title, venue, venue_id, date, genre, lottery_types, artist_slug";
 
@@ -37,44 +38,6 @@ function randomId() {
 function safeFileName(name: string): string {
   const cleaned = name.replace(/[^\w.\-]+/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
   return cleaned || "image";
-}
-
-function StepIndicator({ step }: { step: number }) {
-  const steps = [
-    { num: 1, label: "入力" },
-    { num: 2, label: "完了" },
-  ];
-  return (
-    <div className="zr-container flex items-start justify-between border-b border-[#ded8dc] py-5">
-      {steps.map((s, i) => (
-        <div key={s.num} className="flex min-w-0 flex-1 items-start last:flex-none">
-          <div className="flex flex-col items-center">
-            <div
-              className={`flex h-7 w-7 items-center justify-center border text-[10px] font-black transition-colors ${
-                step >= s.num ? "border-[#f43679] bg-[#f43679] text-white" : "border-[#cfc7cc] text-[#958d93]"
-              }`}
-            >
-              {s.num}
-            </div>
-            <span
-              className={`mt-1.5 text-[9px] font-black ${
-                step >= s.num ? "text-[#f43679]" : "text-[#958d93]"
-              }`}
-            >
-              {s.label}
-            </span>
-          </div>
-          {i < steps.length - 1 && (
-            <div
-              className={`mt-3 h-px flex-1 transition-colors ${
-                step > s.num ? "bg-[#f43679]" : "bg-[#ded8dc]"
-              }`}
-            />
-          )}
-        </div>
-      ))}
-    </div>
-  );
 }
 
 export default function FanSeatPredictionPage({
@@ -301,15 +264,15 @@ export default function FanSeatPredictionPage({
             <p className="community-subtitle mt-3">会場の座席表を探すファンへ、あなたの予想が届きます。</p>
           </div>
         </section>
-        <StepIndicator step={2} />
+        <div className="zr-container border-b border-[#eadfe4]"><ProgressSteps steps={["入力", "完了"]} currentStep={1} /></div>
         <main className="zr-container flex-1 py-6">
           <section className="community-panel p-5 text-center sm:p-7">
             <ImagePlus size={32} strokeWidth={1.5} className="mx-auto text-[#f43679]" aria-hidden="true" />
             <p className="mt-4 text-[17px] font-black">Xで座席予想を共有しよう</p>
             <p className="mt-2 text-[11px] font-medium leading-5 text-[#817981]">公演ページのURLと一緒にシェアできます。</p>
             <div className="mt-6 grid grid-cols-[1fr_52px] gap-2">
-              <a href={xShareHref} target="_blank" rel="noopener noreferrer" className="zr-focus flex min-h-[52px] items-center justify-center bg-[#1c171b] text-[13px] font-black text-white">Xで共有する</a>
-              <ShareButton url={shareUrl} text={shareText} className="zr-focus flex h-[52px] w-[52px] items-center justify-center border border-[#1c171b] text-[#1c171b]" />
+              <a href={xShareHref} target="_blank" rel="noopener noreferrer" className="community-primary-button min-h-[52px]">Xで共有する</a>
+              <ShareButton url={shareUrl} text={shareText} className="community-secondary-button h-[52px] w-[52px] px-0" />
             </div>
             <div className="mt-7 space-y-2 border-t border-[#ded8dc] pt-6">
               <button type="button" onClick={resetForm} className="community-primary-button min-h-[52px] w-full">別の予想を投稿する</button>
@@ -338,7 +301,7 @@ export default function FanSeatPredictionPage({
         </div>
       </section>
 
-        <StepIndicator step={1} />
+        <div className="zr-container border-b border-[#eadfe4]"><ProgressSteps steps={["入力", "完了"]} currentStep={0} /></div>
 
         <main className="zr-container space-y-8 pb-12 pt-8">
           {/* 対象公演 */}
@@ -417,7 +380,7 @@ export default function FanSeatPredictionPage({
                 <button
                   type="button"
                   onClick={clearImage}
-                  className="zr-focus absolute right-2 top-2 flex h-11 w-11 items-center justify-center bg-black/65 text-white"
+                  className="zr-focus absolute right-2 top-2 flex h-11 w-11 items-center justify-center rounded-full bg-[#704e60]/85 text-white"
                   aria-label="画像を削除"
                 >
                   <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">

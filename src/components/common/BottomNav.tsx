@@ -68,7 +68,7 @@ export function BottomNav({ active, artistSlug, eventId }: Props) {
 
   return (
     <nav
-      className="fixed bottom-0 left-1/2 z-50 flex h-[72px] w-full max-w-[620px] -translate-x-1/2 items-center rounded-t-[24px] border border-[#f0dfe6] bg-white/95 px-1.5 shadow-[0_-12px_35px_rgba(105,63,80,0.09)] backdrop-blur-xl md:bottom-5 md:rounded-[24px]"
+      className="fixed bottom-0 left-1/2 z-50 flex min-h-[72px] w-full max-w-[620px] -translate-x-1/2 items-center rounded-t-[24px] border border-[#f0dfe6] bg-white/95 px-1.5 pb-[env(safe-area-inset-bottom)] shadow-[0_-12px_35px_rgba(105,63,80,0.09)] backdrop-blur-xl md:bottom-5 md:rounded-[24px] md:pb-0"
       aria-label="ページ内ナビゲーション"
     >
       <div className="flex w-full items-center justify-around gap-0.5">

@@ -184,6 +184,8 @@ export type EventCarouselPickerProps<T extends PickerEvent = PickerEvent> = {
   today?: string;
   loading?: boolean;
   className?: string;
+  eyebrow?: string;
+  includeTitle?: boolean;
 };
 
 /** スマホではOS標準の選択シートが開く、1行型の公演切替UI。 */
@@ -194,6 +196,8 @@ export function EventCarouselPicker<T extends PickerEvent>({
   today,
   loading = false,
   className,
+  eyebrow = "SELECT LIVE DATE",
+  includeTitle = false,
 }: EventCarouselPickerProps<T>) {
   const selectId = useId();
   const todayStr = today ?? new Date().toISOString().split("T")[0];
@@ -234,7 +238,8 @@ export function EventCarouselPicker<T extends PickerEvent>({
 
   const optionLabel = (event: T) => {
     const day = dayMap.get(event.id);
-    return `${fmtChipDate(event.date)} / ${event.venue}${day ? ` / Day${day}` : ""}`;
+    const base = `${fmtChipDate(event.date)}｜${event.venue}${day ? `｜Day${day}` : ""}`;
+    return includeTitle ? `${base}｜${event.title}` : base;
   };
 
   if (loading) {
@@ -255,17 +260,17 @@ export function EventCarouselPicker<T extends PickerEvent>({
 
   return (
     <div className={className}>
-      <label htmlFor={selectId} className="block border-y border-[#ded8dc] bg-white px-4 py-3 transition-colors focus-within:border-[#f43679]">
+      <label htmlFor={selectId} className="community-input block min-h-0 px-4 py-2.5 transition-colors">
         <span className="flex items-center gap-2 text-[9px] font-black tracking-[0.18em] text-[#f43679]">
           <CalendarDays size={14} strokeWidth={1.8} aria-hidden="true" />
-          SELECT LIVE DATE
+          {eyebrow}
         </span>
         <span className="relative mt-1 block">
           <select
             id={selectId}
             value={selectedEventId ?? ""}
             onChange={(event) => onSelect(event.target.value)}
-            className="zr-focus h-12 w-full appearance-none border-0 bg-transparent pr-10 text-[14px] font-black tracking-[-0.02em] text-[#1c171b] outline-none"
+            className="zr-focus h-11 w-full appearance-none truncate border-0 bg-transparent pr-10 text-[13px] font-black tracking-[-0.02em] text-[#40383d] outline-none"
           >
             {!selectedEventId && <option value="">公演を選択してください</option>}
             {upcoming.length > 0 && (

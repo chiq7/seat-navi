@@ -19,10 +19,10 @@ function AddSetlistButton({ onClick }: { onClick: () => void }) {
     <button
       type="button"
       onClick={onClick}
-      className="zr-focus flex min-h-14 w-full items-center justify-between border border-[#1c171b] bg-[#1c171b] px-4 text-left text-white transition-colors hover:bg-[#f43679]"
+      className="community-primary-button min-h-14 w-full justify-between rounded-2xl px-4 text-left"
     >
       <span>
-        <span className="block text-[9px] font-black tracking-[0.18em] text-white/55">ADD TO SETLIST</span>
+        <span className="block text-[9px] font-black tracking-[0.18em] text-white/75">ADD TO SETLIST</span>
         <span className="mt-0.5 block text-[13px] font-black">曲・MC・演出を追加</span>
       </span>
       <Plus size={20} aria-hidden="true" />
@@ -55,7 +55,7 @@ export function SetlistItemsSection({
         <button
           type="button"
           onClick={() => setIsEditMode((prev) => !prev)}
-          className={`zr-focus min-h-11 border px-4 text-[11px] font-black transition-colors ${isEditMode ? "border-[#1c171b] bg-[#1c171b] text-white" : "border-[#ded8dc] bg-transparent text-[#1c171b]"}`}
+          className={`zr-focus min-h-11 rounded-full border px-4 text-[11px] font-black transition-colors ${isEditMode ? "community-choice-active" : "community-choice-idle"}`}
         >
           {isEditMode ? "編集を完了" : "順番を編集"}
         </button>

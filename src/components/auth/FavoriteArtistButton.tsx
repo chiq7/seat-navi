@@ -94,13 +94,13 @@ export default function FavoriteArtistButton({
       aria-label={favorite ? "推し登録を解除" : "推しに登録"}
       aria-pressed={favorite}
       title={favorite ? "推し登録を解除" : "推しに登録"}
-      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border shadow-sm transition-colors disabled:opacity-60 ${
+      className={`zr-focus flex h-11 w-11 shrink-0 items-center justify-center rounded-full border shadow-sm transition-colors disabled:opacity-60 ${
         favorite
           ? "border-[#FF6B9D] bg-[#FF6B9D] text-white"
           : "border-pink-100 bg-white/95 text-[#FF6B9D]"
       } ${className}`}
     >
-      <Heart size={16} strokeWidth={1.8} fill={favorite ? "currentColor" : "none"} />
+      <Heart size={18} strokeWidth={1.8} fill={favorite ? "currentColor" : "none"} />
     </button>
   );
 }

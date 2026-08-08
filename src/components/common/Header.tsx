@@ -25,7 +25,7 @@ export function Header({ title, backHref, onBack, rightSlot, showAccount = true,
     <header
       className={`sticky top-0 z-30 grid h-14 grid-cols-[44px_1fr_44px] items-center border-b border-[#f0e2e8] bg-white/95 px-2 backdrop-blur-xl ${className ?? ""}`}
     >
-      <div className="flex h-8 w-8 items-center justify-center justify-self-start">
+      <div className="flex h-11 w-11 items-center justify-center justify-self-start">
         {onBack ? (
           <button
             type="button"
@@ -46,7 +46,7 @@ export function Header({ title, backHref, onBack, rightSlot, showAccount = true,
       <h1 className="min-w-0 truncate px-2 text-center text-[14px] font-black tracking-[-0.02em] text-[#2b252b]">
         {title}
       </h1>
-      <div className="flex h-8 w-8 items-center justify-center justify-self-end">
+      <div className="flex h-11 w-11 items-center justify-center justify-self-end">
         {rightSlot ?? (showAccount ? <AccountLink iconSize={19} /> : null)}
       </div>
     </header>

@@ -21,7 +21,7 @@ export function ReportThumb({ index, photoUrl }: { index: number; photoUrl?: str
   }
 
   return (
-    <div className="h-[104px] w-[152px] overflow-hidden rounded-xl bg-[#100716]">
+    <div className="h-[104px] w-[152px] overflow-hidden rounded-xl bg-[#f3e8ee]">
       <div
         className="h-full w-full"
         style={{

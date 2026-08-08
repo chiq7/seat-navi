@@ -11,6 +11,7 @@ import { getEventsForArtist } from "@/lib/events";
 import { AccountLink } from "@/components/auth/AccountLink";
 import { EventCarouselPicker } from "@/components/common/EventPicker";
 import { ShareButton } from "@/components/common/ShareButton";
+import { ProgressSteps } from "@/components/common/ProgressSteps";
 
 function randomId() {
   return crypto.randomUUID().replace(/-/g, "").slice(0, 20);
@@ -100,50 +101,11 @@ function PhotoThumb({ file, onRemove }: { file: File; onRemove: () => void }) {
       <button
         type="button"
         onClick={onRemove}
-        className="zr-focus absolute right-0 top-0 flex h-11 w-11 items-center justify-center bg-gray-900/70 text-white"
+        className="zr-focus absolute right-0 top-0 flex h-11 w-11 items-center justify-center bg-[#704e60]/85 text-white"
         aria-label="写真を削除"
       >
         <X size={10} />
       </button>
-    </div>
-  );
-}
-
-function StepIndicator({ step }: { step: number }) {
-  const steps = [
-    { num: 1, label: "公演" },
-    { num: 2, label: "見え方" },
-    { num: 3, label: "完了" },
-  ];
-  return (
-    <div className="zr-container flex items-start justify-between border-b border-[#ded8dc] py-5">
-      {steps.map((s, i) => (
-        <div key={s.num} className="flex min-w-0 flex-1 items-start last:flex-none">
-          <div className="flex flex-col items-center">
-            <div
-              className={`flex h-7 w-7 items-center justify-center border text-[10px] font-black transition-colors ${
-                step >= s.num ? "border-[#f43679] bg-[#f43679] text-white" : "border-[#cfc7cc] text-[#958d93]"
-              }`}
-            >
-              {s.num}
-            </div>
-            <span
-              className={`mt-1.5 text-[9px] font-black ${
-                step >= s.num ? "text-[#f43679]" : "text-[#958d93]"
-              }`}
-            >
-              {s.label}
-            </span>
-          </div>
-          {i < steps.length - 1 && (
-            <div
-              className={`mt-3 h-px flex-1 transition-colors ${
-                step > s.num ? "bg-[#f43679]" : "bg-[#ded8dc]"
-              }`}
-            />
-          )}
-        </div>
-      ))}
     </div>
   );
 }
@@ -217,10 +179,10 @@ function SuccessScreen({
             あなたの座席から見えた景色が、次にこの会場へ行くファンの参考になります。
           </p>
           {event && (
-            <div className="mt-7 border-y border-white/18 py-4">
-              <p className="text-[10px] font-black tracking-[0.12em] text-white/42">SHARED LIVE</p>
+            <div className="mt-7 border-y border-[#eadfe4] py-4">
+              <p className="text-[10px] font-black tracking-[0.12em] text-[#a2939b]">SHARED LIVE</p>
               <p className="mt-2 text-[15px] font-black">{event.venue}</p>
-              <p className="mt-1 truncate text-[11px] font-bold text-white/55">{event.title}</p>
+              <p className="mt-1 truncate text-[11px] font-bold text-[#81747c]">{event.title}</p>
             </div>
           )}
         </div>
@@ -236,14 +198,14 @@ function SuccessScreen({
             href={xShareHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="zr-focus flex min-h-14 items-center justify-center gap-3 bg-[#1c171b] px-6 text-[13px] font-black text-white"
+            className="community-primary-button min-h-14"
           >
             <span className="text-[18px]">𝕏</span>Xで共有する
           </a>
           <ShareButton
             url={reportUrl}
             text={shareText}
-            className="zr-focus flex min-h-14 w-full items-center justify-center gap-3 bg-[#f43679] px-6 text-[13px] font-black text-white"
+            className="community-secondary-button min-h-14 w-full"
           />
         </div>
 
@@ -483,7 +445,7 @@ function LiveReportPageInner() {
         </div>
       </section>
 
-        <StepIndicator step={step} />
+        <div className="zr-container border-b border-[#eadfe4]"><ProgressSteps steps={["公演", "見え方", "完了"]} currentStep={step - 1} /></div>
 
         {/* Step 1：公演・座席・写真 */}
         {step === 1 && (

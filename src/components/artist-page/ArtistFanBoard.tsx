@@ -179,7 +179,7 @@ function BoardComposer({ artistSlug, artistName, parentId, compact = false, onCa
               <button
                 type="button"
                 onClick={() => setFiles((current) => current.filter((_, fileIndex) => fileIndex !== index))}
-                className="zr-focus absolute right-2 top-2 grid size-9 place-items-center rounded-full bg-black/75 text-white"
+                className="zr-focus absolute right-2 top-2 grid size-9 place-items-center rounded-full bg-[#704e60]/85 text-white"
                 aria-label={`写真${index + 1}を外す`}
               >
                 <X size={17} />

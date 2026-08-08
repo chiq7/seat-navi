@@ -16,23 +16,23 @@ export default function RealtimeFeedItem({ item }: { item: HomeFeedItem }) {
   return (
     <Link
       href={item.href}
-      className="group flex min-h-[126px] min-w-0 flex-col gap-3 overflow-hidden rounded-[20px] bg-white px-4 py-4 no-underline shadow-[0_8px_20px_rgba(105,63,80,.05)] transition hover:-translate-y-0.5 md:px-5"
+      className="group flex min-h-[104px] min-w-0 flex-col gap-2.5 overflow-hidden rounded-[18px] bg-white px-4 py-3 no-underline shadow-[0_8px_20px_rgba(105,63,80,.05)] transition hover:-translate-y-0.5 md:px-5"
     >
       <div className="flex min-w-0 items-center gap-1.5">
         <span
-          className="shrink-0 whitespace-nowrap rounded px-2 py-0.5 text-[12px] font-bold"
+          className="shrink-0 whitespace-nowrap rounded px-2 py-0.5 text-[10px] font-bold"
           style={{ backgroundColor: tag.bg, color: tag.color }}
         >
           {item.type}
         </span>
-        <p className="min-w-0 max-w-[38%] shrink truncate text-[14px] font-bold text-[#e84a80]">
+        <p className="min-w-0 max-w-[38%] shrink truncate text-[12px] font-bold text-[#e84a80]">
           {item.artistName}
         </p>
         <span className="ml-auto min-w-0 flex-1 truncate text-right text-[10px] text-[#9a8a93]">
           {item.venue}・{fmtFeedDate(item.date)}
         </span>
       </div>
-      <p className="line-clamp-2 text-[14px] font-medium leading-7 text-[#594d54]">
+      <p className="line-clamp-2 text-[13px] font-medium leading-6 text-[#594d54]">
         {item.detail}
       </p>
     </Link>

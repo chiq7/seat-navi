@@ -38,24 +38,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-function EventList({ events, emptyText }: { events: CrawledEvent[]; emptyText: string }) {
+function EventList({ events, emptyText, initialCount = 6 }: { events: CrawledEvent[]; emptyText: string; initialCount?: number }) {
   if (events.length === 0) {
     return <p className="community-panel px-4 py-9 text-center text-[12px] font-bold text-[#958d93]">{emptyText}</p>;
   }
-  return (
-    <div className="grid gap-3">
-      {events.map((event, index) => {
+  const renderEvents = (rows: CrawledEvent[], offset = 0) => rows.map((event, localIndex) => {
+        const index = offset + localIndex;
         const artist = resolveArtist(event);
         const title = parseEventTitle(event.title, artist?.name).tourName;
         return (
           <Link
             key={event.id}
             href={`/events/${event.id}`}
-            className="community-card zr-focus group grid min-h-[96px] gap-3 px-4 py-3 transition-colors hover:bg-[#fff0f5] sm:grid-cols-[150px_1fr_34px] sm:items-center"
+            className="community-card zr-focus group grid min-h-[78px] grid-cols-[82px_1fr] items-center gap-3 px-3 py-2.5 transition-colors hover:bg-[#fff0f5] sm:min-h-[96px] sm:grid-cols-[150px_1fr_34px] sm:px-4 sm:py-3"
           >
             <div>
               <p className="text-[9px] font-black tracking-[0.14em] text-[#958d93]">LIVE {String(index + 1).padStart(2, "0")}</p>
-              <p className="mt-2 flex items-center gap-1.5 text-[11px] font-black text-[#f43679]"><CalendarDays size={14} />{fmtDate(event.date)}</p>
+              <p className="mt-1 flex items-center gap-1 text-[10px] font-black text-[#f43679] sm:mt-2 sm:gap-1.5 sm:text-[11px]"><CalendarDays size={13} />{fmtDate(event.date)}</p>
             </div>
             <div className="min-w-0">
               <p className="line-clamp-2 text-[15px] font-black leading-6 tracking-[-0.025em] text-[#1c171b]">{title}</p>
@@ -64,7 +63,21 @@ function EventList({ events, emptyText }: { events: CrawledEvent[]; emptyText: s
             <MoveRight size={18} className="hidden text-[#f43679] transition-transform group-hover:translate-x-1 sm:block" />
           </Link>
         );
-      })}
+      });
+  const visibleEvents = events.slice(0, initialCount);
+  const remainingEvents = events.slice(initialCount);
+
+  return (
+    <div>
+      <div className="grid gap-2.5">{renderEvents(visibleEvents)}</div>
+      {remainingEvents.length > 0 && (
+        <details className="group mt-4">
+          <summary className="zr-focus mx-auto flex min-h-11 w-fit cursor-pointer list-none items-center rounded-full bg-[#fff0f5] px-5 text-[12px] font-black text-[#c93868]">
+            残り{remainingEvents.length}件を見る
+          </summary>
+          <div className="mt-4 grid gap-2.5">{renderEvents(remainingEvents, initialCount)}</div>
+        </details>
+      )}
     </div>
   );
 }
@@ -166,14 +179,14 @@ export default async function VenuePage({ params }: Props) {
           <p className="artist-kicker">Upcoming Live</p>
           <h2 id="upcoming-events-title" className="artist-heading">これから開催される公演</h2>
           <p className="mt-3 flex items-center gap-2 text-[11px] font-bold text-[#817981]"><MapPin size={14} className="text-[#f43679]" />{venue.name}のライブ予定</p>
-          <div className="mt-5"><EventList events={upcoming} emptyText="現在、登録されている開催予定はありません" /></div>
+          <div className="mt-4"><EventList events={upcoming} emptyText="現在、登録されている開催予定はありません" initialCount={5} /></div>
         </section>
 
         {past.length > 0 && (
           <section className="py-8 sm:py-10" aria-labelledby="past-events-title">
             <p className="artist-kicker">Live Archive</p>
             <h2 id="past-events-title" className="artist-heading">過去の公演・座席レポ</h2>
-            <div className="mt-5"><EventList events={past.slice(0, 30)} emptyText="過去の公演はありません" /></div>
+            <div className="mt-4"><EventList events={past.slice(0, 30)} emptyText="過去の公演はありません" /></div>
           </section>
         )}
 
@@ -181,17 +194,29 @@ export default async function VenuePage({ params }: Props) {
           <section className="py-8 sm:py-10" aria-labelledby="venue-artists-title">
             <p className="artist-kicker">Artists Archive</p>
             <h2 id="venue-artists-title" className="artist-heading">この会場で公演したアーティスト</h2>
-            <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {pastArtists.map((artist) => (
+            <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-2 lg:grid-cols-3">
+              {pastArtists.slice(0, 8).map((artist) => (
                 <Link
                   key={artist.slug}
                   href={`/artists/${artist.slug}`}
-                  className="community-card zr-focus flex min-h-14 items-center gap-2 px-4 text-[12px] font-black"
+                  className="community-card zr-focus flex min-h-12 min-w-0 items-center gap-2 px-3 text-[11px] font-black"
                 >
-                  <Users size={14} className="text-[#f43679]" />{artist.name}
+                  <Users size={14} className="shrink-0 text-[#f43679]" /><span className="truncate">{artist.name}</span>
                 </Link>
               ))}
             </div>
+            {pastArtists.length > 8 && (
+              <details className="group mt-4">
+                <summary className="zr-focus mx-auto flex min-h-11 w-fit cursor-pointer list-none items-center rounded-full bg-[#fff0f5] px-5 text-[12px] font-black text-[#c93868]">残り{pastArtists.length - 8}組を見る</summary>
+                <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                  {pastArtists.slice(8).map((artist) => (
+                    <Link key={artist.slug} href={`/artists/${artist.slug}`} className="community-card zr-focus flex min-h-12 min-w-0 items-center gap-2 px-3 text-[11px] font-black">
+                      <Users size={14} className="shrink-0 text-[#f43679]" /><span className="truncate">{artist.name}</span>
+                    </Link>
+                  ))}
+                </div>
+              </details>
+            )}
           </section>
         )}
 

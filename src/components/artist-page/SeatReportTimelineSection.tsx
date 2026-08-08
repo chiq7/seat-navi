@@ -158,8 +158,8 @@ export default function SeatReportTimelineSection({
           </div>
         </>
       ) : (
-        <div className="bg-[#1c171b] px-5 py-6 text-center text-white">
-          <p className="text-[9px] font-black tracking-[0.18em] text-[#ff5b96]">NO SEAT REPORTS</p>
+        <div className="community-soft-panel rounded-[20px] px-5 py-5 text-center">
+          <p className="text-[9px] font-black tracking-[0.18em] text-[#d64175]">NO SEAT REPORTS</p>
           <p className="mt-3 text-[14px] font-black">{emptyText}</p>
           {reportHref && (
             <Link

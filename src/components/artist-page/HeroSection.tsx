@@ -71,7 +71,7 @@ export default function HeroSection({
           <Link
             href="/"
             aria-label="TOPへ戻る"
-            className="zr-focus flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/85 text-[#5b3646] shadow-sm backdrop-blur-md"
+            className="zr-focus flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/85 text-[#5b3646] shadow-sm backdrop-blur-md"
           >
             <ChevronLeft size={26} strokeWidth={2.7} />
           </Link>
@@ -80,7 +80,7 @@ export default function HeroSection({
             <ShareButton
               url={`${typeof window !== "undefined" ? window.location.origin : ""}/artists/${slug}`}
               text={`${artistName} の当落データ・座席情報 #ちけレポ`}
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-white/72 text-[#5b3646] shadow-sm transition-colors active:bg-white"
+              className="flex h-11 w-11 items-center justify-center rounded-full bg-white/72 text-[#5b3646] shadow-sm transition-colors active:bg-white"
             />
           </div>
         </header>
