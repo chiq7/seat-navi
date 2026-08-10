@@ -52,12 +52,9 @@ export default function SeatPredictionPreviewSection({
   return (
     <section className="artist-section" id="seat-map">
       <p className="artist-kicker">Seat Map & Prediction</p>
-      <h2 className="artist-heading">会場の座席表から、<br />みんなの予想まで。</h2>
-      <p className="mt-3 max-w-2xl text-[12px] font-medium leading-6 text-[#817981]">
-        公演会場を選ぶと、集まった座席報告を抽選回・FC歴・支払い方法・アップグレード別に確認できます。
-      </p>
+      <h2 className="artist-heading">座席表・座席予想</h2>
 
-      <div className="mt-6 min-w-0">
+      <div className="mt-4 min-w-0 sm:mt-5">
         {mapEvent && venues.length > 0 && (
           <div className="border-y border-[#282127] bg-white">
             <div className="flex items-center gap-2 px-3 py-2.5 sm:px-5">

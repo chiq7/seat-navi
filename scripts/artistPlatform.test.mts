@@ -590,7 +590,7 @@ test("TOP empty states remain present without a setlist section", () => {
   assert.match(files, /現地レポタイムライン/);
   assert.match(files, /最初の現地レポを投稿する/);
   assert.match(files, /まだ予想図がありません/);
-  assert.match(files, /会場の座席表から/);
+  assert.match(files, /座席表・座席予想/);
   assert.match(files, /topPrediction \?/);
 
   const artistClient = fs.readFileSync(
@@ -648,6 +648,25 @@ test("artist action hub keeps every destination visible in a compact mobile grid
   assert.match(source, /min-h-\[64px\]/);
   assert.doesNotMatch(source, /min-h-\[112px\]/);
   assert.doesNotMatch(source, /overflow-x-auto/);
+});
+
+test("artist seat and fan board introductions stay concise", () => {
+  const seatSource = fs.readFileSync(
+    path.join(projectRoot, "src/components/artist-page/SeatPredictionPreviewSection.tsx"),
+    "utf8",
+  );
+  const boardSource = [
+    "src/components/artist-page/ArtistBoardPreview.tsx",
+    "src/components/artist-page/ArtistFanBoard.tsx",
+  ].map((file) => fs.readFileSync(path.join(projectRoot, file), "utf8")).join("\n");
+
+  assert.match(seatSource, /座席表・座席予想/);
+  assert.doesNotMatch(seatSource, /公演会場を選ぶと/);
+  assert.match(boardSource, /ファン掲示板/);
+  assert.match(boardSource, /投稿する/);
+  assert.match(boardSource, /投稿一覧/);
+  assert.doesNotMatch(boardSource, /自由に話す/);
+  assert.doesNotMatch(boardSource, /WRITE A MESSAGE/);
 });
 
 test("curated SEO profiles use sourced substantial content instead of thin generated pages", async () => {

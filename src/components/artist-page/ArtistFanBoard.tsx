@@ -62,7 +62,7 @@ function XHandleLink({ xHandle }: { xHandle?: string }) {
   );
 }
 
-function BoardComposer({ artistSlug, artistName, parentId, compact = false, onCancel, onPosted }: ComposerProps) {
+function BoardComposer({ artistSlug, parentId, compact = false, onCancel, onPosted }: ComposerProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [displayName, setDisplayName] = useState("");
   const [xHandle, setXHandle] = useState("");
@@ -129,12 +129,9 @@ function BoardComposer({ artistSlug, artistName, parentId, compact = false, onCa
   return (
     <form onSubmit={submit} className={compact ? "border-l-2 border-[#f43679] pl-4 pt-3" : "bg-white p-4 sm:p-5"}>
       {!compact && (
-        <div className="mb-4 flex items-center justify-between gap-3">
-          <div>
-            <p className="text-[10px] font-black tracking-[0.18em] text-[#f43679]">WRITE A MESSAGE</p>
-            <h3 className="mt-1 text-[20px] font-black tracking-[-0.03em] text-[#1c171b]">{artistName}について話す</h3>
-          </div>
-          <MessageCircle size={25} strokeWidth={1.7} className="text-[#f43679]" aria-hidden="true" />
+        <div className="mb-3 flex items-center justify-between gap-3">
+          <h3 className="text-[18px] font-black tracking-[-0.03em] text-[#1c171b]">投稿する</h3>
+          <MessageCircle size={21} strokeWidth={1.7} className="text-[#f43679]" aria-hidden="true" />
         </div>
       )}
 
@@ -166,7 +163,7 @@ function BoardComposer({ artistSlug, artistName, parentId, compact = false, onCa
           maxLength={500}
           required
           rows={compact ? 3 : 4}
-          placeholder={compact ? "この投稿に返信する" : "今日のライブ、座席からの景色、好きな曲など"}
+          placeholder={compact ? "返信を書く" : "ひとことを書く"}
           className="zr-focus mt-1.5 w-full resize-y border border-[#ded8dc] bg-white px-3 py-2.5 text-[14px] font-medium leading-6 text-[#1c171b] placeholder:text-[#aaa2a8]"
         />
       </label>
@@ -270,11 +267,8 @@ export default function ArtistFanBoard({ artistSlug, artistName }: BoardProps) {
       <BoardComposer artistSlug={artistSlug} artistName={artistName} onPosted={loadPosts} />
 
       <div className="border-t border-[#282127] px-4 py-4 sm:px-6">
-        <div className="flex items-end justify-between gap-3">
-          <div>
-            <p className="text-[10px] font-black tracking-[0.18em] text-[#f43679]">LATEST TALK</p>
-            <h3 className="mt-1 text-[22px] font-black tracking-[-0.04em] text-[#1c171b]">みんなの書き込み</h3>
-          </div>
+        <div className="flex items-center justify-between gap-3">
+          <h3 className="text-[18px] font-black tracking-[-0.03em] text-[#1c171b]">投稿一覧</h3>
           <span className="text-[11px] font-black text-[#817981]">{posts.length} POSTS</span>
         </div>
         {notice && <p className="mt-3 text-[11px] font-bold text-[#f43679]" aria-live="polite">{notice}</p>}
@@ -291,8 +285,7 @@ export default function ArtistFanBoard({ artistSlug, artistName }: BoardProps) {
         ) : posts.length === 0 ? (
           <div className="mt-4 border border-dashed border-[#cfc6cc] bg-white px-5 py-6 text-center">
             <Camera size={26} className="mx-auto text-[#f43679]" aria-hidden="true" />
-            <p className="mt-3 text-[14px] font-black text-[#1c171b]">最初の書き込みをしよう</p>
-            <p className="mt-1 text-[11px] font-medium text-[#817981]">ライブのひとことや会場写真を気軽にどうぞ。</p>
+            <p className="mt-3 text-[14px] font-black text-[#1c171b]">まだ投稿はありません</p>
           </div>
         ) : (
           <div className="mt-4 divide-y divide-[#ded8dc] border-y border-[#282127]">
