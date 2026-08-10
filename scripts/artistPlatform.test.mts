@@ -669,6 +669,23 @@ test("artist seat and fan board introductions stay concise", () => {
   assert.doesNotMatch(boardSource, /WRITE A MESSAGE/);
 });
 
+test("home hero explains the core features and reserves a monetization banner", () => {
+  const heroSource = [
+    "src/components/home/HeroBanner.tsx",
+    "src/components/home/HomeHeroPromoBanner.tsx",
+  ].map((file) => fs.readFileSync(path.join(projectRoot, file), "utf8")).join("\n");
+
+  assert.match(heroSource, /当落・座席予想/);
+  assert.match(heroSource, /現地レポ。/);
+  assert.match(heroSource, /すべてがここに集まる。/);
+  assert.match(heroSource, /data-monetization-slot="home-first-view"/);
+  assert.match(heroSource, /\/news\/how-to-use-tixrepo/);
+  assert.match(heroSource, /href="\/search"/);
+  assert.match(heroSource, /href="\/report"/);
+  assert.doesNotMatch(heroSource, /ライブのこと、/);
+  assert.doesNotMatch(heroSource, /実際に行ったファンの記録/);
+});
+
 test("curated SEO profiles use sourced substantial content instead of thin generated pages", async () => {
   const { getArtistSeoProfile, getVenueSeoProfile } = await import("@/lib/seoProfiles");
   const venue = getVenueSeoProfile("k-arena");
