@@ -45,6 +45,30 @@ const {
 } = await import("@/lib/homeData");
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
+test("report forms preserve anonymous posting and link signed-in posts to their owner", () => {
+  const clientSource = fs.readFileSync(path.join(projectRoot, "src/lib/supabase/client.ts"), "utf8");
+  const reportSources = [
+    "src/app/report/ticket/page.tsx",
+    "src/app/report/live/page.tsx",
+    "src/app/events/[id]/fan-seat-prediction/page.tsx",
+  ].map((file) => fs.readFileSync(path.join(projectRoot, file), "utf8"));
+
+  assert.match(clientSource, /export async function getPostingContext/);
+  assert.match(clientSource, /sessionData\.session/);
+  assert.match(clientSource, /userData\.user\.id/);
+  for (const source of reportSources) {
+    assert.match(source, /getPostingContext\(\)/);
+    assert.doesNotMatch(source, /user_id:\s+null/);
+  }
+
+  const ticketSource = reportSources[0];
+  const mypageSource = fs.readFileSync(path.join(projectRoot, "src/app/mypage/page.tsx"), "utf8");
+  assert.match(ticketSource, /const reportId = crypto\.randomUUID\(\)/);
+  assert.equal((ticketSource.match(/id:\s+reportId/g) ?? []).length, 2);
+  assert.match(mypageSource, /from\("seat_reports"\)[\s\S]*?update\(\{ comment: value \}\)[\s\S]*?eq\("id", id\)/);
+  assert.match(mypageSource, /from\("seat_reports"\)[\s\S]*?delete\(\)[\s\S]*?eq\("id", id\)/);
+});
+
 const fixtureArtist = (overrides: Partial<Artist> = {}): Artist => ({
   slug: "fixture-artist",
   name: "Fixture Artist",

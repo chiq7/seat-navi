@@ -192,7 +192,12 @@ export default function MyPage() {
       .maybeSingle();
     if (error || !data) return { error: "当落レポを保存できませんでした。" };
     setTicketPosts((items) => items.map((item) => item.id === id ? { ...item, comment: value } : item));
-    return {};
+    const { error: seatError } = await supabase
+      .from("seat_reports")
+      .update({ comment: value })
+      .eq("id", id)
+      .eq("user_id", userId);
+    return seatError ? { warning: "当落レポは保存しましたが、座席表示の更新に失敗しました。" } : {};
   }
 
   async function deleteTicket(id: string) {
@@ -206,7 +211,12 @@ export default function MyPage() {
       .maybeSingle();
     if (error || !data) return { error: "当落レポを削除できませんでした。" };
     setTicketPosts((items) => items.filter((item) => item.id !== id));
-    return {};
+    const { error: seatError } = await supabase
+      .from("seat_reports")
+      .delete()
+      .eq("id", id)
+      .eq("user_id", userId);
+    return seatError ? { warning: "当落レポは削除しましたが、座席表示の整理に失敗しました。" } : {};
   }
 
   async function updatePrediction(id: string, comment: string) {

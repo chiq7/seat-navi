@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { Camera, CheckCircle2, ChevronLeft, RotateCcw, Send, X } from "lucide-react";
 import Link from "next/link";
 import { trackEvent } from "@/lib/analytics";
-import { anonymousSupabase, supabase } from "@/lib/supabase/client";
+import { anonymousSupabase, getPostingContext, supabase } from "@/lib/supabase/client";
 import { resolveArtist } from "@/lib/artists";
 import { getEventsForArtist } from "@/lib/events";
 import { AccountLink } from "@/components/auth/AccountLink";
@@ -333,6 +333,7 @@ function LiveReportPageInner() {
     setError("");
     setSubmitting(true);
     try {
+      const { client: postingClient, userId } = await getPostingContext();
       const uploadedPaths: string[] = [];
       for (const file of photos) {
         const ext = file.name.split(".").pop()?.toLowerCase() ?? "jpg";
@@ -347,7 +348,7 @@ function LiveReportPageInner() {
       const reportId = randomId();
       const dbRow = {
         id:                        reportId,
-        user_id:                   null,
+        user_id:                   userId,
         event_id:                  selectedEvent,
         seat_area_type:            toSeatAreaType(seatArea, standFloor),
         seat_block:                blockInfo.trim(),
@@ -368,7 +369,7 @@ function LiveReportPageInner() {
         memo:                      memo || null,
       };
 
-      const { error: dbErr } = await anonymousSupabase.from("after_reports").insert(dbRow);
+      const { error: dbErr } = await postingClient.from("after_reports").insert(dbRow);
       if (dbErr) throw new Error(dbErr.message);
 
       const ev = events.find(e => e.id === selectedEvent);

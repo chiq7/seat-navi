@@ -17,3 +17,22 @@ export const anonymousSupabase = createClient(supabaseUrl, supabaseAnonKey, {
     persistSession: false,
   },
 });
+
+/**
+ * 投稿時のログイン状態を確定し、RLS に合うクライアントと user_id を返す。
+ * 未ログインなら従来どおり匿名投稿を許可し、ログイン中なら投稿を本人に紐付ける。
+ */
+export async function getPostingContext() {
+  const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+  if (sessionError) throw sessionError;
+
+  if (!sessionData.session) {
+    return { client: anonymousSupabase, userId: null };
+  }
+
+  const { data: userData, error: userError } = await supabase.auth.getUser();
+  if (userError) throw userError;
+  if (!userData.user) throw new Error("ログイン情報を確認できませんでした。");
+
+  return { client: supabase, userId: userData.user.id };
+}

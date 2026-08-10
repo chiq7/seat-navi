@@ -6,17 +6,13 @@ import { ChevronLeft, Send, TicketCheck } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { trackEvent } from "@/lib/analytics";
-import { anonymousSupabase, supabase } from "@/lib/supabase/client";
+import { getPostingContext, supabase } from "@/lib/supabase/client";
 import { resolveArtist } from "@/lib/artists";
 import { getEventsForArtist } from "@/lib/events";
 import { AccountLink } from "@/components/auth/AccountLink";
 import { EventCarouselPicker } from "@/components/common/EventPicker";
 import { ShareButton } from "@/components/common/ShareButton";
 import { ProgressSteps } from "@/components/common/ProgressSteps";
-
-function randomId() {
-  return crypto.randomUUID().replace(/-/g, "").slice(0, 20);
-}
 
 function toLotteryTypeTicketResults(v: string): string | null {
   if (v === "FC1次") return "1次抽選";
@@ -359,12 +355,15 @@ function TicketReportPageInner() {
     setError("");
     setSubmitting(true);
     try {
+      const { client: postingClient, userId } = await getPostingContext();
+      const reportId = crypto.randomUUID();
       const isWon = result === "当選した";
       const resolvedStandDirection = standDirection === "その他" ? standDirectionOther : standDirection;
       const resolvedStandFloor = standFloor === "その他" ? standFloorOther : standFloor;
 
-      const { error: ticketErr } = await anonymousSupabase.from("event_ticket_results").insert({
-        user_id:                null,
+      const { error: ticketErr } = await postingClient.from("event_ticket_results").insert({
+        id:                     reportId,
+        user_id:                userId,
         event_id:               selectedEvent,
         result:                 isWon ? "won" : "lost",
         lost_application_count: isWon ? 0 : 1,
@@ -388,9 +387,9 @@ function TicketReportPageInner() {
         const rowNum = parseInt(row, 10);
         const seatNum = parseInt(seatNumber, 10);
         if (block.trim() && rowNum >= 1 && seatNum >= 1) {
-          const { error: seatErr } = await anonymousSupabase.from("seat_reports").insert({
-            id:             randomId(),
-            user_id:        null,
+          const { error: seatErr } = await postingClient.from("seat_reports").insert({
+            id:             reportId,
+            user_id:        userId,
             event_id:       selectedEvent,
             block:          block.trim(),
             row_num:        rowNum,
