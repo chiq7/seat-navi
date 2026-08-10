@@ -35,6 +35,11 @@ export default function RealtimeFeedItem({ item }: { item: HomeFeedItem }) {
       <p className="line-clamp-2 text-[13px] font-medium leading-6 text-[#594d54]">
         {item.detail}
       </p>
+      {item.xHandle && (
+        <span className="mt-auto truncate text-[10px] font-bold text-[#817981]">
+          @{item.xHandle}
+        </span>
+      )}
     </Link>
   );
 }

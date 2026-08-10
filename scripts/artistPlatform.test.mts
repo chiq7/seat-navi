@@ -703,6 +703,27 @@ test("featured home event cards stay compact with single-line text", () => {
   assert.match(source, /公演を見る →/);
 });
 
+test("home login CTA leads with saved records and realtime feed respects X visibility", () => {
+  const loginSource = fs.readFileSync(
+    path.join(projectRoot, "src/components/home/LoginCta.tsx"),
+    "utf8",
+  );
+  const feedSource = fs.readFileSync(path.join(projectRoot, "src/lib/homeData.ts"), "utf8");
+  const feedItemSource = fs.readFileSync(
+    path.join(projectRoot, "src/components/home/RealtimeFeedItem.tsx"),
+    "utf8",
+  );
+
+  assert.match(loginSource, /ログインで記録を保存/);
+  assert.match(loginSource, /チケット記録を保存して、推しを登録しよう！/);
+  for (const table of ["event_ticket_results", "seat_reports", "fan_seat_predictions", "after_reports"]) {
+    assert.match(feedSource, new RegExp(`from\\("${table}"\\)[\\s\\S]*?select\\("[^"]*user_id`));
+  }
+  assert.match(feedSource, /from\("profiles"\)[\s\S]*?eq\("show_x_on_posts", true\)/);
+  assert.match(feedSource, /xHandle: r\.user_id \? xHandleMap\.get\(r\.user_id\) \?\? null : null/);
+  assert.match(feedItemSource, /@\{item\.xHandle\}/);
+});
+
 test("curated SEO profiles use sourced substantial content instead of thin generated pages", async () => {
   const { getArtistSeoProfile, getVenueSeoProfile } = await import("@/lib/seoProfiles");
   const venue = getVenueSeoProfile("k-arena");

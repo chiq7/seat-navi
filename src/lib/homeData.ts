@@ -214,6 +214,8 @@ export type HomeFeedItem = {
   date: string | null;
   createdAt: string;
   href: string;
+  /** 投稿者がプロフィールで公開を許可した場合だけ表示するXユーザー名。 */
+  xHandle: string | null;
   /** 実投稿と、集計対象外の編集部投稿・投稿イメージを表示側で区別する。 */
   source: HomeFeedSource;
 };
@@ -236,16 +238,18 @@ function withSuffix(v: string | number | null | undefined, suffix: string): stri
 type FeedCandidate = {
   id: string;
   event_id: string;
+  user_id: string | null;
   created_at: string;
   type: HomeFeedType;
   detail: string;
 };
 
-type SeatReportFeedRow = { id: string; event_id: string; created_at: string; block: string; row_num: number; seat_num: number };
-type PredictionFeedRow = { id: string; event_id: string; created_at: string };
+type SeatReportFeedRow = { id: string; event_id: string; user_id: string | null; created_at: string; block: string; row_num: number; seat_num: number };
+type PredictionFeedRow = { id: string; event_id: string; user_id: string | null; created_at: string };
 type AfterReportFeedRow = {
   id: string;
   event_id: string;
+  user_id: string | null;
   created_at: string;
   seat_area_type: string | null;
   seat_block: string | null;
@@ -257,6 +261,7 @@ type SetlistFeedRow = { id: string; event_id: string; created_at: string };
 type TicketResultFeedRow = {
   id: string;
   event_id: string;
+  user_id: string | null;
   result: "won" | "lost";
   lost_application_count: number;
   comment: string | null;
@@ -364,6 +369,7 @@ export function buildSupplementalFeedItems(
       date: event.dateIso ?? null,
       createdAt: now.toISOString(),
       href: `/report/ticket?event=${encodeURIComponent(event.id)}`,
+      xHandle: null,
       source: isCountdown ? "editorial" : "sample",
     };
   });
@@ -378,23 +384,23 @@ export async function getRealtimeFeedItems(
   const [ticketResultsRes, seatReportsRes, predictionsRes, afterReportsRes, setlistsRes] = await Promise.all([
     client
       .from("event_ticket_results")
-      .select("id, event_id, result, lost_application_count, comment, seat_type, seat_block, created_at")
+      .select("id, event_id, user_id, result, lost_application_count, comment, seat_type, seat_block, created_at")
       .order("created_at", { ascending: false })
       .limit(FEED_SOURCE_LIMIT),
     client
       .from("seat_reports")
-      .select("id, event_id, created_at, block, row_num, seat_num")
+      .select("id, event_id, user_id, created_at, block, row_num, seat_num")
       .order("created_at", { ascending: false })
       .limit(FEED_SOURCE_LIMIT),
     client
       .from("fan_seat_predictions")
-      .select("id, event_id, created_at")
+      .select("id, event_id, user_id, created_at")
       .eq("approved", true)
       .order("created_at", { ascending: false })
       .limit(FEED_SOURCE_LIMIT),
     client
       .from("after_reports")
-      .select("id, event_id, created_at, seat_area_type, seat_block, seat_row, seat_number, seat_view_photo_paths")
+      .select("id, event_id, user_id, created_at, seat_area_type, seat_block, seat_row, seat_number, seat_view_photo_paths")
       .order("created_at", { ascending: false })
       .limit(FEED_SOURCE_LIMIT),
     client
@@ -420,6 +426,7 @@ export async function getRealtimeFeedItems(
       return {
         id: r.id,
         event_id: r.event_id,
+        user_id: r.user_id,
         created_at: r.created_at,
         type: "当落レポ",
         detail: comment ? `${resultLabel}・${comment}` : `${resultLabel}の結果が投稿されました`,
@@ -429,6 +436,7 @@ export async function getRealtimeFeedItems(
   const seatReportCandidates: FeedCandidate[] = ((seatReportsRes.data as SeatReportFeedRow[]) ?? []).map((r) => ({
     id: r.id,
     event_id: r.event_id,
+    user_id: r.user_id,
     created_at: r.created_at,
     type: "座席報告",
     // seat_reportsはアリーナ当選時のみ登録されるため、エリアは常に「アリーナ」固定
@@ -438,6 +446,7 @@ export async function getRealtimeFeedItems(
   const predictionCandidates: FeedCandidate[] = ((predictionsRes.data as PredictionFeedRow[]) ?? []).map((r) => ({
     id: r.id,
     event_id: r.event_id,
+    user_id: r.user_id,
     created_at: r.created_at,
     type: "座席予想",
     detail: "予想図が投稿されました",
@@ -454,12 +463,13 @@ export async function getRealtimeFeedItems(
     const detail = hasPhoto
       ? (seatDesc ? `${seatDesc}・写真あり` : "写真あり")
       : (seatDesc || "現地レポが投稿されました");
-    return { id: r.id, event_id: r.event_id, created_at: r.created_at, type: "現地レポ", detail };
+    return { id: r.id, event_id: r.event_id, user_id: r.user_id, created_at: r.created_at, type: "現地レポ", detail };
   });
 
   const setlistCandidates: FeedCandidate[] = ((setlistsRes.data as SetlistFeedRow[]) ?? []).map((r) => ({
     id: r.id,
     event_id: r.event_id,
+    user_id: null,
     created_at: r.created_at,
     type: "セトリ",
     detail: "セットリストが更新されました",
@@ -474,10 +484,25 @@ export async function getRealtimeFeedItems(
   ];
 
   const eventIds = [...new Set(raw.map((r) => r.event_id))];
-  const { data: eventsData } = eventIds.length > 0
-    ? await client.from("events").select(EVENT_COLUMNS).in("id", eventIds)
-    : { data: [] };
+  const userIds = [...new Set(raw.map((r) => r.user_id).filter((id): id is string => Boolean(id)))];
+  const [{ data: eventsData }, { data: profilesData }] = await Promise.all([
+    eventIds.length > 0
+      ? client.from("events").select(EVENT_COLUMNS).in("id", eventIds)
+      : Promise.resolve({ data: [] }),
+    userIds.length > 0
+      ? client
+          .from("profiles")
+          .select("id, x_handle, show_x_on_posts")
+          .in("id", userIds)
+          .eq("show_x_on_posts", true)
+      : Promise.resolve({ data: [] }),
+  ]);
   const eventMap = new Map(((eventsData as HomeEventRow[]) ?? []).map((e) => [e.id, e]));
+  const xHandleMap = new Map(
+    ((profilesData ?? []) as Array<{ id: string; x_handle: string | null; show_x_on_posts: boolean }>)
+      .filter((profile) => profile.show_x_on_posts && profile.x_handle)
+      .map((profile) => [profile.id, profile.x_handle as string]),
+  );
 
   const items: HomeFeedItem[] = [];
   for (const r of raw) {
@@ -501,6 +526,7 @@ export async function getRealtimeFeedItems(
       date: ev.date,
       createdAt: r.created_at,
       href,
+      xHandle: r.user_id ? xHandleMap.get(r.user_id) ?? null : null,
       source: "real",
     });
   }

@@ -28,10 +28,10 @@ export default function LoginCta() {
       <div>
         <p className="text-[10px] font-black tracking-[0.16em] text-[#e34b7c]">MY TIXREPO</p>
         <p className="mt-2 text-[17px] font-black leading-[1.25] tracking-[-0.05em] text-[#49323c] sm:text-[30px]">
-          {loggedIn ? "自分のライブ記録" : "推しを登録する"}
+          {loggedIn ? "自分のライブ記録" : "ログインで記録を保存"}
         </p>
-        <p className="mt-3 hidden text-[12px] font-bold leading-6 text-[#916377] sm:block sm:text-[13px]">
-          {loggedIn ? "投稿履歴・当選率・推し設定を確認" : "推しの公演を優先表示して、投稿履歴を残す"}
+        <p className="mt-2 text-[10px] font-bold leading-4 text-[#916377] sm:mt-3 sm:text-[13px] sm:leading-6">
+          {loggedIn ? "投稿履歴・当選率・推し設定を確認" : "チケット記録を保存して、推しを登録しよう！"}
         </p>
       </div>
     </Link>
