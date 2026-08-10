@@ -632,6 +632,24 @@ test("favorite controls are functional, compact, and outside navigation links", 
   assert.match(searchPage, /<\/Link>\s*\{favoritesReady \? \(\s*<FavoriteArtistButton/);
 });
 
+test("artist action hub keeps every destination visible in a compact mobile grid", () => {
+  const source = fs.readFileSync(
+    path.join(projectRoot, "src/components/artist-page/ArtistActionHub.tsx"),
+    "utf8",
+  );
+
+  for (const destination of ["#ticket-data", "#seat-map", "#reports", "/setlist", "#fan-board"]) {
+    assert.match(source, new RegExp(destination.replace("/", "\\/")));
+  }
+  for (const label of ["当落を見る", "座席を見る", "現地レポ", "セトリ", "ファン掲示板"]) {
+    assert.match(source, new RegExp(label));
+  }
+  assert.match(source, /min-h-\[72px\]/);
+  assert.match(source, /min-h-\[64px\]/);
+  assert.doesNotMatch(source, /min-h-\[112px\]/);
+  assert.doesNotMatch(source, /overflow-x-auto/);
+});
+
 test("curated SEO profiles use sourced substantial content instead of thin generated pages", async () => {
   const { getArtistSeoProfile, getVenueSeoProfile } = await import("@/lib/seoProfiles");
   const venue = getVenueSeoProfile("k-arena");
