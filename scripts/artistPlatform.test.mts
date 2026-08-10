@@ -686,6 +686,23 @@ test("home hero explains the core features and reserves a monetization banner", 
   assert.doesNotMatch(heroSource, /実際に行ったファンの記録/);
 });
 
+test("featured home event cards stay compact with single-line text", () => {
+  const source = fs.readFileSync(
+    path.join(projectRoot, "src/components/home/UpcomingEventCard.tsx"),
+    "utf8",
+  );
+
+  assert.match(source, /min-h-\[132px\]/);
+  assert.match(source, /sm:min-h-\[146px\]/);
+  assert.doesNotMatch(source, /sm:min-h-\[220px\]/);
+  assert.doesNotMatch(source, /line-clamp-2/);
+  assert.match(source, /truncate[^>]*>\{item\.period\}/);
+  assert.match(source, /truncate[^>]*>\{item\.artist\}/);
+  assert.match(source, /truncate[^>]*>\{item\.eventName\}/);
+  assert.match(source, /truncate[^>]*>\{item\.venue\}/);
+  assert.match(source, /公演を見る →/);
+});
+
 test("curated SEO profiles use sourced substantial content instead of thin generated pages", async () => {
   const { getArtistSeoProfile, getVenueSeoProfile } = await import("@/lib/seoProfiles");
   const venue = getVenueSeoProfile("k-arena");

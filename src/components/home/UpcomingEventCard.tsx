@@ -24,27 +24,27 @@ export default function UpcomingEventCard({
   void backgroundImage;
   if (featured) {
     return (
-      <div className="group relative min-h-[172px] rounded-[20px] border border-[#f0dfe6] bg-white px-3 py-3 shadow-[0_8px_22px_rgba(105,63,80,.05)] sm:min-h-[220px] sm:px-5 sm:py-5">
+      <div className="group relative min-h-[132px] rounded-[18px] border border-[#f0dfe6] bg-white px-3 py-3 shadow-[0_8px_22px_rgba(105,63,80,.05)] sm:min-h-[146px] sm:px-4 sm:py-4">
         <Link href={`/artists/${item.artistSlug}`} className="zr-focus flex h-full flex-col rounded-xl no-underline">
-          <div className="flex items-start justify-between gap-4">
-            <span className="text-[11px] font-black tabular-nums tracking-[0.18em] text-[#ef4f87]">{String(index ?? 1).padStart(2, "0")}</span>
-            <span className="pr-12 text-[11px] font-bold text-[#777078]">{item.period}</span>
+          <div className="flex min-w-0 items-center gap-2">
+            <span className="shrink-0 text-[11px] font-black tabular-nums tracking-[0.18em] text-[#ef4f87]">{String(index ?? 1).padStart(2, "0")}</span>
+            <span className="min-w-0 flex-1 truncate pr-10 text-right text-[10px] font-bold text-[#777078] sm:text-[11px]">{item.period}</span>
           </div>
-          <div className="mt-3 sm:mt-6">
-            <p className="text-[16px] font-black leading-tight tracking-[-0.04em] text-[#40383d] sm:text-[22px]">{item.artist}</p>
-            <p className="mt-1.5 line-clamp-2 text-[11px] font-bold leading-[1.45] text-[#514a50] sm:mt-2 sm:text-[12px] sm:leading-5">{item.eventName}</p>
-            <p className="mt-2 truncate text-[10px] text-[#817981] sm:mt-3 sm:text-[11px]">{item.venue}</p>
+          <div className="mt-2.5 min-w-0 sm:mt-3">
+            <p className="truncate text-[15px] font-black leading-tight tracking-[-0.04em] text-[#40383d] sm:text-[18px]">{item.artist}</p>
+            <p className="mt-1 truncate text-[10px] font-bold leading-4 text-[#514a50] sm:text-[11px]">{item.eventName}</p>
+            <p className="mt-1 truncate text-[9px] text-[#817981] sm:text-[10px]">{item.venue}</p>
           </div>
-          <div className="mt-auto flex flex-col items-start gap-1 pt-3 sm:flex-row sm:items-end sm:justify-between sm:pt-7">
-            <span className="text-[10px] font-bold text-[#ef4f87] sm:text-[11px]">公演・座席表を見る →</span>
-            <span className="text-[10px] text-[#938b92]">{item.count} reports</span>
+          <div className="mt-auto flex items-end justify-between gap-2 pt-2.5 sm:pt-3">
+            <span className="truncate text-[9px] font-bold text-[#ef4f87] sm:text-[10px]">公演を見る →</span>
+            <span className="shrink-0 text-[9px] text-[#938b92]">{item.count} reports</span>
           </div>
         </Link>
         <FavoriteArtistButton
           artistSlug={item.artistSlug}
           initialUserId={favoriteUserId}
           initialFavorite={initialFavorite}
-          className="absolute right-1 top-5 z-10 sm:right-4"
+          className="absolute right-1 top-2 z-10 sm:right-3 sm:top-3"
         />
       </div>
     );
