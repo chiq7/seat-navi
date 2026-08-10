@@ -724,6 +724,17 @@ test("home login CTA leads with saved records and realtime feed respects X visib
   assert.match(feedItemSource, /@\{item\.xHandle\}/);
 });
 
+test("home venue and login CTAs align their mobile content from the same top edge", () => {
+  for (const component of ["VenueDiscoveryCta.tsx", "LoginCta.tsx"]) {
+    const source = fs.readFileSync(
+      path.join(projectRoot, "src/components/home", component),
+      "utf8",
+    );
+    assert.match(source, /justify-start[^"]*sm:justify-between/);
+    assert.match(source, /className="mt-2 sm:mt-0"/);
+  }
+});
+
 test("curated SEO profiles use sourced substantial content instead of thin generated pages", async () => {
   const { getArtistSeoProfile, getVenueSeoProfile } = await import("@/lib/seoProfiles");
   const venue = getVenueSeoProfile("k-arena");

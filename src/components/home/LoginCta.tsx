@@ -17,7 +17,7 @@ export default function LoginCta() {
   return (
     <Link
       href={loggedIn ? "/mypage" : "/login"}
-      className="zr-focus group flex min-h-[166px] flex-col justify-between rounded-[22px] bg-[#ffe9f1] p-4 transition hover:-translate-y-1 sm:min-h-[214px] sm:rounded-[28px] sm:p-8"
+      className="zr-focus group flex min-h-[166px] flex-col justify-start rounded-[22px] bg-[#ffe9f1] p-4 transition hover:-translate-y-1 sm:min-h-[214px] sm:justify-between sm:rounded-[28px] sm:p-8"
     >
       <div className="flex items-start justify-between gap-4">
         <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/70 text-[#e94a7d]">
@@ -25,7 +25,7 @@ export default function LoginCta() {
         </span>
         <ArrowUpRight size={23} strokeWidth={2} className="shrink-0 text-[#e94a7d] transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
       </div>
-      <div>
+      <div className="mt-2 sm:mt-0">
         <p className="text-[10px] font-black tracking-[0.16em] text-[#e34b7c]">MY TIXREPO</p>
         <p className="mt-2 text-[17px] font-black leading-[1.25] tracking-[-0.05em] text-[#49323c] sm:text-[30px]">
           {loggedIn ? "自分のライブ記録" : "ログインで記録を保存"}
