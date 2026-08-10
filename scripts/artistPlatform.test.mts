@@ -644,6 +644,8 @@ test("artist action hub keeps every destination visible in a compact mobile grid
   for (const label of ["当落を見る", "座席を見る", "現地レポ", "セトリ", "ファン掲示板"]) {
     assert.match(source, new RegExp(label));
   }
+  assert.match(source, /\{artistName\}のライブ情報/);
+  assert.doesNotMatch(source, /どこから見る/);
   assert.match(source, /min-h-\[72px\]/);
   assert.match(source, /min-h-\[64px\]/);
   assert.doesNotMatch(source, /min-h-\[112px\]/);
@@ -675,11 +677,15 @@ test("home hero explains the core features and reserves a monetization banner", 
     "src/components/home/HomeHeroPromoBanner.tsx",
   ].map((file) => fs.readFileSync(path.join(projectRoot, file), "utf8")).join("\n");
 
-  assert.match(heroSource, /当落・座席予想/);
-  assert.match(heroSource, /現地レポ。/);
+  assert.match(heroSource, /当落・座席予想・現地レポ。/);
   assert.match(heroSource, /すべてがここに集まる。/);
+  assert.equal((heroSource.match(/<span className="(?:mt-1 )?block whitespace-nowrap/g) ?? []).length, 2);
   assert.match(heroSource, /data-monetization-slot="home-first-view"/);
   assert.match(heroSource, /\/news\/how-to-use-tixrepo/);
+  assert.match(heroSource, /\/artists\/seventeen/);
+  assert.match(heroSource, /\/artists\/yoasobi/);
+  assert.match(heroSource, /snap-x snap-mandatory overflow-x-auto/);
+  assert.match(heroSource, /aria-current=\{activeIndex === index/);
   assert.match(heroSource, /href="\/search"/);
   assert.match(heroSource, /href="\/report"/);
   assert.doesNotMatch(heroSource, /ライブのこと、/);

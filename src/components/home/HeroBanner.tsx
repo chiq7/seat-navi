@@ -12,10 +12,9 @@ export default function HeroBanner() {
           <p className="inline-flex items-center gap-2 rounded-full bg-white/80 px-3 py-2 text-[10px] font-black tracking-[0.12em] text-[#d83d72] shadow-sm">
             <Heart size={14} fill="currentColor" aria-hidden="true" /> FAN COMMUNITY
           </p>
-          <h1 className="mt-4 text-[31px] font-black leading-[1.08] tracking-[-0.06em] sm:mt-5 sm:text-[50px] lg:text-[52px] xl:text-[58px]">
-            <span className="block">当落・座席予想</span>
-            <span className="block">現地レポ。</span>
-            <span className="mt-1 block text-[#ed4a83]">すべてがここに集まる。</span>
+          <h1 className="mt-4 text-[25px] font-black leading-[1.12] tracking-[-0.06em] sm:mt-5 sm:text-[46px] lg:text-[48px] xl:text-[52px]">
+            <span className="block whitespace-nowrap">当落・座席予想・現地レポ。</span>
+            <span className="mt-1 block whitespace-nowrap text-[#ed4a83]">すべてがここに集まる。</span>
           </h1>
           <div className="mt-5 grid grid-cols-2 gap-2.5 sm:mt-7 sm:flex sm:flex-wrap sm:gap-3">
             <Link href="/search" className="zr-focus inline-flex min-h-12 items-center justify-center gap-1.5 rounded-full bg-[#ef4f87] px-3 text-[11px] font-black text-white shadow-[0_10px_24px_rgba(239,79,135,.24)] transition hover:bg-[#db3e73] sm:gap-2 sm:px-5 sm:text-[13px]">

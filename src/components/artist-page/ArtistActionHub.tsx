@@ -49,7 +49,7 @@ export default function ArtistActionHub({ artistName, slug }: Props) {
     <section className="artist-section" aria-labelledby="artist-action-title">
       <p className="artist-kicker">Fan&apos;s guide</p>
       <h2 id="artist-action-title" className="artist-heading">
-        {artistName}のこと、<br />どこから見る？
+        {artistName}のライブ情報
       </h2>
 
       <div className="mt-4 grid grid-cols-2 gap-2 sm:mt-6 sm:gap-3 lg:grid-cols-5">
