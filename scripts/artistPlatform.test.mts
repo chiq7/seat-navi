@@ -69,6 +69,24 @@ test("report forms preserve anonymous posting and link signed-in posts to their 
   assert.match(mypageSource, /from\("seat_reports"\)[\s\S]*?delete\(\)[\s\S]*?eq\("id", id\)/);
 });
 
+test("fan board X handles and prediction image cleanup keep narrow database rules", () => {
+  const fanBoardMigration = fs.readFileSync(
+    path.join(projectRoot, "supabase/migrations/20260803122921_add_fan_board_x_handle.sql"),
+    "utf8",
+  );
+  const predictionStorageMigration = fs.readFileSync(
+    path.join(projectRoot, "supabase/migrations/20260810022307_authenticated_prediction_image_select.sql"),
+    "utf8",
+  );
+
+  assert.match(fanBoardMigration, /add column x_handle text/);
+  assert.match(fanBoardMigration, /\^\[A-Za-z0-9_\]\{1,15\}\$/);
+  assert.match(predictionStorageMigration, /for select\s+to authenticated/);
+  assert.match(predictionStorageMigration, /bucket_id = 'fan-seat-predictions'/);
+  assert.match(predictionStorageMigration, /owner_id = \(select auth\.uid\(\)::text\)/);
+  assert.doesNotMatch(predictionStorageMigration, /using\s*\(\s*true\s*\)/);
+});
+
 const fixtureArtist = (overrides: Partial<Artist> = {}): Artist => ({
   slug: "fixture-artist",
   name: "Fixture Artist",
