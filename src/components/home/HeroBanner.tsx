@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Heart, MessageCircle, Search } from "lucide-react";
+import { ArrowRight, MessageCircle, Search } from "lucide-react";
 import HomeHeroPromoBanner from "@/components/home/HomeHeroPromoBanner";
 
 export default function HeroBanner() {
@@ -9,10 +9,7 @@ export default function HeroBanner() {
       <div className="absolute -bottom-36 left-[18%] h-72 w-72 rounded-full bg-[#d8cbff]/35 blur-3xl" />
       <div className="zr-container relative grid gap-5 py-6 sm:gap-8 sm:py-12 lg:grid-cols-[1.08fr_.92fr] lg:items-center lg:py-16">
         <div>
-          <p className="inline-flex items-center gap-2 rounded-full bg-white/80 px-3 py-2 text-[10px] font-black tracking-[0.12em] text-[#d83d72] shadow-sm">
-            <Heart size={14} fill="currentColor" aria-hidden="true" /> FAN COMMUNITY
-          </p>
-          <h1 className="mt-4 text-[25px] font-black leading-[1.12] tracking-[-0.06em] sm:mt-5 sm:text-[46px] lg:text-[48px] xl:text-[52px]">
+          <h1 className="text-[25px] font-black leading-[1.12] tracking-[-0.06em] sm:text-[46px] lg:text-[48px] xl:text-[52px]">
             <span className="block whitespace-nowrap">当落・座席予想・現地レポ。</span>
             <span className="mt-1 block whitespace-nowrap text-[#ed4a83]">すべてがここに集まる。</span>
           </h1>

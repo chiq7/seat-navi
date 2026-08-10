@@ -688,6 +688,7 @@ test("home hero explains the core features and reserves a monetization banner", 
   assert.match(heroSource, /aria-current=\{activeIndex === index/);
   assert.match(heroSource, /href="\/search"/);
   assert.match(heroSource, /href="\/report"/);
+  assert.doesNotMatch(heroSource, /FAN COMMUNITY/);
   assert.doesNotMatch(heroSource, /ライブのこと、/);
   assert.doesNotMatch(heroSource, /実際に行ったファンの記録/);
 });
