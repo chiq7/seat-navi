@@ -65,15 +65,11 @@ function ReportEntryPageInner() {
           (e) => (e.artist_slug ?? resolveArtist(e)?.slug) === preselectedArtistSlug,
         )?.id;
       }
-      // 3. パラメータ指定が無い場合は、登録アーティストに一致する直近公演を優先
-      if (!initial) {
-        initial = list.find((e) => e.artist_slug ?? resolveArtist(e)?.slug)?.id;
-      }
-      // 4. それも無ければ単純に一番近い公演
-      if (!initial && list.length > 0) initial = list[0].id;
 
       setEvents(list);
-      if (initial) setSelectedId(initial);
+      // TOPや共通ナビからの /report は中立状態にする。URLで公演または
+      // アーティストが明示された場合だけ、その文脈を引き継ぐ。
+      setSelectedId(initial ?? null);
       setLoading(false);
     }
     load();

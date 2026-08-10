@@ -69,6 +69,27 @@ test("report forms preserve anonymous posting and link signed-in posts to their 
   assert.match(mypageSource, /from\("seat_reports"\)[\s\S]*?delete\(\)[\s\S]*?eq\("id", id\)/);
 });
 
+test("generic report entry waits for the user to choose a performance", () => {
+  const reportEntrySource = fs.readFileSync(
+    path.join(projectRoot, "src/app/report/page.tsx"),
+    "utf8",
+  );
+  const eventPickerSource = fs.readFileSync(
+    path.join(projectRoot, "src/components/common/EventPicker.tsx"),
+    "utf8",
+  );
+
+  assert.match(reportEntrySource, /const preselectedEventId = searchParams\.get\("event"\)/);
+  assert.match(reportEntrySource, /const preselectedArtistSlug = searchParams\.get\("artist"\)/);
+  assert.match(reportEntrySource, /setSelectedId\(initial \?\? null\)/);
+  assert.doesNotMatch(reportEntrySource, /initial = list\.find\(\(e\) => e\.artist_slug \?\?/);
+  assert.doesNotMatch(reportEntrySource, /initial = list\[0\]\.id/);
+  assert.match(
+    eventPickerSource,
+    /!selectedEventId && <option value="">公演を選択してください<\/option>/,
+  );
+});
+
 test("fan board X handles and prediction image cleanup keep narrow database rules", () => {
   const fanBoardMigration = fs.readFileSync(
     path.join(projectRoot, "supabase/migrations/20260803122921_add_fan_board_x_handle.sql"),
