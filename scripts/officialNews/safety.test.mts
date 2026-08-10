@@ -553,6 +553,39 @@ test("public view excludes article_body and base table grants are revoked", () =
   assert.match(migration, /unique \(artist_slug, normalized_article_url\)/);
 });
 
+test("public NEWS security-invoker migration keeps sensitive base columns private", () => {
+  const migration = fs.readFileSync(
+    path.join(
+      projectRoot,
+      "supabase/migrations/20260810055112_secure_official_news_public.sql",
+    ),
+    "utf8",
+  );
+
+  assert.match(
+    migration,
+    /create policy official_news_public_read[\s\S]*for select[\s\S]*to anon, authenticated[\s\S]*using \(true\)/,
+  );
+  assert.match(
+    migration,
+    /grant select \([\s\S]*article_title[\s\S]*\) on public\.official_news to anon, authenticated/,
+  );
+  assert.match(
+    migration,
+    /revoke select \([\s\S]*normalized_article_url[\s\S]*article_body[\s\S]*updated_at[\s\S]*\) on public\.official_news from public, anon, authenticated/,
+  );
+  assert.match(
+    migration,
+    /alter view public\.official_news_public[\s\S]*security_invoker = true/,
+  );
+
+  const publicGrant = migration.match(
+    /grant select \(([\s\S]*?)\) on public\.official_news to anon, authenticated/,
+  )?.[1] ?? "";
+  assert.doesNotMatch(publicGrant, /article_body|normalized_article_url|updated_at/);
+  assert.doesNotMatch(migration, /grant select on (?:table )?public\.official_news to/);
+});
+
 test("workflow keeps inputs out of the shell program and uses validation plus Bash arrays", () => {
   const workflow = fs.readFileSync(
     path.join(projectRoot, ".github/workflows/official-news.yml"),
