@@ -90,10 +90,11 @@ function ReportEntryPageInner() {
     [selectedEvent],
   );
   const backHref = artist ? `/artists/${artist.slug}` : "/";
+  const backLabel = artist ? "アーティストページに戻る" : "TOPへ戻る";
 
   return (
     <main className="community-page pb-20 font-sans">
-      <ReportHero artistName={artist?.name} backHref={backHref} selectedEvent={selectedEvent} />
+      <ReportHero artistName={artist?.name} backHref={backHref} backLabel={backLabel} selectedEvent={selectedEvent} />
 
       <section className="zr-container py-5 sm:py-6" aria-labelledby="report-event-title">
         <div className="flex items-end justify-between gap-4">
@@ -127,10 +128,12 @@ function ReportEntryPageInner() {
 function ReportHero({
   artistName,
   backHref,
+  backLabel,
   selectedEvent,
 }: {
   artistName?: string;
   backHref: string;
+  backLabel: string;
   selectedEvent: CrawledEvent | null;
 }) {
   return (
@@ -139,7 +142,7 @@ function ReportHero({
       <header className="zr-container relative top-0 z-20 flex h-16 items-center justify-between">
         <Link
           href={backHref}
-          aria-label="アーティストページに戻る"
+          aria-label={backLabel}
           className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-[#2b252b] shadow-sm backdrop-blur-md"
         >
           <ChevronLeft size={26} strokeWidth={2.7} />

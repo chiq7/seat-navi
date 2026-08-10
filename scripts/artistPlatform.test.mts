@@ -585,13 +585,15 @@ test("curated SEO profiles use sourced substantial content instead of thin gener
   assert.ok(artist.sources.every((source) => source.url.startsWith("https://")));
 });
 
-test("report entry back link stays above the hero content layer", () => {
+test("report entry back link stays above the hero and describes its actual destination", () => {
   const reportEntry = fs.readFileSync(
     path.join(projectRoot, "src/app/report/page.tsx"),
     "utf8",
   );
   assert.match(reportEntry, /top-0 z-20 flex/);
-  assert.match(reportEntry, /aria-label="アーティストページに戻る"/);
+  assert.match(reportEntry, /const backHref = artist \? `\/artists\/\$\{artist\.slug\}` : "\/"/);
+  assert.match(reportEntry, /const backLabel = artist \? "アーティストページに戻る" : "TOPへ戻る"/);
+  assert.match(reportEntry, /aria-label=\{backLabel\}/);
 });
 
 test("configured hero image has a runtime missing-file fallback", () => {
