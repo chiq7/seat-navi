@@ -25,7 +25,7 @@ import {
 } from "@/lib/afterReportCard";
 import { BottomNav } from "@/components/common/BottomNav";
 import { PostAuthorLink } from "@/components/common/PostAuthorLink";
-import { StickyHeroHeader } from "@/components/common/StickyHeroHeader";
+import { Header } from "@/components/common/Header";
 import { fetchVisiblePostAuthors, type PostAuthor } from "@/lib/postAuthors";
 import {
   DEFAULT_ARTIST_HERO_IMAGE,
@@ -230,7 +230,7 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
         <div className="absolute inset-0 bg-gradient-to-b from-[#5c3a4b]/60 via-[#6b4558]/10 to-[#6b4558]" />
         <div className="absolute inset-x-0 bottom-0 h-[70%] bg-gradient-to-t from-[#6b4558] via-[#6b4558]/82 to-transparent" />
 
-        <StickyHeroHeader title="現地レポ" backHref={`/artists/${slug}`} backLabel={`${artist.name}のページへ戻る`} />
+        <Header title="現地レポ" backHref={`/artists/${slug}`} backLabel={`${artist.name}のページへ戻る`} />
 
         <div className="zr-container absolute inset-x-0 bottom-0 z-10 pb-7">
           <p className="text-[10px] font-black tracking-[0.24em] text-[#ff5b96]">LIVE REPORT ARCHIVE</p>

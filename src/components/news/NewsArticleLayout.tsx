@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
-import Link from "next/link";
-import { ChevronLeft, Newspaper } from "lucide-react";
-import { AccountLink } from "@/components/auth/AccountLink";
+import { Newspaper } from "lucide-react";
+import { Header } from "@/components/common/Header";
 
 type Props = {
   kicker: string;
@@ -14,10 +13,7 @@ export function NewsArticleLayout({ kicker, title, lead, children }: Props) {
   return (
     <main className="community-page pb-16">
       <section className="community-hero">
-        <header className="zr-container flex h-16 items-center justify-between">
-          <Link href="/news" aria-label="お知らせ一覧へ戻る" className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/85 text-[#51454c] shadow-sm"><ChevronLeft size={26} /></Link>
-          <AccountLink iconSize={22} />
-        </header>
+        <Header title="お知らせ" backHref="/news" backLabel="お知らせ一覧へ戻る" />
         <div className="zr-container pb-11 pt-5 sm:pb-16 sm:pt-9">
           <Newspaper size={28} strokeWidth={1.6} className="text-[#ff5b96]" aria-hidden="true" />
           <p className="mt-6 text-[10px] font-black tracking-[0.22em] text-[#ff5b96]">{kicker}</p>

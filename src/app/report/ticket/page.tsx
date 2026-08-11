@@ -13,7 +13,7 @@ import { CompactEventPickerSection } from "@/components/common/CompactEventPicke
 import { CompactHeroIntro } from "@/components/common/CompactHeroIntro";
 import { ShareButton } from "@/components/common/ShareButton";
 import { ProgressSteps } from "@/components/common/ProgressSteps";
-import { StickyHeroHeader } from "@/components/common/StickyHeroHeader";
+import { Header } from "@/components/common/Header";
 import { ReportChoiceButton as Btn } from "@/components/report/ReportChoiceButton";
 
 function toLotteryTypeTicketResults(v: string): string | null {
@@ -165,7 +165,7 @@ function SuccessScreen({
 
   return (
     <div className="community-page flex flex-col">
-      <StickyHeroHeader title="投稿完了" backHref="/report" backLabel="報告画面へ戻る" />
+      <Header title="投稿完了" backHref="/report" backLabel="報告画面へ戻る" />
       <section className="community-hero pb-11 pt-5">
         <div className="zr-container text-center">
           <p className="community-eyebrow">REPORT COMPLETE</p>
@@ -407,7 +407,7 @@ function TicketReportPageInner() {
   return (
     <div className="community-page font-sans">
       <section className="community-hero">
-        <StickyHeroHeader
+        <Header
           title="当落・座席"
           backHref={step === 1 ? reportEntryHref : undefined}
           backLabel={step === 1 ? "報告メニューへ戻る" : "前のステップへ戻る"}

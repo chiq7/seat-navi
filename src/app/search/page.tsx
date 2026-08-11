@@ -3,9 +3,9 @@
 import { Suspense, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Building2, CalendarDays, ChevronLeft, MapPin, MoveRight, Search, X } from "lucide-react";
+import { Building2, CalendarDays, MapPin, MoveRight, Search, X } from "lucide-react";
 import FavoriteArtistButton from "@/components/auth/FavoriteArtistButton";
-import { AccountLink } from "@/components/auth/AccountLink";
+import { Header } from "@/components/common/Header";
 import { trackEvent } from "@/lib/analytics";
 import { findArtistBySlug, type Artist } from "@/lib/artists";
 import { getSearchEventDestination, searchArtists, searchEvents, searchVenues, type SearchVenue } from "@/lib/search";
@@ -121,16 +121,7 @@ function SearchPageInner() {
   return (
     <main className="community-page pb-16">
       <section className="community-hero">
-        <header className="zr-container flex h-16 items-center justify-between">
-          <Link
-            href="/"
-            aria-label="TOPへ戻る"
-            className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-[#2b252b] shadow-sm"
-          >
-            <ChevronLeft size={26} strokeWidth={2.7} />
-          </Link>
-          <AccountLink iconSize={22} />
-        </header>
+        <Header title="検索" backHref="/" backLabel="TOPへ戻る" />
 
         <div className="zr-container pb-9 pt-4 sm:pb-12 sm:pt-8">
           <p className="community-eyebrow">SEARCH TIXREPO</p>

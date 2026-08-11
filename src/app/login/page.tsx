@@ -3,7 +3,8 @@
 import { Suspense, type FormEvent, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { ChevronLeft, LockKeyhole, Mail, ShieldCheck } from "lucide-react";
+import { LockKeyhole, Mail, ShieldCheck } from "lucide-react";
+import { Header } from "@/components/common/Header";
 import { trackEvent } from "@/lib/analytics";
 import { supabase } from "@/lib/supabase/client";
 
@@ -100,15 +101,7 @@ function LoginPageInner() {
   return (
     <main className="community-page pb-10">
       <section className="community-hero">
-        <header className="zr-container flex h-16 items-center">
-          <Link
-            href="/"
-            aria-label="TOPへ戻る"
-            className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-[#2b252b] shadow-sm"
-          >
-            <ChevronLeft size={26} strokeWidth={2.7} />
-          </Link>
-        </header>
+        <Header title={mode === "login" ? "ログイン" : "新規登録"} backHref="/" backLabel="TOPへ戻る" showAccount={false} />
         <div className="mx-auto w-[calc(100%-32px)] max-w-[560px] pb-10 pt-5 sm:pb-14 sm:pt-9">
           <p className="community-eyebrow">MY TIXREPO</p>
           <h1 className="community-title mt-3">

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { ChevronLeft, Megaphone } from "lucide-react";
-import { AccountLink } from "@/components/auth/AccountLink";
+import { Megaphone } from "lucide-react";
+import { Header } from "@/components/common/Header";
 import SiteNewsList from "@/components/news/SiteNewsList";
 import { SITE_NEWS } from "@/lib/siteNews";
 
@@ -16,10 +15,7 @@ export default function SiteNewsPage() {
   return (
     <main className="community-page pb-16">
       <section className="community-hero">
-        <header className="zr-container flex h-16 items-center justify-between">
-          <Link href="/" aria-label="TOPへ戻る" className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-[#2b252b] shadow-sm"><ChevronLeft size={26} /></Link>
-          <AccountLink iconSize={22} />
-        </header>
+        <Header title="お知らせ" backHref="/" backLabel="TOPへ戻る" />
         <div className="zr-container pb-10 pt-5 sm:pb-14 sm:pt-9">
           <Megaphone size={28} strokeWidth={1.6} className="text-[#ef4f87]" aria-hidden="true" />
           <p className="community-eyebrow mt-6">TIXREPO JOURNAL</p>

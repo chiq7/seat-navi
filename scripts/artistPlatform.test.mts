@@ -875,14 +875,14 @@ test("report entry sticky header describes its actual back destination", () => {
     path.join(projectRoot, "src/app/report/page.tsx"),
     "utf8",
   );
-  assert.match(reportEntry, /<StickyHeroHeader title="報告" backHref=\{backHref\} backLabel=\{backLabel\}/);
+  assert.match(reportEntry, /<Header title="報告" backHref=\{backHref\} backLabel=\{backLabel\}/);
   assert.match(reportEntry, /const backHref = artist \? `\/artists\/\$\{artist\.slug\}` : "\/"/);
   assert.match(reportEntry, /const backLabel = artist \? "アーティストページに戻る" : "TOPへ戻る"/);
 });
 
-test("major fan flows share a compact fixed header without fixing their content", () => {
+test("all page-level flows share one compact fixed header without fixing their content", () => {
   const header = fs.readFileSync(
-    path.join(projectRoot, "src/components/common/StickyHeroHeader.tsx"),
+    path.join(projectRoot, "src/components/common/Header.tsx"),
     "utf8",
   );
   const pageSources = [
@@ -896,17 +896,29 @@ test("major fan flows share a compact fixed header without fixing their content"
     "src/app/artists/[slug]/after-reports/page.tsx",
     "src/app/artists/[slug]/setlist/SetlistClient.tsx",
     "src/app/artists/[slug]/news/page.tsx",
+    "src/app/venues/page.tsx",
+    "src/app/venues/[id]/page.tsx",
+    "src/app/search/page.tsx",
+    "src/app/news/page.tsx",
+    "src/components/news/NewsArticleLayout.tsx",
+    "src/app/login/page.tsx",
+    "src/app/password-reset/page.tsx",
+    "src/app/mypage/page.tsx",
+    "src/components/common/StaticPage.tsx",
   ].map((file) => fs.readFileSync(path.join(projectRoot, file), "utf8"));
 
-  assert.match(header, /data-sticky-hero-header/);
+  assert.match(header, /data-page-header/);
   assert.match(header, /fixed inset-x-0 top-0 z-\[60\]/);
   assert.match(header, /backdrop-blur-xl/);
   assert.match(header, /h-14 border-b/);
   assert.match(header, /h-full grid-cols-\[88px_minmax\(0,1fr\)_88px\]/);
+  assert.match(header, /const titleClass =/);
   assert.match(header, /truncate px-1 text-center/);
   assert.match(header, /className="h-14 sm:h-16"/);
+  assert.equal(fs.existsSync(path.join(projectRoot, "src/components/common/StickyHeroHeader.tsx")), false);
+  assert.match(pageSources.at(-1) ?? "", /titleAsHeading/);
   for (const source of pageSources) {
-    assert.match(source, /<StickyHeroHeader/);
+    assert.match(source, /<Header/);
     assert.doesNotMatch(source, /<header className="zr-container/);
   }
 

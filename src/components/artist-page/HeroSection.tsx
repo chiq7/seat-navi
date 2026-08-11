@@ -6,7 +6,7 @@ import { CalendarDays, MapPin } from "lucide-react";
 import { rateText } from "@/lib/artistPageHelpers";
 import { ShareButton } from "@/components/common/ShareButton";
 import { AccountLink } from "@/components/auth/AccountLink";
-import { StickyHeroHeader } from "@/components/common/StickyHeroHeader";
+import { Header } from "@/components/common/Header";
 import { DEFAULT_ARTIST_HERO_IMAGE, resolveArtistHeroImage } from "@/lib/artistPageData";
 
 type Props = {
@@ -67,7 +67,7 @@ export default function HeroSection({
       <div className="absolute inset-0 bg-gradient-to-b from-[#652642]/30 via-[#ed76a7]/5 to-transparent" />
       <div className="absolute inset-x-0 bottom-0 h-[64%] bg-gradient-to-t from-[#ffeaf2] via-[#ffeaf2]/92 to-transparent" />
       <div className="relative z-10 min-h-[458px] sm:min-h-[510px] lg:min-h-[560px]">
-        <StickyHeroHeader
+        <Header
           title={artistName}
           backHref="/"
           backLabel="TOPへ戻る"

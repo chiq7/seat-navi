@@ -3,7 +3,8 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ChevronLeft, Heart, LogOut, Save, UserRound } from "lucide-react";
+import { Heart, LogOut, Save, UserRound } from "lucide-react";
+import { Header } from "@/components/common/Header";
 import { MyPostsSection, type OwnedSeatPrediction } from "@/components/mypage/MyPostsSection";
 import { PersonalTicketStats } from "@/components/mypage/PersonalTicketStats";
 import { findArtistBySlug } from "@/lib/artists";
@@ -290,11 +291,9 @@ export default function MyPage() {
   if (loadError) {
     return (
       <main className="community-page">
-        <header className="community-hero">
-          <div className="zr-container flex h-16 items-center">
-            <Link href="/" aria-label="TOPへ戻る" className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-[#2b252b] shadow-sm"><ChevronLeft size={26} /></Link>
-          </div>
-        </header>
+        <div className="community-hero">
+          <Header title="マイページ" backHref="/" backLabel="TOPへ戻る" showAccount={false} />
+        </div>
         <div className="zr-container pt-12 text-center">
           <div className="border border-red-200 bg-white px-5 py-10">
             <p className="text-[16px] font-black">読み込みに失敗しました</p>
@@ -315,15 +314,7 @@ export default function MyPage() {
   return (
     <main className="community-page pb-16">
       <section className="community-hero">
-        <header className="zr-container flex h-16 items-center">
-          <Link
-            href="/"
-            aria-label="TOPへ戻る"
-            className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-[#2b252b] shadow-sm"
-          >
-            <ChevronLeft size={26} strokeWidth={2.7} />
-          </Link>
-        </header>
+        <Header title="マイページ" backHref="/" backLabel="TOPへ戻る" showAccount={false} />
         <div className="zr-container pb-10 pt-5 sm:pb-14 sm:pt-9">
           <p className="community-eyebrow">MY TIXREPO</p>
           <h1 className="community-title mt-3">ライブの記録を、<br /><span className="text-[#ef4f87]">自分だけの一冊に。</span></h1>

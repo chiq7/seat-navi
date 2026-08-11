@@ -12,7 +12,7 @@ import { CompactEventPickerSection } from "@/components/common/CompactEventPicke
 import { CompactHeroIntro } from "@/components/common/CompactHeroIntro";
 import { ShareButton } from "@/components/common/ShareButton";
 import { ProgressSteps } from "@/components/common/ProgressSteps";
-import { StickyHeroHeader } from "@/components/common/StickyHeroHeader";
+import { Header } from "@/components/common/Header";
 import { ReportChoiceButton as Btn } from "@/components/report/ReportChoiceButton";
 
 function randomId() {
@@ -133,7 +133,7 @@ function SuccessScreen({
 
   return (
     <div className="community-page relative flex flex-col">
-      <StickyHeroHeader title="投稿完了" backHref="/report" backLabel="報告メニューへ戻る" />
+      <Header title="投稿完了" backHref="/report" backLabel="報告メニューへ戻る" />
 
       <section className="community-hero pb-12 pt-5 sm:pb-16" aria-labelledby="success-title">
         <div className="zr-container">
@@ -397,7 +397,7 @@ function LiveReportPageInner() {
   return (
     <div className="community-page font-sans">
       <section className="community-hero">
-        <StickyHeroHeader
+        <Header
           title="現地レポ"
           backHref={step === 1 ? reportEntryHref : undefined}
           backLabel={step === 1 ? "報告メニューへ戻る" : "前のステップへ戻る"}

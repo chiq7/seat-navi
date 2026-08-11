@@ -12,7 +12,7 @@ import type { CrawledEvent } from "@/lib/types";
 import { fmtDate } from "@/lib/artistPageHelpers";
 import { AccountLink } from "@/components/auth/AccountLink";
 import { ShareButton } from "@/components/common/ShareButton";
-import { StickyHeroHeader } from "@/components/common/StickyHeroHeader";
+import { Header } from "@/components/common/Header";
 
 const RATING_IMAGES: Record<number, string> = {
   5: "/images/reports/overall-rating/rating-5-kamiseki.png",
@@ -271,7 +271,7 @@ function LiveReportDetailPageInner() {
   return (
     <div className="community-page pb-20 font-sans">
       <section className="community-hero">
-        <StickyHeroHeader
+        <Header
           title="現地レポ"
           backHref={backHref}
           backLabel="現地レポ一覧へ戻る"

@@ -5,6 +5,12 @@ import { ChevronLeft } from "lucide-react";
 import type { ReactNode } from "react";
 import { AccountLink } from "@/components/auth/AccountLink";
 
+const backControlClass =
+  "zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-[#fff0f5] text-[#665761] transition-colors active:bg-[#ffe3ed]";
+
+const titleClass =
+  "truncate px-1 text-center text-[13px] font-black tracking-[-0.02em] text-[#4b4148] sm:text-[14px]";
+
 export type HeaderProps = {
   /** 中央に表示するタイトル。1行固定・省略記号あり */
   title: string;
@@ -12,43 +18,55 @@ export type HeaderProps = {
   backHref?: string;
   /** 戻る動作をコールバックにしたい場合（backHrefより優先） */
   onBack?: () => void;
+  /** 戻る操作を読み上げるラベル */
+  backLabel?: string;
   /** 右側スロット。未指定でも幅は確保される */
   rightSlot?: ReactNode;
   /** 未指定時にマイページ導線を表示する */
   showAccount?: boolean;
+  /** 本文側にh1がない静的ページで中央タイトルをh1にする */
+  titleAsHeading?: boolean;
   className?: string;
 };
 
-/** 3スロット（戻る/タイトル/右要素）の共通ページヘッダー */
-export function Header({ title, backHref, onBack, rightSlot, showAccount = true, className }: HeaderProps) {
+/** 全ページ共通の追従ヘッダー。本文位置を保つスペーサーを含む。 */
+export function Header({
+  title,
+  backHref,
+  onBack,
+  backLabel = "前のページへ戻る",
+  rightSlot,
+  showAccount = true,
+  titleAsHeading = false,
+  className,
+}: HeaderProps) {
   return (
-    <header
-      className={`sticky top-0 z-30 grid h-14 grid-cols-[44px_1fr_44px] items-center border-b border-[#f0e2e8] bg-white/95 px-2 backdrop-blur-xl ${className ?? ""}`}
-    >
-      <div className="flex h-11 w-11 items-center justify-center justify-self-start">
-        {onBack ? (
-          <button
-            type="button"
-            onClick={onBack}
-            className="zr-focus flex h-9 w-9 items-center justify-center rounded-full bg-[#fff0f5] text-[#6b5862] active:bg-[#ffe2ec]"
-          >
-            <ChevronLeft size={18} strokeWidth={2.5} />
-          </button>
-        ) : backHref ? (
-          <Link
-            href={backHref}
-            className="zr-focus flex h-9 w-9 items-center justify-center rounded-full bg-[#fff0f5] text-[#6b5862] active:bg-[#ffe2ec]"
-          >
-            <ChevronLeft size={18} strokeWidth={2.5} />
-          </Link>
-        ) : null}
-      </div>
-      <h1 className="min-w-0 truncate px-2 text-center text-[14px] font-black tracking-[-0.02em] text-[#2b252b]">
-        {title}
-      </h1>
-      <div className="flex h-11 w-11 items-center justify-center justify-self-end">
-        {rightSlot ?? (showAccount ? <AccountLink iconSize={19} /> : null)}
-      </div>
-    </header>
+    <>
+      <header
+        data-page-header
+        className={`fixed inset-x-0 top-0 z-[60] h-14 border-b border-[#f0dde5] bg-white/90 shadow-[0_4px_18px_rgba(111,78,91,0.06)] backdrop-blur-xl sm:h-16 ${className ?? ""}`}
+      >
+        <div className="zr-container grid h-full grid-cols-[88px_minmax(0,1fr)_88px] items-center">
+          <div className="flex justify-start">
+            {onBack ? (
+              <button type="button" onClick={onBack} aria-label={backLabel} className={backControlClass}>
+                <ChevronLeft size={24} strokeWidth={2.5} aria-hidden="true" />
+              </button>
+            ) : backHref ? (
+              <Link href={backHref} aria-label={backLabel} className={backControlClass}>
+                <ChevronLeft size={24} strokeWidth={2.5} aria-hidden="true" />
+              </Link>
+            ) : null}
+          </div>
+          {titleAsHeading ? (
+            <h1 className={titleClass}>{title}</h1>
+          ) : (
+            <p className={titleClass}>{title}</p>
+          )}
+          <div className="flex justify-end">{rightSlot ?? (showAccount ? <AccountLink iconSize={22} /> : null)}</div>
+        </div>
+      </header>
+      <div aria-hidden="true" className="h-14 sm:h-16" />
+    </>
   );
 }

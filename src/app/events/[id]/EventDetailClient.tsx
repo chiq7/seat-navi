@@ -22,7 +22,7 @@ import { CompactEventSummary } from "@/components/common/CompactEventSummary";
 import { CompactHeroIntro } from "@/components/common/CompactHeroIntro";
 import { ShareButton } from "@/components/common/ShareButton";
 import { AccountLink } from "@/components/auth/AccountLink";
-import { StickyHeroHeader } from "@/components/common/StickyHeroHeader";
+import { Header } from "@/components/common/Header";
 import { fetchVisiblePostAuthors, type PostAuthor } from "@/lib/postAuthors";
 
 const VOTER_KEY_STORAGE = "seat-navi-voter-key";
@@ -287,7 +287,7 @@ export function EventDetailClient({
         ) : event ? (
           <>
           <section className="community-hero">
-              <StickyHeroHeader
+              <Header
                 title="座席予想"
                 backHref={backHref}
                 backLabel="アーティストページへ戻る"

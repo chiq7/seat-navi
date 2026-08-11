@@ -11,7 +11,7 @@ import type { CrawledEvent } from "@/lib/types";
 import { CompactEventPickerSection } from "@/components/common/CompactEventPickerSection";
 import { CompactEventSummary } from "@/components/common/CompactEventSummary";
 import { CompactHeroIntro } from "@/components/common/CompactHeroIntro";
-import { StickyHeroHeader } from "@/components/common/StickyHeroHeader";
+import { Header } from "@/components/common/Header";
 import { getEventsForArtist } from "@/lib/events";
 
 export default function ReportEntryPage() {
@@ -130,7 +130,7 @@ function ReportHero({
   return (
     <section className="community-hero relative w-full overflow-hidden">
 
-      <StickyHeroHeader title="報告" backHref={backHref} backLabel={backLabel} />
+      <Header title="報告" backHref={backHref} backLabel={backLabel} />
 
       <CompactHeroIntro
         eyebrow="SHARE THE LIVE"

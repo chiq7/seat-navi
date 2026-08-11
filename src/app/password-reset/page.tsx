@@ -2,8 +2,8 @@
 
 import { type FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
-import { ChevronLeft, KeyRound } from "lucide-react";
+import { KeyRound } from "lucide-react";
+import { Header } from "@/components/common/Header";
 import { supabase } from "@/lib/supabase/client";
 
 export default function PasswordResetPage() {
@@ -25,9 +25,7 @@ export default function PasswordResetPage() {
   return (
     <main className="community-page">
       <section className="community-hero">
-        <header className="zr-container flex h-16 items-center">
-          <Link href="/login" aria-label="ログインへ戻る" className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-[#2b252b] shadow-sm"><ChevronLeft size={26} /></Link>
-        </header>
+        <Header title="パスワード再設定" backHref="/login" backLabel="ログインへ戻る" showAccount={false} />
         <div className="zr-container pb-10 pt-5">
           <KeyRound size={28} strokeWidth={1.6} className="text-[#ef4f87]" aria-hidden="true" />
           <p className="community-eyebrow mt-6">RESET PASSWORD</p>

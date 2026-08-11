@@ -14,7 +14,7 @@ import { AccountLink } from "@/components/auth/AccountLink";
 import { BottomNav } from "@/components/common/BottomNav";
 import { EventCarouselPicker } from "@/components/common/EventPicker";
 import { ShareButton } from "@/components/common/ShareButton";
-import { StickyHeroHeader } from "@/components/common/StickyHeroHeader";
+import { Header } from "@/components/common/Header";
 import { SetlistItemsSection } from "@/components/setlist/SetlistItemsSection";
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
@@ -287,7 +287,7 @@ export function SetlistClient({ params }: { params: Promise<{ slug: string }> })
   return (
     <div className="community-page font-sans">
       <section className="community-hero">
-        <StickyHeroHeader
+        <Header
           title="セトリ"
           backHref={`/artists/${slug}`}
           backLabel={`${artist.name}へ戻る`}

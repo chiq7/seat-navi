@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Building2, ChevronLeft, MapPin, MoveRight, Search } from "lucide-react";
-import { AccountLink } from "@/components/auth/AccountLink";
+import { Building2, MapPin, MoveRight, Search } from "lucide-react";
+import { Header } from "@/components/common/Header";
 import { SEO_VENUES } from "@/lib/venueSeo";
 
 const POPULAR_VENUE_IDS = [
@@ -85,16 +85,7 @@ export default function VenuesPage() {
   return (
     <main className="community-page pb-16">
       <section className="community-hero">
-        <header className="zr-container flex h-16 items-center justify-between">
-          <Link
-            href="/"
-            aria-label="TOPへ戻る"
-            className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-[#2b252b] shadow-sm"
-          >
-            <ChevronLeft size={26} strokeWidth={2.7} />
-          </Link>
-          <AccountLink iconSize={22} />
-        </header>
+        <Header title="ライブ会場" backHref="/" backLabel="TOPへ戻る" />
         <div className="zr-container pb-7 pt-4 sm:pb-10 sm:pt-7">
           <p className="community-eyebrow">VENUE DIRECTORY</p>
           <h1 className="community-title mt-3">

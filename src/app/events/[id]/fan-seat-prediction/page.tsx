@@ -15,7 +15,7 @@ import { CompactHeroIntro } from "@/components/common/CompactHeroIntro";
 import { ShareButton } from "@/components/common/ShareButton";
 import { EventArenaMap } from "@/components/arena-map/EventArenaMap";
 import { ProgressSteps } from "@/components/common/ProgressSteps";
-import { StickyHeroHeader } from "@/components/common/StickyHeroHeader";
+import { Header } from "@/components/common/Header";
 
 const EVENT_COLUMNS = "id, title, venue, venue_id, date, genre, lottery_types, artist_slug";
 
@@ -257,7 +257,7 @@ export default function FanSeatPredictionPage({
     return (
       <div className="community-page flex flex-col pb-20 font-sans">
         <section className="community-hero">
-          <StickyHeroHeader title="投稿完了" backHref={`/events/${selectedEventId}`} backLabel="公演ページへ戻る" />
+          <Header title="投稿完了" backHref={`/events/${selectedEventId}`} backLabel="公演ページへ戻る" />
           <div className="zr-container pb-11 pt-5 text-center">
             <p className="community-eyebrow">PREDICTION COMPLETE</p>
             <h1 className="mt-4 text-[38px] font-black leading-tight tracking-[-0.05em]">予想図を投稿しました。</h1>
@@ -289,7 +289,7 @@ export default function FanSeatPredictionPage({
   return (
     <div className="community-page pb-20 font-sans">
       <section className="community-hero">
-        <StickyHeroHeader title="アリーナ予想" backHref={reportEntryHref} backLabel="報告メニューへ戻る" />
+        <Header title="アリーナ予想" backHref={reportEntryHref} backLabel="報告メニューへ戻る" />
         <CompactHeroIntro
           eyebrow="FAN SEAT PREDICTION"
           title="アリーナ予想図を"

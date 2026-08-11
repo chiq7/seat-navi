@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { CalendarDays, ChevronLeft, MapPin, MoveRight, Users } from "lucide-react";
-import { AccountLink } from "@/components/auth/AccountLink";
+import { CalendarDays, MapPin, MoveRight, Users } from "lucide-react";
+import { Header } from "@/components/common/Header";
 import SeoEditorialSection from "@/components/seo/SeoEditorialSection";
 import { resolveArtist } from "@/lib/artists";
 import { fmtDate } from "@/lib/artistPageHelpers";
@@ -141,16 +141,7 @@ export default async function VenuePage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(structuredData) }}
       />
       <section className="community-hero">
-        <header className="zr-container flex h-16 items-center justify-between">
-          <Link
-            href="/venues"
-            aria-label="ライブ会場一覧へ戻る"
-            className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-[#2b252b] shadow-sm"
-          >
-            <ChevronLeft size={26} strokeWidth={2.7} />
-          </Link>
-          <AccountLink iconSize={22} />
-        </header>
+        <Header title={venue.name} backHref="/venues" backLabel="ライブ会場一覧へ戻る" />
 
         <div className="zr-container pb-7 pt-4 sm:pb-10 sm:pt-7">
           <p className="community-eyebrow">VENUE LIVE GUIDE</p>

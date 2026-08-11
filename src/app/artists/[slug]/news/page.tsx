@@ -6,7 +6,7 @@ import { findArtistBySlug } from "@/lib/artists";
 import { getOfficialNewsSummary, queryAllOfficialNewsForArtist } from "@/lib/officialNews";
 import type { OfficialNews, OfficialNewsCategory } from "@/lib/types";
 import { OFFICIAL_NEWS_CATEGORY_LABELS } from "@/lib/types";
-import { StickyHeroHeader } from "@/components/common/StickyHeroHeader";
+import { Header } from "@/components/common/Header";
 import { BottomNav } from "@/components/common/BottomNav";
 
 function fmtPublishedDate(d: string | null): string {
@@ -59,7 +59,7 @@ export default function ArtistNewsPage({ params }: { params: Promise<{ slug: str
   return (
     <main className="community-page pb-20 font-sans">
       <section className="community-hero">
-        <StickyHeroHeader title="公式ニュース" backHref={`/artists/${slug}`} backLabel={`${artist.name}へ戻る`} />
+        <Header title="公式ニュース" backHref={`/artists/${slug}`} backLabel={`${artist.name}へ戻る`} />
         <div className="zr-container pb-10 pt-5 sm:pb-14 sm:pt-9">
           <Newspaper size={28} strokeWidth={1.6} className="text-[#ef4f87]" aria-hidden="true" />
           <p className="community-eyebrow mt-6">OFFICIAL NEWS</p>
