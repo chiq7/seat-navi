@@ -116,6 +116,39 @@ test("report and seat pages share the same compact event summary", () => {
   assert.doesNotMatch(eventDetailSource, />VENUE</);
 });
 
+test("seat map tabs and report choice buttons use shared UI components", () => {
+  const seatTabsSource = fs.readFileSync(
+    path.join(projectRoot, "src/components/arena-map/SeatMapColorTabs.tsx"),
+    "utf8",
+  );
+  const mapSources = [
+    "src/components/artist-page/MapPreviewSection.tsx",
+    "src/app/events/[id]/EventDetailClient.tsx",
+  ].map((file) => fs.readFileSync(path.join(projectRoot, file), "utf8"));
+  const reportSources = [
+    "src/app/report/ticket/page.tsx",
+    "src/app/report/live/page.tsx",
+  ].map((file) => fs.readFileSync(path.join(projectRoot, file), "utf8"));
+
+  assert.match(seatTabsSource, /grid grid-cols-4/);
+  assert.match(seatTabsSource, /min-h-12/);
+  assert.match(seatTabsSource, /aria-pressed=\{selected\}/);
+  for (const source of mapSources) {
+    assert.match(source, /<SeatMapColorTabs/);
+    assert.doesNotMatch(source, /const COLOR_TABS/);
+  }
+  for (const source of reportSources) {
+    assert.match(source, /ReportChoiceButton as Btn/);
+    assert.doesNotMatch(source, /function Btn\(/);
+  }
+  const reportChoiceSource = fs.readFileSync(
+    path.join(projectRoot, "src/components/report/ReportChoiceButton.tsx"),
+    "utf8",
+  );
+  assert.match(reportChoiceSource, /aria-pressed=\{selected\}/);
+  assert.match(reportChoiceSource, /data-report-choice/);
+});
+
 test("fan board X handles and prediction image cleanup keep narrow database rules", () => {
   const fanBoardMigration = fs.readFileSync(
     path.join(projectRoot, "supabase/migrations/20260803122921_add_fan_board_x_handle.sql"),

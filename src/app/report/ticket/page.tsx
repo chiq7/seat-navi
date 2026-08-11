@@ -13,6 +13,7 @@ import { AccountLink } from "@/components/auth/AccountLink";
 import { EventCarouselPicker } from "@/components/common/EventPicker";
 import { ShareButton } from "@/components/common/ShareButton";
 import { ProgressSteps } from "@/components/common/ProgressSteps";
+import { ReportChoiceButton as Btn } from "@/components/report/ReportChoiceButton";
 
 function toLotteryTypeTicketResults(v: string): string | null {
   if (v === "FC1次") return "1次抽選";
@@ -98,32 +99,6 @@ function normalizeBlock(v: string): string {
 /** 席番号の自動整形: 全角→半角・末尾の「番」除去に加え、数字以外を許可しない */
 function normalizeSeatNumber(v: string): string {
   return normalizeSeatField(v, "番").replace(/[^0-9]/g, "");
-}
-
-function Btn({
-  selected,
-  onClick,
-  children,
-  xs = false,
-}: {
-  selected: boolean;
-  onClick: () => void;
-  children: React.ReactNode;
-  xs?: boolean;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`zr-focus min-h-11 w-full border transition-colors ${xs ? "text-[10px]" : "text-[11px]"} ${
-        selected
-          ? "border-[#f43679] bg-[#f43679] font-black text-white"
-          : "border-[#ded8dc] bg-white font-black text-[#544e52]"
-      }`}
-    >
-      {children}
-    </button>
-  );
 }
 
 function Row({

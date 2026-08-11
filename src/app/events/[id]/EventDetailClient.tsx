@@ -5,13 +5,9 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   ChevronLeft,
-  Crown,
   MapPin,
   Sparkles,
-  Ticket,
-  WalletCards,
 } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
 import { supabase } from "@/lib/supabase/client";
 import { resolveArtist } from "@/lib/artists";
 import { getEventsForArtist } from "@/lib/events";
@@ -19,6 +15,7 @@ import type { CrawledEvent, FanSeatPrediction, SeatReport } from "@/lib/types";
 import type { ExternalSeatObservation } from "@/lib/external-seats/types";
 import type { ColorMode } from "@/lib/arena-map/arenaMapTypes";
 import { EventArenaMap } from "@/components/arena-map/EventArenaMap";
+import { SeatMapColorTabs } from "@/components/arena-map/SeatMapColorTabs";
 import { BottomNav } from "@/components/common/BottomNav";
 import { SeatPredictionCard } from "@/components/common/SeatPredictionCard";
 import { EventCarouselPicker } from "@/components/common/EventPicker";
@@ -26,13 +23,6 @@ import { CompactEventSummary } from "@/components/common/CompactEventSummary";
 import { ShareButton } from "@/components/common/ShareButton";
 import { AccountLink } from "@/components/auth/AccountLink";
 import { fetchVisiblePostAuthors, type PostAuthor } from "@/lib/postAuthors";
-
-const COLOR_TABS: { value: ColorMode; label: string; Icon: LucideIcon }[] = [
-  { value: "lottery", label: "抽選回", Icon: Ticket },
-  { value: "fcHistory", label: "FC歴", Icon: Crown },
-  { value: "payment", label: "支払い", Icon: WalletCards },
-  { value: "upgrade", label: "アプグレ", Icon: Sparkles },
-];
 
 const VOTER_KEY_STORAGE = "seat-navi-voter-key";
 
@@ -368,24 +358,7 @@ export function EventDetailClient({
                   </p>
                 </div>
 
-                <div className="grid grid-cols-4 border-x border-b border-[#ded8dc]">
-                  {COLOR_TABS.map(({ value, label, Icon }) => (
-                    <button
-                      key={value}
-                      type="button"
-                      onClick={() => setColorMode(value)}
-                      aria-pressed={colorMode === value}
-                      className={`zr-focus flex min-h-[58px] flex-col items-center justify-center gap-1 border-r border-[#ded8dc] px-1 text-[9px] font-black transition-colors last:border-r-0 sm:min-h-[64px] sm:flex-row sm:text-[11px] ${
-                        colorMode === value
-                          ? "bg-[#eef0ff] text-[#5165c6]"
-                          : "bg-white text-[#625a61] hover:bg-[#fff0f5]"
-                      }`}
-                    >
-                      <Icon size={17} strokeWidth={1.8} className={colorMode === value ? "text-[#6176d7]" : "text-[#9b91a0]"} />
-                      {label}
-                    </button>
-                  ))}
-                </div>
+                <SeatMapColorTabs value={colorMode} onChange={setColorMode} className="border-t-0" />
 
                 <div className="border-x border-b border-[#ded8dc] bg-[#fcfbfc]">
                   <EventArenaMap

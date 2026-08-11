@@ -2,18 +2,11 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowUpRight, CreditCard, Crown, Star, Ticket } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import type { SeatReport } from "@/lib/types";
 import type { ColorMode } from "@/lib/arena-map/arenaMapTypes";
 import { EventArenaMap } from "@/components/arena-map/EventArenaMap";
-
-const COLOR_TABS: { value: ColorMode; label: string; Icon: LucideIcon }[] = [
-  { value: "lottery", label: "抽選回", Icon: Ticket },
-  { value: "fcHistory", label: "FC歴", Icon: Crown },
-  { value: "payment", label: "支払い", Icon: CreditCard },
-  { value: "upgrade", label: "アプグレ", Icon: Star },
-];
+import { SeatMapColorTabs } from "@/components/arena-map/SeatMapColorTabs";
 
 type MapEvent = {
   id: string;
@@ -39,24 +32,7 @@ export default function MapPreviewSection({ mapEvent }: Props) {
         <span className="shrink-0 text-[10px] font-black text-[#817981]">{mapEvent.reports.length} REPORTS</span>
       </div>
 
-      <div className="grid grid-cols-2 border-b border-[#282127] sm:grid-cols-4">
-        {COLOR_TABS.map(({ value, label, Icon }) => (
-          <button
-            key={value}
-            type="button"
-            onClick={() => setColorMode(value)}
-            aria-pressed={colorMode === value}
-            className={`zr-focus flex min-h-12 items-center justify-center gap-2 border-b border-r border-[#ded8dc] px-2 text-[11px] font-black transition-colors sm:border-b-0 ${
-              colorMode === value
-                ? "bg-[#eef0ff] text-[#5165c6]"
-                : "bg-white text-[#5d555b] hover:bg-[#fff3f7]"
-            }`}
-          >
-            <Icon size={15} className={colorMode === value ? "text-[#6176d7]" : "text-[#9b91a0]"} />
-            {label}
-          </button>
-        ))}
-      </div>
+      <SeatMapColorTabs value={colorMode} onChange={setColorMode} className="border-x-0 border-t-0 border-b-[#282127]" />
 
       <div className="overflow-hidden bg-[#fbf8fa] px-1 pb-3 pt-2 sm:px-4">
         <EventArenaMap
