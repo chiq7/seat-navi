@@ -11,7 +11,8 @@ import { getEventsForArtist } from "@/lib/events";
 import type { CrawledEvent, SeatReport } from "@/lib/types";
 import { AccountLink } from "@/components/auth/AccountLink";
 import { BottomNav } from "@/components/common/BottomNav";
-import { EventCarouselPicker } from "@/components/common/EventPicker";
+import { CompactEventPickerSection } from "@/components/common/CompactEventPickerSection";
+import { CompactHeroIntro } from "@/components/common/CompactHeroIntro";
 import { ShareButton } from "@/components/common/ShareButton";
 import { EventArenaMap } from "@/components/arena-map/EventArenaMap";
 import { ProgressSteps } from "@/components/common/ProgressSteps";
@@ -295,29 +296,25 @@ export default function FanSeatPredictionPage({
           <Link href={reportEntryHref} aria-label="報告メニューへ戻る" className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-[#2b252b] shadow-sm"><ChevronLeft size={26} /></Link>
           <AccountLink iconSize={22} />
         </header>
-        <div className="zr-container pb-9 pt-4">
-          <MapIcon size={28} strokeWidth={1.6} className="text-[#6176d7]" aria-hidden="true" />
-          <p className="community-eyebrow mt-5">FAN SEAT PREDICTION</p>
-          <h1 className="community-title mt-3">会場の座席表を、<br /><span className="text-[#6176d7]">みんなで予想。</span></h1>
-          <p className="community-subtitle mt-4">花道・センステ・外周など、ライブ会場の構成予想を投稿できます。</p>
-        </div>
+        <CompactHeroIntro
+          title="アリーナ予想図を投稿する"
+          subtitle="花道・センステ・外周などの構成予想を投稿できます。"
+          icon={<MapIcon size={21} strokeWidth={1.8} className="text-[#6176d7]" />}
+        />
       </section>
 
         <div className="zr-container border-b border-[#eadfe4]"><ProgressSteps steps={["入力", "完了"]} currentStep={0} /></div>
 
-        <main className="zr-container space-y-8 pb-12 pt-8">
-          {/* 対象公演 */}
-          <section className="community-panel p-5">
-            <p className="artist-kicker">01 / SELECT LIVE</p>
-            <h2 className="artist-heading">対象公演</h2>
-            <EventCarouselPicker
-              events={events}
-              selectedEventId={selectedEventId}
-              onSelect={setSelectedEventId}
-              loading={eventsLoading}
-            />
-          </section>
+        <CompactEventPickerSection
+          headingId="prediction-event-picker-title"
+          title="対象公演"
+          events={events}
+          selectedEventId={selectedEventId}
+          onSelect={setSelectedEventId}
+          loading={eventsLoading}
+        />
 
+        <main className="zr-container space-y-8 pb-12 pt-4">
           {/* 予想図画像 */}
           <section className="border-t border-[#1c171b] pt-5">
             <div className="flex items-center gap-1.5">

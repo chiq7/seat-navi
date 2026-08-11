@@ -20,6 +20,7 @@ import { BottomNav } from "@/components/common/BottomNav";
 import { SeatPredictionCard } from "@/components/common/SeatPredictionCard";
 import { CompactEventPickerSection } from "@/components/common/CompactEventPickerSection";
 import { CompactEventSummary } from "@/components/common/CompactEventSummary";
+import { CompactHeroIntro } from "@/components/common/CompactHeroIntro";
 import { ShareButton } from "@/components/common/ShareButton";
 import { AccountLink } from "@/components/auth/AccountLink";
 import { fetchVisiblePostAuthors, type PostAuthor } from "@/lib/postAuthors";
@@ -304,17 +305,13 @@ export function EventDetailClient({
                 </div>
               </header>
 
-              <div className="zr-container pb-7 pt-4 sm:pb-9 sm:pt-7">
-            <p className="community-eyebrow">VENUE SEAT GUIDE</p>
-            <h1 className="community-title mt-3 max-w-[850px]">
-                  会場の座席表と、<br />みんなのアリーナ予想。
-                </h1>
-            <p className="community-subtitle mt-5 max-w-[780px]">
-                  {event.title}
-                </p>
-
-            <CompactEventSummary date={event.date} venue={event.venue} className="mt-5" />
-              </div>
+              <CompactHeroIntro
+                title="座席表とアリーナ予想"
+                subtitle={event.title}
+                icon={<Sparkles size={21} strokeWidth={1.8} className="text-[#6176d7]" />}
+              >
+                <CompactEventSummary date={event.date} venue={event.venue} className="mt-3" />
+              </CompactHeroIntro>
             </section>
 
           <CompactEventPickerSection

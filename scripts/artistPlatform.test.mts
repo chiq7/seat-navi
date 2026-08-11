@@ -173,6 +173,31 @@ test("report and seat pages share the compact event picker section", () => {
   }
 });
 
+test("core report flows use one-line functional hero titles and the compact event picker", () => {
+  const heroSource = fs.readFileSync(
+    path.join(projectRoot, "src/components/common/CompactHeroIntro.tsx"),
+    "utf8",
+  );
+  const pageSources = [
+    "src/app/report/page.tsx",
+    "src/app/report/ticket/page.tsx",
+    "src/app/report/live/page.tsx",
+    "src/app/events/[id]/fan-seat-prediction/page.tsx",
+    "src/app/events/[id]/EventDetailClient.tsx",
+  ].map((file) => fs.readFileSync(path.join(projectRoot, file), "utf8"));
+
+  assert.match(heroSource, /whitespace-nowrap/);
+  assert.match(heroSource, /data-compact-hero-intro/);
+  for (const source of pageSources) {
+    assert.match(source, /<CompactHeroIntro/);
+  }
+  for (const source of pageSources.slice(0, 4)) {
+    assert.match(source, /<CompactEventPickerSection/);
+    assert.doesNotMatch(source, /<EventCarouselPicker/);
+  }
+  assert.match(pageSources[1], /title="当落と座席を報告する"/);
+});
+
 test("fan board X handles and prediction image cleanup keep narrow database rules", () => {
   const fanBoardMigration = fs.readFileSync(
     path.join(projectRoot, "supabase/migrations/20260803122921_add_fan_board_x_handle.sql"),

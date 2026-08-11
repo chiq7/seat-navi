@@ -9,7 +9,8 @@ import { anonymousSupabase, getPostingContext, supabase } from "@/lib/supabase/c
 import { resolveArtist } from "@/lib/artists";
 import { getEventsForArtist } from "@/lib/events";
 import { AccountLink } from "@/components/auth/AccountLink";
-import { EventCarouselPicker } from "@/components/common/EventPicker";
+import { CompactEventPickerSection } from "@/components/common/CompactEventPickerSection";
+import { CompactHeroIntro } from "@/components/common/CompactHeroIntro";
 import { ShareButton } from "@/components/common/ShareButton";
 import { ProgressSteps } from "@/components/common/ProgressSteps";
 import { ReportChoiceButton as Btn } from "@/components/report/ReportChoiceButton";
@@ -413,51 +414,45 @@ function LiveReportPageInner() {
           )}
           <AccountLink iconSize={22} />
         </header>
-        <div className="zr-container pb-9 pt-4">
-          <Camera size={28} strokeWidth={1.6} className="text-[#dd8053]" aria-hidden="true" />
-          <p className="community-eyebrow mt-5">LIVE VIEW REPORT</p>
-          <h1 className="community-title mt-3">その席からの景色を、<br /><span className="text-[#dd8053]">次のファンへ。</span></h1>
-          <p className="community-subtitle mt-4">座席・見え方・会場の写真をまとめて共有できます。</p>
-        </div>
+        <CompactHeroIntro
+          title="現地の様子を報告する"
+          subtitle="座席・見え方・会場の写真を共有できます。"
+          icon={<Camera size={21} strokeWidth={1.8} className="text-[#dd8053]" />}
+        />
       </section>
 
         <div className="zr-container border-b border-[#eadfe4]"><ProgressSteps steps={["公演", "見え方", "完了"]} currentStep={step - 1} /></div>
 
         {/* Step 1：公演・座席・写真 */}
         {step === 1 && (
-          <main className="zr-container space-y-8 pb-12 pt-8">
-            {/* 公演選択 */}
-            <section className="community-panel p-5">
-              <div className="mb-0.5">
-                <p className="artist-kicker">01 / SELECT LIVE</p>
-                <h2 className="artist-heading">報告する公演</h2>
-              </div>
-              <EventCarouselPicker
-                events={events}
-                selectedEventId={selectedEvent}
-                loading={eventsLoading}
-                onSelect={(id) => {
-                  const targetEvent = events.find((e) => e.id === id);
-                  if (targetEvent) {
-                    const newVenueType = getVenueType(targetEvent.venue);
-                    const areas = SEAT_AREAS[newVenueType];
-                    if (seatArea !== "" && !areas.includes(seatArea)) {
-                      setSeatArea("");
-                      setBlockInfo("");
-                      setRow("");
-                      setSeatNumber("");
-                      setStandDirection("");
-                      setStandDirectionOther("");
-                      setStandFloor("");
-                      setStandFloorOther("");
-                      setOtherSeatInfo("");
-                    }
+          <>
+            <CompactEventPickerSection
+              headingId="live-event-picker-title"
+              title="報告する公演"
+              events={events}
+              selectedEventId={selectedEvent}
+              loading={eventsLoading}
+              onSelect={(id) => {
+                const targetEvent = events.find((e) => e.id === id);
+                if (targetEvent) {
+                  const newVenueType = getVenueType(targetEvent.venue);
+                  const areas = SEAT_AREAS[newVenueType];
+                  if (seatArea !== "" && !areas.includes(seatArea)) {
+                    setSeatArea("");
+                    setBlockInfo("");
+                    setRow("");
+                    setSeatNumber("");
+                    setStandDirection("");
+                    setStandDirectionOther("");
+                    setStandFloor("");
+                    setStandFloorOther("");
+                    setOtherSeatInfo("");
                   }
-                  setSelectedEvent(id);
-                }}
-              />
-            </section>
-
+                }
+                setSelectedEvent(id);
+              }}
+            />
+            <main className="zr-container space-y-8 pb-12 pt-4">
             {/* 座席情報 */}
             <section className="community-panel p-4 sm:p-5">
               <p className="artist-kicker">SEAT DETAIL</p>
@@ -801,7 +796,8 @@ function LiveReportPageInner() {
                 次へ進む
               </button>
             </div>
-          </main>
+            </main>
+          </>
         )}
 
         {/* Step 2：見え方チェック */}

@@ -10,7 +10,8 @@ import { getPostingContext, supabase } from "@/lib/supabase/client";
 import { resolveArtist } from "@/lib/artists";
 import { getEventsForArtist } from "@/lib/events";
 import { AccountLink } from "@/components/auth/AccountLink";
-import { EventCarouselPicker } from "@/components/common/EventPicker";
+import { CompactEventPickerSection } from "@/components/common/CompactEventPickerSection";
+import { CompactHeroIntro } from "@/components/common/CompactHeroIntro";
 import { ShareButton } from "@/components/common/ShareButton";
 import { ProgressSteps } from "@/components/common/ProgressSteps";
 import { ReportChoiceButton as Btn } from "@/components/report/ReportChoiceButton";
@@ -423,12 +424,11 @@ function TicketReportPageInner() {
           )}
           <AccountLink iconSize={22} />
         </header>
-        <div className="zr-container pb-9 pt-4">
-          <TicketCheck size={27} strokeWidth={1.6} className="text-[#e94a7d]" aria-hidden="true" />
-          <p className="community-eyebrow mt-5">TICKET &amp; SEAT REPORT</p>
-          <h1 className="community-title mt-3">当落と座席を、<br /><span className="text-[#e94a7d]">次の人へ。</span></h1>
-          <p className="community-subtitle mt-4">抽選結果と座席情報を匿名でも共有できます。</p>
-        </div>
+        <CompactHeroIntro
+          title="当落と座席を報告する"
+          subtitle="抽選結果と座席情報を共有できます。"
+          icon={<TicketCheck size={21} strokeWidth={1.8} className="text-[#e94a7d]" />}
+        />
       </section>
 
         {/* ステップインジケーター */}
@@ -436,29 +436,24 @@ function TicketReportPageInner() {
 
         {/* Step 1：当落確認 */}
         {step === 1 && (
-          <main className="zr-container space-y-8 pb-12 pt-8">
-            {/* 報告する公演 */}
-            <section className="community-panel p-5">
-              <div className="mb-4">
-                <p className="artist-kicker">01 / SELECT LIVE</p>
-                <h2 className="artist-heading">報告する公演</h2>
-              </div>
-              <EventCarouselPicker
-                events={events}
-                selectedEventId={selectedEvent}
-                loading={eventsLoading}
-                onSelect={(id) => {
-                  const targetEvent = events.find((e) => e.id === id);
-                  if (targetEvent) {
-                    const newVenueType = getVenueType(targetEvent.venue);
-                    const areas = SEAT_AREAS[newVenueType];
-                    if (seatArea !== "" && !areas.includes(seatArea)) setSeatArea("");
-                  }
-                  setSelectedEvent(id);
-                }}
-              />
-            </section>
-
+          <>
+            <CompactEventPickerSection
+              headingId="ticket-event-picker-title"
+              title="報告する公演"
+              events={events}
+              selectedEventId={selectedEvent}
+              loading={eventsLoading}
+              onSelect={(id) => {
+                const targetEvent = events.find((e) => e.id === id);
+                if (targetEvent) {
+                  const newVenueType = getVenueType(targetEvent.venue);
+                  const areas = SEAT_AREAS[newVenueType];
+                  if (seatArea !== "" && !areas.includes(seatArea)) setSeatArea("");
+                }
+                setSelectedEvent(id);
+              }}
+            />
+            <main className="zr-container space-y-8 pb-12 pt-4">
             {/* 今回の結果 */}
             <div>
               <p className="artist-kicker">CHOOSE RESULT</p>
@@ -503,7 +498,8 @@ function TicketReportPageInner() {
               </div>
 
             </div>
-          </main>
+            </main>
+          </>
         )}
 
         {/* Step 2：必須情報 */}

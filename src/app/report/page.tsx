@@ -12,6 +12,7 @@ import type { CrawledEvent } from "@/lib/types";
 import { AccountLink } from "@/components/auth/AccountLink";
 import { CompactEventPickerSection } from "@/components/common/CompactEventPickerSection";
 import { CompactEventSummary } from "@/components/common/CompactEventSummary";
+import { CompactHeroIntro } from "@/components/common/CompactHeroIntro";
 import { getEventsForArtist } from "@/lib/events";
 
 export default function ReportEntryPage() {
@@ -128,7 +129,7 @@ function ReportHero({
   selectedEvent: CrawledEvent | null;
 }) {
   return (
-    <section className="community-hero relative min-h-[300px] w-full overflow-hidden sm:min-h-[390px]">
+    <section className="community-hero relative w-full overflow-hidden">
 
       <header className="zr-container relative top-0 z-20 flex h-16 items-center justify-between">
         <Link
@@ -141,23 +142,20 @@ function ReportHero({
         <AccountLink iconSize={22} />
       </header>
 
-      <div className="zr-container relative z-10 pb-5 pt-3 sm:pb-8 sm:pt-8">
-        <p className="community-eyebrow">SHARE THE LIVE</p>
-        <h1 className="community-title mt-3">
-          あなたの一席が、<br /><span className="text-[#ef4f87]">次のファンへ届く。</span>
-        </h1>
-        <p className="community-subtitle mt-4">
-          {artistName ? `${artistName}の当落・座席表・会場の景色をファンへ` : "当落・座席表・会場の景色をファンへ"}
-        </p>
-
+      <CompactHeroIntro
+        title="ライブを報告する"
+        subtitle={artistName ? `${artistName}の当落・座席・現地情報を共有` : "当落・座席・現地情報を共有"}
+        icon={<Radio size={21} strokeWidth={1.8} className="text-[#ef4f87]" />}
+        className="relative z-10"
+      >
         {selectedEvent && (
           <CompactEventSummary
             date={selectedEvent.date}
             venue={selectedEvent.venue}
-            className="mt-4"
+            className="mt-3"
           />
         )}
-      </div>
+      </CompactHeroIntro>
     </section>
   );
 }
