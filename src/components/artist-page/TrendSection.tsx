@@ -5,6 +5,7 @@ import { CalendarDays, ChevronDown, CreditCard, Ticket, UsersRound } from "lucid
 import type { LucideIcon } from "lucide-react";
 import { computeTicketResultStats, computeArenaDetailStats, computeUpgradeDetailStats } from "@/lib/artistPageStats";
 import { detailRateText } from "@/lib/artistPageHelpers";
+import { SegmentedControl } from "@/components/common/SegmentedControl";
 
 type TicketStats = ReturnType<typeof computeTicketResultStats>;
 type ArenaStats = ReturnType<typeof computeArenaDetailStats>;
@@ -191,22 +192,16 @@ export default function TrendSection({ ticketStats, arenaStats, upgradeStats, ti
           </span>
         </button>
         {isArenaRateOpen && <div id="arena-rate-details">
-          <div className="grid grid-cols-2 border-y border-[#ded8dc] bg-white">
-          <button
-            type="button"
-            onClick={() => setActiveArenaTab("arena")}
-            className={`zr-focus min-h-12 border-r border-[#ded8dc] text-[12px] font-black transition-colors ${activeArenaTab === "arena" ? "bg-[#f43679] text-white" : "text-[#625a61] hover:bg-[#fff0f5]"}`}
-          >
-            通常アリーナ
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveArenaTab("upgrade")}
-            className={`zr-focus min-h-12 text-[12px] font-black transition-colors ${activeArenaTab === "upgrade" ? "bg-[#f43679] text-white" : "text-[#625a61] hover:bg-[#fff0f5]"}`}
-          >
-            アプグレ
-          </button>
-          </div>
+          <SegmentedControl
+            value={activeArenaTab}
+            onChange={setActiveArenaTab}
+            options={[
+              { value: "arena", label: "通常アリーナ" },
+              { value: "upgrade", label: "アプグレ" },
+            ]}
+            ariaLabel="アリーナ当選率の表示切替"
+            className="border-x-0 border-y"
+          />
           <div className="p-3 sm:p-5">
             <DataGrid groups={arenaGroups} accent />
           </div>

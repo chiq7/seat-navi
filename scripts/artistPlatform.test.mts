@@ -116,9 +116,17 @@ test("report and seat pages share the same compact event summary", () => {
   assert.doesNotMatch(eventDetailSource, />VENUE</);
 });
 
-test("seat map tabs and report choice buttons use shared UI components", () => {
+test("single-choice display controls use the shared segmented component", () => {
   const seatTabsSource = fs.readFileSync(
     path.join(projectRoot, "src/components/arena-map/SeatMapColorTabs.tsx"),
+    "utf8",
+  );
+  const trendSource = fs.readFileSync(
+    path.join(projectRoot, "src/components/artist-page/TrendSection.tsx"),
+    "utf8",
+  );
+  const segmentedSource = fs.readFileSync(
+    path.join(projectRoot, "src/components/common/SegmentedControl.tsx"),
     "utf8",
   );
   const mapSources = [
@@ -130,9 +138,12 @@ test("seat map tabs and report choice buttons use shared UI components", () => {
     "src/app/report/live/page.tsx",
   ].map((file) => fs.readFileSync(path.join(projectRoot, file), "utf8"));
 
-  assert.match(seatTabsSource, /grid grid-cols-4/);
-  assert.match(seatTabsSource, /min-h-12/);
-  assert.match(seatTabsSource, /aria-pressed=\{selected\}/);
+  assert.match(seatTabsSource, /<SegmentedControl/);
+  assert.match(seatTabsSource, /tone="seat"/);
+  assert.match(trendSource, /<SegmentedControl/);
+  assert.match(segmentedSource, /aria-pressed=\{selected\}/);
+  assert.match(segmentedSource, /min-h-11/);
+  assert.match(segmentedSource, /gridTemplateColumns/);
   for (const source of mapSources) {
     assert.match(source, /<SeatMapColorTabs/);
     assert.doesNotMatch(source, /const COLOR_TABS/);
