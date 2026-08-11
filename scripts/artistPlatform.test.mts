@@ -109,7 +109,7 @@ test("report and seat pages share the same compact event summary", () => {
 
   assert.match(reportEntrySource, /<CompactEventSummary/);
   assert.match(eventDetailSource, /<CompactEventSummary/);
-  assert.match(summarySource, /py-3/);
+  assert.match(summarySource, /py-2\.5/);
   assert.match(summarySource, /text-\[12px\]/);
   assert.match(summarySource, /data-event-summary/);
   assert.doesNotMatch(eventDetailSource, />LIVE DATE</);
@@ -147,6 +147,30 @@ test("seat map tabs and report choice buttons use shared UI components", () => {
   );
   assert.match(reportChoiceSource, /aria-pressed=\{selected\}/);
   assert.match(reportChoiceSource, /data-report-choice/);
+});
+
+test("report and seat pages share the compact event picker section", () => {
+  const compactPickerSource = fs.readFileSync(
+    path.join(projectRoot, "src/components/common/CompactEventPickerSection.tsx"),
+    "utf8",
+  );
+  const summarySource = fs.readFileSync(
+    path.join(projectRoot, "src/components/common/CompactEventSummary.tsx"),
+    "utf8",
+  );
+  const pageSources = [
+    "src/app/report/page.tsx",
+    "src/app/events/[id]/EventDetailClient.tsx",
+  ].map((file) => fs.readFileSync(path.join(projectRoot, file), "utf8"));
+
+  assert.match(compactPickerSource, /data-compact-event-picker/);
+  assert.match(compactPickerSource, /text-\[18px\]/);
+  assert.match(compactPickerSource, /<EventCarouselPicker/);
+  assert.match(summarySource, /grid-cols-\[auto_minmax\(0,1fr\)\]/);
+  for (const source of pageSources) {
+    assert.match(source, /<CompactEventPickerSection/);
+    assert.doesNotMatch(source, /<EventCarouselPicker/);
+  }
 });
 
 test("fan board X handles and prediction image cleanup keep narrow database rules", () => {

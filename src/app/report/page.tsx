@@ -10,7 +10,7 @@ import { supabase } from "@/lib/supabase/client";
 import { resolveArtist } from "@/lib/artists";
 import type { CrawledEvent } from "@/lib/types";
 import { AccountLink } from "@/components/auth/AccountLink";
-import { EventCarouselPicker } from "@/components/common/EventPicker";
+import { CompactEventPickerSection } from "@/components/common/CompactEventPickerSection";
 import { CompactEventSummary } from "@/components/common/CompactEventSummary";
 import { getEventsForArtist } from "@/lib/events";
 
@@ -94,24 +94,17 @@ function ReportEntryPageInner() {
     <main className="community-page pb-20 font-sans">
       <ReportHero artistName={artist?.name} backHref={backHref} backLabel={backLabel} selectedEvent={selectedEvent} />
 
-      <section className="zr-container py-5 sm:py-6" aria-labelledby="report-event-title">
-        <div className="flex items-end justify-between gap-4">
-          <div>
-            <p className="artist-kicker">Select Your Live</p>
-            <h2 id="report-event-title" className="mt-2 text-[23px] font-black tracking-[-0.04em]">報告する公演</h2>
-          </div>
-          <Radio size={21} strokeWidth={1.8} className="text-[#f43679]" />
-        </div>
-        <EventCarouselPicker
-          events={events}
-          selectedEventId={selectedId}
-          onSelect={setSelectedId}
-          loading={loading}
-          eyebrow="SELECT YOUR LIVE"
-          includeTitle
-          className="mt-4"
-        />
-      </section>
+      <CompactEventPickerSection
+        headingId="report-event-title"
+        title="報告する公演"
+        side={<Radio size={19} strokeWidth={1.8} className="text-[#f43679]" aria-hidden="true" />}
+        events={events}
+        selectedEventId={selectedId}
+        onSelect={setSelectedId}
+        loading={loading}
+        eyebrow="SELECT YOUR LIVE"
+        includeTitle
+      />
 
       <ReportEventSelector
         selectedEvent={selectedEvent}

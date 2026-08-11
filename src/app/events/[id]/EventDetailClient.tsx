@@ -18,7 +18,7 @@ import { EventArenaMap } from "@/components/arena-map/EventArenaMap";
 import { SeatMapColorTabs } from "@/components/arena-map/SeatMapColorTabs";
 import { BottomNav } from "@/components/common/BottomNav";
 import { SeatPredictionCard } from "@/components/common/SeatPredictionCard";
-import { EventCarouselPicker } from "@/components/common/EventPicker";
+import { CompactEventPickerSection } from "@/components/common/CompactEventPickerSection";
 import { CompactEventSummary } from "@/components/common/CompactEventSummary";
 import { ShareButton } from "@/components/common/ShareButton";
 import { AccountLink } from "@/components/auth/AccountLink";
@@ -317,31 +317,27 @@ export function EventDetailClient({
               </div>
             </section>
 
-          <section className="zr-container py-6" aria-labelledby="event-picker-title">
-              <div className="flex items-end justify-between gap-4">
-                <div>
-                  <p className="artist-kicker">Select Live Date</p>
-                  <h2 id="event-picker-title" className="mt-2 text-[23px] font-black tracking-[-0.04em]">公演日を切り替える</h2>
-                </div>
-                <p className="shrink-0 text-[10px] font-black text-[#817981]">{allRelatedEvents.length} DATES</p>
-              </div>
-              <div className="mt-4">
-                <EventCarouselPicker
-                  events={allRelatedEvents}
-                  selectedEventId={eventId}
-                  onSelect={(id) => router.push(`/events/${id}`)}
-                  artistName={artist?.name}
-                />
-              </div>
-              {event.venue_id && (
+          <CompactEventPickerSection
+            headingId="event-picker-title"
+            title="公演を切り替える"
+            side={
+              <p className="text-[10px] font-black text-[#817981]">
+                {allRelatedEvents.length}公演
+              </p>
+            }
+            events={allRelatedEvents}
+            selectedEventId={eventId}
+            onSelect={(id) => router.push(`/events/${id}`)}
+            artistName={artist?.name}
+            footer={event.venue_id ? (
                 <Link
                   href={`/venues/${event.venue_id}`}
-                  className="zr-focus mt-4 inline-flex min-h-11 items-center gap-2 text-[12px] font-black text-[#f43679]"
+                  className="zr-focus mt-2 inline-flex min-h-11 items-center gap-2 text-[11px] font-black text-[#f43679] sm:text-[12px]"
                 >
                   <MapPin size={15} />{event.venue}の会場・座席表をもっと見る →
                 </Link>
-              )}
-            </section>
+              ) : null}
+          />
 
           <section className="py-8 sm:py-10" aria-labelledby="seat-map-title">
               <div className="zr-container">
