@@ -297,7 +297,9 @@ export default function FanSeatPredictionPage({
           <AccountLink iconSize={22} />
         </header>
         <CompactHeroIntro
-          title="アリーナ予想図を投稿する"
+          eyebrow="FAN SEAT PREDICTION"
+          title="アリーナ予想図を"
+          accent="投稿する"
           subtitle="花道・センステ・外周などの構成予想を投稿できます。"
           icon={<MapIcon size={21} strokeWidth={1.8} className="text-[#6176d7]" />}
         />

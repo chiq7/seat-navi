@@ -188,6 +188,8 @@ test("core report flows use one-line functional hero titles and the compact even
 
   assert.match(heroSource, /whitespace-nowrap/);
   assert.match(heroSource, /data-compact-hero-intro/);
+  assert.match(heroSource, /text-\[#ef4f87\]/);
+  assert.match(heroSource, /tracking-\[0\.17em\]/);
   for (const source of pageSources) {
     assert.match(source, /<CompactHeroIntro/);
   }
@@ -195,7 +197,9 @@ test("core report flows use one-line functional hero titles and the compact even
     assert.match(source, /<CompactEventPickerSection/);
     assert.doesNotMatch(source, /<EventCarouselPicker/);
   }
-  assert.match(pageSources[1], /title="当落と座席を報告する"/);
+  assert.match(pageSources[1], /eyebrow="TICKET & SEAT REPORT"/);
+  assert.match(pageSources[1], /title="当落と座席を"/);
+  assert.match(pageSources[1], /accent="報告する"/);
 });
 
 test("fan board X handles and prediction image cleanup keep narrow database rules", () => {

@@ -306,7 +306,9 @@ export function EventDetailClient({
               </header>
 
               <CompactHeroIntro
-                title="座席表とアリーナ予想"
+                eyebrow="VENUE SEAT GUIDE"
+                title="座席表と"
+                accent="アリーナ予想"
                 subtitle={event.title}
                 icon={<Sparkles size={21} strokeWidth={1.8} className="text-[#6176d7]" />}
               >

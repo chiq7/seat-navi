@@ -415,7 +415,9 @@ function LiveReportPageInner() {
           <AccountLink iconSize={22} />
         </header>
         <CompactHeroIntro
-          title="現地の様子を報告する"
+          eyebrow="LIVE VIEW REPORT"
+          title="現地の様子を"
+          accent="報告する"
           subtitle="座席・見え方・会場の写真を共有できます。"
           icon={<Camera size={21} strokeWidth={1.8} className="text-[#dd8053]" />}
         />

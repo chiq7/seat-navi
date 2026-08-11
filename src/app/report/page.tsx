@@ -143,7 +143,9 @@ function ReportHero({
       </header>
 
       <CompactHeroIntro
-        title="ライブを報告する"
+        eyebrow="SHARE THE LIVE"
+        title="ライブを"
+        accent="報告する"
         subtitle={artistName ? `${artistName}の当落・座席・現地情報を共有` : "当落・座席・現地情報を共有"}
         icon={<Radio size={21} strokeWidth={1.8} className="text-[#ef4f87]" />}
         className="relative z-10"

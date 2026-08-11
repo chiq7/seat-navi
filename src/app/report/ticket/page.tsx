@@ -425,7 +425,9 @@ function TicketReportPageInner() {
           <AccountLink iconSize={22} />
         </header>
         <CompactHeroIntro
-          title="当落と座席を報告する"
+          eyebrow="TICKET & SEAT REPORT"
+          title="当落と座席を"
+          accent="報告する"
           subtitle="抽選結果と座席情報を共有できます。"
           icon={<TicketCheck size={21} strokeWidth={1.8} className="text-[#e94a7d]" />}
         />
