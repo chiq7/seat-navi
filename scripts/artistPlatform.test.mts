@@ -160,6 +160,29 @@ test("single-choice display controls use the shared segmented component", () => 
   assert.match(reportChoiceSource, /data-report-choice/);
 });
 
+test("core posting flows share compact primary and secondary form actions", () => {
+  const actionsSource = fs.readFileSync(
+    path.join(projectRoot, "src/components/common/FormActions.tsx"),
+    "utf8",
+  );
+  const ticketSource = fs.readFileSync(path.join(projectRoot, "src/app/report/ticket/page.tsx"), "utf8");
+  const liveSource = fs.readFileSync(path.join(projectRoot, "src/app/report/live/page.tsx"), "utf8");
+  const predictionSource = fs.readFileSync(
+    path.join(projectRoot, "src/app/events/[id]/fan-seat-prediction/page.tsx"),
+    "utf8",
+  );
+
+  assert.match(actionsSource, /data-form-actions/);
+  assert.match(actionsSource, /data-form-action=\{variant\}/);
+  assert.match(actionsSource, /min-h-\[52px\]/);
+  assert.match(actionsSource, /min-h-11/);
+  for (const source of [ticketSource, liveSource, predictionSource]) {
+    assert.match(source, /<FormActionGroup/);
+    assert.match(source, /<FormActionButton/);
+  }
+  assert.match(predictionSource, /<FormActionLink href=\{`\/events\/\$\{selectedEventId\}`\}/);
+});
+
 test("report and seat pages share the compact event picker section", () => {
   const compactPickerSource = fs.readFileSync(
     path.join(projectRoot, "src/components/common/CompactEventPickerSection.tsx"),

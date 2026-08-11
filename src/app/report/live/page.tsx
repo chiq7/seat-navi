@@ -13,6 +13,7 @@ import { CompactHeroIntro } from "@/components/common/CompactHeroIntro";
 import { ShareButton } from "@/components/common/ShareButton";
 import { ProgressSteps } from "@/components/common/ProgressSteps";
 import { Header } from "@/components/common/Header";
+import { FormActionButton, FormActionGroup } from "@/components/common/FormActions";
 import { ReportChoiceButton as Btn } from "@/components/report/ReportChoiceButton";
 
 function randomId() {
@@ -773,20 +774,14 @@ function LiveReportPageInner() {
               </div>
             </section>
 
-            <div className="mt-5">
-              <button
-                type="button"
+            <FormActionGroup>
+              <FormActionButton
                 onClick={() => { if (step1CanProceed) setStep(2); }}
                 disabled={!step1CanProceed}
-                className={`zr-focus flex min-h-[52px] w-full items-center justify-center text-[13px] font-black text-white transition-opacity ${
-                  step1CanProceed
-                    ? "bg-[#f43679]"
-                    : "cursor-not-allowed bg-[#f43679]/35"
-                }`}
               >
                 次へ進む
-              </button>
-            </div>
+              </FormActionButton>
+            </FormActionGroup>
             </main>
           </>
         )}
@@ -845,24 +840,21 @@ function LiveReportPageInner() {
               <div className="border border-red-200 bg-red-50 px-4 py-3 text-[12px] font-bold text-red-600">{error}</div>
             )}
 
-            <div className="mt-5">
-              <button
-                type="button"
+            <FormActionGroup>
+              <FormActionButton
                 onClick={handleSubmit}
                 disabled={submitting}
-                className="zr-focus flex min-h-[52px] w-full items-center justify-center gap-2 bg-[#f43679] text-[13px] font-black text-white transition-opacity disabled:opacity-50"
               >
                 <Send size={16} aria-hidden="true" />
                 {submitting ? "投稿中..." : "投稿する"}
-              </button>
-              <button
-                type="button"
+              </FormActionButton>
+              <FormActionButton
+                variant="secondary"
                 onClick={() => setStep(1)}
-                className="zr-focus mt-2 flex min-h-12 w-full items-center justify-center border border-[#ded8dc] bg-transparent text-[12px] font-black text-[#817981]"
               >
                 戻る
-              </button>
-            </div>
+              </FormActionButton>
+            </FormActionGroup>
           </main>
         )}
 

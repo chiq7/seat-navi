@@ -16,6 +16,7 @@ import { ShareButton } from "@/components/common/ShareButton";
 import { EventArenaMap } from "@/components/arena-map/EventArenaMap";
 import { ProgressSteps } from "@/components/common/ProgressSteps";
 import { Header } from "@/components/common/Header";
+import { FormActionButton, FormActionGroup, FormActionLink } from "@/components/common/FormActions";
 
 const EVENT_COLUMNS = "id, title, venue, venue_id, date, genre, lottery_types, artist_slug";
 
@@ -457,26 +458,19 @@ export default function FanSeatPredictionPage({
             <div className="border border-red-200 bg-red-50 px-4 py-3 text-[11px] font-bold text-red-600">{error}</div>
           )}
 
-          <button
-            type="button"
+          <FormActionGroup>
+          <FormActionButton
             disabled={!file || submitting}
             onClick={handleSubmit}
-            className={`zr-focus flex min-h-[52px] w-full items-center justify-center gap-2 text-[13px] font-black text-white transition-opacity ${
-              file && !submitting
-                ? "bg-[#f43679]"
-                : "cursor-not-allowed bg-[#f43679]/35"
-            }`}
           >
             <Send size={16} aria-hidden="true" />
             {submitting ? "投稿中..." : "予想図を投稿する"}
-          </button>
+          </FormActionButton>
 
-          <Link
-            href={`/events/${selectedEventId}`}
-            className="zr-focus flex min-h-12 w-full items-center justify-center border border-[#ded8dc] bg-transparent text-[12px] font-black text-[#817981]"
-          >
+          <FormActionLink href={`/events/${selectedEventId}`}>
             キャンセル
-          </Link>
+          </FormActionLink>
+          </FormActionGroup>
         </main>
 
         <BottomNav active="event" artistSlug={artistSlug} eventId={selectedEventId} />
