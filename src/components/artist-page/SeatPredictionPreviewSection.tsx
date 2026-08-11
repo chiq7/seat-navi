@@ -3,6 +3,7 @@ import { ArrowRight, MapPinned, PenLine } from "lucide-react";
 import type { SeatReport } from "@/lib/types";
 import MapPreviewSection from "@/components/artist-page/MapPreviewSection";
 import { SeatPredictionCard } from "@/components/common/SeatPredictionCard";
+import { SelectControl } from "@/components/common/SelectControl";
 import type { PostAuthor } from "@/lib/postAuthors";
 
 type MapEvent = {
@@ -63,14 +64,14 @@ export default function SeatPredictionPreviewSection({
             </div>
             <label className="relative block border-t border-[#ded8dc] bg-[#eef0ff] px-4 py-2.5">
               <span className="sr-only">会場を選択</span>
-              <select
+              <SelectControl
                 value={activeVenue ?? ""}
                 onChange={(event) => onSelectVenue?.(event.target.value)}
-                className="zr-focus h-11 w-full appearance-none border-0 bg-transparent pr-8 text-[12px] font-black text-[#5165c6] outline-none"
+                variant="bare"
+                tone="seat"
               >
                 {venues.map(({ venue }) => <option key={venue} value={venue}>{venue}</option>)}
-              </select>
-              <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#6176d7]" aria-hidden="true">⌄</span>
+              </SelectControl>
             </label>
           </div>
         )}

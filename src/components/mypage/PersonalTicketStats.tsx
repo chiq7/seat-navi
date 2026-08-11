@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { Download, Share2 } from "lucide-react";
+import { SelectControl } from "@/components/common/SelectControl";
 import TrendSection from "@/components/artist-page/TrendSection";
 import { findArtistBySlug } from "@/lib/artists";
 import {
@@ -166,16 +167,16 @@ export function PersonalTicketStats({ ticketPosts, eventMap, displayName }: Prop
         </div>
         <div className="mt-3 grid grid-cols-2 gap-2">
           <label className="text-[9px] font-bold text-gray-500">アーティスト
-            <select value={artistFilter} onChange={(event) => setArtistFilter(event.target.value)} className="zr-focus mt-1 h-11 w-full border border-[#cfc8cc] bg-white px-2 text-[11px] font-bold text-[#1c171b] outline-none focus:border-[#f43679]">
+            <SelectControl className="mt-1" value={artistFilter} onChange={(event) => setArtistFilter(event.target.value)}>
               <option value="all">すべて</option>
               {artistOptions.map((artist) => <option key={artist.slug} value={artist.slug}>{artist.name}</option>)}
-            </select>
+            </SelectControl>
           </label>
           <label className="text-[9px] font-bold text-gray-500">期間
-            <select value={yearFilter} onChange={(event) => setYearFilter(event.target.value)} className="zr-focus mt-1 h-11 w-full border border-[#cfc8cc] bg-white px-2 text-[11px] font-bold text-[#1c171b] outline-none focus:border-[#f43679]">
+            <SelectControl className="mt-1" value={yearFilter} onChange={(event) => setYearFilter(event.target.value)}>
               <option value="all">全期間</option>
               {yearOptions.map((year) => <option key={year} value={year}>{year}年</option>)}
-            </select>
+            </SelectControl>
           </label>
         </div>
         <div className="mt-4 overflow-hidden rounded-[20px] border border-[#f2d6e1] bg-[#fff0f5] p-4 text-[#51454c] sm:p-5">

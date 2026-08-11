@@ -7,6 +7,7 @@ import { getOfficialNewsSummary, queryAllOfficialNewsForArtist } from "@/lib/off
 import type { OfficialNews, OfficialNewsCategory } from "@/lib/types";
 import { OFFICIAL_NEWS_CATEGORY_LABELS } from "@/lib/types";
 import { Header } from "@/components/common/Header";
+import { SelectControl } from "@/components/common/SelectControl";
 import { BottomNav } from "@/components/common/BottomNav";
 
 function fmtPublishedDate(d: string | null): string {
@@ -78,18 +79,17 @@ export default function ArtistNewsPage({ params }: { params: Promise<{ slug: str
         </div>
 
         {categoryOptions.length > 0 && (
-        <label className="community-panel mt-7 block p-4">
-            <span className="mb-2 block text-[9px] font-black tracking-[0.2em] text-[#817981]">CATEGORY</span>
-            <select
+          <label className="mt-5 block max-w-[260px]">
+            <span className="mb-1.5 block text-[9px] font-black tracking-[0.2em] text-[#817981]">CATEGORY</span>
+            <SelectControl
               value={filterCategory}
               onChange={(e) => setFilterCategory(e.target.value as "all" | OfficialNewsCategory)}
-              className="zr-focus h-11 w-full border-0 bg-transparent text-[13px] font-black text-[#1c171b] outline-none"
             >
               <option value="all">すべてのニュース</option>
               {categoryOptions.map((c) => (
                 <option key={c} value={c}>{OFFICIAL_NEWS_CATEGORY_LABELS[c]}</option>
               ))}
-            </select>
+            </SelectControl>
           </label>
         )}
 

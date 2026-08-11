@@ -930,6 +930,30 @@ test("all page-level flows share one compact fixed header without fixing their c
   }
 });
 
+test("native select controls share one compact mobile treatment", () => {
+  const selectControl = fs.readFileSync(
+    path.join(projectRoot, "src/components/common/SelectControl.tsx"),
+    "utf8",
+  );
+  const selectUsers = [
+    "src/components/common/EventPicker.tsx",
+    "src/app/artists/[slug]/after-reports/page.tsx",
+    "src/app/artists/[slug]/news/page.tsx",
+    "src/components/artist-page/SeatPredictionPreviewSection.tsx",
+    "src/components/mypage/PersonalTicketStats.tsx",
+  ].map((file) => fs.readFileSync(path.join(projectRoot, file), "utf8"));
+
+  assert.match(selectControl, /h-11 w-full appearance-none rounded-\[12px\]/);
+  assert.match(selectControl, /variant\?: "field" \| "bare"/);
+  assert.match(selectControl, /tone\?: "neutral" \| "seat"/);
+  for (const source of selectUsers) {
+    assert.match(source, /<SelectControl/);
+    assert.doesNotMatch(source, /<select/);
+  }
+  assert.match(selectUsers[0], /variant="bare"/);
+  assert.match(selectUsers[3], /tone="seat"/);
+});
+
 test("configured hero image has a runtime missing-file fallback", () => {
   const hero = fs.readFileSync(
     path.join(projectRoot, "src/components/artist-page/HeroSection.tsx"),

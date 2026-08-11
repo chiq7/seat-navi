@@ -1,8 +1,9 @@
 "use client";
 
 import { useId, useMemo } from "react";
-import { CalendarDays, ChevronDown } from "lucide-react";
+import { CalendarDays } from "lucide-react";
 import { parseEventTitle } from "@/lib/eventTitle";
+import { SelectControl } from "@/components/common/SelectControl";
 
 /** ページごとに列が異なる公演行データを吸収するための最小限の形 */
 export type PickerEvent = {
@@ -265,27 +266,26 @@ export function EventCarouselPicker<T extends PickerEvent>({
           <CalendarDays size={14} strokeWidth={1.8} aria-hidden="true" />
           {eyebrow}
         </span>
-        <span className="relative mt-1 block">
-          <select
-            id={selectId}
-            value={selectedEventId ?? ""}
-            onChange={(event) => onSelect(event.target.value)}
-            className="zr-focus h-11 w-full appearance-none truncate border-0 bg-transparent pr-10 text-[13px] font-black tracking-[-0.02em] text-[#40383d] outline-none"
-          >
-            {!selectedEventId && <option value="">公演を選択してください</option>}
-            {upcoming.length > 0 && (
-              <optgroup label="開催予定">
-                {upcoming.map((event) => <option key={event.id} value={event.id}>{optionLabel(event)}</option>)}
-              </optgroup>
-            )}
-            {past.length > 0 && (
-              <optgroup label="過去公演">
-                {past.map((event) => <option key={event.id} value={event.id}>{optionLabel(event)}</option>)}
-              </optgroup>
-            )}
-          </select>
-          <ChevronDown size={20} strokeWidth={1.8} className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 text-[#817981]" aria-hidden="true" />
-        </span>
+        <SelectControl
+          className="mt-1"
+          id={selectId}
+          value={selectedEventId ?? ""}
+          onChange={(event) => onSelect(event.target.value)}
+          variant="bare"
+          selectClassName="truncate text-[13px] tracking-[-0.02em]"
+        >
+          {!selectedEventId && <option value="">公演を選択してください</option>}
+          {upcoming.length > 0 && (
+            <optgroup label="開催予定">
+              {upcoming.map((event) => <option key={event.id} value={event.id}>{optionLabel(event)}</option>)}
+            </optgroup>
+          )}
+          {past.length > 0 && (
+            <optgroup label="過去公演">
+              {past.map((event) => <option key={event.id} value={event.id}>{optionLabel(event)}</option>)}
+            </optgroup>
+          )}
+        </SelectControl>
       </label>
     </div>
   );

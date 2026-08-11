@@ -26,6 +26,7 @@ import {
 import { BottomNav } from "@/components/common/BottomNav";
 import { PostAuthorLink } from "@/components/common/PostAuthorLink";
 import { Header } from "@/components/common/Header";
+import { SelectControl } from "@/components/common/SelectControl";
 import { fetchVisiblePostAuthors, type PostAuthor } from "@/lib/postAuthors";
 import {
   DEFAULT_ARTIST_HERO_IMAGE,
@@ -270,42 +271,39 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
           <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3">
             <label className="col-span-2 min-w-0 sm:col-span-1">
               <span className="mb-1.5 block text-[9px] font-black tracking-[0.14em] text-[#817981]">公演・会場</span>
-              <select
+              <SelectControl
                 value={filterDate}
                 onChange={(event) => setFilterDate(event.target.value)}
-                className="community-input h-12 w-full min-w-0 px-3 text-[12px] font-bold"
               >
                 <option value="all">すべての公演</option>
                 {dateOptions.map((option) => (
                   <option key={option.id} value={option.id}>{option.label}</option>
                 ))}
-              </select>
+              </SelectControl>
             </label>
             <label className="min-w-0">
               <span className="mb-1.5 block text-[9px] font-black tracking-[0.14em] text-[#817981]">座席エリア</span>
-              <select
+              <SelectControl
                 value={filterArea}
                 onChange={(event) => setFilterArea(event.target.value)}
-                className="community-input h-12 w-full min-w-0 px-3 text-[12px] font-bold"
               >
                 <option value="all">すべてのエリア</option>
                 {areaOptions.map((area) => (
                   <option key={area} value={area}>{seatAreaLabel(area)}</option>
                 ))}
-              </select>
+              </SelectControl>
             </label>
             <label className="min-w-0">
               <span className="mb-1.5 block text-[9px] font-black tracking-[0.14em] text-[#817981]">座席ブロック</span>
-              <select
+              <SelectControl
                 value={filterBlock}
                 onChange={(event) => setFilterBlock(event.target.value)}
-                className="community-input h-12 w-full min-w-0 px-3 text-[12px] font-bold"
               >
                 <option value="all">すべてのブロック</option>
                 {blockOptions.map((block) => (
                   <option key={block} value={block}>{block}</option>
                 ))}
-              </select>
+              </SelectControl>
             </label>
           </div>
 
