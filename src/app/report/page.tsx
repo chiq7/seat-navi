@@ -2,7 +2,7 @@
 
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { CalendarDays, ChevronLeft, MapPin, Radio } from "lucide-react";
+import { ChevronLeft, Radio } from "lucide-react";
 import Link from "next/link";
 import { BottomNav } from "@/components/common/BottomNav";
 import { ReportEventSelector } from "@/components/report/ReportEventSelector";
@@ -11,13 +11,8 @@ import { resolveArtist } from "@/lib/artists";
 import type { CrawledEvent } from "@/lib/types";
 import { AccountLink } from "@/components/auth/AccountLink";
 import { EventCarouselPicker } from "@/components/common/EventPicker";
-
-function fmtDate(date: string | null): string {
-  if (!date) return "日程未定";
-  const [year, month, day] = date.split("-").map(Number);
-  const week = ["日", "月", "火", "水", "木", "金", "土"][new Date(year, month - 1, day).getDay()];
-  return `${year}.${String(month).padStart(2, "0")}.${String(day).padStart(2, "0")}（${week}）`;
-}
+import { CompactEventSummary } from "@/components/common/CompactEventSummary";
+import { getEventsForArtist } from "@/lib/events";
 
 export default function ReportEntryPage() {
   return (
@@ -37,18 +32,25 @@ function ReportEntryPageInner() {
     async function load() {
       const preselectedEventId = searchParams.get("event");
       const preselectedArtistSlug = searchParams.get("artist");
-      const { data } = await supabase
-        .from("events")
-        .select("id, title, venue, venue_id, date, genre, lottery_types, artist_slug")
-        .order("date", { ascending: false })
-        .limit(50);
-      let list = (data as CrawledEvent[]) ?? [];
+      let list: CrawledEvent[];
+      if (preselectedArtistSlug) {
+        list = (await getEventsForArtist(preselectedArtistSlug)).sort((a, b) =>
+          (b.date ?? "").localeCompare(a.date ?? ""),
+        );
+      } else {
+        const { data } = await supabase
+          .from("events")
+          .select("id, title, venue, venue_id, date, genre, lottery_types, artist_slug")
+          .order("date", { ascending: false })
+          .limit(50);
+        list = (data as CrawledEvent[]) ?? [];
+      }
 
       let initial: string | undefined;
       if (preselectedEventId) {
         if (list.some((e) => e.id === preselectedEventId)) {
           initial = preselectedEventId;
-        } else {
+        } else if (!preselectedArtistSlug) {
           const { data: single } = await supabase
             .from("events")
             .select("id, title, venue, venue_id, date, genre, lottery_types, artist_slug")
@@ -156,16 +158,11 @@ function ReportHero({
         </p>
 
         {selectedEvent && (
-          <div className="mt-4 grid rounded-[20px] border border-white/80 bg-white/72 px-4 shadow-sm backdrop-blur-sm sm:grid-cols-2">
-            <div className="flex items-center gap-3 py-3 sm:border-r sm:border-[#eadfe4] sm:pr-5">
-              <CalendarDays size={17} className="shrink-0 text-[#ef4f87]" />
-              <p className="text-[12px] font-black">{fmtDate(selectedEvent.date)}</p>
-            </div>
-            <div className="flex min-w-0 items-center gap-3 border-t border-[#eadfe4] py-3 sm:border-t-0 sm:pl-5">
-              <MapPin size={17} className="shrink-0 text-[#ef4f87]" />
-              <p className="truncate text-[12px] font-black">{selectedEvent.venue}</p>
-            </div>
-          </div>
+          <CompactEventSummary
+            date={selectedEvent.date}
+            venue={selectedEvent.venue}
+            className="mt-4"
+          />
         )}
       </div>
     </section>

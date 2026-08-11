@@ -4,7 +4,6 @@ import { use, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
-  CalendarDays,
   ChevronLeft,
   Crown,
   MapPin,
@@ -23,6 +22,7 @@ import { EventArenaMap } from "@/components/arena-map/EventArenaMap";
 import { BottomNav } from "@/components/common/BottomNav";
 import { SeatPredictionCard } from "@/components/common/SeatPredictionCard";
 import { EventCarouselPicker } from "@/components/common/EventPicker";
+import { CompactEventSummary } from "@/components/common/CompactEventSummary";
 import { ShareButton } from "@/components/common/ShareButton";
 import { AccountLink } from "@/components/auth/AccountLink";
 import { fetchVisiblePostAuthors, type PostAuthor } from "@/lib/postAuthors";
@@ -323,22 +323,7 @@ export function EventDetailClient({
                   {event.title}
                 </p>
 
-            <div className="mt-7 grid rounded-[22px] border border-white/80 bg-white/72 px-4 shadow-sm backdrop-blur-sm sm:grid-cols-2">
-              <div className="flex items-center gap-3 py-4 sm:border-r sm:border-[#eadfe4] sm:pr-5">
-                <CalendarDays size={18} className="shrink-0 text-[#ef4f87]" />
-                    <div>
-                  <p className="text-[9px] font-black tracking-[0.14em] text-[#958d93]">LIVE DATE</p>
-                      <p className="mt-1 text-[16px] font-black">{fmtShortDate(event.date)}</p>
-                    </div>
-                  </div>
-              <div className="flex items-center gap-3 border-t border-[#eadfe4] py-4 sm:border-t-0 sm:pl-5">
-                <MapPin size={18} className="shrink-0 text-[#ef4f87]" />
-                    <div className="min-w-0">
-                  <p className="text-[9px] font-black tracking-[0.14em] text-[#958d93]">VENUE</p>
-                      <p className="mt-1 truncate text-[16px] font-black">{event.venue}</p>
-                    </div>
-                  </div>
-                </div>
+            <CompactEventSummary date={event.date} venue={event.venue} className="mt-5" />
               </div>
             </section>
 

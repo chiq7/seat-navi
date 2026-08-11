@@ -81,6 +81,9 @@ test("generic report entry waits for the user to choose a performance", () => {
 
   assert.match(reportEntrySource, /const preselectedEventId = searchParams\.get\("event"\)/);
   assert.match(reportEntrySource, /const preselectedArtistSlug = searchParams\.get\("artist"\)/);
+  assert.match(reportEntrySource, /preselectedArtistSlug\) \{\s*list = \(await getEventsForArtist\(preselectedArtistSlug\)\)\.sort/);
+  assert.match(reportEntrySource, /\(b\.date \?\? ""\)\.localeCompare\(a\.date \?\? ""\)/);
+  assert.match(reportEntrySource, /else if \(!preselectedArtistSlug\)/);
   assert.match(reportEntrySource, /setSelectedId\(initial \?\? null\)/);
   assert.doesNotMatch(reportEntrySource, /initial = list\.find\(\(e\) => e\.artist_slug \?\?/);
   assert.doesNotMatch(reportEntrySource, /initial = list\[0\]\.id/);
@@ -88,6 +91,29 @@ test("generic report entry waits for the user to choose a performance", () => {
     eventPickerSource,
     /!selectedEventId && <option value="">公演を選択してください<\/option>/,
   );
+});
+
+test("report and seat pages share the same compact event summary", () => {
+  const reportEntrySource = fs.readFileSync(
+    path.join(projectRoot, "src/app/report/page.tsx"),
+    "utf8",
+  );
+  const eventDetailSource = fs.readFileSync(
+    path.join(projectRoot, "src/app/events/[id]/EventDetailClient.tsx"),
+    "utf8",
+  );
+  const summarySource = fs.readFileSync(
+    path.join(projectRoot, "src/components/common/CompactEventSummary.tsx"),
+    "utf8",
+  );
+
+  assert.match(reportEntrySource, /<CompactEventSummary/);
+  assert.match(eventDetailSource, /<CompactEventSummary/);
+  assert.match(summarySource, /py-3/);
+  assert.match(summarySource, /text-\[12px\]/);
+  assert.match(summarySource, /data-event-summary/);
+  assert.doesNotMatch(eventDetailSource, />LIVE DATE</);
+  assert.doesNotMatch(eventDetailSource, />VENUE</);
 });
 
 test("fan board X handles and prediction image cleanup keep narrow database rules", () => {
