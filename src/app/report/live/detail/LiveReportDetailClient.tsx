@@ -4,7 +4,7 @@ import { Suspense, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { ChevronLeft, ChevronRight, ExternalLink, MapPinned } from "lucide-react";
+import { ChevronRight, ExternalLink, MapPinned } from "lucide-react";
 import { supabase } from "@/lib/supabase/client";
 import { resolveArtist } from "@/lib/artists";
 import { parseEventTitle } from "@/lib/eventTitle";
@@ -12,6 +12,7 @@ import type { CrawledEvent } from "@/lib/types";
 import { fmtDate } from "@/lib/artistPageHelpers";
 import { AccountLink } from "@/components/auth/AccountLink";
 import { ShareButton } from "@/components/common/ShareButton";
+import { StickyHeroHeader } from "@/components/common/StickyHeroHeader";
 
 const RATING_IMAGES: Record<number, string> = {
   5: "/images/reports/overall-rating/rating-5-kamiseki.png",
@@ -270,17 +271,21 @@ function LiveReportDetailPageInner() {
   return (
     <div className="community-page pb-20 font-sans">
       <section className="community-hero">
-        <header className="zr-container flex h-16 items-center justify-between">
-          <Link href={backHref} aria-label="現地レポ一覧へ戻る" className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-[#2b252b] shadow-sm"><ChevronLeft size={26} /></Link>
-          <div className="flex items-center gap-1">
-            <AccountLink iconSize={22} />
-            <ShareButton
-              url={`${typeof window !== "undefined" ? window.location.origin : ""}/report/live/detail?reportId=${report.id}`}
-              text={`${event.venue} ${fmtDate(event.date)} の現地レポ📸 #ちけレポ`}
-              className="zr-focus flex h-11 w-11 items-center justify-center rounded-full text-[#2b252b] hover:bg-white/60"
-            />
-          </div>
-        </header>
+        <StickyHeroHeader
+          title="現地レポ"
+          backHref={backHref}
+          backLabel="現地レポ一覧へ戻る"
+          rightSlot={
+            <div className="flex items-center">
+              <AccountLink iconSize={22} />
+              <ShareButton
+                url={`${typeof window !== "undefined" ? window.location.origin : ""}/report/live/detail?reportId=${report.id}`}
+                text={`${event.venue} ${fmtDate(event.date)} の現地レポ📸 #ちけレポ`}
+                className="zr-focus flex h-11 w-11 items-center justify-center rounded-full text-[#665761] active:bg-[#fff0f5]"
+              />
+            </div>
+          }
+        />
         <div className="zr-container pb-9 pt-5">
           <p className="community-eyebrow">LIVE VIEW REPORT</p>
           <h1 className="community-title mt-3">この席から、<br /><span className="text-[#dd8053]">こう見えました。</span></h1>

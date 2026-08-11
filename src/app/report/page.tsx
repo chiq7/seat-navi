@@ -2,17 +2,16 @@
 
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { ChevronLeft, Radio } from "lucide-react";
-import Link from "next/link";
+import { Radio } from "lucide-react";
 import { BottomNav } from "@/components/common/BottomNav";
 import { ReportEventSelector } from "@/components/report/ReportEventSelector";
 import { supabase } from "@/lib/supabase/client";
 import { resolveArtist } from "@/lib/artists";
 import type { CrawledEvent } from "@/lib/types";
-import { AccountLink } from "@/components/auth/AccountLink";
 import { CompactEventPickerSection } from "@/components/common/CompactEventPickerSection";
 import { CompactEventSummary } from "@/components/common/CompactEventSummary";
 import { CompactHeroIntro } from "@/components/common/CompactHeroIntro";
+import { StickyHeroHeader } from "@/components/common/StickyHeroHeader";
 import { getEventsForArtist } from "@/lib/events";
 
 export default function ReportEntryPage() {
@@ -131,16 +130,7 @@ function ReportHero({
   return (
     <section className="community-hero relative w-full overflow-hidden">
 
-      <header className="zr-container relative top-0 z-20 flex h-16 items-center justify-between">
-        <Link
-          href={backHref}
-          aria-label={backLabel}
-          className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-[#2b252b] shadow-sm backdrop-blur-md"
-        >
-          <ChevronLeft size={26} strokeWidth={2.7} />
-        </Link>
-        <AccountLink iconSize={22} />
-      </header>
+      <StickyHeroHeader title="報告" backHref={backHref} backLabel={backLabel} />
 
       <CompactHeroIntro
         eyebrow="SHARE THE LIVE"

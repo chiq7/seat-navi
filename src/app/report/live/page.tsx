@@ -2,17 +2,17 @@
 
 import { Suspense, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { Camera, CheckCircle2, ChevronLeft, RotateCcw, Send, X } from "lucide-react";
+import { Camera, CheckCircle2, RotateCcw, Send, X } from "lucide-react";
 import Link from "next/link";
 import { trackEvent } from "@/lib/analytics";
 import { anonymousSupabase, getPostingContext, supabase } from "@/lib/supabase/client";
 import { resolveArtist } from "@/lib/artists";
 import { getEventsForArtist } from "@/lib/events";
-import { AccountLink } from "@/components/auth/AccountLink";
 import { CompactEventPickerSection } from "@/components/common/CompactEventPickerSection";
 import { CompactHeroIntro } from "@/components/common/CompactHeroIntro";
 import { ShareButton } from "@/components/common/ShareButton";
 import { ProgressSteps } from "@/components/common/ProgressSteps";
+import { StickyHeroHeader } from "@/components/common/StickyHeroHeader";
 import { ReportChoiceButton as Btn } from "@/components/report/ReportChoiceButton";
 
 function randomId() {
@@ -133,16 +133,7 @@ function SuccessScreen({
 
   return (
     <div className="community-page relative flex flex-col">
-      <header className="relative z-10 flex h-16 items-center justify-center">
-        <Link
-          href="/report"
-          className="zr-focus absolute left-4 flex h-11 w-11 items-center justify-center rounded-full bg-white text-[#2b252b] shadow-sm"
-          aria-label="報告メニューへ戻る"
-        >
-          <ChevronLeft size={24} strokeWidth={2.7} />
-        </Link>
-        <p className="community-eyebrow">REPORT COMPLETE</p>
-      </header>
+      <StickyHeroHeader title="投稿完了" backHref="/report" backLabel="報告メニューへ戻る" />
 
       <section className="community-hero pb-12 pt-5 sm:pb-16" aria-labelledby="success-title">
         <div className="zr-container">
@@ -406,14 +397,12 @@ function LiveReportPageInner() {
   return (
     <div className="community-page font-sans">
       <section className="community-hero">
-        <header className="zr-container flex h-16 items-center justify-between">
-          {step === 1 ? (
-            <Link href={reportEntryHref} aria-label="報告メニューへ戻る" className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-[#2b252b] shadow-sm"><ChevronLeft size={26} /></Link>
-          ) : (
-            <button type="button" onClick={() => setStep(step - 1)} aria-label="前のステップへ戻る" className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-[#2b252b] shadow-sm"><ChevronLeft size={26} /></button>
-          )}
-          <AccountLink iconSize={22} />
-        </header>
+        <StickyHeroHeader
+          title="現地レポ"
+          backHref={step === 1 ? reportEntryHref : undefined}
+          backLabel={step === 1 ? "報告メニューへ戻る" : "前のステップへ戻る"}
+          onBack={step === 1 ? undefined : () => setStep(step - 1)}
+        />
         <CompactHeroIntro
           eyebrow="LIVE VIEW REPORT"
           title="現地の様子を"

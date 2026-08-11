@@ -1,13 +1,12 @@
 "use client";
 
 import { use, useEffect, useMemo, useState } from "react";
-import Link from "next/link";
-import { ChevronLeft, ExternalLink, Newspaper } from "lucide-react";
+import { ExternalLink, Newspaper } from "lucide-react";
 import { findArtistBySlug } from "@/lib/artists";
 import { getOfficialNewsSummary, queryAllOfficialNewsForArtist } from "@/lib/officialNews";
 import type { OfficialNews, OfficialNewsCategory } from "@/lib/types";
 import { OFFICIAL_NEWS_CATEGORY_LABELS } from "@/lib/types";
-import { AccountLink } from "@/components/auth/AccountLink";
+import { StickyHeroHeader } from "@/components/common/StickyHeroHeader";
 import { BottomNav } from "@/components/common/BottomNav";
 
 function fmtPublishedDate(d: string | null): string {
@@ -60,12 +59,7 @@ export default function ArtistNewsPage({ params }: { params: Promise<{ slug: str
   return (
     <main className="community-page pb-20 font-sans">
       <section className="community-hero">
-        <header className="zr-container flex h-16 items-center justify-between">
-          <Link href={`/artists/${slug}`} aria-label={`${artist.name}へ戻る`} className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-[#2b252b] shadow-sm">
-            <ChevronLeft size={26} aria-hidden="true" />
-          </Link>
-          <AccountLink tone="light" iconSize={22} />
-        </header>
+        <StickyHeroHeader title="公式ニュース" backHref={`/artists/${slug}`} backLabel={`${artist.name}へ戻る`} />
         <div className="zr-container pb-10 pt-5 sm:pb-14 sm:pt-9">
           <Newspaper size={28} strokeWidth={1.6} className="text-[#ef4f87]" aria-hidden="true" />
           <p className="community-eyebrow mt-6">OFFICIAL NEWS</p>

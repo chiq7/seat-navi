@@ -870,15 +870,52 @@ test("curated SEO profiles use sourced substantial content instead of thin gener
   assert.ok(artist.sources.every((source) => source.url.startsWith("https://")));
 });
 
-test("report entry back link stays above the hero and describes its actual destination", () => {
+test("report entry sticky header describes its actual back destination", () => {
   const reportEntry = fs.readFileSync(
     path.join(projectRoot, "src/app/report/page.tsx"),
     "utf8",
   );
-  assert.match(reportEntry, /top-0 z-20 flex/);
+  assert.match(reportEntry, /<StickyHeroHeader title="報告" backHref=\{backHref\} backLabel=\{backLabel\}/);
   assert.match(reportEntry, /const backHref = artist \? `\/artists\/\$\{artist\.slug\}` : "\/"/);
   assert.match(reportEntry, /const backLabel = artist \? "アーティストページに戻る" : "TOPへ戻る"/);
-  assert.match(reportEntry, /aria-label=\{backLabel\}/);
+});
+
+test("major fan flows share a compact fixed header without fixing their content", () => {
+  const header = fs.readFileSync(
+    path.join(projectRoot, "src/components/common/StickyHeroHeader.tsx"),
+    "utf8",
+  );
+  const pageSources = [
+    "src/components/artist-page/HeroSection.tsx",
+    "src/app/events/[id]/EventDetailClient.tsx",
+    "src/app/events/[id]/fan-seat-prediction/page.tsx",
+    "src/app/report/page.tsx",
+    "src/app/report/ticket/page.tsx",
+    "src/app/report/live/page.tsx",
+    "src/app/report/live/detail/LiveReportDetailClient.tsx",
+    "src/app/artists/[slug]/after-reports/page.tsx",
+    "src/app/artists/[slug]/setlist/SetlistClient.tsx",
+    "src/app/artists/[slug]/news/page.tsx",
+  ].map((file) => fs.readFileSync(path.join(projectRoot, file), "utf8"));
+
+  assert.match(header, /data-sticky-hero-header/);
+  assert.match(header, /fixed inset-x-0 top-0 z-\[60\]/);
+  assert.match(header, /backdrop-blur-xl/);
+  assert.match(header, /h-14 border-b/);
+  assert.match(header, /h-full grid-cols-\[88px_minmax\(0,1fr\)_88px\]/);
+  assert.match(header, /truncate px-1 text-center/);
+  assert.match(header, /className="h-14 sm:h-16"/);
+  for (const source of pageSources) {
+    assert.match(source, /<StickyHeroHeader/);
+    assert.doesNotMatch(source, /<header className="zr-container/);
+  }
+
+  const ticketReport = pageSources[4];
+  const liveReport = pageSources[5];
+  for (const source of [ticketReport, liveReport]) {
+    assert.match(source, /onBack=\{step === 1 \? undefined : \(\) => setStep\(step - 1\)\}/);
+    assert.match(source, /backHref=\{step === 1 \? reportEntryHref : undefined\}/);
+  }
 });
 
 test("configured hero image has a runtime missing-file fallback", () => {

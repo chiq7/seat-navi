@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   Camera,
-  ChevronLeft,
   MapPin,
   SlidersHorizontal,
   Sparkles,
@@ -26,7 +25,7 @@ import {
 } from "@/lib/afterReportCard";
 import { BottomNav } from "@/components/common/BottomNav";
 import { PostAuthorLink } from "@/components/common/PostAuthorLink";
-import { AccountLink } from "@/components/auth/AccountLink";
+import { StickyHeroHeader } from "@/components/common/StickyHeroHeader";
 import { fetchVisiblePostAuthors, type PostAuthor } from "@/lib/postAuthors";
 import {
   DEFAULT_ARTIST_HERO_IMAGE,
@@ -231,16 +230,7 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
         <div className="absolute inset-0 bg-gradient-to-b from-[#5c3a4b]/60 via-[#6b4558]/10 to-[#6b4558]" />
         <div className="absolute inset-x-0 bottom-0 h-[70%] bg-gradient-to-t from-[#6b4558] via-[#6b4558]/82 to-transparent" />
 
-        <header className="zr-container relative z-10 flex h-16 items-center justify-between">
-          <Link
-            href={`/artists/${slug}`}
-            aria-label={`${artist.name}のページへ戻る`}
-            className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-[#6b4558]/55 text-white backdrop-blur-md"
-          >
-            <ChevronLeft size={26} strokeWidth={2.7} />
-          </Link>
-          <AccountLink tone="light" iconSize={22} />
-        </header>
+        <StickyHeroHeader title="現地レポ" backHref={`/artists/${slug}`} backLabel={`${artist.name}のページへ戻る`} />
 
         <div className="zr-container absolute inset-x-0 bottom-0 z-10 pb-7">
           <p className="text-[10px] font-black tracking-[0.24em] text-[#ff5b96]">LIVE REPORT ARCHIVE</p>

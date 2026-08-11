@@ -2,18 +2,18 @@
 
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { ChevronLeft, Send, TicketCheck } from "lucide-react";
+import { Send, TicketCheck } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { trackEvent } from "@/lib/analytics";
 import { getPostingContext, supabase } from "@/lib/supabase/client";
 import { resolveArtist } from "@/lib/artists";
 import { getEventsForArtist } from "@/lib/events";
-import { AccountLink } from "@/components/auth/AccountLink";
 import { CompactEventPickerSection } from "@/components/common/CompactEventPickerSection";
 import { CompactHeroIntro } from "@/components/common/CompactHeroIntro";
 import { ShareButton } from "@/components/common/ShareButton";
 import { ProgressSteps } from "@/components/common/ProgressSteps";
+import { StickyHeroHeader } from "@/components/common/StickyHeroHeader";
 import { ReportChoiceButton as Btn } from "@/components/report/ReportChoiceButton";
 
 function toLotteryTypeTicketResults(v: string): string | null {
@@ -165,16 +165,7 @@ function SuccessScreen({
 
   return (
     <div className="community-page flex flex-col">
-      <header className="zr-container flex h-16 items-center justify-between">
-        <Link
-          href="/report"
-          className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white text-[#2b252b] shadow-sm"
-          aria-label="報告画面へ戻る"
-        >
-          <ChevronLeft size={25} />
-        </Link>
-        <AccountLink iconSize={22} />
-      </header>
+      <StickyHeroHeader title="投稿完了" backHref="/report" backLabel="報告画面へ戻る" />
       <section className="community-hero pb-11 pt-5">
         <div className="zr-container text-center">
           <p className="community-eyebrow">REPORT COMPLETE</p>
@@ -416,14 +407,12 @@ function TicketReportPageInner() {
   return (
     <div className="community-page font-sans">
       <section className="community-hero">
-        <header className="zr-container flex h-16 items-center justify-between">
-          {step === 1 ? (
-            <Link href={reportEntryHref} aria-label="報告メニューへ戻る" className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-[#2b252b] shadow-sm"><ChevronLeft size={26} /></Link>
-          ) : (
-            <button type="button" onClick={() => setStep(step - 1)} aria-label="前のステップへ戻る" className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-[#2b252b] shadow-sm"><ChevronLeft size={26} /></button>
-          )}
-          <AccountLink iconSize={22} />
-        </header>
+        <StickyHeroHeader
+          title="当落・座席"
+          backHref={step === 1 ? reportEntryHref : undefined}
+          backLabel={step === 1 ? "報告メニューへ戻る" : "前のステップへ戻る"}
+          onBack={step === 1 ? undefined : () => setStep(step - 1)}
+        />
         <CompactHeroIntro
           eyebrow="TICKET & SEAT REPORT"
           title="当落と座席を"

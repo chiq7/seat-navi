@@ -2,7 +2,7 @@
 
 import { use, useEffect, useRef, useState, useMemo } from "react";
 import Link from "next/link";
-import { ChevronLeft, Film, ListEnd, ListStart, MessageCircle, Mic2, Music2, Plus, Sparkles, Star, Zap } from "lucide-react";
+import { Film, ListEnd, ListStart, MessageCircle, Mic2, Music2, Plus, Sparkles, Star, Zap } from "lucide-react";
 import { anonymousSupabase, supabase } from "@/lib/supabase/client";
 import { findArtistBySlug } from "@/lib/artists";
 import { getEventsForArtist } from "@/lib/events";
@@ -14,6 +14,7 @@ import { AccountLink } from "@/components/auth/AccountLink";
 import { BottomNav } from "@/components/common/BottomNav";
 import { EventCarouselPicker } from "@/components/common/EventPicker";
 import { ShareButton } from "@/components/common/ShareButton";
+import { StickyHeroHeader } from "@/components/common/StickyHeroHeader";
 import { SetlistItemsSection } from "@/components/setlist/SetlistItemsSection";
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
@@ -286,19 +287,21 @@ export function SetlistClient({ params }: { params: Promise<{ slug: string }> })
   return (
     <div className="community-page font-sans">
       <section className="community-hero">
-        <header className="zr-container flex h-16 items-center justify-between">
-          <Link href={`/artists/${slug}`} aria-label={`${artist.name}へ戻る`} className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-[#2b252b] shadow-sm">
-            <ChevronLeft size={26} aria-hidden="true" />
-          </Link>
-          <div className="flex items-center gap-1">
-            <AccountLink tone="light" iconSize={22} />
-            <ShareButton
-              url={`${typeof window !== "undefined" ? window.location.origin : ""}/artists/${slug}/setlist`}
-              text={`${artist.name} のセットリスト🎤 #ちけレポ`}
-              className="zr-focus flex h-11 w-11 items-center justify-center rounded-full text-[#2b252b] transition-colors hover:bg-white/60"
-            />
-          </div>
-        </header>
+        <StickyHeroHeader
+          title="セトリ"
+          backHref={`/artists/${slug}`}
+          backLabel={`${artist.name}へ戻る`}
+          rightSlot={
+            <div className="flex items-center">
+              <AccountLink iconSize={22} />
+              <ShareButton
+                url={`${typeof window !== "undefined" ? window.location.origin : ""}/artists/${slug}/setlist`}
+                text={`${artist.name} のセットリスト🎤 #ちけレポ`}
+                className="zr-focus flex h-11 w-11 items-center justify-center rounded-full text-[#665761] transition-colors active:bg-[#fff0f5]"
+              />
+            </div>
+          }
+        />
         <div className="zr-container pb-10 pt-5 sm:pb-14 sm:pt-9">
           <Music2 size={29} strokeWidth={1.5} className="text-[#8165bb]" aria-hidden="true" />
           <p className="community-eyebrow mt-6">SETLIST ARCHIVE</p>

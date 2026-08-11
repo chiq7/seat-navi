@@ -4,7 +4,6 @@ import { use, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
-  ChevronLeft,
   MapPin,
   Sparkles,
 } from "lucide-react";
@@ -23,6 +22,7 @@ import { CompactEventSummary } from "@/components/common/CompactEventSummary";
 import { CompactHeroIntro } from "@/components/common/CompactHeroIntro";
 import { ShareButton } from "@/components/common/ShareButton";
 import { AccountLink } from "@/components/auth/AccountLink";
+import { StickyHeroHeader } from "@/components/common/StickyHeroHeader";
 import { fetchVisiblePostAuthors, type PostAuthor } from "@/lib/postAuthors";
 
 const VOTER_KEY_STORAGE = "seat-navi-voter-key";
@@ -287,23 +287,21 @@ export function EventDetailClient({
         ) : event ? (
           <>
           <section className="community-hero">
-              <header className="zr-container flex h-16 items-center justify-between">
-                <Link
-                  href={backHref}
-                  aria-label="アーティストページへ戻る"
-                className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-[#2b252b] shadow-sm"
-                >
-                  <ChevronLeft size={26} strokeWidth={2.7} />
-                </Link>
-                <div className="flex items-center gap-1">
-                  <AccountLink tone="light" iconSize={22} />
-                  <ShareButton
-                    url={`${typeof window !== "undefined" ? window.location.origin : ""}/events/${eventId}`}
-                    text={`${event.venue} ${fmtShortDate(event.date)} の座席表・座席予想 #ちけレポ`}
-                className="zr-focus flex h-11 w-11 items-center justify-center rounded-full text-[#51454c] transition-colors active:bg-white/60"
-                  />
-                </div>
-              </header>
+              <StickyHeroHeader
+                title="座席予想"
+                backHref={backHref}
+                backLabel="アーティストページへ戻る"
+                rightSlot={
+                  <div className="flex items-center">
+                    <AccountLink iconSize={22} />
+                    <ShareButton
+                      url={`${typeof window !== "undefined" ? window.location.origin : ""}/events/${eventId}`}
+                      text={`${event.venue} ${fmtShortDate(event.date)} の座席表・座席予想 #ちけレポ`}
+                      className="zr-focus flex h-11 w-11 items-center justify-center rounded-full text-[#665761] transition-colors active:bg-[#fff0f5]"
+                    />
+                  </div>
+                }
+              />
 
               <CompactHeroIntro
                 eyebrow="VENUE SEAT GUIDE"

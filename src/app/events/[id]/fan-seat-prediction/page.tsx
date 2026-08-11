@@ -3,19 +3,19 @@
 import { use, useEffect, useMemo, useRef, useState } from "react";
 import type { ChangeEvent } from "react";
 import Link from "next/link";
-import { ChevronLeft, ImagePlus, Map as MapIcon, Send } from "lucide-react";
+import { ImagePlus, Map as MapIcon, Send } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 import { getPostingContext, supabase } from "@/lib/supabase/client";
 import { resolveArtist } from "@/lib/artists";
 import { getEventsForArtist } from "@/lib/events";
 import type { CrawledEvent, SeatReport } from "@/lib/types";
-import { AccountLink } from "@/components/auth/AccountLink";
 import { BottomNav } from "@/components/common/BottomNav";
 import { CompactEventPickerSection } from "@/components/common/CompactEventPickerSection";
 import { CompactHeroIntro } from "@/components/common/CompactHeroIntro";
 import { ShareButton } from "@/components/common/ShareButton";
 import { EventArenaMap } from "@/components/arena-map/EventArenaMap";
 import { ProgressSteps } from "@/components/common/ProgressSteps";
+import { StickyHeroHeader } from "@/components/common/StickyHeroHeader";
 
 const EVENT_COLUMNS = "id, title, venue, venue_id, date, genre, lottery_types, artist_slug";
 
@@ -257,10 +257,7 @@ export default function FanSeatPredictionPage({
     return (
       <div className="community-page flex flex-col pb-20 font-sans">
         <section className="community-hero">
-          <header className="zr-container flex h-16 items-center justify-between">
-            <Link href={`/events/${selectedEventId}`} aria-label="公演ページへ戻る" className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-[#2b252b] shadow-sm"><ChevronLeft size={25} /></Link>
-            <AccountLink iconSize={22} />
-          </header>
+          <StickyHeroHeader title="投稿完了" backHref={`/events/${selectedEventId}`} backLabel="公演ページへ戻る" />
           <div className="zr-container pb-11 pt-5 text-center">
             <p className="community-eyebrow">PREDICTION COMPLETE</p>
             <h1 className="mt-4 text-[38px] font-black leading-tight tracking-[-0.05em]">予想図を投稿しました。</h1>
@@ -292,10 +289,7 @@ export default function FanSeatPredictionPage({
   return (
     <div className="community-page pb-20 font-sans">
       <section className="community-hero">
-        <header className="zr-container flex h-16 items-center justify-between">
-          <Link href={reportEntryHref} aria-label="報告メニューへ戻る" className="zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-[#2b252b] shadow-sm"><ChevronLeft size={26} /></Link>
-          <AccountLink iconSize={22} />
-        </header>
+        <StickyHeroHeader title="アリーナ予想" backHref={reportEntryHref} backLabel="報告メニューへ戻る" />
         <CompactHeroIntro
           eyebrow="FAN SEAT PREDICTION"
           title="アリーナ予想図を"

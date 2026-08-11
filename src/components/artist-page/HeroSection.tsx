@@ -2,11 +2,11 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { CalendarDays, ChevronLeft, MapPin } from "lucide-react";
+import { CalendarDays, MapPin } from "lucide-react";
 import { rateText } from "@/lib/artistPageHelpers";
 import { ShareButton } from "@/components/common/ShareButton";
 import { AccountLink } from "@/components/auth/AccountLink";
+import { StickyHeroHeader } from "@/components/common/StickyHeroHeader";
 import { DEFAULT_ARTIST_HERO_IMAGE, resolveArtistHeroImage } from "@/lib/artistPageData";
 
 type Props = {
@@ -67,23 +67,21 @@ export default function HeroSection({
       <div className="absolute inset-0 bg-gradient-to-b from-[#652642]/30 via-[#ed76a7]/5 to-transparent" />
       <div className="absolute inset-x-0 bottom-0 h-[64%] bg-gradient-to-t from-[#ffeaf2] via-[#ffeaf2]/92 to-transparent" />
       <div className="relative z-10 min-h-[458px] sm:min-h-[510px] lg:min-h-[560px]">
-        <header className="zr-container flex h-14 items-center justify-between sm:h-16">
-          <Link
-            href="/"
-            aria-label="TOPへ戻る"
-            className="zr-focus flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/85 text-[#5b3646] shadow-sm backdrop-blur-md"
-          >
-            <ChevronLeft size={26} strokeWidth={2.7} />
-          </Link>
-          <div className="ml-auto flex items-center justify-end gap-1">
-            <AccountLink tone="light" iconSize={22} />
-            <ShareButton
-              url={`${typeof window !== "undefined" ? window.location.origin : ""}/artists/${slug}`}
-              text={`${artistName} の当落データ・座席情報 #ちけレポ`}
-              className="flex h-11 w-11 items-center justify-center rounded-full bg-white/72 text-[#5b3646] shadow-sm transition-colors active:bg-white"
-            />
-          </div>
-        </header>
+        <StickyHeroHeader
+          title={artistName}
+          backHref="/"
+          backLabel="TOPへ戻る"
+          rightSlot={
+            <div className="flex items-center justify-end">
+              <AccountLink iconSize={22} />
+              <ShareButton
+                url={`${typeof window !== "undefined" ? window.location.origin : ""}/artists/${slug}`}
+                text={`${artistName} の当落データ・座席情報 #ちけレポ`}
+                className="zr-focus flex h-11 w-11 items-center justify-center rounded-full text-[#665761] transition-colors active:bg-[#fff0f5]"
+              />
+            </div>
+          }
+        />
 
         <div className="zr-container absolute inset-x-0 bottom-0 pb-5 sm:pb-7">
           <div className="max-w-[860px] rounded-[28px] bg-white/88 p-5 shadow-[0_14px_38px_rgba(129,55,83,.14)] backdrop-blur-md sm:p-7">
