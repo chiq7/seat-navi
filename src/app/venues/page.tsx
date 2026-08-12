@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Building2, MapPin, MoveRight, Search } from "lucide-react";
 import { Header } from "@/components/common/Header";
+import { InfoListRow } from "@/components/common/InfoListRow";
 import { SEO_VENUES } from "@/lib/venueSeo";
 
 const POPULAR_VENUE_IDS = [
@@ -44,30 +45,24 @@ const VENUE_TYPE_GROUPS = [
 
 const venueById = new Map(SEO_VENUES.map((venue) => [venue.id, venue]));
 
-function VenueCards({ venueIds, compact = false }: { venueIds: readonly string[]; compact?: boolean }) {
+function VenueList({ venueIds }: { venueIds: readonly string[] }) {
   return (
-    <div className={`grid grid-cols-2 gap-3 ${compact ? "lg:grid-cols-4" : "lg:grid-cols-3"}`}>
+    <div className="border-y border-[#ded8dc] bg-white">
       {venueIds.map((venueId, index) => {
         const venue = venueById.get(venueId);
         if (!venue) return null;
 
         return (
-          <Link
+          <InfoListRow
             key={venue.id}
             href={`/venues/${venue.id}`}
-            className={`community-card zr-focus group flex flex-col justify-between p-4 transition-colors hover:bg-[#fff0f5] ${compact ? "min-h-[112px]" : "min-h-[128px]"}`}
+            ariaLabel={`${venue.name}の公演・座席表を見る`}
+            className="group"
           >
-            <div className="flex items-start justify-between gap-4">
-              <Building2 size={compact ? 21 : 23} strokeWidth={1.6} className="text-[#f43679]" />
-              <span className="text-[9px] font-black tracking-[0.15em] text-[#958d93]">VENUE {String(index + 1).padStart(2, "0")}</span>
-            </div>
-            <div className="mt-4">
-              <h3 className={`${compact ? "text-[16px] leading-5" : "text-[18px] leading-6"} font-black tracking-[-0.035em]`}>{venue.name}</h3>
-              <p className="mt-2 flex items-center gap-2 text-[10px] font-black text-[#f43679]">
-                <MapPin size={13} />公演・座席表を見る<MoveRight size={15} className="transition-transform group-hover:translate-x-1" />
-              </p>
-            </div>
-          </Link>
+            <span className="flex flex-col items-center gap-1 text-[#f43679]"><Building2 size={20} strokeWidth={1.7} /><span className="text-[8px] font-black">{String(index + 1).padStart(2, "0")}</span></span>
+            <span className="min-w-0"><span className="block truncate text-[15px] font-black tracking-[-0.035em] text-[#4b4148]">{venue.name}</span><span className="mt-1 flex items-center gap-1 text-[10px] font-bold text-[#817981]"><MapPin size={12} />公演・座席表</span></span>
+            <MoveRight size={17} className="shrink-0 text-[#f43679] transition-transform group-hover:translate-x-1" />
+          </InfoListRow>
         );
       })}
     </div>
@@ -86,17 +81,13 @@ export default function VenuesPage() {
     <main className="community-page pb-16">
       <section className="community-hero">
         <Header title="ライブ会場" backHref="/" backLabel="TOPへ戻る" />
-        <div className="zr-container pb-7 pt-4 sm:pb-10 sm:pt-7">
+        <div className="zr-container pb-6 pt-4 sm:pb-9 sm:pt-7">
           <p className="community-eyebrow">VENUE DIRECTORY</p>
-          <h1 className="community-title mt-3">
-            ライブ会場から、<br /><span className="text-[#ef4f87]">公演と座席表を探す。</span>
-          </h1>
-          <p className="community-subtitle mt-4 max-w-[680px]">
-            主要ライブ会場の公演予定、座席報告、アリーナ予想、現地レポをまとめて確認できます。
-          </p>
+          <h1 className="mt-2 text-[28px] font-black tracking-[-0.05em] text-[#4b4148] sm:text-[38px]">ライブ会場・<span className="text-[#ef4f87]">座席表を探す</span></h1>
+          <p className="mt-1 text-[11px] font-bold text-[#817981]">公演予定・座席報告・現地レポを会場ごとに確認できます。</p>
           <Link
             href="/search"
-            className="community-secondary-button mt-5"
+            className="community-secondary-button mt-4 min-h-11"
           >
             <Search size={16} className="text-[#ef4f87]" />会場名で検索する
           </Link>
@@ -112,25 +103,22 @@ export default function VenuesPage() {
           <p className="shrink-0 text-[10px] font-black text-[#817981]">{SEO_VENUES.length} VENUES</p>
         </div>
 
-        <nav className="mt-5 grid grid-cols-2 gap-2 text-[11px] font-black sm:flex" aria-label="会場タイプから探す">
+        <nav className="mt-4 grid grid-cols-2 border-y border-[#ded8dc] bg-white text-[10px] font-black sm:grid-cols-5" aria-label="会場タイプから探す">
           {[
             ["popular", "よく見られる"],
             ...VENUE_TYPE_GROUPS.map((group) => [group.id, group.label]),
           ].map(([id, label]) => (
-            <a key={id} href={`#${id}`} className="community-card zr-focus flex min-h-11 items-center justify-between px-3 text-[#4b4248] transition-colors hover:bg-[#fff0f5] last:col-span-2 sm:flex-1 sm:px-4 sm:last:col-span-1">
-              {label}<MoveRight size={14} className="text-[#f43679]" />
+            <a key={id} href={`#${id}`} className="zr-focus flex min-h-11 items-center justify-between border-b border-r border-[#ded8dc] px-3 text-[#4b4248] transition-colors hover:bg-[#fff8fa] last:col-span-2 sm:last:col-span-1">
+              {label}<MoveRight size={13} className="text-[#f43679]" />
             </a>
           ))}
         </nav>
 
         <section id="popular" className="scroll-mt-5 mt-8 sm:mt-10" aria-labelledby="popular-title">
           <p className="artist-kicker">Popular venues</p>
-          <div className="mt-2 flex items-end justify-between gap-4">
-            <h2 id="popular-title" className="text-[28px] font-black tracking-[-0.05em] sm:text-[34px]">よく見られる会場</h2>
-            <p className="mb-1 text-right text-[10px] font-bold leading-4 text-[#817981]">まずはここから<br className="sm:hidden" />探せます</p>
-          </div>
-          <div className="mt-4">
-            <VenueCards venueIds={POPULAR_VENUE_IDS} compact />
+          <h2 id="popular-title" className="mt-1 text-[22px] font-black tracking-[-0.04em]">よく見られる会場</h2>
+          <div className="mt-3">
+            <VenueList venueIds={POPULAR_VENUE_IDS} />
           </div>
         </section>
 
@@ -138,12 +126,10 @@ export default function VenuesPage() {
           {VENUE_TYPE_GROUPS.map((group) => (
             <section key={group.id} id={group.id} className="scroll-mt-5" aria-labelledby={`${group.id}-title`}>
               <p className="artist-kicker">Venue type</p>
-              <div className="mt-2 flex items-end justify-between gap-4">
-                <h2 id={`${group.id}-title`} className="text-[28px] font-black tracking-[-0.05em] sm:text-[34px]">{group.label}</h2>
-                <p className="mb-1 text-right text-[10px] font-bold leading-4 text-[#817981]">{group.description}</p>
-              </div>
-              <div className="mt-4">
-                <VenueCards venueIds={group.venueIds} />
+              <h2 id={`${group.id}-title`} className="mt-1 text-[22px] font-black tracking-[-0.04em]">{group.label}</h2>
+              <p className="mt-1 text-[10px] font-bold text-[#817981]">{group.description}</p>
+              <div className="mt-3">
+                <VenueList venueIds={group.venueIds} />
               </div>
             </section>
           ))}

@@ -194,6 +194,8 @@ test("event and news listings share compact information-row rules", () => {
     "src/components/news/SiteNewsList.tsx",
     "src/app/artists/[slug]/news/page.tsx",
     "src/app/search/page.tsx",
+    "src/app/venues/page.tsx",
+    "src/app/venues/[id]/page.tsx",
   ].map((file) => fs.readFileSync(path.join(projectRoot, file), "utf8"));
   const reportThumbSource = fs.readFileSync(
     path.join(projectRoot, "src/components/artist-page/ReportThumb.tsx"),
@@ -218,6 +220,10 @@ test("event and news listings share compact information-row rules", () => {
   assert.match(reportListSource, /data-info-list-row="report"/);
   assert.match(afterReportsSource, /<ReportTimelineList reports=\{group\.reports\} authorMap=\{authorMap\} \/>/);
   assert.doesNotMatch(afterReportsSource, /className="community-card group flex min-w-0 flex-col overflow-hidden"/);
+  assert.match(sources.at(-2) ?? "", /function VenueList/);
+  assert.match(sources.at(-2) ?? "", /<InfoListRow/);
+  assert.match(sources.at(-1) ?? "", /function EventList/);
+  assert.match(sources.at(-1) ?? "", /<InfoListRow/);
 });
 
 test("report and seat pages share the compact event picker section", () => {
