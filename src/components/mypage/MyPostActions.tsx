@@ -49,7 +49,7 @@ export function MyPostActions({ value, label, maxLength = 500, onSave, onDelete 
   }
 
   return (
-    <div className="mt-2 border-t border-gray-100 pt-2">
+    <div className="mt-2 border-t border-[#eadfe4] pt-2">
       {editing ? (
         <div>
           <label className="text-[10px] font-bold text-gray-500">
@@ -59,7 +59,7 @@ export function MyPostActions({ value, label, maxLength = 500, onSave, onDelete 
               onChange={(event) => setDraft(event.target.value)}
               maxLength={maxLength}
               rows={3}
-              className="mt-1 w-full resize-none rounded-xl border border-gray-200 px-3 py-2 text-[12px] outline-none focus:border-[#FF6B9D]"
+              className="zr-focus mt-1 w-full resize-none border border-[#ded8dc] px-3 py-2 text-[12px] outline-none focus:border-[#f43679]"
             />
           </label>
           <div className="mt-2 flex justify-end gap-2">
@@ -71,7 +71,7 @@ export function MyPostActions({ value, label, maxLength = 500, onSave, onDelete 
                 setEditing(false);
                 setMessage("");
               }}
-              className="rounded-full border border-gray-200 px-3 py-1.5 text-[10px] font-bold text-gray-500 disabled:opacity-50"
+              className="zr-focus min-h-9 border border-[#ded8dc] px-3 text-[10px] font-black text-[#817981] disabled:opacity-50"
             >
               キャンセル
             </button>
@@ -79,21 +79,21 @@ export function MyPostActions({ value, label, maxLength = 500, onSave, onDelete 
               type="button"
               disabled={busy}
               onClick={save}
-              className="rounded-full bg-[#FF6B9D] px-4 py-1.5 text-[10px] font-bold text-white disabled:opacity-50"
+              className="zr-focus min-h-9 bg-[#f43679] px-4 text-[10px] font-black text-white disabled:opacity-50"
             >
               {busy ? "保存中..." : "保存"}
             </button>
           </div>
         </div>
       ) : confirmingDelete ? (
-        <div className="rounded-xl bg-red-50 px-3 py-2">
-          <p className="text-[10px] font-semibold text-red-700">この投稿を削除しますか？元に戻せません。</p>
+        <div className="border-l-2 border-[#d95470] bg-[#fff4f5] px-3 py-2">
+          <p className="text-[10px] font-bold text-[#9c4051]">この投稿を削除しますか？元に戻せません。</p>
           <div className="mt-2 flex justify-end gap-2">
             <button
               type="button"
               disabled={busy}
               onClick={() => setConfirmingDelete(false)}
-              className="rounded-full border border-gray-200 bg-white px-3 py-1.5 text-[10px] font-bold text-gray-500 disabled:opacity-50"
+              className="zr-focus min-h-9 border border-[#ded8dc] bg-white px-3 text-[10px] font-black text-[#817981] disabled:opacity-50"
             >
               やめる
             </button>
@@ -101,14 +101,14 @@ export function MyPostActions({ value, label, maxLength = 500, onSave, onDelete 
               type="button"
               disabled={busy}
               onClick={remove}
-              className="rounded-full bg-red-500 px-4 py-1.5 text-[10px] font-bold text-white disabled:opacity-50"
+              className="zr-focus min-h-9 bg-[#c94d63] px-4 text-[10px] font-black text-white disabled:opacity-50"
             >
               {busy ? "削除中..." : "削除する"}
             </button>
           </div>
         </div>
       ) : (
-        <div className="flex justify-end gap-3">
+        <div className="flex justify-end gap-1">
           <button
             type="button"
             onClick={() => {
@@ -116,7 +116,7 @@ export function MyPostActions({ value, label, maxLength = 500, onSave, onDelete 
               setEditing(true);
               setMessage("");
             }}
-            className="flex items-center gap-1 text-[10px] font-bold text-gray-500"
+            className="zr-focus flex min-h-9 items-center gap-1 px-2 text-[10px] font-black text-[#817981]"
           >
             <Pencil size={12} />編集
           </button>
@@ -126,13 +126,13 @@ export function MyPostActions({ value, label, maxLength = 500, onSave, onDelete 
               setConfirmingDelete(true);
               setMessage("");
             }}
-            className="flex items-center gap-1 text-[10px] font-bold text-red-400"
+            className="zr-focus flex min-h-9 items-center gap-1 px-2 text-[10px] font-black text-[#c94d63]"
           >
             <Trash2 size={12} />削除
           </button>
         </div>
       )}
-      {message && <p className="mt-1 text-right text-[9px] text-gray-500">{message}</p>}
+      {message && <p className="mt-1 text-right text-[9px] font-bold text-[#817981]">{message}</p>}
     </div>
   );
 }

@@ -5,6 +5,7 @@ import SeatReportTimelineSection from "@/components/artist-page/SeatReportTimeli
 import { ReportTimelineList } from "@/components/artist-page/ReportSection";
 import { SeatPredictionCard } from "@/components/common/SeatPredictionCard";
 import { MyPostActions, type PostMutationResult } from "@/components/mypage/MyPostActions";
+import { SegmentedControl } from "@/components/common/SegmentedControl";
 import type { AfterReportCard, TicketResultAnalytics } from "@/lib/artistPageTypes";
 import type { PostAuthor } from "@/lib/postAuthors";
 import type { CrawledEvent, FanSeatPrediction } from "@/lib/types";
@@ -51,31 +52,25 @@ export function MyPostsSection({
   ];
 
   return (
-    <section className="border-b border-[#ded8dc] pb-10 sm:pb-14" aria-labelledby="my-posts-title">
+    <section className="border-b border-[#ded8dc] pb-8 sm:pb-12" aria-labelledby="my-posts-title">
       <div className="flex items-end justify-between gap-4">
         <div>
           <p className="artist-kicker">My Posts</p>
           <h2 id="my-posts-title" className="artist-heading">自分の投稿</h2>
         </div>
-        <p className="text-[9px] font-black text-[#958d93]">EDIT &amp; MANAGE</p>
+        <p className="text-[9px] font-black tracking-[0.12em] text-[#958d93]">EDIT</p>
       </div>
 
-      <div className="mt-7 grid grid-cols-3 border border-[#1c171b] bg-white">
-        {tabs.map((item) => (
-          <button
-            key={item.id}
-            type="button"
-            onClick={() => setTab(item.id)}
-            className={`zr-focus min-h-12 border-r border-[#eadfe4] px-1 text-[10px] font-black transition-colors last:border-r-0 ${
-              tab === item.id ? "bg-[#fff0f5] text-[#c93868]" : "bg-white text-[#625a61]"
-            }`}
-          >
-            {item.label}<span className="ml-1 text-[9px]">{item.count}</span>
-          </button>
-        ))}
-      </div>
+      <SegmentedControl
+        value={tab}
+        onChange={setTab}
+        options={tabs.map((item) => ({ value: item.id, label: `${item.label} ${item.count}` }))}
+        ariaLabel="表示する投稿の種類"
+        compact
+        className="mt-5"
+      />
 
-      <div className="mt-5 border border-[#ded8dc] bg-white p-3 sm:p-5">
+      <div className="mt-4 border-y border-[#ded8dc] bg-white py-1 sm:px-1">
         {tab === "ticket" && (
           <SeatReportTimelineSection
             items={ticketPosts}
