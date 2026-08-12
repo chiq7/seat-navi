@@ -89,11 +89,11 @@ export function ReportTimelineList({
                       </span>
                     ))}
                   </div>
-                  <p className="mt-1 truncate text-[14px] font-bold text-gray-900">
+                  <p className="mt-1 truncate text-[14px] font-bold text-[#4b4148]">
                     {blockRow ?? "座席情報なし"}
                   </p>
                   <p
-                    className={`mt-1 line-clamp-2 min-h-[33px] text-[12px] leading-snug text-gray-700 ${comment ? "" : "invisible"}`}
+                    className={`mt-1 line-clamp-2 min-h-[33px] text-[12px] leading-snug text-[#665a61] ${comment ? "" : "invisible"}`}
                   >
                     {comment || " "}
                   </p>

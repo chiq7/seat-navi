@@ -4,10 +4,8 @@ import { use, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
-  Camera,
   MapPin,
   SlidersHorizontal,
-  Sparkles,
   SquarePen,
   X,
 } from "lucide-react";
@@ -17,64 +15,15 @@ import { supabase } from "@/lib/supabase/client";
 import type { CrawledEvent } from "@/lib/types";
 import type { AfterReportCard } from "@/lib/artistPageTypes";
 import { fmtDate, seatAreaLabel } from "@/lib/artistPageHelpers";
-import {
-  blockRowText,
-  getReportPhotoUrl,
-  overallBadgeLabel,
-  structureBadgeLabels,
-} from "@/lib/afterReportCard";
 import { BottomNav } from "@/components/common/BottomNav";
-import { PostAuthorLink } from "@/components/common/PostAuthorLink";
 import { Header } from "@/components/common/Header";
 import { SelectControl } from "@/components/common/SelectControl";
+import { ReportTimelineList } from "@/components/artist-page/ReportSection";
 import { fetchVisiblePostAuthors, type PostAuthor } from "@/lib/postAuthors";
 import {
   DEFAULT_ARTIST_HERO_IMAGE,
   resolveArtistHeroImage,
 } from "@/lib/artistPageData";
-
-function fmtPostDate(iso: string): string {
-  const d = new Date(iso);
-  return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, "0")}.${String(d.getDate()).padStart(2, "0")}`;
-}
-
-function ReportMedia({ photoUrl, index }: { photoUrl: string | null; index: number }) {
-  const [imgError, setImgError] = useState(false);
-  const positions = ["28%", "46%", "72%", "55%"];
-
-  if (photoUrl && !imgError) {
-    return (
-      <div className="relative aspect-[4/3] overflow-hidden bg-[#f3e8ee]">
-        {/* Supabaseの投稿画像URLは実行時に決まるため、通常のimgで表示する。 */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={photoUrl}
-          alt="座席から見た会場の写真"
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-          onError={() => setImgError(true)}
-        />
-      </div>
-    );
-  }
-
-  return (
-    <div
-      className="relative aspect-[4/3] overflow-hidden bg-[#f3e8ee]"
-      aria-label="会場写真なし"
-      style={{
-        background:
-          `radial-gradient(circle at ${positions[index % positions.length]} 22%, rgba(255,255,255,.88) 0 3px, transparent 4px), ` +
-          "linear-gradient(118deg, rgba(244,54,121,.72), transparent 38%), " +
-          "repeating-linear-gradient(90deg, rgba(255,91,150,.8) 0 1px, transparent 1px 7px), " +
-          "linear-gradient(180deg, #2b1230, #050306)",
-      }}
-    >
-      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#5c3a4b]/80 to-transparent px-4 pb-3 pt-12">
-        <p className="text-[9px] font-black tracking-[0.2em] text-white/55">LIVE VIEW REPORT</p>
-      </div>
-    </div>
-  );
-}
 
 export default function AfterReportsPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
@@ -215,7 +164,7 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
 
   return (
     <main className="community-page pb-20 font-sans">
-      <section className="relative min-h-[316px] overflow-hidden bg-[#6b4558] text-white sm:min-h-[410px]">
+      <section className="relative min-h-[274px] overflow-hidden bg-[#8d6578] text-white sm:min-h-[348px]">
         <Image
           src={heroImageSrc}
           alt=""
@@ -228,42 +177,38 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
             if (heroImageSrc !== DEFAULT_ARTIST_HERO_IMAGE) setHeroImageSrc(DEFAULT_ARTIST_HERO_IMAGE);
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#5c3a4b]/60 via-[#6b4558]/10 to-[#6b4558]" />
-        <div className="absolute inset-x-0 bottom-0 h-[70%] bg-gradient-to-t from-[#6b4558] via-[#6b4558]/82 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#765065]/48 via-[#8d6578]/18 to-[#8d6578]/92" />
+        <div className="absolute inset-x-0 bottom-0 h-[72%] bg-gradient-to-t from-[#8d6578] via-[#8d6578]/84 to-transparent" />
 
         <Header title="現地レポ" backHref={`/artists/${slug}`} backLabel={`${artist.name}のページへ戻る`} />
 
-        <div className="zr-container absolute inset-x-0 bottom-0 z-10 pb-7">
-          <p className="text-[10px] font-black tracking-[0.24em] text-[#ff5b96]">LIVE REPORT ARCHIVE</p>
-          <h1 className="mt-3 text-[36px] font-black leading-[1.08] tracking-[-0.05em] sm:text-[54px]">
-            現地で見えた、<br />本当の景色。
-          </h1>
-          <p className="mt-4 text-[12px] font-bold text-white/65 sm:text-[14px]">
-            {artist.name}の座席からの見え方・会場写真・ライブ演出
-          </p>
-          <div className="mt-5 grid grid-cols-3 border-y border-white/18 py-4">
+        <div className="zr-container absolute inset-x-0 bottom-0 z-10 pb-5 sm:pb-7">
+          <p className="text-[10px] font-black tracking-[0.24em] text-[#ffb1cb]">LIVE REPORTS</p>
+          <h1 className="mt-2 text-[29px] font-black leading-[1.1] tracking-[-0.05em] sm:text-[44px]">現地レポ・座席からの見え方</h1>
+          <p className="mt-2 text-[11px] font-bold text-white/76 sm:text-[13px]">{artist.name}</p>
+          <div className="mt-3 grid grid-cols-3 border-y border-white/18 py-2.5 sm:mt-4 sm:py-3">
             <div>
               <p className="text-[9px] font-bold tracking-[0.12em] text-white/42">REPORTS</p>
-              <p className="mt-1 text-[25px] font-black">{reports.length}</p>
+              <p className="mt-0.5 text-[21px] font-black">{reports.length}</p>
             </div>
             <div className="border-l border-white/18 pl-4">
               <p className="text-[9px] font-bold tracking-[0.12em] text-white/42">PHOTOS</p>
-              <p className="mt-1 text-[25px] font-black">{photoCount}</p>
+              <p className="mt-0.5 text-[21px] font-black">{photoCount}</p>
             </div>
             <div className="border-l border-white/18 pl-4">
               <p className="text-[9px] font-bold tracking-[0.12em] text-white/42">VENUES</p>
-              <p className="mt-1 text-[25px] font-black">{new Set(events.map((event) => event.venue)).size}</p>
+              <p className="mt-0.5 text-[21px] font-black">{new Set(events.map((event) => event.venue)).size}</p>
             </div>
           </div>
         </div>
       </section>
 
       <div className="zr-container">
-        <section className="community-panel mt-5 p-4 sm:mt-6 sm:p-6" aria-labelledby="report-filter-title">
+        <section className="mt-5 border-y border-[#ded8dc] bg-white py-4 sm:mt-6 sm:px-4 sm:py-5" aria-labelledby="report-filter-title">
           <div className="flex items-center justify-between gap-3">
             <div>
               <p className="artist-kicker">Find Your View</p>
-              <h2 id="report-filter-title" className="mt-2 text-[23px] font-black tracking-[-0.04em]">座席・会場で絞り込む</h2>
+              <h2 id="report-filter-title" className="mt-1 text-[22px] font-black tracking-[-0.04em]">条件を絞る</h2>
             </div>
             <SlidersHorizontal size={22} strokeWidth={1.8} className="shrink-0 text-[#f43679]" />
           </div>
@@ -307,9 +252,9 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
             </label>
           </div>
 
-          <div className="mt-4 flex items-center justify-between gap-3">
+          <div className="mt-3 flex items-center justify-between gap-3">
             <p className="text-[11px] font-bold text-[#817981]">
-              <span className="text-[18px] font-black text-[#1c171b]">{filteredReports.length}</span> 件の現地レポ
+              <span className="text-[18px] font-black text-[#4b4148]">{filteredReports.length}</span> 件の現地レポ
             </p>
             {hasActiveFilters && (
               <button
@@ -338,13 +283,12 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
             ))}
           </div>
         ) : filteredReports.length === 0 ? (
-              <section className="community-panel my-8 py-16 text-center">
-            <Camera size={31} strokeWidth={1.5} className="mx-auto text-[#f43679]" />
-            <p className="mt-4 text-[18px] font-black">この条件の現地レポはまだありません</p>
-            <p className="mt-2 text-[12px] font-medium text-[#817981]">座席からの見え方を、次のファンへ残しませんか。</p>
+              <section className="my-8 border-y border-dashed border-[#ded8dc] bg-white py-10 text-center">
+            <p className="text-[9px] font-black tracking-[0.18em] text-[#f43679]">NO REPORTS</p>
+            <p className="mt-2 text-[17px] font-black">この条件の現地レポはまだありません</p>
             <Link
               href={nextEvent ? `/report/live?event=${nextEvent.id}` : "/report/live"}
-              className="community-primary-button mt-6 min-h-12"
+              className="community-primary-button mt-5 min-h-11"
             >
               <SquarePen size={17} />現地レポを投稿する
             </Link>
@@ -352,13 +296,13 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
         ) : (
           <div className="pb-10">
             {groupedReports.map((group) => (
-              <section key={group.event?.id ?? group.date} className="py-10">
-                <div className="mb-5 flex items-end justify-between gap-4">
+              <section key={group.event?.id ?? group.date} className="py-7 sm:py-9">
+                <div className="mb-3 flex items-end justify-between gap-4">
                   <div className="min-w-0">
                     <p className="text-[10px] font-black tracking-[0.18em] text-[#f43679]">
                       {group.event?.date ? fmtDate(group.event.date) : "DATE UNKNOWN"}
                     </p>
-                    <h2 className="mt-2 flex items-center gap-2 text-[20px] font-black tracking-[-0.035em] sm:text-[25px]">
+                    <h2 className="mt-1 flex items-center gap-2 text-[19px] font-black tracking-[-0.035em] sm:text-[23px]">
                       <MapPin size={18} strokeWidth={2} className="shrink-0 text-[#f43679]" />
                       <span className="truncate">{group.event?.venue ?? "会場不明"}</span>
                     </h2>
@@ -366,52 +310,7 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
                   <p className="shrink-0 text-[10px] font-black text-[#817981]">{group.reports.length} REPORTS</p>
                 </div>
 
-                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                  {group.reports.map((report, index) => {
-                    const blockRow = blockRowText(report);
-                    const photoUrl = getReportPhotoUrl(report);
-                    const overallBadge = overallBadgeLabel(report);
-                    const structureBadges = structureBadgeLabels(report);
-                    const comment = report.memo?.trim() || null;
-
-                    return (
-                    <article key={report.id} className="community-card group flex min-w-0 flex-col overflow-hidden">
-                        <Link href={`/report/live/detail?reportId=${report.id}`} className="zr-focus block no-underline">
-                          <ReportMedia photoUrl={photoUrl} index={index} />
-                          <div className="p-4">
-                            <div className="flex min-h-6 flex-wrap items-center gap-1.5">
-                              {overallBadge && (
-                                <span className="inline-flex items-center gap-1 bg-[#f43679] px-2 py-1 text-[9px] font-black text-white">
-                                  <Sparkles size={10} />{overallBadge}
-                                </span>
-                              )}
-                              {structureBadges.map((label) => (
-                                <span key={label} className="border border-[#efc5d4] px-2 py-1 text-[9px] font-black text-[#c91558]">
-                                  {label}
-                                </span>
-                              ))}
-                            </div>
-                            <p className="mt-3 text-[17px] font-black tracking-[-0.03em] text-[#1c171b]">
-                              {blockRow ?? "座席情報なし"}
-                            </p>
-                            <p className={`mt-2 line-clamp-2 min-h-[40px] text-[12px] font-medium leading-5 ${comment ? "text-[#625a61]" : "text-[#aaa2a8]"}`}>
-                              {comment ?? "この座席の見え方を詳しく見る"}
-                            </p>
-                            <div className="mt-4 flex items-center justify-between border-t border-[#eee9ec] pt-3">
-                              <span className="text-[9px] font-bold tracking-[0.08em] text-[#958d93]">POSTED {fmtPostDate(report.created_at)}</span>
-                              <span className="text-[10px] font-black text-[#f43679]">詳細を見る →</span>
-                            </div>
-                          </div>
-                        </Link>
-                        {report.user_id && authorMap.get(report.user_id) && (
-                          <div className="mt-auto border-t border-[#eee9ec] px-4 py-3">
-                            <PostAuthorLink author={authorMap.get(report.user_id)} />
-                          </div>
-                        )}
-                      </article>
-                    );
-                  })}
-                </div>
+                <ReportTimelineList reports={group.reports} authorMap={authorMap} />
               </section>
             ))}
           </div>
