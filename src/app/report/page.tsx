@@ -32,9 +32,24 @@ function ReportEntryPageInner() {
     async function load() {
       const preselectedEventId = searchParams.get("event");
       const preselectedArtistSlug = searchParams.get("artist");
+      let anchorEvent: CrawledEvent | null = null;
+
+      // アーティストページ・公演ページから event だけを受け取った場合も、
+      // その公演のアーティストを選択候補の文脈として引き継ぐ。
+      if (preselectedEventId && !preselectedArtistSlug) {
+        const { data } = await supabase
+          .from("events")
+          .select("id, title, venue, venue_id, date, genre, lottery_types, artist_slug")
+          .eq("id", preselectedEventId)
+          .maybeSingle();
+        anchorEvent = (data as CrawledEvent) ?? null;
+      }
+
+      const targetArtistSlug = preselectedArtistSlug
+        ?? (anchorEvent?.artist_slug ?? (anchorEvent ? resolveArtist(anchorEvent)?.slug : null));
       let list: CrawledEvent[];
-      if (preselectedArtistSlug) {
-        list = (await getEventsForArtist(preselectedArtistSlug)).sort((a, b) =>
+      if (targetArtistSlug) {
+        list = (await getEventsForArtist(targetArtistSlug)).sort((a, b) =>
           (b.date ?? "").localeCompare(a.date ?? ""),
         );
       } else {
@@ -50,21 +65,14 @@ function ReportEntryPageInner() {
       if (preselectedEventId) {
         if (list.some((e) => e.id === preselectedEventId)) {
           initial = preselectedEventId;
-        } else if (!preselectedArtistSlug) {
-          const { data: single } = await supabase
-            .from("events")
-            .select("id, title, venue, venue_id, date, genre, lottery_types, artist_slug")
-            .eq("id", preselectedEventId)
-            .maybeSingle();
-          if (single) {
-            list = [single as CrawledEvent, ...list];
-            initial = preselectedEventId;
-          }
+        } else if (anchorEvent) {
+          list = [anchorEvent, ...list];
+          initial = preselectedEventId;
         }
       }
-      if (!initial && preselectedArtistSlug) {
+      if (!initial && targetArtistSlug) {
         initial = list.find(
-          (e) => (e.artist_slug ?? resolveArtist(e)?.slug) === preselectedArtistSlug,
+          (e) => (e.artist_slug ?? resolveArtist(e)?.slug) === targetArtistSlug,
         )?.id;
       }
 

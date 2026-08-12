@@ -81,11 +81,14 @@ test("generic report entry waits for the user to choose a performance", () => {
 
   assert.match(reportEntrySource, /const preselectedEventId = searchParams\.get\("event"\)/);
   assert.match(reportEntrySource, /const preselectedArtistSlug = searchParams\.get\("artist"\)/);
-  assert.match(reportEntrySource, /preselectedArtistSlug\) \{\s*list = \(await getEventsForArtist\(preselectedArtistSlug\)\)\.sort/);
+  assert.match(reportEntrySource, /let anchorEvent: CrawledEvent \| null = null/);
+  assert.match(reportEntrySource, /preselectedEventId && !preselectedArtistSlug/);
+  assert.match(reportEntrySource, /const targetArtistSlug = preselectedArtistSlug/);
+  assert.match(reportEntrySource, /anchorEvent\?\.artist_slug/);
+  assert.match(reportEntrySource, /getEventsForArtist\(targetArtistSlug\)/);
   assert.match(reportEntrySource, /\(b\.date \?\? ""\)\.localeCompare\(a\.date \?\? ""\)/);
-  assert.match(reportEntrySource, /else if \(!preselectedArtistSlug\)/);
+  assert.match(reportEntrySource, /else if \(anchorEvent\)/);
   assert.match(reportEntrySource, /setSelectedId\(initial \?\? null\)/);
-  assert.doesNotMatch(reportEntrySource, /initial = list\.find\(\(e\) => e\.artist_slug \?\?/);
   assert.doesNotMatch(reportEntrySource, /initial = list\[0\]\.id/);
   assert.match(
     eventPickerSource,
