@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Sparkles } from "lucide-react";
 
 const slides = [
@@ -32,8 +33,17 @@ const slides = [
 ] as const;
 
 export default function HomeHeroPromoBanner() {
+  const router = useRouter();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+
+  // ファーストビューにある2組は、TOPを開いた時点で遷移先を温める。
+  // アーティストTOPは表示情報が多いため、タップ後に初めてルートを取りに行くと
+  // 主要導線が遅れて見える。表示済みのバナーだけを対象にして通信量は増やしすぎない。
+  useEffect(() => {
+    router.prefetch("/artists/seventeen");
+    router.prefetch("/artists/yoasobi");
+  }, [router]);
 
   function handleScroll() {
     const element = scrollRef.current;
