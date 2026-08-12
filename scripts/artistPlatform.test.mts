@@ -160,6 +160,19 @@ test("single-choice display controls use the shared segmented component", () => 
   assert.match(reportChoiceSource, /data-report-choice/);
 });
 
+test("full arena maps recenter after their dynamic width is known", () => {
+  const source = fs.readFileSync(
+    path.join(projectRoot, "src/components/arena-map/ArenaReportMap.tsx"),
+    "utf8",
+  );
+
+  assert.match(source, /data-arena-map-scroll=\{isCompact \? undefined : "centered"\}/);
+  assert.match(source, /requestAnimationFrame/);
+  assert.match(source, /\[eventId, isCompact, svgW\]/);
+  assert.match(source, /\(el\.scrollWidth - el\.clientWidth\) \/ 2/);
+  assert.match(source, /stroke="#d8cfd5"/);
+});
+
 test("core posting flows share compact primary and secondary form actions", () => {
   const actionsSource = fs.readFileSync(
     path.join(projectRoot, "src/components/common/FormActions.tsx"),

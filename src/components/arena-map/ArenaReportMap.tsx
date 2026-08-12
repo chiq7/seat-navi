@@ -75,7 +75,6 @@ export function ArenaReportMap({
   const [showAllOverflow, setShowAllOverflow] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const dragStateRef = useRef<DragState | null>(null);
-  void eventId;
   const isCompact = variant === "compact";
   const isControlled = colorModeExternal !== undefined;
   const activeColorMode = colorModeExternal ?? colorMode;
@@ -96,11 +95,6 @@ export function ArenaReportMap({
   }, [externalObservations, reports]);
   const hasExternalCells = arenaReports.some((report) => report.sourceKind === "external");
 
-  useEffect(() => {
-    if (isCompact || !scrollRef.current) return;
-    const el = scrollRef.current;
-    el.scrollLeft = (el.scrollWidth - el.clientWidth) / 2;
-  }, [isCompact]);
   const compactHeaderH = isCompact && (compactVenueName || compactDateLabel) ? 20 : 0;
   const stageTop = STAGE_TOP + compactHeaderH;
 
@@ -251,6 +245,15 @@ export function ArenaReportMap({
   } = layout;
   const activeLegend = COLOR_MODE_LEGENDS[activeColorMode];
 
+  useEffect(() => {
+    if (isCompact || !scrollRef.current) return;
+    const el = scrollRef.current;
+    const frame = requestAnimationFrame(() => {
+      el.scrollLeft = Math.max(0, (el.scrollWidth - el.clientWidth) / 2);
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [eventId, isCompact, svgW]);
+
   // ─── JSX ────────────────────────────────────────────────────────────────────
 
   return (
@@ -321,6 +324,7 @@ export function ArenaReportMap({
       {/* ドラッグ操作でラベル・透かしのテキストが選択されないよう、マップ全体でテキスト選択を無効化する */}
       <div
         ref={isCompact ? undefined : scrollRef}
+        data-arena-map-scroll={isCompact ? undefined : "centered"}
         className={isCompact ? "overflow-hidden" : "overflow-x-auto hide-scrollbar cursor-grab touch-pan-y active:cursor-grabbing"}
         style={{
           userSelect: "none",
@@ -463,6 +467,21 @@ export function ArenaReportMap({
           </g>
         ))}
 
+        {/* 各ブロックの外周。細かな座席セルとA1〜H8のまとまりをスマホでも見分けやすくする。 */}
+        {positioned.map((pb) => (
+          <rect
+            key={`outline:${pb.blockName}`}
+            x={pb.svgX}
+            y={pb.svgY}
+            width={BLOCK_W}
+            height={BLOCK_H}
+            fill="none"
+            stroke="#d8cfd5"
+            strokeWidth={0.65}
+            pointerEvents="none"
+          />
+        ))}
+
         {/* 5. 列ヘッダー (1〜最終列) */}
         {gridColNums.map((num, ci) => (
           <text
@@ -470,9 +489,9 @@ export function ArenaReportMap({
             x={GRID_START_X + ci * GRID_STEP_X + BLOCK_W / 2}
             y={bandTop + COL_HEADER_H - 1}
             textAnchor="middle"
-            fill="#6B7280"
-            fontSize={7}
-            fontWeight="600"
+            fill="#746970"
+            fontSize={7.5}
+            fontWeight="700"
           >
             {num}
           </text>
@@ -487,13 +506,13 @@ export function ArenaReportMap({
           return (
             <g key={prefix}>
               {/* 左 */}
-              <circle cx={lx} cy={cy} r={5} fill="rgba(232,95,145,0.12)" />
-              <text x={lx} y={textY} textAnchor="middle" fill="#E85F91" fontSize={6} fontWeight="700">
+              <circle cx={lx} cy={cy} r={5} fill="rgba(232,95,145,0.14)" />
+              <text x={lx} y={textY} textAnchor="middle" fill="#D94E82" fontSize={6.5} fontWeight="800">
                 {prefix}
               </text>
               {/* 右 */}
-              <circle cx={Math.min(rx, svgW - 6)} cy={cy} r={5} fill="rgba(232,95,145,0.12)" />
-              <text x={Math.min(rx, svgW - 6)} y={textY} textAnchor="middle" fill="#E85F91" fontSize={6} fontWeight="700">
+              <circle cx={Math.min(rx, svgW - 6)} cy={cy} r={5} fill="rgba(232,95,145,0.14)" />
+              <text x={Math.min(rx, svgW - 6)} y={textY} textAnchor="middle" fill="#D94E82" fontSize={6.5} fontWeight="800">
                 {prefix}
               </text>
             </g>
