@@ -27,7 +27,7 @@ export default function LiveEffectsSection({ liveEffects }: Props) {
           const active = liveEffects[effect.key] ?? false;
           return (
             <div key={effect.key} className={`flex min-h-[62px] min-w-0 flex-col items-center justify-center gap-1.5 border-r border-[#ded8dc] px-1 py-2 ${active ? "bg-[#fff0f5]" : "bg-white"}`}>
-              <Image src={active ? effect.activeIcon : effect.inactiveIcon} alt="" width={26} height={26} className="h-[26px] w-[26px] object-contain" />
+              <Image src={active ? effect.activeIcon : effect.inactiveIcon} alt="" width={26} height={26} unoptimized className="h-[26px] w-[26px] object-contain" />
               <span className={`min-w-0 truncate whitespace-nowrap text-[10px] font-black tracking-[-0.03em] sm:text-[12px] ${active ? "text-[#f43679]" : "text-[#958d93]"}`}>{effect.label}</span>
             </div>
           );

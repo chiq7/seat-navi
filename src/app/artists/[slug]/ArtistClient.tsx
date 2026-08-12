@@ -38,6 +38,29 @@ import ArtistBoardPreview from "@/components/artist-page/ArtistBoardPreview";
 import { fetchVisiblePostAuthors, type PostAuthor } from "@/lib/postAuthors";
 import { getArtistSeoProfile } from "@/lib/seoProfiles";
 
+/**
+ * 公演データ以外は端末側で取得するため、初回だけ下部に軽い骨組みを出す。
+ * ページ全体をスピナーで止めず、ヒーロー・主要導線・公演一覧は先に触れる状態にする。
+ */
+function ArtistDetailsPlaceholder() {
+  return (
+    <div className="space-y-6 py-8" aria-busy="true" aria-label="当落・座席データを読み込み中">
+      <div className="animate-pulse border-y border-[#ded8dc] bg-white px-4 py-5">
+        <div className="h-3 w-24 bg-[#f2e9ed]" />
+        <div className="mt-3 h-7 w-44 bg-[#f2e9ed]" />
+        <div className="mt-5 grid grid-cols-3 gap-3">
+          {[0, 1, 2].map((item) => <div key={item} className="h-16 bg-[#f8f3f5]" />)}
+        </div>
+      </div>
+      <div className="animate-pulse border-y border-[#ded8dc] bg-white px-4 py-5">
+        <div className="h-3 w-20 bg-[#f2e9ed]" />
+        <div className="mt-3 h-6 w-36 bg-[#f2e9ed]" />
+        <div className="mt-5 h-24 bg-[#f8f3f5]" />
+      </div>
+    </div>
+  );
+}
+
 export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
   const artist = findArtistBySlug(slug);
@@ -64,44 +87,45 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
     setPostAuthorMap(new Map());
     setOfficialNews([]);
 
-    const allEvs = await getEventsForArtist(a.slug);
-    setEvents(allEvs);
+    try {
+      const allEvs = await getEventsForArtist(a.slug);
+      setEvents(allEvs);
 
-    queryLatestOfficialNewsForArtist(a.slug, 3).then((result) => setOfficialNews(result.data));
+      queryLatestOfficialNewsForArtist(a.slug, 3).then((result) => setOfficialNews(result.data));
 
-    if (allEvs.length === 0) {
+      if (allEvs.length === 0) return;
+
+      const ids = allEvs.map(e => e.id);
+
+      const [seatRes, ticketResultRes] = await Promise.all([
+        supabase.from("seat_reports")
+          .select("id, event_id, block, row_num, seat_num, lottery_type, fc_history, payment_method, lottery_round, lottery_name, comment, created_at")
+          .in("event_id", ids)
+          .order("created_at", { ascending: false })
+          .limit(500),
+        supabase.from("event_ticket_results")
+          .select("id, event_id, user_id, result, lost_application_count, ticket_count, lottery_type, fc_history, payment_method, seat_type, upgrade_result, comment, seat_block, seat_row, seat_number, stand_direction, stand_floor, other_seat_info, created_at")
+          .in("event_id", ids)
+          .order("created_at", { ascending: false })
+          .limit(1000),
+      ]);
+
+      const seatData = (seatRes.data as AnalyticsReport[]) ?? [];
+      const ticketResultData = (ticketResultRes.data as TicketResultAnalytics[]) ?? [];
+      const ticketAuthors = await fetchVisiblePostAuthors(ticketResultData.map((report) => report.user_id));
+      setPostAuthorMap((current) => new Map([...current, ...ticketAuthors]));
+
+      const sCounts = new Map<string, number>();
+      for (const r of seatData) sCounts.set(r.event_id, (sCounts.get(r.event_id) ?? 0) + 1);
+
+      setAnalyticsReports(seatData);
+      setTicketResultReports(ticketResultData);
+      setSeatCounts(sCounts);
+    } catch {
+      setFetchError("データを読み込めませんでした。時間をおいてもう一度お試しください。");
+    } finally {
       setLoading(false);
-      return;
     }
-
-    const ids = allEvs.map(e => e.id);
-
-    const [seatRes, ticketResultRes] = await Promise.all([
-      supabase.from("seat_reports")
-        .select("id, event_id, block, row_num, seat_num, lottery_type, fc_history, payment_method, lottery_round, lottery_name, comment, created_at")
-        .in("event_id", ids)
-        .order("created_at", { ascending: false })
-        .limit(500),
-      supabase.from("event_ticket_results")
-        .select("id, event_id, user_id, result, lost_application_count, ticket_count, lottery_type, fc_history, payment_method, seat_type, upgrade_result, comment, seat_block, seat_row, seat_number, stand_direction, stand_floor, other_seat_info, created_at")
-        .in("event_id", ids)
-        .order("created_at", { ascending: false })
-        .limit(1000),
-    ]);
-
-    const seatData = (seatRes.data as AnalyticsReport[]) ?? [];
-    const ticketResultData = (ticketResultRes.data as TicketResultAnalytics[]) ?? [];
-    const ticketAuthors = await fetchVisiblePostAuthors(ticketResultData.map((report) => report.user_id));
-    setPostAuthorMap((current) => new Map([...current, ...ticketAuthors]));
-
-    const sCounts = new Map<string, number>();
-    for (const r of seatData) sCounts.set(r.event_id, (sCounts.get(r.event_id) ?? 0) + 1);
-
-    setAnalyticsReports(seatData);
-    setTicketResultReports(ticketResultData);
-    setSeatCounts(sCounts);
-
-    setLoading(false);
   }
 
   useEffect(() => {
@@ -455,12 +479,7 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
         </div>
       )}
 
-      {loading ? (
-        <div className="flex h-48 items-center justify-center">
-          <div className="h-6 w-6 animate-spin rounded-full border-2 border-[#FF6B9D] border-t-transparent" />
-        </div>
-      ) : (
-        <div className="pb-20">
+      <div className="pb-20">
           <div className="zr-container">
             <ArtistActionHub artistName={artist.name} slug={slug} />
 
@@ -489,6 +508,7 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
             <div className="zr-container">
               <UpcomingEventsSection artistName={artist.name} events={upcomingEvents} />
 
+              {loading ? <ArtistDetailsPlaceholder /> : <>
               {/* ===== 座席データ区画: 全公演の傾向カード + 座席報告タイムライン ===== */}
               <div id="ticket-data">
                 <section className="artist-section">
@@ -537,6 +557,7 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
               </ReportSection>
 
               <ArtistBoardPreview artistSlug={slug} artistName={artist.name} />
+              </>}
             </div>
           ) : (
             <div className="zr-container py-8"><PastTourSection
@@ -547,16 +568,15 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
             /></div>
           )}
 
-          <div className="zr-container"><OfficialNewsSection news={officialNews} moreHref={`/artists/${slug}/news`} /></div>
-          {seoProfile && artist && (
+          {!loading && <div className="zr-container"><OfficialNewsSection news={officialNews} moreHref={`/artists/${slug}/news`} /></div>}
+          {!loading && seoProfile && artist && (
             <SeoEditorialSection
               title={`${artist.name}とは`}
               profile={seoProfile}
               className="zr-container mt-10"
             />
           )}
-        </div>
-      )}
+      </div>
 
       <BottomNav active="artist" artistSlug={slug} eventId={mapTargetEventId ?? undefined} />
     </main>
