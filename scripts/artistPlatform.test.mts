@@ -183,6 +183,25 @@ test("core posting flows share compact primary and secondary form actions", () =
   assert.match(predictionSource, /<FormActionLink href=\{`\/events\/\$\{selectedEventId\}`\}/);
 });
 
+test("account and static pages use the shared compact form and reading rules", () => {
+  const loginSource = fs.readFileSync(path.join(projectRoot, "src/app/login/page.tsx"), "utf8");
+  const resetSource = fs.readFileSync(path.join(projectRoot, "src/app/password-reset/page.tsx"), "utf8");
+  const staticPageSource = fs.readFileSync(
+    path.join(projectRoot, "src/components/common/StaticPage.tsx"),
+    "utf8",
+  );
+  const contactSource = fs.readFileSync(path.join(projectRoot, "src/app/contact/page.tsx"), "utf8");
+
+  for (const source of [loginSource, resetSource]) {
+    assert.match(source, /import \{ FormActionButton \} from "@\/components\/common\/FormActions"/);
+    assert.match(source, /<FormActionButton/);
+    assert.match(source, /max-w-\[560px\]/);
+  }
+  assert.match(staticPageSource, /border-y border-\[#ded8dc\] bg-white/);
+  assert.doesNotMatch(staticPageSource, /community-panel/);
+  assert.match(contactSource, /href="mailto:info@tixrepo\.com"/);
+});
+
 test("event and news listings share compact information-row rules", () => {
   const rowSource = fs.readFileSync(
     path.join(projectRoot, "src/components/common/InfoListRow.tsx"),

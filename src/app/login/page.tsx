@@ -4,6 +4,7 @@ import { Suspense, type FormEvent, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { LockKeyhole, Mail, ShieldCheck } from "lucide-react";
+import { FormActionButton } from "@/components/common/FormActions";
 import { Header } from "@/components/common/Header";
 import { trackEvent } from "@/lib/analytics";
 import { supabase } from "@/lib/supabase/client";
@@ -99,47 +100,47 @@ function LoginPageInner() {
   }
 
   return (
-    <main className="community-page pb-10">
+    <main className="community-page pb-12">
       <section className="community-hero">
         <Header title={mode === "login" ? "ログイン" : "新規登録"} backHref="/" backLabel="TOPへ戻る" showAccount={false} />
-        <div className="mx-auto w-[calc(100%-32px)] max-w-[560px] pb-10 pt-5 sm:pb-14 sm:pt-9">
+        <div className="mx-auto w-[calc(100%-32px)] max-w-[560px] pb-7 pt-4 sm:pb-10 sm:pt-7">
           <p className="community-eyebrow">MY TIXREPO</p>
-          <h1 className="community-title mt-3">
-            {mode === "login" ? <>ライブの記録を、<br />自分の場所へ。</> : <>自分だけの、<br />ライブ記録を始める。</>}
+          <h1 className="mt-2 text-[28px] font-black leading-[1.2] tracking-[-0.05em] text-[#4b4148] sm:text-[34px]">
+            {mode === "login" ? <>ライブの記録を、<span className="text-[#f43679]">自分の場所へ。</span></> : <>ライブ記録を、<span className="text-[#f43679]">始めよう。</span></>}
           </h1>
-          <p className="community-subtitle mt-5">
+          <p className="mt-3 text-[12px] font-medium leading-6 text-[#766b72]">
             当落データ、座席予想、現地レポ、推しアーティストをまとめて管理できます。
           </p>
         </div>
       </section>
 
-      <div className="mx-auto w-[calc(100%-32px)] max-w-[560px] py-9">
+      <div className="mx-auto w-[calc(100%-32px)] max-w-[560px] py-7 sm:py-9">
         <div className="flex items-center justify-between gap-4">
           <div>
             <p className="artist-kicker">Account</p>
-            <h2 className="mt-2 text-[25px] font-black tracking-[-0.04em]">{mode === "login" ? "ログイン" : "新規登録"}</h2>
+            <h2 className="mt-1 text-[22px] font-black tracking-[-0.04em] text-[#4b4148]">{mode === "login" ? "ログイン" : "新規登録"}</h2>
           </div>
-          <ShieldCheck size={24} strokeWidth={1.7} className="text-[#f43679]" />
+          <ShieldCheck size={22} strokeWidth={1.7} className="text-[#f43679]" />
         </div>
 
         <button
           type="button"
           onClick={signInWithGoogle}
           disabled={busy}
-          className="community-secondary-button mt-7 w-full disabled:opacity-60"
+          className="zr-focus mt-5 flex min-h-11 w-full items-center justify-center gap-2 rounded-[14px] border border-[#ded8dc] bg-white px-4 text-[12px] font-black text-[#625a61] transition-colors hover:bg-[#fff8fa] disabled:cursor-not-allowed disabled:opacity-60"
         >
           <span className="text-lg font-bold text-[#4285F4]">G</span>
           Googleで続ける
         </button>
 
-        <div className="my-7 flex items-center gap-3 text-[9px] font-black tracking-[0.14em] text-[#958d93]">
+        <div className="my-5 flex items-center gap-3 text-[9px] font-black tracking-[0.14em] text-[#958d93]">
           <div className="h-px flex-1 bg-[#ded8dc]" />OR EMAIL<div className="h-px flex-1 bg-[#ded8dc]" />
         </div>
 
-        <form onSubmit={submitEmail} className="space-y-5">
+        <form onSubmit={submitEmail} className="space-y-4">
           <label className="block text-[10px] font-black tracking-[0.08em] text-[#625a61]">
             メールアドレス
-            <span className="community-input mt-2 flex min-h-14 items-center gap-3 px-4">
+            <span className="community-input mt-2 flex min-h-[52px] items-center gap-3 px-4">
               <Mail size={17} className="shrink-0 text-[#f43679]" />
               <input
                 type="email"
@@ -147,13 +148,13 @@ function LoginPageInner() {
                 autoComplete="email"
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
-                className="min-w-0 flex-1 bg-transparent text-[14px] font-bold text-[#1c171b] outline-none"
+                className="min-w-0 flex-1 bg-transparent text-[14px] font-bold text-[#4b4148] outline-none"
               />
             </span>
           </label>
           <label className="block text-[10px] font-black tracking-[0.08em] text-[#625a61]">
             パスワード
-            <span className="community-input mt-2 flex min-h-14 items-center gap-3 px-4">
+            <span className="community-input mt-2 flex min-h-[52px] items-center gap-3 px-4">
               <LockKeyhole size={17} className="shrink-0 text-[#f43679]" />
               <input
                 type="password"
@@ -162,39 +163,40 @@ function LoginPageInner() {
                 autoComplete={mode === "signup" ? "new-password" : "current-password"}
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
-                className="min-w-0 flex-1 bg-transparent text-[14px] font-bold text-[#1c171b] outline-none"
+                className="min-w-0 flex-1 bg-transparent text-[14px] font-bold text-[#4b4148] outline-none"
               />
             </span>
             {mode === "signup" && <span className="mt-2 block font-medium tracking-normal text-[#958d93]">8文字以上で設定してください</span>}
           </label>
 
-          {error && <p className="border-l-2 border-red-500 bg-red-50 px-4 py-3 text-[11px] font-bold text-red-700">{error}</p>}
-          {message && <p className="border-l-2 border-emerald-500 bg-emerald-50 px-4 py-3 text-[11px] font-bold text-emerald-800">{message}</p>}
+          {error && <p className="border-l-2 border-[#d35b73] bg-[#fff4f6] px-4 py-3 text-[11px] font-bold text-[#9c3d50]">{error}</p>}
+          {message && <p className="border-l-2 border-[#f43679] bg-[#fff4f8] px-4 py-3 text-[11px] font-bold text-[#8f5367]">{message}</p>}
 
-          <button
+          <FormActionButton
             type="submit"
             disabled={busy}
-            className="community-primary-button min-h-14 w-full disabled:opacity-60"
+            className="mt-1 disabled:opacity-60"
           >
             {busy ? "処理中..." : mode === "login" ? "ログイン" : "アカウントを作る"}
-          </button>
+          </FormActionButton>
         </form>
 
         {mode === "login" && (
-          <button type="button" onClick={resetPassword} className="zr-focus mt-5 min-h-11 w-full text-center text-[11px] font-black text-[#625a61]">
+          <button type="button" onClick={resetPassword} className="zr-focus mt-3 min-h-10 w-full text-center text-[11px] font-black text-[#625a61]">
             パスワードを忘れた方
           </button>
         )}
 
-        <button
+        <FormActionButton
           type="button"
           onClick={() => { setMode(mode === "login" ? "signup" : "login"); setError(""); setMessage(""); }}
-          className="community-secondary-button mt-5 w-full"
+          variant="secondary"
+          className="mt-3"
         >
           {mode === "login" ? "メールアドレスで新規登録" : "すでにアカウントをお持ちの方"}
-        </button>
+        </FormActionButton>
 
-        <p className="mt-8 text-center text-[9px] font-medium leading-5 text-[#958d93]">
+        <p className="mt-6 text-center text-[9px] font-medium leading-5 text-[#958d93]">
           続行すると<Link href="/terms" className="underline">利用規約</Link>と<Link href="/privacy" className="underline">プライバシーポリシー</Link>に同意したものとみなされます。
         </p>
       </div>
