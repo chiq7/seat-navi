@@ -193,6 +193,7 @@ test("event and news listings share compact information-row rules", () => {
     "src/components/artist-page/OfficialNewsSection.tsx",
     "src/components/news/SiteNewsList.tsx",
     "src/app/artists/[slug]/news/page.tsx",
+    "src/app/search/page.tsx",
   ].map((file) => fs.readFileSync(path.join(projectRoot, file), "utf8"));
   const reportThumbSource = fs.readFileSync(
     path.join(projectRoot, "src/components/artist-page/ReportThumb.tsx"),
@@ -209,6 +210,8 @@ test("event and news listings share compact information-row rules", () => {
 
   assert.match(rowSource, /data-info-list-row="external"/);
   assert.match(rowSource, /data-info-list-row="internal"/);
+  assert.match(rowSource, /onClick\?: MouseEventHandler<HTMLAnchorElement>/);
+  assert.match(rowSource, /onClick=\{onClick\}/);
   assert.match(rowSource, /min-h-\[84px\]/);
   for (const source of sources) assert.match(source, /<InfoListRow/);
   assert.match(reportThumbSource, /h-\[82px\] w-\[116px\]/);
@@ -809,7 +812,7 @@ test("favorite controls are functional, compact, and outside navigation links", 
   assert.doesNotMatch(homeCard, /M4\.318 6\.318/);
   assert.match(artistClient, /過去の公演[\s\S]*<FavoriteArtistButton/);
   assert.doesNotMatch(artistClient, /<HeroSection[\s\S]*\/>\s*<FavoriteArtistButton/);
-  assert.match(searchPage, /<\/Link>\s*\{favoritesReady \? \(\s*<FavoriteArtistButton/);
+  assert.match(searchPage, /<\/InfoListRow>\s*\{favoritesReady \? \(\s*<FavoriteArtistButton/);
 });
 
 test("artist action hub keeps every destination visible in a compact mobile grid", () => {

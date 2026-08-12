@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Mail } from "lucide-react";
 import StaticPage from "@/components/common/StaticPage";
 
 export const metadata: Metadata = {
@@ -16,7 +16,7 @@ export default function ContactPage() {
     <StaticPage title="お問い合わせ">
       <div className="space-y-5">
         <p className="text-right text-[11px] text-gray-400">最終更新日：2026年7月14日</p>
-        <p>お問い合わせは、ちけレポ公式XのDMからご連絡ください。対象ページのURLとお問い合わせ内容をお送りください。</p>
+        <p>お問い合わせはメール、またはちけレポ公式XのDMからご連絡ください。対象ページのURLとお問い合わせ内容をお送りください。</p>
         <section>
           <h2 className="text-[15px] font-bold text-gray-900">ご連絡いただける内容</h2>
           <ul className="list-disc space-y-1 pl-5">
@@ -27,15 +27,23 @@ export default function ContactPage() {
             <li>意見・要望</li>
           </ul>
         </section>
-        <a
-          href={OFFICIAL_X_URL}
-          target="_blank"
-          rel="noreferrer"
-          className="flex items-center justify-center gap-2 rounded-lg bg-[#FF6B9D] px-4 py-3 text-[13px] font-bold text-white no-underline"
-        >
-          公式Xへ
-          <ExternalLink size={15} />
-        </a>
+        <div className="space-y-2 pt-1">
+          <a
+            href="mailto:info@tixrepo.com"
+            className="flex min-h-12 items-center justify-center gap-2 bg-[#f43679] px-4 text-[13px] font-black text-white no-underline"
+          >
+            <Mail size={16} />info@tixrepo.com
+          </a>
+          <a
+            href={OFFICIAL_X_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="flex min-h-11 items-center justify-center gap-2 border border-[#ded8dc] bg-white px-4 text-[12px] font-black text-[#665a61] no-underline"
+          >
+            公式XのDMへ
+            <ExternalLink size={15} className="text-[#f43679]" />
+          </a>
+        </div>
       </div>
     </StaticPage>
   );
