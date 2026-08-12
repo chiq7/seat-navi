@@ -7,6 +7,7 @@ import { Building2, CalendarDays, MapPin, MoveRight, Search, X } from "lucide-re
 import FavoriteArtistButton from "@/components/auth/FavoriteArtistButton";
 import { Header } from "@/components/common/Header";
 import { InfoListRow } from "@/components/common/InfoListRow";
+import { PageLoadingShell } from "@/components/common/PageLoadingShell";
 import { trackEvent } from "@/lib/analytics";
 import { findArtistBySlug, type Artist } from "@/lib/artists";
 import { getSearchEventDestination, searchArtists, searchEvents, searchVenues, type SearchVenue } from "@/lib/search";
@@ -16,7 +17,7 @@ import type { CrawledEvent } from "@/lib/types";
 
 export default function SearchPage() {
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<PageLoadingShell title="検索" eyebrow="SEARCH LIVE" heading="ライブを探す" />}>
       <SearchPageInner />
     </Suspense>
   );
@@ -176,8 +177,13 @@ function SearchPageInner() {
         )}
 
         {hasQuery && loading && (
-          <div className="flex justify-center py-16">
-            <div className="h-5 w-5 animate-spin rounded-full border-2 border-[#FF6B9D] border-t-transparent" />
+          <div className="space-y-3 py-5" aria-busy="true" aria-label="検索結果を読み込み中">
+            {[0, 1, 2].map((item) => (
+              <div key={item} className="animate-pulse border-y border-[#ece5e9] bg-white px-4 py-4">
+                <div className="h-3 w-20 bg-[#f2e9ed]" />
+                <div className="mt-3 h-4 w-2/3 bg-[#f8f3f5]" />
+              </div>
+            ))}
           </div>
         )}
 

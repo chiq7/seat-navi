@@ -286,7 +286,26 @@ export default function MyPage() {
   }
 
   if (loading) {
-    return <div className="flex min-h-screen items-center justify-center"><div className="h-6 w-6 animate-spin rounded-full border-2 border-[#FF6B9D] border-t-transparent" /></div>;
+    return (
+      <main className="community-page pb-12">
+        <section className="community-hero">
+          <Header title="マイページ" backHref="/" backLabel="TOPへ戻る" showAccount={false} />
+          <div className="zr-container pb-6 pt-4 sm:pb-9 sm:pt-7">
+            <p className="community-eyebrow">MY TIXREPO</p>
+            <h1 className="mt-2 text-[28px] font-black tracking-[-0.05em] text-[#4b4148] sm:text-[36px]">わたしの<span className="text-[#ef4f87]">ライブ記録</span></h1>
+          </div>
+        </section>
+        <div className="zr-container space-y-5 py-8" aria-busy="true" aria-label="マイページを読み込み中">
+          {[0, 1, 2].map((item) => (
+            <div key={item} className="animate-pulse border-y border-[#ded8dc] bg-white px-4 py-5">
+              <div className="h-3 w-24 bg-[#f2e9ed]" />
+              <div className="mt-3 h-5 w-1/2 bg-[#f8f3f5]" />
+              <div className="mt-5 h-12 bg-[#fcf8fa]" />
+            </div>
+          ))}
+        </div>
+      </main>
+    );
   }
 
   if (loadError) {

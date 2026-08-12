@@ -14,6 +14,7 @@ import { CompactHeroIntro } from "@/components/common/CompactHeroIntro";
 import { ShareButton } from "@/components/common/ShareButton";
 import { ProgressSteps } from "@/components/common/ProgressSteps";
 import { Header } from "@/components/common/Header";
+import { PageLoadingShell } from "@/components/common/PageLoadingShell";
 import { FormActionButton, FormActionGroup } from "@/components/common/FormActions";
 import { ReportChoiceButton as Btn } from "@/components/report/ReportChoiceButton";
 
@@ -217,7 +218,7 @@ function SuccessScreen({
 
 export default function TicketReportPage() {
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<PageLoadingShell title="当落・座席を報告" eyebrow="SHARE THE LIVE" heading="当落・座席を報告" backHref="/report" backLabel="報告ページに戻る" blocks={3} />}>
       <TicketReportPageInner />
     </Suspense>
   );

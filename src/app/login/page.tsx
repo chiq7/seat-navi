@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { LockKeyhole, Mail, ShieldCheck } from "lucide-react";
 import { FormActionButton } from "@/components/common/FormActions";
 import { Header } from "@/components/common/Header";
+import { PageLoadingShell } from "@/components/common/PageLoadingShell";
 import { trackEvent } from "@/lib/analytics";
 import { supabase } from "@/lib/supabase/client";
 
@@ -14,7 +15,7 @@ function safeNext(value: string | null): string {
 }
 
 export default function LoginPage() {
-  return <Suspense fallback={null}><LoginPageInner /></Suspense>;
+  return <Suspense fallback={<PageLoadingShell title="ログイン" eyebrow="MY TIXREPO" heading="ログインして記録を保存" backHref="/" blocks={1} />}><LoginPageInner /></Suspense>;
 }
 
 function LoginPageInner() {

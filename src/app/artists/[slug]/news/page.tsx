@@ -95,8 +95,13 @@ export default function ArtistNewsPage({ params }: { params: Promise<{ slug: str
         )}
 
         {loading ? (
-          <div className="flex h-48 items-center justify-center" aria-label="読み込み中">
-            <div className="h-6 w-6 animate-spin rounded-full border-2 border-[#f43679] border-t-transparent" />
+          <div className="mt-7 space-y-3 border-t border-[#ded8dc] pt-3" aria-busy="true" aria-label="公式ニュースを読み込み中">
+            {[0, 1, 2].map((item) => (
+              <div key={item} className="animate-pulse border-b border-[#ece5e9] py-4">
+                <div className="h-3 w-24 bg-[#f2e9ed]" />
+                <div className="mt-3 h-4 w-3/4 bg-[#f8f3f5]" />
+              </div>
+            ))}
           </div>
         ) : filteredNews.length === 0 ? (
           <p className="community-panel py-14 text-center text-sm font-bold text-[#817981]">公式ニュースはまだありません</p>

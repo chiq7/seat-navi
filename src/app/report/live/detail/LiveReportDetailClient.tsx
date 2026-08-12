@@ -13,6 +13,7 @@ import { fmtDate } from "@/lib/artistPageHelpers";
 import { AccountLink } from "@/components/auth/AccountLink";
 import { ShareButton } from "@/components/common/ShareButton";
 import { Header } from "@/components/common/Header";
+import { PageLoadingShell } from "@/components/common/PageLoadingShell";
 
 const RATING_IMAGES: Record<number, string> = {
   5: "/images/reports/overall-rating/rating-5-kamiseki.png",
@@ -124,7 +125,7 @@ type Status = "loading" | "ok" | "not-found" | "no-report";
 
 export function LiveReportDetailClient() {
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<PageLoadingShell title="現地レポ" eyebrow="LIVE REPORT" heading="現地のライブレポ" backHref="/report" backLabel="報告ページに戻る" />}>
       <LiveReportDetailPageInner />
     </Suspense>
   );
@@ -200,9 +201,26 @@ function LiveReportDetailPageInner() {
 
   if (status === "loading") {
     return (
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="h-6 w-6 animate-spin rounded-full border-2 border-[#FF6B9D] border-t-transparent" />
-      </div>
+      <main className="community-page pb-20">
+        <section className="community-hero">
+          <Header title="現地レポ" backHref="/report" backLabel="報告ページに戻る" />
+          <div className="zr-container pb-6 pt-4 sm:pb-9 sm:pt-7">
+            <p className="community-eyebrow">LIVE REPORT</p>
+            <h1 className="mt-2 text-[28px] font-black tracking-[-0.05em] text-[#4b4148] sm:text-[36px]">現地の<span className="text-[#ef4f87]">ライブレポ</span></h1>
+          </div>
+        </section>
+        <div className="zr-container space-y-4 py-7" aria-busy="true" aria-label="現地レポを読み込み中">
+          <div className="animate-pulse border-y border-[#ded8dc] bg-white px-4 py-5">
+            <div className="h-3 w-24 bg-[#f2e9ed]" />
+            <div className="mt-3 h-6 w-2/3 bg-[#f8f3f5]" />
+            <div className="mt-5 h-40 bg-[#fcf8fa]" />
+          </div>
+          <div className="animate-pulse border-y border-[#ded8dc] bg-white px-4 py-5">
+            <div className="h-3 w-20 bg-[#f2e9ed]" />
+            <div className="mt-3 h-16 bg-[#f8f3f5]" />
+          </div>
+        </div>
+      </main>
     );
   }
 
