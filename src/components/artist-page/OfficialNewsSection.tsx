@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ChevronRight, ExternalLink } from "lucide-react";
 import type { OfficialNews } from "@/lib/types";
 import { OFFICIAL_NEWS_CATEGORY_LABELS } from "@/lib/types";
+import { InfoListRow } from "@/components/common/InfoListRow";
 
 type Props = {
   news: OfficialNews[];
@@ -24,32 +25,25 @@ export default function OfficialNewsSection({ news, moreHref }: Props) {
       <div className="mt-6 border-t border-[#ded8dc]">
         <div>
           {news.map((n) => (
-            <a
+            <InfoListRow
               key={n.id}
               href={n.article_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="zr-focus flex min-h-[92px] items-center gap-3 border-b border-[#ded8dc] py-3 no-underline transition-colors hover:bg-white sm:px-4"
+              external
+              ariaLabel={`${n.article_title}を公式サイトで読む`}
             >
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-1.5">
-                  {n.category && (
-                    <span className="shrink-0 rounded-full bg-[#FFF1F6] px-1.5 py-0.5 text-[10px] font-bold text-[#FF6B9D]">
-                      {OFFICIAL_NEWS_CATEGORY_LABELS[n.category]}
-                    </span>
-                  )}
-                  {n.published_date && (
-                    <span className="shrink-0 text-[11px] text-gray-400">
-                      {fmtPublishedDate(n.published_date)}
-                    </span>
-                  )}
-                </div>
-                <p className="mt-1 line-clamp-2 text-[13px] font-semibold leading-snug text-gray-900">
+              <div className="self-start pt-0.5">
+                <time dateTime={n.published_date ?? undefined} className="block text-[10px] font-black tabular-nums text-[#817981]">
+                  {n.published_date ? fmtPublishedDate(n.published_date) : "DATE TBA"}
+                </time>
+                {n.category && <span className="mt-1 block text-[9px] font-black text-[#f43679]">{OFFICIAL_NEWS_CATEGORY_LABELS[n.category]}</span>}
+              </div>
+              <div className="min-w-0">
+                <p className="line-clamp-2 text-[13px] font-black leading-[1.45] tracking-[-0.02em] text-[#1c171b] sm:text-[14px]">
                   {n.article_title}
                 </p>
               </div>
               <ExternalLink size={14} className="shrink-0 text-gray-300" aria-hidden="true" />
-            </a>
+            </InfoListRow>
           ))}
         </div>
         <div className="mt-5 flex justify-center">

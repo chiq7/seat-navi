@@ -8,7 +8,7 @@ export function ReportThumb({ index, photoUrl }: { index: number; photoUrl?: str
 
   if (photoUrl && !imgError) {
     return (
-      <div className="h-[104px] w-[152px] overflow-hidden rounded-xl bg-gray-100">
+      <div className="h-[82px] w-[116px] overflow-hidden rounded-xl bg-gray-100 sm:h-[96px] sm:w-[140px]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={photoUrl}
@@ -21,7 +21,7 @@ export function ReportThumb({ index, photoUrl }: { index: number; photoUrl?: str
   }
 
   return (
-    <div className="h-[104px] w-[152px] overflow-hidden rounded-xl bg-[#f3e8ee]">
+    <div className="h-[82px] w-[116px] overflow-hidden rounded-xl bg-[#f3e8ee] sm:h-[96px] sm:w-[140px]">
       <div
         className="h-full w-full"
         style={{

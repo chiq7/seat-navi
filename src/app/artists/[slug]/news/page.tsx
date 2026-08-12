@@ -9,6 +9,7 @@ import { OFFICIAL_NEWS_CATEGORY_LABELS } from "@/lib/types";
 import { Header } from "@/components/common/Header";
 import { SelectControl } from "@/components/common/SelectControl";
 import { BottomNav } from "@/components/common/BottomNav";
+import { InfoListRow } from "@/components/common/InfoListRow";
 
 function fmtPublishedDate(d: string | null): string {
   if (!d) return "";
@@ -100,29 +101,26 @@ export default function ArtistNewsPage({ params }: { params: Promise<{ slug: str
         ) : filteredNews.length === 0 ? (
           <p className="community-panel py-14 text-center text-sm font-bold text-[#817981]">公式ニュースはまだありません</p>
         ) : (
-          <div className="mt-7 grid gap-3">
+          <div className="mt-7 border-t border-[#ded8dc]">
             {filteredNews.map((n) => (
-              <a
+              <InfoListRow
                 key={n.id}
                 href={n.article_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                  className="community-card zr-focus group grid min-h-44 grid-cols-[72px_1fr] gap-4 p-5 no-underline transition-colors hover:bg-white sm:grid-cols-[110px_1fr_auto] sm:items-center"
+                external
                 aria-label={`${n.article_title}を公式サイトで読む`}
               >
-                <div className="self-start">
-                  <time dateTime={n.published_date ?? undefined} className="block text-[10px] font-black tracking-[0.04em] text-[#817981]">
+                <div className="self-start pt-0.5">
+                  <time dateTime={n.published_date ?? undefined} className="block text-[10px] font-black tabular-nums text-[#817981]">
                     {n.published_date ? fmtPublishedDate(n.published_date) : "DATE TBA"}
                   </time>
-                  {n.category && <span className="mt-2 block text-[9px] font-black text-[#f43679]">{OFFICIAL_NEWS_CATEGORY_LABELS[n.category]}</span>}
+                  {n.category && <span className="mt-1 block text-[9px] font-black text-[#f43679]">{OFFICIAL_NEWS_CATEGORY_LABELS[n.category]}</span>}
                 </div>
                 <div className="min-w-0">
-                  <h3 className="text-[16px] font-black leading-[1.55] tracking-[-0.025em] text-[#1c171b] sm:text-[18px]">{n.article_title}</h3>
-                  <p className="mt-2 line-clamp-3 text-[12px] font-medium leading-6 text-[#817981]">{getOfficialNewsSummary(n)}</p>
-                  <span className="mt-4 inline-flex min-h-11 items-center gap-1.5 text-[11px] font-black text-[#f43679] sm:hidden">公式サイトで読む<ExternalLink size={14} aria-hidden="true" /></span>
+                  <h3 className="line-clamp-2 text-[14px] font-black leading-[1.45] tracking-[-0.025em] text-[#1c171b] sm:text-[16px]">{n.article_title}</h3>
+                  <p className="mt-1 hidden truncate text-[11px] font-medium leading-5 text-[#817981] sm:block">{getOfficialNewsSummary(n)}</p>
                 </div>
-                <span className="hidden min-h-11 items-center gap-2 text-[11px] font-black text-[#f43679] sm:inline-flex">公式サイトで読む<ExternalLink size={15} aria-hidden="true" /></span>
-              </a>
+                <span className="flex min-h-11 items-center justify-end text-[#f43679]" aria-hidden="true"><ExternalLink size={15} /></span>
+              </InfoListRow>
             ))}
           </div>
         )}

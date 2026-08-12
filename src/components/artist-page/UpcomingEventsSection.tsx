@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { CalendarDays, MapPin } from "lucide-react";
 import { parseEventTitle } from "@/lib/eventTitle";
 import type { CrawledEvent } from "@/lib/types";
+import { InfoListRow } from "@/components/common/InfoListRow";
 
 type Props = {
   artistName: string;
@@ -36,10 +36,9 @@ export default function UpcomingEventsSection({ artistName, events }: Props) {
           {visibleEvents.map((event) => {
             const parsed = parseEventTitle(event.title, artistName);
             return (
-              <Link
+              <InfoListRow
                 key={event.id}
                 href={`/events/${event.id}`}
-                className="zr-focus group grid min-h-[96px] grid-cols-[72px_1fr_18px] items-center gap-4 border-b border-[#ded8dc] py-3 no-underline transition-colors hover:bg-white sm:grid-cols-[110px_1fr_22px] sm:px-4"
               >
                 <div className="border-r border-[#ded8dc] pr-3 text-[11px] font-semibold text-[#746c73]">
                   <span className="inline-flex flex-col items-start gap-1">
@@ -62,7 +61,7 @@ export default function UpcomingEventsSection({ artistName, events }: Props) {
                   </div>
                 </div>
                 <span className="text-[#f43679] transition-transform group-hover:translate-x-1">→</span>
-              </Link>
+              </InfoListRow>
             );
           })}
           {!expanded && events.length > INITIAL_COUNT && (

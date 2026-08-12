@@ -57,7 +57,8 @@ export function ReportTimelineList({
             <div key={report.id} className="border-b border-[#ded8dc] last:border-b-0">
             <Link
               href={`/report/live/detail?reportId=${report.id}`}
-              className="zr-focus flex min-h-[96px] items-stretch gap-3 bg-white px-4 py-2.5 no-underline transition-colors hover:bg-[#fff0f5]"
+              className="zr-focus flex min-h-[88px] items-stretch gap-3 bg-white px-3 py-2.5 no-underline transition-colors hover:bg-[#fff0f5] sm:px-4"
+              data-info-list-row="report"
             >
               <div className="self-center">
                 <ReportThumb index={index} photoUrl={photoUrl} />
@@ -75,7 +76,7 @@ export function ReportTimelineList({
                     : undefined
                 }
               >
-                <div className="min-w-0 flex-1 px-2 py-1.5">
+                <div className="min-w-0 flex-1 px-1 py-1.5 sm:px-2">
                   <div
                     className={`flex h-[20px] max-w-[70%] items-center justify-start gap-0.5 overflow-hidden ${structureBadges.length > 0 ? "" : "invisible"}`}
                   >

@@ -183,6 +183,34 @@ test("core posting flows share compact primary and secondary form actions", () =
   assert.match(predictionSource, /<FormActionLink href=\{`\/events\/\$\{selectedEventId\}`\}/);
 });
 
+test("event and news listings share compact information-row rules", () => {
+  const rowSource = fs.readFileSync(
+    path.join(projectRoot, "src/components/common/InfoListRow.tsx"),
+    "utf8",
+  );
+  const sources = [
+    "src/components/artist-page/UpcomingEventsSection.tsx",
+    "src/components/artist-page/OfficialNewsSection.tsx",
+    "src/components/news/SiteNewsList.tsx",
+    "src/app/artists/[slug]/news/page.tsx",
+  ].map((file) => fs.readFileSync(path.join(projectRoot, file), "utf8"));
+  const reportThumbSource = fs.readFileSync(
+    path.join(projectRoot, "src/components/artist-page/ReportThumb.tsx"),
+    "utf8",
+  );
+  const reportListSource = fs.readFileSync(
+    path.join(projectRoot, "src/components/artist-page/ReportSection.tsx"),
+    "utf8",
+  );
+
+  assert.match(rowSource, /data-info-list-row="external"/);
+  assert.match(rowSource, /data-info-list-row="internal"/);
+  assert.match(rowSource, /min-h-\[84px\]/);
+  for (const source of sources) assert.match(source, /<InfoListRow/);
+  assert.match(reportThumbSource, /h-\[82px\] w-\[116px\]/);
+  assert.match(reportListSource, /data-info-list-row="report"/);
+});
+
 test("report and seat pages share the compact event picker section", () => {
   const compactPickerSource = fs.readFileSync(
     path.join(projectRoot, "src/components/common/CompactEventPickerSection.tsx"),
