@@ -91,8 +91,9 @@ export function EventPicker<T extends PickerEvent>({
 }: EventPickerProps<T>) {
   if (loading) {
     return (
-      <div className={`flex h-[74px] items-center justify-center ${className ?? ""}`}>
-        <div className="h-5 w-5 animate-spin rounded-full border-2 border-[#FF6B9D] border-t-transparent" />
+      <div className={`h-[74px] animate-pulse border-y border-[#eadfe4] bg-white px-3 py-3 ${className ?? ""}`} aria-busy="true" aria-label="公演一覧を読み込み中">
+        <div className="h-3 w-24 bg-[#f2e9ed]" />
+        <div className="mt-3 h-4 w-2/3 bg-[#f8f3f5]" />
       </div>
     );
   }
@@ -245,8 +246,9 @@ export function EventCarouselPicker<T extends PickerEvent>({
 
   if (loading) {
     return (
-      <div className={`flex h-[64px] items-center justify-center ${className ?? ""}`}>
-        <div className="h-5 w-5 animate-spin rounded-full border-2 border-[#FF6B9D] border-t-transparent" />
+      <div className={`h-[64px] animate-pulse border border-[#eadfe4] bg-white px-4 py-2.5 ${className ?? ""}`} aria-busy="true" aria-label="公演一覧を読み込み中">
+        <div className="h-2.5 w-28 bg-[#f2e9ed]" />
+        <div className="mt-2 h-3 w-2/3 bg-[#f8f3f5]" />
       </div>
     );
   }

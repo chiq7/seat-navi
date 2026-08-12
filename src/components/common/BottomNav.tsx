@@ -1,4 +1,8 @@
+"use client";
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { Camera, LayoutGrid, ListMusic, Map, SquarePen } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -56,6 +60,7 @@ function Item({
 }
 
 export function BottomNav({ active, artistSlug, eventId }: Props) {
+  const router = useRouter();
   const artistHref = artistSlug ? `/artists/${artistSlug}` : "/";
   const seatHref = eventId ? `/events/${eventId}` : null;
   const afterHref = artistSlug ? `/artists/${artistSlug}/after-reports` : null;
@@ -65,6 +70,13 @@ export function BottomNav({ active, artistSlug, eventId }: Props) {
     : artistSlug
       ? `/report?artist=${artistSlug}`
       : "/report";
+
+  // 常に表示されるナビは、次に使う主要画面を先読みしてタップ後の空白を作らない。
+  useEffect(() => {
+    [artistHref, reportHref, seatHref, afterHref, setlistHref]
+      .filter((href): href is string => href !== null)
+      .forEach((href) => router.prefetch(href));
+  }, [afterHref, artistHref, reportHref, router, seatHref, setlistHref]);
 
   return (
     <nav

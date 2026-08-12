@@ -69,8 +69,12 @@ test("report forms preserve anonymous posting and link signed-in posts to their 
   assert.match(mypageSource, /from\("seat_reports"\)[\s\S]*?delete\(\)[\s\S]*?eq\("id", id\)/);
 });
 
-test("generic report entry waits for the user to choose a performance", () => {
+test("generic report entry keeps a neutral state until the user chooses a performance", () => {
   const reportEntrySource = fs.readFileSync(
+    path.join(projectRoot, "src/app/report/ReportEntryClient.tsx"),
+    "utf8",
+  );
+  const reportPageSource = fs.readFileSync(
     path.join(projectRoot, "src/app/report/page.tsx"),
     "utf8",
   );
@@ -79,11 +83,13 @@ test("generic report entry waits for the user to choose a performance", () => {
     "utf8",
   );
 
-  assert.match(reportEntrySource, /const preselectedEventId = searchParams\.get\("event"\)/);
-  assert.match(reportEntrySource, /const preselectedArtistSlug = searchParams\.get\("artist"\)/);
+  assert.match(reportPageSource, /await searchParams/);
+  assert.match(reportPageSource, /<ReportEntryClient/);
+  assert.match(reportEntrySource, /initialEventId/);
+  assert.match(reportEntrySource, /initialArtistSlug/);
   assert.match(reportEntrySource, /let anchorEvent: CrawledEvent \| null = null/);
-  assert.match(reportEntrySource, /preselectedEventId && !preselectedArtistSlug/);
-  assert.match(reportEntrySource, /const targetArtistSlug = preselectedArtistSlug/);
+  assert.match(reportEntrySource, /initialEventId && !initialArtistSlug/);
+  assert.match(reportEntrySource, /const targetArtistSlug = initialArtistSlug/);
   assert.match(reportEntrySource, /anchorEvent\?\.artist_slug/);
   assert.match(reportEntrySource, /getEventsForArtist\(targetArtistSlug\)/);
   assert.match(reportEntrySource, /\(b\.date \?\? ""\)\.localeCompare\(a\.date \?\? ""\)/);
@@ -98,7 +104,7 @@ test("generic report entry waits for the user to choose a performance", () => {
 
 test("report and seat pages share the same compact event summary", () => {
   const reportEntrySource = fs.readFileSync(
-    path.join(projectRoot, "src/app/report/page.tsx"),
+    path.join(projectRoot, "src/app/report/ReportEntryClient.tsx"),
     "utf8",
   );
   const eventDetailSource = fs.readFileSync(
@@ -271,7 +277,7 @@ test("report and seat pages share the compact event picker section", () => {
     "utf8",
   );
   const pageSources = [
-    "src/app/report/page.tsx",
+    "src/app/report/ReportEntryClient.tsx",
     "src/app/events/[id]/EventDetailClient.tsx",
   ].map((file) => fs.readFileSync(path.join(projectRoot, file), "utf8"));
 
@@ -291,7 +297,7 @@ test("core report flows use one-line functional hero titles and the compact even
     "utf8",
   );
   const pageSources = [
-    "src/app/report/page.tsx",
+    "src/app/report/ReportEntryClient.tsx",
     "src/app/report/ticket/page.tsx",
     "src/app/report/live/page.tsx",
     "src/app/events/[id]/fan-seat-prediction/page.tsx",
@@ -984,7 +990,7 @@ test("curated SEO profiles use sourced substantial content instead of thin gener
 
 test("report entry sticky header describes its actual back destination", () => {
   const reportEntry = fs.readFileSync(
-    path.join(projectRoot, "src/app/report/page.tsx"),
+    path.join(projectRoot, "src/app/report/ReportEntryClient.tsx"),
     "utf8",
   );
   assert.match(reportEntry, /<Header title="報告" backHref=\{backHref\} backLabel=\{backLabel\}/);
@@ -1001,7 +1007,7 @@ test("all page-level flows share one compact fixed header without fixing their c
     "src/components/artist-page/HeroSection.tsx",
     "src/app/events/[id]/EventDetailClient.tsx",
     "src/app/events/[id]/fan-seat-prediction/page.tsx",
-    "src/app/report/page.tsx",
+    "src/app/report/ReportEntryClient.tsx",
     "src/app/report/ticket/page.tsx",
     "src/app/report/live/page.tsx",
     "src/app/report/live/detail/LiveReportDetailClient.tsx",
