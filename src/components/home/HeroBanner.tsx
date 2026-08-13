@@ -8,18 +8,18 @@ export default function HeroBanner() {
     <>
       <section className="relative isolate min-h-[390px] overflow-hidden bg-[#070b1c] text-white sm:min-h-[480px] lg:min-h-[540px]">
         <Image
-          src="/images/hero/home-community-v2.webp"
+          src="/images/hero/home-idol-live-v3.webp"
           alt=""
           fill
           priority
           sizes="100vw"
-          className="object-cover object-[68%_center] sm:object-[64%_center] lg:object-center"
+          className="object-cover object-[72%_center] sm:object-[68%_center] lg:object-center"
         />
         <div
-          className="absolute inset-0 bg-[linear-gradient(90deg,rgba(4,8,25,.96)_0%,rgba(4,8,25,.88)_34%,rgba(4,8,25,.42)_58%,rgba(4,8,25,.08)_100%)] max-lg:bg-[linear-gradient(90deg,rgba(4,8,25,.94)_0%,rgba(4,8,25,.78)_55%,rgba(4,8,25,.34)_100%)]"
+          className="absolute inset-0 bg-[linear-gradient(90deg,rgba(4,8,25,.98)_0%,rgba(4,8,25,.88)_36%,rgba(4,8,25,.34)_64%,rgba(4,8,25,.04)_100%)] max-lg:bg-[linear-gradient(90deg,rgba(4,8,25,.96)_0%,rgba(4,8,25,.82)_52%,rgba(4,8,25,.38)_100%)]"
           aria-hidden="true"
         />
-        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#070b1c] to-transparent" aria-hidden="true" />
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#070b1c]/70 to-transparent" aria-hidden="true" />
 
         <div className="zr-container relative flex min-h-[390px] items-center py-10 sm:min-h-[480px] sm:py-14 lg:min-h-[540px] lg:py-16">
           <div className="max-w-[620px]">
