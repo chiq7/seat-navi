@@ -62,19 +62,19 @@ export default function HomeHeroPromoBanner() {
       data-monetization-slot="home-first-view"
       role="region"
       aria-label="注目バナー"
-      className="relative min-h-[108px] overflow-hidden rounded-[22px] shadow-[0_16px_36px_rgba(198,75,126,.18)] sm:min-h-[128px] sm:rounded-[26px] lg:min-h-[148px]"
+      className="relative min-h-[142px] overflow-hidden rounded-[22px] shadow-[0_16px_36px_rgba(198,75,126,.18)] sm:min-h-[172px] sm:rounded-[26px] lg:min-h-[190px]"
     >
       <div
         ref={scrollRef}
         onScroll={handleScroll}
-        className="hide-scrollbar flex min-h-[108px] snap-x snap-mandatory overflow-x-auto sm:min-h-[128px] lg:min-h-[148px]"
+        className="hide-scrollbar flex min-h-[142px] snap-x snap-mandatory overflow-x-auto sm:min-h-[172px] lg:min-h-[190px]"
       >
         {slides.map((slide) => (
           <Link
             key={slide.href}
             href={slide.href}
             aria-label={slide.ariaLabel}
-            className={`zr-focus group relative flex w-full shrink-0 snap-center p-4 text-white transition sm:p-5 lg:p-6 ${slide.background}`}
+            className={`zr-focus group relative flex w-full shrink-0 snap-center p-5 text-white transition sm:p-6 lg:p-7 ${slide.background}`}
           >
             <span className="absolute -right-10 -top-14 h-40 w-40 rounded-full border-[28px] border-white/15" aria-hidden="true" />
             <span className="absolute -bottom-16 right-16 h-36 w-36 rounded-full bg-white/10 blur-xl" aria-hidden="true" />
@@ -84,15 +84,15 @@ export default function HomeHeroPromoBanner() {
                 <span className="inline-flex items-center gap-1.5 rounded-full bg-white/18 px-2.5 py-1.5 text-[9px] font-black tracking-[0.14em]">
                   <Sparkles size={12} aria-hidden="true" /> {slide.eyebrow}
                 </span>
-                <span className="mt-2 block whitespace-pre-line text-[18px] font-black leading-tight tracking-[-0.04em] sm:text-[22px] lg:text-[25px]">
+                <span className="mt-2 block whitespace-pre-line text-[20px] font-black leading-tight tracking-[-0.04em] sm:text-[25px] lg:text-[29px]">
                   {slide.title}
                 </span>
-                <span className="mt-1 block text-[10px] font-bold text-white/85 sm:text-[12px]">
+                <span className="mt-1 block text-[11px] font-bold text-white/85 sm:text-[13px]">
                   {slide.description}
                 </span>
               </span>
-              <span className="grid size-10 shrink-0 place-items-center rounded-full bg-white text-[#df3f76] transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 sm:size-12">
-                <ArrowUpRight size={19} aria-hidden="true" />
+              <span className="grid size-11 shrink-0 place-items-center rounded-full bg-white text-[#df3f76] transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 sm:size-14">
+                <ArrowUpRight size={22} aria-hidden="true" />
               </span>
             </span>
           </Link>

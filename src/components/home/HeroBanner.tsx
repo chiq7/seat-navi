@@ -6,7 +6,7 @@ import HomeHeroPromoBanner from "@/components/home/HomeHeroPromoBanner";
 export default function HeroBanner() {
   return (
     <>
-      <section className="relative isolate min-h-[390px] overflow-hidden bg-[#070b1c] text-white sm:min-h-[480px] lg:min-h-[540px]">
+      <section className="relative isolate min-h-[350px] overflow-hidden bg-[#070b1c] text-white sm:min-h-[390px] lg:min-h-[430px]">
         <Image
           src="/images/hero/home-idol-live-v3.webp"
           alt=""
@@ -21,14 +21,14 @@ export default function HeroBanner() {
         />
         <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#070b1c]/70 to-transparent" aria-hidden="true" />
 
-        <div className="zr-container relative flex min-h-[390px] items-center py-10 sm:min-h-[480px] sm:py-14 lg:min-h-[540px] lg:py-16">
+        <div className="zr-container relative flex min-h-[350px] items-center py-8 sm:min-h-[390px] sm:py-10 lg:min-h-[430px] lg:py-12">
           <div className="max-w-[620px]">
-            <p className="mb-4 text-[10px] font-black tracking-[0.22em] text-[#ff78aa] sm:text-xs">LIVE TICKET COMMUNITY</p>
+            <p className="mb-3 text-[10px] font-black tracking-[0.22em] text-[#ff78aa] sm:text-xs">LIVE TICKET COMMUNITY</p>
             <h1 className="text-[25px] font-black leading-[1.12] tracking-[-0.055em] text-white sm:text-[46px] lg:text-[50px] xl:text-[54px]">
               <span className="block whitespace-nowrap">当落・座席予想・現地レポ。</span>
               <span className="mt-1 block whitespace-nowrap text-[#ff6fa6]">すべてがここに集まる。</span>
             </h1>
-            <div className="mt-6 grid grid-cols-2 gap-2.5 sm:mt-8 sm:flex sm:flex-wrap sm:gap-3">
+            <div className="mt-5 grid grid-cols-2 gap-2.5 sm:mt-6 sm:flex sm:flex-wrap sm:gap-3">
               <Link href="/search" className="zr-focus inline-flex min-h-12 items-center justify-center gap-1.5 rounded-full bg-[#ef4f87] px-3 text-[11px] font-black text-white shadow-[0_12px_30px_rgba(239,79,135,.34)] transition hover:bg-[#db3e73] sm:gap-2 sm:px-5 sm:text-[13px]">
                 <Search size={16} /> 推しを探す <ArrowRight size={14} />
               </Link>
@@ -40,8 +40,8 @@ export default function HeroBanner() {
         </div>
       </section>
 
-      <section className="bg-[#fff8fb] py-4 sm:py-6" aria-label="ちけレポのおすすめ">
-        <div className="zr-container max-w-[920px]">
+      <section className="bg-[#fff8fb] py-4 sm:py-5" aria-label="ちけレポのおすすめ">
+        <div className="zr-container max-w-[1080px]">
           <HomeHeroPromoBanner />
         </div>
       </section>
