@@ -602,8 +602,12 @@ test("workflow keeps inputs out of the shell program and uses validation plus Ba
   assert.match(crawlerStep, /ARGS\+=\(--execute --classify "--shard=\$\{SHARD_INDEX\}\/7"\)/);
   assert.match(workflow, /- cron: "0 19 \* \* \*"/);
   assert.match(workflow, /Report Gemini free-tier stop/);
+  assert.match(workflow, /contents: write/);
   assert.match(workflow, /issues: write/);
   assert.match(workflow, /gh issue create/);
+  assert.match(workflow, /updateOfficialNewsStatus\.mts[\s\\]+--status=stopped/);
+  assert.match(workflow, /Clear Gemini stop status after a successful live run/);
+  assert.match(workflow, /updateOfficialNewsStatus\.mts[\s\\]+--status=normal/);
   assert.match(workflow, /- name: Ensure artifact fallback report exists[\s\S]*if: always\(\)/);
   assert.match(workflow, /workflow-fallback\.txt/);
   assert.match(workflow, /- name: Upload crawl report[\s\S]*if: always\(\)/);
