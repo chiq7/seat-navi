@@ -1,6 +1,7 @@
 export type CrawlerArgs = {
   artist?: string;
   group?: string;
+  shard?: { index: number; total: number };
   dryRun: boolean;
   execute: boolean;
   classify: boolean;
@@ -18,6 +19,7 @@ Options:
                      quota/usage and may incur charges. Independent of DB writes.
   --artist=<slug>    Process one artist slug.
   --group=<name>     Process one specialParserName or cmsGroup.
+  --shard=<n>/<all>  Process a stable subset of artists, such as --shard=0/7.
   --help             Show this help and exit.
 
 Safety rules:
@@ -37,6 +39,7 @@ export function parseCrawlerArgs(argv: string[]): CrawlerArgs {
   let help = false;
   let artist: string | undefined;
   let group: string | undefined;
+  let shard: CrawlerArgs["shard"];
 
   for (const arg of argv) {
     if (arg === "--dry-run") explicitDryRun = true;
@@ -45,6 +48,7 @@ export function parseCrawlerArgs(argv: string[]): CrawlerArgs {
     else if (arg === "--help") help = true;
     else if (arg.startsWith("--artist=")) artist = requireFilterValue(arg, "--artist=");
     else if (arg.startsWith("--group=")) group = requireFilterValue(arg, "--group=");
+    else if (arg.startsWith("--shard=")) shard = requireShardValue(arg);
     else throw new CliArgumentError(`Unknown argument: ${arg}`);
   }
 
@@ -55,11 +59,26 @@ export function parseCrawlerArgs(argv: string[]): CrawlerArgs {
   return {
     artist,
     group,
+    shard,
     dryRun: !execute,
     execute,
     classify,
     help,
   };
+}
+
+function requireShardValue(argument: string): NonNullable<CrawlerArgs["shard"]> {
+  const value = argument.slice("--shard=".length);
+  const match = /^(\d{1,2})\/(\d{1,2})$/.exec(value);
+  if (!match) {
+    throw new CliArgumentError("--shard must use index/total format, such as --shard=0/7.");
+  }
+  const index = Number(match[1]);
+  const total = Number(match[2]);
+  if (!Number.isInteger(index) || !Number.isInteger(total) || total < 1 || total > 31 || index < 0 || index >= total) {
+    throw new CliArgumentError("--shard requires 0 <= index < total, with total between 1 and 31.");
+  }
+  return { index, total };
 }
 
 export function validateExecutionSafety(

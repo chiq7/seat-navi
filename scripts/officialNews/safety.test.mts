@@ -350,6 +350,41 @@ test("filter values reject shell metacharacters before crawling", () => {
   assert.throws(() => parseCrawlerArgs(["--artist=$(touch-pwned)"]), CliArgumentError);
   assert.throws(() => parseCrawlerArgs(["--group=x;curl_bad"]), CliArgumentError);
   assert.equal(parseCrawlerArgs(["--group=universal-music-wp"]).group, "universal-music-wp");
+  assert.deepEqual(parseCrawlerArgs(["--shard=0/7"]).shard, { index: 0, total: 7 });
+  assert.throws(() => parseCrawlerArgs(["--shard=7/7"]), CliArgumentError);
+});
+
+test("Gemini quota exhaustion stops the run and makes the report actionable", async () => {
+  const sites = [fixtureSite("artist-a"), fixtureSite("artist-b")];
+  const attempted: string[] = [];
+  const captured: { current: {
+    quota_stopped: boolean;
+    fatal_error: string | null;
+    sites: Array<{ artist_slug: string; status: string; quota_stopped?: boolean }>;
+  } | null } = { current: null };
+  const deps = offlineCrawlerDeps({ gemini: 0, supabase: 0 });
+  deps.getSites = () => sites;
+  deps.fetchList = async (site) => ({
+    method: "special",
+    robots: { allowed: true, crawlDelay: 0, reason: "fixture" },
+    articles: [fixtureArticle(site.artistSlug)],
+    needsDetailFetch: false,
+  });
+  deps.classify = async (input) => {
+    attempted.push(input.artist_name);
+    return { ...classifiedResult, ai_status: "quota_exhausted", review_reason: "fixture quota" };
+  };
+  deps.createReport = (report) => ({
+    reportPath: "fixture-report.json",
+    save: () => { captured.current = JSON.parse(JSON.stringify(report)); },
+  });
+
+  assert.equal(await runCrawler(["--dry-run", "--classify"], deps), 1);
+  assert.deepEqual(attempted, ["Fixture artist-a"]);
+  assert.equal(captured.current?.quota_stopped, true);
+  assert.match(captured.current?.fatal_error ?? "", /free-tier or rate limit/);
+  assert.equal(captured.current?.sites.find((site) => site.artist_slug === "artist-a")?.status, "failed");
+  assert.equal(captured.current?.sites.find((site) => site.artist_slug === "artist-a")?.quota_stopped, true);
 });
 
 test("execute requires both classification and the production confirmation environment", () => {
@@ -564,7 +599,11 @@ test("workflow keeps inputs out of the shell program and uses validation plus Ba
   assert.doesNotMatch(crawlerStep, /\$\{\{\s*inputs\./);
   assert.match(workflow, /allowed='\^\[A-Za-z0-9\]/);
   assert.match(crawlerStep, /ARGS=\(\)/);
-  assert.match(crawlerStep, /ARGS\+=\(--execute --classify\)/);
+  assert.match(crawlerStep, /ARGS\+=\(--execute --classify "--shard=\$\{SHARD_INDEX\}\/7"\)/);
+  assert.match(workflow, /- cron: "0 19 \* \* \*"/);
+  assert.match(workflow, /Report Gemini free-tier stop/);
+  assert.match(workflow, /issues: write/);
+  assert.match(workflow, /gh issue create/);
   assert.match(workflow, /- name: Ensure artifact fallback report exists[\s\S]*if: always\(\)/);
   assert.match(workflow, /workflow-fallback\.txt/);
   assert.match(workflow, /- name: Upload crawl report[\s\S]*if: always\(\)/);
