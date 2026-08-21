@@ -1,17 +1,17 @@
 name: Official News Crawler
 
-# 公式NEWS取得(週1回)。実行本体は scripts/crawlOfficialNews.mts。
-# レジストリでenabled=trueの公式NEWS（現在79組）を週次取得する。
+# 公式NEWS取得(毎日7分割)。実行本体は scripts/crawlOfficialNews.mts。
+# レジストリでenabled=trueの公式NEWSを、安定ハッシュで毎日約1/7ずつ取得する。
 # 旧13組の専用parserは scripts/officialNews/legacySites.ts (Tier3/special) に維持する。
 #
-# スケジュール: UTC日曜19:00 = JST月曜4:00(深夜帯)。
+# スケジュール: UTC毎日19:00 = JST毎日4:00(深夜帯)。
 # 手動実行(workflow_dispatch)では artist_slug / dry_run / group を指定できる。
 #
 # 1サイト/1記事の失敗後も残りを処理し、レポートを保存してからジョブを失敗させる。
 
 on:
   schedule:
-    - cron: "0 19 * * 0"
+    - cron: "0 19 * * *"
   workflow_dispatch:
     inputs:
       artist_slug:
@@ -32,6 +32,10 @@ on:
         description: "特定グループのみ実行する場合の名前(specialParserNameまたはcmsGroup)。空なら全対象。"
         required: false
         type: string
+
+permissions:
+  contents: read
+  issues: write
 
 # 二重実行防止: 同じgroupの実行中ジョブがあれば、新しい実行は待機させる(キャンセルはしない)。
 concurrency:
@@ -88,9 +92,10 @@ jobs:
         run: |
           ARGS=()
           if [[ "$WORKFLOW_EVENT_NAME" == "schedule" ]]; then
-            # Scheduled ingestion is intentionally live and explicit. The CLI still requires the
-            # repository variable OFFICIAL_NEWS_ALLOW_PRODUCTION_WRITE=true as a second confirmation.
-            ARGS+=(--execute --classify)
+            # Scheduled ingestion is intentionally live and explicit. Artists are split into seven
+            # stable daily shards. The CLI still requires the repository variable as a second confirmation.
+            SHARD_INDEX=$(( $(TZ=Asia/Tokyo date +%u) - 1 ))
+            ARGS+=(--execute --classify "--shard=${SHARD_INDEX}/7")
           else
             if [[ "$INPUT_DRY_RUN" == "true" ]]; then
               ARGS+=(--dry-run)
@@ -106,6 +111,27 @@ jobs:
           node --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/crawlOfficialNews.mts "${ARGS[@]}"
           if [[ "$WORKFLOW_EVENT_NAME" == "schedule" || ("$INPUT_DRY_RUN" != "true" && "$INPUT_CLASSIFY_WITH_GEMINI" == "true") ]]; then
             node --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/syncOfficialNewsEvents.mts --execute
+          fi
+
+      - name: Report Gemini free-tier stop
+        if: failure()
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [[ ! -d official-news-reports ]]; then exit 0; fi
+          report=$(find official-news-reports -name 'crawl-report-*.json' -type f -print -quit)
+          if [[ -n "$report" ]] && jq -e '.quota_stopped == true' "$report" > /dev/null; then
+            {
+              echo '## Gemini無料枠・レート上限で停止'
+              echo ''
+              echo '追加のAI分類と公演同期は実行していません。レポートartifactを確認してください。'
+            } >> "$GITHUB_STEP_SUMMARY"
+            title='[要対応] Gemini無料枠・レート上限で公式NEWS巡回を停止'
+            existing=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "$title in:title" --json number --jq 'length > 0')
+            if [[ "$existing" != 'true' ]]; then
+              gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body 'Geminiの無料枠またはレート上限を検知したため、以後のAI分類と公演同期を停止しました。実行レポートartifactを確認し、上限が戻った後に手動再実行してください。'
+            fi
           fi
 
       - name: Ensure artifact fallback report exists

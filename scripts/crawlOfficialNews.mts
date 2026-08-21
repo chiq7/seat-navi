@@ -38,6 +38,7 @@ import { normalizeOfficialNewsUrl } from "./officialNews/urlIdentity.mjs";
 const GEMINI_WAIT_BETWEEN_MS = 5000;
 const MAX_SLOW_SITE_NEW = 3;
 export const MAX_TOTAL_NEW_PER_RUN = 15;
+const GEMINI_QUOTA_STOP_REASON = "Gemini free-tier or rate limit reached. The crawler stopped before further classification or event sync.";
 
 type AiReportStatus =
   | "not_requested"
@@ -83,7 +84,7 @@ type CrawlReport = {
   completed_at: string | null;
   mode: "dry_run" | "execute";
   gemini_enabled: boolean;
-  filter: { artist: string | null; group: string | null };
+  filter: { artist: string | null; group: string | null; shard: string | null };
   target_site_count: number;
   failed_site_count: number;
   selected_article_count: number;
@@ -210,7 +211,11 @@ function newReport(argv: ReturnType<typeof parseCrawlerArgs>): CrawlReport {
     completed_at: null,
     mode: argv.execute ? "execute" : "dry_run",
     gemini_enabled: argv.classify,
-    filter: { artist: argv.artist ?? null, group: argv.group ?? null },
+    filter: {
+      artist: argv.artist ?? null,
+      group: argv.group ?? null,
+      shard: argv.shard ? `${argv.shard.index}/${argv.shard.total}` : null,
+    },
     target_site_count: 0,
     failed_site_count: 0,
     selected_article_count: 0,
@@ -225,6 +230,15 @@ function newReport(argv: ReturnType<typeof parseCrawlerArgs>): CrawlReport {
     fatal_error: null,
     sites: [],
   };
+}
+
+export function stableShardIndex(value: string, total: number): number {
+  let hash = 2166136261;
+  for (const char of value) {
+    hash ^= char.codePointAt(0) ?? 0;
+    hash = Math.imul(hash, 16777619);
+  }
+  return (hash >>> 0) % total;
 }
 
 function safeReason(error: unknown): string {
@@ -269,6 +283,11 @@ export async function runCrawler(
     if (args.group) {
       sites = sites.filter(
         (site) => site.specialParserName === args.group || site.cmsGroup === args.group,
+      );
+    }
+    if (args.shard) {
+      sites = sites.filter(
+        (site) => stableShardIndex(site.artistSlug, args.shard!.total) === args.shard!.index,
       );
     }
     report.target_site_count = sites.length;
@@ -366,6 +385,7 @@ export async function runCrawler(
     }));
 
     let geminiQuotaExhausted = false;
+    let quotaStoppedArtistSlug: string | null = null;
     for (let selectionIndex = 0; selectionIndex < allocation.selected.length; selectionIndex++) {
       const { bucketIndex, item: article } = allocation.selected[selectionIndex];
       const state = accumulators[bucketIndex];
@@ -456,6 +476,9 @@ export async function runCrawler(
             if (ai.ai_status === "quota_exhausted") {
               geminiQuotaExhausted = true;
               report.quota_stopped = true;
+              report.fatal_error = GEMINI_QUOTA_STOP_REASON;
+              quotaStoppedArtistSlug = config.artistSlug;
+              state.reasons.push(GEMINI_QUOTA_STOP_REASON);
             }
           }
           if (
@@ -472,6 +495,7 @@ export async function runCrawler(
         }
       }
       state.articles.push(articleReport);
+      if (geminiQuotaExhausted) break;
     }
 
     for (const state of accumulators) {
@@ -484,7 +508,8 @@ export async function runCrawler(
       // report without failing the other sites or the scheduled run. Database
       // write failures remain fatal so a partial production write is never
       // reported as a successful run.
-      const failed = state.dbFail > 0;
+      const stoppedHere = quotaStoppedArtistSlug === state.site.config.artistSlug;
+      const failed = state.dbFail > 0 || stoppedHere;
       const hasWarnings = state.bodyFail > 0 || state.geminiError > 0;
       reportsBySlug.set(state.site.config.artistSlug, {
         artist_slug: state.site.config.artistSlug,
@@ -501,7 +526,7 @@ export async function runCrawler(
         gemini_error: state.geminiError,
         db_success: state.dbSuccess,
         db_fail: state.dbFail,
-        quota_stopped: geminiQuotaExhausted,
+        quota_stopped: stoppedHere,
         articles: state.articles,
         reason: state.reasons.length > 0 ? state.reasons.join("; ") : undefined,
         duration_ms: Date.now() - state.site.startedAt,
@@ -519,7 +544,7 @@ export async function runCrawler(
       .map((site) => reportsBySlug.get(site.artistSlug))
       .filter((site): site is SiteReport => site !== undefined);
     report.failed_site_count = report.sites.filter((site) => site.status === "failed").length;
-    if (report.failed_site_count > 0 || report.db_failure_count > 0) exitCode = 1;
+    if (report.failed_site_count > 0 || report.db_failure_count > 0 || report.quota_stopped) exitCode = 1;
   } catch (error) {
     report.fatal_error = safeReason(error);
     deps.log.error(`FATAL: ${report.fatal_error}`);
