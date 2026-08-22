@@ -108,10 +108,24 @@ jobs:
           fi
           if [[ -n "$INPUT_ARTIST_SLUG" ]]; then ARGS+=("--artist=$INPUT_ARTIST_SLUG"); fi
           if [[ -n "$INPUT_GROUP" ]]; then ARGS+=("--group=$INPUT_GROUP"); fi
-          node --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/crawlOfficialNews.mts "${ARGS[@]}"
-          if [[ "$WORKFLOW_EVENT_NAME" == "schedule" || ("$INPUT_DRY_RUN" != "true" && "$INPUT_CLASSIFY_WITH_GEMINI" == "true") ]]; then
-            node --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/syncOfficialNewsEvents.mts --execute
+          crawler_exit=0
+          node --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/crawlOfficialNews.mts "${ARGS[@]}" || crawler_exit=$?
+
+          event_sync_status='skipped'
+          event_sync_exit=0
+          if [[ "$crawler_exit" -eq 0 && ("$WORKFLOW_EVENT_NAME" == "schedule" || ("$INPUT_DRY_RUN" != "true" && "$INPUT_CLASSIFY_WITH_GEMINI" == "true")) ]]; then
+            node --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/syncOfficialNewsEvents.mts --execute || event_sync_exit=$?
+            if [[ "$event_sync_exit" -eq 0 ]]; then
+              event_sync_status='completed'
+            else
+              event_sync_status='failed'
+            fi
           fi
+          mkdir -p official-news-reports
+          printf '%s\n' "$event_sync_status" > official-news-reports/event-sync-status.txt
+
+          if [[ "$crawler_exit" -ne 0 ]]; then exit "$crawler_exit"; fi
+          exit "$event_sync_exit"
 
       - name: Report Gemini free-tier stop
         if: failure() && github.ref == 'refs/heads/main'
@@ -185,6 +199,58 @@ jobs:
               "Crawler report was not created; an earlier workflow step failed or was cancelled." \
               > official-news-reports/workflow-fallback.txt
           fi
+
+      - name: Update operation sheet
+        if: always() && github.ref == 'refs/heads/main' && (github.event_name == 'schedule' || (inputs.dry_run == false && inputs.classify_with_gemini == true))
+        shell: bash
+        env:
+          GOOGLE_SHEETS_WEBHOOK_URL: ${{ secrets.GOOGLE_SHEETS_WEBHOOK_URL }}
+          GOOGLE_SHEETS_WEBHOOK_TOKEN: ${{ secrets.GOOGLE_SHEETS_WEBHOOK_TOKEN }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          if [[ -z "$GOOGLE_SHEETS_WEBHOOK_URL" || -z "$GOOGLE_SHEETS_WEBHOOK_TOKEN" ]]; then
+            echo 'Google Sheets webhook is not configured; skipping.' >&2
+            exit 0
+          fi
+          report=$(find official-news-reports -name 'crawl-report-*.json' -type f -print -quit)
+          if [[ -z "$report" ]]; then
+            echo 'Crawler report was not created; operation sheet was not updated.' >&2
+            exit 0
+          fi
+
+          event_sync_status=$(cat official-news-reports/event-sync-status.txt 2>/dev/null || printf 'skipped')
+          result='success'
+          if jq -e '(.quota_stopped == true) or ((.failed_site_count // 0) > 0) or ((.db_failure_count // 0) > 0) or ((.total_gemini_error // 0) > 0) or (.fatal_error != null)' "$report" > /dev/null; then
+            result='failure'
+          fi
+
+          payload=$(jq -c \
+            --arg token "$GOOGLE_SHEETS_WEBHOOK_TOKEN" \
+            --arg executed_at "$(TZ=Asia/Tokyo date '+%Y-%m-%d %H:%M')" \
+            --arg result "$result" \
+            --arg event_sync "$event_sync_status" \
+            --arg run_url "$RUN_URL" \
+            '{
+              token: $token,
+              executed_at: $executed_at,
+              result: $result,
+              event_sync: $event_sync,
+              run_url: $run_url,
+              sites: (.target_site_count // 0),
+              saved: (.db_success_count // 0),
+              fetch_failed: (.failed_site_count // 0),
+              classify_failed: (.total_gemini_error // 0),
+              failures: ([.sites[]? |
+                if .status == "failed" then "\(.artist_slug) 取得失敗"
+                elif ((.gemini_error // 0) > 0) then "\(.artist_slug) 分類失敗"
+                elif ((.db_fail // 0) > 0) then "\(.artist_slug) 保存失敗"
+                else empty end] | unique)
+            }' "$report")
+          curl --fail-with-body --retry 3 --retry-delay 2 \
+            --request POST \
+            --header 'Content-Type: application/json' \
+            --data "$payload" \
+            "$GOOGLE_SHEETS_WEBHOOK_URL"
 
       - name: Upload crawl report
         if: always()
