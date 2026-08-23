@@ -32,6 +32,11 @@ function isTestEvent(event: { title: string; artist_slug?: string | null }, arti
   return parseEventTitle(event.title, artist.name).isTestData;
 }
 
+/** 会場が確定していない公演は実在していても、TOPの発見・速報枠には出さない。 */
+export function isVagueHomeVenue(venue: string): boolean {
+  return /(某所|未定|未発表|調整中|後日発表|\bTBA\b|\bTBD\b)/i.test(venue.normalize("NFKC"));
+}
+
 function toDateStr(d: Date): string {
   const y = d.getFullYear();
   const m = String(d.getMonth() + 1).padStart(2, "0");
@@ -99,7 +104,7 @@ export async function getUpcomingHomeEvents(client: SupabaseClient): Promise<Upc
   const validRows: { ev: HomeEventRow; artist: Artist }[] = [];
   for (const ev of rows) {
     const artist = resolveArtist(ev);
-    if (!artist || isTestEvent(ev, artist)) continue;
+    if (!artist || isTestEvent(ev, artist) || isVagueHomeVenue(ev.venue)) continue;
     validRows.push({ ev, artist });
   }
   if (validRows.length === 0) return [];
@@ -368,7 +373,7 @@ export function buildSupplementalFeedItems(
       venue: event.venue,
       date: event.dateIso ?? null,
       createdAt: now.toISOString(),
-      href: `/report/ticket?event=${encodeURIComponent(event.id)}`,
+      href: `/events/${encodeURIComponent(event.id)}`,
       xHandle: null,
       source: isCountdown ? "editorial" : "sample",
     };
@@ -505,11 +510,19 @@ export async function getRealtimeFeedItems(
   );
 
   const items: HomeFeedItem[] = [];
+  const today = toDateStr(new Date());
+  const excludedKnownTestItems = new Set([
+    "座席予想:e939d7972373467b8f51",
+    "現地レポ:641fd724715944a89352",
+  ]);
   for (const r of raw) {
     const ev = eventMap.get(r.event_id);
     if (!ev) continue;
     const artist = resolveArtist(ev);
-    if (!artist || isTestEvent(ev, artist)) continue;
+    if (!artist || !ev.date || isTestEvent(ev, artist) || isVagueHomeVenue(ev.venue)) continue;
+    if (excludedKnownTestItems.has(`${r.type}:${r.id}`)) continue;
+    // 現地レポと実施後のセトリ更新は、公演日を迎えるまで速報に出さない。
+    if ((r.type === "現地レポ" || r.type === "セトリ") && ev.date && ev.date > today) continue;
 
     const href =
       r.type === "現地レポ" ? `/report/live/detail?reportId=${r.id}`

@@ -3,6 +3,7 @@ import { getJstDateString } from "@/lib/artistPageData";
 import { VENUES, getVenueIdAliases, type VenueConfig } from "@/lib/eventCrawlerConfig";
 import { isTestEvent } from "@/lib/seoData";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { dedupeVenueEventsForDisplay } from "@/lib/eventDisplay";
 import type { CrawledEvent } from "@/lib/types";
 
 export const SEO_VENUES = VENUES.map(({ id, name }) => ({ id, name }));
@@ -24,7 +25,8 @@ export const getVenueEvents = cache(async (venueId: string): Promise<CrawledEven
     .order("date", { ascending: true })
     .limit(300);
 
-  return ((data as CrawledEvent[]) ?? []).filter((event) => !isTestEvent(event));
+  const publicEvents = ((data as CrawledEvent[]) ?? []).filter((event) => !isTestEvent(event));
+  return dedupeVenueEventsForDisplay(publicEvents);
 });
 
 export function splitVenueEvents(events: readonly CrawledEvent[]) {
@@ -34,4 +36,3 @@ export function splitVenueEvents(events: readonly CrawledEvent[]) {
     past: events.filter((event) => event.date && event.date < today).reverse(),
   };
 }
-

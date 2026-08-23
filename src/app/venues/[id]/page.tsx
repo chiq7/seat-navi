@@ -5,7 +5,6 @@ import { Header } from "@/components/common/Header";
 import { InfoListRow } from "@/components/common/InfoListRow";
 import SeoEditorialSection from "@/components/seo/SeoEditorialSection";
 import { resolveArtist } from "@/lib/artists";
-import { fmtDate } from "@/lib/artistPageHelpers";
 import { parseEventTitle } from "@/lib/eventTitle";
 import { getVenueSeoProfile } from "@/lib/seoProfiles";
 import { serializeJsonLd } from "@/lib/structuredData";
@@ -15,6 +14,12 @@ import type { CrawledEvent } from "@/lib/types";
 const SITE_URL = "https://tixrepo.com";
 
 type Props = { params: Promise<{ id: string }> };
+
+function formatVenueEventDate(date: string | null): string {
+  if (!date) return "日程未定";
+  const [year, month, day] = date.split("-").map(Number);
+  return `${year}.${month}.${day}`;
+}
 
 export function generateStaticParams() {
   return SEO_VENUES.map((venue) => ({ id: venue.id }));
@@ -55,7 +60,7 @@ function EventList({ events, emptyText, initialCount = 6 }: { events: CrawledEve
           >
             <div>
               <p className="text-[9px] font-black tracking-[0.14em] text-[#958d93]">LIVE {String(index + 1).padStart(2, "0")}</p>
-              <p className="mt-1 flex items-center gap-1 text-[10px] font-black text-[#f43679] sm:mt-2 sm:gap-1.5 sm:text-[11px]"><CalendarDays size={13} />{fmtDate(event.date)}</p>
+              <p className="mt-1 flex items-center gap-1 text-[10px] font-black text-[#f43679] sm:mt-2 sm:gap-1.5 sm:text-[11px]"><CalendarDays size={13} />{formatVenueEventDate(event.date)}</p>
             </div>
             <div className="min-w-0">
               <p className="line-clamp-2 text-[14px] font-black leading-5 tracking-[-0.025em] text-[#4b4148]">{title}</p>

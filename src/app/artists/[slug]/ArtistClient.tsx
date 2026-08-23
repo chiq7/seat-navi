@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useEffect, useMemo, useState } from "react";
+import { use, useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase/client";
 import { findArtistBySlug } from "@/lib/artists";
@@ -61,12 +61,18 @@ function ArtistDetailsPlaceholder() {
   );
 }
 
-export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) {
+export function ArtistClient({
+  params,
+  initialEvents,
+}: {
+  params: Promise<{ slug: string }>;
+  initialEvents: CrawledEvent[];
+}) {
   const { slug } = use(params);
   const artist = findArtistBySlug(slug);
   const seoProfile = getArtistSeoProfile(slug);
 
-  const [events, setEvents] = useState<CrawledEvent[]>([]);
+  const [events, setEvents] = useState<CrawledEvent[]>(initialEvents);
   const [analyticsReports, setAnalyticsReports] = useState<AnalyticsReport[]>([]);
   const [ticketResultReports, setTicketResultReports] = useState<TicketResultAnalytics[]>([]);
   const [seatCounts, setSeatCounts] = useState<Map<string, number>>(new Map());
@@ -81,14 +87,16 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
   const [pastMapOverride, setPastMapOverride] = useState<{ eventId: string; venue: string } | null>(null);
   const [selectedTourEventIds, setSelectedTourEventIds] = useState<string[] | null>(null);
 
-  async function loadData(a: NonNullable<ReturnType<typeof findArtistBySlug>>) {
+  const loadData = useCallback(async (a: NonNullable<ReturnType<typeof findArtistBySlug>>) => {
     setFetchError(null);
     setTopPrediction(null);
     setPostAuthorMap(new Map());
     setOfficialNews([]);
 
     try {
-      const allEvs = await getEventsForArtist(a.slug);
+      const allEvs = initialEvents.length > 0
+        ? initialEvents
+        : await getEventsForArtist(a.slug);
       setEvents(allEvs);
 
       queryLatestOfficialNewsForArtist(a.slug, 3).then((result) => setOfficialNews(result.data));
@@ -126,7 +134,7 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
     } finally {
       setLoading(false);
     }
-  }
+  }, [initialEvents]);
 
   useEffect(() => {
     if (!artist) return;
@@ -135,7 +143,7 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
     setPastMapOverride(null);
     setSelectedTourEventIds(null);
     loadData(artist);
-  }, [artist]);
+  }, [artist, loadData]);
 
   const today = getJstDateString();
 
@@ -514,6 +522,7 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
                 <section className="artist-section">
                   <p className="artist-kicker">Ticket & Seat Data</p>
                   <h2 className="artist-heading">当落・座席データ</h2>
+                  {ticketResultReports.length > 0 ? (
                   <div className="mt-6 grid gap-4 lg:grid-cols-[1.25fr_.75fr]">
                     <TrendSection
                       ticketStats={trendTicketStats}
@@ -529,6 +538,15 @@ export function ArtistClient({ params }: { params: Promise<{ slug: string }> }) 
                       />
                     </div>
                   </div>
+                  ) : (
+                    <div className="mt-5 flex min-h-[72px] items-center justify-between gap-4 border-y border-[#ded8dc] bg-white px-3 py-3 sm:px-4">
+                      <div className="min-w-0">
+                        <p className="text-[13px] font-black text-[#4b4148]">当落・座席レポはまだありません</p>
+                        <p className="mt-1 text-[10px] font-bold text-[#817981]">最初のレポから当選率が集計されます</p>
+                      </div>
+                      <Link href={ticketReportHref} className="zr-focus shrink-0 text-[11px] font-black text-[#e84a80]">報告する →</Link>
+                    </div>
+                  )}
                 </section>
               </div>
 

@@ -9,6 +9,7 @@ import crypto from "crypto";
 import type { DisabledVenue, FollowMonthLinksVenue, MonthlyPatternVenue, VenueConfig } from "@/lib/eventCrawlerConfig";
 import { generateMonthlyPages, getVenueIdAliases, targetMonths } from "@/lib/eventCrawlerConfig";
 import { ARTISTS, assignArtistSlug, type Artist } from "@/lib/artists";
+import { hasDistinctPerformanceSession } from "@/lib/eventIdentity";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type AnySupabaseClient = SupabaseClient<any, any, any>;
@@ -775,13 +776,18 @@ export function normalizeTitleIgnoringSpacing(title: string): string {
 }
 
 export function dedupeRows(rows: EventRow[]): EventRow[] {
-  // 同一 venue_id / date は、normalizeTitle後さらに空白を除去した比較キーで重複とみなす
-  const seen = new Set<string>();
+  // 同一 venue_id / date / artist は日英タイトル違いを重複候補にする。
+  // ただし昼夜・複数部・開演時刻が読み取れる行は別公演として必ず残す。
   const result: EventRow[] = [];
   for (const row of rows) {
-    const key = `${row.venue_id}::${row.date ?? ""}::${normalizeTitleIgnoringSpacing(row.title)}`;
-    if (seen.has(key)) continue;
-    seen.add(key);
+    const duplicate = result.some((event) => {
+      if (event.venue_id !== row.venue_id || event.date !== row.date) return false;
+      const sameTitle = normalizeTitleIgnoringSpacing(event.title) === normalizeTitleIgnoringSpacing(row.title);
+      if (sameTitle) return true;
+      const sameArtist = Boolean(row.artist_slug && event.artist_slug === row.artist_slug);
+      return sameArtist && !hasDistinctPerformanceSession(event.title, row.title);
+    });
+    if (duplicate) continue;
     result.push(row);
   }
   return result;
@@ -797,7 +803,7 @@ export async function upsertEvents(rows: EventRow[], sb: AnySupabaseClient): Pro
 }
 
 /**
- * 保存前に「会場IDエイリアス + date完全一致 + normalizeTitle(空白除去後)一致」で既存eventsと照合する。
+ * 保存前に「会場IDエイリアス + date完全一致」を前提に、タイトル一致または同一artist_slugで既存eventsと照合する。
  * dry-run・本番upsertの両方の経路から共通で呼ばれる（本番でも書き込み前に必ず照合する）。
  *
  * 分岐:
@@ -820,7 +826,7 @@ export async function classifyAgainstExisting(
   const aliasIds = getVenueIdAliases(venueId);
   const { data, error } = await sb
     .from("events")
-    .select("id,title,date,venue_id")
+    .select("id,title,date,venue_id,artist_slug")
     .in("venue_id", aliasIds);
 
   if (error) {
@@ -828,7 +834,13 @@ export async function classifyAgainstExisting(
     return { newRows: [], matchedExisting: [], skippedAmbiguous: [], error: `既存公演照合エラー(DB): ${error.message}` };
   }
 
-  const existing = (data ?? []) as Array<{ id: string; title: string; date: string | null; venue_id: string }>;
+  const existing = (data ?? []) as Array<{
+    id: string;
+    title: string;
+    date: string | null;
+    venue_id: string;
+    artist_slug: string | null;
+  }>;
 
   const newRows: EventRow[] = [];
   const matchedExisting: MatchedExistingEvent[] = [];
@@ -836,9 +848,16 @@ export async function classifyAgainstExisting(
 
   for (const row of rows) {
     const normalized = normalizeTitleIgnoringSpacing(row.title);
-    const matches = existing.filter(
-      (event) => event.date === row.date && normalizeTitleIgnoringSpacing(event.title) === normalized
-    );
+    const matches = existing.filter((event) => {
+      if (event.date !== row.date) return false;
+      const sameTitle = normalizeTitleIgnoringSpacing(event.title) === normalized;
+      const sameArtist = Boolean(
+        row.artist_slug &&
+        event.artist_slug === row.artist_slug &&
+        !hasDistinctPerformanceSession(event.title, row.title)
+      );
+      return sameTitle || sameArtist;
+    });
 
     if (matches.length === 0) {
       newRows.push(row);

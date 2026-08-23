@@ -25,12 +25,26 @@ function newId(): string {
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
-export function SetlistClient({ params }: { params: Promise<{ slug: string }> }) {
+function selectInitialEventId(events: CrawledEvent[]): string | null {
+  const today = new Date().toISOString().split("T")[0];
+  const upcoming = events
+    .filter((event) => event.date && event.date >= today)
+    .sort((a, b) => (a.date ?? "").localeCompare(b.date ?? ""));
+  return (upcoming[0] ?? events[0])?.id ?? null;
+}
+
+export function SetlistClient({
+  params,
+  initialEvents,
+}: {
+  params: Promise<{ slug: string }>;
+  initialEvents: CrawledEvent[];
+}) {
   const { slug } = use(params);
   const artist = findArtistBySlug(slug);
 
-  const [events, setEvents]                   = useState<CrawledEvent[]>([]);
-  const [selectedEventId, setSelectedEventId] = useState<string | null>(null);
+  const [events, setEvents]                   = useState<CrawledEvent[]>(initialEvents);
+  const [selectedEventId, setSelectedEventId] = useState<string | null>(() => selectInitialEventId(initialEvents));
   const [toast, setToast]                     = useState<string | null>(null);
   const [setlistItems, setSetlistItems]       = useState<EditableItem[]>([]);
   const [searchQuery, setSearchQuery]         = useState("");
@@ -46,16 +60,12 @@ export function SetlistClient({ params }: { params: Promise<{ slug: string }> })
 
   useEffect(() => {
     if (!artist) return;
+    if (initialEvents.length > 0) return;
     getEventsForArtist(artist.slug).then((evs) => {
       setEvents(evs);
-      const t = new Date().toISOString().split("T")[0];
-      const upcoming = evs
-        .filter(ev => ev.date && ev.date >= t)
-        .sort((a, b) => (a.date ?? "").localeCompare(b.date ?? ""));
-      const def = upcoming[0] ?? evs[0];
-      if (def) setSelectedEventId(def.id);
+      setSelectedEventId(selectInitialEventId(evs));
     });
-  }, [artist]);
+  }, [artist, initialEvents]);
 
   // ─── セトリ読み込み（イベント切替時） ─────────────────────────────────────────
 

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { SetlistClient } from "./SetlistClient";
 import { getArtistContentCounts, getSeoArtist, isTestArtist, SITE_URL } from "@/lib/seoData";
+import { queryEventsForArtist } from "@/lib/events";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 type PageProps = { params: Promise<{ slug: string }> };
 
@@ -42,5 +44,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function Page({ params }: PageProps) {
   const { slug } = await params;
   if (!getSeoArtist(slug)) notFound();
-  return <SetlistClient params={params} />;
+  const client = await createSupabaseServerClient();
+  const initialEvents = client ? await queryEventsForArtist(client, slug) : [];
+  return <SetlistClient params={params} initialEvents={initialEvents} />;
 }

@@ -5,7 +5,6 @@ import { BottomNav } from "@/components/common/BottomNav";
 import { CompactEventPickerSection } from "@/components/common/CompactEventPickerSection";
 import { CompactHeroIntro } from "@/components/common/CompactHeroIntro";
 import { Header } from "@/components/common/Header";
-import { ReportEventSelector } from "@/components/report/ReportEventSelector";
 
 /**
  * RSC遷移中でも、投稿先を選ぶ画面を即座に見せる。
@@ -36,7 +35,15 @@ export default function ReportLoading() {
         eyebrow="SELECT YOUR LIVE"
         includeTitle
       />
-      <ReportEventSelector selectedEvent={null} artistName={null} artistSlug={null} />
+      <section className="zr-container py-5" aria-hidden="true">
+        <div className="h-3 w-24 animate-pulse rounded-full bg-[#f0e6ea]" />
+        <div className="mt-3 h-6 w-40 animate-pulse rounded-full bg-[#f5edf0]" />
+        <div className="mt-5 grid grid-cols-2 gap-2.5">
+          {[0, 1, 2, 3].map((item) => (
+            <div key={item} className="h-[76px] animate-pulse rounded-[16px] bg-white" />
+          ))}
+        </div>
+      </section>
       <BottomNav active="report" />
     </main>
   );

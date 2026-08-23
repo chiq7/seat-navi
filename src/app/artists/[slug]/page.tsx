@@ -4,6 +4,8 @@ import { ArtistClient } from "./ArtistClient";
 import { getSeoArtist, isTestArtist, SITE_URL } from "@/lib/seoData";
 import { getArtistSeoProfile } from "@/lib/seoProfiles";
 import { serializeJsonLd } from "@/lib/structuredData";
+import { queryEventsForArtist } from "@/lib/events";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 type PageProps = { params: Promise<{ slug: string }> };
 
@@ -46,6 +48,8 @@ export default async function Page({ params }: PageProps) {
   const { slug } = await params;
   const artist = getSeoArtist(slug);
   if (!artist) notFound();
+  const client = await createSupabaseServerClient();
+  const initialEvents = client ? await queryEventsForArtist(client, slug) : [];
   const profile = getArtistSeoProfile(slug);
   const structuredData = profile
     ? {
@@ -67,7 +71,7 @@ export default async function Page({ params }: PageProps) {
           dangerouslySetInnerHTML={{ __html: serializeJsonLd(structuredData) }}
         />
       )}
-      <ArtistClient params={params} />
+      <ArtistClient params={params} initialEvents={initialEvents} />
     </>
   );
 }

@@ -13,6 +13,7 @@ const tagStyles: Record<HomeFeedItem["type"], { bg: string; color: string }> = {
 
 export default function RealtimeFeedItem({ item }: { item: HomeFeedItem }) {
   const tag = tagStyles[item.type];
+  const tagLabel = item.source === "sample" ? "投稿イメージ" : item.type;
   return (
     <Link
       href={item.href}
@@ -23,7 +24,7 @@ export default function RealtimeFeedItem({ item }: { item: HomeFeedItem }) {
           className="shrink-0 whitespace-nowrap rounded px-2 py-0.5 text-[10px] font-bold"
           style={{ backgroundColor: tag.bg, color: tag.color }}
         >
-          {item.type}
+          {tagLabel}
         </span>
         <p className="min-w-0 max-w-[38%] shrink truncate text-[12px] font-bold text-[#e84a80]">
           {item.artistName}

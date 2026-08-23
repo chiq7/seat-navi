@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
   title: "マイページ｜ちけレポ",
+  alternates: { canonical: "https://tixrepo.com/mypage" },
   robots: { index: false, follow: false },
 };
 

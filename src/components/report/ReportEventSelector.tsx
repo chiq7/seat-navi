@@ -23,7 +23,7 @@ function ReportChoiceLink({ choice, eventId, index }: { choice: ReportChoice; ev
     <>
       <div className="flex items-start justify-between gap-4">
         <choice.Icon
-          size={24}
+          size={21}
           strokeWidth={1.7}
           className={{ ticket: "text-[#e94a7d]", seat: "text-[#6176d7]", live: "text-[#dd8053]", setlist: "text-[#8165bb]" }[choice.tone]}
         />
@@ -31,14 +31,14 @@ function ReportChoiceLink({ choice, eventId, index }: { choice: ReportChoice; ev
           {String(index + 1).padStart(2, "0")} / REPORT
         </span>
       </div>
-      <div className="mt-4 sm:mt-8">
-        <h3 className="text-[17px] font-black leading-tight tracking-[-0.04em] text-[#40383d] sm:text-[28px]">
+      <div className="mt-3 sm:mt-7">
+        <h3 className="whitespace-nowrap text-[15px] font-black leading-tight tracking-[-0.04em] text-[#40383d] sm:text-[27px]">
           {choice.label}
         </h3>
-        <p className="mt-1.5 line-clamp-2 text-[10px] font-bold leading-[1.6] text-[#817981] sm:mt-2 sm:min-h-[40px] sm:text-[11px] sm:leading-5">
+        <p className="mt-1.5 truncate text-[9px] font-bold leading-4 text-[#817981] sm:mt-2 sm:min-h-[40px] sm:whitespace-normal sm:text-[11px] sm:leading-5">
           {choice.description}
         </p>
-        <p className={`mt-2 flex items-center gap-1 text-[9px] font-black sm:mt-3 sm:gap-2 sm:text-[10px] ${choice.href ? "text-[#ef4f87]" : "text-[#aaa2a8]"}`}>
+        <p className={`mt-1.5 flex items-center gap-1 truncate text-[9px] font-black sm:mt-3 sm:gap-2 sm:text-[10px] ${choice.href ? "text-[#ef4f87]" : "text-[#aaa2a8]"}`}>
           {choice.href ? choice.meta : "先に公演を選択してください"}
           {choice.href && <MoveRight size={16} className="transition-transform group-hover:translate-x-1" />}
         </p>
@@ -46,7 +46,7 @@ function ReportChoiceLink({ choice, eventId, index }: { choice: ReportChoice; ev
     </>
   );
 
-  const className = `group flex min-h-[150px] flex-col justify-between rounded-[20px] border border-white/80 p-3.5 shadow-[0_12px_35px_rgba(91,67,79,.07)] sm:min-h-[190px] sm:rounded-[24px] sm:p-6 ${
+  const className = `group flex min-h-[126px] flex-col justify-between rounded-[18px] border border-white/80 p-3 shadow-[0_10px_26px_rgba(91,67,79,.06)] sm:min-h-[184px] sm:rounded-[24px] sm:p-6 ${
     {
       ticket: "bg-[#fff0f5]",
       seat: "bg-[#edf0ff]",

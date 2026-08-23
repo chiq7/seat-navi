@@ -1,3 +1,4 @@
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { supabase } from "@/lib/supabase/client";
 import { findArtistBySlug, resolveUniqueArtistMatch } from "@/lib/artists";
 import type { CrawledEvent } from "@/lib/types";
@@ -5,9 +6,15 @@ import { compareUpcomingEvents } from "@/lib/artistPageData";
 
 const EVENT_COLUMNS = "id, title, venue, venue_id, date, genre, lottery_types, artist_slug";
 
-/** 指定artistSlugの公演一覧を取得。artist_slug未設定の取りこぼしはtitle keyword一致で補完する。 */
-export async function getEventsForArtist(artistSlug: string): Promise<CrawledEvent[]> {
-  const { data: bySlug } = await supabase
+/**
+ * 指定artistSlugの公演一覧を取得する共通実装。
+ * Server Componentではサーバークライアント、フォーム等ではブラウザクライアントを渡す。
+ */
+export async function queryEventsForArtist(
+  client: SupabaseClient,
+  artistSlug: string,
+): Promise<CrawledEvent[]> {
+  const { data: bySlug } = await client
     .from("events")
     .select(EVENT_COLUMNS)
     .eq("artist_slug", artistSlug)
@@ -27,7 +34,7 @@ export async function getEventsForArtist(artistSlug: string): Promise<CrawledEve
   // ILIKEはあくまで候補を広く拾うための事前フィルタとして使い、単独では確定させない。
   const matchTerms = [...new Set([artist.name, ...artist.keywords])];
   const orFilter = matchTerms.map((term) => `title.ilike.%${term}%`).join(",");
-  const { data: byKeyword } = await supabase
+  const { data: byKeyword } = await client
     .from("events")
     .select(EVENT_COLUMNS)
     .is("artist_slug", null)
@@ -40,4 +47,9 @@ export async function getEventsForArtist(artistSlug: string): Promise<CrawledEve
     .map((event) => ({ ...event, artist_match_source: "keyword" as const }));
 
   return [...rows, ...extra].sort(compareUpcomingEvents);
+}
+
+/** 指定artistSlugの公演一覧をブラウザから取得する互換ラッパー。 */
+export async function getEventsForArtist(artistSlug: string): Promise<CrawledEvent[]> {
+  return queryEventsForArtist(supabase, artistSlug);
 }

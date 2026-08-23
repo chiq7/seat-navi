@@ -1,94 +1,24 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Radio } from "lucide-react";
 import { BottomNav } from "@/components/common/BottomNav";
 import { ReportEventSelector } from "@/components/report/ReportEventSelector";
-import { supabase } from "@/lib/supabase/client";
 import { resolveArtist } from "@/lib/artists";
 import type { CrawledEvent } from "@/lib/types";
 import { CompactEventPickerSection } from "@/components/common/CompactEventPickerSection";
 import { CompactEventSummary } from "@/components/common/CompactEventSummary";
 import { CompactHeroIntro } from "@/components/common/CompactHeroIntro";
 import { Header } from "@/components/common/Header";
-import { getEventsForArtist } from "@/lib/events";
 
 type Props = {
-  initialEventId: string | null;
-  initialArtistSlug: string | null;
+  initialEvents: CrawledEvent[];
+  initialSelectedId: string | null;
 };
 
-export function ReportEntryClient({ initialEventId, initialArtistSlug }: Props) {
-  const [events, setEvents] = useState<CrawledEvent[]>([]);
-  const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    let cancelled = false;
-
-    async function load() {
-      setLoading(true);
-      setEvents([]);
-      setSelectedId(null);
-      try {
-        let anchorEvent: CrawledEvent | null = null;
-        if (initialEventId && !initialArtistSlug) {
-          const { data } = await supabase
-            .from("events")
-            .select("id, title, venue, venue_id, date, genre, lottery_types, artist_slug")
-            .eq("id", initialEventId)
-            .maybeSingle();
-          anchorEvent = (data as CrawledEvent) ?? null;
-        }
-
-        const targetArtistSlug = initialArtistSlug
-          ?? (anchorEvent?.artist_slug ?? (anchorEvent ? resolveArtist(anchorEvent)?.slug : null));
-        let list: CrawledEvent[];
-        if (targetArtistSlug) {
-          list = (await getEventsForArtist(targetArtistSlug)).sort((a, b) =>
-            (b.date ?? "").localeCompare(a.date ?? ""),
-          );
-        } else {
-          const { data } = await supabase
-            .from("events")
-            .select("id, title, venue, venue_id, date, genre, lottery_types, artist_slug")
-            .order("date", { ascending: false })
-            .limit(50);
-          list = (data as CrawledEvent[]) ?? [];
-        }
-
-        let initial: string | undefined;
-        if (initialEventId) {
-          if (list.some((event) => event.id === initialEventId)) initial = initialEventId;
-          else if (anchorEvent) {
-            list = [anchorEvent, ...list];
-            initial = initialEventId;
-          }
-        }
-        if (!initial && targetArtistSlug) {
-          initial = list.find(
-            (event) => (event.artist_slug ?? resolveArtist(event)?.slug) === targetArtistSlug,
-          )?.id;
-        }
-
-        if (!cancelled) {
-          setEvents(list);
-          setSelectedId(initial ?? null);
-        }
-      } catch {
-        // 公演取得に失敗しても、投稿先カードと戻る導線は残す。
-        if (!cancelled) {
-          setEvents([]);
-          setSelectedId(null);
-        }
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
-    }
-
-    void load();
-    return () => { cancelled = true; };
-  }, [initialArtistSlug, initialEventId]);
+export function ReportEntryClient({ initialEvents, initialSelectedId }: Props) {
+  const events = initialEvents;
+  const [selectedId, setSelectedId] = useState<string | null>(initialSelectedId);
 
   const selectedEvent = useMemo(
     () => events.find((event) => event.id === selectedId) ?? null,
@@ -111,7 +41,7 @@ export function ReportEntryClient({ initialEventId, initialArtistSlug }: Props) 
         events={events}
         selectedEventId={selectedId}
         onSelect={setSelectedId}
-        loading={loading}
+        loading={false}
         eyebrow="SELECT YOUR LIVE"
         includeTitle
       />

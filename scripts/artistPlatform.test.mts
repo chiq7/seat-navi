@@ -20,7 +20,7 @@ import {
   selectPredictionEventId,
 } from "@/lib/artistPageData";
 import { parseEventTitle } from "@/lib/eventTitle";
-import { toEventRows } from "@/lib/eventCrawler";
+import { dedupeRows, toEventRows } from "@/lib/eventCrawler";
 import type { CrawledEvent, OfficialNews } from "@/lib/types";
 import { OFFICIAL_NEWS_AUDIT_COUNTS } from "@/lib/officialNewsRegistry";
 import { LEGACY_SOURCES } from "./officialNews/legacySites";
@@ -40,9 +40,11 @@ const {
   buildSupplementalFeedItems,
   dedupeFeedItemsByDetail,
   formatEventPeriod,
+  isVagueHomeVenue,
   selectProvisionalFeaturedEvents,
   supplementalFeedCount,
 } = await import("@/lib/homeData");
+const { dedupeVenueEventsForDisplay } = await import("@/lib/eventDisplay");
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 test("report forms preserve anonymous posting and link signed-in posts to their owner", () => {
@@ -85,17 +87,19 @@ test("generic report entry keeps a neutral state until the user chooses a perfor
 
   assert.match(reportPageSource, /await searchParams/);
   assert.match(reportPageSource, /<ReportEntryClient/);
-  assert.match(reportEntrySource, /initialEventId/);
-  assert.match(reportEntrySource, /initialArtistSlug/);
-  assert.match(reportEntrySource, /let anchorEvent: CrawledEvent \| null = null/);
-  assert.match(reportEntrySource, /initialEventId && !initialArtistSlug/);
-  assert.match(reportEntrySource, /const targetArtistSlug = initialArtistSlug/);
-  assert.match(reportEntrySource, /anchorEvent\?\.artist_slug/);
-  assert.match(reportEntrySource, /getEventsForArtist\(targetArtistSlug\)/);
-  assert.match(reportEntrySource, /\(b\.date \?\? ""\)\.localeCompare\(a\.date \?\? ""\)/);
-  assert.match(reportEntrySource, /else if \(anchorEvent\)/);
-  assert.match(reportEntrySource, /setSelectedId\(initial \?\? null\)/);
-  assert.doesNotMatch(reportEntrySource, /initial = list\[0\]\.id/);
+  assert.match(reportPageSource, /const initialEventId = firstValue\(params\.event\)/);
+  assert.match(reportPageSource, /const initialArtistSlug = firstValue\(params\.artist\)/);
+  assert.match(reportPageSource, /let anchorEvent: CrawledEvent \| null = null/);
+  assert.match(reportPageSource, /initialEventId && !initialArtistSlug/);
+  assert.match(reportPageSource, /const targetArtistSlug = initialArtistSlug/);
+  assert.match(reportPageSource, /anchorEvent\?\.artist_slug/);
+  assert.match(reportPageSource, /queryEventsForArtist\(client, targetArtistSlug\)/);
+  assert.match(reportPageSource, /if \(!initialSelectedId && targetArtistSlug\)/);
+  assert.doesNotMatch(reportPageSource, /initialSelectedId = initialEvents\[0\]\.id/);
+  assert.match(reportEntrySource, /initialEvents: CrawledEvent\[\]/);
+  assert.match(reportEntrySource, /useState<string \| null>\(initialSelectedId\)/);
+  assert.match(reportEntrySource, /loading=\{false\}/);
+  assert.doesNotMatch(reportEntrySource, /useEffect/);
   assert.match(
     eventPickerSource,
     /!selectedEventId && <option value="">公演を選択してください<\/option>/,
@@ -482,7 +486,7 @@ test("home supplemental feed shrinks as real posts arrive and never enters aggre
   assert.equal(emptyState.length, 5);
   assert.equal(emptyState[0]?.type, "公演情報");
   assert.equal(emptyState[0]?.source, "editorial");
-  assert.equal(emptyState[0]?.href, "/report/ticket?event=niziu-tokyo");
+  assert.equal(emptyState[0]?.href, "/events/niziu-tokyo");
   assert.equal(emptyState[2]?.source, "sample");
   assert.equal(emptyState[2]?.type, "当落レポ");
   assert.equal(new Set(emptyState.map((item) => item.detail)).size, emptyState.length);
@@ -492,6 +496,57 @@ test("home supplemental feed shrinks as real posts arrive and never enters aggre
     [emptyState[0].id, emptyState[2].id],
   );
   assert.equal(buildSupplementalFeedItems(upcoming, 5).length, 0);
+});
+
+test("home discovery excludes venues that are not specific enough to act on", () => {
+  assert.equal(isVagueHomeVenue("東京都某所"), true);
+  assert.equal(isVagueHomeVenue("会場未発表"), true);
+  assert.equal(isVagueHomeVenue("TBA"), true);
+  assert.equal(isVagueHomeVenue("東京ドーム"), false);
+});
+
+test("venue pages collapse same-day duplicate titles without changing stored rows", () => {
+  const rows = [
+    fixtureEvent({ id: "english", date: "2026-11-25", venue: "東京ドーム", title: "Bullet Train", artist_slug: "bullet-train" }),
+    fixtureEvent({ id: "japanese", date: "2026-11-25", venue: "東京ドーム", title: "超特急", artist_slug: "bullet-train" }),
+    fixtureEvent({ id: "next-day", date: "2026-11-26", venue: "東京ドーム", title: "超特急", artist_slug: "bullet-train" }),
+  ];
+  assert.deepEqual(dedupeVenueEventsForDisplay(rows).map((event) => event.id), ["japanese", "next-day"]);
+  assert.equal(rows.length, 3);
+});
+
+test("crawler dedupe treats same artist, venue, and date as one performance slot", () => {
+  const base = {
+    venue: "東京ドーム",
+    venue_id: "tokyo-dome",
+    date: "2026-11-25",
+    genre: "other" as const,
+    artist_slug: "bullet-train",
+  };
+  const rows = [
+    { ...base, id: "english", title: "Bullet Train" },
+    { ...base, id: "japanese", title: "超特急" },
+  ];
+  assert.deepEqual(dedupeRows(rows).map((event) => event.id), ["english"]);
+});
+
+test("same-day matinee and evening performances are never collapsed", () => {
+  const base = {
+    venue: "東京ドーム",
+    venue_id: "tokyo-dome",
+    date: "2026-11-25",
+    genre: "other" as const,
+    artist_slug: "fixture-artist",
+  };
+  const rows = [
+    { ...base, id: "day", title: "FIXTURE LIVE 昼公演" },
+    { ...base, id: "night", title: "FIXTURE LIVE 夜公演" },
+  ];
+  assert.deepEqual(dedupeRows(rows).map((event) => event.id), ["day", "night"]);
+  assert.deepEqual(
+    dedupeVenueEventsForDisplay(rows).map((event) => event.id),
+    ["day", "night"]
+  );
 });
 
 test("artist fixture produces page data and hero image fallbacks", () => {

@@ -22,6 +22,8 @@ export default function UpcomingEventCard({
   index,
 }: UpcomingEventCardProps) {
   void backgroundImage;
+  const reportCount = Number(item.count.replace(/,/g, ""));
+  const reportLabel = reportCount > 0 ? `${item.count}件` : "最初のレポを投稿";
   if (featured) {
     return (
       <div className="group relative min-h-[132px] rounded-[18px] border border-[#f0dfe6] bg-white px-3 py-3 shadow-[0_8px_22px_rgba(105,63,80,.05)] sm:min-h-[146px] sm:px-4 sm:py-4">
@@ -37,7 +39,7 @@ export default function UpcomingEventCard({
           </div>
           <div className="mt-auto flex items-end justify-between gap-2 pt-2.5 sm:pt-3">
             <span className="truncate text-[9px] font-bold text-[#ef4f87] sm:text-[10px]">公演を見る →</span>
-            <span className="shrink-0 text-[9px] text-[#938b92]">{item.count} reports</span>
+            <span className="shrink-0 text-[9px] font-bold text-[#938b92]">{reportLabel}</span>
           </div>
         </Link>
         <FavoriteArtistButton
@@ -66,8 +68,14 @@ export default function UpcomingEventCard({
           <p className="mt-1 truncate text-[10px] text-[#948c93] sm:mt-2">{item.venue}</p>
         </div>
         <div className="hidden text-right sm:block">
-          <p className="text-[20px] font-black text-[#ef4f87]">{item.count}</p>
-          <p className="text-[9px] text-[#938b92]">REPORTS</p>
+          {reportCount > 0 ? (
+            <>
+              <p className="text-[20px] font-black text-[#ef4f87]">{item.count}</p>
+              <p className="text-[9px] text-[#938b92]">件のレポ</p>
+            </>
+          ) : (
+            <p className="max-w-[76px] text-[10px] font-black leading-4 text-[#ef4f87]">最初のレポを投稿</p>
+          )}
         </div>
       </Link>
       <FavoriteArtistButton

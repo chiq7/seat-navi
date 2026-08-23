@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { CalendarDays, MapPin } from "lucide-react";
 import { rateText } from "@/lib/artistPageHelpers";
 import { ShareButton } from "@/components/common/ShareButton";
@@ -49,9 +50,13 @@ export default function HeroSection({
     { label: "通常アリーナ率", value: rateText(normalArenaRate) },
     { label: "アプグレ当選率", value: rateText(upgradeRate) },
   ];
+  const hasSummaryMetrics = summaryMetrics.some((metric) => metric.value !== "--");
+  const heightClass = nextEvent
+    ? "min-h-[458px] sm:min-h-[510px] lg:min-h-[560px]"
+    : "min-h-[390px] sm:min-h-[450px] lg:min-h-[500px]";
 
   return (
-    <section className="relative min-h-[458px] w-full overflow-hidden bg-[#ffeaf2] text-[#2b252b] sm:min-h-[510px] lg:min-h-[560px]">
+    <section className={`relative w-full overflow-hidden bg-[#ffeaf2] text-[#2b252b] ${heightClass}`}>
       <Image
         src={heroImageSrc}
         alt=""
@@ -66,7 +71,7 @@ export default function HeroSection({
       />
       <div className="absolute inset-0 bg-gradient-to-b from-[#652642]/30 via-[#ed76a7]/5 to-transparent" />
       <div className="absolute inset-x-0 bottom-0 h-[64%] bg-gradient-to-t from-[#ffeaf2] via-[#ffeaf2]/92 to-transparent" />
-      <div className="relative z-10 min-h-[458px] sm:min-h-[510px] lg:min-h-[560px]">
+      <div className={`relative z-10 ${heightClass}`}>
         <Header
           title={artistName}
           backHref="/"
@@ -94,25 +99,28 @@ export default function HeroSection({
             {nextEvent && isTestData && <span className="rounded-full bg-[#f7e9ef] px-2 py-1 text-[9px] font-bold text-[#9b6179]">テストデータ</span>}
           </div>
 
+          {nextEvent ? (
           <div className="mt-5 grid rounded-2xl bg-[#fff4f8] px-4 sm:grid-cols-[1.35fr_.65fr] sm:px-5">
             <div className="flex min-w-0 items-center gap-4 py-3 sm:border-r sm:border-[#f1dce5] sm:pr-5">
-              {nextEvent ? (
-                <>
-                  <CalendarDays size={18} className="shrink-0 text-[#ec4f84]" />
-                  <div className="min-w-0">
-                    <p className="text-[11px] font-bold text-[#9b7284]">{fmtDateLabel(nextEvent.date)}</p>
-                    <p className="mt-1 flex items-center gap-1.5 truncate text-[14px] font-bold text-[#443740]"><MapPin size={13} className="shrink-0 text-[#df6790]" />{nextEvent.venue}</p>
-                  </div>
-                </>
-              ) : <p className="py-1 text-[13px] font-bold text-[#876b79]">次回公演の発表を待っています</p>}
+              <CalendarDays size={18} className="shrink-0 text-[#ec4f84]" />
+              <div className="min-w-0">
+                <p className="text-[11px] font-bold text-[#9b7284]">{fmtDateLabel(nextEvent.date)}</p>
+                <p className="mt-1 flex items-center gap-1.5 truncate text-[14px] font-bold text-[#443740]"><MapPin size={13} className="shrink-0 text-[#df6790]" />{nextEvent.venue}</p>
+              </div>
             </div>
             <div className="flex items-end justify-between border-t border-[#f1dce5] py-3 sm:border-t-0 sm:pl-5">
               <span className="text-[10px] font-bold tracking-[0.12em] text-[#9b7284]">NEXT LIVE</span>
               <p className="font-black leading-none text-[#e84a80]"><span className="text-[34px]">{countdownDays ?? "--"}</span><span className="ml-1 text-[10px] tracking-[0.12em]">DAYS</span></p>
             </div>
           </div>
+          ) : (
+            <div className="mt-5 flex min-h-12 items-center justify-between gap-3 rounded-2xl bg-[#fff4f8] px-4">
+              <p className="text-[12px] font-bold text-[#876b79]">次回公演の発表を待っています</p>
+              <Link href={`/artists/${slug}/news`} className="shrink-0 text-[11px] font-black text-[#e84a80]">公式NEWS →</Link>
+            </div>
+          )}
 
-          <div className="grid grid-cols-3 pt-5">
+          {hasSummaryMetrics && <div className="grid grid-cols-3 pt-5">
             {summaryMetrics.map((metric, index) => (
               <div
                 key={metric.label}
@@ -124,7 +132,7 @@ export default function HeroSection({
                 </p>
               </div>
             ))}
-          </div>
+          </div>}
           </div>
         </div>
       </div>
