@@ -59,7 +59,7 @@ export const getCachedSeoReport = cache(async (reportId: string): Promise<Report
   return { ...info, isTestData: isTestEvent(info.event) };
 });
 
-export async function getEventSeoCounts(info: EventOgInfo): Promise<{ seatReports: number; predictions: number }> {
+export const getEventSeoCounts = cache(async (info: EventOgInfo): Promise<{ seatReports: number; predictions: number }> => {
   const groupedIds = await getGroupedEventIds(
     info.event,
     info.event.artist_slug ?? info.artist?.slug ?? null,
@@ -69,7 +69,7 @@ export async function getEventSeoCounts(info: EventOgInfo): Promise<{ seatReport
     getPredictionCount(info.event.id),
   ]);
   return { seatReports, predictions };
-}
+});
 
 export async function getArtistContentCounts(slug: string): Promise<{ setlists: number; afterReports: number }> {
   const artist = getSeoArtist(slug);

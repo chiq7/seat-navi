@@ -3,6 +3,9 @@ import { notFound } from "next/navigation";
 import { EventDetailClient } from "./EventDetailClient";
 import { getCachedSeoEvent, getEventSeoCounts, SITE_URL } from "@/lib/seoData";
 import { buildEventStructuredData, serializeJsonLd } from "@/lib/structuredData";
+import { getVenueSeoProfile } from "@/lib/seoProfiles";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { queryEventsForArtist } from "@/lib/events";
 
 type PageProps = {
   params: Promise<{ id: string }>;
@@ -53,6 +56,22 @@ export default async function EventDetailPage({ params }: PageProps) {
   if (!info) notFound();
 
   const { event, artist, tourName, dateLabel } = info;
+  const serverClient = await createSupabaseServerClient();
+  const artistSlug = artist?.slug ?? event.artist_slug ?? null;
+  const [counts, initialRelatedEvents] = await Promise.all([
+    getEventSeoCounts(info),
+    serverClient && artistSlug ? queryEventsForArtist(serverClient, artistSlug) : Promise.resolve([event]),
+  ]);
+  const venueProfile = event.venue_id ? getVenueSeoProfile(event.venue_id) : null;
+  const venueMiniGuide = counts.seatReports === 0 && counts.predictions === 0 && venueProfile && event.venue_id
+    ? {
+        venueName: event.venue,
+        capacityLabel: `最大${venueProfile.capacity.toLocaleString("ja-JP")}人`,
+        areaLabel: `${venueProfile.address.region}${venueProfile.address.locality}`,
+        venueHref: `/venues/${event.venue_id}`,
+        archiveHref: `/venues/${event.venue_id}#past-events-title`,
+      }
+    : null;
   const artistName = artist?.name ?? null;
   const eventName = artistName ? `${artistName} ${tourName}` : event.title;
   const description = `${eventName} ${event.venue} ${dateLabel}の座席表、当落、アリーナ予想、現地レポ。`;
@@ -73,7 +92,12 @@ export default async function EventDetailPage({ params }: PageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(structuredData) }}
       />
-      <EventDetailClient params={params} />
+      <EventDetailClient
+        params={params}
+        initialEvent={event}
+        initialRelatedEvents={initialRelatedEvents.length > 0 ? initialRelatedEvents : [event]}
+        venueMiniGuide={venueMiniGuide}
+      />
     </>
   );
 }

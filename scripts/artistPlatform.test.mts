@@ -20,7 +20,7 @@ import {
   selectPredictionEventId,
 } from "@/lib/artistPageData";
 import { parseEventTitle } from "@/lib/eventTitle";
-import { dedupeRows, toEventRows } from "@/lib/eventCrawler";
+import { classifyAgainstExisting, dedupeRows, dedupeRowsWithReview, toEventRows } from "@/lib/eventCrawler";
 import type { CrawledEvent, OfficialNews } from "@/lib/types";
 import { OFFICIAL_NEWS_AUDIT_COUNTS } from "@/lib/officialNewsRegistry";
 import { LEGACY_SOURCES } from "./officialNews/legacySites";
@@ -515,6 +515,14 @@ test("venue pages collapse same-day duplicate titles without changing stored row
   assert.equal(rows.length, 3);
 });
 
+test("venue display also groups an artistless truncated title with its explicit row", () => {
+  const rows = [
+    fixtureEvent({ id: "orphan", date: "2026-07-11", venue: "東京ドーム", venue_id: "tokyo-dome", title: "AREA OF DIAMOND FINAL", artist_slug: null }),
+    fixtureEvent({ id: "explicit", date: "2026-07-11", venue: "東京ドーム", venue_id: "tokyo-dome", title: "AREA OF DIAMOND FINAL CHANMINA", artist_slug: "chanmina" }),
+  ];
+  assert.deepEqual(dedupeVenueEventsForDisplay(rows).map((event) => event.id), ["explicit"]);
+});
+
 test("crawler dedupe treats same artist, venue, and date as one performance slot", () => {
   const base = {
     venue: "東京ドーム",
@@ -528,6 +536,58 @@ test("crawler dedupe treats same artist, venue, and date as one performance slot
     { ...base, id: "japanese", title: "超特急" },
   ];
   assert.deepEqual(dedupeRows(rows).map((event) => event.id), ["english"]);
+  const reviewed = dedupeRowsWithReview(rows);
+  assert.equal(reviewed.skippedSameSlotCandidates.length, 1);
+  assert.equal(reviewed.skippedSameSlotCandidates[0].reason, "same_artist_without_session_marker");
+});
+
+test("crawler defers a different-title existing slot instead of silently treating it as the same show", async () => {
+  const existing = [{
+    id: "existing",
+    title: "FIXTURE LIVE",
+    date: "2026-11-25",
+    venue_id: "tokyo-dome",
+    artist_slug: "fixture-artist",
+  }];
+  const fakeClient = {
+    from: () => ({
+      select: () => ({
+        in: async () => ({ data: existing, error: null }),
+      }),
+    }),
+  };
+  const result = await classifyAgainstExisting([{
+    id: "candidate",
+    title: "FIXTURE SPECIAL LIVE",
+    venue: "東京ドーム",
+    venue_id: "tokyo-dome",
+    date: "2026-11-25",
+    genre: "other",
+    artist_slug: "fixture-artist",
+  }], "tokyo-dome", fakeClient as never);
+  assert.equal(result.newRows.length, 0);
+  assert.equal(result.matchedExisting.length, 0);
+  assert.equal(result.skippedAmbiguous.length, 1);
+});
+
+test("report routes use the same representative event selection as display lists", () => {
+  const sources = [
+    "src/app/report/page.tsx",
+    "src/app/report/ticket/page.tsx",
+    "src/app/report/live/page.tsx",
+  ].map((file) => fs.readFileSync(path.join(projectRoot, file), "utf8"));
+  for (const source of sources) assert.match(source, /findDisplayedEventRepresentative/);
+  assert.match(fs.readFileSync(path.join(projectRoot, "src/lib/events.ts"), "utf8"), /dedupeVenueEventsForDisplay/);
+});
+
+test("empty event pages add only a compact venue guide and archive link", () => {
+  const server = fs.readFileSync(path.join(projectRoot, "src/app/events/[id]/page.tsx"), "utf8");
+  const client = fs.readFileSync(path.join(projectRoot, "src/app/events/[id]/EventDetailClient.tsx"), "utf8");
+  assert.match(server, /counts\.seatReports === 0 && counts\.predictions === 0/);
+  assert.match(client, /VENUE QUICK GUIDE/);
+  assert.match(client, /過去の座席レポ/);
+  assert.match(client, /最初の座席レポを募集中/);
+  assert.doesNotMatch(client, /この会場の公式情報を詳しく説明/);
 });
 
 test("same-day matinee and evening performances are never collapsed", () => {

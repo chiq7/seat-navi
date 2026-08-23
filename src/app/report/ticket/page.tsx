@@ -9,6 +9,7 @@ import { trackEvent } from "@/lib/analytics";
 import { getPostingContext, supabase } from "@/lib/supabase/client";
 import { resolveArtist } from "@/lib/artists";
 import { getEventsForArtist } from "@/lib/events";
+import { dedupeVenueEventsForDisplay, findDisplayedEventRepresentative } from "@/lib/eventDisplay";
 import { CompactEventPickerSection } from "@/components/common/CompactEventPickerSection";
 import { CompactHeroIntro } from "@/components/common/CompactHeroIntro";
 import { ShareButton } from "@/components/common/ShareButton";
@@ -282,16 +283,18 @@ function TicketReportPageInner() {
           .select("id, title, venue, venue_id, date, artist_slug")
           .order("date", { ascending: false })
           .limit(50);
-        rows = (data ?? []) as EventRow[];
+        rows = dedupeVenueEventsForDisplay((data ?? []) as EventRow[]) as EventRow[];
       }
       if (anchorEvent && !rows.some((r) => r.id === anchorEvent!.id)) {
-        rows = [anchorEvent, ...rows];
+        const representative = findDisplayedEventRepresentative(rows, anchorEvent);
+        if (!representative) rows = [anchorEvent, ...rows];
       }
 
       setEvents(rows);
+      const representative = anchorEvent ? findDisplayedEventRepresentative(rows, anchorEvent) : null;
       const initial = preselectedEventId && rows.some((r) => r.id === preselectedEventId)
         ? preselectedEventId
-        : rows[0]?.id;
+        : representative?.id ?? rows[0]?.id;
       if (initial) setSelectedEvent(initial);
       setEventsLoading(false);
     }
@@ -299,10 +302,14 @@ function TicketReportPageInner() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const selectedVenue = events.find((e) => e.id === selectedEvent)?.venue ?? "";
+  const selectedEventRow = events.find((e) => e.id === selectedEvent) ?? null;
+  const selectedVenue = selectedEventRow?.venue ?? "";
   const currentVenueType = selectedVenue ? getVenueType(selectedVenue) : "arena_dome_stadium";
   const seatAreaOptions = SEAT_AREAS[currentVenueType];
-  const reportEntryHref = selectedEvent ? `/report?event=${selectedEvent}` : "/report";
+  const selectedArtistSlug = selectedEventRow ? resolveArtist(selectedEventRow)?.slug ?? null : null;
+  const reportEntryHref = selectedEvent
+    ? `/report?event=${selectedEvent}${selectedArtistSlug ? `&artist=${selectedArtistSlug}` : ""}`
+    : "/report";
 
   const step2CanProceed = (() => {
     if (!lotteryType || !ticketType || !ticketCount) return false;

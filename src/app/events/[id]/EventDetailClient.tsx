@@ -9,7 +9,6 @@ import {
 } from "lucide-react";
 import { supabase } from "@/lib/supabase/client";
 import { resolveArtist } from "@/lib/artists";
-import { getEventsForArtist } from "@/lib/events";
 import type { CrawledEvent, FanSeatPrediction, SeatReport } from "@/lib/types";
 import type { ExternalSeatObservation } from "@/lib/external-seats/types";
 import type { ColorMode } from "@/lib/arena-map/arenaMapTypes";
@@ -49,8 +48,20 @@ function fmtShortDate(d: string | null): string {
 
 export function EventDetailClient({
   params,
+  initialEvent,
+  initialRelatedEvents,
+  venueMiniGuide,
 }: {
   params: Promise<{ id: string }>;
+  initialEvent: CrawledEvent;
+  initialRelatedEvents: CrawledEvent[];
+  venueMiniGuide: {
+    venueName: string;
+    capacityLabel: string;
+    areaLabel: string;
+    venueHref: string;
+    archiveHref: string;
+  } | null;
 }) {
   const { id: eventId } = use(params);
   const router = useRouter();
@@ -66,13 +77,12 @@ export function EventDetailClient({
     router.replace(`/events/${eventId}${qs ? `?${qs}` : ""}`, { scroll: false });
   }
 
-  const [event, setEvent] = useState<CrawledEvent | null>(null);
-  const [loading, setLoading] = useState(true);
+  const event = initialEvent;
   const [seatReports, setSeatReports] = useState<SeatReport[]>([]);
   const [externalSeatObservations, setExternalSeatObservations] = useState<ExternalSeatObservation[]>([]);
   const [fanSeatPredictions, setFanSeatPredictions] = useState<FanSeatPrediction[]>([]);
   const [predictionAuthorMap, setPredictionAuthorMap] = useState<Map<string, PostAuthor>>(new Map());
-  const [relatedEvents, setRelatedEvents] = useState<CrawledEvent[]>([]);
+  const relatedEvents = initialRelatedEvents;
   const [colorMode, setColorMode] = useState<ColorMode>("lottery");
   const [sortOrder, setSortOrder] = useState<"hot" | "new">("hot");
   const [voteCounts, setVoteCounts] = useState<Record<string, number>>({});
@@ -81,27 +91,18 @@ export function EventDetailClient({
 
   useEffect(() => {
     async function load() {
-      const [evRes, fanPredictionsRes] = await Promise.all([
-        supabase
-          .from("events")
-          .select("id, title, venue, venue_id, date, genre, lottery_types, artist_slug")
-          .eq("id", eventId)
-          .single(),
-        supabase
+      const fanPredictionsRes = await supabase
           .from("fan_seat_predictions")
           .select("id, event_id, user_id, image_path, comment, prediction_tags, display_name, approved, created_at")
           .eq("event_id", eventId)
           .eq("approved", true)
           .order("created_at", { ascending: false })
-          .limit(20),
-      ]);
-      if (evRes.data) setEvent(evRes.data as CrawledEvent);
+          .limit(20);
       if (fanPredictionsRes.data) {
         const predictions = fanPredictionsRes.data as FanSeatPrediction[];
         setFanSeatPredictions(predictions);
         setPredictionAuthorMap(await fetchVisiblePostAuthors(predictions.map((prediction) => prediction.user_id)));
       }
-      setLoading(false);
     }
     load();
   }, [eventId]);
@@ -133,27 +134,12 @@ export function EventDetailClient({
     return () => clearTimeout(t);
   }, [toast]);
 
-  const artist = event ? resolveArtist(event) : undefined;
+  const artist = resolveArtist(event);
   const backHref = artist ? `/artists/${artist.slug}` : "/";
-
-  useEffect(() => {
-    if (!event || !artist) return;
-    const currentEvent = event;
-    const currentArtist = artist;
-    let cancelled = false;
-    async function loadRelated() {
-      const evs = await getEventsForArtist(currentArtist.slug);
-      if (!cancelled) setRelatedEvents(evs.length > 0 ? evs : [currentEvent]);
-    }
-    loadRelated();
-    return () => {
-      cancelled = true;
-    };
-  }, [event, artist]);
 
 
   const allRelatedEvents = useMemo(
-    () => (relatedEvents.length > 0 ? relatedEvents : event ? [event] : []),
+    () => (relatedEvents.length > 0 ? relatedEvents : [event]),
     [relatedEvents, event],
   );
 
@@ -279,12 +265,7 @@ export function EventDetailClient({
   return (
     <div className="community-page">
       <main className="pb-20">
-        {loading ? (
-          <div className="zr-container space-y-5 py-8">
-            <div className="h-[270px] animate-pulse bg-[#f3e8ee]" />
-            <div className="h-[520px] animate-pulse border border-[#ded8dc] bg-white" />
-          </div>
-        ) : event ? (
+        {event ? (
           <>
           <section className="community-hero">
               <Header
@@ -336,6 +317,21 @@ export function EventDetailClient({
               ) : null}
           />
 
+          {venueMiniGuide && (
+            <section className="zr-container pt-4" aria-label={`${venueMiniGuide.venueName}の会場情報`}>
+              <div className="border-y border-[#ded8dc] bg-white px-1 py-3">
+                <p className="px-3 text-[9px] font-black tracking-[0.16em] text-[#f43679]">VENUE QUICK GUIDE</p>
+                <p className="mt-1 truncate px-3 text-[12px] font-black text-[#4b4148]">
+                  {venueMiniGuide.venueName}｜{venueMiniGuide.capacityLabel}｜{venueMiniGuide.areaLabel}
+                </p>
+                <div className="mt-2 flex flex-wrap gap-x-4 px-3 text-[11px] font-black text-[#c93868]">
+                  <Link href={venueMiniGuide.venueHref} className="zr-focus inline-flex min-h-9 items-center">会場情報を見る →</Link>
+                  <Link href={venueMiniGuide.archiveHref} className="zr-focus inline-flex min-h-9 items-center">過去の座席レポ →</Link>
+                </div>
+              </div>
+            </section>
+          )}
+
           <section className="py-8 sm:py-10" aria-labelledby="seat-map-title">
               <div className="zr-container">
                 <div className="flex flex-col gap-4 border-b border-[#ded8dc] pb-4 sm:flex-row sm:items-end sm:justify-between">
@@ -347,7 +343,9 @@ export function EventDetailClient({
                     </p>
                   </div>
                   <p className="shrink-0 text-[10px] font-black tracking-[0.1em] text-[#817981]">
-                    {dedupedSeatReports.length} SEAT REPORTS
+                    {dedupedSeatReports.length > 0
+                      ? `${dedupedSeatReports.length} SEAT REPORTS`
+                      : "最初の座席レポを募集中"}
                   </p>
                 </div>
 

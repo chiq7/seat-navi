@@ -157,6 +157,17 @@ export type AmbiguousMatch = {
   matches: Array<{ id: string; title: string; venue_id: string }>;
 };
 
+export type SkippedSameSlotCandidate = {
+  keptId: string;
+  keptTitle: string;
+  skippedId: string;
+  skippedTitle: string;
+  date: string | null;
+  venueId: string;
+  artistSlug: string | null;
+  reason: "same_normalized_title" | "same_artist_without_session_marker";
+};
+
 export type InvalidDateEntry = {
   title: string;
   venue: string;
@@ -775,22 +786,44 @@ export function normalizeTitleIgnoringSpacing(title: string): string {
   return normalizeTitle(title).replace(/\s+/g, "");
 }
 
-export function dedupeRows(rows: EventRow[]): EventRow[] {
+export function dedupeRowsWithReview(rows: EventRow[]): {
+  rows: EventRow[];
+  skippedSameSlotCandidates: SkippedSameSlotCandidate[];
+} {
   // 同一 venue_id / date / artist は日英タイトル違いを重複候補にする。
   // ただし昼夜・複数部・開演時刻が読み取れる行は別公演として必ず残す。
   const result: EventRow[] = [];
+  const skippedSameSlotCandidates: SkippedSameSlotCandidate[] = [];
   for (const row of rows) {
-    const duplicate = result.some((event) => {
+    const duplicate = result.find((event) => {
       if (event.venue_id !== row.venue_id || event.date !== row.date) return false;
       const sameTitle = normalizeTitleIgnoringSpacing(event.title) === normalizeTitleIgnoringSpacing(row.title);
       if (sameTitle) return true;
       const sameArtist = Boolean(row.artist_slug && event.artist_slug === row.artist_slug);
       return sameArtist && !hasDistinctPerformanceSession(event.title, row.title);
     });
-    if (duplicate) continue;
+    if (duplicate) {
+      skippedSameSlotCandidates.push({
+        keptId: duplicate.id,
+        keptTitle: duplicate.title,
+        skippedId: row.id,
+        skippedTitle: row.title,
+        date: row.date,
+        venueId: row.venue_id,
+        artistSlug: row.artist_slug,
+        reason: normalizeTitleIgnoringSpacing(duplicate.title) === normalizeTitleIgnoringSpacing(row.title)
+          ? "same_normalized_title"
+          : "same_artist_without_session_marker",
+      });
+      continue;
+    }
     result.push(row);
   }
-  return result;
+  return { rows: result, skippedSameSlotCandidates };
+}
+
+export function dedupeRows(rows: EventRow[]): EventRow[] {
+  return dedupeRowsWithReview(rows).rows;
 }
 
 export async function upsertEvents(rows: EventRow[], sb: AnySupabaseClient): Promise<{ saved: number; error: string | null }> {
@@ -848,27 +881,29 @@ export async function classifyAgainstExisting(
 
   for (const row of rows) {
     const normalized = normalizeTitleIgnoringSpacing(row.title);
-    const matches = existing.filter((event) => {
+    const sameSlot = existing.filter((event) => event.date === row.date);
+    const exactMatches = sameSlot.filter((event) => normalizeTitleIgnoringSpacing(event.title) === normalized);
+    const unresolvedArtistMatches = sameSlot.filter((event) => {
       if (event.date !== row.date) return false;
-      const sameTitle = normalizeTitleIgnoringSpacing(event.title) === normalized;
-      const sameArtist = Boolean(
+      return Boolean(
         row.artist_slug &&
         event.artist_slug === row.artist_slug &&
+        normalizeTitleIgnoringSpacing(event.title) !== normalized &&
         !hasDistinctPerformanceSession(event.title, row.title)
       );
-      return sameTitle || sameArtist;
     });
+    const matches = [...exactMatches, ...unresolvedArtistMatches];
 
-    if (matches.length === 0) {
+    if (exactMatches.length === 0 && unresolvedArtistMatches.length === 0) {
       newRows.push(row);
-    } else if (matches.length === 1) {
+    } else if (exactMatches.length === 1 && unresolvedArtistMatches.length === 0) {
       matchedExisting.push({
         extractedTitle: row.title,
-        existingTitle: matches[0].title,
+        existingTitle: exactMatches[0].title,
         date: row.date,
         extractedVenueId: row.venue_id,
-        existingVenueId: matches[0].venue_id,
-        existingId: matches[0].id,
+        existingVenueId: exactMatches[0].venue_id,
+        existingId: exactMatches[0].id,
       });
     } else {
       skippedAmbiguous.push({
@@ -910,6 +945,7 @@ export type VenueResult = {
   newRows: EventRow[];
   matchedExisting: MatchedExistingEvent[];
   skippedAmbiguous: AmbiguousMatch[];
+  skippedSameSlotCandidates: SkippedSameSlotCandidate[];
   invalidDates: InvalidDateEntry[];
   multiDayExpansions: MultiDayExpansion[];
   artistAssociations: ArtistAssociationReport[];
@@ -996,7 +1032,9 @@ export async function processVenue(
   const invalidDates = perPage.flatMap((p) => p.invalidDates);
   const multiDayExpansions = perPage.flatMap((p) => p.multiDayExpansions);
   const artistAssociations = perPage.flatMap((p) => p.artistAssociations);
-  rows = dedupeRows(rows);
+  const deduped = dedupeRowsWithReview(rows);
+  rows = deduped.rows;
+  const skippedSameSlotCandidates = deduped.skippedSameSlotCandidates;
 
   // dry-run・本番upsertの両方で、書き込み前に必ず既存公演と照合する。
   const classified = await classifyAgainstExisting(rows, venue.id, sb);
@@ -1029,6 +1067,7 @@ export async function processVenue(
     newRows,
     matchedExisting,
     skippedAmbiguous,
+    skippedSameSlotCandidates,
     invalidDates,
     multiDayExpansions,
     artistAssociations,

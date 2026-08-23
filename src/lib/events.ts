@@ -3,6 +3,7 @@ import { supabase } from "@/lib/supabase/client";
 import { findArtistBySlug, resolveUniqueArtistMatch } from "@/lib/artists";
 import type { CrawledEvent } from "@/lib/types";
 import { compareUpcomingEvents } from "@/lib/artistPageData";
+import { dedupeVenueEventsForDisplay } from "@/lib/eventDisplay";
 
 const EVENT_COLUMNS = "id, title, venue, venue_id, date, genre, lottery_types, artist_slug";
 
@@ -46,7 +47,7 @@ export async function queryEventsForArtist(
     .filter((e) => !rows.some((r) => r.id === e.id))
     .map((event) => ({ ...event, artist_match_source: "keyword" as const }));
 
-  return [...rows, ...extra].sort(compareUpcomingEvents);
+  return dedupeVenueEventsForDisplay([...rows, ...extra]).sort(compareUpcomingEvents);
 }
 
 /** 指定artistSlugの公演一覧をブラウザから取得する互換ラッパー。 */

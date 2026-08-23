@@ -37,6 +37,7 @@ async function main() {
   let totalExtracted = 0;
   let totalMatchedExisting = 0;
   let totalSkippedAmbiguous = 0;
+  let totalSkippedSameSlotCandidates = 0;
   let totalInvalidDates = 0;
   const failed: string[] = [];
   const reports: Array<Record<string, unknown>> = [];
@@ -56,6 +57,7 @@ async function main() {
     totalExtracted += result.allEventsCount;
     totalMatchedExisting += result.matchedExisting.length;
     totalSkippedAmbiguous += result.skippedAmbiguous.length;
+    totalSkippedSameSlotCandidates += result.skippedSameSlotCandidates.length;
     totalInvalidDates += result.invalidDates.length;
     if (result.failed) failed.push(venue.name);
 
@@ -75,7 +77,7 @@ async function main() {
     console.log(
       `  会場合計: 取得試行ページ=${result.pageReports.length} / 全期間抽出=${result.allEventsCount} / ` +
       `新規保存予定=${result.newRows.length} / 既存一致=${result.matchedExisting.length} / ` +
-      `要確認(複数一致)=${result.skippedAmbiguous.length} / 日付不明・無効(除外)=${result.invalidDates.length} / ` +
+      `要確認(既存一致)=${result.skippedAmbiguous.length} / 要確認(同枠候補)=${result.skippedSameSlotCandidates.length} / 日付不明・無効(除外)=${result.invalidDates.length} / ` +
       `所要時間=${result.elapsedMs}ms / エラー=${result.errors.join(" | ") || "なし"}`
     );
     console.log(`  抽出タイトル一覧: ${JSON.stringify(result.rows.map((r) => r.title))}`);
@@ -84,6 +86,9 @@ async function main() {
     }
     if (result.skippedAmbiguous.length > 0) {
       console.log(`  要確認(skipped_ambiguous): ${JSON.stringify(result.skippedAmbiguous)}`);
+    }
+    if (result.skippedSameSlotCandidates.length > 0) {
+      console.log(`  要確認(skipped_same_slot): ${JSON.stringify(result.skippedSameSlotCandidates)}`);
     }
     if (result.invalidDates.length > 0) {
       console.log(`  日付不明・無効のため除外(invalid_date): ${JSON.stringify(result.invalidDates)}`);
@@ -116,6 +121,7 @@ async function main() {
       newRowsCount: result.newRows.length,
       matchedExistingCount: result.matchedExisting.length,
       skippedAmbiguousCount: result.skippedAmbiguous.length,
+      skippedSameSlotCandidatesCount: result.skippedSameSlotCandidates.length,
       // 保存予定件数には newRows のみを含める(既存一致・要確認は含めない)
       plannedSaves: result.newRows.length,
       titles: result.rows.map((r) => r.title),
@@ -123,6 +129,7 @@ async function main() {
       newRows: result.newRows.map((r) => ({ title: r.title, date: r.date })),
       matchedExisting: result.matchedExisting,
       skippedAmbiguous: result.skippedAmbiguous,
+      skippedSameSlotCandidates: result.skippedSameSlotCandidates,
       invalidDatesCount: result.invalidDates.length,
       invalidDates: result.invalidDates,
       multiDayExpansions: result.multiDayExpansions,
@@ -138,7 +145,8 @@ async function main() {
   console.log("=".repeat(60));
   console.log(
     `dry-run 完了: 全期間抽出合計=${totalExtracted} / 新規保存予定合計=${totalPlanned} / ` +
-    `既存一致合計=${totalMatchedExisting} / 要確認(複数一致)合計=${totalSkippedAmbiguous} / ` +
+    `既存一致合計=${totalMatchedExisting} / 要確認(既存一致)合計=${totalSkippedAmbiguous} / ` +
+    `要確認(同枠候補)合計=${totalSkippedSameSlotCandidates} / ` +
     `日付不明・無効(除外)合計=${totalInvalidDates} / ` +
     `DB書き込み 0 件 / 総実行時間=${totalElapsedMs}ms (${(totalElapsedMs / 1000).toFixed(1)}秒)`
   );
@@ -160,6 +168,7 @@ async function main() {
         totalNewRows: totalPlanned,
         totalMatchedExisting,
         totalSkippedAmbiguous,
+        totalSkippedSameSlotCandidates,
         totalInvalidDates,
       },
       null,

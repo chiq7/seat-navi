@@ -248,7 +248,7 @@ export default function FanSeatPredictionPage({
 
   const artist = event ? resolveArtist(event) : undefined;
   const artistSlug = artist?.slug;
-  const reportEntryHref = `/report?event=${selectedEventId}`;
+  const reportEntryHref = `/report?event=${selectedEventId}${artistSlug ? `&artist=${artistSlug}` : ""}`;
   const shareUrl = typeof window !== "undefined" ? `${window.location.origin}/events/${selectedEventId}` : "";
   const shareText = `${artist?.name ?? "ライブ"}の座席表・ステージ構成予想を投稿しました！ #ちけレポ`;
   const xShareHref = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;

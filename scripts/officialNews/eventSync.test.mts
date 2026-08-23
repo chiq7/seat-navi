@@ -79,7 +79,7 @@ test("a physical artist event does not require a live-specific keyword", () => {
   assert.equal(plan.newRows.length, 1);
 });
 
-test("existing artist-date-venue prevents a duplicate even when title differs", () => {
+test("same artist-date-venue with a different title is deferred for performance review", () => {
   const plan = planOfficialNewsEvents([candidate({ event_dates: ["2026-10-24"] })], [{
     id: "existing",
     title: "別表記のツアータイトル",
@@ -90,8 +90,27 @@ test("existing artist-date-venue prevents a duplicate even when title differs", 
     artist_slug: "yoasobi",
   }]);
   assert.equal(plan.newRows.length, 0);
-  assert.equal(plan.existingRows.length, 1);
-  assert.equal(plan.decisions[0].status, "already_exists");
+  assert.equal(plan.existingRows.length, 0);
+  assert.equal(plan.decisions[0].status, "deferred");
+  assert.match(plan.decisions[0].reason, /回次不明/);
+});
+
+test("same artist-date-venue with a distinct session marker remains a separate event", () => {
+  const plan = planOfficialNewsEvents([candidate({
+    event_dates: ["2026-10-24"],
+    event_name: "LIVE TOUR 2026 夜公演",
+    tour_name: "LIVE TOUR 2026 夜公演",
+  })], [{
+    id: "day",
+    title: "LIVE TOUR 2026 昼公演",
+    venue: "京セラドーム大阪",
+    venue_id: "kyocera-dome",
+    date: "2026-10-24",
+    genre: "other",
+    artist_slug: "yoasobi",
+  }]);
+  assert.equal(plan.newRows.length, 1);
+  assert.equal(plan.decisions[0].status, "planned");
 });
 
 test("multiple news articles collapse to one artist-date-venue event", () => {

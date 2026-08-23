@@ -55,6 +55,7 @@ export async function GET(req: NextRequest) {
   let totalNewRows = 0;
   let totalMatchedExisting = 0;
   let totalSkippedAmbiguous = 0;
+  let totalSkippedSameSlotCandidates = 0;
   let totalInvalidDates = 0;
   const failed: string[] = [];
   const reports: Array<Record<string, unknown>> = [];
@@ -82,6 +83,7 @@ export async function GET(req: NextRequest) {
     totalNewRows += result.newRows.length;
     totalMatchedExisting += result.matchedExisting.length;
     totalSkippedAmbiguous += result.skippedAmbiguous.length;
+    totalSkippedSameSlotCandidates += result.skippedSameSlotCandidates.length;
     totalInvalidDates += result.invalidDates.length;
     if (result.failed) failed.push(venue.name);
     if (!dryRun && result.saved > 0) {
@@ -110,7 +112,7 @@ export async function GET(req: NextRequest) {
     console.log(
       `[${venue.name}] 取得試行ページ=${result.pageReports.length} / 全期間抽出=${result.allEventsCount} / ` +
       `新規保存予定=${result.newRows.length} / 既存一致=${result.matchedExisting.length} / ` +
-      `要確認(複数一致)=${result.skippedAmbiguous.length} / DB保存=${result.saved} / ` +
+      `要確認(既存一致)=${result.skippedAmbiguous.length} / 要確認(同枠候補)=${result.skippedSameSlotCandidates.length} / DB保存=${result.saved} / ` +
       `所要時間=${result.elapsedMs}ms / エラー=${result.errors.join(" | ") || "なし"}`
     );
 
@@ -134,9 +136,11 @@ export async function GET(req: NextRequest) {
       newRowsCount: result.newRows.length,
       matchedExistingCount: result.matchedExisting.length,
       skippedAmbiguousCount: result.skippedAmbiguous.length,
+      skippedSameSlotCandidatesCount: result.skippedSameSlotCandidates.length,
       titles: result.rows.map((row) => row.title),
       matchedExisting: result.matchedExisting,
       skippedAmbiguous: result.skippedAmbiguous,
+      skippedSameSlotCandidates: result.skippedSameSlotCandidates,
       invalidDatesCount: result.invalidDates.length,
       invalidDates: result.invalidDates,
       multiDayExpansions: result.multiDayExpansions,
@@ -190,6 +194,7 @@ export async function GET(req: NextRequest) {
     totalNewRows,
     totalMatchedExisting,
     totalSkippedAmbiguous,
+    totalSkippedSameSlotCandidates,
     totalInvalidDates,
     officialTourReports,
     failed,

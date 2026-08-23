@@ -1,7 +1,8 @@
 import crypto from "node:crypto";
 import { ARTISTS } from "@/lib/artists";
 import { getVenueIdAliases, VENUES } from "@/lib/eventCrawlerConfig";
-import { makeEventId } from "@/lib/eventCrawler";
+import { makeEventId, normalizeTitleIgnoringSpacing } from "@/lib/eventCrawler";
+import { hasDistinctPerformanceSession } from "@/lib/eventIdentity";
 import { MANUAL_EVENT_REVIEWS, type ManualEvent } from "./manualReviews";
 
 export type OfficialNewsEventCandidate = {
@@ -145,10 +146,22 @@ function isSameVenue(existing: ExistingEvent, planned: PlannedNewsEvent): boolea
   return aliases.has(existing.venue_id);
 }
 
-function hasExistingMatch(existing: ExistingEvent[], planned: PlannedNewsEvent): boolean {
-  return existing.some((event) =>
+function classifyExistingMatch(
+  existing: ExistingEvent[],
+  planned: PlannedNewsEvent,
+): { kind: "none" | "exact" | "ambiguous"; matches: ExistingEvent[] } {
+  const sameSlot = existing.filter((event) =>
     event.artist_slug === planned.artist_slug && event.date === planned.date && isSameVenue(event, planned),
   );
+  const exact = sameSlot.filter((event) =>
+    normalizeTitleIgnoringSpacing(event.title) === normalizeTitleIgnoringSpacing(planned.title),
+  );
+  if (exact.length === 1 && sameSlot.length === 1) return { kind: "exact", matches: exact };
+  if (sameSlot.length > 1 || exact.length > 1) return { kind: "ambiguous", matches: sameSlot };
+  const ambiguous = sameSlot.filter((event) => !hasDistinctPerformanceSession(event.title, planned.title));
+  return ambiguous.length > 0
+    ? { kind: "ambiguous", matches: ambiguous }
+    : { kind: "none", matches: [] };
 }
 
 function defer(candidate: OfficialNewsEventCandidate, reason: string): SyncDecision {
@@ -164,11 +177,12 @@ export function planOfficialNewsEvents(
   const newRows: PlannedNewsEvent[] = [];
   const existingRows: PlannedNewsEvent[] = [];
   const decisions: SyncDecision[] = [];
-  const plannedKeys = new Set<string>();
+  const plannedSlots = new Map<string, PlannedNewsEvent[]>();
 
   const planRows = (candidate: OfficialNewsEventCandidate, manualEvents: ManualEvent[], reason: string) => {
     let plannedCount = 0;
     let existingCount = 0;
+    let ambiguousCount = 0;
     for (const manualEvent of manualEvents) {
       const artistSlug = manualEvent.artist_slug ?? candidate.artist_slug;
       const venue = resolveVenue(manualEvent.venue);
@@ -183,11 +197,17 @@ export function planOfficialNewsEvents(
         source_news_id: candidate.id,
       };
       const key = `${row.artist_slug}\u0000${row.date}\u0000${row.venue_id}`;
-      if (hasExistingMatch(existing, row)) {
+      const existingMatch = classifyExistingMatch(existing, row);
+      const plannedInSlot = plannedSlots.get(key) ?? [];
+      const exactPlanned = plannedInSlot.some((planned) => normalizeTitleIgnoringSpacing(planned.title) === normalizeTitleIgnoringSpacing(row.title));
+      const ambiguousPlanned = plannedInSlot.some((planned) => !hasDistinctPerformanceSession(planned.title, row.title));
+      if (existingMatch.kind === "exact" || exactPlanned) {
         existingRows.push(row);
         existingCount++;
-      } else if (!plannedKeys.has(key)) {
-        plannedKeys.add(key);
+      } else if (existingMatch.kind === "ambiguous" || ambiguousPlanned) {
+        ambiguousCount++;
+      } else {
+        plannedSlots.set(key, [...plannedInSlot, row]);
         newRows.push(row);
         plannedCount++;
       }
@@ -196,11 +216,13 @@ export function planOfficialNewsEvents(
     decisions.push({
       news_id: candidate.id,
       artist_slug: candidate.artist_slug,
-      status: plannedCount > 0 ? "planned" : "already_exists",
+      status: plannedCount > 0 ? "planned" : ambiguousCount > 0 ? "deferred" : "already_exists",
       reason: plannedCount > 0
-        ? `${reason}（新規${plannedCount}件${existingCount > 0 ? `、既存${existingCount}件` : ""}）`
-        : `${reason}（対象${existingCount}件は登録済み）`,
-      event_count: plannedCount > 0 ? plannedCount : existingCount,
+        ? `${reason}（新規${plannedCount}件${existingCount > 0 ? `、既存${existingCount}件` : ""}${ambiguousCount > 0 ? `、要確認${ambiguousCount}件` : ""}）`
+        : ambiguousCount > 0
+          ? `${reason}（同日同会場に回次不明の別タイトル公演があり要確認）`
+          : `${reason}（対象${existingCount}件は登録済み）`,
+      event_count: plannedCount > 0 ? plannedCount : existingCount + ambiguousCount,
     });
   };
 
@@ -264,6 +286,7 @@ export function planOfficialNewsEvents(
     const genre = genreByArtist.get(candidate.artist_slug) ?? "other";
     let plannedCount = 0;
     let existingCount = 0;
+    let ambiguousCount = 0;
     for (const pair of pairs) {
       const row: PlannedNewsEvent = {
         id: makeEventId(pair.venue.id, pair.date, `${candidate.artist_slug}:${title}`),
@@ -276,11 +299,17 @@ export function planOfficialNewsEvents(
         source_news_id: candidate.id,
       };
       const key = `${row.artist_slug}\u0000${row.date}\u0000${row.venue_id}`;
-      if (hasExistingMatch(existing, row)) {
+      const existingMatch = classifyExistingMatch(existing, row);
+      const plannedInSlot = plannedSlots.get(key) ?? [];
+      const exactPlanned = plannedInSlot.some((planned) => normalizeTitleIgnoringSpacing(planned.title) === normalizeTitleIgnoringSpacing(row.title));
+      const ambiguousPlanned = plannedInSlot.some((planned) => !hasDistinctPerformanceSession(planned.title, row.title));
+      if (existingMatch.kind === "exact" || exactPlanned) {
         existingRows.push(row);
         existingCount++;
-      } else if (!plannedKeys.has(key)) {
-        plannedKeys.add(key);
+      } else if (existingMatch.kind === "ambiguous" || ambiguousPlanned) {
+        ambiguousCount++;
+      } else {
+        plannedSlots.set(key, [...plannedInSlot, row]);
         newRows.push(row);
         plannedCount++;
       }
@@ -293,6 +322,14 @@ export function planOfficialNewsEvents(
         status: "planned",
         reason: existingCount > 0 ? `新規${plannedCount}件、既存${existingCount}件` : "自動反映条件を満たす",
         event_count: plannedCount,
+      });
+    } else if (ambiguousCount > 0) {
+      decisions.push({
+        news_id: candidate.id,
+        artist_slug: candidate.artist_slug,
+        status: "deferred",
+        reason: "同日同会場に回次不明の別タイトル公演があり要確認",
+        event_count: ambiguousCount,
       });
     } else {
       decisions.push({

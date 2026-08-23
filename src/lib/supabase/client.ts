@@ -15,6 +15,7 @@ export const anonymousSupabase = createClient(supabaseUrl, supabaseAnonKey, {
     autoRefreshToken: false,
     detectSessionInUrl: false,
     persistSession: false,
+    storageKey: "tixrepo-anonymous-posting",
   },
 });
 

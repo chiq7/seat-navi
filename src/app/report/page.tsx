@@ -3,6 +3,7 @@ import { resolveArtist } from "@/lib/artists";
 import { queryEventsForArtist } from "@/lib/events";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import type { CrawledEvent } from "@/lib/types";
+import { dedupeVenueEventsForDisplay, findDisplayedEventRepresentative } from "@/lib/eventDisplay";
 
 type SearchParams = {
   event?: string | string[];
@@ -46,15 +47,20 @@ export default async function ReportEntryPage({ searchParams }: { searchParams: 
         .select("id, title, venue, venue_id, date, genre, lottery_types, artist_slug")
         .order("date", { ascending: false })
         .limit(50);
-      initialEvents = (data as CrawledEvent[]) ?? [];
+      initialEvents = dedupeVenueEventsForDisplay((data as CrawledEvent[]) ?? []);
     }
 
     if (initialEventId) {
       if (initialEvents.some((event) => event.id === initialEventId)) {
         initialSelectedId = initialEventId;
       } else if (anchorEvent) {
-        initialEvents = [anchorEvent, ...initialEvents];
-        initialSelectedId = initialEventId;
+        const representative = findDisplayedEventRepresentative(initialEvents, anchorEvent);
+        if (representative) {
+          initialSelectedId = representative.id;
+        } else {
+          initialEvents = [anchorEvent, ...initialEvents];
+          initialSelectedId = initialEventId;
+        }
       }
     }
     if (!initialSelectedId && targetArtistSlug) {
