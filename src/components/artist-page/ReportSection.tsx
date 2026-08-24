@@ -134,9 +134,9 @@ export default function ReportSection({ reports, afterHref, reportHref, children
     <section className="artist-section" id="reports">
       <p className="artist-kicker">Live Reports</p>
       <h2 className="artist-heading">現地レポ</h2>
-      <div className="mt-6 border border-[#282127] bg-[#fff8fa]">
+      <div className="mt-6 border border-divider bg-[#fff8fa]">
         {children && <div className="p-4 sm:p-5">{children}</div>}
-        <div className="flex items-end justify-between gap-4 border-t border-[#282127] bg-white px-5 py-3 sm:px-7">
+        <div className="flex items-end justify-between gap-4 border-t border-divider bg-white px-5 py-3 sm:px-7">
           <div>
             <p className="text-[10px] font-black tracking-[0.2em] text-[#f43679]">RECENT VOICES</p>
             <h3 className="mt-1 text-[17px] font-black tracking-[-0.03em] text-[#1c171b]">現地レポタイムライン</h3>
@@ -144,7 +144,7 @@ export default function ReportSection({ reports, afterHref, reportHref, children
           <span className="mb-1 text-[9px] font-black tracking-[0.12em] text-[#817981]">{reports.length} REPORTS</span>
         </div>
         <ReportTimelineList reports={displayReports} reportHref={reportHref} authorMap={authorMap} />
-        <div className="border-t border-[#282127] bg-white">
+        <div className="border-t border-divider bg-white">
           <Link href={afterHref} className="zr-focus group flex min-h-13 items-center justify-between px-5 text-[12px] font-black text-[#1c171b] sm:px-7">
             すべての現地レポを見る
             <span className="text-[20px] leading-none text-[#f43679] transition-transform group-hover:translate-x-1">→</span>

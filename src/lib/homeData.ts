@@ -225,6 +225,20 @@ export type HomeFeedItem = {
   source: HomeFeedSource;
 };
 
+/** 速報の種類ごとに、内容を直接確認できる最短の遷移先を返す。 */
+export function feedItemHref(
+  type: HomeFeedType,
+  eventId: string,
+  artistSlug: string,
+  itemId: string,
+): string {
+  if (type === "現地レポ") return `/report/live/detail?reportId=${encodeURIComponent(itemId)}`;
+  if (type === "セトリ") return `/artists/${encodeURIComponent(artistSlug)}/setlist`;
+  if (type === "当落レポ") return `/artists/${encodeURIComponent(artistSlug)}#ticket-data`;
+  if (type === "座席予想") return `/events/${encodeURIComponent(eventId)}#fan-prediction-title`;
+  return `/events/${encodeURIComponent(eventId)}`;
+}
+
 /** 統合前にソースごとに取得する上限件数（統合後に全体の上位N件へ絞り込む前段のバッファ） */
 const FEED_SOURCE_LIMIT = 40;
 
@@ -373,7 +387,9 @@ export function buildSupplementalFeedItems(
       venue: event.venue,
       date: event.dateIso ?? null,
       createdAt: now.toISOString(),
-      href: `/events/${encodeURIComponent(event.id)}`,
+      href: isCountdown
+        ? `/events/${encodeURIComponent(event.id)}`
+        : `/artists/${encodeURIComponent(event.artistSlug)}#ticket-data`,
       xHandle: null,
       source: isCountdown ? "editorial" : "sample",
     };
@@ -524,11 +540,7 @@ export async function getRealtimeFeedItems(
     // 現地レポと実施後のセトリ更新は、公演日を迎えるまで速報に出さない。
     if ((r.type === "現地レポ" || r.type === "セトリ") && ev.date && ev.date > today) continue;
 
-    const href =
-      r.type === "現地レポ" ? `/report/live/detail?reportId=${r.id}`
-      : r.type === "セトリ" ? `/artists/${artist.slug}/setlist`
-      : r.type === "当落レポ" ? `/artists/${artist.slug}`
-      : `/events/${ev.id}`;
+    const href = feedItemHref(r.type, ev.id, artist.slug, r.id);
 
     items.push({
       id: `${r.type}-${r.id}`,

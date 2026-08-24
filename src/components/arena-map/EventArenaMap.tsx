@@ -78,7 +78,7 @@ export function EventArenaMap({
           className={`zr-focus mx-auto mt-2 flex min-h-11 items-center gap-2 border px-4 text-[11px] font-black transition-colors ${
             saved
               ? "border-green-500/40 bg-green-50 text-green-700"
-              : "border-[#282127] bg-white text-[#1c171b] hover:bg-[#fff3f7]"
+              : "border-divider bg-white text-foreground hover:bg-[#fff3f7]"
           }`}
         >
           {saved ? (

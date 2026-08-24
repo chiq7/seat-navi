@@ -1,8 +1,9 @@
-import { cache } from "react";
+import "server-only";
+import { unstable_cache } from "next/cache";
 import { getJstDateString } from "@/lib/artistPageData";
 import { VENUES, getVenueIdAliases, type VenueConfig } from "@/lib/eventCrawlerConfig";
 import { isTestEvent } from "@/lib/seoData";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { createSupabasePublicClient } from "@/lib/supabase/public";
 import { dedupeVenueEventsForDisplay } from "@/lib/eventDisplay";
 import type { CrawledEvent } from "@/lib/types";
 
@@ -12,22 +13,28 @@ export function findSeoVenue(id: string): VenueConfig | null {
   return VENUES.find((venue) => venue.id === id || getVenueIdAliases(venue.id).includes(id)) ?? null;
 }
 
-export const getVenueEvents = cache(async (venueId: string): Promise<CrawledEvent[]> => {
+export async function getVenueEvents(venueId: string): Promise<CrawledEvent[]> {
   const venue = findSeoVenue(venueId);
   if (!venue) return [];
 
-  const client = await createSupabaseServerClient();
-  if (!client) return [];
-  const { data } = await client
-    .from("events")
-    .select("id, title, venue, venue_id, date, genre, lottery_types, artist_slug")
-    .in("venue_id", [...getVenueIdAliases(venue.id)])
-    .order("date", { ascending: true })
-    .limit(300);
+  return unstable_cache(
+    async () => {
+      const client = createSupabasePublicClient();
+      if (!client) return [];
+      const { data } = await client
+        .from("events")
+        .select("id, title, venue, venue_id, date, genre, lottery_types, artist_slug")
+        .in("venue_id", [...getVenueIdAliases(venue.id)])
+        .order("date", { ascending: true })
+        .limit(300);
 
-  const publicEvents = ((data as CrawledEvent[]) ?? []).filter((event) => !isTestEvent(event));
-  return dedupeVenueEventsForDisplay(publicEvents);
-});
+      const publicEvents = ((data as CrawledEvent[]) ?? []).filter((event) => !isTestEvent(event));
+      return dedupeVenueEventsForDisplay(publicEvents);
+    },
+    ["public-venue-events-v2", venue.id],
+    { revalidate: 3600, tags: [`venue-events:${venue.id}`] },
+  )();
+}
 
 export function splitVenueEvents(events: readonly CrawledEvent[]) {
   const today = getJstDateString();

@@ -379,7 +379,7 @@ function LiveReportDetailPageInner() {
           <section className="mt-10" aria-labelledby="related-reports-title">
             <p className="artist-kicker">Nearby Reports</p>
             <h2 id="related-reports-title" className="artist-heading">同じブロックの他レポ</h2>
-            <div className="mt-5 border-t border-[#1c171b]">
+            <div className="mt-5 border-t border-divider">
               {related.map((r) => {
                 const rArea = r.seat_area_type ? (SEAT_AREA_LABELS[r.seat_area_type] ?? r.seat_area_type) : null;
                 const rParts = [rArea, withSuffix(r.seat_block, "ブロック"), withSuffix(r.seat_row, "列"), withSuffix(r.seat_number, "番")].filter((v): v is string => Boolean(v));

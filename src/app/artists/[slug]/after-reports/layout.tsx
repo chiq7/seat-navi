@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
-import { getArtistContentCounts, getSeoArtist, isTestArtist, SITE_URL } from "@/lib/seoData";
+import { getArtistContentCounts, getSeoArtist, isTestArtist } from "@/lib/seoData";
+import { buildMeta } from "@/lib/metadata";
 
 type Props = {
   children: ReactNode;
@@ -15,16 +16,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { afterReports } = await getArtistContentCounts(slug);
   const title = `${artist.name}の現地レポ・座席からの見え方｜ちけレポ`;
   const description = `${artist.name}のライブ会場写真、座席からの見え方、演出、トロッコや銀テープの現地レポを確認できます。`;
-  const canonical = `${SITE_URL}/artists/${slug}/after-reports`;
-
-  return {
+  return buildMeta({
+    path: `/artists/${slug}/after-reports`,
     title,
     description,
-    alternates: { canonical },
-    robots: { index: !isTestArtist(artist) && afterReports > 0, follow: true },
-    openGraph: { title, description, url: canonical, type: "website" },
-    twitter: { card: "summary", title, description },
-  };
+    index: !isTestArtist(artist) && afterReports > 0,
+    follow: true,
+    twitterCard: "summary",
+  });
 }
 
 export default function ArtistAfterReportsLayout({ children }: Props) {

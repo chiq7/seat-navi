@@ -50,10 +50,12 @@ export default function HeroSection({
     { label: "通常アリーナ率", value: rateText(normalArenaRate) },
     { label: "アプグレ当選率", value: rateText(upgradeRate) },
   ];
-  const hasSummaryMetrics = summaryMetrics.some((metric) => metric.value !== "--");
+  const availableSummaryMetrics = summaryMetrics.filter((metric) => metric.value !== "--");
   const heightClass = nextEvent
-    ? "min-h-[458px] sm:min-h-[510px] lg:min-h-[560px]"
-    : "min-h-[390px] sm:min-h-[450px] lg:min-h-[500px]";
+    ? availableSummaryMetrics.length > 0
+      ? "min-h-[420px] sm:min-h-[510px] lg:min-h-[560px]"
+      : "min-h-[360px] sm:min-h-[460px] lg:min-h-[510px]"
+    : "min-h-[300px] sm:min-h-[400px] lg:min-h-[450px]";
 
   return (
     <section className={`relative w-full overflow-hidden bg-[#ffeaf2] text-[#2b252b] ${heightClass}`}>
@@ -120,15 +122,15 @@ export default function HeroSection({
             </div>
           )}
 
-          {hasSummaryMetrics && <div className="grid grid-cols-3 pt-5">
-            {summaryMetrics.map((metric, index) => (
+          {availableSummaryMetrics.length > 0 && <div className={`grid pt-5 ${availableSummaryMetrics.length === 1 ? "grid-cols-1" : availableSummaryMetrics.length === 2 ? "grid-cols-2" : "grid-cols-3"}`}>
+            {availableSummaryMetrics.map((metric, index) => (
               <div
                 key={metric.label}
                 className={`min-w-0 px-2 text-left ${index > 0 ? "border-l border-[#f0dfe6]" : ""}`}
               >
                 <p className="truncate text-[9px] font-bold text-[#967987] sm:text-[11px]">{metric.label}</p>
                 <p className="mt-1.5 text-[22px] font-black leading-none text-[#3d3038] sm:text-[28px]">
-                  {metric.value === "--" ? "--" : <>{metric.value}<span className="ml-0.5 text-[12px] text-[#e84a80]">%</span></>}
+                  {metric.value}<span className="ml-0.5 text-[12px] text-[#e84a80]">%</span>
                 </p>
               </div>
             ))}

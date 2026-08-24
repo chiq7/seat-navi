@@ -50,7 +50,7 @@ const features = [
 export default function HowToUseTixRepoPage() {
   return (
     <NewsArticleLayout kicker="HOW TO USE" title="ちけレポでできること" lead="ライブやイベントの当落・座席表・会場の見え方・現地レポ・セトリを、公演ごとに確認・共有できるサイトです。">
-      <div className="border-t border-[#1c171b] bg-white">
+      <div className="border-t border-divider bg-white">
           <section className="border-b border-[#ded8dc] p-5 sm:p-7">
             <h2 className="text-[16px] font-bold text-gray-900">使い方はシンプルです</h2>
             <ol className="mt-3 space-y-2.5 text-[13px] leading-6 text-gray-700">

@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 export default function FavoritesAndMypagePage() {
   return (
     <NewsArticleLayout kicker="FEATURE GUIDE" title="推し登録とマイページの使い方" lead="よく見るアーティストを登録して、推しの公演を探しやすく。自分の投稿はマイページにまとめて確認できます。">
-      <div className="border-t border-[#1c171b] bg-white">
+      <div className="border-t border-divider bg-white">
           <section className="border-b border-[#ded8dc] p-5 sm:p-7">
             <div className="flex gap-3">
               <Heart size={21} className="mt-0.5 shrink-0 text-[#FF6B9D]" aria-hidden="true" />

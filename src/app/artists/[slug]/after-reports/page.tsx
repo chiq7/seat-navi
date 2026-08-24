@@ -18,6 +18,7 @@ import { fmtDate, seatAreaLabel } from "@/lib/artistPageHelpers";
 import { BottomNav } from "@/components/common/BottomNav";
 import { Header } from "@/components/common/Header";
 import { SelectControl } from "@/components/common/SelectControl";
+import { EmptyState } from "@/components/common/EmptyState";
 import { ReportTimelineList } from "@/components/artist-page/ReportSection";
 import { fetchVisiblePostAuthors, type PostAuthor } from "@/lib/postAuthors";
 import {
@@ -283,16 +284,15 @@ export default function AfterReportsPage({ params }: { params: Promise<{ slug: s
             ))}
           </div>
         ) : filteredReports.length === 0 ? (
-              <section className="my-8 border-y border-dashed border-[#ded8dc] bg-white py-10 text-center">
-            <p className="text-[9px] font-black tracking-[0.18em] text-[#f43679]">NO REPORTS</p>
-            <p className="mt-2 text-[17px] font-black">この条件の現地レポはまだありません</p>
-            <Link
-              href={nextEvent ? `/report/live?event=${nextEvent.id}` : "/report/live"}
-              className="community-primary-button mt-5 min-h-11"
-            >
-              <SquarePen size={17} />現地レポを投稿する
-            </Link>
-          </section>
+          <EmptyState
+            className="my-8"
+            title="この条件の現地レポはまだありません"
+            icon={<SquarePen size={18} aria-hidden="true" />}
+            actionHref={nextEvent ? `/report/live?event=${nextEvent.id}` : "/report/live"}
+            actionLabel="投稿する"
+            actionIcon={<SquarePen size={14} aria-hidden="true" />}
+            actionTone="primary"
+          />
         ) : (
           <div className="pb-10">
             {groupedReports.map((group) => (

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AtSign, Camera, Flag, ImagePlus, MessageCircle, Send, X } from "lucide-react";
 import type { FanBoardListResponse, FanBoardMutationResponse, FanBoardPost, FanBoardReply } from "@/lib/fanBoard/types";
+import { EmptyState } from "@/components/common/EmptyState";
 
 type BoardProps = {
   artistSlug: string;
@@ -189,6 +190,7 @@ function BoardComposer({ artistSlug, parentId, compact = false, onCancel, onPost
       <input
         ref={inputRef}
         type="file"
+        aria-label="掲示板に添付する写真を選択"
         accept="image/jpeg,image/png,image/webp"
         multiple
         onChange={selectFiles}
@@ -263,10 +265,10 @@ export default function ArtistFanBoard({ artistSlug, artistName }: BoardProps) {
   }
 
   return (
-    <div className="border-x border-b border-[#282127] bg-[#fff8fa]">
+    <div className="border-x border-b border-divider bg-[#fff8fa]">
       <BoardComposer artistSlug={artistSlug} artistName={artistName} onPosted={loadPosts} />
 
-      <div className="border-t border-[#282127] px-4 py-4 sm:px-6">
+      <div className="border-t border-divider px-4 py-4 sm:px-6">
         <div className="flex items-center justify-between gap-3">
           <h3 className="text-[18px] font-black tracking-[-0.03em] text-[#1c171b]">投稿一覧</h3>
           <span className="text-[11px] font-black text-[#817981]">{posts.length} POSTS</span>
@@ -283,12 +285,9 @@ export default function ArtistFanBoard({ artistSlug, artistName }: BoardProps) {
             <button type="button" onClick={() => void loadPosts()} className="zr-focus mt-3 min-h-11 px-4 text-[12px] font-black text-[#f43679]">もう一度読み込む</button>
           </div>
         ) : posts.length === 0 ? (
-          <div className="mt-4 border border-dashed border-[#cfc6cc] bg-white px-5 py-6 text-center">
-            <Camera size={26} className="mx-auto text-[#f43679]" aria-hidden="true" />
-            <p className="mt-3 text-[14px] font-black text-[#1c171b]">まだ投稿はありません</p>
-          </div>
+          <EmptyState className="mt-4" title="まだ投稿はありません" icon={<Camera size={18} aria-hidden="true" />} />
         ) : (
-          <div className="mt-4 divide-y divide-[#ded8dc] border-y border-[#282127]">
+          <div className="mt-4 divide-y divide-[#ded8dc] border-y border-divider">
             {posts.map((post) => (
               <article key={post.id} className="bg-white py-4">
                 <div className="px-4 sm:px-5">

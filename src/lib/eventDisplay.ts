@@ -4,21 +4,55 @@ import { resolveArtist } from "@/lib/artists";
 type DisplayEventRow = {
   id: string;
   title: string;
+  venue?: string;
   date: string | null;
   venue_id?: string | null;
   artist_slug?: string | null;
 };
+
+/**
+ * 公式会場の同一日程で確認できた、保存行を残したまま表示だけまとめるIDペア。
+ * 一般的な翻訳推測はせず、同一公演と確認した組だけを追加する。
+ */
+const CONFIRMED_DISPLAY_EVENT_ID_PAIRS = new Set([
+  ["1cb62ee60e8d54da8f42", "89f39d35db8690821b32"].sort().join(":"),
+  ["474d4e7584278325fc6c", "64e19896a8fb89446828"].sort().join(":"),
+]);
+
+const CONFIRMED_ARTIST_TITLE_ALIASES: Readonly<Record<string, string>> = {
+  ryusuzukazeitaru: "龍涼風至",
+};
+
+function isConfirmedDisplayEventPair(leftId: string, rightId: string): boolean {
+  return CONFIRMED_DISPLAY_EVENT_ID_PAIRS.has([leftId, rightId].sort().join(":"));
+}
 
 function displayEventScore(event: DisplayEventRow): number {
   const japaneseChars = (event.title.match(/[ぁ-んァ-ヶ一-龠]/g) ?? []).length;
   return (event.artist_slug ? 10_000 : 0) + japaneseChars * 100 + event.title.length;
 }
 
+/** DBの返却順に左右されず、同じ入力集合なら常に同じ代表を選ぶ。 */
+function compareDisplayRepresentative(left: DisplayEventRow, right: DisplayEventRow): number {
+  const scoreDiff = displayEventScore(left) - displayEventScore(right);
+  if (scoreDiff !== 0) return scoreDiff;
+
+  const leftTitle = normalizeComparableTitle(left.title);
+  const rightTitle = normalizeComparableTitle(right.title);
+  if (leftTitle !== rightTitle) return leftTitle > rightTitle ? 1 : -1;
+  if (left.id === right.id) return 0;
+  return left.id > right.id ? 1 : -1;
+}
+
 function normalizeComparableTitle(value: string): string {
-  return value
+  const compact = value
     .normalize("NFKC")
     .toLowerCase()
-    .replace(/[\s　「」『』“”‘’"'・･:：/_\-–—|【】()[\]（）]/g, "");
+    .replace(/[\s　「」『』“”‘’"'・･,，、:：/_\-–—|【】()[\]（）]/g, "");
+  return Object.entries(CONFIRMED_ARTIST_TITLE_ALIASES).reduce(
+    (title, [alias, canonical]) => title.replaceAll(alias, canonical),
+    compact,
+  );
 }
 
 /**
@@ -26,10 +60,18 @@ function normalizeComparableTitle(value: string): string {
  * 回次が異なる行は必ず別扱いにし、アーティスト未設定行はタイトル包含時だけ統合する。
  */
 export function areLikelySameDisplayedEvent(left: DisplayEventRow, right: DisplayEventRow): boolean {
-  if (left.date !== right.date || left.venue_id !== right.venue_id) return false;
+  if (left.date !== right.date) return false;
+  if (left.venue_id && right.venue_id) {
+    if (left.venue_id !== right.venue_id) return false;
+  } else {
+    const leftVenue = left.venue?.normalize("NFKC").replace(/\s+/g, "").toLowerCase() ?? "";
+    const rightVenue = right.venue?.normalize("NFKC").replace(/\s+/g, "").toLowerCase() ?? "";
+    if (!leftVenue || !rightVenue || leftVenue !== rightVenue) return false;
+  }
   const leftSession = getPerformanceSessionMarker(left.title);
   const rightSession = getPerformanceSessionMarker(right.title);
   if ((leftSession !== null || rightSession !== null) && leftSession !== rightSession) return false;
+  if (isConfirmedDisplayEventPair(left.id, right.id)) return true;
 
   const leftArtist = resolveArtist(left)?.slug ?? left.artist_slug ?? null;
   const rightArtist = resolveArtist(right)?.slug ?? right.artist_slug ?? null;
@@ -50,7 +92,7 @@ export function findDisplayedEventRepresentative<T extends DisplayEventRow>(
 ): T | null {
   const group = events.filter((event) => areLikelySameDisplayedEvent(event, target));
   if (group.length === 0) return null;
-  return group.reduce((best, event) => displayEventScore(event) > displayEventScore(best) ? event : best);
+  return group.reduce((best, event) => compareDisplayRepresentative(event, best) > 0 ? event : best);
 }
 
 /**
@@ -69,7 +111,7 @@ export function dedupeVenueEventsForDisplay<T extends DisplayEventRow>(events: r
     const index = representatives.findIndex((candidate) => areLikelySameDisplayedEvent(candidate, event));
     if (index < 0) {
       representatives.push(event);
-    } else if (displayEventScore(event) > displayEventScore(representatives[index])) {
+    } else if (compareDisplayRepresentative(event, representatives[index]) > 0) {
       representatives[index] = event;
     }
   }

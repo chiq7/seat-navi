@@ -16,30 +16,42 @@ const POPULAR_VENUE_IDS = [
   "kyocera-dome",
 ] as const;
 
-const VENUE_TYPE_GROUPS = [
+const VENUE_REGION_GROUPS = [
   {
-    id: "stadium",
-    label: "スタジアム",
-    description: "大規模スタジアムの公演・座席表",
-    venueIds: ["zozo-marine", "koshien", "mufg-stadium", "nissan-stadium"],
+    id: "hokkaido-tohoku",
+    label: "北海道・東北",
+    description: "北海道・宮城の主要ライブ会場",
+    venueIds: ["sapporo-dome", "miyagi-arena"],
   },
   {
-    id: "dome",
-    label: "ドーム",
-    description: "ドーム公演の座席表・見え方",
-    venueIds: ["tokyo-dome", "kyocera-dome", "vantelin-dome", "paypay-dome", "sapporo-dome", "belluna-dome"],
+    id: "kanto",
+    label: "関東",
+    description: "東京・神奈川・埼玉・千葉の主要ライブ会場",
+    venueIds: ["tokyo-dome", "belluna-dome", "zozo-marine", "mufg-stadium", "nissan-stadium", "saitama-super-arena", "yokohama-arena", "pia-arena-mm", "ariake-arena", "budokan", "yoyogi", "makuhari-messe", "k-arena", "tokyo-garden-theater"],
   },
   {
-    id: "arena",
-    label: "アリーナ",
-    description: "アリーナ会場の公演・座席表",
-    venueIds: ["saitama-super-arena", "yokohama-arena", "pia-arena-mm", "ariake-arena", "k-arena", "marine-messe", "miyagi-arena", "hiroshima-arena"],
+    id: "hokuriku-koshinetsu",
+    label: "北陸・甲信越",
+    description: "新潟など北陸・甲信越の主要ライブ会場",
+    venueIds: ["toki-messe"],
   },
   {
-    id: "hall",
-    label: "ホール・その他",
-    description: "ホール・多目的会場の公演・座席表",
-    venueIds: ["budokan", "yoyogi", "makuhari-messe", "tokyo-garden-theater", "osaka-jo-hall", "edion-arena", "gaishi-hall", "toki-messe"],
+    id: "tokai",
+    label: "東海",
+    description: "愛知の主要ライブ会場",
+    venueIds: ["vantelin-dome", "gaishi-hall"],
+  },
+  {
+    id: "kansai",
+    label: "関西",
+    description: "大阪・兵庫の主要ライブ会場",
+    venueIds: ["kyocera-dome", "koshien", "osaka-jo-hall", "edion-arena"],
+  },
+  {
+    id: "chugoku-shikoku-kyushu",
+    label: "中国・四国・九州",
+    description: "広島・福岡の主要ライブ会場",
+    venueIds: ["hiroshima-arena", "paypay-dome", "marine-messe"],
   },
 ] as const;
 
@@ -103,10 +115,10 @@ export default function VenuesPage() {
           <p className="shrink-0 text-[10px] font-black text-[#817981]">{SEO_VENUES.length} VENUES</p>
         </div>
 
-        <nav className="mt-4 grid grid-cols-2 border-y border-[#ded8dc] bg-white text-[10px] font-black sm:grid-cols-5" aria-label="会場タイプから探す">
+        <nav className="mt-4 grid grid-cols-2 border-y border-[#ded8dc] bg-white text-[10px] font-black sm:grid-cols-4" aria-label="地域から会場を探す">
           {[
             ["popular", "よく見られる"],
-            ...VENUE_TYPE_GROUPS.map((group) => [group.id, group.label]),
+            ...VENUE_REGION_GROUPS.map((group) => [group.id, group.label]),
           ].map(([id, label]) => (
             <a key={id} href={`#${id}`} className="zr-focus flex min-h-11 items-center justify-between border-b border-r border-[#ded8dc] px-3 text-[#4b4248] transition-colors hover:bg-[#fff8fa] last:col-span-2 sm:last:col-span-1">
               {label}<MoveRight size={13} className="text-[#f43679]" />
@@ -123,9 +135,9 @@ export default function VenuesPage() {
         </section>
 
         <div className="mt-10 space-y-10 sm:mt-12 sm:space-y-12">
-          {VENUE_TYPE_GROUPS.map((group) => (
+          {VENUE_REGION_GROUPS.map((group) => (
             <section key={group.id} id={group.id} className="scroll-mt-5" aria-labelledby={`${group.id}-title`}>
-              <p className="artist-kicker">Venue type</p>
+              <p className="artist-kicker">Venue Area</p>
               <h2 id={`${group.id}-title`} className="mt-1 text-[22px] font-black tracking-[-0.04em]">{group.label}</h2>
               <p className="mt-1 text-[10px] font-bold text-[#817981]">{group.description}</p>
               <div className="mt-3">

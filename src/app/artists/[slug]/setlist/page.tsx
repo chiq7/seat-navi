@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { SetlistClient } from "./SetlistClient";
-import { getArtistContentCounts, getSeoArtist, isTestArtist, SITE_URL } from "@/lib/seoData";
-import { queryEventsForArtist } from "@/lib/events";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { getArtistContentCounts, getSeoArtist, isTestArtist } from "@/lib/seoData";
+import { buildMeta } from "@/lib/metadata";
+import { getCachedArtistEvents } from "@/lib/serverEventData";
 
 type PageProps = { params: Promise<{ slug: string }> };
 
@@ -20,31 +20,20 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const description = `${artist.name}の公演セットリストを掲載。曲順・MC・演出メモをファンが共有。`;
   const ogImagePath = `/api/og/setlist/${slug}`;
 
-  return {
+  return buildMeta({
+    path: `/artists/${slug}/setlist`,
     title,
     description,
-    alternates: { canonical: `${SITE_URL}/artists/${slug}/setlist` },
-    robots: { index: !isTestArtist(artist) && setlists > 0, follow: true },
-    openGraph: {
-      title,
-      description,
-      url: `${SITE_URL}/artists/${slug}/setlist`,
-      type: "website",
-      images: [{ url: ogImagePath, width: 1200, height: 630 }],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: [ogImagePath],
-    },
-  };
+    index: !isTestArtist(artist) && setlists > 0,
+    follow: true,
+    image: ogImagePath,
+    imageAlt: `${artist.name}のセットリスト`,
+  });
 }
 
 export default async function Page({ params }: PageProps) {
   const { slug } = await params;
   if (!getSeoArtist(slug)) notFound();
-  const client = await createSupabaseServerClient();
-  const initialEvents = client ? await queryEventsForArtist(client, slug) : [];
+  const initialEvents = await getCachedArtistEvents(slug);
   return <SetlistClient params={params} initialEvents={initialEvents} />;
 }

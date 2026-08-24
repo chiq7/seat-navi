@@ -7,13 +7,31 @@ import { Building2, CalendarDays, MapPin, MoveRight, Search, X } from "lucide-re
 import FavoriteArtistButton from "@/components/auth/FavoriteArtistButton";
 import { Header } from "@/components/common/Header";
 import { InfoListRow } from "@/components/common/InfoListRow";
+import { EventListRow, formatEventDate } from "@/components/common/EventListRow";
 import { PageLoadingShell } from "@/components/common/PageLoadingShell";
+import { EmptyState } from "@/components/common/EmptyState";
 import { trackEvent } from "@/lib/analytics";
 import { findArtistBySlug, type Artist } from "@/lib/artists";
 import { getSearchEventDestination, searchArtists, searchEvents, searchVenues, type SearchVenue } from "@/lib/search";
-import { fmtDate } from "@/lib/artistPageHelpers";
 import { supabase } from "@/lib/supabase/client";
 import type { CrawledEvent } from "@/lib/types";
+import { isVagueHomeVenue } from "@/lib/homeData";
+import { parseEventTitle } from "@/lib/eventTitle";
+
+const POPULAR_SEARCH_ARTIST_SLUGS = [
+  "snow-man",
+  "mrs-green-apple",
+  "nogizaka46",
+  "sixtones",
+  "number-i",
+  "niziu",
+  "seventeen",
+  "stray-kids",
+] as const;
+
+const POPULAR_SEARCH_ARTISTS = POPULAR_SEARCH_ARTIST_SLUGS
+  .map((slug) => findArtistBySlug(slug))
+  .filter((artist): artist is Artist => Boolean(artist));
 
 export default function SearchPage() {
   return (
@@ -36,6 +54,8 @@ function SearchPageInner() {
   const [favoriteUserId, setFavoriteUserId] = useState<string | null>(null);
   const [favoriteSlugs, setFavoriteSlugs] = useState<Set<string>>(new Set());
   const [favoritesReady, setFavoritesReady] = useState(false);
+  const [recentEvents, setRecentEvents] = useState<CrawledEvent[]>([]);
+  const [recentEventsLoading, setRecentEventsLoading] = useState(true);
   const lastTrackedQuery = useRef("");
 
   useEffect(() => {
@@ -62,6 +82,29 @@ function SearchPageInner() {
     return () => { cancelled = true; };
   }, []);
 
+  useEffect(() => {
+    let cancelled = false;
+    async function loadRecentEvents() {
+      const now = new Date();
+      const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+      const { data } = await supabase
+        .from("events")
+        .select("id, title, venue, venue_id, date, genre, lottery_types, artist_slug")
+        .gte("date", today)
+        .order("date", { ascending: true })
+        .limit(30);
+      if (cancelled) return;
+      const safeRows = ((data as CrawledEvent[]) ?? []).filter((event) => {
+        const artist = event.artist_slug ? findArtistBySlug(event.artist_slug) : null;
+        return Boolean(artist) && !isVagueHomeVenue(event.venue) && !parseEventTitle(event.title, artist?.name).isTestData;
+      });
+      setRecentEvents(safeRows.slice(0, 4));
+      setRecentEventsLoading(false);
+    }
+    void loadRecentEvents();
+    return () => { cancelled = true; };
+  }, []);
+
   function updateFavorite(artistSlug: string, favorite: boolean) {
     setFavoriteSlugs((current) => {
       const next = new Set(current);
@@ -80,7 +123,7 @@ function SearchPageInner() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 
-  // 検索実行(300msデバウンス)
+  // 検索実行(200msデバウンス)
   useEffect(() => {
     const trimmed = query.trim();
     if (trimmed.length < 1) {
@@ -112,7 +155,7 @@ function SearchPageInner() {
           has_results: artists.length + venues.length + events.length > 0,
         });
       }
-    }, 300);
+    }, 200);
 
     return () => clearTimeout(timer);
   }, [query]);
@@ -139,7 +182,6 @@ function SearchPageInner() {
               value={query}
               onChange={(event) => setQuery(event.target.value)}
               placeholder="アーティスト・公演名・会場名"
-              autoFocus
               className="min-w-0 flex-1 bg-transparent text-[14px] font-bold text-[#4b4148] outline-none placeholder:text-[#aaa2a8]"
             />
             {query && (
@@ -158,22 +200,46 @@ function SearchPageInner() {
 
       <div className="zr-container py-7 sm:py-10">
         {!hasQuery && (
-          <section aria-labelledby="search-hint-title">
-            <p className="artist-kicker">Search Ideas</p>
-            <h2 id="search-hint-title" className="mt-1 text-[22px] font-black tracking-[-0.04em]">検索のヒント</h2>
-            <div className="mt-4 grid grid-cols-2 border-y border-[#ded8dc] sm:grid-cols-4">
-              {["YOASOBI 東京ドーム", "東京ドーム 座席表", "Kアリーナ 見え方", "さいたまアリーナ"].map((word) => (
-                <button
-                  key={word}
-                  type="button"
-                  onClick={() => setQuery(word)}
-                  className="zr-focus min-h-12 border-b border-r border-[#ded8dc] px-3 text-left text-[11px] font-black text-[#665a61] transition-colors hover:bg-[#fff8fa] last:border-r-0 sm:border-b-0"
-                >
-                  {word}<span className="ml-1 text-[#f43679]">→</span>
-                </button>
-              ))}
-            </div>
-          </section>
+          <div className="space-y-8">
+            <section aria-labelledby="popular-artists-title">
+              <p className="artist-kicker">Popular Artists</p>
+              <h2 id="popular-artists-title" className="mt-1 text-[22px] font-black tracking-[-0.04em]">人気のアーティスト</h2>
+              <div className="mt-4 grid grid-cols-2 border-l border-t border-[#ded8dc] sm:grid-cols-4">
+                {POPULAR_SEARCH_ARTISTS.map((artist) => (
+                  <Link
+                    key={artist.slug}
+                    href={`/artists/${artist.slug}`}
+                    className="zr-focus flex min-h-[56px] items-center justify-between gap-2 border-b border-r border-[#ded8dc] bg-white px-3 text-[12px] font-black text-[#4b4148]"
+                  >
+                    <span className="truncate">{artist.name}</span><MoveRight size={14} className="shrink-0 text-[#f43679]" />
+                  </Link>
+                ))}
+              </div>
+            </section>
+
+            <section aria-labelledby="recent-events-title">
+              <p className="artist-kicker">Upcoming Live</p>
+              <h2 id="recent-events-title" className="mt-1 text-[22px] font-black tracking-[-0.04em]">開催が近い公演</h2>
+              {recentEventsLoading ? (
+                <div className="mt-4 space-y-px" aria-busy="true">
+                  {[0, 1, 2, 3].map((item) => <div key={item} className="h-[72px] animate-pulse bg-[#f8f3f5]" />)}
+                </div>
+              ) : recentEvents.length > 0 ? (
+                <div className="mt-4 border-t border-[#ded8dc] bg-white">
+                  {recentEvents.map((event) => (
+                    <EventListRow
+                      key={event.id}
+                      event={event}
+                      artistName={event.artist_slug ? findArtistBySlug(event.artist_slug)?.name : null}
+                      secondary={event.venue}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <EmptyState className="mt-4" title="開催予定を確認中です" icon={<CalendarDays size={18} aria-hidden="true" />} />
+              )}
+            </section>
+          </div>
         )}
 
         {hasQuery && loading && (
@@ -188,13 +254,13 @@ function SearchPageInner() {
         )}
 
         {hasQuery && !loading && !hasResults && (
-          <section className="border-y border-dashed border-[#ded8dc] bg-white py-9 text-center">
-            <p className="text-[9px] font-black tracking-[0.18em] text-[#f43679]">NO RESULTS</p>
-            <p className="mt-2 text-[17px] font-black">検索結果が見つかりませんでした</p>
-            <Link href="/venues" className="community-secondary-button mt-5">
-              ライブ会場一覧から座席表を探す<MoveRight size={15} className="text-[#f43679]" />
-            </Link>
-          </section>
+          <EmptyState
+            title="検索結果が見つかりませんでした"
+            icon={<Search size={18} aria-hidden="true" />}
+            actionHref="/venues"
+            actionLabel="会場から探す"
+            actionIcon={<MoveRight size={14} aria-hidden="true" />}
+          />
         )}
 
         {hasQuery && !loading && venueResults.length > 0 && (
@@ -286,7 +352,7 @@ function SearchPageInner() {
                 return (
                   <InfoListRow
                     key={event.id}
-                    href={getSearchEventDestination(event, query)}
+                    href={getSearchEventDestination(event)}
                     onClick={() => trackEvent("select_search_result", {
                       result_type: "event",
                       result_id: event.id,
@@ -296,7 +362,7 @@ function SearchPageInner() {
                     className="group"
                   >
                     <div className="min-w-0">
-                      <p className="flex items-center gap-1.5 text-[10px] font-black text-[#f43679]"><CalendarDays size={13} />{fmtDate(event.date)}</p>
+                      <p className="flex items-center gap-1.5 text-[10px] font-black text-[#f43679]"><CalendarDays size={13} aria-hidden="true" />{formatEventDate(event.date)}</p>
                       <p className="mt-2 flex items-center gap-1.5 truncate text-[10px] font-bold text-[#817981]"><MapPin size={12} />{event.venue}</p>
                     </div>
                     <div className="min-w-0">

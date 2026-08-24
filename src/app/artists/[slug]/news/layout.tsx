@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
-import { getArtistNewsCount, getSeoArtist, isTestArtist, SITE_URL } from "@/lib/seoData";
+import { getArtistNewsCount, getSeoArtist, isTestArtist } from "@/lib/seoData";
+import { buildMeta } from "@/lib/metadata";
 
 type Props = {
   children: ReactNode;
@@ -15,16 +16,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const count = await getArtistNewsCount(slug);
   const title = `${artist.name}の公式ニュース｜ちけレポ`;
   const description = `${artist.name}のライブ、チケット、出演、リリース情報を公式サイトからまとめて確認できます。`;
-  const canonical = `${SITE_URL}/artists/${slug}/news`;
-
-  return {
+  return buildMeta({
+    path: `/artists/${slug}/news`,
     title,
     description,
-    alternates: { canonical },
-    robots: { index: !isTestArtist(artist) && count > 0, follow: true },
-    openGraph: { title, description, url: canonical, type: "website" },
-    twitter: { card: "summary", title, description },
-  };
+    index: !isTestArtist(artist) && count > 0,
+    follow: true,
+    twitterCard: "summary",
+  });
 }
 
 export default function ArtistNewsLayout({ children }: Props) {

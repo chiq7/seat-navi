@@ -17,10 +17,10 @@ type FormActionLinkProps = {
 };
 
 const primaryClass =
-  "zr-focus flex min-h-[52px] w-full items-center justify-center gap-2 rounded-[14px] bg-[#f43679] px-4 text-[13px] font-black text-white shadow-[0_8px_20px_rgba(244,54,121,0.18)] transition-colors disabled:cursor-not-allowed disabled:bg-[#f43679]/35 disabled:shadow-none";
+  "zr-focus flex min-h-[52px] w-full items-center justify-center gap-2 rounded-[14px] bg-accent px-4 text-[13px] font-black text-white shadow-[0_8px_20px_rgba(255,107,157,0.18)] transition-colors disabled:cursor-not-allowed disabled:bg-accent/35 disabled:shadow-none";
 
 const secondaryClass =
-  "zr-focus flex min-h-11 w-full items-center justify-center gap-2 rounded-[14px] border border-[#ded8dc] bg-white px-4 text-[12px] font-black text-[#817981] transition-colors hover:bg-[#fff8fa]";
+  "zr-focus flex min-h-11 w-full items-center justify-center gap-2 rounded-[14px] border border-divider bg-white px-4 text-[12px] font-black text-muted transition-colors hover:bg-section";
 
 /** 投稿フォーム末尾の主操作・補助操作を縦にまとめる共通レイアウト。 */
 export function FormActionGroup({ children, className }: FormActionGroupProps) {

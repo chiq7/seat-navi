@@ -174,7 +174,7 @@ export default function TrendSection({ ticketStats, arenaStats, upgradeStats, ti
         <DataGrid groups={ticketGroups} />
       </div>
 
-      <section className="border-t border-[#282127] bg-[#fff8fa]" aria-labelledby="arena-rate-title">
+      <section className="border-t border-divider bg-[#fff8fa]" aria-labelledby="arena-rate-title">
         <button
           type="button"
           aria-expanded={isArenaRateOpen}

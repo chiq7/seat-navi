@@ -11,13 +11,13 @@ import SiteNewsSection from "@/components/home/SiteNewsSection";
 import LoginCta from "@/components/home/LoginCta";
 import SectionHeader from "@/components/home/SectionHeader";
 import {
-  getRealtimeFeedItems,
   getUpcomingHomeEvents,
   selectProvisionalFeaturedEvents,
   type HomeFeedItem,
   type UpcomingEvent,
 } from "@/lib/homeData";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { getCachedRealtimeFeed } from "@/lib/serverHomeData";
 
 export const metadata: Metadata = {
   title: "ちけレポ｜ライブの当落・座席・現地レポをみんなでシェア",
@@ -78,12 +78,12 @@ async function HomeFeaturedSection() {
   if (favoriteSlugs.size > 0) {
     featuredEvents = upcomingEvents
       .filter((event) => favoriteSlugs.has(event.artistSlug))
-      .slice(0, 10);
+      .slice(0, 4);
     if (featuredEvents.length > 0) featuredTitle = "推しの公演";
   }
 
   if (featuredEvents.length === 0) {
-    featuredEvents = selectProvisionalFeaturedEvents(upcomingEvents, 5);
+    featuredEvents = selectProvisionalFeaturedEvents(upcomingEvents, 4);
   }
 
   return (
@@ -108,25 +108,18 @@ async function HomeUpcomingSection() {
 }
 
 async function HomeRealtimeSection() {
-  const context = await getHomeRequestContext();
-  if (!context) return <RealtimeFeedSection items={[]} />;
-
-  const feedItems: HomeFeedItem[] = await getRealtimeFeedItems(
-    context.client,
-    20,
-    context.upcomingEvents,
-  );
+  const feedItems: HomeFeedItem[] = await getCachedRealtimeFeed(20);
   return <RealtimeFeedSection items={feedItems} />;
 }
 
 function FeaturedEventsSkeleton() {
   return (
-    <section className="zr-section bg-[#fff5f8]" aria-hidden="true">
+    <section className="zr-section bg-section" aria-hidden="true">
       <div className="zr-container">
         <SectionHeader icon={<Flame size={16} color="#FF6B9D" />} title="注目の公演" />
-        <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
-          {[0, 1, 2, 3, 4].map((index) => (
-            <div key={index} className="h-[210px] animate-pulse rounded-[22px] bg-white shadow-sm" />
+        <div className="grid grid-cols-2 gap-2.5 lg:grid-cols-4 lg:gap-3">
+          {[0, 1, 2, 3].map((index) => (
+            <div key={index} className="h-[108px] animate-pulse rounded-[16px] bg-white shadow-sm" />
           ))}
         </div>
       </div>
@@ -171,7 +164,7 @@ function RealtimeFeedSkeleton() {
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#fff9fb]">
+    <div className="min-h-screen bg-background">
       <HomeHeader />
       <main>
         <HeroBanner />
@@ -184,7 +177,7 @@ export default function Home() {
         <Suspense fallback={<UpcomingEventsSkeleton />}>
           <HomeUpcomingSection />
         </Suspense>
-        <section className="bg-[#fff5f8] py-8 sm:py-16" aria-label="会場検索とマイページ">
+        <section className="bg-section py-8 sm:py-16" aria-label="会場検索とマイページ">
           <div className="zr-container grid grid-cols-2 gap-3 lg:grid-cols-[1.25fr_.75fr] lg:gap-4">
             <VenueDiscoveryCta />
             <LoginCta />

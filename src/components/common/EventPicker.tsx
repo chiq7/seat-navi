@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useMemo } from "react";
+import { useMemo } from "react";
 import { CalendarDays } from "lucide-react";
 import { parseEventTitle } from "@/lib/eventTitle";
 import { SelectControl } from "@/components/common/SelectControl";
@@ -188,6 +188,7 @@ export type EventCarouselPickerProps<T extends PickerEvent = PickerEvent> = {
   className?: string;
   eyebrow?: string;
   includeTitle?: boolean;
+  inputId?: string;
 };
 
 /** スマホではOS標準の選択シートが開く、1行型の公演切替UI。 */
@@ -200,8 +201,8 @@ export function EventCarouselPicker<T extends PickerEvent>({
   className,
   eyebrow = "SELECT LIVE DATE",
   includeTitle = false,
+  inputId = "event-picker-select",
 }: EventCarouselPickerProps<T>) {
-  const selectId = useId();
   const todayStr = today ?? new Date().toISOString().split("T")[0];
 
   // Day番号: 同一venue_id（無ければvenue文字列にフォールバック）内で日付昇順に採番する。
@@ -263,14 +264,14 @@ export function EventCarouselPicker<T extends PickerEvent>({
 
   return (
     <div className={className}>
-      <label htmlFor={selectId} className="community-input block min-h-0 px-4 py-2.5 transition-colors">
+      <label htmlFor={inputId} className="community-input block min-h-0 px-4 py-2.5 transition-colors">
         <span className="flex items-center gap-2 text-[9px] font-black tracking-[0.18em] text-[#f43679]">
           <CalendarDays size={14} strokeWidth={1.8} aria-hidden="true" />
           {eyebrow}
         </span>
         <SelectControl
           className="mt-1"
-          id={selectId}
+          id={inputId}
           value={selectedEventId ?? ""}
           onChange={(event) => onSelect(event.target.value)}
           variant="bare"

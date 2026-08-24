@@ -183,7 +183,7 @@ function LoginPageInner() {
         </form>
 
         {mode === "login" && (
-          <button type="button" onClick={resetPassword} className="zr-focus mt-3 min-h-10 w-full text-center text-[11px] font-black text-[#625a61]">
+          <button type="button" onClick={resetPassword} className="zr-focus mt-3 min-h-11 w-full text-center text-[11px] font-black text-[#625a61]">
             パスワードを忘れた方
           </button>
         )}

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { parseEventTitle } from "@/lib/eventTitle";
+import { EmptyState } from "@/components/common/EmptyState";
 
 export type PastTourEvent = {
   id: string;
@@ -58,8 +59,8 @@ export default function PastTourSection({ tours, onSelectEvent, onSelectTour, ar
 
   if (tours.length === 0) {
     return (
-      <section className="border-b border-[#ded8dc] py-12 text-center">
-        <p className="text-[12px] font-bold text-[#817981]">過去の公演はまだありません</p>
+      <section className="border-b border-[#ded8dc] py-4">
+        <EmptyState title="過去の公演はまだありません" />
       </section>
     );
   }
@@ -67,12 +68,10 @@ export default function PastTourSection({ tours, onSelectEvent, onSelectTour, ar
   return (
     <section className="artist-section" aria-labelledby="past-tour-title">
       <p className="artist-kicker">Live Archive</p>
-      <h2 id="past-tour-title" className="artist-heading">過去の公演を<br />年から探す。</h2>
-      <p className="mt-4 max-w-xl text-[12px] font-medium leading-6 text-[#817981]">
-        年を選ぶと、その時期の当落データと会場の座席表を振り返れます。
-      </p>
+      <h2 id="past-tour-title" className="whitespace-nowrap text-[clamp(20px,6vw,32px)] font-black tracking-[-0.04em] text-foreground">過去の公演を年から探す</h2>
+      <p className="mt-2 text-[11px] font-medium text-[#817981]">年ごとに当落・座席を振り返れます。</p>
 
-      <div className="mt-6 border-t border-[#282127]">
+      <div className="mt-6 border-t border-divider">
         {tours.map((tour) => {
           const isOpen = expanded.has(tour.key);
           return (

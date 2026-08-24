@@ -22,6 +22,7 @@ import { VENUES } from "@/lib/eventCrawlerConfig";
 import { processVenue, sleep } from "@/lib/eventCrawler";
 import { submitIndexNowUrls } from "@/lib/indexNow";
 import { syncOfficialTourSources } from "@/lib/officialTourSources";
+import { revalidateTag } from "next/cache";
 
 export const maxDuration = 300;
 export const dynamic = "force-dynamic";
@@ -29,6 +30,9 @@ export const dynamic = "force-dynamic";
 export async function GET(req: NextRequest) {
   // Vercel Cron の認証チェック
   const cronSecret = process.env.CRON_SECRET;
+  if (!cronSecret && process.env.NODE_ENV === "production") {
+    return NextResponse.json({ error: "CRON_SECRET is not configured" }, { status: 503 });
+  }
   if (cronSecret) {
     const auth = req.headers.get("authorization");
     if (auth !== `Bearer ${cronSecret}`) {
@@ -60,6 +64,7 @@ export async function GET(req: NextRequest) {
   const failed: string[] = [];
   const reports: Array<Record<string, unknown>> = [];
   const indexNowUrls = new Set<string>();
+  const cacheTags = new Set<string>();
 
   console.log(`=== fetch-events cron 開始: ${now.toISOString()} / dry-run=${dryRun} ===`);
 
@@ -91,6 +96,9 @@ export async function GET(req: NextRequest) {
         indexNowUrls.add(`https://tixrepo.com/events/${row.id}`);
         indexNowUrls.add(`https://tixrepo.com/venues/${row.venue_id}`);
         if (row.artist_slug) indexNowUrls.add(`https://tixrepo.com/artists/${row.artist_slug}`);
+        cacheTags.add(`event:${row.id}`);
+        cacheTags.add(`venue-events:${row.venue_id}`);
+        if (row.artist_slug) cacheTags.add(`artist-events:${row.artist_slug}`);
       }
       indexNowUrls.add("https://tixrepo.com/");
       indexNowUrls.add("https://tixrepo.com/sitemap.xml");
@@ -167,7 +175,13 @@ export async function GET(req: NextRequest) {
       indexNowUrls.add("https://tixrepo.com/");
       indexNowUrls.add(`https://tixrepo.com/artists/${report.artistSlug}`);
       indexNowUrls.add("https://tixrepo.com/sitemap.xml");
+      cacheTags.add(`artist-events:${report.artistSlug}`);
     }
+  }
+
+  if (!dryRun && totalSaved > 0) {
+    cacheTags.add("feed");
+    for (const tag of cacheTags) revalidateTag(tag, "max");
   }
 
   const totalElapsedMs = Date.now() - runStart;

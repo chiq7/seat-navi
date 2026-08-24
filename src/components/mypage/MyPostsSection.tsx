@@ -6,6 +6,7 @@ import { ReportTimelineList } from "@/components/artist-page/ReportSection";
 import { SeatPredictionCard } from "@/components/common/SeatPredictionCard";
 import { MyPostActions, type PostMutationResult } from "@/components/mypage/MyPostActions";
 import { SegmentedControl } from "@/components/common/SegmentedControl";
+import { EmptyState } from "@/components/common/EmptyState";
 import type { AfterReportCard, TicketResultAnalytics } from "@/lib/artistPageTypes";
 import type { PostAuthor } from "@/lib/postAuthors";
 import type { CrawledEvent, FanSeatPrediction } from "@/lib/types";
@@ -121,7 +122,7 @@ export function MyPostsSection({
               })}
             </div>
           ) : (
-            <div className="border border-dashed border-[#d9cfd4] bg-[#fcfbfc] px-4 py-8 text-center text-[12px] font-bold text-[#817981]">座席予想の投稿はまだありません</div>
+            <EmptyState title="座席予想の投稿はまだありません" />
           )
         )}
 

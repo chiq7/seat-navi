@@ -10,6 +10,7 @@ import { Header } from "@/components/common/Header";
 import { SelectControl } from "@/components/common/SelectControl";
 import { BottomNav } from "@/components/common/BottomNav";
 import { InfoListRow } from "@/components/common/InfoListRow";
+import { EmptyState } from "@/components/common/EmptyState";
 
 function fmtPublishedDate(d: string | null): string {
   if (!d) return "";
@@ -104,7 +105,16 @@ export default function ArtistNewsPage({ params }: { params: Promise<{ slug: str
             ))}
           </div>
         ) : filteredNews.length === 0 ? (
-          <p className="community-panel py-14 text-center text-sm font-bold text-[#817981]">公式ニュースはまだありません</p>
+          <EmptyState
+            className="mt-7"
+            title="公式ニュースは準備中です"
+            description="最新情報は公式サイトで確認できます。"
+            icon={<Newspaper size={18} aria-hidden="true" />}
+            actionHref={artist.officialNews?.newsUrl}
+            actionLabel={artist.officialNews?.newsUrl ? "公式サイトを見る" : undefined}
+            actionIcon={artist.officialNews?.newsUrl ? <ExternalLink size={14} aria-hidden="true" /> : undefined}
+            actionExternal
+          />
         ) : (
           <div className="mt-7 border-t border-[#ded8dc]">
             {filteredNews.map((n) => (

@@ -3,12 +3,12 @@ import type { HomeFeedItem } from "@/lib/homeData";
 import { fmtFeedDate } from "@/lib/homeData";
 
 const tagStyles: Record<HomeFeedItem["type"], { bg: string; color: string }> = {
-  当落レポ: { bg: "#ffe7ef", color: "#d83e70" },
+  当落レポ: { bg: "#fff0f5", color: "#d83e70" },
   公演情報: { bg: "#F3F4F6", color: "#6B7280" },
-  座席報告: { bg: "#e9edff", color: "#536bd1" },
-  座席予想: { bg: "#e9edff", color: "#536bd1" },
+  座席報告: { bg: "#f2edff", color: "#7655b2" },
+  座席予想: { bg: "#f2edff", color: "#7655b2" },
   現地レポ: { bg: "#fff0e9", color: "#cf7048" },
-  セトリ: { bg: "#f1eaff", color: "#7655b2" },
+  セトリ: { bg: "#edf6ff", color: "#397fb8" },
 };
 
 export default function RealtimeFeedItem({ item }: { item: HomeFeedItem }) {
@@ -17,7 +17,7 @@ export default function RealtimeFeedItem({ item }: { item: HomeFeedItem }) {
   return (
     <Link
       href={item.href}
-      className="group flex min-h-[104px] min-w-0 flex-col gap-2.5 overflow-hidden rounded-[18px] bg-white px-4 py-3 no-underline shadow-[0_8px_20px_rgba(105,63,80,.05)] transition hover:-translate-y-0.5 md:px-5"
+      className="group block min-h-[72px] min-w-0 overflow-hidden border-b border-[#eadfe4] bg-white px-3 py-3 no-underline transition-colors hover:bg-[#fff8fa] md:px-4"
     >
       <div className="flex min-w-0 items-center gap-1.5">
         <span
@@ -26,21 +26,17 @@ export default function RealtimeFeedItem({ item }: { item: HomeFeedItem }) {
         >
           {tagLabel}
         </span>
-        <p className="min-w-0 max-w-[38%] shrink truncate text-[12px] font-bold text-[#e84a80]">
+        <p className="min-w-0 max-w-[38%] shrink truncate text-[11px] font-black text-[#e84a80]">
           {item.artistName}
         </p>
         <span className="ml-auto min-w-0 flex-1 truncate text-right text-[10px] text-[#9a8a93]">
           {item.venue}・{fmtFeedDate(item.date)}
         </span>
       </div>
-      <p className="line-clamp-2 text-[13px] font-medium leading-6 text-[#594d54]">
-        {item.detail}
+      <p className="mt-2 flex min-w-0 items-center gap-2 text-[12px] font-bold leading-5 text-[#594d54]">
+        <span className="min-w-0 flex-1 truncate">{item.detail}</span>
+        {item.xHandle && <span className="max-w-[32%] shrink-0 truncate text-[9px] text-[#817981]">@{item.xHandle}</span>}
       </p>
-      {item.xHandle && (
-        <span className="mt-auto truncate text-[10px] font-bold text-[#817981]">
-          @{item.xHandle}
-        </span>
-      )}
     </Link>
   );
 }

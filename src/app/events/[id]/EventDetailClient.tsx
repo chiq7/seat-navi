@@ -22,6 +22,7 @@ import { CompactHeroIntro } from "@/components/common/CompactHeroIntro";
 import { ShareButton } from "@/components/common/ShareButton";
 import { AccountLink } from "@/components/auth/AccountLink";
 import { Header } from "@/components/common/Header";
+import { EmptyState } from "@/components/common/EmptyState";
 import { fetchVisiblePostAuthors, type PostAuthor } from "@/lib/postAuthors";
 
 const VOTER_KEY_STORAGE = "seat-navi-voter-key";
@@ -59,8 +60,8 @@ export function EventDetailClient({
     venueName: string;
     capacityLabel: string;
     areaLabel: string;
-    venueHref: string;
-    archiveHref: string;
+    venueHref: string | null;
+    archiveHref: string | null;
   } | null;
 }) {
   const { id: eventId } = use(params);
@@ -317,21 +318,29 @@ export function EventDetailClient({
               ) : null}
           />
 
-          {venueMiniGuide && (
-            <section className="zr-container pt-4" aria-label={`${venueMiniGuide.venueName}の会場情報`}>
-              <div className="border-y border-[#ded8dc] bg-white px-1 py-3">
-                <p className="px-3 text-[9px] font-black tracking-[0.16em] text-[#f43679]">VENUE QUICK GUIDE</p>
-                <p className="mt-1 truncate px-3 text-[12px] font-black text-[#4b4148]">
-                  {venueMiniGuide.venueName}｜{venueMiniGuide.capacityLabel}｜{venueMiniGuide.areaLabel}
+          {venueMiniGuide ? (
+            <section className="zr-container py-6 sm:py-8" aria-labelledby="event-empty-title" data-event-empty-state>
+              <p className="artist-kicker">FIRST REPORT</p>
+              <h2 id="event-empty-title" className="artist-heading">最初のレポを募集中</h2>
+              <div className="mt-4 border-y border-[#ded8dc] bg-white px-4 py-3">
+                <p className="truncate text-[14px] font-black text-[#40383d]">
+                  {venueMiniGuide.venueHref ? <Link href={venueMiniGuide.venueHref}>{venueMiniGuide.venueName}</Link> : venueMiniGuide.venueName}
                 </p>
-                <div className="mt-2 flex flex-wrap gap-x-4 px-3 text-[11px] font-black text-[#c93868]">
-                  <Link href={venueMiniGuide.venueHref} className="zr-focus inline-flex min-h-9 items-center">会場情報を見る →</Link>
-                  <Link href={venueMiniGuide.archiveHref} className="zr-focus inline-flex min-h-9 items-center">過去の座席レポ →</Link>
-                </div>
+                <p className="mt-1 truncate text-[10px] font-bold text-[#817981]">{venueMiniGuide.capacityLabel}｜{venueMiniGuide.areaLabel}</p>
               </div>
+              {venueMiniGuide.archiveHref && (
+                <Link href={venueMiniGuide.archiveHref} className="zr-focus mt-2 inline-flex min-h-10 items-center text-[11px] font-black text-[#7655b2]">
+                  過去の座席レポを見る →
+                </Link>
+              )}
+              <Link
+                href={`/report?event=${encodeURIComponent(eventId)}${artist?.slug ? `&artist=${encodeURIComponent(artist.slug)}` : ""}`}
+                className="zr-focus mt-3 flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[#f43679] px-5 text-[12px] font-black text-white"
+              >
+                <Sparkles size={16} aria-hidden="true" />最初のレポを投稿
+              </Link>
             </section>
-          )}
-
+          ) : (<>
           <section className="py-8 sm:py-10" aria-labelledby="seat-map-title">
               <div className="zr-container">
                 <div className="flex flex-col gap-4 border-b border-[#ded8dc] pb-4 sm:flex-row sm:items-end sm:justify-between">
@@ -398,17 +407,14 @@ export function EventDetailClient({
               </div>
 
               {fanSeatPredictions.length === 0 ? (
-                <div className="mt-6 border border-dashed border-[#efb6ca] bg-[#fff0f5] px-5 py-8 text-center">
-                  <Sparkles size={29} strokeWidth={1.5} className="mx-auto text-[#f43679]" />
-                  <p className="mt-4 text-[18px] font-black">まだ予想図がありません</p>
-                  <p className="mt-2 text-[12px] font-medium text-[#817981]">この会場の最初の予想図を投稿してみよう。</p>
-                  <Link
-                    href={`/events/${eventId}/fan-seat-prediction`}
-                    className="zr-focus mt-4 inline-flex min-h-12 items-center bg-[#f43679] px-6 text-[13px] font-black text-white"
-                  >
-                    予想図を投稿する
-                  </Link>
-                </div>
+                <EmptyState
+                  className="mt-6"
+                  title="まだ予想図がありません"
+                  icon={<Sparkles size={18} aria-hidden="true" />}
+                  actionHref={`/events/${eventId}/fan-seat-prediction`}
+                  actionLabel="予想図を投稿"
+                  actionTone="primary"
+                />
               ) : (
                 <div className="mt-6 grid gap-5 lg:grid-cols-2">
                   {topPrediction && (
@@ -463,6 +469,7 @@ export function EventDetailClient({
                 </div>
               )}
             </section>
+          </>)}
           </>
         ) : (
           <div className="zr-container py-24 text-center text-sm font-bold text-[#817981]">公演が見つかりません</div>

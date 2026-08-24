@@ -57,7 +57,7 @@ export default function SeatPredictionPreviewSection({
 
       <div className="mt-4 min-w-0 sm:mt-5">
         {mapEvent && venues.length > 0 && (
-          <div className="border-y border-[#282127] bg-white">
+          <div className="border-y border-divider bg-white">
             <div className="flex items-center gap-2 px-3 py-2.5 sm:px-5">
               <MapPinned size={17} className="shrink-0 text-[#f43679]" />
               <p className="text-[10px] font-black tracking-[0.12em] text-[#817981]">会場を選択</p>
@@ -82,7 +82,7 @@ export default function SeatPredictionPreviewSection({
           </div>
         )}
 
-        <div className="mt-3 border border-[#282127] bg-[#fff8fa] p-3 sm:p-5">
+        <div className="mt-3 border border-divider bg-[#fff8fa] p-3 sm:p-5">
           <div className="mb-3 flex items-end justify-between gap-3">
             <div>
               <p className="text-[9px] font-black tracking-[0.18em] text-[#f43679]">FAN PREDICTION</p>
@@ -122,7 +122,7 @@ export default function SeatPredictionPreviewSection({
         </div>
 
         {mapEvent && detailHref && (
-          <div className="border-b border-x border-[#282127] bg-white">
+          <div className="border-b border-x border-divider bg-white">
             <Link href={detailHref} className="zr-focus group flex min-h-12 items-center justify-between px-5 text-[12px] font-black text-[#1c171b]">
               <span>すべての予想図を見る</span>
               <ArrowRight size={17} className="text-[#f43679] transition-transform group-hover:translate-x-1" />

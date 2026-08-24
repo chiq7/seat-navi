@@ -233,6 +233,10 @@ test("event and news listings share compact information-row rules", () => {
     path.join(projectRoot, "src/components/common/InfoListRow.tsx"),
     "utf8",
   );
+  const eventRowSource = fs.readFileSync(
+    path.join(projectRoot, "src/components/common/EventListRow.tsx"),
+    "utf8",
+  );
   const sources = [
     "src/components/artist-page/UpcomingEventsSection.tsx",
     "src/components/artist-page/OfficialNewsSection.tsx",
@@ -260,7 +264,10 @@ test("event and news listings share compact information-row rules", () => {
   assert.match(rowSource, /onClick\?: MouseEventHandler<HTMLAnchorElement>/);
   assert.match(rowSource, /onClick=\{onClick\}/);
   assert.match(rowSource, /min-h-\[84px\]/);
-  for (const source of sources) assert.match(source, /<InfoListRow/);
+  assert.match(eventRowSource, /data-event-list-row/);
+  assert.match(eventRowSource, /min-h-\[72px\]/);
+  assert.match(sources[0], /<EventListRow/);
+  for (const source of sources.slice(1, -1)) assert.match(source, /<InfoListRow/);
   assert.match(reportThumbSource, /h-\[82px\] w-\[116px\]/);
   assert.match(reportListSource, /data-info-list-row="report"/);
   assert.match(afterReportsSource, /<ReportTimelineList reports=\{group\.reports\} authorMap=\{authorMap\} \/>/);
@@ -268,7 +275,7 @@ test("event and news listings share compact information-row rules", () => {
   assert.match(sources.at(-2) ?? "", /function VenueList/);
   assert.match(sources.at(-2) ?? "", /<InfoListRow/);
   assert.match(sources.at(-1) ?? "", /function EventList/);
-  assert.match(sources.at(-1) ?? "", /<InfoListRow/);
+  assert.match(sources.at(-1) ?? "", /<EventListRow/);
 });
 
 test("report and seat pages share the compact event picker section", () => {
@@ -429,20 +436,17 @@ test("combined artist and venue search keeps only the matching performance", () 
   assert.deepEqual(ranked.map((event) => event.id), ["target"]);
 });
 
-test("search event cards open the artist hub with a safe event fallback", () => {
+test("search event cards always open the selected performance detail", () => {
   assert.equal(
     getSearchEventDestination(fixtureEvent({ id: "niziu-event", artist_slug: "niziu" })),
-    "/artists/niziu",
+    "/events/niziu-event",
   );
   assert.equal(
     getSearchEventDestination(fixtureEvent({ id: "unlinked-event", artist_slug: null })),
     "/events/unlinked-event",
   );
   assert.equal(
-    getSearchEventDestination(
-      fixtureEvent({ id: "combined-event", artist_slug: "yoasobi", venue: "東京ドーム" }),
-      "YOASOBI 東京ドーム",
-    ),
+    getSearchEventDestination(fixtureEvent({ id: "combined-event", artist_slug: "yoasobi", venue: "東京ドーム" })),
     "/events/combined-event",
   );
 });
@@ -523,6 +527,46 @@ test("venue display also groups an artistless truncated title with its explicit 
   assert.deepEqual(dedupeVenueEventsForDisplay(rows).map((event) => event.id), ["explicit"]);
 });
 
+test("venue display uses only confirmed translation aliases and event id pairs", () => {
+  const artistAliasRows = [
+    fixtureEvent({ id: "6a76aa32659491704c06", date: "2026-08-06", venue: "東京ドーム", venue_id: "tokyo-dome", title: "NISSAY DOME LIVE Ryu, Suzukaze Itaru", artist_slug: null }),
+    fixtureEvent({ id: "e487af9d66047dedde17", date: "2026-08-06", venue: "東京ドーム", venue_id: "tokyo-dome", title: "NISSAY DOME LIVE 龍、涼風至", artist_slug: null }),
+  ];
+  assert.equal(dedupeVenueEventsForDisplay(artistAliasRows).length, 1);
+
+  const confirmedTitlePair = [
+    fixtureEvent({ id: "1cb62ee60e8d54da8f42", date: "2026-09-22", venue: "東京ドーム", venue_id: "tokyo-dome", title: "SUPER BEAVER「都会のラクダ DOME TOUR 2026」", artist_slug: null }),
+    fixtureEvent({ id: "89f39d35db8690821b32", date: "2026-09-22", venue: "東京ドーム", venue_id: "tokyo-dome", title: "SUPER BEAVER Urban Camel DOME TOUR 2026", artist_slug: null }),
+  ];
+  assert.equal(dedupeVenueEventsForDisplay(confirmedTitlePair).length, 1);
+
+  const unconfirmedTranslation = confirmedTitlePair.map((event, index) => ({ ...event, id: `unconfirmed-${index}` }));
+  assert.equal(dedupeVenueEventsForDisplay(unconfirmedTranslation).length, 2);
+});
+
+test("display dedupe never collapses different venues when venue ids are missing", () => {
+  const rows = [
+    fixtureEvent({ id: "tokyo", date: "2026-07-11", venue: "東京ドーム", venue_id: null, title: "FIXTURE LIVE", artist_slug: "fixture-artist" }),
+    fixtureEvent({ id: "osaka", date: "2026-07-11", venue: "京セラドーム大阪", venue_id: null, title: "FIXTURE LIVE", artist_slug: "fixture-artist" }),
+  ];
+  assert.deepEqual(dedupeVenueEventsForDisplay(rows).map((event) => event.id), ["tokyo", "osaka"]);
+});
+
+test("display representative is stable regardless of database row order", () => {
+  const rows = [
+    fixtureEvent({ id: "a", date: "2026-07-11", venue: "東京ドーム", venue_id: "tokyo-dome", title: "FIXTURE LIVE", artist_slug: "fixture-artist" }),
+    fixtureEvent({ id: "b", date: "2026-07-11", venue: "東京ドーム", venue_id: "tokyo-dome", title: "FIXTURE LIVE", artist_slug: "fixture-artist" }),
+  ];
+  assert.deepEqual(dedupeVenueEventsForDisplay(rows).map((event) => event.id), ["b"]);
+  assert.deepEqual(dedupeVenueEventsForDisplay([...rows].reverse()).map((event) => event.id), ["b"]);
+});
+
+test("sitemap uses the same representative-only event set as canonical pages", () => {
+  const source = fs.readFileSync(path.join(projectRoot, "src/lib/seoData.ts"), "utf8");
+  assert.match(source, /canonicalPublicEvents = dedupeVenueEventsForDisplay\(publicEvents\)/);
+  assert.match(source, /events: canonicalPublicEvents\.map/);
+});
+
 test("crawler dedupe treats same artist, venue, and date as one performance slot", () => {
   const base = {
     venue: "東京ドーム",
@@ -584,9 +628,10 @@ test("empty event pages add only a compact venue guide and archive link", () => 
   const server = fs.readFileSync(path.join(projectRoot, "src/app/events/[id]/page.tsx"), "utf8");
   const client = fs.readFileSync(path.join(projectRoot, "src/app/events/[id]/EventDetailClient.tsx"), "utf8");
   assert.match(server, /counts\.seatReports === 0 && counts\.predictions === 0/);
-  assert.match(client, /VENUE QUICK GUIDE/);
+  assert.match(client, /FIRST REPORT/);
   assert.match(client, /過去の座席レポ/);
-  assert.match(client, /最初の座席レポを募集中/);
+  assert.match(client, /最初のレポを募集中/);
+  assert.match(client, /venueMiniGuide \? \(/);
   assert.doesNotMatch(client, /この会場の公式情報を詳しく説明/);
 });
 
@@ -1044,15 +1089,14 @@ test("featured home event cards stay compact with single-line text", () => {
     "utf8",
   );
 
-  assert.match(source, /min-h-\[132px\]/);
-  assert.match(source, /sm:min-h-\[146px\]/);
+  assert.match(source, /h-\[108px\]/);
   assert.doesNotMatch(source, /sm:min-h-\[220px\]/);
   assert.doesNotMatch(source, /line-clamp-2/);
   assert.match(source, /truncate[^>]*>\{item\.period\}/);
   assert.match(source, /truncate[^>]*>\{item\.artist\}/);
   assert.match(source, /truncate[^>]*>\{item\.eventName\}/);
   assert.match(source, /truncate[^>]*>\{item\.venue\}/);
-  assert.match(source, /公演を見る →/);
+  assert.match(source, /\{reportLabel\} →/);
 });
 
 test("home login CTA leads with saved records and realtime feed respects X visibility", () => {
@@ -1161,6 +1205,51 @@ test("all page-level flows share one compact fixed header without fixing their c
     assert.match(source, /onBack=\{step === 1 \? undefined : \(\) => setStep\(step - 1\)\}/);
     assert.match(source, /backHref=\{step === 1 \? reportEntryHref : undefined\}/);
   }
+});
+
+test("mobile controls stay tappable and report fields keep accessible names", () => {
+  const homeBanner = fs.readFileSync(
+    path.join(projectRoot, "src/components/home/HomeHeroPromoBanner.tsx"),
+    "utf8",
+  );
+  const artistPage = fs.readFileSync(
+    path.join(projectRoot, "src/app/artists/[slug]/ArtistClient.tsx"),
+    "utf8",
+  );
+  const prediction = fs.readFileSync(
+    path.join(projectRoot, "src/app/events/[id]/fan-seat-prediction/page.tsx"),
+    "utf8",
+  );
+  const liveReport = fs.readFileSync(
+    path.join(projectRoot, "src/app/report/live/page.tsx"),
+    "utf8",
+  );
+
+  assert.match(homeBanner, /className="zr-focus grid size-11 place-items-center/);
+  assert.match(artistPage, /aria-pressed=\{activeEventTab === "current"\}/);
+  assert.match(artistPage, /aria-pressed=\{activeEventTab === "past"\}/);
+  assert.equal((artistPage.match(/min-h-11 flex-1 rounded-full/g) ?? []).length, 2);
+  assert.match(prediction, /aria-label="アリーナ予想図の画像を選択"/);
+  assert.match(prediction, /aria-label="予想コメント"/);
+  assert.match(liveReport, /aria-label="現地レポに添付する写真を選択"/);
+  assert.match(liveReport, /aria-label="見え方の感想・補足"/);
+  assert.match(liveReport, /const reportEventId = selectedEvent \|\| loadingEventId/);
+});
+
+test("search dates include the year and mypage keeps its ticket heading compact", () => {
+  const searchPage = fs.readFileSync(
+    path.join(projectRoot, "src/app/search/page.tsx"),
+    "utf8",
+  );
+  const personalStats = fs.readFileSync(
+    path.join(projectRoot, "src/components/mypage/PersonalTicketStats.tsx"),
+    "utf8",
+  );
+
+  assert.match(searchPage, /formatEventDate\(event\.date\)/);
+  assert.match(searchPage, /\}, 200\);/);
+  assert.match(personalStats, /whitespace-nowrap text-\[21px\]/);
+  assert.match(personalStats, /\{sharing \? "作成中" : "共有"\}/);
 });
 
 test("native select controls share one compact mobile treatment", () => {

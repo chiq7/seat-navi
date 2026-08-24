@@ -1,21 +1,29 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fff9fb;
-  --foreground: #40383d;
-  --accent: #f04f87;
-  --accent-light: #ffe8f1;
-  --accent-dark: #c93868;
+  --background: #ffffff;
+  --foreground: #3a3a3e;
+  --accent: #ff6b9d;
+  --accent-light: #fff1f6;
+  --accent-dark: #d94278;
   --card-bg: #ffffff;
-  --card-border: #f0dfe6;
-  --text-muted: #897d85;
-  --section-bg: #fff2f7;
-  --surface-tint: #f8f1f5;
-  --surface-strong: #6f5264;
-  --category-ticket: #e94a7d;
-  --category-seat: #6176d7;
-  --category-live: #dd8053;
-  --category-setlist: #8165bb;
+  --card-border: #e8e8ec;
+  --text-muted: #85858d;
+  --section-bg: #f7f7f8;
+  --surface-tint: #f7f7f8;
+  --surface-strong: #665a61;
+  --category-ticket: #ff6b9d;
+  --category-ticket-soft: #fff1f6;
+  --category-seat: #9b7bd8;
+  --category-seat-soft: #f4f0fb;
+  --category-live: #ff9a5c;
+  --category-live-soft: #fff4ed;
+  --category-setlist: #5ca8e8;
+  --category-setlist-soft: #eef7fd;
+  --radius-control: 12px;
+  --radius-card: 16px;
+  --space-section-mobile: 28px;
+  --space-section-desktop: 40px;
 }
 
 @theme inline {
@@ -24,6 +32,18 @@
   --color-accent: var(--accent);
   --color-accent-light: var(--accent-light);
   --color-accent-dark: var(--accent-dark);
+  --color-card: var(--card-bg);
+  --color-divider: var(--card-border);
+  --color-muted: var(--text-muted);
+  --color-section: var(--section-bg);
+  --color-ticket: var(--category-ticket);
+  --color-ticket-soft: var(--category-ticket-soft);
+  --color-seat: var(--category-seat);
+  --color-seat-soft: var(--category-seat-soft);
+  --color-live: var(--category-live);
+  --color-live-soft: var(--category-live-soft);
+  --color-setlist: var(--category-setlist);
+  --color-setlist-soft: var(--category-setlist-soft);
   --font-sans: "Noto Sans JP", system-ui, -apple-system, sans-serif;
 }
 
@@ -39,7 +59,7 @@ body {
 }
 
 ::selection {
-  background: #f43679;
+  background: var(--accent);
   color: #fff;
 }
 
@@ -53,7 +73,7 @@ body {
 }
 
 .zr-focus:focus-visible {
-  outline: 3px solid rgba(244, 54, 121, 0.34);
+  outline: 3px solid color-mix(in srgb, var(--accent) 34%, transparent);
   outline-offset: 3px;
 }
 
@@ -93,25 +113,25 @@ body {
 }
 
 .community-choice-active {
-  border-color: #f4b7cd;
-  background: #fff0f5;
-  color: #c93868;
+  border-color: color-mix(in srgb, var(--accent) 42%, white);
+  background: var(--accent-light);
+  color: var(--accent-dark);
 }
 
 .community-choice-idle {
-  border-color: #eadfe4;
-  background: #fff;
-  color: #665a61;
+  border-color: var(--card-border);
+  background: var(--card-bg);
+  color: var(--foreground);
 }
 
 .community-soft-panel {
-  border: 1px solid #eadfe4;
-  background: #f8f1f5;
-  color: #51454c;
+  border: 1px solid var(--card-border);
+  background: var(--surface-tint);
+  color: var(--foreground);
 }
 
 .community-subtitle {
-  color: #76656f;
+  color: var(--text-muted);
   font-size: 13px;
   font-weight: 600;
   line-height: 1.9;
@@ -134,7 +154,7 @@ body {
 .community-input {
   min-height: 52px;
   width: 100%;
-  border: 1px solid #eadfe4;
+  border: 1px solid var(--card-border);
   border-radius: 16px;
   background: #fff;
   color: var(--foreground);
@@ -143,7 +163,7 @@ body {
 
 .community-input:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 4px rgba(240, 79, 135, 0.1);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 12%, transparent);
 }
 
 .community-primary-button,
@@ -163,13 +183,13 @@ body {
 .community-primary-button {
   background: var(--accent);
   color: #fff;
-  box-shadow: 0 10px 24px rgba(240, 79, 135, 0.22);
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--accent) 22%, transparent);
 }
 
 .community-secondary-button {
-  border: 1px solid #eadfe4;
+  border: 1px solid var(--card-border);
   background: #fff;
-  color: #6b5862;
+  color: var(--foreground);
 }
 
 .community-primary-button:hover,

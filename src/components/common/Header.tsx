@@ -6,10 +6,10 @@ import type { ReactNode } from "react";
 import { AccountLink } from "@/components/auth/AccountLink";
 
 const backControlClass =
-  "zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-[#fff0f5] text-[#665761] transition-colors active:bg-[#ffe3ed]";
+  "zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-accent-light text-foreground transition-colors active:bg-accent/15";
 
 const titleClass =
-  "truncate px-1 text-center text-[13px] font-black tracking-[-0.02em] text-[#4b4148] sm:text-[14px]";
+  "truncate px-1 text-center text-[13px] font-black tracking-[-0.02em] text-foreground sm:text-[14px]";
 
 export type HeaderProps = {
   /** 中央に表示するタイトル。1行固定・省略記号あり */
@@ -44,7 +44,7 @@ export function Header({
     <>
       <header
         data-page-header
-        className={`fixed inset-x-0 top-0 z-[60] h-14 border-b border-[#f0dde5] bg-white/90 shadow-[0_4px_18px_rgba(111,78,91,0.06)] backdrop-blur-xl sm:h-16 ${className ?? ""}`}
+        className={`fixed inset-x-0 top-0 z-[60] h-14 border-b border-divider bg-white/90 shadow-[0_4px_18px_rgba(58,58,62,0.06)] backdrop-blur-xl sm:h-16 ${className ?? ""}`}
       >
         <div className="zr-container grid h-full grid-cols-[88px_minmax(0,1fr)_88px] items-center">
           <div className="flex justify-start">

@@ -156,13 +156,13 @@ export function PersonalTicketStats({ ticketPosts, eventMap, displayName }: Prop
     <section className="space-y-5 border-b border-[#ded8dc] pb-10 sm:pb-14" aria-labelledby="personal-ticket-title">
       <div className="border border-[#ded8dc] bg-white p-4 sm:p-6">
         <div className="flex items-start justify-between gap-3">
-          <div>
+          <div className="min-w-0">
             <p className="artist-kicker">My Ticket Data</p>
-            <h2 id="personal-ticket-title" className="mt-2 text-[24px] font-black tracking-[-0.04em]">わたしの当選データ</h2>
+            <h2 id="personal-ticket-title" className="mt-2 whitespace-nowrap text-[21px] font-black tracking-[-0.05em] sm:text-[24px]">わたしの当選データ</h2>
           </div>
-          <button type="button" onClick={handleShare} disabled={sharing || ticketStats.total === 0} className="zr-focus inline-flex min-h-11 shrink-0 items-center gap-1.5 bg-[#f43679] px-3 text-[10px] font-black text-white disabled:opacity-40">
+          <button type="button" onClick={handleShare} disabled={sharing || ticketStats.total === 0} aria-label={sharing ? "SNS共有用画像を作成中" : "SNSで共有"} className="zr-focus inline-flex min-h-11 shrink-0 items-center gap-1.5 bg-[#f43679] px-3 text-[10px] font-black text-white disabled:opacity-40">
             {sharing ? <Download size={14} /> : <Share2 size={14} />}
-            {sharing ? "作成中" : "SNSで見せる"}
+            {sharing ? "作成中" : "共有"}
           </button>
         </div>
         <div className="mt-3 grid grid-cols-2 gap-2">

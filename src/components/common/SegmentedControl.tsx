@@ -29,13 +29,13 @@ export function SegmentedControl<T extends string>({
   compact = false,
 }: SegmentedControlProps<T>) {
   const selectedClass = tone === "seat"
-    ? "bg-[#eef0ff] text-[#5165c6]"
-    : "bg-[#f43679] text-white";
-  const iconSelectedClass = tone === "seat" ? "text-[#6176d7]" : "text-white";
+    ? "bg-seat-soft text-seat"
+    : "bg-accent text-white";
+  const iconSelectedClass = tone === "seat" ? "text-seat" : "text-white";
 
   return (
     <div
-      className={`grid overflow-hidden border border-[#ded8dc] bg-white ${className ?? ""}`}
+      className={`grid overflow-hidden border border-divider bg-white ${className ?? ""}`}
       style={{ gridTemplateColumns: `repeat(${options.length}, minmax(0, 1fr))` }}
       role="group"
       aria-label={ariaLabel}
@@ -49,16 +49,16 @@ export function SegmentedControl<T extends string>({
             onClick={() => onChange(optionValue)}
             aria-pressed={selected}
             className={`zr-focus flex min-h-11 min-w-0 items-center justify-center gap-1 px-1.5 font-black transition-colors ${
-              index > 0 ? "border-l border-[#ded8dc]" : ""
+              index > 0 ? "border-l border-divider" : ""
             } ${compact ? "text-[9px] sm:gap-2 sm:text-[11px]" : "text-[12px]"} ${
-              selected ? selectedClass : "bg-white text-[#625a61] hover:bg-[#fff0f5]"
+              selected ? selectedClass : "bg-white text-foreground hover:bg-accent-light"
             }`}
           >
             {Icon ? (
               <Icon
                 size={compact ? 15 : 16}
                 strokeWidth={1.8}
-                className={`shrink-0 ${selected ? iconSelectedClass : "text-[#9b91a0]"}`}
+                className={`shrink-0 ${selected ? iconSelectedClass : "text-muted"}`}
                 aria-hidden="true"
               />
             ) : null}

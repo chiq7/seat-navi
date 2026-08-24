@@ -46,7 +46,7 @@ export function SetlistItemsSection({
 
   return (
     <div>
-      <div className="flex items-end justify-between gap-4 border-b border-[#1c171b] pb-4">
+      <div className="flex items-end justify-between gap-4 border-b border-divider pb-4">
         <div>
           <p className="artist-kicker">Live Sequence</p>
           <h2 className="artist-heading">セットリスト</h2>

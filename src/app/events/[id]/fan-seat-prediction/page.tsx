@@ -269,6 +269,13 @@ export default function FanSeatPredictionPage({
         <main className="zr-container flex-1 py-6">
           <section className="community-panel p-5 text-center sm:p-7">
             <ImagePlus size={32} strokeWidth={1.5} className="mx-auto text-[#f43679]" aria-hidden="true" />
+            <div className="mt-4 border-y border-[#eadfe4] py-4 text-left">
+              <p className="text-[10px] font-black tracking-[0.12em] text-[#a2939b]">SUBMITTED PREDICTION</p>
+              <p className="mt-2 truncate text-[14px] font-black">{event?.title ?? "選択した公演"}</p>
+              {tags.length > 0 && <p className="mt-1 text-[12px] font-bold text-[#f43679]">{tags.join(" ・ ")}</p>}
+              {comment.trim() && <p className="mt-2 line-clamp-2 text-[11px] font-medium leading-5 text-[#81747c]">{comment.trim()}</p>}
+            </div>
+            <p className="mt-3 text-[11px] font-medium leading-5 text-[#817981]">一覧への反映には少し時間がかかることがあります。</p>
             <p className="mt-4 text-[17px] font-black">Xで座席予想を共有しよう</p>
             <p className="mt-2 text-[11px] font-medium leading-5 text-[#817981]">公演ページのURLと一緒にシェアできます。</p>
             <div className="mt-6 grid grid-cols-[1fr_52px] gap-2">
@@ -313,7 +320,7 @@ export default function FanSeatPredictionPage({
 
         <main className="zr-container space-y-8 pb-12 pt-4">
           {/* 予想図画像 */}
-          <section className="border-t border-[#1c171b] pt-5">
+          <section className="border-t border-divider pt-5">
             <div className="flex items-center gap-1.5">
               <h2 className="artist-heading">予想図画像</h2>
               <span className="border border-[#f43679] px-1.5 py-0.5 text-[9px] font-black text-[#f43679]">
@@ -405,6 +412,7 @@ export default function FanSeatPredictionPage({
             <input
               ref={fileInputRef}
               type="file"
+              aria-label="アリーナ予想図の画像を選択"
               accept="image/*"
               className="hidden"
               onChange={handleFileChange}
@@ -442,6 +450,7 @@ export default function FanSeatPredictionPage({
               <span className="text-[9px] text-gray-400">任意</span>
             </div>
             <textarea
+              aria-label="予想コメント"
               value={comment}
               maxLength={COMMENT_MAX}
               onChange={(e) => setComment(e.target.value)}

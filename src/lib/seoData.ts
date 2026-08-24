@@ -6,6 +6,7 @@ import { getEventWithArtist, getGroupedEventIds, getPredictionCount, getSeatRepo
 import { getReportOgInfo, type ReportOgInfo } from "@/lib/og/reportOgData";
 import { supabase } from "@/lib/supabase/client";
 import type { CrawledEvent } from "@/lib/types";
+import { dedupeVenueEventsForDisplay } from "@/lib/eventDisplay";
 
 export const SITE_URL = "https://tixrepo.com";
 
@@ -135,6 +136,8 @@ export async function getSeoSitemapData(): Promise<SeoSitemapData> {
   const allEvents = (eventsResult.data as SitemapEventRow[]) ?? [];
   const eventMap = new Map<string, CrawledEvent>(allEvents.map((event) => [event.id, event]));
   const publicEvents = allEvents.filter((event) => !isTestEvent(event));
+  // 非代表URLのcanonicalとsitemapを矛盾させない。DB行や既存URLは削除しない。
+  const canonicalPublicEvents = dedupeVenueEventsForDisplay(publicEvents);
   const eventArtistSlug = new Map<string, string>();
   for (const event of publicEvents) {
     const slug = getPublicEventArtistSlug(event);
@@ -204,7 +207,7 @@ export async function getSeoSitemapData(): Promise<SeoSitemapData> {
       slug,
       lastModified,
     })),
-    events: publicEvents.map((event) => ({
+    events: canonicalPublicEvents.map((event) => ({
       id: event.id,
       ...(latestByEvent.get(event.id) || event.created_at
         ? { lastModified: latestByEvent.get(event.id) ?? event.created_at ?? undefined }

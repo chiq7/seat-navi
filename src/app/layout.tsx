@@ -72,7 +72,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="min-h-screen bg-[#fff9fb] text-foreground antialiased">
+      <body className="min-h-screen bg-background text-foreground antialiased">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: serializeJsonLd(buildSiteStructuredData()) }}

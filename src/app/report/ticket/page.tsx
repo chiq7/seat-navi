@@ -2,7 +2,7 @@
 
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { Send, TicketCheck } from "lucide-react";
+import { CheckCircle2, Send, TicketCheck, XCircle } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { trackEvent } from "@/lib/analytics";
@@ -146,6 +146,7 @@ function SeatInput({
       </span>
       <input
         type="text"
+        aria-label={label}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
@@ -158,9 +159,15 @@ function SeatInput({
 function SuccessScreen({
   onOther,
   artistSlug,
+  event,
+  resultLabel,
+  seatSummary,
 }: {
   onOther: () => void;
   artistSlug: string | null;
+  event: EventRow | null;
+  resultLabel: string;
+  seatSummary: string | null;
 }) {
   const shareUrl = typeof window !== "undefined" ? (artistSlug ? `${window.location.origin}/artists/${artistSlug}` : window.location.origin) : "";
   const shareText = "ライブの当落・座席をちけレポに投稿しました！ #ちけレポ";
@@ -188,6 +195,14 @@ function SuccessScreen({
               className="object-contain"
             />
           </div>
+          <div className="mt-4 border-y border-[#eadfe4] py-4 text-left">
+            <p className="text-[10px] font-black tracking-[0.12em] text-[#a2939b]">SUBMITTED REPORT</p>
+            <p className="mt-2 truncate text-[14px] font-black">{event?.title ?? "選択した公演"}</p>
+            <p className="mt-1 text-[12px] font-bold text-[#f43679]">
+              {[resultLabel, seatSummary].filter(Boolean).join(" ・ ")}
+            </p>
+          </div>
+          <p className="mt-3 text-[11px] font-medium leading-5 text-[#817981]">一覧への反映には少し時間がかかることがあります。</p>
           <p className="mt-3 text-[17px] font-black">結果をXで共有しよう</p>
           <p className="mt-2 text-[11px] font-medium leading-5 text-[#817981]">投稿内容の詳細は含めず、ちけレポへの投稿完了をシェアします。</p>
           <div className="mt-6 grid grid-cols-[1fr_52px] gap-2">
@@ -195,6 +210,14 @@ function SuccessScreen({
             <ShareButton url={shareUrl} text={shareText} className="community-secondary-button h-[52px] w-[52px] px-0" />
           </div>
           <div className="mt-7 space-y-2 border-t border-[#ded8dc] pt-6">
+            {resultLabel === "当選した" && !seatSummary && event && (
+              <Link
+                href={`/report/ticket?event=${event.id}`}
+                className="community-primary-button min-h-[52px] w-full"
+              >
+                座席情報を追記する
+              </Link>
+            )}
             <button
               type="button"
               onClick={onOther}
@@ -292,9 +315,9 @@ function TicketReportPageInner() {
 
       setEvents(rows);
       const representative = anchorEvent ? findDisplayedEventRepresentative(rows, anchorEvent) : null;
-      const initial = preselectedEventId && rows.some((r) => r.id === preselectedEventId)
-        ? preselectedEventId
-        : representative?.id ?? rows[0]?.id;
+      const initial = preselectedEventId
+        ? (rows.some((r) => r.id === preselectedEventId) ? preselectedEventId : representative?.id)
+        : rows[0]?.id;
       if (initial) setSelectedEvent(initial);
       setEventsLoading(false);
     }
@@ -307,8 +330,12 @@ function TicketReportPageInner() {
   const currentVenueType = selectedVenue ? getVenueType(selectedVenue) : "arena_dome_stadium";
   const seatAreaOptions = SEAT_AREAS[currentVenueType];
   const selectedArtistSlug = selectedEventRow ? resolveArtist(selectedEventRow)?.slug ?? null : null;
-  const reportEntryHref = selectedEvent
-    ? `/report?event=${selectedEvent}${selectedArtistSlug ? `&artist=${selectedArtistSlug}` : ""}`
+  const loadingEventId = eventsLoading ? searchParams.get("event")?.trim() ?? "" : "";
+  const reportEventId = selectedEvent || loadingEventId;
+  const loadingArtistSlug = eventsLoading ? searchParams.get("artist")?.trim() ?? "" : "";
+  const reportArtistSlug = selectedArtistSlug || loadingArtistSlug;
+  const reportEntryHref = reportEventId
+    ? `/report?event=${reportEventId}${reportArtistSlug ? `&artist=${reportArtistSlug}` : ""}`
     : "/report";
 
   const step2CanProceed = (() => {
@@ -407,6 +434,9 @@ function TicketReportPageInner() {
               setSubmitted(false);
             }}
             artistSlug={submittedArtistSlug}
+            event={events.find((event) => event.id === selectedEvent) ?? null}
+            resultLabel={result || "当落・座席"}
+            seatSummary={result === "当選した" ? [seatArea, block, row, seatNumber].filter(Boolean).join(" ") || null : null}
           />
         </div>
       </div>
@@ -460,43 +490,46 @@ function TicketReportPageInner() {
               <h2 className="mb-5 mt-1 text-[22px] font-black tracking-[-0.035em]">
                 今回の結果を教えてください
               </h2>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-2.5">
                 <button
                   type="button"
-                  onClick={() => { setResult("当選した"); setStep(2); }}
-                  className={`zr-focus overflow-hidden border-2 transition-all ${
+                  onClick={() => setResult("当選した")}
+                  className={`zr-focus flex min-h-[68px] items-center justify-center gap-2 rounded-[16px] border-2 px-3 text-[15px] font-black transition-all ${
                     result === "当選した"
-                      ? "border-[#f43679]"
-                      : "border-transparent opacity-80"
+                      ? "border-[#f43679] bg-[#fff0f5] text-[#d83e70]"
+                      : "border-[#eadfe4] bg-white text-[#665a61]"
                   }`}
                 >
-                  <Image
-                    src="/images/report/ticket/report-ticket-win-icon1.png"
-                    alt="当選"
-                    width={268}
-                    height={268}
-                    className="w-full scale-[1.25]"
-                  />
+                  <CheckCircle2 size={20} aria-hidden="true" />当選
                 </button>
                 <button
                   type="button"
-                  onClick={() => { setResult("落選した"); setStep(2); }}
-                  className={`zr-focus overflow-hidden border-2 transition-all ${
+                  onClick={() => setResult("落選した")}
+                  className={`zr-focus flex min-h-[68px] items-center justify-center gap-2 rounded-[16px] border-2 px-3 text-[15px] font-black transition-all ${
                     result === "落選した"
-                      ? "border-[#f43679]"
-                      : "border-transparent opacity-80"
+                      ? "border-[#f43679] bg-[#fff0f5] text-[#d83e70]"
+                      : "border-[#eadfe4] bg-white text-[#665a61]"
                   }`}
                 >
-                  <Image
-                    src="/images/report/ticket/report-ticket-lose-icon.png"
-                    alt="落選"
-                    width={268}
-                    height={268}
-                    className="w-full scale-[1.25]"
-                  />
+                  <XCircle size={20} aria-hidden="true" />落選
                 </button>
               </div>
-
+              {result && (
+                <div className="mt-4">
+                  <p className="mb-3 truncate border-y border-divider py-2 text-[11px] font-bold text-muted">
+                    送信内容：{selectedEventRow?.title ?? "公演未選択"} ・ {result === "当選した" ? "当選" : "落選"}
+                  </p>
+                  {error && <p className="mb-3 text-[11px] font-bold text-red-600">{error}</p>}
+                  <FormActionGroup>
+                    <FormActionButton onClick={handleSubmit} disabled={!selectedEvent || submitting}>
+                      <Send size={16} aria-hidden="true" />{submitting ? "投稿中..." : "この結果だけ送信"}
+                    </FormActionButton>
+                    <FormActionButton variant="secondary" onClick={() => setStep(2)}>
+                      座席・申込詳細を追加
+                    </FormActionButton>
+                  </FormActionGroup>
+                </div>
+              )}
             </div>
             </main>
           </>
@@ -647,6 +680,7 @@ function TicketReportPageInner() {
                           {standDirection === "その他" && (
                             <input
                               type="text"
+                              aria-label="スタンドの席種・方向"
                               value={standDirectionOther}
                               onChange={(e) => setStandDirectionOther(e.target.value)}
                               placeholder="例：西スタンド / 200レベル / バックネット側 / 内野"
@@ -674,6 +708,7 @@ function TicketReportPageInner() {
                           {standFloor === "その他" && (
                             <input
                               type="text"
+                              aria-label="スタンドの階層"
                               value={standFloorOther}
                               onChange={(e) => setStandFloorOther(e.target.value)}
                               placeholder="例：上段 / 下段 / 200レベル"
@@ -753,7 +788,7 @@ function TicketReportPageInner() {
         {/* Step 3：任意・コメント */}
         {step === 3 && (
           <main className="zr-container space-y-7 pb-12 pt-8">
-            <section className="border-t border-[#1c171b] pt-5">
+            <section className="border-t border-divider pt-5">
               <p className="artist-kicker">03 / OPTIONAL</p>
               <h2 className="artist-heading">任意で詳しく</h2>
               <p className="mb-6 mt-2 text-[10px] font-bold text-[#817981]">入力は任意です</p>
@@ -801,6 +836,7 @@ function TicketReportPageInner() {
                 投稿後、アーティストページの速報に表示されることがあります。
               </p>
               <textarea
+                aria-label="ひとことコメント"
                 value={comment}
                 onChange={(e) => setComment(e.target.value.slice(0, 200))}
                 className="zr-focus mt-3 h-32 w-full resize-none border border-[#ded8dc] bg-white p-3 text-[12px] font-medium leading-6 outline-none placeholder:text-[#b5adb2] focus:border-[#f43679]"

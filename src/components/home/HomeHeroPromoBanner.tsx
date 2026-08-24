@@ -107,7 +107,7 @@ export default function HomeHeroPromoBanner() {
             onClick={() => showSlide(index)}
             aria-label={`${index + 1}枚目のバナーを表示`}
             aria-current={activeIndex === index ? "true" : undefined}
-            className="zr-focus grid size-7 place-items-center rounded-full"
+            className="zr-focus grid size-11 place-items-center rounded-full"
           >
             <span className={`block h-1.5 rounded-full transition-all ${activeIndex === index ? "w-4 bg-white" : "w-1.5 bg-white/55"}`} />
           </button>

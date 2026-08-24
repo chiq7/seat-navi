@@ -134,22 +134,11 @@ export function shouldSearchEventText(query: string): boolean {
   return [...normalizeForSearch(query)].length >= 2;
 }
 
-/**
- * アーティスト単体の検索は総合ページを入口にする。
- * アーティスト名と会場名を組み合わせた検索は、意図が明確なので該当公演へ直接案内する。
- */
+/** 検索結果の公演行は、押した公演と同じ詳細ページへ直接案内する。 */
 export function getSearchEventDestination(
-  event: Pick<CrawledEvent, "id" | "artist_slug" | "venue">,
-  query?: string,
+  event: Pick<CrawledEvent, "id">,
 ): string {
-  const searchTerms = query ? getSearchTerms(query) : [];
-  const includesVenueTerm = searchTerms.some((term) => searchTextScore(term, event.venue) > 0);
-  if (searchTerms.length >= 2 && includesVenueTerm) return `/events/${event.id}`;
-
-  const artist = event.artist_slug
-    ? ARTISTS.find((candidate) => candidate.slug === event.artist_slug && !isTestArtist(candidate))
-    : null;
-  return artist ? `/artists/${artist.slug}` : `/events/${event.id}`;
+  return `/events/${event.id}`;
 }
 
 export function rankEventSearchResults(

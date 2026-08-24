@@ -42,7 +42,11 @@ export function CompactEventPickerSection<T extends PickerEvent>({
         {side ? <div className="shrink-0">{side}</div> : null}
       </div>
 
-      <EventCarouselPicker {...pickerProps} className={`mt-3 ${className ?? ""}`} />
+      <EventCarouselPicker
+        {...pickerProps}
+        inputId={`${headingId}-select`}
+        className={`mt-3 ${className ?? ""}`}
+      />
       {footer}
     </section>
   );

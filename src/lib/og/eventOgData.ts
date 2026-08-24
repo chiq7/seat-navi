@@ -1,3 +1,4 @@
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { supabase } from "@/lib/supabase/client";
 import { resolveArtist, type Artist } from "@/lib/artists";
 import { parseEventTitle } from "@/lib/eventTitle";
@@ -33,7 +34,14 @@ export type MiniSeatRow = {
  * 読み取り専用（DB書き込みなし）。
  */
 export async function getEventWithArtist(eventId: string): Promise<EventOgInfo | null> {
-  const { data } = await supabase.from("events").select(EVENT_COLUMNS).eq("id", eventId).maybeSingle();
+  return queryEventWithArtist(supabase, eventId);
+}
+
+export async function queryEventWithArtist(
+  client: SupabaseClient,
+  eventId: string,
+): Promise<EventOgInfo | null> {
+  const { data } = await client.from("events").select(EVENT_COLUMNS).eq("id", eventId).maybeSingle();
   if (!data) return null;
   const event = data as CrawledEvent;
   const artist = resolveArtist(event);
@@ -50,9 +58,17 @@ export async function getGroupedEventIds(
   event: CrawledEvent,
   artistSlug: string | null,
 ): Promise<string[]> {
+  return queryGroupedEventIds(supabase, event, artistSlug);
+}
+
+export async function queryGroupedEventIds(
+  client: SupabaseClient,
+  event: CrawledEvent,
+  artistSlug: string | null,
+): Promise<string[]> {
   if (!event.venue_id) return [event.id];
 
-  const { data } = await supabase.from("events").select(EVENT_COLUMNS).eq("venue_id", event.venue_id);
+  const { data } = await client.from("events").select(EVENT_COLUMNS).eq("venue_id", event.venue_id);
   const venueEvents = ((data as CrawledEvent[]) ?? []).filter((ev) => ev.date);
   const sameArtist = artistSlug
     ? venueEvents.filter((ev) => (ev.artist_slug ?? resolveArtist(ev)?.slug) === artistSlug)
@@ -85,7 +101,11 @@ export async function getGroupedEventIds(
 
 /** 座席報告の件数のみを軽量に取得（count head query、行データは取得しない） */
 export async function getSeatReportCount(groupedIds: string[]): Promise<number> {
-  const { count } = await supabase
+  return querySeatReportCount(supabase, groupedIds);
+}
+
+export async function querySeatReportCount(client: SupabaseClient, groupedIds: string[]): Promise<number> {
+  const { count } = await client
     .from("seat_reports")
     .select("*", { count: "exact", head: true })
     .in("event_id", groupedIds);
@@ -104,7 +124,11 @@ export async function getSeatReportRows(groupedIds: string[], limit = 300): Prom
 
 /** 座席予想（承認済み）の件数のみを軽量に取得。この公演単体のみ（マップとは異なりグルーピングしない） */
 export async function getPredictionCount(eventId: string): Promise<number> {
-  const { count } = await supabase
+  return queryPredictionCount(supabase, eventId);
+}
+
+export async function queryPredictionCount(client: SupabaseClient, eventId: string): Promise<number> {
+  const { count } = await client
     .from("fan_seat_predictions")
     .select("*", { count: "exact", head: true })
     .eq("event_id", eventId)

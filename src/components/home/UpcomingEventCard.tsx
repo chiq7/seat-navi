@@ -26,27 +26,26 @@ export default function UpcomingEventCard({
   const reportLabel = reportCount > 0 ? `${item.count}件` : "最初のレポを投稿";
   if (featured) {
     return (
-      <div className="group relative min-h-[132px] rounded-[18px] border border-[#f0dfe6] bg-white px-3 py-3 shadow-[0_8px_22px_rgba(105,63,80,.05)] sm:min-h-[146px] sm:px-4 sm:py-4">
+      <div className="group relative h-[108px] overflow-hidden rounded-[16px] border border-[#f0dfe6] bg-white px-3 py-2.5 shadow-[0_6px_18px_rgba(105,63,80,.045)] sm:px-3.5">
         <Link href={`/artists/${item.artistSlug}`} className="zr-focus flex h-full flex-col rounded-xl no-underline">
           <div className="flex min-w-0 items-center gap-2">
             <span className="shrink-0 text-[11px] font-black tabular-nums tracking-[0.18em] text-[#ef4f87]">{String(index ?? 1).padStart(2, "0")}</span>
             <span className="min-w-0 flex-1 truncate pr-10 text-right text-[10px] font-bold text-[#777078] sm:text-[11px]">{item.period}</span>
           </div>
-          <div className="mt-2.5 min-w-0 sm:mt-3">
-            <p className="truncate text-[15px] font-black leading-tight tracking-[-0.04em] text-[#40383d] sm:text-[18px]">{item.artist}</p>
-            <p className="mt-1 truncate text-[10px] font-bold leading-4 text-[#514a50] sm:text-[11px]">{item.eventName}</p>
-            <p className="mt-1 truncate text-[9px] text-[#817981] sm:text-[10px]">{item.venue}</p>
+          <div className="mt-1.5 min-w-0">
+            <p className="truncate text-[14px] font-black leading-tight tracking-[-0.04em] text-[#40383d] sm:text-[16px]">{item.artist}</p>
+            <p className="mt-1 truncate text-[9px] font-bold leading-4 text-[#514a50] sm:text-[10px]">{item.eventName}</p>
           </div>
-          <div className="mt-auto flex items-end justify-between gap-2 pt-2.5 sm:pt-3">
-            <span className="truncate text-[9px] font-bold text-[#ef4f87] sm:text-[10px]">公演を見る →</span>
-            <span className="shrink-0 text-[9px] font-bold text-[#938b92]">{reportLabel}</span>
+          <div className="mt-auto flex items-center justify-between gap-2 pt-1.5">
+            <span className="min-w-0 flex-1 truncate text-[9px] font-medium text-[#817981]">{item.venue}</span>
+            <span className="shrink-0 text-[9px] font-bold text-[#ef4f87]">{reportLabel} →</span>
           </div>
         </Link>
         <FavoriteArtistButton
           artistSlug={item.artistSlug}
           initialUserId={favoriteUserId}
           initialFavorite={initialFavorite}
-          className="absolute right-1 top-2 z-10 sm:right-3 sm:top-3"
+          className="absolute right-0.5 top-0.5 z-10"
         />
       </div>
     );

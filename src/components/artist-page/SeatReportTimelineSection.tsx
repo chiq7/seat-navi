@@ -66,9 +66,9 @@ export default function SeatReportTimelineSection({
   actions,
 }: Props) {
   return (
-    <section className="border border-[#282127] bg-white" aria-label={title ?? undefined}>
+    <section className="border border-divider bg-white" aria-label={title ?? undefined}>
       {title && (
-        <header className="border-b border-[#282127] px-4 py-3">
+        <header className="border-b border-divider px-4 py-3">
           <p className="text-[9px] font-black tracking-[0.18em] text-[#f43679]">RECENT SEATS</p>
           <h3 className="mt-1 text-[15px] font-black tracking-[-0.03em] text-[#1c171b]">{title}</h3>
         </header>

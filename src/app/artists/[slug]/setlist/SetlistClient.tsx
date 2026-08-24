@@ -12,7 +12,7 @@ import type { CrawledEvent } from "@/lib/types";
 import { type EditableItem, computeSongNumbers } from "@/lib/setlistHelpers";
 import { AccountLink } from "@/components/auth/AccountLink";
 import { BottomNav } from "@/components/common/BottomNav";
-import { EventCarouselPicker } from "@/components/common/EventPicker";
+import { CompactEventPickerSection } from "@/components/common/CompactEventPickerSection";
 import { ShareButton } from "@/components/common/ShareButton";
 import { Header } from "@/components/common/Header";
 import { SetlistItemsSection } from "@/components/setlist/SetlistItemsSection";
@@ -321,29 +321,21 @@ export function SetlistClient({
       </section>
 
       <main className="pb-20">
-        <section className="zr-container py-8 sm:py-12" aria-labelledby="setlist-event-title">
-          <div className="pb-4">
-            <p className="artist-kicker">Select Live</p>
-            <h2 id="setlist-event-title" className="artist-heading">公演を選ぶ</h2>
-          </div>
-          {selectedEvent && (
-          <div className="community-panel py-5 px-4">
-              <p className="text-[10px] font-black tracking-[0.12em] text-[#f43679]">NOW EDITING</p>
-              <p className="mt-2 text-[16px] font-black leading-6">{tourName || selectedEvent.title}</p>
-              <p className="mt-1 text-[11px] font-bold text-[#817981]">{selectedEvent.date ?? "日程未定"} / {selectedEvent.venue}</p>
-              {isTestData && <span className="mt-2 inline-block border border-[#ded8dc] px-2 py-1 text-[9px] font-black text-[#817981]">テストデータ</span>}
-            </div>
-          )}
-          <div className="mt-5">
-            <EventCarouselPicker
-              events={events}
-              selectedEventId={selectedEventId}
-              onSelect={setSelectedEventId}
-              artistName={artist.name}
-              today={today}
-            />
-          </div>
-        </section>
+        <CompactEventPickerSection
+          headingId="setlist-event-title"
+          title="公演を選ぶ"
+          events={events}
+          selectedEventId={selectedEventId}
+          onSelect={setSelectedEventId}
+          artistName={artist.name}
+          today={today}
+          eyebrow="SELECT YOUR LIVE"
+          footer={selectedEvent ? (
+            <p className="mt-2 truncate text-[10px] font-bold text-[#817981]">
+              <span className="mr-2 font-black text-[#f43679]">NOW EDITING</span>{tourName || selectedEvent.title}{isTestData ? " ・ TEST" : ""}
+            </p>
+          ) : null}
+        />
 
         <section className="zr-container pb-12">
           <div className="mb-3 min-h-5">

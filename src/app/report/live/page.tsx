@@ -98,7 +98,9 @@ const EMPTY_PERF: Record<PerfKey, PerfValue> = {
 
 function PhotoThumb({ file, onRemove }: { file: File; onRemove: () => void }) {
   const [url] = useState(() => URL.createObjectURL(file));
-  useEffect(() => () => URL.revokeObjectURL(url), [url]);
+  useEffect(() => {
+    return () => URL.revokeObjectURL(url);
+  }, [url]);
   return (
     <div className="relative h-[76px] w-[76px] shrink-0 overflow-hidden border border-[#ded8dc] bg-[#f7f5f6]">
       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -121,12 +123,16 @@ function SuccessScreen({
   artistName,
   reportId,
   event,
+  seatSummary,
+  memo,
 }: {
   onOther: () => void;
   artistSlug: string | null;
   artistName: string | null;
   reportId: string | null;
   event: EventRow | null;
+  seatSummary: string;
+  memo: string;
 }) {
   const reportUrl = `${typeof window !== "undefined" ? window.location.origin : ""}${
     reportId ? `/report/live/detail?reportId=${reportId}` : artistSlug ? `/artists/${artistSlug}/after-reports` : "/"
@@ -153,8 +159,11 @@ function SuccessScreen({
               <p className="text-[10px] font-black tracking-[0.12em] text-[#a2939b]">SHARED LIVE</p>
               <p className="mt-2 text-[15px] font-black">{event.venue}</p>
               <p className="mt-1 truncate text-[11px] font-bold text-[#81747c]">{event.title}</p>
+              {seatSummary && <p className="mt-2 text-[12px] font-bold text-[#f43679]">{seatSummary}</p>}
+              {memo && <p className="mt-2 line-clamp-2 text-[11px] font-medium leading-5 text-[#81747c]">{memo}</p>}
             </div>
           )}
+          <p className="mt-3 text-[11px] font-medium leading-5 text-[#817981]">一覧への反映には少し時間がかかることがあります。</p>
         </div>
       </section>
 
@@ -272,9 +281,9 @@ function LiveReportPageInner() {
 
       setEvents(rows);
       const representative = anchorEvent ? findDisplayedEventRepresentative(rows, anchorEvent) : null;
-      const initial = preselectedEventId && rows.some((r) => r.id === preselectedEventId)
-        ? preselectedEventId
-        : representative?.id ?? rows[0]?.id;
+      const initial = preselectedEventId
+        ? (rows.some((r) => r.id === preselectedEventId) ? preselectedEventId : representative?.id)
+        : rows[0]?.id;
       if (initial) setSelectedEvent(initial);
       setEventsLoading(false);
     }
@@ -368,8 +377,12 @@ function LiveReportPageInner() {
   const currentVenueType = selectedVenue ? getVenueType(selectedVenue) : "arena_dome_stadium";
   const seatAreaOptions = SEAT_AREAS[currentVenueType];
   const selectedArtistSlug = selectedEventRow ? resolveArtist(selectedEventRow)?.slug ?? null : null;
-  const reportEntryHref = selectedEvent
-    ? `/report?event=${selectedEvent}${selectedArtistSlug ? `&artist=${selectedArtistSlug}` : ""}`
+  const loadingEventId = eventsLoading ? searchParams.get("event")?.trim() ?? "" : "";
+  const reportEventId = selectedEvent || loadingEventId;
+  const loadingArtistSlug = eventsLoading ? searchParams.get("artist")?.trim() ?? "" : "";
+  const reportArtistSlug = selectedArtistSlug || loadingArtistSlug;
+  const reportEntryHref = reportEventId
+    ? `/report?event=${reportEventId}${reportArtistSlug ? `&artist=${reportArtistSlug}` : ""}`
     : "/report";
 
   const step1CanProceed = (() => {
@@ -397,6 +410,8 @@ function LiveReportPageInner() {
             artistName={submittedArtistName}
             reportId={submittedReportId}
             event={submittedEvent}
+            seatSummary={[seatArea, blockInfo || standDirection || otherSeatInfo].filter(Boolean).join(" ・ ")}
+            memo={memo.trim()}
           />
         </div>
       </div>
@@ -498,6 +513,7 @@ function LiveReportPageInner() {
                       </span>
                       <input
                         type="text"
+                        aria-label="座席ブロック"
                         value={blockInfo}
                         onChange={(e) => setBlockInfo(normalizeSeatField(e.target.value, "ブロック"))}
                         placeholder="例：A10 / センターA"
@@ -510,6 +526,7 @@ function LiveReportPageInner() {
                       </span>
                       <input
                         type="text"
+                        aria-label="座席の列"
                         value={row}
                         onChange={(e) => setRow(normalizeSeatField(e.target.value, "列"))}
                         placeholder="例：3"
@@ -522,6 +539,7 @@ function LiveReportPageInner() {
                       </span>
                       <input
                         type="text"
+                        aria-label="座席番号"
                         value={seatNumber}
                         onChange={(e) => setSeatNumber(normalizeSeatNumber(e.target.value))}
                         placeholder="例：1"
@@ -561,6 +579,7 @@ function LiveReportPageInner() {
                       {standDirection === "その他" && (
                         <input
                           type="text"
+                          aria-label="スタンドの席種・方向"
                           value={standDirectionOther}
                           onChange={(e) => setStandDirectionOther(e.target.value)}
                           placeholder="例：バックネット側 / 200レベル / 上手側 / 下手側"
@@ -595,6 +614,7 @@ function LiveReportPageInner() {
                       {standFloor === "その他" && (
                         <input
                           type="text"
+                          aria-label="スタンドの階層"
                           value={standFloorOther}
                           onChange={(e) => setStandFloorOther(e.target.value)}
                           placeholder="例：上段 / 下段 / 200レベル"
@@ -608,6 +628,7 @@ function LiveReportPageInner() {
                       </span>
                       <input
                         type="text"
+                        aria-label="座席の列"
                         value={row}
                         onChange={(e) => setRow(normalizeSeatField(e.target.value, "列"))}
                         placeholder="例：3"
@@ -620,6 +641,7 @@ function LiveReportPageInner() {
                       </span>
                       <input
                         type="text"
+                        aria-label="座席番号"
                         value={seatNumber}
                         onChange={(e) => setSeatNumber(normalizeSeatNumber(e.target.value))}
                         placeholder="例：1"
@@ -638,6 +660,7 @@ function LiveReportPageInner() {
                       </span>
                       <input
                         type="text"
+                        aria-label="その他の席種・整理情報"
                         value={otherSeatInfo}
                         onChange={(e) => setOtherSeatInfo(e.target.value)}
                         placeholder="例：立見 / 整理番号A / 特殊席"
@@ -650,6 +673,7 @@ function LiveReportPageInner() {
                       </span>
                       <input
                         type="text"
+                        aria-label="座席の列"
                         value={row}
                         onChange={(e) => setRow(normalizeSeatField(e.target.value, "列"))}
                         placeholder="例：3"
@@ -662,6 +686,7 @@ function LiveReportPageInner() {
                       </span>
                       <input
                         type="text"
+                        aria-label="座席番号"
                         value={seatNumber}
                         onChange={(e) => setSeatNumber(normalizeSeatNumber(e.target.value))}
                         placeholder="例：1"
@@ -680,6 +705,7 @@ function LiveReportPageInner() {
                       </span>
                       <input
                         type="text"
+                        aria-label="座席ブロック"
                         value={blockInfo}
                         onChange={(e) => setBlockInfo(normalizeSeatField(e.target.value, "ブロック"))}
                         placeholder="例：1階A列 / バルコニー上手"
@@ -692,6 +718,7 @@ function LiveReportPageInner() {
                       </span>
                       <input
                         type="text"
+                        aria-label="座席の列"
                         value={row}
                         onChange={(e) => setRow(normalizeSeatField(e.target.value, "列"))}
                         placeholder="例：3"
@@ -704,6 +731,7 @@ function LiveReportPageInner() {
                       </span>
                       <input
                         type="text"
+                        aria-label="座席番号"
                         value={seatNumber}
                         onChange={(e) => setSeatNumber(normalizeSeatNumber(e.target.value))}
                         placeholder="例：1"
@@ -731,6 +759,7 @@ function LiveReportPageInner() {
               <input
                 ref={photoInputRef}
                 type="file"
+                aria-label="現地レポに添付する写真を選択"
                 multiple
                 accept="image/*"
                 className="hidden"
@@ -755,7 +784,7 @@ function LiveReportPageInner() {
                 <button
                   type="button"
                   onClick={() => photoInputRef.current?.click()}
-                  className="zr-focus flex min-h-[120px] w-full flex-col items-center justify-center gap-2 border border-dashed border-[#bfb6bc] bg-white transition-colors hover:border-[#f43679]"
+                  className="zr-focus flex min-h-[88px] w-full flex-col items-center justify-center gap-1.5 border border-dashed border-[#bfb6bc] bg-white transition-colors hover:border-[#f43679]"
                 >
                   <Camera size={24} className="text-gray-300" />
                   <p className="text-[10px] text-gray-400">
@@ -772,9 +801,10 @@ function LiveReportPageInner() {
                 <span className="text-[9px] text-gray-400">任意</span>
               </div>
               <textarea
+                aria-label="見え方の感想・補足"
                 value={memo}
                 onChange={(e) => setMemo(e.target.value.slice(0, 300))}
-                className="zr-focus mt-3 h-32 w-full resize-none border border-[#ded8dc] bg-white p-3 text-[12px] font-medium leading-6 outline-none placeholder:text-[#b5adb2] focus:border-[#f43679]"
+                className="zr-focus mt-3 h-24 w-full resize-none border border-[#ded8dc] bg-white p-3 text-[12px] font-medium leading-6 outline-none placeholder:text-[#b5adb2] focus:border-[#f43679]"
                 placeholder="例：前の方だったので表情までよく見えました。少し端でしたが全体はしっかり見えました。"
               />
               <div className="mt-1 text-right text-[9px] text-gray-400">
@@ -797,7 +827,7 @@ function LiveReportPageInner() {
         {/* Step 2：見え方チェック */}
         {step === 2 && (
           <main className="zr-container space-y-7 pb-12 pt-8">
-            <section className="border-t border-[#1c171b] pt-5">
+            <section className="border-t border-divider pt-5">
               <p className="artist-kicker">02 / VIEW RATING</p>
               <h2 className="artist-heading">見え方チェック</h2>
               <p className="mb-4 mt-0.5 text-[9px] text-gray-400">見え方を教えてください</p>

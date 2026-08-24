@@ -4,6 +4,7 @@ import Link from "next/link";
 import { BarChart3, Camera, ListMusic, Map, MoveRight } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
+import { REPORT_TONE_CLASSES, type ReportTone } from "@/lib/designTokens";
 import type { CrawledEvent } from "@/lib/types";
 
 type ReportType = "ticket" | "arena_prediction" | "live" | "setlist";
@@ -15,7 +16,7 @@ type ReportChoice = {
   description: string;
   meta: string;
   Icon: LucideIcon;
-  tone: "ticket" | "seat" | "live" | "setlist";
+  tone: ReportTone;
 };
 
 function ReportChoiceLink({ choice, eventId, index }: { choice: ReportChoice; eventId?: string | null; index: number }) {
@@ -25,7 +26,7 @@ function ReportChoiceLink({ choice, eventId, index }: { choice: ReportChoice; ev
         <choice.Icon
           size={21}
           strokeWidth={1.7}
-          className={{ ticket: "text-[#e94a7d]", seat: "text-[#6176d7]", live: "text-[#dd8053]", setlist: "text-[#8165bb]" }[choice.tone]}
+          className={REPORT_TONE_CLASSES[choice.tone].text}
         />
         <span className="text-[9px] font-black tracking-[0.16em] text-[#958d93]">
           {String(index + 1).padStart(2, "0")} / REPORT
@@ -48,10 +49,10 @@ function ReportChoiceLink({ choice, eventId, index }: { choice: ReportChoice; ev
 
   const className = `group flex min-h-[126px] flex-col justify-between rounded-[18px] border border-white/80 p-3 shadow-[0_10px_26px_rgba(91,67,79,.06)] sm:min-h-[184px] sm:rounded-[24px] sm:p-6 ${
     {
-      ticket: "bg-[#fff0f5]",
-      seat: "bg-[#edf0ff]",
-      live: "bg-[#fff1ea]",
-      setlist: "bg-[#f4efff]",
+      ticket: REPORT_TONE_CLASSES.ticket.background,
+      seat: REPORT_TONE_CLASSES.seat.background,
+      live: REPORT_TONE_CLASSES.live.background,
+      setlist: REPORT_TONE_CLASSES.setlist.background,
     }[choice.tone]
   } ${choice.href ? "" : "cursor-default opacity-45"}`;
 

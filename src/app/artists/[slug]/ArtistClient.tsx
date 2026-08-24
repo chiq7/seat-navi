@@ -461,7 +461,7 @@ export function ArtistClient({
   }
 
   return (
-    <main className="min-h-screen bg-[#fff9fb] font-sans text-[#2b252b]">
+    <main className="min-h-screen bg-background font-sans text-foreground">
       <HeroSection
         key={artist.slug}
         artistName={artist.name}
@@ -496,14 +496,16 @@ export function ArtistClient({
                 <button
                   type="button"
                   onClick={() => setActiveEventTab("current")}
-                  className={`zr-focus min-h-10 flex-1 rounded-full px-3 text-[12px] font-black transition-colors ${activeEventTab === "current" ? "bg-[#ef4f87] text-white shadow-sm" : "text-[#846d79] hover:bg-[#fff1f6]"}`}
+                  aria-pressed={activeEventTab === "current"}
+                  className={`zr-focus min-h-11 flex-1 rounded-full px-3 text-[12px] font-black transition-colors ${activeEventTab === "current" ? "bg-[#ef4f87] text-white shadow-sm" : "text-[#846d79] hover:bg-[#fff1f6]"}`}
                 >
                   これからの公演
                 </button>
                 <button
                   type="button"
                   onClick={() => setActiveEventTab("past")}
-                  className={`zr-focus min-h-10 flex-1 rounded-full px-3 text-[12px] font-black transition-colors ${activeEventTab === "past" ? "bg-[#ef4f87] text-white shadow-sm" : "text-[#846d79] hover:bg-[#fff1f6]"}`}
+                  aria-pressed={activeEventTab === "past"}
+                  className={`zr-focus min-h-11 flex-1 rounded-full px-3 text-[12px] font-black transition-colors ${activeEventTab === "past" ? "bg-[#ef4f87] text-white shadow-sm" : "text-[#846d79] hover:bg-[#fff1f6]"}`}
                 >
                   過去の公演
                 </button>

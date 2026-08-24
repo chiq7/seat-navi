@@ -21,9 +21,9 @@ export default function ArtistActionHub({ artistName, slug }: Props) {
       label: "座席を見る",
       description: "座席表・見え方",
       Icon: Map,
-      cardClass: "bg-[#edf0ff]",
-      iconClass: "text-[#6176d7]",
-      descriptionClass: "text-[#68718e]",
+      cardClass: "bg-[#f2edff]",
+      iconClass: "text-[#7655b2]",
+      descriptionClass: "text-[#7c718e]",
     },
     {
       href: "#reports",
@@ -39,9 +39,9 @@ export default function ArtistActionHub({ artistName, slug }: Props) {
       label: "セトリ",
       description: "曲順・MC",
       Icon: ListMusic,
-      cardClass: "bg-[#f4efff]",
-      iconClass: "text-[#8165bb]",
-      descriptionClass: "text-[#7c718e]",
+      cardClass: "bg-[#edf6ff]",
+      iconClass: "text-[#397fb8]",
+      descriptionClass: "text-[#687f91]",
     },
   ];
 

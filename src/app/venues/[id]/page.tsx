@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { CalendarDays, MapPin, MoveRight, Users } from "lucide-react";
+import { MapPin, MoveRight, Users } from "lucide-react";
 import { Header } from "@/components/common/Header";
 import { InfoListRow } from "@/components/common/InfoListRow";
+import { EventListRow } from "@/components/common/EventListRow";
 import SeoEditorialSection from "@/components/seo/SeoEditorialSection";
 import { resolveArtist } from "@/lib/artists";
-import { parseEventTitle } from "@/lib/eventTitle";
 import { getVenueSeoProfile } from "@/lib/seoProfiles";
 import { serializeJsonLd } from "@/lib/structuredData";
 import { SEO_VENUES, findSeoVenue, getVenueEvents, splitVenueEvents } from "@/lib/venueSeo";
@@ -14,12 +14,6 @@ import type { CrawledEvent } from "@/lib/types";
 const SITE_URL = "https://tixrepo.com";
 
 type Props = { params: Promise<{ id: string }> };
-
-function formatVenueEventDate(date: string | null): string {
-  if (!date) return "日程未定";
-  const [year, month, day] = date.split("-").map(Number);
-  return `${year}.${month}.${day}`;
-}
 
 export function generateStaticParams() {
   return SEO_VENUES.map((venue) => ({ id: venue.id }));
@@ -47,27 +41,15 @@ function EventList({ events, emptyText, initialCount = 6 }: { events: CrawledEve
   if (events.length === 0) {
     return <p className="border-y border-dashed border-[#ded8dc] bg-white px-4 py-7 text-center text-[12px] font-bold text-[#958d93]">{emptyText}</p>;
   }
-  const renderEvents = (rows: CrawledEvent[], offset = 0) => rows.map((event, localIndex) => {
-        const index = offset + localIndex;
+  const renderEvents = (rows: CrawledEvent[]) => rows.map((event) => {
         const artist = resolveArtist(event);
-        const title = parseEventTitle(event.title, artist?.name).tourName;
         return (
-          <InfoListRow
+          <EventListRow
             key={event.id}
-            href={`/events/${event.id}`}
-            ariaLabel={`${title}の公演・座席情報を見る`}
-            className="group"
-          >
-            <div>
-              <p className="text-[9px] font-black tracking-[0.14em] text-[#958d93]">LIVE {String(index + 1).padStart(2, "0")}</p>
-              <p className="mt-1 flex items-center gap-1 text-[10px] font-black text-[#f43679] sm:mt-2 sm:gap-1.5 sm:text-[11px]"><CalendarDays size={13} />{formatVenueEventDate(event.date)}</p>
-            </div>
-            <div className="min-w-0">
-              <p className="line-clamp-2 text-[14px] font-black leading-5 tracking-[-0.025em] text-[#4b4148]">{title}</p>
-              {artist && <p className="mt-1 text-[10px] font-bold text-[#817981]">{artist.name}</p>}
-            </div>
-            <MoveRight size={17} className="shrink-0 text-[#f43679] transition-transform group-hover:translate-x-1" />
-          </InfoListRow>
+            event={event}
+            artistName={artist?.name}
+            secondary={artist?.name ?? "アーティスト未設定"}
+          />
         );
       });
   const visibleEvents = events.slice(0, initialCount);
@@ -81,7 +63,7 @@ function EventList({ events, emptyText, initialCount = 6 }: { events: CrawledEve
           <summary className="zr-focus mx-auto flex min-h-11 w-fit cursor-pointer list-none items-center rounded-full bg-[#fff0f5] px-5 text-[12px] font-black text-[#c93868]">
             残り{remainingEvents.length}件を見る
           </summary>
-          <div className="mt-4 border-y border-[#ded8dc] bg-white">{renderEvents(remainingEvents, initialCount)}</div>
+          <div className="mt-4 border-y border-[#ded8dc] bg-white">{renderEvents(remainingEvents)}</div>
         </details>
       )}
     </div>
@@ -171,7 +153,7 @@ export default async function VenuePage({ params }: Props) {
           <p className="artist-kicker">Upcoming Live</p>
           <h2 id="upcoming-events-title" className="artist-heading">これから開催される公演</h2>
           <p className="mt-2 flex items-center gap-2 text-[11px] font-bold text-[#817981]"><MapPin size={14} className="text-[#f43679]" />{venue.name}のライブ予定</p>
-          <div className="mt-3"><EventList events={upcoming} emptyText="現在、登録されている開催予定はありません" initialCount={5} /></div>
+          <div className="mt-3"><EventList events={upcoming} emptyText="現在、登録されている開催予定はありません" initialCount={10} /></div>
         </section>
 
         {past.length > 0 && (
