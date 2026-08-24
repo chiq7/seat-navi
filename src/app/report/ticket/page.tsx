@@ -183,7 +183,7 @@ function SuccessScreen({
           <p className="community-subtitle mt-3">あなたの記録が、次に同じ会場へ行く人の助けになります。</p>
         </div>
       </section>
-      <div className="zr-container border-b border-[#eadfe4]"><ProgressSteps steps={["結果", "詳細", "任意", "完了"]} currentStep={3} /></div>
+      <div className="zr-container border-b border-[#eadfe4]"><ProgressSteps steps={["当落", "申込・座席", "任意", "完了"]} currentStep={3} /></div>
       <main className="zr-container flex-1 py-6">
         <section className="community-panel p-5 text-center sm:p-7">
           <div className="flex justify-center">
@@ -462,7 +462,7 @@ function TicketReportPageInner() {
       </section>
 
         {/* ステップインジケーター */}
-        <div className="zr-container border-b border-[#eadfe4]"><ProgressSteps steps={["結果", "詳細", "任意", "完了"]} currentStep={step - 1} /></div>
+        <div className="zr-container border-b border-[#eadfe4]"><ProgressSteps steps={["当落", "申込・座席", "任意", "完了"]} currentStep={step - 1} /></div>
 
         {/* Step 1：当落確認 */}
         {step === 1 && (
@@ -484,11 +484,11 @@ function TicketReportPageInner() {
               }}
             />
             <main className="zr-container space-y-8 pb-12 pt-4">
-            {/* 今回の結果 */}
+            {/* 当落を選んだ後は、集計に必要な申込情報の入力へ進む */}
             <div>
-              <p className="artist-kicker">CHOOSE RESULT</p>
+              <p className="artist-kicker">01 / RESULT</p>
               <h2 className="mb-5 mt-1 text-[22px] font-black tracking-[-0.035em]">
-                今回の結果を教えてください
+                当落を選んでください
               </h2>
               <div className="grid grid-cols-2 gap-2.5">
                 <button
@@ -519,13 +519,13 @@ function TicketReportPageInner() {
                   <p className="mb-3 truncate border-y border-divider py-2 text-[11px] font-bold text-muted">
                     送信内容：{selectedEventRow?.title ?? "公演未選択"} ・ {result === "当選した" ? "当選" : "落選"}
                   </p>
+                  <p className="mb-3 text-[10px] font-bold leading-5 text-[#817981]">
+                    次に抽選条件を入力します。当選した場合は座席情報まで記録できます。
+                  </p>
                   {error && <p className="mb-3 text-[11px] font-bold text-red-600">{error}</p>}
                   <FormActionGroup>
-                    <FormActionButton onClick={handleSubmit} disabled={!selectedEvent || submitting}>
-                      <Send size={16} aria-hidden="true" />{submitting ? "投稿中..." : "この結果だけ送信"}
-                    </FormActionButton>
-                    <FormActionButton variant="secondary" onClick={() => setStep(2)}>
-                      座席・申込詳細を追加
+                    <FormActionButton onClick={() => setStep(2)} disabled={!selectedEvent}>
+                      申込条件を入力する
                     </FormActionButton>
                   </FormActionGroup>
                 </div>
@@ -541,8 +541,8 @@ function TicketReportPageInner() {
             {/* 共通項目 */}
             <section className="community-panel p-5">
               <p className="artist-kicker">02 / REQUIRED</p>
-              <h2 className="artist-heading">必須情報</h2>
-              <p className="mb-6 mt-2 text-[10px] font-bold text-[#817981]">報告に必要な項目です</p>
+              <h2 className="artist-heading">申込条件を入力</h2>
+              <p className="mb-6 mt-2 text-[10px] font-bold text-[#817981]">当選率を正しく集計するための必須項目です</p>
               <div className="space-y-4">
                 {/* 抽選種別 */}
                 <Row label="抽選種別">
