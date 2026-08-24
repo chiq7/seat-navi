@@ -334,7 +334,7 @@ export function EventDetailClient({
                 </Link>
               )}
               <Link
-                href={`/report?event=${encodeURIComponent(eventId)}${artist?.slug ? `&artist=${encodeURIComponent(artist.slug)}` : ""}`}
+                href={`/report/live?event=${encodeURIComponent(eventId)}`}
                 className="zr-focus mt-3 flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[#f43679] px-5 text-[12px] font-black text-white"
               >
                 <Sparkles size={16} aria-hidden="true" />最初のレポを投稿

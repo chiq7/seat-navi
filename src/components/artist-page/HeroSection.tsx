@@ -7,6 +7,7 @@ import { CalendarDays, MapPin } from "lucide-react";
 import { rateText } from "@/lib/artistPageHelpers";
 import { ShareButton } from "@/components/common/ShareButton";
 import { AccountLink } from "@/components/auth/AccountLink";
+import FavoriteArtistButton from "@/components/auth/FavoriteArtistButton";
 import { Header } from "@/components/common/Header";
 import { DEFAULT_ARTIST_HERO_IMAGE, resolveArtistHeroImage } from "@/lib/artistPageData";
 
@@ -93,7 +94,10 @@ export default function HeroSection({
         <div className="zr-container absolute inset-x-0 bottom-0 pb-5 sm:pb-7">
           <div className="max-w-[860px] rounded-[28px] bg-white/88 p-5 shadow-[0_14px_38px_rgba(129,55,83,.14)] backdrop-blur-md sm:p-7">
           <p className="text-[10px] font-black tracking-[0.2em] text-[#e4487b]">FAN&apos;S LIVE NOTE</p>
-          <h1 className="mt-2 text-[38px] font-black leading-none tracking-[-0.055em] text-[#2b252b] sm:text-[56px] lg:text-[72px]">{artistName}</h1>
+          <div className="mt-2 flex flex-wrap items-center gap-2.5 sm:gap-4">
+            <h1 className="min-w-0 text-[38px] font-black leading-none tracking-[-0.055em] text-[#2b252b] sm:text-[56px] lg:text-[72px]">{artistName}</h1>
+            <FavoriteArtistButton artistSlug={slug} showLabel className="bg-white/95" />
+          </div>
           <div className="mt-3 flex flex-wrap items-center gap-2">
             <p className="max-w-[680px] text-[14px] font-bold leading-6 text-[#594651] sm:text-[17px]">
               {nextEvent ? (tourTitle || artistName) : "次回公演 発表待ち"}

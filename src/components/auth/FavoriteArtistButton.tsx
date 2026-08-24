@@ -10,6 +10,7 @@ type FavoriteArtistButtonProps = {
   artistSlug: string;
   initialUserId?: string | null;
   initialFavorite?: boolean;
+  showLabel?: boolean;
   className?: string;
   onChange?: (favorite: boolean) => void;
 };
@@ -25,6 +26,7 @@ export default function FavoriteArtistButton({
   artistSlug,
   initialUserId,
   initialFavorite = false,
+  showLabel = false,
   className = "",
   onChange,
 }: FavoriteArtistButtonProps) {
@@ -94,13 +96,14 @@ export default function FavoriteArtistButton({
       aria-label={favorite ? "推し登録を解除" : "推しに登録"}
       aria-pressed={favorite}
       title={favorite ? "推し登録を解除" : "推しに登録"}
-      className={`zr-focus flex h-11 w-11 shrink-0 items-center justify-center rounded-full border shadow-sm transition-colors disabled:opacity-60 ${
+      className={`zr-focus flex h-11 shrink-0 items-center justify-center rounded-full border shadow-sm transition-colors disabled:opacity-60 ${showLabel ? "min-w-[92px] gap-1.5 px-3" : "w-11"} ${
         favorite
           ? "border-[#FF6B9D] bg-[#FF6B9D] text-white"
           : "border-pink-100 bg-white/95 text-[#FF6B9D]"
       } ${className}`}
     >
-      <Heart size={18} strokeWidth={1.8} fill={favorite ? "currentColor" : "none"} />
+      <Heart size={18} strokeWidth={1.8} fill={favorite ? "currentColor" : "none"} aria-hidden="true" />
+      {showLabel && <span className="text-[10px] font-black">{favorite ? "登録済み" : "推し登録"}</span>}
     </button>
   );
 }

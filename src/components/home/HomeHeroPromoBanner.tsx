@@ -54,7 +54,7 @@ export default function HomeHeroPromoBanner() {
   function showSlide(index: number) {
     const element = scrollRef.current;
     if (!element) return;
-    element.scrollTo({ left: element.clientWidth * index, behavior: "smooth" });
+    element.scrollTo({ left: element.clientWidth * index, top: 0, behavior: "smooth" });
   }
 
   return (
@@ -67,7 +67,7 @@ export default function HomeHeroPromoBanner() {
       <div
         ref={scrollRef}
         onScroll={handleScroll}
-        className="hide-scrollbar flex min-h-[142px] snap-x snap-mandatory overflow-x-auto sm:min-h-[172px] lg:min-h-[190px]"
+        className="hide-scrollbar flex min-h-[142px] snap-x snap-mandatory overflow-x-auto overflow-y-hidden sm:min-h-[172px] lg:min-h-[190px]"
       >
         {slides.map((slide) => (
           <Link

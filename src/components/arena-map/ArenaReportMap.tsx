@@ -343,6 +343,7 @@ export function ArenaReportMap({
           width: `${svgW}px`,
           display: "block",
           overflow: "visible",
+          marginInline: isCompact ? undefined : "auto",
           userSelect: "none",
           WebkitUserSelect: "none",
           WebkitTouchCallout: "none",

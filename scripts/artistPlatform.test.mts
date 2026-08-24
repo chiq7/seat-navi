@@ -1006,6 +1006,10 @@ test("favorite controls are functional, compact, and outside navigation links", 
     path.join(projectRoot, "src/app/artists/[slug]/ArtistClient.tsx"),
     "utf8",
   );
+  const artistHero = fs.readFileSync(
+    path.join(projectRoot, "src/components/artist-page/HeroSection.tsx"),
+    "utf8",
+  );
   const searchPage = fs.readFileSync(
     path.join(projectRoot, "src/app/search/page.tsx"),
     "utf8",
@@ -1017,8 +1021,10 @@ test("favorite controls are functional, compact, and outside navigation links", 
   assert.match(homeCard, /<FavoriteArtistButton/);
   assert.doesNotMatch(homeCard, /<button/);
   assert.doesNotMatch(homeCard, /M4\.318 6\.318/);
-  assert.match(artistClient, /過去の公演[\s\S]*<FavoriteArtistButton/);
-  assert.doesNotMatch(artistClient, /<HeroSection[\s\S]*\/>\s*<FavoriteArtistButton/);
+  assert.doesNotMatch(artistClient, /FavoriteArtistButton/);
+  assert.match(artistHero, /<h1[\s\S]*\{artistName\}[\s\S]*<FavoriteArtistButton artistSlug=\{slug\} showLabel/);
+  assert.match(favoriteButton, /showLabel \? "min-w-\[92px\]/);
+  assert.match(favoriteButton, /推し登録/);
   assert.match(searchPage, /<\/InfoListRow>\s*\{favoritesReady \? \(\s*<FavoriteArtistButton/);
 });
 
@@ -1075,12 +1081,52 @@ test("home hero explains the core features and reserves a monetization banner", 
   assert.match(heroSource, /\/artists\/seventeen/);
   assert.match(heroSource, /\/artists\/yoasobi/);
   assert.match(heroSource, /snap-x snap-mandatory overflow-x-auto/);
+  assert.match(heroSource, /overflow-y-hidden/);
+  assert.match(heroSource, /top: 0/);
   assert.match(heroSource, /aria-current=\{activeIndex === index/);
   assert.match(heroSource, /href="\/search"/);
   assert.match(heroSource, /href="\/report"/);
   assert.doesNotMatch(heroSource, /FAN COMMUNITY/);
   assert.doesNotMatch(heroSource, /ライブのこと、/);
   assert.doesNotMatch(heroSource, /実際に行ったファンの記録/);
+});
+
+test("event empty states open the live report form without an extra report hub step", () => {
+  const source = fs.readFileSync(
+    path.join(projectRoot, "src/app/events/[id]/EventDetailClient.tsx"),
+    "utf8",
+  );
+
+  assert.match(source, /href=\{`\/report\/live\?event=\$\{encodeURIComponent\(eventId\)\}`\}/);
+  assert.doesNotMatch(source, /href=\{`\/report\?event=\$\{encodeURIComponent\(eventId\)/);
+});
+
+test("desktop map and navigation use intentional full-width compositions", () => {
+  const arenaMap = fs.readFileSync(
+    path.join(projectRoot, "src/components/arena-map/ArenaReportMap.tsx"),
+    "utf8",
+  );
+  const bottomNav = fs.readFileSync(
+    path.join(projectRoot, "src/components/common/BottomNav.tsx"),
+    "utf8",
+  );
+
+  assert.match(arenaMap, /marginInline: isCompact \? undefined : "auto"/);
+  assert.match(bottomNav, /fixed bottom-0 left-1\/2/);
+  assert.doesNotMatch(bottomNav, /lg:relative|lg:bottom-auto|lg:translate-x-0/);
+});
+
+test("setlist uses the same artist-photo hero language as other artist subpages", () => {
+  const source = fs.readFileSync(
+    path.join(projectRoot, "src/app/artists/[slug]/setlist/SetlistClient.tsx"),
+    "utf8",
+  );
+
+  assert.match(source, /<Image[\s\S]*src=\{heroImageSrc\}/);
+  assert.match(source, /SETLIST ARCHIVE/);
+  assert.match(source, /セトリ・ライブの曲順/);
+  assert.match(source, /DEFAULT_ARTIST_HERO_IMAGE/);
+  assert.doesNotMatch(source, /<section className="community-hero">/);
 });
 
 test("featured home event cards stay compact with single-line text", () => {

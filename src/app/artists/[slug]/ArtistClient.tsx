@@ -31,7 +31,6 @@ import OfficialNewsSection from "@/components/artist-page/OfficialNewsSection";
 import UpcomingEventsSection from "@/components/artist-page/UpcomingEventsSection";
 import { BottomNav } from "@/components/common/BottomNav";
 import type { TopPrediction } from "@/components/artist-page/SeatPredictionPreviewSection";
-import FavoriteArtistButton from "@/components/auth/FavoriteArtistButton";
 import SeoEditorialSection from "@/components/seo/SeoEditorialSection";
 import ArtistActionHub from "@/components/artist-page/ArtistActionHub";
 import ArtistBoardPreview from "@/components/artist-page/ArtistBoardPreview";
@@ -509,7 +508,6 @@ export function ArtistClient({
                 >
                   過去の公演
                 </button>
-                <FavoriteArtistButton artistSlug={slug} />
               </div>
             </section>
           </div>
