@@ -5,10 +5,8 @@ import { useSearchParams } from "next/navigation";
 import { Camera, CheckCircle2, RotateCcw, Send, X } from "lucide-react";
 import Link from "next/link";
 import { trackEvent } from "@/lib/analytics";
-import { anonymousSupabase, getPostingContext, supabase } from "@/lib/supabase/client";
+import { anonymousSupabase, getPostingContext } from "@/lib/supabase/client";
 import { resolveArtist } from "@/lib/artists";
-import { getEventsForArtist } from "@/lib/events";
-import { dedupeVenueEventsForDisplay, findDisplayedEventRepresentative } from "@/lib/eventDisplay";
 import { CompactEventPickerSection } from "@/components/common/CompactEventPickerSection";
 import { CompactHeroIntro } from "@/components/common/CompactHeroIntro";
 import { ShareButton } from "@/components/common/ShareButton";
@@ -246,48 +244,28 @@ function LiveReportPageInner() {
   const [submittedEvent, setSubmittedEvent] = useState<EventRow | null>(null);
 
   useEffect(() => {
+    let cancelled = false;
     async function load() {
       const preselectedEventId = searchParams.get("event");
-
-      let anchorEvent: EventRow | null = null;
-      if (preselectedEventId) {
-        const { data: single } = await supabase
-          .from("events")
-          .select("id, title, venue, venue_id, date, artist_slug")
-          .eq("id", preselectedEventId)
-          .maybeSingle();
-        anchorEvent = (single as EventRow) ?? null;
+      const artistSlug = searchParams.get("artist");
+      const params = new URLSearchParams();
+      if (preselectedEventId) params.set("event", preselectedEventId);
+      if (artistSlug) params.set("artist", artistSlug);
+      try {
+        const response = await fetch(`/api/public/report-events?${params.toString()}`);
+        if (!response.ok) throw new Error("report events request failed");
+        const payload = await response.json() as { events?: EventRow[]; selectedEventId?: string | null };
+        if (cancelled) return;
+        setEvents(payload.events ?? []);
+        if (payload.selectedEventId) setSelectedEvent(payload.selectedEventId);
+      } catch {
+        if (!cancelled) setError("公演一覧を読み込めませんでした。時間をおいてもう一度お試しください。");
+      } finally {
+        if (!cancelled) setEventsLoading(false);
       }
-
-      const targetArtistSlug = anchorEvent
-        ? (anchorEvent.artist_slug ?? resolveArtist(anchorEvent)?.slug ?? null)
-        : null;
-
-      let rows: EventRow[];
-      if (targetArtistSlug) {
-        rows = (await getEventsForArtist(targetArtistSlug)) as EventRow[];
-      } else {
-        const { data } = await supabase
-          .from("events")
-          .select("id, title, venue, venue_id, date, artist_slug")
-          .order("date", { ascending: false })
-          .limit(50);
-        rows = dedupeVenueEventsForDisplay((data ?? []) as EventRow[]) as EventRow[];
-      }
-      if (anchorEvent && !rows.some((r) => r.id === anchorEvent!.id)) {
-        const representative = findDisplayedEventRepresentative(rows, anchorEvent);
-        if (!representative) rows = [anchorEvent, ...rows];
-      }
-
-      setEvents(rows);
-      const representative = anchorEvent ? findDisplayedEventRepresentative(rows, anchorEvent) : null;
-      const initial = preselectedEventId
-        ? (rows.some((r) => r.id === preselectedEventId) ? preselectedEventId : representative?.id)
-        : rows[0]?.id;
-      if (initial) setSelectedEvent(initial);
-      setEventsLoading(false);
     }
-    load();
+    void load();
+    return () => { cancelled = true; };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

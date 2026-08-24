@@ -1,9 +1,9 @@
 import { ReportEntryClient } from "./ReportEntryClient";
 import { resolveArtist } from "@/lib/artists";
-import { queryEventsForArtist } from "@/lib/events";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { getCachedArtistEvents, getCachedPublicEvent } from "@/lib/serverEventData";
+import { getCachedRecentReportEvents } from "@/lib/serverReportData";
 import type { CrawledEvent } from "@/lib/types";
-import { dedupeVenueEventsForDisplay, findDisplayedEventRepresentative } from "@/lib/eventDisplay";
+import { findDisplayedEventRepresentative } from "@/lib/eventDisplay";
 
 type SearchParams = {
   event?: string | string[];
@@ -19,55 +19,42 @@ export default async function ReportEntryPage({ searchParams }: { searchParams: 
   const params = await searchParams;
   const initialEventId = firstValue(params.event);
   const initialArtistSlug = firstValue(params.artist);
-  const client = await createSupabaseServerClient();
   let initialEvents: CrawledEvent[] = [];
   let initialSelectedId: string | null = null;
 
-  if (client) {
-    let anchorEvent: CrawledEvent | null = null;
-    if (initialEventId && !initialArtistSlug) {
-      const { data } = await client
-        .from("events")
-        .select("id, title, venue, venue_id, date, genre, lottery_types, artist_slug")
-        .eq("id", initialEventId)
-        .maybeSingle();
-      anchorEvent = (data as CrawledEvent) ?? null;
-    }
+  let anchorEvent: CrawledEvent | null = null;
+  if (initialEventId) {
+    anchorEvent = (await getCachedPublicEvent(initialEventId))?.event ?? null;
+  }
 
-    const targetArtistSlug = initialArtistSlug
-      ?? (anchorEvent?.artist_slug ?? (anchorEvent ? resolveArtist(anchorEvent)?.slug : null));
+  const targetArtistSlug = initialArtistSlug
+    ?? (anchorEvent?.artist_slug ?? (anchorEvent ? resolveArtist(anchorEvent)?.slug : null));
 
-    if (targetArtistSlug) {
-      initialEvents = (await queryEventsForArtist(client, targetArtistSlug)).sort((a, b) =>
-        (b.date ?? "").localeCompare(a.date ?? ""),
-      );
-    } else {
-      const { data } = await client
-        .from("events")
-        .select("id, title, venue, venue_id, date, genre, lottery_types, artist_slug")
-        .order("date", { ascending: false })
-        .limit(50);
-      initialEvents = dedupeVenueEventsForDisplay((data as CrawledEvent[]) ?? []);
-    }
+  if (targetArtistSlug) {
+    initialEvents = [...await getCachedArtistEvents(targetArtistSlug)].sort((a, b) =>
+      (b.date ?? "").localeCompare(a.date ?? ""),
+    );
+  } else {
+    initialEvents = await getCachedRecentReportEvents();
+  }
 
-    if (initialEventId) {
-      if (initialEvents.some((event) => event.id === initialEventId)) {
+  if (initialEventId) {
+    if (initialEvents.some((event) => event.id === initialEventId)) {
+      initialSelectedId = initialEventId;
+    } else if (anchorEvent) {
+      const representative = findDisplayedEventRepresentative(initialEvents, anchorEvent);
+      if (representative) {
+        initialSelectedId = representative.id;
+      } else {
+        initialEvents = [anchorEvent, ...initialEvents];
         initialSelectedId = initialEventId;
-      } else if (anchorEvent) {
-        const representative = findDisplayedEventRepresentative(initialEvents, anchorEvent);
-        if (representative) {
-          initialSelectedId = representative.id;
-        } else {
-          initialEvents = [anchorEvent, ...initialEvents];
-          initialSelectedId = initialEventId;
-        }
       }
     }
-    if (!initialSelectedId && targetArtistSlug) {
-      initialSelectedId = initialEvents.find(
-        (event) => (event.artist_slug ?? resolveArtist(event)?.slug) === targetArtistSlug,
-      )?.id ?? null;
-    }
+  }
+  if (!initialSelectedId && targetArtistSlug) {
+    initialSelectedId = initialEvents.find(
+      (event) => (event.artist_slug ?? resolveArtist(event)?.slug) === targetArtistSlug,
+    )?.id ?? null;
   }
 
   return (

@@ -90,10 +90,11 @@ test("generic report entry keeps a neutral state until the user chooses a perfor
   assert.match(reportPageSource, /const initialEventId = firstValue\(params\.event\)/);
   assert.match(reportPageSource, /const initialArtistSlug = firstValue\(params\.artist\)/);
   assert.match(reportPageSource, /let anchorEvent: CrawledEvent \| null = null/);
-  assert.match(reportPageSource, /initialEventId && !initialArtistSlug/);
+  assert.match(reportPageSource, /getCachedPublicEvent\(initialEventId\)/);
   assert.match(reportPageSource, /const targetArtistSlug = initialArtistSlug/);
   assert.match(reportPageSource, /anchorEvent\?\.artist_slug/);
-  assert.match(reportPageSource, /queryEventsForArtist\(client, targetArtistSlug\)/);
+  assert.match(reportPageSource, /getCachedArtistEvents\(targetArtistSlug\)/);
+  assert.match(reportPageSource, /getCachedRecentReportEvents\(\)/);
   assert.match(reportPageSource, /if \(!initialSelectedId && targetArtistSlug\)/);
   assert.doesNotMatch(reportPageSource, /initialSelectedId = initialEvents\[0\]\.id/);
   assert.match(reportEntrySource, /initialEvents: CrawledEvent\[\]/);
@@ -615,12 +616,15 @@ test("crawler defers a different-title existing slot instead of silently treatin
 });
 
 test("report routes use the same representative event selection as display lists", () => {
-  const sources = [
-    "src/app/report/page.tsx",
+  const reportPage = fs.readFileSync(path.join(projectRoot, "src/app/report/page.tsx"), "utf8");
+  const reportEventsRoute = fs.readFileSync(path.join(projectRoot, "src/app/api/public/report-events/route.ts"), "utf8");
+  const formSources = [
     "src/app/report/ticket/page.tsx",
     "src/app/report/live/page.tsx",
   ].map((file) => fs.readFileSync(path.join(projectRoot, file), "utf8"));
-  for (const source of sources) assert.match(source, /findDisplayedEventRepresentative/);
+  assert.match(reportPage, /findDisplayedEventRepresentative/);
+  assert.match(reportEventsRoute, /findDisplayedEventRepresentative/);
+  for (const source of formSources) assert.match(source, /api\/public\/report-events/);
   assert.match(fs.readFileSync(path.join(projectRoot, "src/lib/events.ts"), "utf8"), /dedupeVenueEventsForDisplay/);
 });
 
