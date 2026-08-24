@@ -83,7 +83,7 @@ function requireShardValue(argument: string): NonNullable<CrawlerArgs["shard"]> 
 
 export function validateExecutionSafety(
   args: CrawlerArgs,
-  env: NodeJS.ProcessEnv,
+  env: Readonly<Record<string, string | undefined>>,
 ): void {
   if (!args.execute) return;
   if (!args.classify) {

@@ -3,6 +3,7 @@ import { ARTIST_SEARCH_ALIASES } from "@/lib/artistSearchAliases";
 import { VENUES, type VenueConfig } from "@/lib/eventCrawlerConfig";
 import { normalizeForSearch, searchTextScore } from "@/lib/keywordMatch";
 import { isTestArtist, isTestEvent } from "@/lib/seoData";
+import { isArtistOnlyEventTitle } from "@/lib/eventTitle";
 import { supabase } from "@/lib/supabase/client";
 import type { CrawledEvent } from "@/lib/types";
 
@@ -153,7 +154,10 @@ export function rankEventSearchResults(
   const requiresAllTerms = searchTerms.length >= 2;
 
   return events
-    .filter((event) => !isTestEvent(event))
+    .filter((event) => {
+      const artist = event.artist_slug ? ARTISTS.find((candidate) => candidate.slug === event.artist_slug) : null;
+      return !isTestEvent(event) && !isArtistOnlyEventTitle(event.title, artist?.name);
+    })
     .map((event) => {
       const titleScore = includeTextMatches ? searchTextScore(query, event.title) : 0;
       const venueScore = includeTextMatches ? searchTextScore(query, event.venue) : 0;

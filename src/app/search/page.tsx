@@ -16,7 +16,7 @@ import { getSearchEventDestination, searchArtists, searchEvents, searchVenues, t
 import { supabase } from "@/lib/supabase/client";
 import type { CrawledEvent } from "@/lib/types";
 import { isVagueHomeVenue } from "@/lib/homeData";
-import { parseEventTitle } from "@/lib/eventTitle";
+import { isArtistOnlyEventTitle, parseEventTitle } from "@/lib/eventTitle";
 
 const POPULAR_SEARCH_ARTIST_SLUGS = [
   "snow-man",
@@ -96,7 +96,10 @@ function SearchPageInner() {
       if (cancelled) return;
       const safeRows = ((data as CrawledEvent[]) ?? []).filter((event) => {
         const artist = event.artist_slug ? findArtistBySlug(event.artist_slug) : null;
-        return Boolean(artist) && !isVagueHomeVenue(event.venue) && !parseEventTitle(event.title, artist?.name).isTestData;
+        return Boolean(artist)
+          && !isVagueHomeVenue(event.venue)
+          && !parseEventTitle(event.title, artist?.name).isTestData
+          && !isArtistOnlyEventTitle(event.title, artist?.name);
       });
       setRecentEvents(safeRows.slice(0, 4));
       setRecentEventsLoading(false);

@@ -4,6 +4,7 @@ import { findArtistBySlug, resolveUniqueArtistMatch } from "@/lib/artists";
 import type { CrawledEvent } from "@/lib/types";
 import { compareUpcomingEvents } from "@/lib/artistPageData";
 import { dedupeVenueEventsForDisplay } from "@/lib/eventDisplay";
+import { isArtistOnlyEventTitle } from "@/lib/eventTitle";
 
 const EVENT_COLUMNS = "id, title, venue, venue_id, date, genre, lottery_types, artist_slug";
 
@@ -33,10 +34,12 @@ export async function queryEventsForArtist(
 
   const [{ data: bySlug }, { data: byKeyword }] = await Promise.all([bySlugPromise, byKeywordPromise]);
 
-  const rows = ((bySlug as CrawledEvent[]) ?? []).map((event) => ({
-    ...event,
-    artist_match_source: "explicit" as const,
-  }));
+  const rows = ((bySlug as CrawledEvent[]) ?? [])
+    .filter((event) => !isArtistOnlyEventTitle(event.title, artist?.name))
+    .map((event) => ({
+      ...event,
+      artist_match_source: "explicit" as const,
+    }));
 
   if (!artist) return rows;
 
@@ -46,6 +49,7 @@ export async function queryEventsForArtist(
   // ILIKEはあくまで候補を広く拾うための事前フィルタとして使い、単独では確定させない。
   const extra = ((byKeyword as CrawledEvent[]) ?? [])
     .filter((event) => resolveUniqueArtistMatch(event.title).artist?.slug === artistSlug)
+    .filter((event) => !isArtistOnlyEventTitle(event.title, artist.name))
     .filter((e) => !rows.some((r) => r.id === e.id))
     .map((event) => ({ ...event, artist_match_source: "keyword" as const }));
 

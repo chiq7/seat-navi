@@ -19,7 +19,7 @@ import {
   selectNextEvent,
   selectPredictionEventId,
 } from "@/lib/artistPageData";
-import { parseEventTitle } from "@/lib/eventTitle";
+import { isArtistOnlyEventTitle, parseEventTitle } from "@/lib/eventTitle";
 import { classifyAgainstExisting, dedupeRows, dedupeRowsWithReview, toEventRows } from "@/lib/eventCrawler";
 import type { CrawledEvent, OfficialNews } from "@/lib/types";
 import { OFFICIAL_NEWS_AUDIT_COUNTS } from "@/lib/officialNewsRegistry";
@@ -546,8 +546,8 @@ test("venue display uses only confirmed translation aliases and event id pairs",
 
 test("display dedupe never collapses different venues when venue ids are missing", () => {
   const rows = [
-    fixtureEvent({ id: "tokyo", date: "2026-07-11", venue: "東京ドーム", venue_id: null, title: "FIXTURE LIVE", artist_slug: "fixture-artist" }),
-    fixtureEvent({ id: "osaka", date: "2026-07-11", venue: "京セラドーム大阪", venue_id: null, title: "FIXTURE LIVE", artist_slug: "fixture-artist" }),
+    fixtureEvent({ id: "tokyo", date: "2026-07-11", venue: "東京ドーム", venue_id: undefined, title: "FIXTURE LIVE", artist_slug: "fixture-artist" }),
+    fixtureEvent({ id: "osaka", date: "2026-07-11", venue: "京セラドーム大阪", venue_id: undefined, title: "FIXTURE LIVE", artist_slug: "fixture-artist" }),
   ];
   assert.deepEqual(dedupeVenueEventsForDisplay(rows).map((event) => event.id), ["tokyo", "osaka"]);
 });
@@ -745,6 +745,12 @@ test("event titles remove only a leading artist after an optional year", () => {
   assert.equal(testData.tourName, "2026 TOUR");
 });
 
+test("artist-only event titles are held back until a formal tour title is confirmed", () => {
+  assert.equal(isArtistOnlyEventTitle("なにわ男子", "なにわ男子"), true);
+  assert.equal(isArtistOnlyEventTitle(" なにわ男子 ", "なにわ男子"), true);
+  assert.equal(isArtistOnlyEventTitle("なにわ男子 LIVE TOUR 2026「ND⁵」", "なにわ男子"), false);
+});
+
 test("artist matching preserves explicit slug, fills unique matches, and rejects ambiguity", () => {
   const alpha = fixtureArtist({ slug: "alpha", name: "ALPHA", keywords: ["ALPHA", "SHARED"] });
   const beta = fixtureArtist({ slug: "beta", name: "BETA", keywords: ["BETA", "SHARED"] });
@@ -783,6 +789,24 @@ test("crawler rows persist only unique artist matches and report unresolved titl
   assert.equal(converted.rows[1].artist_slug, null);
   assert.equal(converted.rows[2].artist_slug, null);
   assert.deepEqual(converted.artistAssociations.map((item) => item.status), ["matched", "ambiguous", "none"]);
+});
+
+test("crawler holds back artist-only calendar labels instead of saving them as tour titles", () => {
+  const alpha = fixtureArtist({ slug: "alpha", name: "ALPHA", keywords: ["ALPHA"] });
+  const converted = toEventRows(
+    [
+      { title: "ALPHA", date: "2026-08-01", genre: "other" },
+      { title: "ALPHA LIVE TOUR", date: "2026-08-02", genre: "other" },
+    ],
+    { id: "fixture-arena", name: "Fixture Arena" },
+    null,
+    null,
+    new Date("2026-07-23T00:00:00Z"),
+    "https://example.com/schedule",
+    [alpha],
+  );
+  assert.deepEqual(converted.rows.map((row) => row.title), ["ALPHA LIVE TOUR"]);
+  assert.deepEqual(converted.incompleteTitles.map((entry) => entry.reason), ["artist_name_only"]);
 });
 
 test("prediction target uses selected, next, then latest past event", () => {

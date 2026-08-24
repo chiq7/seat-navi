@@ -108,7 +108,8 @@ type CrawlReport = {
 type ReportHandle = { reportPath: string; save: () => void };
 
 export type CrawlerDependencies = {
-  env: NodeJS.ProcessEnv;
+  /** テスト時は必要な環境変数だけを渡せるよう、ProcessEnvの部分集合を受け取る。 */
+  env: Partial<NodeJS.ProcessEnv>;
   loadEnvironment: () => { loaded: boolean; setCount: number };
   getSites: () => SiteConfig[];
   fetchList: (config: SiteConfig) => Promise<ListFetchResult>;

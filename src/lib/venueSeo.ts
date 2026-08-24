@@ -1,7 +1,9 @@
 import "server-only";
 import { unstable_cache } from "next/cache";
 import { getJstDateString } from "@/lib/artistPageData";
+import { resolveArtist } from "@/lib/artists";
 import { VENUES, getVenueIdAliases, type VenueConfig } from "@/lib/eventCrawlerConfig";
+import { isArtistOnlyEventTitle } from "@/lib/eventTitle";
 import { isTestEvent } from "@/lib/seoData";
 import { createSupabasePublicClient } from "@/lib/supabase/public";
 import { dedupeVenueEventsForDisplay } from "@/lib/eventDisplay";
@@ -28,7 +30,10 @@ export async function getVenueEvents(venueId: string): Promise<CrawledEvent[]> {
         .order("date", { ascending: true })
         .limit(300);
 
-      const publicEvents = ((data as CrawledEvent[]) ?? []).filter((event) => !isTestEvent(event));
+      const publicEvents = ((data as CrawledEvent[]) ?? []).filter((event) => {
+        const artist = resolveArtist(event);
+        return !isTestEvent(event) && !isArtistOnlyEventTitle(event.title, artist?.name);
+      });
       return dedupeVenueEventsForDisplay(publicEvents);
     },
     ["public-venue-events-v2", venue.id],

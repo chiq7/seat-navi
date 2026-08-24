@@ -61,6 +61,7 @@ export async function GET(req: NextRequest) {
   let totalSkippedAmbiguous = 0;
   let totalSkippedSameSlotCandidates = 0;
   let totalInvalidDates = 0;
+  let totalIncompleteTitles = 0;
   const failed: string[] = [];
   const reports: Array<Record<string, unknown>> = [];
   const indexNowUrls = new Set<string>();
@@ -90,6 +91,7 @@ export async function GET(req: NextRequest) {
     totalSkippedAmbiguous += result.skippedAmbiguous.length;
     totalSkippedSameSlotCandidates += result.skippedSameSlotCandidates.length;
     totalInvalidDates += result.invalidDates.length;
+    totalIncompleteTitles += result.incompleteTitles.length;
     if (result.failed) failed.push(venue.name);
     if (!dryRun && result.saved > 0) {
       for (const row of result.newRows) {
@@ -151,6 +153,8 @@ export async function GET(req: NextRequest) {
       skippedSameSlotCandidates: result.skippedSameSlotCandidates,
       invalidDatesCount: result.invalidDates.length,
       invalidDates: result.invalidDates,
+      incompleteTitlesCount: result.incompleteTitles.length,
+      incompleteTitles: result.incompleteTitles,
       multiDayExpansions: result.multiDayExpansions,
       artistAssociations: result.artistAssociations,
       // 保存予定件数には newRows のみを含める(既存一致・要確認・invalidDatesは含めない)
@@ -210,6 +214,7 @@ export async function GET(req: NextRequest) {
     totalSkippedAmbiguous,
     totalSkippedSameSlotCandidates,
     totalInvalidDates,
+    totalIncompleteTitles,
     officialTourReports,
     failed,
     reports,

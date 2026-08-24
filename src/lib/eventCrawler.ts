@@ -10,6 +10,7 @@ import type { DisabledVenue, FollowMonthLinksVenue, MonthlyPatternVenue, VenueCo
 import { generateMonthlyPages, getVenueIdAliases, targetMonths } from "@/lib/eventCrawlerConfig";
 import { ARTISTS, assignArtistSlug, type Artist } from "@/lib/artists";
 import { hasDistinctPerformanceSession } from "@/lib/eventIdentity";
+import { isArtistOnlyEventTitle } from "@/lib/eventTitle";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type AnySupabaseClient = SupabaseClient<any, any, any>;
@@ -62,6 +63,7 @@ export const EXTRACT_PROMPT = (venueName: string, text: string) => `\
 - スポーツ試合・展示会・会議・卒業式等は除外
 - コンサート/ライブが一件もなければ空配列 [] を返す
 - タイトルが空の場合はスキップ
+- アーティスト名だけ（例: "なにわ男子"）は正式な公演名ではないため抽出しない。ツアー名やイベント名がページ上で確認できない場合は [] を返す
 
 テキスト:
 ${text}`;
@@ -174,6 +176,17 @@ export type InvalidDateEntry = {
   venueId: string;
   rawDate: string | null;
   sourceUrl: string;
+};
+
+/** 会場カレンダーがツアー名を省略したため、自動公開を保留した抽出行。 */
+export type IncompleteTitleEntry = {
+  title: string;
+  artistSlug: string;
+  artistName: string;
+  venue: string;
+  rawDate: string | null;
+  sourceUrl: string;
+  reason: "artist_name_only";
 };
 
 export type MultiDayExpansion = {
@@ -717,11 +730,13 @@ export function toEventRows(
 ): {
   rows: EventRow[];
   invalidDates: InvalidDateEntry[];
+  incompleteTitles: IncompleteTitleEntry[];
   multiDayExpansions: MultiDayExpansion[];
   artistAssociations: ArtistAssociationReport[];
 } {
   const rows: EventRow[] = [];
   const invalidDates: InvalidDateEntry[] = [];
+  const incompleteTitles: IncompleteTitleEntry[] = [];
   const multiDayExpansions: MultiDayExpansion[] = [];
   const artistAssociations: ArtistAssociationReport[] = [];
 
@@ -742,6 +757,24 @@ export function toEventRows(
       candidateSlugs: assigned.match.candidateSlugs,
       reason: assigned.match.reason,
     });
+
+    const matchedArtist = assigned.event.artist_slug
+      ? artists.find((artist) => artist.slug === assigned.event.artist_slug)
+      : null;
+    if (matchedArtist && isArtistOnlyEventTitle(title, matchedArtist.name)) {
+      // 会場カレンダーは出演者名だけを出すことがある。推測で正式ツアー名を補わず、
+      // 公式ツアー照合または手動確認が済むまで保存しない。
+      incompleteTitles.push({
+        title,
+        artistSlug: matchedArtist.slug,
+        artistName: matchedArtist.name,
+        venue: venue.name,
+        rawDate: ev.date ?? null,
+        sourceUrl,
+        reason: "artist_name_only",
+      });
+      continue;
+    }
     const dates = splitDateTokens(ev.date, pageYear, pageMonth, now);
 
     if (dates.length === 0) {
@@ -766,7 +799,7 @@ export function toEventRows(
       });
     }
   }
-  return { rows, invalidDates, multiDayExpansions, artistAssociations };
+  return { rows, invalidDates, incompleteTitles, multiDayExpansions, artistAssociations };
 }
 
 export function normalizeTitle(title: string): string {
@@ -947,6 +980,7 @@ export type VenueResult = {
   skippedAmbiguous: AmbiguousMatch[];
   skippedSameSlotCandidates: SkippedSameSlotCandidate[];
   invalidDates: InvalidDateEntry[];
+  incompleteTitles: IncompleteTitleEntry[];
   multiDayExpansions: MultiDayExpansion[];
   artistAssociations: ArtistAssociationReport[];
   saved: number;
@@ -1030,6 +1064,7 @@ export async function processVenue(
   const perPage = pageReports.map((r) => toEventRows(r.events, venue, r.page.year, r.page.month, now, r.page.url));
   let rows = perPage.flatMap((p) => p.rows);
   const invalidDates = perPage.flatMap((p) => p.invalidDates);
+  const incompleteTitles = perPage.flatMap((p) => p.incompleteTitles);
   const multiDayExpansions = perPage.flatMap((p) => p.multiDayExpansions);
   const artistAssociations = perPage.flatMap((p) => p.artistAssociations);
   const deduped = dedupeRowsWithReview(rows);
@@ -1069,6 +1104,7 @@ export async function processVenue(
     skippedAmbiguous,
     skippedSameSlotCandidates,
     invalidDates,
+    incompleteTitles,
     multiDayExpansions,
     artistAssociations,
     saved,

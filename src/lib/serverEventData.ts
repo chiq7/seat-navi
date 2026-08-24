@@ -15,7 +15,7 @@ export async function getCachedPublicEvent(eventId: string): Promise<EventOgInfo
       const client = createSupabasePublicClient();
       if (!client) return null;
       const info = await queryEventWithArtist(client, eventId);
-      if (!info) return null;
+      if (!info || isTestEvent(info.event)) return null;
       return { ...info, isTestData: isTestEvent(info.event) };
     },
     ["public-event", eventId],

@@ -1,6 +1,6 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { resolveArtist, type Artist } from "@/lib/artists";
-import { parseEventTitle } from "@/lib/eventTitle";
+import { isArtistOnlyEventTitle, parseEventTitle } from "@/lib/eventTitle";
 import { fmtDate, seatAreaLabel } from "@/lib/artistPageHelpers";
 
 export type UpcomingEvent = {
@@ -104,7 +104,7 @@ export async function getUpcomingHomeEvents(client: SupabaseClient): Promise<Upc
   const validRows: { ev: HomeEventRow; artist: Artist }[] = [];
   for (const ev of rows) {
     const artist = resolveArtist(ev);
-    if (!artist || isTestEvent(ev, artist) || isVagueHomeVenue(ev.venue)) continue;
+    if (!artist || isTestEvent(ev, artist) || isArtistOnlyEventTitle(ev.title, artist.name) || isVagueHomeVenue(ev.venue)) continue;
     validRows.push({ ev, artist });
   }
   if (validRows.length === 0) return [];

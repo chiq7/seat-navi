@@ -39,6 +39,7 @@ async function main() {
   let totalSkippedAmbiguous = 0;
   let totalSkippedSameSlotCandidates = 0;
   let totalInvalidDates = 0;
+  let totalIncompleteTitles = 0;
   const failed: string[] = [];
   const reports: Array<Record<string, unknown>> = [];
 
@@ -59,6 +60,7 @@ async function main() {
     totalSkippedAmbiguous += result.skippedAmbiguous.length;
     totalSkippedSameSlotCandidates += result.skippedSameSlotCandidates.length;
     totalInvalidDates += result.invalidDates.length;
+    totalIncompleteTitles += result.incompleteTitles.length;
     if (result.failed) failed.push(venue.name);
 
     for (const r of result.pageReports) {
@@ -92,6 +94,9 @@ async function main() {
     }
     if (result.invalidDates.length > 0) {
       console.log(`  日付不明・無効のため除外(invalid_date): ${JSON.stringify(result.invalidDates)}`);
+    }
+    if (result.incompleteTitles.length > 0) {
+      console.log(`  正式タイトル未確認のため保留(artist_name_only): ${JSON.stringify(result.incompleteTitles)}`);
     }
     if (result.multiDayExpansions.length > 0) {
       console.log(`  複数日展開: ${JSON.stringify(result.multiDayExpansions)}`);
@@ -132,6 +137,8 @@ async function main() {
       skippedSameSlotCandidates: result.skippedSameSlotCandidates,
       invalidDatesCount: result.invalidDates.length,
       invalidDates: result.invalidDates,
+      incompleteTitlesCount: result.incompleteTitles.length,
+      incompleteTitles: result.incompleteTitles,
       multiDayExpansions: result.multiDayExpansions,
       artistAssociations: result.artistAssociations,
       errors: result.errors,
@@ -148,6 +155,7 @@ async function main() {
     `既存一致合計=${totalMatchedExisting} / 要確認(既存一致)合計=${totalSkippedAmbiguous} / ` +
     `要確認(同枠候補)合計=${totalSkippedSameSlotCandidates} / ` +
     `日付不明・無効(除外)合計=${totalInvalidDates} / ` +
+    `正式タイトル未確認(保留)合計=${totalIncompleteTitles} / ` +
     `DB書き込み 0 件 / 総実行時間=${totalElapsedMs}ms (${(totalElapsedMs / 1000).toFixed(1)}秒)`
   );
   if (failed.length > 0) console.warn(`取得失敗 (${failed.length} 会場): ${failed.join(", ")}`);
@@ -170,6 +178,7 @@ async function main() {
         totalSkippedAmbiguous,
         totalSkippedSameSlotCandidates,
         totalInvalidDates,
+        totalIncompleteTitles,
       },
       null,
       2

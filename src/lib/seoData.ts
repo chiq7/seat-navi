@@ -1,7 +1,7 @@
 import { cache } from "react";
 import { ARTISTS, findArtistBySlug, resolveArtist, type Artist } from "@/lib/artists";
 import { getEventsForArtist } from "@/lib/events";
-import { parseEventTitle } from "@/lib/eventTitle";
+import { isArtistOnlyEventTitle, parseEventTitle } from "@/lib/eventTitle";
 import { getEventWithArtist, getGroupedEventIds, getPredictionCount, getSeatReportCount, type EventOgInfo } from "@/lib/og/eventOgData";
 import { getReportOgInfo, type ReportOgInfo } from "@/lib/og/reportOgData";
 import { supabase } from "@/lib/supabase/client";
@@ -24,7 +24,9 @@ export function isTestArtist(
 
 export function isTestEvent(event: Pick<CrawledEvent, "artist_slug" | "title">): boolean {
   const artist = resolveArtist(event);
-  return event.artist_slug === "test" || parseEventTitle(event.title, artist?.name).isTestData;
+  return event.artist_slug === "test"
+    || parseEventTitle(event.title, artist?.name).isTestData
+    || isArtistOnlyEventTitle(event.title, artist?.name);
 }
 
 function getPublicEventArtistSlug(event: Pick<CrawledEvent, "artist_slug" | "title">): string | null {

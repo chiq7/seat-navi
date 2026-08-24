@@ -14,6 +14,25 @@ function escapeRegExp(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
+/** 会場カレンダーの短縮タイトルを、正式なツアー名と誤認しないための比較キー。 */
+function normalizedTitleKey(value: string): string {
+  return value
+    .normalize("NFKC")
+    .toLocaleLowerCase("ja-JP")
+    .replace(/[\s　「」『』“”‘’"'【】()[\]（）]/g, "")
+    .trim();
+}
+
+/**
+ * 例: title="なにわ男子" / artistName="なにわ男子" のような、
+ * ツアー名が欠けた短縮タイトルを判定する。
+ */
+export function isArtistOnlyEventTitle(title: string, artistName?: string | null): boolean {
+  if (!artistName?.trim()) return false;
+  const normalizedTitle = normalizedTitleKey(title);
+  return Boolean(normalizedTitle) && normalizedTitle === normalizedTitleKey(artistName);
+}
+
 /**
  * イベントタイトルから先頭付近のアーティスト名と【テストデータ】タグを分離する。
  * アーティスト名より前に許容するのは西暦表記だけで、タイトル途中の名称は削除しない。
