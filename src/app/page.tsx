@@ -11,13 +11,12 @@ import SiteNewsSection from "@/components/home/SiteNewsSection";
 import LoginCta from "@/components/home/LoginCta";
 import SectionHeader from "@/components/home/SectionHeader";
 import {
-  getUpcomingHomeEvents,
   selectProvisionalFeaturedEvents,
   type HomeFeedItem,
   type UpcomingEvent,
 } from "@/lib/homeData";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
-import { getCachedRealtimeFeed } from "@/lib/serverHomeData";
+import { getCachedRealtimeFeed, getCachedUpcomingHomeEvents } from "@/lib/serverHomeData";
 
 export const metadata: Metadata = {
   title: "ちけレポ｜ライブの当落・座席・現地レポをみんなでシェア",
@@ -33,7 +32,6 @@ const getHomeRequestContext = cache(async () => {
 
   return {
     client,
-    upcomingEvents: getUpcomingHomeEvents(client),
     auth: client.auth.getUser(),
   };
 });
@@ -62,7 +60,7 @@ const getHomeEventState = cache(async () => {
   });
 
   const [upcomingEvents, favoriteState] = await Promise.all([
-    context.upcomingEvents,
+    getCachedUpcomingHomeEvents(),
     favoriteStatePromise,
   ]);
 

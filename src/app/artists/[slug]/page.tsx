@@ -4,8 +4,7 @@ import { ArtistClient } from "./ArtistClient";
 import { getSeoArtist, isTestArtist, SITE_URL } from "@/lib/seoData";
 import { getArtistSeoProfile } from "@/lib/seoProfiles";
 import { serializeJsonLd } from "@/lib/structuredData";
-import { queryEventsForArtist } from "@/lib/events";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { getCachedArtistEvents } from "@/lib/serverEventData";
 
 type PageProps = { params: Promise<{ slug: string }> };
 
@@ -48,8 +47,9 @@ export default async function Page({ params }: PageProps) {
   const { slug } = await params;
   const artist = getSeoArtist(slug);
   if (!artist) notFound();
-  const client = await createSupabaseServerClient();
-  const initialEvents = client ? await queryEventsForArtist(client, slug) : [];
+  // 公演一覧は公開データなので、ログイン状態ごとにDBを読み直さず共有キャッシュを使う。
+  // お気に入りや投稿状態はクライアント側の既存処理をそのまま維持する。
+  const initialEvents = await getCachedArtistEvents(slug);
   const profile = getArtistSeoProfile(slug);
   const structuredData = profile
     ? {
