@@ -1,4 +1,5 @@
 {
+  "ignoreCommand": "git log -1 --format=%B | grep -Fxq 'tixrepo-news-only-release-20260930'",
   "regions": ["hnd1"],
   "crons": [
     {

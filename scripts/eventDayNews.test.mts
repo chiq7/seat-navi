@@ -305,3 +305,26 @@ test("the real CLI artifact option removes all quote text while keeping source o
     fs.rmSync(temporary, { recursive: true, force: true });
   }
 });
+
+test("Vercel ignores only the latest NEWS-only release marker and preserves existing regions and cron configuration", () => {
+  const config = JSON.parse(fs.readFileSync(path.join(projectRoot, "vercel.json"), "utf8"));
+  const marker = "tixrepo-news-only-release-20260930";
+  assert.equal(config.ignoreCommand, `git log -1 --format=%B | grep -Fxq '${marker}'`);
+  assert.deepEqual(config.regions, ["hnd1"]);
+  assert.deepEqual(config.crons, [
+    { path: "/api/cron/fetch-events", schedule: "0 2 * * 1" },
+    { path: "/api/cron/fetch-external-seats", schedule: "5 0 * * *" },
+  ]);
+  assert.equal(Object.hasOwn(config, "git"), false);
+  const bash = process.platform === "win32" ? "C:/Program Files/Git/bin/bash.exe" : "bash";
+  for (const [message, expected] of [
+    [`chore: reviewed NEWS release\n\n${marker}\n`, 0],
+    ["feat: next public UI release", 1],
+    [`prefix ${marker} suffix`, 1],
+  ] as const) {
+    const result = spawnSync(bash, ["-c",
+      'git() { printf "%s\\n" "$TASK_TEST_COMMIT_MESSAGE"; }\n' + config.ignoreCommand,
+    ], { encoding: "utf8", env: { ...process.env, TASK_TEST_COMMIT_MESSAGE: message } });
+    assert.equal(result.status, expected, result.error?.message ?? result.stderr);
+  }
+});
