@@ -103,6 +103,31 @@ test("URL rules remove volatile query parameters without removing article identi
   );
 });
 
+test("JSON API titles preserve literal fan-event brackets while removing real HTML tags", () => {
+  const titles = [
+    "<2ショット撮影会>参加券のご案内",
+    "<b>追加受付</b> <2ショット撮影会> &amp; 特典",
+    '<strong class="news">NEWS</strong> &#x2605; 更新',
+    "先着順：1 < 2、人数 > 0",
+  ];
+  const articles = mapJsonApiArticles(
+    { items: titles.map((title, index) => ({ title, link: `/info/${index}` })) },
+    {
+      url: "https://api.example.com/news",
+      itemsPath: "items",
+      titleField: "title",
+      urlField: "link",
+    },
+    "https://www.example.com",
+  );
+  assert.deepEqual(articles.map(article => article.title), [
+    "<2ショット撮影会>参加券のご案内",
+    "追加受付 <2ショット撮影会> & 特典",
+    "NEWS ★ 更新",
+    "先着順：1 < 2、人数 > 0",
+  ]);
+});
+
 test("no arguments is dry-run with Gemini disabled", () => {
   const args = parseCrawlerArgs([]);
   assert.equal(args.dryRun, true);

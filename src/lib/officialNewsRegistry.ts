@@ -84,7 +84,7 @@ const SOURCES: Record<string, string> = {
 };
 
 const VERIFIED = new Set([
-  "nogizaka46", "snow-man", "news", "arashi", "the-rampage", "naniwa-danshi", "kis-my-ft2", "nexz", "yoasobi", "kento-nakajima", "kat-tun",
+  "nogizaka46", "snow-man", "stray-kids", "news", "arashi", "the-rampage", "naniwa-danshi", "kis-my-ft2", "nexz", "yoasobi", "kento-nakajima", "kat-tun",
   "seventeen", "doh-kyung-soo-d-o", "ive",
   "sixtones", "equal-love", "treasure", "hiromitsu-kitayama", "ballistik-boyz", "shinee", "team",
   "g-i-dle", "joy", "le-sserafim", "king-prince", "j-soul-brothers", "buddiis", "timelesz", "aespa",
@@ -293,7 +293,21 @@ const DEDICATED_CONFIGS: Record<string, Partial<GenericOfficialNewsConfig>> = {
     urlRules: { allow: ["^https://domotofc\\.jp/news/detail/[A-Za-z0-9]+(?:[/?#]|$)"] },
   },
   "stray-kids": {
-    notes: "2026-07-24 一覧HTMLは空で、Sony Music共通JSによる描画を確認。公式側の安定した記事URL/APIを確定できるまで無効。",
+    strategy: "json_api",
+    verificationStatus: "verified",
+    notes: "2026-09-30 公式NEWSページが使うSony Music公開JSONP APIを確認。robots規則を守り、本文付き20件・日付・アーティスト専用記事URLを実取得検証。",
+    jsonApi: {
+      url: "https://www.sonymusic.co.jp/json/v2/artist/StrayKids/information/start/0/count/20",
+      responseFormat: "jsonp",
+      itemsPath: "items",
+      titleField: "title",
+      urlField: "link",
+      dateField: "date",
+      bodyField: "article",
+      thumbnailField: "images.image",
+      articleUrlBase: "https://www.sonymusic.co.jp",
+    },
+    urlRules: { allow: ["^https://www\\.sonymusic\\.co\\.jp/artist/StrayKids/info/\\d+(?:[/?#]|$)"] },
   },
   "alpha-drive-one": {
     verificationStatus: "candidate",

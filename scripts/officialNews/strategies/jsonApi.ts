@@ -31,6 +31,17 @@ function normalizeDate(value: unknown): string | null {
   return `${match[1]}-${match[2].padStart(2, "0")}-${match[3].padStart(2, "0")}`;
 }
 
+function normalizeApiTitle(title: string): string {
+  // JSON titles can contain literal labels such as <2ショット撮影会>, not HTML.
+  // Keep those labels even when a separate part of the title has real markup.
+  const text = title.replace(/<[^>]+>/g, (token) => (
+    /^<\/?[A-Za-z][A-Za-z0-9:-]*(?:\s[^<>]*|\/?)>$/.test(token)
+      ? token
+      : token.replace(/</g, "&lt;").replace(/>/g, "&gt;")
+  ));
+  return stripHtml(text) || title;
+}
+
 export function mapJsonApiArticles(
   payload: unknown,
   cfg: JsonApiConfig,
@@ -66,7 +77,7 @@ export function mapJsonApiArticles(
         }
       }
       return {
-        title: stripHtml(title) || title,
+        title: normalizeApiTitle(title),
         published_date: normalizeDate(cfg.dateField ? getByPath(item, cfg.dateField) : undefined),
         article_url: articleUrl,
         body: typeof bodyRaw === "string" ? stripHtml(bodyRaw) : null,
@@ -127,7 +138,7 @@ export async function fetchJsonApiDetail(config: SiteConfig, articleUrl: string)
 
     return {
       success: true as const,
-      title: typeof titleRaw === "string" ? stripHtml(titleRaw) : null,
+      title: typeof titleRaw === "string" ? normalizeApiTitle(titleRaw) : null,
       publishedDate: normalizeDate(cfg.dateField ? getByPath(root, cfg.dateField) : undefined),
       thumbnail,
       body,

@@ -28,6 +28,11 @@ on:
         required: false
         type: boolean
         default: false
+      event_day_review_only:
+        description: "trueなら当日まとめの確認候補だけを読み取り生成する。公式NEWS巡回・Gemini分類・DB更新は実行しない。"
+        required: false
+        type: boolean
+        default: false
       group:
         description: "特定グループのみ実行する場合の名前(specialParserNameまたはcmsGroup)。空なら全対象。"
         required: false
@@ -52,6 +57,7 @@ jobs:
       INPUT_GROUP: ${{ inputs.group }}
       INPUT_DRY_RUN: ${{ inputs.dry_run }}
       INPUT_CLASSIFY_WITH_GEMINI: ${{ inputs.classify_with_gemini }}
+      INPUT_EVENT_DAY_REVIEW_ONLY: ${{ inputs.event_day_review_only }}
       WORKFLOW_EVENT_NAME: ${{ github.event_name }}
     steps:
       - name: Checkout
@@ -83,6 +89,7 @@ jobs:
         run: npm run typecheck:crawler
 
       - name: Run official news crawler
+        if: inputs.event_day_review_only != true
         shell: bash
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
@@ -126,6 +133,17 @@ jobs:
 
           if [[ "$crawler_exit" -ne 0 ]]; then exit "$crawler_exit"; fi
           exit "$event_sync_exit"
+
+      - name: Prepare event-day guide review candidates (read-only)
+        if: inputs.event_day_review_only == true || github.event_name == 'schedule' || inputs.dry_run == false
+        shell: bash
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          ARGS=(--read-live --limit 500 --redact-quotes)
+          if [[ -n "$INPUT_ARTIST_SLUG" ]]; then ARGS+=("--artist" "$INPUT_ARTIST_SLUG"); fi
+          node --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/syncEventDayNews.mts "${ARGS[@]}"
 
       - name: Report Gemini free-tier stop
         if: failure() && github.ref == 'refs/heads/main'

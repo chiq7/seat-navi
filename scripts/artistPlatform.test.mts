@@ -381,6 +381,7 @@ test("all audited NEWS configs keep only verified sites enabled", () => {
     ["aimyon", "static_html"],
     ["back-number", "static_html"],
     ["mrs-green-apple", "static_html"],
+    ["stray-kids", "json_api"],
   ]);
   for (const [slug, strategy] of expected) {
     const site = SITE_CONFIGS.find((candidate) => candidate.artistSlug === slug);
@@ -395,13 +396,13 @@ test("all audited NEWS configs keep only verified sites enabled", () => {
   assert.equal(niziu?.enabled, true);
   assert.deepEqual(OFFICIAL_NEWS_AUDIT_COUNTS, {
     total: 75,
-    verified: 60,
+    verified: 61,
     unavailable: 1,
-    needsDedicatedParser: 14,
+    needsDedicatedParser: 13,
   });
   assert.equal(SITE_CONFIGS.length, 93);
-  assert.equal(SITE_CONFIGS.filter((site) => site.enabled).length, 77);
-  assert.equal(SITE_CONFIGS.filter((site) => site.strategy === "auto_html").length, 57);
+  assert.equal(SITE_CONFIGS.filter((site) => site.enabled).length, 78);
+  assert.equal(SITE_CONFIGS.filter((site) => site.strategy === "auto_html").length, 56);
   assert.equal(SITE_CONFIGS.filter((site) => site.verificationStatus === "rejected").length, 0);
   assert.equal(SITE_CONFIGS.find((site) => site.artistSlug === "seventeen")?.strategy, "static_html");
   assert.equal(SITE_CONFIGS.find((site) => site.artistSlug === "doh-kyung-soo-d-o")?.strategy, "rss");
@@ -424,6 +425,13 @@ test("all audited NEWS configs keep only verified sites enabled", () => {
   assert.deepEqual(niziuHosts, ["niziu.com", "www.sonymusic.co.jp"]);
   assert.match(niziu?.jsonApi?.url ?? "", /\/artist\/niziu\/information\//i);
   assert.match(niziu?.urlRules?.allow?.[0] ?? "", /artist\/niziu\/info/i);
+  const strayKids = SITE_CONFIGS.find((site) => site.artistSlug === "stray-kids");
+  assert.equal(strayKids?.jsonApi?.url, "https://www.sonymusic.co.jp/json/v2/artist/StrayKids/information/start/0/count/20");
+  assert.equal(strayKids?.jsonApi?.responseFormat, "jsonp");
+  assert.equal(strayKids?.jsonApi?.bodyField, "article");
+  const strayArticleAllow = new RegExp(strayKids?.urlRules?.allow?.[0] ?? "^$");
+  assert.ok(strayArticleAllow.test("https://www.sonymusic.co.jp/artist/StrayKids/info/587165"));
+  assert.equal(strayArticleAllow.test("https://www.sonymusic.co.jp/artist/NEXZ/info/587165"), false);
 });
 
 test("shared official NEWS domains keep explicit artist-specific routing", () => {
@@ -446,7 +454,7 @@ test("shared official NEWS domains keep explicit artist-specific routing", () =>
     "hololive.hololivepro.com": ["holox", "momosuzu-nene"],
     "mentrecording.jp": ["kis-my-ft2", "snow-man"],
     "nct-jp.net": ["nct-dream", "nct-wish"],
-    "sonymusic.co.jp": ["kento-nakajima", "nexz", "niziu", "yoasobi"],
+    "sonymusic.co.jp": ["kento-nakajima", "nexz", "niziu", "stray-kids", "yoasobi"],
     "starto.jp": ["arashi", "kat-tun", "news"],
     "universal-music.co.jp": ["ado", "king-prince", "shigure-ui", "travis-japan"],
     "wmg.jp": ["chanmina", "number-i", "uratanuki"],
@@ -456,6 +464,7 @@ test("shared official NEWS domains keep explicit artist-specific routing", () =>
   const sonyPaths = new Map([
     ["niziu", /\/artist\/niziu\//i],
     ["nexz", /\/artist\/NEXZ\//],
+    ["stray-kids", /\/artist\/StrayKids\//],
     ["yoasobi", /\/PR\/YOASOBI\//],
     ["kento-nakajima", /\/artist\/KentoNakajima\//],
   ]);
