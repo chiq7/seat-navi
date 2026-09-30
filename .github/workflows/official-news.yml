@@ -135,7 +135,7 @@ jobs:
           exit "$event_sync_exit"
 
       - name: Prepare event-day guide review candidates (read-only)
-        if: inputs.event_day_review_only == true || github.event_name == 'schedule' || inputs.dry_run == false
+        if: vars.EVENT_DAY_CANDIDATE_ARTIFACT_APPROVED == 'true' && (inputs.event_day_review_only == true || github.event_name == 'schedule' || inputs.dry_run == false)
         shell: bash
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}

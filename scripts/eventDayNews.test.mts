@@ -187,7 +187,7 @@ test("review-only workflow defaults off and leaves normal ingestion, quota and s
 test("candidate workflow is bounded SELECT only and preserves shell-safe artist filtering", () => {
   const candidate = workflowStep("Prepare event-day guide review candidates (read-only)");
   assert.match(candidate,
-    /^        if: inputs\.event_day_review_only == true \|\| github\.event_name == 'schedule' \|\| inputs\.dry_run == false/m);
+    /^        if: vars\.EVENT_DAY_CANDIDATE_ARTIFACT_APPROVED == 'true' && \(inputs\.event_day_review_only == true \|\| github\.event_name == 'schedule' \|\| inputs\.dry_run == false\)/m);
   assert.match(candidate, /SUPABASE_URL: \$\{\{ secrets\.SUPABASE_URL \}\}/);
   assert.match(candidate, /SUPABASE_SERVICE_ROLE_KEY: \$\{\{ secrets\.SUPABASE_SERVICE_ROLE_KEY \}\}/);
   assert.doesNotMatch(candidate, /GEMINI_API_KEY|--execute|--classify|\$\{\{\s*inputs\./);
@@ -198,18 +198,25 @@ test("candidate workflow is bounded SELECT only and preserves shell-safe artist 
   assert.ok(workflow.indexOf("Prepare event-day guide") < workflow.indexOf("Report Gemini free-tier stop"));
 });
 
-test("workflow scripts preserve scheduled/live behavior and review-only never invokes the crawler", () => {
+test("workflow scripts require artifact approval while preserving scheduled/live behavior and review-only isolation", () => {
   const bash = process.platform === "win32" ? "C:/Program Files/Git/bin/bash.exe" : "bash";
   const modes = [
-    { event: "schedule", reviewOnly: false, dryRun: "", classify: "", expectedCrawler: true, expectedCandidate: true },
-    { event: "workflow_dispatch", reviewOnly: false, dryRun: "true", classify: "false", expectedCrawler: true, expectedCandidate: false },
-    { event: "workflow_dispatch", reviewOnly: false, dryRun: "false", classify: "true", expectedCrawler: true, expectedCandidate: true },
-    { event: "workflow_dispatch", reviewOnly: true, dryRun: "true", classify: "false", expectedCrawler: false, expectedCandidate: true },
+    { event: "schedule", reviewOnly: false, dryRun: "", classify: "", approved: "", expectedCrawler: true, expectedCandidate: false },
+    { event: "schedule", reviewOnly: false, dryRun: "", classify: "", approved: "false", expectedCrawler: true, expectedCandidate: false },
+    { event: "schedule", reviewOnly: false, dryRun: "", classify: "", approved: "true", expectedCrawler: true, expectedCandidate: true },
+    { event: "workflow_dispatch", reviewOnly: false, dryRun: "true", classify: "false", approved: "true", expectedCrawler: true, expectedCandidate: false },
+    { event: "workflow_dispatch", reviewOnly: false, dryRun: "false", classify: "true", approved: "", expectedCrawler: true, expectedCandidate: false },
+    { event: "workflow_dispatch", reviewOnly: false, dryRun: "false", classify: "true", approved: "true", expectedCrawler: true, expectedCandidate: true },
+    { event: "workflow_dispatch", reviewOnly: true, dryRun: "true", classify: "false", approved: "", expectedCrawler: false, expectedCandidate: false },
+    { event: "workflow_dispatch", reviewOnly: true, dryRun: "true", classify: "false", approved: "true", expectedCrawler: false, expectedCandidate: true },
   ];
   const temporary = fs.mkdtempSync(path.join(os.tmpdir(), "event-day-workflow-"));
   try {
     for (const mode of modes) {
       // Conditions are locked to the exact GitHub boolean expressions in the contract tests above.
+      const candidateAllowed = mode.approved === "true" &&
+        (mode.reviewOnly || mode.event === "schedule" || mode.dryRun === "false");
+      assert.equal(candidateAllowed, mode.expectedCandidate);
       const scripts = [
         ...(mode.expectedCrawler ? [runScript(workflowStep("Run official news crawler"))] : []),
         ...(mode.expectedCandidate ? [runScript(workflowStep("Prepare event-day guide review candidates (read-only)"))] : []),
