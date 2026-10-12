@@ -3,6 +3,7 @@
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState, useId, type PointerEvent } from "react";
 import { Crosshair, X } from "lucide-react";
 import { DomeSeatFrame } from "./DomeSeatFrame";
+import ReadySearchControl from "./ReadySearchControl";
 import { boundsOf, edgeNumberGuide, clampCamera, detailBox, isSeatTap, labelCoversOtherBlock, mapProjection, normalizeSeatInput, placeRowLabel, searchStandSeats, standBlockLabel, standDisplayRows, standLabelOrder, youngEdgeMidpoint, zoomCamera, zoneLabelPositions, type MapBox, type Point, type StandBlock, type StandMapData, type StandPosition } from "./standMap";
 import styles from "./StandSeatMap.module.css";
 
@@ -234,9 +235,9 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   return <DomeSeatFrame className={data.levelViews ? styles.levelControls : undefined} levels={[{ id: "all", label: "すべて" }, ...levels]} level={level} onLevel={id => chooseRegion(id, "all")}
     directions={availableAreas} direction={area} onDirection={id => chooseRegion(level, id)} onZoom={zoom} onWhole={reset} shortcuts={[]}
     directionExtra={<form className={styles.search} onSubmit={search} aria-label="チケットの座席で検索">
-      <label><span>列</span><input value={row} disabled={blockOnlySearch} onChange={e => setRow(e.target.value)} placeholder={blockOnlySearch ? "検索準備中" : data.rowSearchPlaceholder ?? "例：12"} aria-label="列" /></label>
-      <label><span>{blockOnlySearch ? "区画名" : "番号・区画"}</span><input value={number} onChange={e => setNumber(e.target.value)} placeholder={data.searchPlaceholder ?? (blockOnlySearch ? "例：A / 北" : "例：79")} aria-label={blockOnlySearch ? "区画名" : "番号"} /></label>
-      <button type="submit">場所を見る</button>
+      <label><span>列</span><ReadySearchControl><input value={row} disabled={blockOnlySearch} onChange={e => setRow(e.target.value)} placeholder={blockOnlySearch ? "検索準備中" : data.rowSearchPlaceholder ?? "例：12"} aria-label="列" /></ReadySearchControl></label>
+      <label><span>{blockOnlySearch ? "区画名" : "番号・区画"}</span><ReadySearchControl><input value={number} onChange={e => setNumber(e.target.value)} placeholder={data.searchPlaceholder ?? (blockOnlySearch ? "例：A / 北" : "例：79")} aria-label={blockOnlySearch ? "区画名" : "番号"} /></ReadySearchControl></label>
+      <ReadySearchControl><button type="submit">場所を見る</button></ReadySearchControl>
     </form>}>
     {(error || matches.length > 0) && <div className={styles.message} role="status">{error || "席種・列を選ぶか、該当する範囲を選んでください。"}
       {matches.map(b => <button key={b.id} type="button" onClick={() => select(b, true)}>{levels.find(l => l.id === b.level)?.label ?? b.level}{b.balcony && !levels.find(l => l.id === b.level)?.label.includes("バルコニー") ? " バルコニー" : ""}・{rowSummary(b)}・{b.label}</button>)}

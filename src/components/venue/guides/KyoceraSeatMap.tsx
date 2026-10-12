@@ -4,6 +4,7 @@ import { useMemo, useState, type FormEvent } from "react";
 import { LocateFixed, X } from "lucide-react";
 import type { DedicatedVenueGuide, SeatArea } from "@/data/venueGuides/types";
 import { DomeSeatFrame } from "../template/DomeSeatFrame";
+import ReadySearchControl from "../template/ReadySearchControl";
 import styles from "./KyoceraSeatMap.module.css";
 import type { Box } from "./mapGeometry";
 import KyoceraNumberNavigator from "./KyoceraNumberNavigator";
@@ -83,9 +84,9 @@ export default function KyoceraSeatMap({ guide, selectedId, rowLabel, seatNumber
   return <DomeSeatFrame className={styles.seatFrame} levels={levels} level={level} onLevel={showLevel}
     directions={directions} direction={direction} onDirection={showDirection} onZoom={zoom} onWhole={showWhole} zoomLabel="座席図" shortcuts={[]}
     directionExtra={<form className={styles.ticketForm} data-testid="kyocera-ticket-search" onSubmit={submit} aria-label="チケットの座席情報で探す">
-        <label>列<input aria-label="検索する列" placeholder="例：8 / A" value={searchRow} onChange={e => { setSearchRow(e.target.value); resetFeedback(); }} required /></label>
-        <label>番号<input aria-label="検索する席番号" inputMode="numeric" placeholder="例：41" value={number} onChange={e => { setNumber(e.target.value); resetFeedback(); }} required /></label>
-        <button className={styles.searchSubmit} type="submit">場所を見る</button>
+        <label>列<ReadySearchControl><input aria-label="検索する列" placeholder="例：8 / A" value={searchRow} onChange={e => { setSearchRow(e.target.value); resetFeedback(); }} required /></ReadySearchControl></label>
+        <label>番号<ReadySearchControl><input aria-label="検索する席番号" inputMode="numeric" placeholder="例：41" value={number} onChange={e => { setNumber(e.target.value); resetFeedback(); }} required /></ReadySearchControl></label>
+        <ReadySearchControl><button className={styles.searchSubmit} type="submit">場所を見る</button></ReadySearchControl>
       </form>}>
     {(feedback || candidates.length > 1) && <div className={styles.search}>
       {feedback && <div className={styles.searchFeedback}><p className={styles.error} role="alert">{feedback}</p>{(direction !== "all" || level !== "すべて") && <button type="button" onClick={searchWhole}>全体から探す</button>}</div>}

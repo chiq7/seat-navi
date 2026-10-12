@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState, type FormEvent, type PointerEvent as ReactPointerEvent } from "react";
+import ReadySearchControl from "./template/ReadySearchControl";
 import geometry from "@/data/tokyoDomeSeatGeometry.json";
 import { TOKYO_DOME_GATE_ANCHORS } from "@/data/tokyoDomeGateAnchors";
 import { TOKYO_DOME_INNER_GATE_BOUNDARIES, TOKYO_DOME_OUTER_GATE_BOUNDARIES, TOKYO_DOME_OVERVIEW_HOME_CAP } from "@/data/tokyoDomeGateStructure";
@@ -431,9 +432,9 @@ export function TokyoDomeSeatLocator() {
         onLevel={id=>chooseLevel(id as SeatLevel)} directions={(["all","first","home","third","right","left"] as const).map(id=>({id,label:MAP_VIEWS[id].label}))}
         direction={direction} onDirection={id=>chooseDirection(id as keyof typeof MAP_VIEWS)} onZoom={zoomMap} onWhole={showWhole} shortcuts={[]}
         directionExtra={<form className={controls.ticketForm} onSubmit={handleSubmit} aria-label="チケットの座席情報で探す">
-          <label>列<input aria-label="列" inputMode="numeric" value={rowInput} placeholder="例：15" onChange={e=>{setRowInput(e.target.value);setError("");setCandidates([]);}}/></label>
-          <label>番号・区画<input aria-label="番号・ブロック名" value={seatInput} placeholder="55 / E23" required onChange={e=>{setSeatInput(e.target.value);setError("");setCandidates([]);}}/></label>
-          <button className={controls.searchSubmit} type="submit">場所を見る</button>
+          <label>列<ReadySearchControl><input aria-label="列" inputMode="numeric" value={rowInput} placeholder="例：15" onChange={e=>{setRowInput(e.target.value);setError("");setCandidates([]);}}/></ReadySearchControl></label>
+          <label>番号・区画<ReadySearchControl><input aria-label="番号・ブロック名" value={seatInput} placeholder="55 / E23" required onChange={e=>{setSeatInput(e.target.value);setError("");setCandidates([]);}}/></ReadySearchControl></label>
+          <ReadySearchControl><button className={controls.searchSubmit} type="submit">場所を見る</button></ReadySearchControl>
         </form>}>
         {error&&<p role="alert" className={styles.message}>{error} <a href="https://giants-seat.jp/seatmap/" target="_blank" rel="noopener noreferrer">公式の座席図 ↗</a></p>}
         {candidates.length>0&&<div className={controls.candidates}><p>確認できた区画から選んでください</p><div>{candidates.map(area=><button type="button" key={area.code} onClick={()=>{chooseArea(area,true);setSelectedRow(Number(rowInput.normalize("NFKC").replace(/\s/g,"").replace(/列$/,"")));setSelectedSeat(Number(seatInput.normalize("NFKC").trim().replace(/番$/,"")));setNotice("列の線は位置の目安です。");}}>{levelForPrefix(area.code[0])==="upper"?"2階席":"1階席"}・{area.code}</button>)}</div></div>}
