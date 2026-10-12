@@ -13,15 +13,16 @@ import styles from "./TokyoDomeOutsideMap.module.css";
 const kindNames = { mixed: "トイレ", accessible: "バリアフリートイレ", locker: "ロッカー", baby: "授乳", atm: "ATM", information: "案内", food: "飲食" };
 const domeOutline = "M155 395 Q195 305 325 305 Q445 295 520 400 Q565 480 535 580 Q505 665 420 710 Q310 745 230 685 Q145 630 135 530 Q125 465 155 395Z";
 
-export default function TokyoDomeOutsideMap({ spots, selectedZone, selectedSpotId, onSelectZone, compact=false, onNearby }: {
+export default function TokyoDomeOutsideMap({ spots, selectedZone, selectedSpotId, onSelectZone, compact=false, onNearby, initialStationId="" }: {
   compact?: boolean;
+  initialStationId?: string;
   onNearby?: (stationId: string | null) => void;
   spots: readonly DomeGuideSpot[];
   selectedZone: DomeGuideMapZone | null;
   selectedSpotId: string | null;
   onSelectZone: (zone: DomeGuideMapZone) => void;
 }) {
-  const [stationId, setStationId] = useState("");
+  const [stationId, setStationId] = useState(initialStationId);
   const [gateNumber, setGateNumber] = useState("");
   const [gateGroupId, setGateGroupId] = useState("");
   const [size, setSize] = useState({ width: 341, height: 540 });
@@ -88,8 +89,10 @@ export default function TokyoDomeOutsideMap({ spots, selectedZone, selectedSpotI
         const gate = OUTSIDE_GATE_GROUPS.find(item=>item.id===marker.id);
         if(gate) {
           const group=layout.groups.find(item=>item.id===layout.mergedZones[gate.id]);
-          const primary=selectedGate?.group===gate.id?selectedGate.number:gate.gates.join("・");
-          return <button key={marker.id} type="button" style={position} className={styles.gate} aria-pressed={selectedGate?.group===gate.id || gateGroupId === gate.id} aria-label={`${gate.gates.join("・")}ゲート付近を選ぶ${group?`：${group.kinds.map(kind=>kindNames[kind]).join("・")}`:""}`} onClick={()=>{if (gate.gates.length === 1) chooseGate(gate.gates[0]); else { setGateNumber(""); setGateGroupId(gate.id); setStationId(""); onNearby?.(null); } if(group)onSelectZone(group.id);}} data-outside-gate={gate.id} data-outside-zone={group?.id} data-visible-facility-types={group?.kinds.length}><strong>{primary}<small>G</small>{group&&group.kinds.map(kind=>{const Icon=DOME_FACILITY_SIGNS[kind];return <Icon key={kind} size={18} data-facility-kind={kind} aria-hidden="true"/>;})}</strong></button>;
+          const numbers=selectedGate?.group===gate.id?[selectedGate.number]:gate.gates;
+          return <button key={marker.id} type="button" style={position} className={styles.gate} aria-pressed={selectedGate?.group===gate.id || gateGroupId === gate.id} aria-label={`${gate.gates.join("・")}ゲート付近を選ぶ${group?`：${group.kinds.map(kind=>kindNames[kind]).join("・")}`:""}`} onClick={()=>{if (gate.gates.length === 1) chooseGate(gate.gates[0]); else { setGateNumber(""); setGateGroupId(gate.id); setStationId(""); onNearby?.(null); } if(group)onSelectZone(group.id);}} data-outside-gate={gate.id} data-outside-zone={group?.id} data-visible-facility-types={group?.kinds.length}>
+            <strong><span className={styles.gateNumbers}>{numbers.map(number=><span key={number}>{number}</span>)}</span><span className={styles.gateMeta}><small>G</small>{group&&group.kinds.map(kind=>{const Icon=DOME_FACILITY_SIGNS[kind];return <Icon key={kind} size={18} data-facility-kind={kind} aria-hidden="true"/>;})}</span></strong>
+          </button>;
         }
         const group=layout.groups.find(item=>item.id===marker.id)!;
         return <button key={marker.id} type="button" style={position} className={styles.facilities} data-outside-zone={group.id} data-visible-facility-types={group.kinds.length} aria-label={`${group.label}：${group.kinds.map(kind=>kindNames[kind]).join("・")}`} aria-pressed={selectedGroup?.id===group.id} onClick={()=>{clearPlace();onSelectZone(group.id);}}><span className={styles.icons}>{group.kinds.map(kind=>{const Icon=DOME_FACILITY_SIGNS[kind];return <span key={kind} data-facility-kind={kind} title={kindNames[kind]}><Icon size={22} aria-hidden="true"/>{kind==="atm"&&<small>ATM</small>}</span>;})}</span><span className={styles.caption}>{group.short}</span></button>;

@@ -15,6 +15,16 @@ export function tokyoDomeOverviewView(id: typeof TOKYO_DOME_OVERVIEW_AREAS[numbe
   return { x: x - width / 2, y: y - width * .44, width, height: width * .88 };
 }
 
+/** A tier button opens real blocks in that tier, retaining the requested side. */
+export function tokyoDomeTierView(id: typeof TOKYO_DOME_OVERVIEW_AREAS[number]["id"], prefixes: string, size: {width: number}, areas: readonly LabelArea[]): Box {
+  const overview = tokyoDomeOverviewView(id, size);
+  const [focusX, focusY] = TOKYO_DOME_OVERVIEW_AREAS.find(area => area.id === id)!.focus;
+  const target = areas.filter(area => prefixes.includes(area.code[0]))
+    .reduce<LabelArea | undefined>((nearest, area) => !nearest ||
+      Math.hypot(area.label[0] - focusX, area.label[1] - focusY) < Math.hypot(nearest.label[0] - focusX, nearest.label[1] - focusY) ? area : nearest, undefined);
+  return target ? { ...overview, x: target.label[0] - overview.width / 2, y: target.label[1] - overview.height / 2 } : overview;
+}
+
 /** SVG clips labels at the canvas edge, including the extra space from aspect-ratio fitting. */
 export function layoutTokyoDomeSeatLabels(areas: readonly LabelArea[], box: Box) {
   if (box.width > 680) return [];

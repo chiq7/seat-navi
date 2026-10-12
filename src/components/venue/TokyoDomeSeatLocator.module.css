@@ -1,5 +1,6 @@
 .shell { --rose:#a93164; --ink:#493340; --edge:#eedee5; overflow:hidden; border:1px solid var(--edge); border-radius:24px; background:#fff; box-shadow:0 12px 38px #78334b08; color:var(--ink); }
 .title { text-wrap:balance; }
+.seatFrame [aria-label="見る方向"] button[aria-pressed=true] { background:#a93164; color:#fff; box-shadow:inset 0 -3px 0 #752244; }
 .controls { padding:18px 20px 12px; }
 .levels { display:flex; flex-wrap:wrap; gap:6px; }
 .levels button { display:flex; align-items:center; justify-content:center; gap:7px; min-height:42px; padding:8px 14px; border:1px solid var(--edge); border-radius:12px; font-size:13px; font-weight:800; background:#fff; }

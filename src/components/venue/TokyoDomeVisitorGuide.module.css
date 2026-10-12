@@ -203,6 +203,12 @@
 .route small { font-size:10px; color:#7c6471; }
 .route h3 { font-size:18px; }
 .route > strong { text-align:center; background:#f8e7ef; color:#9a305d; padding:6px 4px; font-size:16px; border-radius:7px; }
+.routes .routeLink { grid-template-columns:26px minmax(0,1fr) auto; gap:6px 10px; transition:border-color .15s,background .15s; }
+.routeLink:hover { border-color:#bb6b8e; background:#fff5f9; }
+.routeLink > .trainIcon { grid-row:1 / 3; }
+.routeLink > strong { white-space:nowrap; font-size:13px; }
+.routeDestination { grid-column:2; display:flex; align-items:center; gap:6px; color:#725c68; font-size:12px; }
+.routeMapAction { grid-column:3; display:inline-flex; align-items:center; justify-content:flex-end; gap:3px; color:#a93164; font-size:12px; font-weight:800; white-space:nowrap; }
 .trainIcon { color:#a93164; }
 .arrival { display:flex; flex-direction:column; align-items:center; gap:10px; }
 .arrival > strong { font-size:20px; font-weight:900; }
@@ -304,6 +310,9 @@
  .searchBar select { max-width:90px; font-size:11px; }
  .route { grid-template-columns:minmax(0,1fr) 16px 76px; }
  .route > .trainIcon { display:none; }
+ .routes .routeLink { grid-template-columns:minmax(0,1fr) auto; }
+ .routeLink .routeDestination { grid-column:1; }
+ .routeLink .routeMapAction { grid-column:2; }
  .spotIcon { width:40px; height:44px; }
  .spot summary { padding:12px 10px; gap:8px; }
 }

@@ -32,6 +32,18 @@ export function parseTokyoDomeSection(raw: string): TokyoDomeSection | null {
   return { prefix, number, code };
 }
 
+/** Block names are accepted in either field; numbers always require a row. */
+export function parseTokyoDomeSeatInput(rowInput: string, seatInput: string) {
+  const rowText = rowInput.normalize("NFKC").replace(/\s/g, "").replace(/列$/, "");
+  const seatText = seatInput.normalize("NFKC").replace(/\s/g, "").replace(/番$/, "");
+  const seatSection = parseTokyoDomeSection(seatText);
+  if (seatSection && (!rowText || /^\d+$/.test(rowText))) return { kind: "section" as const, section: seatSection, row: rowText ? Number(rowText) : null, numberUnverified: false };
+  const rowSection = parseTokyoDomeSection(rowText);
+  if (rowSection && (!seatText || /^\d+$/.test(seatText))) return { kind: "section" as const, section: rowSection, row: null, numberUnverified: Boolean(seatText) };
+  if (/^\d+$/.test(rowText) && /^\d+$/.test(seatText)) return { kind: "seat" as const, row: Number(rowText), seat: Number(seatText) };
+  return { kind: "invalid" as const };
+}
+
 export function getTokyoDomeVerifiedSeatBlock(code: string): TokyoDomeVerifiedSeatBlock | undefined {
   return SEARCHABLE_BLOCKS.find(block => block.code === code);
 }

@@ -1,6 +1,8 @@
 import { ArrowRight, ArrowUpRight, CreditCard, Luggage, MapPin, Ticket, TrainFront, Armchair, CircleHelp, Utensils, Accessibility, DoorOpen, Smartphone } from "lucide-react";
 import { DOME_GUIDE_FAQ, DOME_GUIDE_SOURCES as sources, DOME_STATIONS, DOME_GUIDE_CHECKED_AT } from "@/data/tokyoDomeVisitorGuide";
 import { TokyoDomeGuideFinder } from "./TokyoDomeGuideFinder";
+import { tokyoDomeAccessStation } from "@/lib/tokyoDomeAccess";
+import TokyoDomeStationLink from "./TokyoDomeStationLink";
 import VenueLuggageLink from "./template/VenueLuggageLink";
 import styles from "./TokyoDomeVisitorGuide.module.css";
 
@@ -35,11 +37,11 @@ export function TokyoDomeVisitorGuide() {
     <section id="dome-access" aria-labelledby="dome-access-title" className={styles.section}>
       <h2 id="dome-access-title"><TrainFront aria-hidden="true" />駅から東京ドームへ</h2>
       <div className={styles.accessDiagram}>
-        <div className={styles.routes}>{DOME_STATIONS.map((station) => <div key={station.line} className={styles.route}>
+        <div className={styles.routes}>{DOME_STATIONS.flatMap(station => station.exit.split("・").map(exit => ({ ...station, exit }))).map((station) => <TokyoDomeStationLink key={`${station.line}-${station.exit}`} stationId={tokyoDomeAccessStation(station.line,station.exit)!.id} className={`${styles.route} ${styles.routeLink}`} label={`${station.line} ${station.name} ${station.exit}から東京ドームへのマップを見る`}>
           <TrainFront className={styles.trainIcon} size={23} aria-hidden="true" />
           <div><small>{station.line.replace("中央・総武線（各駅停車）", "中央・総武線").replace("東京メトロ", "")}</small><h3>{station.name}</h3></div>
-          <ArrowRight size={18} aria-hidden="true" /><strong>{station.exit}</strong>
-        </div>)}</div>
+          <strong>{station.exit}</strong><span className={styles.routeDestination}><ArrowRight size={16} aria-hidden="true" />東京ドーム</span><span className={styles.routeMapAction}>マップを見る<ArrowUpRight size={16} aria-hidden="true" /></span>
+        </TokyoDomeStationLink>)}</div>
         <div className={styles.arrival}><DomeDrawing /><strong>東京ドーム</strong><a className={styles.solidAction} href="https://www.google.com/maps/search/?api=1&query=%E6%9D%B1%E4%BA%AC%E3%83%89%E3%83%BC%E3%83%A0" target="_blank" rel="noopener noreferrer"><MapPin size={19} aria-hidden="true" />地図を開く<ArrowUpRight size={16} aria-hidden="true" /></a></div>
       </div>
       <div className={styles.twoActions}><a href={sources.gates.url} target="_blank" rel="noopener noreferrer"><DoorOpen aria-hidden="true" /><span>入場ゲート<small>チケットの指定を確認</small></span><ArrowUpRight size={16} aria-hidden="true" /></a><a href={sources.access.url} target="_blank" rel="noopener noreferrer"><Accessibility aria-hidden="true" /><span>段差のないルート<small>水道橋駅西口はEVなし</small></span><ArrowUpRight size={16} aria-hidden="true" /></a></div>
