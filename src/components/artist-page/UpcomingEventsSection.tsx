@@ -30,7 +30,7 @@ export default function UpcomingEventsSection({ artistName, events }: Props) {
       ) : (
         <div className="mt-5 border-t border-[#ded8dc]">
           {visibleEvents.map((event) => (
-            <EventListRow key={event.id} event={event} artistName={artistName} secondary={event.venue} actionLabel="座席マップを見る" />
+            <EventListRow key={event.id} event={event} artistName={artistName} secondary={event.venue} actionLabel="座席表を見る" />
           ))}
           {!expanded && events.length > INITIAL_COUNT && (
             <button

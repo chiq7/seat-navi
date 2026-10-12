@@ -335,7 +335,7 @@ function TicketReportPageInner() {
     } catch (err) {
       if (pendingSubmission.current) setSaveAttemptFailed(true);
       setError(pendingSubmission.current?.writes.ticketSaved
-        ? "当落情報は保存済みですが、座席マップへの反映に失敗しました。再試行では座席だけを送ります。"
+        ? "当落情報は保存済みですが、座席表への反映に失敗しました。再試行では座席だけを送ります。"
         : "保存完了を確認できませんでした。同じ報告IDで再試行できます。");
       console.error("Ticket report submission failed", err instanceof Error ? err.message : "unknown error");
     } finally {
@@ -372,7 +372,7 @@ function TicketReportPageInner() {
   }
 
   if (saveAttemptFailed) {
-    return <main className="community-page min-h-screen"><Header title="報告の保存状況" backHref={reportEntryHref} backLabel="報告画面へ戻る" /><section className="mx-auto max-w-md p-5"><h1 className="text-xl font-bold">{pendingSubmission.current?.writes.ticketSaved ? "座席マップへの反映を再試行" : "保存状況を確認してください"}</h1><p role="alert" className="my-4 text-sm leading-6">{error}</p><button type="button" className="community-primary-button min-h-12 w-full" disabled={submitting} onClick={handleSubmit}>{submitting ? "保存中…" : "同じ報告を再試行"}</button><p className="mt-3 text-xs text-gray-500">この画面では送信済みの内容を保持しています。完了するまでページを閉じずにお待ちください。</p></section></main>;
+    return <main className="community-page min-h-screen"><Header title="報告の保存状況" backHref={reportEntryHref} backLabel="報告画面へ戻る" /><section className="mx-auto max-w-md p-5"><h1 className="text-xl font-bold">{pendingSubmission.current?.writes.ticketSaved ? "座席表への反映を再試行" : "保存状況を確認してください"}</h1><p role="alert" className="my-4 text-sm leading-6">{error}</p><button type="button" className="community-primary-button min-h-12 w-full" disabled={submitting} onClick={handleSubmit}>{submitting ? "保存中…" : "同じ報告を再試行"}</button><p className="mt-3 text-xs text-gray-500">この画面では送信済みの内容を保持しています。完了するまでページを閉じずにお待ちください。</p></section></main>;
   }
 
   return (

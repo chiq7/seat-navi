@@ -78,7 +78,7 @@ async function HomeSeatExample() {
   const historical = data.events.every(event => event.date < getJstDateString());
   return <section className="bg-[#fff8fb] py-4 sm:py-6" aria-label="実際に集まった座席図">
     <div className="zr-container max-w-[760px]">
-      <div className="mb-3 flex items-center gap-2 text-[#40383d]"><Map size={18} className="text-[#a62b59]" aria-hidden="true" /><h2 className="text-[18px] font-black">みんなの座席マップ</h2></div>
+      <div className="mb-3 flex items-center gap-2 text-[#40383d]"><Map size={18} className="text-[#a62b59]" aria-hidden="true" /><h2 className="text-[18px] font-black">みんなの座席表</h2></div>
       <SeatDiscoveryCard data={data} historical={historical} sourceNote="この京セラの座席図には、リセール由来の座席情報も含まれます。" />
     </div>
   </section>;
@@ -106,7 +106,7 @@ function FeaturedEventsSkeleton() {
   return (
     <section className="zr-section bg-section" aria-hidden="true">
       <div className="zr-container">
-        <SectionHeader icon={<Map size={16} color="#FF6B9D" />} title="みんなの座席マップ" />
+        <SectionHeader icon={<Map size={16} color="#FF6B9D" />} title="みんなの座席表" />
         <div className="grid grid-cols-2 gap-2.5 lg:grid-cols-4 lg:gap-3">
           {[0, 1, 2, 3].map((index) => (
             <div key={index} className="h-[108px] animate-pulse rounded-[16px] bg-white shadow-sm" />

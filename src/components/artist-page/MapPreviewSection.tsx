@@ -88,7 +88,7 @@ export default function MapPreviewSection({ mapEvent }: Props) {
         </div>
       </div>
       <div className="grid grid-cols-2 border-t border-divider text-[12px] font-black">
-        <Link href={predictionDetailHref(detailEventId, currentView)} className="zr-focus flex min-h-12 items-center justify-center gap-1 bg-[#f43679] text-white">座席マップを見る<ArrowUpRight size={16} aria-hidden="true" /></Link>
+        <Link href={predictionDetailHref(detailEventId, currentView)} className="zr-focus flex min-h-12 items-center justify-center gap-1 bg-[#f43679] text-white">座席表を見る<ArrowUpRight size={16} aria-hidden="true" /></Link>
         <Link href={`/report/ticket?event=${reportEvent?.id ?? mapEvent.id}`} className="zr-focus flex min-h-12 flex-col items-center justify-center text-[#d62a6b]">
           <span className="flex items-center gap-1"><MapPin size={16} aria-hidden />自分の席を報告</span>
           <span className="text-[10px] font-medium">図に自席が出る</span>

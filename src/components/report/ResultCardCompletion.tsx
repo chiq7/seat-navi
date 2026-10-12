@@ -91,7 +91,7 @@ export function ResultCardCompletion({ card, eventId, artistSlug, onOther, sampl
     <p role="status" className={styles.status}>{status}</p>
     <p className={styles.privacy}><ShieldCheck size={15} aria-hidden="true" />列・席番号は画像に出ません</p>
     <div className="mt-5 grid gap-2 border-t border-[#ded4de] pt-4 text-sm font-bold">
-      <Link className="flex min-h-11 items-center justify-center rounded-lg bg-white" href={ownSeatHref ?? dataHref}>{ownSeatHref ? "追加した座席をマップで見る →" : dataHref !== links.event ? "当落・座席データを見る →" : "この公演の座席マップ・報告を見る →"}</Link>
+      <Link className="flex min-h-11 items-center justify-center rounded-lg bg-white" href={ownSeatHref ?? dataHref}>{ownSeatHref ? "追加した座席を座席表で見る →" : dataHref !== links.event ? "当落・座席データを見る →" : "この公演の座席表・報告を見る →"}</Link>
       <button type="button" className="min-h-11" onClick={onOther}>別の結果を報告する</button>
       {artistSlug && <Link className="flex min-h-11 items-center justify-center text-[#736574]" href={`/artists/${encodeURIComponent(artistSlug)}`}>アーティストページへ</Link>}
     </div>

@@ -19,7 +19,7 @@ export default function ArtistActionHub({ artistName, slug, seatHref }: Props) {
     },
     {
       href: seatHref ?? "#seat-map",
-      label: "座席マップ",
+      label: "座席表",
       description: "集まった座席・配置",
       Icon: Map,
       cardClass: "bg-[#f2edff]",

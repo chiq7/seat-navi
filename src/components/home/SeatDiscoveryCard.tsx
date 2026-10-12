@@ -44,19 +44,19 @@ export default function SeatDiscoveryCard({ data, favoriteControl, preview = fal
 
         <div className={styles.metaRow}>{event && <div className={styles.meta}>
         <p><MapPin size={15} aria-hidden="true" /><strong>{event.venue}</strong></p>
-        <p className={styles.dateRow}><CalendarDays size={15} aria-hidden="true" /><span>{historical && <><strong className={styles.pastLabel}>過去公演</strong>{event.date.slice(0, 4)}年 · </>}{data.events.map(item => discoveryDateLabel(item.date)).join("・")}</span>{!summary.hasMap && <Link href={links.map} className={"zr-focus " + styles.inlineMap} aria-label={data.artistName + "の座席マップを見る"}>マップ<ArrowUpRight size={14} aria-hidden="true" /></Link>}</p>
+        <p className={styles.dateRow}><CalendarDays size={15} aria-hidden="true" /><span>{historical && <><strong className={styles.pastLabel}>過去公演</strong>{event.date.slice(0, 4)}年 · </>}{data.events.map(item => discoveryDateLabel(item.date)).join("・")}</span>{!summary.hasMap && <Link href={links.map} className={"zr-focus " + styles.inlineMap} aria-label={data.artistName + "の座席表を見る"}>座席表<ArrowUpRight size={14} aria-hidden="true" /></Link>}</p>
       </div>}<button type="button" className={"zr-focus " + styles.infoButton} aria-label="集計・表示の説明" aria-expanded={showInfo} aria-controls={infoId} onClick={() => setShowInfo(value => !value)}><Info size={19} aria-hidden="true" /></button></div>
 
       <div className={styles.previewRow + (pendingRates ? " " + styles.pendingPreview : "")}>
         {ready && summary.hasMap && <div className={styles.figure}>
-          <p className={styles.figureLabel}>座席マップ</p>
+          <p className={styles.figureLabel}>座席表</p>
           {predictionPreview ? <div className={styles.map}>
             <EventPredictionSwitch key={eventId} eventId={eventId} reports={data.reports} external={data.externalObservations}
               events={data.events} compact onAddressChange={ignoreAddress} onViewChange={onViewChange}
               readState={data.status === "ready" ? "ready" : "unavailable"} limited={data.limited}>
               <ArenaReportMap eventId={eventId} reports={summary.seats} externalObservations={summary.external} variant="compact" positionOnlyPreview highlightPositionsPreview hideShareSection />
             </EventPredictionSwitch>
-          </div> : <Link href={mapHref} aria-label={data.artistName + "の座席マップを詳しく見る"} className={"zr-focus " + styles.map}>
+          </div> : <Link href={mapHref} aria-label={data.artistName + "の座席表を詳しく見る"} className={"zr-focus " + styles.map}>
               <ArenaReportMap eventId={eventId} reports={summary.seats} externalObservations={summary.external} variant="compact" positionOnlyPreview highlightPositionsPreview hideShareSection />
             </Link>}
           {summary.blocks.length > 0 && <p className={styles.blocks}><span aria-hidden="true" className={styles.dot} />{summary.blocks.slice(0, 6).join(" · ")}{summary.blocks.length > 6 && " …"}</p>}
@@ -75,7 +75,7 @@ export default function SeatDiscoveryCard({ data, favoriteControl, preview = fal
       </div>
 
       <div className={styles.actions}>
-        {summary.hasMap && <Link href={mapHref} className={"zr-focus " + styles.primary}><Map size={17} aria-hidden="true" />座席マップを見る<ArrowUpRight size={16} aria-hidden="true" /></Link>}
+        {summary.hasMap && <Link href={mapHref} className={"zr-focus " + styles.primary}><Map size={17} aria-hidden="true" />座席表を見る<ArrowUpRight size={16} aria-hidden="true" /></Link>}
         {data.events.length > 0 && <div className={styles.reportRow}>
           <label htmlFor={"seat-day-" + instanceId} className={styles.srOnly}>報告する公演日</label>
           <select id={"seat-day-" + instanceId} value={eventId} onChange={e => setEventId(e.target.value)} className={"zr-focus " + styles.select}>
