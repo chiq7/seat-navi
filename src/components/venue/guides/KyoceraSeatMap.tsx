@@ -79,7 +79,7 @@ export default function KyoceraSeatMap({ guide, selectedId, rowLabel, seatNumber
   function searchWhole() { setDirection("all"); setLevel("すべて"); setBox([...whole] as Box); search("all", "すべて"); }
   function showLevel(value: string) {
     clear(); setLevel(value);
-    if (direction !== "all") setBox(kyoceraAreaCamera(blocks, whole, direction, value));
+    setBox(kyoceraAreaCamera(blocks, whole, direction, value));
   }
   return <DomeSeatFrame className={styles.seatFrame} levels={levels} level={level} onLevel={showLevel}
     directions={directions} direction={direction} onDirection={showDirection} onZoom={zoom} onWhole={showWhole} zoomLabel="座席図" shortcuts={[]}

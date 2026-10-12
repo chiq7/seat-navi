@@ -6,6 +6,8 @@ import type { DedicatedVenueGuide, GuideFacility } from "@/data/venueGuides/type
 import { availablePurposes, changeFacilityOutsideView, changeFacilityPlace, facilitiesAroundLandmark, facilitiesForOutsideView, filterFacilities, groupsAroundLandmark, hasUsableLuggage, initialFacilityState, linkFacilitySeatFloor, purposes, resolveLandmarks, selectedFacilityGroup, visibleGroups, type FacilityConfig, type Purpose } from "./facilityFinderState";
 import { mapProjection, type MapBox } from "./standMap";
 import styles from "./VenueFacilityFinder.module.css";
+import VenueGateLabel from "./VenueGateLabel";
+import { VENUE_ACCESS_EVENT, type VenueAccessDetail } from "@/lib/venueAccess";
 import mapStyles from "./VenueFacilityMapCanvas.module.css";
 
 const purposeIcons = { トイレ: ToiletSign, 荷物: LockerSign, 飲食: FoodSign, 赤ちゃん: Milk, 案内: Info, AED: HeartPulse };
@@ -125,6 +127,22 @@ export default function VenueFacilityFinder({ guide, config, ref }: Props) {
       clearLandmarkInput();
     },
   }));
+  useEffect(() => {
+    const open = (event: Event) => {
+      const target = (event as CustomEvent<VenueAccessDetail>).detail;
+      if (!target || target.venueId !== guide.venueId) return;
+      const d = guide.diagrams?.find(d => d.scope === "場外" && d.id === target.diagramId && d.landmarks.some(m => m.id === target.targetId));
+      if (!d) return;
+      const outside = config.outsideViews?.find(v => v.diagramId === d.id && (!v.landmarkIds || v.landmarkIds.includes(target.targetId)));
+      if (config.outsideViews && !outside) return;
+      setOutsideViewId(outside?.id ?? d.id);
+      setState(s => ({ ...changeFacilityPlace(s, {scope:"場外"}, facilitiesForOutsideView(guide.facilities, outside, config), config), origin:target.targetId }));
+      clearLandmarkInput();
+      requestAnimationFrame(() => canvas.current?.scrollIntoView({behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",block:"start"}));
+    };
+    window.addEventListener(VENUE_ACCESS_EVENT, open);
+    return () => window.removeEventListener(VENUE_ACCESS_EVENT, open);
+  }, [guide, config]);
   function resultRow(f: GuideFacility) {
     const publicMeta = config.meta[f.id];
     const name = publicMeta?.name ?? f.name, location = publicMeta?.location ?? f.location;
@@ -141,7 +159,7 @@ export default function VenueFacilityFinder({ guide, config, ref }: Props) {
       {state.scope === "場外" && config.outsideViews && <div className={styles.controlRow}><span className={styles.rowLabel}>区域</span><div className={styles.buttons}>{config.outsideViews.map(view => <button type="button" key={view.id} aria-pressed={view.id === outsideView?.id} onClick={() => outsideArea(view.id)}>{view.label}</button>)}</div></div>}
       <div className={styles.controlRow}><span className={styles.rowLabel}>設備</span><div className={styles.purposes}>{purposes.map(p => { const Icon = purposeIcons[p]; return <button type="button" key={p} disabled={!available.includes(p)} aria-pressed={state.purpose === p} onClick={() => purpose(p)}><Icon size={21}/><span>{p}</span></button>; })}</div></div>
       {state.purpose === "トイレ" && <div className={styles.controlRow}><span className={styles.rowLabel}>種類</span><div className={styles.buttons}>{[["women", "女性"], ["men", "男性"], ["accessible", "バリアフリー"]].map(([id, label]) => <button type="button" key={id} aria-pressed={state.toilet === id} onClick={() => setState(s => ({ ...s, toilet: s.toilet === id ? "" : id, group: null, selected: null }))}>{label}</button>)}</div></div>}
-      {["飲食", "荷物"].includes(state.purpose) && <div className={styles.controlRow}><span className={styles.rowLabel}>検索</span><input className={styles.wordSearch} aria-label={state.purpose === "飲食" ? "店名・食べたいもの" : "駅名・施設名"} placeholder={state.purpose === "飲食" ? "店名・食べたいもの" : "駅名・施設名"} value={state.query} onChange={e => setState(s => ({ ...s, query: e.target.value, selected: null }))}/></div>}
+      {state.purpose === "飲食" && <div className={styles.controlRow}><span className={styles.rowLabel}>検索</span><input className={styles.wordSearch} aria-label={state.purpose === "飲食" ? "店名・食べたいもの" : "駅名・施設名"} placeholder={state.purpose === "飲食" ? "店名・食べたいもの" : "駅名・施設名"} value={state.query} onChange={e => setState(s => ({ ...s, query: e.target.value, selected: null }))}/></div>}
       <div className={styles.controlRow}><span className={styles.rowLabel}>目印</span><form className={mapStyles.landmarkForm} onSubmit={e => { e.preventDefault(); const results = resolveLandmarks(diagram, landmarkText, config.aliases); if (results.length === 1) selectOrigin(results[0].id); else { setLandmarkCandidates(results.map(m => m.id)); setLandmarkError(results.length ? "場所を選んでください。" : "この階・場所では見つかりません。ゲート番号や入口名を確認してください。"); } }}>
         <label htmlFor={landmarkInputId}>{state.scope === "場内" ? "ゲート・入口・柱" : "駅・ゲート"}</label><input id={landmarkInputId} disabled={!diagram.landmarks.length} value={landmarkText} onChange={e => setLandmarkText(e.target.value)} placeholder={!diagram.landmarks.length ? "この階の目印は未掲載" : state.scope === "場内" ? config.landmarkPlaceholder?.inside ?? "例：301 / メイン" : config.landmarkPlaceholder?.outside ?? "例：新高島駅"}/><button type="submit" disabled={!diagram.landmarks.length}>表示</button>
         {landmarkError && <p role="status">{landmarkError}</p>}{landmarkCandidates.map(id => <button type="button" key={id} onClick={() => selectOrigin(id)}>{diagram.landmarks.find(m => m.id === id)!.label}</button>)}
@@ -150,7 +168,7 @@ export default function VenueFacilityFinder({ guide, config, ref }: Props) {
     <div className={styles.body}>
       <div className={styles.mapPanel}>
         <div className={styles.panelHeading}><strong>{state.scope === "場内" ? state.floor : outsideView?.floorLabel ?? outsideView?.label ?? "会場・主要駅の位置関係"}{origin ? `・${config.landmarkLabels?.[origin.id] ?? origin.label}周辺` : ""}</strong><button type="button" onClick={whole}>全体図へ</button></div>
-        {hasMap ? <div ref={canvas} className={mapStyles.canvas} data-testid="facility-map" data-diagram={diagram.id}>
+        {hasMap ? <div ref={canvas} className={mapStyles.canvas} data-testid="facility-map" data-diagram={diagram.id} data-access-origin={state.origin ?? ""}>
           <svg viewBox={camera.join(" ")} preserveAspectRatio="xMidYMid meet" aria-hidden="true">
             {diagram.contextPaths.map((d, i) => <path key={`context-${i}`} d={d} fill="#fbf1f6" stroke="#d4b8c6" strokeWidth={1 / projection.scale}/>)}
             {diagram.concoursePaths.map((d, i) => <path key={`concourse-${i}`} d={d} fill="none" stroke="#ece4eb" strokeWidth={14}/>)}
@@ -159,7 +177,7 @@ export default function VenueFacilityFinder({ guide, config, ref }: Props) {
           {positions.map(({ g, x, y }) => <button type="button" key={g.id} className={mapStyles.marker} style={{ left: x, top: y }} aria-pressed={state.group === g.id} aria-label={`${g.label}・${g.purpose} ${g.memberIds.length}件`} onClick={() => setState(s => ({ ...s, group: s.group === g.id ? null : g.id, selected: null }))}>
             <GroupIcon items={g.memberIds.map(id => guide.facilities.find(f => f.id === id)!)}/>{g.memberIds.length > 1 && <small>{g.memberIds.length}</small>}
           </button>)}
-          {markPositions.map(({ m, x, y, label }) => <button type="button" className={mapStyles.landmark} key={m.id} style={{ left: x, top: y }} aria-pressed={state.origin === m.id} onClick={() => selectOrigin(m.id)}>{label}</button>)}
+          {markPositions.map(({ m, x, y, label }) => <button type="button" className={mapStyles.landmark} key={m.id} style={{ left: x, top: y }} aria-pressed={state.origin === m.id} onClick={() => selectOrigin(m.id)}>{m.kind === "gate" ? <VenueGateLabel label={label}/> : label}</button>)}
           {state.scope === "場外" && <>{(!outsideView || outsideView.northUp || outsideView.northDirection) && <span className={mapStyles.north}>北 {outsideView?.northDirection ?? "↑"}</span>}<span className={mapStyles.schematic}>位置関係の略図</span>{venueLabel && venueBox && <span className={mapStyles.venueName} style={{ left: venueBox.x, top: venueBox.y, width: venueBox.width }}>{venueLabel.name}</span>}</>}
         </div> : <p className={styles.noMap}>場所の案内から設備を選んでください。</p>}
       </div>

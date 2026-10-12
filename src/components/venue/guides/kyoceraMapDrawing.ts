@@ -104,7 +104,7 @@ export function kyoceraSelectedDirection(block: DrawingBlock, whole: readonly nu
 // retaining the neighbouring blocks; the same map can then be dragged.
 export function kyoceraAreaCamera(blocks: DrawingBlock[], whole: number[], direction: string, tier: string): Box {
   const candidates = blocks.filter(b => !b.special && kyoceraMatchesArea(b, whole, direction, tier));
-  if (!candidates.length || direction === "all") return [...whole] as Box;
+  if (!candidates.length || (direction === "all" && tier === "すべて")) return [...whole] as Box;
   if (direction === "home") {
     const middle = candidates.find(b => b.label === "中央C" && b.rows.length > 4) ?? candidates[0];
     return [middle.x - 165, middle.y - 165, 330, 330];

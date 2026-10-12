@@ -5,6 +5,8 @@ import StandSeatMap,{type StandSeatMapHandle} from '../template/StandSeatMap';
 import VenueFacilityFinder,{type FacilityFinderHandle} from '../template/VenueFacilityFinder';
 import {resolveArenaView,type ArenaGuideDefinition} from './arenaDefinition';
 import styles from './KArenaGuide.module.css';
+import VenueAccessCards from '../template/VenueAccessCards';
+import {arenaAccessEntries} from '@/lib/venueAccess';
 export default function ArenaGuideContent({definition,embedded=false,primeLocation:PrimeLocation}:{definition:ArenaGuideDefinition;embedded?:boolean;primeLocation?:ComponentType<{onRegion:(level:string,area:string)=>void}>}){
 const venue=definition.venueId,data=definition.data,finder=useRef<FacilityFinderHandle>(null),facilities=useRef<HTMLElement>(null);
 const [mode,setMode]=useState(definition.initialMode??'fixed');
@@ -29,9 +31,7 @@ const modeKey=mode,resolved=resolveArenaView(definition,mode),{guide,seats,level
         <p className={styles.note}>{resolved.seatNote}</p>
       </section>
       <section id="venue-facilities" ref={facilities}><h2>必要な設備を探す</h2>{"facilityNote" in data && <p className={styles.note}>{data.facilityNote}</p>}<VenueFacilityFinder key={`${venue}-${definition.preserveFacilitiesAcrossModes ? "fixed" : modeKey}`} ref={finder} guide={guide} config={facilityConfig}/></section>
-      <section id="venue-access"><h2>駅から{data.guide.name}へ</h2><div className={styles.access}>
-        {data.access.map(([name, exit, time]) => <article key={`${name}-${exit}`}><h3>{name}</h3><p>{exit}</p><strong>{time}</strong><a href={"officialRouteUrl" in data ? data.officialRouteUrl : `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(`${name} ${exit}`)}&destination=${encodeURIComponent(data.guide.name)}&travelmode=walking`} target="_blank" rel="noopener noreferrer">{"routeLabel" in data ? data.routeLabel : "officialRouteUrl" in data ? "来場・帰りの指定ルート ↗" : "地図で道順を見る ↗"}</a></article>)}
-      </div><p className={styles.note}>{"accessNote" in data ? data.accessNote : isEdion ? "距離は会場の公式案内です。全館休館中のため再開・入場口は公式案内を確認してください。" : "徒歩時間は公式案内の目安です。当日の入場口は公演案内に従ってください。"}<a href={data.accessUrl} target="_blank" rel="noopener noreferrer">駅・入場の案内 ↗</a></p></section>
+      <section id="venue-access"><h2>駅から{data.guide.name}へ</h2><VenueAccessCards venueId={venue} destination={data.guide.name} entries={arenaAccessEntries(guide,data.access,data.officialRouteUrl ?? data.accessUrl)}/><p className={styles.note}>{"accessNote" in data ? data.accessNote : isEdion ? "距離は会場の公式案内です。全館休館中のため再開・入場口は公式案内を確認してください。" : "徒歩時間は公式案内の目安です。当日の入場口は公演案内に従ってください。"}<a href={data.accessUrl} target="_blank" rel="noopener noreferrer">駅・入場の案内 ↗</a></p></section>
       <section id="venue-prep"><h2>出発前の準備</h2><div className={styles.prep}>
         <article><h3>大きな荷物</h3><p>{data.luggage}</p><button type="button" onClick={showLuggage}>ロッカー・荷物預かりを探す ↓</button></article>
         <article><h3>{data.preparationTitle}</h3><p>{data.preparation}</p></article>

@@ -6,6 +6,8 @@ import VenueFacilityFinder, { type FacilityFinderHandle } from "../template/Venu
 import { kArenaGuide } from "@/data/venueGuides/k-arena";
 import { kArenaAreas, kArenaFacilityConfig, kArenaLevels, kArenaStandSeats } from "@/data/venueGuides/k-arena/config";
 import styles from "./KArenaGuide.module.css";
+import VenueAccessCards from "../template/VenueAccessCards";
+import { arenaAccessEntries } from "@/lib/venueAccess";
 
 export default function KArenaGuide({ embedded=false }: { embedded?: boolean }) {
   const finder = useRef<FacilityFinderHandle>(null);
@@ -24,9 +26,7 @@ export default function KArenaGuide({ embedded=false }: { embedded?: boolean }) 
         <VenueFacilityFinder ref={finder} guide={kArenaGuide} config={kArenaFacilityConfig}/>
       </section>
       <section id="venue-access"><h2>駅からKアリーナ横浜へ</h2>
-        <div className={styles.access}>
-          {[["横浜駅", "JR・各線／東口", "徒歩9分"], ["新高島駅", "みなとみらい線／4 臨港パーク口", "徒歩5分"], ["みなとみらい駅", "みなとみらい線／2 いちょう通り口", "徒歩12分"]].map(([name, exit, time]) => <article key={name}><h3>{name}</h3><p>{exit}</p><strong>{time}</strong><a href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(`${name} ${exit.split("／")[1]}`)}&destination=${encodeURIComponent("Kアリーナ横浜")}&travelmode=walking`} target="_blank" rel="noopener noreferrer">地図で道順を見る ↗</a></article>)}
-        </div>
+        <VenueAccessCards venueId="k-arena" destination="Kアリーナ横浜" entries={arenaAccessEntries(kArenaGuide,[["横浜駅","JR・各線／東口","徒歩9分"],["新高島駅","みなとみらい線／4 臨港パーク口","徒歩5分"],["みなとみらい駅","みなとみらい線／2 いちょう通り口","徒歩12分"]],"https://k-arena.com/access/")}/>
         <p className={styles.note}>徒歩時間は公式案内の目安です。公演当日の入口・規制退場は現地案内に従ってください。<a href="https://k-arena.com/access/" target="_blank" rel="noopener noreferrer">入退場の案内 ↗</a></p>
       </section>
       <section id="venue-prep"><h2>出発前の準備</h2><div className={styles.prep}>

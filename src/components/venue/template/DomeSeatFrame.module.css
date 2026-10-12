@@ -8,7 +8,7 @@
 .directions,.shortcuts,.zoom { display:flex; align-items:center; gap:4px; }
 .directions { flex-wrap:wrap; max-width:100%; }
 .directions button { padding:5px 11px; border-radius:8px; font-size:12px; font-weight:750; color:#77626e; }
-.directions button[aria-pressed=true] { background:#fff0f6; color:var(--rose); }
+.directions button[aria-pressed=true] { background:var(--rose); color:#fff; }
 .zoom { border:1px solid var(--edge); border-radius:12px; gap:0; background:#fff; }
 .zoom button { font-weight:800; font-size:18px; }
 .zoom button:nth-child(2) { padding:0 9px; font-size:12px; }

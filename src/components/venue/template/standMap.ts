@@ -45,7 +45,7 @@ export function standDisplayRows(block: StandBlock) {
     .sort((a, b) => Number(a.label) - Number(b.label));
 }
 
-export function searchStandSeats(data: StandMapData, level: string, area: string, row: string, number: string, zoneId?: string | null): { matches: StandBlock[]; error: string; zone?: StandZone; position?: StandPosition } {
+export function searchStandSeats(data: StandMapData, level: string, area: string, row: string, number: string, zoneId?: string | null): { matches: StandBlock[]; error: string; notice?: string; zone?: StandZone; position?: StandPosition } {
   let r = normalizeSeatInput(row), n = normalizeSeatInput(number);
   // Some tickets reset the same seat numbers on each side (L/R). Only venues
   // declaring these prefixes interpret them; other letter block searches keep
@@ -55,6 +55,14 @@ export function searchStandSeats(data: StandMapData, level: string, area: string
   if (data.rowZonePrefixes) {
     const rowZone = data.zones?.find(z => r.startsWith(z.label) && /^[-・/:]?\d+$/.test(r.slice(z.label.length)));
     if (rowZone) { zoneId = rowZone.id; r = r.slice(rowZone.label.length).replace(/^[-・/:]/, ""); }
+  }
+  // A printed block name in the row field is an area lookup. Letter row names
+  // and declared zone+row ticket formats retain their row meaning.
+  if (r && !/^\d+$/.test(r) && !data.blocks.some(b => b.rows.some(line => normalizeSeatInput(line.label) === r))) {
+    const rowZone = data.zones?.find(z => [z.label, ...z.aliases].some(alias => normalizeSeatInput(alias) === r));
+    const rowBlocks = data.blocks.filter(b => (level === "all" || b.level === level) && (area === "all" || b.area === area)
+      && (rowZone ? rowZone.blockIds.includes(b.id) : [b.label, ...b.aliases].some(alias => normalizeSeatInput(alias) === r)));
+    if (rowBlocks.length) return { matches: rowBlocks, zone: rowZone, error: "", notice: n ? "区画を表示しています。席番号は未選択です。列と番号で席を探せます。" : undefined };
   }
   if (!n) return { matches: [] as StandBlock[], error: "番号を入力してください。" };
   const position = data.positionTargets?.find(p => [p.label, ...p.aliases].some(a => normalizeSeatInput(a) === n));

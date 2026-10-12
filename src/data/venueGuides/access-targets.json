@@ -1,0 +1,466 @@
+{
+  "ariake-arena": [
+    {
+      "from": "新豊洲駅",
+      "exit": "",
+      "line": "ゆりかもめ",
+      "targetId": "ariake-shintoyosu"
+    },
+    {
+      "from": "有明テニスの森駅",
+      "exit": "",
+      "line": "ゆりかもめ",
+      "targetId": "ariake-tennis"
+    },
+    {
+      "from": "国際展示場駅",
+      "exit": "",
+      "line": "りんかい線",
+      "targetId": "ariake-kokusai"
+    },
+    {
+      "from": "東雲駅",
+      "exit": "",
+      "line": "りんかい線",
+      "targetId": "ariake-shinonome"
+    }
+  ],
+  "belluna-dome": [
+    {
+      "from": "西武球場前駅",
+      "exit": "",
+      "line": "西武狭山線・山口線",
+      "targetId": "belluna-grounds-mark-4"
+    }
+  ],
+  "budokan": [
+    {
+      "from": "九段下駅",
+      "exit": "都営新宿線・2番出口",
+      "line": "東京メトロ東西線・半蔵門線",
+      "targetId": "budokan-outside-station-kudanshita"
+    },
+    {
+      "from": "竹橋駅",
+      "exit": "1番出口",
+      "line": "東京メトロ東西線",
+      "targetId": "budokan-outside-station-takebashi"
+    }
+  ],
+  "edion-arena": [
+    {
+      "from": "地下鉄なんば駅",
+      "exit": "5番出口",
+      "line": "",
+      "targetId": "edion-outside-metro5"
+    },
+    {
+      "from": "南海なんば駅",
+      "exit": "南出口",
+      "line": "",
+      "targetId": "edion-outside-nankai"
+    },
+    {
+      "from": "大阪難波駅",
+      "exit": "",
+      "line": "近鉄・阪神",
+      "targetId": "edion-outside-osaka-namba"
+    },
+    {
+      "from": "JRなんば駅",
+      "exit": "",
+      "line": "JR・OCAT",
+      "targetId": "edion-outside-jr-namba"
+    }
+  ],
+  "gaishi-hall": [
+    {
+      "from": "笠寺駅",
+      "exit": "",
+      "line": "JR東海道本線",
+      "targetId": "gaishi-hall-outside-kasadera"
+    },
+    {
+      "from": "本笠寺駅",
+      "exit": "",
+      "line": "名鉄名古屋本線",
+      "targetId": "gaishi-hall-outside-motokasadera"
+    },
+    {
+      "from": "大江駅",
+      "exit": "",
+      "line": "名鉄常滑線",
+      "targetId": "gaishi-hall-outside-oe"
+    }
+  ],
+  "hiroshima-arena": [
+    {
+      "from": "県庁前駅",
+      "exit": "西2出口（基町クレド側）",
+      "line": "アストラムライン",
+      "targetId": "grounds-kencho"
+    },
+    {
+      "from": "広島バスセンター・紙屋町",
+      "exit": "",
+      "line": "広島駅からバス",
+      "targetId": null
+    },
+    {
+      "from": "紙屋町西・原爆ドーム前",
+      "exit": "広島駅から紙屋町西",
+      "line": "路面電車",
+      "targetId": null
+    }
+  ],
+  "koshien": [
+    {
+      "from": "甲子園駅",
+      "exit": "西口",
+      "line": "阪神本線",
+      "targetId": "koshien-access-0"
+    },
+    {
+      "from": "甲子園駅",
+      "exit": "東口",
+      "line": "阪神本線",
+      "targetId": "koshien-access-1"
+    }
+  ],
+  "makuhari-messe": [
+    {
+      "from": "海浜幕張駅",
+      "exit": "南口",
+      "line": "JR京葉線",
+      "targetId": "makuhari-kaihin"
+    },
+    {
+      "from": "幕張豊砂駅",
+      "exit": "",
+      "line": "JR京葉線",
+      "targetId": "makuhari-toyosuna"
+    },
+    {
+      "from": "幕張本郷駅",
+      "exit": "バス乗り場1",
+      "line": "JR総武線・京成線",
+      "targetId": "makuhari-hongo"
+    }
+  ],
+  "marine-messe": [
+    {
+      "from": "呉服町駅",
+      "exit": "",
+      "line": "福岡市地下鉄 箱崎線",
+      "targetId": "marine-messe-outside-gofukumachi"
+    },
+    {
+      "from": "中洲川端駅",
+      "exit": "",
+      "line": "福岡市地下鉄 空港線・箱崎線",
+      "targetId": "marine-messe-outside-nakasu"
+    }
+  ],
+  "miyagi-arena": [
+    {
+      "from": "JR利府駅",
+      "exit": "",
+      "line": "菅谷台経由・青葉台経由 → 菅谷台四丁目",
+      "targetId": "miyagi-rifu"
+    },
+    {
+      "from": "JR利府駅",
+      "exit": "",
+      "line": "会場まで約3km",
+      "targetId": "miyagi-rifu"
+    },
+    {
+      "from": "JR岩切駅",
+      "exit": "",
+      "line": "会場まで約4km",
+      "targetId": null
+    }
+  ],
+  "mufg-stadium": [
+    {
+      "from": "国立競技場駅",
+      "exit": "A2出口",
+      "line": "都営大江戸線",
+      "targetId": "mufg-grounds-8"
+    },
+    {
+      "from": "千駄ケ谷駅",
+      "exit": "",
+      "line": "JR総武線各駅停車",
+      "targetId": null
+    },
+    {
+      "from": "信濃町駅",
+      "exit": "",
+      "line": "JR総武線各駅停車",
+      "targetId": "mufg-access-1"
+    },
+    {
+      "from": "外苑前駅",
+      "exit": "3番出口",
+      "line": "東京メトロ銀座線",
+      "targetId": null
+    }
+  ],
+  "nissan-stadium": [
+    {
+      "from": "新横浜駅",
+      "exit": "",
+      "line": "JR新幹線・横浜線",
+      "targetId": "nissan-access-shin"
+    },
+    {
+      "from": "新横浜駅",
+      "exit": "",
+      "line": "地下鉄・相鉄東急新横浜線",
+      "targetId": "nissan-access-shin"
+    },
+    {
+      "from": "小机駅",
+      "exit": "",
+      "line": "JR横浜線",
+      "targetId": "nissan-access-kozukue"
+    }
+  ],
+  "osaka-jo-hall": [
+    {
+      "from": "大阪城公園駅",
+      "exit": "",
+      "line": "JR大阪環状線",
+      "targetId": "outside-jr"
+    },
+    {
+      "from": "大阪ビジネスパーク駅",
+      "exit": "4番出口",
+      "line": "Osaka Metro 長堀鶴見緑地線",
+      "targetId": "outside-obp"
+    },
+    {
+      "from": "森ノ宮駅",
+      "exit": "",
+      "line": "JR大阪環状線・Osaka Metro",
+      "targetId": null
+    }
+  ],
+  "paypay-dome": [
+    {
+      "from": "唐人町駅",
+      "exit": "3番出口",
+      "line": "福岡市地下鉄 空港線",
+      "targetId": "paypay-tojin-station-origin"
+    }
+  ],
+  "pia-arena-mm": [
+    {
+      "from": "みなとみらい駅",
+      "exit": "1番出口",
+      "line": "みなとみらい線",
+      "targetId": "pamm-mm-station"
+    },
+    {
+      "from": "新高島駅",
+      "exit": "2番出口",
+      "line": "みなとみらい線",
+      "targetId": "pamm-new-station"
+    },
+    {
+      "from": "桜木町駅",
+      "exit": "北改札・東口",
+      "line": "JR京浜東北・根岸線",
+      "targetId": "pamm-sakura-station"
+    },
+    {
+      "from": "横浜駅",
+      "exit": "東口",
+      "line": "JRほか",
+      "targetId": null
+    }
+  ],
+  "saitama-super-arena": [
+    {
+      "from": "さいたま新都心駅",
+      "exit": "",
+      "line": "JR京浜東北線・宇都宮線・高崎線",
+      "targetId": "ssa-shintoshin"
+    },
+    {
+      "from": "北与野駅",
+      "exit": "",
+      "line": "JR埼京線",
+      "targetId": "ssa-kitayono"
+    }
+  ],
+  "sapporo-dome": [
+    {
+      "from": "福住駅",
+      "exit": "3番出口",
+      "line": "地下鉄東豊線",
+      "targetId": "sapporo-gate-9"
+    }
+  ],
+  "toki-messe": [
+    {
+      "from": "新潟駅",
+      "exit": "",
+      "line": "1Fバスターミナル17番／佐渡汽船線・朱鷺メッセ下車",
+      "targetId": "toki-niigata"
+    },
+    {
+      "from": "新潟駅",
+      "exit": "",
+      "line": "万代橋方面から会場へ",
+      "targetId": "toki-niigata"
+    }
+  ],
+  "tokyo-garden-theater": [
+    {
+      "from": "有明駅",
+      "exit": "2B出口",
+      "line": "ゆりかもめ",
+      "targetId": "tgt-ariake-station"
+    },
+    {
+      "from": "有明テニスの森駅",
+      "exit": "2A出口",
+      "line": "ゆりかもめ",
+      "targetId": "tgt-tennis-station"
+    },
+    {
+      "from": "国際展示場駅",
+      "exit": "A出口",
+      "line": "りんかい線",
+      "targetId": "tgt-kokusai-station"
+    }
+  ],
+  "vantelin-dome": [
+    {
+      "from": "ナゴヤドーム前矢田駅",
+      "exit": "地下鉄1番出口",
+      "line": "地下鉄名城線・ゆとりーとライン",
+      "targetId": "vantelin-around-yada"
+    },
+    {
+      "from": "大曽根駅",
+      "exit": "",
+      "line": "JR中央本線・名鉄瀬戸線",
+      "targetId": "vantelin-around-ozone"
+    }
+  ],
+  "yokohama-arena": [
+    {
+      "from": "新横浜駅",
+      "exit": "北口",
+      "line": "JR横浜線",
+      "targetId": "ya-jr-station"
+    },
+    {
+      "from": "新横浜駅",
+      "exit": "東口",
+      "line": "東海道新幹線",
+      "targetId": "ya-jr-station"
+    },
+    {
+      "from": "新横浜駅",
+      "exit": "出口7",
+      "line": "地下鉄・相鉄・東急",
+      "targetId": "ya-station-exit-7"
+    },
+    {
+      "from": "新横浜駅",
+      "exit": "出口8",
+      "line": "地下鉄・相鉄・東急",
+      "targetId": "ya-station-exit-8"
+    }
+  ],
+  "yoyogi": [
+    {
+      "from": "原宿駅",
+      "exit": "",
+      "line": "JR山手線",
+      "targetId": "yoyogi-harajuku"
+    },
+    {
+      "from": "明治神宮前駅",
+      "exit": "",
+      "line": "東京メトロ千代田線・副都心線",
+      "targetId": "yoyogi-meiji"
+    },
+    {
+      "from": "代々木公園駅",
+      "exit": "",
+      "line": "東京メトロ千代田線",
+      "targetId": "yoyogi-park"
+    },
+    {
+      "from": "渋谷駅",
+      "exit": "",
+      "line": "JRほか各線",
+      "targetId": "yoyogi-shibuya"
+    }
+  ],
+  "zozo-marine": [
+    {
+      "from": "海浜幕張駅",
+      "exit": "南口",
+      "line": "JR京葉線",
+      "targetId": "zozo-access-2"
+    }
+  ],
+  "k-arena": [
+    {
+      "from": "横浜駅",
+      "exit": "東口",
+      "line": "JR・各線",
+      "targetId": "outside-yokohama"
+    },
+    {
+      "from": "新高島駅",
+      "exit": "4 臨港パーク口",
+      "line": "みなとみらい線",
+      "targetId": "outside-shin"
+    },
+    {
+      "from": "みなとみらい駅",
+      "exit": "2 いちょう通り口",
+      "line": "みなとみらい線",
+      "targetId": "outside-mm"
+    }
+  ],
+  "kyocera-dome": [
+    {
+      "from": "ドーム前千代崎駅",
+      "exit": "1番出口",
+      "line": "長堀鶴見緑地線",
+      "targetId": "outside-metro-1"
+    },
+    {
+      "from": "ドーム前駅",
+      "exit": "1番出口",
+      "line": "阪神なんば線",
+      "targetId": "outside-hanshin-1"
+    },
+    {
+      "from": "ドーム前駅",
+      "exit": "2番出口",
+      "line": "阪神なんば線",
+      "targetId": "outside-hanshin-2"
+    },
+    {
+      "from": "大正駅",
+      "exit": "",
+      "line": "JR大阪環状線",
+      "targetId": "outside-jr-taisho"
+    },
+    {
+      "from": "九条駅",
+      "exit": "",
+      "line": "中央線",
+      "targetId": null
+    }
+  ]
+}

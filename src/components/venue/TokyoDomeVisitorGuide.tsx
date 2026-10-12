@@ -1,8 +1,8 @@
-import { ArrowRight, ArrowUpRight, CreditCard, Luggage, MapPin, Ticket, TrainFront, Armchair, CircleHelp, Utensils, Accessibility, DoorOpen, Smartphone } from "lucide-react";
+import { ArrowRight, ArrowUpRight, CreditCard, Luggage, Ticket, TrainFront, Armchair, CircleHelp, Utensils, Accessibility, DoorOpen, Smartphone } from "lucide-react";
 import { DOME_GUIDE_FAQ, DOME_GUIDE_SOURCES as sources, DOME_STATIONS, DOME_GUIDE_CHECKED_AT } from "@/data/tokyoDomeVisitorGuide";
 import { TokyoDomeGuideFinder } from "./TokyoDomeGuideFinder";
-import { tokyoDomeAccessStation, TOKYO_DOME_STATION_WALKING } from "@/lib/tokyoDomeAccess";
-import TokyoDomeStationLink from "./TokyoDomeStationLink";
+import { tokyoDomeAccessStation, TOKYO_DOME_STATION_WALKING, TOKYO_DOME_ACCESS_EVENT } from "@/lib/tokyoDomeAccess";
+import VenueAccessCards from "./template/VenueAccessCards";
 import VenueLuggageLink from "./template/VenueLuggageLink";
 import styles from "./TokyoDomeVisitorGuide.module.css";
 
@@ -26,16 +26,7 @@ export function TokyoDomeVisitorGuide() {
 
     <section id="dome-access" aria-labelledby="dome-access-title" className={styles.section}>
       <h2 id="dome-access-title"><TrainFront aria-hidden="true" />駅から東京ドームへ</h2>
-      <div className={styles.accessDiagram}>
-        <div className={styles.routes}>{DOME_STATIONS.flatMap(station => station.exit.split("・").map(exit => ({ ...station, exit }))).map((station) => {
-          const stationId = tokyoDomeAccessStation(station.line, station.exit)!.id;
-          const walking = TOKYO_DOME_STATION_WALKING.stationIds.includes(stationId) ? TOKYO_DOME_STATION_WALKING.label : null;
-          return <TokyoDomeStationLink key={`${station.line}-${station.exit}`} stationId={stationId} className={styles.routeLink} label={`${station.line} ${station.name} ${station.exit}から東京ドームへのマップを見る${walking ? `、${walking}の目安` : ""}`}>
-            <span className={styles.routeTop}><span className={styles.routePath}><strong>{station.name} {station.exit}</strong><ArrowRight size={14} aria-hidden="true" /><span>東京ドーム</span></span><span className={styles.routeMapAction}><MapPin size={13} aria-hidden="true" />マップ</span></span>
-            <span className={styles.routeMeta}>{walking && <span className={styles.routeWalk}>{walking}</span>}<span>{station.line.replace("中央・総武線（各駅停車）", "中央・総武線").replace("東京メトロ", "")}</span></span>
-          </TokyoDomeStationLink>;
-        })}</div>
-      </div>
+      <VenueAccessCards venueId="tokyo-dome" destination="東京ドーム" eventName={TOKYO_DOME_ACCESS_EVENT} entries={DOME_STATIONS.flatMap(station => station.exit.split("・").map(exit => ({ ...station, exit }))).map((station,index)=>({id:`tokyo-${index}`,from:station.name,exit:station.exit,line:station.line.replace("中央・総武線（各駅停車）","中央・総武線").replace("東京メトロ",""),time:TOKYO_DOME_STATION_WALKING.label,sourceUrl:sources.access.url,targetId:tokyoDomeAccessStation(station.line,station.exit)!.id}))}/>
       <p className={styles.walkNote}>駅からの目安です。出口・入場ゲート・混雑によって所要時間は変わります。<a href={TOKYO_DOME_STATION_WALKING.sourceUrl} target="_blank" rel="noopener noreferrer">公式の徒歩圏案内 ↗</a></p>
       <div className={styles.twoActions}><a href={sources.gates.url} target="_blank" rel="noopener noreferrer"><DoorOpen aria-hidden="true" /><span>入場ゲート<small>チケットの指定を確認</small></span><ArrowUpRight size={16} aria-hidden="true" /></a><a href={sources.access.url} target="_blank" rel="noopener noreferrer"><Accessibility aria-hidden="true" /><span>段差のないルート<small>水道橋駅西口はEVなし</small></span><ArrowUpRight size={16} aria-hidden="true" /></a></div>
       <details className={styles.explanation}><summary>アクセスの補足</summary>{DOME_STATIONS.map((station) => <p key={station.line}><strong>{station.line} {station.name}：</strong>{station.note}</p>)}<p>東京都文京区後楽1-3-61。出口の対応図です。実際の道順は地図・公式ルートで確認できます。</p></details>

@@ -79,14 +79,14 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   function search(event: React.FormEvent) {
     event.preventDefault(); interaction();
     const result = searchStandSeats(data, level, area, row, number, zone);
-    if (result.zone) { chooseZone(result.zone.id); return; }
+    if (result.zone) { chooseZone(result.zone.id); setError(result.notice ?? ""); return; }
     if (result.position) {
       const p = result.position; clearResult(); setPosition(p); setLevel(p.level); setArea("all"); setZone(null);
       move([p.point[0]-p.span/2,p.point[1]-p.span/2,p.span,p.span]); return;
     }
     setPosition(null);
     setError(result.error); setMatches(result.matches.length > 1 ? result.matches : []);
-    if (result.matches.length === 1) select(result.matches[0], true);
+    if (result.matches.length === 1) { select(result.matches[0], true); setError(result.notice ?? ""); }
     else setSelected(null);
   }
   function zoom(factor: number) {

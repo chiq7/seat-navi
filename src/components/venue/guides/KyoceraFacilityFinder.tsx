@@ -9,6 +9,7 @@ import { filterGuideFacilities, resolveGuideOrigin, type FinderAction, type Find
 import { kyoceraAvailablePurposes, kyoceraFacilitiesForScope, kyoceraFacilityCamera, kyoceraFacilityLocation, pointInKyoceraCamera } from "./kyoceraFacilityState";
 import styles from "../template/VenueFacilityFinder.module.css";
 import VenueLandmarkSearch from "../template/VenueLandmarkSearch";
+import { VENUE_ACCESS_EVENT, type VenueAccessDetail } from "@/lib/venueAccess";
 import visitorContent from "@/data/venueGuides/kyocera-dome/visitor-content.json";
 
 const purposes = [{ label: "トイレ", Icon: ToiletSign }, { label: "荷物", Icon: LockerSign },
@@ -22,6 +23,17 @@ export default function KyoceraFacilityFinder({ guide, state, onAction, detail, 
     const open=()=>{onAction({type:"scope",scope:"場外"});onAction({type:"purpose",purpose:"荷物"});onAction({type:"query",query:""});};
     window.addEventListener("venue-open-luggage",open);return()=>window.removeEventListener("venue-open-luggage",open);
   },[onAction]);
+  useEffect(() => {
+    const open = (event:Event) => {
+      const target=(event as CustomEvent<VenueAccessDetail>).detail;
+      if (!target || target.venueId!==guide.venueId || !resolveGuideOrigin(guide,{diagramId:target.diagramId,landmarkId:target.targetId})) return;
+      onAction({type:"scope",scope:"場外"});
+      onAction({type:"origin",origin:{diagramId:target.diagramId,landmarkId:target.targetId}});
+      requestAnimationFrame(()=>document.getElementById("venue-facilities")?.scrollIntoView({behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",block:"start"}));
+    };
+    window.addEventListener(VENUE_ACCESS_EVENT,open);
+    return()=>window.removeEventListener(VENUE_ACCESS_EVENT,open);
+  },[guide,onAction]);
   const diagram = guide.diagrams?.find(item => item.scope === state.scope && (state.scope === "場外" || item.floor === state.floor));
   const origin = resolveGuideOrigin(guide, state.origin);
   const currentOrigin = origin?.diagramId === diagram?.id ? origin : null;
@@ -52,7 +64,7 @@ export default function KyoceraFacilityFinder({ guide, state, onAction, detail, 
     change({ type: "select", id: null });
     if (trigger.current?.isConnected) trigger.current.focus({ preventScroll: true });
   }
-  return <div className={styles.finder} data-testid="kyocera-facility-finder">
+  return <div className={styles.finder} data-testid="kyocera-facility-finder" data-access-origin={state.origin?.landmarkId ?? ""}>
     <div className={styles.toolbar}>
       <div className={styles.controlRow}><strong className={styles.rowLabel}>場所</strong><div className={styles.topRow}>
         <div className={styles.buttons} role="group" aria-label="利用する場所">{(["場内", "場外"] as const).map(scope => <button key={scope} type="button" aria-pressed={state.scope === scope} onClick={() => change({ type: "scope", scope })}>{scope === "場外" ? "場外・入場前" : scope}</button>)}</div>
@@ -69,7 +81,7 @@ export default function KyoceraFacilityFinder({ guide, state, onAction, detail, 
           change({ type: "select", id: null }); change({ type: "origin", origin: { diagramId: diagram.id, landmarkId: id } });
         }} />}
       </div></div>
-      {(state.purpose === "飲食" || state.purpose === "荷物") && <div className={styles.controlRow}><strong className={styles.rowLabel}>検索</strong><input className={styles.wordSearch} type="search" aria-label="名前・食べたいもの・場所" placeholder={state.purpose === "飲食" ? "店名・食べたいもの" : "駅名・施設名"} value={state.query} onChange={event => change({ type:"query", query:event.target.value })}/></div>}
+      {state.purpose === "飲食" && <div className={styles.controlRow}><strong className={styles.rowLabel}>検索</strong><input className={styles.wordSearch} type="search" aria-label="名前・食べたいもの・場所" placeholder={state.purpose === "飲食" ? "店名・食べたいもの" : "駅名・施設名"} value={state.query} onChange={event => change({ type:"query", query:event.target.value })}/></div>}
       {state.purpose === "トイレ" && <div className={styles.controlRow}><strong className={styles.rowLabel}>種類</strong><div className={styles.buttons} role="group" aria-label="トイレの種類">{toiletChoices.map(([value, label]) => <button key={value} type="button" disabled={filterGuideFacilities(guide.facilities, { ...state, toiletType: value }).length === 0} aria-pressed={state.toiletType === value} onClick={() => change({ type: "toilet", toiletType: state.toiletType === value ? "すべて" : value })}>{value === "accessible" && <Accessibility size={16} aria-hidden="true" />}{label}</button>)}</div></div>}
     </div>
     <div className={styles.body}>

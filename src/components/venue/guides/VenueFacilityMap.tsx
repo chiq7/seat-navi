@@ -1,5 +1,7 @@
 "use client";
 
+import VenueGateLabel from "../template/VenueGateLabel";
+
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { Baby, HeartPulse, Info, Phone, Plug, Ticket, MoveVertical, Cigarette } from "lucide-react";
 import type { DedicatedVenueGuide, GuideFacility } from "@/data/venueGuides/types";
@@ -253,7 +255,7 @@ export default function VenueFacilityMap({ guide, items, state, onFloor, onSelec
           aria-label={destination ? `${destination.facility.name}を入場先に選ぶ` : `${landmarkDisplayName(diagram,mark)}を目印に選ぶ`}
           title={landmarkDisplayName(diagram,mark)} style={{left:label.left,top:label.top,width:label.width,height:label.height}}
           onClick={()=>destination ? onGate({diagramId:diagram.id,landmarkId:mark.id}) : onOrigin({diagramId:diagram.id,landmarkId:mark.id})}>
-          {chosen && <small>選んだ場所</small>}{gateSelected && !chosen && <small>入場先</small>}<span>{mark.label}{chosen && gateSelected && <small>・入場先</small>}</span></button>;
+          {chosen && <small>選んだ場所</small>}{gateSelected && !chosen && <small>入場先</small>}<span><VenueGateLabel label={mark.label}/>{chosen && gateSelected && <small>・入場先</small>}</span></button>;
         if (origin?.kind === "landmark" && origin.id === mark.id) return <button key={mark.id} type="button"
           data-landmark-id={mark.id} data-selected="true" data-selected-landmark={mark.id}
           className={styles.originLandmark} aria-pressed="true" aria-label={`選んだ場所：${landmarkDisplayName(diagram,mark)}`}

@@ -255,7 +255,7 @@ export default function VerifiedVenueGuide({ guide, embedded=false }: { guide: D
       </>}
     </div></section>
 
-    {kyocera ? <KyoceraVisitorContent /> : <>
+    {kyocera ? <KyoceraVisitorContent guide={guide} /> : <>
     <section id="venue-access" className={kyocera ? tokyoStyles.section : styles.section} aria-labelledby="outside-heading"><div className={kyocera ? `zr-container ${tokyoStyles.guide}` : undefined}><div className={styles.eyebrow}>ACCESS</div><h2 id="outside-heading">駅から入口へ</h2><p className={styles.note}>{guide.venueId === "osaka-jo-hall" ? "場外図は駅の代表位置と入口を案内しています。改札・大阪ビジネスパーク駅4番出口の位置は未確認です。公式の道順と当日の公演案内を確認してください。" : guide.diagrams?.some(item => item.scope === "場外") ? "確認済みの駅・入口・入場前設備の位置関係は設備案内の場外図で確認できます。通行規制・連続した段差なし経路は当日の案内を優先してください。" : "場外図の位置照合は確認中です。確認済みの公式道順を案内します。"}</p>
       <div className={styles.controls} role="group" aria-label="来場駅">{guide.routes.map(item => <button key={item.id} aria-pressed={routeId === item.id} onClick={() => setRouteId(item.id)}>{item.from}</button>)}</div>
       {route && <div className={styles.accessText}><strong>{route.from} → {route.destination}</strong><p>{route.exit}{route.stops.length > 0 && ` → ${route.stops.join(" → ")}`}</p><p>{route.note}</p><Sources guide={guide} ids={route.sourceIds} /></div>}
