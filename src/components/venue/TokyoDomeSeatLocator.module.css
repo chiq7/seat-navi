@@ -1,0 +1,90 @@
+.shell { --rose:#a93164; --ink:#493340; --edge:#eedee5; overflow:hidden; border:1px solid var(--edge); border-radius:24px; background:#fff; box-shadow:0 12px 38px #78334b08; color:var(--ink); }
+.title { text-wrap:balance; }
+.controls { padding:18px 20px 12px; }
+.levels { display:flex; flex-wrap:wrap; gap:6px; }
+.levels button { display:flex; align-items:center; justify-content:center; gap:7px; min-height:42px; padding:8px 14px; border:1px solid var(--edge); border-radius:12px; font-size:13px; font-weight:800; background:#fff; }
+.levels button[aria-pressed=true] { color:#fff; background:var(--rose); border-color:var(--rose); }
+.levels i { width:9px; height:9px; border-radius:50%; }
+.tools { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-top:12px; }
+.directions,.shortcuts,.zoom { display:flex; align-items:center; gap:4px; }
+.directions button { min-height:40px; padding:5px 11px; border-radius:8px; font-size:12px; font-weight:750; color:#77626e; }
+.directions button[aria-pressed=true] { background:#fff0f6; color:var(--rose); }
+.zoom { border:1px solid var(--edge); border-radius:12px; gap:0; background:#fff; }
+.zoom button { min-width:38px; min-height:40px; font-weight:800; font-size:18px; }
+.zoom button:nth-child(2) { padding:0 9px; font-size:11px; }
+.shortcuts { margin-top:9px; flex-wrap:wrap; }
+.shortcuts button { display:flex; align-items:center; gap:5px; min-height:38px; padding:4px 8px; font-size:12px; color:var(--rose); font-weight:750; }
+.shortcuts button[aria-expanded=true] { background:#fff0f6; border-radius:8px; }
+.search { border-top:1px solid var(--edge); background:#fff9fc; padding:14px 20px; }
+.form { display:flex; align-items:flex-end; gap:10px; flex-wrap:wrap; }
+.form label { flex:1 1 115px; display:flex; flex-direction:column; gap:5px; font-size:11px; font-weight:750; }
+.form select,.form input,.selection select { min-width:0; width:100%; height:42px; padding:0 10px; border:1px solid #d8bdca; border-radius:9px; background:#fff; color:var(--ink); font-size:16px; }
+.form button { min-height:42px; padding:8px 20px; border-radius:10px; background:var(--rose); color:#fff; font-size:13px; font-weight:800; }
+.searchTitle { margin:0 0 9px; font-size:12px; font-weight:800; }
+.message { margin:8px 0 0; font-size:12px; color:#a52c5b; line-height:1.6; }
+.map { position:relative; height:clamp(480px,70vh,650px); background:#fff; overflow:hidden; }
+.map svg { display:block; width:100%; height:100%; touch-action:none; user-select:none; cursor:grab; }
+.map svg:active { cursor:grabbing; }
+.selection { display:flex; align-items:center; flex-wrap:wrap; gap:10px; padding:12px 20px; border-block:1px solid var(--edge); background:#fff5f9; }
+.selectionName { display:flex; flex-direction:column; gap:2px; margin-right:auto; }
+.selectionName strong { color:var(--rose); font-size:19px; line-height:1.2; font-variant-numeric:tabular-nums; }
+.selectionName span { font-size:11px; font-weight:650; }
+.selection label { display:flex; align-items:center; gap:7px; font-size:12px; font-weight:750; }
+.selection select { width:100px; }
+.selection button { display:grid; place-items:center; min-width:38px; min-height:40px; border-radius:9px; font-size:12px; font-weight:750; color:var(--rose); }
+.selection button:hover,.directions button:hover,.shortcuts button:hover { background:#fff0f6; }
+.hint { margin:0; padding:8px 20px 2px; color:#786570; font-size:12px; }
+.footer { display:flex; flex-wrap:wrap; gap:8px; padding:14px 20px 18px; border-top:1px solid var(--edge); }
+.footer a { display:flex; align-items:center; gap:6px; min-height:42px; padding:6px 12px; border:1px solid var(--edge); border-radius:10px; font-size:12px; font-weight:750; color:var(--rose); }
+.shell button:focus-visible,.shell select:focus-visible,.shell input:focus-visible,.shell a:focus-visible { outline:3px solid #b72e66; outline-offset:3px; }
+@media(max-width:600px) {
+  .shell { border-radius:18px; }
+  .controls { padding:12px 10px 8px; }
+  .levels { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:4px; }
+  .levels button { flex-direction:column; gap:4px; padding:7px 1px; font-size:10px; min-height:49px; border-radius:10px; white-space:nowrap; }
+  .tools { gap:5px; margin-top:7px; }
+  .directions { gap:0; }
+  .directions button { padding:4px 7px; min-height:38px; font-size:11px; }
+  .zoom { margin-left:auto; }
+  .zoom button { min-width:32px; min-height:38px; }
+  .zoom button:nth-child(2) { font-size:10px; padding:0 6px; }
+  .shortcuts { margin-top:3px; gap:3px; }
+  .shortcuts button { font-size:11px; padding-inline:5px; min-height:40px; }
+  .search { padding:12px; }
+  .form { gap:8px; }
+  .form label { flex-basis:100px; }
+  .form button { flex:1 1 100px; }
+  .selection { padding:10px 12px; gap:7px; }
+  .selectionName strong { font-size:17px; }
+  .selection select { width:84px; }
+  .selection button { min-width:32px; }
+  .hint { padding:6px 12px 0; font-size:11px; }
+  .footer { padding:12px; }
+  .footer a { flex:1 1 auto; justify-content:center; padding-inline:8px; font-size:11px; }
+}
+@media(max-width:360px) {
+  .title { font-size:22px; }
+  .shortcuts { flex-wrap:nowrap; gap:0; }
+  .shortcuts button { padding-inline:3px; font-size:10px; gap:3px; white-space:nowrap; }
+  .shortcuts button > svg:last-child { display:none; }
+}
+
+.selection { min-height:76px; height:76px; overflow-anchor:none; }
+.map { overflow-anchor:none; }
+.wholeButton { display:flex; justify-content:flex-end; padding:8px 12px; }
+.wholeButton button { min-height:44px; padding:8px 12px; border:1px solid #dfb8ca; border-radius:8px; color:#a93164; background:white; font-size:12px; }
+@media(max-width:600px) { .selection { min-height:94px; height:94px; } }
+
+.areaPrompt { cursor:pointer; animation:areaHint 2.4s ease-in-out 3; }
+@keyframes areaHint {0%,100%{opacity:1}50%{opacity:.64}}
+@media(prefers-reduced-motion:reduce){.areaPrompt{animation:none}}
+
+@media(max-width:600px){.map{height:440px;}}
+
+.areaLabels{position:absolute;inset:0;pointer-events:none;}
+.areaLabels button{position:absolute;transform:translate(-50%,-50%);pointer-events:auto;width:90px;height:44px;border:1px solid #d2a4bb;border-radius:9px;padding:4px;color:#833755;background:#fffdfef2;font-size:12px;font-weight:800;white-space:nowrap;}
+.areaLabels button:focus-visible{outline:3px solid #b72e66;outline-offset:3px;}
+.areaLabels button:hover{background:#fff0f6;}
+@media(max-width:600px){.areaLabels button{width:80px;}}
+
+.map [data-seat-code]:focus-visible { outline:none; stroke:#2666b0; stroke-width:3px; vector-effect:non-scaling-stroke; }

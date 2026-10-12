@@ -1,0 +1,4896 @@
+{
+  "sources": [
+    {
+      "id": "current-map",
+      "title": "マリーンズ公式デジタルマップ",
+      "url": "https://www.marines.co.jp/stadium/ballpark/guidemap.html",
+      "checkedAt": "2026-10-10",
+      "scope": "掲載区域・本文の確認範囲。精密入口・公演開放は別確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat2026",
+      "title": "公式2026席種配置図",
+      "url": "https://www.marines.co.jp/media/sites/5/ticket/seat/2026/map_reservedC01.webp",
+      "checkedAt": "2026-10-10",
+      "scope": "掲載区域・本文の確認範囲。精密入口・公演開放は別確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "mdata",
+      "title": "MUSIC-MDATA / LiveWalker補助座席図",
+      "url": "https://cdn-zaseki.music-mdata.com/pdf/9887.pdf",
+      "checkedAt": "2026-10-10",
+      "scope": "20250306補助図の普通席主要領域を現行公式輪郭と比較。列番号/特殊席の個別適用は未確認",
+      "usage": "research-only"
+    },
+    {
+      "id": "gourmet",
+      "title": "公式マリーンズグルメ2026・12/13ページ",
+      "url": "https://www.marines.co.jp/plm-asset/_pl_pdf/gourmet/MarinesGourmetPanf2026.pdf",
+      "checkedAt": "2026-10-10",
+      "scope": "掲載区域・本文の確認範囲。精密入口・公演開放は別確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "guide",
+      "title": "公式施設案内",
+      "url": "https://www.marines.co.jp/stadium/ballpark/guide.html",
+      "checkedAt": "2026-10-10",
+      "scope": "掲載区域・本文の確認範囲。精密入口・公演開放は別確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "kids",
+      "title": "公式赤ちゃん・子供の設備",
+      "url": "https://www.marines.co.jp/stadium/ballpark/kids.html",
+      "checkedAt": "2026-10-10",
+      "scope": "掲載区域・本文の確認範囲。精密入口・公演開放は別確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "access",
+      "title": "公式アクセス",
+      "url": "https://www.marines.co.jp/stadium/access/",
+      "checkedAt": "2026-10-10",
+      "scope": "掲載区域・本文の確認範囲。精密入口・公演開放は別確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "walk",
+      "title": "公式海浜幕張駅徒歩案内図",
+      "url": "https://www.marines.co.jp/media/sites/5/stadium/access/map_foot01.webp",
+      "checkedAt": "2026-10-10",
+      "scope": "掲載区域・本文の確認範囲。精密入口・公演開放は別確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "locker-change",
+      "title": "2026年6月19日ロッカー利用変更",
+      "url": "https://www.marines.co.jp/news/detail/202600844650.html",
+      "checkedAt": "2026-10-10",
+      "scope": "掲載区域・本文の確認範囲。精密入口・公演開放は別確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "locker-inside",
+      "title": "SPACER場内209通路",
+      "url": "https://spacer.co.jp/base/op-174/",
+      "checkedAt": "2026-10-10",
+      "scope": "掲載区域・本文の確認範囲。精密入口・公演開放は別確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "locker-ticket",
+      "title": "SPACERチケット窓口",
+      "url": "https://spacer.co.jp/base/op-175/",
+      "checkedAt": "2026-10-10",
+      "scope": "掲載区域・本文の確認範囲。精密入口・公演開放は別確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "locker-stroller",
+      "title": "SPACERベビーカーゾーンA",
+      "url": "https://spacer.co.jp/base/op-234/",
+      "checkedAt": "2026-10-10",
+      "scope": "掲載区域・本文の確認範囲。精密入口・公演開放は別確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "station-south",
+      "title": "マルチエキューブ海浜幕張南口階段下",
+      "url": "https://multiecube.com/location/1246/",
+      "checkedAt": "2026-10-10",
+      "scope": "掲載区域・本文の確認範囲。精密入口・公演開放は別確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "station-park",
+      "title": "マルチエキューブ海浜幕張公園改札",
+      "url": "https://multiecube.com/location/1052/",
+      "checkedAt": "2026-10-10",
+      "scope": "掲載区域・本文の確認範囲。精密入口・公演開放は別確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "station-perie",
+      "title": "マルチエキューブ海浜幕張ペリエスクエア",
+      "url": "https://multiecube.com/location/1245/",
+      "checkedAt": "2026-10-10",
+      "scope": "掲載区域・本文の確認範囲。精密入口・公演開放は別確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "tokyo-lockers",
+      "title": "JR東日本・東京駅ロッカー案内",
+      "url": "https://media.jreast.co.jp/articles/680",
+      "checkedAt": "2026-10-10",
+      "scope": "掲載区域・本文の確認範囲。精密入口・公演開放は別確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "tokyo-services",
+      "title": "東京駅シティ・荷物サービス",
+      "url": "https://www.tokyostationcity.com/information/",
+      "checkedAt": "2026-10-10",
+      "scope": "掲載区域・本文の確認範囲。精密入口・公演開放は別確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "big-echo",
+      "title": "ビッグエコーBounce対応店舗",
+      "url": "https://big-echo.jp/room_facilities/bounce/",
+      "checkedAt": "2026-10-10",
+      "scope": "掲載区域・本文の確認範囲。精密入口・公演開放は別確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "store-booking",
+      "title": "海浜幕張店の個別Bounce予約",
+      "url": "https://bounce.com/ja/s/location/efe32cb7-e49d-439a-9a9a-8e966add45c0?utm_source=big-echo&utm_medium=website",
+      "checkedAt": "2026-10-10",
+      "scope": "掲載区域・本文の確認範囲。精密入口・公演開放は別確認",
+      "usage": "research-only"
+    },
+    {
+      "id": "messe",
+      "title": "幕張メッセ・現行店舗案内",
+      "url": "https://www.m-messe.co.jp/facility/shopping",
+      "checkedAt": "2026-10-10",
+      "scope": "掲載区域・本文の確認範囲。精密入口・公演開放は別確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "eplus-details",
+      "title": "イープラス ZOZOマリン詳細図（版不明）",
+      "url": "https://w1.red.onlineticket.jp/sf/tkt101/venue/2610010/seat-1-5",
+      "checkedAt": "2026-10-11",
+      "scope": "5方面の印字開始番号と番号方向を比較。下段の列範囲は現行補助図と異なり現在の列番号根拠に使わない。",
+      "usage": "facts-only"
+    }
+  ],
+  "facilities": [
+    {
+      "id": "zozo-food-0",
+      "name": "#26 HOUSE",
+      "purpose": "飲食",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "ライト下",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "zozo-inside-1F",
+        "x": 665,
+        "y": 230,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-food-1",
+      "name": "RIO GRANDE GRILL",
+      "purpose": "飲食",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "レフト下",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "zozo-inside-1F",
+        "x": 135,
+        "y": 230,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-food-2",
+      "name": "Bamboo Forest",
+      "purpose": "飲食",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "201付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "zozo-inside-2F",
+        "x": 668.8,
+        "y": 334.0,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-food-3",
+      "name": "Chikurin 竹りん",
+      "purpose": "飲食",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "202付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "zozo-inside-2F",
+        "x": 672.4,
+        "y": 362.8,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-food-4",
+      "name": "MARINE KITCHEN FIRST BASE SIDE",
+      "purpose": "飲食",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "202付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "zozo-inside-2F",
+        "x": 677.2,
+        "y": 388.0,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-food-5",
+      "name": "KITADE TACOS",
+      "purpose": "飲食",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "202付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "zozo-inside-2F",
+        "x": 688.0,
+        "y": 400.0,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-food-6",
+      "name": "SHRIMP STAND",
+      "purpose": "飲食",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "203付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "zozo-inside-2F",
+        "x": 691.6,
+        "y": 416.8,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-food-7",
+      "name": "蔵出し味噌 田所商店",
+      "purpose": "飲食",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "203付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "zozo-inside-2F",
+        "x": 638.8,
+        "y": 486.4,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-food-8",
+      "name": "AM:PM",
+      "purpose": "飲食",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "204付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "zozo-inside-2F",
+        "x": 623.2,
+        "y": 516.4,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-food-9",
+      "name": "ROOTS MARINES",
+      "purpose": "飲食",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "Bゲート付近付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "zozo-inside-2F",
+        "x": 629.2,
+        "y": 589.6,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-food-10",
+      "name": "築地銀だこ",
+      "purpose": "飲食",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "205付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "zozo-inside-2F",
+        "x": 582.4,
+        "y": 548.8,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-food-11",
+      "name": "ゼッテリア",
+      "purpose": "飲食",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "206付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "zozo-inside-2F",
+        "x": 533.2,
+        "y": 590.8,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-food-12",
+      "name": "千葉つくたべキッチン",
+      "purpose": "飲食",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "Cゲート付近付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "zozo-inside-2F",
+        "x": 502.0,
+        "y": 676.0,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-food-13",
+      "name": "HUNGRY MARINE",
+      "purpose": "飲食",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "207付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "zozo-inside-2F",
+        "x": 424.0,
+        "y": 628.0,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-food-14",
+      "name": "Bistro 0",
+      "purpose": "飲食",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "208付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "zozo-inside-2F",
+        "x": 378.4,
+        "y": 626.8,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-food-15",
+      "name": "マルル・ホムロン",
+      "purpose": "飲食",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "209付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "zozo-inside-2F",
+        "x": 264.4,
+        "y": 588.4,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-food-16",
+      "name": "大阪焼肉ふたごや",
+      "purpose": "飲食",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "210付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "zozo-inside-2F",
+        "x": 244.0,
+        "y": 582.4,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-food-17",
+      "name": "MARINE KITCHEN THIRD BASE SIDE",
+      "purpose": "飲食",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "211付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "zozo-inside-2F",
+        "x": 169.6,
+        "y": 494.8,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-food-18",
+      "name": "CRAZY POTATO",
+      "purpose": "飲食",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "212付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "zozo-inside-2F",
+        "x": 138.4,
+        "y": 446.8,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-food-19",
+      "name": "M&K",
+      "purpose": "飲食",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "213付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "zozo-inside-2F",
+        "x": 127.6,
+        "y": 372.4,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-food-20",
+      "name": "マリン食堂",
+      "purpose": "飲食",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "213付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "zozo-inside-2F",
+        "x": 128.8,
+        "y": 350.8,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-food-21",
+      "name": "ROCKET CHICKEN",
+      "purpose": "飲食",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "214付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "zozo-inside-2F",
+        "x": 128.8,
+        "y": 332.8,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-food-22",
+      "name": "サンマリン",
+      "purpose": "飲食",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "バックスタンド付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "zozo-inside-2F",
+        "x": 400.0,
+        "y": 102.4,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-food-23",
+      "name": "イタリアンバールM",
+      "purpose": "飲食",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "303通路付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "zozo-inside-3F",
+        "x": 625,
+        "y": 455,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-food-24",
+      "name": "ストライク",
+      "purpose": "飲食",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "402付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "zozo-inside-4F",
+        "x": 700.0,
+        "y": 414.4,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-food-25",
+      "name": "志ん橋",
+      "purpose": "飲食",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "405付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "zozo-inside-4F",
+        "x": 592.0,
+        "y": 606.4,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-food-26",
+      "name": "こってりええ太郎",
+      "purpose": "飲食",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "406付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "zozo-inside-4F",
+        "x": 490.0,
+        "y": 668.8,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-food-27",
+      "name": "STAND M",
+      "purpose": "飲食",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "409付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "zozo-inside-4F",
+        "x": 316.0,
+        "y": 668.8,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-food-28",
+      "name": "PIZZA-LA EXPRESS",
+      "purpose": "飲食",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "411付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "zozo-inside-4F",
+        "x": 148.0,
+        "y": 562.0,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-food-29",
+      "name": "DATSUN HOKKAIDO Floor4 Base",
+      "purpose": "飲食",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "413付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "zozo-inside-4F",
+        "x": 102.4,
+        "y": 414.4,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-toilet-2F-0",
+      "name": "201付近 男性トイレ",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "201通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "zozo-inside-2F",
+        "x": 714.4,
+        "y": 354.4,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-toilet-2F-1",
+      "name": "202付近 男性トイレ",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "202通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "zozo-inside-2F",
+        "x": 665.2,
+        "y": 401.2,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-toilet-2F-2",
+      "name": "203付近 女性トイレ",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "203通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "zozo-inside-2F",
+        "x": 658.0,
+        "y": 433.6,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-toilet-2F-3",
+      "name": "205付近 女性トイレ",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "205通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "zozo-inside-2F",
+        "x": 583.6,
+        "y": 552.4,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-toilet-2F-4",
+      "name": "206付近 男性トイレ",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "206通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "zozo-inside-2F",
+        "x": 494.8,
+        "y": 616.0,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-toilet-2F-5",
+      "name": "209付近 男性トイレ",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "209通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "zozo-inside-2F",
+        "x": 305.2,
+        "y": 612.4,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-toilet-2F-6",
+      "name": "210付近 女性トイレ",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "210通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "zozo-inside-2F",
+        "x": 216.4,
+        "y": 556.0,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-toilet-2F-7",
+      "name": "211付近 男性トイレ",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "211通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "zozo-inside-2F",
+        "x": 190.0,
+        "y": 528.4,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-toilet-2F-8",
+      "name": "212付近 女性トイレ",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "212通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "zozo-inside-2F",
+        "x": 139.6,
+        "y": 433.6,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-toilet-2F-9",
+      "name": "213付近 男性トイレ",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "213通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "zozo-inside-2F",
+        "x": 132.4,
+        "y": 401.2,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-toilet-2F-10",
+      "name": "214付近 男性トイレ",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "214通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "zozo-inside-2F",
+        "x": 85.6,
+        "y": 352.0,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-toilet-4F-0",
+      "name": "402付近 女性トイレ",
+      "purpose": "トイレ",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "402通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "zozo-inside-4F",
+        "x": 691.6,
+        "y": 455.2,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-toilet-4F-1",
+      "name": "403付近 男性トイレ",
+      "purpose": "トイレ",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "403通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "zozo-inside-4F",
+        "x": 683.2,
+        "y": 480.4,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-toilet-4F-2",
+      "name": "404付近 男性トイレ",
+      "purpose": "トイレ",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "404通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "zozo-inside-4F",
+        "x": 630.4,
+        "y": 574.0,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-toilet-4F-3",
+      "name": "406付近 男性トイレ",
+      "purpose": "トイレ",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "406通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "zozo-inside-4F",
+        "x": 470.8,
+        "y": 670.0,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-toilet-4F-4",
+      "name": "407付近 女性トイレ",
+      "purpose": "トイレ",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "407通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "zozo-inside-4F",
+        "x": 445.6,
+        "y": 672.4,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-toilet-4F-5",
+      "name": "408付近 女性トイレ",
+      "purpose": "トイレ",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "408通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "zozo-inside-4F",
+        "x": 354.4,
+        "y": 673.6,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-toilet-4F-6",
+      "name": "409付近 男性トイレ",
+      "purpose": "トイレ",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "409通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "zozo-inside-4F",
+        "x": 332.8,
+        "y": 670.0,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-toilet-4F-7",
+      "name": "410付近 女性トイレ",
+      "purpose": "トイレ",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "410通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "zozo-inside-4F",
+        "x": 193.6,
+        "y": 599.2,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-toilet-4F-8",
+      "name": "411付近 男性トイレ",
+      "purpose": "トイレ",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "411通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "zozo-inside-4F",
+        "x": 168.4,
+        "y": 574.0,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-toilet-4F-9",
+      "name": "413付近 男性トイレ",
+      "purpose": "トイレ",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "413通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "zozo-inside-4F",
+        "x": 108.4,
+        "y": 468.4,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-toilet-4F-10",
+      "name": "413付近 女性トイレ",
+      "purpose": "トイレ",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "413通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "zozo-inside-4F",
+        "x": 102.4,
+        "y": 450.4,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-aed-2F203",
+      "name": "203付近 AED",
+      "purpose": "AED",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "203通路付近",
+      "detail": "緊急時は近くの係員へ連絡してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "zozo-inside-2F",
+        "x": 672.4,
+        "y": 470.8,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-aed-2F208",
+      "name": "208付近 AED",
+      "purpose": "AED",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "208通路付近",
+      "detail": "緊急時は近くの係員へ連絡してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "zozo-inside-2F",
+        "x": 326.8,
+        "y": 637.6,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-aed-2F212",
+      "name": "212付近 AED",
+      "purpose": "AED",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "212通路付近",
+      "detail": "緊急時は近くの係員へ連絡してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "zozo-inside-2F",
+        "x": 134.8,
+        "y": 472.0,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-aed-4F404",
+      "name": "404付近 AED",
+      "purpose": "AED",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "404通路付近",
+      "detail": "緊急時は近くの係員へ連絡してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "zozo-inside-4F",
+        "x": 679.6,
+        "y": 538.0,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-aed-4F412",
+      "name": "412付近 AED",
+      "purpose": "AED",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "412通路付近",
+      "detail": "緊急時は近くの係員へ連絡してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "zozo-inside-4F",
+        "x": 122.8,
+        "y": 536.8,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-aed-4F407",
+      "name": "407付近 AED",
+      "purpose": "AED",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "407通路付近",
+      "detail": "緊急時は近くの係員へ連絡してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "zozo-inside-4F",
+        "x": 406.0,
+        "y": 702.4,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-toilet-3F-313-men",
+      "name": "313付近 男性トイレ",
+      "purpose": "トイレ",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "313通路付近",
+      "detail": "2026公式3F図の男女/車いす記号の掲載区域。専用券種と公演時の利用条件は当日案内で確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "zozo-inside-3F",
+        "x": 155,
+        "y": 395,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-toilet-3F-313-women",
+      "name": "313付近 女性トイレ",
+      "purpose": "トイレ",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "313通路付近",
+      "detail": "2026公式3F図の男女/車いす記号の掲載区域。専用券種と公演時の利用条件は当日案内で確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "zozo-inside-3F",
+        "x": 155,
+        "y": 395,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-toilet-3F-313-accessible",
+      "name": "313付近 バリアフリートイレ",
+      "purpose": "トイレ",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "313通路付近",
+      "detail": "2026公式3F図の男女/車いす記号の掲載区域。専用券種と公演時の利用条件は当日案内で確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "zozo-inside-3F",
+        "x": 155,
+        "y": 395,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-toilet-3F-302-men",
+      "name": "302付近 男性トイレ",
+      "purpose": "トイレ",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "302通路付近",
+      "detail": "2026公式3F図の男女/車いす記号の掲載区域。専用券種と公演時の利用条件は当日案内で確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "zozo-inside-3F",
+        "x": 650,
+        "y": 385,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-toilet-3F-302-women",
+      "name": "302付近 女性トイレ",
+      "purpose": "トイレ",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "302通路付近",
+      "detail": "2026公式3F図の男女/車いす記号の掲載区域。専用券種と公演時の利用条件は当日案内で確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "zozo-inside-3F",
+        "x": 650,
+        "y": 385,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-toilet-3F-302-accessible",
+      "name": "302付近 バリアフリートイレ",
+      "purpose": "トイレ",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "302通路付近",
+      "detail": "2026公式3F図の男女/車いす記号の掲載区域。専用券種と公演時の利用条件は当日案内で確認してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "zozo-inside-3F",
+        "x": 650,
+        "y": 385,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-aed-3F-312",
+      "name": "312付近 AED",
+      "purpose": "AED",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "312通路付近",
+      "detail": "公式3F図のAED記号。緊急時は係員へ連絡してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "zozo-inside-3F",
+        "x": 175,
+        "y": 525,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-aed-3F-302",
+      "name": "302付近 AED",
+      "purpose": "AED",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "302通路付近",
+      "detail": "公式3F図のAED記号。緊急時は係員へ連絡してください。",
+      "sourceIds": [
+        "gourmet"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "zozo-inside-3F",
+        "x": 650,
+        "y": 340,
+        "sourceIds": [
+          "gourmet"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-baby206",
+      "name": "ベビールーム",
+      "purpose": "赤ちゃん",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "206通路付近",
+      "detail": "未就学児と保護者向け、男性も利用可能。授乳・おむつ交換・温水等。野球開催時は開場〜試合終了30分後。公演時は当日案内を確認。",
+      "sourceIds": [
+        "kids"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "zozo-inside-2F",
+        "x": 514.0,
+        "y": 617.2,
+        "sourceIds": [
+          "kids"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-mamaro-2F",
+      "name": "mamaro（期間限定）",
+      "purpose": "赤ちゃん",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "211通路付近",
+      "detail": "性別を問わず利用できる授乳/おむつ交換用。利用20分、野球開催時は開場〜試合終了。期間終了日と公演時の運用は確認中。",
+      "sourceIds": [
+        "kids"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "zozo-inside-2F",
+        "x": 158.8,
+        "y": 532.0,
+        "sourceIds": [
+          "kids"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-mamaro-4F",
+      "name": "mamaro（期間限定）",
+      "purpose": "赤ちゃん",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "412通路付近",
+      "detail": "性別を問わず利用できる授乳/おむつ交換用。利用20分、野球開催時は開場〜試合終了。期間終了日と公演時の運用は確認中。",
+      "sourceIds": [
+        "kids"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "zozo-inside-4F",
+        "x": 112.0,
+        "y": 485.2,
+        "sourceIds": [
+          "kids"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-stroller-TEAM26ブース裏",
+      "name": "ベビーカー預かり TEAM26ブース裏",
+      "purpose": "赤ちゃん",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "TEAM26ブース裏",
+      "detail": "一般荷物の預かりではありません。野球開催日はTEAM26裏、混雑日は正面にも設置。無料、開場1時間前〜試合終了30分後、当日限り・数に限りがあります。",
+      "sourceIds": [
+        "kids"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "kind": "stroller",
+      "anchor": {
+        "diagramId": "zozo-grounds",
+        "x": 285,
+        "y": 650,
+        "sourceIds": [
+          "kids"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-stroller-正面パネル・落とし物窓口付近",
+      "name": "ベビーカー預かり 正面パネル・落とし物窓口付近",
+      "purpose": "赤ちゃん",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "正面パネル・落とし物窓口付近",
+      "detail": "一般荷物の預かりではありません。野球開催日はTEAM26裏、混雑日は正面にも設置。無料、開場1時間前〜試合終了30分後、当日限り・数に限りがあります。",
+      "sourceIds": [
+        "kids"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "kind": "stroller",
+      "anchor": {
+        "diagramId": "zozo-grounds",
+        "x": 410,
+        "y": 700,
+        "sourceIds": [
+          "kids"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-locker-inside",
+      "name": "場内2Fロッカー",
+      "purpose": "荷物",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "209通路入口・階段付近",
+      "detail": "2026年6月19日から事前払い・24時間単位。小500円。入場後、球場営業/入場時間内に利用。SPACERアプリで1日利用券購入、24時間前から予約可能。寸法・空き・対応決済は個別ページで確認。",
+      "sourceIds": [
+        "locker-inside",
+        "locker-change"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "storageKind": "coin",
+      "bookingUrl": "https://spacer.co.jp/base/op-174/",
+      "anchor": {
+        "diagramId": "zozo-inside-2F",
+        "x": 264.4,
+        "y": 620.8,
+        "sourceIds": [
+          "locker-inside",
+          "locker-change"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-locker-ticket",
+      "name": "外周チケット窓口ロッカー",
+      "purpose": "荷物",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "1F 15柱左手奥",
+      "detail": "2026年6月19日から事前払い・24時間単位。小500円・中600円・大800円。敷地への立入り・取り出しは当日案内も確認。SPACERアプリで1日利用券購入、24時間前から予約可能。寸法・空き・対応決済は個別ページで確認。",
+      "sourceIds": [
+        "locker-ticket",
+        "locker-change"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "storageKind": "coin",
+      "bookingUrl": "https://spacer.co.jp/base/op-175/",
+      "anchor": {
+        "diagramId": "zozo-grounds",
+        "x": 455,
+        "y": 675,
+        "sourceIds": [
+          "locker-ticket",
+          "locker-change"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-locker-stroller",
+      "name": "ベビーカーゾーンロッカー",
+      "purpose": "荷物",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "1F 16/17柱間奥・A〜D区域",
+      "detail": "2026年6月19日から事前払い・24時間単位。小500円・中600円・大800円。敷地への立入り・取り出しは当日案内も確認。SPACERアプリで1日利用券購入、24時間前から予約可能。寸法・空き・対応決済は個別ページで確認。",
+      "sourceIds": [
+        "locker-stroller",
+        "locker-change"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "storageKind": "coin",
+      "bookingUrl": "https://spacer.co.jp/base/op-234/",
+      "anchor": {
+        "diagramId": "zozo-grounds",
+        "x": 290,
+        "y": 650,
+        "sourceIds": [
+          "locker-stroller",
+          "locker-change"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-outside-L ガーナチョコゲート",
+      "name": "L ガーナチョコゲート",
+      "purpose": "案内",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "L ガーナチョコゲート",
+      "detail": "公式デジタルマップの掲載区域。使用ゲート・開放は当日の入場券と主催者案内を確認してください。",
+      "sourceIds": [
+        "current-map"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "kind": "gate",
+      "anchor": {
+        "diagramId": "zozo-grounds",
+        "x": 200,
+        "y": 180,
+        "sourceIds": [
+          "current-map"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-outside-R チョコパイゲート",
+      "name": "R チョコパイゲート",
+      "purpose": "案内",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "R チョコパイゲート",
+      "detail": "公式デジタルマップの掲載区域。使用ゲート・開放は当日の入場券と主催者案内を確認してください。",
+      "sourceIds": [
+        "current-map"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "kind": "gate",
+      "anchor": {
+        "diagramId": "zozo-grounds",
+        "x": 625,
+        "y": 180,
+        "sourceIds": [
+          "current-map"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-outside-F クーリッシュゲート",
+      "name": "F クーリッシュゲート",
+      "purpose": "案内",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "F クーリッシュゲート",
+      "detail": "公式デジタルマップの掲載区域。使用ゲート・開放は当日の入場券と主催者案内を確認してください。",
+      "sourceIds": [
+        "current-map"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "kind": "gate",
+      "anchor": {
+        "diagramId": "zozo-grounds",
+        "x": 175,
+        "y": 430,
+        "sourceIds": [
+          "current-map"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-outside-B キシリトールゲート",
+      "name": "B キシリトールゲート",
+      "purpose": "案内",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "B キシリトールゲート",
+      "detail": "公式デジタルマップの掲載区域。使用ゲート・開放は当日の入場券と主催者案内を確認してください。",
+      "sourceIds": [
+        "current-map"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "kind": "gate",
+      "anchor": {
+        "diagramId": "zozo-grounds",
+        "x": 675,
+        "y": 530,
+        "sourceIds": [
+          "current-map"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-outside-D パイの実ゲート",
+      "name": "D パイの実ゲート",
+      "purpose": "案内",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "D パイの実ゲート",
+      "detail": "公式デジタルマップの掲載区域。使用ゲート・開放は当日の入場券と主催者案内を確認してください。",
+      "sourceIds": [
+        "current-map"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "kind": "gate",
+      "anchor": {
+        "diagramId": "zozo-grounds",
+        "x": 385,
+        "y": 615,
+        "sourceIds": [
+          "current-map"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-outside-C コアラのマーチゲート",
+      "name": "C コアラのマーチゲート",
+      "purpose": "案内",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "C コアラのマーチゲート",
+      "detail": "公式デジタルマップの掲載区域。使用ゲート・開放は当日の入場券と主催者案内を確認してください。",
+      "sourceIds": [
+        "current-map"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "kind": "gate",
+      "anchor": {
+        "diagramId": "zozo-grounds",
+        "x": 510,
+        "y": 620,
+        "sourceIds": [
+          "current-map"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-outside-マリーンズストア ミュージアム店",
+      "name": "マリーンズストア ミュージアム店",
+      "purpose": "案内",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "マリーンズストア ミュージアム店",
+      "detail": "公式デジタルマップの掲載区域。使用ゲート・開放は当日の入場券と主催者案内を確認してください。",
+      "sourceIds": [
+        "current-map"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "kind": "shop",
+      "anchor": {
+        "diagramId": "zozo-grounds",
+        "x": 650,
+        "y": 695,
+        "sourceIds": [
+          "current-map"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-outside-インフォメーション",
+      "name": "インフォメーション",
+      "purpose": "案内",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "インフォメーション",
+      "detail": "公式デジタルマップの掲載区域。使用ゲート・開放は当日の入場券と主催者案内を確認してください。",
+      "sourceIds": [
+        "current-map"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "kind": "entrance",
+      "anchor": {
+        "diagramId": "zozo-grounds",
+        "x": 170,
+        "y": 550,
+        "sourceIds": [
+          "current-map"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-station-exit",
+      "name": "海浜幕張駅 南口",
+      "purpose": "案内",
+      "floor": "駅",
+      "scope": "場外",
+      "location": "JR京葉線 海浜幕張駅南口",
+      "detail": "球場まで公式徒歩案内は約15分。歩道橋を含む経路。精密な連続経路や段差なし経路は未転記です。",
+      "sourceIds": [
+        "access",
+        "walk"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "zozo-access",
+        "x": 650,
+        "y": 160,
+        "sourceIds": [
+          "access",
+          "walk"
+        ],
+        "reference": "公式掲載の区域位置。機械や室入口の精密点ではありません。"
+      }
+    },
+    {
+      "id": "zozo-station-south",
+      "name": "海浜幕張駅 マルチエキューブ 南口階段下付近",
+      "purpose": "荷物",
+      "floor": "駅",
+      "scope": "場外",
+      "location": "海浜幕張駅 改札外・南口階段下付近",
+      "detail": "初電〜終電。掲載料金 小500円・中600円・大800円、予約料金500円。サイズ・課金期間・対応決済は予約ページを確認。空きは未確認です。",
+      "sourceIds": [
+        "station-south"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "storageKind": "coin",
+      "bookingUrl": "https://multiecube.com/location/1246/"
+    },
+    {
+      "id": "zozo-station-park",
+      "name": "海浜幕張駅 マルチエキューブ 公園改札コンコース階",
+      "purpose": "荷物",
+      "floor": "駅",
+      "scope": "場外",
+      "location": "海浜幕張駅 改札外・公園改札コンコース階",
+      "detail": "初電〜終電。掲載料金 特小300円・小500円・中600円・大800円、予約料金500円。サイズ・課金期間・対応決済は予約ページを確認。空きは未確認です。",
+      "sourceIds": [
+        "station-park"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "storageKind": "coin",
+      "bookingUrl": "https://multiecube.com/location/1052/"
+    },
+    {
+      "id": "zozo-station-perie",
+      "name": "海浜幕張駅 マルチエキューブ 南口ペリエスクエア イベントスペース",
+      "purpose": "荷物",
+      "floor": "駅",
+      "scope": "場外",
+      "location": "海浜幕張駅 改札外・南口ペリエスクエア イベントスペース",
+      "detail": "初電〜終電。掲載料金 特小300円・小500円・中600円・大800円、予約料金500円。サイズ・課金期間・対応決済は予約ページを確認。空きは未確認です。",
+      "sourceIds": [
+        "station-perie"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "storageKind": "coin",
+      "bookingUrl": "https://multiecube.com/location/1245/"
+    },
+    {
+      "id": "zozo-tokyo-locker-0",
+      "name": "東京駅 グランスタ ロッカー",
+      "purpose": "荷物",
+      "floor": "駅",
+      "scope": "場外",
+      "location": "改札内B1 グランスタ",
+      "detail": "JR公式記事の掲載区域。記事更新2025年10月、2026の個別機械位置・料金・寸法は確認中。改札内の利用には乗車券等が必要です。",
+      "sourceIds": [
+        "tokyo-lockers"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "storageKind": "coin"
+    },
+    {
+      "id": "zozo-tokyo-locker-1",
+      "name": "東京駅 京葉地下通路 ロッカー",
+      "purpose": "荷物",
+      "floor": "駅",
+      "scope": "場外",
+      "location": "改札内 京葉地下通路",
+      "detail": "JR公式記事の掲載区域。記事更新2025年10月、2026の個別機械位置・料金・寸法は確認中。改札内の利用には乗車券等が必要です。",
+      "sourceIds": [
+        "tokyo-lockers"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "storageKind": "coin"
+    },
+    {
+      "id": "zozo-tokyo-locker-2",
+      "name": "東京駅 八重洲北口/丸の内北口 ロッカー",
+      "purpose": "荷物",
+      "floor": "駅",
+      "scope": "場外",
+      "location": "改札外 自由通路",
+      "detail": "JR公式記事の掲載区域。記事更新2025年10月、2026の個別機械位置・料金・寸法は確認中。改札内の利用には乗車券等が必要です。",
+      "sourceIds": [
+        "tokyo-lockers"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "storageKind": "coin"
+    },
+    {
+      "id": "zozo-tokyo-counter",
+      "name": "東京駅お荷物サービスカウンター",
+      "purpose": "荷物",
+      "floor": "駅",
+      "scope": "場外",
+      "location": "東京駅 八重洲南口改札外",
+      "detail": "東京駅シティ掲載、5:30〜23:15。受付締切・料金・対象サイズは個別案内で確認してください。",
+      "sourceIds": [
+        "tokyo-services"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "storageKind": "staffed"
+    },
+    {
+      "id": "zozo-big-echo",
+      "name": "ビッグエコー海浜幕張店 予約荷物預かり",
+      "purpose": "荷物",
+      "floor": "店舗",
+      "scope": "場外",
+      "location": "海浜幕張駅周辺・海浜幕張店",
+      "detail": "運営元がBounce対応店として掲載。ウェブ/アプリで場所と時間を選び予約、予約画面をスタッフへ提示。住所・受付時間・料金・空きは個別予約画面で確認してください。",
+      "sourceIds": [
+        "big-echo",
+        "store-booking"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "storageKind": "staffed",
+      "bookingUrl": "https://bounce.com/ja/s/location/efe32cb7-e49d-439a-9a9a-8e966add45c0?utm_source=big-echo&utm_medium=website"
+    },
+    {
+      "id": "zozo-messe-0",
+      "name": "WORLD KITCHENS!",
+      "purpose": "飲食",
+      "floor": "周辺施設",
+      "scope": "場外",
+      "location": "幕張メッセ 中央モール6ホール前",
+      "detail": "開催イベントにより営業日が異なります。球場外の別施設です。入場条件・営業時間は幕張メッセの当日案内を確認してください。",
+      "sourceIds": [
+        "messe"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed"
+    },
+    {
+      "id": "zozo-messe-1",
+      "name": "ROYAL KITCHENS!",
+      "purpose": "飲食",
+      "floor": "周辺施設",
+      "scope": "場外",
+      "location": "幕張メッセ 中央モール1ホール前",
+      "detail": "開催イベントにより営業日が異なります。球場外の別施設です。入場条件・営業時間は幕張メッセの当日案内を確認してください。",
+      "sourceIds": [
+        "messe"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed"
+    },
+    {
+      "id": "zozo-messe-2",
+      "name": "ニューヤマザキデイリーストア",
+      "purpose": "飲食",
+      "floor": "周辺施設",
+      "scope": "場外",
+      "location": "幕張メッセ 中央エントランス",
+      "detail": "開催イベントにより営業日が異なります。球場外の別施設です。入場条件・営業時間は幕張メッセの当日案内を確認してください。",
+      "sourceIds": [
+        "messe"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed"
+    },
+    {
+      "id": "zozo-messe-3",
+      "name": "デイリーヤマザキ幕張メッセⅡ",
+      "purpose": "飲食",
+      "floor": "周辺施設",
+      "scope": "場外",
+      "location": "幕張メッセ エスプラナード9ホール前",
+      "detail": "開催イベントにより営業日が異なります。球場外の別施設です。入場条件・営業時間は幕張メッセの当日案内を確認してください。",
+      "sourceIds": [
+        "messe"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed"
+    },
+    {
+      "id": "zozo-messe-4",
+      "name": "デイリーヤマザキ幕張メッセⅢ",
+      "purpose": "飲食",
+      "floor": "周辺施設",
+      "scope": "場外",
+      "location": "幕張メッセ 中央モール1ホール前",
+      "detail": "開催イベントにより営業日が異なります。球場外の別施設です。入場条件・営業時間は幕張メッセの当日案内を確認してください。",
+      "sourceIds": [
+        "messe"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed"
+    }
+  ],
+  "diagrams": [
+    {
+      "id": "zozo-inside-1F",
+      "floor": "1F",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        800,
+        800
+      ],
+      "concoursePaths": [
+        "M155,230 C55,485 210,650 400,650 C600,650 750,490 645,230"
+      ],
+      "contextPaths": [
+        "M180,310 L400,90 L620,310 L400,530 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "zozo-inside-1F-0",
+          "label": "レフト下",
+          "x": 130,
+          "y": 230,
+          "kind": "passage",
+          "sourceIds": [
+            "gourmet"
+          ],
+          "reference": "公式掲載の参考区域。入口中心・連続経路ではありません。"
+        },
+        {
+          "id": "zozo-inside-1F-1",
+          "label": "ライト下",
+          "x": 670,
+          "y": 230,
+          "kind": "passage",
+          "sourceIds": [
+            "gourmet"
+          ],
+          "reference": "公式掲載の参考区域。入口中心・連続経路ではありません。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "gourmet"
+        ],
+        "file": "research/zozo-current-2026-10-10/sources/c49169b9db279d23f0e96586847e037cd1aeeb77e8260623d65fa03eb841619b.pdf",
+        "sha256": "c49169b9db279d23f0e96586847e037cd1aeeb77e8260623d65fa03eb841619b",
+        "width": 800,
+        "height": 800,
+        "method": "現行公式掲載区域を独立した参考座標へ整理。原図は複製しない",
+        "status": "partial-source-checked"
+      }
+    },
+    {
+      "id": "zozo-inside-2F",
+      "floor": "2F",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        800,
+        800
+      ],
+      "concoursePaths": [
+        "M155,230 C55,485 210,650 400,650 C600,650 750,490 645,230"
+      ],
+      "contextPaths": [
+        "M180,310 L400,90 L620,310 L400,530 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "zozo-inside-2F-0",
+          "label": "214",
+          "x": 137,
+          "y": 314,
+          "kind": "passage",
+          "sourceIds": [
+            "gourmet"
+          ],
+          "reference": "公式掲載の参考区域。入口中心・連続経路ではありません。"
+        },
+        {
+          "id": "zozo-inside-2F-1",
+          "label": "212",
+          "x": 140,
+          "y": 455,
+          "kind": "passage",
+          "sourceIds": [
+            "gourmet"
+          ],
+          "reference": "公式掲載の参考区域。入口中心・連続経路ではありません。"
+        },
+        {
+          "id": "zozo-inside-2F-2",
+          "label": "210",
+          "x": 205,
+          "y": 575,
+          "kind": "passage",
+          "sourceIds": [
+            "gourmet"
+          ],
+          "reference": "公式掲載の参考区域。入口中心・連続経路ではありません。"
+        },
+        {
+          "id": "zozo-inside-2F-3",
+          "label": "208",
+          "x": 350,
+          "y": 635,
+          "kind": "passage",
+          "sourceIds": [
+            "gourmet"
+          ],
+          "reference": "公式掲載の参考区域。入口中心・連続経路ではありません。"
+        },
+        {
+          "id": "zozo-inside-2F-4",
+          "label": "206",
+          "x": 535,
+          "y": 590,
+          "kind": "passage",
+          "sourceIds": [
+            "gourmet"
+          ],
+          "reference": "公式掲載の参考区域。入口中心・連続経路ではありません。"
+        },
+        {
+          "id": "zozo-inside-2F-5",
+          "label": "204",
+          "x": 625,
+          "y": 515,
+          "kind": "passage",
+          "sourceIds": [
+            "gourmet"
+          ],
+          "reference": "公式掲載の参考区域。入口中心・連続経路ではありません。"
+        },
+        {
+          "id": "zozo-inside-2F-6",
+          "label": "202",
+          "x": 680,
+          "y": 385,
+          "kind": "passage",
+          "sourceIds": [
+            "gourmet"
+          ],
+          "reference": "公式掲載の参考区域。入口中心・連続経路ではありません。"
+        },
+        {
+          "id": "zozo-inside-2F-7",
+          "label": "バックスタンド",
+          "x": 400,
+          "y": 105,
+          "kind": "passage",
+          "sourceIds": [
+            "gourmet"
+          ],
+          "reference": "公式掲載の参考区域。入口中心・連続経路ではありません。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "gourmet"
+        ],
+        "file": "research/zozo-current-2026-10-10/sources/c49169b9db279d23f0e96586847e037cd1aeeb77e8260623d65fa03eb841619b.pdf",
+        "sha256": "c49169b9db279d23f0e96586847e037cd1aeeb77e8260623d65fa03eb841619b",
+        "width": 800,
+        "height": 800,
+        "method": "現行公式掲載区域を独立した参考座標へ整理。原図は複製しない",
+        "status": "partial-source-checked"
+      }
+    },
+    {
+      "id": "zozo-inside-3F",
+      "floor": "3F",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        800,
+        800
+      ],
+      "concoursePaths": [
+        "M155,230 C55,485 210,650 400,650 C600,650 750,490 645,230"
+      ],
+      "contextPaths": [
+        "M180,310 L400,90 L620,310 L400,530 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "zozo-inside-3F-0",
+          "label": "312",
+          "x": 155,
+          "y": 525,
+          "kind": "passage",
+          "sourceIds": [
+            "gourmet"
+          ],
+          "reference": "公式掲載の参考区域。入口中心・連続経路ではありません。"
+        },
+        {
+          "id": "zozo-inside-3F-1",
+          "label": "302",
+          "x": 650,
+          "y": 385,
+          "kind": "passage",
+          "sourceIds": [
+            "gourmet"
+          ],
+          "reference": "公式掲載の参考区域。入口中心・連続経路ではありません。"
+        },
+        {
+          "id": "zozo-inside-3F-2",
+          "label": "303",
+          "x": 625,
+          "y": 455,
+          "kind": "passage",
+          "sourceIds": [
+            "gourmet"
+          ],
+          "reference": "公式掲載の参考区域。入口中心・連続経路ではありません。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "gourmet"
+        ],
+        "file": "research/zozo-current-2026-10-10/sources/c49169b9db279d23f0e96586847e037cd1aeeb77e8260623d65fa03eb841619b.pdf",
+        "sha256": "c49169b9db279d23f0e96586847e037cd1aeeb77e8260623d65fa03eb841619b",
+        "width": 800,
+        "height": 800,
+        "method": "現行公式掲載区域を独立した参考座標へ整理。原図は複製しない",
+        "status": "partial-source-checked"
+      }
+    },
+    {
+      "id": "zozo-inside-4F",
+      "floor": "4F",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        800,
+        800
+      ],
+      "concoursePaths": [
+        "M155,230 C55,485 210,650 400,650 C600,650 750,490 645,230"
+      ],
+      "contextPaths": [
+        "M180,310 L400,90 L620,310 L400,530 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "zozo-inside-4F-0",
+          "label": "414",
+          "x": 90,
+          "y": 360,
+          "kind": "passage",
+          "sourceIds": [
+            "gourmet"
+          ],
+          "reference": "公式掲載の参考区域。入口中心・連続経路ではありません。"
+        },
+        {
+          "id": "zozo-inside-4F-1",
+          "label": "412",
+          "x": 100,
+          "y": 520,
+          "kind": "passage",
+          "sourceIds": [
+            "gourmet"
+          ],
+          "reference": "公式掲載の参考区域。入口中心・連続経路ではありません。"
+        },
+        {
+          "id": "zozo-inside-4F-2",
+          "label": "410",
+          "x": 200,
+          "y": 640,
+          "kind": "passage",
+          "sourceIds": [
+            "gourmet"
+          ],
+          "reference": "公式掲載の参考区域。入口中心・連続経路ではありません。"
+        },
+        {
+          "id": "zozo-inside-4F-3",
+          "label": "408",
+          "x": 350,
+          "y": 700,
+          "kind": "passage",
+          "sourceIds": [
+            "gourmet"
+          ],
+          "reference": "公式掲載の参考区域。入口中心・連続経路ではありません。"
+        },
+        {
+          "id": "zozo-inside-4F-4",
+          "label": "406",
+          "x": 550,
+          "y": 670,
+          "kind": "passage",
+          "sourceIds": [
+            "gourmet"
+          ],
+          "reference": "公式掲載の参考区域。入口中心・連続経路ではありません。"
+        },
+        {
+          "id": "zozo-inside-4F-5",
+          "label": "404",
+          "x": 635,
+          "y": 560,
+          "kind": "passage",
+          "sourceIds": [
+            "gourmet"
+          ],
+          "reference": "公式掲載の参考区域。入口中心・連続経路ではありません。"
+        },
+        {
+          "id": "zozo-inside-4F-6",
+          "label": "402",
+          "x": 695,
+          "y": 440,
+          "kind": "passage",
+          "sourceIds": [
+            "gourmet"
+          ],
+          "reference": "公式掲載の参考区域。入口中心・連続経路ではありません。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "gourmet"
+        ],
+        "file": "research/zozo-current-2026-10-10/sources/c49169b9db279d23f0e96586847e037cd1aeeb77e8260623d65fa03eb841619b.pdf",
+        "sha256": "c49169b9db279d23f0e96586847e037cd1aeeb77e8260623d65fa03eb841619b",
+        "width": 800,
+        "height": 800,
+        "method": "現行公式掲載区域を独立した参考座標へ整理。原図は複製しない",
+        "status": "partial-source-checked"
+      }
+    },
+    {
+      "id": "zozo-grounds",
+      "floor": "敷地・入場前",
+      "scope": "場外",
+      "viewBox": [
+        0,
+        0,
+        800,
+        800
+      ],
+      "concoursePaths": [],
+      "contextPaths": [
+        "M230,250 C230,150 580,150 580,250 L660,435 C640,600 550,615 410,615 C260,615 175,580 155,435 Z",
+        "M280,645 L340,645 L340,690 L280,690 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "zozo-grounds-0",
+          "label": "ZOZOマリン",
+          "x": 410,
+          "y": 310,
+          "kind": "entrance",
+          "sourceIds": [
+            "current-map"
+          ],
+          "reference": "公式掲載の参考区域。入口中心・連続経路ではありません。"
+        },
+        {
+          "id": "zozo-grounds-1",
+          "label": "L ガーナチョコゲート",
+          "x": 200,
+          "y": 180,
+          "kind": "gate",
+          "sourceIds": [
+            "current-map"
+          ],
+          "reference": "公式掲載の参考区域。入口中心・連続経路ではありません。"
+        },
+        {
+          "id": "zozo-grounds-2",
+          "label": "R チョコパイゲート",
+          "x": 625,
+          "y": 180,
+          "kind": "gate",
+          "sourceIds": [
+            "current-map"
+          ],
+          "reference": "公式掲載の参考区域。入口中心・連続経路ではありません。"
+        },
+        {
+          "id": "zozo-grounds-3",
+          "label": "F クーリッシュゲート",
+          "x": 175,
+          "y": 430,
+          "kind": "gate",
+          "sourceIds": [
+            "current-map"
+          ],
+          "reference": "公式掲載の参考区域。入口中心・連続経路ではありません。"
+        },
+        {
+          "id": "zozo-grounds-4",
+          "label": "B キシリトールゲート",
+          "x": 675,
+          "y": 530,
+          "kind": "gate",
+          "sourceIds": [
+            "current-map"
+          ],
+          "reference": "公式掲載の参考区域。入口中心・連続経路ではありません。"
+        },
+        {
+          "id": "zozo-grounds-5",
+          "label": "D パイの実ゲート",
+          "x": 385,
+          "y": 615,
+          "kind": "gate",
+          "sourceIds": [
+            "current-map"
+          ],
+          "reference": "公式掲載の参考区域。入口中心・連続経路ではありません。"
+        },
+        {
+          "id": "zozo-grounds-6",
+          "label": "C コアラのマーチゲート",
+          "x": 510,
+          "y": 620,
+          "kind": "gate",
+          "sourceIds": [
+            "current-map"
+          ],
+          "reference": "公式掲載の参考区域。入口中心・連続経路ではありません。"
+        },
+        {
+          "id": "zozo-grounds-7",
+          "label": "チケット窓口",
+          "x": 445,
+          "y": 675,
+          "kind": "shop",
+          "sourceIds": [
+            "current-map"
+          ],
+          "reference": "公式掲載の参考区域。入口中心・連続経路ではありません。"
+        },
+        {
+          "id": "zozo-grounds-8",
+          "label": "ベビーカーゾーン",
+          "x": 290,
+          "y": 650,
+          "kind": "plaza",
+          "sourceIds": [
+            "current-map"
+          ],
+          "reference": "公式掲載の参考区域。入口中心・連続経路ではありません。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "current-map"
+        ],
+        "file": "research/zozo-current-2026-10-10/sources/e6466de606a6c8936b4b9ce47f5789fd337f6979984690fef48782d4f660767b.html",
+        "sha256": "e6466de606a6c8936b4b9ce47f5789fd337f6979984690fef48782d4f660767b",
+        "width": 800,
+        "height": 800,
+        "method": "現行公式掲載区域を独立した参考座標へ整理。原図は複製しない",
+        "status": "partial-source-checked"
+      }
+    },
+    {
+      "id": "zozo-access",
+      "floor": "海浜幕張・周辺",
+      "scope": "場外",
+      "viewBox": [
+        0,
+        0,
+        800,
+        800
+      ],
+      "concoursePaths": [],
+      "contextPaths": [],
+      "landmarks": [
+        {
+          "id": "zozo-access-0",
+          "label": "ZOZOマリン",
+          "x": 140,
+          "y": 620,
+          "kind": "entrance",
+          "sourceIds": [
+            "walk"
+          ],
+          "reference": "公式掲載の参考区域。入口中心・連続経路ではありません。"
+        },
+        {
+          "id": "zozo-access-1",
+          "label": "幕張メッセ",
+          "x": 275,
+          "y": 445,
+          "kind": "entrance",
+          "sourceIds": [
+            "walk"
+          ],
+          "reference": "公式掲載の参考区域。入口中心・連続経路ではありません。"
+        },
+        {
+          "id": "zozo-access-2",
+          "label": "海浜幕張駅 南口",
+          "x": 650,
+          "y": 160,
+          "kind": "exit",
+          "sourceIds": [
+            "walk"
+          ],
+          "reference": "公式掲載の参考区域。入口中心・連続経路ではありません。"
+        },
+        {
+          "id": "zozo-access-3",
+          "label": "プレナ幕張",
+          "x": 665,
+          "y": 245,
+          "kind": "shop",
+          "sourceIds": [
+            "walk"
+          ],
+          "reference": "公式掲載の参考区域。入口中心・連続経路ではありません。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "walk"
+        ],
+        "file": "research/zozo-current-2026-10-10/sources/448df64364c33a66687d33905e629476387291a78e0ec650f90313d3e02c5ffb.webp",
+        "sha256": "448df64364c33a66687d33905e629476387291a78e0ec650f90313d3e02c5ffb",
+        "width": 800,
+        "height": 800,
+        "method": "現行公式掲載区域を独立した参考座標へ整理。原図は複製しない",
+        "status": "partial-source-checked"
+      }
+    },
+    {
+      "id": "zozo-nearest",
+      "floor": "海浜幕張駅",
+      "scope": "場外",
+      "viewBox": [
+        0,
+        0,
+        800,
+        800
+      ],
+      "concoursePaths": [],
+      "contextPaths": [],
+      "landmarks": [
+        {
+          "id": "zozo-nearest-0",
+          "label": "海浜幕張駅 改札外",
+          "x": 400,
+          "y": 230,
+          "kind": "station",
+          "sourceIds": [
+            "station-south"
+          ],
+          "reference": "公式掲載の参考区域。入口中心・連続経路ではありません。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "station-south"
+        ],
+        "file": "research/zozo-current-2026-10-10/sources/46ed3c7ded974ac5d57e5b8c7518df11e4f98f83da8dfb3c403bb482f3b08de8.html",
+        "sha256": "46ed3c7ded974ac5d57e5b8c7518df11e4f98f83da8dfb3c403bb482f3b08de8",
+        "width": 800,
+        "height": 800,
+        "method": "現行公式掲載区域を独立した参考座標へ整理。原図は複製しない",
+        "status": "partial-source-checked"
+      }
+    },
+    {
+      "id": "zozo-transfer",
+      "floor": "東京駅",
+      "scope": "場外",
+      "viewBox": [
+        0,
+        0,
+        800,
+        800
+      ],
+      "concoursePaths": [],
+      "contextPaths": [],
+      "landmarks": [
+        {
+          "id": "zozo-transfer-0",
+          "label": "東京駅 京葉線乗換",
+          "x": 400,
+          "y": 230,
+          "kind": "station",
+          "sourceIds": [
+            "tokyo-lockers"
+          ],
+          "reference": "公式掲載の参考区域。入口中心・連続経路ではありません。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "tokyo-lockers"
+        ],
+        "file": "research/zozo-current-2026-10-10/sources/1ac13af13ef75f92b17a7d034e2fcca4a1be9e925abaeaf64b98434cbb19b78a.html",
+        "sha256": "1ac13af13ef75f92b17a7d034e2fcca4a1be9e925abaeaf64b98434cbb19b78a",
+        "width": 800,
+        "height": 800,
+        "method": "現行公式掲載区域を独立した参考座標へ整理。原図は複製しない",
+        "status": "partial-source-checked"
+      }
+    },
+    {
+      "id": "zozo-store",
+      "floor": "予約預かり店舗",
+      "scope": "場外",
+      "viewBox": [
+        0,
+        0,
+        800,
+        800
+      ],
+      "concoursePaths": [],
+      "contextPaths": [],
+      "landmarks": [
+        {
+          "id": "zozo-store-0",
+          "label": "海浜幕張駅周辺",
+          "x": 400,
+          "y": 230,
+          "kind": "shop",
+          "sourceIds": [
+            "big-echo"
+          ],
+          "reference": "公式掲載の参考区域。入口中心・連続経路ではありません。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "big-echo"
+        ],
+        "file": "research/zozo-current-2026-10-10/sources/76dc6865f67e8528a16dac9de9dac49c60e48c8b01c9f7fd690f96977f721cd3.html",
+        "sha256": "76dc6865f67e8528a16dac9de9dac49c60e48c8b01c9f7fd690f96977f721cd3",
+        "width": 800,
+        "height": 800,
+        "method": "現行公式掲載区域を独立した参考座標へ整理。原図は複製しない",
+        "status": "partial-source-checked"
+      }
+    }
+  ],
+  "groups": [
+    {
+      "id": "zozo-inside-1F-ライト下-飲食",
+      "diagramId": "zozo-inside-1F",
+      "purpose": "飲食",
+      "label": "ライト下",
+      "area": "ライト下",
+      "memberIds": [
+        "zozo-food-0"
+      ],
+      "x": 665,
+      "y": 230,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-1F-レフト下-飲食",
+      "diagramId": "zozo-inside-1F",
+      "purpose": "飲食",
+      "label": "レフト下",
+      "area": "レフト下",
+      "memberIds": [
+        "zozo-food-1"
+      ],
+      "x": 135,
+      "y": 230,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-2F-201付近-飲食",
+      "diagramId": "zozo-inside-2F",
+      "purpose": "飲食",
+      "label": "201付近",
+      "area": "201付近",
+      "memberIds": [
+        "zozo-food-2"
+      ],
+      "x": 668.8,
+      "y": 334.0,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-2F-202付近-飲食",
+      "diagramId": "zozo-inside-2F",
+      "purpose": "飲食",
+      "label": "202付近",
+      "area": "202付近",
+      "memberIds": [
+        "zozo-food-3",
+        "zozo-food-4",
+        "zozo-food-5"
+      ],
+      "x": 672.4,
+      "y": 362.8,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-2F-203付近-飲食",
+      "diagramId": "zozo-inside-2F",
+      "purpose": "飲食",
+      "label": "203付近",
+      "area": "203付近",
+      "memberIds": [
+        "zozo-food-6",
+        "zozo-food-7"
+      ],
+      "x": 691.6,
+      "y": 416.8,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-2F-204付近-飲食",
+      "diagramId": "zozo-inside-2F",
+      "purpose": "飲食",
+      "label": "204付近",
+      "area": "204付近",
+      "memberIds": [
+        "zozo-food-8"
+      ],
+      "x": 623.2,
+      "y": 516.4,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-2F-Bゲート付近付近-飲食",
+      "diagramId": "zozo-inside-2F",
+      "purpose": "飲食",
+      "label": "Bゲート付近付近",
+      "area": "Bゲート付近付近",
+      "memberIds": [
+        "zozo-food-9"
+      ],
+      "x": 629.2,
+      "y": 589.6,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-2F-205付近-飲食",
+      "diagramId": "zozo-inside-2F",
+      "purpose": "飲食",
+      "label": "205付近",
+      "area": "205付近",
+      "memberIds": [
+        "zozo-food-10"
+      ],
+      "x": 582.4,
+      "y": 548.8,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-2F-206付近-飲食",
+      "diagramId": "zozo-inside-2F",
+      "purpose": "飲食",
+      "label": "206付近",
+      "area": "206付近",
+      "memberIds": [
+        "zozo-food-11"
+      ],
+      "x": 533.2,
+      "y": 590.8,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-2F-Cゲート付近付近-飲食",
+      "diagramId": "zozo-inside-2F",
+      "purpose": "飲食",
+      "label": "Cゲート付近付近",
+      "area": "Cゲート付近付近",
+      "memberIds": [
+        "zozo-food-12"
+      ],
+      "x": 502.0,
+      "y": 676.0,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-2F-207付近-飲食",
+      "diagramId": "zozo-inside-2F",
+      "purpose": "飲食",
+      "label": "207付近",
+      "area": "207付近",
+      "memberIds": [
+        "zozo-food-13"
+      ],
+      "x": 424.0,
+      "y": 628.0,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-2F-208付近-飲食",
+      "diagramId": "zozo-inside-2F",
+      "purpose": "飲食",
+      "label": "208付近",
+      "area": "208付近",
+      "memberIds": [
+        "zozo-food-14"
+      ],
+      "x": 378.4,
+      "y": 626.8,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-2F-209付近-飲食",
+      "diagramId": "zozo-inside-2F",
+      "purpose": "飲食",
+      "label": "209付近",
+      "area": "209付近",
+      "memberIds": [
+        "zozo-food-15"
+      ],
+      "x": 264.4,
+      "y": 588.4,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-2F-210付近-飲食",
+      "diagramId": "zozo-inside-2F",
+      "purpose": "飲食",
+      "label": "210付近",
+      "area": "210付近",
+      "memberIds": [
+        "zozo-food-16"
+      ],
+      "x": 244.0,
+      "y": 582.4,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-2F-211付近-飲食",
+      "diagramId": "zozo-inside-2F",
+      "purpose": "飲食",
+      "label": "211付近",
+      "area": "211付近",
+      "memberIds": [
+        "zozo-food-17"
+      ],
+      "x": 169.6,
+      "y": 494.8,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-2F-212付近-飲食",
+      "diagramId": "zozo-inside-2F",
+      "purpose": "飲食",
+      "label": "212付近",
+      "area": "212付近",
+      "memberIds": [
+        "zozo-food-18"
+      ],
+      "x": 138.4,
+      "y": 446.8,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-2F-213付近-飲食",
+      "diagramId": "zozo-inside-2F",
+      "purpose": "飲食",
+      "label": "213付近",
+      "area": "213付近",
+      "memberIds": [
+        "zozo-food-19",
+        "zozo-food-20"
+      ],
+      "x": 127.6,
+      "y": 372.4,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-2F-214付近-飲食",
+      "diagramId": "zozo-inside-2F",
+      "purpose": "飲食",
+      "label": "214付近",
+      "area": "214付近",
+      "memberIds": [
+        "zozo-food-21"
+      ],
+      "x": 128.8,
+      "y": 332.8,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-2F-バックスタンド付近-飲食",
+      "diagramId": "zozo-inside-2F",
+      "purpose": "飲食",
+      "label": "バックスタンド付近",
+      "area": "バックスタンド付近",
+      "memberIds": [
+        "zozo-food-22"
+      ],
+      "x": 400.0,
+      "y": 102.4,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-3F-303通路付近-飲食",
+      "diagramId": "zozo-inside-3F",
+      "purpose": "飲食",
+      "label": "303通路付近",
+      "area": "303通路付近",
+      "memberIds": [
+        "zozo-food-23"
+      ],
+      "x": 625,
+      "y": 455,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-4F-402付近-飲食",
+      "diagramId": "zozo-inside-4F",
+      "purpose": "飲食",
+      "label": "402付近",
+      "area": "402付近",
+      "memberIds": [
+        "zozo-food-24"
+      ],
+      "x": 700.0,
+      "y": 414.4,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-4F-405付近-飲食",
+      "diagramId": "zozo-inside-4F",
+      "purpose": "飲食",
+      "label": "405付近",
+      "area": "405付近",
+      "memberIds": [
+        "zozo-food-25"
+      ],
+      "x": 592.0,
+      "y": 606.4,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-4F-406付近-飲食",
+      "diagramId": "zozo-inside-4F",
+      "purpose": "飲食",
+      "label": "406付近",
+      "area": "406付近",
+      "memberIds": [
+        "zozo-food-26"
+      ],
+      "x": 490.0,
+      "y": 668.8,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-4F-409付近-飲食",
+      "diagramId": "zozo-inside-4F",
+      "purpose": "飲食",
+      "label": "409付近",
+      "area": "409付近",
+      "memberIds": [
+        "zozo-food-27"
+      ],
+      "x": 316.0,
+      "y": 668.8,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-4F-411付近-飲食",
+      "diagramId": "zozo-inside-4F",
+      "purpose": "飲食",
+      "label": "411付近",
+      "area": "411付近",
+      "memberIds": [
+        "zozo-food-28"
+      ],
+      "x": 148.0,
+      "y": 562.0,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-4F-413付近-飲食",
+      "diagramId": "zozo-inside-4F",
+      "purpose": "飲食",
+      "label": "413付近",
+      "area": "413付近",
+      "memberIds": [
+        "zozo-food-29"
+      ],
+      "x": 102.4,
+      "y": 414.4,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-2F-201トイレ区域-トイレ",
+      "diagramId": "zozo-inside-2F",
+      "purpose": "トイレ",
+      "label": "201トイレ区域",
+      "area": "201トイレ区域",
+      "memberIds": [
+        "zozo-toilet-2F-0"
+      ],
+      "x": 714.4,
+      "y": 354.4,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-2F-202トイレ区域-トイレ",
+      "diagramId": "zozo-inside-2F",
+      "purpose": "トイレ",
+      "label": "202トイレ区域",
+      "area": "202トイレ区域",
+      "memberIds": [
+        "zozo-toilet-2F-1"
+      ],
+      "x": 665.2,
+      "y": 401.2,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-2F-203トイレ区域-トイレ",
+      "diagramId": "zozo-inside-2F",
+      "purpose": "トイレ",
+      "label": "203トイレ区域",
+      "area": "203トイレ区域",
+      "memberIds": [
+        "zozo-toilet-2F-2"
+      ],
+      "x": 658.0,
+      "y": 433.6,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-2F-205トイレ区域-トイレ",
+      "diagramId": "zozo-inside-2F",
+      "purpose": "トイレ",
+      "label": "205トイレ区域",
+      "area": "205トイレ区域",
+      "memberIds": [
+        "zozo-toilet-2F-3"
+      ],
+      "x": 583.6,
+      "y": 552.4,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-2F-206トイレ区域-トイレ",
+      "diagramId": "zozo-inside-2F",
+      "purpose": "トイレ",
+      "label": "206トイレ区域",
+      "area": "206トイレ区域",
+      "memberIds": [
+        "zozo-toilet-2F-4"
+      ],
+      "x": 494.8,
+      "y": 616.0,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-2F-209トイレ区域-トイレ",
+      "diagramId": "zozo-inside-2F",
+      "purpose": "トイレ",
+      "label": "209トイレ区域",
+      "area": "209トイレ区域",
+      "memberIds": [
+        "zozo-toilet-2F-5"
+      ],
+      "x": 305.2,
+      "y": 612.4,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-2F-210トイレ区域-トイレ",
+      "diagramId": "zozo-inside-2F",
+      "purpose": "トイレ",
+      "label": "210トイレ区域",
+      "area": "210トイレ区域",
+      "memberIds": [
+        "zozo-toilet-2F-6"
+      ],
+      "x": 216.4,
+      "y": 556.0,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-2F-211トイレ区域-トイレ",
+      "diagramId": "zozo-inside-2F",
+      "purpose": "トイレ",
+      "label": "211トイレ区域",
+      "area": "211トイレ区域",
+      "memberIds": [
+        "zozo-toilet-2F-7"
+      ],
+      "x": 190.0,
+      "y": 528.4,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-2F-212トイレ区域-トイレ",
+      "diagramId": "zozo-inside-2F",
+      "purpose": "トイレ",
+      "label": "212トイレ区域",
+      "area": "212トイレ区域",
+      "memberIds": [
+        "zozo-toilet-2F-8"
+      ],
+      "x": 139.6,
+      "y": 433.6,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-2F-213トイレ区域-トイレ",
+      "diagramId": "zozo-inside-2F",
+      "purpose": "トイレ",
+      "label": "213トイレ区域",
+      "area": "213トイレ区域",
+      "memberIds": [
+        "zozo-toilet-2F-9"
+      ],
+      "x": 132.4,
+      "y": 401.2,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-2F-214トイレ区域-トイレ",
+      "diagramId": "zozo-inside-2F",
+      "purpose": "トイレ",
+      "label": "214トイレ区域",
+      "area": "214トイレ区域",
+      "memberIds": [
+        "zozo-toilet-2F-10"
+      ],
+      "x": 85.6,
+      "y": 352.0,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-4F-402トイレ区域-トイレ",
+      "diagramId": "zozo-inside-4F",
+      "purpose": "トイレ",
+      "label": "402トイレ区域",
+      "area": "402トイレ区域",
+      "memberIds": [
+        "zozo-toilet-4F-0"
+      ],
+      "x": 691.6,
+      "y": 455.2,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-4F-403トイレ区域-トイレ",
+      "diagramId": "zozo-inside-4F",
+      "purpose": "トイレ",
+      "label": "403トイレ区域",
+      "area": "403トイレ区域",
+      "memberIds": [
+        "zozo-toilet-4F-1"
+      ],
+      "x": 683.2,
+      "y": 480.4,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-4F-404トイレ区域-トイレ",
+      "diagramId": "zozo-inside-4F",
+      "purpose": "トイレ",
+      "label": "404トイレ区域",
+      "area": "404トイレ区域",
+      "memberIds": [
+        "zozo-toilet-4F-2"
+      ],
+      "x": 630.4,
+      "y": 574.0,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-4F-406トイレ区域-トイレ",
+      "diagramId": "zozo-inside-4F",
+      "purpose": "トイレ",
+      "label": "406トイレ区域",
+      "area": "406トイレ区域",
+      "memberIds": [
+        "zozo-toilet-4F-3"
+      ],
+      "x": 470.8,
+      "y": 670.0,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-4F-407トイレ区域-トイレ",
+      "diagramId": "zozo-inside-4F",
+      "purpose": "トイレ",
+      "label": "407トイレ区域",
+      "area": "407トイレ区域",
+      "memberIds": [
+        "zozo-toilet-4F-4"
+      ],
+      "x": 445.6,
+      "y": 672.4,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-4F-408トイレ区域-トイレ",
+      "diagramId": "zozo-inside-4F",
+      "purpose": "トイレ",
+      "label": "408トイレ区域",
+      "area": "408トイレ区域",
+      "memberIds": [
+        "zozo-toilet-4F-5"
+      ],
+      "x": 354.4,
+      "y": 673.6,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-4F-409トイレ区域-トイレ",
+      "diagramId": "zozo-inside-4F",
+      "purpose": "トイレ",
+      "label": "409トイレ区域",
+      "area": "409トイレ区域",
+      "memberIds": [
+        "zozo-toilet-4F-6"
+      ],
+      "x": 332.8,
+      "y": 670.0,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-4F-410トイレ区域-トイレ",
+      "diagramId": "zozo-inside-4F",
+      "purpose": "トイレ",
+      "label": "410トイレ区域",
+      "area": "410トイレ区域",
+      "memberIds": [
+        "zozo-toilet-4F-7"
+      ],
+      "x": 193.6,
+      "y": 599.2,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-4F-411トイレ区域-トイレ",
+      "diagramId": "zozo-inside-4F",
+      "purpose": "トイレ",
+      "label": "411トイレ区域",
+      "area": "411トイレ区域",
+      "memberIds": [
+        "zozo-toilet-4F-8"
+      ],
+      "x": 168.4,
+      "y": 574.0,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-4F-413トイレ区域-トイレ",
+      "diagramId": "zozo-inside-4F",
+      "purpose": "トイレ",
+      "label": "413トイレ区域",
+      "area": "413トイレ区域",
+      "memberIds": [
+        "zozo-toilet-4F-9",
+        "zozo-toilet-4F-10"
+      ],
+      "x": 108.4,
+      "y": 468.4,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-2F-203通路付近-AED",
+      "diagramId": "zozo-inside-2F",
+      "purpose": "AED",
+      "label": "203通路付近",
+      "area": "203通路付近",
+      "memberIds": [
+        "zozo-aed-2F203"
+      ],
+      "x": 672.4,
+      "y": 470.8,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-2F-208通路付近-AED",
+      "diagramId": "zozo-inside-2F",
+      "purpose": "AED",
+      "label": "208通路付近",
+      "area": "208通路付近",
+      "memberIds": [
+        "zozo-aed-2F208"
+      ],
+      "x": 326.8,
+      "y": 637.6,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-2F-212通路付近-AED",
+      "diagramId": "zozo-inside-2F",
+      "purpose": "AED",
+      "label": "212通路付近",
+      "area": "212通路付近",
+      "memberIds": [
+        "zozo-aed-2F212"
+      ],
+      "x": 134.8,
+      "y": 472.0,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-4F-404通路付近-AED",
+      "diagramId": "zozo-inside-4F",
+      "purpose": "AED",
+      "label": "404通路付近",
+      "area": "404通路付近",
+      "memberIds": [
+        "zozo-aed-4F404"
+      ],
+      "x": 679.6,
+      "y": 538.0,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-4F-412通路付近-AED",
+      "diagramId": "zozo-inside-4F",
+      "purpose": "AED",
+      "label": "412通路付近",
+      "area": "412通路付近",
+      "memberIds": [
+        "zozo-aed-4F412"
+      ],
+      "x": 122.8,
+      "y": 536.8,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-4F-407通路付近-AED",
+      "diagramId": "zozo-inside-4F",
+      "purpose": "AED",
+      "label": "407通路付近",
+      "area": "407通路付近",
+      "memberIds": [
+        "zozo-aed-4F407"
+      ],
+      "x": 406.0,
+      "y": 702.4,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-3F-313通路付近-トイレ",
+      "diagramId": "zozo-inside-3F",
+      "purpose": "トイレ",
+      "label": "313通路付近",
+      "area": "313通路付近",
+      "memberIds": [
+        "zozo-toilet-3F-313-men",
+        "zozo-toilet-3F-313-women",
+        "zozo-toilet-3F-313-accessible"
+      ],
+      "x": 155,
+      "y": 395,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-3F-302通路付近-トイレ",
+      "diagramId": "zozo-inside-3F",
+      "purpose": "トイレ",
+      "label": "302通路付近",
+      "area": "302通路付近",
+      "memberIds": [
+        "zozo-toilet-3F-302-men",
+        "zozo-toilet-3F-302-women",
+        "zozo-toilet-3F-302-accessible"
+      ],
+      "x": 650,
+      "y": 385,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-3F-312通路付近-AED",
+      "diagramId": "zozo-inside-3F",
+      "purpose": "AED",
+      "label": "312通路付近",
+      "area": "312通路付近",
+      "memberIds": [
+        "zozo-aed-3F-312"
+      ],
+      "x": 175,
+      "y": 525,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-3F-302通路付近-AED",
+      "diagramId": "zozo-inside-3F",
+      "purpose": "AED",
+      "label": "302通路付近",
+      "area": "302通路付近",
+      "memberIds": [
+        "zozo-aed-3F-302"
+      ],
+      "x": 650,
+      "y": 340,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-2F-206通路付近-赤ちゃん",
+      "diagramId": "zozo-inside-2F",
+      "purpose": "赤ちゃん",
+      "label": "206通路付近",
+      "area": "206通路付近",
+      "memberIds": [
+        "zozo-baby206"
+      ],
+      "x": 514.0,
+      "y": 617.2,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-2F-211通路付近-赤ちゃん",
+      "diagramId": "zozo-inside-2F",
+      "purpose": "赤ちゃん",
+      "label": "211通路付近",
+      "area": "211通路付近",
+      "memberIds": [
+        "zozo-mamaro-2F"
+      ],
+      "x": 158.8,
+      "y": 532.0,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-4F-412通路付近-赤ちゃん",
+      "diagramId": "zozo-inside-4F",
+      "purpose": "赤ちゃん",
+      "label": "412通路付近",
+      "area": "412通路付近",
+      "memberIds": [
+        "zozo-mamaro-4F"
+      ],
+      "x": 112.0,
+      "y": 485.2,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-grounds-TEAM26ブース裏-赤ちゃん",
+      "diagramId": "zozo-grounds",
+      "purpose": "赤ちゃん",
+      "label": "TEAM26ブース裏",
+      "area": "TEAM26ブース裏",
+      "memberIds": [
+        "zozo-stroller-TEAM26ブース裏"
+      ],
+      "x": 285,
+      "y": 650,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-grounds-正面パネル・落とし物窓口付近-赤ちゃん",
+      "diagramId": "zozo-grounds",
+      "purpose": "赤ちゃん",
+      "label": "正面パネル・落とし物窓口付近",
+      "area": "正面パネル・落とし物窓口付近",
+      "memberIds": [
+        "zozo-stroller-正面パネル・落とし物窓口付近"
+      ],
+      "x": 410,
+      "y": 700,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-inside-2F-209通路入口・階段付近-荷物",
+      "diagramId": "zozo-inside-2F",
+      "purpose": "荷物",
+      "label": "209通路入口・階段付近",
+      "area": "209通路入口・階段付近",
+      "memberIds": [
+        "zozo-locker-inside"
+      ],
+      "x": 264.4,
+      "y": 620.8,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-grounds-1F 15柱左手奥-荷物",
+      "diagramId": "zozo-grounds",
+      "purpose": "荷物",
+      "label": "1F 15柱左手奥",
+      "area": "1F 15柱左手奥",
+      "memberIds": [
+        "zozo-locker-ticket"
+      ],
+      "x": 455,
+      "y": 675,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-grounds-1F 16/17柱間奥・A〜D区域-荷物",
+      "diagramId": "zozo-grounds",
+      "purpose": "荷物",
+      "label": "1F 16/17柱間奥・A〜D区域",
+      "area": "1F 16/17柱間奥・A〜D区域",
+      "memberIds": [
+        "zozo-locker-stroller"
+      ],
+      "x": 290,
+      "y": 650,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-grounds-L ガーナチョコゲート-案内",
+      "diagramId": "zozo-grounds",
+      "purpose": "案内",
+      "label": "L ガーナチョコゲート",
+      "area": "L ガーナチョコゲート",
+      "memberIds": [
+        "zozo-outside-L ガーナチョコゲート"
+      ],
+      "x": 200,
+      "y": 180,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-grounds-R チョコパイゲート-案内",
+      "diagramId": "zozo-grounds",
+      "purpose": "案内",
+      "label": "R チョコパイゲート",
+      "area": "R チョコパイゲート",
+      "memberIds": [
+        "zozo-outside-R チョコパイゲート"
+      ],
+      "x": 625,
+      "y": 180,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-grounds-F クーリッシュゲート-案内",
+      "diagramId": "zozo-grounds",
+      "purpose": "案内",
+      "label": "F クーリッシュゲート",
+      "area": "F クーリッシュゲート",
+      "memberIds": [
+        "zozo-outside-F クーリッシュゲート"
+      ],
+      "x": 175,
+      "y": 430,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-grounds-B キシリトールゲート-案内",
+      "diagramId": "zozo-grounds",
+      "purpose": "案内",
+      "label": "B キシリトールゲート",
+      "area": "B キシリトールゲート",
+      "memberIds": [
+        "zozo-outside-B キシリトールゲート"
+      ],
+      "x": 675,
+      "y": 530,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-grounds-D パイの実ゲート-案内",
+      "diagramId": "zozo-grounds",
+      "purpose": "案内",
+      "label": "D パイの実ゲート",
+      "area": "D パイの実ゲート",
+      "memberIds": [
+        "zozo-outside-D パイの実ゲート"
+      ],
+      "x": 385,
+      "y": 615,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-grounds-C コアラのマーチゲート-案内",
+      "diagramId": "zozo-grounds",
+      "purpose": "案内",
+      "label": "C コアラのマーチゲート",
+      "area": "C コアラのマーチゲート",
+      "memberIds": [
+        "zozo-outside-C コアラのマーチゲート"
+      ],
+      "x": 510,
+      "y": 620,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-grounds-マリーンズストア ミュージアム店-案内",
+      "diagramId": "zozo-grounds",
+      "purpose": "案内",
+      "label": "マリーンズストア ミュージアム店",
+      "area": "マリーンズストア ミュージアム店",
+      "memberIds": [
+        "zozo-outside-マリーンズストア ミュージアム店"
+      ],
+      "x": 650,
+      "y": 695,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-grounds-インフォメーション-案内",
+      "diagramId": "zozo-grounds",
+      "purpose": "案内",
+      "label": "インフォメーション",
+      "area": "インフォメーション",
+      "memberIds": [
+        "zozo-outside-インフォメーション"
+      ],
+      "x": 170,
+      "y": 550,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "zozo-access-JR京葉線 海浜幕張駅南口-案内",
+      "diagramId": "zozo-access",
+      "purpose": "案内",
+      "label": "JR京葉線 海浜幕張駅南口",
+      "area": "JR京葉線 海浜幕張駅南口",
+      "memberIds": [
+        "zozo-station-exit"
+      ],
+      "x": 650,
+      "y": 160,
+      "boundary": "同じ公式掲載階/区域/目的だけを固定グループにする",
+      "visualReview": "source-checked"
+    }
+  ],
+  "meta": {
+    "zozo-food-0": {
+      "area": "ライト下",
+      "location": "ライト下",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-food-1": {
+      "area": "レフト下",
+      "location": "レフト下",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-food-2": {
+      "area": "201付近",
+      "location": "201付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-food-3": {
+      "area": "202付近",
+      "location": "202付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-food-4": {
+      "area": "202付近",
+      "location": "202付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-food-5": {
+      "area": "202付近",
+      "location": "202付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-food-6": {
+      "area": "203付近",
+      "location": "203付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-food-7": {
+      "area": "203付近",
+      "location": "203付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-food-8": {
+      "area": "204付近",
+      "location": "204付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-food-9": {
+      "area": "Bゲート付近付近",
+      "location": "Bゲート付近付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-food-10": {
+      "area": "205付近",
+      "location": "205付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-food-11": {
+      "area": "206付近",
+      "location": "206付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-food-12": {
+      "area": "Cゲート付近付近",
+      "location": "Cゲート付近付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-food-13": {
+      "area": "207付近",
+      "location": "207付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-food-14": {
+      "area": "208付近",
+      "location": "208付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-food-15": {
+      "area": "209付近",
+      "location": "209付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-food-16": {
+      "area": "210付近",
+      "location": "210付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-food-17": {
+      "area": "211付近",
+      "location": "211付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-food-18": {
+      "area": "212付近",
+      "location": "212付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-food-19": {
+      "area": "213付近",
+      "location": "213付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-food-20": {
+      "area": "213付近",
+      "location": "213付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-food-21": {
+      "area": "214付近",
+      "location": "214付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-food-22": {
+      "area": "バックスタンド付近",
+      "location": "バックスタンド付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-food-23": {
+      "area": "303通路付近",
+      "location": "303通路付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-food-24": {
+      "area": "402付近",
+      "location": "402付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-food-25": {
+      "area": "405付近",
+      "location": "405付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-food-26": {
+      "area": "406付近",
+      "location": "406付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-food-27": {
+      "area": "409付近",
+      "location": "409付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-food-28": {
+      "area": "411付近",
+      "location": "411付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-food-29": {
+      "area": "413付近",
+      "location": "413付近",
+      "detail": "2026公式掲載店。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-toilet-2F-0": {
+      "area": "201トイレ区域",
+      "location": "201通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-toilet-2F-1": {
+      "area": "202トイレ区域",
+      "location": "202通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-toilet-2F-2": {
+      "area": "203トイレ区域",
+      "location": "203通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-toilet-2F-3": {
+      "area": "205トイレ区域",
+      "location": "205通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-toilet-2F-4": {
+      "area": "206トイレ区域",
+      "location": "206通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-toilet-2F-5": {
+      "area": "209トイレ区域",
+      "location": "209通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-toilet-2F-6": {
+      "area": "210トイレ区域",
+      "location": "210通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-toilet-2F-7": {
+      "area": "211トイレ区域",
+      "location": "211通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-toilet-2F-8": {
+      "area": "212トイレ区域",
+      "location": "212通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-toilet-2F-9": {
+      "area": "213トイレ区域",
+      "location": "213通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-toilet-2F-10": {
+      "area": "214トイレ区域",
+      "location": "214通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-toilet-4F-0": {
+      "area": "402トイレ区域",
+      "location": "402通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-toilet-4F-1": {
+      "area": "403トイレ区域",
+      "location": "403通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-toilet-4F-2": {
+      "area": "404トイレ区域",
+      "location": "404通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-toilet-4F-3": {
+      "area": "406トイレ区域",
+      "location": "406通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-toilet-4F-4": {
+      "area": "407トイレ区域",
+      "location": "407通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-toilet-4F-5": {
+      "area": "408トイレ区域",
+      "location": "408通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-toilet-4F-6": {
+      "area": "409トイレ区域",
+      "location": "409通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-toilet-4F-7": {
+      "area": "410トイレ区域",
+      "location": "410通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-toilet-4F-8": {
+      "area": "411トイレ区域",
+      "location": "411通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-toilet-4F-9": {
+      "area": "413トイレ区域",
+      "location": "413通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-toilet-4F-10": {
+      "area": "413トイレ区域",
+      "location": "413通路付近",
+      "detail": "公式図の男女記号を区域ごとに確認。公演時の運用変更と個別入口は現地案内を確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-aed-2F203": {
+      "area": "203通路付近",
+      "location": "203通路付近",
+      "detail": "緊急時は近くの係員へ連絡してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-aed-2F208": {
+      "area": "208通路付近",
+      "location": "208通路付近",
+      "detail": "緊急時は近くの係員へ連絡してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-aed-2F212": {
+      "area": "212通路付近",
+      "location": "212通路付近",
+      "detail": "緊急時は近くの係員へ連絡してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-aed-4F404": {
+      "area": "404通路付近",
+      "location": "404通路付近",
+      "detail": "緊急時は近くの係員へ連絡してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-aed-4F412": {
+      "area": "412通路付近",
+      "location": "412通路付近",
+      "detail": "緊急時は近くの係員へ連絡してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-aed-4F407": {
+      "area": "407通路付近",
+      "location": "407通路付近",
+      "detail": "緊急時は近くの係員へ連絡してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-toilet-3F-313-men": {
+      "area": "313通路付近",
+      "location": "313通路付近",
+      "detail": "2026公式3F図の男女/車いす記号の掲載区域。専用券種と公演時の利用条件は当日案内で確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-toilet-3F-313-women": {
+      "area": "313通路付近",
+      "location": "313通路付近",
+      "detail": "2026公式3F図の男女/車いす記号の掲載区域。専用券種と公演時の利用条件は当日案内で確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-toilet-3F-313-accessible": {
+      "area": "313通路付近",
+      "location": "313通路付近",
+      "detail": "2026公式3F図の男女/車いす記号の掲載区域。専用券種と公演時の利用条件は当日案内で確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-toilet-3F-302-men": {
+      "area": "302通路付近",
+      "location": "302通路付近",
+      "detail": "2026公式3F図の男女/車いす記号の掲載区域。専用券種と公演時の利用条件は当日案内で確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-toilet-3F-302-women": {
+      "area": "302通路付近",
+      "location": "302通路付近",
+      "detail": "2026公式3F図の男女/車いす記号の掲載区域。専用券種と公演時の利用条件は当日案内で確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-toilet-3F-302-accessible": {
+      "area": "302通路付近",
+      "location": "302通路付近",
+      "detail": "2026公式3F図の男女/車いす記号の掲載区域。専用券種と公演時の利用条件は当日案内で確認してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-aed-3F-312": {
+      "area": "312通路付近",
+      "location": "312通路付近",
+      "detail": "公式3F図のAED記号。緊急時は係員へ連絡してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-aed-3F-302": {
+      "area": "302通路付近",
+      "location": "302通路付近",
+      "detail": "公式3F図のAED記号。緊急時は係員へ連絡してください。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-baby206": {
+      "area": "206通路付近",
+      "location": "206通路付近",
+      "detail": "未就学児と保護者向け、男性も利用可能。授乳・おむつ交換・温水等。野球開催時は開場〜試合終了30分後。公演時は当日案内を確認。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-mamaro-2F": {
+      "area": "211通路付近",
+      "location": "211通路付近",
+      "detail": "性別を問わず利用できる授乳/おむつ交換用。利用20分、野球開催時は開場〜試合終了。期間終了日と公演時の運用は確認中。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-mamaro-4F": {
+      "area": "412通路付近",
+      "location": "412通路付近",
+      "detail": "性別を問わず利用できる授乳/おむつ交換用。利用20分、野球開催時は開場〜試合終了。期間終了日と公演時の運用は確認中。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": []
+    },
+    "zozo-stroller-TEAM26ブース裏": {
+      "area": "TEAM26ブース裏",
+      "location": "TEAM26ブース裏",
+      "detail": "一般荷物の預かりではありません。野球開催日はTEAM26裏、混雑日は正面にも設置。無料、開場1時間前〜試合終了30分後、当日限り・数に限りがあります。",
+      "accessCondition": "入場前・施設の営業条件を確認",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "zozo-stroller-正面パネル・落とし物窓口付近": {
+      "area": "正面パネル・落とし物窓口付近",
+      "location": "正面パネル・落とし物窓口付近",
+      "detail": "一般荷物の預かりではありません。野球開催日はTEAM26裏、混雑日は正面にも設置。無料、開場1時間前〜試合終了30分後、当日限り・数に限りがあります。",
+      "accessCondition": "入場前・施設の営業条件を確認",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "zozo-locker-inside": {
+      "area": "209通路入口・階段付近",
+      "location": "209通路入口・階段付近",
+      "detail": "2026年6月19日から事前払い・24時間単位。小500円。入場後、球場営業/入場時間内に利用。SPACERアプリで1日利用券購入、24時間前から予約可能。寸法・空き・対応決済は個別ページで確認。",
+      "accessCondition": "入場券・開催日の開放を確認",
+      "outsideViewIds": [],
+      "url": "https://spacer.co.jp/base/op-174/"
+    },
+    "zozo-locker-ticket": {
+      "area": "1F 15柱左手奥",
+      "location": "1F 15柱左手奥",
+      "detail": "2026年6月19日から事前払い・24時間単位。小500円・中600円・大800円。敷地への立入り・取り出しは当日案内も確認。SPACERアプリで1日利用券購入、24時間前から予約可能。寸法・空き・対応決済は個別ページで確認。",
+      "accessCondition": "入場前・施設の営業条件を確認",
+      "outsideViewIds": [
+        "grounds"
+      ],
+      "url": "https://spacer.co.jp/base/op-175/"
+    },
+    "zozo-locker-stroller": {
+      "area": "1F 16/17柱間奥・A〜D区域",
+      "location": "1F 16/17柱間奥・A〜D区域",
+      "detail": "2026年6月19日から事前払い・24時間単位。小500円・中600円・大800円。敷地への立入り・取り出しは当日案内も確認。SPACERアプリで1日利用券購入、24時間前から予約可能。寸法・空き・対応決済は個別ページで確認。",
+      "accessCondition": "入場前・施設の営業条件を確認",
+      "outsideViewIds": [
+        "grounds"
+      ],
+      "url": "https://spacer.co.jp/base/op-234/"
+    },
+    "zozo-outside-L ガーナチョコゲート": {
+      "area": "L ガーナチョコゲート",
+      "location": "L ガーナチョコゲート",
+      "detail": "公式デジタルマップの掲載区域。使用ゲート・開放は当日の入場券と主催者案内を確認してください。",
+      "accessCondition": "入場前・施設の営業条件を確認",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "zozo-outside-R チョコパイゲート": {
+      "area": "R チョコパイゲート",
+      "location": "R チョコパイゲート",
+      "detail": "公式デジタルマップの掲載区域。使用ゲート・開放は当日の入場券と主催者案内を確認してください。",
+      "accessCondition": "入場前・施設の営業条件を確認",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "zozo-outside-F クーリッシュゲート": {
+      "area": "F クーリッシュゲート",
+      "location": "F クーリッシュゲート",
+      "detail": "公式デジタルマップの掲載区域。使用ゲート・開放は当日の入場券と主催者案内を確認してください。",
+      "accessCondition": "入場前・施設の営業条件を確認",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "zozo-outside-B キシリトールゲート": {
+      "area": "B キシリトールゲート",
+      "location": "B キシリトールゲート",
+      "detail": "公式デジタルマップの掲載区域。使用ゲート・開放は当日の入場券と主催者案内を確認してください。",
+      "accessCondition": "入場前・施設の営業条件を確認",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "zozo-outside-D パイの実ゲート": {
+      "area": "D パイの実ゲート",
+      "location": "D パイの実ゲート",
+      "detail": "公式デジタルマップの掲載区域。使用ゲート・開放は当日の入場券と主催者案内を確認してください。",
+      "accessCondition": "入場前・施設の営業条件を確認",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "zozo-outside-C コアラのマーチゲート": {
+      "area": "C コアラのマーチゲート",
+      "location": "C コアラのマーチゲート",
+      "detail": "公式デジタルマップの掲載区域。使用ゲート・開放は当日の入場券と主催者案内を確認してください。",
+      "accessCondition": "入場前・施設の営業条件を確認",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "zozo-outside-マリーンズストア ミュージアム店": {
+      "area": "マリーンズストア ミュージアム店",
+      "location": "マリーンズストア ミュージアム店",
+      "detail": "公式デジタルマップの掲載区域。使用ゲート・開放は当日の入場券と主催者案内を確認してください。",
+      "accessCondition": "入場前・施設の営業条件を確認",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "zozo-outside-インフォメーション": {
+      "area": "インフォメーション",
+      "location": "インフォメーション",
+      "detail": "公式デジタルマップの掲載区域。使用ゲート・開放は当日の入場券と主催者案内を確認してください。",
+      "accessCondition": "入場前・施設の営業条件を確認",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "zozo-station-exit": {
+      "area": "JR京葉線 海浜幕張駅南口",
+      "location": "JR京葉線 海浜幕張駅南口",
+      "detail": "球場まで公式徒歩案内は約15分。歩道橋を含む経路。精密な連続経路や段差なし経路は未転記です。",
+      "accessCondition": "入場前・施設の営業条件を確認",
+      "outsideViewIds": [
+        "access",
+        "nearest"
+      ]
+    },
+    "zozo-station-south": {
+      "area": "海浜幕張駅 改札外・南口階段下付近",
+      "location": "海浜幕張駅 改札外・南口階段下付近",
+      "detail": "初電〜終電。掲載料金 小500円・中600円・大800円、予約料金500円。サイズ・課金期間・対応決済は予約ページを確認。空きは未確認です。",
+      "accessCondition": "入場前・施設の営業条件を確認",
+      "outsideViewIds": [
+        "nearest",
+        "access"
+      ],
+      "url": "https://multiecube.com/location/1246/"
+    },
+    "zozo-station-park": {
+      "area": "海浜幕張駅 改札外・公園改札コンコース階",
+      "location": "海浜幕張駅 改札外・公園改札コンコース階",
+      "detail": "初電〜終電。掲載料金 特小300円・小500円・中600円・大800円、予約料金500円。サイズ・課金期間・対応決済は予約ページを確認。空きは未確認です。",
+      "accessCondition": "入場前・施設の営業条件を確認",
+      "outsideViewIds": [
+        "nearest",
+        "access"
+      ],
+      "url": "https://multiecube.com/location/1052/"
+    },
+    "zozo-station-perie": {
+      "area": "海浜幕張駅 改札外・南口ペリエスクエア イベントスペース",
+      "location": "海浜幕張駅 改札外・南口ペリエスクエア イベントスペース",
+      "detail": "初電〜終電。掲載料金 特小300円・小500円・中600円・大800円、予約料金500円。サイズ・課金期間・対応決済は予約ページを確認。空きは未確認です。",
+      "accessCondition": "入場前・施設の営業条件を確認",
+      "outsideViewIds": [
+        "nearest",
+        "access"
+      ],
+      "url": "https://multiecube.com/location/1245/"
+    },
+    "zozo-tokyo-locker-0": {
+      "area": "改札内B1 グランスタ",
+      "location": "改札内B1 グランスタ",
+      "detail": "JR公式記事の掲載区域。記事更新2025年10月、2026の個別機械位置・料金・寸法は確認中。改札内の利用には乗車券等が必要です。",
+      "accessCondition": "入場前・施設の営業条件を確認",
+      "outsideViewIds": [
+        "transfer"
+      ]
+    },
+    "zozo-tokyo-locker-1": {
+      "area": "改札内 京葉地下通路",
+      "location": "改札内 京葉地下通路",
+      "detail": "JR公式記事の掲載区域。記事更新2025年10月、2026の個別機械位置・料金・寸法は確認中。改札内の利用には乗車券等が必要です。",
+      "accessCondition": "入場前・施設の営業条件を確認",
+      "outsideViewIds": [
+        "transfer"
+      ]
+    },
+    "zozo-tokyo-locker-2": {
+      "area": "改札外 自由通路",
+      "location": "改札外 自由通路",
+      "detail": "JR公式記事の掲載区域。記事更新2025年10月、2026の個別機械位置・料金・寸法は確認中。改札内の利用には乗車券等が必要です。",
+      "accessCondition": "入場前・施設の営業条件を確認",
+      "outsideViewIds": [
+        "transfer"
+      ]
+    },
+    "zozo-tokyo-counter": {
+      "area": "東京駅 八重洲南口改札外",
+      "location": "東京駅 八重洲南口改札外",
+      "detail": "東京駅シティ掲載、5:30〜23:15。受付締切・料金・対象サイズは個別案内で確認してください。",
+      "accessCondition": "入場前・施設の営業条件を確認",
+      "outsideViewIds": [
+        "transfer"
+      ]
+    },
+    "zozo-big-echo": {
+      "area": "海浜幕張駅周辺・海浜幕張店",
+      "location": "海浜幕張駅周辺・海浜幕張店",
+      "detail": "運営元がBounce対応店として掲載。ウェブ/アプリで場所と時間を選び予約、予約画面をスタッフへ提示。住所・受付時間・料金・空きは個別予約画面で確認してください。",
+      "accessCondition": "入場前・施設の営業条件を確認",
+      "outsideViewIds": [
+        "store",
+        "nearest"
+      ],
+      "url": "https://bounce.com/ja/s/location/efe32cb7-e49d-439a-9a9a-8e966add45c0?utm_source=big-echo&utm_medium=website"
+    },
+    "zozo-messe-0": {
+      "area": "幕張メッセ",
+      "location": "幕張メッセ 中央モール6ホール前",
+      "detail": "開催イベントにより営業日が異なります。球場外の別施設です。入場条件・営業時間は幕張メッセの当日案内を確認してください。",
+      "accessCondition": "入場前・施設の営業条件を確認",
+      "outsideViewIds": [
+        "access"
+      ]
+    },
+    "zozo-messe-1": {
+      "area": "幕張メッセ",
+      "location": "幕張メッセ 中央モール1ホール前",
+      "detail": "開催イベントにより営業日が異なります。球場外の別施設です。入場条件・営業時間は幕張メッセの当日案内を確認してください。",
+      "accessCondition": "入場前・施設の営業条件を確認",
+      "outsideViewIds": [
+        "access"
+      ]
+    },
+    "zozo-messe-2": {
+      "area": "幕張メッセ",
+      "location": "幕張メッセ 中央エントランス",
+      "detail": "開催イベントにより営業日が異なります。球場外の別施設です。入場条件・営業時間は幕張メッセの当日案内を確認してください。",
+      "accessCondition": "入場前・施設の営業条件を確認",
+      "outsideViewIds": [
+        "access"
+      ]
+    },
+    "zozo-messe-3": {
+      "area": "幕張メッセ",
+      "location": "幕張メッセ エスプラナード9ホール前",
+      "detail": "開催イベントにより営業日が異なります。球場外の別施設です。入場条件・営業時間は幕張メッセの当日案内を確認してください。",
+      "accessCondition": "入場前・施設の営業条件を確認",
+      "outsideViewIds": [
+        "access"
+      ]
+    },
+    "zozo-messe-4": {
+      "area": "幕張メッセ",
+      "location": "幕張メッセ 中央モール1ホール前",
+      "detail": "開催イベントにより営業日が異なります。球場外の別施設です。入場条件・営業時間は幕張メッセの当日案内を確認してください。",
+      "accessCondition": "入場前・施設の営業条件を確認",
+      "outsideViewIds": [
+        "access"
+      ]
+    }
+  },
+  "aliases": {},
+  "landmarkFacilityIds": {
+    "zozo-inside-1F-0": [
+      "zozo-food-1"
+    ],
+    "zozo-inside-1F-1": [
+      "zozo-food-0"
+    ],
+    "zozo-inside-2F-0": [
+      "zozo-food-21",
+      "zozo-toilet-2F-10"
+    ],
+    "zozo-inside-2F-1": [
+      "zozo-food-18",
+      "zozo-toilet-2F-8",
+      "zozo-aed-2F212"
+    ],
+    "zozo-inside-2F-2": [
+      "zozo-food-16",
+      "zozo-toilet-2F-6"
+    ],
+    "zozo-inside-2F-3": [
+      "zozo-food-14",
+      "zozo-aed-2F208"
+    ],
+    "zozo-inside-2F-4": [
+      "zozo-food-11",
+      "zozo-toilet-2F-4",
+      "zozo-baby206"
+    ],
+    "zozo-inside-2F-5": [
+      "zozo-food-8"
+    ],
+    "zozo-inside-2F-6": [
+      "zozo-food-3",
+      "zozo-food-4",
+      "zozo-food-5",
+      "zozo-toilet-2F-1"
+    ],
+    "zozo-inside-2F-7": [
+      "zozo-food-22"
+    ],
+    "zozo-inside-3F-0": [
+      "zozo-aed-3F-312"
+    ],
+    "zozo-inside-3F-1": [
+      "zozo-toilet-3F-302-men",
+      "zozo-toilet-3F-302-women",
+      "zozo-toilet-3F-302-accessible",
+      "zozo-aed-3F-302"
+    ],
+    "zozo-inside-3F-2": [
+      "zozo-food-23"
+    ],
+    "zozo-inside-4F-0": [],
+    "zozo-inside-4F-1": [
+      "zozo-aed-4F412",
+      "zozo-mamaro-4F"
+    ],
+    "zozo-inside-4F-2": [
+      "zozo-toilet-4F-7"
+    ],
+    "zozo-inside-4F-3": [
+      "zozo-toilet-4F-5"
+    ],
+    "zozo-inside-4F-4": [
+      "zozo-food-26",
+      "zozo-toilet-4F-3"
+    ],
+    "zozo-inside-4F-5": [
+      "zozo-toilet-4F-2",
+      "zozo-aed-4F404"
+    ],
+    "zozo-inside-4F-6": [
+      "zozo-food-24",
+      "zozo-toilet-4F-0"
+    ],
+    "zozo-grounds-0": [],
+    "zozo-grounds-1": [
+      "zozo-outside-L ガーナチョコゲート"
+    ],
+    "zozo-grounds-2": [
+      "zozo-outside-R チョコパイゲート"
+    ],
+    "zozo-grounds-3": [
+      "zozo-outside-F クーリッシュゲート"
+    ],
+    "zozo-grounds-4": [
+      "zozo-outside-B キシリトールゲート"
+    ],
+    "zozo-grounds-5": [
+      "zozo-outside-D パイの実ゲート"
+    ],
+    "zozo-grounds-6": [
+      "zozo-outside-C コアラのマーチゲート"
+    ],
+    "zozo-grounds-7": [
+      "zozo-locker-ticket"
+    ],
+    "zozo-grounds-8": [
+      "zozo-locker-stroller"
+    ],
+    "zozo-access-0": [],
+    "zozo-access-1": [
+      "zozo-messe-0",
+      "zozo-messe-1",
+      "zozo-messe-2",
+      "zozo-messe-3",
+      "zozo-messe-4"
+    ],
+    "zozo-access-2": [
+      "zozo-station-exit"
+    ],
+    "zozo-access-3": [],
+    "zozo-nearest-0": [
+      "zozo-station-exit",
+      "zozo-station-south",
+      "zozo-station-park",
+      "zozo-station-perie"
+    ],
+    "zozo-transfer-0": [
+      "zozo-tokyo-locker-0",
+      "zozo-tokyo-locker-1",
+      "zozo-tokyo-locker-2",
+      "zozo-tokyo-counter"
+    ],
+    "zozo-store-0": [
+      "zozo-big-echo"
+    ]
+  }
+}

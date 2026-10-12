@@ -1,0 +1,66 @@
+[
+  {
+    "id": "detail-21",
+    "title": "公式3塁側 9〜18列・141番側の個別座席図",
+    "url": "https://beak.softbankhawks.co.jp/ex/seat/pc/detail/index.php?block_id=21&from=map",
+    "checkedAt": "2026-10-11",
+    "scope": "個別JPGの3塁側 9〜18列・141番側の印字列・区間のみ。版日未特定。特殊席や現行販売範囲の確定ではない。",
+    "usage": "facts-only"
+  },
+  {
+    "id": "detail-12",
+    "title": "公式1塁側 1〜18列・221番側の個別座席図",
+    "url": "https://beak.softbankhawks.co.jp/ex/seat/pc/detail/index.php?block_id=12&from=map",
+    "checkedAt": "2026-10-11",
+    "scope": "個別JPGの1塁側 1〜18列・221番側の印字列・区間のみ。版日未特定。特殊席や現行販売範囲の確定ではない。",
+    "usage": "facts-only"
+  },
+  {
+    "id": "detail-108",
+    "title": "公式3塁側 26〜38列・101番側の個別座席図",
+    "url": "https://beak.softbankhawks.co.jp/ex/seat/pc/detail/index.php?block_id=108&from=map",
+    "checkedAt": "2026-10-11",
+    "scope": "個別JPGの3塁側 26〜38列・101番側の印字列・区間のみ。版日未特定。特殊席や現行販売範囲の確定ではない。",
+    "usage": "facts-only"
+  },
+  {
+    "id": "detail-89",
+    "title": "公式1塁側 26〜39列・281番側の個別座席図",
+    "url": "https://beak.softbankhawks.co.jp/ex/seat/pc/detail/index.php?block_id=89&from=map",
+    "checkedAt": "2026-10-11",
+    "scope": "個別JPGの1塁側 26〜39列・281番側の印字列・区間のみ。版日未特定。特殊席や現行販売範囲の確定ではない。",
+    "usage": "facts-only"
+  },
+  {
+    "id": "detail-179",
+    "title": "公式3塁側 40〜52列・101番側の個別座席図",
+    "url": "https://beak.softbankhawks.co.jp/ex/seat/pc/detail/index.php?block_id=179&from=map",
+    "checkedAt": "2026-10-11",
+    "scope": "個別JPGの3塁側 40〜52列・101番側の印字列・区間のみ。版日未特定。特殊席や現行販売範囲の確定ではない。",
+    "usage": "facts-only"
+  },
+  {
+    "id": "detail-160",
+    "title": "公式1塁側 40〜56列・281番側の個別座席図",
+    "url": "https://beak.softbankhawks.co.jp/ex/seat/pc/detail/index.php?block_id=160&from=map",
+    "checkedAt": "2026-10-11",
+    "scope": "個別JPGの1塁側 40〜56列・281番側の印字列・区間のみ。版日未特定。特殊席や現行販売範囲の確定ではない。",
+    "usage": "facts-only"
+  },
+  {
+    "id": "detail-197",
+    "title": "公式3塁側 17〜24列・1番側の個別座席図",
+    "url": "https://beak.softbankhawks.co.jp/ex/seat/pc/detail/index.php?block_id=197&from=map",
+    "checkedAt": "2026-10-11",
+    "scope": "個別JPGの3塁側 17〜24列・1番側の印字列・区間のみ。版日未特定。特殊席や現行販売範囲の確定ではない。",
+    "usage": "facts-only"
+  },
+  {
+    "id": "detail-208",
+    "title": "公式1塁側 17〜27列・281番側の個別座席図",
+    "url": "https://beak.softbankhawks.co.jp/ex/seat/pc/detail/index.php?block_id=208&from=map",
+    "checkedAt": "2026-10-11",
+    "scope": "個別JPGの1塁側 17〜27列・281番側の印字列・区間のみ。版日未特定。特殊席や現行販売範囲の確定ではない。",
+    "usage": "facts-only"
+  }
+]

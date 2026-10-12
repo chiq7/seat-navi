@@ -1,0 +1,1572 @@
+[
+  {
+    "id": "A",
+    "level": "アリーナ席",
+    "area": "AD",
+    "label": "A",
+    "aliases": [
+      "A",
+      "Aブロック",
+      "アリーナ席A",
+      "Aアリーナ席",
+      "A1",
+      "A2",
+      "A3",
+      "A4",
+      "A5",
+      "A6",
+      "A7",
+      "A8",
+      "A9",
+      "A10",
+      "A11",
+      "A12",
+      "A13",
+      "A14",
+      "A15",
+      "A16",
+      "A17",
+      "A18",
+      "A19",
+      "A20",
+      "A21",
+      "A22"
+    ],
+    "balcony": false,
+    "path": "M465.75,627.5L457.5,661.5L472.75,670.25L442,815.75L801.75,817.25L777.25,670L791.5,661.5L784,627.5Z",
+    "box": [
+      442.0,
+      627.5,
+      360.0,
+      190.0
+    ],
+    "center": [
+      622.0,
+      722.5
+    ],
+    "focusPoint": [
+      622.0,
+      722.5
+    ],
+    "rows": [
+      {
+        "label": "1",
+        "segments": []
+      },
+      {
+        "label": "2",
+        "segments": []
+      },
+      {
+        "label": "3",
+        "segments": []
+      },
+      {
+        "label": "4",
+        "segments": []
+      },
+      {
+        "label": "5",
+        "segments": []
+      },
+      {
+        "label": "6",
+        "segments": []
+      },
+      {
+        "label": "7",
+        "segments": []
+      },
+      {
+        "label": "8",
+        "segments": []
+      },
+      {
+        "label": "9",
+        "segments": []
+      },
+      {
+        "label": "10",
+        "segments": []
+      },
+      {
+        "label": "11",
+        "segments": []
+      },
+      {
+        "label": "12",
+        "segments": []
+      },
+      {
+        "label": "13",
+        "segments": []
+      },
+      {
+        "label": "14",
+        "segments": []
+      },
+      {
+        "label": "15",
+        "segments": []
+      },
+      {
+        "label": "16",
+        "segments": []
+      },
+      {
+        "label": "17",
+        "segments": []
+      },
+      {
+        "label": "18",
+        "segments": []
+      },
+      {
+        "label": "19",
+        "segments": []
+      },
+      {
+        "label": "20",
+        "segments": []
+      },
+      {
+        "label": "21",
+        "segments": []
+      },
+      {
+        "label": "22",
+        "segments": []
+      }
+    ],
+    "neighbors": [
+      "B",
+      "F",
+      "西"
+    ],
+    "rowEdges": {
+      "first": {
+        "a": [
+          783.75,
+          642.5
+        ],
+        "b": [
+          467.5,
+          642.5
+        ]
+      },
+      "last": {
+        "a": [
+          795.0,
+          813.75
+        ],
+        "b": [
+          445.0,
+          813.75
+        ]
+      }
+    },
+    "numberReference": {
+      "row": "1",
+      "start": 8,
+      "young": [
+        760.0,
+        642.5
+      ],
+      "older": [
+        685.0,
+        642.5
+      ]
+    },
+    "numberLookup": "unavailable",
+    "equipmentFloor": "2F",
+    "sourceIds": [
+      "seat-guide",
+      "seat-central-current"
+    ]
+  },
+  {
+    "id": "F",
+    "level": "アリーナ席",
+    "area": "EF",
+    "label": "F",
+    "aliases": [
+      "F",
+      "Fブロック",
+      "アリーナ席F",
+      "Fアリーナ席",
+      "F1",
+      "F2",
+      "F3",
+      "F4",
+      "F5",
+      "F6",
+      "F7",
+      "F8",
+      "F9",
+      "F10",
+      "F11",
+      "F12",
+      "F13",
+      "F14",
+      "F15",
+      "F16",
+      "F17",
+      "F18",
+      "F19",
+      "F20",
+      "F21",
+      "F22"
+    ],
+    "balcony": false,
+    "path": "M1133,484.5L941.5,487.75L930,534.75L900.75,579.75L858.25,613.25L807.5,630.5L838.5,817L948.75,779.25L1040.5,707.25L1103.25,610.75Z",
+    "box": [
+      805.5,
+      484.5,
+      328.5,
+      332.75
+    ],
+    "center": [
+      969.75,
+      650.875
+    ],
+    "focusPoint": [
+      969.75,
+      650.875
+    ],
+    "rows": [
+      {
+        "label": "1",
+        "segments": []
+      },
+      {
+        "label": "2",
+        "segments": []
+      },
+      {
+        "label": "3",
+        "segments": []
+      },
+      {
+        "label": "4",
+        "segments": []
+      },
+      {
+        "label": "5",
+        "segments": []
+      },
+      {
+        "label": "6",
+        "segments": []
+      },
+      {
+        "label": "7",
+        "segments": []
+      },
+      {
+        "label": "8",
+        "segments": []
+      },
+      {
+        "label": "9",
+        "segments": []
+      },
+      {
+        "label": "10",
+        "segments": []
+      },
+      {
+        "label": "11",
+        "segments": []
+      },
+      {
+        "label": "12",
+        "segments": []
+      },
+      {
+        "label": "13",
+        "segments": []
+      },
+      {
+        "label": "14",
+        "segments": []
+      },
+      {
+        "label": "15",
+        "segments": []
+      },
+      {
+        "label": "16",
+        "segments": []
+      },
+      {
+        "label": "17",
+        "segments": []
+      },
+      {
+        "label": "18",
+        "segments": []
+      },
+      {
+        "label": "19",
+        "segments": []
+      },
+      {
+        "label": "20",
+        "segments": []
+      },
+      {
+        "label": "21",
+        "segments": []
+      },
+      {
+        "label": "22",
+        "segments": []
+      }
+    ],
+    "neighbors": [
+      "南",
+      "A",
+      "E"
+    ],
+    "rowEdges": {
+      "first": {
+        "a": [
+          812.5,
+          627.5
+        ],
+        "b": [
+          937.5,
+          490.0
+        ]
+      },
+      "last": {
+        "a": [
+          840.0,
+          810.0
+        ],
+        "b": [
+          1127.5,
+          490.0
+        ]
+      }
+    },
+    "numberReference": {
+      "row": "1",
+      "start": 3,
+      "young": [
+        937.5,
+        490.0
+      ],
+      "older": [
+        912.5,
+        552.5
+      ]
+    },
+    "numberLookup": "unavailable",
+    "equipmentFloor": "2F",
+    "sourceIds": [
+      "seat-guide",
+      "seat-central-current"
+    ]
+  },
+  {
+    "id": "B",
+    "level": "アリーナ席",
+    "area": "BC",
+    "label": "B",
+    "aliases": [
+      "B",
+      "Bブロック",
+      "アリーナ席B",
+      "Bアリーナ席",
+      "B1",
+      "B2",
+      "B3",
+      "B4",
+      "B5",
+      "B6",
+      "B7",
+      "B8",
+      "B9",
+      "B10",
+      "B11",
+      "B12",
+      "B13",
+      "B14",
+      "B15",
+      "B16",
+      "B17",
+      "B18",
+      "B19",
+      "B20",
+      "B21",
+      "B22"
+    ],
+    "balcony": false,
+    "path": "M116,487.75L146.5,610.5L209.25,707.25L301.25,779.25L419,815.25L442.5,630.5L391.75,613.25L349.25,579.75L319.75,534.75L308.25,487.75Z",
+    "box": [
+      116.0,
+      483.75,
+      330.0,
+      333.5
+    ],
+    "center": [
+      281.0,
+      650.5
+    ],
+    "focusPoint": [
+      281.0,
+      650.5
+    ],
+    "rows": [
+      {
+        "label": "1",
+        "segments": []
+      },
+      {
+        "label": "2",
+        "segments": []
+      },
+      {
+        "label": "3",
+        "segments": []
+      },
+      {
+        "label": "4",
+        "segments": []
+      },
+      {
+        "label": "5",
+        "segments": []
+      },
+      {
+        "label": "6",
+        "segments": []
+      },
+      {
+        "label": "7",
+        "segments": []
+      },
+      {
+        "label": "8",
+        "segments": []
+      },
+      {
+        "label": "9",
+        "segments": []
+      },
+      {
+        "label": "10",
+        "segments": []
+      },
+      {
+        "label": "11",
+        "segments": []
+      },
+      {
+        "label": "12",
+        "segments": []
+      },
+      {
+        "label": "13",
+        "segments": []
+      },
+      {
+        "label": "14",
+        "segments": []
+      },
+      {
+        "label": "15",
+        "segments": []
+      },
+      {
+        "label": "16",
+        "segments": []
+      },
+      {
+        "label": "17",
+        "segments": []
+      },
+      {
+        "label": "18",
+        "segments": []
+      },
+      {
+        "label": "19",
+        "segments": []
+      },
+      {
+        "label": "20",
+        "segments": []
+      },
+      {
+        "label": "21",
+        "segments": []
+      },
+      {
+        "label": "22",
+        "segments": []
+      }
+    ],
+    "neighbors": [
+      "西",
+      "A",
+      "C"
+    ],
+    "rowEdges": {
+      "first": {
+        "a": [
+          436.25,
+          627.5
+        ],
+        "b": [
+          311.25,
+          490.0
+        ]
+      },
+      "last": {
+        "a": [
+          410.0,
+          810.0
+        ],
+        "b": [
+          121.25,
+          490.0
+        ]
+      }
+    },
+    "numberReference": {
+      "row": "1",
+      "start": 2,
+      "young": [
+        435.0,
+        635.0
+      ],
+      "older": [
+        370.0,
+        612.5
+      ]
+    },
+    "numberLookup": "unavailable",
+    "equipmentFloor": "2F",
+    "sourceIds": [
+      "seat-guide",
+      "seat-central-current"
+    ]
+  },
+  {
+    "id": "E",
+    "level": "アリーナ席",
+    "area": "EF",
+    "label": "E",
+    "aliases": [
+      "E",
+      "Eブロック",
+      "アリーナ席E",
+      "Eアリーナ席",
+      "E1",
+      "E2",
+      "E3",
+      "E4",
+      "E5",
+      "E6",
+      "E7",
+      "E8",
+      "E9",
+      "E10",
+      "E11",
+      "E12",
+      "E13",
+      "E14",
+      "E15",
+      "E16",
+      "E17",
+      "E18",
+      "E19",
+      "E20",
+      "E21",
+      "E22"
+    ],
+    "balcony": false,
+    "path": "M833,125.5L807.5,308.75L858.25,326L900.75,359.5L930,404.5L941.5,451.5L1132.25,454.5L1103.25,328.5L1040.25,231.5L948.75,160Z",
+    "box": [
+      805.5,
+      122.25,
+      328.75,
+      333.75
+    ],
+    "center": [
+      969.875,
+      289.125
+    ],
+    "focusPoint": [
+      969.875,
+      289.125
+    ],
+    "rows": [
+      {
+        "label": "1",
+        "segments": []
+      },
+      {
+        "label": "2",
+        "segments": []
+      },
+      {
+        "label": "3",
+        "segments": []
+      },
+      {
+        "label": "4",
+        "segments": []
+      },
+      {
+        "label": "5",
+        "segments": []
+      },
+      {
+        "label": "6",
+        "segments": []
+      },
+      {
+        "label": "7",
+        "segments": []
+      },
+      {
+        "label": "8",
+        "segments": []
+      },
+      {
+        "label": "9",
+        "segments": []
+      },
+      {
+        "label": "10",
+        "segments": []
+      },
+      {
+        "label": "11",
+        "segments": []
+      },
+      {
+        "label": "12",
+        "segments": []
+      },
+      {
+        "label": "13",
+        "segments": []
+      },
+      {
+        "label": "14",
+        "segments": []
+      },
+      {
+        "label": "15",
+        "segments": []
+      },
+      {
+        "label": "16",
+        "segments": []
+      },
+      {
+        "label": "17",
+        "segments": []
+      },
+      {
+        "label": "18",
+        "segments": []
+      },
+      {
+        "label": "19",
+        "segments": []
+      },
+      {
+        "label": "20",
+        "segments": []
+      },
+      {
+        "label": "21",
+        "segments": []
+      },
+      {
+        "label": "22",
+        "segments": []
+      }
+    ],
+    "neighbors": [
+      "東",
+      "D",
+      "F"
+    ],
+    "rowEdges": {
+      "first": {
+        "a": [
+          810.0,
+          307.5
+        ],
+        "b": [
+          937.5,
+          450.0
+        ]
+      },
+      "last": {
+        "a": [
+          845.0,
+          127.5
+        ],
+        "b": [
+          1127.5,
+          450.0
+        ]
+      }
+    },
+    "numberReference": {
+      "row": "1",
+      "start": 2,
+      "young": [
+        815.0,
+        305.0
+      ],
+      "older": [
+        875.0,
+        337.5
+      ]
+    },
+    "numberLookup": "unavailable",
+    "equipmentFloor": "2F",
+    "sourceIds": [
+      "seat-guide",
+      "seat-central-current"
+    ]
+  },
+  {
+    "id": "C",
+    "level": "アリーナ席",
+    "area": "BC",
+    "label": "C",
+    "aliases": [
+      "C",
+      "Cブロック",
+      "アリーナ席C",
+      "Cアリーナ席",
+      "C1",
+      "C2",
+      "C3",
+      "C4",
+      "C5",
+      "C6",
+      "C7",
+      "C8",
+      "C9",
+      "C10",
+      "C11",
+      "C12",
+      "C13",
+      "C14",
+      "C15",
+      "C16",
+      "C17",
+      "C18",
+      "C19",
+      "C20",
+      "C21",
+      "C22"
+    ],
+    "balcony": false,
+    "path": "M411.25,122.25L301.25,160L209.5,231.5L146.5,328.75L117.75,455L308.25,451.5L319.75,404.5L349.25,359.5L391.75,326L442.5,308.75Z",
+    "box": [
+      115.75,
+      122.25,
+      327.0,
+      333.25
+    ],
+    "center": [
+      279.25,
+      288.875
+    ],
+    "focusPoint": [
+      279.25,
+      288.875
+    ],
+    "rows": [
+      {
+        "label": "1",
+        "segments": []
+      },
+      {
+        "label": "2",
+        "segments": []
+      },
+      {
+        "label": "3",
+        "segments": []
+      },
+      {
+        "label": "4",
+        "segments": []
+      },
+      {
+        "label": "5",
+        "segments": []
+      },
+      {
+        "label": "6",
+        "segments": []
+      },
+      {
+        "label": "7",
+        "segments": []
+      },
+      {
+        "label": "8",
+        "segments": []
+      },
+      {
+        "label": "9",
+        "segments": []
+      },
+      {
+        "label": "10",
+        "segments": []
+      },
+      {
+        "label": "11",
+        "segments": []
+      },
+      {
+        "label": "12",
+        "segments": []
+      },
+      {
+        "label": "13",
+        "segments": []
+      },
+      {
+        "label": "14",
+        "segments": []
+      },
+      {
+        "label": "15",
+        "segments": []
+      },
+      {
+        "label": "16",
+        "segments": []
+      },
+      {
+        "label": "17",
+        "segments": []
+      },
+      {
+        "label": "18",
+        "segments": []
+      },
+      {
+        "label": "19",
+        "segments": []
+      },
+      {
+        "label": "20",
+        "segments": []
+      },
+      {
+        "label": "21",
+        "segments": []
+      },
+      {
+        "label": "22",
+        "segments": []
+      }
+    ],
+    "neighbors": [
+      "北",
+      "D",
+      "B"
+    ],
+    "rowEdges": {
+      "first": {
+        "a": [
+          440.0,
+          307.5
+        ],
+        "b": [
+          310.0,
+          450.0
+        ]
+      },
+      "last": {
+        "a": [
+          410.0,
+          127.5
+        ],
+        "b": [
+          122.5,
+          450.0
+        ]
+      }
+    },
+    "numberReference": {
+      "row": "1",
+      "start": 3,
+      "young": [
+        308.75,
+        450.0
+      ],
+      "older": [
+        335.0,
+        385.0
+      ]
+    },
+    "numberLookup": "unavailable",
+    "equipmentFloor": "2F",
+    "sourceIds": [
+      "seat-guide",
+      "seat-central-current"
+    ]
+  },
+  {
+    "id": "D",
+    "level": "アリーナ席",
+    "area": "AD",
+    "label": "D",
+    "aliases": [
+      "D",
+      "Dブロック",
+      "アリーナ席D",
+      "Dアリーナ席",
+      "D1",
+      "D2",
+      "D3",
+      "D4",
+      "D5",
+      "D6",
+      "D7",
+      "D8",
+      "D9",
+      "D10",
+      "D11",
+      "D12",
+      "D13",
+      "D14",
+      "D15",
+      "D16",
+      "D17",
+      "D18",
+      "D19",
+      "D20",
+      "D21",
+      "D22"
+    ],
+    "balcony": false,
+    "path": "M444,125.5L473,272L457.75,278.75L465.75,311.75L784,311.75L793.5,286L777.5,268.75L801.75,122Z",
+    "box": [
+      444.0,
+      122.0,
+      361.0,
+      190.0
+    ],
+    "center": [
+      624.5,
+      217.0
+    ],
+    "focusPoint": [
+      624.5,
+      217.0
+    ],
+    "rows": [
+      {
+        "label": "1",
+        "segments": []
+      },
+      {
+        "label": "2",
+        "segments": []
+      },
+      {
+        "label": "3",
+        "segments": []
+      },
+      {
+        "label": "4",
+        "segments": []
+      },
+      {
+        "label": "5",
+        "segments": []
+      },
+      {
+        "label": "6",
+        "segments": []
+      },
+      {
+        "label": "7",
+        "segments": []
+      },
+      {
+        "label": "8",
+        "segments": []
+      },
+      {
+        "label": "9",
+        "segments": []
+      },
+      {
+        "label": "10",
+        "segments": []
+      },
+      {
+        "label": "11",
+        "segments": []
+      },
+      {
+        "label": "12",
+        "segments": []
+      },
+      {
+        "label": "13",
+        "segments": []
+      },
+      {
+        "label": "14",
+        "segments": []
+      },
+      {
+        "label": "15",
+        "segments": []
+      },
+      {
+        "label": "16",
+        "segments": []
+      },
+      {
+        "label": "17",
+        "segments": []
+      },
+      {
+        "label": "18",
+        "segments": []
+      },
+      {
+        "label": "19",
+        "segments": []
+      },
+      {
+        "label": "20",
+        "segments": []
+      },
+      {
+        "label": "21",
+        "segments": []
+      },
+      {
+        "label": "22",
+        "segments": []
+      }
+    ],
+    "neighbors": [
+      "C",
+      "E",
+      "東"
+    ],
+    "rowEdges": {
+      "first": {
+        "a": [
+          465.0,
+          305.0
+        ],
+        "b": [
+          782.5,
+          305.0
+        ]
+      },
+      "last": {
+        "a": [
+          450.0,
+          127.5
+        ],
+        "b": [
+          800.0,
+          127.5
+        ]
+      }
+    },
+    "numberReference": {
+      "row": "1",
+      "start": 8,
+      "young": [
+        492.5,
+        305.0
+      ],
+      "older": [
+        572.5,
+        305.0
+      ]
+    },
+    "numberLookup": "unavailable",
+    "equipmentFloor": "2F",
+    "sourceIds": [
+      "seat-guide",
+      "seat-central-current"
+    ]
+  },
+  {
+    "id": "南",
+    "level": "スタンド席",
+    "area": "ES",
+    "label": "南",
+    "aliases": [
+      "南",
+      "南ブロック",
+      "スタンド席南",
+      "南スタンド席"
+    ],
+    "balcony": false,
+    "path": "M1236,451.75L1152.75,455.5L1143.5,566.25L1078,699L993,779.5L927.5,815.5L864.25,832.25L853.5,847.75L860.5,887.5L787,895.25L788.5,925.75L884,914L967.75,885.75L1045.75,840.75L1113.75,781L1169.5,707.75L1208.25,628L1231,540.75Z",
+    "box": [
+      781.25,
+      451.75,
+      455.5,
+      474.25
+    ],
+    "center": [
+      1093,
+      740
+    ],
+    "focusPoint": [
+      1009.0,
+      688.875
+    ],
+    "rows": [
+      {
+        "label": "1",
+        "segments": []
+      },
+      {
+        "label": "2",
+        "segments": []
+      },
+      {
+        "label": "3",
+        "segments": []
+      },
+      {
+        "label": "4",
+        "segments": []
+      },
+      {
+        "label": "5",
+        "segments": []
+      },
+      {
+        "label": "6",
+        "segments": []
+      },
+      {
+        "label": "7",
+        "segments": []
+      },
+      {
+        "label": "8",
+        "segments": []
+      },
+      {
+        "label": "9",
+        "segments": []
+      },
+      {
+        "label": "10",
+        "segments": []
+      }
+    ],
+    "neighbors": [
+      "F",
+      "E",
+      "A"
+    ],
+    "rowEdges": {
+      "first": {
+        "a": [
+          1066.49,
+          710.9
+        ],
+        "b": [
+          1054.51,
+          731.7
+        ]
+      },
+      "last": {
+        "a": [
+          1132.29,
+          748.8
+        ],
+        "b": [
+          1120.31,
+          769.6
+        ]
+      }
+    },
+    "numberReference": {
+      "row": "1",
+      "start": 1,
+      "young": [
+        1137.5,
+        460.0
+      ],
+      "older": [
+        1127.5,
+        537.5
+      ]
+    },
+    "numberLookup": "unavailable",
+    "equipmentFloor": "3F",
+    "sourceIds": [
+      "seat-guide",
+      "seat-central-current"
+    ]
+  },
+  {
+    "id": "西",
+    "level": "スタンド席",
+    "area": "NW",
+    "label": "西",
+    "aliases": [
+      "西",
+      "西ブロック",
+      "スタンド席西",
+      "西スタンド席"
+    ],
+    "balcony": false,
+    "path": "M13.75,452L18.5,538.75L41,626.5L82,710.5L136.75,781.75L204.75,841.25L286,887.5L372.5,915.5L461.25,925.75L462.75,895.25L389.25,887.5L396.5,847.75L385,832.5L321.75,815.25L256.5,779.25L172,699.25L106.25,566L97,455.5Z",
+    "box": [
+      13.5,
+      449.75,
+      455.25,
+      476.25
+    ],
+    "center": [
+      156,
+      740
+    ],
+    "focusPoint": [
+      241.125,
+      687.875
+    ],
+    "rows": [
+      {
+        "label": "1",
+        "segments": []
+      },
+      {
+        "label": "2",
+        "segments": []
+      },
+      {
+        "label": "3",
+        "segments": []
+      },
+      {
+        "label": "4",
+        "segments": []
+      },
+      {
+        "label": "5",
+        "segments": []
+      },
+      {
+        "label": "6",
+        "segments": []
+      },
+      {
+        "label": "7",
+        "segments": []
+      },
+      {
+        "label": "8",
+        "segments": []
+      },
+      {
+        "label": "9",
+        "segments": []
+      },
+      {
+        "label": "10",
+        "segments": []
+      }
+    ],
+    "neighbors": [
+      "B",
+      "A",
+      "C"
+    ],
+    "rowEdges": {
+      "first": {
+        "a": [
+          194.9,
+          731.39
+        ],
+        "b": [
+          182.9,
+          710.61
+        ]
+      },
+      "last": {
+        "a": [
+          129.1,
+          769.39
+        ],
+        "b": [
+          117.1,
+          748.61
+        ]
+      }
+    },
+    "numberReference": {
+      "row": "1",
+      "start": 1,
+      "young": [
+        457.5,
+        897.5
+      ],
+      "older": [
+        372.5,
+        880.0
+      ]
+    },
+    "numberLookup": "unavailable",
+    "equipmentFloor": "3F",
+    "sourceIds": [
+      "seat-guide",
+      "seat-central-current"
+    ]
+  },
+  {
+    "id": "東",
+    "level": "スタンド席",
+    "area": "ES",
+    "label": "東",
+    "aliases": [
+      "東",
+      "東ブロック",
+      "スタンド席東",
+      "東スタンド席"
+    ],
+    "balcony": false,
+    "path": "M607.5,13.25L607.75,96.5L854.25,101L995.25,161.25L1053.5,211.5L1116.5,301.75L1143.25,372L1154,450.75L1232.75,446.25L1221,351.25L1181.25,251.75L1122,167.25L1041.25,95.25L955.75,48.25L864.5,21Z",
+    "box": [
+      607.5,
+      13.25,
+      628.25,
+      437.75
+    ],
+    "center": [
+      999,
+      118
+    ],
+    "focusPoint": [
+      921.625,
+      232.125
+    ],
+    "rows": [
+      {
+        "label": "1",
+        "segments": []
+      },
+      {
+        "label": "2",
+        "segments": []
+      },
+      {
+        "label": "3",
+        "segments": []
+      },
+      {
+        "label": "4",
+        "segments": []
+      },
+      {
+        "label": "5",
+        "segments": []
+      },
+      {
+        "label": "6",
+        "segments": []
+      },
+      {
+        "label": "7",
+        "segments": []
+      },
+      {
+        "label": "8",
+        "segments": []
+      },
+      {
+        "label": "9",
+        "segments": []
+      },
+      {
+        "label": "10",
+        "segments": []
+      }
+    ],
+    "neighbors": [
+      "E",
+      "D",
+      "F"
+    ],
+    "rowEdges": {
+      "first": {
+        "a": [
+          962.77,
+          135.66
+        ],
+        "b": [
+          979.23,
+          153.14
+        ]
+      },
+      "last": {
+        "a": [
+          1019.17,
+          82.56
+        ],
+        "b": [
+          1035.63,
+          100.04
+        ]
+      }
+    },
+    "numberReference": {
+      "row": "1",
+      "start": 1,
+      "young": [
+        615.0,
+        91.25
+      ],
+      "older": [
+        702.5,
+        95.0
+      ]
+    },
+    "numberLookup": "unavailable",
+    "equipmentFloor": "3F",
+    "sourceIds": [
+      "seat-guide",
+      "seat-central-current"
+    ]
+  },
+  {
+    "id": "北",
+    "level": "スタンド席",
+    "area": "NW",
+    "label": "北",
+    "aliases": [
+      "北",
+      "北ブロック",
+      "スタンド席北",
+      "北スタンド席"
+    ],
+    "balcony": false,
+    "path": "M604.25,18.5L463.75,13.25L375.25,23L287,51.25L202.25,99.75L128.25,166.75L68,252.75L29.75,347.75L14.25,441.75L97.5,446L106.5,372.25L133.25,301.75L173.5,238L252.75,162.5L319.25,125L395.5,101L597.75,96.5Z",
+    "box": [
+      14.25,
+      13.25,
+      590.25,
+      433.25
+    ],
+    "center": [
+      215,
+      142
+    ],
+    "focusPoint": [
+      309.375,
+      229.875
+    ],
+    "rows": [
+      {
+        "label": "1",
+        "segments": []
+      },
+      {
+        "label": "2",
+        "segments": []
+      },
+      {
+        "label": "3",
+        "segments": []
+      },
+      {
+        "label": "4",
+        "segments": []
+      },
+      {
+        "label": "5",
+        "segments": []
+      },
+      {
+        "label": "6",
+        "segments": []
+      },
+      {
+        "label": "7",
+        "segments": []
+      },
+      {
+        "label": "8",
+        "segments": []
+      },
+      {
+        "label": "9",
+        "segments": []
+      },
+      {
+        "label": "10",
+        "segments": []
+      }
+    ],
+    "neighbors": [
+      "C",
+      "D",
+      "B"
+    ],
+    "rowEdges": {
+      "first": {
+        "a": [
+          238.01,
+          175.77
+        ],
+        "b": [
+          252.99,
+          157.03
+        ]
+      },
+      "last": {
+        "a": [
+          178.21,
+          127.97
+        ],
+        "b": [
+          193.19,
+          109.23
+        ]
+      }
+    },
+    "numberReference": {
+      "row": "1",
+      "start": 1,
+      "young": [
+        112.5,
+        443.75
+      ],
+      "older": [
+        122.5,
+        367.5
+      ]
+    },
+    "numberLookup": "unavailable",
+    "equipmentFloor": "3F",
+    "sourceIds": [
+      "seat-guide",
+      "seat-central-current"
+    ]
+  }
+]

@@ -1,0 +1,3528 @@
+{
+  "facilities": [
+    {
+      "id": "yoyogi-floor-b1-n-west-men",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "B1F",
+      "scope": "場内",
+      "location": "北ロビー 西側",
+      "detail": "おむつ交換台・ベビーチェア・着替え台があります。",
+      "sourceIds": [
+        "floor-b1",
+        "first-building"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "yoyogi-floor-b1-native",
+        "x": 498.5,
+        "y": 109.0,
+        "sourceIds": [
+          "floor-b1",
+          "first-building"
+        ],
+        "reference": "JSC公式第一体育館B1F原図の色付き記号代表点。室入口や移動距離を示す点ではない。"
+      }
+    },
+    {
+      "id": "yoyogi-floor-b1-n-east-men",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "B1F",
+      "scope": "場内",
+      "location": "北ロビー 東側",
+      "detail": "おむつ交換台・ベビーチェア・着替え台があります。",
+      "sourceIds": [
+        "floor-b1",
+        "first-building"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "yoyogi-floor-b1-native",
+        "x": 862.0,
+        "y": 106.0,
+        "sourceIds": [
+          "floor-b1",
+          "first-building"
+        ],
+        "reference": "JSC公式第一体育館B1F原図の色付き記号代表点。室入口や移動距離を示す点ではない。"
+      }
+    },
+    {
+      "id": "yoyogi-floor-b1-n-west-women",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "B1F",
+      "scope": "場内",
+      "location": "北ロビー 西側",
+      "detail": "おむつ交換台・ベビーチェア・着替え台があります。",
+      "sourceIds": [
+        "floor-b1",
+        "first-building"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "yoyogi-floor-b1-native",
+        "x": 471.5,
+        "y": 178.5,
+        "sourceIds": [
+          "floor-b1",
+          "first-building"
+        ],
+        "reference": "JSC公式第一体育館B1F原図の色付き記号代表点。室入口や移動距離を示す点ではない。"
+      }
+    },
+    {
+      "id": "yoyogi-floor-b1-n-east-women",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "B1F",
+      "scope": "場内",
+      "location": "北ロビー 東側",
+      "detail": "おむつ交換台・ベビーチェア・着替え台があります。",
+      "sourceIds": [
+        "floor-b1",
+        "first-building"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "yoyogi-floor-b1-native",
+        "x": 875.5,
+        "y": 182.0,
+        "sourceIds": [
+          "floor-b1",
+          "first-building"
+        ],
+        "reference": "JSC公式第一体育館B1F原図の色付き記号代表点。室入口や移動距離を示す点ではない。"
+      }
+    },
+    {
+      "id": "yoyogi-floor-b1-n-west-nursing",
+      "name": "授乳室",
+      "purpose": "赤ちゃん",
+      "floor": "B1F",
+      "scope": "場内",
+      "location": "北ロビー 西側",
+      "detail": "女性専用。手洗い・おむつ交換台・ベビーチェアがあります。",
+      "sourceIds": [
+        "floor-b1",
+        "first-building"
+      ],
+      "precision": "diagram-point",
+      "kind": "nursing",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "yoyogi-floor-b1-native",
+        "x": 514.5,
+        "y": 158.0,
+        "sourceIds": [
+          "floor-b1",
+          "first-building"
+        ],
+        "reference": "JSC公式第一体育館B1F原図の色付き記号代表点。室入口や移動距離を示す点ではない。"
+      }
+    },
+    {
+      "id": "yoyogi-floor-b1-n-east-nursing",
+      "name": "授乳室",
+      "purpose": "赤ちゃん",
+      "floor": "B1F",
+      "scope": "場内",
+      "location": "北ロビー 東側",
+      "detail": "女性専用。手洗い・おむつ交換台・ベビーチェアがあります。",
+      "sourceIds": [
+        "floor-b1",
+        "first-building"
+      ],
+      "precision": "diagram-point",
+      "kind": "nursing",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "yoyogi-floor-b1-native",
+        "x": 843.5,
+        "y": 143.5,
+        "sourceIds": [
+          "floor-b1",
+          "first-building"
+        ],
+        "reference": "JSC公式第一体育館B1F原図の色付き記号代表点。室入口や移動距離を示す点ではない。"
+      }
+    },
+    {
+      "id": "yoyogi-floor-b1-s-vip-men",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "B1F",
+      "scope": "場内",
+      "location": "南側 来賓区域",
+      "detail": "おむつ交換台・ベビーチェア・着替え台があります。",
+      "sourceIds": [
+        "floor-b1",
+        "first-building"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "yoyogi-floor-b1-native",
+        "x": 454.5,
+        "y": 638.0,
+        "sourceIds": [
+          "floor-b1",
+          "first-building"
+        ],
+        "reference": "JSC公式第一体育館B1F原図の色付き記号代表点。室入口や移動距離を示す点ではない。"
+      }
+    },
+    {
+      "id": "yoyogi-floor-b1-s-vip-women",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "B1F",
+      "scope": "場内",
+      "location": "南側 来賓区域",
+      "detail": "おむつ交換台・ベビーチェア・着替え台があります。",
+      "sourceIds": [
+        "floor-b1",
+        "first-building"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "yoyogi-floor-b1-native",
+        "x": 448.0,
+        "y": 662.0,
+        "sourceIds": [
+          "floor-b1",
+          "first-building"
+        ],
+        "reference": "JSC公式第一体育館B1F原図の色付き記号代表点。室入口や移動距離を示す点ではない。"
+      }
+    },
+    {
+      "id": "yoyogi-floor-b1-s-west-men",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "B1F",
+      "scope": "場内",
+      "location": "南ロビー 西側",
+      "detail": "おむつ交換台・ベビーチェア・着替え台があります。",
+      "sourceIds": [
+        "floor-b1",
+        "first-building"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "yoyogi-floor-b1-native",
+        "x": 517.5,
+        "y": 665.0,
+        "sourceIds": [
+          "floor-b1",
+          "first-building"
+        ],
+        "reference": "JSC公式第一体育館B1F原図の色付き記号代表点。室入口や移動距離を示す点ではない。"
+      }
+    },
+    {
+      "id": "yoyogi-floor-b1-s-east-men",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "B1F",
+      "scope": "場内",
+      "location": "南ロビー 東側",
+      "detail": "おむつ交換台・ベビーチェア・着替え台があります。",
+      "sourceIds": [
+        "floor-b1",
+        "first-building"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "yoyogi-floor-b1-native",
+        "x": 854.5,
+        "y": 674.5,
+        "sourceIds": [
+          "floor-b1",
+          "first-building"
+        ],
+        "reference": "JSC公式第一体育館B1F原図の色付き記号代表点。室入口や移動距離を示す点ではない。"
+      }
+    },
+    {
+      "id": "yoyogi-floor-b1-s-west-women",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "B1F",
+      "scope": "場内",
+      "location": "南ロビー 西側",
+      "detail": "おむつ交換台・ベビーチェア・着替え台があります。",
+      "sourceIds": [
+        "floor-b1",
+        "first-building"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "yoyogi-floor-b1-native",
+        "x": 501.5,
+        "y": 713.0,
+        "sourceIds": [
+          "floor-b1",
+          "first-building"
+        ],
+        "reference": "JSC公式第一体育館B1F原図の色付き記号代表点。室入口や移動距離を示す点ではない。"
+      }
+    },
+    {
+      "id": "yoyogi-floor-b1-s-east-women",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "B1F",
+      "scope": "場内",
+      "location": "南ロビー 東側",
+      "detail": "おむつ交換台・ベビーチェア・着替え台があります。",
+      "sourceIds": [
+        "floor-b1",
+        "first-building"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "yoyogi-floor-b1-native",
+        "x": 863.0,
+        "y": 729.0,
+        "sourceIds": [
+          "floor-b1",
+          "first-building"
+        ],
+        "reference": "JSC公式第一体育館B1F原図の色付き記号代表点。室入口や移動距離を示す点ではない。"
+      }
+    },
+    {
+      "id": "yoyogi-floor-b1-s-meeting-men",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "B1F",
+      "scope": "場内",
+      "location": "南側 会議室区域",
+      "detail": "おむつ交換台・ベビーチェア・着替え台があります。",
+      "sourceIds": [
+        "floor-b1",
+        "first-building"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "yoyogi-floor-b1-native",
+        "x": 596.5,
+        "y": 904.0,
+        "sourceIds": [
+          "floor-b1",
+          "first-building"
+        ],
+        "reference": "JSC公式第一体育館B1F原図の色付き記号代表点。室入口や移動距離を示す点ではない。"
+      }
+    },
+    {
+      "id": "yoyogi-floor-b1-s-meeting-women",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "B1F",
+      "scope": "場内",
+      "location": "南側 会議室区域",
+      "detail": "おむつ交換台・ベビーチェア・着替え台があります。",
+      "sourceIds": [
+        "floor-b1",
+        "first-building"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "yoyogi-floor-b1-native",
+        "x": 626.5,
+        "y": 903.5,
+        "sourceIds": [
+          "floor-b1",
+          "first-building"
+        ],
+        "reference": "JSC公式第一体育館B1F原図の色付き記号代表点。室入口や移動距離を示す点ではない。"
+      }
+    },
+    {
+      "id": "yoyogi-floor-b1-s-vip-accessible",
+      "name": "バリアフリートイレ",
+      "purpose": "トイレ",
+      "floor": "B1F",
+      "scope": "場内",
+      "location": "南ロビー 西側",
+      "detail": "車いす対応のトイレです。オストメイト対応室の個別位置は係員へご確認ください。",
+      "sourceIds": [
+        "floor-b1"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet",
+      "anchor": {
+        "diagramId": "yoyogi-floor-b1-native",
+        "x": 464.0,
+        "y": 672.5,
+        "sourceIds": [
+          "floor-b1"
+        ],
+        "reference": "公式の室内記号/場所表示の代表点。室入口ではない。"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "yoyogi-floor-b1-s-meeting-accessible",
+      "name": "バリアフリートイレ",
+      "purpose": "トイレ",
+      "floor": "B1F",
+      "scope": "場内",
+      "location": "南側 会議室区域",
+      "detail": "車いす対応のトイレです。オストメイト対応室の個別位置は係員へご確認ください。",
+      "sourceIds": [
+        "floor-b1"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet",
+      "anchor": {
+        "diagramId": "yoyogi-floor-b1-native",
+        "x": 861.0,
+        "y": 931.5,
+        "sourceIds": [
+          "floor-b1"
+        ],
+        "reference": "公式の室内記号/場所表示の代表点。室入口ではない。"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "yoyogi-floor-1f-harajuku-accessible-upper",
+      "name": "バリアフリートイレ",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "北側 東端",
+      "detail": "車いす対応のトイレです。オストメイト対応室の個別位置は係員へご確認ください。",
+      "sourceIds": [
+        "floor-1f"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet",
+      "anchor": {
+        "diagramId": "yoyogi-floor-1f-native",
+        "x": 917.0,
+        "y": 406.5,
+        "sourceIds": [
+          "floor-1f"
+        ],
+        "reference": "公式の室内記号/場所表示の代表点。室入口ではない。"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "yoyogi-floor-1f-harajuku-accessible-lower",
+      "name": "バリアフリートイレ",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "北側 東端",
+      "detail": "車いす対応のトイレです。オストメイト対応室の個別位置は係員へご確認ください。",
+      "sourceIds": [
+        "floor-1f"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet",
+      "anchor": {
+        "diagramId": "yoyogi-floor-1f-native",
+        "x": 928.5,
+        "y": 424.5,
+        "sourceIds": [
+          "floor-1f"
+        ],
+        "reference": "公式の室内記号/場所表示の代表点。室入口ではない。"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "yoyogi-floor-1f-shibuya-accessible-upper",
+      "name": "バリアフリートイレ",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "南側 西端",
+      "detail": "車いす対応のトイレです。オストメイト対応室の個別位置は係員へご確認ください。",
+      "sourceIds": [
+        "floor-1f"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet",
+      "anchor": {
+        "diagramId": "yoyogi-floor-1f-native",
+        "x": 422.0,
+        "y": 698.0,
+        "sourceIds": [
+          "floor-1f"
+        ],
+        "reference": "公式の室内記号/場所表示の代表点。室入口ではない。"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "yoyogi-floor-1f-shibuya-accessible-lower",
+      "name": "バリアフリートイレ",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "南側 西端",
+      "detail": "車いす対応のトイレです。オストメイト対応室の個別位置は係員へご確認ください。",
+      "sourceIds": [
+        "floor-1f"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet",
+      "anchor": {
+        "diagramId": "yoyogi-floor-1f-native",
+        "x": 434.0,
+        "y": 713.5,
+        "sourceIds": [
+          "floor-1f"
+        ],
+        "reference": "公式の室内記号/場所表示の代表点。室入口ではない。"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "yoyogi-vendor-north",
+      "name": "北ロビー売店",
+      "purpose": "飲食",
+      "floor": "B1F",
+      "scope": "場内",
+      "location": "北ロビー売店",
+      "detail": "公演により営業・販売内容が異なります。",
+      "sourceIds": [
+        "floor-b1"
+      ],
+      "precision": "diagram-point",
+      "kind": "food",
+      "anchor": {
+        "diagramId": "yoyogi-floor-b1-native",
+        "x": 676,
+        "y": 174,
+        "sourceIds": [
+          "floor-b1"
+        ],
+        "reference": "公式の室内記号/場所表示の代表点。室入口ではない。"
+      }
+    },
+    {
+      "id": "yoyogi-vendor-south",
+      "name": "南ロビー売店",
+      "purpose": "飲食",
+      "floor": "B1F",
+      "scope": "場内",
+      "location": "南ロビー売店",
+      "detail": "公演により営業・販売内容が異なります。",
+      "sourceIds": [
+        "floor-b1"
+      ],
+      "precision": "diagram-point",
+      "kind": "food",
+      "anchor": {
+        "diagramId": "yoyogi-floor-b1-native",
+        "x": 853,
+        "y": 842,
+        "sourceIds": [
+          "floor-b1"
+        ],
+        "reference": "公式の室内記号/場所表示の代表点。室入口ではない。"
+      }
+    },
+    {
+      "id": "yoyogi-aed-unplaced",
+      "name": "AED",
+      "purpose": "AED",
+      "floor": "階未確認",
+      "scope": "場内",
+      "location": "第一体育館",
+      "detail": "設置場所は会場係員へお尋ねください。",
+      "sourceIds": [
+        "equipment-list"
+      ],
+      "precision": "text-only",
+      "kind": "aed"
+    },
+    {
+      "id": "yoyogi-accessible-unplaced",
+      "name": "オストメイト対応トイレ",
+      "purpose": "トイレ",
+      "floor": "階未確認",
+      "scope": "場内",
+      "location": "第一体育館",
+      "detail": "対応室の場所は会場係員へお尋ねください。",
+      "sourceIds": [
+        "equipment-list"
+      ],
+      "precision": "text-only",
+      "kind": "toilet",
+      "toiletType": "accessible"
+    },
+    {
+      "id": "yoyogi-vending-unplaced",
+      "name": "自動販売機",
+      "purpose": "飲食",
+      "floor": "階未確認",
+      "scope": "場内",
+      "location": "第一体育館",
+      "detail": "ユニバーサル自動販売機があります。",
+      "sourceIds": [
+        "equipment-list"
+      ],
+      "precision": "text-only",
+      "kind": "vending"
+    },
+    {
+      "id": "yoyogi-outside-lift-b2-b1",
+      "name": "館外エレベーター",
+      "purpose": "案内",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "屋内水泳場入口の左手前・地下2階〜地下1階",
+      "detail": "車いすの常設席へは館外の2機を利用する公式案内があります。入口・席の設定は公演主催者をご確認ください。",
+      "sourceIds": [
+        "route-wheelchair"
+      ],
+      "precision": "text-only",
+      "kind": "elevator"
+    },
+    {
+      "id": "yoyogi-outside-lift-b1-ground",
+      "name": "館外エレベーター",
+      "purpose": "案内",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "一つ目を降りて左折した先・地下1階〜地上1階",
+      "detail": "車いすの常設席へは館外の2機を利用する公式案内があります。入口・席の設定は公演主催者をご確認ください。",
+      "sourceIds": [
+        "route-wheelchair"
+      ],
+      "precision": "text-only",
+      "kind": "elevator"
+    },
+    {
+      "id": "yoyogi-cafe",
+      "name": "ヴォルテックススポーツカフェ",
+      "purpose": "飲食",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "第二体育館の北側",
+      "detail": "敷地内のレストランです。営業日時は公式案内をご確認ください。",
+      "sourceIds": [
+        "site-plan"
+      ],
+      "precision": "diagram-point",
+      "kind": "food",
+      "anchor": {
+        "diagramId": "yoyogi-grounds",
+        "x": 441,
+        "y": 501,
+        "sourceIds": [
+          "site-plan"
+        ],
+        "reference": "公式の室内記号/場所表示の代表点。室入口ではない。"
+      }
+    },
+    {
+      "id": "yoyogi-city-toilet",
+      "name": "区役所前公衆便所",
+      "purpose": "トイレ",
+      "floor": "屋外",
+      "scope": "場外",
+      "location": "渋谷区神南1-5-11",
+      "detail": "だれでもトイレがあります。",
+      "sourceIds": [
+        "yoyogi-city-toilets"
+      ],
+      "precision": "text-only",
+      "kind": "toilet",
+      "toiletType": "mixed"
+    },
+    {
+      "id": "yoyogi-locker-harajuku-out",
+      "name": "原宿駅 東口 コインロッカー",
+      "purpose": "荷物",
+      "floor": "1F・改札外",
+      "scope": "場外",
+      "location": "東口エスカレーター脇",
+      "detail": "駅ロッカーです。料金・サイズ・支払方法は現地表示をご確認ください。取り出しは駅の利用時間内です。",
+      "sourceIds": [
+        "yoyogi-jr-lockers"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "yoyogi-locker-harajuku-in-lift",
+      "name": "原宿駅 表参道改札方面・EV付近 コインロッカー",
+      "purpose": "荷物",
+      "floor": "駅構内・改札内",
+      "scope": "場外",
+      "location": "表参道改札へ向かう通路・山手線EV付近",
+      "detail": "駅ロッカーです。料金・サイズ・支払方法は現地表示をご確認ください。取り出しは駅の利用時間内です。",
+      "sourceIds": [
+        "yoyogi-jr-lockers"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "yoyogi-locker-harajuku-in-escalator",
+      "name": "原宿駅 表参道改札方面・ESC付近 コインロッカー",
+      "purpose": "荷物",
+      "floor": "駅構内・改札内",
+      "scope": "場外",
+      "location": "表参道改札へ向かう通路・山手線ESC付近",
+      "detail": "駅ロッカーです。料金・サイズ・支払方法は現地表示をご確認ください。取り出しは駅の利用時間内です。",
+      "sourceIds": [
+        "yoyogi-jr-lockers"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "yoyogi-locker-meiji-3",
+      "name": "明治神宮前駅 3番出口方面 コインロッカー",
+      "purpose": "荷物",
+      "floor": "B1F・改札外",
+      "scope": "場外",
+      "location": "3番出口付近・A系列",
+      "detail": "駅ロッカーです。料金・サイズ・支払方法は現地表示をご確認ください。取り出しは駅の利用時間内です。",
+      "sourceIds": [
+        "yoyogi-jr-lockers"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "yoyogi-locker-meiji-6",
+      "name": "明治神宮前駅 6番出口方面 コインロッカー",
+      "purpose": "荷物",
+      "floor": "B2F・改札外",
+      "scope": "場外",
+      "location": "6番出口に向かう途中・B系列",
+      "detail": "駅ロッカーです。料金・サイズ・支払方法は現地表示をご確認ください。取り出しは駅の利用時間内です。",
+      "sourceIds": [
+        "yoyogi-jr-lockers"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "yoyogi-locker-meiji-ground-lift",
+      "name": "明治神宮前駅 地上行きEV付近 コインロッカー",
+      "purpose": "荷物",
+      "floor": "B4F・改札外",
+      "scope": "場外",
+      "location": "表参道方面の地上行きEV付近・C系列",
+      "detail": "駅ロッカーです。料金・サイズ・支払方法は現地表示をご確認ください。取り出しは駅の利用時間内です。",
+      "sourceIds": [
+        "yoyogi-jr-lockers"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "yoyogi-locker-meiji-ticket",
+      "name": "明治神宮前駅 改札付近 コインロッカー",
+      "purpose": "荷物",
+      "floor": "B4F・改札外",
+      "scope": "場外",
+      "location": "改札付近・D系列",
+      "detail": "駅ロッカーです。料金・サイズ・支払方法は現地表示をご確認ください。取り出しは駅の利用時間内です。",
+      "sourceIds": [
+        "yoyogi-jr-lockers"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "yoyogi-locker-park",
+      "name": "代々木公園駅 コインロッカー",
+      "purpose": "荷物",
+      "floor": "駅構内",
+      "scope": "場外",
+      "location": "千代田線側。改札内外・個別設置位置は案内で確認",
+      "detail": "駅ロッカーです。料金・サイズ・支払方法は現地表示をご確認ください。取り出しは駅の利用時間内です。",
+      "sourceIds": [
+        "yoyogi-metro-park"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "yoyogi-locker-shibuya",
+      "name": "渋谷駅 B-1 宮益坂口通路1 コインロッカー",
+      "purpose": "荷物",
+      "floor": "B2F・改札外",
+      "scope": "場外",
+      "location": "B-1 宮益坂口通路1",
+      "detail": "駅構内のロッカーです。料金・収納サイズ・支払方法は設置案内をご確認ください。",
+      "sourceIds": [
+        "yoyogi-tokyu-lockers"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "yoyogi-locker-shibuya-b2",
+      "name": "渋谷駅 B-2 宮益坂口通路2 コインロッカー",
+      "purpose": "荷物",
+      "floor": "B2F・改札外",
+      "scope": "場外",
+      "location": "B-2 宮益坂口通路2",
+      "detail": "駅構内のロッカーです。料金・収納サイズ・支払方法は設置案内をご確認ください。",
+      "sourceIds": [
+        "yoyogi-tokyu-lockers"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "yoyogi-locker-shibuya-c1",
+      "name": "渋谷駅 C-1 B1番出口寄り コインロッカー",
+      "purpose": "荷物",
+      "floor": "B2F・改札外",
+      "scope": "場外",
+      "location": "C-1 B1番出口寄り",
+      "detail": "駅構内のロッカーです。料金・収納サイズ・支払方法は設置案内をご確認ください。",
+      "sourceIds": [
+        "yoyogi-tokyu-lockers"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "yoyogi-locker-shibuya-a23",
+      "name": "渋谷駅 A-2・A-3 中央口通路2・3 コインロッカー",
+      "purpose": "荷物",
+      "floor": "B2F・改札外",
+      "scope": "場外",
+      "location": "A-2・A-3 中央口通路2・3",
+      "detail": "駅構内のロッカーです。料金・収納サイズ・支払方法は設置案内をご確認ください。",
+      "sourceIds": [
+        "yoyogi-tokyu-lockers"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "yoyogi-locker-shibuya-a4",
+      "name": "渋谷駅 A-4 中央口通路4 コインロッカー",
+      "purpose": "荷物",
+      "floor": "B2F・改札外",
+      "scope": "場外",
+      "location": "A-4 中央口通路4",
+      "detail": "駅構内のロッカーです。料金・収納サイズ・支払方法は設置案内をご確認ください。",
+      "sourceIds": [
+        "yoyogi-tokyu-lockers"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "yoyogi-locker-shibuya-109",
+      "name": "渋谷駅 A1・B SHIBUYA109入口前 コインロッカー",
+      "purpose": "荷物",
+      "floor": "B1F・改札外",
+      "scope": "場外",
+      "location": "A1・B SHIBUYA109入口前",
+      "detail": "駅構内のロッカーです。料金・収納サイズ・支払方法は設置案内をご確認ください。",
+      "sourceIds": [
+        "yoyogi-tokyu-lockers"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "yoyogi-locker-shibuya-dogenzaka",
+      "name": "渋谷駅 A2 道玄坂改札向かい コインロッカー",
+      "purpose": "荷物",
+      "floor": "B2F・改札外",
+      "scope": "場外",
+      "location": "A2 道玄坂改札向かい",
+      "detail": "駅構内のロッカーです。料金・収納サイズ・支払方法は設置案内をご確認ください。",
+      "sourceIds": [
+        "yoyogi-tokyu-lockers"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "yoyogi-locker-shibuya-a4exit",
+      "name": "渋谷駅 C ハチ公改札西側 階段付近 コインロッカー",
+      "purpose": "荷物",
+      "floor": "B2F・改札外",
+      "scope": "場外",
+      "location": "C ハチ公改札西側 階段付近",
+      "detail": "駅構内のロッカーです。料金・収納サイズ・支払方法は設置案内をご確認ください。",
+      "sourceIds": [
+        "yoyogi-tokyu-lockers"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "yoyogi-locker-shibuya-office",
+      "name": "渋谷駅 D・E・F ロッカー取扱所前/横 コインロッカー",
+      "purpose": "荷物",
+      "floor": "B2F・改札外",
+      "scope": "場外",
+      "location": "D・E・F ロッカー取扱所前/横",
+      "detail": "駅構内のロッカーです。料金・収納サイズ・支払方法は設置案内をご確認ください。",
+      "sourceIds": [
+        "yoyogi-tokyu-lockers"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "yoyogi-locker-shibuya-hikarie",
+      "name": "渋谷駅 K・L 渋谷ヒカリエ前 コインロッカー",
+      "purpose": "荷物",
+      "floor": "B3F・改札外",
+      "scope": "場外",
+      "location": "K・L 渋谷ヒカリエ前",
+      "detail": "駅構内のロッカーです。料金・収納サイズ・支払方法は設置案内をご確認ください。",
+      "sourceIds": [
+        "yoyogi-tokyu-lockers"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "yoyogi-locker-shibuya-east",
+      "name": "渋谷駅 1〜5 東口地下広場通路 コインロッカー",
+      "purpose": "荷物",
+      "floor": "B1F・改札外",
+      "scope": "場外",
+      "location": "1〜5 東口地下広場通路",
+      "detail": "駅構内のロッカーです。料金・収納サイズ・支払方法は設置案内をご確認ください。",
+      "sourceIds": [
+        "yoyogi-tokyu-lockers"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "yoyogi-baggage-bounce-harajuku",
+      "name": "Bounce Harajuku Station",
+      "purpose": "荷物",
+      "floor": "店舗",
+      "scope": "場外",
+      "location": "原宿駅周辺（住所・受付は予約画面）",
+      "detail": "店舗の有人預かり。案内は10:00〜18:00。終演後に受け取る場合は受付終了時刻を先に確認してください。",
+      "sourceIds": [
+        "yoyogi-bounce-harajuku"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "staffed",
+      "bookingUrl": "https://bounce.com/stores/tokyo/Cog0Jy"
+    }
+  ],
+  "diagrams": [
+    {
+      "id": "yoyogi-floor-b1-native",
+      "floor": "B1F",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        1344,
+        1008
+      ],
+      "contextPaths": [
+        "M450,35L905,35L940,170Q1090,250 1090,450Q1080,570 927,780L927,980L420,980L430,783Q270,620 268,450Q268,255 440,170Z",
+        "M370,290Q675,200 978,295L982,520Q675,615 372,514Z",
+        "M480,70L880,70L880,188L480,188Z",
+        "M465,657L879,657L908,930L433,930Z"
+      ],
+      "concoursePaths": [],
+      "landmarks": [
+        {
+          "id": "yoyogi-B1F-north",
+          "label": "北側",
+          "name": "北側",
+          "x": 675,
+          "y": 135,
+          "kind": "plaza",
+          "sourceIds": [
+            "floor-b1"
+          ],
+          "reference": "公式図の代表位置。指定入場先や連続経路ではない。"
+        },
+        {
+          "id": "yoyogi-B1F-south",
+          "label": "南側",
+          "name": "南側",
+          "x": 675,
+          "y": 713,
+          "kind": "plaza",
+          "sourceIds": [
+            "floor-b1"
+          ],
+          "reference": "公式図の代表位置。指定入場先や連続経路ではない。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor-b1"
+        ],
+        "file": "research/venue-packets/yoyogi/sources/floor-b1.jpg",
+        "sha256": "bf9c53a8ddc09b4349fc062c11cf5db41f4dcf9d94fb356b05ee6c444f7ebd8c",
+        "width": 1344,
+        "height": 1008,
+        "method": "independently simplified native diagram; published source bitmap absent",
+        "status": "partial-source-checked-user-review-pending"
+      }
+    },
+    {
+      "id": "yoyogi-floor-1f-native",
+      "floor": "1F",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        1344,
+        1008
+      ],
+      "contextPaths": [
+        "M456,267L891,267Q966,365 966,540Q966,720 897,817L456,817Q382,720 382,540Q382,365 456,267Z",
+        "M451,470Q675,387 899,470L899,645Q675,726 451,645Z",
+        "M95,605L385,420L430,467L360,571L172,636Z",
+        "M932,497L1200,460L1261,510L993,592Z"
+      ],
+      "concoursePaths": [],
+      "landmarks": [
+        {
+          "id": "yoyogi-1F-north",
+          "label": "北側",
+          "name": "北側",
+          "x": 675,
+          "y": 355,
+          "kind": "plaza",
+          "sourceIds": [
+            "floor-1f"
+          ],
+          "reference": "公式図の代表位置。指定入場先や連続経路ではない。"
+        },
+        {
+          "id": "yoyogi-1F-south",
+          "label": "南側",
+          "name": "南側",
+          "x": 675,
+          "y": 713,
+          "kind": "plaza",
+          "sourceIds": [
+            "floor-1f"
+          ],
+          "reference": "公式図の代表位置。指定入場先や連続経路ではない。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor-1f"
+        ],
+        "file": "research/venue-packets/yoyogi/sources/floor-1f.jpg",
+        "sha256": "ce6eba0af1a01b55d895e4c99ac944fcb4728ccb39ff8c0fd5c7bfd9ff637a39",
+        "width": 1344,
+        "height": 1008,
+        "method": "independently simplified native diagram; published source bitmap absent",
+        "status": "partial-source-checked-user-review-pending"
+      }
+    },
+    {
+      "id": "yoyogi-floor-2f-native",
+      "floor": "2F",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        1344,
+        1008
+      ],
+      "contextPaths": [
+        "M454,310Q670,230 902,312Q1040,405 970,644Q750,860 438,730Q292,532 454,310Z",
+        "M421,476Q670,335 951,476L914,635Q670,757 423,635Z"
+      ],
+      "concoursePaths": [],
+      "landmarks": [
+        {
+          "id": "yoyogi-2F-north",
+          "label": "北側",
+          "name": "北側",
+          "x": 675,
+          "y": 355,
+          "kind": "plaza",
+          "sourceIds": [
+            "floor-2f"
+          ],
+          "reference": "公式図の代表位置。指定入場先や連続経路ではない。"
+        },
+        {
+          "id": "yoyogi-2F-south",
+          "label": "南側",
+          "name": "南側",
+          "x": 675,
+          "y": 713,
+          "kind": "plaza",
+          "sourceIds": [
+            "floor-2f"
+          ],
+          "reference": "公式図の代表位置。指定入場先や連続経路ではない。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor-2f"
+        ],
+        "file": "research/venue-packets/yoyogi/sources/floor-2f.jpg",
+        "sha256": "508aedf1c6ae9f6e2aab4cf63d86b94d2e3b3dc3d86692627edda89231f403c0",
+        "width": 1344,
+        "height": 1008,
+        "method": "independently simplified native diagram; published source bitmap absent",
+        "status": "partial-source-checked-user-review-pending"
+      }
+    },
+    {
+      "id": "yoyogi-unknown-floor",
+      "floor": "階未確認",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        1344,
+        1008
+      ],
+      "contextPaths": [],
+      "concoursePaths": [],
+      "landmarks": [],
+      "evidence": {
+        "sourceIds": [
+          "equipment-list"
+        ],
+        "file": "research/venue-packets/yoyogi/sources/equipment-list.pdf",
+        "sha256": "e237452c03064da2c15d53014e334f5b9d1645f4a52a9ce5323e6655f075784c",
+        "width": 1344,
+        "height": 1008,
+        "method": "independently simplified native diagram; published source bitmap absent",
+        "status": "partial-source-checked-user-review-pending"
+      }
+    },
+    {
+      "id": "yoyogi-outside",
+      "floor": "場外",
+      "scope": "場外",
+      "viewBox": [
+        0,
+        0,
+        700,
+        580
+      ],
+      "contextPaths": [
+        "M290,107L419,97L426,168L319,205Z",
+        "M451,0L484,0L484,578L451,578Z"
+      ],
+      "concoursePaths": [],
+      "landmarks": [
+        {
+          "id": "yoyogi-harajuku",
+          "label": "原宿駅",
+          "name": "原宿駅",
+          "x": 480,
+          "y": 38,
+          "kind": "station",
+          "sourceIds": [
+            "surrounding-map"
+          ],
+          "reference": "公式図の代表位置。指定入場先や連続経路ではない。"
+        },
+        {
+          "id": "yoyogi-meiji",
+          "label": "明治神宮前駅",
+          "name": "明治神宮前駅",
+          "x": 566,
+          "y": 97,
+          "kind": "station",
+          "sourceIds": [
+            "surrounding-map"
+          ],
+          "reference": "公式図の代表位置。指定入場先や連続経路ではない。"
+        },
+        {
+          "id": "yoyogi-park",
+          "label": "代々木公園駅",
+          "name": "代々木公園駅",
+          "x": 48,
+          "y": 68,
+          "kind": "station",
+          "sourceIds": [
+            "surrounding-map"
+          ],
+          "reference": "公式図の代表位置。指定入場先や連続経路ではない。"
+        },
+        {
+          "id": "yoyogi-shibuya",
+          "label": "渋谷駅",
+          "name": "渋谷駅",
+          "x": 480,
+          "y": 524,
+          "kind": "station",
+          "sourceIds": [
+            "surrounding-map"
+          ],
+          "reference": "公式図の代表位置。指定入場先や連続経路ではない。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "surrounding-map"
+        ],
+        "file": "research/venue-packets/yoyogi/sources/surrounding-map.jpg",
+        "sha256": "e111202f55a944c5ba0b68e4dfd44704fe6baf9b313d40382f7d7a135bd5ef89",
+        "width": 700,
+        "height": 580,
+        "method": "independently simplified native diagram; published source bitmap absent",
+        "status": "partial-source-checked-user-review-pending"
+      }
+    },
+    {
+      "id": "yoyogi-grounds",
+      "floor": "場外",
+      "scope": "場外",
+      "viewBox": [
+        250,
+        25,
+        950,
+        935
+      ],
+      "contextPaths": [
+        "M375,186L785,186Q947,184 1137,59L1161,90L1094,529L966,592L580,942Q389,720 350,473Z",
+        "M569,352Q685,201 820,211Q917,210 949,328L1068,303Q996,379 955,353Q943,464 822,466Q676,470 680,345Z",
+        "M422,599Q460,510 542,532L671,568L552,605Q530,688 442,658Z",
+        "M700,544L818,544L893,593L738,746L682,773Z"
+      ],
+      "concoursePaths": [],
+      "landmarks": [
+        {
+          "id": "yoyogi-harajuku-gate",
+          "label": "原宿門",
+          "name": "原宿門",
+          "x": 1071,
+          "y": 93,
+          "kind": "gate",
+          "sourceIds": [
+            "site-plan"
+          ],
+          "reference": "公式図の代表位置。指定入場先や連続経路ではない。"
+        },
+        {
+          "id": "yoyogi-north-gate",
+          "label": "北門",
+          "name": "北門",
+          "x": 490,
+          "y": 175,
+          "kind": "gate",
+          "sourceIds": [
+            "site-plan"
+          ],
+          "reference": "公式図の代表位置。指定入場先や連続経路ではない。"
+        },
+        {
+          "id": "yoyogi-north-car",
+          "label": "北車門",
+          "name": "北車門",
+          "x": 870,
+          "y": 174,
+          "kind": "gate",
+          "sourceIds": [
+            "site-plan"
+          ],
+          "reference": "公式図の代表位置。指定入場先や連続経路ではない。"
+        },
+        {
+          "id": "yoyogi-west-gate",
+          "label": "西門",
+          "name": "西門",
+          "x": 368,
+          "y": 485,
+          "kind": "gate",
+          "sourceIds": [
+            "site-plan"
+          ],
+          "reference": "公式図の代表位置。指定入場先や連続経路ではない。"
+        },
+        {
+          "id": "yoyogi-south-gate",
+          "label": "南門",
+          "name": "南門",
+          "x": 966,
+          "y": 613,
+          "kind": "gate",
+          "sourceIds": [
+            "site-plan"
+          ],
+          "reference": "公式図の代表位置。指定入場先や連続経路ではない。"
+        },
+        {
+          "id": "yoyogi-shibuya-gate",
+          "label": "渋谷門",
+          "name": "渋谷門",
+          "x": 597,
+          "y": 883,
+          "kind": "gate",
+          "sourceIds": [
+            "site-plan"
+          ],
+          "reference": "公式図の代表位置。指定入場先や連続経路ではない。"
+        },
+        {
+          "id": "yoyogi-harajuku-entry",
+          "label": "原宿口",
+          "name": "原宿口",
+          "x": 1004,
+          "y": 311,
+          "kind": "gate",
+          "sourceIds": [
+            "site-plan"
+          ],
+          "reference": "公式図の代表位置。指定入場先や連続経路ではない。"
+        },
+        {
+          "id": "yoyogi-shibuya-entry",
+          "label": "渋谷口",
+          "name": "渋谷口",
+          "x": 644,
+          "y": 355,
+          "kind": "gate",
+          "sourceIds": [
+            "site-plan"
+          ],
+          "reference": "公式図の代表位置。指定入場先や連続経路ではない。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "site-plan"
+        ],
+        "file": "research/venue-packets/yoyogi/sources/site-plan.pdf",
+        "sha256": "20f898bf6fcffe7b451279a2699d14f55b04b82d9bb7d29feec37eb53b1b9e6c",
+        "width": 950,
+        "height": 935,
+        "method": "independently simplified native diagram; published source bitmap absent",
+        "status": "partial-source-checked-user-review-pending"
+      }
+    }
+  ],
+  "groups": [
+    {
+      "id": "yoyogi-b1-n-west-トイレ",
+      "diagramId": "yoyogi-floor-b1-native",
+      "purpose": "トイレ",
+      "label": "北ロビー 西側",
+      "area": "北ロビー 西側",
+      "memberIds": [
+        "yoyogi-floor-b1-n-west-men",
+        "yoyogi-floor-b1-n-west-women"
+      ],
+      "x": 485.0,
+      "y": 143.75,
+      "boundary": "同じ階/同じトイレ区域/同じ利用境界。来賓・会議室と一般ロビーを混ぜない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "yoyogi-b1-n-east-トイレ",
+      "diagramId": "yoyogi-floor-b1-native",
+      "purpose": "トイレ",
+      "label": "北ロビー 東側",
+      "area": "北ロビー 東側",
+      "memberIds": [
+        "yoyogi-floor-b1-n-east-men",
+        "yoyogi-floor-b1-n-east-women"
+      ],
+      "x": 868.75,
+      "y": 144.0,
+      "boundary": "同じ階/同じトイレ区域/同じ利用境界。来賓・会議室と一般ロビーを混ぜない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "yoyogi-b1-n-west-赤ちゃん",
+      "diagramId": "yoyogi-floor-b1-native",
+      "purpose": "赤ちゃん",
+      "label": "北ロビー 西側",
+      "area": "北ロビー 西側",
+      "memberIds": [
+        "yoyogi-floor-b1-n-west-nursing"
+      ],
+      "x": 514.5,
+      "y": 158.0,
+      "boundary": "同じ階/同じトイレ区域/同じ利用境界。来賓・会議室と一般ロビーを混ぜない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "yoyogi-b1-n-east-赤ちゃん",
+      "diagramId": "yoyogi-floor-b1-native",
+      "purpose": "赤ちゃん",
+      "label": "北ロビー 東側",
+      "area": "北ロビー 東側",
+      "memberIds": [
+        "yoyogi-floor-b1-n-east-nursing"
+      ],
+      "x": 843.5,
+      "y": 143.5,
+      "boundary": "同じ階/同じトイレ区域/同じ利用境界。来賓・会議室と一般ロビーを混ぜない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "yoyogi-b1-s-vip-トイレ",
+      "diagramId": "yoyogi-floor-b1-native",
+      "purpose": "トイレ",
+      "label": "南側 来賓区域",
+      "area": "南側 来賓区域",
+      "memberIds": [
+        "yoyogi-floor-b1-s-vip-men",
+        "yoyogi-floor-b1-s-vip-women"
+      ],
+      "x": 451.25,
+      "y": 650.0,
+      "boundary": "同じ階/同じトイレ区域/同じ利用境界。来賓・会議室と一般ロビーを混ぜない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "yoyogi-b1-s-west-トイレ",
+      "diagramId": "yoyogi-floor-b1-native",
+      "purpose": "トイレ",
+      "label": "南ロビー 西側",
+      "area": "南ロビー 西側",
+      "memberIds": [
+        "yoyogi-floor-b1-s-west-men",
+        "yoyogi-floor-b1-s-west-women"
+      ],
+      "x": 509.5,
+      "y": 689.0,
+      "boundary": "同じ階/同じトイレ区域/同じ利用境界。来賓・会議室と一般ロビーを混ぜない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "yoyogi-b1-s-east-トイレ",
+      "diagramId": "yoyogi-floor-b1-native",
+      "purpose": "トイレ",
+      "label": "南ロビー 東側",
+      "area": "南ロビー 東側",
+      "memberIds": [
+        "yoyogi-floor-b1-s-east-men",
+        "yoyogi-floor-b1-s-east-women"
+      ],
+      "x": 858.75,
+      "y": 701.75,
+      "boundary": "同じ階/同じトイレ区域/同じ利用境界。来賓・会議室と一般ロビーを混ぜない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "yoyogi-b1-s-meeting-トイレ",
+      "diagramId": "yoyogi-floor-b1-native",
+      "purpose": "トイレ",
+      "label": "南側 会議室区域",
+      "area": "南側 会議室区域",
+      "memberIds": [
+        "yoyogi-floor-b1-s-meeting-men",
+        "yoyogi-floor-b1-s-meeting-women"
+      ],
+      "x": 611.5,
+      "y": 903.75,
+      "boundary": "同じ階/同じトイレ区域/同じ利用境界。来賓・会議室と一般ロビーを混ぜない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "yoyogi-floor-b1-s-vip-accessible-room",
+      "diagramId": "yoyogi-floor-b1-native",
+      "purpose": "トイレ",
+      "label": "南ロビー 西側 s-vip-accessible",
+      "area": "南ロビー 西側 s-vip-accessible",
+      "memberIds": [
+        "yoyogi-floor-b1-s-vip-accessible"
+      ],
+      "x": 464.0,
+      "y": 672.5,
+      "boundary": "原図の単独トイレ室。同じ側にある別室と一括しない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "yoyogi-floor-b1-s-meeting-accessible-room",
+      "diagramId": "yoyogi-floor-b1-native",
+      "purpose": "トイレ",
+      "label": "南側 会議室区域 s-meeting-accessible",
+      "area": "南側 会議室区域 s-meeting-accessible",
+      "memberIds": [
+        "yoyogi-floor-b1-s-meeting-accessible"
+      ],
+      "x": 861.0,
+      "y": 931.5,
+      "boundary": "原図の単独トイレ室。同じ側にある別室と一括しない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "yoyogi-floor-1f-harajuku-accessible-upper-room",
+      "diagramId": "yoyogi-floor-1f-native",
+      "purpose": "トイレ",
+      "label": "北側 東端 harajuku-accessible-upper",
+      "area": "北側 東端 harajuku-accessible-upper",
+      "memberIds": [
+        "yoyogi-floor-1f-harajuku-accessible-upper"
+      ],
+      "x": 917.0,
+      "y": 406.5,
+      "boundary": "原図の単独トイレ室。同じ側にある別室と一括しない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "yoyogi-floor-1f-harajuku-accessible-lower-room",
+      "diagramId": "yoyogi-floor-1f-native",
+      "purpose": "トイレ",
+      "label": "北側 東端 harajuku-accessible-lower",
+      "area": "北側 東端 harajuku-accessible-lower",
+      "memberIds": [
+        "yoyogi-floor-1f-harajuku-accessible-lower"
+      ],
+      "x": 928.5,
+      "y": 424.5,
+      "boundary": "原図の単独トイレ室。同じ側にある別室と一括しない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "yoyogi-floor-1f-shibuya-accessible-upper-room",
+      "diagramId": "yoyogi-floor-1f-native",
+      "purpose": "トイレ",
+      "label": "南側 西端 shibuya-accessible-upper",
+      "area": "南側 西端 shibuya-accessible-upper",
+      "memberIds": [
+        "yoyogi-floor-1f-shibuya-accessible-upper"
+      ],
+      "x": 422.0,
+      "y": 698.0,
+      "boundary": "原図の単独トイレ室。同じ側にある別室と一括しない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "yoyogi-floor-1f-shibuya-accessible-lower-room",
+      "diagramId": "yoyogi-floor-1f-native",
+      "purpose": "トイレ",
+      "label": "南側 西端 shibuya-accessible-lower",
+      "area": "南側 西端 shibuya-accessible-lower",
+      "memberIds": [
+        "yoyogi-floor-1f-shibuya-accessible-lower"
+      ],
+      "x": 434.0,
+      "y": 713.5,
+      "boundary": "原図の単独トイレ室。同じ側にある別室と一括しない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "yoyogi-vendor-north-group",
+      "diagramId": "yoyogi-floor-b1-native",
+      "purpose": "飲食",
+      "label": "北ロビー売店",
+      "area": "北ロビー売店",
+      "memberIds": [
+        "yoyogi-vendor-north"
+      ],
+      "x": 676,
+      "y": 174,
+      "boundary": "売店の独立した区域。南北を統合しない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "yoyogi-vendor-south-group",
+      "diagramId": "yoyogi-floor-b1-native",
+      "purpose": "飲食",
+      "label": "南ロビー売店",
+      "area": "南ロビー売店",
+      "memberIds": [
+        "yoyogi-vendor-south"
+      ],
+      "x": 853,
+      "y": 842,
+      "boundary": "売店の独立した区域。南北を統合しない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "yoyogi-cafe-group",
+      "diagramId": "yoyogi-grounds",
+      "purpose": "飲食",
+      "label": "敷地内レストラン",
+      "area": "敷地内レストラン",
+      "memberIds": [
+        "yoyogi-cafe"
+      ],
+      "x": 441,
+      "y": 501,
+      "boundary": "第一体育館の南北売店と別建物/利用境界。",
+      "visualReview": "source-checked"
+    }
+  ],
+  "meta": {
+    "yoyogi-floor-b1-n-west-men": {
+      "location": "北ロビー 西側",
+      "detail": "おむつ交換台・ベビーチェア・着替え台があります。",
+      "area": "北ロビー 西側",
+      "accessCondition": "公演の開放範囲をご確認ください。"
+    },
+    "yoyogi-floor-b1-n-east-men": {
+      "location": "北ロビー 東側",
+      "detail": "おむつ交換台・ベビーチェア・着替え台があります。",
+      "area": "北ロビー 東側",
+      "accessCondition": "公演の開放範囲をご確認ください。"
+    },
+    "yoyogi-floor-b1-n-west-women": {
+      "location": "北ロビー 西側",
+      "detail": "おむつ交換台・ベビーチェア・着替え台があります。",
+      "area": "北ロビー 西側",
+      "accessCondition": "公演の開放範囲をご確認ください。"
+    },
+    "yoyogi-floor-b1-n-east-women": {
+      "location": "北ロビー 東側",
+      "detail": "おむつ交換台・ベビーチェア・着替え台があります。",
+      "area": "北ロビー 東側",
+      "accessCondition": "公演の開放範囲をご確認ください。"
+    },
+    "yoyogi-floor-b1-n-west-nursing": {
+      "location": "北ロビー 西側",
+      "detail": "女性専用。手洗い・おむつ交換台・ベビーチェアがあります。",
+      "area": "北ロビー 西側",
+      "accessCondition": "公演の開放範囲をご確認ください。"
+    },
+    "yoyogi-floor-b1-n-east-nursing": {
+      "location": "北ロビー 東側",
+      "detail": "女性専用。手洗い・おむつ交換台・ベビーチェアがあります。",
+      "area": "北ロビー 東側",
+      "accessCondition": "公演の開放範囲をご確認ください。"
+    },
+    "yoyogi-floor-b1-s-vip-men": {
+      "location": "南側 来賓区域",
+      "detail": "おむつ交換台・ベビーチェア・着替え台があります。",
+      "area": "南側 来賓区域",
+      "accessCondition": "来賓・会議室の利用者区域です。"
+    },
+    "yoyogi-floor-b1-s-vip-women": {
+      "location": "南側 来賓区域",
+      "detail": "おむつ交換台・ベビーチェア・着替え台があります。",
+      "area": "南側 来賓区域",
+      "accessCondition": "来賓・会議室の利用者区域です。"
+    },
+    "yoyogi-floor-b1-s-west-men": {
+      "location": "南ロビー 西側",
+      "detail": "おむつ交換台・ベビーチェア・着替え台があります。",
+      "area": "南ロビー 西側",
+      "accessCondition": "公演の開放範囲をご確認ください。"
+    },
+    "yoyogi-floor-b1-s-east-men": {
+      "location": "南ロビー 東側",
+      "detail": "おむつ交換台・ベビーチェア・着替え台があります。",
+      "area": "南ロビー 東側",
+      "accessCondition": "公演の開放範囲をご確認ください。"
+    },
+    "yoyogi-floor-b1-s-west-women": {
+      "location": "南ロビー 西側",
+      "detail": "おむつ交換台・ベビーチェア・着替え台があります。",
+      "area": "南ロビー 西側",
+      "accessCondition": "公演の開放範囲をご確認ください。"
+    },
+    "yoyogi-floor-b1-s-east-women": {
+      "location": "南ロビー 東側",
+      "detail": "おむつ交換台・ベビーチェア・着替え台があります。",
+      "area": "南ロビー 東側",
+      "accessCondition": "公演の開放範囲をご確認ください。"
+    },
+    "yoyogi-floor-b1-s-meeting-men": {
+      "location": "南側 会議室区域",
+      "detail": "おむつ交換台・ベビーチェア・着替え台があります。",
+      "area": "南側 会議室区域",
+      "accessCondition": "来賓・会議室の利用者区域です。"
+    },
+    "yoyogi-floor-b1-s-meeting-women": {
+      "location": "南側 会議室区域",
+      "detail": "おむつ交換台・ベビーチェア・着替え台があります。",
+      "area": "南側 会議室区域",
+      "accessCondition": "来賓・会議室の利用者区域です。"
+    },
+    "yoyogi-floor-b1-s-vip-accessible": {
+      "location": "南ロビー 西側",
+      "detail": "車いす対応のトイレです。オストメイト対応室の個別位置は係員へご確認ください。",
+      "area": "南ロビー 西側",
+      "accessCondition": "当日の開放範囲は主催者案内をご確認ください。"
+    },
+    "yoyogi-floor-b1-s-meeting-accessible": {
+      "location": "南側 会議室区域",
+      "detail": "車いす対応のトイレです。オストメイト対応室の個別位置は係員へご確認ください。",
+      "area": "南側 会議室区域",
+      "accessCondition": "当日の開放範囲は主催者案内をご確認ください。"
+    },
+    "yoyogi-floor-1f-harajuku-accessible-upper": {
+      "location": "北側 東端",
+      "detail": "車いす対応のトイレです。オストメイト対応室の個別位置は係員へご確認ください。",
+      "area": "北側 東端",
+      "accessCondition": "当日の開放範囲は主催者案内をご確認ください。"
+    },
+    "yoyogi-floor-1f-harajuku-accessible-lower": {
+      "location": "北側 東端",
+      "detail": "車いす対応のトイレです。オストメイト対応室の個別位置は係員へご確認ください。",
+      "area": "北側 東端",
+      "accessCondition": "当日の開放範囲は主催者案内をご確認ください。"
+    },
+    "yoyogi-floor-1f-shibuya-accessible-upper": {
+      "location": "南側 西端",
+      "detail": "車いす対応のトイレです。オストメイト対応室の個別位置は係員へご確認ください。",
+      "area": "南側 西端",
+      "accessCondition": "当日の開放範囲は主催者案内をご確認ください。"
+    },
+    "yoyogi-floor-1f-shibuya-accessible-lower": {
+      "location": "南側 西端",
+      "detail": "車いす対応のトイレです。オストメイト対応室の個別位置は係員へご確認ください。",
+      "area": "南側 西端",
+      "accessCondition": "当日の開放範囲は主催者案内をご確認ください。"
+    },
+    "yoyogi-vendor-north": {
+      "location": "北ロビー売店",
+      "detail": "公演により営業・販売内容が異なります。",
+      "area": "北ロビー売店",
+      "accessCondition": "当日の開放範囲は主催者案内をご確認ください。"
+    },
+    "yoyogi-vendor-south": {
+      "location": "南ロビー売店",
+      "detail": "公演により営業・販売内容が異なります。",
+      "area": "南ロビー売店",
+      "accessCondition": "当日の開放範囲は主催者案内をご確認ください。"
+    },
+    "yoyogi-aed-unplaced": {
+      "location": "第一体育館",
+      "detail": "設置場所は会場係員へお尋ねください。",
+      "area": "第一体育館",
+      "accessCondition": "当日の開放範囲は主催者案内をご確認ください。"
+    },
+    "yoyogi-accessible-unplaced": {
+      "location": "第一体育館",
+      "detail": "対応室の場所は会場係員へお尋ねください。",
+      "area": "第一体育館",
+      "accessCondition": "当日の開放範囲は主催者案内をご確認ください。"
+    },
+    "yoyogi-vending-unplaced": {
+      "location": "第一体育館",
+      "detail": "ユニバーサル自動販売機があります。",
+      "area": "第一体育館",
+      "accessCondition": "当日の開放範囲は主催者案内をご確認ください。"
+    },
+    "yoyogi-outside-lift-b2-b1": {
+      "location": "屋内水泳場入口の左手前・地下2階〜地下1階",
+      "detail": "車いすの常設席へは館外の2機を利用する公式案内があります。入口・席の設定は公演主催者をご確認ください。",
+      "area": "屋内水泳場入口の左手前・地下2階〜地下1階",
+      "accessCondition": "当日の開放範囲は主催者案内をご確認ください。",
+      "url": "https://www.jpnsport.go.jp/yoyogi/seat/tabid/249/Default.aspx",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "yoyogi-outside-lift-b1-ground": {
+      "location": "一つ目を降りて左折した先・地下1階〜地上1階",
+      "detail": "車いすの常設席へは館外の2機を利用する公式案内があります。入口・席の設定は公演主催者をご確認ください。",
+      "area": "一つ目を降りて左折した先・地下1階〜地上1階",
+      "accessCondition": "当日の開放範囲は主催者案内をご確認ください。",
+      "url": "https://www.jpnsport.go.jp/yoyogi/seat/tabid/249/Default.aspx",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "yoyogi-cafe": {
+      "location": "第二体育館の北側",
+      "detail": "敷地内のレストランです。営業日時は公式案内をご確認ください。",
+      "area": "敷地内レストラン",
+      "accessCondition": "当日の開放範囲は主催者案内をご確認ください。",
+      "url": "https://www.jpnsport.go.jp/yoyogi/tabid/204/Default.aspx",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "yoyogi-city-toilet": {
+      "location": "渋谷区神南1-5-11",
+      "detail": "だれでもトイレがあります。",
+      "area": "神南",
+      "accessCondition": "当日の開放範囲は主催者案内をご確認ください。",
+      "url": "https://www.city.shibuya.tokyo.jp/shisetsu/koen/koshu-toilet/toilet.html",
+      "outsideViewIds": [
+        "near"
+      ]
+    },
+    "yoyogi-locker-harajuku-out": {
+      "location": "東口エスカレーター脇",
+      "detail": "駅ロッカーです。料金・サイズ・支払方法は現地表示をご確認ください。取り出しは駅の利用時間内です。",
+      "area": "原宿駅",
+      "accessCondition": "改札外で入場前に利用できます。",
+      "url": "https://media.jreast.co.jp/articles/707",
+      "outsideViewIds": [
+        "near"
+      ]
+    },
+    "yoyogi-locker-harajuku-in-lift": {
+      "location": "表参道改札へ向かう通路・山手線EV付近",
+      "detail": "駅ロッカーです。料金・サイズ・支払方法は現地表示をご確認ください。取り出しは駅の利用時間内です。",
+      "area": "原宿駅",
+      "accessCondition": "乗車券が必要です。",
+      "url": "https://media.jreast.co.jp/articles/707",
+      "outsideViewIds": [
+        "near"
+      ]
+    },
+    "yoyogi-locker-harajuku-in-escalator": {
+      "location": "表参道改札へ向かう通路・山手線ESC付近",
+      "detail": "駅ロッカーです。料金・サイズ・支払方法は現地表示をご確認ください。取り出しは駅の利用時間内です。",
+      "area": "原宿駅",
+      "accessCondition": "乗車券が必要です。",
+      "url": "https://media.jreast.co.jp/articles/707",
+      "outsideViewIds": [
+        "near"
+      ]
+    },
+    "yoyogi-locker-meiji-3": {
+      "location": "3番出口付近・A系列",
+      "detail": "駅ロッカーです。料金・サイズ・支払方法は現地表示をご確認ください。取り出しは駅の利用時間内です。",
+      "area": "明治神宮前駅",
+      "accessCondition": "改札外で入場前に利用できます。",
+      "url": "https://media.jreast.co.jp/articles/707",
+      "outsideViewIds": [
+        "near"
+      ]
+    },
+    "yoyogi-locker-meiji-6": {
+      "location": "6番出口に向かう途中・B系列",
+      "detail": "駅ロッカーです。料金・サイズ・支払方法は現地表示をご確認ください。取り出しは駅の利用時間内です。",
+      "area": "明治神宮前駅",
+      "accessCondition": "改札外で入場前に利用できます。",
+      "url": "https://media.jreast.co.jp/articles/707",
+      "outsideViewIds": [
+        "near"
+      ]
+    },
+    "yoyogi-locker-meiji-ground-lift": {
+      "location": "表参道方面の地上行きEV付近・C系列",
+      "detail": "駅ロッカーです。料金・サイズ・支払方法は現地表示をご確認ください。取り出しは駅の利用時間内です。",
+      "area": "明治神宮前駅",
+      "accessCondition": "改札外で入場前に利用できます。",
+      "url": "https://media.jreast.co.jp/articles/707",
+      "outsideViewIds": [
+        "near"
+      ]
+    },
+    "yoyogi-locker-meiji-ticket": {
+      "location": "改札付近・D系列",
+      "detail": "駅ロッカーです。料金・サイズ・支払方法は現地表示をご確認ください。取り出しは駅の利用時間内です。",
+      "area": "明治神宮前駅",
+      "accessCondition": "改札外で入場前に利用できます。",
+      "url": "https://media.jreast.co.jp/articles/707",
+      "outsideViewIds": [
+        "near"
+      ]
+    },
+    "yoyogi-locker-park": {
+      "location": "千代田線側。改札内外・個別設置位置は案内で確認",
+      "detail": "駅ロッカーです。料金・サイズ・支払方法は現地表示をご確認ください。取り出しは駅の利用時間内です。",
+      "area": "代々木公園駅",
+      "accessCondition": "改札内外・利用条件は駅案内をご確認ください。",
+      "url": "https://www.tokyometro.jp/station/yoyogi-koen/shop/index.html",
+      "outsideViewIds": [
+        "near"
+      ]
+    },
+    "yoyogi-locker-shibuya": {
+      "location": "B-1 宮益坂口通路1",
+      "detail": "駅構内のロッカーです。料金・収納サイズ・支払方法は設置案内をご確認ください。",
+      "area": "渋谷駅",
+      "accessCondition": "改札外で入場前に利用できます。駅の利用時間内にお取り出しください。",
+      "url": "https://www.tokyu.co.jp/area/shibuya/station/coin-locker/",
+      "outsideViewIds": [
+        "near"
+      ]
+    },
+    "yoyogi-locker-shibuya-b2": {
+      "location": "B-2 宮益坂口通路2",
+      "detail": "駅構内のロッカーです。料金・収納サイズ・支払方法は設置案内をご確認ください。",
+      "area": "渋谷駅",
+      "accessCondition": "改札外で入場前に利用できます。駅の利用時間内にお取り出しください。",
+      "url": "https://www.tokyu.co.jp/area/shibuya/station/coin-locker/",
+      "outsideViewIds": [
+        "near"
+      ]
+    },
+    "yoyogi-locker-shibuya-c1": {
+      "location": "C-1 B1番出口寄り",
+      "detail": "駅構内のロッカーです。料金・収納サイズ・支払方法は設置案内をご確認ください。",
+      "area": "渋谷駅",
+      "accessCondition": "改札外で入場前に利用できます。駅の利用時間内にお取り出しください。",
+      "url": "https://www.tokyu.co.jp/area/shibuya/station/coin-locker/",
+      "outsideViewIds": [
+        "near"
+      ]
+    },
+    "yoyogi-locker-shibuya-a23": {
+      "location": "A-2・A-3 中央口通路2・3",
+      "detail": "駅構内のロッカーです。料金・収納サイズ・支払方法は設置案内をご確認ください。",
+      "area": "渋谷駅",
+      "accessCondition": "改札外で入場前に利用できます。駅の利用時間内にお取り出しください。",
+      "url": "https://www.tokyu.co.jp/area/shibuya/station/coin-locker/",
+      "outsideViewIds": [
+        "near"
+      ]
+    },
+    "yoyogi-locker-shibuya-a4": {
+      "location": "A-4 中央口通路4",
+      "detail": "駅構内のロッカーです。料金・収納サイズ・支払方法は設置案内をご確認ください。",
+      "area": "渋谷駅",
+      "accessCondition": "改札外で入場前に利用できます。駅の利用時間内にお取り出しください。",
+      "url": "https://www.tokyu.co.jp/area/shibuya/station/coin-locker/",
+      "outsideViewIds": [
+        "near"
+      ]
+    },
+    "yoyogi-locker-shibuya-109": {
+      "location": "A1・B SHIBUYA109入口前",
+      "detail": "駅構内のロッカーです。料金・収納サイズ・支払方法は設置案内をご確認ください。",
+      "area": "渋谷駅",
+      "accessCondition": "改札外で入場前に利用できます。駅の利用時間内にお取り出しください。",
+      "url": "https://www.tokyu.co.jp/area/shibuya/station/coin-locker/",
+      "outsideViewIds": [
+        "near"
+      ]
+    },
+    "yoyogi-locker-shibuya-dogenzaka": {
+      "location": "A2 道玄坂改札向かい",
+      "detail": "駅構内のロッカーです。料金・収納サイズ・支払方法は設置案内をご確認ください。",
+      "area": "渋谷駅",
+      "accessCondition": "改札外で入場前に利用できます。駅の利用時間内にお取り出しください。",
+      "url": "https://www.tokyu.co.jp/area/shibuya/station/coin-locker/",
+      "outsideViewIds": [
+        "near"
+      ]
+    },
+    "yoyogi-locker-shibuya-a4exit": {
+      "location": "C ハチ公改札西側 階段付近",
+      "detail": "駅構内のロッカーです。料金・収納サイズ・支払方法は設置案内をご確認ください。",
+      "area": "渋谷駅",
+      "accessCondition": "改札外で入場前に利用できます。駅の利用時間内にお取り出しください。",
+      "url": "https://www.tokyu.co.jp/area/shibuya/station/coin-locker/",
+      "outsideViewIds": [
+        "near"
+      ]
+    },
+    "yoyogi-locker-shibuya-office": {
+      "location": "D・E・F ロッカー取扱所前/横",
+      "detail": "駅構内のロッカーです。料金・収納サイズ・支払方法は設置案内をご確認ください。",
+      "area": "渋谷駅",
+      "accessCondition": "改札外で入場前に利用できます。駅の利用時間内にお取り出しください。",
+      "url": "https://www.tokyu.co.jp/area/shibuya/station/coin-locker/",
+      "outsideViewIds": [
+        "near"
+      ]
+    },
+    "yoyogi-locker-shibuya-hikarie": {
+      "location": "K・L 渋谷ヒカリエ前",
+      "detail": "駅構内のロッカーです。料金・収納サイズ・支払方法は設置案内をご確認ください。",
+      "area": "渋谷駅",
+      "accessCondition": "改札外で入場前に利用できます。駅の利用時間内にお取り出しください。",
+      "url": "https://www.tokyu.co.jp/area/shibuya/station/coin-locker/",
+      "outsideViewIds": [
+        "near"
+      ]
+    },
+    "yoyogi-locker-shibuya-east": {
+      "location": "1〜5 東口地下広場通路",
+      "detail": "駅構内のロッカーです。料金・収納サイズ・支払方法は設置案内をご確認ください。",
+      "area": "渋谷駅",
+      "accessCondition": "改札外で入場前に利用できます。駅の利用時間内にお取り出しください。",
+      "url": "https://www.tokyu.co.jp/area/shibuya/station/coin-locker/",
+      "outsideViewIds": [
+        "near"
+      ]
+    },
+    "yoyogi-baggage-bounce-harajuku": {
+      "location": "原宿駅周辺（住所・受付は予約画面）",
+      "detail": "店舗の有人預かり。案内は10:00〜18:00。終演後に受け取る場合は受付終了時刻を先に確認してください。",
+      "area": "原宿駅",
+      "accessCondition": "事前予約が必要です。料金・空き・受付時間は予約画面でご確認ください。",
+      "url": "https://bounce.com/stores/tokyo/Cog0Jy",
+      "outsideViewIds": [
+        "near"
+      ]
+    }
+  },
+  "sourceSymbols": [
+    {
+      "sourceId": "floor-b1",
+      "key": "n-west-men",
+      "kind": "men",
+      "inspectionWindowPx": [
+        486,
+        92,
+        510,
+        126
+      ],
+      "sourceBBoxPx": [
+        494,
+        100,
+        503,
+        118
+      ],
+      "x": 498.5,
+      "y": 109.0,
+      "coloredPixels": 113,
+      "id": "yoyogi-floor-b1-n-west-men",
+      "name": "男性トイレ",
+      "diagramId": "yoyogi-floor-b1-native",
+      "sourceIds": [
+        "floor-b1",
+        "first-building"
+      ],
+      "physicalFloor": "B1F",
+      "scopeCandidate": "場内",
+      "measurementErrorPx": 3,
+      "pointSemantics": "colored-pictogram-representative-point",
+      "isEntrance": false,
+      "classificationStatus": "confirmed toilet pictogram in sanitary-room drawing",
+      "bucket": "direct-type-candidate",
+      "eventAvailability": "unconfirmed",
+      "reference": "JSC公式第一体育館B1F原図の色付き記号代表点。室入口や移動距離を示す点ではない。",
+      "checkedAt": "2026-10-01"
+    },
+    {
+      "sourceId": "floor-b1",
+      "key": "n-east-men",
+      "kind": "men",
+      "inspectionWindowPx": [
+        850,
+        91,
+        874,
+        127
+      ],
+      "sourceBBoxPx": [
+        857,
+        97,
+        867,
+        115
+      ],
+      "x": 862.0,
+      "y": 106.0,
+      "coloredPixels": 119,
+      "id": "yoyogi-floor-b1-n-east-men",
+      "name": "男性トイレ",
+      "diagramId": "yoyogi-floor-b1-native",
+      "sourceIds": [
+        "floor-b1",
+        "first-building"
+      ],
+      "physicalFloor": "B1F",
+      "scopeCandidate": "場内",
+      "measurementErrorPx": 3,
+      "pointSemantics": "colored-pictogram-representative-point",
+      "isEntrance": false,
+      "classificationStatus": "confirmed toilet pictogram in sanitary-room drawing",
+      "bucket": "direct-type-candidate",
+      "eventAvailability": "unconfirmed",
+      "reference": "JSC公式第一体育館B1F原図の色付き記号代表点。室入口や移動距離を示す点ではない。",
+      "checkedAt": "2026-10-01"
+    },
+    {
+      "sourceId": "floor-b1",
+      "key": "n-west-women",
+      "kind": "women",
+      "inspectionWindowPx": [
+        458,
+        162,
+        484,
+        193
+      ],
+      "sourceBBoxPx": [
+        467,
+        169,
+        476,
+        188
+      ],
+      "x": 471.5,
+      "y": 178.5,
+      "coloredPixels": 106,
+      "id": "yoyogi-floor-b1-n-west-women",
+      "name": "女性トイレ",
+      "diagramId": "yoyogi-floor-b1-native",
+      "sourceIds": [
+        "floor-b1",
+        "first-building"
+      ],
+      "physicalFloor": "B1F",
+      "scopeCandidate": "場内",
+      "measurementErrorPx": 3,
+      "pointSemantics": "colored-pictogram-representative-point",
+      "isEntrance": false,
+      "classificationStatus": "confirmed toilet pictogram in sanitary-room drawing",
+      "bucket": "direct-type-candidate",
+      "eventAvailability": "unconfirmed",
+      "reference": "JSC公式第一体育館B1F原図の色付き記号代表点。室入口や移動距離を示す点ではない。",
+      "checkedAt": "2026-10-01"
+    },
+    {
+      "sourceId": "floor-b1",
+      "key": "n-east-women",
+      "kind": "women",
+      "inspectionWindowPx": [
+        864,
+        162,
+        888,
+        196
+      ],
+      "sourceBBoxPx": [
+        871,
+        173,
+        880,
+        191
+      ],
+      "x": 875.5,
+      "y": 182.0,
+      "coloredPixels": 94,
+      "id": "yoyogi-floor-b1-n-east-women",
+      "name": "女性トイレ",
+      "diagramId": "yoyogi-floor-b1-native",
+      "sourceIds": [
+        "floor-b1",
+        "first-building"
+      ],
+      "physicalFloor": "B1F",
+      "scopeCandidate": "場内",
+      "measurementErrorPx": 3,
+      "pointSemantics": "colored-pictogram-representative-point",
+      "isEntrance": false,
+      "classificationStatus": "confirmed toilet pictogram in sanitary-room drawing",
+      "bucket": "direct-type-candidate",
+      "eventAvailability": "unconfirmed",
+      "reference": "JSC公式第一体育館B1F原図の色付き記号代表点。室入口や移動距離を示す点ではない。",
+      "checkedAt": "2026-10-01"
+    },
+    {
+      "sourceId": "floor-b1",
+      "key": "n-west-nursing",
+      "kind": "nursing",
+      "inspectionWindowPx": [
+        508,
+        146,
+        532,
+        169
+      ],
+      "sourceBBoxPx": [
+        508,
+        153,
+        521,
+        163
+      ],
+      "x": 514.5,
+      "y": 158.0,
+      "coloredPixels": 42,
+      "id": "yoyogi-floor-b1-n-west-nursing",
+      "name": "授乳室",
+      "diagramId": "yoyogi-floor-b1-native",
+      "sourceIds": [
+        "floor-b1",
+        "first-building"
+      ],
+      "physicalFloor": "B1F",
+      "scopeCandidate": "場内",
+      "measurementErrorPx": 3,
+      "pointSemantics": "colored-pictogram-representative-point",
+      "isEntrance": false,
+      "classificationStatus": "nursing symbol corroborated by north B1 east/west text",
+      "bucket": "direct-type-candidate",
+      "eventAvailability": "unconfirmed",
+      "reference": "JSC公式第一体育館B1F原図の色付き記号代表点。室入口や移動距離を示す点ではない。",
+      "checkedAt": "2026-10-01"
+    },
+    {
+      "sourceId": "floor-b1",
+      "key": "n-east-nursing",
+      "kind": "nursing",
+      "inspectionWindowPx": [
+        832,
+        135,
+        856,
+        155
+      ],
+      "sourceBBoxPx": [
+        838,
+        137,
+        849,
+        150
+      ],
+      "x": 843.5,
+      "y": 143.5,
+      "coloredPixels": 43,
+      "id": "yoyogi-floor-b1-n-east-nursing",
+      "name": "授乳室",
+      "diagramId": "yoyogi-floor-b1-native",
+      "sourceIds": [
+        "floor-b1",
+        "first-building"
+      ],
+      "physicalFloor": "B1F",
+      "scopeCandidate": "場内",
+      "measurementErrorPx": 3,
+      "pointSemantics": "colored-pictogram-representative-point",
+      "isEntrance": false,
+      "classificationStatus": "nursing symbol corroborated by north B1 east/west text",
+      "bucket": "direct-type-candidate",
+      "eventAvailability": "unconfirmed",
+      "reference": "JSC公式第一体育館B1F原図の色付き記号代表点。室入口や移動距離を示す点ではない。",
+      "checkedAt": "2026-10-01"
+    },
+    {
+      "sourceId": "floor-b1",
+      "key": "s-vip-men",
+      "kind": "men",
+      "inspectionWindowPx": [
+        444,
+        625,
+        466,
+        651
+      ],
+      "sourceBBoxPx": [
+        450,
+        629,
+        459,
+        647
+      ],
+      "x": 454.5,
+      "y": 638.0,
+      "coloredPixels": 111,
+      "id": "yoyogi-floor-b1-s-vip-men",
+      "name": "男性トイレ",
+      "diagramId": "yoyogi-floor-b1-native",
+      "sourceIds": [
+        "floor-b1",
+        "first-building"
+      ],
+      "physicalFloor": "B1F",
+      "scopeCandidate": "場内",
+      "measurementErrorPx": 3,
+      "pointSemantics": "colored-pictogram-representative-point",
+      "isEntrance": false,
+      "classificationStatus": "confirmed toilet pictogram in sanitary-room drawing",
+      "bucket": "direct-type-candidate",
+      "eventAvailability": "unconfirmed",
+      "reference": "JSC公式第一体育館B1F原図の色付き記号代表点。室入口や移動距離を示す点ではない。",
+      "checkedAt": "2026-10-01"
+    },
+    {
+      "sourceId": "floor-b1",
+      "key": "s-vip-women",
+      "kind": "women",
+      "inspectionWindowPx": [
+        438,
+        652,
+        459,
+        675
+      ],
+      "sourceBBoxPx": [
+        443,
+        653,
+        453,
+        671
+      ],
+      "x": 448.0,
+      "y": 662.0,
+      "coloredPixels": 107,
+      "id": "yoyogi-floor-b1-s-vip-women",
+      "name": "女性トイレ",
+      "diagramId": "yoyogi-floor-b1-native",
+      "sourceIds": [
+        "floor-b1",
+        "first-building"
+      ],
+      "physicalFloor": "B1F",
+      "scopeCandidate": "場内",
+      "measurementErrorPx": 3,
+      "pointSemantics": "colored-pictogram-representative-point",
+      "isEntrance": false,
+      "classificationStatus": "confirmed toilet pictogram in sanitary-room drawing",
+      "bucket": "direct-type-candidate",
+      "eventAvailability": "unconfirmed",
+      "reference": "JSC公式第一体育館B1F原図の色付き記号代表点。室入口や移動距離を示す点ではない。",
+      "checkedAt": "2026-10-01"
+    },
+    {
+      "sourceId": "floor-b1",
+      "key": "s-vip-accessible",
+      "kind": "accessible",
+      "inspectionWindowPx": [
+        455,
+        666,
+        477,
+        683
+      ],
+      "sourceBBoxPx": [
+        459,
+        666,
+        469,
+        679
+      ],
+      "x": 464.0,
+      "y": 672.5,
+      "coloredPixels": 77,
+      "id": "yoyogi-floor-b1-s-vip-accessible",
+      "name": "車いすアクセシビリティ記号（設備種別未確定）",
+      "diagramId": "yoyogi-floor-b1-native",
+      "sourceIds": [
+        "floor-b1",
+        "first-building"
+      ],
+      "physicalFloor": "B1F",
+      "scopeCandidate": "場内",
+      "measurementErrorPx": 3,
+      "pointSemantics": "colored-pictogram-representative-point",
+      "isEntrance": false,
+      "classificationStatus": "symbol recognized; facility subtype pending",
+      "bucket": "type-decision-pending",
+      "eventAvailability": "unconfirmed",
+      "reference": "JSC公式第一体育館B1F原図の色付き記号代表点。室入口や移動距離を示す点ではない。",
+      "checkedAt": "2026-10-01"
+    },
+    {
+      "sourceId": "floor-b1",
+      "key": "s-west-men",
+      "kind": "men",
+      "inspectionWindowPx": [
+        506,
+        650,
+        529,
+        682
+      ],
+      "sourceBBoxPx": [
+        513,
+        656,
+        522,
+        674
+      ],
+      "x": 517.5,
+      "y": 665.0,
+      "coloredPixels": 107,
+      "id": "yoyogi-floor-b1-s-west-men",
+      "name": "男性トイレ",
+      "diagramId": "yoyogi-floor-b1-native",
+      "sourceIds": [
+        "floor-b1",
+        "first-building"
+      ],
+      "physicalFloor": "B1F",
+      "scopeCandidate": "場内",
+      "measurementErrorPx": 3,
+      "pointSemantics": "colored-pictogram-representative-point",
+      "isEntrance": false,
+      "classificationStatus": "confirmed toilet pictogram in sanitary-room drawing",
+      "bucket": "direct-type-candidate",
+      "eventAvailability": "unconfirmed",
+      "reference": "JSC公式第一体育館B1F原図の色付き記号代表点。室入口や移動距離を示す点ではない。",
+      "checkedAt": "2026-10-01"
+    },
+    {
+      "sourceId": "floor-b1",
+      "key": "s-east-men",
+      "kind": "men",
+      "inspectionWindowPx": [
+        842,
+        659,
+        866,
+        690
+      ],
+      "sourceBBoxPx": [
+        850,
+        665,
+        859,
+        684
+      ],
+      "x": 854.5,
+      "y": 674.5,
+      "coloredPixels": 117,
+      "id": "yoyogi-floor-b1-s-east-men",
+      "name": "男性トイレ",
+      "diagramId": "yoyogi-floor-b1-native",
+      "sourceIds": [
+        "floor-b1",
+        "first-building"
+      ],
+      "physicalFloor": "B1F",
+      "scopeCandidate": "場内",
+      "measurementErrorPx": 3,
+      "pointSemantics": "colored-pictogram-representative-point",
+      "isEntrance": false,
+      "classificationStatus": "confirmed toilet pictogram in sanitary-room drawing",
+      "bucket": "direct-type-candidate",
+      "eventAvailability": "unconfirmed",
+      "reference": "JSC公式第一体育館B1F原図の色付き記号代表点。室入口や移動距離を示す点ではない。",
+      "checkedAt": "2026-10-01"
+    },
+    {
+      "sourceId": "floor-b1",
+      "key": "s-west-women",
+      "kind": "women",
+      "inspectionWindowPx": [
+        491,
+        699,
+        514,
+        732
+      ],
+      "sourceBBoxPx": [
+        497,
+        704,
+        506,
+        722
+      ],
+      "x": 501.5,
+      "y": 713.0,
+      "coloredPixels": 94,
+      "id": "yoyogi-floor-b1-s-west-women",
+      "name": "女性トイレ",
+      "diagramId": "yoyogi-floor-b1-native",
+      "sourceIds": [
+        "floor-b1",
+        "first-building"
+      ],
+      "physicalFloor": "B1F",
+      "scopeCandidate": "場内",
+      "measurementErrorPx": 3,
+      "pointSemantics": "colored-pictogram-representative-point",
+      "isEntrance": false,
+      "classificationStatus": "confirmed toilet pictogram in sanitary-room drawing",
+      "bucket": "direct-type-candidate",
+      "eventAvailability": "unconfirmed",
+      "reference": "JSC公式第一体育館B1F原図の色付き記号代表点。室入口や移動距離を示す点ではない。",
+      "checkedAt": "2026-10-01"
+    },
+    {
+      "sourceId": "floor-b1",
+      "key": "s-east-women",
+      "kind": "women",
+      "inspectionWindowPx": [
+        852,
+        716,
+        876,
+        747
+      ],
+      "sourceBBoxPx": [
+        858,
+        720,
+        868,
+        738
+      ],
+      "x": 863.0,
+      "y": 729.0,
+      "coloredPixels": 106,
+      "id": "yoyogi-floor-b1-s-east-women",
+      "name": "女性トイレ",
+      "diagramId": "yoyogi-floor-b1-native",
+      "sourceIds": [
+        "floor-b1",
+        "first-building"
+      ],
+      "physicalFloor": "B1F",
+      "scopeCandidate": "場内",
+      "measurementErrorPx": 3,
+      "pointSemantics": "colored-pictogram-representative-point",
+      "isEntrance": false,
+      "classificationStatus": "confirmed toilet pictogram in sanitary-room drawing",
+      "bucket": "direct-type-candidate",
+      "eventAvailability": "unconfirmed",
+      "reference": "JSC公式第一体育館B1F原図の色付き記号代表点。室入口や移動距離を示す点ではない。",
+      "checkedAt": "2026-10-01"
+    },
+    {
+      "sourceId": "floor-b1",
+      "key": "s-meeting-men",
+      "kind": "men",
+      "inspectionWindowPx": [
+        585,
+        889,
+        608,
+        920
+      ],
+      "sourceBBoxPx": [
+        592,
+        896,
+        601,
+        912
+      ],
+      "x": 596.5,
+      "y": 904.0,
+      "coloredPixels": 102,
+      "id": "yoyogi-floor-b1-s-meeting-men",
+      "name": "男性トイレ",
+      "diagramId": "yoyogi-floor-b1-native",
+      "sourceIds": [
+        "floor-b1",
+        "first-building"
+      ],
+      "physicalFloor": "B1F",
+      "scopeCandidate": "場内",
+      "measurementErrorPx": 3,
+      "pointSemantics": "colored-pictogram-representative-point",
+      "isEntrance": false,
+      "classificationStatus": "confirmed toilet pictogram in sanitary-room drawing",
+      "bucket": "direct-type-candidate",
+      "eventAvailability": "unconfirmed",
+      "reference": "JSC公式第一体育館B1F原図の色付き記号代表点。室入口や移動距離を示す点ではない。",
+      "checkedAt": "2026-10-01"
+    },
+    {
+      "sourceId": "floor-b1",
+      "key": "s-meeting-women",
+      "kind": "women",
+      "inspectionWindowPx": [
+        615,
+        889,
+        640,
+        920
+      ],
+      "sourceBBoxPx": [
+        622,
+        895,
+        631,
+        912
+      ],
+      "x": 626.5,
+      "y": 903.5,
+      "coloredPixels": 91,
+      "id": "yoyogi-floor-b1-s-meeting-women",
+      "name": "女性トイレ",
+      "diagramId": "yoyogi-floor-b1-native",
+      "sourceIds": [
+        "floor-b1",
+        "first-building"
+      ],
+      "physicalFloor": "B1F",
+      "scopeCandidate": "場内",
+      "measurementErrorPx": 3,
+      "pointSemantics": "colored-pictogram-representative-point",
+      "isEntrance": false,
+      "classificationStatus": "confirmed toilet pictogram in sanitary-room drawing",
+      "bucket": "direct-type-candidate",
+      "eventAvailability": "unconfirmed",
+      "reference": "JSC公式第一体育館B1F原図の色付き記号代表点。室入口や移動距離を示す点ではない。",
+      "checkedAt": "2026-10-01"
+    },
+    {
+      "sourceId": "floor-b1",
+      "key": "s-meeting-accessible",
+      "kind": "accessible",
+      "inspectionWindowPx": [
+        850,
+        923,
+        872,
+        945
+      ],
+      "sourceBBoxPx": [
+        856,
+        925,
+        866,
+        938
+      ],
+      "x": 861.0,
+      "y": 931.5,
+      "coloredPixels": 75,
+      "id": "yoyogi-floor-b1-s-meeting-accessible",
+      "name": "車いすアクセシビリティ記号（設備種別未確定）",
+      "diagramId": "yoyogi-floor-b1-native",
+      "sourceIds": [
+        "floor-b1",
+        "first-building"
+      ],
+      "physicalFloor": "B1F",
+      "scopeCandidate": "場内",
+      "measurementErrorPx": 3,
+      "pointSemantics": "colored-pictogram-representative-point",
+      "isEntrance": false,
+      "classificationStatus": "symbol recognized; facility subtype pending",
+      "bucket": "type-decision-pending",
+      "eventAvailability": "unconfirmed",
+      "reference": "JSC公式第一体育館B1F原図の色付き記号代表点。室入口や移動距離を示す点ではない。",
+      "checkedAt": "2026-10-01"
+    },
+    {
+      "sourceId": "floor-1f",
+      "key": "harajuku-accessible-upper",
+      "kind": "accessible",
+      "inspectionWindowPx": [
+        906,
+        393,
+        930,
+        417
+      ],
+      "sourceBBoxPx": [
+        912,
+        401,
+        922,
+        412
+      ],
+      "x": 917.0,
+      "y": 406.5,
+      "coloredPixels": 69,
+      "id": "yoyogi-floor-1f-harajuku-accessible-upper",
+      "name": "車いすアクセシビリティ記号（設備種別未確定）",
+      "diagramId": "yoyogi-floor-1f-native",
+      "sourceIds": [
+        "floor-1f",
+        "first-building"
+      ],
+      "physicalFloor": "1F",
+      "scopeCandidate": "場内",
+      "measurementErrorPx": 3,
+      "pointSemantics": "colored-pictogram-representative-point",
+      "isEntrance": false,
+      "classificationStatus": "symbol recognized; facility subtype pending",
+      "bucket": "type-decision-pending",
+      "eventAvailability": "unconfirmed",
+      "reference": "JSC公式第一体育館1F原図の色付き記号代表点。室入口や移動距離を示す点ではない。",
+      "checkedAt": "2026-10-01"
+    },
+    {
+      "sourceId": "floor-1f",
+      "key": "harajuku-accessible-lower",
+      "kind": "accessible",
+      "inspectionWindowPx": [
+        916,
+        416,
+        940,
+        438
+      ],
+      "sourceBBoxPx": [
+        924,
+        418,
+        933,
+        431
+      ],
+      "x": 928.5,
+      "y": 424.5,
+      "coloredPixels": 68,
+      "id": "yoyogi-floor-1f-harajuku-accessible-lower",
+      "name": "車いすアクセシビリティ記号（設備種別未確定）",
+      "diagramId": "yoyogi-floor-1f-native",
+      "sourceIds": [
+        "floor-1f",
+        "first-building"
+      ],
+      "physicalFloor": "1F",
+      "scopeCandidate": "場内",
+      "measurementErrorPx": 3,
+      "pointSemantics": "colored-pictogram-representative-point",
+      "isEntrance": false,
+      "classificationStatus": "symbol recognized; facility subtype pending",
+      "bucket": "type-decision-pending",
+      "eventAvailability": "unconfirmed",
+      "reference": "JSC公式第一体育館1F原図の色付き記号代表点。室入口や移動距離を示す点ではない。",
+      "checkedAt": "2026-10-01"
+    },
+    {
+      "sourceId": "floor-1f",
+      "key": "shibuya-accessible-upper",
+      "kind": "accessible",
+      "inspectionWindowPx": [
+        411,
+        687,
+        432,
+        707
+      ],
+      "sourceBBoxPx": [
+        417,
+        692,
+        427,
+        704
+      ],
+      "x": 422.0,
+      "y": 698.0,
+      "coloredPixels": 69,
+      "id": "yoyogi-floor-1f-shibuya-accessible-upper",
+      "name": "車いすアクセシビリティ記号（設備種別未確定）",
+      "diagramId": "yoyogi-floor-1f-native",
+      "sourceIds": [
+        "floor-1f",
+        "first-building"
+      ],
+      "physicalFloor": "1F",
+      "scopeCandidate": "場内",
+      "measurementErrorPx": 3,
+      "pointSemantics": "colored-pictogram-representative-point",
+      "isEntrance": false,
+      "classificationStatus": "symbol recognized; facility subtype pending",
+      "bucket": "type-decision-pending",
+      "eventAvailability": "unconfirmed",
+      "reference": "JSC公式第一体育館1F原図の色付き記号代表点。室入口や移動距離を示す点ではない。",
+      "checkedAt": "2026-10-01"
+    },
+    {
+      "sourceId": "floor-1f",
+      "key": "shibuya-accessible-lower",
+      "kind": "accessible",
+      "inspectionWindowPx": [
+        422,
+        706,
+        442,
+        728
+      ],
+      "sourceBBoxPx": [
+        429,
+        708,
+        439,
+        719
+      ],
+      "x": 434.0,
+      "y": 713.5,
+      "coloredPixels": 73,
+      "id": "yoyogi-floor-1f-shibuya-accessible-lower",
+      "name": "車いすアクセシビリティ記号（設備種別未確定）",
+      "diagramId": "yoyogi-floor-1f-native",
+      "sourceIds": [
+        "floor-1f",
+        "first-building"
+      ],
+      "physicalFloor": "1F",
+      "scopeCandidate": "場内",
+      "measurementErrorPx": 3,
+      "pointSemantics": "colored-pictogram-representative-point",
+      "isEntrance": false,
+      "classificationStatus": "symbol recognized; facility subtype pending",
+      "bucket": "type-decision-pending",
+      "eventAvailability": "unconfirmed",
+      "reference": "JSC公式第一体育館1F原図の色付き記号代表点。室入口や移動距離を示す点ではない。",
+      "checkedAt": "2026-10-01"
+    }
+  ],
+  "pendingSymbols": [],
+  "sources": [
+    {
+      "id": "first-seats",
+      "title": "first-seats",
+      "url": "https://www.jpnsport.go.jp/yoyogi/seat/tabid/62/Default.aspx",
+      "checkedAt": "2026-10-06",
+      "scope": "第一体育館の印字・設備・場所の事実。原画像は調査のみ。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-base",
+      "title": "seat-base",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_base.png",
+      "checkedAt": "2026-10-06",
+      "scope": "第一体育館の印字・設備・場所の事実。原画像は調査のみ。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-n1a-chart",
+      "title": "seat-n1a-chart",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_n1A.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "第一体育館の印字・設備・場所の事実。原画像は調査のみ。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "route-harajuku",
+      "title": "route-harajuku",
+      "url": "https://www.jpnsport.go.jp/yoyogi/seat/tabid/248/Default.aspx",
+      "checkedAt": "2026-10-06",
+      "scope": "第一体育館の印字・設備・場所の事実。原画像は調査のみ。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "route-wheelchair",
+      "title": "route-wheelchair",
+      "url": "https://www.jpnsport.go.jp/yoyogi/seat/tabid/249/Default.aspx",
+      "checkedAt": "2026-10-06",
+      "scope": "第一体育館の印字・設備・場所の事実。原画像は調査のみ。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "first-building",
+      "title": "first-building",
+      "url": "https://www.jpnsport.go.jp/yoyogi/sisetu/tabid/70/Default.aspx",
+      "checkedAt": "2026-10-06",
+      "scope": "第一体育館の印字・設備・場所の事実。原画像は調査のみ。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "floor-b1",
+      "title": "floor-b1",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/%E5%9C%B0%E4%B8%8B1%E9%9A%8E.JPG?1198218029515",
+      "checkedAt": "2026-10-06",
+      "scope": "第一体育館の印字・設備・場所の事実。原画像は調査のみ。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "floor-1f",
+      "title": "floor-1f",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/floor1f.JPG?1198218327860",
+      "checkedAt": "2026-10-06",
+      "scope": "第一体育館の印字・設備・場所の事実。原画像は調査のみ。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "floor-2f",
+      "title": "floor-2f",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/floor2f.JPG?1198218350344",
+      "checkedAt": "2026-10-06",
+      "scope": "第一体育館の印字・設備・場所の事実。原画像は調査のみ。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "equipment-list",
+      "title": "equipment-list",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/yoyogi/pdf/2025/20250411_%E7%AC%AC%E4%B8%80%E4%BD%93%E8%82%B2%E9%A4%A8%E8%A8%AD%E5%82%99%E4%B8%80%E8%A6%A7%20.pdf",
+      "checkedAt": "2026-10-06",
+      "scope": "第一体育館の印字・設備・場所の事実。原画像は調査のみ。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "access",
+      "title": "access",
+      "url": "https://www.jpnsport.go.jp/yoyogi/access/tabid/88/Default.aspx",
+      "checkedAt": "2026-10-06",
+      "scope": "第一体育館の印字・設備・場所の事実。原画像は調査のみ。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "surrounding-map",
+      "title": "surrounding-map",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/access/yoyogi_map_new_202004.jpg",
+      "checkedAt": "2026-10-06",
+      "scope": "第一体育館の印字・設備・場所の事実。原画像は調査のみ。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "site-plan",
+      "title": "site-plan",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/yoyogi/pdf/%E5%9B%BD%E7%AB%8B%E4%BB%A3%E3%80%85%E6%9C%A8%E7%AB%B6%E6%8A%80%E5%A0%B4%E6%95%B7%E5%9C%B0%E5%85%A8%E4%BD%93%E5%9B%B3.pdf",
+      "checkedAt": "2026-10-06",
+      "scope": "第一体育館の印字・設備・場所の事実。原画像は調査のみ。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-n1A",
+      "title": "JSC n1A 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_n1A.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-n1B",
+      "title": "JSC n1B 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_n1B.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-n1C",
+      "title": "JSC n1C 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_n1C.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-n1D",
+      "title": "JSC n1D 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_n1D.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-n1E",
+      "title": "JSC n1E 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_n1E.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-n1F",
+      "title": "JSC n1F 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_n1F.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-n1G",
+      "title": "JSC n1G 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_n1G.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-n1H",
+      "title": "JSC n1H 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_n1H.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-n1J",
+      "title": "JSC n1J 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_n1J.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-n1K",
+      "title": "JSC n1K 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_n1K.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-n1L",
+      "title": "JSC n1L 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_n1L.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-n2A",
+      "title": "JSC n2A 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_n2A.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-n2B",
+      "title": "JSC n2B 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_n2B.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-n2C",
+      "title": "JSC n2C 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_n2C.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-n2D",
+      "title": "JSC n2D 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_n2D.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-n2E",
+      "title": "JSC n2E 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_n2E.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-n2F",
+      "title": "JSC n2F 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_n2F.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-n2G",
+      "title": "JSC n2G 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_n2G.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-n2H",
+      "title": "JSC n2H 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_n2H.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-n2J",
+      "title": "JSC n2J 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_n2J.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-n2K",
+      "title": "JSC n2K 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_n2K.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-n2L",
+      "title": "JSC n2L 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_n2L.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-s1A",
+      "title": "JSC s1A 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_s1A.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-s1B",
+      "title": "JSC s1B 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_s1B.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-s1C",
+      "title": "JSC s1C 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_s1C.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-s1D",
+      "title": "JSC s1D 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_s1D.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-s1E",
+      "title": "JSC s1E 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_s1E.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-s1F",
+      "title": "JSC s1F 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_s1F.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-s1G",
+      "title": "JSC s1G 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_s1G.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-s1H",
+      "title": "JSC s1H 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_s1H.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-s1J",
+      "title": "JSC s1J 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_s1J.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-s1K",
+      "title": "JSC s1K 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_s1K.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-s1L",
+      "title": "JSC s1L 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_s1L.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-s2A",
+      "title": "JSC s2A 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_s2A.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-s2B",
+      "title": "JSC s2B 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_s2B.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-s2C",
+      "title": "JSC s2C 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_s2C.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-s2D",
+      "title": "JSC s2D 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_s2D.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-s2E",
+      "title": "JSC s2E 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_s2E.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-s2F",
+      "title": "JSC s2F 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_s2F.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-s2G",
+      "title": "JSC s2G 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_s2G.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-s2H",
+      "title": "JSC s2H 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_s2H.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-s2J",
+      "title": "JSC s2J 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_s2J.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-s2K",
+      "title": "JSC s2K 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_s2K.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-s2L",
+      "title": "JSC s2L 詳細座席図",
+      "url": "https://www.jpnsport.go.jp/yoyogi/Portals/0/images/contents/seat1/yoyogi_detail_s2L.gif",
+      "checkedAt": "2026-10-06",
+      "scope": "当該区画の列・印字座席・空白。公演アリーナを除外。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "metro-lockers",
+      "title": "メトロコマース・設置一覧",
+      "url": "https://www.metocan.co.jp/locker/",
+      "checkedAt": "2026-10-06",
+      "scope": "当該運営施設の位置/利用条件。未確認点は一覧だけ。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "yoyogi-jr-lockers",
+      "title": "JR東日本・原宿周辺ロッカー",
+      "url": "https://media.jreast.co.jp/articles/707",
+      "checkedAt": "2026-10-06",
+      "scope": "当該運営施設の位置/利用条件。未確認点は一覧だけ。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "yoyogi-metro-park",
+      "title": "東京メトロ・代々木公園設備",
+      "url": "https://www.tokyometro.jp/station/yoyogi-koen/shop/index.html",
+      "checkedAt": "2026-10-06",
+      "scope": "当該運営施設の位置/利用条件。未確認点は一覧だけ。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "yoyogi-tokyu-lockers",
+      "title": "東急・渋谷駅ロッカー",
+      "url": "https://www.tokyu.co.jp/area/shibuya/station/coin-locker/",
+      "checkedAt": "2026-10-06",
+      "scope": "当該運営施設の位置/利用条件。未確認点は一覧だけ。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "yoyogi-bounce-harajuku",
+      "title": "Bounce・Harajuku Station個別予約",
+      "url": "https://bounce.com/stores/tokyo/Cog0Jy",
+      "checkedAt": "2026-10-06",
+      "scope": "当該運営施設の位置/利用条件。未確認点は一覧だけ。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "yoyogi-restaurant",
+      "title": "JSC・ヴォルテックススポーツカフェ",
+      "url": "https://www.jpnsport.go.jp/yoyogi/tabid/204/Default.aspx",
+      "checkedAt": "2026-10-06",
+      "scope": "当該運営施設の位置/利用条件。未確認点は一覧だけ。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "yoyogi-city-toilets",
+      "title": "渋谷区・公衆便所",
+      "url": "https://www.city.shibuya.tokyo.jp/shisetsu/koen/koshu-toilet/toilet.html",
+      "checkedAt": "2026-10-06",
+      "scope": "当該運営施設の位置/利用条件。未確認点は一覧だけ。",
+      "usage": "facts-only"
+    }
+  ],
+  "venuePoint": [
+    376,
+    133
+  ],
+  "outsideViews": [
+    {
+      "id": "near",
+      "label": "周辺・駅",
+      "diagramId": "yoyogi-outside",
+      "landmarkIds": [
+        "yoyogi-harajuku",
+        "yoyogi-meiji",
+        "yoyogi-park",
+        "yoyogi-shibuya"
+      ],
+      "venueLabel": {
+        "name": "第一体育館",
+        "point": [
+          376,
+          133
+        ]
+      },
+      "northUp": true
+    },
+    {
+      "id": "grounds",
+      "label": "敷地・入口",
+      "diagramId": "yoyogi-grounds",
+      "landmarkIds": [
+        "yoyogi-harajuku-gate",
+        "yoyogi-north-gate",
+        "yoyogi-north-car",
+        "yoyogi-west-gate",
+        "yoyogi-south-gate",
+        "yoyogi-shibuya-gate",
+        "yoyogi-harajuku-entry",
+        "yoyogi-shibuya-entry"
+      ],
+      "venueLabel": {
+        "name": "第一体育館",
+        "point": [
+          821,
+          333
+        ]
+      },
+      "northUp": false
+    }
+  ],
+  "landmarkFacilityIds": {
+    "yoyogi-harajuku": [
+      "yoyogi-locker-harajuku-out",
+      "yoyogi-locker-harajuku-in-lift",
+      "yoyogi-locker-harajuku-in-escalator",
+      "yoyogi-baggage-bounce-harajuku"
+    ],
+    "yoyogi-meiji": [
+      "yoyogi-locker-meiji-3",
+      "yoyogi-locker-meiji-6",
+      "yoyogi-locker-meiji-ground-lift",
+      "yoyogi-locker-meiji-ticket"
+    ],
+    "yoyogi-park": [
+      "yoyogi-locker-park"
+    ],
+    "yoyogi-shibuya": [
+      "yoyogi-locker-shibuya",
+      "yoyogi-locker-shibuya-b2",
+      "yoyogi-locker-shibuya-c1",
+      "yoyogi-locker-shibuya-a23",
+      "yoyogi-locker-shibuya-a4",
+      "yoyogi-locker-shibuya-109",
+      "yoyogi-locker-shibuya-dogenzaka",
+      "yoyogi-locker-shibuya-a4exit",
+      "yoyogi-locker-shibuya-office",
+      "yoyogi-locker-shibuya-hikarie",
+      "yoyogi-locker-shibuya-east"
+    ]
+  },
+  "rowNumberFacts": [
+    {
+      "row": 1,
+      "label": "1列",
+      "minSeat": 1,
+      "maxSeat": 25,
+      "printedSeatCount": 25,
+      "sourceId": "seat-n1a-chart",
+      "diagramId": "yoyogi-seat-n1a-chart-native",
+      "block": "北1階A",
+      "seatNumberStatus": "printed continuous range manually read and actual cell count checked",
+      "rowDirection": "inner_to_outer for 北1階 per official entry flow",
+      "passage": null,
+      "entryGateForRow": null,
+      "physicalRowPath": null
+    },
+    {
+      "row": 2,
+      "label": "2列",
+      "minSeat": 3,
+      "maxSeat": 25,
+      "printedSeatCount": 23,
+      "sourceId": "seat-n1a-chart",
+      "diagramId": "yoyogi-seat-n1a-chart-native",
+      "block": "北1階A",
+      "seatNumberStatus": "printed continuous range manually read and actual cell count checked",
+      "rowDirection": "inner_to_outer for 北1階 per official entry flow",
+      "passage": null,
+      "entryGateForRow": null,
+      "physicalRowPath": null
+    },
+    {
+      "row": 3,
+      "label": "3列",
+      "minSeat": 4,
+      "maxSeat": 25,
+      "printedSeatCount": 22,
+      "sourceId": "seat-n1a-chart",
+      "diagramId": "yoyogi-seat-n1a-chart-native",
+      "block": "北1階A",
+      "seatNumberStatus": "printed continuous range manually read and actual cell count checked",
+      "rowDirection": "inner_to_outer for 北1階 per official entry flow",
+      "passage": null,
+      "entryGateForRow": null,
+      "physicalRowPath": null
+    },
+    {
+      "row": 4,
+      "label": "4列",
+      "minSeat": 6,
+      "maxSeat": 25,
+      "printedSeatCount": 20,
+      "sourceId": "seat-n1a-chart",
+      "diagramId": "yoyogi-seat-n1a-chart-native",
+      "block": "北1階A",
+      "seatNumberStatus": "printed continuous range manually read and actual cell count checked",
+      "rowDirection": "inner_to_outer for 北1階 per official entry flow",
+      "passage": null,
+      "entryGateForRow": null,
+      "physicalRowPath": null
+    },
+    {
+      "row": 5,
+      "label": "5列",
+      "minSeat": 8,
+      "maxSeat": 25,
+      "printedSeatCount": 18,
+      "sourceId": "seat-n1a-chart",
+      "diagramId": "yoyogi-seat-n1a-chart-native",
+      "block": "北1階A",
+      "seatNumberStatus": "printed continuous range manually read and actual cell count checked",
+      "rowDirection": "inner_to_outer for 北1階 per official entry flow",
+      "passage": null,
+      "entryGateForRow": null,
+      "physicalRowPath": null
+    },
+    {
+      "row": 6,
+      "label": "6列",
+      "minSeat": 10,
+      "maxSeat": 25,
+      "printedSeatCount": 16,
+      "sourceId": "seat-n1a-chart",
+      "diagramId": "yoyogi-seat-n1a-chart-native",
+      "block": "北1階A",
+      "seatNumberStatus": "printed continuous range manually read and actual cell count checked",
+      "rowDirection": "inner_to_outer for 北1階 per official entry flow",
+      "passage": null,
+      "entryGateForRow": null,
+      "physicalRowPath": null
+    },
+    {
+      "row": 7,
+      "label": "7列",
+      "minSeat": 12,
+      "maxSeat": 25,
+      "printedSeatCount": 14,
+      "sourceId": "seat-n1a-chart",
+      "diagramId": "yoyogi-seat-n1a-chart-native",
+      "block": "北1階A",
+      "seatNumberStatus": "printed continuous range manually read and actual cell count checked",
+      "rowDirection": "inner_to_outer for 北1階 per official entry flow",
+      "passage": null,
+      "entryGateForRow": null,
+      "physicalRowPath": null
+    },
+    {
+      "row": 8,
+      "label": "8列",
+      "minSeat": 14,
+      "maxSeat": 25,
+      "printedSeatCount": 12,
+      "sourceId": "seat-n1a-chart",
+      "diagramId": "yoyogi-seat-n1a-chart-native",
+      "block": "北1階A",
+      "seatNumberStatus": "printed continuous range manually read and actual cell count checked",
+      "rowDirection": "inner_to_outer for 北1階 per official entry flow",
+      "passage": null,
+      "entryGateForRow": null,
+      "physicalRowPath": null
+    },
+    {
+      "row": 9,
+      "label": "9列",
+      "minSeat": 16,
+      "maxSeat": 25,
+      "printedSeatCount": 10,
+      "sourceId": "seat-n1a-chart",
+      "diagramId": "yoyogi-seat-n1a-chart-native",
+      "block": "北1階A",
+      "seatNumberStatus": "printed continuous range manually read and actual cell count checked",
+      "rowDirection": "inner_to_outer for 北1階 per official entry flow",
+      "passage": null,
+      "entryGateForRow": null,
+      "physicalRowPath": null
+    },
+    {
+      "row": 10,
+      "label": "10列",
+      "minSeat": 19,
+      "maxSeat": 25,
+      "printedSeatCount": 7,
+      "sourceId": "seat-n1a-chart",
+      "diagramId": "yoyogi-seat-n1a-chart-native",
+      "block": "北1階A",
+      "seatNumberStatus": "printed continuous range manually read and actual cell count checked",
+      "rowDirection": "inner_to_outer for 北1階 per official entry flow",
+      "passage": null,
+      "entryGateForRow": null,
+      "physicalRowPath": null
+    },
+    {
+      "row": 11,
+      "label": "11列",
+      "minSeat": 21,
+      "maxSeat": 25,
+      "printedSeatCount": 5,
+      "sourceId": "seat-n1a-chart",
+      "diagramId": "yoyogi-seat-n1a-chart-native",
+      "block": "北1階A",
+      "seatNumberStatus": "printed continuous range manually read and actual cell count checked",
+      "rowDirection": "inner_to_outer for 北1階 per official entry flow",
+      "passage": null,
+      "entryGateForRow": null,
+      "physicalRowPath": null
+    },
+    {
+      "row": 12,
+      "label": "12列",
+      "minSeat": 24,
+      "maxSeat": 25,
+      "printedSeatCount": 2,
+      "sourceId": "seat-n1a-chart",
+      "diagramId": "yoyogi-seat-n1a-chart-native",
+      "block": "北1階A",
+      "seatNumberStatus": "printed continuous range manually read and actual cell count checked",
+      "rowDirection": "inner_to_outer for 北1階 per official entry flow",
+      "passage": null,
+      "entryGateForRow": null,
+      "physicalRowPath": null
+    }
+  ],
+  "sourceRoomDecisions": {
+    "accessibleIds": [
+      "yoyogi-floor-b1-s-vip-accessible",
+      "yoyogi-floor-b1-s-meeting-accessible",
+      "yoyogi-floor-1f-harajuku-accessible-upper",
+      "yoyogi-floor-1f-harajuku-accessible-lower",
+      "yoyogi-floor-1f-shibuya-accessible-upper",
+      "yoyogi-floor-1f-shibuya-accessible-lower"
+    ],
+    "method": "whole B1/1F drawings and retained close-ups: wheelchair signs enclosed in individual sanitary rooms with fixtures; seating platforms excluded"
+  }
+}

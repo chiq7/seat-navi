@@ -1,0 +1,539 @@
+{
+  "venueId": "kyocera-dome",
+  "checkedAt": "2026-10-01",
+  "access": [
+    {
+      "id": "access-metro",
+      "title": "Osaka Metro ドーム前千代崎駅",
+      "userText": "長堀鶴見緑地線・ドーム前千代崎駅から徒歩すぐ。公式エリア図は1番出口を案内しています。",
+      "checkedAt": "2026-10-01",
+      "sources": [
+        {
+          "sourceId": "access",
+          "url": "https://www.kyoceradome-osaka.jp/access/",
+          "checkedAt": "2026-10-01",
+          "sourceOrigin": "new-official-readonly-GET",
+          "sourceSha256": "56923ca2019928c163988bd4ba11f31b58437b569b4f24e85993d7e93ce361d1",
+          "sourcePriorCheckedAt": null
+        },
+        {
+          "sourceId": "access-railway",
+          "url": "https://www.kyoceradome-osaka.jp/access/img/img-access-railway-2018.png",
+          "checkedAt": "2026-10-01",
+          "sourceOrigin": "reused-immutable-official-source",
+          "sourceSha256": "b1a7e96419adf2b6494fb2723e6ca1308a5e66b84f66137201375a4a25c6567b",
+          "sourcePriorCheckedAt": "2026-09-30"
+        },
+        {
+          "sourceId": "access-area",
+          "url": "https://www.kyoceradome-osaka.jp/access/img/img-access-around-dome-2026.jpg",
+          "checkedAt": "2026-10-01",
+          "sourceOrigin": "reused-immutable-official-source",
+          "sourceSha256": "58637c0725ab9e9d43524b6f4aa0dae68bab45a910e7d287ecd63fcc90cac5a6",
+          "sourcePriorCheckedAt": "2026-09-30"
+        }
+      ],
+      "factBasis": [
+        "保存路線アクセス図「ドーム前千代崎駅」徒歩すぐ",
+        "保存エリア図の「地下鉄1番出口」表示を実際に目視"
+      ],
+      "status": "diagram-label-and-text",
+      "unconfirmed": [
+        "駅の改札/EV出口と1番出口の段差なし連続性、当日規制"
+      ],
+      "publicUseApproved": false
+    },
+    {
+      "id": "access-hanshin",
+      "title": "阪神 ドーム前駅",
+      "userText": "阪神なんば線・ドーム前駅から徒歩すぐ。公式エリア図には1・2出口が掲載されています。",
+      "checkedAt": "2026-10-01",
+      "sources": [
+        {
+          "sourceId": "access",
+          "url": "https://www.kyoceradome-osaka.jp/access/",
+          "checkedAt": "2026-10-01",
+          "sourceOrigin": "new-official-readonly-GET",
+          "sourceSha256": "56923ca2019928c163988bd4ba11f31b58437b569b4f24e85993d7e93ce361d1",
+          "sourcePriorCheckedAt": null
+        },
+        {
+          "sourceId": "access-railway",
+          "url": "https://www.kyoceradome-osaka.jp/access/img/img-access-railway-2018.png",
+          "checkedAt": "2026-10-01",
+          "sourceOrigin": "reused-immutable-official-source",
+          "sourceSha256": "b1a7e96419adf2b6494fb2723e6ca1308a5e66b84f66137201375a4a25c6567b",
+          "sourcePriorCheckedAt": "2026-09-30"
+        },
+        {
+          "sourceId": "access-area",
+          "url": "https://www.kyoceradome-osaka.jp/access/img/img-access-around-dome-2026.jpg",
+          "checkedAt": "2026-10-01",
+          "sourceOrigin": "reused-immutable-official-source",
+          "sourceSha256": "58637c0725ab9e9d43524b6f4aa0dae68bab45a910e7d287ecd63fcc90cac5a6",
+          "sourcePriorCheckedAt": "2026-09-30"
+        }
+      ],
+      "factBasis": [
+        "保存路線アクセス図「ドーム前駅」徒歩すぐ",
+        "エリア図の阪神なんば線付近、橙色1出口/2出口表示を目視"
+      ],
+      "status": "diagram-label-and-text",
+      "unconfirmed": [
+        "1/2出口の公演ゲート別最適性、バリアフリー出口対応"
+      ],
+      "publicUseApproved": false
+    },
+    {
+      "id": "access-jr",
+      "title": "JR 大正駅",
+      "userText": "JR大阪環状線・大正駅から徒歩約7分。",
+      "checkedAt": "2026-10-01",
+      "sources": [
+        {
+          "sourceId": "access",
+          "url": "https://www.kyoceradome-osaka.jp/access/",
+          "checkedAt": "2026-10-01",
+          "sourceOrigin": "new-official-readonly-GET",
+          "sourceSha256": "56923ca2019928c163988bd4ba11f31b58437b569b4f24e85993d7e93ce361d1",
+          "sourcePriorCheckedAt": null
+        },
+        {
+          "sourceId": "access-railway",
+          "url": "https://www.kyoceradome-osaka.jp/access/img/img-access-railway-2018.png",
+          "checkedAt": "2026-10-01",
+          "sourceOrigin": "reused-immutable-official-source",
+          "sourceSha256": "b1a7e96419adf2b6494fb2723e6ca1308a5e66b84f66137201375a4a25c6567b",
+          "sourcePriorCheckedAt": "2026-09-30"
+        }
+      ],
+      "factBasis": [
+        "保存アクセス路線図の大正から徒歩約7分"
+      ],
+      "status": "official-text",
+      "unconfirmed": [
+        "改札名/出口名は未確認。駅代表点を改札位置にしない"
+      ],
+      "publicUseApproved": false
+    },
+    {
+      "id": "access-kujo",
+      "title": "Osaka Metro 九条駅",
+      "userText": "中央線・九条駅から徒歩約9分。",
+      "checkedAt": "2026-10-01",
+      "sources": [
+        {
+          "sourceId": "access",
+          "url": "https://www.kyoceradome-osaka.jp/access/",
+          "checkedAt": "2026-10-01",
+          "sourceOrigin": "new-official-readonly-GET",
+          "sourceSha256": "56923ca2019928c163988bd4ba11f31b58437b569b4f24e85993d7e93ce361d1",
+          "sourcePriorCheckedAt": null
+        },
+        {
+          "sourceId": "access-railway",
+          "url": "https://www.kyoceradome-osaka.jp/access/img/img-access-railway-2018.png",
+          "checkedAt": "2026-10-01",
+          "sourceOrigin": "reused-immutable-official-source",
+          "sourceSha256": "b1a7e96419adf2b6494fb2723e6ca1308a5e66b84f66137201375a4a25c6567b",
+          "sourcePriorCheckedAt": "2026-09-30"
+        }
+      ],
+      "factBasis": [
+        "保存アクセス路線図の九条から徒歩約9分"
+      ],
+      "status": "official-text",
+      "unconfirmed": [
+        "出口番号と駅EV動線は未確認"
+      ],
+      "publicUseApproved": false
+    },
+    {
+      "id": "access-gates",
+      "title": "入場前に指定ゲートを確認",
+      "userText": "球場内への入場ゲートは3Fです。2Fスタジアムモールからは直接入場できないため、券面・公演案内の指定入口を確認してください。",
+      "checkedAt": "2026-10-01",
+      "sources": [
+        {
+          "sourceId": "support",
+          "url": "https://www.kyoceradome-osaka.jp/floor_guide/support/",
+          "checkedAt": "2026-10-01",
+          "sourceOrigin": "new-official-readonly-GET",
+          "sourceSha256": "2d3e1c8e083bebb0723c63d127cb407fc4f4b0514d791834fcd8d833eb04ad0b",
+          "sourcePriorCheckedAt": null
+        },
+        {
+          "sourceId": "access-area",
+          "url": "https://www.kyoceradome-osaka.jp/access/img/img-access-around-dome-2026.jpg",
+          "checkedAt": "2026-10-01",
+          "sourceOrigin": "reused-immutable-official-source",
+          "sourceSha256": "58637c0725ab9e9d43524b6f4aa0dae68bab45a910e7d287ecd63fcc90cac5a6",
+          "sourcePriorCheckedAt": "2026-09-30"
+        }
+      ],
+      "factBasis": [
+        "support「入場ゲートまでの来場方法」",
+        "エリア図左下注記、2Fモールから球場内へ直接入場できない旨"
+      ],
+      "status": "fact-with-event-conditions",
+      "unconfirmed": [
+        "公演別アリーナ入口・開放ゲート"
+      ],
+      "publicUseApproved": false
+    },
+    {
+      "id": "access-elevator",
+      "title": "エレベーターで3Fへ",
+      "userText": "ドーム前千代崎駅・ドーム前駅側は東口付近の図A、大正駅側は図Bのエレベーターから3Fへ案内されています。",
+      "checkedAt": "2026-10-01",
+      "sources": [
+        {
+          "sourceId": "support",
+          "url": "https://www.kyoceradome-osaka.jp/floor_guide/support/",
+          "checkedAt": "2026-10-01",
+          "sourceOrigin": "new-official-readonly-GET",
+          "sourceSha256": "2d3e1c8e083bebb0723c63d127cb407fc4f4b0514d791834fcd8d833eb04ad0b",
+          "sourcePriorCheckedAt": null
+        }
+      ],
+      "factBasis": [
+        "support駅別「入場ゲートまでの来場方法」A/Bの指定"
+      ],
+      "status": "official-text",
+      "unconfirmed": [
+        "駅出口からEVまでの連続段差なし経路・公演当日の開放。図A/Bを同じ地点にしない"
+      ],
+      "publicUseApproved": false
+    }
+  ],
+  "preparation": [
+    {
+      "id": "prep-ticket",
+      "title": "券面・指定入口",
+      "userText": "下段は3F、上段は5F。入場ゲートは3Fです。コンサートの変更席・アリーナ席は券面と公演案内を確認してください。",
+      "checkedAt": "2026-10-01",
+      "sources": [
+        {
+          "sourceId": "support",
+          "url": "https://www.kyoceradome-osaka.jp/floor_guide/support/",
+          "checkedAt": "2026-10-01",
+          "sourceOrigin": "new-official-readonly-GET",
+          "sourceSha256": "2d3e1c8e083bebb0723c63d127cb407fc4f4b0514d791834fcd8d833eb04ad0b",
+          "sourcePriorCheckedAt": null
+        },
+        {
+          "sourceId": "floor-3",
+          "url": "https://www.kyoceradome-osaka.jp/floor_guide/f3/",
+          "checkedAt": "2026-10-01",
+          "sourceOrigin": "reused-immutable-official-source",
+          "sourceSha256": "1ab91dff16569d294452d59d21e3d81429d93aa7daa46c09749ec5ef43c9822f",
+          "sourcePriorCheckedAt": "2026-09-30"
+        },
+        {
+          "sourceId": "floor-5",
+          "url": "https://www.kyoceradome-osaka.jp/floor_guide/f5/",
+          "checkedAt": "2026-10-01",
+          "sourceOrigin": "reused-immutable-official-source",
+          "sourceSha256": "fb7cb43745414bcbce2e600acca76749da08b246d37b3a6e9801f7fb5b476b14",
+          "sourcePriorCheckedAt": "2026-09-30"
+        },
+        {
+          "sourceId": "seat",
+          "url": "https://www.kyoceradome-osaka.jp/seat/",
+          "checkedAt": "2026-10-01",
+          "sourceOrigin": "reused-immutable-official-source",
+          "sourceSha256": "b61673896f5490a6d0f3de9513787cfc624f9d8bf29dc1d9fe1c6c83478f4ee5",
+          "sourcePriorCheckedAt": "2026-09-30"
+        }
+      ],
+      "factBasis": [
+        "support入場ゲート",
+        "フロア見出し下段/上段",
+        "seatページのコンサート変更・可動アリーナ非対応の注記"
+      ],
+      "status": "fact-with-event-conditions",
+      "unconfirmed": [],
+      "publicUseApproved": false
+    },
+    {
+      "id": "prep-baggage",
+      "title": "荷物・持ち込み",
+      "userText": "2F図にコインロッカーが掲載されています。料金・サイズ・空きは未確認。飲食物などの持込条件は公式と公演案内を確認してください。",
+      "checkedAt": "2026-10-01",
+      "sources": [
+        {
+          "sourceId": "floor-2",
+          "url": "https://www.kyoceradome-osaka.jp/floor_guide/f2/",
+          "checkedAt": "2026-10-01",
+          "sourceOrigin": "new-official-readonly-GET",
+          "sourceSha256": "8cc0badd29803089f16d15e3de274da64444174ae3690e3f45f6061d6cfc4768",
+          "sourcePriorCheckedAt": null
+        }
+      ],
+      "factBasis": [
+        "2Fアイコン表示切替のコインロッカー",
+        "飲食物・危険物等の持込み条件"
+      ],
+      "status": "partial-confirmed",
+      "unconfirmed": [
+        "ロッカーの料金/サイズ/個数/空き/時間、クローク・大荷物預かり、公演別持込条件"
+      ],
+      "publicUseApproved": false
+    },
+    {
+      "id": "prep-payment",
+      "title": "支払い",
+      "userText": "店舗内はカード・電子マネー・コード決済に対応（一部例外）。PiTaPaは使えません。売り子・ワゴンや公演グッズは購入先の条件を確認してください。",
+      "checkedAt": "2026-10-01",
+      "sources": [
+        {
+          "sourceId": "floor-2",
+          "url": "https://www.kyoceradome-osaka.jp/floor_guide/f2/",
+          "checkedAt": "2026-10-01",
+          "sourceOrigin": "new-official-readonly-GET",
+          "sourceSha256": "8cc0badd29803089f16d15e3de274da64444174ae3690e3f45f6061d6cfc4768",
+          "sourcePriorCheckedAt": null
+        },
+        {
+          "sourceId": "floor-3",
+          "url": "https://www.kyoceradome-osaka.jp/floor_guide/f3/",
+          "checkedAt": "2026-10-01",
+          "sourceOrigin": "reused-immutable-official-source",
+          "sourceSha256": "1ab91dff16569d294452d59d21e3d81429d93aa7daa46c09749ec5ef43c9822f",
+          "sourcePriorCheckedAt": "2026-09-30"
+        },
+        {
+          "sourceId": "floor-5",
+          "url": "https://www.kyoceradome-osaka.jp/floor_guide/f5/",
+          "checkedAt": "2026-10-01",
+          "sourceOrigin": "reused-immutable-official-source",
+          "sourceSha256": "fb7cb43745414bcbce2e600acca76749da08b246d37b3a6e9801f7fb5b476b14",
+          "sourcePriorCheckedAt": "2026-09-30"
+        }
+      ],
+      "factBasis": [
+        "決済案内と店舗/売り子ワゴン別の例外。店舗内の現金可否を明記した根拠は未確認"
+      ],
+      "status": "partial-confirmed",
+      "unconfirmed": [
+        "店舗内現金の会場共通可否、公演物販の決済、当日営業店舗"
+      ],
+      "publicUseApproved": false
+    }
+  ],
+  "faq": [
+    {
+      "id": "faq-floor-gates",
+      "title": "下段・上段の設備階と入場階は？",
+      "userText": "下段席の設備は3F、上段席は5F。球場内への入場ゲートは3Fです。券面・公演案内の指定ゲートを優先してください。",
+      "checkedAt": "2026-10-01",
+      "sources": [
+        {
+          "sourceId": "support",
+          "url": "https://www.kyoceradome-osaka.jp/floor_guide/support/",
+          "checkedAt": "2026-10-01",
+          "sourceOrigin": "new-official-readonly-GET",
+          "sourceSha256": "2d3e1c8e083bebb0723c63d127cb407fc4f4b0514d791834fcd8d833eb04ad0b",
+          "sourcePriorCheckedAt": null
+        },
+        {
+          "sourceId": "floor-3",
+          "url": "https://www.kyoceradome-osaka.jp/floor_guide/f3/",
+          "checkedAt": "2026-10-01",
+          "sourceOrigin": "reused-immutable-official-source",
+          "sourceSha256": "1ab91dff16569d294452d59d21e3d81429d93aa7daa46c09749ec5ef43c9822f",
+          "sourcePriorCheckedAt": "2026-09-30"
+        },
+        {
+          "sourceId": "floor-5",
+          "url": "https://www.kyoceradome-osaka.jp/floor_guide/f5/",
+          "checkedAt": "2026-10-01",
+          "sourceOrigin": "reused-immutable-official-source",
+          "sourceSha256": "fb7cb43745414bcbce2e600acca76749da08b246d37b3a6e9801f7fb5b476b14",
+          "sourcePriorCheckedAt": "2026-09-30"
+        }
+      ],
+      "factBasis": [
+        "各フロアのトイレ・EV表、入場ゲート3F。3F公式フロア図に1〜14入場ゲート"
+      ],
+      "status": "fact-with-event-conditions",
+      "unconfirmed": [],
+      "publicUseApproved": false
+    },
+    {
+      "id": "faq-arena",
+      "title": "コンサートのアリーナ席も検索できる？",
+      "userText": "公式検索は野球時の上段・下段スタンド席が対象です。コンサートでは一部変更があり、可動式アリーナ席は検索対象外です。公演の座席案内を確認してください。",
+      "checkedAt": "2026-10-01",
+      "sources": [
+        {
+          "sourceId": "seat",
+          "url": "https://www.kyoceradome-osaka.jp/seat/",
+          "checkedAt": "2026-10-01",
+          "sourceOrigin": "reused-immutable-official-source",
+          "sourceSha256": "b61673896f5490a6d0f3de9513787cfc624f9d8bf29dc1d9fe1c6c83478f4ee5",
+          "sourcePriorCheckedAt": "2026-09-30"
+        }
+      ],
+      "factBasis": [
+        "SEAT SEARCH末尾の3注意書き"
+      ],
+      "status": "official-text",
+      "unconfirmed": [
+        "公演別舞台/アリーナ/券面区画"
+      ],
+      "publicUseApproved": false
+    },
+    {
+      "id": "faq-lockers",
+      "title": "大きな荷物を預けられる？",
+      "userText": "2Fフロア図にコインロッカーが掲載されています。対応サイズ・料金・空き・利用時間、荷物預かりの有無は未確認です。公演案内で事前に確認してください。",
+      "checkedAt": "2026-10-01",
+      "sources": [
+        {
+          "sourceId": "floor-2",
+          "url": "https://www.kyoceradome-osaka.jp/floor_guide/f2/",
+          "checkedAt": "2026-10-01",
+          "sourceOrigin": "new-official-readonly-GET",
+          "sourceSha256": "8cc0badd29803089f16d15e3de274da64444174ae3690e3f45f6061d6cfc4768",
+          "sourcePriorCheckedAt": null
+        }
+      ],
+      "factBasis": [
+        "コインロッカー凡例は掲載されているが利用条件の説明はこの確認範囲で見つからない"
+      ],
+      "status": "partial-confirmed",
+      "unconfirmed": [
+        "クローク有無、ロッカー機器ごとの条件。施設不存在と断定しない"
+      ],
+      "publicUseApproved": false
+    },
+    {
+      "id": "faq-payments",
+      "title": "売店の支払い方法は？",
+      "userText": "店舗内はカード・電子マネー・コード決済に対応し、PiTaPaは対象外です。店舗ごとに例外があり、売り子・ワゴンは指定コード決済・NFC決済のみ。公演グッズは別に確認してください。",
+      "checkedAt": "2026-10-01",
+      "sources": [
+        {
+          "sourceId": "floor-2",
+          "url": "https://www.kyoceradome-osaka.jp/floor_guide/f2/",
+          "checkedAt": "2026-10-01",
+          "sourceOrigin": "new-official-readonly-GET",
+          "sourceSha256": "8cc0badd29803089f16d15e3de274da64444174ae3690e3f45f6061d6cfc4768",
+          "sourcePriorCheckedAt": null
+        },
+        {
+          "sourceId": "floor-3",
+          "url": "https://www.kyoceradome-osaka.jp/floor_guide/f3/",
+          "checkedAt": "2026-10-01",
+          "sourceOrigin": "reused-immutable-official-source",
+          "sourceSha256": "1ab91dff16569d294452d59d21e3d81429d93aa7daa46c09749ec5ef43c9822f",
+          "sourcePriorCheckedAt": "2026-09-30"
+        },
+        {
+          "sourceId": "floor-5",
+          "url": "https://www.kyoceradome-osaka.jp/floor_guide/f5/",
+          "checkedAt": "2026-10-01",
+          "sourceOrigin": "reused-immutable-official-source",
+          "sourceSha256": "fb7cb43745414bcbce2e600acca76749da08b246d37b3a6e9801f7fb5b476b14",
+          "sourcePriorCheckedAt": "2026-09-30"
+        }
+      ],
+      "factBasis": [
+        "各種クレジットカード/電子マネー/コード決済の案内、PiTaPa除外、店舗例外、売り子ワゴンのみの制限"
+      ],
+      "status": "partial-confirmed",
+      "unconfirmed": [
+        "店舗内現金の一律可否、公演物販の運用"
+      ],
+      "publicUseApproved": false
+    },
+    {
+      "id": "faq-food",
+      "title": "売店はいつ開いている？",
+      "userText": "3F・5F売店は野球・イベント開催時のみ営業。野球日は開場から7回終了までが基本です。コンサートの営業店舗・終了時刻は当日の案内を確認してください。",
+      "checkedAt": "2026-10-01",
+      "sources": [
+        {
+          "sourceId": "floor-3",
+          "url": "https://www.kyoceradome-osaka.jp/floor_guide/f3/",
+          "checkedAt": "2026-10-01",
+          "sourceOrigin": "reused-immutable-official-source",
+          "sourceSha256": "1ab91dff16569d294452d59d21e3d81429d93aa7daa46c09749ec5ef43c9822f",
+          "sourcePriorCheckedAt": "2026-09-30"
+        },
+        {
+          "sourceId": "floor-5",
+          "url": "https://www.kyoceradome-osaka.jp/floor_guide/f5/",
+          "checkedAt": "2026-10-01",
+          "sourceOrigin": "reused-immutable-official-source",
+          "sourceSha256": "fb7cb43745414bcbce2e600acca76749da08b246d37b3a6e9801f7fb5b476b14",
+          "sourcePriorCheckedAt": "2026-09-30"
+        },
+        {
+          "sourceId": "floor-2",
+          "url": "https://www.kyoceradome-osaka.jp/floor_guide/f2/",
+          "checkedAt": "2026-10-01",
+          "sourceOrigin": "new-official-readonly-GET",
+          "sourceSha256": "8cc0badd29803089f16d15e3de274da64444174ae3690e3f45f6061d6cfc4768",
+          "sourcePriorCheckedAt": null
+        }
+      ],
+      "factBasis": [
+        "3・5F売店営業日時、2Fは店舗により異なる。野球の7回終了をコンサート時刻へ流用しない"
+      ],
+      "status": "fact-with-event-conditions",
+      "unconfirmed": [],
+      "publicUseApproved": false
+    },
+    {
+      "id": "faq-baby",
+      "title": "授乳・おむつ替えはどこ？",
+      "userText": "2F北口横のb’sルームは授乳ブースとおむつ替え設備があります（授乳ブースのみ女性専用）。コンサート日はモール営業開始〜終演1時間後。3F30通路前mamaroは性別を問わない個室で、開場〜閉場。プロ野球開催時は13通路にもb’sルームとmamaroがあります。利用時間・開放は公演で変更の場合があります。",
+      "checkedAt": "2026-10-07",
+      "sources": [
+        {
+          "sourceId": "support",
+          "url": "https://www.kyoceradome-osaka.jp/floor_guide/support/",
+          "checkedAt": "2026-10-07",
+          "sourceOrigin": "new-official-readonly-GET",
+          "sourceSha256": "7ce70258f5f1335ad79fcc875a2714a894ed96d2fdcd9a4fb09e0b5b1b0edccd",
+          "sourcePriorCheckedAt": null
+        }
+      ],
+      "factBasis": [
+        "お子さま連れのお客様へ。2F b’sルーム、3F13通路 b’sルームとmamaro、3F30通路前mamaroを区別",
+        "2F b’sルームのコンサート時利用時間、30通路前mamaroの開場〜閉場、13通路2設備はプロ野球開催時との明示条件。2Fの時間を13通路へ転用しない"
+      ],
+      "status": "fact-with-event-conditions",
+      "unconfirmed": [
+        "2F室/13通路 b’sルームの実室入口、13/30通路mamaroの精密設置点・13通路2設備の他公演開放/時間は未確認"
+      ],
+      "publicUseApproved": false
+    },
+    {
+      "id": "faq-accessibility",
+      "title": "車いすで入場・利用できる？",
+      "userText": "東口付近のエレベーターから3Fへ案内されています。各フロアに車いす対応トイレがあり、北口では車いすを無料貸出。貸出時は身分証の提示・コピーが必要です。車いす席は公演ごとに条件を確認してください。",
+      "checkedAt": "2026-10-01",
+      "sources": [
+        {
+          "sourceId": "support",
+          "url": "https://www.kyoceradome-osaka.jp/floor_guide/support/",
+          "checkedAt": "2026-10-01",
+          "sourceOrigin": "new-official-readonly-GET",
+          "sourceSha256": "2d3e1c8e083bebb0723c63d127cb407fc4f4b0514d791834fcd8d833eb04ad0b",
+          "sourcePriorCheckedAt": null
+        }
+      ],
+      "factBasis": [
+        "入場方法、各フロアトイレ、車いす等貸出、主催者による車いす観戦条件の違い"
+      ],
+      "status": "fact-with-event-conditions",
+      "unconfirmed": [
+        "全経路の段差なし、公演車いす席位置/予約/料金。野球席数を公演へ流用しない"
+      ],
+      "publicUseApproved": false
+    }
+  ]
+}

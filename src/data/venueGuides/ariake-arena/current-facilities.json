@@ -1,0 +1,7290 @@
+{
+  "facilities": [
+    {
+      "id": "ariake-2f-elevator-01",
+      "name": "エレベーター",
+      "purpose": "案内",
+      "kind": "elevator",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "A・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 343.5,
+        "y": 258.5,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-2f-aed-01",
+      "name": "AED",
+      "purpose": "AED",
+      "kind": "aed",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "A・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 693.0,
+        "y": 273.0,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-2f-toilet-accessible-01",
+      "name": "バリアフリートイレ",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "A・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 527.0,
+        "y": 294.0,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "ariake-2f-toilet-accessible-02",
+      "name": "バリアフリートイレ",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "C・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 859.5,
+        "y": 294.0,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "ariake-2f-toilet-accessible-03",
+      "name": "バリアフリートイレ",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "A・D側",
+      "detail": "このエリアの設備：カームダウン・クールダウン・オストメイト・介助用ベッド。各部屋の案内表示をご確認ください。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 428.5,
+        "y": 304.5,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "ariake-2f-toilet-mixed-01",
+      "name": "男女共用トイレ",
+      "purpose": "トイレ",
+      "kind": "toilet",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "A・D側",
+      "detail": "このエリアの設備：カームダウン・クールダウン・オストメイト・介助用ベッド。各部屋の案内表示をご確認ください。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 454.0,
+        "y": 304.5,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "mixed"
+    },
+    {
+      "id": "ariake-2f-toilet-mixed-02",
+      "name": "男女共用トイレ",
+      "purpose": "トイレ",
+      "kind": "toilet",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "C・D側",
+      "detail": "このエリアの設備：ベビーケアルーム・オストメイト・着替え台・ベビーチェア・おむつ交換台。各部屋の案内表示をご確認ください。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 933.5,
+        "y": 304.5,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "mixed"
+    },
+    {
+      "id": "ariake-2f-babycare-room-01",
+      "name": "ベビーケアルーム",
+      "purpose": "赤ちゃん",
+      "kind": "nursing",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "C・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 959.0,
+        "y": 304.5,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-2f-toilet-women-01",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "kind": "women",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "A・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 639.0,
+        "y": 314.5,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "women"
+    },
+    {
+      "id": "ariake-2f-toilet-men-01",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "kind": "men",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "C・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 747.0,
+        "y": 314.5,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "men"
+    },
+    {
+      "id": "ariake-2f-shop-01",
+      "name": "売店",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "A・D側",
+      "detail": "軽食・飲み物の売店。営業は公演によって変わります。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 368.5,
+        "y": 355.5,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-2f-shop-02",
+      "name": "売店",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "C・D側",
+      "detail": "軽食・飲み物の売店。営業は公演によって変わります。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 1031.0,
+        "y": 357.0,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-2f-vending-01",
+      "name": "自動販売機",
+      "purpose": "飲食",
+      "kind": "vending",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "C・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 1113.5,
+        "y": 376.0,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-2f-elevator-02",
+      "name": "エレベーター",
+      "purpose": "案内",
+      "kind": "elevator",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "C・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 1185.5,
+        "y": 418.5,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-2f-toilet-men-02",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "kind": "men",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "A・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 377.5,
+        "y": 497.0,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "men"
+    },
+    {
+      "id": "ariake-2f-toilet-women-02",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "kind": "women",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "C・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 1023.0,
+        "y": 508.0,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "women"
+    },
+    {
+      "id": "ariake-2f-escalator-01",
+      "name": "エスカレーター",
+      "purpose": "案内",
+      "kind": "escalator",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "C・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 1117.5,
+        "y": 546.5,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-2f-cafe-01",
+      "name": "飲食コーナー",
+      "purpose": "飲食",
+      "kind": "cafe",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "A・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 302.5,
+        "y": 547.0,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-2f-toilet-accessible-04",
+      "name": "バリアフリートイレ",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "A・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 377.5,
+        "y": 548.5,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "ariake-2f-shop-03",
+      "name": "売店",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "A・D側",
+      "detail": "軽食・飲み物の売店。営業は公演によって変わります。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 302.5,
+        "y": 573.0,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-2f-toilet-women-03",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "kind": "women",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "A・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 377.5,
+        "y": 603.5,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "women"
+    },
+    {
+      "id": "ariake-2f-elevator-03",
+      "name": "エレベーター",
+      "purpose": "案内",
+      "kind": "elevator",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "B・C側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 1021.5,
+        "y": 707.0,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-2f-escalator-02",
+      "name": "エスカレーター",
+      "purpose": "案内",
+      "kind": "escalator",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "B・C側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 1117.5,
+        "y": 752.5,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-2f-toilet-men-03",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "kind": "men",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "B・C側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 1023.0,
+        "y": 758.0,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "men"
+    },
+    {
+      "id": "ariake-2f-toilet-women-04",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "kind": "women",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "B・C側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 1202.5,
+        "y": 778.0,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "women"
+    },
+    {
+      "id": "ariake-2f-toilet-men-04",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "kind": "men",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "B・C側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 1239.0,
+        "y": 778.0,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "men"
+    },
+    {
+      "id": "ariake-2f-locker-01",
+      "name": "北側メインエントランス コインロッカー",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 北側メインエントランス",
+      "detail": "91個（大8・中8・小75）。大700円・中500円・小400円。現金（紙幣は1,000円札のみ）・交通系IC対応。両替機なし。幅35.2×奥行67.8cm、高さは大87.2・中51.2・小32.5cm。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 387.0,
+        "y": 799.5,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "storageKind": "coin"
+    },
+    {
+      "id": "ariake-2f-locker-02",
+      "name": "南側ロッカールーム コインロッカー",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 南側ロッカールーム",
+      "detail": "54個（大6・中6・小42）。大700円・中500円・小400円。現金（紙幣は1,000円札のみ）・交通系IC対応。両替機なし。幅35.2×奥行67.8cm、高さは大87.2・中51.2・小32.5cm。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 1132.5,
+        "y": 807.5,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "storageKind": "coin"
+    },
+    {
+      "id": "ariake-2f-toilet-accessible-05",
+      "name": "バリアフリートイレ",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "B・C側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 1023.0,
+        "y": 808.0,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "ariake-2f-toilet-accessible-06",
+      "name": "バリアフリートイレ",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "B・C側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 1220.5,
+        "y": 819.0,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "ariake-2f-aed-02",
+      "name": "AED",
+      "purpose": "AED",
+      "kind": "aed",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "A・B側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 290.5,
+        "y": 906.5,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-2f-vending-02",
+      "name": "自動販売機",
+      "purpose": "飲食",
+      "kind": "vending",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "B・C側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 1112.5,
+        "y": 923.0,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-2f-shop-04",
+      "name": "売店",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "A・B側",
+      "detail": "軽食・飲み物の売店。営業は公演によって変わります。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 368.5,
+        "y": 944.5,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-2f-shop-05",
+      "name": "売店",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "B・C側",
+      "detail": "軽食・飲み物の売店。営業は公演によって変わります。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 1030.0,
+        "y": 947.5,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-2f-toilet-mixed-03",
+      "name": "男女共用トイレ",
+      "purpose": "トイレ",
+      "kind": "toilet",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "A・B側",
+      "detail": "このエリアの設備：ベビーケアルーム・オストメイト・着替え台・ベビーチェア・おむつ交換台。各部屋の案内表示をご確認ください。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 416.0,
+        "y": 972.5,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "mixed"
+    },
+    {
+      "id": "ariake-2f-babycare-room-02",
+      "name": "ベビーケアルーム",
+      "purpose": "赤ちゃん",
+      "kind": "nursing",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "A・B側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 441.5,
+        "y": 972.5,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-2f-toilet-accessible-07",
+      "name": "バリアフリートイレ",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "B・C側",
+      "detail": "このエリアの設備：カームダウン・クールダウン・オストメイト・介助用ベッド。各部屋の案内表示をご確認ください。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 946.5,
+        "y": 972.5,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "ariake-2f-toilet-mixed-04",
+      "name": "男女共用トイレ",
+      "purpose": "トイレ",
+      "kind": "toilet",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "B・C側",
+      "detail": "このエリアの設備：カームダウン・クールダウン・オストメイト・介助用ベッド。各部屋の案内表示をご確認ください。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 972.0,
+        "y": 972.5,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "mixed"
+    },
+    {
+      "id": "ariake-2f-toilet-women-05",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "kind": "women",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "A・B側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 639.0,
+        "y": 987.5,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "women"
+    },
+    {
+      "id": "ariake-2f-toilet-men-05",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "kind": "men",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "B・C側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 747.0,
+        "y": 987.5,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "men"
+    },
+    {
+      "id": "ariake-2f-toilet-accessible-08",
+      "name": "バリアフリートイレ",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "A・B側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 526.5,
+        "y": 1008.5,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "ariake-2f-toilet-accessible-09",
+      "name": "バリアフリートイレ",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "B・C側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 859.5,
+        "y": 1008.5,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "ariake-2f-aed-03",
+      "name": "AED",
+      "purpose": "AED",
+      "kind": "aed",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "A・B側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 693.0,
+        "y": 1026.0,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-2f-elevator-04",
+      "name": "エレベーター",
+      "purpose": "案内",
+      "kind": "elevator",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "B・C側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-02"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-02-native",
+        "x": 1057.5,
+        "y": 1038.0,
+        "sourceIds": [
+          "floor-02"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-1f-babycare-room-01",
+      "name": "ベビーケアルーム",
+      "purpose": "赤ちゃん",
+      "kind": "nursing",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "サブアリーナ・レストラン側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-01"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-public-1f",
+        "x": 2654.5,
+        "y": 667.5,
+        "sourceIds": [
+          "floor-01"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-1f-toilet-women-01",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "kind": "women",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "サブアリーナ・レストラン側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-01"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-public-1f",
+        "x": 2734.0,
+        "y": 672.0,
+        "sourceIds": [
+          "floor-01"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "women"
+    },
+    {
+      "id": "ariake-1f-toilet-men-01",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "kind": "men",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "サブアリーナ・レストラン側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-01"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-public-1f",
+        "x": 2809.5,
+        "y": 672.0,
+        "sourceIds": [
+          "floor-01"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "men"
+    },
+    {
+      "id": "ariake-1f-vending-01",
+      "name": "自動販売機",
+      "purpose": "飲食",
+      "kind": "vending",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "サブアリーナ・レストラン側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-01"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-public-1f",
+        "x": 2905.0,
+        "y": 705.0,
+        "sourceIds": [
+          "floor-01"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-1f-elevator-01",
+      "name": "エレベーター",
+      "purpose": "案内",
+      "kind": "elevator",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "サブアリーナ・レストラン側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-01"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-public-1f",
+        "x": 2654.0,
+        "y": 756.0,
+        "sourceIds": [
+          "floor-01"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-1f-toilet-accessible-01",
+      "name": "バリアフリートイレ",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "サブアリーナ・レストラン側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-01"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-public-1f",
+        "x": 2771.5,
+        "y": 757.0,
+        "sourceIds": [
+          "floor-01"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "ariake-1f-aed-01",
+      "name": "AED",
+      "purpose": "AED",
+      "kind": "aed",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "サブアリーナ・レストラン側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-01"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-public-1f",
+        "x": 2597.0,
+        "y": 998.5,
+        "sourceIds": [
+          "floor-01"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-1f-toilet-mixed-01",
+      "name": "男女共用トイレ",
+      "purpose": "トイレ",
+      "kind": "toilet",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "メインアリーナ側・上",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-01"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-01-native",
+        "x": 2176.5,
+        "y": 1036.5,
+        "sourceIds": [
+          "floor-01"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "mixed"
+    },
+    {
+      "id": "ariake-1f-toilet-mixed-02",
+      "name": "男女共用トイレ",
+      "purpose": "トイレ",
+      "kind": "toilet",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "メインアリーナ側・上",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-01"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-01-native",
+        "x": 2176.5,
+        "y": 1123.5,
+        "sourceIds": [
+          "floor-01"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "mixed"
+    },
+    {
+      "id": "ariake-1f-toilet-accessible-02",
+      "name": "バリアフリートイレ",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "メインアリーナ側・上",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-01"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-01-native",
+        "x": 2176.5,
+        "y": 1205.5,
+        "sourceIds": [
+          "floor-01"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "ariake-1f-escalator-01",
+      "name": "エスカレーター",
+      "purpose": "案内",
+      "kind": "escalator",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "メインアリーナ側・上",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-01"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-01-native",
+        "x": 2424.5,
+        "y": 1237.5,
+        "sourceIds": [
+          "floor-01"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-1f-toilet-accessible-03",
+      "name": "バリアフリートイレ",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "メインアリーナ側・上",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-01"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-01-native",
+        "x": 2176.5,
+        "y": 1290.5,
+        "sourceIds": [
+          "floor-01"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "ariake-1f-toilet-women-02",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "kind": "women",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "メインアリーナ側・上",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-01"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-01-native",
+        "x": 2131.5,
+        "y": 1390.0,
+        "sourceIds": [
+          "floor-01"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "women"
+    },
+    {
+      "id": "ariake-1f-vending-02",
+      "name": "自動販売機",
+      "purpose": "飲食",
+      "kind": "vending",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "メインアリーナ側・上",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-01"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-01-native",
+        "x": 2512.0,
+        "y": 1404.0,
+        "sourceIds": [
+          "floor-01"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-1f-aed-02",
+      "name": "AED",
+      "purpose": "AED",
+      "kind": "aed",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "メインアリーナ側・上",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-01"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-01-native",
+        "x": 2414.5,
+        "y": 1450.5,
+        "sourceIds": [
+          "floor-01"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-1f-elevator-02",
+      "name": "エレベーター",
+      "purpose": "案内",
+      "kind": "elevator",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "メインアリーナ側・下",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-01"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-01-native",
+        "x": 2137.0,
+        "y": 1728.0,
+        "sourceIds": [
+          "floor-01"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-1f-vending-03",
+      "name": "自動販売機",
+      "purpose": "飲食",
+      "kind": "vending",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "メインアリーナ側・下",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-01"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-01-native",
+        "x": 2512.0,
+        "y": 1762.0,
+        "sourceIds": [
+          "floor-01"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-1f-toilet-men-02",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "kind": "men",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "メインアリーナ側・下",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-01"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-01-native",
+        "x": 2133.0,
+        "y": 1834.5,
+        "sourceIds": [
+          "floor-01"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "men"
+    },
+    {
+      "id": "ariake-1f-toilet-accessible-04",
+      "name": "バリアフリートイレ",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "メインアリーナ側・下",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-01"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-01-native",
+        "x": 2178.0,
+        "y": 1915.0,
+        "sourceIds": [
+          "floor-01"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "ariake-1f-escalator-02",
+      "name": "エスカレーター",
+      "purpose": "案内",
+      "kind": "escalator",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "メインアリーナ側・下",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-01"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-01-native",
+        "x": 2425.5,
+        "y": 1928.5,
+        "sourceIds": [
+          "floor-01"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-1f-toilet-accessible-05",
+      "name": "バリアフリートイレ",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "メインアリーナ側・下",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-01"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-01-native",
+        "x": 2178.0,
+        "y": 1995.0,
+        "sourceIds": [
+          "floor-01"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "ariake-1f-aed-03",
+      "name": "AED",
+      "purpose": "AED",
+      "kind": "aed",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "サブアリーナ・レストラン側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-01"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-public-1f",
+        "x": 3427.5,
+        "y": 2007.5,
+        "sourceIds": [
+          "floor-01"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-1f-first-aid-01",
+      "name": "救護室",
+      "purpose": "案内",
+      "kind": "first-aid",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "メインアリーナ側・下",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-01"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-01-native",
+        "x": 2178.0,
+        "y": 2083.5,
+        "sourceIds": [
+          "floor-01"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-3f-vending-01",
+      "name": "自動販売機",
+      "purpose": "飲食",
+      "kind": "vending",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "C・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-03"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-03-native",
+        "x": 2074.0,
+        "y": 454.5,
+        "sourceIds": [
+          "floor-03"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-3f-vending-02",
+      "name": "自動販売機",
+      "purpose": "飲食",
+      "kind": "vending",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "A・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-03"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-03-native",
+        "x": 820.0,
+        "y": 455.0,
+        "sourceIds": [
+          "floor-03"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-3f-elevator-01",
+      "name": "エレベーター",
+      "purpose": "案内",
+      "kind": "elevator",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "A・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-03"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-03-native",
+        "x": 590.5,
+        "y": 515.0,
+        "sourceIds": [
+          "floor-03"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-3f-toilet-accessible-01",
+      "name": "バリアフリートイレ",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "A・D側",
+      "detail": "このエリアの設備：カームダウン・クールダウン・介助用ベッド。各部屋の案内表示をご確認ください。",
+      "sourceIds": [
+        "floor-03"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-03-native",
+        "x": 751.5,
+        "y": 615.5,
+        "sourceIds": [
+          "floor-03"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "ariake-3f-toilet-mixed-01",
+      "name": "男女共用トイレ",
+      "purpose": "トイレ",
+      "kind": "toilet",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "C・D側",
+      "detail": "このエリアの設備：ベビーケアルーム・着替え台・ベビーチェア。各部屋の案内表示をご確認ください。",
+      "sourceIds": [
+        "floor-03"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-03-native",
+        "x": 2172.5,
+        "y": 615.5,
+        "sourceIds": [
+          "floor-03"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "mixed"
+    },
+    {
+      "id": "ariake-3f-toilet-women-01",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "kind": "women",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "A・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-03"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-03-native",
+        "x": 1319.0,
+        "y": 622.0,
+        "sourceIds": [
+          "floor-03"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "women"
+    },
+    {
+      "id": "ariake-3f-toilet-men-01",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "kind": "men",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "C・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-03"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-03-native",
+        "x": 1636.0,
+        "y": 622.0,
+        "sourceIds": [
+          "floor-03"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "men"
+    },
+    {
+      "id": "ariake-3f-toilet-accessible-02",
+      "name": "バリアフリートイレ",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "C・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-03"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-03-native",
+        "x": 1532.5,
+        "y": 643.0,
+        "sourceIds": [
+          "floor-03"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "ariake-3f-toilet-men-02",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "kind": "men",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "A・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-03"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-03-native",
+        "x": 964.5,
+        "y": 644.0,
+        "sourceIds": [
+          "floor-03"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "men"
+    },
+    {
+      "id": "ariake-3f-toilet-men-03",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "kind": "men",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "C・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-03"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-03-native",
+        "x": 1957.5,
+        "y": 644.0,
+        "sourceIds": [
+          "floor-03"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "men"
+    },
+    {
+      "id": "ariake-3f-toilet-mixed-02",
+      "name": "男女共用トイレ",
+      "purpose": "トイレ",
+      "kind": "toilet",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "A・D側",
+      "detail": "このエリアの設備：カームダウン・クールダウン・介助用ベッド。各部屋の案内表示をご確認ください。",
+      "sourceIds": [
+        "floor-03"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-03-native",
+        "x": 751.5,
+        "y": 663.5,
+        "sourceIds": [
+          "floor-03"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "mixed"
+    },
+    {
+      "id": "ariake-3f-babycare-room-01",
+      "name": "ベビーケアルーム",
+      "purpose": "赤ちゃん",
+      "kind": "nursing",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "C・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-03"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-03-native",
+        "x": 2172.5,
+        "y": 664.0,
+        "sourceIds": [
+          "floor-03"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-3f-shop-01",
+      "name": "売店",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "C・D側",
+      "detail": "軽食・飲み物の売店。営業は公演によって変わります。",
+      "sourceIds": [
+        "floor-03"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-03-native",
+        "x": 2334.0,
+        "y": 797.5,
+        "sourceIds": [
+          "floor-03"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-3f-toilet-men-04",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "kind": "men",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "C・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-03"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-03-native",
+        "x": 2298.0,
+        "y": 945.5,
+        "sourceIds": [
+          "floor-03"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "men"
+    },
+    {
+      "id": "ariake-3f-toilet-men-05",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "kind": "men",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "A・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-03"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-03-native",
+        "x": 638.0,
+        "y": 946.0,
+        "sourceIds": [
+          "floor-03"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "men"
+    },
+    {
+      "id": "ariake-3f-toilet-women-02",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "kind": "women",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "C・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-03"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-03-native",
+        "x": 2298.0,
+        "y": 1213.5,
+        "sourceIds": [
+          "floor-03"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "women"
+    },
+    {
+      "id": "ariake-3f-aed-01",
+      "name": "AED",
+      "purpose": "AED",
+      "kind": "aed",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "C・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-03"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-03-native",
+        "x": 2420.0,
+        "y": 1287.5,
+        "sourceIds": [
+          "floor-03"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-3f-aed-02",
+      "name": "AED",
+      "purpose": "AED",
+      "kind": "aed",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "A・B側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-03"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-03-native",
+        "x": 509.5,
+        "y": 1399.5,
+        "sourceIds": [
+          "floor-03"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-3f-toilet-women-03",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "kind": "women",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "B・C側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-03"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-03-native",
+        "x": 2298.0,
+        "y": 1475.5,
+        "sourceIds": [
+          "floor-03"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "women"
+    },
+    {
+      "id": "ariake-3f-toilet-women-04",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "kind": "women",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "B・C側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-03"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-03-native",
+        "x": 2298.0,
+        "y": 1743.0,
+        "sourceIds": [
+          "floor-03"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "women"
+    },
+    {
+      "id": "ariake-3f-toilet-women-05",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "kind": "women",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "A・B側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-03"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-03-native",
+        "x": 638.0,
+        "y": 1746.5,
+        "sourceIds": [
+          "floor-03"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "women"
+    },
+    {
+      "id": "ariake-3f-shop-02",
+      "name": "売店",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "B・C側",
+      "detail": "軽食・飲み物の売店。営業は公演によって変わります。",
+      "sourceIds": [
+        "floor-03"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-03-native",
+        "x": 2334.0,
+        "y": 1888.5,
+        "sourceIds": [
+          "floor-03"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-3f-toilet-mixed-03",
+      "name": "男女共用トイレ",
+      "purpose": "トイレ",
+      "kind": "toilet",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "A・B側",
+      "detail": "このエリアの設備：ベビーケアルーム・着替え台・ベビーチェア。各部屋の案内表示をご確認ください。",
+      "sourceIds": [
+        "floor-03"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-03-native",
+        "x": 754.5,
+        "y": 1928.0,
+        "sourceIds": [
+          "floor-03"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "mixed"
+    },
+    {
+      "id": "ariake-3f-toilet-accessible-03",
+      "name": "バリアフリートイレ",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "B・C側",
+      "detail": "このエリアの設備：カームダウン・クールダウン・介助用ベッド。各部屋の案内表示をご確認ください。",
+      "sourceIds": [
+        "floor-03"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-03-native",
+        "x": 2172.5,
+        "y": 1929.0,
+        "sourceIds": [
+          "floor-03"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "ariake-3f-babycare-room-02",
+      "name": "ベビーケアルーム",
+      "purpose": "赤ちゃん",
+      "kind": "nursing",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "A・B側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-03"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-03-native",
+        "x": 754.5,
+        "y": 1976.0,
+        "sourceIds": [
+          "floor-03"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-3f-toilet-mixed-04",
+      "name": "男女共用トイレ",
+      "purpose": "トイレ",
+      "kind": "toilet",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "B・C側",
+      "detail": "このエリアの設備：カームダウン・クールダウン・介助用ベッド。各部屋の案内表示をご確認ください。",
+      "sourceIds": [
+        "floor-03"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-03-native",
+        "x": 2172.5,
+        "y": 1977.0,
+        "sourceIds": [
+          "floor-03"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "mixed"
+    },
+    {
+      "id": "ariake-3f-toilet-men-06",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "kind": "men",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "A・B側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-03"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-03-native",
+        "x": 964.5,
+        "y": 2045.0,
+        "sourceIds": [
+          "floor-03"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "men"
+    },
+    {
+      "id": "ariake-3f-toilet-men-07",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "kind": "men",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "B・C側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-03"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-03-native",
+        "x": 1957.5,
+        "y": 2045.0,
+        "sourceIds": [
+          "floor-03"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "men"
+    },
+    {
+      "id": "ariake-3f-elevator-02",
+      "name": "エレベーター",
+      "purpose": "案内",
+      "kind": "elevator",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "B・C側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-03"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-03-native",
+        "x": 2339.5,
+        "y": 2173.0,
+        "sourceIds": [
+          "floor-03"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-3f-vending-03",
+      "name": "自動販売機",
+      "purpose": "飲食",
+      "kind": "vending",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "B・C側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-03"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-03-native",
+        "x": 2074.0,
+        "y": 2233.5,
+        "sourceIds": [
+          "floor-03"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-3f-vending-04",
+      "name": "自動販売機",
+      "purpose": "飲食",
+      "kind": "vending",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "A・B側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-03"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-03-native",
+        "x": 821.0,
+        "y": 2234.0,
+        "sourceIds": [
+          "floor-03"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-4f-elevator-01",
+      "name": "エレベーター",
+      "purpose": "案内",
+      "kind": "elevator",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "A・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-04"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-04-native",
+        "x": 1011.5,
+        "y": 751.5,
+        "sourceIds": [
+          "floor-04"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-4f-toilet-accessible-01",
+      "name": "バリアフリートイレ",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "A・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-04"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-04-native",
+        "x": 1129.5,
+        "y": 839.0,
+        "sourceIds": [
+          "floor-04"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "ariake-4f-aed-01",
+      "name": "AED",
+      "purpose": "AED",
+      "kind": "aed",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "C・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-04"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-04-native",
+        "x": 2234.5,
+        "y": 1024.5,
+        "sourceIds": [
+          "floor-04"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-4f-aed-02",
+      "name": "AED",
+      "purpose": "AED",
+      "kind": "aed",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "A・B側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-04"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-04-native",
+        "x": 1081.5,
+        "y": 1712.5,
+        "sourceIds": [
+          "floor-04"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-4f-toilet-accessible-02",
+      "name": "バリアフリートイレ",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "B・C側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-04"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-04-native",
+        "x": 2188.0,
+        "y": 1899.0,
+        "sourceIds": [
+          "floor-04"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "ariake-4f-elevator-02",
+      "name": "エレベーター",
+      "purpose": "案内",
+      "kind": "elevator",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "B・C側",
+      "detail": "当日の利用案内をご確認ください。",
+      "sourceIds": [
+        "floor-04"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-floor-04-native",
+        "x": 2305.5,
+        "y": 1986.5,
+        "sourceIds": [
+          "floor-04"
+        ],
+        "reference": "公式図の記号代表位置。入口・経路ではありません。"
+      }
+    },
+    {
+      "id": "ariake-shintoyosu-lockers",
+      "name": "新豊洲駅 改札外ロッカー",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "改札階",
+      "scope": "場外",
+      "location": "新豊洲駅 改札外",
+      "detail": "コインロッカー。サイズ・料金・空き状況は駅の案内をご確認ください。",
+      "sourceIds": [
+        "ariake-shintoyosu-plan"
+      ],
+      "precision": "diagram-point",
+      "storageKind": "coin",
+      "anchor": {
+        "diagramId": "ariake-shintoyosu-concourse",
+        "x": 568,
+        "y": 529,
+        "sourceIds": [
+          "ariake-shintoyosu-plan"
+        ],
+        "reference": "公式構内図の設備の代表位置。"
+      }
+    },
+    {
+      "id": "ariake-tennis-lockers",
+      "name": "有明テニスの森駅 改札外ロッカー",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "改札階",
+      "scope": "場外",
+      "location": "有明テニスの森駅 改札外",
+      "detail": "コインロッカー。サイズ・料金・空き状況は駅の案内をご確認ください。",
+      "sourceIds": [
+        "ariake-tennis-plan"
+      ],
+      "precision": "diagram-point",
+      "storageKind": "coin",
+      "anchor": {
+        "diagramId": "ariake-tennis-concourse",
+        "x": 650,
+        "y": 543,
+        "sourceIds": [
+          "ariake-tennis-plan"
+        ],
+        "reference": "公式構内図の設備の代表位置。"
+      }
+    },
+    {
+      "id": "ariake-kokusai-lockers",
+      "name": "国際展示場駅 コインロッカー",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "駅構内",
+      "scope": "場外",
+      "location": "国際展示場駅",
+      "detail": "改札外・キャッシュレス。一部時間制。小124・中55・大31（2026年9月1日時点の駅案内）。料金・空きは駅の案内をご確認ください。",
+      "sourceIds": [
+        "ariake-station-ariake-kokusai-lockers"
+      ],
+      "precision": "text-only",
+      "storageKind": "coin"
+    },
+    {
+      "id": "ariake-moonriver",
+      "name": "ARIAKE ARENA DINING MOON RIVER",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "サブアリーナ側1F",
+      "detail": "レストラン。営業日・時間は店舗の案内をご確認ください。",
+      "sourceIds": [
+        "ariake-restaurant"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "ariake-shintoyosu-lockers-2",
+      "name": "新豊洲駅 改札外ロッカー（2か所目）",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "改札階",
+      "scope": "場外",
+      "location": "新豊洲駅 改札外",
+      "detail": "コインロッカー。サイズ・料金は駅の案内をご確認ください。",
+      "sourceIds": [
+        "ariake-shintoyosu-plan"
+      ],
+      "precision": "diagram-point",
+      "storageKind": "coin",
+      "anchor": {
+        "diagramId": "ariake-shintoyosu-concourse",
+        "x": 650,
+        "y": 550,
+        "sourceIds": [
+          "ariake-shintoyosu-plan"
+        ],
+        "reference": "公式構内図の設備の代表位置。"
+      }
+    },
+    {
+      "id": "ariake-shintoyosu-lockers-paid",
+      "name": "新豊洲駅 改札内ロッカー",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "改札階",
+      "scope": "場外",
+      "location": "新豊洲駅 改札内",
+      "detail": "コインロッカー。サイズ・料金は駅の案内をご確認ください。",
+      "sourceIds": [
+        "ariake-shintoyosu-plan"
+      ],
+      "precision": "diagram-point",
+      "storageKind": "coin",
+      "anchor": {
+        "diagramId": "ariake-shintoyosu-concourse",
+        "x": 830,
+        "y": 504,
+        "sourceIds": [
+          "ariake-shintoyosu-plan"
+        ],
+        "reference": "公式構内図の設備の代表位置。"
+      }
+    },
+    {
+      "id": "ariake-shintoyosu-toilet",
+      "name": "新豊洲駅 男女トイレ",
+      "purpose": "トイレ",
+      "kind": "toilet",
+      "floor": "改札階",
+      "scope": "場外",
+      "location": "新豊洲駅 改札内",
+      "detail": "男女トイレの場所を駅構内図で確認できます。",
+      "sourceIds": [
+        "ariake-shintoyosu-plan"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "mixed",
+      "anchor": {
+        "diagramId": "ariake-shintoyosu-concourse",
+        "x": 960,
+        "y": 403,
+        "sourceIds": [
+          "ariake-shintoyosu-plan"
+        ],
+        "reference": "公式構内図の設備の代表位置。"
+      }
+    },
+    {
+      "id": "ariake-shintoyosu-accessible",
+      "name": "新豊洲駅 バリアフリートイレ",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "改札階",
+      "scope": "場外",
+      "location": "新豊洲駅 改札内",
+      "detail": "バリアフリートイレの場所を駅構内図で確認できます。",
+      "sourceIds": [
+        "ariake-shintoyosu-plan"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "ariake-shintoyosu-concourse",
+        "x": 998,
+        "y": 393,
+        "sourceIds": [
+          "ariake-shintoyosu-plan"
+        ],
+        "reference": "公式構内図の設備の代表位置。"
+      }
+    },
+    {
+      "id": "ariake-shintoyosu-aed",
+      "name": "新豊洲駅 AED",
+      "purpose": "AED",
+      "kind": "aed",
+      "floor": "改札階",
+      "scope": "場外",
+      "location": "新豊洲駅 改札付近",
+      "detail": "AEDの場所を駅構内図で確認できます。",
+      "sourceIds": [
+        "ariake-shintoyosu-plan"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-shintoyosu-concourse",
+        "x": 790,
+        "y": 448,
+        "sourceIds": [
+          "ariake-shintoyosu-plan"
+        ],
+        "reference": "公式構内図の設備の代表位置。"
+      }
+    },
+    {
+      "id": "ariake-shintoyosu-info",
+      "name": "新豊洲駅 駅務室",
+      "purpose": "案内",
+      "kind": "info",
+      "floor": "改札階",
+      "scope": "場外",
+      "location": "新豊洲駅 改札付近",
+      "detail": "駅務室の場所を駅構内図で確認できます。",
+      "sourceIds": [
+        "ariake-shintoyosu-plan"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-shintoyosu-concourse",
+        "x": 754,
+        "y": 457,
+        "sourceIds": [
+          "ariake-shintoyosu-plan"
+        ],
+        "reference": "公式構内図の設備の代表位置。"
+      }
+    },
+    {
+      "id": "ariake-tennis-toilet",
+      "name": "有明テニスの森駅 男女トイレ",
+      "purpose": "トイレ",
+      "kind": "toilet",
+      "floor": "改札階",
+      "scope": "場外",
+      "location": "有明テニスの森駅 改札内",
+      "detail": "男女トイレの場所を駅構内図で確認できます。",
+      "sourceIds": [
+        "ariake-tennis-plan"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "mixed",
+      "anchor": {
+        "diagramId": "ariake-tennis-concourse",
+        "x": 953,
+        "y": 398,
+        "sourceIds": [
+          "ariake-tennis-plan"
+        ],
+        "reference": "公式構内図の設備の代表位置。"
+      }
+    },
+    {
+      "id": "ariake-tennis-accessible",
+      "name": "有明テニスの森駅 バリアフリートイレ",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "改札階",
+      "scope": "場外",
+      "location": "有明テニスの森駅 改札内",
+      "detail": "バリアフリートイレの場所を駅構内図で確認できます。",
+      "sourceIds": [
+        "ariake-tennis-plan"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "ariake-tennis-concourse",
+        "x": 1006,
+        "y": 383,
+        "sourceIds": [
+          "ariake-tennis-plan"
+        ],
+        "reference": "公式構内図の設備の代表位置。"
+      }
+    },
+    {
+      "id": "ariake-tennis-aed",
+      "name": "有明テニスの森駅 AED",
+      "purpose": "AED",
+      "kind": "aed",
+      "floor": "改札階",
+      "scope": "場外",
+      "location": "有明テニスの森駅 改札付近",
+      "detail": "AEDの場所を駅構内図で確認できます。",
+      "sourceIds": [
+        "ariake-tennis-plan"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-tennis-concourse",
+        "x": 752,
+        "y": 452,
+        "sourceIds": [
+          "ariake-tennis-plan"
+        ],
+        "reference": "公式構内図の設備の代表位置。"
+      }
+    },
+    {
+      "id": "ariake-tennis-info",
+      "name": "有明テニスの森駅 駅務室",
+      "purpose": "案内",
+      "kind": "info",
+      "floor": "改札階",
+      "scope": "場外",
+      "location": "有明テニスの森駅 改札付近",
+      "detail": "駅務室の場所を駅構内図で確認できます。",
+      "sourceIds": [
+        "ariake-tennis-plan"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ariake-tennis-concourse",
+        "x": 727,
+        "y": 461,
+        "sourceIds": [
+          "ariake-tennis-plan"
+        ],
+        "reference": "公式構内図の設備の代表位置。"
+      }
+    },
+    {
+      "id": "ariake-garden-lockers-bus",
+      "name": "有明ガーデン モール1F バスターミナル ロッカー",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "有明ガーデン モール1F バスターミナル",
+      "detail": "24時間。大500円・中400円・小300円。幅35×奥行67cm、高さは大87・中52・小32cm。",
+      "sourceIds": [
+        "ariake-garden-service"
+      ],
+      "precision": "text-only",
+      "storageKind": "coin"
+    },
+    {
+      "id": "ariake-garden-lockers-d",
+      "name": "有明ガーデン モール5F Dエレベーター横 ロッカー",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "5F",
+      "scope": "場外",
+      "location": "有明ガーデン モール5F Dエレベーター横",
+      "detail": "10:00〜23:00。大500円・中400円・小300円。幅35×奥行67cm、高さは大87・中52・小32cm。",
+      "sourceIds": [
+        "ariake-garden-service"
+      ],
+      "precision": "text-only",
+      "storageKind": "coin"
+    },
+    {
+      "id": "ariake-garden-lockers-f",
+      "name": "有明ガーデン モール5F Fエレベーター横 ロッカー",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "5F",
+      "scope": "場外",
+      "location": "有明ガーデン モール5F Fエレベーター横",
+      "detail": "10:00〜23:00。大500円・中400円・小300円。幅35×奥行67cm、高さは大87・中52・小32cm。",
+      "sourceIds": [
+        "ariake-garden-service"
+      ],
+      "precision": "text-only",
+      "storageKind": "coin"
+    },
+    {
+      "id": "ariake-garden-lockers-hotel",
+      "name": "有明ガーデン ホテル1F ひさし下 ロッカー",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "有明ガーデン ホテル1F ひさし下",
+      "detail": "24時間。大800円・中600円・小400円。幅35×奥行67cm、高さは大87・中52・小32cm。現金非対応。",
+      "sourceIds": [
+        "ariake-garden-service"
+      ],
+      "precision": "text-only",
+      "storageKind": "coin"
+    },
+    {
+      "id": "ariake-garden-info",
+      "name": "有明ガーデン インフォメーション",
+      "purpose": "案内",
+      "kind": "info",
+      "floor": "2F",
+      "scope": "場外",
+      "location": "有明ガーデン モール2F Cエスカレーター下",
+      "detail": "10:00〜21:00。施設の案内、車いす・ベビーカーの貸出。",
+      "sourceIds": [
+        "ariake-garden-service"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "ariake-garden-baby-4f",
+      "name": "有明ガーデン 授乳室",
+      "purpose": "赤ちゃん",
+      "kind": "nursing",
+      "floor": "4F",
+      "scope": "場外",
+      "location": "有明ガーデン モール4F",
+      "detail": "授乳・おむつ交換に使える設備。利用時間は館内の案内をご確認ください。",
+      "sourceIds": [
+        "ariake-garden-service"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "ariake-garden-baby-5f",
+      "name": "有明ガーデン 授乳室",
+      "purpose": "赤ちゃん",
+      "kind": "nursing",
+      "floor": "5F",
+      "scope": "場外",
+      "location": "有明ガーデン モール5F",
+      "detail": "授乳・おむつ交換に使える設備。利用時間は館内の案内をご確認ください。",
+      "sourceIds": [
+        "ariake-garden-service"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "ariake-garden-dining",
+      "name": "有明ガーデン レストラン・フードコート",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "5F",
+      "scope": "場外",
+      "location": "有明ガーデン モール5F",
+      "detail": "食事や飲み物を選べます。店舗ごとの営業日・時間は施設の案内をご確認ください。",
+      "sourceIds": [
+        "ariake-garden-service"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "ariake-shinonome-lockers",
+      "name": "東雲駅 改札内ロッカー",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "東雲駅 改札内",
+      "detail": "現金対応。公式案内の数量は小14・中3、大型なし（2024年1月1日時点）。幅34.5×奥行57.5cm、高さは小32・中49.2cm。",
+      "sourceIds": [
+        "ariake-shinonome-station"
+      ],
+      "precision": "text-only",
+      "storageKind": "coin"
+    }
+  ],
+  "diagrams": [
+    {
+      "id": "ariake-floor-01-native",
+      "floor": "1F",
+      "scope": "場内",
+      "viewBox": [
+        200,
+        600,
+        3300,
+        1850
+      ],
+      "contextPaths": [
+        "M230,790 H2480 V2330 H230 Z M480,1090 H1970 V2030 H480 Z"
+      ],
+      "concoursePaths": [],
+      "landmarks": [],
+      "evidence": {
+        "sourceIds": [
+          "floor-01"
+        ],
+        "file": "",
+        "sha256": "",
+        "width": 3300,
+        "height": 1850,
+        "method": "independent schematic; native glyph coordinates retained",
+        "status": "partial"
+      }
+    },
+    {
+      "id": "ariake-floor-02-native",
+      "floor": "2F",
+      "scope": "場内",
+      "viewBox": [
+        200,
+        190,
+        1190,
+        970
+      ],
+      "contextPaths": [
+        "M290.00,225.00 L1140.00,225.00 L1140.00,1080.00 L290.00,1080.00 Z",
+        "M445.00,485.00 L925.00,485.00 L950.00,515.00 L950.00,805.00 L925.00,835.00 L445.00,835.00 L415.00,805.00 L415.00,515.00 Z"
+      ],
+      "concoursePaths": [],
+      "landmarks": [
+        {
+          "id": "ariake-gate-1",
+          "label": "ゲート1",
+          "x": 345,
+          "y": 858,
+          "kind": "gate",
+          "sourceIds": [
+            "floor-02"
+          ],
+          "reference": "公式図の代表位置。入口・歩行経路ではありません。"
+        },
+        {
+          "id": "ariake-gate-2",
+          "label": "ゲート2",
+          "x": 565,
+          "y": 1044,
+          "kind": "gate",
+          "sourceIds": [
+            "floor-02"
+          ],
+          "reference": "公式図の代表位置。入口・歩行経路ではありません。"
+        },
+        {
+          "id": "ariake-gate-3",
+          "label": "ゲート3",
+          "x": 817,
+          "y": 1044,
+          "kind": "gate",
+          "sourceIds": [
+            "floor-02"
+          ],
+          "reference": "公式図の代表位置。入口・歩行経路ではありません。"
+        },
+        {
+          "id": "ariake-gate-4",
+          "label": "ゲート4",
+          "x": 1071,
+          "y": 856,
+          "kind": "gate",
+          "sourceIds": [
+            "floor-02"
+          ],
+          "reference": "公式図の代表位置。入口・歩行経路ではありません。"
+        },
+        {
+          "id": "ariake-gate-7",
+          "label": "ゲート7",
+          "x": 1071,
+          "y": 438,
+          "kind": "gate",
+          "sourceIds": [
+            "floor-02"
+          ],
+          "reference": "公式図の代表位置。入口・歩行経路ではありません。"
+        },
+        {
+          "id": "ariake-gate-8",
+          "label": "ゲート8",
+          "x": 817,
+          "y": 248,
+          "kind": "gate",
+          "sourceIds": [
+            "floor-02"
+          ],
+          "reference": "公式図の代表位置。入口・歩行経路ではありません。"
+        },
+        {
+          "id": "ariake-gate-9",
+          "label": "ゲート9",
+          "x": 565,
+          "y": 248,
+          "kind": "gate",
+          "sourceIds": [
+            "floor-02"
+          ],
+          "reference": "公式図の代表位置。入口・歩行経路ではありません。"
+        },
+        {
+          "id": "ariake-gate-10",
+          "label": "ゲート10",
+          "x": 345,
+          "y": 443,
+          "kind": "gate",
+          "sourceIds": [
+            "floor-02"
+          ],
+          "reference": "公式図の代表位置。入口・歩行経路ではありません。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor-02"
+        ],
+        "file": "",
+        "sha256": "",
+        "width": 1190,
+        "height": 970,
+        "method": "independent schematic; native glyph coordinates retained",
+        "status": "partial"
+      }
+    },
+    {
+      "id": "ariake-floor-03-native",
+      "floor": "3F",
+      "scope": "場内",
+      "viewBox": [
+        416.8,
+        395.96000000000004,
+        2479.96,
+        2021.48
+      ],
+      "contextPaths": [
+        "M604.36,468.90 L2375.76,468.90 L2375.76,2250.72 L604.36,2250.72 Z",
+        "M927.38,1010.74 L1927.70,1010.74 L1979.80,1073.26 L1979.80,1677.62 L1927.70,1740.14 L927.38,1740.14 L864.86,1677.62 L864.86,1073.26 Z"
+      ],
+      "concoursePaths": [],
+      "landmarks": [],
+      "evidence": {
+        "sourceIds": [
+          "floor-03"
+        ],
+        "file": "",
+        "sha256": "",
+        "width": 2479.96,
+        "height": 2021.48,
+        "method": "independent schematic; native glyph coordinates retained",
+        "status": "partial"
+      }
+    },
+    {
+      "id": "ariake-floor-04-native",
+      "floor": "4F",
+      "scope": "場内",
+      "viewBox": [
+        416.8,
+        395.96000000000004,
+        2479.96,
+        2021.48
+      ],
+      "contextPaths": [
+        "M604.36,468.90 L2375.76,468.90 L2375.76,2250.72 L604.36,2250.72 Z",
+        "M927.38,1010.74 L1927.70,1010.74 L1979.80,1073.26 L1979.80,1677.62 L1927.70,1740.14 L927.38,1740.14 L864.86,1677.62 L864.86,1073.26 Z"
+      ],
+      "concoursePaths": [],
+      "landmarks": [],
+      "evidence": {
+        "sourceIds": [
+          "floor-04"
+        ],
+        "file": "",
+        "sha256": "",
+        "width": 2479.96,
+        "height": 2021.48,
+        "method": "independent schematic; native glyph coordinates retained",
+        "status": "partial"
+      }
+    },
+    {
+      "id": "ariake-arena-outside",
+      "floor": "周辺",
+      "scope": "場外",
+      "viewBox": [
+        75,
+        110,
+        750,
+        590
+      ],
+      "contextPaths": [
+        "M428,310 H503 V360 H428 Z",
+        "M345,150 H387 V690 H345 Z"
+      ],
+      "concoursePaths": [],
+      "landmarks": [
+        {
+          "id": "ariake-shintoyosu",
+          "label": "新豊洲駅",
+          "x": 160,
+          "y": 335,
+          "kind": "station",
+          "sourceIds": [
+            "ariake-access-map"
+          ],
+          "reference": "公式図の代表位置。入口・歩行経路ではありません。"
+        },
+        {
+          "id": "ariake-tennis",
+          "label": "有明テニスの森駅",
+          "x": 492,
+          "y": 620,
+          "kind": "station",
+          "sourceIds": [
+            "ariake-access-map"
+          ],
+          "reference": "公式図の代表位置。入口・歩行経路ではありません。"
+        },
+        {
+          "id": "ariake-kokusai",
+          "label": "国際展示場駅",
+          "x": 768,
+          "y": 660,
+          "kind": "station",
+          "sourceIds": [
+            "ariake-access-map"
+          ],
+          "reference": "公式図の代表位置。入口・歩行経路ではありません。"
+        },
+        {
+          "id": "ariake-shinonome",
+          "label": "東雲駅",
+          "x": 770,
+          "y": 145,
+          "kind": "station",
+          "sourceIds": [
+            "ariake-access-map"
+          ],
+          "reference": "公式図の代表位置。入口・歩行経路ではありません。"
+        },
+        {
+          "id": "ariake-garden",
+          "label": "有明ガーデン",
+          "x": 640,
+          "y": 535,
+          "kind": "plaza",
+          "sourceIds": [
+            "ariake-access-map"
+          ],
+          "reference": "公式図の代表位置。入口・歩行経路ではありません。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "ariake-access-map"
+        ],
+        "file": "ariake-mapol0912.jpg",
+        "sha256": "3fcd5ccab5c3a895b738e56cb0859e9fe3cdae9acd2750c527cd18e65d8c0dad",
+        "width": 750,
+        "height": 590,
+        "method": "independent schematic; checked positions in the source coordinate system",
+        "status": "source-checked"
+      }
+    },
+    {
+      "id": "ariake-public-1f",
+      "floor": "1F",
+      "scope": "場外",
+      "viewBox": [
+        2510,
+        610,
+        1050,
+        1520
+      ],
+      "contextPaths": [
+        "M2550,630 H3440 V2160 H2550 Z M2800,1100 H3370 V1840 H2800 Z"
+      ],
+      "concoursePaths": [],
+      "landmarks": [],
+      "evidence": {
+        "sourceIds": [
+          "floor-01"
+        ],
+        "file": "",
+        "sha256": "",
+        "width": 1050,
+        "height": 1520,
+        "method": "independent schematic; checked positions in the source coordinate system",
+        "status": "source-checked"
+      }
+    },
+    {
+      "id": "ariake-shintoyosu-concourse",
+      "floor": "改札階",
+      "scope": "場外",
+      "viewBox": [
+        450,
+        330,
+        670,
+        300
+      ],
+      "contextPaths": [
+        "M475,507 L1010,355 L1080,415 L640,587 Z",
+        "M694,466 L805,432 L830,516 L724,548 Z"
+      ],
+      "concoursePaths": [],
+      "landmarks": [
+        {
+          "id": "ariake-shintoyosu-gate",
+          "label": "改札",
+          "x": 755,
+          "y": 486,
+          "kind": "gate",
+          "sourceIds": [
+            "ariake-shintoyosu-plan"
+          ],
+          "reference": "公式図の代表位置。入口・歩行経路ではありません。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "ariake-shintoyosu-plan"
+        ],
+        "file": "shintoyosu-plan.pdf",
+        "sha256": "d833e751f5d14132862c08c4de3f906033287418fa0ece645ff26938c2a1dbda",
+        "width": 670,
+        "height": 300,
+        "method": "independent schematic; checked positions in the source coordinate system",
+        "status": "source-checked"
+      }
+    },
+    {
+      "id": "ariake-tennis-concourse",
+      "floor": "改札階",
+      "scope": "場外",
+      "viewBox": [
+        450,
+        330,
+        670,
+        300
+      ],
+      "contextPaths": [
+        "M475,507 L1010,355 L1080,415 L640,587 Z",
+        "M694,466 L805,432 L830,516 L724,548 Z"
+      ],
+      "concoursePaths": [],
+      "landmarks": [
+        {
+          "id": "ariake-tennis-gate",
+          "label": "改札",
+          "x": 755,
+          "y": 486,
+          "kind": "gate",
+          "sourceIds": [
+            "ariake-tennis-plan"
+          ],
+          "reference": "公式図の代表位置。入口・歩行経路ではありません。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "ariake-tennis-plan"
+        ],
+        "file": "tennis-plan.pdf",
+        "sha256": "42e1f50a6cdb34a293606a235b34f97754aa3c535cfaef905f81ee32ba289396",
+        "width": 670,
+        "height": 300,
+        "method": "independent schematic; checked positions in the source coordinate system",
+        "status": "source-checked"
+      }
+    }
+  ],
+  "groups": [
+    {
+      "id": "ariake-floor-02-native-案内-A・D側",
+      "diagramId": "ariake-floor-02-native",
+      "purpose": "案内",
+      "area": "A・D側",
+      "label": "2F・A・D側",
+      "memberIds": [
+        "ariake-2f-elevator-01"
+      ],
+      "x": 343.5,
+      "y": 258.5,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-02-native-AED-A・D側",
+      "diagramId": "ariake-floor-02-native",
+      "purpose": "AED",
+      "area": "A・D側",
+      "label": "2F・A・D側",
+      "memberIds": [
+        "ariake-2f-aed-01"
+      ],
+      "x": 693.0,
+      "y": 273.0,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-02-native-トイレ-A・D側",
+      "diagramId": "ariake-floor-02-native",
+      "purpose": "トイレ",
+      "area": "A・D側",
+      "label": "2F・A・D側",
+      "memberIds": [
+        "ariake-2f-toilet-accessible-01",
+        "ariake-2f-toilet-accessible-03",
+        "ariake-2f-toilet-mixed-01",
+        "ariake-2f-toilet-women-01",
+        "ariake-2f-toilet-men-02",
+        "ariake-2f-toilet-accessible-04",
+        "ariake-2f-toilet-women-03"
+      ],
+      "x": 454.42857142857144,
+      "y": 409.5,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-02-native-トイレ-C・D側",
+      "diagramId": "ariake-floor-02-native",
+      "purpose": "トイレ",
+      "area": "C・D側",
+      "label": "2F・C・D側",
+      "memberIds": [
+        "ariake-2f-toilet-accessible-02",
+        "ariake-2f-toilet-mixed-02",
+        "ariake-2f-toilet-men-01",
+        "ariake-2f-toilet-women-02"
+      ],
+      "x": 890.75,
+      "y": 355.25,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-02-native-赤ちゃん-C・D側",
+      "diagramId": "ariake-floor-02-native",
+      "purpose": "赤ちゃん",
+      "area": "C・D側",
+      "label": "2F・C・D側",
+      "memberIds": [
+        "ariake-2f-babycare-room-01"
+      ],
+      "x": 959.0,
+      "y": 304.5,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-02-native-飲食-A・D側",
+      "diagramId": "ariake-floor-02-native",
+      "purpose": "飲食",
+      "area": "A・D側",
+      "label": "2F・A・D側",
+      "memberIds": [
+        "ariake-2f-shop-01",
+        "ariake-2f-cafe-01",
+        "ariake-2f-shop-03"
+      ],
+      "x": 324.5,
+      "y": 491.8333333333333,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-02-native-飲食-C・D側",
+      "diagramId": "ariake-floor-02-native",
+      "purpose": "飲食",
+      "area": "C・D側",
+      "label": "2F・C・D側",
+      "memberIds": [
+        "ariake-2f-shop-02",
+        "ariake-2f-vending-01"
+      ],
+      "x": 1072.25,
+      "y": 366.5,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-02-native-案内-C・D側",
+      "diagramId": "ariake-floor-02-native",
+      "purpose": "案内",
+      "area": "C・D側",
+      "label": "2F・C・D側",
+      "memberIds": [
+        "ariake-2f-elevator-02",
+        "ariake-2f-escalator-01"
+      ],
+      "x": 1151.5,
+      "y": 482.5,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-02-native-案内-B・C側",
+      "diagramId": "ariake-floor-02-native",
+      "purpose": "案内",
+      "area": "B・C側",
+      "label": "2F・B・C側",
+      "memberIds": [
+        "ariake-2f-elevator-03",
+        "ariake-2f-escalator-02",
+        "ariake-2f-elevator-04"
+      ],
+      "x": 1065.5,
+      "y": 832.5,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-02-native-トイレ-B・C側",
+      "diagramId": "ariake-floor-02-native",
+      "purpose": "トイレ",
+      "area": "B・C側",
+      "label": "2F・B・C側",
+      "memberIds": [
+        "ariake-2f-toilet-men-03",
+        "ariake-2f-toilet-women-04",
+        "ariake-2f-toilet-men-04",
+        "ariake-2f-toilet-accessible-05",
+        "ariake-2f-toilet-accessible-06",
+        "ariake-2f-toilet-accessible-07",
+        "ariake-2f-toilet-mixed-04",
+        "ariake-2f-toilet-men-05",
+        "ariake-2f-toilet-accessible-09"
+      ],
+      "x": 1025.888888888889,
+      "y": 875.7777777777778,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-02-native-荷物-北側メインエントランス",
+      "diagramId": "ariake-floor-02-native",
+      "purpose": "荷物",
+      "area": "北側メインエントランス",
+      "label": "2F・北側メインエントランス",
+      "memberIds": [
+        "ariake-2f-locker-01"
+      ],
+      "x": 387.0,
+      "y": 799.5,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-02-native-荷物-南側ロッカールーム",
+      "diagramId": "ariake-floor-02-native",
+      "purpose": "荷物",
+      "area": "南側ロッカールーム",
+      "label": "2F・南側ロッカールーム",
+      "memberIds": [
+        "ariake-2f-locker-02"
+      ],
+      "x": 1132.5,
+      "y": 807.5,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-02-native-AED-A・B側",
+      "diagramId": "ariake-floor-02-native",
+      "purpose": "AED",
+      "area": "A・B側",
+      "label": "2F・A・B側",
+      "memberIds": [
+        "ariake-2f-aed-02",
+        "ariake-2f-aed-03"
+      ],
+      "x": 491.75,
+      "y": 966.25,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-02-native-飲食-B・C側",
+      "diagramId": "ariake-floor-02-native",
+      "purpose": "飲食",
+      "area": "B・C側",
+      "label": "2F・B・C側",
+      "memberIds": [
+        "ariake-2f-vending-02",
+        "ariake-2f-shop-05"
+      ],
+      "x": 1071.25,
+      "y": 935.25,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-02-native-飲食-A・B側",
+      "diagramId": "ariake-floor-02-native",
+      "purpose": "飲食",
+      "area": "A・B側",
+      "label": "2F・A・B側",
+      "memberIds": [
+        "ariake-2f-shop-04"
+      ],
+      "x": 368.5,
+      "y": 944.5,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-02-native-トイレ-A・B側",
+      "diagramId": "ariake-floor-02-native",
+      "purpose": "トイレ",
+      "area": "A・B側",
+      "label": "2F・A・B側",
+      "memberIds": [
+        "ariake-2f-toilet-mixed-03",
+        "ariake-2f-toilet-women-05",
+        "ariake-2f-toilet-accessible-08"
+      ],
+      "x": 527.1666666666666,
+      "y": 989.5,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-02-native-赤ちゃん-A・B側",
+      "diagramId": "ariake-floor-02-native",
+      "purpose": "赤ちゃん",
+      "area": "A・B側",
+      "label": "2F・A・B側",
+      "memberIds": [
+        "ariake-2f-babycare-room-02"
+      ],
+      "x": 441.5,
+      "y": 972.5,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-public-1f-赤ちゃん-サブアリーナ・レストラン側",
+      "diagramId": "ariake-public-1f",
+      "purpose": "赤ちゃん",
+      "area": "サブアリーナ・レストラン側",
+      "label": "1F・サブアリーナ・レストラン側",
+      "memberIds": [
+        "ariake-1f-babycare-room-01"
+      ],
+      "x": 2654.5,
+      "y": 667.5,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-public-1f-トイレ-サブアリーナ・レストラン側",
+      "diagramId": "ariake-public-1f",
+      "purpose": "トイレ",
+      "area": "サブアリーナ・レストラン側",
+      "label": "1F・サブアリーナ・レストラン側",
+      "memberIds": [
+        "ariake-1f-toilet-women-01",
+        "ariake-1f-toilet-men-01",
+        "ariake-1f-toilet-accessible-01"
+      ],
+      "x": 2771.6666666666665,
+      "y": 700.3333333333334,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-public-1f-飲食-サブアリーナ・レストラン側",
+      "diagramId": "ariake-public-1f",
+      "purpose": "飲食",
+      "area": "サブアリーナ・レストラン側",
+      "label": "1F・サブアリーナ・レストラン側",
+      "memberIds": [
+        "ariake-1f-vending-01"
+      ],
+      "x": 2905.0,
+      "y": 705.0,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-public-1f-案内-サブアリーナ・レストラン側",
+      "diagramId": "ariake-public-1f",
+      "purpose": "案内",
+      "area": "サブアリーナ・レストラン側",
+      "label": "1F・サブアリーナ・レストラン側",
+      "memberIds": [
+        "ariake-1f-elevator-01"
+      ],
+      "x": 2654.0,
+      "y": 756.0,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-public-1f-AED-サブアリーナ・レストラン側",
+      "diagramId": "ariake-public-1f",
+      "purpose": "AED",
+      "area": "サブアリーナ・レストラン側",
+      "label": "1F・サブアリーナ・レストラン側",
+      "memberIds": [
+        "ariake-1f-aed-01",
+        "ariake-1f-aed-03"
+      ],
+      "x": 3012.25,
+      "y": 1503.0,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-01-native-トイレ-メインアリーナ側・上",
+      "diagramId": "ariake-floor-01-native",
+      "purpose": "トイレ",
+      "area": "メインアリーナ側・上",
+      "label": "1F・メインアリーナ側・上",
+      "memberIds": [
+        "ariake-1f-toilet-mixed-01",
+        "ariake-1f-toilet-mixed-02",
+        "ariake-1f-toilet-accessible-02",
+        "ariake-1f-toilet-accessible-03",
+        "ariake-1f-toilet-women-02"
+      ],
+      "x": 2167.5,
+      "y": 1209.2,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-01-native-案内-メインアリーナ側・上",
+      "diagramId": "ariake-floor-01-native",
+      "purpose": "案内",
+      "area": "メインアリーナ側・上",
+      "label": "1F・メインアリーナ側・上",
+      "memberIds": [
+        "ariake-1f-escalator-01"
+      ],
+      "x": 2424.5,
+      "y": 1237.5,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-01-native-飲食-メインアリーナ側・上",
+      "diagramId": "ariake-floor-01-native",
+      "purpose": "飲食",
+      "area": "メインアリーナ側・上",
+      "label": "1F・メインアリーナ側・上",
+      "memberIds": [
+        "ariake-1f-vending-02"
+      ],
+      "x": 2512.0,
+      "y": 1404.0,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-01-native-AED-メインアリーナ側・上",
+      "diagramId": "ariake-floor-01-native",
+      "purpose": "AED",
+      "area": "メインアリーナ側・上",
+      "label": "1F・メインアリーナ側・上",
+      "memberIds": [
+        "ariake-1f-aed-02"
+      ],
+      "x": 2414.5,
+      "y": 1450.5,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-01-native-案内-メインアリーナ側・下",
+      "diagramId": "ariake-floor-01-native",
+      "purpose": "案内",
+      "area": "メインアリーナ側・下",
+      "label": "1F・メインアリーナ側・下",
+      "memberIds": [
+        "ariake-1f-elevator-02",
+        "ariake-1f-escalator-02",
+        "ariake-1f-first-aid-01"
+      ],
+      "x": 2246.8333333333335,
+      "y": 1913.3333333333333,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-01-native-飲食-メインアリーナ側・下",
+      "diagramId": "ariake-floor-01-native",
+      "purpose": "飲食",
+      "area": "メインアリーナ側・下",
+      "label": "1F・メインアリーナ側・下",
+      "memberIds": [
+        "ariake-1f-vending-03"
+      ],
+      "x": 2512.0,
+      "y": 1762.0,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-01-native-トイレ-メインアリーナ側・下",
+      "diagramId": "ariake-floor-01-native",
+      "purpose": "トイレ",
+      "area": "メインアリーナ側・下",
+      "label": "1F・メインアリーナ側・下",
+      "memberIds": [
+        "ariake-1f-toilet-men-02",
+        "ariake-1f-toilet-accessible-04",
+        "ariake-1f-toilet-accessible-05"
+      ],
+      "x": 2163.0,
+      "y": 1914.8333333333333,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-03-native-飲食-C・D側",
+      "diagramId": "ariake-floor-03-native",
+      "purpose": "飲食",
+      "area": "C・D側",
+      "label": "3F・C・D側",
+      "memberIds": [
+        "ariake-3f-vending-01",
+        "ariake-3f-shop-01"
+      ],
+      "x": 2204.0,
+      "y": 626.0,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-03-native-飲食-A・D側",
+      "diagramId": "ariake-floor-03-native",
+      "purpose": "飲食",
+      "area": "A・D側",
+      "label": "3F・A・D側",
+      "memberIds": [
+        "ariake-3f-vending-02"
+      ],
+      "x": 820.0,
+      "y": 455.0,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-03-native-案内-A・D側",
+      "diagramId": "ariake-floor-03-native",
+      "purpose": "案内",
+      "area": "A・D側",
+      "label": "3F・A・D側",
+      "memberIds": [
+        "ariake-3f-elevator-01"
+      ],
+      "x": 590.5,
+      "y": 515.0,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-03-native-トイレ-A・D側",
+      "diagramId": "ariake-floor-03-native",
+      "purpose": "トイレ",
+      "area": "A・D側",
+      "label": "3F・A・D側",
+      "memberIds": [
+        "ariake-3f-toilet-accessible-01",
+        "ariake-3f-toilet-women-01",
+        "ariake-3f-toilet-men-02",
+        "ariake-3f-toilet-mixed-02",
+        "ariake-3f-toilet-men-05"
+      ],
+      "x": 884.9,
+      "y": 698.2,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-03-native-トイレ-C・D側",
+      "diagramId": "ariake-floor-03-native",
+      "purpose": "トイレ",
+      "area": "C・D側",
+      "label": "3F・C・D側",
+      "memberIds": [
+        "ariake-3f-toilet-mixed-01",
+        "ariake-3f-toilet-men-01",
+        "ariake-3f-toilet-accessible-02",
+        "ariake-3f-toilet-men-03",
+        "ariake-3f-toilet-men-04",
+        "ariake-3f-toilet-women-02"
+      ],
+      "x": 1982.4166666666667,
+      "y": 780.5833333333334,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-03-native-赤ちゃん-C・D側",
+      "diagramId": "ariake-floor-03-native",
+      "purpose": "赤ちゃん",
+      "area": "C・D側",
+      "label": "3F・C・D側",
+      "memberIds": [
+        "ariake-3f-babycare-room-01"
+      ],
+      "x": 2172.5,
+      "y": 664.0,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-03-native-AED-C・D側",
+      "diagramId": "ariake-floor-03-native",
+      "purpose": "AED",
+      "area": "C・D側",
+      "label": "3F・C・D側",
+      "memberIds": [
+        "ariake-3f-aed-01"
+      ],
+      "x": 2420.0,
+      "y": 1287.5,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-03-native-AED-A・B側",
+      "diagramId": "ariake-floor-03-native",
+      "purpose": "AED",
+      "area": "A・B側",
+      "label": "3F・A・B側",
+      "memberIds": [
+        "ariake-3f-aed-02"
+      ],
+      "x": 509.5,
+      "y": 1399.5,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-03-native-トイレ-B・C側",
+      "diagramId": "ariake-floor-03-native",
+      "purpose": "トイレ",
+      "area": "B・C側",
+      "label": "3F・B・C側",
+      "memberIds": [
+        "ariake-3f-toilet-women-03",
+        "ariake-3f-toilet-women-04",
+        "ariake-3f-toilet-accessible-03",
+        "ariake-3f-toilet-mixed-04",
+        "ariake-3f-toilet-men-07"
+      ],
+      "x": 2179.7,
+      "y": 1833.9,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-03-native-トイレ-A・B側",
+      "diagramId": "ariake-floor-03-native",
+      "purpose": "トイレ",
+      "area": "A・B側",
+      "label": "3F・A・B側",
+      "memberIds": [
+        "ariake-3f-toilet-women-05",
+        "ariake-3f-toilet-mixed-03",
+        "ariake-3f-toilet-men-06"
+      ],
+      "x": 785.6666666666666,
+      "y": 1906.5,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-03-native-飲食-B・C側",
+      "diagramId": "ariake-floor-03-native",
+      "purpose": "飲食",
+      "area": "B・C側",
+      "label": "3F・B・C側",
+      "memberIds": [
+        "ariake-3f-shop-02",
+        "ariake-3f-vending-03"
+      ],
+      "x": 2204.0,
+      "y": 2061.0,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-03-native-赤ちゃん-A・B側",
+      "diagramId": "ariake-floor-03-native",
+      "purpose": "赤ちゃん",
+      "area": "A・B側",
+      "label": "3F・A・B側",
+      "memberIds": [
+        "ariake-3f-babycare-room-02"
+      ],
+      "x": 754.5,
+      "y": 1976.0,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-03-native-案内-B・C側",
+      "diagramId": "ariake-floor-03-native",
+      "purpose": "案内",
+      "area": "B・C側",
+      "label": "3F・B・C側",
+      "memberIds": [
+        "ariake-3f-elevator-02"
+      ],
+      "x": 2339.5,
+      "y": 2173.0,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-03-native-飲食-A・B側",
+      "diagramId": "ariake-floor-03-native",
+      "purpose": "飲食",
+      "area": "A・B側",
+      "label": "3F・A・B側",
+      "memberIds": [
+        "ariake-3f-vending-04"
+      ],
+      "x": 821.0,
+      "y": 2234.0,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-04-native-案内-A・D側",
+      "diagramId": "ariake-floor-04-native",
+      "purpose": "案内",
+      "area": "A・D側",
+      "label": "4F・A・D側",
+      "memberIds": [
+        "ariake-4f-elevator-01"
+      ],
+      "x": 1011.5,
+      "y": 751.5,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-04-native-トイレ-A・D側",
+      "diagramId": "ariake-floor-04-native",
+      "purpose": "トイレ",
+      "area": "A・D側",
+      "label": "4F・A・D側",
+      "memberIds": [
+        "ariake-4f-toilet-accessible-01"
+      ],
+      "x": 1129.5,
+      "y": 839.0,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-04-native-AED-C・D側",
+      "diagramId": "ariake-floor-04-native",
+      "purpose": "AED",
+      "area": "C・D側",
+      "label": "4F・C・D側",
+      "memberIds": [
+        "ariake-4f-aed-01"
+      ],
+      "x": 2234.5,
+      "y": 1024.5,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-04-native-AED-A・B側",
+      "diagramId": "ariake-floor-04-native",
+      "purpose": "AED",
+      "area": "A・B側",
+      "label": "4F・A・B側",
+      "memberIds": [
+        "ariake-4f-aed-02"
+      ],
+      "x": 1081.5,
+      "y": 1712.5,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-04-native-トイレ-B・C側",
+      "diagramId": "ariake-floor-04-native",
+      "purpose": "トイレ",
+      "area": "B・C側",
+      "label": "4F・B・C側",
+      "memberIds": [
+        "ariake-4f-toilet-accessible-02"
+      ],
+      "x": 2188.0,
+      "y": 1899.0,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-floor-04-native-案内-B・C側",
+      "diagramId": "ariake-floor-04-native",
+      "purpose": "案内",
+      "area": "B・C側",
+      "label": "4F・B・C側",
+      "memberIds": [
+        "ariake-4f-elevator-02"
+      ],
+      "x": 2305.5,
+      "y": 1986.5,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-shintoyosu-concourse-荷物-新豊洲駅 改札外",
+      "diagramId": "ariake-shintoyosu-concourse",
+      "purpose": "荷物",
+      "area": "新豊洲駅 改札外",
+      "label": "改札階・新豊洲駅 改札外",
+      "memberIds": [
+        "ariake-shintoyosu-lockers",
+        "ariake-shintoyosu-lockers-2"
+      ],
+      "x": 609.0,
+      "y": 539.5,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-tennis-concourse-荷物-有明テニスの森駅 改札外",
+      "diagramId": "ariake-tennis-concourse",
+      "purpose": "荷物",
+      "area": "有明テニスの森駅 改札外",
+      "label": "改札階・有明テニスの森駅 改札外",
+      "memberIds": [
+        "ariake-tennis-lockers"
+      ],
+      "x": 650.0,
+      "y": 543.0,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-shintoyosu-concourse-荷物-新豊洲駅 改札内",
+      "diagramId": "ariake-shintoyosu-concourse",
+      "purpose": "荷物",
+      "area": "新豊洲駅 改札内",
+      "label": "改札階・新豊洲駅 改札内",
+      "memberIds": [
+        "ariake-shintoyosu-lockers-paid"
+      ],
+      "x": 830.0,
+      "y": 504.0,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-shintoyosu-concourse-トイレ-新豊洲駅 改札内",
+      "diagramId": "ariake-shintoyosu-concourse",
+      "purpose": "トイレ",
+      "area": "新豊洲駅 改札内",
+      "label": "改札階・新豊洲駅 改札内",
+      "memberIds": [
+        "ariake-shintoyosu-toilet",
+        "ariake-shintoyosu-accessible"
+      ],
+      "x": 979.0,
+      "y": 398.0,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-shintoyosu-concourse-AED-新豊洲駅 改札付近",
+      "diagramId": "ariake-shintoyosu-concourse",
+      "purpose": "AED",
+      "area": "新豊洲駅 改札付近",
+      "label": "改札階・新豊洲駅 改札付近",
+      "memberIds": [
+        "ariake-shintoyosu-aed"
+      ],
+      "x": 790.0,
+      "y": 448.0,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-shintoyosu-concourse-案内-新豊洲駅 改札付近",
+      "diagramId": "ariake-shintoyosu-concourse",
+      "purpose": "案内",
+      "area": "新豊洲駅 改札付近",
+      "label": "改札階・新豊洲駅 改札付近",
+      "memberIds": [
+        "ariake-shintoyosu-info"
+      ],
+      "x": 754.0,
+      "y": 457.0,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-tennis-concourse-トイレ-有明テニスの森駅 改札内",
+      "diagramId": "ariake-tennis-concourse",
+      "purpose": "トイレ",
+      "area": "有明テニスの森駅 改札内",
+      "label": "改札階・有明テニスの森駅 改札内",
+      "memberIds": [
+        "ariake-tennis-toilet",
+        "ariake-tennis-accessible"
+      ],
+      "x": 979.5,
+      "y": 390.5,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-tennis-concourse-AED-有明テニスの森駅 改札付近",
+      "diagramId": "ariake-tennis-concourse",
+      "purpose": "AED",
+      "area": "有明テニスの森駅 改札付近",
+      "label": "改札階・有明テニスの森駅 改札付近",
+      "memberIds": [
+        "ariake-tennis-aed"
+      ],
+      "x": 752.0,
+      "y": 452.0,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ariake-tennis-concourse-案内-有明テニスの森駅 改札付近",
+      "diagramId": "ariake-tennis-concourse",
+      "purpose": "案内",
+      "area": "有明テニスの森駅 改札付近",
+      "label": "改札階・有明テニスの森駅 改札付近",
+      "memberIds": [
+        "ariake-tennis-info"
+      ],
+      "x": 727.0,
+      "y": 461.0,
+      "boundary": "同じ階・同じ側の固定区域。改札内外・別棟・入場境界を越えない。",
+      "visualReview": "source-checked"
+    }
+  ],
+  "meta": {
+    "ariake-2f-elevator-01": {
+      "name": "エレベーター",
+      "location": "A・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "A・D側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-aed-01": {
+      "name": "AED",
+      "location": "A・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "A・D側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-toilet-accessible-01": {
+      "name": "バリアフリートイレ",
+      "location": "A・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "A・D側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-toilet-accessible-02": {
+      "name": "バリアフリートイレ",
+      "location": "C・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "C・D側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-toilet-accessible-03": {
+      "name": "バリアフリートイレ",
+      "location": "A・D側",
+      "detail": "このエリアの設備：カームダウン・クールダウン・オストメイト・介助用ベッド。各部屋の案内表示をご確認ください。",
+      "area": "A・D側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-toilet-mixed-01": {
+      "name": "男女共用トイレ",
+      "location": "A・D側",
+      "detail": "このエリアの設備：カームダウン・クールダウン・オストメイト・介助用ベッド。各部屋の案内表示をご確認ください。",
+      "area": "A・D側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-toilet-mixed-02": {
+      "name": "男女共用トイレ",
+      "location": "C・D側",
+      "detail": "このエリアの設備：ベビーケアルーム・オストメイト・着替え台・ベビーチェア・おむつ交換台。各部屋の案内表示をご確認ください。",
+      "area": "C・D側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-babycare-room-01": {
+      "name": "ベビーケアルーム",
+      "location": "C・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "C・D側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-toilet-women-01": {
+      "name": "女性トイレ",
+      "location": "A・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "A・D側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-toilet-men-01": {
+      "name": "男性トイレ",
+      "location": "C・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "C・D側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-shop-01": {
+      "name": "売店",
+      "location": "A・D側",
+      "detail": "軽食・飲み物の売店。営業は公演によって変わります。",
+      "area": "A・D側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-shop-02": {
+      "name": "売店",
+      "location": "C・D側",
+      "detail": "軽食・飲み物の売店。営業は公演によって変わります。",
+      "area": "C・D側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-vending-01": {
+      "name": "自動販売機",
+      "location": "C・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "C・D側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-elevator-02": {
+      "name": "エレベーター",
+      "location": "C・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "C・D側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-toilet-men-02": {
+      "name": "男性トイレ",
+      "location": "A・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "A・D側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-toilet-women-02": {
+      "name": "女性トイレ",
+      "location": "C・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "C・D側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-escalator-01": {
+      "name": "エスカレーター",
+      "location": "C・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "C・D側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-cafe-01": {
+      "name": "飲食コーナー",
+      "location": "A・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "A・D側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-toilet-accessible-04": {
+      "name": "バリアフリートイレ",
+      "location": "A・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "A・D側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-shop-03": {
+      "name": "売店",
+      "location": "A・D側",
+      "detail": "軽食・飲み物の売店。営業は公演によって変わります。",
+      "area": "A・D側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-toilet-women-03": {
+      "name": "女性トイレ",
+      "location": "A・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "A・D側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-elevator-03": {
+      "name": "エレベーター",
+      "location": "B・C側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "B・C側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-escalator-02": {
+      "name": "エスカレーター",
+      "location": "B・C側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "B・C側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-toilet-men-03": {
+      "name": "男性トイレ",
+      "location": "B・C側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "B・C側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-toilet-women-04": {
+      "name": "女性トイレ",
+      "location": "B・C側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "B・C側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-toilet-men-04": {
+      "name": "男性トイレ",
+      "location": "B・C側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "B・C側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-locker-01": {
+      "name": "北側メインエントランス コインロッカー",
+      "location": "2F 北側メインエントランス",
+      "detail": "91個（大8・中8・小75）。大700円・中500円・小400円。現金（紙幣は1,000円札のみ）・交通系IC対応。両替機なし。幅35.2×奥行67.8cm、高さは大87.2・中51.2・小32.5cm。",
+      "area": "北側メインエントランス",
+      "accessCondition": "入場前の利用可否は公演案内をご確認ください。",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-locker-02": {
+      "name": "南側ロッカールーム コインロッカー",
+      "location": "2F 南側ロッカールーム",
+      "detail": "54個（大6・中6・小42）。大700円・中500円・小400円。現金（紙幣は1,000円札のみ）・交通系IC対応。両替機なし。幅35.2×奥行67.8cm、高さは大87.2・中51.2・小32.5cm。",
+      "area": "南側ロッカールーム",
+      "accessCondition": "入場前の利用可否は公演案内をご確認ください。",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-toilet-accessible-05": {
+      "name": "バリアフリートイレ",
+      "location": "B・C側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "B・C側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-toilet-accessible-06": {
+      "name": "バリアフリートイレ",
+      "location": "B・C側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "B・C側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-aed-02": {
+      "name": "AED",
+      "location": "A・B側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "A・B側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-vending-02": {
+      "name": "自動販売機",
+      "location": "B・C側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "B・C側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-shop-04": {
+      "name": "売店",
+      "location": "A・B側",
+      "detail": "軽食・飲み物の売店。営業は公演によって変わります。",
+      "area": "A・B側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-shop-05": {
+      "name": "売店",
+      "location": "B・C側",
+      "detail": "軽食・飲み物の売店。営業は公演によって変わります。",
+      "area": "B・C側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-toilet-mixed-03": {
+      "name": "男女共用トイレ",
+      "location": "A・B側",
+      "detail": "このエリアの設備：ベビーケアルーム・オストメイト・着替え台・ベビーチェア・おむつ交換台。各部屋の案内表示をご確認ください。",
+      "area": "A・B側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-babycare-room-02": {
+      "name": "ベビーケアルーム",
+      "location": "A・B側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "A・B側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-toilet-accessible-07": {
+      "name": "バリアフリートイレ",
+      "location": "B・C側",
+      "detail": "このエリアの設備：カームダウン・クールダウン・オストメイト・介助用ベッド。各部屋の案内表示をご確認ください。",
+      "area": "B・C側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-toilet-mixed-04": {
+      "name": "男女共用トイレ",
+      "location": "B・C側",
+      "detail": "このエリアの設備：カームダウン・クールダウン・オストメイト・介助用ベッド。各部屋の案内表示をご確認ください。",
+      "area": "B・C側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-toilet-women-05": {
+      "name": "女性トイレ",
+      "location": "A・B側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "A・B側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-toilet-men-05": {
+      "name": "男性トイレ",
+      "location": "B・C側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "B・C側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-toilet-accessible-08": {
+      "name": "バリアフリートイレ",
+      "location": "A・B側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "A・B側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-toilet-accessible-09": {
+      "name": "バリアフリートイレ",
+      "location": "B・C側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "B・C側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-aed-03": {
+      "name": "AED",
+      "location": "A・B側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "A・B側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-2f-elevator-04": {
+      "name": "エレベーター",
+      "location": "B・C側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "B・C側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-1f-babycare-room-01": {
+      "name": "ベビーケアルーム",
+      "location": "サブアリーナ・レストラン側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "サブアリーナ・レストラン側",
+      "accessCondition": "サブアリーナ・レストラン側。利用できる区域は当日の案内をご確認ください。",
+      "url": "https://ariake-arena.tokyo/floor/",
+      "outsideViewIds": [
+        "public"
+      ]
+    },
+    "ariake-1f-toilet-women-01": {
+      "name": "女性トイレ",
+      "location": "サブアリーナ・レストラン側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "サブアリーナ・レストラン側",
+      "accessCondition": "サブアリーナ・レストラン側。利用できる区域は当日の案内をご確認ください。",
+      "url": "https://ariake-arena.tokyo/floor/",
+      "outsideViewIds": [
+        "public"
+      ]
+    },
+    "ariake-1f-toilet-men-01": {
+      "name": "男性トイレ",
+      "location": "サブアリーナ・レストラン側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "サブアリーナ・レストラン側",
+      "accessCondition": "サブアリーナ・レストラン側。利用できる区域は当日の案内をご確認ください。",
+      "url": "https://ariake-arena.tokyo/floor/",
+      "outsideViewIds": [
+        "public"
+      ]
+    },
+    "ariake-1f-vending-01": {
+      "name": "自動販売機",
+      "location": "サブアリーナ・レストラン側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "サブアリーナ・レストラン側",
+      "accessCondition": "サブアリーナ・レストラン側。利用できる区域は当日の案内をご確認ください。",
+      "url": "https://ariake-arena.tokyo/floor/",
+      "outsideViewIds": [
+        "public"
+      ]
+    },
+    "ariake-1f-elevator-01": {
+      "name": "エレベーター",
+      "location": "サブアリーナ・レストラン側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "サブアリーナ・レストラン側",
+      "accessCondition": "サブアリーナ・レストラン側。利用できる区域は当日の案内をご確認ください。",
+      "url": "https://ariake-arena.tokyo/floor/",
+      "outsideViewIds": [
+        "public"
+      ]
+    },
+    "ariake-1f-toilet-accessible-01": {
+      "name": "バリアフリートイレ",
+      "location": "サブアリーナ・レストラン側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "サブアリーナ・レストラン側",
+      "accessCondition": "サブアリーナ・レストラン側。利用できる区域は当日の案内をご確認ください。",
+      "url": "https://ariake-arena.tokyo/floor/",
+      "outsideViewIds": [
+        "public"
+      ]
+    },
+    "ariake-1f-aed-01": {
+      "name": "AED",
+      "location": "サブアリーナ・レストラン側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "サブアリーナ・レストラン側",
+      "accessCondition": "サブアリーナ・レストラン側。利用できる区域は当日の案内をご確認ください。",
+      "url": "https://ariake-arena.tokyo/floor/",
+      "outsideViewIds": [
+        "public"
+      ]
+    },
+    "ariake-1f-toilet-mixed-01": {
+      "name": "男女共用トイレ",
+      "location": "メインアリーナ側・上",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "メインアリーナ側・上",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-1f-toilet-mixed-02": {
+      "name": "男女共用トイレ",
+      "location": "メインアリーナ側・上",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "メインアリーナ側・上",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-1f-toilet-accessible-02": {
+      "name": "バリアフリートイレ",
+      "location": "メインアリーナ側・上",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "メインアリーナ側・上",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-1f-escalator-01": {
+      "name": "エスカレーター",
+      "location": "メインアリーナ側・上",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "メインアリーナ側・上",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-1f-toilet-accessible-03": {
+      "name": "バリアフリートイレ",
+      "location": "メインアリーナ側・上",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "メインアリーナ側・上",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-1f-toilet-women-02": {
+      "name": "女性トイレ",
+      "location": "メインアリーナ側・上",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "メインアリーナ側・上",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-1f-vending-02": {
+      "name": "自動販売機",
+      "location": "メインアリーナ側・上",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "メインアリーナ側・上",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-1f-aed-02": {
+      "name": "AED",
+      "location": "メインアリーナ側・上",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "メインアリーナ側・上",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-1f-elevator-02": {
+      "name": "エレベーター",
+      "location": "メインアリーナ側・下",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "メインアリーナ側・下",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-1f-vending-03": {
+      "name": "自動販売機",
+      "location": "メインアリーナ側・下",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "メインアリーナ側・下",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-1f-toilet-men-02": {
+      "name": "男性トイレ",
+      "location": "メインアリーナ側・下",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "メインアリーナ側・下",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-1f-toilet-accessible-04": {
+      "name": "バリアフリートイレ",
+      "location": "メインアリーナ側・下",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "メインアリーナ側・下",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-1f-escalator-02": {
+      "name": "エスカレーター",
+      "location": "メインアリーナ側・下",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "メインアリーナ側・下",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-1f-toilet-accessible-05": {
+      "name": "バリアフリートイレ",
+      "location": "メインアリーナ側・下",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "メインアリーナ側・下",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-1f-aed-03": {
+      "name": "AED",
+      "location": "サブアリーナ・レストラン側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "サブアリーナ・レストラン側",
+      "accessCondition": "サブアリーナ・レストラン側。利用できる区域は当日の案内をご確認ください。",
+      "url": "https://ariake-arena.tokyo/floor/",
+      "outsideViewIds": [
+        "public"
+      ]
+    },
+    "ariake-1f-first-aid-01": {
+      "name": "救護室",
+      "location": "メインアリーナ側・下",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "メインアリーナ側・下",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-3f-vending-01": {
+      "name": "自動販売機",
+      "location": "C・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "C・D側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-3f-vending-02": {
+      "name": "自動販売機",
+      "location": "A・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "A・D側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-3f-elevator-01": {
+      "name": "エレベーター",
+      "location": "A・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "A・D側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-3f-toilet-accessible-01": {
+      "name": "バリアフリートイレ",
+      "location": "A・D側",
+      "detail": "このエリアの設備：カームダウン・クールダウン・介助用ベッド。各部屋の案内表示をご確認ください。",
+      "area": "A・D側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-3f-toilet-mixed-01": {
+      "name": "男女共用トイレ",
+      "location": "C・D側",
+      "detail": "このエリアの設備：ベビーケアルーム・着替え台・ベビーチェア。各部屋の案内表示をご確認ください。",
+      "area": "C・D側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-3f-toilet-women-01": {
+      "name": "女性トイレ",
+      "location": "A・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "A・D側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-3f-toilet-men-01": {
+      "name": "男性トイレ",
+      "location": "C・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "C・D側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-3f-toilet-accessible-02": {
+      "name": "バリアフリートイレ",
+      "location": "C・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "C・D側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-3f-toilet-men-02": {
+      "name": "男性トイレ",
+      "location": "A・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "A・D側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-3f-toilet-men-03": {
+      "name": "男性トイレ",
+      "location": "C・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "C・D側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-3f-toilet-mixed-02": {
+      "name": "男女共用トイレ",
+      "location": "A・D側",
+      "detail": "このエリアの設備：カームダウン・クールダウン・介助用ベッド。各部屋の案内表示をご確認ください。",
+      "area": "A・D側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-3f-babycare-room-01": {
+      "name": "ベビーケアルーム",
+      "location": "C・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "C・D側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-3f-shop-01": {
+      "name": "売店",
+      "location": "C・D側",
+      "detail": "軽食・飲み物の売店。営業は公演によって変わります。",
+      "area": "C・D側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-3f-toilet-men-04": {
+      "name": "男性トイレ",
+      "location": "C・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "C・D側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-3f-toilet-men-05": {
+      "name": "男性トイレ",
+      "location": "A・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "A・D側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-3f-toilet-women-02": {
+      "name": "女性トイレ",
+      "location": "C・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "C・D側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-3f-aed-01": {
+      "name": "AED",
+      "location": "C・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "C・D側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-3f-aed-02": {
+      "name": "AED",
+      "location": "A・B側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "A・B側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-3f-toilet-women-03": {
+      "name": "女性トイレ",
+      "location": "B・C側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "B・C側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-3f-toilet-women-04": {
+      "name": "女性トイレ",
+      "location": "B・C側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "B・C側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-3f-toilet-women-05": {
+      "name": "女性トイレ",
+      "location": "A・B側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "A・B側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-3f-shop-02": {
+      "name": "売店",
+      "location": "B・C側",
+      "detail": "軽食・飲み物の売店。営業は公演によって変わります。",
+      "area": "B・C側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-3f-toilet-mixed-03": {
+      "name": "男女共用トイレ",
+      "location": "A・B側",
+      "detail": "このエリアの設備：ベビーケアルーム・着替え台・ベビーチェア。各部屋の案内表示をご確認ください。",
+      "area": "A・B側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-3f-toilet-accessible-03": {
+      "name": "バリアフリートイレ",
+      "location": "B・C側",
+      "detail": "このエリアの設備：カームダウン・クールダウン・介助用ベッド。各部屋の案内表示をご確認ください。",
+      "area": "B・C側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-3f-babycare-room-02": {
+      "name": "ベビーケアルーム",
+      "location": "A・B側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "A・B側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-3f-toilet-mixed-04": {
+      "name": "男女共用トイレ",
+      "location": "B・C側",
+      "detail": "このエリアの設備：カームダウン・クールダウン・介助用ベッド。各部屋の案内表示をご確認ください。",
+      "area": "B・C側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-3f-toilet-men-06": {
+      "name": "男性トイレ",
+      "location": "A・B側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "A・B側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-3f-toilet-men-07": {
+      "name": "男性トイレ",
+      "location": "B・C側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "B・C側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-3f-elevator-02": {
+      "name": "エレベーター",
+      "location": "B・C側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "B・C側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-3f-vending-03": {
+      "name": "自動販売機",
+      "location": "B・C側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "B・C側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-3f-vending-04": {
+      "name": "自動販売機",
+      "location": "A・B側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "A・B側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-4f-elevator-01": {
+      "name": "エレベーター",
+      "location": "A・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "A・D側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-4f-toilet-accessible-01": {
+      "name": "バリアフリートイレ",
+      "location": "A・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "A・D側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-4f-aed-01": {
+      "name": "AED",
+      "location": "C・D側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "C・D側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-4f-aed-02": {
+      "name": "AED",
+      "location": "A・B側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "A・B側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-4f-toilet-accessible-02": {
+      "name": "バリアフリートイレ",
+      "location": "B・C側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "B・C側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-4f-elevator-02": {
+      "name": "エレベーター",
+      "location": "B・C側",
+      "detail": "当日の利用案内をご確認ください。",
+      "area": "B・C側",
+      "accessCondition": "入場・利用条件は公演案内を確認",
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-shintoyosu-lockers": {
+      "name": "新豊洲駅 改札外ロッカー",
+      "location": "新豊洲駅 改札外",
+      "detail": "コインロッカー。サイズ・料金・空き状況は駅の案内をご確認ください。",
+      "area": "新豊洲駅 改札外",
+      "accessCondition": "改札の外から利用できます。",
+      "outsideViewIds": [
+        "shintoyosu",
+        "nearby"
+      ],
+      "url": "https://www.yurikamome.co.jp/station-timetable/station_jp_Part15.pdf"
+    },
+    "ariake-tennis-lockers": {
+      "name": "有明テニスの森駅 改札外ロッカー",
+      "location": "有明テニスの森駅 改札外",
+      "detail": "コインロッカー。サイズ・料金・空き状況は駅の案内をご確認ください。",
+      "area": "有明テニスの森駅 改札外",
+      "accessCondition": "改札の外から利用できます。",
+      "outsideViewIds": [
+        "tennis",
+        "nearby"
+      ],
+      "url": "https://www.yurikamome.co.jp/station-timetable/station_jp_Part13.pdf"
+    },
+    "ariake-kokusai-lockers": {
+      "name": "国際展示場駅 コインロッカー",
+      "location": "国際展示場駅",
+      "detail": "改札外・キャッシュレス。一部時間制。小124・中55・大31（2026年9月1日時点の駅案内）。料金・空きは駅の案内をご確認ください。",
+      "area": "国際展示場駅",
+      "accessCondition": "改札外で利用できます。",
+      "url": "https://www.twr.co.jp/route/tabid/110/Default.aspx",
+      "outsideViewIds": [
+        "nearby"
+      ]
+    },
+    "ariake-moonriver": {
+      "name": "ARIAKE ARENA DINING MOON RIVER",
+      "location": "サブアリーナ側1F",
+      "detail": "レストラン。営業日・時間は店舗の案内をご確認ください。",
+      "area": "サブアリーナ側1F",
+      "accessCondition": "施設の営業時間をご確認ください。",
+      "outsideViewIds": [
+        "public",
+        "nearby"
+      ],
+      "url": "https://ariake-arena.tokyo/floor/"
+    },
+    "ariake-shintoyosu-lockers-2": {
+      "name": "新豊洲駅 改札外ロッカー（2か所目）",
+      "location": "新豊洲駅 改札外",
+      "detail": "コインロッカー。サイズ・料金は駅の案内をご確認ください。",
+      "area": "新豊洲駅 改札外",
+      "accessCondition": "改札の外から利用できます。",
+      "outsideViewIds": [
+        "shintoyosu",
+        "nearby"
+      ],
+      "url": "https://www.yurikamome.co.jp/station-timetable/station_jp_Part15.pdf"
+    },
+    "ariake-shintoyosu-lockers-paid": {
+      "name": "新豊洲駅 改札内ロッカー",
+      "location": "新豊洲駅 改札内",
+      "detail": "コインロッカー。サイズ・料金は駅の案内をご確認ください。",
+      "area": "新豊洲駅 改札内",
+      "accessCondition": "改札内。乗車券等での入場が必要です。",
+      "outsideViewIds": [
+        "shintoyosu",
+        "nearby"
+      ],
+      "url": "https://www.yurikamome.co.jp/station-timetable/station_jp_Part15.pdf"
+    },
+    "ariake-shintoyosu-toilet": {
+      "name": "新豊洲駅 男女トイレ",
+      "location": "新豊洲駅 改札内",
+      "detail": "男女トイレの場所を駅構内図で確認できます。",
+      "area": "新豊洲駅 改札内",
+      "accessCondition": "駅の営業・入場条件に従って利用してください。",
+      "outsideViewIds": [
+        "shintoyosu",
+        "nearby"
+      ],
+      "url": "https://www.yurikamome.co.jp/station-timetable/station_jp_Part15.pdf"
+    },
+    "ariake-shintoyosu-accessible": {
+      "name": "新豊洲駅 バリアフリートイレ",
+      "location": "新豊洲駅 改札内",
+      "detail": "バリアフリートイレの場所を駅構内図で確認できます。",
+      "area": "新豊洲駅 改札内",
+      "accessCondition": "駅の営業・入場条件に従って利用してください。",
+      "outsideViewIds": [
+        "shintoyosu",
+        "nearby"
+      ],
+      "url": "https://www.yurikamome.co.jp/station-timetable/station_jp_Part15.pdf"
+    },
+    "ariake-shintoyosu-aed": {
+      "name": "新豊洲駅 AED",
+      "location": "新豊洲駅 改札付近",
+      "detail": "AEDの場所を駅構内図で確認できます。",
+      "area": "新豊洲駅 改札付近",
+      "accessCondition": "駅の営業・入場条件に従って利用してください。",
+      "outsideViewIds": [
+        "shintoyosu",
+        "nearby"
+      ],
+      "url": "https://www.yurikamome.co.jp/station-timetable/station_jp_Part15.pdf"
+    },
+    "ariake-shintoyosu-info": {
+      "name": "新豊洲駅 駅務室",
+      "location": "新豊洲駅 改札付近",
+      "detail": "駅務室の場所を駅構内図で確認できます。",
+      "area": "新豊洲駅 改札付近",
+      "accessCondition": "駅の営業・入場条件に従って利用してください。",
+      "outsideViewIds": [
+        "shintoyosu",
+        "nearby"
+      ],
+      "url": "https://www.yurikamome.co.jp/station-timetable/station_jp_Part15.pdf"
+    },
+    "ariake-tennis-toilet": {
+      "name": "有明テニスの森駅 男女トイレ",
+      "location": "有明テニスの森駅 改札内",
+      "detail": "男女トイレの場所を駅構内図で確認できます。",
+      "area": "有明テニスの森駅 改札内",
+      "accessCondition": "駅の営業・入場条件に従って利用してください。",
+      "outsideViewIds": [
+        "tennis",
+        "nearby"
+      ],
+      "url": "https://www.yurikamome.co.jp/station-timetable/station_jp_Part13.pdf"
+    },
+    "ariake-tennis-accessible": {
+      "name": "有明テニスの森駅 バリアフリートイレ",
+      "location": "有明テニスの森駅 改札内",
+      "detail": "バリアフリートイレの場所を駅構内図で確認できます。",
+      "area": "有明テニスの森駅 改札内",
+      "accessCondition": "駅の営業・入場条件に従って利用してください。",
+      "outsideViewIds": [
+        "tennis",
+        "nearby"
+      ],
+      "url": "https://www.yurikamome.co.jp/station-timetable/station_jp_Part13.pdf"
+    },
+    "ariake-tennis-aed": {
+      "name": "有明テニスの森駅 AED",
+      "location": "有明テニスの森駅 改札付近",
+      "detail": "AEDの場所を駅構内図で確認できます。",
+      "area": "有明テニスの森駅 改札付近",
+      "accessCondition": "駅の営業・入場条件に従って利用してください。",
+      "outsideViewIds": [
+        "tennis",
+        "nearby"
+      ],
+      "url": "https://www.yurikamome.co.jp/station-timetable/station_jp_Part13.pdf"
+    },
+    "ariake-tennis-info": {
+      "name": "有明テニスの森駅 駅務室",
+      "location": "有明テニスの森駅 改札付近",
+      "detail": "駅務室の場所を駅構内図で確認できます。",
+      "area": "有明テニスの森駅 改札付近",
+      "accessCondition": "駅の営業・入場条件に従って利用してください。",
+      "outsideViewIds": [
+        "tennis",
+        "nearby"
+      ],
+      "url": "https://www.yurikamome.co.jp/station-timetable/station_jp_Part13.pdf"
+    },
+    "ariake-garden-lockers-bus": {
+      "name": "有明ガーデン モール1F バスターミナル ロッカー",
+      "location": "有明ガーデン モール1F バスターミナル",
+      "detail": "24時間。大500円・中400円・小300円。幅35×奥行67cm、高さは大87・中52・小32cm。",
+      "area": "有明ガーデン モール1F バスターミナル",
+      "accessCondition": "24時間。施設の休業・変更案内をご確認ください。",
+      "outsideViewIds": [
+        "garden",
+        "nearby"
+      ],
+      "url": "https://ariake.shopping-sumitomo-rd.com/service/facility/"
+    },
+    "ariake-garden-lockers-d": {
+      "name": "有明ガーデン モール5F Dエレベーター横 ロッカー",
+      "location": "有明ガーデン モール5F Dエレベーター横",
+      "detail": "10:00〜23:00。大500円・中400円・小300円。幅35×奥行67cm、高さは大87・中52・小32cm。",
+      "area": "有明ガーデン モール5F Dエレベーター横",
+      "accessCondition": "10:00〜23:00。施設の休業・変更案内をご確認ください。",
+      "outsideViewIds": [
+        "garden",
+        "nearby"
+      ],
+      "url": "https://ariake.shopping-sumitomo-rd.com/service/facility/"
+    },
+    "ariake-garden-lockers-f": {
+      "name": "有明ガーデン モール5F Fエレベーター横 ロッカー",
+      "location": "有明ガーデン モール5F Fエレベーター横",
+      "detail": "10:00〜23:00。大500円・中400円・小300円。幅35×奥行67cm、高さは大87・中52・小32cm。",
+      "area": "有明ガーデン モール5F Fエレベーター横",
+      "accessCondition": "10:00〜23:00。施設の休業・変更案内をご確認ください。",
+      "outsideViewIds": [
+        "garden",
+        "nearby"
+      ],
+      "url": "https://ariake.shopping-sumitomo-rd.com/service/facility/"
+    },
+    "ariake-garden-lockers-hotel": {
+      "name": "有明ガーデン ホテル1F ひさし下 ロッカー",
+      "location": "有明ガーデン ホテル1F ひさし下",
+      "detail": "24時間。大800円・中600円・小400円。幅35×奥行67cm、高さは大87・中52・小32cm。現金非対応。",
+      "area": "有明ガーデン ホテル1F ひさし下",
+      "accessCondition": "24時間。施設の休業・変更案内をご確認ください。",
+      "outsideViewIds": [
+        "garden",
+        "nearby"
+      ],
+      "url": "https://ariake.shopping-sumitomo-rd.com/service/facility/"
+    },
+    "ariake-garden-info": {
+      "name": "有明ガーデン インフォメーション",
+      "location": "有明ガーデン モール2F Cエスカレーター下",
+      "detail": "10:00〜21:00。施設の案内、車いす・ベビーカーの貸出。",
+      "area": "有明ガーデン モール2F Cエスカレーター下",
+      "accessCondition": "施設の営業時間をご確認ください。",
+      "outsideViewIds": [
+        "garden",
+        "nearby"
+      ],
+      "url": "https://ariake.shopping-sumitomo-rd.com/service/facility/"
+    },
+    "ariake-garden-baby-4f": {
+      "name": "有明ガーデン 授乳室",
+      "location": "有明ガーデン モール4F",
+      "detail": "授乳・おむつ交換に使える設備。利用時間は館内の案内をご確認ください。",
+      "area": "有明ガーデン モール4F",
+      "accessCondition": "施設の営業時間をご確認ください。",
+      "outsideViewIds": [
+        "garden",
+        "nearby"
+      ],
+      "url": "https://ariake.shopping-sumitomo-rd.com/service/facility/"
+    },
+    "ariake-garden-baby-5f": {
+      "name": "有明ガーデン 授乳室",
+      "location": "有明ガーデン モール5F",
+      "detail": "授乳・おむつ交換に使える設備。利用時間は館内の案内をご確認ください。",
+      "area": "有明ガーデン モール5F",
+      "accessCondition": "施設の営業時間をご確認ください。",
+      "outsideViewIds": [
+        "garden",
+        "nearby"
+      ],
+      "url": "https://ariake.shopping-sumitomo-rd.com/service/facility/"
+    },
+    "ariake-garden-dining": {
+      "name": "有明ガーデン レストラン・フードコート",
+      "location": "有明ガーデン モール5F",
+      "detail": "食事や飲み物を選べます。店舗ごとの営業日・時間は施設の案内をご確認ください。",
+      "area": "有明ガーデン モール5F",
+      "accessCondition": "施設の営業時間をご確認ください。",
+      "outsideViewIds": [
+        "garden",
+        "nearby"
+      ],
+      "url": "https://ariake.shopping-sumitomo-rd.com/service/facility/"
+    },
+    "ariake-shinonome-lockers": {
+      "name": "東雲駅 改札内ロッカー",
+      "location": "東雲駅 改札内",
+      "detail": "現金対応。公式案内の数量は小14・中3、大型なし（2024年1月1日時点）。幅34.5×奥行57.5cm、高さは小32・中49.2cm。",
+      "area": "東雲駅 改札内",
+      "accessCondition": "改札内。乗車券等での入場が必要です。",
+      "outsideViewIds": [
+        "nearby"
+      ],
+      "url": "https://www.twr.co.jp/route/tabid/108/Default.aspx"
+    }
+  },
+  "sources": [
+    {
+      "id": "floor",
+      "title": "公式フロア案内",
+      "url": "https://ariake-arena.tokyo/floor/",
+      "checkedAt": "2026-10-06",
+      "scope": "公式設備・アクセスの案内",
+      "usage": "facts-only"
+    },
+    {
+      "id": "ariake-access",
+      "title": "公式来場・帰路案内",
+      "url": "https://ariake-arena.tokyo/access/",
+      "checkedAt": "2026-10-06",
+      "scope": "公式設備・アクセスの案内",
+      "usage": "facts-only"
+    },
+    {
+      "id": "floor-01",
+      "title": "1F公式設備図",
+      "url": "https://ariake-arena.tokyo/floor/",
+      "checkedAt": "2026-10-06",
+      "scope": "公式設備・アクセスの案内",
+      "usage": "facts-only"
+    },
+    {
+      "id": "floor-02",
+      "title": "2F公式設備図",
+      "url": "https://ariake-arena.tokyo/floor/",
+      "checkedAt": "2026-10-06",
+      "scope": "公式設備・アクセスの案内",
+      "usage": "facts-only"
+    },
+    {
+      "id": "floor-03",
+      "title": "3F公式設備図",
+      "url": "https://ariake-arena.tokyo/floor/",
+      "checkedAt": "2026-10-06",
+      "scope": "公式設備・アクセスの案内",
+      "usage": "facts-only"
+    },
+    {
+      "id": "floor-04",
+      "title": "4F公式設備図",
+      "url": "https://ariake-arena.tokyo/floor/",
+      "checkedAt": "2026-10-06",
+      "scope": "公式設備・アクセスの案内",
+      "usage": "facts-only"
+    },
+    {
+      "id": "ariake-station-ariake-shintoyosu-lockers",
+      "title": "新豊洲駅ロッカー",
+      "url": "https://www.yurikamome.co.jp/station-timetable/u-15.html",
+      "checkedAt": "2026-10-06",
+      "scope": "公式設備・アクセスの案内",
+      "usage": "facts-only"
+    },
+    {
+      "id": "ariake-station-ariake-tennis-lockers",
+      "title": "有明テニスの森駅ロッカー",
+      "url": "https://www.yurikamome.co.jp/station-timetable/u-13.html",
+      "checkedAt": "2026-10-06",
+      "scope": "公式設備・アクセスの案内",
+      "usage": "facts-only"
+    },
+    {
+      "id": "ariake-station-ariake-kokusai-lockers",
+      "title": "国際展示場駅ロッカー",
+      "url": "https://www.twr.co.jp/route/tabid/110/Default.aspx",
+      "checkedAt": "2026-10-06",
+      "scope": "公式設備・アクセスの案内",
+      "usage": "facts-only"
+    },
+    {
+      "id": "ariake-garden-service",
+      "title": "有明ガーデン 設備案内",
+      "url": "https://ariake.shopping-sumitomo-rd.com/service/facility/",
+      "checkedAt": "2026-10-06",
+      "scope": "4か所のロッカー、料金・営業時間、案内所・授乳室",
+      "usage": "facts-only"
+    },
+    {
+      "id": "ariake-shintoyosu-plan",
+      "title": "新豊洲駅 公式構内図",
+      "url": "https://www.yurikamome.co.jp/station-timetable/station_jp_Part15.pdf",
+      "checkedAt": "2026-10-06",
+      "scope": "改札階のロッカー3位置、改札内外、トイレ、AED、駅務室",
+      "usage": "facts-only"
+    },
+    {
+      "id": "ariake-tennis-plan",
+      "title": "有明テニスの森駅 公式構内図",
+      "url": "https://www.yurikamome.co.jp/station-timetable/station_jp_Part13.pdf",
+      "checkedAt": "2026-10-06",
+      "scope": "改札階のロッカー、トイレ、AED、駅務室",
+      "usage": "facts-only"
+    },
+    {
+      "id": "ariake-shinonome-station",
+      "title": "東雲駅 ロッカー",
+      "url": "https://www.twr.co.jp/route/tabid/108/Default.aspx",
+      "checkedAt": "2026-10-06",
+      "scope": "改札内、現金。数量・サイズの原資料基準日は2024-01-01",
+      "usage": "facts-only"
+    },
+    {
+      "id": "ariake-restaurant",
+      "title": "ARIAKE ARENA DINING MOON RIVER",
+      "url": "https://ariake-arena.tokyo/floor/",
+      "checkedAt": "2026-10-06",
+      "scope": "サブアリーナ側1Fのレストラン",
+      "usage": "facts-only"
+    },
+    {
+      "id": "ariake-access-map",
+      "title": "公式周辺図",
+      "url": "https://ariake-arena.tokyo/access/",
+      "checkedAt": "2026-10-06",
+      "scope": "会場・4駅・有明ガーデンの位置関係。来場/帰路の指定ルートは公式ページへ",
+      "usage": "facts-only"
+    }
+  ],
+  "sourceSymbols": [
+    {
+      "id": "ariake-2f-smart-work-booth-01",
+      "kind": "smart-work-booth",
+      "diagramId": "ariake-floor-02-native",
+      "x": 999.5,
+      "y": 236.5,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-elevator-01",
+      "kind": "elevator",
+      "diagramId": "ariake-floor-02-native",
+      "x": 343.5,
+      "y": 258.5,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-aed-01",
+      "kind": "aed",
+      "diagramId": "ariake-floor-02-native",
+      "x": 693.0,
+      "y": 273.0,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-toilet-accessible-01",
+      "kind": "toilet-accessible",
+      "diagramId": "ariake-floor-02-native",
+      "x": 527.0,
+      "y": 294.0,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-toilet-accessible-02",
+      "kind": "toilet-accessible",
+      "diagramId": "ariake-floor-02-native",
+      "x": 859.5,
+      "y": 294.0,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-toilet-accessible-03",
+      "kind": "toilet-accessible",
+      "diagramId": "ariake-floor-02-native",
+      "x": 428.5,
+      "y": 304.5,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-toilet-mixed-01",
+      "kind": "toilet-mixed",
+      "diagramId": "ariake-floor-02-native",
+      "x": 454.0,
+      "y": 304.5,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-toilet-mixed-02",
+      "kind": "toilet-mixed",
+      "diagramId": "ariake-floor-02-native",
+      "x": 933.5,
+      "y": 304.5,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-babycare-room-01",
+      "kind": "babycare-room",
+      "diagramId": "ariake-floor-02-native",
+      "x": 959.0,
+      "y": 304.5,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-ostomate-01",
+      "kind": "ostomate",
+      "diagramId": "ariake-floor-02-native",
+      "x": 984.5,
+      "y": 304.5,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-toilet-women-01",
+      "kind": "toilet-women",
+      "diagramId": "ariake-floor-02-native",
+      "x": 639.0,
+      "y": 314.5,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-toilet-men-01",
+      "kind": "toilet-men",
+      "diagramId": "ariake-floor-02-native",
+      "x": 747.0,
+      "y": 314.5,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-calm-down-01",
+      "kind": "calm-down",
+      "diagramId": "ariake-floor-02-native",
+      "x": 416.0,
+      "y": 330.0,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-ostomate-02",
+      "kind": "ostomate",
+      "diagramId": "ariake-floor-02-native",
+      "x": 441.0,
+      "y": 330.0,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-diaper-table-01",
+      "kind": "care-bed",
+      "diagramId": "ariake-floor-02-native",
+      "x": 467.0,
+      "y": 330.0,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-changing-board-01",
+      "kind": "changing-board",
+      "diagramId": "ariake-floor-02-native",
+      "x": 933.5,
+      "y": 330.0,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-baby-chair-01",
+      "kind": "baby-chair",
+      "diagramId": "ariake-floor-02-native",
+      "x": 959.0,
+      "y": 330.0,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-care-bed-01",
+      "kind": "diaper-table",
+      "diagramId": "ariake-floor-02-native",
+      "x": 984.5,
+      "y": 330.0,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-shop-01",
+      "kind": "shop",
+      "diagramId": "ariake-floor-02-native",
+      "x": 368.5,
+      "y": 355.5,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-shop-02",
+      "kind": "shop",
+      "diagramId": "ariake-floor-02-native",
+      "x": 1031.0,
+      "y": 357.0,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-vending-01",
+      "kind": "vending",
+      "diagramId": "ariake-floor-02-native",
+      "x": 1113.5,
+      "y": 376.0,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-stairs-01",
+      "kind": "stairs",
+      "diagramId": "ariake-floor-02-native",
+      "x": 408.5,
+      "y": 384.0,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-stairs-02",
+      "kind": "stairs",
+      "diagramId": "ariake-floor-02-native",
+      "x": 992.0,
+      "y": 384.0,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-elevator-02",
+      "kind": "elevator",
+      "diagramId": "ariake-floor-02-native",
+      "x": 1185.5,
+      "y": 418.5,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-stairs-03",
+      "kind": "stairs",
+      "diagramId": "ariake-floor-02-native",
+      "x": 1276.5,
+      "y": 481.5,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-toilet-men-02",
+      "kind": "toilet-men",
+      "diagramId": "ariake-floor-02-native",
+      "x": 377.5,
+      "y": 497.0,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-toilet-women-02",
+      "kind": "toilet-women",
+      "diagramId": "ariake-floor-02-native",
+      "x": 1023.0,
+      "y": 508.0,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-escalator-01",
+      "kind": "escalator",
+      "diagramId": "ariake-floor-02-native",
+      "x": 1117.5,
+      "y": 546.5,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-stairs-04",
+      "kind": "stairs",
+      "diagramId": "ariake-floor-02-native",
+      "x": 1153.5,
+      "y": 546.5,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-cafe-01",
+      "kind": "cafe",
+      "diagramId": "ariake-floor-02-native",
+      "x": 302.5,
+      "y": 547.0,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-toilet-accessible-04",
+      "kind": "toilet-accessible",
+      "diagramId": "ariake-floor-02-native",
+      "x": 377.5,
+      "y": 548.5,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-shop-03",
+      "kind": "shop",
+      "diagramId": "ariake-floor-02-native",
+      "x": 302.5,
+      "y": 573.0,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-toilet-women-03",
+      "kind": "toilet-women",
+      "diagramId": "ariake-floor-02-native",
+      "x": 377.5,
+      "y": 603.5,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-elevator-03",
+      "kind": "elevator",
+      "diagramId": "ariake-floor-02-native",
+      "x": 1021.5,
+      "y": 707.0,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-escalator-02",
+      "kind": "escalator",
+      "diagramId": "ariake-floor-02-native",
+      "x": 1117.5,
+      "y": 752.5,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-stairs-05",
+      "kind": "stairs",
+      "diagramId": "ariake-floor-02-native",
+      "x": 1153.5,
+      "y": 752.5,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-toilet-men-03",
+      "kind": "toilet-men",
+      "diagramId": "ariake-floor-02-native",
+      "x": 1023.0,
+      "y": 758.0,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-toilet-women-04",
+      "kind": "toilet-women",
+      "diagramId": "ariake-floor-02-native",
+      "x": 1202.5,
+      "y": 778.0,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-toilet-men-04",
+      "kind": "toilet-men",
+      "diagramId": "ariake-floor-02-native",
+      "x": 1239.0,
+      "y": 778.0,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-locker-01",
+      "kind": "locker",
+      "diagramId": "ariake-floor-02-native",
+      "x": 387.0,
+      "y": 799.5,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-locker-02",
+      "kind": "locker",
+      "diagramId": "ariake-floor-02-native",
+      "x": 1132.5,
+      "y": 807.5,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-toilet-accessible-05",
+      "kind": "toilet-accessible",
+      "diagramId": "ariake-floor-02-native",
+      "x": 1023.0,
+      "y": 808.0,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-toilet-accessible-06",
+      "kind": "toilet-accessible",
+      "diagramId": "ariake-floor-02-native",
+      "x": 1220.5,
+      "y": 819.0,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-stairs-06",
+      "kind": "stairs",
+      "diagramId": "ariake-floor-02-native",
+      "x": 1276.5,
+      "y": 821.0,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-aed-02",
+      "kind": "aed",
+      "diagramId": "ariake-floor-02-native",
+      "x": 290.5,
+      "y": 906.5,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-stairs-07",
+      "kind": "stairs",
+      "diagramId": "ariake-floor-02-native",
+      "x": 408.5,
+      "y": 918.0,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-stairs-08",
+      "kind": "stairs",
+      "diagramId": "ariake-floor-02-native",
+      "x": 991.0,
+      "y": 918.5,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-vending-02",
+      "kind": "vending",
+      "diagramId": "ariake-floor-02-native",
+      "x": 1112.5,
+      "y": 923.0,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-shop-04",
+      "kind": "shop",
+      "diagramId": "ariake-floor-02-native",
+      "x": 368.5,
+      "y": 944.5,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-shop-05",
+      "kind": "shop",
+      "diagramId": "ariake-floor-02-native",
+      "x": 1030.0,
+      "y": 947.5,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-toilet-mixed-03",
+      "kind": "toilet-mixed",
+      "diagramId": "ariake-floor-02-native",
+      "x": 416.0,
+      "y": 972.5,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-babycare-room-02",
+      "kind": "babycare-room",
+      "diagramId": "ariake-floor-02-native",
+      "x": 441.5,
+      "y": 972.5,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-ostomate-03",
+      "kind": "ostomate",
+      "diagramId": "ariake-floor-02-native",
+      "x": 467.0,
+      "y": 972.5,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-toilet-accessible-07",
+      "kind": "toilet-accessible",
+      "diagramId": "ariake-floor-02-native",
+      "x": 946.5,
+      "y": 972.5,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-toilet-mixed-04",
+      "kind": "toilet-mixed",
+      "diagramId": "ariake-floor-02-native",
+      "x": 972.0,
+      "y": 972.5,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-toilet-women-05",
+      "kind": "toilet-women",
+      "diagramId": "ariake-floor-02-native",
+      "x": 639.0,
+      "y": 987.5,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-toilet-men-05",
+      "kind": "toilet-men",
+      "diagramId": "ariake-floor-02-native",
+      "x": 747.0,
+      "y": 987.5,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-changing-board-02",
+      "kind": "changing-board",
+      "diagramId": "ariake-floor-02-native",
+      "x": 416.0,
+      "y": 998.5,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-baby-chair-02",
+      "kind": "baby-chair",
+      "diagramId": "ariake-floor-02-native",
+      "x": 441.5,
+      "y": 998.5,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-care-bed-02",
+      "kind": "diaper-table",
+      "diagramId": "ariake-floor-02-native",
+      "x": 467.0,
+      "y": 998.5,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-calm-down-02",
+      "kind": "calm-down",
+      "diagramId": "ariake-floor-02-native",
+      "x": 934.0,
+      "y": 998.5,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-ostomate-04",
+      "kind": "ostomate",
+      "diagramId": "ariake-floor-02-native",
+      "x": 959.5,
+      "y": 998.5,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-diaper-table-02",
+      "kind": "care-bed",
+      "diagramId": "ariake-floor-02-native",
+      "x": 985.0,
+      "y": 998.5,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-toilet-accessible-08",
+      "kind": "toilet-accessible",
+      "diagramId": "ariake-floor-02-native",
+      "x": 526.5,
+      "y": 1008.5,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-toilet-accessible-09",
+      "kind": "toilet-accessible",
+      "diagramId": "ariake-floor-02-native",
+      "x": 859.5,
+      "y": 1008.5,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-aed-03",
+      "kind": "aed",
+      "diagramId": "ariake-floor-02-native",
+      "x": 693.0,
+      "y": 1026.0,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-2f-elevator-04",
+      "kind": "elevator",
+      "diagramId": "ariake-floor-02-native",
+      "x": 1057.5,
+      "y": 1038.0,
+      "sourceIds": [
+        "floor-02",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-1f-babycare-room-01",
+      "kind": "babycare-room",
+      "diagramId": "ariake-floor-01-native",
+      "x": 2654.5,
+      "y": 667.5,
+      "sourceIds": [
+        "floor-01",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-1f-toilet-women-01",
+      "kind": "toilet-women",
+      "diagramId": "ariake-floor-01-native",
+      "x": 2734.0,
+      "y": 672.0,
+      "sourceIds": [
+        "floor-01",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-1f-toilet-men-01",
+      "kind": "toilet-men",
+      "diagramId": "ariake-floor-01-native",
+      "x": 2809.5,
+      "y": 672.0,
+      "sourceIds": [
+        "floor-01",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-1f-vending-01",
+      "kind": "vending",
+      "diagramId": "ariake-floor-01-native",
+      "x": 2905.0,
+      "y": 705.0,
+      "sourceIds": [
+        "floor-01",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-1f-elevator-01",
+      "kind": "elevator",
+      "diagramId": "ariake-floor-01-native",
+      "x": 2654.0,
+      "y": 756.0,
+      "sourceIds": [
+        "floor-01",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-1f-toilet-accessible-01",
+      "kind": "toilet-accessible",
+      "diagramId": "ariake-floor-01-native",
+      "x": 2771.5,
+      "y": 757.0,
+      "sourceIds": [
+        "floor-01",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-1f-stairs-01",
+      "kind": "stairs",
+      "diagramId": "ariake-floor-01-native",
+      "x": 2741.5,
+      "y": 988.5,
+      "sourceIds": [
+        "floor-01",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-1f-aed-01",
+      "kind": "aed",
+      "diagramId": "ariake-floor-01-native",
+      "x": 2597.0,
+      "y": 998.5,
+      "sourceIds": [
+        "floor-01",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-1f-diaper-table-01",
+      "kind": "diaper-table",
+      "diagramId": "ariake-floor-01-native",
+      "x": 2291.5,
+      "y": 1015.0,
+      "sourceIds": [
+        "floor-01",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-1f-changing-board-01",
+      "kind": "changing-board",
+      "diagramId": "ariake-floor-01-native",
+      "x": 2341.0,
+      "y": 1015.0,
+      "sourceIds": [
+        "floor-01",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-1f-toilet-mixed-01",
+      "kind": "toilet-mixed",
+      "diagramId": "ariake-floor-01-native",
+      "x": 2176.5,
+      "y": 1036.5,
+      "sourceIds": [
+        "floor-01",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-1f-toilet-mixed-02",
+      "kind": "toilet-mixed",
+      "diagramId": "ariake-floor-01-native",
+      "x": 2176.5,
+      "y": 1123.5,
+      "sourceIds": [
+        "floor-01",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-1f-toilet-accessible-02",
+      "kind": "toilet-accessible",
+      "diagramId": "ariake-floor-01-native",
+      "x": 2176.5,
+      "y": 1205.5,
+      "sourceIds": [
+        "floor-01",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-1f-escalator-01",
+      "kind": "escalator",
+      "diagramId": "ariake-floor-01-native",
+      "x": 2424.5,
+      "y": 1237.5,
+      "sourceIds": [
+        "floor-01",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-1f-stairs-02",
+      "kind": "stairs",
+      "diagramId": "ariake-floor-01-native",
+      "x": 2500.5,
+      "y": 1237.5,
+      "sourceIds": [
+        "floor-01",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-1f-toilet-accessible-03",
+      "kind": "toilet-accessible",
+      "diagramId": "ariake-floor-01-native",
+      "x": 2176.5,
+      "y": 1290.5,
+      "sourceIds": [
+        "floor-01",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-1f-toilet-women-02",
+      "kind": "toilet-women",
+      "diagramId": "ariake-floor-01-native",
+      "x": 2131.5,
+      "y": 1390.0,
+      "sourceIds": [
+        "floor-01",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-1f-vending-02",
+      "kind": "vending",
+      "diagramId": "ariake-floor-01-native",
+      "x": 2512.0,
+      "y": 1404.0,
+      "sourceIds": [
+        "floor-01",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-1f-aed-02",
+      "kind": "aed",
+      "diagramId": "ariake-floor-01-native",
+      "x": 2414.5,
+      "y": 1450.5,
+      "sourceIds": [
+        "floor-01",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-1f-elevator-02",
+      "kind": "elevator",
+      "diagramId": "ariake-floor-01-native",
+      "x": 2137.0,
+      "y": 1728.0,
+      "sourceIds": [
+        "floor-01",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-1f-vending-03",
+      "kind": "vending",
+      "diagramId": "ariake-floor-01-native",
+      "x": 2512.0,
+      "y": 1762.0,
+      "sourceIds": [
+        "floor-01",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-1f-toilet-men-02",
+      "kind": "toilet-men",
+      "diagramId": "ariake-floor-01-native",
+      "x": 2133.0,
+      "y": 1834.5,
+      "sourceIds": [
+        "floor-01",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-1f-toilet-accessible-04",
+      "kind": "toilet-accessible",
+      "diagramId": "ariake-floor-01-native",
+      "x": 2178.0,
+      "y": 1915.0,
+      "sourceIds": [
+        "floor-01",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-1f-ostomate-01",
+      "kind": "ostomate",
+      "diagramId": "ariake-floor-01-native",
+      "x": 2283.0,
+      "y": 1915.0,
+      "sourceIds": [
+        "floor-01",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-1f-changing-board-02",
+      "kind": "changing-board",
+      "diagramId": "ariake-floor-01-native",
+      "x": 2332.0,
+      "y": 1915.0,
+      "sourceIds": [
+        "floor-01",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-1f-escalator-02",
+      "kind": "escalator",
+      "diagramId": "ariake-floor-01-native",
+      "x": 2425.5,
+      "y": 1928.5,
+      "sourceIds": [
+        "floor-01",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-1f-stairs-03",
+      "kind": "stairs",
+      "diagramId": "ariake-floor-01-native",
+      "x": 2501.5,
+      "y": 1928.5,
+      "sourceIds": [
+        "floor-01",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-1f-toilet-accessible-05",
+      "kind": "toilet-accessible",
+      "diagramId": "ariake-floor-01-native",
+      "x": 2178.0,
+      "y": 1995.0,
+      "sourceIds": [
+        "floor-01",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-1f-aed-03",
+      "kind": "aed",
+      "diagramId": "ariake-floor-01-native",
+      "x": 3427.5,
+      "y": 2007.5,
+      "sourceIds": [
+        "floor-01",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-1f-first-aid-01",
+      "kind": "first-aid",
+      "diagramId": "ariake-floor-01-native",
+      "x": 2178.0,
+      "y": 2083.5,
+      "sourceIds": [
+        "floor-01",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-1f-stairs-04",
+      "kind": "stairs",
+      "diagramId": "ariake-floor-01-native",
+      "x": 2741.5,
+      "y": 2137.5,
+      "sourceIds": [
+        "floor-01",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-vending-01",
+      "kind": "vending",
+      "diagramId": "ariake-floor-03-native",
+      "x": 2074.0,
+      "y": 454.5,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-vending-02",
+      "kind": "vending",
+      "diagramId": "ariake-floor-03-native",
+      "x": 820.0,
+      "y": 455.0,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-stairs-01",
+      "kind": "stairs",
+      "diagramId": "ariake-floor-03-native",
+      "x": 1170.5,
+      "y": 478.5,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-stairs-02",
+      "kind": "stairs",
+      "diagramId": "ariake-floor-03-native",
+      "x": 1750.5,
+      "y": 478.5,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-elevator-01",
+      "kind": "elevator",
+      "diagramId": "ariake-floor-03-native",
+      "x": 590.5,
+      "y": 515.0,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-toilet-accessible-01",
+      "kind": "toilet-accessible",
+      "diagramId": "ariake-floor-03-native",
+      "x": 751.5,
+      "y": 615.5,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-toilet-mixed-01",
+      "kind": "toilet-mixed",
+      "diagramId": "ariake-floor-03-native",
+      "x": 2172.5,
+      "y": 615.5,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-toilet-women-01",
+      "kind": "toilet-women",
+      "diagramId": "ariake-floor-03-native",
+      "x": 1319.0,
+      "y": 622.0,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-toilet-men-01",
+      "kind": "toilet-men",
+      "diagramId": "ariake-floor-03-native",
+      "x": 1636.0,
+      "y": 622.0,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-toilet-accessible-02",
+      "kind": "toilet-accessible",
+      "diagramId": "ariake-floor-03-native",
+      "x": 1532.5,
+      "y": 643.0,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-toilet-men-02",
+      "kind": "toilet-men",
+      "diagramId": "ariake-floor-03-native",
+      "x": 964.5,
+      "y": 644.0,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-toilet-men-03",
+      "kind": "toilet-men",
+      "diagramId": "ariake-floor-03-native",
+      "x": 1957.5,
+      "y": 644.0,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-toilet-mixed-02",
+      "kind": "toilet-mixed",
+      "diagramId": "ariake-floor-03-native",
+      "x": 751.5,
+      "y": 663.5,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-babycare-room-01",
+      "kind": "babycare-room",
+      "diagramId": "ariake-floor-03-native",
+      "x": 2172.5,
+      "y": 664.0,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-calm-down-01",
+      "kind": "calm-down",
+      "diagramId": "ariake-floor-03-native",
+      "x": 751.5,
+      "y": 711.5,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-changing-board-01",
+      "kind": "changing-board",
+      "diagramId": "ariake-floor-03-native",
+      "x": 2172.5,
+      "y": 712.5,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-ostomate-01",
+      "kind": "ostomate",
+      "diagramId": "ariake-floor-03-native",
+      "x": 2334.0,
+      "y": 712.5,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-ostomate-02",
+      "kind": "ostomate",
+      "diagramId": "ariake-floor-03-native",
+      "x": 597.5,
+      "y": 716.5,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-stairs-03",
+      "kind": "stairs",
+      "diagramId": "ariake-floor-03-native",
+      "x": 834.5,
+      "y": 744.0,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-stairs-04",
+      "kind": "stairs",
+      "diagramId": "ariake-floor-03-native",
+      "x": 2088.0,
+      "y": 744.5,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-care-bed-01",
+      "kind": "care-bed",
+      "diagramId": "ariake-floor-03-native",
+      "x": 751.5,
+      "y": 759.5,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-baby-chair-01",
+      "kind": "baby-chair",
+      "diagramId": "ariake-floor-03-native",
+      "x": 2172.5,
+      "y": 761.0,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-shop-01",
+      "kind": "shop",
+      "diagramId": "ariake-floor-03-native",
+      "x": 2334.0,
+      "y": 797.5,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-toilet-men-04",
+      "kind": "toilet-men",
+      "diagramId": "ariake-floor-03-native",
+      "x": 2298.0,
+      "y": 945.5,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-toilet-men-05",
+      "kind": "toilet-men",
+      "diagramId": "ariake-floor-03-native",
+      "x": 638.0,
+      "y": 946.0,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-toilet-women-02",
+      "kind": "toilet-women",
+      "diagramId": "ariake-floor-03-native",
+      "x": 2298.0,
+      "y": 1213.5,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-aed-01",
+      "kind": "aed",
+      "diagramId": "ariake-floor-03-native",
+      "x": 2420.0,
+      "y": 1287.5,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-aed-02",
+      "kind": "aed",
+      "diagramId": "ariake-floor-03-native",
+      "x": 509.5,
+      "y": 1399.5,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-toilet-women-03",
+      "kind": "toilet-women",
+      "diagramId": "ariake-floor-03-native",
+      "x": 2298.0,
+      "y": 1475.5,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-toilet-women-04",
+      "kind": "toilet-women",
+      "diagramId": "ariake-floor-03-native",
+      "x": 2298.0,
+      "y": 1743.0,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-toilet-women-05",
+      "kind": "toilet-women",
+      "diagramId": "ariake-floor-03-native",
+      "x": 638.0,
+      "y": 1746.5,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-shop-02",
+      "kind": "shop",
+      "diagramId": "ariake-floor-03-native",
+      "x": 2334.0,
+      "y": 1888.5,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-toilet-mixed-03",
+      "kind": "toilet-mixed",
+      "diagramId": "ariake-floor-03-native",
+      "x": 754.5,
+      "y": 1928.0,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-toilet-accessible-03",
+      "kind": "toilet-accessible",
+      "diagramId": "ariake-floor-03-native",
+      "x": 2172.5,
+      "y": 1929.0,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-stairs-05",
+      "kind": "stairs",
+      "diagramId": "ariake-floor-03-native",
+      "x": 834.5,
+      "y": 1945.0,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-stairs-06",
+      "kind": "stairs",
+      "diagramId": "ariake-floor-03-native",
+      "x": 2088.0,
+      "y": 1945.0,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-ostomate-03",
+      "kind": "ostomate",
+      "diagramId": "ariake-floor-03-native",
+      "x": 2334.0,
+      "y": 1972.5,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-ostomate-04",
+      "kind": "ostomate",
+      "diagramId": "ariake-floor-03-native",
+      "x": 597.5,
+      "y": 1976.0,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-babycare-room-02",
+      "kind": "babycare-room",
+      "diagramId": "ariake-floor-03-native",
+      "x": 754.5,
+      "y": 1976.0,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-toilet-mixed-04",
+      "kind": "toilet-mixed",
+      "diagramId": "ariake-floor-03-native",
+      "x": 2172.5,
+      "y": 1977.0,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-changing-board-02",
+      "kind": "changing-board",
+      "diagramId": "ariake-floor-03-native",
+      "x": 754.5,
+      "y": 2024.5,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-calm-down-02",
+      "kind": "calm-down",
+      "diagramId": "ariake-floor-03-native",
+      "x": 2172.5,
+      "y": 2025.0,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-toilet-men-06",
+      "kind": "toilet-men",
+      "diagramId": "ariake-floor-03-native",
+      "x": 964.5,
+      "y": 2045.0,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-toilet-men-07",
+      "kind": "toilet-men",
+      "diagramId": "ariake-floor-03-native",
+      "x": 1957.5,
+      "y": 2045.0,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-care-bed-02",
+      "kind": "care-bed",
+      "diagramId": "ariake-floor-03-native",
+      "x": 2172.5,
+      "y": 2072.5,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-baby-chair-02",
+      "kind": "baby-chair",
+      "diagramId": "ariake-floor-03-native",
+      "x": 754.5,
+      "y": 2073.0,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-elevator-02",
+      "kind": "elevator",
+      "diagramId": "ariake-floor-03-native",
+      "x": 2339.5,
+      "y": 2173.0,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-stairs-07",
+      "kind": "stairs",
+      "diagramId": "ariake-floor-03-native",
+      "x": 979.5,
+      "y": 2189.0,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-stairs-08",
+      "kind": "stairs",
+      "diagramId": "ariake-floor-03-native",
+      "x": 1935.5,
+      "y": 2189.0,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-vending-03",
+      "kind": "vending",
+      "diagramId": "ariake-floor-03-native",
+      "x": 2074.0,
+      "y": 2233.5,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-3f-vending-04",
+      "kind": "vending",
+      "diagramId": "ariake-floor-03-native",
+      "x": 821.0,
+      "y": 2234.0,
+      "sourceIds": [
+        "floor-03",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-4f-elevator-01",
+      "kind": "elevator",
+      "diagramId": "ariake-floor-04-native",
+      "x": 1011.5,
+      "y": 751.5,
+      "sourceIds": [
+        "floor-04",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-4f-calm-down-01",
+      "kind": "calm-down",
+      "diagramId": "ariake-floor-04-native",
+      "x": 1248.0,
+      "y": 788.0,
+      "sourceIds": [
+        "floor-04",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-4f-stairs-01",
+      "kind": "stairs",
+      "diagramId": "ariake-floor-04-native",
+      "x": 1334.5,
+      "y": 788.5,
+      "sourceIds": [
+        "floor-04",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-4f-stairs-02",
+      "kind": "stairs",
+      "diagramId": "ariake-floor-04-native",
+      "x": 1982.5,
+      "y": 788.5,
+      "sourceIds": [
+        "floor-04",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-4f-toilet-accessible-01",
+      "kind": "toilet-accessible",
+      "diagramId": "ariake-floor-04-native",
+      "x": 1129.5,
+      "y": 839.0,
+      "sourceIds": [
+        "floor-04",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-4f-aed-01",
+      "kind": "aed",
+      "diagramId": "ariake-floor-04-native",
+      "x": 2234.5,
+      "y": 1024.5,
+      "sourceIds": [
+        "floor-04",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-4f-aed-02",
+      "kind": "aed",
+      "diagramId": "ariake-floor-04-native",
+      "x": 1081.5,
+      "y": 1712.5,
+      "sourceIds": [
+        "floor-04",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-4f-toilet-accessible-02",
+      "kind": "toilet-accessible",
+      "diagramId": "ariake-floor-04-native",
+      "x": 2188.0,
+      "y": 1899.0,
+      "sourceIds": [
+        "floor-04",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-4f-stairs-03",
+      "kind": "stairs",
+      "diagramId": "ariake-floor-04-native",
+      "x": 1334.5,
+      "y": 1949.5,
+      "sourceIds": [
+        "floor-04",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-4f-stairs-04",
+      "kind": "stairs",
+      "diagramId": "ariake-floor-04-native",
+      "x": 1983.5,
+      "y": 1949.5,
+      "sourceIds": [
+        "floor-04",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-4f-calm-down-02",
+      "kind": "calm-down",
+      "diagramId": "ariake-floor-04-native",
+      "x": 2070.0,
+      "y": 1950.0,
+      "sourceIds": [
+        "floor-04",
+        "floor"
+      ]
+    },
+    {
+      "id": "ariake-4f-elevator-02",
+      "kind": "elevator",
+      "diagramId": "ariake-floor-04-native",
+      "x": 2305.5,
+      "y": 1986.5,
+      "sourceIds": [
+        "floor-04",
+        "floor"
+      ]
+    }
+  ],
+  "roomCounts": null,
+  "lockerBankToPictogram": {
+    "north": {
+      "facilityId": "ariake-2f-locker-01",
+      "count": 91
+    },
+    "south": {
+      "facilityId": "ariake-2f-locker-02",
+      "count": 54
+    },
+    "sourceIds": [
+      "floor-02",
+      "floor"
+    ]
+  },
+  "outsideViews": [
+    {
+      "id": "nearby",
+      "label": "周辺",
+      "diagramId": "ariake-arena-outside",
+      "venueLabel": {
+        "name": "有明アリーナ",
+        "point": [
+          466,
+          330
+        ]
+      },
+      "northUp": false
+    },
+    {
+      "id": "public",
+      "label": "会場・入場前",
+      "diagramId": "ariake-public-1f",
+      "floorLabel": "サブアリーナ側1F",
+      "northUp": false
+    },
+    {
+      "id": "shintoyosu",
+      "label": "新豊洲駅",
+      "diagramId": "ariake-shintoyosu-concourse",
+      "floorLabel": "改札階",
+      "northUp": false
+    },
+    {
+      "id": "tennis",
+      "label": "有明テニスの森駅",
+      "diagramId": "ariake-tennis-concourse",
+      "floorLabel": "改札階",
+      "northUp": false
+    },
+    {
+      "id": "garden",
+      "label": "有明ガーデン",
+      "diagramId": "ariake-arena-outside",
+      "landmarkIds": [
+        "ariake-garden"
+      ],
+      "venueLabel": {
+        "name": "有明アリーナ",
+        "point": [
+          466,
+          330
+        ]
+      },
+      "northUp": false
+    }
+  ],
+  "landmarkFacilityIds": {
+    "ariake-shintoyosu": [
+      "ariake-shintoyosu-lockers",
+      "ariake-shintoyosu-lockers-2",
+      "ariake-shintoyosu-lockers-paid",
+      "ariake-shintoyosu-toilet",
+      "ariake-shintoyosu-accessible",
+      "ariake-shintoyosu-aed",
+      "ariake-shintoyosu-info"
+    ],
+    "ariake-tennis": [
+      "ariake-tennis-lockers",
+      "ariake-tennis-toilet",
+      "ariake-tennis-accessible",
+      "ariake-tennis-aed",
+      "ariake-tennis-info"
+    ],
+    "ariake-kokusai": [
+      "ariake-kokusai-lockers"
+    ],
+    "ariake-shinonome": [
+      "ariake-shinonome-lockers"
+    ],
+    "ariake-garden": [
+      "ariake-garden-lockers-bus",
+      "ariake-garden-lockers-d",
+      "ariake-garden-lockers-f",
+      "ariake-garden-lockers-hotel",
+      "ariake-garden-info",
+      "ariake-garden-baby-4f",
+      "ariake-garden-baby-5f",
+      "ariake-garden-dining"
+    ]
+  }
+}

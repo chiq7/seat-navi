@@ -1,0 +1,2895 @@
+{
+  "sources": [
+    {
+      "id": "home-current",
+      "title": "会場公式・現在のお知らせ",
+      "url": "https://www.mspf.jp/grande21/",
+      "checkedAt": "2026-10-10",
+      "scope": "2026-10-06告知10/26〜28停電休館、2026-07-10告知2029年度中の改修予定・サブ除外",
+      "usage": "facts-only"
+    },
+    {
+      "id": "intro",
+      "title": "会場公式・メイン/サブアリーナ",
+      "url": "https://www.mspf.jp/grande21/index.php?action=sisetu_shoukai_arena",
+      "checkedAt": "2026-10-10",
+      "scope": "現行施設名称・2014座席図と20260422フロアへの現在リンク",
+      "usage": "facts-only"
+    },
+    {
+      "id": "qa",
+      "title": "会場公式・よくある質問",
+      "url": "https://www.mspf.jp/grande21/index.php?action=other_qa",
+      "checkedAt": "2026-10-10",
+      "scope": "サブ1F荷物/2F喫茶・授乳/おむつ・受付AED・飲食区域・ATM/充電機なし・荷受発送非対応",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat",
+      "title": "会場公式・2階スタンド席図",
+      "url": "https://www.mspf.jp/grande21/seat_guide/arenaseats2f_20140501.pdf",
+      "checkedAt": "2026-10-10",
+      "scope": "2014-05-01版。A〜Z・前後通路と中央G/Tの番号範囲を補助図と比較",
+      "usage": "facts-only"
+    },
+    {
+      "id": "floor",
+      "title": "会場公式・フロアPDF",
+      "url": "https://www.mspf.jp/grande21/seat_guide/arenafroa_20260422.pdf",
+      "checkedAt": "2026-10-10",
+      "scope": "ファイル名20260422、1F図内09.08.20。2026新規作図/改修後と扱わない",
+      "usage": "facts-only"
+    },
+    {
+      "id": "park",
+      "title": "会場公式・2024パンフレット",
+      "url": "https://www.mspf.jp/grande21/pdf/grande21_pamphlet_20240425.pdf",
+      "checkedAt": "2026-10-10",
+      "scope": "4ページのメイン1/2Fとサブ1/2Fを別図に読図。全階図内2021.3表記",
+      "usage": "facts-only"
+    },
+    {
+      "id": "access-map",
+      "title": "会場公式・駐車場案内",
+      "url": "https://www.mspf.jp/grande21/pdf/access_map.pdf",
+      "checkedAt": "2026-10-10",
+      "scope": "2ページの敷地、体育館・駐車場とバス停の場所関係。別競技施設のゲートをアリーナ入口へ移さない",
+      "usage": "facts-only"
+    },
+    {
+      "id": "access",
+      "title": "会場公式・交通アクセス",
+      "url": "https://www.mspf.jp/grande21/index.php?action=sisetu_traffic_index",
+      "checkedAt": "2026-10-10",
+      "scope": "利府駅から菅谷台4丁目、徒歩約3km/45分。公演シャトルと一般路線を分離",
+      "usage": "facts-only"
+    },
+    {
+      "id": "sendai-locker-current",
+      "title": "JR東日本・仙台駅の11ロッカー区域",
+      "url": "https://media.jreast.co.jp/articles/3167",
+      "checkedAt": "2026-10-10",
+      "scope": "2026-06-10更新。階/改札内外・個別時刻・有人預かりと配送を分離",
+      "usage": "facts-only"
+    },
+    {
+      "id": "sendai-storage-operator",
+      "title": "JR東日本物流・仙台駅の有人預かり",
+      "url": "https://www.jrbutsuryu.jregroup.ne.jp/business/baggage.html",
+      "checkedAt": "2026-10-10",
+      "scope": "仙台3F券売機横・9:30〜19:00・105/140/160cmと30kg・1個1日・最長30日",
+      "usage": "facts-only"
+    },
+    {
+      "id": "tsumiki",
+      "title": "利府町まち・ひと・しごと創造ステーション",
+      "url": "https://rifu-tsumiki.jp/",
+      "checkedAt": "2026-10-10",
+      "scope": "現在の公式施設用途/カフェ。手荷物預かりを掲載していない範囲",
+      "usage": "facts-only"
+    },
+    {
+      "id": "supplement-page",
+      "title": "MUSIC-MDATA会場別ページ",
+      "url": "https://zaseki.music-mdata.com/detail/9531/1",
+      "checkedAt": "2026-10-10",
+      "scope": "掲載元MUSIC-MDATA・作成者LiveWalker。最大7063は公演席数へ採用しない",
+      "usage": "research-only"
+    },
+    {
+      "id": "supplement",
+      "title": "LiveWalker作成の補助座席PDF",
+      "url": "https://cdn-zaseki.music-mdata.com/pdf/9531.pdf",
+      "checkedAt": "2026-10-10",
+      "scope": "図内20260828。A〜Z固定印字・G5〜21/T9〜21を公式図に照合。転載再配布禁止",
+      "usage": "research-only"
+    },
+    {
+      "id": "livebu-main",
+      "title": "ライブ部・メインアリーナ",
+      "url": "https://www.livebu.com/hall/1525",
+      "checkedAt": "2026-10-10",
+      "scope": "別サブページ1526、座席リンクは会場公式と同一。独立した原図根拠に数えない",
+      "usage": "research-only"
+    }
+  ],
+  "facilities": [
+    {
+      "id": "miyagi-main1-north-men",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "メイン1F",
+      "scope": "場内",
+      "location": "北西側器具庫3付近",
+      "detail": "現行リンクの1F図面掲載区域です。催事の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "miyagi-main1",
+        "x": 910,
+        "y": 255,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の代表区域。個別入口/機械位置は未確定"
+      },
+      "toiletType": "men"
+    },
+    {
+      "id": "miyagi-main1-north-women",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "メイン1F",
+      "scope": "場内",
+      "location": "北西側器具庫3付近",
+      "detail": "現行リンクの1F図面掲載区域です。催事の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "miyagi-main1",
+        "x": 947,
+        "y": 280,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の代表区域。個別入口/機械位置は未確定"
+      },
+      "toiletType": "women"
+    },
+    {
+      "id": "miyagi-main1-south-women",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "メイン1F",
+      "scope": "場内",
+      "location": "南側廊下",
+      "detail": "現行リンクの1F図面掲載区域です。催事の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "miyagi-main1",
+        "x": 132,
+        "y": 503,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の代表区域。個別入口/機械位置は未確定"
+      },
+      "toiletType": "women"
+    },
+    {
+      "id": "miyagi-main1-south-men",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "メイン1F",
+      "scope": "場内",
+      "location": "南側廊下",
+      "detail": "現行リンクの1F図面掲載区域です。催事の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "miyagi-main1",
+        "x": 160,
+        "y": 508,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の代表区域。個別入口/機械位置は未確定"
+      },
+      "toiletType": "men"
+    },
+    {
+      "id": "miyagi-main1-east-men",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "メイン1F",
+      "scope": "場内",
+      "location": "東側会議室6付近",
+      "detail": "現行リンクの1F図面掲載区域です。催事の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "miyagi-main1",
+        "x": 628,
+        "y": 661,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の代表区域。個別入口/機械位置は未確定"
+      },
+      "toiletType": "men"
+    },
+    {
+      "id": "miyagi-main1-east-women",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "メイン1F",
+      "scope": "場内",
+      "location": "東側会議室6付近",
+      "detail": "現行リンクの1F図面掲載区域です。催事の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "miyagi-main1",
+        "x": 650,
+        "y": 661,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の代表区域。個別入口/機械位置は未確定"
+      },
+      "toiletType": "women"
+    },
+    {
+      "id": "miyagi-main1-accessible1",
+      "name": "多目的トイレ",
+      "purpose": "トイレ",
+      "floor": "メイン1F",
+      "scope": "場内",
+      "location": "南側視聴覚室付近",
+      "detail": "現行リンクの1F図面掲載区域です。催事の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "miyagi-main1",
+        "x": 92,
+        "y": 409,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の代表区域。個別入口/機械位置は未確定"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "miyagi-main1-accessible2",
+      "name": "多目的トイレ",
+      "purpose": "トイレ",
+      "floor": "メイン1F",
+      "scope": "場内",
+      "location": "南側視聴覚室付近",
+      "detail": "現行リンクの1F図面掲載区域です。催事の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "miyagi-main1",
+        "x": 77,
+        "y": 425,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の代表区域。個別入口/機械位置は未確定"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "miyagi-main1-changing-west",
+      "name": "競技者用ロッカールーム",
+      "purpose": "荷物",
+      "floor": "メイン1F",
+      "scope": "場内",
+      "location": "更衣室",
+      "detail": "競技者/施設利用者の更衣室です。一般観客の手荷物預かりではありません。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "miyagi-main1",
+        "x": 490,
+        "y": 676,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の代表区域。個別入口/機械位置は未確定"
+      },
+      "kind": "no-storage"
+    },
+    {
+      "id": "miyagi-main1-changing-east",
+      "name": "競技者用ロッカールーム",
+      "purpose": "荷物",
+      "floor": "メイン1F",
+      "scope": "場内",
+      "location": "更衣室",
+      "detail": "競技者/施設利用者の更衣室です。一般観客の手荷物預かりではありません。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "miyagi-main1",
+        "x": 690,
+        "y": 676,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の代表区域。個別入口/機械位置は未確定"
+      },
+      "kind": "no-storage"
+    },
+    {
+      "id": "miyagi-main2-west-a",
+      "name": "男女トイレ区域",
+      "purpose": "トイレ",
+      "floor": "メイン2F",
+      "scope": "場内",
+      "location": "西側コンコース・南寄り",
+      "detail": "パンフレットの同じ階に掲載された区域です。男女別入口の精密位置は確認中です。",
+      "sourceIds": [
+        "park"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "miyagi-main2",
+        "x": 689,
+        "y": 636,
+        "sourceIds": [
+          "park"
+        ],
+        "reference": "同じ棟/階の代表区域。個別入口/機械位置は未確定"
+      },
+      "toiletType": "mixed"
+    },
+    {
+      "id": "miyagi-main2-west-b",
+      "name": "男女トイレ区域",
+      "purpose": "トイレ",
+      "floor": "メイン2F",
+      "scope": "場内",
+      "location": "西側コンコース・北寄り",
+      "detail": "パンフレットの同じ階に掲載された区域です。男女別入口の精密位置は確認中です。",
+      "sourceIds": [
+        "park"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "miyagi-main2",
+        "x": 724,
+        "y": 636,
+        "sourceIds": [
+          "park"
+        ],
+        "reference": "同じ棟/階の代表区域。個別入口/機械位置は未確定"
+      },
+      "toiletType": "mixed"
+    },
+    {
+      "id": "miyagi-main2-west-access",
+      "name": "多目的トイレ",
+      "purpose": "トイレ",
+      "floor": "メイン2F",
+      "scope": "場内",
+      "location": "西側コンコース中央",
+      "detail": "パンフレットの同じ階に掲載された区域です。男女別入口の精密位置は確認中です。",
+      "sourceIds": [
+        "park"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "miyagi-main2",
+        "x": 711,
+        "y": 620,
+        "sourceIds": [
+          "park"
+        ],
+        "reference": "同じ棟/階の代表区域。個別入口/機械位置は未確定"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "miyagi-main2-north",
+      "name": "男女トイレ区域",
+      "purpose": "トイレ",
+      "floor": "メイン2F",
+      "scope": "場内",
+      "location": "北側サービスヤード寄り",
+      "detail": "パンフレットの同じ階に掲載された区域です。男女別入口の精密位置は確認中です。",
+      "sourceIds": [
+        "park"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "miyagi-main2",
+        "x": 790,
+        "y": 671,
+        "sourceIds": [
+          "park"
+        ],
+        "reference": "同じ棟/階の代表区域。個別入口/機械位置は未確定"
+      },
+      "toiletType": "mixed"
+    },
+    {
+      "id": "miyagi-main2-east-a",
+      "name": "男女トイレ区域",
+      "purpose": "トイレ",
+      "floor": "メイン2F",
+      "scope": "場内",
+      "location": "東側コンコース・南寄り",
+      "detail": "パンフレットの同じ階に掲載された区域です。男女別入口の精密位置は確認中です。",
+      "sourceIds": [
+        "park"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "miyagi-main2",
+        "x": 688,
+        "y": 772,
+        "sourceIds": [
+          "park"
+        ],
+        "reference": "同じ棟/階の代表区域。個別入口/機械位置は未確定"
+      },
+      "toiletType": "mixed"
+    },
+    {
+      "id": "miyagi-main2-east-b",
+      "name": "男女トイレ区域",
+      "purpose": "トイレ",
+      "floor": "メイン2F",
+      "scope": "場内",
+      "location": "東側コンコース・北寄り",
+      "detail": "パンフレットの同じ階に掲載された区域です。男女別入口の精密位置は確認中です。",
+      "sourceIds": [
+        "park"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "miyagi-main2",
+        "x": 725,
+        "y": 772,
+        "sourceIds": [
+          "park"
+        ],
+        "reference": "同じ棟/階の代表区域。個別入口/機械位置は未確定"
+      },
+      "toiletType": "mixed"
+    },
+    {
+      "id": "miyagi-main2-east-access",
+      "name": "多目的トイレ",
+      "purpose": "トイレ",
+      "floor": "メイン2F",
+      "scope": "場内",
+      "location": "東側コンコース中央",
+      "detail": "パンフレットの同じ階に掲載された区域です。男女別入口の精密位置は確認中です。",
+      "sourceIds": [
+        "park"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "miyagi-main2",
+        "x": 711,
+        "y": 791,
+        "sourceIds": [
+          "park"
+        ],
+        "reference": "同じ棟/階の代表区域。個別入口/機械位置は未確定"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "miyagi-main2-food-area",
+      "name": "ロビー・コンコースの飲食",
+      "purpose": "飲食",
+      "floor": "メイン2F",
+      "scope": "場内",
+      "location": "ロビー/コンコース",
+      "detail": "客席での飲食は遠慮する案内。ロビー/コンコースでは可能ですが、イベントにより制限があります。店舗や売店の存在を示す案内ではありません。",
+      "sourceIds": [
+        "qa"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "kind": "food-area"
+    },
+    {
+      "id": "miyagi-main2-ticket",
+      "name": "チケットブースの案内",
+      "purpose": "案内",
+      "floor": "メイン2F",
+      "scope": "場内",
+      "location": "メインロビー側",
+      "detail": "パンフレット掲載のチケットブース。公演の受付・使用・入場口は主催者案内で確認してください。",
+      "sourceIds": [
+        "park"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed"
+    },
+    {
+      "id": "miyagi-sub1-toilet-east",
+      "name": "男女トイレ区域",
+      "purpose": "トイレ",
+      "floor": "サブ1F",
+      "scope": "場内",
+      "location": "東側更衣区域",
+      "detail": "パンフレット掲載区域。一般観客の立入は催事案内を確認してください。",
+      "sourceIds": [
+        "park"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "miyagi-sub1",
+        "x": 756,
+        "y": 888,
+        "sourceIds": [
+          "park"
+        ],
+        "reference": "同じ棟/階の代表区域。個別入口/機械位置は未確定"
+      },
+      "toiletType": "mixed"
+    },
+    {
+      "id": "miyagi-sub1-toilet-center",
+      "name": "男女トイレ区域",
+      "purpose": "トイレ",
+      "floor": "サブ1F",
+      "scope": "場内",
+      "location": "ロビー側",
+      "detail": "パンフレット掲載区域です。",
+      "sourceIds": [
+        "park"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "miyagi-sub1",
+        "x": 681,
+        "y": 932,
+        "sourceIds": [
+          "park"
+        ],
+        "reference": "同じ棟/階の代表区域。個別入口/機械位置は未確定"
+      },
+      "toiletType": "mixed"
+    },
+    {
+      "id": "miyagi-sub1-accessible",
+      "name": "多目的トイレ",
+      "purpose": "トイレ",
+      "floor": "サブ1F",
+      "scope": "場内",
+      "location": "医務室/フィットネススタジオ側",
+      "detail": "パンフレットの多目的トイレ記号を確認。正確な入口は係員へ確認してください。",
+      "sourceIds": [
+        "park"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "miyagi-sub1",
+        "x": 595,
+        "y": 940,
+        "sourceIds": [
+          "park"
+        ],
+        "reference": "同じ棟/階の代表区域。個別入口/機械位置は未確定"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "miyagi-sub1-locker",
+      "name": "サブアリーナ1階ロビーのコインロッカー",
+      "purpose": "荷物",
+      "floor": "サブ1F",
+      "scope": "場内",
+      "location": "ロビー等",
+      "detail": "公式QAに掲載。メイン客席直近の設備ではありません。個別機械の位置・収納寸法・料金・時間・公演観客の利用可否は確認中です。",
+      "sourceIds": [
+        "qa"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "storageKind": "coin"
+    },
+    {
+      "id": "miyagi-sub1-aed",
+      "name": "総合受付のAED",
+      "purpose": "AED",
+      "floor": "サブ1F",
+      "scope": "場内",
+      "location": "総合受付",
+      "detail": "各施設受付にAEDがあります。緊急時は受付へ連絡してください。",
+      "sourceIds": [
+        "qa",
+        "park"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "miyagi-sub1",
+        "x": 735,
+        "y": 941,
+        "sourceIds": [
+          "qa",
+          "park"
+        ],
+        "reference": "同じ棟/階の代表区域。個別入口/機械位置は未確定"
+      }
+    },
+    {
+      "id": "miyagi-sub1-guide",
+      "name": "総合受付",
+      "purpose": "案内",
+      "floor": "サブ1F",
+      "scope": "場内",
+      "location": "総合受付",
+      "detail": "落とし物・車いす貸出・施設の問い合わせ。コンサート終了後の落とし物は主催者へ。",
+      "sourceIds": [
+        "qa",
+        "park"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "miyagi-sub1",
+        "x": 735,
+        "y": 941,
+        "sourceIds": [
+          "qa",
+          "park"
+        ],
+        "reference": "同じ棟/階の代表区域。個別入口/機械位置は未確定"
+      }
+    },
+    {
+      "id": "miyagi-sub2-toilet",
+      "name": "男女トイレ区域",
+      "purpose": "トイレ",
+      "floor": "サブ2F",
+      "scope": "場内",
+      "location": "喫茶店側",
+      "detail": "パンフレット掲載区域です。",
+      "sourceIds": [
+        "park"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "miyagi-sub2",
+        "x": 796,
+        "y": 1089,
+        "sourceIds": [
+          "park"
+        ],
+        "reference": "同じ棟/階の代表区域。個別入口/機械位置は未確定"
+      },
+      "toiletType": "mixed"
+    },
+    {
+      "id": "miyagi-sub2-cafe",
+      "name": "サブアリーナ2階 喫茶店",
+      "purpose": "飲食",
+      "floor": "サブ2F",
+      "scope": "場内",
+      "location": "レストラン掲載区域",
+      "detail": "公式QAは喫茶店、パンフレットはレストラン表記。外から直接入れます。店名・営業時間・当日営業は確認中です。",
+      "sourceIds": [
+        "qa",
+        "park"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "miyagi-sub2",
+        "x": 767,
+        "y": 1115,
+        "sourceIds": [
+          "qa",
+          "park"
+        ],
+        "reference": "同じ棟/階の代表区域。個別入口/機械位置は未確定"
+      },
+      "kind": "cafe"
+    },
+    {
+      "id": "miyagi-baby",
+      "name": "授乳室の案内",
+      "purpose": "赤ちゃん",
+      "floor": "棟・階確認中",
+      "scope": "場内",
+      "location": "スーパーアリーナ・個別階確認中",
+      "detail": "公式QAに授乳室があると掲載。個別の棟/階/位置を確定せず、利用時は受付へ。",
+      "sourceIds": [
+        "qa"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "kind": "nursing"
+    },
+    {
+      "id": "miyagi-diaper",
+      "name": "おむつ交換台の案内",
+      "purpose": "赤ちゃん",
+      "floor": "棟・階確認中",
+      "scope": "場内",
+      "location": "各施設のトイレ/多目的トイレ",
+      "detail": "公式QAはトイレ内のベビーベッドを案内。すべての個別トイレへ確認済みとして複製しません。",
+      "sourceIds": [
+        "qa"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "kind": "diaper"
+    },
+    {
+      "id": "miyagi-aed-main",
+      "name": "メインアリーナのAED案内",
+      "purpose": "AED",
+      "floor": "棟・階確認中",
+      "scope": "場内",
+      "location": "施設受付・個別位置確認中",
+      "detail": "各施設受付にAEDがあると公式QA掲載。緊急時は係員/受付へ連絡してください。",
+      "sourceIds": [
+        "qa"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed"
+    },
+    {
+      "id": "miyagi-storage-main",
+      "name": "メイン客席の手荷物預かりは確認中",
+      "purpose": "荷物",
+      "floor": "棟・階確認中",
+      "scope": "場内",
+      "location": "メインアリーナ/屋外",
+      "detail": "サブ1Fのロッカーは別区域です。メイン客席・屋外の一般預かり/臨時クロークは主催者へ確認してください。施設側の荷受・発送は対応しません。",
+      "sourceIds": [
+        "qa"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "kind": "no-storage"
+    },
+    {
+      "id": "miyagi-grounds-arena",
+      "name": "スーパーアリーナ",
+      "purpose": "案内",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "グランディ21・スーパーアリーナ",
+      "detail": "公式図の場所関係です。スタジアムのN/E/W/Sゲートをアリーナ入口と混同しません。公演の指定入口・駐車券・精密連続経路は主催者案内を確認してください。",
+      "sourceIds": [
+        "access-map"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "before-admission",
+      "anchor": {
+        "diagramId": "miyagi-grounds",
+        "x": 309,
+        "y": 352,
+        "sourceIds": [
+          "access-map"
+        ],
+        "reference": "同じ棟/階の代表区域。個別入口/機械位置は未確定"
+      }
+    },
+    {
+      "id": "miyagi-grounds-bus4",
+      "name": "菅谷台4丁目バス停",
+      "purpose": "案内",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "グランディ21・菅谷台4丁目バス停",
+      "detail": "公式図の場所関係です。スタジアムのN/E/W/Sゲートをアリーナ入口と混同しません。公演の指定入口・駐車券・精密連続経路は主催者案内を確認してください。",
+      "sourceIds": [
+        "access-map"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "before-admission",
+      "anchor": {
+        "diagramId": "miyagi-grounds",
+        "x": 351,
+        "y": 510,
+        "sourceIds": [
+          "access-map"
+        ],
+        "reference": "同じ棟/階の代表区域。個別入口/機械位置は未確定"
+      }
+    },
+    {
+      "id": "miyagi-grounds-parking3",
+      "name": "第3駐車場",
+      "purpose": "案内",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "グランディ21・第3駐車場",
+      "detail": "公式図の場所関係です。スタジアムのN/E/W/Sゲートをアリーナ入口と混同しません。公演の指定入口・駐車券・精密連続経路は主催者案内を確認してください。",
+      "sourceIds": [
+        "access-map"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "before-admission",
+      "anchor": {
+        "diagramId": "miyagi-grounds",
+        "x": 298,
+        "y": 314,
+        "sourceIds": [
+          "access-map"
+        ],
+        "reference": "同じ棟/階の代表区域。個別入口/機械位置は未確定"
+      }
+    },
+    {
+      "id": "miyagi-grounds-gate",
+      "name": "正面ゲート",
+      "purpose": "案内",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "グランディ21・正面ゲート",
+      "detail": "公式図の場所関係です。スタジアムのN/E/W/Sゲートをアリーナ入口と混同しません。公演の指定入口・駐車券・精密連続経路は主催者案内を確認してください。",
+      "sourceIds": [
+        "access-map"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "before-admission",
+      "anchor": {
+        "diagramId": "miyagi-grounds",
+        "x": 382,
+        "y": 469,
+        "sourceIds": [
+          "access-map"
+        ],
+        "reference": "同じ棟/階の代表区域。個別入口/機械位置は未確定"
+      }
+    },
+    {
+      "id": "miyagi-grounds-guide",
+      "name": "総合案内受付",
+      "purpose": "案内",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "グランディ21・総合案内受付",
+      "detail": "公式図の場所関係です。スタジアムのN/E/W/Sゲートをアリーナ入口と混同しません。公演の指定入口・駐車券・精密連続経路は主催者案内を確認してください。",
+      "sourceIds": [
+        "access-map"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "before-admission",
+      "anchor": {
+        "diagramId": "miyagi-grounds",
+        "x": 322,
+        "y": 383,
+        "sourceIds": [
+          "access-map"
+        ],
+        "reference": "同じ棟/階の代表区域。個別入口/機械位置は未確定"
+      }
+    },
+    {
+      "id": "miyagi-grounds-pool",
+      "name": "総合プール",
+      "purpose": "案内",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "グランディ21・総合プール",
+      "detail": "公式図の場所関係です。スタジアムのN/E/W/Sゲートをアリーナ入口と混同しません。公演の指定入口・駐車券・精密連続経路は主催者案内を確認してください。",
+      "sourceIds": [
+        "access-map"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "before-admission",
+      "anchor": {
+        "diagramId": "miyagi-grounds",
+        "x": 360,
+        "y": 437,
+        "sourceIds": [
+          "access-map"
+        ],
+        "reference": "同じ棟/階の代表区域。個別入口/機械位置は未確定"
+      }
+    },
+    {
+      "id": "miyagi-grounds-p3-wc",
+      "name": "第3駐車場付近トイレ",
+      "purpose": "トイレ",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "グランディ21・第3駐車場付近トイレ",
+      "detail": "駐車場案内図にトイレ記号を掲載。男女/多目的の個別割当と公演の開放範囲は確認中です。",
+      "sourceIds": [
+        "access-map"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "before-admission",
+      "anchor": {
+        "diagramId": "miyagi-grounds",
+        "x": 275,
+        "y": 340,
+        "sourceIds": [
+          "access-map"
+        ],
+        "reference": "同じ棟/階の代表区域。個別入口/機械位置は未確定"
+      }
+    },
+    {
+      "id": "miyagi-grounds-a-wc",
+      "name": "駐車場A付近トイレ",
+      "purpose": "トイレ",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "グランディ21・駐車場A付近トイレ",
+      "detail": "駐車場案内図にトイレ記号を掲載。男女/多目的の個別割当と公演の開放範囲は確認中です。",
+      "sourceIds": [
+        "access-map"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "before-admission",
+      "anchor": {
+        "diagramId": "miyagi-grounds",
+        "x": 407,
+        "y": 313,
+        "sourceIds": [
+          "access-map"
+        ],
+        "reference": "同じ棟/階の代表区域。個別入口/機械位置は未確定"
+      }
+    },
+    {
+      "id": "miyagi-grounds-pool-wc",
+      "name": "総合プール南側付近トイレ",
+      "purpose": "トイレ",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "グランディ21・総合プール南側付近トイレ",
+      "detail": "駐車場案内図にトイレ記号を掲載。男女/多目的の個別割当と公演の開放範囲は確認中です。",
+      "sourceIds": [
+        "access-map"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "before-admission",
+      "anchor": {
+        "diagramId": "miyagi-grounds",
+        "x": 270,
+        "y": 482,
+        "sourceIds": [
+          "access-map"
+        ],
+        "reference": "同じ棟/階の代表区域。個別入口/機械位置は未確定"
+      }
+    },
+    {
+      "id": "miyagi-grounds-storage",
+      "name": "敷地内の一般荷物預かりは確認中",
+      "purpose": "荷物",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "グランディ21屋外",
+      "detail": "公開資料で一般預かりの個別施設を確定できていません。サブ1Fロッカーと駅の代替を確認してください。",
+      "sourceIds": [
+        "qa",
+        "access-map"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "kind": "no-storage"
+    },
+    {
+      "id": "miyagi-sendai-locker1",
+      "name": "仙台駅 新幹線中央改札脇 ロッカー",
+      "purpose": "荷物",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "location": "仙台駅 3F・新幹線中央改札脇",
+      "detail": "改札外、中央改札を出て右側。初電〜終電。個別料金・収納内寸・稼働/空きは現地/運営元で確認してください。",
+      "sourceIds": [
+        "sendai-locker-current"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "storageKind": "coin"
+    },
+    {
+      "id": "miyagi-sendai-locker2",
+      "name": "仙台駅 指定席券売機横 マルチエキューブ ロッカー",
+      "purpose": "荷物",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "location": "仙台駅 3F・指定席券売機横 マルチエキューブ",
+      "detail": "新幹線中央改札外・左側。初電〜終電。現金不可、IC/QR等。予約500円/BOXは預入料金と別、対象会員は予約料不要。個別料金・収納内寸・稼働/空きは現地/運営元で確認してください。",
+      "sourceIds": [
+        "sendai-locker-current"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "storageKind": "coin"
+    },
+    {
+      "id": "miyagi-sendai-locker3",
+      "name": "仙台駅 牛たん通り・すし通り南側 ロッカー",
+      "purpose": "荷物",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "location": "仙台駅 3F・牛たん通り・すし通り南側",
+      "detail": "改札外・通り内。初電〜終電。個別料金・収納内寸・稼働/空きは現地/運営元で確認してください。",
+      "sourceIds": [
+        "sendai-locker-current"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "storageKind": "coin"
+    },
+    {
+      "id": "miyagi-sendai-locker4",
+      "name": "仙台駅 牛たん通り・すし通り北側 ロッカー",
+      "purpose": "荷物",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "location": "仙台駅 3F・牛たん通り・すし通り北側",
+      "detail": "改札外・通り内。初電〜終電。個別料金・収納内寸・稼働/空きは現地/運営元で確認してください。",
+      "sourceIds": [
+        "sendai-locker-current"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "storageKind": "coin"
+    },
+    {
+      "id": "miyagi-sendai-locker5",
+      "name": "仙台駅 牛たん通り・すし通り トイレ前 ロッカー",
+      "purpose": "荷物",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "location": "仙台駅 3F・牛たん通り・すし通り トイレ前",
+      "detail": "改札外・通り奥トイレ前、伊達政宗像横。初電〜終電。個別料金・収納内寸・稼働/空きは現地/運営元で確認してください。",
+      "sourceIds": [
+        "sendai-locker-current"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "storageKind": "coin"
+    },
+    {
+      "id": "miyagi-sendai-locker6",
+      "name": "仙台駅 新幹線南改札外 ロッカー",
+      "purpose": "荷物",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "location": "仙台駅 3F・新幹線南改札外",
+      "detail": "改札を出て左へ進んだ場所。初電〜終電。個別料金・収納内寸・稼働/空きは現地/運営元で確認してください。",
+      "sourceIds": [
+        "sendai-locker-current"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "storageKind": "coin"
+    },
+    {
+      "id": "miyagi-sendai-locker7",
+      "name": "仙台駅 在来線中央改札外 ロッカー",
+      "purpose": "荷物",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "location": "仙台駅 2F・在来線中央改札外",
+      "detail": "改札を出て右、宅配便受付所横。初電〜終電。個別料金・収納内寸・稼働/空きは現地/運営元で確認してください。",
+      "sourceIds": [
+        "sendai-locker-current"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "storageKind": "coin"
+    },
+    {
+      "id": "miyagi-sendai-locker8",
+      "name": "仙台駅 西口交番横 ロッカー",
+      "purpose": "荷物",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "location": "仙台駅 2F・西口交番横",
+      "detail": "在来線中央改札外・右側。初電〜終電。個別料金・収納内寸・稼働/空きは現地/運営元で確認してください。",
+      "sourceIds": [
+        "sendai-locker-current"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "storageKind": "coin"
+    },
+    {
+      "id": "miyagi-sendai-locker9",
+      "name": "仙台駅 在来線中央改札内 ロッカー",
+      "purpose": "荷物",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "location": "仙台駅 2F・在来線中央改札内",
+      "detail": "改札内・左側待合室前通路。きっぷ等が必要、現金100円硬貨。初電〜終電。個別料金・収納内寸・稼働/空きは現地/運営元で確認してください。",
+      "sourceIds": [
+        "sendai-locker-current"
+      ],
+      "precision": "text-only",
+      "accessCondition": "ticket-required",
+      "storageKind": "coin"
+    },
+    {
+      "id": "miyagi-sendai-locker10",
+      "name": "仙台駅 西口タクシー乗降場前 ロッカー",
+      "purpose": "荷物",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "location": "仙台駅 1F・西口タクシー乗降場前",
+      "detail": "駅舎外・壁に沿った区域。一部を除き終日利用可能。区域内マルチエキューブの現金支払い不可。個別料金・収納内寸・稼働/空きは現地/運営元で確認してください。",
+      "sourceIds": [
+        "sendai-locker-current"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "storageKind": "coin"
+    },
+    {
+      "id": "miyagi-sendai-locker11",
+      "name": "仙台駅 地下東口改札外 ロッカー",
+      "purpose": "荷物",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "location": "仙台駅 B1F・地下東口改札外",
+      "detail": "改札を出て右。6:00〜24:00。小型/中型。個別料金・収納内寸・稼働/空きは現地/運営元で確認してください。",
+      "sourceIds": [
+        "sendai-locker-current"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "storageKind": "coin"
+    },
+    {
+      "id": "miyagi-sendai-staff",
+      "name": "仙台駅 BAGGAGE STORAGE＋",
+      "purpose": "荷物",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "location": "仙台駅3F・指定席券売機横（新幹線改札外）",
+      "detail": "毎日9:30〜19:00、営業時間外の返却不可。S105cm/500円、M140cm/800円、L160cm/1000円、LL160cm超/2000円、各30kg以内。1個1日ごと課金・最長30日。スーツケース上の別の鞄も別料金。配送サービスの料金と混同しません。",
+      "sourceIds": [
+        "sendai-locker-current",
+        "sendai-storage-operator"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "storageKind": "staffed"
+    },
+    {
+      "id": "miyagi-rifu-storage",
+      "name": "利府駅の個別ロッカーは確認中",
+      "purpose": "荷物",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "location": "JR利府駅",
+      "detail": "JR駅構内図ページは取得403。共通凡例だけでロッカーの存在・位置・料金を確定しません。仙台駅で預ける選択肢を確認してください。",
+      "sourceIds": [
+        "access"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "kind": "no-storage"
+    },
+    {
+      "id": "miyagi-rifu-tsumiki",
+      "name": "tsumiki（つみき）",
+      "purpose": "飲食",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "location": "JR利府駅周辺・まち/ひと/しごと創造ステーション",
+      "detail": "公式はワークスペース/カフェ・飲料サービスを案内。営業時間・公演前後の営業は公式へ確認。荷物預かり施設として掲載しません。",
+      "sourceIds": [
+        "tsumiki",
+        "access"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "kind": "cafe"
+    },
+    {
+      "id": "miyagi-rifu-guide",
+      "name": "利府駅からのバス",
+      "purpose": "案内",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "location": "JR利府駅",
+      "detail": "一般路線は菅谷台経由/青葉台経由、体育館は菅谷台4丁目下車、公式約10分。臨時シャトル・時刻・運賃・乗場は主催者案内を確認。",
+      "sourceIds": [
+        "access"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission"
+    },
+    {
+      "id": "miyagi-sendai-guide",
+      "name": "仙台駅・公演シャトル",
+      "purpose": "案内",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "location": "JR仙台駅",
+      "detail": "公演シャトルの販売/運行/乗場は主催者案内。全公演共通の時刻や所要時間を作りません。",
+      "sourceIds": [
+        "access"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission"
+    }
+  ],
+  "diagrams": [
+    {
+      "id": "miyagi-main1",
+      "floor": "メイン1F",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        65,
+        1175,
+        725
+      ],
+      "concoursePaths": [
+        "M260 254 Q600 122 918 253",
+        "M270 606 Q600 730 965 570"
+      ],
+      "contextPaths": [
+        "M301 290 Q600 166 881 292 V562 Q600 652 300 562 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "miyagi-main1-south",
+          "label": "南側",
+          "name": "南側",
+          "x": 165,
+          "y": 410,
+          "kind": "passage",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "原図の代表区域。公演指定入口/連続経路ではありません"
+        },
+        {
+          "id": "miyagi-main1-north",
+          "label": "北側",
+          "name": "北側",
+          "x": 933,
+          "y": 422,
+          "kind": "passage",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "原図の代表区域。公演指定入口/連続経路ではありません"
+        },
+        {
+          "id": "miyagi-main1-east",
+          "label": "東側",
+          "name": "東側",
+          "x": 595,
+          "y": 731,
+          "kind": "passage",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "原図の代表区域。公演指定入口/連続経路ではありません"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor"
+        ],
+        "file": "research/miyagi-current-2026-10-10/floor.pdf",
+        "sha256": "43532545a23e7cafb417bb52b5556c415b0bef1d97162cc650b2bf6e51fb6c6f",
+        "width": 1191,
+        "height": 842,
+        "method": "主要区域の独立清書。原資料の階/棟/場所関係を保持し精密入口・連続経路ではない",
+        "status": "partial-source-reviewed"
+      }
+    },
+    {
+      "id": "miyagi-main2",
+      "floor": "メイン2F",
+      "scope": "場内",
+      "viewBox": [
+        550,
+        600,
+        300,
+        215
+      ],
+      "concoursePaths": [
+        "M595 649 Q703 595 805 651",
+        "M605 772 Q700 818 810 750"
+      ],
+      "contextPaths": [
+        "M615 655 Q700 615 788 658 V727 Q700 780 615 738 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "miyagi-main2-lobby",
+          "label": "メインロビー",
+          "name": "メインロビー",
+          "x": 604,
+          "y": 706,
+          "kind": "passage",
+          "sourceIds": [
+            "park"
+          ],
+          "reference": "原図の代表区域。公演指定入口/連続経路ではありません"
+        },
+        {
+          "id": "miyagi-main2-west",
+          "label": "西側コンコース",
+          "name": "西側コンコース",
+          "x": 711,
+          "y": 642,
+          "kind": "passage",
+          "sourceIds": [
+            "park"
+          ],
+          "reference": "原図の代表区域。公演指定入口/連続経路ではありません"
+        },
+        {
+          "id": "miyagi-main2-east",
+          "label": "東側コンコース",
+          "name": "東側コンコース",
+          "x": 711,
+          "y": 777,
+          "kind": "passage",
+          "sourceIds": [
+            "park"
+          ],
+          "reference": "原図の代表区域。公演指定入口/連続経路ではありません"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "park"
+        ],
+        "file": "research/miyagi-current-2026-10-10/park-page4.png",
+        "sha256": "6c0f0a32e765aaec918905acd92f73dd9cfe0ea707871d41b17bf770eed44b6d",
+        "width": 893,
+        "height": 1263,
+        "method": "主要区域の独立清書。原資料の階/棟/場所関係を保持し精密入口・連続経路ではない",
+        "status": "partial-source-reviewed"
+      }
+    },
+    {
+      "id": "miyagi-sub1",
+      "floor": "サブ1F",
+      "scope": "場内",
+      "viewBox": [
+        590,
+        835,
+        245,
+        205
+      ],
+      "concoursePaths": [],
+      "contextPaths": [
+        "M675 950 H732 V1017 H675 Z",
+        "M692 901 H748 V928 H692 Z",
+        "M642 865 H709 V886 H642 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "miyagi-sub1-lobby",
+          "label": "サブ1Fロビー",
+          "name": "サブ1Fロビー",
+          "x": 714,
+          "y": 941,
+          "kind": "passage",
+          "sourceIds": [
+            "park"
+          ],
+          "reference": "原図の代表区域。公演指定入口/連続経路ではありません"
+        },
+        {
+          "id": "miyagi-sub1-reception",
+          "label": "総合受付",
+          "name": "総合受付",
+          "x": 735,
+          "y": 940,
+          "kind": "passage",
+          "sourceIds": [
+            "park"
+          ],
+          "reference": "原図の代表区域。公演指定入口/連続経路ではありません"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "park"
+        ],
+        "file": "research/miyagi-current-2026-10-10/park-page4.png",
+        "sha256": "6c0f0a32e765aaec918905acd92f73dd9cfe0ea707871d41b17bf770eed44b6d",
+        "width": 893,
+        "height": 1263,
+        "method": "主要区域の独立清書。原資料の階/棟/場所関係を保持し精密入口・連続経路ではない",
+        "status": "partial-source-reviewed"
+      }
+    },
+    {
+      "id": "miyagi-sub2",
+      "floor": "サブ2F",
+      "scope": "場内",
+      "viewBox": [
+        640,
+        1040,
+        195,
+        155
+      ],
+      "concoursePaths": [],
+      "contextPaths": [
+        "M690 1095 H758 V1155 H690 Z",
+        "M728 1097 H782 V1125 H728 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "miyagi-sub2-cafe",
+          "label": "喫茶店（レストラン）",
+          "name": "喫茶店（レストラン）",
+          "x": 767,
+          "y": 1115,
+          "kind": "shop",
+          "sourceIds": [
+            "park"
+          ],
+          "reference": "原図の代表区域。公演指定入口/連続経路ではありません"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "park"
+        ],
+        "file": "research/miyagi-current-2026-10-10/park-page4.png",
+        "sha256": "6c0f0a32e765aaec918905acd92f73dd9cfe0ea707871d41b17bf770eed44b6d",
+        "width": 893,
+        "height": 1263,
+        "method": "主要区域の独立清書。原資料の階/棟/場所関係を保持し精密入口・連続経路ではない",
+        "status": "partial-source-reviewed"
+      }
+    },
+    {
+      "id": "miyagi-unknown",
+      "floor": "棟・階確認中",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        500,
+        300
+      ],
+      "concoursePaths": [],
+      "contextPaths": [],
+      "landmarks": [],
+      "evidence": {
+        "sourceIds": [
+          "qa"
+        ],
+        "file": "research/miyagi-current-2026-10-10/qa.html",
+        "sha256": "300487543a8329fc6dd5e23f5b934158674e8d2fbe3f2c0a46b5bac088c17ba8",
+        "width": 500,
+        "height": 300,
+        "method": "主要区域の独立清書。原資料の階/棟/場所関係を保持し精密入口・連続経路ではない",
+        "status": "partial-source-reviewed"
+      }
+    },
+    {
+      "id": "miyagi-grounds",
+      "floor": "敷地",
+      "scope": "場外",
+      "viewBox": [
+        0,
+        130,
+        595,
+        640
+      ],
+      "concoursePaths": [],
+      "contextPaths": [
+        "M281 342 H329 V368 H281 Z",
+        "M339 414 H378 V456 H339 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "miyagi-grounds-arena",
+          "label": "スーパーアリーナ",
+          "name": "スーパーアリーナ",
+          "x": 309,
+          "y": 352,
+          "kind": "plaza",
+          "sourceIds": [
+            "access-map"
+          ],
+          "reference": "原図の代表区域。公演指定入口/連続経路ではありません"
+        },
+        {
+          "id": "miyagi-grounds-bus4",
+          "label": "菅谷台4丁目バス停",
+          "name": "菅谷台4丁目バス停",
+          "x": 351,
+          "y": 510,
+          "kind": "station",
+          "sourceIds": [
+            "access-map"
+          ],
+          "reference": "原図の代表区域。公演指定入口/連続経路ではありません"
+        },
+        {
+          "id": "miyagi-grounds-parking3",
+          "label": "第3駐車場",
+          "name": "第3駐車場",
+          "x": 298,
+          "y": 314,
+          "kind": "plaza",
+          "sourceIds": [
+            "access-map"
+          ],
+          "reference": "原図の代表区域。公演指定入口/連続経路ではありません"
+        },
+        {
+          "id": "miyagi-grounds-gate",
+          "label": "正面ゲート",
+          "name": "正面ゲート",
+          "x": 382,
+          "y": 469,
+          "kind": "entrance",
+          "sourceIds": [
+            "access-map"
+          ],
+          "reference": "原図の代表区域。公演指定入口/連続経路ではありません"
+        },
+        {
+          "id": "miyagi-grounds-guide",
+          "label": "総合案内受付",
+          "name": "総合案内受付",
+          "x": 322,
+          "y": 383,
+          "kind": "entrance",
+          "sourceIds": [
+            "access-map"
+          ],
+          "reference": "原図の代表区域。公演指定入口/連続経路ではありません"
+        },
+        {
+          "id": "miyagi-grounds-pool",
+          "label": "総合プール",
+          "name": "総合プール",
+          "x": 360,
+          "y": 437,
+          "kind": "plaza",
+          "sourceIds": [
+            "access-map"
+          ],
+          "reference": "原図の代表区域。公演指定入口/連続経路ではありません"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "access-map"
+        ],
+        "file": "research/miyagi-current-2026-10-10/access-map-page2.png",
+        "sha256": "51cf82d63154ba6f71848b7add04e6f6e42fe4b8a3f45cde2e724099146c3e13",
+        "width": 893,
+        "height": 1263,
+        "method": "主要区域の独立清書。原資料の階/棟/場所関係を保持し精密入口・連続経路ではない",
+        "status": "partial-source-reviewed"
+      }
+    },
+    {
+      "id": "miyagi-station",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "viewBox": [
+        0,
+        0,
+        700,
+        420
+      ],
+      "concoursePaths": [],
+      "contextPaths": [],
+      "landmarks": [
+        {
+          "id": "miyagi-sendai",
+          "label": "仙台駅",
+          "name": "仙台駅",
+          "x": 180,
+          "y": 180,
+          "kind": "station",
+          "sourceIds": [
+            "sendai-locker-current"
+          ],
+          "reference": "原図の代表区域。公演指定入口/連続経路ではありません"
+        },
+        {
+          "id": "miyagi-rifu",
+          "label": "利府駅",
+          "name": "利府駅",
+          "x": 520,
+          "y": 180,
+          "kind": "station",
+          "sourceIds": [
+            "sendai-locker-current"
+          ],
+          "reference": "原図の代表区域。公演指定入口/連続経路ではありません"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "sendai-locker-current"
+        ],
+        "file": "research/miyagi-current-2026-10-10/sendai-locker-current.html",
+        "sha256": "143e6eb4d463f90123ed82acc64d7ee90ae464d866e70c4bb8fbeeec54da6534",
+        "width": 700,
+        "height": 420,
+        "method": "主要区域の独立清書。原資料の階/棟/場所関係を保持し精密入口・連続経路ではない",
+        "status": "partial-source-reviewed"
+      }
+    }
+  ],
+  "groups": [
+    {
+      "id": "miyagi-main1-north-men-g",
+      "diagramId": "miyagi-main1",
+      "purpose": "トイレ",
+      "label": "男性トイレ",
+      "area": "北西側器具庫3付近",
+      "memberIds": [
+        "miyagi-main1-north-men"
+      ],
+      "x": 910,
+      "y": 255,
+      "boundary": "同じ棟/階/用途/利用境界の固定区域。未知の棟階へ移さない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "miyagi-main1-north-women-g",
+      "diagramId": "miyagi-main1",
+      "purpose": "トイレ",
+      "label": "女性トイレ",
+      "area": "北西側器具庫3付近",
+      "memberIds": [
+        "miyagi-main1-north-women"
+      ],
+      "x": 947,
+      "y": 280,
+      "boundary": "同じ棟/階/用途/利用境界の固定区域。未知の棟階へ移さない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "miyagi-main1-south-women-g",
+      "diagramId": "miyagi-main1",
+      "purpose": "トイレ",
+      "label": "女性トイレ",
+      "area": "南側廊下",
+      "memberIds": [
+        "miyagi-main1-south-women"
+      ],
+      "x": 132,
+      "y": 503,
+      "boundary": "同じ棟/階/用途/利用境界の固定区域。未知の棟階へ移さない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "miyagi-main1-south-men-g",
+      "diagramId": "miyagi-main1",
+      "purpose": "トイレ",
+      "label": "男性トイレ",
+      "area": "南側廊下",
+      "memberIds": [
+        "miyagi-main1-south-men"
+      ],
+      "x": 160,
+      "y": 508,
+      "boundary": "同じ棟/階/用途/利用境界の固定区域。未知の棟階へ移さない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "miyagi-main1-east-men-g",
+      "diagramId": "miyagi-main1",
+      "purpose": "トイレ",
+      "label": "男性トイレ",
+      "area": "東側会議室6付近",
+      "memberIds": [
+        "miyagi-main1-east-men"
+      ],
+      "x": 628,
+      "y": 661,
+      "boundary": "同じ棟/階/用途/利用境界の固定区域。未知の棟階へ移さない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "miyagi-main1-east-women-g",
+      "diagramId": "miyagi-main1",
+      "purpose": "トイレ",
+      "label": "女性トイレ",
+      "area": "東側会議室6付近",
+      "memberIds": [
+        "miyagi-main1-east-women"
+      ],
+      "x": 650,
+      "y": 661,
+      "boundary": "同じ棟/階/用途/利用境界の固定区域。未知の棟階へ移さない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "miyagi-main1-accessible1-g",
+      "diagramId": "miyagi-main1",
+      "purpose": "トイレ",
+      "label": "多目的トイレ",
+      "area": "南側視聴覚室付近",
+      "memberIds": [
+        "miyagi-main1-accessible1"
+      ],
+      "x": 92,
+      "y": 409,
+      "boundary": "同じ棟/階/用途/利用境界の固定区域。未知の棟階へ移さない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "miyagi-main1-accessible2-g",
+      "diagramId": "miyagi-main1",
+      "purpose": "トイレ",
+      "label": "多目的トイレ",
+      "area": "南側視聴覚室付近",
+      "memberIds": [
+        "miyagi-main1-accessible2"
+      ],
+      "x": 77,
+      "y": 425,
+      "boundary": "同じ棟/階/用途/利用境界の固定区域。未知の棟階へ移さない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "miyagi-main1-changing-west-g",
+      "diagramId": "miyagi-main1",
+      "purpose": "荷物",
+      "label": "競技者用ロッカールーム",
+      "area": "更衣室",
+      "memberIds": [
+        "miyagi-main1-changing-west"
+      ],
+      "x": 490,
+      "y": 676,
+      "boundary": "同じ棟/階/用途/利用境界の固定区域。未知の棟階へ移さない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "miyagi-main1-changing-east-g",
+      "diagramId": "miyagi-main1",
+      "purpose": "荷物",
+      "label": "競技者用ロッカールーム",
+      "area": "更衣室",
+      "memberIds": [
+        "miyagi-main1-changing-east"
+      ],
+      "x": 690,
+      "y": 676,
+      "boundary": "同じ棟/階/用途/利用境界の固定区域。未知の棟階へ移さない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "miyagi-main2-west-a-g",
+      "diagramId": "miyagi-main2",
+      "purpose": "トイレ",
+      "label": "男女トイレ区域",
+      "area": "西側コンコース・南寄り",
+      "memberIds": [
+        "miyagi-main2-west-a"
+      ],
+      "x": 689,
+      "y": 636,
+      "boundary": "同じ棟/階/用途/利用境界の固定区域。未知の棟階へ移さない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "miyagi-main2-west-b-g",
+      "diagramId": "miyagi-main2",
+      "purpose": "トイレ",
+      "label": "男女トイレ区域",
+      "area": "西側コンコース・北寄り",
+      "memberIds": [
+        "miyagi-main2-west-b"
+      ],
+      "x": 724,
+      "y": 636,
+      "boundary": "同じ棟/階/用途/利用境界の固定区域。未知の棟階へ移さない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "miyagi-main2-west-access-g",
+      "diagramId": "miyagi-main2",
+      "purpose": "トイレ",
+      "label": "多目的トイレ",
+      "area": "西側コンコース中央",
+      "memberIds": [
+        "miyagi-main2-west-access"
+      ],
+      "x": 711,
+      "y": 620,
+      "boundary": "同じ棟/階/用途/利用境界の固定区域。未知の棟階へ移さない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "miyagi-main2-north-g",
+      "diagramId": "miyagi-main2",
+      "purpose": "トイレ",
+      "label": "男女トイレ区域",
+      "area": "北側サービスヤード寄り",
+      "memberIds": [
+        "miyagi-main2-north"
+      ],
+      "x": 790,
+      "y": 671,
+      "boundary": "同じ棟/階/用途/利用境界の固定区域。未知の棟階へ移さない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "miyagi-main2-east-a-g",
+      "diagramId": "miyagi-main2",
+      "purpose": "トイレ",
+      "label": "男女トイレ区域",
+      "area": "東側コンコース・南寄り",
+      "memberIds": [
+        "miyagi-main2-east-a"
+      ],
+      "x": 688,
+      "y": 772,
+      "boundary": "同じ棟/階/用途/利用境界の固定区域。未知の棟階へ移さない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "miyagi-main2-east-b-g",
+      "diagramId": "miyagi-main2",
+      "purpose": "トイレ",
+      "label": "男女トイレ区域",
+      "area": "東側コンコース・北寄り",
+      "memberIds": [
+        "miyagi-main2-east-b"
+      ],
+      "x": 725,
+      "y": 772,
+      "boundary": "同じ棟/階/用途/利用境界の固定区域。未知の棟階へ移さない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "miyagi-main2-east-access-g",
+      "diagramId": "miyagi-main2",
+      "purpose": "トイレ",
+      "label": "多目的トイレ",
+      "area": "東側コンコース中央",
+      "memberIds": [
+        "miyagi-main2-east-access"
+      ],
+      "x": 711,
+      "y": 791,
+      "boundary": "同じ棟/階/用途/利用境界の固定区域。未知の棟階へ移さない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "miyagi-sub1-toilet-east-g",
+      "diagramId": "miyagi-sub1",
+      "purpose": "トイレ",
+      "label": "男女トイレ区域",
+      "area": "東側更衣区域",
+      "memberIds": [
+        "miyagi-sub1-toilet-east"
+      ],
+      "x": 756,
+      "y": 888,
+      "boundary": "同じ棟/階/用途/利用境界の固定区域。未知の棟階へ移さない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "miyagi-sub1-toilet-center-g",
+      "diagramId": "miyagi-sub1",
+      "purpose": "トイレ",
+      "label": "男女トイレ区域",
+      "area": "ロビー側",
+      "memberIds": [
+        "miyagi-sub1-toilet-center"
+      ],
+      "x": 681,
+      "y": 932,
+      "boundary": "同じ棟/階/用途/利用境界の固定区域。未知の棟階へ移さない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "miyagi-sub1-accessible-g",
+      "diagramId": "miyagi-sub1",
+      "purpose": "トイレ",
+      "label": "多目的トイレ",
+      "area": "医務室/フィットネススタジオ側",
+      "memberIds": [
+        "miyagi-sub1-accessible"
+      ],
+      "x": 595,
+      "y": 940,
+      "boundary": "同じ棟/階/用途/利用境界の固定区域。未知の棟階へ移さない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "miyagi-sub1-aed-g",
+      "diagramId": "miyagi-sub1",
+      "purpose": "AED",
+      "label": "総合受付のAED",
+      "area": "総合受付",
+      "memberIds": [
+        "miyagi-sub1-aed"
+      ],
+      "x": 735,
+      "y": 941,
+      "boundary": "同じ棟/階/用途/利用境界の固定区域。未知の棟階へ移さない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "miyagi-sub1-guide-g",
+      "diagramId": "miyagi-sub1",
+      "purpose": "案内",
+      "label": "総合受付",
+      "area": "総合受付",
+      "memberIds": [
+        "miyagi-sub1-guide"
+      ],
+      "x": 735,
+      "y": 941,
+      "boundary": "同じ棟/階/用途/利用境界の固定区域。未知の棟階へ移さない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "miyagi-sub2-toilet-g",
+      "diagramId": "miyagi-sub2",
+      "purpose": "トイレ",
+      "label": "男女トイレ区域",
+      "area": "喫茶店側",
+      "memberIds": [
+        "miyagi-sub2-toilet"
+      ],
+      "x": 796,
+      "y": 1089,
+      "boundary": "同じ棟/階/用途/利用境界の固定区域。未知の棟階へ移さない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "miyagi-sub2-cafe-g",
+      "diagramId": "miyagi-sub2",
+      "purpose": "飲食",
+      "label": "サブアリーナ2階 喫茶店",
+      "area": "レストラン掲載区域",
+      "memberIds": [
+        "miyagi-sub2-cafe"
+      ],
+      "x": 767,
+      "y": 1115,
+      "boundary": "同じ棟/階/用途/利用境界の固定区域。未知の棟階へ移さない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "miyagi-grounds-arena-g",
+      "diagramId": "miyagi-grounds",
+      "purpose": "案内",
+      "label": "スーパーアリーナ",
+      "area": "グランディ21・スーパーアリーナ",
+      "memberIds": [
+        "miyagi-grounds-arena"
+      ],
+      "x": 309,
+      "y": 352,
+      "boundary": "同じ棟/階/用途/利用境界の固定区域。未知の棟階へ移さない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "miyagi-grounds-bus4-g",
+      "diagramId": "miyagi-grounds",
+      "purpose": "案内",
+      "label": "菅谷台4丁目バス停",
+      "area": "グランディ21・菅谷台4丁目バス停",
+      "memberIds": [
+        "miyagi-grounds-bus4"
+      ],
+      "x": 351,
+      "y": 510,
+      "boundary": "同じ棟/階/用途/利用境界の固定区域。未知の棟階へ移さない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "miyagi-grounds-parking3-g",
+      "diagramId": "miyagi-grounds",
+      "purpose": "案内",
+      "label": "第3駐車場",
+      "area": "グランディ21・第3駐車場",
+      "memberIds": [
+        "miyagi-grounds-parking3"
+      ],
+      "x": 298,
+      "y": 314,
+      "boundary": "同じ棟/階/用途/利用境界の固定区域。未知の棟階へ移さない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "miyagi-grounds-gate-g",
+      "diagramId": "miyagi-grounds",
+      "purpose": "案内",
+      "label": "正面ゲート",
+      "area": "グランディ21・正面ゲート",
+      "memberIds": [
+        "miyagi-grounds-gate"
+      ],
+      "x": 382,
+      "y": 469,
+      "boundary": "同じ棟/階/用途/利用境界の固定区域。未知の棟階へ移さない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "miyagi-grounds-guide-g",
+      "diagramId": "miyagi-grounds",
+      "purpose": "案内",
+      "label": "総合案内受付",
+      "area": "グランディ21・総合案内受付",
+      "memberIds": [
+        "miyagi-grounds-guide"
+      ],
+      "x": 322,
+      "y": 383,
+      "boundary": "同じ棟/階/用途/利用境界の固定区域。未知の棟階へ移さない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "miyagi-grounds-pool-g",
+      "diagramId": "miyagi-grounds",
+      "purpose": "案内",
+      "label": "総合プール",
+      "area": "グランディ21・総合プール",
+      "memberIds": [
+        "miyagi-grounds-pool"
+      ],
+      "x": 360,
+      "y": 437,
+      "boundary": "同じ棟/階/用途/利用境界の固定区域。未知の棟階へ移さない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "miyagi-grounds-p3-wc-g",
+      "diagramId": "miyagi-grounds",
+      "purpose": "トイレ",
+      "label": "第3駐車場付近トイレ",
+      "area": "グランディ21・第3駐車場付近トイレ",
+      "memberIds": [
+        "miyagi-grounds-p3-wc"
+      ],
+      "x": 275,
+      "y": 340,
+      "boundary": "同じ棟/階/用途/利用境界の固定区域。未知の棟階へ移さない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "miyagi-grounds-a-wc-g",
+      "diagramId": "miyagi-grounds",
+      "purpose": "トイレ",
+      "label": "駐車場A付近トイレ",
+      "area": "グランディ21・駐車場A付近トイレ",
+      "memberIds": [
+        "miyagi-grounds-a-wc"
+      ],
+      "x": 407,
+      "y": 313,
+      "boundary": "同じ棟/階/用途/利用境界の固定区域。未知の棟階へ移さない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "miyagi-grounds-pool-wc-g",
+      "diagramId": "miyagi-grounds",
+      "purpose": "トイレ",
+      "label": "総合プール南側付近トイレ",
+      "area": "グランディ21・総合プール南側付近トイレ",
+      "memberIds": [
+        "miyagi-grounds-pool-wc"
+      ],
+      "x": 270,
+      "y": 482,
+      "boundary": "同じ棟/階/用途/利用境界の固定区域。未知の棟階へ移さない",
+      "visualReview": "source-checked"
+    }
+  ],
+  "meta": {
+    "miyagi-main1-north-men": {
+      "area": "北西側器具庫3付近",
+      "location": "北西側器具庫3付近",
+      "detail": "現行リンクの1F図面掲載区域です。催事の開放範囲は係員へ確認してください。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。"
+    },
+    "miyagi-main1-north-women": {
+      "area": "北西側器具庫3付近",
+      "location": "北西側器具庫3付近",
+      "detail": "現行リンクの1F図面掲載区域です。催事の開放範囲は係員へ確認してください。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。"
+    },
+    "miyagi-main1-south-women": {
+      "area": "南側廊下",
+      "location": "南側廊下",
+      "detail": "現行リンクの1F図面掲載区域です。催事の開放範囲は係員へ確認してください。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。"
+    },
+    "miyagi-main1-south-men": {
+      "area": "南側廊下",
+      "location": "南側廊下",
+      "detail": "現行リンクの1F図面掲載区域です。催事の開放範囲は係員へ確認してください。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。"
+    },
+    "miyagi-main1-east-men": {
+      "area": "東側会議室6付近",
+      "location": "東側会議室6付近",
+      "detail": "現行リンクの1F図面掲載区域です。催事の開放範囲は係員へ確認してください。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。"
+    },
+    "miyagi-main1-east-women": {
+      "area": "東側会議室6付近",
+      "location": "東側会議室6付近",
+      "detail": "現行リンクの1F図面掲載区域です。催事の開放範囲は係員へ確認してください。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。"
+    },
+    "miyagi-main1-accessible1": {
+      "area": "南側視聴覚室付近",
+      "location": "南側視聴覚室付近",
+      "detail": "現行リンクの1F図面掲載区域です。催事の開放範囲は係員へ確認してください。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。"
+    },
+    "miyagi-main1-accessible2": {
+      "area": "南側視聴覚室付近",
+      "location": "南側視聴覚室付近",
+      "detail": "現行リンクの1F図面掲載区域です。催事の開放範囲は係員へ確認してください。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。"
+    },
+    "miyagi-main1-changing-west": {
+      "area": "更衣室",
+      "location": "更衣室",
+      "detail": "競技者/施設利用者の更衣室です。一般観客の手荷物預かりではありません。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。"
+    },
+    "miyagi-main1-changing-east": {
+      "area": "更衣室",
+      "location": "更衣室",
+      "detail": "競技者/施設利用者の更衣室です。一般観客の手荷物預かりではありません。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。"
+    },
+    "miyagi-main2-west-a": {
+      "area": "西側コンコース・南寄り",
+      "location": "西側コンコース・南寄り",
+      "detail": "パンフレットの同じ階に掲載された区域です。男女別入口の精密位置は確認中です。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。"
+    },
+    "miyagi-main2-west-b": {
+      "area": "西側コンコース・北寄り",
+      "location": "西側コンコース・北寄り",
+      "detail": "パンフレットの同じ階に掲載された区域です。男女別入口の精密位置は確認中です。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。"
+    },
+    "miyagi-main2-west-access": {
+      "area": "西側コンコース中央",
+      "location": "西側コンコース中央",
+      "detail": "パンフレットの同じ階に掲載された区域です。男女別入口の精密位置は確認中です。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。"
+    },
+    "miyagi-main2-north": {
+      "area": "北側サービスヤード寄り",
+      "location": "北側サービスヤード寄り",
+      "detail": "パンフレットの同じ階に掲載された区域です。男女別入口の精密位置は確認中です。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。"
+    },
+    "miyagi-main2-east-a": {
+      "area": "東側コンコース・南寄り",
+      "location": "東側コンコース・南寄り",
+      "detail": "パンフレットの同じ階に掲載された区域です。男女別入口の精密位置は確認中です。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。"
+    },
+    "miyagi-main2-east-b": {
+      "area": "東側コンコース・北寄り",
+      "location": "東側コンコース・北寄り",
+      "detail": "パンフレットの同じ階に掲載された区域です。男女別入口の精密位置は確認中です。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。"
+    },
+    "miyagi-main2-east-access": {
+      "area": "東側コンコース中央",
+      "location": "東側コンコース中央",
+      "detail": "パンフレットの同じ階に掲載された区域です。男女別入口の精密位置は確認中です。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。"
+    },
+    "miyagi-main2-food-area": {
+      "area": "ロビー/コンコース",
+      "location": "ロビー/コンコース",
+      "detail": "客席での飲食は遠慮する案内。ロビー/コンコースでは可能ですが、イベントにより制限があります。店舗や売店の存在を示す案内ではありません。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。"
+    },
+    "miyagi-main2-ticket": {
+      "area": "メインロビー側",
+      "location": "メインロビー側",
+      "detail": "パンフレット掲載のチケットブース。公演の受付・使用・入場口は主催者案内で確認してください。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。"
+    },
+    "miyagi-sub1-toilet-east": {
+      "area": "東側更衣区域",
+      "location": "東側更衣区域",
+      "detail": "パンフレット掲載区域。一般観客の立入は催事案内を確認してください。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。"
+    },
+    "miyagi-sub1-toilet-center": {
+      "area": "ロビー側",
+      "location": "ロビー側",
+      "detail": "パンフレット掲載区域です。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。"
+    },
+    "miyagi-sub1-accessible": {
+      "area": "医務室/フィットネススタジオ側",
+      "location": "医務室/フィットネススタジオ側",
+      "detail": "パンフレットの多目的トイレ記号を確認。正確な入口は係員へ確認してください。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。"
+    },
+    "miyagi-sub1-locker": {
+      "area": "ロビー等",
+      "location": "ロビー等",
+      "detail": "公式QAに掲載。メイン客席直近の設備ではありません。個別機械の位置・収納寸法・料金・時間・公演観客の利用可否は確認中です。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。"
+    },
+    "miyagi-sub1-aed": {
+      "area": "総合受付",
+      "location": "総合受付",
+      "detail": "各施設受付にAEDがあります。緊急時は受付へ連絡してください。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。"
+    },
+    "miyagi-sub1-guide": {
+      "area": "総合受付",
+      "location": "総合受付",
+      "detail": "落とし物・車いす貸出・施設の問い合わせ。コンサート終了後の落とし物は主催者へ。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。"
+    },
+    "miyagi-sub2-toilet": {
+      "area": "喫茶店側",
+      "location": "喫茶店側",
+      "detail": "パンフレット掲載区域です。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。"
+    },
+    "miyagi-sub2-cafe": {
+      "area": "レストラン掲載区域",
+      "location": "レストラン掲載区域",
+      "detail": "公式QAは喫茶店、パンフレットはレストラン表記。外から直接入れます。店名・営業時間・当日営業は確認中です。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。"
+    },
+    "miyagi-baby": {
+      "area": "スーパーアリーナ・個別階確認中",
+      "location": "スーパーアリーナ・個別階確認中",
+      "detail": "公式QAに授乳室があると掲載。個別の棟/階/位置を確定せず、利用時は受付へ。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。"
+    },
+    "miyagi-diaper": {
+      "area": "各施設のトイレ/多目的トイレ",
+      "location": "各施設のトイレ/多目的トイレ",
+      "detail": "公式QAはトイレ内のベビーベッドを案内。すべての個別トイレへ確認済みとして複製しません。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。"
+    },
+    "miyagi-aed-main": {
+      "area": "施設受付・個別位置確認中",
+      "location": "施設受付・個別位置確認中",
+      "detail": "各施設受付にAEDがあると公式QA掲載。緊急時は係員/受付へ連絡してください。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。"
+    },
+    "miyagi-storage-main": {
+      "area": "メインアリーナ/屋外",
+      "location": "メインアリーナ/屋外",
+      "detail": "サブ1Fのロッカーは別区域です。メイン客席・屋外の一般預かり/臨時クロークは主催者へ確認してください。施設側の荷受・発送は対応しません。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。"
+    },
+    "miyagi-grounds-arena": {
+      "area": "グランディ21・スーパーアリーナ",
+      "location": "グランディ21・スーパーアリーナ",
+      "detail": "公式図の場所関係です。スタジアムのN/E/W/Sゲートをアリーナ入口と混同しません。公演の指定入口・駐車券・精密連続経路は主催者案内を確認してください。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "miyagi-grounds-bus4": {
+      "area": "グランディ21・菅谷台4丁目バス停",
+      "location": "グランディ21・菅谷台4丁目バス停",
+      "detail": "公式図の場所関係です。スタジアムのN/E/W/Sゲートをアリーナ入口と混同しません。公演の指定入口・駐車券・精密連続経路は主催者案内を確認してください。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "miyagi-grounds-parking3": {
+      "area": "グランディ21・第3駐車場",
+      "location": "グランディ21・第3駐車場",
+      "detail": "公式図の場所関係です。スタジアムのN/E/W/Sゲートをアリーナ入口と混同しません。公演の指定入口・駐車券・精密連続経路は主催者案内を確認してください。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "miyagi-grounds-gate": {
+      "area": "グランディ21・正面ゲート",
+      "location": "グランディ21・正面ゲート",
+      "detail": "公式図の場所関係です。スタジアムのN/E/W/Sゲートをアリーナ入口と混同しません。公演の指定入口・駐車券・精密連続経路は主催者案内を確認してください。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "miyagi-grounds-guide": {
+      "area": "グランディ21・総合案内受付",
+      "location": "グランディ21・総合案内受付",
+      "detail": "公式図の場所関係です。スタジアムのN/E/W/Sゲートをアリーナ入口と混同しません。公演の指定入口・駐車券・精密連続経路は主催者案内を確認してください。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "miyagi-grounds-pool": {
+      "area": "グランディ21・総合プール",
+      "location": "グランディ21・総合プール",
+      "detail": "公式図の場所関係です。スタジアムのN/E/W/Sゲートをアリーナ入口と混同しません。公演の指定入口・駐車券・精密連続経路は主催者案内を確認してください。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "miyagi-grounds-p3-wc": {
+      "area": "グランディ21・第3駐車場付近トイレ",
+      "location": "グランディ21・第3駐車場付近トイレ",
+      "detail": "駐車場案内図にトイレ記号を掲載。男女/多目的の個別割当と公演の開放範囲は確認中です。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "miyagi-grounds-a-wc": {
+      "area": "グランディ21・駐車場A付近トイレ",
+      "location": "グランディ21・駐車場A付近トイレ",
+      "detail": "駐車場案内図にトイレ記号を掲載。男女/多目的の個別割当と公演の開放範囲は確認中です。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "miyagi-grounds-pool-wc": {
+      "area": "グランディ21・総合プール南側付近トイレ",
+      "location": "グランディ21・総合プール南側付近トイレ",
+      "detail": "駐車場案内図にトイレ記号を掲載。男女/多目的の個別割当と公演の開放範囲は確認中です。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "miyagi-grounds-storage": {
+      "area": "グランディ21屋外",
+      "location": "グランディ21屋外",
+      "detail": "公開資料で一般預かりの個別施設を確定できていません。サブ1Fロッカーと駅の代替を確認してください。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "miyagi-sendai-locker1": {
+      "area": "仙台駅 3F・新幹線中央改札脇",
+      "location": "仙台駅 3F・新幹線中央改札脇",
+      "detail": "改札外、中央改札を出て右側。初電〜終電。個別料金・収納内寸・稼働/空きは現地/運営元で確認してください。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。",
+      "outsideViewIds": [
+        "station"
+      ]
+    },
+    "miyagi-sendai-locker2": {
+      "area": "仙台駅 3F・指定席券売機横 マルチエキューブ",
+      "location": "仙台駅 3F・指定席券売機横 マルチエキューブ",
+      "detail": "新幹線中央改札外・左側。初電〜終電。現金不可、IC/QR等。予約500円/BOXは預入料金と別、対象会員は予約料不要。個別料金・収納内寸・稼働/空きは現地/運営元で確認してください。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。",
+      "outsideViewIds": [
+        "station"
+      ]
+    },
+    "miyagi-sendai-locker3": {
+      "area": "仙台駅 3F・牛たん通り・すし通り南側",
+      "location": "仙台駅 3F・牛たん通り・すし通り南側",
+      "detail": "改札外・通り内。初電〜終電。個別料金・収納内寸・稼働/空きは現地/運営元で確認してください。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。",
+      "outsideViewIds": [
+        "station"
+      ]
+    },
+    "miyagi-sendai-locker4": {
+      "area": "仙台駅 3F・牛たん通り・すし通り北側",
+      "location": "仙台駅 3F・牛たん通り・すし通り北側",
+      "detail": "改札外・通り内。初電〜終電。個別料金・収納内寸・稼働/空きは現地/運営元で確認してください。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。",
+      "outsideViewIds": [
+        "station"
+      ]
+    },
+    "miyagi-sendai-locker5": {
+      "area": "仙台駅 3F・牛たん通り・すし通り トイレ前",
+      "location": "仙台駅 3F・牛たん通り・すし通り トイレ前",
+      "detail": "改札外・通り奥トイレ前、伊達政宗像横。初電〜終電。個別料金・収納内寸・稼働/空きは現地/運営元で確認してください。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。",
+      "outsideViewIds": [
+        "station"
+      ]
+    },
+    "miyagi-sendai-locker6": {
+      "area": "仙台駅 3F・新幹線南改札外",
+      "location": "仙台駅 3F・新幹線南改札外",
+      "detail": "改札を出て左へ進んだ場所。初電〜終電。個別料金・収納内寸・稼働/空きは現地/運営元で確認してください。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。",
+      "outsideViewIds": [
+        "station"
+      ]
+    },
+    "miyagi-sendai-locker7": {
+      "area": "仙台駅 2F・在来線中央改札外",
+      "location": "仙台駅 2F・在来線中央改札外",
+      "detail": "改札を出て右、宅配便受付所横。初電〜終電。個別料金・収納内寸・稼働/空きは現地/運営元で確認してください。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。",
+      "outsideViewIds": [
+        "station"
+      ]
+    },
+    "miyagi-sendai-locker8": {
+      "area": "仙台駅 2F・西口交番横",
+      "location": "仙台駅 2F・西口交番横",
+      "detail": "在来線中央改札外・右側。初電〜終電。個別料金・収納内寸・稼働/空きは現地/運営元で確認してください。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。",
+      "outsideViewIds": [
+        "station"
+      ]
+    },
+    "miyagi-sendai-locker9": {
+      "area": "仙台駅 2F・在来線中央改札内",
+      "location": "仙台駅 2F・在来線中央改札内",
+      "detail": "改札内・左側待合室前通路。きっぷ等が必要、現金100円硬貨。初電〜終電。個別料金・収納内寸・稼働/空きは現地/運営元で確認してください。",
+      "accessCondition": "駅の改札内です。きっぷ等の利用条件を確認してください。",
+      "outsideViewIds": [
+        "station"
+      ]
+    },
+    "miyagi-sendai-locker10": {
+      "area": "仙台駅 1F・西口タクシー乗降場前",
+      "location": "仙台駅 1F・西口タクシー乗降場前",
+      "detail": "駅舎外・壁に沿った区域。一部を除き終日利用可能。区域内マルチエキューブの現金支払い不可。個別料金・収納内寸・稼働/空きは現地/運営元で確認してください。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。",
+      "outsideViewIds": [
+        "station"
+      ]
+    },
+    "miyagi-sendai-locker11": {
+      "area": "仙台駅 B1F・地下東口改札外",
+      "location": "仙台駅 B1F・地下東口改札外",
+      "detail": "改札を出て右。6:00〜24:00。小型/中型。個別料金・収納内寸・稼働/空きは現地/運営元で確認してください。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。",
+      "outsideViewIds": [
+        "station"
+      ]
+    },
+    "miyagi-sendai-staff": {
+      "area": "仙台駅3F・指定席券売機横（新幹線改札外）",
+      "location": "仙台駅3F・指定席券売機横（新幹線改札外）",
+      "detail": "毎日9:30〜19:00、営業時間外の返却不可。S105cm/500円、M140cm/800円、L160cm/1000円、LL160cm超/2000円、各30kg以内。1個1日ごと課金・最長30日。スーツケース上の別の鞄も別料金。配送サービスの料金と混同しません。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。",
+      "outsideViewIds": [
+        "station"
+      ]
+    },
+    "miyagi-rifu-storage": {
+      "area": "JR利府駅",
+      "location": "JR利府駅",
+      "detail": "JR駅構内図ページは取得403。共通凡例だけでロッカーの存在・位置・料金を確定しません。仙台駅で預ける選択肢を確認してください。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。",
+      "outsideViewIds": [
+        "station"
+      ]
+    },
+    "miyagi-rifu-tsumiki": {
+      "area": "JR利府駅周辺・まち/ひと/しごと創造ステーション",
+      "location": "JR利府駅周辺・まち/ひと/しごと創造ステーション",
+      "detail": "公式はワークスペース/カフェ・飲料サービスを案内。営業時間・公演前後の営業は公式へ確認。荷物預かり施設として掲載しません。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。",
+      "outsideViewIds": [
+        "station"
+      ]
+    },
+    "miyagi-rifu-guide": {
+      "area": "JR利府駅",
+      "location": "JR利府駅",
+      "detail": "一般路線は菅谷台経由/青葉台経由、体育館は菅谷台4丁目下車、公式約10分。臨時シャトル・時刻・運賃・乗場は主催者案内を確認。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。",
+      "outsideViewIds": [
+        "station"
+      ]
+    },
+    "miyagi-sendai-guide": {
+      "area": "JR仙台駅",
+      "location": "JR仙台駅",
+      "detail": "公演シャトルの販売/運行/乗場は主催者案内。全公演共通の時刻や所要時間を作りません。",
+      "accessCondition": "公演による立入・営業・利用条件は主催者/運営元へ確認してください。",
+      "outsideViewIds": [
+        "station"
+      ]
+    }
+  },
+  "aliases": {
+    "miyagi-main1-south": [
+      "南側"
+    ],
+    "miyagi-main1-north": [
+      "北側"
+    ],
+    "miyagi-main1-east": [
+      "東側"
+    ],
+    "miyagi-main2-lobby": [
+      "メインロビー"
+    ],
+    "miyagi-main2-west": [
+      "西側コンコース"
+    ],
+    "miyagi-main2-east": [
+      "東側コンコース"
+    ],
+    "miyagi-sub1-lobby": [
+      "サブ1Fロビー"
+    ],
+    "miyagi-sub1-reception": [
+      "総合受付"
+    ],
+    "miyagi-sub2-cafe": [
+      "喫茶店（レストラン）"
+    ],
+    "miyagi-grounds-arena": [
+      "スーパーアリーナ"
+    ],
+    "miyagi-grounds-bus4": [
+      "菅谷台4丁目バス停"
+    ],
+    "miyagi-grounds-parking3": [
+      "第3駐車場"
+    ],
+    "miyagi-grounds-gate": [
+      "正面ゲート"
+    ],
+    "miyagi-grounds-guide": [
+      "総合案内受付"
+    ],
+    "miyagi-grounds-pool": [
+      "総合プール"
+    ],
+    "miyagi-sendai": [
+      "仙台駅"
+    ],
+    "miyagi-rifu": [
+      "利府駅"
+    ]
+  },
+  "landmarkFacilityIds": {
+    "miyagi-main1-south": [
+      "miyagi-main1-north-men",
+      "miyagi-main1-north-women",
+      "miyagi-main1-south-women",
+      "miyagi-main1-south-men",
+      "miyagi-main1-east-men",
+      "miyagi-main1-east-women",
+      "miyagi-main1-accessible1",
+      "miyagi-main1-accessible2",
+      "miyagi-main1-changing-west",
+      "miyagi-main1-changing-east"
+    ],
+    "miyagi-main1-north": [
+      "miyagi-main1-north-men",
+      "miyagi-main1-north-women",
+      "miyagi-main1-south-women",
+      "miyagi-main1-south-men",
+      "miyagi-main1-east-men",
+      "miyagi-main1-east-women",
+      "miyagi-main1-accessible1",
+      "miyagi-main1-accessible2",
+      "miyagi-main1-changing-west",
+      "miyagi-main1-changing-east"
+    ],
+    "miyagi-main1-east": [
+      "miyagi-main1-north-men",
+      "miyagi-main1-north-women",
+      "miyagi-main1-south-women",
+      "miyagi-main1-south-men",
+      "miyagi-main1-east-men",
+      "miyagi-main1-east-women",
+      "miyagi-main1-accessible1",
+      "miyagi-main1-accessible2",
+      "miyagi-main1-changing-west",
+      "miyagi-main1-changing-east"
+    ],
+    "miyagi-main2-lobby": [
+      "miyagi-main2-west-a",
+      "miyagi-main2-west-b",
+      "miyagi-main2-west-access",
+      "miyagi-main2-north",
+      "miyagi-main2-east-a",
+      "miyagi-main2-east-b",
+      "miyagi-main2-east-access",
+      "miyagi-main2-food-area",
+      "miyagi-main2-ticket"
+    ],
+    "miyagi-main2-west": [
+      "miyagi-main2-west-a",
+      "miyagi-main2-west-b",
+      "miyagi-main2-west-access",
+      "miyagi-main2-north",
+      "miyagi-main2-east-a",
+      "miyagi-main2-east-b",
+      "miyagi-main2-east-access",
+      "miyagi-main2-food-area",
+      "miyagi-main2-ticket"
+    ],
+    "miyagi-main2-east": [
+      "miyagi-main2-west-a",
+      "miyagi-main2-west-b",
+      "miyagi-main2-west-access",
+      "miyagi-main2-north",
+      "miyagi-main2-east-a",
+      "miyagi-main2-east-b",
+      "miyagi-main2-east-access",
+      "miyagi-main2-food-area",
+      "miyagi-main2-ticket"
+    ],
+    "miyagi-sub1-lobby": [
+      "miyagi-sub1-toilet-east",
+      "miyagi-sub1-toilet-center",
+      "miyagi-sub1-accessible",
+      "miyagi-sub1-locker",
+      "miyagi-sub1-aed",
+      "miyagi-sub1-guide"
+    ],
+    "miyagi-sub1-reception": [
+      "miyagi-sub1-toilet-east",
+      "miyagi-sub1-toilet-center",
+      "miyagi-sub1-accessible",
+      "miyagi-sub1-locker",
+      "miyagi-sub1-aed",
+      "miyagi-sub1-guide"
+    ],
+    "miyagi-sub2-cafe": [
+      "miyagi-sub2-toilet",
+      "miyagi-sub2-cafe"
+    ],
+    "miyagi-grounds-arena": [
+      "miyagi-grounds-arena",
+      "miyagi-grounds-parking3",
+      "miyagi-grounds-guide",
+      "miyagi-grounds-pool",
+      "miyagi-grounds-p3-wc",
+      "miyagi-grounds-a-wc"
+    ],
+    "miyagi-grounds-bus4": [
+      "miyagi-grounds-bus4",
+      "miyagi-grounds-gate",
+      "miyagi-grounds-pool",
+      "miyagi-grounds-pool-wc"
+    ],
+    "miyagi-grounds-parking3": [
+      "miyagi-grounds-arena",
+      "miyagi-grounds-parking3",
+      "miyagi-grounds-guide",
+      "miyagi-grounds-p3-wc"
+    ],
+    "miyagi-grounds-gate": [
+      "miyagi-grounds-bus4",
+      "miyagi-grounds-gate",
+      "miyagi-grounds-guide",
+      "miyagi-grounds-pool"
+    ],
+    "miyagi-grounds-guide": [
+      "miyagi-grounds-arena",
+      "miyagi-grounds-parking3",
+      "miyagi-grounds-gate",
+      "miyagi-grounds-guide",
+      "miyagi-grounds-pool",
+      "miyagi-grounds-p3-wc",
+      "miyagi-grounds-a-wc",
+      "miyagi-grounds-pool-wc"
+    ],
+    "miyagi-grounds-pool": [
+      "miyagi-grounds-arena",
+      "miyagi-grounds-bus4",
+      "miyagi-grounds-gate",
+      "miyagi-grounds-guide",
+      "miyagi-grounds-pool",
+      "miyagi-grounds-p3-wc",
+      "miyagi-grounds-pool-wc"
+    ],
+    "miyagi-sendai": [
+      "miyagi-sendai-locker1",
+      "miyagi-sendai-locker2",
+      "miyagi-sendai-locker3",
+      "miyagi-sendai-locker4",
+      "miyagi-sendai-locker5",
+      "miyagi-sendai-locker6",
+      "miyagi-sendai-locker7",
+      "miyagi-sendai-locker8",
+      "miyagi-sendai-locker9",
+      "miyagi-sendai-locker10",
+      "miyagi-sendai-locker11",
+      "miyagi-sendai-staff"
+    ],
+    "miyagi-rifu": [
+      "miyagi-rifu-storage",
+      "miyagi-rifu-tsumiki",
+      "miyagi-rifu-guide"
+    ]
+  },
+  "landmarkGroupIds": {
+    "miyagi-main1-south": [
+      "miyagi-main1-north-men-g",
+      "miyagi-main1-north-women-g",
+      "miyagi-main1-south-women-g",
+      "miyagi-main1-south-men-g",
+      "miyagi-main1-east-men-g",
+      "miyagi-main1-east-women-g",
+      "miyagi-main1-accessible1-g",
+      "miyagi-main1-accessible2-g",
+      "miyagi-main1-changing-west-g",
+      "miyagi-main1-changing-east-g"
+    ],
+    "miyagi-main1-north": [
+      "miyagi-main1-north-men-g",
+      "miyagi-main1-north-women-g",
+      "miyagi-main1-south-women-g",
+      "miyagi-main1-south-men-g",
+      "miyagi-main1-east-men-g",
+      "miyagi-main1-east-women-g",
+      "miyagi-main1-accessible1-g",
+      "miyagi-main1-accessible2-g",
+      "miyagi-main1-changing-west-g",
+      "miyagi-main1-changing-east-g"
+    ],
+    "miyagi-main1-east": [
+      "miyagi-main1-north-men-g",
+      "miyagi-main1-north-women-g",
+      "miyagi-main1-south-women-g",
+      "miyagi-main1-south-men-g",
+      "miyagi-main1-east-men-g",
+      "miyagi-main1-east-women-g",
+      "miyagi-main1-accessible1-g",
+      "miyagi-main1-accessible2-g",
+      "miyagi-main1-changing-west-g",
+      "miyagi-main1-changing-east-g"
+    ],
+    "miyagi-main2-lobby": [
+      "miyagi-main2-west-a-g",
+      "miyagi-main2-west-b-g",
+      "miyagi-main2-west-access-g",
+      "miyagi-main2-north-g",
+      "miyagi-main2-east-a-g",
+      "miyagi-main2-east-b-g",
+      "miyagi-main2-east-access-g"
+    ],
+    "miyagi-main2-west": [
+      "miyagi-main2-west-a-g",
+      "miyagi-main2-west-b-g",
+      "miyagi-main2-west-access-g",
+      "miyagi-main2-north-g",
+      "miyagi-main2-east-a-g",
+      "miyagi-main2-east-b-g",
+      "miyagi-main2-east-access-g"
+    ],
+    "miyagi-main2-east": [
+      "miyagi-main2-west-a-g",
+      "miyagi-main2-west-b-g",
+      "miyagi-main2-west-access-g",
+      "miyagi-main2-north-g",
+      "miyagi-main2-east-a-g",
+      "miyagi-main2-east-b-g",
+      "miyagi-main2-east-access-g"
+    ],
+    "miyagi-sub1-lobby": [
+      "miyagi-sub1-toilet-east-g",
+      "miyagi-sub1-toilet-center-g",
+      "miyagi-sub1-accessible-g",
+      "miyagi-sub1-aed-g",
+      "miyagi-sub1-guide-g"
+    ],
+    "miyagi-sub1-reception": [
+      "miyagi-sub1-toilet-east-g",
+      "miyagi-sub1-toilet-center-g",
+      "miyagi-sub1-accessible-g",
+      "miyagi-sub1-aed-g",
+      "miyagi-sub1-guide-g"
+    ],
+    "miyagi-sub2-cafe": [
+      "miyagi-sub2-toilet-g",
+      "miyagi-sub2-cafe-g"
+    ],
+    "miyagi-grounds-arena": [
+      "miyagi-grounds-arena-g",
+      "miyagi-grounds-parking3-g",
+      "miyagi-grounds-guide-g",
+      "miyagi-grounds-pool-g",
+      "miyagi-grounds-p3-wc-g",
+      "miyagi-grounds-a-wc-g"
+    ],
+    "miyagi-grounds-bus4": [
+      "miyagi-grounds-bus4-g",
+      "miyagi-grounds-gate-g",
+      "miyagi-grounds-pool-g",
+      "miyagi-grounds-pool-wc-g"
+    ],
+    "miyagi-grounds-parking3": [
+      "miyagi-grounds-arena-g",
+      "miyagi-grounds-parking3-g",
+      "miyagi-grounds-guide-g",
+      "miyagi-grounds-p3-wc-g"
+    ],
+    "miyagi-grounds-gate": [
+      "miyagi-grounds-bus4-g",
+      "miyagi-grounds-gate-g",
+      "miyagi-grounds-guide-g",
+      "miyagi-grounds-pool-g"
+    ],
+    "miyagi-grounds-guide": [
+      "miyagi-grounds-arena-g",
+      "miyagi-grounds-parking3-g",
+      "miyagi-grounds-gate-g",
+      "miyagi-grounds-guide-g",
+      "miyagi-grounds-pool-g",
+      "miyagi-grounds-p3-wc-g",
+      "miyagi-grounds-a-wc-g",
+      "miyagi-grounds-pool-wc-g"
+    ],
+    "miyagi-grounds-pool": [
+      "miyagi-grounds-arena-g",
+      "miyagi-grounds-bus4-g",
+      "miyagi-grounds-gate-g",
+      "miyagi-grounds-guide-g",
+      "miyagi-grounds-pool-g",
+      "miyagi-grounds-p3-wc-g",
+      "miyagi-grounds-pool-wc-g"
+    ],
+    "miyagi-sendai": [],
+    "miyagi-rifu": []
+  }
+}

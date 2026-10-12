@@ -1,0 +1,3081 @@
+{
+  "sources": [
+    {
+      "id": "home",
+      "title": "会場公式・全館休館と再開に向けた案内",
+      "url": "https://www.furitutaiikukaikan.ne.jp/",
+      "checkedAt": "2026-10-10",
+      "scope": "2026-09-17/03-08本文。2027年1月まで全館休館、再開日/配置を確定しない",
+      "usage": "facts-only"
+    },
+    {
+      "id": "closure",
+      "title": "会場公式・2025年9月の改修休館告知",
+      "url": "https://www.furitutaiikukaikan.ne.jp/info/wp-content/uploads/2025/09/482a55655e6a7afeb68807ce163c93b3.pdf",
+      "checkedAt": "2026-10-10",
+      "scope": "電気・消防・トイレ等改修、工期予定。現在の本文と照合",
+      "usage": "facts-only"
+    },
+    {
+      "id": "reopen-reservation",
+      "title": "会場公式・2027年2/3月の予約受付",
+      "url": "https://www.furitutaiikukaikan.ne.jp/info/wp-content/uploads/2026/09/73876ec055d167efcbe385c30b7c243d-1.pdf",
+      "checkedAt": "2026-10-10",
+      "scope": "予約受付は開館確認ではない。画像PDFを読図、館内再開図は掲載なし",
+      "usage": "facts-only"
+    },
+    {
+      "id": "facilities",
+      "title": "会場公式・施設と改修前各階図",
+      "url": "https://www.furitutaiikukaikan.ne.jp/facilities.php",
+      "checkedAt": "2026-10-10",
+      "scope": "5階図と固定3131席の案内。競技者用ロッカー室を観客預かりへ転用しない",
+      "usage": "facts-only"
+    },
+    {
+      "id": "access",
+      "title": "会場公式・アクセス",
+      "url": "https://www.furitutaiikukaikan.ne.jp/access.php",
+      "checkedAt": "2026-10-10",
+      "scope": "なんば5番出口350m/大阪難波600m/南海南出口250m/JR800m。距離を徒歩分へ換算しない",
+      "usage": "facts-only"
+    },
+    {
+      "id": "access-map",
+      "title": "会場公式・周辺関係図",
+      "url": "https://www.furitutaiikukaikan.ne.jp/images/access/map.jpg",
+      "checkedAt": "2026-10-10",
+      "scope": "所在地・駅・出口・商業施設の関係。精密入口/連続段差なし経路は未確定",
+      "usage": "facts-only"
+    },
+    {
+      "id": "guide",
+      "title": "会場公式・通常利用案内",
+      "url": "https://www.furitutaiikukaikan.ne.jp/guide.php",
+      "checkedAt": "2026-10-10",
+      "scope": "現在は全館休館のため通常駐車時間/料金を稼働案内へ転用しない",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-official",
+      "title": "会場公式・改修前固定席図",
+      "url": "https://www.furitutaiikukaikan.ne.jp/images/facilities/floor_3_4_zaseki.jpg",
+      "checkedAt": "2026-10-10",
+      "scope": "現在リンクされる同じ画像を取得。A〜Hのゾーンと通路/階、B1〜12側の主要形を比較",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-supplement",
+      "title": "MUSIC-MDATA掲載・LiveWalker作成の補助固定席図",
+      "url": "https://cdn-zaseki.music-mdata.com/pdf/25620.pdf",
+      "checkedAt": "2026-10-10",
+      "scope": "第1競技場。黄色固定3131セルの範囲のみ清書、青い移動席は除外。Bの108印字だけ転記",
+      "usage": "research-only"
+    },
+    {
+      "id": "livebu",
+      "title": "ライブ部・第1競技場の補助ページ",
+      "url": "https://www.livebu.com/hall/7675",
+      "checkedAt": "2026-10-10",
+      "scope": "会場別ページの観客用ロッカー/クロークは情報募集中。不存在の根拠にしない",
+      "usage": "research-only"
+    },
+    {
+      "id": "nankai-locker",
+      "title": "南海・なんば周辺12ロッカー区域",
+      "url": "https://nambamarutto.com/namba_locker/",
+      "checkedAt": "2026-10-10",
+      "scope": "A〜J/パークス1・2、料金・時間・決済の差を個別接続。機械寸法/空きは未確定",
+      "usage": "facts-only"
+    },
+    {
+      "id": "nankai-plan",
+      "title": "南海・難波駅構内図（URL2026-03）",
+      "url": "https://www.nankai.co.jp/sites/default/files/2026-03/namba260328.pdf",
+      "checkedAt": "2026-10-10",
+      "scope": "駅・改札/階の区別。ロッカー精密点の全照合は後段",
+      "usage": "facts-only"
+    },
+    {
+      "id": "metro-plan",
+      "title": "Osaka Metro・なんば駅の現行構内図",
+      "url": "https://subway.osakametro.co.jp/station_guide/station/M20_%E3%81%AA%E3%82%93%E3%81%B0_%E6%A7%8B%E5%86%85%E5%9B%B3.pdf",
+      "checkedAt": "2026-10-10",
+      "scope": "5番出口/ロッカー区域/2026-10-02〜11-06EV停止/26-D閉鎖の表示を確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "metro-locker",
+      "title": "Osaka Metro・2024年のロッカー増設",
+      "url": "https://subway.osakametro.co.jp/news/news/subway/20240722_locker_additional.php",
+      "checkedAt": "2026-10-10",
+      "scope": "御堂筋南南改札外/四つ橋北改札外。現行構内図と比較。価格/利用時間未確定",
+      "usage": "facts-only"
+    },
+    {
+      "id": "youcarry",
+      "title": "トラベルハブなんば・運営元個別案内",
+      "url": "https://youcarry.jp/",
+      "checkedAt": "2026-10-10",
+      "scope": "9:30〜18:30、2026-09-01改定440/750円、14日以内。配送と店頭預かりを分離",
+      "usage": "facts-only"
+    },
+    {
+      "id": "airporter",
+      "title": "Airporter・n・e・s・tなんば個別案内",
+      "url": "https://about.airporter.co.jp/nest",
+      "checkedAt": "2026-10-10",
+      "scope": "南海2F中央改札外、9〜21時、有人一時預かり。個別料金/予約条件は保留",
+      "usage": "facts-only"
+    },
+    {
+      "id": "ocat",
+      "title": "OCAT・現行ロッカー/設備案内",
+      "url": "https://www.ocat.co.jp/enjoyocat/",
+      "checkedAt": "2026-10-10",
+      "scope": "JR難波側B1/1/2Fのロッカー区域と現行条件。商業営業時間を預かり時間へ転用しない",
+      "usage": "facts-only"
+    },
+    {
+      "id": "ocat-locker",
+      "title": "丸十・OCAT1Fマルチ決済ロッカー設置案内",
+      "url": "https://www.marujulocker.co.jp/pages/49?b_id=118&detail=1&r_id=78",
+      "checkedAt": "2026-10-10",
+      "scope": "2025-07-24の設置と決済を確認。OCATの同一1F区域へまとめる",
+      "usage": "facts-only"
+    },
+    {
+      "id": "rights",
+      "title": "指定管理者のプライバシーポリシー",
+      "url": "https://shinko-sports.com/privacy/",
+      "checkedAt": "2026-10-10",
+      "scope": "原図の転載許諾は確認できず、画像/PDF/ロゴはprivate研究用のみ",
+      "usage": "research-only"
+    }
+  ],
+  "facilities": [
+    {
+      "id": "edion-f1-east-men",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "1F・改修前",
+      "scope": "場内",
+      "location": "1F・東ロビー",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。原図に掲載されたトイレ区域です。",
+      "sourceIds": [
+        "facilities"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "edion-f1",
+        "x": 339,
+        "y": 308,
+        "sourceIds": [
+          "facilities"
+        ],
+        "reference": "原図の代表区域。精密入口/機械個別点・再開後の配置は未確定"
+      },
+      "toiletType": "men"
+    },
+    {
+      "id": "edion-f1-east-women",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "1F・改修前",
+      "scope": "場内",
+      "location": "1F・東ロビー",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。原図に掲載されたトイレ区域です。",
+      "sourceIds": [
+        "facilities"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "edion-f1",
+        "x": 572,
+        "y": 313,
+        "sourceIds": [
+          "facilities"
+        ],
+        "reference": "原図の代表区域。精密入口/機械個別点・再開後の配置は未確定"
+      },
+      "toiletType": "women"
+    },
+    {
+      "id": "edion-f1-west-men",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "1F・改修前",
+      "scope": "場内",
+      "location": "1F・西ロビー",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。原図に掲載されたトイレ区域です。",
+      "sourceIds": [
+        "facilities"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "edion-f1",
+        "x": 339,
+        "y": 596,
+        "sourceIds": [
+          "facilities"
+        ],
+        "reference": "原図の代表区域。精密入口/機械個別点・再開後の配置は未確定"
+      },
+      "toiletType": "men"
+    },
+    {
+      "id": "edion-f1-west-women",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "1F・改修前",
+      "scope": "場内",
+      "location": "1F・西ロビー",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。原図に掲載されたトイレ区域です。",
+      "sourceIds": [
+        "facilities"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "edion-f1",
+        "x": 572,
+        "y": 585,
+        "sourceIds": [
+          "facilities"
+        ],
+        "reference": "原図の代表区域。精密入口/機械個別点・再開後の配置は未確定"
+      },
+      "toiletType": "women"
+    },
+    {
+      "id": "edion-f1-south-women",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "1F・改修前",
+      "scope": "場内",
+      "location": "1F・南ロビー",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。原図に掲載されたトイレ区域です。",
+      "sourceIds": [
+        "facilities"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "edion-f1",
+        "x": 766,
+        "y": 357,
+        "sourceIds": [
+          "facilities"
+        ],
+        "reference": "原図の代表区域。精密入口/機械個別点・再開後の配置は未確定"
+      },
+      "toiletType": "women"
+    },
+    {
+      "id": "edion-f1-south-men",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "1F・改修前",
+      "scope": "場内",
+      "location": "1F・南ロビー",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。原図に掲載されたトイレ区域です。",
+      "sourceIds": [
+        "facilities"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "edion-f1",
+        "x": 766,
+        "y": 539,
+        "sourceIds": [
+          "facilities"
+        ],
+        "reference": "原図の代表区域。精密入口/機械個別点・再開後の配置は未確定"
+      },
+      "toiletType": "men"
+    },
+    {
+      "id": "edion-f1-vending",
+      "name": "自動販売機コーナー",
+      "purpose": "飲食",
+      "floor": "1F・改修前",
+      "scope": "場内",
+      "location": "1F・西ロビー",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。改修前の自動販売機コーナー。商品・稼働・決済方法は確認中です。",
+      "sourceIds": [
+        "facilities"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "edion-f1",
+        "x": 480,
+        "y": 594,
+        "sourceIds": [
+          "facilities"
+        ],
+        "reference": "原図の代表区域。精密入口/機械個別点・再開後の配置は未確定"
+      },
+      "kind": "vending-machine"
+    },
+    {
+      "id": "edion-f1-contact",
+      "name": "休館中のお問い合わせ",
+      "purpose": "案内",
+      "floor": "1F・改修前",
+      "scope": "場内",
+      "location": "会場公式案内",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。休館中はメールのみ受付。furitsu-info@shinko-sports.com。通常案内の電話/窓口時間を休館中の受付へ転用しません。",
+      "sourceIds": [
+        "home"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed"
+    },
+    {
+      "id": "edion-f2-north-toilet",
+      "name": "トイレ（種別確認中）",
+      "purpose": "トイレ",
+      "floor": "2F・改修前",
+      "scope": "場内",
+      "location": "2F・東側ロビー",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。原図にトイレの記載。男女/多目的の割当は確認中です。",
+      "sourceIds": [
+        "facilities"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "edion-f2",
+        "x": 421,
+        "y": 124,
+        "sourceIds": [
+          "facilities"
+        ],
+        "reference": "原図の代表区域。精密入口/機械個別点・再開後の配置は未確定"
+      }
+    },
+    {
+      "id": "edion-f2-south-toilet",
+      "name": "トイレ（種別確認中）",
+      "purpose": "トイレ",
+      "floor": "2F・改修前",
+      "scope": "場内",
+      "location": "2F・東側ロビー",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。原図にトイレの記載。男女/多目的の割当は確認中です。",
+      "sourceIds": [
+        "facilities"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "edion-f2",
+        "x": 613,
+        "y": 124,
+        "sourceIds": [
+          "facilities"
+        ],
+        "reference": "原図の代表区域。精密入口/機械個別点・再開後の配置は未確定"
+      }
+    },
+    {
+      "id": "edion-f2-firstaid",
+      "name": "救護の案内",
+      "purpose": "案内",
+      "floor": "2F・改修前",
+      "scope": "場内",
+      "location": "2F・救護室掲載区域",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。体調不良時は会場係員へ連絡してください。救護室への自由入室は案内しません。",
+      "sourceIds": [
+        "facilities"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed"
+    },
+    {
+      "id": "edion-f2-locker1",
+      "name": "第1競技場 ロッカー室1",
+      "purpose": "荷物",
+      "floor": "2F・改修前",
+      "scope": "場内",
+      "location": "2F・第1競技場ロッカー室1",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。競技者/施設利用者用の更衣区域です。観客のコインロッカー・スーツケース預かりとしては案内しません。",
+      "sourceIds": [
+        "facilities"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "edion-f2",
+        "x": 413,
+        "y": 547,
+        "sourceIds": [
+          "facilities"
+        ],
+        "reference": "原図の代表区域。精密入口/機械個別点・再開後の配置は未確定"
+      },
+      "kind": "no-storage"
+    },
+    {
+      "id": "edion-f2-locker2",
+      "name": "第1競技場 ロッカー室2",
+      "purpose": "荷物",
+      "floor": "2F・改修前",
+      "scope": "場内",
+      "location": "2F・第1競技場ロッカー室2",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。競技者/施設利用者用の更衣区域です。観客のコインロッカー・スーツケース預かりとしては案内しません。",
+      "sourceIds": [
+        "facilities"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "edion-f2",
+        "x": 623,
+        "y": 547,
+        "sourceIds": [
+          "facilities"
+        ],
+        "reference": "原図の代表区域。精密入口/機械個別点・再開後の配置は未確定"
+      },
+      "kind": "no-storage"
+    },
+    {
+      "id": "edion-b2-toilet-a",
+      "name": "トイレ（種別確認中）",
+      "purpose": "トイレ",
+      "floor": "B2F・改修前",
+      "scope": "場内",
+      "location": "B2F・第2競技場と武道場の間",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。原図にトイレの記載。男女/多目的の割当は確認中です。",
+      "sourceIds": [
+        "facilities"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "edion-b2",
+        "x": 458,
+        "y": 470,
+        "sourceIds": [
+          "facilities"
+        ],
+        "reference": "原図の代表区域。精密入口/機械個別点・再開後の配置は未確定"
+      }
+    },
+    {
+      "id": "edion-b2-toilet-b",
+      "name": "トイレ（種別確認中）",
+      "purpose": "トイレ",
+      "floor": "B2F・改修前",
+      "scope": "場内",
+      "location": "B2F・第2競技場と武道場の間",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。原図にトイレの記載。男女/多目的の割当は確認中です。",
+      "sourceIds": [
+        "facilities"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "edion-b2",
+        "x": 458,
+        "y": 496,
+        "sourceIds": [
+          "facilities"
+        ],
+        "reference": "原図の代表区域。精密入口/機械個別点・再開後の配置は未確定"
+      }
+    },
+    {
+      "id": "edion-b2-locker1",
+      "name": "B2F ロッカー室1",
+      "purpose": "荷物",
+      "floor": "B2F・改修前",
+      "scope": "場内",
+      "location": "B2F・ロッカー室1",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。競技者/施設利用者用の更衣区域です。一般観客の手荷物預かりを確定していません。",
+      "sourceIds": [
+        "facilities"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "edion-b2",
+        "x": 575,
+        "y": 109,
+        "sourceIds": [
+          "facilities"
+        ],
+        "reference": "原図の代表区域。精密入口/機械個別点・再開後の配置は未確定"
+      },
+      "kind": "no-storage"
+    },
+    {
+      "id": "edion-b2-locker2",
+      "name": "B2F ロッカー室2",
+      "purpose": "荷物",
+      "floor": "B2F・改修前",
+      "scope": "場内",
+      "location": "B2F・ロッカー室2",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。競技者/施設利用者用の更衣区域です。一般観客の手荷物預かりを確定していません。",
+      "sourceIds": [
+        "facilities"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "edion-b2",
+        "x": 580,
+        "y": 143,
+        "sourceIds": [
+          "facilities"
+        ],
+        "reference": "原図の代表区域。精密入口/機械個別点・再開後の配置は未確定"
+      },
+      "kind": "no-storage"
+    },
+    {
+      "id": "edion-b2-locker3",
+      "name": "B2F ロッカー室3",
+      "purpose": "荷物",
+      "floor": "B2F・改修前",
+      "scope": "場内",
+      "location": "B2F・ロッカー室3",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。競技者/施設利用者用の更衣区域です。一般観客の手荷物預かりを確定していません。",
+      "sourceIds": [
+        "facilities"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "edion-b2",
+        "x": 368,
+        "y": 138,
+        "sourceIds": [
+          "facilities"
+        ],
+        "reference": "原図の代表区域。精密入口/機械個別点・再開後の配置は未確定"
+      },
+      "kind": "no-storage"
+    },
+    {
+      "id": "edion-b2-locker4",
+      "name": "B2F ロッカー室4",
+      "purpose": "荷物",
+      "floor": "B2F・改修前",
+      "scope": "場内",
+      "location": "B2F・ロッカー室4",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。競技者/施設利用者用の更衣区域です。一般観客の手荷物預かりを確定していません。",
+      "sourceIds": [
+        "facilities"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "edion-b2",
+        "x": 422,
+        "y": 143,
+        "sourceIds": [
+          "facilities"
+        ],
+        "reference": "原図の代表区域。精密入口/機械個別点・再開後の配置は未確定"
+      },
+      "kind": "no-storage"
+    },
+    {
+      "id": "edion-b2-locker5",
+      "name": "B2F ロッカー室5",
+      "purpose": "荷物",
+      "floor": "B2F・改修前",
+      "scope": "場内",
+      "location": "B2F・ロッカー室5",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。競技者/施設利用者用の更衣区域です。一般観客の手荷物預かりを確定していません。",
+      "sourceIds": [
+        "facilities"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "edion-b2",
+        "x": 341,
+        "y": 571,
+        "sourceIds": [
+          "facilities"
+        ],
+        "reference": "原図の代表区域。精密入口/機械個別点・再開後の配置は未確定"
+      },
+      "kind": "no-storage"
+    },
+    {
+      "id": "edion-b2-locker6",
+      "name": "B2F ロッカー室6",
+      "purpose": "荷物",
+      "floor": "B2F・改修前",
+      "scope": "場内",
+      "location": "B2F・ロッカー室6",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。競技者/施設利用者用の更衣区域です。一般観客の手荷物預かりを確定していません。",
+      "sourceIds": [
+        "facilities"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "edion-b2",
+        "x": 399,
+        "y": 571,
+        "sourceIds": [
+          "facilities"
+        ],
+        "reference": "原図の代表区域。精密入口/機械個別点・再開後の配置は未確定"
+      },
+      "kind": "no-storage"
+    },
+    {
+      "id": "edion-b1-toilet-north",
+      "name": "トイレ（種別確認中）",
+      "purpose": "トイレ",
+      "floor": "B1F・改修前",
+      "scope": "場内",
+      "location": "B1F・管理事務室側",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。原図掲載区域。男女/多目的の割当は確認中です。",
+      "sourceIds": [
+        "facilities"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "edion-b1",
+        "x": 523,
+        "y": 339,
+        "sourceIds": [
+          "facilities"
+        ],
+        "reference": "原図の代表区域。精密入口/機械個別点・再開後の配置は未確定"
+      }
+    },
+    {
+      "id": "edion-b1-toilet-south-a",
+      "name": "トイレ（種別確認中）",
+      "purpose": "トイレ",
+      "floor": "B1F・改修前",
+      "scope": "場内",
+      "location": "B1F・フリースペース側",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。原図掲載区域。男女/多目的の割当は確認中です。",
+      "sourceIds": [
+        "facilities"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "edion-b1",
+        "x": 573,
+        "y": 722,
+        "sourceIds": [
+          "facilities"
+        ],
+        "reference": "原図の代表区域。精密入口/機械個別点・再開後の配置は未確定"
+      }
+    },
+    {
+      "id": "edion-b1-toilet-south-b",
+      "name": "トイレ（種別確認中）",
+      "purpose": "トイレ",
+      "floor": "B1F・改修前",
+      "scope": "場内",
+      "location": "B1F・フリースペース側",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。原図掲載区域。男女/多目的の割当は確認中です。",
+      "sourceIds": [
+        "facilities"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "edion-b1",
+        "x": 611,
+        "y": 722,
+        "sourceIds": [
+          "facilities"
+        ],
+        "reference": "原図の代表区域。精密入口/機械個別点・再開後の配置は未確定"
+      }
+    },
+    {
+      "id": "edion-f34-toilet-north-a",
+      "name": "トイレ（種別確認中）",
+      "purpose": "トイレ",
+      "floor": "3・4F・改修前",
+      "scope": "場内",
+      "location": "3・4F・北側バルコニー",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。公式は3・4F合成図です。個別階/男女の割当・再開後の変更は確認中です。",
+      "sourceIds": [
+        "facilities"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "edion-f34",
+        "x": 62,
+        "y": 559,
+        "sourceIds": [
+          "facilities"
+        ],
+        "reference": "原図の代表区域。精密入口/機械個別点・再開後の配置は未確定"
+      }
+    },
+    {
+      "id": "edion-f34-toilet-north-b",
+      "name": "トイレ（種別確認中）",
+      "purpose": "トイレ",
+      "floor": "3・4F・改修前",
+      "scope": "場内",
+      "location": "3・4F・北側バルコニー",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。公式は3・4F合成図です。個別階/男女の割当・再開後の変更は確認中です。",
+      "sourceIds": [
+        "facilities"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "edion-f34",
+        "x": 90,
+        "y": 548,
+        "sourceIds": [
+          "facilities"
+        ],
+        "reference": "原図の代表区域。精密入口/機械個別点・再開後の配置は未確定"
+      }
+    },
+    {
+      "id": "edion-f34-toilet-south-a",
+      "name": "トイレ（種別確認中）",
+      "purpose": "トイレ",
+      "floor": "3・4F・改修前",
+      "scope": "場内",
+      "location": "3・4F・南側バルコニー",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。公式は3・4F合成図です。個別階/男女の割当・再開後の変更は確認中です。",
+      "sourceIds": [
+        "facilities"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "edion-f34",
+        "x": 882,
+        "y": 70,
+        "sourceIds": [
+          "facilities"
+        ],
+        "reference": "原図の代表区域。精密入口/機械個別点・再開後の配置は未確定"
+      }
+    },
+    {
+      "id": "edion-f34-toilet-south-b",
+      "name": "トイレ（種別確認中）",
+      "purpose": "トイレ",
+      "floor": "3・4F・改修前",
+      "scope": "場内",
+      "location": "3・4F・南側バルコニー",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。公式は3・4F合成図です。個別階/男女の割当・再開後の変更は確認中です。",
+      "sourceIds": [
+        "facilities"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "edion-f34",
+        "x": 882,
+        "y": 110,
+        "sourceIds": [
+          "facilities"
+        ],
+        "reference": "原図の代表区域。精密入口/機械個別点・再開後の配置は未確定"
+      }
+    },
+    {
+      "id": "edion-outside-venue",
+      "name": "エディオンアリーナ大阪",
+      "purpose": "案内",
+      "floor": "周辺",
+      "scope": "場外",
+      "location": "エディオンアリーナ大阪",
+      "detail": "2027年1月まで全館休館中です。再開予定と指定入口は公式/主催者案内を確認してください。",
+      "sourceIds": [
+        "access",
+        "access-map"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "before-admission",
+      "anchor": {
+        "diagramId": "edion-access",
+        "x": 231,
+        "y": 400,
+        "sourceIds": [
+          "access",
+          "access-map"
+        ],
+        "reference": "原図の代表区域。精密入口/機械個別点・再開後の配置は未確定"
+      }
+    },
+    {
+      "id": "edion-outside-metro5",
+      "name": "地下鉄5番出口",
+      "purpose": "案内",
+      "floor": "周辺",
+      "scope": "場外",
+      "location": "地下鉄5番出口",
+      "detail": "公式アクセスは5番出口から350m。連続段差なし経路を確定しません。現行Metro図は26-D閉鎖と別区域EVの2026年10月2日〜11月6日停止を案内しています。",
+      "sourceIds": [
+        "access",
+        "access-map"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "before-admission",
+      "anchor": {
+        "diagramId": "edion-access",
+        "x": 266,
+        "y": 299,
+        "sourceIds": [
+          "access",
+          "access-map"
+        ],
+        "reference": "原図の代表区域。精密入口/機械個別点・再開後の配置は未確定"
+      }
+    },
+    {
+      "id": "edion-outside-nankai",
+      "name": "南海なんば駅",
+      "purpose": "案内",
+      "floor": "周辺",
+      "scope": "場外",
+      "location": "南海なんば駅",
+      "detail": "公式アクセスは南出口から250m。改札/出口と会場の精密入口は別です。",
+      "sourceIds": [
+        "access",
+        "access-map"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "before-admission",
+      "anchor": {
+        "diagramId": "edion-access",
+        "x": 292,
+        "y": 348,
+        "sourceIds": [
+          "access",
+          "access-map"
+        ],
+        "reference": "原図の代表区域。精密入口/機械個別点・再開後の配置は未確定"
+      }
+    },
+    {
+      "id": "edion-outside-osaka-namba",
+      "name": "大阪難波駅",
+      "purpose": "案内",
+      "floor": "周辺",
+      "scope": "場外",
+      "location": "大阪難波駅",
+      "detail": "会場公式の距離は600m。近鉄/阪神の大阪難波と南海なんばを区別してください。",
+      "sourceIds": [
+        "access",
+        "access-map"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "before-admission",
+      "anchor": {
+        "diagramId": "edion-access",
+        "x": 211,
+        "y": 176,
+        "sourceIds": [
+          "access",
+          "access-map"
+        ],
+        "reference": "原図の代表区域。精密入口/機械個別点・再開後の配置は未確定"
+      }
+    },
+    {
+      "id": "edion-outside-jr-namba",
+      "name": "JRなんば駅・OCAT",
+      "purpose": "案内",
+      "floor": "周辺",
+      "scope": "場外",
+      "location": "JRなんば駅・OCAT",
+      "detail": "会場公式の距離は800m。OCATロッカーの階と回収時刻を個別詳細で確認してください。",
+      "sourceIds": [
+        "access",
+        "access-map"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "before-admission",
+      "anchor": {
+        "diagramId": "edion-access",
+        "x": 72,
+        "y": 208,
+        "sourceIds": [
+          "access",
+          "access-map"
+        ],
+        "reference": "原図の代表区域。精密入口/機械個別点・再開後の配置は未確定"
+      }
+    },
+    {
+      "id": "edion-outside-city",
+      "name": "なんばCITY",
+      "purpose": "案内",
+      "floor": "周辺",
+      "scope": "場外",
+      "location": "なんばCITY",
+      "detail": "館内各階のロッカーは場所一覧から探せます。館内営業時間とロッカー時間は区別します。",
+      "sourceIds": [
+        "nankai-locker",
+        "access-map"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "before-admission",
+      "anchor": {
+        "diagramId": "edion-access",
+        "x": 315,
+        "y": 330,
+        "sourceIds": [
+          "nankai-locker",
+          "access-map"
+        ],
+        "reference": "原図の代表区域。精密入口/機械個別点・再開後の配置は未確定"
+      }
+    },
+    {
+      "id": "edion-outside-parks",
+      "name": "なんばパークス",
+      "purpose": "案内",
+      "floor": "周辺",
+      "scope": "場外",
+      "location": "なんばパークス",
+      "detail": "2Fのロッカー2区域は料金/決済が異なります。場所一覧から確認できます。",
+      "sourceIds": [
+        "nankai-locker",
+        "access-map"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "before-admission",
+      "anchor": {
+        "diagramId": "edion-access",
+        "x": 326,
+        "y": 405,
+        "sourceIds": [
+          "nankai-locker",
+          "access-map"
+        ],
+        "reference": "原図の代表区域。精密入口/機械個別点・再開後の配置は未確定"
+      }
+    },
+    {
+      "id": "edion-city-a",
+      "name": "なんばCITY 本館2F・minapitaカウンター前 ロッカー",
+      "purpose": "荷物",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "location": "なんばCITY 本館2F・minapitaカウンター前",
+      "detail": "利用時間始発〜24:10。S500/M700/L1200/XL1500円。電子マネー・コード決済・クレジットカード。収納内寸/延長料金/空きは現地表示で確認してください。",
+      "sourceIds": [
+        "nankai-locker"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "edion-city-b",
+      "name": "なんばCITY 本館2F・JTB奥 ロッカー",
+      "purpose": "荷物",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "location": "なんばCITY 本館2F・JTB奥",
+      "detail": "利用時間始発〜24:10。S500/M700/L1200円。電子マネー・コード決済・クレジットカード。収納内寸/延長料金/空きは現地表示で確認してください。",
+      "sourceIds": [
+        "nankai-locker"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "edion-city-c",
+      "name": "なんばCITY 本館2F・中央改札前（マクドナルドが目印） ロッカー",
+      "purpose": "荷物",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "location": "なんばCITY 本館2F・中央改札前（マクドナルドが目印）",
+      "detail": "利用時間始発〜24:10。S500/M700/L1200円。電子マネー・コード決済・クレジットカード。収納内寸/延長料金/空きは現地表示で確認してください。",
+      "sourceIds": [
+        "nankai-locker"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "edion-city-d",
+      "name": "なんばCITY 本館1F・観光案内所前 ロッカー",
+      "purpose": "荷物",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "location": "なんばCITY 本館1F・観光案内所前",
+      "detail": "利用時間始発〜24:10。S500/M700/L1200円。電子マネー・コード決済・クレジットカード。収納内寸/延長料金/空きは現地表示で確認してください。",
+      "sourceIds": [
+        "nankai-locker"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "edion-city-e",
+      "name": "なんばCITY 本館1F・トイレ前/自動販売機横 ロッカー",
+      "purpose": "荷物",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "location": "なんばCITY 本館1F・トイレ前/自動販売機横",
+      "detail": "利用時間8:00〜22:00。S500/M700/L1200円。電子マネー・コード決済・クレジットカード。収納内寸/延長料金/空きは現地表示で確認してください。",
+      "sourceIds": [
+        "nankai-locker"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "edion-city-f",
+      "name": "なんばCITY 本館1F・エレベーター付近 ロッカー",
+      "purpose": "荷物",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "location": "なんばCITY 本館1F・エレベーター付近",
+      "detail": "利用時間始発〜24:10。S500/M700/L1200/XL1500円。電子マネー・コード決済・クレジットカード。収納内寸/延長料金/空きは現地表示で確認してください。",
+      "sourceIds": [
+        "nankai-locker"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "edion-city-g",
+      "name": "なんばCITY 本館1F・髙島屋化粧品横 ロッカー",
+      "purpose": "荷物",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "location": "なんばCITY 本館1F・髙島屋化粧品横",
+      "detail": "利用時間始発〜24:10。S500/M700/L1200円。電子マネー・コード決済・クレジットカード。収納内寸/延長料金/空きは現地表示で確認してください。",
+      "sourceIds": [
+        "nankai-locker"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "edion-city-h",
+      "name": "なんばCITY 本館B1F付近・地下鉄連絡通路 ロッカー",
+      "purpose": "荷物",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "location": "なんばCITY 本館B1F付近・地下鉄連絡通路",
+      "detail": "利用時間始発〜24:10。XXS300/XS400/S500/M700/L1200/XL1500円。電子マネー・コード決済・クレジットカード。一部現金のみの機械があります。収納内寸/延長料金/空きは現地表示で確認してください。",
+      "sourceIds": [
+        "nankai-locker"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "edion-city-i",
+      "name": "なんばCITY 本館B1F・北エレベーター付近 ロッカー",
+      "purpose": "荷物",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "location": "なんばCITY 本館B1F・北エレベーター付近",
+      "detail": "利用時間6:30〜22:00。S500/M700/L1200円。電子マネー・コード決済・クレジットカード。収納内寸/延長料金/空きは現地表示で確認してください。",
+      "sourceIds": [
+        "nankai-locker"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "edion-city-j",
+      "name": "なんばCITY 南館2F・パークス連絡通路付近 ロッカー",
+      "purpose": "荷物",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "location": "なんばCITY 南館2F・パークス連絡通路付近",
+      "detail": "利用時間7:00〜23:30。S500/M1000円。電子マネー・コード決済・クレジットカード。収納内寸/延長料金/空きは現地表示で確認してください。",
+      "sourceIds": [
+        "nankai-locker"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "edion-parks-canyon",
+      "name": "なんばパークス キャニオンコート・トイレ付近 ロッカー",
+      "purpose": "荷物",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "location": "なんばパークス2F・キャニオンコート・トイレ付近",
+      "detail": "利用6:00〜24:00。S500/M700/L1000円。電子マネー・コード決済・クレジットカード。寸法・延長料金・空きは現地表示で確認してください。",
+      "sourceIds": [
+        "nankai-locker"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "edion-parks-info",
+      "name": "なんばパークス インフォメーション付近 ロッカー",
+      "purpose": "荷物",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "location": "なんばパークス2F・インフォメーション付近",
+      "detail": "利用6:00〜24:00。S400/M600/L900円。現金のみ。寸法・延長料金・空きは現地表示で確認してください。",
+      "sourceIds": [
+        "nankai-locker"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "edion-metro-m20",
+      "name": "Osaka Metro 御堂筋線・南南改札外 ロッカー",
+      "purpose": "荷物",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "location": "なんば駅・御堂筋線・南南改札外",
+      "detail": "2024年増設の公式案内と現行構内図を照合。改札外です。個別機械の収納内寸/料金/利用時間/延長条件は確認中で現地表示をご確認ください。",
+      "sourceIds": [
+        "metro-plan",
+        "metro-locker"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "edion-metro-y15",
+      "name": "Osaka Metro 四つ橋線・北改札外 ロッカー",
+      "purpose": "荷物",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "location": "なんば駅・四つ橋線・北改札外",
+      "detail": "2024年増設の公式案内と現行構内図を照合。改札外です。個別機械の収納内寸/料金/利用時間/延長条件は確認中で現地表示をご確認ください。",
+      "sourceIds": [
+        "metro-plan",
+        "metro-locker"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "edion-nest",
+      "name": "n・e・s・t 南海なんば駅カウンター",
+      "purpose": "荷物",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "location": "南海なんば駅2F中央改札口前・改札外",
+      "detail": "利用9:00〜21:00。有人一時預かりと関西空港配送は別サービスです。個別料金/予約/対象荷物/締切条件は運営元で確認してください。",
+      "sourceIds": [
+        "airporter"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "kind": "staffed-storage",
+      "storageKind": "staffed",
+      "bookingUrl": "https://about.airporter.co.jp/nest"
+    },
+    {
+      "id": "edion-youcarry",
+      "name": "トラベルハブなんば",
+      "purpose": "荷物",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "location": "難波中2-7-15 1F・南海なんば駅から徒歩4分（運営元目安）",
+      "detail": "9:30〜18:30・年中無休、予約不要。2026年9月1日改定：バックパック440円/キャリーケース・その他大型750円（1個1日税込）。2日目以降加算、最大14日。現金/クレジットまたは店頭QR、デビット不可。生き物/現金・貴重品/生もの不可。18:30までの回収を確認。配送は別料金/締切です。空き・受付を保証しません。",
+      "sourceIds": [
+        "youcarry"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "kind": "staffed-storage",
+      "storageKind": "staffed",
+      "bookingUrl": "https://youcarry.jp/"
+    },
+    {
+      "id": "edion-youcarry-charge",
+      "name": "トラベルハブなんば 休憩スペース",
+      "purpose": "案内",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "location": "難波中2-7-15 1F",
+      "detail": "運営元はWi-Fi・電源・トイレを案内し、荷物預かりの利用なしでも休憩可としています。9:30〜18:30。",
+      "sourceIds": [
+        "youcarry"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission"
+    },
+    {
+      "id": "edion-ocat-b1-ponte",
+      "name": "OCAT B1F・ポンテ広場エスカレーター付近 ロッカー",
+      "purpose": "荷物",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "location": "JR難波接続・OCAT B1F・ポンテ広場エスカレーター付近",
+      "detail": "OCATの現行掲載区域。個別機械の寸法・料金・利用/回収時間・加算条件は現地表示で確認してください。商業施設の営業時間をロッカー時間へ転用しません。1Fの新機械と各掲載区域の対応は確認中です。",
+      "sourceIds": [
+        "ocat"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "edion-ocat-b1-saize",
+      "name": "OCAT B1F・サイゼリヤ付近 ロッカー",
+      "purpose": "荷物",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "location": "JR難波接続・OCAT B1F・サイゼリヤ付近",
+      "detail": "OCATの現行掲載区域。個別機械の寸法・料金・利用/回収時間・加算条件は現地表示で確認してください。商業施設の営業時間をロッカー時間へ転用しません。1Fの新機械と各掲載区域の対応は確認中です。",
+      "sourceIds": [
+        "ocat"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "edion-ocat-f1-central",
+      "name": "OCAT 1F・中央エスカレーター付近 ロッカー",
+      "purpose": "荷物",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "location": "JR難波接続・OCAT 1F・中央エスカレーター付近",
+      "detail": "OCATの現行掲載区域。個別機械の寸法・料金・利用/回収時間・加算条件は現地表示で確認してください。商業施設の営業時間をロッカー時間へ転用しません。1Fの新機械と各掲載区域の対応は確認中です。",
+      "sourceIds": [
+        "ocat"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "edion-ocat-f1-post",
+      "name": "OCAT 1F・OCAT郵便局付近 ロッカー",
+      "purpose": "荷物",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "location": "JR難波接続・OCAT 1F・OCAT郵便局付近",
+      "detail": "OCATの現行掲載区域。個別機械の寸法・料金・利用/回収時間・加算条件は現地表示で確認してください。商業施設の営業時間をロッカー時間へ転用しません。1Fの新機械と各掲載区域の対応は確認中です。",
+      "sourceIds": [
+        "ocat"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "edion-ocat-f1-north",
+      "name": "OCAT 1F・北出入口付近 ロッカー",
+      "purpose": "荷物",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "location": "JR難波接続・OCAT 1F・北出入口付近",
+      "detail": "OCATの現行掲載区域。個別機械の寸法・料金・利用/回収時間・加算条件は現地表示で確認してください。商業施設の営業時間をロッカー時間へ転用しません。1Fの新機械と各掲載区域の対応は確認中です。",
+      "sourceIds": [
+        "ocat"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "edion-ocat-f2-bus",
+      "name": "OCAT 2F・バスターミナル6番バース付近 ロッカー",
+      "purpose": "荷物",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "location": "JR難波接続・OCAT 2F・バスターミナル6番バース付近",
+      "detail": "OCATの現行掲載区域。個別機械の寸法・料金・利用/回収時間・加算条件は現地表示で確認してください。商業施設の営業時間をロッカー時間へ転用しません。1Fの新機械と各掲載区域の対応は確認中です。",
+      "sourceIds": [
+        "ocat"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "edion-ocat-information",
+      "name": "OCAT 総合案内",
+      "purpose": "案内",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "location": "OCAT1F",
+      "detail": "11:00〜17:00、車いす貸出し・迷子・遺失物案内。ロッカー利用時間とは別です。",
+      "sourceIds": [
+        "ocat"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission"
+    }
+  ],
+  "diagrams": [
+    {
+      "id": "edion-f1",
+      "floor": "1F・改修前",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        900,
+        700
+      ],
+      "concoursePaths": [
+        "M270 235 H630 V325 H270 Z",
+        "M300 320 H445 V610 H300 Z",
+        "M650 295 H820 V615 H650 Z"
+      ],
+      "contextPaths": [
+        "M448 328 H641 V574 H448 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "edion-f1-east",
+          "label": "東ロビー",
+          "name": "東ロビー",
+          "x": 405,
+          "y": 274,
+          "kind": "passage",
+          "sourceIds": [
+            "facilities"
+          ],
+          "reference": "原資料の代表区域/所在地。指定入口・歩行経路ではない"
+        },
+        {
+          "id": "edion-f1-west",
+          "label": "西ロビー",
+          "name": "西ロビー",
+          "x": 405,
+          "y": 641,
+          "kind": "passage",
+          "sourceIds": [
+            "facilities"
+          ],
+          "reference": "原資料の代表区域/所在地。指定入口・歩行経路ではない"
+        },
+        {
+          "id": "edion-f1-entrance",
+          "label": "玄関ホール",
+          "name": "玄関ホール",
+          "x": 382,
+          "y": 448,
+          "kind": "entrance",
+          "sourceIds": [
+            "facilities"
+          ],
+          "reference": "原資料の代表区域/所在地。指定入口・歩行経路ではない"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "facilities"
+        ],
+        "file": "research/edion-current-2026-10-10/sources/current-S-42315ff48af5.png",
+        "sha256": "28cd18924c5f84e2483f77a694aa173a43969c6fecf6aafbb3dfbc58d026514b",
+        "width": 890,
+        "height": 693,
+        "method": "原図の代表区域を独立清書。館内は改修前参考、精密入口/全記号/再開配置は未確認",
+        "status": "partial-source-reviewed"
+      }
+    },
+    {
+      "id": "edion-f2",
+      "floor": "2F・改修前",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        1060,
+        640
+      ],
+      "concoursePaths": [
+        "M178 70 H828 V135 H178 Z",
+        "M178 525 H828 V600 H178 Z",
+        "M105 135 H177 V525 H105 Z",
+        "M828 135 H906 V525 H828 Z"
+      ],
+      "contextPaths": [
+        "M208 144 H823 V519 H208 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "edion-f2-ne",
+          "label": "北東ロビー",
+          "name": "北東ロビー",
+          "x": 270,
+          "y": 95,
+          "kind": "passage",
+          "sourceIds": [
+            "facilities"
+          ],
+          "reference": "原資料の代表区域/所在地。指定入口・歩行経路ではない"
+        },
+        {
+          "id": "edion-f2-se",
+          "label": "南東ロビー",
+          "name": "南東ロビー",
+          "x": 759,
+          "y": 95,
+          "kind": "passage",
+          "sourceIds": [
+            "facilities"
+          ],
+          "reference": "原資料の代表区域/所在地。指定入口・歩行経路ではない"
+        },
+        {
+          "id": "edion-f2-nw",
+          "label": "北西ロビー",
+          "name": "北西ロビー",
+          "x": 255,
+          "y": 585,
+          "kind": "passage",
+          "sourceIds": [
+            "facilities"
+          ],
+          "reference": "原資料の代表区域/所在地。指定入口・歩行経路ではない"
+        },
+        {
+          "id": "edion-f2-sw",
+          "label": "西南ロビー",
+          "name": "西南ロビー",
+          "x": 774,
+          "y": 585,
+          "kind": "passage",
+          "sourceIds": [
+            "facilities"
+          ],
+          "reference": "原資料の代表区域/所在地。指定入口・歩行経路ではない"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "facilities"
+        ],
+        "file": "research/edion-current-2026-10-10/sources/current-S-f1300c00a826.png",
+        "sha256": "1ab8bb9af4016105f92209dce564390d0e556fefd7c643310cb9dba9ff22e00d",
+        "width": 1056,
+        "height": 629,
+        "method": "原図の代表区域を独立清書。館内は改修前参考、精密入口/全記号/再開配置は未確認",
+        "status": "partial-source-reviewed"
+      }
+    },
+    {
+      "id": "edion-b2",
+      "floor": "B2F・改修前",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        1030,
+        715
+      ],
+      "concoursePaths": [
+        "M325 195 H485 V560 H325 Z"
+      ],
+      "contextPaths": [
+        "M488 208 H738 V509 H488 Z",
+        "M61 208 H319 V346 H61 Z",
+        "M61 364 H319 V504 H61 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "edion-b2-main",
+          "label": "第2競技場",
+          "name": "第2競技場",
+          "x": 610,
+          "y": 359,
+          "kind": "passage",
+          "sourceIds": [
+            "facilities"
+          ],
+          "reference": "原資料の代表区域/所在地。指定入口・歩行経路ではない"
+        },
+        {
+          "id": "edion-b2-judo",
+          "label": "柔道場",
+          "name": "柔道場",
+          "x": 195,
+          "y": 430,
+          "kind": "passage",
+          "sourceIds": [
+            "facilities"
+          ],
+          "reference": "原資料の代表区域/所在地。指定入口・歩行経路ではない"
+        },
+        {
+          "id": "edion-b2-kendo",
+          "label": "剣道場",
+          "name": "剣道場",
+          "x": 195,
+          "y": 280,
+          "kind": "passage",
+          "sourceIds": [
+            "facilities"
+          ],
+          "reference": "原資料の代表区域/所在地。指定入口・歩行経路ではない"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "facilities"
+        ],
+        "file": "research/edion-current-2026-10-10/sources/current-S-cbf2fcf97b98.png",
+        "sha256": "c74d9680c4fd9feb1ae70fa763e15fe2ca429608d3f1c0959dafa3c0ab37b683",
+        "width": 1021,
+        "height": 715,
+        "method": "原図の代表区域を独立清書。館内は改修前参考、精密入口/全記号/再開配置は未確認",
+        "status": "partial-source-reviewed"
+      }
+    },
+    {
+      "id": "edion-b1",
+      "floor": "B1F・改修前",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        1505,
+        985
+      ],
+      "concoursePaths": [
+        "M480 315 H690 V780 H480 Z"
+      ],
+      "contextPaths": [
+        "M695 367 H1034 V770 H695 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "edion-b1-admin",
+          "label": "管理事務室",
+          "name": "管理事務室",
+          "x": 597,
+          "y": 255,
+          "kind": "passage",
+          "sourceIds": [
+            "facilities"
+          ],
+          "reference": "原資料の代表区域/所在地。指定入口・歩行経路ではない"
+        },
+        {
+          "id": "edion-b1-lobby",
+          "label": "ロビー",
+          "name": "ロビー",
+          "x": 600,
+          "y": 445,
+          "kind": "passage",
+          "sourceIds": [
+            "facilities"
+          ],
+          "reference": "原資料の代表区域/所在地。指定入口・歩行経路ではない"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "facilities"
+        ],
+        "file": "research/edion-current-2026-10-10/sources/current-S-682d69df37c8.png",
+        "sha256": "37a724e63ed6bfe6639027ffbfc9383c1349cb70ea8317ae35a1685cc9fb019b",
+        "width": 3010,
+        "height": 1963,
+        "method": "原図の代表区域を独立清書。館内は改修前参考、精密入口/全記号/再開配置は未確認。B1原寸3010x1963を0.5倍の1505x981.5座標へ清書し、キャンバス高さ985に余白を含む",
+        "status": "partial-source-reviewed"
+      }
+    },
+    {
+      "id": "edion-f34",
+      "floor": "3・4F・改修前",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        960,
+        640
+      ],
+      "concoursePaths": [
+        "M90 67 H805 V150 H90 Z",
+        "M90 506 H805 V591 H90 Z",
+        "M15 150 H91 V505 H15 Z",
+        "M805 145 H920 V510 H805 Z"
+      ],
+      "contextPaths": [
+        "M144 151 H728 V505 H144 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "edion-f34-north",
+          "label": "北ロビー",
+          "name": "北ロビー",
+          "x": 60,
+          "y": 355,
+          "kind": "passage",
+          "sourceIds": [
+            "facilities"
+          ],
+          "reference": "原資料の代表区域/所在地。指定入口・歩行経路ではない"
+        },
+        {
+          "id": "edion-f34-south",
+          "label": "南ロビー",
+          "name": "南ロビー",
+          "x": 822,
+          "y": 374,
+          "kind": "passage",
+          "sourceIds": [
+            "facilities"
+          ],
+          "reference": "原資料の代表区域/所在地。指定入口・歩行経路ではない"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "facilities"
+        ],
+        "file": "research/edion-current-2026-10-10/sources/current-S-9c8369badbce.png",
+        "sha256": "f1ce6dfd80e65f254af002c704a8a8c6e63029c1eb13eeaea22b8041caaf06c2",
+        "width": 960,
+        "height": 638,
+        "method": "原図の代表区域を独立清書。館内は改修前参考、精密入口/全記号/再開配置は未確認",
+        "status": "partial-source-reviewed"
+      }
+    },
+    {
+      "id": "edion-access",
+      "floor": "周辺",
+      "scope": "場外",
+      "viewBox": [
+        0,
+        0,
+        650,
+        650
+      ],
+      "concoursePaths": [],
+      "contextPaths": [
+        "M206 382 H256 V418 H206 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "edion-outside-venue",
+          "label": "エディオンアリーナ大阪",
+          "name": "エディオンアリーナ大阪",
+          "x": 231,
+          "y": 400,
+          "kind": "plaza",
+          "sourceIds": [
+            "access-map"
+          ],
+          "reference": "原資料の代表区域/所在地。指定入口・歩行経路ではない"
+        },
+        {
+          "id": "edion-outside-metro5",
+          "label": "地下鉄5番出口",
+          "name": "地下鉄5番出口",
+          "x": 266,
+          "y": 299,
+          "kind": "exit",
+          "sourceIds": [
+            "access-map"
+          ],
+          "reference": "原資料の代表区域/所在地。指定入口・歩行経路ではない"
+        },
+        {
+          "id": "edion-outside-nankai",
+          "label": "南海なんば駅",
+          "name": "南海なんば駅",
+          "x": 292,
+          "y": 348,
+          "kind": "station",
+          "sourceIds": [
+            "access-map"
+          ],
+          "reference": "原資料の代表区域/所在地。指定入口・歩行経路ではない"
+        },
+        {
+          "id": "edion-outside-osaka-namba",
+          "label": "大阪難波駅",
+          "name": "大阪難波駅",
+          "x": 211,
+          "y": 176,
+          "kind": "station",
+          "sourceIds": [
+            "access-map"
+          ],
+          "reference": "原資料の代表区域/所在地。指定入口・歩行経路ではない"
+        },
+        {
+          "id": "edion-outside-jr-namba",
+          "label": "JRなんば駅・OCAT",
+          "name": "JRなんば駅・OCAT",
+          "x": 72,
+          "y": 208,
+          "kind": "station",
+          "sourceIds": [
+            "access-map"
+          ],
+          "reference": "原資料の代表区域/所在地。指定入口・歩行経路ではない"
+        },
+        {
+          "id": "edion-outside-city",
+          "label": "なんばCITY",
+          "name": "なんばCITY",
+          "x": 315,
+          "y": 330,
+          "kind": "shop",
+          "sourceIds": [
+            "access-map"
+          ],
+          "reference": "原資料の代表区域/所在地。指定入口・歩行経路ではない"
+        },
+        {
+          "id": "edion-outside-parks",
+          "label": "なんばパークス",
+          "name": "なんばパークス",
+          "x": 326,
+          "y": 405,
+          "kind": "shop",
+          "sourceIds": [
+            "access-map"
+          ],
+          "reference": "原資料の代表区域/所在地。指定入口・歩行経路ではない"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "access-map"
+        ],
+        "file": "research/edion-current-2026-10-10/sources/access-map.jpg",
+        "sha256": "049235e29fb10bf2afd5b7a9354b65423ecac21a476c5d83ec0ab05b8bceca02",
+        "width": 650,
+        "height": 650,
+        "method": "原図の代表区域を独立清書。館内は改修前参考、精密入口/全記号/再開配置は未確認",
+        "status": "partial-source-reviewed"
+      }
+    },
+    {
+      "id": "edion-station",
+      "floor": "駅・店舗",
+      "scope": "場外",
+      "viewBox": [
+        0,
+        0,
+        650,
+        650
+      ],
+      "concoursePaths": [],
+      "contextPaths": [
+        "M206 382 H256 V418 H206 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "edion-storage-city",
+          "label": "南海・なんばCITY",
+          "name": "南海・なんばCITY",
+          "x": 292,
+          "y": 348,
+          "kind": "station",
+          "sourceIds": [
+            "access-map"
+          ],
+          "reference": "原資料の代表区域/所在地。指定入口・歩行経路ではない"
+        },
+        {
+          "id": "edion-storage-parks",
+          "label": "なんばパークス",
+          "name": "なんばパークス",
+          "x": 326,
+          "y": 405,
+          "kind": "shop",
+          "sourceIds": [
+            "access-map"
+          ],
+          "reference": "原資料の代表区域/所在地。指定入口・歩行経路ではない"
+        },
+        {
+          "id": "edion-storage-metro",
+          "label": "地下鉄なんば",
+          "name": "地下鉄なんば",
+          "x": 266,
+          "y": 299,
+          "kind": "station",
+          "sourceIds": [
+            "access-map"
+          ],
+          "reference": "原資料の代表区域/所在地。指定入口・歩行経路ではない"
+        },
+        {
+          "id": "edion-storage-jr",
+          "label": "JRなんば・OCAT",
+          "name": "JRなんば・OCAT",
+          "x": 72,
+          "y": 208,
+          "kind": "station",
+          "sourceIds": [
+            "access-map"
+          ],
+          "reference": "原資料の代表区域/所在地。指定入口・歩行経路ではない"
+        },
+        {
+          "id": "edion-storage-shops",
+          "label": "周辺店舗の場所一覧",
+          "name": "周辺店舗の場所一覧",
+          "x": 445,
+          "y": 480,
+          "kind": "shop",
+          "sourceIds": [
+            "access-map"
+          ],
+          "reference": "原資料の代表区域/所在地。指定入口・歩行経路ではない"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "access-map"
+        ],
+        "file": "research/edion-current-2026-10-10/sources/access-map.jpg",
+        "sha256": "049235e29fb10bf2afd5b7a9354b65423ecac21a476c5d83ec0ab05b8bceca02",
+        "width": 650,
+        "height": 650,
+        "method": "原図の代表区域を独立清書。館内は改修前参考、精密入口/全記号/再開配置は未確認",
+        "status": "partial-source-reviewed"
+      }
+    }
+  ],
+  "groups": [
+    {
+      "id": "edion-f1-east-men-g",
+      "diagramId": "edion-f1",
+      "purpose": "トイレ",
+      "label": "男性トイレ",
+      "area": "1F・東ロビー",
+      "memberIds": [
+        "edion-f1-east-men"
+      ],
+      "x": 339,
+      "y": 308,
+      "boundary": "同じ階/室・用途・利用境界の固定区域。改修前参考と現在の駅区域を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "edion-f1-east-women-g",
+      "diagramId": "edion-f1",
+      "purpose": "トイレ",
+      "label": "女性トイレ",
+      "area": "1F・東ロビー",
+      "memberIds": [
+        "edion-f1-east-women"
+      ],
+      "x": 572,
+      "y": 313,
+      "boundary": "同じ階/室・用途・利用境界の固定区域。改修前参考と現在の駅区域を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "edion-f1-west-men-g",
+      "diagramId": "edion-f1",
+      "purpose": "トイレ",
+      "label": "男性トイレ",
+      "area": "1F・西ロビー",
+      "memberIds": [
+        "edion-f1-west-men"
+      ],
+      "x": 339,
+      "y": 596,
+      "boundary": "同じ階/室・用途・利用境界の固定区域。改修前参考と現在の駅区域を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "edion-f1-west-women-g",
+      "diagramId": "edion-f1",
+      "purpose": "トイレ",
+      "label": "女性トイレ",
+      "area": "1F・西ロビー",
+      "memberIds": [
+        "edion-f1-west-women"
+      ],
+      "x": 572,
+      "y": 585,
+      "boundary": "同じ階/室・用途・利用境界の固定区域。改修前参考と現在の駅区域を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "edion-f1-south-women-g",
+      "diagramId": "edion-f1",
+      "purpose": "トイレ",
+      "label": "女性トイレ",
+      "area": "1F・南ロビー",
+      "memberIds": [
+        "edion-f1-south-women"
+      ],
+      "x": 766,
+      "y": 357,
+      "boundary": "同じ階/室・用途・利用境界の固定区域。改修前参考と現在の駅区域を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "edion-f1-south-men-g",
+      "diagramId": "edion-f1",
+      "purpose": "トイレ",
+      "label": "男性トイレ",
+      "area": "1F・南ロビー",
+      "memberIds": [
+        "edion-f1-south-men"
+      ],
+      "x": 766,
+      "y": 539,
+      "boundary": "同じ階/室・用途・利用境界の固定区域。改修前参考と現在の駅区域を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "edion-f1-vending-g",
+      "diagramId": "edion-f1",
+      "purpose": "飲食",
+      "label": "自動販売機コーナー",
+      "area": "1F・西ロビー",
+      "memberIds": [
+        "edion-f1-vending"
+      ],
+      "x": 480,
+      "y": 594,
+      "boundary": "同じ階/室・用途・利用境界の固定区域。改修前参考と現在の駅区域を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "edion-f2-north-toilet-g",
+      "diagramId": "edion-f2",
+      "purpose": "トイレ",
+      "label": "トイレ（種別確認中）",
+      "area": "2F・東側ロビー",
+      "memberIds": [
+        "edion-f2-north-toilet"
+      ],
+      "x": 421,
+      "y": 124,
+      "boundary": "同じ階/室・用途・利用境界の固定区域。改修前参考と現在の駅区域を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "edion-f2-south-toilet-g",
+      "diagramId": "edion-f2",
+      "purpose": "トイレ",
+      "label": "トイレ（種別確認中）",
+      "area": "2F・東側ロビー",
+      "memberIds": [
+        "edion-f2-south-toilet"
+      ],
+      "x": 613,
+      "y": 124,
+      "boundary": "同じ階/室・用途・利用境界の固定区域。改修前参考と現在の駅区域を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "edion-f2-locker1-g",
+      "diagramId": "edion-f2",
+      "purpose": "荷物",
+      "label": "第1競技場 ロッカー室1",
+      "area": "2F・第1競技場ロッカー室1",
+      "memberIds": [
+        "edion-f2-locker1"
+      ],
+      "x": 413,
+      "y": 547,
+      "boundary": "同じ階/室・用途・利用境界の固定区域。改修前参考と現在の駅区域を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "edion-f2-locker2-g",
+      "diagramId": "edion-f2",
+      "purpose": "荷物",
+      "label": "第1競技場 ロッカー室2",
+      "area": "2F・第1競技場ロッカー室2",
+      "memberIds": [
+        "edion-f2-locker2"
+      ],
+      "x": 623,
+      "y": 547,
+      "boundary": "同じ階/室・用途・利用境界の固定区域。改修前参考と現在の駅区域を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "edion-b2-toilet-a-g",
+      "diagramId": "edion-b2",
+      "purpose": "トイレ",
+      "label": "トイレ（種別確認中）",
+      "area": "B2F・第2競技場と武道場の間",
+      "memberIds": [
+        "edion-b2-toilet-a"
+      ],
+      "x": 458,
+      "y": 470,
+      "boundary": "同じ階/室・用途・利用境界の固定区域。改修前参考と現在の駅区域を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "edion-b2-toilet-b-g",
+      "diagramId": "edion-b2",
+      "purpose": "トイレ",
+      "label": "トイレ（種別確認中）",
+      "area": "B2F・第2競技場と武道場の間",
+      "memberIds": [
+        "edion-b2-toilet-b"
+      ],
+      "x": 458,
+      "y": 496,
+      "boundary": "同じ階/室・用途・利用境界の固定区域。改修前参考と現在の駅区域を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "edion-b2-locker1-g",
+      "diagramId": "edion-b2",
+      "purpose": "荷物",
+      "label": "B2F ロッカー室1",
+      "area": "B2F・ロッカー室1",
+      "memberIds": [
+        "edion-b2-locker1"
+      ],
+      "x": 575,
+      "y": 109,
+      "boundary": "同じ階/室・用途・利用境界の固定区域。改修前参考と現在の駅区域を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "edion-b2-locker2-g",
+      "diagramId": "edion-b2",
+      "purpose": "荷物",
+      "label": "B2F ロッカー室2",
+      "area": "B2F・ロッカー室2",
+      "memberIds": [
+        "edion-b2-locker2"
+      ],
+      "x": 580,
+      "y": 143,
+      "boundary": "同じ階/室・用途・利用境界の固定区域。改修前参考と現在の駅区域を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "edion-b2-locker3-g",
+      "diagramId": "edion-b2",
+      "purpose": "荷物",
+      "label": "B2F ロッカー室3",
+      "area": "B2F・ロッカー室3",
+      "memberIds": [
+        "edion-b2-locker3"
+      ],
+      "x": 368,
+      "y": 138,
+      "boundary": "同じ階/室・用途・利用境界の固定区域。改修前参考と現在の駅区域を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "edion-b2-locker4-g",
+      "diagramId": "edion-b2",
+      "purpose": "荷物",
+      "label": "B2F ロッカー室4",
+      "area": "B2F・ロッカー室4",
+      "memberIds": [
+        "edion-b2-locker4"
+      ],
+      "x": 422,
+      "y": 143,
+      "boundary": "同じ階/室・用途・利用境界の固定区域。改修前参考と現在の駅区域を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "edion-b2-locker5-g",
+      "diagramId": "edion-b2",
+      "purpose": "荷物",
+      "label": "B2F ロッカー室5",
+      "area": "B2F・ロッカー室5",
+      "memberIds": [
+        "edion-b2-locker5"
+      ],
+      "x": 341,
+      "y": 571,
+      "boundary": "同じ階/室・用途・利用境界の固定区域。改修前参考と現在の駅区域を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "edion-b2-locker6-g",
+      "diagramId": "edion-b2",
+      "purpose": "荷物",
+      "label": "B2F ロッカー室6",
+      "area": "B2F・ロッカー室6",
+      "memberIds": [
+        "edion-b2-locker6"
+      ],
+      "x": 399,
+      "y": 571,
+      "boundary": "同じ階/室・用途・利用境界の固定区域。改修前参考と現在の駅区域を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "edion-b1-toilet-north-g",
+      "diagramId": "edion-b1",
+      "purpose": "トイレ",
+      "label": "トイレ（種別確認中）",
+      "area": "B1F・管理事務室側",
+      "memberIds": [
+        "edion-b1-toilet-north"
+      ],
+      "x": 523,
+      "y": 339,
+      "boundary": "同じ階/室・用途・利用境界の固定区域。改修前参考と現在の駅区域を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "edion-b1-toilet-south-a-g",
+      "diagramId": "edion-b1",
+      "purpose": "トイレ",
+      "label": "トイレ（種別確認中）",
+      "area": "B1F・フリースペース側",
+      "memberIds": [
+        "edion-b1-toilet-south-a"
+      ],
+      "x": 573,
+      "y": 722,
+      "boundary": "同じ階/室・用途・利用境界の固定区域。改修前参考と現在の駅区域を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "edion-b1-toilet-south-b-g",
+      "diagramId": "edion-b1",
+      "purpose": "トイレ",
+      "label": "トイレ（種別確認中）",
+      "area": "B1F・フリースペース側",
+      "memberIds": [
+        "edion-b1-toilet-south-b"
+      ],
+      "x": 611,
+      "y": 722,
+      "boundary": "同じ階/室・用途・利用境界の固定区域。改修前参考と現在の駅区域を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "edion-f34-toilet-north-a-g",
+      "diagramId": "edion-f34",
+      "purpose": "トイレ",
+      "label": "トイレ（種別確認中）",
+      "area": "3・4F・北側バルコニー",
+      "memberIds": [
+        "edion-f34-toilet-north-a"
+      ],
+      "x": 62,
+      "y": 559,
+      "boundary": "同じ階/室・用途・利用境界の固定区域。改修前参考と現在の駅区域を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "edion-f34-toilet-north-b-g",
+      "diagramId": "edion-f34",
+      "purpose": "トイレ",
+      "label": "トイレ（種別確認中）",
+      "area": "3・4F・北側バルコニー",
+      "memberIds": [
+        "edion-f34-toilet-north-b"
+      ],
+      "x": 90,
+      "y": 548,
+      "boundary": "同じ階/室・用途・利用境界の固定区域。改修前参考と現在の駅区域を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "edion-f34-toilet-south-a-g",
+      "diagramId": "edion-f34",
+      "purpose": "トイレ",
+      "label": "トイレ（種別確認中）",
+      "area": "3・4F・南側バルコニー",
+      "memberIds": [
+        "edion-f34-toilet-south-a"
+      ],
+      "x": 882,
+      "y": 70,
+      "boundary": "同じ階/室・用途・利用境界の固定区域。改修前参考と現在の駅区域を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "edion-f34-toilet-south-b-g",
+      "diagramId": "edion-f34",
+      "purpose": "トイレ",
+      "label": "トイレ（種別確認中）",
+      "area": "3・4F・南側バルコニー",
+      "memberIds": [
+        "edion-f34-toilet-south-b"
+      ],
+      "x": 882,
+      "y": 110,
+      "boundary": "同じ階/室・用途・利用境界の固定区域。改修前参考と現在の駅区域を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "edion-outside-venue-g",
+      "diagramId": "edion-access",
+      "purpose": "案内",
+      "label": "エディオンアリーナ大阪",
+      "area": "エディオンアリーナ大阪",
+      "memberIds": [
+        "edion-outside-venue"
+      ],
+      "x": 231,
+      "y": 400,
+      "boundary": "同じ階/室・用途・利用境界の固定区域。改修前参考と現在の駅区域を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "edion-outside-metro5-g",
+      "diagramId": "edion-access",
+      "purpose": "案内",
+      "label": "地下鉄5番出口",
+      "area": "地下鉄5番出口",
+      "memberIds": [
+        "edion-outside-metro5"
+      ],
+      "x": 266,
+      "y": 299,
+      "boundary": "同じ階/室・用途・利用境界の固定区域。改修前参考と現在の駅区域を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "edion-outside-nankai-g",
+      "diagramId": "edion-access",
+      "purpose": "案内",
+      "label": "南海なんば駅",
+      "area": "南海なんば駅",
+      "memberIds": [
+        "edion-outside-nankai"
+      ],
+      "x": 292,
+      "y": 348,
+      "boundary": "同じ階/室・用途・利用境界の固定区域。改修前参考と現在の駅区域を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "edion-outside-osaka-namba-g",
+      "diagramId": "edion-access",
+      "purpose": "案内",
+      "label": "大阪難波駅",
+      "area": "大阪難波駅",
+      "memberIds": [
+        "edion-outside-osaka-namba"
+      ],
+      "x": 211,
+      "y": 176,
+      "boundary": "同じ階/室・用途・利用境界の固定区域。改修前参考と現在の駅区域を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "edion-outside-jr-namba-g",
+      "diagramId": "edion-access",
+      "purpose": "案内",
+      "label": "JRなんば駅・OCAT",
+      "area": "JRなんば駅・OCAT",
+      "memberIds": [
+        "edion-outside-jr-namba"
+      ],
+      "x": 72,
+      "y": 208,
+      "boundary": "同じ階/室・用途・利用境界の固定区域。改修前参考と現在の駅区域を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "edion-outside-city-g",
+      "diagramId": "edion-access",
+      "purpose": "案内",
+      "label": "なんばCITY",
+      "area": "なんばCITY",
+      "memberIds": [
+        "edion-outside-city"
+      ],
+      "x": 315,
+      "y": 330,
+      "boundary": "同じ階/室・用途・利用境界の固定区域。改修前参考と現在の駅区域を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "edion-outside-parks-g",
+      "diagramId": "edion-access",
+      "purpose": "案内",
+      "label": "なんばパークス",
+      "area": "なんばパークス",
+      "memberIds": [
+        "edion-outside-parks"
+      ],
+      "x": 326,
+      "y": 405,
+      "boundary": "同じ階/室・用途・利用境界の固定区域。改修前参考と現在の駅区域を混ぜない",
+      "visualReview": "source-checked"
+    }
+  ],
+  "meta": {
+    "edion-f1-east-men": {
+      "location": "1F・東ロビー",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。原図に掲載されたトイレ区域です。",
+      "area": "1F・東ロビー",
+      "accessCondition": "全館休館中。再開後は会場案内をご確認ください。"
+    },
+    "edion-f1-east-women": {
+      "location": "1F・東ロビー",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。原図に掲載されたトイレ区域です。",
+      "area": "1F・東ロビー",
+      "accessCondition": "全館休館中。再開後は会場案内をご確認ください。"
+    },
+    "edion-f1-west-men": {
+      "location": "1F・西ロビー",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。原図に掲載されたトイレ区域です。",
+      "area": "1F・西ロビー",
+      "accessCondition": "全館休館中。再開後は会場案内をご確認ください。"
+    },
+    "edion-f1-west-women": {
+      "location": "1F・西ロビー",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。原図に掲載されたトイレ区域です。",
+      "area": "1F・西ロビー",
+      "accessCondition": "全館休館中。再開後は会場案内をご確認ください。"
+    },
+    "edion-f1-south-women": {
+      "location": "1F・南ロビー",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。原図に掲載されたトイレ区域です。",
+      "area": "1F・南ロビー",
+      "accessCondition": "全館休館中。再開後は会場案内をご確認ください。"
+    },
+    "edion-f1-south-men": {
+      "location": "1F・南ロビー",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。原図に掲載されたトイレ区域です。",
+      "area": "1F・南ロビー",
+      "accessCondition": "全館休館中。再開後は会場案内をご確認ください。"
+    },
+    "edion-f1-vending": {
+      "location": "1F・西ロビー",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。改修前の自動販売機コーナー。商品・稼働・決済方法は確認中です。",
+      "area": "1F・西ロビー",
+      "accessCondition": "全館休館中。再開後は会場案内をご確認ください。"
+    },
+    "edion-f1-contact": {
+      "location": "会場公式案内",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。休館中はメールのみ受付。furitsu-info@shinko-sports.com。通常案内の電話/窓口時間を休館中の受付へ転用しません。",
+      "area": "会場公式案内",
+      "accessCondition": "全館休館中。再開後は会場案内をご確認ください。"
+    },
+    "edion-f2-north-toilet": {
+      "location": "2F・東側ロビー",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。原図にトイレの記載。男女/多目的の割当は確認中です。",
+      "area": "2F・東側ロビー",
+      "accessCondition": "全館休館中。再開後は会場案内をご確認ください。"
+    },
+    "edion-f2-south-toilet": {
+      "location": "2F・東側ロビー",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。原図にトイレの記載。男女/多目的の割当は確認中です。",
+      "area": "2F・東側ロビー",
+      "accessCondition": "全館休館中。再開後は会場案内をご確認ください。"
+    },
+    "edion-f2-firstaid": {
+      "location": "2F・救護室掲載区域",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。体調不良時は会場係員へ連絡してください。救護室への自由入室は案内しません。",
+      "area": "2F・救護室掲載区域",
+      "accessCondition": "全館休館中。再開後は会場案内をご確認ください。"
+    },
+    "edion-f2-locker1": {
+      "location": "2F・第1競技場ロッカー室1",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。競技者/施設利用者用の更衣区域です。観客のコインロッカー・スーツケース預かりとしては案内しません。",
+      "area": "2F・第1競技場ロッカー室1",
+      "accessCondition": "全館休館中。再開後は会場案内をご確認ください。"
+    },
+    "edion-f2-locker2": {
+      "location": "2F・第1競技場ロッカー室2",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。競技者/施設利用者用の更衣区域です。観客のコインロッカー・スーツケース預かりとしては案内しません。",
+      "area": "2F・第1競技場ロッカー室2",
+      "accessCondition": "全館休館中。再開後は会場案内をご確認ください。"
+    },
+    "edion-b2-toilet-a": {
+      "location": "B2F・第2競技場と武道場の間",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。原図にトイレの記載。男女/多目的の割当は確認中です。",
+      "area": "B2F・第2競技場と武道場の間",
+      "accessCondition": "全館休館中。再開後は会場案内をご確認ください。"
+    },
+    "edion-b2-toilet-b": {
+      "location": "B2F・第2競技場と武道場の間",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。原図にトイレの記載。男女/多目的の割当は確認中です。",
+      "area": "B2F・第2競技場と武道場の間",
+      "accessCondition": "全館休館中。再開後は会場案内をご確認ください。"
+    },
+    "edion-b2-locker1": {
+      "location": "B2F・ロッカー室1",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。競技者/施設利用者用の更衣区域です。一般観客の手荷物預かりを確定していません。",
+      "area": "B2F・ロッカー室1",
+      "accessCondition": "全館休館中。再開後は会場案内をご確認ください。"
+    },
+    "edion-b2-locker2": {
+      "location": "B2F・ロッカー室2",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。競技者/施設利用者用の更衣区域です。一般観客の手荷物預かりを確定していません。",
+      "area": "B2F・ロッカー室2",
+      "accessCondition": "全館休館中。再開後は会場案内をご確認ください。"
+    },
+    "edion-b2-locker3": {
+      "location": "B2F・ロッカー室3",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。競技者/施設利用者用の更衣区域です。一般観客の手荷物預かりを確定していません。",
+      "area": "B2F・ロッカー室3",
+      "accessCondition": "全館休館中。再開後は会場案内をご確認ください。"
+    },
+    "edion-b2-locker4": {
+      "location": "B2F・ロッカー室4",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。競技者/施設利用者用の更衣区域です。一般観客の手荷物預かりを確定していません。",
+      "area": "B2F・ロッカー室4",
+      "accessCondition": "全館休館中。再開後は会場案内をご確認ください。"
+    },
+    "edion-b2-locker5": {
+      "location": "B2F・ロッカー室5",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。競技者/施設利用者用の更衣区域です。一般観客の手荷物預かりを確定していません。",
+      "area": "B2F・ロッカー室5",
+      "accessCondition": "全館休館中。再開後は会場案内をご確認ください。"
+    },
+    "edion-b2-locker6": {
+      "location": "B2F・ロッカー室6",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。競技者/施設利用者用の更衣区域です。一般観客の手荷物預かりを確定していません。",
+      "area": "B2F・ロッカー室6",
+      "accessCondition": "全館休館中。再開後は会場案内をご確認ください。"
+    },
+    "edion-b1-toilet-north": {
+      "location": "B1F・管理事務室側",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。原図掲載区域。男女/多目的の割当は確認中です。",
+      "area": "B1F・管理事務室側",
+      "accessCondition": "全館休館中。再開後は会場案内をご確認ください。"
+    },
+    "edion-b1-toilet-south-a": {
+      "location": "B1F・フリースペース側",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。原図掲載区域。男女/多目的の割当は確認中です。",
+      "area": "B1F・フリースペース側",
+      "accessCondition": "全館休館中。再開後は会場案内をご確認ください。"
+    },
+    "edion-b1-toilet-south-b": {
+      "location": "B1F・フリースペース側",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。原図掲載区域。男女/多目的の割当は確認中です。",
+      "area": "B1F・フリースペース側",
+      "accessCondition": "全館休館中。再開後は会場案内をご確認ください。"
+    },
+    "edion-f34-toilet-north-a": {
+      "location": "3・4F・北側バルコニー",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。公式は3・4F合成図です。個別階/男女の割当・再開後の変更は確認中です。",
+      "area": "3・4F・北側バルコニー",
+      "accessCondition": "全館休館中。再開後は会場案内をご確認ください。"
+    },
+    "edion-f34-toilet-north-b": {
+      "location": "3・4F・北側バルコニー",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。公式は3・4F合成図です。個別階/男女の割当・再開後の変更は確認中です。",
+      "area": "3・4F・北側バルコニー",
+      "accessCondition": "全館休館中。再開後は会場案内をご確認ください。"
+    },
+    "edion-f34-toilet-south-a": {
+      "location": "3・4F・南側バルコニー",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。公式は3・4F合成図です。個別階/男女の割当・再開後の変更は確認中です。",
+      "area": "3・4F・南側バルコニー",
+      "accessCondition": "全館休館中。再開後は会場案内をご確認ください。"
+    },
+    "edion-f34-toilet-south-b": {
+      "location": "3・4F・南側バルコニー",
+      "detail": "全館休館中です。改修前の参考区域で、再開後の配置・利用は確認中です。公式は3・4F合成図です。個別階/男女の割当・再開後の変更は確認中です。",
+      "area": "3・4F・南側バルコニー",
+      "accessCondition": "全館休館中。再開後は会場案内をご確認ください。"
+    },
+    "edion-outside-venue": {
+      "location": "エディオンアリーナ大阪",
+      "detail": "2027年1月まで全館休館中です。再開予定と指定入口は公式/主催者案内を確認してください。",
+      "area": "エディオンアリーナ大阪",
+      "accessCondition": "入場前に利用できる選択肢です。営業時間と施設ごとの条件をご確認ください。"
+    },
+    "edion-outside-metro5": {
+      "location": "地下鉄5番出口",
+      "detail": "公式アクセスは5番出口から350m。連続段差なし経路を確定しません。現行Metro図は26-D閉鎖と別区域EVの2026年10月2日〜11月6日停止を案内しています。",
+      "area": "地下鉄5番出口",
+      "accessCondition": "入場前に利用できる選択肢です。営業時間と施設ごとの条件をご確認ください。"
+    },
+    "edion-outside-nankai": {
+      "location": "南海なんば駅",
+      "detail": "公式アクセスは南出口から250m。改札/出口と会場の精密入口は別です。",
+      "area": "南海なんば駅",
+      "accessCondition": "入場前に利用できる選択肢です。営業時間と施設ごとの条件をご確認ください。"
+    },
+    "edion-outside-osaka-namba": {
+      "location": "大阪難波駅",
+      "detail": "会場公式の距離は600m。近鉄/阪神の大阪難波と南海なんばを区別してください。",
+      "area": "大阪難波駅",
+      "accessCondition": "入場前に利用できる選択肢です。営業時間と施設ごとの条件をご確認ください。"
+    },
+    "edion-outside-jr-namba": {
+      "location": "JRなんば駅・OCAT",
+      "detail": "会場公式の距離は800m。OCATロッカーの階と回収時刻を個別詳細で確認してください。",
+      "area": "JRなんば駅・OCAT",
+      "accessCondition": "入場前に利用できる選択肢です。営業時間と施設ごとの条件をご確認ください。"
+    },
+    "edion-outside-city": {
+      "location": "なんばCITY",
+      "detail": "館内各階のロッカーは場所一覧から探せます。館内営業時間とロッカー時間は区別します。",
+      "area": "なんばCITY",
+      "accessCondition": "入場前に利用できる選択肢です。営業時間と施設ごとの条件をご確認ください。"
+    },
+    "edion-outside-parks": {
+      "location": "なんばパークス",
+      "detail": "2Fのロッカー2区域は料金/決済が異なります。場所一覧から確認できます。",
+      "area": "なんばパークス",
+      "accessCondition": "入場前に利用できる選択肢です。営業時間と施設ごとの条件をご確認ください。"
+    },
+    "edion-city-a": {
+      "location": "なんばCITY 本館2F・minapitaカウンター前",
+      "detail": "利用時間始発〜24:10。S500/M700/L1200/XL1500円。電子マネー・コード決済・クレジットカード。収納内寸/延長料金/空きは現地表示で確認してください。",
+      "area": "なんばCITY 本館2F・minapitaカウンター前",
+      "accessCondition": "入場前に利用できる選択肢です。営業時間と施設ごとの条件をご確認ください。",
+      "outsideViewIds": [
+        "station",
+        "access"
+      ]
+    },
+    "edion-city-b": {
+      "location": "なんばCITY 本館2F・JTB奥",
+      "detail": "利用時間始発〜24:10。S500/M700/L1200円。電子マネー・コード決済・クレジットカード。収納内寸/延長料金/空きは現地表示で確認してください。",
+      "area": "なんばCITY 本館2F・JTB奥",
+      "accessCondition": "入場前に利用できる選択肢です。営業時間と施設ごとの条件をご確認ください。",
+      "outsideViewIds": [
+        "station",
+        "access"
+      ]
+    },
+    "edion-city-c": {
+      "location": "なんばCITY 本館2F・中央改札前（マクドナルドが目印）",
+      "detail": "利用時間始発〜24:10。S500/M700/L1200円。電子マネー・コード決済・クレジットカード。収納内寸/延長料金/空きは現地表示で確認してください。",
+      "area": "なんばCITY 本館2F・中央改札前（マクドナルドが目印）",
+      "accessCondition": "入場前に利用できる選択肢です。営業時間と施設ごとの条件をご確認ください。",
+      "outsideViewIds": [
+        "station",
+        "access"
+      ]
+    },
+    "edion-city-d": {
+      "location": "なんばCITY 本館1F・観光案内所前",
+      "detail": "利用時間始発〜24:10。S500/M700/L1200円。電子マネー・コード決済・クレジットカード。収納内寸/延長料金/空きは現地表示で確認してください。",
+      "area": "なんばCITY 本館1F・観光案内所前",
+      "accessCondition": "入場前に利用できる選択肢です。営業時間と施設ごとの条件をご確認ください。",
+      "outsideViewIds": [
+        "station",
+        "access"
+      ]
+    },
+    "edion-city-e": {
+      "location": "なんばCITY 本館1F・トイレ前/自動販売機横",
+      "detail": "利用時間8:00〜22:00。S500/M700/L1200円。電子マネー・コード決済・クレジットカード。収納内寸/延長料金/空きは現地表示で確認してください。",
+      "area": "なんばCITY 本館1F・トイレ前/自動販売機横",
+      "accessCondition": "入場前に利用できる選択肢です。営業時間と施設ごとの条件をご確認ください。",
+      "outsideViewIds": [
+        "station",
+        "access"
+      ]
+    },
+    "edion-city-f": {
+      "location": "なんばCITY 本館1F・エレベーター付近",
+      "detail": "利用時間始発〜24:10。S500/M700/L1200/XL1500円。電子マネー・コード決済・クレジットカード。収納内寸/延長料金/空きは現地表示で確認してください。",
+      "area": "なんばCITY 本館1F・エレベーター付近",
+      "accessCondition": "入場前に利用できる選択肢です。営業時間と施設ごとの条件をご確認ください。",
+      "outsideViewIds": [
+        "station",
+        "access"
+      ]
+    },
+    "edion-city-g": {
+      "location": "なんばCITY 本館1F・髙島屋化粧品横",
+      "detail": "利用時間始発〜24:10。S500/M700/L1200円。電子マネー・コード決済・クレジットカード。収納内寸/延長料金/空きは現地表示で確認してください。",
+      "area": "なんばCITY 本館1F・髙島屋化粧品横",
+      "accessCondition": "入場前に利用できる選択肢です。営業時間と施設ごとの条件をご確認ください。",
+      "outsideViewIds": [
+        "station",
+        "access"
+      ]
+    },
+    "edion-city-h": {
+      "location": "なんばCITY 本館B1F付近・地下鉄連絡通路",
+      "detail": "利用時間始発〜24:10。XXS300/XS400/S500/M700/L1200/XL1500円。電子マネー・コード決済・クレジットカード。一部現金のみの機械があります。収納内寸/延長料金/空きは現地表示で確認してください。",
+      "area": "なんばCITY 本館B1F付近・地下鉄連絡通路",
+      "accessCondition": "入場前に利用できる選択肢です。営業時間と施設ごとの条件をご確認ください。",
+      "outsideViewIds": [
+        "station",
+        "access"
+      ]
+    },
+    "edion-city-i": {
+      "location": "なんばCITY 本館B1F・北エレベーター付近",
+      "detail": "利用時間6:30〜22:00。S500/M700/L1200円。電子マネー・コード決済・クレジットカード。収納内寸/延長料金/空きは現地表示で確認してください。",
+      "area": "なんばCITY 本館B1F・北エレベーター付近",
+      "accessCondition": "入場前に利用できる選択肢です。営業時間と施設ごとの条件をご確認ください。",
+      "outsideViewIds": [
+        "station",
+        "access"
+      ]
+    },
+    "edion-city-j": {
+      "location": "なんばCITY 南館2F・パークス連絡通路付近",
+      "detail": "利用時間7:00〜23:30。S500/M1000円。電子マネー・コード決済・クレジットカード。収納内寸/延長料金/空きは現地表示で確認してください。",
+      "area": "なんばCITY 南館2F・パークス連絡通路付近",
+      "accessCondition": "入場前に利用できる選択肢です。営業時間と施設ごとの条件をご確認ください。",
+      "outsideViewIds": [
+        "station",
+        "access"
+      ]
+    },
+    "edion-parks-canyon": {
+      "location": "なんばパークス2F・キャニオンコート・トイレ付近",
+      "detail": "利用6:00〜24:00。S500/M700/L1000円。電子マネー・コード決済・クレジットカード。寸法・延長料金・空きは現地表示で確認してください。",
+      "area": "なんばパークス2F・キャニオンコート・トイレ付近",
+      "accessCondition": "入場前に利用できる選択肢です。営業時間と施設ごとの条件をご確認ください。",
+      "outsideViewIds": [
+        "station",
+        "access"
+      ]
+    },
+    "edion-parks-info": {
+      "location": "なんばパークス2F・インフォメーション付近",
+      "detail": "利用6:00〜24:00。S400/M600/L900円。現金のみ。寸法・延長料金・空きは現地表示で確認してください。",
+      "area": "なんばパークス2F・インフォメーション付近",
+      "accessCondition": "入場前に利用できる選択肢です。営業時間と施設ごとの条件をご確認ください。",
+      "outsideViewIds": [
+        "station",
+        "access"
+      ]
+    },
+    "edion-metro-m20": {
+      "location": "なんば駅・御堂筋線・南南改札外",
+      "detail": "2024年増設の公式案内と現行構内図を照合。改札外です。個別機械の収納内寸/料金/利用時間/延長条件は確認中で現地表示をご確認ください。",
+      "area": "なんば駅・御堂筋線・南南改札外",
+      "accessCondition": "入場前に利用できる選択肢です。営業時間と施設ごとの条件をご確認ください。",
+      "outsideViewIds": [
+        "station",
+        "access"
+      ]
+    },
+    "edion-metro-y15": {
+      "location": "なんば駅・四つ橋線・北改札外",
+      "detail": "2024年増設の公式案内と現行構内図を照合。改札外です。個別機械の収納内寸/料金/利用時間/延長条件は確認中で現地表示をご確認ください。",
+      "area": "なんば駅・四つ橋線・北改札外",
+      "accessCondition": "入場前に利用できる選択肢です。営業時間と施設ごとの条件をご確認ください。",
+      "outsideViewIds": [
+        "station",
+        "access"
+      ]
+    },
+    "edion-nest": {
+      "location": "南海なんば駅2F中央改札口前・改札外",
+      "detail": "利用9:00〜21:00。有人一時預かりと関西空港配送は別サービスです。個別料金/予約/対象荷物/締切条件は運営元で確認してください。",
+      "area": "南海なんば駅2F中央改札口前・改札外",
+      "accessCondition": "入場前に利用できる選択肢です。営業時間と施設ごとの条件をご確認ください。",
+      "outsideViewIds": [
+        "station",
+        "access"
+      ],
+      "name": "n・e・s・t（nest）南海なんば駅カウンター"
+    },
+    "edion-youcarry": {
+      "location": "難波中2-7-15 1F・南海なんば駅から徒歩4分（運営元目安）",
+      "detail": "9:30〜18:30・年中無休、予約不要。2026年9月1日改定：バックパック440円/キャリーケース・その他大型750円（1個1日税込）。2日目以降加算、最大14日。現金/クレジットまたは店頭QR、デビット不可。生き物/現金・貴重品/生もの不可。18:30までの回収を確認。配送は別料金/締切です。空き・受付を保証しません。",
+      "area": "難波中2-7-15 1F・南海なんば駅から徒歩4分（運営元目安）",
+      "accessCondition": "入場前に利用できる選択肢です。営業時間と施設ごとの条件をご確認ください。",
+      "outsideViewIds": [
+        "station",
+        "access"
+      ]
+    },
+    "edion-youcarry-charge": {
+      "location": "難波中2-7-15 1F",
+      "detail": "運営元はWi-Fi・電源・トイレを案内し、荷物預かりの利用なしでも休憩可としています。9:30〜18:30。",
+      "area": "難波中2-7-15 1F",
+      "accessCondition": "入場前に利用できる選択肢です。営業時間と施設ごとの条件をご確認ください。",
+      "outsideViewIds": [
+        "station",
+        "access"
+      ]
+    },
+    "edion-ocat-b1-ponte": {
+      "location": "JR難波接続・OCAT B1F・ポンテ広場エスカレーター付近",
+      "detail": "OCATの現行掲載区域。個別機械の寸法・料金・利用/回収時間・加算条件は現地表示で確認してください。商業施設の営業時間をロッカー時間へ転用しません。1Fの新機械と各掲載区域の対応は確認中です。",
+      "area": "JR難波接続・OCAT B1F・ポンテ広場エスカレーター付近",
+      "accessCondition": "入場前に利用できる選択肢です。営業時間と施設ごとの条件をご確認ください。",
+      "outsideViewIds": [
+        "station",
+        "access"
+      ]
+    },
+    "edion-ocat-b1-saize": {
+      "location": "JR難波接続・OCAT B1F・サイゼリヤ付近",
+      "detail": "OCATの現行掲載区域。個別機械の寸法・料金・利用/回収時間・加算条件は現地表示で確認してください。商業施設の営業時間をロッカー時間へ転用しません。1Fの新機械と各掲載区域の対応は確認中です。",
+      "area": "JR難波接続・OCAT B1F・サイゼリヤ付近",
+      "accessCondition": "入場前に利用できる選択肢です。営業時間と施設ごとの条件をご確認ください。",
+      "outsideViewIds": [
+        "station",
+        "access"
+      ]
+    },
+    "edion-ocat-f1-central": {
+      "location": "JR難波接続・OCAT 1F・中央エスカレーター付近",
+      "detail": "OCATの現行掲載区域。個別機械の寸法・料金・利用/回収時間・加算条件は現地表示で確認してください。商業施設の営業時間をロッカー時間へ転用しません。1Fの新機械と各掲載区域の対応は確認中です。",
+      "area": "JR難波接続・OCAT 1F・中央エスカレーター付近",
+      "accessCondition": "入場前に利用できる選択肢です。営業時間と施設ごとの条件をご確認ください。",
+      "outsideViewIds": [
+        "station",
+        "access"
+      ]
+    },
+    "edion-ocat-f1-post": {
+      "location": "JR難波接続・OCAT 1F・OCAT郵便局付近",
+      "detail": "OCATの現行掲載区域。個別機械の寸法・料金・利用/回収時間・加算条件は現地表示で確認してください。商業施設の営業時間をロッカー時間へ転用しません。1Fの新機械と各掲載区域の対応は確認中です。",
+      "area": "JR難波接続・OCAT 1F・OCAT郵便局付近",
+      "accessCondition": "入場前に利用できる選択肢です。営業時間と施設ごとの条件をご確認ください。",
+      "outsideViewIds": [
+        "station",
+        "access"
+      ]
+    },
+    "edion-ocat-f1-north": {
+      "location": "JR難波接続・OCAT 1F・北出入口付近",
+      "detail": "OCATの現行掲載区域。個別機械の寸法・料金・利用/回収時間・加算条件は現地表示で確認してください。商業施設の営業時間をロッカー時間へ転用しません。1Fの新機械と各掲載区域の対応は確認中です。",
+      "area": "JR難波接続・OCAT 1F・北出入口付近",
+      "accessCondition": "入場前に利用できる選択肢です。営業時間と施設ごとの条件をご確認ください。",
+      "outsideViewIds": [
+        "station",
+        "access"
+      ]
+    },
+    "edion-ocat-f2-bus": {
+      "location": "JR難波接続・OCAT 2F・バスターミナル6番バース付近",
+      "detail": "OCATの現行掲載区域。個別機械の寸法・料金・利用/回収時間・加算条件は現地表示で確認してください。商業施設の営業時間をロッカー時間へ転用しません。1Fの新機械と各掲載区域の対応は確認中です。",
+      "area": "JR難波接続・OCAT 2F・バスターミナル6番バース付近",
+      "accessCondition": "入場前に利用できる選択肢です。営業時間と施設ごとの条件をご確認ください。",
+      "outsideViewIds": [
+        "station",
+        "access"
+      ]
+    },
+    "edion-ocat-information": {
+      "location": "OCAT1F",
+      "detail": "11:00〜17:00、車いす貸出し・迷子・遺失物案内。ロッカー利用時間とは別です。",
+      "area": "OCAT1F",
+      "accessCondition": "入場前に利用できる選択肢です。営業時間と施設ごとの条件をご確認ください。",
+      "outsideViewIds": [
+        "station",
+        "access"
+      ]
+    }
+  },
+  "aliases": {
+    "edion-f1-east": [
+      "東ロビー"
+    ],
+    "edion-f1-west": [
+      "西ロビー"
+    ],
+    "edion-f1-entrance": [
+      "玄関ホール"
+    ],
+    "edion-f2-ne": [
+      "北東ロビー"
+    ],
+    "edion-f2-se": [
+      "南東ロビー"
+    ],
+    "edion-f2-nw": [
+      "北西ロビー"
+    ],
+    "edion-f2-sw": [
+      "西南ロビー"
+    ],
+    "edion-b2-main": [
+      "第2競技場"
+    ],
+    "edion-b2-judo": [
+      "柔道場"
+    ],
+    "edion-b2-kendo": [
+      "剣道場"
+    ],
+    "edion-b1-admin": [
+      "管理事務室"
+    ],
+    "edion-b1-lobby": [
+      "ロビー"
+    ],
+    "edion-f34-north": [
+      "北ロビー"
+    ],
+    "edion-f34-south": [
+      "南ロビー"
+    ],
+    "edion-outside-venue": [
+      "エディオンアリーナ大阪"
+    ],
+    "edion-outside-metro5": [
+      "地下鉄5番出口"
+    ],
+    "edion-outside-nankai": [
+      "南海なんば駅"
+    ],
+    "edion-outside-osaka-namba": [
+      "大阪難波駅"
+    ],
+    "edion-outside-jr-namba": [
+      "JRなんば駅・OCAT"
+    ],
+    "edion-outside-city": [
+      "なんばCITY"
+    ],
+    "edion-outside-parks": [
+      "なんばパークス"
+    ],
+    "edion-storage-city": [
+      "南海",
+      "なんばCITY",
+      "南海なんば"
+    ],
+    "edion-storage-parks": [
+      "パークス"
+    ],
+    "edion-storage-metro": [
+      "地下鉄",
+      "Metro"
+    ],
+    "edion-storage-jr": [
+      "JRなんば",
+      "OCAT"
+    ],
+    "edion-storage-shops": [
+      "店舗",
+      "トラベルハブ"
+    ]
+  },
+  "landmarkFacilityIds": {
+    "edion-f1-east": [
+      "edion-f1-east-men",
+      "edion-f1-east-women"
+    ],
+    "edion-f1-west": [
+      "edion-f1-west-men",
+      "edion-f1-west-women",
+      "edion-f1-vending"
+    ],
+    "edion-f1-entrance": [
+      "edion-f1-contact"
+    ],
+    "edion-f2-ne": [
+      "edion-f2-north-toilet"
+    ],
+    "edion-f2-se": [
+      "edion-f2-south-toilet"
+    ],
+    "edion-f2-nw": [
+      "edion-f2-locker1"
+    ],
+    "edion-f2-sw": [
+      "edion-f2-locker2"
+    ],
+    "edion-b2-main": [
+      "edion-b2-locker1",
+      "edion-b2-locker2",
+      "edion-b2-toilet-a",
+      "edion-b2-toilet-b"
+    ],
+    "edion-b2-judo": [
+      "edion-b2-locker5",
+      "edion-b2-locker6",
+      "edion-b2-toilet-a",
+      "edion-b2-toilet-b"
+    ],
+    "edion-b2-kendo": [
+      "edion-b2-locker3",
+      "edion-b2-locker4"
+    ],
+    "edion-b1-admin": [
+      "edion-b1-toilet-north"
+    ],
+    "edion-b1-lobby": [
+      "edion-b1-toilet-south-a",
+      "edion-b1-toilet-south-b"
+    ],
+    "edion-f34-north": [
+      "edion-f34-toilet-north-a",
+      "edion-f34-toilet-north-b"
+    ],
+    "edion-f34-south": [
+      "edion-f34-toilet-south-a",
+      "edion-f34-toilet-south-b"
+    ],
+    "edion-outside-venue": [
+      "edion-outside-venue"
+    ],
+    "edion-outside-metro5": [
+      "edion-outside-metro5"
+    ],
+    "edion-outside-nankai": [
+      "edion-outside-nankai"
+    ],
+    "edion-outside-osaka-namba": [
+      "edion-outside-osaka-namba"
+    ],
+    "edion-outside-jr-namba": [
+      "edion-outside-jr-namba"
+    ],
+    "edion-outside-city": [
+      "edion-outside-city"
+    ],
+    "edion-outside-parks": [
+      "edion-outside-parks"
+    ],
+    "edion-storage-city": [
+      "edion-city-a",
+      "edion-city-b",
+      "edion-city-c",
+      "edion-city-d",
+      "edion-city-e",
+      "edion-city-f",
+      "edion-city-g",
+      "edion-city-h",
+      "edion-city-i",
+      "edion-city-j",
+      "edion-nest"
+    ],
+    "edion-storage-parks": [
+      "edion-parks-canyon",
+      "edion-parks-info"
+    ],
+    "edion-storage-metro": [
+      "edion-metro-m20",
+      "edion-metro-y15"
+    ],
+    "edion-storage-jr": [
+      "edion-ocat-b1-ponte",
+      "edion-ocat-b1-saize",
+      "edion-ocat-f1-central",
+      "edion-ocat-f1-post",
+      "edion-ocat-f1-north",
+      "edion-ocat-f2-bus"
+    ],
+    "edion-storage-shops": [
+      "edion-youcarry"
+    ]
+  },
+  "landmarkGroupIds": {
+    "edion-f1-east": [
+      "edion-f1-east-men-g",
+      "edion-f1-east-women-g"
+    ],
+    "edion-f1-west": [
+      "edion-f1-west-men-g",
+      "edion-f1-west-women-g",
+      "edion-f1-vending-g"
+    ],
+    "edion-f1-entrance": [],
+    "edion-f2-ne": [
+      "edion-f2-north-toilet-g"
+    ],
+    "edion-f2-se": [
+      "edion-f2-south-toilet-g"
+    ],
+    "edion-f2-nw": [
+      "edion-f2-locker1-g"
+    ],
+    "edion-f2-sw": [
+      "edion-f2-locker2-g"
+    ],
+    "edion-b2-main": [
+      "edion-b2-toilet-a-g",
+      "edion-b2-toilet-b-g",
+      "edion-b2-locker1-g",
+      "edion-b2-locker2-g"
+    ],
+    "edion-b2-judo": [
+      "edion-b2-toilet-a-g",
+      "edion-b2-toilet-b-g",
+      "edion-b2-locker5-g",
+      "edion-b2-locker6-g"
+    ],
+    "edion-b2-kendo": [
+      "edion-b2-locker3-g",
+      "edion-b2-locker4-g"
+    ],
+    "edion-b1-admin": [
+      "edion-b1-toilet-north-g"
+    ],
+    "edion-b1-lobby": [
+      "edion-b1-toilet-south-a-g",
+      "edion-b1-toilet-south-b-g"
+    ],
+    "edion-f34-north": [
+      "edion-f34-toilet-north-a-g",
+      "edion-f34-toilet-north-b-g"
+    ],
+    "edion-f34-south": [
+      "edion-f34-toilet-south-a-g",
+      "edion-f34-toilet-south-b-g"
+    ],
+    "edion-outside-venue": [
+      "edion-outside-venue-g"
+    ],
+    "edion-outside-metro5": [
+      "edion-outside-metro5-g"
+    ],
+    "edion-outside-nankai": [
+      "edion-outside-nankai-g"
+    ],
+    "edion-outside-osaka-namba": [
+      "edion-outside-osaka-namba-g"
+    ],
+    "edion-outside-jr-namba": [
+      "edion-outside-jr-namba-g"
+    ],
+    "edion-outside-city": [
+      "edion-outside-city-g"
+    ],
+    "edion-outside-parks": [
+      "edion-outside-parks-g"
+    ],
+    "edion-storage-city": [],
+    "edion-storage-parks": [],
+    "edion-storage-metro": [],
+    "edion-storage-jr": [],
+    "edion-storage-shops": []
+  }
+}

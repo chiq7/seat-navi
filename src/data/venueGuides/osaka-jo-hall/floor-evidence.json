@@ -1,0 +1,3045 @@
+{
+  "diagrams": [
+    {
+      "id": "osaka-f1",
+      "floor": "1F",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        1892,
+        1382
+      ],
+      "concoursePaths": [
+        "M801,137 L812,137 L815,147 L828,155 L844,151 L850,137 L921,140 L925,141 L928,155 L939,162 L955,159 L962,146 L967,146 L1030,159 L1033,174 L1043,183 L1058,183 L1068,171 L1093,178 L1131,193 L1130,207 L1137,217 L1153,220 L1167,210 L1214,236 L1213,249 L1221,260 L1236,263 L1248,256 L1285,277 L1285,292 L1298,304 L1315,301 L1322,291 L1321,279 L1357,246 L1484,325 L1458,352 L1440,349 L1432,354 L1427,374 L1434,383 L1449,387 L1463,380 L1500,402 L1499,414 L1508,426 L1522,428 L1534,421 L1572,443 L1572,463 L1579,473 L1596,476 L1608,468 L1651,505 L1646,520 L1653,533 L1662,537 L1679,533 L1696,553 L1711,574 L1704,584 L1705,599 L1715,608 L1732,607 L1749,640 L1754,653 L1745,659 L1742,676 L1750,687 L1767,689 L1777,729 L1778,739 L1771,741 L1763,752 L1767,770 L1783,778 L1783,825 L1770,830 L1762,843 L1765,857 L1778,865 L1767,917 L1754,917 L1744,924 L1741,941 L1754,955 L1734,1000 L1731,1005 L1715,1003 L1705,1010 L1702,1027 L1712,1039 L1679,1086 L1662,1083 L1647,1091 L1644,1107 L1651,1119 L1641,1130 L1635,1110 L1620,1100 L1537,1097 L1535,1094 L1573,1053 L1577,1054 L1599,1025 L1617,997 L1627,970 L1646,969 L1646,926 L1660,877 L1666,875 L1668,819 L1668,764 L1659,720 L1656,710 L1653,711 L1640,676 L1729,673 L1742,655 L1740,636 L1732,626 L1721,621 L1612,621 L1554,554 L1494,509 L1115,290 L1051,261 L998,244 L931,230 L876,228 L955,225 L966,221 L976,209 L978,193 L972,179 L957,170 L846,170 L837,174 L827,187 L825,204 L836,220 L856,226 L791,224 L749,228 L634,255 L632,249 L589,249 L588,270 L531,293 L469,328 L463,327 L413,363 L394,351 L281,353 L296,337 L306,344 L322,341 L329,331 L326,312 L380,272 L394,279 L410,276 L417,266 L415,250 L422,246 L478,217 L492,228 L508,225 L516,215 L515,201 L519,199 L583,176 L597,188 L611,188 L622,177 L622,165 L653,157 L700,149 L706,161 L724,164 L736,154 L737,143 Z",
+        "M266,367 L264,386 L279,404 L368,407 L329,449 L325,448 L304,476 L283,510 L285,514 L254,584 L244,584 L235,726 L247,786 L252,787 L269,833 L183,833 L168,843 L163,865 L167,876 L186,888 L298,886 L341,937 L386,973 L355,1002 L309,1042 L250,994 L255,985 L251,967 L240,961 L223,966 L190,924 L197,913 L193,894 L181,888 L169,890 L148,846 L157,837 L157,819 L148,810 L135,808 L125,765 L125,760 L137,753 L140,738 L134,727 L121,723 L120,678 L121,673 L134,670 L141,659 L138,643 L125,633 L136,584 L152,582 L161,570 L160,557 L149,547 L150,543 L172,495 L189,498 L199,491 L202,475 L192,461 L223,416 L227,413 L241,417 L254,409 L257,393 L251,383 Z",
+        "M1489,1138 L1500,1151 L1512,1155 L1614,1155 L1604,1166 L1592,1159 L1578,1162 L1570,1174 L1572,1193 L1519,1231 L1507,1223 L1494,1224 L1483,1238 L1485,1252 L1458,1267 L1421,1285 L1409,1276 L1394,1276 L1383,1288 L1384,1301 L1315,1326 L1303,1314 L1286,1314 L1276,1326 L1276,1337 L1252,1343 L1199,1352 L1191,1340 L1176,1338 L1165,1346 L1162,1358 L1087,1364 L1079,1348 L1064,1344 L1052,1350 L1048,1364 L1000,1362 L973,1359 L972,1349 L960,1339 L944,1341 L936,1354 L922,1352 L868,1340 L866,1324 L855,1316 L839,1318 L830,1329 L769,1306 L754,1299 L755,1295 L821,1224 L865,1243 L929,1261 L971,1269 L1024,1272 L1023,1277 L969,1277 L955,1282 L945,1295 L944,1312 L948,1322 L960,1331 L1077,1332 L1094,1317 L1093,1291 L1079,1279 L1041,1277 L1041,1273 L1090,1273 L1102,1277 L1176,1269 L1177,1265 L1189,1263 L1195,1263 L1195,1271 L1237,1271 L1238,1253 L1301,1238 L1352,1215 L1358,1220 L1396,1219 L1397,1193 L1429,1175 L1437,1175 Z"
+      ],
+      "contextPaths": [
+        "M814,326 L916,336 L1006,365 L1396,588 L1441,619 L1481,658 L1509,698 L1531,749 L1541,804 L1540,848 L1531,893 L1516,933 L1494,973 L1434,1044 L1361,1099 L1279,1139 L1187,1165 L1091,1174 L990,1165 L894,1134 L503,910 L458,878 L421,841 L388,791 L372,751 L363,706 L362,666 L379,587 L419,513 L474,452 L553,395 L628,360 L724,334 Z",
+        "M375,891 L409,924 L492,976 L538,932 L861,1121 L823,1167 L869,1190 L926,1211 L899,1252 L834,1229 L819,1223 L749,1298 L311,1045 L387,974 L327,921 Z",
+        "M999,246 L1056,264 L1113,290 L1512,522 L1578,580 L1529,610 L1517,600 L1517,595 L1497,581 L1409,523 L1364,566 L1077,399 L1075,396 L1116,354 L1042,314 L971,290 Z",
+        "M1611,1107 L1627,1112 L1633,1123 L1629,1140 L1615,1147 L1599,1142 L1593,1130 L1596,1116 Z",
+        "M1066,1285 L1083,1290 L1089,1301 L1085,1318 L1072,1325 L1058,1322 L1049,1307 L1052,1294 Z",
+        "M386,359 L401,362 L409,373 L406,391 L392,398 L377,395 L370,384 L373,367 Z",
+        "M945,178 L960,179 L970,191 L968,208 L956,216 L943,216 L932,205 L932,190 Z",
+        "M287,840 L303,846 L308,856 L305,872 L290,880 L278,878 L269,867 L270,851 Z",
+        "M1710,629 L1726,631 L1735,642 L1732,661 L1721,668 L1705,666 L1696,653 L1699,637 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "f1-pillar-28",
+          "label": "28",
+          "x": 831.0,
+          "y": 136.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read black pillar circle index 0, bounds [814, 119, 848, 153]",
+          "name": "柱28"
+        },
+        {
+          "id": "f1-pillar-27",
+          "label": "27",
+          "x": 944.0,
+          "y": 143.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read black pillar circle index 1, bounds [927, 126, 961, 160]",
+          "name": "柱27"
+        },
+        {
+          "id": "f1-pillar-29",
+          "label": "29",
+          "x": 718.0,
+          "y": 145.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read black pillar circle index 2, bounds [701, 128, 735, 162]",
+          "name": "柱29"
+        },
+        {
+          "id": "f1-pillar-26",
+          "label": "26",
+          "x": 1051.0,
+          "y": 165.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read black pillar circle index 3, bounds [1034, 148, 1068, 182]",
+          "name": "柱26"
+        },
+        {
+          "id": "f1-pillar-30",
+          "label": "30",
+          "x": 604.0,
+          "y": 170.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read black pillar circle index 4, bounds [587, 153, 621, 187]",
+          "name": "柱30"
+        },
+        {
+          "id": "f1-pillar-25",
+          "label": "25",
+          "x": 1149.0,
+          "y": 201.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read black pillar circle index 5, bounds [1132, 184, 1166, 218]",
+          "name": "柱25"
+        },
+        {
+          "id": "f1-pillar-31",
+          "label": "31",
+          "x": 498.0,
+          "y": 208.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read black pillar circle index 6, bounds [481, 191, 515, 225]",
+          "name": "柱31"
+        },
+        {
+          "id": "f1-pillar-24",
+          "label": "24",
+          "x": 1232.0,
+          "y": 244.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read black pillar circle index 7, bounds [1215, 227, 1249, 261]",
+          "name": "柱24"
+        },
+        {
+          "id": "f1-pillar-32",
+          "label": "32",
+          "x": 398.0,
+          "y": 260.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read black pillar circle index 9, bounds [381, 243, 415, 277]",
+          "name": "柱32"
+        },
+        {
+          "id": "f1-pillar-23",
+          "label": "23",
+          "x": 1303.0,
+          "y": 285.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read black pillar circle index 11, bounds [1286, 268, 1320, 302]",
+          "name": "柱23"
+        },
+        {
+          "id": "f1-pillar-33",
+          "label": "33",
+          "x": 310.5,
+          "y": 325.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read black pillar circle index 12, bounds [294, 308, 327, 342]",
+          "name": "柱33"
+        },
+        {
+          "id": "f1-pillar-22",
+          "label": "22",
+          "x": 1375.0,
+          "y": 326.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read black pillar circle index 13, bounds [1358, 309, 1392, 343]",
+          "name": "柱22"
+        },
+        {
+          "id": "f1-pillar-21",
+          "label": "21",
+          "x": 1446.0,
+          "y": 368.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read black pillar circle index 14, bounds [1429, 351, 1463, 385]",
+          "name": "柱21"
+        },
+        {
+          "id": "f1-pillar-34",
+          "label": "34",
+          "x": 238.0,
+          "y": 398.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read black pillar circle index 16, bounds [221, 381, 255, 415]",
+          "name": "柱34"
+        },
+        {
+          "id": "f1-pillar-20",
+          "label": "20",
+          "x": 1518.0,
+          "y": 409.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read black pillar circle index 17, bounds [1501, 392, 1535, 426]",
+          "name": "柱20"
+        },
+        {
+          "id": "f1-pillar-19",
+          "label": "19",
+          "x": 1591.0,
+          "y": 457.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read black pillar circle index 22, bounds [1574, 440, 1608, 474]",
+          "name": "柱19"
+        },
+        {
+          "id": "f1-pillar-35",
+          "label": "35",
+          "x": 183.0,
+          "y": 479.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read black pillar circle index 24, bounds [166, 462, 200, 496]",
+          "name": "柱35"
+        },
+        {
+          "id": "f1-pillar-18",
+          "label": "18",
+          "x": 1665.0,
+          "y": 518.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read black pillar circle index 25, bounds [1648, 501, 1682, 535]",
+          "name": "柱18"
+        },
+        {
+          "id": "f1-pillar-36",
+          "label": "36",
+          "x": 142.0,
+          "y": 565.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read black pillar circle index 26, bounds [125, 548, 159, 582]",
+          "name": "柱36"
+        },
+        {
+          "id": "f1-pillar-17",
+          "label": "17",
+          "x": 1722.5,
+          "y": 590.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read black pillar circle index 27, bounds [1705, 573, 1740, 607]",
+          "name": "柱17"
+        },
+        {
+          "id": "f1-pillar-37",
+          "label": "37",
+          "x": 122.0,
+          "y": 654.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read black pillar circle index 29, bounds [105, 637, 139, 671]",
+          "name": "柱37"
+        },
+        {
+          "id": "f1-pillar-16",
+          "label": "16",
+          "x": 1761.0,
+          "y": 671.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read black pillar circle index 30, bounds [1744, 654, 1778, 688]",
+          "name": "柱16"
+        },
+        {
+          "id": "f1-pillar-38",
+          "label": "38",
+          "x": 121.0,
+          "y": 742.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read black pillar circle index 32, bounds [104, 725, 138, 759]",
+          "name": "柱38"
+        },
+        {
+          "id": "f1-pillar-15",
+          "label": "15",
+          "x": 1782.0,
+          "y": 757.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read black pillar circle index 33, bounds [1765, 740, 1799, 774]",
+          "name": "柱15"
+        },
+        {
+          "id": "f1-pillar-39",
+          "label": "39",
+          "x": 139.0,
+          "y": 828.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read black pillar circle index 35, bounds [122, 811, 156, 845]",
+          "name": "柱39"
+        },
+        {
+          "id": "f1-pillar-14",
+          "label": "14",
+          "x": 1781.0,
+          "y": 846.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read black pillar circle index 36, bounds [1764, 829, 1798, 863]",
+          "name": "柱14"
+        },
+        {
+          "id": "f1-pillar-40",
+          "label": "40",
+          "x": 178.0,
+          "y": 907.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read black pillar circle index 37, bounds [161, 890, 195, 924]",
+          "name": "柱40"
+        },
+        {
+          "id": "f1-pillar-13",
+          "label": "13",
+          "x": 1760.0,
+          "y": 936.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read black pillar circle index 38, bounds [1743, 919, 1777, 953]",
+          "name": "柱13"
+        },
+        {
+          "id": "f1-pillar-41",
+          "label": "41",
+          "x": 236.0,
+          "y": 980.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read black pillar circle index 39, bounds [219, 963, 253, 997]",
+          "name": "柱41"
+        },
+        {
+          "id": "f1-pillar-12",
+          "label": "12",
+          "x": 1721.0,
+          "y": 1021.5,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read black pillar circle index 40, bounds [1704, 1005, 1738, 1038]",
+          "name": "柱12"
+        },
+        {
+          "id": "f1-pillar-11",
+          "label": "11",
+          "x": 1663.0,
+          "y": 1102.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read black pillar circle index 43, bounds [1646, 1085, 1680, 1119]",
+          "name": "柱11"
+        },
+        {
+          "id": "f1-pillar-10",
+          "label": "10",
+          "x": 1589.0,
+          "y": 1178.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read black pillar circle index 45, bounds [1572, 1161, 1606, 1195]",
+          "name": "柱10"
+        },
+        {
+          "id": "f1-pillar-09",
+          "label": "09",
+          "x": 1502.0,
+          "y": 1242.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read black pillar circle index 47, bounds [1485, 1225, 1519, 1259]",
+          "name": "柱09"
+        },
+        {
+          "id": "f1-pillar-07",
+          "label": "07",
+          "x": 1295.0,
+          "y": 1332.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read black pillar circle index 51, bounds [1278, 1315, 1312, 1349]",
+          "name": "柱07"
+        },
+        {
+          "id": "f1-pillar-03",
+          "label": "03",
+          "x": 849.0,
+          "y": 1335.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read black pillar circle index 52, bounds [832, 1318, 866, 1352]",
+          "name": "柱03"
+        },
+        {
+          "id": "f1-pillar-06",
+          "label": "06",
+          "x": 1181.0,
+          "y": 1357.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read black pillar circle index 53, bounds [1164, 1340, 1198, 1374]",
+          "name": "柱06"
+        },
+        {
+          "id": "f1-pillar-04",
+          "label": "04",
+          "x": 954.0,
+          "y": 1358.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read black pillar circle index 54, bounds [937, 1341, 971, 1375]",
+          "name": "柱04"
+        },
+        {
+          "id": "f1-pillar-05",
+          "label": "05",
+          "x": 1067.0,
+          "y": 1363.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read black pillar circle index 55, bounds [1050, 1346, 1084, 1380]",
+          "name": "柱05"
+        },
+        {
+          "id": "f1-pillar-08",
+          "label": "08",
+          "x": 1401,
+          "y": 1294,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually measured original pillar08 symbol center; verified in pillar08 source crop, within 4px",
+          "name": "柱08"
+        },
+        {
+          "id": "f1-stairs-1",
+          "label": "↕",
+          "x": 351.0,
+          "y": 258.5,
+          "kind": "stairs",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read staircase symbol index 8, bounds [333, 241, 369, 276]; floor direction not inferred",
+          "name": "階段"
+        },
+        {
+          "id": "f1-stairs-2",
+          "label": "↕",
+          "x": 811.5,
+          "y": 257.5,
+          "kind": "stairs",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read staircase symbol index 10, bounds [800, 246, 823, 269]; floor direction not inferred",
+          "name": "階段"
+        },
+        {
+          "id": "f1-stairs-3",
+          "label": "↕",
+          "x": 448.5,
+          "y": 380.5,
+          "kind": "stairs",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read staircase symbol index 15, bounds [437, 369, 460, 392]; floor direction not inferred",
+          "name": "階段"
+        },
+        {
+          "id": "f1-stairs-4",
+          "label": "↕",
+          "x": 161.5,
+          "y": 438.5,
+          "kind": "stairs",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read staircase symbol index 21, bounds [144, 421, 179, 456]; floor direction not inferred",
+          "name": "階段"
+        },
+        {
+          "id": "f1-stairs-5",
+          "label": "↕",
+          "x": 361.5,
+          "y": 462.5,
+          "kind": "stairs",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read staircase symbol index 23, bounds [350, 451, 373, 474]; floor direction not inferred",
+          "name": "階段"
+        },
+        {
+          "id": "f1-stairs-6",
+          "label": "↕",
+          "x": 1566.5,
+          "y": 632.5,
+          "kind": "stairs",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read staircase symbol index 28, bounds [1555, 621, 1578, 644]; floor direction not inferred",
+          "name": "階段"
+        },
+        {
+          "id": "f1-stairs-7",
+          "label": "↕",
+          "x": 1611.5,
+          "y": 722.5,
+          "kind": "stairs",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read staircase symbol index 31, bounds [1600, 711, 1623, 734]; floor direction not inferred",
+          "name": "階段"
+        },
+        {
+          "id": "f1-stairs-8",
+          "label": "↕",
+          "x": 288.5,
+          "y": 779.0,
+          "kind": "stairs",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read staircase symbol index 34, bounds [277, 767, 300, 791]; floor direction not inferred",
+          "name": "階段"
+        },
+        {
+          "id": "f1-stairs-9",
+          "label": "↕",
+          "x": 1536.5,
+          "y": 1043.5,
+          "kind": "stairs",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read staircase symbol index 41, bounds [1525, 1032, 1548, 1055]; floor direction not inferred",
+          "name": "階段"
+        },
+        {
+          "id": "f1-stairs-10",
+          "label": "↕",
+          "x": 1721.0,
+          "y": 1088.0,
+          "kind": "stairs",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read staircase symbol index 42, bounds [1703, 1070, 1739, 1106]; floor direction not inferred",
+          "name": "階段"
+        },
+        {
+          "id": "f1-stairs-11",
+          "label": "↕",
+          "x": 1459.5,
+          "y": 1116.5,
+          "kind": "stairs",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read staircase symbol index 44, bounds [1448, 1105, 1471, 1128]; floor direction not inferred",
+          "name": "階段"
+        },
+        {
+          "id": "f1-stairs-12",
+          "label": "↕",
+          "x": 1574.0,
+          "y": 1233.0,
+          "kind": "stairs",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read staircase symbol index 46, bounds [1556, 1215, 1592, 1251]; floor direction not inferred",
+          "name": "階段"
+        },
+        {
+          "id": "f1-stairs-13",
+          "label": "↕",
+          "x": 1088.5,
+          "y": 1244.5,
+          "kind": "stairs",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-1.png, original (1892, 1382); manually read staircase symbol index 48, bounds [1077, 1233, 1100, 1256]; floor direction not inferred",
+          "name": "階段"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor"
+        ],
+        "file": "osaka-floor-1.png",
+        "sha256": "262dfd49fefc2614e901c14da42aa06648c913d0808b7ace543631cdc23dad48",
+        "width": 1892,
+        "height": 1382,
+        "method": "公式階別図の輪郭を3px以内で簡略化。設備位置は同じ階別図の記号中心を目視採点、許容誤差16px。",
+        "status": "source-derived-local-review-pending"
+      }
+    },
+    {
+      "id": "osaka-f2",
+      "floor": "2F",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        2000,
+        1420
+      ],
+      "concoursePaths": [
+        "M345,322 L404,355 L372,396 L386,407 L383,412 L399,414 L368,455 L340,507 L320,563 L309,629 L310,680 L319,736 L337,785 L376,851 L428,907 L484,949 L854,1163 L940,1202 L1033,1226 L1100,1234 L1173,1235 L1267,1224 L1274,1224 L1269,1227 L1305,1219 L1353,1206 L1445,1169 L1508,1135 L1568,1093 L1610,1056 L1651,1011 L1709,922 L1722,890 L1737,823 L1759,821 L1759,779 L1742,779 L1740,730 L1729,679 L1746,680 L1746,674 L1781,664 L1768,614 L1820,595 L1828,614 L1820,620 L1817,636 L1827,649 L1841,650 L1852,697 L1839,708 L1837,724 L1844,734 L1856,737 L1857,745 L1855,750 L1832,750 L1832,781 L1856,781 L1856,788 L1843,792 L1837,804 L1842,820 L1852,825 L1841,878 L1827,879 L1817,891 L1818,905 L1829,915 L1805,967 L1793,965 L1781,972 L1777,984 L1785,999 L1781,1008 L1749,1008 L1749,1040 L1757,1042 L1750,1050 L1731,1046 L1721,1054 L1718,1065 L1725,1080 L1705,1101 L1650,1071 L1686,1024 L1671,1014 L1675,1009 L1658,1008 L1663,1020 L1670,1017 L1681,1026 L1661,1053 L1624,1089 L1602,1104 L1588,1097 L1592,1092 L1575,1091 L1580,1103 L1586,1099 L1600,1108 L1625,1092 L1648,1073 L1701,1105 L1679,1126 L1669,1121 L1653,1124 L1645,1139 L1649,1151 L1636,1162 L1634,1149 L1602,1149 L1601,1178 L1610,1181 L1592,1193 L1579,1184 L1564,1187 L1556,1199 L1558,1214 L1495,1247 L1481,1237 L1465,1240 L1458,1249 L1459,1263 L1388,1288 L1379,1277 L1363,1275 L1351,1285 L1350,1298 L1330,1303 L1327,1285 L1295,1285 L1295,1310 L1286,1312 L1273,1313 L1264,1300 L1249,1299 L1238,1308 L1236,1319 L1231,1320 L1160,1325 L1152,1310 L1139,1307 L1125,1315 L1122,1325 L1094,1324 L1104,1281 L1171,1278 L1175,1247 L1182,1246 L1176,1235 L1165,1245 L1172,1249 L1168,1274 L1164,1276 L1070,1275 L1045,1269 L1048,1242 L1055,1241 L1048,1229 L1039,1238 L1045,1241 L1041,1271 L1100,1281 L1089,1324 L1047,1320 L1043,1307 L1034,1301 L1018,1303 L1010,1315 L941,1301 L939,1287 L927,1278 L916,1278 L903,1290 L889,1285 L889,1261 L857,1261 L857,1273 L842,1267 L842,1254 L834,1243 L821,1240 L805,1249 L763,1226 L764,1211 L755,1199 L740,1197 L727,1205 L691,1183 L692,1168 L684,1158 L672,1155 L656,1163 L623,1144 L619,1141 L620,1126 L613,1117 L597,1114 L585,1122 L547,1100 L549,1087 L542,1076 L524,1073 L514,1081 L479,1062 L475,1059 L476,1042 L469,1034 L455,1031 L442,1040 L407,1020 L398,1014 L400,998 L393,988 L376,985 L365,991 L323,955 L328,937 L321,926 L295,926 L264,886 L271,874 L269,859 L257,850 L243,852 L232,831 L285,811 L295,832 L312,852 L347,841 L353,845 L363,834 L346,833 L347,838 L313,848 L294,823 L276,781 L273,760 L305,750 L311,754 L321,743 L305,742 L306,747 L270,757 L271,776 L282,808 L230,826 L204,751 L220,753 L227,749 L233,730 L221,716 L207,716 L198,723 L195,701 L194,668 L208,663 L213,654 L210,637 L195,630 L197,603 L202,577 L214,564 L209,547 L229,489 L245,456 L261,458 L272,449 L273,432 L265,422 L297,376 L318,377 L328,370 L331,354 L325,343 Z",
+        "M967,100 L998,102 L1001,114 L1012,122 L1029,119 L1039,107 L1106,121 L1108,135 L1120,144 L1133,143 L1145,132 L1202,153 L1205,168 L1213,178 L1230,180 L1242,172 L1256,179 L1288,198 L1287,211 L1296,222 L1309,224 L1321,216 L1359,239 L1358,251 L1367,263 L1382,265 L1392,258 L1430,280 L1430,294 L1438,304 L1455,306 L1465,300 L1502,322 L1501,333 L1509,345 L1523,348 L1535,341 L1573,362 L1572,374 L1580,386 L1594,389 L1607,382 L1650,407 L1648,417 L1654,430 L1666,435 L1683,430 L1725,466 L1721,482 L1729,494 L1743,497 L1752,493 L1785,535 L1778,550 L1782,564 L1795,571 L1806,569 L1818,591 L1765,610 L1753,586 L1739,570 L1725,573 L1701,581 L1697,576 L1686,588 L1665,558 L1629,520 L1572,476 L1163,241 L1100,216 L1025,197 L954,188 L884,187 L893,178 L887,176 L891,148 L910,145 L973,146 L1013,153 L1010,181 L1003,184 L1008,194 L1020,184 L1013,182 L1018,151 L958,142 Z",
+        "M882,98 L887,98 L891,110 L902,116 L917,113 L925,98 L964,100 L954,142 L888,145 L883,176 L877,175 L882,187 L767,200 L666,228 L565,274 L485,329 L477,318 L470,321 L455,313 L412,347 L406,353 L349,318 L370,298 L379,303 L397,300 L404,290 L400,272 L455,232 L470,240 L484,237 L492,225 L490,210 L515,196 L552,178 L565,187 L581,186 L589,178 L591,161 L660,136 L671,148 L686,148 L695,141 L699,125 L770,110 L781,122 L798,124 L809,115 L811,104 Z",
+        "M1736,573 L1764,614 L1777,661 L1743,672 L1739,667 L1730,677 L1712,632 L1687,588 L1704,589 L1702,584 Z",
+        "M456,317 L469,324 L466,329 L482,331 L442,365 L401,411 L394,400 L388,404 L377,398 L378,392 L417,347 Z"
+      ],
+      "contextPaths": [
+        "M1376,364 L1567,474 L1642,534 L1469,643 L1442,659 L1402,627 L1219,522 Z",
+        "M1080,212 L1132,229 L1184,253 L1368,359 L1241,487 L1211,517 L1036,415 L977,391 Z",
+        "M1647,541 L1682,582 L1711,632 L1729,680 L1739,732 L1535,761 L1497,765 L1485,719 L1448,664 Z",
+        "M1468,895 L1687,957 L1630,1034 L1561,1097 L1511,1130 L1375,989 L1409,964 L1443,931 Z",
+        "M1366,993 L1504,1136 L1418,1180 L1326,1211 L1302,1217 L1294,1214 L1297,1218 L1273,1219 L1273,1223 L1250,1226 L1230,1041 L1309,1021 Z",
+        "M881,188 L981,192 L1070,209 L978,369 L968,388 L908,377 L826,380 L806,195 Z",
+        "M793,197 L815,382 L754,396 L680,430 L628,376 L544,288 L607,254 L665,230 L726,211 Z",
+        "M535,294 L672,437 L613,485 L582,528 L520,511 L365,464 L397,417 L430,379 L474,338 Z",
+        "M1736,739 L1740,739 L1741,779 L1717,779 L1717,821 L1737,821 L1733,845 L1718,895 L1691,950 L1542,907 L1474,888 L1496,828 L1499,774 Z",
+        "M359,474 L577,536 L555,591 L552,647 L502,654 L312,682 L311,631 L320,572 L334,527 Z",
+        "M1494,973 L1507,974 L1516,983 L1518,1001 L1513,1019 L1494,1024 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "f2-pillar-28",
+          "label": "28",
+          "x": 906.0,
+          "y": 97.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 0, bounds [889, 80, 923, 114]",
+          "name": "柱28"
+        },
+        {
+          "id": "f2-pillar-27",
+          "label": "27",
+          "x": 1017.0,
+          "y": 103.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 1, bounds [1000, 86, 1034, 120]",
+          "name": "柱27"
+        },
+        {
+          "id": "f2-pillar-29",
+          "label": "29",
+          "x": 792.0,
+          "y": 105.5,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 2, bounds [775, 89, 809, 122]",
+          "name": "柱29"
+        },
+        {
+          "id": "f2-pillar-26",
+          "label": "26",
+          "x": 1125.0,
+          "y": 125.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 3, bounds [1108, 108, 1142, 142]",
+          "name": "柱26"
+        },
+        {
+          "id": "f2-pillar-30",
+          "label": "30",
+          "x": 679.0,
+          "y": 130.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 4, bounds [662, 113, 696, 147]",
+          "name": "柱30"
+        },
+        {
+          "id": "f2-pillar-25",
+          "label": "25",
+          "x": 1223.5,
+          "y": 162.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 5, bounds [1207, 145, 1240, 179]",
+          "name": "柱25"
+        },
+        {
+          "id": "f2-pillar-31",
+          "label": "31",
+          "x": 572.0,
+          "y": 169.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 6, bounds [555, 152, 589, 186]",
+          "name": "柱31"
+        },
+        {
+          "id": "f2-pillar-24",
+          "label": "24",
+          "x": 1305.5,
+          "y": 205.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 9, bounds [1289, 188, 1322, 222]",
+          "name": "柱24"
+        },
+        {
+          "id": "f2-pillar-32",
+          "label": "32",
+          "x": 473.0,
+          "y": 221.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 12, bounds [456, 204, 490, 238]",
+          "name": "柱32"
+        },
+        {
+          "id": "f2-pillar-23",
+          "label": "23",
+          "x": 1377.0,
+          "y": 246.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 13, bounds [1360, 229, 1394, 263]",
+          "name": "柱23"
+        },
+        {
+          "id": "f2-pillar-33",
+          "label": "33",
+          "x": 385.0,
+          "y": 284.5,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 14, bounds [368, 268, 402, 301]",
+          "name": "柱33"
+        },
+        {
+          "id": "f2-pillar-22",
+          "label": "22",
+          "x": 1448.5,
+          "y": 287.5,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 15, bounds [1432, 271, 1465, 304]",
+          "name": "柱22"
+        },
+        {
+          "id": "f2-pillar-21",
+          "label": "21",
+          "x": 1520.0,
+          "y": 329.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 16, bounds [1503, 312, 1537, 346]",
+          "name": "柱21"
+        },
+        {
+          "id": "f2-pillar-34",
+          "label": "34",
+          "x": 312.0,
+          "y": 358.5,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 18, bounds [295, 342, 329, 375]",
+          "name": "柱34"
+        },
+        {
+          "id": "f2-pillar-20",
+          "label": "20",
+          "x": 1591.0,
+          "y": 370.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 19, bounds [1574, 353, 1608, 387]",
+          "name": "柱20"
+        },
+        {
+          "id": "f2-pillar-19",
+          "label": "19",
+          "x": 1667.5,
+          "y": 415.5,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 21, bounds [1651, 399, 1684, 432]",
+          "name": "柱19"
+        },
+        {
+          "id": "f2-pillar-35",
+          "label": "35",
+          "x": 255.0,
+          "y": 439.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 23, bounds [238, 422, 272, 456]",
+          "name": "柱35"
+        },
+        {
+          "id": "f2-pillar-36",
+          "label": "36",
+          "x": 215.0,
+          "y": 471.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 24, bounds [198, 454, 232, 488]",
+          "name": "柱36"
+        },
+        {
+          "id": "f2-pillar-18",
+          "label": "18",
+          "x": 1740.0,
+          "y": 478.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 25, bounds [1723, 461, 1757, 495]",
+          "name": "柱18"
+        },
+        {
+          "id": "f2-pillar-17",
+          "label": "17",
+          "x": 1797.5,
+          "y": 552.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 26, bounds [1781, 535, 1814, 569]",
+          "name": "柱17"
+        },
+        {
+          "id": "f2-pillar-37",
+          "label": "37",
+          "x": 195.0,
+          "y": 560.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 27, bounds [178, 543, 212, 577]",
+          "name": "柱37"
+        },
+        {
+          "id": "f2-pillar-16",
+          "label": "16",
+          "x": 1836.0,
+          "y": 631.5,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 29, bounds [1819, 615, 1853, 648]",
+          "name": "柱16"
+        },
+        {
+          "id": "f2-pillar-38",
+          "label": "38",
+          "x": 194.0,
+          "y": 649.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 30, bounds [177, 632, 211, 666]",
+          "name": "柱38"
+        },
+        {
+          "id": "f2-pillar-15",
+          "label": "15",
+          "x": 1856.0,
+          "y": 718.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 32, bounds [1839, 701, 1873, 735]",
+          "name": "柱15"
+        },
+        {
+          "id": "f2-pillar-39",
+          "label": "39",
+          "x": 214.0,
+          "y": 734.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 33, bounds [197, 717, 231, 751]",
+          "name": "柱39"
+        },
+        {
+          "id": "f2-pillar-14",
+          "label": "14",
+          "x": 1856.0,
+          "y": 806.5,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 35, bounds [1839, 790, 1873, 823]",
+          "name": "柱14"
+        },
+        {
+          "id": "f2-pillar-40",
+          "label": "40",
+          "x": 252.0,
+          "y": 869.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 37, bounds [235, 852, 269, 886]",
+          "name": "柱40"
+        },
+        {
+          "id": "f2-pillar-13",
+          "label": "13",
+          "x": 1836.0,
+          "y": 896.5,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 38, bounds [1819, 880, 1853, 913]",
+          "name": "柱13"
+        },
+        {
+          "id": "f2-pillar-41",
+          "label": "41",
+          "x": 309.0,
+          "y": 941.5,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 40, bounds [292, 925, 326, 958]",
+          "name": "柱41"
+        },
+        {
+          "id": "f2-pillar-12",
+          "label": "12",
+          "x": 1796.5,
+          "y": 984.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 42, bounds [1780, 967, 1813, 1001]",
+          "name": "柱12"
+        },
+        {
+          "id": "f2-pillar-42",
+          "label": "42",
+          "x": 381.0,
+          "y": 1004.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 44, bounds [364, 987, 398, 1021]",
+          "name": "柱42"
+        },
+        {
+          "id": "f2-pillar-43",
+          "label": "43",
+          "x": 458.0,
+          "y": 1050.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 45, bounds [441, 1033, 475, 1067]",
+          "name": "柱43"
+        },
+        {
+          "id": "f2-pillar-11",
+          "label": "11",
+          "x": 1737.5,
+          "y": 1064.5,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 46, bounds [1721, 1048, 1754, 1081]",
+          "name": "柱11"
+        },
+        {
+          "id": "f2-pillar-44",
+          "label": "44",
+          "x": 530.0,
+          "y": 1091.5,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 48, bounds [513, 1075, 547, 1108]",
+          "name": "柱44"
+        },
+        {
+          "id": "f2-pillar-45",
+          "label": "45",
+          "x": 602.0,
+          "y": 1133.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 49, bounds [585, 1116, 619, 1150]",
+          "name": "柱45"
+        },
+        {
+          "id": "f2-pillar-10",
+          "label": "10",
+          "x": 1664.5,
+          "y": 1140.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 50, bounds [1648, 1123, 1681, 1157]",
+          "name": "柱10"
+        },
+        {
+          "id": "f2-pillar-46",
+          "label": "46",
+          "x": 673.5,
+          "y": 1174.5,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 51, bounds [657, 1158, 690, 1191]",
+          "name": "柱46"
+        },
+        {
+          "id": "f2-pillar-09",
+          "label": "09",
+          "x": 1575.0,
+          "y": 1203.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 53, bounds [1558, 1186, 1592, 1220]",
+          "name": "柱09"
+        },
+        {
+          "id": "f2-pillar-01",
+          "label": "01",
+          "x": 745.0,
+          "y": 1216.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 55, bounds [728, 1199, 762, 1233]",
+          "name": "柱01"
+        },
+        {
+          "id": "f2-pillar-02",
+          "label": "02",
+          "x": 823.0,
+          "y": 1259.5,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 57, bounds [806, 1243, 840, 1276]",
+          "name": "柱02"
+        },
+        {
+          "id": "f2-pillar-07",
+          "label": "07",
+          "x": 1369.0,
+          "y": 1293.5,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 58, bounds [1352, 1277, 1386, 1310]",
+          "name": "柱07"
+        },
+        {
+          "id": "f2-pillar-03",
+          "label": "03",
+          "x": 922.0,
+          "y": 1297.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 59, bounds [905, 1280, 939, 1314]",
+          "name": "柱03"
+        },
+        {
+          "id": "f2-pillar-06",
+          "label": "06",
+          "x": 1255.0,
+          "y": 1317.5,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 61, bounds [1238, 1301, 1272, 1334]",
+          "name": "柱06"
+        },
+        {
+          "id": "f2-pillar-04",
+          "label": "04",
+          "x": 1028.0,
+          "y": 1320.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 62, bounds [1011, 1303, 1045, 1337]",
+          "name": "柱04"
+        },
+        {
+          "id": "f2-pillar-05",
+          "label": "05",
+          "x": 1141.0,
+          "y": 1326.0,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read black pillar circle index 63, bounds [1124, 1309, 1158, 1343]",
+          "name": "柱05"
+        },
+        {
+          "id": "f2-pillar-08",
+          "label": "08",
+          "x": 1477,
+          "y": 1257,
+          "kind": "pillar",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually measured original pillar08 symbol center; verified in pillar08 source crop, within 4px",
+          "name": "柱08"
+        },
+        {
+          "id": "f2-stairs-1",
+          "label": "↕",
+          "x": 486.5,
+          "y": 171.5,
+          "kind": "stairs",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read staircase symbol index 7, bounds [469, 154, 504, 189]; floor direction not inferred",
+          "name": "階段"
+        },
+        {
+          "id": "f2-stairs-2",
+          "label": "↕",
+          "x": 885.0,
+          "y": 211.0,
+          "kind": "stairs",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read staircase symbol index 10, bounds [867, 193, 903, 229]; floor direction not inferred",
+          "name": "階段"
+        },
+        {
+          "id": "f2-stairs-3",
+          "label": "↕",
+          "x": 1005.5,
+          "y": 220.5,
+          "kind": "stairs",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read staircase symbol index 11, bounds [988, 203, 1023, 238]; floor direction not inferred",
+          "name": "階段"
+        },
+        {
+          "id": "f2-stairs-4",
+          "label": "↕",
+          "x": 511.5,
+          "y": 343.5,
+          "kind": "stairs",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read staircase symbol index 17, bounds [494, 326, 529, 361]; floor direction not inferred",
+          "name": "階段"
+        },
+        {
+          "id": "f2-stairs-5",
+          "label": "↕",
+          "x": 208.5,
+          "y": 406.5,
+          "kind": "stairs",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read staircase symbol index 20, bounds [190, 388, 227, 425]; floor direction not inferred",
+          "name": "階段"
+        },
+        {
+          "id": "f2-stairs-6",
+          "label": "↕",
+          "x": 422.5,
+          "y": 431.5,
+          "kind": "stairs",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read staircase symbol index 22, bounds [405, 414, 440, 449]; floor direction not inferred",
+          "name": "階段"
+        },
+        {
+          "id": "f2-stairs-7",
+          "label": "↕",
+          "x": 1660.5,
+          "y": 599.5,
+          "kind": "stairs",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read staircase symbol index 28, bounds [1643, 582, 1678, 617]; floor direction not inferred",
+          "name": "階段"
+        },
+        {
+          "id": "f2-stairs-8",
+          "label": "↕",
+          "x": 1701.5,
+          "y": 686.5,
+          "kind": "stairs",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read staircase symbol index 31, bounds [1684, 669, 1719, 704]; floor direction not inferred",
+          "name": "階段"
+        },
+        {
+          "id": "f2-stairs-9",
+          "label": "↕",
+          "x": 348.5,
+          "y": 735.5,
+          "kind": "stairs",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read staircase symbol index 34, bounds [331, 718, 366, 753]; floor direction not inferred",
+          "name": "階段"
+        },
+        {
+          "id": "f2-stairs-10",
+          "label": "↕",
+          "x": 395.5,
+          "y": 826.5,
+          "kind": "stairs",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read staircase symbol index 36, bounds [378, 809, 413, 844]; floor direction not inferred",
+          "name": "階段"
+        },
+        {
+          "id": "f2-stairs-11",
+          "label": "↕",
+          "x": 1848.0,
+          "y": 972.5,
+          "kind": "stairs",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read staircase symbol index 41, bounds [1830, 955, 1866, 990]; floor direction not inferred",
+          "name": "階段"
+        },
+        {
+          "id": "f2-stairs-12",
+          "label": "↕",
+          "x": 1629.0,
+          "y": 992.0,
+          "kind": "stairs",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read staircase symbol index 43, bounds [1611, 974, 1647, 1010]; floor direction not inferred",
+          "name": "階段"
+        },
+        {
+          "id": "f2-stairs-13",
+          "label": "↕",
+          "x": 1544.5,
+          "y": 1075.5,
+          "kind": "stairs",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read staircase symbol index 47, bounds [1527, 1058, 1562, 1093]; floor direction not inferred",
+          "name": "階段"
+        },
+        {
+          "id": "f2-stairs-14",
+          "label": "↕",
+          "x": 1051.5,
+          "y": 1201.5,
+          "kind": "stairs",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read staircase symbol index 52, bounds [1034, 1184, 1069, 1219]; floor direction not inferred",
+          "name": "階段"
+        },
+        {
+          "id": "f2-stairs-15",
+          "label": "↕",
+          "x": 1174.5,
+          "y": 1210.5,
+          "kind": "stairs",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read staircase symbol index 54, bounds [1157, 1193, 1192, 1228]; floor direction not inferred",
+          "name": "階段"
+        },
+        {
+          "id": "f2-stairs-16",
+          "label": "↕",
+          "x": 1567.0,
+          "y": 1245.5,
+          "kind": "stairs",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "osaka-floor-2.png, original (2000, 1420); manually read staircase symbol index 56, bounds [1549, 1228, 1585, 1263]; floor direction not inferred",
+          "name": "階段"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor"
+        ],
+        "file": "osaka-floor-2.png",
+        "sha256": "a6e48aa6938b3bdce662c94b52fa011d4c73f38c83e070bb100b84221aaa7c93",
+        "width": 2000,
+        "height": 1420,
+        "method": "公式階別図の輪郭を3px以内で簡略化。設備位置は同じ階別図の記号中心を目視採点、許容誤差16px。",
+        "status": "source-derived-local-review-pending"
+      }
+    },
+    {
+      "id": "osaka-outside",
+      "floor": "場外",
+      "scope": "場外",
+      "viewBox": [
+        75,
+        171,
+        625,
+        599
+      ],
+      "concoursePaths": [
+        "M285,171 L302,171 L293,176 L303,202 L311,222 L324,223 L326,232 L308,231 L272,249 L322,250 L265,250 L244,261 L252,273 L284,299 L313,302 L317,293 L333,296 L334,308 L349,312 L436,359 L438,232 L348,232 L345,223 L438,223 L438,171 L447,171 L447,193 L499,193 L442,194 L442,212 L499,212 L447,213 L447,223 L646,223 L646,213 L591,213 L648,212 L648,194 L591,194 L644,193 L640,171 L646,171 L652,223 L663,223 L664,229 L668,229 L669,223 L700,223 L700,232 L668,232 L664,248 L658,246 L661,232 L650,232 L614,368 L610,354 L643,232 L447,232 L447,364 L532,389 L535,379 L543,380 L555,383 L554,393 L596,400 L605,375 L613,373 L601,413 L603,419 L602,414 L611,414 L613,419 L616,410 L621,412 L619,420 L621,415 L697,417 L695,447 L616,440 L616,429 L609,427 L607,438 L599,437 L596,431 L538,651 L531,651 L577,481 L567,512 L539,507 L548,471 L457,440 L455,437 L464,438 L468,433 L467,438 L472,434 L477,437 L477,427 L454,425 L451,410 L462,410 L463,418 L521,419 L521,400 L591,412 L591,423 L597,406 L523,394 L446,370 L445,405 L450,407 L423,407 L422,398 L439,402 L436,365 L339,315 L303,306 L249,304 L227,295 L220,301 L201,340 L219,352 L239,377 L234,377 L222,360 L202,344 L195,348 L221,376 L215,377 L173,333 L149,315 L112,297 L75,288 L77,283 L127,298 L163,319 L191,344 L201,314 L206,307 L207,314 L218,293 L207,281 L200,261 L206,261 L211,275 L221,285 L235,258 L306,226 L287,178 L229,209 L211,227 L207,241 L200,238 L213,217 L209,208 L223,196 L230,202 Z",
+        "M201,171 L262,172 L195,207 L185,214 L182,224 L130,248 L160,280 L204,305 L200,314 L193,327 L123,287 L75,276 L75,232 Z",
+        "M217,311 L242,316 L302,315 L337,324 L379,345 L380,338 L381,349 L434,373 L435,386 L434,395 L423,390 L421,384 L407,383 L396,374 L390,375 L309,337 L234,338 L209,333 Z",
+        "M270,447 L279,451 L322,501 L326,496 L291,447 L296,447 L308,463 L318,458 L328,468 L336,461 L352,478 L390,448 L396,448 L329,501 L328,506 L363,525 L386,544 L407,581 L411,602 L420,608 L422,616 L491,654 L489,660 L418,621 L410,627 L393,673 L390,678 L386,676 L406,627 L398,616 L407,604 L406,595 L393,563 L373,538 L312,499 Z",
+        "M308,347 L393,384 L381,383 L312,351 L308,370 L263,406 L270,415 L293,444 L288,444 L273,424 L264,431 L272,444 L256,432 L253,418 L259,425 L267,417 L253,395 L262,403 L299,373 L304,368 Z",
+        "M449,380 L506,397 L499,398 L463,398 L462,405 L454,403 L449,401 Z",
+        "M138,171 L147,171 L144,175 L80,226 L75,230 L77,220 Z",
+        "M137,477 L150,477 L150,488 L157,491 L156,504 L147,503 L130,504 L128,500 L133,497 L130,491 L136,489 Z",
+        "M421,410 L433,410 L429,422 L435,431 L423,427 L410,438 L401,445 L395,444 L414,430 L412,424 Z",
+        "M515,713 L520,715 L503,770 L499,766 Z",
+        "M217,379 L223,379 L230,387 L250,413 L250,421 Z"
+      ],
+      "contextPaths": [
+        "M329,370 L350,374 L359,384 L365,380 L367,390 L377,392 L373,398 L384,413 L385,434 L380,442 L370,444 L372,452 L364,456 L339,459 L324,448 L318,451 L315,442 L306,439 L308,432 L297,416 L296,401 L309,379 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "outside-north",
+          "label": "北玄関",
+          "name": "北玄関",
+          "x": 371.7634,
+          "y": 385.691,
+          "kind": "gate",
+          "sourceIds": [
+            "outside-pamphlet"
+          ],
+          "reference": "公開公式パンフレット8ページ、原PDF座標を2倍した画素座標。北玄関の引出線先の円中心(371.7634,385.691)。PDF図形境界から抽出、丸め誤差0.01px以内。"
+        },
+        {
+          "id": "outside-south",
+          "label": "南玄関",
+          "name": "南玄関",
+          "x": 309.7798,
+          "y": 445.9902,
+          "kind": "gate",
+          "sourceIds": [
+            "outside-pamphlet"
+          ],
+          "reference": "公開公式パンフレット8ページ、原PDF座標を2倍した画素座標。南玄関の引出線先の円中心(309.7798,445.9902)。PDF図形境界から抽出、丸め誤差0.01px以内。"
+        },
+        {
+          "id": "outside-east",
+          "label": "東口",
+          "name": "東口",
+          "x": 375.6686,
+          "y": 446.5552,
+          "kind": "gate",
+          "sourceIds": [
+            "outside-pamphlet"
+          ],
+          "reference": "公開公式パンフレット8ページ、原PDF座標を2倍した画素座標。東口の引出線先の円中心(375.6686,446.5552)。PDF図形境界から抽出、丸め誤差0.01px以内。"
+        },
+        {
+          "id": "outside-fountain",
+          "label": "噴水",
+          "name": "噴水",
+          "x": 441.9418,
+          "y": 419.5344,
+          "kind": "plaza",
+          "sourceIds": [
+            "outside-pamphlet"
+          ],
+          "reference": "公開公式パンフレット8ページ、原PDF座標を2倍した画素座標。噴水の引出線先の円中心(441.9418,419.5344)。PDF図形境界から抽出、丸め誤差0.01px以内。"
+        },
+        {
+          "id": "outside-jr",
+          "label": "大阪城公園駅",
+          "name": "大阪城公園駅（駅の代表位置・改札位置未確認）",
+          "x": 601,
+          "y": 500,
+          "kind": "station",
+          "sourceIds": [
+            "outside-pamphlet"
+          ],
+          "reference": "公開公式パンフレット8ページの駅名表示範囲中心(601,500)を目視採点（原PDF×2の画素座標、許容誤差8px）。駅の代表位置。改札・出口の位置として使用しない。"
+        },
+        {
+          "id": "outside-obp",
+          "label": "OBP駅",
+          "name": "大阪ビジネスパーク駅（駅の代表位置・4番出口位置未確認）",
+          "x": 337,
+          "y": 257,
+          "kind": "station",
+          "sourceIds": [
+            "outside-pamphlet"
+          ],
+          "reference": "公開公式パンフレット8ページの駅名表示範囲中心(337,257)を目視採点（原PDF×2の画素座標、許容誤差8px）。駅の代表位置。改札・出口の位置として使用しない。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "outside-pamphlet"
+        ],
+        "file": "osaka-update/pamphlet-page-8.png",
+        "sha256": "ba14558463ea87739605da65514b7656275dfe1ffa6ba41f7234708361f36165",
+        "width": 1684,
+        "height": 1191,
+        "method": "公開パンフレット8ページの可視道路/ホールの灰色境界を3px以内で単色化。原PDF座標×2、同じ座標系で部分表示。入口と噴水は原PDF円中心、駅は駅名代表位置。推測経路線・出口位置なし。",
+        "status": "source-derived-local-review-pending"
+      }
+    }
+  ],
+  "facilities": [
+    {
+      "id": "toilet-w-1-top",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "公式1F図・アリーナ4と5の間",
+      "detail": "公式1F図の記号位置です。男女の配置・開放範囲は公演によって変わる場合があります。",
+      "sourceIds": [
+        "floor-1-image",
+        "floor",
+        "toilet"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "osaka-f1",
+        "x": 597.0,
+        "y": 333.0,
+        "sourceIds": [
+          "floor-1-image"
+        ],
+        "reference": "公式1F原図1892×1382、記号台帳women-topの中心(597.0,333.0)。記号背景枠[576, 312, 618, 354]を採点、丸め誤差1px以内。柱や座席図の位置を転用しない。"
+      },
+      "toiletType": "women"
+    },
+    {
+      "id": "toilet-w-1-left",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "公式1F図・アリーナ5と6の間",
+      "detail": "公式1F図の記号位置です。男女の配置・開放範囲は公演によって変わる場合があります。",
+      "sourceIds": [
+        "floor-1-image",
+        "floor",
+        "toilet"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "osaka-f1",
+        "x": 324.5,
+        "y": 630.5,
+        "sourceIds": [
+          "floor-1-image"
+        ],
+        "reference": "公式1F原図1892×1382、記号台帳women-leftの中心(324.5,630.5)。記号背景枠[304, 610, 345, 651]を採点、丸め誤差1px以内。柱や座席図の位置を転用しない。"
+      },
+      "toiletType": "women"
+    },
+    {
+      "id": "toilet-w-1-lower-left",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "公式1F図・アリーナ6と1の間",
+      "detail": "公式1F図の記号位置です。男女の配置・開放範囲は公演によって変わる場合があります。",
+      "sourceIds": [
+        "floor-1-image",
+        "floor",
+        "toilet"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "osaka-f1",
+        "x": 418.5,
+        "y": 884.5,
+        "sourceIds": [
+          "floor-1-image"
+        ],
+        "reference": "公式1F原図1892×1382、記号台帳women-lower-leftの中心(418.5,884.5)。記号背景枠[398, 864, 439, 905]を採点、丸め誤差1px以内。柱や座席図の位置を転用しない。"
+      },
+      "toiletType": "women"
+    },
+    {
+      "id": "toilet-w-1-bottom-right",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "公式1F図・アリーナ1と2の間",
+      "detail": "公式1F図の記号位置です。男女の配置・開放範囲は公演によって変わる場合があります。",
+      "sourceIds": [
+        "floor-1-image",
+        "floor",
+        "toilet"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "osaka-f1",
+        "x": 1273.0,
+        "y": 1171.5,
+        "sourceIds": [
+          "floor-1-image"
+        ],
+        "reference": "公式1F原図1892×1382、記号台帳women-bottom-rightの中心(1273.0,1171.5)。記号背景枠[1252, 1151, 1294, 1192]を採点、丸め誤差1px以内。柱や座席図の位置を転用しない。"
+      },
+      "toiletType": "women"
+    },
+    {
+      "id": "toilet-w-1-right",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "公式1F図・アリーナ2と3の間",
+      "detail": "公式1F図の記号位置です。男女の配置・開放範囲は公演によって変わる場合があります。",
+      "sourceIds": [
+        "floor-1-image",
+        "floor",
+        "toilet"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "osaka-f1",
+        "x": 1574.0,
+        "y": 876.0,
+        "sourceIds": [
+          "floor-1-image"
+        ],
+        "reference": "公式1F原図1892×1382、記号台帳women-rightの中心(1574.0,876.0)。記号背景枠[1553, 855, 1595, 897]を採点、丸め誤差1px以内。柱や座席図の位置を転用しない。"
+      },
+      "toiletType": "women"
+    },
+    {
+      "id": "toilet-w-1-upper-right",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "公式1F図・アリーナ3付近",
+      "detail": "公式1F図の記号位置です。男女の配置・開放範囲は公演によって変わる場合があります。",
+      "sourceIds": [
+        "floor-1-image",
+        "floor",
+        "toilet"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "osaka-f1",
+        "x": 1495.0,
+        "y": 617.0,
+        "sourceIds": [
+          "floor-1-image"
+        ],
+        "reference": "公式1F原図1892×1382、記号台帳women-upper-rightの中心(1495.0,617.0)。記号背景枠[1474, 596, 1516, 638]を採点、丸め誤差1px以内。柱や座席図の位置を転用しない。"
+      },
+      "toiletType": "women"
+    },
+    {
+      "id": "toilet-m-1-top",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "公式1F図・アリーナ4付近",
+      "detail": "公式1F図の記号位置です。男女の配置・開放範囲は公演によって変わる場合があります。",
+      "sourceIds": [
+        "floor-1-image",
+        "floor",
+        "toilet"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "osaka-f1",
+        "x": 1002.0,
+        "y": 328.0,
+        "sourceIds": [
+          "floor-1-image"
+        ],
+        "reference": "公式1F原図1892×1382、記号台帳men-topの中心(1002.0,328.0)。記号背景枠[981, 307, 1023, 349]を採点、丸め誤差1px以内。柱や座席図の位置を転用しない。"
+      },
+      "toiletType": "men"
+    },
+    {
+      "id": "toilet-m-1-bottom",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "公式1F図・アリーナ1付近",
+      "detail": "公式1F図の記号位置です。男女の配置・開放範囲は公演によって変わる場合があります。",
+      "sourceIds": [
+        "floor-1-image",
+        "floor",
+        "toilet"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "osaka-f1",
+        "x": 936.5,
+        "y": 1183.0,
+        "sourceIds": [
+          "floor-1-image"
+        ],
+        "reference": "公式1F原図1892×1382、記号台帳men-bottomの中心(936.5,1183.0)。記号背景枠[916, 1163, 957, 1203]を採点、丸め誤差1px以内。柱や座席図の位置を転用しない。"
+      },
+      "toiletType": "men"
+    },
+    {
+      "id": "toilet-m-1-temporary",
+      "name": "臨時男性トイレ",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "公式1F図・アリーナ2と3の間",
+      "detail": "公式図で点線枠の臨時男性トイレ記号です。設置・開放・男女の運用は公演当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-1-image",
+        "floor",
+        "toilet"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "osaka-f1",
+        "x": 1541,
+        "y": 965,
+        "sourceIds": [
+          "floor-1-image"
+        ],
+        "reference": "公式1F原図1892×1382、記号台帳temporary-menの中心(1541,965)。点線枠の中心を目視採点、許容誤差4px。柱や座席図の位置を転用しない。"
+      },
+      "toiletType": "men"
+    },
+    {
+      "id": "changing-1-top-left",
+      "name": "おむつ替え設備",
+      "purpose": "赤ちゃん",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "公式1F図・アリーナ4と5の間",
+      "detail": "公式1F図のおむつ替え記号です。開放状況は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-1-image",
+        "floor",
+        "toilet"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "osaka-f1",
+        "x": 652.5,
+        "y": 318.5,
+        "sourceIds": [
+          "floor-1-image"
+        ],
+        "reference": "公式1F原図1892×1382、記号台帳changing-top-leftの中心(652.5,318.5)。記号背景枠[636, 302, 669, 335]を採点、丸め誤差1px以内。柱や座席図の位置を転用しない。"
+      }
+    },
+    {
+      "id": "changing-1-top-right",
+      "name": "おむつ替え設備",
+      "purpose": "赤ちゃん",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "公式1F図・アリーナ4付近",
+      "detail": "公式1F図のおむつ替え記号です。開放状況は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-1-image",
+        "floor",
+        "toilet"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "osaka-f1",
+        "x": 946.5,
+        "y": 311.5,
+        "sourceIds": [
+          "floor-1-image"
+        ],
+        "reference": "公式1F原図1892×1382、記号台帳changing-top-rightの中心(946.5,311.5)。記号背景枠[930, 295, 963, 328]を採点、丸め誤差1px以内。柱や座席図の位置を転用しない。"
+      }
+    },
+    {
+      "id": "changing-1-left",
+      "name": "おむつ替え設備",
+      "purpose": "赤ちゃん",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "公式1F図・アリーナ5と6の間",
+      "detail": "公式1F図のおむつ替え記号です。開放状況は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-1-image",
+        "floor",
+        "toilet"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "osaka-f1",
+        "x": 342.5,
+        "y": 583.5,
+        "sourceIds": [
+          "floor-1-image"
+        ],
+        "reference": "公式1F原図1892×1382、記号台帳changing-leftの中心(342.5,583.5)。記号背景枠[326, 567, 359, 600]を採点、丸め誤差1px以内。柱や座席図の位置を転用しない。"
+      }
+    },
+    {
+      "id": "changing-1-lower-left",
+      "name": "おむつ替え設備",
+      "purpose": "赤ちゃん",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "公式1F図・アリーナ6と1の間",
+      "detail": "公式1F図のおむつ替え記号です。開放状況は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-1-image",
+        "floor",
+        "toilet"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "osaka-f1",
+        "x": 465.5,
+        "y": 918.5,
+        "sourceIds": [
+          "floor-1-image"
+        ],
+        "reference": "公式1F原図1892×1382、記号台帳changing-lower-leftの中心(465.5,918.5)。記号背景枠[449, 902, 482, 935]を採点、丸め誤差1px以内。柱や座席図の位置を転用しない。"
+      }
+    },
+    {
+      "id": "changing-1-bottom-left",
+      "name": "おむつ替え設備",
+      "purpose": "赤ちゃん",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "公式1F図・アリーナ1と6の間",
+      "detail": "公式1F図のおむつ替え記号です。開放状況は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-1-image",
+        "floor",
+        "toilet"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "osaka-f1",
+        "x": 893.5,
+        "y": 1165.5,
+        "sourceIds": [
+          "floor-1-image"
+        ],
+        "reference": "公式1F原図1892×1382、記号台帳changing-bottom-leftの中心(893.5,1165.5)。記号背景枠[877, 1149, 910, 1182]を採点、丸め誤差1px以内。柱や座席図の位置を転用しない。"
+      }
+    },
+    {
+      "id": "changing-1-bottom-right",
+      "name": "おむつ替え設備",
+      "purpose": "赤ちゃん",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "公式1F図・アリーナ1と2の間",
+      "detail": "公式1F図のおむつ替え記号です。開放状況は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-1-image",
+        "floor",
+        "toilet"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "osaka-f1",
+        "x": 1331.5,
+        "y": 1151.5,
+        "sourceIds": [
+          "floor-1-image"
+        ],
+        "reference": "公式1F原図1892×1382、記号台帳changing-bottom-rightの中心(1331.5,1151.5)。記号背景枠[1315, 1135, 1348, 1168]を採点、丸め誤差1px以内。柱や座席図の位置を転用しない。"
+      }
+    },
+    {
+      "id": "changing-1-right",
+      "name": "おむつ替え設備",
+      "purpose": "赤ちゃん",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "公式1F図・アリーナ2と3の間",
+      "detail": "公式1F図のおむつ替え記号です。開放状況は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-1-image",
+        "floor",
+        "toilet"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "osaka-f1",
+        "x": 1578.5,
+        "y": 822.5,
+        "sourceIds": [
+          "floor-1-image"
+        ],
+        "reference": "公式1F原図1892×1382、記号台帳changing-rightの中心(1578.5,822.5)。記号背景枠[1562, 806, 1595, 839]を採点、丸め誤差1px以内。柱や座席図の位置を転用しない。"
+      }
+    },
+    {
+      "id": "shop-1-08",
+      "name": "売店",
+      "purpose": "飲食",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "公式1F図・柱08付近",
+      "detail": "公式売店案内の柱番号と1F図の記号を照合。営業は開催イベントによって異なります。",
+      "sourceIds": [
+        "floor-1-image",
+        "floor",
+        "shop"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "osaka-f1",
+        "x": 1374.0,
+        "y": 1197.0,
+        "sourceIds": [
+          "floor-1-image"
+        ],
+        "reference": "公式1F原図1892×1382、記号台帳shop-bottom-rightの中心(1374.0,1197.0)。記号背景枠[1353, 1176, 1395, 1218]を採点、丸め誤差1px以内。柱や座席図の位置を転用しない。"
+      }
+    },
+    {
+      "id": "shop-1-14",
+      "name": "売店",
+      "purpose": "飲食",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "公式1F図・柱14付近",
+      "detail": "公式売店案内の柱番号と1F図の記号を照合。営業は開催イベントによって異なります。",
+      "sourceIds": [
+        "floor-1-image",
+        "floor",
+        "shop"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "osaka-f1",
+        "x": 1644.0,
+        "y": 854.0,
+        "sourceIds": [
+          "floor-1-image"
+        ],
+        "reference": "公式1F原図1892×1382、記号台帳shop-rightの中心(1644.0,854.0)。記号背景枠[1623, 833, 1665, 875]を採点、丸め誤差1px以内。柱や座席図の位置を転用しない。"
+      }
+    },
+    {
+      "id": "vending-1-bottom",
+      "name": "自動販売機",
+      "purpose": "飲食",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "公式1F図・アリーナ1と2の間",
+      "detail": "公式1F図の自動販売機記号です。商品・支払い方法・稼働状況は当日確認してください。",
+      "sourceIds": [
+        "floor-1-image",
+        "floor"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "osaka-f1",
+        "x": 1216.0,
+        "y": 1249.0,
+        "sourceIds": [
+          "floor-1-image"
+        ],
+        "reference": "公式1F原図1892×1382、記号台帳vending-bottomの中心(1216.0,1249.0)。記号背景枠[1195, 1228, 1237, 1270]を採点、丸め誤差1px以内。柱や座席図の位置を転用しない。"
+      },
+      "kind": "vending"
+    },
+    {
+      "id": "vending-1-right",
+      "name": "自動販売機",
+      "purpose": "飲食",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "公式1F図・アリーナ2と3の間",
+      "detail": "公式1F図の自動販売機記号です。商品・支払い方法・稼働状況は当日確認してください。",
+      "sourceIds": [
+        "floor-1-image",
+        "floor"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "osaka-f1",
+        "x": 1625.0,
+        "y": 947.0,
+        "sourceIds": [
+          "floor-1-image"
+        ],
+        "reference": "公式1F原図1892×1382、記号台帳vending-rightの中心(1625.0,947.0)。記号背景枠[1604, 926, 1646, 968]を採点、丸め誤差1px以内。柱や座席図の位置を転用しない。"
+      },
+      "kind": "vending"
+    },
+    {
+      "id": "locker-1",
+      "name": "コインロッカー",
+      "purpose": "荷物",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "公式1F図・柱08付近",
+      "detail": "100円硬貨のみ。館内の両替機・両替サービスはありません。空きは保証されません。",
+      "sourceIds": [
+        "floor-1-image",
+        "floor",
+        "locker"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "osaka-f1",
+        "x": 1285.5,
+        "y": 1222.5,
+        "sourceIds": [
+          "floor-1-image"
+        ],
+        "reference": "公式1F原図1892×1382、記号台帳locker-bottomの中心(1285.5,1222.5)。記号背景枠[1270, 1207, 1301, 1238]を採点、丸め誤差1px以内。柱や座席図の位置を転用しない。"
+      }
+    },
+    {
+      "id": "outside-north",
+      "name": "北玄関",
+      "purpose": "案内",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "大阪城ホール外周・北玄関",
+      "detail": "公式図の入口です。入場口の指定・開放・通行規制は公演案内を優先してください。大阪城公園駅・OBP駅からの公式道順は北玄関へ案内します。階段があります。",
+      "sourceIds": [
+        "outside-pamphlet",
+        "route-jr",
+        "route-obp"
+      ],
+      "precision": "diagram-point",
+      "kind": "gate",
+      "anchor": {
+        "diagramId": "osaka-outside",
+        "x": 371.7634,
+        "y": 385.691,
+        "sourceIds": [
+          "outside-pamphlet"
+        ],
+        "reference": "公開公式パンフレット8ページ、原PDF座標を2倍した画素座標。北玄関の引出線先の円中心(371.7634,385.691)。PDF図形境界から抽出、丸め誤差0.01px以内。"
+      }
+    },
+    {
+      "id": "outside-south",
+      "name": "南玄関",
+      "purpose": "案内",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "大阪城ホール外周・南玄関",
+      "detail": "公式図の入口です。入場口の指定・開放・通行規制は公演案内を優先してください。",
+      "sourceIds": [
+        "outside-pamphlet"
+      ],
+      "precision": "diagram-point",
+      "kind": "gate",
+      "anchor": {
+        "diagramId": "osaka-outside",
+        "x": 309.7798,
+        "y": 445.9902,
+        "sourceIds": [
+          "outside-pamphlet"
+        ],
+        "reference": "公開公式パンフレット8ページ、原PDF座標を2倍した画素座標。南玄関の引出線先の円中心(309.7798,445.9902)。PDF図形境界から抽出、丸め誤差0.01px以内。"
+      }
+    },
+    {
+      "id": "outside-east",
+      "name": "東口",
+      "purpose": "案内",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "大阪城ホール外周・東口",
+      "detail": "公式図の入口です。入場口の指定・開放・通行規制は公演案内を優先してください。",
+      "sourceIds": [
+        "outside-pamphlet"
+      ],
+      "precision": "diagram-point",
+      "kind": "gate",
+      "anchor": {
+        "diagramId": "osaka-outside",
+        "x": 375.6686,
+        "y": 446.5552,
+        "sourceIds": [
+          "outside-pamphlet"
+        ],
+        "reference": "公開公式パンフレット8ページ、原PDF座標を2倍した画素座標。東口の引出線先の円中心(375.6686,446.5552)。PDF図形境界から抽出、丸め誤差0.01px以内。"
+      }
+    },
+    {
+      "id": "outside-fountain",
+      "name": "噴水",
+      "purpose": "案内",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "大阪城ホール外周・噴水",
+      "detail": "公式道順の目印になる噴水です。待ち合わせ・滞留の可否は当日の案内を確認してください。",
+      "sourceIds": [
+        "outside-pamphlet",
+        "route-jr",
+        "route-obp"
+      ],
+      "precision": "diagram-point",
+      "kind": "plaza",
+      "anchor": {
+        "diagramId": "osaka-outside",
+        "x": 441.9418,
+        "y": 419.5344,
+        "sourceIds": [
+          "outside-pamphlet"
+        ],
+        "reference": "公開公式パンフレット8ページ、原PDF座標を2倍した画素座標。噴水の引出線先の円中心(441.9418,419.5344)。PDF図形境界から抽出、丸め誤差0.01px以内。"
+      }
+    },
+    {
+      "id": "shop-1-west-37",
+      "name": "売店図記号（営業対応確認中）",
+      "purpose": "飲食",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "西側・柱37付近（公式1F図）",
+      "detail": "公式1F図に売店記号がありますが、売店本文が案内する1F柱08・14の東側店舗とは対応を確認できていません。営業中の店舗としては確定せず、当日の案内・係員への確認をお願いします。",
+      "sourceIds": [
+        "floor-1-image",
+        "shop"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "osaka-f1",
+        "x": 266.0,
+        "y": 605.0,
+        "sourceIds": [
+          "floor-1-image"
+        ],
+        "reference": "公式1F原図1892×1382のshop-left記号中心(266,605)。既存記号台帳の座標・背景枠を保持。柱37付近は図上の目印で、公式売店本文との営業対応は未確認。"
+      }
+    },
+    {
+      "id": "shop-1-west-30",
+      "name": "売店図記号（営業対応確認中）",
+      "purpose": "飲食",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "西側・柱30付近（公式1F図）",
+      "detail": "公式1F図に売店記号がありますが、売店本文が案内する1F柱08・14の東側店舗とは対応を確認できていません。営業中の店舗としては確定せず、当日の案内・係員への確認をお願いします。",
+      "sourceIds": [
+        "floor-1-image",
+        "shop"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "osaka-f1",
+        "x": 610.0,
+        "y": 270.0,
+        "sourceIds": [
+          "floor-1-image"
+        ],
+        "reference": "公式1F原図1892×1382のshop-top記号中心(610,270)。既存記号台帳の座標・背景枠を保持。柱30付近は図上の目印で、公式売店本文との営業対応は未確認。"
+      }
+    },
+    {
+      "id": "shop-2-14",
+      "name": "売店",
+      "purpose": "飲食",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "東側・柱14付近",
+      "detail": "イベントによって営業しない場合があります。営業・品揃えは当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-2-image",
+        "shop"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "osaka-f2",
+        "x": 1738,
+        "y": 799.5,
+        "sourceIds": [
+          "floor-2-image"
+        ],
+        "reference": "公式2F原図2000×1420、柱14の売店記号背景枠[1718,779,1758,820]の中心(1738,799.5)。原図を目視し、背景色の範囲を読取り確認。1F・座席図の座標を転用しない。"
+      }
+    }
+  ],
+  "firstFloorAudit": {
+    "sourceUrl": "https://www.osaka-johall.com/floorguide/img/img_floor_1f.png",
+    "sourceFile": "research/osaka-floor-1.png",
+    "sourceHash": "262dfd49fefc2614e901c14da42aa06648c913d0808b7ace543631cdc23dad48",
+    "width": 1892,
+    "height": 1382,
+    "checkedAt": "2026-09-30",
+    "counts": {
+      "women": 6,
+      "men": 2,
+      "temporaryMen": 1,
+      "changing": 7,
+      "shop": 4,
+      "vending": 2,
+      "locker": 1
+    },
+    "records": [
+      {
+        "label": "changing-bottom-left",
+        "point": [
+          893.5,
+          1165.5
+        ],
+        "box": [
+          877,
+          1149,
+          910,
+          1182
+        ],
+        "method": "symbol background connected component, manually identified icon",
+        "facilityId": "changing-1-bottom-left",
+        "state": "mapped",
+        "sourceFile": "research/osaka-floor-1.png",
+        "sourceHash": "262dfd49fefc2614e901c14da42aa06648c913d0808b7ace543631cdc23dad48",
+        "sourceUrl": "https://www.osaka-johall.com/floorguide/img/img_floor_1f.png",
+        "checkedAt": "2026-09-30",
+        "reference": "公式1F原図1892×1382、記号台帳changing-bottom-leftの中心(893.5,1165.5)。記号背景枠[877, 1149, 910, 1182]を採点、丸め誤差1px以内。柱や座席図の位置を転用しない。"
+      },
+      {
+        "label": "changing-bottom-right",
+        "point": [
+          1331.5,
+          1151.5
+        ],
+        "box": [
+          1315,
+          1135,
+          1348,
+          1168
+        ],
+        "method": "symbol background connected component, manually identified icon",
+        "facilityId": "changing-1-bottom-right",
+        "state": "mapped",
+        "sourceFile": "research/osaka-floor-1.png",
+        "sourceHash": "262dfd49fefc2614e901c14da42aa06648c913d0808b7ace543631cdc23dad48",
+        "sourceUrl": "https://www.osaka-johall.com/floorguide/img/img_floor_1f.png",
+        "checkedAt": "2026-09-30",
+        "reference": "公式1F原図1892×1382、記号台帳changing-bottom-rightの中心(1331.5,1151.5)。記号背景枠[1315, 1135, 1348, 1168]を採点、丸め誤差1px以内。柱や座席図の位置を転用しない。"
+      },
+      {
+        "label": "changing-left",
+        "point": [
+          342.5,
+          583.5
+        ],
+        "box": [
+          326,
+          567,
+          359,
+          600
+        ],
+        "method": "symbol background connected component, manually identified icon",
+        "facilityId": "changing-1-left",
+        "state": "mapped",
+        "sourceFile": "research/osaka-floor-1.png",
+        "sourceHash": "262dfd49fefc2614e901c14da42aa06648c913d0808b7ace543631cdc23dad48",
+        "sourceUrl": "https://www.osaka-johall.com/floorguide/img/img_floor_1f.png",
+        "checkedAt": "2026-09-30",
+        "reference": "公式1F原図1892×1382、記号台帳changing-leftの中心(342.5,583.5)。記号背景枠[326, 567, 359, 600]を採点、丸め誤差1px以内。柱や座席図の位置を転用しない。"
+      },
+      {
+        "label": "changing-lower-left",
+        "point": [
+          465.5,
+          918.5
+        ],
+        "box": [
+          449,
+          902,
+          482,
+          935
+        ],
+        "method": "symbol background connected component, manually identified icon",
+        "facilityId": "changing-1-lower-left",
+        "state": "mapped",
+        "sourceFile": "research/osaka-floor-1.png",
+        "sourceHash": "262dfd49fefc2614e901c14da42aa06648c913d0808b7ace543631cdc23dad48",
+        "sourceUrl": "https://www.osaka-johall.com/floorguide/img/img_floor_1f.png",
+        "checkedAt": "2026-09-30",
+        "reference": "公式1F原図1892×1382、記号台帳changing-lower-leftの中心(465.5,918.5)。記号背景枠[449, 902, 482, 935]を採点、丸め誤差1px以内。柱や座席図の位置を転用しない。"
+      },
+      {
+        "label": "changing-right",
+        "point": [
+          1578.5,
+          822.5
+        ],
+        "box": [
+          1562,
+          806,
+          1595,
+          839
+        ],
+        "method": "symbol background connected component, manually identified icon",
+        "facilityId": "changing-1-right",
+        "state": "mapped",
+        "sourceFile": "research/osaka-floor-1.png",
+        "sourceHash": "262dfd49fefc2614e901c14da42aa06648c913d0808b7ace543631cdc23dad48",
+        "sourceUrl": "https://www.osaka-johall.com/floorguide/img/img_floor_1f.png",
+        "checkedAt": "2026-09-30",
+        "reference": "公式1F原図1892×1382、記号台帳changing-rightの中心(1578.5,822.5)。記号背景枠[1562, 806, 1595, 839]を採点、丸め誤差1px以内。柱や座席図の位置を転用しない。"
+      },
+      {
+        "label": "changing-top-left",
+        "point": [
+          652.5,
+          318.5
+        ],
+        "box": [
+          636,
+          302,
+          669,
+          335
+        ],
+        "method": "symbol background connected component, manually identified icon",
+        "facilityId": "changing-1-top-left",
+        "state": "mapped",
+        "sourceFile": "research/osaka-floor-1.png",
+        "sourceHash": "262dfd49fefc2614e901c14da42aa06648c913d0808b7ace543631cdc23dad48",
+        "sourceUrl": "https://www.osaka-johall.com/floorguide/img/img_floor_1f.png",
+        "checkedAt": "2026-09-30",
+        "reference": "公式1F原図1892×1382、記号台帳changing-top-leftの中心(652.5,318.5)。記号背景枠[636, 302, 669, 335]を採点、丸め誤差1px以内。柱や座席図の位置を転用しない。"
+      },
+      {
+        "label": "changing-top-right",
+        "point": [
+          946.5,
+          311.5
+        ],
+        "box": [
+          930,
+          295,
+          963,
+          328
+        ],
+        "method": "symbol background connected component, manually identified icon",
+        "facilityId": "changing-1-top-right",
+        "state": "mapped",
+        "sourceFile": "research/osaka-floor-1.png",
+        "sourceHash": "262dfd49fefc2614e901c14da42aa06648c913d0808b7ace543631cdc23dad48",
+        "sourceUrl": "https://www.osaka-johall.com/floorguide/img/img_floor_1f.png",
+        "checkedAt": "2026-09-30",
+        "reference": "公式1F原図1892×1382、記号台帳changing-top-rightの中心(946.5,311.5)。記号背景枠[930, 295, 963, 328]を採点、丸め誤差1px以内。柱や座席図の位置を転用しない。"
+      },
+      {
+        "label": "locker-bottom",
+        "point": [
+          1285.5,
+          1222.5
+        ],
+        "box": [
+          1270,
+          1207,
+          1301,
+          1238
+        ],
+        "method": "symbol background connected component, manually identified icon",
+        "facilityId": "locker-1",
+        "state": "mapped",
+        "sourceFile": "research/osaka-floor-1.png",
+        "sourceHash": "262dfd49fefc2614e901c14da42aa06648c913d0808b7ace543631cdc23dad48",
+        "sourceUrl": "https://www.osaka-johall.com/floorguide/img/img_floor_1f.png",
+        "checkedAt": "2026-09-30",
+        "reference": "公式1F原図1892×1382、記号台帳locker-bottomの中心(1285.5,1222.5)。記号背景枠[1270, 1207, 1301, 1238]を採点、丸め誤差1px以内。柱や座席図の位置を転用しない。"
+      },
+      {
+        "label": "men-bottom",
+        "point": [
+          936.5,
+          1183.0
+        ],
+        "box": [
+          916,
+          1163,
+          957,
+          1203
+        ],
+        "method": "symbol background connected component, manually identified icon",
+        "facilityId": "toilet-m-1-bottom",
+        "state": "mapped",
+        "sourceFile": "research/osaka-floor-1.png",
+        "sourceHash": "262dfd49fefc2614e901c14da42aa06648c913d0808b7ace543631cdc23dad48",
+        "sourceUrl": "https://www.osaka-johall.com/floorguide/img/img_floor_1f.png",
+        "checkedAt": "2026-09-30",
+        "reference": "公式1F原図1892×1382、記号台帳men-bottomの中心(936.5,1183.0)。記号背景枠[916, 1163, 957, 1203]を採点、丸め誤差1px以内。柱や座席図の位置を転用しない。"
+      },
+      {
+        "label": "men-top",
+        "point": [
+          1002.0,
+          328.0
+        ],
+        "box": [
+          981,
+          307,
+          1023,
+          349
+        ],
+        "method": "symbol background connected component, manually identified icon",
+        "facilityId": "toilet-m-1-top",
+        "state": "mapped",
+        "sourceFile": "research/osaka-floor-1.png",
+        "sourceHash": "262dfd49fefc2614e901c14da42aa06648c913d0808b7ace543631cdc23dad48",
+        "sourceUrl": "https://www.osaka-johall.com/floorguide/img/img_floor_1f.png",
+        "checkedAt": "2026-09-30",
+        "reference": "公式1F原図1892×1382、記号台帳men-topの中心(1002.0,328.0)。記号背景枠[981, 307, 1023, 349]を採点、丸め誤差1px以内。柱や座席図の位置を転用しない。"
+      },
+      {
+        "label": "shop-bottom-right",
+        "point": [
+          1374.0,
+          1197.0
+        ],
+        "box": [
+          1353,
+          1176,
+          1395,
+          1218
+        ],
+        "method": "symbol background connected component, manually identified icon",
+        "facilityId": "shop-1-08",
+        "state": "mapped",
+        "sourceFile": "research/osaka-floor-1.png",
+        "sourceHash": "262dfd49fefc2614e901c14da42aa06648c913d0808b7ace543631cdc23dad48",
+        "sourceUrl": "https://www.osaka-johall.com/floorguide/img/img_floor_1f.png",
+        "checkedAt": "2026-09-30",
+        "reference": "公式1F原図1892×1382、記号台帳shop-bottom-rightの中心(1374.0,1197.0)。記号背景枠[1353, 1176, 1395, 1218]を採点、丸め誤差1px以内。柱や座席図の位置を転用しない。"
+      },
+      {
+        "label": "shop-left",
+        "point": [
+          266.0,
+          605.0
+        ],
+        "box": [
+          245,
+          584,
+          287,
+          626
+        ],
+        "method": "symbol background connected component, manually identified icon",
+        "state": "mapped-source-conflict",
+        "reason": "図の記号位置だけを案内へ接続。公式売店本文は東側1F柱08/14のみのため、西側記号の営業・現在の対応は確認中として明示。",
+        "sourceFile": "research/osaka-floor-1.png",
+        "sourceHash": "262dfd49fefc2614e901c14da42aa06648c913d0808b7ace543631cdc23dad48",
+        "checkedAt": "2026-09-30",
+        "facilityId": "shop-1-west-37",
+        "connectedAt": "2026-10-12"
+      },
+      {
+        "label": "shop-right",
+        "point": [
+          1644.0,
+          854.0
+        ],
+        "box": [
+          1623,
+          833,
+          1665,
+          875
+        ],
+        "method": "symbol background connected component, manually identified icon",
+        "facilityId": "shop-1-14",
+        "state": "mapped",
+        "sourceFile": "research/osaka-floor-1.png",
+        "sourceHash": "262dfd49fefc2614e901c14da42aa06648c913d0808b7ace543631cdc23dad48",
+        "sourceUrl": "https://www.osaka-johall.com/floorguide/img/img_floor_1f.png",
+        "checkedAt": "2026-09-30",
+        "reference": "公式1F原図1892×1382、記号台帳shop-rightの中心(1644.0,854.0)。記号背景枠[1623, 833, 1665, 875]を採点、丸め誤差1px以内。柱や座席図の位置を転用しない。"
+      },
+      {
+        "label": "shop-top",
+        "point": [
+          610.0,
+          270.0
+        ],
+        "box": [
+          589,
+          249,
+          631,
+          291
+        ],
+        "method": "symbol background connected component, manually identified icon",
+        "state": "mapped-source-conflict",
+        "reason": "図の記号位置だけを案内へ接続。公式売店本文は東側1F柱08/14のみのため、西側記号の営業・現在の対応は確認中として明示。",
+        "sourceFile": "research/osaka-floor-1.png",
+        "sourceHash": "262dfd49fefc2614e901c14da42aa06648c913d0808b7ace543631cdc23dad48",
+        "checkedAt": "2026-09-30",
+        "facilityId": "shop-1-west-30",
+        "connectedAt": "2026-10-12"
+      },
+      {
+        "label": "temporary-men",
+        "point": [
+          1541,
+          965
+        ],
+        "box": null,
+        "method": "manually inspected dotted temporary male icon center",
+        "facilityId": "toilet-m-1-temporary",
+        "state": "mapped",
+        "sourceFile": "research/osaka-floor-1.png",
+        "sourceHash": "262dfd49fefc2614e901c14da42aa06648c913d0808b7ace543631cdc23dad48",
+        "sourceUrl": "https://www.osaka-johall.com/floorguide/img/img_floor_1f.png",
+        "checkedAt": "2026-09-30",
+        "reference": "公式1F原図1892×1382、記号台帳temporary-menの中心(1541,965)。点線枠の中心を目視採点、許容誤差4px。柱や座席図の位置を転用しない。"
+      },
+      {
+        "label": "vending-bottom",
+        "point": [
+          1216.0,
+          1249.0
+        ],
+        "box": [
+          1195,
+          1228,
+          1237,
+          1270
+        ],
+        "method": "symbol background connected component, manually identified icon",
+        "facilityId": "vending-1-bottom",
+        "state": "mapped",
+        "sourceFile": "research/osaka-floor-1.png",
+        "sourceHash": "262dfd49fefc2614e901c14da42aa06648c913d0808b7ace543631cdc23dad48",
+        "sourceUrl": "https://www.osaka-johall.com/floorguide/img/img_floor_1f.png",
+        "checkedAt": "2026-09-30",
+        "reference": "公式1F原図1892×1382、記号台帳vending-bottomの中心(1216.0,1249.0)。記号背景枠[1195, 1228, 1237, 1270]を採点、丸め誤差1px以内。柱や座席図の位置を転用しない。"
+      },
+      {
+        "label": "vending-right",
+        "point": [
+          1625.0,
+          947.0
+        ],
+        "box": [
+          1604,
+          926,
+          1646,
+          968
+        ],
+        "method": "symbol background connected component, manually identified icon",
+        "facilityId": "vending-1-right",
+        "state": "mapped",
+        "sourceFile": "research/osaka-floor-1.png",
+        "sourceHash": "262dfd49fefc2614e901c14da42aa06648c913d0808b7ace543631cdc23dad48",
+        "sourceUrl": "https://www.osaka-johall.com/floorguide/img/img_floor_1f.png",
+        "checkedAt": "2026-09-30",
+        "reference": "公式1F原図1892×1382、記号台帳vending-rightの中心(1625.0,947.0)。記号背景枠[1604, 926, 1646, 968]を採点、丸め誤差1px以内。柱や座席図の位置を転用しない。"
+      },
+      {
+        "label": "women-bottom-right",
+        "point": [
+          1273.0,
+          1171.5
+        ],
+        "box": [
+          1252,
+          1151,
+          1294,
+          1192
+        ],
+        "method": "symbol background connected component, manually identified icon",
+        "facilityId": "toilet-w-1-bottom-right",
+        "state": "mapped",
+        "sourceFile": "research/osaka-floor-1.png",
+        "sourceHash": "262dfd49fefc2614e901c14da42aa06648c913d0808b7ace543631cdc23dad48",
+        "sourceUrl": "https://www.osaka-johall.com/floorguide/img/img_floor_1f.png",
+        "checkedAt": "2026-09-30",
+        "reference": "公式1F原図1892×1382、記号台帳women-bottom-rightの中心(1273.0,1171.5)。記号背景枠[1252, 1151, 1294, 1192]を採点、丸め誤差1px以内。柱や座席図の位置を転用しない。"
+      },
+      {
+        "label": "women-left",
+        "point": [
+          324.5,
+          630.5
+        ],
+        "box": [
+          304,
+          610,
+          345,
+          651
+        ],
+        "method": "symbol background connected component, manually identified icon",
+        "facilityId": "toilet-w-1-left",
+        "state": "mapped",
+        "sourceFile": "research/osaka-floor-1.png",
+        "sourceHash": "262dfd49fefc2614e901c14da42aa06648c913d0808b7ace543631cdc23dad48",
+        "sourceUrl": "https://www.osaka-johall.com/floorguide/img/img_floor_1f.png",
+        "checkedAt": "2026-09-30",
+        "reference": "公式1F原図1892×1382、記号台帳women-leftの中心(324.5,630.5)。記号背景枠[304, 610, 345, 651]を採点、丸め誤差1px以内。柱や座席図の位置を転用しない。"
+      },
+      {
+        "label": "women-lower-left",
+        "point": [
+          418.5,
+          884.5
+        ],
+        "box": [
+          398,
+          864,
+          439,
+          905
+        ],
+        "method": "symbol background connected component, manually identified icon",
+        "facilityId": "toilet-w-1-lower-left",
+        "state": "mapped",
+        "sourceFile": "research/osaka-floor-1.png",
+        "sourceHash": "262dfd49fefc2614e901c14da42aa06648c913d0808b7ace543631cdc23dad48",
+        "sourceUrl": "https://www.osaka-johall.com/floorguide/img/img_floor_1f.png",
+        "checkedAt": "2026-09-30",
+        "reference": "公式1F原図1892×1382、記号台帳women-lower-leftの中心(418.5,884.5)。記号背景枠[398, 864, 439, 905]を採点、丸め誤差1px以内。柱や座席図の位置を転用しない。"
+      },
+      {
+        "label": "women-right",
+        "point": [
+          1574.0,
+          876.0
+        ],
+        "box": [
+          1553,
+          855,
+          1595,
+          897
+        ],
+        "method": "symbol background connected component, manually identified icon",
+        "facilityId": "toilet-w-1-right",
+        "state": "mapped",
+        "sourceFile": "research/osaka-floor-1.png",
+        "sourceHash": "262dfd49fefc2614e901c14da42aa06648c913d0808b7ace543631cdc23dad48",
+        "sourceUrl": "https://www.osaka-johall.com/floorguide/img/img_floor_1f.png",
+        "checkedAt": "2026-09-30",
+        "reference": "公式1F原図1892×1382、記号台帳women-rightの中心(1574.0,876.0)。記号背景枠[1553, 855, 1595, 897]を採点、丸め誤差1px以内。柱や座席図の位置を転用しない。"
+      },
+      {
+        "label": "women-top",
+        "point": [
+          597.0,
+          333.0
+        ],
+        "box": [
+          576,
+          312,
+          618,
+          354
+        ],
+        "method": "symbol background connected component, manually identified icon",
+        "facilityId": "toilet-w-1-top",
+        "state": "mapped",
+        "sourceFile": "research/osaka-floor-1.png",
+        "sourceHash": "262dfd49fefc2614e901c14da42aa06648c913d0808b7ace543631cdc23dad48",
+        "sourceUrl": "https://www.osaka-johall.com/floorguide/img/img_floor_1f.png",
+        "checkedAt": "2026-09-30",
+        "reference": "公式1F原図1892×1382、記号台帳women-topの中心(597.0,333.0)。記号背景枠[576, 312, 618, 354]を採点、丸め誤差1px以内。柱や座席図の位置を転用しない。"
+      },
+      {
+        "label": "women-upper-right",
+        "point": [
+          1495.0,
+          617.0
+        ],
+        "box": [
+          1474,
+          596,
+          1516,
+          638
+        ],
+        "method": "symbol background connected component, manually identified icon",
+        "facilityId": "toilet-w-1-upper-right",
+        "state": "mapped",
+        "sourceFile": "research/osaka-floor-1.png",
+        "sourceHash": "262dfd49fefc2614e901c14da42aa06648c913d0808b7ace543631cdc23dad48",
+        "sourceUrl": "https://www.osaka-johall.com/floorguide/img/img_floor_1f.png",
+        "checkedAt": "2026-09-30",
+        "reference": "公式1F原図1892×1382、記号台帳women-upper-rightの中心(1495.0,617.0)。記号背景枠[1474, 596, 1516, 638]を採点、丸め誤差1px以内。柱や座席図の位置を転用しない。"
+      }
+    ],
+    "limitations": [
+      "記号数は設備箇所数・室数を表さない。公式テキストの女性5箇所/男性4箇所/おむつ台9箇所と図記号の一対一対応は未証明。",
+      "南救護室横多目的トイレは文字根拠のみ。図の座標を推測しない。"
+    ]
+  },
+  "outsideAudit": {
+    "sourceUrl": "https://www.osaka-johall.com/organizer/download/data/pamphlet.pdf",
+    "sourceFile": "research/osaka-update/pamphlet.pdf",
+    "sourceHash": "0ac592806b6513b03a0e6caa029c5098966b0fb051fb19f8bb8e7886b3506cb1",
+    "renderFile": "research/osaka-update/pamphlet-page-8.png",
+    "renderHash": "ba14558463ea87739605da65514b7656275dfe1ffa6ba41f7234708361f36165",
+    "page": 8,
+    "pageSizePoints": [
+      841.89,
+      595.276
+    ],
+    "renderScale": 2,
+    "width": 1684,
+    "height": 1191,
+    "viewBox": [
+      75,
+      171,
+      625,
+      599
+    ],
+    "checkedAt": "2026-09-30",
+    "records": [
+      {
+        "id": "outside-north",
+        "label": "北玄関",
+        "kind": "gate",
+        "point": [
+          371.7634,
+          385.691
+        ],
+        "sourceShape": "M 376.5154,385.692 C 376.5154,388.306,374.3814,390.438,371.7574,390.438 C 369.1354,390.438,367.0114,388.306,367.0114,385.692 C 367.0114,383.072,369.1354,380.944,371.7574,380.944 C 374.3814,380.944,376.5154,383.072,376.5154,385.692",
+        "sourceBox": [
+          367.0114,
+          380.94399999999985,
+          376.5154,
+          390.4379999999999
+        ],
+        "method": "vector circle bbox center; label leader manually confirmed",
+        "reference": "公開公式パンフレット8ページ、原PDF座標を2倍した画素座標。北玄関の引出線先の円中心(371.7634,385.691)。PDF図形境界から抽出、丸め誤差0.01px以内。"
+      },
+      {
+        "id": "outside-south",
+        "label": "南玄関",
+        "kind": "gate",
+        "point": [
+          309.7798,
+          445.9902
+        ],
+        "sourceShape": "M 314.5298,446.0052 C 314.5298,448.6232,312.4058,450.7412,309.7798,450.7412 C 307.1598,450.7412,305.0298,448.6232,305.0298,446.0052 C 305.0298,443.3752,307.1598,441.2392,309.7798,441.2392 C 312.4058,441.2392,314.5298,443.3752,314.5298,446.0052",
+        "sourceBox": [
+          305.0298,
+          441.2392,
+          314.5298,
+          450.74119999999994
+        ],
+        "method": "vector circle bbox center; label leader manually confirmed",
+        "reference": "公開公式パンフレット8ページ、原PDF座標を2倍した画素座標。南玄関の引出線先の円中心(309.7798,445.9902)。PDF図形境界から抽出、丸め誤差0.01px以内。"
+      },
+      {
+        "id": "outside-east",
+        "label": "東口",
+        "kind": "gate",
+        "point": [
+          375.6686,
+          446.5552
+        ],
+        "sourceShape": "M 380.4176,446.5632 C 380.4176,449.1712,378.2936,451.3052,375.6636,451.3052 C 373.0496,451.3052,370.9196,449.1712,370.9196,446.5632 C 370.9196,443.9352,373.0496,441.8052,375.6636,441.8052 C 378.2936,441.8052,380.4176,443.9352,380.4176,446.5632",
+        "sourceBox": [
+          370.9196,
+          441.8051999999999,
+          380.4176,
+          451.3051999999999
+        ],
+        "method": "vector circle bbox center; label leader manually confirmed",
+        "reference": "公開公式パンフレット8ページ、原PDF座標を2倍した画素座標。東口の引出線先の円中心(375.6686,446.5552)。PDF図形境界から抽出、丸め誤差0.01px以内。"
+      },
+      {
+        "id": "outside-fountain",
+        "label": "噴水",
+        "kind": "plaza",
+        "point": [
+          441.9418,
+          419.5344
+        ],
+        "sourceShape": "M 451.4378,419.5424 C 451.4378,424.7804,447.1858,429.0284,441.9398,429.0284 C 436.6978,429.0284,432.4458,424.7804,432.4458,419.5424 C 432.4458,414.2844,436.6978,410.0404,441.9398,410.0404 C 447.1858,410.0404,451.4378,414.2844,451.4378,419.5424",
+        "sourceBox": [
+          432.44579999999996,
+          410.0404,
+          451.4378,
+          429.0283999999999
+        ],
+        "method": "vector circle bbox center; label leader manually confirmed",
+        "reference": "公開公式パンフレット8ページ、原PDF座標を2倍した画素座標。噴水の引出線先の円中心(441.9418,419.5344)。PDF図形境界から抽出、丸め誤差0.01px以内。"
+      },
+      {
+        "id": "outside-jr",
+        "label": "大阪城公園駅",
+        "kind": "station",
+        "point": [
+          601,
+          500
+        ],
+        "method": "manually inspected station label center; not an exit",
+        "reference": "公開公式パンフレット8ページの駅名表示範囲中心(601,500)を目視採点（原PDF×2の画素座標、許容誤差8px）。駅の代表位置。改札・出口の位置として使用しない。"
+      },
+      {
+        "id": "outside-obp",
+        "label": "OBP駅",
+        "kind": "station",
+        "point": [
+          337,
+          257
+        ],
+        "method": "manually inspected station label center; not an exit",
+        "reference": "公開公式パンフレット8ページの駅名表示範囲中心(337,257)を目視採点（原PDF×2の画素座標、許容誤差8px）。駅の代表位置。改札・出口の位置として使用しない。"
+      }
+    ],
+    "paths": [
+      {
+        "path": "M285,171 L302,171 L293,176 L303,202 L311,222 L324,223 L326,232 L308,231 L272,249 L322,250 L265,250 L244,261 L252,273 L284,299 L313,302 L317,293 L333,296 L334,308 L349,312 L436,359 L438,232 L348,232 L345,223 L438,223 L438,171 L447,171 L447,193 L499,193 L442,194 L442,212 L499,212 L447,213 L447,223 L646,223 L646,213 L591,213 L648,212 L648,194 L591,194 L644,193 L640,171 L646,171 L652,223 L663,223 L664,229 L668,229 L669,223 L700,223 L700,232 L668,232 L664,248 L658,246 L661,232 L650,232 L614,368 L610,354 L643,232 L447,232 L447,364 L532,389 L535,379 L543,380 L555,383 L554,393 L596,400 L605,375 L613,373 L601,413 L603,419 L602,414 L611,414 L613,419 L616,410 L621,412 L619,420 L621,415 L697,417 L695,447 L616,440 L616,429 L609,427 L607,438 L599,437 L596,431 L538,651 L531,651 L577,481 L567,512 L539,507 L548,471 L457,440 L455,437 L464,438 L468,433 L467,438 L472,434 L477,437 L477,427 L454,425 L451,410 L462,410 L463,418 L521,419 L521,400 L591,412 L591,423 L597,406 L523,394 L446,370 L445,405 L450,407 L423,407 L422,398 L439,402 L436,365 L339,315 L303,306 L249,304 L227,295 L220,301 L201,340 L219,352 L239,377 L234,377 L222,360 L202,344 L195,348 L221,376 L215,377 L173,333 L149,315 L112,297 L75,288 L77,283 L127,298 L163,319 L191,344 L201,314 L206,307 L207,314 L218,293 L207,281 L200,261 L206,261 L211,275 L221,285 L235,258 L306,226 L287,178 L229,209 L211,227 L207,241 L200,238 L213,217 L209,208 L223,196 L230,202 Z",
+        "box": [
+          75.0,
+          171.0,
+          700.0,
+          651.0
+        ],
+        "page": 8,
+        "scale": 2,
+        "method": "visible gray pixel boundary; original source clip; <=3px simplification"
+      },
+      {
+        "path": "M201,171 L262,172 L195,207 L185,214 L182,224 L130,248 L160,280 L204,305 L200,314 L193,327 L123,287 L75,276 L75,232 Z",
+        "box": [
+          75.0,
+          171.0,
+          262.0,
+          327.0
+        ],
+        "page": 8,
+        "scale": 2,
+        "method": "visible gray pixel boundary; original source clip; <=3px simplification"
+      },
+      {
+        "path": "M329,370 L350,374 L359,384 L365,380 L367,390 L377,392 L373,398 L384,413 L385,434 L380,442 L370,444 L372,452 L364,456 L339,459 L324,448 L318,451 L315,442 L306,439 L308,432 L297,416 L296,401 L309,379 Z",
+        "box": [
+          296.0,
+          370.0,
+          385.0,
+          459.0
+        ],
+        "page": 8,
+        "scale": 2,
+        "method": "visible gray pixel boundary; original source clip; <=3px simplification"
+      },
+      {
+        "path": "M217,311 L242,316 L302,315 L337,324 L379,345 L380,338 L381,349 L434,373 L435,386 L434,395 L423,390 L421,384 L407,383 L396,374 L390,375 L309,337 L234,338 L209,333 Z",
+        "box": [
+          209.0,
+          311.0,
+          435.0,
+          395.0
+        ],
+        "page": 8,
+        "scale": 2,
+        "method": "visible gray pixel boundary; original source clip; <=3px simplification"
+      },
+      {
+        "path": "M270,447 L279,451 L322,501 L326,496 L291,447 L296,447 L308,463 L318,458 L328,468 L336,461 L352,478 L390,448 L396,448 L329,501 L328,506 L363,525 L386,544 L407,581 L411,602 L420,608 L422,616 L491,654 L489,660 L418,621 L410,627 L393,673 L390,678 L386,676 L406,627 L398,616 L407,604 L406,595 L393,563 L373,538 L312,499 Z",
+        "box": [
+          270.0,
+          447.0,
+          491.0,
+          678.0
+        ],
+        "page": 8,
+        "scale": 2,
+        "method": "visible gray pixel boundary; original source clip; <=3px simplification"
+      },
+      {
+        "path": "M308,347 L393,384 L381,383 L312,351 L308,370 L263,406 L270,415 L293,444 L288,444 L273,424 L264,431 L272,444 L256,432 L253,418 L259,425 L267,417 L253,395 L262,403 L299,373 L304,368 Z",
+        "box": [
+          253.0,
+          347.0,
+          393.0,
+          444.0
+        ],
+        "page": 8,
+        "scale": 2,
+        "method": "visible gray pixel boundary; original source clip; <=3px simplification"
+      },
+      {
+        "path": "M449,380 L506,397 L499,398 L463,398 L462,405 L454,403 L449,401 Z",
+        "box": [
+          449.0,
+          380.0,
+          506.0,
+          405.0
+        ],
+        "page": 8,
+        "scale": 2,
+        "method": "visible gray pixel boundary; original source clip; <=3px simplification"
+      },
+      {
+        "path": "M138,171 L147,171 L144,175 L80,226 L75,230 L77,220 Z",
+        "box": [
+          75.0,
+          171.0,
+          147.0,
+          230.0
+        ],
+        "page": 8,
+        "scale": 2,
+        "method": "visible gray pixel boundary; original source clip; <=3px simplification"
+      },
+      {
+        "path": "M137,477 L150,477 L150,488 L157,491 L156,504 L147,503 L130,504 L128,500 L133,497 L130,491 L136,489 Z",
+        "box": [
+          128.0,
+          477.0,
+          157.0,
+          504.0
+        ],
+        "page": 8,
+        "scale": 2,
+        "method": "visible gray pixel boundary; original source clip; <=3px simplification"
+      },
+      {
+        "path": "M421,410 L433,410 L429,422 L435,431 L423,427 L410,438 L401,445 L395,444 L414,430 L412,424 Z",
+        "box": [
+          395.0,
+          410.0,
+          435.0,
+          445.0
+        ],
+        "page": 8,
+        "scale": 2,
+        "method": "visible gray pixel boundary; original source clip; <=3px simplification"
+      },
+      {
+        "path": "M515,713 L520,715 L503,770 L499,766 Z",
+        "box": [
+          499.0,
+          713.0,
+          520.0,
+          770.0
+        ],
+        "page": 8,
+        "scale": 2,
+        "method": "visible gray pixel boundary; original source clip; <=3px simplification"
+      },
+      {
+        "path": "M217,379 L223,379 L230,387 L250,413 L250,421 Z",
+        "box": [
+          217.0,
+          379.0,
+          250.0,
+          421.0
+        ],
+        "page": 8,
+        "scale": 2,
+        "method": "visible gray pixel boundary; original source clip; <=3px simplification"
+      }
+    ],
+    "limitations": [
+      "改札、OBP4番出口、JO-TERRACE、橋・階段の個別座標は未確認。図上経路線を補わない。",
+      "敷地周辺図/敷地配置図/1F詳細図/南諸室PDFは401。認証経路を使わない。",
+      "パンフレットは公開資料だが、転記図や集合データの公開再利用の許諾を意味しない。"
+    ]
+  },
+  "secondFloorSupplement": {
+    "sourceUrl": "https://www.osaka-johall.com/floorguide/img/img_floor_2f.png?v2",
+    "sourceHash": "a6e48aa6938b3bdce662c94b52fa011d4c73f38c83e070bb100b84221aaa7c93",
+    "width": 2000,
+    "height": 1420,
+    "checkedAt": "2026-10-12",
+    "records": [
+      {
+        "label": "shop-pillar-14",
+        "facilityId": "shop-2-14",
+        "point": [
+          1738,
+          799.5
+        ],
+        "box": [
+          1718,
+          779,
+          1758,
+          820
+        ],
+        "state": "mapped",
+        "method": "source image visual identification; symbol background bounds read-only pixel check",
+        "textSourceId": "shop",
+        "limitations": "公演別の営業は未確定。既存2F設備7点は今回変更せず、原図目視16px以内の既存根拠を保持。"
+      }
+    ]
+  }
+}

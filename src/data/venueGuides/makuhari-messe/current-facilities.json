@@ -1,0 +1,6205 @@
+{
+  "sources": [
+    {
+      "id": "seat-current",
+      "title": "公式・現在リンクされているイベントホール常設席図",
+      "url": "https://www.m-messe.co.jp/saved/files/document/pdf/1088/1/%E5%B9%95%E5%BC%B5%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E3%83%9B%E3%83%BC%E3%83%AB%E5%BA%A7%E5%B8%AD%E8%A1%A8%28%E4%B8%80%E5%BC%8F%EF%BC%89.pdf",
+      "checkedAt": "2026-10-10",
+      "scope": "図内2006.07.01・1頁固定席。2/3Fと主要通路を比較。可動席・BOX/A/F列番号は別扱い",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-supplement",
+      "title": "MUSIC-MDATA掲載・LiveWalker作成の補助座席図",
+      "url": "https://cdn-zaseki.music-mdata.com/pdf/24465.pdf",
+      "checkedAt": "2026-10-10",
+      "scope": "公式固定席の主要輪郭と3488印字通常席を比較。青い可動席と公演アリーナを除外",
+      "usage": "research-only"
+    },
+    {
+      "id": "floor",
+      "title": "公式フロアマップ",
+      "url": "https://www.m-messe.co.jp/docs/facility/messe_facilityguide.pdf",
+      "checkedAt": "2026-10-10",
+      "scope": "主な記号・棟・1〜3F別の部分読図。精密入口・全記号は未確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "event-floor",
+      "title": "公式イベントホール1/2Fフロアマップ",
+      "url": "https://www.m-messe.co.jp/saved/files/document/pdf/1096/1/%E5%B9%95%E5%BC%B5%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E3%83%9B%E3%83%BC%E3%83%AB%20%E3%83%95%E3%83%AD%E3%82%A2%E3%83%9E%E3%83%83%E3%83%97.pdf",
+      "checkedAt": "2026-10-10",
+      "scope": "1/2F一般客ロビーの主要設備。控室と搬入口へ一般客を案内しない",
+      "usage": "facts-only"
+    },
+    {
+      "id": "locker-map",
+      "title": "公式ロッカー位置図（2026年8月現在）",
+      "url": "https://www.m-messe.co.jp/static/images/facility/coinlocker_map.jpg",
+      "checkedAt": "2026-10-10",
+      "scope": "中央モール7/屋外2/エスプラナード2区域。機械個別点ではない",
+      "usage": "facts-only"
+    },
+    {
+      "id": "facility",
+      "title": "公式設備・ロッカー利用案内",
+      "url": "https://www.m-messe.co.jp/facility/",
+      "checkedAt": "2026-10-10",
+      "scope": "料金・寸法・時間・支払の差とイベントホール来場者限定。現行本文",
+      "usage": "facts-only"
+    },
+    {
+      "id": "shopping",
+      "title": "公式の館内5店舗",
+      "url": "https://www.m-messe.co.jp/facility/shopping",
+      "checkedAt": "2026-10-10",
+      "scope": "店名と階/場所・営業日イベント依存。全店共通固定営業時間は付けない",
+      "usage": "facts-only"
+    },
+    {
+      "id": "access",
+      "title": "公式アクセス",
+      "url": "https://www.m-messe.co.jp/access/",
+      "checkedAt": "2026-10-10",
+      "scope": "海浜幕張/幕張豊砂/幕張本郷、駐車場の時間と閉鎖。連続経路は未確定",
+      "usage": "facts-only"
+    },
+    {
+      "id": "barrierfree",
+      "title": "公式バリアフリー",
+      "url": "https://www.m-messe.co.jp/barrierfree/",
+      "checkedAt": "2026-10-10",
+      "scope": "施設利用案内。公演車いす席・連続段差なし経路は当日別",
+      "usage": "facts-only"
+    },
+    {
+      "id": "jre-locker",
+      "title": "JR東日本の海浜幕張周辺ロッカー記事",
+      "url": "https://media.jreast.co.jp/articles/729",
+      "checkedAt": "2026-10-10",
+      "scope": "2025-02-20更新。南口改札外1F左右・北口/スーク。左側サイズ記述の不一致は保留",
+      "usage": "facts-only"
+    },
+    {
+      "id": "outlet",
+      "title": "三井アウトレットパーク幕張・現行設備案内",
+      "url": "https://mitsui-shopping-park.com/mop/makuhari/info/others_info.html",
+      "checkedAt": "2026-10-10",
+      "scope": "A/B-SITE1Fの区域・型式別寸法・小500/中600/大800。古いJR記事の料金を転用しない",
+      "usage": "facts-only"
+    },
+    {
+      "id": "plena",
+      "title": "プレナ幕張・現行設備案内",
+      "url": "https://plena-makuhari.com/service/",
+      "checkedAt": "2026-10-10",
+      "scope": "1Fロッカー10〜23時・現金/IC・23時加算、バリアフリー/赤ちゃん設備",
+      "usage": "facts-only"
+    },
+    {
+      "id": "livebu",
+      "title": "ライブ部・幕張メッセの施設別補助ページ",
+      "url": "https://www.livebu.com/hall/1323",
+      "checkedAt": "2026-10-10",
+      "scope": "イベントホール/展示場の会場別ページを取得。座席図・PDFは確認できず",
+      "usage": "research-only"
+    },
+    {
+      "id": "rights",
+      "title": "公式サイトポリシー",
+      "url": "https://www.m-messe.co.jp/agreement/",
+      "checkedAt": "2026-10-10",
+      "scope": "原図/PDF/画像/ロゴは内部調査だけ。ダウンロード可能を再配布許可にしない",
+      "usage": "research-only"
+    }
+  ],
+  "facilities": [
+    {
+      "id": "makuhari-event1-mixed",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "floor": "イベント1F",
+      "scope": "場内",
+      "location": "イベントホール1Fロビー",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "sourceIds": [
+        "event-floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-event1",
+        "x": 555,
+        "y": 730,
+        "sourceIds": [
+          "event-floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "toiletType": "mixed"
+    },
+    {
+      "id": "makuhari-event1-mixed-baby",
+      "name": "ベビーシート（おむつ交換台）",
+      "purpose": "赤ちゃん",
+      "floor": "イベント1F",
+      "scope": "場内",
+      "location": "イベントホール1Fロビー・男女トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "sourceIds": [
+        "event-floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-event1",
+        "x": 555,
+        "y": 730,
+        "sourceIds": [
+          "event-floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-event1-accessible",
+      "name": "バリアフリー・オストメイトトイレ",
+      "purpose": "トイレ",
+      "floor": "イベント1F",
+      "scope": "場内",
+      "location": "イベントホール1Fロビー",
+      "detail": "原図に掲載されたトイレ区域です。オストメイト設備があります。当日の開放・利用境界を会場案内で確認してください。",
+      "sourceIds": [
+        "event-floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-event1",
+        "x": 426,
+        "y": 744,
+        "sourceIds": [
+          "event-floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "makuhari-event1-locker-a",
+      "name": "1Fロビーの小型ロッカー",
+      "purpose": "荷物",
+      "floor": "イベント1F",
+      "scope": "場内",
+      "location": "イベントホール1Fロビー・トイレ側",
+      "detail": "小のみ300円（1日1回）、幅34×奥行42×高さ29cm。現金払いのみ。イベントホール来場者のみ利用できます。利用8:00〜20:00（イベントにより変更）。24時を過ぎると1日分の追加料金、最大3日間。空きは現地で確認してください。",
+      "sourceIds": [
+        "facility",
+        "event-floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-event1",
+        "x": 432,
+        "y": 800,
+        "sourceIds": [
+          "facility",
+          "event-floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "makuhari-event1-locker-b",
+      "name": "1Fロビーの小型ロッカー",
+      "purpose": "荷物",
+      "floor": "イベント1F",
+      "scope": "場内",
+      "location": "イベントホール1Fロビー・アリーナ側",
+      "detail": "小のみ300円（1日1回）、幅34×奥行42×高さ29cm。現金払いのみ。イベントホール来場者のみ利用できます。利用8:00〜20:00（イベントにより変更）。24時を過ぎると1日分の追加料金、最大3日間。空きは現地で確認してください。",
+      "sourceIds": [
+        "facility",
+        "event-floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-event1",
+        "x": 610,
+        "y": 860,
+        "sourceIds": [
+          "facility",
+          "event-floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "makuhari-event1-ev",
+      "name": "エレベーター",
+      "purpose": "案内",
+      "floor": "イベント1F",
+      "scope": "場内",
+      "location": "東エントランス付近",
+      "detail": "原図に掲載されたEV区域。停止階・公演の運用は当日の案内で確認してください。",
+      "sourceIds": [
+        "event-floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-event1",
+        "x": 256,
+        "y": 875,
+        "sourceIds": [
+          "event-floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-event1-firstaid",
+      "name": "救護の案内",
+      "purpose": "案内",
+      "floor": "イベント1F",
+      "scope": "場内",
+      "location": "イベントホール1F・救護室は関係者区域側",
+      "detail": "体調不良時は会場係員に連絡してください。救護室は一般客の自由入室を案内しません。",
+      "sourceIds": [
+        "event-floor"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed"
+    },
+    {
+      "id": "makuhari-event2-ms",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "イベント2F",
+      "scope": "場内",
+      "location": "イベントホール2F・メインロビー南側",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "sourceIds": [
+        "event-floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-event2",
+        "x": 570,
+        "y": 355,
+        "sourceIds": [
+          "event-floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "toiletType": "women"
+    },
+    {
+      "id": "makuhari-event2-ms-baby",
+      "name": "ベビーシート（おむつ交換台）",
+      "purpose": "赤ちゃん",
+      "floor": "イベント2F",
+      "scope": "場内",
+      "location": "イベントホール2F・メインロビー南側・女性トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "sourceIds": [
+        "event-floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-event2",
+        "x": 570,
+        "y": 355,
+        "sourceIds": [
+          "event-floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-event2-mn",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "イベント2F",
+      "scope": "場内",
+      "location": "イベントホール2F・メインロビー北側",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "sourceIds": [
+        "event-floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-event2",
+        "x": 570,
+        "y": 820,
+        "sourceIds": [
+          "event-floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "toiletType": "men"
+    },
+    {
+      "id": "makuhari-event2-mn-baby",
+      "name": "ベビーシート（おむつ交換台）",
+      "purpose": "赤ちゃん",
+      "floor": "イベント2F",
+      "scope": "場内",
+      "location": "イベントホール2F・メインロビー北側・男性トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "sourceIds": [
+        "event-floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-event2",
+        "x": 570,
+        "y": 820,
+        "sourceIds": [
+          "event-floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-event2-sm",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "イベント2F",
+      "scope": "場内",
+      "location": "イベントホール2F・南ロビー",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "sourceIds": [
+        "event-floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-event2",
+        "x": 850,
+        "y": 260,
+        "sourceIds": [
+          "event-floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "toiletType": "men"
+    },
+    {
+      "id": "makuhari-event2-sm-baby",
+      "name": "ベビーシート（おむつ交換台）",
+      "purpose": "赤ちゃん",
+      "floor": "イベント2F",
+      "scope": "場内",
+      "location": "イベントホール2F・南ロビー・男性トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "sourceIds": [
+        "event-floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-event2",
+        "x": 850,
+        "y": 260,
+        "sourceIds": [
+          "event-floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-event2-sw",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "イベント2F",
+      "scope": "場内",
+      "location": "イベントホール2F・南ロビー",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "sourceIds": [
+        "event-floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-event2",
+        "x": 1065,
+        "y": 260,
+        "sourceIds": [
+          "event-floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "toiletType": "women"
+    },
+    {
+      "id": "makuhari-event2-sw-baby",
+      "name": "ベビーシート（おむつ交換台）",
+      "purpose": "赤ちゃん",
+      "floor": "イベント2F",
+      "scope": "場内",
+      "location": "イベントホール2F・南ロビー・女性トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "sourceIds": [
+        "event-floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-event2",
+        "x": 1065,
+        "y": 260,
+        "sourceIds": [
+          "event-floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-event2-nw",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "イベント2F",
+      "scope": "場内",
+      "location": "イベントホール2F・北ロビー",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "sourceIds": [
+        "event-floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-event2",
+        "x": 795,
+        "y": 925,
+        "sourceIds": [
+          "event-floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "toiletType": "women"
+    },
+    {
+      "id": "makuhari-event2-nw-baby",
+      "name": "ベビーシート（おむつ交換台）",
+      "purpose": "赤ちゃん",
+      "floor": "イベント2F",
+      "scope": "場内",
+      "location": "イベントホール2F・北ロビー・女性トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "sourceIds": [
+        "event-floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-event2",
+        "x": 795,
+        "y": 925,
+        "sourceIds": [
+          "event-floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-event2-nm",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "イベント2F",
+      "scope": "場内",
+      "location": "イベントホール2F・北ロビー",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "sourceIds": [
+        "event-floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-event2",
+        "x": 1090,
+        "y": 925,
+        "sourceIds": [
+          "event-floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "toiletType": "men"
+    },
+    {
+      "id": "makuhari-event2-nm-baby",
+      "name": "ベビーシート（おむつ交換台）",
+      "purpose": "赤ちゃん",
+      "floor": "イベント2F",
+      "scope": "場内",
+      "location": "イベントホール2F・北ロビー・男性トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "sourceIds": [
+        "event-floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-event2",
+        "x": 1090,
+        "y": 925,
+        "sourceIds": [
+          "event-floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-event2-bf",
+      "name": "バリアフリー・オストメイトトイレ",
+      "purpose": "トイレ",
+      "floor": "イベント2F",
+      "scope": "場内",
+      "location": "イベントホール2Fメインロビー",
+      "detail": "原図に掲載されたトイレ区域です。オストメイト設備があります。当日の開放・利用境界を会場案内で確認してください。",
+      "sourceIds": [
+        "event-floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-event2",
+        "x": 506,
+        "y": 460,
+        "sourceIds": [
+          "event-floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "makuhari-event2-bf-baby",
+      "name": "ベビーシート（おむつ交換台）",
+      "purpose": "赤ちゃん",
+      "floor": "イベント2F",
+      "scope": "場内",
+      "location": "イベントホール2Fメインロビー・バリアフリー・オストメイトトイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "sourceIds": [
+        "event-floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-event2",
+        "x": 506,
+        "y": 460,
+        "sourceIds": [
+          "event-floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-event2-locker-s",
+      "name": "南ロビーの小型ロッカー",
+      "purpose": "荷物",
+      "floor": "イベント2F",
+      "scope": "場内",
+      "location": "イベントホール2F南ロビー",
+      "detail": "小のみ300円（1日1回）、幅34×奥行42×高さ29cm。現金払いのみ。イベントホール来場者のみ利用できます。利用8:00〜20:00（イベントにより変更）。24時を過ぎると1日分の追加料金、最大3日間。空きは現地で確認してください。",
+      "sourceIds": [
+        "facility",
+        "event-floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-event2",
+        "x": 1010,
+        "y": 195,
+        "sourceIds": [
+          "facility",
+          "event-floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "makuhari-event2-locker-n",
+      "name": "北ロビーの小型ロッカー",
+      "purpose": "荷物",
+      "floor": "イベント2F",
+      "scope": "場内",
+      "location": "イベントホール2F北ロビー",
+      "detail": "小のみ300円（1日1回）、幅34×奥行42×高さ29cm。現金払いのみ。イベントホール来場者のみ利用できます。利用8:00〜20:00（イベントにより変更）。24時を過ぎると1日分の追加料金、最大3日間。空きは現地で確認してください。",
+      "sourceIds": [
+        "facility",
+        "event-floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-event2",
+        "x": 960,
+        "y": 980,
+        "sourceIds": [
+          "facility",
+          "event-floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "makuhari-event2-aed",
+      "name": "AED",
+      "purpose": "AED",
+      "floor": "イベント2F",
+      "scope": "場内",
+      "location": "イベントホール2Fメインロビー",
+      "detail": "2Fロビーの原図掲載区域。緊急時は会場係員に連絡してください。",
+      "sourceIds": [
+        "event-floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-event2",
+        "x": 352,
+        "y": 650,
+        "sourceIds": [
+          "event-floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-event2-ev",
+      "name": "エレベーター",
+      "purpose": "案内",
+      "floor": "イベント2F",
+      "scope": "場内",
+      "location": "イベントホール2Fメインロビー",
+      "detail": "原図掲載区域。指定席までの連続段差なし経路・当日の運用は確認してください。",
+      "sourceIds": [
+        "event-floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-event2",
+        "x": 228,
+        "y": 700,
+        "sourceIds": [
+          "event-floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-event2-smoking-南",
+      "name": "南側喫煙所",
+      "purpose": "案内",
+      "floor": "イベント2F",
+      "scope": "場内",
+      "location": "イベントホール2F南側",
+      "detail": "原図に掲載された指定喫煙区域。公演の閉鎖・運用は当日確認。",
+      "sourceIds": [
+        "event-floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-event2",
+        "x": 1260,
+        "y": 230,
+        "sourceIds": [
+          "event-floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "kind": "smoking"
+    },
+    {
+      "id": "makuhari-event2-smoking-北",
+      "name": "北側喫煙所",
+      "purpose": "案内",
+      "floor": "イベント2F",
+      "scope": "場内",
+      "location": "イベントホール2F北側",
+      "detail": "原図に掲載された指定喫煙区域。公演の閉鎖・運用は当日確認。",
+      "sourceIds": [
+        "event-floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-event2",
+        "x": 1260,
+        "y": 943,
+        "sourceIds": [
+          "event-floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "kind": "smoking"
+    },
+    {
+      "id": "makuhari-ex1-1-toilet",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "floor": "1〜8 1F",
+      "scope": "場内",
+      "location": "展示ホール11F・中央モール側",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-1",
+        "x": 1298.1,
+        "y": 373,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "toiletType": "mixed"
+    },
+    {
+      "id": "makuhari-ex1-1-toilet-baby",
+      "name": "ベビーシート（おむつ交換台）",
+      "purpose": "赤ちゃん",
+      "floor": "1〜8 1F",
+      "scope": "場内",
+      "location": "展示ホール11F・中央モール側・男女トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-1",
+        "x": 1298.1,
+        "y": 373,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-ex1-1-bf",
+      "name": "バリアフリー・オストメイトトイレ",
+      "purpose": "トイレ",
+      "floor": "1〜8 1F",
+      "scope": "場内",
+      "location": "展示ホール11F・中央モール側",
+      "detail": "原図に掲載されたトイレ区域です。オストメイト設備があります。当日の開放・利用境界を会場案内で確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-1",
+        "x": 1298.1,
+        "y": 397,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "makuhari-ex2-1-toilet",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "floor": "1〜8 1F",
+      "scope": "場内",
+      "location": "展示ホール21F・中央モール側",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-1",
+        "x": 1174.5,
+        "y": 373,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "toiletType": "mixed"
+    },
+    {
+      "id": "makuhari-ex2-1-toilet-baby",
+      "name": "ベビーシート（おむつ交換台）",
+      "purpose": "赤ちゃん",
+      "floor": "1〜8 1F",
+      "scope": "場内",
+      "location": "展示ホール21F・中央モール側・男女トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-1",
+        "x": 1174.5,
+        "y": 373,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-ex2-1-bf",
+      "name": "バリアフリー・オストメイトトイレ",
+      "purpose": "トイレ",
+      "floor": "1〜8 1F",
+      "scope": "場内",
+      "location": "展示ホール21F・中央モール側",
+      "detail": "原図に掲載されたトイレ区域です。オストメイト設備があります。当日の開放・利用境界を会場案内で確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-1",
+        "x": 1174.5,
+        "y": 397,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "makuhari-ex3-1-toilet",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "floor": "1〜8 1F",
+      "scope": "場内",
+      "location": "展示ホール31F・中央モール側",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-1",
+        "x": 1051.0,
+        "y": 373,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "toiletType": "mixed"
+    },
+    {
+      "id": "makuhari-ex3-1-toilet-baby",
+      "name": "ベビーシート（おむつ交換台）",
+      "purpose": "赤ちゃん",
+      "floor": "1〜8 1F",
+      "scope": "場内",
+      "location": "展示ホール31F・中央モール側・男女トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-1",
+        "x": 1051.0,
+        "y": 373,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-ex3-1-bf",
+      "name": "バリアフリー・オストメイトトイレ",
+      "purpose": "トイレ",
+      "floor": "1〜8 1F",
+      "scope": "場内",
+      "location": "展示ホール31F・中央モール側",
+      "detail": "原図に掲載されたトイレ区域です。オストメイト設備があります。当日の開放・利用境界を会場案内で確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-1",
+        "x": 1051.0,
+        "y": 397,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "makuhari-ex4-1-toilet",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "floor": "1〜8 1F",
+      "scope": "場内",
+      "location": "展示ホール41F・中央モール側",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-1",
+        "x": 887.2,
+        "y": 373,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "toiletType": "mixed"
+    },
+    {
+      "id": "makuhari-ex4-1-toilet-baby",
+      "name": "ベビーシート（おむつ交換台）",
+      "purpose": "赤ちゃん",
+      "floor": "1〜8 1F",
+      "scope": "場内",
+      "location": "展示ホール41F・中央モール側・男女トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-1",
+        "x": 887.2,
+        "y": 373,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-ex4-1-bf",
+      "name": "バリアフリー・オストメイトトイレ",
+      "purpose": "トイレ",
+      "floor": "1〜8 1F",
+      "scope": "場内",
+      "location": "展示ホール41F・中央モール側",
+      "detail": "原図に掲載されたトイレ区域です。オストメイト設備があります。当日の開放・利用境界を会場案内で確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-1",
+        "x": 887.2,
+        "y": 397,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "makuhari-ex5-1-toilet",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "floor": "1〜8 1F",
+      "scope": "場内",
+      "location": "展示ホール51F・中央モール側",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-1",
+        "x": 763.6,
+        "y": 373,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "toiletType": "mixed"
+    },
+    {
+      "id": "makuhari-ex5-1-toilet-baby",
+      "name": "ベビーシート（おむつ交換台）",
+      "purpose": "赤ちゃん",
+      "floor": "1〜8 1F",
+      "scope": "場内",
+      "location": "展示ホール51F・中央モール側・男女トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-1",
+        "x": 763.6,
+        "y": 373,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-ex5-1-bf",
+      "name": "バリアフリー・オストメイトトイレ",
+      "purpose": "トイレ",
+      "floor": "1〜8 1F",
+      "scope": "場内",
+      "location": "展示ホール51F・中央モール側",
+      "detail": "原図に掲載されたトイレ区域です。オストメイト設備があります。当日の開放・利用境界を会場案内で確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-1",
+        "x": 763.6,
+        "y": 397,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "makuhari-ex6-1-toilet",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "floor": "1〜8 1F",
+      "scope": "場内",
+      "location": "展示ホール61F・中央モール側",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-1",
+        "x": 640.1,
+        "y": 373,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "toiletType": "mixed"
+    },
+    {
+      "id": "makuhari-ex6-1-toilet-baby",
+      "name": "ベビーシート（おむつ交換台）",
+      "purpose": "赤ちゃん",
+      "floor": "1〜8 1F",
+      "scope": "場内",
+      "location": "展示ホール61F・中央モール側・男女トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-1",
+        "x": 640.1,
+        "y": 373,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-ex6-1-bf",
+      "name": "バリアフリー・オストメイトトイレ",
+      "purpose": "トイレ",
+      "floor": "1〜8 1F",
+      "scope": "場内",
+      "location": "展示ホール61F・中央モール側",
+      "detail": "原図に掲載されたトイレ区域です。オストメイト設備があります。当日の開放・利用境界を会場案内で確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-1",
+        "x": 640.1,
+        "y": 397,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "makuhari-ex7-1-toilet",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "floor": "1〜8 1F",
+      "scope": "場内",
+      "location": "展示ホール71F・中央モール側",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-1",
+        "x": 491.7,
+        "y": 373,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "toiletType": "mixed"
+    },
+    {
+      "id": "makuhari-ex7-1-toilet-baby",
+      "name": "ベビーシート（おむつ交換台）",
+      "purpose": "赤ちゃん",
+      "floor": "1〜8 1F",
+      "scope": "場内",
+      "location": "展示ホール71F・中央モール側・男女トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-1",
+        "x": 491.7,
+        "y": 373,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-ex7-1-bf",
+      "name": "バリアフリー・オストメイトトイレ",
+      "purpose": "トイレ",
+      "floor": "1〜8 1F",
+      "scope": "場内",
+      "location": "展示ホール71F・中央モール側",
+      "detail": "原図に掲載されたトイレ区域です。オストメイト設備があります。当日の開放・利用境界を会場案内で確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-1",
+        "x": 491.7,
+        "y": 397,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "makuhari-ex8-1-toilet",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "floor": "1〜8 1F",
+      "scope": "場内",
+      "location": "展示ホール81F・中央モール側",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-1",
+        "x": 368.1,
+        "y": 373,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "toiletType": "mixed"
+    },
+    {
+      "id": "makuhari-ex8-1-toilet-baby",
+      "name": "ベビーシート（おむつ交換台）",
+      "purpose": "赤ちゃん",
+      "floor": "1〜8 1F",
+      "scope": "場内",
+      "location": "展示ホール81F・中央モール側・男女トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-1",
+        "x": 368.1,
+        "y": 373,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-ex8-1-bf",
+      "name": "バリアフリー・オストメイトトイレ",
+      "purpose": "トイレ",
+      "floor": "1〜8 1F",
+      "scope": "場内",
+      "location": "展示ホール81F・中央モール側",
+      "detail": "原図に掲載されたトイレ区域です。オストメイト設備があります。当日の開放・利用境界を会場案内で確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-1",
+        "x": 368.1,
+        "y": 397,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "makuhari-mall6-toilet",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "floor": "1〜8 2F",
+      "scope": "場内",
+      "location": "中央モール・展示ホール6前2F",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-2",
+        "x": 706,
+        "y": 446,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "toiletType": "mixed"
+    },
+    {
+      "id": "makuhari-mall6-toilet-baby",
+      "name": "ベビーシート（おむつ交換台）",
+      "purpose": "赤ちゃん",
+      "floor": "1〜8 2F",
+      "scope": "場内",
+      "location": "中央モール・展示ホール6前2F・男女トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-2",
+        "x": 706,
+        "y": 446,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-mall6-bf",
+      "name": "バリアフリー・オストメイトトイレ",
+      "purpose": "トイレ",
+      "floor": "1〜8 2F",
+      "scope": "場内",
+      "location": "中央モール・展示ホール6前2F",
+      "detail": "原図に掲載されたトイレ区域です。オストメイト設備があります。当日の開放・利用境界を会場案内で確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-2",
+        "x": 706,
+        "y": 475,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "makuhari-mall1-toilet",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "floor": "1〜8 2F",
+      "scope": "場内",
+      "location": "中央モール・展示ホール1前2F",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-2",
+        "x": 1290,
+        "y": 431,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "toiletType": "mixed"
+    },
+    {
+      "id": "makuhari-mall1-toilet-baby",
+      "name": "ベビーシート（おむつ交換台）",
+      "purpose": "赤ちゃん",
+      "floor": "1〜8 2F",
+      "scope": "場内",
+      "location": "中央モール・展示ホール1前2F・男女トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-2",
+        "x": 1290,
+        "y": 431,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-mall1-bf",
+      "name": "バリアフリー・オストメイトトイレ",
+      "purpose": "トイレ",
+      "floor": "1〜8 2F",
+      "scope": "場内",
+      "location": "中央モール・展示ホール1前2F",
+      "detail": "原図に掲載されたトイレ区域です。オストメイト設備があります。当日の開放・利用境界を会場案内で確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-2",
+        "x": 1290,
+        "y": 457,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "makuhari-lock-mall8",
+      "name": "中央モール・東エントランス側 ロッカー",
+      "purpose": "荷物",
+      "floor": "1〜8 2F",
+      "scope": "場内",
+      "location": "中央モール・東エントランス側",
+      "detail": "小400円・中500円・大700円（1日1回）。小：幅35.2×奥行64.5×高さ32.5cm、中：35.2×64.5×51.6cm、大：35.2×64.5×86.6cm。支払いは設置場所により現金・交通系IC・クレジット・QR。利用8:00〜20:00（イベントにより変更）。24時を過ぎると1日分の追加料金、最大3日間。空きは現地で確認してください。",
+      "sourceIds": [
+        "locker-map",
+        "facility"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-2",
+        "x": 344,
+        "y": 443,
+        "sourceIds": [
+          "locker-map",
+          "facility"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "makuhari-lock-mall7a",
+      "name": "中央モール・展示ホール7前東側 ロッカー",
+      "purpose": "荷物",
+      "floor": "1〜8 2F",
+      "scope": "場内",
+      "location": "中央モール・展示ホール7前東側",
+      "detail": "小400円・中500円・大700円（1日1回）。小：幅35.2×奥行64.5×高さ32.5cm、中：35.2×64.5×51.6cm、大：35.2×64.5×86.6cm。支払いは設置場所により現金・交通系IC・クレジット・QR。利用8:00〜20:00（イベントにより変更）。24時を過ぎると1日分の追加料金、最大3日間。空きは現地で確認してください。",
+      "sourceIds": [
+        "locker-map",
+        "facility"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-2",
+        "x": 470,
+        "y": 443,
+        "sourceIds": [
+          "locker-map",
+          "facility"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "makuhari-lock-mall7b",
+      "name": "中央モール・展示ホール7前西側 ロッカー",
+      "purpose": "荷物",
+      "floor": "1〜8 2F",
+      "scope": "場内",
+      "location": "中央モール・展示ホール7前西側",
+      "detail": "小400円・中500円・大700円（1日1回）。小：幅35.2×奥行64.5×高さ32.5cm、中：35.2×64.5×51.6cm、大：35.2×64.5×86.6cm。支払いは設置場所により現金・交通系IC・クレジット・QR。利用8:00〜20:00（イベントにより変更）。24時を過ぎると1日分の追加料金、最大3日間。空きは現地で確認してください。",
+      "sourceIds": [
+        "locker-map",
+        "facility"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-2",
+        "x": 592,
+        "y": 443,
+        "sourceIds": [
+          "locker-map",
+          "facility"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "makuhari-lock-mall6",
+      "name": "中央モール・中央エントランス東側 ロッカー",
+      "purpose": "荷物",
+      "floor": "1〜8 2F",
+      "scope": "場内",
+      "location": "中央モール・中央エントランス東側",
+      "detail": "小400円・中500円・大700円（1日1回）。小：幅35.2×奥行64.5×高さ32.5cm、中：35.2×64.5×51.6cm、大：35.2×64.5×86.6cm。支払いは設置場所により現金・交通系IC・クレジット・QR。利用8:00〜20:00（イベントにより変更）。24時を過ぎると1日分の追加料金、最大3日間。空きは現地で確認してください。",
+      "sourceIds": [
+        "locker-map",
+        "facility"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-2",
+        "x": 714,
+        "y": 443,
+        "sourceIds": [
+          "locker-map",
+          "facility"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "makuhari-lock-central",
+      "name": "中央エントランス ロッカー",
+      "purpose": "荷物",
+      "floor": "1〜8 2F",
+      "scope": "場内",
+      "location": "中央エントランス",
+      "detail": "小400円・中500円・大700円（1日1回）。小：幅35.2×奥行64.5×高さ32.5cm、中：35.2×64.5×51.6cm、大：35.2×64.5×86.6cm。支払いは設置場所により現金・交通系IC・クレジット・QR。利用8:00〜20:00（イベントにより変更）。24時を過ぎると1日分の追加料金、最大3日間。空きは現地で確認してください。",
+      "sourceIds": [
+        "locker-map",
+        "facility"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-2",
+        "x": 840,
+        "y": 443,
+        "sourceIds": [
+          "locker-map",
+          "facility"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "makuhari-lock-mall2",
+      "name": "中央モール・展示ホール2前 ロッカー",
+      "purpose": "荷物",
+      "floor": "1〜8 2F",
+      "scope": "場内",
+      "location": "中央モール・展示ホール2前",
+      "detail": "小400円・中500円・大700円（1日1回）。小：幅35.2×奥行64.5×高さ32.5cm、中：35.2×64.5×51.6cm、大：35.2×64.5×86.6cm。支払いは設置場所により現金・交通系IC・クレジット・QR。利用8:00〜20:00（イベントにより変更）。24時を過ぎると1日分の追加料金、最大3日間。空きは現地で確認してください。",
+      "sourceIds": [
+        "locker-map",
+        "facility"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-2",
+        "x": 1165,
+        "y": 443,
+        "sourceIds": [
+          "locker-map",
+          "facility"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "makuhari-lock-mall1",
+      "name": "中央モール・展示ホール1前 ロッカー",
+      "purpose": "荷物",
+      "floor": "1〜8 2F",
+      "scope": "場内",
+      "location": "中央モール・展示ホール1前",
+      "detail": "小400円・中500円・大700円（1日1回）。小：幅35.2×奥行64.5×高さ32.5cm、中：35.2×64.5×51.6cm、大：35.2×64.5×86.6cm。支払いは設置場所により現金・交通系IC・クレジット・QR。利用8:00〜20:00（イベントにより変更）。24時を過ぎると1日分の追加料金、最大3日間。空きは現地で確認してください。",
+      "sourceIds": [
+        "locker-map",
+        "facility"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-2",
+        "x": 1240,
+        "y": 443,
+        "sourceIds": [
+          "locker-map",
+          "facility"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "makuhari-nursing",
+      "name": "中央エントランス授乳室",
+      "purpose": "赤ちゃん",
+      "floor": "1〜8 2F",
+      "scope": "場内",
+      "location": "中央エントランス",
+      "detail": "利用8:00〜20:00（イベントによる）。授乳ブース2、オムツ交換台、洗面台、給湯設備。イベントホールのトイレ内設備とは別です。",
+      "sourceIds": [
+        "facility",
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-2",
+        "x": 674,
+        "y": 457,
+        "sourceIds": [
+          "facility",
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-information",
+      "name": "インフォメーション",
+      "purpose": "案内",
+      "floor": "1〜8 2F",
+      "scope": "場内",
+      "location": "中央エントランス",
+      "detail": "総合案内窓口の代表区域。イベントの指定入口は主催者案内を確認してください。",
+      "sourceIds": [
+        "facility",
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-2",
+        "x": 660,
+        "y": 444,
+        "sourceIds": [
+          "facility",
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-aed-mall7",
+      "name": "AED",
+      "purpose": "AED",
+      "floor": "1〜8 2F",
+      "scope": "場内",
+      "location": "中央モール2F・展示ホール7前",
+      "detail": "原図の掲載区域。緊急時は係員に連絡してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-2",
+        "x": 495,
+        "y": 443,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-aed-central",
+      "name": "AED",
+      "purpose": "AED",
+      "floor": "1〜8 2F",
+      "scope": "場内",
+      "location": "中央モール2F・中央エントランス",
+      "detail": "原図の掲載区域。緊急時は係員に連絡してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-2",
+        "x": 819,
+        "y": 473,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-aed-mall3",
+      "name": "AED",
+      "purpose": "AED",
+      "floor": "1〜8 2F",
+      "scope": "場内",
+      "location": "中央モール2F・展示ホール3前",
+      "detail": "原図の掲載区域。緊急時は係員に連絡してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-2",
+        "x": 900,
+        "y": 444,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-aed-mall2",
+      "name": "AED",
+      "purpose": "AED",
+      "floor": "1〜8 2F",
+      "scope": "場内",
+      "location": "中央モール2F・展示ホール2前",
+      "detail": "原図の掲載区域。緊急時は係員に連絡してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-2",
+        "x": 1192,
+        "y": 444,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-world",
+      "name": "WORLD KITCHENS!（ワールドキッチンズ）",
+      "purpose": "飲食",
+      "floor": "1〜8 2F",
+      "scope": "場内",
+      "location": "中央モール2F・展示ホール6前",
+      "detail": "営業日はイベント開催状況により異なります。キャッシュレス決済可。",
+      "sourceIds": [
+        "shopping",
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-2",
+        "x": 650,
+        "y": 478,
+        "sourceIds": [
+          "shopping",
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-royal",
+      "name": "ROYAL KITCHENS!（ロイヤルキッチンズ）",
+      "purpose": "飲食",
+      "floor": "1〜8 2F",
+      "scope": "場内",
+      "location": "中央モール2F・展示ホール1前",
+      "detail": "営業日はイベント開催状況により異なります。キャッシュレス決済可。コンセント設置席は店舗の利用条件でご利用ください。",
+      "sourceIds": [
+        "shopping",
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-2",
+        "x": 1314,
+        "y": 490,
+        "sourceIds": [
+          "shopping",
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-daily1",
+      "name": "ニューヤマザキデイリーストア 幕張メッセ店",
+      "purpose": "飲食",
+      "floor": "1〜8 2F",
+      "scope": "場内",
+      "location": "中央エントランス2F",
+      "detail": "営業日はイベント開催状況により異なります。キャッシュレス決済可。",
+      "sourceIds": [
+        "shopping",
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-2",
+        "x": 738,
+        "y": 473,
+        "sourceIds": [
+          "shopping",
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-daily3",
+      "name": "デイリーヤマザキ 幕張メッセ Ⅲ店",
+      "purpose": "飲食",
+      "floor": "1〜8 2F",
+      "scope": "場内",
+      "location": "中央モール2F・展示ホール1前",
+      "detail": "営業日はイベント開催状況により異なります。キャッシュレス決済可。",
+      "sourceIds": [
+        "shopping",
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex18-2",
+        "x": 1330,
+        "y": 444,
+        "sourceIds": [
+          "shopping",
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-ex9-1-toilets",
+      "name": "展示ホール9 男女トイレ",
+      "purpose": "トイレ",
+      "floor": "9〜11 1F",
+      "scope": "場内",
+      "location": "展示ホール91F・原図掲載区域",
+      "detail": "公式フロア図の1F設備です。室の精密入口・当日の入場境界は確認中のため場所一覧です。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "toiletType": "mixed"
+    },
+    {
+      "id": "makuhari-ex9-1-bf",
+      "name": "展示ホール9 バリアフリー・オストメイトトイレ",
+      "purpose": "トイレ",
+      "floor": "9〜11 1F",
+      "scope": "場内",
+      "location": "展示ホール91F・原図掲載区域",
+      "detail": "公式フロア図に掲載。一般トイレとは別の設備です。精密入口と当日の開放は確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "toiletType": "accessible"
+    },
+    {
+      "id": "makuhari-ex10-1-toilets",
+      "name": "展示ホール10 男女トイレ",
+      "purpose": "トイレ",
+      "floor": "9〜11 1F",
+      "scope": "場内",
+      "location": "展示ホール101F・原図掲載区域",
+      "detail": "公式フロア図の1F設備です。室の精密入口・当日の入場境界は確認中のため場所一覧です。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "toiletType": "mixed"
+    },
+    {
+      "id": "makuhari-ex10-1-bf",
+      "name": "展示ホール10 バリアフリー・オストメイトトイレ",
+      "purpose": "トイレ",
+      "floor": "9〜11 1F",
+      "scope": "場内",
+      "location": "展示ホール101F・原図掲載区域",
+      "detail": "公式フロア図に掲載。一般トイレとは別の設備です。精密入口と当日の開放は確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "toiletType": "accessible"
+    },
+    {
+      "id": "makuhari-ex11-1-toilets",
+      "name": "展示ホール11 男女トイレ",
+      "purpose": "トイレ",
+      "floor": "9〜11 1F",
+      "scope": "場内",
+      "location": "展示ホール111F・原図掲載区域",
+      "detail": "公式フロア図の1F設備です。室の精密入口・当日の入場境界は確認中のため場所一覧です。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "toiletType": "mixed"
+    },
+    {
+      "id": "makuhari-ex11-1-bf",
+      "name": "展示ホール11 バリアフリー・オストメイトトイレ",
+      "purpose": "トイレ",
+      "floor": "9〜11 1F",
+      "scope": "場内",
+      "location": "展示ホール111F・原図掲載区域",
+      "detail": "公式フロア図に掲載。一般トイレとは別の設備です。精密入口と当日の開放は確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "toiletType": "accessible"
+    },
+    {
+      "id": "makuhari-ex9-1-baby",
+      "name": "ベビーシート（おむつ交換台）",
+      "purpose": "赤ちゃん",
+      "floor": "9〜11 1F",
+      "scope": "場内",
+      "location": "展示ホール91F・トイレ内",
+      "detail": "公式図のトイレ内設備。授乳室とは別です。個別室は場所一覧です。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed"
+    },
+    {
+      "id": "makuhari-ex11-1-baby",
+      "name": "ベビーシート（おむつ交換台）",
+      "purpose": "赤ちゃん",
+      "floor": "9〜11 1F",
+      "scope": "場内",
+      "location": "展示ホール111F・トイレ内",
+      "detail": "公式図のトイレ内設備。授乳室とは別です。個別室は場所一覧です。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed"
+    },
+    {
+      "id": "makuhari-ex10-lock",
+      "name": "展示ホール10前 ロッカー",
+      "purpose": "荷物",
+      "floor": "9〜11 2F",
+      "scope": "場内",
+      "location": "展示ホール10前2Fエスプラナード",
+      "detail": "小400円・中500円・大700円（1日1回）。小：幅35.2×奥行64.5×高さ32.5cm、中：35.2×64.5×51.6cm、大：35.2×64.5×86.6cm。利用8:00〜20:00（イベントにより変更）。24時を過ぎると1日分の追加料金、最大3日間。空きは現地で確認してください。",
+      "sourceIds": [
+        "facility",
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex911",
+        "x": 910,
+        "y": 1089,
+        "sourceIds": [
+          "facility",
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "makuhari-ex11-lock",
+      "name": "展示ホール11前 ロッカー",
+      "purpose": "荷物",
+      "floor": "9〜11 2F",
+      "scope": "場内",
+      "location": "展示ホール11前2Fエスプラナード",
+      "detail": "小400円・大700円（1日1回）。中型はありません。小：幅35.2×奥行64.5×高さ32.5cm、大：35.2×64.5×86.6cm。支払いは場所/機械で確認。利用8:00〜20:00（イベントにより変更）。24時を過ぎると1日分の追加料金、最大3日間。空きは現地で確認してください。",
+      "sourceIds": [
+        "facility",
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex911",
+        "x": 910,
+        "y": 1156,
+        "sourceIds": [
+          "facility",
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "makuhari-ex9-shop",
+      "name": "デイリーヤマザキ 幕張メッセ Ⅱ店",
+      "purpose": "飲食",
+      "floor": "9〜11 2F",
+      "scope": "場内",
+      "location": "展示ホール9前2Fエスプラナード",
+      "detail": "営業日はイベント開催状況により異なります。キャッシュレス決済可。",
+      "sourceIds": [
+        "shopping",
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex911",
+        "x": 912,
+        "y": 922,
+        "sourceIds": [
+          "shopping",
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-ex10-toilet",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "floor": "9〜11 2F",
+      "scope": "場内",
+      "location": "展示ホール10前2F",
+      "detail": "女性5・男性2ブースの増設案内。イベントにより利用できない場合があります。精密室位置は確認中のため場所一覧です。",
+      "sourceIds": [
+        "facility"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "toiletType": "mixed"
+    },
+    {
+      "id": "makuhari-ex9-aed",
+      "name": "AED",
+      "purpose": "AED",
+      "floor": "9〜11 2F",
+      "scope": "場内",
+      "location": "エスプラナード2F・展示ホール9側",
+      "detail": "原図に掲載された共用部の区域。緊急時は係員へ連絡してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex911",
+        "x": 884,
+        "y": 824,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-ex10-aed",
+      "name": "AED",
+      "purpose": "AED",
+      "floor": "9〜11 2F",
+      "scope": "場内",
+      "location": "エスプラナード2F・展示ホール10側",
+      "detail": "原図に掲載された共用部の区域。緊急時は係員へ連絡してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-ex911",
+        "x": 884,
+        "y": 1137,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-ex-phone",
+      "name": "充電レンタル",
+      "purpose": "案内",
+      "floor": "9〜11 2F",
+      "scope": "場内",
+      "location": "2Fエスプラナード",
+      "detail": "ChargeSPOT。8:00〜20:00（イベントによる）。料金/返却条件は運営元画面で確認してください。",
+      "sourceIds": [
+        "facility"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed"
+    },
+    {
+      "id": "makuhari-conf1-0",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "floor": "会議1F",
+      "scope": "場内",
+      "location": "国際会議場1F・ロビー側",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-conf1",
+        "x": 590,
+        "y": 1108,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "toiletType": "mixed"
+    },
+    {
+      "id": "makuhari-conf1-0-baby",
+      "name": "ベビーシート（おむつ交換台）",
+      "purpose": "赤ちゃん",
+      "floor": "会議1F",
+      "scope": "場内",
+      "location": "国際会議場1F・ロビー側・男女トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-conf1",
+        "x": 590,
+        "y": 1108,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-conf1-1",
+      "name": "バリアフリー・オストメイトトイレ",
+      "purpose": "トイレ",
+      "floor": "会議1F",
+      "scope": "場内",
+      "location": "国際会議場1F・ロビー側",
+      "detail": "原図に掲載されたトイレ区域です。オストメイト設備があります。当日の開放・利用境界を会場案内で確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-conf1",
+        "x": 534,
+        "y": 1220,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "makuhari-conf1-ev",
+      "name": "エレベーター",
+      "purpose": "案内",
+      "floor": "会議1F",
+      "scope": "場内",
+      "location": "国際会議場1F",
+      "detail": "原図のEV区域。停止階・当日の運用は会場案内で確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-conf1",
+        "x": 505.5,
+        "y": 1238.6,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-conf1-aed",
+      "name": "AED",
+      "purpose": "AED",
+      "floor": "会議1F",
+      "scope": "場内",
+      "location": "国際会議場1F",
+      "detail": "原図掲載区域。緊急時は係員へ連絡してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-conf1",
+        "x": 543,
+        "y": 1078,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-conf2-0",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "floor": "会議2F",
+      "scope": "場内",
+      "location": "国際会議場2F・ロビー側",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-conf2",
+        "x": 410,
+        "y": 570,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "toiletType": "mixed"
+    },
+    {
+      "id": "makuhari-conf2-0-baby",
+      "name": "ベビーシート（おむつ交換台）",
+      "purpose": "赤ちゃん",
+      "floor": "会議2F",
+      "scope": "場内",
+      "location": "国際会議場2F・ロビー側・男女トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-conf2",
+        "x": 410,
+        "y": 570,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-conf2-1",
+      "name": "バリアフリー・オストメイトトイレ",
+      "purpose": "トイレ",
+      "floor": "会議2F",
+      "scope": "場内",
+      "location": "国際会議場2F・ロビー側",
+      "detail": "原図に掲載されたトイレ区域です。オストメイト設備があります。当日の開放・利用境界を会場案内で確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-conf2",
+        "x": 410,
+        "y": 596,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "makuhari-conf2-2",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "floor": "会議2F",
+      "scope": "場内",
+      "location": "国際会議場2F・会議室213〜216側",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-conf2",
+        "x": 475,
+        "y": 664,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "toiletType": "mixed"
+    },
+    {
+      "id": "makuhari-conf2-2-baby",
+      "name": "ベビーシート（おむつ交換台）",
+      "purpose": "赤ちゃん",
+      "floor": "会議2F",
+      "scope": "場内",
+      "location": "国際会議場2F・会議室213〜216側・男女トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-conf2",
+        "x": 475,
+        "y": 664,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-conf2-3",
+      "name": "バリアフリー・オストメイトトイレ",
+      "purpose": "トイレ",
+      "floor": "会議2F",
+      "scope": "場内",
+      "location": "国際会議場2F・会議室213〜216側",
+      "detail": "原図に掲載されたトイレ区域です。オストメイト設備があります。当日の開放・利用境界を会場案内で確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-conf2",
+        "x": 475,
+        "y": 689,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "makuhari-conf2-ev",
+      "name": "エレベーター",
+      "purpose": "案内",
+      "floor": "会議2F",
+      "scope": "場内",
+      "location": "国際会議場2F",
+      "detail": "原図のEV区域。停止階・当日の運用は会場案内で確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-conf2",
+        "x": 473.0,
+        "y": 645.8,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-conf2-aed",
+      "name": "AED",
+      "purpose": "AED",
+      "floor": "会議2F",
+      "scope": "場内",
+      "location": "国際会議場2F",
+      "detail": "原図掲載区域。緊急時は係員へ連絡してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-conf2",
+        "x": 449,
+        "y": 619,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-conf3-0",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "floor": "会議3F",
+      "scope": "場内",
+      "location": "国際会議場3F・ロビー側",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-conf3",
+        "x": 460,
+        "y": 805,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "toiletType": "mixed"
+    },
+    {
+      "id": "makuhari-conf3-0-baby",
+      "name": "ベビーシート（おむつ交換台）",
+      "purpose": "赤ちゃん",
+      "floor": "会議3F",
+      "scope": "場内",
+      "location": "国際会議場3F・ロビー側・男女トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-conf3",
+        "x": 460,
+        "y": 805,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-conf3-1",
+      "name": "バリアフリー・オストメイトトイレ",
+      "purpose": "トイレ",
+      "floor": "会議3F",
+      "scope": "場内",
+      "location": "国際会議場3F・ロビー側",
+      "detail": "原図に掲載されたトイレ区域です。オストメイト設備があります。当日の開放・利用境界を会場案内で確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-conf3",
+        "x": 460,
+        "y": 830,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "makuhari-conf3-ev",
+      "name": "エレベーター",
+      "purpose": "案内",
+      "floor": "会議3F",
+      "scope": "場内",
+      "location": "国際会議場3F",
+      "detail": "原図のEV区域。停止階・当日の運用は会場案内で確認してください。",
+      "sourceIds": [
+        "floor"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "makuhari-conf3",
+        "x": 511.0,
+        "y": 953.6,
+        "sourceIds": [
+          "floor"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      }
+    },
+    {
+      "id": "makuhari-out-bus",
+      "name": "中央ロータリーのロッカー",
+      "purpose": "荷物",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "中央ロータリー1F・バス乗り場前",
+      "detail": "小400円・中500円・大700円（1日1回）。小：幅35.2×奥行64.5×高さ32.5cm、中：35.2×64.5×51.6cm、大：35.2×64.5×86.6cm。支払いは設置機械で確認。利用8:00〜20:00（イベントにより変更）。24時を過ぎると1日分の追加料金、最大3日間。空きは現地で確認してください。",
+      "sourceIds": [
+        "locker-map",
+        "facility"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "before-admission",
+      "anchor": {
+        "diagramId": "makuhari-grounds",
+        "x": 812,
+        "y": 626,
+        "sourceIds": [
+          "locker-map",
+          "facility"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "makuhari-out-conf",
+      "name": "国際会議場前の小型ロッカー",
+      "purpose": "荷物",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "国際会議場外・正面広場1F",
+      "detail": "小のみ300円（1日1回）、幅34×奥行42×高さ29cm。現金払いのみ。利用8:00〜20:00（イベントにより変更）。24時を過ぎると1日分の追加料金、最大3日間。空きは現地で確認してください。",
+      "sourceIds": [
+        "locker-map",
+        "facility"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "before-admission",
+      "anchor": {
+        "diagramId": "makuhari-grounds",
+        "x": 596,
+        "y": 524,
+        "sourceIds": [
+          "locker-map",
+          "facility"
+        ],
+        "reference": "同じ棟/階の原図記号の代表区域。室入口/機械の精密点・稼働全数ではない"
+      },
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "makuhari-out-toilet-conf",
+      "name": "国際会議場前の屋外トイレ",
+      "purpose": "トイレ",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "国際会議場前の屋外トイレ",
+      "detail": "公式に掲載された屋外トイレ。精密入口・公演時の開放は現地で確認してください。",
+      "sourceIds": [
+        "facility",
+        "floor"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "toiletType": "mixed"
+    },
+    {
+      "id": "makuhari-out-toilet-parking",
+      "name": "駐車場管理事務所側の屋外トイレ",
+      "purpose": "トイレ",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "駐車場管理事務所側の屋外トイレ",
+      "detail": "公式に掲載された屋外トイレ。精密入口・公演時の開放は現地で確認してください。",
+      "sourceIds": [
+        "facility",
+        "floor"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "toiletType": "mixed"
+    },
+    {
+      "id": "makuhari-parking",
+      "name": "幕張メッセ駐車場",
+      "purpose": "案内",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "千葉市美浜区豊砂3-1",
+      "detail": "8:00〜23:00、入庫21:00まで。普通・準中型1日1回1,000円。予約不可、キャッシュレス対応。原付は入場不可。空きは当日の案内で確認。",
+      "sourceIds": [
+        "access"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "kind": "parking"
+    },
+    {
+      "id": "makuhari-parking-closed",
+      "name": "県営第一地下駐車場の閉鎖案内",
+      "purpose": "案内",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "P1・幕張新都心県営第一地下駐車場",
+      "detail": "公式アクセスに2026年8月1日〜2027年1月31日の閉鎖掲載。期間中の駐車先には案内しません。",
+      "sourceIds": [
+        "access"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "kind": "parking"
+    },
+    {
+      "id": "makuhari-bus",
+      "name": "幕張メッセ中央 バス乗り場",
+      "purpose": "案内",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "中央ロータリー1F",
+      "detail": "公式案内の場所一覧です。精密停車点・運行・料金・当日の規制は確認してください。",
+      "sourceIds": [
+        "access",
+        "floor",
+        "facility"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed"
+    },
+    {
+      "id": "makuhari-taxi",
+      "name": "タクシー乗り場",
+      "purpose": "案内",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "中央ロータリー1F",
+      "detail": "公式案内の場所一覧です。精密停車点・運行・料金・当日の規制は確認してください。",
+      "sourceIds": [
+        "access",
+        "floor",
+        "facility"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed"
+    },
+    {
+      "id": "makuhari-bike",
+      "name": "駐輪場",
+      "purpose": "案内",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "展示ホール1〜8西広場・西エントランス近く／9〜11南広場",
+      "detail": "公式案内の場所一覧です。精密停車点・運行・料金・当日の規制は確認してください。",
+      "sourceIds": [
+        "access",
+        "floor",
+        "facility"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed"
+    },
+    {
+      "id": "makuhari-access-kaihin",
+      "name": "海浜幕張駅から",
+      "purpose": "案内",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "南口・会場方向",
+      "detail": "公式の会場最寄り目安は徒歩約5分。イベントホールの指定入口までの時間ではありません。",
+      "sourceIds": [
+        "access"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed"
+    },
+    {
+      "id": "makuhari-access-toyosuna",
+      "name": "幕張豊砂駅から",
+      "purpose": "案内",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "JR京葉線",
+      "detail": "公式目安は徒歩約20分。連続・段差なし経路は確認中。",
+      "sourceIds": [
+        "access"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed"
+    },
+    {
+      "id": "makuhari-access-hongo",
+      "name": "幕張本郷駅から",
+      "purpose": "案内",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "バス乗り場1",
+      "detail": "幕張メッセ中央行きバスで約17分。便/混雑/降車停留所は現行交通案内を確認。",
+      "sourceIds": [
+        "access"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed"
+    },
+    {
+      "id": "makuhari-station-right",
+      "name": "海浜幕張駅 南口階段下右側",
+      "purpose": "荷物",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "海浜幕張駅南口・改札外1F階段下右側",
+      "detail": "現金・交通系IC。小500/中600/大800/特大900円。最新の機械・時間・寸法・空きは設置先で確認してください。",
+      "sourceIds": [
+        "jre-locker"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "makuhari-station-left",
+      "name": "海浜幕張駅 南口階段下左側",
+      "purpose": "荷物",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "海浜幕張駅南口・改札外1F階段下左側",
+      "detail": "現金・交通系IC。料金・大きさ・利用時間・空きは現地の機械で確認してください。",
+      "sourceIds": [
+        "jre-locker"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "makuhari-station-north",
+      "name": "海浜幕張駅 北口側ロッカー",
+      "purpose": "荷物",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "海浜幕張駅北口ロータリー外側・ビッグエコー入口近く",
+      "detail": "JR公開記事で設置区域を確認。館内ロッカーとは別です。現行の個別機械・料金・時間・空きは確認中。",
+      "sourceIds": [
+        "jre-locker"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "makuhari-station-suk",
+      "name": "スーク海浜幕張 ロッカー",
+      "purpose": "荷物",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "スーク海浜幕張4F・EV付近",
+      "detail": "JR公開記事で設置区域を確認。館の営業時間を取り出し可能時間へ自動転用しません。機械の現行料金・空きは確認中。",
+      "sourceIds": [
+        "jre-locker"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "makuhari-station-plena",
+      "name": "プレナ幕張 ロッカー",
+      "purpose": "荷物",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "プレナ幕張1F・トイレ付近",
+      "detail": "施設公式：10:00〜23:00、現金・IC利用可、両替機あり。23時を過ぎると1日分加算。現在の料金・寸法・空きは現地の機械で確認。",
+      "sourceIds": [
+        "plena"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "makuhari-outlet-a",
+      "name": "A-SITE1F ロッカー",
+      "purpose": "荷物",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "三井アウトレットパーク幕張 A-SITE1F・ツーリストインフォメーション横",
+      "detail": "小500円・中600円・大800円。IC型とレジャー型は寸法が異なります。IC大型高さ86.8×幅35.5×奥行64.5cm、レジャー大型78.2×36×58cm。利用時間・支払い・空きは設置先で確認してください。",
+      "sourceIds": [
+        "outlet"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "makuhari-outlet-b",
+      "name": "B-SITE1F ロッカー",
+      "purpose": "荷物",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "三井アウトレットパーク幕張 B-SITE1F・セイコーアウトレット横",
+      "detail": "小500円・中600円・大800円。大型高さ84.3×幅35.5×奥行64.5cm。利用時間・支払い・空きは設置先で確認してください。",
+      "sourceIds": [
+        "outlet"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "kind": "coin-locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "makuhari-plena-bf",
+      "name": "プレナ幕張 バリアフリートイレ",
+      "purpose": "トイレ",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "プレナ幕張1F・2F",
+      "detail": "各階1専用個室。店舗設備のため施設の利用条件に従ってください。精密室位置は場所一覧です。",
+      "sourceIds": [
+        "plena"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "toiletType": "accessible"
+    },
+    {
+      "id": "makuhari-plena-baby",
+      "name": "プレナ幕張 おむつ交換台",
+      "purpose": "赤ちゃん",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "プレナ幕張1F・2F・4F女性化粧室内",
+      "detail": "女性化粧室内のおむつ交換台。授乳室や男性トイレ内設備へ読み替えません。",
+      "sourceIds": [
+        "plena"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed"
+    }
+  ],
+  "diagrams": [
+    {
+      "id": "makuhari-event1",
+      "floor": "イベント1F",
+      "scope": "場内",
+      "viewBox": [
+        260,
+        320,
+        1480,
+        840
+      ],
+      "concoursePaths": [
+        "M290 430 L650 360 L1600 360 L1810 730 L1630 1130 L650 1130 L290 930 Z"
+      ],
+      "contextPaths": [
+        "M600 560 L820 450 L1500 450 L1660 760 L1490 1040 L820 1040 L600 910 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "makuhari-event-east",
+          "label": "東エントランス",
+          "name": "東エントランス",
+          "x": 450,
+          "y": 1010,
+          "kind": "entrance",
+          "sourceIds": [
+            "event-floor"
+          ],
+          "reference": "公式図の代表区域。指定入場先・精密入口・連続経路ではない"
+        },
+        {
+          "id": "makuhari-event1-lobby",
+          "label": "1Fロビー",
+          "name": "1Fロビー",
+          "x": 460,
+          "y": 865,
+          "kind": "passage",
+          "sourceIds": [
+            "event-floor"
+          ],
+          "reference": "公式図の代表区域。指定入場先・精密入口・連続経路ではない"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "event-floor"
+        ],
+        "file": "research/makuhari-current-2026-10-10/sources/bda17fcf327ec40e54ea065d05e917e3c70530d6e59c9072facc940d40b368e9.pdf",
+        "sha256": "bda17fcf327ec40e54ea065d05e917e3c70530d6e59c9072facc940d40b368e9",
+        "width": 2000,
+        "height": 1414,
+        "method": "棟/階別原図の記号と代表区域を独立清書。原図の公開複製なし。精密入口/全記号は未転記",
+        "status": "partial-source-reviewed"
+      }
+    },
+    {
+      "id": "makuhari-event2",
+      "floor": "イベント2F",
+      "scope": "場内",
+      "viewBox": [
+        210,
+        170,
+        1330,
+        890
+      ],
+      "concoursePaths": [
+        "M260 360 L660 210 L1250 210 L1510 560 L1260 1020 L650 1030 L260 770 Z"
+      ],
+      "contextPaths": [
+        "M530 590 L690 320 L1230 320 L1375 590 L1210 860 L690 860 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "makuhari-event-main",
+          "label": "メインエントランス",
+          "name": "メインエントランス",
+          "x": 330,
+          "y": 600,
+          "kind": "entrance",
+          "sourceIds": [
+            "event-floor"
+          ],
+          "reference": "公式図の代表区域。指定入場先・精密入口・連続経路ではない"
+        },
+        {
+          "id": "makuhari-event-south",
+          "label": "南ロビー",
+          "name": "南ロビー",
+          "x": 960,
+          "y": 200,
+          "kind": "passage",
+          "sourceIds": [
+            "event-floor"
+          ],
+          "reference": "公式図の代表区域。指定入場先・精密入口・連続経路ではない"
+        },
+        {
+          "id": "makuhari-event-north",
+          "label": "北ロビー",
+          "name": "北ロビー",
+          "x": 960,
+          "y": 1010,
+          "kind": "passage",
+          "sourceIds": [
+            "event-floor"
+          ],
+          "reference": "公式図の代表区域。指定入場先・精密入口・連続経路ではない"
+        },
+        {
+          "id": "makuhari-event-west",
+          "label": "西エントランス",
+          "name": "西エントランス",
+          "x": 1410,
+          "y": 600,
+          "kind": "entrance",
+          "sourceIds": [
+            "event-floor"
+          ],
+          "reference": "公式図の代表区域。指定入場先・精密入口・連続経路ではない"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "event-floor"
+        ],
+        "file": "research/makuhari-current-2026-10-10/sources/bda17fcf327ec40e54ea065d05e917e3c70530d6e59c9072facc940d40b368e9.pdf",
+        "sha256": "bda17fcf327ec40e54ea065d05e917e3c70530d6e59c9072facc940d40b368e9",
+        "width": 1700,
+        "height": 1202,
+        "method": "棟/階別原図の記号と代表区域を独立清書。原図の公開複製なし。精密入口/全記号は未転記",
+        "status": "partial-source-reviewed"
+      }
+    },
+    {
+      "id": "makuhari-ex18-1",
+      "floor": "1〜8 1F",
+      "scope": "場内",
+      "viewBox": [
+        310,
+        180,
+        1060,
+        260
+      ],
+      "concoursePaths": [
+        "M310 190 H1370 V400 H310 Z"
+      ],
+      "contextPaths": [],
+      "landmarks": [
+        {
+          "id": "makuhari-ex1",
+          "label": "展示ホール1",
+          "name": "展示ホール1",
+          "x": 1308.1,
+          "y": 290,
+          "kind": "passage",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "公式図の代表区域。指定入場先・精密入口・連続経路ではない"
+        },
+        {
+          "id": "makuhari-ex2",
+          "label": "展示ホール2",
+          "name": "展示ホール2",
+          "x": 1184.5,
+          "y": 290,
+          "kind": "passage",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "公式図の代表区域。指定入場先・精密入口・連続経路ではない"
+        },
+        {
+          "id": "makuhari-ex3",
+          "label": "展示ホール3",
+          "name": "展示ホール3",
+          "x": 1061.0,
+          "y": 290,
+          "kind": "passage",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "公式図の代表区域。指定入場先・精密入口・連続経路ではない"
+        },
+        {
+          "id": "makuhari-ex4",
+          "label": "展示ホール4",
+          "name": "展示ホール4",
+          "x": 897.2,
+          "y": 290,
+          "kind": "passage",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "公式図の代表区域。指定入場先・精密入口・連続経路ではない"
+        },
+        {
+          "id": "makuhari-ex5",
+          "label": "展示ホール5",
+          "name": "展示ホール5",
+          "x": 773.6,
+          "y": 290,
+          "kind": "passage",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "公式図の代表区域。指定入場先・精密入口・連続経路ではない"
+        },
+        {
+          "id": "makuhari-ex6",
+          "label": "展示ホール6",
+          "name": "展示ホール6",
+          "x": 650.1,
+          "y": 290,
+          "kind": "passage",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "公式図の代表区域。指定入場先・精密入口・連続経路ではない"
+        },
+        {
+          "id": "makuhari-ex7",
+          "label": "展示ホール7",
+          "name": "展示ホール7",
+          "x": 501.7,
+          "y": 290,
+          "kind": "passage",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "公式図の代表区域。指定入場先・精密入口・連続経路ではない"
+        },
+        {
+          "id": "makuhari-ex8",
+          "label": "展示ホール8",
+          "name": "展示ホール8",
+          "x": 378.1,
+          "y": 290,
+          "kind": "passage",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "公式図の代表区域。指定入場先・精密入口・連続経路ではない"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor"
+        ],
+        "file": "research/makuhari-current-2026-10-10/sources/63ef2c4378a408b0863be4a760c966a939ccec17a8c86764bffdb5c09799e3d7.pdf",
+        "sha256": "63ef2c4378a408b0863be4a760c966a939ccec17a8c86764bffdb5c09799e3d7",
+        "width": 2000,
+        "height": 1426,
+        "method": "棟/階別原図の記号と代表区域を独立清書。原図の公開複製なし。精密入口/全記号は未転記",
+        "status": "partial-source-reviewed"
+      }
+    },
+    {
+      "id": "makuhari-ex18-2",
+      "floor": "1〜8 2F",
+      "scope": "場内",
+      "viewBox": [
+        275,
+        405,
+        1100,
+        155
+      ],
+      "concoursePaths": [
+        "M280 417 H1360 V487 H280 Z",
+        "M700 485 L720 550 L865 550 L905 485 Z"
+      ],
+      "contextPaths": [],
+      "landmarks": [
+        {
+          "id": "makuhari-central",
+          "label": "中央エントランス",
+          "name": "中央エントランス",
+          "x": 790,
+          "y": 513,
+          "kind": "entrance",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "公式図の代表区域。指定入場先・精密入口・連続経路ではない"
+        },
+        {
+          "id": "makuhari-east",
+          "label": "東エントランス",
+          "name": "東エントランス",
+          "x": 310,
+          "y": 456,
+          "kind": "entrance",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "公式図の代表区域。指定入場先・精密入口・連続経路ではない"
+        },
+        {
+          "id": "makuhari-west",
+          "label": "西エントランス",
+          "name": "西エントランス",
+          "x": 1350,
+          "y": 456,
+          "kind": "entrance",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "公式図の代表区域。指定入場先・精密入口・連続経路ではない"
+        },
+        {
+          "id": "makuhari-mall",
+          "label": "中央モール",
+          "name": "中央モール",
+          "x": 600,
+          "y": 422,
+          "kind": "passage",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "公式図の代表区域。指定入場先・精密入口・連続経路ではない"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor"
+        ],
+        "file": "research/makuhari-current-2026-10-10/sources/63ef2c4378a408b0863be4a760c966a939ccec17a8c86764bffdb5c09799e3d7.pdf",
+        "sha256": "63ef2c4378a408b0863be4a760c966a939ccec17a8c86764bffdb5c09799e3d7",
+        "width": 2000,
+        "height": 1426,
+        "method": "棟/階別原図の記号と代表区域を独立清書。原図の公開複製なし。精密入口/全記号は未転記",
+        "status": "partial-source-reviewed"
+      }
+    },
+    {
+      "id": "makuhari-ex911-1",
+      "floor": "9〜11 1F",
+      "scope": "場内",
+      "viewBox": [
+        920,
+        800,
+        220,
+        480
+      ],
+      "concoursePaths": [
+        "M925 810 H1130 V1020 H925 Z",
+        "M925 1020 H1130 V1135 H925 Z",
+        "M925 1135 H1130 V1270 H925 Z"
+      ],
+      "contextPaths": [],
+      "landmarks": [
+        {
+          "id": "makuhari-ex1-hall9",
+          "label": "展示ホール9 1F",
+          "name": "展示ホール9 1F",
+          "x": 1020,
+          "y": 925,
+          "kind": "passage",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "公式図の代表区域。指定入場先・精密入口・連続経路ではない"
+        },
+        {
+          "id": "makuhari-ex1-hall10",
+          "label": "展示ホール10 1F",
+          "name": "展示ホール10 1F",
+          "x": 1020,
+          "y": 1095,
+          "kind": "passage",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "公式図の代表区域。指定入場先・精密入口・連続経路ではない"
+        },
+        {
+          "id": "makuhari-ex1-hall11",
+          "label": "展示ホール11 1F",
+          "name": "展示ホール11 1F",
+          "x": 1020,
+          "y": 1230,
+          "kind": "passage",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "公式図の代表区域。指定入場先・精密入口・連続経路ではない"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor"
+        ],
+        "file": "research/makuhari-current-2026-10-10/sources/63ef2c4378a408b0863be4a760c966a939ccec17a8c86764bffdb5c09799e3d7.pdf",
+        "sha256": "63ef2c4378a408b0863be4a760c966a939ccec17a8c86764bffdb5c09799e3d7",
+        "width": 2000,
+        "height": 1426,
+        "method": "棟/階別原図の記号と代表区域を独立清書。原図の公開複製なし。精密入口/全記号は未転記",
+        "status": "partial-source-reviewed"
+      }
+    },
+    {
+      "id": "makuhari-ex911",
+      "floor": "9〜11 2F",
+      "scope": "場内",
+      "viewBox": [
+        860,
+        760,
+        300,
+        510
+      ],
+      "concoursePaths": [
+        "M870 790 H905 V1240 H870 Z",
+        "M906 790 H1133 V1220 H906 Z"
+      ],
+      "contextPaths": [],
+      "landmarks": [
+        {
+          "id": "makuhari-hall9",
+          "label": "展示ホール9",
+          "name": "展示ホール9",
+          "x": 1012,
+          "y": 922,
+          "kind": "passage",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "公式図の代表区域。指定入場先・精密入口・連続経路ではない"
+        },
+        {
+          "id": "makuhari-hall10",
+          "label": "展示ホール10",
+          "name": "展示ホール10",
+          "x": 1012,
+          "y": 1110,
+          "kind": "passage",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "公式図の代表区域。指定入場先・精密入口・連続経路ではない"
+        },
+        {
+          "id": "makuhari-hall11",
+          "label": "展示ホール11",
+          "name": "展示ホール11",
+          "x": 1012,
+          "y": 1215,
+          "kind": "passage",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "公式図の代表区域。指定入場先・精密入口・連続経路ではない"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor"
+        ],
+        "file": "research/makuhari-current-2026-10-10/sources/63ef2c4378a408b0863be4a760c966a939ccec17a8c86764bffdb5c09799e3d7.pdf",
+        "sha256": "63ef2c4378a408b0863be4a760c966a939ccec17a8c86764bffdb5c09799e3d7",
+        "width": 2000,
+        "height": 1426,
+        "method": "棟/階別原図の記号と代表区域を独立清書。原図の公開複製なし。精密入口/全記号は未転記",
+        "status": "partial-source-reviewed"
+      }
+    },
+    {
+      "id": "makuhari-conf1",
+      "floor": "会議1F",
+      "scope": "場内",
+      "viewBox": [
+        335,
+        1050,
+        310,
+        230
+      ],
+      "concoursePaths": [
+        "M340 1060 H640 V1265 H340 Z"
+      ],
+      "contextPaths": [],
+      "landmarks": [
+        {
+          "id": "makuhari-conf1",
+          "label": "国際会議場1F",
+          "name": "国際会議場1F",
+          "x": 490.0,
+          "y": 1265,
+          "kind": "passage",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "公式図の代表区域。指定入場先・精密入口・連続経路ではない"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor"
+        ],
+        "file": "research/makuhari-current-2026-10-10/sources/63ef2c4378a408b0863be4a760c966a939ccec17a8c86764bffdb5c09799e3d7.pdf",
+        "sha256": "63ef2c4378a408b0863be4a760c966a939ccec17a8c86764bffdb5c09799e3d7",
+        "width": 2000,
+        "height": 1426,
+        "method": "棟/階別原図の記号と代表区域を独立清書。原図の公開複製なし。精密入口/全記号は未転記",
+        "status": "partial-source-reviewed"
+      }
+    },
+    {
+      "id": "makuhari-conf2",
+      "floor": "会議2F",
+      "scope": "場内",
+      "viewBox": [
+        330,
+        490,
+        260,
+        190
+      ],
+      "concoursePaths": [
+        "M338 495 H588 V677 H338 Z"
+      ],
+      "contextPaths": [],
+      "landmarks": [
+        {
+          "id": "makuhari-conf2",
+          "label": "国際会議場2F",
+          "name": "国際会議場2F",
+          "x": 460.0,
+          "y": 665,
+          "kind": "passage",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "公式図の代表区域。指定入場先・精密入口・連続経路ではない"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor"
+        ],
+        "file": "research/makuhari-current-2026-10-10/sources/63ef2c4378a408b0863be4a760c966a939ccec17a8c86764bffdb5c09799e3d7.pdf",
+        "sha256": "63ef2c4378a408b0863be4a760c966a939ccec17a8c86764bffdb5c09799e3d7",
+        "width": 2000,
+        "height": 1426,
+        "method": "棟/階別原図の記号と代表区域を独立清書。原図の公開複製なし。精密入口/全記号は未転記",
+        "status": "partial-source-reviewed"
+      }
+    },
+    {
+      "id": "makuhari-conf3",
+      "floor": "会議3F",
+      "scope": "場内",
+      "viewBox": [
+        335,
+        765,
+        320,
+        230
+      ],
+      "concoursePaths": [
+        "M345 771 H650 V986 H345 Z"
+      ],
+      "contextPaths": [],
+      "landmarks": [
+        {
+          "id": "makuhari-conf3",
+          "label": "国際会議場3F",
+          "name": "国際会議場3F",
+          "x": 495.0,
+          "y": 980,
+          "kind": "passage",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "公式図の代表区域。指定入場先・精密入口・連続経路ではない"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor"
+        ],
+        "file": "research/makuhari-current-2026-10-10/sources/63ef2c4378a408b0863be4a760c966a939ccec17a8c86764bffdb5c09799e3d7.pdf",
+        "sha256": "63ef2c4378a408b0863be4a760c966a939ccec17a8c86764bffdb5c09799e3d7",
+        "width": 2000,
+        "height": 1426,
+        "method": "棟/階別原図の記号と代表区域を独立清書。原図の公開複製なし。精密入口/全記号は未転記",
+        "status": "partial-source-reviewed"
+      }
+    },
+    {
+      "id": "makuhari-grounds",
+      "floor": "場外",
+      "scope": "場外",
+      "viewBox": [
+        85,
+        350,
+        1410,
+        1020
+      ],
+      "concoursePaths": [
+        "M160 670 H1430 V725 H160 Z",
+        "M715 725 H810 V1305 H715 Z"
+      ],
+      "contextPaths": [],
+      "landmarks": [
+        {
+          "id": "makuhari-grounds-central",
+          "label": "中央エントランス",
+          "name": "中央エントランス",
+          "x": 790,
+          "y": 560,
+          "kind": "entrance",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "公式図の代表区域。指定入場先・精密入口・連続経路ではない"
+        },
+        {
+          "id": "makuhari-grounds-event",
+          "label": "イベントホール",
+          "name": "イベントホール",
+          "x": 980,
+          "y": 580,
+          "kind": "entrance",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "公式図の代表区域。指定入場先・精密入口・連続経路ではない"
+        },
+        {
+          "id": "makuhari-grounds-conf",
+          "label": "国際会議場",
+          "name": "国際会議場",
+          "x": 500,
+          "y": 600,
+          "kind": "entrance",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "公式図の代表区域。指定入場先・精密入口・連続経路ではない"
+        },
+        {
+          "id": "makuhari-grounds-ex18",
+          "label": "展示ホール1〜8",
+          "name": "展示ホール1〜8",
+          "x": 810,
+          "y": 416,
+          "kind": "entrance",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "公式図の代表区域。指定入場先・精密入口・連続経路ではない"
+        },
+        {
+          "id": "makuhari-grounds-ex911",
+          "label": "展示ホール9〜11",
+          "name": "展示ホール9〜11",
+          "x": 1070,
+          "y": 1060,
+          "kind": "entrance",
+          "sourceIds": [
+            "floor"
+          ],
+          "reference": "公式図の代表区域。指定入場先・精密入口・連続経路ではない"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor"
+        ],
+        "file": "research/makuhari-current-2026-10-10/sources/63ef2c4378a408b0863be4a760c966a939ccec17a8c86764bffdb5c09799e3d7.pdf",
+        "sha256": "63ef2c4378a408b0863be4a760c966a939ccec17a8c86764bffdb5c09799e3d7",
+        "width": 2000,
+        "height": 1426,
+        "method": "棟/階別原図の記号と代表区域を独立清書。原図の公開複製なし。精密入口/全記号は未転記",
+        "status": "partial-source-reviewed"
+      }
+    },
+    {
+      "id": "makuhari-access",
+      "floor": "場外",
+      "scope": "場外",
+      "viewBox": [
+        0,
+        0,
+        1100,
+        780
+      ],
+      "concoursePaths": [],
+      "contextPaths": [],
+      "landmarks": [
+        {
+          "id": "makuhari-access-venue",
+          "label": "幕張メッセ",
+          "name": "幕張メッセ",
+          "x": 420,
+          "y": 390,
+          "kind": "entrance",
+          "sourceIds": [
+            "access"
+          ],
+          "reference": "公式図の代表区域。指定入場先・精密入口・連続経路ではない"
+        },
+        {
+          "id": "makuhari-kaihin",
+          "label": "海浜幕張駅",
+          "name": "海浜幕張駅",
+          "x": 780,
+          "y": 610,
+          "kind": "station",
+          "sourceIds": [
+            "access"
+          ],
+          "reference": "公式図の代表区域。指定入場先・精密入口・連続経路ではない"
+        },
+        {
+          "id": "makuhari-toyosuna",
+          "label": "幕張豊砂駅",
+          "name": "幕張豊砂駅",
+          "x": 180,
+          "y": 100,
+          "kind": "station",
+          "sourceIds": [
+            "access"
+          ],
+          "reference": "公式図の代表区域。指定入場先・精密入口・連続経路ではない"
+        },
+        {
+          "id": "makuhari-hongo",
+          "label": "幕張本郷駅・バス",
+          "name": "幕張本郷駅・バス",
+          "x": 780,
+          "y": 100,
+          "kind": "station",
+          "sourceIds": [
+            "access"
+          ],
+          "reference": "公式図の代表区域。指定入場先・精密入口・連続経路ではない"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "access"
+        ],
+        "file": "research/makuhari-current-2026-10-10/sources/63ef2c4378a408b0863be4a760c966a939ccec17a8c86764bffdb5c09799e3d7.pdf",
+        "sha256": "63ef2c4378a408b0863be4a760c966a939ccec17a8c86764bffdb5c09799e3d7",
+        "width": 1100,
+        "height": 780,
+        "method": "棟/階別原図の記号と代表区域を独立清書。原図の公開複製なし。精密入口/全記号は未転記",
+        "status": "partial-source-reviewed"
+      }
+    },
+    {
+      "id": "makuhari-station",
+      "floor": "場外",
+      "scope": "場外",
+      "viewBox": [
+        0,
+        0,
+        1000,
+        700
+      ],
+      "concoursePaths": [],
+      "contextPaths": [],
+      "landmarks": [
+        {
+          "id": "makuhari-station-kaihin",
+          "label": "海浜幕張駅",
+          "name": "海浜幕張駅",
+          "x": 260,
+          "y": 220,
+          "kind": "station",
+          "sourceIds": [
+            "jre-locker"
+          ],
+          "reference": "公式図の代表区域。指定入場先・精密入口・連続経路ではない"
+        },
+        {
+          "id": "makuhari-station-plena",
+          "label": "プレナ幕張",
+          "name": "プレナ幕張",
+          "x": 740,
+          "y": 220,
+          "kind": "shop",
+          "sourceIds": [
+            "jre-locker"
+          ],
+          "reference": "公式図の代表区域。指定入場先・精密入口・連続経路ではない"
+        },
+        {
+          "id": "makuhari-station-outlet",
+          "label": "三井アウトレットパーク",
+          "name": "三井アウトレットパーク",
+          "x": 260,
+          "y": 490,
+          "kind": "shop",
+          "sourceIds": [
+            "jre-locker"
+          ],
+          "reference": "公式図の代表区域。指定入場先・精密入口・連続経路ではない"
+        },
+        {
+          "id": "makuhari-station-suk",
+          "label": "スーク・北口",
+          "name": "スーク・北口",
+          "x": 740,
+          "y": 490,
+          "kind": "shop",
+          "sourceIds": [
+            "jre-locker"
+          ],
+          "reference": "公式図の代表区域。指定入場先・精密入口・連続経路ではない"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "jre-locker"
+        ],
+        "file": "research/makuhari-current-2026-10-10/sources/63ef2c4378a408b0863be4a760c966a939ccec17a8c86764bffdb5c09799e3d7.pdf",
+        "sha256": "63ef2c4378a408b0863be4a760c966a939ccec17a8c86764bffdb5c09799e3d7",
+        "width": 1000,
+        "height": 700,
+        "method": "棟/階別原図の記号と代表区域を独立清書。原図の公開複製なし。精密入口/全記号は未転記",
+        "status": "partial-source-reviewed"
+      }
+    }
+  ],
+  "groups": [
+    {
+      "id": "makuhari-event1-mixed-g",
+      "diagramId": "makuhari-event1",
+      "purpose": "トイレ",
+      "label": "男女トイレ",
+      "area": "イベントホール1Fロビー",
+      "memberIds": [
+        "makuhari-event1-mixed"
+      ],
+      "x": 555,
+      "y": 730,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-event1-mixed-baby-g",
+      "diagramId": "makuhari-event1",
+      "purpose": "赤ちゃん",
+      "label": "ベビーシート（おむつ交換台）",
+      "area": "イベントホール1Fロビー・男女トイレ",
+      "memberIds": [
+        "makuhari-event1-mixed-baby"
+      ],
+      "x": 555,
+      "y": 730,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-event1-accessible-g",
+      "diagramId": "makuhari-event1",
+      "purpose": "トイレ",
+      "label": "バリアフリー・オストメイトトイレ",
+      "area": "イベントホール1Fロビー",
+      "memberIds": [
+        "makuhari-event1-accessible"
+      ],
+      "x": 426,
+      "y": 744,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-event1-locker-a-g",
+      "diagramId": "makuhari-event1",
+      "purpose": "荷物",
+      "label": "1Fロビーの小型ロッカー",
+      "area": "イベントホール1Fロビー・トイレ側",
+      "memberIds": [
+        "makuhari-event1-locker-a"
+      ],
+      "x": 432,
+      "y": 800,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-event1-locker-b-g",
+      "diagramId": "makuhari-event1",
+      "purpose": "荷物",
+      "label": "1Fロビーの小型ロッカー",
+      "area": "イベントホール1Fロビー・アリーナ側",
+      "memberIds": [
+        "makuhari-event1-locker-b"
+      ],
+      "x": 610,
+      "y": 860,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-event1-ev-g",
+      "diagramId": "makuhari-event1",
+      "purpose": "案内",
+      "label": "エレベーター",
+      "area": "東エントランス付近",
+      "memberIds": [
+        "makuhari-event1-ev"
+      ],
+      "x": 256,
+      "y": 875,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-event2-ms-g",
+      "diagramId": "makuhari-event2",
+      "purpose": "トイレ",
+      "label": "女性トイレ",
+      "area": "イベントホール2F・メインロビー南側",
+      "memberIds": [
+        "makuhari-event2-ms"
+      ],
+      "x": 570,
+      "y": 355,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-event2-ms-baby-g",
+      "diagramId": "makuhari-event2",
+      "purpose": "赤ちゃん",
+      "label": "ベビーシート（おむつ交換台）",
+      "area": "イベントホール2F・メインロビー南側・女性トイレ",
+      "memberIds": [
+        "makuhari-event2-ms-baby"
+      ],
+      "x": 570,
+      "y": 355,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-event2-mn-g",
+      "diagramId": "makuhari-event2",
+      "purpose": "トイレ",
+      "label": "男性トイレ",
+      "area": "イベントホール2F・メインロビー北側",
+      "memberIds": [
+        "makuhari-event2-mn"
+      ],
+      "x": 570,
+      "y": 820,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-event2-mn-baby-g",
+      "diagramId": "makuhari-event2",
+      "purpose": "赤ちゃん",
+      "label": "ベビーシート（おむつ交換台）",
+      "area": "イベントホール2F・メインロビー北側・男性トイレ",
+      "memberIds": [
+        "makuhari-event2-mn-baby"
+      ],
+      "x": 570,
+      "y": 820,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-event2-sm-g",
+      "diagramId": "makuhari-event2",
+      "purpose": "トイレ",
+      "label": "男性トイレ",
+      "area": "イベントホール2F・南ロビー",
+      "memberIds": [
+        "makuhari-event2-sm"
+      ],
+      "x": 850,
+      "y": 260,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-event2-sm-baby-g",
+      "diagramId": "makuhari-event2",
+      "purpose": "赤ちゃん",
+      "label": "ベビーシート（おむつ交換台）",
+      "area": "イベントホール2F・南ロビー・男性トイレ",
+      "memberIds": [
+        "makuhari-event2-sm-baby"
+      ],
+      "x": 850,
+      "y": 260,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-event2-sw-g",
+      "diagramId": "makuhari-event2",
+      "purpose": "トイレ",
+      "label": "女性トイレ",
+      "area": "イベントホール2F・南ロビー",
+      "memberIds": [
+        "makuhari-event2-sw"
+      ],
+      "x": 1065,
+      "y": 260,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-event2-sw-baby-g",
+      "diagramId": "makuhari-event2",
+      "purpose": "赤ちゃん",
+      "label": "ベビーシート（おむつ交換台）",
+      "area": "イベントホール2F・南ロビー・女性トイレ",
+      "memberIds": [
+        "makuhari-event2-sw-baby"
+      ],
+      "x": 1065,
+      "y": 260,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-event2-nw-g",
+      "diagramId": "makuhari-event2",
+      "purpose": "トイレ",
+      "label": "女性トイレ",
+      "area": "イベントホール2F・北ロビー",
+      "memberIds": [
+        "makuhari-event2-nw"
+      ],
+      "x": 795,
+      "y": 925,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-event2-nw-baby-g",
+      "diagramId": "makuhari-event2",
+      "purpose": "赤ちゃん",
+      "label": "ベビーシート（おむつ交換台）",
+      "area": "イベントホール2F・北ロビー・女性トイレ",
+      "memberIds": [
+        "makuhari-event2-nw-baby"
+      ],
+      "x": 795,
+      "y": 925,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-event2-nm-g",
+      "diagramId": "makuhari-event2",
+      "purpose": "トイレ",
+      "label": "男性トイレ",
+      "area": "イベントホール2F・北ロビー",
+      "memberIds": [
+        "makuhari-event2-nm"
+      ],
+      "x": 1090,
+      "y": 925,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-event2-nm-baby-g",
+      "diagramId": "makuhari-event2",
+      "purpose": "赤ちゃん",
+      "label": "ベビーシート（おむつ交換台）",
+      "area": "イベントホール2F・北ロビー・男性トイレ",
+      "memberIds": [
+        "makuhari-event2-nm-baby"
+      ],
+      "x": 1090,
+      "y": 925,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-event2-bf-g",
+      "diagramId": "makuhari-event2",
+      "purpose": "トイレ",
+      "label": "バリアフリー・オストメイトトイレ",
+      "area": "イベントホール2Fメインロビー",
+      "memberIds": [
+        "makuhari-event2-bf"
+      ],
+      "x": 506,
+      "y": 460,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-event2-bf-baby-g",
+      "diagramId": "makuhari-event2",
+      "purpose": "赤ちゃん",
+      "label": "ベビーシート（おむつ交換台）",
+      "area": "イベントホール2Fメインロビー・バリアフリー・オストメイトトイレ",
+      "memberIds": [
+        "makuhari-event2-bf-baby"
+      ],
+      "x": 506,
+      "y": 460,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-event2-locker-s-g",
+      "diagramId": "makuhari-event2",
+      "purpose": "荷物",
+      "label": "南ロビーの小型ロッカー",
+      "area": "イベントホール2F南ロビー",
+      "memberIds": [
+        "makuhari-event2-locker-s"
+      ],
+      "x": 1010,
+      "y": 195,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-event2-locker-n-g",
+      "diagramId": "makuhari-event2",
+      "purpose": "荷物",
+      "label": "北ロビーの小型ロッカー",
+      "area": "イベントホール2F北ロビー",
+      "memberIds": [
+        "makuhari-event2-locker-n"
+      ],
+      "x": 960,
+      "y": 980,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-event2-aed-g",
+      "diagramId": "makuhari-event2",
+      "purpose": "AED",
+      "label": "AED",
+      "area": "イベントホール2Fメインロビー",
+      "memberIds": [
+        "makuhari-event2-aed"
+      ],
+      "x": 352,
+      "y": 650,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-event2-ev-g",
+      "diagramId": "makuhari-event2",
+      "purpose": "案内",
+      "label": "エレベーター",
+      "area": "イベントホール2Fメインロビー",
+      "memberIds": [
+        "makuhari-event2-ev"
+      ],
+      "x": 228,
+      "y": 700,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-event2-smoking-南-g",
+      "diagramId": "makuhari-event2",
+      "purpose": "案内",
+      "label": "南側喫煙所",
+      "area": "イベントホール2F南側",
+      "memberIds": [
+        "makuhari-event2-smoking-南"
+      ],
+      "x": 1260,
+      "y": 230,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-event2-smoking-北-g",
+      "diagramId": "makuhari-event2",
+      "purpose": "案内",
+      "label": "北側喫煙所",
+      "area": "イベントホール2F北側",
+      "memberIds": [
+        "makuhari-event2-smoking-北"
+      ],
+      "x": 1260,
+      "y": 943,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-ex1-1-toilet-g",
+      "diagramId": "makuhari-ex18-1",
+      "purpose": "トイレ",
+      "label": "男女トイレ",
+      "area": "展示ホール11F・中央モール側",
+      "memberIds": [
+        "makuhari-ex1-1-toilet"
+      ],
+      "x": 1298.1,
+      "y": 373,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-ex1-1-toilet-baby-g",
+      "diagramId": "makuhari-ex18-1",
+      "purpose": "赤ちゃん",
+      "label": "ベビーシート（おむつ交換台）",
+      "area": "展示ホール11F・中央モール側・男女トイレ",
+      "memberIds": [
+        "makuhari-ex1-1-toilet-baby"
+      ],
+      "x": 1298.1,
+      "y": 373,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-ex1-1-bf-g",
+      "diagramId": "makuhari-ex18-1",
+      "purpose": "トイレ",
+      "label": "バリアフリー・オストメイトトイレ",
+      "area": "展示ホール11F・中央モール側",
+      "memberIds": [
+        "makuhari-ex1-1-bf"
+      ],
+      "x": 1298.1,
+      "y": 397,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-ex2-1-toilet-g",
+      "diagramId": "makuhari-ex18-1",
+      "purpose": "トイレ",
+      "label": "男女トイレ",
+      "area": "展示ホール21F・中央モール側",
+      "memberIds": [
+        "makuhari-ex2-1-toilet"
+      ],
+      "x": 1174.5,
+      "y": 373,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-ex2-1-toilet-baby-g",
+      "diagramId": "makuhari-ex18-1",
+      "purpose": "赤ちゃん",
+      "label": "ベビーシート（おむつ交換台）",
+      "area": "展示ホール21F・中央モール側・男女トイレ",
+      "memberIds": [
+        "makuhari-ex2-1-toilet-baby"
+      ],
+      "x": 1174.5,
+      "y": 373,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-ex2-1-bf-g",
+      "diagramId": "makuhari-ex18-1",
+      "purpose": "トイレ",
+      "label": "バリアフリー・オストメイトトイレ",
+      "area": "展示ホール21F・中央モール側",
+      "memberIds": [
+        "makuhari-ex2-1-bf"
+      ],
+      "x": 1174.5,
+      "y": 397,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-ex3-1-toilet-g",
+      "diagramId": "makuhari-ex18-1",
+      "purpose": "トイレ",
+      "label": "男女トイレ",
+      "area": "展示ホール31F・中央モール側",
+      "memberIds": [
+        "makuhari-ex3-1-toilet"
+      ],
+      "x": 1051.0,
+      "y": 373,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-ex3-1-toilet-baby-g",
+      "diagramId": "makuhari-ex18-1",
+      "purpose": "赤ちゃん",
+      "label": "ベビーシート（おむつ交換台）",
+      "area": "展示ホール31F・中央モール側・男女トイレ",
+      "memberIds": [
+        "makuhari-ex3-1-toilet-baby"
+      ],
+      "x": 1051.0,
+      "y": 373,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-ex3-1-bf-g",
+      "diagramId": "makuhari-ex18-1",
+      "purpose": "トイレ",
+      "label": "バリアフリー・オストメイトトイレ",
+      "area": "展示ホール31F・中央モール側",
+      "memberIds": [
+        "makuhari-ex3-1-bf"
+      ],
+      "x": 1051.0,
+      "y": 397,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-ex4-1-toilet-g",
+      "diagramId": "makuhari-ex18-1",
+      "purpose": "トイレ",
+      "label": "男女トイレ",
+      "area": "展示ホール41F・中央モール側",
+      "memberIds": [
+        "makuhari-ex4-1-toilet"
+      ],
+      "x": 887.2,
+      "y": 373,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-ex4-1-toilet-baby-g",
+      "diagramId": "makuhari-ex18-1",
+      "purpose": "赤ちゃん",
+      "label": "ベビーシート（おむつ交換台）",
+      "area": "展示ホール41F・中央モール側・男女トイレ",
+      "memberIds": [
+        "makuhari-ex4-1-toilet-baby"
+      ],
+      "x": 887.2,
+      "y": 373,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-ex4-1-bf-g",
+      "diagramId": "makuhari-ex18-1",
+      "purpose": "トイレ",
+      "label": "バリアフリー・オストメイトトイレ",
+      "area": "展示ホール41F・中央モール側",
+      "memberIds": [
+        "makuhari-ex4-1-bf"
+      ],
+      "x": 887.2,
+      "y": 397,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-ex5-1-toilet-g",
+      "diagramId": "makuhari-ex18-1",
+      "purpose": "トイレ",
+      "label": "男女トイレ",
+      "area": "展示ホール51F・中央モール側",
+      "memberIds": [
+        "makuhari-ex5-1-toilet"
+      ],
+      "x": 763.6,
+      "y": 373,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-ex5-1-toilet-baby-g",
+      "diagramId": "makuhari-ex18-1",
+      "purpose": "赤ちゃん",
+      "label": "ベビーシート（おむつ交換台）",
+      "area": "展示ホール51F・中央モール側・男女トイレ",
+      "memberIds": [
+        "makuhari-ex5-1-toilet-baby"
+      ],
+      "x": 763.6,
+      "y": 373,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-ex5-1-bf-g",
+      "diagramId": "makuhari-ex18-1",
+      "purpose": "トイレ",
+      "label": "バリアフリー・オストメイトトイレ",
+      "area": "展示ホール51F・中央モール側",
+      "memberIds": [
+        "makuhari-ex5-1-bf"
+      ],
+      "x": 763.6,
+      "y": 397,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-ex6-1-toilet-g",
+      "diagramId": "makuhari-ex18-1",
+      "purpose": "トイレ",
+      "label": "男女トイレ",
+      "area": "展示ホール61F・中央モール側",
+      "memberIds": [
+        "makuhari-ex6-1-toilet"
+      ],
+      "x": 640.1,
+      "y": 373,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-ex6-1-toilet-baby-g",
+      "diagramId": "makuhari-ex18-1",
+      "purpose": "赤ちゃん",
+      "label": "ベビーシート（おむつ交換台）",
+      "area": "展示ホール61F・中央モール側・男女トイレ",
+      "memberIds": [
+        "makuhari-ex6-1-toilet-baby"
+      ],
+      "x": 640.1,
+      "y": 373,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-ex6-1-bf-g",
+      "diagramId": "makuhari-ex18-1",
+      "purpose": "トイレ",
+      "label": "バリアフリー・オストメイトトイレ",
+      "area": "展示ホール61F・中央モール側",
+      "memberIds": [
+        "makuhari-ex6-1-bf"
+      ],
+      "x": 640.1,
+      "y": 397,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-ex7-1-toilet-g",
+      "diagramId": "makuhari-ex18-1",
+      "purpose": "トイレ",
+      "label": "男女トイレ",
+      "area": "展示ホール71F・中央モール側",
+      "memberIds": [
+        "makuhari-ex7-1-toilet"
+      ],
+      "x": 491.7,
+      "y": 373,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-ex7-1-toilet-baby-g",
+      "diagramId": "makuhari-ex18-1",
+      "purpose": "赤ちゃん",
+      "label": "ベビーシート（おむつ交換台）",
+      "area": "展示ホール71F・中央モール側・男女トイレ",
+      "memberIds": [
+        "makuhari-ex7-1-toilet-baby"
+      ],
+      "x": 491.7,
+      "y": 373,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-ex7-1-bf-g",
+      "diagramId": "makuhari-ex18-1",
+      "purpose": "トイレ",
+      "label": "バリアフリー・オストメイトトイレ",
+      "area": "展示ホール71F・中央モール側",
+      "memberIds": [
+        "makuhari-ex7-1-bf"
+      ],
+      "x": 491.7,
+      "y": 397,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-ex8-1-toilet-g",
+      "diagramId": "makuhari-ex18-1",
+      "purpose": "トイレ",
+      "label": "男女トイレ",
+      "area": "展示ホール81F・中央モール側",
+      "memberIds": [
+        "makuhari-ex8-1-toilet"
+      ],
+      "x": 368.1,
+      "y": 373,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-ex8-1-toilet-baby-g",
+      "diagramId": "makuhari-ex18-1",
+      "purpose": "赤ちゃん",
+      "label": "ベビーシート（おむつ交換台）",
+      "area": "展示ホール81F・中央モール側・男女トイレ",
+      "memberIds": [
+        "makuhari-ex8-1-toilet-baby"
+      ],
+      "x": 368.1,
+      "y": 373,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-ex8-1-bf-g",
+      "diagramId": "makuhari-ex18-1",
+      "purpose": "トイレ",
+      "label": "バリアフリー・オストメイトトイレ",
+      "area": "展示ホール81F・中央モール側",
+      "memberIds": [
+        "makuhari-ex8-1-bf"
+      ],
+      "x": 368.1,
+      "y": 397,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-mall6-toilet-g",
+      "diagramId": "makuhari-ex18-2",
+      "purpose": "トイレ",
+      "label": "男女トイレ",
+      "area": "中央モール・展示ホール6前2F",
+      "memberIds": [
+        "makuhari-mall6-toilet"
+      ],
+      "x": 706,
+      "y": 446,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-mall6-toilet-baby-g",
+      "diagramId": "makuhari-ex18-2",
+      "purpose": "赤ちゃん",
+      "label": "ベビーシート（おむつ交換台）",
+      "area": "中央モール・展示ホール6前2F・男女トイレ",
+      "memberIds": [
+        "makuhari-mall6-toilet-baby"
+      ],
+      "x": 706,
+      "y": 446,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-mall6-bf-g",
+      "diagramId": "makuhari-ex18-2",
+      "purpose": "トイレ",
+      "label": "バリアフリー・オストメイトトイレ",
+      "area": "中央モール・展示ホール6前2F",
+      "memberIds": [
+        "makuhari-mall6-bf"
+      ],
+      "x": 706,
+      "y": 475,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-mall1-toilet-g",
+      "diagramId": "makuhari-ex18-2",
+      "purpose": "トイレ",
+      "label": "男女トイレ",
+      "area": "中央モール・展示ホール1前2F",
+      "memberIds": [
+        "makuhari-mall1-toilet"
+      ],
+      "x": 1290,
+      "y": 431,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-mall1-toilet-baby-g",
+      "diagramId": "makuhari-ex18-2",
+      "purpose": "赤ちゃん",
+      "label": "ベビーシート（おむつ交換台）",
+      "area": "中央モール・展示ホール1前2F・男女トイレ",
+      "memberIds": [
+        "makuhari-mall1-toilet-baby"
+      ],
+      "x": 1290,
+      "y": 431,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-mall1-bf-g",
+      "diagramId": "makuhari-ex18-2",
+      "purpose": "トイレ",
+      "label": "バリアフリー・オストメイトトイレ",
+      "area": "中央モール・展示ホール1前2F",
+      "memberIds": [
+        "makuhari-mall1-bf"
+      ],
+      "x": 1290,
+      "y": 457,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-lock-mall8-g",
+      "diagramId": "makuhari-ex18-2",
+      "purpose": "荷物",
+      "label": "中央モール・東エントランス側 ロッカー",
+      "area": "中央モール・東エントランス側",
+      "memberIds": [
+        "makuhari-lock-mall8"
+      ],
+      "x": 344,
+      "y": 443,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-lock-mall7a-g",
+      "diagramId": "makuhari-ex18-2",
+      "purpose": "荷物",
+      "label": "中央モール・展示ホール7前東側 ロッカー",
+      "area": "中央モール・展示ホール7前東側",
+      "memberIds": [
+        "makuhari-lock-mall7a"
+      ],
+      "x": 470,
+      "y": 443,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-lock-mall7b-g",
+      "diagramId": "makuhari-ex18-2",
+      "purpose": "荷物",
+      "label": "中央モール・展示ホール7前西側 ロッカー",
+      "area": "中央モール・展示ホール7前西側",
+      "memberIds": [
+        "makuhari-lock-mall7b"
+      ],
+      "x": 592,
+      "y": 443,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-lock-mall6-g",
+      "diagramId": "makuhari-ex18-2",
+      "purpose": "荷物",
+      "label": "中央モール・中央エントランス東側 ロッカー",
+      "area": "中央モール・中央エントランス東側",
+      "memberIds": [
+        "makuhari-lock-mall6"
+      ],
+      "x": 714,
+      "y": 443,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-lock-central-g",
+      "diagramId": "makuhari-ex18-2",
+      "purpose": "荷物",
+      "label": "中央エントランス ロッカー",
+      "area": "中央エントランス",
+      "memberIds": [
+        "makuhari-lock-central"
+      ],
+      "x": 840,
+      "y": 443,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-lock-mall2-g",
+      "diagramId": "makuhari-ex18-2",
+      "purpose": "荷物",
+      "label": "中央モール・展示ホール2前 ロッカー",
+      "area": "中央モール・展示ホール2前",
+      "memberIds": [
+        "makuhari-lock-mall2"
+      ],
+      "x": 1165,
+      "y": 443,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-lock-mall1-g",
+      "diagramId": "makuhari-ex18-2",
+      "purpose": "荷物",
+      "label": "中央モール・展示ホール1前 ロッカー",
+      "area": "中央モール・展示ホール1前",
+      "memberIds": [
+        "makuhari-lock-mall1"
+      ],
+      "x": 1240,
+      "y": 443,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-nursing-g",
+      "diagramId": "makuhari-ex18-2",
+      "purpose": "赤ちゃん",
+      "label": "中央エントランス授乳室",
+      "area": "中央エントランス",
+      "memberIds": [
+        "makuhari-nursing"
+      ],
+      "x": 674,
+      "y": 457,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-information-g",
+      "diagramId": "makuhari-ex18-2",
+      "purpose": "案内",
+      "label": "インフォメーション",
+      "area": "中央エントランス",
+      "memberIds": [
+        "makuhari-information"
+      ],
+      "x": 660,
+      "y": 444,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-aed-mall7-g",
+      "diagramId": "makuhari-ex18-2",
+      "purpose": "AED",
+      "label": "AED",
+      "area": "中央モール2F・展示ホール7前",
+      "memberIds": [
+        "makuhari-aed-mall7"
+      ],
+      "x": 495,
+      "y": 443,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-aed-central-g",
+      "diagramId": "makuhari-ex18-2",
+      "purpose": "AED",
+      "label": "AED",
+      "area": "中央モール2F・中央エントランス",
+      "memberIds": [
+        "makuhari-aed-central"
+      ],
+      "x": 819,
+      "y": 473,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-aed-mall3-g",
+      "diagramId": "makuhari-ex18-2",
+      "purpose": "AED",
+      "label": "AED",
+      "area": "中央モール2F・展示ホール3前",
+      "memberIds": [
+        "makuhari-aed-mall3"
+      ],
+      "x": 900,
+      "y": 444,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-aed-mall2-g",
+      "diagramId": "makuhari-ex18-2",
+      "purpose": "AED",
+      "label": "AED",
+      "area": "中央モール2F・展示ホール2前",
+      "memberIds": [
+        "makuhari-aed-mall2"
+      ],
+      "x": 1192,
+      "y": 444,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-world-g",
+      "diagramId": "makuhari-ex18-2",
+      "purpose": "飲食",
+      "label": "WORLD KITCHENS!（ワールドキッチンズ）",
+      "area": "中央モール2F・展示ホール6前",
+      "memberIds": [
+        "makuhari-world"
+      ],
+      "x": 650,
+      "y": 478,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-royal-g",
+      "diagramId": "makuhari-ex18-2",
+      "purpose": "飲食",
+      "label": "ROYAL KITCHENS!（ロイヤルキッチンズ）",
+      "area": "中央モール2F・展示ホール1前",
+      "memberIds": [
+        "makuhari-royal"
+      ],
+      "x": 1314,
+      "y": 490,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-daily1-g",
+      "diagramId": "makuhari-ex18-2",
+      "purpose": "飲食",
+      "label": "ニューヤマザキデイリーストア 幕張メッセ店",
+      "area": "中央エントランス2F",
+      "memberIds": [
+        "makuhari-daily1"
+      ],
+      "x": 738,
+      "y": 473,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-daily3-g",
+      "diagramId": "makuhari-ex18-2",
+      "purpose": "飲食",
+      "label": "デイリーヤマザキ 幕張メッセ Ⅲ店",
+      "area": "中央モール2F・展示ホール1前",
+      "memberIds": [
+        "makuhari-daily3"
+      ],
+      "x": 1330,
+      "y": 444,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-ex10-lock-g",
+      "diagramId": "makuhari-ex911",
+      "purpose": "荷物",
+      "label": "展示ホール10前 ロッカー",
+      "area": "展示ホール10前2Fエスプラナード",
+      "memberIds": [
+        "makuhari-ex10-lock"
+      ],
+      "x": 910,
+      "y": 1089,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-ex11-lock-g",
+      "diagramId": "makuhari-ex911",
+      "purpose": "荷物",
+      "label": "展示ホール11前 ロッカー",
+      "area": "展示ホール11前2Fエスプラナード",
+      "memberIds": [
+        "makuhari-ex11-lock"
+      ],
+      "x": 910,
+      "y": 1156,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-ex9-shop-g",
+      "diagramId": "makuhari-ex911",
+      "purpose": "飲食",
+      "label": "デイリーヤマザキ 幕張メッセ Ⅱ店",
+      "area": "展示ホール9前2Fエスプラナード",
+      "memberIds": [
+        "makuhari-ex9-shop"
+      ],
+      "x": 912,
+      "y": 922,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-ex9-aed-g",
+      "diagramId": "makuhari-ex911",
+      "purpose": "AED",
+      "label": "AED",
+      "area": "エスプラナード2F・展示ホール9側",
+      "memberIds": [
+        "makuhari-ex9-aed"
+      ],
+      "x": 884,
+      "y": 824,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-ex10-aed-g",
+      "diagramId": "makuhari-ex911",
+      "purpose": "AED",
+      "label": "AED",
+      "area": "エスプラナード2F・展示ホール10側",
+      "memberIds": [
+        "makuhari-ex10-aed"
+      ],
+      "x": 884,
+      "y": 1137,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-conf1-0-g",
+      "diagramId": "makuhari-conf1",
+      "purpose": "トイレ",
+      "label": "男女トイレ",
+      "area": "国際会議場1F・ロビー側",
+      "memberIds": [
+        "makuhari-conf1-0"
+      ],
+      "x": 590,
+      "y": 1108,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-conf1-0-baby-g",
+      "diagramId": "makuhari-conf1",
+      "purpose": "赤ちゃん",
+      "label": "ベビーシート（おむつ交換台）",
+      "area": "国際会議場1F・ロビー側・男女トイレ",
+      "memberIds": [
+        "makuhari-conf1-0-baby"
+      ],
+      "x": 590,
+      "y": 1108,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-conf1-1-g",
+      "diagramId": "makuhari-conf1",
+      "purpose": "トイレ",
+      "label": "バリアフリー・オストメイトトイレ",
+      "area": "国際会議場1F・ロビー側",
+      "memberIds": [
+        "makuhari-conf1-1"
+      ],
+      "x": 534,
+      "y": 1220,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-conf1-ev-g",
+      "diagramId": "makuhari-conf1",
+      "purpose": "案内",
+      "label": "エレベーター",
+      "area": "国際会議場1F",
+      "memberIds": [
+        "makuhari-conf1-ev"
+      ],
+      "x": 505.5,
+      "y": 1238.6,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-conf1-aed-g",
+      "diagramId": "makuhari-conf1",
+      "purpose": "AED",
+      "label": "AED",
+      "area": "国際会議場1F",
+      "memberIds": [
+        "makuhari-conf1-aed"
+      ],
+      "x": 543,
+      "y": 1078,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-conf2-0-g",
+      "diagramId": "makuhari-conf2",
+      "purpose": "トイレ",
+      "label": "男女トイレ",
+      "area": "国際会議場2F・ロビー側",
+      "memberIds": [
+        "makuhari-conf2-0"
+      ],
+      "x": 410,
+      "y": 570,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-conf2-0-baby-g",
+      "diagramId": "makuhari-conf2",
+      "purpose": "赤ちゃん",
+      "label": "ベビーシート（おむつ交換台）",
+      "area": "国際会議場2F・ロビー側・男女トイレ",
+      "memberIds": [
+        "makuhari-conf2-0-baby"
+      ],
+      "x": 410,
+      "y": 570,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-conf2-1-g",
+      "diagramId": "makuhari-conf2",
+      "purpose": "トイレ",
+      "label": "バリアフリー・オストメイトトイレ",
+      "area": "国際会議場2F・ロビー側",
+      "memberIds": [
+        "makuhari-conf2-1"
+      ],
+      "x": 410,
+      "y": 596,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-conf2-2-g",
+      "diagramId": "makuhari-conf2",
+      "purpose": "トイレ",
+      "label": "男女トイレ",
+      "area": "国際会議場2F・会議室213〜216側",
+      "memberIds": [
+        "makuhari-conf2-2"
+      ],
+      "x": 475,
+      "y": 664,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-conf2-2-baby-g",
+      "diagramId": "makuhari-conf2",
+      "purpose": "赤ちゃん",
+      "label": "ベビーシート（おむつ交換台）",
+      "area": "国際会議場2F・会議室213〜216側・男女トイレ",
+      "memberIds": [
+        "makuhari-conf2-2-baby"
+      ],
+      "x": 475,
+      "y": 664,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-conf2-3-g",
+      "diagramId": "makuhari-conf2",
+      "purpose": "トイレ",
+      "label": "バリアフリー・オストメイトトイレ",
+      "area": "国際会議場2F・会議室213〜216側",
+      "memberIds": [
+        "makuhari-conf2-3"
+      ],
+      "x": 475,
+      "y": 689,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-conf2-ev-g",
+      "diagramId": "makuhari-conf2",
+      "purpose": "案内",
+      "label": "エレベーター",
+      "area": "国際会議場2F",
+      "memberIds": [
+        "makuhari-conf2-ev"
+      ],
+      "x": 473.0,
+      "y": 645.8,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-conf2-aed-g",
+      "diagramId": "makuhari-conf2",
+      "purpose": "AED",
+      "label": "AED",
+      "area": "国際会議場2F",
+      "memberIds": [
+        "makuhari-conf2-aed"
+      ],
+      "x": 449,
+      "y": 619,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-conf3-0-g",
+      "diagramId": "makuhari-conf3",
+      "purpose": "トイレ",
+      "label": "男女トイレ",
+      "area": "国際会議場3F・ロビー側",
+      "memberIds": [
+        "makuhari-conf3-0"
+      ],
+      "x": 460,
+      "y": 805,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-conf3-0-baby-g",
+      "diagramId": "makuhari-conf3",
+      "purpose": "赤ちゃん",
+      "label": "ベビーシート（おむつ交換台）",
+      "area": "国際会議場3F・ロビー側・男女トイレ",
+      "memberIds": [
+        "makuhari-conf3-0-baby"
+      ],
+      "x": 460,
+      "y": 805,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-conf3-1-g",
+      "diagramId": "makuhari-conf3",
+      "purpose": "トイレ",
+      "label": "バリアフリー・オストメイトトイレ",
+      "area": "国際会議場3F・ロビー側",
+      "memberIds": [
+        "makuhari-conf3-1"
+      ],
+      "x": 460,
+      "y": 830,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-conf3-ev-g",
+      "diagramId": "makuhari-conf3",
+      "purpose": "案内",
+      "label": "エレベーター",
+      "area": "国際会議場3F",
+      "memberIds": [
+        "makuhari-conf3-ev"
+      ],
+      "x": 511.0,
+      "y": 953.6,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-out-bus-g",
+      "diagramId": "makuhari-grounds",
+      "purpose": "荷物",
+      "label": "中央ロータリーのロッカー",
+      "area": "中央ロータリー1F・バス乗り場前",
+      "memberIds": [
+        "makuhari-out-bus"
+      ],
+      "x": 812,
+      "y": 626,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "makuhari-out-conf-g",
+      "diagramId": "makuhari-grounds",
+      "purpose": "荷物",
+      "label": "国際会議場前の小型ロッカー",
+      "area": "国際会議場外・正面広場1F",
+      "memberIds": [
+        "makuhari-out-conf"
+      ],
+      "x": 596,
+      "y": 524,
+      "boundary": "同じ棟・階・室/ロビー・利用境界の単独固定区域。現在のズームや密度で統合しない",
+      "visualReview": "source-checked"
+    }
+  ],
+  "meta": {
+    "makuhari-event1-mixed": {
+      "location": "イベントホール1Fロビー",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "area": "イベントホール1Fロビー",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-event1-mixed-baby": {
+      "location": "イベントホール1Fロビー・男女トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "area": "イベントホール1Fロビー・男女トイレ",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-event1-accessible": {
+      "location": "イベントホール1Fロビー",
+      "detail": "原図に掲載されたトイレ区域です。オストメイト設備があります。当日の開放・利用境界を会場案内で確認してください。",
+      "area": "イベントホール1Fロビー",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-event1-locker-a": {
+      "location": "イベントホール1Fロビー・トイレ側",
+      "detail": "小のみ300円（1日1回）、幅34×奥行42×高さ29cm。現金払いのみ。イベントホール来場者のみ利用できます。利用8:00〜20:00（イベントにより変更）。24時を過ぎると1日分の追加料金、最大3日間。空きは現地で確認してください。",
+      "area": "イベントホール1Fロビー・トイレ側",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-event1-locker-b": {
+      "location": "イベントホール1Fロビー・アリーナ側",
+      "detail": "小のみ300円（1日1回）、幅34×奥行42×高さ29cm。現金払いのみ。イベントホール来場者のみ利用できます。利用8:00〜20:00（イベントにより変更）。24時を過ぎると1日分の追加料金、最大3日間。空きは現地で確認してください。",
+      "area": "イベントホール1Fロビー・アリーナ側",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-event1-ev": {
+      "location": "東エントランス付近",
+      "detail": "原図に掲載されたEV区域。停止階・公演の運用は当日の案内で確認してください。",
+      "area": "東エントランス付近",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-event1-firstaid": {
+      "location": "イベントホール1F・救護室は関係者区域側",
+      "detail": "体調不良時は会場係員に連絡してください。救護室は一般客の自由入室を案内しません。",
+      "area": "イベントホール1F・救護室は関係者区域側",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-event2-ms": {
+      "location": "イベントホール2F・メインロビー南側",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "area": "イベントホール2F・メインロビー南側",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-event2-ms-baby": {
+      "location": "イベントホール2F・メインロビー南側・女性トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "area": "イベントホール2F・メインロビー南側・女性トイレ",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-event2-mn": {
+      "location": "イベントホール2F・メインロビー北側",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "area": "イベントホール2F・メインロビー北側",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-event2-mn-baby": {
+      "location": "イベントホール2F・メインロビー北側・男性トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "area": "イベントホール2F・メインロビー北側・男性トイレ",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-event2-sm": {
+      "location": "イベントホール2F・南ロビー",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "area": "イベントホール2F・南ロビー",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-event2-sm-baby": {
+      "location": "イベントホール2F・南ロビー・男性トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "area": "イベントホール2F・南ロビー・男性トイレ",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-event2-sw": {
+      "location": "イベントホール2F・南ロビー",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "area": "イベントホール2F・南ロビー",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-event2-sw-baby": {
+      "location": "イベントホール2F・南ロビー・女性トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "area": "イベントホール2F・南ロビー・女性トイレ",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-event2-nw": {
+      "location": "イベントホール2F・北ロビー",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "area": "イベントホール2F・北ロビー",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-event2-nw-baby": {
+      "location": "イベントホール2F・北ロビー・女性トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "area": "イベントホール2F・北ロビー・女性トイレ",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-event2-nm": {
+      "location": "イベントホール2F・北ロビー",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "area": "イベントホール2F・北ロビー",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-event2-nm-baby": {
+      "location": "イベントホール2F・北ロビー・男性トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "area": "イベントホール2F・北ロビー・男性トイレ",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-event2-bf": {
+      "location": "イベントホール2Fメインロビー",
+      "detail": "原図に掲載されたトイレ区域です。オストメイト設備があります。当日の開放・利用境界を会場案内で確認してください。",
+      "area": "イベントホール2Fメインロビー",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-event2-bf-baby": {
+      "location": "イベントホール2Fメインロビー・バリアフリー・オストメイトトイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "area": "イベントホール2Fメインロビー・バリアフリー・オストメイトトイレ",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-event2-locker-s": {
+      "location": "イベントホール2F南ロビー",
+      "detail": "小のみ300円（1日1回）、幅34×奥行42×高さ29cm。現金払いのみ。イベントホール来場者のみ利用できます。利用8:00〜20:00（イベントにより変更）。24時を過ぎると1日分の追加料金、最大3日間。空きは現地で確認してください。",
+      "area": "イベントホール2F南ロビー",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-event2-locker-n": {
+      "location": "イベントホール2F北ロビー",
+      "detail": "小のみ300円（1日1回）、幅34×奥行42×高さ29cm。現金払いのみ。イベントホール来場者のみ利用できます。利用8:00〜20:00（イベントにより変更）。24時を過ぎると1日分の追加料金、最大3日間。空きは現地で確認してください。",
+      "area": "イベントホール2F北ロビー",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-event2-aed": {
+      "location": "イベントホール2Fメインロビー",
+      "detail": "2Fロビーの原図掲載区域。緊急時は会場係員に連絡してください。",
+      "area": "イベントホール2Fメインロビー",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-event2-ev": {
+      "location": "イベントホール2Fメインロビー",
+      "detail": "原図掲載区域。指定席までの連続段差なし経路・当日の運用は確認してください。",
+      "area": "イベントホール2Fメインロビー",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-event2-smoking-南": {
+      "location": "イベントホール2F南側",
+      "detail": "原図に掲載された指定喫煙区域。公演の閉鎖・運用は当日確認。",
+      "area": "イベントホール2F南側",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-event2-smoking-北": {
+      "location": "イベントホール2F北側",
+      "detail": "原図に掲載された指定喫煙区域。公演の閉鎖・運用は当日確認。",
+      "area": "イベントホール2F北側",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-ex1-1-toilet": {
+      "location": "展示ホール11F・中央モール側",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "area": "展示ホール11F・中央モール側",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-ex1-1-toilet-baby": {
+      "location": "展示ホール11F・中央モール側・男女トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "area": "展示ホール11F・中央モール側・男女トイレ",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-ex1-1-bf": {
+      "location": "展示ホール11F・中央モール側",
+      "detail": "原図に掲載されたトイレ区域です。オストメイト設備があります。当日の開放・利用境界を会場案内で確認してください。",
+      "area": "展示ホール11F・中央モール側",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-ex2-1-toilet": {
+      "location": "展示ホール21F・中央モール側",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "area": "展示ホール21F・中央モール側",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-ex2-1-toilet-baby": {
+      "location": "展示ホール21F・中央モール側・男女トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "area": "展示ホール21F・中央モール側・男女トイレ",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-ex2-1-bf": {
+      "location": "展示ホール21F・中央モール側",
+      "detail": "原図に掲載されたトイレ区域です。オストメイト設備があります。当日の開放・利用境界を会場案内で確認してください。",
+      "area": "展示ホール21F・中央モール側",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-ex3-1-toilet": {
+      "location": "展示ホール31F・中央モール側",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "area": "展示ホール31F・中央モール側",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-ex3-1-toilet-baby": {
+      "location": "展示ホール31F・中央モール側・男女トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "area": "展示ホール31F・中央モール側・男女トイレ",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-ex3-1-bf": {
+      "location": "展示ホール31F・中央モール側",
+      "detail": "原図に掲載されたトイレ区域です。オストメイト設備があります。当日の開放・利用境界を会場案内で確認してください。",
+      "area": "展示ホール31F・中央モール側",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-ex4-1-toilet": {
+      "location": "展示ホール41F・中央モール側",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "area": "展示ホール41F・中央モール側",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-ex4-1-toilet-baby": {
+      "location": "展示ホール41F・中央モール側・男女トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "area": "展示ホール41F・中央モール側・男女トイレ",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-ex4-1-bf": {
+      "location": "展示ホール41F・中央モール側",
+      "detail": "原図に掲載されたトイレ区域です。オストメイト設備があります。当日の開放・利用境界を会場案内で確認してください。",
+      "area": "展示ホール41F・中央モール側",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-ex5-1-toilet": {
+      "location": "展示ホール51F・中央モール側",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "area": "展示ホール51F・中央モール側",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-ex5-1-toilet-baby": {
+      "location": "展示ホール51F・中央モール側・男女トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "area": "展示ホール51F・中央モール側・男女トイレ",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-ex5-1-bf": {
+      "location": "展示ホール51F・中央モール側",
+      "detail": "原図に掲載されたトイレ区域です。オストメイト設備があります。当日の開放・利用境界を会場案内で確認してください。",
+      "area": "展示ホール51F・中央モール側",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-ex6-1-toilet": {
+      "location": "展示ホール61F・中央モール側",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "area": "展示ホール61F・中央モール側",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-ex6-1-toilet-baby": {
+      "location": "展示ホール61F・中央モール側・男女トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "area": "展示ホール61F・中央モール側・男女トイレ",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-ex6-1-bf": {
+      "location": "展示ホール61F・中央モール側",
+      "detail": "原図に掲載されたトイレ区域です。オストメイト設備があります。当日の開放・利用境界を会場案内で確認してください。",
+      "area": "展示ホール61F・中央モール側",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-ex7-1-toilet": {
+      "location": "展示ホール71F・中央モール側",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "area": "展示ホール71F・中央モール側",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-ex7-1-toilet-baby": {
+      "location": "展示ホール71F・中央モール側・男女トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "area": "展示ホール71F・中央モール側・男女トイレ",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-ex7-1-bf": {
+      "location": "展示ホール71F・中央モール側",
+      "detail": "原図に掲載されたトイレ区域です。オストメイト設備があります。当日の開放・利用境界を会場案内で確認してください。",
+      "area": "展示ホール71F・中央モール側",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-ex8-1-toilet": {
+      "location": "展示ホール81F・中央モール側",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "area": "展示ホール81F・中央モール側",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-ex8-1-toilet-baby": {
+      "location": "展示ホール81F・中央モール側・男女トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "area": "展示ホール81F・中央モール側・男女トイレ",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-ex8-1-bf": {
+      "location": "展示ホール81F・中央モール側",
+      "detail": "原図に掲載されたトイレ区域です。オストメイト設備があります。当日の開放・利用境界を会場案内で確認してください。",
+      "area": "展示ホール81F・中央モール側",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-mall6-toilet": {
+      "location": "中央モール・展示ホール6前2F",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "area": "中央モール・展示ホール6前2F",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-mall6-toilet-baby": {
+      "location": "中央モール・展示ホール6前2F・男女トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "area": "中央モール・展示ホール6前2F・男女トイレ",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-mall6-bf": {
+      "location": "中央モール・展示ホール6前2F",
+      "detail": "原図に掲載されたトイレ区域です。オストメイト設備があります。当日の開放・利用境界を会場案内で確認してください。",
+      "area": "中央モール・展示ホール6前2F",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-mall1-toilet": {
+      "location": "中央モール・展示ホール1前2F",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "area": "中央モール・展示ホール1前2F",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-mall1-toilet-baby": {
+      "location": "中央モール・展示ホール1前2F・男女トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "area": "中央モール・展示ホール1前2F・男女トイレ",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-mall1-bf": {
+      "location": "中央モール・展示ホール1前2F",
+      "detail": "原図に掲載されたトイレ区域です。オストメイト設備があります。当日の開放・利用境界を会場案内で確認してください。",
+      "area": "中央モール・展示ホール1前2F",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-lock-mall8": {
+      "location": "中央モール・東エントランス側",
+      "detail": "小400円・中500円・大700円（1日1回）。小：幅35.2×奥行64.5×高さ32.5cm、中：35.2×64.5×51.6cm、大：35.2×64.5×86.6cm。支払いは設置場所により現金・交通系IC・クレジット・QR。利用8:00〜20:00（イベントにより変更）。24時を過ぎると1日分の追加料金、最大3日間。空きは現地で確認してください。",
+      "area": "中央モール・東エントランス側",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-lock-mall7a": {
+      "location": "中央モール・展示ホール7前東側",
+      "detail": "小400円・中500円・大700円（1日1回）。小：幅35.2×奥行64.5×高さ32.5cm、中：35.2×64.5×51.6cm、大：35.2×64.5×86.6cm。支払いは設置場所により現金・交通系IC・クレジット・QR。利用8:00〜20:00（イベントにより変更）。24時を過ぎると1日分の追加料金、最大3日間。空きは現地で確認してください。",
+      "area": "中央モール・展示ホール7前東側",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-lock-mall7b": {
+      "location": "中央モール・展示ホール7前西側",
+      "detail": "小400円・中500円・大700円（1日1回）。小：幅35.2×奥行64.5×高さ32.5cm、中：35.2×64.5×51.6cm、大：35.2×64.5×86.6cm。支払いは設置場所により現金・交通系IC・クレジット・QR。利用8:00〜20:00（イベントにより変更）。24時を過ぎると1日分の追加料金、最大3日間。空きは現地で確認してください。",
+      "area": "中央モール・展示ホール7前西側",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-lock-mall6": {
+      "location": "中央モール・中央エントランス東側",
+      "detail": "小400円・中500円・大700円（1日1回）。小：幅35.2×奥行64.5×高さ32.5cm、中：35.2×64.5×51.6cm、大：35.2×64.5×86.6cm。支払いは設置場所により現金・交通系IC・クレジット・QR。利用8:00〜20:00（イベントにより変更）。24時を過ぎると1日分の追加料金、最大3日間。空きは現地で確認してください。",
+      "area": "中央モール・中央エントランス東側",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-lock-central": {
+      "location": "中央エントランス",
+      "detail": "小400円・中500円・大700円（1日1回）。小：幅35.2×奥行64.5×高さ32.5cm、中：35.2×64.5×51.6cm、大：35.2×64.5×86.6cm。支払いは設置場所により現金・交通系IC・クレジット・QR。利用8:00〜20:00（イベントにより変更）。24時を過ぎると1日分の追加料金、最大3日間。空きは現地で確認してください。",
+      "area": "中央エントランス",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-lock-mall2": {
+      "location": "中央モール・展示ホール2前",
+      "detail": "小400円・中500円・大700円（1日1回）。小：幅35.2×奥行64.5×高さ32.5cm、中：35.2×64.5×51.6cm、大：35.2×64.5×86.6cm。支払いは設置場所により現金・交通系IC・クレジット・QR。利用8:00〜20:00（イベントにより変更）。24時を過ぎると1日分の追加料金、最大3日間。空きは現地で確認してください。",
+      "area": "中央モール・展示ホール2前",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-lock-mall1": {
+      "location": "中央モール・展示ホール1前",
+      "detail": "小400円・中500円・大700円（1日1回）。小：幅35.2×奥行64.5×高さ32.5cm、中：35.2×64.5×51.6cm、大：35.2×64.5×86.6cm。支払いは設置場所により現金・交通系IC・クレジット・QR。利用8:00〜20:00（イベントにより変更）。24時を過ぎると1日分の追加料金、最大3日間。空きは現地で確認してください。",
+      "area": "中央モール・展示ホール1前",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-nursing": {
+      "location": "中央エントランス",
+      "detail": "利用8:00〜20:00（イベントによる）。授乳ブース2、オムツ交換台、洗面台、給湯設備。イベントホールのトイレ内設備とは別です。",
+      "area": "中央エントランス",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-information": {
+      "location": "中央エントランス",
+      "detail": "総合案内窓口の代表区域。イベントの指定入口は主催者案内を確認してください。",
+      "area": "中央エントランス",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-aed-mall7": {
+      "location": "中央モール2F・展示ホール7前",
+      "detail": "原図の掲載区域。緊急時は係員に連絡してください。",
+      "area": "中央モール2F・展示ホール7前",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-aed-central": {
+      "location": "中央モール2F・中央エントランス",
+      "detail": "原図の掲載区域。緊急時は係員に連絡してください。",
+      "area": "中央モール2F・中央エントランス",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-aed-mall3": {
+      "location": "中央モール2F・展示ホール3前",
+      "detail": "原図の掲載区域。緊急時は係員に連絡してください。",
+      "area": "中央モール2F・展示ホール3前",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-aed-mall2": {
+      "location": "中央モール2F・展示ホール2前",
+      "detail": "原図の掲載区域。緊急時は係員に連絡してください。",
+      "area": "中央モール2F・展示ホール2前",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-world": {
+      "location": "中央モール2F・展示ホール6前",
+      "detail": "営業日はイベント開催状況により異なります。キャッシュレス決済可。",
+      "area": "中央モール2F・展示ホール6前",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-royal": {
+      "location": "中央モール2F・展示ホール1前",
+      "detail": "営業日はイベント開催状況により異なります。キャッシュレス決済可。コンセント設置席は店舗の利用条件でご利用ください。",
+      "area": "中央モール2F・展示ホール1前",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-daily1": {
+      "location": "中央エントランス2F",
+      "detail": "営業日はイベント開催状況により異なります。キャッシュレス決済可。",
+      "area": "中央エントランス2F",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-daily3": {
+      "location": "中央モール2F・展示ホール1前",
+      "detail": "営業日はイベント開催状況により異なります。キャッシュレス決済可。",
+      "area": "中央モール2F・展示ホール1前",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-ex9-1-toilets": {
+      "location": "展示ホール91F・原図掲載区域",
+      "detail": "公式フロア図の1F設備です。室の精密入口・当日の入場境界は確認中のため場所一覧です。",
+      "area": "展示ホール91F・原図掲載区域",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-ex9-1-bf": {
+      "location": "展示ホール91F・原図掲載区域",
+      "detail": "公式フロア図に掲載。一般トイレとは別の設備です。精密入口と当日の開放は確認してください。",
+      "area": "展示ホール91F・原図掲載区域",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-ex10-1-toilets": {
+      "location": "展示ホール101F・原図掲載区域",
+      "detail": "公式フロア図の1F設備です。室の精密入口・当日の入場境界は確認中のため場所一覧です。",
+      "area": "展示ホール101F・原図掲載区域",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-ex10-1-bf": {
+      "location": "展示ホール101F・原図掲載区域",
+      "detail": "公式フロア図に掲載。一般トイレとは別の設備です。精密入口と当日の開放は確認してください。",
+      "area": "展示ホール101F・原図掲載区域",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-ex11-1-toilets": {
+      "location": "展示ホール111F・原図掲載区域",
+      "detail": "公式フロア図の1F設備です。室の精密入口・当日の入場境界は確認中のため場所一覧です。",
+      "area": "展示ホール111F・原図掲載区域",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-ex11-1-bf": {
+      "location": "展示ホール111F・原図掲載区域",
+      "detail": "公式フロア図に掲載。一般トイレとは別の設備です。精密入口と当日の開放は確認してください。",
+      "area": "展示ホール111F・原図掲載区域",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-ex9-1-baby": {
+      "location": "展示ホール91F・トイレ内",
+      "detail": "公式図のトイレ内設備。授乳室とは別です。個別室は場所一覧です。",
+      "area": "展示ホール91F・トイレ内",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-ex11-1-baby": {
+      "location": "展示ホール111F・トイレ内",
+      "detail": "公式図のトイレ内設備。授乳室とは別です。個別室は場所一覧です。",
+      "area": "展示ホール111F・トイレ内",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-ex10-lock": {
+      "location": "展示ホール10前2Fエスプラナード",
+      "detail": "小400円・中500円・大700円（1日1回）。小：幅35.2×奥行64.5×高さ32.5cm、中：35.2×64.5×51.6cm、大：35.2×64.5×86.6cm。利用8:00〜20:00（イベントにより変更）。24時を過ぎると1日分の追加料金、最大3日間。空きは現地で確認してください。",
+      "area": "展示ホール10前2Fエスプラナード",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-ex11-lock": {
+      "location": "展示ホール11前2Fエスプラナード",
+      "detail": "小400円・大700円（1日1回）。中型はありません。小：幅35.2×奥行64.5×高さ32.5cm、大：35.2×64.5×86.6cm。支払いは場所/機械で確認。利用8:00〜20:00（イベントにより変更）。24時を過ぎると1日分の追加料金、最大3日間。空きは現地で確認してください。",
+      "area": "展示ホール11前2Fエスプラナード",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-ex9-shop": {
+      "location": "展示ホール9前2Fエスプラナード",
+      "detail": "営業日はイベント開催状況により異なります。キャッシュレス決済可。",
+      "area": "展示ホール9前2Fエスプラナード",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-ex10-toilet": {
+      "location": "展示ホール10前2F",
+      "detail": "女性5・男性2ブースの増設案内。イベントにより利用できない場合があります。精密室位置は確認中のため場所一覧です。",
+      "area": "展示ホール10前2F",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-ex9-aed": {
+      "location": "エスプラナード2F・展示ホール9側",
+      "detail": "原図に掲載された共用部の区域。緊急時は係員へ連絡してください。",
+      "area": "エスプラナード2F・展示ホール9側",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-ex10-aed": {
+      "location": "エスプラナード2F・展示ホール10側",
+      "detail": "原図に掲載された共用部の区域。緊急時は係員へ連絡してください。",
+      "area": "エスプラナード2F・展示ホール10側",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-ex-phone": {
+      "location": "2Fエスプラナード",
+      "detail": "ChargeSPOT。8:00〜20:00（イベントによる）。料金/返却条件は運営元画面で確認してください。",
+      "area": "2Fエスプラナード",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-conf1-0": {
+      "location": "国際会議場1F・ロビー側",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "area": "国際会議場1F・ロビー側",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-conf1-0-baby": {
+      "location": "国際会議場1F・ロビー側・男女トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "area": "国際会議場1F・ロビー側・男女トイレ",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-conf1-1": {
+      "location": "国際会議場1F・ロビー側",
+      "detail": "原図に掲載されたトイレ区域です。オストメイト設備があります。当日の開放・利用境界を会場案内で確認してください。",
+      "area": "国際会議場1F・ロビー側",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-conf1-ev": {
+      "location": "国際会議場1F",
+      "detail": "原図のEV区域。停止階・当日の運用は会場案内で確認してください。",
+      "area": "国際会議場1F",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-conf1-aed": {
+      "location": "国際会議場1F",
+      "detail": "原図掲載区域。緊急時は係員へ連絡してください。",
+      "area": "国際会議場1F",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-conf2-0": {
+      "location": "国際会議場2F・ロビー側",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "area": "国際会議場2F・ロビー側",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-conf2-0-baby": {
+      "location": "国際会議場2F・ロビー側・男女トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "area": "国際会議場2F・ロビー側・男女トイレ",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-conf2-1": {
+      "location": "国際会議場2F・ロビー側",
+      "detail": "原図に掲載されたトイレ区域です。オストメイト設備があります。当日の開放・利用境界を会場案内で確認してください。",
+      "area": "国際会議場2F・ロビー側",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-conf2-2": {
+      "location": "国際会議場2F・会議室213〜216側",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "area": "国際会議場2F・会議室213〜216側",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-conf2-2-baby": {
+      "location": "国際会議場2F・会議室213〜216側・男女トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "area": "国際会議場2F・会議室213〜216側・男女トイレ",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-conf2-3": {
+      "location": "国際会議場2F・会議室213〜216側",
+      "detail": "原図に掲載されたトイレ区域です。オストメイト設備があります。当日の開放・利用境界を会場案内で確認してください。",
+      "area": "国際会議場2F・会議室213〜216側",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-conf2-ev": {
+      "location": "国際会議場2F",
+      "detail": "原図のEV区域。停止階・当日の運用は会場案内で確認してください。",
+      "area": "国際会議場2F",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-conf2-aed": {
+      "location": "国際会議場2F",
+      "detail": "原図掲載区域。緊急時は係員へ連絡してください。",
+      "area": "国際会議場2F",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-conf3-0": {
+      "location": "国際会議場3F・ロビー側",
+      "detail": "原図に掲載されたトイレ区域です。当日の開放・利用境界を会場案内で確認してください。",
+      "area": "国際会議場3F・ロビー側",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-conf3-0-baby": {
+      "location": "国際会議場3F・ロビー側・男女トイレ",
+      "detail": "トイレ内のベビーシートです。授乳室とは別の設備です。",
+      "area": "国際会議場3F・ロビー側・男女トイレ",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-conf3-1": {
+      "location": "国際会議場3F・ロビー側",
+      "detail": "原図に掲載されたトイレ区域です。オストメイト設備があります。当日の開放・利用境界を会場案内で確認してください。",
+      "area": "国際会議場3F・ロビー側",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-conf3-ev": {
+      "location": "国際会議場3F",
+      "detail": "原図のEV区域。停止階・当日の運用は会場案内で確認してください。",
+      "area": "国際会議場3F",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。"
+    },
+    "makuhari-out-bus": {
+      "location": "中央ロータリー1F・バス乗り場前",
+      "detail": "小400円・中500円・大700円（1日1回）。小：幅35.2×奥行64.5×高さ32.5cm、中：35.2×64.5×51.6cm、大：35.2×64.5×86.6cm。支払いは設置機械で確認。利用8:00〜20:00（イベントにより変更）。24時を過ぎると1日分の追加料金、最大3日間。空きは現地で確認してください。",
+      "area": "中央ロータリー1F・バス乗り場前",
+      "accessCondition": "入場前に利用できる選択肢です。施設ごとの利用条件をご確認ください。",
+      "outsideViewIds": [
+        "grounds",
+        "access"
+      ]
+    },
+    "makuhari-out-conf": {
+      "location": "国際会議場外・正面広場1F",
+      "detail": "小のみ300円（1日1回）、幅34×奥行42×高さ29cm。現金払いのみ。利用8:00〜20:00（イベントにより変更）。24時を過ぎると1日分の追加料金、最大3日間。空きは現地で確認してください。",
+      "area": "国際会議場外・正面広場1F",
+      "accessCondition": "入場前に利用できる選択肢です。施設ごとの利用条件をご確認ください。",
+      "outsideViewIds": [
+        "grounds",
+        "access"
+      ]
+    },
+    "makuhari-out-toilet-conf": {
+      "location": "国際会議場前の屋外トイレ",
+      "detail": "公式に掲載された屋外トイレ。精密入口・公演時の開放は現地で確認してください。",
+      "area": "国際会議場前の屋外トイレ",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "makuhari-out-toilet-parking": {
+      "location": "駐車場管理事務所側の屋外トイレ",
+      "detail": "公式に掲載された屋外トイレ。精密入口・公演時の開放は現地で確認してください。",
+      "area": "駐車場管理事務所側の屋外トイレ",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "makuhari-parking": {
+      "location": "千葉市美浜区豊砂3-1",
+      "detail": "8:00〜23:00、入庫21:00まで。普通・準中型1日1回1,000円。予約不可、キャッシュレス対応。原付は入場不可。空きは当日の案内で確認。",
+      "area": "千葉市美浜区豊砂3-1",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。",
+      "outsideViewIds": [
+        "grounds",
+        "access"
+      ]
+    },
+    "makuhari-parking-closed": {
+      "location": "P1・幕張新都心県営第一地下駐車場",
+      "detail": "公式アクセスに2026年8月1日〜2027年1月31日の閉鎖掲載。期間中の駐車先には案内しません。",
+      "area": "P1・幕張新都心県営第一地下駐車場",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "makuhari-bus": {
+      "location": "中央ロータリー1F",
+      "detail": "公式案内の場所一覧です。精密停車点・運行・料金・当日の規制は確認してください。",
+      "area": "中央ロータリー1F",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。",
+      "outsideViewIds": [
+        "grounds",
+        "access"
+      ]
+    },
+    "makuhari-taxi": {
+      "location": "中央ロータリー1F",
+      "detail": "公式案内の場所一覧です。精密停車点・運行・料金・当日の規制は確認してください。",
+      "area": "中央ロータリー1F",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。",
+      "outsideViewIds": [
+        "grounds",
+        "access"
+      ]
+    },
+    "makuhari-bike": {
+      "location": "展示ホール1〜8西広場・西エントランス近く／9〜11南広場",
+      "detail": "公式案内の場所一覧です。精密停車点・運行・料金・当日の規制は確認してください。",
+      "area": "展示ホール1〜8西広場・西エントランス近く／9〜11南広場",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。",
+      "outsideViewIds": [
+        "grounds",
+        "access"
+      ]
+    },
+    "makuhari-access-kaihin": {
+      "location": "南口・会場方向",
+      "detail": "公式の会場最寄り目安は徒歩約5分。イベントホールの指定入口までの時間ではありません。",
+      "area": "南口・会場方向",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。",
+      "outsideViewIds": [
+        "access"
+      ]
+    },
+    "makuhari-access-toyosuna": {
+      "location": "JR京葉線",
+      "detail": "公式目安は徒歩約20分。連続・段差なし経路は確認中。",
+      "area": "JR京葉線",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。",
+      "outsideViewIds": [
+        "access"
+      ]
+    },
+    "makuhari-access-hongo": {
+      "location": "バス乗り場1",
+      "detail": "幕張メッセ中央行きバスで約17分。便/混雑/降車停留所は現行交通案内を確認。",
+      "area": "バス乗り場1",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。",
+      "outsideViewIds": [
+        "access"
+      ]
+    },
+    "makuhari-station-right": {
+      "location": "海浜幕張駅南口・改札外1F階段下右側",
+      "detail": "現金・交通系IC。小500/中600/大800/特大900円。最新の機械・時間・寸法・空きは設置先で確認してください。",
+      "area": "海浜幕張駅南口・改札外1F階段下右側",
+      "accessCondition": "入場前に利用できる選択肢です。施設ごとの利用条件をご確認ください。",
+      "outsideViewIds": [
+        "station",
+        "access"
+      ]
+    },
+    "makuhari-station-left": {
+      "location": "海浜幕張駅南口・改札外1F階段下左側",
+      "detail": "現金・交通系IC。料金・大きさ・利用時間・空きは現地の機械で確認してください。",
+      "area": "海浜幕張駅南口・改札外1F階段下左側",
+      "accessCondition": "入場前に利用できる選択肢です。施設ごとの利用条件をご確認ください。",
+      "outsideViewIds": [
+        "station",
+        "access"
+      ]
+    },
+    "makuhari-station-north": {
+      "location": "海浜幕張駅北口ロータリー外側・ビッグエコー入口近く",
+      "detail": "JR公開記事で設置区域を確認。館内ロッカーとは別です。現行の個別機械・料金・時間・空きは確認中。",
+      "area": "海浜幕張駅北口ロータリー外側・ビッグエコー入口近く",
+      "accessCondition": "入場前に利用できる選択肢です。施設ごとの利用条件をご確認ください。",
+      "outsideViewIds": [
+        "station",
+        "access"
+      ]
+    },
+    "makuhari-station-suk": {
+      "location": "スーク海浜幕張4F・EV付近",
+      "detail": "JR公開記事で設置区域を確認。館の営業時間を取り出し可能時間へ自動転用しません。機械の現行料金・空きは確認中。",
+      "area": "スーク海浜幕張4F・EV付近",
+      "accessCondition": "入場前に利用できる選択肢です。施設ごとの利用条件をご確認ください。",
+      "outsideViewIds": [
+        "station",
+        "access"
+      ]
+    },
+    "makuhari-station-plena": {
+      "location": "プレナ幕張1F・トイレ付近",
+      "detail": "施設公式：10:00〜23:00、現金・IC利用可、両替機あり。23時を過ぎると1日分加算。現在の料金・寸法・空きは現地の機械で確認。",
+      "area": "プレナ幕張1F・トイレ付近",
+      "accessCondition": "入場前に利用できる選択肢です。施設ごとの利用条件をご確認ください。",
+      "outsideViewIds": [
+        "station",
+        "access"
+      ]
+    },
+    "makuhari-outlet-a": {
+      "location": "三井アウトレットパーク幕張 A-SITE1F・ツーリストインフォメーション横",
+      "detail": "小500円・中600円・大800円。IC型とレジャー型は寸法が異なります。IC大型高さ86.8×幅35.5×奥行64.5cm、レジャー大型78.2×36×58cm。利用時間・支払い・空きは設置先で確認してください。",
+      "area": "三井アウトレットパーク幕張 A-SITE1F・ツーリストインフォメーション横",
+      "accessCondition": "入場前に利用できる選択肢です。施設ごとの利用条件をご確認ください。",
+      "outsideViewIds": [
+        "station",
+        "access"
+      ]
+    },
+    "makuhari-outlet-b": {
+      "location": "三井アウトレットパーク幕張 B-SITE1F・セイコーアウトレット横",
+      "detail": "小500円・中600円・大800円。大型高さ84.3×幅35.5×奥行64.5cm。利用時間・支払い・空きは設置先で確認してください。",
+      "area": "三井アウトレットパーク幕張 B-SITE1F・セイコーアウトレット横",
+      "accessCondition": "入場前に利用できる選択肢です。施設ごとの利用条件をご確認ください。",
+      "outsideViewIds": [
+        "station",
+        "access"
+      ]
+    },
+    "makuhari-plena-bf": {
+      "location": "プレナ幕張1F・2F",
+      "detail": "各階1専用個室。店舗設備のため施設の利用条件に従ってください。精密室位置は場所一覧です。",
+      "area": "プレナ幕張1F・2F",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。",
+      "outsideViewIds": [
+        "station"
+      ]
+    },
+    "makuhari-plena-baby": {
+      "location": "プレナ幕張1F・2F・4F女性化粧室内",
+      "detail": "女性化粧室内のおむつ交換台。授乳室や男性トイレ内設備へ読み替えません。",
+      "area": "プレナ幕張1F・2F・4F女性化粧室内",
+      "accessCondition": "当日の開放・利用条件を会場案内で確認してください。",
+      "outsideViewIds": [
+        "station"
+      ]
+    }
+  },
+  "aliases": {
+    "makuhari-event-east": [
+      "東エントランス"
+    ],
+    "makuhari-event1-lobby": [
+      "1Fロビー"
+    ],
+    "makuhari-event-main": [
+      "メイン",
+      "中央プラザ",
+      "メインエントランス"
+    ],
+    "makuhari-event-south": [
+      "南ロビー"
+    ],
+    "makuhari-event-north": [
+      "北ロビー"
+    ],
+    "makuhari-event-west": [
+      "西エントランス"
+    ],
+    "makuhari-ex1": [
+      "展示ホール1"
+    ],
+    "makuhari-ex2": [
+      "展示ホール2"
+    ],
+    "makuhari-ex3": [
+      "展示ホール3"
+    ],
+    "makuhari-ex4": [
+      "展示ホール4"
+    ],
+    "makuhari-ex5": [
+      "展示ホール5"
+    ],
+    "makuhari-ex6": [
+      "展示ホール6"
+    ],
+    "makuhari-ex7": [
+      "展示ホール7"
+    ],
+    "makuhari-ex8": [
+      "展示ホール8"
+    ],
+    "makuhari-central": [
+      "中央エントランス"
+    ],
+    "makuhari-east": [
+      "東エントランス"
+    ],
+    "makuhari-west": [
+      "西エントランス"
+    ],
+    "makuhari-mall": [
+      "中央モール"
+    ],
+    "makuhari-ex1-hall9": [
+      "展示ホール9 1F"
+    ],
+    "makuhari-ex1-hall10": [
+      "展示ホール10 1F"
+    ],
+    "makuhari-ex1-hall11": [
+      "展示ホール11 1F"
+    ],
+    "makuhari-hall9": [
+      "展示ホール9"
+    ],
+    "makuhari-hall10": [
+      "展示ホール10"
+    ],
+    "makuhari-hall11": [
+      "展示ホール11"
+    ],
+    "makuhari-conf1": [
+      "国際会議場1F"
+    ],
+    "makuhari-conf2": [
+      "国際会議場2F"
+    ],
+    "makuhari-conf3": [
+      "国際会議場3F"
+    ],
+    "makuhari-grounds-central": [
+      "中央エントランス"
+    ],
+    "makuhari-grounds-event": [
+      "イベントホール"
+    ],
+    "makuhari-grounds-conf": [
+      "国際会議場"
+    ],
+    "makuhari-grounds-ex18": [
+      "展示ホール1〜8"
+    ],
+    "makuhari-grounds-ex911": [
+      "展示ホール9〜11"
+    ],
+    "makuhari-access-venue": [
+      "幕張メッセ"
+    ],
+    "makuhari-kaihin": [
+      "海浜幕張",
+      "南口",
+      "海浜幕張駅"
+    ],
+    "makuhari-toyosuna": [
+      "幕張豊砂",
+      "幕張豊砂駅"
+    ],
+    "makuhari-hongo": [
+      "幕張本郷",
+      "幕張本郷駅"
+    ],
+    "makuhari-station-kaihin": [
+      "海浜幕張",
+      "海浜幕張駅",
+      "南口"
+    ],
+    "makuhari-station-plena": [
+      "プレナ",
+      "プレナ幕張"
+    ],
+    "makuhari-station-outlet": [
+      "アウトレット",
+      "三井アウトレットパーク"
+    ],
+    "makuhari-station-suk": [
+      "スーク",
+      "北口"
+    ]
+  },
+  "landmarkFacilityIds": {
+    "makuhari-event-east": [
+      "makuhari-event1-locker-a",
+      "makuhari-event1-locker-b",
+      "makuhari-event1-ev"
+    ],
+    "makuhari-event1-lobby": [
+      "makuhari-event1-mixed",
+      "makuhari-event1-mixed-baby",
+      "makuhari-event1-accessible",
+      "makuhari-event1-locker-a",
+      "makuhari-event1-locker-b",
+      "makuhari-event1-ev"
+    ],
+    "makuhari-event-main": [
+      "makuhari-event2-ms",
+      "makuhari-event2-ms-baby",
+      "makuhari-event2-mn",
+      "makuhari-event2-mn-baby",
+      "makuhari-event2-bf",
+      "makuhari-event2-bf-baby",
+      "makuhari-event2-aed",
+      "makuhari-event2-ev"
+    ],
+    "makuhari-event-south": [
+      "makuhari-event2-sm",
+      "makuhari-event2-sm-baby",
+      "makuhari-event2-sw",
+      "makuhari-event2-sw-baby",
+      "makuhari-event2-locker-s"
+    ],
+    "makuhari-event-north": [
+      "makuhari-event2-nw",
+      "makuhari-event2-nw-baby",
+      "makuhari-event2-nm",
+      "makuhari-event2-nm-baby",
+      "makuhari-event2-locker-n"
+    ],
+    "makuhari-event-west": [],
+    "makuhari-ex1": [],
+    "makuhari-ex2": [],
+    "makuhari-ex3": [],
+    "makuhari-ex4": [],
+    "makuhari-ex5": [],
+    "makuhari-ex6": [],
+    "makuhari-ex7": [],
+    "makuhari-ex8": [],
+    "makuhari-central": [
+      "makuhari-mall6-bf",
+      "makuhari-aed-central",
+      "makuhari-world",
+      "makuhari-daily1"
+    ],
+    "makuhari-east": [
+      "makuhari-lock-mall8",
+      "makuhari-lock-mall7a",
+      "makuhari-aed-mall7"
+    ],
+    "makuhari-west": [
+      "makuhari-mall1-toilet",
+      "makuhari-mall1-toilet-baby",
+      "makuhari-mall1-bf",
+      "makuhari-lock-mall2",
+      "makuhari-lock-mall1",
+      "makuhari-aed-mall2",
+      "makuhari-royal",
+      "makuhari-daily3"
+    ],
+    "makuhari-mall": [
+      "makuhari-mall6-toilet",
+      "makuhari-mall6-toilet-baby",
+      "makuhari-lock-mall7a",
+      "makuhari-lock-mall7b",
+      "makuhari-lock-mall6",
+      "makuhari-nursing",
+      "makuhari-information",
+      "makuhari-aed-mall7"
+    ],
+    "makuhari-ex1-hall9": [],
+    "makuhari-ex1-hall10": [],
+    "makuhari-ex1-hall11": [],
+    "makuhari-hall9": [],
+    "makuhari-hall10": [],
+    "makuhari-hall11": [],
+    "makuhari-conf1": [
+      "makuhari-conf1-1",
+      "makuhari-conf1-ev"
+    ],
+    "makuhari-conf2": [
+      "makuhari-conf2-2",
+      "makuhari-conf2-2-baby",
+      "makuhari-conf2-3",
+      "makuhari-conf2-ev",
+      "makuhari-conf2-aed"
+    ],
+    "makuhari-conf3": [
+      "makuhari-conf3-ev"
+    ],
+    "makuhari-grounds-central": [
+      "makuhari-out-bus",
+      "makuhari-out-conf"
+    ],
+    "makuhari-grounds-event": [
+      "makuhari-out-bus"
+    ],
+    "makuhari-grounds-conf": [
+      "makuhari-out-conf"
+    ],
+    "makuhari-grounds-ex18": [
+      "makuhari-out-bus",
+      "makuhari-out-conf"
+    ],
+    "makuhari-grounds-ex911": [],
+    "makuhari-access-venue": [],
+    "makuhari-kaihin": [],
+    "makuhari-toyosuna": [],
+    "makuhari-hongo": [],
+    "makuhari-station-kaihin": [
+      "makuhari-station-right",
+      "makuhari-station-left"
+    ],
+    "makuhari-station-plena": [
+      "makuhari-station-plena"
+    ],
+    "makuhari-station-outlet": [
+      "makuhari-outlet-a",
+      "makuhari-outlet-b"
+    ],
+    "makuhari-station-suk": [
+      "makuhari-station-north",
+      "makuhari-station-suk"
+    ]
+  }
+}

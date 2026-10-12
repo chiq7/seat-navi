@@ -1,0 +1,1400 @@
+{
+  "checkedAt": "2026-10-07",
+  "diagram": {
+    "id": "kyocera-f2",
+    "floor": "2F",
+    "scope": "場内",
+    "viewBox": [
+      40,
+      -12,
+      638,
+      772
+    ],
+    "concoursePaths": [
+      "M225,96 L293,47 L310,36 L328,36 L394,36 L406,6 L428,8 L425,46 L480,73 L532,132 L505,164 Q612,232 613,350 Q613,459 557,533 L603,585 L574,616 L548,645 L504,680 L480,697 L459,662 Q350,707 247,666 L230,706 L204,688 L217,650 L176,625 L158,640 L127,616 L103,597 L78,558 L109,540 Q48,443 91,304 Q100,239 157,178 Z M201,250 L179,322 Q168,394 225,457 Q290,529 408,501 Q511,489 542,397 Q573,297 525,243 Q454,164 350,168 Q273,183 201,250 Z"
+    ],
+    "contextPaths": [
+      "M201,250 Q273,183 350,168 Q454,164 525,243 Q573,297 542,397 Q511,489 408,501 Q290,529 225,457 Q168,394 179,322 Z",
+      "M245,449 L263,465 L293,482 L320,490 L349,493 L373,491 L392,487 L406,530 L382,536 L351,540 L317,536 L283,528 L258,516 L231,499 L212,482 Z",
+      "M130,483 L149,470 L182,516 L164,529 L164,529 Z",
+      "M181,268 L222,289 L215,309 L207,330 L163,323 L167,304 L172,285 Z",
+      "M98,294 L105,267 L115,243 L146,257 L136,285 L131,301 Z",
+      "M167,243 L178,226 L194,209 L205,195 L225,181 L199,144 L177,161 L155,183 L141,201 L128,221 Z",
+      "M163,324 L208,333 L205,347 L205,360 L208,374 L163,383 L160,363 L160,340 Z",
+      "M182,266 L222,287 L228,276 L239,262 L252,249 L266,238 L239,200 L227,209 L209,227 L192,249 Z",
+      "M394,218 L410,175 L423,181 L437,188 L445,194 L422,232 Z",
+      "M433,241 L461,204 L479,218 L492,232 L506,251 L517,272 L475,292 L466,273 L452,255 Z",
+      "M248,203 L249,203 L304,177 L316,223 L275,241 L275,240 Z",
+      "M513,279 L534,279 L534,299 L513,299 Z",
+      "M136,336 L136,360 L140,382 L95,392 L91,359 L93,331 Z",
+      "M298,172 L321,165 L352,162 L381,166 L408,172 L392,216 L370,210 L333,211 L311,218 Z",
+      "M486,316 L529,305 L533,327 L534,349 L487,351 L488,333 Z",
+      "M517,351 L538,351 L538,370 L517,370 Z"
+    ],
+    "landmarks": [
+      {
+        "id": "f2-landmark-south",
+        "label": "南口",
+        "name": "2F・南口",
+        "x": 430,
+        "y": 18,
+        "kind": "entrance",
+        "sourceIds": [
+          "floor-2-image",
+          "guide-2026"
+        ],
+        "reference": "原向き2F図の印字位置。3Fの入場ゲートとは別"
+      },
+      {
+        "id": "f2-landmark-east",
+        "label": "東口",
+        "name": "2F・東口",
+        "x": 130,
+        "y": 703,
+        "kind": "entrance",
+        "sourceIds": [
+          "floor-2-image",
+          "guide-2026"
+        ],
+        "reference": "原向き2F図の印字位置。3Fの入場ゲートとは別"
+      },
+      {
+        "id": "f2-landmark-north",
+        "label": "北口",
+        "name": "2F・北口",
+        "x": 525,
+        "y": 704,
+        "kind": "entrance",
+        "sourceIds": [
+          "floor-2-image",
+          "guide-2026"
+        ],
+        "reference": "原向き2F図の印字位置。3Fの入場ゲートとは別"
+      },
+      {
+        "id": "f2-landmark-vista-home",
+        "label": "ビスタロビー",
+        "name": "2F・本塁側ビスタルームロビー",
+        "x": 351,
+        "y": 557,
+        "kind": "plaza",
+        "sourceIds": [
+          "floor-2-image",
+          "guide-2026"
+        ],
+        "reference": "原向き2F図の印字位置。3Fの入場ゲートとは別"
+      },
+      {
+        "id": "f2-landmark-vista-first",
+        "label": "ビスタロビー",
+        "name": "2F・一塁側ビスタルームロビー",
+        "x": 592,
+        "y": 251,
+        "kind": "plaza",
+        "sourceIds": [
+          "floor-2-image",
+          "guide-2026"
+        ],
+        "reference": "原向き2F図の印字位置。3Fの入場ゲートとは別"
+      }
+    ],
+    "evidence": {
+      "sourceIds": [
+        "floor-2",
+        "floor-2-css",
+        "floor-2-image",
+        "guide-2026"
+      ],
+      "file": "floor-2.png",
+      "sha256": "17a325d78813f72a7623fee2ffdeb51210a73b932d4d1f63ef2c2975c8e32932",
+      "width": 574,
+      "height": 740,
+      "canvasWidth": 718,
+      "imageOffsetX": 72,
+      "method": "現在のHTML/CSSと実描画の原記号中心。店舗はareaポリゴン+72px。大きな階輪郭を原向きで転記。細かな壁/動線/入口は未確定",
+      "status": "partial"
+    }
+  },
+  "facilities": [
+    {
+      "id": "north-info",
+      "name": "北口インフォメーション",
+      "purpose": "案内",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・北口側",
+      "detail": "車いす貸出の受付。イベントのない日は11:00〜17:00、コンサート日は2Fモール営業開始〜18:00。月曜休業（祝休日・イベント日を除く）。当日の案内を優先してください。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-css",
+        "floor-2-image",
+        "support"
+      ],
+      "precision": "diagram-point",
+      "kind": "information",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 496,
+        "y": 471,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-css",
+          "floor-2-image"
+        ],
+        "reference": "公式2F PC図のic-01。原記号中心、入口の実測点ではない"
+      },
+      "accessCondition": "before-admission"
+    },
+    {
+      "id": "f2-if-01",
+      "name": "東口インフォメーション",
+      "purpose": "案内",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・東口側",
+      "detail": "イベント時のみの案内所です。開設状況は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-css",
+        "floor-2-image"
+      ],
+      "precision": "diagram-point",
+      "kind": "information",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 216,
+        "y": 546,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-css",
+          "floor-2-image"
+        ],
+        "reference": "公式2F PC図のif-01。原記号中心、入口の実測点ではない"
+      }
+    },
+    {
+      "id": "f2-ele1to3-01",
+      "name": "1・2・3F連絡エレベーター",
+      "purpose": "案内",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・東口側",
+      "detail": "1〜3F連絡用。指定ゲート・運転状況は当日の係員案内を確認してください。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-css",
+        "floor-2-image"
+      ],
+      "precision": "diagram-point",
+      "kind": "elevator-1to3",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 231,
+        "y": 661,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-css",
+          "floor-2-image"
+        ],
+        "reference": "公式2F PC図のele1to3-01。原記号中心、入口の実測点ではない"
+      }
+    },
+    {
+      "id": "f2-ele1to3-02",
+      "name": "1・2・3F連絡エレベーター",
+      "purpose": "案内",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・北口側",
+      "detail": "1〜3F連絡用。指定ゲート・運転状況は当日の係員案内を確認してください。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-css",
+        "floor-2-image"
+      ],
+      "precision": "diagram-point",
+      "kind": "elevator-1to3",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 466,
+        "y": 646,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-css",
+          "floor-2-image"
+        ],
+        "reference": "公式2F PC図のele1to3-02。原記号中心、入口の実測点ではない"
+      }
+    },
+    {
+      "id": "f2-ele1to3-03",
+      "name": "1・2・3F連絡エレベーター",
+      "purpose": "案内",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・南口側",
+      "detail": "1〜3F連絡用。指定ゲート・運転状況は当日の係員案内を確認してください。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-css",
+        "floor-2-image"
+      ],
+      "precision": "diagram-point",
+      "kind": "elevator-1to3",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 421,
+        "y": 41,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-css",
+          "floor-2-image"
+        ],
+        "reference": "公式2F PC図のele1to3-03。原記号中心、入口の実測点ではない"
+      }
+    },
+    {
+      "id": "f2-ele1to3-04",
+      "name": "1・2・3F連絡エレベーター",
+      "purpose": "案内",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・南口側",
+      "detail": "1〜3F連絡用。指定ゲート・運転状況は当日の係員案内を確認してください。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-css",
+        "floor-2-image"
+      ],
+      "precision": "diagram-point",
+      "kind": "elevator-1to3",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 276,
+        "y": 41,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-css",
+          "floor-2-image"
+        ],
+        "reference": "公式2F PC図のele1to3-04。原記号中心、入口の実測点ではない"
+      }
+    },
+    {
+      "id": "f2-ele1to3-05",
+      "name": "1・2・3F連絡エレベーター",
+      "purpose": "案内",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・北口側",
+      "detail": "1〜3F連絡用。指定ゲート・運転状況は当日の係員案内を確認してください。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-css",
+        "floor-2-image"
+      ],
+      "precision": "diagram-point",
+      "kind": "elevator-1to3",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 586,
+        "y": 581,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-css",
+          "floor-2-image"
+        ],
+        "reference": "公式2F PC図のele1to3-05。原記号中心、入口の実測点ではない"
+      }
+    },
+    {
+      "id": "f2-ele1to3-06",
+      "name": "1・2・3F連絡エレベーター",
+      "purpose": "案内",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・東口側",
+      "detail": "1〜3F連絡用。指定ゲート・運転状況は当日の係員案内を確認してください。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-css",
+        "floor-2-image"
+      ],
+      "precision": "diagram-point",
+      "kind": "elevator-1to3",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 97,
+        "y": 561,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-css",
+          "floor-2-image"
+        ],
+        "reference": "公式2F PC図のele1to3-06。原記号中心、入口の実測点ではない"
+      }
+    },
+    {
+      "id": "f2-eleug-01",
+      "name": "地下駐車場・3Fゲート専用エレベーター",
+      "purpose": "案内",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・モール西側",
+      "detail": "地下駐車場・3F入場ゲート専用の案内です。2Fモールへの連絡用とは区別してください。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-css",
+        "floor-2-image"
+      ],
+      "precision": "diagram-point",
+      "kind": "elevator-underground",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 121,
+        "y": 303,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-css",
+          "floor-2-image"
+        ],
+        "reference": "公式2F PC図のeleug-01。原記号中心、入口の実測点ではない"
+      }
+    },
+    {
+      "id": "f2-eleug-02",
+      "name": "地下駐車場・3Fゲート専用エレベーター",
+      "purpose": "案内",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・一塁側ビスタルームロビー側",
+      "detail": "地下駐車場・3F入場ゲート専用の案内です。2Fモールへの連絡用とは区別してください。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-css",
+        "floor-2-image"
+      ],
+      "precision": "diagram-point",
+      "kind": "elevator-underground",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 566,
+        "y": 281,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-css",
+          "floor-2-image"
+        ],
+        "reference": "公式2F PC図のeleug-02。原記号中心、入口の実測点ではない"
+      }
+    },
+    {
+      "id": "f2-elesh-01",
+      "name": "スカイホール用エレベーター",
+      "purpose": "案内",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・ビスタルームロビー側",
+      "detail": "スカイホール用。指定催事の利用条件と係員の案内を確認してください。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-css",
+        "floor-2-image"
+      ],
+      "precision": "diagram-point",
+      "kind": "elevator-skyhall",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 261,
+        "y": 566,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-css",
+          "floor-2-image"
+        ],
+        "reference": "公式2F PC図のelesh-01。原記号中心、入口の実測点ではない"
+      }
+    },
+    {
+      "id": "f2-elesh-02",
+      "name": "スカイホール用エレベーター",
+      "purpose": "案内",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・南口側",
+      "detail": "スカイホール用。指定催事の利用条件と係員の案内を確認してください。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-css",
+        "floor-2-image"
+      ],
+      "precision": "diagram-point",
+      "kind": "elevator-skyhall",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 273,
+        "y": 131,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-css",
+          "floor-2-image"
+        ],
+        "reference": "公式2F PC図のelesh-02。原記号中心、入口の実測点ではない"
+      }
+    },
+    {
+      "id": "f2-elesh-03",
+      "name": "スカイホール用エレベーター",
+      "purpose": "案内",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・北口側",
+      "detail": "スカイホール用。指定催事の利用条件と係員の案内を確認してください。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-css",
+        "floor-2-image"
+      ],
+      "precision": "diagram-point",
+      "kind": "elevator-skyhall",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 451,
+        "y": 558,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-css",
+          "floor-2-image"
+        ],
+        "reference": "公式2F PC図のelesh-03。原記号中心、入口の実測点ではない"
+      }
+    },
+    {
+      "id": "f2-esca-01",
+      "name": "エスカレーター",
+      "purpose": "案内",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・東口側",
+      "detail": "利用時間・当日の開放は公演案内を確認してください。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-css",
+        "floor-2-image"
+      ],
+      "precision": "diagram-point",
+      "kind": "escalator",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 241,
+        "y": 631,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-css",
+          "floor-2-image"
+        ],
+        "reference": "公式2F PC図のesca-01。原記号中心、入口の実測点ではない"
+      }
+    },
+    {
+      "id": "f2-esca-02",
+      "name": "エスカレーター",
+      "purpose": "案内",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・東口側",
+      "detail": "利用時間・当日の開放は公演案内を確認してください。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-css",
+        "floor-2-image"
+      ],
+      "precision": "diagram-point",
+      "kind": "escalator",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 191,
+        "y": 646,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-css",
+          "floor-2-image"
+        ],
+        "reference": "公式2F PC図のesca-02。原記号中心、入口の実測点ではない"
+      }
+    },
+    {
+      "id": "f2-esca-03",
+      "name": "エスカレーター",
+      "purpose": "案内",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・東口側",
+      "detail": "利用時間・当日の開放は公演案内を確認してください。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-css",
+        "floor-2-image"
+      ],
+      "precision": "diagram-point",
+      "kind": "escalator",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 110,
+        "y": 586,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-css",
+          "floor-2-image"
+        ],
+        "reference": "公式2F PC図のesca-03。原記号中心、入口の実測点ではない"
+      }
+    },
+    {
+      "id": "f2-esca-04",
+      "name": "エスカレーター",
+      "purpose": "案内",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・東口側",
+      "detail": "利用時間・当日の開放は公演案内を確認してください。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-css",
+        "floor-2-image"
+      ],
+      "precision": "diagram-point",
+      "kind": "escalator",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 124,
+        "y": 546,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-css",
+          "floor-2-image"
+        ],
+        "reference": "公式2F PC図のesca-04。原記号中心、入口の実測点ではない"
+      }
+    },
+    {
+      "id": "f2-toilet-01",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・ビスタルームロビー側",
+      "detail": "利用時間・当日の開放は公演案内を確認してください。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-css",
+        "floor-2-image"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 395,
+        "y": 581,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-css",
+          "floor-2-image"
+        ],
+        "reference": "公式2F PC図のtoilet-01。原記号中心、入口の実測点ではない"
+      },
+      "toiletType": "mixed"
+    },
+    {
+      "id": "f2-toilet-03",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・一塁側ビスタルームロビー側",
+      "detail": "利用時間・当日の開放は公演案内を確認してください。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-css",
+        "floor-2-image"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 581,
+        "y": 313,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-css",
+          "floor-2-image"
+        ],
+        "reference": "公式2F PC図のtoilet-03。原記号中心、入口の実測点ではない"
+      },
+      "toiletType": "mixed"
+    },
+    {
+      "id": "f2-toilet-04",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・モール西側",
+      "detail": "利用時間・当日の開放は公演案内を確認してください。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-css",
+        "floor-2-image"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 116,
+        "y": 331,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-css",
+          "floor-2-image"
+        ],
+        "reference": "公式2F PC図のtoilet-04。原記号中心、入口の実測点ではない"
+      },
+      "toiletType": "mixed"
+    },
+    {
+      "id": "f2-toilet-05",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・南口側",
+      "detail": "利用時間・当日の開放は公演案内を確認してください。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-css",
+        "floor-2-image"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 481,
+        "y": 156,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-css",
+          "floor-2-image"
+        ],
+        "reference": "公式2F PC図のtoilet-05。原記号中心、入口の実測点ではない"
+      },
+      "toiletType": "mixed"
+    },
+    {
+      "id": "f2-toilet-06",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・南口側",
+      "detail": "利用時間・当日の開放は公演案内を確認してください。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-css",
+        "floor-2-image"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 246,
+        "y": 141,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-css",
+          "floor-2-image"
+        ],
+        "reference": "公式2F PC図のtoilet-06。原記号中心、入口の実測点ではない"
+      },
+      "toiletType": "mixed"
+    },
+    {
+      "id": "f2-toiletfe-01",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・一塁側ビスタルームロビー側",
+      "detail": "公式案内では37室の女性専用トイレ。一般の男女トイレとは別の設備です。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-css",
+        "floor-2-image"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet-female",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 486,
+        "y": 401,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-css",
+          "floor-2-image"
+        ],
+        "reference": "公式2F PC図のtoiletfe-01。原記号中心、入口の実測点ではない"
+      },
+      "toiletType": "women"
+    },
+    {
+      "id": "f2-toiletfe-02",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・モール西側",
+      "detail": "利用時間・当日の開放は公演案内を確認してください。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-css",
+        "floor-2-image"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet-female",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 193,
+        "y": 391,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-css",
+          "floor-2-image"
+        ],
+        "reference": "公式2F PC図のtoiletfe-02。原記号中心、入口の実測点ではない"
+      },
+      "toiletType": "women"
+    },
+    {
+      "id": "baby-2",
+      "name": "b’sルーム（赤ちゃん休憩所）",
+      "purpose": "赤ちゃん",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・北口インフォメーション横",
+      "detail": "授乳ブースは女性専用。おむつ替え用ベッド・おむつ用ごみ箱があります。コンサート日は2Fモール営業開始〜終演1時間後が目安で、イベントにより変更されます。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-css",
+        "floor-2-image",
+        "support"
+      ],
+      "precision": "diagram-point",
+      "kind": "baby",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 451,
+        "y": 466,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-css",
+          "floor-2-image"
+        ],
+        "reference": "公式2F PC図のmilk-01。原記号中心、入口の実測点ではない"
+      },
+      "accessCondition": "before-admission"
+    },
+    {
+      "id": "f2-toilethc-02",
+      "name": "バリアフリートイレ（オストメイト対応）",
+      "purpose": "トイレ",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・一塁側ビスタルームロビー側",
+      "detail": "利用時間・当日の開放は公演案内を確認してください。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-css",
+        "floor-2-image"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet-handicapped",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 514,
+        "y": 399,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-css",
+          "floor-2-image"
+        ],
+        "reference": "公式2F PC図のtoilethc-02。原記号中心、入口の実測点ではない"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "f2-tkt-01",
+      "name": "北口券売所",
+      "purpose": "案内",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・北口側",
+      "detail": "利用時間・当日の開放は公演案内を確認してください。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-css",
+        "floor-2-image"
+      ],
+      "precision": "diagram-point",
+      "kind": "ticket-sell",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 511,
+        "y": 546,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-css",
+          "floor-2-image"
+        ],
+        "reference": "公式2F PC図のtkt-01。原記号中心、入口の実測点ではない"
+      }
+    },
+    {
+      "id": "aed-2",
+      "name": "AED",
+      "purpose": "AED",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・北口インフォメーション前",
+      "detail": "緊急時は近くの係員にも知らせてください。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-css",
+        "floor-2-image",
+        "support"
+      ],
+      "precision": "diagram-point",
+      "kind": "aed",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 480,
+        "y": 508,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-css",
+          "floor-2-image"
+        ],
+        "reference": "公式2F PC図のaed-01。原記号中心、入口の実測点ではない"
+      },
+      "accessCondition": "before-admission"
+    },
+    {
+      "id": "locker-venue-2f-north",
+      "name": "コインロッカー（北口付近）",
+      "purpose": "荷物",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・北口付近",
+      "detail": "入場前の2Fモールにあります。3F入場ゲートへはドーム外周から向かいます。利用時間・料金・対応サイズ・空きは現地で確認してください。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-css",
+        "floor-2-image"
+      ],
+      "precision": "diagram-point",
+      "kind": "locker",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 466,
+        "y": 586,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-css",
+          "floor-2-image"
+        ],
+        "reference": "公式2F PC図のlock-01。原記号中心、入口の実測点ではない"
+      },
+      "storageKind": "coin",
+      "accessCondition": "before-admission"
+    },
+    {
+      "id": "locker-venue-2f-lobby",
+      "name": "コインロッカー（ビスタルームロビー付近）",
+      "purpose": "荷物",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・ビスタルームロビー付近",
+      "detail": "入場前の2Fモールにあります。3F入場ゲートへはドーム外周から向かいます。利用時間・料金・対応サイズ・空きは現地で確認してください。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-css",
+        "floor-2-image"
+      ],
+      "precision": "diagram-point",
+      "kind": "locker",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 349,
+        "y": 594,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-css",
+          "floor-2-image"
+        ],
+        "reference": "公式2F PC図のlock-02。原記号中心、入口の実測点ではない"
+      },
+      "storageKind": "coin",
+      "accessCondition": "before-admission"
+    },
+    {
+      "id": "locker-venue-2f-east",
+      "name": "コインロッカー（東口付近）",
+      "purpose": "荷物",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・東口付近",
+      "detail": "入場前の2Fモールにあります。3F入場ゲートへはドーム外周から向かいます。利用時間・料金・対応サイズ・空きは現地で確認してください。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-css",
+        "floor-2-image"
+      ],
+      "precision": "diagram-point",
+      "kind": "locker",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 231,
+        "y": 576,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-css",
+          "floor-2-image"
+        ],
+        "reference": "公式2F PC図のlock-03。原記号中心、入口の実測点ではない"
+      },
+      "storageKind": "coin",
+      "accessCondition": "before-admission"
+    },
+    {
+      "id": "locker-venue-2f-south",
+      "name": "コインロッカー（南口付近）",
+      "purpose": "荷物",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・南口付近",
+      "detail": "入場前の2Fモールにあります。3F入場ゲートへはドーム外周から向かいます。利用時間・料金・対応サイズ・空きは現地で確認してください。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-css",
+        "floor-2-image"
+      ],
+      "precision": "diagram-point",
+      "kind": "locker",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 286,
+        "y": 91,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-css",
+          "floor-2-image"
+        ],
+        "reference": "公式2F PC図のlock-04。原記号中心、入口の実測点ではない"
+      },
+      "storageKind": "coin",
+      "accessCondition": "before-admission"
+    },
+    {
+      "id": "f2-mbr-01",
+      "name": "モバイルバッテリーレンタル",
+      "purpose": "案内",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・南口側",
+      "detail": "レンタル型のモバイルバッテリーです。料金・返却先・利用条件は機器の案内を確認してください。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-css",
+        "floor-2-image"
+      ],
+      "precision": "diagram-point",
+      "kind": "mbr",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 431,
+        "y": 121,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-css",
+          "floor-2-image"
+        ],
+        "reference": "公式2F PC図のmbr-01。原記号中心、入口の実測点ではない"
+      }
+    },
+    {
+      "id": "f2-mbr-02",
+      "name": "モバイルバッテリーレンタル",
+      "purpose": "案内",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・ビスタルームロビー側",
+      "detail": "レンタル型のモバイルバッテリーです。料金・返却先・利用条件は機器の案内を確認してください。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-css",
+        "floor-2-image"
+      ],
+      "precision": "diagram-point",
+      "kind": "mbr",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 363,
+        "y": 553,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-css",
+          "floor-2-image"
+        ],
+        "reference": "公式2F PC図のmbr-02。原記号中心、入口の実測点ではない"
+      }
+    },
+    {
+      "id": "f2-mbr-03",
+      "name": "モバイルバッテリーレンタル",
+      "purpose": "案内",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・ビスタルームロビー側",
+      "detail": "レンタル型のモバイルバッテリーです。料金・返却先・利用条件は機器の案内を確認してください。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-css",
+        "floor-2-image"
+      ],
+      "precision": "diagram-point",
+      "kind": "mbr",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 426,
+        "y": 546,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-css",
+          "floor-2-image"
+        ],
+        "reference": "公式2F PC図のmbr-03。原記号中心、入口の実測点ではない"
+      }
+    },
+    {
+      "id": "f2-jihanki-01",
+      "name": "自動販売機",
+      "purpose": "飲食",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・一塁側ビスタルームロビー側",
+      "detail": "利用時間・当日の開放は公演案内を確認してください。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-css",
+        "floor-2-image"
+      ],
+      "precision": "diagram-point",
+      "kind": "jihanki",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 581,
+        "y": 341,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-css",
+          "floor-2-image"
+        ],
+        "reference": "公式2F PC図のjihanki-01。原記号中心、入口の実測点ではない"
+      }
+    },
+    {
+      "id": "f2-jihanki-02",
+      "name": "自動販売機",
+      "purpose": "飲食",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・ビスタルームロビー側",
+      "detail": "利用時間・当日の開放は公演案内を確認してください。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-css",
+        "floor-2-image"
+      ],
+      "precision": "diagram-point",
+      "kind": "jihanki",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 311,
+        "y": 553,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-css",
+          "floor-2-image"
+        ],
+        "reference": "公式2F PC図のjihanki-02。原記号中心、入口の実測点ではない"
+      }
+    },
+    {
+      "id": "f2-jihanki-03",
+      "name": "自動販売機",
+      "purpose": "飲食",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・南口側",
+      "detail": "利用時間・当日の開放は公演案内を確認してください。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-css",
+        "floor-2-image"
+      ],
+      "precision": "diagram-point",
+      "kind": "jihanki",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 299,
+        "y": 121,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-css",
+          "floor-2-image"
+        ],
+        "reference": "公式2F PC図のjihanki-03。原記号中心、入口の実測点ではない"
+      }
+    },
+    {
+      "id": "f2-jihanki2-01",
+      "name": "飲料・サニタリー用品自動販売機",
+      "purpose": "飲食",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・北口インフォメーション横",
+      "detail": "飲料、マスク、紙おむつ、おしりナップ、ティッシュ、生理用ナプキンなど。品切れ・価格は機器で確認してください。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-css",
+        "floor-2-image",
+        "support"
+      ],
+      "precision": "diagram-point",
+      "kind": "jihanki2",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 451,
+        "y": 501,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-css",
+          "floor-2-image"
+        ],
+        "reference": "公式2F PC図のjihanki2-01。原記号中心、入口の実測点ではない"
+      }
+    },
+    {
+      "id": "f2-shop-s01",
+      "name": "Bs SHOP",
+      "purpose": "案内",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・北口側",
+      "detail": "イベントのない日は11:00〜19:00。イベント日は開催時間に合わせて営業します。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-image",
+        "guide-2026"
+      ],
+      "precision": "landmark-area",
+      "kind": "information",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 311.67,
+        "y": 501.6,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-image"
+        ],
+        "reference": "公式2F図のBs SHOP領域の代表位置。店舗入口ではない"
+      }
+    },
+    {
+      "id": "f2-shop-s02",
+      "name": "ドミノ・ピザ 京セラドーム大阪店",
+      "purpose": "飲食",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・東口側",
+      "detail": "主にイベント開催時のみ営業。テイクアウトのみ。コード決済は利用できません。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-image",
+        "guide-2026"
+      ],
+      "precision": "landmark-area",
+      "kind": "food",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 157.8,
+        "y": 505.4,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-image"
+        ],
+        "reference": "公式2F図のドミノ・ピザ　京セラドーム大阪店領域の代表位置。店舗入口ではない"
+      }
+    },
+    {
+      "id": "f2-shop-s07",
+      "name": "ケンタッキーフライドチキン（2F店）",
+      "purpose": "飲食",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・南口・東口側",
+      "detail": "主にイベント開催時のみ営業。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-image",
+        "guide-2026"
+      ],
+      "precision": "landmark-area",
+      "kind": "food",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 176.9,
+        "y": 196.4,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-image"
+        ],
+        "reference": "公式2F図のケンタッキーフライドチキン(2F店)領域の代表位置。店舗入口ではない"
+      }
+    },
+    {
+      "id": "f2-shop-s08",
+      "name": "パノラマビアホール GRILL FESTA",
+      "purpose": "飲食",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・南口側",
+      "detail": "主にイベント開催時のみ営業。グループ・団体は予約制です。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-image",
+        "guide-2026"
+      ],
+      "precision": "landmark-area",
+      "kind": "food",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 225.6,
+        "y": 246.3,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-image"
+        ],
+        "reference": "公式2F図のパノラマビアホール ＧＲＩＬＬ ＦＥＳＴＡ領域の代表位置。店舗入口ではない"
+      }
+    },
+    {
+      "id": "f2-shop-s11",
+      "name": "CLUB STADIUM",
+      "purpose": "飲食",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・南口・北口側",
+      "detail": "観戦付きレストラン。オリックス主催試合の専用チケットの利用条件を確認してください。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-image",
+        "guide-2026"
+      ],
+      "precision": "landmark-area",
+      "kind": "food",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 421.83,
+        "y": 198.0,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-image"
+        ],
+        "reference": "公式2F図のCLUB STADIUM領域の代表位置。店舗入口ではない"
+      }
+    },
+    {
+      "id": "f2-shop-s12",
+      "name": "STAR DINER",
+      "purpose": "飲食",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・一塁側ビスタルームロビー側",
+      "detail": "観戦付きレストラン。オリックス主催試合の専用チケットの利用条件を確認してください。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-image",
+        "guide-2026"
+      ],
+      "precision": "landmark-area",
+      "kind": "food",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 475.67,
+        "y": 248.67,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-image"
+        ],
+        "reference": "公式2F図のSTAR DINER領域の代表位置。店舗入口ではない"
+      }
+    },
+    {
+      "id": "f2-shop-s09",
+      "name": "リラクゼーションラウンジ・喫煙コーナー",
+      "purpose": "案内",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・南口側",
+      "detail": "パウダー・休憩・喫煙コーナー。コンサート日は2Fモール営業開始〜開演。利用可能時間が変わる場合があります。",
+      "sourceIds": [
+        "floor-2",
+        "floor-2-image",
+        "guide-2026"
+      ],
+      "precision": "landmark-area",
+      "kind": "smokingarea",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "kyocera-f2",
+        "x": 277.83,
+        "y": 214.5,
+        "sourceIds": [
+          "floor-2",
+          "floor-2-image"
+        ],
+        "reference": "公式2F図のリラクゼーションラウンジ領域の代表位置。店舗入口ではない"
+      }
+    }
+  ],
+  "excludedSymbols": [
+    {
+      "classes": "toilethc-02-txt",
+      "reason": "オストメイトの補助文字。設備を二重登録しない"
+    },
+    {
+      "classes": "bus bus-01",
+      "reason": "1Fバス乗降場の参照記号"
+    }
+  ],
+  "remaining": [
+    "精密な室入口・連続経路・当日規制",
+    "館内ロッカー料金/寸法/決済/再開閉/空き",
+    "area titleと冊子の一部店/多目的スペース番号の差は用途へ推定転用しない"
+  ]
+}

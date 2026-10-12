@@ -1,0 +1,3758 @@
+{
+  "facilities": [
+    {
+      "id": "sapporo-locker-3",
+      "name": "館内ロッカー 北",
+      "purpose": "荷物",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F・北の掲載区域",
+      "detail": "小300円（357×453×398mm）・中400円（357×453×533mm）・大500円（357×513×802mm）。別に返却される預り金100円、100円硬貨のみ。当日限り、利用中の開閉は追加料金なし。現金・貴重品等は収納できません。 小16/中12/大4。イベント入場者のみ、開場〜終了。開催内容により利用できない場合があります。",
+      "sourceIds": [
+        "service",
+        "locker-terms"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "sapporo-floor-1F",
+        "x": 275,
+        "y": 465,
+        "sourceIds": [
+          "service",
+          "locker-terms"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      },
+      "storageKind": "coin"
+    },
+    {
+      "id": "sapporo-locker-4",
+      "name": "館内ロッカー 南",
+      "purpose": "荷物",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F・南の掲載区域",
+      "detail": "小300円（357×453×398mm）・中400円（357×453×533mm）・大500円（357×513×802mm）。別に返却される預り金100円、100円硬貨のみ。当日限り、利用中の開閉は追加料金なし。現金・貴重品等は収納できません。 小16/中12/大4。イベント入場者のみ、開場〜終了。開催内容により利用できない場合があります。",
+      "sourceIds": [
+        "service",
+        "locker-terms"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "sapporo-floor-1F",
+        "x": 800,
+        "y": 468,
+        "sourceIds": [
+          "service",
+          "locker-terms"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      },
+      "storageKind": "coin"
+    },
+    {
+      "id": "sapporo-locker-5",
+      "name": "館内ロッカー 北奥",
+      "purpose": "荷物",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F・北奥の掲載区域",
+      "detail": "小300円（357×453×398mm）・中400円（357×453×533mm）・大500円（357×513×802mm）。別に返却される預り金100円、100円硬貨のみ。当日限り、利用中の開閉は追加料金なし。現金・貴重品等は収納できません。 小32/中12/大8。イベント入場者のみ、開場〜終了。開催内容により利用できない場合があります。",
+      "sourceIds": [
+        "service",
+        "locker-terms"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "sapporo-floor-1F",
+        "x": 370,
+        "y": 100,
+        "sourceIds": [
+          "service",
+          "locker-terms"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      },
+      "storageKind": "coin"
+    },
+    {
+      "id": "sapporo-locker-6",
+      "name": "館内ロッカー 南奥",
+      "purpose": "荷物",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F・南奥の掲載区域",
+      "detail": "小300円（357×453×398mm）・中400円（357×453×533mm）・大500円（357×513×802mm）。別に返却される預り金100円、100円硬貨のみ。当日限り、利用中の開閉は追加料金なし。現金・貴重品等は収納できません。 小16/中6/大0。イベント入場者のみ、開場〜終了。開催内容により利用できない場合があります。大型はありません。",
+      "sourceIds": [
+        "service",
+        "locker-terms"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "sapporo-floor-1F",
+        "x": 637,
+        "y": 100,
+        "sourceIds": [
+          "service",
+          "locker-terms"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      },
+      "storageKind": "coin"
+    },
+    {
+      "id": "sapporo-locker-7",
+      "name": "館内ロッカー 南ゲート",
+      "purpose": "荷物",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F・南ゲートの掲載区域",
+      "detail": "小300円（357×453×398mm）・中400円（357×453×533mm）・大500円（357×513×802mm）。別に返却される預り金100円、100円硬貨のみ。当日限り、利用中の開閉は追加料金なし。現金・貴重品等は収納できません。 小8/中6/大8。イベント入場者のみ、開場〜終了。開催内容により利用できない場合があります。",
+      "sourceIds": [
+        "service",
+        "locker-terms"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "sapporo-floor-1F",
+        "x": 890,
+        "y": 263,
+        "sourceIds": [
+          "service",
+          "locker-terms"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      },
+      "storageKind": "coin"
+    },
+    {
+      "id": "sapporo-locker-1",
+      "name": "総合案内ロッカー",
+      "purpose": "荷物",
+      "floor": "1F／館外",
+      "scope": "場外",
+      "location": "北ゲート3横",
+      "detail": "小300円（357×453×398mm）・中400円（357×453×533mm）・大500円（357×513×802mm）。別に返却される預り金100円、100円硬貨のみ。当日限り、利用中の開閉は追加料金なし。現金・貴重品等は収納できません。 総合案内営業日の10:00〜17:00。小8/中6/大4。",
+      "sourceIds": [
+        "service",
+        "locker-terms"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "before-admission",
+      "anchor": {
+        "diagramId": "sapporo-grounds",
+        "x": 1010,
+        "y": 425,
+        "sourceIds": [
+          "service",
+          "locker-terms"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      },
+      "storageKind": "coin"
+    },
+    {
+      "id": "sapporo-locker-2",
+      "name": "館外・北 ロッカー",
+      "purpose": "荷物",
+      "floor": "1F／館外",
+      "scope": "場外",
+      "location": "ドーム歩道橋〜北ゲート間",
+      "detail": "小300円（357×453×398mm）・中400円（357×453×533mm）・大500円（357×513×802mm）。別に返却される預り金100円、100円硬貨のみ。当日限り、利用中の開閉は追加料金なし。現金・貴重品等は収納できません。 当日の開門時間に利用。小8/中0/大24。両替機なし。",
+      "sourceIds": [
+        "service",
+        "locker-terms"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "storageKind": "coin"
+    },
+    {
+      "id": "sapporo-toilet-1-1",
+      "name": "1Fトイレ区域1",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "北・EV付近",
+      "detail": "公式のトイレ区域です。イベントにより男子を女子へ変更する場合があります。男女・バリアフリー設備の個別条件は現地表示をご確認ください。",
+      "sourceIds": [
+        "1f",
+        "service"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "sapporo-floor-1F",
+        "x": 245,
+        "y": 410,
+        "sourceIds": [
+          "1f",
+          "service"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      }
+    },
+    {
+      "id": "sapporo-toilet-1-2",
+      "name": "1Fトイレ区域2",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "北ゲート2前",
+      "detail": "公式のトイレ区域です。イベントにより男子を女子へ変更する場合があります。男女・バリアフリー設備の個別条件は現地表示をご確認ください。",
+      "sourceIds": [
+        "1f",
+        "service"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "sapporo-floor-1F",
+        "x": 231,
+        "y": 290,
+        "sourceIds": [
+          "1f",
+          "service"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      }
+    },
+    {
+      "id": "sapporo-toilet-1-3",
+      "name": "1Fトイレ区域3",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "西ゲート3大階段・北側",
+      "detail": "公式のトイレ区域です。イベントにより男子を女子へ変更する場合があります。男女・バリアフリー設備の個別条件は現地表示をご確認ください。",
+      "sourceIds": [
+        "1f",
+        "service"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "sapporo-floor-1F",
+        "x": 340,
+        "y": 468,
+        "sourceIds": [
+          "1f",
+          "service"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      },
+      "toiletType": "men"
+    },
+    {
+      "id": "sapporo-toilet-1-4",
+      "name": "1Fトイレ区域4",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "西ゲート3大階段・南側",
+      "detail": "公式のトイレ区域です。イベントにより男子を女子へ変更する場合があります。男女・バリアフリー設備の個別条件は現地表示をご確認ください。",
+      "sourceIds": [
+        "1f",
+        "service"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "sapporo-floor-1F",
+        "x": 411,
+        "y": 488,
+        "sourceIds": [
+          "1f",
+          "service"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      },
+      "toiletType": "women"
+    },
+    {
+      "id": "sapporo-toilet-1-5",
+      "name": "1Fトイレ区域5",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "西ゲート1大階段・北側",
+      "detail": "公式のトイレ区域です。イベントにより男子を女子へ変更する場合があります。男女・バリアフリー設備の個別条件は現地表示をご確認ください。",
+      "sourceIds": [
+        "1f",
+        "service"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "sapporo-floor-1F",
+        "x": 669,
+        "y": 484,
+        "sourceIds": [
+          "1f",
+          "service"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      },
+      "toiletType": "women"
+    },
+    {
+      "id": "sapporo-toilet-1-6",
+      "name": "1Fトイレ区域6",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "西ゲート1大階段・南側",
+      "detail": "公式のトイレ区域です。イベントにより男子を女子へ変更する場合があります。男女・バリアフリー設備の個別条件は現地表示をご確認ください。",
+      "sourceIds": [
+        "1f",
+        "service"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "sapporo-floor-1F",
+        "x": 725,
+        "y": 465,
+        "sourceIds": [
+          "1f",
+          "service"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      },
+      "toiletType": "men"
+    },
+    {
+      "id": "sapporo-toilet-1-7",
+      "name": "1Fトイレ区域7",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "南ゲート2前",
+      "detail": "公式のトイレ区域です。イベントにより男子を女子へ変更する場合があります。男女・バリアフリー設備の個別条件は現地表示をご確認ください。",
+      "sourceIds": [
+        "1f",
+        "service"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "sapporo-floor-1F",
+        "x": 822,
+        "y": 286,
+        "sourceIds": [
+          "1f",
+          "service"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      }
+    },
+    {
+      "id": "sapporo-toilet-1-8",
+      "name": "1Fトイレ区域8",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "南・EV付近",
+      "detail": "公式のトイレ区域です。イベントにより男子を女子へ変更する場合があります。男女・バリアフリー設備の個別条件は現地表示をご確認ください。",
+      "sourceIds": [
+        "1f",
+        "service"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "sapporo-floor-1F",
+        "x": 784,
+        "y": 409,
+        "sourceIds": [
+          "1f",
+          "service"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      }
+    },
+    {
+      "id": "sapporo-toilet-2-1",
+      "name": "2Fトイレ区域1",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "北・大型ビジョン付近",
+      "detail": "公式掲載区域。当日の男女・開放条件は現地案内をご確認ください。",
+      "sourceIds": [
+        "2f",
+        "service"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "sapporo-floor-2F",
+        "x": 347,
+        "y": 146,
+        "sourceIds": [
+          "2f",
+          "service"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      }
+    },
+    {
+      "id": "sapporo-toilet-2-2",
+      "name": "2Fトイレ区域2",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "南・大型ビジョン付近",
+      "detail": "公式掲載区域。当日の男女・開放条件は現地案内をご確認ください。",
+      "sourceIds": [
+        "2f",
+        "service"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "sapporo-floor-2F",
+        "x": 742,
+        "y": 146,
+        "sourceIds": [
+          "2f",
+          "service"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      }
+    },
+    {
+      "id": "sapporo-toilet-2-3",
+      "name": "2Fトイレ区域3",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "西・北側大階段",
+      "detail": "公式掲載区域。当日の男女・開放条件は現地案内をご確認ください。",
+      "sourceIds": [
+        "2f",
+        "service"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "sapporo-floor-2F",
+        "x": 355,
+        "y": 579,
+        "sourceIds": [
+          "2f",
+          "service"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      }
+    },
+    {
+      "id": "sapporo-toilet-2-4",
+      "name": "2Fトイレ区域4",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "西・南側大階段",
+      "detail": "公式掲載区域。当日の男女・開放条件は現地案内をご確認ください。",
+      "sourceIds": [
+        "2f",
+        "service"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "sapporo-floor-2F",
+        "x": 688,
+        "y": 577,
+        "sourceIds": [
+          "2f",
+          "service"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      }
+    },
+    {
+      "id": "sapporo-toilet-2-5",
+      "name": "2Fトイレ区域5",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2Fテラス",
+      "detail": "公式掲載区域。冬期利用不可。当日の男女・開放条件は現地案内をご確認ください。",
+      "sourceIds": [
+        "2f",
+        "service"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "sapporo-floor-2F",
+        "x": 610,
+        "y": 603,
+        "sourceIds": [
+          "2f",
+          "service"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      }
+    },
+    {
+      "id": "sapporo-toilet-3-1",
+      "name": "キッズパーク側トイレ区域1",
+      "purpose": "トイレ",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3Fキッズパーク側",
+      "detail": "公式3F掲載区域。開放時間・イベントの利用対象を確認してください。",
+      "sourceIds": [
+        "3f",
+        "service"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "sapporo-floor-3F",
+        "x": 423,
+        "y": 145,
+        "sourceIds": [
+          "3f",
+          "service"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      }
+    },
+    {
+      "id": "sapporo-toilet-3-2",
+      "name": "キッズパーク側トイレ区域2",
+      "purpose": "トイレ",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3Fキッズパーク側",
+      "detail": "公式3F掲載区域。開放時間・イベントの利用対象を確認してください。",
+      "sourceIds": [
+        "3f",
+        "service"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "sapporo-floor-3F",
+        "x": 622,
+        "y": 145,
+        "sourceIds": [
+          "3f",
+          "service"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      }
+    },
+    {
+      "id": "sapporo-toilet-4",
+      "name": "スイートシート側トイレ",
+      "purpose": "トイレ",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "4Fスイートシート区域",
+      "detail": "スイートシート専用の区域です。通常のスタンドから自由に利用できるとは案内しません。",
+      "sourceIds": [
+        "3f"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "sapporo-floor-4F",
+        "x": 722,
+        "y": 550,
+        "sourceIds": [
+          "3f"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      }
+    },
+    {
+      "id": "sapporo-toilet-b2-1",
+      "name": "関係者エリア トイレ区域1",
+      "purpose": "トイレ",
+      "floor": "B2F",
+      "scope": "場内",
+      "location": "B2F・インターセクション／ブルペン側",
+      "detail": "地下2階の関係者エリアです。通常の観客が利用できるトイレとして案内しません。",
+      "sourceIds": [
+        "b2f"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "sapporo-floor-B2F",
+        "x": 425,
+        "y": 63,
+        "sourceIds": [
+          "b2f"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      }
+    },
+    {
+      "id": "sapporo-toilet-b2-2",
+      "name": "関係者エリア トイレ区域2",
+      "purpose": "トイレ",
+      "floor": "B2F",
+      "scope": "場内",
+      "location": "B2F・インターセクション／ブルペン側",
+      "detail": "地下2階の関係者エリアです。通常の観客が利用できるトイレとして案内しません。",
+      "sourceIds": [
+        "b2f"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "sapporo-floor-B2F",
+        "x": 659,
+        "y": 60,
+        "sourceIds": [
+          "b2f"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      }
+    },
+    {
+      "id": "sapporo-toilet-b2-3",
+      "name": "関係者エリア トイレ区域3",
+      "purpose": "トイレ",
+      "floor": "B2F",
+      "scope": "場内",
+      "location": "B2F・インターセクション／ブルペン側",
+      "detail": "地下2階の関係者エリアです。通常の観客が利用できるトイレとして案内しません。",
+      "sourceIds": [
+        "b2f"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "sapporo-floor-B2F",
+        "x": 350,
+        "y": 340,
+        "sourceIds": [
+          "b2f"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      }
+    },
+    {
+      "id": "sapporo-toilet-b2-4",
+      "name": "関係者エリア トイレ区域4",
+      "purpose": "トイレ",
+      "floor": "B2F",
+      "scope": "場内",
+      "location": "B2F・インターセクション／ブルペン側",
+      "detail": "地下2階の関係者エリアです。通常の観客が利用できるトイレとして案内しません。",
+      "sourceIds": [
+        "b2f"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "sapporo-floor-B2F",
+        "x": 728,
+        "y": 340,
+        "sourceIds": [
+          "b2f"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      }
+    },
+    {
+      "id": "sapporo-nursing-1",
+      "name": "北ゲート内 授乳室",
+      "purpose": "赤ちゃん",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F北ゲート内",
+      "detail": "イベント開催時の授乳室。入場券と当日の開放案内を確認してください。",
+      "sourceIds": [
+        "service",
+        "1f"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "sapporo-floor-1F",
+        "x": 80,
+        "y": 470,
+        "sourceIds": [
+          "service",
+          "1f"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      }
+    },
+    {
+      "id": "sapporo-baby-3",
+      "name": "キッズパーク ベビーコーナー",
+      "purpose": "赤ちゃん",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3Fキッズパーク",
+      "detail": "キッズパークの開放時間内に利用。授乳・おむつ替えは個別案内に従ってください。",
+      "sourceIds": [
+        "3f",
+        "service"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "sapporo-floor-3F",
+        "x": 520,
+        "y": 147,
+        "sourceIds": [
+          "3f",
+          "service"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      }
+    },
+    {
+      "id": "sapporo-diaper-1F",
+      "name": "おむつ替え用設備",
+      "purpose": "赤ちゃん",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1Fトイレ内",
+      "detail": "設置を公式サービスで確認。対象室・男女・当日開放は個別案内で確認してください。",
+      "sourceIds": [
+        "service"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "kind": "diaper"
+    },
+    {
+      "id": "sapporo-diaper-2F",
+      "name": "おむつ替え用設備",
+      "purpose": "赤ちゃん",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2Fトイレ内",
+      "detail": "設置を公式サービスで確認。対象室・男女・当日開放は個別案内で確認してください。",
+      "sourceIds": [
+        "service"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "kind": "diaper"
+    },
+    {
+      "id": "sapporo-diaper-3F",
+      "name": "おむつ替え用設備",
+      "purpose": "赤ちゃん",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3Fトイレ内",
+      "detail": "設置を公式サービスで確認。対象室・男女・当日開放は個別案内で確認してください。",
+      "sourceIds": [
+        "service"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "kind": "diaper"
+    },
+    {
+      "id": "sapporo-aed-32",
+      "name": "AED 北ゲート2前",
+      "purpose": "AED",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F・北ゲート2前",
+      "detail": "緊急時は会場係員へお声がけください。開放区域は当日案内に従ってください。",
+      "sourceIds": [
+        "service"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "sapporo-floor-1F",
+        "x": 203,
+        "y": 294,
+        "sourceIds": [
+          "service"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      }
+    },
+    {
+      "id": "sapporo-aed-33",
+      "name": "AED 南ゲート2前",
+      "purpose": "AED",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F・南ゲート2前",
+      "detail": "緊急時は会場係員へお声がけください。開放区域は当日案内に従ってください。",
+      "sourceIds": [
+        "service"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "sapporo-floor-1F",
+        "x": 863,
+        "y": 295,
+        "sourceIds": [
+          "service"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      }
+    },
+    {
+      "id": "sapporo-aed-34",
+      "name": "AED 北コンコース",
+      "purpose": "AED",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F・北コンコース",
+      "detail": "緊急時は会場係員へお声がけください。開放区域は当日案内に従ってください。",
+      "sourceIds": [
+        "service"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "sapporo-floor-2F",
+        "x": 194,
+        "y": 334,
+        "sourceIds": [
+          "service"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      }
+    },
+    {
+      "id": "sapporo-aed-35",
+      "name": "AED 南コンコース",
+      "purpose": "AED",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F・南コンコース",
+      "detail": "緊急時は会場係員へお声がけください。開放区域は当日案内に従ってください。",
+      "sourceIds": [
+        "service"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "sapporo-floor-2F",
+        "x": 863,
+        "y": 343,
+        "sourceIds": [
+          "service"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      }
+    },
+    {
+      "id": "sapporo-aed-36",
+      "name": "AED キッズパーク",
+      "purpose": "AED",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F・キッズパーク",
+      "detail": "緊急時は会場係員へお声がけください。開放区域は当日案内に従ってください。",
+      "sourceIds": [
+        "service"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "sapporo-floor-3F",
+        "x": 468,
+        "y": 119,
+        "sourceIds": [
+          "service"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      }
+    },
+    {
+      "id": "sapporo-aed-37",
+      "name": "AED 展望台",
+      "purpose": "AED",
+      "floor": "展望台",
+      "scope": "場内",
+      "location": "展望台（設備階の対応は確認中）",
+      "detail": "緊急時は会場係員へお声がけください。開放区域は当日案内に従ってください。",
+      "sourceIds": [
+        "service"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed"
+    },
+    {
+      "id": "sapporo-aed-38",
+      "name": "AED トレーニングルーム",
+      "purpose": "AED",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F・トレーニングルーム",
+      "detail": "緊急時は会場係員へお声がけください。開放区域は当日案内に従ってください。",
+      "sourceIds": [
+        "service"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "sapporo-floor-1F",
+        "x": 754,
+        "y": 691,
+        "sourceIds": [
+          "service"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      }
+    },
+    {
+      "id": "sapporo-aed-39",
+      "name": "AED 関係者エリア",
+      "purpose": "AED",
+      "floor": "B2F",
+      "scope": "場内",
+      "location": "B2F・関係者エリア",
+      "detail": "緊急時は会場係員へお声がけください。開放区域は当日案内に従ってください。",
+      "sourceIds": [
+        "service"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed"
+    },
+    {
+      "id": "sapporo-ev-40",
+      "name": "エレベーター 北",
+      "purpose": "案内",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F・北",
+      "detail": "当日の利用対象と行き先は会場案内を確認してください。",
+      "sourceIds": [
+        "1f"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "sapporo-floor-1F",
+        "x": 243,
+        "y": 460,
+        "sourceIds": [
+          "1f"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      },
+      "kind": "elevator"
+    },
+    {
+      "id": "sapporo-ev-41",
+      "name": "エレベーター 南",
+      "purpose": "案内",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F・南",
+      "detail": "当日の利用対象と行き先は会場案内を確認してください。",
+      "sourceIds": [
+        "1f"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "sapporo-floor-1F",
+        "x": 825,
+        "y": 460,
+        "sourceIds": [
+          "1f"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      },
+      "kind": "elevator"
+    },
+    {
+      "id": "sapporo-ev-42",
+      "name": "エレベーター 北",
+      "purpose": "案内",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F・北",
+      "detail": "当日の利用対象と行き先は会場案内を確認してください。",
+      "sourceIds": [
+        "2f"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "sapporo-floor-2F",
+        "x": 219,
+        "y": 427,
+        "sourceIds": [
+          "2f"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      },
+      "kind": "elevator"
+    },
+    {
+      "id": "sapporo-ev-43",
+      "name": "エレベーター 南",
+      "purpose": "案内",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F・南",
+      "detail": "当日の利用対象と行き先は会場案内を確認してください。",
+      "sourceIds": [
+        "2f"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "sapporo-floor-2F",
+        "x": 833,
+        "y": 427,
+        "sourceIds": [
+          "2f"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      },
+      "kind": "elevator"
+    },
+    {
+      "id": "sapporo-ev-44",
+      "name": "エレベーター キッズパーク北側",
+      "purpose": "案内",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F・キッズパーク北側",
+      "detail": "当日の利用対象と行き先は会場案内を確認してください。",
+      "sourceIds": [
+        "3f"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "sapporo-floor-3F",
+        "x": 388,
+        "y": 166,
+        "sourceIds": [
+          "3f"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      },
+      "kind": "elevator"
+    },
+    {
+      "id": "sapporo-ev-45",
+      "name": "エレベーター スイートシート専用",
+      "purpose": "案内",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "4F・スイートシート専用",
+      "detail": "当日の利用対象と行き先は会場案内を確認してください。",
+      "sourceIds": [
+        "3f"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "sapporo-floor-4F",
+        "x": 604,
+        "y": 600,
+        "sourceIds": [
+          "3f"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      },
+      "kind": "elevator"
+    },
+    {
+      "id": "sapporo-shop-1F-1",
+      "name": "フィールドモス",
+      "purpose": "飲食",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F公式店舗一覧・売店",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "sourceIds": [
+        "1f"
+      ],
+      "precision": "text-only",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "sapporo-shop-1F-2",
+      "name": "仙臺たんや利久",
+      "purpose": "飲食",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F公式店舗一覧・売店",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "sourceIds": [
+        "1f"
+      ],
+      "precision": "text-only",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "sapporo-shop-1F-3",
+      "name": "頑固オヤジのジンギスカン",
+      "purpose": "飲食",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F公式店舗一覧・売店",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "sourceIds": [
+        "1f"
+      ],
+      "precision": "text-only",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "sapporo-shop-1F-4",
+      "name": "虎鉄のザンギ",
+      "purpose": "飲食",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F公式店舗一覧・売店",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "sourceIds": [
+        "1f"
+      ],
+      "precision": "text-only",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "sapporo-shop-1F-5",
+      "name": "サブウェイ",
+      "purpose": "飲食",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F公式店舗一覧・売店",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "sourceIds": [
+        "1f"
+      ],
+      "precision": "text-only",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "sapporo-shop-1F-6",
+      "name": "THE PERFECT CLASSICBAR",
+      "purpose": "飲食",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F公式店舗一覧・売店",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "sourceIds": [
+        "1f"
+      ],
+      "precision": "text-only",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "sapporo-shop-1F-7",
+      "name": "FANS BEER BAR",
+      "purpose": "飲食",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F公式店舗一覧・売店",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "sourceIds": [
+        "1f"
+      ],
+      "precision": "text-only",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "sapporo-shop-1F-8",
+      "name": "ファンズ・カフェ",
+      "purpose": "飲食",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F公式店舗一覧・売店",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "sourceIds": [
+        "1f"
+      ],
+      "precision": "text-only",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "sapporo-shop-1F-9",
+      "name": "LUNA Crepe（ルナ・クレープ）",
+      "purpose": "飲食",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F公式店舗一覧・売店",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "sourceIds": [
+        "1f"
+      ],
+      "precision": "text-only",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "sapporo-shop-1F-10",
+      "name": "サブウェイ",
+      "purpose": "飲食",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F公式店舗一覧・売店",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "sourceIds": [
+        "1f"
+      ],
+      "precision": "text-only",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "sapporo-shop-1F-11",
+      "name": "モスバーガー【西側】",
+      "purpose": "飲食",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F公式店舗一覧・売店",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "sourceIds": [
+        "1f"
+      ],
+      "precision": "text-only",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "sapporo-shop-1F-12",
+      "name": "頑固オヤジのカレー",
+      "purpose": "飲食",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F公式店舗一覧・売店",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "sourceIds": [
+        "1f"
+      ],
+      "precision": "text-only",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "sapporo-shop-1F-13",
+      "name": "仙臺たんや利久",
+      "purpose": "飲食",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F公式店舗一覧・売店",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "sourceIds": [
+        "1f"
+      ],
+      "precision": "text-only",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "sapporo-shop-1F-14",
+      "name": "肉の燦燦",
+      "purpose": "飲食",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F公式店舗一覧・売店",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "sourceIds": [
+        "1f"
+      ],
+      "precision": "text-only",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "sapporo-shop-1F-15",
+      "name": "モスバーガー【南側】",
+      "purpose": "飲食",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F公式店舗一覧・売店",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "sourceIds": [
+        "1f"
+      ],
+      "precision": "text-only",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "sapporo-shop-1F-16",
+      "name": "POP UP STORE",
+      "purpose": "飲食",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F公式店舗一覧・売店",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "sourceIds": [
+        "1f"
+      ],
+      "precision": "text-only",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "sapporo-shop-1F-17",
+      "name": "虎鉄のザンギ",
+      "purpose": "飲食",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F公式店舗一覧・売店",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "sourceIds": [
+        "1f"
+      ],
+      "precision": "text-only",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "sapporo-shop-2F-1",
+      "name": "サブウェイ",
+      "purpose": "飲食",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F公式店舗一覧・ワゴン",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "sourceIds": [
+        "2f"
+      ],
+      "precision": "text-only",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "sapporo-shop-2F-2",
+      "name": "モスバーガー",
+      "purpose": "飲食",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F公式店舗一覧・ワゴン",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "sourceIds": [
+        "2f"
+      ],
+      "precision": "text-only",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "sapporo-shop-2F-3",
+      "name": "SORACHI 1984",
+      "purpose": "飲食",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F公式店舗一覧・ワゴン",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "sourceIds": [
+        "2f"
+      ],
+      "precision": "text-only",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "sapporo-shop-2F-4",
+      "name": "ファンズ・カフェ",
+      "purpose": "飲食",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F公式店舗一覧・ワゴン",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "sourceIds": [
+        "2f"
+      ],
+      "precision": "text-only",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "sapporo-shop-2F-5",
+      "name": "燦燦",
+      "purpose": "飲食",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F公式店舗一覧・ワゴン",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "sourceIds": [
+        "2f"
+      ],
+      "precision": "text-only",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "sapporo-shop-2F-6",
+      "name": "虎鉄のザンギ",
+      "purpose": "飲食",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F公式店舗一覧・ワゴン",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "sourceIds": [
+        "2f"
+      ],
+      "precision": "text-only",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "sapporo-shop-2F-7",
+      "name": "仙臺たんや利久",
+      "purpose": "飲食",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F公式店舗一覧・ワゴン",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "sourceIds": [
+        "2f"
+      ],
+      "precision": "text-only",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "sapporo-outside-70",
+      "name": "総合案内",
+      "purpose": "案内",
+      "floor": "1F／敷地",
+      "scope": "場外",
+      "location": "北ゲート3横",
+      "detail": "入場前の区域。当日の開放・利用時間を確認してください。",
+      "sourceIds": [
+        "grounds",
+        "service"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "before-admission",
+      "anchor": {
+        "diagramId": "sapporo-grounds",
+        "x": 1010,
+        "y": 428,
+        "sourceIds": [
+          "grounds",
+          "service"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      }
+    },
+    {
+      "id": "sapporo-outside-71",
+      "name": "北ゲート1トイレ",
+      "purpose": "トイレ",
+      "floor": "1F／敷地",
+      "scope": "場外",
+      "location": "北ゲート1付近",
+      "detail": "入場前の区域。当日の開放・利用時間を確認してください。",
+      "sourceIds": [
+        "grounds",
+        "service"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission"
+    },
+    {
+      "id": "sapporo-outside-72",
+      "name": "南北連絡通路トイレ",
+      "purpose": "トイレ",
+      "floor": "1F／敷地",
+      "scope": "場外",
+      "location": "南北連絡通路・西側",
+      "detail": "入場前の区域。当日の開放・利用時間を確認してください。",
+      "sourceIds": [
+        "grounds",
+        "service"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission"
+    },
+    {
+      "id": "sapporo-outside-73",
+      "name": "ドーム前広場トイレ",
+      "purpose": "トイレ",
+      "floor": "1F／敷地",
+      "scope": "場外",
+      "location": "ドーム前広場",
+      "detail": "入場前の区域。当日の開放・利用時間を確認してください。",
+      "sourceIds": [
+        "grounds",
+        "service"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "before-admission",
+      "anchor": {
+        "diagramId": "sapporo-grounds",
+        "x": 419,
+        "y": 453,
+        "sourceIds": [
+          "grounds",
+          "service"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      }
+    },
+    {
+      "id": "sapporo-outside-74",
+      "name": "駐車場トイレ",
+      "purpose": "トイレ",
+      "floor": "1F／敷地",
+      "scope": "場外",
+      "location": "南側駐車場",
+      "detail": "入場前の区域。当日の開放・利用時間を確認してください。",
+      "sourceIds": [
+        "grounds",
+        "service"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "before-admission",
+      "anchor": {
+        "diagramId": "sapporo-grounds",
+        "x": 1400,
+        "y": 839,
+        "sourceIds": [
+          "grounds",
+          "service"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      }
+    },
+    {
+      "id": "sapporo-fukuzumi-exit",
+      "name": "福住駅 3番出口から会場へ",
+      "purpose": "案内",
+      "floor": "地下鉄駅",
+      "scope": "場外",
+      "location": "地下鉄東豊線 福住駅3番出口",
+      "detail": "会場公式目安は徒歩約10分。当日の入場ゲートはチケット・主催者案内に従ってください。段差なしの連続経路としては未確認です。",
+      "sourceIds": [
+        "access",
+        "grounds"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission"
+    },
+    {
+      "id": "sapporo-fukuzumi-locker",
+      "name": "福住駅 コインロッカー",
+      "purpose": "荷物",
+      "floor": "駅コンコース",
+      "scope": "場外",
+      "location": "福住駅・中央改札付近",
+      "detail": "運営元一覧で小25・大4を確認。小W360×D575×H320mm、大W360×D575×H840mm。料金・改札内外・機械別位置は確認中です。空きは断定しません。",
+      "sourceIds": [
+        "station-locker"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "storageKind": "coin"
+    },
+    {
+      "id": "sapporo-station-locker-A",
+      "name": "さっぽろ駅 ロッカーA",
+      "purpose": "荷物",
+      "floor": "地下鉄駅",
+      "scope": "場外",
+      "location": "地下鉄さっぽろ駅・南北線北改札南側",
+      "detail": "運営元の設置区域。JR札幌駅とは別です。Bは6月28日に南連絡通路へ移設の案内。区域ごとの料金・サイズ・改札内外・空きは現地表示をご確認ください。",
+      "sourceIds": [
+        "station-locker"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "storageKind": "coin"
+    },
+    {
+      "id": "sapporo-station-locker-B",
+      "name": "さっぽろ駅 ロッカーB",
+      "purpose": "荷物",
+      "floor": "地下鉄駅",
+      "scope": "場外",
+      "location": "地下鉄さっぽろ駅・南連絡通路・E東側",
+      "detail": "運営元の設置区域。JR札幌駅とは別です。Bは6月28日に南連絡通路へ移設の案内。区域ごとの料金・サイズ・改札内外・空きは現地表示をご確認ください。",
+      "sourceIds": [
+        "station-locker"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "storageKind": "coin"
+    },
+    {
+      "id": "sapporo-station-locker-C",
+      "name": "さっぽろ駅 ロッカーC",
+      "purpose": "荷物",
+      "floor": "地下鉄駅",
+      "scope": "場外",
+      "location": "地下鉄さっぽろ駅・東豊線南駅事務室付近",
+      "detail": "運営元の設置区域。JR札幌駅とは別です。Bは6月28日に南連絡通路へ移設の案内。区域ごとの料金・サイズ・改札内外・空きは現地表示をご確認ください。",
+      "sourceIds": [
+        "station-locker"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "storageKind": "coin"
+    },
+    {
+      "id": "sapporo-station-locker-D",
+      "name": "さっぽろ駅 ロッカーD",
+      "purpose": "荷物",
+      "floor": "地下鉄駅",
+      "scope": "場外",
+      "location": "地下鉄さっぽろ駅・19番出口付近",
+      "detail": "運営元の設置区域。JR札幌駅とは別です。Bは6月28日に南連絡通路へ移設の案内。区域ごとの料金・サイズ・改札内外・空きは現地表示をご確認ください。",
+      "sourceIds": [
+        "station-locker"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "storageKind": "coin"
+    },
+    {
+      "id": "sapporo-station-locker-E",
+      "name": "さっぽろ駅 ロッカーE",
+      "purpose": "荷物",
+      "floor": "地下鉄駅",
+      "scope": "場外",
+      "location": "地下鉄さっぽろ駅・南北線南連絡通路",
+      "detail": "運営元の設置区域。JR札幌駅とは別です。Bは6月28日に南連絡通路へ移設の案内。区域ごとの料金・サイズ・改札内外・空きは現地表示をご確認ください。",
+      "sourceIds": [
+        "station-locker"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "storageKind": "coin"
+    },
+    {
+      "id": "sapporo-station-locker-F",
+      "name": "さっぽろ駅 ロッカーF",
+      "purpose": "荷物",
+      "floor": "地下鉄駅",
+      "scope": "場外",
+      "location": "地下鉄さっぽろ駅・北側連絡通路",
+      "detail": "運営元の設置区域。JR札幌駅とは別です。Bは6月28日に南連絡通路へ移設の案内。区域ごとの料金・サイズ・改札内外・空きは現地表示をご確認ください。",
+      "sourceIds": [
+        "station-locker"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "storageKind": "coin"
+    },
+    {
+      "id": "sapporo-jr-multi",
+      "name": "JR札幌駅 マルチエキューブ",
+      "purpose": "荷物",
+      "floor": "JR駅",
+      "scope": "場外",
+      "location": "JR札幌駅",
+      "detail": "2025年12月12日導入を運営元で確認。予約・預入機能の案内があります。現在の機械位置・予約可否・料金・空きは個別案内を確認してください。",
+      "sourceIds": [
+        "multi"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "storageKind": "coin"
+    },
+    {
+      "id": "sapporo-yamato-84",
+      "name": "ヤマト 札幌駅前営業所 手荷物預かり",
+      "purpose": "荷物",
+      "floor": "街の営業所",
+      "scope": "場外",
+      "location": "札幌駅前営業所（ドーム・JR駅構内とは別）",
+      "detail": "2026/09/08版で1個1,000円（税込）、当日19:30までの引渡しを確認。受付開始時刻・対象サイズ・満杯時・入口の個別条件は店舗へ確認してください。",
+      "sourceIds": [
+        "yamato"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "storageKind": "staffed"
+    },
+    {
+      "id": "sapporo-yamato-85",
+      "name": "ヤマト 北海道庁前営業所 手荷物預かり",
+      "purpose": "荷物",
+      "floor": "街の営業所",
+      "scope": "場外",
+      "location": "北海道庁前営業所（ドーム・JR駅構内とは別）",
+      "detail": "2026/09/08版で1個1,000円（税込）、当日20:00までの引渡しを確認。受付開始時刻・対象サイズ・満杯時・入口の個別条件は店舗へ確認してください。",
+      "sourceIds": [
+        "yamato"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "storageKind": "staffed"
+    },
+    {
+      "id": "sapporo-yamato-86",
+      "name": "ヤマト 札幌大通営業所 手荷物預かり",
+      "purpose": "荷物",
+      "floor": "街の営業所",
+      "scope": "場外",
+      "location": "札幌大通営業所（ドーム・JR駅構内とは別）",
+      "detail": "2026/09/08版で1個1,000円（税込）、当日19:30までの引渡しを確認。受付開始時刻・対象サイズ・満杯時・入口の個別条件は店舗へ確認してください。",
+      "sourceIds": [
+        "yamato"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission",
+      "storageKind": "staffed"
+    },
+    {
+      "id": "sapporo-family",
+      "name": "ファミリーマート 札幌ドーム前店",
+      "purpose": "飲食",
+      "floor": "店舗",
+      "scope": "場外",
+      "location": "福住3条1丁目1番8号",
+      "detail": "OpenPOIの候補を公式個別店舗ページで名称・住所照合。会場外の店舗です。営業・取扱いは店舗案内をご確認ください。",
+      "sourceIds": [
+        "family"
+      ],
+      "precision": "text-only",
+      "accessCondition": "before-admission"
+    },
+    {
+      "id": "sapporo-accessible-1-3",
+      "name": "バリアフリートイレ 区域3",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "西ゲート3大階段・北側",
+      "detail": "公式サービスの1F③④⑤⑥に身障者用設備・幼児用トイレを掲載。該当室の利用と男女の当日変更は会場案内をご確認ください。",
+      "sourceIds": [
+        "service",
+        "1f"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "ticket-required",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "sapporo-floor-1F",
+        "x": 340,
+        "y": 468,
+        "sourceIds": [
+          "1f",
+          "service"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      }
+    },
+    {
+      "id": "sapporo-accessible-1-4",
+      "name": "バリアフリートイレ 区域4",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "西ゲート3大階段・南側",
+      "detail": "公式サービスの1F③④⑤⑥に身障者用設備・幼児用トイレを掲載。該当室の利用と男女の当日変更は会場案内をご確認ください。",
+      "sourceIds": [
+        "service",
+        "1f"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "ticket-required",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "sapporo-floor-1F",
+        "x": 411,
+        "y": 488,
+        "sourceIds": [
+          "1f",
+          "service"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      }
+    },
+    {
+      "id": "sapporo-accessible-1-5",
+      "name": "バリアフリートイレ 区域5",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "西ゲート1大階段・北側",
+      "detail": "公式サービスの1F③④⑤⑥に身障者用設備・幼児用トイレを掲載。該当室の利用と男女の当日変更は会場案内をご確認ください。",
+      "sourceIds": [
+        "service",
+        "1f"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "ticket-required",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "sapporo-floor-1F",
+        "x": 669,
+        "y": 484,
+        "sourceIds": [
+          "1f",
+          "service"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      }
+    },
+    {
+      "id": "sapporo-accessible-1-6",
+      "name": "バリアフリートイレ 区域6",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "西ゲート1大階段・南側",
+      "detail": "公式サービスの1F③④⑤⑥に身障者用設備・幼児用トイレを掲載。該当室の利用と男女の当日変更は会場案内をご確認ください。",
+      "sourceIds": [
+        "service",
+        "1f"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "ticket-required",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "sapporo-floor-1F",
+        "x": 725,
+        "y": 465,
+        "sourceIds": [
+          "1f",
+          "service"
+        ],
+        "reference": "公式図で確認した区域の相対掲載点。室入口は未確定。"
+      }
+    }
+  ],
+  "groups": [
+    {
+      "id": "group-sapporo-locker-3",
+      "diagramId": "sapporo-floor-1F",
+      "purpose": "荷物",
+      "label": "館内ロッカー 北",
+      "area": "1F・北の掲載区域",
+      "memberIds": [
+        "sapporo-locker-3"
+      ],
+      "x": 275,
+      "y": 465,
+      "boundary": "同名の固定掲載区域。近接した別室・別階をまとめない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-locker-4",
+      "diagramId": "sapporo-floor-1F",
+      "purpose": "荷物",
+      "label": "館内ロッカー 南",
+      "area": "1F・南の掲載区域",
+      "memberIds": [
+        "sapporo-locker-4"
+      ],
+      "x": 800,
+      "y": 468,
+      "boundary": "同名の固定掲載区域。近接した別室・別階をまとめない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-locker-5",
+      "diagramId": "sapporo-floor-1F",
+      "purpose": "荷物",
+      "label": "館内ロッカー 北奥",
+      "area": "1F・北奥の掲載区域",
+      "memberIds": [
+        "sapporo-locker-5"
+      ],
+      "x": 370,
+      "y": 100,
+      "boundary": "同名の固定掲載区域。近接した別室・別階をまとめない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-locker-6",
+      "diagramId": "sapporo-floor-1F",
+      "purpose": "荷物",
+      "label": "館内ロッカー 南奥",
+      "area": "1F・南奥の掲載区域",
+      "memberIds": [
+        "sapporo-locker-6"
+      ],
+      "x": 637,
+      "y": 100,
+      "boundary": "同名の固定掲載区域。近接した別室・別階をまとめない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-locker-7",
+      "diagramId": "sapporo-floor-1F",
+      "purpose": "荷物",
+      "label": "館内ロッカー 南ゲート",
+      "area": "1F・南ゲートの掲載区域",
+      "memberIds": [
+        "sapporo-locker-7"
+      ],
+      "x": 890,
+      "y": 263,
+      "boundary": "同名の固定掲載区域。近接した別室・別階をまとめない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-locker-1",
+      "diagramId": "sapporo-grounds",
+      "purpose": "荷物",
+      "label": "総合案内ロッカー",
+      "area": "北ゲート3横",
+      "memberIds": [
+        "sapporo-locker-1"
+      ],
+      "x": 1010,
+      "y": 425,
+      "boundary": "同名の固定掲載区域。近接した別室・別階をまとめない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-toilet-1-1",
+      "diagramId": "sapporo-floor-1F",
+      "purpose": "トイレ",
+      "label": "1Fトイレ区域1",
+      "area": "北・EV付近",
+      "memberIds": [
+        "sapporo-toilet-1-1"
+      ],
+      "x": 245,
+      "y": 410,
+      "boundary": "公式の同一トイレ区域。男女・多目的を別区域や別階と混ぜない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-toilet-1-2",
+      "diagramId": "sapporo-floor-1F",
+      "purpose": "トイレ",
+      "label": "1Fトイレ区域2",
+      "area": "北ゲート2前",
+      "memberIds": [
+        "sapporo-toilet-1-2"
+      ],
+      "x": 231,
+      "y": 290,
+      "boundary": "公式の同一トイレ区域。男女・多目的を別区域や別階と混ぜない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-toilet-1-3",
+      "diagramId": "sapporo-floor-1F",
+      "purpose": "トイレ",
+      "label": "1Fトイレ区域3",
+      "area": "西ゲート3大階段・北側",
+      "memberIds": [
+        "sapporo-toilet-1-3",
+        "sapporo-accessible-1-3"
+      ],
+      "x": 340,
+      "y": 468,
+      "boundary": "公式の同一トイレ区域。男女・多目的を別区域や別階と混ぜない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-toilet-1-4",
+      "diagramId": "sapporo-floor-1F",
+      "purpose": "トイレ",
+      "label": "1Fトイレ区域4",
+      "area": "西ゲート3大階段・南側",
+      "memberIds": [
+        "sapporo-toilet-1-4",
+        "sapporo-accessible-1-4"
+      ],
+      "x": 411,
+      "y": 488,
+      "boundary": "公式の同一トイレ区域。男女・多目的を別区域や別階と混ぜない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-toilet-1-5",
+      "diagramId": "sapporo-floor-1F",
+      "purpose": "トイレ",
+      "label": "1Fトイレ区域5",
+      "area": "西ゲート1大階段・北側",
+      "memberIds": [
+        "sapporo-toilet-1-5",
+        "sapporo-accessible-1-5"
+      ],
+      "x": 669,
+      "y": 484,
+      "boundary": "公式の同一トイレ区域。男女・多目的を別区域や別階と混ぜない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-toilet-1-6",
+      "diagramId": "sapporo-floor-1F",
+      "purpose": "トイレ",
+      "label": "1Fトイレ区域6",
+      "area": "西ゲート1大階段・南側",
+      "memberIds": [
+        "sapporo-toilet-1-6",
+        "sapporo-accessible-1-6"
+      ],
+      "x": 725,
+      "y": 465,
+      "boundary": "公式の同一トイレ区域。男女・多目的を別区域や別階と混ぜない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-toilet-1-7",
+      "diagramId": "sapporo-floor-1F",
+      "purpose": "トイレ",
+      "label": "1Fトイレ区域7",
+      "area": "南ゲート2前",
+      "memberIds": [
+        "sapporo-toilet-1-7"
+      ],
+      "x": 822,
+      "y": 286,
+      "boundary": "公式の同一トイレ区域。男女・多目的を別区域や別階と混ぜない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-toilet-1-8",
+      "diagramId": "sapporo-floor-1F",
+      "purpose": "トイレ",
+      "label": "1Fトイレ区域8",
+      "area": "南・EV付近",
+      "memberIds": [
+        "sapporo-toilet-1-8"
+      ],
+      "x": 784,
+      "y": 409,
+      "boundary": "公式の同一トイレ区域。男女・多目的を別区域や別階と混ぜない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-toilet-2-1",
+      "diagramId": "sapporo-floor-2F",
+      "purpose": "トイレ",
+      "label": "2Fトイレ区域1",
+      "area": "北・大型ビジョン付近",
+      "memberIds": [
+        "sapporo-toilet-2-1"
+      ],
+      "x": 347,
+      "y": 146,
+      "boundary": "公式の同一トイレ区域。男女・多目的を別区域や別階と混ぜない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-toilet-2-2",
+      "diagramId": "sapporo-floor-2F",
+      "purpose": "トイレ",
+      "label": "2Fトイレ区域2",
+      "area": "南・大型ビジョン付近",
+      "memberIds": [
+        "sapporo-toilet-2-2"
+      ],
+      "x": 742,
+      "y": 146,
+      "boundary": "公式の同一トイレ区域。男女・多目的を別区域や別階と混ぜない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-toilet-2-3",
+      "diagramId": "sapporo-floor-2F",
+      "purpose": "トイレ",
+      "label": "2Fトイレ区域3",
+      "area": "西・北側大階段",
+      "memberIds": [
+        "sapporo-toilet-2-3"
+      ],
+      "x": 355,
+      "y": 579,
+      "boundary": "公式の同一トイレ区域。男女・多目的を別区域や別階と混ぜない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-toilet-2-4",
+      "diagramId": "sapporo-floor-2F",
+      "purpose": "トイレ",
+      "label": "2Fトイレ区域4",
+      "area": "西・南側大階段",
+      "memberIds": [
+        "sapporo-toilet-2-4"
+      ],
+      "x": 688,
+      "y": 577,
+      "boundary": "公式の同一トイレ区域。男女・多目的を別区域や別階と混ぜない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-toilet-2-5",
+      "diagramId": "sapporo-floor-2F",
+      "purpose": "トイレ",
+      "label": "2Fトイレ区域5",
+      "area": "2Fテラス",
+      "memberIds": [
+        "sapporo-toilet-2-5"
+      ],
+      "x": 610,
+      "y": 603,
+      "boundary": "公式の同一トイレ区域。男女・多目的を別区域や別階と混ぜない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-toilet-3-1",
+      "diagramId": "sapporo-floor-3F",
+      "purpose": "トイレ",
+      "label": "キッズパーク側トイレ区域1",
+      "area": "3Fキッズパーク側",
+      "memberIds": [
+        "sapporo-toilet-3-1"
+      ],
+      "x": 423,
+      "y": 145,
+      "boundary": "公式の同一トイレ区域。男女・多目的を別区域や別階と混ぜない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-toilet-3-2",
+      "diagramId": "sapporo-floor-3F",
+      "purpose": "トイレ",
+      "label": "キッズパーク側トイレ区域2",
+      "area": "3Fキッズパーク側",
+      "memberIds": [
+        "sapporo-toilet-3-2"
+      ],
+      "x": 622,
+      "y": 145,
+      "boundary": "公式の同一トイレ区域。男女・多目的を別区域や別階と混ぜない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-toilet-4",
+      "diagramId": "sapporo-floor-4F",
+      "purpose": "トイレ",
+      "label": "スイートシート側トイレ",
+      "area": "4Fスイートシート区域",
+      "memberIds": [
+        "sapporo-toilet-4"
+      ],
+      "x": 722,
+      "y": 550,
+      "boundary": "同名の固定掲載区域。近接した別室・別階をまとめない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-toilet-b2-1",
+      "diagramId": "sapporo-floor-B2F",
+      "purpose": "トイレ",
+      "label": "関係者エリア トイレ区域1",
+      "area": "B2F・インターセクション／ブルペン側",
+      "memberIds": [
+        "sapporo-toilet-b2-1"
+      ],
+      "x": 425,
+      "y": 63,
+      "boundary": "公式の同一トイレ区域。男女・多目的を別区域や別階と混ぜない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-toilet-b2-2",
+      "diagramId": "sapporo-floor-B2F",
+      "purpose": "トイレ",
+      "label": "関係者エリア トイレ区域2",
+      "area": "B2F・インターセクション／ブルペン側",
+      "memberIds": [
+        "sapporo-toilet-b2-2"
+      ],
+      "x": 659,
+      "y": 60,
+      "boundary": "公式の同一トイレ区域。男女・多目的を別区域や別階と混ぜない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-toilet-b2-3",
+      "diagramId": "sapporo-floor-B2F",
+      "purpose": "トイレ",
+      "label": "関係者エリア トイレ区域3",
+      "area": "B2F・インターセクション／ブルペン側",
+      "memberIds": [
+        "sapporo-toilet-b2-3"
+      ],
+      "x": 350,
+      "y": 340,
+      "boundary": "公式の同一トイレ区域。男女・多目的を別区域や別階と混ぜない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-toilet-b2-4",
+      "diagramId": "sapporo-floor-B2F",
+      "purpose": "トイレ",
+      "label": "関係者エリア トイレ区域4",
+      "area": "B2F・インターセクション／ブルペン側",
+      "memberIds": [
+        "sapporo-toilet-b2-4"
+      ],
+      "x": 728,
+      "y": 340,
+      "boundary": "公式の同一トイレ区域。男女・多目的を別区域や別階と混ぜない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-nursing-1",
+      "diagramId": "sapporo-floor-1F",
+      "purpose": "赤ちゃん",
+      "label": "北ゲート内 授乳室",
+      "area": "1F北ゲート内",
+      "memberIds": [
+        "sapporo-nursing-1"
+      ],
+      "x": 80,
+      "y": 470,
+      "boundary": "同名の固定掲載区域。近接した別室・別階をまとめない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-baby-3",
+      "diagramId": "sapporo-floor-3F",
+      "purpose": "赤ちゃん",
+      "label": "キッズパーク ベビーコーナー",
+      "area": "3Fキッズパーク",
+      "memberIds": [
+        "sapporo-baby-3"
+      ],
+      "x": 520,
+      "y": 147,
+      "boundary": "同名の固定掲載区域。近接した別室・別階をまとめない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-aed-32",
+      "diagramId": "sapporo-floor-1F",
+      "purpose": "AED",
+      "label": "AED 北ゲート2前",
+      "area": "1F・北ゲート2前",
+      "memberIds": [
+        "sapporo-aed-32"
+      ],
+      "x": 203,
+      "y": 294,
+      "boundary": "同名の固定掲載区域。近接した別室・別階をまとめない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-aed-33",
+      "diagramId": "sapporo-floor-1F",
+      "purpose": "AED",
+      "label": "AED 南ゲート2前",
+      "area": "1F・南ゲート2前",
+      "memberIds": [
+        "sapporo-aed-33"
+      ],
+      "x": 863,
+      "y": 295,
+      "boundary": "同名の固定掲載区域。近接した別室・別階をまとめない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-aed-34",
+      "diagramId": "sapporo-floor-2F",
+      "purpose": "AED",
+      "label": "AED 北コンコース",
+      "area": "2F・北コンコース",
+      "memberIds": [
+        "sapporo-aed-34"
+      ],
+      "x": 194,
+      "y": 334,
+      "boundary": "同名の固定掲載区域。近接した別室・別階をまとめない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-aed-35",
+      "diagramId": "sapporo-floor-2F",
+      "purpose": "AED",
+      "label": "AED 南コンコース",
+      "area": "2F・南コンコース",
+      "memberIds": [
+        "sapporo-aed-35"
+      ],
+      "x": 863,
+      "y": 343,
+      "boundary": "同名の固定掲載区域。近接した別室・別階をまとめない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-aed-36",
+      "diagramId": "sapporo-floor-3F",
+      "purpose": "AED",
+      "label": "AED キッズパーク",
+      "area": "3F・キッズパーク",
+      "memberIds": [
+        "sapporo-aed-36"
+      ],
+      "x": 468,
+      "y": 119,
+      "boundary": "同名の固定掲載区域。近接した別室・別階をまとめない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-aed-38",
+      "diagramId": "sapporo-floor-1F",
+      "purpose": "AED",
+      "label": "AED トレーニングルーム",
+      "area": "1F・トレーニングルーム",
+      "memberIds": [
+        "sapporo-aed-38"
+      ],
+      "x": 754,
+      "y": 691,
+      "boundary": "同名の固定掲載区域。近接した別室・別階をまとめない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-ev-40",
+      "diagramId": "sapporo-floor-1F",
+      "purpose": "案内",
+      "label": "エレベーター 北",
+      "area": "1F・北",
+      "memberIds": [
+        "sapporo-ev-40"
+      ],
+      "x": 243,
+      "y": 460,
+      "boundary": "同名の固定掲載区域。近接した別室・別階をまとめない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-ev-41",
+      "diagramId": "sapporo-floor-1F",
+      "purpose": "案内",
+      "label": "エレベーター 南",
+      "area": "1F・南",
+      "memberIds": [
+        "sapporo-ev-41"
+      ],
+      "x": 825,
+      "y": 460,
+      "boundary": "同名の固定掲載区域。近接した別室・別階をまとめない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-ev-42",
+      "diagramId": "sapporo-floor-2F",
+      "purpose": "案内",
+      "label": "エレベーター 北",
+      "area": "2F・北",
+      "memberIds": [
+        "sapporo-ev-42"
+      ],
+      "x": 219,
+      "y": 427,
+      "boundary": "同名の固定掲載区域。近接した別室・別階をまとめない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-ev-43",
+      "diagramId": "sapporo-floor-2F",
+      "purpose": "案内",
+      "label": "エレベーター 南",
+      "area": "2F・南",
+      "memberIds": [
+        "sapporo-ev-43"
+      ],
+      "x": 833,
+      "y": 427,
+      "boundary": "同名の固定掲載区域。近接した別室・別階をまとめない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-ev-44",
+      "diagramId": "sapporo-floor-3F",
+      "purpose": "案内",
+      "label": "エレベーター キッズパーク北側",
+      "area": "3F・キッズパーク北側",
+      "memberIds": [
+        "sapporo-ev-44"
+      ],
+      "x": 388,
+      "y": 166,
+      "boundary": "同名の固定掲載区域。近接した別室・別階をまとめない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-ev-45",
+      "diagramId": "sapporo-floor-4F",
+      "purpose": "案内",
+      "label": "エレベーター スイートシート専用",
+      "area": "4F・スイートシート専用",
+      "memberIds": [
+        "sapporo-ev-45"
+      ],
+      "x": 604,
+      "y": 600,
+      "boundary": "同名の固定掲載区域。近接した別室・別階をまとめない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-outside-70",
+      "diagramId": "sapporo-grounds",
+      "purpose": "案内",
+      "label": "総合案内",
+      "area": "北ゲート3横",
+      "memberIds": [
+        "sapporo-outside-70"
+      ],
+      "x": 1010,
+      "y": 428,
+      "boundary": "同名の固定掲載区域。近接した別室・別階をまとめない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-outside-73",
+      "diagramId": "sapporo-grounds",
+      "purpose": "トイレ",
+      "label": "ドーム前広場トイレ",
+      "area": "ドーム前広場",
+      "memberIds": [
+        "sapporo-outside-73"
+      ],
+      "x": 419,
+      "y": 453,
+      "boundary": "同名の固定掲載区域。近接した別室・別階をまとめない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "group-sapporo-outside-74",
+      "diagramId": "sapporo-grounds",
+      "purpose": "トイレ",
+      "label": "駐車場トイレ",
+      "area": "南側駐車場",
+      "memberIds": [
+        "sapporo-outside-74"
+      ],
+      "x": 1400,
+      "y": 839,
+      "boundary": "同名の固定掲載区域。近接した別室・別階をまとめない。",
+      "visualReview": "source-checked"
+    }
+  ],
+  "meta": {
+    "sapporo-locker-3": {
+      "location": "1F・北の掲載区域",
+      "area": "1F・北の掲載区域",
+      "detail": "小300円（357×453×398mm）・中400円（357×453×533mm）・大500円（357×513×802mm）。別に返却される預り金100円、100円硬貨のみ。当日限り、利用中の開閉は追加料金なし。現金・貴重品等は収納できません。 小16/中12/大4。イベント入場者のみ、開場〜終了。開催内容により利用できない場合があります。",
+      "url": "https://www.sapporo-dome.co.jp/guide/service/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-locker-4": {
+      "location": "1F・南の掲載区域",
+      "area": "1F・南の掲載区域",
+      "detail": "小300円（357×453×398mm）・中400円（357×453×533mm）・大500円（357×513×802mm）。別に返却される預り金100円、100円硬貨のみ。当日限り、利用中の開閉は追加料金なし。現金・貴重品等は収納できません。 小16/中12/大4。イベント入場者のみ、開場〜終了。開催内容により利用できない場合があります。",
+      "url": "https://www.sapporo-dome.co.jp/guide/service/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-locker-5": {
+      "location": "1F・北奥の掲載区域",
+      "area": "1F・北奥の掲載区域",
+      "detail": "小300円（357×453×398mm）・中400円（357×453×533mm）・大500円（357×513×802mm）。別に返却される預り金100円、100円硬貨のみ。当日限り、利用中の開閉は追加料金なし。現金・貴重品等は収納できません。 小32/中12/大8。イベント入場者のみ、開場〜終了。開催内容により利用できない場合があります。",
+      "url": "https://www.sapporo-dome.co.jp/guide/service/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-locker-6": {
+      "location": "1F・南奥の掲載区域",
+      "area": "1F・南奥の掲載区域",
+      "detail": "小300円（357×453×398mm）・中400円（357×453×533mm）・大500円（357×513×802mm）。別に返却される預り金100円、100円硬貨のみ。当日限り、利用中の開閉は追加料金なし。現金・貴重品等は収納できません。 小16/中6/大0。イベント入場者のみ、開場〜終了。開催内容により利用できない場合があります。大型はありません。",
+      "url": "https://www.sapporo-dome.co.jp/guide/service/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-locker-7": {
+      "location": "1F・南ゲートの掲載区域",
+      "area": "1F・南ゲートの掲載区域",
+      "detail": "小300円（357×453×398mm）・中400円（357×453×533mm）・大500円（357×513×802mm）。別に返却される預り金100円、100円硬貨のみ。当日限り、利用中の開閉は追加料金なし。現金・貴重品等は収納できません。 小8/中6/大8。イベント入場者のみ、開場〜終了。開催内容により利用できない場合があります。",
+      "url": "https://www.sapporo-dome.co.jp/guide/service/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-locker-1": {
+      "location": "北ゲート3横",
+      "area": "北ゲート3横",
+      "detail": "小300円（357×453×398mm）・中400円（357×453×533mm）・大500円（357×513×802mm）。別に返却される預り金100円、100円硬貨のみ。当日限り、利用中の開閉は追加料金なし。現金・貴重品等は収納できません。 総合案内営業日の10:00〜17:00。小8/中6/大4。",
+      "url": "https://www.sapporo-dome.co.jp/guide/service/",
+      "accessCondition": "入場前の区域。利用時間・条件を確認",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "sapporo-locker-2": {
+      "location": "ドーム歩道橋〜北ゲート間",
+      "area": "ドーム歩道橋〜北ゲート間",
+      "detail": "小300円（357×453×398mm）・中400円（357×453×533mm）・大500円（357×513×802mm）。別に返却される預り金100円、100円硬貨のみ。当日限り、利用中の開閉は追加料金なし。現金・貴重品等は収納できません。 当日の開門時間に利用。小8/中0/大24。両替機なし。",
+      "url": "https://www.sapporo-dome.co.jp/guide/service/",
+      "accessCondition": "入場前の区域。利用時間・条件を確認",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "sapporo-toilet-1-1": {
+      "location": "北・EV付近",
+      "area": "北・EV付近",
+      "detail": "公式のトイレ区域です。イベントにより男子を女子へ変更する場合があります。男女・バリアフリー設備の個別条件は現地表示をご確認ください。",
+      "url": "https://www.sapporo-dome.co.jp/guide/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-toilet-1-2": {
+      "location": "北ゲート2前",
+      "area": "北ゲート2前",
+      "detail": "公式のトイレ区域です。イベントにより男子を女子へ変更する場合があります。男女・バリアフリー設備の個別条件は現地表示をご確認ください。",
+      "url": "https://www.sapporo-dome.co.jp/guide/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-toilet-1-3": {
+      "location": "西ゲート3大階段・北側",
+      "area": "西ゲート3大階段・北側",
+      "detail": "公式のトイレ区域です。イベントにより男子を女子へ変更する場合があります。男女・バリアフリー設備の個別条件は現地表示をご確認ください。",
+      "url": "https://www.sapporo-dome.co.jp/guide/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-toilet-1-4": {
+      "location": "西ゲート3大階段・南側",
+      "area": "西ゲート3大階段・南側",
+      "detail": "公式のトイレ区域です。イベントにより男子を女子へ変更する場合があります。男女・バリアフリー設備の個別条件は現地表示をご確認ください。",
+      "url": "https://www.sapporo-dome.co.jp/guide/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-toilet-1-5": {
+      "location": "西ゲート1大階段・北側",
+      "area": "西ゲート1大階段・北側",
+      "detail": "公式のトイレ区域です。イベントにより男子を女子へ変更する場合があります。男女・バリアフリー設備の個別条件は現地表示をご確認ください。",
+      "url": "https://www.sapporo-dome.co.jp/guide/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-toilet-1-6": {
+      "location": "西ゲート1大階段・南側",
+      "area": "西ゲート1大階段・南側",
+      "detail": "公式のトイレ区域です。イベントにより男子を女子へ変更する場合があります。男女・バリアフリー設備の個別条件は現地表示をご確認ください。",
+      "url": "https://www.sapporo-dome.co.jp/guide/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-toilet-1-7": {
+      "location": "南ゲート2前",
+      "area": "南ゲート2前",
+      "detail": "公式のトイレ区域です。イベントにより男子を女子へ変更する場合があります。男女・バリアフリー設備の個別条件は現地表示をご確認ください。",
+      "url": "https://www.sapporo-dome.co.jp/guide/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-toilet-1-8": {
+      "location": "南・EV付近",
+      "area": "南・EV付近",
+      "detail": "公式のトイレ区域です。イベントにより男子を女子へ変更する場合があります。男女・バリアフリー設備の個別条件は現地表示をご確認ください。",
+      "url": "https://www.sapporo-dome.co.jp/guide/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-toilet-2-1": {
+      "location": "北・大型ビジョン付近",
+      "area": "北・大型ビジョン付近",
+      "detail": "公式掲載区域。当日の男女・開放条件は現地案内をご確認ください。",
+      "url": "https://www.sapporo-dome.co.jp/guide/2f/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-toilet-2-2": {
+      "location": "南・大型ビジョン付近",
+      "area": "南・大型ビジョン付近",
+      "detail": "公式掲載区域。当日の男女・開放条件は現地案内をご確認ください。",
+      "url": "https://www.sapporo-dome.co.jp/guide/2f/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-toilet-2-3": {
+      "location": "西・北側大階段",
+      "area": "西・北側大階段",
+      "detail": "公式掲載区域。当日の男女・開放条件は現地案内をご確認ください。",
+      "url": "https://www.sapporo-dome.co.jp/guide/2f/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-toilet-2-4": {
+      "location": "西・南側大階段",
+      "area": "西・南側大階段",
+      "detail": "公式掲載区域。当日の男女・開放条件は現地案内をご確認ください。",
+      "url": "https://www.sapporo-dome.co.jp/guide/2f/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-toilet-2-5": {
+      "location": "2Fテラス",
+      "area": "2Fテラス",
+      "detail": "公式掲載区域。冬期利用不可。当日の男女・開放条件は現地案内をご確認ください。",
+      "url": "https://www.sapporo-dome.co.jp/guide/2f/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-toilet-3-1": {
+      "location": "3Fキッズパーク側",
+      "area": "3Fキッズパーク側",
+      "detail": "公式3F掲載区域。開放時間・イベントの利用対象を確認してください。",
+      "url": "https://www.sapporo-dome.co.jp/guide/3f-4f/",
+      "accessCondition": "当日の開放と利用対象は案内を確認"
+    },
+    "sapporo-toilet-3-2": {
+      "location": "3Fキッズパーク側",
+      "area": "3Fキッズパーク側",
+      "detail": "公式3F掲載区域。開放時間・イベントの利用対象を確認してください。",
+      "url": "https://www.sapporo-dome.co.jp/guide/3f-4f/",
+      "accessCondition": "当日の開放と利用対象は案内を確認"
+    },
+    "sapporo-toilet-4": {
+      "location": "4Fスイートシート区域",
+      "area": "4Fスイートシート区域",
+      "detail": "スイートシート専用の区域です。通常のスタンドから自由に利用できるとは案内しません。",
+      "url": "https://www.sapporo-dome.co.jp/guide/3f-4f/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-toilet-b2-1": {
+      "location": "B2F・インターセクション／ブルペン側",
+      "area": "B2F・インターセクション／ブルペン側",
+      "detail": "地下2階の関係者エリアです。通常の観客が利用できるトイレとして案内しません。",
+      "url": "https://www.sapporo-dome.co.jp/guide/b2f/",
+      "accessCondition": "当日の開放と利用対象は案内を確認"
+    },
+    "sapporo-toilet-b2-2": {
+      "location": "B2F・インターセクション／ブルペン側",
+      "area": "B2F・インターセクション／ブルペン側",
+      "detail": "地下2階の関係者エリアです。通常の観客が利用できるトイレとして案内しません。",
+      "url": "https://www.sapporo-dome.co.jp/guide/b2f/",
+      "accessCondition": "当日の開放と利用対象は案内を確認"
+    },
+    "sapporo-toilet-b2-3": {
+      "location": "B2F・インターセクション／ブルペン側",
+      "area": "B2F・インターセクション／ブルペン側",
+      "detail": "地下2階の関係者エリアです。通常の観客が利用できるトイレとして案内しません。",
+      "url": "https://www.sapporo-dome.co.jp/guide/b2f/",
+      "accessCondition": "当日の開放と利用対象は案内を確認"
+    },
+    "sapporo-toilet-b2-4": {
+      "location": "B2F・インターセクション／ブルペン側",
+      "area": "B2F・インターセクション／ブルペン側",
+      "detail": "地下2階の関係者エリアです。通常の観客が利用できるトイレとして案内しません。",
+      "url": "https://www.sapporo-dome.co.jp/guide/b2f/",
+      "accessCondition": "当日の開放と利用対象は案内を確認"
+    },
+    "sapporo-nursing-1": {
+      "location": "1F北ゲート内",
+      "area": "1F北ゲート内",
+      "detail": "イベント開催時の授乳室。入場券と当日の開放案内を確認してください。",
+      "url": "https://www.sapporo-dome.co.jp/guide/service/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-baby-3": {
+      "location": "3Fキッズパーク",
+      "area": "3Fキッズパーク",
+      "detail": "キッズパークの開放時間内に利用。授乳・おむつ替えは個別案内に従ってください。",
+      "url": "https://www.sapporo-dome.co.jp/guide/3f-4f/",
+      "accessCondition": "当日の開放と利用対象は案内を確認"
+    },
+    "sapporo-diaper-1F": {
+      "location": "1Fトイレ内",
+      "area": "1Fトイレ内",
+      "detail": "設置を公式サービスで確認。対象室・男女・当日開放は個別案内で確認してください。",
+      "url": "https://www.sapporo-dome.co.jp/guide/service/",
+      "accessCondition": "当日の開放と利用対象は案内を確認"
+    },
+    "sapporo-diaper-2F": {
+      "location": "2Fトイレ内",
+      "area": "2Fトイレ内",
+      "detail": "設置を公式サービスで確認。対象室・男女・当日開放は個別案内で確認してください。",
+      "url": "https://www.sapporo-dome.co.jp/guide/service/",
+      "accessCondition": "当日の開放と利用対象は案内を確認"
+    },
+    "sapporo-diaper-3F": {
+      "location": "3Fトイレ内",
+      "area": "3Fトイレ内",
+      "detail": "設置を公式サービスで確認。対象室・男女・当日開放は個別案内で確認してください。",
+      "url": "https://www.sapporo-dome.co.jp/guide/service/",
+      "accessCondition": "当日の開放と利用対象は案内を確認"
+    },
+    "sapporo-aed-32": {
+      "location": "1F・北ゲート2前",
+      "area": "1F・北ゲート2前",
+      "detail": "緊急時は会場係員へお声がけください。開放区域は当日案内に従ってください。",
+      "url": "https://www.sapporo-dome.co.jp/guide/service/",
+      "accessCondition": "当日の開放と利用対象は案内を確認"
+    },
+    "sapporo-aed-33": {
+      "location": "1F・南ゲート2前",
+      "area": "1F・南ゲート2前",
+      "detail": "緊急時は会場係員へお声がけください。開放区域は当日案内に従ってください。",
+      "url": "https://www.sapporo-dome.co.jp/guide/service/",
+      "accessCondition": "当日の開放と利用対象は案内を確認"
+    },
+    "sapporo-aed-34": {
+      "location": "2F・北コンコース",
+      "area": "2F・北コンコース",
+      "detail": "緊急時は会場係員へお声がけください。開放区域は当日案内に従ってください。",
+      "url": "https://www.sapporo-dome.co.jp/guide/service/",
+      "accessCondition": "当日の開放と利用対象は案内を確認"
+    },
+    "sapporo-aed-35": {
+      "location": "2F・南コンコース",
+      "area": "2F・南コンコース",
+      "detail": "緊急時は会場係員へお声がけください。開放区域は当日案内に従ってください。",
+      "url": "https://www.sapporo-dome.co.jp/guide/service/",
+      "accessCondition": "当日の開放と利用対象は案内を確認"
+    },
+    "sapporo-aed-36": {
+      "location": "3F・キッズパーク",
+      "area": "3F・キッズパーク",
+      "detail": "緊急時は会場係員へお声がけください。開放区域は当日案内に従ってください。",
+      "url": "https://www.sapporo-dome.co.jp/guide/service/",
+      "accessCondition": "当日の開放と利用対象は案内を確認"
+    },
+    "sapporo-aed-37": {
+      "location": "4F・展望台",
+      "area": "4F・展望台",
+      "detail": "緊急時は会場係員へお声がけください。開放区域は当日案内に従ってください。",
+      "url": "https://www.sapporo-dome.co.jp/guide/service/",
+      "accessCondition": "当日の開放と利用対象は案内を確認"
+    },
+    "sapporo-aed-38": {
+      "location": "1F・トレーニングルーム",
+      "area": "1F・トレーニングルーム",
+      "detail": "緊急時は会場係員へお声がけください。開放区域は当日案内に従ってください。",
+      "url": "https://www.sapporo-dome.co.jp/guide/service/",
+      "accessCondition": "当日の開放と利用対象は案内を確認"
+    },
+    "sapporo-aed-39": {
+      "location": "B2F・関係者エリア",
+      "area": "B2F・関係者エリア",
+      "detail": "緊急時は会場係員へお声がけください。開放区域は当日案内に従ってください。",
+      "url": "https://www.sapporo-dome.co.jp/guide/service/",
+      "accessCondition": "当日の開放と利用対象は案内を確認"
+    },
+    "sapporo-ev-40": {
+      "location": "1F・北",
+      "area": "1F・北",
+      "detail": "当日の利用対象と行き先は会場案内を確認してください。",
+      "url": "https://www.sapporo-dome.co.jp/guide/",
+      "accessCondition": "当日の開放と利用対象は案内を確認"
+    },
+    "sapporo-ev-41": {
+      "location": "1F・南",
+      "area": "1F・南",
+      "detail": "当日の利用対象と行き先は会場案内を確認してください。",
+      "url": "https://www.sapporo-dome.co.jp/guide/",
+      "accessCondition": "当日の開放と利用対象は案内を確認"
+    },
+    "sapporo-ev-42": {
+      "location": "2F・北",
+      "area": "2F・北",
+      "detail": "当日の利用対象と行き先は会場案内を確認してください。",
+      "url": "https://www.sapporo-dome.co.jp/guide/2f/",
+      "accessCondition": "当日の開放と利用対象は案内を確認"
+    },
+    "sapporo-ev-43": {
+      "location": "2F・南",
+      "area": "2F・南",
+      "detail": "当日の利用対象と行き先は会場案内を確認してください。",
+      "url": "https://www.sapporo-dome.co.jp/guide/2f/",
+      "accessCondition": "当日の開放と利用対象は案内を確認"
+    },
+    "sapporo-ev-44": {
+      "location": "3F・キッズパーク北側",
+      "area": "3F・キッズパーク北側",
+      "detail": "当日の利用対象と行き先は会場案内を確認してください。",
+      "url": "https://www.sapporo-dome.co.jp/guide/3f-4f/",
+      "accessCondition": "当日の開放と利用対象は案内を確認"
+    },
+    "sapporo-ev-45": {
+      "location": "4F・スイートシート専用",
+      "area": "4F・スイートシート専用",
+      "detail": "当日の利用対象と行き先は会場案内を確認してください。",
+      "url": "https://www.sapporo-dome.co.jp/guide/3f-4f/",
+      "accessCondition": "当日の開放と利用対象は案内を確認"
+    },
+    "sapporo-shop-1F-1": {
+      "location": "1F公式店舗一覧・売店",
+      "area": "1F公式店舗一覧・売店",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "url": "https://www.sapporo-dome.co.jp/guide/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-shop-1F-2": {
+      "location": "1F公式店舗一覧・売店",
+      "area": "1F公式店舗一覧・売店",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "url": "https://www.sapporo-dome.co.jp/guide/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-shop-1F-3": {
+      "location": "1F公式店舗一覧・売店",
+      "area": "1F公式店舗一覧・売店",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "url": "https://www.sapporo-dome.co.jp/guide/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-shop-1F-4": {
+      "location": "1F公式店舗一覧・売店",
+      "area": "1F公式店舗一覧・売店",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "url": "https://www.sapporo-dome.co.jp/guide/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-shop-1F-5": {
+      "location": "1F公式店舗一覧・売店",
+      "area": "1F公式店舗一覧・売店",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "url": "https://www.sapporo-dome.co.jp/guide/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-shop-1F-6": {
+      "location": "1F公式店舗一覧・売店",
+      "area": "1F公式店舗一覧・売店",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "url": "https://www.sapporo-dome.co.jp/guide/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-shop-1F-7": {
+      "location": "1F公式店舗一覧・売店",
+      "area": "1F公式店舗一覧・売店",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "url": "https://www.sapporo-dome.co.jp/guide/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-shop-1F-8": {
+      "location": "1F公式店舗一覧・売店",
+      "area": "1F公式店舗一覧・売店",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "url": "https://www.sapporo-dome.co.jp/guide/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-shop-1F-9": {
+      "location": "1F公式店舗一覧・売店",
+      "area": "1F公式店舗一覧・売店",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "url": "https://www.sapporo-dome.co.jp/guide/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-shop-1F-10": {
+      "location": "1F公式店舗一覧・売店",
+      "area": "1F公式店舗一覧・売店",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "url": "https://www.sapporo-dome.co.jp/guide/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-shop-1F-11": {
+      "location": "1F公式店舗一覧・売店",
+      "area": "1F公式店舗一覧・売店",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "url": "https://www.sapporo-dome.co.jp/guide/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-shop-1F-12": {
+      "location": "1F公式店舗一覧・売店",
+      "area": "1F公式店舗一覧・売店",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "url": "https://www.sapporo-dome.co.jp/guide/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-shop-1F-13": {
+      "location": "1F公式店舗一覧・売店",
+      "area": "1F公式店舗一覧・売店",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "url": "https://www.sapporo-dome.co.jp/guide/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-shop-1F-14": {
+      "location": "1F公式店舗一覧・売店",
+      "area": "1F公式店舗一覧・売店",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "url": "https://www.sapporo-dome.co.jp/guide/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-shop-1F-15": {
+      "location": "1F公式店舗一覧・売店",
+      "area": "1F公式店舗一覧・売店",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "url": "https://www.sapporo-dome.co.jp/guide/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-shop-1F-16": {
+      "location": "1F公式店舗一覧・売店",
+      "area": "1F公式店舗一覧・売店",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "url": "https://www.sapporo-dome.co.jp/guide/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-shop-1F-17": {
+      "location": "1F公式店舗一覧・売店",
+      "area": "1F公式店舗一覧・売店",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "url": "https://www.sapporo-dome.co.jp/guide/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-shop-2F-1": {
+      "location": "2F公式店舗一覧・ワゴン",
+      "area": "2F公式店舗一覧・ワゴン",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "url": "https://www.sapporo-dome.co.jp/guide/2f/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-shop-2F-2": {
+      "location": "2F公式店舗一覧・ワゴン",
+      "area": "2F公式店舗一覧・ワゴン",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "url": "https://www.sapporo-dome.co.jp/guide/2f/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-shop-2F-3": {
+      "location": "2F公式店舗一覧・ワゴン",
+      "area": "2F公式店舗一覧・ワゴン",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "url": "https://www.sapporo-dome.co.jp/guide/2f/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-shop-2F-4": {
+      "location": "2F公式店舗一覧・ワゴン",
+      "area": "2F公式店舗一覧・ワゴン",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "url": "https://www.sapporo-dome.co.jp/guide/2f/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-shop-2F-5": {
+      "location": "2F公式店舗一覧・ワゴン",
+      "area": "2F公式店舗一覧・ワゴン",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "url": "https://www.sapporo-dome.co.jp/guide/2f/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-shop-2F-6": {
+      "location": "2F公式店舗一覧・ワゴン",
+      "area": "2F公式店舗一覧・ワゴン",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "url": "https://www.sapporo-dome.co.jp/guide/2f/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-shop-2F-7": {
+      "location": "2F公式店舗一覧・ワゴン",
+      "area": "2F公式店舗一覧・ワゴン",
+      "detail": "開催内容により営業する店舗・時間が異なります。個別の入口点は確認中です。",
+      "url": "https://www.sapporo-dome.co.jp/guide/2f/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-outside-70": {
+      "location": "北ゲート3横",
+      "area": "北ゲート3横",
+      "detail": "入場前の区域。当日の開放・利用時間を確認してください。",
+      "url": "https://www.sapporo-dome.co.jp/access/map/",
+      "accessCondition": "入場前の区域。利用時間・条件を確認",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "sapporo-outside-71": {
+      "location": "北ゲート1付近",
+      "area": "北ゲート1付近",
+      "detail": "入場前の区域。当日の開放・利用時間を確認してください。",
+      "url": "https://www.sapporo-dome.co.jp/access/map/",
+      "accessCondition": "入場前の区域。利用時間・条件を確認",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "sapporo-outside-72": {
+      "location": "南北連絡通路・西側",
+      "area": "南北連絡通路・西側",
+      "detail": "入場前の区域。当日の開放・利用時間を確認してください。",
+      "url": "https://www.sapporo-dome.co.jp/access/map/",
+      "accessCondition": "入場前の区域。利用時間・条件を確認",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "sapporo-outside-73": {
+      "location": "ドーム前広場",
+      "area": "ドーム前広場",
+      "detail": "入場前の区域。当日の開放・利用時間を確認してください。",
+      "url": "https://www.sapporo-dome.co.jp/access/map/",
+      "accessCondition": "入場前の区域。利用時間・条件を確認",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "sapporo-outside-74": {
+      "location": "南側駐車場",
+      "area": "南側駐車場",
+      "detail": "入場前の区域。当日の開放・利用時間を確認してください。",
+      "url": "https://www.sapporo-dome.co.jp/access/map/",
+      "accessCondition": "入場前の区域。利用時間・条件を確認",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "sapporo-fukuzumi-exit": {
+      "location": "地下鉄東豊線 福住駅3番出口",
+      "area": "地下鉄東豊線 福住駅3番出口",
+      "detail": "会場公式目安は徒歩約10分。当日の入場ゲートはチケット・主催者案内に従ってください。段差なしの連続経路としては未確認です。",
+      "url": "https://www.sapporo-dome.co.jp/access/subway/",
+      "accessCondition": "入場前の区域。利用時間・条件を確認",
+      "outsideViewIds": [
+        "grounds",
+        "fukuzumi"
+      ]
+    },
+    "sapporo-fukuzumi-locker": {
+      "location": "福住駅・中央改札付近",
+      "area": "福住駅・中央改札付近",
+      "detail": "運営元一覧で小25・大4を確認。小W360×D575×H320mm、大W360×D575×H840mm。料金・改札内外・機械別位置は確認中です。空きは断定しません。",
+      "url": "https://www.stsp.or.jp/business/subway/coinlocker/",
+      "accessCondition": "当日の開放と利用対象は案内を確認",
+      "outsideViewIds": [
+        "fukuzumi",
+        "grounds"
+      ]
+    },
+    "sapporo-station-locker-A": {
+      "location": "地下鉄さっぽろ駅・南北線北改札南側",
+      "area": "地下鉄さっぽろ駅・南北線北改札南側",
+      "detail": "運営元の設置区域。JR札幌駅とは別です。Bは6月28日に南連絡通路へ移設の案内。区域ごとの料金・サイズ・改札内外・空きは現地表示をご確認ください。",
+      "url": "https://www.stsp.or.jp/business/subway/coinlocker/",
+      "accessCondition": "当日の開放と利用対象は案内を確認",
+      "outsideViewIds": [
+        "sapporo"
+      ]
+    },
+    "sapporo-station-locker-B": {
+      "location": "地下鉄さっぽろ駅・南連絡通路・E東側",
+      "area": "地下鉄さっぽろ駅・南連絡通路・E東側",
+      "detail": "運営元の設置区域。JR札幌駅とは別です。Bは6月28日に南連絡通路へ移設の案内。区域ごとの料金・サイズ・改札内外・空きは現地表示をご確認ください。",
+      "url": "https://www.stsp.or.jp/business/subway/coinlocker/",
+      "accessCondition": "当日の開放と利用対象は案内を確認",
+      "outsideViewIds": [
+        "sapporo"
+      ]
+    },
+    "sapporo-station-locker-C": {
+      "location": "地下鉄さっぽろ駅・東豊線南駅事務室付近",
+      "area": "地下鉄さっぽろ駅・東豊線南駅事務室付近",
+      "detail": "運営元の設置区域。JR札幌駅とは別です。Bは6月28日に南連絡通路へ移設の案内。区域ごとの料金・サイズ・改札内外・空きは現地表示をご確認ください。",
+      "url": "https://www.stsp.or.jp/business/subway/coinlocker/",
+      "accessCondition": "当日の開放と利用対象は案内を確認",
+      "outsideViewIds": [
+        "sapporo"
+      ]
+    },
+    "sapporo-station-locker-D": {
+      "location": "地下鉄さっぽろ駅・19番出口付近",
+      "area": "地下鉄さっぽろ駅・19番出口付近",
+      "detail": "運営元の設置区域。JR札幌駅とは別です。Bは6月28日に南連絡通路へ移設の案内。区域ごとの料金・サイズ・改札内外・空きは現地表示をご確認ください。",
+      "url": "https://www.stsp.or.jp/business/subway/coinlocker/",
+      "accessCondition": "当日の開放と利用対象は案内を確認",
+      "outsideViewIds": [
+        "sapporo"
+      ]
+    },
+    "sapporo-station-locker-E": {
+      "location": "地下鉄さっぽろ駅・南北線南連絡通路",
+      "area": "地下鉄さっぽろ駅・南北線南連絡通路",
+      "detail": "運営元の設置区域。JR札幌駅とは別です。Bは6月28日に南連絡通路へ移設の案内。区域ごとの料金・サイズ・改札内外・空きは現地表示をご確認ください。",
+      "url": "https://www.stsp.or.jp/business/subway/coinlocker/",
+      "accessCondition": "当日の開放と利用対象は案内を確認",
+      "outsideViewIds": [
+        "sapporo"
+      ]
+    },
+    "sapporo-station-locker-F": {
+      "location": "地下鉄さっぽろ駅・北側連絡通路",
+      "area": "地下鉄さっぽろ駅・北側連絡通路",
+      "detail": "運営元の設置区域。JR札幌駅とは別です。Bは6月28日に南連絡通路へ移設の案内。区域ごとの料金・サイズ・改札内外・空きは現地表示をご確認ください。",
+      "url": "https://www.stsp.or.jp/business/subway/coinlocker/",
+      "accessCondition": "当日の開放と利用対象は案内を確認",
+      "outsideViewIds": [
+        "sapporo"
+      ]
+    },
+    "sapporo-jr-multi": {
+      "location": "JR札幌駅",
+      "area": "JR札幌駅",
+      "detail": "2025年12月12日導入を運営元で確認。予約・預入機能の案内があります。現在の機械位置・予約可否・料金・空きは個別案内を確認してください。",
+      "url": "https://www.jre-sl.co.jp/news/20251211_ho01/",
+      "accessCondition": "当日の開放と利用対象は案内を確認",
+      "outsideViewIds": [
+        "sapporo"
+      ]
+    },
+    "sapporo-yamato-84": {
+      "location": "札幌駅前営業所（ドーム・JR駅構内とは別）",
+      "area": "札幌駅前営業所（ドーム・JR駅構内とは別）",
+      "detail": "2026/09/08版で1個1,000円（税込）、当日19:30までの引渡しを確認。受付開始時刻・対象サイズ・満杯時・入口の個別条件は店舗へ確認してください。",
+      "url": "https://www.kuronekoyamato.co.jp/ytc/customer/send/services/hands-freetravel/pdf/tenimotsuoazukari.pdf",
+      "accessCondition": "入場前の区域。利用時間・条件を確認",
+      "outsideViewIds": [
+        "nearby",
+        "sapporo"
+      ]
+    },
+    "sapporo-yamato-85": {
+      "location": "北海道庁前営業所（ドーム・JR駅構内とは別）",
+      "area": "北海道庁前営業所（ドーム・JR駅構内とは別）",
+      "detail": "2026/09/08版で1個1,000円（税込）、当日20:00までの引渡しを確認。受付開始時刻・対象サイズ・満杯時・入口の個別条件は店舗へ確認してください。",
+      "url": "https://www.kuronekoyamato.co.jp/ytc/customer/send/services/hands-freetravel/pdf/tenimotsuoazukari.pdf",
+      "accessCondition": "入場前の区域。利用時間・条件を確認",
+      "outsideViewIds": [
+        "nearby",
+        "sapporo"
+      ]
+    },
+    "sapporo-yamato-86": {
+      "location": "札幌大通営業所（ドーム・JR駅構内とは別）",
+      "area": "札幌大通営業所（ドーム・JR駅構内とは別）",
+      "detail": "2026/09/08版で1個1,000円（税込）、当日19:30までの引渡しを確認。受付開始時刻・対象サイズ・満杯時・入口の個別条件は店舗へ確認してください。",
+      "url": "https://www.kuronekoyamato.co.jp/ytc/customer/send/services/hands-freetravel/pdf/tenimotsuoazukari.pdf",
+      "accessCondition": "入場前の区域。利用時間・条件を確認",
+      "outsideViewIds": [
+        "nearby",
+        "sapporo"
+      ]
+    },
+    "sapporo-family": {
+      "location": "福住3条1丁目1番8号",
+      "area": "福住3条1丁目1番8号",
+      "detail": "OpenPOIの候補を公式個別店舗ページで名称・住所照合。会場外の店舗です。営業・取扱いは店舗案内をご確認ください。",
+      "url": "https://store.family.co.jp/points/25098",
+      "accessCondition": "入場前の区域。利用時間・条件を確認",
+      "outsideViewIds": [
+        "nearby"
+      ]
+    },
+    "sapporo-accessible-1-3": {
+      "location": "西ゲート3大階段・北側",
+      "area": "西ゲート3大階段・北側",
+      "detail": "公式サービスの1F③④⑤⑥に身障者用設備・幼児用トイレを掲載。該当室の利用と男女の当日変更は会場案内をご確認ください。",
+      "url": "https://www.sapporo-dome.co.jp/guide/service/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-accessible-1-4": {
+      "location": "西ゲート3大階段・南側",
+      "area": "西ゲート3大階段・南側",
+      "detail": "公式サービスの1F③④⑤⑥に身障者用設備・幼児用トイレを掲載。該当室の利用と男女の当日変更は会場案内をご確認ください。",
+      "url": "https://www.sapporo-dome.co.jp/guide/service/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-accessible-1-5": {
+      "location": "西ゲート1大階段・北側",
+      "area": "西ゲート1大階段・北側",
+      "detail": "公式サービスの1F③④⑤⑥に身障者用設備・幼児用トイレを掲載。該当室の利用と男女の当日変更は会場案内をご確認ください。",
+      "url": "https://www.sapporo-dome.co.jp/guide/service/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    },
+    "sapporo-accessible-1-6": {
+      "location": "西ゲート1大階段・南側",
+      "area": "西ゲート1大階段・南側",
+      "detail": "公式サービスの1F③④⑤⑥に身障者用設備・幼児用トイレを掲載。該当室の利用と男女の当日変更は会場案内をご確認ください。",
+      "url": "https://www.sapporo-dome.co.jp/guide/service/",
+      "accessCondition": "入場券・券種と当日の開放条件を確認"
+    }
+  },
+  "diagrams": [
+    {
+      "id": "sapporo-floor-1F",
+      "floor": "1F",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        1000,
+        705
+      ],
+      "concoursePaths": [],
+      "contextPaths": [
+        "M175,340 A335,240 0 1 0 845,340 A335,240 0 1 0 175,340 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "sapporo-1F-北",
+          "label": "北",
+          "name": "北",
+          "x": 105,
+          "y": 300,
+          "kind": "gate",
+          "sourceIds": [
+            "1f"
+          ],
+          "reference": "公式図の同名区域の相対位置。入口中心や経路ではありません。"
+        },
+        {
+          "id": "sapporo-1F-南",
+          "label": "南",
+          "name": "南",
+          "x": 900,
+          "y": 300,
+          "kind": "gate",
+          "sourceIds": [
+            "1f"
+          ],
+          "reference": "公式図の同名区域の相対位置。入口中心や経路ではありません。"
+        },
+        {
+          "id": "sapporo-1F-東",
+          "label": "東",
+          "name": "東",
+          "x": 510,
+          "y": 60,
+          "kind": "gate",
+          "sourceIds": [
+            "1f"
+          ],
+          "reference": "公式図の同名区域の相対位置。入口中心や経路ではありません。"
+        },
+        {
+          "id": "sapporo-1F-西",
+          "label": "西",
+          "name": "西",
+          "x": 510,
+          "y": 600,
+          "kind": "gate",
+          "sourceIds": [
+            "1f"
+          ],
+          "reference": "公式図の同名区域の相対位置。入口中心や経路ではありません。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "1f"
+        ],
+        "file": "research/sapporo-current-2026-10-10/current-receipts.json",
+        "sha256": "598bf8b25e4f205766ecccd1a731c4e3cebde292c84032f6043d3f885d694f71",
+        "width": 1000,
+        "height": 705,
+        "method": "公式フロアの区域を北左/東上の相対位置へ部分転記。独立した概略輪郭。室入口・通行経路ではない。",
+        "status": "partial-source-facts"
+      }
+    },
+    {
+      "id": "sapporo-floor-2F",
+      "floor": "2F",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        1000,
+        705
+      ],
+      "concoursePaths": [],
+      "contextPaths": [
+        "M175,340 A335,240 0 1 0 845,340 A335,240 0 1 0 175,340 Z"
+      ],
+      "landmarks": [],
+      "evidence": {
+        "sourceIds": [
+          "2f"
+        ],
+        "file": "research/sapporo-current-2026-10-10/current-receipts.json",
+        "sha256": "598bf8b25e4f205766ecccd1a731c4e3cebde292c84032f6043d3f885d694f71",
+        "width": 1000,
+        "height": 705,
+        "method": "公式フロアの区域を北左/東上の相対位置へ部分転記。独立した概略輪郭。室入口・通行経路ではない。",
+        "status": "partial-source-facts"
+      }
+    },
+    {
+      "id": "sapporo-floor-3F",
+      "floor": "3F",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        1000,
+        705
+      ],
+      "concoursePaths": [],
+      "contextPaths": [
+        "M175,340 A335,240 0 1 0 845,340 A335,240 0 1 0 175,340 Z"
+      ],
+      "landmarks": [],
+      "evidence": {
+        "sourceIds": [
+          "3f"
+        ],
+        "file": "research/sapporo-current-2026-10-10/current-receipts.json",
+        "sha256": "598bf8b25e4f205766ecccd1a731c4e3cebde292c84032f6043d3f885d694f71",
+        "width": 1000,
+        "height": 705,
+        "method": "公式フロアの区域を北左/東上の相対位置へ部分転記。独立した概略輪郭。室入口・通行経路ではない。",
+        "status": "partial-source-facts"
+      }
+    },
+    {
+      "id": "sapporo-floor-4F",
+      "floor": "4F",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        1000,
+        705
+      ],
+      "concoursePaths": [],
+      "contextPaths": [
+        "M175,340 A335,240 0 1 0 845,340 A335,240 0 1 0 175,340 Z"
+      ],
+      "landmarks": [],
+      "evidence": {
+        "sourceIds": [
+          "3f"
+        ],
+        "file": "research/sapporo-current-2026-10-10/current-receipts.json",
+        "sha256": "598bf8b25e4f205766ecccd1a731c4e3cebde292c84032f6043d3f885d694f71",
+        "width": 1000,
+        "height": 705,
+        "method": "公式フロアの区域を北左/東上の相対位置へ部分転記。独立した概略輪郭。室入口・通行経路ではない。",
+        "status": "partial-source-facts"
+      }
+    },
+    {
+      "id": "sapporo-floor-B2F",
+      "floor": "B2F",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        1000,
+        705
+      ],
+      "concoursePaths": [],
+      "contextPaths": [
+        "M175,340 A335,240 0 1 0 845,340 A335,240 0 1 0 175,340 Z"
+      ],
+      "landmarks": [],
+      "evidence": {
+        "sourceIds": [
+          "b2f"
+        ],
+        "file": "research/sapporo-current-2026-10-10/current-receipts.json",
+        "sha256": "598bf8b25e4f205766ecccd1a731c4e3cebde292c84032f6043d3f885d694f71",
+        "width": 1000,
+        "height": 705,
+        "method": "公式フロアの区域を北左/東上の相対位置へ部分転記。独立した概略輪郭。室入口・通行経路ではない。",
+        "status": "partial-source-facts"
+      }
+    },
+    {
+      "id": "sapporo-grounds",
+      "floor": "敷地・福住駅",
+      "scope": "場外",
+      "viewBox": [
+        0,
+        0,
+        1800,
+        1529
+      ],
+      "concoursePaths": [],
+      "contextPaths": [
+        "M725,620 A205,212 0 1 0 1135,620 A205,212 0 1 0 725,620 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "sapporo-gate-0",
+          "label": "北ゲート1",
+          "name": "北ゲート1",
+          "x": 843,
+          "y": 430,
+          "kind": "gate",
+          "sourceIds": [
+            "grounds"
+          ],
+          "reference": "公式図の同名区域の相対位置。入口中心や経路ではありません。"
+        },
+        {
+          "id": "sapporo-gate-1",
+          "label": "北ゲート2",
+          "name": "北ゲート2",
+          "x": 925,
+          "y": 430,
+          "kind": "gate",
+          "sourceIds": [
+            "grounds"
+          ],
+          "reference": "公式図の同名区域の相対位置。入口中心や経路ではありません。"
+        },
+        {
+          "id": "sapporo-gate-2",
+          "label": "北ゲート3",
+          "name": "北ゲート3",
+          "x": 1008,
+          "y": 430,
+          "kind": "gate",
+          "sourceIds": [
+            "grounds"
+          ],
+          "reference": "公式図の同名区域の相対位置。入口中心や経路ではありません。"
+        },
+        {
+          "id": "sapporo-gate-3",
+          "label": "南ゲート1",
+          "name": "南ゲート1",
+          "x": 872,
+          "y": 805,
+          "kind": "gate",
+          "sourceIds": [
+            "grounds"
+          ],
+          "reference": "公式図の同名区域の相対位置。入口中心や経路ではありません。"
+        },
+        {
+          "id": "sapporo-gate-4",
+          "label": "南ゲート2",
+          "name": "南ゲート2",
+          "x": 932,
+          "y": 805,
+          "kind": "gate",
+          "sourceIds": [
+            "grounds"
+          ],
+          "reference": "公式図の同名区域の相対位置。入口中心や経路ではありません。"
+        },
+        {
+          "id": "sapporo-gate-5",
+          "label": "南ゲート3",
+          "name": "南ゲート3",
+          "x": 993,
+          "y": 805,
+          "kind": "gate",
+          "sourceIds": [
+            "grounds"
+          ],
+          "reference": "公式図の同名区域の相対位置。入口中心や経路ではありません。"
+        },
+        {
+          "id": "sapporo-gate-6",
+          "label": "西ゲート1",
+          "name": "西ゲート1",
+          "x": 745,
+          "y": 704,
+          "kind": "gate",
+          "sourceIds": [
+            "grounds"
+          ],
+          "reference": "公式図の同名区域の相対位置。入口中心や経路ではありません。"
+        },
+        {
+          "id": "sapporo-gate-7",
+          "label": "西ゲート3",
+          "name": "西ゲート3",
+          "x": 745,
+          "y": 566,
+          "kind": "gate",
+          "sourceIds": [
+            "grounds"
+          ],
+          "reference": "公式図の同名区域の相対位置。入口中心や経路ではありません。"
+        },
+        {
+          "id": "sapporo-gate-8",
+          "label": "東ゲート",
+          "name": "東ゲート",
+          "x": 1140,
+          "y": 600,
+          "kind": "gate",
+          "sourceIds": [
+            "grounds"
+          ],
+          "reference": "公式図の同名区域の相対位置。入口中心や経路ではありません。"
+        },
+        {
+          "id": "sapporo-gate-9",
+          "label": "福住駅3番出口",
+          "name": "福住駅3番出口",
+          "x": 324,
+          "y": 346,
+          "kind": "exit",
+          "sourceIds": [
+            "grounds"
+          ],
+          "reference": "公式図の同名区域の相対位置。入口中心や経路ではありません。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "grounds"
+        ],
+        "file": "research/sapporo-current-2026-10-10/current-receipts.json",
+        "sha256": "598bf8b25e4f205766ecccd1a731c4e3cebde292c84032f6043d3f885d694f71",
+        "width": 1800,
+        "height": 1529,
+        "method": "敷地公式図の相対掲載点を部分転記。駅出口・ゲートを区域として示す。連続経路・入口中心・歩行方角の実測ではない。",
+        "status": "partial-source-facts"
+      }
+    },
+    {
+      "id": "sapporo-fukuzumi",
+      "floor": "福住駅",
+      "scope": "場外",
+      "viewBox": [
+        0,
+        0,
+        1000,
+        705
+      ],
+      "concoursePaths": [],
+      "contextPaths": [],
+      "landmarks": [],
+      "evidence": {
+        "sourceIds": [
+          "station-locker"
+        ],
+        "file": "research/sapporo-current-2026-10-10/current-receipts.json",
+        "sha256": "598bf8b25e4f205766ecccd1a731c4e3cebde292c84032f6043d3f885d694f71",
+        "width": 1000,
+        "height": 705,
+        "method": "個別座標がない場所は図外一覧へ。架空のピンを付けない。",
+        "status": "text-only"
+      }
+    },
+    {
+      "id": "sapporo-sapporo",
+      "floor": "さっぽろ駅・JR札幌駅",
+      "scope": "場外",
+      "viewBox": [
+        0,
+        0,
+        1000,
+        705
+      ],
+      "concoursePaths": [],
+      "contextPaths": [],
+      "landmarks": [],
+      "evidence": {
+        "sourceIds": [
+          "station-locker"
+        ],
+        "file": "research/sapporo-current-2026-10-10/current-receipts.json",
+        "sha256": "598bf8b25e4f205766ecccd1a731c4e3cebde292c84032f6043d3f885d694f71",
+        "width": 1000,
+        "height": 705,
+        "method": "個別座標がない場所は図外一覧へ。架空のピンを付けない。",
+        "status": "text-only"
+      }
+    },
+    {
+      "id": "sapporo-nearby",
+      "floor": "周辺・預かり店舗",
+      "scope": "場外",
+      "viewBox": [
+        0,
+        0,
+        1000,
+        705
+      ],
+      "concoursePaths": [],
+      "contextPaths": [],
+      "landmarks": [],
+      "evidence": {
+        "sourceIds": [
+          "yamato"
+        ],
+        "file": "research/sapporo-current-2026-10-10/current-receipts.json",
+        "sha256": "598bf8b25e4f205766ecccd1a731c4e3cebde292c84032f6043d3f885d694f71",
+        "width": 1000,
+        "height": 705,
+        "method": "個別座標がない場所は図外一覧へ。架空のピンを付けない。",
+        "status": "text-only"
+      }
+    },
+    {
+      "id": "sapporo-floor-展望台",
+      "floor": "展望台",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        1000,
+        705
+      ],
+      "concoursePaths": [],
+      "contextPaths": [],
+      "landmarks": [],
+      "evidence": {
+        "sourceIds": [
+          "service"
+        ],
+        "file": "research/sapporo-current-2026-10-10/current-receipts.json",
+        "sha256": "598bf8b25e4f205766ecccd1a731c4e3cebde292c84032f6043d3f885d694f71",
+        "width": 1000,
+        "height": 705,
+        "method": "展望台AEDは階対応と個別点を未確定に保持し一覧で案内。",
+        "status": "text-only"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "baseball-seat",
+      "title": "公式野球モード座席図",
+      "url": "https://www.sapporo-dome.co.jp/cms/wp-content/themes/dome/pdf/guide/zaseki_baseball_2024.pdf",
+      "checkedAt": "2026-10-10",
+      "scope": "2024名の現行公開図。常設輪郭のみ。公演アリーナは別",
+      "usage": "facts-only"
+    },
+    {
+      "id": "soccer-seat",
+      "title": "公式サッカーモード座席図",
+      "url": "https://www.sapporo-dome.co.jp/cms/wp-content/themes/dome/pdf/guide/zaseki_soccer_2024.pdf",
+      "checkedAt": "2026-10-10",
+      "scope": "サッカー配置と野球を区別",
+      "usage": "facts-only"
+    },
+    {
+      "id": "baseball-detail",
+      "title": "公式43・45通路間詳細",
+      "url": "https://www.sapporo-dome.co.jp/cms/wp-content/themes/dome/img/guide/search/seatmap_bb_41_47.jpg",
+      "checkedAt": "2026-10-10",
+      "scope": "21番側21〜37奇数列、41/43列の端番号のみ部分確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "soccer-detail",
+      "title": "公式サッカー43〜51通路詳細",
+      "url": "https://www.sapporo-dome.co.jp/cms/wp-content/themes/dome/img/guide/search/seatmap_sc_43-51.jpg",
+      "checkedAt": "2026-10-10",
+      "scope": "同範囲の21番側と通路を部分確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "mdata",
+      "title": "MUSIC-MDATA 座席表ガイド",
+      "url": "https://zaseki.music-mdata.com/detail/24233/1",
+      "checkedAt": "2026-10-10",
+      "scope": "LiveWalker作成20240725・53,820人の参考図。両モード混在表現、原図転載禁止",
+      "usage": "facts-only"
+    },
+    {
+      "id": "1f",
+      "title": "公式1Fフロア",
+      "url": "https://www.sapporo-dome.co.jp/guide/",
+      "checkedAt": "2026-10-10",
+      "scope": "北左/東上の図。区域・名称を部分照合",
+      "usage": "facts-only"
+    },
+    {
+      "id": "2f",
+      "title": "公式2Fフロア",
+      "url": "https://www.sapporo-dome.co.jp/guide/2f/",
+      "checkedAt": "2026-10-10",
+      "scope": "2F掲載点・店舗名",
+      "usage": "facts-only"
+    },
+    {
+      "id": "3f",
+      "title": "公式3F/4Fフロア",
+      "url": "https://www.sapporo-dome.co.jp/guide/3f-4f/",
+      "checkedAt": "2026-10-10",
+      "scope": "3Fキッズパークと4F専用区域を分離",
+      "usage": "facts-only"
+    },
+    {
+      "id": "b2f",
+      "title": "公式B2Fフロア",
+      "url": "https://www.sapporo-dome.co.jp/guide/b2f/",
+      "checkedAt": "2026-10-10",
+      "scope": "関係者エリアの設備。通常の入場券からの利用は未確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "service",
+      "title": "公式施設サービス",
+      "url": "https://www.sapporo-dome.co.jp/guide/service/",
+      "checkedAt": "2026-10-10",
+      "scope": "7ロッカー区域、料金/寸法/時間/硬貨/利用条件、AED/授乳/トイレ",
+      "usage": "facts-only"
+    },
+    {
+      "id": "locker-terms",
+      "title": "ロッカー約款",
+      "url": "https://www.sapporo-dome.co.jp/guide/locker.pdf",
+      "checkedAt": "2026-10-10",
+      "scope": "R6/11/1〜の当日限り・禁制品・返金条件",
+      "usage": "facts-only"
+    },
+    {
+      "id": "grounds",
+      "title": "公式敷地マップ",
+      "url": "https://www.sapporo-dome.co.jp/access/map/",
+      "checkedAt": "2026-10-10",
+      "scope": "敷地・北南西東ゲート、駅3番出口と冬期閉鎖の区域",
+      "usage": "facts-only"
+    },
+    {
+      "id": "access",
+      "title": "公式地下鉄アクセス",
+      "url": "https://www.sapporo-dome.co.jp/access/subway/",
+      "checkedAt": "2026-10-10",
+      "scope": "福住駅3番出口徒歩約10分",
+      "usage": "facts-only"
+    },
+    {
+      "id": "station-locker",
+      "title": "地下鉄ロッカー運営元",
+      "url": "https://www.stsp.or.jp/business/subway/coinlocker/",
+      "checkedAt": "2026-10-10",
+      "scope": "福住中央改札付近、さっぽろ駅6区域、料金一般案内は個別機へ適用しない",
+      "usage": "facts-only"
+    },
+    {
+      "id": "multi",
+      "title": "JR札幌駅マルチエキューブ",
+      "url": "https://www.jre-sl.co.jp/news/20251211_ho01/",
+      "checkedAt": "2026-10-10",
+      "scope": "2025/12/12導入。個別位置・予約可否/料金/空き未確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "yamato",
+      "title": "ヤマト手荷物店舗・料金",
+      "url": "https://www.kuronekoyamato.co.jp/ytc/customer/send/services/hands-freetravel/pdf/tenimotsuoazukari.pdf",
+      "checkedAt": "2026-10-10",
+      "scope": "2026/09/08ver札幌駅前、道庁前、大通・料金/当日引渡時刻",
+      "usage": "facts-only"
+    },
+    {
+      "id": "family",
+      "title": "ファミリーマート札幌ドーム前",
+      "url": "https://store.family.co.jp/points/25098",
+      "checkedAt": "2026-10-10",
+      "scope": "店舗名・住所。OpenPOI候補を公式個別ページで確認",
+      "usage": "facts-only"
+    }
+  ],
+  "aliases": {
+    "sapporo-1F-北": [
+      "北"
+    ],
+    "sapporo-1F-南": [
+      "南"
+    ],
+    "sapporo-1F-東": [
+      "東"
+    ],
+    "sapporo-1F-西": [
+      "西"
+    ],
+    "sapporo-gate-0": [
+      "北ゲート1"
+    ],
+    "sapporo-gate-1": [
+      "北ゲート2"
+    ],
+    "sapporo-gate-2": [
+      "北ゲート3"
+    ],
+    "sapporo-gate-3": [
+      "南ゲート1"
+    ],
+    "sapporo-gate-4": [
+      "南ゲート2"
+    ],
+    "sapporo-gate-5": [
+      "南ゲート3"
+    ],
+    "sapporo-gate-6": [
+      "西ゲート1"
+    ],
+    "sapporo-gate-7": [
+      "西ゲート3"
+    ],
+    "sapporo-gate-8": [
+      "東ゲート"
+    ],
+    "sapporo-gate-9": [
+      "福住駅3番出口"
+    ]
+  },
+  "landmarkFacilityIds": {
+    "sapporo-gate-2": [
+      "sapporo-locker-1"
+    ],
+    "sapporo-gate-9": [
+      "sapporo-fukuzumi-exit",
+      "sapporo-fukuzumi-locker"
+    ]
+  }
+}

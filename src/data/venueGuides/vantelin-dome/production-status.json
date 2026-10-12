@@ -1,0 +1,84 @@
+{
+  "stage": "主要制作中・通常3層/ウイングとプライム番号図/席種位置関係を部分接続・8〜9割未達",
+  "seatGeometry": "313 ordinary/wing ranges protected; separate 59 prime search ranges and 4 seat-type overview regions; individual stadium and continuous aisle mapping pending",
+  "sourceReview": "プライムの現行公式検索653番号キーと34原寸図を読図し、車いす記号付き5を保留して648キーを別の展開図へ接続。59検索範囲/154論理列帯で、ツイン32は公式の詳細画像窓であり物理通路の全数ではない。ツインはL/R1〜4列の2名セット番号、ボックス72は4名セット番号、F1〜76は番号検索単位、H1〜17は4名テーブル。Fの同一セルに重なる番号は両キーを保持して図形だけ1回描画。現行2026席種図と3F/4F図を読図し、ホーム下/左3塁/右1塁にそろえた4席種の位置関係略図から、ツイン左右・ボックス・レストランの番号図へ接続。ツイン/ボックスは4F、レストランは3F設備へ接続。専用券区域/レストラン専用と一般設備の境界は注記し、個別番号の円周位置・精密輪郭・連続通路は案内しない。個別番号の球場輪郭への精密配置・連続通路・券種A/B/S境界・Fの2名セット対応は未確定。通常3層/ウイングの313番号付き物理範囲・2911列帯・33158キーと124番号未接続参考/席名領域・437表示領域を保持。プライム番号を椅子数/全物理全数/完成率へ換算しない。",
+  "remaining": [
+    "下段左661/681番側と右601番側34列は補助図と現行の物理対応が未確定。下段/上段の未対応特殊列と車いす周辺、改修家具/別列の物理対応。取得済み未接続782席キーを取得/読図/接続へ区別し、左210/211の33/34列・3EDは正式席種と複数物理行対応を引き続き照合。H01 B/C24番号は今回ウイング6の各セットへ接続済み。前方421番以降は通常設定を仮定せず現行モードを再照合。",
+    "プライム648番号キーと4席種の位置関係略図/3F・4F設備連動は部分接続済み。個別番号の円周位置/物理通路、A/B/S券種境界、ツイン車いす記号5、Fの2名セット対応は未完。右車いすウイングは席名/代表領域のみ。上段/パノラマの家具/車いす/別列の物理対応と全境界/札の最終比較は保持。",
+    "最寄り矢田/大曽根のロッカー現行設置点と条件。運営元の一般ページに個別駅図なし、交通局募集PDFは直接取得が404で現行位置確定せず。",
+    "AEONその他トイレ/入口/EVの全数照合、普通ロッカー寸法/時間/利用対象。冷蔵・冷凍は手荷物として非掲載。",
+    "館外単独ロッカー/個別予約店舗は取得したOpenPOI1800m荷物0件で不存在扱いせず、今回有人は現行タカシマヤを接続。",
+    "徒歩経路線・段差なし全行程・当日ゲート・空き・実測入口は未確定。",
+    "館内全設備全数/個別室入口・公演開放・公開利用条件",
+    "全85項目/全S/F/O/Vの最終受入・細かな目視・実機多点入力"
+  ],
+  "checkedAt": "2026-10-10",
+  "principalComplete": false,
+  "reviewRecord": "research/venue-materials/2026-10-06/research/vantelin-current-2026-10-09/source-review.json",
+  "acceptanceReview": "research/venue-materials/2026-10-06/research/vantelin-prime-geometry-2026-10-10/acceptance-review.json",
+  "verifiedGuideUrl": "http://127.0.0.1:3133/dev/venue-guides/vantelin-dome",
+  "verification": {
+    "tests": "PASS: 86/86 target tests, seven files",
+    "type": "PASS: work tsc --noEmit exit0 and release build TypeScript",
+    "lint": "PASS: five changed TSX/TS/MTS eslint exit0",
+    "build": "PASS: release webpack 62 pages, closed localhost placeholders; initial sandbox EPERM separate",
+    "browser": "対象86/86テスト（プライム・通常番号・初期ガイド・ウイング・場外・設備状態・共通番号ガイド7ファイル）、型/変更TS・TSX・MTS lint、閉じたlocalhost検証値の独立Git webpack build62ページは合格。初回sandbox spawn EPERMは同じ許可済みローカルbuildで解消。PC1440/390の4席種各4、320の4席種各4、768のボックス1、計13回で位置関係略図→番号図→代表範囲の実クリック選択先一致。初回320の拡大途中3試行は非選択として別記録、表示安定後の成功へ遡らせない。初回390/320のボタン衝突は幅固定/配置と引出線で修正し、最終320/390/768/1440の4席種44px以上/ボタン同士の非重複/横はみ出しなし。390でツイン→4Fとレストラン→3Fの設備連動に飲食目的を保持。PCのレストラン→3Fはトイレ既定条件で確認。390全角H1検索、席種移動と全体復帰の入力保持、100px実パンの選択/scrollY保持、H1→H2実クリックのカメラ/scrollY保持、＋/−の選択とカメラ変更を確認。ズームlocator自動スクロールをscrollY保持へ数えない。768で場外荷物0ピン/図外一覧21件へ到達。390位置関係図を目視。通常座席/荷物の詳細全件再入力、全札/全境界/実機多点/修飾ホイール/全85項目最終受入は未実施。既存横断目印台帳不一致は未解決・今回再実行なし。",
+    "python": "PASS: two changed Python sources parsed; work/release prime two outputs unchanged on rerun",
+    "fullAcceptance": "未実施・全項目PASSではない",
+    "existingFailure": "横断目印台帳不一致は未解決、今回再実行なし"
+  },
+  "connections": {
+    "indoorFunctions": 126,
+    "outsideFunctions": 88,
+    "fixedGroups": 140,
+    "diagrams": 14,
+    "outsideViews": 10,
+    "lockerAreas": 26,
+    "indoorLockerAreas": 5,
+    "outsideLuggageAreas": 21,
+    "shopNameSearch": true,
+    "strollerParking": {
+      "2F": 6,
+      "5F": 3
+    },
+    "floorControls": [
+      "2F",
+      "3F",
+      "4F",
+      "5F"
+    ],
+    "numberedBands": 313,
+    "numberedRows": 2911,
+    "confirmedSeatKeys": 33158
+  },
+  "outsideReviewRecord": "research/venue-materials/2026-10-06/research/vantelin-current-2026-10-09/outside/source-review.json",
+  "seatNumberReviewRecord": "research/venue-materials/2026-10-06/research/vantelin-prime-geometry-2026-10-10/source-review.json",
+  "interactionReviewRecord": "research/venue-materials/2026-10-06/research/vantelin-prime-geometry-2026-10-10/source-review.json",
+  "primeConnections": {
+    "searchRanges": 59,
+    "logicalRows": 154,
+    "acquiredLookupKeys": 653,
+    "connectedLookupKeys": 648,
+    "heldLookupKeys": 5,
+    "twinImageWindows": 32,
+    "boxStairRanges": 6,
+    "restaurantRanges": 21,
+    "originalPngAcquired": 34,
+    "originalPngRead": 34,
+    "originalPngUsed": 34,
+    "chairCount": null,
+    "fullPhysicalBlockCount": null,
+    "physicalStadiumMappingComplete": false,
+    "continuousAislesComplete": false,
+    "ticketABSTypeBoundariesComplete": false,
+    "fTwoPersonPairingComplete": false,
+    "overviewSeatTypeRegions": 4,
+    "overviewOrientation": "home-bottom",
+    "equipmentFloorRelation": {
+      "twin": "4F",
+      "box": "4F",
+      "restaurant": "3F"
+    },
+    "individualNumberStadiumMappingComplete": false
+  }
+}

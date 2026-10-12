@@ -1,0 +1,95 @@
+{
+  "diagramId": "toki-seats-exhibition",
+  "viewBox": [
+    80,
+    70,
+    940,
+    440
+  ],
+  "detailSpan": 430,
+  "wholeBlockLabels": true,
+  "areaBlockNames": true,
+  "searchPlaceholder": "例：展示ホールA",
+  "rowSearchPlaceholder": "公演の列",
+  "frontLabel": "公演別の座席配置",
+  "numberLookupNote": "列・席番号は公演ごとの配置です。会場名や地図から探し、券面と主催者の座席図をご確認ください。",
+  "contextLabels": [
+    {
+      "text": "エスプラナード側・当日の入口は公演案内へ",
+      "point": [
+        550,
+        470
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "id": "toki-ex-a",
+      "level": "exhibition",
+      "area": "展示ホールA",
+      "label": "展示ホールA",
+      "aliases": [
+        "A",
+        "展示A",
+        "ホールA",
+        "展示ホールA",
+        "ウェーブマーケットA"
+      ],
+      "balcony": false,
+      "path": "M120 110 H680 V420 H120 Z",
+      "box": [
+        120,
+        110,
+        560,
+        310
+      ],
+      "center": [
+        400.0,
+        265.0
+      ],
+      "rows": [],
+      "neighbors": [],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": "展示場1F",
+      "sourceIds": [
+        "hall_1f"
+      ],
+      "seatNote": "部屋の参考輪郭です。ステージ・列・席番号・使用入口は公演ごとに変わります。"
+    },
+    {
+      "id": "toki-ex-b",
+      "level": "exhibition",
+      "area": "展示ホールB",
+      "label": "展示ホールB",
+      "aliases": [
+        "B",
+        "展示B",
+        "ホールB",
+        "展示ホールB",
+        "ウェーブマーケットB"
+      ],
+      "balcony": false,
+      "path": "M694 110 H974 V420 H694 Z",
+      "box": [
+        694,
+        110,
+        280,
+        310
+      ],
+      "center": [
+        834.0,
+        265.0
+      ],
+      "rows": [],
+      "neighbors": [],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": "展示場1F",
+      "sourceIds": [
+        "hall_1f"
+      ],
+      "seatNote": "部屋の参考輪郭です。ステージ・列・席番号・使用入口は公演ごとに変わります。"
+    }
+  ]
+}

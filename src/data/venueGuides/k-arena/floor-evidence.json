@@ -1,0 +1,2550 @@
+{
+  "checkedAt": "2026-09-30",
+  "sourceSha256": "dac5736c5d4b73e9e7481c1fcaef06cb037c26f9f5f8cd422d63e54e613ba6b3",
+  "facilities": [
+    {
+      "id": "drink-north",
+      "name": "LEVEL3 ドリンク売店（DRINK）（図のNorth Entrance側）",
+      "purpose": "飲食",
+      "kind": "drink-counter",
+      "floor": "LEVEL3",
+      "scope": "場内",
+      "location": "LEVEL3・図上左側・North Entrance側",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・最寄り経路、当日の開放範囲は未確認です。 常設売店は公式案内で全館11箇所。ここではLEVEL3の2記号だけを案内し、当日の営業・支払いは公式をご確認ください。",
+      "sourceIds": [
+        "k-arena-floor-level3-desktop",
+        "k-arena-shop"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "k-arena-level3-floor-desktop",
+        "x": 493,
+        "y": 430,
+        "sourceIds": [
+          "k-arena-floor-level3-desktop"
+        ],
+        "reference": "DRINK; 原図1200×960の記号中心/入口矢印の位置。現地の扉・室入口や歩行経路ではない。図上記号/ラベルの位置。現地入口・経路は未確認。"
+      }
+    },
+    {
+      "id": "drink-south",
+      "name": "LEVEL3 ドリンク売店（DRINK）（図のSouth Entrance側）",
+      "purpose": "飲食",
+      "kind": "drink-counter",
+      "floor": "LEVEL3",
+      "scope": "場内",
+      "location": "LEVEL3・図上右側・South Entrance側",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・最寄り経路、当日の開放範囲は未確認です。 常設売店は公式案内で全館11箇所。ここではLEVEL3の2記号だけを案内し、当日の営業・支払いは公式をご確認ください。",
+      "sourceIds": [
+        "k-arena-floor-level3-desktop",
+        "k-arena-shop"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "k-arena-level3-floor-desktop",
+        "x": 893,
+        "y": 430,
+        "sourceIds": [
+          "k-arena-floor-level3-desktop"
+        ],
+        "reference": "DRINK; 原図1200×960の記号中心/入口矢印の位置。現地の扉・室入口や歩行経路ではない。図上記号/ラベルの位置。現地入口・経路は未確認。"
+      }
+    },
+    {
+      "id": "escalator-north",
+      "name": "エスカレーター（図上左側）",
+      "purpose": "案内",
+      "kind": "escalator",
+      "floor": "LEVEL3",
+      "scope": "場内",
+      "location": "メインエントランス内側の両脇",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・最寄り経路、当日の開放範囲は未確認です。 図の接続表記はLEVEL3・5。運転方向・当日の運用、別階記号との実機対応は確定していません。",
+      "sourceIds": [
+        "k-arena-floor-level3-desktop",
+        "k-arena-faq"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "k-arena-level3-floor-desktop",
+        "x": 547,
+        "y": 596,
+        "sourceIds": [
+          "k-arena-floor-level3-desktop"
+        ],
+        "reference": "LEVEL 3・5; 原図1200×960の記号中心/入口矢印の位置。現地の扉・室入口や歩行経路ではない。図上記号/ラベルの位置。現地入口・経路は未確認。"
+      }
+    },
+    {
+      "id": "escalator-south",
+      "name": "エスカレーター（図上右側）",
+      "purpose": "案内",
+      "kind": "escalator",
+      "floor": "LEVEL3",
+      "scope": "場内",
+      "location": "メインエントランス内側の両脇",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・最寄り経路、当日の開放範囲は未確認です。 図の接続表記はLEVEL3・5。運転方向・当日の運用、別階記号との実機対応は確定していません。",
+      "sourceIds": [
+        "k-arena-floor-level3-desktop",
+        "k-arena-faq"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "k-arena-level3-floor-desktop",
+        "x": 843,
+        "y": 596,
+        "sourceIds": [
+          "k-arena-floor-level3-desktop"
+        ],
+        "reference": "LEVEL 3・5; 原図1200×960の記号中心/入口矢印の位置。現地の扉・室入口や歩行経路ではない。図上記号/ラベルの位置。現地入口・経路は未確認。"
+      }
+    },
+    {
+      "id": "toilet-women-north",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "kind": "toilet-women",
+      "floor": "LEVEL3",
+      "scope": "場内",
+      "location": "LEVEL3図のNorth Entrance側の当該記号",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・最寄り経路、当日の開放範囲は未確認です。 男女の割当は公演により変更される場合があります。便器数の表示を施設数として数えていません。",
+      "sourceIds": [
+        "k-arena-floor-level3-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "k-arena-level3-floor-desktop",
+        "x": 349,
+        "y": 350,
+        "sourceIds": [
+          "k-arena-floor-level3-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "女性トイレ; sources/n2-measurements.jsonの個別測定根拠。図上記号/ラベルの位置。現地入口・経路は未確認。"
+      }
+    },
+    {
+      "id": "toilet-men-north",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "kind": "toilet-men",
+      "floor": "LEVEL3",
+      "scope": "場内",
+      "location": "LEVEL3図のNorth Entrance側の当該記号",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・最寄り経路、当日の開放範囲は未確認です。 男女の割当は公演により変更される場合があります。便器数の表示を施設数として数えていません。",
+      "sourceIds": [
+        "k-arena-floor-level3-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "k-arena-level3-floor-desktop",
+        "x": 362,
+        "y": 350,
+        "sourceIds": [
+          "k-arena-floor-level3-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "男性トイレ; sources/n2-measurements.jsonの個別測定根拠。図上記号/ラベルの位置。現地入口・経路は未確認。"
+      }
+    },
+    {
+      "id": "toilet-accessible-north",
+      "name": "車椅子優先・オストメイト対応トイレ",
+      "purpose": "トイレ",
+      "kind": "toilet-accessible",
+      "floor": "LEVEL3",
+      "scope": "場内",
+      "location": "LEVEL3図のNorth Entrance側の当該記号",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・最寄り経路、当日の開放範囲は未確認です。 男女の割当は公演により変更される場合があります。便器数の表示を施設数として数えていません。",
+      "sourceIds": [
+        "k-arena-floor-level3-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "k-arena-level3-floor-desktop",
+        "x": 379,
+        "y": 350,
+        "sourceIds": [
+          "k-arena-floor-level3-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "車椅子優先・オストメイト対応トイレ; sources/n2-measurements.jsonの個別測定根拠。図上記号/ラベルの位置。現地入口・経路は未確認。"
+      }
+    },
+    {
+      "id": "toilet-women-south",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "kind": "toilet-women",
+      "floor": "LEVEL3",
+      "scope": "場内",
+      "location": "LEVEL3図のSouth Entrance側の当該記号",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・最寄り経路、当日の開放範囲は未確認です。 男女の割当は公演により変更される場合があります。便器数の表示を施設数として数えていません。",
+      "sourceIds": [
+        "k-arena-floor-level3-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "k-arena-level3-floor-desktop",
+        "x": 1005,
+        "y": 350,
+        "sourceIds": [
+          "k-arena-floor-level3-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "女性トイレ; sources/n2-measurements.jsonの個別測定根拠。図上記号/ラベルの位置。現地入口・経路は未確認。"
+      }
+    },
+    {
+      "id": "toilet-men-south",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "kind": "toilet-men",
+      "floor": "LEVEL3",
+      "scope": "場内",
+      "location": "LEVEL3図のSouth Entrance側の当該記号",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・最寄り経路、当日の開放範囲は未確認です。 男女の割当は公演により変更される場合があります。便器数の表示を施設数として数えていません。",
+      "sourceIds": [
+        "k-arena-floor-level3-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "k-arena-level3-floor-desktop",
+        "x": 1018,
+        "y": 350,
+        "sourceIds": [
+          "k-arena-floor-level3-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "男性トイレ; sources/n2-measurements.jsonの個別測定根拠。図上記号/ラベルの位置。現地入口・経路は未確認。"
+      }
+    },
+    {
+      "id": "toilet-accessible-south",
+      "name": "車椅子優先・オストメイト対応トイレ",
+      "purpose": "トイレ",
+      "kind": "toilet-accessible",
+      "floor": "LEVEL3",
+      "scope": "場内",
+      "location": "LEVEL3図のSouth Entrance側の当該記号",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・最寄り経路、当日の開放範囲は未確認です。 男女の割当は公演により変更される場合があります。便器数の表示を施設数として数えていません。",
+      "sourceIds": [
+        "k-arena-floor-level3-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "k-arena-level3-floor-desktop",
+        "x": 1035,
+        "y": 350,
+        "sourceIds": [
+          "k-arena-floor-level3-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "車椅子優先・オストメイト対応トイレ; sources/n2-measurements.jsonの個別測定根拠。図上記号/ラベルの位置。現地入口・経路は未確認。"
+      }
+    },
+    {
+      "id": "nursery-north",
+      "name": "授乳室",
+      "purpose": "赤ちゃん",
+      "kind": "nursery",
+      "floor": "LEVEL3",
+      "scope": "場内",
+      "location": "LEVEL3図のNorth Entrance側の当該記号",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・最寄り経路、当日の開放範囲は未確認です。",
+      "sourceIds": [
+        "k-arena-floor-level3-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "k-arena-level3-floor-desktop",
+        "x": 285,
+        "y": 425,
+        "sourceIds": [
+          "k-arena-floor-level3-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "授乳室; sources/n2-measurements.jsonの個別測定根拠。図上記号/ラベルの位置。現地入口・経路は未確認。"
+      }
+    },
+    {
+      "id": "level4-locker-4a",
+      "name": "コインロッカー4A",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "LEVEL4",
+      "scope": "場内",
+      "location": "LEVEL4図の4A側（図上左）の当該記号",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 印字コードはロッカーの図示グループです。個別扉数・全館総数・当日の空きは示しません。",
+      "sourceIds": [
+        "k-arena-floor-level4-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "k-arena-floor-level4-desktop",
+        "x": 426,
+        "y": 381,
+        "sourceIds": [
+          "k-arena-floor-level4-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "コインロッカー4A; sources/n2-measurements.jsonの個別測定根拠。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level4-locker-4b",
+      "name": "コインロッカー4B",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "LEVEL4",
+      "scope": "場内",
+      "location": "LEVEL4図の4B側（図上右）の当該記号",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 印字コードはロッカーの図示グループです。個別扉数・全館総数・当日の空きは示しません。",
+      "sourceIds": [
+        "k-arena-floor-level4-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "k-arena-floor-level4-desktop",
+        "x": 959,
+        "y": 381,
+        "sourceIds": [
+          "k-arena-floor-level4-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "コインロッカー4B; sources/n2-measurements.jsonの個別測定根拠。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level4-toilet-women-north",
+      "name": "女性トイレ（図上左側）",
+      "purpose": "トイレ",
+      "kind": "toilet-women",
+      "floor": "LEVEL4",
+      "scope": "場内",
+      "location": "LEVEL4図の4A側（図上左）の当該記号",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 男女の割当は公演で変わる場合があります。便器個数の表示を設備箇所数へ換算しません。",
+      "sourceIds": [
+        "k-arena-floor-level4-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "k-arena-floor-level4-desktop",
+        "x": 358,
+        "y": 463,
+        "sourceIds": [
+          "k-arena-floor-level4-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "女性トイレ（図上左側）; sources/n2-measurements.jsonの個別測定根拠。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level4-toilet-men-north",
+      "name": "男性トイレ（図上左側）",
+      "purpose": "トイレ",
+      "kind": "toilet-men",
+      "floor": "LEVEL4",
+      "scope": "場内",
+      "location": "LEVEL4図の4A側（図上左）の当該記号",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 男女の割当は公演で変わる場合があります。便器個数の表示を設備箇所数へ換算しません。",
+      "sourceIds": [
+        "k-arena-floor-level4-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "k-arena-floor-level4-desktop",
+        "x": 375,
+        "y": 463,
+        "sourceIds": [
+          "k-arena-floor-level4-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "男性トイレ（図上左側）; sources/n2-measurements.jsonの個別測定根拠。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level4-toilet-women-south",
+      "name": "女性トイレ（図上右側）",
+      "purpose": "トイレ",
+      "kind": "toilet-women",
+      "floor": "LEVEL4",
+      "scope": "場内",
+      "location": "LEVEL4図の4B側（図上右）の当該記号",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 男女の割当は公演で変わる場合があります。便器個数の表示を設備箇所数へ換算しません。",
+      "sourceIds": [
+        "k-arena-floor-level4-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "k-arena-floor-level4-desktop",
+        "x": 1013,
+        "y": 463,
+        "sourceIds": [
+          "k-arena-floor-level4-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "女性トイレ（図上右側）; sources/n2-measurements.jsonの個別測定根拠。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level4-toilet-men-south",
+      "name": "男性トイレ（図上右側）",
+      "purpose": "トイレ",
+      "kind": "toilet-men",
+      "floor": "LEVEL4",
+      "scope": "場内",
+      "location": "LEVEL4図の4B側（図上右）の当該記号",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 男女の割当は公演で変わる場合があります。便器個数の表示を設備箇所数へ換算しません。",
+      "sourceIds": [
+        "k-arena-floor-level4-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "k-arena-floor-level4-desktop",
+        "x": 1030,
+        "y": 463,
+        "sourceIds": [
+          "k-arena-floor-level4-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "男性トイレ（図上右側）; sources/n2-measurements.jsonの個別測定根拠。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level4-smoking-north",
+      "name": "喫煙室（図上左側）",
+      "purpose": "案内",
+      "kind": "smokingarea",
+      "floor": "LEVEL4",
+      "scope": "場内",
+      "location": "LEVEL4図の4A側（図上左）の当該記号",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 喫煙室の図示記号です。現在の開放・運用は当日の案内を確認してください。",
+      "sourceIds": [
+        "k-arena-floor-level4-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "k-arena-floor-level4-desktop",
+        "x": 484,
+        "y": 541,
+        "sourceIds": [
+          "k-arena-floor-level4-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "喫煙室（図上左側）; sources/n2-measurements.jsonの個別測定根拠。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level4-smoking-south",
+      "name": "喫煙室（図上右側）",
+      "purpose": "案内",
+      "kind": "smokingarea",
+      "floor": "LEVEL4",
+      "scope": "場内",
+      "location": "LEVEL4図の4B側（図上右）の当該記号",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 喫煙室の図示記号です。現在の開放・運用は当日の案内を確認してください。",
+      "sourceIds": [
+        "k-arena-floor-level4-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "k-arena-floor-level4-desktop",
+        "x": 903,
+        "y": 541,
+        "sourceIds": [
+          "k-arena-floor-level4-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "喫煙室（図上右側）; sources/n2-measurements.jsonの個別測定根拠。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level1-toilet-women-left",
+      "name": "女性トイレ（図上左）",
+      "purpose": "トイレ",
+      "kind": "toilet-women",
+      "floor": "LEVEL1",
+      "scope": "場内",
+      "location": "女性トイレ（図上左） の図上記号/ラベル位置",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 男女の割当は公演で変わる場合があります。便器個数の表示を設備箇所数へ換算しません。",
+      "sourceIds": [
+        "k-arena-floor-level1-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "k-arena-floor-level1-desktop",
+        "x": 487,
+        "y": 267,
+        "sourceIds": [
+          "k-arena-floor-level1-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "女性トイレ（図上左）; sources/level1-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level1-toilet-men-left",
+      "name": "男性トイレ（図上左）",
+      "purpose": "トイレ",
+      "kind": "toilet-men",
+      "floor": "LEVEL1",
+      "scope": "場内",
+      "location": "男性トイレ（図上左） の図上記号/ラベル位置",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 男女の割当は公演で変わる場合があります。便器個数の表示を設備箇所数へ換算しません。",
+      "sourceIds": [
+        "k-arena-floor-level1-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "k-arena-floor-level1-desktop",
+        "x": 499,
+        "y": 267,
+        "sourceIds": [
+          "k-arena-floor-level1-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "男性トイレ（図上左）; sources/level1-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level1-toilet-accessible-left",
+      "name": "車椅子優先トイレ（図上左）",
+      "purpose": "トイレ",
+      "kind": "toilet-accessible",
+      "floor": "LEVEL1",
+      "scope": "場内",
+      "location": "車椅子優先トイレ（図上左） の図上記号/ラベル位置",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 男女の割当は公演で変わる場合があります。便器個数の表示を設備箇所数へ換算しません。",
+      "sourceIds": [
+        "k-arena-floor-level1-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "k-arena-floor-level1-desktop",
+        "x": 516,
+        "y": 269,
+        "sourceIds": [
+          "k-arena-floor-level1-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "車椅子優先トイレ（図上左）; sources/level1-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level1-toilet-women-right",
+      "name": "女性トイレ（図上右）",
+      "purpose": "トイレ",
+      "kind": "toilet-women",
+      "floor": "LEVEL1",
+      "scope": "場内",
+      "location": "女性トイレ（図上右） の図上記号/ラベル位置",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 男女の割当は公演で変わる場合があります。便器個数の表示を設備箇所数へ換算しません。",
+      "sourceIds": [
+        "k-arena-floor-level1-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "k-arena-floor-level1-desktop",
+        "x": 858,
+        "y": 276,
+        "sourceIds": [
+          "k-arena-floor-level1-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "女性トイレ（図上右）; sources/level1-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level1-toilet-men-right",
+      "name": "男性トイレ（図上右）",
+      "purpose": "トイレ",
+      "kind": "toilet-men",
+      "floor": "LEVEL1",
+      "scope": "場内",
+      "location": "男性トイレ（図上右） の図上記号/ラベル位置",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 男女の割当は公演で変わる場合があります。便器個数の表示を設備箇所数へ換算しません。",
+      "sourceIds": [
+        "k-arena-floor-level1-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "k-arena-floor-level1-desktop",
+        "x": 870,
+        "y": 276,
+        "sourceIds": [
+          "k-arena-floor-level1-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "男性トイレ（図上右）; sources/level1-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level1-toilet-accessible-right",
+      "name": "車椅子優先トイレ（図上右）",
+      "purpose": "トイレ",
+      "kind": "toilet-accessible",
+      "floor": "LEVEL1",
+      "scope": "場内",
+      "location": "車椅子優先トイレ（図上右） の図上記号/ラベル位置",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 男女の割当は公演で変わる場合があります。便器個数の表示を設備箇所数へ換算しません。",
+      "sourceIds": [
+        "k-arena-floor-level1-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "k-arena-floor-level1-desktop",
+        "x": 887,
+        "y": 278,
+        "sourceIds": [
+          "k-arena-floor-level1-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "車椅子優先トイレ（図上右）; sources/level1-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level1-locker-1a",
+      "name": "コインロッカー1A",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "LEVEL1",
+      "scope": "場内",
+      "location": "コインロッカー1A の図上記号/ラベル位置",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 印字コードはロッカーの図示グループです。個別扉数・全館総数・当日の空きは示しません。",
+      "sourceIds": [
+        "k-arena-floor-level1-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "k-arena-floor-level1-desktop",
+        "x": 383,
+        "y": 316,
+        "sourceIds": [
+          "k-arena-floor-level1-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "コインロッカー1A; sources/level1-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level1-locker-1b",
+      "name": "コインロッカー1B",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "LEVEL1",
+      "scope": "場内",
+      "location": "コインロッカー1B の図上記号/ラベル位置",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 印字コードはロッカーの図示グループです。個別扉数・全館総数・当日の空きは示しません。",
+      "sourceIds": [
+        "k-arena-floor-level1-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "k-arena-floor-level1-desktop",
+        "x": 537,
+        "y": 426,
+        "sourceIds": [
+          "k-arena-floor-level1-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "コインロッカー1B; sources/level1-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level1-locker-1c",
+      "name": "コインロッカー1C",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "LEVEL1",
+      "scope": "場内",
+      "location": "コインロッカー1C の図上記号/ラベル位置",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 印字コードはロッカーの図示グループです。個別扉数・全館総数・当日の空きは示しません。",
+      "sourceIds": [
+        "k-arena-floor-level1-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "k-arena-floor-level1-desktop",
+        "x": 619,
+        "y": 412,
+        "sourceIds": [
+          "k-arena-floor-level1-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "コインロッカー1C; sources/level1-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level1-locker-1d",
+      "name": "コインロッカー1D",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "LEVEL1",
+      "scope": "場内",
+      "location": "コインロッカー1D の図上記号/ラベル位置",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 印字コードはロッカーの図示グループです。個別扉数・全館総数・当日の空きは示しません。",
+      "sourceIds": [
+        "k-arena-floor-level1-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "k-arena-floor-level1-desktop",
+        "x": 769,
+        "y": 412,
+        "sourceIds": [
+          "k-arena-floor-level1-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "コインロッカー1D; sources/level1-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level1-locker-1e",
+      "name": "コインロッカー1E",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "LEVEL1",
+      "scope": "場内",
+      "location": "コインロッカー1E の図上記号/ラベル位置",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 印字コードはロッカーの図示グループです。個別扉数・全館総数・当日の空きは示しません。",
+      "sourceIds": [
+        "k-arena-floor-level1-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "k-arena-floor-level1-desktop",
+        "x": 850,
+        "y": 426,
+        "sourceIds": [
+          "k-arena-floor-level1-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "コインロッカー1E; sources/level1-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level1-locker-1f",
+      "name": "コインロッカー1F",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "LEVEL1",
+      "scope": "場内",
+      "location": "コインロッカー1F の図上記号/ラベル位置",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 印字コードはロッカーの図示グループです。個別扉数・全館総数・当日の空きは示しません。",
+      "sourceIds": [
+        "k-arena-floor-level1-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "k-arena-floor-level1-desktop",
+        "x": 1010,
+        "y": 316,
+        "sourceIds": [
+          "k-arena-floor-level1-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "コインロッカー1F; sources/level1-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level1-locker-1g",
+      "name": "コインロッカー1G",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "LEVEL1",
+      "scope": "場内",
+      "location": "コインロッカー1G の図上記号/ラベル位置",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 印字コードはロッカーの図示グループです。個別扉数・全館総数・当日の空きは示しません。",
+      "sourceIds": [
+        "k-arena-floor-level1-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "k-arena-floor-level1-desktop",
+        "x": 954,
+        "y": 221,
+        "sourceIds": [
+          "k-arena-floor-level1-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "コインロッカー1G; sources/level1-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level1-drink-left",
+      "name": "LEVEL1 ドリンク売店（DRINK）",
+      "purpose": "飲食",
+      "kind": "drink",
+      "floor": "LEVEL1",
+      "scope": "場内",
+      "location": "DRINK（図上左） の図上記号/ラベル位置",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 原図DRINKに対応。全館の常設売店11箇所とは別に、この階の記号だけを案内します。営業・支払い・品揃えは公演案内を確認してください。",
+      "sourceIds": [
+        "k-arena-floor-level1-desktop",
+        "k-arena-floor",
+        "k-arena-shop"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "k-arena-floor-level1-desktop",
+        "x": 486,
+        "y": 387,
+        "sourceIds": [
+          "k-arena-floor-level1-desktop",
+          "k-arena-floor",
+          "k-arena-shop"
+        ],
+        "reference": "DRINK（図上左）; sources/level1-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level1-drink-right",
+      "name": "LEVEL1 ドリンク売店（DRINK）",
+      "purpose": "飲食",
+      "kind": "drink",
+      "floor": "LEVEL1",
+      "scope": "場内",
+      "location": "DRINK（図上右） の図上記号/ラベル位置",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 原図DRINKに対応。全館の常設売店11箇所とは別に、この階の記号だけを案内します。営業・支払い・品揃えは公演案内を確認してください。",
+      "sourceIds": [
+        "k-arena-floor-level1-desktop",
+        "k-arena-floor",
+        "k-arena-shop"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "k-arena-floor-level1-desktop",
+        "x": 902,
+        "y": 387,
+        "sourceIds": [
+          "k-arena-floor-level1-desktop",
+          "k-arena-floor",
+          "k-arena-shop"
+        ],
+        "reference": "DRINK（図上右）; sources/level1-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level5-drink-left-wing",
+      "name": "LEVEL5 ドリンク売店（DRINK）",
+      "purpose": "飲食",
+      "kind": "drink",
+      "floor": "LEVEL5",
+      "scope": "場内",
+      "location": "DRINK（図上左端） の図上記号/ラベル位置",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 原図DRINKに対応。全館の常設売店11箇所とは別に、この階の記号だけを案内します。営業・支払い・品揃えは公演案内を確認してください。",
+      "sourceIds": [
+        "k-arena-floor-level5-desktop",
+        "k-arena-floor",
+        "k-arena-shop"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "k-arena-floor-level5-desktop",
+        "x": 268,
+        "y": 462,
+        "sourceIds": [
+          "k-arena-floor-level5-desktop",
+          "k-arena-floor",
+          "k-arena-shop"
+        ],
+        "reference": "DRINK（図上左端）; sources/level5-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level5-drink-left-lounge",
+      "name": "LEVEL5 ドリンク売店（DRINK）",
+      "purpose": "飲食",
+      "kind": "drink",
+      "floor": "LEVEL5",
+      "scope": "場内",
+      "location": "DRINK（Lounge 5図上左） の図上記号/ラベル位置",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 原図DRINKに対応。全館の常設売店11箇所とは別に、この階の記号だけを案内します。営業・支払い・品揃えは公演案内を確認してください。",
+      "sourceIds": [
+        "k-arena-floor-level5-desktop",
+        "k-arena-floor",
+        "k-arena-shop"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "k-arena-floor-level5-desktop",
+        "x": 599,
+        "y": 622,
+        "sourceIds": [
+          "k-arena-floor-level5-desktop",
+          "k-arena-floor",
+          "k-arena-shop"
+        ],
+        "reference": "DRINK（Lounge 5図上左）; sources/level5-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level5-drink-right-lounge",
+      "name": "LEVEL5 ドリンク売店（DRINK）",
+      "purpose": "飲食",
+      "kind": "drink",
+      "floor": "LEVEL5",
+      "scope": "場内",
+      "location": "DRINK（Lounge 5図上右） の図上記号/ラベル位置",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 原図DRINKに対応。全館の常設売店11箇所とは別に、この階の記号だけを案内します。営業・支払い・品揃えは公演案内を確認してください。",
+      "sourceIds": [
+        "k-arena-floor-level5-desktop",
+        "k-arena-floor",
+        "k-arena-shop"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "k-arena-floor-level5-desktop",
+        "x": 783,
+        "y": 622,
+        "sourceIds": [
+          "k-arena-floor-level5-desktop",
+          "k-arena-floor",
+          "k-arena-shop"
+        ],
+        "reference": "DRINK（Lounge 5図上右）; sources/level5-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level5-drink-right-wing",
+      "name": "LEVEL5 ドリンク売店（DRINK）",
+      "purpose": "飲食",
+      "kind": "drink",
+      "floor": "LEVEL5",
+      "scope": "場内",
+      "location": "DRINK（図上右端） の図上記号/ラベル位置",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 原図DRINKに対応。全館の常設売店11箇所とは別に、この階の記号だけを案内します。営業・支払い・品揃えは公演案内を確認してください。",
+      "sourceIds": [
+        "k-arena-floor-level5-desktop",
+        "k-arena-floor",
+        "k-arena-shop"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "k-arena-floor-level5-desktop",
+        "x": 1114,
+        "y": 462,
+        "sourceIds": [
+          "k-arena-floor-level5-desktop",
+          "k-arena-floor",
+          "k-arena-shop"
+        ],
+        "reference": "DRINK（図上右端）; sources/level5-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level5-toilet-accessible-left",
+      "name": "車椅子優先トイレ（図上左）",
+      "purpose": "トイレ",
+      "kind": "toilet-accessible",
+      "floor": "LEVEL5",
+      "scope": "場内",
+      "location": "車椅子優先トイレ（図上左） の図上記号/ラベル位置",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 男女の割当は公演で変わる場合があります。便器個数の表示を設備箇所数へ換算しません。",
+      "sourceIds": [
+        "k-arena-floor-level5-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "k-arena-floor-level5-desktop",
+        "x": 467,
+        "y": 593,
+        "sourceIds": [
+          "k-arena-floor-level5-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "車椅子優先トイレ（図上左）; sources/level5-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level5-toilet-accessible-right",
+      "name": "車椅子優先トイレ（図上右）",
+      "purpose": "トイレ",
+      "kind": "toilet-accessible",
+      "floor": "LEVEL5",
+      "scope": "場内",
+      "location": "車椅子優先トイレ（図上右） の図上記号/ラベル位置",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 男女の割当は公演で変わる場合があります。便器個数の表示を設備箇所数へ換算しません。",
+      "sourceIds": [
+        "k-arena-floor-level5-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "k-arena-floor-level5-desktop",
+        "x": 916,
+        "y": 593,
+        "sourceIds": [
+          "k-arena-floor-level5-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "車椅子優先トイレ（図上右）; sources/level5-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level5-escalator-left",
+      "name": "エスカレーター LEVEL3・5",
+      "purpose": "案内",
+      "kind": "escalator",
+      "floor": "LEVEL5",
+      "scope": "場内",
+      "location": "エスカレーター LEVEL3・5 の図上記号/ラベル位置",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 図の接続表記はLEVEL3・5。運転方向・別階記号との実機対応は未確認です。",
+      "sourceIds": [
+        "k-arena-floor-level5-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "k-arena-floor-level5-desktop",
+        "x": 527,
+        "y": 663,
+        "sourceIds": [
+          "k-arena-floor-level5-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "エスカレーター LEVEL3・5; sources/level5-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level5-escalator-right",
+      "name": "エスカレーター LEVEL3・5",
+      "purpose": "案内",
+      "kind": "escalator",
+      "floor": "LEVEL5",
+      "scope": "場内",
+      "location": "エスカレーター LEVEL3・5 の図上記号/ラベル位置",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 図の接続表記はLEVEL3・5。運転方向・別階記号との実機対応は未確認です。",
+      "sourceIds": [
+        "k-arena-floor-level5-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "k-arena-floor-level5-desktop",
+        "x": 854,
+        "y": 663,
+        "sourceIds": [
+          "k-arena-floor-level5-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "エスカレーター LEVEL3・5; sources/level5-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level7-toilet-women-left-upper",
+      "name": "女性トイレ（図上左上）",
+      "purpose": "トイレ",
+      "kind": "toilet-women",
+      "floor": "LEVEL7",
+      "scope": "場内",
+      "location": "女性トイレ（図上左上） の図上記号/ラベル位置",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 男女の割当は公演で変わる場合があります。便器個数の表示を設備箇所数へ換算しません。",
+      "sourceIds": [
+        "k-arena-floor-level7-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "k-arena-floor-level7-desktop",
+        "x": 408,
+        "y": 165,
+        "sourceIds": [
+          "k-arena-floor-level7-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "女性トイレ（図上左上）; sources/level7-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level7-toilet-men-left-upper",
+      "name": "男性トイレ（図上左上）",
+      "purpose": "トイレ",
+      "kind": "toilet-men",
+      "floor": "LEVEL7",
+      "scope": "場内",
+      "location": "男性トイレ（図上左上） の図上記号/ラベル位置",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 男女の割当は公演で変わる場合があります。便器個数の表示を設備箇所数へ換算しません。",
+      "sourceIds": [
+        "k-arena-floor-level7-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "k-arena-floor-level7-desktop",
+        "x": 426,
+        "y": 165,
+        "sourceIds": [
+          "k-arena-floor-level7-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "男性トイレ（図上左上）; sources/level7-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level7-toilet-women-right-upper",
+      "name": "女性トイレ（図上右上）",
+      "purpose": "トイレ",
+      "kind": "toilet-women",
+      "floor": "LEVEL7",
+      "scope": "場内",
+      "location": "女性トイレ（図上右上） の図上記号/ラベル位置",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 男女の割当は公演で変わる場合があります。便器個数の表示を設備箇所数へ換算しません。",
+      "sourceIds": [
+        "k-arena-floor-level7-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "k-arena-floor-level7-desktop",
+        "x": 962,
+        "y": 165,
+        "sourceIds": [
+          "k-arena-floor-level7-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "女性トイレ（図上右上）; sources/level7-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level7-toilet-men-right-upper",
+      "name": "男性トイレ（図上右上）",
+      "purpose": "トイレ",
+      "kind": "toilet-men",
+      "floor": "LEVEL7",
+      "scope": "場内",
+      "location": "男性トイレ（図上右上） の図上記号/ラベル位置",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 男女の割当は公演で変わる場合があります。便器個数の表示を設備箇所数へ換算しません。",
+      "sourceIds": [
+        "k-arena-floor-level7-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "k-arena-floor-level7-desktop",
+        "x": 980,
+        "y": 165,
+        "sourceIds": [
+          "k-arena-floor-level7-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "男性トイレ（図上右上）; sources/level7-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level7-toilet-women-left-front",
+      "name": "女性トイレ（図上左前方）",
+      "purpose": "トイレ",
+      "kind": "toilet-women",
+      "floor": "LEVEL7",
+      "scope": "場内",
+      "location": "女性トイレ（図上左前方） の図上記号/ラベル位置",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 男女の割当は公演で変わる場合があります。便器個数の表示を設備箇所数へ換算しません。",
+      "sourceIds": [
+        "k-arena-floor-level7-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "k-arena-floor-level7-desktop",
+        "x": 416,
+        "y": 487,
+        "sourceIds": [
+          "k-arena-floor-level7-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "女性トイレ（図上左前方）; sources/level7-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level7-toilet-women-right-front",
+      "name": "女性トイレ（図上右前方）",
+      "purpose": "トイレ",
+      "kind": "toilet-women",
+      "floor": "LEVEL7",
+      "scope": "場内",
+      "location": "女性トイレ（図上右前方） の図上記号/ラベル位置",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 男女の割当は公演で変わる場合があります。便器個数の表示を設備箇所数へ換算しません。",
+      "sourceIds": [
+        "k-arena-floor-level7-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "k-arena-floor-level7-desktop",
+        "x": 970,
+        "y": 487,
+        "sourceIds": [
+          "k-arena-floor-level7-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "女性トイレ（図上右前方）; sources/level7-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level7-toilet-men-left-front",
+      "name": "男性トイレ（図上中央左）",
+      "purpose": "トイレ",
+      "kind": "toilet-men",
+      "floor": "LEVEL7",
+      "scope": "場内",
+      "location": "男性トイレ（図上中央左） の図上記号/ラベル位置",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 男女の割当は公演で変わる場合があります。便器個数の表示を設備箇所数へ換算しません。",
+      "sourceIds": [
+        "k-arena-floor-level7-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "k-arena-floor-level7-desktop",
+        "x": 622,
+        "y": 557,
+        "sourceIds": [
+          "k-arena-floor-level7-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "男性トイレ（図上中央左）; sources/level7-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level7-toilet-men-right-front",
+      "name": "男性トイレ（図上中央右）",
+      "purpose": "トイレ",
+      "kind": "toilet-men",
+      "floor": "LEVEL7",
+      "scope": "場内",
+      "location": "男性トイレ（図上中央右） の図上記号/ラベル位置",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 男女の割当は公演で変わる場合があります。便器個数の表示を設備箇所数へ換算しません。",
+      "sourceIds": [
+        "k-arena-floor-level7-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "k-arena-floor-level7-desktop",
+        "x": 766,
+        "y": 557,
+        "sourceIds": [
+          "k-arena-floor-level7-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "男性トイレ（図上中央右）; sources/level7-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level7-locker-7a",
+      "name": "コインロッカー7A",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "LEVEL7",
+      "scope": "場内",
+      "location": "コインロッカー7A の図上記号/ラベル位置",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 印字コードはロッカーの図示グループです。個別扉数・全館総数・当日の空きは示しません。",
+      "sourceIds": [
+        "k-arena-floor-level7-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "k-arena-floor-level7-desktop",
+        "x": 358,
+        "y": 289,
+        "sourceIds": [
+          "k-arena-floor-level7-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "コインロッカー7A; sources/level7-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level7-locker-7b",
+      "name": "コインロッカー7B",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "LEVEL7",
+      "scope": "場内",
+      "location": "コインロッカー7B の図上記号/ラベル位置",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 印字コードはロッカーの図示グループです。個別扉数・全館総数・当日の空きは示しません。",
+      "sourceIds": [
+        "k-arena-floor-level7-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "k-arena-floor-level7-desktop",
+        "x": 1030,
+        "y": 289,
+        "sourceIds": [
+          "k-arena-floor-level7-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "コインロッカー7B; sources/level7-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level7-smoking-left",
+      "name": "喫煙室（図上左）",
+      "purpose": "案内",
+      "kind": "smokingarea",
+      "floor": "LEVEL7",
+      "scope": "場内",
+      "location": "喫煙室（図上左） の図上記号/ラベル位置",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 喫煙室の図示記号です。現在の開放・運用は当日の案内を確認してください。",
+      "sourceIds": [
+        "k-arena-floor-level7-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "k-arena-floor-level7-desktop",
+        "x": 319,
+        "y": 352,
+        "sourceIds": [
+          "k-arena-floor-level7-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "喫煙室（図上左）; sources/level7-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level7-smoking-right",
+      "name": "喫煙室（図上右）",
+      "purpose": "案内",
+      "kind": "smokingarea",
+      "floor": "LEVEL7",
+      "scope": "場内",
+      "location": "喫煙室（図上右） の図上記号/ラベル位置",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 喫煙室の図示記号です。現在の開放・運用は当日の案内を確認してください。",
+      "sourceIds": [
+        "k-arena-floor-level7-desktop",
+        "k-arena-floor"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "k-arena-floor-level7-desktop",
+        "x": 1068,
+        "y": 352,
+        "sourceIds": [
+          "k-arena-floor-level7-desktop",
+          "k-arena-floor"
+        ],
+        "reference": "喫煙室（図上右）; sources/level7-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level7-drink-left",
+      "name": "LEVEL7 ドリンク売店（DRINK）",
+      "purpose": "飲食",
+      "kind": "drink",
+      "floor": "LEVEL7",
+      "scope": "場内",
+      "location": "DRINK（図上左端） の図上記号/ラベル位置",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 原図DRINKに対応。全館の常設売店11箇所とは別に、この階の記号だけを案内します。営業・支払い・品揃えは公演案内を確認してください。",
+      "sourceIds": [
+        "k-arena-floor-level7-desktop",
+        "k-arena-floor",
+        "k-arena-shop"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "k-arena-floor-level7-desktop",
+        "x": 238,
+        "y": 422,
+        "sourceIds": [
+          "k-arena-floor-level7-desktop",
+          "k-arena-floor",
+          "k-arena-shop"
+        ],
+        "reference": "DRINK（図上左端）; sources/level7-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level7-drink-central",
+      "name": "LEVEL7 ドリンク売店（DRINK）",
+      "purpose": "飲食",
+      "kind": "drink",
+      "floor": "LEVEL7",
+      "scope": "場内",
+      "location": "DRINK（図上中央） の図上記号/ラベル位置",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 原図DRINKに対応。全館の常設売店11箇所とは別に、この階の記号だけを案内します。営業・支払い・品揃えは公演案内を確認してください。",
+      "sourceIds": [
+        "k-arena-floor-level7-desktop",
+        "k-arena-floor",
+        "k-arena-shop"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "k-arena-floor-level7-desktop",
+        "x": 694,
+        "y": 558,
+        "sourceIds": [
+          "k-arena-floor-level7-desktop",
+          "k-arena-floor",
+          "k-arena-shop"
+        ],
+        "reference": "DRINK（図上中央）; sources/level7-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "level7-drink-right",
+      "name": "LEVEL7 ドリンク売店（DRINK）",
+      "purpose": "飲食",
+      "kind": "drink",
+      "floor": "LEVEL7",
+      "scope": "場内",
+      "location": "DRINK（図上右端） の図上記号/ラベル位置",
+      "detail": "公式フロア図の記号位置を案内しています。個別の室入口・歩行経路・当日の開放範囲は未確認です。 原図DRINKに対応。全館の常設売店11箇所とは別に、この階の記号だけを案内します。営業・支払い・品揃えは公演案内を確認してください。",
+      "sourceIds": [
+        "k-arena-floor-level7-desktop",
+        "k-arena-floor",
+        "k-arena-shop"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "k-arena-floor-level7-desktop",
+        "x": 1148,
+        "y": 422,
+        "sourceIds": [
+          "k-arena-floor-level7-desktop",
+          "k-arena-floor",
+          "k-arena-shop"
+        ],
+        "reference": "DRINK（図上右端）; sources/level7-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+      }
+    }
+  ],
+  "diagrams": [
+    {
+      "id": "k-arena-floor-level1-desktop",
+      "floor": "LEVEL1",
+      "scope": "場内",
+      "viewBox": [
+        327,
+        142,
+        733,
+        364
+      ],
+      "concoursePaths": [],
+      "contextPaths": [
+        "M433,190 L460,207 L460,236 L443,262 L507,305 L529,317 L557,272 L596,296 L566,344 L821,344 L791,296 L829,272 L860,318 L916,281 L902,257 L929,257 L929,242 L933,244 L935,239 L929,234 L929,215 L954,254 L984,236 L1012,280 L836,395 L836,458 L835,396 L712,396 L712,458 L675,458 L675,396 L632,396 L632,424 L631,396 L551,396 L375,280 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "level1-gate101",
+          "label": "101",
+          "name": "座席アクセスGATE 101（対応席範囲未確認）",
+          "x": 437,
+          "y": 225,
+          "kind": "gate",
+          "sourceIds": [
+            "k-arena-floor-level1-desktop",
+            "k-arena-floor",
+            "k-arena-seating-pdf"
+          ],
+          "reference": "101; sources/level1-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level1-gate102",
+          "label": "102",
+          "name": "座席アクセスGATE 102（対応席範囲未確認）",
+          "x": 561,
+          "y": 307,
+          "kind": "gate",
+          "sourceIds": [
+            "k-arena-floor-level1-desktop",
+            "k-arena-floor",
+            "k-arena-seating-pdf"
+          ],
+          "reference": "102; sources/level1-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level1-gate103",
+          "label": "103",
+          "name": "座席アクセスGATE 103（対応席範囲未確認）",
+          "x": 825,
+          "y": 307,
+          "kind": "gate",
+          "sourceIds": [
+            "k-arena-floor-level1-desktop",
+            "k-arena-floor",
+            "k-arena-seating-pdf"
+          ],
+          "reference": "103; sources/level1-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level1-gate104",
+          "label": "104",
+          "name": "座席アクセスGATE 104（対応席範囲未確認）",
+          "x": 919,
+          "y": 246,
+          "kind": "gate",
+          "sourceIds": [
+            "k-arena-floor-level1-desktop",
+            "k-arena-floor",
+            "k-arena-seating-pdf"
+          ],
+          "reference": "104; sources/level1-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level1-stairs-left-outer",
+          "label": "↕",
+          "name": "階段 LEVEL1・3（図上左から1つ目）",
+          "x": 576,
+          "y": 417,
+          "kind": "stairs",
+          "sourceIds": [
+            "k-arena-floor-level1-desktop",
+            "k-arena-floor"
+          ],
+          "reference": "階段 LEVEL1・3; sources/level1-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level1-stairs-left-inner",
+          "label": "↕",
+          "name": "階段 LEVEL1・3（図上左から2つ目）",
+          "x": 652,
+          "y": 417,
+          "kind": "stairs",
+          "sourceIds": [
+            "k-arena-floor-level1-desktop",
+            "k-arena-floor"
+          ],
+          "reference": "階段 LEVEL1・3; sources/level1-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level1-stairs-right-inner",
+          "label": "↕",
+          "name": "階段 LEVEL1・3（図上左から3つ目）",
+          "x": 734,
+          "y": 417,
+          "kind": "stairs",
+          "sourceIds": [
+            "k-arena-floor-level1-desktop",
+            "k-arena-floor"
+          ],
+          "reference": "階段 LEVEL1・3; sources/level1-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level1-stairs-right-outer",
+          "label": "↕",
+          "name": "階段 LEVEL1・3（図上左から4つ目）",
+          "x": 815,
+          "y": 417,
+          "kind": "stairs",
+          "sourceIds": [
+            "k-arena-floor-level1-desktop",
+            "k-arena-floor"
+          ],
+          "reference": "階段 LEVEL1・3; sources/level1-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "k-arena-floor-level1-desktop"
+        ],
+        "file": "research/venue-packets/k-arena/sources/floor-img_floor_map_lv1.jpg",
+        "sha256": "2184f03d38eeb748da108d2b0a3c2ac749787c97bfedc89a7f8bc327f9dd4352",
+        "width": 1200,
+        "height": 960,
+        "method": "当該LEVEL1 JPEG原画素RGB pale floor r>170,g>205,b>230; component seed [694, 360]; holes filled only for neutral outer background; pixel-cell boundary RDP <=2.5px. Gray Lounge/Bar and white Bridge excluded by color/component.; 原位置は固定packetと同じ当該図。",
+        "status": "partial-private-review"
+      }
+    },
+    {
+      "id": "k-arena-level3-floor-desktop",
+      "floor": "LEVEL3",
+      "scope": "場内",
+      "viewBox": [
+        231,
+        294,
+        924,
+        439
+      ],
+      "concoursePaths": [],
+      "contextPaths": [
+        "M306,342 L396,400 L427,354 L479,389 L450,436 L517,480 L579,480 L579,427 L626,427 L626,480 L762,480 L762,427 L809,427 L809,480 L870,480 L937,436 L908,388 L960,354 L990,400 L1079,342 L1107,384 L1019,441 L1050,490 L998,524 L965,477 L885,532 L810,532 L810,583 L837,584 L836,600 L827,602 L827,607 L811,608 L873,608 L877,626 L877,629 L810,629 L810,685 L577,685 L577,629 L510,629 L514,607 L576,608 L560,607 L560,602 L554,602 L550,584 L577,583 L577,532 L504,532 L422,477 L390,524 L337,490 L368,441 L279,384 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "entrance-north",
+          "label": "北入口",
+          "name": "North Entrance",
+          "x": 369,
+          "y": 501,
+          "kind": "entrance",
+          "sourceIds": [
+            "k-arena-floor-level3-desktop"
+          ],
+          "reference": "North Entrance; 原図1200×960の記号中心/入口矢印の位置。現地の扉・室入口や歩行経路ではない。図上記号/ラベルの位置。現地入口・経路は未確認。"
+        },
+        {
+          "id": "entrance-main",
+          "label": "メイン入口",
+          "name": "Main Entrance",
+          "x": 694,
+          "y": 674,
+          "kind": "entrance",
+          "sourceIds": [
+            "k-arena-floor-level3-desktop"
+          ],
+          "reference": "Main Entrance; 原図1200×960の記号中心/入口矢印の位置。現地の扉・室入口や歩行経路ではない。図上記号/ラベルの位置。現地入口・経路は未確認。"
+        },
+        {
+          "id": "entrance-south",
+          "label": "南入口",
+          "name": "South Entrance",
+          "x": 1017,
+          "y": 501,
+          "kind": "entrance",
+          "sourceIds": [
+            "k-arena-floor-level3-desktop"
+          ],
+          "reference": "South Entrance; 原図1200×960の記号中心/入口矢印の位置。現地の扉・室入口や歩行経路ではない。図上記号/ラベルの位置。現地入口・経路は未確認。"
+        },
+        {
+          "id": "gate301",
+          "label": "301",
+          "name": "座席アクセスGATE 301（対応席範囲未確認）",
+          "x": 439,
+          "y": 397,
+          "kind": "gate",
+          "sourceIds": [
+            "k-arena-floor-level3-desktop",
+            "k-arena-seating-pdf"
+          ],
+          "reference": "301; 原図1200×960の記号中心/入口矢印の位置。現地の扉・室入口や歩行経路ではない。図上記号/ラベルの位置。現地入口・経路は未確認。"
+        },
+        {
+          "id": "gate302",
+          "label": "302",
+          "name": "座席アクセスGATE 302（対応席範囲未確認）",
+          "x": 602,
+          "y": 453,
+          "kind": "gate",
+          "sourceIds": [
+            "k-arena-floor-level3-desktop",
+            "k-arena-seating-pdf"
+          ],
+          "reference": "302; 原図1200×960の記号中心/入口矢印の位置。現地の扉・室入口や歩行経路ではない。図上記号/ラベルの位置。現地入口・経路は未確認。"
+        },
+        {
+          "id": "gate303",
+          "label": "303",
+          "name": "座席アクセスGATE 303（対応席範囲未確認）",
+          "x": 786,
+          "y": 453,
+          "kind": "gate",
+          "sourceIds": [
+            "k-arena-floor-level3-desktop",
+            "k-arena-seating-pdf"
+          ],
+          "reference": "303; 原図1200×960の記号中心/入口矢印の位置。現地の扉・室入口や歩行経路ではない。図上記号/ラベルの位置。現地入口・経路は未確認。"
+        },
+        {
+          "id": "gate304",
+          "label": "304",
+          "name": "座席アクセスGATE 304（対応席範囲未確認）",
+          "x": 949,
+          "y": 398,
+          "kind": "gate",
+          "sourceIds": [
+            "k-arena-floor-level3-desktop",
+            "k-arena-seating-pdf"
+          ],
+          "reference": "304; 原図1200×960の記号中心/入口矢印の位置。現地の扉・室入口や歩行経路ではない。図上記号/ラベルの位置。現地入口・経路は未確認。"
+        },
+        {
+          "id": "stairs-north-outer",
+          "label": "↕",
+          "name": "階段 LEVEL3・5・7（図上左側・外側）",
+          "x": 328,
+          "y": 442,
+          "kind": "stairs",
+          "sourceIds": [
+            "k-arena-floor-level3-desktop",
+            "k-arena-floor"
+          ],
+          "reference": "階段 LEVEL3・5・7; sources/n2-measurements.jsonの個別測定根拠。図上記号/ラベルの位置。現地入口・経路は未確認。"
+        },
+        {
+          "id": "stairs-north-middle",
+          "label": "↕",
+          "name": "階段 LEVEL3・5・7（図上左側・中ほど）",
+          "x": 428,
+          "y": 502,
+          "kind": "stairs",
+          "sourceIds": [
+            "k-arena-floor-level3-desktop",
+            "k-arena-floor"
+          ],
+          "reference": "階段 LEVEL3・5・7; sources/n2-measurements.jsonの個別測定根拠。図上記号/ラベルの位置。現地入口・経路は未確認。"
+        },
+        {
+          "id": "stairs-north-main",
+          "label": "↕",
+          "name": "階段 LEVEL3・5・7（図上左側・メイン入口側）",
+          "x": 547,
+          "y": 548,
+          "kind": "stairs",
+          "sourceIds": [
+            "k-arena-floor-level3-desktop",
+            "k-arena-floor"
+          ],
+          "reference": "階段 LEVEL3・5・7; sources/n2-measurements.jsonの個別測定根拠。図上記号/ラベルの位置。現地入口・経路は未確認。"
+        },
+        {
+          "id": "stairs-north-seat",
+          "label": "↕",
+          "name": "階段 LEVEL1・3・4・5（図上左側・座席側）",
+          "x": 551,
+          "y": 445,
+          "kind": "stairs",
+          "sourceIds": [
+            "k-arena-floor-level3-desktop",
+            "k-arena-floor"
+          ],
+          "reference": "階段 LEVEL1・3・4・5; sources/n2-measurements.jsonの個別測定根拠。図上記号/ラベルの位置。現地入口・経路は未確認。"
+        },
+        {
+          "id": "stairs-central-seat",
+          "label": "↕",
+          "name": "中央階段 LEVEL1・3・4・5（図上中央）",
+          "x": 694,
+          "y": 452,
+          "kind": "stairs",
+          "sourceIds": [
+            "k-arena-floor-level3-desktop",
+            "k-arena-floor"
+          ],
+          "reference": "中央階段 LEVEL1・3・4・5; sources/n2-measurements.jsonの個別測定根拠。図上記号/ラベルの位置。現地入口・経路は未確認。中央階段は図示領域の代表位置。"
+        },
+        {
+          "id": "stairs-south-seat",
+          "label": "↕",
+          "name": "階段 LEVEL1・3・4・5（図上右側・座席側）",
+          "x": 831,
+          "y": 445,
+          "kind": "stairs",
+          "sourceIds": [
+            "k-arena-floor-level3-desktop",
+            "k-arena-floor"
+          ],
+          "reference": "階段 LEVEL1・3・4・5; sources/n2-measurements.jsonの個別測定根拠。図上記号/ラベルの位置。現地入口・経路は未確認。"
+        },
+        {
+          "id": "stairs-south-main",
+          "label": "↕",
+          "name": "階段 LEVEL3・5・7（図上右側・メイン入口側）",
+          "x": 842,
+          "y": 548,
+          "kind": "stairs",
+          "sourceIds": [
+            "k-arena-floor-level3-desktop",
+            "k-arena-floor"
+          ],
+          "reference": "階段 LEVEL3・5・7; sources/n2-measurements.jsonの個別測定根拠。図上記号/ラベルの位置。現地入口・経路は未確認。"
+        },
+        {
+          "id": "stairs-south-middle",
+          "label": "↕",
+          "name": "階段 LEVEL3・5・7（図上右側・中ほど）",
+          "x": 958,
+          "y": 502,
+          "kind": "stairs",
+          "sourceIds": [
+            "k-arena-floor-level3-desktop",
+            "k-arena-floor"
+          ],
+          "reference": "階段 LEVEL3・5・7; sources/n2-measurements.jsonの個別測定根拠。図上記号/ラベルの位置。現地入口・経路は未確認。"
+        },
+        {
+          "id": "stairs-south-outer",
+          "label": "↕",
+          "name": "階段 LEVEL3・5・7（図上右側・外側）",
+          "x": 1064,
+          "y": 442,
+          "kind": "stairs",
+          "sourceIds": [
+            "k-arena-floor-level3-desktop",
+            "k-arena-floor"
+          ],
+          "reference": "階段 LEVEL3・5・7; sources/n2-measurements.jsonの個別測定根拠。図上記号/ラベルの位置。現地入口・経路は未確認。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "k-arena-floor-level3-desktop"
+        ],
+        "file": "research/venue-packets/k-arena/sources/floor-img_floor_map_lv3.jpg",
+        "sha256": "dac5736c5d4b73e9e7481c1fcaef06cb037c26f9f5f8cd422d63e54e613ba6b3",
+        "width": 1200,
+        "height": 960,
+        "method": "RGB visible pale background mask; connected component at original pixel [694,500]; enclosed ink holes filled; outer pixel-cell edge traced; RDP <=2.5 original pixels; 記号/ラベル中心は固定packetの独立台帳と同一原寸。",
+        "status": "partial-level3-private-review"
+      }
+    },
+    {
+      "id": "k-arena-floor-level4-desktop",
+      "floor": "LEVEL4",
+      "scope": "場内",
+      "viewBox": [
+        240,
+        272,
+        906,
+        331
+      ],
+      "concoursePaths": [],
+      "contextPaths": [
+        "M322,320 L414,380 L414,397 L426,397 L426,393 L418,393 L419,384 L419,390 L432,392 L427,393 L427,397 L440,397 L514,445 L513,448 L532,461 L854,461 L873,448 L872,445 L947,396 L959,397 L959,393 L954,392 L967,390 L967,384 L968,393 L960,393 L960,397 L972,397 L972,380 L1063,320 L1098,373 L875,520 L511,520 L288,373 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "level4-stairs-north",
+          "label": "↕",
+          "name": "階段 LEVEL3・4・5（図上左から1つ目）",
+          "x": 533,
+          "y": 540,
+          "kind": "stairs",
+          "sourceIds": [
+            "k-arena-floor-level4-desktop",
+            "k-arena-floor"
+          ],
+          "reference": "階段 LEVEL3・4・5; sources/n2-measurements.jsonの個別測定根拠。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level4-stairs-central",
+          "label": "↕",
+          "name": "中央階段 LEVEL3・4・5（図上中央・領域代表点）",
+          "x": 694,
+          "y": 555,
+          "kind": "stairs",
+          "sourceIds": [
+            "k-arena-floor-level4-desktop",
+            "k-arena-floor"
+          ],
+          "reference": "中央階段 LEVEL3・4・5; sources/n2-measurements.jsonの個別測定根拠。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。図示領域の代表点であり、個々の出入口ではありません。"
+        },
+        {
+          "id": "level4-stairs-south",
+          "label": "↕",
+          "name": "階段 LEVEL3・4・5（図上左から3つ目）",
+          "x": 856,
+          "y": 540,
+          "kind": "stairs",
+          "sourceIds": [
+            "k-arena-floor-level4-desktop",
+            "k-arena-floor"
+          ],
+          "reference": "階段 LEVEL3・4・5; sources/n2-measurements.jsonの個別測定根拠。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "k-arena-floor-level4-desktop"
+        ],
+        "file": "research/venue-packets/k-arena/sources/floor-img_floor_map_lv4.jpg",
+        "sha256": "0c9345cc936a653419a4c801ff410a9b4a53289f9289c8529ff7968774881f61",
+        "width": 1200,
+        "height": 960,
+        "method": "当該LEVEL4 JPEG原画素RGB pale floor r>170,g>205,b>230; component seed [694, 500]; holes filled only for neutral outer background; pixel-cell boundary RDP <=2.5px. Gray Lounge/Bar and white Bridge excluded by color/component.; 原位置は固定packetと同じ当該図。",
+        "status": "partial-private-review"
+      }
+    },
+    {
+      "id": "k-arena-floor-level5-desktop",
+      "floor": "LEVEL5",
+      "scope": "場内",
+      "viewBox": [
+        220,
+        310,
+        942,
+        429
+      ],
+      "concoursePaths": [],
+      "contextPaths": [
+        "M337,358 L352,369 L326,407 L326,412 L370,440 L396,399 L401,399 L413,409 L385,451 L428,479 L433,477 L456,440 L462,439 L474,448 L446,491 L492,519 L521,478 L534,489 L507,531 L533,548 L586,548 L586,510 L605,510 L602,513 L605,514 L605,548 L652,548 L652,514 L669,514 L652,513 L652,510 L670,510 L652,509 L652,496 L671,496 L671,548 L712,548 L712,510 L730,510 L712,509 L712,496 L731,496 L731,548 L778,548 L778,510 L796,510 L796,548 L799,548 L799,499 L800,548 L850,548 L876,529 L847,487 L864,477 L893,519 L936,491 L908,447 L925,438 L953,480 L997,451 L970,410 L983,398 L1012,440 L1058,411 L1030,369 L1046,358 L1071,398 L1074,400 L1089,390 L1114,428 L1034,482 L1089,567 L901,691 L824,691 L828,669 L882,669 L854,668 L861,661 L868,660 L868,654 L857,656 L857,652 L850,652 L850,663 L842,665 L842,668 L828,668 L832,647 L852,647 L852,651 L856,651 L856,647 L883,647 L994,573 L965,528 L865,595 L822,595 L822,590 L562,590 L562,595 L517,595 L417,529 L389,574 L500,647 L527,647 L526,651 L531,651 L531,647 L550,647 L554,668 L535,665 L532,652 L525,652 L525,656 L514,654 L514,660 L520,660 L528,668 L501,669 L554,669 L558,691 L481,691 L293,567 L348,482 L268,429 L293,390 L309,400 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "level5-gate501",
+          "label": "501",
+          "name": "座席アクセスGATE 501（対応席範囲未確認）",
+          "x": 310,
+          "y": 416,
+          "kind": "gate",
+          "sourceIds": [
+            "k-arena-floor-level5-desktop",
+            "k-arena-floor",
+            "k-arena-seating-pdf"
+          ],
+          "reference": "501; sources/level5-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level5-gate502",
+          "label": "502",
+          "name": "座席アクセスGATE 502（対応席範囲未確認）",
+          "x": 371,
+          "y": 455,
+          "kind": "gate",
+          "sourceIds": [
+            "k-arena-floor-level5-desktop",
+            "k-arena-floor",
+            "k-arena-seating-pdf"
+          ],
+          "reference": "502; sources/level5-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level5-gate503",
+          "label": "503",
+          "name": "座席アクセスGATE 503（対応席範囲未確認）",
+          "x": 430,
+          "y": 494,
+          "kind": "gate",
+          "sourceIds": [
+            "k-arena-floor-level5-desktop",
+            "k-arena-floor",
+            "k-arena-seating-pdf"
+          ],
+          "reference": "503; sources/level5-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level5-gate504",
+          "label": "504",
+          "name": "座席アクセスGATE 504（対応席範囲未確認）",
+          "x": 491,
+          "y": 535,
+          "kind": "gate",
+          "sourceIds": [
+            "k-arena-floor-level5-desktop",
+            "k-arena-floor",
+            "k-arena-seating-pdf"
+          ],
+          "reference": "504; sources/level5-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level5-gate505",
+          "label": "505",
+          "name": "座席アクセスGATE 505（対応席範囲未確認）",
+          "x": 597,
+          "y": 563,
+          "kind": "gate",
+          "sourceIds": [
+            "k-arena-floor-level5-desktop",
+            "k-arena-floor",
+            "k-arena-seating-pdf"
+          ],
+          "reference": "505; sources/level5-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level5-gate506",
+          "label": "506",
+          "name": "座席アクセスGATE 506（対応席範囲未確認）",
+          "x": 666,
+          "y": 563,
+          "kind": "gate",
+          "sourceIds": [
+            "k-arena-floor-level5-desktop",
+            "k-arena-floor",
+            "k-arena-seating-pdf"
+          ],
+          "reference": "506; sources/level5-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level5-gate507",
+          "label": "507",
+          "name": "座席アクセスGATE 507（対応席範囲未確認）",
+          "x": 721,
+          "y": 563,
+          "kind": "gate",
+          "sourceIds": [
+            "k-arena-floor-level5-desktop",
+            "k-arena-floor",
+            "k-arena-seating-pdf"
+          ],
+          "reference": "507; sources/level5-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level5-gate508",
+          "label": "508",
+          "name": "座席アクセスGATE 508（対応席範囲未確認）",
+          "x": 790,
+          "y": 563,
+          "kind": "gate",
+          "sourceIds": [
+            "k-arena-floor-level5-desktop",
+            "k-arena-floor",
+            "k-arena-seating-pdf"
+          ],
+          "reference": "508; sources/level5-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level5-gate509",
+          "label": "509",
+          "name": "座席アクセスGATE 509（対応席範囲未確認）",
+          "x": 890,
+          "y": 536,
+          "kind": "gate",
+          "sourceIds": [
+            "k-arena-floor-level5-desktop",
+            "k-arena-floor",
+            "k-arena-seating-pdf"
+          ],
+          "reference": "509; sources/level5-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level5-gate510",
+          "label": "510",
+          "name": "座席アクセスGATE 510（対応席範囲未確認）",
+          "x": 952,
+          "y": 496,
+          "kind": "gate",
+          "sourceIds": [
+            "k-arena-floor-level5-desktop",
+            "k-arena-floor",
+            "k-arena-seating-pdf"
+          ],
+          "reference": "510; sources/level5-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level5-gate511",
+          "label": "511",
+          "name": "座席アクセスGATE 511（対応席範囲未確認）",
+          "x": 1014,
+          "y": 456,
+          "kind": "gate",
+          "sourceIds": [
+            "k-arena-floor-level5-desktop",
+            "k-arena-floor",
+            "k-arena-seating-pdf"
+          ],
+          "reference": "511; sources/level5-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level5-gate512",
+          "label": "512",
+          "name": "座席アクセスGATE 512（対応席範囲未確認）",
+          "x": 1074,
+          "y": 416,
+          "kind": "gate",
+          "sourceIds": [
+            "k-arena-floor-level5-desktop",
+            "k-arena-floor",
+            "k-arena-seating-pdf"
+          ],
+          "reference": "512; sources/level5-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level5-stairs-left-outer",
+          "label": "↕",
+          "name": "階段 LEVEL3・5・7（図上左から1つ目）",
+          "x": 314,
+          "y": 482,
+          "kind": "stairs",
+          "sourceIds": [
+            "k-arena-floor-level5-desktop",
+            "k-arena-floor"
+          ],
+          "reference": "階段 LEVEL3・5・7; sources/level5-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level5-stairs-left-middle",
+          "label": "↕",
+          "name": "階段 LEVEL3・5・7（図上左から2つ目）",
+          "x": 428,
+          "y": 555,
+          "kind": "stairs",
+          "sourceIds": [
+            "k-arena-floor-level5-desktop",
+            "k-arena-floor"
+          ],
+          "reference": "階段 LEVEL3・5・7; sources/level5-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level5-stairs-left-main",
+          "label": "↕",
+          "name": "階段 LEVEL3・5・7（図上左から3つ目）",
+          "x": 543,
+          "y": 613,
+          "kind": "stairs",
+          "sourceIds": [
+            "k-arena-floor-level5-desktop",
+            "k-arena-floor"
+          ],
+          "reference": "階段 LEVEL3・5・7; sources/level5-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level5-stairs-left-seat-outer",
+          "label": "↕",
+          "name": "階段 LEVEL3・4・5（図上左から4つ目）",
+          "x": 566,
+          "y": 514,
+          "kind": "stairs",
+          "sourceIds": [
+            "k-arena-floor-level5-desktop",
+            "k-arena-floor"
+          ],
+          "reference": "階段 LEVEL3・4・5; sources/level5-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level5-stairs-left-seat-inner",
+          "label": "↕",
+          "name": "階段 LEVEL3・4・5（図上左から5つ目）",
+          "x": 634,
+          "y": 514,
+          "kind": "stairs",
+          "sourceIds": [
+            "k-arena-floor-level5-desktop",
+            "k-arena-floor"
+          ],
+          "reference": "階段 LEVEL3・4・5; sources/level5-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level5-stairs-right-seat-inner",
+          "label": "↕",
+          "name": "階段 LEVEL3・4・5（図上左から6つ目）",
+          "x": 750,
+          "y": 514,
+          "kind": "stairs",
+          "sourceIds": [
+            "k-arena-floor-level5-desktop",
+            "k-arena-floor"
+          ],
+          "reference": "階段 LEVEL3・4・5; sources/level5-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level5-stairs-right-seat-outer",
+          "label": "↕",
+          "name": "階段 LEVEL3・4・5（図上左から7つ目）",
+          "x": 819,
+          "y": 514,
+          "kind": "stairs",
+          "sourceIds": [
+            "k-arena-floor-level5-desktop",
+            "k-arena-floor"
+          ],
+          "reference": "階段 LEVEL3・4・5; sources/level5-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level5-stairs-right-main",
+          "label": "↕",
+          "name": "階段 LEVEL3・5・7（図上左から8つ目）",
+          "x": 842,
+          "y": 613,
+          "kind": "stairs",
+          "sourceIds": [
+            "k-arena-floor-level5-desktop",
+            "k-arena-floor"
+          ],
+          "reference": "階段 LEVEL3・5・7; sources/level5-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level5-stairs-right-middle",
+          "label": "↕",
+          "name": "階段 LEVEL3・5・7（図上左から9つ目）",
+          "x": 956,
+          "y": 555,
+          "kind": "stairs",
+          "sourceIds": [
+            "k-arena-floor-level5-desktop",
+            "k-arena-floor"
+          ],
+          "reference": "階段 LEVEL3・5・7; sources/level5-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level5-stairs-right-outer",
+          "label": "↕",
+          "name": "階段 LEVEL3・5・7（図上左から10つ目）",
+          "x": 1072,
+          "y": 482,
+          "kind": "stairs",
+          "sourceIds": [
+            "k-arena-floor-level5-desktop",
+            "k-arena-floor"
+          ],
+          "reference": "階段 LEVEL3・5・7; sources/level5-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "k-arena-floor-level5-desktop"
+        ],
+        "file": "research/venue-packets/k-arena/sources/floor-img_floor_map_lv5.jpg",
+        "sha256": "bcf6ec0c8fc4f229447a9f73aca4261308ac9d644caa0405ba136977794dc00a",
+        "width": 1200,
+        "height": 960,
+        "method": "当該LEVEL5 JPEG原画素RGB pale floor r>170,g>205,b>230; recorded annotation/held-region masks; component seed [694, 580]; holes filled only for neutral partial background; pixel-cell boundary RDP <=2.5px. Mask cuts are not building boundaries.; 原位置は固定packetと同じ当該図。",
+        "status": "partial-private-review"
+      }
+    },
+    {
+      "id": "k-arena-floor-level7-desktop",
+      "floor": "LEVEL7",
+      "scope": "場内",
+      "viewBox": [
+        188,
+        117,
+        1010,
+        563
+      ],
+      "concoursePaths": [],
+      "contextPaths": [
+        "M331,234 L360,253 L282,369 L329,402 L302,444 L307,442 L332,402 L343,407 L349,412 L320,456 L366,486 L376,472 L377,476 L396,476 L383,497 L419,521 L423,520 L448,480 L452,479 L465,489 L437,533 L483,563 L513,519 L527,529 L500,571 L513,583 L583,583 L584,544 L602,544 L602,583 L642,583 L642,544 L660,544 L660,583 L726,583 L726,544 L745,544 L744,583 L784,583 L785,544 L803,544 L803,583 L875,582 L887,572 L858,530 L867,523 L876,522 L904,563 L950,532 L921,489 L934,479 L937,478 L967,521 L1004,497 L991,476 L1010,476 L1011,473 L1020,486 L1066,456 L1037,412 L1053,401 L1080,443 L1084,444 L1058,401 L1105,370 L1027,254 L1053,234 L1150,378 L1149,382 L1105,410 L1139,463 L885,630 L818,632 L818,607 L771,607 L766,589 L758,607 L715,607 L715,632 L675,632 L675,607 L628,607 L622,589 L615,607 L573,607 L573,632 L501,630 L247,463 L281,410 L236,379 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "level7-gate701",
+          "label": "701",
+          "name": "座席アクセスGATE 701（対応席範囲未確認）",
+          "x": 305,
+          "y": 458,
+          "kind": "gate",
+          "sourceIds": [
+            "k-arena-floor-level7-desktop",
+            "k-arena-floor",
+            "k-arena-seating-pdf"
+          ],
+          "reference": "701; sources/level7-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level7-gate702",
+          "label": "702",
+          "name": "座席アクセスGATE 702（対応席範囲未確認）",
+          "x": 366,
+          "y": 498,
+          "kind": "gate",
+          "sourceIds": [
+            "k-arena-floor-level7-desktop",
+            "k-arena-floor",
+            "k-arena-seating-pdf"
+          ],
+          "reference": "702; sources/level7-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level7-gate703",
+          "label": "703",
+          "name": "座席アクセスGATE 703（対応席範囲未確認）",
+          "x": 426,
+          "y": 540,
+          "kind": "gate",
+          "sourceIds": [
+            "k-arena-floor-level7-desktop",
+            "k-arena-floor",
+            "k-arena-seating-pdf"
+          ],
+          "reference": "703; sources/level7-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level7-gate704",
+          "label": "704",
+          "name": "座席アクセスGATE 704（対応席範囲未確認）",
+          "x": 486,
+          "y": 581,
+          "kind": "gate",
+          "sourceIds": [
+            "k-arena-floor-level7-desktop",
+            "k-arena-floor",
+            "k-arena-seating-pdf"
+          ],
+          "reference": "704; sources/level7-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level7-gate705",
+          "label": "705",
+          "name": "座席アクセスGATE 705（対応席範囲未確認）",
+          "x": 588,
+          "y": 596,
+          "kind": "gate",
+          "sourceIds": [
+            "k-arena-floor-level7-desktop",
+            "k-arena-floor",
+            "k-arena-seating-pdf"
+          ],
+          "reference": "705; sources/level7-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level7-gate706",
+          "label": "706",
+          "name": "座席アクセスGATE 706（対応席範囲未確認）",
+          "x": 650,
+          "y": 596,
+          "kind": "gate",
+          "sourceIds": [
+            "k-arena-floor-level7-desktop",
+            "k-arena-floor",
+            "k-arena-seating-pdf"
+          ],
+          "reference": "706; sources/level7-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level7-gate707",
+          "label": "707",
+          "name": "座席アクセスGATE 707（対応席範囲未確認）",
+          "x": 737,
+          "y": 596,
+          "kind": "gate",
+          "sourceIds": [
+            "k-arena-floor-level7-desktop",
+            "k-arena-floor",
+            "k-arena-seating-pdf"
+          ],
+          "reference": "707; sources/level7-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level7-gate708",
+          "label": "708",
+          "name": "座席アクセスGATE 708（対応席範囲未確認）",
+          "x": 798,
+          "y": 596,
+          "kind": "gate",
+          "sourceIds": [
+            "k-arena-floor-level7-desktop",
+            "k-arena-floor",
+            "k-arena-seating-pdf"
+          ],
+          "reference": "708; sources/level7-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level7-gate709",
+          "label": "709",
+          "name": "座席アクセスGATE 709（対応席範囲未確認）",
+          "x": 900,
+          "y": 581,
+          "kind": "gate",
+          "sourceIds": [
+            "k-arena-floor-level7-desktop",
+            "k-arena-floor",
+            "k-arena-seating-pdf"
+          ],
+          "reference": "709; sources/level7-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level7-gate710",
+          "label": "710",
+          "name": "座席アクセスGATE 710（対応席範囲未確認）",
+          "x": 960,
+          "y": 540,
+          "kind": "gate",
+          "sourceIds": [
+            "k-arena-floor-level7-desktop",
+            "k-arena-floor",
+            "k-arena-seating-pdf"
+          ],
+          "reference": "710; sources/level7-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level7-gate711",
+          "label": "711",
+          "name": "座席アクセスGATE 711（対応席範囲未確認）",
+          "x": 1022,
+          "y": 498,
+          "kind": "gate",
+          "sourceIds": [
+            "k-arena-floor-level7-desktop",
+            "k-arena-floor",
+            "k-arena-seating-pdf"
+          ],
+          "reference": "711; sources/level7-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level7-gate712",
+          "label": "712",
+          "name": "座席アクセスGATE 712（対応席範囲未確認）",
+          "x": 1083,
+          "y": 458,
+          "kind": "gate",
+          "sourceIds": [
+            "k-arena-floor-level7-desktop",
+            "k-arena-floor",
+            "k-arena-seating-pdf"
+          ],
+          "reference": "712; sources/level7-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level7-stairs-left-outer",
+          "label": "↕",
+          "name": "階段 LEVEL3・5・7（図上左から1つ目）",
+          "x": 358,
+          "y": 446,
+          "kind": "stairs",
+          "sourceIds": [
+            "k-arena-floor-level7-desktop",
+            "k-arena-floor"
+          ],
+          "reference": "階段 LEVEL3・5・7; sources/level7-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level7-stairs-left-middle",
+          "label": "↕",
+          "name": "階段 LEVEL3・5・7（図上左から2つ目）",
+          "x": 478,
+          "y": 513,
+          "kind": "stairs",
+          "sourceIds": [
+            "k-arena-floor-level7-desktop",
+            "k-arena-floor"
+          ],
+          "reference": "階段 LEVEL3・5・7; sources/level7-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level7-stairs-left-inner",
+          "label": "↕",
+          "name": "階段 LEVEL3・5・7（図上左から3つ目）",
+          "x": 551,
+          "y": 552,
+          "kind": "stairs",
+          "sourceIds": [
+            "k-arena-floor-level7-desktop",
+            "k-arena-floor"
+          ],
+          "reference": "階段 LEVEL3・5・7; sources/level7-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level7-stairs-right-inner",
+          "label": "↕",
+          "name": "階段 LEVEL3・5・7（図上左から4つ目）",
+          "x": 833,
+          "y": 552,
+          "kind": "stairs",
+          "sourceIds": [
+            "k-arena-floor-level7-desktop",
+            "k-arena-floor"
+          ],
+          "reference": "階段 LEVEL3・5・7; sources/level7-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level7-stairs-right-middle",
+          "label": "↕",
+          "name": "階段 LEVEL3・5・7（図上左から5つ目）",
+          "x": 915,
+          "y": 513,
+          "kind": "stairs",
+          "sourceIds": [
+            "k-arena-floor-level7-desktop",
+            "k-arena-floor"
+          ],
+          "reference": "階段 LEVEL3・5・7; sources/level7-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        },
+        {
+          "id": "level7-stairs-right-outer",
+          "label": "↕",
+          "name": "階段 LEVEL3・5・7（図上左から6つ目）",
+          "x": 1029,
+          "y": 446,
+          "kind": "stairs",
+          "sourceIds": [
+            "k-arena-floor-level7-desktop",
+            "k-arena-floor"
+          ],
+          "reference": "階段 LEVEL3・5・7; sources/level7-symbol-audit.json。図上記号/ラベルの位置、現地の室入口を保証しない。図上記号/印字の原位置。室入口・当日の利用可否・最寄り経路は未確認。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "k-arena-floor-level7-desktop"
+        ],
+        "file": "research/venue-packets/k-arena/sources/floor-img_floor_map_lv7.jpg",
+        "sha256": "9be795f4be500fe064ca195cea5afc8551c97897dd6004b78b0583b19f39824d",
+        "width": 1200,
+        "height": 960,
+        "method": "当該LEVEL7 JPEG原画素RGB pale floor r>170,g>205,b>230; recorded annotation/held-region masks; component seed [694, 610]; holes filled only for neutral partial background; pixel-cell boundary RDP <=2.5px. Mask cuts are not building boundaries.; 原位置は固定packetと同じ当該図。",
+        "status": "partial-private-review"
+      }
+    }
+  ],
+  "notAllVenueFacilities": true,
+  "seatGeometryConnected": false,
+  "outsideGeometryConnected": false,
+  "unconnectedCandidateIds": [
+    "accessible-seating-central",
+    "level5-lounge5-area",
+    "level5-balcony-label",
+    "level5-bridge-label",
+    "level7-arenabar7-area"
+  ]
+}

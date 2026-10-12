@@ -1,0 +1,3623 @@
+{
+  "facilities": [
+    {
+      "id": "pamm-3f-women-nw",
+      "name": "3F 女性トイレ（図左上）",
+      "purpose": "トイレ",
+      "kind": "women",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F 館内・原図図左上の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や運用は未確認。記号数は個室数や設備台数ではありません。",
+      "precision": "diagram-point",
+      "toiletType": "women",
+      "sourceIds": [
+        "floor-3-map",
+        "n2-floor-page",
+        "floor-guide"
+      ],
+      "anchor": {
+        "diagramId": "pamm-floor-3-native",
+        "x": 266.0,
+        "y": 127.5,
+        "sourceIds": [
+          "floor-3-map",
+          "n2-floor-page",
+          "floor-guide"
+        ],
+        "reference": "floor_img03_pc.jpg 原図women、検査ROI [211, 73, 322, 184]。記号代表点であり室入口や物理昇降設備の同一階間点ではない。 原図の記号代表点です。室入口・歩行経路・当日の開放・他階との実機対応は未確認。"
+      }
+    },
+    {
+      "id": "pamm-3f-women-ne",
+      "name": "3F 女性トイレ（図右上）",
+      "purpose": "トイレ",
+      "kind": "women",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F 館内・原図図右上の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や運用は未確認。記号数は個室数や設備台数ではありません。",
+      "precision": "diagram-point",
+      "toiletType": "women",
+      "sourceIds": [
+        "floor-3-map",
+        "n2-floor-page",
+        "floor-guide"
+      ],
+      "anchor": {
+        "diagramId": "pamm-floor-3-native",
+        "x": 1826.0,
+        "y": 110.0,
+        "sourceIds": [
+          "floor-3-map",
+          "n2-floor-page",
+          "floor-guide"
+        ],
+        "reference": "floor_img03_pc.jpg 原図women、検査ROI [1771, 55, 1882, 166]。記号代表点であり室入口や物理昇降設備の同一階間点ではない。 原図の記号代表点です。室入口・歩行経路・当日の開放・他階との実機対応は未確認。"
+      }
+    },
+    {
+      "id": "pamm-3f-women-se",
+      "name": "3F 女性トイレ（図右下）",
+      "purpose": "トイレ",
+      "kind": "women",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F 館内・原図図右下の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や運用は未確認。記号数は個室数や設備台数ではありません。",
+      "precision": "diagram-point",
+      "toiletType": "women",
+      "sourceIds": [
+        "floor-3-map",
+        "n2-floor-page",
+        "floor-guide"
+      ],
+      "anchor": {
+        "diagramId": "pamm-floor-3-native",
+        "x": 1831.5,
+        "y": 1424.5,
+        "sourceIds": [
+          "floor-3-map",
+          "n2-floor-page",
+          "floor-guide"
+        ],
+        "reference": "floor_img03_pc.jpg 原図women、検査ROI [1777, 1369, 1888, 1480]。記号代表点であり室入口や物理昇降設備の同一階間点ではない。 原図の記号代表点です。室入口・歩行経路・当日の開放・他階との実機対応は未確認。"
+      }
+    },
+    {
+      "id": "pamm-3f-men-nw",
+      "name": "3F 男性トイレ（図左上）",
+      "purpose": "トイレ",
+      "kind": "men",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F 館内・原図図左上の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や運用は未確認。記号数は個室数や設備台数ではありません。",
+      "precision": "diagram-point",
+      "toiletType": "men",
+      "sourceIds": [
+        "floor-3-map",
+        "n2-floor-page",
+        "floor-guide"
+      ],
+      "anchor": {
+        "diagramId": "pamm-floor-3-native",
+        "x": 263.0,
+        "y": 315.0,
+        "sourceIds": [
+          "floor-3-map",
+          "n2-floor-page",
+          "floor-guide"
+        ],
+        "reference": "floor_img03_pc.jpg 原図men、検査ROI [208, 260, 319, 371]。記号代表点であり室入口や物理昇降設備の同一階間点ではない。 原図の記号代表点です。室入口・歩行経路・当日の開放・他階との実機対応は未確認。"
+      }
+    },
+    {
+      "id": "pamm-3f-men-ne",
+      "name": "3F 男性トイレ（図右上）",
+      "purpose": "トイレ",
+      "kind": "men",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F 館内・原図図右上の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や運用は未確認。記号数は個室数や設備台数ではありません。",
+      "precision": "diagram-point",
+      "toiletType": "men",
+      "sourceIds": [
+        "floor-3-map",
+        "n2-floor-page",
+        "floor-guide"
+      ],
+      "anchor": {
+        "diagramId": "pamm-floor-3-native",
+        "x": 1677.0,
+        "y": 214.0,
+        "sourceIds": [
+          "floor-3-map",
+          "n2-floor-page",
+          "floor-guide"
+        ],
+        "reference": "floor_img03_pc.jpg 原図men、検査ROI [1622, 159, 1733, 270]。記号代表点であり室入口や物理昇降設備の同一階間点ではない。 原図の記号代表点です。室入口・歩行経路・当日の開放・他階との実機対応は未確認。"
+      }
+    },
+    {
+      "id": "pamm-3f-men-se",
+      "name": "3F 男性トイレ（図右下）",
+      "purpose": "トイレ",
+      "kind": "men",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F 館内・原図図右下の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や運用は未確認。記号数は個室数や設備台数ではありません。",
+      "precision": "diagram-point",
+      "toiletType": "men",
+      "sourceIds": [
+        "floor-3-map",
+        "n2-floor-page",
+        "floor-guide"
+      ],
+      "anchor": {
+        "diagramId": "pamm-floor-3-native",
+        "x": 1677.0,
+        "y": 1258.0,
+        "sourceIds": [
+          "floor-3-map",
+          "n2-floor-page",
+          "floor-guide"
+        ],
+        "reference": "floor_img03_pc.jpg 原図men、検査ROI [1622, 1203, 1733, 1314]。記号代表点であり室入口や物理昇降設備の同一階間点ではない。 原図の記号代表点です。室入口・歩行経路・当日の開放・他階との実機対応は未確認。"
+      }
+    },
+    {
+      "id": "pamm-3f-accessible-nw",
+      "name": "3F 多目的トイレ（図左上）",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F 館内・原図図左上の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や運用は未確認。記号数は個室数や設備台数ではありません。",
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "sourceIds": [
+        "floor-3-map",
+        "n2-floor-page",
+        "floor-guide"
+      ],
+      "anchor": {
+        "diagramId": "pamm-floor-3-native",
+        "x": 321.0,
+        "y": 251.0,
+        "sourceIds": [
+          "floor-3-map",
+          "n2-floor-page",
+          "floor-guide"
+        ],
+        "reference": "floor_img03_pc.jpg 原図accessible、検査ROI [266, 196, 377, 307]。記号代表点であり室入口や物理昇降設備の同一階間点ではない。 原図の記号代表点です。室入口・歩行経路・当日の開放・他階との実機対応は未確認。"
+      }
+    },
+    {
+      "id": "pamm-3f-elevator-west",
+      "name": "3F エレベーター（図左）",
+      "purpose": "案内",
+      "kind": "elevator",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F 館内・原図図左の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や運用は未確認。記号数は個室数や設備台数ではありません。",
+      "precision": "diagram-point",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-3-map",
+        "n2-floor-page",
+        "floor-guide"
+      ],
+      "anchor": {
+        "diagramId": "pamm-floor-3-native",
+        "x": 169.5,
+        "y": 888.5,
+        "sourceIds": [
+          "floor-3-map",
+          "n2-floor-page",
+          "floor-guide"
+        ],
+        "reference": "floor_img03_pc.jpg 原図elevator、検査ROI [115, 833, 226, 944]。記号代表点であり室入口や物理昇降設備の同一階間点ではない。 原図の記号代表点です。室入口・歩行経路・当日の開放・他階との実機対応は未確認。"
+      }
+    },
+    {
+      "id": "pamm-3f-escalator-west-upper",
+      "name": "3F エスカレーター（図左上側）",
+      "purpose": "案内",
+      "kind": "escalator",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F 館内・原図図左上側の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や運用は未確認。記号数は個室数や設備台数ではありません。 運転方向・他階の記号との同一設備対応は未確認です。",
+      "precision": "diagram-point",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-3-map",
+        "n2-floor-page",
+        "floor-guide"
+      ],
+      "anchor": {
+        "diagramId": "pamm-floor-3-native",
+        "x": 286.0,
+        "y": 501.5,
+        "sourceIds": [
+          "floor-3-map",
+          "n2-floor-page",
+          "floor-guide"
+        ],
+        "reference": "floor_img03_pc.jpg 原図escalator、検査ROI [231, 447, 342, 558]。記号代表点であり室入口や物理昇降設備の同一階間点ではない。 原図の記号代表点です。室入口・歩行経路・当日の開放・他階との実機対応は未確認。"
+      }
+    },
+    {
+      "id": "pamm-3f-escalator-west-lower",
+      "name": "3F エスカレーター（図左下側）",
+      "purpose": "案内",
+      "kind": "escalator",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F 館内・原図図左下側の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や運用は未確認。記号数は個室数や設備台数ではありません。 運転方向・他階の記号との同一設備対応は未確認です。",
+      "precision": "diagram-point",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-3-map",
+        "n2-floor-page",
+        "floor-guide"
+      ],
+      "anchor": {
+        "diagramId": "pamm-floor-3-native",
+        "x": 287.5,
+        "y": 683.0,
+        "sourceIds": [
+          "floor-3-map",
+          "n2-floor-page",
+          "floor-guide"
+        ],
+        "reference": "floor_img03_pc.jpg 原図escalator、検査ROI [233, 628, 344, 739]。記号代表点であり室入口や物理昇降設備の同一階間点ではない。 原図の記号代表点です。室入口・歩行経路・当日の開放・他階との実機対応は未確認。"
+      }
+    },
+    {
+      "id": "pamm-3f-food-sw",
+      "name": "3F 飲食売店（Food & Drinks）（図左下）",
+      "purpose": "飲食",
+      "kind": "food",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F 館内・原図図左下の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や運用は未確認。記号数は個室数や設備台数ではありません。 公式日本語案内の館内1〜3F売店と原図に基づく表示。CLUB38の室/入口位置とは分けています。品揃え・営業・支払いは公演案内を確認してください。",
+      "precision": "diagram-point",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-3-map",
+        "n2-floor-page",
+        "floor-guide",
+        "food"
+      ],
+      "anchor": {
+        "diagramId": "pamm-floor-3-native",
+        "x": 204.5,
+        "y": 1121.0,
+        "sourceIds": [
+          "floor-3-map",
+          "n2-floor-page",
+          "floor-guide",
+          "food"
+        ],
+        "reference": "floor_img03_pc.jpg 原図food、検査ROI [149, 1066, 260, 1177]。記号代表点であり室入口や物理昇降設備の同一階間点ではない。 原図の記号代表点です。室入口・歩行経路・当日の開放・他階との実機対応は未確認。"
+      }
+    },
+    {
+      "id": "pamm-4f-women-nw",
+      "name": "4F 女性トイレ（図左上）",
+      "purpose": "トイレ",
+      "kind": "women",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "4F 館内・原図図左上の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や運用は未確認。記号数は個室数や設備台数ではありません。",
+      "precision": "diagram-point",
+      "toiletType": "women",
+      "sourceIds": [
+        "floor-4-map",
+        "n2-floor-page",
+        "seat-4-overview",
+        "seat-guide",
+        "n2-seat-page",
+        "floor-guide"
+      ],
+      "anchor": {
+        "diagramId": "pamm-floor-4-native",
+        "x": 310.5,
+        "y": 93.0,
+        "sourceIds": [
+          "floor-4-map",
+          "n2-floor-page",
+          "seat-4-overview",
+          "seat-guide",
+          "n2-seat-page",
+          "floor-guide"
+        ],
+        "reference": "floor_img04_pc.jpg 原図women、検査ROI [255, 38, 366, 149]。記号代表点であり室入口や物理昇降設備の同一階間点ではない。 原図の記号代表点です。室入口・歩行経路・当日の開放・他階との実機対応は未確認。"
+      }
+    },
+    {
+      "id": "pamm-4f-women-ne",
+      "name": "4F 女性トイレ（図右上）",
+      "purpose": "トイレ",
+      "kind": "women",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "4F 館内・原図図右上の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や運用は未確認。記号数は個室数や設備台数ではありません。",
+      "precision": "diagram-point",
+      "toiletType": "women",
+      "sourceIds": [
+        "floor-4-map",
+        "n2-floor-page",
+        "seat-4-overview",
+        "seat-guide",
+        "n2-seat-page",
+        "floor-guide"
+      ],
+      "anchor": {
+        "diagramId": "pamm-floor-4-native",
+        "x": 1828.5,
+        "y": 114.0,
+        "sourceIds": [
+          "floor-4-map",
+          "n2-floor-page",
+          "seat-4-overview",
+          "seat-guide",
+          "n2-seat-page",
+          "floor-guide"
+        ],
+        "reference": "floor_img04_pc.jpg 原図women、検査ROI [1773, 59, 1884, 170]。記号代表点であり室入口や物理昇降設備の同一階間点ではない。 原図の記号代表点です。室入口・歩行経路・当日の開放・他階との実機対応は未確認。"
+      }
+    },
+    {
+      "id": "pamm-4f-women-se",
+      "name": "4F 女性トイレ（図右下）",
+      "purpose": "トイレ",
+      "kind": "women",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "4F 館内・原図図右下の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や運用は未確認。記号数は個室数や設備台数ではありません。",
+      "precision": "diagram-point",
+      "toiletType": "women",
+      "sourceIds": [
+        "floor-4-map",
+        "n2-floor-page",
+        "seat-4-overview",
+        "seat-guide",
+        "n2-seat-page",
+        "floor-guide"
+      ],
+      "anchor": {
+        "diagramId": "pamm-floor-4-native",
+        "x": 1828.5,
+        "y": 1427.0,
+        "sourceIds": [
+          "floor-4-map",
+          "n2-floor-page",
+          "seat-4-overview",
+          "seat-guide",
+          "n2-seat-page",
+          "floor-guide"
+        ],
+        "reference": "floor_img04_pc.jpg 原図women、検査ROI [1773, 1372, 1884, 1483]。記号代表点であり室入口や物理昇降設備の同一階間点ではない。 原図の記号代表点です。室入口・歩行経路・当日の開放・他階との実機対応は未確認。"
+      }
+    },
+    {
+      "id": "pamm-4f-men-ne",
+      "name": "4F 男性トイレ（図右上）",
+      "purpose": "トイレ",
+      "kind": "men",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "4F 館内・原図図右上の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や運用は未確認。記号数は個室数や設備台数ではありません。",
+      "precision": "diagram-point",
+      "toiletType": "men",
+      "sourceIds": [
+        "floor-4-map",
+        "n2-floor-page",
+        "seat-4-overview",
+        "seat-guide",
+        "n2-seat-page",
+        "floor-guide"
+      ],
+      "anchor": {
+        "diagramId": "pamm-floor-4-native",
+        "x": 1676.0,
+        "y": 217.0,
+        "sourceIds": [
+          "floor-4-map",
+          "n2-floor-page",
+          "seat-4-overview",
+          "seat-guide",
+          "n2-seat-page",
+          "floor-guide"
+        ],
+        "reference": "floor_img04_pc.jpg 原図men、検査ROI [1621, 162, 1732, 273]。記号代表点であり室入口や物理昇降設備の同一階間点ではない。 原図の記号代表点です。室入口・歩行経路・当日の開放・他階との実機対応は未確認。"
+      }
+    },
+    {
+      "id": "pamm-4f-men-se",
+      "name": "4F 男性トイレ（図右下）",
+      "purpose": "トイレ",
+      "kind": "men",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "4F 館内・原図図右下の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や運用は未確認。記号数は個室数や設備台数ではありません。",
+      "precision": "diagram-point",
+      "toiletType": "men",
+      "sourceIds": [
+        "floor-4-map",
+        "n2-floor-page",
+        "seat-4-overview",
+        "seat-guide",
+        "n2-seat-page",
+        "floor-guide"
+      ],
+      "anchor": {
+        "diagramId": "pamm-floor-4-native",
+        "x": 1679.0,
+        "y": 1251.0,
+        "sourceIds": [
+          "floor-4-map",
+          "n2-floor-page",
+          "seat-4-overview",
+          "seat-guide",
+          "n2-seat-page",
+          "floor-guide"
+        ],
+        "reference": "floor_img04_pc.jpg 原図men、検査ROI [1624, 1196, 1735, 1307]。記号代表点であり室入口や物理昇降設備の同一階間点ではない。 原図の記号代表点です。室入口・歩行経路・当日の開放・他階との実機対応は未確認。"
+      }
+    },
+    {
+      "id": "pamm-4f-accessible-nw",
+      "name": "4F 多目的トイレ（図左上）",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "4F 館内・原図図左上の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や運用は未確認。記号数は個室数や設備台数ではありません。",
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "sourceIds": [
+        "floor-4-map",
+        "n2-floor-page",
+        "seat-4-overview",
+        "seat-guide",
+        "n2-seat-page",
+        "floor-guide"
+      ],
+      "anchor": {
+        "diagramId": "pamm-floor-4-native",
+        "x": 322.0,
+        "y": 209.5,
+        "sourceIds": [
+          "floor-4-map",
+          "n2-floor-page",
+          "seat-4-overview",
+          "seat-guide",
+          "n2-seat-page",
+          "floor-guide"
+        ],
+        "reference": "floor_img04_pc.jpg 原図accessible、検査ROI [267, 155, 378, 266]。記号代表点であり室入口や物理昇降設備の同一階間点ではない。 原図の記号代表点です。室入口・歩行経路・当日の開放・他階との実機対応は未確認。"
+      }
+    },
+    {
+      "id": "pamm-4f-elevator-west",
+      "name": "4F エレベーター（図左）",
+      "purpose": "案内",
+      "kind": "elevator",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "4F 館内・原図図左の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や運用は未確認。記号数は個室数や設備台数ではありません。",
+      "precision": "diagram-point",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-4-map",
+        "n2-floor-page",
+        "seat-4-overview",
+        "seat-guide",
+        "n2-seat-page",
+        "floor-guide"
+      ],
+      "anchor": {
+        "diagramId": "pamm-floor-4-native",
+        "x": 170.5,
+        "y": 889.5,
+        "sourceIds": [
+          "floor-4-map",
+          "n2-floor-page",
+          "seat-4-overview",
+          "seat-guide",
+          "n2-seat-page",
+          "floor-guide"
+        ],
+        "reference": "floor_img04_pc.jpg 原図elevator、検査ROI [115, 835, 226, 946]。記号代表点であり室入口や物理昇降設備の同一階間点ではない。 原図の記号代表点です。室入口・歩行経路・当日の開放・他階との実機対応は未確認。"
+      }
+    },
+    {
+      "id": "pamm-4f-escalator-west",
+      "name": "4F エスカレーター（図左）",
+      "purpose": "案内",
+      "kind": "escalator",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "4F 館内・原図図左の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や運用は未確認。記号数は個室数や設備台数ではありません。 運転方向・他階の記号との同一設備対応は未確認です。",
+      "precision": "diagram-point",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-4-map",
+        "n2-floor-page",
+        "seat-4-overview",
+        "seat-guide",
+        "n2-seat-page",
+        "floor-guide"
+      ],
+      "anchor": {
+        "diagramId": "pamm-floor-4-native",
+        "x": 286.5,
+        "y": 316.5,
+        "sourceIds": [
+          "floor-4-map",
+          "n2-floor-page",
+          "seat-4-overview",
+          "seat-guide",
+          "n2-seat-page",
+          "floor-guide"
+        ],
+        "reference": "floor_img04_pc.jpg 原図escalator、検査ROI [231, 261, 342, 372]。記号代表点であり室入口や物理昇降設備の同一階間点ではない。 原図の記号代表点です。室入口・歩行経路・当日の開放・他階との実機対応は未確認。"
+      }
+    },
+    {
+      "id": "pamm-1f-smoking-nw",
+      "name": "喫煙室",
+      "purpose": "案内",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "フロア図の記号位置",
+      "detail": "当日の案内表示をご確認ください。",
+      "kind": "smokingarea",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-1-map"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "pamm-floor-1-native",
+        "x": 305.0,
+        "y": 99.5,
+        "sourceIds": [
+          "floor-1-map"
+        ],
+        "reference": "公式フロア図の記号代表位置。室入口・歩行経路ではない。"
+      }
+    },
+    {
+      "id": "pamm-1f-men-north",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "フロア図の記号位置",
+      "detail": "当日の案内表示をご確認ください。",
+      "kind": "men",
+      "toiletType": "men",
+      "sourceIds": [
+        "floor-1-map"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "pamm-floor-1-native",
+        "x": 943.0,
+        "y": 100.0,
+        "sourceIds": [
+          "floor-1-map"
+        ],
+        "reference": "公式フロア図の記号代表位置。室入口・歩行経路ではない。"
+      }
+    },
+    {
+      "id": "pamm-1f-women-north",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "フロア図の記号位置",
+      "detail": "当日の案内表示をご確認ください。",
+      "kind": "women",
+      "toiletType": "women",
+      "sourceIds": [
+        "floor-1-map"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "pamm-floor-1-native",
+        "x": 1193.5,
+        "y": 100.0,
+        "sourceIds": [
+          "floor-1-map"
+        ],
+        "reference": "公式フロア図の記号代表位置。室入口・歩行経路ではない。"
+      }
+    },
+    {
+      "id": "pamm-1f-food-west",
+      "name": "FOODIES STAND",
+      "purpose": "飲食",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "フロア図の記号位置",
+      "detail": "当日の案内表示をご確認ください。",
+      "kind": "shop",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-1-map"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "pamm-floor-1-native",
+        "x": 249.5,
+        "y": 599.5,
+        "sourceIds": [
+          "floor-1-map"
+        ],
+        "reference": "公式フロア図の記号代表位置。室入口・歩行経路ではない。"
+      }
+    },
+    {
+      "id": "pamm-1f-elevator-west",
+      "name": "エレベーター",
+      "purpose": "案内",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "フロア図の記号位置",
+      "detail": "当日の案内表示をご確認ください。",
+      "kind": "elevator",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-1-map"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "pamm-floor-1-native",
+        "x": 178.5,
+        "y": 881.0,
+        "sourceIds": [
+          "floor-1-map"
+        ],
+        "reference": "公式フロア図の記号代表位置。室入口・歩行経路ではない。"
+      }
+    },
+    {
+      "id": "pamm-1f-nursery-sw",
+      "name": "授乳室",
+      "purpose": "赤ちゃん",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "フロア図の記号位置",
+      "detail": "当日の案内表示をご確認ください。",
+      "kind": "nursing",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-1-map"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "pamm-floor-1-native",
+        "x": 272.0,
+        "y": 1115.0,
+        "sourceIds": [
+          "floor-1-map"
+        ],
+        "reference": "公式フロア図の記号代表位置。室入口・歩行経路ではない。"
+      }
+    },
+    {
+      "id": "pamm-1f-accessible-sw",
+      "name": "多目的トイレ",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "フロア図の記号位置",
+      "detail": "当日の案内表示をご確認ください。",
+      "kind": "accessible",
+      "toiletType": "accessible",
+      "sourceIds": [
+        "floor-1-map"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "pamm-floor-1-native",
+        "x": 339.0,
+        "y": 1181.0,
+        "sourceIds": [
+          "floor-1-map"
+        ],
+        "reference": "公式フロア図の記号代表位置。室入口・歩行経路ではない。"
+      }
+    },
+    {
+      "id": "pamm-1f-women-sw",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "フロア図の記号位置",
+      "detail": "当日の案内表示をご確認ください。",
+      "kind": "women",
+      "toiletType": "women",
+      "sourceIds": [
+        "floor-1-map"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "pamm-floor-1-native",
+        "x": 167.5,
+        "y": 1217.0,
+        "sourceIds": [
+          "floor-1-map"
+        ],
+        "reference": "公式フロア図の記号代表位置。室入口・歩行経路ではない。"
+      }
+    },
+    {
+      "id": "pamm-1f-men-sw",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "フロア図の記号位置",
+      "detail": "当日の案内表示をご確認ください。",
+      "kind": "men",
+      "toiletType": "men",
+      "sourceIds": [
+        "floor-1-map"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "pamm-floor-1-native",
+        "x": 264.0,
+        "y": 1220.5,
+        "sourceIds": [
+          "floor-1-map"
+        ],
+        "reference": "公式フロア図の記号代表位置。室入口・歩行経路ではない。"
+      }
+    },
+    {
+      "id": "pamm-1f-locker-sw",
+      "name": "コインロッカー",
+      "purpose": "荷物",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "フロア図の記号位置",
+      "detail": "当日の案内表示をご確認ください。",
+      "kind": "locker",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-1-map"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "pamm-floor-1-native",
+        "x": 200.0,
+        "y": 1395.0,
+        "sourceIds": [
+          "floor-1-map"
+        ],
+        "reference": "公式フロア図の記号代表位置。室入口・歩行経路ではない。"
+      },
+      "storageKind": "coin"
+    },
+    {
+      "id": "pamm-1f-locker-se",
+      "name": "コインロッカー",
+      "purpose": "荷物",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "フロア図の記号位置",
+      "detail": "当日の案内表示をご確認ください。",
+      "kind": "locker",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-1-map"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "pamm-floor-1-native",
+        "x": 1916.0,
+        "y": 1459.5,
+        "sourceIds": [
+          "floor-1-map"
+        ],
+        "reference": "公式フロア図の記号代表位置。室入口・歩行経路ではない。"
+      },
+      "storageKind": "coin"
+    },
+    {
+      "id": "pamm-2f-women-nw",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "フロア図の記号位置",
+      "detail": "当日の案内表示をご確認ください。",
+      "kind": "women",
+      "toiletType": "women",
+      "sourceIds": [
+        "floor-2-map"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "pamm-floor-2-native",
+        "x": 239.5,
+        "y": 104.0,
+        "sourceIds": [
+          "floor-2-map"
+        ],
+        "reference": "公式フロア図の記号代表位置。室入口・歩行経路ではない。"
+      }
+    },
+    {
+      "id": "pamm-2f-women-ne",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "フロア図の記号位置",
+      "detail": "当日の案内表示をご確認ください。",
+      "kind": "women",
+      "toiletType": "women",
+      "sourceIds": [
+        "floor-2-map"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "pamm-floor-2-native",
+        "x": 1830.5,
+        "y": 110.5,
+        "sourceIds": [
+          "floor-2-map"
+        ],
+        "reference": "公式フロア図の記号代表位置。室入口・歩行経路ではない。"
+      }
+    },
+    {
+      "id": "pamm-2f-women-se",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "フロア図の記号位置",
+      "detail": "当日の案内表示をご確認ください。",
+      "kind": "women",
+      "toiletType": "women",
+      "sourceIds": [
+        "floor-2-map"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "pamm-floor-2-native",
+        "x": 1829.0,
+        "y": 1424.5,
+        "sourceIds": [
+          "floor-2-map"
+        ],
+        "reference": "公式フロア図の記号代表位置。室入口・歩行経路ではない。"
+      }
+    },
+    {
+      "id": "pamm-2f-men-nw",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "フロア図の記号位置",
+      "detail": "当日の案内表示をご確認ください。",
+      "kind": "men",
+      "toiletType": "men",
+      "sourceIds": [
+        "floor-2-map"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "pamm-floor-2-native",
+        "x": 219.5,
+        "y": 200.5,
+        "sourceIds": [
+          "floor-2-map"
+        ],
+        "reference": "公式フロア図の記号代表位置。室入口・歩行経路ではない。"
+      }
+    },
+    {
+      "id": "pamm-2f-men-ne",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "フロア図の記号位置",
+      "detail": "当日の案内表示をご確認ください。",
+      "kind": "men",
+      "toiletType": "men",
+      "sourceIds": [
+        "floor-2-map"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "pamm-floor-2-native",
+        "x": 1679.5,
+        "y": 231.0,
+        "sourceIds": [
+          "floor-2-map"
+        ],
+        "reference": "公式フロア図の記号代表位置。室入口・歩行経路ではない。"
+      }
+    },
+    {
+      "id": "pamm-2f-men-se",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "フロア図の記号位置",
+      "detail": "当日の案内表示をご確認ください。",
+      "kind": "men",
+      "toiletType": "men",
+      "sourceIds": [
+        "floor-2-map"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "pamm-floor-2-native",
+        "x": 1679.5,
+        "y": 1243.0,
+        "sourceIds": [
+          "floor-2-map"
+        ],
+        "reference": "公式フロア図の記号代表位置。室入口・歩行経路ではない。"
+      }
+    },
+    {
+      "id": "pamm-2f-accessible-nw",
+      "name": "多目的トイレ",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "フロア図の記号位置",
+      "detail": "当日の案内表示をご確認ください。",
+      "kind": "accessible",
+      "toiletType": "accessible",
+      "sourceIds": [
+        "floor-2-map"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "pamm-floor-2-native",
+        "x": 323.0,
+        "y": 177.0,
+        "sourceIds": [
+          "floor-2-map"
+        ],
+        "reference": "公式フロア図の記号代表位置。室入口・歩行経路ではない。"
+      }
+    },
+    {
+      "id": "pamm-2f-accessible-outside-sw",
+      "name": "多目的トイレ",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場外",
+      "location": "館外・Gate P側の階段付近",
+      "detail": "当日の案内表示をご確認ください。",
+      "kind": "accessible",
+      "toiletType": "accessible",
+      "sourceIds": [
+        "floor-2-map"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "pamm-ground-2-native",
+        "x": 367.0,
+        "y": 1362.0,
+        "sourceIds": [
+          "floor-2-map"
+        ],
+        "reference": "2F館外・公式記号の代表位置。室入口・徒歩経路ではない。"
+      }
+    },
+    {
+      "id": "pamm-2f-elevator-west",
+      "name": "エレベーター",
+      "purpose": "案内",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "フロア図の記号位置",
+      "detail": "当日の案内表示をご確認ください。",
+      "kind": "elevator",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-2-map"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "pamm-floor-2-native",
+        "x": 170.5,
+        "y": 888.5,
+        "sourceIds": [
+          "floor-2-map"
+        ],
+        "reference": "公式フロア図の記号代表位置。室入口・歩行経路ではない。"
+      }
+    },
+    {
+      "id": "pamm-2f-escalator-west",
+      "name": "エスカレーター",
+      "purpose": "案内",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "フロア図の記号位置",
+      "detail": "当日の案内表示をご確認ください。",
+      "kind": "escalator",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-2-map"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "pamm-floor-2-native",
+        "x": 292.5,
+        "y": 823.5,
+        "sourceIds": [
+          "floor-2-map"
+        ],
+        "reference": "公式フロア図の記号代表位置。室入口・歩行経路ではない。"
+      }
+    },
+    {
+      "id": "pamm-2f-food-west",
+      "name": "FOODIES STAND",
+      "purpose": "飲食",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "フロア図の記号位置",
+      "detail": "当日の案内表示をご確認ください。",
+      "kind": "shop",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-2-map"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "pamm-floor-2-native",
+        "x": 211.5,
+        "y": 442.5,
+        "sourceIds": [
+          "floor-2-map"
+        ],
+        "reference": "公式フロア図の記号代表位置。室入口・歩行経路ではない。"
+      }
+    },
+    {
+      "id": "pamm-1f-renga-north",
+      "name": "RENGA メッセージウォール",
+      "purpose": "案内",
+      "floor": "1F",
+      "scope": "場内",
+      "kind": "information",
+      "location": "L側のメッセージウォール",
+      "detail": "公演の感想などを表示するメッセージウォールです。表示する企画は公演案内をご確認ください。",
+      "precision": "diagram-point",
+      "sourceIds": [
+        "floor-1-map",
+        "pamm-renga-current"
+      ],
+      "anchor": {
+        "diagramId": "pamm-floor-1-native",
+        "x": 978.0,
+        "y": 176.0,
+        "sourceIds": [
+          "floor-1-map"
+        ],
+        "reference": "公式フロア図のRENGA記号代表位置。室入口ではない。"
+      }
+    },
+    {
+      "id": "pamm-1f-renga-west",
+      "name": "RENGA メッセージウォール",
+      "purpose": "案内",
+      "floor": "1F",
+      "scope": "場内",
+      "kind": "information",
+      "location": "売店付近のメッセージウォール",
+      "detail": "公演の感想などを表示するメッセージウォールです。表示する企画は公演案内をご確認ください。",
+      "precision": "diagram-point",
+      "sourceIds": [
+        "floor-1-map",
+        "pamm-renga-current"
+      ],
+      "anchor": {
+        "diagramId": "pamm-floor-1-native",
+        "x": 391.5,
+        "y": 400.0,
+        "sourceIds": [
+          "floor-1-map"
+        ],
+        "reference": "公式フロア図のRENGA記号代表位置。室入口ではない。"
+      }
+    },
+    {
+      "id": "pamm-2f-renga-nw",
+      "name": "RENGA メッセージウォール",
+      "purpose": "案内",
+      "floor": "2F",
+      "scope": "場内",
+      "kind": "information",
+      "location": "売店付近のメッセージウォール",
+      "detail": "公演の感想などを表示するメッセージウォールです。表示する企画は公演案内をご確認ください。",
+      "precision": "diagram-point",
+      "sourceIds": [
+        "floor-2-map",
+        "pamm-renga-current"
+      ],
+      "anchor": {
+        "diagramId": "pamm-floor-2-native",
+        "x": 297.0,
+        "y": 310.0,
+        "sourceIds": [
+          "floor-2-map"
+        ],
+        "reference": "公式フロア図のRENGA記号代表位置。室入口ではない。"
+      }
+    },
+    {
+      "id": "pamm-club38",
+      "name": "CLUB 38",
+      "purpose": "飲食",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F売店横／館外1F大階段横からも入店",
+      "detail": "ラウンジです。営業日・予約・公演日の利用条件は店舗案内をご確認ください。",
+      "kind": "shop",
+      "precision": "text-only",
+      "sourceIds": [
+        "pamm-food-current"
+      ]
+    },
+    {
+      "id": "pamm-2f-ticket-outside-sw",
+      "name": "チケットボックス",
+      "purpose": "案内",
+      "floor": "2F",
+      "scope": "場外",
+      "location": "2F館外・Gate P側の階段とGate Iの間",
+      "detail": "当日券・受付の取扱いは公演案内をご確認ください。",
+      "kind": "information",
+      "precision": "diagram-point",
+      "sourceIds": [
+        "floor-2-map"
+      ],
+      "anchor": {
+        "diagramId": "pamm-ground-2-native",
+        "x": 475.5,
+        "y": 1437.5,
+        "sourceIds": [
+          "floor-2-map"
+        ],
+        "reference": "2F館外・公式記号の代表位置。室入口・徒歩経路ではない。"
+      }
+    },
+    {
+      "id": "pamm-mm-lockers",
+      "name": "みなとみらい駅 中央改札外 コインロッカー",
+      "purpose": "荷物",
+      "floor": "B3F",
+      "scope": "場外",
+      "location": "中央改札外",
+      "detail": "S・M・Lサイズを設置。交通系IC・電子マネー・クレジットカードのタッチ決済・QR決済。料金と利用時間は現地表示をご確認ください。 運営者の規格寸法（幅×高さ×奥行）：S 34.2×32.5×66.3cm、M 34.2×50.2×66.3cm、L 34.2×85.6×66.3cm。",
+      "kind": "locker",
+      "storageKind": "coin",
+      "precision": "text-only",
+      "sourceIds": [
+        "pamm-station-lockers"
+      ]
+    },
+    {
+      "id": "pamm-mm-central-inside",
+      "name": "みなとみらい駅 中央改札内 コインロッカー",
+      "purpose": "荷物",
+      "floor": "B3F",
+      "scope": "場外",
+      "location": "中央改札内",
+      "detail": "S・M・Lサイズを設置。交通系IC・電子マネー・クレジットカードのタッチ決済・QR決済。料金と利用時間は現地表示をご確認ください。 運営者の規格寸法（幅×高さ×奥行）：S 34.2×32.5×66.3cm、M 34.2×50.2×66.3cm、L 34.2×85.6×66.3cm。",
+      "kind": "locker",
+      "storageKind": "coin",
+      "precision": "text-only",
+      "sourceIds": [
+        "pamm-station-lockers"
+      ]
+    },
+    {
+      "id": "pamm-mm-tube-lockers",
+      "name": "みなとみらい駅 みらいチューブ脇 コインロッカー",
+      "purpose": "荷物",
+      "floor": "B3F",
+      "scope": "場外",
+      "location": "みらいチューブ脇",
+      "detail": "S・M・Lサイズを設置。交通系IC・電子マネー・クレジットカードのタッチ決済・QR決済。料金と利用時間は現地表示をご確認ください。 運営者の規格寸法（幅×高さ×奥行）：S 34.2×32.5×66.3cm、M 34.2×50.2×66.3cm、L 34.2×85.6×66.3cm。",
+      "kind": "locker",
+      "storageKind": "coin",
+      "precision": "text-only",
+      "sourceIds": [
+        "pamm-station-lockers"
+      ]
+    },
+    {
+      "id": "pamm-mm-exit5-lockers",
+      "name": "みなとみらい駅 5番口 コインロッカー",
+      "purpose": "荷物",
+      "floor": "B2F",
+      "scope": "場外",
+      "location": "5番口",
+      "detail": "S・Mサイズを設置。現金のみ。料金と利用時間は現地表示をご確認ください。 運営者の規格寸法（幅×高さ×奥行）：S 36×32×57cm、M 36×55×57cm。",
+      "kind": "locker",
+      "storageKind": "coin",
+      "precision": "text-only",
+      "sourceIds": [
+        "pamm-station-lockers"
+      ]
+    },
+    {
+      "id": "pamm-mm-north-lockers",
+      "name": "みなとみらい駅 北改札外 コインロッカー",
+      "purpose": "荷物",
+      "floor": "B2F",
+      "scope": "場外",
+      "location": "北改札外",
+      "detail": "S・M・Lサイズを設置。現金のみ。料金と利用時間は現地表示をご確認ください。 運営者の規格寸法（幅×高さ×奥行）：S 36×32×57cm、M 36×55×57cm、L 36×84×57cm。",
+      "kind": "locker",
+      "storageKind": "coin",
+      "precision": "text-only",
+      "sourceIds": [
+        "pamm-station-lockers"
+      ]
+    },
+    {
+      "id": "pamm-shintakashima-lockers",
+      "name": "新高島駅 改札外EV脇 コインロッカー",
+      "purpose": "荷物",
+      "floor": "B2F",
+      "scope": "場外",
+      "location": "改札外・エレベーター脇",
+      "detail": "S・Mサイズを設置。現金のみ。料金と利用時間は現地表示をご確認ください。 運営者の規格寸法（幅×高さ×奥行）：S 36×32×57cm、M 36×55×57cm。",
+      "kind": "locker",
+      "storageKind": "coin",
+      "precision": "text-only",
+      "sourceIds": [
+        "pamm-station-lockers"
+      ]
+    },
+    {
+      "id": "pamm-new-concourse-lockers",
+      "name": "新高島駅 改札外コンコース コインロッカー",
+      "purpose": "荷物",
+      "floor": "B2F",
+      "scope": "場外",
+      "location": "改札外コンコース",
+      "detail": "M・Lサイズを設置。現金のみ。料金と利用時間は現地表示をご確認ください。 運営者の規格寸法（幅×高さ×奥行）：M 36×55×57cm、L 36×84×57cm。",
+      "kind": "locker",
+      "storageKind": "coin",
+      "precision": "text-only",
+      "sourceIds": [
+        "pamm-station-lockers"
+      ]
+    },
+    {
+      "id": "pamm-yoko-front-lockers",
+      "name": "横浜駅 正面改札外 コインロッカー",
+      "purpose": "荷物",
+      "floor": "B3F",
+      "scope": "場外",
+      "location": "みなとみらい線・正面改札外",
+      "detail": "現金のみ。料金と利用時間は現地表示をご確認ください。",
+      "kind": "locker",
+      "storageKind": "coin",
+      "precision": "text-only",
+      "sourceIds": [
+        "pamm-station-lockers"
+      ]
+    },
+    {
+      "id": "pamm-yoko-slope-lockers",
+      "name": "横浜駅 南北連絡通路・スロープ部 コインロッカー",
+      "purpose": "荷物",
+      "floor": "B2F",
+      "scope": "場外",
+      "location": "みなとみらい線・南北連絡通路（スロープ部）",
+      "detail": "S・M・Lサイズを設置。交通系IC・電子マネー・クレジットカードのタッチ決済・QR決済。料金と利用時間は現地表示をご確認ください。 運営者の規格寸法（幅×高さ×奥行）：S 34.2×32.5×66.3cm、M 34.2×50.2×66.3cm、L 34.2×85.6×66.3cm。",
+      "kind": "locker",
+      "storageKind": "coin",
+      "precision": "text-only",
+      "sourceIds": [
+        "pamm-station-lockers"
+      ]
+    },
+    {
+      "id": "pamm-yoko-cial-lockers",
+      "name": "横浜駅 南北連絡通路・CIAL接続口 コインロッカー",
+      "purpose": "荷物",
+      "floor": "B2F",
+      "scope": "場外",
+      "location": "みなとみらい線・南北連絡通路（CIAL横浜接続口）",
+      "detail": "S・M・Lサイズを設置。交通系IC・電子マネー・クレジットカードのタッチ決済・QR決済。料金と利用時間は現地表示をご確認ください。 運営者の規格寸法（幅×高さ×奥行）：S 34.2×32.5×66.3cm、M 34.2×50.2×66.3cm、L 34.2×85.6×66.3cm。",
+      "kind": "locker",
+      "storageKind": "coin",
+      "precision": "text-only",
+      "sourceIds": [
+        "pamm-station-lockers"
+      ]
+    },
+    {
+      "id": "pamm-sakura-inside-lockers",
+      "name": "JR桜木町駅 南改札内 コインロッカー",
+      "purpose": "荷物",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "南改札内・左側通路の壁面",
+      "detail": "小・中・大サイズを設置。交通系IC専用（PiTaPa・現金は使えません）。料金と利用時間は現地表示をご確認ください。",
+      "kind": "locker",
+      "storageKind": "coin",
+      "precision": "text-only",
+      "sourceIds": [
+        "pamm-sakura-storage-current"
+      ]
+    },
+    {
+      "id": "pamm-sakura-outside-lockers",
+      "name": "JR桜木町駅 南改札外 コインロッカー",
+      "purpose": "荷物",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "南改札正面・横濱銘品館とBOOK EXPRESSの間",
+      "detail": "小・中・大サイズを設置。交通系IC専用（PiTaPa・現金は使えません）。料金と利用時間は現地表示をご確認ください。",
+      "kind": "locker",
+      "storageKind": "coin",
+      "precision": "text-only",
+      "sourceIds": [
+        "pamm-sakura-storage-current"
+      ]
+    },
+    {
+      "id": "pamm-kdx-storage",
+      "name": "KDX横浜みなとみらいタワー（Bounce荷物預かり）",
+      "floor": "店舗",
+      "location": "KDX横浜みなとみらいタワー・詳しい住所は予約後に表示",
+      "kind": "luggage-storage",
+      "storageKind": "staffed",
+      "detail": "オンライン予約・事前決済が必要です。店頭の現金払い・予約なしの預入はできません。掲載営業時間は8:00〜22:00。利用日の時間・料金・受取場所を予約画面で確認してください。",
+      "bookingUrl": "https://ja.bounce.com/s/location/efd35763-036b-4db2-9468-5ad7b8b866e4",
+      "scope": "場外",
+      "purpose": "荷物",
+      "precision": "text-only",
+      "sourceIds": [
+        "pamm-bounce-kdx-current"
+      ]
+    },
+    {
+      "id": "pamm-seven-mm-storage",
+      "name": "Locker Seven-Eleven Yokohama Minatomirai（Bounce）",
+      "floor": "店舗",
+      "location": "横浜みなとみらい・セブンイレブンの予約ロッカー",
+      "kind": "locker",
+      "storageKind": "coin",
+      "detail": "オンライン予約・事前決済が必要です。予約時のQRコードで利用します。掲載営業時間は24時間。設置場所・利用日の料金と時間は予約画面で確認してください。",
+      "bookingUrl": "https://ja.bounce.com/s/location/398966ed-4f67-47ed-9489-d9c5b23d5408",
+      "scope": "場外",
+      "purpose": "荷物",
+      "precision": "text-only",
+      "sourceIds": [
+        "pamm-bounce-seven-current"
+      ]
+    },
+    {
+      "id": "pamm-bluebell",
+      "name": "The Blue Bell",
+      "purpose": "飲食",
+      "floor": "2F",
+      "scope": "場外",
+      "location": "みなとみらい大通り側・2Fペデストリアンデッキ",
+      "detail": "カフェ＆レストラン。公演チケットなしでも利用できます。営業時間・予約は店舗案内をご確認ください。",
+      "kind": "shop",
+      "precision": "diagram-point",
+      "sourceIds": [
+        "pamm-food-current",
+        "floor-2-map"
+      ],
+      "anchor": {
+        "diagramId": "pamm-ground-2-native",
+        "x": 2155.0,
+        "y": 1457.5,
+        "sourceIds": [
+          "floor-2-map"
+        ],
+        "reference": "2F館外・公式記号の代表位置。室入口・徒歩経路ではない。"
+      }
+    },
+    {
+      "id": "pamm-nearby-tullys",
+      "name": "タリーズコーヒー 横浜コネクトスクエア店",
+      "purpose": "飲食",
+      "floor": "1F",
+      "scope": "場外",
+      "kind": "shop",
+      "location": "横浜コネクトスクエア・1階 店舗A（みなとみらい3-3）",
+      "detail": "コーヒー・軽食。店内Wi-Fiあり。営業時間は店舗案内をご確認ください。",
+      "precision": "text-only",
+      "sourceIds": [
+        "pamm-tullys-floor-current",
+        "pamm-tullys-connect-current"
+      ]
+    },
+    {
+      "id": "pamm-nearby-familymart",
+      "name": "ファミリーマート MARK ISみなとみらい店",
+      "purpose": "飲食",
+      "floor": "B4F",
+      "scope": "場外",
+      "kind": "shop",
+      "location": "MARK IS・B4F（みなとみらい駅直結）",
+      "detail": "飲料・食品を買えるコンビニです。営業時間は店舗案内をご確認ください。",
+      "precision": "text-only",
+      "sourceIds": [
+        "pamm-family-markis-current"
+      ]
+    },
+    {
+      "id": "pamm-nearby-hack",
+      "name": "ハックドラッグ MARK ISみなとみらい店",
+      "purpose": "案内",
+      "floor": "B2F",
+      "scope": "場外",
+      "kind": "information",
+      "location": "MARK IS・B2F",
+      "detail": "ドラッグストアです。店舗の営業時間と調剤の受付時間は別です。利用する部門の案内をご確認ください。",
+      "precision": "text-only",
+      "sourceIds": [
+        "pamm-hack-current"
+      ]
+    },
+    {
+      "id": "pamm-nearby-tomods",
+      "name": "トモズ クイーンズスクエア横浜店",
+      "purpose": "案内",
+      "floor": "1F",
+      "scope": "場外",
+      "kind": "information",
+      "location": "みなとみらい東急スクエア④・1F",
+      "detail": "ドラッグストアです。店舗の営業時間と処方箋の受付時間は別です。利用する部門の案内をご確認ください。",
+      "precision": "text-only",
+      "sourceIds": [
+        "pamm-tomods-current",
+        "pamm-tomods-mall-current"
+      ]
+    },
+    {
+      "id": "pamm-markis-atm",
+      "name": "ATMコーナー",
+      "purpose": "案内",
+      "floor": "B2F",
+      "scope": "場外",
+      "kind": "information",
+      "location": "MARK IS・B2F",
+      "detail": "三井住友銀行・みずほ銀行・ゆうちょ銀行のATM。取扱内容・利用時間・手数料は各銀行の案内をご確認ください。",
+      "precision": "text-only",
+      "sourceIds": [
+        "pamm-markis-services-current"
+      ]
+    },
+    {
+      "id": "pamm-markis-baby-b2f",
+      "name": "赤ちゃん休憩室",
+      "purpose": "赤ちゃん",
+      "floor": "B2F",
+      "scope": "場外",
+      "kind": "nursing",
+      "location": "MARK IS・B2F",
+      "detail": "ベビーベッド・給湯設備があります。",
+      "precision": "text-only",
+      "sourceIds": [
+        "pamm-markis-services-current"
+      ]
+    },
+    {
+      "id": "pamm-markis-baby-3f",
+      "name": "赤ちゃん休憩室",
+      "purpose": "赤ちゃん",
+      "floor": "3F",
+      "scope": "場外",
+      "kind": "nursing",
+      "location": "MARK IS・3F",
+      "detail": "ベビーベッド・給湯設備があります。3Fには授乳室もあります。",
+      "precision": "text-only",
+      "sourceIds": [
+        "pamm-markis-services-current"
+      ]
+    },
+    {
+      "id": "pamm-markis-baby-4f",
+      "name": "赤ちゃん休憩室",
+      "purpose": "赤ちゃん",
+      "floor": "4F",
+      "scope": "場外",
+      "kind": "nursing",
+      "location": "MARK IS・4F",
+      "detail": "ベビーベッド・給湯設備があります。",
+      "precision": "text-only",
+      "sourceIds": [
+        "pamm-markis-services-current"
+      ]
+    },
+    {
+      "id": "pamm-markis-foodcourt",
+      "name": "みんなのフードコート",
+      "purpose": "飲食",
+      "floor": "4F",
+      "scope": "場外",
+      "kind": "shop",
+      "location": "MARK IS・4F",
+      "detail": "複数の飲食店があるフードコートです。営業する店舗・時間は施設案内をご確認ください。",
+      "precision": "text-only",
+      "sourceIds": [
+        "pamm-markis-services-current"
+      ]
+    },
+    {
+      "id": "pamm-markis-info",
+      "name": "インフォメーション",
+      "purpose": "案内",
+      "floor": "1F",
+      "scope": "場外",
+      "kind": "information",
+      "location": "MARK IS・1F",
+      "detail": "商業施設の館内案内・迷子の呼出しなど。ぴあアリーナMMの公演受付とは別です。",
+      "precision": "text-only",
+      "sourceIds": [
+        "pamm-markis-services-current"
+      ]
+    }
+  ],
+  "diagrams": [
+    {
+      "id": "pamm-floor-3-native",
+      "floor": "3F",
+      "scope": "場内",
+      "viewBox": [
+        43,
+        0,
+        1979,
+        1538
+      ],
+      "contextPaths": [
+        "M184,65 L222,66 L222,354 L346,354 L347,356 L346,382 L304,425 L268,426 L268,472 L255,472 L255,533 L268,533 L268,653 L262,653 L261,608 L147,608 L146,606 L150,544 L152,541 L152,515 L154,512 L154,487 L156,485 L158,430 L160,428 L160,402 L162,400 L162,374 L164,372 L163,360 L167,327 L168,289 L170,288 L169,275 L171,271 L171,247 L173,245 L172,233 L175,216 L174,205 L177,187 L179,133 L181,131 L181,105 L183,103 L182,91 L185,75 Z",
+        "M1722,164 L1957,165 L1957,339 L1722,340 Z",
+        "M1759,1380 L1957,1380 L1957,1472 L1755,1473 L1755,1446 L1759,1446 Z",
+        "M1755,65 L1957,65 L1957,157 L1759,157 L1759,92 L1755,92 Z",
+        "M348,193 L352,193 L352,220 L291,220 L290,224 L290,281 L346,282 L347,284 L347,347 L228,347 L228,195 Z",
+        "M228,65 L352,65 L352,92 L347,92 L347,188 L228,188 Z",
+        "M1670,1197 L1716,1197 L1717,1380 L1689,1380 L1690,1375 L1638,1375 L1638,1198 Z",
+        "M1690,159 L1717,160 L1716,341 L1640,340 L1640,303 L1638,303 L1638,165 L1715,164 L1690,163 Z",
+        "M112,1090 L273,1090 L283,1100 L283,1103 L293,1111 L293,1152 L236,1152 L236,1092 L175,1092 L175,1152 L108,1153 Z"
+      ],
+      "concoursePaths": [],
+      "landmarks": [
+        {
+          "id": "pamm-3f-stairs-nw",
+          "label": "↕",
+          "name": "3F 階段記号（図左上・個別出入口未確認）",
+          "kind": "stairs",
+          "x": 464.5,
+          "y": 204.0,
+          "sourceIds": [
+            "floor-3-map",
+            "n2-floor-page",
+            "floor-guide"
+          ],
+          "reference": "floor_img03_pc.jpg 原図stairs、検査ROI [409, 149, 520, 260]。記号代表点であり室入口や物理昇降設備の同一階間点ではない。 原図の記号代表点です。室入口・歩行経路・当日の開放・他階との実機対応は未確認。"
+        },
+        {
+          "id": "pamm-3f-stairs-west",
+          "label": "↕",
+          "name": "3F 階段記号（図左・個別出入口未確認）",
+          "kind": "stairs",
+          "x": 210.0,
+          "y": 747.5,
+          "sourceIds": [
+            "floor-3-map",
+            "n2-floor-page",
+            "floor-guide"
+          ],
+          "reference": "floor_img03_pc.jpg 原図stairs、検査ROI [155, 693, 266, 804]。記号代表点であり室入口や物理昇降設備の同一階間点ではない。 原図の記号代表点です。室入口・歩行経路・当日の開放・他階との実機対応は未確認。"
+        },
+        {
+          "id": "pamm-3f-stairs-se",
+          "label": "↕",
+          "name": "3F 階段記号（図右下・個別出入口未確認）",
+          "kind": "stairs",
+          "x": 1838.0,
+          "y": 1278.5,
+          "sourceIds": [
+            "floor-3-map",
+            "n2-floor-page",
+            "floor-guide"
+          ],
+          "reference": "floor_img03_pc.jpg 原図stairs、検査ROI [1783, 1223, 1894, 1334]。記号代表点であり室入口や物理昇降設備の同一階間点ではない。 原図の記号代表点です。室入口・歩行経路・当日の開放・他階との実機対応は未確認。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor-3-map"
+        ],
+        "file": "research/venue-packets/pia-arena-mm/sources/floor-3-map.jpg",
+        "sha256": "19caca9323fc496b053c1871e9c0c85ed408962bab2f6edb103e3ae557f58511",
+        "width": 2601,
+        "height": 1773,
+        "method": "当該JPEG原画素の可視濃灰/淡灰領域だけをROI内の4近傍componentで整理。原記号の丸枠/ピクトROIを除外し、内部文字穴を中立背景として埋め、pixel-cell境界RDP誤差1.5px以下。中央座席背景・列線・凡例・CLUB38/未採用南西領域は抽出しない。除外辺は建物/部屋境界ではなく部分背景の切れ目です。図間変換なし。",
+        "status": "partial-private-review"
+      }
+    },
+    {
+      "id": "pamm-floor-4-native",
+      "floor": "4F",
+      "scope": "場内",
+      "viewBox": [
+        82,
+        0,
+        1944,
+        1543
+      ],
+      "contextPaths": [
+        "M186,66 L268,66 L268,286 L255,286 L255,349 L268,349 L268,459 L303,459 L303,607 L301,608 L147,607 Z",
+        "M1723,165 L1955,165 L1956,349 L1722,349 Z",
+        "M1757,61 L1960,61 L1961,161 L1756,161 L1754,66 L1756,66 Z",
+        "M1756,1378 L1961,1378 L1961,1478 L1756,1477 L1756,1473 L1754,1473 Z",
+        "M1636,1187 L1717,1187 L1716,1380 L1689,1380 L1688,1376 L1635,1376 Z",
+        "M1689,160 L1716,160 L1717,162 L1718,353 L1636,353 L1635,163 L1689,162 Z",
+        "M273,61 L350,61 L350,66 L353,66 L353,93 L350,93 L350,181 L273,181 Z"
+      ],
+      "concoursePaths": [],
+      "landmarks": [
+        {
+          "id": "pamm-4f-stairs-nw",
+          "label": "↕",
+          "name": "4F 階段記号（図左上・個別出入口未確認）",
+          "kind": "stairs",
+          "x": 465.5,
+          "y": 205.0,
+          "sourceIds": [
+            "floor-4-map",
+            "n2-floor-page",
+            "seat-4-overview",
+            "seat-guide",
+            "n2-seat-page",
+            "floor-guide"
+          ],
+          "reference": "floor_img04_pc.jpg 原図stairs、検査ROI [411, 150, 522, 261]。記号代表点であり室入口や物理昇降設備の同一階間点ではない。 原図の記号代表点です。室入口・歩行経路・当日の開放・他階との実機対応は未確認。"
+        },
+        {
+          "id": "pamm-4f-stairs-west",
+          "label": "↕",
+          "name": "4F 階段記号（図左・個別出入口未確認）",
+          "kind": "stairs",
+          "x": 211.0,
+          "y": 747.5,
+          "sourceIds": [
+            "floor-4-map",
+            "n2-floor-page",
+            "seat-4-overview",
+            "seat-guide",
+            "n2-seat-page",
+            "floor-guide"
+          ],
+          "reference": "floor_img04_pc.jpg 原図stairs、検査ROI [156, 693, 267, 804]。記号代表点であり室入口や物理昇降設備の同一階間点ではない。 原図の記号代表点です。室入口・歩行経路・当日の開放・他階との実機対応は未確認。"
+        },
+        {
+          "id": "pamm-4f-stairs-se",
+          "label": "↕",
+          "name": "4F 階段記号（図右下・個別出入口未確認）",
+          "kind": "stairs",
+          "x": 1837.5,
+          "y": 1279.0,
+          "sourceIds": [
+            "floor-4-map",
+            "n2-floor-page",
+            "seat-4-overview",
+            "seat-guide",
+            "n2-seat-page",
+            "floor-guide"
+          ],
+          "reference": "floor_img04_pc.jpg 原図stairs、検査ROI [1783, 1224, 1894, 1335]。記号代表点であり室入口や物理昇降設備の同一階間点ではない。 原図の記号代表点です。室入口・歩行経路・当日の開放・他階との実機対応は未確認。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor-4-map"
+        ],
+        "file": "research/venue-packets/pia-arena-mm/sources/floor-4-map.jpg",
+        "sha256": "64e61cd9485063e12676a3ea4fe3fa8b8f70eab090352b1e69c539e369b1b3b1",
+        "width": 2601,
+        "height": 1773,
+        "method": "当該JPEG原画素の可視濃灰/淡灰領域だけをROI内の4近傍componentで整理。原記号の丸枠/ピクトROIを除外し、内部文字穴を中立背景として埋め、pixel-cell境界RDP誤差1.5px以下。中央座席背景・列線・凡例・CLUB38/未採用南西領域は抽出しない。除外辺は建物/部屋境界ではなく部分背景の切れ目です。図間変換なし。",
+        "status": "partial-private-review"
+      }
+    },
+    {
+      "id": "pamm-floor-1-native",
+      "floor": "1F",
+      "scope": "場内",
+      "viewBox": [
+        55,
+        25,
+        1940,
+        1690
+      ],
+      "concoursePaths": [
+        "M180,58 H1966 V1508 H1805 V1410 H539 V1480 H78 Z",
+        "M775,275 H1966 V1260 H775 L546,1038 V496 Z"
+      ],
+      "contextPaths": [
+        "M850,62 H1070 V145 H850 Z",
+        "M1072,62 H1385 V145 H1072 Z",
+        "M182,60 H455 V140 H175 Z",
+        "M215,441 H280 V757 H215 Z",
+        "M113,1010 H208 L538,1360 V1490 H79 Z",
+        "M1805,1410 H1960 V1535 H1805 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "pamm-1f-stairs-nw",
+          "label": "L側の階段",
+          "kind": "stairs",
+          "x": 469.5,
+          "y": 208.5,
+          "sourceIds": [
+            "floor-1-map",
+            "floor-guide"
+          ],
+          "reference": "当該階の公式階段記号の代表位置。接続階・当日の開放・経路は確定しない。"
+        },
+        {
+          "id": "pamm-1f-stairs-west",
+          "label": "C側の階段",
+          "kind": "stairs",
+          "x": 211.5,
+          "y": 813.5,
+          "sourceIds": [
+            "floor-1-map",
+            "floor-guide"
+          ],
+          "reference": "当該階の公式階段記号の代表位置。接続階・当日の開放・経路は確定しない。"
+        },
+        {
+          "id": "pamm-1f-stairs-se",
+          "label": "R側の階段",
+          "kind": "stairs",
+          "x": 1833.5,
+          "y": 1296.5,
+          "sourceIds": [
+            "floor-1-map",
+            "floor-guide"
+          ],
+          "reference": "当該階の公式階段記号の代表位置。接続階・当日の開放・経路は確定しない。"
+        },
+        {
+          "id": "pamm-1f-gate-a",
+          "label": "Aゲート",
+          "kind": "gate",
+          "x": 878,
+          "y": 1430,
+          "sourceIds": [
+            "floor-1-map",
+            "floor-guide"
+          ],
+          "reference": "公式ゲート名称の代表位置。公演の指定入口ではない。"
+        },
+        {
+          "id": "pamm-1f-gate-p",
+          "label": "Pゲート",
+          "kind": "gate",
+          "x": 222,
+          "y": 1575,
+          "sourceIds": [
+            "floor-1-map",
+            "floor-guide"
+          ],
+          "reference": "公式ゲート名称の代表位置。公演の指定入口ではない。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor-1-map"
+        ],
+        "file": "research/pia-current-2026-10-07/inside-and-luggage/floor-1.jpg",
+        "sha256": "2b68053651a17585dd1e79c67147646b12820e683bd55cfb47d4a00ae118e7be",
+        "width": 2601,
+        "height": 1773,
+        "method": "independently read floor/arena and room outlines; original symbol points retained; no walking paths",
+        "status": "source-checked"
+      }
+    },
+    {
+      "id": "pamm-floor-2-native",
+      "floor": "2F",
+      "scope": "場内",
+      "viewBox": [
+        55,
+        25,
+        2320,
+        1690
+      ],
+      "concoursePaths": [
+        "M180,58 H1966 V1478 H675 L395,1204 H102 Z",
+        "M705,168 H1966 V1188 H705 L434,1015 V438 Z"
+      ],
+      "contextPaths": [
+        "M178,60 H354 V275 H165 Z",
+        "M1760,60 H1960 V350 H1638 V168 H1760 Z",
+        "M1760,1380 H1960 V1480 H1760 Z",
+        "M1640,1185 H1718 V1380 H1640 Z",
+        "M180,280 H240 V610 H180 Z",
+        "M1958,1367 H2350 V1625 L1958,1600 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "pamm-2f-stairs-nw",
+          "label": "L側の階段",
+          "kind": "stairs",
+          "x": 464.0,
+          "y": 204.0,
+          "sourceIds": [
+            "floor-2-map",
+            "n2-floor-page"
+          ],
+          "reference": "当該階の公式階段記号の代表位置。接続階・当日の開放・経路は確定しない。"
+        },
+        {
+          "id": "pamm-2f-stairs-west",
+          "label": "C側の階段",
+          "kind": "stairs",
+          "x": 209.5,
+          "y": 747.5,
+          "sourceIds": [
+            "floor-2-map",
+            "n2-floor-page"
+          ],
+          "reference": "当該階の公式階段記号の代表位置。接続階・当日の開放・経路は確定しない。"
+        },
+        {
+          "id": "pamm-2f-stairs-se",
+          "label": "R側の階段",
+          "kind": "stairs",
+          "x": 1841.0,
+          "y": 1279.5,
+          "sourceIds": [
+            "floor-2-map",
+            "n2-floor-page"
+          ],
+          "reference": "当該階の公式階段記号の代表位置。接続階・当日の開放・経路は確定しない。"
+        },
+        {
+          "id": "pamm-2f-gate-i",
+          "label": "Iゲート",
+          "kind": "gate",
+          "x": 940,
+          "y": 1550,
+          "sourceIds": [
+            "floor-2-map"
+          ],
+          "reference": "2F公式図のGate I文字の代表位置。公演の指定入口ではない。"
+        },
+        {
+          "id": "pamm-2f-gate-p",
+          "label": "Pゲート",
+          "kind": "gate",
+          "x": 222,
+          "y": 1273,
+          "sourceIds": [
+            "floor-2-map"
+          ],
+          "reference": "2F公式図のGate P文字の代表位置。1F座標の転用ではない。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor-2-map"
+        ],
+        "file": "research/pia-current-2026-10-07/inside-and-luggage/floor-2.jpg",
+        "sha256": "ec3c35b8054539c32260e360f169a414ce265eb9be441974d03680c59652c9c6",
+        "width": 2601,
+        "height": 1773,
+        "method": "independently read floor/arena and room outlines; original symbol points retained; no walking paths",
+        "status": "source-checked"
+      }
+    },
+    {
+      "id": "pia-arena-mm-outside-current",
+      "floor": "場外",
+      "scope": "場外",
+      "viewBox": [
+        0,
+        0,
+        1000,
+        700
+      ],
+      "concoursePaths": [],
+      "contextPaths": [
+        "M420,180 H610 V410 H420 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "pamm-mm-station",
+          "label": "みなとみらい駅・1番出口",
+          "kind": "station",
+          "x": 765,
+          "y": 190,
+          "sourceIds": [
+            "access"
+          ],
+          "reference": "公式アクセスで指定された駅・出口。北上の位置関係の略図の代表点で、入口ピン・徒歩経路ではない。"
+        },
+        {
+          "id": "pamm-new-station",
+          "label": "新高島駅・2番出口",
+          "kind": "station",
+          "x": 185,
+          "y": 100,
+          "sourceIds": [
+            "access"
+          ],
+          "reference": "公式アクセスで指定された駅・出口。北上の位置関係の略図の代表点で、入口ピン・徒歩経路ではない。"
+        },
+        {
+          "id": "pamm-sakura-station",
+          "label": "JR桜木町駅・北改札東口",
+          "kind": "station",
+          "x": 650,
+          "y": 575,
+          "sourceIds": [
+            "access"
+          ],
+          "reference": "公式アクセスで指定された駅・出口。北上の位置関係の略図の代表点で、入口ピン・徒歩経路ではない。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "access"
+        ],
+        "file": "research/pia-current-2026-10-07/inside-and-luggage/access-page.html",
+        "sha256": "",
+        "width": 1000,
+        "height": 700,
+        "method": "independent north-up relationship schematic; no individual facility pins or inferred walking paths",
+        "status": "partial"
+      }
+    },
+    {
+      "id": "pamm-yokohama-luggage",
+      "floor": "横浜駅 B2F・B3F",
+      "scope": "場外",
+      "viewBox": [
+        0,
+        0,
+        1000,
+        700
+      ],
+      "concoursePaths": [],
+      "contextPaths": [],
+      "landmarks": [],
+      "evidence": {
+        "sourceIds": [
+          "pamm-station-lockers"
+        ],
+        "file": "research/pia-current-2026-10-07/inside-and-luggage/railway-lockers.html",
+        "sha256": "",
+        "width": 1000,
+        "height": 700,
+        "method": "text-only operator locations; no fabricated station plan",
+        "status": "text-only"
+      }
+    },
+    {
+      "id": "pamm-ground-1-native",
+      "floor": "1F",
+      "scope": "場外",
+      "viewBox": [
+        40,
+        1190,
+        1950,
+        550
+      ],
+      "concoursePaths": [],
+      "contextPaths": [
+        "M78,1410 H539 V1480 H1805 V1508 H1966 V1690 L70,1560 Z",
+        "M78,1305 H539 V1480 H78 Z",
+        "M1805,1410 H1966 V1508 H1805 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "pamm-1f-stairs-outside-se",
+          "label": "館外大階段",
+          "kind": "stairs",
+          "x": 1914.0,
+          "y": 1658.5,
+          "sourceIds": [
+            "floor-1-map",
+            "floor-guide"
+          ],
+          "reference": "当該階の館外階段記号の代表位置。1Fと2Fの座標・開放条件は別々に保持。"
+        },
+        {
+          "id": "pamm-ground-1-gate-a",
+          "label": "Aゲート",
+          "kind": "gate",
+          "x": 878,
+          "y": 1430,
+          "sourceIds": [
+            "floor-1-map"
+          ],
+          "reference": "1F公式ゲート文字の代表位置。券面の指定入口は公演案内を確認。"
+        },
+        {
+          "id": "pamm-ground-1-gate-p",
+          "label": "Pゲート",
+          "kind": "gate",
+          "x": 222,
+          "y": 1575,
+          "sourceIds": [
+            "floor-1-map"
+          ],
+          "reference": "1F公式ゲート文字の代表位置。券面の指定入口は公演案内を確認。"
+        },
+        {
+          "id": "pamm-1f-motion-corridor",
+          "label": "モーションコリドー",
+          "kind": "plaza",
+          "x": 1180,
+          "y": 1565,
+          "sourceIds": [
+            "floor-1-map"
+          ],
+          "reference": "1F公式図の館外名称の代表位置。別の室や階間経路ではない。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor-1-map"
+        ],
+        "file": "research/pia-current-2026-10-07/inside-and-luggage/floor-1.jpg",
+        "sha256": "2b68053651a17585dd1e79c67147646b12820e683bd55cfb47d4a00ae118e7be",
+        "width": 2601,
+        "height": 1773,
+        "method": "independent ground/deck outlines and native symbol/label representatives; north and inter-floor registration unverified; no walking path",
+        "status": "source-checked"
+      }
+    },
+    {
+      "id": "pamm-ground-2-native",
+      "floor": "2F",
+      "scope": "場外",
+      "viewBox": [
+        25,
+        1200,
+        2350,
+        550
+      ],
+      "concoursePaths": [],
+      "contextPaths": [
+        "M25,1478 H675 L1966,1608 L2510,1660 V1730 L25,1560 Z",
+        "M102,1204 H284 V1478 H78 Z",
+        "M287,1330 H395 V1478 H287 Z",
+        "M398,1380 H555 V1478 H398 Z",
+        "M1966,1367 H2350 L2325,1625 L1966,1608 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "pamm-2f-stairs-outside-sw",
+          "label": "Pゲート側の館外階段",
+          "kind": "stairs",
+          "x": 191.0,
+          "y": 1387.5,
+          "sourceIds": [
+            "floor-2-map",
+            "n2-floor-page"
+          ],
+          "reference": "当該階の館外階段記号の代表位置。1Fと2Fの座標・開放条件は別々に保持。"
+        },
+        {
+          "id": "pamm-2f-stairs-outside-se",
+          "label": "館外大階段",
+          "kind": "stairs",
+          "x": 1825.5,
+          "y": 1650.5,
+          "sourceIds": [
+            "floor-2-map",
+            "n2-floor-page"
+          ],
+          "reference": "当該階の館外階段記号の代表位置。1Fと2Fの座標・開放条件は別々に保持。"
+        },
+        {
+          "id": "pamm-ground-2-gate-p",
+          "label": "Pゲート",
+          "kind": "gate",
+          "x": 222,
+          "y": 1273,
+          "sourceIds": [
+            "floor-2-map"
+          ],
+          "reference": "2F公式ゲート文字の代表位置。券面の指定入口は公演案内を確認。"
+        },
+        {
+          "id": "pamm-ground-2-gate-i",
+          "label": "Iゲート",
+          "kind": "gate",
+          "x": 940,
+          "y": 1550,
+          "sourceIds": [
+            "floor-2-map"
+          ],
+          "reference": "2F公式ゲート文字の代表位置。券面の指定入口は公演案内を確認。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor-2-map"
+        ],
+        "file": "research/pia-current-2026-10-07/inside-and-luggage/floor-2.jpg",
+        "sha256": "ec3c35b8054539c32260e360f169a414ce265eb9be441974d03680c59652c9c6",
+        "width": 2601,
+        "height": 1773,
+        "method": "independent ground/deck outlines and native symbol/label representatives; north and inter-floor registration unverified; no walking path",
+        "status": "source-checked"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "floor-3-map",
+      "title": "3F公式設備図",
+      "url": "https://pia-arena-mm.jp/assets/images/floor/floor_img03_pc.jpg",
+      "checkedAt": "2026-10-07",
+      "scope": "確認済み設置場所・利用境界・利用条件。空き状況は固定掲載しない。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "n2-floor-page",
+      "title": "公式フロア案内（照合時保存版）",
+      "url": "https://pia-arena-mm.jp/floor/index.html",
+      "checkedAt": "2026-09-30",
+      "scope": "原図の記号と当該階の館内文脈。個別の室入口・当日の利用範囲は未確認。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "floor-guide",
+      "title": "公式フロア案内",
+      "url": "https://pia-arena-mm.jp/floor/index.html",
+      "checkedAt": "2026-10-07",
+      "scope": "確認済み設置場所・利用境界・利用条件。空き状況は固定掲載しない。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "food",
+      "title": "公式飲食案内",
+      "url": "https://pia-arena-mm.jp/about/gourmet/index.html",
+      "checkedAt": "2026-09-30",
+      "scope": "原図の記号と当該階の館内文脈。個別の室入口・当日の利用範囲は未確認。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "floor-4-map",
+      "title": "4F公式設備図",
+      "url": "https://pia-arena-mm.jp/assets/images/floor/floor_img04_pc.jpg",
+      "checkedAt": "2026-10-07",
+      "scope": "確認済み設置場所・利用境界・利用条件。空き状況は固定掲載しない。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-4-overview",
+      "title": "独立した公式4F座席図",
+      "url": "https://pia-arena-mm.jp/assets/images/seatmap/seatmap_img04.jpg",
+      "checkedAt": "2026-09-30",
+      "scope": "独立した4F座席図による階同定の照合。座席/列検索や図間変換は未接続。",
+      "usage": "permission-unconfirmed"
+    },
+    {
+      "id": "seat-guide",
+      "title": "公式座席案内",
+      "url": "https://pia-arena-mm.jp/seatmap/index.html",
+      "checkedAt": "2026-09-30",
+      "scope": "公式座席資料への入口。全区画・全列・席番号・欠番は未接続。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "n2-seat-page",
+      "title": "n2-seat-page",
+      "url": "https://pia-arena-mm.jp/seatmap/index.html",
+      "checkedAt": "2026-09-30",
+      "scope": "原図の記号と当該階の館内文脈。個別の室入口・当日の利用範囲は未確認。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "access",
+      "title": "公式アクセス",
+      "url": "https://pia-arena-mm.jp/access/index.html",
+      "checkedAt": "2026-10-07",
+      "scope": "確認済み設置場所・利用境界・利用条件。空き状況は固定掲載しない。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "home",
+      "title": "公式サイト・利用条件表示",
+      "url": "https://pia-arena-mm.jp/",
+      "checkedAt": "2026-09-30",
+      "scope": "公式フッターの転載制限。公開利用許諾は取得していない。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "english-page",
+      "title": "公式英語案内",
+      "url": "https://pia-arena-mm.jp/en/index.html",
+      "checkedAt": "2026-09-30",
+      "scope": "飲食施設の英日inside/outside表記の不一致を保存。矛盾する室/入口候補は今回未接続。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "floor-1-map",
+      "title": "1F公式設備図",
+      "url": "https://pia-arena-mm.jp/assets/images/floor/floor_img01_pc.jpg",
+      "checkedAt": "2026-10-07",
+      "scope": "確認済み設置場所・利用境界・利用条件。空き状況は固定掲載しない。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "floor-2-map",
+      "title": "2F公式設備図",
+      "url": "https://pia-arena-mm.jp/assets/images/floor/floor_img02_pc.jpg",
+      "checkedAt": "2026-10-07",
+      "scope": "確認済み設置場所・利用境界・利用条件。空き状況は固定掲載しない。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "pamm-food-current",
+      "title": "売店・CLUB 38・The Blue Bell",
+      "url": "https://pia-arena-mm.jp/about/gourmet/index.html",
+      "checkedAt": "2026-10-07",
+      "scope": "確認済み設置場所・利用境界・利用条件。空き状況は固定掲載しない。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "pamm-station-lockers",
+      "title": "みなとみらい線・駅別ロッカー設置表",
+      "url": "https://www.mm21railway.co.jp/info/faq02.html",
+      "checkedAt": "2026-10-07",
+      "scope": "確認済み設置場所・利用境界・利用条件。空き状況は固定掲載しない。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "pamm-sakura-storage-current",
+      "title": "JR桜木町駅・南改札のコインロッカー",
+      "url": "https://media.jreast.co.jp/articles/1811",
+      "checkedAt": "2026-10-07",
+      "scope": "確認済み設置場所・利用境界・利用条件。空き状況は固定掲載しない。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "pamm-bounce-kdx-current",
+      "title": "KDX横浜みなとみらいタワー（Bounce荷物預かり）",
+      "url": "https://ja.bounce.com/s/location/efd35763-036b-4db2-9468-5ad7b8b866e4",
+      "checkedAt": "2026-10-07",
+      "scope": "確認済み設置場所・利用境界・利用条件。空き状況は固定掲載しない。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "pamm-bounce-seven-current",
+      "title": "Locker Seven-Eleven Yokohama Minatomirai（Bounce）",
+      "url": "https://ja.bounce.com/s/location/398966ed-4f67-47ed-9489-d9c5b23d5408",
+      "checkedAt": "2026-10-07",
+      "scope": "確認済み設置場所・利用境界・利用条件。空き状況は固定掲載しない。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "pamm-renga-current",
+      "title": "RENGA メッセージウォール",
+      "url": "https://pia-arena-mm.jp/about/ux/renga/index.html",
+      "checkedAt": "2026-10-07",
+      "scope": "確認済み設置場所・利用境界・利用条件。空き状況は固定掲載しない。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "pamm-tullys-connect-current",
+      "title": "タリーズ・公式店舗案内",
+      "url": "https://shop.tullys.co.jp/detail/1003250",
+      "checkedAt": "2026-10-07",
+      "scope": "確認済み設置場所・利用境界・利用条件。空き状況は固定掲載しない。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "pamm-hack-current",
+      "title": "ハックドラッグ・公式店舗案内",
+      "url": "https://store.welcia.co.jp/welcia/spot/detail?code=2280D",
+      "checkedAt": "2026-10-07",
+      "scope": "確認済み設置場所・利用境界・利用条件。空き状況は固定掲載しない。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "pamm-markis-services-current",
+      "title": "MARK IS・館内サービス案内",
+      "url": "https://mec-markis.jp/mm/about.html",
+      "checkedAt": "2026-10-07",
+      "scope": "確認済み設置場所・利用境界・利用条件。空き状況は固定掲載しない。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "pamm-tomods-current",
+      "title": "トモズ・公式店舗案内",
+      "url": "https://shop.tomods.jp/detail/10/",
+      "checkedAt": "2026-10-07",
+      "scope": "確認済み設置場所・利用境界・利用条件。空き状況は固定掲載しない。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "pamm-tomods-mall-current",
+      "title": "トモズ・東急スクエア④1F店舗案内",
+      "url": "https://www.minatomirai-square.com/floor/detail/?cd=000096",
+      "checkedAt": "2026-10-07",
+      "scope": "確認済み設置場所・利用境界・利用条件。空き状況は固定掲載しない。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "pamm-tullys-floor-current",
+      "title": "タリーズ・コネクトスクエア1F店舗案内",
+      "url": "https://yokohama-connectsquare.com/restaurant/tullys/",
+      "checkedAt": "2026-10-07",
+      "scope": "確認済み設置場所・利用境界・利用条件。空き状況は固定掲載しない。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "pamm-family-markis-current",
+      "title": "ファミリーマート・MARK IS B4F店舗案内",
+      "url": "https://www.mec-markis.jp/mm/shop/detail/?act=10293",
+      "checkedAt": "2026-10-07",
+      "scope": "確認済み設置場所・利用境界・利用条件。空き状況は固定掲載しない。",
+      "usage": "facts-only"
+    }
+  ],
+  "groups": [
+    {
+      "id": "pia-3F-l-left-toilets-トイレ",
+      "diagramId": "pamm-floor-3-native",
+      "purpose": "トイレ",
+      "label": "3F・L側・左上",
+      "area": "L側・左上",
+      "memberIds": [
+        "pamm-3f-women-nw",
+        "pamm-3f-men-nw",
+        "pamm-3f-accessible-nw"
+      ],
+      "x": 283.33,
+      "y": 231.17,
+      "boundary": "現行公式図の同一トイレ区画または個別設備室/乗降場。別階・別室の設備室・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "pia-3F-l-right-toilets-トイレ",
+      "diagramId": "pamm-floor-3-native",
+      "purpose": "トイレ",
+      "label": "3F・L側・右端",
+      "area": "L側・右端",
+      "memberIds": [
+        "pamm-3f-women-ne",
+        "pamm-3f-men-ne"
+      ],
+      "x": 1751.5,
+      "y": 162.0,
+      "boundary": "現行公式図の同一トイレ区画または個別設備室/乗降場。別階・別室の設備室・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "pia-3F-r-right-toilets-トイレ",
+      "diagramId": "pamm-floor-3-native",
+      "purpose": "トイレ",
+      "label": "3F・R側・右端",
+      "area": "R側・右端",
+      "memberIds": [
+        "pamm-3f-women-se",
+        "pamm-3f-men-se"
+      ],
+      "x": 1754.25,
+      "y": 1341.25,
+      "boundary": "現行公式図の同一トイレ区画または個別設備室/乗降場。別階・別室の設備室・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "pia-3F-pamm-3f-elevator-west-案内",
+      "diagramId": "pamm-floor-3-native",
+      "purpose": "案内",
+      "label": "3F・C側・エレベーター",
+      "area": "C側・エレベーター",
+      "memberIds": [
+        "pamm-3f-elevator-west"
+      ],
+      "x": 169.5,
+      "y": 888.5,
+      "boundary": "現行公式図の同一トイレ区画または個別設備室/乗降場。別階・別室の設備室・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "pia-3F-pamm-3f-escalator-west-upper-案内",
+      "diagramId": "pamm-floor-3-native",
+      "purpose": "案内",
+      "label": "3F・C側・エスカレーター",
+      "area": "C側・エスカレーター",
+      "memberIds": [
+        "pamm-3f-escalator-west-upper"
+      ],
+      "x": 286.0,
+      "y": 501.5,
+      "boundary": "現行公式図の同一トイレ区画または個別設備室/乗降場。別階・別室の設備室・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "pia-3F-pamm-3f-escalator-west-lower-案内",
+      "diagramId": "pamm-floor-3-native",
+      "purpose": "案内",
+      "label": "3F・C側・エスカレーター",
+      "area": "C側・エスカレーター",
+      "memberIds": [
+        "pamm-3f-escalator-west-lower"
+      ],
+      "x": 287.5,
+      "y": 683.0,
+      "boundary": "現行公式図の同一トイレ区画または個別設備室/乗降場。別階・別室の設備室・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "pia-3F-pamm-3f-food-sw-飲食",
+      "diagramId": "pamm-floor-3-native",
+      "purpose": "飲食",
+      "label": "3F・R側・売店",
+      "area": "R側・売店",
+      "memberIds": [
+        "pamm-3f-food-sw"
+      ],
+      "x": 204.5,
+      "y": 1121.0,
+      "boundary": "現行公式図の同一トイレ区画または個別設備室/乗降場。別階・別室の設備室・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "pia-4F-l-left-toilets-トイレ",
+      "diagramId": "pamm-floor-4-native",
+      "purpose": "トイレ",
+      "label": "4F・L側・左上",
+      "area": "L側・左上",
+      "memberIds": [
+        "pamm-4f-women-nw",
+        "pamm-4f-accessible-nw"
+      ],
+      "x": 316.25,
+      "y": 151.25,
+      "boundary": "現行公式図の同一トイレ区画または個別設備室/乗降場。別階・別室の設備室・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "pia-4F-l-right-toilets-トイレ",
+      "diagramId": "pamm-floor-4-native",
+      "purpose": "トイレ",
+      "label": "4F・L側・右端",
+      "area": "L側・右端",
+      "memberIds": [
+        "pamm-4f-women-ne",
+        "pamm-4f-men-ne"
+      ],
+      "x": 1752.25,
+      "y": 165.5,
+      "boundary": "現行公式図の同一トイレ区画または個別設備室/乗降場。別階・別室の設備室・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "pia-4F-r-right-toilets-トイレ",
+      "diagramId": "pamm-floor-4-native",
+      "purpose": "トイレ",
+      "label": "4F・R側・右端",
+      "area": "R側・右端",
+      "memberIds": [
+        "pamm-4f-women-se",
+        "pamm-4f-men-se"
+      ],
+      "x": 1753.75,
+      "y": 1339.0,
+      "boundary": "現行公式図の同一トイレ区画または個別設備室/乗降場。別階・別室の設備室・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "pia-4F-pamm-4f-elevator-west-案内",
+      "diagramId": "pamm-floor-4-native",
+      "purpose": "案内",
+      "label": "4F・C側・エレベーター",
+      "area": "C側・エレベーター",
+      "memberIds": [
+        "pamm-4f-elevator-west"
+      ],
+      "x": 170.5,
+      "y": 889.5,
+      "boundary": "現行公式図の同一トイレ区画または個別設備室/乗降場。別階・別室の設備室・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "pia-4F-pamm-4f-escalator-west-案内",
+      "diagramId": "pamm-floor-4-native",
+      "purpose": "案内",
+      "label": "4F・C側・エスカレーター",
+      "area": "C側・エスカレーター",
+      "memberIds": [
+        "pamm-4f-escalator-west"
+      ],
+      "x": 286.5,
+      "y": 316.5,
+      "boundary": "現行公式図の同一トイレ区画または個別設備室/乗降場。別階・別室の設備室・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "pia-1F-pamm-1f-smoking-nw-案内",
+      "diagramId": "pamm-floor-1-native",
+      "purpose": "案内",
+      "label": "1F・L側・喫煙室",
+      "area": "L側・喫煙室",
+      "memberIds": [
+        "pamm-1f-smoking-nw"
+      ],
+      "x": 305.0,
+      "y": 99.5,
+      "boundary": "現行公式図の同一トイレ区画または個別設備室/乗降場。別階・別室の設備室・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "pia-1F-north-toilets-トイレ",
+      "diagramId": "pamm-floor-1-native",
+      "purpose": "トイレ",
+      "label": "1F・L01・L02側",
+      "area": "L01・L02側",
+      "memberIds": [
+        "pamm-1f-men-north",
+        "pamm-1f-women-north"
+      ],
+      "x": 1068.25,
+      "y": 100.0,
+      "boundary": "現行公式図の同一トイレ区画または個別設備室/乗降場。別階・別室の設備室・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "pia-1F-pamm-1f-food-west-飲食",
+      "diagramId": "pamm-floor-1-native",
+      "purpose": "飲食",
+      "label": "1F・C側・売店",
+      "area": "C側・売店",
+      "memberIds": [
+        "pamm-1f-food-west"
+      ],
+      "x": 249.5,
+      "y": 599.5,
+      "boundary": "現行公式図の同一トイレ区画または個別設備室/乗降場。別階・別室の設備室・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "pia-1F-pamm-1f-elevator-west-案内",
+      "diagramId": "pamm-floor-1-native",
+      "purpose": "案内",
+      "label": "1F・C側・エレベーター",
+      "area": "C側・エレベーター",
+      "memberIds": [
+        "pamm-1f-elevator-west"
+      ],
+      "x": 178.5,
+      "y": 881.0,
+      "boundary": "現行公式図の同一トイレ区画または個別設備室/乗降場。別階・別室の設備室・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "pia-1F-pamm-1f-nursery-sw-赤ちゃん",
+      "diagramId": "pamm-floor-1-native",
+      "purpose": "赤ちゃん",
+      "label": "1F・Gate P側・授乳室",
+      "area": "Gate P側・授乳室",
+      "memberIds": [
+        "pamm-1f-nursery-sw"
+      ],
+      "x": 272.0,
+      "y": 1115.0,
+      "boundary": "現行公式図の同一トイレ区画または個別設備室/乗降場。別階・別室の設備室・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "pia-1F-p-toilets-トイレ",
+      "diagramId": "pamm-floor-1-native",
+      "purpose": "トイレ",
+      "label": "1F・Gate P側",
+      "area": "Gate P側",
+      "memberIds": [
+        "pamm-1f-accessible-sw",
+        "pamm-1f-women-sw",
+        "pamm-1f-men-sw"
+      ],
+      "x": 256.83,
+      "y": 1206.17,
+      "boundary": "現行公式図の同一トイレ区画または個別設備室/乗降場。別階・別室の設備室・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "pia-1F-pamm-1f-locker-sw-荷物",
+      "diagramId": "pamm-floor-1-native",
+      "purpose": "荷物",
+      "label": "1F・Gate P側のロッカー室",
+      "area": "Gate P側のロッカー室",
+      "memberIds": [
+        "pamm-1f-locker-sw"
+      ],
+      "x": 200.0,
+      "y": 1395.0,
+      "boundary": "現行公式図の同一トイレ区画または個別設備室/乗降場。別階・別室の設備室・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "pia-1F-pamm-1f-locker-se-荷物",
+      "diagramId": "pamm-floor-1-native",
+      "purpose": "荷物",
+      "label": "1F・Motion Corridor右端のロッカー室",
+      "area": "Motion Corridor右端のロッカー室",
+      "memberIds": [
+        "pamm-1f-locker-se"
+      ],
+      "x": 1916.0,
+      "y": 1459.5,
+      "boundary": "現行公式図の同一トイレ区画または個別設備室/乗降場。別階・別室の設備室・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "pia-2F-l-left-toilets-トイレ",
+      "diagramId": "pamm-floor-2-native",
+      "purpose": "トイレ",
+      "label": "2F・L側・左上",
+      "area": "L側・左上",
+      "memberIds": [
+        "pamm-2f-women-nw",
+        "pamm-2f-men-nw",
+        "pamm-2f-accessible-nw"
+      ],
+      "x": 260.67,
+      "y": 160.5,
+      "boundary": "現行公式図の同一トイレ区画または個別設備室/乗降場。別階・別室の設備室・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "pia-2F-l-right-toilets-トイレ",
+      "diagramId": "pamm-floor-2-native",
+      "purpose": "トイレ",
+      "label": "2F・L側・右端",
+      "area": "L側・右端",
+      "memberIds": [
+        "pamm-2f-women-ne",
+        "pamm-2f-men-ne"
+      ],
+      "x": 1755.0,
+      "y": 170.75,
+      "boundary": "現行公式図の同一トイレ区画または個別設備室/乗降場。別階・別室の設備室・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "pia-2F-r-right-toilets-トイレ",
+      "diagramId": "pamm-floor-2-native",
+      "purpose": "トイレ",
+      "label": "2F・R側・右端",
+      "area": "R側・右端",
+      "memberIds": [
+        "pamm-2f-women-se",
+        "pamm-2f-men-se"
+      ],
+      "x": 1754.25,
+      "y": 1333.75,
+      "boundary": "現行公式図の同一トイレ区画または個別設備室/乗降場。別階・別室の設備室・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "pia-2F-pamm-2f-elevator-west-案内",
+      "diagramId": "pamm-floor-2-native",
+      "purpose": "案内",
+      "label": "2F・C側・エレベーター",
+      "area": "C側・エレベーター",
+      "memberIds": [
+        "pamm-2f-elevator-west"
+      ],
+      "x": 170.5,
+      "y": 888.5,
+      "boundary": "現行公式図の同一トイレ区画または個別設備室/乗降場。別階・別室の設備室・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "pia-2F-pamm-2f-escalator-west-案内",
+      "diagramId": "pamm-floor-2-native",
+      "purpose": "案内",
+      "label": "2F・C側・エスカレーター",
+      "area": "C側・エスカレーター",
+      "memberIds": [
+        "pamm-2f-escalator-west"
+      ],
+      "x": 292.5,
+      "y": 823.5,
+      "boundary": "現行公式図の同一トイレ区画または個別設備室/乗降場。別階・別室の設備室・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "pia-2F-pamm-2f-food-west-飲食",
+      "diagramId": "pamm-floor-2-native",
+      "purpose": "飲食",
+      "label": "2F・L・C側・売店",
+      "area": "L・C側・売店",
+      "memberIds": [
+        "pamm-2f-food-west"
+      ],
+      "x": 211.5,
+      "y": 442.5,
+      "boundary": "現行公式図の同一トイレ区画または個別設備室/乗降場。別階・別室の設備室・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "pia-1F-pamm-1f-renga-north-案内",
+      "diagramId": "pamm-floor-1-native",
+      "purpose": "案内",
+      "label": "1F・L側のメッセージウォール",
+      "area": "L側のメッセージウォール",
+      "memberIds": [
+        "pamm-1f-renga-north"
+      ],
+      "x": 978.0,
+      "y": 176.0,
+      "boundary": "現行公式図の同一トイレ区画または個別設備室/乗降場。別階・別室の設備室・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "pia-1F-pamm-1f-renga-west-案内",
+      "diagramId": "pamm-floor-1-native",
+      "purpose": "案内",
+      "label": "1F・売店付近のメッセージウォール",
+      "area": "売店付近のメッセージウォール",
+      "memberIds": [
+        "pamm-1f-renga-west"
+      ],
+      "x": 391.5,
+      "y": 400.0,
+      "boundary": "現行公式図の同一トイレ区画または個別設備室/乗降場。別階・別室の設備室・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "pia-2F-pamm-2f-renga-nw-案内",
+      "diagramId": "pamm-floor-2-native",
+      "purpose": "案内",
+      "label": "2F・売店付近のメッセージウォール",
+      "area": "売店付近のメッセージウォール",
+      "memberIds": [
+        "pamm-2f-renga-nw"
+      ],
+      "x": 297.0,
+      "y": 310.0,
+      "boundary": "現行公式図の同一トイレ区画または個別設備室/乗降場。別階・別室の設備室・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "pia-2F-outside-pamm-2f-accessible-outside-sw-トイレ",
+      "diagramId": "pamm-ground-2-native",
+      "purpose": "トイレ",
+      "label": "2F・Pゲート側・館外トイレ",
+      "area": "Pゲート側・館外トイレ",
+      "memberIds": [
+        "pamm-2f-accessible-outside-sw"
+      ],
+      "x": 367.0,
+      "y": 1362.0,
+      "boundary": "2F館外の個別室/店舗。1Fと館内の設備を混ぜない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "pia-2F-outside-pamm-2f-ticket-outside-sw-案内",
+      "diagramId": "pamm-ground-2-native",
+      "purpose": "案内",
+      "label": "2F・館外チケットボックス",
+      "area": "館外チケットボックス",
+      "memberIds": [
+        "pamm-2f-ticket-outside-sw"
+      ],
+      "x": 475.5,
+      "y": 1437.5,
+      "boundary": "2F館外の個別室/店舗。1Fと館内の設備を混ぜない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "pia-2F-outside-pamm-bluebell-飲食",
+      "diagramId": "pamm-ground-2-native",
+      "purpose": "飲食",
+      "label": "2F・館外カフェ",
+      "area": "館外カフェ",
+      "memberIds": [
+        "pamm-bluebell"
+      ],
+      "x": 2155.0,
+      "y": 1457.5,
+      "boundary": "2F館外の個別室/店舗。1Fと館内の設備を混ぜない。",
+      "visualReview": "source-checked"
+    }
+  ],
+  "meta": {
+    "pamm-3f-women-nw": {
+      "name": "女性トイレ",
+      "area": "L側・左上",
+      "location": "L側・左上",
+      "detail": "当日の男女の案内表示をご確認ください。",
+      "accessCondition": "公演チケット・開場後。公演によって利用制限あり",
+      "url": "https://pia-arena-mm.jp/floor/index.html"
+    },
+    "pamm-3f-women-ne": {
+      "name": "女性トイレ",
+      "area": "L側・右端",
+      "location": "L側・右端",
+      "detail": "当日の男女の案内表示をご確認ください。",
+      "accessCondition": "公演チケット・開場後。公演によって利用制限あり",
+      "url": "https://pia-arena-mm.jp/floor/index.html"
+    },
+    "pamm-3f-women-se": {
+      "name": "女性トイレ",
+      "area": "R側・右端",
+      "location": "R側・右端",
+      "detail": "当日の男女の案内表示をご確認ください。",
+      "accessCondition": "公演チケット・開場後。公演によって利用制限あり",
+      "url": "https://pia-arena-mm.jp/floor/index.html"
+    },
+    "pamm-3f-men-nw": {
+      "name": "男性トイレ",
+      "area": "L側・左上",
+      "location": "L側・左上",
+      "detail": "当日の男女の案内表示をご確認ください。",
+      "accessCondition": "公演チケット・開場後。公演によって利用制限あり",
+      "url": "https://pia-arena-mm.jp/floor/index.html"
+    },
+    "pamm-3f-men-ne": {
+      "name": "男性トイレ",
+      "area": "L側・右端",
+      "location": "L側・右端",
+      "detail": "当日の男女の案内表示をご確認ください。",
+      "accessCondition": "公演チケット・開場後。公演によって利用制限あり",
+      "url": "https://pia-arena-mm.jp/floor/index.html"
+    },
+    "pamm-3f-men-se": {
+      "name": "男性トイレ",
+      "area": "R側・右端",
+      "location": "R側・右端",
+      "detail": "当日の男女の案内表示をご確認ください。",
+      "accessCondition": "公演チケット・開場後。公演によって利用制限あり",
+      "url": "https://pia-arena-mm.jp/floor/index.html"
+    },
+    "pamm-3f-accessible-nw": {
+      "name": "多目的トイレ",
+      "area": "L側・左上",
+      "location": "L側・左上",
+      "detail": "車いす対応の多目的トイレです。",
+      "accessCondition": "公演チケット・開場後。公演によって利用制限あり",
+      "url": "https://pia-arena-mm.jp/floor/index.html"
+    },
+    "pamm-3f-elevator-west": {
+      "name": "エレベーター",
+      "area": "C側・エレベーター",
+      "location": "C側・エレベーター",
+      "detail": "公演によって利用できない場合があります。当日の案内をご確認ください。",
+      "accessCondition": "公演チケット・開場後。公演によって利用制限あり",
+      "url": "https://pia-arena-mm.jp/floor/index.html"
+    },
+    "pamm-3f-escalator-west-upper": {
+      "name": "エスカレーター",
+      "area": "C側・エスカレーター",
+      "location": "C側・エスカレーター",
+      "detail": "公演によって利用できない場合があります。当日の案内をご確認ください。",
+      "accessCondition": "公演チケット・開場後。公演によって利用制限あり",
+      "url": "https://pia-arena-mm.jp/floor/index.html"
+    },
+    "pamm-3f-escalator-west-lower": {
+      "name": "エスカレーター",
+      "area": "C側・エスカレーター",
+      "location": "C側・エスカレーター",
+      "detail": "公演によって利用できない場合があります。当日の案内をご確認ください。",
+      "accessCondition": "公演チケット・開場後。公演によって利用制限あり",
+      "url": "https://pia-arena-mm.jp/floor/index.html"
+    },
+    "pamm-3f-food-sw": {
+      "name": "FOODIES STAND",
+      "area": "R側・売店",
+      "location": "R側・売店",
+      "detail": "軽食・ドリンクの売店です。公演日・公演時間に合わせて営業します。支払い方法は利用する注文レーンで確認してください。",
+      "accessCondition": "公演チケット・開場後。公演によって利用制限あり",
+      "url": "https://pia-arena-mm.jp/about/gourmet/index.html"
+    },
+    "pamm-4f-women-nw": {
+      "name": "女性トイレ",
+      "area": "L側・左上",
+      "location": "L側・左上",
+      "detail": "当日の男女の案内表示をご確認ください。",
+      "accessCondition": "公演チケット・開場後。公演によって利用制限あり",
+      "url": "https://pia-arena-mm.jp/floor/index.html"
+    },
+    "pamm-4f-women-ne": {
+      "name": "女性トイレ",
+      "area": "L側・右端",
+      "location": "L側・右端",
+      "detail": "当日の男女の案内表示をご確認ください。",
+      "accessCondition": "公演チケット・開場後。公演によって利用制限あり",
+      "url": "https://pia-arena-mm.jp/floor/index.html"
+    },
+    "pamm-4f-women-se": {
+      "name": "女性トイレ",
+      "area": "R側・右端",
+      "location": "R側・右端",
+      "detail": "当日の男女の案内表示をご確認ください。",
+      "accessCondition": "公演チケット・開場後。公演によって利用制限あり",
+      "url": "https://pia-arena-mm.jp/floor/index.html"
+    },
+    "pamm-4f-men-ne": {
+      "name": "男性トイレ",
+      "area": "L側・右端",
+      "location": "L側・右端",
+      "detail": "当日の男女の案内表示をご確認ください。",
+      "accessCondition": "公演チケット・開場後。公演によって利用制限あり",
+      "url": "https://pia-arena-mm.jp/floor/index.html"
+    },
+    "pamm-4f-men-se": {
+      "name": "男性トイレ",
+      "area": "R側・右端",
+      "location": "R側・右端",
+      "detail": "当日の男女の案内表示をご確認ください。",
+      "accessCondition": "公演チケット・開場後。公演によって利用制限あり",
+      "url": "https://pia-arena-mm.jp/floor/index.html"
+    },
+    "pamm-4f-accessible-nw": {
+      "name": "多目的トイレ",
+      "area": "L側・左上",
+      "location": "L側・左上",
+      "detail": "車いす対応の多目的トイレです。",
+      "accessCondition": "公演チケット・開場後。公演によって利用制限あり",
+      "url": "https://pia-arena-mm.jp/floor/index.html"
+    },
+    "pamm-4f-elevator-west": {
+      "name": "エレベーター",
+      "area": "C側・エレベーター",
+      "location": "C側・エレベーター",
+      "detail": "公演によって利用できない場合があります。当日の案内をご確認ください。",
+      "accessCondition": "公演チケット・開場後。公演によって利用制限あり",
+      "url": "https://pia-arena-mm.jp/floor/index.html"
+    },
+    "pamm-4f-escalator-west": {
+      "name": "エスカレーター",
+      "area": "C側・エスカレーター",
+      "location": "C側・エスカレーター",
+      "detail": "公演によって利用できない場合があります。当日の案内をご確認ください。",
+      "accessCondition": "公演チケット・開場後。公演によって利用制限あり",
+      "url": "https://pia-arena-mm.jp/floor/index.html"
+    },
+    "pamm-1f-smoking-nw": {
+      "name": "喫煙室",
+      "area": "L側・喫煙室",
+      "location": "L側・喫煙室",
+      "detail": "公演によって利用できない場合があります。当日の案内をご確認ください。",
+      "accessCondition": "公演チケット・開場後。公演によって利用制限あり",
+      "url": "https://pia-arena-mm.jp/floor/index.html"
+    },
+    "pamm-1f-men-north": {
+      "name": "男性トイレ",
+      "area": "L01・L02側",
+      "location": "L01・L02側",
+      "detail": "当日の男女の案内表示をご確認ください。",
+      "accessCondition": "公演チケット・開場後。公演によって利用制限あり",
+      "url": "https://pia-arena-mm.jp/floor/index.html"
+    },
+    "pamm-1f-women-north": {
+      "name": "女性トイレ",
+      "area": "L01・L02側",
+      "location": "L01・L02側",
+      "detail": "当日の男女の案内表示をご確認ください。",
+      "accessCondition": "公演チケット・開場後。公演によって利用制限あり",
+      "url": "https://pia-arena-mm.jp/floor/index.html"
+    },
+    "pamm-1f-food-west": {
+      "name": "FOODIES STAND",
+      "area": "C側・売店",
+      "location": "C側・売店",
+      "detail": "軽食・ドリンクの売店です。公演日・公演時間に合わせて営業します。支払い方法は利用する注文レーンで確認してください。",
+      "accessCondition": "公演チケット・開場後。公演によって利用制限あり",
+      "url": "https://pia-arena-mm.jp/about/gourmet/index.html"
+    },
+    "pamm-1f-elevator-west": {
+      "name": "エレベーター",
+      "area": "C側・エレベーター",
+      "location": "C側・エレベーター",
+      "detail": "公演によって利用できない場合があります。当日の案内をご確認ください。",
+      "accessCondition": "公演チケット・開場後。公演によって利用制限あり",
+      "url": "https://pia-arena-mm.jp/floor/index.html"
+    },
+    "pamm-1f-nursery-sw": {
+      "name": "授乳室",
+      "area": "Gate P側・授乳室",
+      "location": "Gate P側・授乳室",
+      "detail": "公演によって利用できない場合があります。当日の案内をご確認ください。",
+      "accessCondition": "公演チケット・開場後。公演によって利用制限あり",
+      "url": "https://pia-arena-mm.jp/floor/index.html"
+    },
+    "pamm-1f-accessible-sw": {
+      "name": "多目的トイレ",
+      "area": "Gate P側",
+      "location": "Gate P側",
+      "detail": "車いす・オストメイト対応の多目的トイレです。",
+      "accessCondition": "公演チケット・開場後。公演によって利用制限あり",
+      "url": "https://pia-arena-mm.jp/floor/index.html"
+    },
+    "pamm-1f-women-sw": {
+      "name": "女性トイレ",
+      "area": "Gate P側",
+      "location": "Gate P側",
+      "detail": "当日の男女の案内表示をご確認ください。",
+      "accessCondition": "公演チケット・開場後。公演によって利用制限あり",
+      "url": "https://pia-arena-mm.jp/floor/index.html"
+    },
+    "pamm-1f-men-sw": {
+      "name": "男性トイレ",
+      "area": "Gate P側",
+      "location": "Gate P側",
+      "detail": "当日の男女の案内表示をご確認ください。",
+      "accessCondition": "公演チケット・開場後。公演によって利用制限あり",
+      "url": "https://pia-arena-mm.jp/floor/index.html"
+    },
+    "pamm-1f-locker-sw": {
+      "name": "コインロッカー",
+      "area": "Gate P側のロッカー室",
+      "location": "Gate P側のロッカー室",
+      "detail": "館内の全体案内：普通400円（幅23.7×高さ31.8×奥行51.3cm）、大型700円（幅23.7×高さ80.2×奥行51.3cm）、特大800円（幅35.9×高さ78.2×奥行49cm）。新高島駅側は大型のみ。小銭を用意してください。 Gate P側の室内に両替機があります（1万円・5千円は両替不可）。",
+      "accessCondition": "館内ロッカーの利用開始・入場前利用可否は公演案内を確認",
+      "url": "https://pia-arena-mm.jp/floor/index.html"
+    },
+    "pamm-1f-locker-se": {
+      "name": "コインロッカー",
+      "area": "Motion Corridor右端のロッカー室",
+      "location": "Motion Corridor右端のロッカー室",
+      "detail": "館内の全体案内：普通400円（幅23.7×高さ31.8×奥行51.3cm）、大型700円（幅23.7×高さ80.2×奥行51.3cm）、特大800円（幅35.9×高さ78.2×奥行49cm）。新高島駅側は大型のみ。小銭を用意してください。",
+      "accessCondition": "館内ロッカーの利用開始・入場前利用可否は公演案内を確認",
+      "url": "https://pia-arena-mm.jp/floor/index.html"
+    },
+    "pamm-2f-women-nw": {
+      "name": "女性トイレ",
+      "area": "L側・左上",
+      "location": "L側・左上",
+      "detail": "当日の男女の案内表示をご確認ください。",
+      "accessCondition": "公演チケット・開場後。公演によって利用制限あり",
+      "url": "https://pia-arena-mm.jp/floor/index.html"
+    },
+    "pamm-2f-women-ne": {
+      "name": "女性トイレ",
+      "area": "L側・右端",
+      "location": "L側・右端",
+      "detail": "当日の男女の案内表示をご確認ください。",
+      "accessCondition": "公演チケット・開場後。公演によって利用制限あり",
+      "url": "https://pia-arena-mm.jp/floor/index.html"
+    },
+    "pamm-2f-women-se": {
+      "name": "女性トイレ",
+      "area": "R側・右端",
+      "location": "R側・右端",
+      "detail": "当日の男女の案内表示をご確認ください。",
+      "accessCondition": "公演チケット・開場後。公演によって利用制限あり",
+      "url": "https://pia-arena-mm.jp/floor/index.html"
+    },
+    "pamm-2f-men-nw": {
+      "name": "男性トイレ",
+      "area": "L側・左上",
+      "location": "L側・左上",
+      "detail": "当日の男女の案内表示をご確認ください。",
+      "accessCondition": "公演チケット・開場後。公演によって利用制限あり",
+      "url": "https://pia-arena-mm.jp/floor/index.html"
+    },
+    "pamm-2f-men-ne": {
+      "name": "男性トイレ",
+      "area": "L側・右端",
+      "location": "L側・右端",
+      "detail": "当日の男女の案内表示をご確認ください。",
+      "accessCondition": "公演チケット・開場後。公演によって利用制限あり",
+      "url": "https://pia-arena-mm.jp/floor/index.html"
+    },
+    "pamm-2f-men-se": {
+      "name": "男性トイレ",
+      "area": "R側・右端",
+      "location": "R側・右端",
+      "detail": "当日の男女の案内表示をご確認ください。",
+      "accessCondition": "公演チケット・開場後。公演によって利用制限あり",
+      "url": "https://pia-arena-mm.jp/floor/index.html"
+    },
+    "pamm-2f-accessible-nw": {
+      "name": "多目的トイレ",
+      "area": "L側・左上",
+      "location": "L側・左上",
+      "detail": "車いす対応の多目的トイレです。",
+      "accessCondition": "公演チケット・開場後。公演によって利用制限あり",
+      "url": "https://pia-arena-mm.jp/floor/index.html"
+    },
+    "pamm-2f-elevator-west": {
+      "name": "エレベーター",
+      "area": "C側・エレベーター",
+      "location": "C側・エレベーター",
+      "detail": "公演によって利用できない場合があります。当日の案内をご確認ください。",
+      "accessCondition": "公演チケット・開場後。公演によって利用制限あり",
+      "url": "https://pia-arena-mm.jp/floor/index.html"
+    },
+    "pamm-2f-escalator-west": {
+      "name": "エスカレーター",
+      "area": "C側・エスカレーター",
+      "location": "C側・エスカレーター",
+      "detail": "公演によって利用できない場合があります。当日の案内をご確認ください。",
+      "accessCondition": "公演チケット・開場後。公演によって利用制限あり",
+      "url": "https://pia-arena-mm.jp/floor/index.html"
+    },
+    "pamm-2f-food-west": {
+      "name": "FOODIES STAND",
+      "area": "L・C側・売店",
+      "location": "L・C側・売店",
+      "detail": "軽食・ドリンクの売店です。公演日・公演時間に合わせて営業します。支払い方法は利用する注文レーンで確認してください。",
+      "accessCondition": "公演チケット・開場後。公演によって利用制限あり",
+      "url": "https://pia-arena-mm.jp/about/gourmet/index.html"
+    },
+    "pamm-1f-renga-north": {
+      "name": "RENGA メッセージウォール",
+      "area": "L側のメッセージウォール",
+      "location": "L側のメッセージウォール",
+      "detail": "公演の感想などを表示するメッセージウォールです。表示する企画は公演案内をご確認ください。",
+      "accessCondition": "公演チケット・開場後。公演によって利用制限あり",
+      "url": "https://pia-arena-mm.jp/about/ux/renga/index.html"
+    },
+    "pamm-1f-renga-west": {
+      "name": "RENGA メッセージウォール",
+      "area": "売店付近のメッセージウォール",
+      "location": "売店付近のメッセージウォール",
+      "detail": "公演の感想などを表示するメッセージウォールです。表示する企画は公演案内をご確認ください。",
+      "accessCondition": "公演チケット・開場後。公演によって利用制限あり",
+      "url": "https://pia-arena-mm.jp/about/ux/renga/index.html"
+    },
+    "pamm-2f-renga-nw": {
+      "name": "RENGA メッセージウォール",
+      "area": "売店付近のメッセージウォール",
+      "location": "売店付近のメッセージウォール",
+      "detail": "公演の感想などを表示するメッセージウォールです。表示する企画は公演案内をご確認ください。",
+      "accessCondition": "公演チケット・開場後。公演によって利用制限あり",
+      "url": "https://pia-arena-mm.jp/about/ux/renga/index.html"
+    },
+    "pamm-club38": {
+      "name": "CLUB 38",
+      "area": "会場周辺",
+      "location": "3F売店横／館外1F大階段横からも入店",
+      "detail": "ラウンジです。営業日・予約・公演日の利用条件は店舗案内をご確認ください。",
+      "accessCondition": "館外入口あり。公演日の利用条件・営業日は店舗案内を確認",
+      "outsideViewIds": [
+        "nearby",
+        "ground-1"
+      ],
+      "url": "https://pia-arena-mm.jp/about/gourmet/index.html",
+      "scopes": [
+        "場内",
+        "場外"
+      ]
+    },
+    "pamm-2f-ticket-outside-sw": {
+      "name": "チケットボックス",
+      "area": "館外チケットボックス",
+      "location": "Gate P側の階段とGate Iの間（館外）",
+      "detail": "当日券・受付の取扱いは公演案内をご確認ください。",
+      "accessCondition": "館外受付。公演ごとの受付案内を確認",
+      "outsideViewIds": [
+        "nearby",
+        "ground-2"
+      ],
+      "url": "https://pia-arena-mm.jp/floor/index.html"
+    },
+    "pamm-mm-lockers": {
+      "name": "みなとみらい駅 中央改札外 コインロッカー",
+      "area": "みなとみらい駅",
+      "location": "中央改札外",
+      "detail": "S・M・Lサイズを設置。交通系IC・電子マネー・クレジットカードのタッチ決済・QR決済。料金と利用時間は現地表示をご確認ください。 運営者の規格寸法（幅×高さ×奥行）：S 34.2×32.5×66.3cm、M 34.2×50.2×66.3cm、L 34.2×85.6×66.3cm。",
+      "accessCondition": "改札外。駅の利用可能時間内に利用",
+      "outsideViewIds": [
+        "nearby"
+      ],
+      "url": "https://www.mm21railway.co.jp/info/faq02.html"
+    },
+    "pamm-mm-central-inside": {
+      "name": "みなとみらい駅 中央改札内 コインロッカー",
+      "area": "みなとみらい駅",
+      "location": "中央改札内",
+      "detail": "S・M・Lサイズを設置。交通系IC・電子マネー・クレジットカードのタッチ決済・QR決済。料金と利用時間は現地表示をご確認ください。 運営者の規格寸法（幅×高さ×奥行）：S 34.2×32.5×66.3cm、M 34.2×50.2×66.3cm、L 34.2×85.6×66.3cm。",
+      "accessCondition": "改札内。駅への入場に有効なきっぷ等が必要です",
+      "outsideViewIds": [
+        "nearby"
+      ],
+      "url": "https://www.mm21railway.co.jp/info/faq02.html"
+    },
+    "pamm-mm-tube-lockers": {
+      "name": "みなとみらい駅 みらいチューブ脇 コインロッカー",
+      "area": "みなとみらい駅",
+      "location": "みらいチューブ脇",
+      "detail": "S・M・Lサイズを設置。交通系IC・電子マネー・クレジットカードのタッチ決済・QR決済。料金と利用時間は現地表示をご確認ください。 運営者の規格寸法（幅×高さ×奥行）：S 34.2×32.5×66.3cm、M 34.2×50.2×66.3cm、L 34.2×85.6×66.3cm。",
+      "accessCondition": "改札外。駅の利用可能時間内に利用",
+      "outsideViewIds": [
+        "nearby"
+      ],
+      "url": "https://www.mm21railway.co.jp/info/faq02.html"
+    },
+    "pamm-mm-exit5-lockers": {
+      "name": "みなとみらい駅 5番口 コインロッカー",
+      "area": "みなとみらい駅",
+      "location": "5番口",
+      "detail": "S・Mサイズを設置。現金のみ。料金と利用時間は現地表示をご確認ください。 運営者の規格寸法（幅×高さ×奥行）：S 36×32×57cm、M 36×55×57cm。",
+      "accessCondition": "改札外。駅の利用可能時間内に利用",
+      "outsideViewIds": [
+        "nearby"
+      ],
+      "url": "https://www.mm21railway.co.jp/info/faq02.html"
+    },
+    "pamm-mm-north-lockers": {
+      "name": "みなとみらい駅 北改札外 コインロッカー",
+      "area": "みなとみらい駅",
+      "location": "北改札外",
+      "detail": "S・M・Lサイズを設置。現金のみ。料金と利用時間は現地表示をご確認ください。 運営者の規格寸法（幅×高さ×奥行）：S 36×32×57cm、M 36×55×57cm、L 36×84×57cm。",
+      "accessCondition": "改札外。駅の利用可能時間内に利用",
+      "outsideViewIds": [
+        "nearby"
+      ],
+      "url": "https://www.mm21railway.co.jp/info/faq02.html"
+    },
+    "pamm-shintakashima-lockers": {
+      "name": "新高島駅 改札外EV脇 コインロッカー",
+      "area": "新高島駅",
+      "location": "改札外・エレベーター脇",
+      "detail": "S・Mサイズを設置。現金のみ。料金と利用時間は現地表示をご確認ください。 運営者の規格寸法（幅×高さ×奥行）：S 36×32×57cm、M 36×55×57cm。",
+      "accessCondition": "改札外。駅の利用可能時間内に利用",
+      "outsideViewIds": [
+        "nearby"
+      ],
+      "url": "https://www.mm21railway.co.jp/info/faq02.html"
+    },
+    "pamm-new-concourse-lockers": {
+      "name": "新高島駅 改札外コンコース コインロッカー",
+      "area": "新高島駅",
+      "location": "改札外コンコース",
+      "detail": "M・Lサイズを設置。現金のみ。料金と利用時間は現地表示をご確認ください。 運営者の規格寸法（幅×高さ×奥行）：M 36×55×57cm、L 36×84×57cm。",
+      "accessCondition": "改札外。駅の利用可能時間内に利用",
+      "outsideViewIds": [
+        "nearby"
+      ],
+      "url": "https://www.mm21railway.co.jp/info/faq02.html"
+    },
+    "pamm-yoko-front-lockers": {
+      "name": "横浜駅 正面改札外 コインロッカー",
+      "area": "横浜駅",
+      "location": "みなとみらい線・正面改札外",
+      "detail": "現金のみ。料金と利用時間は現地表示をご確認ください。",
+      "accessCondition": "改札外。駅の利用可能時間内に利用",
+      "outsideViewIds": [
+        "yokohama"
+      ],
+      "url": "https://www.mm21railway.co.jp/info/faq02.html"
+    },
+    "pamm-yoko-slope-lockers": {
+      "name": "横浜駅 南北連絡通路・スロープ部 コインロッカー",
+      "area": "横浜駅",
+      "location": "みなとみらい線・南北連絡通路（スロープ部）",
+      "detail": "S・M・Lサイズを設置。交通系IC・電子マネー・クレジットカードのタッチ決済・QR決済。料金と利用時間は現地表示をご確認ください。 運営者の規格寸法（幅×高さ×奥行）：S 34.2×32.5×66.3cm、M 34.2×50.2×66.3cm、L 34.2×85.6×66.3cm。",
+      "accessCondition": "改札外。駅の利用可能時間内に利用",
+      "outsideViewIds": [
+        "yokohama"
+      ],
+      "url": "https://www.mm21railway.co.jp/info/faq02.html"
+    },
+    "pamm-yoko-cial-lockers": {
+      "name": "横浜駅 南北連絡通路・CIAL接続口 コインロッカー",
+      "area": "横浜駅",
+      "location": "みなとみらい線・南北連絡通路（CIAL横浜接続口）",
+      "detail": "S・M・Lサイズを設置。交通系IC・電子マネー・クレジットカードのタッチ決済・QR決済。料金と利用時間は現地表示をご確認ください。 運営者の規格寸法（幅×高さ×奥行）：S 34.2×32.5×66.3cm、M 34.2×50.2×66.3cm、L 34.2×85.6×66.3cm。",
+      "accessCondition": "改札外。駅の利用可能時間内に利用",
+      "outsideViewIds": [
+        "yokohama"
+      ],
+      "url": "https://www.mm21railway.co.jp/info/faq02.html"
+    },
+    "pamm-sakura-inside-lockers": {
+      "name": "JR桜木町駅 南改札内 コインロッカー",
+      "area": "JR桜木町駅",
+      "location": "南改札内・左側通路の壁面",
+      "detail": "小・中・大サイズを設置。交通系IC専用（PiTaPa・現金は使えません）。料金と利用時間は現地表示をご確認ください。",
+      "accessCondition": "改札内。駅への入場に有効なきっぷ等が必要です",
+      "outsideViewIds": [
+        "nearby"
+      ],
+      "url": "https://media.jreast.co.jp/articles/1811"
+    },
+    "pamm-sakura-outside-lockers": {
+      "name": "JR桜木町駅 南改札外 コインロッカー",
+      "area": "JR桜木町駅",
+      "location": "南改札正面・横濱銘品館とBOOK EXPRESSの間",
+      "detail": "小・中・大サイズを設置。交通系IC専用（PiTaPa・現金は使えません）。料金と利用時間は現地表示をご確認ください。",
+      "accessCondition": "改札外。駅の利用可能時間内に利用",
+      "outsideViewIds": [
+        "nearby"
+      ],
+      "url": "https://media.jreast.co.jp/articles/1811"
+    },
+    "pamm-kdx-storage": {
+      "name": "KDX横浜みなとみらいタワー（Bounce荷物預かり）",
+      "area": "会場周辺",
+      "location": "KDX横浜みなとみらいタワー・詳しい住所は予約後に表示",
+      "detail": "オンライン予約・事前決済が必要です。店頭の現金払い・予約なしの預入はできません。掲載営業時間は8:00〜22:00。利用日の時間・料金・受取場所を予約画面で確認してください。",
+      "accessCondition": "オンライン予約・事前決済。受取時刻と場所を予約画面で確認",
+      "outsideViewIds": [
+        "nearby"
+      ],
+      "url": "https://ja.bounce.com/s/location/efd35763-036b-4db2-9468-5ad7b8b866e4"
+    },
+    "pamm-seven-mm-storage": {
+      "name": "Locker Seven-Eleven Yokohama Minatomirai（Bounce）",
+      "area": "会場周辺",
+      "location": "横浜みなとみらい・セブンイレブンの予約ロッカー",
+      "detail": "オンライン予約・事前決済が必要です。予約時のQRコードで利用します。掲載営業時間は24時間。設置場所・利用日の料金と時間は予約画面で確認してください。",
+      "accessCondition": "オンライン予約・事前決済。受取時刻と場所を予約画面で確認",
+      "outsideViewIds": [
+        "nearby"
+      ],
+      "url": "https://ja.bounce.com/s/location/398966ed-4f67-47ed-9489-d9c5b23d5408"
+    },
+    "pamm-2f-accessible-outside-sw": {
+      "name": "館外・多目的トイレ",
+      "area": "Pゲート側・館外トイレ",
+      "location": "Gate P側の階段付近（館外）",
+      "detail": "開場前はこの館外トイレをご利用ください。車いす・オストメイト対応。",
+      "accessCondition": "開場前に利用できる館外設備",
+      "outsideViewIds": [
+        "nearby",
+        "ground-2"
+      ],
+      "url": "https://pia-arena-mm.jp/floor/index.html"
+    },
+    "pamm-bluebell": {
+      "name": "The Blue Bell",
+      "area": "館外カフェ",
+      "location": "みなとみらい大通り側・ペデストリアンデッキ",
+      "detail": "カフェ＆レストラン。公演チケットなしでも利用できます。営業時間・予約は店舗案内をご確認ください。",
+      "accessCondition": "館外・公演チケット不要",
+      "outsideViewIds": [
+        "nearby",
+        "ground-2"
+      ],
+      "url": "https://pia-arena-mm.jp/about/gourmet/index.html"
+    },
+    "pamm-nearby-tullys": {
+      "name": "タリーズコーヒー 横浜コネクトスクエア店",
+      "area": "横浜コネクトスクエア",
+      "location": "横浜コネクトスクエア・店舗A（みなとみらい3-3）",
+      "detail": "コーヒー・軽食。店内Wi-Fiあり。営業時間は店舗案内をご確認ください。",
+      "accessCondition": "館外の商業施設。公演チケット不要。施設・店舗の営業中に利用",
+      "outsideViewIds": [
+        "nearby"
+      ],
+      "url": "https://yokohama-connectsquare.com/restaurant/tullys/"
+    },
+    "pamm-nearby-familymart": {
+      "name": "ファミリーマート MARK ISみなとみらい店",
+      "area": "MARK IS みなとみらい",
+      "location": "MARK IS（みなとみらい駅直結）",
+      "detail": "飲料・食品を買えるコンビニです。営業時間は店舗案内をご確認ください。",
+      "accessCondition": "館外の商業施設。公演チケット不要。施設・店舗の営業中に利用",
+      "outsideViewIds": [
+        "nearby"
+      ],
+      "url": "https://www.mec-markis.jp/mm/shop/detail/?act=10293"
+    },
+    "pamm-nearby-hack": {
+      "name": "ハックドラッグ MARK ISみなとみらい店",
+      "area": "MARK IS みなとみらい",
+      "location": "MARK IS",
+      "detail": "ドラッグストアです。店舗の営業時間と調剤の受付時間は別です。利用する部門の案内をご確認ください。",
+      "accessCondition": "館外の商業施設。公演チケット不要。施設・店舗の営業中に利用",
+      "outsideViewIds": [
+        "nearby"
+      ],
+      "url": "https://store.welcia.co.jp/welcia/spot/detail?code=2280D"
+    },
+    "pamm-nearby-tomods": {
+      "name": "トモズ クイーンズスクエア横浜店",
+      "area": "みなとみらい東急スクエア",
+      "location": "みなとみらい東急スクエア④",
+      "detail": "ドラッグストアです。店舗の営業時間と処方箋の受付時間は別です。利用する部門の案内をご確認ください。",
+      "accessCondition": "館外の商業施設。公演チケット不要。施設・店舗の営業中に利用",
+      "outsideViewIds": [
+        "nearby"
+      ],
+      "url": "https://shop.tomods.jp/detail/10/"
+    },
+    "pamm-markis-atm": {
+      "name": "ATMコーナー",
+      "area": "MARK IS みなとみらい",
+      "location": "MARK IS",
+      "detail": "三井住友銀行・みずほ銀行・ゆうちょ銀行のATM。取扱内容・利用時間・手数料は各銀行の案内をご確認ください。",
+      "accessCondition": "館外の商業施設。公演チケット不要。施設・店舗の営業中に利用",
+      "outsideViewIds": [
+        "nearby"
+      ],
+      "url": "https://mec-markis.jp/mm/about.html"
+    },
+    "pamm-markis-baby-b2f": {
+      "name": "赤ちゃん休憩室",
+      "area": "MARK IS みなとみらい",
+      "location": "MARK IS",
+      "detail": "ベビーベッド・給湯設備があります。",
+      "accessCondition": "館外の商業施設。公演チケット不要。施設・店舗の営業中に利用",
+      "outsideViewIds": [
+        "nearby"
+      ],
+      "url": "https://mec-markis.jp/mm/about.html"
+    },
+    "pamm-markis-baby-3f": {
+      "name": "赤ちゃん休憩室",
+      "area": "MARK IS みなとみらい",
+      "location": "MARK IS",
+      "detail": "ベビーベッド・給湯設備があります。3Fには授乳室もあります。",
+      "accessCondition": "館外の商業施設。公演チケット不要。施設・店舗の営業中に利用",
+      "outsideViewIds": [
+        "nearby"
+      ],
+      "url": "https://mec-markis.jp/mm/about.html"
+    },
+    "pamm-markis-baby-4f": {
+      "name": "赤ちゃん休憩室",
+      "area": "MARK IS みなとみらい",
+      "location": "MARK IS",
+      "detail": "ベビーベッド・給湯設備があります。",
+      "accessCondition": "館外の商業施設。公演チケット不要。施設・店舗の営業中に利用",
+      "outsideViewIds": [
+        "nearby"
+      ],
+      "url": "https://mec-markis.jp/mm/about.html"
+    },
+    "pamm-markis-foodcourt": {
+      "name": "みんなのフードコート",
+      "area": "MARK IS みなとみらい",
+      "location": "MARK IS",
+      "detail": "複数の飲食店があるフードコートです。営業する店舗・時間は施設案内をご確認ください。",
+      "accessCondition": "館外の商業施設。公演チケット不要。施設・店舗の営業中に利用",
+      "outsideViewIds": [
+        "nearby"
+      ],
+      "url": "https://mec-markis.jp/mm/about.html"
+    },
+    "pamm-markis-info": {
+      "name": "インフォメーション",
+      "area": "MARK IS みなとみらい",
+      "location": "MARK IS",
+      "detail": "商業施設の館内案内・迷子の呼出しなど。ぴあアリーナMMの公演受付とは別です。",
+      "accessCondition": "館外の商業施設。公演チケット不要。施設・店舗の営業中に利用",
+      "outsideViewIds": [
+        "nearby"
+      ],
+      "url": "https://mec-markis.jp/mm/about.html"
+    }
+  },
+  "outsideViews": [
+    {
+      "id": "nearby",
+      "label": "会場・主要駅",
+      "diagramId": "pia-arena-mm-outside-current",
+      "floorLabel": "会場・みなとみらい駅・新高島駅・JR桜木町駅",
+      "northUp": true,
+      "venueLabel": {
+        "name": "ぴあアリーナMM",
+        "point": [
+          515,
+          300
+        ]
+      }
+    },
+    {
+      "id": "yokohama",
+      "label": "横浜駅の荷物",
+      "diagramId": "pamm-yokohama-luggage",
+      "floorLabel": "みなとみらい線 横浜駅 B2F・B3F"
+    },
+    {
+      "id": "ground-1",
+      "label": "1F入口",
+      "diagramId": "pamm-ground-1-native",
+      "floorLabel": "ぴあアリーナMM・1F館外"
+    },
+    {
+      "id": "ground-2",
+      "label": "2F入口",
+      "diagramId": "pamm-ground-2-native",
+      "floorLabel": "ぴあアリーナMM・2F館外"
+    }
+  ],
+  "landmarkFacilityIds": {
+    "pamm-mm-station": [
+      "pamm-mm-lockers",
+      "pamm-mm-central-inside",
+      "pamm-mm-tube-lockers",
+      "pamm-mm-exit5-lockers",
+      "pamm-mm-north-lockers",
+      "pamm-nearby-familymart",
+      "pamm-nearby-hack",
+      "pamm-markis-atm",
+      "pamm-markis-baby-b2f",
+      "pamm-markis-baby-3f",
+      "pamm-markis-baby-4f",
+      "pamm-markis-foodcourt",
+      "pamm-markis-info"
+    ],
+    "pamm-new-station": [
+      "pamm-shintakashima-lockers",
+      "pamm-new-concourse-lockers"
+    ],
+    "pamm-sakura-station": [
+      "pamm-sakura-inside-lockers",
+      "pamm-sakura-outside-lockers"
+    ],
+    "pamm-ground-1-gate-a": [
+      "pamm-club38"
+    ],
+    "pamm-ground-1-gate-p": [
+      "pamm-club38"
+    ],
+    "pamm-1f-motion-corridor": [
+      "pamm-club38"
+    ],
+    "pamm-ground-2-gate-p": [
+      "pamm-2f-accessible-outside-sw",
+      "pamm-2f-ticket-outside-sw",
+      "pamm-bluebell"
+    ],
+    "pamm-ground-2-gate-i": [
+      "pamm-2f-accessible-outside-sw",
+      "pamm-2f-ticket-outside-sw",
+      "pamm-bluebell"
+    ]
+  },
+  "landmarkGroupIds": {
+    "pamm-ground-2-gate-p": [
+      "pia-2F-outside-pamm-2f-accessible-outside-sw-トイレ",
+      "pia-2F-outside-pamm-2f-ticket-outside-sw-案内",
+      "pia-2F-outside-pamm-bluebell-飲食"
+    ],
+    "pamm-ground-2-gate-i": [
+      "pia-2F-outside-pamm-2f-accessible-outside-sw-トイレ",
+      "pia-2F-outside-pamm-2f-ticket-outside-sw-案内",
+      "pia-2F-outside-pamm-bluebell-飲食"
+    ]
+  }
+}

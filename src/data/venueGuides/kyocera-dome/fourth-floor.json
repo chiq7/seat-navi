@@ -1,0 +1,121 @@
+{
+  "checkedAt": "2026-10-07",
+  "diagram": {
+    "id": "kyocera-f4",
+    "floor": "4F",
+    "scope": "場内",
+    "viewBox": [
+      -32,
+      -28,
+      632,
+      620
+    ],
+    "concoursePaths": [
+      "M283,0 C440,0 568,127 568,283 C568,438 440,565 283,565 C127,565 0,438 0,283 C0,127 127,0 283,0 Z M283,55 C157,55 55,157 55,283 C55,409 157,510 283,510 C409,510 512,409 512,283 C512,157 409,55 283,55 Z"
+    ],
+    "contextPaths": [
+      "M283,140 C363,140 428,205 428,283 C428,361 363,424 283,424 C203,424 139,361 139,283 C139,205 203,140 283,140 Z"
+    ],
+    "landmarks": [
+      {
+        "id": "f4-outfield",
+        "label": "外野エリア",
+        "x": 283,
+        "y": 85,
+        "kind": "plaza",
+        "sourceIds": [
+          "store-bs-access"
+        ],
+        "reference": "4F小図の印字位置"
+      },
+      {
+        "id": "f4-infield",
+        "label": "内野エリア",
+        "x": 283,
+        "y": 513,
+        "kind": "plaza",
+        "sourceIds": [
+          "store-bs-access"
+        ],
+        "reference": "4F小図の印字位置"
+      },
+      {
+        "id": "f4-ev-label",
+        "label": "20・21号EV",
+        "x": 500,
+        "y": 376,
+        "kind": "plaza",
+        "sourceIds": [
+          "store-bs-access"
+        ],
+        "reference": "4F小図Bと写真案内。機器を重複登録しない補助文字"
+      }
+    ],
+    "evidence": {
+      "sourceIds": [
+        "store-bs-access"
+      ],
+      "file": "img-map-bsbeerbar.pdf",
+      "sha256": "17b6b60ed28e63674faf8381e51ca4d8ee23b34a4957f79dbf06b551aa3495df",
+      "width": 595.276,
+      "height": 983.597,
+      "method": "独立4F小図を原向きで転記。PDF上端基準3px/pt、4F図原点(952,2370)px。店舗C/EV到着点Bは原記号中心。大きな輪郭のみで席/室入口/通路ネットワークではない",
+      "status": "partial"
+    }
+  },
+  "facilities": [
+    {
+      "id": "f3-shop-sBsBar",
+      "name": "Bs BEER BAR",
+      "purpose": "飲食",
+      "kind": "food",
+      "scope": "場内",
+      "floor": "4F",
+      "location": "4F・外野ライトスタンド後方",
+      "detail": "3Fの6通路前にある20・21号エレベーターで4Fへ。降りて右へ進み、直進すると店舗があります。営業・当日の利用条件は店舗案内を確認してください。",
+      "sourceIds": [
+        "store-bs-access"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "kyocera-f4",
+        "x": 446,
+        "y": 88,
+        "sourceIds": [
+          "store-bs-access"
+        ],
+        "reference": "独立4F小図のC店舗記号中心。実入口・各機器の実測点ではない"
+      }
+    },
+    {
+      "id": "f4-elevator-20-21",
+      "name": "20・21号エレベーター（4F）",
+      "purpose": "案内",
+      "kind": "elevator",
+      "scope": "場内",
+      "floor": "4F",
+      "location": "4F・1塁側のエレベーター到着点",
+      "detail": "3Fの6通路前と4Fを結ぶ20・21号エレベーター。Bs BEER BARへは4Fで降りて右へ進み、直進します。当日の運転・利用範囲は係員の案内を確認してください。",
+      "sourceIds": [
+        "store-bs-access"
+      ],
+      "precision": "diagram-point",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "kyocera-f4",
+        "x": 535,
+        "y": 336,
+        "sourceIds": [
+          "store-bs-access"
+        ],
+        "reference": "独立4F小図のBエレベーター記号中心。実入口・各機器の実測点ではない"
+      }
+    }
+  ],
+  "remaining": [
+    "他の4F設備・独立室入口・当日開放",
+    "営業日/販売メニュー/通行範囲",
+    "精密動線・実測位置・公開利用条件"
+  ]
+}

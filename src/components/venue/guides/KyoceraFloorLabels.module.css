@@ -1,0 +1,31 @@
+.legend { display:flex; flex-wrap:wrap; gap:8px 14px; padding:10px 12px; font-size:12px; line-height:1.5; border-block:1px solid #e6dce2; background:#fff; }
+.legend strong { flex-basis:100%; }
+.legend span { border-left:5px solid; padding-left:5px; }
+.legend span[data-kind=gate] { border-color:#c57900; color:#875200; }
+.legend span[data-kind=passage] { border-color:#ac2634; color:#92202c; }
+.legend span[data-kind=shop] { border-color:#bb237a; color:#9c1d66; }
+.note { margin:0; padding:8px 12px; font-size:12px; line-height:1.7; background:#fffaf3; }
+.mark { position:absolute; transform:translate(-50%,-50%); display:flex; flex-direction:column; align-items:center; justify-content:center; line-height:1.05; text-align:center; border-radius:3px; color:#635864; background:#fffdfaf2; pointer-events:none; z-index:2; }
+.mark small { font-size:10px; font-weight:500; }
+.mark strong { font-size:13px; font-weight:750; white-space:nowrap; }
+.mark[data-kind=gate] { color:#855100; background:#fff3d7; border:1px solid #d19a38; }
+.mark[data-kind=passage] { color:#a11629; background:#fff0f1; border:1px solid #ca6978; }
+.mark[data-quiet=true] { color:#786570; background:transparent; border:0; }
+.mark[data-quiet=true] strong { font-size:11px; font-weight:600; }
+.mark[data-kind=shop] { color:#aa176c; background:#fff0fa; border:1px solid #cf6ca8; }
+.mark[data-selected=true] { outline:2px solid #2465a9; outline-offset:1px; z-index:4; }
+.mark[data-kind=plaza] strong { font-size:9px; white-space:normal; }
+.mark[data-kind=stairs] small { font-size:10px; }
+.mark:is(button) { pointer-events:auto; min-width:44px; min-height:44px; cursor:pointer; padding:0; }
+.mark:is(button):focus-visible { outline:3px solid #2465a9; outline-offset:2px; }
+.originInfo { padding:8px 12px; background:#edf5ff; font-size:12px; line-height:1.6; }
+
+.mark[data-kind=passage],.mark[data-kind=shop] { flex-direction:row; gap:1px; }
+.mark[data-kind=passage] small,.mark[data-kind=shop] small { font-size:8px; }
+
+.mark[data-kind=passage] small,.mark[data-kind=shop] small { font-size:10px; }
+.mark strong { font-size:13px; }
+.originInfo button { min-height:44px; padding:6px 10px; margin:4px; border:1px solid #9db8d3; border-radius:5px; background:white; }
+
+.countSign { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0; }
+.countSign small { font-size:9px; line-height:12px; white-space:nowrap; }

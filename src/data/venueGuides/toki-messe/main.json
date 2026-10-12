@@ -1,0 +1,60 @@
+{
+  "diagramId": "toki-seats-main",
+  "viewBox": [
+    80,
+    70,
+    940,
+    440
+  ],
+  "detailSpan": 430,
+  "wholeBlockLabels": true,
+  "areaBlockNames": true,
+  "searchPlaceholder": "例：スノーホール",
+  "rowSearchPlaceholder": "公演の列",
+  "frontLabel": "公演別の座席配置",
+  "numberLookupNote": "列・席番号は公演ごとの配置です。会場名や地図から探し、券面と主催者の座席図をご確認ください。",
+  "contextLabels": [
+    {
+      "text": "エスプラナード側・当日の入口は公演案内へ",
+      "point": [
+        550,
+        470
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "id": "toki-snow",
+      "level": "main",
+      "area": "メインホール",
+      "label": "メインホール",
+      "aliases": [
+        "スノーホール",
+        "SNOWHALL",
+        "メインホール",
+        "会議棟メインホール"
+      ],
+      "balcony": false,
+      "path": "M245 105 H765 V415 H245 Z",
+      "box": [
+        245,
+        105,
+        520,
+        310
+      ],
+      "center": [
+        505.0,
+        260.0
+      ],
+      "rows": [],
+      "neighbors": [],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": "会議場2F",
+      "sourceIds": [
+        "hall_2f_snow"
+      ],
+      "seatNote": "部屋の参考輪郭です。ステージ・列・席番号・使用入口は公演ごとに変わります。"
+    }
+  ]
+}

@@ -1,0 +1,5020 @@
+{
+  "facilities": [
+    {
+      "id": "ssa-stadium-2f-shop-01",
+      "name": "売店",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "北側コンコース",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-2f"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-stadium-2f-native",
+        "x": 353.0,
+        "y": 90.5,
+        "sourceIds": [
+          "stadium-2f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-2f-ostomate-01",
+      "name": "バリアフリートイレ（オストメイト対応）",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "北側コンコース",
+      "detail": "オストメイト対応。利用可能な室は当日の案内をご確認ください。",
+      "sourceIds": [
+        "stadium-2f"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "ssa-stadium-2f-native",
+        "x": 253.0,
+        "y": 93.0,
+        "sourceIds": [
+          "stadium-2f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-2f-shop-02",
+      "name": "売店",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "北側コンコース",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-2f"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-stadium-2f-native",
+        "x": 204.0,
+        "y": 106.0,
+        "sourceIds": [
+          "stadium-2f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-2f-escalator-01",
+      "name": "エスカレーター",
+      "purpose": "案内",
+      "kind": "escalator",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "北側コンコース",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-2f"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-stadium-2f-native",
+        "x": 539.5,
+        "y": 106.5,
+        "sourceIds": [
+          "stadium-2f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-2f-toilet-accessible-01",
+      "name": "バリアフリートイレ",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "西側コンコース・上",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-2f"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "ssa-stadium-2f-native",
+        "x": 77.0,
+        "y": 129.0,
+        "sourceIds": [
+          "stadium-2f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-2f-toilet-01",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "kind": "toilet",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "北側コンコース",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-2f"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "mixed",
+      "anchor": {
+        "diagramId": "ssa-stadium-2f-native",
+        "x": 154.0,
+        "y": 129.5,
+        "sourceIds": [
+          "stadium-2f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-2f-elevator-01",
+      "name": "ゴールドジム行エレベーター",
+      "purpose": "案内",
+      "kind": "elevator",
+      "floor": "2F",
+      "scope": "場外",
+      "location": "ゴールドジム行",
+      "detail": "専用施設への案内です。公演客席への動線としては案内していません。",
+      "sourceIds": [
+        "stadium-2f"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "ssa-stadium-2f-toilet-02",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "kind": "toilet",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "東側コンコース・上",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-2f"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "mixed",
+      "anchor": {
+        "diagramId": "ssa-stadium-2f-native",
+        "x": 469.5,
+        "y": 183.5,
+        "sourceIds": [
+          "stadium-2f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-2f-toilet-accessible-02",
+      "name": "バリアフリートイレ",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "西側コンコース・中",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-2f"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "ssa-stadium-2f-native",
+        "x": 86.0,
+        "y": 225.0,
+        "sourceIds": [
+          "stadium-2f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-2f-shop-03",
+      "name": "売店",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "東側コンコース・上",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-2f"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-stadium-2f-native",
+        "x": 473.0,
+        "y": 225.0,
+        "sourceIds": [
+          "stadium-2f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-2f-shop-04",
+      "name": "売店",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "西側コンコース・中",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-2f"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-stadium-2f-native",
+        "x": 50.0,
+        "y": 243.0,
+        "sourceIds": [
+          "stadium-2f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-2f-shop-05",
+      "name": "売店",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "西側コンコース・中",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-2f"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-stadium-2f-native",
+        "x": 93.0,
+        "y": 266.5,
+        "sourceIds": [
+          "stadium-2f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-2f-toilet-03",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "kind": "toilet",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "東側コンコース・下",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-2f"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "mixed",
+      "anchor": {
+        "diagramId": "ssa-stadium-2f-native",
+        "x": 477.0,
+        "y": 267.0,
+        "sourceIds": [
+          "stadium-2f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-2f-toilet-04",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "kind": "toilet",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "西側コンコース・中",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-2f"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "mixed",
+      "anchor": {
+        "diagramId": "ssa-stadium-2f-native",
+        "x": 13.0,
+        "y": 269.0,
+        "sourceIds": [
+          "stadium-2f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-2f-shop-06",
+      "name": "売店",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "西側コンコース・中",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-2f"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-stadium-2f-native",
+        "x": 56.5,
+        "y": 291.0,
+        "sourceIds": [
+          "stadium-2f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-2f-toilet-accessible-03",
+      "name": "バリアフリートイレ",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "西側コンコース・中",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-2f"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "ssa-stadium-2f-native",
+        "x": 99.0,
+        "y": 308.0,
+        "sourceIds": [
+          "stadium-2f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-2f-escalator-02",
+      "name": "エスカレーター",
+      "purpose": "案内",
+      "kind": "escalator",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "東側コンコース・下",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-2f"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-stadium-2f-native",
+        "x": 551.5,
+        "y": 337.0,
+        "sourceIds": [
+          "stadium-2f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-2f-shop-07",
+      "name": "売店",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "南側コンコース",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-2f"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-stadium-2f-native",
+        "x": 379.0,
+        "y": 368.5,
+        "sourceIds": [
+          "stadium-2f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-2f-toilet-05",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "kind": "toilet",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "南側コンコース",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-2f"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "mixed",
+      "anchor": {
+        "diagramId": "ssa-stadium-2f-native",
+        "x": 175.0,
+        "y": 382.0,
+        "sourceIds": [
+          "stadium-2f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-2f-toilet-accessible-04",
+      "name": "バリアフリートイレ",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "西側コンコース・下",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-2f"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "ssa-stadium-2f-native",
+        "x": 86.0,
+        "y": 387.5,
+        "sourceIds": [
+          "stadium-2f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-2f-shop-08",
+      "name": "売店",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "南側コンコース",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-2f"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-stadium-2f-native",
+        "x": 240.0,
+        "y": 388.5,
+        "sourceIds": [
+          "stadium-2f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-2f-ostomate-02",
+      "name": "バリアフリートイレ（オストメイト対応）",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "南側コンコース",
+      "detail": "オストメイト対応。利用可能な室は当日の案内をご確認ください。",
+      "sourceIds": [
+        "stadium-2f"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "ssa-stadium-2f-native",
+        "x": 286.5,
+        "y": 388.5,
+        "sourceIds": [
+          "stadium-2f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-2f-escalator-03",
+      "name": "エスカレーター",
+      "purpose": "案内",
+      "kind": "escalator",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "南側コンコース",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-2f"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-stadium-2f-native",
+        "x": 124.5,
+        "y": 396.5,
+        "sourceIds": [
+          "stadium-2f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-2f-nursing-room-01",
+      "name": "授乳スペース",
+      "purpose": "赤ちゃん",
+      "kind": "nursing",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "Aゲート内・左手",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-2f"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-stadium-2f-native",
+        "x": 383.0,
+        "y": 419.0,
+        "sourceIds": [
+          "stadium-2f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-2f-elevator-02",
+      "name": "キッズルーム行エレベーター",
+      "purpose": "案内",
+      "kind": "elevator",
+      "floor": "2F",
+      "scope": "場外",
+      "location": "キッズルーム行",
+      "detail": "専用施設への案内です。公演客席への動線としては案内していません。",
+      "sourceIds": [
+        "stadium-2f"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "ssa-stadium-1f-toilet-accessible-01",
+      "name": "バリアフリートイレ",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "西側コンコース・上",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-1f"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "ssa-stadium-1f-native",
+        "x": 104,
+        "y": 178,
+        "sourceIds": [
+          "stadium-1f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-1f-toilet-accessible-02",
+      "name": "バリアフリートイレ",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "西側コンコース・下",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-1f"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "ssa-stadium-1f-native",
+        "x": 134,
+        "y": 347,
+        "sourceIds": [
+          "stadium-1f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-1f-toilet-03",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "kind": "toilet",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "東側コンコース・上",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-1f"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "mixed",
+      "anchor": {
+        "diagramId": "ssa-stadium-1f-native",
+        "x": 446,
+        "y": 198,
+        "sourceIds": [
+          "stadium-1f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-1f-shop-04",
+      "name": "売店",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "東側コンコース・上",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-1f"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-stadium-1f-native",
+        "x": 475,
+        "y": 198,
+        "sourceIds": [
+          "stadium-1f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-1f-toilet-05",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "kind": "toilet",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "東側コンコース・下",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-1f"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "mixed",
+      "anchor": {
+        "diagramId": "ssa-stadium-1f-native",
+        "x": 448,
+        "y": 246,
+        "sourceIds": [
+          "stadium-1f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-1f-shop-06",
+      "name": "売店",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "東側コンコース・下",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-1f"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-stadium-1f-native",
+        "x": 478,
+        "y": 246,
+        "sourceIds": [
+          "stadium-1f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-1f-toilet-07",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "kind": "toilet",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "Wゲート側",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-1f"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "mixed",
+      "anchor": {
+        "diagramId": "ssa-stadium-1f-native",
+        "x": 396,
+        "y": 357,
+        "sourceIds": [
+          "stadium-1f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-1f-nursing-room-08",
+      "name": "授乳スペース",
+      "purpose": "赤ちゃん",
+      "kind": "nursing",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "Wゲート側・授乳室",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-1f"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-stadium-1f-native",
+        "x": 402,
+        "y": 393,
+        "sourceIds": [
+          "stadium-1f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-3f-toilet-01",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "kind": "toilet",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "東側コンコース・上",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-3f"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "mixed",
+      "anchor": {
+        "diagramId": "ssa-stadium-3f-native",
+        "x": 499,
+        "y": 144,
+        "sourceIds": [
+          "stadium-3f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-3f-ostomate-02",
+      "name": "バリアフリートイレ（オストメイト対応）",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "東側コンコース・下",
+      "detail": "オストメイト対応。利用可能な室は当日の案内をご確認ください。",
+      "sourceIds": [
+        "stadium-3f"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "ssa-stadium-3f-native",
+        "x": 513,
+        "y": 268,
+        "sourceIds": [
+          "stadium-3f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-3f-escalator-03",
+      "name": "エスカレーター",
+      "purpose": "案内",
+      "kind": "escalator",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "南西側コンコース",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-3f"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-stadium-3f-native",
+        "x": 143,
+        "y": 374,
+        "sourceIds": [
+          "stadium-3f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-4f-ostomate-01",
+      "name": "バリアフリートイレ（オストメイト対応）",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "Nゲート側・上",
+      "detail": "オストメイト対応。利用可能な室は当日の案内をご確認ください。",
+      "sourceIds": [
+        "stadium-4f"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "ssa-stadium-4f-native",
+        "x": 76,
+        "y": 194,
+        "sourceIds": [
+          "stadium-4f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-4f-toilet-02",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "kind": "toilet",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "Nゲート側・下",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-4f"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "mixed",
+      "anchor": {
+        "diagramId": "ssa-stadium-4f-native",
+        "x": 85,
+        "y": 264,
+        "sourceIds": [
+          "stadium-4f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-4f-shop-03",
+      "name": "売店",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "Nゲート側・上",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-4f"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-stadium-4f-native",
+        "x": 108,
+        "y": 194,
+        "sourceIds": [
+          "stadium-4f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-4f-shop-04",
+      "name": "売店",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "Nゲート側・下",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-4f"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-stadium-4f-native",
+        "x": 117,
+        "y": 264,
+        "sourceIds": [
+          "stadium-4f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-4f-shop-05",
+      "name": "売店",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "北側コンコース",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-4f"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-stadium-4f-native",
+        "x": 469,
+        "y": 61,
+        "sourceIds": [
+          "stadium-4f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-4f-toilet-06",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "kind": "toilet",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "東側コンコース・上",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-4f"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "mixed",
+      "anchor": {
+        "diagramId": "ssa-stadium-4f-native",
+        "x": 512,
+        "y": 142,
+        "sourceIds": [
+          "stadium-4f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-4f-toilet-07",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "kind": "toilet",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "東側コンコース・下",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-4f"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "mixed",
+      "anchor": {
+        "diagramId": "ssa-stadium-4f-native",
+        "x": 523,
+        "y": 245,
+        "sourceIds": [
+          "stadium-4f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-4f-shop-08",
+      "name": "売店",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "南側コンコース",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-4f"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-stadium-4f-native",
+        "x": 487,
+        "y": 322,
+        "sourceIds": [
+          "stadium-4f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-4f-escalator-09",
+      "name": "エスカレーター",
+      "purpose": "案内",
+      "kind": "escalator",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "Nゲート側・下",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-4f"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-stadium-4f-native",
+        "x": 115,
+        "y": 323,
+        "sourceIds": [
+          "stadium-4f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-5f-toilet-01",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "kind": "toilet",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "西側コンコース・上",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-5f"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "mixed",
+      "anchor": {
+        "diagramId": "ssa-stadium-5f-native",
+        "x": 107,
+        "y": 129,
+        "sourceIds": [
+          "stadium-5f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-5f-toilet-02",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "kind": "toilet",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "東側コンコース",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-5f"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "mixed",
+      "anchor": {
+        "diagramId": "ssa-stadium-5f-native",
+        "x": 522,
+        "y": 168,
+        "sourceIds": [
+          "stadium-5f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-5f-toilet-03",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "kind": "toilet",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "西側コンコース・下",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-5f"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "mixed",
+      "anchor": {
+        "diagramId": "ssa-stadium-5f-native",
+        "x": 136,
+        "y": 312,
+        "sourceIds": [
+          "stadium-5f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-stadium-5f-escalator-04",
+      "name": "エスカレーター",
+      "purpose": "案内",
+      "kind": "escalator",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "西側コンコース・下",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "sourceIds": [
+        "stadium-5f"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-stadium-5f-native",
+        "x": 67,
+        "y": 289,
+        "sourceIds": [
+          "stadium-5f"
+        ],
+        "reference": "公式図の設備記号の代表点。室入口や経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-info-lockers",
+      "name": "コインロッカー",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "インフォメーション横",
+      "detail": "入場前に利用できます。改修期間中の利用状況は施設案内をご確認ください。",
+      "sourceIds": [
+        "ssa-faq"
+      ],
+      "precision": "text-only",
+      "storageKind": "coin"
+    },
+    {
+      "id": "ssa-s1-toilet",
+      "name": "トイレ",
+      "purpose": "トイレ",
+      "kind": "toilet",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "S1ゲート内・インフォメーションそば",
+      "detail": "入場前に利用できるトイレ。おむつ交換シートがあります。",
+      "sourceIds": [
+        "ssa-faq"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "ssa-s1-diaper",
+      "name": "おむつ交換シート",
+      "purpose": "赤ちゃん",
+      "kind": "diaper-table",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "S1ゲート内トイレ・インフォメーションそば",
+      "detail": "入場前に利用できます。改修期間中の利用状況をご確認ください。",
+      "sourceIds": [
+        "ssa-faq"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "ssa-keyaki-lockers",
+      "name": "コインロッカー",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "けやきひろば1F・会場側・駅方面",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "sourceIds": [
+        "ssa-keyaki",
+        "ssa-keyaki-map-2026"
+      ],
+      "precision": "diagram-point",
+      "storageKind": "coin",
+      "anchor": {
+        "diagramId": "ssa-keyaki-1f-native",
+        "x": 43,
+        "y": 121,
+        "sourceIds": [
+          "ssa-keyaki-map-2026"
+        ],
+        "reference": "設備記号と店舗番号の代表位置。入口・室内機器数・経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-keyaki-toilets",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "kind": "toilet",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "けやきひろば1F・駅方面のトイレ",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "sourceIds": [
+        "ssa-keyaki",
+        "ssa-keyaki-map-2026"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "mixed",
+      "anchor": {
+        "diagramId": "ssa-keyaki-1f-native",
+        "x": 165,
+        "y": 75,
+        "sourceIds": [
+          "ssa-keyaki-map-2026"
+        ],
+        "reference": "設備記号と店舗番号の代表位置。入口・室内機器数・経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-keyaki-accessible",
+      "name": "バリアフリートイレ",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "けやきひろば1F・駅方面のトイレ",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "sourceIds": [
+        "ssa-keyaki",
+        "ssa-keyaki-map-2026"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "ssa-keyaki-1f-native",
+        "x": 185,
+        "y": 75,
+        "sourceIds": [
+          "ssa-keyaki-map-2026"
+        ],
+        "reference": "設備記号と店舗番号の代表位置。入口・室内機器数・経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-station-lockers",
+      "name": "さいたま新都心駅 コインロッカー",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "2F・改札内",
+      "scope": "場外",
+      "location": "さいたま新都心駅2F・改札内・3/4番線側",
+      "detail": "始発〜終電。小500円、中600〜700円、大800〜900円。繁忙期は中・大が100〜200円加算。最長3日、午前2時に日数加算。機械により現金・ICカードに対応。マルチエキューブは予約対応。",
+      "sourceIds": [
+        "ssa-jr-locker"
+      ],
+      "precision": "text-only",
+      "storageKind": "coin",
+      "bookingUrl": "https://multiecube.com/"
+    },
+    {
+      "id": "ssa-kitayono-lockers",
+      "name": "北与野駅 コインロッカー",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "駅構内",
+      "scope": "場外",
+      "location": "北与野駅",
+      "detail": "JR東日本の案内に掲載されています。設置場所・改札内外・料金は駅の案内をご確認ください。",
+      "sourceIds": [
+        "ssa-jr-locker"
+      ],
+      "precision": "text-only",
+      "storageKind": "coin"
+    },
+    {
+      "id": "ssa-cocoon-lockers",
+      "name": "コクーンシティ コインロッカー",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "館内各所",
+      "scope": "場外",
+      "location": "コクーンシティ",
+      "detail": "10:00〜21:00。有料・当日限り。閉館後に取り出せないため、公演終了時間にご注意ください。",
+      "sourceIds": [
+        "ssa-cocoon"
+      ],
+      "precision": "text-only",
+      "storageKind": "coin"
+    },
+    {
+      "id": "ssa-keyaki-shop-06",
+      "name": "スターバックス コーヒー さいたま新都心店",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "けやきひろば1F・店舗6",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "sourceIds": [
+        "ssa-keyaki",
+        "ssa-keyaki-map-2026"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-keyaki-1f-native",
+        "x": 248,
+        "y": 270,
+        "sourceIds": [
+          "ssa-keyaki-map-2026"
+        ],
+        "reference": "設備記号と店舗番号の代表位置。入口・室内機器数・経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-keyaki-shop-07",
+      "name": "健康中華 青蓮",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "けやきひろば1F・店舗7",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "sourceIds": [
+        "ssa-keyaki",
+        "ssa-keyaki-map-2026"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-keyaki-1f-native",
+        "x": 166,
+        "y": 405,
+        "sourceIds": [
+          "ssa-keyaki-map-2026"
+        ],
+        "reference": "設備記号と店舗番号の代表位置。入口・室内機器数・経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-keyaki-shop-08",
+      "name": "信州そば処 そじ坊",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "けやきひろば1F・店舗8",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "sourceIds": [
+        "ssa-keyaki",
+        "ssa-keyaki-map-2026"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-keyaki-1f-native",
+        "x": 122,
+        "y": 405,
+        "sourceIds": [
+          "ssa-keyaki-map-2026"
+        ],
+        "reference": "設備記号と店舗番号の代表位置。入口・室内機器数・経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-keyaki-shop-09",
+      "name": "鍛冶屋 文蔵",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "けやきひろば1F・店舗9",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "sourceIds": [
+        "ssa-keyaki",
+        "ssa-keyaki-map-2026"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-keyaki-1f-native",
+        "x": 50,
+        "y": 365,
+        "sourceIds": [
+          "ssa-keyaki-map-2026"
+        ],
+        "reference": "設備記号と店舗番号の代表位置。入口・室内機器数・経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-keyaki-shop-10",
+      "name": "寿司海鮮 御旦孤",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "けやきひろば1F・店舗10",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "sourceIds": [
+        "ssa-keyaki",
+        "ssa-keyaki-map-2026"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-keyaki-1f-native",
+        "x": 57,
+        "y": 250,
+        "sourceIds": [
+          "ssa-keyaki-map-2026"
+        ],
+        "reference": "設備記号と店舗番号の代表位置。入口・室内機器数・経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-keyaki-shop-11",
+      "name": "銀座ライオン",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "けやきひろば1F・店舗11",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "sourceIds": [
+        "ssa-keyaki",
+        "ssa-keyaki-map-2026"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-keyaki-1f-native",
+        "x": 57,
+        "y": 198,
+        "sourceIds": [
+          "ssa-keyaki-map-2026"
+        ],
+        "reference": "設備記号と店舗番号の代表位置。入口・室内機器数・経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-keyaki-shop-12",
+      "name": "中華食堂 日高屋",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "けやきひろば1F・店舗12",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "sourceIds": [
+        "ssa-keyaki",
+        "ssa-keyaki-map-2026"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-keyaki-1f-native",
+        "x": 118,
+        "y": 210,
+        "sourceIds": [
+          "ssa-keyaki-map-2026"
+        ],
+        "reference": "設備記号と店舗番号の代表位置。入口・室内機器数・経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-keyaki-shop-13",
+      "name": "アジアティーク",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "けやきひろば1F・店舗13",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "sourceIds": [
+        "ssa-keyaki",
+        "ssa-keyaki-map-2026"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-keyaki-1f-native",
+        "x": 122,
+        "y": 169,
+        "sourceIds": [
+          "ssa-keyaki-map-2026"
+        ],
+        "reference": "設備記号と店舗番号の代表位置。入口・室内機器数・経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-keyaki-shop-14",
+      "name": "ビア＆ワインバー だん家",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "けやきひろば1F・店舗14",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "sourceIds": [
+        "ssa-keyaki",
+        "ssa-keyaki-map-2026"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-keyaki-1f-native",
+        "x": 115,
+        "y": 114,
+        "sourceIds": [
+          "ssa-keyaki-map-2026"
+        ],
+        "reference": "設備記号と店舗番号の代表位置。入口・室内機器数・経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-keyaki-shop-16",
+      "name": "蒸 なんで、や",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "けやきひろば1F・店舗16",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "sourceIds": [
+        "ssa-keyaki",
+        "ssa-keyaki-map-2026"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-keyaki-1f-native",
+        "x": 150,
+        "y": 169,
+        "sourceIds": [
+          "ssa-keyaki-map-2026"
+        ],
+        "reference": "設備記号と店舗番号の代表位置。入口・室内機器数・経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-keyaki-shop-17",
+      "name": "ナンクルナイサ きばいやんせ～",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "けやきひろば1F・店舗17",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "sourceIds": [
+        "ssa-keyaki",
+        "ssa-keyaki-map-2026"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-keyaki-1f-native",
+        "x": 174,
+        "y": 169,
+        "sourceIds": [
+          "ssa-keyaki-map-2026"
+        ],
+        "reference": "設備記号と店舗番号の代表位置。入口・室内機器数・経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-keyaki-shop-18",
+      "name": "カレー食堂 心",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "けやきひろば1F・店舗18",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "sourceIds": [
+        "ssa-keyaki",
+        "ssa-keyaki-map-2026"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-keyaki-1f-native",
+        "x": 158,
+        "y": 210,
+        "sourceIds": [
+          "ssa-keyaki-map-2026"
+        ],
+        "reference": "設備記号と店舗番号の代表位置。入口・室内機器数・経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-keyaki-shop-19",
+      "name": "ヒョンチャンプルコギ さいたま新都心店",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "けやきひろば1F・店舗19",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "sourceIds": [
+        "ssa-keyaki",
+        "ssa-keyaki-map-2026"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-keyaki-1f-native",
+        "x": 241,
+        "y": 168,
+        "sourceIds": [
+          "ssa-keyaki-map-2026"
+        ],
+        "reference": "設備記号と店舗番号の代表位置。入口・室内機器数・経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-keyaki-shop-20",
+      "name": "函館森町しげぞう",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "けやきひろば1F・店舗20",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "sourceIds": [
+        "ssa-keyaki",
+        "ssa-keyaki-map-2026"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-keyaki-1f-native",
+        "x": 232,
+        "y": 135,
+        "sourceIds": [
+          "ssa-keyaki-map-2026"
+        ],
+        "reference": "設備記号と店舗番号の代表位置。入口・室内機器数・経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-keyaki-shop-21",
+      "name": "ZETTERIA",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "けやきひろば1F・店舗21",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "sourceIds": [
+        "ssa-keyaki",
+        "ssa-keyaki-map-2026"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-keyaki-1f-native",
+        "x": 246,
+        "y": 109,
+        "sourceIds": [
+          "ssa-keyaki-map-2026"
+        ],
+        "reference": "設備記号と店舗番号の代表位置。入口・室内機器数・経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-keyaki-shop-22",
+      "name": "自家製麺 杵屋",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "けやきひろば1F・店舗22",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "sourceIds": [
+        "ssa-keyaki",
+        "ssa-keyaki-map-2026"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-keyaki-1f-native",
+        "x": 292,
+        "y": 109,
+        "sourceIds": [
+          "ssa-keyaki-map-2026"
+        ],
+        "reference": "設備記号と店舗番号の代表位置。入口・室内機器数・経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-keyaki-shop-23",
+      "name": "和食処 銀蔵",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "けやきひろば1F・店舗23",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "sourceIds": [
+        "ssa-keyaki",
+        "ssa-keyaki-map-2026"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-keyaki-1f-native",
+        "x": 306,
+        "y": 157,
+        "sourceIds": [
+          "ssa-keyaki-map-2026"
+        ],
+        "reference": "設備記号と店舗番号の代表位置。入口・室内機器数・経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-keyaki-shop-24",
+      "name": "どうとんぼり神座",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "けやきひろば1F・店舗24",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "sourceIds": [
+        "ssa-keyaki",
+        "ssa-keyaki-map-2026"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-keyaki-1f-native",
+        "x": 280,
+        "y": 157,
+        "sourceIds": [
+          "ssa-keyaki-map-2026"
+        ],
+        "reference": "設備記号と店舗番号の代表位置。入口・室内機器数・経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-keyaki-shop-25",
+      "name": "Serafina NEW YORK",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "3F",
+      "scope": "場外",
+      "location": "けやきひろば3F・店舗25",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "sourceIds": [
+        "ssa-keyaki",
+        "ssa-keyaki-map-2026"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-keyaki-3f-native",
+        "x": 955,
+        "y": 389,
+        "sourceIds": [
+          "ssa-keyaki-map-2026"
+        ],
+        "reference": "設備記号と店舗番号の代表位置。入口・室内機器数・経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-keyaki-lockers-north-middle",
+      "name": "コインロッカー",
+      "floor": "1F",
+      "scope": "場外",
+      "purpose": "荷物",
+      "kind": "locker",
+      "location": "けやきひろば1F・駅方面・中央",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "sourceIds": [
+        "ssa-keyaki",
+        "ssa-keyaki-map-2026"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-keyaki-1f-native",
+        "x": 222,
+        "y": 81,
+        "sourceIds": [
+          "ssa-keyaki-map-2026"
+        ],
+        "reference": "設備記号と店舗番号の代表位置。入口・室内機器数・経路ではない。"
+      },
+      "storageKind": "coin"
+    },
+    {
+      "id": "ssa-keyaki-lockers-station-side",
+      "name": "コインロッカー",
+      "floor": "1F",
+      "scope": "場外",
+      "purpose": "荷物",
+      "kind": "locker",
+      "location": "けやきひろば1F・タクシー乗り場側",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "sourceIds": [
+        "ssa-keyaki",
+        "ssa-keyaki-map-2026"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-keyaki-1f-native",
+        "x": 332,
+        "y": 60,
+        "sourceIds": [
+          "ssa-keyaki-map-2026"
+        ],
+        "reference": "設備記号と店舗番号の代表位置。入口・室内機器数・経路ではない。"
+      },
+      "storageKind": "coin"
+    },
+    {
+      "id": "ssa-keyaki-lockers-south",
+      "name": "コインロッカー",
+      "floor": "1F",
+      "scope": "場外",
+      "purpose": "荷物",
+      "kind": "locker",
+      "location": "けやきひろば1F・北与野方面・会場側",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "sourceIds": [
+        "ssa-keyaki",
+        "ssa-keyaki-map-2026"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-keyaki-1f-native",
+        "x": 90,
+        "y": 411,
+        "sourceIds": [
+          "ssa-keyaki-map-2026"
+        ],
+        "reference": "設備記号と店舗番号の代表位置。入口・室内機器数・経路ではない。"
+      },
+      "storageKind": "coin"
+    },
+    {
+      "id": "ssa-keyaki-toilets-south",
+      "name": "男女トイレ",
+      "floor": "1F",
+      "scope": "場外",
+      "purpose": "トイレ",
+      "kind": "toilet",
+      "location": "けやきひろば1F・北与野方面のトイレ",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "sourceIds": [
+        "ssa-keyaki",
+        "ssa-keyaki-map-2026"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-keyaki-1f-native",
+        "x": 48,
+        "y": 402,
+        "sourceIds": [
+          "ssa-keyaki-map-2026"
+        ],
+        "reference": "設備記号と店舗番号の代表位置。入口・室内機器数・経路ではない。"
+      },
+      "toiletType": "mixed"
+    },
+    {
+      "id": "ssa-keyaki-accessible-south",
+      "name": "バリアフリートイレ",
+      "floor": "1F",
+      "scope": "場外",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "location": "けやきひろば1F・北与野方面のトイレ",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "sourceIds": [
+        "ssa-keyaki",
+        "ssa-keyaki-map-2026"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-keyaki-1f-native",
+        "x": 68,
+        "y": 402,
+        "sourceIds": [
+          "ssa-keyaki-map-2026"
+        ],
+        "reference": "設備記号と店舗番号の代表位置。入口・室内機器数・経路ではない。"
+      },
+      "toiletType": "accessible"
+    },
+    {
+      "id": "ssa-keyaki-diaper-north",
+      "name": "おむつ交換シート",
+      "floor": "1F",
+      "scope": "場外",
+      "purpose": "赤ちゃん",
+      "kind": "diaper-table",
+      "location": "けやきひろば1F・駅方面のトイレ",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "sourceIds": [
+        "ssa-keyaki",
+        "ssa-keyaki-map-2026"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-keyaki-1f-native",
+        "x": 165,
+        "y": 96,
+        "sourceIds": [
+          "ssa-keyaki-map-2026"
+        ],
+        "reference": "設備記号と店舗番号の代表位置。入口・室内機器数・経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-keyaki-diaper-south",
+      "name": "おむつ交換シート",
+      "floor": "1F",
+      "scope": "場外",
+      "purpose": "赤ちゃん",
+      "kind": "diaper-table",
+      "location": "けやきひろば1F・北与野方面のトイレ",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "sourceIds": [
+        "ssa-keyaki",
+        "ssa-keyaki-map-2026"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-keyaki-1f-native",
+        "x": 60,
+        "y": 422,
+        "sourceIds": [
+          "ssa-keyaki-map-2026"
+        ],
+        "reference": "設備記号と店舗番号の代表位置。入口・室内機器数・経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-keyaki-elevator-north",
+      "name": "エレベーター",
+      "floor": "1F",
+      "scope": "場外",
+      "purpose": "案内",
+      "kind": "elevator",
+      "location": "けやきひろば1F・駅方面・中央",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "sourceIds": [
+        "ssa-keyaki",
+        "ssa-keyaki-map-2026"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-keyaki-1f-native",
+        "x": 243,
+        "y": 81,
+        "sourceIds": [
+          "ssa-keyaki-map-2026"
+        ],
+        "reference": "設備記号と店舗番号の代表位置。入口・室内機器数・経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-keyaki-elevator-west",
+      "name": "エレベーター",
+      "floor": "1F",
+      "scope": "場外",
+      "purpose": "案内",
+      "kind": "elevator",
+      "location": "けやきひろば1F・プラザ・会場側",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "sourceIds": [
+        "ssa-keyaki",
+        "ssa-keyaki-map-2026"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-keyaki-1f-native",
+        "x": 115,
+        "y": 290,
+        "sourceIds": [
+          "ssa-keyaki-map-2026"
+        ],
+        "reference": "設備記号と店舗番号の代表位置。入口・室内機器数・経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-keyaki-elevator-3f",
+      "name": "エレベーター",
+      "floor": "3F",
+      "scope": "場外",
+      "purpose": "案内",
+      "kind": "elevator",
+      "location": "けやきひろば3F・屋上レストラン側",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "sourceIds": [
+        "ssa-keyaki",
+        "ssa-keyaki-map-2026"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "ssa-keyaki-3f-native",
+        "x": 925,
+        "y": 356,
+        "sourceIds": [
+          "ssa-keyaki-map-2026"
+        ],
+        "reference": "設備記号と店舗番号の代表位置。入口・室内機器数・経路ではない。"
+      }
+    },
+    {
+      "id": "ssa-cocoon-baby-co1",
+      "purpose": "赤ちゃん",
+      "kind": "nursing",
+      "floor": "1F",
+      "name": "ベビー休憩室",
+      "location": "コクーン1・1F",
+      "scope": "場外",
+      "precision": "text-only",
+      "sourceIds": [
+        "ssa-cocoon"
+      ],
+      "detail": "施設案内で場所・利用時間をご確認ください。"
+    },
+    {
+      "id": "ssa-cocoon-baby-co2-1f",
+      "purpose": "赤ちゃん",
+      "kind": "nursing",
+      "floor": "1F",
+      "name": "ベビー休憩室",
+      "location": "コクーン2・1F",
+      "scope": "場外",
+      "precision": "text-only",
+      "sourceIds": [
+        "ssa-cocoon"
+      ],
+      "detail": "施設案内で場所・利用時間をご確認ください。"
+    },
+    {
+      "id": "ssa-cocoon-baby-co2-3f",
+      "purpose": "赤ちゃん",
+      "kind": "nursing",
+      "floor": "3F",
+      "name": "ベビー休憩室",
+      "location": "コクーン2・3F",
+      "scope": "場外",
+      "precision": "text-only",
+      "sourceIds": [
+        "ssa-cocoon"
+      ],
+      "detail": "施設案内で場所・利用時間をご確認ください。"
+    },
+    {
+      "id": "ssa-cocoon-baby-co3",
+      "purpose": "赤ちゃん",
+      "kind": "nursing",
+      "floor": "1F",
+      "name": "ベビー休憩室",
+      "location": "コクーン3・1F",
+      "scope": "場外",
+      "precision": "text-only",
+      "sourceIds": [
+        "ssa-cocoon"
+      ],
+      "detail": "施設案内で場所・利用時間をご確認ください。"
+    },
+    {
+      "id": "ssa-cocoon-aed",
+      "purpose": "AED",
+      "kind": "aed",
+      "floor": "2F",
+      "name": "AED",
+      "location": "コクーン2・2Fインフォメーション",
+      "scope": "場外",
+      "precision": "text-only",
+      "sourceIds": [
+        "ssa-cocoon"
+      ],
+      "detail": "コクーン2・2Fインフォメーションに設置されています。"
+    }
+  ],
+  "diagrams": [
+    {
+      "id": "ssa-stadium-1f-native",
+      "floor": "1F",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        643,
+        461
+      ],
+      "contextPaths": [
+        "M25.00,145.00 L120.00,99.00 L205.00,65.00 L399.00,23.00 L542.00,5.00 L550.00,454.00 L460.00,446.00 L325.00,430.00 L220.00,410.00 L25.00,368.00 Z",
+        "M111.00,168.00 L206.00,143.00 L402.00,119.00 L446.00,149.00 L491.00,201.00 L485.00,276.00 L456.00,315.00 L400.00,337.00 L240.00,342.00 L194.00,353.00 L133.00,324.00 L124.00,270.00 Z"
+      ],
+      "concoursePaths": [],
+      "landmarks": [
+        {
+          "id": "ssa-gate-s1",
+          "label": "S1ゲート",
+          "kind": "gate",
+          "x": 577,
+          "y": 131,
+          "sourceIds": [
+            "stadium-1f"
+          ],
+          "reference": "公式フロア図のゲート文字の代表点。入場口の実測位置ではない。"
+        },
+        {
+          "id": "ssa-gate-s2",
+          "label": "S2ゲート",
+          "kind": "gate",
+          "x": 577,
+          "y": 283,
+          "sourceIds": [
+            "stadium-1f"
+          ],
+          "reference": "公式フロア図のゲート文字の代表点。入場口の実測位置ではない。"
+        },
+        {
+          "id": "ssa-gate-w",
+          "label": "Wゲート",
+          "kind": "gate",
+          "x": 228,
+          "y": 425,
+          "sourceIds": [
+            "stadium-1f"
+          ],
+          "reference": "公式フロア図のゲート文字の代表点。入場口の実測位置ではない。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "stadium-1f"
+        ],
+        "file": "stadium-1f.jpg",
+        "sha256": "30fcee90da5e7ec82b5eeace9e1ef99c957103f9bc1947d332d928ee663cabdc",
+        "width": 643,
+        "height": 461,
+        "method": "native representative glyph points; independent simplified room/lobby outlines",
+        "status": "partial"
+      }
+    },
+    {
+      "id": "ssa-stadium-2f-native",
+      "floor": "2F",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        643,
+        498
+      ],
+      "contextPaths": [
+        "M25.00,145.00 L120.00,99.00 L205.00,65.00 L399.00,23.00 L542.00,5.00 L550.00,454.00 L460.00,446.00 L325.00,430.00 L220.00,410.00 L25.00,368.00 Z",
+        "M111.00,168.00 L206.00,143.00 L402.00,119.00 L446.00,149.00 L491.00,201.00 L485.00,276.00 L456.00,315.00 L400.00,337.00 L240.00,342.00 L194.00,353.00 L133.00,324.00 L124.00,270.00 Z"
+      ],
+      "concoursePaths": [],
+      "landmarks": [
+        {
+          "id": "ssa-gate-a",
+          "label": "Aゲート",
+          "kind": "gate",
+          "x": 441,
+          "y": 403,
+          "sourceIds": [
+            "stadium-2f"
+          ],
+          "reference": "公式フロア図のゲート文字の代表点。入場口の実測位置ではない。"
+        },
+        {
+          "id": "ssa-gate-b",
+          "label": "Bゲート",
+          "kind": "gate",
+          "x": 473,
+          "y": 80,
+          "sourceIds": [
+            "stadium-2f"
+          ],
+          "reference": "公式フロア図のゲート文字の代表点。入場口の実測位置ではない。"
+        },
+        {
+          "id": "ssa-gate-c",
+          "label": "Cゲート",
+          "kind": "gate",
+          "x": 558,
+          "y": 240,
+          "sourceIds": [
+            "stadium-2f"
+          ],
+          "reference": "公式フロア図のゲート文字の代表点。入場口の実測位置ではない。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "stadium-2f"
+        ],
+        "file": "stadium-2f.jpg",
+        "sha256": "068a41271e5a450b2578c0af310abbb877b064db29da75c9d61621072b61d6ac",
+        "width": 643,
+        "height": 498,
+        "method": "native representative glyph points; independent simplified room/lobby outlines",
+        "status": "partial"
+      }
+    },
+    {
+      "id": "ssa-stadium-3f-native",
+      "floor": "3F",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        643,
+        452
+      ],
+      "contextPaths": [
+        "M48.00,133.00 L120.00,90.00 L245.00,43.00 L540.00,1.00 L593.00,27.00 L592.00,147.00 L555.00,330.00 L510.00,379.00 L401.00,418.00 L220.00,407.00 L49.00,367.00 Z",
+        "M111.00,168.00 L206.00,143.00 L402.00,119.00 L446.00,149.00 L491.00,201.00 L485.00,276.00 L456.00,315.00 L400.00,337.00 L240.00,342.00 L194.00,353.00 L133.00,324.00 L124.00,270.00 Z"
+      ],
+      "concoursePaths": [],
+      "landmarks": [],
+      "evidence": {
+        "sourceIds": [
+          "stadium-3f"
+        ],
+        "file": "stadium-3f.jpg",
+        "sha256": "692c1da61a9abb2e733b7347f46d8135bb110306945eb87e69db411e8fc9fb08",
+        "width": 643,
+        "height": 452,
+        "method": "native representative glyph points; independent simplified room/lobby outlines",
+        "status": "partial"
+      }
+    },
+    {
+      "id": "ssa-stadium-4f-native",
+      "floor": "4F",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        643,
+        425
+      ],
+      "contextPaths": [
+        "M48.00,133.00 L120.00,90.00 L245.00,43.00 L540.00,1.00 L593.00,27.00 L592.00,147.00 L555.00,330.00 L510.00,379.00 L401.00,417.00 L220.00,407.00 L49.00,367.00 Z",
+        "M111.00,168.00 L206.00,143.00 L402.00,119.00 L446.00,149.00 L491.00,201.00 L485.00,276.00 L456.00,315.00 L400.00,337.00 L240.00,342.00 L194.00,353.00 L133.00,324.00 L124.00,270.00 Z"
+      ],
+      "concoursePaths": [],
+      "landmarks": [
+        {
+          "id": "ssa-gate-n",
+          "label": "Nゲート",
+          "kind": "gate",
+          "x": 67,
+          "y": 224,
+          "sourceIds": [
+            "stadium-4f"
+          ],
+          "reference": "公式フロア図のゲート文字の代表点。入場口の実測位置ではない。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "stadium-4f"
+        ],
+        "file": "stadium-4f.jpg",
+        "sha256": "2c423337c0ea714c4e7c44514b0509862b303a78834c7d1119d3c7b152dae4a3",
+        "width": 643,
+        "height": 425,
+        "method": "native representative glyph points; independent simplified room/lobby outlines",
+        "status": "partial"
+      }
+    },
+    {
+      "id": "ssa-stadium-5f-native",
+      "floor": "5F",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        643,
+        407
+      ],
+      "contextPaths": [
+        "M48.00,133.00 L120.00,90.00 L245.00,43.00 L540.00,1.00 L593.00,27.00 L592.00,147.00 L555.00,330.00 L510.00,379.00 L401.00,399.00 L220.00,399.00 L49.00,367.00 Z",
+        "M111.00,168.00 L206.00,143.00 L402.00,119.00 L446.00,149.00 L491.00,201.00 L485.00,276.00 L456.00,315.00 L400.00,337.00 L240.00,342.00 L194.00,353.00 L133.00,324.00 L124.00,270.00 Z"
+      ],
+      "concoursePaths": [],
+      "landmarks": [],
+      "evidence": {
+        "sourceIds": [
+          "stadium-5f"
+        ],
+        "file": "stadium-5f.jpg",
+        "sha256": "3a5c15545b3e71d0235494536d6269b2741fb6b401d2b002e6f48703aef8728a",
+        "width": 643,
+        "height": 407,
+        "method": "native representative glyph points; independent simplified room/lobby outlines",
+        "status": "partial"
+      }
+    },
+    {
+      "id": "saitama-super-arena-outside",
+      "floor": "場外",
+      "scope": "場外",
+      "viewBox": [
+        0,
+        0,
+        1000,
+        760
+      ],
+      "contextPaths": [
+        "M400,180 H610 V370 H400 Z"
+      ],
+      "concoursePaths": [],
+      "landmarks": [
+        {
+          "id": "ssa-shintoshin",
+          "label": "さいたま新都心駅",
+          "x": 790,
+          "y": 340,
+          "kind": "station",
+          "sourceIds": [
+            "ssa-access"
+          ],
+          "reference": "北上略図の代表位置。個別出口・歩行経路ではない。"
+        },
+        {
+          "id": "ssa-kitayono",
+          "label": "北与野駅",
+          "x": 210,
+          "y": 640,
+          "kind": "station",
+          "sourceIds": [
+            "ssa-access"
+          ],
+          "reference": "北上略図の代表位置。個別出口・歩行経路ではない。"
+        },
+        {
+          "id": "ssa-keyaki",
+          "label": "けやきひろば",
+          "x": 530,
+          "y": 480,
+          "kind": "plaza",
+          "sourceIds": [
+            "ssa-access"
+          ],
+          "reference": "北上略図の代表位置。個別出口・歩行経路ではない。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "ssa-access"
+        ],
+        "file": "",
+        "sha256": "",
+        "width": 1000,
+        "height": 760,
+        "method": "north-up relation schematic; no registered local locker point",
+        "status": "partial"
+      }
+    },
+    {
+      "id": "ssa-keyaki-1f-native",
+      "floor": "1F",
+      "scope": "場外",
+      "viewBox": [
+        0,
+        30,
+        450,
+        425
+      ],
+      "contextPaths": [
+        "M16,53 H436 L388,435 H16 Z",
+        "M105,277 H194 V368 H105 Z"
+      ],
+      "concoursePaths": [],
+      "landmarks": [
+        {
+          "id": "keyaki-station-direction",
+          "label": "新都心駅方面",
+          "kind": "exit",
+          "x": 227,
+          "y": 36,
+          "sourceIds": [
+            "ssa-keyaki-map-2026"
+          ],
+          "reference": "原図上端の駅方面案内。駅改札/個別出口ではない。"
+        },
+        {
+          "id": "keyaki-arena-direction",
+          "label": "会場方面",
+          "kind": "exit",
+          "x": 6,
+          "y": 250,
+          "sourceIds": [
+            "ssa-keyaki-map-2026"
+          ],
+          "reference": "原図左側のGMOアリーナ方面案内。公演指定入場口ではない。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "ssa-keyaki-map-2026"
+        ],
+        "file": "keyaki-2026-04-map.jpg",
+        "sha256": "7317f01d8631eae02b7fcb8af79f56fb439435c7da4225c5590a00b7e5b89cfc",
+        "width": 1002,
+        "height": 478,
+        "method": "original-coordinate floor panel; independent clean outline; representative symbols only",
+        "status": "source-checked"
+      }
+    },
+    {
+      "id": "ssa-keyaki-3f-native",
+      "floor": "3F",
+      "scope": "場外",
+      "viewBox": [
+        904,
+        325,
+        98,
+        122
+      ],
+      "contextPaths": [
+        "M912,346 H985 V368 H1002 V434 H912 Z"
+      ],
+      "concoursePaths": [],
+      "landmarks": [],
+      "evidence": {
+        "sourceIds": [
+          "ssa-keyaki-map-2026"
+        ],
+        "file": "keyaki-2026-04-map.jpg",
+        "sha256": "7317f01d8631eae02b7fcb8af79f56fb439435c7da4225c5590a00b7e5b89cfc",
+        "width": 1002,
+        "height": 478,
+        "method": "original-coordinate floor panel; independent clean outline; representative symbols only",
+        "status": "source-checked"
+      }
+    }
+  ],
+  "groups": [
+    {
+      "id": "ssa-stadium-2f-native-飲食-ssa-stadium-2f-shop-01",
+      "diagramId": "ssa-stadium-2f-native",
+      "purpose": "飲食",
+      "label": "2F・北側コンコース",
+      "area": "北側コンコース",
+      "memberIds": [
+        "ssa-stadium-2f-shop-01"
+      ],
+      "x": 353.0,
+      "y": 90.5,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-2f-native-トイレ-ssa-stadium-2f-ostomate-01",
+      "diagramId": "ssa-stadium-2f-native",
+      "purpose": "トイレ",
+      "label": "2F・北側コンコース",
+      "area": "北側コンコース",
+      "memberIds": [
+        "ssa-stadium-2f-ostomate-01"
+      ],
+      "x": 253.0,
+      "y": 93.0,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-2f-native-飲食-ssa-stadium-2f-shop-02",
+      "diagramId": "ssa-stadium-2f-native",
+      "purpose": "飲食",
+      "label": "2F・北側コンコース",
+      "area": "北側コンコース",
+      "memberIds": [
+        "ssa-stadium-2f-shop-02"
+      ],
+      "x": 204.0,
+      "y": 106.0,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-2f-native-案内-ssa-stadium-2f-escalator-01",
+      "diagramId": "ssa-stadium-2f-native",
+      "purpose": "案内",
+      "label": "2F・北側コンコース",
+      "area": "北側コンコース",
+      "memberIds": [
+        "ssa-stadium-2f-escalator-01"
+      ],
+      "x": 539.5,
+      "y": 106.5,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-2f-native-トイレ-ssa-stadium-2f-toilet-accessible-01",
+      "diagramId": "ssa-stadium-2f-native",
+      "purpose": "トイレ",
+      "label": "2F・西側コンコース・上",
+      "area": "西側コンコース・上",
+      "memberIds": [
+        "ssa-stadium-2f-toilet-accessible-01"
+      ],
+      "x": 77.0,
+      "y": 129.0,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-2f-native-トイレ-ssa-stadium-2f-toilet-01",
+      "diagramId": "ssa-stadium-2f-native",
+      "purpose": "トイレ",
+      "label": "2F・北側コンコース",
+      "area": "北側コンコース",
+      "memberIds": [
+        "ssa-stadium-2f-toilet-01"
+      ],
+      "x": 154.0,
+      "y": 129.5,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-2f-native-トイレ-ssa-stadium-2f-toilet-02",
+      "diagramId": "ssa-stadium-2f-native",
+      "purpose": "トイレ",
+      "label": "2F・東側コンコース・上",
+      "area": "東側コンコース・上",
+      "memberIds": [
+        "ssa-stadium-2f-toilet-02"
+      ],
+      "x": 469.5,
+      "y": 183.5,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-2f-native-トイレ-ssa-stadium-2f-toilet-accessible-02",
+      "diagramId": "ssa-stadium-2f-native",
+      "purpose": "トイレ",
+      "label": "2F・西側コンコース・中",
+      "area": "西側コンコース・中",
+      "memberIds": [
+        "ssa-stadium-2f-toilet-accessible-02"
+      ],
+      "x": 86.0,
+      "y": 225.0,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-2f-native-飲食-ssa-stadium-2f-shop-03",
+      "diagramId": "ssa-stadium-2f-native",
+      "purpose": "飲食",
+      "label": "2F・東側コンコース・上",
+      "area": "東側コンコース・上",
+      "memberIds": [
+        "ssa-stadium-2f-shop-03"
+      ],
+      "x": 473.0,
+      "y": 225.0,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-2f-native-飲食-ssa-stadium-2f-shop-04",
+      "diagramId": "ssa-stadium-2f-native",
+      "purpose": "飲食",
+      "label": "2F・西側コンコース・中",
+      "area": "西側コンコース・中",
+      "memberIds": [
+        "ssa-stadium-2f-shop-04"
+      ],
+      "x": 50.0,
+      "y": 243.0,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-2f-native-飲食-ssa-stadium-2f-shop-05",
+      "diagramId": "ssa-stadium-2f-native",
+      "purpose": "飲食",
+      "label": "2F・西側コンコース・中",
+      "area": "西側コンコース・中",
+      "memberIds": [
+        "ssa-stadium-2f-shop-05"
+      ],
+      "x": 93.0,
+      "y": 266.5,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-2f-native-トイレ-ssa-stadium-2f-toilet-03",
+      "diagramId": "ssa-stadium-2f-native",
+      "purpose": "トイレ",
+      "label": "2F・東側コンコース・下",
+      "area": "東側コンコース・下",
+      "memberIds": [
+        "ssa-stadium-2f-toilet-03"
+      ],
+      "x": 477.0,
+      "y": 267.0,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-2f-native-トイレ-ssa-stadium-2f-toilet-04",
+      "diagramId": "ssa-stadium-2f-native",
+      "purpose": "トイレ",
+      "label": "2F・西側コンコース・中",
+      "area": "西側コンコース・中",
+      "memberIds": [
+        "ssa-stadium-2f-toilet-04"
+      ],
+      "x": 13.0,
+      "y": 269.0,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-2f-native-飲食-ssa-stadium-2f-shop-06",
+      "diagramId": "ssa-stadium-2f-native",
+      "purpose": "飲食",
+      "label": "2F・西側コンコース・中",
+      "area": "西側コンコース・中",
+      "memberIds": [
+        "ssa-stadium-2f-shop-06"
+      ],
+      "x": 56.5,
+      "y": 291.0,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-2f-native-トイレ-ssa-stadium-2f-toilet-accessible-03",
+      "diagramId": "ssa-stadium-2f-native",
+      "purpose": "トイレ",
+      "label": "2F・西側コンコース・中",
+      "area": "西側コンコース・中",
+      "memberIds": [
+        "ssa-stadium-2f-toilet-accessible-03"
+      ],
+      "x": 99.0,
+      "y": 308.0,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-2f-native-案内-ssa-stadium-2f-escalator-02",
+      "diagramId": "ssa-stadium-2f-native",
+      "purpose": "案内",
+      "label": "2F・東側コンコース・下",
+      "area": "東側コンコース・下",
+      "memberIds": [
+        "ssa-stadium-2f-escalator-02"
+      ],
+      "x": 551.5,
+      "y": 337.0,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-2f-native-飲食-ssa-stadium-2f-shop-07",
+      "diagramId": "ssa-stadium-2f-native",
+      "purpose": "飲食",
+      "label": "2F・南側コンコース",
+      "area": "南側コンコース",
+      "memberIds": [
+        "ssa-stadium-2f-shop-07"
+      ],
+      "x": 379.0,
+      "y": 368.5,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-2f-native-トイレ-ssa-stadium-2f-toilet-05",
+      "diagramId": "ssa-stadium-2f-native",
+      "purpose": "トイレ",
+      "label": "2F・南側コンコース",
+      "area": "南側コンコース",
+      "memberIds": [
+        "ssa-stadium-2f-toilet-05"
+      ],
+      "x": 175.0,
+      "y": 382.0,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-2f-native-トイレ-ssa-stadium-2f-toilet-accessible-04",
+      "diagramId": "ssa-stadium-2f-native",
+      "purpose": "トイレ",
+      "label": "2F・西側コンコース・下",
+      "area": "西側コンコース・下",
+      "memberIds": [
+        "ssa-stadium-2f-toilet-accessible-04"
+      ],
+      "x": 86.0,
+      "y": 387.5,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-2f-native-飲食-ssa-stadium-2f-shop-08",
+      "diagramId": "ssa-stadium-2f-native",
+      "purpose": "飲食",
+      "label": "2F・南側コンコース",
+      "area": "南側コンコース",
+      "memberIds": [
+        "ssa-stadium-2f-shop-08"
+      ],
+      "x": 240.0,
+      "y": 388.5,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-2f-native-トイレ-ssa-stadium-2f-ostomate-02",
+      "diagramId": "ssa-stadium-2f-native",
+      "purpose": "トイレ",
+      "label": "2F・南側コンコース",
+      "area": "南側コンコース",
+      "memberIds": [
+        "ssa-stadium-2f-ostomate-02"
+      ],
+      "x": 286.5,
+      "y": 388.5,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-2f-native-案内-ssa-stadium-2f-escalator-03",
+      "diagramId": "ssa-stadium-2f-native",
+      "purpose": "案内",
+      "label": "2F・南側コンコース",
+      "area": "南側コンコース",
+      "memberIds": [
+        "ssa-stadium-2f-escalator-03"
+      ],
+      "x": 124.5,
+      "y": 396.5,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-2f-native-赤ちゃん-ssa-stadium-2f-nursing-room-01",
+      "diagramId": "ssa-stadium-2f-native",
+      "purpose": "赤ちゃん",
+      "label": "2F・Aゲート内・左手",
+      "area": "Aゲート内・左手",
+      "memberIds": [
+        "ssa-stadium-2f-nursing-room-01"
+      ],
+      "x": 383.0,
+      "y": 419.0,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-1f-native-トイレ-ssa-stadium-1f-toilet-accessible-01",
+      "diagramId": "ssa-stadium-1f-native",
+      "purpose": "トイレ",
+      "label": "1F・西側コンコース・上",
+      "area": "西側コンコース・上",
+      "memberIds": [
+        "ssa-stadium-1f-toilet-accessible-01"
+      ],
+      "x": 104,
+      "y": 178,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-1f-native-トイレ-ssa-stadium-1f-toilet-accessible-02",
+      "diagramId": "ssa-stadium-1f-native",
+      "purpose": "トイレ",
+      "label": "1F・西側コンコース・下",
+      "area": "西側コンコース・下",
+      "memberIds": [
+        "ssa-stadium-1f-toilet-accessible-02"
+      ],
+      "x": 134,
+      "y": 347,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-1f-native-トイレ-ssa-stadium-1f-toilet-03",
+      "diagramId": "ssa-stadium-1f-native",
+      "purpose": "トイレ",
+      "label": "1F・東側コンコース・上",
+      "area": "東側コンコース・上",
+      "memberIds": [
+        "ssa-stadium-1f-toilet-03"
+      ],
+      "x": 446,
+      "y": 198,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-1f-native-飲食-ssa-stadium-1f-shop-04",
+      "diagramId": "ssa-stadium-1f-native",
+      "purpose": "飲食",
+      "label": "1F・東側コンコース・上",
+      "area": "東側コンコース・上",
+      "memberIds": [
+        "ssa-stadium-1f-shop-04"
+      ],
+      "x": 475,
+      "y": 198,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-1f-native-トイレ-ssa-stadium-1f-toilet-05",
+      "diagramId": "ssa-stadium-1f-native",
+      "purpose": "トイレ",
+      "label": "1F・東側コンコース・下",
+      "area": "東側コンコース・下",
+      "memberIds": [
+        "ssa-stadium-1f-toilet-05"
+      ],
+      "x": 448,
+      "y": 246,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-1f-native-飲食-ssa-stadium-1f-shop-06",
+      "diagramId": "ssa-stadium-1f-native",
+      "purpose": "飲食",
+      "label": "1F・東側コンコース・下",
+      "area": "東側コンコース・下",
+      "memberIds": [
+        "ssa-stadium-1f-shop-06"
+      ],
+      "x": 478,
+      "y": 246,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-1f-native-トイレ-ssa-stadium-1f-toilet-07",
+      "diagramId": "ssa-stadium-1f-native",
+      "purpose": "トイレ",
+      "label": "1F・Wゲート側",
+      "area": "Wゲート側",
+      "memberIds": [
+        "ssa-stadium-1f-toilet-07"
+      ],
+      "x": 396,
+      "y": 357,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-1f-native-赤ちゃん-ssa-stadium-1f-nursing-room-08",
+      "diagramId": "ssa-stadium-1f-native",
+      "purpose": "赤ちゃん",
+      "label": "1F・Wゲート側・授乳室",
+      "area": "Wゲート側・授乳室",
+      "memberIds": [
+        "ssa-stadium-1f-nursing-room-08"
+      ],
+      "x": 402,
+      "y": 393,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-3f-native-トイレ-ssa-stadium-3f-toilet-01",
+      "diagramId": "ssa-stadium-3f-native",
+      "purpose": "トイレ",
+      "label": "3F・東側コンコース・上",
+      "area": "東側コンコース・上",
+      "memberIds": [
+        "ssa-stadium-3f-toilet-01"
+      ],
+      "x": 499,
+      "y": 144,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-3f-native-トイレ-ssa-stadium-3f-ostomate-02",
+      "diagramId": "ssa-stadium-3f-native",
+      "purpose": "トイレ",
+      "label": "3F・東側コンコース・下",
+      "area": "東側コンコース・下",
+      "memberIds": [
+        "ssa-stadium-3f-ostomate-02"
+      ],
+      "x": 513,
+      "y": 268,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-3f-native-案内-ssa-stadium-3f-escalator-03",
+      "diagramId": "ssa-stadium-3f-native",
+      "purpose": "案内",
+      "label": "3F・南西側コンコース",
+      "area": "南西側コンコース",
+      "memberIds": [
+        "ssa-stadium-3f-escalator-03"
+      ],
+      "x": 143,
+      "y": 374,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-4f-native-トイレ-ssa-stadium-4f-ostomate-01",
+      "diagramId": "ssa-stadium-4f-native",
+      "purpose": "トイレ",
+      "label": "4F・Nゲート側・上",
+      "area": "Nゲート側・上",
+      "memberIds": [
+        "ssa-stadium-4f-ostomate-01"
+      ],
+      "x": 76,
+      "y": 194,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-4f-native-トイレ-ssa-stadium-4f-toilet-02",
+      "diagramId": "ssa-stadium-4f-native",
+      "purpose": "トイレ",
+      "label": "4F・Nゲート側・下",
+      "area": "Nゲート側・下",
+      "memberIds": [
+        "ssa-stadium-4f-toilet-02"
+      ],
+      "x": 85,
+      "y": 264,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-4f-native-飲食-ssa-stadium-4f-shop-03",
+      "diagramId": "ssa-stadium-4f-native",
+      "purpose": "飲食",
+      "label": "4F・Nゲート側・上",
+      "area": "Nゲート側・上",
+      "memberIds": [
+        "ssa-stadium-4f-shop-03"
+      ],
+      "x": 108,
+      "y": 194,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-4f-native-飲食-ssa-stadium-4f-shop-04",
+      "diagramId": "ssa-stadium-4f-native",
+      "purpose": "飲食",
+      "label": "4F・Nゲート側・下",
+      "area": "Nゲート側・下",
+      "memberIds": [
+        "ssa-stadium-4f-shop-04"
+      ],
+      "x": 117,
+      "y": 264,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-4f-native-飲食-ssa-stadium-4f-shop-05",
+      "diagramId": "ssa-stadium-4f-native",
+      "purpose": "飲食",
+      "label": "4F・北側コンコース",
+      "area": "北側コンコース",
+      "memberIds": [
+        "ssa-stadium-4f-shop-05"
+      ],
+      "x": 469,
+      "y": 61,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-4f-native-トイレ-ssa-stadium-4f-toilet-06",
+      "diagramId": "ssa-stadium-4f-native",
+      "purpose": "トイレ",
+      "label": "4F・東側コンコース・上",
+      "area": "東側コンコース・上",
+      "memberIds": [
+        "ssa-stadium-4f-toilet-06"
+      ],
+      "x": 512,
+      "y": 142,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-4f-native-トイレ-ssa-stadium-4f-toilet-07",
+      "diagramId": "ssa-stadium-4f-native",
+      "purpose": "トイレ",
+      "label": "4F・東側コンコース・下",
+      "area": "東側コンコース・下",
+      "memberIds": [
+        "ssa-stadium-4f-toilet-07"
+      ],
+      "x": 523,
+      "y": 245,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-4f-native-飲食-ssa-stadium-4f-shop-08",
+      "diagramId": "ssa-stadium-4f-native",
+      "purpose": "飲食",
+      "label": "4F・南側コンコース",
+      "area": "南側コンコース",
+      "memberIds": [
+        "ssa-stadium-4f-shop-08"
+      ],
+      "x": 487,
+      "y": 322,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-4f-native-案内-ssa-stadium-4f-escalator-09",
+      "diagramId": "ssa-stadium-4f-native",
+      "purpose": "案内",
+      "label": "4F・Nゲート側・下",
+      "area": "Nゲート側・下",
+      "memberIds": [
+        "ssa-stadium-4f-escalator-09"
+      ],
+      "x": 115,
+      "y": 323,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-5f-native-トイレ-ssa-stadium-5f-toilet-01",
+      "diagramId": "ssa-stadium-5f-native",
+      "purpose": "トイレ",
+      "label": "5F・西側コンコース・上",
+      "area": "西側コンコース・上",
+      "memberIds": [
+        "ssa-stadium-5f-toilet-01"
+      ],
+      "x": 107,
+      "y": 129,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-5f-native-トイレ-ssa-stadium-5f-toilet-02",
+      "diagramId": "ssa-stadium-5f-native",
+      "purpose": "トイレ",
+      "label": "5F・東側コンコース",
+      "area": "東側コンコース",
+      "memberIds": [
+        "ssa-stadium-5f-toilet-02"
+      ],
+      "x": 522,
+      "y": 168,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-5f-native-トイレ-ssa-stadium-5f-toilet-03",
+      "diagramId": "ssa-stadium-5f-native",
+      "purpose": "トイレ",
+      "label": "5F・西側コンコース・下",
+      "area": "西側コンコース・下",
+      "memberIds": [
+        "ssa-stadium-5f-toilet-03"
+      ],
+      "x": 136,
+      "y": 312,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-stadium-5f-native-案内-ssa-stadium-5f-escalator-04",
+      "diagramId": "ssa-stadium-5f-native",
+      "purpose": "案内",
+      "label": "5F・西側コンコース・下",
+      "area": "西側コンコース・下",
+      "memberIds": [
+        "ssa-stadium-5f-escalator-04"
+      ],
+      "x": 67,
+      "y": 289,
+      "boundary": "公式図の同一室・カウンターの代表区域。別室・別階・共用施設との利用境界を越えない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-keyaki-lockers-group",
+      "diagramId": "ssa-keyaki-1f-native",
+      "purpose": "荷物",
+      "label": "けやき1F・けやきひろば1F・会場側・駅方面",
+      "area": "けやきひろば1F・会場側・駅方面",
+      "memberIds": [
+        "ssa-keyaki-lockers"
+      ],
+      "x": 43,
+      "y": 121,
+      "boundary": "同一ロッカー設置区域。他の3区域とは分離。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-keyaki-lockers-north-middle-group",
+      "diagramId": "ssa-keyaki-1f-native",
+      "purpose": "荷物",
+      "label": "けやき1F・けやきひろば1F・駅方面・中央",
+      "area": "けやきひろば1F・駅方面・中央",
+      "memberIds": [
+        "ssa-keyaki-lockers-north-middle"
+      ],
+      "x": 222,
+      "y": 81,
+      "boundary": "同一ロッカー設置区域。他の3区域とは分離。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-keyaki-lockers-station-side-group",
+      "diagramId": "ssa-keyaki-1f-native",
+      "purpose": "荷物",
+      "label": "けやき1F・けやきひろば1F・タクシー乗り場側",
+      "area": "けやきひろば1F・タクシー乗り場側",
+      "memberIds": [
+        "ssa-keyaki-lockers-station-side"
+      ],
+      "x": 332,
+      "y": 60,
+      "boundary": "同一ロッカー設置区域。他の3区域とは分離。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "ssa-keyaki-lockers-south-group",
+      "diagramId": "ssa-keyaki-1f-native",
+      "purpose": "荷物",
+      "label": "けやき1F・けやきひろば1F・北与野方面・会場側",
+      "area": "けやきひろば1F・北与野方面・会場側",
+      "memberIds": [
+        "ssa-keyaki-lockers-south"
+      ],
+      "x": 90,
+      "y": 411,
+      "boundary": "同一ロッカー設置区域。他の3区域とは分離。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "keyaki-1f-トイレ-north-toilets",
+      "diagramId": "ssa-keyaki-1f-native",
+      "purpose": "トイレ",
+      "label": "けやき1F・けやきひろば1F・駅方面のトイレ",
+      "area": "けやきひろば1F・駅方面のトイレ",
+      "memberIds": [
+        "ssa-keyaki-toilets",
+        "ssa-keyaki-accessible"
+      ],
+      "x": 175.0,
+      "y": 75.0,
+      "boundary": "同階・同目的の同一室/設備区域。別のトイレ室・他階とは分離。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "keyaki-1f-トイレ-south-toilets",
+      "diagramId": "ssa-keyaki-1f-native",
+      "purpose": "トイレ",
+      "label": "けやき1F・けやきひろば1F・北与野方面のトイレ",
+      "area": "けやきひろば1F・北与野方面のトイレ",
+      "memberIds": [
+        "ssa-keyaki-toilets-south",
+        "ssa-keyaki-accessible-south"
+      ],
+      "x": 58.0,
+      "y": 402.0,
+      "boundary": "同階・同目的の同一室/設備区域。別のトイレ室・他階とは分離。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "keyaki-1f-赤ちゃん-north-toilets",
+      "diagramId": "ssa-keyaki-1f-native",
+      "purpose": "赤ちゃん",
+      "label": "けやき1F・けやきひろば1F・駅方面のトイレ",
+      "area": "けやきひろば1F・駅方面のトイレ",
+      "memberIds": [
+        "ssa-keyaki-diaper-north"
+      ],
+      "x": 165.0,
+      "y": 96.0,
+      "boundary": "同階・同目的の同一室/設備区域。別のトイレ室・他階とは分離。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "keyaki-1f-赤ちゃん-south-toilets",
+      "diagramId": "ssa-keyaki-1f-native",
+      "purpose": "赤ちゃん",
+      "label": "けやき1F・けやきひろば1F・北与野方面のトイレ",
+      "area": "けやきひろば1F・北与野方面のトイレ",
+      "memberIds": [
+        "ssa-keyaki-diaper-south"
+      ],
+      "x": 60.0,
+      "y": 422.0,
+      "boundary": "同階・同目的の同一室/設備区域。別のトイレ室・他階とは分離。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "keyaki-1f-案内-north-lift",
+      "diagramId": "ssa-keyaki-1f-native",
+      "purpose": "案内",
+      "label": "けやき1F・けやきひろば1F・駅方面・中央",
+      "area": "けやきひろば1F・駅方面・中央",
+      "memberIds": [
+        "ssa-keyaki-elevator-north"
+      ],
+      "x": 243.0,
+      "y": 81.0,
+      "boundary": "同階・同目的の同一室/設備区域。別のトイレ室・他階とは分離。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "keyaki-1f-案内-west-lift",
+      "diagramId": "ssa-keyaki-1f-native",
+      "purpose": "案内",
+      "label": "けやき1F・けやきひろば1F・プラザ・会場側",
+      "area": "けやきひろば1F・プラザ・会場側",
+      "memberIds": [
+        "ssa-keyaki-elevator-west"
+      ],
+      "x": 115.0,
+      "y": 290.0,
+      "boundary": "同階・同目的の同一室/設備区域。別のトイレ室・他階とは分離。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "keyaki-3f-案内-rooftop-lift",
+      "diagramId": "ssa-keyaki-3f-native",
+      "purpose": "案内",
+      "label": "けやき3F・けやきひろば3F・屋上レストラン側",
+      "area": "けやきひろば3F・屋上レストラン側",
+      "memberIds": [
+        "ssa-keyaki-elevator-3f"
+      ],
+      "x": 925.0,
+      "y": 356.0,
+      "boundary": "同階・同目的の同一室/設備区域。別のトイレ室・他階とは分離。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "keyaki-1f-food-north",
+      "diagramId": "ssa-keyaki-1f-native",
+      "purpose": "飲食",
+      "label": "けやき1F・駅方面の飲食店",
+      "area": "駅方面の飲食店",
+      "memberIds": [
+        "ssa-keyaki-shop-19",
+        "ssa-keyaki-shop-20",
+        "ssa-keyaki-shop-21",
+        "ssa-keyaki-shop-22",
+        "ssa-keyaki-shop-23",
+        "ssa-keyaki-shop-24"
+      ],
+      "x": 262,
+      "y": 145,
+      "boundary": "1F駅方面の同じ店舗棟・共用通路。中央プラザ・他階とは分離。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "keyaki-1f-food-middle",
+      "diagramId": "ssa-keyaki-1f-native",
+      "purpose": "飲食",
+      "label": "けやき1F・中央の飲食店",
+      "area": "中央の飲食店",
+      "memberIds": [
+        "ssa-keyaki-shop-12",
+        "ssa-keyaki-shop-13",
+        "ssa-keyaki-shop-14",
+        "ssa-keyaki-shop-16",
+        "ssa-keyaki-shop-17",
+        "ssa-keyaki-shop-18"
+      ],
+      "x": 149,
+      "y": 171,
+      "boundary": "1F中央の同じ店舗棟・共用通路。西側店舗・南側店舗・他階とは分離。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "keyaki-1f-food-west",
+      "diagramId": "ssa-keyaki-1f-native",
+      "purpose": "飲食",
+      "label": "けやき1F・会場側の飲食店",
+      "area": "会場側の飲食店",
+      "memberIds": [
+        "ssa-keyaki-shop-10",
+        "ssa-keyaki-shop-11"
+      ],
+      "x": 57,
+      "y": 224,
+      "boundary": "1F会場側の同じ店舗棟・共用通路。中央・南側店舗とは分離。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "keyaki-1f-food-south",
+      "diagramId": "ssa-keyaki-1f-native",
+      "purpose": "飲食",
+      "label": "けやき1F・北与野方面の飲食店",
+      "area": "北与野方面の飲食店",
+      "memberIds": [
+        "ssa-keyaki-shop-07",
+        "ssa-keyaki-shop-08",
+        "ssa-keyaki-shop-09"
+      ],
+      "x": 115,
+      "y": 390,
+      "boundary": "1F北与野方面の共用通路でつながる店舗。西側・中央店舗や他階とは分離。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "keyaki-1f-food-starbucks",
+      "diagramId": "ssa-keyaki-1f-native",
+      "purpose": "飲食",
+      "label": "けやき1F・プラザ中央のカフェ",
+      "area": "プラザ中央のカフェ",
+      "memberIds": [
+        "ssa-keyaki-shop-06"
+      ],
+      "x": 248,
+      "y": 270,
+      "boundary": "1F独立した店舗区画。周囲の店舗棟とは分離。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "keyaki-3f-food",
+      "diagramId": "ssa-keyaki-3f-native",
+      "purpose": "飲食",
+      "label": "けやき3F・屋上レストラン",
+      "area": "屋上レストラン",
+      "memberIds": [
+        "ssa-keyaki-shop-25"
+      ],
+      "x": 955,
+      "y": 389,
+      "boundary": "3Fの屋上店舗。1F店舗・2F広場とは分離。",
+      "visualReview": "source-checked"
+    }
+  ],
+  "meta": {
+    "ssa-stadium-2f-shop-01": {
+      "name": "売店",
+      "location": "北側コンコース",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "北側コンコース",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-2f-ostomate-01": {
+      "name": "バリアフリートイレ（オストメイト対応）",
+      "location": "北側コンコース",
+      "detail": "オストメイト対応。利用可能な室は当日の案内をご確認ください。",
+      "area": "北側コンコース",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-2f-shop-02": {
+      "name": "売店",
+      "location": "北側コンコース",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "北側コンコース",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-2f-escalator-01": {
+      "name": "エスカレーター",
+      "location": "北側コンコース",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "北側コンコース",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-2f-toilet-accessible-01": {
+      "name": "バリアフリートイレ",
+      "location": "西側コンコース・上",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "西側コンコース・上",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-2f-toilet-01": {
+      "name": "男女トイレ",
+      "location": "北側コンコース",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "北側コンコース",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-2f-elevator-01": {
+      "name": "ゴールドジム行エレベーター",
+      "location": "ゴールドジム行",
+      "detail": "専用施設への案内です。公演客席への動線としては案内していません。",
+      "area": "ゴールドジム行",
+      "accessCondition": "施設・駅の営業時間と入場条件をご確認ください。",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "ssa-stadium-2f-toilet-02": {
+      "name": "男女トイレ",
+      "location": "東側コンコース・上",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "東側コンコース・上",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-2f-toilet-accessible-02": {
+      "name": "バリアフリートイレ",
+      "location": "西側コンコース・中",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "西側コンコース・中",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-2f-shop-03": {
+      "name": "売店",
+      "location": "東側コンコース・上",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "東側コンコース・上",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-2f-shop-04": {
+      "name": "売店",
+      "location": "西側コンコース・中",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "西側コンコース・中",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-2f-shop-05": {
+      "name": "売店",
+      "location": "西側コンコース・中",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "西側コンコース・中",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-2f-toilet-03": {
+      "name": "男女トイレ",
+      "location": "東側コンコース・下",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "東側コンコース・下",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-2f-toilet-04": {
+      "name": "男女トイレ",
+      "location": "西側コンコース・中",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "西側コンコース・中",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-2f-shop-06": {
+      "name": "売店",
+      "location": "西側コンコース・中",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "西側コンコース・中",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-2f-toilet-accessible-03": {
+      "name": "バリアフリートイレ",
+      "location": "西側コンコース・中",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "西側コンコース・中",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-2f-escalator-02": {
+      "name": "エスカレーター",
+      "location": "東側コンコース・下",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "東側コンコース・下",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-2f-shop-07": {
+      "name": "売店",
+      "location": "南側コンコース",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "南側コンコース",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-2f-toilet-05": {
+      "name": "男女トイレ",
+      "location": "南側コンコース",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "南側コンコース",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-2f-toilet-accessible-04": {
+      "name": "バリアフリートイレ",
+      "location": "西側コンコース・下",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "西側コンコース・下",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-2f-shop-08": {
+      "name": "売店",
+      "location": "南側コンコース",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "南側コンコース",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-2f-ostomate-02": {
+      "name": "バリアフリートイレ（オストメイト対応）",
+      "location": "南側コンコース",
+      "detail": "オストメイト対応。利用可能な室は当日の案内をご確認ください。",
+      "area": "南側コンコース",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-2f-escalator-03": {
+      "name": "エスカレーター",
+      "location": "南側コンコース",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "南側コンコース",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-2f-nursing-room-01": {
+      "name": "授乳スペース",
+      "location": "Aゲート内・左手",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "Aゲート内・左手",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-2f-elevator-02": {
+      "name": "キッズルーム行エレベーター",
+      "location": "キッズルーム行",
+      "detail": "専用施設への案内です。公演客席への動線としては案内していません。",
+      "area": "キッズルーム行",
+      "accessCondition": "施設・駅の営業時間と入場条件をご確認ください。",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "ssa-stadium-1f-toilet-accessible-01": {
+      "name": "バリアフリートイレ",
+      "location": "西側コンコース・上",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "西側コンコース・上",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-1f-toilet-accessible-02": {
+      "name": "バリアフリートイレ",
+      "location": "西側コンコース・下",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "西側コンコース・下",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-1f-toilet-03": {
+      "name": "男女トイレ",
+      "location": "東側コンコース・上",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "東側コンコース・上",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-1f-shop-04": {
+      "name": "売店",
+      "location": "東側コンコース・上",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "東側コンコース・上",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-1f-toilet-05": {
+      "name": "男女トイレ",
+      "location": "東側コンコース・下",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "東側コンコース・下",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-1f-shop-06": {
+      "name": "売店",
+      "location": "東側コンコース・下",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "東側コンコース・下",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-1f-toilet-07": {
+      "name": "男女トイレ",
+      "location": "Wゲート側",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "Wゲート側",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-1f-nursing-room-08": {
+      "name": "授乳スペース",
+      "location": "Wゲート側・授乳室",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "Wゲート側・授乳室",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-3f-toilet-01": {
+      "name": "男女トイレ",
+      "location": "東側コンコース・上",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "東側コンコース・上",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-3f-ostomate-02": {
+      "name": "バリアフリートイレ（オストメイト対応）",
+      "location": "東側コンコース・下",
+      "detail": "オストメイト対応。利用可能な室は当日の案内をご確認ください。",
+      "area": "東側コンコース・下",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-3f-escalator-03": {
+      "name": "エスカレーター",
+      "location": "南西側コンコース",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "南西側コンコース",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-4f-ostomate-01": {
+      "name": "バリアフリートイレ（オストメイト対応）",
+      "location": "Nゲート側・上",
+      "detail": "オストメイト対応。利用可能な室は当日の案内をご確認ください。",
+      "area": "Nゲート側・上",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-4f-toilet-02": {
+      "name": "男女トイレ",
+      "location": "Nゲート側・下",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "Nゲート側・下",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-4f-shop-03": {
+      "name": "売店",
+      "location": "Nゲート側・上",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "Nゲート側・上",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-4f-shop-04": {
+      "name": "売店",
+      "location": "Nゲート側・下",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "Nゲート側・下",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-4f-shop-05": {
+      "name": "売店",
+      "location": "北側コンコース",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "北側コンコース",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-4f-toilet-06": {
+      "name": "男女トイレ",
+      "location": "東側コンコース・上",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "東側コンコース・上",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-4f-toilet-07": {
+      "name": "男女トイレ",
+      "location": "東側コンコース・下",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "東側コンコース・下",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-4f-shop-08": {
+      "name": "売店",
+      "location": "南側コンコース",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "南側コンコース",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-4f-escalator-09": {
+      "name": "エスカレーター",
+      "location": "Nゲート側・下",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "Nゲート側・下",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-5f-toilet-01": {
+      "name": "男女トイレ",
+      "location": "西側コンコース・上",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "西側コンコース・上",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-5f-toilet-02": {
+      "name": "男女トイレ",
+      "location": "東側コンコース",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "東側コンコース",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-5f-toilet-03": {
+      "name": "男女トイレ",
+      "location": "西側コンコース・下",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "西側コンコース・下",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-stadium-5f-escalator-04": {
+      "name": "エスカレーター",
+      "location": "西側コンコース・下",
+      "detail": "利用できる区域・営業時間は公演案内をご確認ください。",
+      "area": "西側コンコース・下",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。"
+    },
+    "ssa-info-lockers": {
+      "name": "コインロッカー",
+      "location": "インフォメーション横",
+      "detail": "入場前に利用できます。改修期間中の利用状況は施設案内をご確認ください。",
+      "area": "インフォメーション横",
+      "accessCondition": "改修休館中。再開後の利用案内をご確認ください。",
+      "url": "https://www.saitama-arena.co.jp/faq/",
+      "scopes": [
+        "場内",
+        "場外"
+      ],
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "ssa-s1-toilet": {
+      "name": "トイレ",
+      "location": "S1ゲート内・インフォメーションそば",
+      "detail": "入場前に利用できるトイレ。おむつ交換シートがあります。",
+      "area": "S1ゲート内・インフォメーションそば",
+      "accessCondition": "施設・駅の営業時間と入場条件をご確認ください。",
+      "url": "https://www.saitama-arena.co.jp/faq/",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "ssa-s1-diaper": {
+      "name": "おむつ交換シート",
+      "location": "S1ゲート内トイレ・インフォメーションそば",
+      "detail": "入場前に利用できます。改修期間中の利用状況をご確認ください。",
+      "area": "S1ゲート内トイレ・インフォメーションそば",
+      "accessCondition": "施設・駅の営業時間と入場条件をご確認ください。",
+      "url": "https://www.saitama-arena.co.jp/faq/",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "ssa-keyaki-lockers": {
+      "name": "コインロッカー",
+      "location": "けやきひろば1F・会場側・駅方面",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "area": "けやきひろば",
+      "accessCondition": "入場前。営業時間・当日の利用条件をご確認ください。",
+      "url": "https://www.saitama-arena.co.jp/keyakihiroba/floor_map/",
+      "outsideViewIds": [
+        "grounds",
+        "keyaki-1f"
+      ]
+    },
+    "ssa-keyaki-toilets": {
+      "name": "男女トイレ",
+      "location": "けやきひろば1F・駅方面のトイレ",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "area": "けやきひろば",
+      "accessCondition": "入場前。営業時間・当日の利用条件をご確認ください。",
+      "url": "https://www.saitama-arena.co.jp/keyakihiroba/floor_map/",
+      "outsideViewIds": [
+        "grounds",
+        "keyaki-1f"
+      ]
+    },
+    "ssa-keyaki-accessible": {
+      "name": "バリアフリートイレ",
+      "location": "けやきひろば1F・駅方面のトイレ",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "area": "けやきひろば",
+      "accessCondition": "入場前。営業時間・当日の利用条件をご確認ください。",
+      "url": "https://www.saitama-arena.co.jp/keyakihiroba/floor_map/",
+      "outsideViewIds": [
+        "grounds",
+        "keyaki-1f"
+      ]
+    },
+    "ssa-station-lockers": {
+      "name": "さいたま新都心駅 コインロッカー",
+      "location": "さいたま新都心駅2F・改札内・3/4番線側",
+      "detail": "始発〜終電。小500円、中600〜700円、大800〜900円。繁忙期は中・大が100〜200円加算。最長3日、午前2時に日数加算。機械により現金・ICカードに対応。マルチエキューブは予約対応。",
+      "area": "さいたま新都心駅",
+      "accessCondition": "改札内のため駅への入場が必要。料金・空きは利用する機械でご確認ください。",
+      "url": "https://media.jreast.co.jp/articles/65",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "ssa-kitayono-lockers": {
+      "name": "北与野駅 コインロッカー",
+      "location": "北与野駅",
+      "detail": "JR東日本の案内に掲載されています。設置場所・改札内外・料金は駅の案内をご確認ください。",
+      "area": "北与野駅",
+      "accessCondition": "施設・駅の営業時間と入場条件をご確認ください。",
+      "url": "https://media.jreast.co.jp/articles/65",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "ssa-cocoon-lockers": {
+      "name": "コクーンシティ コインロッカー",
+      "location": "コクーンシティ",
+      "detail": "10:00〜21:00。有料・当日限り。閉館後に取り出せないため、公演終了時間にご注意ください。",
+      "area": "コクーンシティ",
+      "accessCondition": "施設・駅の営業時間と入場条件をご確認ください。",
+      "url": "https://www.cocooncity.jp/info",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "ssa-keyaki-shop-06": {
+      "name": "スターバックス コーヒー さいたま新都心店",
+      "location": "けやきひろば1F・店舗6",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "area": "けやきひろば",
+      "accessCondition": "入場前。営業時間・当日の利用条件をご確認ください。",
+      "url": "https://www.saitama-arena.co.jp/keyakihiroba/floor_map/",
+      "outsideViewIds": [
+        "grounds",
+        "keyaki-1f"
+      ]
+    },
+    "ssa-keyaki-shop-07": {
+      "name": "健康中華 青蓮",
+      "location": "けやきひろば1F・店舗7",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "area": "けやきひろば",
+      "accessCondition": "入場前。営業時間・当日の利用条件をご確認ください。",
+      "url": "https://www.saitama-arena.co.jp/keyakihiroba/floor_map/",
+      "outsideViewIds": [
+        "grounds",
+        "keyaki-1f"
+      ]
+    },
+    "ssa-keyaki-shop-08": {
+      "name": "信州そば処 そじ坊",
+      "location": "けやきひろば1F・店舗8",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "area": "けやきひろば",
+      "accessCondition": "入場前。営業時間・当日の利用条件をご確認ください。",
+      "url": "https://www.saitama-arena.co.jp/keyakihiroba/floor_map/",
+      "outsideViewIds": [
+        "grounds",
+        "keyaki-1f"
+      ]
+    },
+    "ssa-keyaki-shop-09": {
+      "name": "鍛冶屋 文蔵",
+      "location": "けやきひろば1F・店舗9",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "area": "けやきひろば",
+      "accessCondition": "入場前。営業時間・当日の利用条件をご確認ください。",
+      "url": "https://www.saitama-arena.co.jp/keyakihiroba/floor_map/",
+      "outsideViewIds": [
+        "grounds",
+        "keyaki-1f"
+      ]
+    },
+    "ssa-keyaki-shop-10": {
+      "name": "寿司海鮮 御旦孤",
+      "location": "けやきひろば1F・店舗10",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "area": "けやきひろば",
+      "accessCondition": "入場前。営業時間・当日の利用条件をご確認ください。",
+      "url": "https://www.saitama-arena.co.jp/keyakihiroba/floor_map/",
+      "outsideViewIds": [
+        "grounds",
+        "keyaki-1f"
+      ]
+    },
+    "ssa-keyaki-shop-11": {
+      "name": "銀座ライオン",
+      "location": "けやきひろば1F・店舗11",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "area": "けやきひろば",
+      "accessCondition": "入場前。営業時間・当日の利用条件をご確認ください。",
+      "url": "https://www.saitama-arena.co.jp/keyakihiroba/floor_map/",
+      "outsideViewIds": [
+        "grounds",
+        "keyaki-1f"
+      ]
+    },
+    "ssa-keyaki-shop-12": {
+      "name": "中華食堂 日高屋",
+      "location": "けやきひろば1F・店舗12",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "area": "けやきひろば",
+      "accessCondition": "入場前。営業時間・当日の利用条件をご確認ください。",
+      "url": "https://www.saitama-arena.co.jp/keyakihiroba/floor_map/",
+      "outsideViewIds": [
+        "grounds",
+        "keyaki-1f"
+      ]
+    },
+    "ssa-keyaki-shop-13": {
+      "name": "アジアティーク",
+      "location": "けやきひろば1F・店舗13",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "area": "けやきひろば",
+      "accessCondition": "入場前。営業時間・当日の利用条件をご確認ください。",
+      "url": "https://www.saitama-arena.co.jp/keyakihiroba/floor_map/",
+      "outsideViewIds": [
+        "grounds",
+        "keyaki-1f"
+      ]
+    },
+    "ssa-keyaki-shop-14": {
+      "name": "ビア＆ワインバー だん家",
+      "location": "けやきひろば1F・店舗14",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "area": "けやきひろば",
+      "accessCondition": "入場前。営業時間・当日の利用条件をご確認ください。",
+      "url": "https://www.saitama-arena.co.jp/keyakihiroba/floor_map/",
+      "outsideViewIds": [
+        "grounds",
+        "keyaki-1f"
+      ]
+    },
+    "ssa-keyaki-shop-16": {
+      "name": "蒸 なんで、や",
+      "location": "けやきひろば1F・店舗16",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "area": "けやきひろば",
+      "accessCondition": "入場前。営業時間・当日の利用条件をご確認ください。",
+      "url": "https://www.saitama-arena.co.jp/keyakihiroba/floor_map/",
+      "outsideViewIds": [
+        "grounds",
+        "keyaki-1f"
+      ]
+    },
+    "ssa-keyaki-shop-17": {
+      "name": "ナンクルナイサ きばいやんせ～",
+      "location": "けやきひろば1F・店舗17",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "area": "けやきひろば",
+      "accessCondition": "入場前。営業時間・当日の利用条件をご確認ください。",
+      "url": "https://www.saitama-arena.co.jp/keyakihiroba/floor_map/",
+      "outsideViewIds": [
+        "grounds",
+        "keyaki-1f"
+      ]
+    },
+    "ssa-keyaki-shop-18": {
+      "name": "カレー食堂 心",
+      "location": "けやきひろば1F・店舗18",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "area": "けやきひろば",
+      "accessCondition": "入場前。営業時間・当日の利用条件をご確認ください。",
+      "url": "https://www.saitama-arena.co.jp/keyakihiroba/floor_map/",
+      "outsideViewIds": [
+        "grounds",
+        "keyaki-1f"
+      ]
+    },
+    "ssa-keyaki-shop-19": {
+      "name": "ヒョンチャンプルコギ さいたま新都心店",
+      "location": "けやきひろば1F・店舗19",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "area": "けやきひろば",
+      "accessCondition": "入場前。営業時間・当日の利用条件をご確認ください。",
+      "url": "https://www.saitama-arena.co.jp/keyakihiroba/floor_map/",
+      "outsideViewIds": [
+        "grounds",
+        "keyaki-1f"
+      ]
+    },
+    "ssa-keyaki-shop-20": {
+      "name": "函館森町しげぞう",
+      "location": "けやきひろば1F・店舗20",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "area": "けやきひろば",
+      "accessCondition": "入場前。営業時間・当日の利用条件をご確認ください。",
+      "url": "https://www.saitama-arena.co.jp/keyakihiroba/floor_map/",
+      "outsideViewIds": [
+        "grounds",
+        "keyaki-1f"
+      ]
+    },
+    "ssa-keyaki-shop-21": {
+      "name": "ZETTERIA",
+      "location": "けやきひろば1F・店舗21",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "area": "けやきひろば",
+      "accessCondition": "入場前。営業時間・当日の利用条件をご確認ください。",
+      "url": "https://www.saitama-arena.co.jp/keyakihiroba/floor_map/",
+      "outsideViewIds": [
+        "grounds",
+        "keyaki-1f"
+      ]
+    },
+    "ssa-keyaki-shop-22": {
+      "name": "自家製麺 杵屋",
+      "location": "けやきひろば1F・店舗22",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "area": "けやきひろば",
+      "accessCondition": "入場前。営業時間・当日の利用条件をご確認ください。",
+      "url": "https://www.saitama-arena.co.jp/keyakihiroba/floor_map/",
+      "outsideViewIds": [
+        "grounds",
+        "keyaki-1f"
+      ]
+    },
+    "ssa-keyaki-shop-23": {
+      "name": "和食処 銀蔵",
+      "location": "けやきひろば1F・店舗23",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "area": "けやきひろば",
+      "accessCondition": "入場前。営業時間・当日の利用条件をご確認ください。",
+      "url": "https://www.saitama-arena.co.jp/keyakihiroba/floor_map/",
+      "outsideViewIds": [
+        "grounds",
+        "keyaki-1f"
+      ]
+    },
+    "ssa-keyaki-shop-24": {
+      "name": "どうとんぼり神座",
+      "location": "けやきひろば1F・店舗24",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "area": "けやきひろば",
+      "accessCondition": "入場前。営業時間・当日の利用条件をご確認ください。",
+      "url": "https://www.saitama-arena.co.jp/keyakihiroba/floor_map/",
+      "outsideViewIds": [
+        "grounds",
+        "keyaki-1f"
+      ]
+    },
+    "ssa-keyaki-shop-25": {
+      "name": "Serafina NEW YORK",
+      "location": "けやきひろば3F・店舗25",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "area": "けやきひろば",
+      "accessCondition": "入場前。営業時間・当日の利用条件をご確認ください。",
+      "url": "https://www.saitama-arena.co.jp/keyakihiroba/floor_map/",
+      "outsideViewIds": [
+        "grounds",
+        "keyaki-3f"
+      ]
+    },
+    "ssa-keyaki-lockers-north-middle": {
+      "name": "コインロッカー",
+      "location": "けやきひろば1F・駅方面・中央",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "area": "けやきひろば",
+      "accessCondition": "入場前。営業時間・当日の利用条件をご確認ください。",
+      "url": "https://www.saitama-arena.co.jp/keyakihiroba/floor_map/",
+      "outsideViewIds": [
+        "grounds",
+        "keyaki-1f"
+      ]
+    },
+    "ssa-keyaki-lockers-station-side": {
+      "name": "コインロッカー",
+      "location": "けやきひろば1F・タクシー乗り場側",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "area": "けやきひろば",
+      "accessCondition": "入場前。営業時間・当日の利用条件をご確認ください。",
+      "url": "https://www.saitama-arena.co.jp/keyakihiroba/floor_map/",
+      "outsideViewIds": [
+        "grounds",
+        "keyaki-1f"
+      ]
+    },
+    "ssa-keyaki-lockers-south": {
+      "name": "コインロッカー",
+      "location": "けやきひろば1F・北与野方面・会場側",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "area": "けやきひろば",
+      "accessCondition": "入場前。営業時間・当日の利用条件をご確認ください。",
+      "url": "https://www.saitama-arena.co.jp/keyakihiroba/floor_map/",
+      "outsideViewIds": [
+        "grounds",
+        "keyaki-1f"
+      ]
+    },
+    "ssa-keyaki-toilets-south": {
+      "name": "男女トイレ",
+      "location": "けやきひろば1F・北与野方面のトイレ",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "area": "けやきひろば",
+      "accessCondition": "入場前。営業時間・当日の利用条件をご確認ください。",
+      "url": "https://www.saitama-arena.co.jp/keyakihiroba/floor_map/",
+      "outsideViewIds": [
+        "grounds",
+        "keyaki-1f"
+      ]
+    },
+    "ssa-keyaki-accessible-south": {
+      "name": "バリアフリートイレ",
+      "location": "けやきひろば1F・北与野方面のトイレ",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "area": "けやきひろば",
+      "accessCondition": "入場前。営業時間・当日の利用条件をご確認ください。",
+      "url": "https://www.saitama-arena.co.jp/keyakihiroba/floor_map/",
+      "outsideViewIds": [
+        "grounds",
+        "keyaki-1f"
+      ]
+    },
+    "ssa-keyaki-diaper-north": {
+      "name": "おむつ交換シート",
+      "location": "けやきひろば1F・駅方面のトイレ",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "area": "けやきひろば",
+      "accessCondition": "入場前。営業時間・当日の利用条件をご確認ください。",
+      "url": "https://www.saitama-arena.co.jp/keyakihiroba/floor_map/",
+      "outsideViewIds": [
+        "grounds",
+        "keyaki-1f"
+      ]
+    },
+    "ssa-keyaki-diaper-south": {
+      "name": "おむつ交換シート",
+      "location": "けやきひろば1F・北与野方面のトイレ",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "area": "けやきひろば",
+      "accessCondition": "入場前。営業時間・当日の利用条件をご確認ください。",
+      "url": "https://www.saitama-arena.co.jp/keyakihiroba/floor_map/",
+      "outsideViewIds": [
+        "grounds",
+        "keyaki-1f"
+      ]
+    },
+    "ssa-keyaki-elevator-north": {
+      "name": "エレベーター",
+      "location": "けやきひろば1F・駅方面・中央",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "area": "けやきひろば",
+      "accessCondition": "入場前。営業時間・当日の利用条件をご確認ください。",
+      "url": "https://www.saitama-arena.co.jp/keyakihiroba/floor_map/",
+      "outsideViewIds": [
+        "grounds",
+        "keyaki-1f"
+      ]
+    },
+    "ssa-keyaki-elevator-west": {
+      "name": "エレベーター",
+      "location": "けやきひろば1F・プラザ・会場側",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "area": "けやきひろば",
+      "accessCondition": "入場前。営業時間・当日の利用条件をご確認ください。",
+      "url": "https://www.saitama-arena.co.jp/keyakihiroba/floor_map/",
+      "outsideViewIds": [
+        "grounds",
+        "keyaki-1f"
+      ]
+    },
+    "ssa-keyaki-elevator-3f": {
+      "name": "エレベーター",
+      "location": "けやきひろば3F・屋上レストラン側",
+      "detail": "入場前に利用できます。営業・利用できる区域は施設案内をご確認ください。",
+      "area": "けやきひろば",
+      "accessCondition": "入場前。営業時間・当日の利用条件をご確認ください。",
+      "url": "https://www.saitama-arena.co.jp/keyakihiroba/floor_map/",
+      "outsideViewIds": [
+        "grounds",
+        "keyaki-3f"
+      ]
+    },
+    "ssa-cocoon-baby-co1": {
+      "name": "ベビー休憩室",
+      "location": "コクーン1・1F",
+      "detail": "施設案内で場所・利用時間をご確認ください。",
+      "area": "コクーンシティ",
+      "accessCondition": "施設の営業時間内。閉館後は利用できません。",
+      "url": "https://www.cocooncity.jp/info",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "ssa-cocoon-baby-co2-1f": {
+      "name": "ベビー休憩室",
+      "location": "コクーン2・1F",
+      "detail": "施設案内で場所・利用時間をご確認ください。",
+      "area": "コクーンシティ",
+      "accessCondition": "施設の営業時間内。閉館後は利用できません。",
+      "url": "https://www.cocooncity.jp/info",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "ssa-cocoon-baby-co2-3f": {
+      "name": "ベビー休憩室",
+      "location": "コクーン2・3F",
+      "detail": "施設案内で場所・利用時間をご確認ください。",
+      "area": "コクーンシティ",
+      "accessCondition": "施設の営業時間内。閉館後は利用できません。",
+      "url": "https://www.cocooncity.jp/info",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "ssa-cocoon-baby-co3": {
+      "name": "ベビー休憩室",
+      "location": "コクーン3・1F",
+      "detail": "施設案内で場所・利用時間をご確認ください。",
+      "area": "コクーンシティ",
+      "accessCondition": "施設の営業時間内。閉館後は利用できません。",
+      "url": "https://www.cocooncity.jp/info",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "ssa-cocoon-aed": {
+      "name": "AED",
+      "location": "コクーン2・2Fインフォメーション",
+      "detail": "コクーン2・2Fインフォメーションに設置されています。",
+      "area": "コクーンシティ",
+      "accessCondition": "施設の営業時間内。閉館後は利用できません。",
+      "url": "https://www.cocooncity.jp/info",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    }
+  },
+  "sources": [
+    {
+      "id": "ssa-faq",
+      "title": "公式FAQ",
+      "url": "https://www.saitama-arena.co.jp/faq/",
+      "checkedAt": "2026-10-06",
+      "scope": "公式の設備・位置案内。館内は改修前の参考配置。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "ssa-access",
+      "title": "公式鉄道アクセス",
+      "url": "https://www.saitama-arena.co.jp/access/train.html",
+      "checkedAt": "2026-10-06",
+      "scope": "公式の設備・位置案内。館内は改修前の参考配置。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "ssa-jr-locker",
+      "title": "JR東日本・さいたま新都心駅ロッカー",
+      "url": "https://media.jreast.co.jp/articles/65",
+      "checkedAt": "2026-10-06",
+      "scope": "公式の設備・位置案内。館内は改修前の参考配置。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "ssa-keyaki",
+      "title": "けやきひろば設備・店舗",
+      "url": "https://www.saitama-arena.co.jp/keyakihiroba/floor_map/",
+      "checkedAt": "2026-10-06",
+      "scope": "公式の設備・位置案内。館内は改修前の参考配置。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "ssa-cocoon",
+      "title": "コクーンシティ施設案内",
+      "url": "https://www.cocooncity.jp/info",
+      "checkedAt": "2026-10-06",
+      "scope": "公式の設備・位置案内。館内は改修前の参考配置。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "stadium-1f",
+      "title": "1F公式フロア図",
+      "url": "https://www.saitama-arena.co.jp/wp-content/themes/saitamaarena/floor_map/img/stadium/img-floor_map_1f.jpg",
+      "checkedAt": "2026-10-06",
+      "scope": "公式の設備・位置案内。館内は改修前の参考配置。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "stadium-2f",
+      "title": "2F公式フロア図",
+      "url": "https://www.saitama-arena.co.jp/wp-content/themes/saitamaarena/floor_map/img/stadium/img-floor_map_2f.jpg",
+      "checkedAt": "2026-10-06",
+      "scope": "公式の設備・位置案内。館内は改修前の参考配置。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "stadium-3f",
+      "title": "3F公式フロア図",
+      "url": "https://www.saitama-arena.co.jp/wp-content/themes/saitamaarena/floor_map/img/stadium/img-floor_map_3f.jpg",
+      "checkedAt": "2026-10-06",
+      "scope": "公式の設備・位置案内。館内は改修前の参考配置。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "stadium-4f",
+      "title": "4F公式フロア図",
+      "url": "https://www.saitama-arena.co.jp/wp-content/themes/saitamaarena/floor_map/img/stadium/img-floor_map_4f.jpg",
+      "checkedAt": "2026-10-06",
+      "scope": "公式の設備・位置案内。館内は改修前の参考配置。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "stadium-5f",
+      "title": "5F公式フロア図",
+      "url": "https://www.saitama-arena.co.jp/wp-content/themes/saitamaarena/floor_map/img/stadium/img-floor_map_5f.jpg",
+      "checkedAt": "2026-10-06",
+      "scope": "公式の設備・位置案内。館内は改修前の参考配置。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "ssa-keyaki-map-2026",
+      "title": "けやきひろば現行フロア図（1・2・3F）",
+      "url": "https://www.saitama-arena.co.jp/wp-content/uploads/2026/04/img-map-pc.jpg",
+      "checkedAt": "2026-10-06",
+      "scope": "1Fの4ロッカー区域・店舗番号・設備記号と3F店舗。原向きを保持。",
+      "usage": "research-only"
+    }
+  ],
+  "sourceSymbols": [
+    {
+      "id": "ssa-stadium-2f-shop-01",
+      "kind": "shop",
+      "diagramId": "ssa-stadium-2f-native",
+      "x": 353.0,
+      "y": 90.5,
+      "sourceIds": [
+        "stadium-2f",
+        "floor-stadium",
+        "faq"
+      ]
+    },
+    {
+      "id": "ssa-stadium-2f-ostomate-01",
+      "kind": "ostomate",
+      "diagramId": "ssa-stadium-2f-native",
+      "x": 253.0,
+      "y": 93.0,
+      "sourceIds": [
+        "stadium-2f",
+        "floor-stadium",
+        "faq"
+      ]
+    },
+    {
+      "id": "ssa-stadium-2f-shop-02",
+      "kind": "shop",
+      "diagramId": "ssa-stadium-2f-native",
+      "x": 204.0,
+      "y": 106.0,
+      "sourceIds": [
+        "stadium-2f",
+        "floor-stadium",
+        "faq"
+      ]
+    },
+    {
+      "id": "ssa-stadium-2f-escalator-01",
+      "kind": "escalator",
+      "diagramId": "ssa-stadium-2f-native",
+      "x": 539.5,
+      "y": 106.5,
+      "sourceIds": [
+        "stadium-2f",
+        "floor-stadium",
+        "faq"
+      ]
+    },
+    {
+      "id": "ssa-stadium-2f-toilet-accessible-01",
+      "kind": "toilet-accessible",
+      "diagramId": "ssa-stadium-2f-native",
+      "x": 77.0,
+      "y": 129.0,
+      "sourceIds": [
+        "stadium-2f",
+        "floor-stadium",
+        "faq"
+      ]
+    },
+    {
+      "id": "ssa-stadium-2f-toilet-01",
+      "kind": "toilet",
+      "diagramId": "ssa-stadium-2f-native",
+      "x": 154.0,
+      "y": 129.5,
+      "sourceIds": [
+        "stadium-2f",
+        "floor-stadium",
+        "faq"
+      ]
+    },
+    {
+      "id": "ssa-stadium-2f-elevator-01",
+      "kind": "elevator",
+      "diagramId": "ssa-stadium-2f-native",
+      "x": 532.0,
+      "y": 169.0,
+      "sourceIds": [
+        "stadium-2f",
+        "floor-stadium",
+        "faq"
+      ]
+    },
+    {
+      "id": "ssa-stadium-2f-toilet-02",
+      "kind": "toilet",
+      "diagramId": "ssa-stadium-2f-native",
+      "x": 469.5,
+      "y": 183.5,
+      "sourceIds": [
+        "stadium-2f",
+        "floor-stadium",
+        "faq"
+      ]
+    },
+    {
+      "id": "ssa-stadium-2f-unclassified-key-symbol-01",
+      "kind": "unclassified-key-symbol",
+      "diagramId": "ssa-stadium-2f-native",
+      "x": 47.0,
+      "y": 209.0,
+      "sourceIds": [
+        "stadium-2f",
+        "floor-stadium",
+        "faq"
+      ]
+    },
+    {
+      "id": "ssa-stadium-2f-toilet-accessible-02",
+      "kind": "toilet-accessible",
+      "diagramId": "ssa-stadium-2f-native",
+      "x": 86.0,
+      "y": 225.0,
+      "sourceIds": [
+        "stadium-2f",
+        "floor-stadium",
+        "faq"
+      ]
+    },
+    {
+      "id": "ssa-stadium-2f-shop-03",
+      "kind": "shop",
+      "diagramId": "ssa-stadium-2f-native",
+      "x": 473.0,
+      "y": 225.0,
+      "sourceIds": [
+        "stadium-2f",
+        "floor-stadium",
+        "faq"
+      ]
+    },
+    {
+      "id": "ssa-stadium-2f-shop-04",
+      "kind": "shop",
+      "diagramId": "ssa-stadium-2f-native",
+      "x": 50.0,
+      "y": 243.0,
+      "sourceIds": [
+        "stadium-2f",
+        "floor-stadium",
+        "faq"
+      ]
+    },
+    {
+      "id": "ssa-stadium-2f-shop-05",
+      "kind": "shop",
+      "diagramId": "ssa-stadium-2f-native",
+      "x": 93.0,
+      "y": 266.5,
+      "sourceIds": [
+        "stadium-2f",
+        "floor-stadium",
+        "faq"
+      ]
+    },
+    {
+      "id": "ssa-stadium-2f-toilet-03",
+      "kind": "toilet",
+      "diagramId": "ssa-stadium-2f-native",
+      "x": 477.0,
+      "y": 267.0,
+      "sourceIds": [
+        "stadium-2f",
+        "floor-stadium",
+        "faq"
+      ]
+    },
+    {
+      "id": "ssa-stadium-2f-toilet-04",
+      "kind": "toilet",
+      "diagramId": "ssa-stadium-2f-native",
+      "x": 13.0,
+      "y": 269.0,
+      "sourceIds": [
+        "stadium-2f",
+        "floor-stadium",
+        "faq"
+      ]
+    },
+    {
+      "id": "ssa-stadium-2f-shop-06",
+      "kind": "shop",
+      "diagramId": "ssa-stadium-2f-native",
+      "x": 56.5,
+      "y": 291.0,
+      "sourceIds": [
+        "stadium-2f",
+        "floor-stadium",
+        "faq"
+      ]
+    },
+    {
+      "id": "ssa-stadium-2f-toilet-accessible-03",
+      "kind": "toilet-accessible",
+      "diagramId": "ssa-stadium-2f-native",
+      "x": 99.0,
+      "y": 308.0,
+      "sourceIds": [
+        "stadium-2f",
+        "floor-stadium",
+        "faq"
+      ]
+    },
+    {
+      "id": "ssa-stadium-2f-unclassified-key-symbol-02",
+      "kind": "unclassified-key-symbol",
+      "diagramId": "ssa-stadium-2f-native",
+      "x": 61.0,
+      "y": 325.5,
+      "sourceIds": [
+        "stadium-2f",
+        "floor-stadium",
+        "faq"
+      ]
+    },
+    {
+      "id": "ssa-stadium-2f-escalator-02",
+      "kind": "escalator",
+      "diagramId": "ssa-stadium-2f-native",
+      "x": 551.5,
+      "y": 337.0,
+      "sourceIds": [
+        "stadium-2f",
+        "floor-stadium",
+        "faq"
+      ]
+    },
+    {
+      "id": "ssa-stadium-2f-shop-07",
+      "kind": "shop",
+      "diagramId": "ssa-stadium-2f-native",
+      "x": 379.0,
+      "y": 368.5,
+      "sourceIds": [
+        "stadium-2f",
+        "floor-stadium",
+        "faq"
+      ]
+    },
+    {
+      "id": "ssa-stadium-2f-toilet-05",
+      "kind": "toilet",
+      "diagramId": "ssa-stadium-2f-native",
+      "x": 175.0,
+      "y": 382.0,
+      "sourceIds": [
+        "stadium-2f",
+        "floor-stadium",
+        "faq"
+      ]
+    },
+    {
+      "id": "ssa-stadium-2f-toilet-accessible-04",
+      "kind": "toilet-accessible",
+      "diagramId": "ssa-stadium-2f-native",
+      "x": 86.0,
+      "y": 387.5,
+      "sourceIds": [
+        "stadium-2f",
+        "floor-stadium",
+        "faq"
+      ]
+    },
+    {
+      "id": "ssa-stadium-2f-shop-08",
+      "kind": "shop",
+      "diagramId": "ssa-stadium-2f-native",
+      "x": 240.0,
+      "y": 388.5,
+      "sourceIds": [
+        "stadium-2f",
+        "floor-stadium",
+        "faq"
+      ]
+    },
+    {
+      "id": "ssa-stadium-2f-ostomate-02",
+      "kind": "ostomate",
+      "diagramId": "ssa-stadium-2f-native",
+      "x": 286.5,
+      "y": 388.5,
+      "sourceIds": [
+        "stadium-2f",
+        "floor-stadium",
+        "faq"
+      ]
+    },
+    {
+      "id": "ssa-stadium-2f-escalator-03",
+      "kind": "escalator",
+      "diagramId": "ssa-stadium-2f-native",
+      "x": 124.5,
+      "y": 396.5,
+      "sourceIds": [
+        "stadium-2f",
+        "floor-stadium",
+        "faq"
+      ]
+    },
+    {
+      "id": "ssa-stadium-2f-nursing-room-01",
+      "kind": "nursing-room",
+      "diagramId": "ssa-stadium-2f-native",
+      "x": 383.0,
+      "y": 419.0,
+      "sourceIds": [
+        "stadium-2f",
+        "floor-stadium",
+        "faq"
+      ]
+    },
+    {
+      "id": "ssa-stadium-2f-elevator-02",
+      "kind": "elevator",
+      "diagramId": "ssa-stadium-2f-native",
+      "x": 323.0,
+      "y": 448.5,
+      "sourceIds": [
+        "stadium-2f",
+        "floor-stadium",
+        "faq"
+      ]
+    },
+    {
+      "id": "ssa-stadium-1f-toilet-accessible-01",
+      "kind": "toilet-accessible",
+      "diagramId": "ssa-stadium-1f-native",
+      "x": 104,
+      "y": 178,
+      "sourceIds": [
+        "stadium-1f"
+      ]
+    },
+    {
+      "id": "ssa-stadium-1f-toilet-accessible-02",
+      "kind": "toilet-accessible",
+      "diagramId": "ssa-stadium-1f-native",
+      "x": 134,
+      "y": 347,
+      "sourceIds": [
+        "stadium-1f"
+      ]
+    },
+    {
+      "id": "ssa-stadium-1f-toilet-03",
+      "kind": "toilet",
+      "diagramId": "ssa-stadium-1f-native",
+      "x": 446,
+      "y": 198,
+      "sourceIds": [
+        "stadium-1f"
+      ]
+    },
+    {
+      "id": "ssa-stadium-1f-shop-04",
+      "kind": "shop",
+      "diagramId": "ssa-stadium-1f-native",
+      "x": 475,
+      "y": 198,
+      "sourceIds": [
+        "stadium-1f"
+      ]
+    },
+    {
+      "id": "ssa-stadium-1f-toilet-05",
+      "kind": "toilet",
+      "diagramId": "ssa-stadium-1f-native",
+      "x": 448,
+      "y": 246,
+      "sourceIds": [
+        "stadium-1f"
+      ]
+    },
+    {
+      "id": "ssa-stadium-1f-shop-06",
+      "kind": "shop",
+      "diagramId": "ssa-stadium-1f-native",
+      "x": 478,
+      "y": 246,
+      "sourceIds": [
+        "stadium-1f"
+      ]
+    },
+    {
+      "id": "ssa-stadium-1f-toilet-07",
+      "kind": "toilet",
+      "diagramId": "ssa-stadium-1f-native",
+      "x": 396,
+      "y": 357,
+      "sourceIds": [
+        "stadium-1f"
+      ]
+    },
+    {
+      "id": "ssa-stadium-1f-nursing-room-08",
+      "kind": "nursing-room",
+      "diagramId": "ssa-stadium-1f-native",
+      "x": 402,
+      "y": 393,
+      "sourceIds": [
+        "stadium-1f"
+      ]
+    },
+    {
+      "id": "ssa-stadium-3f-toilet-01",
+      "kind": "toilet",
+      "diagramId": "ssa-stadium-3f-native",
+      "x": 499,
+      "y": 144,
+      "sourceIds": [
+        "stadium-3f"
+      ]
+    },
+    {
+      "id": "ssa-stadium-3f-ostomate-02",
+      "kind": "ostomate",
+      "diagramId": "ssa-stadium-3f-native",
+      "x": 513,
+      "y": 268,
+      "sourceIds": [
+        "stadium-3f"
+      ]
+    },
+    {
+      "id": "ssa-stadium-3f-escalator-03",
+      "kind": "escalator",
+      "diagramId": "ssa-stadium-3f-native",
+      "x": 143,
+      "y": 374,
+      "sourceIds": [
+        "stadium-3f"
+      ]
+    },
+    {
+      "id": "ssa-stadium-4f-ostomate-01",
+      "kind": "ostomate",
+      "diagramId": "ssa-stadium-4f-native",
+      "x": 76,
+      "y": 194,
+      "sourceIds": [
+        "stadium-4f"
+      ]
+    },
+    {
+      "id": "ssa-stadium-4f-toilet-02",
+      "kind": "toilet",
+      "diagramId": "ssa-stadium-4f-native",
+      "x": 85,
+      "y": 264,
+      "sourceIds": [
+        "stadium-4f"
+      ]
+    },
+    {
+      "id": "ssa-stadium-4f-shop-03",
+      "kind": "shop",
+      "diagramId": "ssa-stadium-4f-native",
+      "x": 108,
+      "y": 194,
+      "sourceIds": [
+        "stadium-4f"
+      ]
+    },
+    {
+      "id": "ssa-stadium-4f-shop-04",
+      "kind": "shop",
+      "diagramId": "ssa-stadium-4f-native",
+      "x": 117,
+      "y": 264,
+      "sourceIds": [
+        "stadium-4f"
+      ]
+    },
+    {
+      "id": "ssa-stadium-4f-shop-05",
+      "kind": "shop",
+      "diagramId": "ssa-stadium-4f-native",
+      "x": 469,
+      "y": 61,
+      "sourceIds": [
+        "stadium-4f"
+      ]
+    },
+    {
+      "id": "ssa-stadium-4f-toilet-06",
+      "kind": "toilet",
+      "diagramId": "ssa-stadium-4f-native",
+      "x": 512,
+      "y": 142,
+      "sourceIds": [
+        "stadium-4f"
+      ]
+    },
+    {
+      "id": "ssa-stadium-4f-toilet-07",
+      "kind": "toilet",
+      "diagramId": "ssa-stadium-4f-native",
+      "x": 523,
+      "y": 245,
+      "sourceIds": [
+        "stadium-4f"
+      ]
+    },
+    {
+      "id": "ssa-stadium-4f-shop-08",
+      "kind": "shop",
+      "diagramId": "ssa-stadium-4f-native",
+      "x": 487,
+      "y": 322,
+      "sourceIds": [
+        "stadium-4f"
+      ]
+    },
+    {
+      "id": "ssa-stadium-4f-escalator-09",
+      "kind": "escalator",
+      "diagramId": "ssa-stadium-4f-native",
+      "x": 115,
+      "y": 323,
+      "sourceIds": [
+        "stadium-4f"
+      ]
+    },
+    {
+      "id": "ssa-stadium-5f-toilet-01",
+      "kind": "toilet",
+      "diagramId": "ssa-stadium-5f-native",
+      "x": 107,
+      "y": 129,
+      "sourceIds": [
+        "stadium-5f"
+      ]
+    },
+    {
+      "id": "ssa-stadium-5f-toilet-02",
+      "kind": "toilet",
+      "diagramId": "ssa-stadium-5f-native",
+      "x": 522,
+      "y": 168,
+      "sourceIds": [
+        "stadium-5f"
+      ]
+    },
+    {
+      "id": "ssa-stadium-5f-toilet-03",
+      "kind": "toilet",
+      "diagramId": "ssa-stadium-5f-native",
+      "x": 136,
+      "y": 312,
+      "sourceIds": [
+        "stadium-5f"
+      ]
+    },
+    {
+      "id": "ssa-stadium-5f-escalator-04",
+      "kind": "escalator",
+      "diagramId": "ssa-stadium-5f-native",
+      "x": 67,
+      "y": 289,
+      "sourceIds": [
+        "stadium-5f"
+      ]
+    }
+  ],
+  "keyakiNativeLockerPoints": [
+    [
+      43,
+      121
+    ],
+    [
+      222,
+      81
+    ],
+    [
+      332,
+      60
+    ],
+    [
+      90,
+      411
+    ]
+  ],
+  "keyakiMapRegistration": null,
+  "outsideSourceRecords": {
+    "keyaki": {
+      "id": "ssa-keyaki-map-2026",
+      "title": "けやきひろば現行フロア図（1・2・3F）",
+      "url": "https://www.saitama-arena.co.jp/wp-content/uploads/2026/04/img-map-pc.jpg",
+      "file": "keyaki-2026-04-map.jpg",
+      "sha256": "7317f01d8631eae02b7fcb8af79f56fb439435c7da4225c5590a00b7e5b89cfc",
+      "width": 1002,
+      "height": 478,
+      "orientation": "source-native; north not established",
+      "reference": "設備記号と店舗番号の代表位置。入口・室内機器数・経路ではない。"
+    },
+    "aggregateLockerBefore": {
+      "id": "ssa-keyaki-lockers",
+      "name": "コインロッカー",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "けやきひろば1F・4か所",
+      "detail": "入場前に利用できます。けやきひろばのフロア案内で4か所の場所を確認できます。",
+      "sourceIds": [
+        "ssa-keyaki"
+      ],
+      "precision": "text-only",
+      "storageKind": "coin"
+    }
+  },
+  "outsideUnverified": [
+    "現行駅図の個別ロッカー点・北与野の改札境界/料金（公式画像取得は403）",
+    "北向きの登録・室入口・連続動線",
+    "改修後の館内配置・公演当日の利用",
+    "個別ロッカーの予約URL・現在の空き"
+  ],
+  "outsideLandmarkFacilityIds": {
+    "ssa-keyaki": [
+      "ssa-keyaki-lockers",
+      "ssa-keyaki-toilets",
+      "ssa-keyaki-accessible",
+      "ssa-keyaki-shop-06",
+      "ssa-keyaki-shop-07",
+      "ssa-keyaki-shop-08",
+      "ssa-keyaki-shop-09",
+      "ssa-keyaki-shop-10",
+      "ssa-keyaki-shop-11",
+      "ssa-keyaki-shop-12",
+      "ssa-keyaki-shop-13",
+      "ssa-keyaki-shop-14",
+      "ssa-keyaki-shop-16",
+      "ssa-keyaki-shop-17",
+      "ssa-keyaki-shop-18",
+      "ssa-keyaki-shop-19",
+      "ssa-keyaki-shop-20",
+      "ssa-keyaki-shop-21",
+      "ssa-keyaki-shop-22",
+      "ssa-keyaki-shop-23",
+      "ssa-keyaki-shop-24",
+      "ssa-keyaki-shop-25",
+      "ssa-keyaki-lockers-north-middle",
+      "ssa-keyaki-lockers-station-side",
+      "ssa-keyaki-lockers-south",
+      "ssa-keyaki-toilets-south",
+      "ssa-keyaki-accessible-south",
+      "ssa-keyaki-diaper-north",
+      "ssa-keyaki-diaper-south",
+      "ssa-keyaki-elevator-north",
+      "ssa-keyaki-elevator-west",
+      "ssa-keyaki-elevator-3f"
+    ],
+    "ssa-shintoshin": [
+      "ssa-station-lockers"
+    ],
+    "ssa-kitayono": [
+      "ssa-kitayono-lockers"
+    ],
+    "keyaki-station-direction": [
+      "ssa-keyaki-accessible",
+      "ssa-keyaki-diaper-north",
+      "ssa-keyaki-elevator-north",
+      "ssa-keyaki-lockers",
+      "ssa-keyaki-lockers-north-middle",
+      "ssa-keyaki-lockers-station-side",
+      "ssa-keyaki-shop-12",
+      "ssa-keyaki-shop-13",
+      "ssa-keyaki-shop-14",
+      "ssa-keyaki-shop-16",
+      "ssa-keyaki-shop-17",
+      "ssa-keyaki-shop-18",
+      "ssa-keyaki-shop-19",
+      "ssa-keyaki-shop-20",
+      "ssa-keyaki-shop-21",
+      "ssa-keyaki-shop-22",
+      "ssa-keyaki-shop-23",
+      "ssa-keyaki-shop-24",
+      "ssa-keyaki-toilets"
+    ],
+    "keyaki-arena-direction": [
+      "ssa-keyaki-accessible-south",
+      "ssa-keyaki-diaper-south",
+      "ssa-keyaki-elevator-west",
+      "ssa-keyaki-lockers",
+      "ssa-keyaki-lockers-south",
+      "ssa-keyaki-shop-07",
+      "ssa-keyaki-shop-08",
+      "ssa-keyaki-shop-09",
+      "ssa-keyaki-shop-10",
+      "ssa-keyaki-shop-11",
+      "ssa-keyaki-shop-12",
+      "ssa-keyaki-shop-13",
+      "ssa-keyaki-shop-14",
+      "ssa-keyaki-shop-16",
+      "ssa-keyaki-shop-17",
+      "ssa-keyaki-shop-18",
+      "ssa-keyaki-toilets-south"
+    ]
+  },
+  "outsideLandmarkGroupIds": {
+    "keyaki-station-direction": [
+      "ssa-keyaki-lockers-group",
+      "ssa-keyaki-lockers-north-middle-group",
+      "ssa-keyaki-lockers-station-side-group",
+      "keyaki-1f-トイレ-north-toilets",
+      "keyaki-1f-赤ちゃん-north-toilets",
+      "keyaki-1f-案内-north-lift",
+      "keyaki-1f-food-north",
+      "keyaki-1f-food-middle"
+    ],
+    "keyaki-arena-direction": [
+      "ssa-keyaki-lockers-group",
+      "ssa-keyaki-lockers-south-group",
+      "keyaki-1f-トイレ-south-toilets",
+      "keyaki-1f-赤ちゃん-south-toilets",
+      "keyaki-1f-案内-west-lift",
+      "keyaki-1f-food-middle",
+      "keyaki-1f-food-west",
+      "keyaki-1f-food-south"
+    ]
+  }
+}

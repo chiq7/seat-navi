@@ -1,0 +1,39 @@
+# Local dependencies, build output, and configuration
+.git/
+.vercel/
+node_modules/
+.next/
+out/
+build/
+coverage/
+.env*
+*.pem
+*.tsbuildinfo
+next-env.d.ts
+.claude/settings.local.json
+.DS_Store
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Local crawler and research artifacts
+scripts/__pycache__/
+scripts/fetch_events.log
+scripts/fetch_events_dry_run_report.json
+scripts/fetch_events_ts_dry_run_report.json
+official-news-reports/
+discovery-reports/
+x-fan-candidates/
+tmp/
+
+# Unpublished advertising exports are not part of the venue-page release
+public/images/ads/tixrepo-x-ad-images.zip
+public/images/ads/tixrepo-x-ad-images
+
+# Internal instructions and editorial records are not deployment inputs.
+docs/
+AGENTS.md
+DESIGN.md
+design-qa.md
+tixrepo-seiten-*.md

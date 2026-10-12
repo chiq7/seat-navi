@@ -1,0 +1,5798 @@
+{
+  "sources": [
+    {
+      "id": "seat2026",
+      "title": "埼玉西武ライオンズ 2026座席図",
+      "url": "https://www.seibulions.jp/cmn/images/ticket/2026/dome/seat_2026.pdf",
+      "checkedAt": "2026-10-11",
+      "scope": "2026常設野球配置。後方6普通外野区画を保持し、両側内野SS/S/A/B/Cとネット裏の16参考範囲の限定印字を追加。全席・公演配置・特殊席精密境界は未確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "stadium",
+      "title": "公式スタジアムマップ",
+      "url": "https://bellunadome.seibulions.co.jp/guide/bellunadome_stadiummap.pdf",
+      "checkedAt": "2026-10-10",
+      "scope": "現行公開の図を部分読図。版日付未印字、イベント開放と室入口は別確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "grounds",
+      "title": "公式エリアマップ",
+      "url": "https://bellunadome.seibulions.co.jp/guide/bellunadome_areamap.pdf",
+      "checkedAt": "2026-10-10",
+      "scope": "現行公開の図を部分読図。版日付未印字、イベント開放と室入口は別確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "faq",
+      "title": "公式よくある質問",
+      "url": "https://bellunadome.seibulions.co.jp/faq/",
+      "checkedAt": "2026-10-10",
+      "scope": "ドーム内ロッカー/ATMなし、授乳・野球限定ベビーカー案内を確認。2024バス/2022喫煙運用は現在へ昇格しない",
+      "usage": "facts-only"
+    },
+    {
+      "id": "service",
+      "title": "公式サービスマップ",
+      "url": "https://bellunadome.seibulions.co.jp/guide/servicemap.html",
+      "checkedAt": "2026-10-10",
+      "scope": "本文と2024掲載図の参考区域を部分確認。現行公演での利用可否は別確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "access",
+      "title": "公式アクセス",
+      "url": "https://bellunadome.seibulions.co.jp/guide/access.html",
+      "checkedAt": "2026-10-10",
+      "scope": "個別本文・掲載位置/利用境界の確認範囲",
+      "usage": "facts-only"
+    },
+    {
+      "id": "guide",
+      "title": "公式施設案内",
+      "url": "https://bellunadome.seibulions.co.jp/guide/",
+      "checkedAt": "2026-10-10",
+      "scope": "個別本文・掲載位置/利用境界の確認範囲",
+      "usage": "facts-only"
+    },
+    {
+      "id": "station",
+      "title": "西武球場前駅公式",
+      "url": "https://www.seiburailway.jp/railway/station/seibukyujo-mae/",
+      "checkedAt": "2026-10-10",
+      "scope": "個別本文・掲載位置/利用境界の確認範囲",
+      "usage": "facts-only"
+    },
+    {
+      "id": "station-work",
+      "title": "西武球場前駅2026〜2029改修案内",
+      "url": "https://www.seiburailway.jp/newsroom/news/20260617_Seibukyujo-maeRN/",
+      "checkedAt": "2026-10-10",
+      "scope": "個別本文・掲載位置/利用境界の確認範囲",
+      "usage": "facts-only"
+    },
+    {
+      "id": "locker-nearest",
+      "title": "SPACER西武球場前駅",
+      "url": "https://spacer.co.jp/base/op-169/",
+      "checkedAt": "2026-10-10",
+      "scope": "個別本文・掲載位置/利用境界の確認範囲",
+      "usage": "facts-only"
+    },
+    {
+      "id": "locker-nishitokorozawa",
+      "title": "SPACER西所沢駅",
+      "url": "https://spacer.co.jp/base/op-147/",
+      "checkedAt": "2026-10-10",
+      "scope": "個別本文・掲載位置/利用境界の確認範囲",
+      "usage": "facts-only"
+    },
+    {
+      "id": "locker-tokorozawa1",
+      "title": "SPACER所沢駅1番線",
+      "url": "https://spacer.co.jp/base/op-81/",
+      "checkedAt": "2026-10-10",
+      "scope": "個別本文・掲載位置/利用境界の確認範囲",
+      "usage": "facts-only"
+    },
+    {
+      "id": "locker-tokorozawa2",
+      "title": "SPACER所沢駅南改札",
+      "url": "https://spacer.co.jp/base/op-30/",
+      "checkedAt": "2026-10-10",
+      "scope": "個別本文・掲載位置/利用境界の確認範囲",
+      "usage": "facts-only"
+    },
+    {
+      "id": "staffed",
+      "title": "Bounce所沢の予約預かり",
+      "url": "https://bounce.com/stores/saitama/unebez",
+      "checkedAt": "2026-10-10",
+      "scope": "個別本文・掲載位置/利用境界の確認範囲",
+      "usage": "facts-only"
+    },
+    {
+      "id": "mdata",
+      "title": "MUSIC-MDATA / LiveWalker補助座席図",
+      "url": "https://zaseki.music-mdata.com/detail/9886/1",
+      "checkedAt": "2026-10-10",
+      "scope": "補助座席図は作成者LiveWalker・20220119版。2026公式の後方6区画と限定比較。独立した現行席根拠には数えない",
+      "usage": "research-only"
+    }
+  ],
+  "facilities": [
+    {
+      "id": "belluna-food-1塁-1-0",
+      "name": "L's MEXICO",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "1塁側 1-1",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 424,
+        "y": 155,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-1塁-2-0",
+      "name": "L's Kitchen CENTRAL",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "1塁側 1-2",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 433,
+        "y": 167,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-1塁-3-0",
+      "name": "L's Kitchen QUICK & GO",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "1塁側 1-3",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 441,
+        "y": 181,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-1塁-4-0",
+      "name": "L's Kitchen CAFÉ & DESSERT",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "1塁側 1-4",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 449,
+        "y": 194,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-1塁-5-0",
+      "name": "洋麺屋 大人のナポリタン",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "1塁側 1-5",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 373,
+        "y": 175,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-1塁-5-1",
+      "name": "肉飯 とやま",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "1塁側 1-5",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 373,
+        "y": 175,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-1塁-6-0",
+      "name": "100時間カレー",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "1塁側 1-6",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 353,
+        "y": 203,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-1塁-6-1",
+      "name": "天婦羅 なかむら",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "1塁側 1-6",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 353,
+        "y": 203,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-1塁-7-0",
+      "name": "提灯酒場 球兵衛",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "1塁側 1-7",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 348,
+        "y": 212,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-1塁-8-0",
+      "name": "麻婆豆腐専門店 SCRAMBLE",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "1塁側 1-8",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 338,
+        "y": 231,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-1塁-8-1",
+      "name": "大鶏串の中島",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "1塁側 1-8",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 338,
+        "y": 231,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-1塁-9-0",
+      "name": "餃子飯店 こがね",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "1塁側 1-9",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 331,
+        "y": 247,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-1塁-10-0",
+      "name": "宮木牧場",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "1塁側 1-10",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 302,
+        "y": 266,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-1塁-11-0",
+      "name": "リトル沖縄",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "1塁側 1-11",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 302,
+        "y": 273,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-1塁-12-0",
+      "name": "狭山茶処 新井園本店",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "1塁側 1-12",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 302,
+        "y": 281,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-1塁-13-0",
+      "name": "Stadium Tapbar",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "1塁側 1-13",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 302,
+        "y": 287,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-1塁-14-0",
+      "name": "＆ Butchers",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "1塁側 1-14",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 302,
+        "y": 294,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-1塁-15-0",
+      "name": "もうら食堂",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "1塁側 1-15",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 302,
+        "y": 301,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-1塁-16-0",
+      "name": "ONE HAND UDON おさんぽ",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "1塁側 1-16",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 302,
+        "y": 308,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-1塁-17-0",
+      "name": "Stadium Tapbar",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "1塁側 1-17",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 305,
+        "y": 335,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-1塁-18-0",
+      "name": "サーティワンアイスクリーム",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "1塁側 1-18",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 308,
+        "y": 343,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-1塁-19-0",
+      "name": "仙臺たんや利久",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "1塁側 1-19",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 311,
+        "y": 350,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-1塁-20-0",
+      "name": "築地銀だこ",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "1塁側 1-20",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 314,
+        "y": 357,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-1塁-21-0",
+      "name": "BACKYARD BUTCHERS",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "1塁側 1-21",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 352,
+        "y": 402,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-1塁-22-0",
+      "name": "もつ煮の影千代",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "1塁側 1-22",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 374,
+        "y": 422,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-1塁-22-1",
+      "name": "日本鶏園",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "1塁側 1-22",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 374,
+        "y": 422,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-1塁-23-0",
+      "name": "CRAFT BEERS OF TRAIN PARK supported by BREWDOG",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "1塁側 1-23",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 422,
+        "y": 478,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-3塁-1-0",
+      "name": "L's CRAFT supported by REED'S",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "3塁側 3-1",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 600,
+        "y": 155,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-3塁-2-0",
+      "name": "L's Kitchen CENTRAL",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "3塁側 3-2",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 590,
+        "y": 167,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-3塁-3-0",
+      "name": "L's Kitchen QUICK & GO",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "3塁側 3-3",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 582,
+        "y": 181,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-3塁-4-0",
+      "name": "L's Kitchen CAFÉ & DESSERT",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "3塁側 3-4",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 576,
+        "y": 194,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-3塁-5-0",
+      "name": "ショコラミュンヒェンパンケーキ",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "3塁側 3-5",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 646,
+        "y": 174,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-3塁-6-0",
+      "name": "からきち屋",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "3塁側 3-6",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 670,
+        "y": 207,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-3塁-6-1",
+      "name": "エスニックダイニング ムエタイ",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "3塁側 3-6",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 670,
+        "y": 207,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-3塁-7-0",
+      "name": "提灯酒場 球兵衛",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "3塁側 3-7",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 678,
+        "y": 222,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-3塁-8-0",
+      "name": "埼玉食道",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "3塁側 3-8",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 686,
+        "y": 241,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-3塁-8-1",
+      "name": "韓激",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "3塁側 3-8",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 686,
+        "y": 241,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-3塁-9-0",
+      "name": "GRAZY POTATO",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "3塁側 3-9",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 691,
+        "y": 253,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-3塁-10-0",
+      "name": "宮木牧場",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "3塁側 3-10",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 717,
+        "y": 274,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-3塁-11-0",
+      "name": "リトル沖縄",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "3塁側 3-11",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 717,
+        "y": 281,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-3塁-12-0",
+      "name": "狭山茶処 新井園本店",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "3塁側 3-12",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 717,
+        "y": 288,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-3塁-13-0",
+      "name": "HUB",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "3塁側 3-13",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 717,
+        "y": 296,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-3塁-14-0",
+      "name": "球弁",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "3塁側 3-14",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 717,
+        "y": 303,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-3塁-15-0",
+      "name": "西安餃子",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "3塁側 3-15",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 717,
+        "y": 309,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-3塁-16-0",
+      "name": "ONE HAND UDON おさんぽ",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "3塁側 3-16",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 717,
+        "y": 317,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-3塁-17-0",
+      "name": "サーティワンアイスクリーム",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "3塁側 3-17",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 712,
+        "y": 359,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-3塁-18-0",
+      "name": "鉄板屋台 TAKEI-YA",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "3塁側 3-18",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 709,
+        "y": 366,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-3塁-19-0",
+      "name": "とんかつ新宿さぼてん",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "3塁側 3-19",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 706,
+        "y": 374,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-3塁-20-0",
+      "name": "HUB",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "3塁側 3-20",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 703,
+        "y": 386,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-3塁-21-0",
+      "name": "日本豚園",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "3塁側 3-21",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 700,
+        "y": 393,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-3塁-22-0",
+      "name": "東京油組総本店 ベルーナドーム組",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "3塁側 3-22",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 697,
+        "y": 401,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-food-3塁-23-0",
+      "name": "築地銀だこ",
+      "purpose": "飲食",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "3塁側 3-23",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 694,
+        "y": 408,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-toilet-1塁バックネット-men",
+      "name": "1塁バックネット 男性トイレ",
+      "purpose": "トイレ",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "1塁バックネット",
+      "detail": "男女別の公式図記号を確認。公演による運用変更は主催者へ確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "toiletType": "men",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 465,
+        "y": 176,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-toilet-1塁バックネット-women",
+      "name": "1塁バックネット 女性トイレ",
+      "purpose": "トイレ",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "1塁バックネット",
+      "detail": "男女別の公式図記号を確認。公演による運用変更は主催者へ確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "toiletType": "women",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 465,
+        "y": 176,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-toilet-3塁バックネット-men",
+      "name": "3塁バックネット 男性トイレ",
+      "purpose": "トイレ",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "3塁バックネット",
+      "detail": "男女別の公式図記号を確認。公演による運用変更は主催者へ確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "toiletType": "men",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 543,
+        "y": 177,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-toilet-3塁バックネット-women",
+      "name": "3塁バックネット 女性トイレ",
+      "purpose": "トイレ",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "3塁バックネット",
+      "detail": "男女別の公式図記号を確認。公演による運用変更は主催者へ確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "toiletType": "women",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 543,
+        "y": 177,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-toilet-1塁外野-men",
+      "name": "1塁外野 男性トイレ",
+      "purpose": "トイレ",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "1塁外野",
+      "detail": "男女別の公式図記号を確認。公演による運用変更は主催者へ確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "toiletType": "men",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 463,
+        "y": 443,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-toilet-1塁外野-women",
+      "name": "1塁外野 女性トイレ",
+      "purpose": "トイレ",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "1塁外野",
+      "detail": "男女別の公式図記号を確認。公演による運用変更は主催者へ確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "toiletType": "women",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 463,
+        "y": 443,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-toilet-3塁外野-men",
+      "name": "3塁外野 男性トイレ",
+      "purpose": "トイレ",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "3塁外野",
+      "detail": "男女別の公式図記号を確認。公演による運用変更は主催者へ確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "toiletType": "men",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 550,
+        "y": 443,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-toilet-3塁外野-women",
+      "name": "3塁外野 女性トイレ",
+      "purpose": "トイレ",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "3塁外野",
+      "detail": "男女別の公式図記号を確認。公演による運用変更は主催者へ確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "toiletType": "women",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 550,
+        "y": 443,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-toilet-1塁前方",
+      "name": "1塁前方 女性トイレ",
+      "purpose": "トイレ",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "1塁前方",
+      "detail": "公式図の男女別記号を区域ごとに確認。公演時の運用は主催者へ確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "toiletType": "women",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 341,
+        "y": 201,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-toilet-1塁中程",
+      "name": "1塁中程 男性トイレ",
+      "purpose": "トイレ",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "1塁中程",
+      "detail": "公式図の男女別記号を区域ごとに確認。公演時の運用は主催者へ確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "toiletType": "men",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 321,
+        "y": 235,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-toilet-3塁前方",
+      "name": "3塁前方 女性トイレ",
+      "purpose": "トイレ",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "3塁前方",
+      "detail": "公式図の男女別記号を区域ごとに確認。公演時の運用は主催者へ確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "toiletType": "women",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 685,
+        "y": 208,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-toilet-3塁中程",
+      "name": "3塁中程 男性トイレ",
+      "purpose": "トイレ",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "3塁中程",
+      "detail": "公式図の男女別記号を区域ごとに確認。公演時の運用は主催者へ確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "toiletType": "men",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 700,
+        "y": 241,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-accessible-1塁バックネット",
+      "name": "1塁バックネット 多目的トイレ",
+      "purpose": "トイレ",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "1塁バックネット",
+      "detail": "公式図の車いす記号に対応する区域。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "toiletType": "accessible",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 478,
+        "y": 177,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-accessible-3塁バックネット",
+      "name": "3塁バックネット 多目的トイレ",
+      "purpose": "トイレ",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "3塁バックネット",
+      "detail": "公式図の車いす記号に対応する区域。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "toiletType": "accessible",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 555,
+        "y": 177,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-aed-1",
+      "name": "AED 掲載区域1",
+      "purpose": "AED",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "場内",
+      "detail": "緊急時は近くの係員へ連絡してください。精密な室入口は未転記です。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 452,
+        "y": 177,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-aed-2",
+      "name": "AED 掲載区域2",
+      "purpose": "AED",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "場内",
+      "detail": "緊急時は近くの係員へ連絡してください。精密な室入口は未転記です。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 572,
+        "y": 177,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-aed-3",
+      "name": "AED 掲載区域3",
+      "purpose": "AED",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "場内",
+      "detail": "緊急時は近くの係員へ連絡してください。精密な室入口は未転記です。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 431,
+        "y": 268,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-aed-4",
+      "name": "AED 掲載区域4",
+      "purpose": "AED",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "場内",
+      "detail": "緊急時は近くの係員へ連絡してください。精密な室入口は未転記です。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 590,
+        "y": 268,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-aed-5",
+      "name": "AED 掲載区域5",
+      "purpose": "AED",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "場内",
+      "detail": "緊急時は近くの係員へ連絡してください。精密な室入口は未転記です。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 317,
+        "y": 309,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-aed-6",
+      "name": "AED 掲載区域6",
+      "purpose": "AED",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "場内",
+      "detail": "緊急時は近くの係員へ連絡してください。精密な室入口は未転記です。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 705,
+        "y": 273,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-aed-7",
+      "name": "AED 掲載区域7",
+      "purpose": "AED",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "場内",
+      "detail": "緊急時は近くの係員へ連絡してください。精密な室入口は未転記です。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 434,
+        "y": 432,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-aed-8",
+      "name": "AED 掲載区域8",
+      "purpose": "AED",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "場内",
+      "detail": "緊急時は近くの係員へ連絡してください。精密な室入口は未転記です。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 590,
+        "y": 432,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-nursing-1塁側",
+      "name": "1塁側 授乳室",
+      "purpose": "赤ちゃん",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "1塁側",
+      "detail": "利用時は係員に声を掛けてください。",
+      "sourceIds": [
+        "faq",
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 486,
+        "y": 177,
+        "sourceIds": [
+          "faq",
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-nursing-3塁側",
+      "name": "3塁側 授乳室",
+      "purpose": "赤ちゃん",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "3塁側",
+      "detail": "利用時は係員に声を掛けてください。",
+      "sourceIds": [
+        "faq",
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 564,
+        "y": 177,
+        "sourceIds": [
+          "faq",
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-service-1-24",
+      "name": "ライオンズ チームストア 1stベースサイド",
+      "purpose": "案内",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "1-24",
+      "detail": "公式掲載のショップ/サービス区域。開催日・入場券と営業条件を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 302,
+        "y": 325,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-service-1-25",
+      "name": "ファンクラブカウンターライト",
+      "purpose": "案内",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "1-25",
+      "detail": "公式掲載のショップ/サービス区域。開催日・入場券と営業条件を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 397,
+        "y": 422,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-service-1-26",
+      "name": "ライオンズ チームストア ゲートサイド1・2・3",
+      "purpose": "案内",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "1-26",
+      "detail": "公式掲載のショップ/サービス区域。開催日・入場券と営業条件を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 470,
+        "y": 492,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-service-1-27",
+      "name": "ライオンズ チームストア フラッグス",
+      "purpose": "案内",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "1-27",
+      "detail": "公式掲載のショップ/サービス区域。開催日・入場券と営業条件を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 465,
+        "y": 529,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-service-3-24",
+      "name": "ライオンズ チームストア 3rdベースサイド",
+      "purpose": "案内",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "3-24",
+      "detail": "公式掲載のショップ/サービス区域。開催日・入場券と営業条件を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 712,
+        "y": 345,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-service-3-25",
+      "name": "ライオンズ チームストア レフトスタンド",
+      "purpose": "案内",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "3-25",
+      "detail": "公式掲載のショップ/サービス区域。開催日・入場券と営業条件を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 586,
+        "y": 454,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-service-3-26",
+      "name": "ファンクラブカウンターレフト",
+      "purpose": "案内",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "3-26",
+      "detail": "公式掲載のショップ/サービス区域。開催日・入場券と営業条件を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 600,
+        "y": 444,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-service-3-28",
+      "name": "ファンクラブカウンター2・3・4",
+      "purpose": "案内",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "3-28",
+      "detail": "公式掲載のショップ/サービス区域。開催日・入場券と営業条件を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "ticket-required",
+      "anchor": {
+        "diagramId": "belluna-inside",
+        "x": 556,
+        "y": 528,
+        "sourceIds": [
+          "stadium"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-nursing-獅子ビル1F",
+      "name": "獅子ビル1F 授乳室",
+      "purpose": "赤ちゃん",
+      "floor": "獅子ビル1F",
+      "scope": "場内",
+      "location": "獅子ビル1F",
+      "detail": "各階1か所。利用時は係員に声を掛けてください。個別入口は確認中です。",
+      "sourceIds": [
+        "faq"
+      ],
+      "precision": "text-only",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "belluna-nursing-獅子ビル2F",
+      "name": "獅子ビル2F 授乳室",
+      "purpose": "赤ちゃん",
+      "floor": "獅子ビル2F",
+      "scope": "場内",
+      "location": "獅子ビル2F",
+      "detail": "各階1か所。利用時は係員に声を掛けてください。個別入口は確認中です。",
+      "sourceIds": [
+        "faq"
+      ],
+      "precision": "text-only",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "belluna-nursing-獅子ビル3F",
+      "name": "獅子ビル3F 授乳室",
+      "purpose": "赤ちゃん",
+      "floor": "獅子ビル3F",
+      "scope": "場内",
+      "location": "獅子ビル3F",
+      "detail": "各階1か所。利用時は係員に声を掛けてください。個別入口は確認中です。",
+      "sourceIds": [
+        "faq"
+      ],
+      "precision": "text-only",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "belluna-building-獅子ビル2F0",
+      "name": "グリーンフォレスト デリ＆カフェ",
+      "purpose": "飲食",
+      "floor": "獅子ビル2F",
+      "scope": "場内",
+      "location": "獅子ビル2F",
+      "detail": "公式施設案内掲載。営業・入場・専用券種の条件は開催日と個別案内を確認してください。",
+      "sourceIds": [
+        "guide",
+        "stadium"
+      ],
+      "precision": "text-only",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "belluna-building-獅子ビル3F0",
+      "name": "ライオンズ チームストア 獅子ビル",
+      "purpose": "案内",
+      "floor": "獅子ビル3F",
+      "scope": "場内",
+      "location": "獅子ビル3F",
+      "detail": "公式施設案内掲載。営業・入場・専用券種の条件は開催日と個別案内を確認してください。",
+      "sourceIds": [
+        "guide",
+        "stadium"
+      ],
+      "precision": "text-only",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "belluna-building-獅子ビル3F1",
+      "name": "テイキョウキッズルーム",
+      "purpose": "赤ちゃん",
+      "floor": "獅子ビル3F",
+      "scope": "場内",
+      "location": "獅子ビル3F",
+      "detail": "公式施設案内掲載。営業・入場・専用券種の条件は開催日と個別案内を確認してください。",
+      "sourceIds": [
+        "guide",
+        "stadium"
+      ],
+      "precision": "text-only",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "belluna-building-獅子ビル3F2",
+      "name": "Lスタジオ",
+      "purpose": "案内",
+      "floor": "獅子ビル3F",
+      "scope": "場内",
+      "location": "獅子ビル3F",
+      "detail": "公式施設案内掲載。営業・入場・専用券種の条件は開催日と個別案内を確認してください。",
+      "sourceIds": [
+        "guide",
+        "stadium"
+      ],
+      "precision": "text-only",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "belluna-building-センタービル1F0",
+      "name": "ライオンズ チームストア オーナーズ",
+      "purpose": "案内",
+      "floor": "センタービル1F",
+      "scope": "場内",
+      "location": "センタービル1F",
+      "detail": "公式施設案内掲載。営業・入場・専用券種の条件は開催日と個別案内を確認してください。",
+      "sourceIds": [
+        "guide",
+        "stadium"
+      ],
+      "precision": "text-only",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "belluna-building-センタービル1F1",
+      "name": "オーナーズインフォメーション",
+      "purpose": "案内",
+      "floor": "センタービル1F",
+      "scope": "場内",
+      "location": "センタービル1F",
+      "detail": "公式施設案内掲載。営業・入場・専用券種の条件は開催日と個別案内を確認してください。",
+      "sourceIds": [
+        "guide",
+        "stadium"
+      ],
+      "precision": "text-only",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "belluna-building-センタービル2F0",
+      "name": "NTTドコモビジネス ライオンズスイート",
+      "purpose": "案内",
+      "floor": "センタービル2F",
+      "scope": "場内",
+      "location": "センタービル2F",
+      "detail": "公式施設案内掲載。営業・入場・専用券種の条件は開催日と個別案内を確認してください。",
+      "sourceIds": [
+        "guide",
+        "stadium"
+      ],
+      "precision": "text-only",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "belluna-building-センタービル3F0",
+      "name": "ライオンズオーナーズレストラン",
+      "purpose": "飲食",
+      "floor": "センタービル3F",
+      "scope": "場内",
+      "location": "センタービル3F",
+      "detail": "公式施設案内掲載。営業・入場・専用券種の条件は開催日と個別案内を確認してください。",
+      "sourceIds": [
+        "guide",
+        "stadium"
+      ],
+      "precision": "text-only",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "belluna-toilet-センタービル1F-men",
+      "name": "センタービル1F 男性トイレ",
+      "purpose": "トイレ",
+      "floor": "センタービル1F",
+      "scope": "場内",
+      "location": "センタービル1F",
+      "detail": "公式スタジアムマップの各階記号を確認。個別入口と専用区域の利用条件は確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "text-only",
+      "toiletType": "men",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "belluna-toilet-センタービル1F-women",
+      "name": "センタービル1F 女性トイレ",
+      "purpose": "トイレ",
+      "floor": "センタービル1F",
+      "scope": "場内",
+      "location": "センタービル1F",
+      "detail": "公式スタジアムマップの各階記号を確認。個別入口と専用区域の利用条件は確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "text-only",
+      "toiletType": "women",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "belluna-toilet-センタービル2F-men",
+      "name": "センタービル2F 男性トイレ",
+      "purpose": "トイレ",
+      "floor": "センタービル2F",
+      "scope": "場内",
+      "location": "センタービル2F",
+      "detail": "公式スタジアムマップの各階記号を確認。個別入口と専用区域の利用条件は確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "text-only",
+      "toiletType": "men",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "belluna-toilet-センタービル2F-women",
+      "name": "センタービル2F 女性トイレ",
+      "purpose": "トイレ",
+      "floor": "センタービル2F",
+      "scope": "場内",
+      "location": "センタービル2F",
+      "detail": "公式スタジアムマップの各階記号を確認。個別入口と専用区域の利用条件は確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "text-only",
+      "toiletType": "women",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "belluna-toilet-センタービル3F-men",
+      "name": "センタービル3F 男性トイレ",
+      "purpose": "トイレ",
+      "floor": "センタービル3F",
+      "scope": "場内",
+      "location": "センタービル3F",
+      "detail": "公式スタジアムマップの各階記号を確認。個別入口と専用区域の利用条件は確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "text-only",
+      "toiletType": "men",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "belluna-toilet-センタービル3F-women",
+      "name": "センタービル3F 女性トイレ",
+      "purpose": "トイレ",
+      "floor": "センタービル3F",
+      "scope": "場内",
+      "location": "センタービル3F",
+      "detail": "公式スタジアムマップの各階記号を確認。個別入口と専用区域の利用条件は確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "text-only",
+      "toiletType": "women",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "belluna-lounge-nursing",
+      "name": "プレミアムラウンジ 授乳室",
+      "purpose": "赤ちゃん",
+      "floor": "ラウンジ",
+      "scope": "場内",
+      "location": "プレミアムラウンジ",
+      "detail": "利用時は係員に声を掛けてください。ラウンジ入場条件を確認してください。",
+      "sourceIds": [
+        "faq"
+      ],
+      "precision": "text-only",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "belluna-lounge-toilet-men",
+      "name": "ラウンジ 男性トイレ",
+      "purpose": "トイレ",
+      "floor": "ラウンジ",
+      "scope": "場内",
+      "location": "プレミアムラウンジ",
+      "detail": "専用区域の利用条件を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "text-only",
+      "toiletType": "men",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "belluna-lounge-toilet-women",
+      "name": "ラウンジ 女性トイレ",
+      "purpose": "トイレ",
+      "floor": "ラウンジ",
+      "scope": "場内",
+      "location": "プレミアムラウンジ",
+      "detail": "専用区域の利用条件を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "text-only",
+      "toiletType": "women",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "belluna-lounge-toilet-accessible",
+      "name": "ラウンジ 多目的トイレ",
+      "purpose": "トイレ",
+      "floor": "ラウンジ",
+      "scope": "場内",
+      "location": "プレミアムラウンジ",
+      "detail": "専用区域の利用条件を確認してください。",
+      "sourceIds": [
+        "stadium"
+      ],
+      "precision": "text-only",
+      "toiletType": "accessible",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "belluna-stroller-1塁側",
+      "name": "1塁側 ベビーカー預かり",
+      "purpose": "赤ちゃん",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "メインゲート入場後 1塁側",
+      "detail": "プロ野球開催時のみ各1か所。その他のイベントでは預かりなし。一般荷物の預かりではありません。",
+      "sourceIds": [
+        "faq"
+      ],
+      "precision": "text-only",
+      "kind": "stroller",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "belluna-stroller-3塁側",
+      "name": "3塁側 ベビーカー預かり",
+      "purpose": "赤ちゃん",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "location": "メインゲート入場後 3塁側",
+      "detail": "プロ野球開催時のみ各1か所。その他のイベントでは預かりなし。一般荷物の預かりではありません。",
+      "sourceIds": [
+        "faq"
+      ],
+      "precision": "text-only",
+      "kind": "stroller",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "belluna-outside-メインゲート",
+      "name": "メインゲート",
+      "purpose": "案内",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "メインゲート",
+      "detail": "公式敷地図の区域です。当日の入場口・開放・利用券種は主催者案内を確認してください。",
+      "sourceIds": [
+        "grounds"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "belluna-grounds",
+        "x": 455,
+        "y": 361,
+        "sourceIds": [
+          "grounds"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-outside-サブゲート",
+      "name": "サブゲート",
+      "purpose": "案内",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "サブゲート",
+      "detail": "公式敷地図の区域です。当日の入場口・開放・利用券種は主催者案内を確認してください。",
+      "sourceIds": [
+        "grounds"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "belluna-grounds",
+        "x": 520,
+        "y": 363,
+        "sourceIds": [
+          "grounds"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-outside-オーナーズゲート",
+      "name": "オーナーズゲート",
+      "purpose": "案内",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "オーナーズゲート",
+      "detail": "公式敷地図の区域です。当日の入場口・開放・利用券種は主催者案内を確認してください。",
+      "sourceIds": [
+        "grounds"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "belluna-grounds",
+        "x": 540,
+        "y": 151,
+        "sourceIds": [
+          "grounds"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-outside-西武球場前駅改札",
+      "name": "西武球場前駅改札",
+      "purpose": "案内",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "西武球場前駅改札",
+      "detail": "公式敷地図の区域です。当日の入場口・開放・利用券種は主催者案内を確認してください。",
+      "sourceIds": [
+        "grounds"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "belluna-grounds",
+        "x": 470,
+        "y": 383,
+        "sourceIds": [
+          "grounds"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-outside-チケットセンター",
+      "name": "チケットセンター",
+      "purpose": "案内",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "チケットセンター",
+      "detail": "公式敷地図の区域です。当日の入場口・開放・利用券種は主催者案内を確認してください。",
+      "sourceIds": [
+        "grounds"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "belluna-grounds",
+        "x": 485,
+        "y": 375,
+        "sourceIds": [
+          "grounds"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-outside-総合案内",
+      "name": "総合案内",
+      "purpose": "案内",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "総合案内",
+      "detail": "公式敷地図の区域です。当日の入場口・開放・利用券種は主催者案内を確認してください。",
+      "sourceIds": [
+        "grounds"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "belluna-grounds",
+        "x": 451,
+        "y": 387,
+        "sourceIds": [
+          "grounds"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-outside-駅前広場",
+      "name": "駅前広場",
+      "purpose": "案内",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "駅前広場",
+      "detail": "公式敷地図の区域です。当日の入場口・開放・利用券種は主催者案内を確認してください。",
+      "sourceIds": [
+        "grounds"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "belluna-grounds",
+        "x": 482,
+        "y": 438,
+        "sourceIds": [
+          "grounds"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-outside-獅子ビル",
+      "name": "獅子ビル",
+      "purpose": "案内",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "獅子ビル",
+      "detail": "公式敷地図の区域です。当日の入場口・開放・利用券種は主催者案内を確認してください。",
+      "sourceIds": [
+        "grounds"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "belluna-grounds",
+        "x": 560,
+        "y": 345,
+        "sourceIds": [
+          "grounds"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-outside-トレイン広場",
+      "name": "トレイン広場",
+      "purpose": "案内",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "トレイン広場",
+      "detail": "公式敷地図の区域です。当日の入場口・開放・利用券種は主催者案内を確認してください。",
+      "sourceIds": [
+        "grounds"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "belluna-grounds",
+        "x": 441,
+        "y": 326,
+        "sourceIds": [
+          "grounds"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-outside-テイキョウキッズフィールド",
+      "name": "テイキョウキッズフィールド",
+      "purpose": "赤ちゃん",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "テイキョウキッズフィールド",
+      "detail": "公式敷地図の区域です。当日の入場口・開放・利用券種は主催者案内を確認してください。",
+      "sourceIds": [
+        "grounds"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "belluna-grounds",
+        "x": 513,
+        "y": 344,
+        "sourceIds": [
+          "grounds"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-outside-レッド駐車場",
+      "name": "レッド駐車場",
+      "purpose": "案内",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "レッド駐車場",
+      "detail": "公式敷地図の区域です。当日の入場口・開放・利用券種は主催者案内を確認してください。",
+      "sourceIds": [
+        "grounds"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "belluna-grounds",
+        "x": 312,
+        "y": 339,
+        "sourceIds": [
+          "grounds"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-outside-ブルー駐車場",
+      "name": "ブルー駐車場",
+      "purpose": "案内",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "ブルー駐車場",
+      "detail": "公式敷地図の区域です。当日の入場口・開放・利用券種は主催者案内を確認してください。",
+      "sourceIds": [
+        "grounds"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "belluna-grounds",
+        "x": 544,
+        "y": 429,
+        "sourceIds": [
+          "grounds"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-outside-グリーン駐車場",
+      "name": "グリーン駐車場",
+      "purpose": "案内",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "グリーン駐車場",
+      "detail": "公式敷地図の区域です。当日の入場口・開放・利用券種は主催者案内を確認してください。",
+      "sourceIds": [
+        "grounds"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "belluna-grounds",
+        "x": 495,
+        "y": 498,
+        "sourceIds": [
+          "grounds"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-outside-toilet-西武球場前駅トイレ-men",
+      "name": "西武球場前駅トイレ 男性トイレ",
+      "purpose": "トイレ",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "西武球場前駅トイレ",
+      "detail": "公式敷地図記号を確認。CAR3219はドームと別施設です。利用境界は個別施設・駅の案内を確認してください。",
+      "sourceIds": [
+        "grounds"
+      ],
+      "precision": "landmark-area",
+      "toiletType": "men",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "belluna-grounds",
+        "x": 458,
+        "y": 450,
+        "sourceIds": [
+          "grounds"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-outside-toilet-西武球場前駅トイレ-women",
+      "name": "西武球場前駅トイレ 女性トイレ",
+      "purpose": "トイレ",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "西武球場前駅トイレ",
+      "detail": "公式敷地図記号を確認。CAR3219はドームと別施設です。利用境界は個別施設・駅の案内を確認してください。",
+      "sourceIds": [
+        "grounds"
+      ],
+      "precision": "landmark-area",
+      "toiletType": "women",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "belluna-grounds",
+        "x": 458,
+        "y": 450,
+        "sourceIds": [
+          "grounds"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-outside-toilet-西武球場前駅トイレ-accessible",
+      "name": "西武球場前駅トイレ 多目的トイレ",
+      "purpose": "トイレ",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "西武球場前駅トイレ",
+      "detail": "公式敷地図記号を確認。CAR3219はドームと別施設です。利用境界は個別施設・駅の案内を確認してください。",
+      "sourceIds": [
+        "grounds"
+      ],
+      "precision": "landmark-area",
+      "toiletType": "accessible",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "belluna-grounds",
+        "x": 458,
+        "y": 450,
+        "sourceIds": [
+          "grounds"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-outside-toilet-CAR3219側-men",
+      "name": "CAR3219側 男性トイレ",
+      "purpose": "トイレ",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "CAR3219側",
+      "detail": "公式敷地図記号を確認。CAR3219はドームと別施設です。利用境界は個別施設・駅の案内を確認してください。",
+      "sourceIds": [
+        "grounds"
+      ],
+      "precision": "landmark-area",
+      "toiletType": "men",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "belluna-grounds",
+        "x": 696,
+        "y": 255,
+        "sourceIds": [
+          "grounds"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-outside-toilet-CAR3219側-women",
+      "name": "CAR3219側 女性トイレ",
+      "purpose": "トイレ",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "CAR3219側",
+      "detail": "公式敷地図記号を確認。CAR3219はドームと別施設です。利用境界は個別施設・駅の案内を確認してください。",
+      "sourceIds": [
+        "grounds"
+      ],
+      "precision": "landmark-area",
+      "toiletType": "women",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "belluna-grounds",
+        "x": 696,
+        "y": 255,
+        "sourceIds": [
+          "grounds"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-outside-toilet-CAR3219側-accessible",
+      "name": "CAR3219側 多目的トイレ",
+      "purpose": "トイレ",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "CAR3219側",
+      "detail": "公式敷地図記号を確認。CAR3219はドームと別施設です。利用境界は個別施設・駅の案内を確認してください。",
+      "sourceIds": [
+        "grounds"
+      ],
+      "precision": "landmark-area",
+      "toiletType": "accessible",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "belluna-grounds",
+        "x": 696,
+        "y": 255,
+        "sourceIds": [
+          "grounds"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-outside-aed",
+      "name": "総合案内付近 AED",
+      "purpose": "AED",
+      "floor": "敷地",
+      "scope": "場外",
+      "location": "総合案内付近",
+      "detail": "緊急時は係員へ連絡してください。",
+      "sourceIds": [
+        "grounds"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "belluna-grounds",
+        "x": 439,
+        "y": 386,
+        "sourceIds": [
+          "grounds"
+        ],
+        "reference": "公式図に掲載された区域。室入口や連続経路ではありません。"
+      }
+    },
+    {
+      "id": "belluna-locker-nearest",
+      "name": "西武球場前駅 SPACER",
+      "purpose": "荷物",
+      "floor": "駅",
+      "scope": "場外",
+      "location": "西武球場前駅 改札内・トイレ入口左",
+      "detail": "05:00〜23:59。24時間：小600円・中800円・大1,000円。SPACERアプリで1日利用券を購入すると24時間前から予約可能。空き状況は予約画面で確認してください。西武球場前駅は2026〜2029年度改修のため現地の変更案内も確認してください。",
+      "sourceIds": [
+        "locker-nearest",
+        "station-work"
+      ],
+      "precision": "text-only",
+      "storageKind": "coin",
+      "bookingUrl": "https://spacer.co.jp/base/op-169/",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "belluna-locker-nishitokorozawa",
+      "name": "西所沢駅 SPACER",
+      "purpose": "荷物",
+      "floor": "駅",
+      "scope": "場外",
+      "location": "西所沢駅 改札内・4番線ホームスロープ横",
+      "detail": "05:00〜23:59。最初15分無料。3時間：小300円・大600円。24時間：小900円・大1,500円。SPACERアプリの予約・対応決済を個別ページで確認してください。空きは未確認です。",
+      "sourceIds": [
+        "locker-nishitokorozawa"
+      ],
+      "precision": "text-only",
+      "storageKind": "coin",
+      "bookingUrl": "https://spacer.co.jp/base/op-147/",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "belluna-locker-tokorozawa1",
+      "name": "所沢駅1番線 SPACER",
+      "purpose": "荷物",
+      "floor": "駅",
+      "scope": "場外",
+      "location": "所沢駅 改札内・1番線ホーム待合室付近",
+      "detail": "05:00〜23:59。最初15分無料。3時間：小300円・中400円・大600円。24時間：小900円・中1,200円・大1,500円。SPACERアプリの予約・対応決済を個別ページで確認してください。空きは未確認です。",
+      "sourceIds": [
+        "locker-tokorozawa1"
+      ],
+      "precision": "text-only",
+      "storageKind": "coin",
+      "bookingUrl": "https://spacer.co.jp/base/op-81/",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "belluna-locker-tokorozawa2",
+      "name": "所沢駅南改札 SPACER",
+      "purpose": "荷物",
+      "floor": "駅",
+      "scope": "場外",
+      "location": "所沢駅 南改札内・4/5番線エレベーター前",
+      "detail": "05:00〜23:00。最初15分無料。3時間：小300円・中400円・大600円。24時間：小900円・中1,200円・大1,500円。SPACERアプリの予約・対応決済を個別ページで確認してください。空きは未確認です。",
+      "sourceIds": [
+        "locker-tokorozawa2"
+      ],
+      "precision": "text-only",
+      "storageKind": "coin",
+      "bookingUrl": "https://spacer.co.jp/base/op-30/",
+      "accessCondition": "ticket-required"
+    },
+    {
+      "id": "belluna-staffed",
+      "name": "所沢の予約荷物預かり（Bounce）",
+      "purpose": "荷物",
+      "floor": "店舗",
+      "scope": "場外",
+      "location": "所沢駅周辺・運営元表記 Tokorozawa Station South Exit",
+      "detail": "事前予約が必要です。料金は1日850円〜、日付・施設条件により変動。受付時間は曜日で異なるため予約ページを確認してください。住所と入口は予約案内で確認、駅出口からの経路と空きは未確認です。",
+      "sourceIds": [
+        "staffed"
+      ],
+      "precision": "text-only",
+      "storageKind": "staffed",
+      "bookingUrl": "https://bounce.com/stores/saitama/unebez",
+      "accessCondition": "before-admission"
+    }
+  ],
+  "diagrams": [
+    {
+      "id": "belluna-inside",
+      "floor": "ドーム場内",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        1024,
+        768
+      ],
+      "concoursePaths": [
+        "M470,132 C375,140 295,235 295,340 C295,450 356,525 465,535 C580,540 655,450 660,340 C660,240 605,148 525,135"
+      ],
+      "contextPaths": [
+        "M455,210 L515,170 L575,210 L515,265 Z",
+        "M305,345 C320,260 380,195 455,170",
+        "M650,345 C635,260 590,195 575,170"
+      ],
+      "landmarks": [
+        {
+          "id": "belluna-inside-mark-0",
+          "label": "1塁側",
+          "x": 385,
+          "y": 330,
+          "kind": "passage",
+          "sourceIds": [
+            "stadium"
+          ],
+          "reference": "公式掲載の区域位置。精密入口と連続経路ではありません。"
+        },
+        {
+          "id": "belluna-inside-mark-1",
+          "label": "3塁側",
+          "x": 625,
+          "y": 330,
+          "kind": "passage",
+          "sourceIds": [
+            "stadium"
+          ],
+          "reference": "公式掲載の区域位置。精密入口と連続経路ではありません。"
+        },
+        {
+          "id": "belluna-inside-mark-2",
+          "label": "センタービル",
+          "x": 510,
+          "y": 113,
+          "kind": "entrance",
+          "sourceIds": [
+            "stadium"
+          ],
+          "reference": "公式掲載の区域位置。精密入口と連続経路ではありません。"
+        },
+        {
+          "id": "belluna-inside-mark-3",
+          "label": "Lビジョン",
+          "x": 510,
+          "y": 444,
+          "kind": "pillar",
+          "sourceIds": [
+            "stadium"
+          ],
+          "reference": "公式掲載の区域位置。精密入口と連続経路ではありません。"
+        },
+        {
+          "id": "belluna-inside-mark-4",
+          "label": "獅子ビル",
+          "x": 675,
+          "y": 510,
+          "kind": "entrance",
+          "sourceIds": [
+            "stadium"
+          ],
+          "reference": "公式掲載の区域位置。精密入口と連続経路ではありません。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "stadium"
+        ],
+        "file": "research/belluna-current-2026-10-10/sources/9ae5231c0c5a82cd90d650ecbff04d8ac16fe985c34d2768ba733a4e0ceea093.pdf",
+        "sha256": "9ae5231c0c5a82cd90d650ecbff04d8ac16fe985c34d2768ba733a4e0ceea093",
+        "width": 1024,
+        "height": 768,
+        "method": "公式図の掲載区域を独立した参考座標へ読図。図外の個別案内はピンなし",
+        "status": "partial-source-checked"
+      }
+    },
+    {
+      "id": "belluna-獅子ビル1F",
+      "floor": "獅子ビル1F",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        1024,
+        768
+      ],
+      "concoursePaths": [],
+      "contextPaths": [],
+      "landmarks": [
+        {
+          "id": "belluna-獅子ビル1F-mark-0",
+          "label": "獅子ビル1F",
+          "x": 515,
+          "y": 255,
+          "kind": "entrance",
+          "sourceIds": [
+            "stadium"
+          ],
+          "reference": "公式掲載の区域位置。精密入口と連続経路ではありません。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "stadium"
+        ],
+        "file": "research/belluna-current-2026-10-10/sources/9ae5231c0c5a82cd90d650ecbff04d8ac16fe985c34d2768ba733a4e0ceea093.pdf",
+        "sha256": "9ae5231c0c5a82cd90d650ecbff04d8ac16fe985c34d2768ba733a4e0ceea093",
+        "width": 1024,
+        "height": 768,
+        "method": "公式図の掲載区域を独立した参考座標へ読図。図外の個別案内はピンなし",
+        "status": "partial-source-checked"
+      }
+    },
+    {
+      "id": "belluna-獅子ビル2F",
+      "floor": "獅子ビル2F",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        1024,
+        768
+      ],
+      "concoursePaths": [],
+      "contextPaths": [],
+      "landmarks": [
+        {
+          "id": "belluna-獅子ビル2F-mark-0",
+          "label": "獅子ビル2F",
+          "x": 515,
+          "y": 255,
+          "kind": "entrance",
+          "sourceIds": [
+            "stadium"
+          ],
+          "reference": "公式掲載の区域位置。精密入口と連続経路ではありません。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "stadium"
+        ],
+        "file": "research/belluna-current-2026-10-10/sources/9ae5231c0c5a82cd90d650ecbff04d8ac16fe985c34d2768ba733a4e0ceea093.pdf",
+        "sha256": "9ae5231c0c5a82cd90d650ecbff04d8ac16fe985c34d2768ba733a4e0ceea093",
+        "width": 1024,
+        "height": 768,
+        "method": "公式図の掲載区域を独立した参考座標へ読図。図外の個別案内はピンなし",
+        "status": "partial-source-checked"
+      }
+    },
+    {
+      "id": "belluna-獅子ビル3F",
+      "floor": "獅子ビル3F",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        1024,
+        768
+      ],
+      "concoursePaths": [],
+      "contextPaths": [],
+      "landmarks": [
+        {
+          "id": "belluna-獅子ビル3F-mark-0",
+          "label": "獅子ビル3F",
+          "x": 515,
+          "y": 255,
+          "kind": "entrance",
+          "sourceIds": [
+            "stadium"
+          ],
+          "reference": "公式掲載の区域位置。精密入口と連続経路ではありません。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "stadium"
+        ],
+        "file": "research/belluna-current-2026-10-10/sources/9ae5231c0c5a82cd90d650ecbff04d8ac16fe985c34d2768ba733a4e0ceea093.pdf",
+        "sha256": "9ae5231c0c5a82cd90d650ecbff04d8ac16fe985c34d2768ba733a4e0ceea093",
+        "width": 1024,
+        "height": 768,
+        "method": "公式図の掲載区域を独立した参考座標へ読図。図外の個別案内はピンなし",
+        "status": "partial-source-checked"
+      }
+    },
+    {
+      "id": "belluna-センタービル1F",
+      "floor": "センタービル1F",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        1024,
+        768
+      ],
+      "concoursePaths": [],
+      "contextPaths": [],
+      "landmarks": [
+        {
+          "id": "belluna-センタービル1F-mark-0",
+          "label": "センタービル1F",
+          "x": 515,
+          "y": 255,
+          "kind": "entrance",
+          "sourceIds": [
+            "stadium"
+          ],
+          "reference": "公式掲載の区域位置。精密入口と連続経路ではありません。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "stadium"
+        ],
+        "file": "research/belluna-current-2026-10-10/sources/9ae5231c0c5a82cd90d650ecbff04d8ac16fe985c34d2768ba733a4e0ceea093.pdf",
+        "sha256": "9ae5231c0c5a82cd90d650ecbff04d8ac16fe985c34d2768ba733a4e0ceea093",
+        "width": 1024,
+        "height": 768,
+        "method": "公式図の掲載区域を独立した参考座標へ読図。図外の個別案内はピンなし",
+        "status": "partial-source-checked"
+      }
+    },
+    {
+      "id": "belluna-センタービル2F",
+      "floor": "センタービル2F",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        1024,
+        768
+      ],
+      "concoursePaths": [],
+      "contextPaths": [],
+      "landmarks": [
+        {
+          "id": "belluna-センタービル2F-mark-0",
+          "label": "センタービル2F",
+          "x": 515,
+          "y": 255,
+          "kind": "entrance",
+          "sourceIds": [
+            "stadium"
+          ],
+          "reference": "公式掲載の区域位置。精密入口と連続経路ではありません。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "stadium"
+        ],
+        "file": "research/belluna-current-2026-10-10/sources/9ae5231c0c5a82cd90d650ecbff04d8ac16fe985c34d2768ba733a4e0ceea093.pdf",
+        "sha256": "9ae5231c0c5a82cd90d650ecbff04d8ac16fe985c34d2768ba733a4e0ceea093",
+        "width": 1024,
+        "height": 768,
+        "method": "公式図の掲載区域を独立した参考座標へ読図。図外の個別案内はピンなし",
+        "status": "partial-source-checked"
+      }
+    },
+    {
+      "id": "belluna-センタービル3F",
+      "floor": "センタービル3F",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        1024,
+        768
+      ],
+      "concoursePaths": [],
+      "contextPaths": [],
+      "landmarks": [
+        {
+          "id": "belluna-センタービル3F-mark-0",
+          "label": "センタービル3F",
+          "x": 515,
+          "y": 255,
+          "kind": "entrance",
+          "sourceIds": [
+            "stadium"
+          ],
+          "reference": "公式掲載の区域位置。精密入口と連続経路ではありません。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "stadium"
+        ],
+        "file": "research/belluna-current-2026-10-10/sources/9ae5231c0c5a82cd90d650ecbff04d8ac16fe985c34d2768ba733a4e0ceea093.pdf",
+        "sha256": "9ae5231c0c5a82cd90d650ecbff04d8ac16fe985c34d2768ba733a4e0ceea093",
+        "width": 1024,
+        "height": 768,
+        "method": "公式図の掲載区域を独立した参考座標へ読図。図外の個別案内はピンなし",
+        "status": "partial-source-checked"
+      }
+    },
+    {
+      "id": "belluna-ラウンジ",
+      "floor": "ラウンジ",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        1024,
+        768
+      ],
+      "concoursePaths": [],
+      "contextPaths": [],
+      "landmarks": [
+        {
+          "id": "belluna-ラウンジ-mark-0",
+          "label": "ラウンジ",
+          "x": 515,
+          "y": 255,
+          "kind": "entrance",
+          "sourceIds": [
+            "stadium"
+          ],
+          "reference": "公式掲載の区域位置。精密入口と連続経路ではありません。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "stadium"
+        ],
+        "file": "research/belluna-current-2026-10-10/sources/9ae5231c0c5a82cd90d650ecbff04d8ac16fe985c34d2768ba733a4e0ceea093.pdf",
+        "sha256": "9ae5231c0c5a82cd90d650ecbff04d8ac16fe985c34d2768ba733a4e0ceea093",
+        "width": 1024,
+        "height": 768,
+        "method": "公式図の掲載区域を独立した参考座標へ読図。図外の個別案内はピンなし",
+        "status": "partial-source-checked"
+      }
+    },
+    {
+      "id": "belluna-grounds",
+      "floor": "敷地",
+      "scope": "場外",
+      "viewBox": [
+        0,
+        0,
+        1024,
+        768
+      ],
+      "concoursePaths": [],
+      "contextPaths": [
+        "M426,238 C426,168 462,143 514,142 C580,143 616,182 615,241 C615,309 572,332 514,332 C455,332 426,298 426,238 Z",
+        "M455,386 L475,386 L475,448 L455,448 Z",
+        "M330,407 L455,407 M330,416 L455,416",
+        "M542,330 L578,338 L578,380 L544,372 Z",
+        "M665,288 L720,288 L720,363 L665,363 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "belluna-grounds-mark-0",
+          "label": "ベルーナドーム",
+          "x": 513,
+          "y": 245,
+          "kind": "entrance",
+          "sourceIds": [
+            "grounds"
+          ],
+          "reference": "公式掲載の区域位置。精密入口と連続経路ではありません。"
+        },
+        {
+          "id": "belluna-grounds-mark-1",
+          "label": "メインゲート",
+          "x": 455,
+          "y": 361,
+          "kind": "gate",
+          "sourceIds": [
+            "grounds"
+          ],
+          "reference": "公式掲載の区域位置。精密入口と連続経路ではありません。"
+        },
+        {
+          "id": "belluna-grounds-mark-2",
+          "label": "サブゲート",
+          "x": 520,
+          "y": 363,
+          "kind": "gate",
+          "sourceIds": [
+            "grounds"
+          ],
+          "reference": "公式掲載の区域位置。精密入口と連続経路ではありません。"
+        },
+        {
+          "id": "belluna-grounds-mark-3",
+          "label": "オーナーズゲート",
+          "x": 540,
+          "y": 151,
+          "kind": "gate",
+          "sourceIds": [
+            "grounds"
+          ],
+          "reference": "公式掲載の区域位置。精密入口と連続経路ではありません。"
+        },
+        {
+          "id": "belluna-grounds-mark-4",
+          "label": "西武球場前駅改札",
+          "x": 470,
+          "y": 383,
+          "kind": "exit",
+          "sourceIds": [
+            "grounds"
+          ],
+          "reference": "公式掲載の区域位置。精密入口と連続経路ではありません。"
+        },
+        {
+          "id": "belluna-grounds-mark-5",
+          "label": "獅子ビル",
+          "x": 560,
+          "y": 345,
+          "kind": "entrance",
+          "sourceIds": [
+            "grounds"
+          ],
+          "reference": "公式掲載の区域位置。精密入口と連続経路ではありません。"
+        },
+        {
+          "id": "belluna-grounds-mark-6",
+          "label": "チケットセンター",
+          "x": 485,
+          "y": 375,
+          "kind": "shop",
+          "sourceIds": [
+            "grounds"
+          ],
+          "reference": "公式掲載の区域位置。精密入口と連続経路ではありません。"
+        },
+        {
+          "id": "belluna-grounds-mark-7",
+          "label": "レッド駐車場",
+          "x": 312,
+          "y": 339,
+          "kind": "plaza",
+          "sourceIds": [
+            "grounds"
+          ],
+          "reference": "公式掲載の区域位置。精密入口と連続経路ではありません。"
+        },
+        {
+          "id": "belluna-grounds-mark-8",
+          "label": "ブルー駐車場",
+          "x": 544,
+          "y": 429,
+          "kind": "plaza",
+          "sourceIds": [
+            "grounds"
+          ],
+          "reference": "公式掲載の区域位置。精密入口と連続経路ではありません。"
+        },
+        {
+          "id": "belluna-grounds-mark-9",
+          "label": "グリーン駐車場",
+          "x": 495,
+          "y": 498,
+          "kind": "plaza",
+          "sourceIds": [
+            "grounds"
+          ],
+          "reference": "公式掲載の区域位置。精密入口と連続経路ではありません。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "grounds"
+        ],
+        "file": "research/belluna-current-2026-10-10/sources/8d88fb06450dd9cd763edc268e0d88919d224c297dfad0ad5ba5ffb23c7d7740.pdf",
+        "sha256": "8d88fb06450dd9cd763edc268e0d88919d224c297dfad0ad5ba5ffb23c7d7740",
+        "width": 1024,
+        "height": 768,
+        "method": "公式図の掲載区域を独立した参考座標へ読図。図外の個別案内はピンなし",
+        "status": "partial-source-checked"
+      }
+    },
+    {
+      "id": "belluna-nearest",
+      "floor": "西武球場前駅",
+      "scope": "場外",
+      "viewBox": [
+        0,
+        0,
+        1024,
+        768
+      ],
+      "concoursePaths": [],
+      "contextPaths": [],
+      "landmarks": [
+        {
+          "id": "belluna-nearest-mark-0",
+          "label": "西武球場前駅",
+          "x": 515,
+          "y": 220,
+          "kind": "station",
+          "sourceIds": [
+            "station"
+          ],
+          "reference": "公式掲載の区域位置。精密入口と連続経路ではありません。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "station"
+        ],
+        "file": "research/belluna-current-2026-10-10/sources/b626f8411040ac2b3b33947d9c2075020b54933c4f0a580422719a46727176c6.html",
+        "sha256": "b626f8411040ac2b3b33947d9c2075020b54933c4f0a580422719a46727176c6",
+        "width": 1024,
+        "height": 768,
+        "method": "公式図の掲載区域を独立した参考座標へ読図。図外の個別案内はピンなし",
+        "status": "partial-source-checked"
+      }
+    },
+    {
+      "id": "belluna-transfer",
+      "floor": "西所沢・所沢駅",
+      "scope": "場外",
+      "viewBox": [
+        0,
+        0,
+        1024,
+        768
+      ],
+      "concoursePaths": [],
+      "contextPaths": [],
+      "landmarks": [
+        {
+          "id": "belluna-transfer-mark-0",
+          "label": "西所沢・所沢駅",
+          "x": 515,
+          "y": 220,
+          "kind": "station",
+          "sourceIds": [
+            "locker-tokorozawa1"
+          ],
+          "reference": "公式掲載の区域位置。精密入口と連続経路ではありません。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "locker-tokorozawa1"
+        ],
+        "file": "research/belluna-current-2026-10-10/sources/107ea16751f16406eadcf9580782f148894241f656c30238a6f880b8f656873e.html",
+        "sha256": "107ea16751f16406eadcf9580782f148894241f656c30238a6f880b8f656873e",
+        "width": 1024,
+        "height": 768,
+        "method": "公式図の掲載区域を独立した参考座標へ読図。図外の個別案内はピンなし",
+        "status": "partial-source-checked"
+      }
+    },
+    {
+      "id": "belluna-store",
+      "floor": "所沢・予約預かり",
+      "scope": "場外",
+      "viewBox": [
+        0,
+        0,
+        1024,
+        768
+      ],
+      "concoursePaths": [],
+      "contextPaths": [],
+      "landmarks": [
+        {
+          "id": "belluna-store-mark-0",
+          "label": "所沢・予約預かり",
+          "x": 515,
+          "y": 220,
+          "kind": "shop",
+          "sourceIds": [
+            "staffed"
+          ],
+          "reference": "公式掲載の区域位置。精密入口と連続経路ではありません。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "staffed"
+        ],
+        "file": "research/belluna-current-2026-10-10/sources/b363ca92c01fcc7cc3781bc549a15d416fb376a942ea151a9e04723e0e2d5df0.html",
+        "sha256": "b363ca92c01fcc7cc3781bc549a15d416fb376a942ea151a9e04723e0e2d5df0",
+        "width": 1024,
+        "height": 768,
+        "method": "公式図の掲載区域を独立した参考座標へ読図。図外の個別案内はピンなし",
+        "status": "partial-source-checked"
+      }
+    }
+  ],
+  "groups": [
+    {
+      "id": "belluna-inside-1塁側 1-1-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "1塁側 1-1",
+      "area": "1塁側 1-1",
+      "memberIds": [
+        "belluna-food-1塁-1-0"
+      ],
+      "x": 424,
+      "y": 155,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-1塁側 1-2-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "1塁側 1-2",
+      "area": "1塁側 1-2",
+      "memberIds": [
+        "belluna-food-1塁-2-0"
+      ],
+      "x": 433,
+      "y": 167,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-1塁側 1-3-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "1塁側 1-3",
+      "area": "1塁側 1-3",
+      "memberIds": [
+        "belluna-food-1塁-3-0"
+      ],
+      "x": 441,
+      "y": 181,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-1塁側 1-4-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "1塁側 1-4",
+      "area": "1塁側 1-4",
+      "memberIds": [
+        "belluna-food-1塁-4-0"
+      ],
+      "x": 449,
+      "y": 194,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-1塁側 1-5-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "1塁側 1-5",
+      "area": "1塁側 1-5",
+      "memberIds": [
+        "belluna-food-1塁-5-0",
+        "belluna-food-1塁-5-1"
+      ],
+      "x": 373,
+      "y": 175,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-1塁側 1-6-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "1塁側 1-6",
+      "area": "1塁側 1-6",
+      "memberIds": [
+        "belluna-food-1塁-6-0",
+        "belluna-food-1塁-6-1"
+      ],
+      "x": 353,
+      "y": 203,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-1塁側 1-7-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "1塁側 1-7",
+      "area": "1塁側 1-7",
+      "memberIds": [
+        "belluna-food-1塁-7-0"
+      ],
+      "x": 348,
+      "y": 212,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-1塁側 1-8-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "1塁側 1-8",
+      "area": "1塁側 1-8",
+      "memberIds": [
+        "belluna-food-1塁-8-0",
+        "belluna-food-1塁-8-1"
+      ],
+      "x": 338,
+      "y": 231,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-1塁側 1-9-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "1塁側 1-9",
+      "area": "1塁側 1-9",
+      "memberIds": [
+        "belluna-food-1塁-9-0"
+      ],
+      "x": 331,
+      "y": 247,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-1塁側 1-10-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "1塁側 1-10",
+      "area": "1塁側 1-10",
+      "memberIds": [
+        "belluna-food-1塁-10-0"
+      ],
+      "x": 302,
+      "y": 266,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-1塁側 1-11-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "1塁側 1-11",
+      "area": "1塁側 1-11",
+      "memberIds": [
+        "belluna-food-1塁-11-0"
+      ],
+      "x": 302,
+      "y": 273,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-1塁側 1-12-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "1塁側 1-12",
+      "area": "1塁側 1-12",
+      "memberIds": [
+        "belluna-food-1塁-12-0"
+      ],
+      "x": 302,
+      "y": 281,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-1塁側 1-13-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "1塁側 1-13",
+      "area": "1塁側 1-13",
+      "memberIds": [
+        "belluna-food-1塁-13-0"
+      ],
+      "x": 302,
+      "y": 287,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-1塁側 1-14-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "1塁側 1-14",
+      "area": "1塁側 1-14",
+      "memberIds": [
+        "belluna-food-1塁-14-0"
+      ],
+      "x": 302,
+      "y": 294,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-1塁側 1-15-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "1塁側 1-15",
+      "area": "1塁側 1-15",
+      "memberIds": [
+        "belluna-food-1塁-15-0"
+      ],
+      "x": 302,
+      "y": 301,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-1塁側 1-16-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "1塁側 1-16",
+      "area": "1塁側 1-16",
+      "memberIds": [
+        "belluna-food-1塁-16-0"
+      ],
+      "x": 302,
+      "y": 308,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-1塁側 1-17-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "1塁側 1-17",
+      "area": "1塁側 1-17",
+      "memberIds": [
+        "belluna-food-1塁-17-0"
+      ],
+      "x": 305,
+      "y": 335,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-1塁側 1-18-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "1塁側 1-18",
+      "area": "1塁側 1-18",
+      "memberIds": [
+        "belluna-food-1塁-18-0"
+      ],
+      "x": 308,
+      "y": 343,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-1塁側 1-19-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "1塁側 1-19",
+      "area": "1塁側 1-19",
+      "memberIds": [
+        "belluna-food-1塁-19-0"
+      ],
+      "x": 311,
+      "y": 350,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-1塁側 1-20-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "1塁側 1-20",
+      "area": "1塁側 1-20",
+      "memberIds": [
+        "belluna-food-1塁-20-0"
+      ],
+      "x": 314,
+      "y": 357,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-1塁側 1-21-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "1塁側 1-21",
+      "area": "1塁側 1-21",
+      "memberIds": [
+        "belluna-food-1塁-21-0"
+      ],
+      "x": 352,
+      "y": 402,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-1塁側 1-22-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "1塁側 1-22",
+      "area": "1塁側 1-22",
+      "memberIds": [
+        "belluna-food-1塁-22-0",
+        "belluna-food-1塁-22-1"
+      ],
+      "x": 374,
+      "y": 422,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-1塁側 1-23-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "1塁側 1-23",
+      "area": "1塁側 1-23",
+      "memberIds": [
+        "belluna-food-1塁-23-0"
+      ],
+      "x": 422,
+      "y": 478,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-3塁側 3-1-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "3塁側 3-1",
+      "area": "3塁側 3-1",
+      "memberIds": [
+        "belluna-food-3塁-1-0"
+      ],
+      "x": 600,
+      "y": 155,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-3塁側 3-2-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "3塁側 3-2",
+      "area": "3塁側 3-2",
+      "memberIds": [
+        "belluna-food-3塁-2-0"
+      ],
+      "x": 590,
+      "y": 167,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-3塁側 3-3-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "3塁側 3-3",
+      "area": "3塁側 3-3",
+      "memberIds": [
+        "belluna-food-3塁-3-0"
+      ],
+      "x": 582,
+      "y": 181,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-3塁側 3-4-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "3塁側 3-4",
+      "area": "3塁側 3-4",
+      "memberIds": [
+        "belluna-food-3塁-4-0"
+      ],
+      "x": 576,
+      "y": 194,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-3塁側 3-5-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "3塁側 3-5",
+      "area": "3塁側 3-5",
+      "memberIds": [
+        "belluna-food-3塁-5-0"
+      ],
+      "x": 646,
+      "y": 174,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-3塁側 3-6-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "3塁側 3-6",
+      "area": "3塁側 3-6",
+      "memberIds": [
+        "belluna-food-3塁-6-0",
+        "belluna-food-3塁-6-1"
+      ],
+      "x": 670,
+      "y": 207,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-3塁側 3-7-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "3塁側 3-7",
+      "area": "3塁側 3-7",
+      "memberIds": [
+        "belluna-food-3塁-7-0"
+      ],
+      "x": 678,
+      "y": 222,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-3塁側 3-8-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "3塁側 3-8",
+      "area": "3塁側 3-8",
+      "memberIds": [
+        "belluna-food-3塁-8-0",
+        "belluna-food-3塁-8-1"
+      ],
+      "x": 686,
+      "y": 241,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-3塁側 3-9-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "3塁側 3-9",
+      "area": "3塁側 3-9",
+      "memberIds": [
+        "belluna-food-3塁-9-0"
+      ],
+      "x": 691,
+      "y": 253,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-3塁側 3-10-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "3塁側 3-10",
+      "area": "3塁側 3-10",
+      "memberIds": [
+        "belluna-food-3塁-10-0"
+      ],
+      "x": 717,
+      "y": 274,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-3塁側 3-11-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "3塁側 3-11",
+      "area": "3塁側 3-11",
+      "memberIds": [
+        "belluna-food-3塁-11-0"
+      ],
+      "x": 717,
+      "y": 281,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-3塁側 3-12-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "3塁側 3-12",
+      "area": "3塁側 3-12",
+      "memberIds": [
+        "belluna-food-3塁-12-0"
+      ],
+      "x": 717,
+      "y": 288,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-3塁側 3-13-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "3塁側 3-13",
+      "area": "3塁側 3-13",
+      "memberIds": [
+        "belluna-food-3塁-13-0"
+      ],
+      "x": 717,
+      "y": 296,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-3塁側 3-14-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "3塁側 3-14",
+      "area": "3塁側 3-14",
+      "memberIds": [
+        "belluna-food-3塁-14-0"
+      ],
+      "x": 717,
+      "y": 303,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-3塁側 3-15-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "3塁側 3-15",
+      "area": "3塁側 3-15",
+      "memberIds": [
+        "belluna-food-3塁-15-0"
+      ],
+      "x": 717,
+      "y": 309,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-3塁側 3-16-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "3塁側 3-16",
+      "area": "3塁側 3-16",
+      "memberIds": [
+        "belluna-food-3塁-16-0"
+      ],
+      "x": 717,
+      "y": 317,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-3塁側 3-17-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "3塁側 3-17",
+      "area": "3塁側 3-17",
+      "memberIds": [
+        "belluna-food-3塁-17-0"
+      ],
+      "x": 712,
+      "y": 359,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-3塁側 3-18-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "3塁側 3-18",
+      "area": "3塁側 3-18",
+      "memberIds": [
+        "belluna-food-3塁-18-0"
+      ],
+      "x": 709,
+      "y": 366,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-3塁側 3-19-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "3塁側 3-19",
+      "area": "3塁側 3-19",
+      "memberIds": [
+        "belluna-food-3塁-19-0"
+      ],
+      "x": 706,
+      "y": 374,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-3塁側 3-20-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "3塁側 3-20",
+      "area": "3塁側 3-20",
+      "memberIds": [
+        "belluna-food-3塁-20-0"
+      ],
+      "x": 703,
+      "y": 386,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-3塁側 3-21-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "3塁側 3-21",
+      "area": "3塁側 3-21",
+      "memberIds": [
+        "belluna-food-3塁-21-0"
+      ],
+      "x": 700,
+      "y": 393,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-3塁側 3-22-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "3塁側 3-22",
+      "area": "3塁側 3-22",
+      "memberIds": [
+        "belluna-food-3塁-22-0"
+      ],
+      "x": 697,
+      "y": 401,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-3塁側 3-23-飲食",
+      "diagramId": "belluna-inside",
+      "purpose": "飲食",
+      "label": "3塁側 3-23",
+      "area": "3塁側 3-23",
+      "memberIds": [
+        "belluna-food-3塁-23-0"
+      ],
+      "x": 694,
+      "y": 408,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-1塁バックネット-トイレ",
+      "diagramId": "belluna-inside",
+      "purpose": "トイレ",
+      "label": "1塁バックネット",
+      "area": "1塁バックネット",
+      "memberIds": [
+        "belluna-toilet-1塁バックネット-men",
+        "belluna-toilet-1塁バックネット-women",
+        "belluna-accessible-1塁バックネット"
+      ],
+      "x": 465,
+      "y": 176,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-3塁バックネット-トイレ",
+      "diagramId": "belluna-inside",
+      "purpose": "トイレ",
+      "label": "3塁バックネット",
+      "area": "3塁バックネット",
+      "memberIds": [
+        "belluna-toilet-3塁バックネット-men",
+        "belluna-toilet-3塁バックネット-women",
+        "belluna-accessible-3塁バックネット"
+      ],
+      "x": 543,
+      "y": 177,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-1塁外野-トイレ",
+      "diagramId": "belluna-inside",
+      "purpose": "トイレ",
+      "label": "1塁外野",
+      "area": "1塁外野",
+      "memberIds": [
+        "belluna-toilet-1塁外野-men",
+        "belluna-toilet-1塁外野-women"
+      ],
+      "x": 463,
+      "y": 443,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-3塁外野-トイレ",
+      "diagramId": "belluna-inside",
+      "purpose": "トイレ",
+      "label": "3塁外野",
+      "area": "3塁外野",
+      "memberIds": [
+        "belluna-toilet-3塁外野-men",
+        "belluna-toilet-3塁外野-women"
+      ],
+      "x": 550,
+      "y": 443,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-1塁前方-トイレ",
+      "diagramId": "belluna-inside",
+      "purpose": "トイレ",
+      "label": "1塁前方",
+      "area": "1塁前方",
+      "memberIds": [
+        "belluna-toilet-1塁前方"
+      ],
+      "x": 341,
+      "y": 201,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-1塁中程-トイレ",
+      "diagramId": "belluna-inside",
+      "purpose": "トイレ",
+      "label": "1塁中程",
+      "area": "1塁中程",
+      "memberIds": [
+        "belluna-toilet-1塁中程"
+      ],
+      "x": 321,
+      "y": 235,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-3塁前方-トイレ",
+      "diagramId": "belluna-inside",
+      "purpose": "トイレ",
+      "label": "3塁前方",
+      "area": "3塁前方",
+      "memberIds": [
+        "belluna-toilet-3塁前方"
+      ],
+      "x": 685,
+      "y": 208,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-3塁中程-トイレ",
+      "diagramId": "belluna-inside",
+      "purpose": "トイレ",
+      "label": "3塁中程",
+      "area": "3塁中程",
+      "memberIds": [
+        "belluna-toilet-3塁中程"
+      ],
+      "x": 700,
+      "y": 241,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-AED区域1-AED",
+      "diagramId": "belluna-inside",
+      "purpose": "AED",
+      "label": "AED区域1",
+      "area": "AED区域1",
+      "memberIds": [
+        "belluna-aed-1"
+      ],
+      "x": 452,
+      "y": 177,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-AED区域2-AED",
+      "diagramId": "belluna-inside",
+      "purpose": "AED",
+      "label": "AED区域2",
+      "area": "AED区域2",
+      "memberIds": [
+        "belluna-aed-2"
+      ],
+      "x": 572,
+      "y": 177,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-AED区域3-AED",
+      "diagramId": "belluna-inside",
+      "purpose": "AED",
+      "label": "AED区域3",
+      "area": "AED区域3",
+      "memberIds": [
+        "belluna-aed-3"
+      ],
+      "x": 431,
+      "y": 268,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-AED区域4-AED",
+      "diagramId": "belluna-inside",
+      "purpose": "AED",
+      "label": "AED区域4",
+      "area": "AED区域4",
+      "memberIds": [
+        "belluna-aed-4"
+      ],
+      "x": 590,
+      "y": 268,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-AED区域5-AED",
+      "diagramId": "belluna-inside",
+      "purpose": "AED",
+      "label": "AED区域5",
+      "area": "AED区域5",
+      "memberIds": [
+        "belluna-aed-5"
+      ],
+      "x": 317,
+      "y": 309,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-AED区域6-AED",
+      "diagramId": "belluna-inside",
+      "purpose": "AED",
+      "label": "AED区域6",
+      "area": "AED区域6",
+      "memberIds": [
+        "belluna-aed-6"
+      ],
+      "x": 705,
+      "y": 273,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-AED区域7-AED",
+      "diagramId": "belluna-inside",
+      "purpose": "AED",
+      "label": "AED区域7",
+      "area": "AED区域7",
+      "memberIds": [
+        "belluna-aed-7"
+      ],
+      "x": 434,
+      "y": 432,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-AED区域8-AED",
+      "diagramId": "belluna-inside",
+      "purpose": "AED",
+      "label": "AED区域8",
+      "area": "AED区域8",
+      "memberIds": [
+        "belluna-aed-8"
+      ],
+      "x": 590,
+      "y": 432,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-1塁側授乳-赤ちゃん",
+      "diagramId": "belluna-inside",
+      "purpose": "赤ちゃん",
+      "label": "1塁側授乳",
+      "area": "1塁側授乳",
+      "memberIds": [
+        "belluna-nursing-1塁側"
+      ],
+      "x": 486,
+      "y": 177,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-3塁側授乳-赤ちゃん",
+      "diagramId": "belluna-inside",
+      "purpose": "赤ちゃん",
+      "label": "3塁側授乳",
+      "area": "3塁側授乳",
+      "memberIds": [
+        "belluna-nursing-3塁側"
+      ],
+      "x": 564,
+      "y": 177,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-1-24-案内",
+      "diagramId": "belluna-inside",
+      "purpose": "案内",
+      "label": "1-24",
+      "area": "1-24",
+      "memberIds": [
+        "belluna-service-1-24"
+      ],
+      "x": 302,
+      "y": 325,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-1-25-案内",
+      "diagramId": "belluna-inside",
+      "purpose": "案内",
+      "label": "1-25",
+      "area": "1-25",
+      "memberIds": [
+        "belluna-service-1-25"
+      ],
+      "x": 397,
+      "y": 422,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-1-26-案内",
+      "diagramId": "belluna-inside",
+      "purpose": "案内",
+      "label": "1-26",
+      "area": "1-26",
+      "memberIds": [
+        "belluna-service-1-26"
+      ],
+      "x": 470,
+      "y": 492,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-1-27-案内",
+      "diagramId": "belluna-inside",
+      "purpose": "案内",
+      "label": "1-27",
+      "area": "1-27",
+      "memberIds": [
+        "belluna-service-1-27"
+      ],
+      "x": 465,
+      "y": 529,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-3-24-案内",
+      "diagramId": "belluna-inside",
+      "purpose": "案内",
+      "label": "3-24",
+      "area": "3-24",
+      "memberIds": [
+        "belluna-service-3-24"
+      ],
+      "x": 712,
+      "y": 345,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-3-25-案内",
+      "diagramId": "belluna-inside",
+      "purpose": "案内",
+      "label": "3-25",
+      "area": "3-25",
+      "memberIds": [
+        "belluna-service-3-25"
+      ],
+      "x": 586,
+      "y": 454,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-3-26-案内",
+      "diagramId": "belluna-inside",
+      "purpose": "案内",
+      "label": "3-26",
+      "area": "3-26",
+      "memberIds": [
+        "belluna-service-3-26"
+      ],
+      "x": 600,
+      "y": 444,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-inside-3-28-案内",
+      "diagramId": "belluna-inside",
+      "purpose": "案内",
+      "label": "3-28",
+      "area": "3-28",
+      "memberIds": [
+        "belluna-service-3-28"
+      ],
+      "x": 556,
+      "y": 528,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-grounds-メインゲート-案内",
+      "diagramId": "belluna-grounds",
+      "purpose": "案内",
+      "label": "メインゲート",
+      "area": "メインゲート",
+      "memberIds": [
+        "belluna-outside-メインゲート"
+      ],
+      "x": 455,
+      "y": 361,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-grounds-サブゲート-案内",
+      "diagramId": "belluna-grounds",
+      "purpose": "案内",
+      "label": "サブゲート",
+      "area": "サブゲート",
+      "memberIds": [
+        "belluna-outside-サブゲート"
+      ],
+      "x": 520,
+      "y": 363,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-grounds-オーナーズゲート-案内",
+      "diagramId": "belluna-grounds",
+      "purpose": "案内",
+      "label": "オーナーズゲート",
+      "area": "オーナーズゲート",
+      "memberIds": [
+        "belluna-outside-オーナーズゲート"
+      ],
+      "x": 540,
+      "y": 151,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-grounds-西武球場前駅改札-案内",
+      "diagramId": "belluna-grounds",
+      "purpose": "案内",
+      "label": "西武球場前駅改札",
+      "area": "西武球場前駅改札",
+      "memberIds": [
+        "belluna-outside-西武球場前駅改札"
+      ],
+      "x": 470,
+      "y": 383,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-grounds-チケットセンター-案内",
+      "diagramId": "belluna-grounds",
+      "purpose": "案内",
+      "label": "チケットセンター",
+      "area": "チケットセンター",
+      "memberIds": [
+        "belluna-outside-チケットセンター"
+      ],
+      "x": 485,
+      "y": 375,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-grounds-総合案内-案内",
+      "diagramId": "belluna-grounds",
+      "purpose": "案内",
+      "label": "総合案内",
+      "area": "総合案内",
+      "memberIds": [
+        "belluna-outside-総合案内"
+      ],
+      "x": 451,
+      "y": 387,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-grounds-駅前広場-案内",
+      "diagramId": "belluna-grounds",
+      "purpose": "案内",
+      "label": "駅前広場",
+      "area": "駅前広場",
+      "memberIds": [
+        "belluna-outside-駅前広場"
+      ],
+      "x": 482,
+      "y": 438,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-grounds-獅子ビル-案内",
+      "diagramId": "belluna-grounds",
+      "purpose": "案内",
+      "label": "獅子ビル",
+      "area": "獅子ビル",
+      "memberIds": [
+        "belluna-outside-獅子ビル"
+      ],
+      "x": 560,
+      "y": 345,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-grounds-トレイン広場-案内",
+      "diagramId": "belluna-grounds",
+      "purpose": "案内",
+      "label": "トレイン広場",
+      "area": "トレイン広場",
+      "memberIds": [
+        "belluna-outside-トレイン広場"
+      ],
+      "x": 441,
+      "y": 326,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-grounds-テイキョウキッズフィールド-赤ちゃん",
+      "diagramId": "belluna-grounds",
+      "purpose": "赤ちゃん",
+      "label": "テイキョウキッズフィールド",
+      "area": "テイキョウキッズフィールド",
+      "memberIds": [
+        "belluna-outside-テイキョウキッズフィールド"
+      ],
+      "x": 513,
+      "y": 344,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-grounds-レッド駐車場-案内",
+      "diagramId": "belluna-grounds",
+      "purpose": "案内",
+      "label": "レッド駐車場",
+      "area": "レッド駐車場",
+      "memberIds": [
+        "belluna-outside-レッド駐車場"
+      ],
+      "x": 312,
+      "y": 339,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-grounds-ブルー駐車場-案内",
+      "diagramId": "belluna-grounds",
+      "purpose": "案内",
+      "label": "ブルー駐車場",
+      "area": "ブルー駐車場",
+      "memberIds": [
+        "belluna-outside-ブルー駐車場"
+      ],
+      "x": 544,
+      "y": 429,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-grounds-グリーン駐車場-案内",
+      "diagramId": "belluna-grounds",
+      "purpose": "案内",
+      "label": "グリーン駐車場",
+      "area": "グリーン駐車場",
+      "memberIds": [
+        "belluna-outside-グリーン駐車場"
+      ],
+      "x": 495,
+      "y": 498,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-grounds-西武球場前駅トイレ-トイレ",
+      "diagramId": "belluna-grounds",
+      "purpose": "トイレ",
+      "label": "西武球場前駅トイレ",
+      "area": "西武球場前駅トイレ",
+      "memberIds": [
+        "belluna-outside-toilet-西武球場前駅トイレ-men",
+        "belluna-outside-toilet-西武球場前駅トイレ-women",
+        "belluna-outside-toilet-西武球場前駅トイレ-accessible"
+      ],
+      "x": 458,
+      "y": 450,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-grounds-CAR3219側-トイレ",
+      "diagramId": "belluna-grounds",
+      "purpose": "トイレ",
+      "label": "CAR3219側",
+      "area": "CAR3219側",
+      "memberIds": [
+        "belluna-outside-toilet-CAR3219側-men",
+        "belluna-outside-toilet-CAR3219側-women",
+        "belluna-outside-toilet-CAR3219側-accessible"
+      ],
+      "x": 696,
+      "y": 255,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "belluna-grounds-総合案内付近-AED",
+      "diagramId": "belluna-grounds",
+      "purpose": "AED",
+      "label": "総合案内付近",
+      "area": "総合案内付近",
+      "memberIds": [
+        "belluna-outside-aed"
+      ],
+      "x": 439,
+      "y": 386,
+      "boundary": "同じ公式掲載区域/階のみを固定グループにする",
+      "visualReview": "source-checked"
+    }
+  ],
+  "meta": {
+    "belluna-food-1塁-1-0": {
+      "area": "1塁側 1-1",
+      "location": "1塁側 1-1",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-1塁-2-0": {
+      "area": "1塁側 1-2",
+      "location": "1塁側 1-2",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-1塁-3-0": {
+      "area": "1塁側 1-3",
+      "location": "1塁側 1-3",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-1塁-4-0": {
+      "area": "1塁側 1-4",
+      "location": "1塁側 1-4",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-1塁-5-0": {
+      "area": "1塁側 1-5",
+      "location": "1塁側 1-5",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-1塁-5-1": {
+      "area": "1塁側 1-5",
+      "location": "1塁側 1-5",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-1塁-6-0": {
+      "area": "1塁側 1-6",
+      "location": "1塁側 1-6",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-1塁-6-1": {
+      "area": "1塁側 1-6",
+      "location": "1塁側 1-6",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-1塁-7-0": {
+      "area": "1塁側 1-7",
+      "location": "1塁側 1-7",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-1塁-8-0": {
+      "area": "1塁側 1-8",
+      "location": "1塁側 1-8",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-1塁-8-1": {
+      "area": "1塁側 1-8",
+      "location": "1塁側 1-8",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-1塁-9-0": {
+      "area": "1塁側 1-9",
+      "location": "1塁側 1-9",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-1塁-10-0": {
+      "area": "1塁側 1-10",
+      "location": "1塁側 1-10",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-1塁-11-0": {
+      "area": "1塁側 1-11",
+      "location": "1塁側 1-11",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-1塁-12-0": {
+      "area": "1塁側 1-12",
+      "location": "1塁側 1-12",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-1塁-13-0": {
+      "area": "1塁側 1-13",
+      "location": "1塁側 1-13",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-1塁-14-0": {
+      "area": "1塁側 1-14",
+      "location": "1塁側 1-14",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-1塁-15-0": {
+      "area": "1塁側 1-15",
+      "location": "1塁側 1-15",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-1塁-16-0": {
+      "area": "1塁側 1-16",
+      "location": "1塁側 1-16",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-1塁-17-0": {
+      "area": "1塁側 1-17",
+      "location": "1塁側 1-17",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-1塁-18-0": {
+      "area": "1塁側 1-18",
+      "location": "1塁側 1-18",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-1塁-19-0": {
+      "area": "1塁側 1-19",
+      "location": "1塁側 1-19",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-1塁-20-0": {
+      "area": "1塁側 1-20",
+      "location": "1塁側 1-20",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-1塁-21-0": {
+      "area": "1塁側 1-21",
+      "location": "1塁側 1-21",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-1塁-22-0": {
+      "area": "1塁側 1-22",
+      "location": "1塁側 1-22",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-1塁-22-1": {
+      "area": "1塁側 1-22",
+      "location": "1塁側 1-22",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-1塁-23-0": {
+      "area": "1塁側 1-23",
+      "location": "1塁側 1-23",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-3塁-1-0": {
+      "area": "3塁側 3-1",
+      "location": "3塁側 3-1",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-3塁-2-0": {
+      "area": "3塁側 3-2",
+      "location": "3塁側 3-2",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-3塁-3-0": {
+      "area": "3塁側 3-3",
+      "location": "3塁側 3-3",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-3塁-4-0": {
+      "area": "3塁側 3-4",
+      "location": "3塁側 3-4",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-3塁-5-0": {
+      "area": "3塁側 3-5",
+      "location": "3塁側 3-5",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-3塁-6-0": {
+      "area": "3塁側 3-6",
+      "location": "3塁側 3-6",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-3塁-6-1": {
+      "area": "3塁側 3-6",
+      "location": "3塁側 3-6",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-3塁-7-0": {
+      "area": "3塁側 3-7",
+      "location": "3塁側 3-7",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-3塁-8-0": {
+      "area": "3塁側 3-8",
+      "location": "3塁側 3-8",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-3塁-8-1": {
+      "area": "3塁側 3-8",
+      "location": "3塁側 3-8",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-3塁-9-0": {
+      "area": "3塁側 3-9",
+      "location": "3塁側 3-9",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-3塁-10-0": {
+      "area": "3塁側 3-10",
+      "location": "3塁側 3-10",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-3塁-11-0": {
+      "area": "3塁側 3-11",
+      "location": "3塁側 3-11",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-3塁-12-0": {
+      "area": "3塁側 3-12",
+      "location": "3塁側 3-12",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-3塁-13-0": {
+      "area": "3塁側 3-13",
+      "location": "3塁側 3-13",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-3塁-14-0": {
+      "area": "3塁側 3-14",
+      "location": "3塁側 3-14",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-3塁-15-0": {
+      "area": "3塁側 3-15",
+      "location": "3塁側 3-15",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-3塁-16-0": {
+      "area": "3塁側 3-16",
+      "location": "3塁側 3-16",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-3塁-17-0": {
+      "area": "3塁側 3-17",
+      "location": "3塁側 3-17",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-3塁-18-0": {
+      "area": "3塁側 3-18",
+      "location": "3塁側 3-18",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-3塁-19-0": {
+      "area": "3塁側 3-19",
+      "location": "3塁側 3-19",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-3塁-20-0": {
+      "area": "3塁側 3-20",
+      "location": "3塁側 3-20",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-3塁-21-0": {
+      "area": "3塁側 3-21",
+      "location": "3塁側 3-21",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-3塁-22-0": {
+      "area": "3塁側 3-22",
+      "location": "3塁側 3-22",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-food-3塁-23-0": {
+      "area": "3塁側 3-23",
+      "location": "3塁側 3-23",
+      "detail": "公式スタジアムマップ掲載。営業日・メニュー・公演時の開放は当日の案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-toilet-1塁バックネット-men": {
+      "area": "1塁バックネット",
+      "location": "1塁バックネット",
+      "detail": "男女別の公式図記号を確認。公演による運用変更は主催者へ確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-toilet-1塁バックネット-women": {
+      "area": "1塁バックネット",
+      "location": "1塁バックネット",
+      "detail": "男女別の公式図記号を確認。公演による運用変更は主催者へ確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-toilet-3塁バックネット-men": {
+      "area": "3塁バックネット",
+      "location": "3塁バックネット",
+      "detail": "男女別の公式図記号を確認。公演による運用変更は主催者へ確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-toilet-3塁バックネット-women": {
+      "area": "3塁バックネット",
+      "location": "3塁バックネット",
+      "detail": "男女別の公式図記号を確認。公演による運用変更は主催者へ確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-toilet-1塁外野-men": {
+      "area": "1塁外野",
+      "location": "1塁外野",
+      "detail": "男女別の公式図記号を確認。公演による運用変更は主催者へ確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-toilet-1塁外野-women": {
+      "area": "1塁外野",
+      "location": "1塁外野",
+      "detail": "男女別の公式図記号を確認。公演による運用変更は主催者へ確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-toilet-3塁外野-men": {
+      "area": "3塁外野",
+      "location": "3塁外野",
+      "detail": "男女別の公式図記号を確認。公演による運用変更は主催者へ確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-toilet-3塁外野-women": {
+      "area": "3塁外野",
+      "location": "3塁外野",
+      "detail": "男女別の公式図記号を確認。公演による運用変更は主催者へ確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-toilet-1塁前方": {
+      "area": "1塁前方",
+      "location": "1塁前方",
+      "detail": "公式図の男女別記号を区域ごとに確認。公演時の運用は主催者へ確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-toilet-1塁中程": {
+      "area": "1塁中程",
+      "location": "1塁中程",
+      "detail": "公式図の男女別記号を区域ごとに確認。公演時の運用は主催者へ確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-toilet-3塁前方": {
+      "area": "3塁前方",
+      "location": "3塁前方",
+      "detail": "公式図の男女別記号を区域ごとに確認。公演時の運用は主催者へ確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-toilet-3塁中程": {
+      "area": "3塁中程",
+      "location": "3塁中程",
+      "detail": "公式図の男女別記号を区域ごとに確認。公演時の運用は主催者へ確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-accessible-1塁バックネット": {
+      "area": "1塁バックネット",
+      "location": "1塁バックネット",
+      "detail": "公式図の車いす記号に対応する区域。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-accessible-3塁バックネット": {
+      "area": "3塁バックネット",
+      "location": "3塁バックネット",
+      "detail": "公式図の車いす記号に対応する区域。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-aed-1": {
+      "area": "AED区域1",
+      "location": "場内",
+      "detail": "緊急時は近くの係員へ連絡してください。精密な室入口は未転記です。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-aed-2": {
+      "area": "AED区域2",
+      "location": "場内",
+      "detail": "緊急時は近くの係員へ連絡してください。精密な室入口は未転記です。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-aed-3": {
+      "area": "AED区域3",
+      "location": "場内",
+      "detail": "緊急時は近くの係員へ連絡してください。精密な室入口は未転記です。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-aed-4": {
+      "area": "AED区域4",
+      "location": "場内",
+      "detail": "緊急時は近くの係員へ連絡してください。精密な室入口は未転記です。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-aed-5": {
+      "area": "AED区域5",
+      "location": "場内",
+      "detail": "緊急時は近くの係員へ連絡してください。精密な室入口は未転記です。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-aed-6": {
+      "area": "AED区域6",
+      "location": "場内",
+      "detail": "緊急時は近くの係員へ連絡してください。精密な室入口は未転記です。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-aed-7": {
+      "area": "AED区域7",
+      "location": "場内",
+      "detail": "緊急時は近くの係員へ連絡してください。精密な室入口は未転記です。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-aed-8": {
+      "area": "AED区域8",
+      "location": "場内",
+      "detail": "緊急時は近くの係員へ連絡してください。精密な室入口は未転記です。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-nursing-1塁側": {
+      "area": "1塁側授乳",
+      "location": "1塁側",
+      "detail": "利用時は係員に声を掛けてください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-nursing-3塁側": {
+      "area": "3塁側授乳",
+      "location": "3塁側",
+      "detail": "利用時は係員に声を掛けてください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-service-1-24": {
+      "area": "1-24",
+      "location": "1-24",
+      "detail": "公式掲載のショップ/サービス区域。開催日・入場券と営業条件を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-service-1-25": {
+      "area": "1-25",
+      "location": "1-25",
+      "detail": "公式掲載のショップ/サービス区域。開催日・入場券と営業条件を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-service-1-26": {
+      "area": "1-26",
+      "location": "1-26",
+      "detail": "公式掲載のショップ/サービス区域。開催日・入場券と営業条件を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-service-1-27": {
+      "area": "1-27",
+      "location": "1-27",
+      "detail": "公式掲載のショップ/サービス区域。開催日・入場券と営業条件を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-service-3-24": {
+      "area": "3-24",
+      "location": "3-24",
+      "detail": "公式掲載のショップ/サービス区域。開催日・入場券と営業条件を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-service-3-25": {
+      "area": "3-25",
+      "location": "3-25",
+      "detail": "公式掲載のショップ/サービス区域。開催日・入場券と営業条件を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-service-3-26": {
+      "area": "3-26",
+      "location": "3-26",
+      "detail": "公式掲載のショップ/サービス区域。開催日・入場券と営業条件を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-service-3-28": {
+      "area": "3-28",
+      "location": "3-28",
+      "detail": "公式掲載のショップ/サービス区域。開催日・入場券と営業条件を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-nursing-獅子ビル1F": {
+      "area": "獅子ビル1F",
+      "location": "獅子ビル1F",
+      "detail": "各階1か所。利用時は係員に声を掛けてください。個別入口は確認中です。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-nursing-獅子ビル2F": {
+      "area": "獅子ビル2F",
+      "location": "獅子ビル2F",
+      "detail": "各階1か所。利用時は係員に声を掛けてください。個別入口は確認中です。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-nursing-獅子ビル3F": {
+      "area": "獅子ビル3F",
+      "location": "獅子ビル3F",
+      "detail": "各階1か所。利用時は係員に声を掛けてください。個別入口は確認中です。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-building-獅子ビル2F0": {
+      "area": "獅子ビル2F",
+      "location": "獅子ビル2F",
+      "detail": "公式施設案内掲載。営業・入場・専用券種の条件は開催日と個別案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-building-獅子ビル3F0": {
+      "area": "獅子ビル3F",
+      "location": "獅子ビル3F",
+      "detail": "公式施設案内掲載。営業・入場・専用券種の条件は開催日と個別案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-building-獅子ビル3F1": {
+      "area": "獅子ビル3F",
+      "location": "獅子ビル3F",
+      "detail": "公式施設案内掲載。営業・入場・専用券種の条件は開催日と個別案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-building-獅子ビル3F2": {
+      "area": "獅子ビル3F",
+      "location": "獅子ビル3F",
+      "detail": "公式施設案内掲載。営業・入場・専用券種の条件は開催日と個別案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-building-センタービル1F0": {
+      "area": "センタービル1F",
+      "location": "センタービル1F",
+      "detail": "公式施設案内掲載。営業・入場・専用券種の条件は開催日と個別案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-building-センタービル1F1": {
+      "area": "センタービル1F",
+      "location": "センタービル1F",
+      "detail": "公式施設案内掲載。営業・入場・専用券種の条件は開催日と個別案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-building-センタービル2F0": {
+      "area": "センタービル2F",
+      "location": "センタービル2F",
+      "detail": "公式施設案内掲載。営業・入場・専用券種の条件は開催日と個別案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-building-センタービル3F0": {
+      "area": "センタービル3F",
+      "location": "センタービル3F",
+      "detail": "公式施設案内掲載。営業・入場・専用券種の条件は開催日と個別案内を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-toilet-センタービル1F-men": {
+      "area": "センタービル1F",
+      "location": "センタービル1F",
+      "detail": "公式スタジアムマップの各階記号を確認。個別入口と専用区域の利用条件は確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-toilet-センタービル1F-women": {
+      "area": "センタービル1F",
+      "location": "センタービル1F",
+      "detail": "公式スタジアムマップの各階記号を確認。個別入口と専用区域の利用条件は確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-toilet-センタービル2F-men": {
+      "area": "センタービル2F",
+      "location": "センタービル2F",
+      "detail": "公式スタジアムマップの各階記号を確認。個別入口と専用区域の利用条件は確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-toilet-センタービル2F-women": {
+      "area": "センタービル2F",
+      "location": "センタービル2F",
+      "detail": "公式スタジアムマップの各階記号を確認。個別入口と専用区域の利用条件は確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-toilet-センタービル3F-men": {
+      "area": "センタービル3F",
+      "location": "センタービル3F",
+      "detail": "公式スタジアムマップの各階記号を確認。個別入口と専用区域の利用条件は確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-toilet-センタービル3F-women": {
+      "area": "センタービル3F",
+      "location": "センタービル3F",
+      "detail": "公式スタジアムマップの各階記号を確認。個別入口と専用区域の利用条件は確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-lounge-nursing": {
+      "area": "プレミアムラウンジ",
+      "location": "プレミアムラウンジ",
+      "detail": "利用時は係員に声を掛けてください。ラウンジ入場条件を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-lounge-toilet-men": {
+      "area": "プレミアムラウンジ",
+      "location": "プレミアムラウンジ",
+      "detail": "専用区域の利用条件を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-lounge-toilet-women": {
+      "area": "プレミアムラウンジ",
+      "location": "プレミアムラウンジ",
+      "detail": "専用区域の利用条件を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-lounge-toilet-accessible": {
+      "area": "プレミアムラウンジ",
+      "location": "プレミアムラウンジ",
+      "detail": "専用区域の利用条件を確認してください。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-stroller-1塁側": {
+      "area": "メインゲート入場後 1塁側",
+      "location": "メインゲート入場後 1塁側",
+      "detail": "プロ野球開催時のみ各1か所。その他のイベントでは預かりなし。一般荷物の預かりではありません。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-stroller-3塁側": {
+      "area": "メインゲート入場後 3塁側",
+      "location": "メインゲート入場後 3塁側",
+      "detail": "プロ野球開催時のみ各1か所。その他のイベントでは預かりなし。一般荷物の預かりではありません。",
+      "accessCondition": "入場券・当日の開放を確認",
+      "outsideViewIds": []
+    },
+    "belluna-outside-メインゲート": {
+      "area": "メインゲート",
+      "location": "メインゲート",
+      "detail": "公式敷地図の区域です。当日の入場口・開放・利用券種は主催者案内を確認してください。",
+      "accessCondition": "施設・開催日の条件を確認",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "belluna-outside-サブゲート": {
+      "area": "サブゲート",
+      "location": "サブゲート",
+      "detail": "公式敷地図の区域です。当日の入場口・開放・利用券種は主催者案内を確認してください。",
+      "accessCondition": "施設・開催日の条件を確認",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "belluna-outside-オーナーズゲート": {
+      "area": "オーナーズゲート",
+      "location": "オーナーズゲート",
+      "detail": "公式敷地図の区域です。当日の入場口・開放・利用券種は主催者案内を確認してください。",
+      "accessCondition": "施設・開催日の条件を確認",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "belluna-outside-西武球場前駅改札": {
+      "area": "西武球場前駅改札",
+      "location": "西武球場前駅改札",
+      "detail": "公式敷地図の区域です。当日の入場口・開放・利用券種は主催者案内を確認してください。",
+      "accessCondition": "施設・開催日の条件を確認",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "belluna-outside-チケットセンター": {
+      "area": "チケットセンター",
+      "location": "チケットセンター",
+      "detail": "公式敷地図の区域です。当日の入場口・開放・利用券種は主催者案内を確認してください。",
+      "accessCondition": "施設・開催日の条件を確認",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "belluna-outside-総合案内": {
+      "area": "総合案内",
+      "location": "総合案内",
+      "detail": "公式敷地図の区域です。当日の入場口・開放・利用券種は主催者案内を確認してください。",
+      "accessCondition": "施設・開催日の条件を確認",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "belluna-outside-駅前広場": {
+      "area": "駅前広場",
+      "location": "駅前広場",
+      "detail": "公式敷地図の区域です。当日の入場口・開放・利用券種は主催者案内を確認してください。",
+      "accessCondition": "施設・開催日の条件を確認",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "belluna-outside-獅子ビル": {
+      "area": "獅子ビル",
+      "location": "獅子ビル",
+      "detail": "公式敷地図の区域です。当日の入場口・開放・利用券種は主催者案内を確認してください。",
+      "accessCondition": "施設・開催日の条件を確認",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "belluna-outside-トレイン広場": {
+      "area": "トレイン広場",
+      "location": "トレイン広場",
+      "detail": "公式敷地図の区域です。当日の入場口・開放・利用券種は主催者案内を確認してください。",
+      "accessCondition": "施設・開催日の条件を確認",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "belluna-outside-テイキョウキッズフィールド": {
+      "area": "テイキョウキッズフィールド",
+      "location": "テイキョウキッズフィールド",
+      "detail": "公式敷地図の区域です。当日の入場口・開放・利用券種は主催者案内を確認してください。",
+      "accessCondition": "施設・開催日の条件を確認",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "belluna-outside-レッド駐車場": {
+      "area": "レッド駐車場",
+      "location": "レッド駐車場",
+      "detail": "公式敷地図の区域です。当日の入場口・開放・利用券種は主催者案内を確認してください。",
+      "accessCondition": "施設・開催日の条件を確認",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "belluna-outside-ブルー駐車場": {
+      "area": "ブルー駐車場",
+      "location": "ブルー駐車場",
+      "detail": "公式敷地図の区域です。当日の入場口・開放・利用券種は主催者案内を確認してください。",
+      "accessCondition": "施設・開催日の条件を確認",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "belluna-outside-グリーン駐車場": {
+      "area": "グリーン駐車場",
+      "location": "グリーン駐車場",
+      "detail": "公式敷地図の区域です。当日の入場口・開放・利用券種は主催者案内を確認してください。",
+      "accessCondition": "施設・開催日の条件を確認",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "belluna-outside-toilet-西武球場前駅トイレ-men": {
+      "area": "西武球場前駅トイレ",
+      "location": "西武球場前駅トイレ",
+      "detail": "公式敷地図記号を確認。CAR3219はドームと別施設です。利用境界は個別施設・駅の案内を確認してください。",
+      "accessCondition": "施設・開催日の条件を確認",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "belluna-outside-toilet-西武球場前駅トイレ-women": {
+      "area": "西武球場前駅トイレ",
+      "location": "西武球場前駅トイレ",
+      "detail": "公式敷地図記号を確認。CAR3219はドームと別施設です。利用境界は個別施設・駅の案内を確認してください。",
+      "accessCondition": "施設・開催日の条件を確認",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "belluna-outside-toilet-西武球場前駅トイレ-accessible": {
+      "area": "西武球場前駅トイレ",
+      "location": "西武球場前駅トイレ",
+      "detail": "公式敷地図記号を確認。CAR3219はドームと別施設です。利用境界は個別施設・駅の案内を確認してください。",
+      "accessCondition": "施設・開催日の条件を確認",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "belluna-outside-toilet-CAR3219側-men": {
+      "area": "CAR3219側",
+      "location": "CAR3219側",
+      "detail": "公式敷地図記号を確認。CAR3219はドームと別施設です。利用境界は個別施設・駅の案内を確認してください。",
+      "accessCondition": "施設・開催日の条件を確認",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "belluna-outside-toilet-CAR3219側-women": {
+      "area": "CAR3219側",
+      "location": "CAR3219側",
+      "detail": "公式敷地図記号を確認。CAR3219はドームと別施設です。利用境界は個別施設・駅の案内を確認してください。",
+      "accessCondition": "施設・開催日の条件を確認",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "belluna-outside-toilet-CAR3219側-accessible": {
+      "area": "CAR3219側",
+      "location": "CAR3219側",
+      "detail": "公式敷地図記号を確認。CAR3219はドームと別施設です。利用境界は個別施設・駅の案内を確認してください。",
+      "accessCondition": "施設・開催日の条件を確認",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "belluna-outside-aed": {
+      "area": "総合案内付近",
+      "location": "総合案内付近",
+      "detail": "緊急時は係員へ連絡してください。",
+      "accessCondition": "施設・開催日の条件を確認",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "belluna-locker-nearest": {
+      "area": "西武球場前駅 改札内・トイレ入口左",
+      "location": "西武球場前駅 改札内・トイレ入口左",
+      "detail": "05:00〜23:59。24時間：小600円・中800円・大1,000円。SPACERアプリで1日利用券を購入すると24時間前から予約可能。空き状況は予約画面で確認してください。西武球場前駅は2026〜2029年度改修のため現地の変更案内も確認してください。",
+      "accessCondition": "改札内・乗車券が必要",
+      "outsideViewIds": [
+        "grounds",
+        "nearest"
+      ],
+      "url": "https://spacer.co.jp/base/op-169/"
+    },
+    "belluna-locker-nishitokorozawa": {
+      "area": "西所沢駅 改札内・4番線ホームスロープ横",
+      "location": "西所沢駅 改札内・4番線ホームスロープ横",
+      "detail": "05:00〜23:59。最初15分無料。3時間：小300円・大600円。24時間：小900円・大1,500円。SPACERアプリの予約・対応決済を個別ページで確認してください。空きは未確認です。",
+      "accessCondition": "改札内・乗車券が必要",
+      "outsideViewIds": [
+        "transfer"
+      ],
+      "url": "https://spacer.co.jp/base/op-147/"
+    },
+    "belluna-locker-tokorozawa1": {
+      "area": "所沢駅 改札内・1番線ホーム待合室付近",
+      "location": "所沢駅 改札内・1番線ホーム待合室付近",
+      "detail": "05:00〜23:59。最初15分無料。3時間：小300円・中400円・大600円。24時間：小900円・中1,200円・大1,500円。SPACERアプリの予約・対応決済を個別ページで確認してください。空きは未確認です。",
+      "accessCondition": "改札内・乗車券が必要",
+      "outsideViewIds": [
+        "transfer"
+      ],
+      "url": "https://spacer.co.jp/base/op-81/"
+    },
+    "belluna-locker-tokorozawa2": {
+      "area": "所沢駅 南改札内・4/5番線エレベーター前",
+      "location": "所沢駅 南改札内・4/5番線エレベーター前",
+      "detail": "05:00〜23:00。最初15分無料。3時間：小300円・中400円・大600円。24時間：小900円・中1,200円・大1,500円。SPACERアプリの予約・対応決済を個別ページで確認してください。空きは未確認です。",
+      "accessCondition": "改札内・乗車券が必要",
+      "outsideViewIds": [
+        "transfer"
+      ],
+      "url": "https://spacer.co.jp/base/op-30/"
+    },
+    "belluna-staffed": {
+      "area": "所沢駅周辺・運営元表記 Tokorozawa Station South Exit",
+      "location": "所沢駅周辺・運営元表記 Tokorozawa Station South Exit",
+      "detail": "事前予約が必要です。料金は1日850円〜、日付・施設条件により変動。受付時間は曜日で異なるため予約ページを確認してください。住所と入口は予約案内で確認、駅出口からの経路と空きは未確認です。",
+      "accessCondition": "施設・開催日の条件を確認",
+      "outsideViewIds": [
+        "store"
+      ],
+      "url": "https://bounce.com/stores/saitama/unebez"
+    }
+  },
+  "aliases": {},
+  "landmarkFacilityIds": {}
+}

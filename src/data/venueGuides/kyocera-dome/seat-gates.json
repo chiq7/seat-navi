@@ -1,0 +1,211 @@
+{
+  "checkedAt": "2026-10-01",
+  "canvas": [
+    0,
+    0,
+    1600,
+    1600
+  ],
+  "sourceUrl": "https://www.kyoceradome-osaka.jp/app/_src/img/stadium/img_stadium_mapdetail_A_BM_01.png",
+  "sourceSha256": "05986e21ece796154fc310f377a623bb2a3c4e62feef91fe041e8ff1e7353dd5",
+  "positionMeaning": "公式1600座席図のGATE番号記号中心。現物扉・公演別の入場可否・経路は未確認。",
+  "rightsStatus": "publish-use-unconfirmed",
+  "gates": [
+    {
+      "id": "seat-map-gate-1",
+      "number": 1,
+      "label": "GATE 1",
+      "x": 1461.0,
+      "y": 1178.0,
+      "bounds": [
+        1450,
+        1167,
+        1472,
+        1189
+      ],
+      "readingErrorPx": 1
+    },
+    {
+      "id": "seat-map-gate-2",
+      "number": 2,
+      "label": "GATE 2",
+      "x": 1294.0,
+      "y": 1380.0,
+      "bounds": [
+        1283,
+        1369,
+        1305,
+        1391
+      ],
+      "readingErrorPx": 1
+    },
+    {
+      "id": "seat-map-gate-3",
+      "number": 3,
+      "label": "GATE 3",
+      "x": 908.5,
+      "y": 1550.5,
+      "bounds": [
+        898,
+        1540,
+        919,
+        1561
+      ],
+      "readingErrorPx": 1
+    },
+    {
+      "id": "seat-map-gate-4",
+      "number": 4,
+      "label": "GATE 4",
+      "x": 685.5,
+      "y": 1550.5,
+      "bounds": [
+        675,
+        1540,
+        696,
+        1561
+      ],
+      "readingErrorPx": 1
+    },
+    {
+      "id": "seat-map-gate-5",
+      "number": 5,
+      "label": "GATE 5",
+      "x": 305.0,
+      "y": 1380.0,
+      "bounds": [
+        294,
+        1369,
+        316,
+        1391
+      ],
+      "readingErrorPx": 1
+    },
+    {
+      "id": "seat-map-gate-6",
+      "number": 6,
+      "label": "GATE 6",
+      "x": 137.5,
+      "y": 1178.0,
+      "bounds": [
+        127,
+        1167,
+        148,
+        1189
+      ],
+      "readingErrorPx": 1
+    },
+    {
+      "id": "seat-map-gate-7",
+      "number": 7,
+      "label": "GATE 7",
+      "x": 53.0,
+      "y": 942.5,
+      "bounds": [
+        42,
+        932,
+        64,
+        953
+      ],
+      "readingErrorPx": 1
+    },
+    {
+      "id": "seat-map-gate-8",
+      "number": 8,
+      "label": "GATE 8",
+      "x": 140.5,
+      "y": 419.5,
+      "bounds": [
+        130,
+        409,
+        151,
+        430
+      ],
+      "readingErrorPx": 1
+    },
+    {
+      "id": "seat-map-gate-9",
+      "number": 9,
+      "label": "GATE 9",
+      "x": 307.0,
+      "y": 217.0,
+      "bounds": [
+        296,
+        206,
+        318,
+        228
+      ],
+      "readingErrorPx": 1
+    },
+    {
+      "id": "seat-map-gate-10",
+      "number": 10,
+      "label": "GATE 10",
+      "x": 412.0,
+      "y": 141.0,
+      "bounds": [
+        401,
+        130,
+        423,
+        152
+      ],
+      "readingErrorPx": 1
+    },
+    {
+      "id": "seat-map-gate-11",
+      "number": 11,
+      "label": "GATE 11",
+      "x": 1183.5,
+      "y": 141.0,
+      "bounds": [
+        1173,
+        130,
+        1194,
+        152
+      ],
+      "readingErrorPx": 1
+    },
+    {
+      "id": "seat-map-gate-12",
+      "number": 12,
+      "label": "GATE 12",
+      "x": 1291.5,
+      "y": 217.0,
+      "bounds": [
+        1281,
+        206,
+        1302,
+        228
+      ],
+      "readingErrorPx": 1
+    },
+    {
+      "id": "seat-map-gate-13",
+      "number": 13,
+      "label": "GATE 13",
+      "x": 1462.0,
+      "y": 419.5,
+      "bounds": [
+        1451,
+        409,
+        1473,
+        430
+      ],
+      "readingErrorPx": 1
+    },
+    {
+      "id": "seat-map-gate-14",
+      "number": 14,
+      "label": "GATE 14",
+      "x": 1546.0,
+      "y": 942.5,
+      "bounds": [
+        1535,
+        932,
+        1557,
+        953
+      ],
+      "readingErrorPx": 1
+    }
+  ]
+}

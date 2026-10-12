@@ -1,0 +1,1252 @@
+{
+  "venueId": "tokyo-garden-theater",
+  "checkedAt": "2026-09-30",
+  "floorCorrespondence": [
+    {
+      "physicalFloor": "2F",
+      "visitorName": "アリーナ",
+      "seatLevelCodePrefix": "A / XA etc. depending on arena pattern",
+      "sourceIds": [
+        "floor-guide",
+        "floor-2f",
+        "modal-map-2f-a"
+      ],
+      "ticketPrintedAliases": [],
+      "ticketAliasStatus": "no official ticket specimen verified"
+    },
+    {
+      "physicalFloor": "3F",
+      "visitorName": "バルコニー1",
+      "seatLevelCodePrefix": "1",
+      "sourceIds": [
+        "floor-guide",
+        "floor-3f",
+        "modal-map-3f"
+      ],
+      "ticketPrintedAliases": [],
+      "ticketAliasStatus": "no official ticket specimen verified"
+    },
+    {
+      "physicalFloor": "4F",
+      "visitorName": "バルコニー2",
+      "seatLevelCodePrefix": "2",
+      "sourceIds": [
+        "floor-guide",
+        "floor-4f",
+        "modal-map-4f"
+      ],
+      "ticketPrintedAliases": [],
+      "ticketAliasStatus": "no official ticket specimen verified"
+    },
+    {
+      "physicalFloor": "5F",
+      "visitorName": "バルコニー3",
+      "seatLevelCodePrefix": "3",
+      "sourceIds": [
+        "floor-guide",
+        "floor-5f",
+        "modal-map-5f"
+      ],
+      "ticketPrintedAliases": [],
+      "ticketAliasStatus": "no official ticket specimen verified"
+    }
+  ],
+  "facilities": [
+    {
+      "id": "tgt-2f-vending-01",
+      "name": "2F（アリーナ）自動販売機（図右）",
+      "purpose": "飲食",
+      "kind": "vending",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F＝アリーナ・図右の原図記号位置",
+      "detail": "公式フロア図の記号代表位置です。室入口・経路・当日の開放や運用は未確認。記号数は実設備台数・個室数ではありません。",
+      "precision": "diagram-point",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-2f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-2f-native",
+        "x": 1388.5,
+        "y": 491.0,
+        "sourceIds": [
+          "floor-2f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-2f: map region x<1700, red pictogram #1 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-2f-smoking-01",
+      "name": "2F（アリーナ）喫煙室（図右）",
+      "purpose": "案内",
+      "kind": "smokingarea",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F＝アリーナ・図右の原図記号位置",
+      "detail": "公式フロア図の記号代表位置です。室入口・経路・当日の開放や運用は未確認。記号数は実設備台数・個室数ではありません。",
+      "precision": "diagram-point",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-2f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-2f-native",
+        "x": 1386.5,
+        "y": 546.5,
+        "sourceIds": [
+          "floor-2f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-2f: map region x<1700, red pictogram #2 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-2f-toilet-men-01",
+      "name": "2F（アリーナ）男性トイレ（図右）",
+      "purpose": "トイレ",
+      "kind": "men",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F＝アリーナ・図右の原図記号位置",
+      "detail": "公式フロア図の記号代表位置です。室入口・経路・当日の開放や運用は未確認。記号数は実設備台数・個室数ではありません。",
+      "precision": "diagram-point",
+      "toiletType": "men",
+      "sourceIds": [
+        "floor-2f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-2f-native",
+        "x": 1486.0,
+        "y": 605.0,
+        "sourceIds": [
+          "floor-2f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-2f: map region x<1700, red pictogram #3 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-2f-toilet-accessible-01",
+      "name": "2F（アリーナ）多機能トイレ（図右）",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F＝アリーナ・図右の原図記号位置",
+      "detail": "公式フロア図の記号代表位置です。室入口・経路・当日の開放や運用は未確認。記号数は実設備台数・個室数ではありません。 公式FAQの当該多機能トイレのおむつ交換設備案内は属性として保持し、別の設備位置を作っていません。",
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "sourceIds": [
+        "floor-2f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-2f-native",
+        "x": 1499.0,
+        "y": 749.0,
+        "sourceIds": [
+          "floor-2f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-2f: map region x<1700, red pictogram #5 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-2f-shop-01",
+      "name": "2F（アリーナ）売店（図左）",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F＝アリーナ・図左の原図記号位置",
+      "detail": "公式フロア図の記号代表位置です。室入口・経路・当日の開放や運用は未確認。記号数は実設備台数・個室数ではありません。 公式のタリーズ販売カウンター記号です。 営業・商品・決済は当日の案内を確認してください。",
+      "precision": "diagram-point",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-2f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-2f-native",
+        "x": 742.0,
+        "y": 788.5,
+        "sourceIds": [
+          "floor-2f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-2f: map region x<1700, red pictogram #6 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-2f-toilet-women-01",
+      "name": "2F（アリーナ）女性トイレ（図右）",
+      "purpose": "トイレ",
+      "kind": "women",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F＝アリーナ・図右の原図記号位置",
+      "detail": "公式フロア図の記号代表位置です。室入口・経路・当日の開放や運用は未確認。記号数は実設備台数・個室数ではありません。",
+      "precision": "diagram-point",
+      "toiletType": "women",
+      "sourceIds": [
+        "floor-2f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-2f-native",
+        "x": 1490.0,
+        "y": 861.0,
+        "sourceIds": [
+          "floor-2f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-2f: map region x<1700, red pictogram #8 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-3f-toilet-women-01",
+      "name": "3F（バルコニー1）女性トイレ（図左）",
+      "purpose": "トイレ",
+      "kind": "women",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F＝バルコニー1・図左の原図記号位置",
+      "detail": "公式フロア図の記号代表位置です。室入口・経路・当日の開放や運用は未確認。記号数は実設備台数・個室数ではありません。",
+      "precision": "diagram-point",
+      "toiletType": "women",
+      "sourceIds": [
+        "floor-3f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-3f-native",
+        "x": 572.0,
+        "y": 480.0,
+        "sourceIds": [
+          "floor-3f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-3f: map region x<1700, red pictogram #1 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-3f-toilet-men-01",
+      "name": "3F（バルコニー1）男性トイレ（図左）",
+      "purpose": "トイレ",
+      "kind": "men",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F＝バルコニー1・図左の原図記号位置",
+      "detail": "公式フロア図の記号代表位置です。室入口・経路・当日の開放や運用は未確認。記号数は実設備台数・個室数ではありません。",
+      "precision": "diagram-point",
+      "toiletType": "men",
+      "sourceIds": [
+        "floor-3f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-3f-native",
+        "x": 647.0,
+        "y": 535.0,
+        "sourceIds": [
+          "floor-3f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-3f: map region x<1700, red pictogram #3 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-3f-baggage-port-01",
+      "name": "3F（バルコニー1）バゲッジポート（図左）",
+      "purpose": "荷物",
+      "kind": "baggage-port",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F＝バルコニー1・図左の原図記号位置",
+      "detail": "公式フロア図の記号代表位置です。室入口・経路・当日の開放や運用は未確認。記号数は実設備台数・個室数ではありません。 バゲッジポートの荷物預かり記号です。料金・決済・空き・運用時間はここでは断定しません。",
+      "precision": "diagram-point",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-3f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-3f-native",
+        "x": 544.0,
+        "y": 603.0,
+        "sourceIds": [
+          "floor-3f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-3f: map region x<1700, red pictogram #4 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-3f-nursing-01",
+      "name": "3F（バルコニー1）授乳室（図左）",
+      "purpose": "赤ちゃん",
+      "kind": "nursing",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F＝バルコニー1・図左の原図記号位置",
+      "detail": "公式フロア図の記号代表位置です。室入口・経路・当日の開放や運用は未確認。記号数は実設備台数・個室数ではありません。 公式FAQの当該授乳室のおむつ交換設備案内は属性として保持し、別の設備位置を作っていません。",
+      "precision": "diagram-point",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-3f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-3f-native",
+        "x": 625.0,
+        "y": 608.0,
+        "sourceIds": [
+          "floor-3f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-3f: map region x<1700, red pictogram #5 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-3f-toilet-accessible-01",
+      "name": "3F（バルコニー1）多機能トイレ（図左）",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F＝バルコニー1・図左の原図記号位置",
+      "detail": "公式フロア図の記号代表位置です。室入口・経路・当日の開放や運用は未確認。記号数は実設備台数・個室数ではありません。 公式FAQの当該多機能トイレのおむつ交換設備案内は属性として保持し、別の設備位置を作っていません。",
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "sourceIds": [
+        "floor-3f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-3f-native",
+        "x": 588.0,
+        "y": 643.0,
+        "sourceIds": [
+          "floor-3f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-3f: map region x<1700, red pictogram #6 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-3f-smoking-01",
+      "name": "3F（バルコニー1）喫煙室（図左）",
+      "purpose": "案内",
+      "kind": "smokingarea",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F＝バルコニー1・図左の原図記号位置",
+      "detail": "公式フロア図の記号代表位置です。室入口・経路・当日の開放や運用は未確認。記号数は実設備台数・個室数ではありません。",
+      "precision": "diagram-point",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-3f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-3f-native",
+        "x": 609.0,
+        "y": 749.5,
+        "sourceIds": [
+          "floor-3f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-3f: map region x<1700, red pictogram #7 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-3f-shop-01",
+      "name": "3F（バルコニー1）売店（図左）",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F＝バルコニー1・図左の原図記号位置",
+      "detail": "公式フロア図の記号代表位置です。室入口・経路・当日の開放や運用は未確認。記号数は実設備台数・個室数ではありません。 当該階の売店記号です。 営業・商品・決済は当日の案内を確認してください。",
+      "precision": "diagram-point",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-3f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-3f-native",
+        "x": 821.0,
+        "y": 859.0,
+        "sourceIds": [
+          "floor-3f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-3f: map region x<1700, red pictogram #9 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-3f-shop-02",
+      "name": "3F（バルコニー1）売店（図右）",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F＝バルコニー1・図右の原図記号位置",
+      "detail": "公式フロア図の記号代表位置です。室入口・経路・当日の開放や運用は未確認。記号数は実設備台数・個室数ではありません。 当該階の売店記号です。 営業・商品・決済は当日の案内を確認してください。",
+      "precision": "diagram-point",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-3f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-3f-native",
+        "x": 1143.0,
+        "y": 859.0,
+        "sourceIds": [
+          "floor-3f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-3f: map region x<1700, red pictogram #10 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-4f-toilet-women-01",
+      "name": "4F（バルコニー2）女性トイレ（図右）",
+      "purpose": "トイレ",
+      "kind": "women",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "4F＝バルコニー2・図右の原図記号位置",
+      "detail": "公式フロア図の記号代表位置です。室入口・経路・当日の開放や運用は未確認。記号数は実設備台数・個室数ではありません。",
+      "precision": "diagram-point",
+      "toiletType": "women",
+      "sourceIds": [
+        "floor-4f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-4f-native",
+        "x": 1532.0,
+        "y": 345.0,
+        "sourceIds": [
+          "floor-4f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-4f: map region x<1700, red pictogram #1 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-4f-toilet-women-02",
+      "name": "4F（バルコニー2）女性トイレ（図左）",
+      "purpose": "トイレ",
+      "kind": "women",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "4F＝バルコニー2・図左の原図記号位置",
+      "detail": "公式フロア図の記号代表位置です。室入口・経路・当日の開放や運用は未確認。記号数は実設備台数・個室数ではありません。",
+      "precision": "diagram-point",
+      "toiletType": "women",
+      "sourceIds": [
+        "floor-4f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-4f-native",
+        "x": 540.0,
+        "y": 348.0,
+        "sourceIds": [
+          "floor-4f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-4f: map region x<1700, red pictogram #2 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-4f-vending-01",
+      "name": "4F（バルコニー2）自動販売機（図右）",
+      "purpose": "飲食",
+      "kind": "vending",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "4F＝バルコニー2・図右の原図記号位置",
+      "detail": "公式フロア図の記号代表位置です。室入口・経路・当日の開放や運用は未確認。記号数は実設備台数・個室数ではありません。",
+      "precision": "diagram-point",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-4f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-4f-native",
+        "x": 1618.0,
+        "y": 410.0,
+        "sourceIds": [
+          "floor-4f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-4f: map region x<1700, red pictogram #3 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-4f-toilet-men-01",
+      "name": "4F（バルコニー2）男性トイレ（図右）",
+      "purpose": "トイレ",
+      "kind": "men",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "4F＝バルコニー2・図右の原図記号位置",
+      "detail": "公式フロア図の記号代表位置です。室入口・経路・当日の開放や運用は未確認。記号数は実設備台数・個室数ではありません。",
+      "precision": "diagram-point",
+      "toiletType": "men",
+      "sourceIds": [
+        "floor-4f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-4f-native",
+        "x": 1567.0,
+        "y": 438.0,
+        "sourceIds": [
+          "floor-4f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-4f: map region x<1700, red pictogram #4 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-4f-toilet-men-02",
+      "name": "4F（バルコニー2）男性トイレ（図左）",
+      "purpose": "トイレ",
+      "kind": "men",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "4F＝バルコニー2・図左の原図記号位置",
+      "detail": "公式フロア図の記号代表位置です。室入口・経路・当日の開放や運用は未確認。記号数は実設備台数・個室数ではありません。",
+      "precision": "diagram-point",
+      "toiletType": "men",
+      "sourceIds": [
+        "floor-4f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-4f-native",
+        "x": 604.0,
+        "y": 439.0,
+        "sourceIds": [
+          "floor-4f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-4f: map region x<1700, red pictogram #5 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-4f-toilet-accessible-01",
+      "name": "4F（バルコニー2）多機能トイレ（図右）",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "4F＝バルコニー2・図右の原図記号位置",
+      "detail": "公式フロア図の記号代表位置です。室入口・経路・当日の開放や運用は未確認。記号数は実設備台数・個室数ではありません。 公式FAQの当該多機能トイレのおむつ交換設備案内は属性として保持し、別の設備位置を作っていません。",
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "sourceIds": [
+        "floor-4f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-4f-native",
+        "x": 1555.5,
+        "y": 514.5,
+        "sourceIds": [
+          "floor-4f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-4f: map region x<1700, red pictogram #7 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-4f-baggage-port-01",
+      "name": "4F（バルコニー2）バゲッジポート（図左）",
+      "purpose": "荷物",
+      "kind": "baggage-port",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "4F＝バルコニー2・図左の原図記号位置",
+      "detail": "公式フロア図の記号代表位置です。室入口・経路・当日の開放や運用は未確認。記号数は実設備台数・個室数ではありません。 バゲッジポートの荷物預かり記号です。料金・決済・空き・運用時間はここでは断定しません。",
+      "precision": "diagram-point",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-4f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-4f-native",
+        "x": 458.0,
+        "y": 521.5,
+        "sourceIds": [
+          "floor-4f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-4f: map region x<1700, red pictogram #8 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-4f-toilet-accessible-02",
+      "name": "4F（バルコニー2）多機能トイレ（図左）",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "4F＝バルコニー2・図左の原図記号位置",
+      "detail": "公式フロア図の記号代表位置です。室入口・経路・当日の開放や運用は未確認。記号数は実設備台数・個室数ではありません。 公式FAQの当該多機能トイレのおむつ交換設備案内は属性として保持し、別の設備位置を作っていません。",
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "sourceIds": [
+        "floor-4f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-4f-native",
+        "x": 538.5,
+        "y": 558.0,
+        "sourceIds": [
+          "floor-4f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-4f: map region x<1700, red pictogram #9 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-4f-smoking-01",
+      "name": "4F（バルコニー2）喫煙室（図右）",
+      "purpose": "案内",
+      "kind": "smokingarea",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "4F＝バルコニー2・図右の原図記号位置",
+      "detail": "公式フロア図の記号代表位置です。室入口・経路・当日の開放や運用は未確認。記号数は実設備台数・個室数ではありません。",
+      "precision": "diagram-point",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-4f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-4f-native",
+        "x": 1594.5,
+        "y": 569.0,
+        "sourceIds": [
+          "floor-4f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-4f: map region x<1700, red pictogram #10 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-4f-shop-01",
+      "name": "4F（バルコニー2）売店（図右）",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "4F＝バルコニー2・図右の原図記号位置",
+      "detail": "公式フロア図の記号代表位置です。室入口・経路・当日の開放や運用は未確認。記号数は実設備台数・個室数ではありません。 当該階の売店記号です。 営業・商品・決済は当日の案内を確認してください。",
+      "precision": "diagram-point",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-4f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-4f-native",
+        "x": 1281.0,
+        "y": 865.0,
+        "sourceIds": [
+          "floor-4f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-4f: map region x<1700, red pictogram #13 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-4f-shop-02",
+      "name": "4F（バルコニー2）売店（図左）",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "4F＝バルコニー2・図左の原図記号位置",
+      "detail": "公式フロア図の記号代表位置です。室入口・経路・当日の開放や運用は未確認。記号数は実設備台数・個室数ではありません。 当該階の売店記号です。 営業・商品・決済は当日の案内を確認してください。",
+      "precision": "diagram-point",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-4f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-4f-native",
+        "x": 794.0,
+        "y": 869.0,
+        "sourceIds": [
+          "floor-4f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-4f: map region x<1700, red pictogram #14 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-5f-toilet-women-01",
+      "name": "5F（バルコニー3）女性トイレ（図右）",
+      "purpose": "トイレ",
+      "kind": "women",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "5F＝バルコニー3・図右の原図記号位置",
+      "detail": "公式フロア図の記号代表位置です。室入口・経路・当日の開放や運用は未確認。記号数は実設備台数・個室数ではありません。",
+      "precision": "diagram-point",
+      "toiletType": "women",
+      "sourceIds": [
+        "floor-5f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-5f-native",
+        "x": 1455.0,
+        "y": 294.0,
+        "sourceIds": [
+          "floor-5f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-5f: map region x<1700, red pictogram #1 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-5f-toilet-women-02",
+      "name": "5F（バルコニー3）女性トイレ（図左）",
+      "purpose": "トイレ",
+      "kind": "women",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "5F＝バルコニー3・図左の原図記号位置",
+      "detail": "公式フロア図の記号代表位置です。室入口・経路・当日の開放や運用は未確認。記号数は実設備台数・個室数ではありません。",
+      "precision": "diagram-point",
+      "toiletType": "women",
+      "sourceIds": [
+        "floor-5f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-5f-native",
+        "x": 577.0,
+        "y": 314.5,
+        "sourceIds": [
+          "floor-5f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-5f: map region x<1700, red pictogram #2 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-5f-toilet-men-01",
+      "name": "5F（バルコニー3）男性トイレ（図右）",
+      "purpose": "トイレ",
+      "kind": "men",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "5F＝バルコニー3・図右の原図記号位置",
+      "detail": "公式フロア図の記号代表位置です。室入口・経路・当日の開放や運用は未確認。記号数は実設備台数・個室数ではありません。",
+      "precision": "diagram-point",
+      "toiletType": "men",
+      "sourceIds": [
+        "floor-5f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-5f-native",
+        "x": 1492.5,
+        "y": 378.0,
+        "sourceIds": [
+          "floor-5f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-5f: map region x<1700, red pictogram #4 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-5f-toilet-accessible-01",
+      "name": "5F（バルコニー3）多機能トイレ（図左）",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "5F＝バルコニー3・図左の原図記号位置",
+      "detail": "公式フロア図の記号代表位置です。室入口・経路・当日の開放や運用は未確認。記号数は実設備台数・個室数ではありません。 公式FAQの当該多機能トイレのおむつ交換設備案内は属性として保持し、別の設備位置を作っていません。",
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "sourceIds": [
+        "floor-5f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-5f-native",
+        "x": 577.0,
+        "y": 381.0,
+        "sourceIds": [
+          "floor-5f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-5f: map region x<1700, red pictogram #5 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-5f-toilet-men-02",
+      "name": "5F（バルコニー3）男性トイレ（図左）",
+      "purpose": "トイレ",
+      "kind": "men",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "5F＝バルコニー3・図左の原図記号位置",
+      "detail": "公式フロア図の記号代表位置です。室入口・経路・当日の開放や運用は未確認。記号数は実設備台数・個室数ではありません。",
+      "precision": "diagram-point",
+      "toiletType": "men",
+      "sourceIds": [
+        "floor-5f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-5f-native",
+        "x": 641.0,
+        "y": 396.5,
+        "sourceIds": [
+          "floor-5f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-5f: map region x<1700, red pictogram #6 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-5f-smoking-01",
+      "name": "5F（バルコニー3）喫煙室（図左）",
+      "purpose": "案内",
+      "kind": "smokingarea",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "5F＝バルコニー3・図左の原図記号位置",
+      "detail": "公式フロア図の記号代表位置です。室入口・経路・当日の開放や運用は未確認。記号数は実設備台数・個室数ではありません。",
+      "precision": "diagram-point",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-5f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-5f-native",
+        "x": 619.0,
+        "y": 448.0,
+        "sourceIds": [
+          "floor-5f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-5f: map region x<1700, red pictogram #7 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-5f-toilet-accessible-02",
+      "name": "5F（バルコニー3）多機能トイレ（図右）",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "5F＝バルコニー3・図右の原図記号位置",
+      "detail": "公式フロア図の記号代表位置です。室入口・経路・当日の開放や運用は未確認。記号数は実設備台数・個室数ではありません。 公式FAQの当該多機能トイレのおむつ交換設備案内は属性として保持し、別の設備位置を作っていません。",
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "sourceIds": [
+        "floor-5f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-5f-native",
+        "x": 1467.0,
+        "y": 461.0,
+        "sourceIds": [
+          "floor-5f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-5f: map region x<1700, red pictogram #8 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-5f-baggage-port-01",
+      "name": "5F（バルコニー3）バゲッジポート（図左）",
+      "purpose": "荷物",
+      "kind": "baggage-port",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "5F＝バルコニー3・図左の原図記号位置",
+      "detail": "公式フロア図の記号代表位置です。室入口・経路・当日の開放や運用は未確認。記号数は実設備台数・個室数ではありません。 バゲッジポートの荷物預かり記号です。料金・決済・空き・運用時間はここでは断定しません。",
+      "precision": "diagram-point",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-5f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-5f-native",
+        "x": 537.5,
+        "y": 462.0,
+        "sourceIds": [
+          "floor-5f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-5f: map region x<1700, red pictogram #9 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-5f-shop-01",
+      "name": "5F（バルコニー3）売店（図右）",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "5F＝バルコニー3・図右の原図記号位置",
+      "detail": "公式フロア図の記号代表位置です。室入口・経路・当日の開放や運用は未確認。記号数は実設備台数・個室数ではありません。 当該階の売店記号です。 営業・商品・決済は当日の案内を確認してください。",
+      "precision": "diagram-point",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-5f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-5f-native",
+        "x": 1235.0,
+        "y": 830.0,
+        "sourceIds": [
+          "floor-5f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-5f: map region x<1700, red pictogram #12 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-5f-shop-02",
+      "name": "5F（バルコニー3）売店（図左）",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "5F＝バルコニー3・図左の原図記号位置",
+      "detail": "公式フロア図の記号代表位置です。室入口・経路・当日の開放や運用は未確認。記号数は実設備台数・個室数ではありません。 当該階の売店記号です。 営業・商品・決済は当日の案内を確認してください。",
+      "precision": "diagram-point",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-5f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-5f-native",
+        "x": 825.0,
+        "y": 834.0,
+        "sourceIds": [
+          "floor-5f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-5f: map region x<1700, red pictogram #13 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    }
+  ],
+  "diagrams": [
+    {
+      "id": "tgt-floor-2f-native",
+      "floor": "2F",
+      "scope": "場内",
+      "viewBox": [
+        544,
+        401.0,
+        1071,
+        599.0
+      ],
+      "contextPaths": [
+        "M1488,678 L1525,679 L1525,923 L1451,923 L1448,920 L1446,922 L1446,815 L1448,816 L1453,811 L1488,811 L1487,769 L1518,768 L1519,766 L1519,761 L1517,761 L1519,734 L1517,737 L1517,731 L1492,731 L1490,728 L1487,728 Z",
+        "M1469,553 L1477,553 L1477,555 L1485,553 L1493,553 L1493,555 L1501,553 L1520,555 L1518,553 L1524,553 L1525,556 L1525,673 L1488,675 L1491,673 L1485,672 L1482,697 L1483,728 L1480,729 L1482,731 L1479,731 L1478,734 L1476,732 L1476,735 L1472,735 L1471,732 L1467,734 L1467,732 L1460,731 L1448,733 L1446,723 L1448,714 L1458,713 L1458,707 L1460,706 L1459,557 Z",
+        "M651,754 L733,754 L734,756 L733,767 L730,763 L729,768 L723,769 L722,776 L723,806 L724,808 L733,808 L734,815 L734,915 L732,919 L729,919 L729,916 L725,916 L721,919 L690,917 L689,919 L678,920 L643,921 L637,917 L634,777 L635,767 L643,768 L651,765 L649,759 Z",
+        "M1356,530 L1368,532 L1368,560 L1366,564 L1387,565 L1390,572 L1387,572 L1385,569 L1360,570 L1360,568 L1353,568 L1355,571 L1364,571 L1361,572 L1362,574 L1353,573 L1352,532 Z"
+      ],
+      "concoursePaths": [],
+      "landmarks": [],
+      "evidence": {
+        "sourceIds": [
+          "floor-2f",
+          "floor-guide"
+        ],
+        "file": "research/venue-packets/tokyo-garden-theater/sources/floor-2f.webp",
+        "sha256": "5d4a2157b20e33994d6929325f7e3ccdcbc65a3620faa6e65898b8d7b4a5d4cf",
+        "width": 2128,
+        "height": 1000,
+        "method": "各階WEBP原寸の採用設備周辺にあるピンク/青/緑/淡黄の可視色領域のみを4近傍componentで整理。内部記号/文字の穴は中立背景として埋める。原図pixel-cell境界のRDP誤差1.5px以下。灰色の全館輪郭/座席列/場外/未採用ロッカー領域/凡例を描かず、通路や欠けた建物境界を補完しない。図間変換なし。",
+        "status": "partial-private-review"
+      }
+    },
+    {
+      "id": "tgt-floor-3f-native",
+      "floor": "3F",
+      "scope": "場内",
+      "viewBox": [
+        450,
+        326,
+        820,
+        626
+      ],
+      "contextPaths": [
+        "M542,416 L612,416 L613,560 L582,560 L583,572 L581,572 L580,577 L552,578 L548,576 L547,572 L547,536 L545,536 L545,526 L548,522 L548,517 L544,515 L540,428 Z",
+        "M630,460 L635,461 L633,473 L633,505 L635,505 L635,508 L668,509 L666,515 L668,522 L666,573 L664,576 L659,574 L641,574 L640,576 L629,574 L628,576 L619,577 L597,576 L588,578 L585,576 L585,566 L588,566 L588,564 L611,565 L616,563 L616,462 Z",
+        "M790,821 L800,822 L800,824 L807,823 L812,825 L812,828 L815,825 L817,828 L824,828 L824,831 L832,832 L832,835 L839,832 L840,836 L852,836 L854,839 L858,839 L857,855 L855,858 L853,856 L852,862 L847,862 L848,860 L841,861 L840,844 L837,840 L804,840 L803,845 L799,844 L785,833 L782,828 L785,822 L789,823 Z",
+        "M1168,820 L1176,820 L1180,824 L1178,828 L1180,832 L1176,832 L1176,837 L1172,841 L1161,844 L1159,840 L1124,840 L1125,857 L1122,861 L1117,860 L1120,862 L1113,861 L1113,856 L1110,855 L1112,852 L1109,852 L1107,846 L1108,839 L1123,836 L1123,833 L1130,831 L1143,830 L1145,827 L1153,828 L1151,826 Z",
+        "M585,715 L607,717 L607,728 L600,728 L600,730 L607,730 L607,732 L593,731 L591,739 L581,739 L579,722 L580,718 Z"
+      ],
+      "concoursePaths": [],
+      "landmarks": [],
+      "evidence": {
+        "sourceIds": [
+          "floor-3f",
+          "floor-guide"
+        ],
+        "file": "research/venue-packets/tokyo-garden-theater/sources/floor-3f.webp",
+        "sha256": "d51f0a0b085a091d5d28e92f60bfd25c0cae316f58c7470f5965948040be04d0",
+        "width": 2128,
+        "height": 1000,
+        "method": "各階WEBP原寸の採用設備周辺にあるピンク/青/緑/淡黄の可視色領域のみを4近傍componentで整理。内部記号/文字の穴は中立背景として埋める。原図pixel-cell境界のRDP誤差1.5px以下。灰色の全館輪郭/座席列/場外/未採用ロッカー領域/凡例を描かず、通路や欠けた建物境界を補完しない。図間変換なし。",
+        "status": "partial-private-review"
+      }
+    },
+    {
+      "id": "tgt-floor-4f-native",
+      "floor": "4F",
+      "scope": "場内",
+      "viewBox": [
+        368.0,
+        200,
+        1345.0,
+        771
+      ],
+      "contextPaths": [
+        "M499,290 L572,296 L573,380 L554,380 L553,382 L554,400 L569,400 L570,466 L555,465 L554,472 L508,472 L508,502 L484,504 L484,500 L474,499 L474,494 L477,480 L480,434 L483,423 L482,417 L484,417 L483,408 L486,379 L488,379 L487,371 L490,368 L490,365 L488,367 L488,362 L490,358 L489,352 L491,354 L490,343 L494,307 L497,300 L496,293 L502,292 Z",
+        "M1436,296 L1613,296 L1614,363 L1610,365 L1605,364 L1605,366 L1601,367 L1593,367 L1591,364 L1584,365 L1584,368 L1581,370 L1581,384 L1438,385 L1436,381 Z",
+        "M1518,388 L1596,388 L1595,431 L1605,433 L1604,461 L1606,470 L1604,472 L1603,487 L1540,487 L1542,485 L1537,484 L1538,480 L1540,480 L1540,457 L1538,478 L1538,457 L1536,452 L1516,451 Z",
+        "M589,400 L592,403 L605,400 L608,403 L612,403 L623,400 L624,403 L632,402 L632,405 L634,400 L637,401 L638,472 L635,475 L625,475 L622,473 L621,488 L568,486 L569,551 L561,552 L560,537 L536,537 L536,522 L533,536 L533,520 L512,520 L512,481 L519,476 L558,476 L558,472 L561,471 L573,472 L575,468 L573,467 L574,403 L575,401 L587,402 Z",
+        "M1306,823 L1312,823 L1317,832 L1319,832 L1316,836 L1312,836 L1312,840 L1304,840 L1305,842 L1302,843 L1260,843 L1259,864 L1252,864 L1252,866 L1258,867 L1251,868 L1247,873 L1238,872 L1236,877 L1231,880 L1228,880 L1227,877 L1225,878 L1224,867 L1222,867 L1218,849 L1230,848 L1231,845 L1239,844 L1249,839 L1261,839 L1265,835 L1273,836 L1276,832 L1288,832 L1289,828 L1302,828 Z",
+        "M761,821 L762,823 L774,823 L777,825 L776,827 L787,828 L792,830 L792,832 L820,836 L822,837 L821,840 L831,840 L835,844 L855,847 L856,857 L852,862 L854,865 L851,875 L848,874 L850,876 L848,881 L844,881 L839,876 L832,875 L832,872 L829,873 L824,871 L824,868 L821,869 L817,866 L817,849 L815,847 L780,847 L776,845 L775,841 L765,840 L763,837 L760,837 L755,832 L759,828 Z",
+        "M1613,524 L1620,524 L1620,527 L1623,528 L1621,558 L1616,558 L1618,557 L1616,546 L1578,546 L1575,540 L1574,547 L1577,525 Z"
+      ],
+      "concoursePaths": [],
+      "landmarks": [],
+      "evidence": {
+        "sourceIds": [
+          "floor-4f",
+          "floor-guide"
+        ],
+        "file": "research/venue-packets/tokyo-garden-theater/sources/floor-4f.webp",
+        "sha256": "88040bc88bb2abcb38b2b315f161b63994b7b09e901a42a83e3e33d561c70c44",
+        "width": 2128,
+        "height": 1000,
+        "method": "各階WEBP原寸の採用設備周辺にあるピンク/青/緑/淡黄の可視色領域のみを4近傍componentで整理。内部記号/文字の穴は中立背景として埋める。原図pixel-cell境界のRDP誤差1.5px以下。灰色の全館輪郭/座席列/場外/未採用ロッカー領域/凡例を描かず、通路や欠けた建物境界を補完しない。図間変換なし。",
+        "status": "partial-private-review"
+      }
+    },
+    {
+      "id": "tgt-floor-5f-native",
+      "floor": "5F",
+      "scope": "場内",
+      "viewBox": [
+        443,
+        156,
+        1170,
+        771
+      ],
+      "contextPaths": [
+        "M1388,262 L1521,262 L1521,274 L1523,274 L1520,275 L1521,328 L1443,328 L1442,336 L1389,336 L1386,333 L1386,264 Z",
+        "M535,246 L608,246 L602,248 L610,248 L610,299 L672,298 L617,300 L674,300 L674,327 L672,330 L660,328 L660,339 L604,339 L603,337 L600,360 L602,386 L597,386 L599,360 L598,363 L593,360 L557,360 L558,391 L556,400 L557,398 L560,401 L573,400 L572,413 L552,414 L552,412 L544,412 L543,402 L545,394 L544,388 L542,392 L541,345 L539,344 L533,252 L536,248 L560,247 Z",
+        "M616,350 L623,350 L620,352 L633,352 L633,350 L649,352 L649,350 L655,350 L655,352 L674,353 L674,423 L671,427 L635,428 L619,427 L614,424 L614,407 L616,408 L614,397 L616,390 L607,389 L608,387 L605,388 L605,357 L607,351 L616,352 Z",
+        "M1451,331 L1466,331 L1465,333 L1471,333 L1468,331 L1519,332 L1521,432 L1508,436 L1482,436 L1474,432 L1475,404 L1455,404 L1455,338 L1454,336 L1448,336 L1448,333 Z",
+        "M1257,797 L1263,799 L1268,810 L1268,816 L1255,816 L1255,811 L1252,810 L1215,811 L1214,833 L1205,833 L1195,837 L1190,833 L1191,827 L1187,823 L1188,818 L1184,814 L1184,808 L1194,807 L1194,811 L1199,814 L1205,810 L1221,809 L1226,805 L1241,803 L1241,801 L1252,800 Z",
+        "M801,795 L807,795 L816,800 L818,798 L820,800 L823,799 L828,801 L828,804 L831,801 L831,803 L839,804 L840,807 L852,808 L859,812 L863,812 L865,808 L872,808 L873,816 L872,823 L868,827 L869,832 L864,836 L862,834 L851,834 L848,832 L848,828 L845,832 L845,815 L841,813 L808,814 L807,812 L807,815 L804,816 L804,821 L801,821 L800,817 L790,814 L791,805 L793,802 L795,804 L796,801 L794,800 L799,800 L798,797 Z",
+        "M590,442 L599,442 L599,465 L600,468 L601,466 L602,468 L610,467 L609,484 L584,485 L581,482 L580,466 L588,464 L587,454 Z"
+      ],
+      "concoursePaths": [],
+      "landmarks": [],
+      "evidence": {
+        "sourceIds": [
+          "floor-5f",
+          "floor-guide"
+        ],
+        "file": "research/venue-packets/tokyo-garden-theater/sources/floor-5f.webp",
+        "sha256": "2b81bec72a54b3bee8140a8a8353046962ae627f900659f985f0a2a37f5d45f9",
+        "width": 2128,
+        "height": 1000,
+        "method": "各階WEBP原寸の採用設備周辺にあるピンク/青/緑/淡黄の可視色領域のみを4近傍componentで整理。内部記号/文字の穴は中立背景として埋める。原図pixel-cell境界のRDP誤差1.5px以下。灰色の全館輪郭/座席列/場外/未採用ロッカー領域/凡例を描かず、通路や欠けた建物境界を補完しない。図間変換なし。",
+        "status": "partial-private-review"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "floor-2f",
+      "title": "desktop picture source",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/wp-content/themes/event-hole/images/visitor/floor/floor_2f.webp",
+      "checkedAt": "2026-09-30",
+      "scope": "採用設備の記号代表点と物理階の呼称。個別の室入口・当日開放は未確認。",
+      "usage": "permission-unconfirmed"
+    },
+    {
+      "id": "floor-guide",
+      "title": "来場者の方へ | フロアガイド | 東京ガーデンシアター",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/",
+      "checkedAt": "2026-09-30",
+      "scope": "2F=アリーナ、3F=バルコニー1、4F=2、5F=3。座席検索・EV位置/停止階・入口・保留15は未接続。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "faq",
+      "title": "ご質問・落とし物のお問い合わせ | 東京ガーデンシアター",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/faq/",
+      "checkedAt": "2026-09-30",
+      "scope": "設備名称・所在階の照合。室ドア・当日の開放/決済/運用を保証しない。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "floor-3f",
+      "title": "desktop picture source",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/wp-content/themes/event-hole/images/visitor/floor/floor_3f.webp",
+      "checkedAt": "2026-09-30",
+      "scope": "採用設備の記号代表点と物理階の呼称。個別の室入口・当日開放は未確認。",
+      "usage": "permission-unconfirmed"
+    },
+    {
+      "id": "floor-4f",
+      "title": "desktop picture source",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/wp-content/themes/event-hole/images/visitor/floor/floor_4f.webp",
+      "checkedAt": "2026-09-30",
+      "scope": "採用設備の記号代表点と物理階の呼称。個別の室入口・当日開放は未確認。",
+      "usage": "permission-unconfirmed"
+    },
+    {
+      "id": "floor-5f",
+      "title": "desktop picture source",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/wp-content/themes/event-hole/images/visitor/floor/floor_5f.webp",
+      "checkedAt": "2026-09-30",
+      "scope": "採用設備の記号代表点と物理階の呼称。個別の室入口・当日開放は未確認。",
+      "usage": "permission-unconfirmed"
+    },
+    {
+      "id": "home",
+      "title": "東京ガーデンシアター | 劇場型イベントホール約8,000人収容",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/",
+      "checkedAt": "2026-09-30",
+      "scope": "公式サイト・著作権表示。公開再利用のライセンス/許諾は未確認。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "access",
+      "title": "交通アクセス | 有明駅徒歩5分国際展示場徒歩7分 | 東京ガーデンシアター",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/access/",
+      "checkedAt": "2026-09-30",
+      "scope": "公式交通案内へのリンクだけ。駅出口・場外入口の座標/経路は未接続。",
+      "usage": "facts-only"
+    }
+  ],
+  "heldCandidateIds": [
+    "tgt-2f-locker-01",
+    "tgt-2f-escalator-01",
+    "tgt-2f-escalator-02",
+    "tgt-3f-locker-01",
+    "tgt-3f-escalator-01",
+    "tgt-3f-escalator-02",
+    "tgt-3f-escalator-03",
+    "tgt-3f-escalator-04",
+    "tgt-4f-locker-01",
+    "tgt-4f-escalator-01",
+    "tgt-4f-escalator-02",
+    "tgt-4f-escalator-03",
+    "tgt-5f-locker-01",
+    "tgt-5f-escalator-01",
+    "tgt-5f-escalator-02"
+  ]
+}

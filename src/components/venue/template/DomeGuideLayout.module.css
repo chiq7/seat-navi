@@ -1,0 +1,15 @@
+.root { max-width:none; }
+.root .purposes { margin:16px 0; }
+.root .purposes button { padding:6px 3px; }
+.root .purposes button[aria-pressed=true] { color:white; background:#a93164; padding:6px 3px; }
+.root .scope { margin:16px 0; }
+.root .scope button { border-radius:999px; min-height:44px; }
+.results > div[data-result-cards] { grid-template-columns:1fr; }
+.results summary { min-height:44px; }
+.thumbnail { display:block; width:100%; aspect-ratio:1.35; }
+.floorNote { padding:8px 12px; font-size:11px; line-height:1.7; color:#786570; }
+.floorPicker { margin-top:0; }
+.floorPicker button { min-width:44px; }
+@media(max-width:767px) {
+ .root .purposes button { font-size:10px; min-height:58px; }
+}

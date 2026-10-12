@@ -1,0 +1,24 @@
+.map { margin:14px 0; }
+.topRow { display:grid; grid-template-columns:1fr 1fr; gap:8px; align-items:center; }
+.station { display:flex; align-items:center; gap:6px; font-size:14px; color:#6c5d68; line-height:1.5; }
+.station svg { flex:none; }
+.pinRow { display:grid; grid-auto-flow:column; grid-auto-columns:minmax(0,1fr); gap:6px; }
+.pinButton { position:relative; min-width:0; min-height:64px; padding:8px 4px; background:white; color:#302c35; border:2px solid #dfbecf; border-radius:10px; font-size:14px; line-height:1.5; cursor:pointer; }
+.pinName { display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:4px; font-weight:700; }
+.pinName > span { overflow-wrap:anywhere; }
+.pinName svg { flex:none; color:#aa2f66; }
+.check { position:absolute; right:3px; top:3px; }
+.pinButton[aria-pressed="true"] { border-color:#aa2f66; background:#fff0f6; box-shadow:0 0 0 1px #aa2f66; }
+.floor { display:block; margin-top:3px; color:#6c5d68; font-family:Arial,sans-serif; }
+.drawing { position:relative; margin:8px 0 0; }
+.drawing > svg { display:block; width:100%; height:auto; }
+.drawing > span { position:absolute; font-size:14px; line-height:1.5; color:#6c5d68; white-space:nowrap; background:#fff; border-radius:3px; padding:0 3px; pointer-events:none; }
+.drawing > .domeName { color:#302c35; font-weight:700; font-size:18px; background:transparent; }
+.drawing > span > span { display:block; text-align:center; }
+.bottomRow .pinName { flex-direction:column; }
+.unavailable { padding:24px 0; font-size:16px; }
+@media (max-width:480px) {
+  .drawing > .domeName { font-size:14px; }
+  .pinButton { min-height:66px; }
+  .bottomRow .pinButton { min-height:90px; }
+}

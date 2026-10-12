@@ -1,0 +1,2964 @@
+{
+  "facilities": [
+    {
+      "id": "budokan-outside-toilet-kudanzaka",
+      "name": "九段坂公園 トイレ",
+      "purpose": "トイレ",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "九段坂公園",
+      "detail": "公園の設備です。開放時間・営業状況は施設案内をご確認ください。",
+      "sourceIds": [
+        "park-access-map",
+        "park-access"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "budokan-park-north-schematic",
+        "x": 277.82,
+        "y": 255.47,
+        "sourceIds": [
+          "park-access-map",
+          "park-access"
+        ],
+        "reference": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。"
+      }
+    },
+    {
+      "id": "budokan-outside-information-chiyoda",
+      "name": "千代田区観光協会",
+      "purpose": "案内",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "千代田区観光協会",
+      "detail": "公園の設備です。開放時間・営業状況は施設案内をご確認ください。",
+      "sourceIds": [
+        "park-access-map",
+        "park-access"
+      ],
+      "precision": "diagram-point",
+      "kind": "information",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "budokan-park-north-schematic",
+        "x": 931.44,
+        "y": 409.51,
+        "sourceIds": [
+          "park-access-map",
+          "park-access"
+        ],
+        "reference": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。"
+      }
+    },
+    {
+      "id": "budokan-outside-toilet-third-parking",
+      "name": "第三駐車場付近 トイレ",
+      "purpose": "トイレ",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "第三駐車場付近",
+      "detail": "公園の設備です。開放時間・営業状況は施設案内をご確認ください。",
+      "sourceIds": [
+        "park-access-map",
+        "park-access"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "budokan-park-north-schematic",
+        "x": 317.24,
+        "y": 508.64,
+        "sourceIds": [
+          "park-access-map",
+          "park-access"
+        ],
+        "reference": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。"
+      }
+    },
+    {
+      "id": "budokan-outside-toilet-science-north",
+      "name": "科学技術館北側付近 トイレ",
+      "purpose": "トイレ",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "科学技術館北側",
+      "detail": "公園の設備です。開放時間・営業状況は施設案内をご確認ください。",
+      "sourceIds": [
+        "park-access-map",
+        "park-access"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "budokan-park-north-schematic",
+        "x": 959.91,
+        "y": 687.56,
+        "sourceIds": [
+          "park-access-map",
+          "park-access"
+        ],
+        "reference": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。"
+      }
+    },
+    {
+      "id": "budokan-outside-toilet-takebashi",
+      "name": "竹橋駅西側付近 トイレ",
+      "purpose": "トイレ",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "竹橋駅周辺",
+      "detail": "公園の設備です。開放時間・営業状況は施設案内をご確認ください。",
+      "sourceIds": [
+        "park-access-map",
+        "park-access"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "budokan-park-north-schematic",
+        "x": 1457.22,
+        "y": 951.29,
+        "sourceIds": [
+          "park-access-map",
+          "park-access"
+        ],
+        "reference": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。"
+      }
+    },
+    {
+      "id": "budokan-outside-toilet-resthouse",
+      "name": "北の丸休憩所 トイレ",
+      "purpose": "トイレ",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "北の丸休憩所",
+      "detail": "公園の設備です。開放時間・営業状況は施設案内をご確認ください。",
+      "sourceIds": [
+        "park-access-map",
+        "park-access"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "budokan-park-north-schematic",
+        "x": 438.55,
+        "y": 765.0,
+        "sourceIds": [
+          "park-access-map",
+          "park-access"
+        ],
+        "reference": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。"
+      }
+    },
+    {
+      "id": "budokan-outside-resthouse-restaurant",
+      "name": "北の丸休憩所 飲食",
+      "purpose": "飲食",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "北の丸休憩所",
+      "detail": "公園の設備です。開放時間・営業状況は施設案内をご確認ください。",
+      "sourceIds": [
+        "park-access-map",
+        "park-access"
+      ],
+      "precision": "diagram-point",
+      "kind": "restaurant",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "budokan-park-north-schematic",
+        "x": 541.63,
+        "y": 785.03,
+        "sourceIds": [
+          "park-access-map",
+          "park-access"
+        ],
+        "reference": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。"
+      }
+    },
+    {
+      "id": "budokan-outside-resthouse-aed",
+      "name": "北の丸休憩所 AED",
+      "purpose": "AED",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "北の丸休憩所",
+      "detail": "公園の設備です。開放時間・営業状況は施設案内をご確認ください。",
+      "sourceIds": [
+        "park-access-map",
+        "park-access"
+      ],
+      "precision": "diagram-point",
+      "kind": "aed",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "budokan-park-north-schematic",
+        "x": 644.7,
+        "y": 805.07,
+        "sourceIds": [
+          "park-access-map",
+          "park-access"
+        ],
+        "reference": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。"
+      }
+    },
+    {
+      "id": "budokan-outside-toilet-first-parking",
+      "name": "第一駐車場付近 トイレ",
+      "purpose": "トイレ",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "第一駐車場付近",
+      "detail": "公園の設備です。開放時間・営業状況は施設案内をご確認ください。",
+      "sourceIds": [
+        "park-access-map",
+        "park-access"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "budokan-park-north-schematic",
+        "x": 974.87,
+        "y": 914.58,
+        "sourceIds": [
+          "park-access-map",
+          "park-access"
+        ],
+        "reference": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。"
+      }
+    },
+    {
+      "id": "budokan-outside-toilet-park-interior",
+      "name": "北の丸公園内 トイレ",
+      "purpose": "トイレ",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "北の丸公園南側",
+      "detail": "公園の設備です。開放時間・営業状況は施設案内をご確認ください。",
+      "sourceIds": [
+        "park-access-map",
+        "park-access"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "budokan-park-north-schematic",
+        "x": 728.23,
+        "y": 1038.29,
+        "sourceIds": [
+          "park-access-map",
+          "park-access"
+        ],
+        "reference": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。"
+      }
+    },
+    {
+      "id": "budokan-outside-toilet-chidorigafuchi-south",
+      "name": "千鳥ヶ淵南側 トイレ",
+      "purpose": "トイレ",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "千鳥ヶ淵南側",
+      "detail": "公園の設備です。開放時間・営業状況は施設案内をご確認ください。",
+      "sourceIds": [
+        "park-access-map",
+        "park-access"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "budokan-park-north-schematic",
+        "x": 230.9,
+        "y": 1026.18,
+        "sourceIds": [
+          "park-access-map",
+          "park-access"
+        ],
+        "reference": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。"
+      }
+    },
+    {
+      "id": "budokan-annex-toilets",
+      "name": "中道場棟内 トイレ",
+      "purpose": "トイレ",
+      "floor": "敷地内",
+      "scope": "場外",
+      "location": "中道場棟",
+      "detail": "開場前に利用するトイレとして案内されています。係員の指示に従ってください。",
+      "sourceIds": [
+        "concert-visitors"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "budokan-restaurant-budo",
+      "name": "レストラン武道",
+      "purpose": "飲食",
+      "floor": "敷地内",
+      "scope": "場外",
+      "location": "日本武道館敷地内",
+      "detail": "開場前の待ち時間に利用する飲食店として案内されています。",
+      "sourceIds": [
+        "concert-visitors"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "budokan-soba-ikemori",
+      "name": "SOBA CAFE IKEMORI",
+      "purpose": "飲食",
+      "floor": "敷地内",
+      "scope": "場外",
+      "location": "日本武道館敷地内",
+      "detail": "開場前に利用できる飲食店です。営業日は店舗案内をご確認ください。",
+      "sourceIds": [
+        "concert-visitors"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "budokan-1F-toilets-se",
+      "name": "トイレ",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "南東側 トイレ",
+      "detail": "当日の表示・開放に従って利用してください。",
+      "sourceIds": [
+        "budokan-judo-2025-seats"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "mixed",
+      "kind": "toilet",
+      "anchor": {
+        "diagramId": "budokan-floor-1F",
+        "x": 764.12,
+        "y": 733.43,
+        "sourceIds": [
+          "budokan-judo-2025-seats"
+        ],
+        "reference": "館内掲示写真の代表位置を同一階の独立略図へ正規化。室入口/実測位置ではない。"
+      }
+    },
+    {
+      "id": "budokan-1F-toilets-sw",
+      "name": "トイレ",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "南西側 トイレ",
+      "detail": "当日の表示・開放に従って利用してください。",
+      "sourceIds": [
+        "budokan-judo-2025-seats"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "mixed",
+      "kind": "toilet",
+      "anchor": {
+        "diagramId": "budokan-floor-1F",
+        "x": 238.67,
+        "y": 733.43,
+        "sourceIds": [
+          "budokan-judo-2025-seats"
+        ],
+        "reference": "館内掲示写真の代表位置を同一階の独立略図へ正規化。室入口/実測位置ではない。"
+      }
+    },
+    {
+      "id": "budokan-1F-toilets-ne",
+      "name": "トイレ",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "北東側 トイレ",
+      "detail": "当日の表示・開放に従って利用してください。",
+      "sourceIds": [
+        "budokan-judo-2025-seats"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "mixed",
+      "kind": "toilet",
+      "anchor": {
+        "diagramId": "budokan-floor-1F",
+        "x": 764.12,
+        "y": 264.71,
+        "sourceIds": [
+          "budokan-judo-2025-seats"
+        ],
+        "reference": "館内掲示写真の代表位置を同一階の独立略図へ正規化。室入口/実測位置ではない。"
+      }
+    },
+    {
+      "id": "budokan-1F-accessible-ne",
+      "name": "多目的トイレ（オストメイト・介助用ベッド）",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "北東側 トイレ",
+      "detail": "当日の表示・開放に従って利用してください。",
+      "sourceIds": [
+        "budokan-judo-2025-seats"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "kind": "accessible-toilet",
+      "anchor": {
+        "diagramId": "budokan-floor-1F",
+        "x": 749.24,
+        "y": 243.32,
+        "sourceIds": [
+          "budokan-judo-2025-seats"
+        ],
+        "reference": "館内掲示写真の代表位置を同一階の独立略図へ正規化。室入口/実測位置ではない。"
+      }
+    },
+    {
+      "id": "budokan-1F-shop-south-1",
+      "name": "南口 売店1",
+      "purpose": "飲食",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "南口ロビー",
+      "detail": "当日の表示・開放に従って利用してください。",
+      "sourceIds": [
+        "budokan-judo-2025-seats"
+      ],
+      "precision": "diagram-point",
+      "kind": "shop",
+      "anchor": {
+        "diagramId": "budokan-floor-1F",
+        "x": 606.02,
+        "y": 875.72,
+        "sourceIds": [
+          "budokan-judo-2025-seats"
+        ],
+        "reference": "館内掲示写真の代表位置を同一階の独立略図へ正規化。室入口/実測位置ではない。"
+      }
+    },
+    {
+      "id": "budokan-1F-shop-south-2",
+      "name": "南口 売店2",
+      "purpose": "飲食",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "南口ロビー",
+      "detail": "当日の表示・開放に従って利用してください。",
+      "sourceIds": [
+        "budokan-judo-2025-seats"
+      ],
+      "precision": "diagram-point",
+      "kind": "shop",
+      "anchor": {
+        "diagramId": "budokan-floor-1F",
+        "x": 398.63,
+        "y": 875.72,
+        "sourceIds": [
+          "budokan-judo-2025-seats"
+        ],
+        "reference": "館内掲示写真の代表位置を同一階の独立略図へ正規化。室入口/実測位置ではない。"
+      }
+    },
+    {
+      "id": "budokan-1F-shop-east",
+      "name": "東口 売店",
+      "purpose": "飲食",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "東口ロビー",
+      "detail": "当日の表示・開放に従って利用してください。",
+      "sourceIds": [
+        "budokan-judo-2025-seats"
+      ],
+      "precision": "diagram-point",
+      "kind": "shop",
+      "anchor": {
+        "diagramId": "budokan-floor-1F",
+        "x": 886.88,
+        "y": 576.26,
+        "sourceIds": [
+          "budokan-judo-2025-seats"
+        ],
+        "reference": "館内掲示写真の代表位置を同一階の独立略図へ正規化。室入口/実測位置ではない。"
+      }
+    },
+    {
+      "id": "budokan-1F-shop-west-1",
+      "name": "西口 売店1",
+      "purpose": "飲食",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "西口ロビー 北側",
+      "detail": "当日の表示・開放に従って利用してください。",
+      "sourceIds": [
+        "budokan-judo-2025-seats"
+      ],
+      "precision": "diagram-point",
+      "kind": "shop",
+      "anchor": {
+        "diagramId": "budokan-floor-1F",
+        "x": 116.84,
+        "y": 566.96,
+        "sourceIds": [
+          "budokan-judo-2025-seats"
+        ],
+        "reference": "館内掲示写真の代表位置を同一階の独立略図へ正規化。室入口/実測位置ではない。"
+      }
+    },
+    {
+      "id": "budokan-1F-shop-west-2",
+      "name": "西口 売店2",
+      "purpose": "飲食",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "西口ロビー 南側",
+      "detail": "当日の表示・開放に従って利用してください。",
+      "sourceIds": [
+        "budokan-judo-2025-seats"
+      ],
+      "precision": "diagram-point",
+      "kind": "shop",
+      "anchor": {
+        "diagramId": "budokan-floor-1F",
+        "x": 126.14,
+        "y": 377.24,
+        "sourceIds": [
+          "budokan-judo-2025-seats"
+        ],
+        "reference": "館内掲示写真の代表位置を同一階の独立略図へ正規化。室入口/実測位置ではない。"
+      }
+    },
+    {
+      "id": "budokan-1F-shop-nw-1",
+      "name": "北西 売店1",
+      "purpose": "飲食",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "北西側 北寄り",
+      "detail": "当日の表示・開放に従って利用してください。",
+      "sourceIds": [
+        "budokan-judo-2025-seats"
+      ],
+      "precision": "diagram-point",
+      "kind": "shop",
+      "anchor": {
+        "diagramId": "budokan-floor-1F",
+        "x": 242.39,
+        "y": 217.28,
+        "sourceIds": [
+          "budokan-judo-2025-seats"
+        ],
+        "reference": "館内掲示写真の代表位置を同一階の独立略図へ正規化。室入口/実測位置ではない。"
+      }
+    },
+    {
+      "id": "budokan-1F-shop-nw-2",
+      "name": "北西 売店2",
+      "purpose": "飲食",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "北西側 西寄り",
+      "detail": "当日の表示・開放に従って利用してください。",
+      "sourceIds": [
+        "budokan-judo-2025-seats"
+      ],
+      "precision": "diagram-point",
+      "kind": "shop",
+      "anchor": {
+        "diagramId": "budokan-floor-1F",
+        "x": 176.36,
+        "y": 277.73,
+        "sourceIds": [
+          "budokan-judo-2025-seats"
+        ],
+        "reference": "館内掲示写真の代表位置を同一階の独立略図へ正規化。室入口/実測位置ではない。"
+      }
+    },
+    {
+      "id": "budokan-1F-aed-south",
+      "name": "AED",
+      "purpose": "AED",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "南口ロビー",
+      "detail": "当日の表示・開放に従って利用してください。",
+      "sourceIds": [
+        "budokan-judo-2025-seats"
+      ],
+      "precision": "diagram-point",
+      "kind": "aed",
+      "anchor": {
+        "diagramId": "budokan-floor-1F",
+        "x": 448.85,
+        "y": 878.51,
+        "sourceIds": [
+          "budokan-judo-2025-seats"
+        ],
+        "reference": "館内掲示写真の代表位置を同一階の独立略図へ正規化。室入口/実測位置ではない。"
+      }
+    },
+    {
+      "id": "budokan-1F-aed-north",
+      "name": "AED",
+      "purpose": "AED",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "北口ロビー",
+      "detail": "当日の表示・開放に従って利用してください。",
+      "sourceIds": [
+        "budokan-judo-2025-seats"
+      ],
+      "precision": "diagram-point",
+      "kind": "aed",
+      "anchor": {
+        "diagramId": "budokan-floor-1F",
+        "x": 371.66,
+        "y": 118.7,
+        "sourceIds": [
+          "budokan-judo-2025-seats"
+        ],
+        "reference": "館内掲示写真の代表位置を同一階の独立略図へ正規化。室入口/実測位置ではない。"
+      }
+    },
+    {
+      "id": "budokan-1F-elevator-north",
+      "name": "エレベーター",
+      "purpose": "案内",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "北口ロビー",
+      "detail": "当日の表示・開放に従って利用してください。",
+      "sourceIds": [
+        "budokan-judo-2025-seats"
+      ],
+      "precision": "diagram-point",
+      "kind": "elevator",
+      "anchor": {
+        "diagramId": "budokan-floor-1F",
+        "x": 581.84,
+        "y": 101.03,
+        "sourceIds": [
+          "budokan-judo-2025-seats"
+        ],
+        "reference": "館内掲示写真の代表位置を同一階の独立略図へ正規化。室入口/実測位置ではない。"
+      }
+    },
+    {
+      "id": "budokan-2F-toilet-south",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "南側",
+      "detail": "男女の割り当ては公演で変更される場合があります。当日の表示をご確認ください。",
+      "sourceIds": [
+        "budokan-judo-2025-seats"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "women",
+      "kind": "toilet",
+      "anchor": {
+        "diagramId": "budokan-floor-2F",
+        "x": 638.25,
+        "y": 760.55,
+        "sourceIds": [
+          "budokan-judo-2025-seats"
+        ],
+        "reference": "館内掲示写真の代表位置を同一階の独立略図へ正規化。室入口/実測位置ではない。"
+      }
+    },
+    {
+      "id": "budokan-2F-toilet-sw",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "南西側",
+      "detail": "男女の割り当ては公演で変更される場合があります。当日の表示をご確認ください。",
+      "sourceIds": [
+        "budokan-judo-2025-seats"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "men",
+      "kind": "toilet",
+      "anchor": {
+        "diagramId": "budokan-floor-2F",
+        "x": 369.06,
+        "y": 890.17,
+        "sourceIds": [
+          "budokan-judo-2025-seats"
+        ],
+        "reference": "館内掲示写真の代表位置を同一階の独立略図へ正規化。室入口/実測位置ではない。"
+      }
+    },
+    {
+      "id": "budokan-2F-toilet-west-south",
+      "name": "男性トイレ（オストメイト対応）",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "西側 南西寄り",
+      "detail": "オストメイト設備あり。男女の割り当ては公演で変更される場合があります。当日の表示をご確認ください。",
+      "sourceIds": [
+        "budokan-judo-2025-seats"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "men",
+      "kind": "toilet",
+      "anchor": {
+        "diagramId": "budokan-floor-2F",
+        "x": 109.83,
+        "y": 632.27,
+        "sourceIds": [
+          "budokan-judo-2025-seats"
+        ],
+        "reference": "館内掲示写真の代表位置を同一階の独立略図へ正規化。室入口/実測位置ではない。"
+      }
+    },
+    {
+      "id": "budokan-2F-toilet-west-north",
+      "name": "男性トイレ（オストメイト対応）",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "西側 北西寄り",
+      "detail": "オストメイト設備あり。男女の割り当ては公演で変更される場合があります。当日の表示をご確認ください。",
+      "sourceIds": [
+        "budokan-judo-2025-seats"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "men",
+      "kind": "toilet",
+      "anchor": {
+        "diagramId": "budokan-floor-2F",
+        "x": 242.1,
+        "y": 365.73,
+        "sourceIds": [
+          "budokan-judo-2025-seats"
+        ],
+        "reference": "館内掲示写真の代表位置を同一階の独立略図へ正規化。室入口/実測位置ではない。"
+      }
+    },
+    {
+      "id": "budokan-2F-toilet-east-south",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "東側 南東寄り",
+      "detail": "男女の割り当ては公演で変更される場合があります。当日の表示をご確認ください。",
+      "sourceIds": [
+        "budokan-judo-2025-seats"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "men",
+      "kind": "toilet",
+      "anchor": {
+        "diagramId": "budokan-floor-2F",
+        "x": 884.85,
+        "y": 500.66,
+        "sourceIds": [
+          "budokan-judo-2025-seats"
+        ],
+        "reference": "館内掲示写真の代表位置を同一階の独立略図へ正規化。室入口/実測位置ではない。"
+      }
+    },
+    {
+      "id": "budokan-2F-toilet-east-north",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "東側 北東寄り",
+      "detail": "男女の割り当ては公演で変更される場合があります。当日の表示をご確認ください。",
+      "sourceIds": [
+        "budokan-judo-2025-seats"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "women",
+      "kind": "toilet",
+      "anchor": {
+        "diagramId": "budokan-floor-2F",
+        "x": 882.19,
+        "y": 361.08,
+        "sourceIds": [
+          "budokan-judo-2025-seats"
+        ],
+        "reference": "館内掲示写真の代表位置を同一階の独立略図へ正規化。室入口/実測位置ではない。"
+      }
+    },
+    {
+      "id": "budokan-2F-aed-sw",
+      "name": "AED",
+      "purpose": "AED",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "南西側",
+      "detail": "当日の表示・開放に従って利用してください。",
+      "sourceIds": [
+        "budokan-judo-2025-seats"
+      ],
+      "precision": "diagram-point",
+      "kind": "aed",
+      "anchor": {
+        "diagramId": "budokan-floor-2F",
+        "x": 191.59,
+        "y": 759.23,
+        "sourceIds": [
+          "budokan-judo-2025-seats"
+        ],
+        "reference": "館内掲示写真の代表位置を同一階の独立略図へ正規化。室入口/実測位置ではない。"
+      }
+    },
+    {
+      "id": "budokan-1F-nursing-south",
+      "name": "授乳室",
+      "purpose": "赤ちゃん",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "本館 南側",
+      "detail": "南側の授乳室。利用方法は会場係員へお尋ねください。",
+      "sourceIds": [
+        "budokan-university-2024-floor"
+      ],
+      "precision": "text-only",
+      "kind": "nursing-room"
+    },
+    {
+      "id": "budokan-1F-elevator-south",
+      "name": "エレベーター",
+      "purpose": "案内",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "本館 南側・授乳室付近",
+      "detail": "南側のEV。利用できる停止階・観覧場所への経路は当日の案内で確認してください。",
+      "sourceIds": [
+        "budokan-university-2024-floor"
+      ],
+      "precision": "text-only",
+      "kind": "elevator"
+    },
+    {
+      "id": "budokan-2F-aed-se",
+      "name": "AED",
+      "purpose": "AED",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "南東側",
+      "detail": "2階南東側にも設置。緊急時は会場係員へお声がけください。",
+      "sourceIds": [
+        "budokan-judo-2025-guide"
+      ],
+      "precision": "text-only",
+      "kind": "aed"
+    },
+    {
+      "id": "budokan-B2F-aed",
+      "name": "AED",
+      "purpose": "AED",
+      "floor": "B2F",
+      "scope": "場内",
+      "location": "本館 地下2階 大道場",
+      "detail": "地下2階の設置案内。公演の観客立入区域・救護室とは別です。",
+      "sourceIds": [
+        "budokan-judo-2025-guide"
+      ],
+      "precision": "text-only",
+      "kind": "aed"
+    },
+    {
+      "id": "budokan-annex-aed",
+      "name": "中道場 AED",
+      "purpose": "AED",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "中道場棟",
+      "detail": "中道場棟の地下2階・1階に設置。開放と入場前の利用可否は係員へ確認してください。",
+      "sourceIds": [
+        "budokan-judo-2025-guide"
+      ],
+      "precision": "text-only",
+      "kind": "aed"
+    },
+    {
+      "id": "budokan-locker-kudanshita-out34-side",
+      "name": "九段下駅 3・4番出口階段横",
+      "purpose": "荷物",
+      "floor": "B2F・改札外",
+      "scope": "場外",
+      "location": "九段下駅",
+      "detail": "PASMO対応。3・4番出口階段横の設置区域B。",
+      "sourceIds": [
+        "budokan-toei-kudanshita"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "budokan-locker-kudanshita-out34-under",
+      "name": "九段下駅 3・4番出口階段下",
+      "purpose": "荷物",
+      "floor": "B2F・改札外",
+      "scope": "場外",
+      "location": "九段下駅",
+      "detail": "PASMO対応。3・4番出口階段下の設置区域C。",
+      "sourceIds": [
+        "budokan-toei-kudanshita"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "budokan-locker-kudanshita-inside",
+      "name": "九段下駅 ホーム乗換付近",
+      "purpose": "荷物",
+      "floor": "駅構内・改札内",
+      "scope": "場外",
+      "location": "九段下駅",
+      "detail": "半蔵門線渋谷方面と東西線中野方面ホーム間、自動販売機付近。改札内のため乗車券が必要です。",
+      "sourceIds": [
+        "budokan-ecbo-kudanshita"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "budokan-locker-kudanshita-exit6",
+      "name": "九段下駅 6番出口付近 メトロッカー＋",
+      "purpose": "荷物",
+      "floor": "駅構内",
+      "scope": "場外",
+      "location": "九段下駅",
+      "detail": "荷物預かり・予約/ホテル配送対応。サイズ・当日の利用条件は運営案内をご確認ください。改札境界は未確認。",
+      "sourceIds": [
+        "budokan-metro-kudanshita"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "budokan-locker-takebashi",
+      "name": "竹橋駅 コインロッカー",
+      "purpose": "荷物",
+      "floor": "駅構内",
+      "scope": "場外",
+      "location": "竹橋駅",
+      "detail": "東西線駅のコインロッカー。設置場所・改札内外・当日の料金は駅案内で確認してください。",
+      "sourceIds": [
+        "budokan-metro-takebashi"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin"
+    }
+  ],
+  "diagrams": [
+    {
+      "id": "budokan-park-north-schematic",
+      "floor": "場外",
+      "scope": "場外",
+      "viewBox": [
+        -100,
+        -100,
+        2320,
+        1670
+      ],
+      "contextPaths": [
+        "M343.28,319.64L942.63,538.01L1076.26,951.10L702.71,1143.35L236.71,920.34Z"
+      ],
+      "concoursePaths": [],
+      "landmarks": [
+        {
+          "id": "budokan-outside-station-kudanshita",
+          "label": "九段下駅",
+          "name": "九段下駅",
+          "x": 768.99,
+          "y": 89.64,
+          "kind": "station",
+          "sourceIds": [
+            "park-access-map",
+            "park-access"
+          ],
+          "reference": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。"
+        },
+        {
+          "id": "budokan-outside-park-kudanzaka",
+          "label": "九段坂公園",
+          "name": "九段坂公園",
+          "x": 225.89,
+          "y": 244.87,
+          "kind": "plaza",
+          "sourceIds": [
+            "park-access-map",
+            "park-access"
+          ],
+          "reference": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。"
+        },
+        {
+          "id": "budokan-outside-park-chidorigafuchi",
+          "label": "千鳥ヶ淵緑道",
+          "name": "千鳥ヶ淵緑道",
+          "x": 173.65,
+          "y": 503.14,
+          "kind": "plaza",
+          "sourceIds": [
+            "park-access-map",
+            "park-access"
+          ],
+          "reference": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。"
+        },
+        {
+          "id": "budokan-outside-station-takebashi",
+          "label": "竹橋駅",
+          "name": "竹橋駅",
+          "x": 1608.54,
+          "y": 880.36,
+          "kind": "station",
+          "sourceIds": [
+            "park-access-map",
+            "park-access"
+          ],
+          "reference": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。"
+        },
+        {
+          "id": "budokan-outside-resthouse-rest",
+          "label": "北の丸休憩所",
+          "name": "北の丸休憩所",
+          "x": 490.09,
+          "y": 775.02,
+          "kind": "plaza",
+          "sourceIds": [
+            "park-access-map",
+            "park-access"
+          ],
+          "reference": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "park-access-map"
+        ],
+        "file": "research/venue-packets/budokan/sources/park-access-map.jpg",
+        "sha256": "4721ca78660abcda2864804bc7b6fff3ee2568c0f724b393c9d7460931835da6",
+        "width": 2320,
+        "height": 1670,
+        "method": "source facts and independently simplified local schematic; no source bitmap published",
+        "status": "partial-source-checked-user-review-pending"
+      }
+    },
+    {
+      "id": "budokan-floor-1F",
+      "floor": "1F",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        1000,
+        1000
+      ],
+      "contextPaths": [
+        "M703.253,415.810L703.253,584.190L584.190,703.253L415.810,703.253L296.747,584.190L296.747,415.810L415.810,296.747L584.190,296.747Z"
+      ],
+      "concoursePaths": [
+        "M943.462,316.312L943.462,683.688L683.688,943.462L316.312,943.462L56.538,683.688L56.538,316.312L316.312,56.538L683.688,56.538Z M637.766,167.403L362.234,167.403L167.403,362.234L167.403,637.766L362.234,832.597L637.766,832.597L832.597,637.766L832.597,362.234Z"
+      ],
+      "landmarks": [
+        {
+          "id": "budokan-floor-1F-北",
+          "label": "北口",
+          "name": "北口",
+          "x": 500.0,
+          "y": 225.0,
+          "kind": "entrance",
+          "sourceIds": [
+            "budokan-judo-2025-seats"
+          ],
+          "reference": "本館方角/玄関の代表位置。公演指定入場口/座席担当範囲ではない。"
+        },
+        {
+          "id": "budokan-floor-1F-東",
+          "label": "東口",
+          "name": "東口",
+          "x": 775.0,
+          "y": 500.0,
+          "kind": "entrance",
+          "sourceIds": [
+            "budokan-judo-2025-seats"
+          ],
+          "reference": "本館方角/玄関の代表位置。公演指定入場口/座席担当範囲ではない。"
+        },
+        {
+          "id": "budokan-floor-1F-南",
+          "label": "南口",
+          "name": "南口",
+          "x": 500.0,
+          "y": 775.0,
+          "kind": "entrance",
+          "sourceIds": [
+            "budokan-judo-2025-seats"
+          ],
+          "reference": "本館方角/玄関の代表位置。公演指定入場口/座席担当範囲ではない。"
+        },
+        {
+          "id": "budokan-floor-1F-西",
+          "label": "西口",
+          "name": "西口",
+          "x": 225.0,
+          "y": 500.0,
+          "kind": "entrance",
+          "sourceIds": [
+            "budokan-judo-2025-seats"
+          ],
+          "reference": "本館方角/玄関の代表位置。公演指定入場口/座席担当範囲ではない。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "budokan-judo-2025-seats"
+        ],
+        "file": "research/venue-packets/budokan/sources/judo-2025-floor.pdf",
+        "sha256": "293f7cf5d1a5a781ad5cc276b4eac10ccd7d0aa5c7c67ed9671ca637d2c244b7",
+        "width": 1698,
+        "height": 2400,
+        "method": "Page 4: independently cleaned partial schematic; floor-specific photograph normalised to north-up; no bitmap/event registration published",
+        "status": "source-checked-basic-browser-review-pending"
+      }
+    },
+    {
+      "id": "budokan-floor-2F",
+      "floor": "2F",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        1000,
+        1000
+      ],
+      "contextPaths": [
+        "M703.253,415.810L703.253,584.190L584.190,703.253L415.810,703.253L296.747,584.190L296.747,415.810L415.810,296.747L584.190,296.747Z"
+      ],
+      "concoursePaths": [
+        "M943.462,316.312L943.462,683.688L683.688,943.462L316.312,943.462L56.538,683.688L56.538,316.312L316.312,56.538L683.688,56.538Z M637.766,167.403L362.234,167.403L167.403,362.234L167.403,637.766L362.234,832.597L637.766,832.597L832.597,637.766L832.597,362.234Z"
+      ],
+      "landmarks": [
+        {
+          "id": "budokan-floor-2F-北",
+          "label": "北",
+          "name": "北",
+          "x": 500.0,
+          "y": 225.0,
+          "kind": "entrance",
+          "sourceIds": [
+            "budokan-judo-2025-seats"
+          ],
+          "reference": "本館方角/玄関の代表位置。公演指定入場口/座席担当範囲ではない。"
+        },
+        {
+          "id": "budokan-floor-2F-北東",
+          "label": "北東",
+          "name": "北東",
+          "x": 694.454,
+          "y": 305.546,
+          "kind": "entrance",
+          "sourceIds": [
+            "budokan-judo-2025-seats"
+          ],
+          "reference": "本館方角/玄関の代表位置。公演指定入場口/座席担当範囲ではない。"
+        },
+        {
+          "id": "budokan-floor-2F-東",
+          "label": "東",
+          "name": "東",
+          "x": 775.0,
+          "y": 500.0,
+          "kind": "entrance",
+          "sourceIds": [
+            "budokan-judo-2025-seats"
+          ],
+          "reference": "本館方角/玄関の代表位置。公演指定入場口/座席担当範囲ではない。"
+        },
+        {
+          "id": "budokan-floor-2F-南東",
+          "label": "南東",
+          "name": "南東",
+          "x": 694.454,
+          "y": 694.454,
+          "kind": "entrance",
+          "sourceIds": [
+            "budokan-judo-2025-seats"
+          ],
+          "reference": "本館方角/玄関の代表位置。公演指定入場口/座席担当範囲ではない。"
+        },
+        {
+          "id": "budokan-floor-2F-南",
+          "label": "南",
+          "name": "南",
+          "x": 500.0,
+          "y": 775.0,
+          "kind": "entrance",
+          "sourceIds": [
+            "budokan-judo-2025-seats"
+          ],
+          "reference": "本館方角/玄関の代表位置。公演指定入場口/座席担当範囲ではない。"
+        },
+        {
+          "id": "budokan-floor-2F-南西",
+          "label": "南西",
+          "name": "南西",
+          "x": 305.546,
+          "y": 694.454,
+          "kind": "entrance",
+          "sourceIds": [
+            "budokan-judo-2025-seats"
+          ],
+          "reference": "本館方角/玄関の代表位置。公演指定入場口/座席担当範囲ではない。"
+        },
+        {
+          "id": "budokan-floor-2F-西",
+          "label": "西",
+          "name": "西",
+          "x": 225.0,
+          "y": 500.0,
+          "kind": "entrance",
+          "sourceIds": [
+            "budokan-judo-2025-seats"
+          ],
+          "reference": "本館方角/玄関の代表位置。公演指定入場口/座席担当範囲ではない。"
+        },
+        {
+          "id": "budokan-floor-2F-北西",
+          "label": "北西",
+          "name": "北西",
+          "x": 305.546,
+          "y": 305.546,
+          "kind": "entrance",
+          "sourceIds": [
+            "budokan-judo-2025-seats"
+          ],
+          "reference": "本館方角/玄関の代表位置。公演指定入場口/座席担当範囲ではない。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "budokan-judo-2025-seats"
+        ],
+        "file": "research/venue-packets/budokan/sources/judo-2025-floor.pdf",
+        "sha256": "293f7cf5d1a5a781ad5cc276b4eac10ccd7d0aa5c7c67ed9671ca637d2c244b7",
+        "width": 1698,
+        "height": 2400,
+        "method": "Page 5: independently cleaned partial schematic; floor-specific photograph normalised to north-up; no bitmap/event registration published",
+        "status": "source-checked-basic-browser-review-pending"
+      }
+    },
+    {
+      "id": "budokan-floor-B2F",
+      "floor": "B2F",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        1000,
+        1000
+      ],
+      "contextPaths": [],
+      "concoursePaths": [],
+      "landmarks": [],
+      "evidence": {
+        "sourceIds": [
+          "budokan-judo-2025-guide"
+        ],
+        "file": "research/venue-packets/budokan/sources/judo-2025-guide.pdf",
+        "sha256": "a2a37f15de1da104cc7c6dd0f748f5580489389f76fd8eb7cda0484989447f9c",
+        "width": 1000,
+        "height": 1000,
+        "method": "Text-only AED floor; no invented architectural or facility geometry",
+        "status": "source-checked-basic-browser-review-pending"
+      }
+    }
+  ],
+  "groups": [
+    {
+      "id": "budokan-outside-toilet-kudanzaka-group",
+      "diagramId": "budokan-park-north-schematic",
+      "purpose": "トイレ",
+      "label": "九段坂公園",
+      "area": "九段坂公園",
+      "memberIds": [
+        "budokan-outside-toilet-kudanzaka"
+      ],
+      "x": 277.82,
+      "y": 255.47,
+      "boundary": "同じ公園区域内。道路・濠・別建物を越えて合体させない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "budokan-outside-information-chiyoda-group",
+      "diagramId": "budokan-park-north-schematic",
+      "purpose": "案内",
+      "label": "千代田区観光協会",
+      "area": "千代田区観光協会",
+      "memberIds": [
+        "budokan-outside-information-chiyoda"
+      ],
+      "x": 931.44,
+      "y": 409.51,
+      "boundary": "同じ公園区域内。道路・濠・別建物を越えて合体させない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "budokan-outside-toilet-third-parking-group",
+      "diagramId": "budokan-park-north-schematic",
+      "purpose": "トイレ",
+      "label": "第三駐車場付近",
+      "area": "第三駐車場付近",
+      "memberIds": [
+        "budokan-outside-toilet-third-parking"
+      ],
+      "x": 317.24,
+      "y": 508.64,
+      "boundary": "同じ公園区域内。道路・濠・別建物を越えて合体させない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "budokan-outside-toilet-science-north-group",
+      "diagramId": "budokan-park-north-schematic",
+      "purpose": "トイレ",
+      "label": "科学技術館北側",
+      "area": "科学技術館北側",
+      "memberIds": [
+        "budokan-outside-toilet-science-north"
+      ],
+      "x": 959.91,
+      "y": 687.56,
+      "boundary": "同じ公園区域内。道路・濠・別建物を越えて合体させない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "budokan-outside-toilet-takebashi-group",
+      "diagramId": "budokan-park-north-schematic",
+      "purpose": "トイレ",
+      "label": "竹橋駅周辺",
+      "area": "竹橋駅周辺",
+      "memberIds": [
+        "budokan-outside-toilet-takebashi"
+      ],
+      "x": 1457.22,
+      "y": 951.29,
+      "boundary": "同じ公園区域内。道路・濠・別建物を越えて合体させない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "budokan-outside-toilet-resthouse-group",
+      "diagramId": "budokan-park-north-schematic",
+      "purpose": "トイレ",
+      "label": "北の丸休憩所",
+      "area": "北の丸休憩所",
+      "memberIds": [
+        "budokan-outside-toilet-resthouse"
+      ],
+      "x": 438.55,
+      "y": 765.0,
+      "boundary": "同じ公園区域内。道路・濠・別建物を越えて合体させない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "budokan-outside-resthouse-restaurant-group",
+      "diagramId": "budokan-park-north-schematic",
+      "purpose": "飲食",
+      "label": "北の丸休憩所",
+      "area": "北の丸休憩所",
+      "memberIds": [
+        "budokan-outside-resthouse-restaurant"
+      ],
+      "x": 541.63,
+      "y": 785.03,
+      "boundary": "同じ公園区域内。道路・濠・別建物を越えて合体させない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "budokan-outside-resthouse-aed-group",
+      "diagramId": "budokan-park-north-schematic",
+      "purpose": "AED",
+      "label": "北の丸休憩所",
+      "area": "北の丸休憩所",
+      "memberIds": [
+        "budokan-outside-resthouse-aed"
+      ],
+      "x": 644.7,
+      "y": 805.07,
+      "boundary": "同じ公園区域内。道路・濠・別建物を越えて合体させない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "budokan-outside-toilet-first-parking-group",
+      "diagramId": "budokan-park-north-schematic",
+      "purpose": "トイレ",
+      "label": "第一駐車場付近",
+      "area": "第一駐車場付近",
+      "memberIds": [
+        "budokan-outside-toilet-first-parking"
+      ],
+      "x": 974.87,
+      "y": 914.58,
+      "boundary": "同じ公園区域内。道路・濠・別建物を越えて合体させない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "budokan-outside-toilet-park-interior-group",
+      "diagramId": "budokan-park-north-schematic",
+      "purpose": "トイレ",
+      "label": "北の丸公園南側",
+      "area": "北の丸公園南側",
+      "memberIds": [
+        "budokan-outside-toilet-park-interior"
+      ],
+      "x": 728.23,
+      "y": 1038.29,
+      "boundary": "同じ公園区域内。道路・濠・別建物を越えて合体させない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "budokan-outside-toilet-chidorigafuchi-south-group",
+      "diagramId": "budokan-park-north-schematic",
+      "purpose": "トイレ",
+      "label": "千鳥ヶ淵南側",
+      "area": "千鳥ヶ淵南側",
+      "memberIds": [
+        "budokan-outside-toilet-chidorigafuchi-south"
+      ],
+      "x": 230.9,
+      "y": 1026.18,
+      "boundary": "同じ公園区域内。道路・濠・別建物を越えて合体させない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "budokan-1F-toilets-se-group",
+      "diagramId": "budokan-floor-1F",
+      "purpose": "トイレ",
+      "label": "南東側 トイレ",
+      "area": "南東側 トイレ",
+      "memberIds": [
+        "budokan-1F-toilets-se"
+      ],
+      "x": 764.12,
+      "y": 733.43,
+      "boundary": "budokan-floor-1F 南東側 トイレの同目的設備だけ。別階・別室・通路反対側へ合体しない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "budokan-1F-toilets-sw-group",
+      "diagramId": "budokan-floor-1F",
+      "purpose": "トイレ",
+      "label": "南西側 トイレ",
+      "area": "南西側 トイレ",
+      "memberIds": [
+        "budokan-1F-toilets-sw"
+      ],
+      "x": 238.67,
+      "y": 733.43,
+      "boundary": "budokan-floor-1F 南西側 トイレの同目的設備だけ。別階・別室・通路反対側へ合体しない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "budokan-1F-toilets-ne-group",
+      "diagramId": "budokan-floor-1F",
+      "purpose": "トイレ",
+      "label": "北東側 トイレ",
+      "area": "北東側 トイレ",
+      "memberIds": [
+        "budokan-1F-toilets-ne",
+        "budokan-1F-accessible-ne"
+      ],
+      "x": 764.12,
+      "y": 264.71,
+      "boundary": "budokan-floor-1F 北東側 トイレの同目的設備だけ。別階・別室・通路反対側へ合体しない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "budokan-1F-shop-south-1-group",
+      "diagramId": "budokan-floor-1F",
+      "purpose": "飲食",
+      "label": "南口ロビー",
+      "area": "南口ロビー",
+      "memberIds": [
+        "budokan-1F-shop-south-1",
+        "budokan-1F-shop-south-2"
+      ],
+      "x": 502.325,
+      "y": 875.72,
+      "boundary": "budokan-floor-1F 南口ロビーの同目的設備だけ。別階・別室・通路反対側へ合体しない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "budokan-1F-shop-east-group",
+      "diagramId": "budokan-floor-1F",
+      "purpose": "飲食",
+      "label": "東口ロビー",
+      "area": "東口ロビー",
+      "memberIds": [
+        "budokan-1F-shop-east"
+      ],
+      "x": 886.88,
+      "y": 576.26,
+      "boundary": "budokan-floor-1F 東口ロビーの同目的設備だけ。別階・別室・通路反対側へ合体しない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "budokan-1F-shop-west-1-group",
+      "diagramId": "budokan-floor-1F",
+      "purpose": "飲食",
+      "label": "西口ロビー 北側",
+      "area": "西口ロビー 北側",
+      "memberIds": [
+        "budokan-1F-shop-west-1"
+      ],
+      "x": 116.84,
+      "y": 566.96,
+      "boundary": "budokan-floor-1F 西口ロビー 北側の同目的設備だけ。別階・別室・通路反対側へ合体しない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "budokan-1F-shop-west-2-group",
+      "diagramId": "budokan-floor-1F",
+      "purpose": "飲食",
+      "label": "西口ロビー 南側",
+      "area": "西口ロビー 南側",
+      "memberIds": [
+        "budokan-1F-shop-west-2"
+      ],
+      "x": 126.14,
+      "y": 377.24,
+      "boundary": "budokan-floor-1F 西口ロビー 南側の同目的設備だけ。別階・別室・通路反対側へ合体しない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "budokan-1F-shop-nw-1-group",
+      "diagramId": "budokan-floor-1F",
+      "purpose": "飲食",
+      "label": "北西側 北寄り",
+      "area": "北西側 北寄り",
+      "memberIds": [
+        "budokan-1F-shop-nw-1"
+      ],
+      "x": 242.39,
+      "y": 217.28,
+      "boundary": "budokan-floor-1F 北西側 北寄りの同目的設備だけ。別階・別室・通路反対側へ合体しない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "budokan-1F-shop-nw-2-group",
+      "diagramId": "budokan-floor-1F",
+      "purpose": "飲食",
+      "label": "北西側 西寄り",
+      "area": "北西側 西寄り",
+      "memberIds": [
+        "budokan-1F-shop-nw-2"
+      ],
+      "x": 176.36,
+      "y": 277.73,
+      "boundary": "budokan-floor-1F 北西側 西寄りの同目的設備だけ。別階・別室・通路反対側へ合体しない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "budokan-1F-aed-south-group",
+      "diagramId": "budokan-floor-1F",
+      "purpose": "AED",
+      "label": "南口ロビー",
+      "area": "南口ロビー",
+      "memberIds": [
+        "budokan-1F-aed-south"
+      ],
+      "x": 448.85,
+      "y": 878.51,
+      "boundary": "budokan-floor-1F 南口ロビーの同目的設備だけ。別階・別室・通路反対側へ合体しない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "budokan-1F-aed-north-group",
+      "diagramId": "budokan-floor-1F",
+      "purpose": "AED",
+      "label": "北口ロビー",
+      "area": "北口ロビー",
+      "memberIds": [
+        "budokan-1F-aed-north"
+      ],
+      "x": 371.66,
+      "y": 118.7,
+      "boundary": "budokan-floor-1F 北口ロビーの同目的設備だけ。別階・別室・通路反対側へ合体しない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "budokan-1F-elevator-north-group",
+      "diagramId": "budokan-floor-1F",
+      "purpose": "案内",
+      "label": "北口ロビー",
+      "area": "北口ロビー",
+      "memberIds": [
+        "budokan-1F-elevator-north"
+      ],
+      "x": 581.84,
+      "y": 101.03,
+      "boundary": "budokan-floor-1F 北口ロビーの同目的設備だけ。別階・別室・通路反対側へ合体しない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "budokan-2F-toilet-south-group",
+      "diagramId": "budokan-floor-2F",
+      "purpose": "トイレ",
+      "label": "南側",
+      "area": "南側",
+      "memberIds": [
+        "budokan-2F-toilet-south"
+      ],
+      "x": 638.25,
+      "y": 760.55,
+      "boundary": "budokan-floor-2F 南側の同目的設備だけ。別階・別室・通路反対側へ合体しない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "budokan-2F-toilet-sw-group",
+      "diagramId": "budokan-floor-2F",
+      "purpose": "トイレ",
+      "label": "南西側",
+      "area": "南西側",
+      "memberIds": [
+        "budokan-2F-toilet-sw"
+      ],
+      "x": 369.06,
+      "y": 890.17,
+      "boundary": "budokan-floor-2F 南西側の同目的設備だけ。別階・別室・通路反対側へ合体しない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "budokan-2F-toilet-west-south-group",
+      "diagramId": "budokan-floor-2F",
+      "purpose": "トイレ",
+      "label": "西側 南西寄り",
+      "area": "西側 南西寄り",
+      "memberIds": [
+        "budokan-2F-toilet-west-south"
+      ],
+      "x": 109.83,
+      "y": 632.27,
+      "boundary": "budokan-floor-2F 西側 南西寄りの同目的設備だけ。別階・別室・通路反対側へ合体しない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "budokan-2F-toilet-west-north-group",
+      "diagramId": "budokan-floor-2F",
+      "purpose": "トイレ",
+      "label": "西側 北西寄り",
+      "area": "西側 北西寄り",
+      "memberIds": [
+        "budokan-2F-toilet-west-north"
+      ],
+      "x": 242.1,
+      "y": 365.73,
+      "boundary": "budokan-floor-2F 西側 北西寄りの同目的設備だけ。別階・別室・通路反対側へ合体しない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "budokan-2F-toilet-east-south-group",
+      "diagramId": "budokan-floor-2F",
+      "purpose": "トイレ",
+      "label": "東側 南東寄り",
+      "area": "東側 南東寄り",
+      "memberIds": [
+        "budokan-2F-toilet-east-south"
+      ],
+      "x": 884.85,
+      "y": 500.66,
+      "boundary": "budokan-floor-2F 東側 南東寄りの同目的設備だけ。別階・別室・通路反対側へ合体しない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "budokan-2F-toilet-east-north-group",
+      "diagramId": "budokan-floor-2F",
+      "purpose": "トイレ",
+      "label": "東側 北東寄り",
+      "area": "東側 北東寄り",
+      "memberIds": [
+        "budokan-2F-toilet-east-north"
+      ],
+      "x": 882.19,
+      "y": 361.08,
+      "boundary": "budokan-floor-2F 東側 北東寄りの同目的設備だけ。別階・別室・通路反対側へ合体しない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "budokan-2F-aed-sw-group",
+      "diagramId": "budokan-floor-2F",
+      "purpose": "AED",
+      "label": "南西側",
+      "area": "南西側",
+      "memberIds": [
+        "budokan-2F-aed-sw"
+      ],
+      "x": 191.59,
+      "y": 759.23,
+      "boundary": "budokan-floor-2F 南西側の同目的設備だけ。別階・別室・通路反対側へ合体しない。",
+      "visualReview": "source-checked"
+    }
+  ],
+  "meta": {
+    "budokan-outside-toilet-kudanzaka": {
+      "location": "九段坂公園",
+      "detail": "公園の設備です。開放時間・営業状況は施設案内をご確認ください。",
+      "area": "九段坂公園",
+      "accessCondition": "場外・入場前",
+      "url": "https://www.env.go.jp/garden/kokyogaien/2_guide/kitanomarukoen_access.html"
+    },
+    "budokan-outside-information-chiyoda": {
+      "location": "千代田区観光協会",
+      "detail": "公園の設備です。開放時間・営業状況は施設案内をご確認ください。",
+      "area": "千代田区観光協会",
+      "accessCondition": "場外・入場前",
+      "url": "https://www.env.go.jp/garden/kokyogaien/2_guide/kitanomarukoen_access.html"
+    },
+    "budokan-outside-toilet-third-parking": {
+      "location": "第三駐車場付近",
+      "detail": "公園の設備です。開放時間・営業状況は施設案内をご確認ください。",
+      "area": "第三駐車場付近",
+      "accessCondition": "場外・入場前",
+      "url": "https://www.env.go.jp/garden/kokyogaien/2_guide/kitanomarukoen_access.html"
+    },
+    "budokan-outside-toilet-science-north": {
+      "location": "科学技術館北側",
+      "detail": "公園の設備です。開放時間・営業状況は施設案内をご確認ください。",
+      "area": "科学技術館北側",
+      "accessCondition": "場外・入場前",
+      "url": "https://www.env.go.jp/garden/kokyogaien/2_guide/kitanomarukoen_access.html"
+    },
+    "budokan-outside-toilet-takebashi": {
+      "location": "竹橋駅周辺",
+      "detail": "公園の設備です。開放時間・営業状況は施設案内をご確認ください。",
+      "area": "竹橋駅周辺",
+      "accessCondition": "場外・入場前",
+      "url": "https://www.env.go.jp/garden/kokyogaien/2_guide/kitanomarukoen_access.html"
+    },
+    "budokan-outside-toilet-resthouse": {
+      "location": "北の丸休憩所",
+      "detail": "公園の設備です。開放時間・営業状況は施設案内をご確認ください。",
+      "area": "北の丸休憩所",
+      "accessCondition": "場外・入場前",
+      "url": "https://www.env.go.jp/garden/kokyogaien/2_guide/kitanomarukoen_access.html"
+    },
+    "budokan-outside-resthouse-restaurant": {
+      "location": "北の丸休憩所",
+      "detail": "公園の設備です。開放時間・営業状況は施設案内をご確認ください。",
+      "area": "北の丸休憩所",
+      "accessCondition": "場外・入場前",
+      "url": "https://www.env.go.jp/garden/kokyogaien/2_guide/kitanomarukoen_access.html"
+    },
+    "budokan-outside-resthouse-aed": {
+      "location": "北の丸休憩所",
+      "detail": "公園の設備です。開放時間・営業状況は施設案内をご確認ください。",
+      "area": "北の丸休憩所",
+      "accessCondition": "場外・入場前",
+      "url": "https://www.env.go.jp/garden/kokyogaien/2_guide/kitanomarukoen_access.html"
+    },
+    "budokan-outside-toilet-first-parking": {
+      "location": "第一駐車場付近",
+      "detail": "公園の設備です。開放時間・営業状況は施設案内をご確認ください。",
+      "area": "第一駐車場付近",
+      "accessCondition": "場外・入場前",
+      "url": "https://www.env.go.jp/garden/kokyogaien/2_guide/kitanomarukoen_access.html"
+    },
+    "budokan-outside-toilet-park-interior": {
+      "location": "北の丸公園南側",
+      "detail": "公園の設備です。開放時間・営業状況は施設案内をご確認ください。",
+      "area": "北の丸公園南側",
+      "accessCondition": "場外・入場前",
+      "url": "https://www.env.go.jp/garden/kokyogaien/2_guide/kitanomarukoen_access.html"
+    },
+    "budokan-outside-toilet-chidorigafuchi-south": {
+      "location": "千鳥ヶ淵南側",
+      "detail": "公園の設備です。開放時間・営業状況は施設案内をご確認ください。",
+      "area": "千鳥ヶ淵南側",
+      "accessCondition": "場外・入場前",
+      "url": "https://www.env.go.jp/garden/kokyogaien/2_guide/kitanomarukoen_access.html"
+    },
+    "budokan-annex-toilets": {
+      "location": "中道場棟",
+      "detail": "開場前に利用するトイレとして案内されています。係員の指示に従ってください。",
+      "area": "日本武道館敷地内",
+      "accessCondition": "開場前に利用する施設として公式案内あり。",
+      "url": "https://www.nipponbudokan.or.jp/about/concert_caution"
+    },
+    "budokan-restaurant-budo": {
+      "location": "日本武道館敷地内",
+      "detail": "開場前の待ち時間に利用する飲食店として案内されています。",
+      "area": "日本武道館敷地内",
+      "accessCondition": "開場前に利用する施設として公式案内あり。",
+      "url": "https://www.nipponbudokan.or.jp/about/concert_caution"
+    },
+    "budokan-soba-ikemori": {
+      "location": "日本武道館敷地内",
+      "detail": "開場前に利用できる飲食店です。営業日は店舗案内をご確認ください。",
+      "area": "日本武道館敷地内",
+      "accessCondition": "開場前に利用する施設として公式案内あり。",
+      "url": "https://soba-cafe.jp/"
+    },
+    "budokan-1F-toilets-se": {
+      "location": "南東側 トイレ",
+      "detail": "当日の表示・開放に従って利用してください。",
+      "area": "南東側 トイレ",
+      "accessCondition": "当日の開放・利用案内をご確認ください。",
+      "url": "https://www.pac-mice.jp/zennichi/lib/files/taikaiB/2025/seat.pdf"
+    },
+    "budokan-1F-toilets-sw": {
+      "location": "南西側 トイレ",
+      "detail": "当日の表示・開放に従って利用してください。",
+      "area": "南西側 トイレ",
+      "accessCondition": "当日の開放・利用案内をご確認ください。",
+      "url": "https://www.pac-mice.jp/zennichi/lib/files/taikaiB/2025/seat.pdf"
+    },
+    "budokan-1F-toilets-ne": {
+      "location": "北東側 トイレ",
+      "detail": "当日の表示・開放に従って利用してください。",
+      "area": "北東側 トイレ",
+      "accessCondition": "当日の開放・利用案内をご確認ください。",
+      "url": "https://www.pac-mice.jp/zennichi/lib/files/taikaiB/2025/seat.pdf"
+    },
+    "budokan-1F-accessible-ne": {
+      "location": "北東側 トイレ",
+      "detail": "当日の表示・開放に従って利用してください。",
+      "area": "北東側 トイレ",
+      "accessCondition": "当日の開放・利用案内をご確認ください。",
+      "url": "https://www.pac-mice.jp/zennichi/lib/files/taikaiB/2025/seat.pdf"
+    },
+    "budokan-1F-shop-south-1": {
+      "location": "南口ロビー",
+      "detail": "当日の表示・開放に従って利用してください。",
+      "area": "南口ロビー",
+      "accessCondition": "当日の開放・利用案内をご確認ください。",
+      "url": "https://www.pac-mice.jp/zennichi/lib/files/taikaiB/2025/seat.pdf"
+    },
+    "budokan-1F-shop-south-2": {
+      "location": "南口ロビー",
+      "detail": "当日の表示・開放に従って利用してください。",
+      "area": "南口ロビー",
+      "accessCondition": "当日の開放・利用案内をご確認ください。",
+      "url": "https://www.pac-mice.jp/zennichi/lib/files/taikaiB/2025/seat.pdf"
+    },
+    "budokan-1F-shop-east": {
+      "location": "東口ロビー",
+      "detail": "当日の表示・開放に従って利用してください。",
+      "area": "東口ロビー",
+      "accessCondition": "当日の開放・利用案内をご確認ください。",
+      "url": "https://www.pac-mice.jp/zennichi/lib/files/taikaiB/2025/seat.pdf"
+    },
+    "budokan-1F-shop-west-1": {
+      "location": "西口ロビー 北側",
+      "detail": "当日の表示・開放に従って利用してください。",
+      "area": "西口ロビー 北側",
+      "accessCondition": "当日の開放・利用案内をご確認ください。",
+      "url": "https://www.pac-mice.jp/zennichi/lib/files/taikaiB/2025/seat.pdf"
+    },
+    "budokan-1F-shop-west-2": {
+      "location": "西口ロビー 南側",
+      "detail": "当日の表示・開放に従って利用してください。",
+      "area": "西口ロビー 南側",
+      "accessCondition": "当日の開放・利用案内をご確認ください。",
+      "url": "https://www.pac-mice.jp/zennichi/lib/files/taikaiB/2025/seat.pdf"
+    },
+    "budokan-1F-shop-nw-1": {
+      "location": "北西側 北寄り",
+      "detail": "当日の表示・開放に従って利用してください。",
+      "area": "北西側 北寄り",
+      "accessCondition": "当日の開放・利用案内をご確認ください。",
+      "url": "https://www.pac-mice.jp/zennichi/lib/files/taikaiB/2025/seat.pdf"
+    },
+    "budokan-1F-shop-nw-2": {
+      "location": "北西側 西寄り",
+      "detail": "当日の表示・開放に従って利用してください。",
+      "area": "北西側 西寄り",
+      "accessCondition": "当日の開放・利用案内をご確認ください。",
+      "url": "https://www.pac-mice.jp/zennichi/lib/files/taikaiB/2025/seat.pdf"
+    },
+    "budokan-1F-aed-south": {
+      "location": "南口ロビー",
+      "detail": "当日の表示・開放に従って利用してください。",
+      "area": "南口ロビー",
+      "accessCondition": "当日の開放・利用案内をご確認ください。",
+      "url": "https://www.pac-mice.jp/zennichi/lib/files/taikaiB/2025/seat.pdf"
+    },
+    "budokan-1F-aed-north": {
+      "location": "北口ロビー",
+      "detail": "当日の表示・開放に従って利用してください。",
+      "area": "北口ロビー",
+      "accessCondition": "当日の開放・利用案内をご確認ください。",
+      "url": "https://www.pac-mice.jp/zennichi/lib/files/taikaiB/2025/seat.pdf"
+    },
+    "budokan-1F-elevator-north": {
+      "location": "北口ロビー",
+      "detail": "当日の表示・開放に従って利用してください。",
+      "area": "北口ロビー",
+      "accessCondition": "当日の開放・利用案内をご確認ください。",
+      "url": "https://www.pac-mice.jp/zennichi/lib/files/taikaiB/2025/seat.pdf"
+    },
+    "budokan-2F-toilet-south": {
+      "location": "南側",
+      "detail": "男女の割り当ては公演で変更される場合があります。当日の表示をご確認ください。",
+      "area": "南側",
+      "accessCondition": "当日の開放・利用案内をご確認ください。",
+      "url": "https://www.pac-mice.jp/zennichi/lib/files/taikaiB/2025/seat.pdf"
+    },
+    "budokan-2F-toilet-sw": {
+      "location": "南西側",
+      "detail": "男女の割り当ては公演で変更される場合があります。当日の表示をご確認ください。",
+      "area": "南西側",
+      "accessCondition": "当日の開放・利用案内をご確認ください。",
+      "url": "https://www.pac-mice.jp/zennichi/lib/files/taikaiB/2025/seat.pdf"
+    },
+    "budokan-2F-toilet-west-south": {
+      "location": "西側 南西寄り",
+      "detail": "オストメイト設備あり。男女の割り当ては公演で変更される場合があります。当日の表示をご確認ください。",
+      "area": "西側 南西寄り",
+      "accessCondition": "当日の開放・利用案内をご確認ください。",
+      "url": "https://www.pac-mice.jp/zennichi/lib/files/taikaiB/2025/seat.pdf"
+    },
+    "budokan-2F-toilet-west-north": {
+      "location": "西側 北西寄り",
+      "detail": "オストメイト設備あり。男女の割り当ては公演で変更される場合があります。当日の表示をご確認ください。",
+      "area": "西側 北西寄り",
+      "accessCondition": "当日の開放・利用案内をご確認ください。",
+      "url": "https://www.pac-mice.jp/zennichi/lib/files/taikaiB/2025/seat.pdf"
+    },
+    "budokan-2F-toilet-east-south": {
+      "location": "東側 南東寄り",
+      "detail": "男女の割り当ては公演で変更される場合があります。当日の表示をご確認ください。",
+      "area": "東側 南東寄り",
+      "accessCondition": "当日の開放・利用案内をご確認ください。",
+      "url": "https://www.pac-mice.jp/zennichi/lib/files/taikaiB/2025/seat.pdf"
+    },
+    "budokan-2F-toilet-east-north": {
+      "location": "東側 北東寄り",
+      "detail": "男女の割り当ては公演で変更される場合があります。当日の表示をご確認ください。",
+      "area": "東側 北東寄り",
+      "accessCondition": "当日の開放・利用案内をご確認ください。",
+      "url": "https://www.pac-mice.jp/zennichi/lib/files/taikaiB/2025/seat.pdf"
+    },
+    "budokan-2F-aed-sw": {
+      "location": "南西側",
+      "detail": "当日の表示・開放に従って利用してください。",
+      "area": "南西側",
+      "accessCondition": "当日の開放・利用案内をご確認ください。",
+      "url": "https://www.pac-mice.jp/zennichi/lib/files/taikaiB/2025/seat.pdf"
+    },
+    "budokan-1F-nursing-south": {
+      "location": "本館 南側",
+      "detail": "南側の授乳室。利用方法は会場係員へお尋ねください。",
+      "area": "本館 南側",
+      "accessCondition": "当日の開放・利用案内をご確認ください。",
+      "url": "https://mgu-kendo.jp/wp-content/uploads/2024/05/6d9c05b4ec9eee0eeb2b723703590c16-1.pdf"
+    },
+    "budokan-1F-elevator-south": {
+      "location": "本館 南側・授乳室付近",
+      "detail": "南側のEV。利用できる停止階・観覧場所への経路は当日の案内で確認してください。",
+      "area": "本館 南側・授乳室付近",
+      "accessCondition": "当日の開放・利用案内をご確認ください。",
+      "url": "https://mgu-kendo.jp/wp-content/uploads/2024/05/6d9c05b4ec9eee0eeb2b723703590c16-1.pdf"
+    },
+    "budokan-2F-aed-se": {
+      "location": "南東側",
+      "detail": "2階南東側にも設置。緊急時は会場係員へお声がけください。",
+      "area": "南東側",
+      "accessCondition": "当日の開放・利用案内をご確認ください。",
+      "url": "https://www.nipponbudokan.or.jp/pdf/shinkoujigyou/rensei/2025/judo_jisshiYoko.pdf"
+    },
+    "budokan-B2F-aed": {
+      "location": "本館 地下2階 大道場",
+      "detail": "地下2階の設置案内。公演の観客立入区域・救護室とは別です。",
+      "area": "本館 地下2階 大道場",
+      "accessCondition": "当日の開放・利用案内をご確認ください。",
+      "url": "https://www.nipponbudokan.or.jp/pdf/shinkoujigyou/rensei/2025/judo_jisshiYoko.pdf"
+    },
+    "budokan-annex-aed": {
+      "location": "中道場棟",
+      "detail": "中道場棟の地下2階・1階に設置。開放と入場前の利用可否は係員へ確認してください。",
+      "area": "中道場棟",
+      "accessCondition": "入場前に利用できます。改札内では乗車券が必要です。",
+      "url": "https://www.nipponbudokan.or.jp/pdf/shinkoujigyou/rensei/2025/judo_jisshiYoko.pdf"
+    },
+    "budokan-locker-kudanshita-out34-side": {
+      "location": "九段下駅",
+      "detail": "PASMO対応。3・4番出口階段横の設置区域B。",
+      "area": "九段下駅",
+      "accessCondition": "改札外・入場前に利用できます",
+      "url": "https://www.kotsu.metro.tokyo.jp/other/kanren/stores/kudanshita.html",
+      "outsideViewIds": [
+        "park",
+        "kudanshita"
+      ]
+    },
+    "budokan-locker-kudanshita-out34-under": {
+      "location": "九段下駅",
+      "detail": "PASMO対応。3・4番出口階段下の設置区域C。",
+      "area": "九段下駅",
+      "accessCondition": "改札外・入場前に利用できます",
+      "url": "https://www.kotsu.metro.tokyo.jp/other/kanren/stores/kudanshita.html",
+      "outsideViewIds": [
+        "park",
+        "kudanshita"
+      ]
+    },
+    "budokan-locker-kudanshita-inside": {
+      "location": "九段下駅",
+      "detail": "半蔵門線渋谷方面と東西線中野方面ホーム間、自動販売機付近。改札内のため乗車券が必要です。",
+      "area": "九段下駅",
+      "accessCondition": "改札内・乗車券が必要",
+      "url": "https://cloak.ecbo.io/en/jpn/city/tokyo/151?page=9",
+      "outsideViewIds": [
+        "park",
+        "kudanshita"
+      ]
+    },
+    "budokan-locker-kudanshita-exit6": {
+      "location": "九段下駅",
+      "detail": "荷物預かり・予約/ホテル配送対応。サイズ・当日の利用条件は運営案内をご確認ください。改札境界は未確認。",
+      "area": "九段下駅",
+      "accessCondition": "入場前に利用可。改札内外は現地案内で確認してください。",
+      "url": "https://www.tokyometro.jp/station/kudanshita/shop/index.html",
+      "outsideViewIds": [
+        "park",
+        "kudanshita"
+      ]
+    },
+    "budokan-locker-takebashi": {
+      "location": "竹橋駅",
+      "detail": "東西線駅のコインロッカー。設置場所・改札内外・当日の料金は駅案内で確認してください。",
+      "area": "竹橋駅",
+      "accessCondition": "入場前に利用可。改札内外は現地案内で確認してください。",
+      "url": "https://www.tokyometro.jp/station/takebashi/shop/index.html",
+      "outsideViewIds": [
+        "park",
+        "takebashi"
+      ]
+    }
+  },
+  "sourceSymbols": [
+    {
+      "id": "budokan-outside-toilet-kudanzaka",
+      "name": "九段坂公園のトイレ記号",
+      "purpose": "トイレ",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "九段坂公園のトイレ記号",
+      "detail": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。 公演時の利用可否・開放時間・入口は別確認。",
+      "sourceIds": [
+        "park-access-map",
+        "park-access"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "budokan-park-access-native",
+        "x": 213.5,
+        "y": 409.5,
+        "sourceIds": [
+          "park-access-map",
+          "park-access"
+        ],
+        "reference": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。"
+      }
+    },
+    {
+      "id": "budokan-outside-information-chiyoda",
+      "name": "千代田区観光協会の案内記号",
+      "purpose": "案内",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "千代田区観光協会の案内記号",
+      "detail": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。 公演時の利用可否・開放時間・入口は別確認。",
+      "sourceIds": [
+        "park-access-map",
+        "park-access"
+      ],
+      "precision": "diagram-point",
+      "kind": "information",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "budokan-park-access-native",
+        "x": 884.5,
+        "y": 436.0,
+        "sourceIds": [
+          "park-access-map",
+          "park-access"
+        ],
+        "reference": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。"
+      }
+    },
+    {
+      "id": "budokan-outside-toilet-third-parking",
+      "name": "第3駐車場付近のトイレ記号",
+      "purpose": "トイレ",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "第3駐車場付近のトイレ記号",
+      "detail": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。 公演時の利用可否・開放時間・入口は別確認。",
+      "sourceIds": [
+        "park-access-map",
+        "park-access"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "budokan-park-access-native",
+        "x": 300.5,
+        "y": 650.5,
+        "sourceIds": [
+          "park-access-map",
+          "park-access"
+        ],
+        "reference": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。"
+      }
+    },
+    {
+      "id": "budokan-outside-toilet-science-north",
+      "name": "科学技術館北側付近のトイレ記号",
+      "purpose": "トイレ",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "科学技術館北側付近のトイレ記号",
+      "detail": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。 公演時の利用可否・開放時間・入口は別確認。",
+      "sourceIds": [
+        "park-access-map",
+        "park-access"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "budokan-park-access-native",
+        "x": 965.5,
+        "y": 703.5,
+        "sourceIds": [
+          "park-access-map",
+          "park-access"
+        ],
+        "reference": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。"
+      }
+    },
+    {
+      "id": "budokan-outside-toilet-takebashi",
+      "name": "竹橋駅西側付近のトイレ記号",
+      "purpose": "トイレ",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "竹橋駅西側付近のトイレ記号",
+      "detail": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。 公演時の利用可否・開放時間・入口は別確認。",
+      "sourceIds": [
+        "park-access-map",
+        "park-access"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "budokan-park-access-native",
+        "x": 1504.0,
+        "y": 867.5,
+        "sourceIds": [
+          "park-access-map",
+          "park-access"
+        ],
+        "reference": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。"
+      }
+    },
+    {
+      "id": "budokan-outside-toilet-resthouse",
+      "name": "北の丸休憩所のトイレ記号",
+      "purpose": "トイレ",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "北の丸休憩所のトイレ記号",
+      "detail": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。 公演時の利用可否・開放時間・入口は別確認。",
+      "sourceIds": [
+        "park-access-map",
+        "park-access"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "budokan-park-access-native",
+        "x": 468.5,
+        "y": 879.0,
+        "sourceIds": [
+          "park-access-map",
+          "park-access"
+        ],
+        "reference": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。"
+      }
+    },
+    {
+      "id": "budokan-outside-resthouse-restaurant",
+      "name": "北の丸休憩所のレストラン記号",
+      "purpose": "飲食",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "北の丸休憩所のレストラン記号",
+      "detail": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。 公演時の利用可否・開放時間・入口は別確認。",
+      "sourceIds": [
+        "park-access-map",
+        "park-access"
+      ],
+      "precision": "diagram-point",
+      "kind": "restaurant",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "budokan-park-access-native",
+        "x": 573.5,
+        "y": 879.0,
+        "sourceIds": [
+          "park-access-map",
+          "park-access"
+        ],
+        "reference": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。"
+      }
+    },
+    {
+      "id": "budokan-outside-resthouse-aed",
+      "name": "北の丸休憩所のAED設置記号",
+      "purpose": "AED",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "北の丸休憩所のAED設置記号",
+      "detail": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。 公演時の利用可否・開放時間・入口は別確認。",
+      "sourceIds": [
+        "park-access-map",
+        "park-access"
+      ],
+      "precision": "diagram-point",
+      "kind": "aed",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "budokan-park-access-native",
+        "x": 678.5,
+        "y": 879.0,
+        "sourceIds": [
+          "park-access-map",
+          "park-access"
+        ],
+        "reference": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。"
+      }
+    },
+    {
+      "id": "budokan-outside-toilet-first-parking",
+      "name": "第1駐車場付近のトイレ記号",
+      "purpose": "トイレ",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "第1駐車場付近のトイレ記号",
+      "detail": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。 公演時の利用可否・開放時間・入口は別確認。",
+      "sourceIds": [
+        "park-access-map",
+        "park-access"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "budokan-park-access-native",
+        "x": 1023.5,
+        "y": 923.5,
+        "sourceIds": [
+          "park-access-map",
+          "park-access"
+        ],
+        "reference": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。"
+      }
+    },
+    {
+      "id": "budokan-outside-toilet-park-interior",
+      "name": "北の丸公園内・管理事務所南側付近のトイレ記号",
+      "purpose": "トイレ",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "北の丸公園内・管理事務所南側付近のトイレ記号",
+      "detail": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。 公演時の利用可否・開放時間・入口は別確認。",
+      "sourceIds": [
+        "park-access-map",
+        "park-access"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "budokan-park-access-native",
+        "x": 805.0,
+        "y": 1092.0,
+        "sourceIds": [
+          "park-access-map",
+          "park-access"
+        ],
+        "reference": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。"
+      }
+    },
+    {
+      "id": "budokan-outside-toilet-chidorigafuchi-south",
+      "name": "千鳥ヶ淵南側付近のトイレ記号",
+      "purpose": "トイレ",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "千鳥ヶ淵南側付近のトイレ記号",
+      "detail": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。 公演時の利用可否・開放時間・入口は別確認。",
+      "sourceIds": [
+        "park-access-map",
+        "park-access"
+      ],
+      "precision": "diagram-point",
+      "kind": "toilet",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "budokan-park-access-native",
+        "x": 314.5,
+        "y": 1175.0,
+        "sourceIds": [
+          "park-access-map",
+          "park-access"
+        ],
+        "reference": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。"
+      }
+    }
+  ],
+  "pendingSymbols": [
+    {
+      "id": "budokan-outside-police-showakan",
+      "sourceId": "park-access-map",
+      "sourceIds": [
+        "park-access-map",
+        "park-access"
+      ],
+      "diagramId": "budokan-park-access-native",
+      "name": "昭和館付近の交番／警察署記号",
+      "sourceKind": "police",
+      "sourceBBoxPx": [
+        552,
+        208,
+        587,
+        243
+      ],
+      "x": 569.5,
+      "y": 225.5,
+      "pointSemantics": "pictogram-representative-point",
+      "isEntrance": false,
+      "isStationExit": false,
+      "physicalFloor": null,
+      "floorLabelCandidate": "場外",
+      "scopeCandidate": "場外",
+      "measurementErrorPx": 3,
+      "measurementMethod": "visual full-sheet inventory and bounded native JPEG glyph-outline measurement; crop inspection; original image unchanged",
+      "classificationStatus": "confirmed displayed symbol; current event availability unconfirmed",
+      "reference": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。",
+      "checkedAt": "2026-10-01",
+      "facilityPurposeCandidate": null,
+      "facilityKindCandidate": null,
+      "landmarkKindCandidate": null,
+      "appDecision": "C review; no automatic app connection"
+    },
+    {
+      "id": "budokan-outside-parking-third",
+      "sourceId": "park-access-map",
+      "sourceIds": [
+        "park-access-map",
+        "park-access"
+      ],
+      "diagramId": "budokan-park-access-native",
+      "name": "第3駐車場（原図は観光バス専用記号）",
+      "sourceKind": "bus-parking",
+      "sourceBBoxPx": [
+        336,
+        701,
+        382,
+        748
+      ],
+      "x": 359.0,
+      "y": 724.5,
+      "pointSemantics": "pictogram-representative-point",
+      "isEntrance": false,
+      "isStationExit": false,
+      "physicalFloor": null,
+      "floorLabelCandidate": "場外",
+      "scopeCandidate": "場外",
+      "measurementErrorPx": 3,
+      "measurementMethod": "visual full-sheet inventory and bounded native JPEG glyph-outline measurement; crop inspection; original image unchanged",
+      "classificationStatus": "confirmed displayed symbol; current event availability unconfirmed",
+      "reference": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。",
+      "checkedAt": "2026-10-01",
+      "facilityPurposeCandidate": null,
+      "facilityKindCandidate": null,
+      "landmarkKindCandidate": null,
+      "appDecision": "C review; no automatic app connection",
+      "eventQualification": "Bus-only pictogram is retained. Budokan current access notice allows cars for concerts starting one hour before doors; no unconditional car-parking conversion."
+    },
+    {
+      "id": "budokan-outside-parking-first",
+      "sourceId": "park-access-map",
+      "sourceIds": [
+        "park-access-map",
+        "park-access"
+      ],
+      "diagramId": "budokan-park-access-native",
+      "name": "第1駐車場",
+      "sourceKind": "car-parking",
+      "sourceBBoxPx": [
+        1024,
+        827,
+        1070,
+        874
+      ],
+      "x": 1047.0,
+      "y": 850.5,
+      "pointSemantics": "pictogram-representative-point",
+      "isEntrance": false,
+      "isStationExit": false,
+      "physicalFloor": null,
+      "floorLabelCandidate": "場外",
+      "scopeCandidate": "場外",
+      "measurementErrorPx": 3,
+      "measurementMethod": "visual full-sheet inventory and bounded native JPEG glyph-outline measurement; crop inspection; original image unchanged",
+      "classificationStatus": "confirmed displayed symbol; current event availability unconfirmed",
+      "reference": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。",
+      "checkedAt": "2026-10-01",
+      "facilityPurposeCandidate": null,
+      "facilityKindCandidate": null,
+      "landmarkKindCandidate": null,
+      "appDecision": "C review; no automatic app connection"
+    },
+    {
+      "id": "budokan-outside-parking-second",
+      "sourceId": "park-access-map",
+      "sourceIds": [
+        "park-access-map",
+        "park-access"
+      ],
+      "diagramId": "budokan-park-access-native",
+      "name": "第2駐車場",
+      "sourceKind": "car-parking",
+      "sourceBBoxPx": [
+        981,
+        1076,
+        1028,
+        1123
+      ],
+      "x": 1004.5,
+      "y": 1099.5,
+      "pointSemantics": "pictogram-representative-point",
+      "isEntrance": false,
+      "isStationExit": false,
+      "physicalFloor": null,
+      "floorLabelCandidate": "場外",
+      "scopeCandidate": "場外",
+      "measurementErrorPx": 3,
+      "measurementMethod": "visual full-sheet inventory and bounded native JPEG glyph-outline measurement; crop inspection; original image unchanged",
+      "classificationStatus": "confirmed displayed symbol; current event availability unconfirmed",
+      "reference": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。",
+      "checkedAt": "2026-10-01",
+      "facilityPurposeCandidate": null,
+      "facilityKindCandidate": null,
+      "landmarkKindCandidate": null,
+      "appDecision": "C review; no automatic app connection"
+    },
+    {
+      "id": "budokan-outside-boat",
+      "sourceId": "park-access-map",
+      "sourceIds": [
+        "park-access-map",
+        "park-access"
+      ],
+      "diagramId": "budokan-park-access-native",
+      "name": "千鳥ヶ淵のボートのりば記号",
+      "sourceKind": "boat-landing",
+      "sourceBBoxPx": [
+        225,
+        1083,
+        272,
+        1130
+      ],
+      "x": 248.5,
+      "y": 1106.5,
+      "pointSemantics": "pictogram-representative-point",
+      "isEntrance": false,
+      "isStationExit": false,
+      "physicalFloor": null,
+      "floorLabelCandidate": "場外",
+      "scopeCandidate": "場外",
+      "measurementErrorPx": 3,
+      "measurementMethod": "visual full-sheet inventory and bounded native JPEG glyph-outline measurement; crop inspection; original image unchanged",
+      "classificationStatus": "confirmed displayed symbol; current event availability unconfirmed",
+      "reference": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。",
+      "checkedAt": "2026-10-01",
+      "facilityPurposeCandidate": null,
+      "facilityKindCandidate": null,
+      "landmarkKindCandidate": null,
+      "appDecision": "C review; no automatic app connection"
+    },
+    {
+      "id": "budokan-outside-police-inui",
+      "sourceId": "park-access-map",
+      "sourceIds": [
+        "park-access-map",
+        "park-access"
+      ],
+      "diagramId": "budokan-park-access-native",
+      "name": "乾門付近の交番／警察署記号",
+      "sourceKind": "police",
+      "sourceBBoxPx": [
+        994,
+        1195,
+        1029,
+        1230
+      ],
+      "x": 1011.5,
+      "y": 1212.5,
+      "pointSemantics": "pictogram-representative-point",
+      "isEntrance": false,
+      "isStationExit": false,
+      "physicalFloor": null,
+      "floorLabelCandidate": "場外",
+      "scopeCandidate": "場外",
+      "measurementErrorPx": 3,
+      "measurementMethod": "visual full-sheet inventory and bounded native JPEG glyph-outline measurement; crop inspection; original image unchanged",
+      "classificationStatus": "confirmed displayed symbol; current event availability unconfirmed",
+      "reference": "環境省・北の丸公園地区案内図の記号代表点。建物入口・室入口・駅出口・距離計測用点ではない。",
+      "checkedAt": "2026-10-01",
+      "facilityPurposeCandidate": null,
+      "facilityKindCandidate": null,
+      "landmarkKindCandidate": null,
+      "appDecision": "C review; no automatic app connection"
+    }
+  ],
+  "sources": [
+    {
+      "id": "access",
+      "title": "access",
+      "url": "https://www.nipponbudokan.or.jp/about/access",
+      "checkedAt": "2026-10-05",
+      "scope": "独立した部分略図と施設の事実案内。原画像は調査用のみ。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "faq",
+      "title": "faq",
+      "url": "https://www.nipponbudokan.or.jp/qa",
+      "checkedAt": "2026-10-05",
+      "scope": "独立した部分略図と施設の事実案内。原画像は調査用のみ。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "concert-visitors",
+      "title": "concert-visitors",
+      "url": "https://www.nipponbudokan.or.jp/about/concert_caution",
+      "checkedAt": "2026-10-05",
+      "scope": "独立した部分略図と施設の事実案内。原画像は調査用のみ。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "park-access",
+      "title": "park-access",
+      "url": "https://www.env.go.jp/garden/kokyogaien/2_guide/kitanomarukoen_access.html",
+      "checkedAt": "2026-10-05",
+      "scope": "独立した部分略図と施設の事実案内。原画像は調査用のみ。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "park-access-map",
+      "title": "park-access-map",
+      "url": "https://www.env.go.jp/garden/kokyogaien/%E5%8C%97%E3%81%AE%E4%B8%B8%E5%85%AC%E5%9C%92%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9%E3%83%9E%E3%83%83%E3%83%97.jpg",
+      "checkedAt": "2026-10-05",
+      "scope": "独立した部分略図と施設の事実案内。原画像は調査用のみ。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "metro-lockers",
+      "title": "メトロコマース・駅ロッカー設置一覧",
+      "url": "https://www.metocan.co.jp/locker/",
+      "checkedAt": "2026-10-05",
+      "scope": "九段下・竹橋・明治神宮前・代々木公園・渋谷の設置。口数・料金は路線別で同一室数としない。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "eplus-stands",
+      "title": "イープラス・武道館スタンド一覧",
+      "url": "https://eplus.jp/sf/venue/1020080",
+      "checkedAt": "2026-10-05",
+      "scope": "8方向の照合。個別画像403のため番号・全列の根拠にはしない。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "budokan-kendo-2025",
+      "title": "日本武道館・2025剣道錬成大会の印字座席",
+      "url": "https://www.nipponbudokan.or.jp/pdf/shinkoujigyou/rensei/2025/kendo_zaseki_1.pdf",
+      "scope": "1階A-J・2階A-Mの印字。大きい団体割当番号は除外し、空白は別の公演資料で照合。",
+      "checkedAt": "2026-10-06",
+      "usage": "facts-only"
+    },
+    {
+      "id": "budokan-hankyu-2025",
+      "title": "宝塚歌劇・2025日本武道館公演座席図",
+      "url": "https://kageki.hankyu.co.jp/sp/revue/2025/anthem/a7ouvb00000p1pfs-att/seat_budokan.pdf",
+      "scope": "南東/南/南西のN-X、1階H/J/Kを個別読取り。他の公演の使用席は保証しない。",
+      "checkedAt": "2026-10-06",
+      "usage": "facts-only"
+    },
+    {
+      "id": "budokan-judo-2025-seats",
+      "title": "全日本学生柔道連盟・2025座席と館内案内",
+      "url": "https://www.pac-mice.jp/zennichi/lib/files/taikaiB/2025/seat.pdf",
+      "scope": "北側5方向N-Xの小さい印字番号、4/5ページの1F/2F常設設備案内。大会の座席割当・現在地記号は除外。",
+      "checkedAt": "2026-10-06",
+      "usage": "facts-only"
+    },
+    {
+      "id": "budokan-university-2024-floor",
+      "title": "大学剣道大会・武道館1階平面資料",
+      "url": "https://mgu-kendo.jp/wp-content/uploads/2024/05/6d9c05b4ec9eee0eeb2b723703590c16-1.pdf",
+      "scope": "2ページの本館1階授乳室とEVの場所。大会受付・仮設配置・別会場のページは含めない。",
+      "checkedAt": "2026-10-06",
+      "usage": "facts-only"
+    },
+    {
+      "id": "budokan-judo-2025-guide",
+      "title": "日本武道館・2025柔道実施要項",
+      "url": "https://www.nipponbudokan.or.jp/pdf/shinkoujigyou/rensei/2025/judo_jisshiYoko.pdf",
+      "scope": "AEDの設置階/場所。本館B2・1階北/南・2階南東/南西と中道場を分ける。",
+      "checkedAt": "2026-10-06",
+      "usage": "facts-only"
+    },
+    {
+      "id": "budokan-metro-kudanshita",
+      "title": "東京メトロ・九段下駅設備",
+      "url": "https://www.tokyometro.jp/station/kudanshita/shop/index.html",
+      "scope": "東西線/半蔵門線ロッカー、6番出口付近メトロッカー＋。境界が未確認の機械に改札外を推定しない。",
+      "checkedAt": "2026-10-06",
+      "usage": "facts-only"
+    },
+    {
+      "id": "budokan-metro-takebashi",
+      "title": "東京メトロ・竹橋駅設備",
+      "url": "https://www.tokyometro.jp/station/takebashi/shop/index.html",
+      "scope": "東西線駅コインロッカーの存在。精密位置/条件は未掲載。",
+      "checkedAt": "2026-10-06",
+      "usage": "facts-only"
+    },
+    {
+      "id": "budokan-toei-kudanshita",
+      "title": "東京都交通局・九段下駅のロッカー",
+      "url": "https://www.kotsu.metro.tokyo.jp/other/kanren/stores/kudanshita.html",
+      "scope": "B2改札外3・4出口階段横B/階段下Cは別の設置区域。PASMO対応。",
+      "checkedAt": "2026-10-06",
+      "usage": "facts-only"
+    },
+    {
+      "id": "budokan-ecbo-kudanshita",
+      "title": "ecbo・九段下駅ロッカー設置案内",
+      "url": "https://cloak.ecbo.io/en/jpn/city/tokyo/151?page=9",
+      "scope": "改札内半蔵門線/東西線ホーム間の場所案内。公開一覧であり予約機械や料金は推定しない。",
+      "checkedAt": "2026-10-06",
+      "usage": "facts-only"
+    }
+  ],
+  "displayTransform": {
+    "sourceDiagram": "budokan-park-access-native",
+    "rotationDegrees": 11,
+    "center": [
+      1045.5,
+      666.5
+    ],
+    "basis": "approximate north-arrow direction; native points retained in sourceSymbols"
+  },
+  "venuePoint": [
+    498.12,
+    482.17
+  ],
+  "textAssociations": {
+    "budokan-third-parking-toilet-text": "budokan-outside-toilet-third-parking",
+    "budokan-resthouse-behind-toilet-text": "budokan-outside-toilet-resthouse"
+  },
+  "floorFacts": {
+    "sourceId": "budokan-judo-2025-seats",
+    "pages": {
+      "1F": 4,
+      "2F": 5
+    },
+    "readingRenderSize": [
+      1335,
+      1888
+    ],
+    "nativeRenderSize": [
+      1698,
+      2400
+    ],
+    "normalisation": {
+      "1F": {
+        "center": [
+          698,
+          911
+        ],
+        "angleDegrees": 180,
+        "scale": 0.93
+      },
+      "2F": {
+        "center": [
+          665,
+          808
+        ],
+        "angleDegrees": -135,
+        "scale": 0.94
+      }
+    },
+    "points": {
+      "1F": [
+        {
+          "id": "budokan-1F-toilets-se",
+          "readingRenderPoint": [
+            414,
+            660
+          ],
+          "point": [
+            764.12,
+            733.43
+          ]
+        },
+        {
+          "id": "budokan-1F-toilets-sw",
+          "readingRenderPoint": [
+            979,
+            660
+          ],
+          "point": [
+            238.67,
+            733.43
+          ]
+        },
+        {
+          "id": "budokan-1F-toilets-ne",
+          "readingRenderPoint": [
+            414,
+            1164
+          ],
+          "point": [
+            764.12,
+            264.71
+          ]
+        },
+        {
+          "id": "budokan-1F-accessible-ne",
+          "readingRenderPoint": [
+            430,
+            1187
+          ],
+          "point": [
+            749.24,
+            243.32
+          ]
+        },
+        {
+          "id": "budokan-1F-shop-south-1",
+          "readingRenderPoint": [
+            584,
+            507
+          ],
+          "point": [
+            606.02,
+            875.72
+          ]
+        },
+        {
+          "id": "budokan-1F-shop-south-2",
+          "readingRenderPoint": [
+            807,
+            507
+          ],
+          "point": [
+            398.63,
+            875.72
+          ]
+        },
+        {
+          "id": "budokan-1F-shop-east",
+          "readingRenderPoint": [
+            282,
+            829
+          ],
+          "point": [
+            886.88,
+            576.26
+          ]
+        },
+        {
+          "id": "budokan-1F-shop-west-1",
+          "readingRenderPoint": [
+            1110,
+            839
+          ],
+          "point": [
+            116.84,
+            566.96
+          ]
+        },
+        {
+          "id": "budokan-1F-shop-west-2",
+          "readingRenderPoint": [
+            1100,
+            1043
+          ],
+          "point": [
+            126.14,
+            377.24
+          ]
+        },
+        {
+          "id": "budokan-1F-shop-nw-1",
+          "readingRenderPoint": [
+            975,
+            1215
+          ],
+          "point": [
+            242.39,
+            217.28
+          ]
+        },
+        {
+          "id": "budokan-1F-shop-nw-2",
+          "readingRenderPoint": [
+            1046,
+            1150
+          ],
+          "point": [
+            176.36,
+            277.73
+          ]
+        },
+        {
+          "id": "budokan-1F-aed-south",
+          "readingRenderPoint": [
+            753,
+            504
+          ],
+          "point": [
+            448.85,
+            878.51
+          ]
+        },
+        {
+          "id": "budokan-1F-aed-north",
+          "readingRenderPoint": [
+            836,
+            1321
+          ],
+          "point": [
+            371.66,
+            118.7
+          ]
+        },
+        {
+          "id": "budokan-1F-elevator-north",
+          "readingRenderPoint": [
+            610,
+            1340
+          ],
+          "point": [
+            581.84,
+            101.03
+          ]
+        }
+      ],
+      "2F": [
+        {
+          "id": "budokan-2F-toilet-south",
+          "readingRenderPoint": [
+            365,
+            716
+          ],
+          "point": [
+            638.25,
+            760.55
+          ]
+        },
+        {
+          "id": "budokan-2F-toilet-sw",
+          "readingRenderPoint": [
+            470,
+            416
+          ],
+          "point": [
+            369.06,
+            890.17
+          ]
+        },
+        {
+          "id": "budokan-2F-toilet-west-south",
+          "readingRenderPoint": [
+            859,
+            415
+          ],
+          "point": [
+            109.83,
+            632.27
+          ]
+        },
+        {
+          "id": "budokan-2F-toilet-west-north",
+          "readingRenderPoint": [
+            960,
+            715
+          ],
+          "point": [
+            242.1,
+            365.73
+          ]
+        },
+        {
+          "id": "budokan-2F-toilet-east-south",
+          "readingRenderPoint": [
+            375,
+            1097
+          ],
+          "point": [
+            884.85,
+            500.66
+          ]
+        },
+        {
+          "id": "budokan-2F-toilet-east-north",
+          "readingRenderPoint": [
+            482,
+            1200
+          ],
+          "point": [
+            882.19,
+            361.08
+          ]
+        },
+        {
+          "id": "budokan-2F-aed-sw",
+          "readingRenderPoint": [
+            702,
+            381
+          ],
+          "point": [
+            191.59,
+            759.23
+          ]
+        }
+      ]
+    }
+  }
+}

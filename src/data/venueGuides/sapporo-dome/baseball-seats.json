@@ -1,0 +1,6853 @@
+{
+  "diagramId": "sapporo-baseball",
+  "viewBox": [
+    25,
+    195,
+    680,
+    710
+  ],
+  "detailSpan": 155,
+  "blocks": [
+    {
+      "id": "sapporo-baseball-3",
+      "level": "stand",
+      "area": "東側",
+      "label": "東側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M218.657,324.608 L180.559,279.100 C175.191,283.674 169.990,288.441 164.966,293.394 L206.258,335.975 C210.252,332.036 214.386,328.244 218.657,324.608 Z",
+      "box": [
+        164.966,
+        279.1,
+        53.691,
+        56.875
+      ],
+      "center": [
+        191.812,
+        307.538
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-4",
+        "sapporo-baseball-32"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-4",
+      "level": "stand",
+      "area": "東側",
+      "label": "東側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M227.332,301.644 L200.672,263.423 C194.800,267.595 189.086,271.979 183.549,276.571 L221.031,322.596 C222.954,321.003 224.899,319.442 226.875,317.915 L227.332,301.644 Z",
+      "box": [
+        183.549,
+        263.423,
+        43.783,
+        59.173
+      ],
+      "center": [
+        205.441,
+        293.01
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-3",
+        "sapporo-baseball-32"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-5",
+      "level": "stand",
+      "area": "東側",
+      "label": "東北寄り・61番側",
+      "aliases": [
+        "東北寄り・61番側",
+        "103通路周辺 東北寄り・61番側"
+      ],
+      "balcony": false,
+      "path": "M306.384,278.124 L290.872,220.646 C284.006,222.525 277.244,224.651 270.591,227.020 L290.257,283.193 C295.546,281.310 300.924,279.618 306.384,278.124 Z",
+      "box": [
+        270.591,
+        220.646,
+        35.793,
+        62.547
+      ],
+      "center": [
+        288.488,
+        251.919
+      ],
+      "rows": [
+        {
+          "label": "19",
+          "segments": [
+            {
+              "start": 61,
+              "end": 61,
+              "a": [
+                305.347,
+                276.891
+              ],
+              "b": [
+                305.347,
+                276.891
+              ]
+            }
+          ]
+        }
+      ],
+      "neighbors": [
+        "sapporo-baseball-8",
+        "sapporo-baseball-7"
+      ],
+      "numberReference": {
+        "row": "19",
+        "start": 61,
+        "young": [
+          305.996,
+          276.687
+        ],
+        "older": [
+          289.765,
+          281.789
+        ]
+      },
+      "numberLookup": "partial",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat",
+        "mdata"
+      ],
+      "seatNote": "103通路周辺。原図で確認した19・43列の目印です。列の図上位置は参考です。券種名・全列/全番号・当日の使用席は未確定です。数値検索は19列61番の開始側1キーだけ接続。他の列/番号へ補間していません。",
+      "referenceRows": [
+        {
+          "label": "19",
+          "a": [
+            305.996,
+            276.687
+          ],
+          "b": [
+            289.765,
+            281.789
+          ]
+        },
+        {
+          "label": "43",
+          "a": [
+            291.26,
+            222.083
+          ],
+          "b": [
+            271.083,
+            228.424
+          ]
+        }
+      ],
+      "confirmedRowLabels": [
+        "19",
+        "43"
+      ],
+      "rowEdges": {
+        "first": {
+          "a": [
+            305.996,
+            276.687
+          ],
+          "b": [
+            289.765,
+            281.789
+          ]
+        },
+        "last": {
+          "a": [
+            305.996,
+            276.687
+          ],
+          "b": [
+            289.765,
+            281.789
+          ]
+        }
+      },
+      "numberEdgeMiddle": [
+        298.628,
+        249.385
+      ]
+    },
+    {
+      "id": "sapporo-baseball-6",
+      "level": "stand",
+      "area": "東側",
+      "label": "東側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M337.388,271.911 L329.861,212.831 C326.077,213.317 322.323,213.897 318.588,214.528 L328.426,273.260 C331.396,272.757 334.379,272.297 337.388,271.911 Z",
+      "box": [
+        318.588,
+        212.831,
+        18.8,
+        60.429
+      ],
+      "center": [
+        327.988,
+        243.046
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-7",
+        "sapporo-baseball-5"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-7",
+      "level": "stand",
+      "area": "東側",
+      "label": "東側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M326.269,273.620 L315.878,214.980 C308.735,216.258 301.681,217.800 294.730,219.598 L309.454,277.291 C314.981,275.863 320.592,274.637 326.269,273.620 Z",
+      "box": [
+        294.73,
+        214.98,
+        31.539,
+        62.311
+      ],
+      "center": [
+        310.5,
+        246.135
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-6",
+        "sapporo-baseball-5"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-8",
+      "level": "stand",
+      "area": "東側",
+      "label": "東側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M287.646,284.123 L267.306,228.190 C260.389,230.748 253.600,233.572 246.941,236.641 L271.448,290.842 C276.742,288.404 282.142,286.158 287.646,284.123 Z",
+      "box": [
+        246.941,
+        228.19,
+        40.705,
+        62.652
+      ],
+      "center": [
+        267.293,
+        259.516
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-35",
+        "sapporo-baseball-5"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-9",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M151.016,422.164 L95.501,401.778 C93.031,408.610 90.816,415.565 88.853,422.627 L145.726,438.746 C147.288,433.130 149.052,427.600 151.016,422.164 Z",
+      "box": [
+        88.853,
+        401.778,
+        62.163,
+        36.968
+      ],
+      "center": [
+        119.934,
+        420.262
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-11",
+        "sapporo-baseball-10"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-10",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M144.955,441.616 L87.881,426.236 C86.066,433.109 84.493,440.077 83.172,447.141 L141.208,458.240 C142.260,452.625 143.508,447.081 144.955,441.616 Z",
+      "box": [
+        83.172,
+        426.236,
+        61.783,
+        32.004
+      ],
+      "center": [
+        114.064,
+        442.238
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-9",
+        "sapporo-baseball-13"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-11",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M158.469,404.022 L104.878,378.965 C101.883,385.460 99.122,392.085 96.601,398.829 L151.891,419.821 C153.895,414.459 156.088,409.190 158.469,404.022 Z",
+      "box": [
+        96.601,
+        378.965,
+        61.868,
+        40.856
+      ],
+      "center": [
+        127.535,
+        399.393
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-17",
+        "sapporo-baseball-9"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-12",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・101番側",
+      "aliases": [
+        "北側・101番側",
+        "84・86通路間 北側・101番側"
+      ],
+      "balcony": false,
+      "path": "M137.251,498.243 C137.328,492.493 137.609,486.793 138.096,481.149 L79.256,475.948 C78.646,483.043 78.292,490.211 78.195,497.443 L137.251,498.243 Z",
+      "box": [
+        78.195,
+        475.948,
+        59.901,
+        22.295
+      ],
+      "center": [
+        108.145,
+        487.095
+      ],
+      "rows": [
+        {
+          "label": "19",
+          "segments": [
+            {
+              "start": 101,
+              "end": 101,
+              "a": [
+                136.591,
+                481.707
+              ],
+              "b": [
+                136.591,
+                481.707
+              ]
+            }
+          ]
+        }
+      ],
+      "neighbors": [
+        "sapporo-baseball-13",
+        "sapporo-baseball-33"
+      ],
+      "numberReference": {
+        "row": "19",
+        "start": 101,
+        "young": [
+          136.625,
+          481.019
+        ],
+        "older": [
+          135.775,
+          498.223
+        ]
+      },
+      "numberLookup": "partial",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat",
+        "mdata"
+      ],
+      "seatNote": "84・86通路間。原図で確認した19・43列の目印です。列の図上位置は参考です。券種名・全列/全番号・当日の使用席は未確定です。数値検索は19列101番の開始側1キーだけ接続。他の列/番号へ補間していません。",
+      "referenceRows": [
+        {
+          "label": "19",
+          "a": [
+            135.775,
+            498.223
+          ],
+          "b": [
+            136.625,
+            481.019
+          ]
+        },
+        {
+          "label": "43",
+          "a": [
+            79.671,
+            497.463
+          ],
+          "b": [
+            80.727,
+            476.078
+          ]
+        }
+      ],
+      "confirmedRowLabels": [
+        "19",
+        "43"
+      ],
+      "rowEdges": {
+        "first": {
+          "a": [
+            135.775,
+            498.223
+          ],
+          "b": [
+            136.625,
+            481.019
+          ]
+        },
+        "last": {
+          "a": [
+            135.775,
+            498.223
+          ],
+          "b": [
+            136.625,
+            481.019
+          ]
+        }
+      },
+      "numberEdgeMiddle": [
+        108.676,
+        478.548
+      ]
+    },
+    {
+      "id": "sapporo-baseball-13",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M140.669,461.186 L82.492,450.845 C81.252,457.993 80.266,465.229 79.554,472.545 L138.332,478.444 C138.901,472.624 139.680,466.870 140.669,461.186 Z",
+      "box": [
+        79.554,
+        450.845,
+        61.115,
+        27.599
+      ],
+      "center": [
+        110.112,
+        464.645
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-12",
+        "sapporo-baseball-10"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-14",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M178.229,369.361 L129.721,335.377 C125.888,340.931 122.242,346.621 118.786,352.449 L169.532,382.935 C172.279,378.302 175.180,373.777 178.229,369.361 Z",
+      "box": [
+        118.786,
+        335.377,
+        59.443,
+        47.558
+      ],
+      "center": [
+        148.507,
+        359.156
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-15",
+        "sapporo-baseball-17"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-15",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M190.603,353.026 L145.283,314.836 C140.625,320.451 136.170,326.237 131.935,332.198 L179.986,366.832 C183.357,362.094 186.900,357.489 190.603,353.026 Z",
+      "box": [
+        131.935,
+        314.836,
+        58.668,
+        51.996
+      ],
+      "center": [
+        161.269,
+        340.834
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-14",
+        "sapporo-baseball-16"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-16",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M204.124,338.088 L162.282,296.053 C157.122,301.276 152.161,306.703 147.403,312.308 L192.290,351.016 C196.073,346.558 200.016,342.243 204.124,338.088 Z",
+      "box": [
+        147.403,
+        296.053,
+        56.721,
+        54.963
+      ],
+      "center": [
+        175.763,
+        323.534
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-15",
+        "sapporo-baseball-14"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-17",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M167.314,386.753 L115.996,357.248 C112.614,363.214 109.432,369.309 106.468,375.529 L159.735,401.290 C162.094,396.345 164.623,391.497 167.314,386.753 Z",
+      "box": [
+        106.468,
+        357.248,
+        60.846,
+        44.042
+      ],
+      "center": [
+        136.891,
+        379.269
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-11",
+        "sapporo-baseball-14"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-18",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M178.739,634.093 L130.366,668.265 C134.493,674.200 138.834,679.970 143.382,685.566 L189.089,647.850 C185.472,643.402 182.020,638.811 178.739,634.093 Z",
+      "box": [
+        130.366,
+        634.093,
+        58.723,
+        51.473
+      ],
+      "center": [
+        159.728,
+        659.829
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-25",
+        "sapporo-baseball-23"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-19",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M158.676,599.136 L105.140,624.308 C107.878,630.225 110.809,636.036 113.924,641.729 L165.667,612.986 C163.186,608.461 160.857,603.841 158.676,599.136 Z",
+      "box": [
+        105.14,
+        599.136,
+        60.527,
+        42.593
+      ],
+      "center": [
+        135.404,
+        620.433
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-20",
+        "sapporo-baseball-25"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-20",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M150.964,580.402 L95.438,600.749 C97.871,607.490 100.536,614.112 103.437,620.607 L157.325,596.190 C155.017,591.026 152.895,585.760 150.964,580.402 Z",
+      "box": [
+        95.438,
+        580.402,
+        61.887,
+        40.205
+      ],
+      "center": [
+        126.382,
+        600.505
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-19",
+        "sapporo-baseball-24"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-21",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M140.669,541.519 L82.492,551.859 C83.725,558.970 85.217,565.989 86.955,572.913 L144.217,558.263 C142.836,552.755 141.647,547.173 140.669,541.519 Z",
+      "box": [
+        82.492,
+        541.519,
+        61.725,
+        31.394
+      ],
+      "center": [
+        113.355,
+        557.216
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-24",
+        "sapporo-baseball-22"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-22",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M138.081,521.426 L79.240,526.594 C79.860,533.856 80.743,541.037 81.880,548.135 L140.182,538.559 C139.274,532.913 138.572,527.201 138.081,521.426 Z",
+      "box": [
+        79.24,
+        521.426,
+        60.942,
+        26.709
+      ],
+      "center": [
+        109.711,
+        534.781
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-21",
+        "sapporo-baseball-33"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-23",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M191.130,650.317 L145.948,688.665 C150.547,694.167 155.342,699.495 160.325,704.636 L202.567,663.016 C198.602,658.926 194.789,654.690 191.130,650.317 Z",
+      "box": [
+        145.948,
+        650.317,
+        56.619,
+        54.319
+      ],
+      "center": [
+        174.257,
+        677.476
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-18",
+        "sapporo-baseball-30"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-24",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M144.995,561.253 L87.934,576.674 C89.779,583.630 91.877,590.486 94.209,597.228 L149.983,577.596 C148.126,572.235 146.460,566.788 144.995,561.253 Z",
+      "box": [
+        87.934,
+        561.253,
+        62.049,
+        35.975
+      ],
+      "center": [
+        118.959,
+        579.24
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-20",
+        "sapporo-baseball-21"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-25",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M168.746,618.435 L117.801,648.579 C121.201,654.407 124.796,660.107 128.576,665.665 L177.314,632.024 C174.309,627.604 171.451,623.071 168.746,618.435 Z",
+      "box": [
+        117.801,
+        618.435,
+        59.513,
+        47.23
+      ],
+      "center": [
+        147.558,
+        642.05
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-18",
+        "sapporo-baseball-19"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-26",
+      "level": "stand",
+      "area": "西側",
+      "label": "西北寄り・161番側",
+      "aliases": [
+        "西北寄り・161番側",
+        "53・55通路間 西北寄り・161番側"
+      ],
+      "balcony": false,
+      "path": "M288.694,718.963 L268.628,774.991 C275.413,777.461 282.316,779.679 289.326,781.639 L305.150,724.252 C299.577,722.691 294.088,720.930 288.694,718.963 Z",
+      "box": [
+        268.628,
+        718.963,
+        36.522,
+        62.676
+      ],
+      "center": [
+        286.889,
+        750.301
+      ],
+      "rows": [
+        {
+          "label": "19",
+          "segments": [
+            {
+              "start": 161,
+              "end": 161,
+              "a": [
+                288.854,
+                720.577
+              ],
+              "b": [
+                288.854,
+                720.577
+              ]
+            }
+          ]
+        }
+      ],
+      "neighbors": [
+        "sapporo-baseball-27",
+        "sapporo-baseball-50"
+      ],
+      "numberReference": {
+        "row": "19",
+        "start": 161,
+        "young": [
+          288.192,
+          720.364
+        ],
+        "older": [
+          304.754,
+          725.687
+        ]
+      },
+      "numberLookup": "partial",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat",
+        "mdata"
+      ],
+      "seatNote": "53・55通路間。原図で確認した19・43列の目印です。列の図上位置は参考です。券種名・全列/全番号・当日の使用席は未確定です。数値検索は19列161番の開始側1キーだけ接続。他の列/番号へ補間していません。",
+      "referenceRows": [
+        {
+          "label": "19",
+          "a": [
+            288.192,
+            720.364
+          ],
+          "b": [
+            304.754,
+            725.687
+          ]
+        },
+        {
+          "label": "43",
+          "a": [
+            269.13,
+            773.59
+          ],
+          "b": [
+            289.722,
+            780.204
+          ]
+        }
+      ],
+      "confirmedRowLabels": [
+        "19",
+        "43"
+      ],
+      "rowEdges": {
+        "first": {
+          "a": [
+            288.192,
+            720.364
+          ],
+          "b": [
+            304.754,
+            725.687
+          ]
+        },
+        "last": {
+          "a": [
+            288.192,
+            720.364
+          ],
+          "b": [
+            304.754,
+            725.687
+          ]
+        }
+      },
+      "numberEdgeMiddle": [
+        278.661,
+        746.977
+      ]
+    },
+    {
+      "id": "sapporo-baseball-27",
+      "level": "stand",
+      "area": "西側",
+      "label": "西側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M270.149,711.259 L245.313,765.301 C251.799,768.339 258.417,771.137 265.158,773.695 L285.933,717.933 C280.573,715.903 275.309,713.676 270.149,711.259 Z",
+      "box": [
+        245.313,
+        711.259,
+        40.62,
+        62.436
+      ],
+      "center": [
+        265.623,
+        742.477
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-28",
+        "sapporo-baseball-26"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-28",
+      "level": "stand",
+      "area": "西側",
+      "label": "西側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M252.478,702.045 L223.095,753.713 C229.311,757.317 235.682,760.687 242.183,763.828 L267.665,710.090 C262.492,707.594 257.428,704.911 252.478,702.045 Z",
+      "box": [
+        223.095,
+        702.045,
+        44.57,
+        61.783
+      ],
+      "center": [
+        245.38,
+        732.936
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-27",
+        "sapporo-baseball-26"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-29",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M235.353,691.060 L207.778,730.903 C213.488,734.863 219.349,738.614 225.357,742.149 L249.816,700.456 C244.873,697.503 240.049,694.369 235.353,691.060 Z",
+      "box": [
+        207.778,
+        691.06,
+        42.038,
+        51.089
+      ],
+      "center": [
+        228.797,
+        716.604
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-31",
+        "sapporo-baseball-52"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-30",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M204.862,665.366 L170.615,700.089 C175.446,704.851 180.450,709.439 185.614,713.843 L217.151,676.822 C212.921,673.153 208.820,669.332 204.862,665.366 Z",
+      "box": [
+        170.615,
+        665.366,
+        46.536,
+        48.477
+      ],
+      "center": [
+        193.883,
+        689.605
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-31",
+        "sapporo-baseball-23"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-31",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M219.732,679.022 L188.749,716.493 C193.816,720.685 199.032,724.699 204.388,728.531 L232.577,689.057 C228.177,685.860 223.888,682.519 219.732,679.022 Z",
+      "box": [
+        188.749,
+        679.022,
+        43.828,
+        49.509
+      ],
+      "center": [
+        210.663,
+        703.777
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-30",
+        "sapporo-baseball-29"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-32",
+      "level": "stand",
+      "area": "東側",
+      "label": "東側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M221.529,249.924 C215.239,253.622 209.107,257.554 203.135,261.703 L223.456,291.495 L226.923,289.757 L227.195,246.679 C226.357,247.148 225.523,247.618 224.689,248.094 L221.529,249.924 Z",
+      "box": [
+        203.135,
+        246.679,
+        24.06,
+        44.816
+      ],
+      "center": [
+        215.165,
+        269.087
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-4",
+        "sapporo-baseball-35"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-33",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M137.845,518.270 C137.439,512.685 137.214,507.048 137.214,501.358 L137.214,501.354 L78.148,501.354 L78.148,501.360 C78.148,508.515 78.431,515.601 78.945,522.625 L137.845,518.270 Z",
+      "box": [
+        78.148,
+        501.354,
+        59.697,
+        21.271
+      ],
+      "center": [
+        107.996,
+        511.989
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-22",
+        "sapporo-baseball-12"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-35",
+      "level": "stand",
+      "area": "東側",
+      "label": "東側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M236.003,268.282 L253.751,299.952 C254.416,299.572 255.081,299.200 255.749,298.826 C260.042,296.430 264.420,294.172 268.875,292.052 L243.707,238.163 C241.356,239.279 239.026,240.425 236.712,241.604 L236.003,268.282 Z",
+      "box": [
+        236.003,
+        238.163,
+        32.872,
+        61.789
+      ],
+      "center": [
+        252.439,
+        269.058
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-8",
+        "sapporo-baseball-32"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-36",
+      "level": "stand",
+      "area": "西側",
+      "label": "西側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M268.108,674.564 L254.173,699.071 C259.049,701.894 264.036,704.535 269.130,706.995 L278.613,686.991 L268.108,674.564 Z",
+      "box": [
+        254.173,
+        674.564,
+        24.44,
+        32.431
+      ],
+      "center": [
+        266.393,
+        690.779
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-51",
+        "sapporo-baseball-50"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-37",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M226.177,620.566 L193.732,648.108 C197.336,652.418 201.094,656.589 204.999,660.620 L235.468,630.598 L231.146,626.526 L226.177,620.566 Z",
+      "box": [
+        193.732,
+        620.566,
+        41.736,
+        40.054
+      ],
+      "center": [
+        214.6,
+        640.593
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-38",
+        "sapporo-baseball-40"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-38",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M237.203,632.576 L207.262,662.935 C211.156,666.840 215.198,670.606 219.370,674.221 L245.091,644.021 L237.203,632.576 Z",
+      "box": [
+        207.262,
+        632.576,
+        37.829,
+        41.645
+      ],
+      "center": [
+        226.177,
+        653.399
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-37",
+        "sapporo-baseball-49"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-39",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M193.670,564.745 L154.161,579.228 C156.066,584.507 158.156,589.695 160.425,594.784 L198.713,577.439 L193.670,564.745 Z",
+      "box": [
+        154.161,
+        564.745,
+        44.552,
+        30.039
+      ],
+      "center": [
+        176.437,
+        579.764
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-41",
+        "sapporo-baseball-45"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-40",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M216.170,607.651 L181.521,632.123 C184.759,636.774 188.159,641.296 191.721,645.679 L224.476,618.653 L216.170,607.651 Z",
+      "box": [
+        181.521,
+        607.651,
+        42.955,
+        38.028
+      ],
+      "center": [
+        202.998,
+        626.665
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-44",
+        "sapporo-baseball-37"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-41",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M188.801,549.415 L148.280,560.365 C149.728,565.815 151.367,571.185 153.197,576.467 L193.412,562.314 L188.801,549.415 Z",
+      "box": [
+        148.28,
+        549.415,
+        45.132,
+        27.052
+      ],
+      "center": [
+        170.846,
+        562.941
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-39",
+        "sapporo-baseball-43"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-42",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M175.863,518.108 L141.470,521.129 C141.957,526.817 142.644,532.445 143.538,538.003 L180.031,532.009 L179.096,525.642 L175.863,518.108 Z",
+      "box": [
+        141.47,
+        518.108,
+        38.561,
+        19.895
+      ],
+      "center": [
+        160.75,
+        528.055
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-43",
+        "sapporo-baseball-53"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-43",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M182.640,534.059 L144.017,540.923 C144.984,546.495 146.154,551.993 147.513,557.416 L188.373,546.963 L182.640,534.059 Z",
+      "box": [
+        144.017,
+        534.059,
+        44.356,
+        23.357
+      ],
+      "center": [
+        166.195,
+        545.737
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-41",
+        "sapporo-baseball-42"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-44",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M207.388,594.328 L171.012,615.562 C171.234,615.943 171.460,616.319 171.681,616.700 C174.346,621.266 177.158,625.732 180.123,630.088 L215.000,606.015 L207.388,594.328 Z",
+      "box": [
+        171.012,
+        594.328,
+        43.988,
+        35.76
+      ],
+      "center": [
+        193.006,
+        612.208
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-40",
+        "sapporo-baseball-45"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-45",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M197.565,580.851 L161.758,597.685 C163.906,602.322 166.202,606.874 168.646,611.332 C168.901,611.803 169.163,612.274 169.425,612.746 L204.357,593.014 L197.565,580.851 Z",
+      "box": [
+        161.758,
+        580.851,
+        42.599,
+        31.895
+      ],
+      "center": [
+        183.058,
+        596.798
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-39",
+        "sapporo-baseball-44"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-46",
+      "level": "stand",
+      "area": "北側",
+      "label": "北前方・101番側",
+      "aliases": [
+        "北前方・101番側",
+        "84・86通路間 北前方・101番側"
+      ],
+      "balcony": false,
+      "path": "M162.234,483.282 L141.481,481.450 C141.005,487.009 140.728,492.624 140.654,498.290 L167.586,498.653 L162.234,483.282 Z",
+      "box": [
+        140.654,
+        481.45,
+        26.932,
+        17.203
+      ],
+      "center": [
+        154.12,
+        490.051
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-47",
+        "sapporo-baseball-53"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat",
+        "mdata"
+      ],
+      "seatNote": "84・86通路間。原図で確認した6・18列の目印です。公式原図の18〜6列を優先。LiveWalker補助図は前端7列と異なるため6列の追加番号検索は未接続。券種名・全列/全番号・当日の使用席は未確定です。",
+      "referenceRows": [
+        {
+          "label": "6",
+          "a": [
+            166.933,
+            498.223
+          ],
+          "b": [
+            166.913,
+            498.644
+          ]
+        },
+        {
+          "label": "18",
+          "a": [
+            142.134,
+            481.88
+          ],
+          "b": [
+            141.327,
+            498.299
+          ]
+        }
+      ],
+      "confirmedRowLabels": [
+        "6",
+        "18"
+      ]
+    },
+    {
+      "id": "sapporo-baseball-47",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M155.922,463.899 L144.017,461.782 C143.046,467.382 142.274,473.051 141.717,478.785 L161.079,480.726 L155.922,463.899 Z",
+      "box": [
+        141.717,
+        461.782,
+        19.362,
+        18.944
+      ],
+      "center": [
+        151.398,
+        471.254
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-46",
+        "sapporo-baseball-48"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-48",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M149.001,439.675 C148.739,440.613 148.491,441.558 148.243,442.503 C146.819,447.885 145.586,453.347 144.553,458.880 L153.781,460.643 L154.039,458.815 L149.001,439.675 Z",
+      "box": [
+        144.553,
+        439.675,
+        9.486,
+        20.968
+      ],
+      "center": [
+        149.296,
+        450.159
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-47",
+        "sapporo-baseball-10"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-49",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M245.852,647.432 L221.909,676.390 C226.007,679.834 230.229,683.127 234.567,686.276 L255.065,657.569 L250.422,651.369 L245.852,647.432 Z",
+      "box": [
+        221.909,
+        647.432,
+        33.156,
+        38.844
+      ],
+      "center": [
+        238.487,
+        666.854
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-38",
+        "sapporo-baseball-52"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-50",
+      "level": "stand",
+      "area": "西側",
+      "label": "西側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M293.634,705.171 L289.850,715.737 C295.166,717.671 300.574,719.410 306.063,720.949 C306.911,721.185 307.760,721.414 308.609,721.643 L293.634,705.171 Z",
+      "box": [
+        289.85,
+        705.171,
+        18.759,
+        16.472
+      ],
+      "center": [
+        299.23,
+        713.407
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-51",
+        "sapporo-baseball-26"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-51",
+      "level": "stand",
+      "area": "西側",
+      "label": "西側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M280.263,689.258 L271.581,708.147 C276.664,710.528 281.851,712.722 287.129,714.722 L291.725,702.392 L280.263,689.258 Z",
+      "box": [
+        271.581,
+        689.258,
+        20.144,
+        25.464
+      ],
+      "center": [
+        281.653,
+        701.99
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-36",
+        "sapporo-baseball-50"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-52",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M255.741,661.599 L237.299,688.246 C241.924,691.508 246.679,694.595 251.547,697.506 L266.291,672.378 L260.702,664.866 L255.741,661.599 Z",
+      "box": [
+        237.299,
+        661.599,
+        28.992,
+        35.907
+      ],
+      "center": [
+        251.795,
+        679.553
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-49",
+        "sapporo-baseball-38"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-53",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M168.890,501.353 L140.614,501.353 L140.614,501.356 C140.614,506.964 140.839,512.517 141.237,518.021 L172.958,515.674 L172.887,510.435 L168.890,501.353 Z",
+      "box": [
+        140.614,
+        501.353,
+        32.344,
+        16.668
+      ],
+      "center": [
+        156.786,
+        509.687
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-42",
+        "sapporo-baseball-46"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-55",
+      "level": "stand",
+      "area": "東側",
+      "label": "東側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M516.720,326.199 L554.819,280.690 C560.190,285.265 565.391,290.032 570.415,294.986 L529.123,337.568 C525.125,333.627 520.991,329.837 516.720,326.199 Z",
+      "box": [
+        516.72,
+        280.69,
+        53.695,
+        56.878
+      ],
+      "center": [
+        543.567,
+        309.129
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-56",
+        "sapporo-baseball-93"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-56",
+      "level": "stand",
+      "area": "東側",
+      "label": "東側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M507.727,303.236 L534.387,265.016 C540.258,269.189 545.975,273.571 551.514,278.163 L514.029,324.188 C512.106,322.597 510.160,321.035 508.185,319.508 L507.727,303.236 Z",
+      "box": [
+        507.727,
+        265.016,
+        43.787,
+        59.172
+      ],
+      "center": [
+        529.62,
+        294.602
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-55",
+        "sapporo-baseball-93"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-57",
+      "level": "stand",
+      "area": "東側",
+      "label": "東南寄り・181番側",
+      "aliases": [
+        "東南寄り・181番側",
+        "109通路周辺 東南寄り・181番側"
+      ],
+      "balcony": false,
+      "path": "M427.402,278.124 L442.918,220.646 C449.779,222.525 456.546,224.651 463.195,227.020 L443.530,283.193 C438.241,281.310 432.861,279.618 427.402,278.124 Z",
+      "box": [
+        427.402,
+        220.646,
+        35.793,
+        62.547
+      ],
+      "center": [
+        445.298,
+        251.919
+      ],
+      "rows": [
+        {
+          "label": "19",
+          "segments": [
+            {
+              "start": 181,
+              "end": 181,
+              "a": [
+                428.439,
+                276.891
+              ],
+              "b": [
+                428.439,
+                276.891
+              ]
+            }
+          ]
+        }
+      ],
+      "neighbors": [
+        "sapporo-baseball-60",
+        "sapporo-baseball-59"
+      ],
+      "numberReference": {
+        "row": "19",
+        "start": 181,
+        "young": [
+          427.79,
+          276.687
+        ],
+        "older": [
+          444.022,
+          281.789
+        ]
+      },
+      "numberLookup": "partial",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat",
+        "mdata"
+      ],
+      "seatNote": "109通路周辺。原図で確認した19・43列の目印です。列の図上位置は参考です。券種名・全列/全番号・当日の使用席は未確定です。数値検索は19列181番の開始側1キーだけ接続。他の列/番号へ補間していません。",
+      "referenceRows": [
+        {
+          "label": "19",
+          "a": [
+            427.79,
+            276.687
+          ],
+          "b": [
+            444.022,
+            281.789
+          ]
+        },
+        {
+          "label": "43",
+          "a": [
+            442.53,
+            222.083
+          ],
+          "b": [
+            462.703,
+            228.424
+          ]
+        }
+      ],
+      "confirmedRowLabels": [
+        "19",
+        "43"
+      ],
+      "rowEdges": {
+        "first": {
+          "a": [
+            427.79,
+            276.687
+          ],
+          "b": [
+            444.022,
+            281.789
+          ]
+        },
+        "last": {
+          "a": [
+            427.79,
+            276.687
+          ],
+          "b": [
+            444.022,
+            281.789
+          ]
+        }
+      },
+      "numberEdgeMiddle": [
+        435.16,
+        249.385
+      ]
+    },
+    {
+      "id": "sapporo-baseball-58",
+      "level": "stand",
+      "area": "東側",
+      "label": "東側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M396.395,271.911 L403.929,212.831 C407.708,213.317 411.467,213.897 415.199,214.528 L405.365,273.260 C402.390,272.757 399.407,272.297 396.395,271.911 Z",
+      "box": [
+        396.395,
+        212.831,
+        18.804,
+        60.429
+      ],
+      "center": [
+        405.797,
+        243.046
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-59",
+        "sapporo-baseball-57"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-59",
+      "level": "stand",
+      "area": "東側",
+      "label": "東側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M407.514,273.620 L417.908,214.980 C425.051,216.258 432.105,217.800 439.057,219.598 L424.334,277.291 C418.806,275.863 413.198,274.637 407.514,273.620 Z",
+      "box": [
+        407.514,
+        214.98,
+        31.543,
+        62.311
+      ],
+      "center": [
+        423.286,
+        246.135
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-58",
+        "sapporo-baseball-57"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-60",
+      "level": "stand",
+      "area": "東側",
+      "label": "東側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M446.141,284.123 L466.480,228.190 C473.397,230.748 480.189,233.572 486.846,236.641 L462.338,290.842 C457.044,288.404 451.644,286.158 446.141,284.123 Z",
+      "box": [
+        446.141,
+        228.19,
+        40.705,
+        62.652
+      ],
+      "center": [
+        466.494,
+        259.516
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-96",
+        "sapporo-baseball-57"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-61",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M583.313,425.918 L638.828,405.529 C641.297,412.362 643.516,419.317 645.480,426.380 L588.606,442.498 C587.044,436.883 585.280,431.351 583.313,425.918 Z",
+      "box": [
+        583.313,
+        405.529,
+        62.167,
+        36.969
+      ],
+      "center": [
+        614.396,
+        424.014
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-62",
+        "sapporo-baseball-63"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-62",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M589.430,445.370 L646.499,429.991 C648.319,436.862 649.891,443.832 651.211,450.895 L593.173,461.995 C592.124,456.378 590.873,450.836 589.430,445.370 Z",
+      "box": [
+        589.43,
+        429.991,
+        61.781,
+        32.004
+      ],
+      "center": [
+        620.32,
+        445.993
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-61",
+        "sapporo-baseball-65"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-63",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M575.956,406.889 L629.548,381.831 C632.538,388.327 635.301,394.953 637.824,401.696 L582.534,422.687 C580.530,417.323 578.333,412.054 575.956,406.889 Z",
+      "box": [
+        575.956,
+        381.831,
+        61.868,
+        40.856
+      ],
+      "center": [
+        606.89,
+        402.259
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-69",
+        "sapporo-baseball-61"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-64",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M597.174,502.700 C597.096,496.951 596.812,491.250 596.330,485.606 L655.169,480.405 C655.779,487.499 656.133,494.668 656.226,501.899 L597.174,502.700 Z",
+      "box": [
+        596.33,
+        480.405,
+        59.896,
+        22.295
+      ],
+      "center": [
+        626.278,
+        491.552
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-65",
+        "sapporo-baseball-94"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-65",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M593.918,465.005 L652.091,454.665 C653.335,461.812 654.317,469.049 655.033,476.365 L596.255,482.263 C595.687,476.445 594.904,470.688 593.918,465.005 Z",
+      "box": [
+        593.918,
+        454.665,
+        61.115,
+        27.598
+      ],
+      "center": [
+        624.476,
+        468.464
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-62",
+        "sapporo-baseball-64"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-66",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M556.514,372.863 L605.021,338.880 C608.853,344.433 612.504,350.124 615.952,355.950 L565.207,386.438 C562.463,381.806 559.563,377.279 556.514,372.863 Z",
+      "box": [
+        556.514,
+        338.88,
+        59.438,
+        47.558
+      ],
+      "center": [
+        586.233,
+        362.659
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-69",
+        "sapporo-baseball-67"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-67",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M543.822,355.255 L589.140,317.067 C593.800,322.679 598.254,328.467 602.491,334.428 L554.435,369.063 C551.069,364.321 547.525,359.718 543.822,355.255 Z",
+      "box": [
+        543.822,
+        317.067,
+        58.669,
+        51.996
+      ],
+      "center": [
+        573.157,
+        343.065
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-68",
+        "sapporo-baseball-66"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-68",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M530.300,340.318 L572.142,298.280 C577.661,303.890 582.265,308.932 587.022,314.537 L542.135,353.242 C538.352,348.787 534.407,344.470 530.300,340.318 Z",
+      "box": [
+        530.3,
+        298.28,
+        56.722,
+        54.962
+      ],
+      "center": [
+        558.661,
+        325.761
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-67",
+        "sapporo-baseball-66"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-69",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M567.429,389.619 L618.747,360.115 C622.128,366.078 625.310,372.174 628.274,378.394 L575.008,404.156 C572.652,399.211 570.120,394.363 567.429,389.619 Z",
+      "box": [
+        567.429,
+        360.115,
+        60.845,
+        44.041
+      ],
+      "center": [
+        597.851,
+        382.135
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-63",
+        "sapporo-baseball-66"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-70",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M553.457,636.959 L601.833,671.133 C597.702,677.065 593.361,682.837 588.813,688.431 L543.106,650.716 C546.724,646.268 550.171,641.676 553.457,636.959 Z",
+      "box": [
+        543.106,
+        636.959,
+        58.727,
+        51.472
+      ],
+      "center": [
+        572.47,
+        662.695
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-89",
+        "sapporo-baseball-75"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-71",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M573.520,602.639 L627.056,627.811 C624.316,633.729 621.386,639.538 618.271,645.229 L566.527,616.490 C569.009,611.963 571.338,607.342 573.520,602.639 Z",
+      "box": [
+        566.527,
+        602.639,
+        60.529,
+        42.59
+      ],
+      "center": [
+        596.792,
+        623.934
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-72",
+        "sapporo-baseball-89"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-72",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M581.552,584.541 L637.074,604.891 C634.646,611.628 631.977,618.252 629.079,624.745 L575.192,600.332 C577.499,595.164 579.618,589.898 581.552,584.541 Z",
+      "box": [
+        575.192,
+        584.541,
+        61.882,
+        40.204
+      ],
+      "center": [
+        606.133,
+        604.643
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-71",
+        "sapporo-baseball-88"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-73",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M592.165,545.339 L650.341,555.679 C649.105,562.789 647.618,569.809 645.875,576.733 L588.614,562.079 C589.998,556.576 591.183,550.994 592.165,545.339 Z",
+      "box": [
+        588.614,
+        545.339,
+        61.727,
+        31.394
+      ],
+      "center": [
+        619.478,
+        561.036
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-88",
+        "sapporo-baseball-74"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-74",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M594.915,524.930 L653.759,530.098 C653.139,537.360 652.257,544.541 651.117,551.638 L592.819,542.060 C593.723,536.415 594.424,530.703 594.915,524.930 Z",
+      "box": [
+        592.819,
+        524.93,
+        60.94,
+        26.708
+      ],
+      "center": [
+        623.289,
+        538.284
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-94",
+        "sapporo-baseball-73"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-75",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M541.382,653.182 L586.565,691.532 C581.969,697.032 577.171,702.359 572.187,707.501 L529.946,665.881 C533.910,661.790 537.726,657.554 541.382,653.182 Z",
+      "box": [
+        529.946,
+        653.182,
+        56.619,
+        54.319
+      ],
+      "center": [
+        558.255,
+        680.341
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-70",
+        "sapporo-baseball-80"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-76",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M496.524,693.285 L524.099,733.132 C518.390,737.091 512.528,740.842 506.520,744.374 L482.062,702.684 C487.005,699.731 491.829,696.597 496.524,693.285 Z",
+      "box": [
+        482.062,
+        693.285,
+        42.037,
+        51.089
+      ],
+      "center": [
+        503.081,
+        718.829
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-84",
+        "sapporo-baseball-80"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-80",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M527.015,667.593 L561.262,702.317 C556.433,707.080 551.428,711.665 546.264,716.069 L514.727,679.048 C518.957,675.382 523.058,671.559 527.015,667.593 Z",
+      "box": [
+        514.727,
+        667.593,
+        46.535,
+        48.476
+      ],
+      "center": [
+        537.995,
+        691.831
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-84",
+        "sapporo-baseball-75"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-84",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M512.146,681.251 L543.128,718.721 C538.062,722.913 532.846,726.925 527.490,730.759 L499.300,691.285 C503.700,688.088 507.990,684.747 512.146,681.251 Z",
+      "box": [
+        499.3,
+        681.251,
+        43.828,
+        49.508
+      ],
+      "center": [
+        521.214,
+        706.005
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-80",
+        "sapporo-baseball-76"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-88",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M588.643,565.193 L645.701,580.616 C643.856,587.571 641.761,594.426 639.430,601.166 L583.653,581.539 C585.511,576.177 587.174,570.725 588.643,565.193 Z",
+      "box": [
+        583.653,
+        565.193,
+        62.048,
+        35.973
+      ],
+      "center": [
+        614.677,
+        583.179
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-73",
+        "sapporo-baseball-72"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-89",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M564.085,621.303 L615.032,651.443 C611.630,657.274 608.038,662.972 604.258,668.533 L555.516,634.891 C558.525,630.469 561.382,625.934 564.085,621.303 Z",
+      "box": [
+        555.516,
+        621.303,
+        59.516,
+        47.23
+      ],
+      "center": [
+        585.274,
+        644.918
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-70",
+        "sapporo-baseball-71"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-90",
+      "level": "stand",
+      "area": "西側",
+      "label": "西南寄り・61番側",
+      "aliases": [
+        "西南寄り・61番側",
+        "39・41通路間 西南寄り・61番側"
+      ],
+      "balcony": false,
+      "path": "M442.866,718.963 L462.929,774.991 C456.144,777.461 449.245,779.679 442.235,781.639 L426.406,724.252 C431.980,722.691 437.473,720.930 442.866,718.963 Z",
+      "box": [
+        426.406,
+        718.963,
+        36.523,
+        62.676
+      ],
+      "center": [
+        444.668,
+        750.301
+      ],
+      "rows": [
+        {
+          "label": "19",
+          "segments": [
+            {
+              "start": 61,
+              "end": 61,
+              "a": [
+                442.705,
+                720.577
+              ],
+              "b": [
+                442.705,
+                720.577
+              ]
+            }
+          ]
+        }
+      ],
+      "neighbors": [
+        "sapporo-baseball-91",
+        "sapporo-baseball-2453"
+      ],
+      "numberReference": {
+        "row": "19",
+        "start": 61,
+        "young": [
+          443.368,
+          720.364
+        ],
+        "older": [
+          426.802,
+          725.687
+        ]
+      },
+      "numberLookup": "partial",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat",
+        "mdata"
+      ],
+      "seatNote": "39・41通路間。原図で確認した19・43列の目印です。列の図上位置は参考です。券種名・全列/全番号・当日の使用席は未確定です。数値検索は19列61番の開始側1キーだけ接続。他の列/番号へ補間していません。",
+      "referenceRows": [
+        {
+          "label": "19",
+          "a": [
+            443.368,
+            720.364
+          ],
+          "b": [
+            426.802,
+            725.687
+          ]
+        },
+        {
+          "label": "43",
+          "a": [
+            462.427,
+            773.59
+          ],
+          "b": [
+            441.839,
+            780.204
+          ]
+        }
+      ],
+      "confirmedRowLabels": [
+        "19",
+        "43"
+      ],
+      "rowEdges": {
+        "first": {
+          "a": [
+            443.368,
+            720.364
+          ],
+          "b": [
+            426.802,
+            725.687
+          ]
+        },
+        "last": {
+          "a": [
+            443.368,
+            720.364
+          ],
+          "b": [
+            426.802,
+            725.687
+          ]
+        }
+      },
+      "numberEdgeMiddle": [
+        452.897,
+        746.977
+      ]
+    },
+    {
+      "id": "sapporo-baseball-91",
+      "level": "stand",
+      "area": "西側",
+      "label": "西側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M461.408,712.071 L486.248,766.113 C479.758,769.151 473.143,771.953 466.402,774.504 L445.627,718.745 C450.987,716.715 456.247,714.487 461.408,712.071 Z",
+      "box": [
+        445.627,
+        712.071,
+        40.621,
+        62.433
+      ],
+      "center": [
+        465.938,
+        743.288
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-92",
+        "sapporo-baseball-90"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-92",
+      "level": "stand",
+      "area": "西側",
+      "label": "西側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M478.444,703.638 L507.830,755.305 C501.611,758.911 495.240,762.282 488.739,765.419 L463.257,711.681 C468.429,709.184 473.494,706.505 478.444,703.638 Z",
+      "box": [
+        463.257,
+        703.638,
+        44.573,
+        61.781
+      ],
+      "center": [
+        485.543,
+        734.529
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-91",
+        "sapporo-baseball-90"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-93",
+      "level": "stand",
+      "area": "東側",
+      "label": "東側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M512.578,251.516 C518.865,255.212 525.000,259.146 530.972,263.296 L510.647,293.087 L507.182,291.350 L506.908,248.272 C507.746,248.740 508.583,249.210 509.418,249.687 L512.578,251.516 Z",
+      "box": [
+        506.908,
+        248.272,
+        24.064,
+        44.815
+      ],
+      "center": [
+        518.94,
+        270.679
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-56",
+        "sapporo-baseball-96"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-94",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・101番側",
+      "aliases": [
+        "南側・101番側",
+        "10・12通路間 南側・101番側"
+      ],
+      "balcony": false,
+      "path": "M595.941,522.410 C596.347,516.823 596.576,511.188 596.576,505.497 L596.576,505.492 L655.638,505.492 L655.638,505.498 C655.638,512.653 655.355,519.740 654.845,526.766 L595.941,522.410 Z",
+      "box": [
+        595.941,
+        505.492,
+        59.697,
+        21.274
+      ],
+      "center": [
+        625.79,
+        516.129
+      ],
+      "rows": [
+        {
+          "label": "19",
+          "segments": [
+            {
+              "start": 101,
+              "end": 101,
+              "a": [
+                597.44,
+                521.838
+              ],
+              "b": [
+                597.44,
+                521.838
+              ]
+            }
+          ]
+        }
+      ],
+      "neighbors": [
+        "sapporo-baseball-74",
+        "sapporo-baseball-64"
+      ],
+      "numberReference": {
+        "row": "19",
+        "start": 101,
+        "young": [
+          597.414,
+          522.519
+        ],
+        "older": [
+          598.053,
+          505.497
+        ]
+      },
+      "numberLookup": "partial",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat",
+        "mdata"
+      ],
+      "seatNote": "10・12通路間。原図で確認した19・43列の目印です。列の図上位置は参考です。券種名・全列/全番号・当日の使用席は未確定です。数値検索は19列101番の開始側1キーだけ接続。他の列/番号へ補間していません。",
+      "referenceRows": [
+        {
+          "label": "19",
+          "a": [
+            597.414,
+            522.519
+          ],
+          "b": [
+            598.053,
+            505.497
+          ]
+        },
+        {
+          "label": "43",
+          "a": [
+            653.372,
+            526.657
+          ],
+          "b": [
+            654.161,
+            505.492
+          ]
+        }
+      ],
+      "confirmedRowLabels": [
+        "19",
+        "43"
+      ],
+      "rowEdges": {
+        "first": {
+          "a": [
+            597.414,
+            522.519
+          ],
+          "b": [
+            598.053,
+            505.497
+          ]
+        },
+        "last": {
+          "a": [
+            597.414,
+            522.519
+          ],
+          "b": [
+            598.053,
+            505.497
+          ]
+        }
+      },
+      "numberEdgeMiddle": [
+        625.393,
+        524.588
+      ]
+    },
+    {
+      "id": "sapporo-baseball-96",
+      "level": "stand",
+      "area": "東側",
+      "label": "東側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M497.783,268.282 L480.035,299.952 C479.374,299.572 478.706,299.200 478.041,298.826 C473.744,296.430 469.367,294.172 464.911,292.052 L490.078,238.163 C492.431,239.279 494.760,240.425 497.074,241.604 L497.783,268.282 Z",
+      "box": [
+        464.911,
+        238.163,
+        32.872,
+        61.789
+      ],
+      "center": [
+        481.347,
+        269.058
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-60",
+        "sapporo-baseball-93"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-97",
+      "level": "stand",
+      "area": "西側",
+      "label": "西側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M463.767,675.519 L477.706,700.026 C472.829,702.850 467.841,705.491 462.748,707.948 L453.265,687.949 L463.767,675.519 Z",
+      "box": [
+        453.265,
+        675.519,
+        24.441,
+        32.429
+      ],
+      "center": [
+        465.486,
+        691.734
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-112",
+        "sapporo-baseball-111"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-98",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M506.015,622.477 L538.463,650.016 C534.864,654.327 531.102,658.501 527.200,662.529 L496.727,632.506 L501.049,628.435 L506.015,622.477 Z",
+      "box": [
+        496.727,
+        622.477,
+        41.736,
+        40.052
+      ],
+      "center": [
+        517.595,
+        642.503
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-99",
+        "sapporo-baseball-101"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-99",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M494.675,634.489 L524.616,664.844 C520.718,668.752 516.679,672.517 512.511,676.130 L486.786,645.932 L494.675,634.489 Z",
+      "box": [
+        486.786,
+        634.489,
+        37.83,
+        41.641
+      ],
+      "center": [
+        505.701,
+        655.31
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-98",
+        "sapporo-baseball-110"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-100",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M538.842,567.929 L578.351,582.414 C576.447,587.692 574.357,592.879 572.086,597.969 L533.803,580.620 L538.842,567.929 Z",
+      "box": [
+        533.803,
+        567.929,
+        44.548,
+        30.04
+      ],
+      "center": [
+        556.077,
+        582.949
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-106",
+        "sapporo-baseball-102"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-101",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M515.709,609.878 L550.353,634.353 C547.118,638.999 543.719,643.525 540.156,647.907 L507.400,620.883 L515.709,609.878 Z",
+      "box": [
+        507.4,
+        609.878,
+        42.953,
+        38.029
+      ],
+      "center": [
+        528.876,
+        628.893
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-98",
+        "sapporo-baseball-105"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-102",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M543.394,552.280 L583.914,563.232 C582.468,568.682 580.829,574.050 579.000,579.331 L538.784,565.179 L543.394,552.280 Z",
+      "box": [
+        538.784,
+        552.28,
+        45.13,
+        27.051
+      ],
+      "center": [
+        561.349,
+        565.805
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-104",
+        "sapporo-baseball-100"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-103",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M556.967,520.974 L591.361,523.995 C590.876,529.682 590.186,535.311 589.297,540.870 L552.804,534.875 L553.733,528.506 L556.967,520.974 Z",
+      "box": [
+        552.804,
+        520.974,
+        38.557,
+        19.896
+      ],
+      "center": [
+        572.082,
+        530.922
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-114",
+        "sapporo-baseball-104"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-104",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M549.876,536.924 L588.495,543.788 C587.529,549.359 586.362,554.860 584.999,560.282 L544.140,549.828 L549.876,536.924 Z",
+      "box": [
+        544.14,
+        536.924,
+        44.355,
+        23.358
+      ],
+      "center": [
+        566.317,
+        548.603
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-102",
+        "sapporo-baseball-103"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-105",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M525.129,596.877 L561.501,618.110 C561.283,618.490 561.054,618.866 560.833,619.247 C558.167,623.813 555.354,628.278 552.390,632.635 L517.518,608.562 L525.129,596.877 Z",
+      "box": [
+        517.518,
+        596.877,
+        43.983,
+        35.758
+      ],
+      "center": [
+        539.51,
+        614.756
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-101",
+        "sapporo-baseball-106"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-106",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M534.634,583.080 L570.433,599.913 C568.289,604.552 565.993,609.102 563.553,613.562 C563.294,614.037 563.033,614.503 562.771,614.976 L527.842,595.241 L534.634,583.080 Z",
+      "box": [
+        527.842,
+        583.08,
+        42.591,
+        31.896
+      ],
+      "center": [
+        549.137,
+        599.028
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-100",
+        "sapporo-baseball-105"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-107",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M571.024,485.985 L591.777,484.150 C592.253,489.711 592.533,495.325 592.606,500.991 L565.672,501.356 L571.024,485.985 Z",
+      "box": [
+        565.672,
+        484.15,
+        26.934,
+        17.206
+      ],
+      "center": [
+        579.139,
+        492.753
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-108",
+        "sapporo-baseball-114"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-108",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M577.229,466.445 L589.131,464.330 C590.101,469.930 590.873,475.598 591.434,481.330 L572.073,483.272 L577.229,466.445 Z",
+      "box": [
+        572.073,
+        464.33,
+        19.361,
+        18.942
+      ],
+      "center": [
+        581.754,
+        473.801
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-107",
+        "sapporo-baseball-109"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-109",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M584.151,442.540 C584.413,443.479 584.660,444.422 584.911,445.367 C586.332,450.752 587.565,456.212 588.598,461.744 L579.367,463.509 L579.116,461.679 L584.151,442.540 Z",
+      "box": [
+        579.116,
+        442.54,
+        9.482,
+        20.969
+      ],
+      "center": [
+        583.857,
+        453.025
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-108",
+        "sapporo-baseball-62"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-110",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M485.708,649.343 L509.647,678.298 C505.554,681.746 501.326,685.035 496.993,688.187 L476.491,659.480 L481.139,653.282 L485.708,649.343 Z",
+      "box": [
+        476.491,
+        649.343,
+        33.156,
+        38.844
+      ],
+      "center": [
+        493.069,
+        668.765
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-113",
+        "sapporo-baseball-99"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-111",
+      "level": "stand",
+      "area": "西側",
+      "label": "西側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M438.245,705.809 L442.028,716.375 C436.713,718.309 431.305,720.048 425.814,721.584 C424.966,721.820 424.117,722.052 423.264,722.281 L438.245,705.809 Z",
+      "box": [
+        423.264,
+        705.809,
+        18.764,
+        16.472
+      ],
+      "center": [
+        432.646,
+        714.045
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-112",
+        "sapporo-baseball-2453"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-112",
+      "level": "stand",
+      "area": "西側",
+      "label": "西側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M451.294,690.533 L459.978,709.421 C454.893,711.802 449.710,713.994 444.428,715.995 L439.835,703.666 L451.294,690.533 Z",
+      "box": [
+        439.835,
+        690.533,
+        20.143,
+        25.462
+      ],
+      "center": [
+        449.906,
+        703.264
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-97",
+        "sapporo-baseball-111"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-113",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M476.775,662.554 L495.214,689.203 C490.589,692.462 485.836,695.550 480.965,698.461 L466.225,673.329 L471.809,665.817 L476.775,662.554 Z",
+      "box": [
+        466.225,
+        662.554,
+        28.989,
+        35.907
+      ],
+      "center": [
+        480.72,
+        680.507
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-110",
+        "sapporo-baseball-99"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-114",
+      "level": "stand",
+      "area": "南側",
+      "label": "南前方・101番側",
+      "aliases": [
+        "南前方・101番側",
+        "10・12通路間 南前方・101番側"
+      ],
+      "balcony": false,
+      "path": "M564.579,504.856 L592.856,504.856 L592.856,504.860 C592.856,510.468 592.630,516.019 592.232,521.524 L560.510,519.178 L560.585,513.938 L564.579,504.856 Z",
+      "box": [
+        560.51,
+        504.856,
+        32.346,
+        16.668
+      ],
+      "center": [
+        576.683,
+        513.19
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-103",
+        "sapporo-baseball-107"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat",
+        "mdata"
+      ],
+      "seatNote": "10・12通路間。原図で確認した6・18列の目印です。公式原図の18〜6列を優先。LiveWalker補助図は前端7列と異なるため6列の追加番号検索は未接続。券種名・全列/全番号・当日の使用席は未確定です。",
+      "referenceRows": [
+        {
+          "label": "6",
+          "a": [
+            561.319,
+            518.82
+          ],
+          "b": [
+            561.303,
+            519.237
+          ]
+        },
+        {
+          "label": "18",
+          "a": [
+            592.047,
+            505.218
+          ],
+          "b": [
+            591.439,
+            521.465
+          ]
+        }
+      ],
+      "confirmedRowLabels": [
+        "6",
+        "18"
+      ]
+    },
+    {
+      "id": "sapporo-baseball-116",
+      "level": "stand",
+      "area": "西側",
+      "label": "西側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M349.134,843.193 L348.148,862.148 L346.439,861.935 L345.675,875.456 L321.976,872.964 L325.379,854.737 L323.335,854.614 L324.165,851.820 L321.234,851.879 L322.715,840.517 L332.201,841.486 L331.422,849.166 L339.189,849.511 L339.750,842.461 L349.134,843.193 Z",
+      "box": [
+        321.234,
+        840.517,
+        27.9,
+        34.939
+      ],
+      "center": [
+        335.184,
+        857.987
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-141",
+        "sapporo-baseball-117"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-117",
+      "level": "stand",
+      "area": "西側",
+      "label": "西側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M351.330,800.908 L349.277,840.443 L323.031,838.088 L328.167,798.649 L333.729,799.236 L332.618,808.930 L344.988,810.144 L345.694,800.176 L351.330,800.908 Z",
+      "box": [
+        323.031,
+        798.649,
+        28.299,
+        41.794
+      ],
+      "center": [
+        337.18,
+        819.546
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-142",
+        "sapporo-baseball-119"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-119",
+      "level": "stand",
+      "area": "西側",
+      "label": "西側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M318.392,850.480 L325.320,800.623 L302.382,796.309 L291.740,844.973 L318.392,850.480 Z",
+      "box": [
+        291.74,
+        796.309,
+        33.58,
+        54.171
+      ],
+      "center": [
+        308.53,
+        823.394
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-120",
+        "sapporo-baseball-117"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-120",
+      "level": "stand",
+      "area": "西側",
+      "label": "西側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M282.696,849.458 L283.098,846.964 L284.545,847.036 L285.081,844.790 L287.853,845.360 L299.809,793.327 L294.523,791.839 L292.068,801.683 L286.052,799.882 Z",
+      "box": [
+        282.696,
+        791.839,
+        17.113,
+        57.619
+      ],
+      "center": [
+        291.253,
+        820.649
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-119",
+        "sapporo-baseball-121"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-121",
+      "level": "stand",
+      "area": "西側",
+      "label": "西側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M286.051,799.882 L280.488,798.213 L283.242,788.756 L277.745,786.844 L259.458,845.408 L261.371,845.773 L257.354,858.886 L280.134,865.552 L282.695,849.458 Z",
+      "box": [
+        257.354,
+        786.844,
+        28.697,
+        78.708
+      ],
+      "center": [
+        271.702,
+        826.198
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-120",
+        "sapporo-baseball-122"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-122",
+      "level": "stand",
+      "area": "西側",
+      "label": "西側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M274.800,786.615 L252.814,778.288 L229.658,834.504 L231.832,835.718 L226.760,848.277 L249.953,857.198 L254.235,844.164 L256.081,844.604 L274.800,786.615 Z",
+      "box": [
+        226.76,
+        778.288,
+        48.04,
+        78.91
+      ],
+      "center": [
+        250.78,
+        817.743
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-121",
+        "sapporo-baseball-123"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-123",
+      "level": "stand",
+      "area": "西側",
+      "label": "西側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M250.403,776.988 L226.586,833.330 L224.615,832.665 L219.476,844.633 L205.312,838.254 L206.575,835.622 L198.587,831.979 L203.618,822.097 L201.437,821.123 L229.351,767.173 L234.493,769.439 L230.363,778.187 L241.503,783.776 L245.597,774.551 L250.403,776.988 Z",
+      "box": [
+        198.587,
+        767.173,
+        51.816,
+        77.46
+      ],
+      "center": [
+        224.495,
+        805.903
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-122",
+        "sapporo-baseball-124"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-124",
+      "level": "stand",
+      "area": "西側",
+      "label": "西側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M226.793,766.116 L198.310,819.937 L196.587,818.845 L191.456,828.413 L170.285,816.017 L177.499,804.475 L175.398,803.304 L207.277,754.131 L226.793,766.116 Z",
+      "box": [
+        170.285,
+        754.131,
+        56.508,
+        74.282
+      ],
+      "center": [
+        198.539,
+        791.272
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-123",
+        "sapporo-baseball-122"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-125",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M194.556,757.711 L200.075,749.502 L204.427,752.463 L172.519,801.780 L171.193,800.735 L164.733,809.542 L142.448,794.577 L185.597,738.952 L190.506,742.322 L184.500,750.528 L194.556,757.711 Z",
+      "box": [
+        142.448,
+        738.952,
+        61.979,
+        70.59
+      ],
+      "center": [
+        173.438,
+        774.247
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-126",
+        "sapporo-baseball-127"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-126",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M183.172,736.991 L141.843,789.997 L120.244,771.595 L165.530,721.979 L183.172,736.991 Z",
+      "box": [
+        120.244,
+        721.979,
+        62.928,
+        68.018
+      ],
+      "center": [
+        151.708,
+        755.988
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-125",
+        "sapporo-baseball-127"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-127",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M159.768,716.057 L163.633,720.255 L119.488,767.800 L99.429,747.102 L147.225,703.525 L151.267,707.569 L144.202,714.324 L152.728,723.356 L159.768,716.057 Z",
+      "box": [
+        99.429,
+        703.525,
+        64.204,
+        64.275
+      ],
+      "center": [
+        131.531,
+        735.663
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-128",
+        "sapporo-baseball-126"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-128",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M134.261,680.254 L148.816,697.636 L96.442,745.231 L89.709,735.936 L91.866,734.108 L84.896,725.866 L86.885,724.282 L82.909,719.745 L134.261,680.254 Z",
+      "box": [
+        82.909,
+        680.254,
+        65.907,
+        64.977
+      ],
+      "center": [
+        115.863,
+        712.743
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-127",
+        "sapporo-baseball-129"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-129",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M128.668,681.148 L125.568,676.549 L117.587,682.342 L110.451,672.167 L118.092,666.752 L115.250,662.240 L69.311,691.613 L72.618,696.978 L70.802,698.184 L78.244,709.490 L75.309,711.604 L79.362,718.358 L128.668,681.148 Z",
+      "box": [
+        69.311,
+        662.24,
+        59.357,
+        56.118
+      ],
+      "center": [
+        98.99,
+        690.299
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-130",
+        "sapporo-baseball-128"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-130",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M112.238,646.971 L117.882,657.302 L67.151,688.243 L65.692,685.242 L67.535,684.120 L62.906,675.179 L112.238,646.971 Z",
+      "box": [
+        62.906,
+        646.971,
+        54.976,
+        41.272
+      ],
+      "center": [
+        90.394,
+        667.607
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-131",
+        "sapporo-baseball-129"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-131",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M110.928,644.944 L63.810,672.240 L58.601,663.183 L60.609,662.134 L60.240,661.082 L106.789,637.143 L110.928,644.944 Z",
+      "box": [
+        58.601,
+        637.143,
+        52.327,
+        35.097
+      ],
+      "center": [
+        84.764,
+        654.692
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-130",
+        "sapporo-baseball-132"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-132",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M88.879,634.160 L102.256,627.770 L105.010,634.758 L58.639,658.379 L55.807,652.034 L58.222,650.865 L53.416,640.919 L55.900,639.817 L51.946,631.798 L95.712,613.673 L98.801,620.716 L85.254,626.746 L88.879,634.160 Z",
+      "box": [
+        51.946,
+        613.673,
+        53.064,
+        44.706
+      ],
+      "center": [
+        78.478,
+        636.026
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-131",
+        "sapporo-baseball-133"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-133",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M94.357,611.208 L86.786,589.496 L48.672,601.488 L51.286,608.501 L48.986,609.280 L52.507,619.143 L50.119,620.040 L53.065,627.855 L94.357,611.208 Z",
+      "box": [
+        48.672,
+        589.496,
+        45.685,
+        38.359
+      ],
+      "center": [
+        71.514,
+        608.675
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-134",
+        "sapporo-baseball-132"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-134",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M85.719,586.910 L84.010,579.579 L69.521,583.584 L67.569,575.395 L81.625,571.916 L79.727,564.681 L48.481,571.569 L49.839,576.559 L47.380,577.143 L49.772,587.291 L47.521,587.904 L50.248,597.704 L85.719,586.910 Z",
+      "box": [
+        47.38,
+        564.681,
+        38.339,
+        33.023
+      ],
+      "center": [
+        66.549,
+        581.192
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-135",
+        "sapporo-baseball-133"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-135",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M79.584,561.637 L75.386,539.557 L50.916,542.764 L51.345,545.032 L48.643,545.407 L50.551,554.625 L48.114,555.035 L50.189,567.807 L79.584,561.637 Z",
+      "box": [
+        48.114,
+        539.557,
+        31.47,
+        28.25
+      ],
+      "center": [
+        63.849,
+        553.682
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-136",
+        "sapporo-baseball-134"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-136",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M75.531,536.466 L75.066,529.097 L59.625,530.564 L58.830,521.990 L73.792,520.988 L73.158,513.778 L53.098,514.626 L53.464,521.573 L51.349,522.491 L52.441,533.542 L49.754,533.816 L50.230,539.512 L75.531,536.466 Z",
+      "box": [
+        49.754,
+        513.778,
+        25.777,
+        25.734
+      ],
+      "center": [
+        62.642,
+        526.645
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-135",
+        "sapporo-baseball-137"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-137",
+      "level": "stand",
+      "area": "北側",
+      "label": "北後方・111番側",
+      "aliases": [
+        "北後方・111番側",
+        "83・85通路周辺 北後方・111番側"
+      ],
+      "balcony": false,
+      "path": "M73.202,510.786 L73.202,487.711 L60.348,487.106 L60.478,488.818 L58.015,488.719 L58.380,499.777 L55.361,499.763 L55.372,511.614 L73.202,510.786 Z",
+      "box": [
+        55.361,
+        487.106,
+        17.841,
+        24.508
+      ],
+      "center": [
+        64.281,
+        499.36
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-138",
+        "sapporo-baseball-136"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat",
+        "mdata"
+      ],
+      "seatNote": "83・85通路周辺。原図で確認した44・51列の目印です。列の図上位置は参考です。券種名・全列/全番号・当日の使用席は未確定です。",
+      "referenceRows": [
+        {
+          "label": "44",
+          "a": [
+            72.756,
+            510.807
+          ],
+          "b": [
+            72.756,
+            488.309
+          ]
+        },
+        {
+          "label": "51",
+          "a": [
+            55.818,
+            511.593
+          ],
+          "b": [
+            55.818,
+            511.016
+          ]
+        }
+      ],
+      "confirmedRowLabels": [
+        "44",
+        "51"
+      ]
+    },
+    {
+      "id": "sapporo-baseball-138",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M73.073,484.709 L75.454,461.926 L67.709,460.880 L67.432,465.465 L64.542,465.117 L64.080,476.539 L61.164,476.301 L60.610,484.003 L73.073,484.709 Z",
+      "box": [
+        60.61,
+        460.88,
+        14.844,
+        23.829
+      ],
+      "center": [
+        68.032,
+        472.794
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-139",
+        "sapporo-baseball-137"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-139",
+      "level": "stand",
+      "area": "北側",
+      "label": "北側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M75.863,458.888 L79.761,436.701 L76.848,436.045 L76.125,441.482 L73.774,440.999 L70.979,453.558 L68.698,453.190 L67.971,457.739 L75.863,458.888 Z",
+      "box": [
+        67.971,
+        436.045,
+        11.79,
+        22.843
+      ],
+      "center": [
+        73.866,
+        447.466
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-138",
+        "sapporo-baseball-13"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-141",
+      "level": "stand",
+      "area": "西側",
+      "label": "西外周後方・1番側",
+      "aliases": [
+        "西外周後方・1番側",
+        "46・48通路間 西外周後方・1番側"
+      ],
+      "balcony": false,
+      "path": "M379.119,843.902 L379.924,862.510 L377.605,862.861 L378.082,875.737 L353.091,875.511 L353.563,862.636 L351.245,862.289 L352.050,843.681 L379.119,843.902 Z",
+      "box": [
+        351.245,
+        843.681,
+        28.679,
+        32.056
+      ],
+      "center": [
+        365.584,
+        859.709
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-143",
+        "sapporo-baseball-116"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat",
+        "mdata"
+      ],
+      "seatNote": "46・48通路間。原図で確認した63・76列の目印です。列の図上位置は参考です。券種名・全列/全番号・当日の使用席は未確定です。",
+      "referenceRows": [
+        {
+          "label": "63",
+          "a": [
+            352.076,
+            844.477
+          ],
+          "b": [
+            379.093,
+            844.698
+          ]
+        },
+        {
+          "label": "76",
+          "a": [
+            353.065,
+            874.715
+          ],
+          "b": [
+            378.108,
+            874.941
+          ]
+        }
+      ],
+      "confirmedRowLabels": [
+        "63",
+        "76"
+      ]
+    },
+    {
+      "id": "sapporo-baseball-142",
+      "level": "stand",
+      "area": "西側",
+      "label": "西外周前方・1番側",
+      "aliases": [
+        "西外周前方・1番側",
+        "44・50通路間 西外周前方・1番側"
+      ],
+      "balcony": false,
+      "path": "M352.168,841.008 L353.999,798.723 L377.170,798.948 L379.004,841.230 L352.168,841.008 Z",
+      "box": [
+        352.168,
+        798.723,
+        26.836,
+        42.507
+      ],
+      "center": [
+        365.586,
+        819.976
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-144",
+        "sapporo-baseball-117"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat",
+        "mdata"
+      ],
+      "seatNote": "44・50通路間。原図で確認した44・61列の目印です。列の図上位置は参考です。券種名・全列/全番号・当日の使用席は未確定です。",
+      "referenceRows": [
+        {
+          "label": "44",
+          "a": [
+            353.953,
+            799.78
+          ],
+          "b": [
+            377.216,
+            800.005
+          ]
+        },
+        {
+          "label": "61",
+          "a": [
+            352.214,
+            839.951
+          ],
+          "b": [
+            378.958,
+            840.173
+          ]
+        }
+      ],
+      "confirmedRowLabels": [
+        "44",
+        "61"
+      ]
+    },
+    {
+      "id": "sapporo-baseball-143",
+      "level": "stand",
+      "area": "西側",
+      "label": "西側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M382.035,843.419 L383.018,862.374 L384.730,862.160 L385.498,875.677 L409.193,873.190 L405.789,854.962 L407.834,854.839 L407.004,852.045 L409.935,852.108 L408.453,840.743 L398.967,841.716 L399.747,849.391 L391.980,849.737 L391.423,842.691 L382.035,843.419 Z",
+      "box": [
+        382.035,
+        840.743,
+        27.9,
+        34.934
+      ],
+      "center": [
+        395.985,
+        858.21
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-141",
+        "sapporo-baseball-144"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-144",
+      "level": "stand",
+      "area": "西側",
+      "label": "西側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M379.839,801.134 L381.892,840.669 L408.138,838.313 L402.998,798.874 L397.440,799.461 L398.551,809.155 L386.181,810.369 L385.476,800.406 L379.839,801.134 Z",
+      "box": [
+        379.839,
+        798.874,
+        28.299,
+        41.795
+      ],
+      "center": [
+        393.988,
+        819.772
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-142",
+        "sapporo-baseball-146"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-146",
+      "level": "stand",
+      "area": "西側",
+      "label": "西側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M412.774,850.705 L405.852,800.846 L428.787,796.534 L439.429,845.198 L412.774,850.705 Z",
+      "box": [
+        405.852,
+        796.534,
+        33.577,
+        54.171
+      ],
+      "center": [
+        422.64,
+        823.62
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-147",
+        "sapporo-baseball-144"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-147",
+      "level": "stand",
+      "area": "西側",
+      "label": "西側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M448.296,850.565 L447.898,848.070 L446.447,848.144 L445.912,845.899 L443.143,846.471 L431.183,794.434 L436.473,792.946 L438.924,802.791 L444.940,800.990 Z",
+      "box": [
+        431.183,
+        792.946,
+        17.113,
+        57.619
+      ],
+      "center": [
+        439.74,
+        821.755
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-146",
+        "sapporo-baseball-148"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-148",
+      "level": "stand",
+      "area": "西側",
+      "label": "西側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M444.941,800.990 L450.504,799.325 L447.750,789.864 L453.247,787.951 L471.533,846.520 L469.622,846.881 L473.642,859.989 L450.858,866.660 L448.296,850.565 Z",
+      "box": [
+        444.941,
+        787.951,
+        28.701,
+        78.709
+      ],
+      "center": [
+        459.291,
+        827.306
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-147",
+        "sapporo-baseball-149"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-149",
+      "level": "stand",
+      "area": "西側",
+      "label": "西側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M456.015,787.723 L478.005,779.398 L501.161,835.612 L498.983,836.825 L504.054,849.384 L480.865,858.306 L476.583,845.272 L474.738,845.711 L456.015,787.723 Z",
+      "box": [
+        456.015,
+        779.398,
+        48.039,
+        78.908
+      ],
+      "center": [
+        480.034,
+        818.852
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-148",
+        "sapporo-baseball-150"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-150",
+      "level": "stand",
+      "area": "西側",
+      "label": "西側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M480.234,778.623 L504.051,834.969 L506.026,834.301 L511.165,846.268 L525.327,839.894 L524.062,837.258 L532.054,833.614 L527.023,823.736 L529.204,822.758 L501.290,768.808 L496.148,771.078 L500.278,779.827 L489.139,785.412 L485.040,776.190 L480.234,778.623 Z",
+      "box": [
+        480.234,
+        768.808,
+        51.82,
+        77.46
+      ],
+      "center": [
+        506.144,
+        807.538
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-149",
+        "sapporo-baseball-151"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-151",
+      "level": "stand",
+      "area": "西側",
+      "label": "西側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M504.376,768.284 L532.858,822.108 L534.582,821.012 L539.713,830.580 L560.884,818.184 L553.670,806.641 L555.769,805.471 L523.892,756.297 L504.376,768.284 Z",
+      "box": [
+        504.376,
+        756.297,
+        56.508,
+        74.283
+      ],
+      "center": [
+        532.63,
+        793.438
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-150",
+        "sapporo-baseball-149"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-152",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M536.082,760.584 L530.563,752.374 L526.214,755.334 L558.119,804.651 L559.448,803.607 L565.904,812.415 L588.193,797.453 L545.040,741.827 L540.131,745.194 L546.141,753.404 L536.082,760.584 Z",
+      "box": [
+        526.214,
+        741.827,
+        61.979,
+        70.588
+      ],
+      "center": [
+        557.204,
+        777.121
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-153",
+        "sapporo-baseball-154"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-153",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M547.820,740.218 L589.153,793.223 L610.747,774.821 L565.461,725.205 L547.820,740.218 Z",
+      "box": [
+        547.82,
+        725.205,
+        62.927,
+        68.018
+      ],
+      "center": [
+        579.284,
+        759.214
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-152",
+        "sapporo-baseball-154"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-154",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M571.224,719.280 L567.358,723.481 L611.508,771.026 L631.563,750.329 L583.769,706.748 L579.724,710.794 L586.790,717.549 L578.263,726.578 L571.224,719.280 Z",
+      "box": [
+        567.358,
+        706.748,
+        64.205,
+        64.278
+      ],
+      "center": [
+        599.46,
+        738.887
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-155",
+        "sapporo-baseball-153"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-155",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M597.613,683.658 L583.058,701.037 L635.432,748.634 L642.168,739.340 L640.008,737.512 L646.979,729.269 L644.989,727.685 L648.965,723.148 L597.613,683.658 Z",
+      "box": [
+        583.058,
+        683.658,
+        65.907,
+        64.976
+      ],
+      "center": [
+        616.011,
+        716.146
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-156",
+        "sapporo-baseball-154"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-156",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M603.331,684.640 L606.436,680.041 L614.412,685.835 L621.548,675.659 L613.911,670.244 L616.750,665.733 L662.689,695.105 L659.382,700.473 L661.198,701.676 L653.759,712.980 L656.690,715.094 L652.638,721.853 L603.331,684.640 Z",
+      "box": [
+        603.331,
+        665.733,
+        59.358,
+        56.12
+      ],
+      "center": [
+        633.01,
+        693.793
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-157",
+        "sapporo-baseball-155"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-157",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M619.813,651.257 L614.173,661.587 L664.900,692.528 L666.358,689.526 L664.516,688.405 L669.145,679.465 L619.813,651.257 Z",
+      "box": [
+        614.173,
+        651.257,
+        54.972,
+        41.271
+      ],
+      "center": [
+        641.659,
+        671.892
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-158",
+        "sapporo-baseball-156"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-158",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M621.301,649.053 L668.421,676.348 L673.627,667.294 L671.619,666.242 L671.987,665.190 L625.439,641.253 L621.301,649.053 Z",
+      "box": [
+        621.301,
+        641.253,
+        52.326,
+        35.095
+      ],
+      "center": [
+        647.464,
+        658.801
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-157",
+        "sapporo-baseball-159"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-159",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M642.829,638.767 L629.456,632.379 L626.701,639.361 L673.072,662.983 L675.904,656.639 L673.489,655.468 L678.293,645.526 L675.810,644.422 L679.765,636.402 L636.000,618.276 L632.910,625.321 L646.458,631.351 L642.829,638.767 Z",
+      "box": [
+        626.701,
+        618.276,
+        53.064,
+        44.707
+      ],
+      "center": [
+        653.233,
+        640.63
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-158",
+        "sapporo-baseball-160"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-160",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M637.695,615.671 L645.266,593.957 L683.379,605.951 L680.766,612.962 L683.062,613.743 L679.544,623.606 L681.932,624.504 L678.983,632.316 L637.695,615.671 Z",
+      "box": [
+        637.695,
+        593.957,
+        45.684,
+        38.359
+      ],
+      "center": [
+        660.537,
+        613.136
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-159",
+        "sapporo-baseball-161"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-161",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M646.514,590.841 L648.219,583.510 L662.708,587.516 L664.660,579.324 L650.603,575.851 L652.500,568.612 L683.749,575.504 L682.390,580.491 L684.845,581.076 L682.457,591.222 L684.705,591.833 L681.979,601.635 L646.514,590.841 Z",
+      "box": [
+        646.514,
+        568.612,
+        38.331,
+        33.023
+      ],
+      "center": [
+        665.679,
+        585.123
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-162",
+        "sapporo-baseball-160"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-162",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M652.467,566.102 L656.669,544.017 L681.138,547.222 L680.707,549.494 L683.409,549.870 L681.500,559.088 L683.933,559.498 L681.862,572.270 L652.467,566.102 Z",
+      "box": [
+        652.467,
+        544.017,
+        31.466,
+        28.253
+      ],
+      "center": [
+        668.2,
+        558.144
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-161",
+        "sapporo-baseball-163"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-163",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M657.053,540.222 L657.518,532.855 L672.955,534.321 L673.753,525.745 L658.788,524.744 L659.426,517.533 L679.481,518.382 L679.119,525.330 L681.231,526.247 L680.142,537.298 L682.826,537.573 L682.348,543.268 L657.053,540.222 Z",
+      "box": [
+        657.053,
+        517.533,
+        25.773,
+        25.735
+      ],
+      "center": [
+        669.939,
+        530.4
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-164",
+        "sapporo-baseball-162"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-164",
+      "level": "stand",
+      "area": "南側",
+      "label": "南後方・111番側",
+      "aliases": [
+        "南後方・111番側",
+        "9・11通路周辺 南後方・111番側"
+      ],
+      "balcony": false,
+      "path": "M659.024,514.717 L659.024,491.641 L671.881,491.037 L671.751,492.753 L674.214,492.650 L673.849,503.711 L676.868,503.696 L676.856,515.547 L659.024,514.717 Z",
+      "box": [
+        659.024,
+        491.037,
+        17.844,
+        24.51
+      ],
+      "center": [
+        667.946,
+        503.292
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-165",
+        "sapporo-baseball-163"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat",
+        "mdata"
+      ],
+      "seatNote": "9・11通路周辺。原図で確認した44・51列の目印です。列の図上位置は参考です。券種名・全列/全番号・当日の使用席は未確定です。",
+      "referenceRows": [
+        {
+          "label": "44",
+          "a": [
+            659.47,
+            514.738
+          ],
+          "b": [
+            659.47,
+            492.239
+          ]
+        },
+        {
+          "label": "51",
+          "a": [
+            676.41,
+            515.526
+          ],
+          "b": [
+            676.41,
+            514.949
+          ]
+        }
+      ],
+      "confirmedRowLabels": [
+        "44",
+        "51"
+      ]
+    },
+    {
+      "id": "sapporo-baseball-165",
+      "level": "stand",
+      "area": "南側",
+      "label": "南側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M659.684,488.993 L657.307,466.212 L665.052,465.165 L665.328,469.752 L668.215,469.403 L668.677,480.824 L671.591,480.589 L672.150,488.290 L659.684,488.993 Z",
+      "box": [
+        657.307,
+        465.165,
+        14.843,
+        23.828
+      ],
+      "center": [
+        664.729,
+        477.079
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-164",
+        "sapporo-baseball-64"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-2450",
+      "level": "stand",
+      "area": "西側",
+      "label": "西中央・221/225番側",
+      "aliases": [
+        "西中央・221/225番側",
+        "47・49通路間 西中央・221/225番側"
+      ],
+      "balcony": false,
+      "path": "M364.287,739.624 L352.951,739.624 L352.204,751.953 L345.582,751.230 L343.604,774.732 C350.435,775.388 357.223,775.755 363.933,775.835 L364.287,739.624 Z",
+      "box": [
+        343.604,
+        739.624,
+        20.683,
+        36.211
+      ],
+      "center": [
+        353.945,
+        757.73
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-2454",
+        "sapporo-baseball-2451"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat",
+        "mdata"
+      ],
+      "seatNote": "47・49通路間。原図で確認した23・37列の目印です。原図の23列225番側と37列221番側を目印として表示。凹形の各行端・追加番号は未接続です。券種名・全列/全番号・当日の使用席は未確定です。",
+      "referenceRows": [
+        {
+          "label": "23",
+          "a": [
+            363.77,
+            740.502
+          ],
+          "b": [
+            353.226,
+            740.529
+          ]
+        },
+        {
+          "label": "37",
+          "a": [
+            344.121,
+            773.854
+          ],
+          "b": [
+            363.658,
+            774.93
+          ]
+        }
+      ],
+      "confirmedRowLabels": [
+        "23",
+        "37"
+      ]
+    },
+    {
+      "id": "sapporo-baseball-2451",
+      "level": "stand",
+      "area": "西側",
+      "label": "西中央後方・221番側",
+      "aliases": [
+        "西中央後方・221番側",
+        "47・49通路間 西中央後方・221番側"
+      ],
+      "balcony": false,
+      "path": "M342.220,791.171 C344.700,791.381 347.196,791.562 349.934,791.706 L349.934,791.721 C354.520,791.983 359.133,792.134 363.774,792.182 L363.876,781.503 C357.030,781.425 350.099,781.048 343.128,780.384 L342.220,791.171 Z",
+      "box": [
+        342.22,
+        780.384,
+        21.656,
+        11.798
+      ],
+      "center": [
+        353.048,
+        786.283
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-2455",
+        "sapporo-baseball-2450"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat",
+        "mdata"
+      ],
+      "seatNote": "47・49通路間。原図で確認した41・43列の目印です。列の図上位置は参考です。券種名・全列/全番号・当日の使用席は未確定です。",
+      "referenceRows": [
+        {
+          "label": "41",
+          "a": [
+            363.335,
+            781.745
+          ],
+          "b": [
+            343.644,
+            780.679
+          ]
+        },
+        {
+          "label": "43",
+          "a": [
+            342.761,
+            790.929
+          ],
+          "b": [
+            363.258,
+            791.887
+          ]
+        }
+      ],
+      "confirmedRowLabels": [
+        "41",
+        "43"
+      ]
+    },
+    {
+      "id": "sapporo-baseball-2452",
+      "level": "stand",
+      "area": "西側",
+      "label": "西側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M415.549,776.697 L417.514,787.379 C424.771,786.036 431.932,784.407 438.986,782.525 L436.214,772.001 C429.382,773.815 422.468,775.382 415.549,776.697 Z",
+      "box": [
+        415.549,
+        772.001,
+        23.437,
+        15.378
+      ],
+      "center": [
+        427.267,
+        779.69
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-2457",
+        "sapporo-baseball-2453"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-2453",
+      "level": "stand",
+      "area": "西側",
+      "label": "西側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M423.822,724.957 C418.211,726.457 412.518,727.749 406.745,728.819 L414.524,771.123 C421.303,769.834 428.075,768.299 434.768,766.519 L423.822,724.957 Z",
+      "box": [
+        406.745,
+        724.957,
+        28.023,
+        46.166
+      ],
+      "center": [
+        420.757,
+        748.04
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-2456",
+        "sapporo-baseball-90"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-2454",
+      "level": "stand",
+      "area": "西側",
+      "label": "西側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M385.649,751.230 L379.027,751.953 L378.284,739.624 L366.945,739.624 L367.299,775.858 C373.916,775.836 380.724,775.511 387.642,774.891 L385.649,751.230 Z",
+      "box": [
+        366.945,
+        739.624,
+        20.697,
+        36.234
+      ],
+      "center": [
+        377.293,
+        757.741
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-2456",
+        "sapporo-baseball-2450"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-2455",
+      "level": "stand",
+      "area": "西側",
+      "label": "西側・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M367.458,792.182 C372.098,792.134 376.712,791.983 381.297,791.721 L381.297,791.706 C384.040,791.562 386.534,791.381 389.012,791.171 L388.117,780.541 C381.058,781.170 374.110,781.504 367.355,781.526 L367.458,792.182 Z",
+      "box": [
+        367.355,
+        780.541,
+        21.657,
+        11.641
+      ],
+      "center": [
+        378.184,
+        786.362
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-2457",
+        "sapporo-baseball-2451"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "常設席の参考輪郭です。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-2456",
+      "level": "stand",
+      "area": "西側",
+      "label": "西側 21〜37列（奇数列）・21番側",
+      "aliases": [
+        "西21前"
+      ],
+      "balcony": false,
+      "path": "M403.094,729.853 C400.045,730.384 396.978,730.853 393.888,731.263 C391.323,731.602 388.746,731.909 386.151,732.159 L390.302,774.637 C396.929,773.977 403.640,773.053 410.368,771.879 L403.094,729.853 Z",
+      "box": [
+        386.151,
+        729.853,
+        24.217,
+        44.784
+      ],
+      "center": [
+        398.26,
+        752.245
+      ],
+      "rows": [
+        {
+          "label": "21",
+          "segments": [
+            {
+              "start": 21,
+              "end": 29,
+              "a": [
+                387.067,
+                734.426
+              ],
+              "b": [
+                402.813,
+                732.281
+              ]
+            }
+          ]
+        },
+        {
+          "label": "23",
+          "segments": [
+            {
+              "start": 21,
+              "end": 29,
+              "a": [
+                387.542,
+                739.144
+              ],
+              "b": [
+                403.607,
+                736.952
+              ]
+            }
+          ]
+        },
+        {
+          "label": "25",
+          "segments": [
+            {
+              "start": 21,
+              "end": 30,
+              "a": [
+                388.016,
+                743.861
+              ],
+              "b": [
+                404.403,
+                741.624
+              ]
+            }
+          ]
+        },
+        {
+          "label": "27",
+          "segments": [
+            {
+              "start": 21,
+              "end": 30,
+              "a": [
+                388.491,
+                748.579
+              ],
+              "b": [
+                405.197,
+                746.295
+              ]
+            }
+          ]
+        },
+        {
+          "label": "29",
+          "segments": [
+            {
+              "start": 21,
+              "end": 30,
+              "a": [
+                388.966,
+                753.297
+              ],
+              "b": [
+                405.991,
+                750.967
+              ]
+            }
+          ]
+        },
+        {
+          "label": "31",
+          "segments": [
+            {
+              "start": 21,
+              "end": 30,
+              "a": [
+                389.442,
+                758.015
+              ],
+              "b": [
+                406.785,
+                755.639
+              ]
+            }
+          ]
+        },
+        {
+          "label": "33",
+          "segments": [
+            {
+              "start": 21,
+              "end": 31,
+              "a": [
+                389.917,
+                762.733
+              ],
+              "b": [
+                407.579,
+                760.31
+              ]
+            }
+          ]
+        },
+        {
+          "label": "35",
+          "segments": [
+            {
+              "start": 21,
+              "end": 31,
+              "a": [
+                390.392,
+                767.45
+              ],
+              "b": [
+                408.374,
+                764.982
+              ]
+            }
+          ]
+        },
+        {
+          "label": "37",
+          "segments": [
+            {
+              "start": 21,
+              "end": 31,
+              "a": [
+                390.867,
+                772.168
+              ],
+              "b": [
+                409.168,
+                769.653
+              ]
+            }
+          ]
+        }
+      ],
+      "neighbors": [
+        "sapporo-baseball-2454",
+        "sapporo-baseball-2453"
+      ],
+      "numberReference": {
+        "row": "21",
+        "start": 21,
+        "young": [
+          387.067,
+          734.426
+        ],
+        "older": [
+          402.813,
+          732.281
+        ]
+      },
+      "numberLookup": "partial",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat",
+        "baseball-detail",
+        "mdata"
+      ],
+      "seatNote": "43・45通路間の21番側を部分確認。39列は通路として分離。他区画の同じ番号は未確認です。図中の列位置は参考です。",
+      "numberEdgeMiddle": [
+        388.226,
+        753.398
+      ]
+    },
+    {
+      "id": "sapporo-baseball-2457",
+      "level": "stand",
+      "area": "西側",
+      "label": "西側 41・43列・21番側",
+      "aliases": [
+        "西21後"
+      ],
+      "balcony": false,
+      "path": "M391.939,791.429 C395.203,791.107 398.440,790.728 401.670,790.300 C405.554,789.783 409.415,789.196 413.250,788.528 L411.334,777.461 C404.470,778.659 397.621,779.605 390.854,780.279 L391.939,791.429 Z",
+      "box": [
+        390.854,
+        777.461,
+        22.396,
+        13.968
+      ],
+      "center": [
+        402.052,
+        784.445
+      ],
+      "rows": [
+        {
+          "label": "41",
+          "segments": [
+            {
+              "start": 21,
+              "end": 32,
+              "a": [
+                391.953,
+                782.953
+              ],
+              "b": [
+                410.985,
+                780.342
+              ]
+            }
+          ]
+        },
+        {
+          "label": "43",
+          "segments": [
+            {
+              "start": 21,
+              "end": 32,
+              "a": [
+                392.512,
+                788.526
+              ],
+              "b": [
+                411.927,
+                785.876
+              ]
+            }
+          ]
+        }
+      ],
+      "neighbors": [
+        "sapporo-baseball-2455",
+        "sapporo-baseball-2452"
+      ],
+      "numberReference": {
+        "row": "41",
+        "start": 21,
+        "young": [
+          391.953,
+          782.953
+        ],
+        "older": [
+          410.985,
+          780.342
+        ]
+      },
+      "numberLookup": "partial",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat",
+        "baseball-detail",
+        "mdata"
+      ],
+      "seatNote": "43・45通路間の21番側を部分確認。39列は通路として分離。他区画の同じ番号は未確認です。図中の列位置は参考です。",
+      "numberEdgeMiddle": [
+        391.397,
+        785.854
+      ]
+    },
+    {
+      "id": "sapporo-baseball-2446",
+      "level": "stand",
+      "area": "西側",
+      "label": "西側後方・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M317.052,787.922 C320.887,788.590 324.745,789.177 328.628,789.694 C331.858,790.122 335.099,790.506 338.358,790.823 L339.414,780.013 C332.609,779.264 325.774,778.232 318.951,776.944 L317.052,787.922 Z",
+      "box": [
+        317.052,
+        776.944,
+        22.362,
+        13.879
+      ],
+      "center": [
+        328.233,
+        783.883
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-2451",
+        "sapporo-baseball-2450"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "公式野球図の普通席輪郭を照合しました。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-2447",
+      "level": "stand",
+      "area": "西側",
+      "label": "西側前方・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M344.147,731.558 C341.555,731.303 338.975,730.997 336.409,730.657 C333.323,730.247 330.252,729.782 327.203,729.247 L319.918,771.357 C326.603,772.621 333.300,773.635 339.966,774.371 L344.147,731.558 Z",
+      "box": [
+        319.918,
+        729.247,
+        24.229,
+        45.124
+      ],
+      "center": [
+        332.033,
+        751.809
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-2450",
+        "sapporo-baseball-2451"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "公式野球図の普通席輪郭を照合しました。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-2448",
+      "level": "stand",
+      "area": "西側",
+      "label": "西前方・181番側",
+      "aliases": [
+        "西前方・181番側",
+        "51・53通路間 西前方・181番側"
+      ],
+      "balcony": false,
+      "path": "M324.811,728.819 C319.041,727.749 313.346,726.457 307.734,724.957 L296.935,765.963 C303.610,767.841 310.343,769.450 317.090,770.805 L324.811,728.819 Z",
+      "box": [
+        296.935,
+        724.957,
+        27.876,
+        45.848
+      ],
+      "center": [
+        310.873,
+        747.881
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-26",
+        "sapporo-baseball-50"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat",
+        "mdata"
+      ],
+      "seatNote": "51・53通路間。原図で確認した21・37列の目印です。列の図上位置は参考です。券種名・全列/全番号・当日の使用席は未確定です。",
+      "referenceRows": [
+        {
+          "label": "21",
+          "a": [
+            324.618,
+            729.869
+          ],
+          "b": [
+            307.464,
+            725.982
+          ]
+        },
+        {
+          "label": "37",
+          "a": [
+            317.283,
+            769.755
+          ],
+          "b": [
+            297.205,
+            764.938
+          ]
+        }
+      ],
+      "confirmedRowLabels": [
+        "21",
+        "37"
+      ]
+    },
+    {
+      "id": "sapporo-baseball-2449",
+      "level": "stand",
+      "area": "西側",
+      "label": "西後方・185番側",
+      "aliases": [
+        "西後方・185番側",
+        "51・53通路間 西後方・185番側"
+      ],
+      "balcony": false,
+      "path": "M292.574,782.525 C299.628,784.407 306.790,786.036 314.043,787.380 L316.066,776.379 C309.176,775.002 302.303,773.361 295.492,771.447 L292.574,782.525 Z",
+      "box": [
+        292.574,
+        771.447,
+        23.492,
+        15.933
+      ],
+      "center": [
+        304.32,
+        779.413
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-26",
+        "sapporo-baseball-120"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat",
+        "mdata"
+      ],
+      "seatNote": "51・53通路間。原図で確認した41・43列の目印です。列の図上位置は参考です。券種名・全列/全番号・当日の使用席は未確定です。",
+      "referenceRows": [
+        {
+          "label": "41",
+          "a": [
+            316.015,
+            776.654
+          ],
+          "b": [
+            295.419,
+            771.724
+          ]
+        },
+        {
+          "label": "43",
+          "a": [
+            314.094,
+            787.105
+          ],
+          "b": [
+            292.647,
+            782.248
+          ]
+        }
+      ],
+      "confirmedRowLabels": [
+        "41",
+        "43"
+      ]
+    },
+    {
+      "id": "sapporo-baseball-2793",
+      "level": "stand",
+      "area": "東側",
+      "label": "東側中央・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M345.845,270.876 L340.489,211.673 C336.936,211.990 333.399,212.358 329.882,212.805 L337.415,271.779 C340.205,271.419 343.021,271.132 345.845,270.876 Z",
+      "box": [
+        329.882,
+        211.673,
+        15.963,
+        60.106
+      ],
+      "center": [
+        337.863,
+        241.726
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-6",
+        "sapporo-baseball-7"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "公式野球図の普通席輪郭を照合しました。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-2794",
+      "level": "stand",
+      "area": "東側",
+      "label": "東中央・1番側",
+      "aliases": [
+        "東中央・1番側",
+        "105・106通路間 東中央・1番側"
+      ],
+      "balcony": false,
+      "path": "M365.901,269.932 L365.703,210.484 C358.271,210.510 350.899,210.814 343.603,211.392 L348.326,270.652 C354.126,270.191 359.988,269.951 365.901,269.932 Z",
+      "box": [
+        343.603,
+        210.484,
+        22.298,
+        60.168
+      ],
+      "center": [
+        354.752,
+        240.568
+      ],
+      "rows": [
+        {
+          "label": "19",
+          "segments": [
+            {
+              "start": 1,
+              "end": 1,
+              "a": [
+                365.188,
+                268.475
+              ],
+              "b": [
+                365.188,
+                268.475
+              ]
+            }
+          ]
+        }
+      ],
+      "neighbors": [
+        "sapporo-baseball-6",
+        "sapporo-baseball-7"
+      ],
+      "numberReference": {
+        "row": "19",
+        "start": 1,
+        "young": [
+          365.896,
+          268.446
+        ],
+        "older": [
+          348.208,
+          269.171
+        ]
+      },
+      "numberLookup": "partial",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat",
+        "mdata"
+      ],
+      "seatNote": "105・106通路間。原図で確認した19・43列の目印です。列の図上位置は参考です。券種名・全列/全番号・当日の使用席は未確定です。数値検索は19列1番の開始側1キーだけ接続。他の列/番号へ補間していません。",
+      "referenceRows": [
+        {
+          "label": "19",
+          "a": [
+            365.896,
+            268.446
+          ],
+          "b": [
+            348.208,
+            269.171
+          ]
+        },
+        {
+          "label": "43",
+          "a": [
+            365.708,
+            211.97
+          ],
+          "b": [
+            343.721,
+            212.873
+          ]
+        }
+      ],
+      "confirmedRowLabels": [
+        "19",
+        "43"
+      ],
+      "rowEdges": {
+        "first": {
+          "a": [
+            365.896,
+            268.446
+          ],
+          "b": [
+            348.208,
+            269.171
+          ]
+        },
+        "last": {
+          "a": [
+            365.896,
+            268.446
+          ],
+          "b": [
+            348.208,
+            269.171
+          ]
+        }
+      },
+      "numberEdgeMiddle": [
+        365.802,
+        240.208
+      ]
+    },
+    {
+      "id": "sapporo-baseball-2795",
+      "level": "stand",
+      "area": "東側",
+      "label": "東側中央・参考区画",
+      "aliases": [],
+      "balcony": false,
+      "path": "M387.992,270.876 L393.351,211.673 C396.898,211.990 400.440,212.358 403.950,212.805 L396.423,271.779 C393.627,271.419 390.814,271.132 387.992,270.876 Z",
+      "box": [
+        387.992,
+        211.673,
+        15.958,
+        60.106
+      ],
+      "center": [
+        395.971,
+        241.726
+      ],
+      "rows": [],
+      "neighbors": [
+        "sapporo-baseball-58",
+        "sapporo-baseball-59"
+      ],
+      "numberReference": null,
+      "numberLookup": "unavailable",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat"
+      ],
+      "seatNote": "公式野球図の普通席輪郭を照合しました。この区画の列・番号との対応は確認中です。券種境界・使用席は主催者案内をご確認ください。"
+    },
+    {
+      "id": "sapporo-baseball-2796",
+      "level": "stand",
+      "area": "東側",
+      "label": "東中央・221番側",
+      "aliases": [
+        "東中央・221番側",
+        "106・107通路間 東中央・221番側"
+      ],
+      "balcony": false,
+      "path": "M367.936,269.932 L368.133,210.484 C375.566,210.510 382.939,210.814 390.231,211.392 L385.512,270.652 C379.714,270.191 373.850,269.951 367.936,269.932 Z",
+      "box": [
+        367.936,
+        210.484,
+        22.295,
+        60.168
+      ],
+      "center": [
+        379.083,
+        240.568
+      ],
+      "rows": [
+        {
+          "label": "19",
+          "segments": [
+            {
+              "start": 221,
+              "end": 221,
+              "a": [
+                368.649,
+                268.475
+              ],
+              "b": [
+                368.649,
+                268.475
+              ]
+            }
+          ]
+        }
+      ],
+      "neighbors": [
+        "sapporo-baseball-58",
+        "sapporo-baseball-59"
+      ],
+      "numberReference": {
+        "row": "19",
+        "start": 221,
+        "young": [
+          367.941,
+          268.446
+        ],
+        "older": [
+          385.63,
+          269.171
+        ]
+      },
+      "numberLookup": "partial",
+      "equipmentFloor": null,
+      "sourceIds": [
+        "baseball-seat",
+        "mdata"
+      ],
+      "seatNote": "106・107通路間。原図で確認した19・43列の目印です。列の図上位置は参考です。券種名・全列/全番号・当日の使用席は未確定です。数値検索は19列221番の開始側1キーだけ接続。他の列/番号へ補間していません。",
+      "referenceRows": [
+        {
+          "label": "19",
+          "a": [
+            367.941,
+            268.446
+          ],
+          "b": [
+            385.63,
+            269.171
+          ]
+        },
+        {
+          "label": "43",
+          "a": [
+            368.128,
+            211.97
+          ],
+          "b": [
+            390.113,
+            212.873
+          ]
+        }
+      ],
+      "confirmedRowLabels": [
+        "19",
+        "43"
+      ],
+      "rowEdges": {
+        "first": {
+          "a": [
+            367.941,
+            268.446
+          ],
+          "b": [
+            385.63,
+            269.171
+          ]
+        },
+        "last": {
+          "a": [
+            367.941,
+            268.446
+          ],
+          "b": [
+            385.63,
+            269.171
+          ]
+        }
+      },
+      "numberEdgeMiddle": [
+        368.034,
+        240.208
+      ]
+    }
+  ],
+  "zones": [
+    {
+      "id": "baseball-北側",
+      "label": "北側",
+      "aliases": [],
+      "level": "stand",
+      "area": "北側",
+      "point": [
+        135,
+        555
+      ],
+      "blockIds": [
+        "sapporo-baseball-9",
+        "sapporo-baseball-10",
+        "sapporo-baseball-11",
+        "sapporo-baseball-12",
+        "sapporo-baseball-13",
+        "sapporo-baseball-14",
+        "sapporo-baseball-15",
+        "sapporo-baseball-16",
+        "sapporo-baseball-17",
+        "sapporo-baseball-18",
+        "sapporo-baseball-19",
+        "sapporo-baseball-20",
+        "sapporo-baseball-21",
+        "sapporo-baseball-22",
+        "sapporo-baseball-23",
+        "sapporo-baseball-24",
+        "sapporo-baseball-25",
+        "sapporo-baseball-29",
+        "sapporo-baseball-30",
+        "sapporo-baseball-31",
+        "sapporo-baseball-33",
+        "sapporo-baseball-37",
+        "sapporo-baseball-38",
+        "sapporo-baseball-39",
+        "sapporo-baseball-40",
+        "sapporo-baseball-41",
+        "sapporo-baseball-42",
+        "sapporo-baseball-43",
+        "sapporo-baseball-44",
+        "sapporo-baseball-45",
+        "sapporo-baseball-46",
+        "sapporo-baseball-47",
+        "sapporo-baseball-48",
+        "sapporo-baseball-49",
+        "sapporo-baseball-52",
+        "sapporo-baseball-53",
+        "sapporo-baseball-125",
+        "sapporo-baseball-126",
+        "sapporo-baseball-127",
+        "sapporo-baseball-128",
+        "sapporo-baseball-129",
+        "sapporo-baseball-130",
+        "sapporo-baseball-131",
+        "sapporo-baseball-132",
+        "sapporo-baseball-133",
+        "sapporo-baseball-134",
+        "sapporo-baseball-135",
+        "sapporo-baseball-136",
+        "sapporo-baseball-137",
+        "sapporo-baseball-138",
+        "sapporo-baseball-139"
+      ],
+      "viewBox": [
+        35.38,
+        284.053,
+        242.911,
+        537.489
+      ]
+    },
+    {
+      "id": "baseball-南側",
+      "label": "南側",
+      "aliases": [],
+      "level": "stand",
+      "area": "南側",
+      "point": [
+        595,
+        555
+      ],
+      "blockIds": [
+        "sapporo-baseball-61",
+        "sapporo-baseball-62",
+        "sapporo-baseball-63",
+        "sapporo-baseball-64",
+        "sapporo-baseball-65",
+        "sapporo-baseball-66",
+        "sapporo-baseball-67",
+        "sapporo-baseball-68",
+        "sapporo-baseball-69",
+        "sapporo-baseball-70",
+        "sapporo-baseball-71",
+        "sapporo-baseball-72",
+        "sapporo-baseball-73",
+        "sapporo-baseball-74",
+        "sapporo-baseball-75",
+        "sapporo-baseball-76",
+        "sapporo-baseball-80",
+        "sapporo-baseball-84",
+        "sapporo-baseball-88",
+        "sapporo-baseball-89",
+        "sapporo-baseball-94",
+        "sapporo-baseball-98",
+        "sapporo-baseball-99",
+        "sapporo-baseball-100",
+        "sapporo-baseball-101",
+        "sapporo-baseball-102",
+        "sapporo-baseball-103",
+        "sapporo-baseball-104",
+        "sapporo-baseball-105",
+        "sapporo-baseball-106",
+        "sapporo-baseball-107",
+        "sapporo-baseball-108",
+        "sapporo-baseball-109",
+        "sapporo-baseball-110",
+        "sapporo-baseball-113",
+        "sapporo-baseball-114",
+        "sapporo-baseball-152",
+        "sapporo-baseball-153",
+        "sapporo-baseball-154",
+        "sapporo-baseball-155",
+        "sapporo-baseball-156",
+        "sapporo-baseball-157",
+        "sapporo-baseball-158",
+        "sapporo-baseball-159",
+        "sapporo-baseball-160",
+        "sapporo-baseball-161",
+        "sapporo-baseball-162",
+        "sapporo-baseball-163",
+        "sapporo-baseball-164",
+        "sapporo-baseball-165"
+      ],
+      "viewBox": [
+        454.225,
+        286.28,
+        242.62,
+        538.135
+      ]
+    },
+    {
+      "id": "baseball-東側",
+      "label": "東側",
+      "aliases": [],
+      "level": "stand",
+      "area": "東側",
+      "point": [
+        365,
+        230
+      ],
+      "blockIds": [
+        "sapporo-baseball-3",
+        "sapporo-baseball-4",
+        "sapporo-baseball-5",
+        "sapporo-baseball-6",
+        "sapporo-baseball-7",
+        "sapporo-baseball-8",
+        "sapporo-baseball-32",
+        "sapporo-baseball-35",
+        "sapporo-baseball-55",
+        "sapporo-baseball-56",
+        "sapporo-baseball-57",
+        "sapporo-baseball-58",
+        "sapporo-baseball-59",
+        "sapporo-baseball-60",
+        "sapporo-baseball-93",
+        "sapporo-baseball-96",
+        "sapporo-baseball-2793",
+        "sapporo-baseball-2794",
+        "sapporo-baseball-2795",
+        "sapporo-baseball-2796"
+      ],
+      "viewBox": [
+        152.966,
+        200.831,
+        429.44900000000007,
+        148.737
+      ]
+    },
+    {
+      "id": "baseball-西側",
+      "label": "西側",
+      "aliases": [],
+      "level": "stand",
+      "area": "西側",
+      "point": [
+        365,
+        863
+      ],
+      "blockIds": [
+        "sapporo-baseball-26",
+        "sapporo-baseball-27",
+        "sapporo-baseball-28",
+        "sapporo-baseball-36",
+        "sapporo-baseball-50",
+        "sapporo-baseball-51",
+        "sapporo-baseball-90",
+        "sapporo-baseball-91",
+        "sapporo-baseball-92",
+        "sapporo-baseball-97",
+        "sapporo-baseball-111",
+        "sapporo-baseball-112",
+        "sapporo-baseball-116",
+        "sapporo-baseball-117",
+        "sapporo-baseball-119",
+        "sapporo-baseball-120",
+        "sapporo-baseball-121",
+        "sapporo-baseball-122",
+        "sapporo-baseball-123",
+        "sapporo-baseball-124",
+        "sapporo-baseball-141",
+        "sapporo-baseball-142",
+        "sapporo-baseball-143",
+        "sapporo-baseball-144",
+        "sapporo-baseball-146",
+        "sapporo-baseball-147",
+        "sapporo-baseball-148",
+        "sapporo-baseball-149",
+        "sapporo-baseball-150",
+        "sapporo-baseball-151",
+        "sapporo-baseball-2450",
+        "sapporo-baseball-2451",
+        "sapporo-baseball-2452",
+        "sapporo-baseball-2453",
+        "sapporo-baseball-2454",
+        "sapporo-baseball-2455",
+        "sapporo-baseball-2456",
+        "sapporo-baseball-2457",
+        "sapporo-baseball-2446",
+        "sapporo-baseball-2447",
+        "sapporo-baseball-2448",
+        "sapporo-baseball-2449"
+      ],
+      "viewBox": [
+        158.285,
+        662.564,
+        414.59900000000005,
+        225.17300000000012
+      ]
+    }
+  ],
+  "wholeBlockLabels": false,
+  "wholeStartNumbers": true,
+  "frontLabel": "常設席の参考図",
+  "contextLabels": [
+    {
+      "text": "公演のアリーナ・使用席は当日別",
+      "point": [
+        365,
+        555
+      ]
+    }
+  ],
+  "searchPlaceholder": "例：101 / 86通路",
+  "rowSearchPlaceholder": "例：25",
+  "numberLookupNote": "開始側の代表番号と西21番側を部分検索できます。他の番号は確認中です。通路名（例：86通路）で周囲を表示し、地図から区画を選べます。",
+  "positionTargets": [
+    {
+      "id": "sapporo-baseball-passage-103",
+      "label": "103通路",
+      "aliases": [
+        "通路103"
+      ],
+      "level": "stand",
+      "point": [
+        290.311,
+        213.079
+      ],
+      "span": 220
+    },
+    {
+      "id": "sapporo-baseball-passage-106",
+      "label": "106通路",
+      "aliases": [
+        "通路106"
+      ],
+      "level": "stand",
+      "point": [
+        366.941,
+        203.3
+      ],
+      "span": 220
+    },
+    {
+      "id": "sapporo-baseball-passage-109",
+      "label": "109通路",
+      "aliases": [
+        "通路109"
+      ],
+      "level": "stand",
+      "point": [
+        444.054,
+        213.592
+      ],
+      "span": 220
+    },
+    {
+      "id": "sapporo-baseball-passage-96",
+      "label": "96通路",
+      "aliases": [
+        "通路96"
+      ],
+      "level": "stand",
+      "point": [
+        140.222,
+        307.945
+      ],
+      "span": 220
+    },
+    {
+      "id": "sapporo-baseball-passage-116",
+      "label": "116通路",
+      "aliases": [
+        "通路116"
+      ],
+      "level": "stand",
+      "point": [
+        577.24,
+        292.466
+      ],
+      "span": 220
+    },
+    {
+      "id": "sapporo-baseball-passage-65",
+      "label": "65通路",
+      "aliases": [
+        "通路65"
+      ],
+      "level": "stand",
+      "point": [
+        168.873,
+        698.844
+      ],
+      "span": 220
+    },
+    {
+      "id": "sapporo-baseball-passage-92",
+      "label": "92通路",
+      "aliases": [
+        "通路92"
+      ],
+      "level": "stand",
+      "point": [
+        98.194,
+        373.848
+      ],
+      "span": 220
+    },
+    {
+      "id": "sapporo-baseball-passage-86",
+      "label": "86通路",
+      "aliases": [
+        "通路86"
+      ],
+      "level": "stand",
+      "point": [
+        86.988,
+        474.453
+      ],
+      "span": 220
+    },
+    {
+      "id": "sapporo-baseball-passage-74",
+      "label": "74通路",
+      "aliases": [
+        "通路74"
+      ],
+      "level": "stand",
+      "point": [
+        112.205,
+        618.612
+      ],
+      "span": 220
+    },
+    {
+      "id": "sapporo-baseball-passage-85",
+      "label": "85通路",
+      "aliases": [
+        "通路85"
+      ],
+      "level": "stand",
+      "point": [
+        49.434,
+        483.302
+      ],
+      "span": 220
+    },
+    {
+      "id": "sapporo-baseball-passage-73",
+      "label": "73通路",
+      "aliases": [
+        "通路73"
+      ],
+      "level": "stand",
+      "point": [
+        48.528,
+        663.186
+      ],
+      "span": 220
+    },
+    {
+      "id": "sapporo-baseball-passage-2",
+      "label": "2通路",
+      "aliases": [
+        "通路2"
+      ],
+      "level": "stand",
+      "point": [
+        636.023,
+        378.274
+      ],
+      "span": 220
+    },
+    {
+      "id": "sapporo-baseball-passage-10",
+      "label": "10通路",
+      "aliases": [
+        "通路10"
+      ],
+      "level": "stand",
+      "point": [
+        646.691,
+        503.632
+      ],
+      "span": 220
+    },
+    {
+      "id": "sapporo-baseball-passage-23",
+      "label": "23通路",
+      "aliases": [
+        "通路23"
+      ],
+      "level": "stand",
+      "point": [
+        604.762,
+        650.896
+      ],
+      "span": 220
+    },
+    {
+      "id": "sapporo-baseball-passage-11",
+      "label": "11通路",
+      "aliases": [
+        "通路11"
+      ],
+      "level": "stand",
+      "point": [
+        689.367,
+        515.758
+      ],
+      "span": 220
+    },
+    {
+      "id": "sapporo-baseball-passage-21",
+      "label": "21通路",
+      "aliases": [
+        "通路21"
+      ],
+      "level": "stand",
+      "point": [
+        683.429,
+        666.973
+      ],
+      "span": 220
+    },
+    {
+      "id": "sapporo-baseball-passage-39",
+      "label": "39通路",
+      "aliases": [
+        "通路39"
+      ],
+      "level": "stand",
+      "point": [
+        460.587,
+        765.495
+      ],
+      "span": 220
+    },
+    {
+      "id": "sapporo-baseball-passage-47",
+      "label": "47通路",
+      "aliases": [
+        "通路47"
+      ],
+      "level": "stand",
+      "point": [
+        365.11,
+        770.9
+      ],
+      "span": 220
+    },
+    {
+      "id": "sapporo-baseball-passage-55",
+      "label": "55通路",
+      "aliases": [
+        "通路55"
+      ],
+      "level": "stand",
+      "point": [
+        270.119,
+        764.939
+      ],
+      "span": 220
+    },
+    {
+      "id": "sapporo-baseball-passage-46",
+      "label": "46通路",
+      "aliases": [
+        "通路46"
+      ],
+      "level": "stand",
+      "point": [
+        382.421,
+        889.083
+      ],
+      "span": 220
+    },
+    {
+      "id": "sapporo-baseball-passage-54",
+      "label": "54通路",
+      "aliases": [
+        "通路54"
+      ],
+      "level": "stand",
+      "point": [
+        265.659,
+        817.661
+      ],
+      "span": 220
+    },
+    {
+      "id": "sapporo-baseball-passage-34",
+      "label": "34通路",
+      "aliases": [
+        "通路34"
+      ],
+      "level": "stand",
+      "point": [
+        569.774,
+        823.548
+      ],
+      "span": 220
+    }
+  ],
+  "numericAliasesAreBlocks": true
+}

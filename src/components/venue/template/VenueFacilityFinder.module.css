@@ -1,0 +1,77 @@
+.finder { --rose:#a93164; --ink:#493340; --edge:#eedee5; margin-top:16px; color:var(--ink); overflow-anchor:none; }
+.toolbar { border:1px solid var(--edge); border-radius:20px 20px 0 0; padding:0 16px; background:#fff; }
+.controlRow { display:grid; grid-template-columns:40px minmax(0,1fr); align-items:center; gap:12px; padding:10px 0; }
+.controlRow + .controlRow { border-top:1px solid var(--edge); }
+.rowLabel { color:#786570; font-size:12px; font-weight:750; }
+.topRow,.mainRow { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px 16px; }
+.topRow { justify-content:flex-start; gap:10px 24px; }
+.buttons,.purposes { display:flex; flex-wrap:wrap; align-items:center; gap:6px; }
+.finder button { min-width:44px; min-height:44px; }
+.finder .buttons button,.finder .purposes button,.finder .numberForm button { display:inline-flex; align-items:center; justify-content:center; gap:6px; border:1px solid var(--edge); border-radius:10px; padding:8px 12px; background:#fff; color:#725965; font-size:12px; font-weight:750; }
+.finder .buttons button[aria-pressed=true],.finder .purposes button[aria-pressed=true] { background:var(--rose); border-color:var(--rose); color:#fff; padding:8px 12px; }
+.finder button:disabled,.finder .buttons button:disabled,.finder .purposes button:disabled { opacity:1; cursor:default; background:#f3f3f3; border-color:#e5e5e5; color:#929292; box-shadow:none; }
+.finder .numberForm input:disabled { background:#f3f3f3; border-color:#e5e5e5; color:#929292; }
+.finder .numberForm { display:flex; align-items:center; gap:6px; }
+.numberControl { max-width:100%; }
+.numberControl .error { max-width:260px; margin-top:6px; }
+.finder .numberForm input { min-height:44px; box-sizing:border-box; width:74px; padding:8px; font-size:14px; }
+.finder .numberForm > button { color:var(--rose); }
+.body { display:grid; grid-template-columns:minmax(0,1.65fr) minmax(0,1fr); border:1px solid var(--edge); border-top:0; border-radius:0 0 20px 20px; overflow:clip; background:#fff; }
+.mapPanel,.results { min-width:0; }
+.results { border-left:1px solid var(--edge); }
+.panelHeading { display:flex; align-items:center; justify-content:space-between; gap:8px; min-height:52px; padding:8px 14px; border-bottom:1px solid var(--edge); font-size:13px; }
+.panelHeading strong { overflow-wrap:anywhere; }
+.finder .panelHeading button { border:0; padding:4px 8px; font-size:12px; color:var(--rose); }
+.list { max-height:500px; overflow:auto; }
+.finder .resultRow { display:flex; align-items:center; gap:10px; width:100%; min-height:62px; text-align:left; padding:10px 14px; border:0; border-bottom:1px solid var(--edge); border-radius:0; background:#fff; color:var(--ink); }
+.finder .resultRow[aria-pressed=true] { padding:10px 14px; background:#fff0f6; border:0; border-bottom:1px solid var(--edge); box-shadow:inset 3px 0 var(--rose); }
+.resultRow > svg { flex-shrink:0; color:var(--rose); }
+.resultRow > span:nth-child(2) { flex:1; min-width:0; display:grid; gap:2px; }
+.resultRow strong { font-size:13px; overflow-wrap:anywhere; }
+.resultRow small { font-size:12px; color:#786570; font-weight:500; overflow-wrap:anywhere; }
+.resultRow > span:last-child { color:var(--rose); font-size:20px; }
+.detail { padding:12px 14px; border-bottom:1px solid var(--edge); background:#fff5f9; font-size:12px; line-height:1.8; }
+.detail > div { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+.detail strong { display:flex; align-items:center; gap:8px; font-size:13px; }
+.finder .detail button { display:grid; place-items:center; padding:8px; border:0; background:#fff; color:var(--rose); }
+.detail p { margin-top:6px; }
+.unplaced > p,.listNote { padding:8px 14px; color:#786570; font-size:12px; }
+.empty,.noMap { padding:18px 14px; color:#786570; font-size:12px; line-height:1.8; }
+.empty button { display:block; margin-top:8px; }
+.error { margin:0; color:#a51a49; font-size:12px; }
+.baggage { padding:14px; font-size:12px; line-height:1.8; }
+.baggage p { margin:6px 0; color:#786570; }
+.baggage a { display:inline-flex; align-items:center; min-height:44px; color:var(--rose); text-decoration:underline; }
+@media(max-width:767px) {
+ .toolbar { padding:0 10px; border-radius:16px 16px 0 0; }
+ .controlRow { grid-template-columns:30px minmax(0,1fr); gap:8px; }
+ .rowLabel { align-self:start; padding-top:14px; font-size:12px; }
+ .topRow { gap:8px; }
+ .mainRow { display:grid; grid-template-columns:minmax(0,1fr); justify-content:stretch; gap:10px; }
+ .purposes { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; }
+ .finder .purposes button { padding:6px 1px; gap:2px; font-size:12px; }
+ .finder .purposes button[aria-pressed=true] { padding:6px 1px; }
+ .finder .purposes button span { white-space:nowrap; }
+ .finder .purposes button svg { width:16px; height:16px; flex-shrink:0; }
+ .finder .numberForm { flex-wrap:wrap; }
+ .finder .numberForm input { font-size:16px; flex:1; width:60px; min-width:0; }
+ .body { grid-template-columns:minmax(0,1fr); border-radius:0 0 16px 16px; }
+ .results { border-left:0; border-top:1px solid var(--edge); }
+ .list { max-height:350px; }
+ .finder .buttons button { padding:6px 9px; }
+ .finder .buttons button[aria-pressed=true] { padding:6px 9px; }
+}
+
+.finder .wordSearch { width:100%; max-width:380px; min-height:44px; border:1px solid #d9b4c7; border-radius:8px; padding:8px 12px; color:#493340; background:#fff; font-size:16px; }
+.bookingLink { display:inline-flex; align-items:center; min-height:44px; padding:8px 12px; margin-top:8px; background:#a93164; color:#fff; border-radius:8px; text-decoration:none; font-weight:750; }
+.detail .bookingLink { color:#fff; }
+.detail details { margin-top:8px; }
+.detail summary { cursor:pointer; }
+.detail a { display:inline-flex; align-items:center; min-height:44px; }
+.detail a:not(.bookingLink) { color:#913455; text-decoration:underline; }
+.filters { display:flex; flex-wrap:wrap; gap:6px; }
+
+.tokyoDetail > details { border:0; padding:0; background:transparent; box-shadow:none; }
+.tokyoDetail > details > summary { display:none; }
+.tokyoDetail > details > div { padding:0; }
+.tokyoDetail > details h3 { display:none; }

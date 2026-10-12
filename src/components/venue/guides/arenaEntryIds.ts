@@ -1,0 +1,26 @@
+export const ARENA_GUIDE_IDS = [
+  "toki-messe",
+  "hiroshima-arena",
+  "miyagi-arena",
+  "edion-arena",
+  "makuhari-messe",
+  "nissan-stadium",
+  "mufg-stadium",
+  "koshien",
+  "zozo-marine",
+  "belluna-dome",
+  "sapporo-dome",
+  "paypay-dome",
+  "vantelin-dome",
+  "gaishi-hall",
+  "marine-messe",
+  "budokan",
+  "yoyogi",
+  "saitama-super-arena",
+  "ariake-arena",
+  "pia-arena-mm",
+  "tokyo-garden-theater",
+  "yokohama-arena",
+  "osaka-jo-hall"
+] as const;
+export type ArenaVenueId = typeof ARENA_GUIDE_IDS[number];

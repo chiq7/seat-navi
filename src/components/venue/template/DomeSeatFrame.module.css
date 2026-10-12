@@ -1,0 +1,44 @@
+.shell { --rose:#a93164; --ink:#493340; --edge:#eedee5; overflow:hidden; border:1px solid var(--edge); border-radius:24px; background:#fff; box-shadow:0 12px 38px #78334b08; color:var(--ink); }
+.controls { padding:18px 20px 12px; }
+.levels { display:flex; flex-wrap:wrap; gap:6px; }
+.levels button { display:flex; align-items:center; justify-content:center; gap:7px; padding:8px 14px; border:1px solid var(--edge); border-radius:12px; font-size:13px; font-weight:800; background:#fff; }
+.levels button[aria-pressed=true] { color:#fff; background:var(--rose); border-color:var(--rose); }
+.levels i { width:9px; height:9px; border-radius:50%; }
+.tools { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-top:12px; }
+.directions,.shortcuts,.zoom { display:flex; align-items:center; gap:4px; }
+.directions { flex-wrap:wrap; max-width:100%; }
+.directions button { padding:5px 11px; border-radius:8px; font-size:12px; font-weight:750; color:#77626e; }
+.directions button[aria-pressed=true] { background:#fff0f6; color:var(--rose); }
+.zoom { border:1px solid var(--edge); border-radius:12px; gap:0; background:#fff; }
+.zoom button { font-weight:800; font-size:18px; }
+.zoom button:nth-child(2) { padding:0 9px; font-size:12px; }
+.shortcuts { margin-top:9px; flex-wrap:wrap; }
+.shortcuts button { display:flex; align-items:center; gap:5px; padding:4px 8px; font-size:12px; color:var(--rose); font-weight:750; }
+.shortcuts button[aria-expanded=true] { background:#fff0f6; border-radius:8px; }
+.shell button:is([type="button"],[type="submit"]) { min-width:44px; min-height:44px; }
+.shell select,.shell input { min-height:44px; }
+.shell button:focus-visible,.shell select:focus-visible,.shell input:focus-visible,.shell a:focus-visible { outline:3px solid #b72e66; outline-offset:3px; }
+.directionExtra { width:100%; min-width:0; }
+@media(min-width:960px) {
+ .inlineControls { display:grid; grid-template-columns:minmax(0,1fr) 350px; align-items:center; gap:10px 16px; }
+ .inlineControls .levels { grid-column:1; grid-row:1; }
+ .inlineControls .tools { display:contents; }
+ .inlineControls .directions { grid-column:1; grid-row:2; flex-wrap:wrap; }
+ .inlineControls .zoom { grid-column:2; grid-row:1; justify-self:end; }
+ .inlineControls .directionExtra { grid-column:2; grid-row:2; }
+ .inlineControls .shortcuts { grid-column:1 / -1; }
+ .inlineControls .shortcuts:empty { display:none; }
+}
+@media(max-width:600px) {
+ .shell { border-radius:18px; }
+ .controls { padding:12px 10px 8px; }
+ .levels { display:flex; flex-wrap:wrap; gap:4px; }
+ .levels button { flex:1 0 auto; flex-direction:column; gap:4px; padding:7px 8px; font-size:12px; min-height:49px; border-radius:10px; white-space:nowrap; }
+ .tools { gap:5px; margin-top:7px; }
+ .directions { gap:0; }
+ .directions button { padding:4px 7px; font-size:12px; }
+ .zoom { margin-left:auto; }
+ .zoom button:nth-child(2) { font-size:12px; padding:0; }
+ .shortcuts { margin-top:3px; gap:3px; }
+ .shortcuts button { font-size:12px; padding-inline:5px; }
+}

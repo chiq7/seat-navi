@@ -1,0 +1,5672 @@
+{
+  "facilities": [
+    {
+      "id": "tgt-2f-vending-01",
+      "name": "自動販売機",
+      "purpose": "飲食",
+      "kind": "vending",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "ホワイエ右側",
+      "detail": "飲み物の自動販売機。現金・電子マネーに対応。",
+      "precision": "diagram-point",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-2f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-2f-native",
+        "x": 1388.5,
+        "y": 491.0,
+        "sourceIds": [
+          "floor-2f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-2f: map region x<1700, red pictogram #1 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-2f-smoking-01",
+      "name": "喫煙室",
+      "purpose": "案内",
+      "kind": "smokingarea",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "ホワイエ右側",
+      "detail": "紙巻き・電子たばこを利用できます。公演によって利用制限があります。",
+      "precision": "diagram-point",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-2f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-2f-native",
+        "x": 1386.5,
+        "y": 546.5,
+        "sourceIds": [
+          "floor-2f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-2f: map region x<1700, red pictogram #2 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-2f-toilet-men-01",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "kind": "men",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "ホワイエ右側",
+      "detail": "当日の男女の割り当ては案内表示をご確認ください。",
+      "precision": "diagram-point",
+      "toiletType": "men",
+      "sourceIds": [
+        "floor-2f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-2f-native",
+        "x": 1486.0,
+        "y": 605.0,
+        "sourceIds": [
+          "floor-2f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-2f: map region x<1700, red pictogram #3 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-2f-toilet-accessible-01",
+      "name": "多機能トイレ",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "ホワイエ右側",
+      "detail": "車いす対応。おむつ交換にも利用できます。",
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "sourceIds": [
+        "floor-2f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-2f-native",
+        "x": 1499.0,
+        "y": 749.0,
+        "sourceIds": [
+          "floor-2f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-2f: map region x<1700, red pictogram #5 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-2f-shop-01",
+      "name": "タリーズコーヒー",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "ホワイエ正面・左側",
+      "detail": "アリーナ階ホワイエのコーヒー売店です。",
+      "precision": "diagram-point",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-2f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-2f-native",
+        "x": 742.0,
+        "y": 788.5,
+        "sourceIds": [
+          "floor-2f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-2f: map region x<1700, red pictogram #6 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-2f-toilet-women-01",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "kind": "women",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "ホワイエ右側",
+      "detail": "当日の男女の割り当ては案内表示をご確認ください。",
+      "precision": "diagram-point",
+      "toiletType": "women",
+      "sourceIds": [
+        "floor-2f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-2f-native",
+        "x": 1490.0,
+        "y": 861.0,
+        "sourceIds": [
+          "floor-2f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-2f: map region x<1700, red pictogram #8 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-3f-toilet-women-01",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "kind": "women",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "ホワイエ左側",
+      "detail": "当日の男女の割り当ては案内表示をご確認ください。",
+      "precision": "diagram-point",
+      "toiletType": "women",
+      "sourceIds": [
+        "floor-3f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-3f-native",
+        "x": 572.0,
+        "y": 480.0,
+        "sourceIds": [
+          "floor-3f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-3f: map region x<1700, red pictogram #1 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-3f-toilet-men-01",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "kind": "men",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "ホワイエ左側",
+      "detail": "当日の男女の割り当ては案内表示をご確認ください。",
+      "precision": "diagram-point",
+      "toiletType": "men",
+      "sourceIds": [
+        "floor-3f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-3f-native",
+        "x": 647.0,
+        "y": 535.0,
+        "sourceIds": [
+          "floor-3f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-3f: map region x<1700, red pictogram #3 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-3f-baggage-port-01",
+      "name": "バゲッジポート",
+      "purpose": "荷物",
+      "kind": "baggage-port",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "ホワイエ左側",
+      "detail": "800円。電子マネーのみ。現金・クレジットカードは使えません。公演終了後まで。",
+      "precision": "diagram-point",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-3f",
+        "floor-guide",
+        "faq",
+        "garden-locker-renewal"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-3f-native",
+        "x": 544.0,
+        "y": 603.0,
+        "sourceIds": [
+          "floor-3f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-3f: map region x<1700, red pictogram #4 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-3f-nursing-01",
+      "name": "授乳室",
+      "purpose": "赤ちゃん",
+      "kind": "nursing",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "ホワイエ左側",
+      "detail": "授乳・おむつ交換に利用できます。",
+      "precision": "diagram-point",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-3f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-3f-native",
+        "x": 625.0,
+        "y": 608.0,
+        "sourceIds": [
+          "floor-3f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-3f: map region x<1700, red pictogram #5 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-3f-toilet-accessible-01",
+      "name": "多機能トイレ",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "ホワイエ左側",
+      "detail": "車いす対応。おむつ交換にも利用できます。",
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "sourceIds": [
+        "floor-3f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-3f-native",
+        "x": 588.0,
+        "y": 643.0,
+        "sourceIds": [
+          "floor-3f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-3f: map region x<1700, red pictogram #6 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-3f-smoking-01",
+      "name": "喫煙室",
+      "purpose": "案内",
+      "kind": "smokingarea",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "ホワイエ左側",
+      "detail": "紙巻き・電子たばこを利用できます。公演によって利用制限があります。",
+      "precision": "diagram-point",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-3f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-3f-native",
+        "x": 609.0,
+        "y": 749.5,
+        "sourceIds": [
+          "floor-3f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-3f: map region x<1700, red pictogram #7 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-3f-shop-01",
+      "name": "売店",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "ホワイエ正面・左側",
+      "detail": "軽食・ソフトドリンク・アルコール。通常は開場から開演30分後まで。公演により変わります。",
+      "precision": "diagram-point",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-3f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-3f-native",
+        "x": 821.0,
+        "y": 859.0,
+        "sourceIds": [
+          "floor-3f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-3f: map region x<1700, red pictogram #9 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-3f-shop-02",
+      "name": "売店",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "ホワイエ正面・右側",
+      "detail": "軽食・ソフトドリンク・アルコール。通常は開場から開演30分後まで。公演により変わります。",
+      "precision": "diagram-point",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-3f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-3f-native",
+        "x": 1143.0,
+        "y": 859.0,
+        "sourceIds": [
+          "floor-3f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-3f: map region x<1700, red pictogram #10 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-4f-toilet-women-01",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "kind": "women",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "ホワイエ右側",
+      "detail": "当日の男女の割り当ては案内表示をご確認ください。",
+      "precision": "diagram-point",
+      "toiletType": "women",
+      "sourceIds": [
+        "floor-4f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-4f-native",
+        "x": 1532.0,
+        "y": 345.0,
+        "sourceIds": [
+          "floor-4f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-4f: map region x<1700, red pictogram #1 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-4f-toilet-women-02",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "kind": "women",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "ホワイエ左側",
+      "detail": "当日の男女の割り当ては案内表示をご確認ください。",
+      "precision": "diagram-point",
+      "toiletType": "women",
+      "sourceIds": [
+        "floor-4f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-4f-native",
+        "x": 540.0,
+        "y": 348.0,
+        "sourceIds": [
+          "floor-4f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-4f: map region x<1700, red pictogram #2 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-4f-vending-01",
+      "name": "自動販売機",
+      "purpose": "飲食",
+      "kind": "vending",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "ホワイエ右側",
+      "detail": "飲み物の自動販売機。現金・電子マネーに対応。",
+      "precision": "diagram-point",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-4f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-4f-native",
+        "x": 1618.0,
+        "y": 410.0,
+        "sourceIds": [
+          "floor-4f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-4f: map region x<1700, red pictogram #3 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-4f-toilet-men-01",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "kind": "men",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "ホワイエ右側",
+      "detail": "当日の男女の割り当ては案内表示をご確認ください。",
+      "precision": "diagram-point",
+      "toiletType": "men",
+      "sourceIds": [
+        "floor-4f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-4f-native",
+        "x": 1567.0,
+        "y": 438.0,
+        "sourceIds": [
+          "floor-4f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-4f: map region x<1700, red pictogram #4 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-4f-toilet-men-02",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "kind": "men",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "ホワイエ左側",
+      "detail": "当日の男女の割り当ては案内表示をご確認ください。",
+      "precision": "diagram-point",
+      "toiletType": "men",
+      "sourceIds": [
+        "floor-4f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-4f-native",
+        "x": 604.0,
+        "y": 439.0,
+        "sourceIds": [
+          "floor-4f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-4f: map region x<1700, red pictogram #5 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-4f-toilet-accessible-01",
+      "name": "多機能トイレ",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "ホワイエ右側",
+      "detail": "車いす対応。おむつ交換にも利用できます。",
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "sourceIds": [
+        "floor-4f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-4f-native",
+        "x": 1555.5,
+        "y": 514.5,
+        "sourceIds": [
+          "floor-4f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-4f: map region x<1700, red pictogram #7 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-4f-baggage-port-01",
+      "name": "バゲッジポート",
+      "purpose": "荷物",
+      "kind": "baggage-port",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "ホワイエ左側",
+      "detail": "800円。電子マネーのみ。現金・クレジットカードは使えません。公演終了後まで。",
+      "precision": "diagram-point",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-4f",
+        "floor-guide",
+        "faq",
+        "garden-locker-renewal"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-4f-native",
+        "x": 458.0,
+        "y": 521.5,
+        "sourceIds": [
+          "floor-4f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-4f: map region x<1700, red pictogram #8 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-4f-toilet-accessible-02",
+      "name": "多機能トイレ",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "ホワイエ左側",
+      "detail": "車いす対応。おむつ交換にも利用できます。",
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "sourceIds": [
+        "floor-4f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-4f-native",
+        "x": 538.5,
+        "y": 558.0,
+        "sourceIds": [
+          "floor-4f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-4f: map region x<1700, red pictogram #9 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-4f-smoking-01",
+      "name": "喫煙室",
+      "purpose": "案内",
+      "kind": "smokingarea",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "ホワイエ右側",
+      "detail": "紙巻き・電子たばこを利用できます。公演によって利用制限があります。",
+      "precision": "diagram-point",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-4f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-4f-native",
+        "x": 1594.5,
+        "y": 569.0,
+        "sourceIds": [
+          "floor-4f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-4f: map region x<1700, red pictogram #10 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-4f-shop-01",
+      "name": "売店",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "ホワイエ正面・右側",
+      "detail": "軽食・ソフトドリンク・アルコール。通常は開場から開演30分後まで。公演により変わります。 電子マネー・カードを用意し、現金対応は売店ごとにご確認ください。",
+      "precision": "diagram-point",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-4f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-4f-native",
+        "x": 1281.0,
+        "y": 865.0,
+        "sourceIds": [
+          "floor-4f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-4f: map region x<1700, red pictogram #13 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-4f-shop-02",
+      "name": "売店",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "ホワイエ正面・左側",
+      "detail": "軽食・ソフトドリンク・アルコール。通常は開場から開演30分後まで。公演により変わります。 電子マネー・カードを用意し、現金対応は売店ごとにご確認ください。",
+      "precision": "diagram-point",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-4f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-4f-native",
+        "x": 794.0,
+        "y": 869.0,
+        "sourceIds": [
+          "floor-4f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-4f: map region x<1700, red pictogram #14 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-5f-toilet-women-01",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "kind": "women",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "ホワイエ右側",
+      "detail": "当日の男女の割り当ては案内表示をご確認ください。",
+      "precision": "diagram-point",
+      "toiletType": "women",
+      "sourceIds": [
+        "floor-5f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-5f-native",
+        "x": 1455.0,
+        "y": 294.0,
+        "sourceIds": [
+          "floor-5f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-5f: map region x<1700, red pictogram #1 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-5f-toilet-women-02",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "kind": "women",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "ホワイエ左側",
+      "detail": "当日の男女の割り当ては案内表示をご確認ください。",
+      "precision": "diagram-point",
+      "toiletType": "women",
+      "sourceIds": [
+        "floor-5f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-5f-native",
+        "x": 577.0,
+        "y": 314.5,
+        "sourceIds": [
+          "floor-5f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-5f: map region x<1700, red pictogram #2 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-5f-toilet-men-01",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "kind": "men",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "ホワイエ右側",
+      "detail": "当日の男女の割り当ては案内表示をご確認ください。",
+      "precision": "diagram-point",
+      "toiletType": "men",
+      "sourceIds": [
+        "floor-5f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-5f-native",
+        "x": 1492.5,
+        "y": 378.0,
+        "sourceIds": [
+          "floor-5f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-5f: map region x<1700, red pictogram #4 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-5f-toilet-accessible-01",
+      "name": "多機能トイレ",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "ホワイエ左側",
+      "detail": "車いす対応。おむつ交換にも利用できます。",
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "sourceIds": [
+        "floor-5f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-5f-native",
+        "x": 577.0,
+        "y": 381.0,
+        "sourceIds": [
+          "floor-5f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-5f: map region x<1700, red pictogram #5 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-5f-toilet-men-02",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "kind": "men",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "ホワイエ左側",
+      "detail": "当日の男女の割り当ては案内表示をご確認ください。",
+      "precision": "diagram-point",
+      "toiletType": "men",
+      "sourceIds": [
+        "floor-5f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-5f-native",
+        "x": 641.0,
+        "y": 396.5,
+        "sourceIds": [
+          "floor-5f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-5f: map region x<1700, red pictogram #6 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-5f-smoking-01",
+      "name": "喫煙室",
+      "purpose": "案内",
+      "kind": "smokingarea",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "ホワイエ左側",
+      "detail": "紙巻き・電子たばこを利用できます。公演によって利用制限があります。",
+      "precision": "diagram-point",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-5f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-5f-native",
+        "x": 619.0,
+        "y": 448.0,
+        "sourceIds": [
+          "floor-5f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-5f: map region x<1700, red pictogram #7 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-5f-toilet-accessible-02",
+      "name": "多機能トイレ",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "ホワイエ右側",
+      "detail": "車いす対応。おむつ交換にも利用できます。",
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "sourceIds": [
+        "floor-5f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-5f-native",
+        "x": 1467.0,
+        "y": 461.0,
+        "sourceIds": [
+          "floor-5f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-5f: map region x<1700, red pictogram #8 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-5f-baggage-port-01",
+      "name": "バゲッジポート",
+      "purpose": "荷物",
+      "kind": "baggage-port",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "ホワイエ左側",
+      "detail": "800円。電子マネーのみ。現金・クレジットカードは使えません。公演終了後まで。",
+      "precision": "diagram-point",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-5f",
+        "floor-guide",
+        "faq",
+        "garden-locker-renewal"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-5f-native",
+        "x": 537.5,
+        "y": 462.0,
+        "sourceIds": [
+          "floor-5f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-5f: map region x<1700, red pictogram #9 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-5f-shop-01",
+      "name": "売店",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "ホワイエ正面・右側",
+      "detail": "軽食・ソフトドリンク・アルコール。通常は開場から開演30分後まで。公演により変わります。",
+      "precision": "diagram-point",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-5f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-5f-native",
+        "x": 1235.0,
+        "y": 830.0,
+        "sourceIds": [
+          "floor-5f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-5f: map region x<1700, red pictogram #12 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-5f-shop-02",
+      "name": "売店",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "ホワイエ正面・左側",
+      "detail": "軽食・ソフトドリンク・アルコール。通常は開場から開演30分後まで。公演により変わります。",
+      "precision": "diagram-point",
+      "toiletType": null,
+      "sourceIds": [
+        "floor-5f",
+        "floor-guide",
+        "faq"
+      ],
+      "anchor": {
+        "diagramId": "tgt-floor-5f-native",
+        "x": 825.0,
+        "y": 834.0,
+        "sourceIds": [
+          "floor-5f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-5f: map region x<1700, red pictogram #13 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-2f-toilet-accessible-01-diaper",
+      "name": "おむつ交換台",
+      "purpose": "赤ちゃん",
+      "kind": "diaper",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "ホワイエ右側",
+      "detail": "多機能トイレ内。おむつ交換に利用できます。",
+      "sourceIds": [
+        "floor-guide",
+        "faq"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "tgt-floor-2f-native",
+        "x": 1499.0,
+        "y": 749.0,
+        "sourceIds": [
+          "floor-2f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-2f: map region x<1700, red pictogram #5 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-3f-toilet-accessible-01-diaper",
+      "name": "おむつ交換台",
+      "purpose": "赤ちゃん",
+      "kind": "diaper",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "ホワイエ左側",
+      "detail": "多機能トイレ内。おむつ交換に利用できます。",
+      "sourceIds": [
+        "floor-guide",
+        "faq"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "tgt-floor-3f-native",
+        "x": 588.0,
+        "y": 643.0,
+        "sourceIds": [
+          "floor-3f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-3f: map region x<1700, red pictogram #6 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-4f-toilet-accessible-01-diaper",
+      "name": "おむつ交換台",
+      "purpose": "赤ちゃん",
+      "kind": "diaper",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "ホワイエ右側",
+      "detail": "多機能トイレ内。おむつ交換に利用できます。",
+      "sourceIds": [
+        "floor-guide",
+        "faq"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "tgt-floor-4f-native",
+        "x": 1555.5,
+        "y": 514.5,
+        "sourceIds": [
+          "floor-4f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-4f: map region x<1700, red pictogram #7 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-4f-toilet-accessible-02-diaper",
+      "name": "おむつ交換台",
+      "purpose": "赤ちゃん",
+      "kind": "diaper",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "ホワイエ左側",
+      "detail": "多機能トイレ内。おむつ交換に利用できます。",
+      "sourceIds": [
+        "floor-guide",
+        "faq"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "tgt-floor-4f-native",
+        "x": 538.5,
+        "y": 558.0,
+        "sourceIds": [
+          "floor-4f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-4f: map region x<1700, red pictogram #9 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-5f-toilet-accessible-01-diaper",
+      "name": "おむつ交換台",
+      "purpose": "赤ちゃん",
+      "kind": "diaper",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "ホワイエ左側",
+      "detail": "多機能トイレ内。おむつ交換に利用できます。",
+      "sourceIds": [
+        "floor-guide",
+        "faq"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "tgt-floor-5f-native",
+        "x": 577.0,
+        "y": 381.0,
+        "sourceIds": [
+          "floor-5f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-5f: map region x<1700, red pictogram #5 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-5f-toilet-accessible-02-diaper",
+      "name": "おむつ交換台",
+      "purpose": "赤ちゃん",
+      "kind": "diaper",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "ホワイエ右側",
+      "detail": "多機能トイレ内。おむつ交換に利用できます。",
+      "sourceIds": [
+        "floor-guide",
+        "faq"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "tgt-floor-5f-native",
+        "x": 1467.0,
+        "y": 461.0,
+        "sourceIds": [
+          "floor-5f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "floor-5f: map region x<1700, red pictogram #8 in y/x order; legend excluded 原図記号代表点（測定誤差±3px）。室入口・EV停止階・歩行/段差なし経路は未確認。"
+      }
+    },
+    {
+      "id": "tgt-2f-locker-01",
+      "name": "コインロッカー",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "ホワイエ北側",
+      "detail": "小400円。電子マネー・クレジットカード対応、現金不可。公演終了後まで。公演によって制限があります。 小：幅35.2×奥行67.8×高さ32.5cm。",
+      "sourceIds": [
+        "floor-2f",
+        "floor-guide",
+        "garden-locker-renewal"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "tgt-floor-2f-native",
+        "x": 1427,
+        "y": 676,
+        "sourceIds": [
+          "floor-2f",
+          "floor-guide",
+          "garden-locker-renewal"
+        ],
+        "reference": "現行公式図の記号/EV文字の代表点を目視（±3px）。個別入口・実機台数・歩行経路ではない。"
+      },
+      "storageKind": "coin"
+    },
+    {
+      "id": "tgt-4f-locker-01",
+      "name": "コインロッカー",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "ホワイエ北側",
+      "detail": "小400円・中600円。電子マネー・クレジットカード対応、現金不可。公演終了後まで。公演によって制限があります。 小：幅35.2×奥行67.8×高さ32.5cm。 中：高さ51.6cm（幅・奥行は同じ）。",
+      "sourceIds": [
+        "floor-4f",
+        "floor-guide",
+        "garden-locker-renewal"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "tgt-floor-4f-native",
+        "x": 1676,
+        "y": 462,
+        "sourceIds": [
+          "floor-4f",
+          "floor-guide",
+          "garden-locker-renewal"
+        ],
+        "reference": "現行公式図の記号/EV文字の代表点を目視（±3px）。個別入口・実機台数・歩行経路ではない。"
+      },
+      "storageKind": "coin"
+    },
+    {
+      "id": "tgt-5f-locker-01",
+      "name": "コインロッカー",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "ホワイエ北側",
+      "detail": "小400円・中600円。電子マネー・クレジットカード対応、現金不可。公演終了後まで。公演によって制限があります。 小：幅35.2×奥行67.8×高さ32.5cm。 中：高さ51.6cm（幅・奥行は同じ）。",
+      "sourceIds": [
+        "floor-5f",
+        "floor-guide",
+        "garden-locker-renewal"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "tgt-floor-5f-native",
+        "x": 1558.5,
+        "y": 338,
+        "sourceIds": [
+          "floor-5f",
+          "floor-guide",
+          "garden-locker-renewal"
+        ],
+        "reference": "現行公式図の記号/EV文字の代表点を目視（±3px）。個別入口・実機台数・歩行経路ではない。"
+      },
+      "storageKind": "coin"
+    },
+    {
+      "id": "tgt-2f-escalator-01",
+      "name": "エスカレーター",
+      "purpose": "案内",
+      "kind": "escalator",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "ホワイエ右側",
+      "detail": "当日の運転方向・開放は案内表示をご確認ください。",
+      "sourceIds": [
+        "floor-2f",
+        "floor-guide",
+        "faq"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "tgt-floor-2f-native",
+        "x": 1334,
+        "y": 839.5,
+        "sourceIds": [
+          "floor-2f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "現行公式図の記号/EV文字の代表点を目視（±3px）。個別入口・実機台数・歩行経路ではない。"
+      }
+    },
+    {
+      "id": "tgt-2f-escalator-02",
+      "name": "エスカレーター",
+      "purpose": "案内",
+      "kind": "escalator",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "ホワイエ右側",
+      "detail": "当日の運転方向・開放は案内表示をご確認ください。",
+      "sourceIds": [
+        "floor-2f",
+        "floor-guide",
+        "faq"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "tgt-floor-2f-native",
+        "x": 1353.5,
+        "y": 952.5,
+        "sourceIds": [
+          "floor-2f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "現行公式図の記号/EV文字の代表点を目視（±3px）。個別入口・実機台数・歩行経路ではない。"
+      }
+    },
+    {
+      "id": "tgt-2f-elevator-01",
+      "name": "エレベーター",
+      "purpose": "案内",
+      "kind": "elevator",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "ホワイエ左側",
+      "detail": "入口から各階への移動に利用できます。客席には階段があるため、必要な方はスタッフへご相談ください。",
+      "sourceIds": [
+        "floor-2f",
+        "floor-guide",
+        "faq"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "tgt-floor-2f-native",
+        "x": 684,
+        "y": 708,
+        "sourceIds": [
+          "floor-2f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "現行公式図の記号/EV文字の代表点を目視（±3px）。個別入口・実機台数・歩行経路ではない。"
+      }
+    },
+    {
+      "id": "tgt-2f-elevator-02",
+      "name": "エレベーター",
+      "purpose": "案内",
+      "kind": "elevator",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "ホワイエ右側",
+      "detail": "入口から各階への移動に利用できます。客席には階段があるため、必要な方はスタッフへご相談ください。",
+      "sourceIds": [
+        "floor-2f",
+        "floor-guide",
+        "faq"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "tgt-floor-2f-native",
+        "x": 1406,
+        "y": 618,
+        "sourceIds": [
+          "floor-2f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "現行公式図の記号/EV文字の代表点を目視（±3px）。個別入口・実機台数・歩行経路ではない。"
+      }
+    },
+    {
+      "id": "tgt-3f-escalator-01",
+      "name": "エスカレーター",
+      "purpose": "案内",
+      "kind": "escalator",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "ホワイエ右側",
+      "detail": "当日の運転方向・開放は案内表示をご確認ください。",
+      "sourceIds": [
+        "floor-3f",
+        "floor-guide",
+        "faq"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "tgt-floor-3f-native",
+        "x": 1394.5,
+        "y": 827.5,
+        "sourceIds": [
+          "floor-3f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "現行公式図の記号/EV文字の代表点を目視（±3px）。個別入口・実機台数・歩行経路ではない。"
+      }
+    },
+    {
+      "id": "tgt-3f-escalator-02",
+      "name": "エスカレーター",
+      "purpose": "案内",
+      "kind": "escalator",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "ホワイエ右側",
+      "detail": "当日の運転方向・開放は案内表示をご確認ください。",
+      "sourceIds": [
+        "floor-3f",
+        "floor-guide",
+        "faq"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "tgt-floor-3f-native",
+        "x": 1285.5,
+        "y": 862.5,
+        "sourceIds": [
+          "floor-3f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "現行公式図の記号/EV文字の代表点を目視（±3px）。個別入口・実機台数・歩行経路ではない。"
+      }
+    },
+    {
+      "id": "tgt-3f-escalator-03",
+      "name": "エスカレーター",
+      "purpose": "案内",
+      "kind": "escalator",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "ホワイエ左側",
+      "detail": "当日の運転方向・開放は案内表示をご確認ください。",
+      "sourceIds": [
+        "floor-3f",
+        "floor-guide",
+        "faq"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "tgt-floor-3f-native",
+        "x": 665,
+        "y": 904,
+        "sourceIds": [
+          "floor-3f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "現行公式図の記号/EV文字の代表点を目視（±3px）。個別入口・実機台数・歩行経路ではない。"
+      }
+    },
+    {
+      "id": "tgt-3f-escalator-04",
+      "name": "エスカレーター",
+      "purpose": "案内",
+      "kind": "escalator",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "ホワイエ右側",
+      "detail": "当日の運転方向・開放は案内表示をご確認ください。",
+      "sourceIds": [
+        "floor-3f",
+        "floor-guide",
+        "faq"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "tgt-floor-3f-native",
+        "x": 1300.5,
+        "y": 949.5,
+        "sourceIds": [
+          "floor-3f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "現行公式図の記号/EV文字の代表点を目視（±3px）。個別入口・実機台数・歩行経路ではない。"
+      }
+    },
+    {
+      "id": "tgt-3f-elevator-01",
+      "name": "エレベーター",
+      "purpose": "案内",
+      "kind": "elevator",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "ホワイエ左側",
+      "detail": "入口から各階への移動に利用できます。客席には階段があるため、必要な方はスタッフへご相談ください。",
+      "sourceIds": [
+        "floor-3f",
+        "floor-guide",
+        "faq"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "tgt-floor-3f-native",
+        "x": 646,
+        "y": 732,
+        "sourceIds": [
+          "floor-3f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "現行公式図の記号/EV文字の代表点を目視（±3px）。個別入口・実機台数・歩行経路ではない。"
+      }
+    },
+    {
+      "id": "tgt-3f-elevator-02",
+      "name": "エレベーター",
+      "purpose": "案内",
+      "kind": "elevator",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "ホワイエ右側",
+      "detail": "入口から各階への移動に利用できます。客席には階段があるため、必要な方はスタッフへご相談ください。",
+      "sourceIds": [
+        "floor-3f",
+        "floor-guide",
+        "faq"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "tgt-floor-3f-native",
+        "x": 1314,
+        "y": 647,
+        "sourceIds": [
+          "floor-3f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "現行公式図の記号/EV文字の代表点を目視（±3px）。個別入口・実機台数・歩行経路ではない。"
+      }
+    },
+    {
+      "id": "tgt-4f-escalator-01",
+      "name": "エスカレーター",
+      "purpose": "案内",
+      "kind": "escalator",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "ホワイエ左側",
+      "detail": "当日の運転方向・開放は案内表示をご確認ください。",
+      "sourceIds": [
+        "floor-4f",
+        "floor-guide",
+        "faq"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "tgt-floor-4f-native",
+        "x": 599.5,
+        "y": 770.5,
+        "sourceIds": [
+          "floor-4f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "現行公式図の記号/EV文字の代表点を目視（±3px）。個別入口・実機台数・歩行経路ではない。"
+      }
+    },
+    {
+      "id": "tgt-4f-escalator-02",
+      "name": "エスカレーター",
+      "purpose": "案内",
+      "kind": "escalator",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "ホワイエ右側",
+      "detail": "当日の運転方向・開放は案内表示をご確認ください。",
+      "sourceIds": [
+        "floor-4f",
+        "floor-guide",
+        "faq"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "tgt-floor-4f-native",
+        "x": 1590.5,
+        "y": 821.5,
+        "sourceIds": [
+          "floor-4f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "現行公式図の記号/EV文字の代表点を目視（±3px）。個別入口・実機台数・歩行経路ではない。"
+      }
+    },
+    {
+      "id": "tgt-4f-escalator-03",
+      "name": "エスカレーター",
+      "purpose": "案内",
+      "kind": "escalator",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "ホワイエ左側",
+      "detail": "当日の運転方向・開放は案内表示をご確認ください。",
+      "sourceIds": [
+        "floor-4f",
+        "floor-guide",
+        "faq"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "tgt-floor-4f-native",
+        "x": 619,
+        "y": 895.5,
+        "sourceIds": [
+          "floor-4f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "現行公式図の記号/EV文字の代表点を目視（±3px）。個別入口・実機台数・歩行経路ではない。"
+      }
+    },
+    {
+      "id": "tgt-4f-elevator-01",
+      "name": "エレベーター",
+      "purpose": "案内",
+      "kind": "elevator",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "ホワイエ左側",
+      "detail": "入口から各階への移動に利用できます。客席には階段があるため、必要な方はスタッフへご相談ください。",
+      "sourceIds": [
+        "floor-4f",
+        "floor-guide",
+        "faq"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "tgt-floor-4f-native",
+        "x": 608,
+        "y": 683,
+        "sourceIds": [
+          "floor-4f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "現行公式図の記号/EV文字の代表点を目視（±3px）。個別入口・実機台数・歩行経路ではない。"
+      }
+    },
+    {
+      "id": "tgt-4f-elevator-02",
+      "name": "エレベーター",
+      "purpose": "案内",
+      "kind": "elevator",
+      "floor": "4F",
+      "scope": "場内",
+      "location": "ホワイエ右側",
+      "detail": "入口から各階への移動に利用できます。客席には階段があるため、必要な方はスタッフへご相談ください。",
+      "sourceIds": [
+        "floor-4f",
+        "floor-guide",
+        "faq"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "tgt-floor-4f-native",
+        "x": 1453,
+        "y": 579,
+        "sourceIds": [
+          "floor-4f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "現行公式図の記号/EV文字の代表点を目視（±3px）。個別入口・実機台数・歩行経路ではない。"
+      }
+    },
+    {
+      "id": "tgt-5f-escalator-01",
+      "name": "エスカレーター",
+      "purpose": "案内",
+      "kind": "escalator",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "ホワイエ右側",
+      "detail": "当日の運転方向・開放は案内表示をご確認ください。",
+      "sourceIds": [
+        "floor-5f",
+        "floor-guide",
+        "faq"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "tgt-floor-5f-native",
+        "x": 1513.5,
+        "y": 740.5,
+        "sourceIds": [
+          "floor-5f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "現行公式図の記号/EV文字の代表点を目視（±3px）。個別入口・実機台数・歩行経路ではない。"
+      }
+    },
+    {
+      "id": "tgt-5f-escalator-02",
+      "name": "エスカレーター",
+      "purpose": "案内",
+      "kind": "escalator",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "ホワイエ左側",
+      "detail": "当日の運転方向・開放は案内表示をご確認ください。",
+      "sourceIds": [
+        "floor-5f",
+        "floor-guide",
+        "faq"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "tgt-floor-5f-native",
+        "x": 653.5,
+        "y": 746.5,
+        "sourceIds": [
+          "floor-5f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "現行公式図の記号/EV文字の代表点を目視（±3px）。個別入口・実機台数・歩行経路ではない。"
+      }
+    },
+    {
+      "id": "tgt-5f-elevator-01",
+      "name": "エレベーター",
+      "purpose": "案内",
+      "kind": "elevator",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "ホワイエ左側",
+      "detail": "入口から各階への移動に利用できます。客席には階段があるため、必要な方はスタッフへご相談ください。",
+      "sourceIds": [
+        "floor-5f",
+        "floor-guide",
+        "faq"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "tgt-floor-5f-native",
+        "x": 652,
+        "y": 603,
+        "sourceIds": [
+          "floor-5f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "現行公式図の記号/EV文字の代表点を目視（±3px）。個別入口・実機台数・歩行経路ではない。"
+      }
+    },
+    {
+      "id": "tgt-5f-elevator-02",
+      "name": "エレベーター",
+      "purpose": "案内",
+      "kind": "elevator",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "ホワイエ右側",
+      "detail": "入口から各階への移動に利用できます。客席には階段があるため、必要な方はスタッフへご相談ください。",
+      "sourceIds": [
+        "floor-5f",
+        "floor-guide",
+        "faq"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "tgt-floor-5f-native",
+        "x": 1399,
+        "y": 510,
+        "sourceIds": [
+          "floor-5f",
+          "floor-guide",
+          "faq"
+        ],
+        "reference": "現行公式図の記号/EV文字の代表点を目視（±3px）。個別入口・実機台数・歩行経路ではない。"
+      }
+    },
+    {
+      "id": "tgt-2f-first-aid",
+      "name": "救護室",
+      "purpose": "案内",
+      "kind": "information",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2Fアリーナ階",
+      "detail": "体調が悪くなったら、近くのスタッフへお声がけください。",
+      "sourceIds": [
+        "floor-guide"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "tgt-mall-lockers",
+      "name": "モール＆スパ棟 ロッカー室",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "3F",
+      "scope": "場外",
+      "location": "モール＆スパ棟3F・シアター入場前",
+      "detail": "小400円・中600円。電子マネー・クレジットカード対応、現金不可。公演終了後まで。公演によって利用制限があります。 小：幅35.2×奥行67.8×高さ32.5cm、中：高さ51.6cm（幅・奥行は同じ）。",
+      "sourceIds": [
+        "floor-3f",
+        "floor-guide",
+        "garden-locker-renewal"
+      ],
+      "precision": "diagram-point",
+      "anchor": {
+        "diagramId": "tgt-outside-locker-3f-native",
+        "x": 1539.5,
+        "y": 501,
+        "sourceIds": [
+          "floor-3f",
+          "floor-guide",
+          "garden-locker-renewal"
+        ],
+        "reference": "現行公式図の記号/EV文字の代表点を目視（±3px）。個別入口・実機台数・歩行経路ではない。"
+      },
+      "storageKind": "coin"
+    },
+    {
+      "id": "tgt-hotel-lockers",
+      "name": "ホテル軒下 コインロッカー",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "ホテル1F軒下",
+      "detail": "24時間。小400円・中600円・大800円。電子マネー・クレジットカード対応、現金不可。 小：幅35.2×奥行67.8×高さ32.5cm、中：高さ51.6cm（幅・奥行は同じ）。 大：高さ87.2cm。",
+      "sourceIds": [
+        "floor-guide",
+        "garden-locker-renewal",
+        "garden-mall-services"
+      ],
+      "precision": "text-only",
+      "storageKind": "coin"
+    },
+    {
+      "id": "tgt-garden-locker-bus",
+      "name": "有明ガーデン バスターミナル ロッカー",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "モール1Fバスターミナル",
+      "detail": "24時間。小300円・中400円・大500円。事前予約はできません。 幅35×奥行67cm。高さは小32/中52/大87cm。",
+      "sourceIds": [
+        "garden-mall-services",
+        "garden-mall-faq"
+      ],
+      "precision": "text-only",
+      "storageKind": "coin"
+    },
+    {
+      "id": "tgt-garden-locker-d",
+      "name": "有明ガーデン Dエレベーター前 ロッカー",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "5F",
+      "scope": "場外",
+      "location": "モール5F Dエレベーター前",
+      "detail": "10:00〜23:00。小300円・中400円・大500円。事前予約はできません。 幅35×奥行67cm。高さは小32/中52/大87cm。",
+      "sourceIds": [
+        "garden-mall-services",
+        "garden-mall-faq"
+      ],
+      "precision": "text-only",
+      "storageKind": "coin"
+    },
+    {
+      "id": "tgt-garden-locker-f",
+      "name": "有明ガーデン Fエレベーター前 ロッカー",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "5F",
+      "scope": "場外",
+      "location": "モール5F Fエレベーター前",
+      "detail": "10:00〜23:00。小300円・中400円・大500円。事前予約はできません。 幅35×奥行67cm。高さは小32/中52/大87cm。",
+      "sourceIds": [
+        "garden-mall-services",
+        "garden-mall-faq"
+      ],
+      "precision": "text-only",
+      "storageKind": "coin"
+    },
+    {
+      "id": "tgt-garden-atm-aeon1",
+      "name": "イオン銀行ATM",
+      "purpose": "案内",
+      "kind": "atm",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "イオンスタイル内",
+      "detail": "8:00〜23:00",
+      "sourceIds": [
+        "garden-mall-services"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "tgt-garden-atm-aeon2",
+      "name": "イオン銀行ATM",
+      "purpose": "案内",
+      "kind": "atm",
+      "floor": "2F",
+      "scope": "場外",
+      "location": "モール2F Dエレベーター付近",
+      "detail": "10:00〜23:00",
+      "sourceIds": [
+        "garden-mall-services"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "tgt-garden-atm-mizuho",
+      "name": "みずほ銀行ATM",
+      "purpose": "案内",
+      "kind": "atm",
+      "floor": "2F",
+      "scope": "場外",
+      "location": "モール2F Dエレベーター付近",
+      "detail": "10:00〜21:00",
+      "sourceIds": [
+        "garden-mall-services"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "tgt-garden-atm-smbc",
+      "name": "三井住友銀行ATM",
+      "purpose": "案内",
+      "kind": "atm",
+      "floor": "2F",
+      "scope": "場外",
+      "location": "三井住友銀行内",
+      "detail": "平日・土曜10:00〜23:00、日曜10:00〜21:00。祝日は曜日に準じます。",
+      "sourceIds": [
+        "garden-mall-services"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "tgt-garden-atm-resona",
+      "name": "りそな銀行ATM",
+      "purpose": "案内",
+      "kind": "atm",
+      "floor": "4F",
+      "scope": "場外",
+      "location": "りそな銀行内",
+      "detail": "10:00〜21:00",
+      "sourceIds": [
+        "garden-mall-services"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "tgt-garden-information",
+      "name": "インフォメーション",
+      "purpose": "案内",
+      "kind": "information",
+      "floor": "2F",
+      "scope": "場外",
+      "location": "モール2F Cエスカレーター付近",
+      "detail": "10:00〜21:00。落とし物・迷子の案内、車いす貸出。",
+      "sourceIds": [
+        "garden-mall-services"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "tgt-garden-smoking-3F",
+      "name": "喫煙室",
+      "purpose": "案内",
+      "kind": "smokingarea",
+      "floor": "3F",
+      "scope": "場外",
+      "location": "モール3F Fエレベーター付近",
+      "detail": "10:00〜21:00。電子たばこ専用",
+      "sourceIds": [
+        "garden-mall-services"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "tgt-garden-smoking-5F",
+      "name": "喫煙室",
+      "purpose": "案内",
+      "kind": "smokingarea",
+      "floor": "5F",
+      "scope": "場外",
+      "location": "モール5F Dエレベーター付近",
+      "detail": "10:00〜23:00。",
+      "sourceIds": [
+        "garden-mall-services"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "tgt-garden-baby-4f",
+      "name": "赤ちゃん休憩室",
+      "purpose": "赤ちゃん",
+      "kind": "nursing",
+      "floor": "4F",
+      "scope": "場外",
+      "location": "モール4F",
+      "detail": "女性専用授乳コーナー・おむつ交換台・調乳機・電子レンジ。詳しい場所は館内案内をご確認ください。",
+      "sourceIds": [
+        "garden-mall-faq"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "tgt-garden-baby-5f",
+      "name": "赤ちゃん休憩室",
+      "purpose": "赤ちゃん",
+      "kind": "nursing",
+      "floor": "5F",
+      "scope": "場外",
+      "location": "モール5F",
+      "detail": "女性専用授乳コーナー・おむつ交換台・調乳機・電子レンジ。詳しい場所は館内案内をご確認ください。",
+      "sourceIds": [
+        "garden-mall-faq"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "tgt-garden-toilet-1f",
+      "name": "トイレ",
+      "purpose": "トイレ",
+      "kind": "mixed",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "モール1F",
+      "detail": "入場前に利用できます。各階トイレにおむつ交換台があります。",
+      "sourceIds": [
+        "garden-mall-faq"
+      ],
+      "precision": "text-only",
+      "toiletType": "mixed"
+    },
+    {
+      "id": "tgt-garden-toilet-2f",
+      "name": "トイレ",
+      "purpose": "トイレ",
+      "kind": "mixed",
+      "floor": "2F",
+      "scope": "場外",
+      "location": "モール2F",
+      "detail": "入場前に利用できます。各階トイレにおむつ交換台があります。",
+      "sourceIds": [
+        "garden-mall-faq"
+      ],
+      "precision": "text-only",
+      "toiletType": "mixed"
+    },
+    {
+      "id": "tgt-garden-toilet-3f",
+      "name": "トイレ",
+      "purpose": "トイレ",
+      "kind": "mixed",
+      "floor": "3F",
+      "scope": "場外",
+      "location": "モール3F",
+      "detail": "入場前に利用できます。各階トイレにおむつ交換台があります。",
+      "sourceIds": [
+        "garden-mall-faq"
+      ],
+      "precision": "text-only",
+      "toiletType": "mixed"
+    },
+    {
+      "id": "tgt-garden-toilet-4f",
+      "name": "トイレ",
+      "purpose": "トイレ",
+      "kind": "mixed",
+      "floor": "4F",
+      "scope": "場外",
+      "location": "モール4F",
+      "detail": "入場前に利用できます。各階トイレにおむつ交換台があります。",
+      "sourceIds": [
+        "garden-mall-faq"
+      ],
+      "precision": "text-only",
+      "toiletType": "mixed"
+    },
+    {
+      "id": "tgt-garden-toilet-5f",
+      "name": "トイレ",
+      "purpose": "トイレ",
+      "kind": "mixed",
+      "floor": "5F",
+      "scope": "場外",
+      "location": "モール5F",
+      "detail": "入場前に利用できます。各階トイレにおむつ交換台があります。",
+      "sourceIds": [
+        "garden-mall-faq"
+      ],
+      "precision": "text-only",
+      "toiletType": "mixed"
+    },
+    {
+      "id": "tgt-garden-deck-ev-B",
+      "name": "Bエレベーター",
+      "purpose": "案内",
+      "kind": "elevator",
+      "floor": "B1F〜2F",
+      "scope": "場外",
+      "location": "Bエレベーター（地下駐車場〜2F）",
+      "detail": "24時間。シアターの指定入口は当日の案内をご確認ください。",
+      "sourceIds": [
+        "garden-accessible-deck"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "tgt-garden-deck-ev-D",
+      "name": "Dエレベーター",
+      "purpose": "案内",
+      "kind": "elevator",
+      "floor": "B1F〜2F",
+      "scope": "場外",
+      "location": "Dエレベーター（地下駐車場〜2F）",
+      "detail": "10:00〜23:00。シアターの指定入口は当日の案内をご確認ください。",
+      "sourceIds": [
+        "garden-accessible-deck"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "tgt-ariake-lockers",
+      "name": "有明駅 コインロッカー",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "改札階",
+      "scope": "場外",
+      "location": "改札外",
+      "detail": "改札の外に設置されています。料金・利用時間・支払方法は現地案内をご確認ください。",
+      "sourceIds": [
+        "garden-ariake-station"
+      ],
+      "precision": "text-only",
+      "storageKind": "coin"
+    },
+    {
+      "id": "tgt-ariake-toilet",
+      "name": "有明駅 男女トイレ",
+      "purpose": "トイレ",
+      "kind": "mixed",
+      "floor": "改札階",
+      "scope": "場外",
+      "location": "改札内",
+      "detail": "改札内のため乗車券が必要です。",
+      "sourceIds": [
+        "garden-ariake-station"
+      ],
+      "precision": "text-only",
+      "toiletType": "mixed"
+    },
+    {
+      "id": "tgt-ariake-accessible",
+      "name": "有明駅 車いす対応トイレ",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "改札階",
+      "scope": "場外",
+      "location": "改札外",
+      "detail": "必要な方は駅係員へご相談ください。",
+      "sourceIds": [
+        "garden-ariake-station"
+      ],
+      "precision": "text-only",
+      "toiletType": "accessible"
+    },
+    {
+      "id": "tgt-ariake-ev",
+      "name": "有明駅 エレベーター",
+      "purpose": "案内",
+      "kind": "elevator",
+      "floor": "改札階",
+      "scope": "場外",
+      "location": "駅構内・地上と改札/ホーム間",
+      "detail": "駅の改札・ホーム間を移動できます。会場までの連続した経路は公式アクセスをご確認ください。",
+      "sourceIds": [
+        "garden-ariake-station"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "tgt-ariake-aed",
+      "name": "有明駅 AED",
+      "purpose": "AED",
+      "kind": "aed",
+      "floor": "改札階",
+      "scope": "場外",
+      "location": "改札外・駅事務室付近",
+      "detail": "緊急時は駅係員へお声がけください。",
+      "sourceIds": [
+        "garden-ariake-station"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "tgt-tennis-lockers",
+      "name": "有明テニスの森駅 コインロッカー",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "改札階",
+      "scope": "場外",
+      "location": "改札外",
+      "detail": "改札の外に設置されています。料金・利用時間・支払方法は現地案内をご確認ください。",
+      "sourceIds": [
+        "garden-tennis-station"
+      ],
+      "precision": "text-only",
+      "storageKind": "coin"
+    },
+    {
+      "id": "tgt-tennis-toilet",
+      "name": "有明テニスの森駅 男女トイレ",
+      "purpose": "トイレ",
+      "kind": "mixed",
+      "floor": "改札階",
+      "scope": "場外",
+      "location": "改札内",
+      "detail": "改札内のため乗車券が必要です。",
+      "sourceIds": [
+        "garden-tennis-station"
+      ],
+      "precision": "text-only",
+      "toiletType": "mixed"
+    },
+    {
+      "id": "tgt-tennis-accessible",
+      "name": "有明テニスの森駅 車いす対応トイレ",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "改札階",
+      "scope": "場外",
+      "location": "改札内",
+      "detail": "必要な方は駅係員へご相談ください。",
+      "sourceIds": [
+        "garden-tennis-station"
+      ],
+      "precision": "text-only",
+      "toiletType": "accessible"
+    },
+    {
+      "id": "tgt-tennis-ev",
+      "name": "有明テニスの森駅 エレベーター",
+      "purpose": "案内",
+      "kind": "elevator",
+      "floor": "改札階",
+      "scope": "場外",
+      "location": "駅構内・地上と改札/ホーム間",
+      "detail": "駅の改札・ホーム間を移動できます。会場までの連続した経路は公式アクセスをご確認ください。",
+      "sourceIds": [
+        "garden-tennis-station"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "tgt-tennis-aed",
+      "name": "有明テニスの森駅 AED",
+      "purpose": "AED",
+      "kind": "aed",
+      "floor": "改札階",
+      "scope": "場外",
+      "location": "改札外・駅事務室付近",
+      "detail": "緊急時は駅係員へお声がけください。",
+      "sourceIds": [
+        "garden-tennis-station"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "tgt-kokusai-lockers",
+      "name": "国際展示場駅 コインロッカー",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "改札外",
+      "detail": "キャッシュレス。一部時間制。幅35.2×奥行67.8cm、高さは小32.5/中51.6/大87.2cm。料金は現地案内をご確認ください。",
+      "sourceIds": [
+        "garden-kokusai-station"
+      ],
+      "precision": "text-only",
+      "storageKind": "coin"
+    },
+    {
+      "id": "tgt-kokusai-toilet",
+      "name": "国際展示場駅 男女トイレ",
+      "purpose": "トイレ",
+      "kind": "mixed",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "改札内",
+      "detail": "改札内のため乗車券が必要です。",
+      "sourceIds": [
+        "garden-kokusai-station"
+      ],
+      "precision": "text-only",
+      "toiletType": "mixed"
+    },
+    {
+      "id": "tgt-kokusai-accessible",
+      "name": "国際展示場駅 車いす対応トイレ",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "改札内",
+      "detail": "必要な方は駅係員へご相談ください。",
+      "sourceIds": [
+        "garden-kokusai-station"
+      ],
+      "precision": "text-only",
+      "toiletType": "accessible"
+    },
+    {
+      "id": "tgt-kokusai-ev",
+      "name": "国際展示場駅 エレベーター",
+      "purpose": "案内",
+      "kind": "elevator",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "駅構内・地上と改札/ホーム間",
+      "detail": "駅の改札・ホーム間を移動できます。会場までの連続した経路は公式アクセスをご確認ください。",
+      "sourceIds": [
+        "garden-kokusai-station"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "tgt-kokusai-doutor",
+      "name": "ドトールコーヒー 国際展示場駅店",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "国際展示場駅構内",
+      "detail": "駅のコーヒーショップ。営業・改札境界は店舗案内をご確認ください。",
+      "sourceIds": [
+        "garden-kokusai-station"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "tgt-kokusai-soba",
+      "name": "いろり庵きらく 国際展示場店",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "国際展示場駅構内",
+      "detail": "駅のそば店。営業・改札境界は店舗案内をご確認ください。",
+      "sourceIds": [
+        "garden-kokusai-station"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "tgt-mall-shop-aeon",
+      "name": "イオンスタイル",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "モール1F",
+      "detail": "食品・飲み物の買い物。8:00〜23:00。",
+      "sourceIds": [
+        "garden-shop-aeon"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "tgt-mall-shop-muji",
+      "name": "Café＆Meal MUJI",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "モール＆スパ1F",
+      "detail": "平日11:00〜19:00（LO18:00）、土日祝11:00〜20:00（LO19:00）。電源あり。",
+      "sourceIds": [
+        "garden-shop-muji"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "tgt-mall-shop-tullys2",
+      "name": "タリーズコーヒー &TEA",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "2F",
+      "scope": "場外",
+      "location": "モール2F",
+      "detail": "10:00〜21:00（LO20:30）。電源あり。シアター内のタリーズとは別店舗です。",
+      "sourceIds": [
+        "garden-shop-tullys2"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "tgt-mall-shop-tullys4",
+      "name": "タリーズコーヒー 有明ガーデン店",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "4F",
+      "scope": "場外",
+      "location": "モール4F",
+      "detail": "10:00〜21:00（LO20:30）。電源あり。",
+      "sourceIds": [
+        "garden-shop-tullys4"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "tgt-mall-shop-chikusei",
+      "name": "元祖セルフうどんの店 竹清",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "5F",
+      "scope": "場外",
+      "location": "モール5F・フードコート",
+      "detail": "11:00〜23:00（LO22:00）。うどんのフードコート店舗。",
+      "sourceIds": [
+        "garden-shop-chikusei"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "tgt-mall-shop-tsumugi",
+      "name": "和カフェTsumugi",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "5F",
+      "scope": "場外",
+      "location": "モール5F",
+      "detail": "11:00〜23:00（LO22:00）。和食・甘味のカフェ。",
+      "sourceIds": [
+        "garden-shop-tsumugi"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "tgt-mall-shop-tomods",
+      "name": "トモズ 有明ガーデン店",
+      "purpose": "案内",
+      "kind": "information",
+      "floor": "2F",
+      "scope": "場外",
+      "location": "モール2F",
+      "detail": "10:00〜21:00。医薬品・日用品のドラッグストア。処方箋受付の条件は店舗へご確認ください。",
+      "sourceIds": [
+        "garden-shop-tomods"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "tgt-garden-parking",
+      "name": "有明ガーデン 駐車場",
+      "purpose": "案内",
+      "kind": "information",
+      "floor": "B1F・地上",
+      "scope": "場外",
+      "location": "地下・立体・屋外駐車場",
+      "detail": "24時間。入庫後1時間無料。平日（特定日を除く）400円/30分、最大3,500円は当日24時まで。土日祝・特定日は500円/30分、最大料金なし。予約不可。シアターの公演チケットは駐車サービス対象外です。",
+      "sourceIds": [
+        "garden-mall-access",
+        "faq"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "tgt-hotel-spa-parking",
+      "name": "ホテル・スパ専用駐車場",
+      "purpose": "案内",
+      "kind": "information",
+      "floor": "駐車場",
+      "scope": "場外",
+      "location": "ホテル・スパ駐車場",
+      "detail": "ホテル宿泊者・泉天空の湯の利用者専用です。シアターの公演チケットだけでは利用対象になりません。",
+      "sourceIds": [
+        "garden-mall-access"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "tgt-garden-bicycle",
+      "name": "有明ガーデン 駐輪場",
+      "purpose": "案内",
+      "kind": "information",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "敷地内・立体駐車場1F側など",
+      "detail": "24時間。平日は5時間まで無料、以降2時間ごと100円。土日祝は無料。敷地内は自転車を降りて通行してください。",
+      "sourceIds": [
+        "garden-mall-access",
+        "faq"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "tgt-garden-taxi",
+      "name": "タクシー乗降場",
+      "purpose": "案内",
+      "kind": "information",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "有明ガーデン1F バスターミナル",
+      "detail": "タクシーは常駐していません。乗り場の配車用タブレットやスマートフォンで手配してください。シアター専用の乗り場ではありません。",
+      "sourceIds": [
+        "faq",
+        "access"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "tgt-bus-ariake2",
+      "name": "有明二丁目 バス停",
+      "purpose": "案内",
+      "kind": "information",
+      "floor": "地上",
+      "scope": "場外",
+      "location": "有明二丁目 バス停",
+      "detail": "都営バス 海01・都05-2。運行時刻・方面・乗り場は公式アクセスの交通事業者案内をご確認ください。",
+      "sourceIds": [
+        "garden-mall-access"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "tgt-bus-kaetsu",
+      "name": "かえつ学園西 バス停",
+      "purpose": "案内",
+      "kind": "information",
+      "floor": "地上",
+      "scope": "場外",
+      "location": "かえつ学園西 バス停",
+      "detail": "都営バス 海01・都05-2。運行時刻・方面・乗り場は公式アクセスの交通事業者案内をご確認ください。",
+      "sourceIds": [
+        "garden-mall-access"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "tgt-bus-tennis",
+      "name": "有明テニスの森 バス停",
+      "purpose": "案内",
+      "kind": "information",
+      "floor": "地上",
+      "scope": "場外",
+      "location": "有明テニスの森 バス停",
+      "detail": "新橋方面から東京BRT幹線ルート。運行時刻・方面・乗り場は公式アクセスの交通事業者案内をご確認ください。",
+      "sourceIds": [
+        "garden-mall-access"
+      ],
+      "precision": "text-only"
+    },
+    {
+      "id": "tgt-transfer-shimbashi-west",
+      "name": "新橋駅 西口側ロッカー",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "駅構内",
+      "scope": "場外",
+      "location": "ゆりかもめ改札階・西口改札外",
+      "detail": "乗換時に預けられる駅ロッカー。利用時間・料金・支払方法は現地案内をご確認ください。",
+      "sourceIds": [
+        "garden-shimbashi-station",
+        "garden-shimbashi-plan"
+      ],
+      "precision": "text-only",
+      "storageKind": "coin"
+    },
+    {
+      "id": "tgt-transfer-shimbashi-east",
+      "name": "新橋駅 東口側ロッカー",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "2F",
+      "scope": "場外",
+      "location": "東口改札下・連絡通路（2F）",
+      "detail": "乗換時に預けられる駅ロッカー。利用時間・料金・支払方法は現地案内をご確認ください。",
+      "sourceIds": [
+        "garden-shimbashi-station",
+        "garden-shimbashi-plan"
+      ],
+      "precision": "text-only",
+      "storageKind": "coin"
+    },
+    {
+      "id": "tgt-transfer-toyosu-yuri",
+      "name": "豊洲駅 ゆりかもめロッカー",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "駅構内",
+      "scope": "場外",
+      "location": "ゆりかもめ改札階・2A側",
+      "detail": "乗換時に預けられる駅ロッカー。利用時間・料金・支払方法は現地案内をご確認ください。",
+      "sourceIds": [
+        "garden-toyosu-station",
+        "garden-toyosu-plan"
+      ],
+      "precision": "text-only",
+      "storageKind": "coin"
+    },
+    {
+      "id": "tgt-transfer-toyosu-metro",
+      "name": "豊洲駅 東京メトロロッカー",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "駅構内",
+      "scope": "場外",
+      "location": "有楽町線構内・個別位置は現地案内で確認",
+      "detail": "乗換時に預けられる駅ロッカー。利用時間・料金・支払方法は現地案内をご確認ください。",
+      "sourceIds": [
+        "garden-toyosu-metro"
+      ],
+      "precision": "text-only",
+      "storageKind": "coin"
+    },
+    {
+      "id": "tgt-transfer-osaki-out",
+      "name": "大崎駅 北改札外ロッカー",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "駅構内",
+      "scope": "場外",
+      "location": "北改札外・東口方面",
+      "detail": "マルチエキューブ。キャッシュレス決済のみ、現金不可。予約・配送の利用は会員登録が必要です。受付条件・受取時刻を運営元で確認してください。",
+      "sourceIds": [
+        "garden-osaki-lockers"
+      ],
+      "precision": "text-only",
+      "storageKind": "coin"
+    },
+    {
+      "id": "tgt-transfer-osaki-north",
+      "name": "大崎駅 北改札内ロッカー",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "駅構内",
+      "scope": "場外",
+      "location": "北改札内・7/8番線階段付近",
+      "detail": "マルチエキューブ。キャッシュレス決済のみ、現金不可。予約・配送の利用は会員登録が必要です。受付条件・受取時刻を運営元で確認してください。",
+      "sourceIds": [
+        "garden-osaki-lockers"
+      ],
+      "precision": "text-only",
+      "storageKind": "coin"
+    },
+    {
+      "id": "tgt-transfer-osaki-south",
+      "name": "大崎駅 南改札内ロッカー",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "駅構内",
+      "scope": "場外",
+      "location": "南改札内・1/2番線エスカレーター付近",
+      "detail": "マルチエキューブ。キャッシュレス決済のみ、現金不可。予約・配送の利用は会員登録が必要です。受付条件・受取時刻を運営元で確認してください。",
+      "sourceIds": [
+        "garden-osaki-lockers"
+      ],
+      "precision": "text-only",
+      "storageKind": "coin"
+    },
+    {
+      "id": "tgt-transfer-shimbashi-staffed",
+      "name": "ビッグエコー新橋銀座口駅前店 荷物預かり",
+      "purpose": "荷物",
+      "kind": "staffed",
+      "floor": "店舗",
+      "scope": "場外",
+      "location": "新橋駅付近・店舗で預かり",
+      "detail": "Bounceで事前予約。月〜木11:00〜翌4:30、金11:00〜翌6:30、土10:00〜翌6:30、日10:00〜翌4:30。予約日時の受付・受取時間と料金を確認してください。予約後の案内で住所・入口を確認できます。",
+      "sourceIds": [
+        "garden-shimbashi-bounce"
+      ],
+      "precision": "text-only",
+      "storageKind": "staffed",
+      "bookingUrl": "https://ja.bounce.com/stores/tokyo/Mz2wXR"
+    }
+  ],
+  "diagrams": [
+    {
+      "id": "tgt-floor-2f-native",
+      "floor": "2F",
+      "scope": "場内",
+      "viewBox": [
+        390,
+        150,
+        1350,
+        850
+      ],
+      "contextPaths": [
+        "M1488,678 L1525,679 L1525,923 L1451,923 L1448,920 L1446,922 L1446,815 L1448,816 L1453,811 L1488,811 L1487,769 L1518,768 L1519,766 L1519,761 L1517,761 L1519,734 L1517,737 L1517,731 L1492,731 L1490,728 L1487,728 Z",
+        "M1469,553 L1477,553 L1477,555 L1485,553 L1493,553 L1493,555 L1501,553 L1520,555 L1518,553 L1524,553 L1525,556 L1525,673 L1488,675 L1491,673 L1485,672 L1482,697 L1483,728 L1480,729 L1482,731 L1479,731 L1478,734 L1476,732 L1476,735 L1472,735 L1471,732 L1467,734 L1467,732 L1460,731 L1448,733 L1446,723 L1448,714 L1458,713 L1458,707 L1460,706 L1459,557 Z",
+        "M651,754 L733,754 L734,756 L733,767 L730,763 L729,768 L723,769 L722,776 L723,806 L724,808 L733,808 L734,815 L734,915 L732,919 L729,919 L729,916 L725,916 L721,919 L690,917 L689,919 L678,920 L643,921 L637,917 L634,777 L635,767 L643,768 L651,765 L649,759 Z",
+        "M1356,530 L1368,532 L1368,560 L1366,564 L1387,565 L1390,572 L1387,572 L1385,569 L1360,570 L1360,568 L1353,568 L1355,571 L1364,571 L1361,572 L1362,574 L1353,573 L1352,532 Z"
+      ],
+      "concoursePaths": [
+        "M620,420 L1620,420 L1620,980 L620,940 Z",
+        "M820,430 L1260,430 L1260,715 L820,715 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "tgt-2f-gate",
+          "label": "アリーナゲート",
+          "kind": "gate",
+          "x": 1420,
+          "y": 895,
+          "sourceIds": [
+            "floor-2f",
+            "garden-grounds"
+          ],
+          "reference": "公式設備図のゲート名称代表区域。公演の指定入口を確定しない。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor-2f",
+          "floor-guide"
+        ],
+        "file": "research/venue-packets/tokyo-garden-theater/sources/floor-2f.webp",
+        "sha256": "5d4a2157b20e33994d6929325f7e3ccdcbc65a3620faa6e65898b8d7b4a5d4cf",
+        "width": 2128,
+        "height": 1000,
+        "method": "原35設備の色領域/アンカーを保持。全赤記号とEV文字を追加読図。館/ホワイエは独立簡略外形、座席・入口・連続経路の実測ではない。",
+        "status": "all-pictograms-source-checked-private"
+      }
+    },
+    {
+      "id": "tgt-floor-3f-native",
+      "floor": "3F",
+      "scope": "場内",
+      "viewBox": [
+        390,
+        150,
+        1350,
+        850
+      ],
+      "contextPaths": [
+        "M542,416 L612,416 L613,560 L582,560 L583,572 L581,572 L580,577 L552,578 L548,576 L547,572 L547,536 L545,536 L545,526 L548,522 L548,517 L544,515 L540,428 Z",
+        "M630,460 L635,461 L633,473 L633,505 L635,505 L635,508 L668,509 L666,515 L668,522 L666,573 L664,576 L659,574 L641,574 L640,576 L629,574 L628,576 L619,577 L597,576 L588,578 L585,576 L585,566 L588,566 L588,564 L611,565 L616,563 L616,462 Z",
+        "M790,821 L800,822 L800,824 L807,823 L812,825 L812,828 L815,825 L817,828 L824,828 L824,831 L832,832 L832,835 L839,832 L840,836 L852,836 L854,839 L858,839 L857,855 L855,858 L853,856 L852,862 L847,862 L848,860 L841,861 L840,844 L837,840 L804,840 L803,845 L799,844 L785,833 L782,828 L785,822 L789,823 Z",
+        "M1168,820 L1176,820 L1180,824 L1178,828 L1180,832 L1176,832 L1176,837 L1172,841 L1161,844 L1159,840 L1124,840 L1125,857 L1122,861 L1117,860 L1120,862 L1113,861 L1113,856 L1110,855 L1112,852 L1109,852 L1107,846 L1108,839 L1123,836 L1123,833 L1130,831 L1143,830 L1145,827 L1153,828 L1151,826 Z",
+        "M585,715 L607,717 L607,728 L600,728 L600,730 L607,730 L607,732 L593,731 L591,739 L581,739 L579,722 L580,718 Z"
+      ],
+      "concoursePaths": [
+        "M485,350 L1670,350 L1670,980 L500,960 Z",
+        "M735,405 L1265,405 L1340,650 L1180,870 L835,870 L680,650 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "tgt-3f-gate",
+          "label": "バルコニーゲート",
+          "kind": "gate",
+          "x": 1430,
+          "y": 440,
+          "sourceIds": [
+            "floor-3f",
+            "garden-grounds"
+          ],
+          "reference": "公式設備図のゲート名称代表区域。公演の指定入口を確定しない。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor-3f",
+          "floor-guide"
+        ],
+        "file": "research/venue-packets/tokyo-garden-theater/sources/floor-3f.webp",
+        "sha256": "d51f0a0b085a091d5d28e92f60bfd25c0cae316f58c7470f5965948040be04d0",
+        "width": 2128,
+        "height": 1000,
+        "method": "原35設備の色領域/アンカーを保持。全赤記号とEV文字を追加読図。館/ホワイエは独立簡略外形、座席・入口・連続経路の実測ではない。",
+        "status": "all-pictograms-source-checked-private"
+      }
+    },
+    {
+      "id": "tgt-floor-4f-native",
+      "floor": "4F",
+      "scope": "場内",
+      "viewBox": [
+        390,
+        150,
+        1350,
+        850
+      ],
+      "contextPaths": [
+        "M499,290 L572,296 L573,380 L554,380 L553,382 L554,400 L569,400 L570,466 L555,465 L554,472 L508,472 L508,502 L484,504 L484,500 L474,499 L474,494 L477,480 L480,434 L483,423 L482,417 L484,417 L483,408 L486,379 L488,379 L487,371 L490,368 L490,365 L488,367 L488,362 L490,358 L489,352 L491,354 L490,343 L494,307 L497,300 L496,293 L502,292 Z",
+        "M1436,296 L1613,296 L1614,363 L1610,365 L1605,364 L1605,366 L1601,367 L1593,367 L1591,364 L1584,365 L1584,368 L1581,370 L1581,384 L1438,385 L1436,381 Z",
+        "M1518,388 L1596,388 L1595,431 L1605,433 L1604,461 L1606,470 L1604,472 L1603,487 L1540,487 L1542,485 L1537,484 L1538,480 L1540,480 L1540,457 L1538,478 L1538,457 L1536,452 L1516,451 Z",
+        "M589,400 L592,403 L605,400 L608,403 L612,403 L623,400 L624,403 L632,402 L632,405 L634,400 L637,401 L638,472 L635,475 L625,475 L622,473 L621,488 L568,486 L569,551 L561,552 L560,537 L536,537 L536,522 L533,536 L533,520 L512,520 L512,481 L519,476 L558,476 L558,472 L561,471 L573,472 L575,468 L573,467 L574,403 L575,401 L587,402 Z",
+        "M1306,823 L1312,823 L1317,832 L1319,832 L1316,836 L1312,836 L1312,840 L1304,840 L1305,842 L1302,843 L1260,843 L1259,864 L1252,864 L1252,866 L1258,867 L1251,868 L1247,873 L1238,872 L1236,877 L1231,880 L1228,880 L1227,877 L1225,878 L1224,867 L1222,867 L1218,849 L1230,848 L1231,845 L1239,844 L1249,839 L1261,839 L1265,835 L1273,836 L1276,832 L1288,832 L1289,828 L1302,828 Z",
+        "M761,821 L762,823 L774,823 L777,825 L776,827 L787,828 L792,830 L792,832 L820,836 L822,837 L821,840 L831,840 L835,844 L855,847 L856,857 L852,862 L854,865 L851,875 L848,874 L850,876 L848,881 L844,881 L839,876 L832,875 L832,872 L829,873 L824,871 L824,868 L821,869 L817,866 L817,849 L815,847 L780,847 L776,845 L775,841 L765,840 L763,837 L760,837 L755,832 L759,828 Z",
+        "M1613,524 L1620,524 L1620,527 L1623,528 L1621,558 L1616,558 L1618,557 L1616,546 L1578,546 L1575,540 L1574,547 L1577,525 Z"
+      ],
+      "concoursePaths": [
+        "M470,235 L1650,235 L1710,970 L405,930 Z",
+        "M715,305 L1320,305 L1420,655 L1200,900 L855,900 L650,655 Z"
+      ],
+      "landmarks": [],
+      "evidence": {
+        "sourceIds": [
+          "floor-4f",
+          "floor-guide"
+        ],
+        "file": "research/venue-packets/tokyo-garden-theater/sources/floor-4f.webp",
+        "sha256": "88040bc88bb2abcb38b2b315f161b63994b7b09e901a42a83e3e33d561c70c44",
+        "width": 2128,
+        "height": 1000,
+        "method": "原35設備の色領域/アンカーを保持。全赤記号とEV文字を追加読図。館/ホワイエは独立簡略外形、座席・入口・連続経路の実測ではない。",
+        "status": "all-pictograms-source-checked-private"
+      }
+    },
+    {
+      "id": "tgt-floor-5f-native",
+      "floor": "5F",
+      "scope": "場内",
+      "viewBox": [
+        390,
+        150,
+        1350,
+        850
+      ],
+      "contextPaths": [
+        "M1388,262 L1521,262 L1521,274 L1523,274 L1520,275 L1521,328 L1443,328 L1442,336 L1389,336 L1386,333 L1386,264 Z",
+        "M535,246 L608,246 L602,248 L610,248 L610,299 L672,298 L617,300 L674,300 L674,327 L672,330 L660,328 L660,339 L604,339 L603,337 L600,360 L602,386 L597,386 L599,360 L598,363 L593,360 L557,360 L558,391 L556,400 L557,398 L560,401 L573,400 L572,413 L552,414 L552,412 L544,412 L543,402 L545,394 L544,388 L542,392 L541,345 L539,344 L533,252 L536,248 L560,247 Z",
+        "M616,350 L623,350 L620,352 L633,352 L633,350 L649,352 L649,350 L655,350 L655,352 L674,353 L674,423 L671,427 L635,428 L619,427 L614,424 L614,407 L616,408 L614,397 L616,390 L607,389 L608,387 L605,388 L605,357 L607,351 L616,352 Z",
+        "M1451,331 L1466,331 L1465,333 L1471,333 L1468,331 L1519,332 L1521,432 L1508,436 L1482,436 L1474,432 L1475,404 L1455,404 L1455,338 L1454,336 L1448,336 L1448,333 Z",
+        "M1257,797 L1263,799 L1268,810 L1268,816 L1255,816 L1255,811 L1252,810 L1215,811 L1214,833 L1205,833 L1195,837 L1190,833 L1191,827 L1187,823 L1188,818 L1184,814 L1184,808 L1194,807 L1194,811 L1199,814 L1205,810 L1221,809 L1226,805 L1241,803 L1241,801 L1252,800 Z",
+        "M801,795 L807,795 L816,800 L818,798 L820,800 L823,799 L828,801 L828,804 L831,801 L831,803 L839,804 L840,807 L852,808 L859,812 L863,812 L865,808 L872,808 L873,816 L872,823 L868,827 L869,832 L864,836 L862,834 L851,834 L848,832 L848,828 L845,832 L845,815 L841,813 L808,814 L807,812 L807,815 L804,816 L804,821 L801,821 L800,817 L790,814 L791,805 L793,802 L795,804 L796,801 L794,800 L799,800 L798,797 Z",
+        "M590,442 L599,442 L599,465 L600,468 L601,466 L602,468 L610,467 L609,484 L584,485 L581,482 L580,466 L588,464 L587,454 Z"
+      ],
+      "concoursePaths": [
+        "M520,165 L1580,165 L1640,915 L475,965 Z",
+        "M750,230 L1320,230 L1385,565 L1210,860 L865,860 L695,565 Z"
+      ],
+      "landmarks": [],
+      "evidence": {
+        "sourceIds": [
+          "floor-5f",
+          "floor-guide"
+        ],
+        "file": "research/venue-packets/tokyo-garden-theater/sources/floor-5f.webp",
+        "sha256": "2b81bec72a54b3bee8140a8a8353046962ae627f900659f985f0a2a37f5d45f9",
+        "width": 2128,
+        "height": 1000,
+        "method": "原35設備の色領域/アンカーを保持。全赤記号とEV文字を追加読図。館/ホワイエは独立簡略外形、座席・入口・連続経路の実測ではない。",
+        "status": "all-pictograms-source-checked-private"
+      }
+    },
+    {
+      "id": "tokyo-garden-theater-outside-current",
+      "floor": "場外",
+      "scope": "場外",
+      "viewBox": [
+        0,
+        0,
+        1000,
+        700
+      ],
+      "contextPaths": [
+        "M427.1,294.2 L568.7,192.9 L660.8,259.0 L522.1,373.4 Z"
+      ],
+      "concoursePaths": [],
+      "landmarks": [
+        {
+          "id": "tgt-venue",
+          "label": "東京ガーデンシアター",
+          "name": "東京ガーデンシアター",
+          "kind": "plaza",
+          "x": 497.0,
+          "y": 324.2,
+          "sourceIds": [
+            "access",
+            "faq"
+          ],
+          "reference": "公式図の建物/駅/入口代表区域。個別機械・ルートの点ではない。"
+        },
+        {
+          "id": "tgt-garden",
+          "label": "有明ガーデン",
+          "name": "有明ガーデン",
+          "kind": "plaza",
+          "x": 625.8,
+          "y": 247.6,
+          "sourceIds": [
+            "access",
+            "faq"
+          ],
+          "reference": "公式図の建物/駅/入口代表区域。個別機械・ルートの点ではない。"
+        },
+        {
+          "id": "tgt-tennis-station",
+          "label": "有明テニスの森駅 2A",
+          "name": "有明テニスの森駅 2A",
+          "kind": "station",
+          "x": 296.9,
+          "y": 189.1,
+          "sourceIds": [
+            "access",
+            "faq"
+          ],
+          "reference": "公式図の建物/駅/入口代表区域。個別機械・ルートの点ではない。"
+        },
+        {
+          "id": "tgt-ariake-station",
+          "label": "有明駅 2B",
+          "name": "有明駅 2B",
+          "kind": "station",
+          "x": 615.0,
+          "y": 541.3,
+          "sourceIds": [
+            "access",
+            "faq"
+          ],
+          "reference": "公式図の建物/駅/入口代表区域。個別機械・ルートの点ではない。"
+        },
+        {
+          "id": "tgt-kokusai-station",
+          "label": "国際展示場駅 A",
+          "name": "国際展示場駅 A",
+          "kind": "station",
+          "x": 507.6,
+          "y": 559.6,
+          "sourceIds": [
+            "access",
+            "faq"
+          ],
+          "reference": "公式図の建物/駅/入口代表区域。個別機械・ルートの点ではない。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "access",
+          "faq"
+        ],
+        "file": "",
+        "sha256": "",
+        "width": 1000,
+        "height": 700,
+        "method": "公式の位置関係から作った独立簡略図。入口/機械点/歩行経路の測量ではない。",
+        "status": "approximate-source-checked"
+      }
+    },
+    {
+      "id": "tgt-grounds-current",
+      "floor": "敷地",
+      "scope": "場外",
+      "viewBox": [
+        0,
+        0,
+        1000,
+        900
+      ],
+      "contextPaths": [
+        "M110.8,395.2 L174.7,350.4 L389.0,656.6 L325.1,701.3 Z",
+        "M285.7,435.4 L373.6,373.8 L500.3,554.9 L423.6,632.4 Z",
+        "M184.8,319.6 L309.9,231.9 L375.1,325.1 L250.0,412.7 Z",
+        "M341.8,209.6 L482.9,110.8 L727.1,459.5 L586.0,558.3 Z"
+      ],
+      "concoursePaths": [],
+      "landmarks": [
+        {
+          "id": "tgt-ground-theater",
+          "label": "シアター",
+          "name": "シアター",
+          "kind": "plaza",
+          "x": 395.4,
+          "y": 501.4,
+          "sourceIds": [
+            "garden-grounds"
+          ],
+          "reference": "公式図の建物/駅/入口代表区域。個別機械・ルートの点ではない。"
+        },
+        {
+          "id": "tgt-ground-mall",
+          "label": "モール",
+          "name": "モール",
+          "kind": "plaza",
+          "x": 535.2,
+          "y": 344.0,
+          "sourceIds": [
+            "garden-grounds"
+          ],
+          "reference": "公式図の建物/駅/入口代表区域。個別機械・ルートの点ではない。"
+        },
+        {
+          "id": "tgt-ground-hotel",
+          "label": "ホテル",
+          "name": "ホテル",
+          "kind": "plaza",
+          "x": 254.6,
+          "y": 532.5,
+          "sourceIds": [
+            "garden-grounds"
+          ],
+          "reference": "公式図の建物/駅/入口代表区域。個別機械・ルートの点ではない。"
+        },
+        {
+          "id": "tgt-ground-spa",
+          "label": "モール＆スパ",
+          "name": "モール＆スパ",
+          "kind": "plaza",
+          "x": 279.6,
+          "y": 324.6,
+          "sourceIds": [
+            "garden-grounds"
+          ],
+          "reference": "公式図の建物/駅/入口代表区域。個別機械・ルートの点ではない。"
+        },
+        {
+          "id": "tgt-ground-entry",
+          "label": "シアター入口 2F/3F",
+          "name": "シアター入口 2F/3F",
+          "kind": "entrance",
+          "x": 485.4,
+          "y": 493.9,
+          "sourceIds": [
+            "garden-grounds"
+          ],
+          "reference": "公式図の建物/駅/入口代表区域。個別機械・ルートの点ではない。"
+        },
+        {
+          "id": "tgt-ground-deck",
+          "label": "ウェルカムデッキ",
+          "name": "ウェルカムデッキ",
+          "kind": "plaza",
+          "x": 478.8,
+          "y": 637.4,
+          "sourceIds": [
+            "garden-grounds"
+          ],
+          "reference": "公式図の建物/駅/入口代表区域。個別機械・ルートの点ではない。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "garden-grounds"
+        ],
+        "file": "",
+        "sha256": "",
+        "width": 1000,
+        "height": 900,
+        "method": "公式の位置関係から作った独立簡略図。入口/機械点/歩行経路の測量ではない。",
+        "status": "approximate-source-checked"
+      }
+    },
+    {
+      "id": "tgt-outside-locker-3f-native",
+      "floor": "3F",
+      "scope": "場外",
+      "viewBox": [
+        1250,
+        380,
+        420,
+        620
+      ],
+      "contextPaths": [
+        "M1510,425 H1570 V585 H1510 Z",
+        "M1350,420 H1450 V470 H1350 Z"
+      ],
+      "concoursePaths": [],
+      "landmarks": [
+        {
+          "id": "tgt-outside-balcony-gate",
+          "label": "バルコニーゲート",
+          "name": "バルコニーゲート",
+          "kind": "gate",
+          "x": 1400,
+          "y": 445,
+          "sourceIds": [
+            "floor-3f"
+          ],
+          "reference": "公式図の建物/駅/入口代表区域。個別機械・ルートの点ではない。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor-3f",
+          "garden-locker-renewal"
+        ],
+        "file": "",
+        "sha256": "",
+        "width": 420,
+        "height": 620,
+        "method": "公式の位置関係から作った独立簡略図。入口/機械点/歩行経路の測量ではない。",
+        "status": "approximate-source-checked"
+      }
+    },
+    {
+      "id": "tgt-mall-services-current",
+      "floor": "各階",
+      "scope": "場外",
+      "viewBox": [
+        0,
+        0,
+        1000,
+        700
+      ],
+      "contextPaths": [],
+      "concoursePaths": [],
+      "landmarks": [],
+      "evidence": {
+        "sourceIds": [
+          "garden-mall-services"
+        ],
+        "file": "",
+        "sha256": "",
+        "width": 1000,
+        "height": 700,
+        "method": "公式の位置関係から作った独立簡略図。入口/機械点/歩行経路の測量ではない。",
+        "status": "approximate-source-checked"
+      }
+    },
+    {
+      "id": "tgt-ariake-services-current",
+      "floor": "改札階",
+      "scope": "場外",
+      "viewBox": [
+        0,
+        0,
+        1000,
+        700
+      ],
+      "contextPaths": [],
+      "concoursePaths": [],
+      "landmarks": [],
+      "evidence": {
+        "sourceIds": [
+          "garden-ariake-station"
+        ],
+        "file": "",
+        "sha256": "",
+        "width": 1000,
+        "height": 700,
+        "method": "公式の位置関係から作った独立簡略図。入口/機械点/歩行経路の測量ではない。",
+        "status": "approximate-source-checked"
+      }
+    },
+    {
+      "id": "tgt-tennis-services-current",
+      "floor": "改札階",
+      "scope": "場外",
+      "viewBox": [
+        0,
+        0,
+        1000,
+        700
+      ],
+      "contextPaths": [],
+      "concoursePaths": [],
+      "landmarks": [],
+      "evidence": {
+        "sourceIds": [
+          "garden-tennis-station"
+        ],
+        "file": "",
+        "sha256": "",
+        "width": 1000,
+        "height": 700,
+        "method": "公式の位置関係から作った独立簡略図。入口/機械点/歩行経路の測量ではない。",
+        "status": "approximate-source-checked"
+      }
+    },
+    {
+      "id": "tgt-kokusai-services-current",
+      "floor": "改札階",
+      "scope": "場外",
+      "viewBox": [
+        0,
+        0,
+        1000,
+        700
+      ],
+      "contextPaths": [],
+      "concoursePaths": [],
+      "landmarks": [],
+      "evidence": {
+        "sourceIds": [
+          "garden-kokusai-station"
+        ],
+        "file": "",
+        "sha256": "",
+        "width": 1000,
+        "height": 700,
+        "method": "公式の位置関係から作った独立簡略図。入口/機械点/歩行経路の測量ではない。",
+        "status": "approximate-source-checked"
+      }
+    },
+    {
+      "id": "tgt-transfer-shimbashi-current",
+      "floor": "駅構内",
+      "scope": "場外",
+      "viewBox": [
+        0,
+        0,
+        1000,
+        700
+      ],
+      "contextPaths": [],
+      "concoursePaths": [],
+      "landmarks": [],
+      "evidence": {
+        "sourceIds": [
+          "garden-shimbashi-station"
+        ],
+        "file": "",
+        "sha256": "",
+        "width": 1000,
+        "height": 700,
+        "method": "公式の位置関係から作った独立簡略図。入口/機械点/歩行経路の測量ではない。",
+        "status": "approximate-source-checked"
+      }
+    },
+    {
+      "id": "tgt-transfer-toyosu-current",
+      "floor": "駅構内",
+      "scope": "場外",
+      "viewBox": [
+        0,
+        0,
+        1000,
+        700
+      ],
+      "contextPaths": [],
+      "concoursePaths": [],
+      "landmarks": [],
+      "evidence": {
+        "sourceIds": [
+          "garden-toyosu-station"
+        ],
+        "file": "",
+        "sha256": "",
+        "width": 1000,
+        "height": 700,
+        "method": "公式の位置関係から作った独立簡略図。入口/機械点/歩行経路の測量ではない。",
+        "status": "approximate-source-checked"
+      }
+    },
+    {
+      "id": "tgt-transfer-osaki-current",
+      "floor": "駅構内",
+      "scope": "場外",
+      "viewBox": [
+        0,
+        0,
+        1000,
+        700
+      ],
+      "contextPaths": [],
+      "concoursePaths": [],
+      "landmarks": [],
+      "evidence": {
+        "sourceIds": [
+          "garden-osaki-lockers"
+        ],
+        "file": "",
+        "sha256": "",
+        "width": 1000,
+        "height": 700,
+        "method": "公式の位置関係から作った独立簡略図。入口/機械点/歩行経路の測量ではない。",
+        "status": "approximate-source-checked"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "home",
+      "title": "東京ガーデンシアター | 劇場型イベントホール約8,000人収容",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/",
+      "checkedAt": "2026-09-30",
+      "scope": "公式サイト・著作権表示。公開再利用のライセンス/許諾は未確認。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "floor-2f",
+      "title": "2F公式設備図",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/wp-content/themes/event-hole/images/visitor/floor/floor_2f.webp",
+      "checkedAt": "2026-10-07",
+      "scope": "全赤記号とEV文字の代表位置、ホワイエ・室境界。入口・機械台数・連続経路の測量ではない。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "floor-3f",
+      "title": "3F公式設備図",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/wp-content/themes/event-hole/images/visitor/floor/floor_3f.webp",
+      "checkedAt": "2026-10-07",
+      "scope": "全赤記号とEV文字の代表位置、ホワイエ・室境界。入口・機械台数・連続経路の測量ではない。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "floor-4f",
+      "title": "4F公式設備図",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/wp-content/themes/event-hole/images/visitor/floor/floor_4f.webp",
+      "checkedAt": "2026-10-07",
+      "scope": "全赤記号とEV文字の代表位置、ホワイエ・室境界。入口・機械台数・連続経路の測量ではない。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "floor-5f",
+      "title": "5F公式設備図",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/wp-content/themes/event-hole/images/visitor/floor/floor_5f.webp",
+      "checkedAt": "2026-10-07",
+      "scope": "全赤記号とEV文字の代表位置、ホワイエ・室境界。入口・機械台数・連続経路の測量ではない。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "floor-guide",
+      "title": "公式フロア・設備案内",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/",
+      "checkedAt": "2026-10-07",
+      "scope": "階、店名、ロッカー/ポートの場所と利用条件。4F売店の現金対応はFAQと記載差あり。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "faq",
+      "title": "公式よくある質問",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/faq/",
+      "checkedAt": "2026-10-07",
+      "scope": "EV利用・おむつ交換・入場前荷物・主要駅の指定出口。公演別制限は当日案内。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "access",
+      "title": "公式交通アクセス",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/access/",
+      "checkedAt": "2026-10-07",
+      "scope": "主要3駅の位置関係。入口は公演により2F/3F。連続経路を独自に描かない。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "garden-locker-renewal",
+      "title": "公式ロッカー更新案内",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/wp-content/uploads/%E3%82%B3%E3%82%A4%E3%83%B3%E3%83%AD%E3%83%83%E3%82%AB%E3%83%BC%E3%83%AA%E3%83%8B%E3%83%A5%E3%83%BC%E3%82%A2%E3%83%AB%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B.pdf",
+      "checkedAt": "2026-10-07",
+      "scope": "館内2/4/5F、場外ホテル1F/モール&スパ3F、ポート3/4/5F。料金・寸法・電子決済。空き情報ではない。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "garden-mall-services",
+      "title": "有明ガーデン サービス案内",
+      "url": "https://ariake.shopping-sumitomo-rd.com/service/facility/",
+      "checkedAt": "2026-10-07",
+      "scope": "モール1/5F荷物、ATM・インフォメーション・喫煙室・赤ちゃん設備。シアター料金を流用しない。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "garden-mall-faq",
+      "title": "有明ガーデン よくある質問",
+      "url": "https://ariake.shopping-sumitomo-rd.com/faq/",
+      "checkedAt": "2026-10-07",
+      "scope": "ロッカー予約不可、4/5F赤ちゃん休憩室、各階トイレのおむつ交換台。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "garden-grounds",
+      "title": "有明ガーデン 街区・入口案内",
+      "url": "https://ariake.shopping-sumitomo-rd.com/gaikumap/",
+      "checkedAt": "2026-10-07",
+      "scope": "棟・デッキとシアター入口代表区域。公演ごとの2F/3F指定を優先。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "garden-accessible-deck",
+      "title": "公式段差なし来場案内",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/access/",
+      "checkedAt": "2026-10-07",
+      "scope": "地下から2FのB/Dエレベーターと利用時間。客席までの連続経路の保証とは別。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "garden-ariake-station",
+      "title": "有明駅 公式構内案内",
+      "url": "https://www.yurikamome.co.jp/station-timetable/u-12.html",
+      "checkedAt": "2026-10-07",
+      "scope": "改札外ロッカー、トイレ/AEDと改札境界。料金・空き・精密機械点は未確認。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "garden-ariake-plan",
+      "title": "有明駅 公式構内図",
+      "url": "https://www.yurikamome.co.jp/station-timetable/station_jp_Part12.pdf",
+      "checkedAt": "2026-10-07",
+      "scope": "原図を目視し改札内外と指定出口を確認。原向き図は北上とみなさない。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "garden-tennis-station",
+      "title": "有明テニスの森駅 公式構内案内",
+      "url": "https://www.yurikamome.co.jp/station-timetable/u-13.html",
+      "checkedAt": "2026-10-07",
+      "scope": "改札外ロッカー、トイレ/AEDと改札境界。料金・空き・精密機械点は未確認。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "garden-tennis-plan",
+      "title": "有明テニスの森駅 公式構内図",
+      "url": "https://www.yurikamome.co.jp/station-timetable/station_jp_Part13.pdf",
+      "checkedAt": "2026-10-07",
+      "scope": "原図を目視し改札内外と指定出口を確認。原向き図は北上とみなさない。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "garden-kokusai-station",
+      "title": "国際展示場駅 公式構内・ロッカー案内",
+      "url": "https://www.twr.co.jp/route/tabid/110/Default.aspx",
+      "checkedAt": "2026-10-07",
+      "scope": "1F改札外ロッカー、改札内トイレ、駅店舗。2026-09-01の数量は空き情報ではない。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "garden-shop-aeon",
+      "title": "イオンスタイル 公式店舗案内",
+      "url": "https://ariake.shopping-sumitomo-rd.com/shop/1034/",
+      "checkedAt": "2026-10-07",
+      "scope": "現行店名・棟/階・営業時間・電源の掲載事実。個別入口/空席/営業当日の保証は別。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "garden-shop-muji",
+      "title": "Café＆Meal MUJI 公式店舗案内",
+      "url": "https://ariake.shopping-sumitomo-rd.com/shop/943/",
+      "checkedAt": "2026-10-07",
+      "scope": "現行店名・棟/階・営業時間・電源の掲載事実。個別入口/空席/営業当日の保証は別。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "garden-shop-tullys2",
+      "title": "タリーズコーヒー &TEA 公式店舗案内",
+      "url": "https://ariake.shopping-sumitomo-rd.com/shop/906/",
+      "checkedAt": "2026-10-07",
+      "scope": "現行店名・棟/階・営業時間・電源の掲載事実。個別入口/空席/営業当日の保証は別。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "garden-shop-tullys4",
+      "title": "タリーズコーヒー 有明ガーデン店 公式店舗案内",
+      "url": "https://ariake.shopping-sumitomo-rd.com/shop/910/",
+      "checkedAt": "2026-10-07",
+      "scope": "現行店名・棟/階・営業時間・電源の掲載事実。個別入口/空席/営業当日の保証は別。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "garden-shop-chikusei",
+      "title": "元祖セルフうどんの店 竹清 公式店舗案内",
+      "url": "https://ariake.shopping-sumitomo-rd.com/shop/936/",
+      "checkedAt": "2026-10-07",
+      "scope": "現行店名・棟/階・営業時間・電源の掲載事実。個別入口/空席/営業当日の保証は別。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "garden-shop-tsumugi",
+      "title": "和カフェTsumugi 公式店舗案内",
+      "url": "https://ariake.shopping-sumitomo-rd.com/shop/929/",
+      "checkedAt": "2026-10-07",
+      "scope": "現行店名・棟/階・営業時間・電源の掲載事実。個別入口/空席/営業当日の保証は別。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "garden-shop-tomods",
+      "title": "トモズ 有明ガーデン店 公式店舗案内",
+      "url": "https://ariake.shopping-sumitomo-rd.com/shop/950/",
+      "checkedAt": "2026-10-07",
+      "scope": "現行店名・棟/階・営業時間・電源の掲載事実。個別入口/空席/営業当日の保証は別。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "garden-mall-access",
+      "title": "有明ガーデン 交通・駐車案内",
+      "url": "https://ariake.shopping-sumitomo-rd.com/access/",
+      "checkedAt": "2026-10-07",
+      "scope": "普通車/ホテル専用駐車場、駐輪場、都営バス/東京BRTの停留所。シアターとモールまでの徒歩分数は区別する。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "garden-shimbashi-station",
+      "title": "ゆりかもめ 新橋駅 公式案内",
+      "url": "https://www.yurikamome.co.jp/station-timetable/u-01.html",
+      "checkedAt": "2026-10-07",
+      "scope": "ロッカー設置と駅ページの運営元空き状況への導線。画面に現在の空きを転載しない。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "garden-shimbashi-plan",
+      "title": "ゆりかもめ 新橋駅 公式構内図",
+      "url": "https://www.yurikamome.co.jp/station-timetable/station_jp_Part1.pdf",
+      "checkedAt": "2026-10-07",
+      "scope": "原図のロッカー記号と改札境界。原向きを北上の会場周辺図へ投影しない。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "garden-toyosu-station",
+      "title": "ゆりかもめ 豊洲駅 公式案内",
+      "url": "https://www.yurikamome.co.jp/station-timetable/u-16.html",
+      "checkedAt": "2026-10-07",
+      "scope": "ロッカー設置と駅ページの運営元空き状況への導線。画面に現在の空きを転載しない。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "garden-toyosu-plan",
+      "title": "ゆりかもめ 豊洲駅 公式構内図",
+      "url": "https://www.yurikamome.co.jp/station-timetable/station_jp_Part16.pdf",
+      "checkedAt": "2026-10-07",
+      "scope": "原図のロッカー記号と改札境界。原向きを北上の会場周辺図へ投影しない。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "garden-toyosu-metro",
+      "title": "東京メトロ 豊洲駅 施設案内",
+      "url": "https://www.tokyometro.jp/station/toyosu/shop/index.html",
+      "checkedAt": "2026-10-07",
+      "scope": "有楽町線のロッカー設置。個別位置・改札境界・料金は未確定。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "garden-osaki-lockers",
+      "title": "JR東日本 大崎駅 ロッカー案内",
+      "url": "https://media.jreast.co.jp/articles/1421",
+      "checkedAt": "2026-10-07",
+      "scope": "現行リンクの2025年8月案内。北改札外と改札内2区域、現金不可・予約対応。最新JR構内図の原取得は403。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "garden-shimbashi-bounce",
+      "title": "Bounce ビッグエコー新橋銀座口駅前店",
+      "url": "https://ja.bounce.com/stores/tokyo/Mz2wXR",
+      "checkedAt": "2026-10-07",
+      "scope": "個別店舗予約ページの曜日別時間・予約導線。日付未指定の代表時間と料金下限を当日固定値にしない。",
+      "usage": "facts-only"
+    }
+  ],
+  "groups": [
+    {
+      "id": "tgt-2f-wc-right",
+      "diagramId": "tgt-floor-2f-native",
+      "purpose": "トイレ",
+      "label": "ホワイエ右側",
+      "area": "ホワイエ右側",
+      "memberIds": [
+        "tgt-2f-toilet-men-01",
+        "tgt-2f-toilet-accessible-01",
+        "tgt-2f-toilet-women-01"
+      ],
+      "x": 1491.67,
+      "y": 738.33,
+      "boundary": "原図の同じ側のトイレ区域。男女・多機能をまとめ、左右のホワイエをまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-2f-escalator-right",
+      "diagramId": "tgt-floor-2f-native",
+      "purpose": "案内",
+      "label": "ホワイエ右側",
+      "area": "ホワイエ右側",
+      "memberIds": [
+        "tgt-2f-escalator-01",
+        "tgt-2f-escalator-02"
+      ],
+      "x": 1343.75,
+      "y": 896.0,
+      "boundary": "同じ階・同じホワイエ側の昇降区域。停止階/運転方向を推定しない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-2f-elevator-left",
+      "diagramId": "tgt-floor-2f-native",
+      "purpose": "案内",
+      "label": "ホワイエ左側",
+      "area": "ホワイエ左側",
+      "memberIds": [
+        "tgt-2f-elevator-01"
+      ],
+      "x": 684.0,
+      "y": 708.0,
+      "boundary": "同じ階・同じホワイエ側の昇降区域。停止階/運転方向を推定しない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-2f-elevator-right",
+      "diagramId": "tgt-floor-2f-native",
+      "purpose": "案内",
+      "label": "ホワイエ右側",
+      "area": "ホワイエ右側",
+      "memberIds": [
+        "tgt-2f-elevator-02"
+      ],
+      "x": 1406.0,
+      "y": 618.0,
+      "boundary": "同じ階・同じホワイエ側の昇降区域。停止階/運転方向を推定しない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-2f-vending-01-zone",
+      "diagramId": "tgt-floor-2f-native",
+      "purpose": "飲食",
+      "label": "ホワイエ右側",
+      "area": "ホワイエ右側",
+      "memberIds": [
+        "tgt-2f-vending-01"
+      ],
+      "x": 1388.5,
+      "y": 491.0,
+      "boundary": "原図の独立室/売店/荷物区域。同じ目的でも別室・左右・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-2f-smoking-01-zone",
+      "diagramId": "tgt-floor-2f-native",
+      "purpose": "案内",
+      "label": "ホワイエ右側",
+      "area": "ホワイエ右側",
+      "memberIds": [
+        "tgt-2f-smoking-01"
+      ],
+      "x": 1386.5,
+      "y": 546.5,
+      "boundary": "原図の独立室/売店/荷物区域。同じ目的でも別室・左右・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-2f-shop-01-zone",
+      "diagramId": "tgt-floor-2f-native",
+      "purpose": "飲食",
+      "label": "ホワイエ正面・左側",
+      "area": "ホワイエ正面・左側",
+      "memberIds": [
+        "tgt-2f-shop-01"
+      ],
+      "x": 742.0,
+      "y": 788.5,
+      "boundary": "原図の独立室/売店/荷物区域。同じ目的でも別室・左右・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-2f-toilet-accessible-01-diaper-zone",
+      "diagramId": "tgt-floor-2f-native",
+      "purpose": "赤ちゃん",
+      "label": "ホワイエ右側",
+      "area": "ホワイエ右側",
+      "memberIds": [
+        "tgt-2f-toilet-accessible-01-diaper"
+      ],
+      "x": 1499.0,
+      "y": 749.0,
+      "boundary": "原図の独立室/売店/荷物区域。同じ目的でも別室・左右・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-2f-locker-01-zone",
+      "diagramId": "tgt-floor-2f-native",
+      "purpose": "荷物",
+      "label": "ホワイエ北側",
+      "area": "ホワイエ北側",
+      "memberIds": [
+        "tgt-2f-locker-01"
+      ],
+      "x": 1427.0,
+      "y": 676.0,
+      "boundary": "原図の独立室/売店/荷物区域。同じ目的でも別室・左右・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-3f-wc-left",
+      "diagramId": "tgt-floor-3f-native",
+      "purpose": "トイレ",
+      "label": "ホワイエ左側",
+      "area": "ホワイエ左側",
+      "memberIds": [
+        "tgt-3f-toilet-women-01",
+        "tgt-3f-toilet-men-01",
+        "tgt-3f-toilet-accessible-01"
+      ],
+      "x": 602.33,
+      "y": 552.67,
+      "boundary": "原図の同じ側のトイレ区域。男女・多機能をまとめ、左右のホワイエをまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-3f-escalator-left",
+      "diagramId": "tgt-floor-3f-native",
+      "purpose": "案内",
+      "label": "ホワイエ左側",
+      "area": "ホワイエ左側",
+      "memberIds": [
+        "tgt-3f-escalator-03"
+      ],
+      "x": 665.0,
+      "y": 904.0,
+      "boundary": "同じ階・同じホワイエ側の昇降区域。停止階/運転方向を推定しない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-3f-escalator-right",
+      "diagramId": "tgt-floor-3f-native",
+      "purpose": "案内",
+      "label": "ホワイエ右側",
+      "area": "ホワイエ右側",
+      "memberIds": [
+        "tgt-3f-escalator-01",
+        "tgt-3f-escalator-02",
+        "tgt-3f-escalator-04"
+      ],
+      "x": 1326.83,
+      "y": 879.83,
+      "boundary": "同じ階・同じホワイエ側の昇降区域。停止階/運転方向を推定しない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-3f-elevator-left",
+      "diagramId": "tgt-floor-3f-native",
+      "purpose": "案内",
+      "label": "ホワイエ左側",
+      "area": "ホワイエ左側",
+      "memberIds": [
+        "tgt-3f-elevator-01"
+      ],
+      "x": 646.0,
+      "y": 732.0,
+      "boundary": "同じ階・同じホワイエ側の昇降区域。停止階/運転方向を推定しない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-3f-elevator-right",
+      "diagramId": "tgt-floor-3f-native",
+      "purpose": "案内",
+      "label": "ホワイエ右側",
+      "area": "ホワイエ右側",
+      "memberIds": [
+        "tgt-3f-elevator-02"
+      ],
+      "x": 1314.0,
+      "y": 647.0,
+      "boundary": "同じ階・同じホワイエ側の昇降区域。停止階/運転方向を推定しない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-3f-baggage-port-01-zone",
+      "diagramId": "tgt-floor-3f-native",
+      "purpose": "荷物",
+      "label": "ホワイエ左側",
+      "area": "ホワイエ左側",
+      "memberIds": [
+        "tgt-3f-baggage-port-01"
+      ],
+      "x": 544.0,
+      "y": 603.0,
+      "boundary": "原図の独立室/売店/荷物区域。同じ目的でも別室・左右・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-3f-nursing-01-zone",
+      "diagramId": "tgt-floor-3f-native",
+      "purpose": "赤ちゃん",
+      "label": "ホワイエ左側",
+      "area": "ホワイエ左側",
+      "memberIds": [
+        "tgt-3f-nursing-01"
+      ],
+      "x": 625.0,
+      "y": 608.0,
+      "boundary": "原図の独立室/売店/荷物区域。同じ目的でも別室・左右・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-3f-smoking-01-zone",
+      "diagramId": "tgt-floor-3f-native",
+      "purpose": "案内",
+      "label": "ホワイエ左側",
+      "area": "ホワイエ左側",
+      "memberIds": [
+        "tgt-3f-smoking-01"
+      ],
+      "x": 609.0,
+      "y": 749.5,
+      "boundary": "原図の独立室/売店/荷物区域。同じ目的でも別室・左右・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-3f-shop-01-zone",
+      "diagramId": "tgt-floor-3f-native",
+      "purpose": "飲食",
+      "label": "ホワイエ正面・左側",
+      "area": "ホワイエ正面・左側",
+      "memberIds": [
+        "tgt-3f-shop-01"
+      ],
+      "x": 821.0,
+      "y": 859.0,
+      "boundary": "原図の独立室/売店/荷物区域。同じ目的でも別室・左右・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-3f-shop-02-zone",
+      "diagramId": "tgt-floor-3f-native",
+      "purpose": "飲食",
+      "label": "ホワイエ正面・右側",
+      "area": "ホワイエ正面・右側",
+      "memberIds": [
+        "tgt-3f-shop-02"
+      ],
+      "x": 1143.0,
+      "y": 859.0,
+      "boundary": "原図の独立室/売店/荷物区域。同じ目的でも別室・左右・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-3f-toilet-accessible-01-diaper-zone",
+      "diagramId": "tgt-floor-3f-native",
+      "purpose": "赤ちゃん",
+      "label": "ホワイエ左側",
+      "area": "ホワイエ左側",
+      "memberIds": [
+        "tgt-3f-toilet-accessible-01-diaper"
+      ],
+      "x": 588.0,
+      "y": 643.0,
+      "boundary": "原図の独立室/売店/荷物区域。同じ目的でも別室・左右・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-4f-wc-left",
+      "diagramId": "tgt-floor-4f-native",
+      "purpose": "トイレ",
+      "label": "ホワイエ左側",
+      "area": "ホワイエ左側",
+      "memberIds": [
+        "tgt-4f-toilet-women-02",
+        "tgt-4f-toilet-men-02",
+        "tgt-4f-toilet-accessible-02"
+      ],
+      "x": 560.83,
+      "y": 448.33,
+      "boundary": "原図の同じ側のトイレ区域。男女・多機能をまとめ、左右のホワイエをまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-4f-wc-right",
+      "diagramId": "tgt-floor-4f-native",
+      "purpose": "トイレ",
+      "label": "ホワイエ右側",
+      "area": "ホワイエ右側",
+      "memberIds": [
+        "tgt-4f-toilet-women-01",
+        "tgt-4f-toilet-men-01",
+        "tgt-4f-toilet-accessible-01"
+      ],
+      "x": 1551.5,
+      "y": 432.5,
+      "boundary": "原図の同じ側のトイレ区域。男女・多機能をまとめ、左右のホワイエをまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-4f-escalator-left",
+      "diagramId": "tgt-floor-4f-native",
+      "purpose": "案内",
+      "label": "ホワイエ左側",
+      "area": "ホワイエ左側",
+      "memberIds": [
+        "tgt-4f-escalator-01",
+        "tgt-4f-escalator-03"
+      ],
+      "x": 609.25,
+      "y": 833.0,
+      "boundary": "同じ階・同じホワイエ側の昇降区域。停止階/運転方向を推定しない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-4f-escalator-right",
+      "diagramId": "tgt-floor-4f-native",
+      "purpose": "案内",
+      "label": "ホワイエ右側",
+      "area": "ホワイエ右側",
+      "memberIds": [
+        "tgt-4f-escalator-02"
+      ],
+      "x": 1590.5,
+      "y": 821.5,
+      "boundary": "同じ階・同じホワイエ側の昇降区域。停止階/運転方向を推定しない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-4f-elevator-left",
+      "diagramId": "tgt-floor-4f-native",
+      "purpose": "案内",
+      "label": "ホワイエ左側",
+      "area": "ホワイエ左側",
+      "memberIds": [
+        "tgt-4f-elevator-01"
+      ],
+      "x": 608.0,
+      "y": 683.0,
+      "boundary": "同じ階・同じホワイエ側の昇降区域。停止階/運転方向を推定しない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-4f-elevator-right",
+      "diagramId": "tgt-floor-4f-native",
+      "purpose": "案内",
+      "label": "ホワイエ右側",
+      "area": "ホワイエ右側",
+      "memberIds": [
+        "tgt-4f-elevator-02"
+      ],
+      "x": 1453.0,
+      "y": 579.0,
+      "boundary": "同じ階・同じホワイエ側の昇降区域。停止階/運転方向を推定しない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-4f-vending-01-zone",
+      "diagramId": "tgt-floor-4f-native",
+      "purpose": "飲食",
+      "label": "ホワイエ右側",
+      "area": "ホワイエ右側",
+      "memberIds": [
+        "tgt-4f-vending-01"
+      ],
+      "x": 1618.0,
+      "y": 410.0,
+      "boundary": "原図の独立室/売店/荷物区域。同じ目的でも別室・左右・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-4f-baggage-port-01-zone",
+      "diagramId": "tgt-floor-4f-native",
+      "purpose": "荷物",
+      "label": "ホワイエ左側",
+      "area": "ホワイエ左側",
+      "memberIds": [
+        "tgt-4f-baggage-port-01"
+      ],
+      "x": 458.0,
+      "y": 521.5,
+      "boundary": "原図の独立室/売店/荷物区域。同じ目的でも別室・左右・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-4f-smoking-01-zone",
+      "diagramId": "tgt-floor-4f-native",
+      "purpose": "案内",
+      "label": "ホワイエ右側",
+      "area": "ホワイエ右側",
+      "memberIds": [
+        "tgt-4f-smoking-01"
+      ],
+      "x": 1594.5,
+      "y": 569.0,
+      "boundary": "原図の独立室/売店/荷物区域。同じ目的でも別室・左右・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-4f-shop-01-zone",
+      "diagramId": "tgt-floor-4f-native",
+      "purpose": "飲食",
+      "label": "ホワイエ正面・右側",
+      "area": "ホワイエ正面・右側",
+      "memberIds": [
+        "tgt-4f-shop-01"
+      ],
+      "x": 1281.0,
+      "y": 865.0,
+      "boundary": "原図の独立室/売店/荷物区域。同じ目的でも別室・左右・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-4f-shop-02-zone",
+      "diagramId": "tgt-floor-4f-native",
+      "purpose": "飲食",
+      "label": "ホワイエ正面・左側",
+      "area": "ホワイエ正面・左側",
+      "memberIds": [
+        "tgt-4f-shop-02"
+      ],
+      "x": 794.0,
+      "y": 869.0,
+      "boundary": "原図の独立室/売店/荷物区域。同じ目的でも別室・左右・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-4f-toilet-accessible-01-diaper-zone",
+      "diagramId": "tgt-floor-4f-native",
+      "purpose": "赤ちゃん",
+      "label": "ホワイエ右側",
+      "area": "ホワイエ右側",
+      "memberIds": [
+        "tgt-4f-toilet-accessible-01-diaper"
+      ],
+      "x": 1555.5,
+      "y": 514.5,
+      "boundary": "原図の独立室/売店/荷物区域。同じ目的でも別室・左右・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-4f-toilet-accessible-02-diaper-zone",
+      "diagramId": "tgt-floor-4f-native",
+      "purpose": "赤ちゃん",
+      "label": "ホワイエ左側",
+      "area": "ホワイエ左側",
+      "memberIds": [
+        "tgt-4f-toilet-accessible-02-diaper"
+      ],
+      "x": 538.5,
+      "y": 558.0,
+      "boundary": "原図の独立室/売店/荷物区域。同じ目的でも別室・左右・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-4f-locker-01-zone",
+      "diagramId": "tgt-floor-4f-native",
+      "purpose": "荷物",
+      "label": "ホワイエ北側",
+      "area": "ホワイエ北側",
+      "memberIds": [
+        "tgt-4f-locker-01"
+      ],
+      "x": 1676.0,
+      "y": 462.0,
+      "boundary": "原図の独立室/売店/荷物区域。同じ目的でも別室・左右・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-5f-wc-left",
+      "diagramId": "tgt-floor-5f-native",
+      "purpose": "トイレ",
+      "label": "ホワイエ左側",
+      "area": "ホワイエ左側",
+      "memberIds": [
+        "tgt-5f-toilet-women-02",
+        "tgt-5f-toilet-accessible-01",
+        "tgt-5f-toilet-men-02"
+      ],
+      "x": 598.33,
+      "y": 364.0,
+      "boundary": "原図の同じ側のトイレ区域。男女・多機能をまとめ、左右のホワイエをまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-5f-wc-right",
+      "diagramId": "tgt-floor-5f-native",
+      "purpose": "トイレ",
+      "label": "ホワイエ右側",
+      "area": "ホワイエ右側",
+      "memberIds": [
+        "tgt-5f-toilet-women-01",
+        "tgt-5f-toilet-men-01",
+        "tgt-5f-toilet-accessible-02"
+      ],
+      "x": 1471.5,
+      "y": 377.67,
+      "boundary": "原図の同じ側のトイレ区域。男女・多機能をまとめ、左右のホワイエをまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-5f-escalator-left",
+      "diagramId": "tgt-floor-5f-native",
+      "purpose": "案内",
+      "label": "ホワイエ左側",
+      "area": "ホワイエ左側",
+      "memberIds": [
+        "tgt-5f-escalator-02"
+      ],
+      "x": 653.5,
+      "y": 746.5,
+      "boundary": "同じ階・同じホワイエ側の昇降区域。停止階/運転方向を推定しない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-5f-escalator-right",
+      "diagramId": "tgt-floor-5f-native",
+      "purpose": "案内",
+      "label": "ホワイエ右側",
+      "area": "ホワイエ右側",
+      "memberIds": [
+        "tgt-5f-escalator-01"
+      ],
+      "x": 1513.5,
+      "y": 740.5,
+      "boundary": "同じ階・同じホワイエ側の昇降区域。停止階/運転方向を推定しない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-5f-elevator-left",
+      "diagramId": "tgt-floor-5f-native",
+      "purpose": "案内",
+      "label": "ホワイエ左側",
+      "area": "ホワイエ左側",
+      "memberIds": [
+        "tgt-5f-elevator-01"
+      ],
+      "x": 652.0,
+      "y": 603.0,
+      "boundary": "同じ階・同じホワイエ側の昇降区域。停止階/運転方向を推定しない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-5f-elevator-right",
+      "diagramId": "tgt-floor-5f-native",
+      "purpose": "案内",
+      "label": "ホワイエ右側",
+      "area": "ホワイエ右側",
+      "memberIds": [
+        "tgt-5f-elevator-02"
+      ],
+      "x": 1399.0,
+      "y": 510.0,
+      "boundary": "同じ階・同じホワイエ側の昇降区域。停止階/運転方向を推定しない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-5f-smoking-01-zone",
+      "diagramId": "tgt-floor-5f-native",
+      "purpose": "案内",
+      "label": "ホワイエ左側",
+      "area": "ホワイエ左側",
+      "memberIds": [
+        "tgt-5f-smoking-01"
+      ],
+      "x": 619.0,
+      "y": 448.0,
+      "boundary": "原図の独立室/売店/荷物区域。同じ目的でも別室・左右・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-5f-baggage-port-01-zone",
+      "diagramId": "tgt-floor-5f-native",
+      "purpose": "荷物",
+      "label": "ホワイエ左側",
+      "area": "ホワイエ左側",
+      "memberIds": [
+        "tgt-5f-baggage-port-01"
+      ],
+      "x": 537.5,
+      "y": 462.0,
+      "boundary": "原図の独立室/売店/荷物区域。同じ目的でも別室・左右・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-5f-shop-01-zone",
+      "diagramId": "tgt-floor-5f-native",
+      "purpose": "飲食",
+      "label": "ホワイエ正面・右側",
+      "area": "ホワイエ正面・右側",
+      "memberIds": [
+        "tgt-5f-shop-01"
+      ],
+      "x": 1235.0,
+      "y": 830.0,
+      "boundary": "原図の独立室/売店/荷物区域。同じ目的でも別室・左右・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-5f-shop-02-zone",
+      "diagramId": "tgt-floor-5f-native",
+      "purpose": "飲食",
+      "label": "ホワイエ正面・左側",
+      "area": "ホワイエ正面・左側",
+      "memberIds": [
+        "tgt-5f-shop-02"
+      ],
+      "x": 825.0,
+      "y": 834.0,
+      "boundary": "原図の独立室/売店/荷物区域。同じ目的でも別室・左右・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-5f-toilet-accessible-01-diaper-zone",
+      "diagramId": "tgt-floor-5f-native",
+      "purpose": "赤ちゃん",
+      "label": "ホワイエ左側",
+      "area": "ホワイエ左側",
+      "memberIds": [
+        "tgt-5f-toilet-accessible-01-diaper"
+      ],
+      "x": 577.0,
+      "y": 381.0,
+      "boundary": "原図の独立室/売店/荷物区域。同じ目的でも別室・左右・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-5f-toilet-accessible-02-diaper-zone",
+      "diagramId": "tgt-floor-5f-native",
+      "purpose": "赤ちゃん",
+      "label": "ホワイエ右側",
+      "area": "ホワイエ右側",
+      "memberIds": [
+        "tgt-5f-toilet-accessible-02-diaper"
+      ],
+      "x": 1467.0,
+      "y": 461.0,
+      "boundary": "原図の独立室/売店/荷物区域。同じ目的でも別室・左右・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-5f-locker-01-zone",
+      "diagramId": "tgt-floor-5f-native",
+      "purpose": "荷物",
+      "label": "ホワイエ北側",
+      "area": "ホワイエ北側",
+      "memberIds": [
+        "tgt-5f-locker-01"
+      ],
+      "x": 1558.5,
+      "y": 338.0,
+      "boundary": "原図の独立室/売店/荷物区域。同じ目的でも別室・左右・入場境界をまたがない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "tgt-outside-locker-room-3f",
+      "diagramId": "tgt-outside-locker-3f-native",
+      "purpose": "荷物",
+      "label": "モール＆スパ棟3F",
+      "area": "モール＆スパ棟3F",
+      "memberIds": [
+        "tgt-mall-lockers"
+      ],
+      "x": 1539.5,
+      "y": 501.0,
+      "boundary": "場外ロッカー室。シアターの入場境界を越えて館内荷物とまとめない。",
+      "visualReview": "source-checked"
+    }
+  ],
+  "meta": {
+    "tgt-2f-vending-01": {
+      "name": "自動販売機",
+      "location": "ホワイエ右側",
+      "detail": "飲み物の自動販売機。現金・電子マネーに対応。",
+      "area": "ホワイエ右側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-2f-smoking-01": {
+      "name": "喫煙室",
+      "location": "ホワイエ右側",
+      "detail": "紙巻き・電子たばこを利用できます。公演によって利用制限があります。",
+      "area": "ホワイエ右側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-2f-toilet-men-01": {
+      "name": "男性トイレ",
+      "location": "ホワイエ右側",
+      "detail": "当日の男女の割り当ては案内表示をご確認ください。",
+      "area": "ホワイエ右側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-2f-toilet-accessible-01": {
+      "name": "多機能トイレ",
+      "location": "ホワイエ右側",
+      "detail": "車いす対応。おむつ交換にも利用できます。",
+      "area": "ホワイエ右側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-2f-shop-01": {
+      "name": "タリーズコーヒー",
+      "location": "ホワイエ正面・左側",
+      "detail": "アリーナ階ホワイエのコーヒー売店です。",
+      "area": "ホワイエ正面・左側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-2f-toilet-women-01": {
+      "name": "女性トイレ",
+      "location": "ホワイエ右側",
+      "detail": "当日の男女の割り当ては案内表示をご確認ください。",
+      "area": "ホワイエ右側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-3f-toilet-women-01": {
+      "name": "女性トイレ",
+      "location": "ホワイエ左側",
+      "detail": "当日の男女の割り当ては案内表示をご確認ください。",
+      "area": "ホワイエ左側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-3f-toilet-men-01": {
+      "name": "男性トイレ",
+      "location": "ホワイエ左側",
+      "detail": "当日の男女の割り当ては案内表示をご確認ください。",
+      "area": "ホワイエ左側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-3f-baggage-port-01": {
+      "name": "バゲッジポート",
+      "location": "ホワイエ左側",
+      "detail": "800円。電子マネーのみ。現金・クレジットカードは使えません。公演終了後まで。",
+      "area": "ホワイエ左側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-3f-nursing-01": {
+      "name": "授乳室",
+      "location": "ホワイエ左側",
+      "detail": "授乳・おむつ交換に利用できます。",
+      "area": "ホワイエ左側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-3f-toilet-accessible-01": {
+      "name": "多機能トイレ",
+      "location": "ホワイエ左側",
+      "detail": "車いす対応。おむつ交換にも利用できます。",
+      "area": "ホワイエ左側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-3f-smoking-01": {
+      "name": "喫煙室",
+      "location": "ホワイエ左側",
+      "detail": "紙巻き・電子たばこを利用できます。公演によって利用制限があります。",
+      "area": "ホワイエ左側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-3f-shop-01": {
+      "name": "売店",
+      "location": "ホワイエ正面・左側",
+      "detail": "軽食・ソフトドリンク・アルコール。通常は開場から開演30分後まで。公演により変わります。",
+      "area": "ホワイエ正面・左側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-3f-shop-02": {
+      "name": "売店",
+      "location": "ホワイエ正面・右側",
+      "detail": "軽食・ソフトドリンク・アルコール。通常は開場から開演30分後まで。公演により変わります。",
+      "area": "ホワイエ正面・右側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-4f-toilet-women-01": {
+      "name": "女性トイレ",
+      "location": "ホワイエ右側",
+      "detail": "当日の男女の割り当ては案内表示をご確認ください。",
+      "area": "ホワイエ右側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-4f-toilet-women-02": {
+      "name": "女性トイレ",
+      "location": "ホワイエ左側",
+      "detail": "当日の男女の割り当ては案内表示をご確認ください。",
+      "area": "ホワイエ左側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-4f-vending-01": {
+      "name": "自動販売機",
+      "location": "ホワイエ右側",
+      "detail": "飲み物の自動販売機。現金・電子マネーに対応。",
+      "area": "ホワイエ右側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-4f-toilet-men-01": {
+      "name": "男性トイレ",
+      "location": "ホワイエ右側",
+      "detail": "当日の男女の割り当ては案内表示をご確認ください。",
+      "area": "ホワイエ右側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-4f-toilet-men-02": {
+      "name": "男性トイレ",
+      "location": "ホワイエ左側",
+      "detail": "当日の男女の割り当ては案内表示をご確認ください。",
+      "area": "ホワイエ左側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-4f-toilet-accessible-01": {
+      "name": "多機能トイレ",
+      "location": "ホワイエ右側",
+      "detail": "車いす対応。おむつ交換にも利用できます。",
+      "area": "ホワイエ右側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-4f-baggage-port-01": {
+      "name": "バゲッジポート",
+      "location": "ホワイエ左側",
+      "detail": "800円。電子マネーのみ。現金・クレジットカードは使えません。公演終了後まで。",
+      "area": "ホワイエ左側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-4f-toilet-accessible-02": {
+      "name": "多機能トイレ",
+      "location": "ホワイエ左側",
+      "detail": "車いす対応。おむつ交換にも利用できます。",
+      "area": "ホワイエ左側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-4f-smoking-01": {
+      "name": "喫煙室",
+      "location": "ホワイエ右側",
+      "detail": "紙巻き・電子たばこを利用できます。公演によって利用制限があります。",
+      "area": "ホワイエ右側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-4f-shop-01": {
+      "name": "売店",
+      "location": "ホワイエ正面・右側",
+      "detail": "軽食・ソフトドリンク・アルコール。通常は開場から開演30分後まで。公演により変わります。 電子マネー・カードを用意し、現金対応は売店ごとにご確認ください。",
+      "area": "ホワイエ正面・右側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-4f-shop-02": {
+      "name": "売店",
+      "location": "ホワイエ正面・左側",
+      "detail": "軽食・ソフトドリンク・アルコール。通常は開場から開演30分後まで。公演により変わります。 電子マネー・カードを用意し、現金対応は売店ごとにご確認ください。",
+      "area": "ホワイエ正面・左側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-5f-toilet-women-01": {
+      "name": "女性トイレ",
+      "location": "ホワイエ右側",
+      "detail": "当日の男女の割り当ては案内表示をご確認ください。",
+      "area": "ホワイエ右側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-5f-toilet-women-02": {
+      "name": "女性トイレ",
+      "location": "ホワイエ左側",
+      "detail": "当日の男女の割り当ては案内表示をご確認ください。",
+      "area": "ホワイエ左側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-5f-toilet-men-01": {
+      "name": "男性トイレ",
+      "location": "ホワイエ右側",
+      "detail": "当日の男女の割り当ては案内表示をご確認ください。",
+      "area": "ホワイエ右側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-5f-toilet-accessible-01": {
+      "name": "多機能トイレ",
+      "location": "ホワイエ左側",
+      "detail": "車いす対応。おむつ交換にも利用できます。",
+      "area": "ホワイエ左側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-5f-toilet-men-02": {
+      "name": "男性トイレ",
+      "location": "ホワイエ左側",
+      "detail": "当日の男女の割り当ては案内表示をご確認ください。",
+      "area": "ホワイエ左側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-5f-smoking-01": {
+      "name": "喫煙室",
+      "location": "ホワイエ左側",
+      "detail": "紙巻き・電子たばこを利用できます。公演によって利用制限があります。",
+      "area": "ホワイエ左側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-5f-toilet-accessible-02": {
+      "name": "多機能トイレ",
+      "location": "ホワイエ右側",
+      "detail": "車いす対応。おむつ交換にも利用できます。",
+      "area": "ホワイエ右側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-5f-baggage-port-01": {
+      "name": "バゲッジポート",
+      "location": "ホワイエ左側",
+      "detail": "800円。電子マネーのみ。現金・クレジットカードは使えません。公演終了後まで。",
+      "area": "ホワイエ左側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-5f-shop-01": {
+      "name": "売店",
+      "location": "ホワイエ正面・右側",
+      "detail": "軽食・ソフトドリンク・アルコール。通常は開場から開演30分後まで。公演により変わります。",
+      "area": "ホワイエ正面・右側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-5f-shop-02": {
+      "name": "売店",
+      "location": "ホワイエ正面・左側",
+      "detail": "軽食・ソフトドリンク・アルコール。通常は開場から開演30分後まで。公演により変わります。",
+      "area": "ホワイエ正面・左側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-2f-toilet-accessible-01-diaper": {
+      "name": "おむつ交換台",
+      "location": "ホワイエ右側",
+      "detail": "多機能トイレ内。おむつ交換に利用できます。",
+      "area": "ホワイエ右側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-3f-toilet-accessible-01-diaper": {
+      "name": "おむつ交換台",
+      "location": "ホワイエ左側",
+      "detail": "多機能トイレ内。おむつ交換に利用できます。",
+      "area": "ホワイエ左側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-4f-toilet-accessible-01-diaper": {
+      "name": "おむつ交換台",
+      "location": "ホワイエ右側",
+      "detail": "多機能トイレ内。おむつ交換に利用できます。",
+      "area": "ホワイエ右側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-4f-toilet-accessible-02-diaper": {
+      "name": "おむつ交換台",
+      "location": "ホワイエ左側",
+      "detail": "多機能トイレ内。おむつ交換に利用できます。",
+      "area": "ホワイエ左側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-5f-toilet-accessible-01-diaper": {
+      "name": "おむつ交換台",
+      "location": "ホワイエ左側",
+      "detail": "多機能トイレ内。おむつ交換に利用できます。",
+      "area": "ホワイエ左側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-5f-toilet-accessible-02-diaper": {
+      "name": "おむつ交換台",
+      "location": "ホワイエ右側",
+      "detail": "多機能トイレ内。おむつ交換に利用できます。",
+      "area": "ホワイエ右側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-2f-locker-01": {
+      "name": "コインロッカー",
+      "location": "ホワイエ北側",
+      "detail": "小400円。電子マネー・クレジットカード対応、現金不可。公演終了後まで。公演によって制限があります。 小：幅35.2×奥行67.8×高さ32.5cm。",
+      "area": "ホワイエ北側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-4f-locker-01": {
+      "name": "コインロッカー",
+      "location": "ホワイエ北側",
+      "detail": "小400円・中600円。電子マネー・クレジットカード対応、現金不可。公演終了後まで。公演によって制限があります。 小：幅35.2×奥行67.8×高さ32.5cm。 中：高さ51.6cm（幅・奥行は同じ）。",
+      "area": "ホワイエ北側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-5f-locker-01": {
+      "name": "コインロッカー",
+      "location": "ホワイエ北側",
+      "detail": "小400円・中600円。電子マネー・クレジットカード対応、現金不可。公演終了後まで。公演によって制限があります。 小：幅35.2×奥行67.8×高さ32.5cm。 中：高さ51.6cm（幅・奥行は同じ）。",
+      "area": "ホワイエ北側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-2f-escalator-01": {
+      "name": "エスカレーター",
+      "location": "ホワイエ右側",
+      "detail": "当日の運転方向・開放は案内表示をご確認ください。",
+      "area": "ホワイエ右側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-2f-escalator-02": {
+      "name": "エスカレーター",
+      "location": "ホワイエ右側",
+      "detail": "当日の運転方向・開放は案内表示をご確認ください。",
+      "area": "ホワイエ右側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-2f-elevator-01": {
+      "name": "エレベーター",
+      "location": "ホワイエ左側",
+      "detail": "入口から各階への移動に利用できます。客席には階段があるため、必要な方はスタッフへご相談ください。",
+      "area": "ホワイエ左側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-2f-elevator-02": {
+      "name": "エレベーター",
+      "location": "ホワイエ右側",
+      "detail": "入口から各階への移動に利用できます。客席には階段があるため、必要な方はスタッフへご相談ください。",
+      "area": "ホワイエ右側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-3f-escalator-01": {
+      "name": "エスカレーター",
+      "location": "ホワイエ右側",
+      "detail": "当日の運転方向・開放は案内表示をご確認ください。",
+      "area": "ホワイエ右側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-3f-escalator-02": {
+      "name": "エスカレーター",
+      "location": "ホワイエ右側",
+      "detail": "当日の運転方向・開放は案内表示をご確認ください。",
+      "area": "ホワイエ右側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-3f-escalator-03": {
+      "name": "エスカレーター",
+      "location": "ホワイエ左側",
+      "detail": "当日の運転方向・開放は案内表示をご確認ください。",
+      "area": "ホワイエ左側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-3f-escalator-04": {
+      "name": "エスカレーター",
+      "location": "ホワイエ右側",
+      "detail": "当日の運転方向・開放は案内表示をご確認ください。",
+      "area": "ホワイエ右側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-3f-elevator-01": {
+      "name": "エレベーター",
+      "location": "ホワイエ左側",
+      "detail": "入口から各階への移動に利用できます。客席には階段があるため、必要な方はスタッフへご相談ください。",
+      "area": "ホワイエ左側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-3f-elevator-02": {
+      "name": "エレベーター",
+      "location": "ホワイエ右側",
+      "detail": "入口から各階への移動に利用できます。客席には階段があるため、必要な方はスタッフへご相談ください。",
+      "area": "ホワイエ右側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-4f-escalator-01": {
+      "name": "エスカレーター",
+      "location": "ホワイエ左側",
+      "detail": "当日の運転方向・開放は案内表示をご確認ください。",
+      "area": "ホワイエ左側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-4f-escalator-02": {
+      "name": "エスカレーター",
+      "location": "ホワイエ右側",
+      "detail": "当日の運転方向・開放は案内表示をご確認ください。",
+      "area": "ホワイエ右側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-4f-escalator-03": {
+      "name": "エスカレーター",
+      "location": "ホワイエ左側",
+      "detail": "当日の運転方向・開放は案内表示をご確認ください。",
+      "area": "ホワイエ左側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-4f-elevator-01": {
+      "name": "エレベーター",
+      "location": "ホワイエ左側",
+      "detail": "入口から各階への移動に利用できます。客席には階段があるため、必要な方はスタッフへご相談ください。",
+      "area": "ホワイエ左側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-4f-elevator-02": {
+      "name": "エレベーター",
+      "location": "ホワイエ右側",
+      "detail": "入口から各階への移動に利用できます。客席には階段があるため、必要な方はスタッフへご相談ください。",
+      "area": "ホワイエ右側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-5f-escalator-01": {
+      "name": "エスカレーター",
+      "location": "ホワイエ右側",
+      "detail": "当日の運転方向・開放は案内表示をご確認ください。",
+      "area": "ホワイエ右側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-5f-escalator-02": {
+      "name": "エスカレーター",
+      "location": "ホワイエ左側",
+      "detail": "当日の運転方向・開放は案内表示をご確認ください。",
+      "area": "ホワイエ左側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-5f-elevator-01": {
+      "name": "エレベーター",
+      "location": "ホワイエ左側",
+      "detail": "入口から各階への移動に利用できます。客席には階段があるため、必要な方はスタッフへご相談ください。",
+      "area": "ホワイエ左側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-5f-elevator-02": {
+      "name": "エレベーター",
+      "location": "ホワイエ右側",
+      "detail": "入口から各階への移動に利用できます。客席には階段があるため、必要な方はスタッフへご相談ください。",
+      "area": "ホワイエ右側",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-2f-first-aid": {
+      "name": "救護室",
+      "location": "2Fアリーナ階",
+      "detail": "体調が悪くなったら、近くのスタッフへお声がけください。",
+      "area": "アリーナ階",
+      "accessCondition": "公演チケット・開場後",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/"
+    },
+    "tgt-mall-lockers": {
+      "name": "モール＆スパ棟 ロッカー室",
+      "location": "モール＆スパ棟3F・シアター入場前",
+      "detail": "小400円・中600円。電子マネー・クレジットカード対応、現金不可。公演終了後まで。公演によって利用制限があります。 小：幅35.2×奥行67.8×高さ32.5cm、中：高さ51.6cm（幅・奥行は同じ）。",
+      "area": "ロッカー室",
+      "accessCondition": "シアターの入場前に利用可",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/visitor/floor/",
+      "outsideViewIds": [
+        "surroundings",
+        "grounds",
+        "locker-3f",
+        "mall"
+      ]
+    },
+    "tgt-hotel-lockers": {
+      "name": "ホテル軒下 コインロッカー",
+      "location": "ホテル1F軒下",
+      "detail": "24時間。小400円・中600円・大800円。電子マネー・クレジットカード対応、現金不可。 小：幅35.2×奥行67.8×高さ32.5cm、中：高さ51.6cm（幅・奥行は同じ）。 大：高さ87.2cm。",
+      "area": "ホテル",
+      "accessCondition": "入場前に利用可",
+      "url": "https://ariake.shopping-sumitomo-rd.com/service/facility/",
+      "outsideViewIds": [
+        "surroundings",
+        "grounds",
+        "mall"
+      ]
+    },
+    "tgt-garden-locker-bus": {
+      "name": "有明ガーデン バスターミナル ロッカー",
+      "location": "モール1Fバスターミナル",
+      "detail": "24時間。小300円・中400円・大500円。事前予約はできません。 幅35×奥行67cm。高さは小32/中52/大87cm。",
+      "area": "有明ガーデン",
+      "accessCondition": "入場前に利用可",
+      "url": "https://ariake.shopping-sumitomo-rd.com/service/facility/",
+      "outsideViewIds": [
+        "surroundings",
+        "grounds",
+        "mall"
+      ]
+    },
+    "tgt-garden-locker-d": {
+      "name": "有明ガーデン Dエレベーター前 ロッカー",
+      "location": "モール5F Dエレベーター前",
+      "detail": "10:00〜23:00。小300円・中400円・大500円。事前予約はできません。 幅35×奥行67cm。高さは小32/中52/大87cm。",
+      "area": "有明ガーデン",
+      "accessCondition": "入場前に利用可",
+      "url": "https://ariake.shopping-sumitomo-rd.com/service/facility/",
+      "outsideViewIds": [
+        "surroundings",
+        "grounds",
+        "mall"
+      ]
+    },
+    "tgt-garden-locker-f": {
+      "name": "有明ガーデン Fエレベーター前 ロッカー",
+      "location": "モール5F Fエレベーター前",
+      "detail": "10:00〜23:00。小300円・中400円・大500円。事前予約はできません。 幅35×奥行67cm。高さは小32/中52/大87cm。",
+      "area": "有明ガーデン",
+      "accessCondition": "入場前に利用可",
+      "url": "https://ariake.shopping-sumitomo-rd.com/service/facility/",
+      "outsideViewIds": [
+        "surroundings",
+        "grounds",
+        "mall"
+      ]
+    },
+    "tgt-garden-atm-aeon1": {
+      "name": "イオン銀行ATM",
+      "location": "イオンスタイル内",
+      "detail": "8:00〜23:00",
+      "area": "有明ガーデン",
+      "accessCondition": "入場前に利用可",
+      "url": "https://ariake.shopping-sumitomo-rd.com/service/facility/",
+      "outsideViewIds": [
+        "surroundings",
+        "grounds",
+        "mall"
+      ]
+    },
+    "tgt-garden-atm-aeon2": {
+      "name": "イオン銀行ATM",
+      "location": "モール2F Dエレベーター付近",
+      "detail": "10:00〜23:00",
+      "area": "有明ガーデン",
+      "accessCondition": "入場前に利用可",
+      "url": "https://ariake.shopping-sumitomo-rd.com/service/facility/",
+      "outsideViewIds": [
+        "surroundings",
+        "grounds",
+        "mall"
+      ]
+    },
+    "tgt-garden-atm-mizuho": {
+      "name": "みずほ銀行ATM",
+      "location": "モール2F Dエレベーター付近",
+      "detail": "10:00〜21:00",
+      "area": "有明ガーデン",
+      "accessCondition": "入場前に利用可",
+      "url": "https://ariake.shopping-sumitomo-rd.com/service/facility/",
+      "outsideViewIds": [
+        "surroundings",
+        "grounds",
+        "mall"
+      ]
+    },
+    "tgt-garden-atm-smbc": {
+      "name": "三井住友銀行ATM",
+      "location": "三井住友銀行内",
+      "detail": "平日・土曜10:00〜23:00、日曜10:00〜21:00。祝日は曜日に準じます。",
+      "area": "有明ガーデン",
+      "accessCondition": "入場前に利用可",
+      "url": "https://ariake.shopping-sumitomo-rd.com/service/facility/",
+      "outsideViewIds": [
+        "surroundings",
+        "grounds",
+        "mall"
+      ]
+    },
+    "tgt-garden-atm-resona": {
+      "name": "りそな銀行ATM",
+      "location": "りそな銀行内",
+      "detail": "10:00〜21:00",
+      "area": "有明ガーデン",
+      "accessCondition": "入場前に利用可",
+      "url": "https://ariake.shopping-sumitomo-rd.com/service/facility/",
+      "outsideViewIds": [
+        "surroundings",
+        "grounds",
+        "mall"
+      ]
+    },
+    "tgt-garden-information": {
+      "name": "インフォメーション",
+      "location": "モール2F Cエスカレーター付近",
+      "detail": "10:00〜21:00。落とし物・迷子の案内、車いす貸出。",
+      "area": "有明ガーデン",
+      "accessCondition": "入場前に利用可",
+      "url": "https://ariake.shopping-sumitomo-rd.com/service/facility/",
+      "outsideViewIds": [
+        "surroundings",
+        "grounds",
+        "mall"
+      ]
+    },
+    "tgt-garden-smoking-3F": {
+      "name": "喫煙室",
+      "location": "モール3F Fエレベーター付近",
+      "detail": "10:00〜21:00。電子たばこ専用",
+      "area": "有明ガーデン",
+      "accessCondition": "入場前に利用可",
+      "url": "https://ariake.shopping-sumitomo-rd.com/service/facility/",
+      "outsideViewIds": [
+        "surroundings",
+        "grounds",
+        "mall"
+      ]
+    },
+    "tgt-garden-smoking-5F": {
+      "name": "喫煙室",
+      "location": "モール5F Dエレベーター付近",
+      "detail": "10:00〜23:00。",
+      "area": "有明ガーデン",
+      "accessCondition": "入場前に利用可",
+      "url": "https://ariake.shopping-sumitomo-rd.com/service/facility/",
+      "outsideViewIds": [
+        "surroundings",
+        "grounds",
+        "mall"
+      ]
+    },
+    "tgt-garden-baby-4f": {
+      "name": "赤ちゃん休憩室",
+      "location": "モール4F",
+      "detail": "女性専用授乳コーナー・おむつ交換台・調乳機・電子レンジ。詳しい場所は館内案内をご確認ください。",
+      "area": "有明ガーデン",
+      "accessCondition": "入場前に利用可",
+      "url": "https://ariake.shopping-sumitomo-rd.com/faq/",
+      "outsideViewIds": [
+        "surroundings",
+        "grounds",
+        "mall"
+      ]
+    },
+    "tgt-garden-baby-5f": {
+      "name": "赤ちゃん休憩室",
+      "location": "モール5F",
+      "detail": "女性専用授乳コーナー・おむつ交換台・調乳機・電子レンジ。詳しい場所は館内案内をご確認ください。",
+      "area": "有明ガーデン",
+      "accessCondition": "入場前に利用可",
+      "url": "https://ariake.shopping-sumitomo-rd.com/faq/",
+      "outsideViewIds": [
+        "surroundings",
+        "grounds",
+        "mall"
+      ]
+    },
+    "tgt-garden-toilet-1f": {
+      "name": "トイレ",
+      "location": "モール1F",
+      "detail": "入場前に利用できます。各階トイレにおむつ交換台があります。",
+      "area": "有明ガーデン",
+      "accessCondition": "入場前に利用可",
+      "url": "https://ariake.shopping-sumitomo-rd.com/faq/",
+      "outsideViewIds": [
+        "surroundings",
+        "grounds",
+        "mall"
+      ]
+    },
+    "tgt-garden-toilet-2f": {
+      "name": "トイレ",
+      "location": "モール2F",
+      "detail": "入場前に利用できます。各階トイレにおむつ交換台があります。",
+      "area": "有明ガーデン",
+      "accessCondition": "入場前に利用可",
+      "url": "https://ariake.shopping-sumitomo-rd.com/faq/",
+      "outsideViewIds": [
+        "surroundings",
+        "grounds",
+        "mall"
+      ]
+    },
+    "tgt-garden-toilet-3f": {
+      "name": "トイレ",
+      "location": "モール3F",
+      "detail": "入場前に利用できます。各階トイレにおむつ交換台があります。",
+      "area": "有明ガーデン",
+      "accessCondition": "入場前に利用可",
+      "url": "https://ariake.shopping-sumitomo-rd.com/faq/",
+      "outsideViewIds": [
+        "surroundings",
+        "grounds",
+        "mall"
+      ]
+    },
+    "tgt-garden-toilet-4f": {
+      "name": "トイレ",
+      "location": "モール4F",
+      "detail": "入場前に利用できます。各階トイレにおむつ交換台があります。",
+      "area": "有明ガーデン",
+      "accessCondition": "入場前に利用可",
+      "url": "https://ariake.shopping-sumitomo-rd.com/faq/",
+      "outsideViewIds": [
+        "surroundings",
+        "grounds",
+        "mall"
+      ]
+    },
+    "tgt-garden-toilet-5f": {
+      "name": "トイレ",
+      "location": "モール5F",
+      "detail": "入場前に利用できます。各階トイレにおむつ交換台があります。",
+      "area": "有明ガーデン",
+      "accessCondition": "入場前に利用可",
+      "url": "https://ariake.shopping-sumitomo-rd.com/faq/",
+      "outsideViewIds": [
+        "surroundings",
+        "grounds",
+        "mall"
+      ]
+    },
+    "tgt-garden-deck-ev-B": {
+      "name": "Bエレベーター",
+      "location": "Bエレベーター（地下駐車場〜2F）",
+      "detail": "24時間。シアターの指定入口は当日の案内をご確認ください。",
+      "area": "アトリウムデッキ",
+      "accessCondition": "入場前に利用可",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/access/",
+      "outsideViewIds": [
+        "surroundings",
+        "grounds",
+        "mall"
+      ]
+    },
+    "tgt-garden-deck-ev-D": {
+      "name": "Dエレベーター",
+      "location": "Dエレベーター（地下駐車場〜2F）",
+      "detail": "10:00〜23:00。シアターの指定入口は当日の案内をご確認ください。",
+      "area": "アトリウムデッキ",
+      "accessCondition": "入場前に利用可",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/access/",
+      "outsideViewIds": [
+        "surroundings",
+        "grounds",
+        "mall"
+      ]
+    },
+    "tgt-ariake-lockers": {
+      "name": "有明駅 コインロッカー",
+      "location": "改札外",
+      "detail": "改札の外に設置されています。料金・利用時間・支払方法は現地案内をご確認ください。",
+      "area": "有明駅",
+      "accessCondition": "改札外・入場前に利用可",
+      "url": "https://www.yurikamome.co.jp/station-timetable/u-12.html",
+      "outsideViewIds": [
+        "surroundings",
+        "station-ariake"
+      ]
+    },
+    "tgt-ariake-toilet": {
+      "name": "有明駅 男女トイレ",
+      "location": "改札内",
+      "detail": "改札内のため乗車券が必要です。",
+      "area": "有明駅",
+      "accessCondition": "改札内・乗車券が必要",
+      "url": "https://www.yurikamome.co.jp/station-timetable/u-12.html",
+      "outsideViewIds": [
+        "surroundings",
+        "station-ariake"
+      ]
+    },
+    "tgt-ariake-accessible": {
+      "name": "有明駅 車いす対応トイレ",
+      "location": "改札外",
+      "detail": "必要な方は駅係員へご相談ください。",
+      "area": "有明駅",
+      "accessCondition": "改札外・入場前に利用可",
+      "url": "https://www.yurikamome.co.jp/station-timetable/u-12.html",
+      "outsideViewIds": [
+        "surroundings",
+        "station-ariake"
+      ]
+    },
+    "tgt-ariake-ev": {
+      "name": "有明駅 エレベーター",
+      "location": "駅構内・地上と改札/ホーム間",
+      "detail": "駅の改札・ホーム間を移動できます。会場までの連続した経路は公式アクセスをご確認ください。",
+      "area": "有明駅",
+      "accessCondition": "改札外・入場前に利用可",
+      "url": "https://www.yurikamome.co.jp/station-timetable/u-12.html",
+      "outsideViewIds": [
+        "surroundings",
+        "station-ariake"
+      ]
+    },
+    "tgt-ariake-aed": {
+      "name": "有明駅 AED",
+      "location": "改札外・駅事務室付近",
+      "detail": "緊急時は駅係員へお声がけください。",
+      "area": "有明駅",
+      "accessCondition": "改札外・入場前に利用可",
+      "url": "https://www.yurikamome.co.jp/station-timetable/u-12.html",
+      "outsideViewIds": [
+        "surroundings",
+        "station-ariake"
+      ]
+    },
+    "tgt-tennis-lockers": {
+      "name": "有明テニスの森駅 コインロッカー",
+      "location": "改札外",
+      "detail": "改札の外に設置されています。料金・利用時間・支払方法は現地案内をご確認ください。",
+      "area": "有明テニスの森駅",
+      "accessCondition": "改札外・入場前に利用可",
+      "url": "https://www.yurikamome.co.jp/station-timetable/u-13.html",
+      "outsideViewIds": [
+        "surroundings",
+        "station-tennis"
+      ]
+    },
+    "tgt-tennis-toilet": {
+      "name": "有明テニスの森駅 男女トイレ",
+      "location": "改札内",
+      "detail": "改札内のため乗車券が必要です。",
+      "area": "有明テニスの森駅",
+      "accessCondition": "改札内・乗車券が必要",
+      "url": "https://www.yurikamome.co.jp/station-timetable/u-13.html",
+      "outsideViewIds": [
+        "surroundings",
+        "station-tennis"
+      ]
+    },
+    "tgt-tennis-accessible": {
+      "name": "有明テニスの森駅 車いす対応トイレ",
+      "location": "改札内",
+      "detail": "必要な方は駅係員へご相談ください。",
+      "area": "有明テニスの森駅",
+      "accessCondition": "改札内・乗車券が必要",
+      "url": "https://www.yurikamome.co.jp/station-timetable/u-13.html",
+      "outsideViewIds": [
+        "surroundings",
+        "station-tennis"
+      ]
+    },
+    "tgt-tennis-ev": {
+      "name": "有明テニスの森駅 エレベーター",
+      "location": "駅構内・地上と改札/ホーム間",
+      "detail": "駅の改札・ホーム間を移動できます。会場までの連続した経路は公式アクセスをご確認ください。",
+      "area": "有明テニスの森駅",
+      "accessCondition": "改札外・入場前に利用可",
+      "url": "https://www.yurikamome.co.jp/station-timetable/u-13.html",
+      "outsideViewIds": [
+        "surroundings",
+        "station-tennis"
+      ]
+    },
+    "tgt-tennis-aed": {
+      "name": "有明テニスの森駅 AED",
+      "location": "改札外・駅事務室付近",
+      "detail": "緊急時は駅係員へお声がけください。",
+      "area": "有明テニスの森駅",
+      "accessCondition": "改札外・入場前に利用可",
+      "url": "https://www.yurikamome.co.jp/station-timetable/u-13.html",
+      "outsideViewIds": [
+        "surroundings",
+        "station-tennis"
+      ]
+    },
+    "tgt-kokusai-lockers": {
+      "name": "国際展示場駅 コインロッカー",
+      "location": "改札外",
+      "detail": "キャッシュレス。一部時間制。幅35.2×奥行67.8cm、高さは小32.5/中51.6/大87.2cm。料金は現地案内をご確認ください。",
+      "area": "国際展示場駅",
+      "accessCondition": "改札外・入場前に利用可",
+      "url": "https://www.twr.co.jp/route/tabid/110/Default.aspx",
+      "outsideViewIds": [
+        "surroundings",
+        "station-kokusai"
+      ]
+    },
+    "tgt-kokusai-toilet": {
+      "name": "国際展示場駅 男女トイレ",
+      "location": "改札内",
+      "detail": "改札内のため乗車券が必要です。",
+      "area": "国際展示場駅",
+      "accessCondition": "改札内・乗車券が必要",
+      "url": "https://www.twr.co.jp/route/tabid/110/Default.aspx",
+      "outsideViewIds": [
+        "surroundings",
+        "station-kokusai"
+      ]
+    },
+    "tgt-kokusai-accessible": {
+      "name": "国際展示場駅 車いす対応トイレ",
+      "location": "改札内",
+      "detail": "必要な方は駅係員へご相談ください。",
+      "area": "国際展示場駅",
+      "accessCondition": "改札内・乗車券が必要",
+      "url": "https://www.twr.co.jp/route/tabid/110/Default.aspx",
+      "outsideViewIds": [
+        "surroundings",
+        "station-kokusai"
+      ]
+    },
+    "tgt-kokusai-ev": {
+      "name": "国際展示場駅 エレベーター",
+      "location": "駅構内・地上と改札/ホーム間",
+      "detail": "駅の改札・ホーム間を移動できます。会場までの連続した経路は公式アクセスをご確認ください。",
+      "area": "国際展示場駅",
+      "accessCondition": "改札外・入場前に利用可",
+      "url": "https://www.twr.co.jp/route/tabid/110/Default.aspx",
+      "outsideViewIds": [
+        "surroundings",
+        "station-kokusai"
+      ]
+    },
+    "tgt-kokusai-doutor": {
+      "name": "ドトールコーヒー 国際展示場駅店",
+      "location": "国際展示場駅構内",
+      "detail": "駅のコーヒーショップ。営業・改札境界は店舗案内をご確認ください。",
+      "area": "国際展示場駅",
+      "accessCondition": "店舗の利用案内を確認",
+      "url": "https://www.twr.co.jp/route/tabid/110/Default.aspx",
+      "outsideViewIds": [
+        "surroundings",
+        "station-kokusai"
+      ]
+    },
+    "tgt-kokusai-soba": {
+      "name": "いろり庵きらく 国際展示場店",
+      "location": "国際展示場駅構内",
+      "detail": "駅のそば店。営業・改札境界は店舗案内をご確認ください。",
+      "area": "国際展示場駅",
+      "accessCondition": "店舗の利用案内を確認",
+      "url": "https://www.twr.co.jp/route/tabid/110/Default.aspx",
+      "outsideViewIds": [
+        "surroundings",
+        "station-kokusai"
+      ]
+    },
+    "tgt-mall-shop-aeon": {
+      "name": "イオンスタイル",
+      "location": "モール1F",
+      "detail": "食品・飲み物の買い物。8:00〜23:00。",
+      "area": "有明ガーデン",
+      "accessCondition": "店舗営業時間内・入場前に利用可",
+      "url": "https://ariake.shopping-sumitomo-rd.com/shop/1034/",
+      "outsideViewIds": [
+        "surroundings",
+        "grounds",
+        "mall"
+      ]
+    },
+    "tgt-mall-shop-muji": {
+      "name": "Café＆Meal MUJI",
+      "location": "モール＆スパ1F",
+      "detail": "平日11:00〜19:00（LO18:00）、土日祝11:00〜20:00（LO19:00）。電源あり。",
+      "area": "モール＆スパ",
+      "accessCondition": "店舗営業時間内・入場前に利用可",
+      "url": "https://ariake.shopping-sumitomo-rd.com/shop/943/",
+      "outsideViewIds": [
+        "surroundings",
+        "grounds",
+        "mall"
+      ]
+    },
+    "tgt-mall-shop-tullys2": {
+      "name": "タリーズコーヒー &TEA",
+      "location": "モール2F",
+      "detail": "10:00〜21:00（LO20:30）。電源あり。シアター内のタリーズとは別店舗です。",
+      "area": "有明ガーデン",
+      "accessCondition": "店舗営業時間内・入場前に利用可",
+      "url": "https://ariake.shopping-sumitomo-rd.com/shop/906/",
+      "outsideViewIds": [
+        "surroundings",
+        "grounds",
+        "mall"
+      ]
+    },
+    "tgt-mall-shop-tullys4": {
+      "name": "タリーズコーヒー 有明ガーデン店",
+      "location": "モール4F",
+      "detail": "10:00〜21:00（LO20:30）。電源あり。",
+      "area": "有明ガーデン",
+      "accessCondition": "店舗営業時間内・入場前に利用可",
+      "url": "https://ariake.shopping-sumitomo-rd.com/shop/910/",
+      "outsideViewIds": [
+        "surroundings",
+        "grounds",
+        "mall"
+      ]
+    },
+    "tgt-mall-shop-chikusei": {
+      "name": "元祖セルフうどんの店 竹清",
+      "location": "モール5F・フードコート",
+      "detail": "11:00〜23:00（LO22:00）。うどんのフードコート店舗。",
+      "area": "有明ガーデン",
+      "accessCondition": "店舗営業時間内・入場前に利用可",
+      "url": "https://ariake.shopping-sumitomo-rd.com/shop/936/",
+      "outsideViewIds": [
+        "surroundings",
+        "grounds",
+        "mall"
+      ]
+    },
+    "tgt-mall-shop-tsumugi": {
+      "name": "和カフェTsumugi",
+      "location": "モール5F",
+      "detail": "11:00〜23:00（LO22:00）。和食・甘味のカフェ。",
+      "area": "有明ガーデン",
+      "accessCondition": "店舗営業時間内・入場前に利用可",
+      "url": "https://ariake.shopping-sumitomo-rd.com/shop/929/",
+      "outsideViewIds": [
+        "surroundings",
+        "grounds",
+        "mall"
+      ]
+    },
+    "tgt-mall-shop-tomods": {
+      "name": "トモズ 有明ガーデン店",
+      "location": "モール2F",
+      "detail": "10:00〜21:00。医薬品・日用品のドラッグストア。処方箋受付の条件は店舗へご確認ください。",
+      "area": "有明ガーデン",
+      "accessCondition": "店舗営業時間内・入場前に利用可",
+      "url": "https://ariake.shopping-sumitomo-rd.com/shop/950/",
+      "outsideViewIds": [
+        "surroundings",
+        "grounds",
+        "mall"
+      ]
+    },
+    "tgt-garden-parking": {
+      "name": "有明ガーデン 駐車場",
+      "location": "地下・立体・屋外駐車場",
+      "detail": "24時間。入庫後1時間無料。平日（特定日を除く）400円/30分、最大3,500円は当日24時まで。土日祝・特定日は500円/30分、最大料金なし。予約不可。シアターの公演チケットは駐車サービス対象外です。",
+      "area": "有明ガーデン",
+      "accessCondition": "一般駐車場・混雑時は公共交通を利用",
+      "url": "https://ariake.shopping-sumitomo-rd.com/access/",
+      "outsideViewIds": [
+        "surroundings",
+        "grounds",
+        "mall"
+      ]
+    },
+    "tgt-hotel-spa-parking": {
+      "name": "ホテル・スパ専用駐車場",
+      "location": "ホテル・スパ駐車場",
+      "detail": "ホテル宿泊者・泉天空の湯の利用者専用です。シアターの公演チケットだけでは利用対象になりません。",
+      "area": "ホテル",
+      "accessCondition": "ホテル宿泊・スパ利用が必要",
+      "url": "https://ariake.shopping-sumitomo-rd.com/access/",
+      "outsideViewIds": [
+        "surroundings",
+        "grounds",
+        "mall"
+      ]
+    },
+    "tgt-garden-bicycle": {
+      "name": "有明ガーデン 駐輪場",
+      "location": "敷地内・立体駐車場1F側など",
+      "detail": "24時間。平日は5時間まで無料、以降2時間ごと100円。土日祝は無料。敷地内は自転車を降りて通行してください。",
+      "area": "有明ガーデン",
+      "accessCondition": "入場前に利用可",
+      "url": "https://ariake.shopping-sumitomo-rd.com/access/",
+      "outsideViewIds": [
+        "surroundings",
+        "grounds",
+        "mall"
+      ]
+    },
+    "tgt-garden-taxi": {
+      "name": "タクシー乗降場",
+      "location": "有明ガーデン1F バスターミナル",
+      "detail": "タクシーは常駐していません。乗り場の配車用タブレットやスマートフォンで手配してください。シアター専用の乗り場ではありません。",
+      "area": "バスターミナル",
+      "accessCondition": "入場前に利用可",
+      "url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/faq/",
+      "outsideViewIds": [
+        "surroundings",
+        "grounds",
+        "mall"
+      ]
+    },
+    "tgt-bus-ariake2": {
+      "name": "有明二丁目 バス停",
+      "location": "有明二丁目 バス停",
+      "detail": "都営バス 海01・都05-2。運行時刻・方面・乗り場は公式アクセスの交通事業者案内をご確認ください。",
+      "area": "周辺バス停",
+      "accessCondition": "入場前に利用可",
+      "url": "https://ariake.shopping-sumitomo-rd.com/access/",
+      "outsideViewIds": [
+        "surroundings",
+        "grounds"
+      ]
+    },
+    "tgt-bus-kaetsu": {
+      "name": "かえつ学園西 バス停",
+      "location": "かえつ学園西 バス停",
+      "detail": "都営バス 海01・都05-2。運行時刻・方面・乗り場は公式アクセスの交通事業者案内をご確認ください。",
+      "area": "周辺バス停",
+      "accessCondition": "入場前に利用可",
+      "url": "https://ariake.shopping-sumitomo-rd.com/access/",
+      "outsideViewIds": [
+        "surroundings",
+        "grounds"
+      ]
+    },
+    "tgt-bus-tennis": {
+      "name": "有明テニスの森 バス停",
+      "location": "有明テニスの森 バス停",
+      "detail": "新橋方面から東京BRT幹線ルート。運行時刻・方面・乗り場は公式アクセスの交通事業者案内をご確認ください。",
+      "area": "周辺バス停",
+      "accessCondition": "入場前に利用可",
+      "url": "https://ariake.shopping-sumitomo-rd.com/access/",
+      "outsideViewIds": [
+        "surroundings",
+        "grounds"
+      ]
+    },
+    "tgt-transfer-shimbashi-west": {
+      "name": "新橋駅 西口側ロッカー",
+      "location": "ゆりかもめ改札階・西口改札外",
+      "detail": "乗換時に預けられる駅ロッカー。利用時間・料金・支払方法は現地案内をご確認ください。",
+      "area": "新橋駅（乗換）",
+      "accessCondition": "改札外・乗車券不要",
+      "url": "https://www.yurikamome.co.jp/station-timetable/u-01.html",
+      "outsideViewIds": [
+        "surroundings",
+        "transfer-shimbashi"
+      ]
+    },
+    "tgt-transfer-shimbashi-east": {
+      "name": "新橋駅 東口側ロッカー",
+      "location": "東口改札下・連絡通路（2F）",
+      "detail": "乗換時に預けられる駅ロッカー。利用時間・料金・支払方法は現地案内をご確認ください。",
+      "area": "新橋駅（乗換）",
+      "accessCondition": "改札外・乗車券不要",
+      "url": "https://www.yurikamome.co.jp/station-timetable/u-01.html",
+      "outsideViewIds": [
+        "surroundings",
+        "transfer-shimbashi"
+      ]
+    },
+    "tgt-transfer-toyosu-yuri": {
+      "name": "豊洲駅 ゆりかもめロッカー",
+      "location": "ゆりかもめ改札階・2A側",
+      "detail": "乗換時に預けられる駅ロッカー。利用時間・料金・支払方法は現地案内をご確認ください。",
+      "area": "豊洲駅（乗換）",
+      "accessCondition": "改札外・乗車券不要",
+      "url": "https://www.yurikamome.co.jp/station-timetable/u-16.html",
+      "outsideViewIds": [
+        "surroundings",
+        "transfer-toyosu"
+      ]
+    },
+    "tgt-transfer-toyosu-metro": {
+      "name": "豊洲駅 東京メトロロッカー",
+      "location": "有楽町線構内・個別位置は現地案内で確認",
+      "detail": "乗換時に預けられる駅ロッカー。利用時間・料金・支払方法は現地案内をご確認ください。",
+      "area": "豊洲駅（乗換）",
+      "accessCondition": "改札境界は現地案内を確認",
+      "url": "https://www.tokyometro.jp/station/toyosu/shop/index.html",
+      "outsideViewIds": [
+        "surroundings",
+        "transfer-toyosu"
+      ]
+    },
+    "tgt-transfer-osaki-out": {
+      "name": "大崎駅 北改札外ロッカー",
+      "location": "北改札外・東口方面",
+      "detail": "マルチエキューブ。キャッシュレス決済のみ、現金不可。予約・配送の利用は会員登録が必要です。受付条件・受取時刻を運営元で確認してください。",
+      "area": "大崎駅（乗換）",
+      "accessCondition": "改札外・乗車券不要",
+      "url": "https://media.jreast.co.jp/articles/1421",
+      "outsideViewIds": [
+        "surroundings",
+        "transfer-osaki"
+      ]
+    },
+    "tgt-transfer-osaki-north": {
+      "name": "大崎駅 北改札内ロッカー",
+      "location": "北改札内・7/8番線階段付近",
+      "detail": "マルチエキューブ。キャッシュレス決済のみ、現金不可。予約・配送の利用は会員登録が必要です。受付条件・受取時刻を運営元で確認してください。",
+      "area": "大崎駅（乗換）",
+      "accessCondition": "改札内・乗車券が必要",
+      "url": "https://media.jreast.co.jp/articles/1421",
+      "outsideViewIds": [
+        "surroundings",
+        "transfer-osaki"
+      ]
+    },
+    "tgt-transfer-osaki-south": {
+      "name": "大崎駅 南改札内ロッカー",
+      "location": "南改札内・1/2番線エスカレーター付近",
+      "detail": "マルチエキューブ。キャッシュレス決済のみ、現金不可。予約・配送の利用は会員登録が必要です。受付条件・受取時刻を運営元で確認してください。",
+      "area": "大崎駅（乗換）",
+      "accessCondition": "改札内・乗車券が必要",
+      "url": "https://media.jreast.co.jp/articles/1421",
+      "outsideViewIds": [
+        "surroundings",
+        "transfer-osaki"
+      ]
+    },
+    "tgt-transfer-shimbashi-staffed": {
+      "name": "ビッグエコー新橋銀座口駅前店 荷物預かり",
+      "location": "新橋駅付近・店舗で預かり",
+      "detail": "Bounceで事前予約。月〜木11:00〜翌4:30、金11:00〜翌6:30、土10:00〜翌6:30、日10:00〜翌4:30。予約日時の受付・受取時間と料金を確認してください。予約後の案内で住所・入口を確認できます。",
+      "area": "新橋駅（乗換）",
+      "accessCondition": "予約が必要・予約した時間内",
+      "url": "https://ja.bounce.com/stores/tokyo/Mz2wXR",
+      "outsideViewIds": [
+        "surroundings",
+        "transfer-shimbashi"
+      ]
+    }
+  },
+  "outsideViews": [
+    {
+      "id": "surroundings",
+      "label": "周辺",
+      "diagramId": "tokyo-garden-theater-outside-current",
+      "northUp": true
+    },
+    {
+      "id": "grounds",
+      "label": "敷地・入口",
+      "diagramId": "tgt-grounds-current",
+      "northUp": true
+    },
+    {
+      "id": "locker-3f",
+      "label": "入場前ロッカー 3F",
+      "diagramId": "tgt-outside-locker-3f-native",
+      "floorLabel": "モール＆スパ棟3F",
+      "northUp": false
+    },
+    {
+      "id": "mall",
+      "label": "有明ガーデン",
+      "diagramId": "tgt-mall-services-current",
+      "floorLabel": "モール各階・ホテル1F",
+      "northUp": false
+    },
+    {
+      "id": "station-ariake",
+      "label": "有明駅",
+      "diagramId": "tgt-ariake-services-current",
+      "floorLabel": "有明駅・2B出口",
+      "northUp": false
+    },
+    {
+      "id": "station-tennis",
+      "label": "有明テニスの森駅",
+      "diagramId": "tgt-tennis-services-current",
+      "floorLabel": "有明テニスの森駅・2A出口",
+      "northUp": false
+    },
+    {
+      "id": "station-kokusai",
+      "label": "国際展示場駅",
+      "diagramId": "tgt-kokusai-services-current",
+      "floorLabel": "国際展示場駅・A出口",
+      "northUp": false
+    },
+    {
+      "id": "transfer-shimbashi",
+      "label": "新橋駅（乗換）",
+      "diagramId": "tgt-transfer-shimbashi-current",
+      "floorLabel": "新橋駅・荷物の場所一覧",
+      "northUp": false
+    },
+    {
+      "id": "transfer-toyosu",
+      "label": "豊洲駅（乗換）",
+      "diagramId": "tgt-transfer-toyosu-current",
+      "floorLabel": "豊洲駅・荷物の場所一覧",
+      "northUp": false
+    },
+    {
+      "id": "transfer-osaki",
+      "label": "大崎駅（乗換）",
+      "diagramId": "tgt-transfer-osaki-current",
+      "floorLabel": "大崎駅・荷物の場所一覧",
+      "northUp": false
+    }
+  ],
+  "landmarkFacilityIds": {
+    "tgt-ariake-station": [
+      "tgt-ariake-lockers",
+      "tgt-ariake-toilet",
+      "tgt-ariake-accessible",
+      "tgt-ariake-ev",
+      "tgt-ariake-aed"
+    ],
+    "tgt-tennis-station": [
+      "tgt-tennis-lockers",
+      "tgt-tennis-toilet",
+      "tgt-tennis-accessible",
+      "tgt-tennis-ev",
+      "tgt-tennis-aed"
+    ],
+    "tgt-kokusai-station": [
+      "tgt-kokusai-lockers",
+      "tgt-kokusai-toilet",
+      "tgt-kokusai-accessible",
+      "tgt-kokusai-ev",
+      "tgt-kokusai-doutor",
+      "tgt-kokusai-soba"
+    ],
+    "tgt-venue": [
+      "tgt-hotel-lockers",
+      "tgt-mall-lockers"
+    ],
+    "tgt-garden": [
+      "tgt-mall-lockers",
+      "tgt-hotel-lockers",
+      "tgt-garden-locker-bus",
+      "tgt-garden-locker-d",
+      "tgt-garden-locker-f",
+      "tgt-garden-atm-aeon1",
+      "tgt-garden-atm-aeon2",
+      "tgt-garden-atm-mizuho",
+      "tgt-garden-atm-smbc",
+      "tgt-garden-atm-resona",
+      "tgt-garden-information",
+      "tgt-garden-smoking-3F",
+      "tgt-garden-smoking-5F",
+      "tgt-garden-baby-4f",
+      "tgt-garden-baby-5f",
+      "tgt-garden-toilet-1f",
+      "tgt-garden-toilet-2f",
+      "tgt-garden-toilet-3f",
+      "tgt-garden-toilet-4f",
+      "tgt-garden-toilet-5f",
+      "tgt-garden-deck-ev-B",
+      "tgt-garden-deck-ev-D",
+      "tgt-mall-shop-aeon",
+      "tgt-mall-shop-muji",
+      "tgt-mall-shop-tullys2",
+      "tgt-mall-shop-tullys4",
+      "tgt-mall-shop-chikusei",
+      "tgt-mall-shop-tsumugi",
+      "tgt-mall-shop-tomods",
+      "tgt-garden-parking",
+      "tgt-hotel-spa-parking",
+      "tgt-garden-bicycle",
+      "tgt-garden-taxi"
+    ],
+    "tgt-ground-mall": [
+      "tgt-mall-lockers",
+      "tgt-garden-locker-bus",
+      "tgt-garden-locker-d",
+      "tgt-garden-locker-f",
+      "tgt-garden-atm-aeon1",
+      "tgt-garden-atm-aeon2",
+      "tgt-garden-atm-mizuho",
+      "tgt-garden-atm-smbc",
+      "tgt-garden-atm-resona",
+      "tgt-garden-information",
+      "tgt-garden-smoking-3F",
+      "tgt-garden-smoking-5F",
+      "tgt-garden-baby-4f",
+      "tgt-garden-baby-5f",
+      "tgt-garden-toilet-1f",
+      "tgt-garden-toilet-2f",
+      "tgt-garden-toilet-3f",
+      "tgt-garden-toilet-4f",
+      "tgt-garden-toilet-5f",
+      "tgt-garden-deck-ev-B",
+      "tgt-garden-deck-ev-D",
+      "tgt-mall-shop-aeon",
+      "tgt-mall-shop-muji",
+      "tgt-mall-shop-tullys2",
+      "tgt-mall-shop-tullys4",
+      "tgt-mall-shop-chikusei",
+      "tgt-mall-shop-tsumugi",
+      "tgt-mall-shop-tomods",
+      "tgt-garden-parking",
+      "tgt-hotel-spa-parking",
+      "tgt-garden-bicycle",
+      "tgt-garden-taxi"
+    ],
+    "tgt-ground-spa": [
+      "tgt-mall-lockers",
+      "tgt-mall-shop-muji"
+    ],
+    "tgt-ground-hotel": [
+      "tgt-hotel-lockers",
+      "tgt-hotel-spa-parking"
+    ],
+    "tgt-ground-theater": [
+      "tgt-mall-lockers",
+      "tgt-hotel-lockers"
+    ],
+    "tgt-ground-entry": [
+      "tgt-mall-lockers"
+    ],
+    "tgt-ground-deck": [
+      "tgt-garden-deck-ev-B",
+      "tgt-garden-deck-ev-D"
+    ],
+    "tgt-outside-balcony-gate": [
+      "tgt-mall-lockers"
+    ]
+  },
+  "landmarkGroupIds": {
+    "tgt-ariake-station": [],
+    "tgt-tennis-station": [],
+    "tgt-kokusai-station": [],
+    "tgt-venue": [
+      "tgt-outside-locker-room-3f"
+    ],
+    "tgt-garden": [
+      "tgt-outside-locker-room-3f"
+    ],
+    "tgt-ground-mall": [
+      "tgt-outside-locker-room-3f"
+    ],
+    "tgt-ground-spa": [
+      "tgt-outside-locker-room-3f"
+    ],
+    "tgt-ground-hotel": [],
+    "tgt-ground-theater": [
+      "tgt-outside-locker-room-3f"
+    ],
+    "tgt-ground-entry": [
+      "tgt-outside-locker-room-3f"
+    ],
+    "tgt-ground-deck": [],
+    "tgt-outside-balcony-gate": [
+      "tgt-outside-locker-room-3f"
+    ]
+  }
+}

@@ -1,0 +1,5323 @@
+{
+  "diagrams": [
+    {
+      "id": "kyocera-f3",
+      "floor": "3F",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        -16,
+        718,
+        714
+      ],
+      "concoursePaths": [
+        "M244.5,85 L267.5,129 L323.5,112 L378.5,110 L421.5,118 L475.5,141 L500.5,100 L500.5,117 L519.5,119 L494.5,151 L496.5,158 L512.5,170 L542.5,137 L545.5,155 L561.5,155 L527.5,185 L551.5,221 L589.5,200 L590.5,219 L607.5,220 L563.5,241 L577.5,284 L582.5,333 L631.5,333 L631.5,337 L619.5,338 L619.5,358 L630.5,360 L629.5,363 L580.5,358 L571.5,404 L617.5,417 L611.5,436 L594.5,438 L594.5,459 L599.5,461 L592.5,474 L588.5,476 L547.5,451 L519.5,489 L553.5,524 L548.5,529 L526.5,528 L522.5,551 L491.5,513 L447.5,538 L412.5,549 L422.5,598 L417.5,599 L415.5,590 L394.5,590 L393.5,603 L388.5,604 L383.5,604 L382.5,596 L335.5,596 L334.5,604 L323.5,603 L322.5,590 L301.5,590 L300.5,599 L294.5,598 L305.5,549 L275.5,540 L232.5,518 L206.5,555 L205.5,539 L187.5,538 L215.5,503 L174.5,458 L133.5,485 L123.5,470 L127.5,467 L127.5,446 L110.5,445 L105.5,434 L103.5,425 L149.5,408 L137.5,364 L89.5,371 L88.5,365 L98.5,364 L98.5,343 L86.5,342 L86.5,333 L135.5,333 L141.5,280 L158.5,235 L113.5,213 L118.5,205 L135.5,204 L132.5,181 L137.5,174 L176.5,202 L195.5,182 L198.5,176 L164.5,143 L186.5,142 L187.5,121 L219.5,158 L233.5,149 L205.5,107 L211.5,103 L214.5,107 L234.5,107 L236.5,89 Z",
+        "M274.5,6 L279.5,7 L285.5,27 L277.5,24 L278.5,30 L269.5,33 L273.5,47 L283.5,44 L284.5,49 L289.5,44 L292.5,49 L335.5,41 L382.5,41 L421.5,48 L429.5,43 L435.5,50 L436.5,45 L446.5,47 L450.5,34 L441.5,30 L442.5,25 L432.5,28 L438.5,8 L451.5,8 L527.5,40 L596.5,93 L584.5,107 L623.5,152 L651.5,202 L671.5,263 L678.5,333 L695.5,333 L695.5,359 L688.5,406 L675.5,450 L633.5,529 L610.5,557 L603.5,551 L609.5,550 L606.5,545 L611.5,537 L601.5,529 L595.5,535 L589.5,532 L589.5,539 L581.5,532 L570.5,544 L553.5,525 L579.5,496 L600.5,461 L617.5,460 L618.5,438 L612.5,435 L623.5,406 L631.5,360 L643.5,359 L643.5,338 L632.5,337 L631.5,301 L623.5,264 L625.5,257 L629.5,262 L634.5,259 L629.5,244 L625.5,244 L624.5,251 L619.5,250 L609.5,223 L614.5,219 L614.5,198 L596.5,197 L566.5,154 L567.5,133 L543.5,131 L524.5,115 L523.5,95 L499.5,98 L435.5,69 L397.5,61 L358.5,59 L298.5,65 L238.5,87 L235.5,83 L213.5,83 L210.5,103 L188.5,119 L163.5,120 L163.5,141 L130.5,182 L112.5,182 L112.5,205 L116.5,206 L100.5,240 L91.5,277 L84.5,277 L84.5,271 L79.5,273 L77.5,289 L83.5,284 L89.5,288 L85.5,342 L74.5,343 L74.5,364 L87.5,365 L94.5,406 L108.5,442 L103.5,446 L103.5,467 L121.5,468 L125.5,475 L114.5,476 L113.5,481 L111.5,477 L101.5,477 L100.5,486 L105.5,487 L100.5,489 L112.5,489 L107.5,487 L111.5,483 L114.5,489 L125.5,489 L126.5,477 L150.5,511 L182.5,542 L182.5,552 L179.5,551 L142.5,513 L127.5,527 L127.5,511 L121.5,513 L114.5,506 L104.5,515 L110.5,522 L106.5,527 L121.5,530 L113.5,540 L119.5,545 L114.5,537 L121.5,533 L131.5,547 L125.5,551 L119.5,545 L124.5,553 L112.5,563 L66.5,501 L82.5,492 L59.5,443 L41.5,447 L27.5,396 L22.5,333 L39.5,333 L48.5,254 L78.5,178 L119.5,120 L175.5,71 L166.5,56 L215.5,27 Z",
+        "M524.5,550 L536.5,552 L521.5,564 L463.5,594 L468.5,604 L463.5,603 L465.5,609 L456.5,612 L460.5,625 L470.5,623 L473.5,628 L478.5,623 L477.5,633 L483.5,646 L445.5,659 L370.5,670 L289.5,663 L243.5,649 L251.5,627 L249.5,616 L256.5,626 L258.5,621 L269.5,622 L273.5,609 L264.5,606 L266.5,601 L258.5,603 L261.5,597 L218.5,578 L195.5,562 L208.5,561 L255.5,587 L300.5,600 L301.5,614 L322.5,614 L323.5,604 L393.5,604 L394.5,614 L415.5,614 L417.5,600 L469.5,584 Z"
+      ],
+      "contextPaths": [
+        "M348.5,196 L390.5,199 L433.5,216 L472.5,250 L496.5,294 L418.5,376 L405.5,346 L387.5,330 L368.5,324 L344.5,324 L325.5,333 L308.5,351 L298.5,376 L221.5,299 L237.5,261 L268.5,227 L307.5,205 Z",
+        "M496.5,298 L499.5,305 L472.5,329 L434.5,403 L381.5,464 L332.5,463 L328.5,452 L304.5,430 L274.5,390 L245.5,330 L218.5,306 L221.5,299 L299.5,378 L308.5,353 L324.5,335 L349.5,324 L370.5,325 L394.5,336 L413.5,362 L417.5,377 L410.5,384 L400.5,374 L392.5,381 L395.5,400 L368.5,426 L363.5,422 L347.5,425 L322.5,400 L326.5,381 L319.5,374 L309.5,384 L300.5,378 L307.5,386 L298.5,398 L307.5,391 L318.5,402 L322.5,400 L348.5,426 L347.5,443 L362.5,448 L372.5,438 L369.5,426 L395.5,400 L400.5,402 L407.5,395 L401.5,404 L412.5,392 L411.5,384 Z",
+        "M489.5,514 L519.5,553 L486.5,574 L439.5,593 L425.5,597 L413.5,550 L454.5,536 Z",
+        "M426.5,69 L462.5,80 L498.5,98 L476.5,138 L469.5,138 L439.5,123 L399.5,113 L405.5,72 L424.5,76 Z",
+        "M233.5,519 L270.5,539 L304.5,550 L292.5,596 L280.5,594 L243.5,580 L206.5,559 Z",
+        "M305.5,65 L311.5,66 L319.5,112 L269.5,128 L265.5,124 L247.5,84 Z",
+        "M622.5,268 L629.5,296 L631.5,333 L586.5,333 L577.5,279 Z",
+        "M113.5,215 L156.5,234 L141.5,280 L137.5,281 L93.5,271 Z",
+        "M89.5,292 L137.5,299 L134.5,333 L86.5,333 Z",
+        "M346.5,60 L378.5,61 L372.5,109 L344.5,109 L340.5,61 Z",
+        "M523.5,116 L543.5,135 L513.5,167 L494.5,153 Z",
+        "M198.5,489 L214.5,505 L186.5,539 L181.5,539 L164.5,523 Z",
+        "M563.5,155 L579.5,173 L542.5,199 L539.5,201 L528.5,186 Z",
+        "M605.5,222 L616.5,243 L574.5,258 L570.5,259 L564.5,241 Z",
+        "M240.5,173 L261.5,200 L259.5,215 L244.5,213 L221.5,190 Z",
+        "M475.5,173 L496.5,190 L474.5,212 L458.5,215 L456.5,200 Z",
+        "M177.5,253 L210.5,268 L213.5,282 L203.5,284 L168.5,278 Z",
+        "M538.5,253 L549.5,278 L515.5,285 L504.5,282 L507.5,268 Z",
+        "M200.5,379 L213.5,383 L215.5,389 L210.5,390 L210.5,398 L181.5,411 L177.5,413 L168.5,388 Z",
+        "M516.5,379 L549.5,388 L540.5,413 L537.5,411 L507.5,398 L507.5,390 L502.5,389 L504.5,383 Z",
+        "M414.5,142 L439.5,151 L424.5,184 L409.5,188 L405.5,175 Z",
+        "M302.5,142 L312.5,175 L308.5,188 L295.5,184 L279.5,151 Z",
+        "M258.5,450 L261.5,466 L245.5,489 L241.5,493 L232.5,486 L222.5,475 L246.5,451 Z",
+        "M410.5,477 L424.5,482 L436.5,507 L438.5,515 L429.5,518 L413.5,522 L405.5,492 Z",
+        "M457.5,450 L471.5,451 L495.5,475 L486.5,485 L475.5,493 L456.5,466 Z",
+        "M204.5,108 L231.5,146 L218.5,155 L189.5,120 Z",
+        "M303.5,477 L310.5,478 L311.5,497 L307.5,511 L297.5,511 L292.5,520 L279.5,512 L293.5,482 L302.5,481 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "f3-passage-30",
+          "label": "30",
+          "x": 346.0,
+          "y": 179.5,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 0, bounds [316, 171, 333, 188]; + horizontal canvas offset 21.5",
+          "name": "30通路"
+        },
+        {
+          "id": "f3-passage-31",
+          "label": "31",
+          "x": 372.5,
+          "y": 179.5,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 1, bounds [343, 171, 359, 188]; + horizontal canvas offset 21.5",
+          "name": "31通路"
+        },
+        {
+          "id": "f3-passage-29",
+          "label": "29",
+          "x": 319.0,
+          "y": 184.0,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 2, bounds [289, 176, 306, 192]; + horizontal canvas offset 21.5",
+          "name": "29通路"
+        },
+        {
+          "id": "f3-passage-32",
+          "label": "32",
+          "x": 399.0,
+          "y": 184.0,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 3, bounds [369, 176, 386, 192]; + horizontal canvas offset 21.5",
+          "name": "32通路"
+        },
+        {
+          "id": "f3-passage-28",
+          "label": "28",
+          "x": 294.0,
+          "y": 193.5,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 4, bounds [264, 185, 281, 202]; + horizontal canvas offset 21.5",
+          "name": "28通路"
+        },
+        {
+          "id": "f3-passage-33",
+          "label": "33",
+          "x": 424.0,
+          "y": 193.5,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 5, bounds [394, 185, 411, 202]; + horizontal canvas offset 21.5",
+          "name": "33通路"
+        },
+        {
+          "id": "f3-passage-27",
+          "label": "27",
+          "x": 271.0,
+          "y": 206.5,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 6, bounds [241, 198, 258, 215]; + horizontal canvas offset 21.5",
+          "name": "27通路"
+        },
+        {
+          "id": "f3-passage-34",
+          "label": "34",
+          "x": 447.0,
+          "y": 206.5,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 7, bounds [417, 198, 434, 215]; + horizontal canvas offset 21.5",
+          "name": "34通路"
+        },
+        {
+          "id": "f3-passage-26",
+          "label": "26",
+          "x": 250.0,
+          "y": 223.5,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 8, bounds [220, 215, 237, 232]; + horizontal canvas offset 21.5",
+          "name": "26通路"
+        },
+        {
+          "id": "f3-passage-35",
+          "label": "35",
+          "x": 468.0,
+          "y": 224.0,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 9, bounds [438, 216, 455, 232]; + horizontal canvas offset 21.5",
+          "name": "35通路"
+        },
+        {
+          "id": "f3-passage-25",
+          "label": "25",
+          "x": 233.0,
+          "y": 244.5,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 10, bounds [203, 236, 220, 253]; + horizontal canvas offset 21.5",
+          "name": "25通路"
+        },
+        {
+          "id": "f3-passage-36",
+          "label": "36",
+          "x": 485.0,
+          "y": 244.5,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 11, bounds [455, 236, 472, 253]; + horizontal canvas offset 21.5",
+          "name": "36通路"
+        },
+        {
+          "id": "f3-passage-24",
+          "label": "24",
+          "x": 219.0,
+          "y": 267.5,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 12, bounds [189, 259, 206, 276]; + horizontal canvas offset 21.5",
+          "name": "24通路"
+        },
+        {
+          "id": "f3-passage-1",
+          "label": "1",
+          "x": 499.0,
+          "y": 267.5,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 13, bounds [469, 259, 486, 276]; + horizontal canvas offset 21.5",
+          "name": "1通路"
+        },
+        {
+          "id": "f3-passage-23",
+          "label": "23",
+          "x": 210.0,
+          "y": 293.0,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 14, bounds [180, 285, 197, 301]; + horizontal canvas offset 21.5",
+          "name": "23通路"
+        },
+        {
+          "id": "f3-passage-2",
+          "label": "2",
+          "x": 508.0,
+          "y": 293.0,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 15, bounds [478, 285, 495, 301]; + horizontal canvas offset 21.5",
+          "name": "2通路"
+        },
+        {
+          "id": "f3-passage-22",
+          "label": "22",
+          "x": 206.0,
+          "y": 319.5,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 16, bounds [176, 311, 193, 328]; + horizontal canvas offset 21.5",
+          "name": "22通路"
+        },
+        {
+          "id": "f3-passage-3",
+          "label": "3",
+          "x": 512.0,
+          "y": 319.5,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 17, bounds [482, 311, 499, 328]; + horizontal canvas offset 21.5",
+          "name": "3通路"
+        },
+        {
+          "id": "f3-passage-21",
+          "label": "21",
+          "x": 206.0,
+          "y": 346.5,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 18, bounds [176, 338, 193, 355]; + horizontal canvas offset 21.5",
+          "name": "21通路"
+        },
+        {
+          "id": "f3-passage-4",
+          "label": "4",
+          "x": 512.0,
+          "y": 346.5,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 19, bounds [482, 338, 499, 355]; + horizontal canvas offset 21.5",
+          "name": "4通路"
+        },
+        {
+          "id": "f3-passage-20",
+          "label": "20",
+          "x": 210.0,
+          "y": 372.5,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 20, bounds [180, 364, 197, 381]; + horizontal canvas offset 21.5",
+          "name": "20通路"
+        },
+        {
+          "id": "f3-passage-5",
+          "label": "5",
+          "x": 508.0,
+          "y": 372.5,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 21, bounds [478, 364, 495, 381]; + horizontal canvas offset 21.5",
+          "name": "5通路"
+        },
+        {
+          "id": "f3-passage-19",
+          "label": "19",
+          "x": 220.0,
+          "y": 397.5,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 22, bounds [190, 389, 207, 406]; + horizontal canvas offset 21.5",
+          "name": "19通路"
+        },
+        {
+          "id": "f3-passage-6",
+          "label": "6",
+          "x": 498.0,
+          "y": 397.5,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 23, bounds [468, 389, 485, 406]; + horizontal canvas offset 21.5",
+          "name": "6通路"
+        },
+        {
+          "id": "f3-passage-7",
+          "label": "7",
+          "x": 485.0,
+          "y": 420.5,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 24, bounds [455, 412, 472, 429]; + horizontal canvas offset 21.5",
+          "name": "7通路"
+        },
+        {
+          "id": "f3-passage-18",
+          "label": "18",
+          "x": 233.0,
+          "y": 421.0,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 25, bounds [203, 413, 220, 429]; + horizontal canvas offset 21.5",
+          "name": "18通路"
+        },
+        {
+          "id": "f3-passage-17",
+          "label": "17",
+          "x": 250.0,
+          "y": 441.5,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 26, bounds [220, 433, 237, 450]; + horizontal canvas offset 21.5",
+          "name": "17通路"
+        },
+        {
+          "id": "f3-passage-8",
+          "label": "8",
+          "x": 468.0,
+          "y": 441.5,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 27, bounds [438, 433, 455, 450]; + horizontal canvas offset 21.5",
+          "name": "8通路"
+        },
+        {
+          "id": "f3-passage-16",
+          "label": "16",
+          "x": 271.0,
+          "y": 458.5,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 28, bounds [241, 450, 258, 467]; + horizontal canvas offset 21.5",
+          "name": "16通路"
+        },
+        {
+          "id": "f3-passage-9",
+          "label": "9",
+          "x": 447.0,
+          "y": 458.5,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 29, bounds [417, 450, 434, 467]; + horizontal canvas offset 21.5",
+          "name": "9通路"
+        },
+        {
+          "id": "f3-passage-15",
+          "label": "15",
+          "x": 294.0,
+          "y": 472.5,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 30, bounds [264, 464, 281, 481]; + horizontal canvas offset 21.5",
+          "name": "15通路"
+        },
+        {
+          "id": "f3-passage-10",
+          "label": "10",
+          "x": 424.0,
+          "y": 472.5,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 31, bounds [394, 464, 411, 481]; + horizontal canvas offset 21.5",
+          "name": "10通路"
+        },
+        {
+          "id": "f3-passage-14",
+          "label": "14",
+          "x": 319.0,
+          "y": 481.5,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 32, bounds [289, 473, 306, 490]; + horizontal canvas offset 21.5",
+          "name": "14通路"
+        },
+        {
+          "id": "f3-passage-11",
+          "label": "11",
+          "x": 399.0,
+          "y": 481.5,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 33, bounds [369, 473, 386, 490]; + horizontal canvas offset 21.5",
+          "name": "11通路"
+        },
+        {
+          "id": "f3-passage-12",
+          "label": "12",
+          "x": 372.5,
+          "y": 485.5,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 34, bounds [343, 477, 359, 494]; + horizontal canvas offset 21.5",
+          "name": "12通路"
+        },
+        {
+          "id": "f3-passage-13",
+          "label": "13",
+          "x": 346.0,
+          "y": 486.0,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 35, bounds [316, 478, 333, 494]; + horizontal canvas offset 21.5",
+          "name": "13通路"
+        },
+        {
+          "id": "f3-gate-10",
+          "label": "G10",
+          "x": 224.5,
+          "y": 94.5,
+          "kind": "gate",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 0, bounds [192, 83, 214, 106]; + horizontal canvas offset 21.5",
+          "name": "10入場ゲート"
+        },
+        {
+          "id": "f3-gate-11",
+          "label": "G11",
+          "x": 512.0,
+          "y": 106.5,
+          "kind": "gate",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 1, bounds [479, 95, 502, 118]; + horizontal canvas offset 21.5",
+          "name": "11入場ゲート"
+        },
+        {
+          "id": "f3-gate-9",
+          "label": "G9",
+          "x": 175.5,
+          "y": 130.5,
+          "kind": "gate",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 2, bounds [143, 119, 165, 142]; + horizontal canvas offset 21.5",
+          "name": "9入場ゲート"
+        },
+        {
+          "id": "f3-gate-12",
+          "label": "G12",
+          "x": 555.5,
+          "y": 143.0,
+          "kind": "gate",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 3, bounds [523, 132, 545, 154]; + horizontal canvas offset 21.5",
+          "name": "12入場ゲート"
+        },
+        {
+          "id": "f3-gate-8",
+          "label": "G8",
+          "x": 124.0,
+          "y": 193.5,
+          "kind": "gate",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 4, bounds [91, 182, 114, 205]; + horizontal canvas offset 21.5",
+          "name": "8入場ゲート"
+        },
+        {
+          "id": "f3-gate-13",
+          "label": "G13",
+          "x": 602.5,
+          "y": 208.5,
+          "kind": "gate",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 5, bounds [570, 197, 592, 220]; + horizontal canvas offset 21.5",
+          "name": "13入場ゲート"
+        },
+        {
+          "id": "f3-gate-14",
+          "label": "G14",
+          "x": 632.0,
+          "y": 348.5,
+          "kind": "gate",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 6, bounds [599, 337, 622, 360]; + horizontal canvas offset 21.5",
+          "name": "14入場ゲート"
+        },
+        {
+          "id": "f3-gate-7",
+          "label": "G7",
+          "x": 86.5,
+          "y": 353.5,
+          "kind": "gate",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 7, bounds [54, 342, 76, 365]; + horizontal canvas offset 21.5",
+          "name": "7入場ゲート"
+        },
+        {
+          "id": "f3-gate-1",
+          "label": "G1",
+          "x": 606.5,
+          "y": 448.5,
+          "kind": "gate",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 8, bounds [574, 437, 596, 460]; + horizontal canvas offset 21.5",
+          "name": "1入場ゲート"
+        },
+        {
+          "id": "f3-gate-6",
+          "label": "G6",
+          "x": 115.5,
+          "y": 456.5,
+          "kind": "gate",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 9, bounds [83, 445, 105, 468]; + horizontal canvas offset 21.5",
+          "name": "6入場ゲート"
+        },
+        {
+          "id": "f3-gate-2",
+          "label": "G2",
+          "x": 537.0,
+          "y": 539.5,
+          "kind": "gate",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 10, bounds [504, 528, 527, 551]; + horizontal canvas offset 21.5",
+          "name": "2入場ゲート"
+        },
+        {
+          "id": "f3-gate-5",
+          "label": "G5",
+          "x": 194.0,
+          "y": 550.5,
+          "kind": "gate",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 11, bounds [161, 539, 184, 562]; + horizontal canvas offset 21.5",
+          "name": "5入場ゲート"
+        },
+        {
+          "id": "f3-gate-4",
+          "label": "G4",
+          "x": 312.0,
+          "y": 602.0,
+          "kind": "gate",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 12, bounds [279, 591, 302, 613]; + horizontal canvas offset 21.5",
+          "name": "4入場ゲート"
+        },
+        {
+          "id": "f3-gate-3",
+          "label": "G3",
+          "x": 405.0,
+          "y": 602.0,
+          "kind": "gate",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); manually read source symbol index 13, bounds [372, 591, 395, 613]; + horizontal canvas offset 21.5",
+          "name": "3入場ゲート"
+        },
+        {
+          "id": "landmark-f3-shop-s15",
+          "label": "S15",
+          "x": 205.16666666666666,
+          "y": 243.16666666666666,
+          "kind": "shop",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); area[href=\"#s15\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 21.5",
+          "name": "なにわのちゅーぼう　まんてん"
+        },
+        {
+          "id": "landmark-f3-shop-s16",
+          "label": "S16",
+          "x": 168.66666666666666,
+          "y": 172.16666666666666,
+          "kind": "shop",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); area[href=\"#s16\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 21.5",
+          "name": "SDBsのお店"
+        },
+        {
+          "id": "landmark-f3-shop-s17",
+          "label": "S17",
+          "x": 268.1,
+          "y": 175.6,
+          "kind": "shop",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); area[href=\"#s17\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 21.5",
+          "name": "どん／でん"
+        },
+        {
+          "id": "landmark-f3-shop-s18",
+          "label": "S18",
+          "x": 327.75,
+          "y": 86.25,
+          "kind": "shop",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); area[href=\"#s18\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 21.5",
+          "name": "ケンタッキーフライドチキン"
+        },
+        {
+          "id": "landmark-f3-shop-s19",
+          "label": "S19",
+          "x": 389.1666666666667,
+          "y": 85.83333333333333,
+          "kind": "shop",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); area[href=\"#s19\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 21.5",
+          "name": "モスバーガー"
+        },
+        {
+          "id": "landmark-f3-shop-s20",
+          "label": "S20",
+          "x": 448.9,
+          "y": 175.8,
+          "kind": "shop",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); area[href=\"#s20\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 21.5",
+          "name": "いてまえドッグ"
+        },
+        {
+          "id": "landmark-f3-shop-s21",
+          "label": "S21",
+          "x": 564.5,
+          "y": 194.5,
+          "kind": "shop",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); area[href=\"#s21\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 21.5",
+          "name": "オリごはんのお店 by GLOBE BOWL"
+        },
+        {
+          "id": "landmark-f3-shop-s22",
+          "label": "S22",
+          "x": 514.5,
+          "y": 241.4,
+          "kind": "shop",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); area[href=\"#s22\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 21.5",
+          "name": "球欒食堂（たまらんしょくどう）"
+        },
+        {
+          "id": "landmark-f3-shop-s23",
+          "label": "S23",
+          "x": 178.1,
+          "y": 331.8,
+          "kind": "shop",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); area[href=\"#s23\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 21.5",
+          "name": "大阪焼肉 ホルモンふたご(3F)"
+        },
+        {
+          "id": "landmark-f3-shop-s24",
+          "label": "S24",
+          "x": 202.7,
+          "y": 422.2,
+          "kind": "shop",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); area[href=\"#s24\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 21.5",
+          "name": "こてこて"
+        },
+        {
+          "id": "landmark-f3-shop-s25",
+          "label": "S25",
+          "x": 171.5,
+          "y": 489.0,
+          "kind": "shop",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); area[href=\"#s25\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 21.5",
+          "name": "モスバーガー"
+        },
+        {
+          "id": "landmark-f3-shop-s26",
+          "label": "S26",
+          "x": 268.1,
+          "y": 487.4,
+          "kind": "shop",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); area[href=\"#s26\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 21.5",
+          "name": "球場食堂（たまばしょくどう）"
+        },
+        {
+          "id": "landmark-f3-shop-s27",
+          "label": "S27",
+          "x": 448.5,
+          "y": 488.6,
+          "kind": "shop",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); area[href=\"#s27\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 21.5",
+          "name": "なにわのきっちん　まんぷく"
+        },
+        {
+          "id": "landmark-f3-shop-s28",
+          "label": "S28",
+          "x": 550.3333333333334,
+          "y": 482.1666666666667,
+          "kind": "shop",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); area[href=\"#s28\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 21.5",
+          "name": "味9楽部"
+        },
+        {
+          "id": "landmark-f3-shop-s29",
+          "label": "S29",
+          "x": 511.0,
+          "y": 420.25,
+          "kind": "shop",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); area[href=\"#s29\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 21.5",
+          "name": "ケンタッキーフライドチキン"
+        },
+        {
+          "id": "landmark-f3-shop-s30",
+          "label": "S30",
+          "x": 539.3,
+          "y": 332.2,
+          "kind": "shop",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); area[href=\"#s30\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 21.5",
+          "name": "ムラノ商店×韓激"
+        },
+        {
+          "id": "landmark-f3-shop-sBsBar",
+          "label": "BAR",
+          "x": 576.0,
+          "y": 78.0,
+          "kind": "shop",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); area[href=\"#sBsBar\"] rect coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 21.5",
+          "name": "Bs BEER BAR"
+        },
+        {
+          "id": "f3-stairs-1",
+          "label": "↕",
+          "x": 284.5,
+          "y": 37,
+          "kind": "stairs",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); red 2F stair-arrow label center, manually measured within 4px",
+          "name": "2F連絡階段"
+        },
+        {
+          "id": "f3-stairs-2",
+          "label": "↕",
+          "x": 435.5,
+          "y": 37,
+          "kind": "stairs",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); red 2F stair-arrow label center, manually measured within 4px",
+          "name": "2F連絡階段"
+        },
+        {
+          "id": "f3-stairs-3",
+          "label": "↕",
+          "x": 116.5,
+          "y": 519,
+          "kind": "stairs",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); red 2F stair-arrow label center, manually measured within 4px",
+          "name": "2F連絡階段"
+        },
+        {
+          "id": "f3-stairs-4",
+          "label": "↕",
+          "x": 599.5,
+          "y": 541,
+          "kind": "stairs",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); red 2F stair-arrow label center, manually measured within 4px",
+          "name": "2F連絡階段"
+        },
+        {
+          "id": "f3-stairs-5",
+          "label": "↕",
+          "x": 258.5,
+          "y": 613,
+          "kind": "stairs",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); red 2F stair-arrow label center, manually measured within 4px",
+          "name": "2F連絡階段"
+        },
+        {
+          "id": "f3-stairs-6",
+          "label": "↕",
+          "x": 470.5,
+          "y": 616,
+          "kind": "stairs",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); red 2F stair-arrow label center, manually measured within 4px",
+          "name": "2F連絡階段"
+        },
+        {
+          "id": "f3-plaza-1",
+          "label": "レフト側プラザ",
+          "x": 202.5,
+          "y": 64,
+          "kind": "plaza",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); source plaza label center; representative label area, not an entrance",
+          "name": "レフト側プラザ"
+        },
+        {
+          "id": "f3-plaza-2",
+          "label": "ライト側プラザ",
+          "x": 559.5,
+          "y": 91,
+          "kind": "plaza",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); source plaza label center; representative label area, not an entrance",
+          "name": "ライト側プラザ"
+        },
+        {
+          "id": "f3-plaza-3",
+          "label": "三塁側プラザ",
+          "x": 57.5,
+          "y": 493,
+          "kind": "plaza",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); source plaza label center; representative label area, not an entrance",
+          "name": "三塁側プラザ"
+        },
+        {
+          "id": "f3-plaza-4",
+          "label": "一塁側プラザ",
+          "x": 652.5,
+          "y": 464,
+          "kind": "plaza",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); source plaza label center; representative label area, not an entrance",
+          "name": "一塁側プラザ"
+        },
+        {
+          "id": "f3-plaza-5",
+          "label": "中央プラザ",
+          "x": 361.5,
+          "y": 650,
+          "kind": "plaza",
+          "sourceIds": [
+            "floor-3"
+          ],
+          "reference": "kyocera-f3-base.png, original (675, 682); source plaza label center; representative label area, not an entrance",
+          "name": "中央プラザ"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "file": "kyocera-f3-base.png",
+        "sha256": "158b5f562dd904d985fe6d60f3455d3dbbb70dad9a60764780ec2e926e612da1",
+        "width": 675,
+        "height": 682,
+        "canvasWidth": 718,
+        "imageOffsetX": 21.5,
+        "method": "公式PC図の輪郭を独自の単色図へ転記。最大3pxの輪郭簡略化。設備はHTML/CSSの記号中心。",
+        "status": "source-derived-local-review-pending"
+      }
+    },
+    {
+      "id": "kyocera-f5",
+      "floor": "5F",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        -16,
+        718,
+        561
+      ],
+      "concoursePaths": [
+        "M335.5,2 L341.5,45 L377.5,45 L382.5,2 L387.5,3 L383.5,46 L438.5,59 L483.5,84 L500.5,64 L507.5,68 L535.5,93 L517.5,111 L519.5,115 L542.5,144 L566.5,132 L596.5,199 L571.5,207 L579.5,253 L578.5,288 L571.5,321 L596.5,330 L568.5,394 L563.5,398 L542.5,385 L505.5,429 L472.5,453 L435.5,471 L383.5,483 L385.5,526 L380.5,523 L377.5,484 L341.5,483 L337.5,526 L331.5,526 L335.5,483 L291.5,474 L245.5,453 L209.5,426 L175.5,385 L152.5,398 L123.5,337 L148.5,329 L139.5,285 L139.5,244 L146.5,207 L122.5,201 L122.5,197 L150.5,134 L154.5,131 L176.5,143 L200.5,113 L183.5,93 L216.5,64 L234.5,84 L282.5,58 L335.5,46 L331.5,14 L331.5,3 Z"
+      ],
+      "contextPaths": [
+        "M347.5,128 L395.5,132 L432.5,148 L468.5,180 L491.5,223 L416.5,300 L401.5,268 L371.5,250 L345.5,250 L325.5,260 L310.5,277 L301.5,299 L227.5,225 L247.5,184 L273.5,157 L308.5,137 Z",
+        "M227.5,226 L302.5,302 L314.5,273 L337.5,254 L367.5,250 L392.5,261 L408.5,280 L414.5,302 L407.5,308 L397.5,298 L391.5,304 L394.5,322 L369.5,347 L361.5,343 L349.5,347 L324.5,322 L327.5,304 L321.5,298 L311.5,308 L304.5,302 L309.5,314 L301.5,322 L309.5,314 L315.5,322 L324.5,322 L349.5,347 L346.5,360 L352.5,367 L366.5,367 L372.5,358 L371.5,351 L369.5,347 L394.5,322 L399.5,326 L410.5,315 L408.5,308 L491.5,226 L493.5,232 L467.5,255 L451.5,293 L430.5,327 L388.5,372 L386.5,381 L374.5,385 L332.5,382 L330.5,372 L284.5,322 L250.5,255 L225.5,233 Z",
+        "M137.5,123 L151.5,133 L133.5,164 L121.5,201 L145.5,207 L138.5,246 L140.5,307 L100.5,314 L96.5,284 L97.5,234 L104.5,197 L119.5,155 Z",
+        "M579.5,122 L598.5,154 L614.5,199 L622.5,275 L619.5,305 L578.5,299 L579.5,242 L572.5,208 L597.5,201 L585.5,165 L566.5,132 Z",
+        "M427.5,10 L471.5,26 L516.5,53 L547.5,81 L535.5,93 L523.5,80 L499.5,63 L484.5,83 L448.5,62 L418.5,53 Z",
+        "M287.5,11 L292.5,15 L301.5,52 L267.5,63 L235.5,83 L218.5,63 L199.5,77 L183.5,92 L171.5,82 L195.5,58 L231.5,34 Z",
+        "M233.5,445 L270.5,467 L301.5,477 L291.5,518 L287.5,518 L249.5,504 L209.5,481 Z",
+        "M172.5,219 L201.5,226 L201.5,232 L207.5,234 L207.5,295 L194.5,305 L174.5,311 L171.5,308 L167.5,246 Z",
+        "M544.5,218 L551.5,253 L546.5,310 L522.5,304 L516.5,303 L516.5,296 L509.5,293 L513.5,274 L510.5,234 L516.5,233 L516.5,226 Z",
+        "M244.5,110 L262.5,132 L262.5,145 L240.5,167 L224.5,165 L204.5,150 Z",
+        "M478.5,362 L492.5,362 L513.5,377 L483.5,411 L471.5,419 L456.5,398 L456.5,383 Z",
+        "M226.5,362 L240.5,362 L262.5,383 L262.5,397 L248.5,417 L242.5,417 L204.5,378 Z",
+        "M412.5,80 L465.5,104 L451.5,126 L435.5,132 L407.5,118 L405.5,105 Z",
+        "M516.5,310 L543.5,317 L533.5,347 L520.5,368 L517.5,371 L500.5,360 L493.5,354 L491.5,344 L505.5,313 Z",
+        "M471.5,110 L486.5,120 L514.5,151 L496.5,164 L478.5,167 L456.5,145 L456.5,132 Z",
+        "M197.5,311 L214.5,314 L227.5,342 L224.5,354 L201.5,370 L189.5,356 L175.5,321 L178.5,316 Z",
+        "M199.5,158 L222.5,173 L226.5,185 L214.5,215 L201.5,217 L175.5,211 L183.5,185 Z",
+        "M517.5,158 L528.5,172 L543.5,208 L540.5,213 L520.5,217 L505.5,216 L491.5,188 L494.5,174 Z",
+        "M301.5,81 L306.5,81 L313.5,105 L310.5,118 L284.5,131 L271.5,130 L252.5,105 Z",
+        "M280.5,396 L310.5,411 L313.5,424 L306.5,448 L293.5,445 L252.5,424 L268.5,399 Z",
+        "M542.5,386 L579.5,408 L552.5,443 L547.5,446 L518.5,418 Z",
+        "M547.5,83 L579.5,120 L548.5,141 L543.5,143 L518.5,112 Z",
+        "M168.5,83 L199.5,111 L175.5,143 L171.5,142 L139.5,121 Z",
+        "M341.5,484 L376.5,484 L380.5,520 L377.5,527 L337.5,527 Z",
+        "M445.5,467 L464.5,506 L428.5,518 L417.5,477 Z",
+        "M437.5,397 L448.5,399 L465.5,424 L428.5,443 L425.5,445 L422.5,439 L412.5,409 Z",
+        "M596.5,329 L611.5,332 L612.5,337 L597.5,377 L579.5,406 L566.5,397 L584.5,366 Z",
+        "M118.5,338 L124.5,338 L133.5,365 L151.5,395 L143.5,404 L137.5,406 L134.5,402 L112.5,357 L108.5,342 Z",
+        "M348.5,417 L372.5,417 L375.5,456 L371.5,456 L342.5,455 Z",
+        "M366.5,72 L375.5,73 L372.5,110 L351.5,110 L346.5,112 L345.5,108 L343.5,73 Z",
+        "M577.5,300 L618.5,306 L613.5,332 L572.5,321 Z",
+        "M137.5,308 L143.5,310 L147.5,329 L110.5,340 L106.5,339 L101.5,315 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "f5-passage-63",
+          "label": "63",
+          "x": 319.5,
+          "y": 116.0,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-5"
+          ],
+          "reference": "kyocera-f5-base.png, original (531, 529); manually read source symbol index 0, bounds [218, 108, 234, 124]; + horizontal canvas offset 93.5",
+          "name": "63通路"
+        },
+        {
+          "id": "f5-passage-64",
+          "label": "64",
+          "x": 399.0,
+          "y": 116.0,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-5"
+          ],
+          "reference": "kyocera-f5-base.png, original (531, 529); manually read source symbol index 1, bounds [297, 108, 314, 124]; + horizontal canvas offset 93.5",
+          "name": "64通路"
+        },
+        {
+          "id": "f5-passage-62",
+          "label": "62",
+          "x": 271.0,
+          "y": 138.5,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-5"
+          ],
+          "reference": "kyocera-f5-base.png, original (531, 529); manually read source symbol index 2, bounds [169, 130, 186, 147]; + horizontal canvas offset 93.5",
+          "name": "62通路"
+        },
+        {
+          "id": "f5-passage-65",
+          "label": "65",
+          "x": 447.5,
+          "y": 138.5,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-5"
+          ],
+          "reference": "kyocera-f5-base.png, original (531, 529); manually read source symbol index 3, bounds [346, 130, 362, 147]; + horizontal canvas offset 93.5",
+          "name": "65通路"
+        },
+        {
+          "id": "f5-passage-61",
+          "label": "61",
+          "x": 233.5,
+          "y": 176.0,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-5"
+          ],
+          "reference": "kyocera-f5-base.png, original (531, 529); manually read source symbol index 4, bounds [132, 168, 148, 184]; + horizontal canvas offset 93.5",
+          "name": "61通路"
+        },
+        {
+          "id": "f5-passage-66",
+          "label": "66",
+          "x": 485.5,
+          "y": 176.5,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-5"
+          ],
+          "reference": "kyocera-f5-base.png, original (531, 529); manually read source symbol index 5, bounds [384, 168, 400, 185]; + horizontal canvas offset 93.5",
+          "name": "66通路"
+        },
+        {
+          "id": "f5-passage-60",
+          "label": "60",
+          "x": 210.5,
+          "y": 225.0,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-5"
+          ],
+          "reference": "kyocera-f5-base.png, original (531, 529); manually read source symbol index 6, bounds [109, 217, 125, 233]; + horizontal canvas offset 93.5",
+          "name": "60通路"
+        },
+        {
+          "id": "f5-passage-51",
+          "label": "51",
+          "x": 507.5,
+          "y": 225.0,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-5"
+          ],
+          "reference": "kyocera-f5-base.png, original (531, 529); manually read source symbol index 7, bounds [406, 217, 422, 233]; + horizontal canvas offset 93.5",
+          "name": "51通路"
+        },
+        {
+          "id": "f5-passage-59",
+          "label": "59",
+          "x": 210.5,
+          "y": 304.5,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-5"
+          ],
+          "reference": "kyocera-f5-base.png, original (531, 529); manually read source symbol index 8, bounds [109, 296, 125, 313]; + horizontal canvas offset 93.5",
+          "name": "59通路"
+        },
+        {
+          "id": "f5-passage-52",
+          "label": "52",
+          "x": 507.5,
+          "y": 304.0,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-5"
+          ],
+          "reference": "kyocera-f5-base.png, original (531, 529); manually read source symbol index 9, bounds [406, 296, 422, 312]; + horizontal canvas offset 93.5",
+          "name": "52通路"
+        },
+        {
+          "id": "f5-passage-58",
+          "label": "58",
+          "x": 485.0,
+          "y": 352.5,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-5"
+          ],
+          "reference": "kyocera-f5-base.png, original (531, 529); manually read source symbol index 10, bounds [383, 344, 400, 361]; + horizontal canvas offset 93.5",
+          "name": "58通路"
+        },
+        {
+          "id": "f5-passage-53",
+          "label": "53",
+          "x": 233.5,
+          "y": 353.0,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-5"
+          ],
+          "reference": "kyocera-f5-base.png, original (531, 529); manually read source symbol index 11, bounds [132, 345, 148, 361]; + horizontal canvas offset 93.5",
+          "name": "53通路"
+        },
+        {
+          "id": "f5-passage-57",
+          "label": "57",
+          "x": 271.0,
+          "y": 390.5,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-5"
+          ],
+          "reference": "kyocera-f5-base.png, original (531, 529); manually read source symbol index 12, bounds [169, 382, 186, 399]; + horizontal canvas offset 93.5",
+          "name": "57通路"
+        },
+        {
+          "id": "f5-passage-54",
+          "label": "54",
+          "x": 447.5,
+          "y": 390.0,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-5"
+          ],
+          "reference": "kyocera-f5-base.png, original (531, 529); manually read source symbol index 13, bounds [346, 382, 362, 398]; + horizontal canvas offset 93.5",
+          "name": "54通路"
+        },
+        {
+          "id": "f5-passage-56",
+          "label": "56",
+          "x": 319.5,
+          "y": 413.0,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-5"
+          ],
+          "reference": "kyocera-f5-base.png, original (531, 529); manually read source symbol index 14, bounds [218, 405, 234, 421]; + horizontal canvas offset 93.5",
+          "name": "56通路"
+        },
+        {
+          "id": "f5-passage-55",
+          "label": "55",
+          "x": 399.0,
+          "y": 413.0,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-5"
+          ],
+          "reference": "kyocera-f5-base.png, original (531, 529); manually read source symbol index 15, bounds [297, 405, 314, 421]; + horizontal canvas offset 93.5",
+          "name": "55通路"
+        },
+        {
+          "id": "landmark-f5-shop-s32",
+          "label": "S32",
+          "x": 314.5,
+          "y": 26.25,
+          "kind": "shop",
+          "sourceIds": [
+            "floor-5"
+          ],
+          "reference": "kyocera-f5-base.png, original (531, 529); area[href=\"#s32\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 93.5",
+          "name": "大阪焼肉 ホルモンふたご(5F)"
+        },
+        {
+          "id": "landmark-f5-shop-s33",
+          "label": "S33",
+          "x": 357.6666666666667,
+          "y": 22.5,
+          "kind": "shop",
+          "sourceIds": [
+            "floor-5"
+          ],
+          "reference": "kyocera-f5-base.png, original (531, 529); area[href=\"#s33\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 93.5",
+          "name": "FAN FUN GARAGE（ファンファンガレージ）"
+        },
+        {
+          "id": "landmark-f5-shop-s34",
+          "label": "S34",
+          "x": 404.7,
+          "y": 21.8,
+          "kind": "shop",
+          "sourceIds": [
+            "floor-5"
+          ],
+          "reference": "kyocera-f5-base.png, original (531, 529); area[href=\"#s34\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 93.5",
+          "name": "モスバーガー"
+        },
+        {
+          "id": "landmark-f5-shop-s35",
+          "label": "S35",
+          "x": 165.9,
+          "y": 417.0,
+          "kind": "shop",
+          "sourceIds": [
+            "floor-5"
+          ],
+          "reference": "kyocera-f5-base.png, original (531, 529); area[href=\"#s35\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 93.5",
+          "name": "なにわの麺処　まるまる"
+        },
+        {
+          "id": "landmark-f5-shop-s36",
+          "label": "S36",
+          "x": 201.66666666666669,
+          "y": 447.3333333333333,
+          "kind": "shop",
+          "sourceIds": [
+            "floor-5"
+          ],
+          "reference": "kyocera-f5-base.png, original (531, 529); area[href=\"#s36\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 93.5",
+          "name": "GOCHIポテ／Dossá BAR"
+        },
+        {
+          "id": "landmark-f5-shop-s40",
+          "label": "S40",
+          "x": 404.3,
+          "y": 505.4,
+          "kind": "shop",
+          "sourceIds": [
+            "floor-5"
+          ],
+          "reference": "kyocera-f5-base.png, original (531, 529); area[href=\"#s40\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 93.5",
+          "name": "ケンタッキーフライドチキン"
+        },
+        {
+          "id": "landmark-f5-shop-s37",
+          "label": "S37",
+          "x": 479.0,
+          "y": 473.8333333333333,
+          "kind": "shop",
+          "sourceIds": [
+            "floor-5"
+          ],
+          "reference": "kyocera-f5-base.png, original (531, 529); area[href=\"#s37\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 93.5",
+          "name": "グレイジーポテト 37"
+        },
+        {
+          "id": "landmark-f5-shop-s38",
+          "label": "S38",
+          "x": 517.0,
+          "y": 447.75,
+          "kind": "shop",
+          "sourceIds": [
+            "floor-5"
+          ],
+          "reference": "kyocera-f5-base.png, original (531, 529); area[href=\"#s38\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 93.5",
+          "name": "STEAK HOUSE JACK"
+        },
+        {
+          "id": "landmark-f5-shop-s39",
+          "label": "S39",
+          "x": 313.3,
+          "y": 506.2,
+          "kind": "shop",
+          "sourceIds": [
+            "floor-5"
+          ],
+          "reference": "kyocera-f5-base.png, original (531, 529); area[href=\"#s39\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 93.5",
+          "name": "ITEMAE　DOGS／池カラ"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor-5",
+          "floor-css"
+        ],
+        "file": "kyocera-f5-base.png",
+        "sha256": "dfb4e0531eccbf745a6363feaa3f5c3653d643b3ae6761f204ad310c2d15eecb",
+        "width": 531,
+        "height": 529,
+        "canvasWidth": 718,
+        "imageOffsetX": 93.5,
+        "method": "公式PC図の輪郭を独自の単色図へ転記。最大3pxの輪郭簡略化。設備はHTML/CSSの記号中心。",
+        "status": "source-derived-local-review-pending"
+      }
+    },
+    {
+      "id": "kyocera-outside",
+      "floor": "入場前",
+      "scope": "場外",
+      "viewBox": [
+        -30,
+        -30,
+        1202,
+        953
+      ],
+      "concoursePaths": [
+        "M923,67 L925,70 L926,74 L927,78 L928,82 L928,87 L929,91 L929,96 L928,100 L925,102 L923,105 L920,107 L918,110 L915,112 L913,115 L910,117 L908,120 L905,122 L903,125 L901,128 L898,130 L896,133 L893,135 L891,138 L888,140 L885,142 L883,145 L881,148 L878,150 L876,153 L873,155 L869,154 L867,151 L864,149 L861,147 L858,145 L855,143 L852,141 L848,140 L845,138 L841,137 L843,134 L845,131 L845,128 L844,124 L842,121 L839,119 L834,119 L831,121 L829,124 L828,128 L828,133 L823,133 L819,132 L815,131 L810,131 L806,130 L802,129 L797,129 L792,129 L788,128 L784,127 L779,127 L776,125 L771,125 L768,123 L765,121 L770,121 L771,119 L774,117 L775,113 L774,109 L772,106 L769,104 L767,103 L762,103 L760,106 L758,109 L757,113 L758,117 L755,117 L752,115 L750,112 L747,110 L744,108 L741,106 L738,104 L736,101 L732,100 L733,98 L735,95 L734,91 L730,90 L733,88 L735,89 L737,86 L739,83 L744,83 L749,83 L750,85 L755,85 L760,85 L764,86 L768,87 L772,88 L776,89 L780,90 L784,91 L788,92 L792,93 L791,97 L786,97 L784,96 L782,97 L780,100 L782,103 L785,105 L789,106 L789,109 L792,111 L796,110 L800,109 L801,107 L803,104 L802,100 L800,97 L800,96 L804,97 L808,98 L812,99 L815,101 L819,102 L823,103 L826,105 L829,107 L833,108 L836,110 L840,111 L843,113 L846,115 L849,117 L853,118 L856,120 L859,122 L862,124 L864,123 L867,121 L869,118 L872,116 L875,114 L877,111 L880,109 L882,106 L885,104 L888,102 L890,99 L893,97 L895,94 L898,92 L900,89 L903,87 L905,84 L908,82 L910,79 L913,77 L916,75 L918,72 L921,70 Z",
+        "M155,73 L160,73 L165,73 L170,73 L175,73 L180,73 L182,76 L182,81 L182,86 L182,91 L182,96 L182,101 L182,106 L182,111 L182,116 L182,121 L182,126 L182,131 L182,136 L182,141 L182,146 L182,151 L182,156 L182,161 L182,166 L182,171 L182,176 L180,179 L175,179 L170,179 L165,179 L160,179 L155,179 L155,174 L155,169 L155,164 L155,159 L155,154 L155,149 L155,144 L155,139 L155,134 L155,129 L155,124 L155,119 L155,114 L155,109 L155,104 L155,99 L155,94 L155,89 L155,84 L155,79 L155,74 Z",
+        "M900,192 L903,194 L905,197 L907,200 L910,202 L912,205 L915,207 L917,210 L920,212 L922,215 L924,218 L926,221 L928,224 L930,227 L932,230 L934,233 L936,236 L938,239 L940,242 L942,245 L944,248 L946,251 L948,254 L950,257 L951,261 L953,264 L954,268 L956,271 L958,274 L959,278 L960,282 L962,285 L963,289 L964,293 L966,296 L967,300 L968,304 L969,308 L970,312 L971,316 L972,320 L972,325 L973,329 L974,333 L976,336 L980,335 L985,335 L990,335 L994,334 L999,334 L1003,333 L1008,333 L1012,332 L1016,331 L1021,331 L1026,331 L1027,335 L1027,340 L1028,344 L1028,349 L1028,354 L1029,358 L1029,363 L1029,368 L1029,373 L1029,378 L1029,383 L1028,387 L1028,392 L1028,397 L1027,401 L1027,406 L1026,410 L1026,415 L1025,419 L1024,423 L1023,427 L1022,431 L1022,436 L1020,439 L1020,444 L1018,447 L1017,451 L1016,455 L1015,459 L1014,463 L1012,466 L1011,470 L1010,474 L1008,477 L1007,481 L1005,484 L1004,488 L1002,491 L1000,494 L999,498 L997,501 L996,505 L994,508 L992,511 L990,514 L988,517 L986,520 L985,524 L983,527 L981,530 L979,533 L977,536 L975,539 L973,542 L971,545 L969,548 L966,550 L964,553 L962,556 L960,559 L958,562 L955,564 L953,567 L951,570 L947,571 L944,569 L941,567 L938,565 L936,562 L932,563 L930,566 L928,569 L926,572 L924,575 L919,575 L918,573 L915,571 L914,567 L912,564 L910,565 L905,565 L903,562 L903,559 L905,556 L907,553 L909,550 L912,548 L913,544 L916,542 L915,538 L912,540 L910,543 L906,544 L904,547 L901,549 L899,552 L896,554 L894,557 L891,559 L888,561 L886,564 L883,566 L880,568 L878,571 L875,573 L874,575 L871,577 L868,579 L865,581 L862,583 L859,585 L856,587 L853,589 L850,591 L847,593 L844,595 L841,597 L838,599 L835,601 L832,603 L829,605 L826,607 L822,608 L818,609 L815,611 L812,613 L809,615 L805,616 L801,617 L798,619 L795,621 L790,621 L790,626 L794,627 L797,625 L798,621 L801,623 L804,625 L808,624 L810,621 L812,620 L814,623 L818,622 L821,622 L823,625 L826,627 L829,625 L833,624 L837,623 L840,621 L842,624 L844,627 L846,630 L848,633 L850,636 L852,639 L854,642 L856,645 L859,647 L860,651 L859,655 L856,657 L853,659 L850,661 L845,661 L842,663 L839,665 L836,667 L833,669 L830,671 L826,670 L825,668 L823,665 L821,662 L819,659 L816,657 L815,653 L813,650 L809,649 L806,651 L803,653 L799,654 L795,655 L792,657 L788,658 L784,659 L781,661 L777,662 L775,663 L771,664 L767,665 L763,666 L759,667 L756,669 L751,669 L748,671 L743,671 L740,673 L735,673 L731,674 L727,675 L723,676 L719,677 L714,677 L709,677 L706,679 L701,679 L696,679 L693,681 L688,681 L683,681 L678,681 L673,681 L669,682 L664,682 L660,683 L655,683 L650,683 L645,683 L640,683 L636,682 L631,682 L626,682 L622,681 L617,681 L612,681 L608,680 L604,679 L599,679 L594,679 L591,677 L586,677 L583,679 L582,683 L581,687 L579,690 L578,694 L577,698 L573,699 L570,697 L565,697 L564,695 L559,695 L557,694 L553,693 L551,696 L549,699 L548,703 L547,707 L545,710 L544,714 L542,717 L541,721 L544,723 L548,724 L552,725 L557,725 L560,727 L562,730 L561,734 L560,738 L559,742 L556,744 L552,743 L548,742 L544,741 L541,739 L536,739 L534,738 L530,737 L526,736 L522,735 L522,732 L522,727 L524,724 L525,720 L527,717 L528,713 L529,709 L531,706 L532,702 L534,699 L536,696 L537,692 L538,688 L540,685 L542,682 L543,678 L544,674 L546,671 L547,667 L549,664 L550,660 L552,657 L553,653 L556,651 L560,650 L562,651 L565,649 L568,651 L572,650 L572,647 L576,648 L578,651 L582,650 L584,647 L584,644 L587,644 L587,647 L589,650 L593,651 L595,648 L594,644 L591,642 L593,641 L590,639 L585,639 L582,637 L577,637 L575,634 L579,633 L582,635 L585,633 L590,633 L592,634 L597,634 L602,634 L605,632 L606,628 L605,624 L602,622 L599,622 L595,623 L591,622 L587,623 L584,623 L580,622 L577,624 L574,624 L571,622 L568,624 L567,628 L567,631 L564,633 L561,631 L558,631 L556,628 L554,629 L552,626 L549,624 L545,623 L542,621 L538,622 L535,622 L535,619 L532,617 L529,615 L526,613 L524,614 L522,611 L518,610 L515,608 L511,607 L508,605 L505,605 L505,608 L504,608 L502,605 L501,601 L496,601 L494,598 L490,597 L487,595 L484,593 L482,592 L478,591 L475,589 L473,588 L469,587 L466,585 L463,583 L461,580 L458,578 L456,575 L453,573 L450,571 L447,569 L444,571 L441,569 L438,571 L439,575 L442,577 L445,575 L446,571 L449,573 L450,577 L453,579 L454,583 L456,586 L458,589 L460,592 L462,595 L464,598 L466,601 L466,604 L464,607 L460,608 L458,611 L456,614 L455,616 L453,619 L450,621 L448,624 L444,625 L442,622 L441,618 L438,616 L437,612 L434,610 L432,613 L429,615 L426,617 L423,619 L420,617 L418,614 L415,612 L412,610 L409,608 L407,605 L404,603 L402,600 L399,598 L397,595 L394,593 L391,591 L389,588 L387,585 L384,583 L382,580 L379,578 L377,575 L375,572 L373,569 L371,566 L370,562 L372,559 L376,558 L378,555 L382,554 L385,552 L388,550 L391,548 L394,546 L397,544 L400,542 L403,540 L406,538 L409,536 L412,534 L414,531 L411,529 L409,526 L407,523 L405,520 L403,517 L401,514 L399,511 L397,508 L396,504 L394,501 L392,498 L389,498 L385,499 L382,501 L379,503 L375,504 L371,505 L368,507 L364,508 L360,509 L357,511 L354,513 L350,514 L346,515 L343,517 L338,517 L337,513 L335,510 L333,507 L332,503 L331,499 L329,496 L328,492 L326,489 L325,485 L324,481 L322,478 L321,474 L320,470 L319,466 L318,462 L317,458 L316,454 L314,451 L314,446 L313,442 L312,438 L312,433 L311,429 L310,425 L310,420 L310,415 L310,410 L314,409 L319,409 L324,409 L328,408 L332,407 L337,407 L342,407 L345,405 L350,405 L355,405 L360,405 L364,404 L365,400 L364,396 L364,391 L364,386 L364,381 L364,376 L365,372 L365,367 L365,362 L366,358 L366,353 L367,349 L368,345 L368,340 L369,336 L370,332 L371,328 L372,324 L373,320 L374,316 L375,312 L376,308 L378,305 L381,303 L382,305 L387,305 L392,305 L391,309 L390,313 L389,317 L388,321 L387,325 L387,330 L387,335 L388,339 L388,344 L389,348 L388,352 L388,357 L388,362 L388,367 L388,372 L388,377 L388,382 L388,387 L388,392 L388,397 L389,401 L390,405 L390,410 L391,414 L391,419 L392,423 L392,428 L394,431 L395,435 L396,439 L397,443 L398,447 L399,451 L400,455 L397,457 L393,458 L391,461 L390,465 L391,469 L394,471 L397,473 L402,473 L404,472 L407,470 L408,474 L410,477 L412,480 L414,483 L416,486 L417,490 L419,493 L421,496 L423,499 L425,502 L427,505 L428,509 L431,511 L433,514 L435,517 L438,519 L437,523 L434,525 L434,530 L436,533 L438,536 L442,537 L445,537 L448,535 L452,536 L455,538 L457,541 L457,544 L455,547 L452,549 L451,551 L453,554 L456,556 L458,559 L461,561 L464,563 L467,565 L470,567 L472,568 L474,565 L477,563 L480,561 L482,564 L479,566 L477,569 L477,574 L479,577 L482,579 L485,581 L490,581 L493,579 L494,575 L497,573 L500,575 L503,577 L506,579 L510,580 L512,583 L516,584 L519,586 L523,587 L526,589 L527,591 L526,595 L526,600 L528,603 L532,604 L536,605 L539,603 L542,601 L543,599 L546,597 L549,599 L552,601 L556,602 L560,603 L563,605 L568,605 L571,607 L575,608 L579,609 L583,610 L587,611 L590,613 L595,613 L600,613 L603,615 L608,615 L612,616 L616,617 L621,617 L626,617 L628,620 L632,621 L634,624 L637,624 L639,621 L642,619 L645,621 L646,625 L649,627 L652,629 L657,629 L660,627 L662,624 L664,621 L666,620 L666,625 L666,630 L668,633 L673,633 L678,633 L681,631 L686,631 L691,631 L696,631 L699,629 L704,629 L709,629 L713,628 L717,627 L722,627 L725,625 L730,625 L734,624 L734,619 L732,616 L731,612 L735,611 L740,611 L742,614 L744,617 L749,617 L753,616 L756,614 L758,611 L758,606 L760,603 L765,603 L768,601 L772,600 L776,599 L779,597 L782,595 L786,594 L790,593 L793,591 L796,589 L800,588 L804,587 L807,585 L810,583 L813,581 L816,579 L819,577 L822,575 L826,574 L829,572 L832,570 L835,568 L837,569 L841,570 L843,571 L846,573 L849,575 L851,578 L854,580 L857,582 L859,581 L856,579 L853,577 L851,574 L848,572 L846,569 L843,567 L841,564 L844,562 L848,561 L849,565 L852,567 L855,569 L860,569 L862,566 L864,563 L865,559 L864,555 L861,553 L859,550 L862,548 L864,545 L867,543 L870,541 L872,538 L875,536 L877,533 L880,531 L882,532 L884,535 L886,538 L890,539 L895,539 L898,537 L899,533 L899,530 L899,527 L897,524 L895,523 L892,521 L892,518 L895,518 L898,520 L901,522 L905,523 L908,521 L909,517 L912,515 L914,512 L916,509 L918,506 L920,503 L923,501 L924,497 L927,495 L928,491 L931,489 L932,485 L934,482 L936,479 L938,476 L938,473 L935,471 L932,469 L927,469 L927,466 L929,463 L930,459 L933,459 L936,461 L941,461 L944,459 L947,457 L948,453 L948,448 L946,445 L943,443 L938,443 L939,439 L939,436 L941,433 L942,429 L943,425 L944,421 L945,417 L946,413 L948,410 L948,405 L948,400 L949,396 L950,392 L950,387 L950,382 L951,378 L952,374 L952,369 L951,365 L953,364 L957,365 L958,367 L961,365 L965,364 L966,362 L968,359 L968,354 L966,351 L963,349 L958,349 L956,346 L957,342 L957,337 L957,332 L957,327 L957,322 L956,318 L955,314 L954,310 L953,306 L952,302 L951,298 L950,294 L948,291 L947,287 L945,284 L949,283 L952,281 L954,280 L954,275 L954,270 L952,267 L948,266 L944,265 L941,267 L938,269 L936,270 L934,267 L933,263 L932,259 L930,256 L928,253 L926,250 L925,246 L923,243 L921,240 L920,236 L918,235 L916,232 L914,229 L912,226 L910,223 L908,220 L906,217 L905,213 L904,209 L903,205 L902,201 L901,197 L900,193 Z",
+        "M274,411 L279,411 L282,413 L287,413 L291,414 L293,417 L297,418 L299,421 L302,423 L304,426 L305,430 L306,434 L307,438 L308,442 L307,446 L306,450 L305,454 L303,457 L301,460 L298,462 L296,465 L293,467 L290,469 L285,469 L282,471 L277,471 L272,471 L269,469 L265,468 L262,466 L259,464 L256,462 L254,459 L252,456 L249,454 L245,455 L240,455 L235,455 L230,455 L225,455 L220,455 L215,455 L210,455 L205,455 L200,455 L196,454 L192,453 L189,455 L185,454 L185,455 L180,455 L176,454 L173,456 L173,461 L173,466 L169,467 L166,465 L166,460 L166,455 L165,451 L162,449 L161,445 L160,441 L160,438 L162,435 L164,432 L166,429 L166,424 L166,419 L166,414 L168,413 L173,413 L173,418 L173,423 L173,428 L177,429 L182,429 L187,429 L192,429 L197,429 L202,429 L207,429 L212,429 L217,429 L222,429 L227,429 L232,429 L237,429 L242,429 L247,429 L251,428 L253,425 L256,423 L258,420 L261,418 L264,416 L267,414 L271,413 L275,412 Z"
+      ],
+      "contextPaths": [
+        "M445,85 L450,85 L455,85 L460,85 L465,85 L470,85 L475,85 L480,85 L485,85 L490,85 L495,85 L500,85 L502,86 L499,88 L495,89 L492,91 L488,92 L485,94 L482,96 L478,97 L475,99 L471,100 L468,102 L465,104 L461,105 L458,107 L455,109 L451,110 L448,112 L445,114 L442,116 L439,118 L435,119 L431,120 L428,122 L425,124 L422,126 L419,128 L417,131 L415,130 L412,130 L413,132 L410,132 L410,133 L408,136 L405,136 L403,139 L400,141 L397,143 L395,146 L392,146 L389,148 L389,149 L387,152 L384,150 L384,155 L381,157 L378,159 L376,158 L375,162 L371,163 L373,164 L370,166 L367,168 L364,170 L361,170 L360,170 L362,173 L365,171 L362,173 L360,176 L357,178 L353,179 L353,182 L351,185 L350,181 L350,176 L350,171 L350,166 L350,161 L352,158 L350,155 L352,152 L353,148 L355,149 L358,147 L357,145 L359,142 L360,144 L362,141 L364,140 L364,141 L365,139 L367,136 L369,135 L370,133 L373,131 L376,129 L379,127 L382,125 L382,124 L384,123 L386,120 L389,118 L392,120 L392,117 L394,116 L395,114 L397,111 L400,109 L404,108 L403,110 L406,108 L406,105 L410,104 L413,104 L418,104 L415,102 L419,101 L416,99 L419,99 L422,99 L421,95 L423,96 L426,96 L426,93 L429,93 L431,92 L434,90 L436,87 L439,87 L443,86 Z",
+        "M655,153 L660,153 L665,153 L670,153 L675,153 L680,153 L685,153 L690,153 L695,153 L699,154 L704,154 L708,155 L713,155 L717,156 L721,157 L726,157 L730,158 L734,159 L738,160 L741,162 L745,163 L749,164 L753,165 L756,167 L760,168 L763,170 L767,171 L770,173 L773,175 L776,177 L779,179 L783,180 L786,182 L789,184 L791,187 L794,189 L797,189 L802,189 L806,190 L810,191 L814,192 L818,193 L821,195 L825,196 L828,198 L831,200 L832,198 L831,194 L831,189 L832,185 L833,181 L834,177 L836,174 L838,171 L840,168 L842,165 L845,163 L848,161 L852,160 L855,158 L859,157 L863,156 L865,157 L868,155 L868,156 L868,159 L868,160 L870,157 L871,159 L872,163 L874,166 L872,169 L872,174 L875,176 L873,175 L877,174 L874,172 L873,170 L876,168 L876,171 L881,171 L886,171 L882,172 L877,172 L880,174 L883,174 L884,176 L885,174 L888,174 L889,176 L891,179 L887,178 L882,178 L877,178 L873,179 L870,181 L866,182 L862,183 L859,185 L856,187 L853,189 L851,192 L849,195 L847,198 L846,202 L844,205 L843,209 L841,208 L839,205 L836,203 L834,200 L835,202 L837,205 L839,208 L841,211 L843,214 L844,212 L845,208 L846,204 L848,201 L849,197 L851,194 L853,191 L856,189 L859,187 L862,185 L866,184 L869,182 L873,181 L877,182 L880,180 L885,180 L890,180 L893,182 L895,185 L896,189 L898,192 L899,196 L899,199 L901,200 L902,204 L900,205 L902,208 L903,208 L904,212 L905,216 L904,218 L901,218 L898,216 L894,215 L891,213 L886,213 L881,213 L876,213 L872,214 L869,216 L865,217 L862,219 L859,221 L857,224 L854,226 L852,229 L849,231 L847,232 L847,227 L847,222 L846,218 L844,215 L845,219 L846,223 L846,228 L846,233 L848,234 L847,238 L846,240 L844,237 L842,234 L840,231 L837,229 L835,226 L833,223 L831,220 L828,218 L826,215 L823,213 L821,210 L818,208 L816,205 L813,203 L811,200 L808,198 L805,196 L803,193 L800,191 L797,191 L800,193 L803,195 L806,197 L808,200 L811,202 L814,204 L816,207 L819,209 L821,212 L824,214 L826,217 L829,219 L831,222 L833,225 L835,228 L838,230 L840,233 L842,236 L844,239 L846,242 L848,245 L849,243 L848,239 L849,235 L851,232 L853,229 L856,227 L858,224 L861,222 L864,220 L867,218 L871,217 L874,215 L878,214 L883,214 L887,215 L891,216 L896,216 L899,218 L902,220 L905,220 L904,224 L906,223 L904,226 L904,231 L904,236 L904,241 L900,242 L896,241 L891,241 L886,241 L882,242 L878,243 L875,245 L872,247 L869,249 L867,252 L865,255 L863,258 L860,260 L858,261 L856,258 L855,254 L853,251 L851,248 L849,247 L851,250 L853,253 L854,257 L856,260 L858,263 L859,267 L860,265 L862,262 L864,259 L865,255 L868,253 L870,250 L873,248 L876,246 L879,244 L883,243 L888,243 L892,242 L896,243 L901,243 L904,245 L905,247 L906,245 L907,247 L908,247 L910,246 L912,249 L912,252 L912,257 L913,253 L914,255 L915,257 L917,256 L919,259 L917,260 L920,262 L923,262 L924,264 L921,262 L917,263 L912,263 L907,263 L903,264 L899,265 L896,267 L892,268 L889,270 L886,272 L884,275 L881,277 L879,280 L877,283 L876,287 L874,290 L873,294 L870,292 L868,289 L866,286 L865,282 L864,278 L863,274 L862,270 L860,269 L861,273 L863,276 L864,280 L865,284 L866,288 L867,290 L869,293 L872,295 L874,298 L874,295 L875,291 L876,287 L878,284 L880,281 L882,278 L885,276 L887,273 L890,271 L893,269 L896,267 L900,266 L904,265 L909,265 L914,265 L919,265 L924,265 L928,266 L929,270 L929,271 L930,271 L933,271 L935,274 L935,279 L937,280 L937,279 L939,282 L940,284 L937,284 L936,284 L937,288 L941,287 L942,285 L943,287 L946,287 L947,291 L944,293 L940,292 L936,291 L932,290 L928,291 L923,291 L919,292 L915,293 L912,295 L908,296 L905,298 L902,300 L900,303 L897,305 L895,308 L893,311 L891,312 L889,309 L886,307 L884,304 L881,302 L878,300 L875,298 L877,301 L880,303 L883,305 L885,308 L888,310 L890,313 L892,316 L894,313 L896,310 L898,307 L900,304 L903,302 L906,300 L909,298 L912,296 L915,294 L919,293 L923,292 L928,292 L933,292 L936,292 L940,293 L944,294 L946,295 L949,297 L951,300 L950,302 L949,304 L952,306 L952,309 L952,314 L953,312 L954,312 L954,317 L955,321 L954,325 L955,329 L955,334 L953,333 L949,332 L946,330 L943,328 L939,327 L935,326 L931,325 L927,324 L922,324 L917,324 L913,325 L909,326 L906,328 L903,330 L900,332 L898,329 L897,325 L896,321 L895,317 L893,318 L895,321 L896,325 L897,329 L898,333 L897,337 L897,342 L895,345 L893,348 L891,351 L889,354 L887,357 L884,359 L881,361 L879,364 L876,366 L874,369 L872,372 L869,374 L867,377 L865,380 L863,383 L861,386 L859,389 L857,392 L854,394 L850,395 L849,395 L844,395 L839,395 L834,395 L829,395 L826,393 L822,392 L818,393 L813,393 L808,393 L812,394 L817,394 L817,395 L812,395 L807,395 L802,395 L798,394 L794,395 L790,394 L787,394 L783,393 L782,395 L778,394 L777,392 L774,394 L770,395 L767,395 L763,394 L764,392 L759,392 L754,392 L757,394 L753,393 L752,393 L749,395 L745,394 L748,394 L749,392 L745,393 L742,393 L742,394 L739,392 L736,392 L735,394 L733,393 L730,393 L727,393 L730,393 L727,395 L722,395 L718,394 L716,395 L721,395 L718,397 L718,398 L714,397 L716,398 L715,400 L715,403 L715,404 L713,405 L712,401 L712,406 L712,411 L713,411 L714,411 L716,410 L716,413 L716,414 L718,415 L719,415 L721,418 L725,419 L723,420 L720,422 L724,421 L729,421 L734,421 L738,422 L743,422 L748,422 L753,422 L758,422 L763,422 L768,422 L773,422 L778,422 L783,422 L788,422 L793,422 L798,422 L803,422 L808,422 L813,422 L818,422 L823,422 L828,422 L829,424 L827,427 L824,429 L822,432 L819,434 L816,436 L814,439 L811,441 L808,443 L806,446 L803,448 L800,450 L797,452 L794,454 L791,456 L786,456 L783,456 L779,457 L776,457 L772,456 L767,456 L763,457 L758,457 L753,457 L749,456 L745,457 L741,456 L737,457 L735,458 L732,456 L730,459 L730,462 L728,465 L729,467 L728,471 L729,475 L729,476 L730,478 L732,479 L735,479 L734,481 L730,482 L732,483 L736,482 L738,485 L742,484 L747,484 L747,485 L744,485 L740,486 L744,487 L740,488 L737,490 L734,492 L730,493 L727,495 L726,497 L729,495 L732,493 L736,492 L739,490 L742,488 L746,487 L750,486 L753,484 L758,484 L762,485 L766,484 L769,482 L774,482 L777,484 L782,484 L787,484 L792,484 L797,484 L802,484 L806,485 L808,484 L813,484 L818,484 L823,484 L828,484 L833,484 L838,484 L841,482 L845,483 L847,486 L847,483 L848,483 L852,484 L857,484 L862,484 L867,484 L871,483 L875,484 L880,484 L882,485 L884,488 L882,491 L884,490 L885,494 L882,496 L883,498 L880,500 L877,502 L876,504 L875,506 L873,507 L872,505 L872,510 L869,512 L867,513 L863,512 L865,513 L863,514 L864,516 L859,516 L858,512 L857,508 L856,504 L855,500 L854,496 L853,492 L851,489 L849,486 L849,489 L850,493 L852,496 L854,499 L855,503 L856,507 L857,511 L857,514 L857,519 L854,521 L850,520 L847,520 L845,521 L846,523 L843,525 L844,527 L840,528 L836,529 L834,528 L832,531 L828,532 L826,529 L824,530 L822,533 L818,534 L818,531 L820,530 L818,527 L818,522 L818,517 L818,512 L818,507 L817,503 L816,499 L815,495 L813,492 L811,489 L809,486 L809,489 L811,492 L813,495 L814,499 L815,503 L816,507 L817,511 L817,516 L817,521 L817,526 L816,530 L816,535 L812,534 L807,534 L802,534 L797,534 L792,534 L787,534 L786,530 L786,527 L786,522 L786,517 L785,513 L784,509 L782,506 L781,502 L779,499 L777,496 L775,493 L772,491 L770,488 L767,486 L764,486 L767,488 L770,490 L772,493 L775,495 L777,498 L779,501 L781,504 L782,508 L783,512 L784,516 L785,520 L785,525 L785,530 L784,534 L779,534 L774,534 L769,534 L764,534 L759,534 L754,534 L751,534 L751,529 L750,525 L749,521 L747,518 L745,515 L743,512 L741,509 L738,507 L735,505 L732,503 L733,505 L736,507 L739,509 L741,512 L744,514 L746,517 L747,521 L748,525 L749,529 L750,533 L747,535 L743,534 L738,534 L733,534 L728,534 L724,535 L722,536 L720,537 L718,540 L716,537 L714,534 L713,530 L711,527 L710,523 L708,520 L705,520 L707,523 L709,526 L711,529 L713,532 L714,536 L715,540 L714,544 L714,547 L715,551 L716,555 L716,558 L715,562 L714,566 L712,569 L709,569 L711,570 L712,570 L712,571 L710,574 L709,572 L706,572 L705,570 L704,574 L701,576 L698,576 L694,577 L690,578 L686,577 L683,577 L679,576 L676,576 L675,572 L675,567 L675,562 L675,557 L675,552 L675,549 L674,545 L674,540 L674,535 L674,530 L674,525 L675,521 L680,521 L684,520 L688,519 L683,519 L679,520 L674,520 L669,520 L665,519 L660,519 L662,520 L666,521 L671,521 L673,524 L673,529 L673,534 L673,539 L673,544 L673,549 L673,554 L673,559 L674,563 L674,568 L674,573 L674,578 L671,576 L670,578 L665,578 L662,576 L658,577 L656,578 L655,576 L651,577 L647,576 L644,576 L640,575 L637,573 L635,572 L635,567 L634,563 L634,558 L633,554 L633,549 L633,544 L633,539 L634,535 L635,531 L636,527 L637,523 L639,520 L638,520 L636,523 L635,527 L634,531 L633,535 L632,539 L632,544 L632,549 L632,554 L633,558 L633,563 L634,567 L631,569 L629,570 L626,568 L625,568 L622,568 L619,566 L620,564 L616,563 L620,562 L617,560 L617,561 L615,562 L612,560 L610,561 L608,558 L606,555 L603,557 L601,554 L600,552 L597,550 L596,546 L596,543 L595,539 L595,534 L596,530 L597,526 L598,522 L598,519 L596,522 L595,526 L595,531 L594,535 L594,540 L595,544 L595,545 L595,548 L594,546 L591,546 L588,544 L584,543 L584,540 L581,540 L577,541 L577,540 L576,536 L574,537 L575,539 L572,539 L570,536 L569,532 L569,527 L568,523 L567,519 L567,524 L567,529 L568,533 L568,536 L566,539 L563,537 L560,537 L555,537 L552,537 L549,537 L545,536 L540,536 L536,537 L533,539 L530,539 L531,537 L529,534 L524,534 L520,533 L518,532 L514,531 L510,530 L506,529 L503,527 L499,526 L499,525 L497,524 L501,523 L497,522 L495,519 L494,515 L493,511 L493,506 L494,502 L495,498 L496,498 L496,495 L497,491 L499,488 L501,485 L503,482 L506,480 L505,478 L503,481 L501,484 L498,486 L496,489 L495,493 L493,496 L493,501 L492,505 L492,510 L493,514 L493,519 L493,522 L489,521 L486,519 L487,517 L485,516 L481,515 L478,513 L475,511 L473,508 L475,507 L475,506 L471,505 L470,503 L467,503 L464,501 L465,499 L464,495 L462,498 L461,496 L462,492 L462,489 L462,486 L463,482 L465,479 L467,476 L469,473 L471,470 L473,467 L476,465 L479,463 L478,461 L475,463 L473,466 L470,468 L467,468 L467,473 L465,476 L463,479 L462,483 L461,487 L460,491 L457,491 L456,489 L455,487 L453,486 L453,485 L453,482 L450,482 L448,479 L448,476 L446,475 L448,472 L448,467 L447,471 L445,468 L444,468 L444,465 L444,460 L446,457 L448,454 L450,451 L452,448 L455,446 L458,444 L460,441 L463,439 L466,437 L466,436 L463,438 L460,440 L456,441 L454,444 L452,447 L449,449 L447,452 L445,455 L443,458 L442,456 L441,452 L441,447 L442,443 L442,438 L442,433 L443,437 L443,442 L444,438 L445,436 L446,432 L441,432 L440,428 L439,426 L439,423 L436,423 L434,420 L432,417 L432,412 L429,410 L426,408 L427,404 L428,400 L430,397 L432,394 L430,393 L429,397 L427,400 L426,404 L425,408 L424,404 L422,401 L419,401 L419,400 L416,398 L415,396 L412,394 L411,392 L408,390 L407,386 L405,385 L404,383 L404,380 L406,377 L407,373 L407,370 L405,373 L403,376 L401,379 L400,375 L399,371 L398,367 L396,368 L395,364 L396,360 L396,355 L394,352 L392,349 L390,346 L391,342 L394,340 L396,337 L399,335 L398,333 L396,336 L393,338 L391,341 L389,340 L390,336 L390,331 L390,326 L389,322 L392,320 L390,317 L391,315 L392,313 L392,308 L393,304 L398,304 L396,303 L396,300 L398,299 L398,296 L401,296 L405,295 L409,294 L413,293 L418,293 L423,293 L427,294 L430,296 L434,297 L437,299 L441,300 L443,303 L446,305 L449,307 L451,310 L453,313 L453,316 L452,320 L450,323 L448,326 L448,331 L445,331 L442,329 L438,328 L434,327 L430,326 L426,325 L421,325 L417,326 L413,327 L409,328 L405,329 L402,331 L401,333 L405,332 L408,330 L411,328 L415,327 L420,327 L424,326 L428,327 L432,328 L436,329 L440,330 L443,332 L447,333 L448,337 L449,337 L449,332 L449,327 L451,324 L452,320 L454,317 L456,314 L454,311 L452,308 L449,306 L447,303 L444,301 L441,299 L438,297 L434,296 L431,294 L427,293 L423,292 L418,292 L414,291 L410,292 L406,293 L402,294 L400,293 L400,290 L402,287 L404,284 L406,285 L405,281 L407,280 L408,278 L410,275 L412,272 L414,269 L416,272 L419,270 L416,268 L420,267 L424,266 L429,266 L434,266 L439,266 L443,267 L446,269 L450,270 L453,272 L451,269 L447,268 L444,266 L440,265 L436,264 L431,264 L427,265 L425,264 L425,263 L422,261 L427,261 L424,259 L427,257 L428,259 L429,255 L430,253 L432,250 L433,246 L437,245 L436,243 L436,240 L439,242 L440,238 L439,234 L439,231 L438,227 L440,226 L439,222 L441,219 L445,218 L448,216 L452,215 L457,215 L462,215 L467,215 L471,216 L469,215 L465,214 L461,213 L456,213 L452,214 L448,215 L444,216 L441,218 L441,215 L443,212 L444,208 L445,212 L446,208 L447,212 L448,208 L447,204 L446,206 L444,205 L445,205 L445,202 L446,198 L448,195 L449,191 L449,190 L451,187 L452,183 L456,182 L459,180 L464,180 L469,180 L473,181 L477,182 L481,183 L484,185 L487,187 L490,189 L492,192 L495,194 L497,197 L499,200 L501,203 L503,206 L504,206 L502,203 L500,200 L498,197 L496,194 L494,191 L491,189 L489,186 L486,184 L482,183 L479,181 L475,180 L471,179 L467,178 L463,179 L458,179 L455,179 L457,176 L459,173 L462,171 L464,170 L464,167 L466,164 L469,164 L469,161 L472,161 L476,160 L479,160 L482,158 L486,159 L486,160 L487,158 L488,154 L491,156 L494,158 L497,160 L500,162 L503,164 L505,167 L508,169 L510,172 L512,175 L513,179 L515,182 L516,186 L517,190 L517,195 L516,197 L513,199 L510,201 L508,204 L506,207 L504,208 L504,213 L503,217 L502,221 L501,225 L500,229 L500,234 L501,230 L502,226 L503,222 L504,218 L505,214 L506,210 L508,207 L510,204 L512,201 L515,199 L519,198 L522,196 L525,194 L529,193 L532,191 L536,190 L540,189 L544,188 L548,187 L546,190 L543,192 L540,194 L537,196 L535,199 L532,201 L529,203 L527,206 L524,208 L522,211 L519,213 L517,216 L515,219 L512,221 L510,224 L508,227 L505,229 L503,232 L501,235 L499,236 L497,235 L495,232 L493,229 L490,227 L488,224 L485,222 L482,220 L479,218 L475,217 L472,217 L476,218 L479,220 L482,222 L485,224 L488,226 L490,229 L493,231 L495,234 L497,237 L498,241 L496,244 L494,247 L492,250 L491,254 L489,257 L488,261 L486,264 L485,264 L483,261 L480,259 L478,256 L476,253 L473,251 L470,249 L467,247 L464,245 L460,244 L456,243 L452,242 L447,242 L443,243 L438,243 L442,244 L447,244 L452,244 L456,245 L461,245 L464,247 L468,248 L470,251 L473,253 L476,255 L478,258 L480,261 L482,264 L484,267 L484,270 L483,274 L482,278 L481,282 L480,286 L477,288 L475,291 L472,293 L470,290 L468,287 L466,284 L464,281 L462,278 L459,276 L456,274 L453,272 L455,275 L458,277 L461,279 L463,282 L465,285 L467,288 L469,291 L471,294 L469,297 L467,300 L464,302 L462,305 L460,308 L457,310 L457,313 L459,310 L461,307 L463,304 L466,302 L468,299 L471,297 L473,294 L475,291 L478,289 L479,291 L478,295 L477,299 L477,304 L476,308 L476,313 L476,318 L477,314 L477,309 L478,305 L478,300 L479,296 L480,292 L481,288 L481,283 L482,279 L484,276 L485,272 L486,268 L487,264 L489,261 L490,257 L492,254 L494,251 L495,247 L497,244 L499,241 L501,238 L503,235 L505,232 L507,229 L509,226 L512,224 L514,221 L516,218 L519,216 L521,213 L524,211 L526,208 L529,206 L531,203 L534,201 L537,199 L539,196 L542,194 L545,192 L548,190 L551,188 L554,186 L557,184 L560,182 L563,180 L567,179 L570,177 L573,175 L577,174 L580,172 L584,171 L587,169 L591,168 L595,167 L599,166 L602,164 L606,163 L607,165 L611,164 L609,163 L613,162 L616,160 L620,159 L624,160 L627,158 L631,157 L635,156 L640,156 L644,155 L645,157 L647,154 L652,154 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "outside-gate-1",
+          "label": "G1",
+          "x": 939,
+          "y": 452,
+          "kind": "gate",
+          "sourceIds": [
+            "access-area"
+          ],
+          "reference": "kyocera-outside-map.jpg, original (1142, 893); orange numbered 3F gate symbol center, manually measured within 4px",
+          "name": "3F 1入場ゲート"
+        },
+        {
+          "id": "outside-gate-2",
+          "label": "G2",
+          "x": 856,
+          "y": 560,
+          "kind": "gate",
+          "sourceIds": [
+            "access-area"
+          ],
+          "reference": "kyocera-outside-map.jpg, original (1142, 893); orange numbered 3F gate symbol center, manually measured within 4px",
+          "name": "3F 2入場ゲート"
+        },
+        {
+          "id": "outside-gate-3",
+          "label": "G3",
+          "x": 749,
+          "y": 608,
+          "kind": "gate",
+          "sourceIds": [
+            "access-area"
+          ],
+          "reference": "kyocera-outside-map.jpg, original (1142, 893); orange numbered 3F gate symbol center, manually measured within 4px",
+          "name": "3F 3入場ゲート"
+        },
+        {
+          "id": "outside-gate-4",
+          "label": "G4",
+          "x": 654,
+          "y": 619,
+          "kind": "gate",
+          "sourceIds": [
+            "access-area"
+          ],
+          "reference": "kyocera-outside-map.jpg, original (1142, 893); orange numbered 3F gate symbol center, manually measured within 4px",
+          "name": "3F 4入場ゲート"
+        },
+        {
+          "id": "outside-gate-5",
+          "label": "G5",
+          "x": 535,
+          "y": 595,
+          "kind": "gate",
+          "sourceIds": [
+            "access-area"
+          ],
+          "reference": "kyocera-outside-map.jpg, original (1142, 893); orange numbered 3F gate symbol center, manually measured within 4px",
+          "name": "3F 5入場ゲート"
+        },
+        {
+          "id": "outside-gate-6",
+          "label": "G6",
+          "x": 444,
+          "y": 529,
+          "kind": "gate",
+          "sourceIds": [
+            "access-area"
+          ],
+          "reference": "kyocera-outside-map.jpg, original (1142, 893); orange numbered 3F gate symbol center, manually measured within 4px",
+          "name": "3F 6入場ゲート"
+        },
+        {
+          "id": "outside-gate-7",
+          "label": "G7",
+          "x": 399,
+          "y": 465,
+          "kind": "gate",
+          "sourceIds": [
+            "access-area"
+          ],
+          "reference": "kyocera-outside-map.jpg, original (1142, 893); orange numbered 3F gate symbol center, manually measured within 4px",
+          "name": "3F 7入場ゲート"
+        },
+        {
+          "id": "outside-gate-8",
+          "label": "G8",
+          "x": 385,
+          "y": 296,
+          "kind": "gate",
+          "sourceIds": [
+            "access-area"
+          ],
+          "reference": "kyocera-outside-map.jpg, original (1142, 893); orange numbered 3F gate symbol center, manually measured within 4px",
+          "name": "3F 8入場ゲート"
+        },
+        {
+          "id": "outside-gate-9",
+          "label": "G9",
+          "x": 433,
+          "y": 208,
+          "kind": "gate",
+          "sourceIds": [
+            "access-area"
+          ],
+          "reference": "kyocera-outside-map.jpg, original (1142, 893); orange numbered 3F gate symbol center, manually measured within 4px",
+          "name": "3F 9入場ゲート"
+        },
+        {
+          "id": "outside-gate-10",
+          "label": "G10",
+          "x": 476,
+          "y": 149,
+          "kind": "gate",
+          "sourceIds": [
+            "access-area"
+          ],
+          "reference": "kyocera-outside-map.jpg, original (1142, 893); orange numbered 3F gate symbol center, manually measured within 4px",
+          "name": "3F 10入場ゲート"
+        },
+        {
+          "id": "outside-gate-11",
+          "label": "G11",
+          "x": 836,
+          "y": 129,
+          "kind": "gate",
+          "sourceIds": [
+            "access-area"
+          ],
+          "reference": "kyocera-outside-map.jpg, original (1142, 893); orange numbered 3F gate symbol center, manually measured within 4px",
+          "name": "3F 11入場ゲート"
+        },
+        {
+          "id": "outside-gate-12",
+          "label": "G12",
+          "x": 884,
+          "y": 161,
+          "kind": "gate",
+          "sourceIds": [
+            "access-area"
+          ],
+          "reference": "kyocera-outside-map.jpg, original (1142, 893); orange numbered 3F gate symbol center, manually measured within 4px",
+          "name": "3F 12入場ゲート"
+        },
+        {
+          "id": "outside-gate-13",
+          "label": "G13",
+          "x": 945,
+          "y": 274,
+          "kind": "gate",
+          "sourceIds": [
+            "access-area"
+          ],
+          "reference": "kyocera-outside-map.jpg, original (1142, 893); orange numbered 3F gate symbol center, manually measured within 4px",
+          "name": "3F 13入場ゲート"
+        },
+        {
+          "id": "outside-gate-14",
+          "label": "G14",
+          "x": 959,
+          "y": 358,
+          "kind": "gate",
+          "sourceIds": [
+            "access-area"
+          ],
+          "reference": "kyocera-outside-map.jpg, original (1142, 893); orange numbered 3F gate symbol center, manually measured within 4px",
+          "name": "3F 14入場ゲート"
+        },
+        {
+          "id": "outside-jr-taisho",
+          "label": "JR大正",
+          "x": 80,
+          "y": 239,
+          "kind": "station",
+          "sourceIds": [
+            "access-area"
+          ],
+          "reference": "kyocera-outside-map.jpg, original (1142, 893); manually measured source symbol/label representative; perspective guide, not surveyed ground position",
+          "name": "JR大正駅（図上の代表範囲）"
+        },
+        {
+          "id": "outside-metro-taisho",
+          "label": "地下鉄大正",
+          "x": 168,
+          "y": 126,
+          "kind": "station",
+          "sourceIds": [
+            "access-area"
+          ],
+          "reference": "kyocera-outside-map.jpg, original (1142, 893); manually measured source symbol/label representative; perspective guide, not surveyed ground position",
+          "name": "地下鉄大正駅（図上の代表範囲）"
+        },
+        {
+          "id": "outside-hanshin-1",
+          "label": "阪神①",
+          "x": 727,
+          "y": 861,
+          "kind": "exit",
+          "sourceIds": [
+            "access-area"
+          ],
+          "reference": "kyocera-outside-map.jpg, original (1142, 893); manually measured source symbol/label representative; perspective guide, not surveyed ground position",
+          "name": "阪神なんば線ドーム前駅1出口"
+        },
+        {
+          "id": "outside-hanshin-2",
+          "label": "阪神②",
+          "x": 443,
+          "y": 789,
+          "kind": "exit",
+          "sourceIds": [
+            "access-area"
+          ],
+          "reference": "kyocera-outside-map.jpg, original (1142, 893); manually measured source symbol/label representative; perspective guide, not surveyed ground position",
+          "name": "阪神なんば線ドーム前駅2出口"
+        },
+        {
+          "id": "outside-metro-1",
+          "label": "長堀①",
+          "x": 445,
+          "y": 874,
+          "kind": "exit",
+          "sourceIds": [
+            "access-area"
+          ],
+          "reference": "kyocera-outside-map.jpg, original (1142, 893); manually measured source symbol/label representative; perspective guide, not surveyed ground position",
+          "name": "地下鉄ドーム前千代崎駅1番出口"
+        },
+        {
+          "id": "outside-east",
+          "label": "東口",
+          "x": 432,
+          "y": 752,
+          "kind": "entrance",
+          "sourceIds": [
+            "access-area"
+          ],
+          "reference": "kyocera-outside-map.jpg, original (1142, 893); manually measured source symbol/label representative; perspective guide, not surveyed ground position",
+          "name": "東口"
+        },
+        {
+          "id": "outside-north",
+          "label": "北口",
+          "x": 867,
+          "y": 750,
+          "kind": "entrance",
+          "sourceIds": [
+            "access-area"
+          ],
+          "reference": "kyocera-outside-map.jpg, original (1142, 893); manually measured source symbol/label representative; perspective guide, not surveyed ground position",
+          "name": "北口"
+        },
+        {
+          "id": "outside-south",
+          "label": "南口",
+          "x": 537,
+          "y": 42,
+          "kind": "entrance",
+          "sourceIds": [
+            "access-area"
+          ],
+          "reference": "kyocera-outside-map.jpg, original (1142, 893); manually measured source symbol/label representative; perspective guide, not surveyed ground position",
+          "name": "南口"
+        },
+        {
+          "id": "outside-central-plaza",
+          "label": "中央プラザ",
+          "x": 706,
+          "y": 665,
+          "kind": "plaza",
+          "sourceIds": [
+            "access-area"
+          ],
+          "reference": "kyocera-outside-map.jpg, original (1142, 893); manually measured source symbol/label representative; perspective guide, not surveyed ground position",
+          "name": "中央プラザ"
+        },
+        {
+          "id": "outside-first-plaza",
+          "label": "一塁プラザ",
+          "x": 1000,
+          "y": 404,
+          "kind": "plaza",
+          "sourceIds": [
+            "access-area"
+          ],
+          "reference": "kyocera-outside-map.jpg, original (1142, 893); manually measured source symbol/label representative; perspective guide, not surveyed ground position",
+          "name": "一塁側プラザ"
+        },
+        {
+          "id": "outside-third-plaza",
+          "label": "三塁プラザ",
+          "x": 352,
+          "y": 457,
+          "kind": "plaza",
+          "sourceIds": [
+            "access-area"
+          ],
+          "reference": "kyocera-outside-map.jpg, original (1142, 893); manually measured source symbol/label representative; perspective guide, not surveyed ground position",
+          "name": "三塁側プラザ"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "access-area"
+        ],
+        "file": "kyocera-outside-map.jpg",
+        "sha256": "58637c0725ab9e9d43524b6f4aa0dae68bab45a910e7d287ecd63fcc90cac5a6",
+        "width": 1142,
+        "height": 893,
+        "method": "公式エリア案内の事実と記号中心を独自の単色表示へ整理。図は斜視図で、測量座標・距離・最短経路ではない。原画像/ロゴ/装飾を含めない。輪郭転記の公開許諾は未確認。",
+        "status": "source-derived-local-review-pending; publication-material-hold"
+      }
+    }
+  ],
+  "facilities": [
+    {
+      "id": "f3-ele1to3-01",
+      "name": "1・2・3F連絡エレベーター",
+      "purpose": "案内",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図の1・2・3F連絡エレベーター記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 224.0,
+        "y": 652.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .ele1to3-01; left/top + icon width/height / 2"
+      },
+      "kind": "elevator-1to3"
+    },
+    {
+      "id": "f3-ele1to3-02",
+      "name": "1・2・3F連絡エレベーター",
+      "purpose": "案内",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図の1・2・3F連絡エレベーター記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 498.0,
+        "y": 651.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .ele1to3-02; left/top + icon width/height / 2"
+      },
+      "kind": "elevator-1to3"
+    },
+    {
+      "id": "f3-ele1to3-03",
+      "name": "1・2・3F連絡エレベーター",
+      "purpose": "案内",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図の1・2・3F連絡エレベーター記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 429.0,
+        "y": 4.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .ele1to3-03; left/top + icon width/height / 2"
+      },
+      "kind": "elevator-1to3"
+    },
+    {
+      "id": "f3-ele1to3-04",
+      "name": "1・2・3F連絡エレベーター",
+      "purpose": "案内",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図の1・2・3F連絡エレベーター記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 291.0,
+        "y": 4.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .ele1to3-04; left/top + icon width/height / 2"
+      },
+      "kind": "elevator-1to3"
+    },
+    {
+      "id": "f3-ele3and5-01",
+      "name": "3・5F連絡エレベーター",
+      "purpose": "案内",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図の3・5F連絡エレベーター記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 117.0,
+        "y": 393.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .ele3and5-01; left/top + icon width/height / 2"
+      },
+      "kind": "elevator-3and5"
+    },
+    {
+      "id": "f3-ele3and5-02",
+      "name": "3・5F連絡エレベーター",
+      "purpose": "案内",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図の3・5F連絡エレベーター記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 602.0,
+        "y": 384.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .ele3and5-02; left/top + icon width/height / 2"
+      },
+      "kind": "elevator-3and5"
+    },
+    {
+      "id": "f3-eleug-01",
+      "name": "地下駐車場・3Fゲート専用エレベーター",
+      "purpose": "案内",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図の地下駐車場・3Fゲート専用エレベーター記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 113.0,
+        "y": 284.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .eleug-01; left/top + icon width/height / 2"
+      },
+      "kind": "elevator-underground"
+    },
+    {
+      "id": "f3-eleug-02",
+      "name": "地下駐車場・3Fゲート専用エレベーター",
+      "purpose": "案内",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図の地下駐車場・3Fゲート専用エレベーター記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 604.0,
+        "y": 260.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .eleug-02; left/top + icon width/height / 2"
+      },
+      "kind": "elevator-underground"
+    },
+    {
+      "id": "f3-esca-01",
+      "name": "エスカレーター",
+      "purpose": "案内",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図のエスカレーター記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 234.0,
+        "y": 626.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .esca-01; left/top + icon width/height / 2"
+      },
+      "kind": "escalator"
+    },
+    {
+      "id": "f3-esca-02",
+      "name": "エスカレーター",
+      "purpose": "案内",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図のエスカレーター記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 120.0,
+        "y": 546.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .esca-02; left/top + icon width/height / 2"
+      },
+      "kind": "escalator"
+    },
+    {
+      "id": "f3-toilethc-01",
+      "name": "車いす対応トイレ",
+      "purpose": "トイレ",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図の車いす対応トイレ記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 224.0,
+        "y": 461.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .toilethc-01; left/top + icon width/height / 2"
+      },
+      "kind": "toilet-handicapped"
+    },
+    {
+      "id": "f3-toilet-01",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図の男女トイレ記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "mixed",
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 200.0,
+        "y": 461.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .toilet-01; left/top + icon width/height / 2"
+      },
+      "kind": "toilet"
+    },
+    {
+      "id": "f3-toilethc-02",
+      "name": "車いす対応トイレ",
+      "purpose": "トイレ",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図の車いす対応トイレ記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 185.0,
+        "y": 363.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .toilethc-02; left/top + icon width/height / 2"
+      },
+      "kind": "toilet-handicapped"
+    },
+    {
+      "id": "f3-toiletma-01",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図の男性トイレ記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 161.0,
+        "y": 363.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .toiletma-01; left/top + icon width/height / 2"
+      },
+      "kind": "toilet-male"
+    },
+    {
+      "id": "f3-toilethc-03",
+      "name": "車いす対応トイレ",
+      "purpose": "トイレ",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図の車いす対応トイレ記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 183.0,
+        "y": 303.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .toilethc-03; left/top + icon width/height / 2"
+      },
+      "kind": "toilet-handicapped"
+    },
+    {
+      "id": "f3-toiletfe-01",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図の女性トイレ記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 159.0,
+        "y": 303.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .toiletfe-01; left/top + icon width/height / 2"
+      },
+      "kind": "toilet-female"
+    },
+    {
+      "id": "f3-toilethc-04",
+      "name": "車いす対応トイレ",
+      "purpose": "トイレ",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図の車いす対応トイレ記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 224.0,
+        "y": 207.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .toilethc-04; left/top + icon width/height / 2"
+      },
+      "kind": "toilet-handicapped"
+    },
+    {
+      "id": "f3-toiletma-02",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図の男性トイレ記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 292.0,
+        "y": 140.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .toiletma-02; left/top + icon width/height / 2"
+      },
+      "kind": "toilet-male"
+    },
+    {
+      "id": "f3-toilet-02",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図の男女トイレ記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "mixed",
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 200.0,
+        "y": 207.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .toilet-02; left/top + icon width/height / 2"
+      },
+      "kind": "toilet"
+    },
+    {
+      "id": "f3-toilethc-05",
+      "name": "車いす対応トイレ",
+      "purpose": "トイレ",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図の車いす対応トイレ記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 326.0,
+        "y": 133.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .toilethc-05; left/top + icon width/height / 2"
+      },
+      "kind": "toilet-handicapped"
+    },
+    {
+      "id": "f3-toiletfe-02",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図の女性トイレ記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 390.0,
+        "y": 132.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .toiletfe-02; left/top + icon width/height / 2"
+      },
+      "kind": "toilet-female"
+    },
+    {
+      "id": "f3-toilethc-06",
+      "name": "車いす対応トイレ",
+      "purpose": "トイレ",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図の車いす対応トイレ記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 423.0,
+        "y": 139.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .toilethc-06; left/top + icon width/height / 2"
+      },
+      "kind": "toilet-handicapped"
+    },
+    {
+      "id": "f3-toilethc-07",
+      "name": "車いす対応トイレ",
+      "purpose": "トイレ",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図の車いす対応トイレ記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 557.0,
+        "y": 298.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .toilethc-07; left/top + icon width/height / 2"
+      },
+      "kind": "toilet-handicapped"
+    },
+    {
+      "id": "f3-toilet-03",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図の男女トイレ記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "mixed",
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 488.0,
+        "y": 206.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .toilet-03; left/top + icon width/height / 2"
+      },
+      "kind": "toilet"
+    },
+    {
+      "id": "f3-toilethc-08",
+      "name": "車いす対応トイレ",
+      "purpose": "トイレ",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図の車いす対応トイレ記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 557.0,
+        "y": 367.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .toilethc-08; left/top + icon width/height / 2"
+      },
+      "kind": "toilet-handicapped"
+    },
+    {
+      "id": "f3-toiletfe-03",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図の女性トイレ記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 533.0,
+        "y": 297.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .toiletfe-03; left/top + icon width/height / 2"
+      },
+      "kind": "toilet-female"
+    },
+    {
+      "id": "f3-toilethc-09",
+      "name": "車いす対応トイレ",
+      "purpose": "トイレ",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図の車いす対応トイレ記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 512.0,
+        "y": 206.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .toilethc-09; left/top + icon width/height / 2"
+      },
+      "kind": "toilet-handicapped"
+    },
+    {
+      "id": "f3-toiletma-03",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図の男性トイレ記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 533.0,
+        "y": 367.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .toiletma-03; left/top + icon width/height / 2"
+      },
+      "kind": "toilet-male"
+    },
+    {
+      "id": "f3-toilethc-10",
+      "name": "車いす対応トイレ",
+      "purpose": "トイレ",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図の車いす対応トイレ記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 521.0,
+        "y": 461.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .toilethc-10; left/top + icon width/height / 2"
+      },
+      "kind": "toilet-handicapped"
+    },
+    {
+      "id": "f3-toilet-04",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図の男女トイレ記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "mixed",
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 497.0,
+        "y": 461.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .toilet-04; left/top + icon width/height / 2"
+      },
+      "kind": "toilet"
+    },
+    {
+      "id": "f3-tkt-sell-01",
+      "name": "チケット売場",
+      "purpose": "案内",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図のチケット売場記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 416.0,
+        "y": 67.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .tkt-sell-01; left/top + icon width/height / 2"
+      },
+      "kind": "ticket-sell"
+    },
+    {
+      "id": "f3-tkt-sell-02",
+      "name": "チケット売場",
+      "purpose": "案内",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図のチケット売場記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 580.0,
+        "y": 501.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .tkt-sell-02; left/top + icon width/height / 2"
+      },
+      "kind": "ticket-sell"
+    },
+    {
+      "id": "f3-tkt-sell-03",
+      "name": "チケット売場",
+      "purpose": "案内",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図のチケット売場記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 156.0,
+        "y": 506.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .tkt-sell-03; left/top + icon width/height / 2"
+      },
+      "kind": "ticket-sell"
+    },
+    {
+      "id": "f3-tkt-sell-04",
+      "name": "チケット売場",
+      "purpose": "案内",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図のチケット売場記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 359.0,
+        "y": 611.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .tkt-sell-04; left/top + icon width/height / 2"
+      },
+      "kind": "ticket-sell"
+    },
+    {
+      "id": "f3-aed-01",
+      "name": "AED",
+      "purpose": "AED",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図のAED記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 359.0,
+        "y": 129.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .aed-01; left/top + icon width/height / 2"
+      },
+      "kind": "aed"
+    },
+    {
+      "id": "f3-aed-02",
+      "name": "AED",
+      "purpose": "AED",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図のAED記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 378.0,
+        "y": 530.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .aed-02; left/top + icon width/height / 2"
+      },
+      "kind": "aed"
+    },
+    {
+      "id": "f3-milk-01",
+      "name": "授乳室",
+      "purpose": "赤ちゃん",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図の授乳室記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 342.0,
+        "y": 538.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .milk-01; left/top + icon width/height / 2"
+      },
+      "kind": "milk"
+    },
+    {
+      "id": "f3-mbr-01",
+      "name": "モバイルバッテリーレンタル",
+      "purpose": "案内",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図のモバイルバッテリーレンタル記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 413.0,
+        "y": 111.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .mbr-01; left/top + icon width/height / 2"
+      },
+      "kind": "mbr"
+    },
+    {
+      "id": "f3-mbr-02",
+      "name": "モバイルバッテリーレンタル",
+      "purpose": "案内",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図のモバイルバッテリーレンタル記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 171.0,
+        "y": 456.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .mbr-02; left/top + icon width/height / 2"
+      },
+      "kind": "mbr"
+    },
+    {
+      "id": "f3-mbr-03",
+      "name": "モバイルバッテリーレンタル",
+      "purpose": "案内",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図のモバイルバッテリーレンタル記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 429.0,
+        "y": 551.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .mbr-03; left/top + icon width/height / 2"
+      },
+      "kind": "mbr"
+    },
+    {
+      "id": "f3-mbr-04",
+      "name": "モバイルバッテリーレンタル",
+      "purpose": "案内",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図のモバイルバッテリーレンタル記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 587.0,
+        "y": 471.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .mbr-04; left/top + icon width/height / 2"
+      },
+      "kind": "mbr"
+    },
+    {
+      "id": "f3-jihanki-01",
+      "name": "自動販売機",
+      "purpose": "飲食",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図の自動販売機記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 438.0,
+        "y": 115.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .jihanki-01; left/top + icon width/height / 2"
+      },
+      "kind": "jihanki"
+    },
+    {
+      "id": "f3-jihanki-02",
+      "name": "自動販売機",
+      "purpose": "飲食",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図の自動販売機記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 239.0,
+        "y": 519.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .jihanki-02; left/top + icon width/height / 2"
+      },
+      "kind": "jihanki"
+    },
+    {
+      "id": "f3-jihanki-03",
+      "name": "自動販売機",
+      "purpose": "飲食",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図の自動販売機記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 487.0,
+        "y": 521.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .jihanki-03; left/top + icon width/height / 2"
+      },
+      "kind": "jihanki"
+    },
+    {
+      "id": "f3-phone",
+      "name": "公衆電話",
+      "purpose": "案内",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図の公衆電話記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 291.0,
+        "y": 596.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .phone; left/top + icon width/height / 2"
+      },
+      "kind": "phone"
+    },
+    {
+      "id": "f3-info",
+      "name": "内野インフォメーション",
+      "purpose": "案内",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式図の内野インフォメーション記号",
+      "detail": "野球開催時のみの案内です。公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-3",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 405.0,
+        "y": 529.0,
+        "sourceIds": [
+          "floor-3",
+          "floor-css"
+        ],
+        "reference": "#f3 .info; left/top + icon width/height / 2"
+      },
+      "kind": "info"
+    },
+    {
+      "id": "f3-shop-s15",
+      "name": "なにわのちゅーぼう　まんてん",
+      "purpose": "飲食",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式フロア図の売店",
+      "detail": "当日の営業・メニュー・支払い方法は未確認です。",
+      "sourceIds": [
+        "floor-3"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 205.16666666666666,
+        "y": 243.16666666666666,
+        "sourceIds": [
+          "floor-3"
+        ],
+        "reference": "area[href=\"#s15\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 21.5"
+      },
+      "kind": "food"
+    },
+    {
+      "id": "f3-shop-s16",
+      "name": "SDBsのお店",
+      "purpose": "飲食",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式フロア図の売店",
+      "detail": "当日の営業・メニュー・支払い方法は未確認です。",
+      "sourceIds": [
+        "floor-3"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 168.66666666666666,
+        "y": 172.16666666666666,
+        "sourceIds": [
+          "floor-3"
+        ],
+        "reference": "area[href=\"#s16\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 21.5"
+      },
+      "kind": "food"
+    },
+    {
+      "id": "f3-shop-s17",
+      "name": "どん／でん",
+      "purpose": "飲食",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式フロア図の売店",
+      "detail": "当日の営業・メニュー・支払い方法は未確認です。",
+      "sourceIds": [
+        "floor-3"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 268.1,
+        "y": 175.6,
+        "sourceIds": [
+          "floor-3"
+        ],
+        "reference": "area[href=\"#s17\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 21.5"
+      },
+      "kind": "food"
+    },
+    {
+      "id": "f3-shop-s18",
+      "name": "ケンタッキーフライドチキン",
+      "purpose": "飲食",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式フロア図の売店",
+      "detail": "当日の営業・メニュー・支払い方法は未確認です。",
+      "sourceIds": [
+        "floor-3"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 327.75,
+        "y": 86.25,
+        "sourceIds": [
+          "floor-3"
+        ],
+        "reference": "area[href=\"#s18\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 21.5"
+      },
+      "kind": "food"
+    },
+    {
+      "id": "f3-shop-s19",
+      "name": "モスバーガー",
+      "purpose": "飲食",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式フロア図の売店",
+      "detail": "当日の営業・メニュー・支払い方法は未確認です。",
+      "sourceIds": [
+        "floor-3"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 389.1666666666667,
+        "y": 85.83333333333333,
+        "sourceIds": [
+          "floor-3"
+        ],
+        "reference": "area[href=\"#s19\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 21.5"
+      },
+      "kind": "food"
+    },
+    {
+      "id": "f3-shop-s20",
+      "name": "いてまえドッグ",
+      "purpose": "飲食",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式フロア図の売店",
+      "detail": "当日の営業・メニュー・支払い方法は未確認です。",
+      "sourceIds": [
+        "floor-3"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 448.9,
+        "y": 175.8,
+        "sourceIds": [
+          "floor-3"
+        ],
+        "reference": "area[href=\"#s20\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 21.5"
+      },
+      "kind": "food"
+    },
+    {
+      "id": "f3-shop-s21",
+      "name": "オリごはんのお店 by GLOBE BOWL",
+      "purpose": "飲食",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式フロア図の売店",
+      "detail": "当日の営業・メニュー・支払い方法は未確認です。",
+      "sourceIds": [
+        "floor-3"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 564.5,
+        "y": 194.5,
+        "sourceIds": [
+          "floor-3"
+        ],
+        "reference": "area[href=\"#s21\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 21.5"
+      },
+      "kind": "food"
+    },
+    {
+      "id": "f3-shop-s22",
+      "name": "球欒食堂（たまらんしょくどう）",
+      "purpose": "飲食",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式フロア図の売店",
+      "detail": "当日の営業・メニュー・支払い方法は未確認です。",
+      "sourceIds": [
+        "floor-3"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 514.5,
+        "y": 241.4,
+        "sourceIds": [
+          "floor-3"
+        ],
+        "reference": "area[href=\"#s22\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 21.5"
+      },
+      "kind": "food"
+    },
+    {
+      "id": "f3-shop-s23",
+      "name": "大阪焼肉 ホルモンふたご(3F)",
+      "purpose": "飲食",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式フロア図の売店",
+      "detail": "当日の営業・メニュー・支払い方法は未確認です。",
+      "sourceIds": [
+        "floor-3"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 178.1,
+        "y": 331.8,
+        "sourceIds": [
+          "floor-3"
+        ],
+        "reference": "area[href=\"#s23\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 21.5"
+      },
+      "kind": "food"
+    },
+    {
+      "id": "f3-shop-s24",
+      "name": "こてこて",
+      "purpose": "飲食",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式フロア図の売店",
+      "detail": "当日の営業・メニュー・支払い方法は未確認です。",
+      "sourceIds": [
+        "floor-3"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 202.7,
+        "y": 422.2,
+        "sourceIds": [
+          "floor-3"
+        ],
+        "reference": "area[href=\"#s24\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 21.5"
+      },
+      "kind": "food"
+    },
+    {
+      "id": "f3-shop-s25",
+      "name": "モスバーガー",
+      "purpose": "飲食",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式フロア図の売店",
+      "detail": "当日の営業・メニュー・支払い方法は未確認です。",
+      "sourceIds": [
+        "floor-3"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 171.5,
+        "y": 489.0,
+        "sourceIds": [
+          "floor-3"
+        ],
+        "reference": "area[href=\"#s25\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 21.5"
+      },
+      "kind": "food"
+    },
+    {
+      "id": "f3-shop-s26",
+      "name": "球場食堂（たまばしょくどう）",
+      "purpose": "飲食",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式フロア図の売店",
+      "detail": "当日の営業・メニュー・支払い方法は未確認です。",
+      "sourceIds": [
+        "floor-3"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 268.1,
+        "y": 487.4,
+        "sourceIds": [
+          "floor-3"
+        ],
+        "reference": "area[href=\"#s26\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 21.5"
+      },
+      "kind": "food"
+    },
+    {
+      "id": "f3-shop-s27",
+      "name": "なにわのきっちん　まんぷく",
+      "purpose": "飲食",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式フロア図の売店",
+      "detail": "当日の営業・メニュー・支払い方法は未確認です。",
+      "sourceIds": [
+        "floor-3"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 448.5,
+        "y": 488.6,
+        "sourceIds": [
+          "floor-3"
+        ],
+        "reference": "area[href=\"#s27\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 21.5"
+      },
+      "kind": "food"
+    },
+    {
+      "id": "f3-shop-s28",
+      "name": "味9楽部",
+      "purpose": "飲食",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式フロア図の売店",
+      "detail": "当日の営業・メニュー・支払い方法は未確認です。",
+      "sourceIds": [
+        "floor-3"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 550.3333333333334,
+        "y": 482.1666666666667,
+        "sourceIds": [
+          "floor-3"
+        ],
+        "reference": "area[href=\"#s28\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 21.5"
+      },
+      "kind": "food"
+    },
+    {
+      "id": "f3-shop-s29",
+      "name": "ケンタッキーフライドチキン",
+      "purpose": "飲食",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式フロア図の売店",
+      "detail": "当日の営業・メニュー・支払い方法は未確認です。",
+      "sourceIds": [
+        "floor-3"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 511.0,
+        "y": 420.25,
+        "sourceIds": [
+          "floor-3"
+        ],
+        "reference": "area[href=\"#s29\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 21.5"
+      },
+      "kind": "food"
+    },
+    {
+      "id": "f3-shop-s30",
+      "name": "ムラノ商店×韓激",
+      "purpose": "飲食",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式フロア図の売店",
+      "detail": "当日の営業・メニュー・支払い方法は未確認です。",
+      "sourceIds": [
+        "floor-3"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 539.3,
+        "y": 332.2,
+        "sourceIds": [
+          "floor-3"
+        ],
+        "reference": "area[href=\"#s30\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 21.5"
+      },
+      "kind": "food"
+    },
+    {
+      "id": "f3-shop-sBsBar",
+      "name": "Bs BEER BAR",
+      "purpose": "飲食",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F公式フロア図の売店",
+      "detail": "当日の営業・メニュー・支払い方法は未確認です。",
+      "sourceIds": [
+        "floor-3"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-f3",
+        "x": 576.0,
+        "y": 78.0,
+        "sourceIds": [
+          "floor-3"
+        ],
+        "reference": "area[href=\"#sBsBar\"] rect coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 21.5"
+      },
+      "kind": "food"
+    },
+    {
+      "id": "f5-ele3and5-01",
+      "name": "3・5F連絡エレベーター",
+      "purpose": "案内",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "5F公式図の3・5F連絡エレベーター記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-5",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "kyocera-f5",
+        "x": 139.0,
+        "y": 317.0,
+        "sourceIds": [
+          "floor-5",
+          "floor-css"
+        ],
+        "reference": "#f5 .ele3and5-01; left/top + icon width/height / 2"
+      },
+      "kind": "elevator-3and5"
+    },
+    {
+      "id": "f5-ele3and5-02",
+      "name": "3・5F連絡エレベーター",
+      "purpose": "案内",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "5F公式図の3・5F連絡エレベーター記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-5",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "kyocera-f5",
+        "x": 578.0,
+        "y": 310.0,
+        "sourceIds": [
+          "floor-5",
+          "floor-css"
+        ],
+        "reference": "#f5 .ele3and5-02; left/top + icon width/height / 2"
+      },
+      "kind": "elevator-3and5"
+    },
+    {
+      "id": "f5-toilethc-01",
+      "name": "車いす対応トイレ",
+      "purpose": "トイレ",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "5F公式図の車いす対応トイレ記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-5",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "kyocera-f5",
+        "x": 242.0,
+        "y": 390.0,
+        "sourceIds": [
+          "floor-5",
+          "floor-css"
+        ],
+        "reference": "#f5 .toilethc-01; left/top + icon width/height / 2"
+      },
+      "kind": "toilet-handicapped"
+    },
+    {
+      "id": "f5-toilet-01",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "5F公式図の男女トイレ記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-5",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "mixed",
+      "anchor": {
+        "diagramId": "kyocera-f5",
+        "x": 218.0,
+        "y": 390.0,
+        "sourceIds": [
+          "floor-5",
+          "floor-css"
+        ],
+        "reference": "#f5 .toilet-01; left/top + icon width/height / 2"
+      },
+      "kind": "toilet"
+    },
+    {
+      "id": "f5-toilethc-04",
+      "name": "車いす対応トイレ",
+      "purpose": "トイレ",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "5F公式図の車いす対応トイレ記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-5",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "kyocera-f5",
+        "x": 242.0,
+        "y": 137.0,
+        "sourceIds": [
+          "floor-5",
+          "floor-css"
+        ],
+        "reference": "#f5 .toilethc-04; left/top + icon width/height / 2"
+      },
+      "kind": "toilet-handicapped"
+    },
+    {
+      "id": "f5-toiletma-02",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "5F公式図の男性トイレ記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-5",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "kyocera-f5",
+        "x": 336.0,
+        "y": 76.0,
+        "sourceIds": [
+          "floor-5",
+          "floor-css"
+        ],
+        "reference": "#f5 .toiletma-02; left/top + icon width/height / 2"
+      },
+      "kind": "toilet-male"
+    },
+    {
+      "id": "f5-toilet-02",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "5F公式図の男女トイレ記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-5",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "mixed",
+      "anchor": {
+        "diagramId": "kyocera-f5",
+        "x": 218.0,
+        "y": 137.0,
+        "sourceIds": [
+          "floor-5",
+          "floor-css"
+        ],
+        "reference": "#f5 .toilet-02; left/top + icon width/height / 2"
+      },
+      "kind": "toilet"
+    },
+    {
+      "id": "f5-toiletfe-02",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "5F公式図の女性トイレ記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-5",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "kyocera-f5",
+        "x": 383.0,
+        "y": 76.0,
+        "sourceIds": [
+          "floor-5",
+          "floor-css"
+        ],
+        "reference": "#f5 .toiletfe-02; left/top + icon width/height / 2"
+      },
+      "kind": "toilet-female"
+    },
+    {
+      "id": "f5-toilet-03",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "5F公式図の男女トイレ記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-5",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "mixed",
+      "anchor": {
+        "diagramId": "kyocera-f5",
+        "x": 466.0,
+        "y": 137.0,
+        "sourceIds": [
+          "floor-5",
+          "floor-css"
+        ],
+        "reference": "#f5 .toilet-03; left/top + icon width/height / 2"
+      },
+      "kind": "toilet"
+    },
+    {
+      "id": "f5-toiletfe-03",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "5F公式図の女性トイレ記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-5",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "kyocera-f5",
+        "x": 385.0,
+        "y": 454.0,
+        "sourceIds": [
+          "floor-5",
+          "floor-css"
+        ],
+        "reference": "#f5 .toiletfe-03; left/top + icon width/height / 2"
+      },
+      "kind": "toilet-female"
+    },
+    {
+      "id": "f5-toilethc-09",
+      "name": "車いす対応トイレ",
+      "purpose": "トイレ",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "5F公式図の車いす対応トイレ記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-5",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "kyocera-f5",
+        "x": 490.0,
+        "y": 137.0,
+        "sourceIds": [
+          "floor-5",
+          "floor-css"
+        ],
+        "reference": "#f5 .toilethc-09; left/top + icon width/height / 2"
+      },
+      "kind": "toilet-handicapped"
+    },
+    {
+      "id": "f5-toiletma-03",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "5F公式図の男性トイレ記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-5",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "kyocera-f5",
+        "x": 336.0,
+        "y": 455.0,
+        "sourceIds": [
+          "floor-5",
+          "floor-css"
+        ],
+        "reference": "#f5 .toiletma-03; left/top + icon width/height / 2"
+      },
+      "kind": "toilet-male"
+    },
+    {
+      "id": "f5-toilethc-10",
+      "name": "車いす対応トイレ",
+      "purpose": "トイレ",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "5F公式図の車いす対応トイレ記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-5",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "kyocera-f5",
+        "x": 499.0,
+        "y": 390.0,
+        "sourceIds": [
+          "floor-5",
+          "floor-css"
+        ],
+        "reference": "#f5 .toilethc-10; left/top + icon width/height / 2"
+      },
+      "kind": "toilet-handicapped"
+    },
+    {
+      "id": "f5-toilet-04",
+      "name": "男女トイレ",
+      "purpose": "トイレ",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "5F公式図の男女トイレ記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-5",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "mixed",
+      "anchor": {
+        "diagramId": "kyocera-f5",
+        "x": 475.0,
+        "y": 390.0,
+        "sourceIds": [
+          "floor-5",
+          "floor-css"
+        ],
+        "reference": "#f5 .toilet-04; left/top + icon width/height / 2"
+      },
+      "kind": "toilet"
+    },
+    {
+      "id": "f5-aed-01",
+      "name": "AED",
+      "purpose": "AED",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "5F公式図のAED記号",
+      "detail": "公演による開放・営業変更は当日の案内を確認してください。",
+      "sourceIds": [
+        "floor-5",
+        "floor-css"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "kyocera-f5",
+        "x": 419.0,
+        "y": 446.0,
+        "sourceIds": [
+          "floor-5",
+          "floor-css"
+        ],
+        "reference": "#f5 .aed-01; left/top + icon width/height / 2"
+      },
+      "kind": "aed"
+    },
+    {
+      "id": "f5-shop-s32",
+      "name": "大阪焼肉 ホルモンふたご(5F)",
+      "purpose": "飲食",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "5F公式フロア図の売店",
+      "detail": "当日の営業・メニュー・支払い方法は未確認です。",
+      "sourceIds": [
+        "floor-5"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-f5",
+        "x": 314.5,
+        "y": 26.25,
+        "sourceIds": [
+          "floor-5"
+        ],
+        "reference": "area[href=\"#s32\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 93.5"
+      },
+      "kind": "food"
+    },
+    {
+      "id": "f5-shop-s33",
+      "name": "FAN FUN GARAGE（ファンファンガレージ）",
+      "purpose": "飲食",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "5F公式フロア図の売店",
+      "detail": "当日の営業・メニュー・支払い方法は未確認です。",
+      "sourceIds": [
+        "floor-5"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-f5",
+        "x": 357.6666666666667,
+        "y": 22.5,
+        "sourceIds": [
+          "floor-5"
+        ],
+        "reference": "area[href=\"#s33\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 93.5"
+      },
+      "kind": "food"
+    },
+    {
+      "id": "f5-shop-s34",
+      "name": "モスバーガー",
+      "purpose": "飲食",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "5F公式フロア図の売店",
+      "detail": "当日の営業・メニュー・支払い方法は未確認です。",
+      "sourceIds": [
+        "floor-5"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-f5",
+        "x": 404.7,
+        "y": 21.8,
+        "sourceIds": [
+          "floor-5"
+        ],
+        "reference": "area[href=\"#s34\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 93.5"
+      },
+      "kind": "food"
+    },
+    {
+      "id": "f5-shop-s35",
+      "name": "なにわの麺処　まるまる",
+      "purpose": "飲食",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "5F公式フロア図の売店",
+      "detail": "当日の営業・メニュー・支払い方法は未確認です。",
+      "sourceIds": [
+        "floor-5"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-f5",
+        "x": 165.9,
+        "y": 417.0,
+        "sourceIds": [
+          "floor-5"
+        ],
+        "reference": "area[href=\"#s35\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 93.5"
+      },
+      "kind": "food"
+    },
+    {
+      "id": "f5-shop-s36",
+      "name": "GOCHIポテ／Dossá BAR",
+      "purpose": "飲食",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "5F公式フロア図の売店",
+      "detail": "当日の営業・メニュー・支払い方法は未確認です。",
+      "sourceIds": [
+        "floor-5"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-f5",
+        "x": 201.66666666666669,
+        "y": 447.3333333333333,
+        "sourceIds": [
+          "floor-5"
+        ],
+        "reference": "area[href=\"#s36\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 93.5"
+      },
+      "kind": "food"
+    },
+    {
+      "id": "f5-shop-s40",
+      "name": "ケンタッキーフライドチキン",
+      "purpose": "飲食",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "5F公式フロア図の売店",
+      "detail": "当日の営業・メニュー・支払い方法は未確認です。",
+      "sourceIds": [
+        "floor-5"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-f5",
+        "x": 404.3,
+        "y": 505.4,
+        "sourceIds": [
+          "floor-5"
+        ],
+        "reference": "area[href=\"#s40\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 93.5"
+      },
+      "kind": "food"
+    },
+    {
+      "id": "f5-shop-s37",
+      "name": "グレイジーポテト 37",
+      "purpose": "飲食",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "5F公式フロア図の売店",
+      "detail": "当日の営業・メニュー・支払い方法は未確認です。",
+      "sourceIds": [
+        "floor-5"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-f5",
+        "x": 479.0,
+        "y": 473.8333333333333,
+        "sourceIds": [
+          "floor-5"
+        ],
+        "reference": "area[href=\"#s37\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 93.5"
+      },
+      "kind": "food"
+    },
+    {
+      "id": "f5-shop-s38",
+      "name": "STEAK HOUSE JACK",
+      "purpose": "飲食",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "5F公式フロア図の売店",
+      "detail": "当日の営業・メニュー・支払い方法は未確認です。",
+      "sourceIds": [
+        "floor-5"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-f5",
+        "x": 517.0,
+        "y": 447.75,
+        "sourceIds": [
+          "floor-5"
+        ],
+        "reference": "area[href=\"#s38\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 93.5"
+      },
+      "kind": "food"
+    },
+    {
+      "id": "f5-shop-s39",
+      "name": "ITEMAE　DOGS／池カラ",
+      "purpose": "飲食",
+      "floor": "5F",
+      "scope": "場内",
+      "location": "5F公式フロア図の売店",
+      "detail": "当日の営業・メニュー・支払い方法は未確認です。",
+      "sourceIds": [
+        "floor-5"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-f5",
+        "x": 313.3,
+        "y": 506.2,
+        "sourceIds": [
+          "floor-5"
+        ],
+        "reference": "area[href=\"#s39\"] poly coords vertex-mean (diagram area representative, not entrance); PNG horizontal offset 93.5"
+      },
+      "kind": "food"
+    }
+  ],
+  "audit": [
+    {
+      "floor": "3F",
+      "id": "f3-ele1to3-01",
+      "classes": [
+        "elevator-1to3",
+        "ele1to3-01"
+      ],
+      "state": "mapped",
+      "x": 224.0,
+      "y": 652.0,
+      "selector": "#f3 .ele1to3-01",
+      "left": 213.0,
+      "top": 641.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-ele1to3-02",
+      "classes": [
+        "elevator-1to3",
+        "ele1to3-02"
+      ],
+      "state": "mapped",
+      "x": 498.0,
+      "y": 651.0,
+      "selector": "#f3 .ele1to3-02",
+      "left": 487.0,
+      "top": 640.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-ele1to3-03",
+      "classes": [
+        "elevator-1to3",
+        "ele1to3-03"
+      ],
+      "state": "mapped",
+      "x": 429.0,
+      "y": 4.0,
+      "selector": "#f3 .ele1to3-03",
+      "left": 418.0,
+      "top": -7.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-ele1to3-04",
+      "classes": [
+        "elevator-1to3",
+        "ele1to3-04"
+      ],
+      "state": "mapped",
+      "x": 291.0,
+      "y": 4.0,
+      "selector": "#f3 .ele1to3-04",
+      "left": 280.0,
+      "top": -7.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-ele3and5-01",
+      "classes": [
+        "elevator-3and5",
+        "ele3and5-01"
+      ],
+      "state": "mapped",
+      "x": 117.0,
+      "y": 393.0,
+      "selector": "#f3 .ele3and5-01",
+      "left": 106.0,
+      "top": 382.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-ele3and5-02",
+      "classes": [
+        "elevator-3and5",
+        "ele3and5-02"
+      ],
+      "state": "mapped",
+      "x": 602.0,
+      "y": 384.0,
+      "selector": "#f3 .ele3and5-02",
+      "left": 591.0,
+      "top": 373.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-eleug-01",
+      "classes": [
+        "elevator-underground",
+        "eleug-01"
+      ],
+      "state": "mapped",
+      "x": 113.0,
+      "y": 284.0,
+      "selector": "#f3 .eleug-01",
+      "left": 102.0,
+      "top": 273.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-eleug-02",
+      "classes": [
+        "elevator-underground",
+        "eleug-02"
+      ],
+      "state": "mapped",
+      "x": 604.0,
+      "y": 260.0,
+      "selector": "#f3 .eleug-02",
+      "left": 593.0,
+      "top": 249.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-esca-01",
+      "classes": [
+        "escalator",
+        "esca-01"
+      ],
+      "state": "mapped",
+      "x": 234.0,
+      "y": 626.0,
+      "selector": "#f3 .esca-01",
+      "left": 223.0,
+      "top": 615.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-esca-02",
+      "classes": [
+        "escalator",
+        "esca-02"
+      ],
+      "state": "mapped",
+      "x": 120.0,
+      "y": 546.0,
+      "selector": "#f3 .esca-02",
+      "left": 109.0,
+      "top": 535.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-toilethc-01",
+      "classes": [
+        "toilet-handicapped",
+        "toilethc-01"
+      ],
+      "state": "mapped",
+      "x": 224.0,
+      "y": 461.0,
+      "selector": "#f3 .toilethc-01",
+      "left": 213.0,
+      "top": 450.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-toilet-01",
+      "classes": [
+        "toilet",
+        "toilet-01"
+      ],
+      "state": "mapped",
+      "x": 200.0,
+      "y": 461.0,
+      "selector": "#f3 .toilet-01",
+      "left": 189.0,
+      "top": 450.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-toilethc-02",
+      "classes": [
+        "toilet-handicapped",
+        "toilethc-02"
+      ],
+      "state": "mapped",
+      "x": 185.0,
+      "y": 363.0,
+      "selector": "#f3 .toilethc-02",
+      "left": 174.0,
+      "top": 352.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-toiletma-01",
+      "classes": [
+        "toilet-male",
+        "toiletma-01"
+      ],
+      "state": "mapped",
+      "x": 161.0,
+      "y": 363.0,
+      "selector": "#f3 .toiletma-01",
+      "left": 150.0,
+      "top": 352.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-toilethc-03",
+      "classes": [
+        "toilet-handicapped",
+        "toilethc-03"
+      ],
+      "state": "mapped",
+      "x": 183.0,
+      "y": 303.0,
+      "selector": "#f3 .toilethc-03",
+      "left": 172.0,
+      "top": 292.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-toiletfe-01",
+      "classes": [
+        "toilet-female",
+        "toiletfe-01"
+      ],
+      "state": "mapped",
+      "x": 159.0,
+      "y": 303.0,
+      "selector": "#f3 .toiletfe-01",
+      "left": 148.0,
+      "top": 292.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-toilethc-04",
+      "classes": [
+        "toilet-handicapped",
+        "toilethc-04"
+      ],
+      "state": "mapped",
+      "x": 224.0,
+      "y": 207.0,
+      "selector": "#f3 .toilethc-04",
+      "left": 213.0,
+      "top": 196.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-toiletma-02",
+      "classes": [
+        "toilet-male",
+        "toiletma-02"
+      ],
+      "state": "mapped",
+      "x": 292.0,
+      "y": 140.0,
+      "selector": "#f3 .toiletma-02",
+      "left": 281.0,
+      "top": 129.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-toilet-02",
+      "classes": [
+        "toilet",
+        "toilet-02"
+      ],
+      "state": "mapped",
+      "x": 200.0,
+      "y": 207.0,
+      "selector": "#f3 .toilet-02",
+      "left": 189.0,
+      "top": 196.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-toilethc-05",
+      "classes": [
+        "toilet-handicapped",
+        "toilethc-05"
+      ],
+      "state": "mapped",
+      "x": 326.0,
+      "y": 133.0,
+      "selector": "#f3 .toilethc-05",
+      "left": 315.0,
+      "top": 122.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-toiletfe-02",
+      "classes": [
+        "toilet-female",
+        "toiletfe-02"
+      ],
+      "state": "mapped",
+      "x": 390.0,
+      "y": 132.0,
+      "selector": "#f3 .toiletfe-02",
+      "left": 379.0,
+      "top": 121.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-toilethc-06",
+      "classes": [
+        "toilet-handicapped",
+        "toilethc-06"
+      ],
+      "state": "mapped",
+      "x": 423.0,
+      "y": 139.0,
+      "selector": "#f3 .toilethc-06",
+      "left": 412.0,
+      "top": 128.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-toilethc-07",
+      "classes": [
+        "toilet-handicapped",
+        "toilethc-07"
+      ],
+      "state": "mapped",
+      "x": 557.0,
+      "y": 298.0,
+      "selector": "#f3 .toilethc-07",
+      "left": 546.0,
+      "top": 287.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-toilet-03",
+      "classes": [
+        "toilet",
+        "toilet-03"
+      ],
+      "state": "mapped",
+      "x": 488.0,
+      "y": 206.0,
+      "selector": "#f3 .toilet-03",
+      "left": 477.0,
+      "top": 195.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-toilethc-08",
+      "classes": [
+        "toilet-handicapped",
+        "toilethc-08"
+      ],
+      "state": "mapped",
+      "x": 557.0,
+      "y": 367.0,
+      "selector": "#f3 .toilethc-08",
+      "left": 546.0,
+      "top": 356.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-toiletfe-03",
+      "classes": [
+        "toilet-female",
+        "toiletfe-03"
+      ],
+      "state": "mapped",
+      "x": 533.0,
+      "y": 297.0,
+      "selector": "#f3 .toiletfe-03",
+      "left": 522.0,
+      "top": 286.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-toilethc-09",
+      "classes": [
+        "toilet-handicapped",
+        "toilethc-09"
+      ],
+      "state": "mapped",
+      "x": 512.0,
+      "y": 206.0,
+      "selector": "#f3 .toilethc-09",
+      "left": 501.0,
+      "top": 195.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-toiletma-03",
+      "classes": [
+        "toilet-male",
+        "toiletma-03"
+      ],
+      "state": "mapped",
+      "x": 533.0,
+      "y": 367.0,
+      "selector": "#f3 .toiletma-03",
+      "left": 522.0,
+      "top": 356.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-toilethc-10",
+      "classes": [
+        "toilet-handicapped",
+        "toilethc-10"
+      ],
+      "state": "mapped",
+      "x": 521.0,
+      "y": 461.0,
+      "selector": "#f3 .toilethc-10",
+      "left": 510.0,
+      "top": 450.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-toilet-04",
+      "classes": [
+        "toilet",
+        "toilet-04"
+      ],
+      "state": "mapped",
+      "x": 497.0,
+      "y": 461.0,
+      "selector": "#f3 .toilet-04",
+      "left": 486.0,
+      "top": 450.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-tkt-sell-01",
+      "classes": [
+        "ticket-sell",
+        "tkt-sell-01"
+      ],
+      "state": "mapped",
+      "x": 416.0,
+      "y": 67.0,
+      "selector": "#f3 .tkt-sell-01",
+      "left": 405.0,
+      "top": 56.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-tkt-sell-02",
+      "classes": [
+        "ticket-sell",
+        "tkt-sell-02"
+      ],
+      "state": "mapped",
+      "x": 580.0,
+      "y": 501.0,
+      "selector": "#f3 .tkt-sell-02",
+      "left": 569.0,
+      "top": 490.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-tkt-sell-03",
+      "classes": [
+        "ticket-sell",
+        "tkt-sell-03"
+      ],
+      "state": "mapped",
+      "x": 156.0,
+      "y": 506.0,
+      "selector": "#f3 .tkt-sell-03",
+      "left": 145.0,
+      "top": 495.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-tkt-sell-04",
+      "classes": [
+        "ticket-sell",
+        "tkt-sell-04"
+      ],
+      "state": "mapped",
+      "x": 359.0,
+      "y": 611.0,
+      "selector": "#f3 .tkt-sell-04",
+      "left": 348.0,
+      "top": 600.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-aed-01",
+      "classes": [
+        "aed",
+        "aed-01"
+      ],
+      "state": "mapped",
+      "x": 359.0,
+      "y": 129.0,
+      "selector": "#f3 .aed-01",
+      "left": 348.0,
+      "top": 118.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-aed-02",
+      "classes": [
+        "aed",
+        "aed-02"
+      ],
+      "state": "mapped",
+      "x": 378.0,
+      "y": 530.0,
+      "selector": "#f3 .aed-02",
+      "left": 367.0,
+      "top": 519.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-milk-01",
+      "classes": [
+        "milk",
+        "milk-01"
+      ],
+      "state": "mapped",
+      "x": 342.0,
+      "y": 538.0,
+      "selector": "#f3 .milk-01",
+      "left": 331.0,
+      "top": 527.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-mbr-01",
+      "classes": [
+        "mbr",
+        "mbr-01"
+      ],
+      "state": "mapped",
+      "x": 413.0,
+      "y": 111.0,
+      "selector": "#f3 .mbr-01",
+      "left": 402.0,
+      "top": 100.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-mbr-02",
+      "classes": [
+        "mbr",
+        "mbr-02"
+      ],
+      "state": "mapped",
+      "x": 171.0,
+      "y": 456.0,
+      "selector": "#f3 .mbr-02",
+      "left": 160.0,
+      "top": 445.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-mbr-03",
+      "classes": [
+        "mbr",
+        "mbr-03"
+      ],
+      "state": "mapped",
+      "x": 429.0,
+      "y": 551.0,
+      "selector": "#f3 .mbr-03",
+      "left": 418.0,
+      "top": 540.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-mbr-04",
+      "classes": [
+        "mbr",
+        "mbr-04"
+      ],
+      "state": "mapped",
+      "x": 587.0,
+      "y": 471.0,
+      "selector": "#f3 .mbr-04",
+      "left": 576.0,
+      "top": 460.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-jihanki-01",
+      "classes": [
+        "jihanki",
+        "jihanki-01"
+      ],
+      "state": "mapped",
+      "x": 438.0,
+      "y": 115.0,
+      "selector": "#f3 .jihanki-01",
+      "left": 427.0,
+      "top": 104.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-jihanki-02",
+      "classes": [
+        "jihanki",
+        "jihanki-02"
+      ],
+      "state": "mapped",
+      "x": 239.0,
+      "y": 519.0,
+      "selector": "#f3 .jihanki-02",
+      "left": 228.0,
+      "top": 508.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-jihanki-03",
+      "classes": [
+        "jihanki",
+        "jihanki-03"
+      ],
+      "state": "mapped",
+      "x": 487.0,
+      "y": 521.0,
+      "selector": "#f3 .jihanki-03",
+      "left": 476.0,
+      "top": 510.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-phone",
+      "classes": [
+        "phone"
+      ],
+      "state": "mapped",
+      "x": 291.0,
+      "y": 596.0,
+      "selector": "#f3 .phone",
+      "left": 280.0,
+      "top": 585.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "3F",
+      "id": "f3-info",
+      "classes": [
+        "info"
+      ],
+      "state": "mapped",
+      "x": 405.0,
+      "y": 529.0,
+      "selector": "#f3 .info",
+      "left": 394.0,
+      "top": 518.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "5F",
+      "id": "f5-ele3and5-01",
+      "classes": [
+        "elevator-3and5",
+        "ele3and5-01"
+      ],
+      "state": "mapped",
+      "x": 139.0,
+      "y": 317.0,
+      "selector": "#f5 .ele3and5-01",
+      "left": 128.0,
+      "top": 306.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "5F",
+      "id": "f5-ele3and5-02",
+      "classes": [
+        "elevator-3and5",
+        "ele3and5-02"
+      ],
+      "state": "mapped",
+      "x": 578.0,
+      "y": 310.0,
+      "selector": "#f5 .ele3and5-02",
+      "left": 567.0,
+      "top": 299.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "5F",
+      "id": "f5-toilethc-01",
+      "classes": [
+        "toilet-handicapped",
+        "toilethc-01"
+      ],
+      "state": "mapped",
+      "x": 242.0,
+      "y": 390.0,
+      "selector": "#f5 .toilethc-01",
+      "left": 231.0,
+      "top": 379.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "5F",
+      "id": "f5-toilet-01",
+      "classes": [
+        "toilet",
+        "toilet-01"
+      ],
+      "state": "mapped",
+      "x": 218.0,
+      "y": 390.0,
+      "selector": "#f5 .toilet-01",
+      "left": 207.0,
+      "top": 379.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "5F",
+      "id": "f5-toilethc-04",
+      "classes": [
+        "toilet-handicapped",
+        "toilethc-04"
+      ],
+      "state": "mapped",
+      "x": 242.0,
+      "y": 137.0,
+      "selector": "#f5 .toilethc-04",
+      "left": 231.0,
+      "top": 126.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "5F",
+      "id": "f5-toiletma-02",
+      "classes": [
+        "toilet-male",
+        "toiletma-02"
+      ],
+      "state": "mapped",
+      "x": 336.0,
+      "y": 76.0,
+      "selector": "#f5 .toiletma-02",
+      "left": 325.0,
+      "top": 65.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "5F",
+      "id": "f5-toilet-02",
+      "classes": [
+        "toilet",
+        "toilet-02"
+      ],
+      "state": "mapped",
+      "x": 218.0,
+      "y": 137.0,
+      "selector": "#f5 .toilet-02",
+      "left": 207.0,
+      "top": 126.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "5F",
+      "id": "f5-toiletfe-02",
+      "classes": [
+        "toilet-female",
+        "toiletfe-02"
+      ],
+      "state": "mapped",
+      "x": 383.0,
+      "y": 76.0,
+      "selector": "#f5 .toiletfe-02",
+      "left": 372.0,
+      "top": 65.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "5F",
+      "id": "f5-toilet-03",
+      "classes": [
+        "toilet",
+        "toilet-03"
+      ],
+      "state": "mapped",
+      "x": 466.0,
+      "y": 137.0,
+      "selector": "#f5 .toilet-03",
+      "left": 455.0,
+      "top": 126.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "5F",
+      "id": "f5-toiletfe-03",
+      "classes": [
+        "toilet-female",
+        "toiletfe-03"
+      ],
+      "state": "mapped",
+      "x": 385.0,
+      "y": 454.0,
+      "selector": "#f5 .toiletfe-03",
+      "left": 374.0,
+      "top": 443.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "5F",
+      "id": "f5-toilethc-09",
+      "classes": [
+        "toilet-handicapped",
+        "toilethc-09"
+      ],
+      "state": "mapped",
+      "x": 490.0,
+      "y": 137.0,
+      "selector": "#f5 .toilethc-09",
+      "left": 479.0,
+      "top": 126.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "5F",
+      "id": "f5-toiletma-03",
+      "classes": [
+        "toilet-male",
+        "toiletma-03"
+      ],
+      "state": "mapped",
+      "x": 336.0,
+      "y": 455.0,
+      "selector": "#f5 .toiletma-03",
+      "left": 325.0,
+      "top": 444.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "5F",
+      "id": "f5-toilethc-10",
+      "classes": [
+        "toilet-handicapped",
+        "toilethc-10"
+      ],
+      "state": "mapped",
+      "x": 499.0,
+      "y": 390.0,
+      "selector": "#f5 .toilethc-10",
+      "left": 488.0,
+      "top": 379.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "5F",
+      "id": "f5-toilet-04",
+      "classes": [
+        "toilet",
+        "toilet-04"
+      ],
+      "state": "mapped",
+      "x": 475.0,
+      "y": 390.0,
+      "selector": "#f5 .toilet-04",
+      "left": 464.0,
+      "top": 379.0,
+      "width": 22.0,
+      "height": 22.0
+    },
+    {
+      "floor": "5F",
+      "id": "f5-aed-01",
+      "classes": [
+        "aed",
+        "aed-01"
+      ],
+      "state": "mapped",
+      "x": 419.0,
+      "y": 446.0,
+      "selector": "#f5 .aed-01",
+      "left": 408.0,
+      "top": 435.0,
+      "width": 22.0,
+      "height": 22.0
+    }
+  ],
+  "outsideFacilities": [
+    {
+      "id": "outside-gate-1",
+      "name": "1入場ゲート",
+      "purpose": "案内",
+      "kind": "gate",
+      "floor": "入場前",
+      "scope": "場外",
+      "location": "3F・1ゲート（公式エリア図）",
+      "detail": "指定入口・開放・入場可否は公演の券面と主催者案内を確認してください。屋外の実測位置・最短経路ではなく図上の代表位置です。",
+      "sourceIds": [
+        "access-area"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-outside",
+        "x": 939,
+        "y": 452,
+        "sourceIds": [
+          "access-area"
+        ],
+        "reference": "kyocera-outside-map.jpg 1142×893 orange gate1 symbol center, within 4px; representative location in perspective guide"
+      }
+    },
+    {
+      "id": "outside-gate-2",
+      "name": "2入場ゲート",
+      "purpose": "案内",
+      "kind": "gate",
+      "floor": "入場前",
+      "scope": "場外",
+      "location": "3F・2ゲート（公式エリア図）",
+      "detail": "指定入口・開放・入場可否は公演の券面と主催者案内を確認してください。屋外の実測位置・最短経路ではなく図上の代表位置です。",
+      "sourceIds": [
+        "access-area"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-outside",
+        "x": 856,
+        "y": 560,
+        "sourceIds": [
+          "access-area"
+        ],
+        "reference": "kyocera-outside-map.jpg 1142×893 orange gate2 symbol center, within 4px; representative location in perspective guide"
+      }
+    },
+    {
+      "id": "outside-gate-3",
+      "name": "3入場ゲート",
+      "purpose": "案内",
+      "kind": "gate",
+      "floor": "入場前",
+      "scope": "場外",
+      "location": "3F・3ゲート（公式エリア図）",
+      "detail": "指定入口・開放・入場可否は公演の券面と主催者案内を確認してください。屋外の実測位置・最短経路ではなく図上の代表位置です。",
+      "sourceIds": [
+        "access-area"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-outside",
+        "x": 749,
+        "y": 608,
+        "sourceIds": [
+          "access-area"
+        ],
+        "reference": "kyocera-outside-map.jpg 1142×893 orange gate3 symbol center, within 4px; representative location in perspective guide"
+      }
+    },
+    {
+      "id": "outside-gate-4",
+      "name": "4入場ゲート",
+      "purpose": "案内",
+      "kind": "gate",
+      "floor": "入場前",
+      "scope": "場外",
+      "location": "3F・4ゲート（公式エリア図）",
+      "detail": "指定入口・開放・入場可否は公演の券面と主催者案内を確認してください。屋外の実測位置・最短経路ではなく図上の代表位置です。",
+      "sourceIds": [
+        "access-area"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-outside",
+        "x": 654,
+        "y": 619,
+        "sourceIds": [
+          "access-area"
+        ],
+        "reference": "kyocera-outside-map.jpg 1142×893 orange gate4 symbol center, within 4px; representative location in perspective guide"
+      }
+    },
+    {
+      "id": "outside-gate-5",
+      "name": "5入場ゲート",
+      "purpose": "案内",
+      "kind": "gate",
+      "floor": "入場前",
+      "scope": "場外",
+      "location": "3F・5ゲート（公式エリア図）",
+      "detail": "指定入口・開放・入場可否は公演の券面と主催者案内を確認してください。屋外の実測位置・最短経路ではなく図上の代表位置です。",
+      "sourceIds": [
+        "access-area"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-outside",
+        "x": 535,
+        "y": 595,
+        "sourceIds": [
+          "access-area"
+        ],
+        "reference": "kyocera-outside-map.jpg 1142×893 orange gate5 symbol center, within 4px; representative location in perspective guide"
+      }
+    },
+    {
+      "id": "outside-gate-6",
+      "name": "6入場ゲート",
+      "purpose": "案内",
+      "kind": "gate",
+      "floor": "入場前",
+      "scope": "場外",
+      "location": "3F・6ゲート（公式エリア図）",
+      "detail": "指定入口・開放・入場可否は公演の券面と主催者案内を確認してください。屋外の実測位置・最短経路ではなく図上の代表位置です。",
+      "sourceIds": [
+        "access-area"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-outside",
+        "x": 444,
+        "y": 529,
+        "sourceIds": [
+          "access-area"
+        ],
+        "reference": "kyocera-outside-map.jpg 1142×893 orange gate6 symbol center, within 4px; representative location in perspective guide"
+      }
+    },
+    {
+      "id": "outside-gate-7",
+      "name": "7入場ゲート",
+      "purpose": "案内",
+      "kind": "gate",
+      "floor": "入場前",
+      "scope": "場外",
+      "location": "3F・7ゲート（公式エリア図）",
+      "detail": "指定入口・開放・入場可否は公演の券面と主催者案内を確認してください。屋外の実測位置・最短経路ではなく図上の代表位置です。",
+      "sourceIds": [
+        "access-area"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-outside",
+        "x": 399,
+        "y": 465,
+        "sourceIds": [
+          "access-area"
+        ],
+        "reference": "kyocera-outside-map.jpg 1142×893 orange gate7 symbol center, within 4px; representative location in perspective guide"
+      }
+    },
+    {
+      "id": "outside-gate-8",
+      "name": "8入場ゲート",
+      "purpose": "案内",
+      "kind": "gate",
+      "floor": "入場前",
+      "scope": "場外",
+      "location": "3F・8ゲート（公式エリア図）",
+      "detail": "指定入口・開放・入場可否は公演の券面と主催者案内を確認してください。屋外の実測位置・最短経路ではなく図上の代表位置です。",
+      "sourceIds": [
+        "access-area"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-outside",
+        "x": 385,
+        "y": 296,
+        "sourceIds": [
+          "access-area"
+        ],
+        "reference": "kyocera-outside-map.jpg 1142×893 orange gate8 symbol center, within 4px; representative location in perspective guide"
+      }
+    },
+    {
+      "id": "outside-gate-9",
+      "name": "9入場ゲート",
+      "purpose": "案内",
+      "kind": "gate",
+      "floor": "入場前",
+      "scope": "場外",
+      "location": "3F・9ゲート（公式エリア図）",
+      "detail": "指定入口・開放・入場可否は公演の券面と主催者案内を確認してください。屋外の実測位置・最短経路ではなく図上の代表位置です。",
+      "sourceIds": [
+        "access-area"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-outside",
+        "x": 433,
+        "y": 208,
+        "sourceIds": [
+          "access-area"
+        ],
+        "reference": "kyocera-outside-map.jpg 1142×893 orange gate9 symbol center, within 4px; representative location in perspective guide"
+      }
+    },
+    {
+      "id": "outside-gate-10",
+      "name": "10入場ゲート",
+      "purpose": "案内",
+      "kind": "gate",
+      "floor": "入場前",
+      "scope": "場外",
+      "location": "3F・10ゲート（公式エリア図）",
+      "detail": "指定入口・開放・入場可否は公演の券面と主催者案内を確認してください。屋外の実測位置・最短経路ではなく図上の代表位置です。",
+      "sourceIds": [
+        "access-area"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-outside",
+        "x": 476,
+        "y": 149,
+        "sourceIds": [
+          "access-area"
+        ],
+        "reference": "kyocera-outside-map.jpg 1142×893 orange gate10 symbol center, within 4px; representative location in perspective guide"
+      }
+    },
+    {
+      "id": "outside-gate-11",
+      "name": "11入場ゲート",
+      "purpose": "案内",
+      "kind": "gate",
+      "floor": "入場前",
+      "scope": "場外",
+      "location": "3F・11ゲート（公式エリア図）",
+      "detail": "指定入口・開放・入場可否は公演の券面と主催者案内を確認してください。屋外の実測位置・最短経路ではなく図上の代表位置です。",
+      "sourceIds": [
+        "access-area"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-outside",
+        "x": 836,
+        "y": 129,
+        "sourceIds": [
+          "access-area"
+        ],
+        "reference": "kyocera-outside-map.jpg 1142×893 orange gate11 symbol center, within 4px; representative location in perspective guide"
+      }
+    },
+    {
+      "id": "outside-gate-12",
+      "name": "12入場ゲート",
+      "purpose": "案内",
+      "kind": "gate",
+      "floor": "入場前",
+      "scope": "場外",
+      "location": "3F・12ゲート（公式エリア図）",
+      "detail": "指定入口・開放・入場可否は公演の券面と主催者案内を確認してください。屋外の実測位置・最短経路ではなく図上の代表位置です。",
+      "sourceIds": [
+        "access-area"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-outside",
+        "x": 884,
+        "y": 161,
+        "sourceIds": [
+          "access-area"
+        ],
+        "reference": "kyocera-outside-map.jpg 1142×893 orange gate12 symbol center, within 4px; representative location in perspective guide"
+      }
+    },
+    {
+      "id": "outside-gate-13",
+      "name": "13入場ゲート",
+      "purpose": "案内",
+      "kind": "gate",
+      "floor": "入場前",
+      "scope": "場外",
+      "location": "3F・13ゲート（公式エリア図）",
+      "detail": "指定入口・開放・入場可否は公演の券面と主催者案内を確認してください。屋外の実測位置・最短経路ではなく図上の代表位置です。",
+      "sourceIds": [
+        "access-area"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-outside",
+        "x": 945,
+        "y": 274,
+        "sourceIds": [
+          "access-area"
+        ],
+        "reference": "kyocera-outside-map.jpg 1142×893 orange gate13 symbol center, within 4px; representative location in perspective guide"
+      }
+    },
+    {
+      "id": "outside-gate-14",
+      "name": "14入場ゲート",
+      "purpose": "案内",
+      "kind": "gate",
+      "floor": "入場前",
+      "scope": "場外",
+      "location": "3F・14ゲート（公式エリア図）",
+      "detail": "指定入口・開放・入場可否は公演の券面と主催者案内を確認してください。屋外の実測位置・最短経路ではなく図上の代表位置です。",
+      "sourceIds": [
+        "access-area"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-outside",
+        "x": 959,
+        "y": 358,
+        "sourceIds": [
+          "access-area"
+        ],
+        "reference": "kyocera-outside-map.jpg 1142×893 orange gate14 symbol center, within 4px; representative location in perspective guide"
+      }
+    },
+    {
+      "id": "outside-ticket-1",
+      "name": "3Fチケット売場①",
+      "purpose": "案内",
+      "kind": "ticket-sell",
+      "floor": "入場前",
+      "scope": "場外",
+      "location": "3F・1〜2ゲート側",
+      "detail": "公式エリア図の掲載位置です。営業・利用時間・取扱いは当日の案内を確認してください。",
+      "sourceIds": [
+        "access-area"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-outside",
+        "x": 891,
+        "y": 530,
+        "sourceIds": [
+          "access-area"
+        ],
+        "reference": "kyocera-outside-map.jpg 1142×893 original named symbol/label center; within 8px; perspective guide, not surveyed entrance"
+      }
+    },
+    {
+      "id": "outside-ticket-2",
+      "name": "3Fチケット売場②",
+      "purpose": "案内",
+      "kind": "ticket-sell",
+      "floor": "入場前",
+      "scope": "場外",
+      "location": "3F・中央プラザ側",
+      "detail": "公式エリア図の掲載位置です。営業・利用時間・取扱いは当日の案内を確認してください。",
+      "sourceIds": [
+        "access-area"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-outside",
+        "x": 704,
+        "y": 643,
+        "sourceIds": [
+          "access-area"
+        ],
+        "reference": "kyocera-outside-map.jpg 1142×893 original named symbol/label center; within 8px; perspective guide, not surveyed entrance"
+      }
+    },
+    {
+      "id": "outside-ticket-3",
+      "name": "3Fチケット売場③",
+      "purpose": "案内",
+      "kind": "ticket-sell",
+      "floor": "入場前",
+      "scope": "場外",
+      "location": "3F・5〜6ゲート側",
+      "detail": "公式エリア図の掲載位置です。営業・利用時間・取扱いは当日の案内を確認してください。",
+      "sourceIds": [
+        "access-area"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-outside",
+        "x": 486,
+        "y": 574,
+        "sourceIds": [
+          "access-area"
+        ],
+        "reference": "kyocera-outside-map.jpg 1142×893 original named symbol/label center; within 8px; perspective guide, not surveyed entrance"
+      }
+    },
+    {
+      "id": "outside-ticket-4",
+      "name": "3Fチケット売場④",
+      "purpose": "案内",
+      "kind": "ticket-sell",
+      "floor": "入場前",
+      "scope": "場外",
+      "location": "3F・10〜11ゲート側",
+      "detail": "公式エリア図の掲載位置です。営業・利用時間・取扱いは当日の案内を確認してください。",
+      "sourceIds": [
+        "access-area"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-outside",
+        "x": 766,
+        "y": 114,
+        "sourceIds": [
+          "access-area"
+        ],
+        "reference": "kyocera-outside-map.jpg 1142×893 original named symbol/label center; within 8px; perspective guide, not surveyed entrance"
+      }
+    },
+    {
+      "id": "outside-atm",
+      "name": "ATM",
+      "purpose": "案内",
+      "kind": "atm",
+      "floor": "入場前",
+      "scope": "場外",
+      "location": "三塁側プラザ",
+      "detail": "公式エリア図の掲載位置です。営業・利用時間・取扱いは当日の案内を確認してください。",
+      "sourceIds": [
+        "access-area"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-outside",
+        "x": 331,
+        "y": 423,
+        "sourceIds": [
+          "access-area"
+        ],
+        "reference": "kyocera-outside-map.jpg 1142×893 original named symbol/label center; within 8px; perspective guide, not surveyed entrance"
+      }
+    },
+    {
+      "id": "outside-phone",
+      "name": "公衆電話",
+      "purpose": "案内",
+      "kind": "phone",
+      "floor": "入場前",
+      "scope": "場外",
+      "location": "中央プラザ",
+      "detail": "公式エリア図の掲載位置です。営業・利用時間・取扱いは当日の案内を確認してください。",
+      "sourceIds": [
+        "access-area"
+      ],
+      "precision": "landmark-area",
+      "anchor": {
+        "diagramId": "kyocera-outside",
+        "x": 617,
+        "y": 633,
+        "sourceIds": [
+          "access-area"
+        ],
+        "reference": "kyocera-outside-map.jpg 1142×893 original named symbol/label center; within 8px; perspective guide, not surveyed entrance"
+      }
+    }
+  ]
+}

@@ -1,0 +1,4477 @@
+{
+  "version": "2026-09-20-topology-v1",
+  "coordinateSystem": [
+    145,
+    26,
+    900,
+    790
+  ],
+  "polarCentre": [
+    579.25,
+    316.5
+  ],
+  "lateralRuns": [
+    {
+      "tier": "A",
+      "codes": [
+        "A01",
+        "A02",
+        "A03",
+        "A04",
+        "A05",
+        "A06",
+        "A07",
+        "A08",
+        "A09",
+        "A10",
+        "A11",
+        "A12",
+        "A13",
+        "A14",
+        "A15",
+        "A16",
+        "A17",
+        "A18",
+        "A19",
+        "A20",
+        "A21",
+        "A22",
+        "A23",
+        "A24",
+        "A25",
+        "A26",
+        "A27",
+        "A28",
+        "A29",
+        "A30",
+        "A31",
+        "A32",
+        "A33",
+        "A34",
+        "A35",
+        "A36",
+        "A37",
+        "A38",
+        "A39",
+        "A40",
+        "A41",
+        "A42",
+        "A43",
+        "A44",
+        "A45",
+        "A46",
+        "A47",
+        "A48",
+        "A49"
+      ],
+      "status": "confirmed",
+      "evidence": "official_pdf_section_order_and_boundaries"
+    },
+    {
+      "tier": "B",
+      "codes": [
+        "B02",
+        "B03",
+        "B04",
+        "B05",
+        "B06",
+        "B07",
+        "B08",
+        "B09",
+        "B10",
+        "B11",
+        "B12",
+        "B13",
+        "B14",
+        "B15",
+        "B16",
+        "B17",
+        "B18",
+        "B19",
+        "B20",
+        "B21",
+        "B22",
+        "B23",
+        "B24",
+        "B25",
+        "B26",
+        "B27",
+        "B28",
+        "B29",
+        "B30",
+        "B31",
+        "B32",
+        "B33",
+        "B34",
+        "B35",
+        "B36",
+        "B37",
+        "B38",
+        "B39",
+        "B40",
+        "B41",
+        "B42",
+        "B43",
+        "B44",
+        "B45",
+        "B46",
+        "B47",
+        "B48"
+      ],
+      "status": "confirmed",
+      "evidence": "official_pdf_section_order_and_boundaries"
+    },
+    {
+      "tier": "D",
+      "codes": [
+        "D01",
+        "D02",
+        "D03",
+        "D04",
+        "D05",
+        "D06",
+        "D07",
+        "D08",
+        "D09",
+        "D10",
+        "D11",
+        "D12",
+        "D13",
+        "D14",
+        "D15",
+        "D16",
+        "D17",
+        "D18",
+        "D19",
+        "D20",
+        "D21",
+        "D22",
+        "D23",
+        "D24",
+        "D25",
+        "D26",
+        "D27",
+        "D28",
+        "D29",
+        "D30",
+        "D31",
+        "D32",
+        "D33",
+        "D34",
+        "D35",
+        "D36",
+        "D37",
+        "D38",
+        "D39",
+        "D40",
+        "D41",
+        "D42",
+        "D43",
+        "D44",
+        "D45",
+        "D46",
+        "D47",
+        "D48",
+        "D49",
+        "D50",
+        "D51"
+      ],
+      "status": "confirmed",
+      "evidence": "official_pdf_section_order_and_boundaries"
+    },
+    {
+      "tier": "E",
+      "codes": [
+        "E06",
+        "E07",
+        "E08",
+        "E09",
+        "E10",
+        "E11",
+        "E12",
+        "E13",
+        "E14",
+        "E15",
+        "E16",
+        "E17",
+        "E18",
+        "E19",
+        "E20",
+        "E21",
+        "E22",
+        "E23",
+        "E24",
+        "E25",
+        "E26",
+        "E27",
+        "E28",
+        "E29",
+        "E30",
+        "E31",
+        "E32",
+        "E33",
+        "E34",
+        "E35",
+        "E36",
+        "E37",
+        "E38",
+        "E39",
+        "E40",
+        "E41",
+        "E42",
+        "E43",
+        "E44",
+        "E45",
+        "E46"
+      ],
+      "status": "confirmed",
+      "evidence": "official_pdf_section_order_and_boundaries"
+    },
+    {
+      "tier": "F",
+      "codes": [
+        "F01",
+        "F02",
+        "F03",
+        "F04",
+        "F05",
+        "F06",
+        "F07",
+        "F08",
+        "F09",
+        "F10",
+        "F11",
+        "F12",
+        "F13",
+        "F14",
+        "F15",
+        "F16",
+        "F17",
+        "F18",
+        "F19",
+        "F20"
+      ],
+      "status": "confirmed",
+      "evidence": "official_pdf_section_order_and_boundaries"
+    },
+    {
+      "tier": "C",
+      "codes": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C07",
+        "C08",
+        "C09",
+        "C10",
+        "C11",
+        "C12",
+        "C13",
+        "C14",
+        "C15",
+        "C16",
+        "C17",
+        "C18",
+        "C19",
+        "C20",
+        "C21",
+        "C22",
+        "C23",
+        "C24",
+        "C25",
+        "C26",
+        "C27",
+        "C28",
+        "C29",
+        "C30",
+        "C31",
+        "C32",
+        "C33",
+        "C34",
+        "C35",
+        "C36",
+        "C37",
+        "C38",
+        "C39",
+        "C40",
+        "C41",
+        "C42",
+        "C43",
+        "C44",
+        "C45",
+        "C46",
+        "C47",
+        "C48"
+      ],
+      "status": "confirmed",
+      "evidence": "official_pdf_band_edges_and_divider_vectors"
+    },
+    {
+      "tier": "C",
+      "codes": [
+        "C50",
+        "C51",
+        "C52",
+        "C53",
+        "C54",
+        "C55",
+        "C56",
+        "C57",
+        "C58",
+        "C59",
+        "C60",
+        "C61",
+        "C62",
+        "C63",
+        "C64",
+        "C65",
+        "C66",
+        "C67",
+        "C68",
+        "C69",
+        "C70",
+        "C71",
+        "C72",
+        "C73",
+        "C74",
+        "C75",
+        "C76",
+        "C77",
+        "C78",
+        "C79",
+        "C80",
+        "C81",
+        "C82",
+        "C83",
+        "C84",
+        "C85",
+        "C86",
+        "C87",
+        "C88",
+        "C89",
+        "C90",
+        "C91",
+        "C92",
+        "C93",
+        "C94",
+        "C95",
+        "C96",
+        "C97"
+      ],
+      "status": "confirmed",
+      "evidence": "official_pdf_band_edges_and_divider_vectors"
+    }
+  ],
+  "radialLinks": [
+    {
+      "inner": "A02",
+      "outer": "B02",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.811,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A03",
+      "outer": "B02",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.215,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A03",
+      "outer": "B03",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.785,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A04",
+      "outer": "B03",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 4.1,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A04",
+      "outer": "B04",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.714,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A05",
+      "outer": "B03",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.638,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A05",
+      "outer": "B04",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 4.814,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A05",
+      "outer": "B05",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.766,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A06",
+      "outer": "B04",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.136,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A06",
+      "outer": "B05",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 5.272,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A06",
+      "outer": "B06",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.867,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A07",
+      "outer": "B05",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.201,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A07",
+      "outer": "B06",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 5.279,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A07",
+      "outer": "B07",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.353,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A08",
+      "outer": "B06",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.03,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A08",
+      "outer": "B07",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 5.822,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A08",
+      "outer": "B08",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.008,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A09",
+      "outer": "B07",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.621,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A09",
+      "outer": "B08",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 5.653,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A09",
+      "outer": "B09",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.206,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A10",
+      "outer": "B08",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.012,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A10",
+      "outer": "B09",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 5.422,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A10",
+      "outer": "B10",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.193,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A11",
+      "outer": "B10",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 4.257,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A11",
+      "outer": "B11",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.138,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A12",
+      "outer": "B11",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.35,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A12",
+      "outer": "B12",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.984,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A13",
+      "outer": "B12",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.634,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A13",
+      "outer": "B13",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.403,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A14",
+      "outer": "B14",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.229,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A14",
+      "outer": "B15",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.549,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A15",
+      "outer": "B15",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.617,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A15",
+      "outer": "B16",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.586,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A16",
+      "outer": "B16",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.378,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A16",
+      "outer": "B17",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 4.612,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A16",
+      "outer": "B18",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.54,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A17",
+      "outer": "B17",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.625,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A17",
+      "outer": "B18",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 6.039,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A17",
+      "outer": "B19",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.641,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A18",
+      "outer": "B18",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.145,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A18",
+      "outer": "B19",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 6.141,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A18",
+      "outer": "B20",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.653,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A19",
+      "outer": "B19",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.145,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A19",
+      "outer": "B20",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 5.166,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A19",
+      "outer": "B21",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.155,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A20",
+      "outer": "B20",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.327,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A20",
+      "outer": "B21",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 5.206,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A20",
+      "outer": "B22",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.23,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A21",
+      "outer": "B21",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.114,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A21",
+      "outer": "B22",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.888,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A22",
+      "outer": "B22",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.678,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A22",
+      "outer": "B23",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.331,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A23",
+      "outer": "B23",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.205,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A23",
+      "outer": "B24",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.88,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A24",
+      "outer": "B24",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.489,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A25",
+      "outer": "B25",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.911,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A26",
+      "outer": "B26",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.498,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A27",
+      "outer": "B26",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.72,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A27",
+      "outer": "B27",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.205,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A28",
+      "outer": "B27",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.236,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A28",
+      "outer": "B28",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.678,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A29",
+      "outer": "B28",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.526,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A29",
+      "outer": "B29",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.137,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A30",
+      "outer": "B29",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 5.175,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A30",
+      "outer": "B30",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.327,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A31",
+      "outer": "B29",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.155,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A31",
+      "outer": "B30",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 5.166,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A31",
+      "outer": "B31",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.988,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A32",
+      "outer": "B30",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.653,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A32",
+      "outer": "B31",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 5.293,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A32",
+      "outer": "B32",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.145,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A33",
+      "outer": "B31",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.949,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A33",
+      "outer": "B32",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 5.213,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A33",
+      "outer": "B33",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.348,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A34",
+      "outer": "B33",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.874,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A34",
+      "outer": "B34",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.378,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A35",
+      "outer": "B34",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.602,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A35",
+      "outer": "B35",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.598,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A36",
+      "outer": "B35",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.255,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A36",
+      "outer": "B36",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.229,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A37",
+      "outer": "B37",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.417,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A37",
+      "outer": "B38",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.351,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A38",
+      "outer": "B38",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.984,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A38",
+      "outer": "B39",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.866,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A39",
+      "outer": "B39",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.138,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A39",
+      "outer": "B40",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 4.349,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A40",
+      "outer": "B40",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.193,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A40",
+      "outer": "B41",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 5.422,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A40",
+      "outer": "B42",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.022,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A41",
+      "outer": "B41",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.206,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A41",
+      "outer": "B42",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 5.666,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A41",
+      "outer": "B43",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.621,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A42",
+      "outer": "B42",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.006,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A42",
+      "outer": "B43",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 5.822,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A42",
+      "outer": "B44",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.03,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A43",
+      "outer": "B43",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.354,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A43",
+      "outer": "B44",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 5.279,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A43",
+      "outer": "B45",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.218,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A44",
+      "outer": "B44",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.867,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A44",
+      "outer": "B45",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 5.289,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A44",
+      "outer": "B46",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.137,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A45",
+      "outer": "B45",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.766,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A45",
+      "outer": "B46",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 4.815,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A45",
+      "outer": "B47",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.64,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A46",
+      "outer": "B46",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.71,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A46",
+      "outer": "B47",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 4.102,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A47",
+      "outer": "B47",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.785,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A47",
+      "outer": "B48",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.219,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "A48",
+      "outer": "B48",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.811,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B02",
+      "outer": "C16",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.34,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B02",
+      "outer": "C17",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.898,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B02",
+      "outer": "C18",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.428,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B03",
+      "outer": "C18",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.702,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B03",
+      "outer": "C19",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.23,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B03",
+      "outer": "C20",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.813,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B03",
+      "outer": "C21",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.274,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B04",
+      "outer": "C20",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.009,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B04",
+      "outer": "C21",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.976,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B04",
+      "outer": "C22",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.012,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B04",
+      "outer": "C23",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.461,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B05",
+      "outer": "C22",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.938,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B05",
+      "outer": "C23",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.03,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B05",
+      "outer": "C24",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.037,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B05",
+      "outer": "C25",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.529,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B06",
+      "outer": "C24",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.882,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B06",
+      "outer": "C25",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.926,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B06",
+      "outer": "C26",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.945,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B06",
+      "outer": "C27",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.736,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B07",
+      "outer": "C26",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.487,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B07",
+      "outer": "C27",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.857,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B07",
+      "outer": "C28",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.862,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B07",
+      "outer": "C29",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.809,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B08",
+      "outer": "C29",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.412,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B08",
+      "outer": "C30",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.944,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B08",
+      "outer": "C31",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.154,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B08",
+      "outer": "C32",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.142,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B09",
+      "outer": "C31",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.053,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B09",
+      "outer": "C32",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.33,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B09",
+      "outer": "C33",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.407,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B09",
+      "outer": "C34",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.457,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B10",
+      "outer": "C33",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.503,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B10",
+      "outer": "C34",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.983,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B10",
+      "outer": "C35",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.062,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B10",
+      "outer": "C36",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.662,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B11",
+      "outer": "C36",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.942,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B11",
+      "outer": "C37",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.067,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B11",
+      "outer": "C38",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.545,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B12",
+      "outer": "C38",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.18,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B12",
+      "outer": "C39",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.051,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B12",
+      "outer": "C40",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.596,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B13",
+      "outer": "C40",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.9,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B13",
+      "outer": "C41",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.919,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B13",
+      "outer": "C42",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.707,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B14",
+      "outer": "C42",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.259,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B14",
+      "outer": "C43",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.202,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B14",
+      "outer": "C44",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.924,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B15",
+      "outer": "C44",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.492,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B15",
+      "outer": "C45",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.202,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B15",
+      "outer": "C46",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.738,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B16",
+      "outer": "C46",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.548,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B16",
+      "outer": "C47",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.128,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B16",
+      "outer": "C48",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.211,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B17",
+      "outer": "C48",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.224,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B33",
+      "outer": "C50",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.514,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B34",
+      "outer": "C50",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.211,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B34",
+      "outer": "C51",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.128,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B34",
+      "outer": "C52",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.563,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B35",
+      "outer": "C52",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.726,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B35",
+      "outer": "C53",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.195,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B35",
+      "outer": "C54",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.198,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B36",
+      "outer": "C54",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.924,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B36",
+      "outer": "C55",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.202,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B36",
+      "outer": "C56",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.186,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B37",
+      "outer": "C56",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.672,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B37",
+      "outer": "C57",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.919,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B37",
+      "outer": "C58",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.914,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B38",
+      "outer": "C58",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.302,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B38",
+      "outer": "C59",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.066,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B38",
+      "outer": "C60",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.175,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B39",
+      "outer": "C60",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.061,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B39",
+      "outer": "C61",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.067,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B39",
+      "outer": "C62",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.942,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B40",
+      "outer": "C62",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.743,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B40",
+      "outer": "C63",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.062,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B40",
+      "outer": "C64",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.986,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B40",
+      "outer": "C65",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.5,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B41",
+      "outer": "C64",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.46,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B41",
+      "outer": "C65",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.404,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B41",
+      "outer": "C66",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.321,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B41",
+      "outer": "C67",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.057,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B42",
+      "outer": "C66",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.147,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B42",
+      "outer": "C67",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.157,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B42",
+      "outer": "C68",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.945,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B42",
+      "outer": "C69",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.417,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B43",
+      "outer": "C69",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.809,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B43",
+      "outer": "C70",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.861,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B43",
+      "outer": "C71",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.857,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B43",
+      "outer": "C72",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.489,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B44",
+      "outer": "C71",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.735,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B44",
+      "outer": "C72",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.945,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B44",
+      "outer": "C73",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.926,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B44",
+      "outer": "C74",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.882,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B45",
+      "outer": "C73",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.546,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B45",
+      "outer": "C74",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.037,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B45",
+      "outer": "C75",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.03,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B45",
+      "outer": "C76",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.939,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B46",
+      "outer": "C75",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.461,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B46",
+      "outer": "C76",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.013,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B46",
+      "outer": "C77",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.976,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B46",
+      "outer": "C78",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.005,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B47",
+      "outer": "C77",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.276,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B47",
+      "outer": "C78",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.813,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B47",
+      "outer": "C79",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.23,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B47",
+      "outer": "C80",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.705,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B48",
+      "outer": "C80",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.43,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B48",
+      "outer": "C81",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.901,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "B48",
+      "outer": "C82",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.34,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "F01",
+      "outer": "C85",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.696,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "F01",
+      "outer": "C86",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.031,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "F01",
+      "outer": "C87",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.792,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "F02",
+      "outer": "C87",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.84,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "F02",
+      "outer": "C88",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.999,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "F02",
+      "outer": "C89",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.055,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "F02",
+      "outer": "C90",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.27,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "F03",
+      "outer": "C90",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.615,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "F03",
+      "outer": "C91",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.234,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "F03",
+      "outer": "C92",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.206,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "F03",
+      "outer": "C93",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.918,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "F04",
+      "outer": "C93",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.604,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "F04",
+      "outer": "C94",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.258,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "F04",
+      "outer": "C95",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.201,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "F04",
+      "outer": "C96",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.503,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "F05",
+      "outer": "C96",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.265,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "F05",
+      "outer": "C97",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.329,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "F16",
+      "outer": "C01",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.329,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "F16",
+      "outer": "C02",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.265,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "F17",
+      "outer": "C02",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.496,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "F17",
+      "outer": "C03",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.208,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "F17",
+      "outer": "C04",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.258,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "F17",
+      "outer": "C05",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.604,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "F18",
+      "outer": "C05",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.931,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "F18",
+      "outer": "C06",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.194,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "F18",
+      "outer": "C07",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.243,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "F18",
+      "outer": "C08",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.618,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "F19",
+      "outer": "C08",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.255,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "F19",
+      "outer": "C09",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.069,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "F19",
+      "outer": "C10",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.999,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "F19",
+      "outer": "C11",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.84,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "F20",
+      "outer": "C11",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.792,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "F20",
+      "outer": "C12",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.031,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "F20",
+      "outer": "C13",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.696,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D06",
+      "outer": "E06",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.52,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D07",
+      "outer": "E07",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.959,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D08",
+      "outer": "E08",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.783,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D09",
+      "outer": "E09",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.862,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D10",
+      "outer": "E10",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 4.172,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D11",
+      "outer": "E11",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.34,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D12",
+      "outer": "E12",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.406,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D13",
+      "outer": "E13",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.363,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D13",
+      "outer": "E14",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.15,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D14",
+      "outer": "E14",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.935,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D14",
+      "outer": "E15",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.903,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D15",
+      "outer": "E15",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.516,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D15",
+      "outer": "E16",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.698,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D16",
+      "outer": "E16",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.861,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D16",
+      "outer": "E17",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.44,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D17",
+      "outer": "E17",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.436,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D17",
+      "outer": "E18",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.907,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D18",
+      "outer": "E18",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.692,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D18",
+      "outer": "E19",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.8,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D18",
+      "outer": "E20",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.093,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D19",
+      "outer": "E19",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.73,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D19",
+      "outer": "E20",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 4.321,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D20",
+      "outer": "E20",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.221,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D20",
+      "outer": "E21",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.563,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D21",
+      "outer": "E21",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.06,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D21",
+      "outer": "E22",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.282,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D22",
+      "outer": "E22",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.531,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D22",
+      "outer": "E23",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.135,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D23",
+      "outer": "E23",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.662,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D23",
+      "outer": "E24",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.006,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D24",
+      "outer": "E24",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.369,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D25",
+      "outer": "E25",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.845,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D26",
+      "outer": "E26",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 4.073,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D27",
+      "outer": "E27",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.845,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D28",
+      "outer": "E28",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.369,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D29",
+      "outer": "E28",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.018,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D29",
+      "outer": "E29",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.662,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D30",
+      "outer": "E29",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.135,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D30",
+      "outer": "E30",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.531,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D31",
+      "outer": "E30",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.282,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D31",
+      "outer": "E31",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.06,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D32",
+      "outer": "E31",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.548,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D32",
+      "outer": "E32",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.542,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D33",
+      "outer": "E32",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 4.321,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D33",
+      "outer": "E33",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.098,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D34",
+      "outer": "E32",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.093,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D34",
+      "outer": "E33",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.8,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D34",
+      "outer": "E34",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.577,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D35",
+      "outer": "E34",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.917,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D35",
+      "outer": "E35",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.313,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D36",
+      "outer": "E35",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.44,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D36",
+      "outer": "E36",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.783,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D37",
+      "outer": "E36",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 1.686,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D37",
+      "outer": "E37",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.457,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D38",
+      "outer": "E37",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.891,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D38",
+      "outer": "E38",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 2.886,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D39",
+      "outer": "E38",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 0.15,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D39",
+      "outer": "E39",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.363,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D40",
+      "outer": "E40",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.399,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D41",
+      "outer": "E41",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.333,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D42",
+      "outer": "E42",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 4.172,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D43",
+      "outer": "E43",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.862,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D44",
+      "outer": "E44",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.782,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D45",
+      "outer": "E45",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.959,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    },
+    {
+      "inner": "D46",
+      "outer": "E46",
+      "relationKind": "radial_correspondence",
+      "separation": "aisle_concourse_or_tier_boundary",
+      "angularOverlapDegrees": 3.52,
+      "status": "confirmed",
+      "evidence": "official_pdf_outline_angular_overlap"
+    }
+  ],
+  "confirmedBreaks": [
+    {
+      "between": [
+        "C48",
+        "C50"
+      ],
+      "reason": "C49 is absent and the official bands stop on both sides of the home-plate-side opening."
+    },
+    {
+      "between": [
+        "C97",
+        "C01"
+      ],
+      "reason": "The official bands stop on both sides of the centre-field opening."
+    },
+    {
+      "between": [
+        "B17",
+        "B33"
+      ],
+      "relation": "outer_correspondence_gap",
+      "reason": "C has no sourced band behind the B18-B32 angular range."
+    },
+    {
+      "between": [
+        "F05",
+        "F16"
+      ],
+      "relation": "outer_correspondence_gap",
+      "reason": "C has no sourced band behind the F06-F15 angular range."
+    },
+    {
+      "between": [
+        "D05",
+        "D47"
+      ],
+      "relation": "outer_correspondence_gap",
+      "reason": "E has no sourced sections behind D01-D05 or D47-D51."
+    }
+  ],
+  "angularSpans": {
+    "A01": [
+      -21.2975,
+      -16.7119
+    ],
+    "A02": [
+      -18.2177,
+      -13.6422
+    ],
+    "A03": [
+      -15.0011,
+      -9.899
+    ],
+    "A04": [
+      -11.3974,
+      -5.8667
+    ],
+    "A05": [
+      -7.9356,
+      -1.7547
+    ],
+    "A06": [
+      -4.2584,
+      2.4691
+    ],
+    "A07": [
+      -0.1876,
+      7.2217
+    ],
+    "A08": [
+      4.0611,
+      11.6296
+    ],
+    "A09": [
+      8.2624,
+      16.2855
+    ],
+    "A10": [
+      13.2625,
+      20.9176
+    ],
+    "A11": [
+      18.6772,
+      25.4922
+    ],
+    "A12": [
+      24.5577,
+      30.3181
+    ],
+    "A13": [
+      30.526,
+      35.0964
+    ],
+    "A14": [
+      36.4227,
+      40.9758
+    ],
+    "A15": [
+      41.2414,
+      47.3612
+    ],
+    "A16": [
+      46.2838,
+      53.5621
+    ],
+    "A17": [
+      51.1863,
+      59.2373
+    ],
+    "A18": [
+      55.9157,
+      64.0127
+    ],
+    "A19": [
+      60.5926,
+      68.3305
+    ],
+    "A20": [
+      65.1991,
+      72.3818
+    ],
+    "A21": [
+      69.6825,
+      76.0395
+    ],
+    "A22": [
+      74.1632,
+      79.3522
+    ],
+    "A23": [
+      79.0782,
+      82.9791
+    ],
+    "A24": [
+      83.3519,
+      87.1067
+    ],
+    "A25": [
+      88.1037,
+      92.0151
+    ],
+    "A26": [
+      92.8933,
+      96.6481
+    ],
+    "A27": [
+      97.0209,
+      100.9218
+    ],
+    "A28": [
+      100.6478,
+      105.8602
+    ],
+    "A29": [
+      103.9605,
+      110.3408
+    ],
+    "A30": [
+      107.6487,
+      114.8009
+    ],
+    "A31": [
+      111.6695,
+      119.4074
+    ],
+    "A32": [
+      115.9873,
+      124.0843
+    ],
+    "A33": [
+      120.7627,
+      128.8137
+    ],
+    "A34": [
+      126.4379,
+      133.7162
+    ],
+    "A35": [
+      132.6388,
+      138.7586
+    ],
+    "A36": [
+      139.0242,
+      143.5773
+    ],
+    "A37": [
+      144.9036,
+      149.474
+    ],
+    "A38": [
+      149.6819,
+      155.4423
+    ],
+    "A39": [
+      154.5078,
+      161.3342
+    ],
+    "A40": [
+      159.0824,
+      166.7375
+    ],
+    "A41": [
+      163.7145,
+      171.7376
+    ],
+    "A42": [
+      168.3755,
+      175.9389
+    ],
+    "A43": [
+      172.7783,
+      180.1876
+    ],
+    "A44": [
+      -182.4691,
+      -175.7416
+    ],
+    "A45": [
+      -178.2453,
+      -172.0644
+    ],
+    "A46": [
+      -174.1333,
+      -168.6026
+    ],
+    "A47": [
+      -170.101,
+      -164.9989
+    ],
+    "A48": [
+      -166.3578,
+      -161.7901
+    ],
+    "A49": [
+      -163.2939,
+      -158.7025
+    ],
+    "B02": [
+      -16.4527,
+      -11.7863
+    ],
+    "B03": [
+      -12.6844,
+      -7.2978
+    ],
+    "B04": [
+      -8.5803,
+      -3.122
+    ],
+    "B05": [
+      -4.5209,
+      1.0138
+    ],
+    "B06": [
+      -0.3975,
+      5.0914
+    ],
+    "B07": [
+      3.8688,
+      9.8831
+    ],
+    "B08": [
+      8.6219,
+      14.2745
+    ],
+    "B09": [
+      13.0795,
+      18.6843
+    ],
+    "B10": [
+      17.7244,
+      22.934
+    ],
+    "B11": [
+      22.3541,
+      26.9081
+    ],
+    "B12": [
+      27.3338,
+      31.1602
+    ],
+    "B13": [
+      31.6931,
+      35.2187
+    ],
+    "B14": [
+      36.2675,
+      39.6521
+    ],
+    "B15": [
+      40.427,
+      44.8582
+    ],
+    "B16": [
+      44.7748,
+      49.6617
+    ],
+    "B17": [
+      48.9497,
+      53.8117
+    ],
+    "B18": [
+      53.0219,
+      59.0604
+    ],
+    "B19": [
+      57.5967,
+      63.7379
+    ],
+    "B20": [
+      62.3598,
+      67.5257
+    ],
+    "B21": [
+      67.1758,
+      72.796
+    ],
+    "B22": [
+      72.1515,
+      77.841
+    ],
+    "B23": [
+      78.0211,
+      81.2832
+    ],
+    "B24": [
+      82.0993,
+      86.8407
+    ],
+    "B25": [
+      87.799,
+      92.2034
+    ],
+    "B26": [
+      93.1506,
+      97.7407
+    ],
+    "B27": [
+      98.7168,
+      101.8839
+    ],
+    "B28": [
+      102.1821,
+      107.4865
+    ],
+    "B29": [
+      107.204,
+      112.8242
+    ],
+    "B30": [
+      112.4743,
+      117.6402
+    ],
+    "B31": [
+      116.419,
+      121.7116
+    ],
+    "B32": [
+      120.9396,
+      126.1525
+    ],
+    "B33": [
+      126.466,
+      130.3399
+    ],
+    "B34": [
+      130.3383,
+      135.2407
+    ],
+    "B35": [
+      135.1607,
+      139.2792
+    ],
+    "B36": [
+      140.3479,
+      143.6593
+    ],
+    "B37": [
+      144.8169,
+      148.3209
+    ],
+    "B38": [
+      149.1234,
+      152.6662
+    ],
+    "B39": [
+      153.576,
+      157.6459
+    ],
+    "B40": [
+      156.9851,
+      162.2756
+    ],
+    "B41": [
+      161.3157,
+      166.9205
+    ],
+    "B42": [
+      165.716,
+      171.3818
+    ],
+    "B43": [
+      170.1169,
+      176.1328
+    ],
+    "B44": [
+      174.9086,
+      180.3975
+    ],
+    "B45": [
+      -181.0301,
+      -175.4791
+    ],
+    "B46": [
+      -176.8791,
+      -171.4231
+    ],
+    "B47": [
+      -172.7046,
+      -167.3156
+    ],
+    "B48": [
+      -168.2177,
+      -163.5473
+    ],
+    "C01": [
+      -48.634,
+      -47.3054
+    ],
+    "C02": [
+      -47.3054,
+      -44.4801
+    ],
+    "C03": [
+      -44.4801,
+      -42.2717
+    ],
+    "C04": [
+      -42.2717,
+      -40.0139
+    ],
+    "C05": [
+      -40.0139,
+      -37.7732
+    ],
+    "C06": [
+      -37.7732,
+      -35.5787
+    ],
+    "C07": [
+      -35.5787,
+      -33.336
+    ],
+    "C08": [
+      -33.336,
+      -31.2362
+    ],
+    "C09": [
+      -31.2362,
+      -29.1668
+    ],
+    "C10": [
+      -29.1668,
+      -27.1673
+    ],
+    "C11": [
+      -27.1673,
+      -25.0352
+    ],
+    "C12": [
+      -25.0352,
+      -23.0039
+    ],
+    "C13": [
+      -23.0039,
+      -21.0202
+    ],
+    "C14": [
+      -21.0202,
+      -18.9639
+    ],
+    "C15": [
+      -18.9639,
+      -17.0626
+    ],
+    "C16": [
+      -17.0626,
+      -15.113
+    ],
+    "C17": [
+      -15.113,
+      -13.2145
+    ],
+    "C18": [
+      -13.2145,
+      -10.9829
+    ],
+    "C19": [
+      -11.6146,
+      -9.3844
+    ],
+    "C20": [
+      -9.3844,
+      -7.5715
+    ],
+    "C21": [
+      -7.5715,
+      -5.5953
+    ],
+    "C22": [
+      -5.5953,
+      -3.5829
+    ],
+    "C23": [
+      -3.5829,
+      -1.5524
+    ],
+    "C24": [
+      -1.5524,
+      0.4846
+    ],
+    "C25": [
+      0.4846,
+      2.411
+    ],
+    "C26": [
+      2.411,
+      4.3556
+    ],
+    "C27": [
+      4.3556,
+      6.2124
+    ],
+    "C28": [
+      6.2124,
+      8.0739
+    ],
+    "C29": [
+      8.0739,
+      10.0338
+    ],
+    "C30": [
+      10.0338,
+      11.9783
+    ],
+    "C31": [
+      11.9783,
+      14.1325
+    ],
+    "C32": [
+      14.1325,
+      16.4629
+    ],
+    "C33": [
+      15.8206,
+      18.2275
+    ],
+    "C34": [
+      18.2275,
+      20.2104
+    ],
+    "C35": [
+      20.2104,
+      22.2722
+    ],
+    "C36": [
+      22.2722,
+      24.2961
+    ],
+    "C37": [
+      24.2961,
+      26.3631
+    ],
+    "C38": [
+      26.3631,
+      28.5133
+    ],
+    "C39": [
+      28.5133,
+      30.5644
+    ],
+    "C40": [
+      30.5644,
+      32.5927
+    ],
+    "C41": [
+      32.5927,
+      34.5115
+    ],
+    "C42": [
+      34.5115,
+      36.5265
+    ],
+    "C43": [
+      36.5265,
+      38.7284
+    ],
+    "C44": [
+      38.7284,
+      40.9188
+    ],
+    "C45": [
+      40.9188,
+      43.1204
+    ],
+    "C46": [
+      43.1204,
+      45.3226
+    ],
+    "C47": [
+      45.3226,
+      47.4509
+    ],
+    "C48": [
+      47.4509,
+      50.1738
+    ],
+    "C50": [
+      129.8262,
+      132.5491
+    ],
+    "C51": [
+      132.5491,
+      134.6774
+    ],
+    "C52": [
+      134.6774,
+      136.8862
+    ],
+    "C53": [
+      136.8862,
+      139.0812
+    ],
+    "C54": [
+      139.0812,
+      141.2716
+    ],
+    "C55": [
+      141.2716,
+      143.4735
+    ],
+    "C56": [
+      143.4735,
+      145.4885
+    ],
+    "C57": [
+      145.4885,
+      147.4073
+    ],
+    "C58": [
+      147.4073,
+      149.4253
+    ],
+    "C59": [
+      149.4253,
+      151.4913
+    ],
+    "C60": [
+      151.4913,
+      153.6369
+    ],
+    "C61": [
+      153.6369,
+      155.7039
+    ],
+    "C62": [
+      155.7039,
+      157.7278
+    ],
+    "C63": [
+      157.7278,
+      159.7896
+    ],
+    "C64": [
+      159.7896,
+      161.7755
+    ],
+    "C65": [
+      161.7755,
+      164.1794
+    ],
+    "C66": [
+      163.5421,
+      165.863
+    ],
+    "C67": [
+      165.863,
+      168.0198
+    ],
+    "C68": [
+      168.0198,
+      169.9646
+    ],
+    "C69": [
+      169.9646,
+      171.9261
+    ],
+    "C70": [
+      171.9261,
+      173.7867
+    ],
+    "C71": [
+      173.7867,
+      175.6437
+    ],
+    "C72": [
+      175.6437,
+      177.589
+    ],
+    "C73": [
+      177.589,
+      179.5154
+    ],
+    "C74": [
+      179.5154,
+      181.5522
+    ],
+    "C75": [
+      181.5522,
+      183.5823
+    ],
+    "C76": [
+      183.5823,
+      185.5953
+    ],
+    "C77": [
+      185.5953,
+      187.5715
+    ],
+    "C78": [
+      187.5715,
+      189.3844
+    ],
+    "C79": [
+      189.3844,
+      191.6146
+    ],
+    "C80": [
+      -169.0206,
+      -166.7876
+    ],
+    "C81": [
+      -166.7876,
+      -164.887
+    ],
+    "C82": [
+      -164.887,
+      -162.9374
+    ],
+    "C83": [
+      -162.9374,
+      -161.0421
+    ],
+    "C84": [
+      -161.0421,
+      -158.9832
+    ],
+    "C85": [
+      -158.9832,
+      -156.9961
+    ],
+    "C86": [
+      -156.9961,
+      -154.9648
+    ],
+    "C87": [
+      -154.9648,
+      -152.8327
+    ],
+    "C88": [
+      -152.8327,
+      -150.8332
+    ],
+    "C89": [
+      -150.8332,
+      -148.7786
+    ],
+    "C90": [
+      -148.7786,
+      -146.667
+    ],
+    "C91": [
+      -146.667,
+      -144.4327
+    ],
+    "C92": [
+      -144.4327,
+      -142.2268
+    ],
+    "C93": [
+      -142.2268,
+      -139.9861
+    ],
+    "C94": [
+      -139.9861,
+      -137.7283
+    ],
+    "C95": [
+      -137.7283,
+      -135.5269
+    ],
+    "C96": [
+      -135.5269,
+      -132.6946
+    ],
+    "C97": [
+      -132.6946,
+      -131.366
+    ],
+    "D01": [
+      -30.7347,
+      -22.8006
+    ],
+    "D02": [
+      -23.2065,
+      -17.7225
+    ],
+    "D03": [
+      -16.6759,
+      -13.823
+    ],
+    "D04": [
+      -11.6775,
+      -9.1101
+    ],
+    "D05": [
+      -7.4173,
+      -3.3282
+    ],
+    "D06": [
+      -2.663,
+      1.6389
+    ],
+    "D07": [
+      2.0457,
+      6.6122
+    ],
+    "D08": [
+      7.122,
+      11.4087
+    ],
+    "D09": [
+      12.0302,
+      16.2813
+    ],
+    "D10": [
+      17.0455,
+      21.4552
+    ],
+    "D11": [
+      22.3787,
+      25.8098
+    ],
+    "D12": [
+      26.815,
+      30.4929
+    ],
+    "D13": [
+      31.324,
+      35.1848
+    ],
+    "D14": [
+      35.9277,
+      39.7148
+    ],
+    "D15": [
+      40.2215,
+      44.279
+    ],
+    "D16": [
+      44.547,
+      48.9799
+    ],
+    "D17": [
+      48.9817,
+      53.236
+    ],
+    "D18": [
+      53.0667,
+      57.6133
+    ],
+    "D19": [
+      56.6204,
+      61.8417
+    ],
+    "D20": [
+      60.6504,
+      65.9413
+    ],
+    "D21": [
+      65.0905,
+      69.944
+    ],
+    "D22": [
+      69.6444,
+      74.0168
+    ],
+    "D23": [
+      74.1971,
+      78.6157
+    ],
+    "D24": [
+      78.8746,
+      82.4849
+    ],
+    "D25": [
+      83.2217,
+      87.0663
+    ],
+    "D26": [
+      87.9636,
+      92.0364
+    ],
+    "D27": [
+      92.9337,
+      96.7783
+    ],
+    "D28": [
+      97.5151,
+      101.1254
+    ],
+    "D29": [
+      101.3843,
+      105.8029
+    ],
+    "D30": [
+      105.9832,
+      110.3556
+    ],
+    "D31": [
+      110.056,
+      114.9095
+    ],
+    "D32": [
+      114.0735,
+      118.6702
+    ],
+    "D33": [
+      118.1583,
+      122.7475
+    ],
+    "D34": [
+      122.3867,
+      126.8188
+    ],
+    "D35": [
+      126.7538,
+      130.8952
+    ],
+    "D36": [
+      131.0201,
+      135.3754
+    ],
+    "D37": [
+      135.7332,
+      139.7295
+    ],
+    "D38": [
+      140.2964,
+      144.0232
+    ],
+    "D39": [
+      144.8152,
+      148.676
+    ],
+    "D40": [
+      149.5071,
+      153.185
+    ],
+    "D41": [
+      154.197,
+      157.6213
+    ],
+    "D42": [
+      158.5448,
+      162.9545
+    ],
+    "D43": [
+      163.7187,
+      167.9698
+    ],
+    "D44": [
+      168.5943,
+      172.878
+    ],
+    "D45": [
+      173.3878,
+      177.9549
+    ],
+    "D46": [
+      -181.6389,
+      -177.337
+    ],
+    "D47": [
+      -176.6718,
+      -172.5848
+    ],
+    "D48": [
+      -170.8899,
+      -168.3225
+    ],
+    "D49": [
+      -166.5073,
+      -163.6659
+    ],
+    "D50": [
+      -160.8472,
+      -157.896
+    ],
+    "D51": [
+      -157.1994,
+      -149.2653
+    ],
+    "E06": [
+      -1.8812,
+      1.8515
+    ],
+    "E07": [
+      2.6533,
+      6.9242
+    ],
+    "E08": [
+      7.6255,
+      11.7775
+    ],
+    "E09": [
+      12.4194,
+      16.5876
+    ],
+    "E10": [
+      17.2834,
+      21.698
+    ],
+    "E11": [
+      22.4697,
+      25.833
+    ],
+    "E12": [
+      26.7078,
+      30.2212
+    ],
+    "E13": [
+      30.8997,
+      34.6868
+    ],
+    "E14": [
+      35.0349,
+      38.8623
+    ],
+    "E15": [
+      38.8122,
+      42.7375
+    ],
+    "E16": [
+      42.5805,
+      47.408
+    ],
+    "E17": [
+      46.5402,
+      51.4176
+    ],
+    "E18": [
+      50.3288,
+      54.7582
+    ],
+    "E19": [
+      53.8136,
+      59.35
+    ],
+    "E20": [
+      57.5204,
+      63.8713
+    ],
+    "E21": [
+      62.3784,
+      68.1509
+    ],
+    "E22": [
+      67.6619,
+      73.175
+    ],
+    "E23": [
+      72.8817,
+      77.8594
+    ],
+    "E24": [
+      77.6098,
+      82.2439
+    ],
+    "E25": [
+      82.8052,
+      87.1562
+    ],
+    "E26": [
+      87.9028,
+      92.0972
+    ],
+    "E27": [
+      92.8438,
+      97.2064
+    ],
+    "E28": [
+      97.7561,
+      102.4018
+    ],
+    "E29": [
+      102.1406,
+      107.1183
+    ],
+    "E30": [
+      106.825,
+      112.3381
+    ],
+    "E31": [
+      111.8491,
+      117.6216
+    ],
+    "E32": [
+      116.1287,
+      122.4796
+    ],
+    "E33": [
+      120.65,
+      126.1864
+    ],
+    "E34": [
+      125.2418,
+      129.6712
+    ],
+    "E35": [
+      128.5824,
+      133.4598
+    ],
+    "E36": [
+      132.592,
+      137.4195
+    ],
+    "E37": [
+      137.2727,
+      141.1878
+    ],
+    "E38": [
+      141.1377,
+      144.9651
+    ],
+    "E39": [
+      145.3132,
+      149.1003
+    ],
+    "E40": [
+      149.7864,
+      153.2922
+    ],
+    "E41": [
+      154.1729,
+      157.5303
+    ],
+    "E42": [
+      158.302,
+      162.7166
+    ],
+    "E43": [
+      163.4124,
+      167.5806
+    ],
+    "E44": [
+      168.2225,
+      172.3764
+    ],
+    "E45": [
+      173.0758,
+      177.3467
+    ],
+    "E46": [
+      178.1485,
+      181.8812
+    ],
+    "F01": [
+      -157.6923,
+      -153.1728
+    ],
+    "F02": [
+      -153.6728,
+      -147.5091
+    ],
+    "F03": [
+      -147.2823,
+      -141.3092
+    ],
+    "F04": [
+      -140.5897,
+      -135.0243
+    ],
+    "F05": [
+      -133.9597,
+      -128.1894
+    ],
+    "F06": [
+      -127.6404,
+      -121.3976
+    ],
+    "F07": [
+      -121.361,
+      -115.1379
+    ],
+    "F08": [
+      -115.5503,
+      -108.7633
+    ],
+    "F09": [
+      -109.2808,
+      -103.0214
+    ],
+    "F10": [
+      -102.6501,
+      -94.8898
+    ],
+    "F11": [
+      -84.0125,
+      -77.3477
+    ],
+    "F12": [
+      -77.1554,
+      -70.6625
+    ],
+    "F13": [
+      -71.2367,
+      -64.469
+    ],
+    "F14": [
+      -64.8852,
+      -58.6583
+    ],
+    "F15": [
+      -58.6024,
+      -52.3596
+    ],
+    "F16": [
+      -51.8106,
+      -46.0403
+    ],
+    "F17": [
+      -44.9757,
+      -39.4103
+    ],
+    "F18": [
+      -38.7045,
+      -32.7177
+    ],
+    "F19": [
+      -32.4909,
+      -26.3272
+    ],
+    "F20": [
+      -26.8272,
+      -22.3077
+    ]
+  },
+  "method": {
+    "lateral": "Official code order checked against individual outline angular order; links mean the next block in that direction and may have an aisle between outlines. Run ends are not joined.",
+    "radial": "Every pair whose official outline angular intervals overlap by more than 0.05 degrees; many-to-many links are preserved.",
+    "cSections": "C interval limits come from the six official band extents and ninety official divider vectors."
+  }
+}

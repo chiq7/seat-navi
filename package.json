@@ -1,0 +1,52 @@
+{
+  "name": "tixrepo",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "typecheck:crawler": "tsc --project tsconfig.scripts.json",
+    "test:crawler-safety": "node --test --experimental-test-isolation=none --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/officialNews/safety.test.mts ./scripts/officialNews/discovery.test.mjs ./scripts/officialNews/eventSync.test.mts",
+    "test:artist-platform": "node --test --experimental-test-isolation=none --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/artistPlatform.test.mts",
+    "test:metadata": "node --test --experimental-test-isolation=none --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/metadata.test.mts",
+    "test:structured-data": "node --test --experimental-test-isolation=none --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/structuredData.test.mts",
+    "test:official-tours": "node --test --experimental-test-isolation=none --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/officialTourSources.test.mts",
+    "test:external-seats": "node --test --experimental-test-isolation=none --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/externalSeats.test.mts",
+    "test:venue-seat-locator": "node --test --experimental-test-isolation=none --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/tokyoDomeSeatLocator.test.mts",
+    "test:venue-guide": "node --test --experimental-test-isolation=none --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/tokyoDomeVisitorGuide.test.mts",
+    "test:arena-patterns": "node --test --experimental-test-isolation=none --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/arenaInferenceV3.test.mts",
+    "benchmark:arena-patterns": "node --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/arenaPatternBenchmark.mts",
+    "test:x-fan-candidates": "node --test --experimental-test-isolation=none --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/xFanCandidates.test.mts",
+    "collect:x-fan-candidates": "node --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/collectXFanCandidates.mts",
+    "render:x-fan-candidate-review": "node --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/renderXFanCandidateReview.mts",
+    "discover:official-news:pending": "node --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/discoverPendingOfficialNews.mts",
+    "backfill:event-artists": "node --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/backfill-event-artist-slugs.mts",
+    "sync:official-news-events": "node --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/syncOfficialNewsEvents.mts",
+    "sync:official-tours": "node --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/syncOfficialTourSources.mts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.95.1",
+    "@supabase/ssr": "0.7.0",
+    "@supabase/supabase-js": "^2.95.3",
+    "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.0.0",
+    "framer-motion": "^12.34.0",
+    "lucide-react": "^0.563.0",
+    "next": "16.1.6",
+    "openai": "^6.21.0",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.1.6",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

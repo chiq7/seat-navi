@@ -1,0 +1,3945 @@
+{
+  "sources": [
+    {
+      "id": "qa-current",
+      "title": "会場公式・よくある質問",
+      "url": "https://h-jigyoudan.or.jp/sports-center/faq/",
+      "checkedAt": "2026-10-10",
+      "scope": "館内ロッカー13口/21時制限、授乳・飲食・公演別座席運用",
+      "usage": "facts-only"
+    },
+    {
+      "id": "floor-current",
+      "title": "会場公式・フロアガイド",
+      "url": "https://h-jigyoudan.or.jp/sports-center/center-facility/",
+      "checkedAt": "2026-10-10",
+      "scope": "本館B1食品自販機・授乳・キッズと現行PDFリンク",
+      "usage": "facts-only"
+    },
+    {
+      "id": "access-current",
+      "title": "会場公式・交通アクセス",
+      "url": "https://h-jigyoudan.or.jp/sports-center/center-overview/",
+      "checkedAt": "2026-10-10",
+      "scope": "県庁前西2出口、紙屋町/バスセンター、紙屋町西/原爆ドーム前",
+      "usage": "facts-only"
+    },
+    {
+      "id": "universal",
+      "title": "会場公式・ユニバーサル設備",
+      "url": "https://h-jigyoudan.or.jp/sports-center/center-overview/center-action/",
+      "checkedAt": "2026-10-10",
+      "scope": "棟別AED/車いす/多目的トイレ。台数から未確認の個別位置を補わない",
+      "usage": "facts-only"
+    },
+    {
+      "id": "closure",
+      "title": "会場公式・2026-10-06施設整備日",
+      "url": "https://h-jigyoudan.or.jp/center/center-close/",
+      "checkedAt": "2026-10-10",
+      "scope": "次回11/9、11/30・12/1等。過去の小アリーナ工事を現在の休業にしない",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-fixed",
+      "title": "会場公式・固定配席図",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E9%85%8D%E5%B8%AD%E5%9B%B3.pdf",
+      "checkedAt": "2026-10-10",
+      "scope": "現在公式ページからリンク。図内改訂年月は不明。F/G14〜27の番号と短い前列を原寸比較",
+      "usage": "facts-only"
+    },
+    {
+      "id": "floor-guide",
+      "title": "会場公式・棟階別フロアPDF",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf",
+      "checkedAt": "2026-10-10",
+      "scope": "ファイル名260201。図内改訂日を確定せず、ページ2の棟階別アイコンを読図",
+      "usage": "facts-only"
+    },
+    {
+      "id": "bus-current",
+      "title": "広島バスセンター・3F設備",
+      "url": "https://www.h-buscenter.com/info/terminafesta.php",
+      "checkedAt": "2026-10-10",
+      "scope": "ロッカー5:30〜24時/500・600・800円、有人受付9〜20時を総合案内9〜17時と区別",
+      "usage": "facts-only"
+    },
+    {
+      "id": "astram-current",
+      "title": "アストラムライン・ロッカーFAQ",
+      "url": "https://www.astramline.co.jp/qa/?qid=50",
+      "checkedAt": "2026-10-10",
+      "scope": "県庁前/本通等5駅・6〜24時。個別階/機械位置/料金は未確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "astram-kencho",
+      "title": "アストラムライン・県庁前駅",
+      "url": "https://www.astramline.co.jp/station/info.html?name=%E7%9C%8C%E5%BA%81%E5%89%8D",
+      "checkedAt": "2026-10-10",
+      "scope": "地下駅・所在地。構内ロッカーの個別配置は未掲載の確認範囲",
+      "usage": "facts-only"
+    },
+    {
+      "id": "crosta-current",
+      "title": "Crosta広島・一時預かり",
+      "url": "https://handsfree-japan.com/hiroshima/",
+      "checkedAt": "2026-10-10",
+      "scope": "広島駅北側2F・9〜20時・1個1000円。ホテル配送と区別",
+      "usage": "facts-only"
+    },
+    {
+      "id": "starbucks",
+      "title": "スターバックス公式・広島市中央公園店",
+      "url": "https://store.starbucks.co.jp/detail-4248/",
+      "checkedAt": "2026-10-10",
+      "scope": "SHIMINT F棟・8〜21時、不定休。API座標を個別入口へ昇格しない",
+      "usage": "facts-only"
+    },
+    {
+      "id": "goodspoon",
+      "title": "goodspoon公式・シミント広島店",
+      "url": "https://goodspoonshiminthiroshima.owst.jp/",
+      "checkedAt": "2026-10-10",
+      "scope": "SHIMINT B棟2F・9〜22時、食事21時/飲料21:30ラストオーダー",
+      "usage": "facts-only"
+    },
+    {
+      "id": "supplement-page",
+      "title": "MUSIC-MDATA・広島グリーンアリーナ",
+      "url": "https://zaseki.music-mdata.com/detail/18823/1",
+      "checkedAt": "2026-10-10",
+      "scope": "掲載元。作成者LiveWalker、会場/大アリーナを区別",
+      "usage": "research-only"
+    },
+    {
+      "id": "supplement",
+      "title": "LiveWalker作成・補助座席PDF",
+      "url": "https://cdn-zaseki.music-mdata.com/pdf/18823.pdf",
+      "checkedAt": "2026-10-10",
+      "scope": "図内20191120・転載再配布禁止。固定席参考範囲とF/G番号だけ照合。可動/アリーナ/貴賓を除外",
+      "usage": "research-only"
+    },
+    {
+      "id": "livebu-venue",
+      "title": "ライブ部・大アリーナ会場ページ",
+      "url": "https://www.livebu.com/hall/524",
+      "checkedAt": "2026-10-10",
+      "scope": "公式座席リンクは同一図。2023情報のロッカーなしを現行公式B1設置より優先しない",
+      "usage": "research-only"
+    }
+  ],
+  "facilities": [
+    {
+      "id": "hiroshima-big1-tl-women",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "大アリーナ1F",
+      "scope": "場内",
+      "location": "図左上側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "hiroshima-big1",
+        "x": 225,
+        "y": 110,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-big1-tl-diaper",
+      "name": "おむつ交換台",
+      "purpose": "赤ちゃん",
+      "floor": "大アリーナ1F",
+      "scope": "場内",
+      "location": "図左上側",
+      "detail": "男女洗面所の掲載区域。多目的トイレのベビーチェアとは別設備です。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "kind": "diaper",
+      "anchor": {
+        "diagramId": "hiroshima-big1",
+        "x": 243,
+        "y": 128,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-big1-tr-men",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "大アリーナ1F",
+      "scope": "場内",
+      "location": "図右上側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "hiroshima-big1",
+        "x": 570,
+        "y": 110,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-big1-tr-diaper",
+      "name": "おむつ交換台",
+      "purpose": "赤ちゃん",
+      "floor": "大アリーナ1F",
+      "scope": "場内",
+      "location": "図右上側",
+      "detail": "男女洗面所の掲載区域。多目的トイレのベビーチェアとは別設備です。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "kind": "diaper",
+      "anchor": {
+        "diagramId": "hiroshima-big1",
+        "x": 588,
+        "y": 128,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-big1-bl-men",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "大アリーナ1F",
+      "scope": "場内",
+      "location": "図左下側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "hiroshima-big1",
+        "x": 235,
+        "y": 420,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-big1-bl-diaper",
+      "name": "おむつ交換台",
+      "purpose": "赤ちゃん",
+      "floor": "大アリーナ1F",
+      "scope": "場内",
+      "location": "図左下側",
+      "detail": "男女洗面所の掲載区域。多目的トイレのベビーチェアとは別設備です。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "kind": "diaper",
+      "anchor": {
+        "diagramId": "hiroshima-big1",
+        "x": 253,
+        "y": 438,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-big1-br-women",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "大アリーナ1F",
+      "scope": "場内",
+      "location": "図右下側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "hiroshima-big1",
+        "x": 580,
+        "y": 420,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-big1-br-diaper",
+      "name": "おむつ交換台",
+      "purpose": "赤ちゃん",
+      "floor": "大アリーナ1F",
+      "scope": "場内",
+      "location": "図右下側",
+      "detail": "男女洗面所の掲載区域。多目的トイレのベビーチェアとは別設備です。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "kind": "diaper",
+      "anchor": {
+        "diagramId": "hiroshima-big1",
+        "x": 598,
+        "y": 438,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-big1-al-accessible",
+      "name": "多目的トイレ",
+      "purpose": "トイレ",
+      "floor": "大アリーナ1F",
+      "scope": "場内",
+      "location": "図左下の多目的区域",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "hiroshima-big1",
+        "x": 120,
+        "y": 350,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-big1-ar-accessible",
+      "name": "多目的トイレ",
+      "purpose": "トイレ",
+      "floor": "大アリーナ1F",
+      "scope": "場内",
+      "location": "図右下の多目的区域",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "hiroshima-big1",
+        "x": 675,
+        "y": 350,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-bigb1-top-men",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "大アリーナB1",
+      "scope": "場内",
+      "location": "図上側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "hiroshima-bigb1",
+        "x": 400,
+        "y": 70,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-bigb1-top-women",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "大アリーナB1",
+      "scope": "場内",
+      "location": "図上側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "hiroshima-bigb1",
+        "x": 400,
+        "y": 70,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-bigb1-left-men",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "大アリーナB1",
+      "scope": "場内",
+      "location": "図左下側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "hiroshima-bigb1",
+        "x": 135,
+        "y": 395,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-bigb1-left-women",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "大アリーナB1",
+      "scope": "場内",
+      "location": "図左下側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "hiroshima-bigb1",
+        "x": 135,
+        "y": 395,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-bigb1-right-men",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "大アリーナB1",
+      "scope": "場内",
+      "location": "図右下側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "hiroshima-bigb1",
+        "x": 675,
+        "y": 395,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-bigb1-right-women",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "大アリーナB1",
+      "scope": "場内",
+      "location": "図右下側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "hiroshima-bigb1",
+        "x": 675,
+        "y": 395,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-bigb1-bl-men",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "大アリーナB1",
+      "scope": "場内",
+      "location": "図左下内側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "hiroshima-bigb1",
+        "x": 260,
+        "y": 450,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-bigb1-bl-accessible",
+      "name": "多目的トイレ",
+      "purpose": "トイレ",
+      "floor": "大アリーナB1",
+      "scope": "場内",
+      "location": "図左下内側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "hiroshima-bigb1",
+        "x": 260,
+        "y": 450,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-bigb1-bl-diaper",
+      "name": "おむつ交換台",
+      "purpose": "赤ちゃん",
+      "floor": "大アリーナB1",
+      "scope": "場内",
+      "location": "図左下内側",
+      "detail": "男女洗面所の掲載区域。多目的トイレのベビーチェアとは別設備です。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "kind": "diaper",
+      "anchor": {
+        "diagramId": "hiroshima-bigb1",
+        "x": 278,
+        "y": 468,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-bigb1-br-women",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "大アリーナB1",
+      "scope": "場内",
+      "location": "図右下内側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "hiroshima-bigb1",
+        "x": 555,
+        "y": 450,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-bigb1-br-diaper",
+      "name": "おむつ交換台",
+      "purpose": "赤ちゃん",
+      "floor": "大アリーナB1",
+      "scope": "場内",
+      "location": "図右下内側",
+      "detail": "男女洗面所の掲載区域。多目的トイレのベビーチェアとは別設備です。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "kind": "diaper",
+      "anchor": {
+        "diagramId": "hiroshima-bigb1",
+        "x": 573,
+        "y": 468,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-bigb1-bottom-men",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "大アリーナB1",
+      "scope": "場内",
+      "location": "ロビー下側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "hiroshima-bigb1",
+        "x": 410,
+        "y": 505,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-bigb1-bottom-women",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "大アリーナB1",
+      "scope": "場内",
+      "location": "ロビー下側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "hiroshima-bigb1",
+        "x": 410,
+        "y": 505,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-bigb1-bottom-accessible",
+      "name": "多目的トイレ",
+      "purpose": "トイレ",
+      "floor": "大アリーナB1",
+      "scope": "場内",
+      "location": "ロビー下側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "hiroshima-bigb1",
+        "x": 410,
+        "y": 505,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-body1-center-men",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "本館1F",
+      "scope": "場内",
+      "location": "総合受付下側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "hiroshima-body1",
+        "x": 325,
+        "y": 265,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-body1-center-women",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "本館1F",
+      "scope": "場内",
+      "location": "総合受付下側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "hiroshima-body1",
+        "x": 325,
+        "y": 265,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-body1-center-accessible",
+      "name": "多目的トイレ",
+      "purpose": "トイレ",
+      "floor": "本館1F",
+      "scope": "場内",
+      "location": "総合受付下側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "hiroshima-body1",
+        "x": 325,
+        "y": 265,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-body1-center-diaper",
+      "name": "おむつ交換台",
+      "purpose": "赤ちゃん",
+      "floor": "本館1F",
+      "scope": "場内",
+      "location": "総合受付下側",
+      "detail": "男女洗面所の掲載区域。多目的トイレのベビーチェアとは別設備です。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "kind": "diaper",
+      "anchor": {
+        "diagramId": "hiroshima-body1",
+        "x": 343,
+        "y": 283,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-bodyb1-center-men",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "本館B1",
+      "scope": "場内",
+      "location": "スポーツ情報センター横",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "hiroshima-bodyb1",
+        "x": 435,
+        "y": 340,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-bodyb1-center-women",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "本館B1",
+      "scope": "場内",
+      "location": "スポーツ情報センター横",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "hiroshima-bodyb1",
+        "x": 435,
+        "y": 340,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-bodyb1-center-accessible",
+      "name": "多目的トイレ",
+      "purpose": "トイレ",
+      "floor": "本館B1",
+      "scope": "場内",
+      "location": "スポーツ情報センター横",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "hiroshima-bodyb1",
+        "x": 435,
+        "y": 340,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-bodyb1-center-diaper",
+      "name": "おむつ交換台",
+      "purpose": "赤ちゃん",
+      "floor": "本館B1",
+      "scope": "場内",
+      "location": "スポーツ情報センター横",
+      "detail": "男女洗面所の掲載区域。多目的トイレのベビーチェアとは別設備です。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "kind": "diaper",
+      "anchor": {
+        "diagramId": "hiroshima-bodyb1",
+        "x": 453,
+        "y": 358,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-bodyb1-east-men",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "本館B1",
+      "scope": "場内",
+      "location": "大会議室側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "hiroshima-bodyb1",
+        "x": 680,
+        "y": 330,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-bodyb1-east-women",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "本館B1",
+      "scope": "場内",
+      "location": "大会議室側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "hiroshima-bodyb1",
+        "x": 680,
+        "y": 330,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-bodyb1-east-accessible",
+      "name": "多目的トイレ",
+      "purpose": "トイレ",
+      "floor": "本館B1",
+      "scope": "場内",
+      "location": "大会議室側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "hiroshima-bodyb1",
+        "x": 680,
+        "y": 330,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-small2-west-men",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "小アリーナ2F",
+      "scope": "場内",
+      "location": "図左側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "hiroshima-small2",
+        "x": 105,
+        "y": 200,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-small2-west-women",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "小アリーナ2F",
+      "scope": "場内",
+      "location": "図左側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "hiroshima-small2",
+        "x": 105,
+        "y": 200,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-small2-bottom-accessible",
+      "name": "多目的トイレ",
+      "purpose": "トイレ",
+      "floor": "小アリーナ2F",
+      "scope": "場内",
+      "location": "図下側多目的区域",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "hiroshima-small2",
+        "x": 280,
+        "y": 480,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-small3-west-men",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "小アリーナ3F",
+      "scope": "場内",
+      "location": "図左側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "hiroshima-small3",
+        "x": 100,
+        "y": 255,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-small3-west-women",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "小アリーナ3F",
+      "scope": "場内",
+      "location": "図左側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "hiroshima-small3",
+        "x": 100,
+        "y": 255,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-small3-west-accessible",
+      "name": "多目的トイレ",
+      "purpose": "トイレ",
+      "floor": "小アリーナ3F",
+      "scope": "場内",
+      "location": "図左側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "hiroshima-small3",
+        "x": 100,
+        "y": 255,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-small3-west-diaper",
+      "name": "おむつ交換台",
+      "purpose": "赤ちゃん",
+      "floor": "小アリーナ3F",
+      "scope": "場内",
+      "location": "図左側",
+      "detail": "男女洗面所の掲載区域。多目的トイレのベビーチェアとは別設備です。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "kind": "diaper",
+      "anchor": {
+        "diagramId": "hiroshima-small3",
+        "x": 118,
+        "y": 273,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-budo-upper-men",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "武道場B1",
+      "scope": "場内",
+      "location": "管理室上側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "hiroshima-budo",
+        "x": 645,
+        "y": 120,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-budo-upper-women",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "武道場B1",
+      "scope": "場内",
+      "location": "管理室上側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "hiroshima-budo",
+        "x": 645,
+        "y": 120,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-budo-upper-accessible",
+      "name": "多目的トイレ",
+      "purpose": "トイレ",
+      "floor": "武道場B1",
+      "scope": "場内",
+      "location": "管理室上側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "hiroshima-budo",
+        "x": 645,
+        "y": 120,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-budo-upper-diaper",
+      "name": "おむつ交換台",
+      "purpose": "赤ちゃん",
+      "floor": "武道場B1",
+      "scope": "場内",
+      "location": "管理室上側",
+      "detail": "男女洗面所の掲載区域。多目的トイレのベビーチェアとは別設備です。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "kind": "diaper",
+      "anchor": {
+        "diagramId": "hiroshima-budo",
+        "x": 663,
+        "y": 138,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-budo-lower-men",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "武道場B1",
+      "scope": "場内",
+      "location": "図右下側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "hiroshima-budo",
+        "x": 640,
+        "y": 390,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-budo-lower-women",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "武道場B1",
+      "scope": "場内",
+      "location": "図右下側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "hiroshima-budo",
+        "x": 640,
+        "y": 390,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-budo-lower-accessible",
+      "name": "多目的トイレ",
+      "purpose": "トイレ",
+      "floor": "武道場B1",
+      "scope": "場内",
+      "location": "図右下側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "hiroshima-budo",
+        "x": 640,
+        "y": 390,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-budo-lower-diaper",
+      "name": "おむつ交換台",
+      "purpose": "赤ちゃん",
+      "floor": "武道場B1",
+      "scope": "場内",
+      "location": "図右下側",
+      "detail": "男女洗面所の掲載区域。多目的トイレのベビーチェアとは別設備です。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "kind": "diaper",
+      "anchor": {
+        "diagramId": "hiroshima-budo",
+        "x": 658,
+        "y": 408,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-kyudo-east-men",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "弓道場B1",
+      "scope": "場内",
+      "location": "図右側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "hiroshima-kyudo",
+        "x": 665,
+        "y": 235,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-kyudo-east-women",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "弓道場B1",
+      "scope": "場内",
+      "location": "図右側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "hiroshima-kyudo",
+        "x": 665,
+        "y": 235,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-bodyb1-nursing",
+      "name": "本館 授乳室",
+      "purpose": "赤ちゃん",
+      "floor": "本館B1",
+      "scope": "場内",
+      "location": "スポーツ情報センター付近",
+      "detail": "施錠できる個室2室。館内ロッカーはこの授乳室の横です。",
+      "sourceIds": [
+        "qa-current",
+        "floor-current"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "kind": "nursing",
+      "anchor": {
+        "diagramId": "hiroshima-bodyb1",
+        "x": 355,
+        "y": 220,
+        "sourceIds": [
+          "qa-current",
+          "floor-current"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-budo-nursing",
+      "name": "武道場 授乳室",
+      "purpose": "赤ちゃん",
+      "floor": "武道場B1",
+      "scope": "場内",
+      "location": "武道場管理室付近",
+      "detail": "施錠できる個室2室。公演時の通行・利用条件は係員へ確認してください。",
+      "sourceIds": [
+        "qa-current",
+        "floor-current"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "kind": "nursing"
+    },
+    {
+      "id": "hiroshima-bodyb1-locker",
+      "name": "本館B1 コインロッカー",
+      "purpose": "荷物",
+      "floor": "本館B1",
+      "scope": "場内",
+      "location": "授乳室横",
+      "detail": "1台13口（小10口300円・中3口400円）。開館時間内のみ。21時以降は館内への出入りができず、取り出せません。公演の入場境界・空きは確認してください。",
+      "sourceIds": [
+        "qa-current"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "storageKind": "coin"
+    },
+    {
+      "id": "hiroshima-bodyb1-food",
+      "name": "食品自動販売機コーナー",
+      "purpose": "飲食",
+      "floor": "本館B1",
+      "scope": "場内",
+      "location": "スポーツ情報センター付近",
+      "detail": "パスタ・丼・カレー等9種類とセブンティーンアイス。売店・レストランはありません。飲食はロビー等のテーブルで。",
+      "sourceIds": [
+        "floor-current",
+        "qa-current"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "kind": "vending",
+      "anchor": {
+        "diagramId": "hiroshima-bodyb1",
+        "x": 365,
+        "y": 390,
+        "sourceIds": [
+          "floor-current",
+          "qa-current"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-bodyb1-kids",
+      "name": "キッズスペース",
+      "purpose": "赤ちゃん",
+      "floor": "本館B1",
+      "scope": "場内",
+      "location": "スポーツ情報センター内",
+      "detail": "10〜19時、0〜6歳の未就学児と保護者。休館・公演の開放条件を確認してください。",
+      "sourceIds": [
+        "floor-current"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "kind": "kids",
+      "anchor": {
+        "diagramId": "hiroshima-bodyb1",
+        "x": 485,
+        "y": 280,
+        "sourceIds": [
+          "floor-current"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-body1-aed",
+      "name": "総合受付 AED",
+      "purpose": "AED",
+      "floor": "本館1F",
+      "scope": "場内",
+      "location": "総合受付",
+      "detail": "公式フロアのAED掲載区域です。緊急時は係員へ知らせてください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "hiroshima-body1",
+        "x": 365,
+        "y": 145,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-bigb1-aed",
+      "name": "大アリーナ管理室 AED",
+      "purpose": "AED",
+      "floor": "大アリーナB1",
+      "scope": "場内",
+      "location": "大アリーナ管理室",
+      "detail": "公式フロアのAED掲載区域です。緊急時は係員へ知らせてください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "hiroshima-bigb1",
+        "x": 400,
+        "y": 470,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-budo-aed",
+      "name": "武道場管理室 AED",
+      "purpose": "AED",
+      "floor": "武道場B1",
+      "scope": "場内",
+      "location": "武道場管理室",
+      "detail": "公式フロアのAED掲載区域です。緊急時は係員へ知らせてください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "hiroshima-budo",
+        "x": 595,
+        "y": 200,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-bodyb1-aed",
+      "name": "フィットネスプラザ AED",
+      "purpose": "AED",
+      "floor": "本館B1",
+      "scope": "場内",
+      "location": "フィットネスプラザ受付",
+      "detail": "公式フロアのAED掲載区域です。緊急時は係員へ知らせてください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "hiroshima-bodyb1",
+        "x": 185,
+        "y": 345,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-body1-office",
+      "name": "総合受付",
+      "purpose": "案内",
+      "floor": "本館1F",
+      "scope": "場内",
+      "location": "総合受付",
+      "detail": "公演の入場口・設備利用については会場係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "hiroshima-body1",
+        "x": 365,
+        "y": 145,
+        "sourceIds": [
+          "floor-guide"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-bigb1-office",
+      "name": "大アリーナ管理室",
+      "purpose": "案内",
+      "floor": "大アリーナB1",
+      "scope": "場内",
+      "location": "大アリーナ管理室",
+      "detail": "公演の入場口・設備利用については会場係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "hiroshima-bigb1",
+        "x": 400,
+        "y": 470,
+        "sourceIds": [
+          "floor-guide"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-budo-office",
+      "name": "武道場管理室",
+      "purpose": "案内",
+      "floor": "武道場B1",
+      "scope": "場内",
+      "location": "武道場管理室",
+      "detail": "公演の入場口・設備利用については会場係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "hiroshima-budo",
+        "x": 595,
+        "y": 200,
+        "sourceIds": [
+          "floor-guide"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-kyudo-office",
+      "name": "弓道場管理室",
+      "purpose": "案内",
+      "floor": "弓道場B1",
+      "scope": "場内",
+      "location": "弓道場管理室",
+      "detail": "公演の入場口・設備利用については会場係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "hiroshima-kyudo",
+        "x": 350,
+        "y": 450,
+        "sourceIds": [
+          "floor-guide"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-big1-wheel",
+      "name": "貸出車いす",
+      "purpose": "案内",
+      "floor": "大アリーナ1F",
+      "scope": "場内",
+      "location": "ロビー エレベーター付近",
+      "detail": "棟ごとの貸出車いす。空き・貸出条件は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "kind": "wheelchair",
+      "anchor": {
+        "diagramId": "hiroshima-big1",
+        "x": 470,
+        "y": 485,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-body1-wheel",
+      "name": "貸出車いす",
+      "purpose": "案内",
+      "floor": "本館1F",
+      "scope": "場内",
+      "location": "総合受付付近",
+      "detail": "棟ごとの貸出車いす。空き・貸出条件は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "kind": "wheelchair",
+      "anchor": {
+        "diagramId": "hiroshima-body1",
+        "x": 315,
+        "y": 135,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-budo-wheel",
+      "name": "貸出車いす",
+      "purpose": "案内",
+      "floor": "武道場B1",
+      "scope": "場内",
+      "location": "管理室付近",
+      "detail": "棟ごとの貸出車いす。空き・貸出条件は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "kind": "wheelchair",
+      "anchor": {
+        "diagramId": "hiroshima-budo",
+        "x": 640,
+        "y": 220,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-kyudo-wheel",
+      "name": "貸出車いす",
+      "purpose": "案内",
+      "floor": "弓道場B1",
+      "scope": "場内",
+      "location": "管理室付近",
+      "detail": "棟ごとの貸出車いす。空き・貸出条件は係員へ確認してください。",
+      "sourceIds": [
+        "floor-guide",
+        "universal"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "kind": "wheelchair",
+      "anchor": {
+        "diagramId": "hiroshima-kyudo",
+        "x": 350,
+        "y": 450,
+        "sourceIds": [
+          "floor-guide",
+          "universal"
+        ],
+        "reference": "公式同棟階の代表区域。個別入口・機械位置は未確定"
+      }
+    },
+    {
+      "id": "hiroshima-bus-locker",
+      "name": "広島バスセンター コインロッカー",
+      "purpose": "荷物",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "広島バスセンター3F №23",
+      "detail": "5:30〜24:00。小500円・中600円・大800円。当日を含む3日間を超えると別途保管（取り扱い9〜18時）。空き・内寸は確認してください。",
+      "sourceIds": [
+        "bus-current"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "storageKind": "coin"
+    },
+    {
+      "id": "hiroshima-bus-staff",
+      "name": "広島バスセンター 有人預かり",
+      "purpose": "荷物",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "バス案内所に問い合わせ → ターミナル課事務所",
+      "detail": "ロッカーに入らない荷物を有料で預かります。受付9〜20時、当日の受付時間内。料金はロッカーと同等。総合案内所の営業時間9〜17時と区別してください。",
+      "sourceIds": [
+        "bus-current"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "storageKind": "staffed"
+    },
+    {
+      "id": "hiroshima-kencho-locker",
+      "name": "県庁前駅 コインロッカー",
+      "purpose": "荷物",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "アストラムライン県庁前駅",
+      "detail": "公式FAQの利用時間6〜24時。個別階・機械位置・料金・改札境界は確認中。駅員へ確認してください。",
+      "sourceIds": [
+        "astram-current",
+        "astram-kencho"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "storageKind": "coin"
+    },
+    {
+      "id": "hiroshima-hondori-locker",
+      "name": "本通駅 コインロッカー",
+      "purpose": "荷物",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "アストラムライン本通駅",
+      "detail": "公式FAQの利用時間6〜24時。個別階・機械位置・料金・改札境界は確認中。駅員へ確認してください。",
+      "sourceIds": [
+        "astram-current"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "storageKind": "coin"
+    },
+    {
+      "id": "hiroshima-crosta",
+      "name": "Crosta広島 一時預かり",
+      "purpose": "荷物",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "JR広島駅北側2F",
+      "detail": "9〜20時、1個1000円。最大30日、延長は1個1日単位で加算。20時を過ぎると翌日9時まで引き取り不可、追加料金あり。満杯時は受付を停止する場合があります。ホテル配送は別サービスです。",
+      "sourceIds": [
+        "crosta-current"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "storageKind": "staffed"
+    },
+    {
+      "id": "hiroshima-starbucks",
+      "name": "スターバックス 広島市中央公園店",
+      "purpose": "飲食",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "SHIMINT HIROSHIMA F棟",
+      "detail": "8〜21時、不定休。臨時変更は店舗案内を確認してください。個別入口位置・会場からの連続経路は確認中。",
+      "sourceIds": [
+        "starbucks"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed"
+    },
+    {
+      "id": "hiroshima-goodspoon",
+      "name": "goodspoon シミント広島店",
+      "purpose": "飲食",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "SHIMINT HIROSHIMA B棟2F",
+      "detail": "9〜22時。料理L.O.21時・ドリンクL.O.21:30。時間帯別メニューと臨時休業は店舗案内へ。個別入口は確認中。",
+      "sourceIds": [
+        "goodspoon"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed"
+    },
+    {
+      "id": "hiroshima-lawson-bus",
+      "name": "ローソン 広島バスセンター店",
+      "purpose": "飲食",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "広島バスセンター3F",
+      "detail": "7〜22時。軽食・飲み物。店舗営業時間と荷物受付時間は異なります。",
+      "sourceIds": [
+        "bus-current"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed"
+    },
+    {
+      "id": "hiroshima-bus-info",
+      "name": "広島バスセンター 総合案内所",
+      "purpose": "案内",
+      "floor": "場外",
+      "scope": "場外",
+      "location": "広島バスセンター3F",
+      "detail": "総合案内・高速きっぷ9〜17時（観光案内9〜16時）。手荷物受付9〜20時は別条件です。",
+      "sourceIds": [
+        "bus-current"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed"
+    }
+  ],
+  "groups": [
+    {
+      "id": "hiroshima-group-big1-tl",
+      "diagramId": "hiroshima-big1",
+      "purpose": "トイレ",
+      "label": "図左上側",
+      "area": "大アリーナ1F",
+      "memberIds": [
+        "hiroshima-big1-tl-women"
+      ],
+      "x": 225,
+      "y": 110,
+      "boundary": "同一棟・階・目的の公式掲載区域。別区画を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-group-big1-tl-baby",
+      "diagramId": "hiroshima-big1",
+      "purpose": "赤ちゃん",
+      "label": "図左上側",
+      "area": "大アリーナ1F",
+      "memberIds": [
+        "hiroshima-big1-tl-diaper"
+      ],
+      "x": 243,
+      "y": 128,
+      "boundary": "同一棟・階・目的の公式掲載区域。別区画を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-group-big1-tr",
+      "diagramId": "hiroshima-big1",
+      "purpose": "トイレ",
+      "label": "図右上側",
+      "area": "大アリーナ1F",
+      "memberIds": [
+        "hiroshima-big1-tr-men"
+      ],
+      "x": 570,
+      "y": 110,
+      "boundary": "同一棟・階・目的の公式掲載区域。別区画を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-group-big1-tr-baby",
+      "diagramId": "hiroshima-big1",
+      "purpose": "赤ちゃん",
+      "label": "図右上側",
+      "area": "大アリーナ1F",
+      "memberIds": [
+        "hiroshima-big1-tr-diaper"
+      ],
+      "x": 588,
+      "y": 128,
+      "boundary": "同一棟・階・目的の公式掲載区域。別区画を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-group-big1-bl",
+      "diagramId": "hiroshima-big1",
+      "purpose": "トイレ",
+      "label": "図左下側",
+      "area": "大アリーナ1F",
+      "memberIds": [
+        "hiroshima-big1-bl-men"
+      ],
+      "x": 235,
+      "y": 420,
+      "boundary": "同一棟・階・目的の公式掲載区域。別区画を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-group-big1-bl-baby",
+      "diagramId": "hiroshima-big1",
+      "purpose": "赤ちゃん",
+      "label": "図左下側",
+      "area": "大アリーナ1F",
+      "memberIds": [
+        "hiroshima-big1-bl-diaper"
+      ],
+      "x": 253,
+      "y": 438,
+      "boundary": "同一棟・階・目的の公式掲載区域。別区画を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-group-big1-br",
+      "diagramId": "hiroshima-big1",
+      "purpose": "トイレ",
+      "label": "図右下側",
+      "area": "大アリーナ1F",
+      "memberIds": [
+        "hiroshima-big1-br-women"
+      ],
+      "x": 580,
+      "y": 420,
+      "boundary": "同一棟・階・目的の公式掲載区域。別区画を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-group-big1-br-baby",
+      "diagramId": "hiroshima-big1",
+      "purpose": "赤ちゃん",
+      "label": "図右下側",
+      "area": "大アリーナ1F",
+      "memberIds": [
+        "hiroshima-big1-br-diaper"
+      ],
+      "x": 598,
+      "y": 438,
+      "boundary": "同一棟・階・目的の公式掲載区域。別区画を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-group-big1-al",
+      "diagramId": "hiroshima-big1",
+      "purpose": "トイレ",
+      "label": "図左下の多目的区域",
+      "area": "大アリーナ1F",
+      "memberIds": [
+        "hiroshima-big1-al-accessible"
+      ],
+      "x": 120,
+      "y": 350,
+      "boundary": "同一棟・階・目的の公式掲載区域。別区画を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-group-big1-ar",
+      "diagramId": "hiroshima-big1",
+      "purpose": "トイレ",
+      "label": "図右下の多目的区域",
+      "area": "大アリーナ1F",
+      "memberIds": [
+        "hiroshima-big1-ar-accessible"
+      ],
+      "x": 675,
+      "y": 350,
+      "boundary": "同一棟・階・目的の公式掲載区域。別区画を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-group-bigb1-top",
+      "diagramId": "hiroshima-bigb1",
+      "purpose": "トイレ",
+      "label": "図上側",
+      "area": "大アリーナB1",
+      "memberIds": [
+        "hiroshima-bigb1-top-men",
+        "hiroshima-bigb1-top-women"
+      ],
+      "x": 400,
+      "y": 70,
+      "boundary": "同一棟・階・目的の公式掲載区域。別区画を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-group-bigb1-left",
+      "diagramId": "hiroshima-bigb1",
+      "purpose": "トイレ",
+      "label": "図左下側",
+      "area": "大アリーナB1",
+      "memberIds": [
+        "hiroshima-bigb1-left-men",
+        "hiroshima-bigb1-left-women"
+      ],
+      "x": 135,
+      "y": 395,
+      "boundary": "同一棟・階・目的の公式掲載区域。別区画を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-group-bigb1-right",
+      "diagramId": "hiroshima-bigb1",
+      "purpose": "トイレ",
+      "label": "図右下側",
+      "area": "大アリーナB1",
+      "memberIds": [
+        "hiroshima-bigb1-right-men",
+        "hiroshima-bigb1-right-women"
+      ],
+      "x": 675,
+      "y": 395,
+      "boundary": "同一棟・階・目的の公式掲載区域。別区画を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-group-bigb1-bl",
+      "diagramId": "hiroshima-bigb1",
+      "purpose": "トイレ",
+      "label": "図左下内側",
+      "area": "大アリーナB1",
+      "memberIds": [
+        "hiroshima-bigb1-bl-men",
+        "hiroshima-bigb1-bl-accessible"
+      ],
+      "x": 260,
+      "y": 450,
+      "boundary": "同一棟・階・目的の公式掲載区域。別区画を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-group-bigb1-bl-baby",
+      "diagramId": "hiroshima-bigb1",
+      "purpose": "赤ちゃん",
+      "label": "図左下内側",
+      "area": "大アリーナB1",
+      "memberIds": [
+        "hiroshima-bigb1-bl-diaper"
+      ],
+      "x": 278,
+      "y": 468,
+      "boundary": "同一棟・階・目的の公式掲載区域。別区画を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-group-bigb1-br",
+      "diagramId": "hiroshima-bigb1",
+      "purpose": "トイレ",
+      "label": "図右下内側",
+      "area": "大アリーナB1",
+      "memberIds": [
+        "hiroshima-bigb1-br-women"
+      ],
+      "x": 555,
+      "y": 450,
+      "boundary": "同一棟・階・目的の公式掲載区域。別区画を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-group-bigb1-br-baby",
+      "diagramId": "hiroshima-bigb1",
+      "purpose": "赤ちゃん",
+      "label": "図右下内側",
+      "area": "大アリーナB1",
+      "memberIds": [
+        "hiroshima-bigb1-br-diaper"
+      ],
+      "x": 573,
+      "y": 468,
+      "boundary": "同一棟・階・目的の公式掲載区域。別区画を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-group-bigb1-bottom",
+      "diagramId": "hiroshima-bigb1",
+      "purpose": "トイレ",
+      "label": "ロビー下側",
+      "area": "大アリーナB1",
+      "memberIds": [
+        "hiroshima-bigb1-bottom-men",
+        "hiroshima-bigb1-bottom-women",
+        "hiroshima-bigb1-bottom-accessible"
+      ],
+      "x": 410,
+      "y": 505,
+      "boundary": "同一棟・階・目的の公式掲載区域。別区画を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-group-body1-center",
+      "diagramId": "hiroshima-body1",
+      "purpose": "トイレ",
+      "label": "総合受付下側",
+      "area": "本館1F",
+      "memberIds": [
+        "hiroshima-body1-center-men",
+        "hiroshima-body1-center-women",
+        "hiroshima-body1-center-accessible"
+      ],
+      "x": 325,
+      "y": 265,
+      "boundary": "同一棟・階・目的の公式掲載区域。別区画を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-group-body1-center-baby",
+      "diagramId": "hiroshima-body1",
+      "purpose": "赤ちゃん",
+      "label": "総合受付下側",
+      "area": "本館1F",
+      "memberIds": [
+        "hiroshima-body1-center-diaper"
+      ],
+      "x": 343,
+      "y": 283,
+      "boundary": "同一棟・階・目的の公式掲載区域。別区画を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-group-bodyb1-center",
+      "diagramId": "hiroshima-bodyb1",
+      "purpose": "トイレ",
+      "label": "スポーツ情報センター横",
+      "area": "本館B1",
+      "memberIds": [
+        "hiroshima-bodyb1-center-men",
+        "hiroshima-bodyb1-center-women",
+        "hiroshima-bodyb1-center-accessible"
+      ],
+      "x": 435,
+      "y": 340,
+      "boundary": "同一棟・階・目的の公式掲載区域。別区画を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-group-bodyb1-center-baby",
+      "diagramId": "hiroshima-bodyb1",
+      "purpose": "赤ちゃん",
+      "label": "スポーツ情報センター横",
+      "area": "本館B1",
+      "memberIds": [
+        "hiroshima-bodyb1-center-diaper"
+      ],
+      "x": 453,
+      "y": 358,
+      "boundary": "同一棟・階・目的の公式掲載区域。別区画を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-group-bodyb1-east",
+      "diagramId": "hiroshima-bodyb1",
+      "purpose": "トイレ",
+      "label": "大会議室側",
+      "area": "本館B1",
+      "memberIds": [
+        "hiroshima-bodyb1-east-men",
+        "hiroshima-bodyb1-east-women",
+        "hiroshima-bodyb1-east-accessible"
+      ],
+      "x": 680,
+      "y": 330,
+      "boundary": "同一棟・階・目的の公式掲載区域。別区画を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-group-small2-west",
+      "diagramId": "hiroshima-small2",
+      "purpose": "トイレ",
+      "label": "図左側",
+      "area": "小アリーナ2F",
+      "memberIds": [
+        "hiroshima-small2-west-men",
+        "hiroshima-small2-west-women"
+      ],
+      "x": 105,
+      "y": 200,
+      "boundary": "同一棟・階・目的の公式掲載区域。別区画を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-group-small2-bottom",
+      "diagramId": "hiroshima-small2",
+      "purpose": "トイレ",
+      "label": "図下側多目的区域",
+      "area": "小アリーナ2F",
+      "memberIds": [
+        "hiroshima-small2-bottom-accessible"
+      ],
+      "x": 280,
+      "y": 480,
+      "boundary": "同一棟・階・目的の公式掲載区域。別区画を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-group-small3-west",
+      "diagramId": "hiroshima-small3",
+      "purpose": "トイレ",
+      "label": "図左側",
+      "area": "小アリーナ3F",
+      "memberIds": [
+        "hiroshima-small3-west-men",
+        "hiroshima-small3-west-women",
+        "hiroshima-small3-west-accessible"
+      ],
+      "x": 100,
+      "y": 255,
+      "boundary": "同一棟・階・目的の公式掲載区域。別区画を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-group-small3-west-baby",
+      "diagramId": "hiroshima-small3",
+      "purpose": "赤ちゃん",
+      "label": "図左側",
+      "area": "小アリーナ3F",
+      "memberIds": [
+        "hiroshima-small3-west-diaper"
+      ],
+      "x": 118,
+      "y": 273,
+      "boundary": "同一棟・階・目的の公式掲載区域。別区画を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-group-budo-upper",
+      "diagramId": "hiroshima-budo",
+      "purpose": "トイレ",
+      "label": "管理室上側",
+      "area": "武道場B1",
+      "memberIds": [
+        "hiroshima-budo-upper-men",
+        "hiroshima-budo-upper-women",
+        "hiroshima-budo-upper-accessible"
+      ],
+      "x": 645,
+      "y": 120,
+      "boundary": "同一棟・階・目的の公式掲載区域。別区画を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-group-budo-upper-baby",
+      "diagramId": "hiroshima-budo",
+      "purpose": "赤ちゃん",
+      "label": "管理室上側",
+      "area": "武道場B1",
+      "memberIds": [
+        "hiroshima-budo-upper-diaper"
+      ],
+      "x": 663,
+      "y": 138,
+      "boundary": "同一棟・階・目的の公式掲載区域。別区画を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-group-budo-lower",
+      "diagramId": "hiroshima-budo",
+      "purpose": "トイレ",
+      "label": "図右下側",
+      "area": "武道場B1",
+      "memberIds": [
+        "hiroshima-budo-lower-men",
+        "hiroshima-budo-lower-women",
+        "hiroshima-budo-lower-accessible"
+      ],
+      "x": 640,
+      "y": 390,
+      "boundary": "同一棟・階・目的の公式掲載区域。別区画を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-group-budo-lower-baby",
+      "diagramId": "hiroshima-budo",
+      "purpose": "赤ちゃん",
+      "label": "図右下側",
+      "area": "武道場B1",
+      "memberIds": [
+        "hiroshima-budo-lower-diaper"
+      ],
+      "x": 658,
+      "y": 408,
+      "boundary": "同一棟・階・目的の公式掲載区域。別区画を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-group-kyudo-east",
+      "diagramId": "hiroshima-kyudo",
+      "purpose": "トイレ",
+      "label": "図右側",
+      "area": "弓道場B1",
+      "memberIds": [
+        "hiroshima-kyudo-east-men",
+        "hiroshima-kyudo-east-women"
+      ],
+      "x": 665,
+      "y": 235,
+      "boundary": "同一棟・階・目的の公式掲載区域。別区画を混ぜない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-bodyb1-nursing-group",
+      "diagramId": "hiroshima-bodyb1",
+      "purpose": "赤ちゃん",
+      "label": "スポーツ情報センター付近",
+      "area": "本館B1",
+      "memberIds": [
+        "hiroshima-bodyb1-nursing"
+      ],
+      "x": 355,
+      "y": 220,
+      "boundary": "同棟・階の単独掲載区域。個別入口は未確定",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-bodyb1-food-group",
+      "diagramId": "hiroshima-bodyb1",
+      "purpose": "飲食",
+      "label": "スポーツ情報センター付近",
+      "area": "本館B1",
+      "memberIds": [
+        "hiroshima-bodyb1-food"
+      ],
+      "x": 365,
+      "y": 390,
+      "boundary": "同棟・階の単独掲載区域。個別入口は未確定",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-bodyb1-kids-group",
+      "diagramId": "hiroshima-bodyb1",
+      "purpose": "赤ちゃん",
+      "label": "スポーツ情報センター内",
+      "area": "本館B1",
+      "memberIds": [
+        "hiroshima-bodyb1-kids"
+      ],
+      "x": 485,
+      "y": 280,
+      "boundary": "同棟・階の単独掲載区域。個別入口は未確定",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-body1-aed-group",
+      "diagramId": "hiroshima-body1",
+      "purpose": "AED",
+      "label": "総合受付",
+      "area": "本館1F",
+      "memberIds": [
+        "hiroshima-body1-aed"
+      ],
+      "x": 365,
+      "y": 145,
+      "boundary": "同棟・階の単独掲載区域。個別入口は未確定",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-bigb1-aed-group",
+      "diagramId": "hiroshima-bigb1",
+      "purpose": "AED",
+      "label": "大アリーナ管理室",
+      "area": "大アリーナB1",
+      "memberIds": [
+        "hiroshima-bigb1-aed"
+      ],
+      "x": 400,
+      "y": 470,
+      "boundary": "同棟・階の単独掲載区域。個別入口は未確定",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-budo-aed-group",
+      "diagramId": "hiroshima-budo",
+      "purpose": "AED",
+      "label": "武道場管理室",
+      "area": "武道場B1",
+      "memberIds": [
+        "hiroshima-budo-aed"
+      ],
+      "x": 595,
+      "y": 200,
+      "boundary": "同棟・階の単独掲載区域。個別入口は未確定",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-bodyb1-aed-group",
+      "diagramId": "hiroshima-bodyb1",
+      "purpose": "AED",
+      "label": "フィットネスプラザ受付",
+      "area": "本館B1",
+      "memberIds": [
+        "hiroshima-bodyb1-aed"
+      ],
+      "x": 185,
+      "y": 345,
+      "boundary": "同棟・階の単独掲載区域。個別入口は未確定",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-body1-office-group",
+      "diagramId": "hiroshima-body1",
+      "purpose": "案内",
+      "label": "総合受付",
+      "area": "本館1F",
+      "memberIds": [
+        "hiroshima-body1-office"
+      ],
+      "x": 365,
+      "y": 145,
+      "boundary": "同棟・階の単独掲載区域。個別入口は未確定",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-bigb1-office-group",
+      "diagramId": "hiroshima-bigb1",
+      "purpose": "案内",
+      "label": "大アリーナ管理室",
+      "area": "大アリーナB1",
+      "memberIds": [
+        "hiroshima-bigb1-office"
+      ],
+      "x": 400,
+      "y": 470,
+      "boundary": "同棟・階の単独掲載区域。個別入口は未確定",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-budo-office-group",
+      "diagramId": "hiroshima-budo",
+      "purpose": "案内",
+      "label": "武道場管理室",
+      "area": "武道場B1",
+      "memberIds": [
+        "hiroshima-budo-office"
+      ],
+      "x": 595,
+      "y": 200,
+      "boundary": "同棟・階の単独掲載区域。個別入口は未確定",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-kyudo-office-group",
+      "diagramId": "hiroshima-kyudo",
+      "purpose": "案内",
+      "label": "弓道場管理室",
+      "area": "弓道場B1",
+      "memberIds": [
+        "hiroshima-kyudo-office"
+      ],
+      "x": 350,
+      "y": 450,
+      "boundary": "同棟・階の単独掲載区域。個別入口は未確定",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-big1-wheel-group",
+      "diagramId": "hiroshima-big1",
+      "purpose": "案内",
+      "label": "ロビー エレベーター付近",
+      "area": "大アリーナ1F",
+      "memberIds": [
+        "hiroshima-big1-wheel"
+      ],
+      "x": 470,
+      "y": 485,
+      "boundary": "同棟・階の単独掲載区域。個別入口は未確定",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-body1-wheel-group",
+      "diagramId": "hiroshima-body1",
+      "purpose": "案内",
+      "label": "総合受付付近",
+      "area": "本館1F",
+      "memberIds": [
+        "hiroshima-body1-wheel"
+      ],
+      "x": 315,
+      "y": 135,
+      "boundary": "同棟・階の単独掲載区域。個別入口は未確定",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-budo-wheel-group",
+      "diagramId": "hiroshima-budo",
+      "purpose": "案内",
+      "label": "管理室付近",
+      "area": "武道場B1",
+      "memberIds": [
+        "hiroshima-budo-wheel"
+      ],
+      "x": 640,
+      "y": 220,
+      "boundary": "同棟・階の単独掲載区域。個別入口は未確定",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "hiroshima-kyudo-wheel-group",
+      "diagramId": "hiroshima-kyudo",
+      "purpose": "案内",
+      "label": "管理室付近",
+      "area": "弓道場B1",
+      "memberIds": [
+        "hiroshima-kyudo-wheel"
+      ],
+      "x": 350,
+      "y": 450,
+      "boundary": "同棟・階の単独掲載区域。個別入口は未確定",
+      "visualReview": "source-checked"
+    }
+  ],
+  "meta": {
+    "hiroshima-big1-tl-women": {
+      "location": "図左上側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "area": "大アリーナ1F",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-big1-tl-diaper": {
+      "location": "図左上側",
+      "detail": "男女洗面所の掲載区域。多目的トイレのベビーチェアとは別設備です。",
+      "area": "大アリーナ1F",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-big1-tr-men": {
+      "location": "図右上側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "area": "大アリーナ1F",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-big1-tr-diaper": {
+      "location": "図右上側",
+      "detail": "男女洗面所の掲載区域。多目的トイレのベビーチェアとは別設備です。",
+      "area": "大アリーナ1F",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-big1-bl-men": {
+      "location": "図左下側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "area": "大アリーナ1F",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-big1-bl-diaper": {
+      "location": "図左下側",
+      "detail": "男女洗面所の掲載区域。多目的トイレのベビーチェアとは別設備です。",
+      "area": "大アリーナ1F",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-big1-br-women": {
+      "location": "図右下側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "area": "大アリーナ1F",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-big1-br-diaper": {
+      "location": "図右下側",
+      "detail": "男女洗面所の掲載区域。多目的トイレのベビーチェアとは別設備です。",
+      "area": "大アリーナ1F",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-big1-al-accessible": {
+      "location": "図左下の多目的区域",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "area": "大アリーナ1F",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-big1-ar-accessible": {
+      "location": "図右下の多目的区域",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "area": "大アリーナ1F",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-bigb1-top-men": {
+      "location": "図上側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "area": "大アリーナB1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-bigb1-top-women": {
+      "location": "図上側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "area": "大アリーナB1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-bigb1-left-men": {
+      "location": "図左下側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "area": "大アリーナB1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-bigb1-left-women": {
+      "location": "図左下側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "area": "大アリーナB1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-bigb1-right-men": {
+      "location": "図右下側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "area": "大アリーナB1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-bigb1-right-women": {
+      "location": "図右下側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "area": "大アリーナB1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-bigb1-bl-men": {
+      "location": "図左下内側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "area": "大アリーナB1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-bigb1-bl-accessible": {
+      "location": "図左下内側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "area": "大アリーナB1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-bigb1-bl-diaper": {
+      "location": "図左下内側",
+      "detail": "男女洗面所の掲載区域。多目的トイレのベビーチェアとは別設備です。",
+      "area": "大アリーナB1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-bigb1-br-women": {
+      "location": "図右下内側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "area": "大アリーナB1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-bigb1-br-diaper": {
+      "location": "図右下内側",
+      "detail": "男女洗面所の掲載区域。多目的トイレのベビーチェアとは別設備です。",
+      "area": "大アリーナB1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-bigb1-bottom-men": {
+      "location": "ロビー下側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "area": "大アリーナB1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-bigb1-bottom-women": {
+      "location": "ロビー下側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "area": "大アリーナB1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-bigb1-bottom-accessible": {
+      "location": "ロビー下側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "area": "大アリーナB1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-body1-center-men": {
+      "location": "総合受付下側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "area": "本館1F",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-body1-center-women": {
+      "location": "総合受付下側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "area": "本館1F",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-body1-center-accessible": {
+      "location": "総合受付下側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "area": "本館1F",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-body1-center-diaper": {
+      "location": "総合受付下側",
+      "detail": "男女洗面所の掲載区域。多目的トイレのベビーチェアとは別設備です。",
+      "area": "本館1F",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-bodyb1-center-men": {
+      "location": "スポーツ情報センター横",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "area": "本館B1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-bodyb1-center-women": {
+      "location": "スポーツ情報センター横",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "area": "本館B1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-bodyb1-center-accessible": {
+      "location": "スポーツ情報センター横",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "area": "本館B1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-bodyb1-center-diaper": {
+      "location": "スポーツ情報センター横",
+      "detail": "男女洗面所の掲載区域。多目的トイレのベビーチェアとは別設備です。",
+      "area": "本館B1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-bodyb1-east-men": {
+      "location": "大会議室側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "area": "本館B1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-bodyb1-east-women": {
+      "location": "大会議室側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "area": "本館B1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-bodyb1-east-accessible": {
+      "location": "大会議室側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "area": "本館B1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-small2-west-men": {
+      "location": "図左側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "area": "小アリーナ2F",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-small2-west-women": {
+      "location": "図左側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "area": "小アリーナ2F",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-small2-bottom-accessible": {
+      "location": "図下側多目的区域",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "area": "小アリーナ2F",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-small3-west-men": {
+      "location": "図左側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "area": "小アリーナ3F",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-small3-west-women": {
+      "location": "図左側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "area": "小アリーナ3F",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-small3-west-accessible": {
+      "location": "図左側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "area": "小アリーナ3F",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-small3-west-diaper": {
+      "location": "図左側",
+      "detail": "男女洗面所の掲載区域。多目的トイレのベビーチェアとは別設備です。",
+      "area": "小アリーナ3F",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-budo-upper-men": {
+      "location": "管理室上側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "area": "武道場B1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-budo-upper-women": {
+      "location": "管理室上側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "area": "武道場B1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-budo-upper-accessible": {
+      "location": "管理室上側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "area": "武道場B1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-budo-upper-diaper": {
+      "location": "管理室上側",
+      "detail": "男女洗面所の掲載区域。多目的トイレのベビーチェアとは別設備です。",
+      "area": "武道場B1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-budo-lower-men": {
+      "location": "図右下側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "area": "武道場B1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-budo-lower-women": {
+      "location": "図右下側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "area": "武道場B1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-budo-lower-accessible": {
+      "location": "図右下側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "area": "武道場B1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-budo-lower-diaper": {
+      "location": "図右下側",
+      "detail": "男女洗面所の掲載区域。多目的トイレのベビーチェアとは別設備です。",
+      "area": "武道場B1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-kyudo-east-men": {
+      "location": "図右側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "area": "弓道場B1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-kyudo-east-women": {
+      "location": "図右側",
+      "detail": "公式フロア掲載区域。公演時の開放範囲は係員へ確認してください。",
+      "area": "弓道場B1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-bodyb1-nursing": {
+      "location": "スポーツ情報センター付近",
+      "detail": "施錠できる個室2室。館内ロッカーはこの授乳室の横です。",
+      "area": "本館B1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/sports-center/faq/"
+    },
+    "hiroshima-budo-nursing": {
+      "location": "武道場管理室付近",
+      "detail": "施錠できる個室2室。公演時の通行・利用条件は係員へ確認してください。",
+      "area": "武道場B1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/sports-center/faq/"
+    },
+    "hiroshima-bodyb1-locker": {
+      "location": "授乳室横",
+      "detail": "1台13口（小10口300円・中3口400円）。開館時間内のみ。21時以降は館内への出入りができず、取り出せません。公演の入場境界・空きは確認してください。",
+      "area": "本館B1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/sports-center/faq/"
+    },
+    "hiroshima-bodyb1-food": {
+      "location": "スポーツ情報センター付近",
+      "detail": "パスタ・丼・カレー等9種類とセブンティーンアイス。売店・レストランはありません。飲食はロビー等のテーブルで。",
+      "area": "本館B1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/sports-center/center-facility/"
+    },
+    "hiroshima-bodyb1-kids": {
+      "location": "スポーツ情報センター内",
+      "detail": "10〜19時、0〜6歳の未就学児と保護者。休館・公演の開放条件を確認してください。",
+      "area": "本館B1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/sports-center/center-facility/"
+    },
+    "hiroshima-body1-aed": {
+      "location": "総合受付",
+      "detail": "公式フロアのAED掲載区域です。緊急時は係員へ知らせてください。",
+      "area": "本館1F",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-bigb1-aed": {
+      "location": "大アリーナ管理室",
+      "detail": "公式フロアのAED掲載区域です。緊急時は係員へ知らせてください。",
+      "area": "大アリーナB1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-budo-aed": {
+      "location": "武道場管理室",
+      "detail": "公式フロアのAED掲載区域です。緊急時は係員へ知らせてください。",
+      "area": "武道場B1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-bodyb1-aed": {
+      "location": "フィットネスプラザ受付",
+      "detail": "公式フロアのAED掲載区域です。緊急時は係員へ知らせてください。",
+      "area": "本館B1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-body1-office": {
+      "location": "総合受付",
+      "detail": "公演の入場口・設備利用については会場係員へ確認してください。",
+      "area": "本館1F",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-bigb1-office": {
+      "location": "大アリーナ管理室",
+      "detail": "公演の入場口・設備利用については会場係員へ確認してください。",
+      "area": "大アリーナB1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-budo-office": {
+      "location": "武道場管理室",
+      "detail": "公演の入場口・設備利用については会場係員へ確認してください。",
+      "area": "武道場B1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-kyudo-office": {
+      "location": "弓道場管理室",
+      "detail": "公演の入場口・設備利用については会場係員へ確認してください。",
+      "area": "弓道場B1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-big1-wheel": {
+      "location": "ロビー エレベーター付近",
+      "detail": "棟ごとの貸出車いす。空き・貸出条件は係員へ確認してください。",
+      "area": "大アリーナ1F",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-body1-wheel": {
+      "location": "総合受付付近",
+      "detail": "棟ごとの貸出車いす。空き・貸出条件は係員へ確認してください。",
+      "area": "本館1F",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-budo-wheel": {
+      "location": "管理室付近",
+      "detail": "棟ごとの貸出車いす。空き・貸出条件は係員へ確認してください。",
+      "area": "武道場B1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-kyudo-wheel": {
+      "location": "管理室付近",
+      "detail": "棟ごとの貸出車いす。空き・貸出条件は係員へ確認してください。",
+      "area": "弓道場B1",
+      "accessCondition": "催事の開放・入場境界は主催者案内を確認",
+      "url": "https://h-jigyoudan.or.jp/wp/wp-content/uploads/2022/01/%E3%83%95%E3%83%AD%E3%82%A2%E3%82%AC%E3%82%A4%E3%83%89260201.pdf"
+    },
+    "hiroshima-bus-locker": {
+      "location": "広島バスセンター3F №23",
+      "detail": "5:30〜24:00。小500円・中600円・大800円。当日を含む3日間を超えると別途保管（取り扱い9〜18時）。空き・内寸は確認してください。",
+      "area": "広島バスセンター3F №23",
+      "accessCondition": "店舗/交通施設の利用条件。会場入場券で利用を保証しない",
+      "url": "https://www.h-buscenter.com/info/terminafesta.php",
+      "outsideViewIds": [
+        "grounds",
+        "station"
+      ]
+    },
+    "hiroshima-bus-staff": {
+      "location": "バス案内所に問い合わせ → ターミナル課事務所",
+      "detail": "ロッカーに入らない荷物を有料で預かります。受付9〜20時、当日の受付時間内。料金はロッカーと同等。総合案内所の営業時間9〜17時と区別してください。",
+      "area": "バス案内所に問い合わせ → ターミナル課事務所",
+      "accessCondition": "店舗/交通施設の利用条件。会場入場券で利用を保証しない",
+      "url": "https://www.h-buscenter.com/info/terminafesta.php",
+      "outsideViewIds": [
+        "grounds",
+        "station"
+      ]
+    },
+    "hiroshima-kencho-locker": {
+      "location": "アストラムライン県庁前駅",
+      "detail": "公式FAQの利用時間6〜24時。個別階・機械位置・料金・改札境界は確認中。駅員へ確認してください。",
+      "area": "アストラムライン県庁前駅",
+      "accessCondition": "店舗/交通施設の利用条件。会場入場券で利用を保証しない",
+      "url": "https://www.astramline.co.jp/qa/?qid=50",
+      "outsideViewIds": [
+        "grounds",
+        "station"
+      ]
+    },
+    "hiroshima-hondori-locker": {
+      "location": "アストラムライン本通駅",
+      "detail": "公式FAQの利用時間6〜24時。個別階・機械位置・料金・改札境界は確認中。駅員へ確認してください。",
+      "area": "アストラムライン本通駅",
+      "accessCondition": "店舗/交通施設の利用条件。会場入場券で利用を保証しない",
+      "url": "https://www.astramline.co.jp/qa/?qid=50",
+      "outsideViewIds": [
+        "station"
+      ]
+    },
+    "hiroshima-crosta": {
+      "location": "JR広島駅北側2F",
+      "detail": "9〜20時、1個1000円。最大30日、延長は1個1日単位で加算。20時を過ぎると翌日9時まで引き取り不可、追加料金あり。満杯時は受付を停止する場合があります。ホテル配送は別サービスです。",
+      "area": "JR広島駅北側2F",
+      "accessCondition": "店舗/交通施設の利用条件。会場入場券で利用を保証しない",
+      "url": "https://handsfree-japan.com/hiroshima/",
+      "outsideViewIds": [
+        "station"
+      ]
+    },
+    "hiroshima-starbucks": {
+      "location": "SHIMINT HIROSHIMA F棟",
+      "detail": "8〜21時、不定休。臨時変更は店舗案内を確認してください。個別入口位置・会場からの連続経路は確認中。",
+      "area": "SHIMINT HIROSHIMA F棟",
+      "accessCondition": "店舗/交通施設の利用条件。会場入場券で利用を保証しない",
+      "url": "https://store.starbucks.co.jp/detail-4248/",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "hiroshima-goodspoon": {
+      "location": "SHIMINT HIROSHIMA B棟2F",
+      "detail": "9〜22時。料理L.O.21時・ドリンクL.O.21:30。時間帯別メニューと臨時休業は店舗案内へ。個別入口は確認中。",
+      "area": "SHIMINT HIROSHIMA B棟2F",
+      "accessCondition": "店舗/交通施設の利用条件。会場入場券で利用を保証しない",
+      "url": "https://goodspoonshiminthiroshima.owst.jp/",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "hiroshima-lawson-bus": {
+      "location": "広島バスセンター3F",
+      "detail": "7〜22時。軽食・飲み物。店舗営業時間と荷物受付時間は異なります。",
+      "area": "広島バスセンター3F",
+      "accessCondition": "店舗/交通施設の利用条件。会場入場券で利用を保証しない",
+      "url": "https://www.h-buscenter.com/info/terminafesta.php",
+      "outsideViewIds": [
+        "grounds",
+        "station"
+      ]
+    },
+    "hiroshima-bus-info": {
+      "location": "広島バスセンター3F",
+      "detail": "総合案内・高速きっぷ9〜17時（観光案内9〜16時）。手荷物受付9〜20時は別条件です。",
+      "area": "広島バスセンター3F",
+      "accessCondition": "店舗/交通施設の利用条件。会場入場券で利用を保証しない",
+      "url": "https://www.h-buscenter.com/info/terminafesta.php",
+      "outsideViewIds": [
+        "grounds",
+        "station"
+      ]
+    }
+  },
+  "diagrams": [
+    {
+      "id": "hiroshima-big1",
+      "floor": "大アリーナ1F",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        800,
+        580
+      ],
+      "concoursePaths": [
+        "M170 60 Q80 60 80 160 L80 370 Q80 470 180 470 L620 470 Q720 470 720 370 L720 160 Q720 60 620 60 Z M195 115 L605 115 Q660 115 660 170 L660 355 Q660 415 605 415 L195 415 Q140 415 140 355 L140 170 Q140 115 195 115 Z"
+      ],
+      "contextPaths": [],
+      "landmarks": [
+        {
+          "id": "big1-lobby",
+          "label": "大アリーナロビー",
+          "x": 440,
+          "y": 510,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-guide"
+          ],
+          "reference": "公式掲載場所の関係を表す札。個別入口/連続経路は未確定"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor-guide"
+        ],
+        "file": "research/hiroshima-current-2026-10-10/floor-guide.pdf",
+        "sha256": "3525c905e17a5c7a6551bf2ea1a884648d45ddcbf5f6be65af863cdadfdebae3",
+        "width": 1547,
+        "height": 2174,
+        "method": "同棟・同階の読図した場所関係から独立した区域線/札。点は代表区域、精密入口ではない。場外札は実座標ではない",
+        "status": "partial-source-reviewed"
+      }
+    },
+    {
+      "id": "hiroshima-bigb1",
+      "floor": "大アリーナB1",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        800,
+        580
+      ],
+      "concoursePaths": [
+        "M170 60 Q80 60 80 160 L80 370 Q80 470 180 470 L620 470 Q720 470 720 370 L720 160 Q720 60 620 60 Z M195 115 L605 115 Q660 115 660 170 L660 355 Q660 415 605 415 L195 415 Q140 415 140 355 L140 170 Q140 115 195 115 Z"
+      ],
+      "contextPaths": [],
+      "landmarks": [
+        {
+          "id": "bigb1-office",
+          "label": "大アリーナ管理室",
+          "x": 400,
+          "y": 470,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-guide"
+          ],
+          "reference": "公式掲載場所の関係を表す札。個別入口/連続経路は未確定"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor-guide"
+        ],
+        "file": "research/hiroshima-current-2026-10-10/floor-guide.pdf",
+        "sha256": "3525c905e17a5c7a6551bf2ea1a884648d45ddcbf5f6be65af863cdadfdebae3",
+        "width": 1547,
+        "height": 2174,
+        "method": "同棟・同階の読図した場所関係から独立した区域線/札。点は代表区域、精密入口ではない。場外札は実座標ではない",
+        "status": "partial-source-reviewed"
+      }
+    },
+    {
+      "id": "hiroshima-body1",
+      "floor": "本館1F",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        800,
+        580
+      ],
+      "concoursePaths": [
+        "M90 60 L690 60 L690 490 L90 490 Z"
+      ],
+      "contextPaths": [],
+      "landmarks": [
+        {
+          "id": "body1-reception",
+          "label": "総合受付",
+          "x": 365,
+          "y": 145,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-guide"
+          ],
+          "reference": "公式掲載場所の関係を表す札。個別入口/連続経路は未確定"
+        },
+        {
+          "id": "body1-meeting",
+          "label": "ミーティングルーム",
+          "x": 565,
+          "y": 350,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-guide"
+          ],
+          "reference": "公式掲載場所の関係を表す札。個別入口/連続経路は未確定"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor-guide"
+        ],
+        "file": "research/hiroshima-current-2026-10-10/floor-guide.pdf",
+        "sha256": "3525c905e17a5c7a6551bf2ea1a884648d45ddcbf5f6be65af863cdadfdebae3",
+        "width": 1547,
+        "height": 2174,
+        "method": "同棟・同階の読図した場所関係から独立した区域線/札。点は代表区域、精密入口ではない。場外札は実座標ではない",
+        "status": "partial-source-reviewed"
+      }
+    },
+    {
+      "id": "hiroshima-bodyb1",
+      "floor": "本館B1",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        800,
+        580
+      ],
+      "concoursePaths": [
+        "M90 60 L690 60 L690 490 L90 490 Z"
+      ],
+      "contextPaths": [],
+      "landmarks": [
+        {
+          "id": "bodyb1-info",
+          "label": "スポーツ情報センター",
+          "x": 445,
+          "y": 285,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-guide"
+          ],
+          "reference": "公式掲載場所の関係を表す札。個別入口/連続経路は未確定"
+        },
+        {
+          "id": "bodyb1-nursing",
+          "label": "本館授乳室",
+          "x": 355,
+          "y": 220,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-guide"
+          ],
+          "reference": "公式掲載場所の関係を表す札。個別入口/連続経路は未確定"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor-guide"
+        ],
+        "file": "research/hiroshima-current-2026-10-10/floor-guide.pdf",
+        "sha256": "3525c905e17a5c7a6551bf2ea1a884648d45ddcbf5f6be65af863cdadfdebae3",
+        "width": 1547,
+        "height": 2174,
+        "method": "同棟・同階の読図した場所関係から独立した区域線/札。点は代表区域、精密入口ではない。場外札は実座標ではない",
+        "status": "partial-source-reviewed"
+      }
+    },
+    {
+      "id": "hiroshima-small2",
+      "floor": "小アリーナ2F",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        800,
+        580
+      ],
+      "concoursePaths": [
+        "M90 60 L690 60 L690 490 L90 490 Z"
+      ],
+      "contextPaths": [],
+      "landmarks": [
+        {
+          "id": "small2-office",
+          "label": "小アリーナ管理室",
+          "x": 650,
+          "y": 100,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-guide"
+          ],
+          "reference": "公式掲載場所の関係を表す札。個別入口/連続経路は未確定"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor-guide"
+        ],
+        "file": "research/hiroshima-current-2026-10-10/floor-guide.pdf",
+        "sha256": "3525c905e17a5c7a6551bf2ea1a884648d45ddcbf5f6be65af863cdadfdebae3",
+        "width": 1547,
+        "height": 2174,
+        "method": "同棟・同階の読図した場所関係から独立した区域線/札。点は代表区域、精密入口ではない。場外札は実座標ではない",
+        "status": "partial-source-reviewed"
+      }
+    },
+    {
+      "id": "hiroshima-small3",
+      "floor": "小アリーナ3F",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        800,
+        580
+      ],
+      "concoursePaths": [
+        "M90 60 L690 60 L690 490 L90 490 Z"
+      ],
+      "contextPaths": [],
+      "landmarks": [
+        {
+          "id": "small3-stand",
+          "label": "小アリーナ観客席",
+          "x": 400,
+          "y": 450,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-guide"
+          ],
+          "reference": "公式掲載場所の関係を表す札。個別入口/連続経路は未確定"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor-guide"
+        ],
+        "file": "research/hiroshima-current-2026-10-10/floor-guide.pdf",
+        "sha256": "3525c905e17a5c7a6551bf2ea1a884648d45ddcbf5f6be65af863cdadfdebae3",
+        "width": 1547,
+        "height": 2174,
+        "method": "同棟・同階の読図した場所関係から独立した区域線/札。点は代表区域、精密入口ではない。場外札は実座標ではない",
+        "status": "partial-source-reviewed"
+      }
+    },
+    {
+      "id": "hiroshima-budo",
+      "floor": "武道場B1",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        800,
+        580
+      ],
+      "concoursePaths": [
+        "M90 60 L690 60 L690 490 L90 490 Z"
+      ],
+      "contextPaths": [],
+      "landmarks": [
+        {
+          "id": "budo-office",
+          "label": "武道場管理室",
+          "x": 595,
+          "y": 200,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-guide"
+          ],
+          "reference": "公式掲載場所の関係を表す札。個別入口/連続経路は未確定"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor-guide"
+        ],
+        "file": "research/hiroshima-current-2026-10-10/floor-guide.pdf",
+        "sha256": "3525c905e17a5c7a6551bf2ea1a884648d45ddcbf5f6be65af863cdadfdebae3",
+        "width": 1547,
+        "height": 2174,
+        "method": "同棟・同階の読図した場所関係から独立した区域線/札。点は代表区域、精密入口ではない。場外札は実座標ではない",
+        "status": "partial-source-reviewed"
+      }
+    },
+    {
+      "id": "hiroshima-kyudo",
+      "floor": "弓道場B1",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        800,
+        580
+      ],
+      "concoursePaths": [
+        "M90 60 L690 60 L690 490 L90 490 Z"
+      ],
+      "contextPaths": [],
+      "landmarks": [
+        {
+          "id": "kyudo-office",
+          "label": "弓道場管理室",
+          "x": 350,
+          "y": 450,
+          "kind": "passage",
+          "sourceIds": [
+            "floor-guide"
+          ],
+          "reference": "公式掲載場所の関係を表す札。個別入口/連続経路は未確定"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor-guide"
+        ],
+        "file": "research/hiroshima-current-2026-10-10/floor-guide.pdf",
+        "sha256": "3525c905e17a5c7a6551bf2ea1a884648d45ddcbf5f6be65af863cdadfdebae3",
+        "width": 1547,
+        "height": 2174,
+        "method": "同棟・同階の読図した場所関係から独立した区域線/札。点は代表区域、精密入口ではない。場外札は実座標ではない",
+        "status": "partial-source-reviewed"
+      }
+    },
+    {
+      "id": "hiroshima-grounds",
+      "floor": "会場・駅・周辺",
+      "scope": "場外",
+      "viewBox": [
+        0,
+        0,
+        800,
+        580
+      ],
+      "concoursePaths": [],
+      "contextPaths": [],
+      "landmarks": [
+        {
+          "id": "grounds-venue",
+          "label": "広島グリーンアリーナ",
+          "x": 400,
+          "y": 115,
+          "kind": "entrance",
+          "sourceIds": [
+            "access-current"
+          ],
+          "reference": "公式掲載場所の関係を表す札。個別入口/連続経路は未確定"
+        },
+        {
+          "id": "grounds-kencho",
+          "label": "県庁前 西2出口",
+          "x": 610,
+          "y": 290,
+          "kind": "exit",
+          "sourceIds": [
+            "access-current"
+          ],
+          "reference": "公式掲載場所の関係を表す札。個別入口/連続経路は未確定"
+        },
+        {
+          "id": "grounds-bus",
+          "label": "広島バスセンター",
+          "x": 480,
+          "y": 450,
+          "kind": "station",
+          "sourceIds": [
+            "access-current"
+          ],
+          "reference": "公式掲載場所の関係を表す札。個別入口/連続経路は未確定"
+        },
+        {
+          "id": "grounds-kami",
+          "label": "紙屋町西",
+          "x": 210,
+          "y": 390,
+          "kind": "station",
+          "sourceIds": [
+            "access-current"
+          ],
+          "reference": "公式掲載場所の関係を表す札。個別入口/連続経路は未確定"
+        },
+        {
+          "id": "grounds-dome",
+          "label": "原爆ドーム前",
+          "x": 140,
+          "y": 280,
+          "kind": "station",
+          "sourceIds": [
+            "access-current"
+          ],
+          "reference": "公式掲載場所の関係を表す札。個別入口/連続経路は未確定"
+        },
+        {
+          "id": "grounds-shimint",
+          "label": "シミントひろしま",
+          "x": 180,
+          "y": 150,
+          "kind": "plaza",
+          "sourceIds": [
+            "starbucks"
+          ],
+          "reference": "公式掲載場所の関係を表す札。個別入口/連続経路は未確定"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "access-current"
+        ],
+        "file": "research/hiroshima-current-2026-10-10/access-current.html",
+        "sha256": "5c025712460d5fb222ec1c71495c0f212510ba6d51145633fe4ad978c2e20591",
+        "width": 800,
+        "height": 580,
+        "method": "同棟・同階の読図した場所関係から独立した区域線/札。点は代表区域、精密入口ではない。場外札は実座標ではない",
+        "status": "partial-source-reviewed"
+      }
+    },
+    {
+      "id": "hiroshima-station",
+      "floor": "駅・店舗の荷物",
+      "scope": "場外",
+      "viewBox": [
+        0,
+        0,
+        800,
+        580
+      ],
+      "concoursePaths": [],
+      "contextPaths": [],
+      "landmarks": [
+        {
+          "id": "station-hiroshima",
+          "label": "広島駅 北側2F",
+          "x": 420,
+          "y": 150,
+          "kind": "station",
+          "sourceIds": [
+            "crosta-current"
+          ],
+          "reference": "公式掲載場所の関係を表す札。個別入口/連続経路は未確定"
+        },
+        {
+          "id": "station-bus",
+          "label": "広島バスセンター3F",
+          "x": 220,
+          "y": 370,
+          "kind": "station",
+          "sourceIds": [
+            "bus-current"
+          ],
+          "reference": "公式掲載場所の関係を表す札。個別入口/連続経路は未確定"
+        },
+        {
+          "id": "station-astram",
+          "label": "県庁前・本通",
+          "x": 600,
+          "y": 370,
+          "kind": "station",
+          "sourceIds": [
+            "astram-current"
+          ],
+          "reference": "公式掲載場所の関係を表す札。個別入口/連続経路は未確定"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "access-current"
+        ],
+        "file": "research/hiroshima-current-2026-10-10/access-current.html",
+        "sha256": "5c025712460d5fb222ec1c71495c0f212510ba6d51145633fe4ad978c2e20591",
+        "width": 800,
+        "height": 580,
+        "method": "同棟・同階の読図した場所関係から独立した区域線/札。点は代表区域、精密入口ではない。場外札は実座標ではない",
+        "status": "partial-source-reviewed"
+      }
+    }
+  ],
+  "aliases": {
+    "big1-lobby": [
+      "大アリーナロビー"
+    ],
+    "bigb1-office": [
+      "大アリーナ管理室"
+    ],
+    "body1-reception": [
+      "総合受付"
+    ],
+    "body1-meeting": [
+      "ミーティングルーム"
+    ],
+    "bodyb1-info": [
+      "スポーツ情報センター"
+    ],
+    "bodyb1-nursing": [
+      "本館授乳室"
+    ],
+    "small2-office": [
+      "小アリーナ管理室"
+    ],
+    "small3-stand": [
+      "小アリーナ観客席"
+    ],
+    "budo-office": [
+      "武道場管理室"
+    ],
+    "kyudo-office": [
+      "弓道場管理室"
+    ],
+    "grounds-venue": [
+      "広島グリーンアリーナ"
+    ],
+    "grounds-kencho": [
+      "県庁前 西2出口",
+      "県庁前",
+      "西2",
+      "県庁前駅"
+    ],
+    "grounds-bus": [
+      "広島バスセンター",
+      "バスセンター"
+    ],
+    "grounds-kami": [
+      "紙屋町西"
+    ],
+    "grounds-dome": [
+      "原爆ドーム前"
+    ],
+    "grounds-shimint": [
+      "シミントひろしま",
+      "SHIMINT",
+      "シミント"
+    ],
+    "station-hiroshima": [
+      "広島駅 北側2F",
+      "広島駅",
+      "Crosta",
+      "クロスタ"
+    ],
+    "station-bus": [
+      "広島バスセンター3F"
+    ],
+    "station-astram": [
+      "県庁前・本通"
+    ]
+  },
+  "landmarkFacilityIds": {
+    "grounds-kencho": [
+      "hiroshima-kencho-locker"
+    ],
+    "grounds-bus": [
+      "hiroshima-bus-locker",
+      "hiroshima-bus-staff",
+      "hiroshima-lawson-bus",
+      "hiroshima-bus-info"
+    ],
+    "grounds-shimint": [
+      "hiroshima-starbucks",
+      "hiroshima-goodspoon"
+    ],
+    "station-hiroshima": [
+      "hiroshima-crosta"
+    ],
+    "station-bus": [
+      "hiroshima-bus-locker",
+      "hiroshima-bus-staff",
+      "hiroshima-lawson-bus",
+      "hiroshima-bus-info"
+    ],
+    "station-astram": [
+      "hiroshima-kencho-locker",
+      "hiroshima-hondori-locker"
+    ]
+  },
+  "landmarkGroupIds": {
+    "big1-lobby": [
+      "hiroshima-group-big1-tl",
+      "hiroshima-group-big1-tl-baby",
+      "hiroshima-group-big1-tr",
+      "hiroshima-group-big1-tr-baby",
+      "hiroshima-group-big1-bl",
+      "hiroshima-group-big1-bl-baby",
+      "hiroshima-group-big1-br",
+      "hiroshima-group-big1-br-baby",
+      "hiroshima-group-big1-al",
+      "hiroshima-group-big1-ar",
+      "hiroshima-big1-wheel-group"
+    ],
+    "bigb1-office": [
+      "hiroshima-group-bigb1-top",
+      "hiroshima-group-bigb1-left",
+      "hiroshima-group-bigb1-right",
+      "hiroshima-group-bigb1-bl",
+      "hiroshima-group-bigb1-bl-baby",
+      "hiroshima-group-bigb1-br",
+      "hiroshima-group-bigb1-br-baby",
+      "hiroshima-group-bigb1-bottom",
+      "hiroshima-bigb1-aed-group",
+      "hiroshima-bigb1-office-group"
+    ],
+    "body1-reception": [
+      "hiroshima-group-body1-center",
+      "hiroshima-group-body1-center-baby",
+      "hiroshima-body1-aed-group",
+      "hiroshima-body1-office-group",
+      "hiroshima-body1-wheel-group"
+    ],
+    "body1-meeting": [
+      "hiroshima-group-body1-center",
+      "hiroshima-group-body1-center-baby",
+      "hiroshima-body1-aed-group",
+      "hiroshima-body1-office-group",
+      "hiroshima-body1-wheel-group"
+    ],
+    "bodyb1-info": [
+      "hiroshima-group-bodyb1-center",
+      "hiroshima-group-bodyb1-center-baby",
+      "hiroshima-group-bodyb1-east",
+      "hiroshima-bodyb1-nursing-group",
+      "hiroshima-bodyb1-food-group",
+      "hiroshima-bodyb1-kids-group",
+      "hiroshima-bodyb1-aed-group"
+    ],
+    "bodyb1-nursing": [
+      "hiroshima-group-bodyb1-center",
+      "hiroshima-group-bodyb1-center-baby",
+      "hiroshima-group-bodyb1-east",
+      "hiroshima-bodyb1-nursing-group",
+      "hiroshima-bodyb1-food-group",
+      "hiroshima-bodyb1-kids-group",
+      "hiroshima-bodyb1-aed-group"
+    ],
+    "small2-office": [
+      "hiroshima-group-small2-west",
+      "hiroshima-group-small2-bottom"
+    ],
+    "small3-stand": [
+      "hiroshima-group-small3-west",
+      "hiroshima-group-small3-west-baby"
+    ],
+    "budo-office": [
+      "hiroshima-group-budo-upper",
+      "hiroshima-group-budo-upper-baby",
+      "hiroshima-group-budo-lower",
+      "hiroshima-group-budo-lower-baby",
+      "hiroshima-budo-aed-group",
+      "hiroshima-budo-office-group",
+      "hiroshima-budo-wheel-group"
+    ],
+    "kyudo-office": [
+      "hiroshima-group-kyudo-east",
+      "hiroshima-kyudo-office-group",
+      "hiroshima-kyudo-wheel-group"
+    ]
+  }
+}

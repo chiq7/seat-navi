@@ -1,0 +1,3654 @@
+{
+  "sources": [
+    {
+      "id": "guide",
+      "title": "guide",
+      "url": "https://www.tokimesse.com/visitor/guide/",
+      "checkedAt": "2026-10-06",
+      "scope": "朱鷺メッセ・交通・設備・荷物の限定確認。版未記載は現行公演の適用を意味しない",
+      "usage": "facts-only"
+    },
+    {
+      "id": "info",
+      "title": "info",
+      "url": "https://www.tokimesse.com/visitor/usage/",
+      "checkedAt": "2026-10-06",
+      "scope": "朱鷺メッセ・交通・設備・荷物の限定確認。版未記載は現行公演の適用を意味しない",
+      "usage": "facts-only"
+    },
+    {
+      "id": "faq",
+      "title": "faq",
+      "url": "https://www.tokimesse.com/visitor/contact/faq.html",
+      "checkedAt": "2026-10-06",
+      "scope": "朱鷺メッセ・交通・設備・荷物の限定確認。版未記載は現行公演の適用を意味しない",
+      "usage": "facts-only"
+    },
+    {
+      "id": "access",
+      "title": "access",
+      "url": "https://www.tokimesse.com/visitor/access/",
+      "checkedAt": "2026-10-06",
+      "scope": "朱鷺メッセ・交通・設備・荷物の限定確認。版未記載は現行公演の適用を意味しない",
+      "usage": "facts-only"
+    },
+    {
+      "id": "shops",
+      "title": "shops",
+      "url": "https://www.tokimesse.com/visitor/guide/facilities.html",
+      "checkedAt": "2026-10-06",
+      "scope": "朱鷺メッセ・交通・設備・荷物の限定確認。版未記載は現行公演の適用を意味しない",
+      "usage": "facts-only"
+    },
+    {
+      "id": "copyright",
+      "title": "copyright",
+      "url": "https://www.tokimesse.com/copyright/",
+      "checkedAt": "2026-10-06",
+      "scope": "朱鷺メッセ・交通・設備・荷物の限定確認。版未記載は現行公演の適用を意味しない",
+      "usage": "facts-only"
+    },
+    {
+      "id": "download",
+      "title": "download",
+      "url": "https://www.tokimesse.com/sponsor/download/",
+      "checkedAt": "2026-10-06",
+      "scope": "朱鷺メッセ・交通・設備・荷物の限定確認。版未記載は現行公演の適用を意味しない",
+      "usage": "facts-only"
+    },
+    {
+      "id": "tetsuni",
+      "title": "tetsuni",
+      "url": "http://tetsuni.co.jp/business/",
+      "checkedAt": "2026-10-06",
+      "scope": "朱鷺メッセ・交通・設備・荷物の限定確認。版未記載は現行公演の適用を意味しない",
+      "usage": "facts-only"
+    },
+    {
+      "id": "info_map",
+      "title": "info_map",
+      "url": "https://www.tokimesse.com/sponsor/download/files/info_map.pdf",
+      "checkedAt": "2026-10-06",
+      "scope": "朱鷺メッセ・交通・設備・荷物の限定確認。版未記載は現行公演の適用を意味しない",
+      "usage": "research-only"
+    },
+    {
+      "id": "access_bus_Ver2",
+      "title": "access_bus_Ver2",
+      "url": "https://www.tokimesse.com/sponsor/download/files/access_bus_Ver2.pdf",
+      "checkedAt": "2026-10-06",
+      "scope": "朱鷺メッセ・交通・設備・荷物の限定確認。版未記載は現行公演の適用を意味しない",
+      "usage": "research-only"
+    },
+    {
+      "id": "floor_4f",
+      "title": "floor_4f",
+      "url": "https://www.tokimesse.com/sponsor/download/files/floor_4f.pdf",
+      "checkedAt": "2026-10-06",
+      "scope": "朱鷺メッセ・交通・設備・荷物の限定確認。版未記載は現行公演の適用を意味しない",
+      "usage": "research-only"
+    },
+    {
+      "id": "floor_3f",
+      "title": "floor_3f",
+      "url": "https://www.tokimesse.com/sponsor/download/files/floor_3f.pdf",
+      "checkedAt": "2026-10-06",
+      "scope": "朱鷺メッセ・交通・設備・荷物の限定確認。版未記載は現行公演の適用を意味しない",
+      "usage": "research-only"
+    },
+    {
+      "id": "floor_2f",
+      "title": "floor_2f",
+      "url": "https://www.tokimesse.com/sponsor/download/files/floor_2f.pdf",
+      "checkedAt": "2026-10-06",
+      "scope": "朱鷺メッセ・交通・設備・荷物の限定確認。版未記載は現行公演の適用を意味しない",
+      "usage": "research-only"
+    },
+    {
+      "id": "floor_1f",
+      "title": "floor_1f",
+      "url": "https://www.tokimesse.com/sponsor/download/files/floor_1f.pdf",
+      "checkedAt": "2026-10-06",
+      "scope": "朱鷺メッセ・交通・設備・荷物の限定確認。版未記載は現行公演の適用を意味しない",
+      "usage": "research-only"
+    },
+    {
+      "id": "facility_1f01",
+      "title": "facility_1f01",
+      "url": "https://www.tokimesse.com/sponsor/download/files/facility_1f01.pdf",
+      "checkedAt": "2026-10-06",
+      "scope": "朱鷺メッセ・交通・設備・荷物の限定確認。版未記載は現行公演の適用を意味しない",
+      "usage": "research-only"
+    },
+    {
+      "id": "access_walk",
+      "title": "access_walk",
+      "url": "https://www.tokimesse.com/sponsor/download/files/access_walk.pdf",
+      "checkedAt": "2026-10-06",
+      "scope": "朱鷺メッセ・交通・設備・荷物の限定確認。版未記載は現行公演の適用を意味しない",
+      "usage": "research-only"
+    },
+    {
+      "id": "floor_1f_entrance",
+      "title": "floor_1f_entrance",
+      "url": "https://www.tokimesse.com/sponsor/download/files/floor_1f_entrance.pdf",
+      "checkedAt": "2026-10-06",
+      "scope": "朱鷺メッセ・交通・設備・荷物の限定確認。版未記載は現行公演の適用を意味しない",
+      "usage": "research-only"
+    },
+    {
+      "id": "floor_2f_esplanade",
+      "title": "floor_2f_esplanade",
+      "url": "https://www.tokimesse.com/sponsor/download/files/floor_2f_esplanade.pdf",
+      "checkedAt": "2026-10-06",
+      "scope": "朱鷺メッセ・交通・設備・荷物の限定確認。版未記載は現行公演の適用を意味しない",
+      "usage": "research-only"
+    },
+    {
+      "id": "floor_facility_2f_esplanade",
+      "title": "floor_facility_2f_esplanade",
+      "url": "https://www.tokimesse.com/sponsor/download/files/floor_facility_2f_esplanade.pdf",
+      "checkedAt": "2026-10-06",
+      "scope": "朱鷺メッセ・交通・設備・荷物の限定確認。版未記載は現行公演の適用を意味しない",
+      "usage": "research-only"
+    },
+    {
+      "id": "hall_2f_snow",
+      "title": "hall_2f_snow",
+      "url": "https://www.tokimesse.com/sponsor/download/files/hall_2f_snow.pdf",
+      "checkedAt": "2026-10-06",
+      "scope": "朱鷺メッセ・交通・設備・荷物の限定確認。版未記載は現行公演の適用を意味しない",
+      "usage": "research-only"
+    },
+    {
+      "id": "hall_1f",
+      "title": "hall_1f",
+      "url": "https://www.tokimesse.com/sponsor/download/files/hall_1f.pdf",
+      "checkedAt": "2026-10-06",
+      "scope": "朱鷺メッセ・交通・設備・荷物の限定確認。版未記載は現行公演の適用を意味しない",
+      "usage": "research-only"
+    },
+    {
+      "id": "usage_hall",
+      "title": "usage_hall",
+      "url": "https://www.tokimesse.com/sponsor/download/files/usage_hall.pdf",
+      "checkedAt": "2026-10-06",
+      "scope": "朱鷺メッセ・交通・設備・荷物の限定確認。版未記載は現行公演の適用を意味しない",
+      "usage": "research-only"
+    },
+    {
+      "id": "access_townmap",
+      "title": "access_townmap",
+      "url": "https://www.tokimesse.com/sponsor/download/files/access_townmap.pdf",
+      "checkedAt": "2026-10-06",
+      "scope": "朱鷺メッセ・交通・設備・荷物の限定確認。版未記載は現行公演の適用を意味しない",
+      "usage": "research-only"
+    },
+    {
+      "id": "info-current",
+      "title": "info-current",
+      "url": "https://www.tokimesse.com/visitor/usage/",
+      "checkedAt": "2026-10-10T12:17:58.095743+00:00",
+      "scope": "朱鷺メッセ・交通・設備・荷物の限定確認。版未記載は現行公演の適用を意味しない",
+      "usage": "facts-only"
+    },
+    {
+      "id": "faq-current",
+      "title": "faq-current",
+      "url": "https://www.tokimesse.com/visitor/contact/faq.html",
+      "checkedAt": "2026-10-10T12:17:58.096921+00:00",
+      "scope": "朱鷺メッセ・交通・設備・荷物の限定確認。版未記載は現行公演の適用を意味しない",
+      "usage": "facts-only"
+    },
+    {
+      "id": "access-current",
+      "title": "access-current",
+      "url": "https://www.tokimesse.com/visitor/access/",
+      "checkedAt": "2026-10-10T12:17:58.425869+00:00",
+      "scope": "朱鷺メッセ・交通・設備・荷物の限定確認。版未記載は現行公演の適用を意味しない",
+      "usage": "facts-only"
+    },
+    {
+      "id": "shops-current",
+      "title": "shops-current",
+      "url": "https://www.tokimesse.com/visitor/guide/facilities.html",
+      "checkedAt": "2026-10-10T12:17:58.426328+00:00",
+      "scope": "朱鷺メッセ・交通・設備・荷物の限定確認。版未記載は現行公演の適用を意味しない",
+      "usage": "facts-only"
+    },
+    {
+      "id": "download-current",
+      "title": "download-current",
+      "url": "https://www.tokimesse.com/sponsor/download/",
+      "checkedAt": "2026-10-10T12:17:58.591653+00:00",
+      "scope": "朱鷺メッセ・交通・設備・荷物の限定確認。版未記載は現行公演の適用を意味しない",
+      "usage": "facts-only"
+    },
+    {
+      "id": "tetsuni-current",
+      "title": "tetsuni-current",
+      "url": "https://tetsuni.co.jp/business/",
+      "checkedAt": "2026-10-10T12:17:58.631003+00:00",
+      "scope": "朱鷺メッセ・交通・設備・荷物の限定確認。版未記載は現行公演の適用を意味しない",
+      "usage": "facts-only"
+    },
+    {
+      "id": "supplement-page",
+      "title": "supplement-page",
+      "url": "https://zaseki.music-mdata.com/detail/18546/1",
+      "checkedAt": "2026-10-10T12:17:58.786675+00:00",
+      "scope": "朱鷺メッセ・交通・設備・荷物の限定確認。版未記載は現行公演の適用を意味しない",
+      "usage": "facts-only"
+    },
+    {
+      "id": "supplement",
+      "title": "supplement",
+      "url": "https://cdn-zaseki.music-mdata.com/pdf/18546.pdf",
+      "checkedAt": "2026-10-10T12:17:58.963434+00:00",
+      "scope": "朱鷺メッセ・交通・設備・荷物の限定確認。版未記載は現行公演の適用を意味しない",
+      "usage": "research-only"
+    },
+    {
+      "id": "livebu-search",
+      "title": "livebu-search",
+      "url": "https://www.livebu.com/search?p=1&k=%E6%9C%B1%E9%B7%BA%E3%83%A1%E3%83%83%E3%82%BB",
+      "checkedAt": "2026-10-10T12:17:59.157387+00:00",
+      "scope": "朱鷺メッセ・交通・設備・荷物の限定確認。版未記載は現行公演の適用を意味しない",
+      "usage": "facts-only"
+    },
+    {
+      "id": "bus-current",
+      "title": "bus-current",
+      "url": "https://www.niigata-kotsu.co.jp/~noriai/route-bus/timetable/access/sadoferry/",
+      "checkedAt": "2026-10-10T12:22:23.359418+00:00",
+      "scope": "朱鷺メッセ・交通・設備・荷物の限定確認。版未記載は現行公演の適用を意味しない",
+      "usage": "facts-only"
+    },
+    {
+      "id": "livebu-exhibition",
+      "title": "livebu-exhibition",
+      "url": "https://www.livebu.com/hall/2676",
+      "checkedAt": "2026-10-10T12:22:23.614694+00:00",
+      "scope": "朱鷺メッセ・交通・設備・荷物の限定確認。版未記載は現行公演の適用を意味しない",
+      "usage": "facts-only"
+    },
+    {
+      "id": "livebu-main",
+      "title": "livebu-main",
+      "url": "https://www.livebu.com/hall/2909",
+      "checkedAt": "2026-10-10T12:22:23.719392+00:00",
+      "scope": "朱鷺メッセ・交通・設備・荷物の限定確認。版未記載は現行公演の適用を意味しない",
+      "usage": "facts-only"
+    },
+    {
+      "id": "tetsuni-locations",
+      "title": "tetsuni-locations",
+      "url": "https://tetsuni.co.jp/company/",
+      "checkedAt": "2026-10-10T12:22:24.147364+00:00",
+      "scope": "朱鷺メッセ・交通・設備・荷物の限定確認。版未記載は現行公演の適用を意味しない",
+      "usage": "facts-only"
+    },
+    {
+      "id": "sagawa",
+      "title": "sagawa",
+      "url": "https://www.sagawa-exp.co.jp/hands-freetravel/servicecenter/niigata_station.html",
+      "checkedAt": "2026-10-10T12:23:37.483120+00:00",
+      "scope": "朱鷺メッセ・交通・設備・荷物の限定確認。版未記載は現行公演の適用を意味しない",
+      "usage": "facts-only"
+    },
+    {
+      "id": "cocolo-sagawa",
+      "title": "cocolo-sagawa",
+      "url": "https://jenic.jp/cocolo/shop/detail.php?id=1104&sc_name=niigata",
+      "checkedAt": "2026-10-10T12:23:37.483801+00:00",
+      "scope": "朱鷺メッセ・交通・設備・荷物の限定確認。版未記載は現行公演の適用を意味しない",
+      "usage": "facts-only"
+    },
+    {
+      "id": "jre-bags",
+      "title": "jre-bags",
+      "url": "https://hakobyun-baggage.jreast.co.jp/hotel/station_counter",
+      "checkedAt": "2026-10-10T12:23:37.764855+00:00",
+      "scope": "朱鷺メッセ・交通・設備・荷物の限定確認。版未記載は現行公演の適用を意味しない",
+      "usage": "facts-only"
+    },
+    {
+      "id": "jre-bags-map",
+      "title": "jre-bags-map",
+      "url": "https://www.jrbutsuryu.jregroup.ne.jp/pdf/nimotsuyusou_nigt_001.pdf",
+      "checkedAt": "2026-10-10T12:23:37.802986+00:00",
+      "scope": "朱鷺メッセ・交通・設備・荷物の限定確認。版未記載は現行公演の適用を意味しない",
+      "usage": "research-only"
+    },
+    {
+      "id": "jr-info-web",
+      "title": "JR東日本 新潟駅 コインロッカー",
+      "url": "https://www.jreast.co.jp/estation/station/info.aspx?StationCd=1137",
+      "checkedAt": "2026-10-10",
+      "scope": "Web読取りでロッカー有を確認。保存GET403。個別階/料金/時間/改札境界は未確認",
+      "usage": "facts-only"
+    }
+  ],
+  "facilities": [
+    {
+      "id": "toki-ex-a-w",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "展示場1F",
+      "scope": "場内",
+      "location": "展示ホール内",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "sourceIds": [
+        "facility_1f01"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "toki-ex1",
+        "x": 347,
+        "y": 140,
+        "sourceIds": [
+          "facility_1f01"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-ex-a-ac",
+      "name": "車いす対応トイレ",
+      "purpose": "トイレ",
+      "floor": "展示場1F",
+      "scope": "場内",
+      "location": "展示ホール内",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "sourceIds": [
+        "facility_1f01"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "toki-ex1",
+        "x": 407,
+        "y": 142,
+        "sourceIds": [
+          "facility_1f01"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-ex-ab-m",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "展示場1F",
+      "scope": "場内",
+      "location": "展示ホール内",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "sourceIds": [
+        "facility_1f01"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "toki-ex1",
+        "x": 620,
+        "y": 141,
+        "sourceIds": [
+          "facility_1f01"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-ex-ab-ac",
+      "name": "車いす対応トイレ",
+      "purpose": "トイレ",
+      "floor": "展示場1F",
+      "scope": "場内",
+      "location": "展示ホール内",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "sourceIds": [
+        "facility_1f01"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "toki-ex1",
+        "x": 578,
+        "y": 154,
+        "sourceIds": [
+          "facility_1f01"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-ex-b-m",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "展示場1F",
+      "scope": "場内",
+      "location": "展示ホール内",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "sourceIds": [
+        "facility_1f01"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "toki-ex1",
+        "x": 753,
+        "y": 594,
+        "sourceIds": [
+          "facility_1f01"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-ex-b-w",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "展示場1F",
+      "scope": "場内",
+      "location": "展示ホール内",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "sourceIds": [
+        "facility_1f01"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "toki-ex1",
+        "x": 753,
+        "y": 616,
+        "sourceIds": [
+          "facility_1f01"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-ex-b-ac",
+      "name": "車いす対応トイレ",
+      "purpose": "トイレ",
+      "floor": "展示場1F",
+      "scope": "場内",
+      "location": "展示ホール内",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "sourceIds": [
+        "facility_1f01"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "toki-ex1",
+        "x": 830,
+        "y": 604,
+        "sourceIds": [
+          "facility_1f01"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-en2-m",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "入口1F",
+      "scope": "場内",
+      "location": "エントランスホール2",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "sourceIds": [
+        "floor_1f_entrance"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "toki-en1",
+        "x": 1070,
+        "y": 580,
+        "sourceIds": [
+          "floor_1f_entrance"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-en2-w",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "入口1F",
+      "scope": "場内",
+      "location": "エントランスホール2",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "sourceIds": [
+        "floor_1f_entrance"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "toki-en1",
+        "x": 1095,
+        "y": 580,
+        "sourceIds": [
+          "floor_1f_entrance"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-en2-ac",
+      "name": "車いす対応トイレ",
+      "purpose": "トイレ",
+      "floor": "入口1F",
+      "scope": "場内",
+      "location": "エントランスホール2",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "sourceIds": [
+        "floor_1f_entrance"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "toki-en1",
+        "x": 1070,
+        "y": 610,
+        "sourceIds": [
+          "floor_1f_entrance"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-office-w",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "入口1F",
+      "scope": "場内",
+      "location": "事務室前",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "sourceIds": [
+        "floor_1f_entrance"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "toki-en1",
+        "x": 662,
+        "y": 603,
+        "sourceIds": [
+          "floor_1f_entrance"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-office-ac",
+      "name": "車いす対応トイレ",
+      "purpose": "トイレ",
+      "floor": "入口1F",
+      "scope": "場内",
+      "location": "事務室前",
+      "detail": "事務室前の車いす対応・オストメイト対応トイレ。個別入口は当日の案内をご確認ください。",
+      "sourceIds": [
+        "floor_1f_entrance"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "toki-en1",
+        "x": 650,
+        "y": 637,
+        "sourceIds": [
+          "floor_1f_entrance"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-foyer2-m",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "会議場2F",
+      "scope": "場内",
+      "location": "メインホール横ホワイエ",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "sourceIds": [
+        "floor_2f"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "toki-cf2",
+        "x": 448,
+        "y": 359,
+        "sourceIds": [
+          "floor_2f"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-foyer2-w",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "会議場2F",
+      "scope": "場内",
+      "location": "メインホール横ホワイエ",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "sourceIds": [
+        "floor_2f"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "toki-cf2",
+        "x": 522,
+        "y": 371,
+        "sourceIds": [
+          "floor_2f"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-foyer2-ac1",
+      "name": "車いす対応トイレ",
+      "purpose": "トイレ",
+      "floor": "会議場2F",
+      "scope": "場内",
+      "location": "メインホール横ホワイエ",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "sourceIds": [
+        "floor_2f"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "toki-cf2",
+        "x": 448,
+        "y": 389,
+        "sourceIds": [
+          "floor_2f"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-foyer2-ac2",
+      "name": "車いす対応トイレ",
+      "purpose": "トイレ",
+      "floor": "会議場2F",
+      "scope": "場内",
+      "location": "メインホール横ホワイエ",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "sourceIds": [
+        "floor_2f"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "toki-cf2",
+        "x": 487,
+        "y": 391,
+        "sourceIds": [
+          "floor_2f"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-atrium-m",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "会議場2F",
+      "scope": "場内",
+      "location": "アトリウム側",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "sourceIds": [
+        "floor_2f"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "toki-cf2",
+        "x": 911,
+        "y": 448,
+        "sourceIds": [
+          "floor_2f"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-atrium-w",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "会議場2F",
+      "scope": "場内",
+      "location": "アトリウム側",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "sourceIds": [
+        "floor_2f"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "toki-cf2",
+        "x": 928,
+        "y": 448,
+        "sourceIds": [
+          "floor_2f"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-atrium-ac",
+      "name": "車いす対応トイレ",
+      "purpose": "トイレ",
+      "floor": "会議場2F",
+      "scope": "場内",
+      "location": "アトリウム側",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "sourceIds": [
+        "floor_2f"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "toki-cf2",
+        "x": 905,
+        "y": 470,
+        "sourceIds": [
+          "floor_2f"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-es-m",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "エスプラナード2F",
+      "scope": "場内",
+      "location": "展示ホールA/B出入口間",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "sourceIds": [
+        "floor_2f_esplanade"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "toki-es2",
+        "x": 766,
+        "y": 589,
+        "sourceIds": [
+          "floor_2f_esplanade"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-es-w",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "エスプラナード2F",
+      "scope": "場内",
+      "location": "展示ホールA/B出入口間",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "sourceIds": [
+        "floor_2f_esplanade"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "toki-es2",
+        "x": 882,
+        "y": 582,
+        "sourceIds": [
+          "floor_2f_esplanade"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-es-ac1",
+      "name": "車いす対応トイレ",
+      "purpose": "トイレ",
+      "floor": "エスプラナード2F",
+      "scope": "場内",
+      "location": "展示ホールA/B出入口間",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "sourceIds": [
+        "floor_2f_esplanade"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "toki-es2",
+        "x": 840,
+        "y": 575,
+        "sourceIds": [
+          "floor_2f_esplanade"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-es-ac2",
+      "name": "車いす対応トイレ",
+      "purpose": "トイレ",
+      "floor": "エスプラナード2F",
+      "scope": "場内",
+      "location": "展示ホールA/B出入口間",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "sourceIds": [
+        "floor_2f_esplanade"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "toki-es2",
+        "x": 840,
+        "y": 607,
+        "sourceIds": [
+          "floor_2f_esplanade"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-foyer3-m",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "会議場3F",
+      "scope": "場内",
+      "location": "3Fホワイエ",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "sourceIds": [
+        "floor_3f"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "toki-cf3",
+        "x": 437,
+        "y": 363,
+        "sourceIds": [
+          "floor_3f"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-foyer3-ac1",
+      "name": "車いす対応トイレ",
+      "purpose": "トイレ",
+      "floor": "会議場3F",
+      "scope": "場内",
+      "location": "3Fホワイエ",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "sourceIds": [
+        "floor_3f"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "toki-cf3",
+        "x": 442,
+        "y": 413,
+        "sourceIds": [
+          "floor_3f"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-foyer3-w",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "会議場3F",
+      "scope": "場内",
+      "location": "3Fホワイエ",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "sourceIds": [
+        "floor_3f"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "toki-cf3",
+        "x": 373,
+        "y": 428,
+        "sourceIds": [
+          "floor_3f"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-foyer3-ac2",
+      "name": "車いす対応トイレ",
+      "purpose": "トイレ",
+      "floor": "会議場3F",
+      "scope": "場内",
+      "location": "3Fホワイエ",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "sourceIds": [
+        "floor_3f"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "toki-cf3",
+        "x": 414,
+        "y": 432,
+        "sourceIds": [
+          "floor_3f"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-foyer4-w",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "会議場4F",
+      "scope": "場内",
+      "location": "4Fホワイエ",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "sourceIds": [
+        "floor_4f"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "toki-cf4",
+        "x": 692,
+        "y": 453,
+        "sourceIds": [
+          "floor_4f"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-foyer4-ac1",
+      "name": "車いす対応トイレ",
+      "purpose": "トイレ",
+      "floor": "会議場4F",
+      "scope": "場内",
+      "location": "4Fホワイエ",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "sourceIds": [
+        "floor_4f"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "toki-cf4",
+        "x": 654,
+        "y": 472,
+        "sourceIds": [
+          "floor_4f"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-foyer4-m",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "会議場4F",
+      "scope": "場内",
+      "location": "4Fホワイエ",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "sourceIds": [
+        "floor_4f"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "toki-cf4",
+        "x": 681,
+        "y": 536,
+        "sourceIds": [
+          "floor_4f"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-foyer4-ac2",
+      "name": "車いす対応トイレ",
+      "purpose": "トイレ",
+      "floor": "会議場4F",
+      "scope": "場内",
+      "location": "4Fホワイエ",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "sourceIds": [
+        "floor_4f"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "toki-cf4",
+        "x": 589,
+        "y": 541,
+        "sourceIds": [
+          "floor_4f"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-office-info",
+      "name": "事務室・車いす貸出",
+      "purpose": "案内",
+      "floor": "入口1F",
+      "scope": "場内",
+      "location": "1F事務室",
+      "detail": "車いすの貸出は予約不可・数に限りがあります。緊急時も事務室へ。無料Wi-Fiのパスワードは館内掲示と事務室で案内。",
+      "sourceIds": [
+        "info-current"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "toki-en1",
+        "x": 635,
+        "y": 448,
+        "sourceIds": [
+          "info-current"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-aed",
+      "name": "2Fホワイエ AED",
+      "purpose": "AED",
+      "floor": "会議場2F",
+      "scope": "場内",
+      "location": "メインホール前の2Fホワイエ",
+      "detail": "AEDの設置を公式FAQとホール図へ照合。緊急時は係員・事務室へ。",
+      "sourceIds": [
+        "faq-current",
+        "floor_2f"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "toki-cf2",
+        "x": 440,
+        "y": 440,
+        "sourceIds": [
+          "faq-current",
+          "floor_2f"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-nursing",
+      "name": "アトリウム授乳室",
+      "purpose": "赤ちゃん",
+      "floor": "会議場2F",
+      "scope": "場内",
+      "location": "2Fアトリウム",
+      "detail": "給湯シンク・ベビーベッド・授乳用ソファー・椅子があります。",
+      "sourceIds": [
+        "info-current",
+        "floor_2f"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "kind": "nursing",
+      "anchor": {
+        "diagramId": "toki-cf2",
+        "x": 928,
+        "y": 500,
+        "sourceIds": [
+          "info-current",
+          "floor_2f"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-baby-en",
+      "name": "ベビーキープ・シート付トイレ",
+      "purpose": "赤ちゃん",
+      "floor": "入口1F",
+      "scope": "場内",
+      "location": "エントランスホール",
+      "detail": "公式はこの区域の設備を案内。各個室の位置・台数は確認中です。授乳室とは別の設備です。",
+      "sourceIds": [
+        "info-current"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "kind": "baby-toilet"
+    },
+    {
+      "id": "toki-baby-ex",
+      "name": "ベビーキープ・シート付トイレ",
+      "purpose": "赤ちゃん",
+      "floor": "展示場1F",
+      "scope": "場内",
+      "location": "展示ホール内",
+      "detail": "公式はこの区域の設備を案内。各個室の位置・台数は確認中です。授乳室とは別の設備です。",
+      "sourceIds": [
+        "info-current"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "kind": "baby-toilet"
+    },
+    {
+      "id": "toki-baby-f2",
+      "name": "ベビーキープ・シート付トイレ",
+      "purpose": "赤ちゃん",
+      "floor": "会議場2F",
+      "scope": "場内",
+      "location": "2F会議場ホワイエ",
+      "detail": "公式はこの区域の設備を案内。各個室の位置・台数は確認中です。授乳室とは別の設備です。",
+      "sourceIds": [
+        "info-current"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "kind": "baby-toilet"
+    },
+    {
+      "id": "toki-baby-es",
+      "name": "ベビーキープ・シート付トイレ",
+      "purpose": "赤ちゃん",
+      "floor": "エスプラナード2F",
+      "scope": "場内",
+      "location": "エスプラナード",
+      "detail": "公式はこの区域の設備を案内。各個室の位置・台数は確認中です。授乳室とは別の設備です。",
+      "sourceIds": [
+        "info-current"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "kind": "baby-toilet"
+    },
+    {
+      "id": "toki-baby-f3",
+      "name": "ベビーキープ・シート付トイレ",
+      "purpose": "赤ちゃん",
+      "floor": "会議場3F",
+      "scope": "場内",
+      "location": "3Fホワイエ",
+      "detail": "公式はこの区域の設備を案内。各個室の位置・台数は確認中です。授乳室とは別の設備です。",
+      "sourceIds": [
+        "info-current"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "kind": "baby-toilet"
+    },
+    {
+      "id": "toki-baby-f4",
+      "name": "ベビーキープ・シート付トイレ",
+      "purpose": "赤ちゃん",
+      "floor": "会議場4F",
+      "scope": "場内",
+      "location": "4Fホワイエ",
+      "detail": "公式はこの区域の設備を案内。各個室の位置・台数は確認中です。授乳室とは別の設備です。",
+      "sourceIds": [
+        "info-current"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "kind": "baby-toilet"
+    },
+    {
+      "id": "toki-vend-en",
+      "name": "飲料自動販売機",
+      "purpose": "飲食",
+      "floor": "入口1F",
+      "scope": "場内",
+      "location": "エントランスホール2",
+      "detail": "公式の設置区域。取扱商品・支払い・利用可能時間は現地でご確認ください。",
+      "sourceIds": [
+        "info-current"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "toki-en1",
+        "x": 1100,
+        "y": 613,
+        "sourceIds": [
+          "info-current"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-vend-smoke",
+      "name": "飲料自動販売機",
+      "purpose": "飲食",
+      "floor": "入口1F",
+      "scope": "場内",
+      "location": "喫煙所となり",
+      "detail": "公式の設置区域。取扱商品・支払い・利用可能時間は現地でご確認ください。",
+      "sourceIds": [
+        "info-current"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed"
+    },
+    {
+      "id": "toki-vend-es",
+      "name": "飲料自動販売機",
+      "purpose": "飲食",
+      "floor": "エスプラナード2F",
+      "scope": "場内",
+      "location": "展示ホールBエレベーターとなり",
+      "detail": "公式の設置区域。取扱商品・支払い・利用可能時間は現地でご確認ください。",
+      "sourceIds": [
+        "info-current"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "toki-es2",
+        "x": 868,
+        "y": 604,
+        "sourceIds": [
+          "info-current"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-vend-f2",
+      "name": "飲料自動販売機",
+      "purpose": "飲食",
+      "floor": "会議場2F",
+      "scope": "場内",
+      "location": "2Fホワイエ・トイレ脇",
+      "detail": "公式の設置区域。取扱商品・支払い・利用可能時間は現地でご確認ください。",
+      "sourceIds": [
+        "info-current"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed"
+    },
+    {
+      "id": "toki-vend-atrium",
+      "name": "飲料自動販売機",
+      "purpose": "飲食",
+      "floor": "会議場2F",
+      "scope": "場内",
+      "location": "アトリウム",
+      "detail": "公式の設置区域。取扱商品・支払い・利用可能時間は現地でご確認ください。",
+      "sourceIds": [
+        "info-current"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed"
+    },
+    {
+      "id": "toki-vend-f3",
+      "name": "飲料自動販売機",
+      "purpose": "飲食",
+      "floor": "会議場3F",
+      "scope": "場内",
+      "location": "3Fホワイエ・トイレ向かい",
+      "detail": "公式の設置区域。取扱商品・支払い・利用可能時間は現地でご確認ください。",
+      "sourceIds": [
+        "info-current"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "toki-cf3",
+        "x": 454,
+        "y": 474,
+        "sourceIds": [
+          "info-current"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-locker-en",
+      "name": "エントランス2 返金式ロッカー",
+      "purpose": "荷物",
+      "floor": "入口1F",
+      "scope": "場内",
+      "location": "1Fエントランスホール2",
+      "detail": "8:00〜20:00。大8口（高さ37×幅35×奥行42cm）、標準20口（高さ29×幅35×奥行42cm）。無料・100円を入れて利用後に返金。 新潟コンベンションセンター利用者の携帯品用。空きは未確認です。",
+      "sourceIds": [
+        "info-current"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "storageKind": "coin",
+      "anchor": {
+        "diagramId": "toki-en1",
+        "x": 1085,
+        "y": 625,
+        "sourceIds": [
+          "info-current"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-locker-es",
+      "name": "エスプラナード 返金式ロッカー",
+      "purpose": "荷物",
+      "floor": "エスプラナード2F",
+      "scope": "場内",
+      "location": "展示ホールA エレベーターとなり",
+      "detail": "5:00〜22:00。大48口（高さ37×幅35×奥行42cm）、標準120口（高さ29×幅35×奥行42cm）。無料・100円を入れて利用後に返金。 新潟コンベンションセンター利用者の携帯品用。空きは未確認です。",
+      "sourceIds": [
+        "info-current"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "storageKind": "coin",
+      "anchor": {
+        "diagramId": "toki-es2",
+        "x": 438,
+        "y": 598,
+        "sourceIds": [
+          "info-current"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-locker-large",
+      "name": "エスプラナード 大型有料ロッカー",
+      "purpose": "荷物",
+      "floor": "エスプラナード2F",
+      "scope": "場内",
+      "location": "展示ホールA エレベーターとなり",
+      "detail": "5:00〜22:00。8口・高さ84×幅34×奥行57cm。200円/日、24時を越えると1日につき200円追加。支払い方法の詳細は現地でご確認ください。 新潟コンベンションセンター利用者の携帯品用。空きは未確認です。",
+      "sourceIds": [
+        "info-current"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "storageKind": "coin",
+      "anchor": {
+        "diagramId": "toki-es2",
+        "x": 475,
+        "y": 598,
+        "sourceIds": [
+          "info-current"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-jr-locker",
+      "name": "新潟駅 コインロッカー",
+      "purpose": "荷物",
+      "floor": "駅（階確認中）",
+      "scope": "場外",
+      "location": "新潟駅（個別位置確認中）",
+      "detail": "JR東日本は設置ありと案内。個別階・改札内外・料金・利用時間・空きは確認中です。",
+      "sourceIds": [
+        "jr-info-web"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "storageKind": "coin"
+    },
+    {
+      "id": "toki-sagawa",
+      "name": "佐川急便 新潟駅手荷物預かり",
+      "purpose": "荷物",
+      "floor": "駅2F",
+      "scope": "場外",
+      "location": "CoCoLo新潟 2F EAST SIDE",
+      "detail": "手荷物一時預かりは10:00〜20:00・当日限り。店舗営業10:00〜20:30とは異なります。3辺合計200cmまで700円/個/日（税込）。予約方法・受入条件・空きは運営元へ。配送受付とは別です。",
+      "sourceIds": [
+        "sagawa",
+        "cocolo-sagawa"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "storageKind": "staffed"
+    },
+    {
+      "id": "toki-jre-counter",
+      "name": "新潟駅 お荷物サービスカウンター",
+      "purpose": "荷物",
+      "floor": "駅（階確認中）",
+      "scope": "場外",
+      "location": "新潟駅（現在の個別入口・階は確認中）",
+      "detail": "新潟鉄道荷物は大型手荷物の一時預かりを案内。JRの現行窓口一覧にも掲載。旧案内図は西口側ですが現在の改札構造と未照合のため、階/受付時間/料金/経路は確定せず運営元へご確認ください。",
+      "sourceIds": [
+        "tetsuni-current",
+        "jre-bags",
+        "jre-bags-map"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed",
+      "storageKind": "staffed"
+    },
+    {
+      "id": "toki-everyone",
+      "name": "エブリーワン",
+      "purpose": "飲食",
+      "floor": "万代島ビル2F",
+      "scope": "場外",
+      "location": "万代島ビル2F",
+      "detail": "万代島ビル2Fのコンビニ。会場の現行案内は8:00〜19:00。 営業変更・貸切は店舗へ。コンベンションセンターの会議場2Fとは別です。",
+      "sourceIds": [
+        "shops-current"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed"
+    },
+    {
+      "id": "toki-cafespot",
+      "name": "カフェスポット",
+      "purpose": "飲食",
+      "floor": "万代島ビル2F",
+      "scope": "場外",
+      "location": "万代島ビル2F",
+      "detail": "万代島ビル2Fのカフェ。会場の現行案内は9:00〜15:00。 営業変更・貸切は店舗へ。コンベンションセンターの会議場2Fとは別です。",
+      "sourceIds": [
+        "shops-current"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed"
+    },
+    {
+      "id": "toki-bambi",
+      "name": "バンビ",
+      "purpose": "飲食",
+      "floor": "万代島ビル2F",
+      "scope": "場外",
+      "location": "万代島ビル2F",
+      "detail": "万代島ビル2Fのカフェ・ダイニング・バー。会場の現行案内は11:00〜15:00。 営業変更・貸切は店舗へ。コンベンションセンターの会議場2Fとは別です。",
+      "sourceIds": [
+        "shops-current"
+      ],
+      "precision": "text-only",
+      "accessCondition": "unconfirmed"
+    },
+    {
+      "id": "toki-venue-access",
+      "name": "朱鷺メッセ・公演入口",
+      "purpose": "案内",
+      "floor": "敷地・周辺",
+      "scope": "場外",
+      "location": "新潟コンベンションセンター",
+      "detail": "公演ごとに使用入口・開放区域が変わります。展示ホールA/Bとメインホールを券面で確認してください。",
+      "sourceIds": [
+        "access-current"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "toki-grounds",
+        "x": 640,
+        "y": 225,
+        "sourceIds": [
+          "access-current"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-bus-stop",
+      "name": "朱鷺メッセ バス停",
+      "purpose": "案内",
+      "floor": "敷地・周辺",
+      "scope": "場外",
+      "location": "新潟駅発 佐渡汽船線",
+      "detail": "新潟駅1Fバスターミナル17番から佐渡汽船線。朱鷺メッセまで約17分。乗車時間の目安で入口までの徒歩時間ではありません。運行は新潟交通へ。",
+      "sourceIds": [
+        "bus-current"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "toki-grounds",
+        "x": 660,
+        "y": 290,
+        "sourceIds": [
+          "bus-current"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-niigata-access",
+      "name": "新潟駅・会場アクセス",
+      "purpose": "案内",
+      "floor": "敷地・周辺",
+      "scope": "場外",
+      "location": "新潟駅",
+      "detail": "公式の徒歩目安は約25分。バスは新潟駅高架下1Fの17番。古い市街図の駅前バス乗場位置は現在の乗場へ転用しません。",
+      "sourceIds": [
+        "access-current"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "toki-grounds",
+        "x": 650,
+        "y": 700,
+        "sourceIds": [
+          "access-current"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-bridge-access",
+      "name": "万代橋・川沿い",
+      "purpose": "案内",
+      "floor": "敷地・周辺",
+      "scope": "場外",
+      "location": "万代橋",
+      "detail": "新潟駅と会場の公式徒歩案内で経由する場所です。札は区域の位置関係で精密な連続経路ではありません。",
+      "sourceIds": [
+        "access_townmap"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "toki-grounds",
+        "x": 345,
+        "y": 530,
+        "sourceIds": [
+          "access_townmap"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    },
+    {
+      "id": "toki-sado-access",
+      "name": "佐渡汽船ターミナル",
+      "purpose": "案内",
+      "floor": "敷地・周辺",
+      "scope": "場外",
+      "location": "万代島",
+      "detail": "会場周辺の主要施設。船の時刻・ターミナルと会場の当日の通行条件は各運営元の案内へ。",
+      "sourceIds": [
+        "access_townmap"
+      ],
+      "precision": "landmark-area",
+      "accessCondition": "unconfirmed",
+      "anchor": {
+        "diagramId": "toki-grounds",
+        "x": 855,
+        "y": 140,
+        "sourceIds": [
+          "access_townmap"
+        ],
+        "reference": "図内の記号または公式文章で示す代表区域。精密入口・機械中心ではない"
+      }
+    }
+  ],
+  "diagrams": [
+    {
+      "id": "toki-ex1",
+      "floor": "展示場1F",
+      "scope": "場内",
+      "viewBox": [
+        100,
+        40,
+        1040,
+        730
+      ],
+      "concoursePaths": [],
+      "contextPaths": [
+        "M130 165 H740 V580 H130 Z",
+        "M760 165 H1070 V580 H760 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "toki-ex-a",
+          "label": "展示ホールA",
+          "x": 430,
+          "y": 365,
+          "kind": "entrance",
+          "sourceIds": [
+            "facility_1f01"
+          ],
+          "reference": "公式図の部屋・区域の位置関係。精密入口・通路線ではない"
+        },
+        {
+          "id": "toki-ex-b",
+          "label": "展示ホールB",
+          "x": 895,
+          "y": 365,
+          "kind": "entrance",
+          "sourceIds": [
+            "facility_1f01"
+          ],
+          "reference": "公式図の部屋・区域の位置関係。精密入口・通路線ではない"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "facility_1f01"
+        ],
+        "file": "research/toki-current-2026-10-10/facility_1f01.pdf",
+        "sha256": "7f55e1830d8c9fe9efa2fc274941450057d5b88fc34e84d157193f4bc5e1c5ca",
+        "width": 1191,
+        "height": 843,
+        "method": "主要な部屋と設備記号の代表区域を独立図形へ整理。原図の複製/トレース・精密入口/連続経路ではない",
+        "status": "主要区域の読図済み・精密比較未実施"
+      }
+    },
+    {
+      "id": "toki-en1",
+      "floor": "入口1F",
+      "scope": "場内",
+      "viewBox": [
+        100,
+        40,
+        1040,
+        730
+      ],
+      "concoursePaths": [],
+      "contextPaths": [
+        "M590 485 H1110 V645 H590 Z",
+        "M595 320 H670 V480 H595 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "toki-entrance2",
+          "label": "エントランス2",
+          "x": 900,
+          "y": 540,
+          "kind": "entrance",
+          "sourceIds": [
+            "floor_1f_entrance"
+          ],
+          "reference": "公式図の部屋・区域の位置関係。精密入口・通路線ではない"
+        },
+        {
+          "id": "toki-office",
+          "label": "事務室",
+          "x": 635,
+          "y": 430,
+          "kind": "entrance",
+          "sourceIds": [
+            "floor_1f_entrance"
+          ],
+          "reference": "公式図の部屋・区域の位置関係。精密入口・通路線ではない"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor_1f_entrance"
+        ],
+        "file": "research/toki-current-2026-10-10/floor_1f_entrance.pdf",
+        "sha256": "c3fed7424156c7e4f559831dbbc35bdf8157f9366785c9eca5f3598c495f7608",
+        "width": 1191,
+        "height": 843,
+        "method": "主要な部屋と設備記号の代表区域を独立図形へ整理。原図の複製/トレース・精密入口/連続経路ではない",
+        "status": "主要区域の読図済み・精密比較未実施"
+      }
+    },
+    {
+      "id": "toki-cf2",
+      "floor": "会議場2F",
+      "scope": "場内",
+      "viewBox": [
+        100,
+        40,
+        1040,
+        730
+      ],
+      "concoursePaths": [],
+      "contextPaths": [
+        "M145 180 H435 V440 H145 Z",
+        "M440 435 H950 V545 H440 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "toki-snow",
+          "label": "メインホール",
+          "x": 330,
+          "y": 325,
+          "kind": "entrance",
+          "sourceIds": [
+            "floor_2f"
+          ],
+          "reference": "公式図の部屋・区域の位置関係。精密入口・通路線ではない"
+        },
+        {
+          "id": "toki-foyer2",
+          "label": "2Fホワイエ",
+          "x": 540,
+          "y": 460,
+          "kind": "plaza",
+          "sourceIds": [
+            "floor_2f"
+          ],
+          "reference": "公式図の部屋・区域の位置関係。精密入口・通路線ではない"
+        },
+        {
+          "id": "toki-atrium",
+          "label": "アトリウム",
+          "x": 860,
+          "y": 510,
+          "kind": "plaza",
+          "sourceIds": [
+            "floor_2f"
+          ],
+          "reference": "公式図の部屋・区域の位置関係。精密入口・通路線ではない"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor_2f"
+        ],
+        "file": "research/toki-current-2026-10-10/floor_2f.pdf",
+        "sha256": "6c62acb3b427d66b98af6cf71fa32b9bb1acf05068227f576d7720dedb15255e",
+        "width": 1191,
+        "height": 843,
+        "method": "主要な部屋と設備記号の代表区域を独立図形へ整理。原図の複製/トレース・精密入口/連続経路ではない",
+        "status": "主要区域の読図済み・精密比較未実施"
+      }
+    },
+    {
+      "id": "toki-es2",
+      "floor": "エスプラナード2F",
+      "scope": "場内",
+      "viewBox": [
+        120,
+        480,
+        1000,
+        260
+      ],
+      "concoursePaths": [],
+      "contextPaths": [
+        "M160 628 H1090 V673 H160 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "toki-es-a",
+          "label": "展示ホールA出入口側",
+          "x": 650,
+          "y": 650,
+          "kind": "entrance",
+          "sourceIds": [
+            "floor_2f_esplanade"
+          ],
+          "reference": "公式図の部屋・区域の位置関係。精密入口・通路線ではない"
+        },
+        {
+          "id": "toki-es-b",
+          "label": "展示ホールB出入口側",
+          "x": 1005,
+          "y": 650,
+          "kind": "entrance",
+          "sourceIds": [
+            "floor_2f_esplanade"
+          ],
+          "reference": "公式図の部屋・区域の位置関係。精密入口・通路線ではない"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor_2f_esplanade"
+        ],
+        "file": "research/toki-current-2026-10-10/floor_2f_esplanade.pdf",
+        "sha256": "b0c694945a9fb6459a16c43fff1184cea20476f1e4c268978fe691eeb160a3a3",
+        "width": 1191,
+        "height": 843,
+        "method": "主要な部屋と設備記号の代表区域を独立図形へ整理。原図の複製/トレース・精密入口/連続経路ではない",
+        "status": "主要区域の読図済み・精密比較未実施"
+      }
+    },
+    {
+      "id": "toki-cf3",
+      "floor": "会議場3F",
+      "scope": "場内",
+      "viewBox": [
+        100,
+        40,
+        1040,
+        730
+      ],
+      "concoursePaths": [],
+      "contextPaths": [
+        "M160 180 H460 V435 H160 Z",
+        "M400 435 H620 V545 H400 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "toki-meeting3",
+          "label": "3Fホワイエ",
+          "x": 520,
+          "y": 465,
+          "kind": "plaza",
+          "sourceIds": [
+            "floor_3f"
+          ],
+          "reference": "公式図の部屋・区域の位置関係。精密入口・通路線ではない"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor_3f"
+        ],
+        "file": "research/toki-current-2026-10-10/floor_3f.pdf",
+        "sha256": "2ae22f62b7c994715d04792a4da2e8f91c02855f73d94c96dfaa6fdd34535c46",
+        "width": 1191,
+        "height": 843,
+        "method": "主要な部屋と設備記号の代表区域を独立図形へ整理。原図の複製/トレース・精密入口/連続経路ではない",
+        "status": "主要区域の読図済み・精密比較未実施"
+      }
+    },
+    {
+      "id": "toki-cf4",
+      "floor": "会議場4F",
+      "scope": "場内",
+      "viewBox": [
+        100,
+        40,
+        1040,
+        730
+      ],
+      "concoursePaths": [],
+      "contextPaths": [
+        "M275 260 H580 V515 H275 Z",
+        "M580 425 H760 V585 H580 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "toki-marine",
+          "label": "マリンホール",
+          "x": 535,
+          "y": 395,
+          "kind": "entrance",
+          "sourceIds": [
+            "floor_4f"
+          ],
+          "reference": "公式図の部屋・区域の位置関係。精密入口・通路線ではない"
+        },
+        {
+          "id": "toki-foyer4",
+          "label": "4Fホワイエ",
+          "x": 630,
+          "y": 535,
+          "kind": "plaza",
+          "sourceIds": [
+            "floor_4f"
+          ],
+          "reference": "公式図の部屋・区域の位置関係。精密入口・通路線ではない"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor_4f"
+        ],
+        "file": "research/toki-current-2026-10-10/floor_4f.pdf",
+        "sha256": "4c9de2b24f3950def0db84bb5e0eb317df7709a525cb8ac1661f2e946483c014",
+        "width": 1191,
+        "height": 843,
+        "method": "主要な部屋と設備記号の代表区域を独立図形へ整理。原図の複製/トレース・精密入口/連続経路ではない",
+        "status": "主要区域の読図済み・精密比較未実施"
+      }
+    },
+    {
+      "id": "toki-grounds",
+      "floor": "敷地・周辺",
+      "scope": "場外",
+      "viewBox": [
+        80,
+        50,
+        940,
+        760
+      ],
+      "concoursePaths": [],
+      "contextPaths": [
+        "M540 185 H730 V325 H540 Z",
+        "M160 610 L560 300 L610 95 L500 65 L440 250 L100 530 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "toki-venue",
+          "label": "朱鷺メッセ",
+          "x": 620,
+          "y": 180,
+          "kind": "plaza",
+          "sourceIds": [
+            "access_townmap"
+          ],
+          "reference": "公式図の部屋・区域の位置関係。精密入口・通路線ではない"
+        },
+        {
+          "id": "toki-bandai",
+          "label": "万代島ビル",
+          "x": 575,
+          "y": 145,
+          "kind": "shop",
+          "sourceIds": [
+            "access_townmap"
+          ],
+          "reference": "公式図の部屋・区域の位置関係。精密入口・通路線ではない"
+        },
+        {
+          "id": "toki-bus",
+          "label": "朱鷺メッセバス停",
+          "x": 660,
+          "y": 270,
+          "kind": "station",
+          "sourceIds": [
+            "access_townmap"
+          ],
+          "reference": "公式図の部屋・区域の位置関係。精密入口・通路線ではない"
+        },
+        {
+          "id": "toki-sado",
+          "label": "佐渡汽船",
+          "x": 855,
+          "y": 140,
+          "kind": "plaza",
+          "sourceIds": [
+            "access_townmap"
+          ],
+          "reference": "公式図の部屋・区域の位置関係。精密入口・通路線ではない"
+        },
+        {
+          "id": "toki-bridge",
+          "label": "万代橋",
+          "x": 345,
+          "y": 530,
+          "kind": "plaza",
+          "sourceIds": [
+            "access_townmap"
+          ],
+          "reference": "公式図の部屋・区域の位置関係。精密入口・通路線ではない"
+        },
+        {
+          "id": "toki-niigata",
+          "label": "新潟駅",
+          "x": 650,
+          "y": 710,
+          "kind": "station",
+          "sourceIds": [
+            "access_townmap"
+          ],
+          "reference": "公式図の部屋・区域の位置関係。精密入口・通路線ではない"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "access_townmap"
+        ],
+        "file": "research/toki-current-2026-10-10/access_townmap.pdf",
+        "sha256": "cf62773bc94f0be91fd7eb5462cc3ae45199239fd82715e63df4f89af38d17da",
+        "width": 873,
+        "height": 593,
+        "method": "主要な部屋と設備記号の代表区域を独立図形へ整理。原図の複製/トレース・精密入口/連続経路ではない",
+        "status": "主要区域の読図済み・精密比較未実施"
+      }
+    },
+    {
+      "id": "toki-station",
+      "floor": "駅の荷物",
+      "scope": "場外",
+      "viewBox": [
+        80,
+        50,
+        940,
+        590
+      ],
+      "concoursePaths": [],
+      "contextPaths": [],
+      "landmarks": [
+        {
+          "id": "toki-station-bags",
+          "label": "新潟駅",
+          "x": 600,
+          "y": 330,
+          "kind": "station",
+          "sourceIds": [
+            "access_townmap"
+          ],
+          "reference": "公式図の部屋・区域の位置関係。精密入口・通路線ではない"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "access_townmap"
+        ],
+        "file": "research/toki-current-2026-10-10/access_townmap.pdf",
+        "sha256": "cf62773bc94f0be91fd7eb5462cc3ae45199239fd82715e63df4f89af38d17da",
+        "width": 873,
+        "height": 593,
+        "method": "主要な部屋と設備記号の代表区域を独立図形へ整理。原図の複製/トレース・精密入口/連続経路ではない",
+        "status": "主要区域の読図済み・精密比較未実施"
+      }
+    }
+  ],
+  "groups": [
+    {
+      "id": "toki-ex-a-w-group",
+      "diagramId": "toki-ex1",
+      "purpose": "トイレ",
+      "label": "女性トイレ",
+      "area": "展示ホール内",
+      "memberIds": [
+        "toki-ex-a-w"
+      ],
+      "x": 347,
+      "y": 140,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-ex-a-ac-group",
+      "diagramId": "toki-ex1",
+      "purpose": "トイレ",
+      "label": "車いす対応トイレ",
+      "area": "展示ホール内",
+      "memberIds": [
+        "toki-ex-a-ac"
+      ],
+      "x": 407,
+      "y": 142,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-ex-ab-m-group",
+      "diagramId": "toki-ex1",
+      "purpose": "トイレ",
+      "label": "男性トイレ",
+      "area": "展示ホール内",
+      "memberIds": [
+        "toki-ex-ab-m"
+      ],
+      "x": 620,
+      "y": 141,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-ex-ab-ac-group",
+      "diagramId": "toki-ex1",
+      "purpose": "トイレ",
+      "label": "車いす対応トイレ",
+      "area": "展示ホール内",
+      "memberIds": [
+        "toki-ex-ab-ac"
+      ],
+      "x": 578,
+      "y": 154,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-ex-b-m-group",
+      "diagramId": "toki-ex1",
+      "purpose": "トイレ",
+      "label": "男性トイレ",
+      "area": "展示ホール内",
+      "memberIds": [
+        "toki-ex-b-m"
+      ],
+      "x": 753,
+      "y": 594,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-ex-b-w-group",
+      "diagramId": "toki-ex1",
+      "purpose": "トイレ",
+      "label": "女性トイレ",
+      "area": "展示ホール内",
+      "memberIds": [
+        "toki-ex-b-w"
+      ],
+      "x": 753,
+      "y": 616,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-ex-b-ac-group",
+      "diagramId": "toki-ex1",
+      "purpose": "トイレ",
+      "label": "車いす対応トイレ",
+      "area": "展示ホール内",
+      "memberIds": [
+        "toki-ex-b-ac"
+      ],
+      "x": 830,
+      "y": 604,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-en2-m-group",
+      "diagramId": "toki-en1",
+      "purpose": "トイレ",
+      "label": "男性トイレ",
+      "area": "エントランスホール2",
+      "memberIds": [
+        "toki-en2-m"
+      ],
+      "x": 1070,
+      "y": 580,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-en2-w-group",
+      "diagramId": "toki-en1",
+      "purpose": "トイレ",
+      "label": "女性トイレ",
+      "area": "エントランスホール2",
+      "memberIds": [
+        "toki-en2-w"
+      ],
+      "x": 1095,
+      "y": 580,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-en2-ac-group",
+      "diagramId": "toki-en1",
+      "purpose": "トイレ",
+      "label": "車いす対応トイレ",
+      "area": "エントランスホール2",
+      "memberIds": [
+        "toki-en2-ac"
+      ],
+      "x": 1070,
+      "y": 610,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-office-w-group",
+      "diagramId": "toki-en1",
+      "purpose": "トイレ",
+      "label": "女性トイレ",
+      "area": "事務室前",
+      "memberIds": [
+        "toki-office-w"
+      ],
+      "x": 662,
+      "y": 603,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-office-ac-group",
+      "diagramId": "toki-en1",
+      "purpose": "トイレ",
+      "label": "車いす対応トイレ",
+      "area": "事務室前",
+      "memberIds": [
+        "toki-office-ac"
+      ],
+      "x": 650,
+      "y": 637,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-foyer2-m-group",
+      "diagramId": "toki-cf2",
+      "purpose": "トイレ",
+      "label": "男性トイレ",
+      "area": "メインホール横ホワイエ",
+      "memberIds": [
+        "toki-foyer2-m"
+      ],
+      "x": 448,
+      "y": 359,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-foyer2-w-group",
+      "diagramId": "toki-cf2",
+      "purpose": "トイレ",
+      "label": "女性トイレ",
+      "area": "メインホール横ホワイエ",
+      "memberIds": [
+        "toki-foyer2-w"
+      ],
+      "x": 522,
+      "y": 371,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-foyer2-ac1-group",
+      "diagramId": "toki-cf2",
+      "purpose": "トイレ",
+      "label": "車いす対応トイレ",
+      "area": "メインホール横ホワイエ",
+      "memberIds": [
+        "toki-foyer2-ac1"
+      ],
+      "x": 448,
+      "y": 389,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-foyer2-ac2-group",
+      "diagramId": "toki-cf2",
+      "purpose": "トイレ",
+      "label": "車いす対応トイレ",
+      "area": "メインホール横ホワイエ",
+      "memberIds": [
+        "toki-foyer2-ac2"
+      ],
+      "x": 487,
+      "y": 391,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-atrium-m-group",
+      "diagramId": "toki-cf2",
+      "purpose": "トイレ",
+      "label": "男性トイレ",
+      "area": "アトリウム側",
+      "memberIds": [
+        "toki-atrium-m"
+      ],
+      "x": 911,
+      "y": 448,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-atrium-w-group",
+      "diagramId": "toki-cf2",
+      "purpose": "トイレ",
+      "label": "女性トイレ",
+      "area": "アトリウム側",
+      "memberIds": [
+        "toki-atrium-w"
+      ],
+      "x": 928,
+      "y": 448,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-atrium-ac-group",
+      "diagramId": "toki-cf2",
+      "purpose": "トイレ",
+      "label": "車いす対応トイレ",
+      "area": "アトリウム側",
+      "memberIds": [
+        "toki-atrium-ac"
+      ],
+      "x": 905,
+      "y": 470,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-es-m-group",
+      "diagramId": "toki-es2",
+      "purpose": "トイレ",
+      "label": "男性トイレ",
+      "area": "展示ホールA/B出入口間",
+      "memberIds": [
+        "toki-es-m"
+      ],
+      "x": 766,
+      "y": 589,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-es-w-group",
+      "diagramId": "toki-es2",
+      "purpose": "トイレ",
+      "label": "女性トイレ",
+      "area": "展示ホールA/B出入口間",
+      "memberIds": [
+        "toki-es-w"
+      ],
+      "x": 882,
+      "y": 582,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-es-ac1-group",
+      "diagramId": "toki-es2",
+      "purpose": "トイレ",
+      "label": "車いす対応トイレ",
+      "area": "展示ホールA/B出入口間",
+      "memberIds": [
+        "toki-es-ac1"
+      ],
+      "x": 840,
+      "y": 575,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-es-ac2-group",
+      "diagramId": "toki-es2",
+      "purpose": "トイレ",
+      "label": "車いす対応トイレ",
+      "area": "展示ホールA/B出入口間",
+      "memberIds": [
+        "toki-es-ac2"
+      ],
+      "x": 840,
+      "y": 607,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-foyer3-m-group",
+      "diagramId": "toki-cf3",
+      "purpose": "トイレ",
+      "label": "男性トイレ",
+      "area": "3Fホワイエ",
+      "memberIds": [
+        "toki-foyer3-m"
+      ],
+      "x": 437,
+      "y": 363,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-foyer3-ac1-group",
+      "diagramId": "toki-cf3",
+      "purpose": "トイレ",
+      "label": "車いす対応トイレ",
+      "area": "3Fホワイエ",
+      "memberIds": [
+        "toki-foyer3-ac1"
+      ],
+      "x": 442,
+      "y": 413,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-foyer3-w-group",
+      "diagramId": "toki-cf3",
+      "purpose": "トイレ",
+      "label": "女性トイレ",
+      "area": "3Fホワイエ",
+      "memberIds": [
+        "toki-foyer3-w"
+      ],
+      "x": 373,
+      "y": 428,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-foyer3-ac2-group",
+      "diagramId": "toki-cf3",
+      "purpose": "トイレ",
+      "label": "車いす対応トイレ",
+      "area": "3Fホワイエ",
+      "memberIds": [
+        "toki-foyer3-ac2"
+      ],
+      "x": 414,
+      "y": 432,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-foyer4-w-group",
+      "diagramId": "toki-cf4",
+      "purpose": "トイレ",
+      "label": "女性トイレ",
+      "area": "4Fホワイエ",
+      "memberIds": [
+        "toki-foyer4-w"
+      ],
+      "x": 692,
+      "y": 453,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-foyer4-ac1-group",
+      "diagramId": "toki-cf4",
+      "purpose": "トイレ",
+      "label": "車いす対応トイレ",
+      "area": "4Fホワイエ",
+      "memberIds": [
+        "toki-foyer4-ac1"
+      ],
+      "x": 654,
+      "y": 472,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-foyer4-m-group",
+      "diagramId": "toki-cf4",
+      "purpose": "トイレ",
+      "label": "男性トイレ",
+      "area": "4Fホワイエ",
+      "memberIds": [
+        "toki-foyer4-m"
+      ],
+      "x": 681,
+      "y": 536,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-foyer4-ac2-group",
+      "diagramId": "toki-cf4",
+      "purpose": "トイレ",
+      "label": "車いす対応トイレ",
+      "area": "4Fホワイエ",
+      "memberIds": [
+        "toki-foyer4-ac2"
+      ],
+      "x": 589,
+      "y": 541,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-office-info-group",
+      "diagramId": "toki-en1",
+      "purpose": "案内",
+      "label": "事務室・車いす貸出",
+      "area": "1F事務室",
+      "memberIds": [
+        "toki-office-info"
+      ],
+      "x": 635,
+      "y": 448,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-aed-group",
+      "diagramId": "toki-cf2",
+      "purpose": "AED",
+      "label": "2Fホワイエ AED",
+      "area": "メインホール前の2Fホワイエ",
+      "memberIds": [
+        "toki-aed"
+      ],
+      "x": 440,
+      "y": 440,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-nursing-group",
+      "diagramId": "toki-cf2",
+      "purpose": "赤ちゃん",
+      "label": "アトリウム授乳室",
+      "area": "2Fアトリウム",
+      "memberIds": [
+        "toki-nursing"
+      ],
+      "x": 928,
+      "y": 500,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-vend-en-group",
+      "diagramId": "toki-en1",
+      "purpose": "飲食",
+      "label": "飲料自動販売機",
+      "area": "エントランスホール2",
+      "memberIds": [
+        "toki-vend-en"
+      ],
+      "x": 1100,
+      "y": 613,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-vend-es-group",
+      "diagramId": "toki-es2",
+      "purpose": "飲食",
+      "label": "飲料自動販売機",
+      "area": "展示ホールBエレベーターとなり",
+      "memberIds": [
+        "toki-vend-es"
+      ],
+      "x": 868,
+      "y": 604,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-vend-f3-group",
+      "diagramId": "toki-cf3",
+      "purpose": "飲食",
+      "label": "飲料自動販売機",
+      "area": "3Fホワイエ・トイレ向かい",
+      "memberIds": [
+        "toki-vend-f3"
+      ],
+      "x": 454,
+      "y": 474,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-locker-en-group",
+      "diagramId": "toki-en1",
+      "purpose": "荷物",
+      "label": "エントランス2 返金式ロッカー",
+      "area": "1Fエントランスホール2",
+      "memberIds": [
+        "toki-locker-en"
+      ],
+      "x": 1085,
+      "y": 625,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-locker-es-group",
+      "diagramId": "toki-es2",
+      "purpose": "荷物",
+      "label": "エスプラナード 返金式ロッカー",
+      "area": "展示ホールA エレベーターとなり",
+      "memberIds": [
+        "toki-locker-es"
+      ],
+      "x": 438,
+      "y": 598,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-locker-large-group",
+      "diagramId": "toki-es2",
+      "purpose": "荷物",
+      "label": "エスプラナード 大型有料ロッカー",
+      "area": "展示ホールA エレベーターとなり",
+      "memberIds": [
+        "toki-locker-large"
+      ],
+      "x": 475,
+      "y": 598,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-venue-access-group",
+      "diagramId": "toki-grounds",
+      "purpose": "案内",
+      "label": "朱鷺メッセ・公演入口",
+      "area": "新潟コンベンションセンター",
+      "memberIds": [
+        "toki-venue-access"
+      ],
+      "x": 640,
+      "y": 225,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-bus-stop-group",
+      "diagramId": "toki-grounds",
+      "purpose": "案内",
+      "label": "朱鷺メッセ バス停",
+      "area": "新潟駅発 佐渡汽船線",
+      "memberIds": [
+        "toki-bus-stop"
+      ],
+      "x": 660,
+      "y": 290,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-niigata-access-group",
+      "diagramId": "toki-grounds",
+      "purpose": "案内",
+      "label": "新潟駅・会場アクセス",
+      "area": "新潟駅",
+      "memberIds": [
+        "toki-niigata-access"
+      ],
+      "x": 650,
+      "y": 700,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-bridge-access-group",
+      "diagramId": "toki-grounds",
+      "purpose": "案内",
+      "label": "万代橋・川沿い",
+      "area": "万代橋",
+      "memberIds": [
+        "toki-bridge-access"
+      ],
+      "x": 345,
+      "y": 530,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "toki-sado-access-group",
+      "diagramId": "toki-grounds",
+      "purpose": "案内",
+      "label": "佐渡汽船ターミナル",
+      "area": "万代島",
+      "memberIds": [
+        "toki-sado-access"
+      ],
+      "x": 855,
+      "y": 140,
+      "boundary": "同一の原図記号・代表区域。別室/別階/別棟を近さだけで統合しない",
+      "visualReview": "source-checked"
+    }
+  ],
+  "meta": {
+    "toki-ex-a-w": {
+      "name": "女性トイレ",
+      "location": "展示ホール内",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "area": "展示ホール内",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/sponsor/download/files/facility_1f01.pdf"
+    },
+    "toki-ex-a-ac": {
+      "name": "車いす対応トイレ",
+      "location": "展示ホール内",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "area": "展示ホール内",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/sponsor/download/files/facility_1f01.pdf"
+    },
+    "toki-ex-ab-m": {
+      "name": "男性トイレ",
+      "location": "展示ホール内",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "area": "展示ホール内",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/sponsor/download/files/facility_1f01.pdf"
+    },
+    "toki-ex-ab-ac": {
+      "name": "車いす対応トイレ",
+      "location": "展示ホール内",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "area": "展示ホール内",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/sponsor/download/files/facility_1f01.pdf"
+    },
+    "toki-ex-b-m": {
+      "name": "男性トイレ",
+      "location": "展示ホール内",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "area": "展示ホール内",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/sponsor/download/files/facility_1f01.pdf"
+    },
+    "toki-ex-b-w": {
+      "name": "女性トイレ",
+      "location": "展示ホール内",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "area": "展示ホール内",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/sponsor/download/files/facility_1f01.pdf"
+    },
+    "toki-ex-b-ac": {
+      "name": "車いす対応トイレ",
+      "location": "展示ホール内",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "area": "展示ホール内",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/sponsor/download/files/facility_1f01.pdf"
+    },
+    "toki-en2-m": {
+      "name": "男性トイレ",
+      "location": "エントランスホール2",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "area": "エントランスホール2",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/sponsor/download/files/floor_1f_entrance.pdf"
+    },
+    "toki-en2-w": {
+      "name": "女性トイレ",
+      "location": "エントランスホール2",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "area": "エントランスホール2",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/sponsor/download/files/floor_1f_entrance.pdf"
+    },
+    "toki-en2-ac": {
+      "name": "車いす対応トイレ",
+      "location": "エントランスホール2",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "area": "エントランスホール2",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/sponsor/download/files/floor_1f_entrance.pdf"
+    },
+    "toki-office-w": {
+      "name": "女性トイレ",
+      "location": "事務室前",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "area": "事務室前",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/sponsor/download/files/floor_1f_entrance.pdf"
+    },
+    "toki-office-ac": {
+      "name": "車いす対応トイレ",
+      "location": "事務室前",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "area": "事務室前",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/sponsor/download/files/floor_1f_entrance.pdf"
+    },
+    "toki-foyer2-m": {
+      "name": "男性トイレ",
+      "location": "メインホール横ホワイエ",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "area": "メインホール横ホワイエ",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/sponsor/download/files/floor_2f.pdf"
+    },
+    "toki-foyer2-w": {
+      "name": "女性トイレ",
+      "location": "メインホール横ホワイエ",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "area": "メインホール横ホワイエ",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/sponsor/download/files/floor_2f.pdf"
+    },
+    "toki-foyer2-ac1": {
+      "name": "車いす対応トイレ",
+      "location": "メインホール横ホワイエ",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "area": "メインホール横ホワイエ",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/sponsor/download/files/floor_2f.pdf"
+    },
+    "toki-foyer2-ac2": {
+      "name": "車いす対応トイレ",
+      "location": "メインホール横ホワイエ",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "area": "メインホール横ホワイエ",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/sponsor/download/files/floor_2f.pdf"
+    },
+    "toki-atrium-m": {
+      "name": "男性トイレ",
+      "location": "アトリウム側",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "area": "アトリウム側",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/sponsor/download/files/floor_2f.pdf"
+    },
+    "toki-atrium-w": {
+      "name": "女性トイレ",
+      "location": "アトリウム側",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "area": "アトリウム側",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/sponsor/download/files/floor_2f.pdf"
+    },
+    "toki-atrium-ac": {
+      "name": "車いす対応トイレ",
+      "location": "アトリウム側",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "area": "アトリウム側",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/sponsor/download/files/floor_2f.pdf"
+    },
+    "toki-es-m": {
+      "name": "男性トイレ",
+      "location": "展示ホールA/B出入口間",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "area": "展示ホールA/B出入口間",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/sponsor/download/files/floor_2f_esplanade.pdf"
+    },
+    "toki-es-w": {
+      "name": "女性トイレ",
+      "location": "展示ホールA/B出入口間",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "area": "展示ホールA/B出入口間",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/sponsor/download/files/floor_2f_esplanade.pdf"
+    },
+    "toki-es-ac1": {
+      "name": "車いす対応トイレ",
+      "location": "展示ホールA/B出入口間",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "area": "展示ホールA/B出入口間",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/sponsor/download/files/floor_2f_esplanade.pdf"
+    },
+    "toki-es-ac2": {
+      "name": "車いす対応トイレ",
+      "location": "展示ホールA/B出入口間",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "area": "展示ホールA/B出入口間",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/sponsor/download/files/floor_2f_esplanade.pdf"
+    },
+    "toki-foyer3-m": {
+      "name": "男性トイレ",
+      "location": "3Fホワイエ",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "area": "3Fホワイエ",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/sponsor/download/files/floor_3f.pdf"
+    },
+    "toki-foyer3-ac1": {
+      "name": "車いす対応トイレ",
+      "location": "3Fホワイエ",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "area": "3Fホワイエ",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/sponsor/download/files/floor_3f.pdf"
+    },
+    "toki-foyer3-w": {
+      "name": "女性トイレ",
+      "location": "3Fホワイエ",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "area": "3Fホワイエ",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/sponsor/download/files/floor_3f.pdf"
+    },
+    "toki-foyer3-ac2": {
+      "name": "車いす対応トイレ",
+      "location": "3Fホワイエ",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "area": "3Fホワイエ",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/sponsor/download/files/floor_3f.pdf"
+    },
+    "toki-foyer4-w": {
+      "name": "女性トイレ",
+      "location": "4Fホワイエ",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "area": "4Fホワイエ",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/sponsor/download/files/floor_4f.pdf"
+    },
+    "toki-foyer4-ac1": {
+      "name": "車いす対応トイレ",
+      "location": "4Fホワイエ",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "area": "4Fホワイエ",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/sponsor/download/files/floor_4f.pdf"
+    },
+    "toki-foyer4-m": {
+      "name": "男性トイレ",
+      "location": "4Fホワイエ",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "area": "4Fホワイエ",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/sponsor/download/files/floor_4f.pdf"
+    },
+    "toki-foyer4-ac2": {
+      "name": "車いす対応トイレ",
+      "location": "4Fホワイエ",
+      "detail": "公式フロア図の代表区域です。部屋ごとの開放・精密入口は公演案内をご確認ください。",
+      "area": "4Fホワイエ",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/sponsor/download/files/floor_4f.pdf"
+    },
+    "toki-office-info": {
+      "name": "事務室・車いす貸出",
+      "location": "1F事務室",
+      "detail": "車いすの貸出は予約不可・数に限りがあります。緊急時も事務室へ。無料Wi-Fiのパスワードは館内掲示と事務室で案内。",
+      "area": "1F事務室",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/visitor/usage/"
+    },
+    "toki-aed": {
+      "name": "2Fホワイエ AED",
+      "location": "メインホール前の2Fホワイエ",
+      "detail": "AEDの設置を公式FAQとホール図へ照合。緊急時は係員・事務室へ。",
+      "area": "メインホール前の2Fホワイエ",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/visitor/contact/faq.html"
+    },
+    "toki-nursing": {
+      "name": "アトリウム授乳室",
+      "location": "2Fアトリウム",
+      "detail": "給湯シンク・ベビーベッド・授乳用ソファー・椅子があります。",
+      "area": "2Fアトリウム",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/visitor/usage/"
+    },
+    "toki-baby-en": {
+      "name": "ベビーキープ・シート付トイレ",
+      "location": "エントランスホール",
+      "detail": "公式はこの区域の設備を案内。各個室の位置・台数は確認中です。授乳室とは別の設備です。",
+      "area": "エントランスホール",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/visitor/usage/"
+    },
+    "toki-baby-ex": {
+      "name": "ベビーキープ・シート付トイレ",
+      "location": "展示ホール内",
+      "detail": "公式はこの区域の設備を案内。各個室の位置・台数は確認中です。授乳室とは別の設備です。",
+      "area": "展示ホール内",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/visitor/usage/"
+    },
+    "toki-baby-f2": {
+      "name": "ベビーキープ・シート付トイレ",
+      "location": "2F会議場ホワイエ",
+      "detail": "公式はこの区域の設備を案内。各個室の位置・台数は確認中です。授乳室とは別の設備です。",
+      "area": "2F会議場ホワイエ",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/visitor/usage/"
+    },
+    "toki-baby-es": {
+      "name": "ベビーキープ・シート付トイレ",
+      "location": "エスプラナード",
+      "detail": "公式はこの区域の設備を案内。各個室の位置・台数は確認中です。授乳室とは別の設備です。",
+      "area": "エスプラナード",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/visitor/usage/"
+    },
+    "toki-baby-f3": {
+      "name": "ベビーキープ・シート付トイレ",
+      "location": "3Fホワイエ",
+      "detail": "公式はこの区域の設備を案内。各個室の位置・台数は確認中です。授乳室とは別の設備です。",
+      "area": "3Fホワイエ",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/visitor/usage/"
+    },
+    "toki-baby-f4": {
+      "name": "ベビーキープ・シート付トイレ",
+      "location": "4Fホワイエ",
+      "detail": "公式はこの区域の設備を案内。各個室の位置・台数は確認中です。授乳室とは別の設備です。",
+      "area": "4Fホワイエ",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/visitor/usage/"
+    },
+    "toki-vend-en": {
+      "name": "飲料自動販売機",
+      "location": "エントランスホール2",
+      "detail": "公式の設置区域。取扱商品・支払い・利用可能時間は現地でご確認ください。",
+      "area": "エントランスホール2",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/visitor/usage/"
+    },
+    "toki-vend-smoke": {
+      "name": "飲料自動販売機",
+      "location": "喫煙所となり",
+      "detail": "公式の設置区域。取扱商品・支払い・利用可能時間は現地でご確認ください。",
+      "area": "喫煙所となり",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/visitor/usage/"
+    },
+    "toki-vend-es": {
+      "name": "飲料自動販売機",
+      "location": "展示ホールBエレベーターとなり",
+      "detail": "公式の設置区域。取扱商品・支払い・利用可能時間は現地でご確認ください。",
+      "area": "展示ホールBエレベーターとなり",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/visitor/usage/"
+    },
+    "toki-vend-f2": {
+      "name": "飲料自動販売機",
+      "location": "2Fホワイエ・トイレ脇",
+      "detail": "公式の設置区域。取扱商品・支払い・利用可能時間は現地でご確認ください。",
+      "area": "2Fホワイエ・トイレ脇",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/visitor/usage/"
+    },
+    "toki-vend-atrium": {
+      "name": "飲料自動販売機",
+      "location": "アトリウム",
+      "detail": "公式の設置区域。取扱商品・支払い・利用可能時間は現地でご確認ください。",
+      "area": "アトリウム",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/visitor/usage/"
+    },
+    "toki-vend-f3": {
+      "name": "飲料自動販売機",
+      "location": "3Fホワイエ・トイレ向かい",
+      "detail": "公式の設置区域。取扱商品・支払い・利用可能時間は現地でご確認ください。",
+      "area": "3Fホワイエ・トイレ向かい",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/visitor/usage/"
+    },
+    "toki-locker-en": {
+      "name": "エントランス2 返金式ロッカー",
+      "location": "1Fエントランスホール2",
+      "detail": "8:00〜20:00。大8口（高さ37×幅35×奥行42cm）、標準20口（高さ29×幅35×奥行42cm）。無料・100円を入れて利用後に返金。 新潟コンベンションセンター利用者の携帯品用。空きは未確認です。",
+      "area": "1Fエントランスホール2",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/visitor/usage/",
+      "scopes": [
+        "場内",
+        "場外"
+      ],
+      "outsideViewIds": [
+        "grounds",
+        "station"
+      ]
+    },
+    "toki-locker-es": {
+      "name": "エスプラナード 返金式ロッカー",
+      "location": "展示ホールA エレベーターとなり",
+      "detail": "5:00〜22:00。大48口（高さ37×幅35×奥行42cm）、標準120口（高さ29×幅35×奥行42cm）。無料・100円を入れて利用後に返金。 新潟コンベンションセンター利用者の携帯品用。空きは未確認です。",
+      "area": "展示ホールA エレベーターとなり",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/visitor/usage/",
+      "scopes": [
+        "場内",
+        "場外"
+      ],
+      "outsideViewIds": [
+        "grounds",
+        "station"
+      ]
+    },
+    "toki-locker-large": {
+      "name": "エスプラナード 大型有料ロッカー",
+      "location": "展示ホールA エレベーターとなり",
+      "detail": "5:00〜22:00。8口・高さ84×幅34×奥行57cm。200円/日、24時を越えると1日につき200円追加。支払い方法の詳細は現地でご確認ください。 新潟コンベンションセンター利用者の携帯品用。空きは未確認です。",
+      "area": "展示ホールA エレベーターとなり",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/visitor/usage/",
+      "scopes": [
+        "場内",
+        "場外"
+      ],
+      "outsideViewIds": [
+        "grounds",
+        "station"
+      ]
+    },
+    "toki-jr-locker": {
+      "name": "新潟駅 コインロッカー",
+      "location": "新潟駅（個別位置確認中）",
+      "detail": "JR東日本は設置ありと案内。個別階・改札内外・料金・利用時間・空きは確認中です。",
+      "area": "新潟駅（個別位置確認中）",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.jreast.co.jp/estation/station/info.aspx?StationCd=1137",
+      "outsideViewIds": [
+        "grounds",
+        "station"
+      ]
+    },
+    "toki-sagawa": {
+      "name": "佐川急便 新潟駅手荷物預かり",
+      "location": "CoCoLo新潟 2F EAST SIDE",
+      "detail": "手荷物一時預かりは10:00〜20:00・当日限り。店舗営業10:00〜20:30とは異なります。3辺合計200cmまで700円/個/日（税込）。予約方法・受入条件・空きは運営元へ。配送受付とは別です。",
+      "area": "CoCoLo新潟 2F EAST SIDE",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.sagawa-exp.co.jp/hands-freetravel/servicecenter/niigata_station.html",
+      "outsideViewIds": [
+        "grounds",
+        "station"
+      ]
+    },
+    "toki-jre-counter": {
+      "name": "新潟駅 お荷物サービスカウンター",
+      "location": "新潟駅（現在の個別入口・階は確認中）",
+      "detail": "新潟鉄道荷物は大型手荷物の一時預かりを案内。JRの現行窓口一覧にも掲載。旧案内図は西口側ですが現在の改札構造と未照合のため、階/受付時間/料金/経路は確定せず運営元へご確認ください。",
+      "area": "新潟駅（現在の個別入口・階は確認中）",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://tetsuni.co.jp/business/",
+      "outsideViewIds": [
+        "grounds",
+        "station"
+      ]
+    },
+    "toki-everyone": {
+      "name": "エブリーワン",
+      "location": "万代島ビル2F",
+      "detail": "万代島ビル2Fのコンビニ。会場の現行案内は8:00〜19:00。 営業変更・貸切は店舗へ。コンベンションセンターの会議場2Fとは別です。",
+      "area": "万代島ビル",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/visitor/guide/facilities.html",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "toki-cafespot": {
+      "name": "カフェスポット",
+      "location": "万代島ビル2F",
+      "detail": "万代島ビル2Fのカフェ。会場の現行案内は9:00〜15:00。 営業変更・貸切は店舗へ。コンベンションセンターの会議場2Fとは別です。",
+      "area": "万代島ビル",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/visitor/guide/facilities.html",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "toki-bambi": {
+      "name": "バンビ",
+      "location": "万代島ビル2F",
+      "detail": "万代島ビル2Fのカフェ・ダイニング・バー。会場の現行案内は11:00〜15:00。 営業変更・貸切は店舗へ。コンベンションセンターの会議場2Fとは別です。",
+      "area": "万代島ビル",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/visitor/guide/facilities.html",
+      "outsideViewIds": [
+        "grounds"
+      ]
+    },
+    "toki-venue-access": {
+      "name": "朱鷺メッセ・公演入口",
+      "location": "新潟コンベンションセンター",
+      "detail": "公演ごとに使用入口・開放区域が変わります。展示ホールA/Bとメインホールを券面で確認してください。",
+      "area": "新潟コンベンションセンター",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/visitor/access/"
+    },
+    "toki-bus-stop": {
+      "name": "朱鷺メッセ バス停",
+      "location": "新潟駅発 佐渡汽船線",
+      "detail": "新潟駅1Fバスターミナル17番から佐渡汽船線。朱鷺メッセまで約17分。乗車時間の目安で入口までの徒歩時間ではありません。運行は新潟交通へ。",
+      "area": "新潟駅発 佐渡汽船線",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.niigata-kotsu.co.jp/~noriai/route-bus/timetable/access/sadoferry/"
+    },
+    "toki-niigata-access": {
+      "name": "新潟駅・会場アクセス",
+      "location": "新潟駅",
+      "detail": "公式の徒歩目安は約25分。バスは新潟駅高架下1Fの17番。古い市街図の駅前バス乗場位置は現在の乗場へ転用しません。",
+      "area": "新潟駅",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/visitor/access/"
+    },
+    "toki-bridge-access": {
+      "name": "万代橋・川沿い",
+      "location": "万代橋",
+      "detail": "新潟駅と会場の公式徒歩案内で経由する場所です。札は区域の位置関係で精密な連続経路ではありません。",
+      "area": "万代橋",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/sponsor/download/files/access_townmap.pdf"
+    },
+    "toki-sado-access": {
+      "name": "佐渡汽船ターミナル",
+      "location": "万代島",
+      "detail": "会場周辺の主要施設。船の時刻・ターミナルと会場の当日の通行条件は各運営元の案内へ。",
+      "area": "万代島",
+      "accessCondition": "開放区域・当日の入場境界は公演案内をご確認ください",
+      "url": "https://www.tokimesse.com/sponsor/download/files/access_townmap.pdf"
+    }
+  },
+  "aliases": {
+    "toki-ex-a": [
+      "展示ホールA"
+    ],
+    "toki-ex-b": [
+      "展示ホールB"
+    ],
+    "toki-entrance2": [
+      "エントランス2"
+    ],
+    "toki-office": [
+      "事務室"
+    ],
+    "toki-snow": [
+      "メインホール"
+    ],
+    "toki-foyer2": [
+      "2Fホワイエ"
+    ],
+    "toki-atrium": [
+      "アトリウム"
+    ],
+    "toki-es-a": [
+      "展示ホールA出入口側"
+    ],
+    "toki-es-b": [
+      "展示ホールB出入口側"
+    ],
+    "toki-meeting3": [
+      "3Fホワイエ"
+    ],
+    "toki-marine": [
+      "マリンホール"
+    ],
+    "toki-foyer4": [
+      "4Fホワイエ"
+    ],
+    "toki-venue": [
+      "朱鷺メッセ"
+    ],
+    "toki-bandai": [
+      "万代島ビル"
+    ],
+    "toki-bus": [
+      "朱鷺メッセバス停"
+    ],
+    "toki-sado": [
+      "佐渡汽船"
+    ],
+    "toki-bridge": [
+      "万代橋"
+    ],
+    "toki-niigata": [
+      "新潟駅"
+    ],
+    "toki-station-bags": [
+      "新潟駅"
+    ]
+  },
+  "landmarkFacilityIds": {
+    "toki-ex-a": [
+      "toki-ex-a-w",
+      "toki-ex-a-ac",
+      "toki-ex-ab-m",
+      "toki-ex-ab-ac",
+      "toki-ex-b-m",
+      "toki-ex-b-w",
+      "toki-ex-b-ac"
+    ],
+    "toki-ex-b": [
+      "toki-ex-a-w",
+      "toki-ex-a-ac",
+      "toki-ex-ab-m",
+      "toki-ex-ab-ac",
+      "toki-ex-b-m",
+      "toki-ex-b-w",
+      "toki-ex-b-ac"
+    ],
+    "toki-entrance2": [
+      "toki-en2-m",
+      "toki-en2-w",
+      "toki-en2-ac",
+      "toki-office-w",
+      "toki-office-ac",
+      "toki-office-info",
+      "toki-vend-en",
+      "toki-locker-en"
+    ],
+    "toki-office": [
+      "toki-en2-m",
+      "toki-en2-w",
+      "toki-en2-ac",
+      "toki-office-w",
+      "toki-office-ac",
+      "toki-office-info",
+      "toki-vend-en",
+      "toki-locker-en"
+    ],
+    "toki-snow": [
+      "toki-foyer2-m",
+      "toki-foyer2-w",
+      "toki-foyer2-ac1",
+      "toki-foyer2-ac2",
+      "toki-atrium-m",
+      "toki-atrium-w",
+      "toki-atrium-ac",
+      "toki-aed",
+      "toki-nursing"
+    ],
+    "toki-foyer2": [
+      "toki-foyer2-m",
+      "toki-foyer2-w",
+      "toki-foyer2-ac1",
+      "toki-foyer2-ac2",
+      "toki-atrium-m",
+      "toki-atrium-w",
+      "toki-atrium-ac",
+      "toki-aed",
+      "toki-nursing"
+    ],
+    "toki-atrium": [
+      "toki-foyer2-m",
+      "toki-foyer2-w",
+      "toki-foyer2-ac1",
+      "toki-foyer2-ac2",
+      "toki-atrium-m",
+      "toki-atrium-w",
+      "toki-atrium-ac",
+      "toki-aed",
+      "toki-nursing"
+    ],
+    "toki-es-a": [
+      "toki-es-m",
+      "toki-es-w",
+      "toki-es-ac1",
+      "toki-es-ac2",
+      "toki-vend-es",
+      "toki-locker-es",
+      "toki-locker-large"
+    ],
+    "toki-es-b": [
+      "toki-es-m",
+      "toki-es-w",
+      "toki-es-ac1",
+      "toki-es-ac2",
+      "toki-vend-es",
+      "toki-locker-es",
+      "toki-locker-large"
+    ],
+    "toki-meeting3": [
+      "toki-foyer3-m",
+      "toki-foyer3-ac1",
+      "toki-foyer3-w",
+      "toki-foyer3-ac2",
+      "toki-vend-f3"
+    ],
+    "toki-marine": [
+      "toki-foyer4-w",
+      "toki-foyer4-ac1",
+      "toki-foyer4-m",
+      "toki-foyer4-ac2"
+    ],
+    "toki-foyer4": [
+      "toki-foyer4-w",
+      "toki-foyer4-ac1",
+      "toki-foyer4-m",
+      "toki-foyer4-ac2"
+    ],
+    "toki-venue": [
+      "toki-venue-access",
+      "toki-bus-stop",
+      "toki-niigata-access",
+      "toki-bridge-access",
+      "toki-sado-access",
+      "toki-jr-locker",
+      "toki-sagawa",
+      "toki-jre-counter",
+      "toki-everyone",
+      "toki-cafespot",
+      "toki-bambi",
+      "toki-locker-en",
+      "toki-locker-es",
+      "toki-locker-large"
+    ],
+    "toki-bandai": [
+      "toki-venue-access",
+      "toki-bus-stop",
+      "toki-niigata-access",
+      "toki-bridge-access",
+      "toki-sado-access",
+      "toki-jr-locker",
+      "toki-sagawa",
+      "toki-jre-counter",
+      "toki-everyone",
+      "toki-cafespot",
+      "toki-bambi",
+      "toki-locker-en",
+      "toki-locker-es",
+      "toki-locker-large"
+    ],
+    "toki-bus": [
+      "toki-venue-access",
+      "toki-bus-stop",
+      "toki-niigata-access",
+      "toki-bridge-access",
+      "toki-sado-access",
+      "toki-jr-locker",
+      "toki-sagawa",
+      "toki-jre-counter",
+      "toki-everyone",
+      "toki-cafespot",
+      "toki-bambi",
+      "toki-locker-en",
+      "toki-locker-es",
+      "toki-locker-large"
+    ],
+    "toki-sado": [
+      "toki-venue-access",
+      "toki-bus-stop",
+      "toki-niigata-access",
+      "toki-bridge-access",
+      "toki-sado-access",
+      "toki-jr-locker",
+      "toki-sagawa",
+      "toki-jre-counter",
+      "toki-everyone",
+      "toki-cafespot",
+      "toki-bambi",
+      "toki-locker-en",
+      "toki-locker-es",
+      "toki-locker-large"
+    ],
+    "toki-bridge": [
+      "toki-venue-access",
+      "toki-bus-stop",
+      "toki-niigata-access",
+      "toki-bridge-access",
+      "toki-sado-access",
+      "toki-jr-locker",
+      "toki-sagawa",
+      "toki-jre-counter",
+      "toki-everyone",
+      "toki-cafespot",
+      "toki-bambi",
+      "toki-locker-en",
+      "toki-locker-es",
+      "toki-locker-large"
+    ],
+    "toki-niigata": [
+      "toki-venue-access",
+      "toki-bus-stop",
+      "toki-niigata-access",
+      "toki-bridge-access",
+      "toki-sado-access",
+      "toki-jr-locker",
+      "toki-sagawa",
+      "toki-jre-counter",
+      "toki-everyone",
+      "toki-cafespot",
+      "toki-bambi",
+      "toki-locker-en",
+      "toki-locker-es",
+      "toki-locker-large"
+    ],
+    "toki-station-bags": [
+      "toki-jr-locker",
+      "toki-sagawa",
+      "toki-jre-counter",
+      "toki-locker-en",
+      "toki-locker-es",
+      "toki-locker-large"
+    ]
+  },
+  "landmarkGroupIds": {
+    "toki-ex-a": [
+      "toki-ex-a-w-group",
+      "toki-ex-a-ac-group",
+      "toki-ex-ab-m-group",
+      "toki-ex-ab-ac-group",
+      "toki-ex-b-m-group",
+      "toki-ex-b-w-group",
+      "toki-ex-b-ac-group"
+    ],
+    "toki-ex-b": [
+      "toki-ex-a-w-group",
+      "toki-ex-a-ac-group",
+      "toki-ex-ab-m-group",
+      "toki-ex-ab-ac-group",
+      "toki-ex-b-m-group",
+      "toki-ex-b-w-group",
+      "toki-ex-b-ac-group"
+    ],
+    "toki-entrance2": [
+      "toki-en2-m-group",
+      "toki-en2-w-group",
+      "toki-en2-ac-group",
+      "toki-office-w-group",
+      "toki-office-ac-group",
+      "toki-office-info-group",
+      "toki-vend-en-group",
+      "toki-locker-en-group"
+    ],
+    "toki-office": [
+      "toki-en2-m-group",
+      "toki-en2-w-group",
+      "toki-en2-ac-group",
+      "toki-office-w-group",
+      "toki-office-ac-group",
+      "toki-office-info-group",
+      "toki-vend-en-group",
+      "toki-locker-en-group"
+    ],
+    "toki-snow": [
+      "toki-foyer2-m-group",
+      "toki-foyer2-w-group",
+      "toki-foyer2-ac1-group",
+      "toki-foyer2-ac2-group",
+      "toki-atrium-m-group",
+      "toki-atrium-w-group",
+      "toki-atrium-ac-group",
+      "toki-aed-group",
+      "toki-nursing-group"
+    ],
+    "toki-foyer2": [
+      "toki-foyer2-m-group",
+      "toki-foyer2-w-group",
+      "toki-foyer2-ac1-group",
+      "toki-foyer2-ac2-group",
+      "toki-atrium-m-group",
+      "toki-atrium-w-group",
+      "toki-atrium-ac-group",
+      "toki-aed-group",
+      "toki-nursing-group"
+    ],
+    "toki-atrium": [
+      "toki-foyer2-m-group",
+      "toki-foyer2-w-group",
+      "toki-foyer2-ac1-group",
+      "toki-foyer2-ac2-group",
+      "toki-atrium-m-group",
+      "toki-atrium-w-group",
+      "toki-atrium-ac-group",
+      "toki-aed-group",
+      "toki-nursing-group"
+    ],
+    "toki-es-a": [
+      "toki-es-m-group",
+      "toki-es-w-group",
+      "toki-es-ac1-group",
+      "toki-es-ac2-group",
+      "toki-vend-es-group",
+      "toki-locker-es-group",
+      "toki-locker-large-group"
+    ],
+    "toki-es-b": [
+      "toki-es-m-group",
+      "toki-es-w-group",
+      "toki-es-ac1-group",
+      "toki-es-ac2-group",
+      "toki-vend-es-group",
+      "toki-locker-es-group",
+      "toki-locker-large-group"
+    ],
+    "toki-meeting3": [
+      "toki-foyer3-m-group",
+      "toki-foyer3-ac1-group",
+      "toki-foyer3-w-group",
+      "toki-foyer3-ac2-group",
+      "toki-vend-f3-group"
+    ],
+    "toki-marine": [
+      "toki-foyer4-w-group",
+      "toki-foyer4-ac1-group",
+      "toki-foyer4-m-group",
+      "toki-foyer4-ac2-group"
+    ],
+    "toki-foyer4": [
+      "toki-foyer4-w-group",
+      "toki-foyer4-ac1-group",
+      "toki-foyer4-m-group",
+      "toki-foyer4-ac2-group"
+    ],
+    "toki-venue": [
+      "toki-venue-access-group",
+      "toki-bus-stop-group",
+      "toki-niigata-access-group",
+      "toki-bridge-access-group",
+      "toki-sado-access-group"
+    ],
+    "toki-bandai": [
+      "toki-venue-access-group",
+      "toki-bus-stop-group",
+      "toki-niigata-access-group",
+      "toki-bridge-access-group",
+      "toki-sado-access-group"
+    ],
+    "toki-bus": [
+      "toki-venue-access-group",
+      "toki-bus-stop-group",
+      "toki-niigata-access-group",
+      "toki-bridge-access-group",
+      "toki-sado-access-group"
+    ],
+    "toki-sado": [
+      "toki-venue-access-group",
+      "toki-bus-stop-group",
+      "toki-niigata-access-group",
+      "toki-bridge-access-group",
+      "toki-sado-access-group"
+    ],
+    "toki-bridge": [
+      "toki-venue-access-group",
+      "toki-bus-stop-group",
+      "toki-niigata-access-group",
+      "toki-bridge-access-group",
+      "toki-sado-access-group"
+    ],
+    "toki-niigata": [
+      "toki-venue-access-group",
+      "toki-bus-stop-group",
+      "toki-niigata-access-group",
+      "toki-bridge-access-group",
+      "toki-sado-access-group"
+    ],
+    "toki-station-bags": []
+  }
+}

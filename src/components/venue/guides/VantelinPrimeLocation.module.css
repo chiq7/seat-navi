@@ -1,0 +1,7 @@
+.location{margin-block:12px 18px;border:1px solid #eedee5;border-radius:16px;background:#fff;padding:12px}
+.map{position:relative;width:100%;max-width:500px;margin:auto;aspect-ratio:500/470}
+.map svg{display:block;width:100%;height:100%}.map text{font-size:14px;fill:#796470}
+.map button{position:absolute;transform:translate(-50%,-50%);width:max-content;white-space:nowrap;min-height:44px;min-width:94px;padding:6px 10px;border:1px solid #c4a9b7;border-radius:9px;background:#fff;color:#612c46;font-size:13px;font-weight:750;line-height:1.3;cursor:pointer}
+.map small{display:block;font-size:11px;font-weight:600;margin-top:2px}.map button:hover{background:#fff0f6}.map button:focus-visible{outline:3px solid #a93164;outline-offset:3px}
+.location p{font-size:12px;line-height:1.8;color:#796470;margin:8px 2px 0}
+@media(max-width:359px){.location{padding:8px}.map button{min-width:88px;padding-inline:6px;font-size:12px}}

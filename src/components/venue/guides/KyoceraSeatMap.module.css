@@ -1,0 +1,53 @@
+.seatFrame[data-seat-template] { overflow:clip; overflow-anchor:none; }
+.seatFrame [class*="shortcuts"] { display:none; }
+.search { padding:12px 16px; border-block:1px solid #eedee5; background:#fffafd; }
+.ticketForm { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto; max-width:520px; align-items:end; gap:8px; }
+.ticketForm label { font-size:12px; font-weight:750; color:#65525e; }
+.ticketForm label { display:grid; gap:4px; min-width:0; }
+.ticketForm input { width:100%; min-width:0; min-height:44px; border:1px solid #d9b4c7; border-radius:8px; padding:8px 10px; background:#fff; font-size:14px; color:#493340; }
+.searchSubmit { min-height:44px; padding:8px 12px; border-radius:8px; background:#a93164; color:white; font-size:13px; font-weight:800; }
+.error { color:#a51a49; font-size:12px; line-height:1.6; margin:8px 0 0; }
+.searchFeedback { display:flex; align-items:center; flex-wrap:wrap; gap:4px 12px; }
+.searchFeedback button,.candidates button { min-height:44px; padding:8px 12px; border:1px solid #d9b4c7; border-radius:8px; background:#fff; color:#833755; font-size:12px; font-weight:750; }
+.searchFeedback button { margin-top:8px; }
+.candidates { margin-top:12px; }
+.candidates p { margin:0 0 8px; color:#65525e; font-size:12px; font-weight:750; }
+.candidates > div { display:flex; flex-wrap:wrap; gap:8px; }
+.candidates small { display:block; margin-top:3px; font-size:11px; font-weight:500; }
+.candidates button:focus-visible,.searchFeedback button:focus-visible { outline:3px solid #a93164; outline-offset:2px; }
+.selectionBand { height:76px; display:flex; align-items:center; gap:6px; padding:8px 14px; background:#fff5f9; border-bottom:1px solid #eedee5; }
+.selectionBand > div { flex:1; min-width:0; display:grid; gap:4px; }
+.selectionBand strong { font-size:14px; color:#a93164; }
+.selectionBand span { font-size:12px; line-height:1.5; color:#65525e; font-variant-numeric:tabular-nums; }
+.selectionBand button { width:44px; height:44px; flex-shrink:0; display:grid; place-items:center; color:#a93164; background:white; border:1px solid #e4c6d4; border-radius:8px; }
+.selectionBand button:disabled { opacity:.3; }
+.note { margin:0; padding:10px 14px; color:#786570; font-size:12px; line-height:1.6; border-top:1px solid #eedee5; }
+.rowDetails { border-top:1px solid #eedee5; background:white; }
+.rowDetails summary { min-height:44px; padding:12px 14px; color:#493340; font-size:13px; font-weight:800; cursor:pointer; }
+.rowDetails summary:focus-visible { outline:3px solid #a93164; outline-offset:-3px; }
+.rowBody { max-height:320px; overflow:auto; padding:0 14px 14px; color:#786570; font-size:12px; line-height:1.7; }
+.rowBody table { width:100%; border-collapse:collapse; color:#493340; font-variant-numeric:tabular-nums; }
+.rowBody caption { text-align:left; padding:8px 0; font-weight:800; }
+.rowBody th,.rowBody td { border-bottom:1px solid #eedee5; padding:8px 4px; text-align:left; }
+.rowBody tr[aria-current=true] { background:#fff0f6; }
+.rowBody td strong { display:block; color:#a93164; }
+.rowBody a { display:inline-flex; align-items:center; min-height:44px; color:#a93164; text-decoration:underline; }
+.floorContext { margin:0; padding:8px 12px; color:#786570; background:#fff7fa; font-size:12px; line-height:1.6; }
+.facilitySelection { display:flex; flex-wrap:wrap; align-items:center; gap:6px; padding:8px 12px; border-block:1px solid #eedee5; background:#fff5f9; color:#493340; scroll-margin-top:8px; }
+.facilitySelection > strong { flex:1 1 180px; color:#a93164; font-size:13px; }
+.facilitySelection button { min-height:44px; min-width:44px; padding:8px; border:1px solid #dfb8ca; border-radius:8px; color:#a93164; background:#fff; font-size:12px; }
+.facilitySelection:focus-visible { outline:3px solid #a93164; outline-offset:-3px; }
+@media(min-width:960px) {
+ .ticketForm label { display:flex; align-items:center; gap:6px; white-space:nowrap; }
+}
+@media(max-width:600px) {
+ .seatFrame [aria-label="見る方向"] { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); width:100%; }
+ .seatFrame [aria-label="見る方向"] > button:nth-child(n+5) { grid-column:span 2; }
+ .search { padding:8px 10px; }
+ .ticketForm { gap:6px; }
+ .ticketForm input { font-size:16px; padding:8px; }
+ .searchSubmit { padding-inline:8px; font-size:12px; }
+ .selectionBand { height:94px; padding:8px 10px; }
+ .selectionBand strong { font-size:13px; }
+ .selectionBand span { font-size:11px; }
+}

@@ -1,0 +1,5200 @@
+{
+  "facilities": [
+    {
+      "id": "marine-a-floor-1-symbol-066",
+      "name": "AED",
+      "purpose": "AED",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F 東エントランス",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "precision": "landmark-area",
+      "kind": "aed",
+      "anchor": {
+        "diagramId": "marine-floor-1F",
+        "x": 949.1,
+        "y": 809.2,
+        "sourceIds": [
+          "a-floor-1"
+        ],
+        "reference": "同一階の公式SVG引出線終点。図上代表点で、実測の機器位置ではない。"
+      }
+    },
+    {
+      "id": "marine-a-floor-1-symbol-095",
+      "name": "AED",
+      "purpose": "AED",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F 防災センター",
+      "detail": "緊急時は会場係員へ。防災センターへの一般入室を案内するものではありません。",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "precision": "text-only",
+      "kind": "aed"
+    },
+    {
+      "id": "marine-a-floor-1-symbol-100",
+      "name": "多目的トイレ",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F 東側トイレ",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "precision": "landmark-area",
+      "kind": "accessible",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "marine-floor-1F",
+        "x": 898.17,
+        "y": 488.85,
+        "sourceIds": [
+          "a-floor-1"
+        ],
+        "reference": "公式SVGのトイレ室区域内の記号代表点。男女/多目的の種別を保持。室入口・便器位置ではない。"
+      }
+    },
+    {
+      "id": "marine-a-floor-1-symbol-106",
+      "name": "多目的トイレ",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F 西側トイレ",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "precision": "landmark-area",
+      "kind": "accessible",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "marine-floor-1F",
+        "x": 278.4,
+        "y": 488.85,
+        "sourceIds": [
+          "a-floor-1"
+        ],
+        "reference": "公式SVGのトイレ室区域内の記号代表点。男女/多目的の種別を保持。室入口・便器位置ではない。"
+      }
+    },
+    {
+      "id": "marine-a-floor-1-symbol-112",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F 東側トイレ",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "precision": "landmark-area",
+      "kind": "men",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "marine-floor-1F",
+        "x": 898.17,
+        "y": 535.25,
+        "sourceIds": [
+          "a-floor-1"
+        ],
+        "reference": "公式SVGのトイレ室区域内の記号代表点。男女/多目的の種別を保持。室入口・便器位置ではない。"
+      }
+    },
+    {
+      "id": "marine-a-floor-1-symbol-115",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "1F 屋外トイレ",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "precision": "text-only",
+      "kind": "men",
+      "toiletType": "men"
+    },
+    {
+      "id": "marine-a-floor-1-symbol-118",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F 西側トイレ",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "precision": "landmark-area",
+      "kind": "men",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "marine-floor-1F",
+        "x": 278.4,
+        "y": 535.25,
+        "sourceIds": [
+          "a-floor-1"
+        ],
+        "reference": "公式SVGのトイレ室区域内の記号代表点。男女/多目的の種別を保持。室入口・便器位置ではない。"
+      }
+    },
+    {
+      "id": "marine-a-floor-1-symbol-121",
+      "name": "多目的トイレ",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F 西側トイレ",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "precision": "landmark-area",
+      "kind": "accessible",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "marine-floor-1F",
+        "x": 278.4,
+        "y": 654.57,
+        "sourceIds": [
+          "a-floor-1"
+        ],
+        "reference": "公式SVGのトイレ室区域内の記号代表点。男女/多目的の種別を保持。室入口・便器位置ではない。"
+      }
+    },
+    {
+      "id": "marine-a-floor-1-symbol-127",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F 西側トイレ",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "precision": "landmark-area",
+      "kind": "women",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "marine-floor-1F",
+        "x": 278.4,
+        "y": 608.17,
+        "sourceIds": [
+          "a-floor-1"
+        ],
+        "reference": "公式SVGのトイレ室区域内の記号代表点。男女/多目的の種別を保持。室入口・便器位置ではない。"
+      }
+    },
+    {
+      "id": "marine-a-floor-1-symbol-130",
+      "name": "多目的トイレ",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F 東側トイレ",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "precision": "landmark-area",
+      "kind": "accessible",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "marine-floor-1F",
+        "x": 898.17,
+        "y": 654.57,
+        "sourceIds": [
+          "a-floor-1"
+        ],
+        "reference": "公式SVGのトイレ室区域内の記号代表点。男女/多目的の種別を保持。室入口・便器位置ではない。"
+      }
+    },
+    {
+      "id": "marine-a-floor-1-symbol-136",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F 東側トイレ",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "precision": "landmark-area",
+      "kind": "women",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "marine-floor-1F",
+        "x": 898.17,
+        "y": 608.17,
+        "sourceIds": [
+          "a-floor-1"
+        ],
+        "reference": "公式SVGのトイレ室区域内の記号代表点。男女/多目的の種別を保持。室入口・便器位置ではない。"
+      }
+    },
+    {
+      "id": "marine-a-floor-1-symbol-139",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "1F 屋外トイレ",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "precision": "text-only",
+      "kind": "women",
+      "toiletType": "women"
+    },
+    {
+      "id": "marine-a-floor-1-symbol-142",
+      "name": "エスカレーター",
+      "purpose": "案内",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F エントランスロビー",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "precision": "text-only",
+      "kind": "escalator"
+    },
+    {
+      "id": "marine-a-floor-1-symbol-145",
+      "name": "エスカレーター",
+      "purpose": "案内",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F エントランスロビー",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "precision": "text-only",
+      "kind": "escalator"
+    },
+    {
+      "id": "marine-a-floor-1-symbol-150",
+      "name": "飲料自動販売機",
+      "purpose": "飲食",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "1F 正面入口周辺",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "precision": "text-only",
+      "kind": "drink-vending"
+    },
+    {
+      "id": "marine-a-floor-1-symbol-155",
+      "name": "飲料自動販売機",
+      "purpose": "飲食",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F エントランスロビー",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "precision": "landmark-area",
+      "kind": "drink-vending",
+      "anchor": {
+        "diagramId": "marine-floor-1F",
+        "x": 318.17,
+        "y": 879.94,
+        "sourceIds": [
+          "a-floor-1"
+        ],
+        "reference": "同一階の公式SVG引出線終点。図上代表点で、実測の機器位置ではない。"
+      }
+    },
+    {
+      "id": "marine-a-floor-1-symbol-158",
+      "name": "充電コーナー",
+      "purpose": "案内",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F エントランスロビー",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "precision": "text-only",
+      "kind": "charging"
+    },
+    {
+      "id": "marine-a-floor-1-symbol-160",
+      "name": "エレベーター",
+      "purpose": "案内",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F エントランスロビー",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "precision": "text-only",
+      "kind": "elevator"
+    },
+    {
+      "id": "marine-a-floor-1-symbol-168",
+      "name": "飲料自動販売機",
+      "purpose": "飲食",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F エントランスロビー",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "precision": "landmark-area",
+      "kind": "drink-vending",
+      "anchor": {
+        "diagramId": "marine-floor-1F",
+        "x": 833.54,
+        "y": 921.37,
+        "sourceIds": [
+          "a-floor-1"
+        ],
+        "reference": "同一階の公式SVG引出線終点。図上代表点で、実測の機器位置ではない。"
+      }
+    },
+    {
+      "id": "marine-a-floor-1-symbol-186",
+      "name": "飲料自動販売機",
+      "purpose": "飲食",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F エントランスロビー",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "precision": "landmark-area",
+      "kind": "drink-vending",
+      "anchor": {
+        "diagramId": "marine-floor-1F",
+        "x": 857.49,
+        "y": 864.76,
+        "sourceIds": [
+          "a-floor-1"
+        ],
+        "reference": "同一階の公式SVG引出線終点。図上代表点で、実測の機器位置ではない。"
+      }
+    },
+    {
+      "id": "marine-a-floor-1-symbol-189",
+      "name": "飲料自動販売機",
+      "purpose": "飲食",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "1F 正面入口周辺",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "precision": "text-only",
+      "kind": "drink-vending"
+    },
+    {
+      "id": "marine-a-floor-1-symbol-195",
+      "name": "コインロッカー",
+      "purpose": "荷物",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F エントランスロビー",
+      "detail": "1Fエントランスロビーの西側・東側に設置。サイズ・料金・空きは現地案内をご確認ください。",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "precision": "landmark-area",
+      "kind": "locker",
+      "storageKind": "coin",
+      "anchor": {
+        "diagramId": "marine-floor-1F",
+        "x": 837.41,
+        "y": 864.52,
+        "sourceIds": [
+          "a-floor-1"
+        ],
+        "reference": "同一階の公式SVG引出線終点。図上代表点で、実測の機器位置ではない。"
+      }
+    },
+    {
+      "id": "marine-a-floor-1-symbol-202",
+      "name": "コインロッカー",
+      "purpose": "荷物",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F エントランスロビー",
+      "detail": "1Fエントランスロビーの西側・東側に設置。サイズ・料金・空きは現地案内をご確認ください。",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "precision": "landmark-area",
+      "kind": "locker",
+      "storageKind": "coin",
+      "anchor": {
+        "diagramId": "marine-floor-1F",
+        "x": 343.77,
+        "y": 864.75,
+        "sourceIds": [
+          "a-floor-1"
+        ],
+        "reference": "同一階の公式SVG引出線終点。図上代表点で、実測の機器位置ではない。"
+      }
+    },
+    {
+      "id": "marine-a-floor-1-symbol-208",
+      "name": "授乳室",
+      "purpose": "赤ちゃん",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F 東エントランス",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "precision": "landmark-area",
+      "kind": "nursing",
+      "anchor": {
+        "diagramId": "marine-floor-1F",
+        "x": 956.17,
+        "y": 831.53,
+        "sourceIds": [
+          "a-floor-1"
+        ],
+        "reference": "同一階の公式SVG引出線終点。図上代表点で、実測の機器位置ではない。"
+      }
+    },
+    {
+      "id": "marine-a-floor-1-symbol-229",
+      "name": "飲料・食品自動販売機",
+      "purpose": "飲食",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "1F 正面入口周辺",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "precision": "text-only",
+      "kind": "food-drink-vending"
+    },
+    {
+      "id": "marine-a-floor-2-symbol-110",
+      "name": "レストラン",
+      "purpose": "飲食",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 大会議室側",
+      "detail": "2F西側の海のモール奥。営業日・営業時間は店舗の案内をご確認ください。",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "precision": "landmark-area",
+      "kind": "restaurant",
+      "anchor": {
+        "diagramId": "marine-floor-2F",
+        "x": 208.8,
+        "y": 76.23,
+        "sourceIds": [
+          "a-floor-2"
+        ],
+        "reference": "同一階の公式SVG引出線終点。図上代表点で、実測の機器位置ではない。"
+      }
+    },
+    {
+      "id": "marine-a-floor-2-symbol-113",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 大会議室側",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "precision": "landmark-area",
+      "kind": "men",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "marine-floor-2F",
+        "x": 780.51,
+        "y": 71.25,
+        "sourceIds": [
+          "a-floor-2"
+        ],
+        "reference": "公式SVGのトイレ室区域内の記号代表点。男女/多目的の種別を保持。室入口・便器位置ではない。"
+      }
+    },
+    {
+      "id": "marine-a-floor-2-symbol-116",
+      "name": "多目的トイレ",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 大会議室側",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "precision": "landmark-area",
+      "kind": "accessible",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "marine-floor-2F",
+        "x": 803.71,
+        "y": 117.65,
+        "sourceIds": [
+          "a-floor-2"
+        ],
+        "reference": "公式SVGのトイレ室区域内の記号代表点。男女/多目的の種別を保持。室入口・便器位置ではない。"
+      }
+    },
+    {
+      "id": "marine-a-floor-2-symbol-122",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 大会議室側",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "precision": "landmark-area",
+      "kind": "women",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "marine-floor-2F",
+        "x": 826.91,
+        "y": 71.25,
+        "sourceIds": [
+          "a-floor-2"
+        ],
+        "reference": "公式SVGのトイレ室区域内の記号代表点。男女/多目的の種別を保持。室入口・便器位置ではない。"
+      }
+    },
+    {
+      "id": "marine-a-floor-2-symbol-125",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 山のモール 北側",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "precision": "landmark-area",
+      "kind": "men",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "marine-floor-2F",
+        "x": 896.51,
+        "y": 303.25,
+        "sourceIds": [
+          "a-floor-2"
+        ],
+        "reference": "公式SVGのトイレ室区域内の記号代表点。男女/多目的の種別を保持。室入口・便器位置ではない。"
+      }
+    },
+    {
+      "id": "marine-a-floor-2-symbol-128",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 山のモール 北側",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "precision": "landmark-area",
+      "kind": "women",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "marine-floor-2F",
+        "x": 896.51,
+        "y": 349.65,
+        "sourceIds": [
+          "a-floor-2"
+        ],
+        "reference": "公式SVGのトイレ室区域内の記号代表点。男女/多目的の種別を保持。室入口・便器位置ではない。"
+      }
+    },
+    {
+      "id": "marine-a-floor-2-symbol-131",
+      "name": "多目的トイレ",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 海のモール 北側",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "precision": "landmark-area",
+      "kind": "accessible",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "marine-floor-2F",
+        "x": 260.17,
+        "y": 326.46,
+        "sourceIds": [
+          "a-floor-2"
+        ],
+        "reference": "公式SVGのトイレ室区域内の記号代表点。男女/多目的の種別を保持。室入口・便器位置ではない。"
+      }
+    },
+    {
+      "id": "marine-a-floor-2-symbol-137",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 海のモール 北側",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "precision": "landmark-area",
+      "kind": "men",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "marine-floor-2F",
+        "x": 308.23,
+        "y": 303.25,
+        "sourceIds": [
+          "a-floor-2"
+        ],
+        "reference": "公式SVGのトイレ室区域内の記号代表点。男女/多目的の種別を保持。室入口・便器位置ではない。"
+      }
+    },
+    {
+      "id": "marine-a-floor-2-symbol-140",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 海のモール 北側",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "precision": "landmark-area",
+      "kind": "women",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "marine-floor-2F",
+        "x": 308.23,
+        "y": 349.65,
+        "sourceIds": [
+          "a-floor-2"
+        ],
+        "reference": "公式SVGのトイレ室区域内の記号代表点。男女/多目的の種別を保持。室入口・便器位置ではない。"
+      }
+    },
+    {
+      "id": "marine-a-floor-2-symbol-143",
+      "name": "多目的トイレ",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 海のモール 南側",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "precision": "landmark-area",
+      "kind": "accessible",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "marine-floor-2F",
+        "x": 260.17,
+        "y": 737.43,
+        "sourceIds": [
+          "a-floor-2"
+        ],
+        "reference": "公式SVGのトイレ室区域内の記号代表点。男女/多目的の種別を保持。室入口・便器位置ではない。"
+      }
+    },
+    {
+      "id": "marine-a-floor-2-symbol-149",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 海のモール 南側",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "precision": "landmark-area",
+      "kind": "women",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "marine-floor-2F",
+        "x": 308.23,
+        "y": 714.22,
+        "sourceIds": [
+          "a-floor-2"
+        ],
+        "reference": "公式SVGのトイレ室区域内の記号代表点。男女/多目的の種別を保持。室入口・便器位置ではない。"
+      }
+    },
+    {
+      "id": "marine-a-floor-2-symbol-152",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 海のモール 南側",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "precision": "landmark-area",
+      "kind": "men",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "marine-floor-2F",
+        "x": 308.23,
+        "y": 760.62,
+        "sourceIds": [
+          "a-floor-2"
+        ],
+        "reference": "公式SVGのトイレ室区域内の記号代表点。男女/多目的の種別を保持。室入口・便器位置ではない。"
+      }
+    },
+    {
+      "id": "marine-a-floor-2-symbol-155",
+      "name": "女性トイレ",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 山のモール 南側",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "precision": "landmark-area",
+      "kind": "women",
+      "toiletType": "women",
+      "anchor": {
+        "diagramId": "marine-floor-2F",
+        "x": 873.31,
+        "y": 714.22,
+        "sourceIds": [
+          "a-floor-2"
+        ],
+        "reference": "公式SVGのトイレ室区域内の記号代表点。男女/多目的の種別を保持。室入口・便器位置ではない。"
+      }
+    },
+    {
+      "id": "marine-a-floor-2-symbol-158",
+      "name": "男性トイレ",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 山のモール 南側",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "precision": "landmark-area",
+      "kind": "men",
+      "toiletType": "men",
+      "anchor": {
+        "diagramId": "marine-floor-2F",
+        "x": 873.31,
+        "y": 760.62,
+        "sourceIds": [
+          "a-floor-2"
+        ],
+        "reference": "公式SVGのトイレ室区域内の記号代表点。男女/多目的の種別を保持。室入口・便器位置ではない。"
+      }
+    },
+    {
+      "id": "marine-a-floor-2-symbol-161",
+      "name": "多目的トイレ",
+      "purpose": "トイレ",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 山のモール 南側",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "precision": "landmark-area",
+      "kind": "accessible",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "marine-floor-2F",
+        "x": 923.03,
+        "y": 737.43,
+        "sourceIds": [
+          "a-floor-2"
+        ],
+        "reference": "公式SVGのトイレ室区域内の記号代表点。男女/多目的の種別を保持。室入口・便器位置ではない。"
+      }
+    },
+    {
+      "id": "marine-a-floor-2-symbol-167",
+      "name": "エレベーター",
+      "purpose": "案内",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F エントランスロビー周辺",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "precision": "text-only",
+      "kind": "elevator"
+    },
+    {
+      "id": "marine-a-floor-2-symbol-175",
+      "name": "飲料自動販売機",
+      "purpose": "飲食",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 海のモール",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "precision": "text-only",
+      "kind": "drink-vending"
+    },
+    {
+      "id": "marine-a-floor-2-symbol-178",
+      "name": "給水スポット",
+      "purpose": "飲食",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 海のモール",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "precision": "text-only",
+      "kind": "water"
+    },
+    {
+      "id": "marine-a-floor-2-symbol-180",
+      "name": "AED",
+      "purpose": "AED",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 海のモール",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "precision": "text-only",
+      "kind": "aed"
+    },
+    {
+      "id": "marine-a-floor-2-symbol-191",
+      "name": "飲料自動販売機",
+      "purpose": "飲食",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 海のモール",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "precision": "landmark-area",
+      "kind": "drink-vending",
+      "anchor": {
+        "diagramId": "marine-floor-2F",
+        "x": 261.83,
+        "y": 821.94,
+        "sourceIds": [
+          "a-floor-2"
+        ],
+        "reference": "同一階の公式SVG引出線終点。図上代表点で、実測の機器位置ではない。"
+      }
+    },
+    {
+      "id": "marine-a-floor-2-symbol-194",
+      "name": "飲料自動販売機",
+      "purpose": "飲食",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F エントランスロビー周辺",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "precision": "text-only",
+      "kind": "drink-vending"
+    },
+    {
+      "id": "marine-a-floor-2-symbol-197",
+      "name": "飲料自動販売機",
+      "purpose": "飲食",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F エントランスロビー周辺",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "precision": "text-only",
+      "kind": "drink-vending"
+    },
+    {
+      "id": "marine-a-floor-2-symbol-200",
+      "name": "エスカレーター",
+      "purpose": "案内",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F エントランスロビー周辺",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "precision": "text-only",
+      "kind": "escalator"
+    },
+    {
+      "id": "marine-a-floor-2-symbol-203",
+      "name": "エスカレーター",
+      "purpose": "案内",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F エントランスロビー周辺",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "precision": "text-only",
+      "kind": "escalator"
+    },
+    {
+      "id": "marine-outside-bayside-locker",
+      "name": "ベイサイドプレイス博多のロッカー",
+      "purpose": "荷物",
+      "floor": "C館1F",
+      "scope": "場外",
+      "location": "乗船券売場左手奥",
+      "detail": "大・中・小。23:00〜翌6:30は出し入れできません。会場のA館・B館とは別の商業施設です。",
+      "sourceIds": [
+        "bayside-info"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "marine-outside-gofukumachi-locker",
+      "name": "呉服町駅のロッカー",
+      "purpose": "荷物",
+      "floor": "駅",
+      "scope": "場外",
+      "location": "駅構内",
+      "detail": "終電後は荷物を取り出せません。改札内外・サイズ・料金は駅の設置案内をご確認ください。",
+      "sourceIds": [
+        "nishitetsu-lockers"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "marine-outside-nakasu-locker",
+      "name": "中洲川端駅のロッカー",
+      "purpose": "荷物",
+      "floor": "駅",
+      "scope": "場外",
+      "location": "駅構内",
+      "detail": "終電後は荷物を取り出せません。改札内外・サイズ・料金は駅の設置案内をご確認ください。",
+      "sourceIds": [
+        "nishitetsu-lockers"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "marine-outside-tenjin-locker",
+      "name": "天神駅のロッカー",
+      "purpose": "荷物",
+      "floor": "駅",
+      "scope": "場外",
+      "location": "東口・西口",
+      "detail": "終電後は荷物を取り出せません。改札内外・サイズ・料金は駅の設置案内をご確認ください。",
+      "sourceIds": [
+        "nishitetsu-lockers"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin"
+    },
+    {
+      "id": "marine-outside-hakata-locker",
+      "name": "博多駅のロッカー",
+      "purpose": "荷物",
+      "floor": "駅",
+      "scope": "場外",
+      "location": "博多口・中央口・筑紫口",
+      "detail": "終電後は荷物を取り出せません。改札内外・サイズ・料金は駅の設置案内をご確認ください。",
+      "sourceIds": [
+        "nishitetsu-lockers"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin"
+    }
+  ],
+  "diagrams": [
+    {
+      "id": "marine-floor-1F",
+      "floor": "1F",
+      "scope": "場内",
+      "viewBox": [
+        160,
+        0,
+        870,
+        1050
+      ],
+      "concoursePaths": [],
+      "contextPaths": [
+        "M330,105 L845,105 L845,790 L330,790 Z",
+        "M450,805 L750,805 L750,940 L450,940 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "marine-lobby-1F",
+          "label": "エントランスロビー",
+          "x": 590,
+          "y": 985,
+          "kind": "plaza",
+          "sourceIds": [
+            "a-floor-1"
+          ],
+          "reference": "公式図/本文にあるロビー・モールの代表区域。個別ゲートや設備入口を示す点ではない。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "a-floor-1"
+        ],
+        "file": "sources/a-floor-1.svg",
+        "sha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+        "width": 1160.0,
+        "height": 1376.0,
+        "method": "独立した区域略図。記号位置・室の代表区域と精密な設備位置を区別。",
+        "status": "local-partial-source-checked"
+      }
+    },
+    {
+      "id": "marine-floor-2F",
+      "floor": "2F",
+      "scope": "場内",
+      "viewBox": [
+        160,
+        0,
+        870,
+        1070
+      ],
+      "concoursePaths": [],
+      "contextPaths": [
+        "M330,190 L835,190 L870,355 L870,680 L835,845 L330,845 L295,680 L295,355 Z",
+        "M410,935 L780,935 L780,1000 L410,1000 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "marine-oceans",
+          "label": "海のモール",
+          "x": 275,
+          "y": 580,
+          "kind": "plaza",
+          "sourceIds": [
+            "a-floor-2"
+          ],
+          "reference": "公式図/本文にあるロビー・モールの代表区域。個別ゲートや設備入口を示す点ではない。"
+        },
+        {
+          "id": "marine-mountains",
+          "label": "山のモール",
+          "x": 920,
+          "y": 580,
+          "kind": "plaza",
+          "sourceIds": [
+            "a-floor-2"
+          ],
+          "reference": "公式図/本文にあるロビー・モールの代表区域。個別ゲートや設備入口を示す点ではない。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "a-floor-2"
+        ],
+        "file": "sources/a-floor-2.svg",
+        "sha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+        "width": 1160.0,
+        "height": 1320.0,
+        "method": "独立した区域略図。記号位置・室の代表区域と精密な設備位置を区別。",
+        "status": "local-partial-source-checked"
+      }
+    },
+    {
+      "id": "marine-messe-outside-north",
+      "floor": "場外",
+      "scope": "場外",
+      "viewBox": [
+        0,
+        0,
+        1000,
+        700
+      ],
+      "concoursePaths": [],
+      "contextPaths": [],
+      "landmarks": [
+        {
+          "id": "marine-messe-outside-gofukumachi",
+          "label": "呉服町駅",
+          "x": 670,
+          "y": 395,
+          "kind": "station",
+          "sourceIds": [
+            "a-home"
+          ],
+          "reference": "北上の位置関係を示す代表区域。駅出口・施設入口・歩行経路ではない。"
+        },
+        {
+          "id": "marine-messe-outside-nakasu",
+          "label": "中洲川端駅",
+          "x": 480,
+          "y": 455,
+          "kind": "station",
+          "sourceIds": [
+            "a-home"
+          ],
+          "reference": "北上の位置関係を示す代表区域。駅出口・施設入口・歩行経路ではない。"
+        },
+        {
+          "id": "marine-messe-outside-tenjin",
+          "label": "天神駅",
+          "x": 215,
+          "y": 530,
+          "kind": "station",
+          "sourceIds": [
+            "a-home"
+          ],
+          "reference": "北上の位置関係を示す代表区域。駅出口・施設入口・歩行経路ではない。"
+        },
+        {
+          "id": "marine-messe-outside-hakata",
+          "label": "博多駅",
+          "x": 910,
+          "y": 625,
+          "kind": "station",
+          "sourceIds": [
+            "a-home"
+          ],
+          "reference": "北上の位置関係を示す代表区域。駅出口・施設入口・歩行経路ではない。"
+        },
+        {
+          "id": "marine-messe-outside-bayside",
+          "label": "ベイサイドプレイス博多",
+          "x": 310,
+          "y": 210,
+          "kind": "plaza",
+          "sourceIds": [
+            "bayside-info"
+          ],
+          "reference": "北上の位置関係を示す代表区域。駅出口・施設入口・歩行経路ではない。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "a-home"
+        ],
+        "file": "",
+        "sha256": "",
+        "width": 1000,
+        "height": 700,
+        "method": "北上の主要駅・施設の代表区域。精密な縮尺・経路ではない。",
+        "status": "representative-area-only"
+      }
+    }
+  ],
+  "groups": [
+    {
+      "id": "marine-floor-1F-AED-東エントランス",
+      "diagramId": "marine-floor-1F",
+      "purpose": "AED",
+      "label": "東エントランス",
+      "area": "東エントランス",
+      "memberIds": [
+        "marine-a-floor-1-symbol-066"
+      ],
+      "x": 949.1,
+      "y": 809.2,
+      "boundary": "1F・東エントランスの確認済み区域。別階・別の利用区画を含めない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "marine-floor-1F-トイレ-東側トイレ",
+      "diagramId": "marine-floor-1F",
+      "purpose": "トイレ",
+      "label": "東側トイレ",
+      "area": "東側トイレ",
+      "memberIds": [
+        "marine-a-floor-1-symbol-100",
+        "marine-a-floor-1-symbol-112",
+        "marine-a-floor-1-symbol-130",
+        "marine-a-floor-1-symbol-136"
+      ],
+      "x": 898.17,
+      "y": 571.71,
+      "boundary": "1F・東側トイレの確認済み区域。別階・別の利用区画を含めない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "marine-floor-1F-トイレ-西側トイレ",
+      "diagramId": "marine-floor-1F",
+      "purpose": "トイレ",
+      "label": "西側トイレ",
+      "area": "西側トイレ",
+      "memberIds": [
+        "marine-a-floor-1-symbol-106",
+        "marine-a-floor-1-symbol-118",
+        "marine-a-floor-1-symbol-121",
+        "marine-a-floor-1-symbol-127"
+      ],
+      "x": 278.4,
+      "y": 571.71,
+      "boundary": "1F・西側トイレの確認済み区域。別階・別の利用区画を含めない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "marine-floor-1F-飲食-エントランスロビー",
+      "diagramId": "marine-floor-1F",
+      "purpose": "飲食",
+      "label": "エントランスロビー",
+      "area": "エントランスロビー",
+      "memberIds": [
+        "marine-a-floor-1-symbol-155",
+        "marine-a-floor-1-symbol-168",
+        "marine-a-floor-1-symbol-186"
+      ],
+      "x": 669.73,
+      "y": 888.69,
+      "boundary": "1F・エントランスロビーの確認済み区域。別階・別の利用区画を含めない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "marine-floor-1F-荷物-エントランスロビー",
+      "diagramId": "marine-floor-1F",
+      "purpose": "荷物",
+      "label": "エントランスロビー",
+      "area": "エントランスロビー",
+      "memberIds": [
+        "marine-a-floor-1-symbol-195",
+        "marine-a-floor-1-symbol-202"
+      ],
+      "x": 590.59,
+      "y": 864.63,
+      "boundary": "1F・エントランスロビーの確認済み区域。別階・別の利用区画を含めない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "marine-floor-1F-赤ちゃん-東エントランス",
+      "diagramId": "marine-floor-1F",
+      "purpose": "赤ちゃん",
+      "label": "東エントランス",
+      "area": "東エントランス",
+      "memberIds": [
+        "marine-a-floor-1-symbol-208"
+      ],
+      "x": 956.17,
+      "y": 831.53,
+      "boundary": "1F・東エントランスの確認済み区域。別階・別の利用区画を含めない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "marine-floor-2F-飲食-大会議室側",
+      "diagramId": "marine-floor-2F",
+      "purpose": "飲食",
+      "label": "大会議室側",
+      "area": "大会議室側",
+      "memberIds": [
+        "marine-a-floor-2-symbol-110"
+      ],
+      "x": 208.8,
+      "y": 76.23,
+      "boundary": "2F・大会議室側の確認済み区域。別階・別の利用区画を含めない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "marine-floor-2F-トイレ-大会議室側",
+      "diagramId": "marine-floor-2F",
+      "purpose": "トイレ",
+      "label": "大会議室側",
+      "area": "大会議室側",
+      "memberIds": [
+        "marine-a-floor-2-symbol-113",
+        "marine-a-floor-2-symbol-116",
+        "marine-a-floor-2-symbol-122"
+      ],
+      "x": 803.71,
+      "y": 86.72,
+      "boundary": "2F・大会議室側の確認済み区域。別階・別の利用区画を含めない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "marine-floor-2F-トイレ-山のモール 北側",
+      "diagramId": "marine-floor-2F",
+      "purpose": "トイレ",
+      "label": "山のモール 北側",
+      "area": "山のモール 北側",
+      "memberIds": [
+        "marine-a-floor-2-symbol-125",
+        "marine-a-floor-2-symbol-128"
+      ],
+      "x": 896.51,
+      "y": 326.45,
+      "boundary": "2F・山のモール 北側の確認済み区域。別階・別の利用区画を含めない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "marine-floor-2F-トイレ-海のモール 北側",
+      "diagramId": "marine-floor-2F",
+      "purpose": "トイレ",
+      "label": "海のモール 北側",
+      "area": "海のモール 北側",
+      "memberIds": [
+        "marine-a-floor-2-symbol-131",
+        "marine-a-floor-2-symbol-137",
+        "marine-a-floor-2-symbol-140"
+      ],
+      "x": 292.21,
+      "y": 326.45,
+      "boundary": "2F・海のモール 北側の確認済み区域。別階・別の利用区画を含めない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "marine-floor-2F-トイレ-海のモール 南側",
+      "diagramId": "marine-floor-2F",
+      "purpose": "トイレ",
+      "label": "海のモール 南側",
+      "area": "海のモール 南側",
+      "memberIds": [
+        "marine-a-floor-2-symbol-143",
+        "marine-a-floor-2-symbol-149",
+        "marine-a-floor-2-symbol-152"
+      ],
+      "x": 292.21,
+      "y": 737.42,
+      "boundary": "2F・海のモール 南側の確認済み区域。別階・別の利用区画を含めない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "marine-floor-2F-トイレ-山のモール 南側",
+      "diagramId": "marine-floor-2F",
+      "purpose": "トイレ",
+      "label": "山のモール 南側",
+      "area": "山のモール 南側",
+      "memberIds": [
+        "marine-a-floor-2-symbol-155",
+        "marine-a-floor-2-symbol-158",
+        "marine-a-floor-2-symbol-161"
+      ],
+      "x": 889.88,
+      "y": 737.42,
+      "boundary": "2F・山のモール 南側の確認済み区域。別階・別の利用区画を含めない。",
+      "visualReview": "source-checked"
+    },
+    {
+      "id": "marine-floor-2F-飲食-海のモール",
+      "diagramId": "marine-floor-2F",
+      "purpose": "飲食",
+      "label": "海のモール",
+      "area": "海のモール",
+      "memberIds": [
+        "marine-a-floor-2-symbol-191"
+      ],
+      "x": 261.83,
+      "y": 821.94,
+      "boundary": "2F・海のモールの確認済み区域。別階・別の利用区画を含めない。",
+      "visualReview": "source-checked"
+    }
+  ],
+  "meta": {
+    "marine-a-floor-1-symbol-066": {
+      "location": "1F 東エントランス",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "東エントランス",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-1-symbol-095": {
+      "location": "1F 防災センター",
+      "detail": "緊急時は会場係員へ。防災センターへの一般入室を案内するものではありません。",
+      "area": "防災センター",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-1-symbol-100": {
+      "location": "1F 東側トイレ",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "東側トイレ",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-1-symbol-106": {
+      "location": "1F 西側トイレ",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "西側トイレ",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-1-symbol-112": {
+      "location": "1F 東側トイレ",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "東側トイレ",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-1-symbol-115": {
+      "location": "1F 屋外トイレ",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "屋外トイレ",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-1-symbol-118": {
+      "location": "1F 西側トイレ",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "西側トイレ",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-1-symbol-121": {
+      "location": "1F 西側トイレ",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "西側トイレ",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-1-symbol-127": {
+      "location": "1F 西側トイレ",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "西側トイレ",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-1-symbol-130": {
+      "location": "1F 東側トイレ",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "東側トイレ",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-1-symbol-136": {
+      "location": "1F 東側トイレ",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "東側トイレ",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-1-symbol-139": {
+      "location": "1F 屋外トイレ",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "屋外トイレ",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-1-symbol-142": {
+      "location": "1F エントランスロビー",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "エントランスロビー",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-1-symbol-145": {
+      "location": "1F エントランスロビー",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "エントランスロビー",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-1-symbol-150": {
+      "location": "1F 正面入口周辺",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "正面入口周辺",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-1-symbol-155": {
+      "location": "1F エントランスロビー",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "エントランスロビー",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-1-symbol-158": {
+      "location": "1F エントランスロビー",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "エントランスロビー",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-1-symbol-160": {
+      "location": "1F エントランスロビー",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "エントランスロビー",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-1-symbol-168": {
+      "location": "1F エントランスロビー",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "エントランスロビー",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-1-symbol-186": {
+      "location": "1F エントランスロビー",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "エントランスロビー",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-1-symbol-189": {
+      "location": "1F 正面入口周辺",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "正面入口周辺",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-1-symbol-195": {
+      "location": "1F エントランスロビー",
+      "detail": "1Fエントランスロビーの西側・東側に設置。サイズ・料金・空きは現地案内をご確認ください。",
+      "area": "エントランスロビー",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-1-symbol-202": {
+      "location": "1F エントランスロビー",
+      "detail": "1Fエントランスロビーの西側・東側に設置。サイズ・料金・空きは現地案内をご確認ください。",
+      "area": "エントランスロビー",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-1-symbol-208": {
+      "location": "1F 東エントランス",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "東エントランス",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-1-symbol-229": {
+      "location": "1F 正面入口周辺",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "正面入口周辺",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-2-symbol-110": {
+      "location": "2F 大会議室側",
+      "detail": "2F西側の海のモール奥。営業日・営業時間は店舗の案内をご確認ください。",
+      "area": "大会議室側",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-2-symbol-113": {
+      "location": "2F 大会議室側",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "大会議室側",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-2-symbol-116": {
+      "location": "2F 大会議室側",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "大会議室側",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-2-symbol-122": {
+      "location": "2F 大会議室側",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "大会議室側",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-2-symbol-125": {
+      "location": "2F 山のモール 北側",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "山のモール 北側",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-2-symbol-128": {
+      "location": "2F 山のモール 北側",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "山のモール 北側",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-2-symbol-131": {
+      "location": "2F 海のモール 北側",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "海のモール 北側",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-2-symbol-137": {
+      "location": "2F 海のモール 北側",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "海のモール 北側",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-2-symbol-140": {
+      "location": "2F 海のモール 北側",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "海のモール 北側",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-2-symbol-143": {
+      "location": "2F 海のモール 南側",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "海のモール 南側",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-2-symbol-149": {
+      "location": "2F 海のモール 南側",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "海のモール 南側",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-2-symbol-152": {
+      "location": "2F 海のモール 南側",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "海のモール 南側",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-2-symbol-155": {
+      "location": "2F 山のモール 南側",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "山のモール 南側",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-2-symbol-158": {
+      "location": "2F 山のモール 南側",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "山のモール 南側",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-2-symbol-161": {
+      "location": "2F 山のモール 南側",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "山のモール 南側",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-2-symbol-167": {
+      "location": "2F エントランスロビー周辺",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "エントランスロビー周辺",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-2-symbol-175": {
+      "location": "2F 海のモール",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "海のモール",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-2-symbol-178": {
+      "location": "2F 海のモール",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "海のモール",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-2-symbol-180": {
+      "location": "2F 海のモール",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "海のモール",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-2-symbol-191": {
+      "location": "2F 海のモール",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "海のモール",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-2-symbol-194": {
+      "location": "2F エントランスロビー周辺",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "エントランスロビー周辺",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-2-symbol-197": {
+      "location": "2F エントランスロビー周辺",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "エントランスロビー周辺",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-2-symbol-200": {
+      "location": "2F エントランスロビー周辺",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "エントランスロビー周辺",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-a-floor-2-symbol-203": {
+      "location": "2F エントランスロビー周辺",
+      "detail": "開放する出入口・設備は公演により異なります。",
+      "area": "エントランスロビー周辺",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.marinemesse.or.jp/messe/facilities"
+    },
+    "marine-outside-bayside-locker": {
+      "location": "乗船券売場左手奥",
+      "detail": "大・中・小。23:00〜翌6:30は出し入れできません。会場のA館・B館とは別の商業施設です。",
+      "area": "ベイサイドプレイス博多",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.baysideplace.jp/info/"
+    },
+    "marine-outside-gofukumachi-locker": {
+      "location": "駅構内",
+      "detail": "終電後は荷物を取り出せません。改札内外・サイズ・料金は駅の設置案内をご確認ください。",
+      "area": "呉服町駅",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.nishitetsu.ne.jp/nss/coin_locker/index.html"
+    },
+    "marine-outside-nakasu-locker": {
+      "location": "駅構内",
+      "detail": "終電後は荷物を取り出せません。改札内外・サイズ・料金は駅の設置案内をご確認ください。",
+      "area": "中洲川端駅",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.nishitetsu.ne.jp/nss/coin_locker/index.html"
+    },
+    "marine-outside-tenjin-locker": {
+      "location": "東口・西口",
+      "detail": "終電後は荷物を取り出せません。改札内外・サイズ・料金は駅の設置案内をご確認ください。",
+      "area": "天神駅",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.nishitetsu.ne.jp/nss/coin_locker/index.html"
+    },
+    "marine-outside-hakata-locker": {
+      "location": "博多口・中央口・筑紫口",
+      "detail": "終電後は荷物を取り出せません。改札内外・サイズ・料金は駅の設置案内をご確認ください。",
+      "area": "博多駅",
+      "accessCondition": "当日の入口・設備開放は公演ごとに指定されます。",
+      "url": "https://www.nishitetsu.ne.jp/nss/coin_locker/index.html"
+    }
+  },
+  "sources": [
+    {
+      "id": "a-home",
+      "title": "マリンメッセ福岡A館 来場者案内",
+      "url": "https://www.marinemesse.or.jp/messe/",
+      "checkedAt": "2026-10-05",
+      "scope": "公式資料の事実・区域。原画像は調査用。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "a-facilities",
+      "title": "A館 施設案内",
+      "url": "https://www.marinemesse.or.jp/messe/facilities",
+      "checkedAt": "2026-09-30",
+      "scope": "公式資料の事実・区域。原画像は調査用。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "a-faq",
+      "title": "A館 よくある質問",
+      "url": "https://www.marinemesse.or.jp/messe/faq",
+      "checkedAt": "2026-10-05",
+      "scope": "公式資料の事実・区域。原画像は調査用。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "a-organizer",
+      "title": "A館 主催者案内",
+      "url": "https://www.marinemesse.or.jp/messe/organizer",
+      "checkedAt": "2026-09-30",
+      "scope": "公式資料の事実・区域。原画像は調査用。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "site-policy",
+      "title": "福岡コンベンションセンター プライバシーポリシー",
+      "url": "https://www.marinemesse.or.jp/policy",
+      "checkedAt": "2026-09-30",
+      "scope": "公式資料の事実・区域。原画像は調査用。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "a-seat-center",
+      "title": "A館 センターステージ座席図",
+      "url": "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1400x1652_v-fms_webp_464c8a8a-bf2a-4d10-8f28-a830e9bf9082.jpg",
+      "checkedAt": "2026-10-05",
+      "scope": "公式資料の事実・区域。原画像は調査用。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "a-seat-concert",
+      "title": "A館 コンサート座席図",
+      "url": "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1400x1652_v-fms_webp_8ec0c32c-df3c-42ca-8f72-f26badcaf61c.jpg",
+      "checkedAt": "2026-10-05",
+      "scope": "公式資料の事実・区域。原画像は調査用。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "a-floor-1",
+      "title": "A館 1Fフロア図",
+      "url": "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1376_da2984fc-e9b9-4ffd-bd09-2ac22a90eaec.svg",
+      "checkedAt": "2026-09-30",
+      "scope": "公式資料の事実・区域。原画像は調査用。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "a-floor-2",
+      "title": "A館 2Fフロア図",
+      "url": "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1320_b8eda26b-1ed4-4464-8df2-11eec1348470.svg",
+      "checkedAt": "2026-09-30",
+      "scope": "公式資料の事実・区域。原画像は調査用。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "a-access-map",
+      "title": "A/B館を含む場外アクセス図",
+      "url": "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1061_8e0863f3-964f-468b-a288-2704b7daaed8.svg",
+      "checkedAt": "2026-09-30",
+      "scope": "公式資料の事実・区域。原画像は調査用。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "a-parking-map",
+      "title": "A/B館を含む駐車場案内図",
+      "url": "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x875_5936df76-b14d-4ea6-84fc-754072a54823.svg",
+      "checkedAt": "2026-09-30",
+      "scope": "公式資料の事実・区域。原画像は調査用。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "a-material",
+      "title": "A館公式 資料ダウンロード",
+      "url": "https://www.marinemesse.or.jp/messe/organizer/material",
+      "checkedAt": "2026-09-30",
+      "scope": "公式資料の事実・区域。原画像は調査用。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "a-plan-pdf",
+      "title": "平面図.pdf",
+      "url": "https://drive.google.com/uc?export=download&id=1VSAnzosMFACYWqkST-pt_4Ps0hTt9CmD",
+      "checkedAt": "2026-09-30",
+      "scope": "公式資料の事実・区域。原画像は調査用。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "a-equipment-pdf",
+      "title": "設備図.pdf",
+      "url": "https://drive.google.com/uc?export=download&id=1jn_Q-OL2hN64egMuExFVtKmaIJoEGIVn",
+      "checkedAt": "2026-09-30",
+      "scope": "公式資料の事実・区域。原画像は調査用。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "bayside-info",
+      "title": "ベイサイドプレイス博多 設備・ロッカー",
+      "url": "https://www.baysideplace.jp/info/",
+      "checkedAt": "2026-10-05",
+      "scope": "運営元の場所・利用案内。空き状況は保証しない。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "nishitetsu-lockers",
+      "title": "西鉄ステーションサービス ロッカー",
+      "url": "https://www.nishitetsu.ne.jp/nss/coin_locker/index.html",
+      "checkedAt": "2026-10-05",
+      "scope": "運営元の場所・利用案内。空き状況は保証しない。",
+      "usage": "facts-only"
+    }
+  ],
+  "sourceSymbols": [
+    {
+      "id": "a-floor-1-symbol-066",
+      "building": "A館",
+      "diagramId": "a-floor-1",
+      "floor": "1階",
+      "label": "AED",
+      "kind": "aed",
+      "purpose": "AED",
+      "scope": null,
+      "precision": "diagram-point",
+      "symbolId": "a-floor-1-symbol-066",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": "a-aed-east-1f-source-marker",
+      "semanticFacilityId": "a-aed-east-1f",
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 66 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1376_da2984fc-e9b9-4ffd-bd09-2ac22a90eaec.svg"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-1-symbol-095",
+      "building": "A館",
+      "diagramId": "a-floor-1",
+      "floor": "1階",
+      "label": "AED",
+      "kind": "aed",
+      "purpose": "AED",
+      "scope": null,
+      "precision": "unplaced",
+      "symbolId": "a-floor-1-symbol-095",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": null,
+      "semanticFacilityId": "a-aed-security",
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 95 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1376_da2984fc-e9b9-4ffd-bd09-2ac22a90eaec.svg"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-1-symbol-100",
+      "building": "A館",
+      "diagramId": "a-floor-1",
+      "floor": "1階",
+      "label": "多目的トイレ",
+      "kind": "accessible",
+      "purpose": "トイレ",
+      "scope": null,
+      "precision": "unplaced",
+      "symbolId": "a-floor-1-symbol-100",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": null,
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 100 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1376_da2984fc-e9b9-4ffd-bd09-2ac22a90eaec.svg"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-1-symbol-106",
+      "building": "A館",
+      "diagramId": "a-floor-1",
+      "floor": "1階",
+      "label": "多目的トイレ",
+      "kind": "accessible",
+      "purpose": "トイレ",
+      "scope": null,
+      "precision": "unplaced",
+      "symbolId": "a-floor-1-symbol-106",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": null,
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 106 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1376_da2984fc-e9b9-4ffd-bd09-2ac22a90eaec.svg"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-1-symbol-112",
+      "building": "A館",
+      "diagramId": "a-floor-1",
+      "floor": "1階",
+      "label": "男性用トイレ",
+      "kind": "men",
+      "purpose": "トイレ",
+      "scope": null,
+      "precision": "unplaced",
+      "symbolId": "a-floor-1-symbol-112",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": null,
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 112 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1376_da2984fc-e9b9-4ffd-bd09-2ac22a90eaec.svg"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-1-symbol-115",
+      "building": "A館",
+      "diagramId": "a-floor-1",
+      "floor": "1階",
+      "label": "男性用トイレ",
+      "kind": "men",
+      "purpose": "トイレ",
+      "scope": "場外",
+      "precision": "unplaced",
+      "symbolId": "a-floor-1-symbol-115",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": null,
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 115 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1376_da2984fc-e9b9-4ffd-bd09-2ac22a90eaec.svg"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-1-symbol-118",
+      "building": "A館",
+      "diagramId": "a-floor-1",
+      "floor": "1階",
+      "label": "男性用トイレ",
+      "kind": "men",
+      "purpose": "トイレ",
+      "scope": null,
+      "precision": "unplaced",
+      "symbolId": "a-floor-1-symbol-118",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": null,
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 118 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1376_da2984fc-e9b9-4ffd-bd09-2ac22a90eaec.svg"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-1-symbol-121",
+      "building": "A館",
+      "diagramId": "a-floor-1",
+      "floor": "1階",
+      "label": "多目的トイレ",
+      "kind": "accessible",
+      "purpose": "トイレ",
+      "scope": null,
+      "precision": "unplaced",
+      "symbolId": "a-floor-1-symbol-121",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": null,
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 121 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1376_da2984fc-e9b9-4ffd-bd09-2ac22a90eaec.svg"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-1-symbol-127",
+      "building": "A館",
+      "diagramId": "a-floor-1",
+      "floor": "1階",
+      "label": "女性用トイレ",
+      "kind": "women",
+      "purpose": "トイレ",
+      "scope": null,
+      "precision": "unplaced",
+      "symbolId": "a-floor-1-symbol-127",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": null,
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 127 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1376_da2984fc-e9b9-4ffd-bd09-2ac22a90eaec.svg"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-1-symbol-130",
+      "building": "A館",
+      "diagramId": "a-floor-1",
+      "floor": "1階",
+      "label": "多目的トイレ",
+      "kind": "accessible",
+      "purpose": "トイレ",
+      "scope": null,
+      "precision": "unplaced",
+      "symbolId": "a-floor-1-symbol-130",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": null,
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 130 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1376_da2984fc-e9b9-4ffd-bd09-2ac22a90eaec.svg"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-1-symbol-136",
+      "building": "A館",
+      "diagramId": "a-floor-1",
+      "floor": "1階",
+      "label": "女性用トイレ",
+      "kind": "women",
+      "purpose": "トイレ",
+      "scope": null,
+      "precision": "unplaced",
+      "symbolId": "a-floor-1-symbol-136",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": null,
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 136 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1376_da2984fc-e9b9-4ffd-bd09-2ac22a90eaec.svg"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-1-symbol-139",
+      "building": "A館",
+      "diagramId": "a-floor-1",
+      "floor": "1階",
+      "label": "女性用トイレ",
+      "kind": "women",
+      "purpose": "トイレ",
+      "scope": "場外",
+      "precision": "unplaced",
+      "symbolId": "a-floor-1-symbol-139",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": null,
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 139 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1376_da2984fc-e9b9-4ffd-bd09-2ac22a90eaec.svg"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-1-symbol-142",
+      "building": "A館",
+      "diagramId": "a-floor-1",
+      "floor": "1階",
+      "label": "エスカレーター",
+      "kind": "escalator",
+      "purpose": "案内",
+      "scope": null,
+      "precision": "unplaced",
+      "symbolId": "a-floor-1-symbol-142",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": null,
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 142 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1376_da2984fc-e9b9-4ffd-bd09-2ac22a90eaec.svg"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-1-symbol-145",
+      "building": "A館",
+      "diagramId": "a-floor-1",
+      "floor": "1階",
+      "label": "エスカレーター",
+      "kind": "escalator",
+      "purpose": "案内",
+      "scope": null,
+      "precision": "unplaced",
+      "symbolId": "a-floor-1-symbol-145",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": null,
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 145 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1376_da2984fc-e9b9-4ffd-bd09-2ac22a90eaec.svg"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-1-symbol-150",
+      "building": "A館",
+      "diagramId": "a-floor-1",
+      "floor": "1階",
+      "label": "飲料自動販売機",
+      "kind": "drink-vending",
+      "purpose": "飲食",
+      "scope": null,
+      "precision": "unplaced",
+      "symbolId": "a-floor-1-symbol-150",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": null,
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 150 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1376_da2984fc-e9b9-4ffd-bd09-2ac22a90eaec.svg"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-1-symbol-155",
+      "building": "A館",
+      "diagramId": "a-floor-1",
+      "floor": "1階",
+      "label": "飲料自動販売機",
+      "kind": "drink-vending",
+      "purpose": "飲食",
+      "scope": null,
+      "precision": "diagram-point",
+      "symbolId": "a-floor-1-symbol-155",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": "a-floor-1-symbol-155-leader-endpoint",
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 155 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1376_da2984fc-e9b9-4ffd-bd09-2ac22a90eaec.svg"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-1-symbol-158",
+      "building": "A館",
+      "diagramId": "a-floor-1",
+      "floor": "1階",
+      "label": "充電コーナー",
+      "kind": "charging",
+      "purpose": "案内",
+      "scope": null,
+      "precision": "unplaced",
+      "symbolId": "a-floor-1-symbol-158",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": null,
+      "semanticFacilityId": "a-charge-1f",
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 158 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1376_da2984fc-e9b9-4ffd-bd09-2ac22a90eaec.svg"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-1-symbol-160",
+      "building": "A館",
+      "diagramId": "a-floor-1",
+      "floor": "1階",
+      "label": "エレベーター",
+      "kind": "elevator",
+      "purpose": "案内",
+      "scope": null,
+      "precision": "unplaced",
+      "symbolId": "a-floor-1-symbol-160",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": null,
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 160 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1376_da2984fc-e9b9-4ffd-bd09-2ac22a90eaec.svg"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-1-symbol-168",
+      "building": "A館",
+      "diagramId": "a-floor-1",
+      "floor": "1階",
+      "label": "飲料自動販売機",
+      "kind": "drink-vending",
+      "purpose": "飲食",
+      "scope": null,
+      "precision": "diagram-point",
+      "symbolId": "a-floor-1-symbol-168",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": "a-floor-1-symbol-168-leader-endpoint",
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 168 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1376_da2984fc-e9b9-4ffd-bd09-2ac22a90eaec.svg"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-1-symbol-186",
+      "building": "A館",
+      "diagramId": "a-floor-1",
+      "floor": "1階",
+      "label": "飲料自動販売機",
+      "kind": "drink-vending",
+      "purpose": "飲食",
+      "scope": null,
+      "precision": "diagram-point",
+      "symbolId": "a-floor-1-symbol-186",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": "a-floor-1-symbol-186-leader-endpoint",
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 186 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1376_da2984fc-e9b9-4ffd-bd09-2ac22a90eaec.svg"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-1-symbol-189",
+      "building": "A館",
+      "diagramId": "a-floor-1",
+      "floor": "1階",
+      "label": "飲料自動販売機",
+      "kind": "drink-vending",
+      "purpose": "飲食",
+      "scope": null,
+      "precision": "diagram-point",
+      "symbolId": "a-floor-1-symbol-189",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": "a-floor-1-symbol-189-leader-endpoint",
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 189 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1376_da2984fc-e9b9-4ffd-bd09-2ac22a90eaec.svg"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-1-symbol-195",
+      "building": "A館",
+      "diagramId": "a-floor-1",
+      "floor": "1階",
+      "label": "コインロッカー",
+      "kind": "locker",
+      "purpose": "荷物",
+      "scope": null,
+      "precision": "diagram-point",
+      "symbolId": "a-floor-1-symbol-195",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": "a-floor-1-symbol-195-leader-endpoint",
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 195 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1376_da2984fc-e9b9-4ffd-bd09-2ac22a90eaec.svg"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-1-symbol-202",
+      "building": "A館",
+      "diagramId": "a-floor-1",
+      "floor": "1階",
+      "label": "コインロッカー",
+      "kind": "locker",
+      "purpose": "荷物",
+      "scope": null,
+      "precision": "diagram-point",
+      "symbolId": "a-floor-1-symbol-202",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": "a-floor-1-symbol-202-leader-endpoint",
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 202 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1376_da2984fc-e9b9-4ffd-bd09-2ac22a90eaec.svg"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-1-symbol-208",
+      "building": "A館",
+      "diagramId": "a-floor-1",
+      "floor": "1階",
+      "label": "授乳室",
+      "kind": "nursing",
+      "purpose": "赤ちゃん",
+      "scope": null,
+      "precision": "diagram-point",
+      "symbolId": "a-floor-1-symbol-208",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": "a-nursing-1f-source-marker",
+      "semanticFacilityId": "a-nursing-1f",
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 208 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1376_da2984fc-e9b9-4ffd-bd09-2ac22a90eaec.svg"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-1-symbol-229",
+      "building": "A館",
+      "diagramId": "a-floor-1",
+      "floor": "1階",
+      "label": "飲料/食品自動販売機",
+      "kind": "food-drink-vending",
+      "purpose": "飲食",
+      "scope": null,
+      "precision": "diagram-point",
+      "symbolId": "a-floor-1-symbol-229",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": "a-floor-1-symbol-229-leader-endpoint",
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 229 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1376_da2984fc-e9b9-4ffd-bd09-2ac22a90eaec.svg"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-2-symbol-110",
+      "building": "A館",
+      "diagramId": "a-floor-2",
+      "floor": "2階",
+      "label": "レストラン",
+      "kind": "restaurant",
+      "purpose": "飲食",
+      "scope": null,
+      "precision": "diagram-point",
+      "symbolId": "a-floor-2-symbol-110",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": "a-floor-2-symbol-110-leader-endpoint",
+      "semanticFacilityId": "a-restaurant-2f",
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 110 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1320_b8eda26b-1ed4-4464-8df2-11eec1348470.svg"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-2-symbol-113",
+      "building": "A館",
+      "diagramId": "a-floor-2",
+      "floor": "2階",
+      "label": "男性用トイレ",
+      "kind": "men",
+      "purpose": "トイレ",
+      "scope": null,
+      "precision": "unplaced",
+      "symbolId": "a-floor-2-symbol-113",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": null,
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 113 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1320_b8eda26b-1ed4-4464-8df2-11eec1348470.svg"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-2-symbol-116",
+      "building": "A館",
+      "diagramId": "a-floor-2",
+      "floor": "2階",
+      "label": "多目的トイレ",
+      "kind": "accessible",
+      "purpose": "トイレ",
+      "scope": null,
+      "precision": "unplaced",
+      "symbolId": "a-floor-2-symbol-116",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": null,
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 116 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1320_b8eda26b-1ed4-4464-8df2-11eec1348470.svg"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-2-symbol-122",
+      "building": "A館",
+      "diagramId": "a-floor-2",
+      "floor": "2階",
+      "label": "女性用トイレ",
+      "kind": "women",
+      "purpose": "トイレ",
+      "scope": null,
+      "precision": "unplaced",
+      "symbolId": "a-floor-2-symbol-122",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": null,
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 122 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1320_b8eda26b-1ed4-4464-8df2-11eec1348470.svg"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-2-symbol-125",
+      "building": "A館",
+      "diagramId": "a-floor-2",
+      "floor": "2階",
+      "label": "男性用トイレ",
+      "kind": "men",
+      "purpose": "トイレ",
+      "scope": null,
+      "precision": "unplaced",
+      "symbolId": "a-floor-2-symbol-125",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": null,
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 125 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1320_b8eda26b-1ed4-4464-8df2-11eec1348470.svg"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-2-symbol-128",
+      "building": "A館",
+      "diagramId": "a-floor-2",
+      "floor": "2階",
+      "label": "女性用トイレ",
+      "kind": "women",
+      "purpose": "トイレ",
+      "scope": null,
+      "precision": "unplaced",
+      "symbolId": "a-floor-2-symbol-128",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": null,
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 128 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1320_b8eda26b-1ed4-4464-8df2-11eec1348470.svg"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-2-symbol-131",
+      "building": "A館",
+      "diagramId": "a-floor-2",
+      "floor": "2階",
+      "label": "多目的トイレ",
+      "kind": "accessible",
+      "purpose": "トイレ",
+      "scope": null,
+      "precision": "unplaced",
+      "symbolId": "a-floor-2-symbol-131",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": null,
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 131 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1320_b8eda26b-1ed4-4464-8df2-11eec1348470.svg"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-2-symbol-137",
+      "building": "A館",
+      "diagramId": "a-floor-2",
+      "floor": "2階",
+      "label": "男性用トイレ",
+      "kind": "men",
+      "purpose": "トイレ",
+      "scope": null,
+      "precision": "unplaced",
+      "symbolId": "a-floor-2-symbol-137",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": null,
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 137 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1320_b8eda26b-1ed4-4464-8df2-11eec1348470.svg"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-2-symbol-140",
+      "building": "A館",
+      "diagramId": "a-floor-2",
+      "floor": "2階",
+      "label": "女性用トイレ",
+      "kind": "women",
+      "purpose": "トイレ",
+      "scope": null,
+      "precision": "unplaced",
+      "symbolId": "a-floor-2-symbol-140",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": null,
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 140 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1320_b8eda26b-1ed4-4464-8df2-11eec1348470.svg"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-2-symbol-143",
+      "building": "A館",
+      "diagramId": "a-floor-2",
+      "floor": "2階",
+      "label": "多目的トイレ",
+      "kind": "accessible",
+      "purpose": "トイレ",
+      "scope": null,
+      "precision": "unplaced",
+      "symbolId": "a-floor-2-symbol-143",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": null,
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 143 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1320_b8eda26b-1ed4-4464-8df2-11eec1348470.svg"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-2-symbol-149",
+      "building": "A館",
+      "diagramId": "a-floor-2",
+      "floor": "2階",
+      "label": "女性用トイレ",
+      "kind": "women",
+      "purpose": "トイレ",
+      "scope": null,
+      "precision": "unplaced",
+      "symbolId": "a-floor-2-symbol-149",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": null,
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 149 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1320_b8eda26b-1ed4-4464-8df2-11eec1348470.svg"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-2-symbol-152",
+      "building": "A館",
+      "diagramId": "a-floor-2",
+      "floor": "2階",
+      "label": "男性用トイレ",
+      "kind": "men",
+      "purpose": "トイレ",
+      "scope": null,
+      "precision": "unplaced",
+      "symbolId": "a-floor-2-symbol-152",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": null,
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 152 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1320_b8eda26b-1ed4-4464-8df2-11eec1348470.svg"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-2-symbol-155",
+      "building": "A館",
+      "diagramId": "a-floor-2",
+      "floor": "2階",
+      "label": "女性用トイレ",
+      "kind": "women",
+      "purpose": "トイレ",
+      "scope": null,
+      "precision": "unplaced",
+      "symbolId": "a-floor-2-symbol-155",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": null,
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 155 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1320_b8eda26b-1ed4-4464-8df2-11eec1348470.svg"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-2-symbol-158",
+      "building": "A館",
+      "diagramId": "a-floor-2",
+      "floor": "2階",
+      "label": "男性用トイレ",
+      "kind": "men",
+      "purpose": "トイレ",
+      "scope": null,
+      "precision": "unplaced",
+      "symbolId": "a-floor-2-symbol-158",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": null,
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 158 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1320_b8eda26b-1ed4-4464-8df2-11eec1348470.svg"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-2-symbol-161",
+      "building": "A館",
+      "diagramId": "a-floor-2",
+      "floor": "2階",
+      "label": "多目的トイレ",
+      "kind": "accessible",
+      "purpose": "トイレ",
+      "scope": null,
+      "precision": "unplaced",
+      "symbolId": "a-floor-2-symbol-161",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": null,
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 161 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1320_b8eda26b-1ed4-4464-8df2-11eec1348470.svg"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-2-symbol-167",
+      "building": "A館",
+      "diagramId": "a-floor-2",
+      "floor": "2階",
+      "label": "エレベーター",
+      "kind": "elevator",
+      "purpose": "案内",
+      "scope": null,
+      "precision": "unplaced",
+      "symbolId": "a-floor-2-symbol-167",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": null,
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 167 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1320_b8eda26b-1ed4-4464-8df2-11eec1348470.svg"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-2-symbol-175",
+      "building": "A館",
+      "diagramId": "a-floor-2",
+      "floor": "2階",
+      "label": "飲料自動販売機",
+      "kind": "drink-vending",
+      "purpose": "飲食",
+      "scope": null,
+      "precision": "unplaced",
+      "symbolId": "a-floor-2-symbol-175",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": null,
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 175 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1320_b8eda26b-1ed4-4464-8df2-11eec1348470.svg"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-2-symbol-178",
+      "building": "A館",
+      "diagramId": "a-floor-2",
+      "floor": "2階",
+      "label": "給水スポット",
+      "kind": "water",
+      "purpose": "飲食",
+      "scope": null,
+      "precision": "unplaced",
+      "symbolId": "a-floor-2-symbol-178",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": null,
+      "semanticFacilityId": "a-water-2f",
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 178 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1320_b8eda26b-1ed4-4464-8df2-11eec1348470.svg"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-2-symbol-180",
+      "building": "A館",
+      "diagramId": "a-floor-2",
+      "floor": "2階",
+      "label": "AED",
+      "kind": "aed",
+      "purpose": "AED",
+      "scope": null,
+      "precision": "unplaced",
+      "symbolId": "a-floor-2-symbol-180",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": null,
+      "semanticFacilityId": "a-aed-oceans-2f",
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 180 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1320_b8eda26b-1ed4-4464-8df2-11eec1348470.svg"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-2-symbol-191",
+      "building": "A館",
+      "diagramId": "a-floor-2",
+      "floor": "2階",
+      "label": "飲料自動販売機",
+      "kind": "drink-vending",
+      "purpose": "飲食",
+      "scope": null,
+      "precision": "diagram-point",
+      "symbolId": "a-floor-2-symbol-191",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": "a-floor-2-symbol-191-leader-endpoint",
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 191 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1320_b8eda26b-1ed4-4464-8df2-11eec1348470.svg"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-2-symbol-194",
+      "building": "A館",
+      "diagramId": "a-floor-2",
+      "floor": "2階",
+      "label": "飲料自動販売機",
+      "kind": "drink-vending",
+      "purpose": "飲食",
+      "scope": null,
+      "precision": "unplaced",
+      "symbolId": "a-floor-2-symbol-194",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": null,
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 194 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1320_b8eda26b-1ed4-4464-8df2-11eec1348470.svg"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-2-symbol-197",
+      "building": "A館",
+      "diagramId": "a-floor-2",
+      "floor": "2階",
+      "label": "飲料自動販売機",
+      "kind": "drink-vending",
+      "purpose": "飲食",
+      "scope": null,
+      "precision": "unplaced",
+      "symbolId": "a-floor-2-symbol-197",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": null,
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 197 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1320_b8eda26b-1ed4-4464-8df2-11eec1348470.svg"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-2-symbol-200",
+      "building": "A館",
+      "diagramId": "a-floor-2",
+      "floor": "2階",
+      "label": "エスカレーター",
+      "kind": "escalator",
+      "purpose": "案内",
+      "scope": null,
+      "precision": "unplaced",
+      "symbolId": "a-floor-2-symbol-200",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": null,
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 200 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1320_b8eda26b-1ed4-4464-8df2-11eec1348470.svg"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-2-symbol-203",
+      "building": "A館",
+      "diagramId": "a-floor-2",
+      "floor": "2階",
+      "label": "エスカレーター",
+      "kind": "escalator",
+      "purpose": "案内",
+      "scope": null,
+      "precision": "unplaced",
+      "symbolId": "a-floor-2-symbol-203",
+      "symbolCenterIsDeviceLocation": false,
+      "anchorId": null,
+      "semanticFacilityId": null,
+      "countUnit": "single printed pictogram; not single device guaranteed",
+      "appAnchor": null,
+      "projectionReady": false,
+      "reference": "SVG root/g direct child index 203 (zero-based; defs excluded); original saved SVG",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1320_b8eda26b-1ed4-4464-8df2-11eec1348470.svg"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    }
+  ],
+  "pendingSymbols": [],
+  "sourceSymbolCenters": [
+    {
+      "id": "a-floor-1-symbol-066",
+      "diagramId": "a-floor-1",
+      "building": "A館",
+      "floor": "1階",
+      "x": 919.7148500000001,
+      "y": 770.5658500000001,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 66,
+        "tag": "rect",
+        "attributes": {
+          "x": "898.172",
+          "y": "749.023",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#4B4B4B"
+        }
+      },
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "reference": "SVG root/g direct child index 66 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-1-symbol-095",
+      "diagramId": "a-floor-1",
+      "building": "A館",
+      "floor": "1階",
+      "x": 923.0278500000001,
+      "y": 38.113150000000005,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 95,
+        "tag": "rect",
+        "attributes": {
+          "x": "901.485",
+          "y": "16.5703",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#4B4B4B"
+        }
+      },
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "reference": "SVG root/g direct child index 95 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-1-symbol-100",
+      "diagramId": "a-floor-1",
+      "building": "A館",
+      "floor": "1階",
+      "x": 898.1718500000001,
+      "y": 488.85485,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 100,
+        "tag": "rect",
+        "attributes": {
+          "x": "876.629",
+          "y": "467.312",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#4B4B4B"
+        }
+      },
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "reference": "SVG root/g direct child index 100 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-1-symbol-106",
+      "diagramId": "a-floor-1",
+      "building": "A館",
+      "floor": "1階",
+      "x": 278.39985,
+      "y": 488.85485,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 106,
+        "tag": "rect",
+        "attributes": {
+          "x": "256.857",
+          "y": "467.312",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#4B4B4B"
+        }
+      },
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "reference": "SVG root/g direct child index 106 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-1-symbol-112",
+      "diagramId": "a-floor-1",
+      "building": "A館",
+      "floor": "1階",
+      "x": 898.1718500000001,
+      "y": 535.25385,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 112,
+        "tag": "rect",
+        "attributes": {
+          "x": "876.629",
+          "y": "513.711",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#0080CB"
+        }
+      },
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "reference": "SVG root/g direct child index 112 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-1-symbol-115",
+      "diagramId": "a-floor-1",
+      "building": "A館",
+      "floor": "1階",
+      "x": 985.99985,
+      "y": 903.1368500000001,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 115,
+        "tag": "rect",
+        "attributes": {
+          "x": "964.457",
+          "y": "881.594",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#0080CB"
+        }
+      },
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "reference": "SVG root/g direct child index 115 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-1-symbol-118",
+      "diagramId": "a-floor-1",
+      "building": "A館",
+      "floor": "1階",
+      "x": 278.39985,
+      "y": 535.25385,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 118,
+        "tag": "rect",
+        "attributes": {
+          "x": "256.857",
+          "y": "513.711",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#0080CB"
+        }
+      },
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "reference": "SVG root/g direct child index 118 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-1-symbol-121",
+      "diagramId": "a-floor-1",
+      "building": "A館",
+      "floor": "1階",
+      "x": 278.39985,
+      "y": 654.5658500000001,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 121,
+        "tag": "rect",
+        "attributes": {
+          "x": "256.857",
+          "y": "633.023",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#4B4B4B"
+        }
+      },
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "reference": "SVG root/g direct child index 121 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-1-symbol-127",
+      "diagramId": "a-floor-1",
+      "building": "A館",
+      "floor": "1階",
+      "x": 278.39985,
+      "y": 608.16785,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 127,
+        "tag": "rect",
+        "attributes": {
+          "x": "256.857",
+          "y": "586.625",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#E8546B"
+        }
+      },
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "reference": "SVG root/g direct child index 127 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-1-symbol-130",
+      "diagramId": "a-floor-1",
+      "building": "A館",
+      "floor": "1階",
+      "x": 898.1718500000001,
+      "y": 654.5658500000001,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 130,
+        "tag": "rect",
+        "attributes": {
+          "x": "876.629",
+          "y": "633.023",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#4B4B4B"
+        }
+      },
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "reference": "SVG root/g direct child index 130 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-1-symbol-136",
+      "diagramId": "a-floor-1",
+      "building": "A館",
+      "floor": "1階",
+      "x": 898.1718500000001,
+      "y": 608.16785,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 136,
+        "tag": "rect",
+        "attributes": {
+          "x": "876.629",
+          "y": "586.625",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#E8546B"
+        }
+      },
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "reference": "SVG root/g direct child index 136 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-1-symbol-139",
+      "diagramId": "a-floor-1",
+      "building": "A館",
+      "floor": "1階",
+      "x": 985.99985,
+      "y": 949.54285,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 139,
+        "tag": "rect",
+        "attributes": {
+          "x": "964.457",
+          "y": "928",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#E8546B"
+        }
+      },
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "reference": "SVG root/g direct child index 139 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-1-symbol-142",
+      "diagramId": "a-floor-1",
+      "building": "A館",
+      "floor": "1階",
+      "x": 399.37084999999996,
+      "y": 899.82385,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 142,
+        "tag": "rect",
+        "attributes": {
+          "x": "377.828",
+          "y": "878.281",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#4B4B4B"
+        }
+      },
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "reference": "SVG root/g direct child index 142 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-1-symbol-145",
+      "diagramId": "a-floor-1",
+      "building": "A館",
+      "floor": "1階",
+      "x": 770.5708500000001,
+      "y": 899.82385,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 145,
+        "tag": "rect",
+        "attributes": {
+          "x": "749.028",
+          "y": "878.281",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#4B4B4B"
+        }
+      },
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "reference": "SVG root/g direct child index 145 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-1-symbol-150",
+      "diagramId": "a-floor-1",
+      "building": "A館",
+      "floor": "1階",
+      "x": 217.08585,
+      "y": 976.0508500000001,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 150,
+        "tag": "rect",
+        "attributes": {
+          "x": "195.543",
+          "y": "954.508",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#4B4B4B"
+        }
+      },
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "reference": "SVG root/g direct child index 150 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-1-symbol-155",
+      "diagramId": "a-floor-1",
+      "building": "A館",
+      "floor": "1階",
+      "x": 280.05785,
+      "y": 879.9408500000001,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 155,
+        "tag": "rect",
+        "attributes": {
+          "x": "258.515",
+          "y": "858.398",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#4B4B4B"
+        }
+      },
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "reference": "SVG root/g direct child index 155 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-1-symbol-158",
+      "diagramId": "a-floor-1",
+      "building": "A館",
+      "floor": "1階",
+      "x": 316.51484999999997,
+      "y": 807.0268500000001,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 158,
+        "tag": "rect",
+        "attributes": {
+          "x": "294.972",
+          "y": "785.484",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#4B4B4B"
+        }
+      },
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "reference": "SVG root/g direct child index 158 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-1-symbol-160",
+      "diagramId": "a-floor-1",
+      "building": "A館",
+      "floor": "1階",
+      "x": 266.79985,
+      "y": 807.0268500000001,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 160,
+        "tag": "rect",
+        "attributes": {
+          "x": "245.257",
+          "y": "785.484",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#4B4B4B"
+        }
+      },
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "reference": "SVG root/g direct child index 160 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-1-symbol-168",
+      "diagramId": "a-floor-1",
+      "building": "A館",
+      "floor": "1階",
+      "x": 833.54285,
+      "y": 962.79285,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 168,
+        "tag": "rect",
+        "attributes": {
+          "x": "812",
+          "y": "941.25",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#4B4B4B"
+        }
+      },
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "reference": "SVG root/g direct child index 168 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-1-symbol-186",
+      "diagramId": "a-floor-1",
+      "building": "A館",
+      "floor": "1階",
+      "x": 869.99985,
+      "y": 820.28485,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 186,
+        "tag": "rect",
+        "attributes": {
+          "x": "848.457",
+          "y": "798.742",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#4B4B4B"
+        }
+      },
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "reference": "SVG root/g direct child index 186 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-1-symbol-189",
+      "diagramId": "a-floor-1",
+      "building": "A館",
+      "floor": "1階",
+      "x": 977.7148500000001,
+      "y": 1025.77285,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 189,
+        "tag": "rect",
+        "attributes": {
+          "x": "956.172",
+          "y": "1004.23",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#4B4B4B"
+        }
+      },
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "reference": "SVG root/g direct child index 189 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-1-symbol-195",
+      "diagramId": "a-floor-1",
+      "building": "A館",
+      "floor": "1階",
+      "x": 823.60185,
+      "y": 820.28485,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 195,
+        "tag": "rect",
+        "attributes": {
+          "x": "802.059",
+          "y": "798.742",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#4B4B4B"
+        }
+      },
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "reference": "SVG root/g direct child index 195 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-1-symbol-202",
+      "diagramId": "a-floor-1",
+      "building": "A館",
+      "floor": "1階",
+      "x": 369.54285,
+      "y": 820.28485,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 202,
+        "tag": "rect",
+        "attributes": {
+          "x": "348",
+          "y": "798.742",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#4B4B4B"
+        }
+      },
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "reference": "SVG root/g direct child index 202 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-1-symbol-208",
+      "diagramId": "a-floor-1",
+      "building": "A館",
+      "floor": "1階",
+      "x": 985.99985,
+      "y": 793.76985,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 208,
+        "tag": "rect",
+        "attributes": {
+          "x": "964.457",
+          "y": "772.227",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#4B4B4B"
+        }
+      },
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "reference": "SVG root/g direct child index 208 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-1-symbol-229",
+      "diagramId": "a-floor-1",
+      "building": "A館",
+      "floor": "1階",
+      "x": 144.17185,
+      "y": 780.5118500000001,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 229,
+        "tag": "rect",
+        "attributes": {
+          "x": "122.629",
+          "y": "758.969",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#4B4B4B"
+        }
+      },
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "reference": "SVG root/g direct child index 229 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-2-symbol-110",
+      "diagramId": "a-floor-2",
+      "building": "A館",
+      "floor": "2階",
+      "x": 217.08585,
+      "y": 38.113150000000005,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 110,
+        "tag": "rect",
+        "attributes": {
+          "x": "195.543",
+          "y": "16.5703",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#4B4B4B"
+        }
+      },
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "reference": "SVG root/g direct child index 110 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-2-symbol-113",
+      "diagramId": "a-floor-2",
+      "building": "A館",
+      "floor": "2階",
+      "x": 780.51485,
+      "y": 71.25375,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 113,
+        "tag": "rect",
+        "attributes": {
+          "x": "758.972",
+          "y": "49.7109",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#0080CB"
+        }
+      },
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "reference": "SVG root/g direct child index 113 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-2-symbol-116",
+      "diagramId": "a-floor-2",
+      "building": "A館",
+      "floor": "2階",
+      "x": 803.7148500000001,
+      "y": 117.65225,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 116,
+        "tag": "rect",
+        "attributes": {
+          "x": "782.172",
+          "y": "96.1094",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#4B4B4B"
+        }
+      },
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "reference": "SVG root/g direct child index 116 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-2-symbol-122",
+      "diagramId": "a-floor-2",
+      "building": "A館",
+      "floor": "2階",
+      "x": 826.91385,
+      "y": 71.25375,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 122,
+        "tag": "rect",
+        "attributes": {
+          "x": "805.371",
+          "y": "49.7109",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#E8546B"
+        }
+      },
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "reference": "SVG root/g direct child index 122 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-2-symbol-125",
+      "diagramId": "a-floor-2",
+      "building": "A館",
+      "floor": "2階",
+      "x": 896.51485,
+      "y": 303.25385,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 125,
+        "tag": "rect",
+        "attributes": {
+          "x": "874.972",
+          "y": "281.711",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#0080CB"
+        }
+      },
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "reference": "SVG root/g direct child index 125 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-2-symbol-128",
+      "diagramId": "a-floor-2",
+      "building": "A館",
+      "floor": "2階",
+      "x": 896.51485,
+      "y": 349.65184999999997,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 128,
+        "tag": "rect",
+        "attributes": {
+          "x": "874.972",
+          "y": "328.109",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#E8546B"
+        }
+      },
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "reference": "SVG root/g direct child index 128 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-2-symbol-131",
+      "diagramId": "a-floor-2",
+      "building": "A館",
+      "floor": "2階",
+      "x": 260.17185,
+      "y": 326.45685,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 131,
+        "tag": "rect",
+        "attributes": {
+          "x": "238.629",
+          "y": "304.914",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#4B4B4B"
+        }
+      },
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "reference": "SVG root/g direct child index 131 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-2-symbol-137",
+      "diagramId": "a-floor-2",
+      "building": "A館",
+      "floor": "2階",
+      "x": 308.22884999999997,
+      "y": 303.25385,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 137,
+        "tag": "rect",
+        "attributes": {
+          "x": "286.686",
+          "y": "281.711",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#0080CB"
+        }
+      },
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "reference": "SVG root/g direct child index 137 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-2-symbol-140",
+      "diagramId": "a-floor-2",
+      "building": "A館",
+      "floor": "2階",
+      "x": 308.22884999999997,
+      "y": 349.65184999999997,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 140,
+        "tag": "rect",
+        "attributes": {
+          "x": "286.686",
+          "y": "328.109",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#E8546B"
+        }
+      },
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "reference": "SVG root/g direct child index 140 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-2-symbol-143",
+      "diagramId": "a-floor-2",
+      "building": "A館",
+      "floor": "2階",
+      "x": 260.17185,
+      "y": 737.4258500000001,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 143,
+        "tag": "rect",
+        "attributes": {
+          "x": "238.629",
+          "y": "715.883",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#4B4B4B"
+        }
+      },
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "reference": "SVG root/g direct child index 143 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-2-symbol-149",
+      "diagramId": "a-floor-2",
+      "building": "A館",
+      "floor": "2階",
+      "x": 308.22884999999997,
+      "y": 714.22285,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 149,
+        "tag": "rect",
+        "attributes": {
+          "x": "286.686",
+          "y": "692.68",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#E8546B"
+        }
+      },
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "reference": "SVG root/g direct child index 149 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-2-symbol-152",
+      "diagramId": "a-floor-2",
+      "building": "A館",
+      "floor": "2階",
+      "x": 308.22884999999997,
+      "y": 760.62085,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 152,
+        "tag": "rect",
+        "attributes": {
+          "x": "286.686",
+          "y": "739.078",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#0080CB"
+        }
+      },
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "reference": "SVG root/g direct child index 152 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-2-symbol-155",
+      "diagramId": "a-floor-2",
+      "building": "A館",
+      "floor": "2階",
+      "x": 873.31385,
+      "y": 714.22285,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 155,
+        "tag": "rect",
+        "attributes": {
+          "x": "851.771",
+          "y": "692.68",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#E8546B"
+        }
+      },
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "reference": "SVG root/g direct child index 155 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-2-symbol-158",
+      "diagramId": "a-floor-2",
+      "building": "A館",
+      "floor": "2階",
+      "x": 873.31385,
+      "y": 760.62085,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 158,
+        "tag": "rect",
+        "attributes": {
+          "x": "851.771",
+          "y": "739.078",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#0080CB"
+        }
+      },
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "reference": "SVG root/g direct child index 158 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-2-symbol-161",
+      "diagramId": "a-floor-2",
+      "building": "A館",
+      "floor": "2階",
+      "x": 923.0278500000001,
+      "y": 737.4258500000001,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 161,
+        "tag": "rect",
+        "attributes": {
+          "x": "901.485",
+          "y": "715.883",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#4B4B4B"
+        }
+      },
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "reference": "SVG root/g direct child index 161 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-2-symbol-167",
+      "diagramId": "a-floor-2",
+      "building": "A館",
+      "floor": "2階",
+      "x": 266.79985,
+      "y": 876.62085,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 167,
+        "tag": "rect",
+        "attributes": {
+          "x": "245.257",
+          "y": "855.078",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#4B4B4B"
+        }
+      },
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "reference": "SVG root/g direct child index 167 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-2-symbol-175",
+      "diagramId": "a-floor-2",
+      "building": "A館",
+      "floor": "2階",
+      "x": 246.91385000000002,
+      "y": 530.28485,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 175,
+        "tag": "rect",
+        "attributes": {
+          "x": "225.371",
+          "y": "508.742",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#4B4B4B"
+        }
+      },
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "reference": "SVG root/g direct child index 175 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-2-symbol-178",
+      "diagramId": "a-floor-2",
+      "building": "A館",
+      "floor": "2階",
+      "x": 246.91385000000002,
+      "y": 578.3398500000001,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 178,
+        "tag": "rect",
+        "attributes": {
+          "x": "225.371",
+          "y": "556.797",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#4B4B4B"
+        }
+      },
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "reference": "SVG root/g direct child index 178 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-2-symbol-180",
+      "diagramId": "a-floor-2",
+      "building": "A館",
+      "floor": "2階",
+      "x": 246.91385000000002,
+      "y": 626.39485,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 180,
+        "tag": "rect",
+        "attributes": {
+          "x": "225.371",
+          "y": "604.852",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#4B4B4B"
+        }
+      },
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "reference": "SVG root/g direct child index 180 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-2-symbol-191",
+      "diagramId": "a-floor-2",
+      "building": "A館",
+      "floor": "2階",
+      "x": 213.77185000000003,
+      "y": 820.28485,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 191,
+        "tag": "rect",
+        "attributes": {
+          "x": "192.229",
+          "y": "798.742",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#4B4B4B"
+        }
+      },
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "reference": "SVG root/g direct child index 191 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-2-symbol-194",
+      "diagramId": "a-floor-2",
+      "building": "A館",
+      "floor": "2階",
+      "x": 936.2858500000001,
+      "y": 846.79285,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 194,
+        "tag": "rect",
+        "attributes": {
+          "x": "914.743",
+          "y": "825.25",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#4B4B4B"
+        }
+      },
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "reference": "SVG root/g direct child index 194 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-2-symbol-197",
+      "diagramId": "a-floor-2",
+      "building": "A館",
+      "floor": "2階",
+      "x": 916.39985,
+      "y": 909.76985,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 197,
+        "tag": "rect",
+        "attributes": {
+          "x": "894.857",
+          "y": "888.227",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#4B4B4B"
+        }
+      },
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "reference": "SVG root/g direct child index 197 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-2-symbol-200",
+      "diagramId": "a-floor-2",
+      "building": "A館",
+      "floor": "2階",
+      "x": 409.31385,
+      "y": 982.68385,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 200,
+        "tag": "rect",
+        "attributes": {
+          "x": "387.771",
+          "y": "961.141",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#4B4B4B"
+        }
+      },
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "reference": "SVG root/g direct child index 200 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    },
+    {
+      "id": "a-floor-2-symbol-203",
+      "diagramId": "a-floor-2",
+      "building": "A館",
+      "floor": "2階",
+      "x": 773.88585,
+      "y": 982.68385,
+      "precision": "source-symbol-center",
+      "positionMeaning": "printed pictogram centre; annotation position, not an asserted physical device coordinate",
+      "sourceElement": {
+        "index": 203,
+        "tag": "rect",
+        "attributes": {
+          "x": "752.343",
+          "y": "961.141",
+          "width": "43.0857",
+          "height": "43.0857",
+          "rx": "6.62857",
+          "fill": "#4B4B4B"
+        }
+      },
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "reference": "SVG root/g direct child index 203 (zero-based; defs excluded); original saved SVG",
+      "checkedAt": "2026-09-30"
+    }
+  ],
+  "sourceLeaderEndpoints": [
+    {
+      "id": "a-aed-east-1f-source-marker",
+      "facilityId": "a-aed-east-1f",
+      "diagramId": "a-floor-1",
+      "x": 949.102,
+      "y": 809.201,
+      "precision": "source-leader-endpoint",
+      "geometryReference": "SVG circle cx=949.102 cy=809.201 r=3.31429; rotate(150 about same center) leaves center unchanged; visual leader from AED symbol",
+      "sourceElement": {
+        "tag": "circle",
+        "cx": "949.102",
+        "cy": "809.201",
+        "transform": "rotate(150 949.102 809.201)"
+      },
+      "appAnchor": null,
+      "sourceIds": [
+        "a-floor-1",
+        "a-faq"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1376_da2984fc-e9b9-4ffd-bd09-2ac22a90eaec.svg",
+        "https://www.marinemesse.or.jp/messe/faq"
+      ],
+      "checkedAt": "2026-09-30",
+      "reference": "1F右下AEDの引出線。原図座標のみで別図へ転用しない",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-nursing-1f-source-marker",
+      "facilityId": "a-nursing-1f",
+      "diagramId": "a-floor-1",
+      "x": 956.16740299725,
+      "y": 831.5288870027499,
+      "precision": "source-leader-endpoint",
+      "geometryReference": "SVG circle local(3.31429,3.31429), matrix(0.866025 0.5 0.5 -0.866025 951.64 832.742); duplicated identical circle draws one endpoint, not two rooms",
+      "sourceElement": {
+        "tag": "circle",
+        "cx": "3.31429",
+        "cy": "3.31429",
+        "transform": "matrix(0.866025 0.5 0.5 -0.866025 951.64 832.742)"
+      },
+      "appAnchor": null,
+      "sourceIds": [
+        "a-floor-1",
+        "a-faq"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1376_da2984fc-e9b9-4ffd-bd09-2ac22a90eaec.svg",
+        "https://www.marinemesse.or.jp/messe/faq"
+      ],
+      "checkedAt": "2026-09-30",
+      "reference": "1F授乳室の引出線。2つ同一circle要素は同一位置の重複描画",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-1-symbol-155-leader-endpoint",
+      "facilityId": "a-floor-1-symbol-155",
+      "diagramId": "a-floor-1",
+      "building": "A館",
+      "floor": "1階",
+      "x": 318.171,
+      "y": 879.939,
+      "precision": "source-leader-endpoint",
+      "sourceElement": {
+        "tag": "circle",
+        "index": 154,
+        "cx": "318.171",
+        "cy": "879.939",
+        "transform": "rotate(90 318.171 879.939)",
+        "attributes": {
+          "cx": "318.171",
+          "cy": "879.939",
+          "r": "3.31429",
+          "transform": "rotate(90 318.171 879.939)",
+          "fill": "#4B4B4B"
+        },
+        "allMatchingChildIndices": [
+          154
+        ]
+      },
+      "pairedSymbolId": "a-floor-1-symbol-155",
+      "appAnchor": null,
+      "physicalLocationError": null,
+      "reference": "図示記号 child 155 から目視で追った引出線の終点 circle child 154。注釈点/概略位置であり実地測位ではない。",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1376_da2984fc-e9b9-4ffd-bd09-2ac22a90eaec.svg"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-1-symbol-168-leader-endpoint",
+      "facilityId": "a-floor-1-symbol-168",
+      "diagramId": "a-floor-1",
+      "building": "A館",
+      "floor": "1階",
+      "x": 833.543,
+      "y": 921.369,
+      "precision": "source-leader-endpoint",
+      "sourceElement": {
+        "tag": "circle",
+        "index": 172,
+        "cx": "833.543",
+        "cy": "921.369",
+        "transform": "",
+        "attributes": {
+          "cx": "833.543",
+          "cy": "921.369",
+          "r": "3.31429",
+          "fill": "#4B4B4B"
+        },
+        "allMatchingChildIndices": [
+          172
+        ]
+      },
+      "pairedSymbolId": "a-floor-1-symbol-168",
+      "appAnchor": null,
+      "physicalLocationError": null,
+      "reference": "図示記号 child 168 から目視で追った引出線の終点 circle child 172。注釈点/概略位置であり実地測位ではない。",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1376_da2984fc-e9b9-4ffd-bd09-2ac22a90eaec.svg"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-1-symbol-186-leader-endpoint",
+      "facilityId": "a-floor-1-symbol-186",
+      "diagramId": "a-floor-1",
+      "building": "A館",
+      "floor": "1階",
+      "x": 857.4881601060499,
+      "y": 864.75844234097,
+      "precision": "source-leader-endpoint",
+      "sourceElement": {
+        "tag": "circle",
+        "index": 178,
+        "cx": "3.31429",
+        "cy": "3.31429",
+        "transform": "matrix(0.965926 0.258819 0.258819 -0.965926 853.429 867.102)",
+        "attributes": {
+          "cx": "3.31429",
+          "cy": "3.31429",
+          "r": "3.31429",
+          "transform": "matrix(0.965926 0.258819 0.258819 -0.965926 853.429 867.102)",
+          "fill": "#4B4B4B"
+        },
+        "allMatchingChildIndices": [
+          178,
+          179
+        ]
+      },
+      "pairedSymbolId": "a-floor-1-symbol-186",
+      "appAnchor": null,
+      "physicalLocationError": null,
+      "reference": "図示記号 child 186 から目視で追った引出線の終点 circle child 178。注釈点/概略位置であり実地測位ではない。",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1376_da2984fc-e9b9-4ffd-bd09-2ac22a90eaec.svg"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-1-symbol-189-leader-endpoint",
+      "facilityId": "a-floor-1-symbol-189",
+      "diagramId": "a-floor-1",
+      "building": "A館",
+      "floor": "1階",
+      "x": 977.715,
+      "y": 984.338,
+      "precision": "source-leader-endpoint",
+      "sourceElement": {
+        "tag": "circle",
+        "index": 193,
+        "cx": "977.715",
+        "cy": "984.338",
+        "transform": "",
+        "attributes": {
+          "cx": "977.715",
+          "cy": "984.338",
+          "r": "3.31429",
+          "fill": "#4B4B4B"
+        },
+        "allMatchingChildIndices": [
+          193
+        ]
+      },
+      "pairedSymbolId": "a-floor-1-symbol-189",
+      "appAnchor": null,
+      "physicalLocationError": null,
+      "reference": "図示記号 child 189 から目視で追った引出線の終点 circle child 193。注釈点/概略位置であり実地測位ではない。",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1376_da2984fc-e9b9-4ffd-bd09-2ac22a90eaec.svg"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-1-symbol-195-leader-endpoint",
+      "facilityId": "a-floor-1-symbol-195",
+      "diagramId": "a-floor-1",
+      "building": "A館",
+      "floor": "1階",
+      "x": 837.407,
+      "y": 864.524,
+      "precision": "source-leader-endpoint",
+      "sourceElement": {
+        "tag": "circle",
+        "index": 174,
+        "cx": "837.407",
+        "cy": "864.524",
+        "transform": "rotate(165 837.407 864.524)",
+        "attributes": {
+          "cx": "837.407",
+          "cy": "864.524",
+          "r": "3.31429",
+          "transform": "rotate(165 837.407 864.524)",
+          "fill": "#4B4B4B"
+        },
+        "allMatchingChildIndices": [
+          174
+        ]
+      },
+      "pairedSymbolId": "a-floor-1-symbol-195",
+      "appAnchor": null,
+      "physicalLocationError": null,
+      "reference": "図示記号 child 195 から目視で追った引出線の終点 circle child 174。注釈点/概略位置であり実地測位ではない。",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1376_da2984fc-e9b9-4ffd-bd09-2ac22a90eaec.svg"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-1-symbol-202-leader-endpoint",
+      "facilityId": "a-floor-1-symbol-202",
+      "diagramId": "a-floor-1",
+      "building": "A館",
+      "floor": "1階",
+      "x": 343.77316010605,
+      "y": 864.75044234097,
+      "precision": "source-leader-endpoint",
+      "sourceElement": {
+        "tag": "circle",
+        "index": 184,
+        "cx": "3.31429",
+        "cy": "3.31429",
+        "transform": "matrix(0.965926 0.258819 0.258819 -0.965926 339.714 867.094)",
+        "attributes": {
+          "cx": "3.31429",
+          "cy": "3.31429",
+          "r": "3.31429",
+          "transform": "matrix(0.965926 0.258819 0.258819 -0.965926 339.714 867.094)",
+          "fill": "#4B4B4B"
+        },
+        "allMatchingChildIndices": [
+          184,
+          185
+        ]
+      },
+      "pairedSymbolId": "a-floor-1-symbol-202",
+      "appAnchor": null,
+      "physicalLocationError": null,
+      "reference": "図示記号 child 202 から目視で追った引出線の終点 circle child 184。注釈点/概略位置であり実地測位ではない。",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1376_da2984fc-e9b9-4ffd-bd09-2ac22a90eaec.svg"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-1-symbol-229-leader-endpoint",
+      "facilityId": "a-floor-1-symbol-229",
+      "diagramId": "a-floor-1",
+      "building": "A館",
+      "floor": "1階",
+      "x": 182.285,
+      "y": 780.51,
+      "precision": "source-leader-endpoint",
+      "sourceElement": {
+        "tag": "circle",
+        "index": 149,
+        "cx": "182.285",
+        "cy": "780.51",
+        "transform": "rotate(90 182.285 780.51)",
+        "attributes": {
+          "cx": "182.285",
+          "cy": "780.51",
+          "r": "3.31429",
+          "transform": "rotate(90 182.285 780.51)",
+          "fill": "#4B4B4B"
+        },
+        "allMatchingChildIndices": [
+          149
+        ]
+      },
+      "pairedSymbolId": "a-floor-1-symbol-229",
+      "appAnchor": null,
+      "physicalLocationError": null,
+      "reference": "図示記号 child 229 から目視で追った引出線の終点 circle child 149。注釈点/概略位置であり実地測位ではない。",
+      "sourceIds": [
+        "a-floor-1"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1376_da2984fc-e9b9-4ffd-bd09-2ac22a90eaec.svg"
+      ],
+      "sourceSha256": "985b35ac4ece3bcb05162943dfcf9d764f20f9ebd4cf42c9bb4ee50ecd7fcb38",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-2-symbol-110-leader-endpoint",
+      "facilityId": "a-floor-2-symbol-110",
+      "diagramId": "a-floor-2",
+      "building": "A館",
+      "floor": "2階",
+      "x": 208.8,
+      "y": 76.2283,
+      "precision": "source-leader-endpoint",
+      "sourceElement": {
+        "tag": "circle",
+        "index": 188,
+        "cx": "208.8",
+        "cy": "76.2283",
+        "transform": "rotate(90 208.8 76.2283)",
+        "attributes": {
+          "cx": "208.8",
+          "cy": "76.2283",
+          "r": "3.31429",
+          "transform": "rotate(90 208.8 76.2283)",
+          "fill": "#4B4B4B"
+        },
+        "allMatchingChildIndices": [
+          188
+        ]
+      },
+      "pairedSymbolId": "a-floor-2-symbol-110",
+      "appAnchor": null,
+      "physicalLocationError": null,
+      "reference": "図示記号 child 110 から目視で追った引出線の終点 circle child 188。注釈点/概略位置であり実地測位ではない。",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1320_b8eda26b-1ed4-4464-8df2-11eec1348470.svg"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    },
+    {
+      "id": "a-floor-2-symbol-191-leader-endpoint",
+      "facilityId": "a-floor-2-symbol-191",
+      "diagramId": "a-floor-2",
+      "building": "A館",
+      "floor": "2階",
+      "x": 261.828,
+      "y": 821.939,
+      "precision": "source-leader-endpoint",
+      "sourceElement": {
+        "tag": "circle",
+        "index": 184,
+        "cx": "261.828",
+        "cy": "821.939",
+        "transform": "rotate(90 261.828 821.939)",
+        "attributes": {
+          "cx": "261.828",
+          "cy": "821.939",
+          "r": "3.31429",
+          "transform": "rotate(90 261.828 821.939)",
+          "fill": "#4B4B4B"
+        },
+        "allMatchingChildIndices": [
+          184
+        ]
+      },
+      "pairedSymbolId": "a-floor-2-symbol-191",
+      "appAnchor": null,
+      "physicalLocationError": null,
+      "reference": "図示記号 child 191 から目視で追った引出線の終点 circle child 184。注釈点/概略位置であり実地測位ではない。",
+      "sourceIds": [
+        "a-floor-2"
+      ],
+      "sourceUrls": [
+        "https://storage.googleapis.com/studio-design-asset-files/projects/YPqr7Q7ka5/s-1160x1320_b8eda26b-1ed4-4464-8df2-11eec1348470.svg"
+      ],
+      "sourceSha256": "03c744500caf88bf58ca0e1697bfcde3032a73b55dbbccd0236b0672a09f9d68",
+      "checkedAt": "2026-09-30",
+      "reviewedAt": "2026-09-30T22:07:20.170295+00:00",
+      "reviewer": "Codex delegated O owner / marine-messe source review"
+    }
+  ],
+  "venuePoint": [
+    615,
+    165
+  ],
+  "outsideAliases": {
+    "marine-messe-outside-gofukumachi": [
+      "呉服町"
+    ],
+    "marine-messe-outside-nakasu": [
+      "中洲川端"
+    ],
+    "marine-messe-outside-tenjin": [
+      "天神"
+    ],
+    "marine-messe-outside-hakata": [
+      "博多"
+    ],
+    "marine-messe-outside-bayside": [
+      "ベイサイドプレイス博多"
+    ]
+  }
+}

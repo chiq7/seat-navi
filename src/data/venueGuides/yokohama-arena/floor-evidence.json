@@ -1,0 +1,1818 @@
+{
+  "venueId": "yokohama-arena",
+  "checkedAt": "2026-09-30",
+  "facilities": [
+    {
+      "id": "ya-1f-restrooms-left",
+      "name": "男女化粧室（図左）",
+      "purpose": "トイレ",
+      "kind": "toilet",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。 男女の図示位置を一件として扱い、個室数や別入口の位置に分割しません。",
+      "sourceIds": [
+        "floor-1-map",
+        "floor-1",
+        "floor-legend-12"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "mixed",
+      "anchor": {
+        "diagramId": "ya-floor-1-native",
+        "x": 64,
+        "y": 413,
+        "sourceIds": [
+          "floor-1-map",
+          "floor-1",
+          "floor-legend-12"
+        ],
+        "reference": "1F原図の図示記号/名称。座標は記号中心または代表位置であり現地の室入口ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-1f-restrooms-right",
+      "name": "男女化粧室（図右）",
+      "purpose": "トイレ",
+      "kind": "toilet",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。 男女の図示位置を一件として扱い、個室数や別入口の位置に分割しません。",
+      "sourceIds": [
+        "floor-1-map",
+        "floor-1",
+        "floor-legend-12"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "mixed",
+      "anchor": {
+        "diagramId": "ya-floor-1-native",
+        "x": 649,
+        "y": 413,
+        "sourceIds": [
+          "floor-1-map",
+          "floor-1",
+          "floor-legend-12"
+        ],
+        "reference": "1F原図の図示記号/名称。座標は記号中心または代表位置であり現地の室入口ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-1f-accessible-left",
+      "name": "多目的トイレ（図左）",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。",
+      "sourceIds": [
+        "floor-1-map",
+        "floor-1",
+        "floor-legend-12"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "ya-floor-1-native",
+        "x": 36,
+        "y": 458,
+        "sourceIds": [
+          "floor-1-map",
+          "floor-1",
+          "floor-legend-12"
+        ],
+        "reference": "1F原図の図示記号/名称。座標は記号中心または代表位置であり現地の室入口ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-1f-accessible-right",
+      "name": "多目的トイレ（図右）",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。",
+      "sourceIds": [
+        "floor-1-map",
+        "floor-1",
+        "floor-legend-12"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "ya-floor-1-native",
+        "x": 621,
+        "y": 458,
+        "sourceIds": [
+          "floor-1-map",
+          "floor-1",
+          "floor-legend-12"
+        ],
+        "reference": "1F原図の図示記号/名称。座標は記号中心または代表位置であり現地の室入口ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-1f-diaper-left",
+      "name": "おむつ替えシート（図左）",
+      "purpose": "赤ちゃん",
+      "kind": "diaper",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。 おむつ替えシートの記号で、授乳室の位置ではありません。",
+      "sourceIds": [
+        "floor-1-map",
+        "floor-1",
+        "floor-legend-12"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "ya-floor-1-native",
+        "x": 69,
+        "y": 466,
+        "sourceIds": [
+          "floor-1-map",
+          "floor-1",
+          "floor-legend-12"
+        ],
+        "reference": "1F原図の図示記号/名称。座標は記号中心または代表位置であり現地の室入口ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-1f-diaper-right",
+      "name": "おむつ替えシート（図右）",
+      "purpose": "赤ちゃん",
+      "kind": "diaper",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。 おむつ替えシートの記号で、授乳室の位置ではありません。",
+      "sourceIds": [
+        "floor-1-map",
+        "floor-1",
+        "floor-legend-12"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "ya-floor-1-native",
+        "x": 653,
+        "y": 466,
+        "sourceIds": [
+          "floor-1-map",
+          "floor-1",
+          "floor-legend-12"
+        ],
+        "reference": "1F原図の図示記号/名称。座標は記号中心または代表位置であり現地の室入口ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-1f-ostomate-right",
+      "name": "オストメイト設備（図右）",
+      "purpose": "トイレ",
+      "kind": "ostomate",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。 オストメイト設備記号です。多目的トイレの記号とは分けています。",
+      "sourceIds": [
+        "floor-1-map",
+        "floor-1",
+        "floor-legend-12"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "ya-floor-1-native",
+        "x": 677,
+        "y": 467,
+        "sourceIds": [
+          "floor-1-map",
+          "floor-1",
+          "floor-legend-12"
+        ],
+        "reference": "1F原図の図示記号/名称。座標は記号中心または代表位置であり現地の室入口ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-1f-locker-left",
+      "name": "コインロッカー（図左）",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。",
+      "sourceIds": [
+        "floor-1-map",
+        "floor-1",
+        "floor-legend-12"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "ya-floor-1-native",
+        "x": 151,
+        "y": 466,
+        "sourceIds": [
+          "floor-1-map",
+          "floor-1",
+          "floor-legend-12"
+        ],
+        "reference": "1F原図の図示記号/名称。座標は記号中心または代表位置であり現地の室入口ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-1f-locker-right",
+      "name": "コインロッカー（図右）",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。",
+      "sourceIds": [
+        "floor-1-map",
+        "floor-1",
+        "floor-legend-12"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "ya-floor-1-native",
+        "x": 555,
+        "y": 450,
+        "sourceIds": [
+          "floor-1-map",
+          "floor-1",
+          "floor-legend-12"
+        ],
+        "reference": "1F原図の図示記号/名称。座標は記号中心または代表位置であり現地の室入口ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-1f-vending-left",
+      "name": "自販機（図左）",
+      "purpose": "飲食",
+      "kind": "vending",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。",
+      "sourceIds": [
+        "floor-1-map",
+        "floor-1",
+        "floor-legend-12"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "ya-floor-1-native",
+        "x": 187,
+        "y": 465,
+        "sourceIds": [
+          "floor-1-map",
+          "floor-1",
+          "floor-legend-12"
+        ],
+        "reference": "1F原図の図示記号/名称。座標は記号中心または代表位置であり現地の室入口ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-1f-vending-right",
+      "name": "自販機（図右）",
+      "purpose": "飲食",
+      "kind": "vending",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。",
+      "sourceIds": [
+        "floor-1-map",
+        "floor-1",
+        "floor-legend-12"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "ya-floor-1-native",
+        "x": 560,
+        "y": 492,
+        "sourceIds": [
+          "floor-1-map",
+          "floor-1",
+          "floor-legend-12"
+        ],
+        "reference": "1F原図の図示記号/名称。座標は記号中心または代表位置であり現地の室入口ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-1f-charge-left",
+      "name": "充電サービス（CHARGE SPOT）（図左）",
+      "purpose": "案内",
+      "kind": "charging",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。 公式凡例の充電サービス表記。料金・対応機種・利用条件は現地案内で確認してください。",
+      "sourceIds": [
+        "floor-1-map",
+        "floor-1",
+        "floor-legend-12"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "ya-floor-1-native",
+        "x": 218,
+        "y": 469,
+        "sourceIds": [
+          "floor-1-map",
+          "floor-1",
+          "floor-legend-12"
+        ],
+        "reference": "1F原図の図示記号/名称。座標は記号中心または代表位置であり現地の室入口ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-1f-charge-right",
+      "name": "充電サービス（CHARGE SPOT）（図右）",
+      "purpose": "案内",
+      "kind": "charging",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。 公式凡例の充電サービス表記。料金・対応機種・利用条件は現地案内で確認してください。",
+      "sourceIds": [
+        "floor-1-map",
+        "floor-1",
+        "floor-legend-12"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "ya-floor-1-native",
+        "x": 481,
+        "y": 430,
+        "sourceIds": [
+          "floor-1-map",
+          "floor-1",
+          "floor-legend-12"
+        ],
+        "reference": "1F原図の図示記号/名称。座標は記号中心または代表位置であり現地の室入口ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-1f-shop",
+      "name": "アリーナショップ（1F）",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "1F",
+      "scope": "場内",
+      "location": "1F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。",
+      "sourceIds": [
+        "floor-1-map",
+        "floor-1",
+        "floor-legend-12"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "ya-floor-1-native",
+        "x": 508,
+        "y": 494,
+        "sourceIds": [
+          "floor-1-map",
+          "floor-1",
+          "floor-legend-12"
+        ],
+        "reference": "1F原図の図示記号/名称。座標は記号中心または代表位置であり現地の室入口ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-2f-restrooms-nw",
+      "name": "男女化粧室（図左上）",
+      "purpose": "トイレ",
+      "kind": "toilet",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。 男女の図示位置を一件として扱い、個室数や別入口の位置に分割しません。",
+      "sourceIds": [
+        "floor-2-map",
+        "floor-2",
+        "floor-legend-12"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "mixed",
+      "anchor": {
+        "diagramId": "ya-floor-2-map-native",
+        "x": 34,
+        "y": 91,
+        "sourceIds": [
+          "floor-2-map",
+          "floor-2",
+          "floor-legend-12"
+        ],
+        "reference": "公式原図の記号/印字を原寸で採点。ROIは切出し領域で部屋境界ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-2f-restrooms-ne",
+      "name": "男女化粧室（図右上）",
+      "purpose": "トイレ",
+      "kind": "toilet",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。 男女の図示位置を一件として扱い、個室数や別入口の位置に分割しません。",
+      "sourceIds": [
+        "floor-2-map",
+        "floor-2",
+        "floor-legend-12"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "mixed",
+      "anchor": {
+        "diagramId": "ya-floor-2-map-native",
+        "x": 616,
+        "y": 91,
+        "sourceIds": [
+          "floor-2-map",
+          "floor-2",
+          "floor-legend-12"
+        ],
+        "reference": "公式原図の記号/印字を原寸で採点。ROIは切出し領域で部屋境界ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-2f-restrooms-sw",
+      "name": "男女化粧室（図左下）",
+      "purpose": "トイレ",
+      "kind": "toilet",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。 男女の図示位置を一件として扱い、個室数や別入口の位置に分割しません。",
+      "sourceIds": [
+        "floor-2-map",
+        "floor-2",
+        "floor-legend-12"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "mixed",
+      "anchor": {
+        "diagramId": "ya-floor-2-map-native",
+        "x": 66,
+        "y": 733,
+        "sourceIds": [
+          "floor-2-map",
+          "floor-2",
+          "floor-legend-12"
+        ],
+        "reference": "公式原図の記号/印字を原寸で採点。ROIは切出し領域で部屋境界ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-2f-restrooms-se",
+      "name": "男女化粧室（図右下）",
+      "purpose": "トイレ",
+      "kind": "toilet",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。 男女の図示位置を一件として扱い、個室数や別入口の位置に分割しません。",
+      "sourceIds": [
+        "floor-2-map",
+        "floor-2",
+        "floor-legend-12"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "mixed",
+      "anchor": {
+        "diagramId": "ya-floor-2-map-native",
+        "x": 589,
+        "y": 733,
+        "sourceIds": [
+          "floor-2-map",
+          "floor-2",
+          "floor-legend-12"
+        ],
+        "reference": "公式原図の記号/印字を原寸で採点。ROIは切出し領域で部屋境界ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-2f-accessible-nw",
+      "name": "多目的トイレ（図左上）",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。",
+      "sourceIds": [
+        "floor-2-map",
+        "floor-2",
+        "floor-legend-12"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "ya-floor-2-map-native",
+        "x": 81,
+        "y": 95,
+        "sourceIds": [
+          "floor-2-map",
+          "floor-2",
+          "floor-legend-12"
+        ],
+        "reference": "公式原図の記号/印字を原寸で採点。ROIは切出し領域で部屋境界ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-2f-accessible-se",
+      "name": "多目的トイレ（図右下）",
+      "purpose": "トイレ",
+      "kind": "accessible",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。",
+      "sourceIds": [
+        "floor-2-map",
+        "floor-2",
+        "floor-legend-12"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "accessible",
+      "anchor": {
+        "diagramId": "ya-floor-2-map-native",
+        "x": 628,
+        "y": 742,
+        "sourceIds": [
+          "floor-2-map",
+          "floor-2",
+          "floor-legend-12"
+        ],
+        "reference": "公式原図の記号/印字を原寸で採点。ROIは切出し領域で部屋境界ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-2f-diaper-nw",
+      "name": "おむつ替えシート（図左上）",
+      "purpose": "赤ちゃん",
+      "kind": "diaper",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。 おむつ替えシートの記号で、授乳室の位置ではありません。",
+      "sourceIds": [
+        "floor-2-map",
+        "floor-2",
+        "floor-legend-12"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "ya-floor-2-map-native",
+        "x": 112,
+        "y": 102,
+        "sourceIds": [
+          "floor-2-map",
+          "floor-2",
+          "floor-legend-12"
+        ],
+        "reference": "公式原図の記号/印字を原寸で採点。ROIは切出し領域で部屋境界ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-2f-diaper-ne",
+      "name": "おむつ替えシート（図右上）",
+      "purpose": "赤ちゃん",
+      "kind": "diaper",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。 おむつ替えシートの記号で、授乳室の位置ではありません。",
+      "sourceIds": [
+        "floor-2-map",
+        "floor-2",
+        "floor-legend-12"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "ya-floor-2-map-native",
+        "x": 653,
+        "y": 102,
+        "sourceIds": [
+          "floor-2-map",
+          "floor-2",
+          "floor-legend-12"
+        ],
+        "reference": "公式原図の記号/印字を原寸で採点。ROIは切出し領域で部屋境界ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-2f-diaper-sw",
+      "name": "おむつ替えシート（図左下）",
+      "purpose": "赤ちゃん",
+      "kind": "diaper",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。 おむつ替えシートの記号で、授乳室の位置ではありません。",
+      "sourceIds": [
+        "floor-2-map",
+        "floor-2",
+        "floor-legend-12"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "ya-floor-2-map-native",
+        "x": 103,
+        "y": 745,
+        "sourceIds": [
+          "floor-2-map",
+          "floor-2",
+          "floor-legend-12"
+        ],
+        "reference": "公式原図の記号/印字を原寸で採点。ROIは切出し領域で部屋境界ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-2f-diaper-se",
+      "name": "おむつ替えシート（図右下）",
+      "purpose": "赤ちゃん",
+      "kind": "diaper",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。 おむつ替えシートの記号で、授乳室の位置ではありません。",
+      "sourceIds": [
+        "floor-2-map",
+        "floor-2",
+        "floor-legend-12"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "ya-floor-2-map-native",
+        "x": 660,
+        "y": 745,
+        "sourceIds": [
+          "floor-2-map",
+          "floor-2",
+          "floor-legend-12"
+        ],
+        "reference": "公式原図の記号/印字を原寸で採点。ROIは切出し領域で部屋境界ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-2f-ostomate-se",
+      "name": "オストメイト設備（図右下）",
+      "purpose": "トイレ",
+      "kind": "ostomate",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。 オストメイト設備記号です。多目的トイレの記号とは分けています。",
+      "sourceIds": [
+        "floor-2-map",
+        "floor-2",
+        "floor-legend-12"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "ya-floor-2-map-native",
+        "x": 688,
+        "y": 746,
+        "sourceIds": [
+          "floor-2-map",
+          "floor-2",
+          "floor-legend-12"
+        ],
+        "reference": "公式原図の記号/印字を原寸で採点。ROIは切出し領域で部屋境界ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-2f-shop-nw",
+      "name": "アリーナショップ（図左上）",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。",
+      "sourceIds": [
+        "floor-2-map",
+        "floor-2",
+        "floor-legend-12"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "ya-floor-2-map-native",
+        "x": 32,
+        "y": 201,
+        "sourceIds": [
+          "floor-2-map",
+          "floor-2",
+          "floor-legend-12"
+        ],
+        "reference": "公式原図の記号/印字を原寸で採点。ROIは切出し領域で部屋境界ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-2f-shop-ne",
+      "name": "アリーナショップ（図右上）",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。",
+      "sourceIds": [
+        "floor-2-map",
+        "floor-2",
+        "floor-legend-12"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "ya-floor-2-map-native",
+        "x": 677,
+        "y": 201,
+        "sourceIds": [
+          "floor-2-map",
+          "floor-2",
+          "floor-legend-12"
+        ],
+        "reference": "公式原図の記号/印字を原寸で採点。ROIは切出し領域で部屋境界ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-2f-shop-sw",
+      "name": "アリーナショップ（図左下）",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。",
+      "sourceIds": [
+        "floor-2-map",
+        "floor-2",
+        "floor-legend-12"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "ya-floor-2-map-native",
+        "x": 33,
+        "y": 618,
+        "sourceIds": [
+          "floor-2-map",
+          "floor-2",
+          "floor-legend-12"
+        ],
+        "reference": "公式原図の記号/印字を原寸で採点。ROIは切出し領域で部屋境界ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-2f-shop-se",
+      "name": "アリーナショップ（図右下）",
+      "purpose": "飲食",
+      "kind": "shop",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。",
+      "sourceIds": [
+        "floor-2-map",
+        "floor-2",
+        "floor-legend-12"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "ya-floor-2-map-native",
+        "x": 677,
+        "y": 618,
+        "sourceIds": [
+          "floor-2-map",
+          "floor-2",
+          "floor-legend-12"
+        ],
+        "reference": "公式原図の記号/印字を原寸で採点。ROIは切出し領域で部屋境界ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-2f-locker-nw",
+      "name": "コインロッカー（図左上）",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。",
+      "sourceIds": [
+        "floor-2-map",
+        "floor-2",
+        "floor-legend-12"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "ya-floor-2-map-native",
+        "x": 29,
+        "y": 249,
+        "sourceIds": [
+          "floor-2-map",
+          "floor-2",
+          "floor-legend-12"
+        ],
+        "reference": "公式原図の記号/印字を原寸で採点。ROIは切出し領域で部屋境界ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-2f-locker-ne",
+      "name": "コインロッカー（図右上）",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。",
+      "sourceIds": [
+        "floor-2-map",
+        "floor-2",
+        "floor-legend-12"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "ya-floor-2-map-native",
+        "x": 680,
+        "y": 249,
+        "sourceIds": [
+          "floor-2-map",
+          "floor-2",
+          "floor-legend-12"
+        ],
+        "reference": "公式原図の記号/印字を原寸で採点。ROIは切出し領域で部屋境界ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-2f-locker-sw",
+      "name": "コインロッカー（図左下）",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。",
+      "sourceIds": [
+        "floor-2-map",
+        "floor-2",
+        "floor-legend-12"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "ya-floor-2-map-native",
+        "x": 123,
+        "y": 675,
+        "sourceIds": [
+          "floor-2-map",
+          "floor-2",
+          "floor-legend-12"
+        ],
+        "reference": "公式原図の記号/印字を原寸で採点。ROIは切出し領域で部屋境界ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-2f-locker-se",
+      "name": "コインロッカー（図右下）",
+      "purpose": "荷物",
+      "kind": "locker",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。",
+      "sourceIds": [
+        "floor-2-map",
+        "floor-2",
+        "floor-legend-12"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "ya-floor-2-map-native",
+        "x": 585,
+        "y": 675,
+        "sourceIds": [
+          "floor-2-map",
+          "floor-2",
+          "floor-legend-12"
+        ],
+        "reference": "公式原図の記号/印字を原寸で採点。ROIは切出し領域で部屋境界ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-2f-vending-nw",
+      "name": "自販機（図左上）",
+      "purpose": "飲食",
+      "kind": "vending",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。",
+      "sourceIds": [
+        "floor-2-map",
+        "floor-2",
+        "floor-legend-12"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "ya-floor-2-map-native",
+        "x": 122,
+        "y": 147,
+        "sourceIds": [
+          "floor-2-map",
+          "floor-2",
+          "floor-legend-12"
+        ],
+        "reference": "公式原図の記号/印字を原寸で採点。ROIは切出し領域で部屋境界ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-2f-vending-ne",
+      "name": "自販機（図右上）",
+      "purpose": "飲食",
+      "kind": "vending",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。",
+      "sourceIds": [
+        "floor-2-map",
+        "floor-2",
+        "floor-legend-12"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "ya-floor-2-map-native",
+        "x": 586,
+        "y": 147,
+        "sourceIds": [
+          "floor-2-map",
+          "floor-2",
+          "floor-legend-12"
+        ],
+        "reference": "公式原図の記号/印字を原寸で採点。ROIは切出し領域で部屋境界ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-2f-vending-sw",
+      "name": "自販機（図左下）",
+      "purpose": "飲食",
+      "kind": "vending",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。",
+      "sourceIds": [
+        "floor-2-map",
+        "floor-2",
+        "floor-legend-12"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "ya-floor-2-map-native",
+        "x": 25,
+        "y": 567,
+        "sourceIds": [
+          "floor-2-map",
+          "floor-2",
+          "floor-legend-12"
+        ],
+        "reference": "公式原図の記号/印字を原寸で採点。ROIは切出し領域で部屋境界ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-2f-vending-se",
+      "name": "自販機（図右下）",
+      "purpose": "飲食",
+      "kind": "vending",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。",
+      "sourceIds": [
+        "floor-2-map",
+        "floor-2",
+        "floor-legend-12"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "ya-floor-2-map-native",
+        "x": 686,
+        "y": 567,
+        "sourceIds": [
+          "floor-2-map",
+          "floor-2",
+          "floor-legend-12"
+        ],
+        "reference": "公式原図の記号/印字を原寸で採点。ROIは切出し領域で部屋境界ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-2f-charge-sw",
+      "name": "充電サービス（CHARGE SPOT）（図左下）",
+      "purpose": "案内",
+      "kind": "charging",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。 公式凡例の充電サービス表記。料金・対応機種・利用条件は現地案内で確認してください。",
+      "sourceIds": [
+        "floor-2-map",
+        "floor-2",
+        "floor-legend-12"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "ya-floor-2-map-native",
+        "x": 182,
+        "y": 655,
+        "sourceIds": [
+          "floor-2-map",
+          "floor-2",
+          "floor-legend-12"
+        ],
+        "reference": "公式原図の記号/印字を原寸で採点。ROIは切出し領域で部屋境界ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-2f-charge-se",
+      "name": "充電サービス（CHARGE SPOT）（図右下）",
+      "purpose": "案内",
+      "kind": "charging",
+      "floor": "2F",
+      "scope": "場内",
+      "location": "2F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。 公式凡例の充電サービス表記。料金・対応機種・利用条件は現地案内で確認してください。",
+      "sourceIds": [
+        "floor-2-map",
+        "floor-2",
+        "floor-legend-12"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "ya-floor-2-map-native",
+        "x": 564,
+        "y": 642,
+        "sourceIds": [
+          "floor-2-map",
+          "floor-2",
+          "floor-legend-12"
+        ],
+        "reference": "公式原図の記号/印字を原寸で採点。ROIは切出し領域で部屋境界ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-3f-restrooms-nw",
+      "name": "男女化粧室（図左上）",
+      "purpose": "トイレ",
+      "kind": "toilet",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。 男女の図示位置を一件として扱い、個室数や別入口の位置に分割しません。",
+      "sourceIds": [
+        "floor-3-map",
+        "floor-3",
+        "floor-legend-3"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "mixed",
+      "anchor": {
+        "diagramId": "ya-floor-3-map-native",
+        "x": 109,
+        "y": 32,
+        "sourceIds": [
+          "floor-3-map",
+          "floor-3",
+          "floor-legend-3"
+        ],
+        "reference": "公式原図の記号/印字を原寸で採点。ROIは切出し領域で部屋境界ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-3f-restrooms-ne",
+      "name": "男女化粧室（図右上）",
+      "purpose": "トイレ",
+      "kind": "toilet",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。 男女の図示位置を一件として扱い、個室数や別入口の位置に分割しません。",
+      "sourceIds": [
+        "floor-3-map",
+        "floor-3",
+        "floor-legend-3"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "mixed",
+      "anchor": {
+        "diagramId": "ya-floor-3-map-native",
+        "x": 596,
+        "y": 32,
+        "sourceIds": [
+          "floor-3-map",
+          "floor-3",
+          "floor-legend-3"
+        ],
+        "reference": "公式原図の記号/印字を原寸で採点。ROIは切出し領域で部屋境界ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-3f-restrooms-sw",
+      "name": "男女化粧室（図左下）",
+      "purpose": "トイレ",
+      "kind": "toilet",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。 男女の図示位置を一件として扱い、個室数や別入口の位置に分割しません。",
+      "sourceIds": [
+        "floor-3-map",
+        "floor-3",
+        "floor-legend-3"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "mixed",
+      "anchor": {
+        "diagramId": "ya-floor-3-map-native",
+        "x": 109,
+        "y": 632,
+        "sourceIds": [
+          "floor-3-map",
+          "floor-3",
+          "floor-legend-3"
+        ],
+        "reference": "公式原図の記号/印字を原寸で採点。ROIは切出し領域で部屋境界ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-3f-restrooms-se",
+      "name": "男女化粧室（図右下）",
+      "purpose": "トイレ",
+      "kind": "toilet",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。 男女の図示位置を一件として扱い、個室数や別入口の位置に分割しません。",
+      "sourceIds": [
+        "floor-3-map",
+        "floor-3",
+        "floor-legend-3"
+      ],
+      "precision": "diagram-point",
+      "toiletType": "mixed",
+      "anchor": {
+        "diagramId": "ya-floor-3-map-native",
+        "x": 596,
+        "y": 632,
+        "sourceIds": [
+          "floor-3-map",
+          "floor-3",
+          "floor-legend-3"
+        ],
+        "reference": "公式原図の記号/印字を原寸で採点。ROIは切出し領域で部屋境界ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-3f-vending-nw",
+      "name": "自販機（図左上）",
+      "purpose": "飲食",
+      "kind": "vending",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。",
+      "sourceIds": [
+        "floor-3-map",
+        "floor-3",
+        "floor-legend-3"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "ya-floor-3-map-native",
+        "x": 43,
+        "y": 141,
+        "sourceIds": [
+          "floor-3-map",
+          "floor-3",
+          "floor-legend-3"
+        ],
+        "reference": "公式原図の記号/印字を原寸で採点。ROIは切出し領域で部屋境界ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-3f-vending-ne",
+      "name": "自販機（図右上）",
+      "purpose": "飲食",
+      "kind": "vending",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。",
+      "sourceIds": [
+        "floor-3-map",
+        "floor-3",
+        "floor-legend-3"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "ya-floor-3-map-native",
+        "x": 664,
+        "y": 141,
+        "sourceIds": [
+          "floor-3-map",
+          "floor-3",
+          "floor-legend-3"
+        ],
+        "reference": "公式原図の記号/印字を原寸で採点。ROIは切出し領域で部屋境界ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-3f-vending-sw",
+      "name": "自販機（図左下）",
+      "purpose": "飲食",
+      "kind": "vending",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。",
+      "sourceIds": [
+        "floor-3-map",
+        "floor-3",
+        "floor-legend-3"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "ya-floor-3-map-native",
+        "x": 43,
+        "y": 525,
+        "sourceIds": [
+          "floor-3-map",
+          "floor-3",
+          "floor-legend-3"
+        ],
+        "reference": "公式原図の記号/印字を原寸で採点。ROIは切出し領域で部屋境界ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-3f-vending-se",
+      "name": "自販機（図右下）",
+      "purpose": "飲食",
+      "kind": "vending",
+      "floor": "3F",
+      "scope": "場内",
+      "location": "3F 場内・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。",
+      "sourceIds": [
+        "floor-3-map",
+        "floor-3",
+        "floor-legend-3"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "ya-floor-3-map-native",
+        "x": 664,
+        "y": 525,
+        "sourceIds": [
+          "floor-3-map",
+          "floor-3",
+          "floor-legend-3"
+        ],
+        "reference": "公式原図の記号/印字を原寸で採点。ROIは切出し領域で部屋境界ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-outside-ticket-west",
+      "name": "西券売所",
+      "purpose": "案内",
+      "kind": "ticket-sell",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "1F 場外・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。 券売所の図示位置。発売・営業・入場時の指定は主催者案内を優先してください。",
+      "sourceIds": [
+        "floor-outside-map",
+        "floor-outside"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "ya-floor-outside-map-native",
+        "x": 179,
+        "y": 477,
+        "sourceIds": [
+          "floor-outside-map",
+          "floor-outside"
+        ],
+        "reference": "公式原図の記号/印字を原寸で採点。ROIは切出し領域で部屋境界ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    },
+    {
+      "id": "ya-outside-ticket-south",
+      "name": "南券売所",
+      "purpose": "案内",
+      "kind": "ticket-sell",
+      "floor": "1F",
+      "scope": "場外",
+      "location": "1F 場外・原図の記号位置",
+      "detail": "公式フロア図の記号位置です。室入口・経路・当日の開放や稼働は未確認です。記号数は設備の実台数ではありません。 券売所の図示位置。発売・営業・入場時の指定は主催者案内を優先してください。",
+      "sourceIds": [
+        "floor-outside-map",
+        "floor-outside"
+      ],
+      "precision": "diagram-point",
+      "toiletType": null,
+      "anchor": {
+        "diagramId": "ya-floor-outside-map-native",
+        "x": 502,
+        "y": 503,
+        "sourceIds": [
+          "floor-outside-map",
+          "floor-outside"
+        ],
+        "reference": "公式原図の記号/印字を原寸で採点。ROIは切出し領域で部屋境界ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+      }
+    }
+  ],
+  "diagrams": [
+    {
+      "id": "ya-floor-1-native",
+      "floor": "1F",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        83,
+        709,
+        500
+      ],
+      "concoursePaths": [],
+      "contextPaths": [
+        "M246,131 L463,131 L483,136 L506,150 L519,164 L529,181 L536,208 L535,232 L529,251 L513,275 L500,286 L481,296 L461,301 L248,301 L228,296 L215,290 L198,277 L184,259 L174,232 L173,207 L179,183 L193,160 L203,150 L218,140 Z",
+        "M4,377 L104,377 L113,383 L146,423 L146,425 L129,425 L125,431 L125,487 L4,487 Z",
+        "M605,377 L705,377 L705,487 L584,487 L584,431 L580,425 L572,425 L570,414 L578,407 L594,385 Z",
+        "M130,491 L231,491 L231,583 L130,583 Z",
+        "M478,521 L579,521 L579,583 L478,583 Z",
+        "M235,491 L291,491 L292,493 L335,494 L331,497 L313,532 L311,537 L312,543 L235,545 Z",
+        "M418,491 L470,491 L471,493 L474,491 L474,545 L418,545 L417,543 L404,543 L404,536 L390,508 L383,501 L378,500 L374,493 L417,493 Z",
+        "M529,472 L534,474 L548,488 L548,511 L571,511 L571,488 L576,485 L579,488 L579,516 L478,516 L479,475 L485,480 L485,484 L490,489 L490,512 L527,512 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "ya-1f-stairs-left",
+          "label": "↕",
+          "name": "階段図形（図左）（ドア位置未確認）",
+          "x": 261,
+          "y": 510,
+          "kind": "stairs",
+          "sourceIds": [
+            "floor-1-map",
+            "floor-1"
+          ],
+          "reference": "1F原図の図示記号/名称。座標は記号中心または代表位置であり現地の室入口ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+        },
+        {
+          "id": "ya-1f-stairs-right",
+          "label": "↕",
+          "name": "階段図形（図右）（ドア位置未確認）",
+          "x": 446,
+          "y": 510,
+          "kind": "stairs",
+          "sourceIds": [
+            "floor-1-map",
+            "floor-1"
+          ],
+          "reference": "1F原図の図示記号/名称。座標は記号中心または代表位置であり現地の室入口ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+        },
+        {
+          "id": "ya-1f-entrance-label",
+          "label": "入口名称",
+          "name": "エントランス名称位置（1F図）（ドア位置未確認）",
+          "x": 355,
+          "y": 548,
+          "kind": "entrance",
+          "sourceIds": [
+            "floor-1-map",
+            "floor-1"
+          ],
+          "reference": "1F原図の図示記号/名称。座標は記号中心または代表位置であり現地の室入口ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor-1-map"
+        ],
+        "file": "research/venue-packets/yokohama-arena/sources/floor-1-map.png",
+        "sha256": "edb245f7f4d6ec588180e57907d16b2db9f1c9badb135d8f31f4b18e13236696",
+        "width": 709,
+        "height": 583,
+        "method": "当該PNG原画素の青色/淡灰色の可視領域をconnected-component抽出。文字/記号穴のみ中立背景として埋め、pixel-cell境界をRDP最大1.5pxで整理。青色は座席区画として接続せず位置文脈のみ。別図への変換なし。場外のテナント・ロゴ領域を抽出しない。",
+        "status": "partial-private-review"
+      }
+    },
+    {
+      "id": "ya-floor-2-map-native",
+      "floor": "2F",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        14,
+        710,
+        787
+      ],
+      "concoursePaths": [],
+      "contextPaths": [
+        "M555,417 L669,417 L671,422 L667,454 L657,488 L645,514 L629,539 L613,558 L590,579 L565,596 L541,608 L515,617 L481,623 L461,508 L492,502 L510,493 L522,484 L535,470 L548,447 Z",
+        "M482,199 L524,208 L559,223 L592,245 L619,271 L642,303 L658,337 L668,374 L670,405 L554,405 L550,381 L542,363 L533,350 L519,336 L491,320 L461,314 Z",
+        "M227,199 L230,201 L232,211 L249,314 L219,320 L190,337 L169,362 L159,386 L156,405 L40,405 L42,376 L52,338 L69,302 L95,267 L116,247 L146,226 L187,208 Z",
+        "M41,417 L155,417 L157,419 L160,440 L170,462 L192,487 L218,502 L249,508 L229,623 L195,617 L167,607 L147,597 L118,577 L92,552 L67,517 L53,487 L43,452 L40,431 Z",
+        "M262,508 L448,508 L468,624 L242,624 Z",
+        "M243,198 L468,198 L449,313 L447,315 L263,315 L242,204 Z",
+        "M557,62 L705,62 L705,119 L644,119 L644,121 L557,119 Z",
+        "M67,701 L99,701 L101,704 L154,704 L154,760 L5,760 L5,704 L65,704 Z",
+        "M5,62 L154,62 L154,119 L95,119 L95,121 L5,119 Z",
+        "M611,701 L644,701 L645,704 L705,704 L705,760 L557,760 L557,704 L609,704 Z",
+        "M5,177 L63,177 L54,203 L51,191 L41,191 L29,219 L28,191 L24,188 L25,181 L17,181 L17,188 L13,192 L13,220 L39,221 L40,219 L40,221 L46,221 L46,224 L43,232 L39,230 L26,230 L24,228 L19,228 L16,231 L18,240 L25,240 L31,237 L40,237 L40,240 L13,241 L13,268 L28,269 L28,272 L6,330 Z",
+        "M5,492 L25,543 L25,546 L13,546 L13,587 L38,587 L39,580 L49,606 L49,608 L40,609 L28,636 L28,608 L24,605 L25,598 L17,597 L17,605 L13,609 L13,637 L53,638 L54,620 L63,646 L5,646 Z",
+        "M704,494 L705,646 L647,646 L657,618 L658,638 L698,638 L698,610 L695,608 L685,608 L673,635 L673,609 L669,605 L669,597 L666,597 L666,594 L672,578 L673,587 L698,587 L698,547 L685,546 L685,544 Z",
+        "M647,177 L705,177 L705,329 L682,270 L698,268 L698,241 L671,241 L683,237 L691,238 L695,236 L695,233 L691,230 L678,230 L676,228 L671,228 L667,231 L664,223 L664,221 L672,220 L698,221 L698,193 L695,191 L685,191 L673,218 L673,192 L669,188 L669,181 L661,181 L662,188 L658,191 L657,204 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "ya-2f-stairs-left",
+          "label": "↕",
+          "name": "正面階段図形（図左）（ドア位置未確認）",
+          "x": 254,
+          "y": 726,
+          "kind": "stairs",
+          "sourceIds": [
+            "floor-2-map",
+            "floor-2"
+          ],
+          "reference": "公式原図の記号/印字を原寸で採点。ROIは切出し領域で部屋境界ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+        },
+        {
+          "id": "ya-2f-stairs-right",
+          "label": "↕",
+          "name": "正面階段図形（図右）（ドア位置未確認）",
+          "x": 449,
+          "y": 726,
+          "kind": "stairs",
+          "sourceIds": [
+            "floor-2-map",
+            "floor-2"
+          ],
+          "reference": "公式原図の記号/印字を原寸で採点。ROIは切出し領域で部屋境界ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+        },
+        {
+          "id": "ya-2f-entrance-label",
+          "label": "入口名称",
+          "name": "エントランス名称位置（2F図）（ドア位置未確認）",
+          "x": 355,
+          "y": 761,
+          "kind": "entrance",
+          "sourceIds": [
+            "floor-2-map",
+            "floor-2"
+          ],
+          "reference": "公式原図の記号/印字を原寸で採点。ROIは切出し領域で部屋境界ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor-2-map"
+        ],
+        "file": "research/venue-packets/yokohama-arena/sources/floor-2-map.png",
+        "sha256": "38de3dd6dd8afe0b395aeca868afbcc35a8c00ea12ba2e38ec15c9a4508bce68",
+        "width": 710,
+        "height": 801,
+        "method": "当該PNG原画素の青色/淡灰色の可視領域をconnected-component抽出。文字/記号穴のみ中立背景として埋め、pixel-cell境界をRDP最大1.5pxで整理。青色は座席区画として接続せず位置文脈のみ。別図への変換なし。場外のテナント・ロゴ領域を抽出しない。",
+        "status": "partial-private-review"
+      }
+    },
+    {
+      "id": "ya-floor-3-map-native",
+      "floor": "3F",
+      "scope": "場内",
+      "viewBox": [
+        0,
+        0,
+        706,
+        663
+      ],
+      "concoursePaths": [],
+      "contextPaths": [
+        "M244,96 L346,96 L346,121 L241,121 L224,123 L185,133 L146,152 L121,170 L104,186 L74,226 L60,255 L54,273 L48,301 L46,324 L22,324 L26,283 L39,241 L59,203 L85,170 L122,138 L161,116 L207,101 Z",
+        "M361,96 L463,96 L489,99 L515,105 L543,115 L587,140 L625,174 L654,214 L666,238 L676,266 L682,292 L685,324 L660,324 L654,279 L647,257 L635,231 L622,210 L606,190 L571,159 L529,136 L488,124 L465,121 L361,121 Z",
+        "M22,339 L46,339 L51,379 L62,413 L78,444 L100,473 L123,495 L152,515 L196,534 L232,541 L228,565 L190,558 L144,539 L112,518 L81,489 L55,454 L38,420 L25,375 Z",
+        "M660,339 L685,339 L681,377 L674,404 L664,430 L650,456 L633,480 L604,510 L564,538 L539,550 L513,559 L478,565 L475,541 L507,535 L549,518 L582,496 L614,464 L633,436 L649,401 L657,370 Z",
+        "M513,5 L681,5 L681,58 L624,58 L623,60 L572,61 L571,58 L513,58 Z",
+        "M572,603 L681,605 L681,658 L513,658 L513,605 L571,605 Z",
+        "M26,5 L194,5 L194,58 L136,58 L135,60 L26,58 Z",
+        "M83,603 L194,605 L194,658 L26,658 L26,605 L83,605 Z"
+      ],
+      "landmarks": [],
+      "evidence": {
+        "sourceIds": [
+          "floor-3-map"
+        ],
+        "file": "research/venue-packets/yokohama-arena/sources/floor-3-map.png",
+        "sha256": "4048668722053fc46a435262dbf58cc50d80187beabb2e7dca06820cd014eaec",
+        "width": 706,
+        "height": 663,
+        "method": "当該PNG原画素の青色/淡灰色の可視領域をconnected-component抽出。文字/記号穴のみ中立背景として埋め、pixel-cell境界をRDP最大1.5pxで整理。青色は座席区画として接続せず位置文脈のみ。別図への変換なし。場外のテナント・ロゴ領域を抽出しない。",
+        "status": "partial-private-review"
+      }
+    },
+    {
+      "id": "ya-floor-outside-map-native",
+      "floor": "1F",
+      "scope": "場外",
+      "viewBox": [
+        118,
+        79,
+        432,
+        477
+      ],
+      "concoursePaths": [],
+      "contextPaths": [
+        "M227,127 L428,127 L443,131 L462,142 L474,154 L483,169 L489,191 L489,208 L485,225 L476,242 L462,257 L445,267 L428,272 L227,272 L212,268 L189,254 L173,233 L166,211 L166,188 L172,168 L184,150 L203,135 Z"
+      ],
+      "landmarks": [
+        {
+          "id": "ya-outside-entrance-label",
+          "label": "入口名称",
+          "name": "横浜アリーナ エントランス名称位置（ドア位置未確認）",
+          "x": 332,
+          "y": 508,
+          "kind": "entrance",
+          "sourceIds": [
+            "floor-outside-map",
+            "floor-outside"
+          ],
+          "reference": "公式原図の記号/印字を原寸で採点。ROIは切出し領域で部屋境界ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+        },
+        {
+          "id": "ya-outside-stairs-left",
+          "label": "↕",
+          "name": "正面階段図形（図左）（ドア位置未確認）",
+          "x": 242,
+          "y": 477,
+          "kind": "stairs",
+          "sourceIds": [
+            "floor-outside-map",
+            "floor-outside"
+          ],
+          "reference": "公式原図の記号/印字を原寸で採点。ROIは切出し領域で部屋境界ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+        },
+        {
+          "id": "ya-outside-stairs-right",
+          "label": "↕",
+          "name": "正面階段図形（図右）（ドア位置未確認）",
+          "x": 412,
+          "y": 477,
+          "kind": "stairs",
+          "sourceIds": [
+            "floor-outside-map",
+            "floor-outside"
+          ],
+          "reference": "公式原図の記号/印字を原寸で採点。ROIは切出し領域で部屋境界ではない。 原図記号/名称の代表位置。個別の室入口・当日の開放・最寄り経路は未確認。"
+        }
+      ],
+      "evidence": {
+        "sourceIds": [
+          "floor-outside-map"
+        ],
+        "file": "research/venue-packets/yokohama-arena/sources/floor-outside-map.png",
+        "sha256": "acc5e00b1bdc5a30f894c866afaa2a113b59c0b4828e1964886864d8d45af48f",
+        "width": 715,
+        "height": 604,
+        "method": "当該PNG原画素の青色/淡灰色の可視領域をconnected-component抽出。文字/記号穴のみ中立背景として埋め、pixel-cell境界をRDP最大1.5pxで整理。青色は座席区画として接続せず位置文脈のみ。別図への変換なし。場外のテナント・ロゴ領域を抽出しない。",
+        "status": "partial-private-review"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "floor-1-map",
+      "title": "1F施設内の原図PNG",
+      "url": "https://www.yokohama-arena.co.jp/common/img/floormap/img_1f_01.png?1",
+      "checkedAt": "2026-09-30",
+      "scope": "当該原資料の図上記号/名称・凡例のみ。室入口、歩行経路、公演時の利用範囲は未確認。",
+      "usage": "permission-unconfirmed"
+    },
+    {
+      "id": "floor-1",
+      "title": "公式1F施設内フロア案内",
+      "url": "https://www.yokohama-arena.co.jp/floormap/1f.html",
+      "checkedAt": "2026-09-30",
+      "scope": "当該原資料の図上記号/名称・凡例のみ。室入口、歩行経路、公演時の利用範囲は未確認。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "floor-legend-12",
+      "title": "1/2Fページの設備凡例PNG",
+      "url": "https://www.yokohama-arena.co.jp/common/img/floormap/img_1f_02.png?3",
+      "checkedAt": "2026-09-30",
+      "scope": "当該原資料の図上記号/名称・凡例のみ。室入口、歩行経路、公演時の利用範囲は未確認。",
+      "usage": "permission-unconfirmed"
+    },
+    {
+      "id": "floor-2-map",
+      "title": "2Fの原図PNG",
+      "url": "https://www.yokohama-arena.co.jp/common/img/floormap/img_2f_01.png?2",
+      "checkedAt": "2026-09-30",
+      "scope": "当該原資料の図上記号/名称・凡例のみ。室入口、歩行経路、公演時の利用範囲は未確認。",
+      "usage": "permission-unconfirmed"
+    },
+    {
+      "id": "floor-2",
+      "title": "公式2Fフロア案内",
+      "url": "https://www.yokohama-arena.co.jp/floormap/2f.html",
+      "checkedAt": "2026-09-30",
+      "scope": "当該原資料の図上記号/名称・凡例のみ。室入口、歩行経路、公演時の利用範囲は未確認。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "floor-3-map",
+      "title": "3Fの原図PNG",
+      "url": "https://www.yokohama-arena.co.jp/common/img/floormap/img_3f_01.png",
+      "checkedAt": "2026-09-30",
+      "scope": "当該原資料の図上記号/名称・凡例のみ。室入口、歩行経路、公演時の利用範囲は未確認。",
+      "usage": "permission-unconfirmed"
+    },
+    {
+      "id": "floor-3",
+      "title": "公式3Fフロア案内",
+      "url": "https://www.yokohama-arena.co.jp/floormap/3f.html",
+      "checkedAt": "2026-09-30",
+      "scope": "当該原資料の図上記号/名称・凡例のみ。室入口、歩行経路、公演時の利用範囲は未確認。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "floor-legend-3",
+      "title": "3Fページの設備凡例PNG",
+      "url": "https://www.yokohama-arena.co.jp/common/img/floormap/img_1f_02.png",
+      "checkedAt": "2026-09-30",
+      "scope": "当該原資料の図上記号/名称・凡例のみ。室入口、歩行経路、公演時の利用範囲は未確認。",
+      "usage": "permission-unconfirmed"
+    },
+    {
+      "id": "floor-outside-map",
+      "title": "1F施設外の原図PNG",
+      "url": "https://www.yokohama-arena.co.jp/common/img/floormap/img01.png?4",
+      "checkedAt": "2026-09-30",
+      "scope": "当該原資料の図上記号/名称・凡例のみ。室入口、歩行経路、公演時の利用範囲は未確認。",
+      "usage": "permission-unconfirmed"
+    },
+    {
+      "id": "floor-outside",
+      "title": "公式1F施設外フロア案内",
+      "url": "https://www.yokohama-arena.co.jp/floormap/",
+      "checkedAt": "2026-09-30",
+      "scope": "当該原資料の図上記号/名称・凡例のみ。室入口、歩行経路、公演時の利用範囲は未確認。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "seat-guide",
+      "title": "公式座席案内・座席種類と階",
+      "url": "https://www.yokohama-arena.co.jp/seatguide/",
+      "checkedAt": "2026-10-07",
+      "scope": "座席種類の正式区分と階。アリーナは1〜2階22列、スタンドは3〜4階10列。区分階を各列の設備階へ推定しない。扉/通路・センター配置は公演で変わる。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "access",
+      "title": "公式交通アクセス",
+      "url": "https://www.yokohama-arena.co.jp/access/",
+      "checkedAt": "2026-09-30",
+      "scope": "交通の公式案内への入口。駅出口座標・個別道順・段差なし経路は今回未接続。",
+      "usage": "facts-only"
+    },
+    {
+      "id": "terms",
+      "title": "公式利用規約",
+      "url": "https://www.yokohama-arena.co.jp/other/rule/",
+      "checkedAt": "2026-09-30",
+      "scope": "公開利用条件の確認資料。許諾取得・公開は未実施。",
+      "usage": "facts-only"
+    }
+  ],
+  "heldCandidateIds": [
+    "ya-2f-connection-north",
+    "ya-2f-connection-east",
+    "ya-2f-connection-west",
+    "ya-2f-connection-south",
+    "ya-2f-centennial-hall",
+    "ya-2f-A1",
+    "ya-2f-A2",
+    "ya-2f-A3",
+    "ya-2f-A4",
+    "ya-2f-A5",
+    "ya-2f-A6",
+    "ya-2f-B1",
+    "ya-2f-B2",
+    "ya-2f-B3",
+    "ya-2f-B4",
+    "ya-2f-B5",
+    "ya-2f-B6",
+    "ya-2f-B7",
+    "ya-2f-B8",
+    "ya-2f-C1",
+    "ya-2f-C2",
+    "ya-2f-C3",
+    "ya-2f-C4",
+    "ya-2f-C5",
+    "ya-2f-C6",
+    "ya-2f-C7",
+    "ya-2f-C8",
+    "ya-2f-D1",
+    "ya-2f-D2",
+    "ya-2f-D3",
+    "ya-2f-D4",
+    "ya-2f-D5",
+    "ya-2f-D6",
+    "ya-2f-E1",
+    "ya-2f-E2",
+    "ya-2f-E3",
+    "ya-2f-E4",
+    "ya-2f-E5",
+    "ya-2f-E6",
+    "ya-2f-E7",
+    "ya-2f-E8",
+    "ya-2f-F1",
+    "ya-2f-F2",
+    "ya-2f-F3",
+    "ya-2f-F4",
+    "ya-2f-F5",
+    "ya-2f-F6",
+    "ya-2f-F7",
+    "ya-2f-F8",
+    "ya-3f-connection-c",
+    "ya-3f-connection-e",
+    "ya-3f-connection-b",
+    "ya-3f-connection-f",
+    "ya-3f-北1",
+    "ya-3f-北2",
+    "ya-3f-北3",
+    "ya-3f-北4",
+    "ya-3f-北5",
+    "ya-3f-東1",
+    "ya-3f-東2",
+    "ya-3f-東3",
+    "ya-3f-東4",
+    "ya-3f-東5",
+    "ya-3f-西1",
+    "ya-3f-西2",
+    "ya-3f-西3",
+    "ya-3f-南1",
+    "ya-3f-南2",
+    "ya-3f-南3",
+    "ya-outside-strage-area",
+    "ya-outside-lawson-area",
+    "ya-outside-beach-area",
+    "ya-outside-mugic-area",
+    "ya-outside-strage-entrance",
+    "ya-outside-lawson-entrance",
+    "ya-outside-beach-entrance",
+    "ya-outside-mugic-entrance",
+    "ya-outside-code-1",
+    "ya-outside-code-2"
+  ]
+}

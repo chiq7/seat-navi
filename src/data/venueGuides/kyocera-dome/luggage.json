@@ -1,0 +1,692 @@
+{
+  "facilities": [
+    {
+      "id": "locker-venue-2f-north",
+      "name": "京セラドーム2F 北口付近",
+      "purpose": "荷物",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・北口付近",
+      "detail": "2Fスタジアムモールのロッカーです。チケット入場階は3Fです。利用できる時間と荷物の大きさを確認してください。",
+      "sourceIds": [
+        "locker-venue-2f-north"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin",
+      "bookingUrl": "https://www.kyoceradome-osaka.jp/download/img/guidemap2026.pdf"
+    },
+    {
+      "id": "locker-venue-2f-lobby",
+      "name": "京セラドーム2F ビスタルームロビー付近",
+      "purpose": "荷物",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・ビスタルームロビー付近",
+      "detail": "2Fスタジアムモールのロッカーです。チケット入場階は3Fです。利用できる時間と荷物の大きさを確認してください。",
+      "sourceIds": [
+        "locker-venue-2f-lobby"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin",
+      "bookingUrl": "https://www.kyoceradome-osaka.jp/download/img/guidemap2026.pdf"
+    },
+    {
+      "id": "locker-venue-2f-east",
+      "name": "京セラドーム2F 東口付近",
+      "purpose": "荷物",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・東口付近",
+      "detail": "2Fスタジアムモールのロッカーです。チケット入場階は3Fです。利用できる時間と荷物の大きさを確認してください。",
+      "sourceIds": [
+        "locker-venue-2f-east"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin",
+      "bookingUrl": "https://www.kyoceradome-osaka.jp/download/img/guidemap2026.pdf"
+    },
+    {
+      "id": "locker-venue-2f-south",
+      "name": "京セラドーム2F 南口付近",
+      "purpose": "荷物",
+      "scope": "場内",
+      "floor": "2F",
+      "location": "2Fスタジアムモール・南口付近",
+      "detail": "2Fスタジアムモールのロッカーです。チケット入場階は3Fです。利用できる時間と荷物の大きさを確認してください。",
+      "sourceIds": [
+        "locker-venue-2f-south"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin",
+      "bookingUrl": "https://www.kyoceradome-osaka.jp/download/img/guidemap2026.pdf"
+    },
+    {
+      "id": "locker-hanshin-dome-1",
+      "name": "阪神ドーム前駅 ロッカー設置点1",
+      "purpose": "荷物",
+      "scope": "場外",
+      "floor": "周辺",
+      "location": "B2改札外・2番出入口の階段／写真コーナー側",
+      "detail": "駅の改札外にあります。料金・対応サイズ・利用時間・支払い方法はロッカーの掲示で確認してください。駅が閉まる時間の前に受け取ってください。",
+      "sourceIds": [
+        "locker-hanshin-dome-1"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin",
+      "bookingUrl": "https://www.hanshin.co.jp/uploads/guidemap/do-mumae.pdf",
+      "accessCondition": "before-admission"
+    },
+    {
+      "id": "locker-hanshin-dome-2",
+      "name": "阪神ドーム前駅 ロッカー設置点2",
+      "purpose": "荷物",
+      "scope": "場外",
+      "floor": "周辺",
+      "location": "B2改札外・2番出入口のエレベーター側",
+      "detail": "駅の改札外にあります。料金・対応サイズ・利用時間・支払い方法はロッカーの掲示で確認してください。駅が閉まる時間の前に受け取ってください。",
+      "sourceIds": [
+        "locker-hanshin-dome-2"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin",
+      "bookingUrl": "https://www.hanshin.co.jp/uploads/guidemap/do-mumae.pdf",
+      "accessCondition": "before-admission"
+    },
+    {
+      "id": "locker-metro-dome",
+      "name": "Osaka Metro ドーム前千代崎駅",
+      "purpose": "荷物",
+      "scope": "場外",
+      "floor": "周辺",
+      "location": "改札外コンコース・店舗横／2号出口方面",
+      "detail": "駅の改札外にあります。料金・対応サイズ・利用時間・支払い方法はロッカーの掲示で確認してください。駅が閉まる時間の前に受け取ってください。",
+      "sourceIds": [
+        "locker-metro-dome"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin",
+      "bookingUrl": "https://subway.osakametro.co.jp/station_guide/station/N12_domemae_r2.pdf",
+      "accessCondition": "before-admission"
+    },
+    {
+      "id": "locker-aeon-deck-fuji",
+      "name": "イオン大阪ドームシティ店 フジロッカー K-7286",
+      "purpose": "荷物",
+      "scope": "場外",
+      "floor": "周辺",
+      "location": "2F南デッキ入口",
+      "detail": "現在の設置状況・料金・対応サイズ・利用時間は店舗で確認してください。",
+      "sourceIds": [
+        "locker-aeon-deck-fuji"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin",
+      "accessCondition": "unconfirmed"
+    },
+    {
+      "id": "locker-vivahome-fuji",
+      "name": "スーパービバホーム大阪ドームシティ店 フジロッカー K-7240",
+      "purpose": "荷物",
+      "scope": "場外",
+      "floor": "周辺",
+      "location": "大阪ドームシティ店・設置場所は店舗で確認",
+      "detail": "現在の設置状況・料金・対応サイズ・利用時間は店舗で確認してください。",
+      "sourceIds": [
+        "locker-vivahome-fuji"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin",
+      "accessCondition": "unconfirmed"
+    },
+    {
+      "id": "locker-jr-taisho",
+      "name": "JR大正駅",
+      "purpose": "荷物",
+      "scope": "場外",
+      "floor": "周辺",
+      "location": "1F改札外・2番線へのエレベーター／車いす対応トイレ側",
+      "detail": "駅の改札外にあります。料金・対応サイズ・利用時間・支払い方法はロッカーの掲示で確認してください。駅が閉まる時間の前に受け取ってください。",
+      "sourceIds": [
+        "locker-jr-taisho"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin",
+      "bookingUrl": "https://eki.jr-odekake.net/premises/0620505_b6fbafaa-fec4-47d6-b662-eb92b18b255f.pdf",
+      "accessCondition": "before-admission"
+    },
+    {
+      "id": "locker-metro-taisho",
+      "name": "Osaka Metro 大正駅",
+      "purpose": "荷物",
+      "scope": "場外",
+      "floor": "周辺",
+      "location": "改札外コンコース・2号出口方面／証明写真付近",
+      "detail": "駅の改札外にあります。料金・対応サイズ・利用時間・支払い方法はロッカーの掲示で確認してください。駅が閉まる時間の前に受け取ってください。",
+      "sourceIds": [
+        "locker-metro-taisho"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin",
+      "bookingUrl": "https://subway.osakametro.co.jp/station_guide/station/N11_%E5%A4%A7%E6%AD%A3_%E6%A7%8B%E5%86%85%E5%9B%B3.pdf",
+      "accessCondition": "before-admission"
+    },
+    {
+      "id": "locker-hanshin-kujo-west",
+      "name": "阪神九条駅 西側",
+      "purpose": "荷物",
+      "scope": "場外",
+      "floor": "周辺",
+      "location": "B1西改札外・1番出入口側",
+      "detail": "駅の改札外にあります。料金・対応サイズ・利用時間・支払い方法はロッカーの掲示で確認してください。駅が閉まる時間の前に受け取ってください。",
+      "sourceIds": [
+        "locker-hanshin-kujo-west"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin",
+      "bookingUrl": "https://www.hanshin.co.jp/uploads/guidemap/kujo.pdf",
+      "accessCondition": "before-admission"
+    },
+    {
+      "id": "locker-hanshin-kujo-east",
+      "name": "阪神九条駅 東側",
+      "purpose": "荷物",
+      "scope": "場外",
+      "floor": "周辺",
+      "location": "B1東改札外・2番出入口側",
+      "detail": "駅の改札外にあります。料金・対応サイズ・利用時間・支払い方法はロッカーの掲示で確認してください。駅が閉まる時間の前に受け取ってください。",
+      "sourceIds": [
+        "locker-hanshin-kujo-east"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin",
+      "bookingUrl": "https://www.hanshin.co.jp/uploads/guidemap/kujo.pdf",
+      "accessCondition": "before-admission"
+    },
+    {
+      "id": "locker-metro-kujo",
+      "name": "Osaka Metro 九条駅",
+      "purpose": "荷物",
+      "scope": "場外",
+      "floor": "周辺",
+      "location": "東改札外・3／4号出口への通路",
+      "detail": "駅の改札外にあります。料金・対応サイズ・利用時間・支払い方法はロッカーの掲示で確認してください。駅が閉まる時間の前に受け取ってください。",
+      "sourceIds": [
+        "locker-metro-kujo"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin",
+      "bookingUrl": "https://subway.osakametro.co.jp/station_guide/station/C14_%E4%B9%9D%E6%9D%A1_%E6%A7%8B%E5%86%85%E5%9B%B3.pdf",
+      "accessCondition": "before-admission"
+    },
+    {
+      "id": "locker-hanshin-sakuragawa",
+      "name": "阪神桜川駅",
+      "purpose": "荷物",
+      "scope": "場外",
+      "floor": "周辺",
+      "location": "B1改札外・4番出入口／地下鉄桜川駅への連絡通路側",
+      "detail": "駅の改札外にあります。料金・対応サイズ・利用時間・支払い方法はロッカーの掲示で確認してください。駅が閉まる時間の前に受け取ってください。",
+      "sourceIds": [
+        "locker-hanshin-sakuragawa"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin",
+      "bookingUrl": "https://www.hanshin.co.jp/uploads/guidemap/sakuragawa.pdf",
+      "accessCondition": "before-admission"
+    },
+    {
+      "id": "locker-metro-nishinagahori-north",
+      "name": "Osaka Metro 西長堀駅 北側",
+      "purpose": "荷物",
+      "scope": "場外",
+      "floor": "周辺",
+      "location": "北改札外・券売機付近",
+      "detail": "駅の改札外にあります。料金・対応サイズ・利用時間・支払い方法はロッカーの掲示で確認してください。駅が閉まる時間の前に受け取ってください。",
+      "sourceIds": [
+        "locker-metro-nishinagahori-north"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin",
+      "bookingUrl": "https://subway.osakametro.co.jp/station_guide/station/S14_%E8%A5%BF%E9%95%B7%E5%A0%80_%E6%A7%8B%E5%86%85%E5%9B%B3_ol_2.pdf",
+      "accessCondition": "before-admission"
+    },
+    {
+      "id": "locker-metro-nishinagahori-east",
+      "name": "Osaka Metro 西長堀駅 東側",
+      "purpose": "荷物",
+      "scope": "場外",
+      "floor": "周辺",
+      "location": "東改札外・4-A／4-B出口側",
+      "detail": "駅の改札外にあります。料金・対応サイズ・利用時間・支払い方法はロッカーの掲示で確認してください。駅が閉まる時間の前に受け取ってください。",
+      "sourceIds": [
+        "locker-metro-nishinagahori-east"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "coin",
+      "bookingUrl": "https://subway.osakametro.co.jp/station_guide/station/S14_%E8%A5%BF%E9%95%B7%E5%A0%80_%E6%A7%8B%E5%86%85%E5%9B%B3_ol_2.pdf",
+      "accessCondition": "before-admission"
+    },
+    {
+      "id": "locker-ecbo-sakaigawa",
+      "name": "セブン－イレブン大阪境川１丁目",
+      "purpose": "荷物",
+      "scope": "場外",
+      "floor": "周辺",
+      "location": "九条駅から徒歩6分",
+      "detail": "24時間の預かり案内です。バッグ（最大辺45cm未満）500円／個・日、スーツケースサイズ（45cm以上）800円／個・日。日付をまたぐと追加の日数分がかかります。スーツケースサイズはスーツケースのみ受け付けます。ecbo cloakで利用日・預入／受取時刻を選んで予約してください。受付・支払い条件は予約先を確認してください。",
+      "sourceIds": [
+        "locker-ecbo-sakaigawa",
+        "ecbo-current-pricing"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "staffed",
+      "bookingUrl": "https://cloak.ecbo.io/ja/spaces/73d04e08-c12c-45de-bc85-d8d08584ea14",
+      "accessCondition": "before-admission"
+    },
+    {
+      "id": "locker-ecbo-honden3",
+      "name": "セブン－イレブン大阪本田３丁目",
+      "purpose": "荷物",
+      "scope": "場外",
+      "floor": "周辺",
+      "location": "九条駅から徒歩5分",
+      "detail": "24時間の預かり案内です。バッグ（最大辺45cm未満）500円／個・日、スーツケースサイズ（45cm以上）800円／個・日。日付をまたぐと追加の日数分がかかります。スーツケースサイズはスーツケースのみ受け付けます。ecbo cloakで利用日・預入／受取時刻を選んで予約してください。受付・支払い条件は予約先を確認してください。",
+      "sourceIds": [
+        "locker-ecbo-honden3",
+        "ecbo-current-pricing"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "staffed",
+      "bookingUrl": "https://cloak.ecbo.io/ja/spaces/53968a20-4d8a-4a28-9bf3-6fdcf8118e22",
+      "accessCondition": "before-admission"
+    },
+    {
+      "id": "locker-ecbo-chiyozaki2",
+      "name": "セブン－イレブン大阪千代崎２丁目",
+      "purpose": "荷物",
+      "scope": "場外",
+      "floor": "周辺",
+      "location": "ドーム前千代崎駅から徒歩2分",
+      "detail": "24時間の預かり案内です。バッグ（最大辺45cm未満）500円／個・日、スーツケースサイズ（45cm以上）800円／個・日。日付をまたぐと追加の日数分がかかります。スーツケースサイズはスーツケースのみ受け付けます。ecbo cloakで利用日・預入／受取時刻を選んで予約してください。受付・支払い条件は予約先を確認してください。",
+      "sourceIds": [
+        "locker-ecbo-chiyozaki2",
+        "ecbo-current-pricing"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "staffed",
+      "bookingUrl": "https://cloak.ecbo.io/ja/spaces/4bb8631a-4ed4-42f6-903b-086566108cfe",
+      "accessCondition": "before-admission"
+    },
+    {
+      "id": "locker-ecbo-nas",
+      "name": "スポーツクラブNAS大阪ドームシティ",
+      "purpose": "荷物",
+      "scope": "場外",
+      "floor": "周辺",
+      "location": "ドーム前駅から徒歩6分",
+      "detail": "月曜休み。店舗は火〜金10:00〜23:00、土10:00〜22:00、日・祝10:00〜20:00ですが、荷物の預かりは20:00までの案内です。バッグ（最大辺45cm未満）500円／個・日、スーツケースサイズ（45cm以上）800円／個・日。日付をまたぐと追加の日数分がかかります。ecbo cloakで利用日・預入／受取時刻を選んで予約してください。受付・支払い条件は予約先を確認してください。",
+      "sourceIds": [
+        "locker-ecbo-nas",
+        "ecbo-current-pricing"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "staffed",
+      "bookingUrl": "https://cloak.ecbo.io/ja/spaces/71bdbabb-b6bc-43fc-8c46-6de1a1a9d824",
+      "accessCondition": "before-admission"
+    },
+    {
+      "id": "locker-ecbo-kitaro",
+      "name": "草鍋 小川下 喜多呂",
+      "purpose": "荷物",
+      "scope": "場外",
+      "floor": "周辺",
+      "location": "九条駅から徒歩3分",
+      "detail": "利用時間は16:00〜22:00。バッグ（最大辺45cm未満）500円／個・日、スーツケースサイズ（45cm以上）800円／個・日。日付をまたぐと追加の日数分がかかります。ecbo cloakで利用日・預入／受取時刻を選んで予約してください。受付・支払い条件は予約先を確認してください。",
+      "sourceIds": [
+        "locker-ecbo-kitaro",
+        "ecbo-current-pricing"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "staffed",
+      "bookingUrl": "https://cloak.ecbo.io/ja/spaces/a469f56c-038a-4f44-8954-a1877cb8ec89",
+      "accessCondition": "before-admission"
+    },
+    {
+      "id": "locker-ecbo-yamato",
+      "name": "ヤマト運輸 浪速営業所（桜川）",
+      "purpose": "荷物",
+      "scope": "場外",
+      "floor": "周辺",
+      "location": "桜川駅から徒歩1分",
+      "detail": "利用時間は8:00〜20:00。バッグ（最大辺45cm未満）500円／個・日、スーツケースサイズ（45cm以上）800円／個・日。日付をまたぐと追加の日数分がかかります。スーツケース以外で3辺の合計が200cm以上の荷物は預けられません。ecbo cloakで利用日・預入／受取時刻を選んで予約してください。受付・支払い条件は予約先を確認してください。",
+      "sourceIds": [
+        "locker-ecbo-yamato",
+        "ecbo-current-pricing"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "staffed",
+      "bookingUrl": "https://cloak.ecbo.io/ja/spaces/fbfcd00a-28c3-4b20-b982-2cb8256678e8",
+      "accessCondition": "before-admission"
+    },
+    {
+      "id": "locker-ecbo-kujominami3",
+      "name": "セブン－イレブン大阪九条南３丁目",
+      "purpose": "荷物",
+      "scope": "場外",
+      "floor": "周辺",
+      "location": "九条駅から徒歩6分",
+      "detail": "利用時間は6:00〜翌1:00。バッグ（最大辺45cm未満）500円／個・日、スーツケースサイズ（45cm以上）800円／個・日。日付をまたぐと追加の日数分がかかります。スーツケースサイズはスーツケースのみ受け付けます。ecbo cloakで利用日・預入／受取時刻を選んで予約してください。受付・支払い条件は予約先を確認してください。",
+      "sourceIds": [
+        "locker-ecbo-kujominami3",
+        "ecbo-current-pricing"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "staffed",
+      "bookingUrl": "https://cloak.ecbo.io/ja/spaces/dff4a92f-4f10-4a6a-879a-79c2546333e9",
+      "accessCondition": "before-admission"
+    },
+    {
+      "id": "locker-ecbo-honden4",
+      "name": "セブン－イレブン大阪本田４丁目",
+      "purpose": "荷物",
+      "scope": "場外",
+      "floor": "周辺",
+      "location": "九条駅から徒歩6分",
+      "detail": "24時間の預かり案内です。バッグ（最大辺45cm未満）500円／個・日、スーツケースサイズ（45cm以上）800円／個・日。日付をまたぐと追加の日数分がかかります。スーツケースサイズはスーツケースのみ受け付けます。ecbo cloakで利用日・預入／受取時刻を選んで予約してください。受付・支払い条件は予約先を確認してください。",
+      "sourceIds": [
+        "locker-ecbo-honden4",
+        "ecbo-current-pricing"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "staffed",
+      "bookingUrl": "https://cloak.ecbo.io/ja/spaces/1b7a4fa1-b522-4e6f-8181-9088f44c34ff",
+      "accessCondition": "before-admission"
+    },
+    {
+      "id": "locker-ecbo-kitahorie3",
+      "name": "セブン－イレブン大阪北堀江３丁目",
+      "purpose": "荷物",
+      "scope": "場外",
+      "floor": "周辺",
+      "location": "西長堀駅から徒歩1分",
+      "detail": "24時間の預かり案内です。バッグ（最大辺45cm未満）500円／個・日、スーツケースサイズ（45cm以上）800円／個・日。日付をまたぐと追加の日数分がかかります。スーツケースサイズはスーツケースのみ受け付けます。ecbo cloakで利用日・預入／受取時刻を選んで予約してください。受付・支払い条件は予約先を確認してください。",
+      "sourceIds": [
+        "locker-ecbo-kitahorie3",
+        "ecbo-current-pricing"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "staffed",
+      "bookingUrl": "https://cloak.ecbo.io/ja/spaces/4b951b2a-7eb7-4dec-ac1a-dd5e98967b0d",
+      "accessCondition": "before-admission"
+    },
+    {
+      "id": "locker-beat-child",
+      "name": "ビートチャイルド／神席SHOP 京セラドーム前店",
+      "purpose": "荷物",
+      "scope": "場外",
+      "floor": "周辺",
+      "location": "大阪市西区九条南1-7-5（京セラドーム前店）",
+      "detail": "大きさにかかわらず荷物1個500円。9:00〜終演後60分までの予約制です。店舗案内の公式LINEから利用日・荷物数を予約してください。受付・受取時刻は予約時に確認してください。",
+      "sourceIds": [
+        "locker-beat-child"
+      ],
+      "precision": "text-only",
+      "kind": "locker",
+      "storageKind": "staffed",
+      "bookingUrl": "https://kamiseki.shop/info/6209305",
+      "accessCondition": "before-admission"
+    }
+  ],
+  "sources": [
+    {
+      "id": "locker-venue-2f-north",
+      "title": "京セラドーム2F 北口付近 利用案内",
+      "url": "https://www.kyoceradome-osaka.jp/download/img/guidemap2026.pdf",
+      "checkedAt": "2026-10-04",
+      "scope": "設置場所・預かり掲載",
+      "usage": "facts-only"
+    },
+    {
+      "id": "locker-venue-2f-lobby",
+      "title": "京セラドーム2F ビスタルームロビー付近 利用案内",
+      "url": "https://www.kyoceradome-osaka.jp/download/img/guidemap2026.pdf",
+      "checkedAt": "2026-10-04",
+      "scope": "設置場所・預かり掲載",
+      "usage": "facts-only"
+    },
+    {
+      "id": "locker-venue-2f-east",
+      "title": "京セラドーム2F 東口付近 利用案内",
+      "url": "https://www.kyoceradome-osaka.jp/download/img/guidemap2026.pdf",
+      "checkedAt": "2026-10-04",
+      "scope": "設置場所・預かり掲載",
+      "usage": "facts-only"
+    },
+    {
+      "id": "locker-venue-2f-south",
+      "title": "京セラドーム2F 南口付近 利用案内",
+      "url": "https://www.kyoceradome-osaka.jp/download/img/guidemap2026.pdf",
+      "checkedAt": "2026-10-04",
+      "scope": "設置場所・預かり掲載",
+      "usage": "facts-only"
+    },
+    {
+      "id": "locker-hanshin-dome-1",
+      "title": "阪神ドーム前駅 ロッカー設置点1 利用案内",
+      "url": "https://www.hanshin.co.jp/uploads/guidemap/do-mumae.pdf",
+      "checkedAt": "2026-10-07",
+      "scope": "現行個別資料の設置・改札境界/曜日時間/料金/制限の確認範囲は施設別調査に保持。空き・全利用条件は未確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "locker-hanshin-dome-2",
+      "title": "阪神ドーム前駅 ロッカー設置点2 利用案内",
+      "url": "https://www.hanshin.co.jp/uploads/guidemap/do-mumae.pdf",
+      "checkedAt": "2026-10-07",
+      "scope": "現行個別資料の設置・改札境界/曜日時間/料金/制限の確認範囲は施設別調査に保持。空き・全利用条件は未確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "locker-metro-dome",
+      "title": "Osaka Metro ドーム前千代崎駅 利用案内",
+      "url": "https://subway.osakametro.co.jp/station_guide/station/N12_domemae_r2.pdf",
+      "checkedAt": "2026-10-07",
+      "scope": "現行個別資料の設置・改札境界/曜日時間/料金/制限の確認範囲は施設別調査に保持。空き・全利用条件は未確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "locker-aeon-deck-fuji",
+      "title": "イオン大阪ドームシティ店 フジロッカー K-7286 利用案内",
+      "url": "https://fuji-ya.co.jp/coinlocker/coinlockerblog/2025/08/05/domemae-coinlockers-map/",
+      "checkedAt": "2026-10-07",
+      "scope": "既存の設置掲載を保持。2026-10-07現行個別URLはHTTP404。現在の条件は未確認、料金/時間とリンクを画面へ出さない",
+      "usage": "research-only"
+    },
+    {
+      "id": "locker-vivahome-fuji",
+      "title": "スーパービバホーム大阪ドームシティ店 フジロッカー K-7240 利用案内",
+      "url": "https://fuji-ya.co.jp/coinlocker/coinlockerblog/2025/08/05/domemae-coinlockers-map/",
+      "checkedAt": "2026-10-07",
+      "scope": "既存の設置掲載を保持。2026-10-07現行個別URLはHTTP404。現在の条件は未確認、料金/時間とリンクを画面へ出さない",
+      "usage": "research-only"
+    },
+    {
+      "id": "locker-jr-taisho",
+      "title": "JR大正駅 利用案内",
+      "url": "https://eki.jr-odekake.net/premises/0620505_b6fbafaa-fec4-47d6-b662-eb92b18b255f.pdf",
+      "checkedAt": "2026-10-07",
+      "scope": "現行個別資料の設置・改札境界/曜日時間/料金/制限の確認範囲は施設別調査に保持。空き・全利用条件は未確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "locker-metro-taisho",
+      "title": "Osaka Metro 大正駅 利用案内",
+      "url": "https://subway.osakametro.co.jp/station_guide/station/N11_%E5%A4%A7%E6%AD%A3_%E6%A7%8B%E5%86%85%E5%9B%B3.pdf",
+      "checkedAt": "2026-10-07",
+      "scope": "現行個別資料の設置・改札境界/曜日時間/料金/制限の確認範囲は施設別調査に保持。空き・全利用条件は未確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "locker-hanshin-kujo-west",
+      "title": "阪神九条駅 西側 利用案内",
+      "url": "https://www.hanshin.co.jp/uploads/guidemap/kujo.pdf",
+      "checkedAt": "2026-10-07",
+      "scope": "現行個別資料の設置・改札境界/曜日時間/料金/制限の確認範囲は施設別調査に保持。空き・全利用条件は未確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "locker-hanshin-kujo-east",
+      "title": "阪神九条駅 東側 利用案内",
+      "url": "https://www.hanshin.co.jp/uploads/guidemap/kujo.pdf",
+      "checkedAt": "2026-10-07",
+      "scope": "現行個別資料の設置・改札境界/曜日時間/料金/制限の確認範囲は施設別調査に保持。空き・全利用条件は未確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "locker-metro-kujo",
+      "title": "Osaka Metro 九条駅 利用案内",
+      "url": "https://subway.osakametro.co.jp/station_guide/station/C14_%E4%B9%9D%E6%9D%A1_%E6%A7%8B%E5%86%85%E5%9B%B3.pdf",
+      "checkedAt": "2026-10-07",
+      "scope": "現行個別資料の設置・改札境界/曜日時間/料金/制限の確認範囲は施設別調査に保持。空き・全利用条件は未確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "locker-hanshin-sakuragawa",
+      "title": "阪神桜川駅 利用案内",
+      "url": "https://www.hanshin.co.jp/uploads/guidemap/sakuragawa.pdf",
+      "checkedAt": "2026-10-07",
+      "scope": "現行個別資料の設置・改札境界/曜日時間/料金/制限の確認範囲は施設別調査に保持。空き・全利用条件は未確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "locker-metro-nishinagahori-north",
+      "title": "Osaka Metro 西長堀駅 北側 利用案内",
+      "url": "https://subway.osakametro.co.jp/station_guide/station/S14_%E8%A5%BF%E9%95%B7%E5%A0%80_%E6%A7%8B%E5%86%85%E5%9B%B3_ol_2.pdf",
+      "checkedAt": "2026-10-07",
+      "scope": "現行個別資料の設置・改札境界/曜日時間/料金/制限の確認範囲は施設別調査に保持。空き・全利用条件は未確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "locker-metro-nishinagahori-east",
+      "title": "Osaka Metro 西長堀駅 東側 利用案内",
+      "url": "https://subway.osakametro.co.jp/station_guide/station/S14_%E8%A5%BF%E9%95%B7%E5%A0%80_%E6%A7%8B%E5%86%85%E5%9B%B3_ol_2.pdf",
+      "checkedAt": "2026-10-07",
+      "scope": "現行個別資料の設置・改札境界/曜日時間/料金/制限の確認範囲は施設別調査に保持。空き・全利用条件は未確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "locker-ecbo-sakaigawa",
+      "title": "セブン－イレブン大阪境川１丁目 利用案内",
+      "url": "https://cloak.ecbo.io/ja/spaces/73d04e08-c12c-45de-bc85-d8d08584ea14",
+      "checkedAt": "2026-10-07",
+      "scope": "現行個別資料の設置・改札境界/曜日時間/料金/制限の確認範囲は施設別調査に保持。空き・全利用条件は未確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "locker-ecbo-honden3",
+      "title": "セブン－イレブン大阪本田３丁目 利用案内",
+      "url": "https://cloak.ecbo.io/ja/spaces/53968a20-4d8a-4a28-9bf3-6fdcf8118e22",
+      "checkedAt": "2026-10-07",
+      "scope": "現行個別資料の設置・改札境界/曜日時間/料金/制限の確認範囲は施設別調査に保持。空き・全利用条件は未確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "locker-ecbo-chiyozaki2",
+      "title": "セブン－イレブン大阪千代崎２丁目 利用案内",
+      "url": "https://cloak.ecbo.io/ja/spaces/4bb8631a-4ed4-42f6-903b-086566108cfe",
+      "checkedAt": "2026-10-07",
+      "scope": "現行個別資料の設置・改札境界/曜日時間/料金/制限の確認範囲は施設別調査に保持。空き・全利用条件は未確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "locker-ecbo-nas",
+      "title": "スポーツクラブNAS大阪ドームシティ 利用案内",
+      "url": "https://cloak.ecbo.io/ja/spaces/71bdbabb-b6bc-43fc-8c46-6de1a1a9d824",
+      "checkedAt": "2026-10-07",
+      "scope": "現行個別資料の設置・改札境界/曜日時間/料金/制限の確認範囲は施設別調査に保持。空き・全利用条件は未確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "locker-ecbo-kitaro",
+      "title": "草鍋 小川下 喜多呂 利用案内",
+      "url": "https://cloak.ecbo.io/ja/spaces/a469f56c-038a-4f44-8954-a1877cb8ec89",
+      "checkedAt": "2026-10-07",
+      "scope": "現行個別資料の設置・改札境界/曜日時間/料金/制限の確認範囲は施設別調査に保持。空き・全利用条件は未確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "locker-ecbo-yamato",
+      "title": "ヤマト運輸 浪速営業所（桜川） 利用案内",
+      "url": "https://cloak.ecbo.io/ja/spaces/fbfcd00a-28c3-4b20-b982-2cb8256678e8",
+      "checkedAt": "2026-10-07",
+      "scope": "現行個別資料の設置・改札境界/曜日時間/料金/制限の確認範囲は施設別調査に保持。空き・全利用条件は未確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "locker-ecbo-kujominami3",
+      "title": "セブン－イレブン大阪九条南３丁目 利用案内",
+      "url": "https://cloak.ecbo.io/ja/spaces/dff4a92f-4f10-4a6a-879a-79c2546333e9",
+      "checkedAt": "2026-10-07",
+      "scope": "現行個別資料の設置・改札境界/曜日時間/料金/制限の確認範囲は施設別調査に保持。空き・全利用条件は未確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "locker-ecbo-honden4",
+      "title": "セブン－イレブン大阪本田４丁目 利用案内",
+      "url": "https://cloak.ecbo.io/ja/spaces/1b7a4fa1-b522-4e6f-8181-9088f44c34ff",
+      "checkedAt": "2026-10-07",
+      "scope": "現行個別資料の設置・改札境界/曜日時間/料金/制限の確認範囲は施設別調査に保持。空き・全利用条件は未確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "locker-ecbo-kitahorie3",
+      "title": "セブン－イレブン大阪北堀江３丁目 利用案内",
+      "url": "https://cloak.ecbo.io/ja/spaces/4b951b2a-7eb7-4dec-ac1a-dd5e98967b0d",
+      "checkedAt": "2026-10-07",
+      "scope": "現行個別資料の設置・改札境界/曜日時間/料金/制限の確認範囲は施設別調査に保持。空き・全利用条件は未確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "locker-beat-child",
+      "title": "ビートチャイルド／神席SHOP 京セラドーム前店 利用案内",
+      "url": "https://kamiseki.shop/info/6209305",
+      "checkedAt": "2026-10-07",
+      "scope": "現行個別資料の設置・改札境界/曜日時間/料金/制限の確認範囲は施設別調査に保持。空き・全利用条件は未確認",
+      "usage": "facts-only"
+    },
+    {
+      "id": "ecbo-current-pricing",
+      "title": "ecbo cloak 日単位の料金・サイズ区分",
+      "url": "https://help.ecbo.io/ja/articles/14519448-i-was-charged-more-than-i-expected",
+      "checkedAt": "2026-10-07",
+      "scope": "45cm未満500円/日、45cm以上800円/日、日付をまたぐ追加課金。個別9施設の500/800と照合。決済方法/空きは未確認",
+      "usage": "facts-only"
+    }
+  ]
+}
