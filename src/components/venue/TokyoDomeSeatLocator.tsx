@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState, type FormEvent, type PointerEvent as ReactPointerEvent } from "react";
-import ReadySearchControl from "./template/ReadySearchControl";
+import ReadySearchControl, { useSeatControlsReady } from "./template/ReadySearchControl";
 import geometry from "@/data/tokyoDomeSeatGeometry.json";
 import { TOKYO_DOME_GATE_ANCHORS } from "@/data/tokyoDomeGateAnchors";
 import { TOKYO_DOME_INNER_GATE_BOUNDARIES, TOKYO_DOME_OUTER_GATE_BOUNDARIES, TOKYO_DOME_OVERVIEW_HOME_CAP } from "@/data/tokyoDomeGateStructure";
@@ -135,6 +135,7 @@ function selectedMapViewBox(_section: TokyoDomeSection, label: [number, number],
 }
 
 export function TokyoDomeSeatLocator() {
+  const controlsReady = useSeatControlsReady();
   const mapSvgRef = useRef<SVGSVGElement>(null);
   const mapCanvasRef = useRef<HTMLDivElement>(null);
   const [canvasSize,setCanvasSize]=useState({width:900,height:650});
@@ -424,7 +425,7 @@ export function TokyoDomeSeatLocator() {
     chooseArea(found[0],true);setSelectedRow(row);setSelectedSeat(Number(num));setNotice("列の線は位置の目安です。");
   }
 
-  return <section className="border-y border-[#eddfe5] bg-[#fffafb] py-8 sm:py-10" aria-labelledby="tokyo-dome-map-title">
+  return <section className="border-y border-[#eddfe5] bg-[#fffafb] py-8 sm:py-10" aria-labelledby="tokyo-dome-map-title" inert={!controlsReady}>
     <div className="zr-container">
       <p className="artist-kicker">Seat finder</p>
       <h2 id="tokyo-dome-map-title" className={`artist-heading ${styles.title}`}>東京ドームの座席を探す</h2>
