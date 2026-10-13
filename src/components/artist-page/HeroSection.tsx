@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import ArtistGroupPhoto from "@/components/common/ArtistGroupPhoto";
+import { getArtistGroupImage } from "@/lib/artistGroupImages";
 import Link from "next/link";
 import { CalendarDays, MapPin } from "lucide-react";
 import { rateText } from "@/lib/artistPageHelpers";
@@ -43,6 +45,7 @@ export default function HeroSection({
   nextEvent,
   countdownDays,
 }: Props) {
+  const groupPhoto = getArtistGroupImage(slug);
   const configuredHeroImage = resolveArtistHeroImage(heroImage);
   const [heroImageSrc, setHeroImageSrc] = useState(configuredHeroImage);
 
@@ -59,8 +62,8 @@ export default function HeroSection({
     : "min-h-[300px] sm:min-h-[400px] lg:min-h-[450px]";
 
   return (
-    <section className={`relative w-full overflow-hidden bg-[#ffeaf2] text-[#2b252b] ${heightClass}`}>
-      <Image
+    <section className={`relative w-full overflow-hidden bg-[#ffeaf2] text-[#2b252b] ${groupPhoto ? "" : heightClass}`}>
+      {!groupPhoto && <Image
         src={heroImageSrc}
         alt=""
         fill
@@ -71,10 +74,10 @@ export default function HeroSection({
         onError={() => {
           if (heroImageSrc !== DEFAULT_ARTIST_HERO_IMAGE) setHeroImageSrc(DEFAULT_ARTIST_HERO_IMAGE);
         }}
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-[#652642]/30 via-[#ed76a7]/5 to-transparent" />
-      <div className="absolute inset-x-0 bottom-0 h-[64%] bg-gradient-to-t from-[#ffeaf2] via-[#ffeaf2]/92 to-transparent" />
-      <div className={`relative z-10 ${heightClass}`}>
+      />}
+      {!groupPhoto && <><div className="absolute inset-0 bg-gradient-to-b from-[#652642]/30 via-[#ed76a7]/5 to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 h-[64%] bg-gradient-to-t from-[#ffeaf2] via-[#ffeaf2]/92 to-transparent" /></>}
+      <div className={`relative z-10 ${groupPhoto ? "" : heightClass}`}>
         <Header
           title={artistName}
           backHref="/"
@@ -91,7 +94,8 @@ export default function HeroSection({
           }
         />
 
-        <div className="zr-container absolute inset-x-0 bottom-0 pb-5 sm:pb-7">
+        {groupPhoto && <ArtistGroupPhoto key={slug} slug={slug} name={artistName} variant="hero" priority />}
+        <div className={groupPhoto ? "zr-container relative pb-5 pt-5 sm:pb-7" : "zr-container absolute inset-x-0 bottom-0 pb-5 sm:pb-7"}>
           <div className="max-w-[860px] rounded-[28px] bg-white/88 p-5 shadow-[0_14px_38px_rgba(129,55,83,.14)] backdrop-blur-md sm:p-7">
           <p className="text-[10px] font-black tracking-[0.2em] text-[#e4487b]">FAN&apos;S LIVE NOTE</p>
           <div className="mt-2 flex flex-wrap items-center gap-2.5 sm:gap-4">

@@ -2,6 +2,8 @@
 
 import { useCallback, useState, type ReactNode } from "react";
 import Image from "next/image";
+import ArtistGroupPhoto from "@/components/common/ArtistGroupPhoto";
+import { getArtistGroupImage } from "@/lib/artistGroupImages";
 import Link from "next/link";
 import { ArrowUpRight, CalendarDays, MapPin, Plus, Map } from "lucide-react";
 import { ArenaReportMap } from "@/components/arena-map/ArenaReportMap";
@@ -35,7 +37,7 @@ export default function SeatDiscoveryCard({ data, favoriteControl, preview = fal
   return (
     <article id={preview ? "seat-card-preview" : undefined} aria-label={data.artistName + "の座席情報"} className={styles.card + (!hasMap ? " " + styles.compactCard : "")}>
       <header className={styles.header}>
-        <div className={styles.avatar}><Image src={data.image} alt="" fill sizes="44px" className="object-cover" /></div>
+        {getArtistGroupImage(data.artistSlug) ? <ArtistGroupPhoto key={data.artistSlug} slug={data.artistSlug} name={data.artistName} /> : <div className={styles.avatar}><Image src={data.image} alt="" fill sizes="44px" className="object-cover" /></div>}
         <div className={styles.identity}>
           <Link href={links.artist} className={"zr-focus " + styles.title}>{data.artistName}<ArrowUpRight size={16} aria-hidden="true" /></Link>
           <p className={styles.tour}>{hasMap ? tourTitle || "公演の座席情報" : ready ? "座席情報を募集中" : "読込みできません"}</p>

@@ -1,6 +1,7 @@
 import type { CrawledEvent } from "./types";
 import { keywordMatchesTitle } from "./keywordMatch";
 import { DISCOVERED_OFFICIAL_NEWS_CONFIGS } from "./officialNewsRegistry";
+import { getArtistGroupImage } from "./artistGroupImages";
 
 export type Artist = {
   slug: string;
@@ -1353,6 +1354,7 @@ const ARTIST_DEFINITIONS: Artist[] = [
 /** 個別に手書き済みの設定を優先し、全件監査レジストリを未設定アーティストへ統合する。 */
 export const ARTISTS: Artist[] = ARTIST_DEFINITIONS.map((artist) => ({
   ...artist,
+  heroImage: artist.heroImage ?? getArtistGroupImage(artist.slug)?.src,
   officialNews: artist.officialNews ?? DISCOVERED_OFFICIAL_NEWS_CONFIGS[artist.slug],
 }));
 

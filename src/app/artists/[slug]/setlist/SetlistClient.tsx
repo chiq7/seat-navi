@@ -2,6 +2,8 @@
 
 import { use, useEffect, useRef, useState, useMemo } from "react";
 import Image from "next/image";
+import ArtistGroupPhoto from "@/components/common/ArtistGroupPhoto";
+import { getArtistGroupImage } from "@/lib/artistGroupImages";
 import Link from "next/link";
 import { Film, ListEnd, ListStart, MessageCircle, Mic2, Music2, Plus, Sparkles, Star, Zap } from "lucide-react";
 import { anonymousSupabase, supabase } from "@/lib/supabase/client";
@@ -299,8 +301,8 @@ export function SetlistClient({
 
   return (
     <div className="community-page font-sans">
-      <section className="relative min-h-[274px] overflow-hidden bg-[#8d6578] text-white sm:min-h-[348px]">
-        <Image
+      <section className={getArtistGroupImage(slug) ? "relative overflow-hidden bg-[#8d6578] text-white" : "relative min-h-[274px] overflow-hidden bg-[#8d6578] text-white sm:min-h-[348px]"}>
+        {!getArtistGroupImage(slug) && <><Image
           src={heroImageSrc}
           alt=""
           fill
@@ -313,7 +315,7 @@ export function SetlistClient({
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#765065]/48 via-[#8d6578]/18 to-[#8d6578]/92" />
-        <div className="absolute inset-x-0 bottom-0 h-[72%] bg-gradient-to-t from-[#8d6578] via-[#8d6578]/84 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-[72%] bg-gradient-to-t from-[#8d6578] via-[#8d6578]/84 to-transparent" /></>}
         <Header
           title="セトリ"
           backHref={`/artists/${slug}`}
@@ -329,7 +331,8 @@ export function SetlistClient({
             </div>
           }
         />
-        <div className="zr-container absolute inset-x-0 bottom-0 z-10 pb-5 sm:pb-7">
+        {getArtistGroupImage(slug) && <ArtistGroupPhoto key={slug} slug={slug} name={artist.name} variant="hero" priority />}
+        <div className={getArtistGroupImage(slug) ? "zr-container relative z-10 pb-5 pt-5 sm:pb-7" : "zr-container absolute inset-x-0 bottom-0 z-10 pb-5 sm:pb-7"}>
           <p className="text-[10px] font-black tracking-[0.24em] text-[#ffb1cb]">SETLIST ARCHIVE</p>
           <h1 className="mt-2 text-[29px] font-black leading-[1.1] tracking-[-0.05em] sm:text-[44px]">セトリ・ライブの曲順</h1>
           <p className="mt-2 text-[11px] font-bold text-white/76 sm:text-[13px]">{artist.name}</p>

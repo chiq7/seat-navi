@@ -4,6 +4,8 @@ import { Suspense, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Building2, CalendarDays, MapPin, MoveRight, Search, X } from "lucide-react";
+import ArtistGroupPhoto from "@/components/common/ArtistGroupPhoto";
+import { getArtistGroupImage } from "@/lib/artistGroupImages";
 import FavoriteArtistButton from "@/components/auth/FavoriteArtistButton";
 import { Header } from "@/components/common/Header";
 import { InfoListRow } from "@/components/common/InfoListRow";
@@ -212,9 +214,10 @@ function SearchPageInner() {
                   <Link
                     key={artist.slug}
                     href={`/artists/${artist.slug}`}
-                    className="zr-focus flex min-h-[56px] items-center justify-between gap-2 border-b border-r border-[#ded8dc] bg-white px-3 text-[12px] font-black text-[#4b4148]"
+                    className="zr-focus flex min-h-[56px] flex-wrap items-center justify-between gap-2 border-b border-r border-[#ded8dc] bg-white px-3 py-3 text-[12px] font-black text-[#4b4148]"
                   >
-                    <span className="truncate">{artist.name}</span><MoveRight size={14} className="shrink-0 text-[#f43679]" />
+                    <span className="block w-full"><ArtistGroupPhoto slug={artist.slug} name={artist.name} variant="tile" /></span>
+                    <span className="min-w-0 flex-1 truncate">{artist.name}</span><MoveRight size={14} className="shrink-0 text-[#f43679]" />
                   </Link>
                 ))}
               </div>
@@ -319,7 +322,7 @@ function SearchPageInner() {
                       search_term: query.trim(),
                     })}
                   >
-                    <span className="text-[9px] font-black tracking-[0.16em] text-[#f43679]">ARTIST<br />{String(index + 1).padStart(2, "0")}</span>
+                    {getArtistGroupImage(artist.slug) ? <ArtistGroupPhoto slug={artist.slug} name={artist.name} /> : <span className="text-[9px] font-black tracking-[0.16em] text-[#f43679]">ARTIST<br />{String(index + 1).padStart(2, "0")}</span>}
                     <span className="block truncate text-[16px] font-black tracking-[-0.035em] text-[#4b4148]">{artist.name}</span>
                     <MoveRight size={17} className="shrink-0 text-[#f43679]" />
                   </InfoListRow>
