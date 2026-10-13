@@ -364,7 +364,7 @@ export function EventDetailClient({
                 <div className="flex flex-col gap-4 border-b border-[#ded8dc] pb-4 sm:flex-row sm:items-end sm:justify-between">
                   <div>
                     <p className="artist-kicker">Live Seat Map</p>
-                    <h2 id="seat-map-title" className="artist-heading"><span className="inline-block">みんなの</span><span className="inline-block">座席報告マップ</span></h2>
+                    <h2 id="seat-map-title" className="artist-heading"><span className="inline-block">みんなの</span><span className="inline-block">座席表</span></h2>
                     <p className="mt-3 text-[12px] font-medium leading-6 text-[#817981]">
                       {interactiveSeatMap ? `座席報告は${mapDetailEvents.map(ev => fmtShortDate(ev.date)).join("・")}合算` : "実際の座席報告を色分け。会場の座席表と照らし合わせて確認できます。"}
                     </p>

@@ -259,8 +259,8 @@ export function ArenaReportMap({
     try {
       if (navigator.share) {
         await navigator.share({
-          title: `${BRAND_NAME}の座席報告マップ`,
-          text: "このマップをスクショして、スマホの編集機能で花道・センステ予想を書き込んで投稿しよう",
+          title: `${BRAND_NAME}の座席表（座席報告）`,
+          text: "この座席表をスクショして、スマホの編集機能で花道・センステ予想を書き込んで投稿しよう",
           url,
         });
         setShareStatus("共有を開きました");
@@ -459,7 +459,7 @@ export function ArenaReportMap({
           WebkitTouchCallout: "none",
           ...(isCompact ? { marginLeft: "50%", transform: "translateX(-50%)" } : {}),
         }}
-        aria-label={focusedBlock ? `${focusedBlock.blockName}ブロックを拡大した座席報告マップ（模式図）` : "座席報告マップ（参考・模式図）"}
+        aria-label={focusedBlock ? `${focusedBlock.blockName}ブロックを拡大した座席表（座席報告・模式図）` : "座席表（座席報告・参考・模式図）"}
       >
         <defs>
           <linearGradient id="arena-stage-surface" x1="0" x2="0" y1="0" y2="1">
@@ -753,7 +753,7 @@ export function ArenaReportMap({
       {!isCompact && !hideShareSection && (
         <div className={`mt-3 rounded-xl border border-purple-100 bg-purple-50/60 p-3${mapFullBleed ? " mx-4" : ""}`}>
           <p className="text-[11px] font-bold text-gray-800">
-            このマップをスクショして、スマホの編集機能で花道・センステ予想を書き込んで投稿しよう
+            この座席表をスクショして、スマホの編集機能で花道・センステ予想を書き込んで投稿しよう
           </p>
           <div className="mt-3 grid grid-cols-2 gap-2">
             <button
@@ -761,7 +761,7 @@ export function ArenaReportMap({
               onClick={handleShare}
               className="rounded-full bg-[#ef4f87] px-3 py-2 text-[11px] font-bold text-white"
             >
-              このマップを共有する
+              この座席表を共有する
             </button>
             {submitPredictionHref ? (
               <a

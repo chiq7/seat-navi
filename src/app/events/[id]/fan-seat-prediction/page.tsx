@@ -328,7 +328,7 @@ export default function FanSeatPredictionPage({
               </span>
             </div>
             <p className="mt-0.5 text-[9px] text-gray-400">
-              会場マップの画像に花道・センステの位置を書き込んで投稿できます
+              会場の座席表画像に花道・センステの位置を書き込んで投稿できます
             </p>
 
             {!previewUrl && event && (
@@ -338,14 +338,14 @@ export default function FanSeatPredictionPage({
                   onClick={() => setMapOpen((o) => !o)}
                   className="zr-focus flex min-h-12 w-full items-center justify-center gap-1 border border-[#f43679] bg-[#fff0f5] text-[11px] font-black text-[#f43679]"
                 >
-                  {mapOpen ? "▲ マップを閉じる" : "▼ 会場マップから予想図を作る"}
+                  {mapOpen ? "▲ 座席表を閉じる" : "▼ 座席表から予想図を作る"}
                 </button>
 
                 {mapOpen && (
                   <div className="mt-2 border border-[#f43679]/25 bg-[#fff0f5] p-4">
                     <ol className="space-y-1 text-[10px] leading-relaxed text-gray-600">
                       <li>
-                        <span className="font-bold text-[#FF6B9D]">①</span> 下のボタンでマップ画像をスマホに保存
+                        <span className="font-bold text-[#FF6B9D]">①</span> 下のボタンで座席表画像をスマホに保存
                       </li>
                       <li>
                         <span className="font-bold text-[#FF6B9D]">②</span> 写真アプリなどの編集機能で花道・センステの位置を書き込む
