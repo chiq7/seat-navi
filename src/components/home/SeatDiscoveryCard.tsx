@@ -3,7 +3,7 @@
 import { useCallback, useState, type ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, CalendarDays, Info, MapPin, Plus, Map } from "lucide-react";
+import { ArrowUpRight, CalendarDays, MapPin, Plus, Map } from "lucide-react";
 import { ArenaReportMap } from "@/components/arena-map/ArenaReportMap";
 import { discoveryDateLabel, discoveryLotterySummary, seatDiscoveryLinks, summarizeDiscovery, type SeatDiscoveryData } from "@/lib/seatDiscovery";
 import styles from "./SeatDiscoveryCard.module.css";
@@ -14,9 +14,8 @@ import { predictionDetailHref, type PredictionView } from "@/lib/arena-map/predi
 
 const ignoreAddress = () => {};
 
-export default function SeatDiscoveryCard({ data, favoriteControl, preview = false, historical = false, sourceNote }: { data: SeatDiscoveryData; favoriteControl?: ReactNode; preview?: boolean; historical?: boolean; sourceNote?: string }) {
+export default function SeatDiscoveryCard({ data, favoriteControl, preview = false, historical = false }: { data: SeatDiscoveryData; favoriteControl?: ReactNode; preview?: boolean; historical?: boolean; sourceNote?: string }) {
   const [eventId, setEventId] = useState(data.selectedEventId);
-  const [showInfo, setShowInfo] = useState(false);
   const [view, setView] = useState<(PredictionView & { eventId: string }) | undefined>();
   const onViewChange = useCallback((next: PredictionView) => setView({ ...next, eventId }), [eventId]);
   // The normal upcoming and historical cards stay light: only the explicit local preview opts in.
@@ -32,7 +31,6 @@ export default function SeatDiscoveryCard({ data, favoriteControl, preview = fal
   const lottery = discoveryLotterySummary(data);
   const pendingRates = !lottery;
   const instanceId = data.artistSlug + "-" + data.selectedEventId + (preview ? "-preview" : "");
-  const infoId = "seat-info-" + instanceId;
 
   return (
     <article id={preview ? "seat-card-preview" : undefined} aria-label={data.artistName + "の座席情報"} className={styles.card + (!hasMap ? " " + styles.compactCard : "")}>
@@ -48,9 +46,9 @@ export default function SeatDiscoveryCard({ data, favoriteControl, preview = fal
         <div className={styles.metaRow}>{event && <div className={styles.meta}>
         <p><MapPin size={15} aria-hidden="true" /><strong>{event.venue}</strong></p>
         <p className={styles.dateRow}><CalendarDays size={15} aria-hidden="true" /><span>{historical && <><strong className={styles.pastLabel}>過去公演</strong>{event.date.slice(0, 4)}年 · </>}{data.events.map(item => discoveryDateLabel(item.date)).join("・")}</span>{venueSeatHref && <Link href={venueSeatHref} className={"zr-focus " + styles.inlineMap} aria-label={event?.venue + "の会場の座席表を見る"}>会場の座席表<ArrowUpRight size={14} aria-hidden="true" /></Link>}</p>
-      </div>}<button type="button" className={"zr-focus " + styles.infoButton} aria-label="集計・表示の説明" aria-expanded={showInfo} aria-controls={infoId} onClick={() => setShowInfo(value => !value)}><Info size={19} aria-hidden="true" /></button></div>
+      </div>}</div>
 
-      <div className={styles.previewRow + (pendingRates ? " " + styles.pendingPreview : "")}>
+      {(hasMap || lottery) && <div className={styles.previewRow + (pendingRates ? " " + styles.pendingPreview : "")}>
         {hasMap && <div className={styles.figure}>
           <p className={styles.figureLabel}>座席表</p>
           {predictionPreview ? <div className={styles.map}>
@@ -64,7 +62,7 @@ export default function SeatDiscoveryCard({ data, favoriteControl, preview = fal
             </Link>}
           {summary.blocks.length > 0 && <p className={styles.blocks}><span aria-hidden="true" className={styles.dot} />{summary.blocks.slice(0, 6).join(" · ")}{summary.blocks.length > 6 && " …"}</p>}
         </div>}
-        <div className={styles.stats + (pendingRates ? " " + styles.pendingStats : "")}>
+        {lottery && <div className={styles.stats}>
           <Link href={links.lottery} aria-label="当落データを見る（アーティスト全公演）" className={"zr-focus " + styles.lotteryLink}>
             {[
               { label: "チケット当選率", lines: ["チケット", "当選率"], value: lottery?.percent },
@@ -74,8 +72,9 @@ export default function SeatDiscoveryCard({ data, favoriteControl, preview = fal
               {pendingRates ? <span className={styles.statLabel} aria-label={metric.label}><span>{metric.lines[0]}</span><span className={styles.pendingValue}>{metric.lines[1]} <strong>—</strong></span></span> : <><span className={styles.statLabel} aria-label={metric.label}>{metric.lines.map(line => <span key={line}>{line}</span>)}</span><span className={styles.metrics}><strong className={styles.count}>{metric.value ?? "—"}</strong>{metric.value != null && <span>%</span>}</span></>}
             </span>)}
           </Link>
-        </div>
-      </div>
+          <p className={styles.note}>報告{lottery.total}件中、当選{lottery.won}件</p>
+        </div>}
+      </div>}
 
       <div className={styles.actions}>
         {hasMap && <Link href={mapHref} className={"zr-focus " + styles.primary}><Map size={17} aria-hidden="true" />座席表を見る<ArrowUpRight size={16} aria-hidden="true" /></Link>}
@@ -88,21 +87,6 @@ export default function SeatDiscoveryCard({ data, favoriteControl, preview = fal
         </div>}
       </div>
 
-      <div id={infoId} hidden={!showInfo} className={styles.infoPanel}>
-        {!hasMap && tourTitle && <p>{tourTitle}</p>}
-        {sourceNote && <p>{sourceNote}</p>}
-        {data.limited && <p>{isEventPredictionEnabled(eventId) ? "読込みが未完了のため、予想は表示しません。" : "表示対象：各情報源の最新500件まで"}</p>}
-        <p>率はこの会場・日程の報告内。詳細では全公演を確認できます。</p>
-        {lottery && <p>{lottery.scopeLabel} · {lottery.lotteryLabel} · 当選{lottery.won}／申込結果{lottery.total}件</p>}
-        {ready && <p>座席記録{summary.reportCount}件{summary.externalCount > 0 && <> · 外部参考情報 {summary.externalCount}件</>}</p>}
-        <p>図は座席位置の模式図。上記日程を合算しています。</p>
-        <p>当選率は報告内の割合。—は集計できるデータなし。</p>
-        <p>チケット：当選／申込結果。通常アリーナ：アプグレ当選を除く座席判明済みの当選報告内。アプグレ：申込報告内。—は集計できるデータなし。</p>
-        {lottery && <p>通常アリーナ {lottery.normalArena?.won ?? 0}／{lottery.normalArena?.total ?? 0}件 · アプグレ {lottery.upgrade?.won ?? 0}／{lottery.upgrade?.total ?? 0}件</p>}
-        {ready && summary.reportCount > summary.seatCount && <p>重複位置を除くと{summary.seatCount}席</p>}
-        {summary.blocks.length > 0 && <p>報告ブロック：{summary.blocks.join("・")}</p>}
-        {summary.externalCount > 0 && <p>範囲情報は確定席数に含めません。</p>}
-      </div>
     </article>
   );
 }
