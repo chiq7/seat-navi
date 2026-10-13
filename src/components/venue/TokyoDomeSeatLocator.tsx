@@ -524,8 +524,8 @@ export function TokyoDomeSeatLocator() {
                 const active = guide.id === verifiedNumberGuide?.id;
                 const sign = placeNumberLabel({ x: guide.point[0], y: guide.point[1] }, { x: guide.point[0] + guide.direction[0], y: guide.point[1] + guide.direction[1] }, 52 / screenScale, 28 / screenScale, 6 / screenScale, 20 / screenScale);
                 return <g key={guide.id} data-seat-number={guide.number} data-number-block={active?selected?.code:undefined}>
-                  <path data-number-badge="" d={numberBadgePath(sign.rect, 5 / screenScale)} fill={active?"#a93164":"#fff0f6"} stroke={active?"#fff":"#b97494"} strokeWidth={active?2:1} vectorEffect="non-scaling-stroke" />
-                  <text x={guide.point[0]} y={guide.point[1]} textAnchor="middle" dominantBaseline="central" fontSize={(active?14:12) / screenScale} fontWeight="800" fill={active?"#fff":"#783b59"}>{guide.number}番</text>
+                  <path data-number-badge="" d={numberBadgePath(sign.rect, 5 / screenScale)} fill="#fff" stroke={active?"#a93164":"#b97494"} strokeWidth={active?2:1} vectorEffect="non-scaling-stroke" />
+                  <text x={guide.point[0]} y={guide.point[1]} textAnchor="middle" dominantBaseline="central" fontSize={(active?14:12) / screenScale} fontWeight="800" fill="#783b59">{guide.number}番</text>
                   <SeatNumberArrow from={sign.from} to={{x:sign.from.x+guide.direction[0]*20/screenScale,y:sign.from.y+guide.direction[1]*20/screenScale}} unit={1/screenScale}/>
                 </g>;
               })}</g>

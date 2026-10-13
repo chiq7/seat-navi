@@ -286,9 +286,9 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
         {arrow && <SeatNumberArrow from={{x:arrow.start[0],y:arrow.start[1]}} to={{x:arrow.end[0],y:arrow.end[1]}} />}
         {labels.filter(l => l.anchor).map(l => <line key={`label-stem-${l.id}`} x1={l.anchor![0]} y1={l.anchor![1]} x2={l.x} y2={l.y} stroke="#a93164" strokeWidth="1" pointerEvents="none"/>)}
         {labels.map(l => <g key={l.id} data-annotation={l.id} data-annotation-kind={l.kind} transform={`translate(${l.x},${l.y})`} data-block-id={l.selected ? undefined : l.id} className={l.selected ? undefined : `${styles.block} ${wholeNumbers && pulse ? styles.blockPrompt : ""}`} pointerEvents={l.selected ? "none" : "all"}>
-          {l.kind === "number" ? <path d={`M${-l.width / 2 + 5},${-l.height / 2}H${l.width / 2 - 5}L${l.width / 2},${-l.height / 2 + 5}V${l.height / 2 - 5}L${l.width / 2 - 5},${l.height / 2}H${-l.width / 2 + 5}L${-l.width / 2},${l.height / 2 - 5}V${-l.height / 2 + 5}Z`} fill={l.selected ? "#81294d" : "#fff0f6"} stroke={l.selected ? "#fff" : "#e0a9c1"} strokeWidth={l.selected ? 2 : 1}/>
+          {l.kind === "number" ? <path d={`M${-l.width / 2 + 5},${-l.height / 2}H${l.width / 2 - 5}L${l.width / 2},${-l.height / 2 + 5}V${l.height / 2 - 5}L${l.width / 2 - 5},${l.height / 2}H${-l.width / 2 + 5}L${-l.width / 2},${l.height / 2 - 5}V${-l.height / 2 + 5}Z`} fill="#fff" stroke={l.selected ? "#81294d" : "#e0a9c1"} strokeWidth={l.selected ? 2 : 1}/>
             : <rect x={-l.width / 2} y={-l.height / 2} width={l.width} height={l.height} rx={l.kind === "row" ? 4 : 12} fill="#fff" fillOpacity={l.selected ? 1 : .87} stroke={l.kind === "row" ? "#b97494" : "none"} strokeWidth="1.3"/>}
-          <text textAnchor="middle" y="5" fill={l.kind === "number" && l.selected ? "#fff" : l.kind === "row" ? "#522e45" : "#7c284d"} fontSize={l.selected ? 14 : 12} fontWeight={l.kind === "number" ? 800 : 750} style={{ fontVariantNumeric: "tabular-nums" }}>{l.text}</text>
+          <text textAnchor="middle" y="5" fill={l.kind === "row" ? "#522e45" : "#7c284d"} fontSize={l.selected ? 14 : 12} fontWeight={l.kind === "number" ? 800 : 750} style={{ fontVariantNumeric: "tabular-nums" }}>{l.text}</text>
         </g>)}
       </svg>
       {position && <span className={styles.front}>{position.label}付近</span>}

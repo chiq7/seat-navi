@@ -263,8 +263,8 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
         {numberLabels.map(({ block, drawing, sign: { rect }, arrow, rowRange, rangeRect, compact }) => <g key={block.code} data-number-guide={block.code} data-reference-row={drawing.referenceRow} data-start-number={drawing.seatStart} data-compact-number={compact || undefined}>
           <title>{block.rowLabelIsPrinted ? `${drawing.referenceRow}列の番号目安。列によって端の番号が変わります。` : "FBの印字された開始番号と番号が増える向き。検索の列は0です。"}</title>
           {arrow && <SeatNumberArrow from={arrow.from} to={arrow.to} />}
-          <path data-number-badge="" d={numberBadgePath(rect, compact ? 3 : 5)} fill={block.code === selectedCode ? "#ac2e66" : "#fffc"} stroke={block.code === selectedCode ? "#fff" : "none"} />
-          <text data-number-text="" x={rect.x} y={rect.y + (compact ? 4 : 5)} textAnchor="middle" fontSize={compact ? 12 : 14} fill={block.code === selectedCode ? "#fff" : "#672442"}>{drawing.seatStart}{!compact && <tspan fontSize="12">番</tspan>}</text>
+          <path data-number-badge="" d={numberBadgePath(rect, compact ? 3 : 5)} fill="#fff" stroke={block.code === selectedCode ? "#ac2e66" : "#b97494"} strokeWidth={block.code === selectedCode ? 2 : 1} />
+          <text data-number-text="" x={rect.x} y={rect.y + (compact ? 4 : 5)} textAnchor="middle" fontSize={compact ? 12 : 14} fill="#672442">{drawing.seatStart}{!compact && <tspan fontSize="12">番</tspan>}</text>
           {rangeRect && <g><rect data-row-range-badge={block.code} x={rangeRect.x - rangeRect.width / 2} y={rangeRect.y - 12} width={rangeRect.width} height="24" rx="4" fill="#fffc" /><text data-row-range={block.code} x={rangeRect.x} y={rangeRect.y + 4} textAnchor="middle" fontSize="12" fontWeight="600" fill="#76576a">{rowRange}</text></g>}
         </g>)}
         {centralLabels.filter(c => !placedLabels.some(l => l.block.code === c.code && l.showRange)).map(({ code, rect, letter }) => <text key={code} x={rect.x} y={rect.y + 4} textAnchor="middle" fontSize="12">{letter}</text>)}

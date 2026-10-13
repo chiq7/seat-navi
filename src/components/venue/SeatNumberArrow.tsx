@@ -5,7 +5,7 @@ export default function SeatNumberArrow({ from, to, unit = 1 }: {
 }) {
   const d = seatNumberArrowPath(from, to, unit);
   return d ? <g pointerEvents="none" aria-hidden="true">
-    <path d={d} fill="#762848" stroke="#fff" strokeWidth={3 * unit} strokeLinejoin="round" />
-    <path data-number-arrow="" data-shaft-px="3" data-head-px="8" d={d} fill="#762848" />
+    <path d={d} fill="#fff" stroke="#762848" strokeWidth={1 * unit} strokeLinejoin="round" />
+    <path data-number-arrow="" data-shaft-px="3" data-head-px="8" d={d} fill="#fff" />
   </g> : null;
 }
