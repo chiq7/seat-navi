@@ -30,6 +30,7 @@ import { focusedSeatPosition, isInteractiveSeatMapPilot, parseSeatReportId, SEAT
 import { eventSeatGroup } from "@/lib/arena-map/eventSeatGroup";
 import { isEventPredictionEnabled } from "@/lib/arena-map/eventPredictionInput";
 import { readArenaReports } from "@/lib/arena-map/readArenaReports";
+import { getPublicVenueSeatGuideHref } from "@/lib/publicVenueGuides";
 
 const SEAT_REPORT_FIELDS = "id, event_id, block, row_num, seat_num, lottery_type, fc_history, payment_method, lottery_round, lottery_name, comment, created_at";
 
@@ -271,6 +272,8 @@ export function EventDetailClient({
     [sortedPredictions, topPredictionId],
   );
 
+  const venueSeatHref = getPublicVenueSeatGuideHref(event?.venue_id);
+
   return (
     <div className="community-page">
       <main className="pb-20">
@@ -278,7 +281,7 @@ export function EventDetailClient({
           <>
           <section className="community-hero">
               <Header
-                title="座席予想"
+                title={venueMiniGuide ? "座席情報" : "座席予想"}
                 backHref={backHref}
                 backLabel="アーティストページへ戻る"
                 rightSlot={
@@ -295,8 +298,8 @@ export function EventDetailClient({
 
               <CompactHeroIntro
                 eyebrow="VENUE SEAT GUIDE"
-                title="座席表と"
-                accent="アリーナ予想"
+                title={venueMiniGuide ? "座席情報を" : "座席表と"}
+                accent={venueMiniGuide ? "募集中" : "アリーナ予想"}
                 subtitle={event.title}
                 icon={<Sparkles size={21} strokeWidth={1.8} className="text-[#6176d7]" />}
               >
@@ -318,10 +321,10 @@ export function EventDetailClient({
             artistName={artist?.name}
             footer={event.venue_id ? (
                 <Link
-                  href={`/venues/${event.venue_id}`}
+                  href={venueSeatHref ?? `/venues/${event.venue_id}`}
                   className="zr-focus mt-2 inline-flex min-h-11 items-center gap-2 text-[11px] font-black text-[#f43679] sm:text-[12px]"
                 >
-                  <MapPin size={15} />{event.venue}の会場・座席表をもっと見る →
+                  <MapPin size={15} />{venueSeatHref ? "会場の座席表を見る" : "会場情報を見る"} →
                 </Link>
               ) : null}
           />
@@ -339,7 +342,8 @@ export function EventDetailClient({
           {venueMiniGuide ? (
             <section className="zr-container py-6 sm:py-8" aria-labelledby="event-empty-title" data-event-empty-state>
               <p className="artist-kicker">FIRST REPORT</p>
-              <h2 id="event-empty-title" className="artist-heading">最初のレポを募集中</h2>
+              <h2 id="event-empty-title" className="artist-heading">座席の報告を募集中</h2>
+              <p className="mt-3 text-[13px] leading-6 text-[#71636c]">この公演の座席表・アリーナ予想図はまだ投稿されていません。</p>
               <div className="mt-4 border-y border-[#ded8dc] bg-white px-4 py-3">
                 <p className="truncate text-[14px] font-black text-[#40383d]">
                   {venueMiniGuide.venueHref ? <Link href={venueMiniGuide.venueHref}>{venueMiniGuide.venueName}</Link> : venueMiniGuide.venueName}
@@ -352,10 +356,10 @@ export function EventDetailClient({
                 </Link>
               )}
               <Link
-                href={`/report/live?event=${encodeURIComponent(eventId)}`}
+                href={`/report/ticket?event=${encodeURIComponent(eventId)}`}
                 className="zr-focus mt-3 flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[#f43679] px-5 text-[12px] font-black text-white"
               >
-                <Sparkles size={16} aria-hidden="true" />最初のレポを投稿
+                <Sparkles size={16} aria-hidden="true" />座席を報告
               </Link>
             </section>
           ) : (<>

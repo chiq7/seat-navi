@@ -32,6 +32,11 @@ export function hasPublicVenueGuide(id: string): boolean {
   return PUBLIC_VENUE_GUIDE_IDS.includes(id);
 }
 
+export function getPublicVenueSeatGuideHref(id: string | null | undefined): string | null {
+  if (!id || !hasPublicVenueGuide(id)) return null;
+  return `/venues/${encodeURIComponent(id)}#${id === "tokyo-dome" ? "dome-seats" : "venue-seats"}`;
+}
+
 export function getPublicVenueName(id: string, fallback: string): string {
   if (id === "gaishi-hall") return "クロコくんホール（旧日本ガイシホール）";
   if (id === "marine-messe") return "マリンメッセ福岡A館";
