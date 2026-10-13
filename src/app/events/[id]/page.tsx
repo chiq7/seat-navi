@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   ].filter((v): v is string => Boolean(v));
   const countText = countParts.length > 0 ? `${countParts.join("、")}。` : "";
   const descriptionSubject = appendVenueOnce(`${artistName} ${tourName}`, event.venue);
-  const description = `${descriptionSubject} ${dateLabel}の${countText}当落、座席位置、アリーナ予想、現地レポを確認できます。`;
+  const description = `${descriptionSubject} ${dateLabel}の${countText}座席表、当落、アリーナ予想、現地レポを確認できます。`;
 
   return buildMeta({
     path: `/events/${eventId}`,

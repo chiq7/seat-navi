@@ -11,9 +11,9 @@ import "./globals.css";
 const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 const BING_VERIFICATION = process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION;
 
-const SITE_TITLE = "ちけレポ｜当落・座席・現地レポ共有";
+const SITE_TITLE = "ちけレポ｜ライブの座席表・当落・現地レポ";
 const SITE_DESCRIPTION =
-  "ちけレポ｜ライブ・公演の当落結果、座席報告、現地レポをみんなで共有。座席傾向や会場情報を公演ごとに見える化します。";
+  "ライブ・コンサートの座席表、座席報告、アリーナ予想図、チケット当落、現地レポ、セットリストを共有。会場別の座席検索やアクセス・ロッカー情報と、ファンの投稿から席の見え方を確認できます。";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://tixrepo.com"),

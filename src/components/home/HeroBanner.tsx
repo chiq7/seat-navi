@@ -23,7 +23,7 @@ export default function HeroBanner() {
         <div className="zr-container relative flex items-center py-6 sm:py-9 lg:py-10">
           <div className="max-w-[620px]">
             <h1 className="text-[26px] font-black leading-[1.3] tracking-[-0.04em] text-white sm:text-[40px] lg:text-[46px]">
-              <span className="block">みんなの座席から、</span>
+              <span className="block">みんなの座席表から、</span>
               <span className="block text-[#ff6fa6]">ステージ配置を予想。</span>
             </h1>
             <p className="mt-2 text-[13px] font-medium text-white/90">当選率・席からの写真も見られる</p>

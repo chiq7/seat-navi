@@ -23,9 +23,9 @@ import { getJstDateString } from "@/lib/artistPageData";
 import { getCachedRealtimeFeed, getCachedUpcomingHomeEvents } from "@/lib/serverHomeData";
 
 export const metadata: Metadata = {
-  title: "ちけレポ｜ライブの当落・座席・現地レポをみんなでシェア",
+  title: "ちけレポ｜ライブの座席表・当落・現地レポ",
   description:
-    "コンサートのチケット当落、座席位置、アリーナ予想図、現地レポ、セットリストを共有するサイト。ファンの報告から当選率や座席の見え方が分かります。",
+    "ライブ・コンサートの座席表、座席報告、アリーナ予想図、チケット当落、現地レポ、セットリストを共有。会場別の座席検索やアクセス・ロッカー情報と、ファンの投稿から席の見え方を確認できます。",
   alternates: { canonical: "https://tixrepo.com/" },
   robots: { index: true, follow: true },
 };

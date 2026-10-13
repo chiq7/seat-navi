@@ -18,8 +18,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!artist) notFound();
   const profile = getArtistSeoProfile(slug);
 
-  const title = `${artist.name}の当落・座席・現地レポ｜ちけレポ`;
-  const description = profile?.metaDescription ?? `${artist.name}のチケット当選率、座席報告、アリーナ予想図、現地レポ、セットリストをまとめて確認。ファンの実際の報告データを掲載。`;
+  const title = `${artist.name}の座席表・当落・現地レポ｜ちけレポ`;
+  const description = profile?.metaDescription ?? `${artist.name}のライブの座席表、チケット当選率、座席報告、アリーナ予想図、現地レポ、セットリストをまとめて確認。ファンの実際の報告データを掲載。`;
   const ogImagePath = `/api/og/artist/${slug}`;
 
   return {
