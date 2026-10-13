@@ -343,7 +343,7 @@ export function EventDetailClient({
             <section className="zr-container py-6 sm:py-8" aria-labelledby="event-empty-title" data-event-empty-state>
               <p className="artist-kicker">FIRST REPORT</p>
               <h2 id="event-empty-title" className="artist-heading">座席の報告を募集中</h2>
-              <p className="mt-3 text-[13px] leading-6 text-[#71636c]">この公演の座席表・アリーナ予想図はまだ投稿されていません。</p>
+              <p className="mt-3 text-[13px] leading-6 text-[#71636c]">座席表・アリーナ予想図の投稿はまだありません。</p>
               <div className="mt-4 border-y border-[#ded8dc] bg-white px-4 py-3">
                 <p className="truncate text-[14px] font-black text-[#40383d]">
                   {venueMiniGuide.venueHref ? <Link href={venueMiniGuide.venueHref}>{venueMiniGuide.venueName}</Link> : venueMiniGuide.venueName}

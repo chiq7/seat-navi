@@ -34,7 +34,7 @@ export function hasPublicVenueGuide(id: string): boolean {
 
 export function getPublicVenueSeatGuideHref(id: string | null | undefined): string | null {
   if (!id || !hasPublicVenueGuide(id)) return null;
-  return `/venues/${encodeURIComponent(id)}#${id === "tokyo-dome" ? "dome-seats" : "venue-seats"}`;
+  return `/venues/${encodeURIComponent(id)}#venue-seat-guide`;
 }
 
 export function getPublicVenueName(id: string, fallback: string): string {

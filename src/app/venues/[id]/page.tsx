@@ -143,7 +143,7 @@ export default async function VenuePage({ params }: Props) {
         </div>
       </section>
 
-      {hasGuide && <PublicVenueGuide venue={venue.id} />}
+      {hasGuide && <div id="venue-seat-guide" className="scroll-mt-[90px]"><PublicVenueGuide venue={venue.id} /></div>}
 
       <div className="zr-container">
         <section className="py-8 sm:py-10" aria-labelledby="upcoming-events-title">
