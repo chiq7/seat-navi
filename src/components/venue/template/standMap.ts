@@ -26,6 +26,17 @@ export type StandPosition = { id: string; label: string; aliases: string[]; leve
 export type StandMapData = { diagramId: string; viewBox: number[]; detailSpan: number; blocks: StandBlock[]; levelViews?: Record<string, number[]>; areaViews?: Record<string, number[]>; regionViews?: Record<string, number[]>; zones?: StandZone[]; positionTargets?: StandPosition[]; overviewAreas?: { id: string; label: string; area: string; point: Point }[]; areaBlockNames?: boolean; blockNameLabels?: boolean; numericAliasesAreBlocks?: boolean; contextLabels?: { text: string; point: Point }[]; wholeBlockLabels?: boolean; wholeStartNumbers?: boolean; searchPlaceholder?: string; rowSearchPlaceholder?: string; rowZonePrefixes?: boolean; numberSidePrefixes?: string[]; frontLabel?: string; numberLookupNote?: string };
 export const normalizeSeatInput = (value: string) => value.normalize("NFKC").toUpperCase().replace(/\s+/g, "").replace(/[列段番]$/, "");
 
+export function parseStandRowInput(data: StandMapData, value: string) {
+  const row = normalizeSeatInput(value);
+  const zone = data.rowZonePrefixes ? data.zones?.find(z => row.startsWith(z.label) && /^[-・/:]?\d+$/.test(row.slice(z.label.length))) : undefined;
+  return { row: zone ? row.slice(zone.label.length).replace(/^[-・/:]/, "") : row, zone };
+}
+
+export function standSelectedRow(data: StandMapData, block: StandBlock | undefined, value: string) {
+  const { row, zone } = parseStandRowInput(data, value);
+  return block && (!zone || block.zone === zone.id || zone.blockIds.includes(block.id)) ? row : "";
+}
+
 // Printed row boundaries can be useful before individual seat numbers are
 // confirmed. Keep them separate from the segments used by ticket search.
 export function standDisplayRows(block: StandBlock) {
@@ -46,16 +57,15 @@ export function standDisplayRows(block: StandBlock) {
 }
 
 export function searchStandSeats(data: StandMapData, level: string, area: string, row: string, number: string, zoneId?: string | null): { matches: StandBlock[]; error: string; notice?: string; zone?: StandZone; position?: StandPosition } {
-  let r = normalizeSeatInput(row), n = normalizeSeatInput(number);
+  const rowInput = parseStandRowInput(data, row);
+  const r = rowInput.row;
+  let n = normalizeSeatInput(number);
   // Some tickets reset the same seat numbers on each side (L/R). Only venues
   // declaring these prefixes interpret them; other letter block searches keep
   // their existing meaning. Bare numbers still return all matching choices.
   const numberSide = data.numberSidePrefixes?.find(p => n.startsWith(p) && /^\d+$/.test(n.slice(p.length)));
   if (numberSide) n = n.slice(numberSide.length);
-  if (data.rowZonePrefixes) {
-    const rowZone = data.zones?.find(z => r.startsWith(z.label) && /^[-・/:]?\d+$/.test(r.slice(z.label.length)));
-    if (rowZone) { zoneId = rowZone.id; r = r.slice(rowZone.label.length).replace(/^[-・/:]/, ""); }
-  }
+  if (rowInput.zone) zoneId = rowInput.zone.id;
   // A printed block name in the row field is an area lookup. Letter row names
   // and declared zone+row ticket formats retain their row meaning.
   if (r && !/^\d+$/.test(r) && !data.blocks.some(b => b.rows.some(line => normalizeSeatInput(line.label) === r))) {
@@ -104,6 +114,18 @@ export function searchStandSeats(data: StandMapData, level: string, area: string
 export function standBlockLabel(data: StandMapData, block: StandBlock) {
   if (data.blockNameLabels) return block.label;
   return block.zone && block.numberReference ? `${data.areaBlockNames ? `${block.zone}・` : ""}${block.numberReference.start}番〜` : block.label;
+}
+
+export function standContextLabel(data: StandMapData, block: StandBlock, closestDetail: boolean) {
+  if (closestDetail && block.numberReference && block.numberLookup !== "unavailable") {
+    return { text: `${block.numberPrefix ?? ""}${block.numberReference.start}番`, point: youngEdgeMidpoint(block), fixed: true };
+  }
+  return { text: standBlockLabel(data, block), point: block.center, fixed: false };
+}
+
+export function standReferenceLabelKey(block: StandBlock, closestDetail: boolean) {
+  return closestDetail && block.numberLookup === "unavailable" && !block.numberReference && block.label.endsWith("・参考区画")
+    ? JSON.stringify([block.level, block.area, block.zone ?? "", block.label]) : null;
 }
 
 export function boundsOf(blocks: StandBlock[], padding = 28): MapBox {
@@ -201,4 +223,21 @@ export function placeRowLabel(position: Readonly<Point>, outward: Readonly<Point
     point = point.map((n, i) => n + direction[i] * 6);
   }
   return point;
+}
+
+export function placeVisibleRowLabel(position: Readonly<Point>, outward: Readonly<Point>, width: number, obstacles: number[][], anchor: Readonly<Point>, canvas: { width: number; height: number }): Point {
+  const placed = placeRowLabel(position, outward, width, obstacles);
+  // An off-screen source row stays off screen; never turn it into a frame-edge marker.
+  if (anchor[0] < 0 || anchor[0] > canvas.width || anchor[1] < 0 || anchor[1] > canvas.height) return placed;
+  const clear = (p: Point) => !obstacles.some(r => Math.abs(p[0] - r[0]) < (width + r[2]) / 2 + 4 && Math.abs(p[1] - r[1]) < (28 + r[3]) / 2 + 3);
+  const inside = (p: Point) => p[0] >= width / 2 + 2 && p[0] <= canvas.width - width / 2 - 2 && p[1] >= 17 && p[1] <= canvas.height - 17;
+  if (inside(placed) && clear(placed)) return placed;
+  const clamp = (p: Readonly<Point>) => [Math.max(width / 2 + 2, Math.min(canvas.width - width / 2 - 2, p[0])), Math.max(17, Math.min(canvas.height - 17, p[1]))];
+  const base = clamp(position);
+  // Only the row tag moves, with a short stem back to its unchanged source anchor.
+  for (const [dx, dy] of [[0,0], [0,32], [0,-32], [32,0], [-32,0], [0,48], [0,-48], [48,0], [-48,0]]) {
+    const candidate = clamp([base[0] + dx, base[1] + dy]);
+    if (inside(candidate) && clear(candidate) && Math.hypot(candidate[0] - anchor[0], candidate[1] - anchor[1]) <= 64) return candidate;
+  }
+  return placed;
 }

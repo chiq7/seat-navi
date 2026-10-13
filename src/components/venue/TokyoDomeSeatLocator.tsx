@@ -1,4 +1,5 @@
 "use client";
+import SeatNumberArrow from "./SeatNumberArrow";
 
 import { useCallback, useEffect, useRef, useState, type FormEvent, type PointerEvent as ReactPointerEvent } from "react";
 import ReadySearchControl, { useSeatControlsReady } from "./template/ReadySearchControl";
@@ -458,7 +459,7 @@ export function TokyoDomeSeatLocator() {
               onPointerDown={handleMapPointerDown} onPointerMove={handleMapPointerMove} onPointerUp={handleMapPointerEnd} onPointerCancel={handleMapPointerEnd} onLostPointerCapture={handleMapPointerEnd} onPointerLeave={event => { if (!event.currentTarget.hasPointerCapture(event.pointerId)) handleMapPointerEnd(event); }}
               className="block h-full w-full touch-none select-none cursor-grab active:cursor-grabbing" role="group"
               aria-label={selected ? `${selected.code}を強調した東京ドームの座席区画図` : "区画名と列の目安を描いた東京ドーム座席図"}>
-              <defs><marker id="tokyo-seat-number-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M2 2 L8 5 L2 8" fill="none" stroke="#783b59" strokeWidth="1.5"/></marker>
+              <defs>
                 {SHAPES.filter((area) => ROW_GUIDES.has(area.code)).map((area) => <clipPath key={area.code} id={`tokyo-rows-${area.code}`}><path d={area.path!} /></clipPath>)}
                 {BALCONY_GROUP_PATHS.map((path, index) => <clipPath key={index} id={`tokyo-balcony-${index}`}><path d={path} /></clipPath>)}
               </defs>
@@ -514,7 +515,7 @@ export function TokyoDomeSeatLocator() {
               <g pointerEvents="none">
                 {BALCONY_DIVIDERS.map((divider) => <path key={`${divider[0].join("-")}-${divider[1].join("-")}`} d={`M${divider[0][0]},${divider[0][1]} L${divider[1][0]},${divider[1][1]}`} fill="none" stroke="#fff" strokeWidth="1.05" vectorEffect="non-scaling-stroke" />)}
               </g>
-              {mapLabels.map(label => <text key={label.code} data-seat-label={label.code} x={label.x} y={label.y}
+              {mapLabels.filter(label => !(verifiedNumberGuide && label.code === selected?.code)).map(label => <text key={label.code} data-seat-label={label.code} x={label.x} y={label.y}
                 transform={`rotate(${label.angle},${label.x},${label.y})`} textAnchor="middle" dominantBaseline="central"
                 fontSize={label.fontSize} fontWeight="800" fontFamily="ui-sans-serif, sans-serif"
                 fill={selected?.code === label.code ? "#fff" : "#483340"} stroke={selected?.code === label.code ? "#a93164" : "#fff"}
@@ -525,7 +526,7 @@ export function TokyoDomeSeatLocator() {
                 return <g key={guide.id} data-seat-number={guide.number} data-number-block={active?selected?.code:undefined}>
                   <path data-number-badge="" d={numberBadgePath(sign.rect, 5 / screenScale)} fill={active?"#a93164":"#fff0f6"} stroke={active?"#fff":"#b97494"} strokeWidth={active?2:1} vectorEffect="non-scaling-stroke" />
                   <text x={guide.point[0]} y={guide.point[1]} textAnchor="middle" dominantBaseline="central" fontSize={(active?14:12) / screenScale} fontWeight="800" fill={active?"#fff":"#783b59"}>{guide.number}番</text>
-                  <path d={`M${sign.from.x},${sign.from.y} l${guide.direction[0]*20/screenScale},${guide.direction[1]*20/screenScale}`} stroke="#783b59" strokeWidth="1.4" vectorEffect="non-scaling-stroke" markerEnd="url(#tokyo-seat-number-arrow)"/>
+                  <SeatNumberArrow from={sign.from} to={{x:sign.from.x+guide.direction[0]*20/screenScale,y:sign.from.y+guide.direction[1]*20/screenScale}} unit={1/screenScale}/>
                 </g>;
               })}</g>
               {detailStage && selectedEdgeMarkers.map(({ row, point, anchor }) => point && <g key={`edge-${row}`} pointerEvents="none">

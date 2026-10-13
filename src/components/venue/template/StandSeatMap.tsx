@@ -3,8 +3,9 @@
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState, useId, type PointerEvent } from "react";
 import { Crosshair, X } from "lucide-react";
 import { DomeSeatFrame } from "./DomeSeatFrame";
+import SeatNumberArrow from "../SeatNumberArrow";
 import ReadySearchControl from "./ReadySearchControl";
-import { boundsOf, edgeNumberGuide, clampCamera, detailBox, isSeatTap, labelCoversOtherBlock, mapProjection, normalizeSeatInput, placeRowLabel, searchStandSeats, standBlockLabel, standDisplayRows, standLabelOrder, youngEdgeMidpoint, zoomCamera, zoneLabelPositions, type MapBox, type Point, type StandBlock, type StandMapData, type StandPosition } from "./standMap";
+import { boundsOf, edgeNumberGuide, clampCamera, detailBox, isSeatTap, labelCoversOtherBlock, mapProjection, normalizeSeatInput, placeVisibleRowLabel, searchStandSeats, standContextLabel, standDisplayRows, standLabelOrder, standReferenceLabelKey, standSelectedRow, youngEdgeMidpoint, zoomCamera, zoneLabelPositions, type MapBox, type Point, type StandBlock, type StandMapData, type StandPosition } from "./standMap";
 import styles from "./StandSeatMap.module.css";
 
 type Choice = { id: string; label: string; color: string; point: Point };
@@ -30,6 +31,7 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   const camera = useRef(view), gesture = useRef(freshGesture()), interacted = useRef(false);
   const uid = useId().replace(/:/g, ""), instructionId = `${uid}-keys`;
   const block = data.blocks.find(b => b.id === selected);
+  const highlightedRow = standSelectedRow(data, block, row);
   const projection = mapProjection(view, size.width, size.height);
   // A direction narrows the camera and ticket search, not the neighbouring map labels.
   const shown = data.blocks.filter(b => level === "all" || b.level === level);
@@ -37,6 +39,7 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   const blockOnlySearch = data.blocks.every(b => b.numberLookup === "unavailable");
   const whole = !selected && !zone && level === "all" && area === "all" && view[2] >= data.viewBox[2] * .9;
   const wholeNumbers = whole && data.wholeStartNumbers !== false && !data.wholeBlockLabels && data.blocks.some(b => b.label.includes("番"));
+  const closestDetail = Boolean(block) && view[2] <= data.detailSpan * .55;
 
   function stop() { if (frame.current !== null) cancelAnimationFrame(frame.current); frame.current = null; }
   function interaction() { interacted.current = true; setPulse(false); stop(); }
@@ -162,15 +165,14 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   }));
   const occupied = [...levelTags.map(l => { const p = projection.project(l.point); return [p[0], p[1], Math.max(64, l.label.length * 14 + 28), 44]; }), ...zoneTags.map(z => { const p = zonePositions.get(z.id)!; return [p[0], p[1], 44, 44]; })];
   occupied.push(...areaTags.map(a => { const p = areaPositions.get(a.id)!; return [p[0], p[1], 44, 44]; }));
-  occupied.push([size.width - 50, size.height - 34, 76, 44]);
   const labels: { id: string; text: string; x: number; y: number; width: number; height: number; kind: "row" | "number" | "block"; selected: boolean; anchor?: Point }[] = [];
   const blockCenters = shown.flatMap(b => [b.center, ...(b.labelAvoidancePoints ?? [])].map(point => ({ id: b.id, point: projection.project(point) })));
-  function addLabel(id: string, text: string, position: Point, important = false, width?: number) {
+  function addLabel(id: string, text: string, position: Point, important = false, width?: number, fixed = false) {
     const kind = id === "first-row" || id === "last-row" ? "row" : text.includes("番") ? "number" : "block";
     const fontSize = important ? 14 : 12;
     const textWidth = [...text].reduce((sum, char) => sum + fontSize * (char.charCodeAt(0) < 128 ? .6 : 1), 0);
     const w = width ?? Math.max(important || text.length > 2 ? 48 : 32, textWidth + 14), h = wholeNumbers && kind === "number" ? 22 : kind === "block" ? 26 : 28;
-    const offsets = important || wholeNumbers ? [[0, 0]] : [[0, 0], [-12, 12], [12, 12], [-12, -12], [12, -12], [0, 28], [0, -28]];
+    const offsets = important || wholeNumbers || fixed ? [[0, 0]] : [[0, 0], [-12, 12], [12, 12], [-12, -12], [12, -12], [0, 28], [0, -28]];
     for (const [dx, dy] of offsets) {
       const x = position[0] + dx, y = position[1] + dy;
       if (x < w / 2 + 2 || x > size.width - w / 2 - 2 || y < h / 2 + 3 || y > size.height - h / 2 - 3) continue;
@@ -207,13 +209,13 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
     }
     if (block.rowNameLookup !== "unavailable") {
       const firstOffset = displayRows.length === 1 ? 44 : 21;
-      for (const [id, row, point, direction] of [
-        ["first-row", displayRows[0], [fm[0] - dx * firstOffset, fm[1] - dy * firstOffset], [-dx, -dy]],
-        ...(lastRow !== displayRows[0] ? [["last-row", lastRow, [lm[0] + dx * 21, lm[1] + dy * 21], [dx, dy]] as const] : []),
+      for (const [id, row, point, direction, anchor] of [
+        ["first-row", displayRows[0], [fm[0] - dx * firstOffset, fm[1] - dy * firstOffset], [-dx, -dy], fm],
+        ...(lastRow !== displayRows[0] ? [["last-row", lastRow, [lm[0] + dx * 21, lm[1] + dy * 21], [dx, dy], lm] as const] : []),
       ] as const) {
         const text = `${row.label}列`;
         const width = Math.max(48, [...text].reduce((sum, char) => sum + 14 * (char.charCodeAt(0) < 128 ? .6 : 1), 0) + 14);
-        const placed = placeRowLabel(point, direction, width, rowObstacles);
+        const placed = placeVisibleRowLabel(point, direction, width, rowObstacles, anchor, size);
         addLabel(id, text, placed, true, width);
         rowObstacles.push([...placed, width, 28]);
       }
@@ -223,13 +225,23 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
       if (label) rowStems.push({ a: anchor, b: [label.x, label.y] });
     }
   }
+  const referenceLabels = new Set<string>();
+  const selectedReferenceKey = block && standReferenceLabelKey(block, closestDetail);
+  if (selectedReferenceKey && labels.some(l => l.id === "selected-block")) referenceLabels.add(selectedReferenceKey);
   if ((!whole || data.wholeBlockLabels || wholeNumbers) && !(whole && data.zones)) for (const b of standLabelOrder(shown, block)) {
     if (b.id === selected) continue;
     if (whole && data.blocks.filter(o => o.level === b.level).length === 1) continue;
     if (wholeNumbers && b.label.includes("番") && b.numberReference) {
       const text = `${b.numberReference.start}番`;
       addLabel(b.id, text, projection.project(b.center), false, Math.max(34, `${b.numberReference.start}`.length * 7 + 22));
-    } else addLabel(b.id, standBlockLabel(data, b), projection.project(b.center));
+    } else {
+      const context = standContextLabel(data, b, closestDetail);
+      const referenceKey = standReferenceLabelKey(b, closestDetail);
+      if (referenceKey && referenceLabels.has(referenceKey)) continue;
+      const before = labels.length;
+      addLabel(b.id, context.text, projection.project(context.point), false, undefined, context.fixed);
+      if (referenceKey && labels.length > before) referenceLabels.add(referenceKey);
+    }
   }
   const focusable = shown.filter(b => { const p = projection.project(b.center); return p[0] > 0 && p[0] < size.width && p[1] > 0 && p[1] < size.height; });
   return <DomeSeatFrame className={data.levelViews ? styles.levelControls : undefined} levels={[{ id: "all", label: "すべて" }, ...levels]} level={level} onLevel={id => chooseRegion(id, "all")}
@@ -259,7 +271,6 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
             if (next) setFocused(next.id);
           }
         }}>
-        <defs><marker id={`${uid}-arrow`} markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M1 1L5 3.5L1 6" fill="none" stroke="#fff" strokeWidth="1.5"/></marker></defs>
         <svg width={size.width} height={size.height} viewBox={view.join(" ")}>
           {data.contextLabels?.map((l, i) => <text key={`context-${i}`} x={l.point[0]} y={l.point[1]} textAnchor="middle" fill="#a38b98" fontSize={14 / projection.scale} pointerEvents="none">{l.text}</text>)}
           {data.blocks.map(b => <path key={b.id} d={b.path} fillRule="evenodd" data-block-id={b.id} className={`${styles.block} ${whole && pulse && data.wholeBlockLabels && !data.zones ? styles.blockPrompt : ""}`}
@@ -267,12 +278,12 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
             opacity={shown.includes(b) || selected ? 1 : .17} stroke={b.id === selected ? "#682840" : "#fff"} strokeWidth={b.id === selected ? 1.8 : 1}>
             <title>{`${b.level}${b.balcony ? " バルコニー" : ""} ${rowSummary(b)} ${b.label}`}</title>
           </path>)}
-          {block?.rows.flatMap((r, ri) => r.segments.map((s, i) => <polyline key={`${ri}-${i}`} points={(s.points ?? [s.a, s.b]).map(p => p.join(",")).join(" ")} fill="none" stroke="#fff" strokeOpacity={row && r.label === normalizeSeatInput(row) ? .95 : .35} strokeWidth={row && r.label === normalizeSeatInput(row) ? 1.4 : .45} pointerEvents="none"/>))}
+          {block?.rows.flatMap((r, ri) => r.segments.map((s, i) => <polyline key={`${ri}-${i}`} points={(s.points ?? [s.a, s.b]).map(p => p.join(",")).join(" ")} fill="none" stroke="#fff" strokeOpacity={highlightedRow && normalizeSeatInput(r.label) === highlightedRow ? .95 : .35} strokeWidth={highlightedRow && normalizeSeatInput(r.label) === highlightedRow ? 1.4 : .45} pointerEvents="none"/>))}
           {block && !block.rows.length && block.referenceRows?.map(r => <line key={`reference-${r.label}`} x1={r.a[0]} y1={r.a[1]} x2={r.b[0]} y2={r.b[1]} stroke="#fff" strokeOpacity=".5" strokeWidth=".6" pointerEvents="none"/>)}
           {data.blocks.filter(b => b.id === focused).map(b => <path key={b.id} d={b.path} fill="none" stroke="#512e47" strokeWidth={3 / projection.scale} className={styles.keyboardFocus} pointerEvents="none"/>)}
         </svg>
         {rowStems.map((stem, i) => <line key={`row-stem-${i}`} x1={stem.a[0]} y1={stem.a[1]} x2={stem.b[0]} y2={stem.b[1]} stroke="#a93164" strokeWidth="1.2" pointerEvents="none"/>)}
-        {arrow && <><line x1={arrow.start[0]} y1={arrow.start[1]} x2={arrow.end[0]} y2={arrow.end[1]} stroke="#81294d" strokeWidth="5" strokeLinecap="round" pointerEvents="none"/><line data-number-arrow="" x1={arrow.start[0]} y1={arrow.start[1]} x2={arrow.end[0]} y2={arrow.end[1]} stroke="#fff" strokeWidth="2" markerEnd={`url(#${uid}-arrow)`} pointerEvents="none"/></>}
+        {arrow && <SeatNumberArrow from={{x:arrow.start[0],y:arrow.start[1]}} to={{x:arrow.end[0],y:arrow.end[1]}} />}
         {labels.filter(l => l.anchor).map(l => <line key={`label-stem-${l.id}`} x1={l.anchor![0]} y1={l.anchor![1]} x2={l.x} y2={l.y} stroke="#a93164" strokeWidth="1" pointerEvents="none"/>)}
         {labels.map(l => <g key={l.id} data-annotation={l.id} data-annotation-kind={l.kind} transform={`translate(${l.x},${l.y})`} data-block-id={l.selected ? undefined : l.id} className={l.selected ? undefined : `${styles.block} ${wholeNumbers && pulse ? styles.blockPrompt : ""}`} pointerEvents={l.selected ? "none" : "all"}>
           {l.kind === "number" ? <path d={`M${-l.width / 2 + 5},${-l.height / 2}H${l.width / 2 - 5}L${l.width / 2},${-l.height / 2 + 5}V${l.height / 2 - 5}L${l.width / 2 - 5},${l.height / 2}H${-l.width / 2 + 5}L${-l.width / 2},${l.height / 2 - 5}V${-l.height / 2 + 5}Z`} fill={l.selected ? "#81294d" : "#fff0f6"} stroke={l.selected ? "#fff" : "#e0a9c1"} strokeWidth={l.selected ? 2 : 1}/>
@@ -283,7 +294,7 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
       {position && <span className={styles.front}>{position.label}付近</span>}
       {whole && !data.overviewAreas && <span className={styles.front}>{data.frontLabel ?? "↑ ステージ方向"}</span>}
       {zoneTags.map(z => { const p = zonePositions.get(z.id)!; return <button type="button" key={z.id} data-zone-id={z.id} aria-label={`${z.label}ブロックを拡大`} className={`${styles.zoneTag} ${pulse ? styles.zonePulse : ""}`} style={{ left: p[0], top: p[1] }} onClick={() => chooseZone(z.id)}><span>{z.label}</span></button>; })}
-      {areaTags.map(a => { const p = areaPositions.get(a.id)!; return <button type="button" key={a.id} data-area-id={a.id} aria-label={`${a.label}側を拡大`} className={`${styles.zoneTag} ${pulse ? styles.zonePulse : ""}`} style={{ left: p[0], top: p[1] }} onClick={() => chooseRegion("all", a.area)}><span>{a.label}</span></button>; })}
+      {areaTags.map(a => { const p = areaPositions.get(a.id)!; return <button type="button" key={a.id} data-area-id={a.id} aria-label={`${a.label}${a.label.endsWith("側") ? "" : "側"}を拡大`} className={`${styles.zoneTag} ${pulse ? styles.zonePulse : ""}`} style={{ left: p[0], top: p[1] }} onClick={() => chooseRegion("all", a.area)}><span>{a.label}</span></button>; })}
       {levelTags.map(l => { const p = projection.project(l.point); return <button type="button" key={l.id} className={`${styles.levelTag} ${pulse ? styles.pulse : ""}`} style={{ left: p[0], top: p[1] }} onClick={() => chooseRegion(l.id, "all")}>{l.label}</button>; })}
     </div>
     <div className={styles.mapActions}><button type="button" className={styles.whole} onClick={reset}>全体図へ</button></div>

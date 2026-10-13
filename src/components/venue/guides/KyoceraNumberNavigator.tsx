@@ -5,6 +5,7 @@ import { projectMapPoint, type Box } from "./mapGeometry";
 import { pathBounds, simplifiedRows, type DrawingBlock } from "./kyoceraMapDrawing";
 import { arrowOverlapsRect, clearNumberArrow, compactNeighbourNumber, placeNumberLabel, numberBadgePath, rectanglesOverlap, type LabelRect, type NumberLabel } from "./kyoceraNumberLabels";
 import { SEAT_DRAG_THRESHOLD, seatTapAllowed, spatialSeatTarget } from "@/lib/seatMapInteraction";
+import SeatNumberArrow from "../SeatNumberArrow";
 import gates from "@/data/venueGuides/kyocera-dome/seat-gates.json";
 import styles from "./KyoceraNumberNavigator.module.css";
 
@@ -137,7 +138,8 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
     const p = project(a.x, a.y), q = project(b.x, b.y);
     return Math.hypot(p.x - size.width / 2, p.y - size.height / 2) - Math.hypot(q.x - size.width / 2, q.y - size.height / 2);
   })[0] : undefined;
-  const focusRows = focusBlock ? (() => {
+  const closestView = shown[2] <= 90;
+  const focusRows = !closestView && focusBlock ? (() => {
     const p = project(focusBlock.x, focusBlock.y), text = focusBlock.rows.length === 1 ? `${focusBlock.rows[0].row}列` : `${focusBlock.rows[0].row}〜${focusBlock.rows.at(-1)!.row}列`;
     const rect = { x: p.x, y: p.y, width: text.length * 7 + 12, height: 24 };
     annotations.push({ rect }); return { code: focusBlock.code, rect, text };
@@ -145,14 +147,15 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
   const rowEnds = detail && selectedBlock?.rowLabelIsPrinted ? (() => {
     const drawing = simplifiedRows(selectedBlock);
     const points = selectedBlock.rows.length === 1 ? [drawing.front] : [drawing.front, drawing.back];
-    return points.map((point, i) => {
+    return points.flatMap((point, i) => {
       const p = project(point.x, point.y);
+      if (p.x < 0 || p.x > size.width || p.y < 0 || p.y > size.height) return [];
       const rect = { x: Math.max(28, Math.min(size.width - 28, p.x)), y: Math.max(14, Math.min(size.height - 14, p.y)), width: 56, height: 28 };
       annotations.push({ rect });
-      return { rect, anchor: p, row: (i ? selectedBlock.rows.at(-1)! : selectedBlock.rows[0]).row, end: i ? "back" : "front" };
+      return [{ rect, anchor: p, row: (i ? selectedBlock.rows.at(-1)! : selectedBlock.rows[0]).row, end: i ? "back" : "front" }];
     });
   })() : [];
-  const centralLabels = !detail ? [] : visible.filter(block => block.label.startsWith("中央") && block.code !== selectedCode).flatMap(block => {
+  const centralLabels = !detail || closestView ? [] : visible.filter(block => block.label.startsWith("中央") && block.code !== selectedCode).flatMap(block => {
     const p = project(block.x, block.y), rect = { x: p.x, y: p.y + 23, width: 16, height: 16 };
     if (rect.x < 8 || rect.x > size.width - 8 || rect.y < 8 || rect.y > size.height - 8) return [];
     annotations.push({ rect });
@@ -196,7 +199,7 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
     const rowsText = block.rows.length === 1 ? `${block.rows[0].row}列` : `${block.rows[0].row}〜${block.rows.at(-1)!.row}列`;
     const rowRange = block.label.startsWith("中央") ? `${block.label.replace("中央", "")}・${rowsText}` : rowsText;
     const fullyVisible = a.x >= 0 && a.y >= 0 && z.x <= size.width && z.y <= size.height;
-    const rangeReadable = block.rowLabelIsPrinted && block.code !== selectedCode && block.code !== focusRows?.code && fullyVisible && Math.min(width, height) >= 28 && Math.max(width, height) >= 30;
+    const rangeReadable = !closestView && block.rowLabelIsPrinted && block.code !== selectedCode && block.code !== focusRows?.code && fullyVisible && Math.min(width, height) >= 28 && Math.max(width, height) >= 30;
     const sign = placeNumberLabel(low, high, Math.max(48, String(drawing.seatStart).length * 8 + 20));
     annotations.push(sign);
     return [{ block, drawing, sign, rowRange, rangeReadable, compact: false, showRange: false, rangeRect: null as LabelRect | null }];
@@ -237,9 +240,9 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
   }
   return <div ref={frame} className={styles.canvas} data-testid="kyocera-seat-map" data-camera={box.join(" ")} data-map-mode="unified" data-map-stage={overview ? "overview" : detail ? "detail" : "blocks"}
     onPointerDownCapture={() => setTapHint("done")} onKeyDownCapture={() => setTapHint("done")}>
-    <svg ref={svg} viewBox={`0 0 ${size.width} ${size.height}`} role="group" aria-label={`${guide.name}の座席地図`} onPointerDown={start} onPointerMove={move}
+    <svg ref={svg} viewBox={`0 0 ${size.width} ${size.height}`} role="group" aria-label={`${guide.name}の座席表`} onPointerDown={start} onPointerMove={move}
       onPointerUp={end} onPointerCancel={cancel} onLostPointerCapture={event => { if (contacts.current.has(event.pointerId)) cancel(); }} onPointerLeave={event => { if (!event.currentTarget.hasPointerCapture(event.pointerId)) cancel(); }}>
-      <defs><marker id="kyocera-increasing-number" markerWidth="6" markerHeight="6" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="none" stroke="#762848" strokeWidth="1.2" /></marker>
+      <defs>
         {visible.map(b => <clipPath id={`seat-clip-${b.code}`} key={b.code}><path d={b.path} /></clipPath>)}
       </defs>
       <g transform={`translate(${origin.x} ${origin.y}) scale(${scale})`}>
@@ -259,8 +262,7 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
         {blockLabels.map(({ block, drawing, p, text, fontSize }) => <text key={block.code} data-block-start={block.code} data-start-number={drawing.seatStart} x={p.x} y={p.y} dominantBaseline="central" textAnchor="middle" fontSize={fontSize} fill="#672442" pointerEvents="all" style={{ cursor: "pointer" }} aria-hidden="true">{text}</text>)}
         {numberLabels.map(({ block, drawing, sign: { rect }, arrow, rowRange, rangeRect, compact }) => <g key={block.code} data-number-guide={block.code} data-reference-row={drawing.referenceRow} data-start-number={drawing.seatStart} data-compact-number={compact || undefined}>
           <title>{block.rowLabelIsPrinted ? `${drawing.referenceRow}列の番号目安。列によって端の番号が変わります。` : "FBの印字された開始番号と番号が増える向き。検索の列は0です。"}</title>
-          {arrow && block.code === selectedCode && <path d={`M${arrow.from.x},${arrow.from.y} L${arrow.to.x},${arrow.to.y}`} stroke="#fff3f7" strokeWidth="3.8" fill="none" />}
-          {arrow && <path data-number-arrow="" d={`M${arrow.from.x},${arrow.from.y} L${arrow.to.x},${arrow.to.y}`} stroke="#762848" strokeWidth="1.3" fill="none" markerEnd="url(#kyocera-increasing-number)" />}
+          {arrow && <SeatNumberArrow from={arrow.from} to={arrow.to} />}
           <path data-number-badge="" d={numberBadgePath(rect, compact ? 3 : 5)} fill={block.code === selectedCode ? "#ac2e66" : "#fffc"} stroke={block.code === selectedCode ? "#fff" : "none"} />
           <text data-number-text="" x={rect.x} y={rect.y + (compact ? 4 : 5)} textAnchor="middle" fontSize={compact ? 12 : 14} fill={block.code === selectedCode ? "#fff" : "#672442"}>{drawing.seatStart}{!compact && <tspan fontSize="12">番</tspan>}</text>
           {rangeRect && <g><rect data-row-range-badge={block.code} x={rangeRect.x - rangeRect.width / 2} y={rangeRect.y - 12} width={rangeRect.width} height="24" rx="4" fill="#fffc" /><text data-row-range={block.code} x={rangeRect.x} y={rangeRect.y + 4} textAnchor="middle" fontSize="12" fontWeight="600" fill="#76576a">{rowRange}</text></g>}
