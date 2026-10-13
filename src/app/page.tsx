@@ -11,7 +11,7 @@ import LoginCta from "@/components/home/LoginCta";
 import SectionHeader from "@/components/home/SectionHeader";
 import SeatDiscoveryCard from "@/components/home/SeatDiscoveryCard";
 import seatDiscoveryStyles from "@/components/home/SeatDiscoveryCard.module.css";
-import { isSeatDiscoveryPreview, summarizeDiscovery, type SeatDiscoveryData } from "@/lib/seatDiscovery";
+import { isSeatDiscoveryPreview, type SeatDiscoveryData } from "@/lib/seatDiscovery";
 import { loadSeatDiscovery, loadHomeSeatDiscovery } from "@/lib/serverSeatDiscovery";
 import { selectSeatDiscoveryHomeEvents } from "@/lib/homeSeatSelection";
 import {
@@ -70,19 +70,6 @@ const getHomeEventState = cache(async () => {
 
   return { upcomingEvents: upcomingEvents.filter(event => event.dateIso && event.dateIso >= getJstDateString()), favoriteState };
 });
-
-async function HomeSeatExample() {
-  // Reuse the existing audited Kyocera example; only render an actual available map.
-  const data = await loadSeatDiscovery();
-  if (data.status !== "ready" || !summarizeDiscovery(data).hasMap) return null;
-  const historical = data.events.every(event => event.date < getJstDateString());
-  return <section className="bg-[#fff8fb] py-4 sm:py-6" aria-label="実際に集まった座席図">
-    <div className="zr-container max-w-[760px]">
-      <div className="mb-3 flex items-center gap-2 text-[#40383d]"><Map size={18} className="text-[#a62b59]" aria-hidden="true" /><h2 className="text-[18px] font-black">みんなの座席表</h2></div>
-      <SeatDiscoveryCard data={data} historical={historical} sourceNote="この京セラの座席図には、リセール由来の座席情報も含まれます。" />
-    </div>
-  </section>;
-}
 
 async function HomeUpcomingSection() {
   const { upcomingEvents, favoriteState } = await getHomeEventState();
@@ -191,7 +178,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ "
       <HomeHeader />
       <main>
         <HeroBanner />
-        {preview ? <Suspense fallback={<FeaturedEventsSkeleton />}><SeatDiscoveryPilot state={query["seat-card-state"]} /></Suspense> : <Suspense fallback={<div className="zr-container my-4 h-48 animate-pulse rounded-xl bg-[#fff5f8]" aria-hidden="true" />}><HomeSeatExample /></Suspense>}
+        {preview && <Suspense fallback={<FeaturedEventsSkeleton />}><SeatDiscoveryPilot state={query["seat-card-state"]} /></Suspense>}
         <Suspense fallback={<UpcomingEventsSkeleton />}>
           <HomeUpcomingSection />
         </Suspense>
