@@ -3,7 +3,7 @@ import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent, ty
 import type { DedicatedVenueGuide } from "@/data/venueGuides/types";
 import { projectMapPoint, type Box } from "./mapGeometry";
 import { pathBounds, simplifiedRows, type DrawingBlock } from "./kyoceraMapDrawing";
-import { arrowOverlapsRect, clearNumberArrow, compactNeighbourNumber, placeNumberLabel, numberBadgePath, rectanglesOverlap, type LabelRect, type NumberLabel } from "./kyoceraNumberLabels";
+import { arrowOverlapsRect, clearNumberArrow, compactNeighbourNumber, numberAnchorVisible, placeNumberLabel, numberBadgePath, rectanglesOverlap, type LabelRect, type NumberLabel } from "./kyoceraNumberLabels";
 import { SEAT_DRAG_THRESHOLD, seatTapAllowed, spatialSeatTarget } from "@/lib/seatMapInteraction";
 import SeatNumberArrow from "../SeatNumberArrow";
 import gates from "@/data/venueGuides/kyocera-dome/seat-gates.json";
@@ -201,6 +201,8 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
     const fullyVisible = a.x >= 0 && a.y >= 0 && z.x <= size.width && z.y <= size.height;
     const rangeReadable = !closestView && block.rowLabelIsPrinted && block.code !== selectedCode && block.code !== focusRows?.code && fullyVisible && Math.min(width, height) >= 28 && Math.max(width, height) >= 30;
     const sign = placeNumberLabel(low, high, Math.max(48, String(drawing.seatStart).length * 8 + 20));
+    // An off-canvas fixed anchor must not leave a misleading badge fragment.
+    if (!numberAnchorVisible(sign, size.width, size.height)) return [];
     annotations.push(sign);
     return [{ block, drawing, sign, rowRange, rangeReadable, compact: false, showRange: false, rangeRect: null as LabelRect | null }];
   });

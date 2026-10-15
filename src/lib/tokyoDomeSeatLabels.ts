@@ -1,5 +1,23 @@
 type LabelArea = { code: string; label: [number, number] };
 type Box = { x: number; y: number; width: number; height: number };
+/** Suppress only a unique same-number reference near the confirmed number edge.
+ * This is a decoration rule, independent of zoom; source anchors remain unchanged. */
+export function tokyoDomeDuplicateReferenceId(guides: readonly {
+  id: string; level: string; number: number; point: readonly number[];
+}[], primary: { level: string; number: number; edge: readonly (readonly number[])[] }) {
+  const [a,b]=primary.edge;
+  if(!a||!b)return null;
+  const dx=b[0]-a[0],dy=b[1]-a[1],length=Math.hypot(dx,dy);
+  if(!length)return null;
+  const matches=guides.filter(guide=>guide.level===primary.level && guide.number===primary.number
+    && (()=>{
+      const t=Math.max(0,Math.min(1,((guide.point[0]-a[0])*dx+(guide.point[1]-a[1])*dy)/(length*length)));
+      // The printed reference can sit just outside an edge endpoint. This
+      // half-edge neighborhood is decorative clearance, never seat coverage.
+      return Math.hypot(guide.point[0]-a[0]-t*dx,guide.point[1]-a[1]-t*dy)<=length/2;
+    })());
+  return matches.length===1 ? matches[0].id : null;
+}
 export const TOKYO_DOME_OVERVIEW_AREAS = [
   { id: "left", label: "外野レフト", point: [420, 190], focus: [448, 142] },
   { id: "right", label: "外野ライト", point: [738, 190], focus: [710, 142] },
@@ -26,13 +44,21 @@ export function tokyoDomeTierView(id: typeof TOKYO_DOME_OVERVIEW_AREAS[number]["
 }
 
 /** SVG clips labels at the canvas edge, including the extra space from aspect-ratio fitting. */
-export function layoutTokyoDomeSeatLabels(areas: readonly LabelArea[], box: Box) {
+export function layoutTokyoDomeSeatLabels(areas: readonly LabelArea[], box: Box, display?: {
+  screenScale: number;
+  detailStage: boolean;
+  numberedCodes: ReadonlySet<string>;
+}) {
   if (box.width > 680) return [];
-  return areas.map(area => {
+  // At close detail, confirmed end numbers identify the blocks. Unnumbered
+  // blocks retain their name; neither source anchors nor hit targets change.
+  return areas.filter(area => !(display?.detailStage && box.width <= 120 && display.numberedCodes.has(area.code))).map(area => {
     const [x, y] = area.label;
     const rawAngle = Math.atan2(y - 300, x - 579) * 180 / Math.PI;
     const angle = Number((rawAngle > 90 ? rawAngle - 180 : rawAngle < -90 ? rawAngle + 180 : rawAngle).toFixed(3));
-    return { code: area.code, x, y, angle, fontSize: area.code.startsWith("C") ? 4.3 : 6.5 };
+    const baseSize = area.code.startsWith("C") ? 4.3 : 6.5;
+    const fontSize = display ? (display.detailStage ? 14 : 12) / display.screenScale : baseSize;
+    return { code: area.code, x, y, angle: display && !display.detailStage ? 0 : angle, fontSize };
   });
 }
 
@@ -52,15 +78,24 @@ export function tokyoDomeNumberClearOfRows(point: readonly number[], rowPoints: 
 }
 
 /** Row badges keep their 56x28 CSS-pixel size at every zoom level. */
-export function placeTokyoDomeRowMarker(anchor: readonly number[], occupied: readonly { x: number; y: number; halfWidth: number; halfHeight: number }[], scale: number): [number, number] {
-  const offsets = [[0,0],[0,-14],[0,14],[22,0],[-22,0],[22,-14],[-22,-14],[22,14],[-22,14]];
+export function placeTokyoDomeRowMarker(anchor: readonly number[], occupied: readonly { x: number; y: number; halfWidth: number; halfHeight: number }[], scale: number, viewport?: Box): [number, number] {
+  // A row outside the actual canvas stays outside; never manufacture an edge tag.
+  if (viewport && (anchor[0] < viewport.x || anchor[0] > viewport.x + viewport.width
+    || anchor[1] < viewport.y || anchor[1] > viewport.y + viewport.height)) return [anchor[0],anchor[1]];
+  const boundedOffset = viewport ? [
+    Math.max(viewport.x+30/scale,Math.min(viewport.x+viewport.width-30/scale,anchor[0]))-anchor[0],
+    Math.max(viewport.y+16/scale,Math.min(viewport.y+viewport.height-16/scale,anchor[1]))-anchor[1],
+  ] : [0,0];
+  const offsets = [[0,0],boundedOffset,[0,-14],[0,14],[22,0],[-22,0],[22,-14],[-22,-14],[22,14],[-22,14]];
   // A nearby gate can block all nine SVG offsets on a narrow screen.
   // Continue in CSS-pixel steps; the seat-number anchor stays fixed.
   const extraOffsets = [1,2,3,4].flatMap(step => {
     const dx = 64*step/scale, dy = 40*step/scale;
     return [[0,-dy],[0,dy],[dx,0],[-dx,0],[dx,-dy],[-dx,-dy],[dx,dy],[-dx,dy]];
   });
-  const offset = [...offsets,...extraOffsets].find(([dx,dy]) => occupied.every(box =>
+  const offset = [...offsets,...extraOffsets].find(([dx,dy]) => (!viewport || (
+    anchor[0]+dx >= viewport.x+30/scale && anchor[0]+dx <= viewport.x+viewport.width-30/scale
+    && anchor[1]+dy >= viewport.y+16/scale && anchor[1]+dy <= viewport.y+viewport.height-16/scale)) && occupied.every(box =>
     Math.abs(anchor[0]+dx-box.x) > box.halfWidth+30/scale
     || Math.abs(anchor[1]+dy-box.y) > box.halfHeight+16/scale)) ?? offsets[0];
   return [anchor[0]+offset[0],anchor[1]+offset[1]];

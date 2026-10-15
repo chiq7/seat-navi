@@ -12,7 +12,7 @@ import { TOKYO_DOME_NARROW_ROW_CORRECTIONS, TOKYO_DOME_SHAPE_CORRECTIONS } from 
 import { buildTokyoDomeBalconySegments } from "@/lib/tokyoDomeBalconySegments";
 import { findTokyoDomeVerifiedSeats, getTokyoDomeVerifiedRowRange, getTokyoDomeVerifiedSeatBlock, getTokyoDomeVerifiedPrintedRows, isTokyoDomeSectionRowSelectable, getTokyoDomeNumberReference, parseTokyoDomeSection, parseTokyoDomeSeatInput, type TokyoDomeSection } from "@/lib/tokyoDomeSeatLocator";
 import { sectionRowGuides } from "@/lib/tokyoDomeSeatRows";
-import { placeTokyoDomeRowMarker, tokyoDomeNumberClearOfRows, layoutTokyoDomeSeatLabels, TOKYO_DOME_OVERVIEW_AREAS, tokyoDomeOverviewView, tokyoDomeTierView } from "@/lib/tokyoDomeSeatLabels";
+import { placeTokyoDomeRowMarker, tokyoDomeNumberClearOfRows, tokyoDomeDuplicateReferenceId, layoutTokyoDomeSeatLabels, TOKYO_DOME_OVERVIEW_AREAS, tokyoDomeOverviewView, tokyoDomeTierView } from "@/lib/tokyoDomeSeatLabels";
 import { LocateFixed, X } from "lucide-react";
 import styles from "./TokyoDomeSeatLocator.module.css";
 import controls from "./guides/KyoceraSeatMap.module.css";
@@ -33,6 +33,7 @@ const AREAS = SOURCE_AREAS.map((area) => ({
   shared: TOKYO_DOME_SHAPE_CORRECTIONS[area.code] ? false : area.shared,
   rows: getTokyoDomeVerifiedRowRange(area.code) ?? area.rows ?? TOKYO_DOME_ROW_CORRECTIONS[area.code] ?? TOKYO_DOME_NARROW_ROW_CORRECTIONS[area.code] ?? null,
 }));
+const NUMBERED_AREA_CODES = new Set(AREAS.filter(area => getTokyoDomeVerifiedSeatBlock(area.code)?.numberEdge).map(area => area.code));
 const AREA_BY_CODE = new Map(AREAS.map((area) => [area.code, area]));
 const BALCONY_SEGMENTS = buildTokyoDomeBalconySegments();
 const BALCONY_GROUP_PATHS = [...new Set(BALCONY_SEGMENTS.map((segment) => segment.sourcePath))];
@@ -189,10 +190,17 @@ export function TokyoDomeSeatLocator() {
   const activePrefixes = SEAT_LEVELS.find(level => level.id === seatLevel)!.prefixes;
   const matchesLevel = (code: string) => seatLevel === "all" || activePrefixes.includes(code[0]);
   const screenScale = Math.min(canvasSize.width / interactiveViewBox.width, canvasSize.height / interactiveViewBox.height);
+  const visibleMapBox = {
+    x: interactiveViewBox.x - (canvasSize.width / screenScale - interactiveViewBox.width) / 2,
+    y: interactiveViewBox.y - (canvasSize.height / screenScale - interactiveViewBox.height) / 2,
+    width: canvasSize.width / screenScale, height: canvasSize.height / screenScale,
+  };
   const overviewScale = Math.min(canvasSize.width / FULL_MAP_VIEW_BOX.width, canvasSize.height / FULL_MAP_VIEW_BOX.height);
   const detailStage=Boolean(selected)&&interactiveViewBox.width<=360;
-  const mapLabels = layoutTokyoDomeSeatLabels(AREAS.filter(area => matchesLevel(area.code)), interactiveViewBox)
-    .map(label => detailStage ? label : { ...label, angle: 0, fontSize: Math.max(label.fontSize, 12 / screenScale) });
+  const mapLabels = layoutTokyoDomeSeatLabels(AREAS.filter(area => matchesLevel(area.code)), interactiveViewBox, {
+    screenScale, detailStage,
+    numberedCodes: NUMBERED_AREA_CODES,
+  });
   const visibleAreas = AREAS.filter(area => {
     if (area.shared || (!area.path && !BALCONY_SEGMENTS.some(segment => segment.code === area.code))) return false;
     const x = (canvasSize.width - interactiveViewBox.width * screenScale) / 2 + (area.label[0] - interactiveViewBox.x) * screenScale;
@@ -215,15 +223,23 @@ export function TokyoDomeSeatLocator() {
     const dx = verifiedEdge.opposite[0]-x, dy = verifiedEdge.opposite[1]-y, length = Math.hypot(dx,dy);
     return { id: `verified-${verifiedBlock!.code}`, number: numberReference!.start, point: [x,y], direction: [dx/length,dy/length] };
   })() : null;
+  const duplicateReferenceId = verifiedNumberGuide && verifiedBlock && verifiedEdge
+    ? tokyoDomeDuplicateReferenceId(TOKYO_DOME_SEAT_NUMBER_GUIDES, {
+      level: verifiedBlock.level, number: verifiedNumberGuide.number, edge: verifiedEdge.edge,
+    }) : null;
   const numberGuides=detailStage?TOKYO_DOME_SEAT_NUMBER_GUIDES.filter(guide=>
-    (seatLevel==="all"||guide.level===seatLevel) && (!verifiedNumberGuide ||
+    guide.id !== duplicateReferenceId && (seatLevel==="all"||guide.level===seatLevel) && (!verifiedNumberGuide ||
       Math.abs(guide.point[0]-verifiedNumberGuide.point[0])*screenScale>80 || Math.abs(guide.point[1]-verifiedNumberGuide.point[1])*screenScale>38)) : [];
   const selectedEdgeMarkers = [...new Set(selectedArea?.rows ?? [])].map(row=>{
     const anchor=selectedArea?ROW_GUIDES.get(selectedArea.code)?.marker(row):null;
     if(!anchor)return {row,point:null,anchor:null};
     const occupied=[...TOKYO_DOME_GATE_ANCHORS.map(gate=>({x:gate.label.x,y:gate.label.y,halfWidth:17,halfHeight:7})),...(verifiedNumberGuide ? [verifiedNumberGuide] : []).map(guide=>({x:guide.point[0],y:guide.point[1],halfWidth:28/screenScale,halfHeight:18/screenScale}))];
-    return {row,anchor,point:placeTokyoDomeRowMarker(anchor,occupied,screenScale)};
+    return {row,anchor,point:placeTokyoDomeRowMarker(anchor,occupied,screenScale,visibleMapBox)};
   });
+  // An off-canvas row anchor must not leave a fragment of its badge at the edge.
+  const visibleEdgeMarkers = selectedEdgeMarkers.filter(({anchor}) => anchor
+    && anchor[0] >= visibleMapBox.x && anchor[0] <= visibleMapBox.x + visibleMapBox.width
+    && anchor[1] >= visibleMapBox.y && anchor[1] <= visibleMapBox.y + visibleMapBox.height);
   const clearNumberGuides = numberGuides.filter(guide =>
     tokyoDomeNumberClearOfRows(guide.point, selectedEdgeMarkers.map(marker => marker.point), screenScale));
   const displayedNumberGuides = verifiedNumberGuide ? [...clearNumberGuides, verifiedNumberGuide] : clearNumberGuides;
@@ -450,10 +466,6 @@ export function TokyoDomeSeatLocator() {
           {selectedLabel&&<button type="button" onClick={()=>showSelectedView(selected,selectedLabel)} aria-label="選んだ場所を表示"><LocateFixed size={19}/></button>}
           <button type="button" onClick={clearSelection} aria-label="座席の選択を解除"><X size={18}/></button>
         </> : <span>{seatLevel === "all" && direction === "all" ? "座席の全体図" : `${SEAT_LEVELS.find(level => level.id === seatLevel)!.label}・${MAP_VIEWS[direction].label}`}</span>}</div>
-        {selectedSpecial&&<p className={styles.hint}>図の記号の位置です。個別の席・列は表示していません。</p>}
-        {notice&&<p className={styles.hint}>{notice}</p>}
-        {selectedRowNote&&<p className={styles.hint}>{selectedRowNote}</p>}
-        {verifiedBlock?.rowCoverage === "representative" && numberReference && <p className={styles.hint}>番号は代表列のみ確認済みです。ほかの列は区画名で選べます。番号札は{numberReference.row}列の開始番号です。</p>}
         <div ref={mapCanvasRef} className={styles.map} aria-label="東京ドームの座席図">
             <svg ref={mapSvgRef} viewBox={serializeMapViewBox(interactiveViewBox)}
               onPointerDown={handleMapPointerDown} onPointerMove={handleMapPointerMove} onPointerUp={handleMapPointerEnd} onPointerCancel={handleMapPointerEnd} onLostPointerCapture={handleMapPointerEnd} onPointerLeave={event => { if (!event.currentTarget.hasPointerCapture(event.pointerId)) handleMapPointerEnd(event); }}
@@ -519,7 +531,7 @@ export function TokyoDomeSeatLocator() {
                 transform={`rotate(${label.angle},${label.x},${label.y})`} textAnchor="middle" dominantBaseline="central"
                 fontSize={label.fontSize} fontWeight="800" fontFamily="ui-sans-serif, sans-serif"
                 fill={selected?.code === label.code ? "#fff" : "#483340"} stroke={selected?.code === label.code ? "#a93164" : "#fff"}
-                strokeWidth={1} vectorEffect="non-scaling-stroke" paintOrder="stroke" pointerEvents="all" data-seat-code={label.code} style={{cursor:"pointer"}}>{label.code}</text>)}
+                strokeWidth={selected?.code === label.code ? 3 : 1} vectorEffect="non-scaling-stroke" paintOrder="stroke" pointerEvents="all" data-seat-code={label.code} style={{cursor:"pointer"}}>{label.code}</text>)}
               <g pointerEvents="none" aria-label="席番号の目印と増える方向">{displayedNumberGuides.map(guide => {
                 const active = guide.id === verifiedNumberGuide?.id;
                 const sign = placeNumberLabel({ x: guide.point[0], y: guide.point[1] }, { x: guide.point[0] + guide.direction[0], y: guide.point[1] + guide.direction[1] }, 52 / screenScale, 28 / screenScale, 6 / screenScale, 20 / screenScale);
@@ -529,7 +541,7 @@ export function TokyoDomeSeatLocator() {
                   <SeatNumberArrow from={sign.from} to={{x:sign.from.x+guide.direction[0]*20/screenScale,y:sign.from.y+guide.direction[1]*20/screenScale}} unit={1/screenScale}/>
                 </g>;
               })}</g>
-              {detailStage && selectedEdgeMarkers.map(({ row, point, anchor }) => point && <g key={`edge-${row}`} pointerEvents="none">
+              {detailStage && visibleEdgeMarkers.map(({ row, point, anchor }) => point && <g key={`edge-${row}`} pointerEvents="none">
                 {anchor&&(anchor[0]!==point[0]||anchor[1]!==point[1])&&<path d={`M${anchor[0]},${anchor[1]}L${point[0]},${point[1]}`} stroke="#913455" strokeWidth=".6"/>}
                 <rect x={point[0] - 28 / screenScale} y={point[1] - 14 / screenScale} width={56 / screenScale} height={28 / screenScale} rx={4 / screenScale} fill="#fff" stroke="#913455" strokeWidth="1.2" vectorEffect="non-scaling-stroke" />
                 <text x={point[0]} y={point[1] + 4 / screenScale} textAnchor="middle" fontSize={12 / screenScale} fontWeight="900" fill="#913455">{row}列</text>
@@ -540,10 +552,10 @@ export function TokyoDomeSeatLocator() {
                 return TOKYO_DOME_OVERVIEW_AREAS.every(area => Math.abs(area.point[0] - gate.label.x) * overviewScale >= 80
                   || Math.abs(area.point[1] - gate.label.y) * overviewScale >= 36);
               }).map((gate) => <g key={gate.gate} pointerEvents="none">
-                <rect x={gate.label.x - (showDetail ? 15 : 31 / screenScale)} y={gate.label.y - (showDetail ? 5.5 : 12 / screenScale)}
-                  width={showDetail ? 30 : 62 / screenScale} height={showDetail ? 11 : 24 / screenScale} rx="6" fill="#393148" stroke="#fff" strokeWidth="1.2" vectorEffect="non-scaling-stroke" />
-                <text x={gate.label.x} y={gate.label.y + (showDetail ? 1.8 : 4 / screenScale)} textAnchor="middle"
-                  fontSize={showDetail ? 5.1 : 12 / screenScale} fontWeight="900" letterSpacing="0.3" fill="#fff">{gate.gate}</text>
+                <rect x={gate.label.x - 31 / screenScale} y={gate.label.y - 12 / screenScale}
+                  width={62 / screenScale} height={24 / screenScale} rx={6 / screenScale} fill="#393148" stroke="#fff" strokeWidth="1.2" vectorEffect="non-scaling-stroke" />
+                <text x={gate.label.x} y={gate.label.y + 4 / screenScale} textAnchor="middle"
+                  fontSize={12 / screenScale} fontWeight="900" letterSpacing="0.3" fill="#fff">{gate.gate}</text>
               </g>)}
               {selectedSpecial && <g pointerEvents="none">
                 <circle cx={selectedSpecial.label[0]} cy={selectedSpecial.label[1]} r="12" fill="none" stroke="#e62468" strokeWidth="2.4" vectorEffect="non-scaling-stroke" />
@@ -562,6 +574,11 @@ export function TokyoDomeSeatLocator() {
           </div>}
         </div>
         <div className={styles.wholeButton}><button type="button" onClick={showWhole}>全体図へ</button></div>
+        {/* Keep conditional notes below the canvas and whole-view control so selection cannot move either. */}
+        {selectedSpecial&&<p className={styles.hint}>図の記号の位置です。個別の席・列は表示していません。</p>}
+        {notice&&<p className={styles.hint}>{notice}</p>}
+        {selectedRowNote&&<p className={styles.hint}>{selectedRowNote}</p>}
+        {verifiedBlock?.rowCoverage === "representative" && numberReference && <p className={styles.hint}>番号は代表列のみ確認済みです。ほかの列は区画名で選べます。番号札は{numberReference.row}列の開始番号です。</p>}
         <nav aria-label="座席確認後の会場案内" className={styles.footer}>
           <a href="#dome-access">駅・入場ゲートを確認 ↓</a>
           <a href="#dome-spots">トイレ・ロッカー・売店を探す ↓</a>

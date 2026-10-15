@@ -5,7 +5,8 @@ import { Crosshair, X } from "lucide-react";
 import { DomeSeatFrame } from "./DomeSeatFrame";
 import SeatNumberArrow from "../SeatNumberArrow";
 import ReadySearchControl from "./ReadySearchControl";
-import { boundsOf, edgeNumberGuide, clampCamera, detailBox, isSeatTap, labelCoversOtherBlock, mapProjection, normalizeSeatInput, placeVisibleRowLabel, searchStandSeats, standContextLabel, standDisplayRows, standLabelOrder, standReferenceLabelKey, standSelectedRow, youngEdgeMidpoint, zoomCamera, zoneLabelPositions, type MapBox, type Point, type StandBlock, type StandMapData, type StandPosition } from "./standMap";
+import { boundsOf, edgeNumberGuide, clampCamera, standDetailCamera, isSeatTap, labelCoversOtherBlock, mapProjection, normalizeSeatInput, placeVisibleRowLabel, searchStandSeats, standContextLabel, standDisplayRows, standLabelOrder, standReferenceLabelKey, standRedundantContextLabel, standRedundantContextText, standArrowObstacle, standSelectedRow, youngEdgeMidpoint, zoomCamera, zoneLabelPositions, type MapBox, type Point, type StandBlock, type StandMapData, type StandPosition } from "./standMap";
+import { overviewAreaLabelPosition, overviewAreaLabelWidth } from "./standMap";
 import styles from "./StandSeatMap.module.css";
 
 type Choice = { id: string; label: string; color: string; point: Point };
@@ -77,12 +78,11 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   }
   function select(b: StandBlock, recenter = false) {
     interaction(); setSelected(b.id); setZone(b.zone ?? null); setFocused(b.id); setLevel(b.level); setArea(b.area); setMatches([]); setError(""); setPosition(null);
-    if (!selected || recenter) move(detailBox(b, data.detailSpan));
+    if (!selected || recenter) move(standDetailCamera(b, data, size));
   }
   function search(event: React.FormEvent) {
     event.preventDefault(); interaction();
-    const result = searchStandSeats(data, level, area, row, number, zone);
-    if (result.zone) { chooseZone(result.zone.id); setError(result.notice ?? ""); return; }
+    const result = searchStandSeats(data, level, area, row, number, zone);    if (result.zone) { chooseZone(result.zone.id); setError(result.notice ?? ""); return; }
     if (result.position) {
       const p = result.position; clearResult(); setPosition(p); setLevel(p.level); setArea("all"); setZone(null);
       move([p.point[0]-p.span/2,p.point[1]-p.span/2,p.span,p.span]); return;
@@ -160,11 +160,10 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   const areaTags = whole ? data.overviewAreas ?? [] : [];
   const zonePositions = zoneLabelPositions(zoneTags, view, size.width, size.height);
   const areaPositions = new Map(areaTags.map(a => {
-    const p = projection.project(a.point);
-    return [a.id, [Math.max(22, Math.min(size.width - 22, p[0])), Math.max(22, Math.min(size.height - 22, p[1]))]];
+    return [a.id, overviewAreaLabelPosition(a.point, a.label, view, size.width, size.height)];
   }));
-  const occupied = [...levelTags.map(l => { const p = projection.project(l.point); return [p[0], p[1], Math.max(64, l.label.length * 14 + 28), 44]; }), ...zoneTags.map(z => { const p = zonePositions.get(z.id)!; return [p[0], p[1], 44, 44]; })];
-  occupied.push(...areaTags.map(a => { const p = areaPositions.get(a.id)!; return [p[0], p[1], 44, 44]; }));
+  const occupied = [...levelTags.map(l => { const p = projection.project(l.point); return [p[0], p[1], Math.max(64, l.label.length * 14 + 28), 44]; }), ...zoneTags.map(z => { const p = zonePositions.get(z.id)!; return [p[0], p[1], overviewAreaLabelWidth(z.label), 44]; })];
+  occupied.push(...areaTags.map(a => { const p = areaPositions.get(a.id)!; return [p[0], p[1], overviewAreaLabelWidth(a.label), 44]; }));
   const labels: { id: string; text: string; x: number; y: number; width: number; height: number; kind: "row" | "number" | "block"; selected: boolean; anchor?: Point }[] = [];
   const blockCenters = shown.flatMap(b => [b.center, ...(b.labelAvoidancePoints ?? [])].map(point => ({ id: b.id, point: projection.project(point) })));
   function addLabel(id: string, text: string, position: Point, important = false, width?: number, fixed = false) {
@@ -176,7 +175,7 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
     for (const [dx, dy] of offsets) {
       const x = position[0] + dx, y = position[1] + dy;
       if (x < w / 2 + 2 || x > size.width - w / 2 - 2 || y < h / 2 + 3 || y > size.height - h / 2 - 3) continue;
-      if (!important && !whole && labelCoversOtherBlock(id, [x, y], w, h, blockCenters)) continue;
+      if (!important && labelCoversOtherBlock(id, [x, y], w, h, blockCenters)) continue;
       if (!important && occupied.some(r => Math.abs(x - r[0]) < (w + r[2]) / 2 + 4 && Math.abs(y - r[1]) < (h + r[3]) / 2 + 3)) continue;
       occupied.push([x, y, w, h]); labels.push({ id, text, x, y, width: w, height: h, kind, selected: important, anchor: dx || dy ? position : undefined }); return;
     }
@@ -205,7 +204,11 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
       addLabel("start-number", `${numberText}番`, guide.number, true, labelWidth);
       rowObstacles.push([...guide.number, labelWidth, 28]);
       if (labels.some(l => l.id === "start-number")) arrow = guide.arrow;
-      if (arrow) rowObstacles.push([(arrow.start[0] + arrow.end[0]) / 2, (arrow.start[1] + arrow.end[1]) / 2, Math.abs(arrow.end[0] - arrow.start[0]) + 8, Math.abs(arrow.end[1] - arrow.start[1]) + 8]);
+      if (arrow) {
+        const obstacle = standArrowObstacle(arrow);
+        rowObstacles.push(obstacle);
+        occupied.push(obstacle); // Neighbour tags must not cover the selected arrowhead.
+      }
     }
     if (block.rowNameLookup !== "unavailable") {
       const firstOffset = displayRows.length === 1 ? 44 : 21;
@@ -227,7 +230,7 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   }
   const referenceLabels = new Set<string>();
   const selectedReferenceKey = block && standReferenceLabelKey(block, closestDetail);
-  if (selectedReferenceKey && labels.some(l => l.id === "selected-block")) referenceLabels.add(selectedReferenceKey);
+  if (selectedReferenceKey && (displayRows.length || labels.some(l => l.id === "selected-block"))) referenceLabels.add(selectedReferenceKey);
   if ((!whole || data.wholeBlockLabels || wholeNumbers) && !(whole && data.zones)) for (const b of standLabelOrder(shown, block)) {
     if (b.id === selected) continue;
     if (whole && data.blocks.filter(o => o.level === b.level).length === 1) continue;
@@ -235,6 +238,7 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
       const text = `${b.numberReference.start}番`;
       addLabel(b.id, text, projection.project(b.center), false, Math.max(34, `${b.numberReference.start}`.length * 7 + 22));
     } else {
+      if (standRedundantContextLabel(b, block, closestDetail)) continue;
       const context = standContextLabel(data, b, closestDetail);
       const referenceKey = standReferenceLabelKey(b, closestDetail);
       if (referenceKey && referenceLabels.has(referenceKey)) continue;
@@ -256,7 +260,7 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
       {error && <button type="button" onClick={reset}>条件を解除</button>}
     </div>}
     <div className={styles.selection} aria-live="polite"><div>{block ? <><strong>{levels.find(l => l.id === block.level)?.label ?? block.level}{block.balcony && !levels.find(l => l.id === block.level)?.label.includes("バルコニー") ? "・バルコニー" : ""}　{block.label}</strong><span>{rowSummary(block)}</span></> : <span>{zone ? data.zones?.find(z => z.id === zone)?.label ?? zone : level === "all" ? "座席の全体図" : levels.find(l => l.id === level)?.label ?? level}</span>}</div>
-      <button type="button" disabled={!block} aria-label="選んだ場所を表示" onClick={() => block && move(detailBox(block, data.detailSpan))}><Crosshair size={19}/></button>
+      <button type="button" disabled={!block} aria-label="選んだ場所を表示" onClick={() => block && move(standDetailCamera(block, data, size))}><Crosshair size={19}/></button>
       <button type="button" disabled={!block} aria-label="座席の選択を解除" onClick={clearResult}><X size={19}/></button>
     </div>
     <p id={instructionId} className={styles.srOnly}>矢印キーで画面内のブロックを選び、Enterで拡大します。地図をドラッグして移動できます。</p>
@@ -272,16 +276,18 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
           }
         }}>
         <svg width={size.width} height={size.height} viewBox={view.join(" ")}>
-          {data.contextLabels?.map((l, i) => <text key={`context-${i}`} x={l.point[0]} y={l.point[1]} textAnchor="middle" fill="#a38b98" fontSize={14 / projection.scale} pointerEvents="none">{l.text}</text>)}
+          {data.contextLabels?.filter(l => !standRedundantContextText(l.text, block, closestDetail)).map((l, i) => <text key={`context-${i}`} x={l.point[0]} y={l.point[1]} textAnchor="middle" fill="#a38b98" fontSize={14 / projection.scale} pointerEvents="none">{l.text}</text>)}
           {data.blocks.map(b => <path key={b.id} d={b.path} fillRule="evenodd" data-block-id={b.id} className={`${styles.block} ${whole && pulse && data.wholeBlockLabels && !data.zones ? styles.blockPrompt : ""}`}
             fill={b.id === selected ? "#a93164" : levels.find(l => l.id === b.level)!.color}
             opacity={shown.includes(b) || selected ? 1 : .17} stroke={b.id === selected ? "#682840" : "#fff"} strokeWidth={b.id === selected ? 1.8 : 1}>
             <title>{`${b.level}${b.balcony ? " バルコニー" : ""} ${rowSummary(b)} ${b.label}`}</title>
           </path>)}
-          {block?.rows.flatMap((r, ri) => r.segments.map((s, i) => <polyline key={`${ri}-${i}`} points={(s.points ?? [s.a, s.b]).map(p => p.join(",")).join(" ")} fill="none" stroke="#fff" strokeOpacity={highlightedRow && normalizeSeatInput(r.label) === highlightedRow ? .95 : .35} strokeWidth={highlightedRow && normalizeSeatInput(r.label) === highlightedRow ? 1.4 : .45} pointerEvents="none"/>))}
-          {block && !block.rows.length && block.referenceRows?.map(r => <line key={`reference-${r.label}`} x1={r.a[0]} y1={r.a[1]} x2={r.b[0]} y2={r.b[1]} stroke="#fff" strokeOpacity=".5" strokeWidth=".6" pointerEvents="none"/>)}
+          {block?.rows.flatMap((r, ri) => r.segments.map((s, i) => <polyline key={`${ri}-${i}`} points={(s.points ?? [s.a, s.b]).map(p => p.join(",")).join(" ")} fill="none" stroke="#fff" vectorEffect="non-scaling-stroke" strokeOpacity={highlightedRow && normalizeSeatInput(r.label) === highlightedRow ? .95 : .35} strokeWidth={highlightedRow && normalizeSeatInput(r.label) === highlightedRow ? 1.4 : .45} pointerEvents="none"/>))}
+          {block && !block.rows.length && block.referenceRows?.map(r => <line key={`reference-${r.label}`} x1={r.a[0]} y1={r.a[1]} x2={r.b[0]} y2={r.b[1]} stroke="#fff" vectorEffect="non-scaling-stroke" strokeOpacity=".5" strokeWidth=".6" pointerEvents="none"/>)}
           {data.blocks.filter(b => b.id === focused).map(b => <path key={b.id} d={b.path} fill="none" stroke="#512e47" strokeWidth={3 / projection.scale} className={styles.keyboardFocus} pointerEvents="none"/>)}
         </svg>
+        {zoneTags.map(z => { const p = zonePositions.get(z.id)!, anchor = projection.project(z.point); return Math.hypot(p[0] - anchor[0], p[1] - anchor[1]) > 8
+          ? <line key={`zone-stem-${z.id}`} x1={anchor[0]} y1={anchor[1]} x2={p[0]} y2={p[1]} stroke="#d5a0ba" strokeWidth="1.2" pointerEvents="none"/> : null; })}
         {rowStems.map((stem, i) => <line key={`row-stem-${i}`} x1={stem.a[0]} y1={stem.a[1]} x2={stem.b[0]} y2={stem.b[1]} stroke="#a93164" strokeWidth="1.2" pointerEvents="none"/>)}
         {arrow && <SeatNumberArrow from={{x:arrow.start[0],y:arrow.start[1]}} to={{x:arrow.end[0],y:arrow.end[1]}} />}
         {labels.filter(l => l.anchor).map(l => <line key={`label-stem-${l.id}`} x1={l.anchor![0]} y1={l.anchor![1]} x2={l.x} y2={l.y} stroke="#a93164" strokeWidth="1" pointerEvents="none"/>)}
@@ -300,7 +306,7 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
     <div className={styles.mapActions}><button type="button" className={styles.whole} onClick={reset}>全体図へ</button></div>
     {block && <div className={styles.footer}><button type="button" onClick={() => onEquipment(block.equipmentFloor)}>{block.equipmentFloor ? `${block.equipmentFloor}の設備を探す` : "設備を探す"} ↓</button>
       {block.seatNote && <p>{block.seatNote}</p>}
-      {block.numberLookup !== "unavailable" && <details><summary>{block.rowNameLookup === "unavailable" ? "この範囲の番号" : "列ごとの番号"}</summary>{block.numberLookup === "partial" && <p>確認できた番号だけを表示しています。他の列・番号は確認中です。</p>}{block.rows.map(r => <p key={r.label}>{block.rowNameLookup === "unavailable" ? "" : `${r.label}列　`}{r.segments.map(s => `${block.numberPrefix ?? ""}${s.start}〜${s.end}番`).join("・")}</p>)}</details>}
+      {block.numberLookup !== "unavailable" && <details><summary>{block.rowNameLookup === "unavailable" ? "この範囲の番号" : "列ごとの番号"}</summary>{block.numberLookup === "partial" && <p>確認できた番号だけを表示しています。他の列・番号は確認中です。</p>}{block.rows.map((r, index) => <p key={`${block.id}-row-${index}`}>{block.rowNameLookup === "unavailable" ? "" : `${r.label}列　`}{r.segments.map(s => `${block.numberPrefix ?? ""}${s.start}〜${s.end}番`).join("・")}</p>)}</details>}
     </div>}
   </DomeSeatFrame>;
 });

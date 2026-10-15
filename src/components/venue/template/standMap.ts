@@ -85,9 +85,12 @@ export function searchStandSeats(data: StandMapData, level: string, area: string
     return { matches, zone: matches.length ? zone : undefined, error: matches.length ? "" : "選択中の席種・場所にその区画はありません。条件を解除して探せます。" };
   }
   // A ticket can identify a letter zone as well as a number, e.g. F20 or F-20.
-  const prefix = data.zones?.find(z => n.startsWith(z.label) && /^[-・/:]?\d+$/.test(n.slice(z.label.length)));
+  const prefixMatch = data.zones?.flatMap(z => [z.label, ...z.aliases].map(normalizeSeatInput)
+    .filter(alias => n.startsWith(alias) && /^[-・/:]?\d+$/.test(n.slice(alias.length)))
+    .map(alias => ({ zone: z, alias }))).sort((a, b) => b.alias.length - a.alias.length)[0];
+  const prefix = prefixMatch?.zone;
   if (prefix && data.rowZonePrefixes) return { matches: [], error: `${n}は区画と列の表記です。列欄に${n}、番号欄に席番号を入力してください。` };
-  if (prefix) { zoneId = prefix.id; n = n.slice(prefix.label.length).replace(/^[-・/:]/, ""); }
+  if (prefixMatch) { zoneId = prefixMatch.zone.id; n = n.slice(prefixMatch.alias.length).replace(/^[-・/:]/, ""); }
   // Numeric block names (e.g. MUFG 101) are unambiguous only without a row.
   // A filled row + bare number is a seat query, not a block shortcut.
   const seatNumberQuery = data.numericAliasesAreBlocks && r && /^\d+$/.test(n);
@@ -123,8 +126,27 @@ export function standContextLabel(data: StandMapData, block: StandBlock, closest
   return { text: standBlockLabel(data, block), point: block.center, fixed: false };
 }
 
+// A generic area/floor tag repeats the known selected context at closest zoom.
+// Distinct unnamed/special areas remain selectable and keep their own labels.
+export function standRedundantContextLabel(block: StandBlock, selected: StandBlock | undefined, closestDetail: boolean) {
+  const compact = (text: string) => text.replace(/\s+/g, "");
+  return Boolean(closestDetail && selected?.numberReference && selected.numberLookup !== "unavailable"
+    && block.numberLookup === "unavailable" && !block.numberReference
+    && block.level === selected.level && block.area === selected.area
+    && compact(block.label) === compact(`${block.area}${block.level}`));
+}
+
+// Hide only a floor/area/type caption already repeated in the selected detail.
+export function standRedundantContextText(text: string, block: StandBlock | undefined, closestDetail: boolean) {
+  const compact = (value: string) => value.replace(/[\s・]/g, "");
+  return Boolean(closestDetail && block?.numberReference && block.equipmentFloor
+    && compact(text) === compact(block.equipmentFloor + block.area + block.level));
+}
 export function standReferenceLabelKey(block: StandBlock, closestDetail: boolean) {
-  return closestDetail && block.numberLookup === "unavailable" && !block.numberReference && block.label.endsWith("・参考区画")
+  const repeatedReference = /(?:・|の)参考区画$/.test(block.label)
+    || /付近・下層後列$/.test(block.label)
+    || Boolean(block.referenceRows?.length && /・前方\d+〜\d+列$/.test(block.label));
+  return closestDetail && block.numberLookup === "unavailable" && !block.numberReference && repeatedReference
     ? JSON.stringify([block.level, block.area, block.zone ?? "", block.label]) : null;
 }
 
@@ -137,6 +159,70 @@ export function detailBox(block: StandBlock, span: number): MapBox {
   const size = Math.max(span, block.box[2] * 1.7, block.box[3] * 1.65);
   const center = block.focusPoint ?? block.center;
   return [center[0] - size / 2, center[1] - size / 2, size, size];
+}
+// Keep a confirmed start badge and arrow inside an explicitly focused maximum
+// frame without moving the source edge or overriding a declared focus point.
+export function standDetailCamera(block: StandBlock, data: StandMapData, canvas?: { width: number; height: number }): MapBox {
+  const view = clampCamera(detailBox(block, data.detailSpan), data.viewBox, data.detailSpan * .45);
+  if (block.focusPoint || !block.numberReference) return view;
+  const unnumberedRows = block.rowNameLookup === "unavailable";
+  if (!unnumberedRows && !canvas) return view;
+  const edge = youngEdgeMidpoint(block);
+  const halfDetail = data.detailSpan * .45 / 2;
+  let outside = Math.abs(edge[0] - view[0] - view[2] / 2) > halfDetail || Math.abs(edge[1] - view[1] - view[3] / 2) > halfDetail;
+  if (!unnumberedRows && canvas) {
+    // Test the actual badge and arrow footprint in the future maximum frame.
+    // A confirmed edge can be inside the frame while its number is clipped.
+    const maximum: MapBox = [view[0] + view[2] / 2 - halfDetail, view[1] + view[3] / 2 - halfDetail, halfDetail * 2, halfDetail * 2];
+    const projection = mapProjection(maximum, canvas.width, canvas.height);
+    const reference = block.numberReference;
+    const labelWidth = Math.max(48, `${block.numberPrefix ?? ""}${reference.start}`.length * 8 + 28);
+    const guide = edgeNumberGuide(projection.project(edge), projection.project(reference.young), projection.project(reference.older), labelWidth);
+    const footprints = [[...guide.number, labelWidth, 28], ...(guide.arrow ? [standArrowObstacle(guide.arrow)] : [])];
+    outside = footprints.some(([x, y, w, h]) => x - w / 2 < 4 || x + w / 2 > canvas.width - 4 || y - h / 2 < 4 || y + h / 2 > canvas.height - 4);
+  }
+  const focused = outside ? clampCamera([edge[0] - view[2] / 2, edge[1] - view[3] / 2, view[2], view[3]], data.viewBox, data.detailSpan * .45) : view;
+  if (!canvas || unnumberedRows) return focused;
+  const rows = standDisplayRows(block);
+  if (rows.length < 2) return focused;
+  const first = rows[0], last = rows.at(-1)!;
+  const front = [(first.a[0] + first.b[0]) / 2, (first.a[1] + first.b[1]) / 2];
+  const back = [(last.a[0] + last.b[0]) / 2, (last.a[1] + last.b[1]) / 2];
+  const fits = (camera: MapBox) => {
+    const projection = mapProjection([camera[0] + camera[2] / 2 - halfDetail, camera[1] + camera[3] / 2 - halfDetail, halfDetail * 2, halfDetail * 2], canvas.width, canvas.height);
+    const fm = projection.project(front), lm = projection.project(back);
+    if ([fm, lm].some(([x, y]) => x < 0 || x > canvas.width || y < 0 || y > canvas.height)) return false;
+    const reference = block.numberReference!;
+    const width = Math.max(48, `${block.numberPrefix ?? ""}${reference.start}`.length * 8 + 28);
+    const guide = edgeNumberGuide(projection.project(edge), projection.project(reference.young), projection.project(reference.older), width);
+    const obstacles = [[...guide.number, width, 28], ...(guide.arrow ? [standArrowObstacle(guide.arrow)] : [])];
+    const inside = ([x, y, w, h]: number[]) => x - w / 2 >= 2 && x + w / 2 <= canvas.width - 2 && y - h / 2 >= 3 && y + h / 2 <= canvas.height - 3;
+    if (!obstacles.every(inside)) return false;
+    const depth = Math.hypot(lm[0] - fm[0], lm[1] - fm[1]);
+    if (depth < 1) return false;
+    const direction = [(lm[0] - fm[0]) / depth, (lm[1] - fm[1]) / depth];
+    for (const [row, anchor, sign] of [[first, fm, -1], [last, lm, 1]] as const) {
+      const rowWidth = Math.max(48, [...`${row.label}列`].reduce((sum, char) => sum + 14 * (char.charCodeAt(0) < 128 ? .6 : 1), 0) + 14);
+      const outward = direction.map(n => n * sign);
+      const desired = anchor.map((n, i) => n + outward[i] * 21);
+      const placed = placeVisibleRowLabel(desired, outward, rowWidth, obstacles, anchor, canvas);
+      const footprint = [...placed, rowWidth, 28];
+      if (!inside(footprint)) return false;
+      obstacles.push(footprint);
+    }
+    return true;
+  };
+  if (fits(focused)) return focused;
+  // Reframe only when the real front/back row anchors and number guide can all
+  // fit at the existing maximum zoom. Never pin an off-screen row to the frame,
+  // widen the zoom limit or change a declared venue focus/source coordinate.
+  const centers = [[(front[0] + back[0]) / 2, (front[1] + back[1]) / 2],
+    [0, 1].map(axis => (Math.min(front[axis], back[axis], edge[axis]) + Math.max(front[axis], back[axis], edge[axis])) / 2)];
+  for (const center of centers) {
+    const candidate = clampCamera([center[0] - focused[2] / 2, center[1] - focused[3] / 2, focused[2], focused[3]], data.viewBox, data.detailSpan * .45);
+    if (fits(candidate)) return candidate;
+  }
+  return focused;
 }
 export function clampCamera(box: MapBox, full: number[], minimum: number): MapBox {
   const factor = Math.min(1, full[2] / box[2], full[3] / box[3]);
@@ -151,6 +237,24 @@ export function mapProjection(box: number[], width: number, height: number) {
   return { scale, project: (p: Point) => [(p[0] - box[0]) * scale + ox, (p[1] - box[1]) * scale + oy],
     unproject: (p: Point) => [(p[0] - ox) / scale + box[0], (p[1] - oy) / scale + box[1]] };
 }
+export function overviewAreaLabelWidth(text: string) {
+  return Math.max(44, [...text].reduce((sum, char) => sum + (char.charCodeAt(0) < 128 ? 7.2 : 12), 0) + 16);
+}
+
+export function overviewAreaLabelPosition(point: Point, text: string, box: number[], width: number, height: number) {
+  const p = mapProjection(box, width, height).project(point);
+  const inset = Math.min(width / 2, overviewAreaLabelWidth(text) / 2 + 4);
+  return [Math.max(inset, Math.min(width - inset, p[0])), Math.max(22, Math.min(height - 22, p[1]))];
+}
+
+const zoneLabelOffsets: Point[] = [
+  ...Array.from({ length: 17 }, (_, x) => Array.from({ length: 17 }, (_, y) => [(x - 8) * 2, (y - 8) * 2])).flat()
+    .filter(p => Math.hypot(...p) <= 16).sort((a, b) => Math.hypot(...a) - Math.hypot(...b)),
+  [0, -46], [0, 46], [-46, 0], [46, 0],
+  ...Array.from({ length: 33 }, (_, x) => Array.from({ length: 33 }, (_, y) => [(x - 16) * 4, (y - 16) * 4])).flat()
+    .filter(p => Math.hypot(...p) <= 64).sort((a, b) => Math.hypot(...a) - Math.hypot(...b)),
+];
+
 export function zoneLabelPositions(zones: StandZone[], box: number[], width: number, height: number) {
   const projection = mapProjection(box, width, height);
   const positions = new Map(zones.map(z => [z.id, projection.project(z.point)]));
@@ -166,6 +270,42 @@ export function zoneLabelPositions(zones: StandZone[], box: number[], width: num
     const span = Math.max(last[0] - first[0], (members.length - 1) * 46);
     const center = Math.max(22 + span / 2, Math.min(width - 22 - span / 2, (first[0] + last[0]) / 2));
     members.forEach((z,i) => positions.set(z.id, [center - span / 2 + i * span / (members.length - 1), first[1]]));
+  }
+  // Dense runs of short zone names need staggered rows at narrow widths.
+  // Keep their left-to-right order and connect moved tags to the source point.
+  const pending = new Set(zones.map(z => z.id));
+  for (const seed of zones) {
+    if (!pending.delete(seed.id)) continue;
+    const group = [seed];
+    for (let i = 0; i < group.length; i++) for (const other of zones) {
+      if (!pending.has(other.id)) continue;
+      const a = positions.get(group[i].id)!, b = positions.get(other.id)!;
+      if (Math.abs(a[0] - b[0]) < (overviewAreaLabelWidth(group[i].label) + overviewAreaLabelWidth(other.label)) / 2 + 2
+        && Math.abs(a[1] - b[1]) < 46) { pending.delete(other.id); group.push(other); }
+    }
+    if (group.length < 6 || group.some(z => overviewAreaLabelWidth(z.label) !== 44)) continue;
+    group.sort((a, b) => positions.get(a.id)![0] - positions.get(b.id)![0]);
+    const left = Math.max(24, positions.get(group[0].id)![0]), right = Math.min(width - 24, positions.get(group.at(-1)!.id)![0]);
+    const rows = Math.ceil(group.length / Math.max(1, Math.floor((right - left + 44) / 46)));
+    const columns = Math.ceil(group.length / rows), step = columns > 1 ? (right - left) / (columns - 1) : 0;
+    const middleY = group.reduce((sum, z) => sum + positions.get(z.id)![1], 0) / group.length;
+    for (let row = 0; row < rows; row++) {
+      const members = group.filter((_, i) => i % rows === row), firstX = (left + right - (members.length - 1) * step) / 2;
+      members.forEach((z, i) => positions.set(z.id, [firstX + i * step, clamp(middleY + (row - (rows - 1) / 2) * 46, height)]));
+    }
+  }
+  const placed: { point: Point; width: number }[] = [];
+  for (const zone of zones) {
+    const base = positions.get(zone.id)!, labelWidth = overviewAreaLabelWidth(zone.label);
+    const inset = Math.min(width / 2, labelWidth / 2 + 2);
+    for (const [dx, dy] of zoneLabelOffsets) {
+      const point = [Math.max(inset, Math.min(width - inset, base[0] + dx)), clamp(base[1] + dy, height)];
+      if (Math.hypot(point[0] - base[0], point[1] - base[1]) > 64) continue;
+      if (placed.some(other => Math.abs(point[0] - other.point[0]) < (labelWidth + other.width) / 2 + 2
+        && Math.abs(point[1] - other.point[1]) < 46)) continue;
+      positions.set(zone.id, point); break;
+    }
+    placed.push({ point: positions.get(zone.id)!, width: labelWidth });
   }
   return positions;
 }
@@ -240,4 +380,10 @@ export function placeVisibleRowLabel(position: Readonly<Point>, outward: Readonl
     if (inside(candidate) && clear(candidate) && Math.hypot(candidate[0] - anchor[0], candidate[1] - anchor[1]) <= 64) return candidate;
   }
   return placed;
+}
+
+/** Reserve the short arrow, including its 8px head, before adding context tags. */
+export function standArrowObstacle(arrow: {start: Point; end: Point}) {
+  return [(arrow.start[0] + arrow.end[0]) / 2, (arrow.start[1] + arrow.end[1]) / 2,
+    Math.abs(arrow.end[0] - arrow.start[0]) + 8, Math.abs(arrow.end[1] - arrow.start[1]) + 8];
 }

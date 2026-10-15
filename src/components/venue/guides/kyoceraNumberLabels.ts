@@ -57,3 +57,10 @@ export function numberBadgePath(rect: LabelRect, cut = 5) {
   const top = rect.y - rect.height / 2, bottom = rect.y + rect.height / 2;
   return `M${left + cut},${top} H${right - cut} L${right},${top + cut} V${bottom - cut} L${right - cut},${bottom} H${left + cut} L${left},${bottom - cut} V${top + cut} Z`;
 }
+
+/** Keep the entire badge visible at its fixed young-side anchor; never clamp its position. */
+export function numberAnchorVisible(sign: NumberLabel, width: number, height: number) {
+  const {x, y, width: badgeWidth, height: badgeHeight} = sign.rect;
+  return x - badgeWidth / 2 >= 0 && x + badgeWidth / 2 <= width
+    && y - badgeHeight / 2 >= 0 && y + badgeHeight / 2 <= height;
+}
