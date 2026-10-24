@@ -13,3 +13,11 @@
 .levelTag{white-space:nowrap}
 @media(max-width:600px){.levelControls [aria-label="席の種類"]{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}.levelControls [aria-label="席の種類"] button{flex-direction:row;white-space:nowrap;font-size:12px;padding:7px 3px}.levelControls [aria-label="席の種類"] i{display:none}}
 @media(max-width:767px){.zonedStage{height:420px}}@media(max-width:360px){.zonedStage{height:390px}}
+
+.venueOverview{background:radial-gradient(ellipse at 50% 42%,#fff 35%,#f5f7f8 100%)}
+.venueOverview .levelTag{color:#3b5263;border-color:#c4cfd7;border-radius:999px;background:#fffffff5;box-shadow:0 3px 10px #253c4d12}
+.venueOverview .zoneTag span{color:#3b5263;border-color:#c4cfd7;background:#fffffff5;box-shadow:0 2px 5px #253c4d12}
+.venueOverview .zoneTag:hover span,.venueOverview .zoneTag:focus-visible span,.venueOverview .levelTag:hover{color:#913152;border-color:#b96b8e;background:#fff3f8}
+
+.primeOrientation{margin-right:auto;color:#50616e;font-size:12px;line-height:1.65;padding:2px 8px 2px 0}
+.unfoldedStage{height:420px}@media(max-width:767px){.unfoldedStage{height:300px}}

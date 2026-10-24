@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent, type KeyboardEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent, type KeyboardEvent } from "react";
 import type { DedicatedVenueGuide } from "@/data/venueGuides/types";
 import { projectMapPoint, type Box } from "./mapGeometry";
 import { pathBounds, simplifiedRows, type DrawingBlock } from "./kyoceraMapDrawing";
@@ -8,6 +8,7 @@ import { SEAT_DRAG_THRESHOLD, seatTapAllowed, spatialSeatTarget } from "@/lib/se
 import SeatNumberArrow from "../SeatNumberArrow";
 import gates from "@/data/venueGuides/kyocera-dome/seat-gates.json";
 import styles from "./KyoceraNumberNavigator.module.css";
+import { VenueOverviewArt, overviewArtworkOpacity } from "../template/VenueOverviewArt";
 
 type Props = { guide: DedicatedVenueGuide; blocks: DrawingBlock[]; level: string; selectedCode?: string; rowLabel: string | null;
   box: Box; onView: (box: Box) => void; onBlock: (block: DrawingBlock) => void; onWhole: () => void; onArea: (areaId: string) => void;
@@ -20,6 +21,16 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
   const [focusedCode, setFocusedCode] = useState(blocks[0]?.code);
   const [size, setSize] = useState({ width: 640, height: 560 });
   const [shown, setShown] = useState<Box>(box);
+  const footprints = useMemo(() => blocks.map(b => ({ id: b.code, path: b.path, level: b.tier })), [blocks]);
+  // Source outlines and unselected row geometry are constant while the camera moves.
+  const geometry = useMemo(() => new Map(blocks.map(b => [b.code, {
+    bounds: pathBounds([b.path])!, drawing: simplifiedRows(b),
+  }])), [blocks]);
+  const selectedDrawing = useMemo(() => {
+    const selected = blocks.find(b => b.code === selectedCode);
+    return selected ? simplifiedRows(selected, rowLabel) : null;
+  }, [blocks, selectedCode, rowLabel]);
+  const artOpacity = overviewArtworkOpacity(shown[2], 1600, 550);
   const rendered = useRef<Box>(box);
   const contacts = useRef(new Map<number, Contact>());
   const gesture = useRef<{ box: Box; x: number; y: number; distance: number } | null>(null);
@@ -32,7 +43,7 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
   }, []);
   useEffect(() => {
     const from = rendered.current, start = performance.now(); let request = 0;
-    const duration = skipAnimation.current || dragging || window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 220;
+    const duration = skipAnimation.current || dragging || window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : Math.max(from[2], box[2]) >= 1360 ? 420 : 220;
     function tick(now: number) {
       const fraction = duration ? Math.min(1, (now - start) / duration) : 1;
       const eased = 1 - (1 - fraction) ** 3;
@@ -129,10 +140,10 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
     return () => { window.removeEventListener("blur", reset); document.removeEventListener("visibilitychange", reset); };
   }, []);
   const annotations: { rect: LabelRect; from?: NumberLabel["from"]; to?: NumberLabel["to"] }[] = [];
-  const visible = blocks.filter(block => { const b = pathBounds([block.path])!; const a = project(b.left, b.top), z = project(b.right, b.bottom); return z.x >= 0 && a.x <= size.width && z.y >= 0 && a.y <= size.height; });
+  const visible = blocks.filter(block => { const b = geometry.get(block.code)!.bounds; const a = project(b.left, b.top), z = project(b.right, b.bottom); return z.x >= 0 && a.x <= size.width && z.y >= 0 && a.y <= size.height; });
   const selectedBlock = visible.find(b => b.code === selectedCode);
   const focusBlock = detail && !selectedBlock ? visible.filter(block => {
-    const b = pathBounds([block.path])!, a = project(b.left, b.top), z = project(b.right, b.bottom);
+    const b = geometry.get(block.code)!.bounds, a = project(b.left, b.top), z = project(b.right, b.bottom);
     return block.rowLabelIsPrinted && (level === "すべて" || block.tier === level) && a.x >= 0 && a.y >= 0 && z.x <= size.width && z.y <= size.height && Math.min(z.x - a.x, z.y - a.y) >= 24;
   }).sort((a, b) => {
     const p = project(a.x, a.y), q = project(b.x, b.y);
@@ -145,7 +156,7 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
     annotations.push({ rect }); return { code: focusBlock.code, rect, text };
   })() : null;
   const rowEnds = detail && selectedBlock?.rowLabelIsPrinted ? (() => {
-    const drawing = simplifiedRows(selectedBlock);
+    const drawing = geometry.get(selectedBlock.code)!.drawing;
     const points = selectedBlock.rows.length === 1 ? [drawing.front] : [drawing.front, drawing.back];
     return points.flatMap((point, i) => {
       const p = project(point.x, point.y);
@@ -170,12 +181,12 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
   // Before choosing a block, keep a single start-number marker at its centre.
   // Faded tiers remain context; their labels return at the detailed scale.
   const blockLabels = overview || detail ? [] : [...visible].sort((a, b) => {
-    const p = pathBounds([a.path])!, q = pathBounds([b.path])!;
+    const p = geometry.get(a.code)!.bounds, q = geometry.get(b.code)!.bounds;
     return (q.right - q.left) * (q.bottom - q.top) - (p.right - p.left) * (p.bottom - p.top);
   }).flatMap(block => {
     if (level !== "すべて" && block.tier !== level && block.code !== selectedCode) return [];
-    const bounds = pathBounds([block.path])!, a = project(bounds.left, bounds.top), z = project(bounds.right, bounds.bottom);
-    const p = project(block.x, block.y), drawing = simplifiedRows(block);
+    const bounds = geometry.get(block.code)!.bounds, a = project(bounds.left, bounds.top), z = project(bounds.right, bounds.bottom);
+    const p = project(block.x, block.y), drawing = geometry.get(block.code)!.drawing;
     const text = `${block.label.startsWith("中央") ? `${block.label.replace("中央", "")} ` : ""}${drawing.seatStart}番〜`;
     const units = [...text].reduce((sum, char) => sum + (/\d|[A-Z]/.test(char) ? .7 : char === " " ? .35 : 1), 0);
     const fontSize = 12;
@@ -188,13 +199,13 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
   });
   const placedLabels = [...visible].sort((a, b) => Number(b.code === selectedCode) - Number(a.code === selectedCode)).flatMap(block => {
     if (!detail) return [];
-    const bounds = pathBounds([block.path])!;
+    const bounds = geometry.get(block.code)!.bounds;
     const a = project(bounds.left, bounds.top), z = project(bounds.right, bounds.bottom);
     const width = Math.min(size.width, z.x) - Math.max(0, a.x), height = Math.min(size.height, z.y) - Math.max(0, a.y);
     // Omit only unreadably small edge fragments; neighbouring upper/lower
     // blocks retain their numbering even when the other tier is selected.
     if (block.code !== selectedCode && (Math.min(width, height) < (areaScale ? 28 : 12) || Math.max(width, height) < (areaScale ? 48 : 36))) return [];
-    const drawing = simplifiedRows(block, block.code === selectedCode ? rowLabel : null);
+    const drawing = (block.code === selectedCode ? selectedDrawing! : geometry.get(block.code)!.drawing);
     const low = project(drawing.low.x, drawing.low.y), high = project(drawing.high.x, drawing.high.y);
     const rowsText = block.rows.length === 1 ? `${block.rows[0].row}列` : `${block.rows[0].row}〜${block.rows.at(-1)!.row}列`;
     const rowRange = block.label.startsWith("中央") ? `${block.label.replace("中央", "")}・${rowsText}` : rowsText;
@@ -248,6 +259,7 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
         {visible.map(b => <clipPath id={`seat-clip-${b.code}`} key={b.code}><path d={b.path} /></clipPath>)}
       </defs>
       <g transform={`translate(${origin.x} ${origin.y}) scale(${scale})`}>
+        <VenueOverviewArt diagramId="kyocera-seat-original" blocks={footprints} opacity={artOpacity} unit={16}/>
         {blocks.map(block => <g key={block.code} data-seat-block={block.code} data-source-block={block.sourceCode} data-area-id={block.areaId} role="button" tabIndex={block.code === focusCode ? 0 : -1} onFocus={() => setFocusedCode(block.code)}
           aria-label={`${block.label}・${block.tier} ${block.rowLabelIsPrinted ? `${block.rowLabel}列` : "列の印字なし（公式検索：0列）"} ${block.firstSeat}〜${block.lastSeat}番`} aria-pressed={block.code === selectedCode}
           onKeyDown={event => keyBlock(event, block)}>
@@ -255,8 +267,8 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
             opacity={level !== "すべて" && block.tier !== level && block.code !== selectedCode ? .2 : 1} stroke={block.code === selectedCode ? "#5d263f" : "white"} strokeWidth={(block.code === selectedCode ? 2.5 : .6) / scale} />
           <title>{`${block.label}・${block.tier} ／ ${block.rowLabelIsPrinted ? `${block.rowLabel}列` : "列の印字なし（検索：0列）"} ／ ${block.firstSeat}〜${block.lastSeat}番`}</title>
         </g>)}
-        {detail && visible.filter(b => (level === "すべて" || b.tier === level || b.code === selectedCode) && (b.code === selectedCode || Math.max(...[pathBounds([b.path])!].map(r => Math.max(r.right - r.left, r.bottom - r.top))) * scale >= 65)).map(block => <g key={`rows:${block.code}`} clipPath={`url(#seat-clip-${block.code})`} pointerEvents="none" data-row-guides={block.code}>
-          {simplifiedRows(block, block.code === selectedCode ? rowLabel : null).rows.map(row => <line key={row.row} data-row-line={row.row} x1={row.from.x} y1={row.from.y} x2={row.to.x} y2={row.to.y}
+        {detail && visible.filter(b => (level === "すべて" || b.tier === level || b.code === selectedCode) && (b.code === selectedCode || Math.max(...[geometry.get(b.code)!.bounds].map(r => Math.max(r.right - r.left, r.bottom - r.top))) * scale >= 65)).map(block => <g key={`rows:${block.code}`} clipPath={`url(#seat-clip-${block.code})`} pointerEvents="none" data-row-guides={block.code}>
+          {(block.code === selectedCode ? selectedDrawing! : geometry.get(block.code)!.drawing).rows.map(row => <line key={row.row} data-row-line={row.row} x1={row.from.x} y1={row.from.y} x2={row.to.x} y2={row.to.y}
             stroke={row.selected ? "#fff3a5" : block.code === selectedCode ? "#ffe6f0" : "#ab7593"} strokeWidth={(row.selected ? 2 : .6) / scale} opacity={row.selected ? 1 : .65} />)}
         </g>)}
       </g>

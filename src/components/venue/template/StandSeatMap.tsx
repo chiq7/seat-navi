@@ -8,6 +8,7 @@ import ReadySearchControl from "./ReadySearchControl";
 import { boundsOf, edgeNumberGuide, clampCamera, standDetailCamera, isSeatTap, labelCoversOtherBlock, mapProjection, normalizeSeatInput, placeVisibleRowLabel, searchStandSeats, standContextLabel, standDisplayRows, standLabelOrder, standReferenceLabelKey, standRedundantContextLabel, standRedundantContextText, standArrowObstacle, standSelectedRow, youngEdgeMidpoint, zoomCamera, zoneLabelPositions, type MapBox, type Point, type StandBlock, type StandMapData, type StandPosition } from "./standMap";
 import { overviewAreaLabelPosition, overviewAreaLabelWidth } from "./standMap";
 import styles from "./StandSeatMap.module.css";
+import { VenueOverviewArt, StandOverviewTexture, overviewArtworkOpacity, VENUE_OVERVIEW_PROFILES } from "./VenueOverviewArt";
 
 type Choice = { id: string; label: string; color: string; point: Point };
 type Props = { data: StandMapData; levels: Choice[]; areas: { id: string; label: string }[]; onEquipment: (floor: string | null) => void };
@@ -20,13 +21,17 @@ const rowSummary = (block: StandBlock) => {
 };
 
 const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap({ data, levels, areas, onEquipment }, ref) {
+  // Presentation-only padding; original seat, search and detail geometry is unchanged.
+  const overviewBox: MapBox = data.diagramId === "pia-arena-mm-seat-plans"
+    ? [data.viewBox[0] - 180, data.viewBox[1] - 180, data.viewBox[2] + 360, data.viewBox[3] + 360]
+    : data.viewBox as MapBox;
   const [level, setLevel] = useState("all"), [area, setArea] = useState("all");
   const [row, setRow] = useState(""), [number, setNumber] = useState("");
   const [selected, setSelected] = useState<string | null>(null), [focused, setFocused] = useState(data.blocks[0].id);
   const [zone, setZone] = useState<string | null>(null);
   const [matches, setMatches] = useState<StandBlock[]>([]), [error, setError] = useState("");
   const [position, setPosition] = useState<StandPosition | null>(null);
-  const [view, setView] = useState<MapBox>(data.viewBox as MapBox), [size, setSize] = useState({ width: 900, height: 620 });
+  const [view, setView] = useState<MapBox>(overviewBox), [size, setSize] = useState({ width: 900, height: 620 });
   const [pulse, setPulse] = useState(false);
   const stage = useRef<HTMLDivElement>(null), svg = useRef<SVGSVGElement>(null), frame = useRef<number | null>(null);
   const camera = useRef(view), gesture = useRef(freshGesture()), interacted = useRef(false);
@@ -39,6 +44,9 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   const availableAreas = areas.filter(a => a.id === "all" || data.blocks.some(b => b.area === a.id && (level === "all" || b.level === level)));
   const blockOnlySearch = data.blocks.every(b => b.numberLookup === "unavailable");
   const whole = !selected && !zone && level === "all" && area === "all" && view[2] >= data.viewBox[2] * .9;
+  const overviewArt = Boolean(VENUE_OVERVIEW_PROFILES[data.diagramId]);
+  const artOpacity = overviewArt ? overviewArtworkOpacity(view[2], overviewBox[2], data.detailSpan) : 0;
+  const artUnit = Math.min(data.viewBox[2], data.viewBox[3]) / 100;
   const wholeNumbers = whole && data.wholeStartNumbers !== false && !data.wholeBlockLabels && data.blocks.some(b => b.label.includes("番"));
   const closestDetail = Boolean(block) && view[2] <= data.detailSpan * .55;
 
@@ -46,23 +54,24 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   function interaction() { interacted.current = true; setPulse(false); stop(); }
   function renderCamera(next: MapBox) { camera.current = next; setView(next); }
   function move(next: MapBox, animate = true) {
-    stop(); const target = clampCamera(next, data.viewBox, data.detailSpan * .45);
+    stop(); const target = clampCamera(next, overviewBox, data.detailSpan * .45);
     if (!animate || window.matchMedia("(prefers-reduced-motion: reduce)").matches) { renderCamera(target); return; }
     const from = [...camera.current] as MapBox, start = performance.now();
+    const duration = overviewArt && Math.max(from[2], target[2]) >= overviewBox[2] * .85 ? 420 : 220;
     function tick(now: number) {
-      const progress = Math.min(1, (now - start) / 220), eased = 1 - (1 - progress) ** 3;
+      const progress = Math.min(1, (now - start) / duration), eased = 1 - (1 - progress) ** 3;
       renderCamera(from.map((n, i) => n + (target[i] - n) * eased) as MapBox);
       if (progress < 1) frame.current = requestAnimationFrame(tick); else frame.current = null;
     }
     frame.current = requestAnimationFrame(tick);
   }
   function clearResult() { setSelected(null); setMatches([]); setError(""); setPosition(null); }
-  function reset() { interaction(); clearResult(); setZone(null); setLevel("all"); setArea("all"); move(data.viewBox as MapBox); }
+  function reset() { interaction(); clearResult(); setZone(null); setLevel("all"); setArea("all"); move(overviewBox); }
   function chooseRegion(nextLevel: string, nextArea: string) {
     interaction(); clearResult(); setZone(null); setLevel(nextLevel); setArea(nextArea);
     const targets = data.blocks.filter(b => (nextLevel === "all" || b.level === nextLevel) && (nextArea === "all" || b.area === nextArea));
     if (!targets.length) { setError("この席種にはその区画がありません。席種を「すべて」に戻して探せます。"); return; }
-    const next = data.regionViews?.[`${nextLevel}:${nextArea}`] as MapBox | undefined ?? (nextLevel === "all" && nextArea === "all" ? data.viewBox as MapBox
+    const next = data.regionViews?.[`${nextLevel}:${nextArea}`] as MapBox | undefined ?? (nextLevel === "all" && nextArea === "all" ? overviewBox
       : nextLevel === "all" && data.areaViews?.[nextArea] ? data.areaViews[nextArea] as MapBox
       : nextArea === "all" && data.levelViews?.[nextLevel] ? data.levelViews[nextLevel] as MapBox : boundsOf(targets));
     move(next);
@@ -82,7 +91,8 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   }
   function search(event: React.FormEvent) {
     event.preventDefault(); interaction();
-    const result = searchStandSeats(data, level, area, row, number, zone);    if (result.zone) { chooseZone(result.zone.id); setError(result.notice ?? ""); return; }
+    const result = searchStandSeats(data, level, area, row, number, zone);
+    if (result.zone) { chooseZone(result.zone.id); setError(result.notice ?? ""); return; }
     if (result.position) {
       const p = result.position; clearResult(); setPosition(p); setLevel(p.level); setArea("all"); setZone(null);
       move([p.point[0]-p.span/2,p.point[1]-p.span/2,p.span,p.span]); return;
@@ -259,12 +269,12 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
       {matches.map(b => <button key={b.id} type="button" onClick={() => select(b, true)}>{levels.find(l => l.id === b.level)?.label ?? b.level}{b.balcony && !levels.find(l => l.id === b.level)?.label.includes("バルコニー") ? " バルコニー" : ""}・{rowSummary(b)}・{b.label}</button>)}
       {error && <button type="button" onClick={reset}>条件を解除</button>}
     </div>}
-    <div className={styles.selection} aria-live="polite"><div>{block ? <><strong>{levels.find(l => l.id === block.level)?.label ?? block.level}{block.balcony && !levels.find(l => l.id === block.level)?.label.includes("バルコニー") ? "・バルコニー" : ""}　{block.label}</strong><span>{rowSummary(block)}</span></> : <span>{zone ? data.zones?.find(z => z.id === zone)?.label ?? zone : level === "all" ? "座席の全体図" : levels.find(l => l.id === level)?.label ?? level}</span>}</div>
+    <div className={styles.selection} aria-live="polite"><div>{block ? <><strong>{levels.find(l => l.id === block.level)?.label ?? block.level}{block.balcony && !levels.find(l => l.id === block.level)?.label.includes("バルコニー") ? "・バルコニー" : ""}　{block.label}</strong><span>{rowSummary(block)}</span></> : <span>{zone ? data.zones?.find(z => z.id === zone)?.label ?? zone : level === "all" ? (overviewArt ? "全体図から区画を選ぶ" : "座席の全体図") : levels.find(l => l.id === level)?.label ?? level}</span>}</div>
       <button type="button" disabled={!block} aria-label="選んだ場所を表示" onClick={() => block && move(standDetailCamera(block, data, size))}><Crosshair size={19}/></button>
       <button type="button" disabled={!block} aria-label="座席の選択を解除" onClick={clearResult}><X size={19}/></button>
     </div>
     <p id={instructionId} className={styles.srOnly}>矢印キーで画面内のブロックを選び、Enterで拡大します。地図をドラッグして移動できます。</p>
-    <div className={`${styles.stage} ${data.zones ? styles.zonedStage : ""}`} ref={stage} data-testid="stand-seat-map" data-camera={view.map(n => n.toFixed(2)).join(",")} data-selected={selected ?? ""}>
+    <div className={`${styles.stage} ${overviewArt ? styles.venueOverview : ""} ${data.zones ? styles.zonedStage : ""} ${data.diagramId === "vantelin-prime-unfolded" ? styles.unfoldedStage : ""}`} ref={stage} data-testid="stand-seat-map" data-camera={view.map(n => n.toFixed(2)).join(",")} data-selected={selected ?? ""}>
       <svg ref={svg} viewBox={`0 0 ${size.width} ${size.height}`} role="group" aria-label="座席の全体図" aria-describedby={instructionId} tabIndex={0}
         onPointerDown={down} onPointerMove={drag} onPointerUp={up} onPointerCancel={() => { gesture.current = freshGesture(); }} onLostPointerCapture={e => { if (gesture.current.points.has(e.pointerId)) gesture.current = freshGesture(); }}
         onKeyDown={e => {
@@ -276,12 +286,20 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
           }
         }}>
         <svg width={size.width} height={size.height} viewBox={view.join(" ")}>
-          {data.contextLabels?.filter(l => !standRedundantContextText(l.text, block, closestDetail)).map((l, i) => <text key={`context-${i}`} x={l.point[0]} y={l.point[1]} textAnchor="middle" fill="#a38b98" fontSize={14 / projection.scale} pointerEvents="none">{l.text}</text>)}
+          {overviewArt && <VenueOverviewArt diagramId={data.diagramId} blocks={data.blocks} opacity={artOpacity} unit={artUnit}/>}
+          {data.contextLabels?.filter(l => !standRedundantContextText(l.text, block, closestDetail)
+            && !(whole && size.width < 500 && data.diagramId === "vantelin-prime-unfolded")).map((l, i) => {
+              const footer = whole && size.width < 500 && ["belluna-seats", "paypay-stand-reference", "mufg-seats", "koshien-seats", "vantelin-seat-reference", "makuhari-seats", "sapporo-baseball", "sapporo-soccer"].includes(data.diagramId) && l.text.includes("公演");
+              const lines = footer && l.text.length * 12 > size.width - 24 && l.text.includes("・") ? [l.text.slice(0, l.text.indexOf("・") + 1), l.text.slice(l.text.indexOf("・") + 1)] : [l.text];
+              const point = footer ? projection.unproject([size.width / 2, size.height - 14 - (lines.length - 1) * 16]) : l.point;
+              return <text key={`context-${i}`} data-context-label={l.text} x={point[0]} y={point[1]} textAnchor="middle" fill={artOpacity > 0 ? "#405563" : "#a38b98"} fontSize={(footer ? 12 : 14) / projection.scale} pointerEvents="none">{lines.map((line, index) => <tspan key={index} x={point[0]} dy={index ? 16 / projection.scale : 0}>{line}</tspan>)}</text>;
+            })}
           {data.blocks.map(b => <path key={b.id} d={b.path} fillRule="evenodd" data-block-id={b.id} className={`${styles.block} ${whole && pulse && data.wholeBlockLabels && !data.zones ? styles.blockPrompt : ""}`}
             fill={b.id === selected ? "#a93164" : levels.find(l => l.id === b.level)!.color}
             opacity={shown.includes(b) || selected ? 1 : .17} stroke={b.id === selected ? "#682840" : "#fff"} strokeWidth={b.id === selected ? 1.8 : 1}>
             <title>{`${b.level}${b.balcony ? " バルコニー" : ""} ${rowSummary(b)} ${b.label}`}</title>
           </path>)}
+          {overviewArt && <StandOverviewTexture blocks={data.blocks} opacity={selected ? 0 : artOpacity} selected={selected} unit={artUnit}/>}
           {block?.rows.flatMap((r, ri) => r.segments.map((s, i) => <polyline key={`${ri}-${i}`} points={(s.points ?? [s.a, s.b]).map(p => p.join(",")).join(" ")} fill="none" stroke="#fff" vectorEffect="non-scaling-stroke" strokeOpacity={highlightedRow && normalizeSeatInput(r.label) === highlightedRow ? .95 : .35} strokeWidth={highlightedRow && normalizeSeatInput(r.label) === highlightedRow ? 1.4 : .45} pointerEvents="none"/>))}
           {block && !block.rows.length && block.referenceRows?.map(r => <line key={`reference-${r.label}`} x1={r.a[0]} y1={r.a[1]} x2={r.b[0]} y2={r.b[1]} stroke="#fff" vectorEffect="non-scaling-stroke" strokeOpacity=".5" strokeWidth=".6" pointerEvents="none"/>)}
           {data.blocks.filter(b => b.id === focused).map(b => <path key={b.id} d={b.path} fill="none" stroke="#512e47" strokeWidth={3 / projection.scale} className={styles.keyboardFocus} pointerEvents="none"/>)}
@@ -303,7 +321,7 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
       {areaTags.map(a => { const p = areaPositions.get(a.id)!; return <button type="button" key={a.id} data-area-id={a.id} aria-label={`${a.label}${a.label.endsWith("側") ? "" : "側"}を拡大`} className={`${styles.zoneTag} ${pulse ? styles.zonePulse : ""}`} style={{ left: p[0], top: p[1] }} onClick={() => chooseRegion("all", a.area)}><span>{a.label}</span></button>; })}
       {levelTags.map(l => { const p = projection.project(l.point); return <button type="button" key={l.id} className={`${styles.levelTag} ${pulse ? styles.pulse : ""}`} style={{ left: p[0], top: p[1] }} onClick={() => chooseRegion(l.id, "all")}>{l.label}</button>; })}
     </div>
-    <div className={styles.mapActions}><button type="button" className={styles.whole} onClick={reset}>全体図へ</button></div>
+    <div className={styles.mapActions}>{data.diagramId === "vantelin-prime-unfolded" && <span className={styles.primeOrientation}>ツイン：3塁側 L／1塁側 R<br/>ボックス：4F／レストラン：3F</span>}<button type="button" className={styles.whole} onClick={reset}>全体図へ</button></div>
     {block && <div className={styles.footer}><button type="button" onClick={() => onEquipment(block.equipmentFloor)}>{block.equipmentFloor ? `${block.equipmentFloor}の設備を探す` : "設備を探す"} ↓</button>
       {block.seatNote && <p>{block.seatNote}</p>}
       {block.numberLookup !== "unavailable" && <details><summary>{block.rowNameLookup === "unavailable" ? "この範囲の番号" : "列ごとの番号"}</summary>{block.numberLookup === "partial" && <p>確認できた番号だけを表示しています。他の列・番号は確認中です。</p>}{block.rows.map((r, index) => <p key={`${block.id}-row-${index}`}>{block.rowNameLookup === "unavailable" ? "" : `${r.label}列　`}{r.segments.map(s => `${block.numberPrefix ?? ""}${s.start}〜${s.end}番`).join("・")}</p>)}</details>}

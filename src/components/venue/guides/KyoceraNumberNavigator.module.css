@@ -18,3 +18,7 @@
 @media(prefers-reduced-motion:reduce) { .areaLabels[data-tap-hint="active"] button { animation:none; } }
 .whole { position:absolute; right:12px; bottom:12px; min-height:44px; padding:7px 12px; background:#fffdfef2; color:#8a3459; border:1px solid #d8b1c3; border-radius:9px; font-size:12px; font-weight:750; }
 @media(max-width:600px) { .canvas { height:440px; scroll-margin-top:240px; } .areaLabels button { padding:4px 5px; font-size:12px; } .whole { right:8px; bottom:8px; } }
+
+.canvas{background:radial-gradient(ellipse at 50% 42%,#fff 35%,#f5f7f8 100%)}
+.areaLabels button{border-color:#c4cfd7;border-radius:18px;background:#fffffff5;color:#3b5263;box-shadow:0 3px 10px #253c4d12}
+.areaLabels button:hover,.areaLabels button:focus-visible{background:#fff3f8;border-color:#b96b8e;color:#913152}

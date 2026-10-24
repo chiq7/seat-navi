@@ -116,6 +116,21 @@ const ZONE_COLORS: Record<string, string> = {
   A: "#f8b9d0", B: "#e98eb4", C: "#f9d2ab",
   D: "#d0c7ef", E: "#aeb6e8", F: "#9ddacb",
 };
+// Illustration only: these surfaces carry no seats, gates or walking routes.
+// Interactive paths, row geometry and all search coordinates remain in AREAS.
+const OVERVIEW_SURFACES = {
+  bowl: "M579 30 C510 25 474 47 427 89 C340 162 233 248 186 339 C145 420 187 505 263 607 C350 723 469 812 579 812 C689 812 808 723 895 607 C971 505 1013 420 972 339 C925 248 818 162 731 89 C684 47 648 25 579 30Z",
+  floor: "M579 89 C512 89 451 140 381 214 L370 243 C389 313 486 471 561 491 Q579 499 597 491 C672 471 769 313 788 243 L777 214 C707 140 646 89 579 89Z",
+};
+const OVERVIEW_TONES: Record<string, readonly [string, string]> = {
+  A: ["#e7c6d2", "#cb92a8"], B: ["#d6a5b8", "#b87d98"],
+  C: ["#e8d9c6", "#c8ae8d"], D: ["#c8d6e5", "#9db3cc"],
+  E: ["#aebfd3", "#829fbf"], F: ["#b5d7cc", "#7fad9e"],
+};
+// Display-label positions only; the existing area focus and seat targets are unchanged.
+const OVERVIEW_LABEL_POINTS: Record<typeof TOKYO_DOME_OVERVIEW_AREAS[number]["id"], readonly [number, number]> = {
+  left: [405, 135], right: [753, 135], third: [320, 400], first: [838, 400], home: [579, 650],
+};
 const ZONE_NAMES = [
   { key: "A", label: "1階 前方" }, { key: "B", label: "1階 後方" },
   { key: "C", label: "バルコニー" }, { key: "D", label: "2階 前方" },
@@ -187,6 +202,8 @@ export function TokyoDomeSeatLocator() {
     : undefined;
   const [interactiveViewBox, setInteractiveViewBox] = useState<MapViewBox>(FULL_MAP_VIEW_BOX);
   const showDetail = interactiveViewBox.width <= 680;
+  // Fade the illustration through the existing camera motion; detail is unchanged.
+  const overviewOpacity = Math.max(0, Math.min(1, (interactiveViewBox.width - 520) / 380));
   const activePrefixes = SEAT_LEVELS.find(level => level.id === seatLevel)!.prefixes;
   const matchesLevel = (code: string) => seatLevel === "all" || activePrefixes.includes(code[0]);
   const screenScale = Math.min(canvasSize.width / interactiveViewBox.width, canvasSize.height / interactiveViewBox.height);
@@ -259,7 +276,8 @@ export function TokyoDomeSeatLocator() {
     const from=interactiveViewBox;let start:number|null=null;
     const step=(now:number)=>{
       start??=now;
-      const progress=Math.min(1,(now-start)/220),eased=1-Math.pow(1-progress,3);
+      const duration=from.width>680||next.width>680?420:220;
+      const progress=Math.min(1,(now-start)/duration),eased=1-Math.pow(1-progress,3);
       setInteractiveViewBox({x:from.x+(next.x-from.x)*eased,y:from.y+(next.y-from.y)*eased,width:from.width+(next.width-from.width)*eased,height:from.height+(next.height-from.height)*eased});
       animationRef.current=progress<1?requestAnimationFrame(step):null;
     };
@@ -465,13 +483,18 @@ export function TokyoDomeSeatLocator() {
           {selectedArea?.rows&&<span>{selectedArea.rows[0]}〜{selectedArea.rows[1]}列</span>}
           {selectedLabel&&<button type="button" onClick={()=>showSelectedView(selected,selectedLabel)} aria-label="選んだ場所を表示"><LocateFixed size={19}/></button>}
           <button type="button" onClick={clearSelection} aria-label="座席の選択を解除"><X size={18}/></button>
-        </> : <span>{seatLevel === "all" && direction === "all" ? "座席の全体図" : `${SEAT_LEVELS.find(level => level.id === seatLevel)!.label}・${MAP_VIEWS[direction].label}`}</span>}</div>
-        <div ref={mapCanvasRef} className={styles.map} aria-label="東京ドームの座席図">
+        </> : <div className={styles.overviewHeading}><strong>{seatLevel === "all" && direction === "all" ? "東京ドームの全体図" : `${SEAT_LEVELS.find(level => level.id === seatLevel)!.label}・${MAP_VIEWS[direction].label}`}</strong><span>区画をタップして、席の位置へ</span></div>}</div>
+        <div ref={mapCanvasRef} className={styles.map} data-view={showDetail ? "detail" : "overview"} aria-label="東京ドームの座席図">
             <svg ref={mapSvgRef} viewBox={serializeMapViewBox(interactiveViewBox)}
               onPointerDown={handleMapPointerDown} onPointerMove={handleMapPointerMove} onPointerUp={handleMapPointerEnd} onPointerCancel={handleMapPointerEnd} onLostPointerCapture={handleMapPointerEnd} onPointerLeave={event => { if (!event.currentTarget.hasPointerCapture(event.pointerId)) handleMapPointerEnd(event); }}
               className="block h-full w-full touch-none select-none cursor-grab active:cursor-grabbing" role="group"
               aria-label={selected ? `${selected.code}を強調した東京ドームの座席区画図` : "区画名と列の目安を描いた東京ドーム座席図"}>
               <defs>
+                <linearGradient id="tokyo-bowl-surface" x1="0" y1="0" x2="0" y2="1"><stop stopColor="#fff"/><stop offset="1" stopColor="#e4eaf0"/></linearGradient>
+                <linearGradient id="tokyo-floor-surface" x1="0" y1="0" x2="0" y2="1"><stop stopColor="#88b3a2"/><stop offset="1" stopColor="#b3cfc0"/></linearGradient>
+                {Object.entries(OVERVIEW_TONES).map(([tier, tones]) => <linearGradient key={tier} id={`tokyo-tier-${tier}`} x1="0" y1="0" x2="0.2" y2="1"><stop stopColor={tones[0]}/><stop offset="1" stopColor={tones[1]}/></linearGradient>)}
+                <pattern id="tokyo-floor-stripes" patternUnits="userSpaceOnUse" width="44" height="44" patternTransform="rotate(-35)"><rect width="22" height="44" fill="#fff" opacity=".07"/></pattern>
+                <filter id="tokyo-bowl-shadow" x="-15%" y="-15%" width="130%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="4" floodColor="#314a61" floodOpacity=".17"/></filter>
                 {SHAPES.filter((area) => ROW_GUIDES.has(area.code)).map((area) => <clipPath key={area.code} id={`tokyo-rows-${area.code}`}><path d={area.path!} /></clipPath>)}
                 {BALCONY_GROUP_PATHS.map((path, index) => <clipPath key={index} id={`tokyo-balcony-${index}`}><path d={path} /></clipPath>)}
               </defs>
@@ -479,6 +502,17 @@ export function TokyoDomeSeatLocator() {
               <g pointerEvents="none">
                 <path d="M579 450 L365 235 Q579 97 793 235 Z" fill="#fff6fa" stroke="#f0dce5" strokeWidth="2" />
                 <path d="M579 447 L455 324 M579 447 L703 324" fill="none" stroke="#edd3df" strokeWidth="1.5" strokeDasharray="4 7" />
+              </g>
+              <g data-overview-art="structure" opacity={overviewOpacity} pointerEvents="none" aria-hidden="true">
+                <path d={OVERVIEW_SURFACES.bowl} fill="url(#tokyo-bowl-surface)" stroke="#d8e1e8" strokeWidth="2" filter="url(#tokyo-bowl-shadow)"/>
+                <path d={OVERVIEW_SURFACES.bowl} fill="none" stroke="#fff" strokeWidth="7"/>
+                <path d={OVERVIEW_SURFACES.floor} fill="url(#tokyo-floor-surface)" stroke="#e8eee9" strokeWidth="12"/>
+                <path d={OVERVIEW_SURFACES.floor} fill="url(#tokyo-floor-stripes)" stroke="#719886" strokeWidth="1.5"/>
+                {/* Existing block footprints make the stepped bowl, including its aisle gaps. */}
+                <g transform="translate(0 4)" fill="#596e82" opacity=".25">
+                  {SHAPES.map(area => <path key={area.path} d={area.path!}/>)}
+                  {BALCONY_GROUP_PATHS.map((path, index) => <path key={index} d={path}/>)}
+                </g>
               </g>
               {SHAPES.map((area) => {
                 const active = selected?.code === area.code && !area.shared;
@@ -492,6 +526,8 @@ export function TokyoDomeSeatLocator() {
                     onKeyDown={area.shared ? undefined : event => keyArea(event, area)} onFocus={() => setFocusedCode(area.code)}
                     tabIndex={area.shared ? undefined : area.code === activeFocus ? 0 : -1} role={area.shared ? undefined : "button"}
                     aria-label={area.shared ? undefined : `${area.code}${area.rows ? `・${area.rows[0]}〜${area.rows[1]}列` : "・列範囲確認中"}を拡大`} />
+                  {!active && overviewOpacity > 0 && <path d={area.path!} fill={`url(#tokyo-tier-${area.code[0]})`} opacity={overviewOpacity} pointerEvents="none" aria-hidden="true"/>}
+                  {rowGuides && overviewOpacity > 0 && <path d={rowGuides.lines} fill="none" stroke="#425c73" strokeWidth=".45" vectorEffect="non-scaling-stroke" opacity={overviewOpacity * .18} clipPath={`url(#tokyo-rows-${area.code})`} pointerEvents="none" aria-hidden="true"/>}
                   {detailStage && rowGuides && <g clipPath={`url(#tokyo-rows-${area.code})`} pointerEvents="none">
                     {<path d={rowGuides.lines} fill="none" stroke={active ? "#fff" : "#665f7a"} strokeWidth={showDetail ? "0.65" : "0.45"} vectorEffect="non-scaling-stroke" opacity={active ? "0.55" : showDetail ? "0.32" : "0.2"} />}
                     {selectedBand && <path d={selectedBand} fill="#ffda70" fillOpacity="0.96" fillRule="evenodd" />}
@@ -513,6 +549,7 @@ export function TokyoDomeSeatLocator() {
                 </g>
               </g>}
               {BALCONY_GROUP_PATHS.map((path, index) => <path key={`balcony-band-${index}`} d={path} fill={ZONE_COLORS.C} opacity={matchesLevel("C") ? 1 : .16} stroke="#fff" strokeWidth="1.6" vectorEffect="non-scaling-stroke" />)}
+              <g opacity={overviewOpacity * (matchesLevel("C") ? 1 : .16)} pointerEvents="none" aria-hidden="true">{BALCONY_GROUP_PATHS.map((path, index) => <path key={index} d={path} fill="url(#tokyo-tier-C)"/>)}</g>
               {BALCONY_SEGMENTS.map((segment) => {
                 const area = AREA_BY_CODE.get(segment.code)!;
                 const active = selected?.code === area.code;
@@ -526,6 +563,11 @@ export function TokyoDomeSeatLocator() {
               })}
               <g pointerEvents="none">
                 {BALCONY_DIVIDERS.map((divider) => <path key={`${divider[0].join("-")}-${divider[1].join("-")}`} d={`M${divider[0][0]},${divider[0][1]} L${divider[1][0]},${divider[1][1]}`} fill="none" stroke="#fff" strokeWidth="1.05" vectorEffect="non-scaling-stroke" />)}
+              </g>
+              <g data-overview-art="floor-label" opacity={overviewOpacity} pointerEvents="none" aria-hidden="true" fill="#315b4c" textAnchor="middle" fontFamily="ui-sans-serif, sans-serif">
+                <text x="579" y="268" fontSize={17 / screenScale} fontWeight="800" letterSpacing=".08em">アリーナ</text>
+                <text x="579" y={268 + 20 / screenScale} fontSize={10 / screenScale}>公演ごとに</text>
+                <text x="579" y={268 + 34 / screenScale} fontSize={10 / screenScale}>配置が変わります</text>
               </g>
               {mapLabels.filter(label => !(verifiedNumberGuide && label.code === selected?.code)).map(label => <text key={label.code} data-seat-label={label.code} x={label.x} y={label.y}
                 transform={`rotate(${label.angle},${label.x},${label.y})`} textAnchor="middle" dominantBaseline="central"
@@ -549,8 +591,8 @@ export function TokyoDomeSeatLocator() {
               {TOKYO_DOME_GATE_ANCHORS.filter(gate => {
                 if (showDetail) return true;
                 if (!["GATE 11", "GATE 25", "GATE 40", "GATE 41"].includes(gate.gate)) return false;
-                return TOKYO_DOME_OVERVIEW_AREAS.every(area => Math.abs(area.point[0] - gate.label.x) * overviewScale >= 80
-                  || Math.abs(area.point[1] - gate.label.y) * overviewScale >= 36);
+                return TOKYO_DOME_OVERVIEW_AREAS.every(area => Math.abs(OVERVIEW_LABEL_POINTS[area.id][0] - gate.label.x) * overviewScale >= 80
+                  || Math.abs(OVERVIEW_LABEL_POINTS[area.id][1] - gate.label.y) * overviewScale >= 36);
               }).map((gate) => <g key={gate.gate} pointerEvents="none">
                 <rect x={gate.label.x - 31 / screenScale} y={gate.label.y - 12 / screenScale}
                   width={62 / screenScale} height={24 / screenScale} rx={6 / screenScale} fill="#393148" stroke="#fff" strokeWidth="1.2" vectorEffect="non-scaling-stroke" />
@@ -568,8 +610,8 @@ export function TokyoDomeSeatLocator() {
           {!showDetail && <div className={styles.areaLabels} aria-label="大きな場所から探す">
             {TOKYO_DOME_OVERVIEW_AREAS.map(area => <button key={area.id} type="button" data-major-area={area.id}
               className={tapHint ? styles.areaPrompt : undefined} onAnimationEnd={() => setTapHint(false)}
-              style={{left:(canvasSize.width-interactiveViewBox.width*screenScale)/2+(area.point[0]-interactiveViewBox.x)*screenScale,
-                top:(canvasSize.height-interactiveViewBox.height*screenScale)/2+(area.point[1]-interactiveViewBox.y)*screenScale}}
+              style={{left:(canvasSize.width-interactiveViewBox.width*screenScale)/2+(OVERVIEW_LABEL_POINTS[area.id][0]-interactiveViewBox.x)*screenScale,
+                top:(canvasSize.height-interactiveViewBox.height*screenScale)/2+(OVERVIEW_LABEL_POINTS[area.id][1]-interactiveViewBox.y)*screenScale}}
               onClick={() => chooseDirection(area.id)}>{area.label}</button>)}
           </div>}
         </div>
