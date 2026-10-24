@@ -1,5 +1,7 @@
 "use client";
 
+import { getTrafficOrigin, VERIFICATION_ENTRY_PATH } from "@/lib/analyticsTraffic";
+
 export type AnalyticsEventParams = Record<
   string,
   string | number | boolean | null | undefined
@@ -23,11 +25,11 @@ export function trackEvent(
   eventName: string,
   params: AnalyticsEventParams = {},
 ): void {
-  if (typeof window === "undefined" || typeof window.gtag !== "function") return;
+  if (typeof window === "undefined" || typeof window.gtag !== "function" || window.location.pathname === VERIFICATION_ENTRY_PATH) return;
 
   const safeParams = Object.fromEntries(
     Object.entries(params).filter(([, value]) => value !== undefined && value !== null),
   );
-  window.gtag("event", eventName, safeParams);
+  window.gtag("event", eventName, { ...safeParams, traffic_origin: getTrafficOrigin() });
 }
 

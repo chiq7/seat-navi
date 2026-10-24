@@ -4,6 +4,8 @@ import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { AnalyticsNavigationTracker } from "@/components/analytics/AnalyticsNavigationTracker";
+import { VerificationNotice } from "@/components/analytics/VerificationNotice";
+import { gaBootstrapScript } from "@/lib/analyticsTraffic";
 import Footer from "@/components/common/Footer";
 import { buildSiteStructuredData, serializeJsonLd } from "@/lib/structuredData";
 import "./globals.css";
@@ -77,6 +79,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: serializeJsonLd(buildSiteStructuredData()) }}
         />
+        <VerificationNotice />
         <div className="min-h-screen">
           {children}
           <Footer />
@@ -95,7 +98,7 @@ export default function RootLayout({
               strategy="afterInteractive"
             />
             <Script id="ga4-init" strategy="afterInteractive">
-              {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}');`}
+              {gaBootstrapScript(GA_ID)}
             </Script>
           </>
         )}
