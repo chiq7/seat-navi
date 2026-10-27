@@ -64,3 +64,17 @@ export function numberAnchorVisible(sign: NumberLabel, width: number, height: nu
   return x - badgeWidth / 2 >= 0 && x + badgeWidth / 2 <= width
     && y - badgeHeight / 2 >= 0 && y + badgeHeight / 2 <= height;
 }
+
+
+export function prioritizeSelectedNumberArrow<T extends { block: { code: string }; sign: NumberLabel }>(labels: T[], selectedCode: string | null, reserved: LabelRect[]) {
+  const selected = labels.find(label => label.block.code === selectedCode);
+  if (!selected) return labels;
+  const obstacles = (items: T[]) => [...reserved, ...items.map(label => label.sign.rect)];
+  if (clearNumberArrow(selected.sign, obstacles(labels))) return labels;
+  const { from, to } = selected.sign;
+  const length = Math.hypot(to.x - from.x, to.y - from.y);
+  if (length < 8) return labels;
+  const minimumTip = { x: from.x + (to.x - from.x) * 8 / length, y: from.y + (to.y - from.y) * 8 / length };
+  const kept = labels.filter(label => label === selected || !arrowOverlapsRect(from, minimumTip, label.sign.rect, 3));
+  return kept.length < labels.length && clearNumberArrow(selected.sign, obstacles(kept)) ? kept : labels;
+}

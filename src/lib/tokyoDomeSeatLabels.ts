@@ -57,8 +57,8 @@ export function layoutTokyoDomeSeatLabels(areas: readonly LabelArea[], box: Box,
     const rawAngle = Math.atan2(y - 300, x - 579) * 180 / Math.PI;
     const angle = Number((rawAngle > 90 ? rawAngle - 180 : rawAngle < -90 ? rawAngle + 180 : rawAngle).toFixed(3));
     const baseSize = area.code.startsWith("C") ? 4.3 : 6.5;
-    const fontSize = display ? (display.detailStage ? 14 : 12) / display.screenScale : baseSize;
-    return { code: area.code, x, y, angle: display && !display.detailStage ? 0 : angle, fontSize };
+    const fontSize = display ? 12 / display.screenScale : baseSize;
+    return { code: area.code, x, y, angle: display ? 0 : angle, fontSize };
   });
 }
 
@@ -99,4 +99,13 @@ export function placeTokyoDomeRowMarker(anchor: readonly number[], occupied: rea
     Math.abs(anchor[0]+dx-box.x) > box.halfWidth+30/scale
     || Math.abs(anchor[1]+dy-box.y) > box.halfHeight+16/scale)) ?? offsets[0];
   return [anchor[0]+offset[0],anchor[1]+offset[1]];
+}
+
+
+export function tokyoDomeSeatFocus(code: string, label: readonly [number, number], sourcePath: string | null): [number, number] {
+  if (code !== "A49" || !sourcePath) return [...label];
+  const points = [...sourcePath.matchAll(/(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/g)].map(m => [Number(m[1]), Number(m[2])]);
+  if (!points.length) return [...label];
+  return [(Math.min(...points.map(p => p[0])) + Math.max(...points.map(p => p[0]))) / 2,
+    (Math.min(...points.map(p => p[1])) + Math.max(...points.map(p => p[1]))) / 2];
 }

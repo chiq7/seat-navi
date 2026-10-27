@@ -101,3 +101,7 @@
   .overviewHeading strong { font-size:13px; }
   .overviewHeading span { font-size:11px; }
 }
+
+/* Tokyo only: row and searched-number roles stay distinct from number references. */
+.selectedRow { color:#155786; background:#e8f3ff; border-radius:4px; padding:2px 4px; white-space:nowrap; }
+.selectedSeat { color:#663b00; background:#fff0a8; border:1px solid #c38a19; border-radius:4px; padding:2px 5px; white-space:nowrap; }

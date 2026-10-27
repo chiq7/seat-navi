@@ -1315,6 +1315,7 @@
     },
     {
       "id": "belluna-shape-408",
+      "selectionPaintOnTop": true,
       "level": "stand",
       "area": "ネット裏",
       "label": "207付近・ネット裏指定席・21〜30列",

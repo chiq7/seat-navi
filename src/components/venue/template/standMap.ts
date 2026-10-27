@@ -8,6 +8,9 @@ export type StandBlock = {
   referenceRows?: { label: string; a: Point; b: Point }[];
   // A confirmed block/row association does not confirm its seat numbers.
   confirmedRowLabels?: string[];
+  // Keep a confirmed selected shape above an overlapping reference-only shape.
+  selectionPaintOnTop?: boolean;
+  revealSelectedRowOnDetailZoom?: boolean;
   focusPoint?: Point;
   labelAvoidancePoints?: Point[];
   numberEdgeMiddle?: Point;
@@ -119,11 +122,15 @@ export function standBlockLabel(data: StandMapData, block: StandBlock) {
   return block.zone && block.numberReference ? `${data.areaBlockNames ? `${block.zone}・` : ""}${block.numberReference.start}番〜` : block.label;
 }
 
-export function standContextLabel(data: StandMapData, block: StandBlock, closestDetail: boolean) {
+export function standContextLabel(data: StandMapData, block: StandBlock, closestDetail: boolean, areaNames = false) {
+  // A printed location reference is more useful than a repeated start number
+  // when choosing a block. Retain "付近": this is not an exact seat/aisle ID.
+  const location = areaNames ? block.label.match(/^\d+付近(?=・|$)/)?.[0] : undefined;
+  if (location) return { text: location, point: referenceDisplayCenter(block), fixed: false };
   if (closestDetail && block.numberReference && block.numberLookup !== "unavailable") {
     return { text: `${block.numberPrefix ?? ""}${block.numberReference.start}番`, point: youngEdgeMidpoint(block), fixed: true };
   }
-  return { text: standBlockLabel(data, block), point: block.center, fixed: false };
+  return { text: standBlockLabel(data, block), point: referenceDisplayCenter(block), fixed: false };
 }
 
 // A generic area/floor tag repeats the known selected context at closest zoom.
@@ -139,14 +146,15 @@ export function standRedundantContextLabel(block: StandBlock, selected: StandBlo
 // Hide only a floor/area/type caption already repeated in the selected detail.
 export function standRedundantContextText(text: string, block: StandBlock | undefined, closestDetail: boolean) {
   const compact = (value: string) => value.replace(/[\s・]/g, "");
-  return Boolean(closestDetail && block?.numberReference && block.equipmentFloor
-    && compact(text) === compact(block.equipmentFloor + block.area + block.level));
+  return Boolean(closestDetail && block?.numberReference
+    && ((block.equipmentFloor && compact(text) === compact(block.equipmentFloor + block.area + block.level))
+      || (block.numberPrefix && compact(text) === compact(`${block.area}${block.level}（${block.numberPrefix}）`))));
 }
-export function standReferenceLabelKey(block: StandBlock, closestDetail: boolean) {
+export function standReferenceLabelKey(block: StandBlock, groupReferences: boolean) {
   const repeatedReference = /(?:・|の)参考区画$/.test(block.label)
     || /付近・下層後列$/.test(block.label)
     || Boolean(block.referenceRows?.length && /・前方\d+〜\d+列$/.test(block.label));
-  return closestDetail && block.numberLookup === "unavailable" && !block.numberReference && repeatedReference
+  return groupReferences && block.numberLookup === "unavailable" && !block.numberReference && repeatedReference
     ? JSON.stringify([block.level, block.area, block.zone ?? "", block.label]) : null;
 }
 
@@ -157,12 +165,20 @@ export function boundsOf(blocks: StandBlock[], padding = 28): MapBox {
 }
 export function detailBox(block: StandBlock, span: number): MapBox {
   const size = Math.max(span, block.box[2] * 1.7, block.box[3] * 1.65);
-  const center = block.focusPoint ?? block.center;
+  const center = block.focusPoint ?? referenceDisplayCenter(block);
   return [center[0] - size / 2, center[1] - size / 2, size, size];
 }
 // Keep a confirmed start badge and arrow inside an explicitly focused maximum
 // frame without moving the source edge or overriding a declared focus point.
 export function standDetailCamera(block: StandBlock, data: StandMapData, canvas?: { width: number; height: number }): MapBox {
+  // This search selects a whole, unnumbered room. A square clamped to the
+  // shallow overview cut off its left stage side; retain the room's aspect.
+  if (data.diagramId === "toki-seats-main" && block.id === "toki-snow" && !block.numberReference) {
+    const room = boundsOf([block]);
+    // The upright caption above the left-side marker also needs horizontal
+    // breathing room at 320px. This changes search framing, not zoom limits.
+    return clampCamera([room[0] - 52, room[1], room[2] + 104, room[3]], data.viewBox, data.detailSpan * .45);
+  }
   const view = clampCamera(detailBox(block, data.detailSpan), data.viewBox, data.detailSpan * .45);
   if (block.focusPoint || !block.numberReference) return view;
   const unnumberedRows = block.rowNameLookup === "unavailable";
@@ -386,4 +402,133 @@ export function placeVisibleRowLabel(position: Readonly<Point>, outward: Readonl
 export function standArrowObstacle(arrow: {start: Point; end: Point}) {
   return [(arrow.start[0] + arrow.end[0]) / 2, (arrow.start[1] + arrow.end[1]) / 2,
     Math.abs(arrow.end[0] - arrow.start[0]) + 8, Math.abs(arrow.end[1] - arrow.start[1]) + 8];
+}
+
+
+function standNumberZonePrefix(data: StandMapData, n: string) {
+  return data.zones?.flatMap(z => [z.label, ...z.aliases].map(normalizeSeatInput)
+    .filter(alias => n.startsWith(alias) && /^[-・/:]?\d+$/.test(n.slice(alias.length)))
+    .map(alias => ({ zone: z, alias }))).sort((a, b) => b.alias.length - a.alias.length)[0];
+}
+
+export function standSelectedNumberRun(data: StandMapData, block: StandBlock | undefined, row: string, number: string) {
+  if (!block || block.numberLookup === "unavailable" || block.rowNameLookup === "unavailable") return null;
+  const selectedRow = standSelectedRow(data, block, row);
+  if (!selectedRow) return null;
+  let n = normalizeSeatInput(number);
+  if (block.numberPrefix && n.startsWith(block.numberPrefix) && /^\d+$/.test(n.slice(block.numberPrefix.length))) n = n.slice(block.numberPrefix.length);
+  const prefix = standNumberZonePrefix(data, n);
+  if (prefix) {
+    if (data.rowZonePrefixes || !(block.zone === prefix.zone.id || prefix.zone.blockIds.includes(block.id))) return null;
+    n = n.slice(prefix.alias.length).replace(/^[-・/:]/, "");
+  }
+  if (!/^\d+$/.test(n)) return null;
+  const matches = block.rows.flatMap(r => normalizeSeatInput(r.label) === selectedRow
+    ? r.segments.filter(s => Number(n) >= s.start && Number(n) <= s.end).map(segment => ({ row: r.label, segment })) : []);
+  return matches.length === 1 ? matches[0] : null;
+}
+
+function referenceDisplayCenter(block: StandBlock): Point {
+  return block.numberLookup === "unavailable" && !block.numberReference
+    && (block.id === "belluna-shape-16" || block.id === "belluna-shape-18")
+    ? [block.box[0] + block.box[2] / 2, block.box[1] + block.box[3] / 2]
+    : block.center;
+}
+
+export function standGroupReferenceLabels(data: StandMapData, selected: StandBlock | undefined, viewWidth: number) {
+  if (!selected) return false;
+  if (viewWidth <= data.detailSpan * .55) return true;
+  if (!selected.numberReference || selected.numberLookup === "unavailable") return false;
+  const detailWidth = clampCamera(detailBox(selected, data.detailSpan), data.viewBox, data.detailSpan * .45)[2];
+  return viewWidth <= detailWidth + .005;
+}
+
+export function standVisibleRowHints(block: StandBlock, view: MapBox, canvas: { width: number; height: number }) {
+  if (block.rowNameLookup === "unavailable" || canvas.width <= 8 || canvas.height <= 8) return [];
+  const project = mapProjection(view, canvas.width, canvas.height).project;
+  const clip = (a: Point, b: Point): [Point, Point] | null => {
+    const dx = b[0] - a[0], dy = b[1] - a[1];
+    let from = 0, to = 1;
+    for (const [p, q] of [[-dx, a[0] - 4], [dx, canvas.width - 4 - a[0]], [-dy, a[1] - 4], [dy, canvas.height - 4 - a[1]]]) {
+      if (Math.abs(p) < .000001) { if (q < 0) return null; continue; }
+      const ratio = q / p;
+      if (p < 0) from = Math.max(from, ratio); else to = Math.min(to, ratio);
+      if (from > to) return null;
+    }
+    return [[a[0] + dx * from, a[1] + dy * from], [a[0] + dx * to, a[1] + dy * to]];
+  };
+  return block.rows.flatMap(row => {
+    if (!row.label.trim() || block.unavailableRows?.some(label => normalizeSeatInput(label) === normalizeSeatInput(row.label))) return [];
+    const pieces = row.segments.flatMap(segment => {
+      const points = (segment.points?.length ? segment.points : [segment.a, segment.b]).map(project);
+      return points.slice(1).flatMap((b, index) => {
+        const part = clip(points[index], b);
+        if (!part) return [];
+        const [a, end] = part, length = Math.hypot(end[0] - a[0], end[1] - a[1]);
+        return length >= 24 ? [{ anchor: a, outward: [(a[0] - end[0]) / length, (a[1] - end[1]) / length], length }] : [];
+      });
+    }).sort((a, b) => b.length - a.length);
+    return pieces.length ? [{ label: row.label, anchor: pieces[0].anchor, outward: pieces[0].outward }] : [];
+  });
+}
+
+export function hasStandCanvasArea(canvas: { width: number; height: number }) {
+  return Number.isFinite(canvas.width) && Number.isFinite(canvas.height) && canvas.width > 0 && canvas.height > 0;
+}
+
+export function fitStandNumberGuide(view: MapBox, canvas: { width: number; height: number }, young: Point, older: Point, width: number, wasVisible = false): MapBox {
+  // A detached/temporarily hidden surface has no projection. Keep its last view.
+  if (!hasStandCanvasArea(canvas)) return view;
+  const projection = mapProjection(view, canvas.width, canvas.height);
+  const anchor = projection.project(young);
+  // Panning an endpoint off screen must not pull it back into the frame.
+  if (!wasVisible && (anchor[0] < 0 || anchor[0] > canvas.width || anchor[1] < 0 || anchor[1] > canvas.height)) return view;
+  const guide = edgeNumberGuide(anchor, anchor, projection.project(older), width);
+  const xs = [anchor[0] - width / 2, anchor[0] + width / 2], ys = [anchor[1] - 14, anchor[1] + 14];
+  if (guide.arrow) for (const p of [guide.arrow.start, guide.arrow.end]) { xs.push(p[0] - 9, p[0] + 9); ys.push(p[1] - 9, p[1] + 9); }
+  const shift = (low: number, high: number, length: number) => low < 3 ? low - 3 : high > length - 3 ? high - length + 3 : 0;
+  const dx = shift(Math.min(...xs), Math.max(...xs), canvas.width), dy = shift(Math.min(...ys), Math.max(...ys), canvas.height);
+  return [view[0] + dx / projection.scale, view[1] + dy / projection.scale, view[2], view[3]];
+}
+
+export function standRowDetailTransition(block: StandBlock, data: StandMapData, from: MapBox, next: MapBox, canvas: { width: number; height: number }, row: string, number: string): MapBox {
+  if (!block.revealSelectedRowOnDetailZoom || from[2] <= data.detailSpan * .55 || next[2] > data.detailSpan * .55 || !hasStandCanvasArea(canvas)) return next;
+  const reference = mapProjection(from, canvas.width, canvas.height).project(youngEdgeMidpoint(block));
+  if (reference[0] < 0 || reference[0] > canvas.width || reference[1] < 0 || reference[1] > canvas.height) return next;
+  const run = standSelectedNumberRun(data, block, row, number);
+  if (!run) return next;
+  const older = run.segment.start === run.segment.end ? run.segment.a : run.segment.points?.find(p => Math.hypot(p[0] - run.segment.a[0], p[1] - run.segment.a[1]) > .001) ?? run.segment.b;
+  const text = `${run.row}列 ${block.numberPrefix ?? ""}${run.segment.start}`;
+  return fitStandNumberGuide(next, canvas, run.segment.a, older, Math.max(48, text.length * 8 + 28), true);
+}
+
+export function standLabelInsideCanvas(point: Readonly<Point>, width: number, height: number, canvas: { width: number; height: number }) {
+  // Projection of an exact frame boundary can differ by a few floating-point bits.
+  const epsilon = 1e-7;
+  return point[0] >= width / 2 + 2 - epsilon && point[0] <= canvas.width - width / 2 - 2 + epsilon
+    && point[1] >= height / 2 + 3 - epsilon && point[1] <= canvas.height - height / 2 - 3 + epsilon;
+}
+
+export function fitStandArrowToCanvas(arrow: {start: Point; end: Point} | null, canvas: {width: number; height: number}) {
+  if (!arrow || !hasStandCanvasArea(canvas)) return null;
+  const [x, y] = arrow.start;
+  const length = Math.hypot(arrow.end[0] - x, arrow.end[1] - y);
+  if (![x, y, length].every(Number.isFinite) || length < 8) return null;
+  const ux = (arrow.end[0] - x) / length, uy = (arrow.end[1] - y) / length;
+  let minimum = 8, maximum = length;
+  // These are the seven vertices of SeatNumberArrow, including its fixed shaft.
+  for (const [offset, across, moving] of [[0, 1.5, 0], [-7, 1.5, 1], [-7, 4, 1], [0, 0, 1], [-7, -4, 1], [-7, -1.5, 1], [0, -1.5, 0]]) {
+    for (const [base, slope, limit] of [[x + ux * offset - uy * across, ux * moving, canvas.width], [y + uy * offset + ux * across, uy * moving, canvas.height]]) {
+      // 1px outline plus 1px clearance, in final CSS pixels.
+      if (Math.abs(slope) < 1e-10) {
+        if (base < 2 || base > limit - 2) return null;
+      } else {
+        const a = (2 - base) / slope, b = (limit - 2 - base) / slope;
+        minimum = Math.max(minimum, Math.min(a, b));
+        maximum = Math.min(maximum, Math.max(a, b));
+      }
+    }
+  }
+  if (maximum < minimum) return null;
+  return maximum >= length ? arrow : { start: arrow.start, end: [x + ux * maximum, y + uy * maximum] as Point };
 }

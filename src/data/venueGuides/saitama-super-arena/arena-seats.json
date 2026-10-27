@@ -44222,6 +44222,7 @@
     },
     {
       "id": "arena-seat-250",
+      "revealSelectedRowOnDetailZoom": true,
       "sourceHighlightId": "highlight_250",
       "level": "500レベル",
       "area": "all",

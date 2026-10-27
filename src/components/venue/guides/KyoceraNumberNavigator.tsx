@@ -3,9 +3,9 @@ import { useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointer
 import type { DedicatedVenueGuide } from "@/data/venueGuides/types";
 import { projectMapPoint, type Box } from "./mapGeometry";
 import { pathBounds, simplifiedRows, type DrawingBlock } from "./kyoceraMapDrawing";
-import { arrowOverlapsRect, clearNumberArrow, compactNeighbourNumber, numberAnchorVisible, placeNumberLabel, numberBadgePath, rectanglesOverlap, type LabelRect, type NumberLabel } from "./kyoceraNumberLabels";
+import { arrowOverlapsRect, clearNumberArrow, compactNeighbourNumber, prioritizeSelectedNumberArrow, numberAnchorVisible, placeNumberLabel, rectanglesOverlap, type LabelRect, type NumberLabel } from "./kyoceraNumberLabels";
 import { SEAT_DRAG_THRESHOLD, seatTapAllowed, spatialSeatTarget } from "@/lib/seatMapInteraction";
-import SeatNumberArrow from "../SeatNumberArrow";
+import { seatNumberBadge, seatNumberBadgeBounds, seatNumberArrowInk } from "@/lib/seatNumberBadge";
 import gates from "@/data/venueGuides/kyocera-dome/seat-gates.json";
 import styles from "./KyoceraNumberNavigator.module.css";
 import { VenueOverviewArt, overviewArtworkOpacity } from "../template/VenueOverviewArt";
@@ -56,6 +56,7 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
   }, [box, dragging]);
   const project = (x: number, y: number) => projectMapPoint(x, y, shown, size.width, size.height);
   const origin = project(0, 0), scale = origin.scale;
+  
   const overview = Math.max(shown[2], shown[3]) > 950;
   const areaScale = Math.max(shown[2], shown[3]) > 550;
   const detail = !overview && !areaScale && Boolean(selectedCode);
@@ -166,6 +167,16 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
       return [{ rect, anchor: p, row: (i ? selectedBlock.rows.at(-1)! : selectedBlock.rows[0]).row, end: i ? "back" : "front" }];
     });
   })() : [];
+  if (detail && selectedBlock?.rowLabelIsPrinted && selectedDrawing) {
+    const selectedRow = selectedDrawing.rows.find(row => row.selected);
+    if (selectedRow && !rowEnds.some(row => row.row === selectedRow.row)) {
+      const anchor = project(selectedRow.from.x, selectedRow.from.y);
+      if (anchor.x >= 0 && anchor.x <= size.width && anchor.y >= 0 && anchor.y <= size.height) {
+        const rect = { x: anchor.x, y: anchor.y - 38, width: 56, height: 28 };
+        rowEnds.unshift({ rect, anchor, row: selectedRow.row, end: "selected" }); annotations.push({ rect });
+      }
+    }
+  }
   const centralLabels = !detail || closestView ? [] : visible.filter(block => block.label.startsWith("中央") && block.code !== selectedCode).flatMap(block => {
     const p = project(block.x, block.y), rect = { x: p.x, y: p.y + 23, width: 16, height: 16 };
     if (rect.x < 8 || rect.x > size.width - 8 || rect.y < 8 || rect.y > size.height - 8) return [];
@@ -223,26 +234,58 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
       placedLabels.filter(other => other !== label).map(other => other.sign.rect));
     Object.assign(label.sign, compact.sign); label.compact = compact.compact;
   }
+  const placedRows: typeof rowEnds = [];
   for (const row of rowEnds) {
     const anchor = { ...row.rect };
-    const obstacles = placedLabels.map(label => label.sign.rect);
+    const obstacles = [...placedLabels.map(label => {
+      const { rect, from, to } = label.sign;
+      const bounds = seatNumberBadgeBounds([to.x - from.x, to.y - from.y], rect.width, rect.height, Math.hypot(to.x - from.x, to.y - from.y), label.compact ? 3 : 5);
+      return { ...bounds, x: rect.x + bounds.x, y: rect.y + bounds.y };
+    }), ...placedRows.map(row => row.rect)];
     const shifts = [[0, 0], [0, -34], [0, 34], [-60, 0], [60, 0], [-60, -34], [60, 34]];
     const chosen = shifts.map(([dx, dy]) => ({ ...anchor, x: anchor.x + dx, y: anchor.y + dy }))
       .find(rect => rect.x >= 30 && rect.x <= size.width - 30 && rect.y >= 16 && rect.y <= size.height - 16
         && obstacles.every(other => !rectanglesOverlap(rect, other, 3)));
-    if (chosen) Object.assign(row.rect, chosen);
+    if (chosen && Math.hypot(chosen.x - row.anchor.x, chosen.y - row.anchor.y) <= 64) { Object.assign(row.rect, chosen); placedRows.push(row); }
+  }
+  rowEnds.splice(0, rowEnds.length, ...placedRows);
+  const numberPriority = prioritizeSelectedNumberArrow(placedLabels, selectedCode ?? null, reserved);
+  const priorityLabels: typeof placedLabels = [];
+  const labelPriorityOrigin = selectedBlock ? project(selectedBlock.x, selectedBlock.y) : { x: size.width / 2, y: size.height / 2 };
+  for (const label of [...numberPriority].sort((a, b) => Number(b.block.code === selectedCode) - Number(a.block.code === selectedCode)
+    || Math.hypot(a.sign.rect.x - labelPriorityOrigin.x, a.sign.rect.y - labelPriorityOrigin.y) - Math.hypot(b.sign.rect.x - labelPriorityOrigin.x, b.sign.rect.y - labelPriorityOrigin.y))) {
+    // Compact neighbouring badges can still collide. Preserve the selected
+    // marker and actual row ends; omit only the overlapping passive badge.
+    if (label.block.code !== selectedCode && [...rowEnds.map(row => row.rect), ...priorityLabels.map(other => other.sign.rect)]
+      .some(rect => rectanglesOverlap(rect, label.sign.rect, 4))) continue;
+    priorityLabels.push(label);
   }
   // Number anchors have priority. Add a quiet row range underneath wherever
   // it fits, rather than displacing a neighbouring block's young number.
-  for (const label of placedLabels) {
+  for (const label of priorityLabels) {
     if (!label.rangeReadable) continue;
     const rect = { x: label.sign.rect.x, y: label.sign.rect.y + 32, width: label.rowRange.length * 7 + 12, height: 24 };
     if (rect.x - rect.width / 2 < 4 || rect.x + rect.width / 2 > size.width - 4 || rect.y + rect.height / 2 > size.height - 4) continue;
     const others = reserved.filter(rect => !centralLabels.some(c => c.code === label.block.code && c.rect === rect));
-    if ([...others, ...placedLabels.map(other => other.sign.rect), ...placedLabels.flatMap(other => other.rangeRect ? [other.rangeRect] : [])].some(other => rectanglesOverlap(rect, other, 3))) continue;
+    // A supplementary neighbour range must not suppress the selected number's direction.
+    if (priorityLabels.some(other => other.block.code === selectedCode && arrowOverlapsRect(other.sign.from, other.sign.to, rect, 3))
+      || [...others, ...priorityLabels.map(other => other.sign.rect), ...priorityLabels.flatMap(other => other.rangeRect ? [other.rangeRect] : [])].some(other => rectanglesOverlap(rect, other, 3))) continue;
     label.rangeRect = rect; label.showRange = true; annotations.push({ rect });
   }
-  const numberLabels = placedLabels.map(label => ({ ...label, arrow: clearNumberArrow(label.sign, [...reserved, ...placedLabels.map(other => other.sign.rect), ...placedLabels.flatMap(other => other.rangeRect ? [other.rangeRect] : [])]) }));
+  const numberLabels = priorityLabels.map(label => {
+    const candidate = clearNumberArrow(label.sign, [...reserved, ...priorityLabels.map(other => other.sign.rect), ...priorityLabels.flatMap(other => other.rangeRect ? [other.rangeRect] : [])]);
+    if (!candidate) return { ...label, arrow: null, badgePath: null, badgeInk: undefined };
+    const dx = candidate.to.x - candidate.from.x, dy = candidate.to.y - candidate.from.y, length = Math.hypot(dx, dy);
+    // Keep the whole joined outline inside the viewport; shorten only along the sourced direction.
+    for (let remaining = length; remaining >= 8; remaining -= 1) {
+      const bounds = seatNumberBadgeBounds([dx, dy], label.sign.rect.width, label.sign.rect.height, remaining, label.compact ? 3 : 5);
+      const x = label.sign.rect.x + bounds.x, y = label.sign.rect.y + bounds.y;
+      if (x - bounds.width / 2 >= 1 && x + bounds.width / 2 <= size.width - 1 && y - bounds.height / 2 >= 1 && y + bounds.height / 2 <= size.height - 1) {
+        return { ...label, badgeInk: seatNumberArrowInk([dx, dy], label.sign.rect.width, label.sign.rect.height, remaining, label.compact ? 3 : 5), badgePath: seatNumberBadge([dx, dy], label.sign.rect.width, label.sign.rect.height, remaining, label.compact ? 3 : 5), arrow: { from: candidate.from, to: { x: candidate.from.x + dx * remaining / length, y: candidate.from.y + dy * remaining / length } } };
+      }
+    }
+    return { ...label, arrow: null, badgePath: null, badgeInk: undefined };
+  });
   const focusCode = visible.some(b => b.code === focusedCode) ? focusedCode : selectedBlock?.code ?? visible[0]?.code;
   function keyBlock(event: KeyboardEvent<SVGGElement>, block: DrawingBlock) {
     if (["Enter", " "].includes(event.key)) { event.preventDefault(); onBlock(block); return; }
@@ -251,7 +294,7 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
     event.preventDefault(); setFocusedCode(target.id);
     frame.current?.querySelector<SVGGElement>(`[data-seat-block="${target.id}"]`)?.focus({ preventScroll: true });
   }
-  return <div ref={frame} className={styles.canvas} data-testid="kyocera-seat-map" data-camera={box.join(" ")} data-map-mode="unified" data-map-stage={overview ? "overview" : detail ? "detail" : "blocks"}
+  return <div ref={frame} className={styles.canvas} data-testid="kyocera-seat-map" data-camera={box.join(" ")} data-map-mode="unified" data-number-badge-version="connected-v2" data-map-stage={overview ? "overview" : detail ? "detail" : "blocks"}
     onPointerDownCapture={() => setTapHint("done")} onKeyDownCapture={() => setTapHint("done")}>
     <svg ref={svg} viewBox={`0 0 ${size.width} ${size.height}`} role="group" aria-label={`${guide.name}の座席表`} onPointerDown={start} onPointerMove={move}
       onPointerUp={end} onPointerCancel={cancel} onLostPointerCapture={event => { if (contacts.current.has(event.pointerId)) cancel(); }} onPointerLeave={event => { if (!event.currentTarget.hasPointerCapture(event.pointerId)) cancel(); }}>
@@ -267,23 +310,25 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
             opacity={level !== "すべて" && block.tier !== level && block.code !== selectedCode ? .2 : 1} stroke={block.code === selectedCode ? "#5d263f" : "white"} strokeWidth={(block.code === selectedCode ? 2.5 : .6) / scale} />
           <title>{`${block.label}・${block.tier} ／ ${block.rowLabelIsPrinted ? `${block.rowLabel}列` : "列の印字なし（検索：0列）"} ／ ${block.firstSeat}〜${block.lastSeat}番`}</title>
         </g>)}
+        
         {detail && visible.filter(b => (level === "すべて" || b.tier === level || b.code === selectedCode) && (b.code === selectedCode || Math.max(...[geometry.get(b.code)!.bounds].map(r => Math.max(r.right - r.left, r.bottom - r.top))) * scale >= 65)).map(block => <g key={`rows:${block.code}`} clipPath={`url(#seat-clip-${block.code})`} pointerEvents="none" data-row-guides={block.code}>
           {(block.code === selectedCode ? selectedDrawing! : geometry.get(block.code)!.drawing).rows.map(row => <line key={row.row} data-row-line={row.row} x1={row.from.x} y1={row.from.y} x2={row.to.x} y2={row.to.y}
-            stroke={row.selected ? "#fff3a5" : block.code === selectedCode ? "#ffe6f0" : "#ab7593"} strokeWidth={(row.selected ? 2 : .6) / scale} opacity={row.selected ? 1 : .65} />)}
+            stroke={row.selected ? "#1673ad" : block.code === selectedCode ? "#ffe6f0" : "#ab7593"} strokeWidth={(row.selected ? 2 : .6) / scale} opacity={row.selected ? 1 : .65} />)}
         </g>)}
       </g>
       <g pointerEvents="none" className={styles.numbers}>
         {blockLabels.map(({ block, drawing, p, text, fontSize }) => <text key={block.code} data-block-start={block.code} data-start-number={drawing.seatStart} x={p.x} y={p.y} dominantBaseline="central" textAnchor="middle" fontSize={fontSize} fill="#672442" pointerEvents="all" style={{ cursor: "pointer" }} aria-hidden="true">{text}</text>)}
-        {numberLabels.map(({ block, drawing, sign: { rect }, arrow, rowRange, rangeRect, compact }) => <g key={block.code} data-number-guide={block.code} data-reference-row={drawing.referenceRow} data-start-number={drawing.seatStart} data-compact-number={compact || undefined}>
+        {numberLabels.map(({ block, drawing, sign: { rect }, arrow, badgePath, badgeInk, rowRange, rangeRect, compact }) => <g key={block.code} data-number-guide={block.code} data-reference-row={drawing.referenceRow} data-start-number={drawing.seatStart} data-compact-number={compact || undefined}>
           <title>{block.rowLabelIsPrinted ? `${drawing.referenceRow}列の番号目安。列によって端の番号が変わります。` : "FBの印字された開始番号と番号が増える向き。検索の列は0です。"}</title>
-          {arrow && <SeatNumberArrow from={arrow.from} to={arrow.to} />}
-          <path data-number-badge="" d={numberBadgePath(rect, compact ? 3 : 5)} fill="#fff" stroke={block.code === selectedCode ? "#ac2e66" : "#b97494"} strokeWidth={block.code === selectedCode ? 2 : 1} />
-          <text data-number-text="" x={rect.x} y={rect.y + (compact ? 4 : 5)} textAnchor="middle" fontSize={compact ? 12 : 14} fill="#672442">{drawing.seatStart}{!compact && <tspan fontSize="12">番</tspan>}</text>
-          {rangeRect && <g><rect data-row-range-badge={block.code} x={rangeRect.x - rangeRect.width / 2} y={rangeRect.y - 12} width={rangeRect.width} height="24" rx="4" fill="#fffc" /><text data-row-range={block.code} x={rangeRect.x} y={rangeRect.y + 4} textAnchor="middle" fontSize="12" fontWeight="600" fill="#76576a">{rowRange}</text></g>}
+
+          <path data-number-badge="" data-connected-number-arrow={arrow ? "" : undefined} transform={`translate(${rect.x} ${rect.y})`} d={badgePath ?? seatNumberBadge([0, 0], rect.width, rect.height, 0, compact ? 3 : 5)} fill="#fff" stroke={block.code === selectedCode ? "#ac2e66" : "#d5c5cd"} strokeWidth={block.code === selectedCode ? 2 : 1} />
+          {badgeInk && <path data-number-arrow-ink="" transform={`translate(${rect.x} ${rect.y})`} d={badgeInk} fill="none" stroke="#a93164" strokeWidth={block.code === selectedCode ? 2 : 1.6} strokeLinejoin="round" strokeLinecap="round"/>}
+          <text data-number-text="" x={rect.x} y={rect.y + (compact ? 4 : 5)} textAnchor="middle" fontSize={block.code === selectedCode ? 14 : 12} fill="#672442">{drawing.seatStart}{!compact && <tspan fontSize="12">番</tspan>}</text>
+          {rangeRect && <g><text stroke="#fff" strokeWidth="3" paintOrder="stroke" strokeLinejoin="round" data-row-range={block.code} x={rangeRect.x} y={rangeRect.y + 4} textAnchor="middle" fontSize="12" fontWeight="600" fill="#76576a">{rowRange}</text></g>}
         </g>)}
         {centralLabels.filter(c => !placedLabels.some(l => l.block.code === c.code && l.showRange)).map(({ code, rect, letter }) => <text key={code} x={rect.x} y={rect.y + 4} textAnchor="middle" fontSize="12">{letter}</text>)}
-        {focusRows && <g><rect data-row-range-badge={focusRows.code} x={focusRows.rect.x - focusRows.rect.width / 2} y={focusRows.rect.y - 12} width={focusRows.rect.width} height="24" rx="4" fill="#fffffff0" /><text data-row-range={focusRows.code} x={focusRows.rect.x} y={focusRows.rect.y + 4} textAnchor="middle" fontSize="12" fontWeight="600" fill="#76576a">{focusRows.text}</text></g>}
-        {rowEnds.map(({ rect: p, anchor, row, end }) => <g key={end} data-row-end={end}>{(p.x !== anchor.x || p.y !== anchor.y) && <path d={`M${anchor.x},${anchor.y}L${p.x},${p.y}`} stroke="#a93164" strokeWidth="1"/>}<rect x={p.x - 28} y={p.y - 14} width="56" height="28" rx="4" fill="white" stroke="#a93164" /><text x={p.x} y={p.y + 4} textAnchor="middle" fontSize="12" fill="#a93164">{row}列</text></g>)}
+        {focusRows && <g><text stroke="#fff" strokeWidth="3" paintOrder="stroke" strokeLinejoin="round" data-row-range={focusRows.code} x={focusRows.rect.x} y={focusRows.rect.y + 4} textAnchor="middle" fontSize="12" fontWeight="600" fill="#76576a">{focusRows.text}</text></g>}
+        {rowEnds.map(({ rect: p, anchor, row, end }) => <g key={end} data-row-end={end}>{(p.x !== anchor.x || p.y !== anchor.y) && <path d={`M${anchor.x},${anchor.y}L${p.x},${p.y}`} stroke="#a93164" strokeWidth="1"/>}<rect x={p.x - 28} y={p.y - 14} width="56" height="28" rx="4" fill={rowLabel === row ? "#155786" : "#e8f3ff"} stroke="#23679a" /><text x={p.x} y={p.y + 4} textAnchor="middle" fontSize="12" fill={rowLabel === row ? "#fff" : "#155786"}>{row}列</text></g>)}
         {gates.gates.filter(g => !overview || [1, 5, 9, 12].includes(g.number)).flatMap(gate => { const p = project(gate.x, gate.y); if (!available(p.x, p.y, 64, 24)) return [];
           return [<g key={gate.id} data-seat-gate={gate.number}><rect x={p.x - 32} y={p.y - 12} width="64" height="24" rx="12" fill="#514452" /><text x={p.x} y={p.y + 4} fill="white" textAnchor="middle" fontSize="12">GATE {gate.number}</text></g>]; })}
       </g>

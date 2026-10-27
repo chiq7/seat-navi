@@ -99,7 +99,7 @@ export default function KyoceraSeatMap({ guide, selectedId, rowLabel, seatNumber
       </div>}
     </div>}
     <div className={styles.selectionBand} data-testid="map-selection-summary" aria-live="polite">{selected ? <>
-      <div><strong>{selected.label}・{selected.tier}</strong><span>{selected.rowLabelIsPrinted ? `${selected.rowLabel}列（${selected.rows.length}列）` : "公式検索：0列"}・{selected.firstSeat}〜{selected.lastSeat}番{currentRow && selected.rowLabelIsPrinted ? ` ／ ${currentRow}列` : ""}{currentNumber ? `・${currentNumber}番` : ""}</span></div>
+      <div><strong>{selected.label}・{selected.tier}</strong><span>{selected.rowLabelIsPrinted ? `${selected.rowLabel}列（${selected.rows.length}列）` : "公式検索：0列"}・{selected.firstSeat}〜{selected.lastSeat}番{currentRow && selected.rowLabelIsPrinted && <> ／ <b className={styles.selectedRow}>{currentRow}列</b></>}{currentNumber && <> ・ <b className={styles.selectedSeat} data-selected-seat-number>選択：{currentNumber}番</b></>}</span></div>
       <button type="button" disabled={!selected} aria-label="選んだ場所を表示" onClick={() => selected && setBox(kyoceraBlockCamera(selected, whole))}><LocateFixed size={19} /></button>
       <button type="button" disabled={!selected} aria-label="座席の選択を解除" onClick={clear}><X size={18} /></button>
     </> : <span>{direction === "all" ? "座席の全体図" : `${directions.find(item => item.id === direction)?.label ?? "座席"}の範囲`}</span>}</div>
