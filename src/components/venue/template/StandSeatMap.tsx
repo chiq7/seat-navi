@@ -225,6 +225,8 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   const occupied = [...levelTags.map(l => { const p = projection.project(l.point); return [p[0], p[1], Math.max(64, l.label.length * 14 + 28), 44]; }), ...zoneTags.map(z => { const p = zonePositions.get(z.id)!; return [p[0], p[1], overviewAreaLabelWidth(z.label), 44]; })];
   occupied.push(...areaTags.map(a => { const p = areaPositions.get(a.id)!; return [p[0], p[1], overviewAreaLabelWidth(a.label), 44]; }));
   const labels: { id: string; text: string; x: number; y: number; width: number; height: number; kind: "row" | "number" | "block"; selected: boolean; plain: boolean; anchor?: Point }[] = [];
+  const selectedRowLabel = (label: typeof labels[number]) => label.kind === "row" && (label.id === "selected-row" ||
+    (Boolean(highlightedRow) && (label.id === "first-row" || label.id === "last-row") && normalizeSeatInput(label.text.replace(/列$/, "")) === normalizeSeatInput(highlightedRow)));
   const blockCenters = shown.flatMap(b => [b.center, ...(b.labelAvoidancePoints ?? [])].map(point => ({ id: b.id, point: projection.project(point) })));
   // Keep context captions off both ends of the interval chosen by the seat search.
   const labelRun = standSelectedNumberRun(data, block, row, number);
@@ -270,7 +272,21 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
       const numberText = `${block.numberPrefix ?? ""}${reference.start}`;
       const labelWidth = Math.max(48, numberText.length * 8 + 28);
       const anchor = selectedRun ? young : projection.project(youngEdgeMidpoint(block));
-      const guide = edgeNumberGuide(anchor, young, old, labelWidth);
+      // For the narrow Yoyogi F sliver, put the badge outside and keep the arrow tip at the sourced edge.
+      const length = Math.hypot(old[0] - young[0], old[1] - young[1]);
+      let numberAnchor = anchor;
+      if (data.diagramId === "yoyogi-stand-reference" && block.id === "yoyogi-s1F-2" && length > .001 && length < labelWidth
+        && anchor[0] >= 0 && anchor[0] <= size.width && anchor[1] >= 0 && anchor[1] <= size.height) {
+        const ux = (old[0] - young[0]) / length, uy = (old[1] - young[1]) / length;
+        // This sourced edge is nearly horizontal: the arrow exits the straight
+        // vertical side of the badge. Its 20px tip then lands on the source edge.
+        const straightSide = Math.abs(ux) > .001 && Math.abs(uy / ux) * labelWidth / 2 <= 9;
+        const offset = straightSide ? labelWidth / (2 * Math.abs(ux)) + 20 : 0;
+        const outside: Point = [anchor[0] - ux * offset, anchor[1] - uy * offset];
+        if (straightSide && anchor[0] >= 9 && anchor[0] <= size.width - 9 && anchor[1] >= 9 && anchor[1] <= size.height - 9
+          && standLabelInsideCanvas(outside, labelWidth, 28, size)) numberAnchor = outside;
+      }
+      const guide = edgeNumberGuide(numberAnchor, young, old, labelWidth);
       addLabel("start-number", `${numberText}番`, guide.number, true, labelWidth);
       rowObstacles.push([...guide.number, labelWidth, 28]);
       if (labels.some(l => l.id === "start-number")) arrow = fitStandArrowToCanvas(guide.arrow, size);
@@ -436,8 +452,8 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
           <title>{data.blocks.find(b => b.id === l.id)?.label ?? l.text}</title>
           {l.kind === "number" ? <><path data-number-badge="" data-connected-number-arrow={l.id === "start-number" && arrow ? "" : undefined} d={seatNumberBadge(l.id === "start-number" && arrow ? [arrow.end[0] - arrow.start[0], arrow.end[1] - arrow.start[1]] : [0, 0], l.width, l.height, l.id === "start-number" && arrow ? Math.hypot(arrow.end[0] - arrow.start[0], arrow.end[1] - arrow.start[1]) : 0)} fill="#fff" stroke={l.selected ? "#81294d" : "#d5c5cd"} strokeWidth={l.selected ? 2 : 1}/>
             {l.id === "start-number" && arrow && <path data-number-arrow-ink="" d={seatNumberArrowInk([arrow.end[0] - arrow.start[0], arrow.end[1] - arrow.start[1]], l.width, l.height, Math.hypot(arrow.end[0] - arrow.start[0], arrow.end[1] - arrow.start[1]))} fill="none" stroke="#a93164" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round"/>}</>
-            : !l.plain && (l.selected || whole || l.kind === "row") && <rect x={-l.width / 2} y={-l.height / 2} width={l.width} height={l.height} rx={l.kind === "row" ? 4 : 12} fill={l.kind === "row" ? l.id === "selected-row" ? "#155786" : "#e8f3ff" : "#fff"} fillOpacity={l.selected ? 1 : .87} stroke={l.kind === "row" ? "#23679a" : "none"} strokeWidth="1.3"/>}
-          <text textAnchor="middle" y="5" fill={l.kind === "row" ? l.id === "selected-row" ? "#fff" : "#155786" : l.selected ? "#522e45" : "#5b4652"} fontSize={l.selected && !l.plain ? 14 : 12} fontWeight={l.selected && !l.plain ? 800 : 600}
+            : !l.plain && (l.selected || whole || l.kind === "row") && <rect x={-l.width / 2} y={-l.height / 2} width={l.width} height={l.height} rx={l.kind === "row" ? 4 : 12} fill={l.kind === "row" ? selectedRowLabel(l) ? "#155786" : "#e8f3ff" : "#fff"} fillOpacity={l.selected ? 1 : .87} stroke={l.kind === "row" ? "#23679a" : "none"} strokeWidth="1.3"/>}
+          <text textAnchor="middle" y="5" fill={l.kind === "row" ? selectedRowLabel(l) ? "#fff" : "#155786" : l.selected ? "#522e45" : "#5b4652"} fontSize={l.selected && !l.plain ? 14 : 12} fontWeight={l.selected && !l.plain ? 800 : 600}
             stroke={l.plain ? "#fff" : undefined} strokeWidth="3" strokeLinejoin="round" paintOrder="stroke"
             style={{ fontVariantNumeric: "tabular-nums" }}>{l.text}</text>
         </g>)}
