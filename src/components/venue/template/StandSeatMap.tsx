@@ -3,7 +3,7 @@
 import { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState, useId, type PointerEvent } from "react";
 import { ChevronDown, ChevronRight, Crosshair, Info, ListOrdered, X } from "lucide-react";
 import { DomeSeatFrame } from "./DomeSeatFrame";
-import { seatNumberBadge, seatNumberBadgeBounds, seatNumberArrowInk } from "@/lib/seatNumberBadge";
+import { seatNumberBadge, seatNumberBadgeBounds, seatNumberArrowInk, seatNumberBadgeTipDistance } from "@/lib/seatNumberBadge";
 import ReadySearchControl from "./ReadySearchControl";
 import { boundsOf, fitStandArrowToCanvas, edgeNumberGuide, fitStandNumberGuide, clampCamera, standDetailCamera, standRowDetailTransition, isSeatTap, labelCoversOtherBlock, mapProjection, normalizeSeatInput, placeVisibleRowLabel, searchStandSeats, standContextLabel, standDisplayRows, standVisibleRowHints, standLabelOrder, standGroupReferenceLabels, standReferenceLabelKey, standRedundantContextLabel, standRedundantContextText, standLabelInsideCanvas, standSelectedNumberRun, standSelectedRow, youngEdgeMidpoint, zoomCamera, zoneLabelPositions, type MapBox, type Point, type StandBlock, type StandMapData, type StandPosition } from "./standMap";
 import { hasStandCanvasArea, overviewAreaLabelPosition, overviewAreaLabelWidth } from "./standMap";
@@ -285,6 +285,17 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
         const outside: Point = [anchor[0] - ux * offset, anchor[1] - uy * offset];
         if (straightSide && anchor[0] >= 9 && anchor[0] <= size.width - 9 && anchor[1] >= 9 && anchor[1] <= size.height - 9
           && standLabelInsideCanvas(outside, labelWidth, 28, size)) numberAnchor = outside;
+      }
+      // This two-seat K Arena block is shorter than its badge. Preserve the
+      // sourced number edge at the joined arrow tip, including diagonal tips.
+      if (data.diagramId === "k-arena-permanent-stands" && block.id === "k-level7-62" && length > .001 && length < labelWidth
+        && anchor[0] >= 9 && anchor[0] <= size.width - 9 && anchor[1] >= 9 && anchor[1] <= size.height - 9) {
+        const u: Point = [(old[0] - young[0]) / length, (old[1] - young[1]) / length];
+        const offset = seatNumberBadgeTipDistance(u, labelWidth, 28, 20);
+        if (offset !== null) {
+          const outside: Point = [anchor[0] - u[0] * offset, anchor[1] - u[1] * offset];
+          if (standLabelInsideCanvas(outside, labelWidth, 28, size)) numberAnchor = outside;
+        }
       }
       const guide = edgeNumberGuide(numberAnchor, young, old, labelWidth);
       addLabel("start-number", `${numberText}番`, guide.number, true, labelWidth);

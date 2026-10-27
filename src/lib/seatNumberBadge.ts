@@ -48,6 +48,16 @@ export function seatNumberBadge(direction: readonly number[], width = 52, height
   return `M${badgePoints(direction, width, height, arrowLength, cut).map(p => `${p.x},${p.y}`).join(' L')} Z`;
 }
 
+/** Distance from the badge centre to its actual arrow tip, when drawn. */
+export function seatNumberBadgeTipDistance(direction: readonly number[], width = 52, height = 28, arrowLength = 20, cut = 5) {
+  const length = Math.hypot(direction[0], direction[1]);
+  if (!Number.isFinite(length) || length < 1e-9) return null;
+  const points = badgePoints(direction, width, height, arrowLength, cut);
+  if (points.length <= 8) return null;
+  const tip = points[points.length - 3];
+  return (tip.x * direction[0] + tip.y * direction[1]) / length;
+}
+
 /** Conservative screen-pixel obstacle for the complete joined outline. */
 export function seatNumberBadgeBounds(direction: readonly number[], width = 52, height = 28, arrowLength = 20, cut = 5) {
   const points = badgePoints(direction, width, height, arrowLength, cut);
