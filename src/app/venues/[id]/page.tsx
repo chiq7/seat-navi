@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { MapPin, MoveRight, Users } from "lucide-react";
 import { Header } from "@/components/common/Header";
 import { InfoListRow } from "@/components/common/InfoListRow";
-import { EventListRow } from "@/components/common/EventListRow";
+import { VenueProgramJump, VenueProgramList } from "@/components/venue/VenueProgramLinks";
 import SeoEditorialSection from "@/components/seo/SeoEditorialSection";
 import PublicVenueGuide from "@/components/venue/guides/PublicVenueGuide";
 import { resolveArtist } from "@/lib/artists";
@@ -11,7 +11,6 @@ import { getVenueSeoProfile } from "@/lib/seoProfiles";
 import { serializeJsonLd } from "@/lib/structuredData";
 import { SEO_VENUES, findSeoVenue, getVenueEvents, splitVenueEvents } from "@/lib/venueSeo";
 import { buildPublicVenueMetadata, getPublicVenueName, hasPublicVenueGuide } from "@/lib/publicVenueGuides";
-import type { CrawledEvent } from "@/lib/types";
 
 const SITE_URL = "https://tixrepo.com";
 
@@ -28,39 +27,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!venue) return { title: "会場が見つかりません" };
   const profile = getVenueSeoProfile(venue.id);
   return buildPublicVenueMetadata(venue.id, venue.name, profile?.metaDescription);
-}
-
-function EventList({ events, emptyText, initialCount = 6 }: { events: CrawledEvent[]; emptyText: string; initialCount?: number }) {
-  if (events.length === 0) {
-    return <p className="border-y border-dashed border-[#ded8dc] bg-white px-4 py-7 text-center text-[12px] font-bold text-[#958d93]">{emptyText}</p>;
-  }
-  const renderEvents = (rows: CrawledEvent[]) => rows.map((event) => {
-        const artist = resolveArtist(event);
-        return (
-          <EventListRow
-            key={event.id}
-            event={event}
-            artistName={artist?.name}
-            secondary={artist?.name ?? "公演情報"}
-          />
-        );
-      });
-  const visibleEvents = events.slice(0, initialCount);
-  const remainingEvents = events.slice(initialCount);
-
-  return (
-    <div>
-      <div className="border-y border-[#ded8dc] bg-white">{renderEvents(visibleEvents)}</div>
-      {remainingEvents.length > 0 && (
-        <details className="group mt-4">
-          <summary className="zr-focus mx-auto flex min-h-11 w-fit cursor-pointer list-none items-center rounded-full bg-[#fff0f5] px-5 text-[12px] font-black text-[#c93868]">
-            残り{remainingEvents.length}件を見る
-          </summary>
-          <div className="mt-4 border-y border-[#ded8dc] bg-white">{renderEvents(remainingEvents)}</div>
-        </details>
-      )}
-    </div>
-  );
 }
 
 export default async function VenuePage({ params }: Props) {
@@ -143,21 +109,26 @@ export default async function VenuePage({ params }: Props) {
         </div>
       </section>
 
-      {hasGuide && <div id="venue-seat-guide" className="scroll-mt-[90px]"><PublicVenueGuide venue={venue.id} /></div>}
+      <VenueSeatReadingGuide venueId={venue.id} />
+      {hasGuide && <div id="venue-seat-guide" className="scroll-mt-[90px]">
+        <VenueProgramJump venueId={venue.id} upcomingCount={upcoming.length} pastCount={past.length} />
+        <PublicVenueGuide venue={venue.id} />
+      </div>}
+
 
       <div className="zr-container">
         <section className="py-8 sm:py-10" aria-labelledby="upcoming-events-title">
           <p className="artist-kicker">Upcoming Live</p>
-          <h2 id="upcoming-events-title" className="artist-heading scroll-mt-20">これから開催される公演 <small>（{upcoming.length}件）</small></h2>
+          <h2 id="upcoming-events-title" className="artist-heading scroll-mt-[90px]">これからの公演・アーティスト <small>（{upcoming.length}件）</small></h2>
           <p className="mt-2 flex items-center gap-2 text-[11px] font-bold text-[#817981]"><MapPin size={14} className="text-[#f43679]" />{publicName}のライブ予定</p>
-          <div className="mt-3"><EventList events={upcoming} emptyText="現在、登録されている開催予定はありません" initialCount={10} /></div>
+          <div className="mt-3"><VenueProgramList venueId={venue.id} events={upcoming} emptyText="現在、登録されている開催予定はありません" initialCount={3} /></div>
         </section>
 
         {past.length > 0 && (
           <section className="py-8 sm:py-10" aria-labelledby="past-events-title">
             <p className="artist-kicker">Live Archive</p>
-            <h2 id="past-events-title" className="artist-heading">過去の公演・座席レポ</h2>
-            <div className="mt-3"><EventList events={past.slice(0, 30)} emptyText="過去の公演はありません" /></div>
+            <h2 id="past-events-title" className="artist-heading scroll-mt-[90px]">過去の公演・座席レポ</h2>
+            <div className="mt-3"><VenueProgramList venueId={venue.id} events={past.slice(0, 30)} emptyText="過去の公演はありません" /></div>
           </section>
         )}
 

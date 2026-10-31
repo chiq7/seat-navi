@@ -1,0 +1,18 @@
+.jump { display: flex; justify-content: flex-end; padding-block: 8px 12px; }
+.jump a { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 10px 14px; border: 1px solid #dec7d1; border-radius: 12px; color: #922b50; background: #fff; font-size: 13px; font-weight: 700; line-height: 1.6; }
+.jump svg, .actions svg { flex-shrink: 0; }
+.empty { padding: 28px 16px; border-block: 1px dashed #ded8dc; background: #fff; color: #65565f; text-align: center; font-size: 13px; line-height: 1.8; }
+.list { margin: 0; padding: 0; list-style: none; border-top: 1px solid #ded8dc; }
+.card { display: grid; grid-template-columns: 90px minmax(0, 1fr); align-items: start; gap: 10px 12px; padding: 18px 4px; border-bottom: 1px solid #ded8dc; background: #fff; }
+.date { padding-top: 3px; color: #a52d58; font-size: 13px; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1.7; }
+.content { min-width: 0; overflow-wrap: anywhere; }
+.artist { margin: 0; color: #40343d; font-size: 16px; font-weight: 800; line-height: 1.65; }
+.title { margin: 4px 0 0; color: #66575f; font-size: 13px; line-height: 1.7; }
+.test { color: #66575f; font-size: 12px; }
+.actions { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 8px; }
+.actions a { display: flex; flex: 1 1 148px; align-items: center; justify-content: center; gap: 7px; min-height: 44px; padding: 10px; border: 1px solid #dec7d1; border-radius: 8px; color: #922b50; background: #fff; font-size: 13px; font-weight: 700; line-height: 1.6; overflow-wrap: anywhere; }
+.actions .eventLink { background: #fff0f5; }
+.more { margin-top: 16px; }
+.more summary { width: fit-content; max-width: 100%; min-height: 44px; margin: 0 auto 16px; padding: 12px 20px; border-radius: 999px; background: #fff0f5; color: #922b50; font-size: 13px; font-weight: 700; cursor: pointer; }
+@media (min-width: 640px) { .card { grid-template-columns: 106px minmax(0, 1fr); padding-inline: 12px; } .actions { grid-column: 2; } .actions a { flex: 0 1 auto; padding-inline: 16px; } }
+@media (hover: hover) { .actions a:hover, .jump a:hover { border-color: #a52d58; background: #fff5f8; } }

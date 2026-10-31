@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { cache, Suspense } from "react";
 import { Calendar, Map, Zap } from "lucide-react";
+import HomeVenueDirectory from "@/components/home/HomeVenueDirectory";
+import { VENUE_REGION_GROUPS } from "@/lib/venueRegions";
+import { SEO_VENUES } from "@/lib/venueSeo";
+import { getPublicVenueName, getPublicVenueSeatGuideHref } from "@/lib/publicVenueGuides";
 import HomeHeader from "@/components/home/HomeHeader";
 import HeroBanner from "@/components/home/HeroBanner";
 import HomeHeroPromoBanner from "@/components/home/HomeHeroPromoBanner";
@@ -173,11 +177,18 @@ async function SeatDiscoveryPilot({ state }: { state?: string }) {
 export default async function Home({ searchParams }: { searchParams: Promise<{ "seat-card-preview"?: string | string[]; "seat-card-state"?: string }> }) {
   const query = await searchParams;
   const preview = isSeatDiscoveryPreview(process.env.NODE_ENV, query["seat-card-preview"]);
+  const venueRegions = VENUE_REGION_GROUPS.map(({ id, label }) => ({ id, label }));
+  const venueLinks = VENUE_REGION_GROUPS.flatMap(group => group.venueIds.flatMap(id => {
+    const venue = SEO_VENUES.find(item => item.id === id);
+    const href = getPublicVenueSeatGuideHref(id);
+    return venue && href ? [{ id, name: getPublicVenueName(id, venue.name), region: group.id, href }] : [];
+  }));
   return (
     <div className="min-h-screen bg-background">
       <HomeHeader />
       <main>
         <HeroBanner />
+        <HomeVenueDirectory featured regions={venueRegions} venues={venueLinks} />
         {preview && <Suspense fallback={<FeaturedEventsSkeleton />}><SeatDiscoveryPilot state={query["seat-card-state"]} /></Suspense>}
         <Suspense fallback={<UpcomingEventsSkeleton />}>
           <HomeUpcomingSection />
@@ -185,6 +196,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ "
         <Suspense fallback={<RealtimeFeedSkeleton />}>
           <HomeRealtimeSection />
         </Suspense>
+        <HomeVenueDirectory regions={venueRegions} venues={venueLinks} />
         <HomeHeroPromoBanner />
         <section className="bg-section py-4 sm:py-6" aria-label="マイページ">
           <div className="zr-container max-w-[760px]">
