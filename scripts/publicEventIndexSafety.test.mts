@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { readFileSync } from "node:fs";
 import ts from "typescript";
+import * as setlistHelpers from "../src/lib/setlistHelpers.ts";
 import * as artists from "../src/lib/artists.ts";
 import * as eventTitle from "../src/lib/eventTitle.ts";
 import * as eventDisplay from "../src/lib/eventDisplay.ts";
@@ -21,6 +22,7 @@ function loadModule<T>(file: string, dependencies: Record<string, unknown>): T {
 }
 
 const { isTestEvent } = loadModule<typeof import("../src/lib/seoData.ts")>("src/lib/seoData.ts", {
+  "@/lib/setlistHelpers": setlistHelpers,
   react: { cache: (fn: unknown) => fn },
   "@/lib/artists": artists,
   "@/lib/events": {},

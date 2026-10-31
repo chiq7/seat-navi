@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { readFileSync } from "node:fs";
 import ts from "typescript";
+import * as setlistHelpers from "../src/lib/setlistHelpers.ts";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { queryPublicAfterReports, queryPublicSetlists, selectInitialSetlist } from "../src/lib/publicArtistContent.ts";
 import type { CrawledEvent } from "../src/lib/types.ts";
@@ -94,7 +95,8 @@ test("strict server event lookup rejects a partial/failed artist query", async (
 });
 function seoWith(responses: Record<string, Result>) {
   return loadModule<typeof import("../src/lib/seoData.ts")>("src/lib/seoData.ts", {
-    react: { cache: (fn: unknown) => fn }, "@/lib/artists": artists, "@/lib/events": { queryEventsForArtist: async () => events },
+    "@/lib/setlistHelpers": setlistHelpers,
+  react: { cache: (fn: unknown) => fn }, "@/lib/artists": artists, "@/lib/events": { queryEventsForArtist: async () => events },
     "@/lib/eventTitle": eventTitle, "@/lib/eventDisplay": eventDisplay, "@/lib/og/eventOgData": {}, "@/lib/og/reportOgData": {},
     "@/lib/supabase/client": { supabase: clientFor(responses).client },
   });
@@ -108,6 +110,45 @@ test("successful zero counts still remain zero", async () => {
   const seo = seoWith({ setlists: { data: [], error: null }, after_reports: { data: [], error: null }, official_news_public: { count: 0, error: null } });
   assert.deepEqual(await seo.getArtistContentCounts("number-i"), { setlists: 0, afterReports: 0 });
   assert.equal(await seo.getArtistNewsCount("number-i"), 0);
+});
+
+const emptyDrafts = [[], null, [{ type: "mc" }], [{ type: "song", title: "  " }]];
+function contentResponses(setlists: unknown[]) {
+  return { events: { data: events, error: null }, setlists: { data: setlists, error: null },
+    after_reports: { data: [], error: null }, seat_reports: { data: [], error: null },
+    fan_seat_predictions: { data: [], error: null }, official_news_public: { data: [], error: null } };
+}
+test("empty drafts and structural markers are not searchable setlist content", async () => {
+  for (const draft of emptyDrafts) {
+    const seo = seoWith(contentResponses([{ event_id: "recent", items: draft }]));
+    assert.deepEqual(await seo.getArtistContentCounts("number-i"), { setlists: 0, afterReports: 0 });
+    assert.deepEqual((await seo.getSeoSitemapData()).setlistArtists, []);
+  }
+});
+test("a genuine song remains counted and included in the sitemap without modifying its content", async () => {
+  const row = { event_id: "recent", items, created_at: "2026-10-01", updated_at: "2026-10-02" };
+  const before = structuredClone(row);
+  const seo = seoWith(contentResponses([row, { event_id: "old", items: [] }]));
+  assert.equal((await seo.getArtistContentCounts("number-i")).setlists, 1);
+  assert.deepEqual((await seo.getSeoSitemapData()).setlistArtists, [{ slug: "number-i", lastModified: "2026-10-02" }]);
+  assert.deepEqual(row, before);
+});
+test("sitemap read failure is not published as a shortened successful sitemap", async () => {
+  const responses = contentResponses([]);
+  await assert.rejects(seoWith({ ...responses, setlists: { data: null, error: { message: "offline" } } }).getSeoSitemapData(), /Sitemap content could not be loaded/);
+});
+test("realtime feed excludes empty setlist updates while retaining actual songs and reports", async () => {
+  const feedEvents = events.map(e => ({ ...e, date: "2020-01-01" }));
+  const drafts = emptyDrafts.map((draft, i) => ({ id: `empty-${i}`, event_id: "old", items: draft, created_at: "2020-01-02" }));
+  const { client } = clientFor({ ...contentResponses([...drafts, { id: "real", event_id: "recent", items, created_at: "2020-01-02" }]),
+    events: { data: feedEvents, error: null }, event_ticket_results: { data: [], error: null },
+    after_reports: { data: [{ id: "report", event_id: "old", created_at: "2020-01-03" }], error: null } });
+  const home = loadModule<typeof import("../src/lib/homeData.ts")>("src/lib/homeData.ts", {
+    "@/lib/artists": artists, "@/lib/eventTitle": eventTitle, "@/lib/setlistHelpers": setlistHelpers,
+    "@/lib/artistPageHelpers": { fmtDate: (date: string) => date, seatAreaLabel: (area: string) => area },
+  });
+  const feed = await home.getRealtimeFeedItems(client, 20, []);
+  assert.deepEqual(feed.filter(item => item.source === "real").map(item => item.id), ["現地レポ-report", "セトリ-real"]);
 });
 
 function venueWith(result: Result) {

@@ -3,6 +3,8 @@ import { resolveArtist, type Artist } from "@/lib/artists";
 import { isArtistOnlyEventTitle, parseEventTitle } from "@/lib/eventTitle";
 import { fmtDate, seatAreaLabel } from "@/lib/artistPageHelpers";
 
+import { hasSetlistSongs } from "@/lib/setlistHelpers";
+
 export type UpcomingEvent = {
   id: string;
   artistSlug: string;
@@ -276,7 +278,7 @@ type AfterReportFeedRow = {
   seat_number: string | null;
   seat_view_photo_paths: string[] | null;
 };
-type SetlistFeedRow = { id: string; event_id: string; created_at: string };
+type SetlistFeedRow = { id: string; event_id: string; created_at: string; items: unknown };
 type TicketResultFeedRow = {
   id: string;
   event_id: string;
@@ -426,7 +428,7 @@ export async function getRealtimeFeedItems(
       .limit(FEED_SOURCE_LIMIT),
     client
       .from("setlists")
-      .select("id, event_id, created_at")
+      .select("id, event_id, created_at, items")
       .order("created_at", { ascending: false })
       .limit(FEED_SOURCE_LIMIT),
   ]);
@@ -487,7 +489,7 @@ export async function getRealtimeFeedItems(
     return { id: r.id, event_id: r.event_id, user_id: r.user_id, created_at: r.created_at, type: "現地レポ", detail };
   });
 
-  const setlistCandidates: FeedCandidate[] = ((setlistsRes.data as SetlistFeedRow[]) ?? []).map((r) => ({
+  const setlistCandidates: FeedCandidate[] = ((setlistsRes.data as SetlistFeedRow[]) ?? []).filter(r => hasSetlistSongs(r.items)).map((r) => ({
     id: r.id,
     event_id: r.event_id,
     user_id: null,

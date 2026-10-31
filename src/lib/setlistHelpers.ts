@@ -5,6 +5,14 @@ export type EditableItem =
   | { id: string; type: "separator"; label: string }
   | { id: string; type: "tag"; label: string };
 
+/** Empty drafts and structural markers alone are not a published song list. */
+export function hasSetlistSongs(items: unknown): boolean {
+  return Array.isArray(items) && items.some(item =>
+    item !== null && typeof item === "object" && item.type === "song"
+      && typeof item.title === "string" && item.title.trim().length > 0,
+  );
+}
+
 export function fmtDateShort(d: string | null): string {
   if (!d) return "未定";
   const [, m, day] = d.split("-").map(Number);

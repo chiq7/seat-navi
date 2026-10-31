@@ -8,6 +8,8 @@ import { supabase } from "@/lib/supabase/client";
 import type { CrawledEvent } from "@/lib/types";
 import { dedupeVenueEventsForDisplay } from "@/lib/eventDisplay";
 
+import { hasSetlistSongs } from "@/lib/setlistHelpers";
+
 export const SITE_URL = "https://tixrepo.com";
 
 export function isTestArtist(
@@ -83,7 +85,7 @@ export async function getArtistContentCounts(slug: string): Promise<{ setlists: 
   if (eventIds.length === 0) return { setlists: 0, afterReports: 0 };
 
   const [setlistResult, reportResult] = await Promise.all([
-    supabase.from("setlists").select("event_id").in("event_id", eventIds),
+    supabase.from("setlists").select("event_id, items").in("event_id", eventIds),
     supabase.from("after_reports").select("event_id").in("event_id", eventIds),
   ]);
   if (setlistResult.error || reportResult.error) {
@@ -91,7 +93,7 @@ export async function getArtistContentCounts(slug: string): Promise<{ setlists: 
   }
   const eventMap = new Map(events.map((event) => [event.id, event]));
   return {
-    setlists: getPublicContentRows((setlistResult.data as { event_id: string }[]) ?? [], eventMap)
+    setlists: getPublicContentRows(((setlistResult.data as { event_id: string; items: unknown }[]) ?? []).filter(row => hasSetlistSongs(row.items)), eventMap)
       .filter((entry) => entry.artistSlug === slug).length,
     afterReports: getPublicContentRows((reportResult.data as { event_id: string }[]) ?? [], eventMap)
       .filter((entry) => entry.artistSlug === slug).length,
@@ -110,7 +112,7 @@ export async function getArtistNewsCount(slug: string): Promise<number> {
 
 type SitemapEventRow = CrawledEvent & { created_at: string | null };
 type TimestampRow = { event_id: string; created_at: string | null };
-type SetlistTimestampRow = TimestampRow & { updated_at: string | null };
+type SetlistTimestampRow = TimestampRow & { updated_at: string | null; items: unknown };
 type ReportTimestampRow = TimestampRow & { id: string };
 type NewsTimestampRow = { artist_slug: string; created_at: string | null };
 
@@ -132,12 +134,15 @@ function keepLatest(map: Map<string, string>, key: string, value: string | null 
 export async function getSeoSitemapData(): Promise<SeoSitemapData> {
   const [eventsResult, setlistsResult, reportsResult, seatsResult, predictionsResult, newsResult] = await Promise.all([
     supabase.from("events").select("id, title, venue, venue_id, date, genre, artist_slug, created_at").limit(10000),
-    supabase.from("setlists").select("event_id, created_at, updated_at").limit(10000),
+    supabase.from("setlists").select("event_id, created_at, updated_at, items").limit(10000),
     supabase.from("after_reports").select("id, event_id, created_at").limit(10000),
     supabase.from("seat_reports").select("event_id, created_at").limit(10000),
     supabase.from("fan_seat_predictions").select("event_id, created_at").eq("approved", true).limit(10000),
     supabase.from("official_news_public").select("artist_slug, created_at").limit(10000),
   ]);
+
+  const readFailure = [eventsResult, setlistsResult, reportsResult, seatsResult, predictionsResult, newsResult].find(result => result.error);
+  if (readFailure) throw new Error("Sitemap content could not be loaded", { cause: readFailure.error });
 
   const allEvents = (eventsResult.data as SitemapEventRow[]) ?? [];
   const eventMap = new Map<string, CrawledEvent>(allEvents.map((event) => [event.id, event]));
@@ -157,7 +162,7 @@ export async function getSeoSitemapData(): Promise<SeoSitemapData> {
   const artistsWithReports = new Set<string>();
 
   const publicSetlists = getPublicContentRows(
-    (setlistsResult.data as SetlistTimestampRow[]) ?? [],
+    ((setlistsResult.data as SetlistTimestampRow[]) ?? []).filter(row => hasSetlistSongs(row.items)),
     eventMap,
   );
   for (const { row, artistSlug: slug } of publicSetlists) {
