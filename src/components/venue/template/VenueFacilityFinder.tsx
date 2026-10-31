@@ -1,4 +1,5 @@
 "use client";
+import { trackVenueFacilityOpen } from "@/lib/venueAnalytics";
 import { useEffect, useRef, useState, useImperativeHandle, useId, type Ref } from "react";
 import { HeartPulse, Info, Milk, X, Cigarette } from "lucide-react";
 import { AccessibleSign, ChangingSign, ElevatorSign, FoodSign, LockerSign, MenSign, StairsSign, StrollerSign, ToiletSign, WomenSign } from "../DomeFacilitySigns";
@@ -146,7 +147,7 @@ export default function VenueFacilityFinder({ guide, config, ref }: Props) {
   function resultRow(f: GuideFacility) {
     const publicMeta = config.meta[f.id];
     const name = publicMeta?.name ?? f.name, location = publicMeta?.location ?? f.location;
-    return <button type="button" key={f.id} className={styles.resultRow} aria-pressed={state.selected === f.id} onClick={() => setState(s => ({ ...s, selected: f.id }))}>
+    return <button type="button" key={f.id} className={styles.resultRow} aria-pressed={state.selected === f.id} onClick={() => { if(state.selected!==f.id)trackVenueFacilityOpen(f.purpose,state.scope,guide.venueId);setState(s => ({ ...s, selected: f.id })); }}>
       <FixtureIcon item={f}/><span><strong>{name}</strong><small>{f.floor}{location !== name ? `・${location}` : ""}</small></span><span aria-hidden="true">›</span>
     </button>;
   }

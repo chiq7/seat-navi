@@ -1,4 +1,5 @@
 "use client";
+import { trackVenueSeatSearch } from "@/lib/venueAnalytics";
 
 import { useMemo, useState, type FormEvent } from "react";
 import { LocateFixed, X } from "lucide-react";
@@ -66,11 +67,12 @@ export default function KyoceraSeatMap({ guide, selectedId, rowLabel, seatNumber
   function search(scope = direction, tier = level) {
     clear();
     const input = normalizeKyoceraTicket(searchRow, number);
-    if (!input) { setError("列と番号を確認してください。列は数字または英字、番号は数字で入力できます。"); return; }
+    if (!input) { trackVenueSeatSearch("invalid"); setError("列と番号を確認してください。列は数字または英字、番号は数字で入力できます。"); return; }
     const hits = findKyoceraSeats(blocks, whole, input, scope, tier);
-    if (hits.length === 1) { selectCandidate(hits[0], scope); return; }
-    if (hits.length > 1) { setCandidates(hits); return; }
+    if (hits.length === 1) { trackVenueSeatSearch("matched",1); selectCandidate(hits[0], scope); return; }
+    if (hits.length > 1) { trackVenueSeatSearch("multiple",hits.length); setCandidates(hits); return; }
     const conflict = blocks.find(block => block.code === "X_BM_57");
+    trackVenueSeatSearch(input.row === "27" && input.number === "46" && conflict && kyoceraMatchesArea(conflict, whole, scope, tier) ? "unverified" : "empty");
     setError(input.row === "27" && input.number === "46" && conflict && kyoceraMatchesArea(conflict, whole, scope, tier)
       ? "この列・番号は公式資料の表記が一致しないため、位置を表示できません。主催者の案内で確認してください。"
       : "この条件で席が見つかりません。列・番号や上のボタンを確認してください。");

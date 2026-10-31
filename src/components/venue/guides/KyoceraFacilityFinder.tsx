@@ -1,4 +1,5 @@
 "use client";
+import { trackVenueFacilityOpen } from "@/lib/venueAnalytics";
 
 import { useEffect, useRef, type ReactNode } from "react";
 import { Accessibility, Baby, HeartPulse, Info, X } from "lucide-react";
@@ -57,6 +58,7 @@ export default function KyoceraFacilityFinder({ guide, state, onAction, detail, 
   function change(action: FinderAction) { onAction(action); }
   function showWhole() { change({ type: "select", id: null }); change({ type: "origin", origin: null }); }
   function choose(item: GuideFacility, button: HTMLButtonElement) {
+    if(state.selectedId!==item.id)trackVenueFacilityOpen(item.purpose,state.scope,guide.venueId);
     trigger.current = button;
     change({ type: "select", id: item.id });
   }
@@ -88,7 +90,7 @@ export default function KyoceraFacilityFinder({ guide, state, onAction, detail, 
       <div className={styles.mapPanel}>
         <div className={styles.panelHeading}><strong>{state.scope === "場外" ? "場外" : state.floor}・{state.purpose}{currentOrigin ? `／${currentOrigin.name}周辺` : ""}</strong>{currentOrigin && <button type="button" onClick={showWhole}>全体図へ</button>}</div>
         {diagram ? <VenueFacilityMap guide={guide} items={facilities.filter(item => item.anchor)} state={state} embedded compactFinder
-          onFloor={floor => change({ type: "floor", floor })} onSelect={id => { trigger.current = document.activeElement instanceof HTMLButtonElement ? document.activeElement : null; change({ type: "toggle-facility", id }); }}
+          onFloor={floor => change({ type: "floor", floor })} onSelect={id => { const item=guide.facilities.find(f=>f.id===id);if(item&&state.selectedId!==id)trackVenueFacilityOpen(item.purpose,state.scope,guide.venueId);trigger.current = document.activeElement instanceof HTMLButtonElement ? document.activeElement : null; change({ type: "toggle-facility", id }); }}
           onGroup={ids => change({ type: "group", ids })} onOrigin={value => { change({ type: "select", id: null }); change({ type: "origin", origin: value }); }}
           onGate={gate => { change({ type: "gate", gate }); }} onClearSelection={() => change({ type: "select", id: null })} />
           : <p className={styles.noMap}>この階の設備は、場所の案内から確認できます。</p>}

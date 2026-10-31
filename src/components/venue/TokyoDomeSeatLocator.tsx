@@ -1,4 +1,5 @@
 "use client";
+import { trackVenueSeatSearch } from "@/lib/venueAnalytics";
 import { seatNumberArrowInk } from "@/lib/seatNumberBadge";
 import { tokyoDomeNumberBadge } from "@/lib/tokyoDomeNumberBadge";
 
@@ -496,15 +497,17 @@ export function TokyoDomeSeatLocator() {
     const input = parseTokyoDomeSeatInput(rowInput, seatInput);
     if(input.kind === "section"){
       const target=AREA_BY_CODE.get(input.section.code);
-      if(input.row !== null && !isTokyoDomeSectionRowSelectable(input.section.code,input.row,target?.rows)){setError("このブロックの列を確認してください。");return;}
+      if(input.row !== null && !isTokyoDomeSectionRowSelectable(input.section.code,input.row,target?.rows)){trackVenueSeatSearch("unverified");setError("このブロックの列を確認してください。");return;}
+      trackVenueSeatSearch("area",1);
       chooseCode(input.section.code);if(input.row !== null)setSelectedRow(input.row);
       if(input.numberUnverified)setNotice(`${input.section.code}の区画を表示しています。この入力では席番号までは特定していません。`);
       return;
     }
-    if(input.kind === "invalid"){setError("列と番号、または区画名（例：F17）を入力してください。");return;}
+    if(input.kind === "invalid"){trackVenueSeatSearch("invalid");setError("列と番号、または区画名（例：F17）を入力してください。");return;}
     const {row, seat}=input;
-    if(["balcony","outfield"].includes(seatLevel)||["left","right","outfield"].includes(direction)){setError("この席種は地図、または区画名（例：F12）で探せます。列・番号検索は準備中です。");return;}
+    if(["balcony","outfield"].includes(seatLevel)||["left","right","outfield"].includes(direction)){trackVenueSeatSearch("unverified");setError("この席種は地図、または区画名（例：F12）で探せます。列・番号検索は準備中です。");return;}
     const found=findTokyoDomeVerifiedSeats(row,seat,seatLevel,direction).flatMap(block=>{const area=AREA_BY_CODE.get(block.code);return area?[area]:[];});
+    trackVenueSeatSearch(found.length===1?"matched":found.length>1?"multiple":"unverified",found.length);
     if(!found.length){setError("この列・番号はまだ確認できていません。区画名（例：A25）で探すか、公式の座席図を確認してください。");return;}
     if(found.length>1){setCandidates(found);return;}
     chooseArea(found[0],true);setSelectedRow(row);setSelectedSeat(seat);setNotice("列の線は位置の目安です。");

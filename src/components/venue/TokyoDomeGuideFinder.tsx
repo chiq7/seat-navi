@@ -1,4 +1,5 @@
 "use client";
+import { trackVenueFacilityOpen } from "@/lib/venueAnalytics";
 
 import { useEffect, useRef, useState } from "react";
 import {
@@ -137,7 +138,7 @@ export function TokyoDomeGuideFinder() {
   const landmarks=currentFloor?domeGuideLandmarks(currentFloor,purpose==="food"?"shops":"floors"):[];
   const available=purposes.filter(p=>scoped(area,floor).some(s=>matchesPurpose(s,p.value))).map(p=>p.value);
   const title=purposes.find(p=>p.value===purpose)!.label;
-  const select=(id:string)=>{trigger.current=document.activeElement instanceof HTMLButtonElement?document.activeElement:null;setSelectedSpotId(previous=>previous===id?null:id);};
+  const select=(id:string)=>{trigger.current=document.activeElement instanceof HTMLButtonElement?document.activeElement:null;if(selectedSpotId!==id)trackVenueFacilityOpen(purpose,area,"tokyo-dome");setSelectedSpotId(previous=>previous===id?null:id);};
   const close=()=>{setSelectedSpotId(null);trigger.current?.focus({preventScroll:true});};
   return <div className={controls.finder} data-testid="tokyo-facility-finder">
     {seatSelection&&<div className={styles.seatContext}><strong>選択席 {seatSelection.section}{seatSelection.row?`・${seatSelection.row}列`:""}</strong><a href="#dome-seats">座席を確認</a></div>}

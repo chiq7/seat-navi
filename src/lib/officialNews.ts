@@ -84,29 +84,25 @@ export async function getAllOfficialNewsForArtist(artistSlug: string): Promise<O
   return (await queryAllOfficialNewsForArtist(artistSlug)).data;
 }
 
+/** Crawler metadata can contain serialized missing values. Never present them as facts. */
+function newsMetadata(value: string | null | undefined): string | null {
+  const text = value?.trim();
+  return text && !/^(null|undefined)$/i.test(text) ? text : null;
+}
+
 /** article_bodyを使わず、公開viewの分類済みメタデータだけで一覧用の概要を作る。 */
 export function getOfficialNewsSummary(news: OfficialNews): string {
   const parts: string[] = [];
-  const subject = news.event_name ?? news.tour_name;
+  const subject = newsMetadata(news.event_name) ?? newsMetadata(news.tour_name);
+  const category = news.category && OFFICIAL_NEWS_CATEGORY_LABELS[news.category];
+  parts.push(subject ? subject + "に関する公式のお知らせ" : category ? category + "に関する公式のお知らせ" : "公式サイトからのお知らせ");
 
-  if (subject) {
-    parts.push(`${subject}に関する公式のお知らせ`);
-  } else if (news.category) {
-    parts.push(`${OFFICIAL_NEWS_CATEGORY_LABELS[news.category]}に関する公式のお知らせ`);
-  } else {
-    parts.push("公式サイトからのお知らせ");
-  }
-
-  if ((news.event_dates ?? []).length > 0) {
-    parts.push(`開催日: ${news.event_dates.slice(0, 2).join("、")}`);
-  }
-  if ((news.venue_names ?? []).length > 0) {
-    parts.push(`会場: ${news.venue_names.slice(0, 2).join("、")}`);
-  }
-  if (news.ticket_sale_start || news.ticket_sale_end) {
-    const range = [news.ticket_sale_start, news.ticket_sale_end].filter(Boolean).join("〜");
-    parts.push(`受付: ${range}`);
-  }
+  const dates = (news.event_dates ?? []).map(newsMetadata).filter(Boolean).slice(0, 2);
+  const venues = (news.venue_names ?? []).map(newsMetadata).filter(Boolean).slice(0, 2);
+  if (dates.length) parts.push("開催日: " + dates.join("、"));
+  if (venues.length) parts.push("会場: " + venues.join("、"));
+  const range = [news.ticket_sale_start, news.ticket_sale_end].map(newsMetadata).filter(Boolean).join("〜");
+  if (range) parts.push("受付: " + range);
 
   return parts.join(" / ");
 }

@@ -1,4 +1,5 @@
 "use client";
+import { trackVenueSeatSearch } from "@/lib/venueAnalytics";
 
 import { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState, useId, type PointerEvent } from "react";
 import { ChevronDown, ChevronRight, Crosshair, Info, ListOrdered, X } from "lucide-react";
@@ -114,6 +115,7 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   function search(event: React.FormEvent) {
     event.preventDefault(); interaction();
     const result = searchStandSeats(data, level, area, row, number, zone);
+    trackVenueSeatSearch(result.zone || result.position || result.notice ? "area" : result.matches.length > 1 ? "multiple" : result.matches.length === 1 ? "matched" : /確認中|未対応|区画名で|公式図に列名/.test(result.error) ? "unverified" : /入力/.test(result.error) ? "invalid" : "empty", result.matches.length);
     if (result.zone) { chooseZone(result.zone.id); setError(result.notice ?? ""); return; }
     if (result.position) {
       const p = result.position; clearResult(); setPosition(p); setLevel(p.level); setArea("all"); setZone(null);
