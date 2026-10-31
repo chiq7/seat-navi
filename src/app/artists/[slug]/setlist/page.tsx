@@ -18,15 +18,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const artist = getSeoArtist(slug);
   if (!artist) notFound();
   const { setlists } = await getArtistContentCounts(slug);
-  const title = slug === "generations" ? "GENERATIONSのセトリ2026｜群馬公演・日程別ライブ情報｜ちけレポ" : `${artist.name}のセットリスト｜ちけレポ`;
-  const description = slug === "generations" ? "GENERATIONS PARALLEL POST 2026の日程別公演情報と、群馬公演の公開ファンレポに基づく曲順の一部。公式日程・SUMMER SONIC公式プレイリストと、公演ごとの投稿セットリストを分けて確認できます。" : `${artist.name}の公演セットリストを掲載。曲順・MC・演出メモをファンが共有。`;
+  const title = `${artist.name}のセットリスト｜ちけレポ`;
+  const description = `${artist.name}の公演セットリストを掲載。曲順・MC・演出メモをファンが共有。`;
   const ogImagePath = `/api/og/setlist/${slug}`;
 
   return buildMeta({
     path: `/artists/${slug}/setlist`,
     title,
     description,
-    index: !isTestArtist(artist) && (setlists > 0 || slug === "generations"),
+    index: !isTestArtist(artist) && setlists > 0,
     follow: true,
     image: ogImagePath,
     imageAlt: `${artist.name}のセットリスト`,

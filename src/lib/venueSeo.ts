@@ -22,21 +22,22 @@ export async function getVenueEvents(venueId: string): Promise<CrawledEvent[]> {
   return unstable_cache(
     async () => {
       const client = createSupabasePublicClient();
-      if (!client) return [];
-      const { data } = await client
+      if (!client) throw new Error("Venue event read unavailable");
+      const { data, error } = await client
         .from("events")
         .select("id, title, venue, venue_id, date, genre, lottery_types, artist_slug")
         .in("venue_id", [...getVenueIdAliases(venue.id)])
         .order("date", { ascending: true })
         .limit(300);
 
+      if (error) throw new Error("Venue event read failed");
       const publicEvents = ((data as CrawledEvent[]) ?? []).filter((event) => {
         const artist = resolveArtist(event);
         return !isTestEvent(event) && !isArtistOnlyEventTitle(event.title, artist?.name);
       });
       return dedupeVenueEventsForDisplay(publicEvents);
     },
-    ["public-venue-events-v2", venue.id],
+    ["public-venue-events-v3", venue.id],
     { revalidate: 3600, tags: [`venue-events:${venue.id}`] },
   )();
 }

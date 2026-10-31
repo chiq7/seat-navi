@@ -42,6 +42,7 @@ export default function HomeVenueDirectory({ regions, venues, featured = false }
           <h2 id={`${sectionId}-title`}><Building2 size={22} aria-hidden="true" /><span><span className={styles.keepTogether}>{featured ? "会場から" : "地域から"}</span><span className={styles.keepTogether}>座席表を探す</span></span></h2>
           <DiscoveryLink href="/venues" className="zr-focus" discovery={{ source, destination: "directory", destinationId: "venues" }}>全{venues.length}会場<ArrowUpRight size={15} aria-hidden="true" /></DiscoveryLink>
         </div>
+        {featured && <p className={styles.intro}>座席表・アクセス・荷物の預け先を、会場ごとに。</p>}
         {!featured && <div className={styles.filters} aria-label="会場の地域で絞り込む">
           {[{ id: "all", label: "全国" }, ...regions].map(item => (
             <button key={item.id} type="button" className="zr-focus" aria-pressed={region === item.id} aria-controls={`${sectionId}-links`} onClick={() => setRegion(item.id)}>{item.label}</button>

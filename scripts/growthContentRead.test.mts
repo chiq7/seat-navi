@@ -109,3 +109,18 @@ test("successful zero counts still remain zero", async () => {
   assert.deepEqual(await seo.getArtistContentCounts("number-i"), { setlists: 0, afterReports: 0 });
   assert.equal(await seo.getArtistNewsCount("number-i"), 0);
 });
+
+function venueWith(result: Result) {
+ return loadModule<typeof import("../src/lib/venueSeo.ts")>("src/lib/venueSeo.ts", {
+  "server-only": {}, "next/cache": {unstable_cache:(fn:unknown)=>fn},
+  "@/lib/artistPageData": artistPageData, "@/lib/artists": artists,
+  "@/lib/eventCrawlerConfig": {VENUES:[{id:"tokyo-dome",name:"東京ドーム"}],getVenueIdAliases:(id:string)=>[id]},
+  "@/lib/eventTitle": eventTitle, "@/lib/eventDisplay": eventDisplay,
+  "@/lib/seoData": {isTestEvent:()=>false},
+  "@/lib/supabase/public": {createSupabasePublicClient:()=>clientFor({events:result}).client},
+ });
+}
+test("venue lookup failure must not be cached or displayed as a successful empty program",async()=>{
+ await assert.rejects(venueWith({data:null,error:{message:"offline"}}).getVenueEvents("tokyo-dome"),/Venue event read failed/);
+ assert.deepEqual(await venueWith({data:[],error:null}).getVenueEvents("tokyo-dome"),[]);
+});

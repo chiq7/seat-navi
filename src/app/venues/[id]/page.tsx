@@ -4,6 +4,7 @@ import { MapPin, MoveRight, Users } from "lucide-react";
 import { Header } from "@/components/common/Header";
 import { InfoListRow } from "@/components/common/InfoListRow";
 import { VenueProgramJump, VenueProgramList } from "@/components/venue/VenueProgramLinks";
+import VenueSeatReadingGuide from "@/components/seo/VenueSeatReadingGuide";
 import SeoEditorialSection from "@/components/seo/SeoEditorialSection";
 import PublicVenueGuide from "@/components/venue/guides/PublicVenueGuide";
 import { resolveArtist } from "@/lib/artists";
@@ -36,7 +37,8 @@ export default async function VenuePage({ params }: Props) {
 
   const hasGuide = hasPublicVenueGuide(venue.id);
   const publicName = getPublicVenueName(venue.id, venue.name);
-  const events = await getVenueEvents(venue.id);
+  const eventRead = await getVenueEvents(venue.id).then(events => ({events, available: true})).catch(() => ({events: [], available: false}));
+  const events = eventRead.events;
   const { upcoming, past } = splitVenueEvents(events);
   const profile = getVenueSeoProfile(venue.id);
   const pastArtists = Array.from(
@@ -96,7 +98,7 @@ export default async function VenuePage({ params }: Props) {
           <p className="community-eyebrow">VENUE LIVE GUIDE</p>
           <h1 className="mt-2 text-[28px] font-black tracking-[-0.05em] text-[#4b4148] sm:text-[38px]"><span className="text-[#ef4f87]">{publicName}</span>の座席表{hasGuide && <span className="mt-1 block text-[20px] sm:text-[28px]">アクセス・会場ガイド</span>}</h1>
           <p className="mt-2 text-[13px] font-medium leading-6 text-[#6c5c66]">{hasGuide ? "自分の席から、荷物の預け先・売店まで。ライブへ行く日の準備をここで。" : "公演予定・座席報告・現地レポを確認できます。"}</p>
-          {!hasGuide && <div className="mt-4 grid grid-cols-2 border-y border-white/85 bg-white/65 px-1 backdrop-blur-sm sm:max-w-[420px]">
+          {!hasGuide && eventRead.available && <div className="mt-4 grid grid-cols-2 border-y border-white/85 bg-white/65 px-1 backdrop-blur-sm sm:max-w-[420px]">
             <div>
               <p className="text-[9px] font-black tracking-[0.14em] text-[#958d93]">UPCOMING</p>
               <p className="mt-0.5 text-[23px] font-black">{upcoming.length}</p>
@@ -111,7 +113,7 @@ export default async function VenuePage({ params }: Props) {
 
       <VenueSeatReadingGuide venueId={venue.id} />
       {hasGuide && <div id="venue-seat-guide" className="scroll-mt-[90px]">
-        <VenueProgramJump venueId={venue.id} upcomingCount={upcoming.length} pastCount={past.length} />
+        {eventRead.available && <VenueProgramJump venueId={venue.id} upcomingCount={upcoming.length} pastCount={past.length} />}
         <PublicVenueGuide venue={venue.id} />
       </div>}
 
@@ -119,9 +121,9 @@ export default async function VenuePage({ params }: Props) {
       <div className="zr-container">
         <section className="py-8 sm:py-10" aria-labelledby="upcoming-events-title">
           <p className="artist-kicker">Upcoming Live</p>
-          <h2 id="upcoming-events-title" className="artist-heading scroll-mt-[90px]">これからの公演・アーティスト <small>（{upcoming.length}件）</small></h2>
+          <h2 id="upcoming-events-title" className="artist-heading scroll-mt-[90px]">これからの公演・アーティスト {eventRead.available && <small>（{upcoming.length}件）</small>}</h2>
           <p className="mt-2 flex items-center gap-2 text-[11px] font-bold text-[#817981]"><MapPin size={14} className="text-[#f43679]" />{publicName}のライブ予定</p>
-          <div className="mt-3"><VenueProgramList venueId={venue.id} events={upcoming} emptyText="現在、登録されている開催予定はありません" initialCount={3} /></div>
+          <div className="mt-3">{eventRead.available ? <VenueProgramList venueId={venue.id} events={upcoming} emptyText="現在、登録されている開催予定はありません" initialCount={3} /> : <p role="status">公演一覧を読み込めませんでした。<a className="zr-focus ml-2 inline-flex min-h-11 items-center font-bold underline" href={`/venues/${venue.id}#upcoming-events-title`}>もう一度読み込む</a></p>}</div>
         </section>
 
         {past.length > 0 && (

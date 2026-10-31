@@ -18,3 +18,5 @@
 .featured .heading h2 { font-size: clamp(20px, 2vw, 25px); }
 @media (min-width: 640px) { .featured .list { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 359px) { .heading { align-items: flex-start; } .heading h2 { font-size: 19px; gap: 6px; } .list { column-gap: 12px; } }
+
+.intro { margin-top: 4px; color: #71616b; font-size: 13px; line-height: 1.7; }

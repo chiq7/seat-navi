@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useCallback, useEffect, useMemo, useState } from "react";
+import { type ReactNode, use, useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase/client";
 import { findArtistBySlug } from "@/lib/artists";
@@ -69,9 +69,11 @@ function ArtistDetailsPlaceholder() {
 export function ArtistClient({
   params,
   initialEvents,
+  searchGuide,
 }: {
   params: Promise<{ slug: string }>;
   initialEvents: CrawledEvent[];
+  searchGuide?: ReactNode;
 }) {
   const { slug } = use(params);
   const artist = findArtistBySlug(slug);
@@ -634,6 +636,7 @@ export function ArtistClient({
           )}
 
           {!loading && <div className="zr-container"><OfficialNewsSection news={officialNews} moreHref={`/artists/${slug}/news`} /></div>}
+          <div className="zr-container">{searchGuide}</div>
           {!loading && seoProfile && artist && (
             <SeoEditorialSection
               title={`${artist.name}とは`}

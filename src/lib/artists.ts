@@ -613,6 +613,18 @@ const ARTIST_DEFINITIONS: Artist[] = [
     accentDark: "#475569",
   },
   {
+    slug: "hana",
+    name: "HANA",
+    genre: "female_idol",
+    description: `HANAの${DESC}`,
+    keywords: ["HANA"],
+    initials: "HA",
+    grad: "from-rose-300 to-rose-500",
+    accentColor: "#b83265",
+    accentDark: "#85204a",
+  },
+
+  {
     slug: "number-i",
     name: "Number_i",
     genre: "male_idol",

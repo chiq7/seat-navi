@@ -24,6 +24,7 @@ import { CompactHeroIntro } from "@/components/common/CompactHeroIntro";
 import { ShareButton } from "@/components/common/ShareButton";
 import { AccountLink } from "@/components/auth/AccountLink";
 import { Header } from "@/components/common/Header";
+import PriorityPerformanceGuide from "@/components/seo/PriorityPerformanceGuide";
 import { EmptyState } from "@/components/common/EmptyState";
 import { fetchVisiblePostAuthors, type PostAuthor } from "@/lib/postAuthors";
 import { focusedSeatPosition, isInteractiveSeatMapPilot, parseSeatReportId, SEAT_MAP_PILOT_EVENT_IDS } from "@/lib/arena-map/seatMapNavigation";
@@ -339,6 +340,7 @@ export function EventDetailClient({
             </Link>
           </section>}
 
+          <PriorityPerformanceGuide event={event} />
           {venueMiniGuide ? (
             <section className="zr-container py-6 sm:py-8" aria-labelledby="event-empty-title" data-event-empty-state>
               <p className="artist-kicker">FIRST REPORT</p>
