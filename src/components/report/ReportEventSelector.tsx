@@ -33,15 +33,15 @@ function ReportChoiceLink({ choice, eventId, index }: { choice: ReportChoice; ev
         </span>
       </div>
       <div className="mt-3 sm:mt-7">
-        <h3 className="whitespace-nowrap text-[15px] font-black leading-tight tracking-[-0.04em] text-[#40383d] sm:text-[27px]">
+        <h3 className="text-[15px] font-black leading-snug tracking-[-0.04em] text-[#40383d] sm:text-[27px]">
           {choice.label}
         </h3>
-        <p className="mt-1.5 truncate text-[9px] font-bold leading-4 text-[#817981] sm:mt-2 sm:min-h-[40px] sm:whitespace-normal sm:text-[11px] sm:leading-5">
+        <p className="mt-1.5 text-[12px] font-bold leading-5 text-[#817981] sm:mt-2 sm:min-h-[40px]">
           {choice.description}
         </p>
-        <p className={`mt-1.5 flex items-center gap-1 truncate text-[9px] font-black sm:mt-3 sm:gap-2 sm:text-[10px] ${choice.href ? "text-[#ef4f87]" : "text-[#aaa2a8]"}`}>
+        <p className={`mt-1.5 flex items-center gap-1 text-[12px] font-black leading-5 sm:mt-3 sm:gap-2 ${choice.href ? "text-[#ef4f87]" : "text-[#aaa2a8]"}`}>
           {choice.href ? choice.meta : "先に公演を選択してください"}
-          {choice.href && <MoveRight size={16} className="transition-transform group-hover:translate-x-1" />}
+          {choice.href && <MoveRight size={16} className="shrink-0 transition-transform group-hover:translate-x-1" />}
         </p>
       </div>
     </>
@@ -105,7 +105,7 @@ export function ReportEventSelector({ selectedEvent, artistSlug }: Props) {
       tone: "live",
     },
     {
-      href: artistSlug ? `/artists/${artistSlug}/setlist` : null,
+      href: artistSlug ? `/artists/${artistSlug}/setlist${selectedEvent ? `?event=${encodeURIComponent(selectedEvent.id)}` : ""}` : null,
       type: "setlist",
       label: "セトリを投稿",
       description: "曲順、MC、演出メモをライブの記録として共有。",
@@ -123,7 +123,7 @@ export function ReportEventSelector({ selectedEvent, artistSlug }: Props) {
         選んだ公演の当落、座席表、会場の様子を投稿できます。
       </p>
 
-      <div className="mt-4 grid grid-cols-2 gap-2.5 sm:mt-6 sm:gap-3">
+      <div className="mt-4 grid grid-cols-1 gap-2.5 min-[360px]:grid-cols-2 sm:mt-6 sm:gap-3">
         {choices.map((choice, index) => (
           <ReportChoiceLink
             key={choice.type}

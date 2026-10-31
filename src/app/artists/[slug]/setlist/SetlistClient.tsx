@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useEffect, useRef, useState, useMemo } from "react";
+import { use, useEffect, useRef, useState, useMemo, type SetStateAction } from "react";
 import Image from "next/image";
 import ArtistGroupPhoto from "@/components/common/ArtistGroupPhoto";
 import { getArtistGroupImage } from "@/lib/artistGroupImages";
@@ -11,6 +11,7 @@ import { findArtistBySlug } from "@/lib/artists";
 import { getEventsForArtist } from "@/lib/events";
 import { parseEventTitle } from "@/lib/eventTitle";
 import { trackEvent } from "@/lib/analytics";
+import type { InitialSetlist } from "@/lib/publicArtistContent";
 import type { CrawledEvent } from "@/lib/types";
 import { type EditableItem, computeSongNumbers } from "@/lib/setlistHelpers";
 import { AccountLink } from "@/components/auth/AccountLink";
@@ -19,7 +20,8 @@ import { CompactEventPickerSection } from "@/components/common/CompactEventPicke
 import { ShareButton } from "@/components/common/ShareButton";
 import { Header } from "@/components/common/Header";
 import { SetlistItemsSection } from "@/components/setlist/SetlistItemsSection";
-import { DEFAULT_ARTIST_HERO_IMAGE, resolveArtistHeroImage } from "@/lib/artistPageData";
+import { DEFAULT_ARTIST_HERO_IMAGE, resolveArtistHeroImage, getJstDateString } from "@/lib/artistPageData";
+import { canSaveSetlist } from "@/lib/searchContentGuides";
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -30,7 +32,7 @@ function newId(): string {
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 function selectInitialEventId(events: CrawledEvent[]): string | null {
-  const today = new Date().toISOString().split("T")[0];
+  const today = getJstDateString();
   const upcoming = events
     .filter((event) => event.date && event.date >= today)
     .sort((a, b) => (a.date ?? "").localeCompare(b.date ?? ""));
@@ -40,17 +42,19 @@ function selectInitialEventId(events: CrawledEvent[]): string | null {
 export function SetlistClient({
   params,
   initialEvents,
+  initialSetlist,
 }: {
   params: Promise<{ slug: string }>;
   initialEvents: CrawledEvent[];
+  initialSetlist: InitialSetlist;
 }) {
   const { slug } = use(params);
   const artist = findArtistBySlug(slug);
 
   const [events, setEvents]                   = useState<CrawledEvent[]>(initialEvents);
-  const [selectedEventId, setSelectedEventId] = useState<string | null>(() => selectInitialEventId(initialEvents));
+  const [selectedEventId, setSelectedEventId] = useState<string | null>(initialSetlist.eventId);
   const [toast, setToast]                     = useState<string | null>(null);
-  const [setlistItems, setSetlistItems]       = useState<EditableItem[]>([]);
+  const [setlistItems, setSetlistItems]       = useState<EditableItem[]>(initialSetlist.items);
   const [searchQuery, setSearchQuery]         = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [saveStatus, setSaveStatus]           = useState<"idle" | "saving" | "saved" | "error">("idle");
@@ -58,7 +62,11 @@ export function SetlistClient({
   const [showAddForm, setShowAddForm]         = useState(false);
   const [heroImageSrc, setHeroImageSrc]       = useState(() => resolveArtistHeroImage(artist?.heroImage));
   const autoSaveTimer                         = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const skipNextSave                          = useRef(false);
+  const loadedEventId                         = useRef<string | null>(initialSetlist.eventId);
+  const dirtyEventId                          = useRef<string | null>(null);
+  const activeEventId                         = useRef(selectedEventId);
+  const editRevision                          = useRef(0);
+  const [readStatus, setReadStatus]           = useState<"loading" | "ready" | "error">("ready");
   const lastTrackedSetlistEvent               = useRef<string | null>(null);
 
   // ─── イベント一覧取得 ────────────────────────────────────────────────────────
@@ -68,40 +76,46 @@ export function SetlistClient({
     if (initialEvents.length > 0) return;
     getEventsForArtist(artist.slug).then((evs) => {
       setEvents(evs);
-      setSelectedEventId(selectInitialEventId(evs));
+      selectEvent(selectInitialEventId(evs));
     });
   }, [artist, initialEvents]);
 
   // ─── セトリ読み込み（イベント切替時） ─────────────────────────────────────────
 
   useEffect(() => {
-    if (!selectedEventId) return;
-    skipNextSave.current = true;
+    if (!selectedEventId || loadedEventId.current === selectedEventId) return;
+    let cancelled = false;
+    loadedEventId.current = null;
+    dirtyEventId.current = null;
+    activeEventId.current = selectedEventId;
+    setReadStatus("loading");
+    setSetlistItems([]);
     setShowAddForm(false);
     supabase
       .from("setlists")
       .select("items")
       .eq("event_id", selectedEventId)
       .maybeSingle()
-      .then(({ data }) => {
+      .then(({ data, error }) => {
+        if (cancelled) return;
         setSaveStatus("idle");
         setSaveError(null);
+        if (error) { setReadStatus("error"); return; }
+        loadedEventId.current = selectedEventId;
+        setReadStatus("ready");
         if (data?.items && Array.isArray(data.items)) {
           setSetlistItems(data.items as EditableItem[]);
         } else {
           setSetlistItems([]);
         }
       });
+    return () => { cancelled = true; };
   }, [selectedEventId]);
 
   // ─── 自動保存 ────────────────────────────────────────────────────────────────
 
   useEffect(() => {
-    if (skipNextSave.current) {
-      skipNextSave.current = false;
-      return;
-    }
-    if (!selectedEventId) return;
+    if (!canSaveSetlist(selectedEventId, loadedEventId.current, dirtyEventId.current)) return;
     if (autoSaveTimer.current) clearTimeout(autoSaveTimer.current);
     autoSaveTimer.current = setTimeout(() => {
       saveSetlist();
@@ -110,11 +124,11 @@ export function SetlistClient({
       if (autoSaveTimer.current) clearTimeout(autoSaveTimer.current);
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [setlistItems]);
+  }, [setlistItems, selectedEventId]);
 
   // ─── 派生値 ──────────────────────────────────────────────────────────────────
 
-  const today = new Date().toISOString().split("T")[0];
+  const today = getJstDateString();
 
   const nextEvent = useMemo(
     () =>
@@ -139,6 +153,24 @@ export function SetlistClient({
 
   // ─── アクション ──────────────────────────────────────────────────────────────
 
+  function selectEvent(id: string | null) {
+    if (id === activeEventId.current) return;
+    activeEventId.current = id;
+    loadedEventId.current = null;
+    dirtyEventId.current = null;
+    if (autoSaveTimer.current) clearTimeout(autoSaveTimer.current);
+    setSetlistItems([]);
+    setReadStatus("loading");
+    setSelectedEventId(id);
+  }
+
+  function editItems(update: SetStateAction<EditableItem[]>) {
+    if (!selectedEventId || loadedEventId.current !== selectedEventId) return;
+    dirtyEventId.current = selectedEventId;
+    editRevision.current += 1;
+    setSetlistItems(update);
+  }
+
   function showToast(msg: string) {
     setToast(msg);
     setTimeout(() => setToast(null), 3000);
@@ -147,30 +179,30 @@ export function SetlistClient({
   function addSong(title?: string) {
     const t = (title ?? searchQuery).trim();
     if (!t) return;
-    setSetlistItems(prev => [...prev, { id: newId(), type: "song" as const, title: t }]);
+    editItems(prev => [...prev, { id: newId(), type: "song" as const, title: t }]);
     showToast(`「${t}」を追加しました`);
     setSearchQuery("");
     setShowSuggestions(false);
   }
 
   function addMC() {
-    setSetlistItems(prev => [...prev, { id: newId(), type: "mc" as const }]);
+    editItems(prev => [...prev, { id: newId(), type: "mc" as const }]);
   }
 
   function addEncore() {
-    setSetlistItems(prev => [...prev, { id: newId(), type: "encore" as const }]);
+    editItems(prev => [...prev, { id: newId(), type: "encore" as const }]);
   }
 
   function addSeparator(label: string) {
-    setSetlistItems(prev => [...prev, { id: newId(), type: "separator" as const, label }]);
+    editItems(prev => [...prev, { id: newId(), type: "separator" as const, label }]);
   }
 
   function addTag(label: string) {
-    setSetlistItems(prev => [...prev, { id: newId(), type: "tag" as const, label }]);
+    editItems(prev => [...prev, { id: newId(), type: "tag" as const, label }]);
   }
 
   function moveItem(index: number, dir: "up" | "down") {
-    setSetlistItems(prev => {
+    editItems(prev => {
       const next = [...prev];
       const to = dir === "up" ? index - 1 : index + 1;
       if (to < 0 || to >= next.length) return prev;
@@ -180,11 +212,12 @@ export function SetlistClient({
   }
 
   function removeItem(id: string) {
-    setSetlistItems(prev => prev.filter(item => item.id !== id));
+    editItems(prev => prev.filter(item => item.id !== id));
   }
 
   async function saveSetlist() {
-    if (!selectedEventId) return;
+    if (!canSaveSetlist(selectedEventId, loadedEventId.current, dirtyEventId.current)) return;
+    const revision = editRevision.current;
     setSaveStatus("saving");
     setSaveError(null);
     const { error } = await anonymousSupabase
@@ -193,11 +226,13 @@ export function SetlistClient({
         { event_id: selectedEventId, items: setlistItems, updated_at: new Date().toISOString() },
         { onConflict: "event_id" },
       );
+    if (activeEventId.current !== selectedEventId) return;
     if (error) {
       console.error("setlist save error:", error);
       setSaveStatus("error");
       setSaveError("保存に失敗しました。時間をおいて再度お試しください。");
     } else {
+      if (revision === editRevision.current) dirtyEventId.current = null;
       if (setlistItems.length > 0 && lastTrackedSetlistEvent.current !== selectedEventId) {
         lastTrackedSetlistEvent.current = selectedEventId;
         trackEvent("report_submit", {
@@ -324,7 +359,7 @@ export function SetlistClient({
             <div className="flex items-center">
               <AccountLink iconSize={22} />
               <ShareButton
-                url={`${typeof window !== "undefined" ? window.location.origin : ""}/artists/${slug}/setlist`}
+                url={`${typeof window !== "undefined" ? window.location.origin : ""}/artists/${slug}/setlist${selectedEventId ? `?event=${encodeURIComponent(selectedEventId)}` : ""}`}
                 text={`${artist.name} のセットリスト🎤 #ちけレポ`}
                 className="zr-focus flex h-11 w-11 items-center justify-center rounded-full text-[#665761] transition-colors active:bg-[#fff0f5]"
               />
@@ -334,18 +369,18 @@ export function SetlistClient({
         {getArtistGroupImage(slug) && <ArtistGroupPhoto key={slug} slug={slug} name={artist.name} variant="hero" priority />}
         <div className={getArtistGroupImage(slug) ? "zr-container relative z-10 pb-5 pt-5 sm:pb-7" : "zr-container absolute inset-x-0 bottom-0 z-10 pb-5 sm:pb-7"}>
           <p className="text-[10px] font-black tracking-[0.24em] text-[#ffb1cb]">SETLIST ARCHIVE</p>
-          <h1 className="mt-2 text-[29px] font-black leading-[1.1] tracking-[-0.05em] sm:text-[44px]">セトリ・ライブの曲順</h1>
+          <h1 className="mt-2 text-[29px] font-black leading-[1.2] tracking-[-0.05em] sm:text-[44px]">{artist.name}のセトリ</h1>
           <p className="mt-2 text-[11px] font-bold text-white/76 sm:text-[13px]">{artist.name}</p>
         </div>
       </section>
 
       <main className="pb-20">
-        <CompactEventPickerSection
+          <CompactEventPickerSection
           headingId="setlist-event-title"
           title="公演を選ぶ"
           events={events}
           selectedEventId={selectedEventId}
-          onSelect={setSelectedEventId}
+          onSelect={selectEvent}
           artistName={artist.name}
           today={today}
           eyebrow="SELECT YOUR LIVE"
@@ -366,6 +401,12 @@ export function SetlistClient({
               </p>
             )}
           </div>
+          {readStatus === "loading" && selectedEventId && <p role="status" className="mb-4 text-sm text-[#665861]">この公演の投稿セットリストを読み込み中です。</p>}
+          {readStatus === "error" && <p role="status" className="mb-4 text-sm text-[#665861]">投稿セットリストを読み込めませんでした。時間をおいて再度開いてください。</p>}
+          {!selectedEventId && <p className="mb-4 text-sm text-[#665861]">公演を選ぶと、投稿されたセットリストを確認できます。</p>}
+          {selectedEventId && readStatus === "ready" && <>
+          <fieldset disabled={!selectedEventId || readStatus !== "ready"} className="min-w-0 disabled:opacity-60">
+          <legend className="sr-only">公演ごとの投稿セットリスト</legend>
           <SetlistItemsSection
             setlistItems={setlistItems}
             songNumbers={songNumbers}
@@ -375,6 +416,8 @@ export function SetlistClient({
             onOpenAddForm={() => setShowAddForm(true)}
             addFormNode={addFormNode}
           />
+          </fieldset>
+          </>}
         </section>
       </main>
 

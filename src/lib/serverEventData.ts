@@ -27,7 +27,8 @@ export async function getCachedArtistEvents(artistSlug: string): Promise<Crawled
   return unstable_cache(
     async () => {
       const client = createSupabasePublicClient();
-      return client ? queryEventsForArtist(client, artistSlug) : [];
+      if (!client) throw new Error("Public artist events reader is unavailable");
+      return queryEventsForArtist(client, artistSlug, { throwOnError: true });
     },
     ["public-artist-events", artistSlug],
     { revalidate: PUBLIC_EVENT_TTL_SECONDS, tags: [`artist-events:${artistSlug}`] },
@@ -50,8 +51,10 @@ export async function getCachedCanonicalEventId(info: EventOgInfo): Promise<stri
       query = event.venue_id
         ? query.eq("venue_id", event.venue_id)
         : query.eq("venue", event.venue);
-      const { data } = await query.limit(30);
-      const rows = (data as CrawledEvent[]) ?? [];
+      const { data, error } = await query.limit(30);
+      if (error) throw new Error("Canonical event lookup failed", { cause: error });
+      // 公開ページ・sitemapと同じ対象に限定し、非公開行の404へcanonicalを向けない。
+      const rows = ((data as CrawledEvent[]) ?? []).filter((candidate) => !isTestEvent(candidate));
       return findDisplayedEventRepresentative(rows, event)?.id ?? event.id;
     },
     ["canonical-event", event.id],

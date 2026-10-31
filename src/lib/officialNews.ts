@@ -1,3 +1,4 @@
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { supabase } from "@/lib/supabase/client";
 import { findArtistBySlug } from "@/lib/artists";
 import { OFFICIAL_NEWS_CATEGORY_LABELS, type OfficialNews } from "@/lib/types";
@@ -60,10 +61,11 @@ export async function getLatestOfficialNewsForArtist(
 
 export async function queryAllOfficialNewsForArtist(
   artistSlug: string,
+  client: SupabaseClient = supabase,
 ): Promise<OfficialNewsQueryResult> {
   if (!isOfficialNewsArtist(artistSlug)) return { data: [], error: false };
 
-  const { data, error } = await supabase
+  const { data, error } = await client
     .from("official_news_public")
     .select(OFFICIAL_NEWS_COLUMNS)
     .eq("artist_slug", artistSlug)

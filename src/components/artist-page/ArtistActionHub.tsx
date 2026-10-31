@@ -65,10 +65,10 @@ export default function ArtistActionHub({ artistName, slug, seatHref }: Props) {
               <Icon size={18} strokeWidth={1.9} className={iconClass} />
             </span>
             <span className="min-w-0 flex-1 sm:flex-none">
-              <span className="block whitespace-nowrap text-[14px] font-black leading-tight tracking-[-0.035em] text-[#40383d] sm:text-[17px]">
+              <span className="block text-[14px] font-black leading-snug tracking-[-0.035em] text-[#40383d] sm:text-[17px]">
                 {label}
               </span>
-              <span className={`mt-0.5 block truncate whitespace-nowrap text-[9px] font-bold leading-tight sm:mt-1 sm:text-[10px] ${descriptionClass}`}>
+              <span className={`mt-1 block text-[12px] font-bold leading-relaxed ${descriptionClass}`}>
                 {description}
               </span>
             </span>
@@ -82,7 +82,7 @@ export default function ArtistActionHub({ artistName, slug, seatHref }: Props) {
           <span className="flex min-w-0 flex-1 items-center justify-between gap-2 lg:flex-none lg:items-end">
             <span className="min-w-0">
               <span className="block text-[14px] font-black leading-tight tracking-[-0.035em] text-[#40383d] sm:text-[17px]">ファン掲示板</span>
-              <span className="mt-0.5 block text-[9px] font-bold leading-tight text-[#887982] sm:mt-1 sm:text-[10px]">交流・情報交換</span>
+              <span className="mt-1 block text-[12px] font-bold leading-relaxed text-[#887982]">交流・情報交換</span>
             </span>
             <ChevronRight size={16} strokeWidth={2.2} className="shrink-0 text-[#887982]" aria-hidden="true" />
           </span>

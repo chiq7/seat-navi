@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import type { CrawledEvent } from "@/lib/types";
 import { EventListRow } from "@/components/common/EventListRow";
 import { EmptyState } from "@/components/common/EmptyState";
@@ -14,8 +13,7 @@ type Props = {
 const INITIAL_COUNT = 3;
 
 export default function UpcomingEventsSection({ artistName, events }: Props) {
-  const [expanded, setExpanded] = useState(false);
-  const visibleEvents = expanded ? events : events.slice(0, INITIAL_COUNT);
+  const visibleEvents = events.slice(0, INITIAL_COUNT);
 
   return (
     <section className="artist-section" id="upcoming-events">
@@ -32,14 +30,15 @@ export default function UpcomingEventsSection({ artistName, events }: Props) {
           {visibleEvents.map((event) => (
             <EventListRow key={event.id} event={event} artistName={artistName} secondary={event.venue} actionLabel="座席表を見る" />
           ))}
-          {!expanded && events.length > INITIAL_COUNT && (
-            <button
-              type="button"
-              onClick={() => setExpanded(true)}
-              className="zr-focus min-h-12 w-full border-b border-[#ded8dc] text-[12px] font-bold text-[#f43679]"
-            >
-              もっと見る（他{events.length - INITIAL_COUNT}件）
-            </button>
+          {events.length > INITIAL_COUNT && (
+            <details>
+              <summary className="zr-focus flex min-h-12 cursor-pointer items-center justify-center border-b border-[#ded8dc] text-[13px] font-bold text-[#f43679]">
+                ほかの公演を見る（{events.length - INITIAL_COUNT}件）
+              </summary>
+              {events.slice(INITIAL_COUNT).map((event) => (
+                <EventListRow key={event.id} event={event} artistName={artistName} secondary={event.venue} actionLabel="座席表を見る" />
+              ))}
+            </details>
           )}
         </div>
       )}

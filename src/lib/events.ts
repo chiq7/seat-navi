@@ -15,6 +15,7 @@ const EVENT_COLUMNS = "id, title, venue, venue_id, date, genre, lottery_types, a
 export async function queryEventsForArtist(
   client: SupabaseClient,
   artistSlug: string,
+  options: { throwOnError?: boolean } = {},
 ): Promise<CrawledEvent[]> {
   const artist = findArtistBySlug(artistSlug);
   const bySlugPromise = client
@@ -30,9 +31,14 @@ export async function queryEventsForArtist(
       .is("artist_slug", null)
       .or([...new Set([artist.name, ...artist.keywords])].map((term) => `title.ilike.%${term}%`).join(","))
       .order("date", { ascending: true })
-    : Promise.resolve({ data: [] as CrawledEvent[] });
+    : Promise.resolve({ data: [] as CrawledEvent[], error: null });
 
-  const [{ data: bySlug }, { data: byKeyword }] = await Promise.all([bySlugPromise, byKeywordPromise]);
+  const [slugResult, keywordResult] = await Promise.all([bySlugPromise, byKeywordPromise]);
+  if (options.throwOnError && (slugResult.error || keywordResult.error)) {
+    throw new Error("Public artist events could not be loaded", { cause: slugResult.error ?? keywordResult.error });
+  }
+  const bySlug = slugResult.data;
+  const byKeyword = keywordResult.data;
 
   const rows = ((bySlug as CrawledEvent[]) ?? [])
     .filter((event) => !isArtistOnlyEventTitle(event.title, artist?.name))

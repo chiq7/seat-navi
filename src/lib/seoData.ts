@@ -1,6 +1,6 @@
 import { cache } from "react";
 import { ARTISTS, findArtistBySlug, resolveArtist, type Artist } from "@/lib/artists";
-import { getEventsForArtist } from "@/lib/events";
+import { queryEventsForArtist } from "@/lib/events";
 import { isArtistOnlyEventTitle, parseEventTitle } from "@/lib/eventTitle";
 import { getEventWithArtist, getGroupedEventIds, getPredictionCount, getSeatReportCount, type EventOgInfo } from "@/lib/og/eventOgData";
 import { getReportOgInfo, type ReportOgInfo } from "@/lib/og/reportOgData";
@@ -78,7 +78,7 @@ export async function getArtistContentCounts(slug: string): Promise<{ setlists: 
   const artist = getSeoArtist(slug);
   if (!artist) return { setlists: 0, afterReports: 0 };
 
-  const events = await getEventsForArtist(slug);
+  const events = await queryEventsForArtist(supabase, slug, { throwOnError: true });
   const eventIds = events.map((event) => event.id);
   if (eventIds.length === 0) return { setlists: 0, afterReports: 0 };
 
@@ -86,6 +86,9 @@ export async function getArtistContentCounts(slug: string): Promise<{ setlists: 
     supabase.from("setlists").select("event_id").in("event_id", eventIds),
     supabase.from("after_reports").select("event_id").in("event_id", eventIds),
   ]);
+  if (setlistResult.error || reportResult.error) {
+    throw new Error("Public content counts could not be loaded", { cause: setlistResult.error ?? reportResult.error });
+  }
   const eventMap = new Map(events.map((event) => [event.id, event]));
   return {
     setlists: getPublicContentRows((setlistResult.data as { event_id: string }[]) ?? [], eventMap)
@@ -97,10 +100,11 @@ export async function getArtistContentCounts(slug: string): Promise<{ setlists: 
 
 export async function getArtistNewsCount(slug: string): Promise<number> {
   if (!getSeoArtist(slug)) return 0;
-  const { count } = await supabase
+  const { count, error } = await supabase
     .from("official_news_public")
     .select("artist_slug", { count: "exact", head: true })
     .eq("artist_slug", slug);
+  if (error) throw new Error("Public news count could not be loaded", { cause: error });
   return count ?? 0;
 }
 

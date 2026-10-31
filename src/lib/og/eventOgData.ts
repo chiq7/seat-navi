@@ -41,7 +41,9 @@ export async function queryEventWithArtist(
   client: SupabaseClient,
   eventId: string,
 ): Promise<EventOgInfo | null> {
-  const { data } = await client.from("events").select(EVENT_COLUMNS).eq("id", eventId).maybeSingle();
+  const { data, error } = await client.from("events").select(EVENT_COLUMNS).eq("id", eventId).maybeSingle();
+  // 一時的な取得失敗を「存在しない公演」として404・負のキャッシュにしない。
+  if (error) throw new Error("Public event lookup failed", { cause: error });
   if (!data) return null;
   const event = data as CrawledEvent;
   const artist = resolveArtist(event);
