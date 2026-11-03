@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Check, Download } from "lucide-react";
-import type { ColorMode } from "@/lib/arena-map/arenaMapTypes";
+import type { ColorMode, ArenaMapReport } from "@/lib/arena-map/arenaMapTypes";
 import type { SeatReport } from "@/lib/types";
 import type { ExternalSeatObservation } from "@/lib/external-seats/types";
 import type { SeatPosition } from "@/lib/arena-map/arenaSeatDetails";
@@ -17,6 +17,7 @@ export type EventArenaMapProps = {
   /** 保存ファイル名（seat-map-{eventId}.png）にも使う、現在表示中のevent id */
   eventId: string;
   reports: SeatReport[];
+  seatOnlyReports?: ArenaMapReport[];
   externalObservations?: ExternalSeatObservation[];
   /** 外部で色分けタブを制御する場合に指定。省略時はArenaReportMap内蔵のタブを使う。 */
   colorMode?: ColorMode;
@@ -48,6 +49,7 @@ const NO_EVENTS: { id: string; date: string }[] = [];
 export function EventArenaMap({
   eventId,
   reports,
+  seatOnlyReports,
   externalObservations = NO_EXTERNAL,
   colorMode,
   mapFullBleed = false,
@@ -109,6 +111,7 @@ export function EventArenaMap({
         <ArenaReportMap
         eventId={eventId}
         reports={reports}
+        seatOnlyReports={seatOnlyReports}
         externalObservations={externalObservations}
         variant="full"
         colorModeExternal={colorMode}

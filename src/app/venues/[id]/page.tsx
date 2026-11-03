@@ -1,3 +1,4 @@
+import SeatSearchOffer from "@/components/seat-campaign/SeatSearchOffer";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { MapPin, MoveRight, Users } from "lucide-react";
@@ -119,6 +120,7 @@ export default async function VenuePage({ params }: Props) {
 
 
       <div className="zr-container">
+        <SeatSearchOffer venueId={venue.id} />
         <section className="py-8 sm:py-10" aria-labelledby="upcoming-events-title">
           <p className="artist-kicker">Upcoming Live</p>
           <h2 id="upcoming-events-title" className="artist-heading scroll-mt-[90px]">これからの公演・アーティスト {eventRead.available && <small>（{upcoming.length}件）</small>}</h2>

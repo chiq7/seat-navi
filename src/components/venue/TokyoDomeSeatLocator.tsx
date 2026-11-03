@@ -1,4 +1,6 @@
 "use client";
+
+import SeatSearchOffer from "@/components/seat-campaign/SeatSearchOffer";
 import { trackVenueSeatSearch } from "@/lib/venueAnalytics";
 import { seatNumberArrowInk } from "@/lib/seatNumberBadge";
 import { tokyoDomeNumberBadge } from "@/lib/tokyoDomeNumberBadge";
@@ -675,6 +677,7 @@ export function TokyoDomeSeatLocator() {
         
         {detailStage && !verifiedNumberGuide && <p className={styles.hint}>この区画の番号方向は確認中です。</p>}
         {verifiedBlock?.rowCoverage === "representative" && numberReference && <p className={styles.hint}>番号は代表列のみ確認済みです。ほかの列は区画名で選べます。番号札は{numberReference.row}列の開始番号です。</p>}
+        {selected && selectedRow && <SeatSearchOffer venueId="tokyo-dome" row={String(selectedRow)} number={seatInput} contextLabel={selected.code} />}
         <nav aria-label="座席確認後の会場案内" className={styles.footer}>
           <a href="#dome-access">駅・入場ゲートを確認 ↓</a>
           <a href="#dome-spots">トイレ・ロッカー・売店を探す ↓</a>

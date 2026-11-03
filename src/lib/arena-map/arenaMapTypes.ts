@@ -9,9 +9,10 @@ export type ColorMode = "lottery" | "fcHistory" | "ticketCount" | "payment" | "u
 /** ユーザー報告と外部由来データを同じ座席グリッドへ安全に渡すための最小形。 */
 export type ArenaMapReport = Pick<
   SeatReport,
-  "block" | "row_num" | "seat_num" | "lottery_type" | "fc_history" | "payment_method"
+  "block" | "row_num" | "seat_num" | "fc_history" | "payment_method"
 > & {
-  sourceKind?: "user" | "external";
+  lottery_type: SeatReport["lottery_type"] | null;
+  sourceKind?: "user" | "external" | "seat_only";
   externalConfidence?: ExternalSeatConfidence;
 };
 
@@ -31,10 +32,10 @@ export type BlockPosition = {
 export type ArenaCell = {
   row: number;           // row_num（報告値）
   seat: number;          // seat_num（報告値）
-  lotteryType: SeatReport["lottery_type"];
+  lotteryType: SeatReport["lottery_type"] | null;
   fcHistory: string | null;
   paymentMethod: string | null;
-  sourceKind: "user" | "external";
+  sourceKind: "user" | "external" | "seat_only";
   externalConfidence: ExternalSeatConfidence | null;
 };
 
@@ -67,6 +68,8 @@ export type ArenaReportMapProps = {
   eventId: string;
   reports: SeatReport[];
   externalObservations?: ExternalSeatObservation[];
+  /** Only already verified block geometry; this does not create a seat layout. */
+  seatOnlyReports?: ArenaMapReport[];
   variant?: "full" | "compact";
   compactVenueName?: string | null;
   compactDateLabel?: string | null;

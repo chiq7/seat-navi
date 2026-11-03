@@ -9,6 +9,7 @@ import {
   EXTERNAL_EXACT_FILL,
   EXTERNAL_RANGE_FILL,
   REPORTED_FILL,
+  SEAT_ONLY_FILL,
   UNREPORTED_FILL,
   GRID_STROKE,
 } from "@/lib/arena-map/arenaMapColors";
@@ -63,6 +64,7 @@ export function ArenaReportMap({
   eventId,
   reports,
   externalObservations = [],
+  seatOnlyReports = [],
   variant = "full",
   compactVenueName,
   compactDateLabel,
@@ -130,7 +132,10 @@ export function ArenaReportMap({
     for (const report of externalObservationsToArenaReports(externalObservations)) {
       byPosition.set(`${report.block}:${report.row_num}:${report.seat_num}`, report);
     }
-    // 同じ座席ならユーザー本人の報告を優先し、外部情報は背面扱いにする。
+    for (const report of seatOnlyReports) {
+      if(report.sourceKind === "seat_only") byPosition.set(`${report.block}:${report.row_num}:${report.seat_num}`, {...report,lottery_type:null,fc_history:null,payment_method:null});
+    }
+    // 同じ座席なら属性付きの本人報告を優先。座席のみを抽選属性へ変換しない。
     for (const report of reports) {
       byPosition.set(`${report.block}:${report.row_num}:${report.seat_num}`, {
         ...report,
@@ -138,7 +143,8 @@ export function ArenaReportMap({
       });
     }
     return [...byPosition.values()];
-  }, [externalObservations, reports]);
+  }, [externalObservations, reports, seatOnlyReports]);
+  const hasSeatOnlyCells = arenaReports.some(report => report.sourceKind === "seat_only");
   const hasExternalCells = arenaReports.some((report) => report.sourceKind === "external");
   const showPositionLocators = isCompact && highlightPositionsPreview && arenaReports.length <= 12;
 
@@ -402,6 +408,7 @@ export function ArenaReportMap({
         </>
       )}
 
+      {hasSeatOnlyCells && <p className="mb-2 flex items-center gap-1 text-xs text-[#0f766e]"><span className="h-2 w-2 shrink-0 rounded-full" style={{backgroundColor:SEAT_ONLY_FILL}} />座席情報のみ（当選枠等は未入力）</p>}
       {explorePreview && !isCompact && (
         <div className="mx-3 mb-2 flex items-center gap-2 sm:mx-4">
           <label htmlFor={`arena-block-${eventId}`} className="sr-only">拡大するブロック</label>
@@ -573,10 +580,10 @@ export function ArenaReportMap({
                 y={pb.svgY + (c.row - 1) * pb.cellH}
                 width={pb.cellW}
                 height={pb.cellH}
-                fill={positionOnlyPreview && c.sourceKind !== "external" ? "#bf2c68" : isCompact && c.sourceKind !== "external" ? REPORTED_FILL : cellFillColor(c, activeColorMode)}
+                fill={c.sourceKind === "seat_only" ? SEAT_ONLY_FILL : positionOnlyPreview && c.sourceKind !== "external" ? "#bf2c68" : isCompact && c.sourceKind !== "external" ? REPORTED_FILL : cellFillColor(c, activeColorMode)}
               />
             ))}
-            {showPositionLocators && pb.cells.filter(c => c.sourceKind !== "external" || c.externalConfidence === "exact").map(c => <circle key={`locator:${c.row}:${c.seat}`} data-arena-preview-position={`${pb.blockName}:${c.row}:${c.seat}`} cx={pb.svgX + (c.seat - 0.5) * pb.cellW} cy={pb.svgY + (c.row - 0.5) * pb.cellH} r={5} fill="none" stroke={c.sourceKind === "external" ? EXTERNAL_EXACT_FILL : "#bf2c68"} strokeWidth={1.25} vectorEffect="non-scaling-stroke" pointerEvents="none" />)}
+            {showPositionLocators && pb.cells.filter(c => c.sourceKind !== "external" || c.externalConfidence === "exact").map(c => <circle key={`locator:${c.row}:${c.seat}`} data-arena-preview-position={`${pb.blockName}:${c.row}:${c.seat}`} cx={pb.svgX + (c.seat - 0.5) * pb.cellW} cy={pb.svgY + (c.row - 0.5) * pb.cellH} r={5} fill="none" stroke={c.sourceKind === "seat_only" ? SEAT_ONLY_FILL : c.sourceKind === "external" ? EXTERNAL_EXACT_FILL : "#bf2c68"} strokeWidth={1.25} vectorEffect="non-scaling-stroke" pointerEvents="none" />)}
           </g>
         ))}
 
@@ -672,10 +679,10 @@ export function ArenaReportMap({
                       y={oy + (c.row - 1) * cellH}
                       width={cellW}
                       height={cellH}
-                      fill={positionOnlyPreview && c.sourceKind !== "external" ? "#bf2c68" : isCompact && c.sourceKind !== "external" ? REPORTED_FILL : cellFillColor(c, activeColorMode)}
+                      fill={c.sourceKind === "seat_only" ? SEAT_ONLY_FILL : positionOnlyPreview && c.sourceKind !== "external" ? "#bf2c68" : isCompact && c.sourceKind !== "external" ? REPORTED_FILL : cellFillColor(c, activeColorMode)}
                     />
                   ))}
-                  {showPositionLocators && ob.cells.filter(c => c.sourceKind !== "external" || c.externalConfidence === "exact").map(c => <circle key={`locator:${c.row}:${c.seat}`} data-arena-preview-position={`${ob.blockName}:${c.row}:${c.seat}`} cx={ox + (c.seat - 0.5) * cellW} cy={oy + (c.row - 0.5) * cellH} r={5} fill="none" stroke={c.sourceKind === "external" ? EXTERNAL_EXACT_FILL : "#bf2c68"} strokeWidth={1.25} vectorEffect="non-scaling-stroke" pointerEvents="none" />)}
+                  {showPositionLocators && ob.cells.filter(c => c.sourceKind !== "external" || c.externalConfidence === "exact").map(c => <circle key={`locator:${c.row}:${c.seat}`} data-arena-preview-position={`${ob.blockName}:${c.row}:${c.seat}`} cx={ox + (c.seat - 0.5) * cellW} cy={oy + (c.row - 0.5) * cellH} r={5} fill="none" stroke={c.sourceKind === "seat_only" ? SEAT_ONLY_FILL : c.sourceKind === "external" ? EXTERNAL_EXACT_FILL : "#bf2c68"} strokeWidth={1.25} vectorEffect="non-scaling-stroke" pointerEvents="none" />)}
                   <text
                     x={ox + BLOCK_W / 2}
                     y={oy + BLOCK_H + 6}
@@ -747,7 +754,9 @@ export function ArenaReportMap({
           </select>
         </div>
       )}
-      {detailsEnabled && selectedSeat && <div ref={detailRef} aria-live="polite"><ArenaSeatDetail position={selectedSeat} reports={reports} external={externalObservations} events={detailEvents} unknownOrigin={seatConditionsUnverifiedPreview} onClose={closeSeat} /></div>}
+      {detailsEnabled && selectedSeat && <div ref={detailRef} aria-live="polite">{arenaReports.some(report => report.sourceKind === "seat_only" && report.block === selectedSeat.block && report.row_num === selectedSeat.row && report.seat_num === selectedSeat.seat)
+        ? <div className="m-3 rounded-lg bg-[#e9f7f4] p-3 text-sm text-[#0f766e]"><strong>{selectedSeat.block} {selectedSeat.row}列 {selectedSeat.seat}番</strong><p>座席情報のみ · 本人入力・内容確認中。当選枠・FC歴・支払い・アプグレは未入力です。</p><button type="button" className="min-h-11 underline" onClick={closeSeat}>閉じる</button></div>
+        : <ArenaSeatDetail position={selectedSeat} reports={reports} external={externalObservations} events={detailEvents} unknownOrigin={seatConditionsUnverifiedPreview} onClose={closeSeat} />}</div>}
 
       {/* 共有・投稿ボタン（fullのみ・hideShareSection時は非表示） */}
       {!isCompact && !hideShareSection && (

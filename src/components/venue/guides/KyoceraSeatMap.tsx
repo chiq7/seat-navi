@@ -11,6 +11,7 @@ import type { Box } from "./mapGeometry";
 import KyoceraNumberNavigator from "./KyoceraNumberNavigator";
 import { kyoceraBlockCamera, kyoceraDrawingBlocks, kyoceraAreaCamera, kyoceraMatchesArea, kyoceraSelectedDirection, type DrawingBlock } from "./kyoceraMapDrawing";
 import { findKyoceraSeats, normalizeKyoceraTicket, type KyoceraSeatCandidate } from "./kyoceraSeatSearch";
+import SeatSearchOffer from "@/components/seat-campaign/SeatSearchOffer";
 
 type Props = { guide: DedicatedVenueGuide; selectedId: string | null; rowLabel: string | null; seatNumber: string;
   onSelect: (area: SeatArea) => void; onClear: () => void; onRow: (row: string | null) => void;
@@ -105,6 +106,7 @@ export default function KyoceraSeatMap({ guide, selectedId, rowLabel, seatNumber
       <button type="button" disabled={!selected} aria-label="選んだ場所を表示" onClick={() => selected && setBox(kyoceraBlockCamera(selected, whole))}><LocateFixed size={19} /></button>
       <button type="button" disabled={!selected} aria-label="座席の選択を解除" onClick={clear}><X size={18} /></button>
     </> : <span>{direction === "all" ? "座席の全体図" : `${directions.find(item => item.id === direction)?.label ?? "座席"}の範囲`}</span>}</div>
+    {selected && currentRow && currentNumber && <SeatSearchOffer venueId="kyocera-dome" localOnly={process.env.NODE_ENV === "development"} key={`${selected.code}:${currentRow}:${currentNumber}`} row={currentRow} number={currentNumber} contextLabel={`${selected.label}・${selected.tier}`} />}
     <KyoceraNumberNavigator guide={guide} blocks={blocks} level={level} selectedCode={selected?.code} rowLabel={currentRow}
       box={box} onView={setBox} onBlock={chooseBlock} onWhole={showWhole} onDirection={showDirection} onArea={areaId => {
         const area = guide.seats.find(a => a.id === areaId); if (!area) return;

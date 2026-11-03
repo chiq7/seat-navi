@@ -7,6 +7,7 @@ const LEGEND_GREEN  = "#22C55E";
 const LEGEND_YELLOW = "#F59E0B";
 const LEGEND_BLUE   = "#3B82F6";
 
+export const SEAT_ONLY_FILL = "#0f766e";
 export const REPORTED_FILL   = "#5B2BE0";
 export const EXTERNAL_EXACT_FILL = "#8B5CF6";
 export const EXTERNAL_RANGE_FILL = "#C4B5FD";
@@ -89,12 +90,13 @@ export const COLOR_MODE_LEGENDS: Record<ColorMode, { label: string; color: strin
 // ─── 色決定純粋関数 ──────────────────────────────────────────────────────────
 
 export function cellFillColor(cell: ArenaCell, colorMode: ColorMode): string {
+  if (cell.sourceKind === "seat_only") return SEAT_ONLY_FILL;
   if (cell.sourceKind === "external") {
     return cell.externalConfidence === "exact" ? EXTERNAL_EXACT_FILL : EXTERNAL_RANGE_FILL;
   }
   switch (colorMode) {
     case "lottery":
-      return LOTTERY_COLORS[cell.lotteryType] ?? REPORTED_FILL;
+      return LOTTERY_COLORS[cell.lotteryType ?? ""] ?? REPORTED_FILL;
     case "fcHistory":
       return cell.fcHistory ? (FC_HISTORY_COLORS[cell.fcHistory] ?? REPORTED_FILL) : REPORTED_FILL;
     case "payment":

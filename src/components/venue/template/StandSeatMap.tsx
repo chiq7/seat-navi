@@ -1,4 +1,6 @@
 "use client";
+
+import SeatSearchOffer from "@/components/seat-campaign/SeatSearchOffer";
 import { trackVenueSeatSearch } from "@/lib/venueAnalytics";
 
 import { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState, useId, type PointerEvent } from "react";
@@ -478,6 +480,7 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
       {levelTags.map(l => { const p = projection.project(l.point); return <button type="button" key={l.id} className={`${styles.levelTag} ${pulse ? styles.pulse : ""}`} style={{ left: p[0], top: p[1] }} onClick={() => chooseRegion(l.id, "all")}>{l.label}</button>; })}
     </div>
     <div className={styles.mapActions}>{data.diagramId === "vantelin-prime-unfolded" && <span className={styles.primeOrientation}>ツイン：3塁側 L／1塁側 R<br/>ボックス：4F／レストラン：3F</span>}<button type="button" className={styles.whole} onClick={reset}>全体図へ</button></div>
+    {block && labelRun && <SeatSearchOffer row={String(labelRun.row)} number={normalizeSeatInput(number)} contextLabel={selectedTitle} />}
     {block && <div className={styles.footer} key={block.id} aria-label="選択した区画の詳細">
       {block.numberLookup && <p className={styles.coverageNote}><Info size={16} aria-hidden="true"/><span>{block.numberLookup === "partial" ? "確認できた番号だけを表示しています。他の列・番号は確認中です。" : "この区画は番号での検索に対応していません。"}</span></p>}
       {block.numberLookup !== "unavailable" && block.rows.length > 0 && <details className={styles.detailDisclosure} onToggle={event => {
