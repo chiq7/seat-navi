@@ -97,7 +97,7 @@ export default function RootLayout({
               src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
               strategy="afterInteractive"
             />
-            <Script id="ga4-init" strategy="afterInteractive">
+            <Script id="ga4-init" strategy="beforeInteractive">
               {gaBootstrapScript(GA_ID)}
             </Script>
           </>

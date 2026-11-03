@@ -27,6 +27,9 @@ export function trackEvent(
 ): void {
   if (typeof window === "undefined" || typeof window.gtag !== "function" || window.location.pathname === VERIFICATION_ENTRY_PATH) return;
 
+  const origin = getTrafficOrigin();
+  if (origin === "verification_codex" || origin === "verification_operator") return;
+
   const safeParams = Object.fromEntries(
     Object.entries(params).filter(([, value]) => value !== undefined && value !== null),
   );
