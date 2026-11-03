@@ -39,7 +39,7 @@ export default function HomeVenueDirectory({ regions, venues, featured = false }
     <section className={`${styles.section}${featured ? ` ${styles.featured}` : ""}`} aria-labelledby={`${sectionId}-title`}>
       <div className="zr-container">
         <div className={styles.heading}>
-          <h2 id={`${sectionId}-title`}><Building2 size={22} aria-hidden="true" /><span><span className={styles.keepTogether}>{featured ? "会場から" : "地域から"}</span><span className={styles.keepTogether}>座席表を探す</span></span></h2>
+          <h2 id={`${sectionId}-title`}><Building2 size={22} aria-hidden="true" /><span><span className={styles.keepTogether}>会場から</span><span className={styles.keepTogether}>座席表を探す</span></span></h2>
           <DiscoveryLink href="/venues" className="zr-focus" discovery={{ source, destination: "directory", destinationId: "venues" }}>全{venues.length}会場<ArrowUpRight size={15} aria-hidden="true" /></DiscoveryLink>
         </div>
         {featured && <p className={styles.intro}>座席表・アクセス・荷物の預け先を、会場ごとに。</p>}
