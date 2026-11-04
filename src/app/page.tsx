@@ -7,6 +7,7 @@ import { SEO_VENUES } from "@/lib/venueSeo";
 import { getPublicVenueName, getPublicVenueSeatGuideHref } from "@/lib/publicVenueGuides";
 import HomeHeader from "@/components/home/HomeHeader";
 import HeroBanner from "@/components/home/HeroBanner";
+import HomeFeatureBanners from "@/components/home/HomeFeatureBanners";
 import HomeHeroPromoBanner from "@/components/home/HomeHeroPromoBanner";
 import UpcomingEventsSection from "@/components/home/UpcomingEventsSection";
 import RealtimeFeedSection from "@/components/home/RealtimeFeedSection";
@@ -188,6 +189,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ "
       <HomeHeader />
       <main>
         <HeroBanner />
+        <HomeFeatureBanners />
         <HomeVenueDirectory featured regions={venueRegions} venues={venueLinks} />
         {preview && <Suspense fallback={<FeaturedEventsSkeleton />}><SeatDiscoveryPilot state={query["seat-card-state"]} /></Suspense>}
         <Suspense fallback={<UpcomingEventsSkeleton />}>

@@ -1,0 +1,89 @@
+.section {
+  padding-block: 26px 30px;
+  background: #fff;
+}
+
+.title {
+  margin: 0 0 14px;
+  color: #27222b;
+  font-size: clamp(20px, 2.25vw, 25px);
+  font-weight: 800;
+  line-height: 1.4;
+  letter-spacing: -.02em;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(14px, 1.8vw, 22px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  display: block;
+  overflow: hidden;
+  border: 1px solid #ead9e1;
+  border-radius: 12px;
+  background: #fff9fb;
+  color: #94214d;
+  text-decoration: none;
+  transition: border-color 150ms, background-color 150ms;
+}
+
+.card:hover {
+  border-color: #c42e63;
+  background: #fff0f5;
+}
+
+.card:focus-visible {
+  outline: 3px solid #b12357;
+  outline-offset: 3px;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: contain;
+  background: #fff9fb;
+}
+
+.action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 46px;
+  padding: 9px 14px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.action span {
+  font-size: 18px;
+  line-height: 1;
+}
+
+@media (max-width: 899px) {
+  .section {
+    padding-block: 21px 24px;
+  }
+
+  .section .container {
+    max-width: 560px;
+  }
+
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+}
