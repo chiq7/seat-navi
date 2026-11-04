@@ -19,5 +19,13 @@ export default function VenueSeatReadingGuide({ venueId }: { venueId: string }) 
       <p>このガイドでは部屋・トイレ・ロッカー・アクセスを探せます。主催者の図は、このページ下の公演情報から開催日を選んで確認してください。</p>
     </>}
     <div className={styles.links}><a className={`${styles.action} zr-focus`} href="#venue-seat-guide">{kArena ? "列・番号で座席を探す ↓" : "部屋と会場の位置を見る ↓"}</a><a className={`${styles.link} zr-focus`} href="#upcoming-events-title">公演を選ぶ ↓</a></div>
+    {kArena && (
+      <div>
+        <a className={`${styles.link} zr-focus`} href="https://k-arena.com/seat/">
+          公式で座席からの見え方を見る
+        </a>
+        <p>チケットに書かれたLEVEL（3・5・7）の座席図で、客席をタップするとステージの参考写真が見られます。実際の見え方は公演ごとのステージや機材の配置によって変わります。</p>
+      </div>
+    )}
   </section></div>;
 }
