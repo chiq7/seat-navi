@@ -136,6 +136,11 @@ test("official external charts render as working links and distinguish venue lay
   const layoutHtml = render(Links, { event:{ ...event, venue_id:"unknown", venue:layout.names[0] } });
   assert.match(layoutHtml, /客席レイアウト例/);
   assert.doesNotMatch(layoutHtml, /主催者の公演座席表/);
+  const floor = OFFICIAL_SEAT_SOURCES.find(source => source.kind === "venue-floor");
+  const floorHtml = render(Links, { event:{ ...event, venue_id:"unknown", venue:floor.names[0] } });
+  assert.match(floorHtml, /会場公式のフロアマップを見る/);
+  assert.match(floorHtml, /公演当日の座席番号・配置はチケットや主催者の案内をご確認ください/);
+  assert.doesNotMatch(floorHtml, /会場公式の座席表を見る/);
 });
 
 test("same-day sessions remain distinguishable in artist guide text", async () => {

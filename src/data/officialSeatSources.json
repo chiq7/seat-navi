@@ -805,5 +805,78 @@
     "url": "https://www.g-messe-gunma.jp/organizer-facilities-figure.html#F03",
     "kind": "layout",
     "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "tif-info-centre-2026",
+    "names": [
+      "フジテレビ湾岸スタジオ内特設ステージ「INFO CENTRE」"
+    ],
+    "url": "https://official.idolfes.com/files/57/tif2026/assets/img/map/map_2026_20260715.png",
+    "kind": "event-area",
+    "note": "INFO CENTREは湾岸スタジオの多目的ホール（マップ⑧）です。",
+    "checkedAt": "2026-11-05",
+    "events": [
+      {
+        "id": "edb0ab0f937ae0e9790b",
+        "date": "2026-08-02",
+        "artistSlug": "nogizaka46",
+        "venue": "フジテレビ湾岸スタジオ内特設ステージ「INFO CENTRE」"
+      }
+    ]
+  },
+  {
+    "id": "osheaga-2026",
+    "names": [
+      "Parc Jean-Drapeau"
+    ],
+    "url": "https://images.ctfassets.net/dv1qnlptav0x/2ZU7JDhxlUMiAx1x1g1Euu/fc8eaf2356bab4f127426c790b83dd8e/OSH26-Divers-PlanDeSite-Publique-Final.jpg?w=2700&h=1896",
+    "kind": "event-area",
+    "note": "2026年開催のOSHEAGAの会場図です。",
+    "checkedAt": "2026-11-05",
+    "events": [
+      {
+        "id": "9313becc7e96c76eb6ba",
+        "date": "2026-07-31",
+        "artistSlug": "yoasobi",
+        "venue": "Parc Jean-Drapeau"
+      }
+    ]
+  },
+  {
+    "id": "spotify-o-east-floor",
+    "names": [
+      "Spotify O-EAST"
+    ],
+    "url": "https://shibuya-o.com/east/about/",
+    "kind": "venue-floor",
+    "note": "リンク先の「FLOOR GUIDE」で2Fメインフロア・3Fバルコニー階を確認できます。",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "takara-osaka-floor",
+    "names": [
+      "Takara Osaka"
+    ],
+    "url": "https://takara-live.com/osaka/hall_info/pdf/secondfloormap.pdf?ud=210113",
+    "kind": "venue-floor",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "kento-emiterrace-20260805",
+    "names": [
+      "エミテラス所沢 2F TOKOROZAWA e-CUBE"
+    ],
+    "url": "https://www.sonymusic.co.jp/img/common/artist_image/77710000/77710002/images/202607241028460.jpg",
+    "kind": "event-area",
+    "note": "8/5エミテラス所沢公演の入場経路図です。観覧席の配置図ではありません。",
+    "checkedAt": "2026-11-05",
+    "events": [
+      {
+        "id": "99f8d2a8a794085c4b62",
+        "date": "2026-08-05",
+        "artistSlug": "kento-nakajima",
+        "venue": "エミテラス所沢 2F TOKOROZAWA e-CUBE"
+      }
+    ]
   }
 ]

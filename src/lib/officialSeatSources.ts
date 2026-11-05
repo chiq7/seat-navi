@@ -6,7 +6,7 @@ export type OfficialSeatSource = {
   id: string;
   names: string[];
   url: string;
-  kind: "venue-seating" | "layout" | "event-seating" | "event-area";
+  kind: "venue-seating" | "layout" | "event-seating" | "event-area" | "venue-floor";
   checkedAt: string;
   note?: string;
   events?: { id: string; date: string; artistSlug: string; venue: string }[];
@@ -14,7 +14,7 @@ export type OfficialSeatSource = {
 
 export const OFFICIAL_SEAT_SOURCES = rawSources as OfficialSeatSource[];
 const normalizedName = (value: string) => normalizeForMatch(value).replace(/\s+/g, " ");
-const priority = { "event-seating": 0, "venue-seating": 1, layout: 2, "event-area": 3 };
+const priority = { "event-seating": 0, "venue-seating": 1, layout: 2, "venue-floor": 3, "event-area": 4 };
 
 /** Facility names match in full; dated organizer maps also require the recorded performance. */
 export function getOfficialSeatSources(event: Pick<CrawledEvent, "id" | "venue" | "date" | "artist_slug">): OfficialSeatSource[] {
@@ -30,5 +30,6 @@ export function officialSeatSourceLabel(source: OfficialSeatSource): string {
   if (source.kind === "event-seating") return "主催者の公演座席表を見る";
   if (source.kind === "event-area") return "主催者の会場マップを見る";
   if (source.kind === "layout") return "会場公式の客席レイアウト例を見る";
+  if (source.kind === "venue-floor") return "会場公式のフロアマップを見る";
   return "会場公式の座席表を見る";
 }

@@ -27,6 +27,7 @@ export default function PerformanceSeatLinks({ event, officialSeatMap }: { event
       {officialSeatMap && <p className="mt-1 text-xs leading-relaxed text-[#665861]">主催者ページの「SEAT MAP」で、{event.venue}の図を選べます。</p>}
       {officialSources.some(source => source.kind === "venue-seating" || source.kind === "layout") && <p className="mt-1 text-xs leading-relaxed text-[#665861]">会場の座席表・レイアウト例は、公演ごとの配置と異なる場合があります。</p>}
       {officialSources.some(source => source.kind === "event-area") && <p className="mt-1 text-xs leading-relaxed text-[#665861]">会場マップは入場口・観覧エリアなどの案内です。</p>}
+      {officialSources.some(source => source.kind === "venue-floor") && <p className="mt-1 text-xs leading-relaxed text-[#665861]">フロアマップはステージ・客席エリアなどの案内です。公演当日の座席番号・配置はチケットや主催者の案内をご確認ください。</p>}
       {officialSources.filter(source => source.note).map(source => <p key={source.id} className="mt-1 text-xs leading-relaxed text-[#665861]">{source.note}</p>)}
     </section>
   );
