@@ -25,14 +25,18 @@ export default function ArtistSeatSearchGuide({ slug, events }: { slug: string; 
   return <section className={styles.section} aria-labelledby="number-i-seat-guide-title">
     <p className={styles.eyebrow}>Number_i LIVE TOUR No.Ⅲ</p>
     <h2 id="number-i-seat-guide-title">Number_iの座席表を会場から探す</h2>
-    <p>2026〜2027年の5大ドーム公演。スタンド席は会場の座席表から、アリーナ席は各公演の案内・座席報告から確認できます。</p>
+    <ul className={styles.steps}>
+      <li><a className="zr-focus underline underline-offset-4" href={NUMBER_I_TOUR_SOURCE} target="_blank" rel="noopener noreferrer">主催者のシートマップを見る ↗</a>。公式ページの「SEAT MAP」で、京セラドーム大阪・東京ドームなど、行く会場の公演用の図を確認できます。</li>
+      <li><strong>スタンド席の列・番号を探す</strong>。下の「会場の座席表を見る」から、会場の常設席を確認できます。</li>
+      <li><strong>同じ日の座席報告を見る</strong>。下の公演日を選ぶと、その公演のページで投稿状況を確認できます。</li>
+    </ul>
     <div className={styles.rows}>{NUMBER_I_STOPS.map(stop => {
       const matched = numberITourEvents(events, stop.venueId, stop.dates);
       return <div className={styles.row} key={stop.venueId}><div>
         <strong>{stop.name}</strong><p className={styles.dates}>{stop.dates.map(date => date.replaceAll("-", "/")).join("・")}</p>
         {stop.venueId === "vantelin-dome" && <p className={styles.dates}>1月10日は昼・夜の2公演。券面の開演時刻も確認してください。</p>}
         {matched.length > 0 && <div className={styles.links}>{matched.map(event => <Link key={event.id} href={`/events/${event.id}`} className={`${styles.link} zr-focus`}>{event.date?.slice(5).replace("-", "/")} 公演情報 →</Link>)}</div>}
-      </div><Link className={`${styles.action} zr-focus`} href={getPublicVenueSeatGuideHref(stop.venueId) ?? `/venues/${stop.venueId}`}>座席表を見る →</Link></div>;
+      </div><Link className={`${styles.action} zr-focus`} href={getPublicVenueSeatGuideHref(stop.venueId) ?? `/venues/${stop.venueId}`}>会場の座席表を見る →</Link></div>;
     })}</div>
     <ol className={styles.steps}><li>チケットの会場名と日付を確認して、上の会場を選びます。</li><li>スタンドは席種・方向を選び、列・番号で検索します。同じ列・番号が複数ある場合は候補から選べます。</li><li>アリーナのブロック名・ステージ位置は公演ごとに異なります。別日や過去ツアーの配置を今回の確定図として使わないでください。</li></ol>
     <a className={`${styles.link} zr-focus`} href={NUMBER_I_TOUR_SOURCE} target="_blank" rel="noopener noreferrer">公式のツアー日程を見る ↗</a>

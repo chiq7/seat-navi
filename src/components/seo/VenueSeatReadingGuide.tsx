@@ -6,7 +6,17 @@ export default function VenueSeatReadingGuide({ venueId }: { venueId: string }) 
     "osaka-jo-hall": { title: "大阪城ホールの座席表・ブロックと列の見方", body: "スタンドのブロック名・列・番号を組み合わせて席を探します。アリーナ席はステージや花道の設営により、公演ごとにブロックと列が変わります。", note: "常設スタンドで同じ席でも、ステージ方向や機材によって見え方が変わります。別公演の写真を今回の見え方と断定しないでください。" },
     "makuhari-messe": { title: "幕張メッセはホール名から確認", body: "チケットに記載された国際展示場のホール番号と、幕張イベントホールを区別して確認してください。展示場の客席・ブロック・ステージは公演ごとの設営で変わります。", note: "会場の位置・設備案内と、その公演の座席表は別です。座席番号や整理番号の使い方は主催者の案内を優先してください。" },
   }[venueId as "belluna-dome" | "osaka-jo-hall" | "makuhari-messe"];
-  if (extra) return <div className="zr-container"><section className={styles.section} aria-labelledby="seat-reading-title"><h2 id="seat-reading-title">{extra.title}</h2><p>{extra.body}</p><p>{extra.note}</p><div className={styles.links}><a className={`${styles.action} zr-focus`} href="#venue-seat-guide">座席表・会場ガイドを見る ↓</a><a className={`${styles.link} zr-focus`} href="#upcoming-events-title">公演・アーティストを選ぶ ↓</a></div></section></div>;
+  if (extra) return <div className="zr-container"><section className={styles.section} aria-labelledby="seat-reading-title">
+    <h2 id="seat-reading-title">{extra.title}</h2>
+    <p>{extra.body}</p>
+    {venueId === "belluna-dome" && <ol className={styles.steps}>
+      <li>座席表を開き、券面の表記に合わせて「1塁内野」「3塁外野」などのエリアを選びます。</li>
+      <li>券面の列番号を「列」、席番号を「番号・区画」に入力し、「場所を見る」を押します。</li>
+      <li>候補が複数出たら券面のエリアと照合します。候補が出ない場合は入力とエリアを確認し、公演用の座席は主催者の案内をご確認ください。</li>
+    </ol>}
+    <p>{extra.note}</p>
+    <div className={styles.links}><a className={`${styles.action} zr-focus`} href="#venue-seat-guide">座席表・会場ガイドを見る ↓</a><a className={`${styles.link} zr-focus`} href="#upcoming-events-title">公演・アーティストを選ぶ ↓</a></div>
+  </section></div>;
   if (venueId !== "k-arena" && venueId !== "toki-messe") return null;
   const kArena = venueId === "k-arena";
   return <div className="zr-container"><section className={styles.section} aria-labelledby="seat-reading-title">
