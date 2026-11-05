@@ -1,0 +1,420 @@
+[
+  {
+    "id": "guidance-yoasobi-01",
+    "names": [
+      "ソニーグループ本社 2F 大会議場"
+    ],
+    "url": "https://www.sonypcl.jp/into-the-world/index.html",
+    "kind": "event-guidance",
+    "checkedAt": "2026-11-05",
+    "note": "会場・参加条件は主催者の案内をご確認ください。",
+    "events": [
+      {
+        "id": "9b33b1b04c88bf057f81",
+        "date": "2026-03-11",
+        "artistSlug": "yoasobi",
+        "venue": "ソニーグループ本社 2F 大会議場"
+      },
+      {
+        "id": "c57b1d3f5a208dd94efe",
+        "date": "2026-03-12",
+        "artistSlug": "yoasobi",
+        "venue": "ソニーグループ本社 2F 大会議場"
+      },
+      {
+        "id": "6993a74065eac2ed3067",
+        "date": "2026-03-13",
+        "artistSlug": "yoasobi",
+        "venue": "ソニーグループ本社 2F 大会議場"
+      },
+      {
+        "id": "c2aca33a0075f686c696",
+        "date": "2026-03-14",
+        "artistSlug": "yoasobi",
+        "venue": "ソニーグループ本社 2F 大会議場"
+      },
+      {
+        "id": "e0b4ea8fd7b3742aafbb",
+        "date": "2026-03-15",
+        "artistSlug": "yoasobi",
+        "venue": "ソニーグループ本社 2F 大会議場"
+      }
+    ]
+  },
+  {
+    "id": "guidance-timelesz-02",
+    "names": [
+      "Aichi Sky Expo（愛知県国際展示場）Aホール"
+    ],
+    "url": "https://starto.jp/s/p/live/10431",
+    "kind": "event-guidance",
+    "checkedAt": "2026-11-05",
+    "note": "公演日程と会場へのアクセスは主催者の案内をご確認ください。",
+    "events": [
+      {
+        "id": "478e30292d7a0cc9bbcd",
+        "date": "2026-05-16",
+        "artistSlug": "timelesz",
+        "venue": "Aichi Sky Expo（愛知県国際展示場）Aホール"
+      },
+      {
+        "id": "6cfacd176636b5579b7c",
+        "date": "2026-05-17",
+        "artistSlug": "timelesz",
+        "venue": "Aichi Sky Expo（愛知県国際展示場）Aホール"
+      }
+    ]
+  },
+  {
+    "id": "guidance-nexz-03",
+    "names": [
+      "HMV&BOOKS SHIBUYA 5Fイベントスペース"
+    ],
+    "url": "https://www.sonymusic.co.jp/artist/NEXZ/info/583954",
+    "kind": "event-guidance",
+    "checkedAt": "2026-11-05",
+    "note": "集合時間・本人確認・参加方法は公式案内をご確認ください。",
+    "events": [
+      {
+        "id": "3dfee923974510f56947",
+        "date": "2026-06-23",
+        "artistSlug": "nexz",
+        "venue": "HMV&BOOKS SHIBUYA 5Fイベントスペース"
+      }
+    ]
+  },
+  {
+    "id": "guidance-nexz-04",
+    "names": [
+      "HMV&BOOKS SHIBUYA ５Fイベントスペース"
+    ],
+    "url": "https://www.sonymusic.co.jp/artist/NEXZ/info/584380",
+    "kind": "event-guidance",
+    "checkedAt": "2026-11-05",
+    "note": "座席番号は当日の受付時にランダムで案内されます。",
+    "events": [
+      {
+        "id": "8b8dab26c8c43f80cb34",
+        "date": "2026-07-01",
+        "artistSlug": "nexz",
+        "venue": "HMV&BOOKS SHIBUYA ５Fイベントスペース"
+      }
+    ]
+  },
+  {
+    "id": "guidance-generations-05",
+    "names": [
+      "UNITED LAB"
+    ],
+    "url": "https://gene.exfamily.jp/s/ldh04/page/l_ryota_tour2026",
+    "kind": "event-guidance",
+    "checkedAt": "2026-11-05",
+    "note": "会場と開場・開演時間は公演公式の案内をご確認ください。",
+    "events": [
+      {
+        "id": "0969e1a2734a70d55584",
+        "date": "2026-07-11",
+        "artistSlug": "generations",
+        "venue": "UNITED LAB"
+      }
+    ]
+  },
+  {
+    "id": "guidance-fruits-zipper-06",
+    "names": [
+      "イオンモール幕張新都心グランドモール1Fグランドスクエア"
+    ],
+    "url": "https://fruitszipper.asobisystem.com/news/detail/83744",
+    "kind": "event-guidance",
+    "checkedAt": "2026-11-05",
+    "note": "優先エリアの集合・入場方法は公式案内をご確認ください。",
+    "events": [
+      {
+        "id": "20d38b3f5b5eff9a0b4e",
+        "date": "2026-07-16",
+        "artistSlug": "fruits-zipper",
+        "venue": "イオンモール幕張新都心グランドモール1Fグランドスクエア"
+      }
+    ]
+  },
+  {
+    "id": "guidance-kento-nakajima-07",
+    "names": [
+      "阪急西宮ガーデンズ 本館 4F スカイガーデン 木の葉のステージ"
+    ],
+    "url": "https://www.sonymusic.co.jp/artist/KentoNakajima/info/585318",
+    "kind": "event-guidance",
+    "checkedAt": "2026-11-05",
+    "note": "観覧エリアへの入場方法と参加券の案内を確認できます。",
+    "events": [
+      {
+        "id": "6bb225f9c3828a146ff8",
+        "date": "2026-08-04",
+        "artistSlug": "kento-nakajima",
+        "venue": "阪急西宮ガーデンズ 本館 4F スカイガーデン 木の葉のステージ"
+      }
+    ]
+  },
+  {
+    "id": "guidance-niziu-08",
+    "names": [
+      "京都パルスプラザ",
+      "東京流通センター"
+    ],
+    "url": "https://niziu.com/s/n123/page/2ndEP_event",
+    "kind": "event-guidance",
+    "checkedAt": "2026-11-05",
+    "note": "会場・受付時間・本人確認・参加方法を確認できます。",
+    "events": [
+      {
+        "id": "5a31c037bb85aa558d66",
+        "date": "2026-08-10",
+        "artistSlug": "niziu",
+        "venue": "京都パルスプラザ"
+      },
+      {
+        "id": "386670fe98b1125a0341",
+        "date": "2026-08-22",
+        "artistSlug": "niziu",
+        "venue": "東京流通センター"
+      }
+    ]
+  },
+  {
+    "id": "guidance-stray-kids-09",
+    "names": [
+      "京都パルスプラザ",
+      "ベルサール渋谷ガーデン"
+    ],
+    "url": "https://skz-stayjapan.com/s/n104/news/detail/13266",
+    "kind": "event-guidance",
+    "checkedAt": "2026-11-05",
+    "note": "会場と参加条件を確認できます。参加詳細は当選者向けの案内もご確認ください。",
+    "events": [
+      {
+        "id": "bb9072aaafc20f41cda2",
+        "date": "2027-01-31",
+        "artistSlug": "stray-kids",
+        "venue": "京都パルスプラザ"
+      },
+      {
+        "id": "ba9ac4c87c2c16cc30dd",
+        "date": "2026-12-19",
+        "artistSlug": "stray-kids",
+        "venue": "ベルサール渋谷ガーデン"
+      }
+    ]
+  },
+  {
+    "id": "guidance-naniwa-danshi-10",
+    "names": [
+      "万博記念公園"
+    ],
+    "url": "https://2026.kamigataboyz.com/",
+    "kind": "event-guidance",
+    "checkedAt": "2026-11-05",
+    "note": "入場ゲートや持ち込みの案内、公式アプリの案内を確認できます。",
+    "events": [
+      {
+        "id": "8b19aa2e0170e5c0ec24",
+        "date": "2026-10-31",
+        "artistSlug": "naniwa-danshi",
+        "venue": "万博記念公園"
+      },
+      {
+        "id": "28b321db7863b604b0f3",
+        "date": "2026-11-01",
+        "artistSlug": "naniwa-danshi",
+        "venue": "万博記念公園"
+      }
+    ]
+  },
+  {
+    "id": "guidance-zerobaseone-11",
+    "names": [
+      "東京都某所"
+    ],
+    "url": "https://zerobaseone.jp/news/detail/1165",
+    "kind": "event-guidance",
+    "checkedAt": "2026-11-05",
+    "note": "会場の詳細は当選者向けの案内をご確認ください。",
+    "events": [
+      {
+        "id": "fa1437f4ecbfa2ef1b4a",
+        "date": "2026-08-23",
+        "artistSlug": "zerobaseone",
+        "venue": "東京都某所"
+      },
+      {
+        "id": "3c2e24348807d3a934c5",
+        "date": "2026-08-24",
+        "artistSlug": "zerobaseone",
+        "venue": "東京都某所"
+      },
+      {
+        "id": "2616423599183b079cd7",
+        "date": "2026-08-25",
+        "artistSlug": "zerobaseone",
+        "venue": "東京都某所"
+      }
+    ]
+  },
+  {
+    "id": "guidance-yoasobi-12",
+    "names": [
+      "Grammy Museum"
+    ],
+    "url": "https://grammymuseum.org/event/spotlight-yoasobi/",
+    "kind": "event-guidance",
+    "checkedAt": "2026-11-05",
+    "note": "会場はRay Charles Rooftop Terraceです。公演・入場の公式案内を確認できます。",
+    "events": [
+      {
+        "id": "c028c8739e1d54a0bb4d",
+        "date": "2026-09-14",
+        "artistSlug": "yoasobi",
+        "venue": "Grammy Museum"
+      }
+    ]
+  },
+  {
+    "id": "guidance-news-13",
+    "names": [
+      "インテックス大阪 4号館・5号館"
+    ],
+    "url": "https://www.koyabusonic.com/information/",
+    "kind": "event-guidance",
+    "checkedAt": "2026-11-05",
+    "note": "会場・入場待機・持ち込みについて主催者の案内を確認できます。",
+    "events": [
+      {
+        "id": "f7c2f2b8bdd16f4edaaa",
+        "date": "2026-09-22",
+        "artistSlug": "news",
+        "venue": "インテックス大阪 4号館・5号館"
+      }
+    ]
+  },
+  {
+    "id": "guidance-ini-14",
+    "names": [
+      "上岩CJ ENMセンター"
+    ],
+    "url": "https://ini-official.com/news/detail/4474",
+    "kind": "event-guidance",
+    "checkedAt": "2026-11-05",
+    "note": "集合場所や当選者向けの案内に関する公式情報を確認できます。",
+    "events": [
+      {
+        "id": "0316e4055bc3ad7a6a18",
+        "date": "2026-10-01",
+        "artistSlug": "ini",
+        "venue": "上岩CJ ENMセンター"
+      }
+    ]
+  },
+  {
+    "id": "guidance-joy-15",
+    "names": [
+      "東京・すみだ産業会館 サンライズホール",
+      "大阪・あべのキューズモール 3Fスカイコート",
+      "愛知・イオンモール大高 1Fグリーンコート"
+    ],
+    "url": "https://nearly-equal-joy.jp/news/detail/4007",
+    "kind": "event-guidance",
+    "checkedAt": "2026-11-05",
+    "note": "各会場の開催時間・参加券・本人確認の案内をご確認ください。",
+    "events": [
+      {
+        "id": "bd84ec8bf17d747fa9a1",
+        "date": "2026-10-25",
+        "artistSlug": "joy",
+        "venue": "東京・すみだ産業会館 サンライズホール"
+      },
+      {
+        "id": "90ca239e1e78d7d3226b",
+        "date": "2026-11-14",
+        "artistSlug": "joy",
+        "venue": "大阪・あべのキューズモール 3Fスカイコート"
+      },
+      {
+        "id": "362bf3a44e9dfc36a79c",
+        "date": "2026-11-15",
+        "artistSlug": "joy",
+        "venue": "愛知・イオンモール大高 1Fグリーンコート"
+      }
+    ]
+  },
+  {
+    "id": "guidance-cutie-street-16",
+    "names": [
+      "パシフィコ横浜 展示ホールD"
+    ],
+    "url": "https://cutiestreet.asobisystem.com/news/detail/93713",
+    "kind": "event-guidance",
+    "checkedAt": "2026-11-05",
+    "note": "開催会場・受付時間・参加券・本人確認の案内を確認できます。",
+    "events": [
+      {
+        "id": "51c49fb6fa4d5b0e51d7",
+        "date": "2026-11-03",
+        "artistSlug": "cutie-street",
+        "venue": "パシフィコ横浜 展示ホールD"
+      }
+    ]
+  },
+  {
+    "id": "guidance-exo-17",
+    "names": [
+      "全国各地の映画館"
+    ],
+    "url": "https://liveviewing.jp/exo-planet6/",
+    "kind": "event-guidance",
+    "checkedAt": "2026-11-05",
+    "note": "リンク先の上映映画館一覧で、利用する映画館をご確認ください。",
+    "events": [
+      {
+        "id": "7da2d74f7049f354b363",
+        "date": "2026-11-08",
+        "artistSlug": "exo",
+        "venue": "全国各地の映画館"
+      }
+    ]
+  },
+  {
+    "id": "guidance-ano-18",
+    "names": [
+      "ららぽーと堺 １F Fansta XROSS STADIUM"
+    ],
+    "url": "https://ano-official.com/news/detail/94065",
+    "kind": "event-guidance",
+    "checkedAt": "2026-11-05",
+    "note": "会場・本人確認・当選者向け入場方法に関する公式案内を確認できます。",
+    "events": [
+      {
+        "id": "40e8ca9ab157c26ae2b3",
+        "date": "2026-11-21",
+        "artistSlug": "ano",
+        "venue": "ららぽーと堺 １F Fansta XROSS STADIUM"
+      }
+    ]
+  },
+  {
+    "id": "guidance-cutie-street-19",
+    "names": [
+      "アクセスサッポロ"
+    ],
+    "url": "https://cutiestreet.asobisystem.com/news/detail/95071q",
+    "kind": "event-guidance",
+    "checkedAt": "2026-11-05",
+    "note": "開催会場・受付時間・参加券・本人確認の案内を確認できます。",
+    "events": [
+      {
+        "id": "cf6a74e145406480f7a1",
+        "date": "2026-11-23",
+        "artistSlug": "cutie-street",
+        "venue": "アクセスサッポロ"
+      }
+    ]
+  }
+]

@@ -143,6 +143,20 @@ test("official external charts render as working links and distinguish venue lay
   assert.doesNotMatch(floorHtml, /会場公式の座席表を見る/);
 });
 
+test("official attendance guidance has its own heading and is never labelled a seat chart", async () => {
+  const { default: Links } = await import("../src/components/seo/PerformanceSeatLinks.tsx");
+  const { OFFICIAL_SEAT_SOURCES } = await import("../src/lib/officialSeatSources.ts");
+  const sources = OFFICIAL_SEAT_SOURCES.filter(source => source.kind === "event-guidance");
+  assert.equal(sources.reduce((count, source) => count + source.events.length, 0), 31);
+  for (const source of sources) for (const record of source.events) {
+    const html = render(Links, { event:{ ...event, venue_id:"unknown", id:record.id, date:record.date, venue:record.venue, artist_slug:record.artistSlug } });
+    assert.match(html, /公式の会場案内・入場方法/);
+    assert.ok(html.includes(`href="${source.url.replaceAll("&", "&amp;")}"`));
+    assert.match(html, /会場・入場方法の公式案内を見る/);
+    assert.doesNotMatch(html, /座席表を探す|主催者の公演座席表|会場公式の座席表/);
+  }
+});
+
 test("same-day sessions remain distinguishable in artist guide text", async () => {
   const { default: Guide } = await import("../src/components/seo/ArtistSeatSearchGuide.tsx");
   const html = render(Guide, { slug: "snow-man", events: [

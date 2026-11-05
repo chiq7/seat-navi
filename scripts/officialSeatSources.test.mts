@@ -37,6 +37,7 @@ test("dedicated seat chart is shown ahead of the facility map and preserves sour
   assert.equal(officialSeatSourceLabel(OFFICIAL_SEAT_SOURCES.find(source => source.kind === "layout")!), "会場公式の客席レイアウト例を見る");
   assert.equal(officialSeatSourceLabel(OFFICIAL_SEAT_SOURCES.find(source => source.kind === "event-area")!), "主催者の会場マップを見る");
   assert.equal(officialSeatSourceLabel(OFFICIAL_SEAT_SOURCES.find(source => source.kind === "venue-floor")!), "会場公式のフロアマップを見る");
+  assert.equal(officialSeatSourceLabel(OFFICIAL_SEAT_SOURCES.find(source => source.kind === "event-guidance")!), "会場・入場方法の公式案内を見る");
 });
 
 test("source registry has unique identifiers and parseable official document URLs", () => {
