@@ -56,10 +56,12 @@ test("artist AND venue are enforced for readings, compact forms and missing slug
     "number_i 札幌ドーム 座席", "number_i 札幌ドーム", "number_i 札幌ドーム 座席表",
     "なんばーあい さっぽろどーむ 席", "ナンバーアイ札幌ドーム座席表", "札幌ドーム Number i シートマップ",
     "ＮＵＭＢＥＲ＿Ｉ　サッポロドーム　席",
+    "number_i 札幌ドーム s席", "Number_i 札幌ドーム Ｓ 席", "Number_i 札幌ドーム 座席 表",
   ]) assert.deepEqual(rankEventSearchResults(query, rows, searchArtists(query)).map((row) => row.id), ["sapporo"], query);
   const withoutSlug = { ...target, artist_slug: null, title: "Number_i DOME TOUR 2026" };
   assert.equal(rankEventSearchResults("なんばーあい 札幌ドーム 席", [withoutSlug], []).length, 1);
   assert.equal(rankEventSearchResults("ナンバーアイ札幌ドーム 未知の公演", rows, searchArtists("Number_i")).length, 0);
+  assert.equal(rankEventSearchResults("ナンバーアイ札幌ドーム 空席", rows, searchArtists("Number_i")).length, 0);
 });
 
 test("short artist names do not match inside LIVE or unrelated names; partial input remains usable", () => {

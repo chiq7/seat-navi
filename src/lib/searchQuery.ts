@@ -7,6 +7,10 @@ import { getPublicVenueName } from "@/lib/publicVenueGuides";
 
 /** Search intent is shared by the query catalogue and the site search. */
 export const SEAT_SEARCH_TERMS = ["席", "座席", "座席表", "シートマップ", "見え方"] as const;
+// Observed seat-label queries still lead to the matching concert. The label
+// itself does not establish that the event offered that seat or ticket type.
+const SEAT_LABELS = ["S席", "SS席", "VIP席", "着席指定席", "立見席", "ファミリー席", "センター席", "制作開放席"]
+  .map(normalizeForSearch);
 const INTENT_WORDS = [
   ...SEAT_SEARCH_TERMS, "せき", "ざせき", "ざせきひょう", "席からの見え方",
   "ライブ", "コンサート", "公演", "会場", "キャパ", "収容人数", "当落", "当選率",
@@ -40,7 +44,10 @@ export type SearchQuery = { artistSlugs: string[]; venueIds: string[]; remainder
 export function parseSearchQuery(query: string): SearchQuery {
   let compact = "";
   const boundaries = new Set<number>([0]);
-  for (const char of query.normalize("NFKC")) {
+  const written = query.normalize("NFKC")
+    .replace(/座席\s+表/g, "座席表")
+    .replace(/(^|\s)(SS?|VIP)\s+席/gi, "$1$2席");
+  for (const char of written) {
     const normalized = normalizeForSearch(char);
     if (!normalized) boundaries.add(compact.length);
     compact += normalized;
@@ -98,6 +105,7 @@ export function parseSearchQuery(query: string): SearchQuery {
   // middle of an unknown title. Preserve unknown words for AND filtering.
   const stripIntent = (text: string): string => {
     let value = text;
+    if ((artists.size || venues.size) && SEAT_LABELS.some((label) => value === label || value === `の${label}`)) return "";
     let previous;
     do {
       previous = value;
