@@ -4,7 +4,6 @@ import { use, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
-  MapPin,
   Sparkles,
   Clock,
   ChevronRight,
@@ -25,13 +24,14 @@ import { ShareButton } from "@/components/common/ShareButton";
 import { AccountLink } from "@/components/auth/AccountLink";
 import { Header } from "@/components/common/Header";
 import PriorityPerformanceGuide from "@/components/seo/PriorityPerformanceGuide";
+import PerformanceSeatLinks from "@/components/seo/PerformanceSeatLinks";
+import { matchPriorityPerformance } from "@/data/priorityPerformances";
 import { EmptyState } from "@/components/common/EmptyState";
 import { fetchVisiblePostAuthors, type PostAuthor } from "@/lib/postAuthors";
 import { focusedSeatPosition, isInteractiveSeatMapPilot, parseSeatReportId, SEAT_MAP_PILOT_EVENT_IDS } from "@/lib/arena-map/seatMapNavigation";
 import { eventSeatGroup } from "@/lib/arena-map/eventSeatGroup";
 import { isEventPredictionEnabled } from "@/lib/arena-map/eventPredictionInput";
 import { readArenaReports } from "@/lib/arena-map/readArenaReports";
-import { getPublicVenueSeatGuideHref } from "@/lib/publicVenueGuides";
 
 const SEAT_REPORT_FIELDS = "id, event_id, block, row_num, seat_num, lottery_type, fc_history, payment_method, lottery_round, lottery_name, comment, created_at";
 
@@ -273,7 +273,7 @@ export function EventDetailClient({
     [sortedPredictions, topPredictionId],
   );
 
-  const venueSeatHref = getPublicVenueSeatGuideHref(event?.venue_id);
+  const officialSeatMap = event ? matchPriorityPerformance(event)?.seatMapSource : undefined;
 
   return (
     <div className="community-page">
@@ -282,7 +282,7 @@ export function EventDetailClient({
           <>
           <section className="community-hero">
               <Header
-                title={venueMiniGuide ? "座席情報" : "座席予想"}
+                title={venueMiniGuide || officialSeatMap ? "座席情報" : "座席予想"}
                 backHref={backHref}
                 backLabel="アーティストページへ戻る"
                 rightSlot={
@@ -299,8 +299,8 @@ export function EventDetailClient({
 
               <CompactHeroIntro
                 eyebrow="VENUE SEAT GUIDE"
-                title={venueMiniGuide ? "座席情報を" : "座席表と"}
-                accent={venueMiniGuide ? "募集中" : "アリーナ予想"}
+                title={officialSeatMap ? "公演の" : venueMiniGuide ? "座席情報を" : "座席表と"}
+                accent={officialSeatMap ? "座席表" : venueMiniGuide ? "募集中" : "アリーナ予想"}
                 subtitle={event.title}
                 icon={<Sparkles size={21} strokeWidth={1.8} className="text-[#6176d7]" />}
               >
@@ -320,14 +320,7 @@ export function EventDetailClient({
             selectedEventId={eventId}
             onSelect={(id) => router.push(`/events/${id}`)}
             artistName={artist?.name}
-            footer={event.venue_id ? (
-                <Link
-                  href={venueSeatHref ?? `/venues/${event.venue_id}`}
-                  className="zr-focus mt-2 inline-flex min-h-11 items-center gap-2 text-[11px] font-black text-[#f43679] sm:text-[12px]"
-                >
-                  <MapPin size={15} />{venueSeatHref ? "会場の座席表を見る" : "会場情報を見る"} →
-                </Link>
-              ) : null}
+            footer={<PerformanceSeatLinks event={event} officialSeatMap={officialSeatMap} />}
           />
 
           {dayGuideHref && <section className="zr-container pt-5" aria-label="公演当日の案内">

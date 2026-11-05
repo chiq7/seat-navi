@@ -529,7 +529,10 @@ export function ArtistClient({
 
       <div className="pb-20">
           <div className="zr-container">
-            <ArtistActionHub artistName={artist.name} slug={slug} seatHref={detailHref ? `${detailHref}#seat-map` : null} />
+            <ArtistActionHub artistName={artist.name} slug={slug}
+              seatHref={searchGuide ? "#artist-seat-guide" : detailHref ? `${detailHref}#seat-map` : null}
+              seatDescription={searchGuide ? "会場・公演日から探す" : undefined}
+            />
 
             <section className="py-2" aria-label="公演の表示切り替え">
               <div className="flex items-center gap-2 rounded-full bg-white p-1.5 shadow-sm">
@@ -636,7 +639,7 @@ export function ArtistClient({
           )}
 
           {!loading && <div className="zr-container"><OfficialNewsSection news={officialNews} moreHref={`/artists/${slug}/news`} /></div>}
-          <div className="zr-container">{searchGuide}</div>
+          {searchGuide && <div id="artist-seat-guide" className="zr-container scroll-mt-[90px]">{searchGuide}</div>}
           {!loading && seoProfile && artist && (
             <SeoEditorialSection
               title={`${artist.name}とは`}

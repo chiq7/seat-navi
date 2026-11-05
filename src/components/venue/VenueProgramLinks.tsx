@@ -13,7 +13,7 @@ export function VenueProgramJump({ venueId, upcomingCount, pastCount }: { venueI
   return (
     <div className={`zr-container ${styles.jump}`}>
       <DiscoveryLink href={`#${target}`} className="zr-focus" discovery={{ source: "venue_jump", destination: "section", destinationId: target, venueId }}>
-        {upcoming ? "公演・アーティストを見る" : "過去の公演・アーティストを見る"}<ArrowDown size={16} aria-hidden="true" />
+        {upcoming ? "公演別の座席・レポを探す" : "過去公演の座席・レポを探す"}<ArrowDown size={16} aria-hidden="true" />
       </DiscoveryLink>
     </div>
   );

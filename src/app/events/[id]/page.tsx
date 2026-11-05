@@ -8,6 +8,7 @@ import { buildMeta } from "@/lib/metadata";
 import { getCachedEventStats } from "@/lib/serverStatsData";
 import { EVENT_DAY_PUBLICATIONS } from "@/data/eventDayPublications";
 import { eventDayGuidePath, matchPublishedEventDay } from "@/lib/eventDayPublication";
+import { getPublicVenueSeatGuideHref } from "@/lib/publicVenueGuides";
 
 type PageProps = {
   params: Promise<{ id: string }>;
@@ -64,13 +65,14 @@ export default async function EventDetailPage({ params }: PageProps) {
     artistSlug ? getCachedArtistEvents(artistSlug) : Promise.resolve([event]),
   ]);
   const venueProfile = event.venue_id ? getVenueSeoProfile(event.venue_id) : null;
+  const venueHref = getPublicVenueSeatGuideHref(event.venue_id)?.split("#")[0] ?? null;
   const venueMiniGuide = counts.seatReports === 0 && counts.predictions === 0
     ? {
         venueName: event.venue,
         capacityLabel: venueProfile ? `最大${venueProfile.capacity.toLocaleString("ja-JP")}人` : "会場の座席情報",
-        areaLabel: venueProfile ? `${venueProfile.address.region}${venueProfile.address.locality}` : "過去公演のレポを確認できます",
-        venueHref: event.venue_id ? `/venues/${event.venue_id}` : null,
-        archiveHref: event.venue_id ? `/venues/${event.venue_id}#past-events-title` : null,
+        areaLabel: venueProfile ? `${venueProfile.address.region}${venueProfile.address.locality}` : "同じ公演の座席情報を募集しています",
+        venueHref,
+        archiveHref: venueHref ? `${venueHref}#past-events-title` : null,
       }
     : null;
   const artistName = artist?.name ?? null;

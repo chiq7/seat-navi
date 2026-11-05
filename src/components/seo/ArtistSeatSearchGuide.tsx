@@ -86,7 +86,7 @@ export default function ArtistSeatSearchGuide({ slug, events }: { slug: string; 
       return <div className={styles.row} key={stop.venueId}><div>
         <strong>{stop.name}</strong><p className={styles.dates}>{stop.dates.map(date => date.replaceAll("-", "/")).join("・")}</p>
         {stop.venueId === "vantelin-dome" && <p className={styles.dates}>1月10日は昼・夜の2公演。券面の開演時刻も確認してください。</p>}
-        {matched.length > 0 && <div className={styles.links}>{matched.map(event => <Link key={event.id} href={`/events/${event.id}`} className={`${styles.link} zr-focus`}>{event.date?.slice(5).replace("-", "/")} 公演情報 →</Link>)}</div>}
+        {matched.length > 0 && <div className={styles.links}>{matched.map(event => <Link key={event.id} href={`/events/${event.id}`} className={`${styles.link} zr-focus`}>{event.date?.slice(5).replace("-", "/")} 公演の座席・レポ →</Link>)}</div>}
       </div><Link className={`${styles.action} zr-focus`} href={getPublicVenueSeatGuideHref(stop.venueId) ?? `/venues/${stop.venueId}`}>会場の座席表を見る →</Link></div>;
     })}</div>
     <ol className={styles.steps}><li>チケットの会場名と日付を確認して、上の会場を選びます。</li><li>スタンドは席種・方向を選び、列・番号で検索します。同じ列・番号が複数ある場合は候補から選べます。</li><li>アリーナのブロック名・ステージ位置は公演ごとに異なります。別日や過去ツアーの配置を今回の確定図として使わないでください。</li></ol>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ArtistSeatSearchGuide from "@/components/seo/ArtistSeatSearchGuide";
+import { getArtistSeatGuideVenues } from "@/lib/artistSeatGuide";
 import { ArtistClient } from "./ArtistClient";
 import { getSeoArtist, isTestArtist, SITE_URL } from "@/lib/seoData";
 import { getArtistSeoProfile } from "@/lib/seoProfiles";
@@ -72,7 +73,11 @@ export default async function Page({ params }: PageProps) {
           dangerouslySetInnerHTML={{ __html: serializeJsonLd(structuredData) }}
         />
       )}
-      <ArtistClient params={params} initialEvents={initialEvents} searchGuide={<ArtistSeatSearchGuide slug={slug} events={initialEvents} />} />
+      <ArtistClient params={params} initialEvents={initialEvents} searchGuide={
+        slug === "hana" || slug === "number-i" || getArtistSeatGuideVenues(slug, initialEvents).length > 0
+          ? <ArtistSeatSearchGuide slug={slug} events={initialEvents} />
+          : undefined
+      } />
     </>
   );
 }

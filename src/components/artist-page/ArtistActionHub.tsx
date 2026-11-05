@@ -4,9 +4,10 @@ type Props = {
   artistName: string;
   slug: string;
   seatHref?: string | null;
+  seatDescription?: string;
 };
 
-export default function ArtistActionHub({ artistName, slug, seatHref }: Props) {
+export default function ArtistActionHub({ artistName, slug, seatHref, seatDescription }: Props) {
   const actions = [
     {
       href: "#ticket-data",
@@ -20,7 +21,7 @@ export default function ArtistActionHub({ artistName, slug, seatHref }: Props) {
     {
       href: seatHref ?? "#seat-map",
       label: "座席表",
-      description: "集まった座席・配置",
+      description: seatDescription ?? "集まった座席・配置",
       Icon: Map,
       cardClass: "bg-[#f2edff]",
       iconClass: "text-[#7655b2]",

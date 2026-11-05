@@ -1,5 +1,6 @@
 import { buildMeta } from "./metadata";
 import { venueGuideDescriptions } from "./venueGuideSeoContent";
+import { getVenueIdAliases } from "./eventCrawlerConfig";
 
 // Public routes are explicit: adding research or a preview does not publish a guide.
 export const PUBLIC_ARENA_GUIDE_IDS = [
@@ -33,8 +34,8 @@ export function hasPublicVenueGuide(id: string): boolean {
 }
 
 export function getPublicVenueSeatGuideHref(id: string | null | undefined): string | null {
-  if (!id || !hasPublicVenueGuide(id)) return null;
-  return `/venues/${encodeURIComponent(id)}#venue-seat-guide`;
+  const canonicalId = id && PUBLIC_VENUE_GUIDE_IDS.find(venueId => getVenueIdAliases(venueId).includes(id));
+  return canonicalId ? `/venues/${encodeURIComponent(canonicalId)}#venue-seat-guide` : null;
 }
 
 export function getPublicVenueName(id: string, fallback: string): string {

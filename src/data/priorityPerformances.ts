@@ -1,4 +1,5 @@
 import type { CrawledEvent } from "../lib/types";
+import { NUMBER_I_TOUR_SOURCE } from "./searchContentGuides";
 
 export type PriorityPerformance = {
   artist: "hana" | "number-i";
@@ -8,8 +9,9 @@ export type PriorityPerformance = {
   title: string;
   starts: readonly string[];
   source: string;
+  /** 主催者ページにこの会場・公演の座席図が掲載されている場合だけ設定する。 */
+  seatMapSource?: string;
 };
-const numberSource = "https://www.livenationhip.co.jp/en/all-events/number_i-tickets-ae1689539?locale=ja";
 const hanaSource = "https://hana.b-rave.tokyo/live/260402/";
 const festivalSource = "https://hana.b-rave.tokyo/live/asia-pop-girl-fest-2027_ticket/";
 export const PRIORITY_PERFORMANCES: readonly PriorityPerformance[] = [
@@ -23,7 +25,7 @@ export const PRIORITY_PERFORMANCES: readonly PriorityPerformance[] = [
     ["2027-01-11", "vantelin-dome", "バンテリンドーム ナゴヤ", ["17:00"]],
     ["2027-01-16", "paypay-dome", "みずほPayPayドーム福岡", ["17:00"]],
     ["2027-01-17", "paypay-dome", "みずほPayPayドーム福岡", ["17:00"]],
-  ].map(([date, venueId, venue, starts]) => ({ artist: "number-i" as const, date: date as string, venueId: venueId as string, venue: venue as string, starts: starts as string[], title: "Number_i LIVE TOUR No.III", source: numberSource })),
+  ].map(([date, venueId, venue, starts]) => ({ artist: "number-i" as const, date: date as string, venueId: venueId as string, venue: venue as string, starts: starts as string[], title: "Number_i LIVE TOUR No.III", source: NUMBER_I_TOUR_SOURCE, seatMapSource: NUMBER_I_TOUR_SOURCE })),
   ...[
     ["2026-09-16", "osaka-jo-hall", "大阪城ホール", "18:00"],
     ["2026-09-17", "osaka-jo-hall", "大阪城ホール", "18:00"],
