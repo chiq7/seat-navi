@@ -76,3 +76,48 @@ test("a selected performance survives the setlist submission link", async () => 
   assert.match(html, /href="\/artists\/number-i\/setlist\?event=recorded"/);
   assert.match(html, /href="\/report\/ticket\?event=recorded"/);
 });
+
+test("artist seat guides expose actual venue and date links in initial HTML, including disclosures", async () => {
+  const { default: Guide } = await import("../src/components/seo/ArtistSeatSearchGuide.tsx");
+  const venueIds = ["tokyo-dome", "sapporo-dome", "kyocera-dome", "k-arena"];
+  const events = venueIds.flatMap((venue_id, index) => Array.from({ length: 4 }, (_, dateIndex) => ({
+    ...event, id: `guide-${index}-${dateIndex}`, title: "Snow Man DOME TOUR", artist_slug: "snow-man", venue_id,
+    date: `2026-12-${String(dateIndex + 1).padStart(2, "0")}`,
+  })));
+  const html = render(Guide, { slug: "snow-man", events });
+  assert.match(html, /Snow Man/);
+  assert.match(html, /席・座席表を会場から探す/);
+  assert.match(html, /<details>/);
+  for (const id of venueIds) assert.ok(html.includes(`href="/venues/${id}#venue-seat-guide"`));
+  for (const row of events) assert.ok(html.includes(`href="/events/${row.id}"`));
+  assert.equal(html.includes("/venues/belluna-dome"), false);
+});
+
+test("empty artist records do not create fictitious venue links or claim seat reports exist", async () => {
+  const { default: Guide } = await import("../src/components/seo/ArtistSeatSearchGuide.tsx");
+  assert.equal(render(Guide, { slug: "snow-man", events: [] }), "");
+});
+
+test("same-day sessions remain distinguishable in artist guide text", async () => {
+  const { default: Guide } = await import("../src/components/seo/ArtistSeatSearchGuide.tsx");
+  const html = render(Guide, { slug: "snow-man", events: [
+    { ...event, id: "matinee", title: "Snow Man DOME TOUR 昼公演", artist_slug: "snow-man", venue_id: "tokyo-dome" },
+    { ...event, id: "evening", title: "Snow Man DOME TOUR 夜公演", artist_slug: "snow-man", venue_id: "tokyo-dome" },
+  ] });
+  assert.match(html, />2026\/10\/01.*?（Snow Man DOME TOUR 昼公演）/s);
+  assert.match(html, />2026\/10\/01.*?（Snow Man DOME TOUR 夜公演）/s);
+  assert.match(html, /href="\/events\/matinee"/);
+  assert.match(html, /href="\/events\/evening"/);
+});
+
+test("curated artist guides also retain other recorded performances without repeating covered dates", async () => {
+  const { default: Guide } = await import("../src/components/seo/ArtistSeatSearchGuide.tsx");
+  const html = render(Guide, { slug: "number-i", events: [
+    { ...event, id: "covered", title: "Number_i LIVE TOUR No.Ⅲ", date: "2026-12-02", venue_id: "kyocera-dome" },
+    { ...event, id: "another-tour", title: "Number_i LIVE TOUR No.I", date: "2025-12-01", venue_id: "k-arena" },
+  ] });
+  assert.match(html, /ほかの公演の会場・座席表を見る/);
+  assert.ok(html.includes('href="/venues/k-arena#venue-seat-guide"'));
+  assert.ok(html.includes('href="/events/another-tour"'));
+  assert.equal(html.split('href="/events/covered"').length - 1, 1);
+});

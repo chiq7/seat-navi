@@ -1,16 +1,23 @@
 /**
- * UI検索だけで使う読み仮名・通称。
+ * UI検索と検索語調査で使う読み仮名・通称。公開アーティスト全件を登録する。
  * crawlerのアーティスト自動判定に使うArtist.keywordsとは分離し、短い愛称を追加しても
  * 取得データの誤紐付けを起こさないようにする。
+ * ひらがな・カタカナ、空白・記号・全半角は normalizeForSearch で揃える。
+ * 実在しない略称は作らず、正式名・keywordsと合わせて検索候補に使う。
  */
 export const ARTIST_SEARCH_ALIASES: Readonly<Record<string, readonly string[]>> = {
   nogizaka46: ["ノギザカ46", "ノギザカ"],
   sakurazaka46: ["サクラザカ46", "サクラザカ"],
+  niziu: ["ニジュー"],
   hinatazaka46: ["ヒナタザカ46", "ヒナタザカ"],
-  "stray-kids": ["ストレイキッズ"],
-  seventeen: ["セブンティーン"],
+  "snow-man": ["スノーマン"],
+  "stray-kids": ["ストレイキッズ", "スキズ"],
+  seventeen: ["セブンティーン", "セブチ"],
+  sixtones: ["ストーンズ"],
+  "equal-love": ["イコールラブ", "イコラブ"],
+  "fruits-zipper": ["フルーツジッパー", "ふるっぱー"],
   acees: ["エイシーズ"],
-  fantastics: ["ファンタスティックス"],
+  fantastics: ["ファンタスティックス", "ファンタ"],
   "me-i": ["ミーアイ"],
   roselia: ["ロゼリア"],
   treasure: ["トレジャー"],
@@ -31,12 +38,15 @@ export const ARTIST_SEARCH_ALIASES: Readonly<Record<string, readonly string[]>> 
   "j-soul-brothers": ["サンダイメジェイソウルブラザーズ", "サンダイメ"],
   buddiis: ["バディーズ"],
   "the-rampage": ["ザランページ", "ランペ"],
+  "naniwa-danshi": ["ナニワダンシ"],
   timelesz: ["タイムレス"],
   "kis-my-ft2": ["キスマイフットツー", "キスマイ"],
   ado: ["アド"],
   aespa: ["エスパ"],
   exo: ["エクソ"],
   nexz: ["ネクスジ"],
+  "strawberry-prince": ["ストプリ", "すとろべりーぷりんす"],
+  hana: ["ハナ"],
   "number-i": ["ナンバーアイ"],
   yoasobi: ["ヨアソビ"],
   bigbang: ["ビッグバン"],
@@ -57,7 +67,9 @@ export const ARTIST_SEARCH_ALIASES: Readonly<Record<string, readonly string[]>> 
   "kento-nakajima": ["ナカジマケント"],
   "m-lk": ["ミルク"],
   "momosuzu-nene": ["モモスズネネ"],
+  uratanuki: ["ウラタヌキ"],
   "doh-kyung-soo-d-o": ["ドギョンス", "ディオ"],
+  ano: ["アノ"],
   "candy-tune": ["キャンディーチューン", "キャンチュー"],
   beyooooonds: ["ビヨーンズ"],
   mazzel: ["マーゼル"],
@@ -66,8 +78,11 @@ export const ARTIST_SEARCH_ALIASES: Readonly<Record<string, readonly string[]>> 
   "one-ok-rock": ["ワンオクロック", "ワンオク"],
   "back-number": ["バックナンバー"],
   "mrs-green-apple": ["ミセスグリーンアップル", "ミセス"],
+  yuzu: ["ユズ"],
   officialdism: ["オフィシャルヒゲダンディズム", "ヒゲダン"],
+  aimyon: ["アイミョン"],
   and2ble: ["アンダブル"],
+  chanmina: ["チャンミナ"],
   "fujii-kaze": ["フジイカゼ"],
   ateez: ["エイティーズ"],
   "nct-wish": ["エヌシーティーウィッシュ"],

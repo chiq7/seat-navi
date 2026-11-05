@@ -4,11 +4,61 @@ import { getPublicVenueSeatGuideHref } from "@/lib/publicVenueGuides";
 import type { CrawledEvent } from "@/lib/types";
 import { numberITourEvents } from "@/lib/searchContentGuides";
 import { NUMBER_I_STOPS, NUMBER_I_TOUR_SOURCE } from "@/data/searchContentGuides";
+import { findArtistBySlug } from "@/lib/artists";
+import { ARTIST_SEARCH_ALIASES } from "@/lib/artistSearchAliases";
+import { getArtistSeatGuideVenues, type ArtistSeatGuideVenue } from "@/lib/artistSeatGuide";
 import styles from "./SearchContentGuides.module.css";
+
+function EventDateLinks({ events, allEvents }: { events: CrawledEvent[]; allEvents: CrawledEvent[] }) {
+  return <div className={styles.links}>{events.map(event => <Link
+    key={event.id}
+    href={`/events/${event.id}`}
+    className={`${styles.link} zr-focus`}
+    title={event.title}
+    aria-label={`${event.date} ${event.title}の座席・レポを見る`}
+  >{event.date?.replaceAll("-", "/")} {allEvents.filter(other => other.date === event.date).length > 1 && `（${event.title}）`}公演の座席・レポ →</Link>)}</div>;
+}
+
+function VenueRow({ venue }: { venue: ArtistSeatGuideVenue }) {
+  const visible = venue.upcoming.length ? venue.upcoming : venue.past;
+  const allEvents = [...venue.upcoming, ...venue.past];
+  const remaining = venue.upcoming.length ? [...venue.upcoming.slice(3), ...venue.past] : venue.past.slice(3);
+  return <div className={styles.row}><div>
+    <strong>{venue.name}</strong>
+    <p className={styles.dates}>{venue.upcoming.length ? "開催予定の公演日" : "過去の公演日"}</p>
+    <EventDateLinks events={visible.slice(0, 3)} allEvents={allEvents} />
+    {remaining.length > 0 && <details>
+      <summary className={`${styles.link} zr-focus`}>ほかの公演日・過去の公演を見る（{remaining.length}件）</summary>
+      <EventDateLinks events={remaining} allEvents={allEvents} />
+    </details>}
+  </div><Link className={`${styles.action} zr-focus`} href={venue.href}>会場の座席表を見る →</Link></div>;
+}
+
+function RecordedVenueSeatGuide({ slug, events, supplemental = false }: { slug: string; events: CrawledEvent[]; supplemental?: boolean }) {
+  const artist = findArtistBySlug(slug);
+  const venues = getArtistSeatGuideVenues(slug, events);
+  if (!artist || venues.length === 0) return null;
+  const reading = ARTIST_SEARCH_ALIASES[slug]?.find(alias => /^[ァ-ヶー]+$/.test(alias));
+  const name = /[a-z]/i.test(artist.name) && reading ? `${artist.name}（${reading}）` : artist.name;
+  const titleId = `${slug}-${supplemental ? "other-" : ""}seat-guide-title`;
+  const content = <section className={styles.section} aria-labelledby={titleId}>
+    <h2 id={titleId}>{name}の席・座席表を会場から探す</h2>
+    <p>スタンド席の場所は会場の座席表へ。アリーナ配置や席からの見え方は、行く日の公演ページで座席報告の投稿状況を確認できます。</p>
+    <div className={styles.rows}>
+      {venues.slice(0, 3).map(venue => <VenueRow key={venue.id} venue={venue} />)}
+      {venues.length > 3 && <details>
+        <summary className={`${styles.link} zr-focus`}>ほかの会場の座席表を見る（{venues.length - 3}会場）</summary>
+        {venues.slice(3).map(venue => <VenueRow key={venue.id} venue={venue} />)}
+      </details>}
+    </div>
+    <p>会場の常設席と、公演ごとのステージ・花道・アリーナ配置は別です。過去の公演の配置は、今回と同じとは限りません。</p>
+  </section>;
+  return supplemental ? <details><summary className={`${styles.link} zr-focus`}>ほかの公演の会場・座席表を見る</summary>{content}</details> : content;
+}
 
 export default function ArtistSeatSearchGuide({ slug, events }: { slug: string; events: CrawledEvent[] }) {
   if (slug === "hana") {
-    return <section className={styles.section} aria-labelledby="hana-seat-guide-title">
+    return <><section className={styles.section} aria-labelledby="hana-seat-guide-title">
       <h2 id="hana-seat-guide-title">HANAの公演・座席表を探す</h2>
       <p>Born to Bloom追加公演と、ASIA POP GIRL FEST 2027の出演日程。会場の常設席と、公演ごとのアリーナ配置を分けて確認できます。</p>
       <div className={styles.rows}>{PRIORITY_PERFORMANCES.filter(day => day.artist === "hana").map(day => {
@@ -19,12 +69,13 @@ export default function ArtistSeatSearchGuide({ slug, events }: { slug: string; 
         </div>{venueHref && <Link href={venueHref} className={`${styles.action} zr-focus`}>会場の座席表を見る</Link>}</div>;
       })}</div>
       <p>ステージ・花道・アリーナのブロックは公演ごとに変わります。座席の表示日時は購入先と公式案内を確認してください。終了公演の記録も、次の公演と同じ配置と断定せず参考にしてください。</p>
-    </section>;
+    </section><RecordedVenueSeatGuide slug={slug} events={events.filter(event => !matchPriorityPerformance(event))} supplemental /></>;
   }
-  if (slug !== "number-i") return null;
-  return <section className={styles.section} aria-labelledby="number-i-seat-guide-title">
+  if (slug !== "number-i") return <RecordedVenueSeatGuide slug={slug} events={events} />;
+  const coveredIds = new Set(NUMBER_I_STOPS.flatMap(stop => numberITourEvents(events, stop.venueId, stop.dates)).map(event => event.id));
+  return <><section className={styles.section} aria-labelledby="number-i-seat-guide-title">
     <p className={styles.eyebrow}>Number_i LIVE TOUR No.Ⅲ</p>
-    <h2 id="number-i-seat-guide-title">Number_iの座席表を会場から探す</h2>
+    <h2 id="number-i-seat-guide-title">Number_i（ナンバーアイ）の座席表を会場から探す</h2>
     <ul className={styles.steps}>
       <li><a className="zr-focus underline underline-offset-4" href={NUMBER_I_TOUR_SOURCE} target="_blank" rel="noopener noreferrer">主催者のシートマップを見る ↗</a>。公式ページの「SEAT MAP」で、京セラドーム大阪・東京ドームなど、行く会場の公演用の図を確認できます。</li>
       <li><strong>スタンド席の列・番号を探す</strong>。下の「会場の座席表を見る」から、会場の常設席を確認できます。</li>
@@ -40,5 +91,5 @@ export default function ArtistSeatSearchGuide({ slug, events }: { slug: string; 
     })}</div>
     <ol className={styles.steps}><li>チケットの会場名と日付を確認して、上の会場を選びます。</li><li>スタンドは席種・方向を選び、列・番号で検索します。同じ列・番号が複数ある場合は候補から選べます。</li><li>アリーナのブロック名・ステージ位置は公演ごとに異なります。別日や過去ツアーの配置を今回の確定図として使わないでください。</li></ol>
     <a className={`${styles.link} zr-focus`} href={NUMBER_I_TOUR_SOURCE} target="_blank" rel="noopener noreferrer">公式のツアー日程を見る ↗</a>
-  </section>;
+  </section><RecordedVenueSeatGuide slug={slug} events={events.filter(event => !coveredIds.has(event.id))} supplemental /></>;
 }
