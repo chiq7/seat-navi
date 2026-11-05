@@ -118,3 +118,32 @@ test("database prefetch uses both canonical IDs, retaining the requested venue b
     globalThis.fetch = originalFetch;
   }
 });
+
+test("published festival venue lists and exhibition hall qualifiers remain searchable", () => {
+  const festival = { ...event("festival", "kento-nakajima", "official-news-combined", "SUMMER SONIC 2026"), venue: "ZOZOマリンスタジアム＆幕張メッセ", date: "2026-08-15" };
+  const exhibition = { ...event("exhibition", "nexz", "official-news-exhibition", "COUNTDOWN JAPAN 26/27"), venue: "幕張メッセ国際展示場1～11ホール・イベントホール", date: "2026-12-27" };
+  for (const query of ["中島健人 ZOZOマリンスタジアム＆幕張メッセ 2026-08-15 座席", "中島健人 幕張メッセ 席", "中島健人 ZOZOマリン 座席表"]) {
+    assert.deepEqual(rankEventSearchResults(query, [festival], searchArtists(query)).map(row => row.id), ["festival"], query);
+  }
+  const query = "NEXZ 幕張メッセ国際展示場1～11ホール・イベントホール 2026-12-27 座席";
+  assert.deepEqual(rankEventSearchResults(query, [exhibition], searchArtists(query)).map(row => row.id), ["exhibition"]);
+  const differentHall = { ...festival, id: "different", venue: "東京ドームシティホール" };
+  assert.deepEqual(rankEventSearchResults("中島健人 東京ドーム 席", [differentHall], searchArtists("中島健人 東京ドーム 席")), []);
+});
+
+test("single kana in a named venue query uses the parser's kana folding", () => {
+  const row = { ...event("grand", "ive", "official-news-grand", "JAPAN 4th EP シリアルイベント"), venue: "品川 ザ・グランドホール", date: "2026-08-31" };
+  for (const query of ["IVE 品川 ザ・グランドホール 2026-08-31 座席", "IVE 品川 ざ・ぐらんどほーる 座席表"]) {
+    assert.deepEqual(rankEventSearchResults(query, [row], searchArtists(query)).map(row => row.id), ["grand"], query);
+  }
+});
+
+test("short venue aliases do not reinterpret other hall names", () => {
+  const query = "FRUITS ZIPPER 熊本城ホール メインホール 2026-10-27 座席";
+  assert.deepEqual(parseSearchQuery(query).venueIds, []);
+  assert.deepEqual(parseSearchQuery("FRUITS ZIPPER 城ホ 席").venueIds, ["osaka-jo-hall"]);
+  const row = { ...event("kumamoto", "fruits-zipper", "official-news-kumamoto", "JAPAN TOUR 2026"), venue: "熊本城ホール メインホール", date: "2026-10-27" };
+  assert.deepEqual(rankEventSearchResults(query, [row], searchArtists(query)).map(row => row.id), ["kumamoto"]);
+  const osaka = event("osaka", "fruits-zipper", "osaka-jo-hall");
+  assert.deepEqual(rankEventSearchResults(query, [osaka], searchArtists(query)), []);
+});

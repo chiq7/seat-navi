@@ -91,6 +91,15 @@ export function searchVenues(query: string, limit = 8): SearchVenue[] {
 // 表示件数(limit)より十分大きく取り、最終的な採否と順位はsearchTextScoreで確定させる。
 const PREFETCH_CAP = 400;
 
+/** Match named venues within festival venue lists and exhibition-hall qualifiers. */
+function eventVenueMatchesName(eventVenue: string, name: string): boolean {
+  const normalizedName = normalizeForSearch(name);
+  const parts = [eventVenue, ...eventVenue.split(/[&＆+＋/／・]/)].map(normalizeForSearch);
+  const hallQualifiers = ["国際展示場", "展示場", "展示ホール", "イベントホール"].map(normalizeForSearch);
+  return parts.some((part) => part === normalizedName || (part.startsWith(normalizedName)
+    && hallQualifiers.some((qualifier) => part.slice(normalizedName.length).startsWith(qualifier))));
+}
+
 /** 1文字検索で全公演を部分一致させるとノイズが大きいため、本文検索は2文字から。 */
 export function shouldSearchEventText(query: string): boolean {
   return [...normalizeForSearch(query)].length >= 2;
@@ -128,10 +137,13 @@ export function rankEventSearchResults(
         : parseSearchQuery(event.title).artistSlugs.some((slug) => parsed.artistSlugs.includes(slug)));
       const venueMatch = requestedVenues.length === 0 || requestedVenues.some((venue) =>
         (event.venue_id && getVenueIdAliases(venue.id).includes(event.venue_id))
-        || getVenueSearchNames(venue).some((name) => normalizeForSearch(name) === normalizeForSearch(event.venue)));
+        || getVenueSearchNames(venue).some((name) => eventVenueMatchesName(event.venue, name)));
       const fields = [event.title, event.venue, event.date ?? "", ...(eventArtist ? getArtistSearchNames(eventArtist) : [])];
       const matchesAllTerms = artistMatch && venueMatch && parsed.remainder.every((term) =>
-        fields.some((field) => searchTextScore(term, field) > 0));
+        fields.some((field) => searchTextScore(term, field) > 0
+          // The parser folds ザ・グランドホール into a one-kana term. In a
+          // named-entity AND query, compare that term using the same folding.
+          || (hasNamedEntity && /^[ぁ-ゖ]$/.test(term) && normalizeForSearch(field).includes(term))));
       const titleScore = includeTextMatches ? searchTextScore(query, event.title) : 0;
       const venueScore = includeTextMatches ? searchTextScore(query, event.venue) : 0;
       const score = Math.max(

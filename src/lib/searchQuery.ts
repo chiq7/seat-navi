@@ -80,10 +80,11 @@ export function parseSearchQuery(query: string): SearchQuery {
       const latinEnd = /[a-z0-9]$/.test(entry.name);
       if (latinStart && /[a-z0-9]/.test(compact[start - 1] ?? "") && !boundaries.has(start) && !adjacentName(entry, start, true)) continue;
       if (latinEnd && /[a-z0-9]/.test(compact[end] ?? "") && !boundaries.has(end) && !adjacentName(entry, end, false)) continue;
-      // Short Japanese names are also ordinary word fragments (あの → あの日).
+      // Short Japanese names are also ordinary word fragments (あの → あの日,
+      // 城ホ → 熊本城ホール). Require a boundary for venue abbreviations too.
       // Allow a name next to an already recognized venue or a seat-intent word,
       // but do not reinterpret an unknown title as an artist-only constraint.
-      if (entry.kind === "artist" && entry.name.length <= 3 && !latinStart && !latinEnd) {
+      if (entry.name.length <= 3 && !latinStart && !latinEnd) {
         const startsCleanly = boundaries.has(start) || occupied[start - 1];
         let tailEnd = end;
         while (tailEnd < compact.length && !boundaries.has(tailEnd) && !occupied[tailEnd]) tailEnd++;
