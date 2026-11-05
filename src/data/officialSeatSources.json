@@ -1,0 +1,809 @@
+[
+  {
+    "id": "makomanai-ice",
+    "names": [
+      "真駒内セキスイハイムアイスアリーナ"
+    ],
+    "url": "https://makomanai-park.jp/icearena/seats/",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "ecopa-arena",
+    "names": [
+      "エコパアリーナ"
+    ],
+    "url": "https://www.ecopa.jp/facility/arena/seat/",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "kitayell",
+    "names": [
+      "北海きたえーる"
+    ],
+    "url": "https://www.kitayell.jp/facilities/sports/main-arena/#anchor_02",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "lala-arena",
+    "names": [
+      "ららアリーナ 東京ベイ",
+      "LaLa arena TOKYO-BAY"
+    ],
+    "url": "https://lalaarenatokyo-bay.com/seats/",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "ig-arena",
+    "names": [
+      "IGアリーナ"
+    ],
+    "url": "https://www.ig-arena.jp/seat/",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "glion-arena",
+    "names": [
+      "GLION ARENA KOBE"
+    ],
+    "url": "https://www.totteikobe.jp/pdf/map/map_floor.pdf#page=5",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "sundome-fukui",
+    "names": [
+      "サンドーム福井"
+    ],
+    "url": "https://sundome.sankan.jp/wordpress/wp-content/uploads/2022/12/eventhall_seat.pdf",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "world-kinen-hall",
+    "names": [
+      "神戸ワールド記念ホール"
+    ],
+    "url": "https://www.kobe-spokyo.jp/pdf/world/kyakuseki_floorguide3.pdf",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "tachikawa-stage-garden",
+    "names": [
+      "TACHIKAWA STAGE GARDEN"
+    ],
+    "url": "https://www.t-sg.jp/organizers/files/seatingchart.pdf",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "iwaki-alios",
+    "names": [
+      "Alios Iwaki Performing Arts Center Main Hall"
+    ],
+    "url": "https://iwaki-alios.jp/facilities/main-hall/seat-mainhall",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "takasaki-theatre",
+    "names": [
+      "TAKASAKI CITY THEATRE Grand Theatre"
+    ],
+    "url": "https://www.takasaki-foundation.or.jp/theatre/gt.php",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "iichiko-grand",
+    "names": [
+      "Oita iichiko Grand Theater"
+    ],
+    "url": "https://emo.or.jp/facilities/grand-theater/",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "nagasaki-brick",
+    "names": [
+      "BENEX Nagasaki Brick Hall"
+    ],
+    "url": "https://brickhall.jp/floor/large_hall/",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "kochi-hall",
+    "names": [
+      "SHIN KURUSHIMA KOCHIJYUKO Hall"
+    ],
+    "url": "https://kkb-hall.jp/facility/hall-data.html",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "yonago-bigship",
+    "names": [
+      "Yonago Convention Center BIG SHIP"
+    ],
+    "url": "https://www.bigship.or.jp/bigship/guest/5/",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "aichi-art-theatre",
+    "names": [
+      "Aichi Prefectural Art Theater Main Theater"
+    ],
+    "url": "https://www.aac.pref.aichi.jp/rent/item/main_seat_R20710.pdf",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "aomori-link-station",
+    "names": [
+      "LINK STATION HALL AOMORI"
+    ],
+    "url": "https://aobunkanko.com/wp-content/uploads/2024/12/kaikan-zaseki.pdf",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "iwate-hall",
+    "names": [
+      "Tosai Classic Hall Iwate"
+    ],
+    "url": "https://www.iwate-kenmin.jp/facility/mainhall-seat/",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "niigata-prefectural",
+    "names": [
+      "Niigata Prefectural Civic Center"
+    ],
+    "url": "https://www.niigata-kenminkaikan.jp/information/seat/large-hall-seat/",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "kanazawa-theatre",
+    "names": [
+      "THE KANAZAWA THEATRE"
+    ],
+    "url": "https://www.kagekiza.gr.jp/data/facilities/seat.pdf",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "hakodate-hall",
+    "names": [
+      "Hakodate Salmon Marunama Hall Large Hall"
+    ],
+    "url": "https://zaidan-hakodate.com/kaikan/newimages/zaseki20190601.pdf",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "niterra-forest",
+    "names": [
+      "Niterra日本特殊陶業市民会館フォレストホール"
+    ],
+    "url": "https://nagoya-shimin.hall-info.jp/kaikan/reserve/seatingchart.html",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "anabuki-arena",
+    "names": [
+      "あなぶきアリーナ香川(香川県立アリーナ)"
+    ],
+    "url": "https://kagawa-arena.com/guide/",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "toyota-arena-tokyo",
+    "names": [
+      "TOYOTA ARENA TOKYO"
+    ],
+    "url": "https://www.toyota-arena-tokyo.jp/about-the-arena/main-arena/seat-map/",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "kumamoto-jo-hall",
+    "names": [
+      "熊本城ホール メインホール"
+    ],
+    "url": "https://www.kumamoto-jo-hall.jp/pdf/mainsheetnamber.pdf",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "kobe-kokusai",
+    "names": [
+      "兵庫県・神戸国際会館 こくさいホール"
+    ],
+    "url": "https://www.kih.co.jp/kokusaihall/facilities/index",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "miyagi-electron",
+    "names": [
+      "宮城県・東京エレクトロンホール宮城 大ホール"
+    ],
+    "url": "https://miyagi-hall.jp/guide/drawing/",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "fuchu-dream",
+    "names": [
+      "府中の森芸術劇場 どりーむホール"
+    ],
+    "url": "https://www.fuchu-cpf.or.jp/theater/1000160/1000175.html",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "hulic-hall",
+    "names": [
+      "HULIC HALL TOKYO"
+    ],
+    "url": "https://hulic-theater.com/wordpress/wp-content/themes/mgs-yht/pdf/layout/seating_chart.pdf",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "sankei-breeze",
+    "names": [
+      "SANKEI HALL BREEZÉ"
+    ],
+    "url": "https://www.sankeihallbreeze.com/hall/seat/",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "amano-nagoya",
+    "names": [
+      "Amano Performing Arts Center Nagoya (Nagoya City Arts Creation Center)"
+    ],
+    "url": "https://www.bunka758.or.jp/facility/geijutsusouzou/files/pdf/kyakuseki_kihon_a.pdf",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "sgc-ariake",
+    "names": [
+      "SGCホール有明"
+    ],
+    "url": "https://tdp.tv-asahi.co.jp/hall/about/",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "td-garden",
+    "names": [
+      "TD Garden"
+    ],
+    "url": "https://www.tdgarden.com/plan-your-visit/seating",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "barclays",
+    "names": [
+      "Barclays Center"
+    ],
+    "url": "https://www.barclayscenter.com/center-info/seating-charts",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "td-coliseum",
+    "names": [
+      "TD Coliseum"
+    ],
+    "url": "https://www.tdcoliseum.com/plan-your-visit/seating-maps",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "climate-pledge",
+    "names": [
+      "Climate Pledge Arena"
+    ],
+    "url": "https://climatepledgearena.com/arena-maps/",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "oakland-arena",
+    "names": [
+      "Oakland Arena"
+    ],
+    "url": "https://www.theoaklandarena.com/venues-events/seating-charts",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "hollywood-bowl",
+    "names": [
+      "Hollywood Bowl"
+    ],
+    "url": "https://www.hollywoodbowl.com/tickets-and-events/seating-chart",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "taipei-dome",
+    "names": [
+      "臺北大巨蛋"
+    ],
+    "url": "https://www.farglorydome.com.tw/park-detail/map/",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "taipei-arena",
+    "names": [
+      "台北アリーナ"
+    ],
+    "url": "https://www.arena.taipei/cp.aspx?n=95731497B5FCEDDB",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "siam-pic",
+    "names": [
+      "SiamPic Hall"
+    ],
+    "url": "https://www.siampicganesha.com/en/seatingview",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "zepp-newtaipei",
+    "names": [
+      "Zepp New Taipei"
+    ],
+    "url": "https://www.zepp.co.jp/~pj-zepp/wordpress/wp-content/uploads/2023/08/08231312/nt_seat.pdf",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "olympic-hall",
+    "names": [
+      "Olympic Hall"
+    ],
+    "url": "https://www.ksponco.or.kr/olympicpark/menu.es?mid=a20301031000",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "zepp-yokohama",
+    "names": [
+      "KT Zepp Yokohama"
+    ],
+    "url": "https://www.zepp.co.jp/~pj-zepp/wordpress/wp-content/uploads/2020/10/15003228/yk_seat.pdf",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "zepp-nagoya",
+    "names": [
+      "Zepp Nagoya"
+    ],
+    "url": "https://www.zepp.co.jp/~pj-zepp/wordpress/wp-content/uploads/2018/11/21145421/ng_seat.pdf",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "zepp-osaka",
+    "names": [
+      "Zepp Osaka Bayside"
+    ],
+    "url": "https://www.zepp.co.jp/~pj-zepp/wordpress/wp-content/uploads/2018/11/21153535/bs_seat.pdf",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "zepp-divercity",
+    "names": [
+      "Zepp Diver City"
+    ],
+    "url": "https://www.zepp.co.jp/~pj-zepp/wordpress/wp-content/uploads/2018/11/21143732/dc_seat.pdf",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "waikiki-shell",
+    "names": [
+      "TOM MOFFATT WAIKIKI SHELL"
+    ],
+    "url": "https://blaisdellcenter.com/wp-content/uploads/2026/04/Waikiki-Shell-Amphitheater-v2.pdf",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "honda-no-mori",
+    "names": [
+      "本多の森北電ホール"
+    ],
+    "url": "http://www.hondanomori-hall.com/pdf/hall.pdf",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "asahikawa",
+    "names": [
+      "Asahikawa Civic Culture Hall"
+    ],
+    "url": "https://www1.city.asahikawa.hokkaido.jp/files/bunkashinko/siminbunka/contents31.html",
+    "kind": "venue-seating",
+    "checkedAt": "2026-11-05",
+    "note": "大ホール・小ホールなど、チケットに記載されたホールの座席図を選んでください。"
+  },
+  {
+    "id": "toda-hall",
+    "names": [
+      "TODAホール&カンファレンス東京"
+    ],
+    "url": "https://www.toda-hall.jp/pdf/sample.pdf",
+    "kind": "layout",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "ariake-central-b",
+    "names": [
+      "有明セントラルタワーホール＆カンファレンス ホールB"
+    ],
+    "url": "https://ariake-hall.jp/overview-hall/hall-b/",
+    "kind": "layout",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "port-hall",
+    "names": [
+      "東京ポートシティ竹芝 ポートホール"
+    ],
+    "url": "https://portcity-hall.tokyo/facility/port-hall/",
+    "kind": "layout",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "crystal-hall",
+    "names": [
+      "梅田クリスタルホール"
+    ],
+    "url": "https://www.ucb.co.jp/wp/wp-content/themes/ucb/images/crystal-chargese-quipment/projector_2024.pdf",
+    "kind": "layout",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "grand-hall-shinagawa",
+    "names": [
+      "品川 ザ・グランドホール"
+    ],
+    "url": "https://tg-hall.com/download",
+    "kind": "layout",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "mrs-shadows-kagawa",
+    "names": [
+      "あなぶきアリーナ香川(香川県立アリーナ)"
+    ],
+    "url": "https://mrsgreenapple.com/news/detail/23047",
+    "kind": "event-seating",
+    "checkedAt": "2026-11-05",
+    "events": [
+      {
+        "id": "8ab3d9caddad686134d4",
+        "date": "2026-09-30",
+        "artistSlug": "mrs-green-apple",
+        "venue": "あなぶきアリーナ香川(香川県立アリーナ)"
+      },
+      {
+        "id": "cee0a927f0dbf7d05164",
+        "date": "2026-10-01",
+        "artistSlug": "mrs-green-apple",
+        "venue": "あなぶきアリーナ香川(香川県立アリーナ)"
+      }
+    ]
+  },
+  {
+    "id": "backnumber-taipei",
+    "names": [
+      "台北アリーナ"
+    ],
+    "url": "https://backnumber.info/special_site/stadiumtour2026/detail/350",
+    "kind": "event-area",
+    "checkedAt": "2026-11-05",
+    "events": [
+      {
+        "id": "eb309895fa35220e8556",
+        "date": "2026-08-22",
+        "artistSlug": "back-number",
+        "venue": "台北アリーナ"
+      },
+      {
+        "id": "d9e8fa36a9ad52c713c3",
+        "date": "2026-08-23",
+        "artistSlug": "back-number",
+        "venue": "台北アリーナ"
+      }
+    ]
+  },
+  {
+    "id": "backnumber-hongkong",
+    "names": [
+      "AsiaWorld-Expo Hall 10"
+    ],
+    "url": "https://backnumber.info/special_site/stadiumtour2026/detail/358",
+    "kind": "event-area",
+    "checkedAt": "2026-11-05",
+    "events": [
+      {
+        "id": "eb3a14421410eeca5d7d",
+        "date": "2026-09-26",
+        "artistSlug": "back-number",
+        "venue": "AsiaWorld-Expo Hall 10"
+      },
+      {
+        "id": "79072af98f7b7ccf9bf2",
+        "date": "2026-09-27",
+        "artistSlug": "back-number",
+        "venue": "AsiaWorld-Expo Hall 10"
+      }
+    ]
+  },
+  {
+    "id": "summer-sonic-tokyo-2026",
+    "names": [
+      "ZOZOマリンスタジアム＆幕張メッセ"
+    ],
+    "url": "https://www.summersonic.com/info/tokyo/map/",
+    "kind": "event-area",
+    "checkedAt": "2026-11-05",
+    "events": [
+      {
+        "id": "af6c613a41e6f893c306",
+        "date": "2026-08-15",
+        "artistSlug": "kento-nakajima",
+        "venue": "ZOZOマリンスタジアム＆幕張メッセ"
+      },
+      {
+        "id": "ec30adf5e42c67d8b2cc",
+        "date": "2026-08-16",
+        "artistSlug": "travis-japan",
+        "venue": "ZOZOマリンスタジアム＆幕張メッセ"
+      }
+    ]
+  },
+  {
+    "id": "summer-sonic-osaka-2026",
+    "names": [
+      "万博記念公園"
+    ],
+    "url": "https://www.summersonic.com/info/osaka/map/",
+    "kind": "event-area",
+    "checkedAt": "2026-11-05",
+    "events": [
+      {
+        "id": "a7768c3e6d1f48f3e72c",
+        "date": "2026-08-14",
+        "artistSlug": "travis-japan",
+        "venue": "万博記念公園"
+      },
+      {
+        "id": "4d0a9a359f500ab3bcc0",
+        "date": "2026-08-16",
+        "artistSlug": "kento-nakajima",
+        "venue": "万博記念公園"
+      }
+    ]
+  },
+  {
+    "id": "luckyfes-2026",
+    "names": [
+      "国営ひたち海浜公園"
+    ],
+    "url": "https://luckyfes.com/en/area-map",
+    "kind": "event-area",
+    "checkedAt": "2026-11-05",
+    "events": [
+      {
+        "id": "57cc130de83682a23df9",
+        "date": "2026-08-08",
+        "artistSlug": "news",
+        "venue": "国営ひたち海浜公園"
+      }
+    ]
+  },
+  {
+    "id": "inazuma-2026",
+    "names": [
+      "滋賀県草津市 烏丸半島芝生広場"
+    ],
+    "url": "https://fest-inazuma.com/2026/img/areamap/FESTINAZUMA2026_AREAMAP.svg?v=1788920258",
+    "kind": "event-area",
+    "checkedAt": "2026-11-05",
+    "events": [
+      {
+        "id": "ec4ef15e4ff81fcccd72",
+        "date": "2026-09-19",
+        "artistSlug": "mazzel",
+        "venue": "滋賀県草津市 烏丸半島芝生広場"
+      }
+    ]
+  },
+  {
+    "id": "bmsg-fes-2026",
+    "names": [
+      "東京・お台場"
+    ],
+    "url": "https://storage.googleapis.com/studio-design-asset-files/projects/rROnbNDkOA/s-2000x2000_v-frms_webp_7657a3e2-c2d4-4207-88eb-34e2b6b496ba_small.webp",
+    "kind": "event-area",
+    "checkedAt": "2026-11-05",
+    "events": [
+      {
+        "id": "50c7224abc8d9f60a9e4",
+        "date": "2026-10-10",
+        "artistSlug": "mazzel",
+        "venue": "東京・お台場"
+      },
+      {
+        "id": "0c228692da2a0ce9acd8",
+        "date": "2026-10-11",
+        "artistSlug": "mazzel",
+        "venue": "東京・お台場"
+      },
+      {
+        "id": "42ed36b6d81a222b7a72",
+        "date": "2026-10-12",
+        "artistSlug": "mazzel",
+        "venue": "東京・お台場"
+      }
+    ]
+  },
+  {
+    "id": "xmf-2026",
+    "names": [
+      "仁川パラダイスシティ"
+    ],
+    "url": "https://cdn.imweb.me/upload/S20260514ec9937937627b/7a8db9864852d.jpg",
+    "kind": "event-area",
+    "checkedAt": "2026-11-05",
+    "events": [
+      {
+        "id": "43b6e90e61e065524a31",
+        "date": "2026-10-03",
+        "artistSlug": "one-ok-rock",
+        "venue": "仁川パラダイスシティ"
+      },
+      {
+        "id": "1862d3512a87cc17936b",
+        "date": "2026-10-04",
+        "artistSlug": "one-ok-rock",
+        "venue": "仁川パラダイスシティ"
+      }
+    ]
+  },
+  {
+    "id": "blizzcon-2026",
+    "names": [
+      "アナハイム・コンベンションセンター"
+    ],
+    "url": "https://blizzcon.com/en-us/floor-map/",
+    "kind": "event-area",
+    "checkedAt": "2026-11-05",
+    "events": [
+      {
+        "id": "c1d8fc2d111c904648ee",
+        "date": "2026-09-13",
+        "artistSlug": "yoasobi",
+        "venue": "アナハイム・コンベンションセンター"
+      }
+    ]
+  },
+  {
+    "id": "lollapalooza-2026",
+    "names": [
+      "Grant Park"
+    ],
+    "url": "https://help.lollapalooza.com/article/959-festival-map",
+    "kind": "event-area",
+    "checkedAt": "2026-11-05",
+    "events": [
+      {
+        "id": "309320e5d4e02eb31c9e",
+        "date": "2026-08-02",
+        "artistSlug": "yoasobi",
+        "venue": "Grant Park"
+      }
+    ]
+  },
+  {
+    "id": "one-chance-2026",
+    "names": [
+      "熊本県農業公園 カントリーパーク"
+    ],
+    "url": "https://1chancefes.com/img/areamap.png",
+    "kind": "event-area",
+    "checkedAt": "2026-11-05",
+    "events": [
+      {
+        "id": "15fd1df24317824379b8",
+        "date": "2026-09-26",
+        "artistSlug": "one-ok-rock",
+        "venue": "熊本県農業公園 カントリーパーク"
+      },
+      {
+        "id": "d50392f5dcfd9b87cb20",
+        "date": "2026-09-27",
+        "artistSlug": "one-ok-rock",
+        "venue": "熊本県農業公園 カントリーパーク"
+      }
+    ]
+  },
+  {
+    "id": "a-nation-2026",
+    "names": [
+      "お台場 a-nation特設会場"
+    ],
+    "url": "https://www.a-nation.net/",
+    "kind": "event-area",
+    "checkedAt": "2026-11-05",
+    "events": [
+      {
+        "id": "7641b842cea9ab48c66d",
+        "date": "2026-10-03",
+        "artistSlug": "exo",
+        "venue": "お台場 a-nation特設会場"
+      }
+    ]
+  },
+  {
+    "id": "countdown-japan-2627",
+    "names": [
+      "幕張メッセ国際展示場1～11ホール・イベントホール"
+    ],
+    "url": "https://countdownjapan.s3.amazonaws.com/2627/img/cdj_top_map.png",
+    "kind": "event-area",
+    "checkedAt": "2026-11-05",
+    "events": [
+      {
+        "id": "05b905c7e23b5e1d59eb",
+        "date": "2026-12-27",
+        "artistSlug": "nexz",
+        "venue": "幕張メッセ国際展示場1～11ホール・イベントホール"
+      }
+    ]
+  },
+  {
+    "id": "dojima-layout",
+    "names": [
+      "堂島リバーフォーラム"
+    ],
+    "url": "https://www.dojimariver.com/wp/wp-content/uploads/2023/02/hall_05layout.pdf",
+    "kind": "layout",
+    "checkedAt": "2026-11-05"
+  },
+  {
+    "id": "gmesse-layout",
+    "names": [
+      "Gメッセ群馬"
+    ],
+    "url": "https://www.g-messe-gunma.jp/organizer-facilities-figure.html#F03",
+    "kind": "layout",
+    "checkedAt": "2026-11-05"
+  }
+]

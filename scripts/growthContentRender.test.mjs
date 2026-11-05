@@ -118,7 +118,24 @@ test("performance seat links use exact official venue names and hide unverified 
     assert.match(html, /会場の常設座席表を見る/);
     assert.doesNotMatch(html, /主催者の公演シートマップ/);
   }
-  assert.equal(render(Links, { event: { ...event, venue_id: "unknown", venue: "ららアリーナ 東京ベイ" } }), "");
+  assert.equal(render(Links, { event: { ...event, venue_id: "unknown", venue: "未掲載の会場XYZ" } }), "");
+});
+
+test("official external charts render as working links and distinguish venue layouts from performance charts", async () => {
+  const { default: Links } = await import("../src/components/seo/PerformanceSeatLinks.tsx");
+  const { OFFICIAL_SEAT_SOURCES } = await import("../src/lib/officialSeatSources.ts");
+  const source = OFFICIAL_SEAT_SOURCES.find(source => source.id === "mrs-shadows-kagawa");
+  const record = source.events[0];
+  const html = render(Links, { event: { ...event, id:record.id, date:record.date, artist_slug:record.artistSlug, venue:record.venue, venue_id:"official-news" } });
+  assert.match(html, /主催者の公演座席表を見る/);
+  assert.match(html, /会場公式の座席表を見る/);
+  assert.match(html, /target="_blank" rel="noopener noreferrer"/);
+  assert.match(html, /公演ごとの配置と異なる場合があります/);
+  assert.doesNotMatch(html, /主催者ページの「SEAT MAP」/);
+  const layout = OFFICIAL_SEAT_SOURCES.find(source => source.kind === "layout");
+  const layoutHtml = render(Links, { event:{ ...event, venue_id:"unknown", venue:layout.names[0] } });
+  assert.match(layoutHtml, /客席レイアウト例/);
+  assert.doesNotMatch(layoutHtml, /主催者の公演座席表/);
 });
 
 test("same-day sessions remain distinguishable in artist guide text", async () => {
