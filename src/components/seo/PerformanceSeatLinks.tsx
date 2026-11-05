@@ -4,7 +4,7 @@ import { getPublicVenueSeatGuideHref } from "@/lib/publicVenueGuides";
 import type { CrawledEvent } from "@/lib/types";
 
 export default function PerformanceSeatLinks({ event, officialSeatMap }: { event: CrawledEvent; officialSeatMap?: string }) {
-  const venueHref = getPublicVenueSeatGuideHref(event.venue_id);
+  const venueHref = getPublicVenueSeatGuideHref(event.venue_id, event.venue);
   if (!venueHref && !officialSeatMap) return null;
 
   const linkClass = "zr-focus inline-flex min-h-11 items-center gap-2 px-2 text-[13px] font-black text-[#8e2858] underline underline-offset-4";

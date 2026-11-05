@@ -1,6 +1,7 @@
 import { buildMeta } from "./metadata";
 import { venueGuideDescriptions } from "./venueGuideSeoContent";
-import { getVenueIdAliases } from "./eventCrawlerConfig";
+import { VENUES, getVenueIdAliases } from "./eventCrawlerConfig";
+import { normalizeForMatch } from "./keywordMatch";
 
 // Public routes are explicit: adding research or a preview does not publish a guide.
 export const PUBLIC_ARENA_GUIDE_IDS = [
@@ -33,8 +34,27 @@ export function hasPublicVenueGuide(id: string): boolean {
   return PUBLIC_VENUE_GUIDE_IDS.includes(id);
 }
 
-export function getPublicVenueSeatGuideHref(id: string | null | undefined): string | null {
+// Official event feeds also use the current name or the venue's English name.
+// These are complete facility names, separate from the broader search aliases.
+const EVENT_VENUE_NAMES: Readonly<Record<string, readonly string[]>> = {
+  "gaishi-hall": ["クロコくんホール", "日本ガイシホール"],
+  "kyocera-dome": ["KYOCERA DOME OSAKA"],
+};
+
+export function getPublicVenueGuideId(id: string | null | undefined, name?: string | null): string | null {
   const canonicalId = id && PUBLIC_VENUE_GUIDE_IDS.find(venueId => getVenueIdAliases(venueId).includes(id));
+  if (canonicalId) return canonicalId;
+  if (!name?.trim()) return null;
+  const normalized = normalizeForMatch(name).replace(/\s+/g, " ");
+  const matches = VENUES.filter(venue => PUBLIC_VENUE_GUIDE_IDS.includes(venue.id)
+    && [venue.name, getPublicVenueName(venue.id, venue.name), ...(EVENT_VENUE_NAMES[venue.id] ?? [])]
+      .some(value => normalizeForMatch(value).replace(/\s+/g, " ") === normalized));
+  // No partial matches: another hall, a city, or multiple venues stay unresolved.
+  return matches.length === 1 ? matches[0].id : null;
+}
+
+export function getPublicVenueSeatGuideHref(id: string | null | undefined, name?: string | null): string | null {
+  const canonicalId = getPublicVenueGuideId(id, name);
   return canonicalId ? `/venues/${encodeURIComponent(canonicalId)}#venue-seat-guide` : null;
 }
 

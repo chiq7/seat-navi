@@ -19,9 +19,9 @@ export default function ArtistActionHub({ artistName, slug, seatHref, seatDescri
       descriptionClass: "text-[#a2697e]",
     },
     {
-      href: seatHref ?? "#seat-map",
+      href: seatHref ?? "/venues",
       label: "座席表",
-      description: seatDescription ?? "集まった座席・配置",
+      description: seatDescription ?? (seatHref ? "集まった座席・配置" : "会場から探す"),
       Icon: Map,
       cardClass: "bg-[#f2edff]",
       iconClass: "text-[#7655b2]",

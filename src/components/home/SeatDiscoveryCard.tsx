@@ -29,7 +29,7 @@ export default function SeatDiscoveryCard({ data, favoriteControl, preview = fal
   const tourTitle = event?.title.startsWith(data.artistName) ? event.title.slice(data.artistName.length).trim() : event?.title;
   const ready = data.status === "ready";
   const hasMap = ready && summary.hasMap;
-  const venueSeatHref = getPublicVenueSeatGuideHref(event?.venue_id);
+  const venueSeatHref = getPublicVenueSeatGuideHref(event?.venue_id, event?.venue);
   const lottery = discoveryLotterySummary(data);
   const pendingRates = !lottery;
   const instanceId = data.artistSlug + "-" + data.selectedEventId + (preview ? "-preview" : "");

@@ -65,7 +65,7 @@ export default async function EventDetailPage({ params }: PageProps) {
     artistSlug ? getCachedArtistEvents(artistSlug) : Promise.resolve([event]),
   ]);
   const venueProfile = event.venue_id ? getVenueSeoProfile(event.venue_id) : null;
-  const venueHref = getPublicVenueSeatGuideHref(event.venue_id)?.split("#")[0] ?? null;
+  const venueHref = getPublicVenueSeatGuideHref(event.venue_id, event.venue)?.split("#")[0] ?? null;
   const venueMiniGuide = counts.seatReports === 0 && counts.predictions === 0
     ? {
         venueName: event.venue,

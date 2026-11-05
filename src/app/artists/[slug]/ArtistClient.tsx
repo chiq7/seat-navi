@@ -530,7 +530,7 @@ export function ArtistClient({
       <div className="pb-20">
           <div className="zr-container">
             <ArtistActionHub artistName={artist.name} slug={slug}
-              seatHref={searchGuide ? "#artist-seat-guide" : detailHref ? `${detailHref}#seat-map` : null}
+              seatHref={searchGuide ? "#artist-seat-guide" : null}
               seatDescription={searchGuide ? "会場・公演日から探す" : undefined}
             />
 

@@ -1,8 +1,8 @@
 import { findArtistBySlug, resolveUniqueArtistMatch } from "./artists";
 import { getJstDateString } from "./artistPageData";
-import { VENUES, getVenueIdAliases } from "./eventCrawlerConfig";
+import { VENUES } from "./eventCrawlerConfig";
 import { isArtistOnlyEventTitle, parseEventTitle } from "./eventTitle";
-import { getPublicVenueName, getPublicVenueSeatGuideHref } from "./publicVenueGuides";
+import { getPublicVenueGuideId, getPublicVenueName, getPublicVenueSeatGuideHref } from "./publicVenueGuides";
 import type { CrawledEvent } from "./types";
 
 export type ArtistSeatGuideVenue = {
@@ -31,8 +31,8 @@ export function getArtistSeatGuideVenues(
     const eventArtist = event.artist_slug ?? resolveUniqueArtistMatch(event.title).artist?.slug;
     if (eventArtist !== slug) continue;
 
-    // IDや会場名を推測して別の施設の図へ送らない。
-    const venue = VENUES.find((candidate) => event.venue_id && getVenueIdAliases(candidate.id).includes(event.venue_id));
+    const venueId = getPublicVenueGuideId(event.venue_id, event.venue);
+    const venue = VENUES.find((candidate) => candidate.id === venueId);
     const href = getPublicVenueSeatGuideHref(venue?.id);
     if (!venue || !href) continue;
     seen.add(event.id);

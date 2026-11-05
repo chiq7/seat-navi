@@ -98,6 +98,29 @@ test("empty artist records do not create fictitious venue links or claim seat re
   assert.equal(render(Guide, { slug: "snow-man", events: [] }), "");
 });
 
+test("artist seat action without a published guide leads to the real venue directory", async () => {
+  const { default: Hub } = await import("../src/components/artist-page/ArtistActionHub.tsx");
+  for (const seatHref of [undefined, null]) {
+    const html = render(Hub, { artistName: "EXO", slug: "exo", seatHref });
+    assert.match(html, /href="\/venues" aria-label="EXOの座席表"/);
+    assert.match(html, /会場から探す/);
+    assert.doesNotMatch(html, /#seat-map/);
+  }
+  const html = render(Hub, { artistName: "INI", slug: "ini", seatHref: "#artist-seat-guide", seatDescription: "会場・公演日から探す" });
+  assert.match(html, /href="#artist-seat-guide" aria-label="INIの座席表"/);
+});
+
+test("performance seat links use exact official venue names and hide unverified destinations", async () => {
+  const { default: Links } = await import("../src/components/seo/PerformanceSeatLinks.tsx");
+  for (const [venue, id] of [["クロコくんホール", "gaishi-hall"], ["KYOCERA DOME OSAKA", "kyocera-dome"]]) {
+    const html = render(Links, { event: { ...event, venue_id: "official-feed", venue } });
+    assert.ok(html.includes(`href="/venues/${id}#venue-seat-guide"`));
+    assert.match(html, /会場の常設座席表を見る/);
+    assert.doesNotMatch(html, /主催者の公演シートマップ/);
+  }
+  assert.equal(render(Links, { event: { ...event, venue_id: "unknown", venue: "ららアリーナ 東京ベイ" } }), "");
+});
+
 test("same-day sessions remain distinguishable in artist guide text", async () => {
   const { default: Guide } = await import("../src/components/seo/ArtistSeatSearchGuide.tsx");
   const html = render(Guide, { slug: "snow-man", events: [
