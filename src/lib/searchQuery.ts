@@ -1,9 +1,10 @@
 import { ARTISTS, type Artist } from "@/lib/artists";
 import { ARTIST_SEARCH_ALIASES } from "@/lib/artistSearchAliases";
-import { VENUES } from "@/lib/eventCrawlerConfig";
+import { SEARCH_VENUE_CATALOG } from "@/data/searchVenueCatalog";
 import { VENUE_SEARCH_ALIASES } from "@/lib/venueSearchAliases";
 import { normalizeForSearch } from "@/lib/keywordMatch";
 import { getPublicVenueName } from "@/lib/publicVenueGuides";
+import { parseDiscoveryTerms, SEARCH_DISCOVERY_INTENT_TERMS, type SearchContentIntent } from "@/lib/searchDiscovery";
 
 /** Search intent is shared by the query catalogue and the site search. */
 export const SEAT_SEARCH_TERMS = ["席", "座席", "座席表", "シートマップ", "見え方"] as const;
@@ -12,6 +13,7 @@ export const SEAT_SEARCH_TERMS = ["席", "座席", "座席表", "シートマッ
 const SEAT_LABELS = ["S席", "SS席", "VIP席", "着席指定席", "立見席", "ファミリー席", "センター席", "制作開放席"]
   .map(normalizeForSearch);
 const INTENT_WORDS = [
+  ...SEARCH_DISCOVERY_INTENT_TERMS,
   ...SEAT_SEARCH_TERMS, "せき", "ざせき", "ざせきひょう", "席からの見え方",
   "ライブ", "コンサート", "公演", "会場", "キャパ", "収容人数", "当落", "当選率",
   "アリーナ予想", "座席予想", "現地レポ", "アリーナ",
@@ -22,18 +24,21 @@ export function getArtistSearchNames(artist: Artist): string[] {
 }
 
 export function getVenueSearchNames(venue: { id: string; name: string }): string[] {
-  return [...new Set([venue.name, getPublicVenueName(venue.id, venue.name), ...(VENUE_SEARCH_ALIASES[venue.id] ?? [])])];
+  const catalog = SEARCH_VENUE_CATALOG.find((entry) => entry.id === venue.id);
+  return [...new Set([venue.name, getPublicVenueName(venue.id, venue.name), ...(VENUE_SEARCH_ALIASES[venue.id] ?? []), ...(catalog?.aliases ?? []), ...(catalog?.eventVenueNames ?? [])])];
 }
 
 type NameEntry = { kind: "artist" | "venue"; id: string; name: string };
 const NAMES: NameEntry[] = [
   ...ARTISTS.filter((artist) => artist.slug !== "test").flatMap((artist) =>
     getArtistSearchNames(artist).map((name) => ({ kind: "artist" as const, id: artist.slug, name: normalizeForSearch(name) }))),
-  ...VENUES.flatMap((venue) => getVenueSearchNames(venue).map((name) =>
+  ...SEARCH_VENUE_CATALOG.flatMap((venue) => getVenueSearchNames(venue).map((name) =>
     ({ kind: "venue" as const, id: venue.id, name: normalizeForSearch(name) }))),
-].filter((entry) => entry.name.length >= 1).sort((a, b) => b.name.length - a.name.length);
+].filter((entry) => entry.name.length >= 1).sort((a, b) =>
+  Number(a.kind === "artist" && a.id === "news") - Number(b.kind === "artist" && b.id === "news")
+  || b.name.length - a.name.length);
 
-export type SearchQuery = { artistSlugs: string[]; venueIds: string[]; remainder: string[] };
+export type SearchQuery = { artistSlugs: string[]; venueIds: string[]; regionIds: string[]; intentIds: SearchContentIntent[]; dates: string[]; remainder: string[] };
 
 /**
  * Recognize complete names before removing intent words. Longest names win, so
@@ -44,7 +49,8 @@ export type SearchQuery = { artistSlugs: string[]; venueIds: string[]; remainder
 export function parseSearchQuery(query: string): SearchQuery {
   let compact = "";
   const boundaries = new Set<number>([0]);
-  const written = query.normalize("NFKC")
+  const dates = [...new Set(Array.from(query.normalize("NFKC").matchAll(/\b(20\d{2}[-/]\d{2}[-/]\d{2})\b/g), match => match[1].replaceAll("/", "-")))];
+  const written = query.normalize("NFKC").replace(/\b20\d{2}[-/]\d{2}[-/]\d{2}\b/g, " ")
     .replace(/座席\s+表/g, "座席表")
     .replace(/(^|\s)(SS?|VIP)\s+席/gi, "$1$2席");
   for (const char of written) {
@@ -69,6 +75,10 @@ export function parseSearchQuery(query: string): SearchQuery {
     return true;
   });
   for (const entry of NAMES) {
+    // With a named subject, ニュース/NEWS asks for that subject's news. NEWS
+    // alone (or NEWS + venue) remains the artist's name.
+    if (entry.kind === "artist" && entry.id === "news"
+      && ((artists.size > 0 && !artists.has("news")) || compact.includes(`公式${entry.name}`))) continue;
     let from = 0;
     while (from < compact.length) {
       const start = compact.indexOf(entry.name, from);
@@ -102,6 +112,8 @@ export function parseSearchQuery(query: string): SearchQuery {
     }
   }
   const remaining = compact.split("").map((char, index) => occupied[index] ? " " : `${boundaries.has(index) ? " " : ""}${char}`).join("");
+  const discovery = parseDiscoveryTerms(remaining.split(/\s+/).filter(Boolean).map((term) =>
+    (artists.size || venues.size) && SEAT_LABELS.some((label) => term === label || term === `の${label}`) ? "座席" : term));
   // Intent words may be attached to a name, but may not be removed from the
   // middle of an unknown title. Preserve unknown words for AND filtering.
   const stripIntent = (text: string): string => {
@@ -119,6 +131,7 @@ export function parseSearchQuery(query: string): SearchQuery {
   };
   return {
     artistSlugs: [...artists], venueIds: [...venues],
-    remainder: [...new Set(remaining.split(/\s+/).map(stripIntent).filter(Boolean))],
+    regionIds: discovery.regionIds, intentIds: discovery.intentIds, dates,
+    remainder: [...new Set(discovery.remainder.map(stripIntent).filter(Boolean))],
   };
 }

@@ -6,7 +6,7 @@
  * crawler の会場IDや既存公演データの名前は変更しない。
  */
 export const VENUE_SEARCH_ALIASES: Readonly<Record<string, readonly string[]>> = {
-  "tokyo-dome": ["トウキョウドーム", "東京ドームシティ"],
+  "tokyo-dome": ["トウキョウドーム"],
   "kyocera-dome": ["京セラドーム", "京セラ", "大阪ドーム", "キョウセラドームオオサカ", "キョウセラドーム", "オオサカドーム"],
   "vantelin-dome": ["バンテリンドーム", "名古屋ドーム", "ナゴヤドーム"],
   "paypay-dome": ["みずほPayPayドーム福岡", "PayPayドーム", "福岡ドーム", "ミズホペイペイドームフクオカ", "フクオカペイペイドーム", "ペイペイドーム", "フクオカドーム"],

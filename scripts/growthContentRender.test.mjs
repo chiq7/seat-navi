@@ -180,3 +180,57 @@ test("curated artist guides also retain other recorded performances without repe
   assert.ok(html.includes('href="/events/another-tour"'));
   assert.equal(html.split('href="/events/covered"').length - 1, 1);
 });
+
+test("a report link selects its performance during SSR and excludes another venue's reports", async () => {
+  const { default: Reports } = await import("../src/app/artists/[slug]/after-reports/AfterReportsClient.tsx");
+  const events = [event, { ...event, id: "sapporo", venue: "札幌ドーム" }];
+  const reports = [
+    { id: "tokyo-report", event_id: event.id, memo: "東京だけの検証レポ", seat_view_photo_paths: [] },
+    { id: "sapporo-report", event_id: "sapporo", memo: "札幌だけの検証レポ", seat_view_photo_paths: [] },
+  ];
+  const html = render(Reports, { slug: "number-i", initial: { events, reports, authors: [] }, initialEventId: "sapporo" });
+  assert.match(html, /札幌だけの検証レポ/);
+  assert.doesNotMatch(html, /東京だけの検証レポ/);
+  assert.match(html, /value="sapporo" selected=""/);
+  assert.ok(html.includes('href="/report/live?event=sapporo"'));
+});
+
+test("an unreported selected performance stays selected and keeps the same submission destination", async () => {
+  const { default: Reports } = await import("../src/app/artists/[slug]/after-reports/AfterReportsClient.tsx");
+  const html = render(Reports, { slug: "number-i", initialEventId: "empty-selected", initial: {
+    events: [event, { ...event, id: "empty-selected", venue: "札幌ドーム" }], authors: [],
+    reports: [{ id: "other-report", event_id: event.id, memo: "他公演へ戻してはいけないレポ", seat_view_photo_paths: [] }],
+  } });
+  assert.match(html, /この条件の現地レポはまだありません/);
+  assert.doesNotMatch(html, /他公演へ戻してはいけないレポ/);
+  assert.match(html, /value="empty-selected" selected=""/);
+  assert.ok(html.includes('href="/report/live?event=empty-selected"'));
+});
+
+test("report page accepts only a single event belonging to the artist before rendering the client", async () => {
+  const jsxRuntime = await import("react/jsx-runtime");
+  const dependencies = {
+    "react/jsx-runtime": jsxRuntime,
+    "next/navigation": { notFound() { throw new Error("NOT_FOUND"); } },
+    "@/lib/seoData": { getSeoArtist: slug => slug === "number-i" ? { slug } : null },
+    "@/lib/serverArtistContent": { getInitialArtistReports: async () => ({ events: [event], reports: [], authors: [] }) },
+    "./AfterReportsClient": { default: () => null },
+  };
+  const source = ts.transpileModule(readFileSync(path.join(root, "src/app/artists/[slug]/after-reports/page.tsx"), "utf8"), {
+    compilerOptions: { module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX, target: ts.ScriptTarget.ES2022 },
+  }).outputText;
+  const renderedModule = { exports: {} };
+  new Function("require", "module", "exports", source)(id => {
+    assert.ok(Object.hasOwn(dependencies, id), id);
+    return dependencies[id];
+  }, renderedModule, renderedModule.exports);
+  const Page = renderedModule.exports.default;
+  const params = Promise.resolve({ slug: "number-i" });
+  const selected = await Page({ params, searchParams: Promise.resolve({ event: event.id }) });
+  assert.equal(selected.props.initialEventId, event.id);
+  const all = await Page({ params });
+  assert.equal(all.props.initialEventId, null);
+  for (const invalid of ["unknown", "foreign-artist-event", "", [event.id], [event.id, "other"]]) {
+    await assert.rejects(Page({ params, searchParams: Promise.resolve({ event: invalid }) }), /NOT_FOUND/);
+  }
+});

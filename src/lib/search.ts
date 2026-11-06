@@ -1,6 +1,10 @@
 import { ARTISTS, type Artist } from "@/lib/artists";
 import { ARTIST_SEARCH_ALIASES } from "@/lib/artistSearchAliases";
-import { VENUES, getVenueIdAliases, type VenueConfig } from "@/lib/eventCrawlerConfig";
+import { getVenueIdAliases } from "@/lib/eventCrawlerConfig";
+import { SEARCH_VENUE_CATALOG } from "@/data/searchVenueCatalog";
+import { eventMatchesSearchVenue } from "@/lib/searchVenueMatch";
+export { eventMatchesSearchVenue } from "@/lib/searchVenueMatch";
+import { matchesSearchRegions } from "@/lib/searchDiscovery";
 import { getArtistSearchNames, getVenueSearchNames, parseSearchQuery } from "@/lib/searchQuery";
 import { normalizeForSearch, searchTextScore } from "@/lib/keywordMatch";
 import { isTestArtist, isTestEvent } from "@/lib/seoData";
@@ -51,14 +55,14 @@ export function searchArtists(query: string, limit = 20): Artist[] {
 }
 
 /** 検索結果で会場ページへ直接案内するための最小の会場情報。 */
-export type SearchVenue = Pick<VenueConfig, "id" | "name">;
+export type SearchVenue = { id: string; name: string; href: string; description: string };
 
 /** Names with spaces remain one term; spelling aliases resolve to canonical names. */
 export function getSearchTerms(query: string): string[] {
   const parsed = parseSearchQuery(query);
   return [...new Set([
     ...ARTISTS.filter((artist) => parsed.artistSlugs.includes(artist.slug)).map((artist) => artist.name),
-    ...VENUES.filter((venue) => parsed.venueIds.includes(venue.id)).map((venue) => venue.name),
+    ...SEARCH_VENUE_CATALOG.filter((venue) => parsed.venueIds.includes(venue.id)).flatMap((venue) => [venue.name, ...venue.eventVenueNames]),
     ...parsed.remainder,
   ])];
 }
@@ -67,18 +71,25 @@ export function getSearchTerms(query: string): string[] {
  * 会場名・通称・「座席表」付き検索を会場詳細ページへつなぐ。
  * DBの公演有無に左右されない静的な会場ディレクトリを対象にする。
  */
-export function searchVenues(query: string, limit = 8): SearchVenue[] {
+export function searchVenues(query: string, limit = 200, events?: CrawledEvent[]): SearchVenue[] {
   const parsed = parseSearchQuery(query);
-  if (parsed.venueIds.length > 0) {
-    return VENUES.filter((venue) => parsed.venueIds.includes(venue.id))
-      .map(({ id, name }) => ({ id, name })).slice(0, limit);
-  }
   const partial = parsed.remainder.join(" ");
-  if (!partial) return [];
+  if (!partial && !parsed.venueIds.length && !parsed.regionIds.length) return [];
 
-  return VENUES.map((venue, index) => {
-    const score = Math.max(...getVenueSearchNames(venue).map((field) => searchTextScore(partial, field)));
-    return { venue: { id: venue.id, name: venue.name }, index, score };
+  return SEARCH_VENUE_CATALOG.filter((venue) => matchesSearchRegions(venue, parsed.regionIds)).map((venue, index) => {
+    const score = parsed.venueIds.length ? (parsed.venueIds.includes(venue.id) ? 1000 : 0)
+      : partial ? Math.max(...getVenueSearchNames(venue).map((field) => searchTextScore(partial, field))) : 500;
+    const matchingEvents = events?.filter((event) => eventMatchesSearchVenue(event, venue));
+    const representative = matchingEvents?.[0]?.id
+      ?? (parsed.artistSlugs.length || parsed.remainder.length || parsed.dates.length ? undefined : venue.eventIds[0]);
+    const scopedRegionWithoutEvent = parsed.regionIds.length > 0 && parsed.venueIds.length === 0
+      && (parsed.artistSlugs.length > 0 || parsed.dates.length > 0 || parsed.remainder.length > 0)
+      && !matchingEvents?.length;
+    const href = scopedRegionWithoutEvent ? null : venue.guideId ? `/venues/${venue.guideId}#venue-seat-guide`
+      : representative ? `/events/${representative}#performance-seat-links` : null;
+    return { venue: { id: venue.id, name: venue.name, href: href ?? "", description: venue.guideId
+      ? "会場の座席表・アクセス・設備"
+      : venue.kind === "ambiguous" ? "公演ごとの公式案内・入場方法" : "公演の座席表・公式案内" }, index, score: href ? score : 0 };
   })
     .filter(({ score }) => score > 0)
     .sort((a, b) => b.score - a.score || a.index - b.index)
@@ -90,15 +101,6 @@ export function searchVenues(query: string, limit = 8): SearchVenue[] {
 // ILIKEだけだと無関係な語("LIVE TOUR"等)まで大量に拾うため、事前フィルタの件数上限は
 // 表示件数(limit)より十分大きく取り、最終的な採否と順位はsearchTextScoreで確定させる。
 const PREFETCH_CAP = 400;
-
-/** Match named venues within festival venue lists and exhibition-hall qualifiers. */
-function eventVenueMatchesName(eventVenue: string, name: string): boolean {
-  const normalizedName = normalizeForSearch(name);
-  const parts = [eventVenue, ...eventVenue.split(/[&＆+＋/／・]/)].map(normalizeForSearch);
-  const hallQualifiers = ["国際展示場", "展示場", "展示ホール", "イベントホール"].map(normalizeForSearch);
-  return parts.some((part) => part === normalizedName || (part.startsWith(normalizedName)
-    && hallQualifiers.some((qualifier) => part.slice(normalizedName.length).startsWith(qualifier))));
-}
 
 /** 1文字検索で全公演を部分一致させるとノイズが大きいため、本文検索は2文字から。 */
 export function shouldSearchEventText(query: string): boolean {
@@ -121,13 +123,15 @@ export function rankEventSearchResults(
   const artistRank = new Map(matchedArtists.map((artist, index) => [artist.slug, index]));
   const includeTextMatches = shouldSearchEventText(query);
   const parsed = parseSearchQuery(query);
-  const hasNamedEntity = parsed.artistSlugs.length + parsed.venueIds.length > 0;
-  const requestedVenues = VENUES.filter((venue) => parsed.venueIds.includes(venue.id));
+  const hasNamedEntity = parsed.artistSlugs.length + parsed.venueIds.length + parsed.regionIds.length + parsed.dates.length > 0;
+  const requestedVenues = SEARCH_VENUE_CATALOG.filter((venue) => parsed.venueIds.includes(venue.id));
+  const regionVenues = parsed.regionIds.length ? SEARCH_VENUE_CATALOG.filter((venue) => matchesSearchRegions(venue, parsed.regionIds)) : [];
 
   return events
     .filter((event) => {
       const artist = event.artist_slug ? ARTISTS.find((candidate) => candidate.slug === event.artist_slug) : null;
-      return !isTestEvent(event) && !isArtistOnlyEventTitle(event.title, artist?.name);
+      return !isTestEvent(event) && !isArtistOnlyEventTitle(event.title, artist?.name)
+        && (parsed.dates.length === 0 || Boolean(event.date && parsed.dates.includes(event.date)));
     })
     .map((event) => {
       const matchedArtistIndex = event.artist_slug ? artistRank.get(event.artist_slug) : undefined;
@@ -135,9 +139,8 @@ export function rankEventSearchResults(
       const artistMatch = parsed.artistSlugs.length === 0 || (event.artist_slug
         ? parsed.artistSlugs.includes(event.artist_slug)
         : parseSearchQuery(event.title).artistSlugs.some((slug) => parsed.artistSlugs.includes(slug)));
-      const venueMatch = requestedVenues.length === 0 || requestedVenues.some((venue) =>
-        (event.venue_id && getVenueIdAliases(venue.id).includes(event.venue_id))
-        || getVenueSearchNames(venue).some((name) => eventVenueMatchesName(event.venue, name)));
+      const venueMatch = (requestedVenues.length === 0 || requestedVenues.some((venue) => eventMatchesSearchVenue(event, venue)))
+        && (parsed.regionIds.length === 0 || regionVenues.some((venue) => eventMatchesSearchVenue(event, venue)));
       const fields = [event.title, event.venue, event.date ?? "", ...(eventArtist ? getArtistSearchNames(eventArtist) : [])];
       const matchesAllTerms = artistMatch && venueMatch && parsed.remainder.every((term) =>
         fields.some((field) => searchTextScore(term, field) > 0
@@ -177,7 +180,10 @@ export async function searchEvents(query: string, limit = 30): Promise<CrawledEv
   const parsed = parseSearchQuery(q);
   const matchedArtists = searchArtists(q);
   const matchedArtistSlugs = matchedArtists.map((artist) => artist.slug);
-  const venueIds = [...new Set(parsed.venueIds.flatMap((id) => [...getVenueIdAliases(id)]))];
+  const requestedVenues = SEARCH_VENUE_CATALOG.filter((venue) =>
+    (parsed.venueIds.length ? parsed.venueIds.includes(venue.id) : parsed.regionIds.length > 0)
+    && matchesSearchRegions(venue, parsed.regionIds));
+  const venueIds = [...new Set(requestedVenues.flatMap((venue) => venue.guideId ? [...getVenueIdAliases(venue.guideId)] : [...venue.eventVenueIds]))];
   // Preserve the original spelling for SQL ILIKE: kana normalization belongs
   // in the final matcher, not the case-insensitive DB prefilter. Canonical
   // names supplement raw terms for aliases and rows without entity IDs.
@@ -185,7 +191,7 @@ export async function searchEvents(query: string, limit = 30): Promise<CrawledEv
     .filter(shouldSearchEventText).slice(0, 8);
   const columns = "id, title, venue, venue_id, date, genre, lottery_types, artist_slug";
   const emptyResult = Promise.resolve({ data: null, error: null });
-  const textResults = await Promise.all(textTerms.flatMap((term) => {
+  const textQueries = textTerms.flatMap((term) => {
     const escaped = escapeIlikePattern(term);
     return [
       supabase
@@ -201,16 +207,26 @@ export async function searchEvents(query: string, limit = 30): Promise<CrawledEv
         .order("date", { ascending: false })
         .limit(PREFETCH_CAP),
     ];
-  }));
+  });
   let entityQuery = supabase.from("events").select(columns);
   if (matchedArtistSlugs.length > 0) entityQuery = entityQuery.in("artist_slug", matchedArtistSlugs);
   if (venueIds.length > 0) entityQuery = entityQuery.in("venue_id", venueIds);
   // Filter both IDs before applying the cap, rather than losing the requested
   // venue among hundreds of the artist's other events.
-  const entityResult = await (matchedArtistSlugs.length > 0 || venueIds.length > 0
+  const entityRequest = matchedArtistSlugs.length > 0 || venueIds.length > 0
     ? entityQuery.order("date", { ascending: false }).limit(PREFETCH_CAP)
-    : emptyResult);
-  const results = [...textResults, entityResult];
+    : emptyResult;
+  // The catalogue stores actual public venue spellings as well as their user
+  // aliases. Query those original strings so kana-only input and regional
+  // searches also find rows whose imported venue_id is missing or different.
+  const venueNames = [...new Set(requestedVenues.flatMap((venue) => venue.eventVenueNames))];
+  const venueQueries = Array.from({ length: Math.ceil(venueNames.length / 20) }, (_, index) => {
+    let request = supabase.from("events").select(columns).in("venue", venueNames.slice(index * 20, (index + 1) * 20));
+    if (parsed.artistSlugs.length) request = request.in("artist_slug", parsed.artistSlugs);
+    return request.order("date", { ascending: false }).limit(PREFETCH_CAP);
+  });
+  const dateRequest = parsed.dates.length ? supabase.from("events").select(columns).in("date", parsed.dates).limit(PREFETCH_CAP) : emptyResult;
+  const results = await Promise.all([...textQueries, entityRequest, ...venueQueries, dateRequest]);
   for (const result of results) {
     if (result.error) console.error(result.error);
   }

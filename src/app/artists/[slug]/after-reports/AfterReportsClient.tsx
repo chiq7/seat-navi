@@ -26,12 +26,12 @@ import {
   resolveArtistHeroImage,
 } from "@/lib/artistPageData";
 
-export default function AfterReportsClient({ slug, initial }: { slug: string; initial: InitialAfterReports }) {
+export default function AfterReportsClient({ slug, initial, initialEventId = null }: { slug: string; initial: InitialAfterReports; initialEventId?: string | null }) {
   const artist = findArtistBySlug(slug);
 
   const { events, reports } = initial;
   const authorMap = useMemo(() => new Map(initial.authors.map(author => [author.id, author])), [initial.authors]);
-  const [filterDate, setFilterDate] = useState("all");
+  const [filterDate, setFilterDate] = useState(initialEventId ?? "all");
   const [filterArea, setFilterArea] = useState("all");
   const [filterBlock, setFilterBlock] = useState("all");
   const [heroImageSrc, setHeroImageSrc] = useState(() =>
@@ -63,8 +63,10 @@ export default function AfterReportsClient({ slug, initial }: { slug: string; in
         options.push({ id: event.id, label: `${fmtDate(event.date)} ${event.venue}`, date: event.date ?? "" });
       }
     }
+    const selected = initialEventId ? eventMap.get(initialEventId) : undefined;
+    if (selected && !seen.has(selected.id)) options.push({ id: selected.id, label: `${fmtDate(selected.date)} ${selected.venue}`, date: selected.date ?? "" });
     return options.sort((a, b) => b.date.localeCompare(a.date));
-  }, [reports, eventMap]);
+  }, [reports, eventMap, initialEventId]);
 
   const areaOptions = useMemo(() => {
     const areas = new Set<string>();
@@ -120,6 +122,18 @@ export default function AfterReportsClient({ slug, initial }: { slug: string; in
 
   const hasActiveFilters = filterDate !== "all" || filterArea !== "all" || filterBlock !== "all";
   const photoCount = reports.filter((report) => report.seat_view_photo_paths?.length).length;
+  const reportEvent = filterDate === "all" ? nextEvent : eventMap.get(filterDate);
+  const reportHref = reportEvent ? `/report/live?event=${encodeURIComponent(reportEvent.id)}` : "/report/live";
+
+  function changeEventFilter(eventId: string) {
+    setFilterDate(eventId);
+    setFilterArea("all");
+    setFilterBlock("all");
+    const url = new URL(window.location.href);
+    if (eventId === "all") url.searchParams.delete("event");
+    else url.searchParams.set("event", eventId);
+    window.history.replaceState(window.history.state, "", `${url.pathname}${url.search}${url.hash}`);
+  }
 
   if (!artist) {
     return (
@@ -186,7 +200,7 @@ export default function AfterReportsClient({ slug, initial }: { slug: string; in
               <span className="mb-1.5 block text-[9px] font-black tracking-[0.14em] text-[#817981]">公演・会場</span>
               <SelectControl
                 value={filterDate}
-                onChange={(event) => setFilterDate(event.target.value)}
+                onChange={(event) => changeEventFilter(event.target.value)}
               >
                 <option value="all">すべての公演</option>
                 {dateOptions.map((option) => (
@@ -228,9 +242,7 @@ export default function AfterReportsClient({ slug, initial }: { slug: string; in
               <button
                 type="button"
                 onClick={() => {
-                  setFilterDate("all");
-                  setFilterArea("all");
-                  setFilterBlock("all");
+                  changeEventFilter("all");
                 }}
                 className="zr-focus flex min-h-11 items-center gap-1.5 text-[11px] font-black text-[#f43679]"
               >
@@ -245,7 +257,7 @@ export default function AfterReportsClient({ slug, initial }: { slug: string; in
             className="my-8"
             title="この条件の現地レポはまだありません"
             icon={<SquarePen size={18} aria-hidden="true" />}
-            actionHref={nextEvent ? `/report/live?event=${nextEvent.id}` : "/report/live"}
+            actionHref={reportHref}
             actionLabel="投稿する"
             actionIcon={<SquarePen size={14} aria-hidden="true" />}
             actionTone="primary"
@@ -276,14 +288,14 @@ export default function AfterReportsClient({ slug, initial }: { slug: string; in
 
       {filteredReports.length > 0 && (
         <Link
-          href={nextEvent ? `/report/live?event=${nextEvent.id}` : "/report/live"}
+          href={reportHref}
           className="community-primary-button fixed bottom-[82px] right-4 z-40 h-14 gap-2 px-5 md:bottom-24 md:right-8"
         >
           <SquarePen size={18} />投稿する
         </Link>
       )}
 
-      <BottomNav active="after-report" artistSlug={slug} eventId={nextEvent?.id} />
+      <BottomNav active="after-report" artistSlug={slug} eventId={reportEvent?.id} />
     </main>
   );
 }

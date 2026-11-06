@@ -12,9 +12,12 @@ import { InfoListRow } from "@/components/common/InfoListRow";
 import { EventListRow, formatEventDate } from "@/components/common/EventListRow";
 import { PageLoadingShell } from "@/components/common/PageLoadingShell";
 import { EmptyState } from "@/components/common/EmptyState";
+import ReadySearchControl from "@/components/venue/template/ReadySearchControl";
 import { trackEvent } from "@/lib/analytics";
 import { findArtistBySlug, type Artist } from "@/lib/artists";
 import { getSearchEventDestination, searchArtists, searchEvents, searchVenues, type SearchVenue } from "@/lib/search";
+import { parseSearchQuery } from "@/lib/searchQuery";
+import { getSearchDiscoveryResults, type SearchDiscoveryResult } from "@/lib/searchDiscovery";
 import { supabase } from "@/lib/supabase/client";
 import type { CrawledEvent } from "@/lib/types";
 import { isVagueHomeVenue } from "@/lib/homeData";
@@ -52,6 +55,8 @@ function SearchPageInner() {
   const [artistResults, setArtistResults] = useState<Artist[]>([]);
   const [venueResults, setVenueResults] = useState<SearchVenue[]>([]);
   const [eventResults, setEventResults] = useState<CrawledEvent[]>([]);
+  const [discoveryResults, setDiscoveryResults] = useState<SearchDiscoveryResult[]>([]);
+  const [resolvedQuery, setResolvedQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const [favoriteUserId, setFavoriteUserId] = useState<string | null>(null);
   const [favoriteSlugs, setFavoriteSlugs] = useState<Set<string>>(new Set());
@@ -131,10 +136,13 @@ function SearchPageInner() {
   // 検索実行(200msデバウンス)
   useEffect(() => {
     const trimmed = query.trim();
+    let cancelled = false;
     if (trimmed.length < 1) {
       setArtistResults([]);
       setVenueResults([]);
       setEventResults([]);
+      setDiscoveryResults([]);
+      setResolvedQuery("");
       setLoading(false);
       return;
     }
@@ -145,10 +153,14 @@ function SearchPageInner() {
         Promise.resolve(searchArtists(trimmed)),
         searchEvents(trimmed),
       ]);
-      const venues = searchVenues(trimmed);
+      if (cancelled) return;
+      const venues = searchVenues(trimmed, 200, events);
+      const discovery = getSearchDiscoveryResults(trimmed, { ...parseSearchQuery(trimmed), events });
       setArtistResults(artists);
       setVenueResults(venues);
       setEventResults(events);
+      setDiscoveryResults(discovery);
+      setResolvedQuery(trimmed);
       setLoading(false);
       if (lastTrackedQuery.current !== trimmed) {
         lastTrackedQuery.current = trimmed;
@@ -157,38 +169,39 @@ function SearchPageInner() {
           artist_results: artists.length,
           venue_results: venues.length,
           event_results: events.length,
-          has_results: artists.length + venues.length + events.length > 0,
+          guide_results: discovery.length,
+          has_results: artists.length + venues.length + events.length + discovery.length > 0,
         });
       }
     }, 200);
 
-    return () => clearTimeout(timer);
+    return () => { cancelled = true; clearTimeout(timer); };
   }, [query]);
 
   const hasQuery = query.trim().length > 0;
-  const hasResults = artistResults.length > 0 || venueResults.length > 0 || eventResults.length > 0;
+  const hasResults = artistResults.length > 0 || venueResults.length > 0 || eventResults.length > 0 || discoveryResults.length > 0;
 
   return (
-    <main className="community-page pb-16">
+    <main className="community-page pb-16" data-search-query={loading ? undefined : resolvedQuery}>
       <section className="community-hero">
         <Header title="検索" backHref="/" backLabel="TOPへ戻る" />
 
         <div className="zr-container pb-6 pt-4 sm:pb-9 sm:pt-7">
           <p className="community-eyebrow">SEARCH TIXREPO</p>
-          <h1 className="mt-2 text-[28px] font-black tracking-[-0.05em] text-[#4b4148] sm:text-[38px]">アーティスト・会場を<span className="text-[#ef4f87]">探す</span></h1>
-          <p className="mt-1 text-[11px] font-bold text-[#817981]">公演名・座席表・会場の見え方も検索できます。</p>
+          <h1 className="mt-2 text-[28px] font-black tracking-[-0.05em] text-[#4b4148] sm:text-[38px]">ライブの情報を<span className="text-[#ef4f87]">探す</span></h1>
+          <p className="mt-1 text-pretty text-[12px] font-bold leading-6 text-[#817981]">地域・座席表・アクセス・ロッカー・セトリも検索できます。</p>
 
           <label className="mt-4 flex min-h-[52px] items-center gap-3 border border-[#eadfe4] bg-white px-4 text-[#4b4148] shadow-sm">
             <span className="sr-only">アーティスト・公演・会場を検索</span>
             <Search size={21} strokeWidth={2.2} className="shrink-0 text-[#ef4f87]" />
-            <input
+            <ReadySearchControl><input
               type="text"
               inputMode="search"
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder="アーティスト・公演名・会場名"
+              placeholder="名前・地域・知りたいこと"
               className="min-w-0 flex-1 bg-transparent text-[14px] font-bold text-[#4b4148] outline-none placeholder:text-[#aaa2a8]"
-            />
+            /></ReadySearchControl>
             {query && (
               <button
                 type="button"
@@ -269,12 +282,31 @@ function SearchPageInner() {
           />
         )}
 
+        {hasQuery && !loading && discoveryResults.length > 0 && (
+          <section className="pb-8 sm:pb-10" aria-labelledby="discovery-results-title">
+            <h2 id="discovery-results-title" className="text-[22px] font-black tracking-[-0.04em]">目的に合う案内</h2>
+            <div className="mt-4 border-y border-[#ded8dc] bg-white">
+              {discoveryResults.map((result) => (
+                <Link key={result.id} href={result.href} prefetch={false}
+                  className="zr-focus group flex min-h-[72px] items-center justify-between gap-4 border-b border-[#ece5e9] px-4 py-4 last:border-b-0"
+                  onClick={() => trackEvent("select_search_result", { result_type: result.kind, result_id: result.id, search_term: query.trim() })}>
+                  <span className="min-w-0">
+                    <span className="block text-[15px] font-black leading-6 text-[#4b4148]">{result.title}</span>
+                    <span className="mt-1 block text-[12px] font-medium leading-5 text-[#817981]">{result.description}</span>
+                  </span>
+                  <MoveRight size={17} className="shrink-0 text-[#f43679]" aria-hidden="true" />
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
         {hasQuery && !loading && venueResults.length > 0 && (
           <section className="pb-8 sm:pb-10" aria-labelledby="venue-results-title">
             <div className="flex items-end justify-between gap-3">
               <div>
-                <p className="artist-kicker">Venue seat map</p>
-                <h2 id="venue-results-title" className="mt-1 text-[22px] font-black tracking-[-0.04em]">会場の座席表</h2>
+                <p className="artist-kicker">Venue guide</p>
+                <h2 id="venue-results-title" className="mt-1 text-[22px] font-black tracking-[-0.04em]">会場・公演の案内</h2>
               </div>
               <p className="text-[10px] font-black text-[#817981]">{venueResults.length} VENUES</p>
             </div>
@@ -282,8 +314,8 @@ function SearchPageInner() {
               {venueResults.map((venue) => (
                 <InfoListRow
                   key={venue.id}
-                  href={`/venues/${venue.id}`}
-                  ariaLabel={`${venue.name}の公演・座席表を見る`}
+                  href={venue.href}
+                  ariaLabel={`${venue.name}：${venue.description}`}
                   className="group"
                   onClick={() => trackEvent("select_search_result", {
                     result_type: "venue",
@@ -292,7 +324,7 @@ function SearchPageInner() {
                   })}
                 >
                   <span className="flex flex-col items-center gap-1 text-[#f43679]"><Building2 size={20} strokeWidth={1.7} /><span className="text-[8px] font-black">VENUE</span></span>
-                  <span className="min-w-0"><span className="block truncate text-[15px] font-black tracking-[-0.035em] text-[#4b4148]">{venue.name}</span><span className="mt-1 block text-[10px] font-bold text-[#817981]">公演・座席表を見る</span></span>
+                  <span className="min-w-0"><span className="block text-[15px] font-black leading-6 tracking-[-0.035em] text-[#4b4148]">{venue.name}</span><span className="mt-1 block text-[12px] font-medium leading-5 text-[#817981]">{venue.description}</span></span>
                   <MoveRight size={17} className="shrink-0 text-[#f43679] transition-transform group-hover:translate-x-1" />
                 </InfoListRow>
               ))}

@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { ARTISTS } from "../src/lib/artists.ts";
 import { VENUES } from "../src/lib/eventCrawlerConfig.ts";
+import { SEARCH_VENUE_CATALOG } from "../src/data/searchVenueCatalog.ts";
 import { ARTIST_SEARCH_ALIASES } from "../src/lib/artistSearchAliases.ts";
 import { VENUE_SEARCH_ALIASES } from "../src/lib/venueSearchAliases.ts";
 import { parseSearchQuery } from "../src/lib/searchQuery.ts";
@@ -140,7 +141,7 @@ test("single kana in a named venue query uses the parser's kana folding", () => 
 
 test("short venue aliases do not reinterpret other hall names", () => {
   const query = "FRUITS ZIPPER 熊本城ホール メインホール 2026-10-27 座席";
-  assert.deepEqual(parseSearchQuery(query).venueIds, []);
+  assert.deepEqual(parseSearchQuery(query).venueIds, [SEARCH_VENUE_CATALOG.find((venue) => venue.eventVenueNames.includes("熊本城ホール メインホール"))?.id]);
   assert.deepEqual(parseSearchQuery("FRUITS ZIPPER 城ホ 席").venueIds, ["osaka-jo-hall"]);
   const row = { ...event("kumamoto", "fruits-zipper", "official-news-kumamoto", "JAPAN TOUR 2026"), venue: "熊本城ホール メインホール", date: "2026-10-27" };
   assert.deepEqual(rankEventSearchResults(query, [row], searchArtists(query)).map(row => row.id), ["kumamoto"]);
