@@ -13,10 +13,4 @@
 .list svg { flex-shrink: 0; color: #bc3668; }
 @media (hover: hover) { .list a:hover { color: #a62c5a; background: #fff8fb; } .filters button:hover { border-color: #ad315e; } }
 @media (min-width: 1024px) { .list { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 28px; } .list a { min-height: 72px; font-size: 14px; } }
-.featured { padding-block: 20px 24px; background: #fff9fb; border-bottom: 1px solid #eedee5; }
-.featured .list { margin-top: 10px; }
-.featured .heading h2 { font-size: clamp(20px, 2vw, 25px); }
-@media (min-width: 640px) { .featured .list { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 359px) { .heading { align-items: flex-start; } .heading h2 { font-size: 19px; gap: 6px; } .list { column-gap: 12px; } }
-
-.intro { margin-top: 4px; color: #71616b; font-size: 13px; line-height: 1.7; }

@@ -6,7 +6,6 @@ import { VENUE_REGION_GROUPS } from "@/lib/venueRegions";
 import { SEO_VENUES } from "@/lib/venueSeo";
 import { getPublicVenueName, getPublicVenueSeatGuideHref } from "@/lib/publicVenueGuides";
 import HomeHeader from "@/components/home/HomeHeader";
-import HeroBanner from "@/components/home/HeroBanner";
 import HomeFeatureBanners from "@/components/home/HomeFeatureBanners";
 import HomeHeroPromoBanner from "@/components/home/HomeHeroPromoBanner";
 import UpcomingEventsSection from "@/components/home/UpcomingEventsSection";
@@ -188,9 +187,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ "
     <div className="min-h-screen bg-background">
       <HomeHeader />
       <main>
-        <HeroBanner />
         <HomeFeatureBanners />
-        <HomeVenueDirectory featured regions={venueRegions} venues={venueLinks} />
         {preview && <Suspense fallback={<FeaturedEventsSkeleton />}><SeatDiscoveryPilot state={query["seat-card-state"]} /></Suspense>}
         <Suspense fallback={<UpcomingEventsSkeleton />}>
           <HomeUpcomingSection />

@@ -8,10 +8,7 @@ import styles from "./HomeVenueDirectory.module.css";
 type Props = {
   regions: readonly { id: string; label: string }[];
   venues: readonly { id: string; name: string; region: string; href: string }[];
-  featured?: boolean;
 };
-
-const shortcutIds = ["tokyo-dome", "kyocera-dome", "belluna-dome", "k-arena", "osaka-jo-hall", "makuhari-messe"];
 
 // Keep venue-name units together on narrow screens without shortening the name.
 const venueNameParts: Readonly<Record<string, readonly string[]>> = {
@@ -28,32 +25,27 @@ const venueNameParts: Readonly<Record<string, readonly string[]>> = {
   "marine-messe": ["マリンメッセ", "福岡A館"],
 };
 
-export default function HomeVenueDirectory({ regions, venues, featured = false }: Props) {
+export default function HomeVenueDirectory({ regions, venues }: Props) {
   const [region, setRegion] = useState("all");
-  const visibleVenues = featured
-    ? shortcutIds.flatMap(id => venues.filter(venue => venue.id === id))
-    : region === "all" ? venues : venues.filter(venue => venue.region === region);
-  const sectionId = featured ? "home-venue-shortcuts" : "home-venues";
-  const source = featured ? "home_shortcut" : "home_directory";
+  const visibleVenues = region === "all" ? venues : venues.filter(venue => venue.region === region);
   return (
-    <section className={`${styles.section}${featured ? ` ${styles.featured}` : ""}`} aria-labelledby={`${sectionId}-title`}>
+    <section className={styles.section} aria-labelledby="home-venues-title">
       <div className="zr-container">
         <div className={styles.heading}>
-          <h2 id={`${sectionId}-title`}><Building2 size={22} aria-hidden="true" /><span><span className={styles.keepTogether}>会場から</span><span className={styles.keepTogether}>座席表を探す</span></span></h2>
-          <DiscoveryLink href="/venues" className="zr-focus" discovery={{ source, destination: "directory", destinationId: "venues" }}>全{venues.length}会場<ArrowUpRight size={15} aria-hidden="true" /></DiscoveryLink>
+          <h2 id="home-venues-title"><Building2 size={22} aria-hidden="true" /><span><span className={styles.keepTogether}>会場から</span><span className={styles.keepTogether}>座席表を探す</span></span></h2>
+          <DiscoveryLink href="/venues" className="zr-focus" discovery={{ source: "home_directory", destination: "directory", destinationId: "venues" }}>全{venues.length}会場<ArrowUpRight size={15} aria-hidden="true" /></DiscoveryLink>
         </div>
-        {featured && <p className={styles.intro}>座席表・アクセス・荷物の預け先を、会場ごとに。</p>}
-        {!featured && <div className={styles.filters} aria-label="会場の地域で絞り込む">
+        <div className={styles.filters} aria-label="会場の地域で絞り込む">
           {[{ id: "all", label: "全国" }, ...regions].map(item => (
-            <button key={item.id} type="button" className="zr-focus" aria-pressed={region === item.id} aria-controls={`${sectionId}-links`} onClick={() => setRegion(item.id)}>{item.label}</button>
+            <button key={item.id} type="button" className="zr-focus" aria-pressed={region === item.id} aria-controls="home-venues-links" onClick={() => setRegion(item.id)}>{item.label}</button>
           ))}
-        </div>}
+        </div>
         <p className="sr-only" aria-live="polite">{visibleVenues.length}会場を表示しています</p>
-        <ul id={`${sectionId}-links`} className={styles.list}>
+        <ul id="home-venues-links" className={styles.list}>
           {visibleVenues.map(venue => {
             const parts = venueNameParts[venue.id];
             const label = parts?.join("") === venue.name ? parts : [venue.name];
-            return <li key={venue.id}><DiscoveryLink className="zr-focus" href={venue.href} discovery={{ source, destination: "venue", destinationId: venue.id }} aria-label={`${venue.name}の座席表を見る`}><span>{label.map((part, index) => <span className={styles.keepTogether} key={index}>{part}</span>)}</span><ChevronRight size={16} aria-hidden="true" /></DiscoveryLink></li>;
+            return <li key={venue.id}><DiscoveryLink className="zr-focus" href={venue.href} discovery={{ source: "home_directory", destination: "venue", destinationId: venue.id }} aria-label={`${venue.name}の座席表を見る`}><span>{label.map((part, index) => <span className={styles.keepTogether} key={index}>{part}</span>)}</span><ChevronRight size={16} aria-hidden="true" /></DiscoveryLink></li>;
           })}
         </ul>
       </div>

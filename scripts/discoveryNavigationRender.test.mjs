@@ -45,16 +45,14 @@ const regions = VENUE_REGION_GROUPS.map(({ id, label }) => ({ id, label }));
 const venues = VENUE_REGION_GROUPS.flatMap(group => group.venueIds.map(id => ({ id, name: id, region: group.id, href: getPublicVenueSeatGuideHref(id) })));
 const event = { id: "show-1", date: "2026-12-01", title: "Number_i LIVE TOUR", venue: "東京ドーム", artist_slug: "number-i" };
 
-test("home shortcuts lead directly to six existing seat guides; all 26 remain discoverable", () => {
-  const shortcuts = render(Directory, { regions, venues, featured: true });
-  const links = [...shortcuts.matchAll(/href="(\/venues\/[^\"]+)"/g)].map(match => match[1]);
-  assert.deepEqual(links, ["tokyo-dome", "kyocera-dome", "belluna-dome", "k-arena", "osaka-jo-hall", "makuhari-messe"].map(getPublicVenueSeatGuideHref));
+test("the home directory has one direct seat-guide link for each of the 26 venues", () => {
   const full = render(Directory, { regions, venues });
+  const links = [...full.matchAll(/href="(\/venues\/[^\"]+)"/g)].map(match => match[1]);
   assert.equal(venues.length, 26);
-  for (const venue of venues) assert.ok(full.includes(`href="${venue.href}"`));
-  const ids = [...(shortcuts + full).matchAll(/\bid="([^"]+)"/g)].map(match => match[1]);
+  assert.deepEqual(links, venues.map(venue => venue.href));
+  assert.equal(new Set(links).size, 26);
+  const ids = [...full.matchAll(/\bid="([^"]+)"/g)].map(match => match[1]);
   assert.equal(new Set(ids).size, ids.length);
-  assert.doesNotMatch(shortcuts, /<button|人気ランキング/);
   assert.match(full, /aria-controls="home-venues-links"/);
 });
 
@@ -93,11 +91,12 @@ test("long and escaped titles survive initial HTML without becoming markup or gu
   assert.match(html, /&lt;script&gt;/);
 });
 
-test("hero exposes both search entrances as ordinary links before hydration", async () => {
-  const { default: Hero } = await import("../src/components/home/HeroBanner.tsx");
-  const html = render(Hero, {});
-  assert.match(html, /href="\/search"/); assert.match(html, /href="\/venues"/);
-  assert.match(html, /会場・座席表から探す/); assert.match(html, /アーティストから探す/);
+test("top banners expose all three destinations as ordinary links before hydration", async () => {
+  const { default: HomeFeatureBanners } = await import("../src/components/home/HomeFeatureBanners.tsx");
+  const html = render(HomeFeatureBanners, {});
+  const links = [...html.matchAll(/<a\b[^>]*href="([^"]+)"/g)].map(match => match[1]);
+  assert.deepEqual(links, ["/search", "/venues", "/news/how-to-use-tixrepo"]);
+  assert.match(html, /<h1[^>]*>ちけレポでできること<\/h1>/);
 });
 
 test("discovery measurement permits identifiers only and navigation works without analytics", async () => {
