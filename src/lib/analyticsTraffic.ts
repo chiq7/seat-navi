@@ -67,7 +67,39 @@ export function endVerification(): void {
   window.location.replace(window.location.pathname === VERIFICATION_ENTRY_PATH ? "/" : VERIFICATION_ENTRY_PATH);
 }
 
+// Runs in the inline bootstrap, so it cannot depend on module-level values.
+function readLandingSignals(search: string, userAgent: string, referrer: string, origin: string) {
+  const query = new URLSearchParams(search);
+  const readTag = (key: string) => {
+    const value = query.get(key);
+    return value && /^[a-zA-Z0-9_-]{1,80}$/.test(value) ? value : null;
+  };
+  const source = readTag("utm_source");
+  const medium = readTag("utm_medium");
+  const name = readTag("utm_campaign");
+  const content = readTag("utm_content");
+  const campaign: Record<string, string> = {};
+  if (source && medium && name && medium.toLowerCase() !== "internal") {
+    campaign.campaign_source = source;
+    campaign.campaign_medium = medium;
+    campaign.campaign_name = name;
+    if (content) campaign.campaign_content = content;
+  }
+
+  let appEvent: string | undefined;
+  // App browsers are an observation about how the page opened, not the share source.
+  if (!referrer || (referrer !== origin && !referrer.startsWith(`${origin}/`))) {
+    if (/\bLine\/\d/i.test(userAgent)) appEvent = "landing_in_line";
+    else if (/\bMicroMessenger\/\d/i.test(userAgent)) appEvent = "landing_in_wechat";
+  }
+  return { campaign, appEvent };
+}
+
 export function gaBootstrapScript(measurementId: string): string {
   if (!/^G-[A-Z0-9]+$/.test(measurementId)) throw new Error("Invalid GA measurement ID");
-  return `(function(w){var disabled=location.pathname===${JSON.stringify(VERIFICATION_ENTRY_PATH)},origin='public_unmarked',persistent=null,legacy=null;try{persistent=localStorage.getItem(${JSON.stringify(ANALYTICS_EXCLUSION_KEY)});}catch(e){}try{legacy=sessionStorage.getItem(${JSON.stringify(VERIFICATION_STORAGE_KEY)});}catch(e){origin='unclassified';}var excluded=(${classifyAnalyticsExclusion.toString()})(persistent,Date.now());if(excluded!==null){disabled=true;origin=excluded;}else{origin=(${classifyVerificationMarker.toString()})(legacy,Date.now());if(origin==='verification_codex'||origin==='verification_operator')disabled=true;else if(legacy!==null){try{var old=JSON.parse(legacy);if(old.v===1&&['codex','operator'].includes(old.role)&&Number.isSafeInteger(old.startedAt)&&Number.isSafeInteger(old.expiresAt)&&old.startedAt<=Date.now()&&old.expiresAt>old.startedAt&&old.expiresAt-old.startedAt<=7200000){origin='verification_'+old.role;disabled=true;}}catch(e){}}}w.__tixrepoTrafficOrigin=origin;w['ga-disable-'+${JSON.stringify(measurementId)}]=disabled;w.addEventListener('storage',function(e){if(e.key===${JSON.stringify(ANALYTICS_EXCLUSION_KEY)}){w['ga-disable-'+${JSON.stringify(measurementId)}]=true;location.reload();}});if(disabled){w.dispatchEvent(new Event('tixrepo-traffic-ready'));return;}w.dataLayer=w.dataLayer||[];w.gtag=w.gtag||function(){w.dataLayer.push(arguments);};w.gtag('js',new Date());w.gtag('config',${JSON.stringify(measurementId)},{traffic_origin:origin,page_location:location.origin+location.pathname,page_referrer:document.referrer?document.referrer.split(/[?#]/)[0]:''});w.dispatchEvent(new Event('tixrepo-traffic-ready'));})(window);`;
+  return `(function(w){var disabled=location.pathname===${JSON.stringify(VERIFICATION_ENTRY_PATH)},origin='public_unmarked',persistent=null,legacy=null;try{persistent=localStorage.getItem(${JSON.stringify(ANALYTICS_EXCLUSION_KEY)});}catch(e){}try{legacy=sessionStorage.getItem(${JSON.stringify(VERIFICATION_STORAGE_KEY)});}catch(e){origin='unclassified';}var excluded=(${classifyAnalyticsExclusion.toString()})(persistent,Date.now());if(excluded!==null){disabled=true;origin=excluded;}else{origin=(${classifyVerificationMarker.toString()})(legacy,Date.now());if(origin==='verification_codex'||origin==='verification_operator')disabled=true;else if(legacy!==null){try{var old=JSON.parse(legacy);if(old.v===1&&['codex','operator'].includes(old.role)&&Number.isSafeInteger(old.startedAt)&&Number.isSafeInteger(old.expiresAt)&&old.startedAt<=Date.now()&&old.expiresAt>old.startedAt&&old.expiresAt-old.startedAt<=7200000){origin='verification_'+old.role;disabled=true;}}catch(e){}}}w.__tixrepoTrafficOrigin=origin;w['ga-disable-'+${JSON.stringify(measurementId)}]=disabled;w.addEventListener('storage',function(e){if(e.key===${JSON.stringify(ANALYTICS_EXCLUSION_KEY)}){w['ga-disable-'+${JSON.stringify(measurementId)}]=true;location.reload();}});if(disabled){w.dispatchEvent(new Event('tixrepo-traffic-ready'));return;}w.dataLayer=w.dataLayer||[];w.gtag=w.gtag||function(){w.dataLayer.push(arguments);};w.gtag('js',new Date());
+var landing=(${readLandingSignals.toString()})(location.search,navigator.userAgent,document.referrer,location.origin);
+w.gtag('config',${JSON.stringify(measurementId)},{...landing.campaign,traffic_origin:origin,page_location:location.origin+location.pathname,page_referrer:document.referrer?document.referrer.split(/[?#]/)[0]:''});
+if(landing.appEvent)w.gtag('event',landing.appEvent,{traffic_origin:origin});
+w.dispatchEvent(new Event('tixrepo-traffic-ready'));})(window);`;
 }
