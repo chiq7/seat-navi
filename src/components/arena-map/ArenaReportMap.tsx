@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import type { ArenaReportMapProps, ColorMode } from "@/lib/arena-map/arenaMapTypes";
 import {
   COLOR_MODE_OPTIONS,
@@ -83,6 +83,7 @@ export function ArenaReportMap({
   onSeatSelectionChange,
   svgRef,
 }: ArenaReportMapProps) {
+  const svgId = useId();
   const [colorMode, setColorMode] = useState<ColorMode>("lottery");
   const [shareStatus, setShareStatus] = useState("");
   const [showAllOverflow, setShowAllOverflow] = useState(false);
@@ -469,21 +470,21 @@ export function ArenaReportMap({
         aria-label={focusedBlock ? `${focusedBlock.blockName}ブロックを拡大した座席表（座席報告・模式図）` : "座席表（座席報告・参考・模式図）"}
       >
         <defs>
-          <linearGradient id="arena-stage-surface" x1="0" x2="0" y1="0" y2="1">
+          <linearGradient id={`${svgId}-stage-surface`} x1="0" x2="0" y1="0" y2="1">
             <stop offset="0%" stopColor="#2a2028" />
             <stop offset="100%" stopColor="#704e60" />
           </linearGradient>
-          <linearGradient id="arena-stage-edge" x1="0" x2="1" y1="0" y2="0">
+          <linearGradient id={`${svgId}-stage-edge`} x1="0" x2="1" y1="0" y2="0">
             <stop offset="0%" stopColor="#f43679" stopOpacity="0" />
             <stop offset="28%" stopColor="#ff8ab1" />
             <stop offset="72%" stopColor="#ff8ab1" />
             <stop offset="100%" stopColor="#f43679" stopOpacity="0" />
           </linearGradient>
-          <linearGradient id="arena-light-left" x1="0" x2="1" y1="0" y2="1">
+          <linearGradient id={`${svgId}-light-left`} x1="0" x2="1" y1="0" y2="1">
             <stop offset="0%" stopColor="#ff5b96" stopOpacity="0.24" />
             <stop offset="100%" stopColor="#ff5b96" stopOpacity="0" />
           </linearGradient>
-          <linearGradient id="arena-light-right" x1="1" x2="0" y1="0" y2="1">
+          <linearGradient id={`${svgId}-light-right`} x1="1" x2="0" y1="0" y2="1">
             <stop offset="0%" stopColor="#c4b5fd" stopOpacity="0.2" />
             <stop offset="100%" stopColor="#c4b5fd" stopOpacity="0" />
           </linearGradient>
@@ -491,8 +492,8 @@ export function ArenaReportMap({
 
         {/* 会場の外周。客席ブロックの背面に薄く敷き、会場図としてのまとまりを作る。 */}
         <rect x={4} y={stageTop} width={svgW - 8} height={svgH - stageTop - 4} fill="#faf8fa" stroke="#ded8dc" strokeWidth="1" />
-        <path d={`M${stageX + 20},${stageTop + 18} L${GRID_START_X + 3},${bandTop + COL_HEADER_H + 20} L${GRID_START_X + 3},${bandTop + COL_HEADER_H + 82} Z`} fill="url(#arena-light-left)" />
-        <path d={`M${stageX + STAGE_W - 20},${stageTop + 18} L${svgW - GRID_START_X - 3},${bandTop + COL_HEADER_H + 20} L${svgW - GRID_START_X - 3},${bandTop + COL_HEADER_H + 82} Z`} fill="url(#arena-light-right)" />
+        <path d={`M${stageX + 20},${stageTop + 18} L${GRID_START_X + 3},${bandTop + COL_HEADER_H + 20} L${GRID_START_X + 3},${bandTop + COL_HEADER_H + 82} Z`} fill={`url(#${svgId}-light-left)`} />
+        <path d={`M${stageX + STAGE_W - 20},${stageTop + 18} L${svgW - GRID_START_X - 3},${bandTop + COL_HEADER_H + 20} L${svgW - GRID_START_X - 3},${bandTop + COL_HEADER_H + 82} Z`} fill={`url(#${svgId}-light-right)`} />
         {/* コンパクト見出し */}
         {isCompact && (compactVenueName || compactDateLabel) && (
           <text x={svgW / 2} y={11} textAnchor="middle" fill="#374151">
@@ -514,8 +515,8 @@ export function ArenaReportMap({
           <rect x={stageX - 12} y={stageTop + 20} width={4} height={4} fill="#ff5b96" />
           <rect x={stageX + STAGE_W + 8} y={stageTop + 11} width={4} height={4} fill="#ff5b96" />
           <rect x={stageX + STAGE_W + 8} y={stageTop + 20} width={4} height={4} fill="#ff5b96" />
-          <path d={`M${stageX},${stageTop + 5} H${stageX + STAGE_W} L${stageX + STAGE_W - 12},${stageTop + 39} H${stageX + 12} Z`} fill="url(#arena-stage-surface)" stroke="#6b4558" strokeWidth="1" />
-          <rect x={stageX + 16} y={stageTop + 8} width={STAGE_W - 32} height={2} fill="url(#arena-stage-edge)" />
+          <path d={`M${stageX},${stageTop + 5} H${stageX + STAGE_W} L${stageX + STAGE_W - 12},${stageTop + 39} H${stageX + 12} Z`} fill={`url(#${svgId}-stage-surface)`} stroke="#6b4558" strokeWidth="1" />
+          <rect x={stageX + 16} y={stageTop + 8} width={STAGE_W - 32} height={2} fill={`url(#${svgId}-stage-edge)`} />
           <path d={`M${stageX + 18},${stageTop + 31} H${stageX + STAGE_W - 18}`} stroke="#55404f" strokeWidth="1" />
           <text x={gridCenterX} y={stageTop + 23} textAnchor="middle" dominantBaseline="middle" pointerEvents="none" fontSize={13} fontWeight="800" fill="#ffffff" style={{ letterSpacing: "0.16em" }}>
             MAIN STAGE

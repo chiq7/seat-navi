@@ -29,6 +29,8 @@ export default function SeatDiscoveryCard({ data, favoriteControl, preview = fal
   const tourTitle = event?.title.startsWith(data.artistName) ? event.title.slice(data.artistName.length).trim() : event?.title;
   const ready = data.status === "ready";
   const hasMap = ready && summary.hasMap;
+  const showMapExample = ready && !data.limited && !hasMap && !!event && !historical;
+  const arenaMap = <ArenaReportMap eventId={eventId} reports={summary.seats} externalObservations={summary.external} variant="compact" positionOnlyPreview highlightPositionsPreview hideShareSection />;
   const venueSeatHref = getPublicVenueSeatGuideHref(event?.venue_id, event?.venue);
   const lottery = discoveryLotterySummary(data);
   const pendingRates = !lottery;
@@ -50,19 +52,24 @@ export default function SeatDiscoveryCard({ data, favoriteControl, preview = fal
         <p className={styles.dateRow}><CalendarDays size={15} aria-hidden="true" /><span>{historical && <><strong className={styles.pastLabel}>過去公演</strong>{event.date.slice(0, 4)}年 · </>}{data.events.map(item => discoveryDateLabel(item.date)).join("・")}</span>{venueSeatHref && <Link href={venueSeatHref} className={"zr-focus " + styles.inlineMap} aria-label={event?.venue + "の会場の座席表を見る"}>会場の座席表<ArrowUpRight size={14} aria-hidden="true" /></Link>}</p>
       </div>}</div>
 
-      {(hasMap || lottery) && <div className={styles.previewRow + (pendingRates ? " " + styles.pendingPreview : "")}>
+      {(hasMap || showMapExample || lottery) && <div className={styles.previewRow + (pendingRates ? " " + styles.pendingPreview : "")}>
         {hasMap && <div className={styles.figure}>
           <p className={styles.figureLabel}>座席表</p>
           {predictionPreview ? <div className={styles.map}>
             <EventPredictionSwitch key={eventId} eventId={eventId} reports={data.reports} external={data.externalObservations}
               events={data.events} compact onAddressChange={ignoreAddress} onViewChange={onViewChange}
               readState={data.status === "ready" ? "ready" : "unavailable"} limited={data.limited}>
-              <ArenaReportMap eventId={eventId} reports={summary.seats} externalObservations={summary.external} variant="compact" positionOnlyPreview highlightPositionsPreview hideShareSection />
+              {arenaMap}
             </EventPredictionSwitch>
           </div> : <Link href={mapHref} aria-label={data.artistName + "の座席表を詳しく見る"} className={"zr-focus " + styles.map}>
-              <ArenaReportMap eventId={eventId} reports={summary.seats} externalObservations={summary.external} variant="compact" positionOnlyPreview highlightPositionsPreview hideShareSection />
+              {arenaMap}
             </Link>}
           {summary.blocks.length > 0 && <p className={styles.blocks}><span aria-hidden="true" className={styles.dot} />{summary.blocks.slice(0, 6).join(" · ")}{summary.blocks.length > 6 && " …"}</p>}
+        </div>}
+        {showMapExample && <div className={styles.figure}>
+          <p className={styles.figureLabel}>アリーナ座席表の表示例</p>
+          <div className={styles.map}>{arenaMap}</div>
+          <p className={styles.note}>座席の報告が届くと、図に位置が表示されます。</p>
         </div>}
         {lottery && <div className={styles.stats}>
           <Link href={links.lottery} aria-label="当落データを見る（アーティスト全公演）" className={"zr-focus " + styles.lotteryLink}>

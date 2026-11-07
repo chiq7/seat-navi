@@ -99,6 +99,34 @@ test("top banners expose all three destinations as ordinary links before hydrati
   assert.match(html, /<h1[^>]*>ちけレポでできること<\/h1>/);
 });
 
+test("an upcoming event with no seat positions explains the arena map with a labeled example", async () => {
+  const { default: SeatDiscoveryCard } = await import("../src/components/home/SeatDiscoveryCard.tsx");
+  const data = {
+    artistSlug: "number-i", artistName: "Number_i", image: "/test.png",
+    selectedEventId: event.id, events: [{ ...event, venue_id: "tokyo-dome" }],
+    reports: [], externalObservations: [], status: "ready", limited: false,
+  };
+  const html = render(SeatDiscoveryCard, { data });
+  assert.match(html, /座席情報を募集中/);
+  assert.match(html, /アリーナ座席表の表示例/);
+  assert.match(html, /<svg[^>]+aria-label="座席表（座席報告・参考・模式図）"/);
+  assert.match(html, /href="\/venues\/tokyo-dome#venue-seat-guide"/);
+  assert.doesNotMatch(html, /href="[^\"]*#seat-map"/);
+  assert.doesNotMatch(render(SeatDiscoveryCard, { data: { ...data, status: "unavailable" } }), /アリーナ座席表の表示例/);
+  assert.doesNotMatch(render(SeatDiscoveryCard, { data, historical: true }), /アリーナ座席表の表示例/);
+
+  const report = { event_id: event.id, block: "A1", row_num: 1, seat_num: 1, created_at: "2026-11-07T00:00:00Z" };
+  const populated = { ...data, reports: [report] };
+  const both = renderToStaticMarkup(React.createElement(React.Fragment, null,
+    React.createElement(SeatDiscoveryCard, { data }),
+    React.createElement(SeatDiscoveryCard, { data: populated, preview: true }),
+  ));
+  assert.match(both, /href="\/events\/show-1#seat-map"/);
+  const gradients = [...both.matchAll(/<linearGradient id="([^"]+)"/g)].map(match => match[1]);
+  assert.equal(new Set(gradients).size, 8);
+  for (const id of gradients) assert.ok(both.includes(`url(#${id})`));
+});
+
 test("discovery measurement permits identifiers only and navigation works without analytics", async () => {
   const { discoveryClickParams } = await import("../src/lib/discoveryNavigation.ts");
   const context = { source: "venue_artist", destination: "artist", destinationId: "number-i", venueId: "tokyo-dome" };
