@@ -25,6 +25,7 @@ import { spatialSeatTarget } from "@/lib/seatMapInteraction";
 import { placeNumberLabel } from "./guides/kyoceraNumberLabels";
 import { DomeSeatFrame } from "./template/DomeSeatFrame";
 import { getTokyoDomeVenueSeatSelection, TOKYO_DOME_SEAT_SELECTION_EVENT } from "@/lib/tokyoDomeVenueSelection";
+import { useVenueSeatTarget } from "./VenueSeatTarget";
 
 type SeatArea = { code: string; label: [number, number]; path: string | null; shared: boolean; rows: [number, number] | null };
 const SOURCE_AREAS = geometry.sections as SeatArea[];
@@ -157,14 +158,45 @@ function selectedMapViewBox(section: TokyoDomeSection, label: [number, number], 
   return serializeMapViewBox(constrainMapViewBox({x:focus[0]-width/2,y:focus[1]-width*.44,width,height:width*.88}));
 }
 
+function selectedMapWidth(canvasWidth: number) {
+  return Math.max(140, Math.min(320, canvasWidth * .48));
+}
+
+function directionForArea(area: SeatArea): keyof typeof MAP_VIEWS {
+  return getTokyoDomeVerifiedSeatBlock(area.code)?.area
+    ?? (area.code.startsWith("F") ? (area.label[0] > 579 ? "right" : "left")
+      : area.label[0] > 594 ? "first" : area.label[0] < 564 ? "third" : "home");
+}
+
 export function TokyoDomeSeatLocator() {
+  const target = useVenueSeatTarget();
+  const [initial] = useState(() => {
+    if (target?.mode !== "fixed" || !getTokyoDomeVerifiedSeatBlock(target.section)) return null;
+    const area = AREA_BY_CODE.get(target.section);
+    const section = area?.path ? parseTokyoDomeSection(area.code) : null;
+    return area && section ? { area, section } : null;
+  });
+  const initialCanvasPending = useRef(Boolean(initial));
   const controlsReady = useSeatControlsReady();
   const mapSvgRef = useRef<SVGSVGElement>(null);
   const mapCanvasRef = useRef<HTMLDivElement>(null);
   const [canvasSize,setCanvasSize]=useState({width:900,height:650});
-  useEffect(()=>{const node=mapCanvasRef.current;if(!node)return;const observer=new ResizeObserver(([entry])=>setCanvasSize({width:entry.contentRect.width,height:entry.contentRect.height}));observer.observe(node);return()=>observer.disconnect();},[]);
+  useEffect(() => {
+    const node = mapCanvasRef.current;
+    if (!node) return;
+    const observer = new ResizeObserver(([entry]) => {
+      const { width, height } = entry.contentRect;
+      setCanvasSize({ width, height });
+      if (width > 1 && initial && initialCanvasPending.current) {
+        initialCanvasPending.current = false;
+        setInteractiveViewBox(parseMapViewBox(selectedMapViewBox(initial.section, initial.area.label, selectedMapWidth(width))));
+      }
+    });
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [initial]);
   const [tapHint, setTapHint] = useState(false);
-  const hintFinishedRef = useRef(false);
+  const hintFinishedRef = useRef(Boolean(initial));
   useEffect(() => {
     const node = mapCanvasRef.current;
     if (!node) return;
@@ -181,13 +213,13 @@ export function TokyoDomeSeatLocator() {
   const pointerStartsRef = useRef(new Map<number, { point: MapPoint; code: string | null }>());
   const gestureRef = useRef<MapGesture | null>(null);
   const didPanRef = useRef(false);
-  const [seatLevel, setSeatLevel] = useState<SeatLevel>("all");
-  const [direction,setDirection]=useState<keyof typeof MAP_VIEWS>("all");
+  const [seatLevel, setSeatLevel] = useState<SeatLevel>(initial ? levelForPrefix(initial.section.prefix) : "all");
+  const [direction,setDirection]=useState<keyof typeof MAP_VIEWS>(() => initial ? directionForArea(initial.area) : "all");
   const [candidates,setCandidates]=useState<SeatArea[]>([]);
   const [rowInput, setRowInput] = useState("");
   const [seatInput, setSeatInput] = useState("");
-  const [selected, setSelected] = useState<TokyoDomeSection | null>(null);
-  const [focusedCode, setFocusedCode] = useState("B26");
+  const [selected, setSelected] = useState<TokyoDomeSection | null>(initial?.section ?? null);
+  const [focusedCode, setFocusedCode] = useState(initial?.section.code ?? "B26");
   const [selectedRow, setSelectedRow] = useState<number | null>(null);
   const [selectedSeat, setSelectedSeat] = useState<number | null>(null);
   const [error, setError] = useState("");
@@ -206,7 +238,8 @@ export function TokyoDomeSeatLocator() {
     : selectedArea?.code.startsWith("F") ? "外野側" : selectedLabel
     ? selectedLabel[0] < 564 ? "3塁側" : selectedLabel[0] > 594 ? "1塁側" : "ホーム側"
     : undefined;
-  const [interactiveViewBox, setInteractiveViewBox] = useState<MapViewBox>(FULL_MAP_VIEW_BOX);
+  const [interactiveViewBox, setInteractiveViewBox] = useState<MapViewBox>(() => initial
+    ? parseMapViewBox(selectedMapViewBox(initial.section, initial.area.label)) : FULL_MAP_VIEW_BOX);
   const showDetail = interactiveViewBox.width <= 680;
   // Fade the illustration through the existing camera motion; detail is unchanged.
   const overviewOpacity = Math.max(0, Math.min(1, (interactiveViewBox.width - 520) / 380));
@@ -311,6 +344,7 @@ export function TokyoDomeSeatLocator() {
   });
 
   function resetGestures() {
+    initialCanvasPending.current = false;
     pointerPositionsRef.current.clear();
     pointerStartsRef.current.clear();
     gestureRef.current = null;
@@ -342,7 +376,7 @@ export function TokyoDomeSeatLocator() {
   }
 
   function showSelectedView(section: TokyoDomeSection, label: [number, number]) {
-    animateTo(parseMapViewBox(selectedMapViewBox(section, label,Math.max(140,Math.min(320,(mapCanvasRef.current?.clientWidth??840)*.48)))));
+    animateTo(parseMapViewBox(selectedMapViewBox(section, label, selectedMapWidth(mapCanvasRef.current?.clientWidth ?? 840))));
     resetGestures();
   }
 
@@ -482,7 +516,7 @@ export function TokyoDomeSeatLocator() {
     const shouldMove=locate||!selected||interactiveViewBox.width>360;
     setFocusedCode(area.code);setSeatLevel(levelForPrefix(section.prefix));setSelected(section);setSelectedRow(null);setSelectedSeat(null);setError("");setNotice("");setCandidates([]);
     if(shouldMove)showSelectedView(section,area.label);else{resetGestures();}
-    setDirection(getTokyoDomeVerifiedSeatBlock(area.code)?.area ?? (area.code.startsWith("F")?(area.label[0]>579?"right":"left"):area.label[0]>594?"first":area.label[0]<564?"third":"home"));
+    setDirection(directionForArea(area));
   }
 
   function chooseCode(code: string) {

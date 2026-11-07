@@ -13,11 +13,12 @@ import { getVenueSeoProfile } from "@/lib/seoProfiles";
 import { serializeJsonLd } from "@/lib/structuredData";
 import { SEO_VENUES, findSeoVenue, getVenueEvents, splitVenueEvents } from "@/lib/venueSeo";
 import { buildPublicVenueMetadata, getPublicVenueName, hasPublicVenueGuide } from "@/lib/publicVenueGuides";
+import { parseVenueSeatLink, ZOZO_LOWER_THIRD_PAGE } from "@/lib/venueSeatLinks";
 
 const SITE_URL = "https://tixrepo.com";
 
 
-type Props = { params: Promise<{ id: string }> };
+type Props = { params: Promise<{ id: string }>; searchParams: Promise<Record<string, string | string[] | undefined>> };
 
 export function generateStaticParams() {
   return SEO_VENUES.map((venue) => ({ id: venue.id }));
@@ -31,12 +32,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return buildPublicVenueMetadata(venue.id, venue.name, profile?.metaDescription);
 }
 
-export default async function VenuePage({ params }: Props) {
+export default async function VenuePage({ params, searchParams }: Props) {
   const { id } = await params;
   const venue = findSeoVenue(id);
   if (!venue) notFound();
 
   const hasGuide = hasPublicVenueGuide(venue.id);
+  const seatTarget = hasGuide ? parseVenueSeatLink(await searchParams) : null;
   const publicName = getPublicVenueName(venue.id, venue.name);
   const eventRead = await getVenueEvents(venue.id).then(events => ({events, available: true})).catch(() => ({events: [], available: false}));
   const events = eventRead.events;
@@ -115,7 +117,8 @@ export default async function VenuePage({ params }: Props) {
       <VenueSeatReadingGuide venueId={venue.id} />
       {hasGuide && <div id="venue-seat-guide" className="scroll-mt-[90px]">
         {eventRead.available && <VenueProgramJump venueId={venue.id} upcomingCount={upcoming.length} pastCount={past.length} />}
-        <PublicVenueGuide venue={venue.id} />
+        {venue.id === "zozo-marine" && <div className="zr-container"><a className="zr-focus inline-flex min-h-11 items-center text-sm font-bold text-[#a62b59] underline" href={ZOZO_LOWER_THIRD_PAGE}>下段3塁側の座席表を見る</a></div>}
+        <PublicVenueGuide venue={venue.id} target={seatTarget} />
       </div>}
 
 

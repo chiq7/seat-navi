@@ -294,7 +294,7 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
     event.preventDefault(); setFocusedCode(target.id);
     frame.current?.querySelector<SVGGElement>(`[data-seat-block="${target.id}"]`)?.focus({ preventScroll: true });
   }
-  return <div ref={frame} className={styles.canvas} data-testid="kyocera-seat-map" data-camera={box.join(" ")} data-map-mode="unified" data-number-badge-version="connected-v2" data-map-stage={overview ? "overview" : detail ? "detail" : "blocks"}
+  return <div ref={frame} className={styles.canvas} data-testid="kyocera-seat-map" data-selected={selectedCode ?? ""} data-camera={box.join(" ")} data-map-mode="unified" data-number-badge-version="connected-v2" data-map-stage={overview ? "overview" : detail ? "detail" : "blocks"}
     onPointerDownCapture={() => setTapHint("done")} onKeyDownCapture={() => setTapHint("done")}>
     <svg ref={svg} viewBox={`0 0 ${size.width} ${size.height}`} role="group" aria-label={`${guide.name}の座席表`} onPointerDown={start} onPointerMove={move}
       onPointerUp={end} onPointerCancel={cancel} onLostPointerCapture={event => { if (contacts.current.has(event.pointerId)) cancel(); }} onPointerLeave={event => { if (!event.currentTarget.hasPointerCapture(event.pointerId)) cancel(); }}>

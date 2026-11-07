@@ -1,8 +1,9 @@
 import type { ComponentProps } from "react";
 import type { DedicatedVenueGuide } from "@/data/venueGuides/types";
 import type StandSeatMap from "../template/StandSeatMap";
-import type { StandMapData } from "../template/standMap";
+import { resolveStandSeatSection, type StandMapData } from "../template/standMap";
 import type { FacilityConfig } from "../template/facilityFinderState";
+import type { VenueSeatLinkTarget } from "@/lib/venueSeatLinks";
 
 export type ArenaVenueData = {
   guide: DedicatedVenueGuide;
@@ -39,4 +40,12 @@ export function resolveArenaView(definition: ArenaGuideDefinition, mode: string)
   if (definition.resolveMode) return definition.resolveMode(mode);
   const { guide, seats, levels, areas, facilities, seatNote } = definition.data;
   return { guide, seats, levels, areas, facilities, seatNote };
+}
+
+export function resolveArenaSeatLink(definition: ArenaGuideDefinition, target: VenueSeatLinkTarget | null) {
+  const defaultMode = definition.initialMode ?? "fixed";
+  if (target && (definition.modes ? definition.modes.options.some(mode => mode.id === target.mode) : target.mode === defaultMode)) {
+    if (resolveStandSeatSection(resolveArenaView(definition, target.mode).seats, target.section)) return target;
+  }
+  return { mode: defaultMode, section: null };
 }

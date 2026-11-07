@@ -17,6 +17,8 @@ import KyoceraVisitorContent from "./KyoceraVisitorContent";
 import kyoceraQuality from "./KyoceraSeatMap.module.css";
 import KyoceraFacilityFinder from "./KyoceraFacilityFinder";
 import { initialKyoceraFinderState, kyoceraFinderReducer } from "./kyoceraFacilityState";
+import { kyoceraDrawingBlocks } from "./kyoceraMapDrawing";
+import { useVenueSeatTarget } from "../VenueSeatTarget";
 
 function Sources({ guide, ids }: { guide: DedicatedVenueGuide; ids: string[] }) {
   return <span className={styles.sources}>{ids.map(id => {
@@ -43,9 +45,13 @@ function kyoceraFacilityDetail(item: GuideFacility) {
 
 export default function VerifiedVenueGuide({ guide, embedded=false }: { guide: DedicatedVenueGuide; embedded?: boolean }) {
   const kyocera = guide.venueId === "kyocera-dome";
+  const target = useVenueSeatTarget();
   const guideRoot = useRef<HTMLDivElement>(null);
   const focusFrame = useRef<number | null>(null);
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(() => {
+    if (!kyocera || target?.mode !== "fixed") return null;
+    return kyoceraDrawingBlocks(guide).find(block => !block.special && block.code === target.section)?.areaId ?? null;
+  });
   const [rowLabel, setRowLabel] = useState<string | null>(null);
   const [seatNumber, setSeatNumber] = useState("");
   const [state, dispatchState] = useReducer((current: FinderState, action: FinderAction) => kyocera ? kyoceraFinderReducer(current, action, guide.facilities) : finderReducer(current, action), kyocera ? initialKyoceraFinderState : initialFinderState);

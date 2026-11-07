@@ -3,13 +3,15 @@ import {useRef,useState,type ComponentType} from 'react';
 import {DomeGuideHeader} from '../template/DomeGuideLayout';
 import StandSeatMap,{type StandSeatMapHandle} from '../template/StandSeatMap';
 import VenueFacilityFinder,{type FacilityFinderHandle} from '../template/VenueFacilityFinder';
-import {resolveArenaView,type ArenaGuideDefinition} from './arenaDefinition';
+import {resolveArenaSeatLink,resolveArenaView,type ArenaGuideDefinition} from './arenaDefinition';
+import {useVenueSeatTarget} from '../VenueSeatTarget';
 import styles from './KArenaGuide.module.css';
 import VenueAccessCards from '../template/VenueAccessCards';
 import {arenaAccessEntries} from '@/lib/venueAccess';
 export default function ArenaGuideContent({definition,embedded=false,primeLocation:PrimeLocation}:{definition:ArenaGuideDefinition;embedded?:boolean;primeLocation?:ComponentType<{onRegion:(level:string,area:string)=>void}>}){
 const venue=definition.venueId,data=definition.data,finder=useRef<FacilityFinderHandle>(null),facilities=useRef<HTMLElement>(null);
-const [mode,setMode]=useState(definition.initialMode??'fixed');
+const target=useVenueSeatTarget();
+const [{mode,section},setSeatView]=useState(()=>resolveArenaSeatLink(definition,target));
 const primeMap=useRef<StandSeatMapHandle>(null),primeNumbers=useRef<HTMLDivElement>(null);
 const isEdion=venue==='edion-arena',isPrime=mode===definition.primeMode;
 const modeKey=mode,resolved=resolveArenaView(definition,mode),{guide,seats,levels,facilities:facilityConfig}=resolved;
@@ -25,9 +27,9 @@ const modeKey=mode,resolved=resolveArenaView(definition,mode),{guide,seats,level
     <div className={`zr-container ${styles.content}`}>
       {isEdion && <aside className={styles.closure} aria-label="改修休館の案内"><strong>全館休館中</strong><p>{definition.closureNote}</p><a href="https://www.furitutaiikukaikan.ne.jp/" target="_blank" rel="noopener noreferrer">公式の休館・再開案内 ↗</a></aside>}
       <section id="venue-seats"><h2>{data.guide.name}の座席を探す</h2>
-        {definition.modes && <div className={styles.modes} aria-label={definition.modes.ariaLabel}><span>{definition.modes.caption}</span>{definition.modes.options.map(value=><button key={value.id} type="button" aria-pressed={mode === value.id} onClick={()=>setMode(value.id)}>{value.label}</button>)}</div>}
+        {definition.modes && <div className={styles.modes} aria-label={definition.modes.ariaLabel}><span>{definition.modes.caption}</span>{definition.modes.options.map(value=><button key={value.id} type="button" aria-pressed={mode === value.id} onClick={()=>{ if (value.id !== mode) setSeatView({mode:value.id,section:null}); }}>{value.label}</button>)}</div>}
         {isPrime && PrimeLocation && <PrimeLocation onRegion={showPrimeRegion}/>}
-        <div ref={primeNumbers}><StandSeatMap ref={isPrime ? primeMap : undefined} key={`${venue}-${modeKey}`} data={seats} levels={levels} areas={resolved.areas} onEquipment={showEquipment}/></div>
+        <div ref={primeNumbers}><StandSeatMap ref={isPrime ? primeMap : undefined} key={`${venue}-${modeKey}`} data={seats} levels={levels} areas={resolved.areas} initialSection={section} onEquipment={showEquipment}/></div>
         <p className={styles.note}>{resolved.seatNote}</p>
       </section>
       <section id="venue-facilities" ref={facilities}><h2>必要な設備を探す</h2>{"facilityNote" in data && <p className={styles.note}>{data.facilityNote}</p>}<VenueFacilityFinder key={`${venue}-${definition.preserveFacilitiesAcrossModes ? "fixed" : modeKey}`} ref={finder} guide={guide} config={facilityConfig}/></section>

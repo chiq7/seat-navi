@@ -12,6 +12,7 @@ import KyoceraNumberNavigator from "./KyoceraNumberNavigator";
 import { kyoceraBlockCamera, kyoceraDrawingBlocks, kyoceraAreaCamera, kyoceraMatchesArea, kyoceraSelectedDirection, type DrawingBlock } from "./kyoceraMapDrawing";
 import { findKyoceraSeats, normalizeKyoceraTicket, type KyoceraSeatCandidate } from "./kyoceraSeatSearch";
 import SeatSearchOffer from "@/components/seat-campaign/SeatSearchOffer";
+import { useVenueSeatTarget } from "../VenueSeatTarget";
 
 type Props = { guide: DedicatedVenueGuide; selectedId: string | null; rowLabel: string | null; seatNumber: string;
   onSelect: (area: SeatArea) => void; onClear: () => void; onRow: (row: string | null) => void;
@@ -23,10 +24,12 @@ const directions = [{ id: "all", label: "全体" }, { id: "first", label: "1塁�
 export default function KyoceraSeatMap({ guide, selectedId, rowLabel, seatNumber, onSelect, onClear, onRow, onTicket }: Props) {
   const whole = guide.seatMap!.viewBox;
   const blocks = useMemo(() => kyoceraDrawingBlocks(guide), [guide]);
-  const [box, setBox] = useState<Box>([...whole] as Box);
-  const [level, setLevel] = useState("すべて");
-  const [direction, setDirection] = useState("all");
-  const [selectedCode, setSelectedCode] = useState<string | null>(null);
+  const target = useVenueSeatTarget();
+  const [initial] = useState(() => target?.mode === "fixed" ? blocks.find(block => block.code === target.section) : undefined);
+  const [box, setBox] = useState<Box>(() => initial ? kyoceraBlockCamera(initial, whole) : [...whole] as Box);
+  const [level, setLevel] = useState(initial && !initial.special ? initial.tier : "すべて");
+  const [direction, setDirection] = useState(() => initial ? kyoceraSelectedDirection(initial, whole, "all") : "all");
+  const [selectedCode, setSelectedCode] = useState<string | null>(initial?.code ?? null);
   const [specialRow, setSpecialRow] = useState<string | null>(null);
   const [specialNumber, setSpecialNumber] = useState("");
   const [searchRow, setSearchRow] = useState("");

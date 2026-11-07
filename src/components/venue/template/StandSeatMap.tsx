@@ -9,12 +9,12 @@ import { DomeSeatFrame } from "./DomeSeatFrame";
 import { seatNumberBadge, seatNumberBadgeBounds, seatNumberArrowInk, seatNumberBadgeTipDistance } from "@/lib/seatNumberBadge";
 import ReadySearchControl from "./ReadySearchControl";
 import { boundsOf, fitStandArrowToCanvas, edgeNumberGuide, fitStandNumberGuide, clampCamera, standDetailCamera, standRowDetailTransition, isSeatTap, labelCoversOtherBlock, mapProjection, normalizeSeatInput, placeVisibleRowLabel, searchStandSeats, standContextLabel, standDisplayRows, standVisibleRowHints, standLabelOrder, standGroupReferenceLabels, standReferenceLabelKey, standRedundantContextLabel, standRedundantContextText, standLabelInsideCanvas, standSelectedNumberRun, standSelectedRow, youngEdgeMidpoint, zoomCamera, zoneLabelPositions, type MapBox, type Point, type StandBlock, type StandMapData, type StandPosition } from "./standMap";
-import { hasStandCanvasArea, overviewAreaLabelPosition, overviewAreaLabelWidth } from "./standMap";
+import { hasStandCanvasArea, overviewAreaLabelPosition, overviewAreaLabelWidth, resolveStandSeatSection, standZoneCamera } from "./standMap";
 import styles from "./StandSeatMap.module.css";
 import { VenueOverviewArt, StandOverviewTexture, overviewArtworkOpacity, VENUE_OVERVIEW_PROFILES } from "./VenueOverviewArt";
 
 type Choice = { id: string; label: string; color: string; point: Point };
-type Props = { data: StandMapData; levels: Choice[]; areas: { id: string; label: string }[]; onEquipment: (floor: string | null) => void };
+type Props = { data: StandMapData; levels: Choice[]; areas: { id: string; label: string }[]; initialSection?: string | null; onEquipment: (floor: string | null) => void };
 export type StandSeatMapHandle = { showRegion: (level: string, area: string) => void };
 type Gesture = { points: Map<number, Point>; start: Point; last: Point; travel: number; multi: boolean; block: string | null; distance: number };
 const freshGesture = (): Gesture => ({ points: new Map(), start: [0, 0], last: [0, 0], travel: 0, multi: false, block: null, distance: 0 });
@@ -27,24 +27,30 @@ const rowSummary = (block: StandBlock) => {
 const blockDisplayTitle = (block: StandBlock, levelLabel: string) =>
   block.label.split("・").filter(part => part.trim() !== rowSummary(block) && part.trim() !== levelLabel).join("・") || block.label;
 
-const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap({ data, levels, areas, onEquipment }, ref) {
+const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap({ data, levels, areas, initialSection, onEquipment }, ref) {
   
   // The three stacked floor plans need room for their outer rim and heading.
   // This pads the overview and outer pan bounds; seat geometry and floor/detail target definitions stay intact.
-  const overviewBox: MapBox = data.diagramId === "pia-arena-mm-seat-plans"
+  const overviewBox: MapBox = useMemo(() => data.diagramId === "pia-arena-mm-seat-plans"
     ? [data.viewBox[0] - 180, data.viewBox[1] - 180, data.viewBox[2] + 360, data.viewBox[3] + 360]
-    : data.viewBox as MapBox;
-  const [level, setLevel] = useState("all"), [area, setArea] = useState("all");
+    : data.viewBox as MapBox, [data.diagramId, data.viewBox]);
+  const [initial] = useState(() => initialSection ? resolveStandSeatSection(data, initialSection) : null);
+  const initialBlock = initial?.block, initialZone = initial?.zone;
+  const [level, setLevel] = useState(initialBlock?.level ?? initialZone?.level ?? "all"), [area, setArea] = useState(initialBlock?.area ?? initialZone?.area ?? "all");
   const [row, setRow] = useState(""), [number, setNumber] = useState("");
-  const [selected, setSelected] = useState<string | null>(null), [focused, setFocused] = useState(data.blocks[0].id);
-  const [zone, setZone] = useState<string | null>(null);
+  const [selected, setSelected] = useState<string | null>(initialBlock?.id ?? null), [focused, setFocused] = useState(initialBlock?.id ?? initialZone?.blockIds[0] ?? data.blocks[0].id);
+  const [zone, setZone] = useState<string | null>(initialBlock?.zone ?? initialZone?.id ?? null);
   const [matches, setMatches] = useState<StandBlock[]>([]), [error, setError] = useState("");
   const [position, setPosition] = useState<StandPosition | null>(null);
-  const [view, setView] = useState<MapBox>(overviewBox as MapBox), [size, setSize] = useState({ width: 900, height: 620 });
+  const [view, setView] = useState<MapBox>(() => {
+    const target = initialBlock ? standDetailCamera(initialBlock, data) : initialZone ? standZoneCamera(data, initialZone) : overviewBox;
+    return initial ? clampCamera(target, overviewBox, data.detailSpan * .45) : overviewBox;
+  }), [size, setSize] = useState({ width: 900, height: 620 });
   const [pulse, setPulse] = useState(false);
   
   const stage = useRef<HTMLDivElement>(null), svg = useRef<SVGSVGElement>(null), frame = useRef<number | null>(null);
-  const camera = useRef(view), gesture = useRef(freshGesture()), interacted = useRef(false);
+  const camera = useRef(view), gesture = useRef(freshGesture()), interacted = useRef(Boolean(initial));
+  const initialCanvasPending = useRef(Boolean(initialBlock));
   const previousSize = useRef(size);
   const uid = useId().replace(/:/g, ""), instructionId = `${uid}-keys`;
   const block = data.blocks.find(b => b.id === selected);
@@ -76,7 +82,7 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
           </path>), [block, data.blocks, data.wholeBlockLabels, data.zones, level, levels, pulse, selected, whole]);
 
   function stop() { if (frame.current !== null) cancelAnimationFrame(frame.current); frame.current = null; }
-  function interaction() { interacted.current = true; setPulse(false); stop(); }
+  function interaction() { initialCanvasPending.current = false; interacted.current = true; setPulse(false); stop(); }
   function renderCamera(next: MapBox) { camera.current = next; setView(next); }
   function move(next: MapBox, animate = true) {
     stop(); const target = clampCamera(next, overviewBox, data.detailSpan * .45);
@@ -108,7 +114,7 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
     const target = data.zones?.find(z => z.id === id); if (!target) return;
     interaction(); clearResult(); setZone(id); setLevel(target.level); setArea(target.area);
     const members = data.blocks.filter(b => target.blockIds.includes(b.id));
-    move(target.viewBox ? target.viewBox as MapBox : boundsOf(members, 72)); setFocused(members[0].id);
+    move(standZoneCamera(data, target)); setFocused(members[0].id);
   }
   function select(b: StandBlock, recenter = false) {
     interaction(); setSelected(b.id); setZone(b.zone ?? null); setFocused(b.id); setLevel(b.level); setArea(b.area); setMatches([]); setError(""); setPosition(null);
@@ -181,7 +187,15 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
     const el = stage.current!;
     const resize = new ResizeObserver(entries => {
       const { width, height } = entries[0].contentRect;
-      if (hasStandCanvasArea({ width, height })) setSize({ width, height });
+      const canvas = { width, height };
+      if (!hasStandCanvasArea(canvas)) return;
+      setSize(canvas);
+      if (initialBlock && initialCanvasPending.current) {
+        initialCanvasPending.current = false;
+        const next = clampCamera(standDetailCamera(initialBlock, data, canvas), overviewBox, data.detailSpan * .45);
+        camera.current = next;
+        setView(next);
+      }
     });
     resize.observe(el);
     const observer = new IntersectionObserver(entries => { if (entries.some(e => e.isIntersecting)) { if (!interacted.current) setPulse(true); observer.disconnect(); } }, { threshold: .2 });
@@ -189,7 +203,7 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
     const cancel = () => { gesture.current = freshGesture(); };
     window.addEventListener("blur", cancel); document.addEventListener("visibilitychange", cancel);
     return () => { resize.disconnect(); observer.disconnect(); stop(); window.removeEventListener("blur", cancel); document.removeEventListener("visibilitychange", cancel); };
-  }, []);
+  }, [data, initialBlock, overviewBox]);
   useEffect(() => {
     const el = svg.current!;
     const wheel = (event: WheelEvent) => {
@@ -431,7 +445,7 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
       <button type="button" disabled={!block} aria-label="座席の選択を解除" onClick={clearResult}><X size={19}/></button>
     </div>
     <p id={instructionId} className={styles.srOnly}>矢印キーで画面内のブロックを選び、Enterで拡大します。地図をドラッグして移動できます。</p>
-    <div className={`${styles.stage} ${overviewArt ? styles.venueOverview : ""} ${data.zones ? styles.zonedStage : ""} ${data.diagramId === "vantelin-prime-unfolded" ? styles.unfoldedStage : ""}`} ref={stage} data-testid="stand-seat-map" data-camera={view.map(n => n.toFixed(2)).join(",")} data-selected={selected ?? ""}>
+    <div className={`${styles.stage} ${overviewArt ? styles.venueOverview : ""} ${data.zones ? styles.zonedStage : ""} ${data.diagramId === "vantelin-prime-unfolded" ? styles.unfoldedStage : ""}`} ref={stage} data-testid="stand-seat-map" data-diagram-id={data.diagramId} data-camera={view.map(n => n.toFixed(2)).join(",")} data-selected={selected ?? ""} data-selected-zone={zone ?? ""}>
       <svg ref={svg} viewBox={`0 0 ${size.width} ${size.height}`} role="group" aria-label="座席の全体図" aria-describedby={instructionId} tabIndex={0}
         onPointerDown={down} onPointerMove={drag} onPointerUp={up} onPointerCancel={() => { gesture.current = freshGesture(); }} onLostPointerCapture={e => { if (gesture.current.points.has(e.pointerId)) gesture.current = freshGesture(); }}
         onKeyDown={e => {

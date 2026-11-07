@@ -25,6 +25,18 @@ export type StandBlock = {
   equipmentFloor: string | null; sourceIds: string[];
 };
 export type StandZone = { id: string; label: string; aliases: string[]; level: string; area: string; point: Point; blockIds: string[]; viewBox?: number[]; labelRow?: string; hideOnWhole?: boolean };
+
+export function resolveStandSeatSection(data: StandMapData, id: string) {
+  const block = data.blocks.find(item => item.id === id && item.path);
+  if (block) return { block, zone: null };
+  const zone = data.zones?.find(item => item.id === id);
+  if (!zone || !zone.blockIds.length || !zone.blockIds.every(member => data.blocks.some(item => item.id === member && item.path))) return null;
+  return { block: null, zone };
+}
+
+export function standZoneCamera(data: StandMapData, zone: StandZone): MapBox {
+  return zone.viewBox ? zone.viewBox as MapBox : boundsOf(data.blocks.filter(block => zone.blockIds.includes(block.id)), 72);
+}
 export type StandPosition = { id: string; label: string; aliases: string[]; level: string; point: Point; span: number };
 export type StandMapData = { diagramId: string; viewBox: number[]; detailSpan: number; blocks: StandBlock[]; levelViews?: Record<string, number[]>; areaViews?: Record<string, number[]>; regionViews?: Record<string, number[]>; zones?: StandZone[]; positionTargets?: StandPosition[]; overviewAreas?: { id: string; label: string; area: string; point: Point }[]; areaBlockNames?: boolean; blockNameLabels?: boolean; numericAliasesAreBlocks?: boolean; contextLabels?: { text: string; point: Point }[]; wholeBlockLabels?: boolean; wholeStartNumbers?: boolean; searchPlaceholder?: string; rowSearchPlaceholder?: string; rowZonePrefixes?: boolean; numberSidePrefixes?: string[]; frontLabel?: string; numberLookupNote?: string };
 export const normalizeSeatInput = (value: string) => value.normalize("NFKC").toUpperCase().replace(/\s+/g, "").replace(/[列段番]$/, "");

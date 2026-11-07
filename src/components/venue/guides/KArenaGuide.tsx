@@ -8,8 +8,10 @@ import { kArenaAreas, kArenaFacilityConfig, kArenaLevels, kArenaStandSeats } fro
 import styles from "./KArenaGuide.module.css";
 import VenueAccessCards from "../template/VenueAccessCards";
 import { arenaAccessEntries } from "@/lib/venueAccess";
+import { useVenueSeatTarget } from "../VenueSeatTarget";
 
 export default function KArenaGuide({ embedded=false }: { embedded?: boolean }) {
+  const target = useVenueSeatTarget();
   const finder = useRef<FacilityFinderHandle>(null);
   const facilities = useRef<HTMLElement>(null);
   function revealFacilities() { facilities.current?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" }); }
@@ -19,7 +21,7 @@ export default function KArenaGuide({ embedded=false }: { embedded?: boolean }) 
     <DomeGuideHeader name="Kアリーナ横浜" showHero={!embedded}/>
     <div className={`zr-container ${styles.content}`}>
       <section id="venue-seats"><h2>Kアリーナ横浜の座席を探す</h2>
-        <StandSeatMap data={kArenaStandSeats} levels={kArenaLevels} areas={kArenaAreas} onEquipment={showEquipment}/>
+        <StandSeatMap data={kArenaStandSeats} levels={kArenaLevels} areas={kArenaAreas} initialSection={target?.mode === "fixed" ? target.section : null} onEquipment={showEquipment}/>
         <p className={styles.note}>公演別のアリーナ配置は、主催者の座席案内をご確認ください。</p>
       </section>
       <section id="venue-facilities" ref={facilities}><h2>必要な設備を探す</h2>

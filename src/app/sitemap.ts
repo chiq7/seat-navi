@@ -5,6 +5,7 @@ import { SEO_VENUES } from "@/lib/venueSeo";
 import { EVENT_DAY_PUBLICATIONS } from "@/data/eventDayPublications";
 import { eventDayGuidePath, matchPublishedEventDay } from "@/lib/eventDayPublication";
 import { getCachedPublicEvent } from "@/lib/serverEventData";
+import { ZOZO_LOWER_THIRD_PAGE } from "@/lib/venueSeatLinks";
 
 export const revalidate = 86400;
 
@@ -29,6 +30,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     sitemapEntry(`${SITE_URL}/`, undefined, { changeFrequency: "daily", priority: 1 }),
     sitemapEntry(`${SITE_URL}/about`, "2026-10-12", { changeFrequency: "monthly", priority: 0.6 }),
     sitemapEntry(`${SITE_URL}/venues`, PUBLIC_VENUE_GUIDE_UPDATED_AT, { changeFrequency: "weekly", priority: 0.8 }),
+    sitemapEntry(`${SITE_URL}${ZOZO_LOWER_THIRD_PAGE}`, "2026-11-07", { changeFrequency: "monthly" }),
     ...SEO_VENUES.map((venue) =>
       sitemapEntry(`${SITE_URL}/venues/${venue.id}`, getPublicVenueGuideUpdatedAt(venue.id), {
         changeFrequency: "daily",
