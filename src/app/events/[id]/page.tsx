@@ -66,7 +66,7 @@ export default async function EventDetailPage({ params }: PageProps) {
   ]);
   const venueProfile = event.venue_id ? getVenueSeoProfile(event.venue_id) : null;
   const venueHref = getPublicVenueSeatGuideHref(event.venue_id, event.venue)?.split("#")[0] ?? null;
-  const venueMiniGuide = counts.seatReports === 0 && counts.predictions === 0
+  const venueMiniGuide = counts.seatReports === 0 && counts.predictions === 0 && !counts.hasExternalArena
     ? {
         venueName: event.venue,
         capacityLabel: venueProfile ? `最大${venueProfile.capacity.toLocaleString("ja-JP")}人` : "会場の座席情報",

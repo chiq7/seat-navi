@@ -29,6 +29,7 @@ export default function SeatDiscoveryCard({ data, favoriteControl, preview = fal
   const tourTitle = event?.title.startsWith(data.artistName) ? event.title.slice(data.artistName.length).trim() : event?.title;
   const ready = data.status === "ready";
   const hasMap = ready && summary.hasMap;
+  const externalDates = data.events.filter(item => summary.external.some(row => row.event_id === item.id));
   const showMapExample = ready && !data.limited && !hasMap && !!event && !historical;
   const arenaMap = <ArenaReportMap eventId={eventId} reports={summary.seats} externalObservations={summary.external} variant="compact" positionOnlyPreview highlightPositionsPreview hideShareSection />;
   const venueSeatHref = getPublicVenueSeatGuideHref(event?.venue_id, event?.venue);
@@ -65,6 +66,7 @@ export default function SeatDiscoveryCard({ data, favoriteControl, preview = fal
               {arenaMap}
             </Link>}
           {summary.blocks.length > 0 && <p className={styles.blocks}><span aria-hidden="true" className={styles.dot} />{summary.blocks.slice(0, 6).join(" · ")}{summary.blocks.length > 6 && " …"}</p>}
+          {externalDates.length > 0 && <p className={styles.note}>外部参考を含みます（{externalDates.map(item => discoveryDateLabel(item.date)).join("・")}）</p>}
         </div>}
         {showMapExample && <div className={styles.figure}>
           <p className={styles.figureLabel}>アリーナ座席表の表示例</p>

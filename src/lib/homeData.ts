@@ -398,13 +398,43 @@ export function buildSupplementalFeedItems(
   });
 }
 
+const GENERATIONS_ARIAKE_EVENT_ID = "9b26c9b3aef538ae8438";
+const GENERATIONS_ARENA_SOURCE_KEY = "8117da818c4f81fb9c81c72f4cad4230220a23667f9b0c07df1f5f20d6b2926b";
+
+async function getReviewedTicketUpdates(client: SupabaseClient, now: Date): Promise<HomeFeedItem[]> {
+  const updates: HomeFeedItem[] = [];
+  const resaleOpens = new Date("2026-11-07T15:00:00+09:00");
+  const resaleCloses = new Date("2026-11-10T00:00:00+09:00");
+  if (now >= resaleOpens && now < resaleCloses) {
+    updates.push({
+      id: "yoasobi-sapporo-resale-202611", type: "公演情報",
+      detail: "11/14・15公演の公式リセールは11/9 23:59まで。リセール分の電子チケットは11/12 18:00ごろ表示",
+      artistName: "YOASOBI", venue: "大和ハウス プレミストドーム", date: "2026-11-14",
+      createdAt: resaleOpens.toISOString(), href: "https://l-tike.com/concert/mevent/?mid=530064", xHandle: null, source: "editorial",
+    });
+  }
+  if (now >= resaleOpens && now < new Date("2026-11-09T00:00:00+09:00")) {
+    const { data } = await client.from("external_seat_observations")
+      .select("observed_at").eq("event_id", GENERATIONS_ARIAKE_EVENT_ID)
+      .eq("source_type", "ticketjam").eq("source_key", GENERATIONS_ARENA_SOURCE_KEY)
+      .eq("review_status", "approved").maybeSingle();
+    if (data) updates.push({
+      id: "generations-ariake-arena-reference-20261108", type: "公演情報",
+      detail: "アリーナD1の座席範囲を追加しました（外部参考）",
+      artistName: "GENERATIONS", venue: "有明アリーナ", date: "2026-11-08", createdAt: data.observed_at,
+      href: `/events/${GENERATIONS_ARIAKE_EVENT_ID}#seat-map`, xHandle: null, source: "editorial",
+    });
+  }
+  return updates;
+}
+
 /** 当落・座席報告・座席予想・現地レポ・セトリの最新投稿を統合し、不足分だけ補助カードを返す */
 export async function getRealtimeFeedItems(
   client: SupabaseClient,
   limit = 20,
   prefetchedUpcoming?: UpcomingEvent[] | Promise<UpcomingEvent[]>,
 ): Promise<HomeFeedItem[]> {
-  const [ticketResultsRes, seatReportsRes, predictionsRes, afterReportsRes, setlistsRes] = await Promise.all([
+  const [ticketResultsRes, seatReportsRes, predictionsRes, afterReportsRes, setlistsRes, reviewedUpdates] = await Promise.all([
     client
       .from("event_ticket_results")
       .select("id, event_id, user_id, result, lost_application_count, comment, seat_type, seat_block, created_at")
@@ -431,6 +461,7 @@ export async function getRealtimeFeedItems(
       .select("id, event_id, created_at, items")
       .order("created_at", { ascending: false })
       .limit(FEED_SOURCE_LIMIT),
+    getReviewedTicketUpdates(client, new Date()),
   ]);
 
   const publicTicketResults = ((ticketResultsRes.data as TicketResultFeedRow[]) ?? [])
@@ -527,7 +558,7 @@ export async function getRealtimeFeedItems(
       .map((profile) => [profile.id, profile.x_handle as string]),
   );
 
-  const items: HomeFeedItem[] = [];
+  const items: HomeFeedItem[] = [...reviewedUpdates];
   const today = toDateStr(new Date());
   const excludedKnownTestItems = new Set([
     "座席予想:e939d7972373467b8f51",
