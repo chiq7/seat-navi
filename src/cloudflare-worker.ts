@@ -30,7 +30,12 @@ export default {
       await response.body?.cancel();
       throw new Error(`${path} returned HTTP ${response.status}`);
     }
-    // Consume the result so the invocation waits for all work.
-    await response.arrayBuffer();
+    const result = await response.json() as {
+      failed?: string[];
+      results?: Array<{ status?: string }>;
+    };
+    const failed = result.failed?.length ?? result.results?.filter(row => row.status === "error").length ?? 0;
+    console.log(JSON.stringify({ job: path, failed }));
+    if (failed > 0) throw new Error(`${path} reported ${failed} failed sources`);
   },
 } satisfies ExportedHandler<TixrepoEnv>;
