@@ -1,8 +1,7 @@
 import type { DedicatedVenueGuide } from "@/data/venueGuides/types";
 import { safeKyoceraCatalog } from "./kyoceraNavigation";
-import { kyoceraLocalDetails, localSegmentRanges } from "./kyoceraLocalSeatData";
+import seatRenderData from "@/data/venueGuides/kyocera-dome/seat-render-data.json";
 import type { Box } from "./mapGeometry";
-import physicalSeats from "@/data/venueGuides/kyocera-dome/seat-special-physical.json";
 
 export type Point = { x: number; y: number };
 type NumberGuide = { youngEdge: Point[]; oppositeEdge: Point[]; sourceCode: string; segmentId: string };
@@ -66,18 +65,16 @@ export function kyoceraDrawingBlocks(guide: DedicatedVenueGuide) {
         sourceCode: entry.code, rowLabelIsPrinted: true, numberGuide: null as NumberGuide | null }];
     });
   });
-  const special = physicalSeats.blocks.map(physical => {
-    const d = kyoceraLocalDetails.find(detail => detail.code === physical.sourceBlockCode)!;
-    const segment = d.rows.find(row => row.row === physical.row)!.segments.find(segment => segment.id === physical.segmentId)!;
-    const ranges = localSegmentRanges(segment).map(range => ({ ...range, blockCode: physical.code, passage: physical.passage }));
+  const special = seatRenderData.specialSeats.map(physical => {
+    const ranges = physical.ranges.map(range => ({ ...range, blockCode: physical.code, passage: physical.passage }));
     const rows = [{ row: physical.row, ranges, seatCount: ranges.reduce((sum, range) => sum + range.end - range.start + 1, 0) }];
     // Each source contour keeps its own search keys and number-side evidence.
     // Retain the native outline vertices, including the numbered endpoint edge.
-    const path = d.overview!.paths[physical.overviewPathIndex], bounds = pathBounds([path])!;
+    const path = physical.path, bounds = pathBounds([path])!;
     const point = ([x, y]: number[]): Point => ({ x, y });
-    return { code: physical.code, sourceCode: d.code, areaId: d.areaId, label: d.name.replace(/ブロック/g, ""), tier: d.level,
+    return { code: physical.code, sourceCode: physical.sourceCode, areaId: physical.areaId, label: physical.name.replace(/ブロック/g, ""), tier: physical.level,
       x: (bounds.left + bounds.right) / 2, y: (bounds.top + bounds.bottom) / 2, path, special: true, rows, rowLabel: physical.row,
-      rowLabelIsPrinted: physical.row !== "0", numberGuide: { sourceCode: d.code, segmentId: segment.id,
+      rowLabelIsPrinted: physical.row !== "0", numberGuide: { sourceCode: physical.sourceCode, segmentId: physical.segmentId,
         youngEdge: physical.youngEdge.map(point), oppositeEdge: physical.oppositeEdge.map(point) } as NumberGuide,
       firstSeat: Math.min(...rows.flatMap(r => r.ranges.map(s => s.start))), lastSeat: Math.max(...rows.flatMap(r => r.ranges.map(s => s.end))),
       seatCount: rows.reduce((n, r) => n + r.seatCount, 0), passages: [physical.passage], hasGaps: ranges.length > 1 };
@@ -116,13 +113,7 @@ export function kyoceraAreaCamera(blocks: DrawingBlock[], whole: number[], direc
   const anchor = [...candidates].sort((a, b) => Math.hypot(a.x - centre.x, a.y - centre.y) - Math.hypot(b.x - centre.x, b.y - centre.y))[0];
   return [anchor.x - 310, anchor.y - 310, 620, 620];
 }
-const localDirections = new Map(kyoceraLocalDetails.flatMap(detail => {
-  const segment = detail.rows[Math.floor(detail.rows.length / 2)]?.segments[0];
-  if (!segment) return [];
-  const dx = segment.endLabel[0] - segment.startLabel[0], dy = segment.endLabel[1] - segment.startLabel[1];
-  const length = Math.hypot(dx, dy);
-  return length > 1 ? [[detail.code, { x: dx / length, y: dy / length }] as const] : [];
-}));
+const localDirections = new Map(Object.entries(seatRenderData.directions));
 export function blockAxes(block: DrawingBlock) {
   const length = Math.hypot(block.x - 800, block.y - 800) || 1;
   const radial = { x: (block.x - 800) / length, y: (block.y - 800) / length };

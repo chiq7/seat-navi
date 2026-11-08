@@ -11,8 +11,22 @@ type TixrepoEnv = Env & { CRON_SECRET?: string };
 
 export default {
   async fetch(request, env, ctx) {
-    const response: Response = await app.fetch(request, env, ctx);
-    if (!new URL(request.url).hostname.endsWith(".workers.dev")) return response;
+    const url = new URL(request.url);
+    let response: Response;
+    if (url.pathname === "/opengraph-image" && (request.method === "GET" || request.method === "HEAD")) {
+      const asset = new Request(new URL("/images/tixrepo-opengraph.png", url), request);
+      const image = await env.ASSETS.fetch(asset);
+      if (image.ok || image.status === 304) {
+        response = new Response(image.body, image);
+        response.headers.set("Cache-Control", "public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800");
+      } else {
+        await image.body?.cancel();
+        response = await app.fetch(request, env, ctx);
+      }
+    } else {
+      response = await app.fetch(request, env, ctx);
+    }
+    if (!url.hostname.endsWith(".workers.dev")) return response;
     const preview = new Response(response.body, response);
     preview.headers.set("X-Robots-Tag", "noindex");
     return preview;

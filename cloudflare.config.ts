@@ -4,12 +4,13 @@ import * as tixrepo from "./src/cloudflare-worker.ts" with { type: "cf-worker" }
 
 const cache = await createWorkersCacheConfig();
 const production = process.env.TIXREPO_CLOUDFLARE_MODE === "production";
+const freePreview = process.env.TIXREPO_CLOUDFLARE_MODE === "free-preview";
 const enableSchedules = production && process.env.TIXREPO_SCHEDULED_UPDATES === "1";
 
 export default defineConfig({
   worker: defineWorker({
     ...cache,
-    name: "tixrepo",
+    name: freePreview ? "tixrepo-free-check" : "tixrepo",
     workersDev: true,
     previewUrls: false,
     domains: production ? ["tixrepo.com"] : [],
