@@ -30,6 +30,7 @@ export default function KyoceraSeatMap({ guide, selectedId, rowLabel, seatNumber
   const [level, setLevel] = useState(initial && !initial.special ? initial.tier : "すべて");
   const [direction, setDirection] = useState(() => initial ? kyoceraSelectedDirection(initial, whole, "all") : "all");
   const [selectedCode, setSelectedCode] = useState<string | null>(initial?.code ?? null);
+  const [photoRequest, setPhotoRequest] = useState(0);
   const [specialRow, setSpecialRow] = useState<string | null>(null);
   const [specialNumber, setSpecialNumber] = useState("");
   const [searchRow, setSearchRow] = useState("");
@@ -50,6 +51,7 @@ export default function KyoceraSeatMap({ guide, selectedId, rowLabel, seatNumber
     setBox(kyoceraAreaCamera(blocks, whole, id, tier));
   }
   function chooseBlock(block: DrawingBlock) {
+    setPhotoRequest(request => request + 1);
     if (block.special) { onClear(); setSpecialRow(null); setSpecialNumber(""); }
     else { const area = guide.seats.find(a => a.id === block.areaId)!; onSelect(area); if (selectedId === area.id) onRow(null); }
     setSelectedCode(block.code); setDirection(kyoceraSelectedDirection(block, whole, direction)); setLevel(block.special ? "すべて" : block.tier); resetFeedback();
@@ -62,6 +64,7 @@ export default function KyoceraSeatMap({ guide, selectedId, rowLabel, seatNumber
     return [current[0] + (current[2] - width) / 2, current[1] + (current[3] - height) / 2, width, height];
   }); }
   function selectCandidate(candidate: KyoceraSeatCandidate, preferred = direction) {
+    setPhotoRequest(request => request + 1);
     const { block, row, number: seat } = candidate;
     if (block.special) { onClear(); setSpecialRow(row); setSpecialNumber(seat); }
     else { onTicket(guide.seats.find(area => area.id === block.areaId)!, row, seat); setSpecialRow(null); setSpecialNumber(""); }
@@ -88,6 +91,10 @@ export default function KyoceraSeatMap({ guide, selectedId, rowLabel, seatNumber
     setBox(kyoceraAreaCamera(blocks, whole, direction, value));
   }
   return <DomeSeatFrame className={styles.seatFrame} levels={levels} level={level} onLevel={showLevel}
+    seatView={{ diagram: "kyocera-dome-fixed", request: photoRequest, section: selected?.code, row: currentRow, seat: currentNumber, onSelect: place => {
+      const match = blocks.find(block => block.code === place.id);
+      if (match) chooseBlock(match);
+    } }}
     directions={directions} direction={direction} onDirection={showDirection} onZoom={zoom} onWhole={showWhole} zoomLabel="座席図" shortcuts={[]}
     directionExtra={<form className={styles.ticketForm} data-testid="kyocera-ticket-search" onSubmit={submit} aria-label="チケットの座席情報で探す">
         <label>列<ReadySearchControl><input aria-label="検索する列" placeholder="例：8 / A" value={searchRow} onChange={e => { setSearchRow(e.target.value); resetFeedback(); }} required /></ReadySearchControl></label>

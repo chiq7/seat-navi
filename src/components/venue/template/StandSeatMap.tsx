@@ -42,6 +42,7 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   const [zone, setZone] = useState<string | null>(initialBlock?.zone ?? initialZone?.id ?? null);
   const [matches, setMatches] = useState<StandBlock[]>([]), [error, setError] = useState("");
   const [position, setPosition] = useState<StandPosition | null>(null);
+  const [photoRequest, setPhotoRequest] = useState(0);
   const [view, setView] = useState<MapBox>(() => {
     const target = initialBlock ? standDetailCamera(initialBlock, data) : initialZone ? standZoneCamera(data, initialZone) : overviewBox;
     return initial ? clampCamera(target, overviewBox, data.detailSpan * .45) : overviewBox;
@@ -112,23 +113,28 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   useImperativeHandle(ref, () => ({ showRegion: chooseRegion }));
   function chooseZone(id: string) {
     const target = data.zones?.find(z => z.id === id); if (!target) return;
+    setPhotoRequest(request => request + 1);
     interaction(); clearResult(); setZone(id); setLevel(target.level); setArea(target.area);
     const members = data.blocks.filter(b => target.blockIds.includes(b.id));
     move(standZoneCamera(data, target)); setFocused(members[0].id);
   }
   function select(b: StandBlock, recenter = false) {
+    setPhotoRequest(request => request + 1);
     interaction(); setSelected(b.id); setZone(b.zone ?? null); setFocused(b.id); setLevel(b.level); setArea(b.area); setMatches([]); setError(""); setPosition(null);
     if (!selected || recenter) move(standDetailCamera(b, data, size));
+  }
+  function choosePosition(target: StandPosition) {
+    setPhotoRequest(request => request + 1);
+    interaction(); clearResult(); setPosition(target); setLevel(target.level); setArea("all"); setZone(null);
+    const [x, y] = target.point, span = target.span;
+    move([x - span / 2, y - span / 2, span, span]);
   }
   function search(event: React.FormEvent) {
     event.preventDefault(); interaction();
     const result = searchStandSeats(data, level, area, row, number, zone);
     trackVenueSeatSearch(result.zone || result.position || result.notice ? "area" : result.matches.length > 1 ? "multiple" : result.matches.length === 1 ? "matched" : /確認中|未対応|区画名で|公式図に列名/.test(result.error) ? "unverified" : /入力/.test(result.error) ? "invalid" : "empty", result.matches.length);
     if (result.zone) { chooseZone(result.zone.id); setError(result.notice ?? ""); return; }
-    if (result.position) {
-      const p = result.position; clearResult(); setPosition(p); setLevel(p.level); setArea("all"); setZone(null);
-      move([p.point[0]-p.span/2,p.point[1]-p.span/2,p.span,p.span]); return;
-    }
+    if (result.position) { choosePosition(result.position); return; }
     setPosition(null);
     setError(result.error); setMatches(result.matches.length > 1 ? result.matches : []);
     if (result.matches.length === 1) { select(result.matches[0], true); setError(result.notice ?? ""); }
@@ -410,6 +416,17 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   const focusable = shown.filter(b => { const p = projection.project(b.center); return p[0] > 0 && p[0] < size.width && p[1] > 0 && p[1] < size.height; });
   return <DomeSeatFrame className={data.levelViews ? styles.levelControls : undefined} levels={[{ id: "all", label: "すべて" }, ...levels]} level={level} onLevel={id => chooseRegion(id, "all")}
     directions={availableAreas} direction={area} onDirection={id => chooseRegion(level, id)} onZoom={zoom} onWhole={reset} shortcuts={[]}
+    seatView={{ diagram: data.diagramId, request: photoRequest, section: block?.id, zone, position: position?.id, row: labelRun ? String(labelRun.row) : highlightedRow,
+      seat: labelRun ? normalizeSeatInput(number) : null, onSelect: place => {
+        if (place.kind === "zone") { chooseZone(place.id); return; }
+        if (place.kind === "position") {
+          const target = data.positionTargets?.find(item => item.id === place.id);
+          if (target) choosePosition(target);
+          return;
+        }
+        const match = data.blocks.find(item => item.id === place.id);
+        if (match) select(match, true);
+      } }}
     directionExtra={<form className={styles.search} onSubmit={search} aria-label="チケットの座席で検索">
       <label><span>列</span><ReadySearchControl><input value={row} disabled={blockOnlySearch} onChange={e => setRow(e.target.value)} placeholder={blockOnlySearch ? "検索準備中" : data.rowSearchPlaceholder ?? "例：12"} aria-label="列" /></ReadySearchControl></label>
       <label><span>{blockOnlySearch ? "区画名" : "番号・区画"}</span><ReadySearchControl><input value={number} onChange={e => setNumber(e.target.value)} placeholder={data.searchPlaceholder ?? (blockOnlySearch ? "例：A / 北" : "例：79")} aria-label={blockOnlySearch ? "区画名" : "番号"} /></ReadySearchControl></label>
@@ -445,7 +462,7 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
       <button type="button" disabled={!block} aria-label="座席の選択を解除" onClick={clearResult}><X size={19}/></button>
     </div>
     <p id={instructionId} className={styles.srOnly}>矢印キーで画面内のブロックを選び、Enterで拡大します。地図をドラッグして移動できます。</p>
-    <div className={`${styles.stage} ${overviewArt ? styles.venueOverview : ""} ${data.zones ? styles.zonedStage : ""} ${data.diagramId === "vantelin-prime-unfolded" ? styles.unfoldedStage : ""}`} ref={stage} data-testid="stand-seat-map" data-diagram-id={data.diagramId} data-camera={view.map(n => n.toFixed(2)).join(",")} data-selected={selected ?? ""} data-selected-zone={zone ?? ""}>
+    <div className={`${styles.stage} ${overviewArt ? styles.venueOverview : ""} ${data.zones ? styles.zonedStage : ""} ${data.diagramId === "vantelin-prime-unfolded" ? styles.unfoldedStage : ""}`} ref={stage} data-testid="stand-seat-map" data-diagram-id={data.diagramId} data-camera={view.map(n => n.toFixed(2)).join(",")} data-selected={selected ?? ""} data-selected-zone={zone ?? ""} data-selected-position={position?.id ?? ""}>
       <svg ref={svg} viewBox={`0 0 ${size.width} ${size.height}`} role="group" aria-label="座席の全体図" aria-describedby={instructionId} tabIndex={0}
         onPointerDown={down} onPointerMove={drag} onPointerUp={up} onPointerCancel={() => { gesture.current = freshGesture(); }} onLostPointerCapture={e => { if (gesture.current.points.has(e.pointerId)) gesture.current = freshGesture(); }}
         onKeyDown={e => {

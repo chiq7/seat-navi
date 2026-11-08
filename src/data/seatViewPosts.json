@@ -1,0 +1,3801 @@
+{
+  "ariake-fixed-stand": [
+    {
+      "place": {
+        "kind": "zone",
+        "id": "H"
+      },
+      "area": "4階 Hブロック",
+      "scope": "block",
+      "url": "https://x.com/naon_5500/status/1991741076286370074",
+      "source": "https://lignea.co.jp/ariake-arena-seat/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "B"
+      },
+      "area": "2階 Bブロック",
+      "row": "20",
+      "scope": "block",
+      "event": "BUMP OF CHICKENの過去公演",
+      "url": "https://x.com/nico25des/status/1975196558606922155",
+      "source": "https://smart-list.info/ariake-arena/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "F"
+      },
+      "area": "4階 Fブロック",
+      "row": "7",
+      "scope": "block",
+      "photo": 3,
+      "url": "https://x.com/su__1030/status/1922581596617478329",
+      "source": "https://smart-list.info/ariake-arena/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "G"
+      },
+      "area": "3階 Gブロック",
+      "row": "5",
+      "scope": "block",
+      "photo": 4,
+      "url": "https://x.com/su__1030/status/1922581596617478329",
+      "source": "https://smart-list.info/ariake-arena/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "ariake-G-03"
+      },
+      "area": "3階 Gブロック",
+      "row": "5",
+      "seat": "20",
+      "seatVerified": true,
+      "url": "https://x.com/kinnketubriize/status/1906321297937715663",
+      "source": "https://curious103.com/ariakearena/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "G"
+      },
+      "area": "3階 Gブロック",
+      "row": "6",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/vaultboyrobo/status/1903582856821321923",
+      "source": "https://chipisblog.com/ariakearena-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "F"
+      },
+      "area": "4階 Fブロック",
+      "row": "8",
+      "scope": "block",
+      "url": "https://x.com/minyuno1114/status/1900884018939523536",
+      "source": "https://curious103.com/ariakearena/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "ariake-G-02"
+      },
+      "area": "3階 Gブロック",
+      "row": "7",
+      "seat": "17",
+      "seatVerified": true,
+      "url": "https://x.com/ps0hn_/status/1819540478070784147",
+      "source": "https://smart-list.info/ariake-arena/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "ariake-D-05"
+      },
+      "area": "2階 Dブロック",
+      "row": "18",
+      "seat": "47",
+      "seatVerified": true,
+      "photo": 1,
+      "url": "https://x.com/yj_naho_xx/status/1819261058609013029",
+      "source": "https://smart-list.info/ariake-arena/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "ariake-H-06"
+      },
+      "area": "4階 Hブロック",
+      "row": "6",
+      "seat": "40",
+      "seatVerified": true,
+      "photo": 3,
+      "url": "https://x.com/jih_yoshi1415/status/1819290096564330941",
+      "source": "https://smart-list.info/ariake-arena/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "F"
+      },
+      "area": "4階 Fブロック",
+      "scope": "block",
+      "url": "https://x.com/ame_kotai_/status/1776605870744367577",
+      "source": "https://smart-list.info/ariake-arena/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "D"
+      },
+      "area": "2階 Dブロック",
+      "scope": "block",
+      "url": "https://x.com/Ch23As/status/1754129851928412243",
+      "source": "https://smart-list.info/ariake-arena/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "ariake-D-07"
+      },
+      "area": "2階 Dブロック",
+      "row": "20",
+      "seat": "91",
+      "seatVerified": true,
+      "url": "https://x.com/veddior/status/1709408208161517808",
+      "source": "https://smart-list.info/ariake-arena/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "E"
+      },
+      "area": "3階 Eブロック",
+      "row": "3",
+      "scope": "block",
+      "url": "https://x.com/ochan_0918/status/1672256053768237057",
+      "source": "https://chipisblog.com/ariakearena-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "E"
+      },
+      "area": "3階 Eブロック",
+      "scope": "block",
+      "url": "https://x.com/ris85805518/status/1672244341929291776",
+      "source": "https://smart-list.info/ariake-arena/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "B"
+      },
+      "area": "2階 Bブロック",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/ateez_ay/status/1653382879928524801",
+      "source": "https://smart-list.info/ariake-arena/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "H"
+      },
+      "area": "4階 Hブロック",
+      "row": "2",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/usankawaii/status/1653442941892063233",
+      "source": "https://smart-list.info/ariake-arena/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "ariake-G-13"
+      },
+      "area": "3階 Gブロック",
+      "row": "13",
+      "seat": "100",
+      "seatVerified": true,
+      "url": "https://x.com/jaehonje/status/1652271079333961729",
+      "source": "https://chipisblog.com/ariakearena-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "H"
+      },
+      "area": "4階 Hブロック",
+      "row": "14",
+      "scope": "block",
+      "url": "https://x.com/7_boc/status/1624436515941253120",
+      "source": "https://smart-list.info/ariake-arena/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "ariake-F-12"
+      },
+      "area": "4階 Fブロック",
+      "row": "12",
+      "seat": "100",
+      "seatVerified": true,
+      "photo": 1,
+      "url": "https://x.com/wwwaaa5551/status/1607000300958920708",
+      "source": "https://smart-list.info/ariake-arena/"
+    }
+  ],
+  "belluna-seats": [
+    {
+      "place": {
+        "kind": "zone",
+        "id": "ネット裏"
+      },
+      "area": "ネット裏",
+      "row": "29",
+      "seat": "123",
+      "scope": "area",
+      "url": "https://x.com/pe_penguinda_/status/1852203810153992481",
+      "source": "https://mama-premama.com/belluna-capacity/"
+    }
+  ],
+  "budokan-reference-stands": [
+    {
+      "place": {
+        "kind": "zone",
+        "id": "1階南西"
+      },
+      "area": "1階南西",
+      "row": "G",
+      "scope": "block",
+      "url": "https://x.com/unikana1111/status/2092377701449625982",
+      "source": "https://lignea.co.jp/nippon-budokan-seat/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "2階南東"
+      },
+      "area": "2階南東",
+      "scope": "block",
+      "photo": 2,
+      "url": "https://x.com/funky_haru/status/1735919237347381751",
+      "source": "https://fesgeek.com/nippon-budokan/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "1階東"
+      },
+      "area": "1階東",
+      "scope": "block",
+      "url": "https://x.com/benkichi_0119/status/1723647663336550622",
+      "source": "https://fesgeek.com/nippon-budokan/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "1階南"
+      },
+      "area": "1階南",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/aki_boc1130/status/1713558214070157557",
+      "source": "https://fesgeek.com/nippon-budokan/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "2階南"
+      },
+      "area": "2階南",
+      "scope": "block",
+      "url": "https://x.com/ynhkoo/status/1705196661398781977",
+      "source": "https://fesgeek.com/nippon-budokan/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "1階南西"
+      },
+      "area": "1階南西",
+      "scope": "block",
+      "url": "https://x.com/mocha_1600/status/1702967094030283177",
+      "source": "https://fesgeek.com/nippon-budokan/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "2階南東"
+      },
+      "area": "2階南東",
+      "row": "B",
+      "scope": "block",
+      "url": "https://x.com/occhii_jzx_vero/status/1663096805381505025",
+      "source": "https://topicro.com/nipponbudokan-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "2階西"
+      },
+      "area": "2階西",
+      "row": "D",
+      "scope": "block",
+      "url": "https://x.com/wwwaaa5551/status/1653178334833180672",
+      "source": "https://topicro.com/nipponbudokan-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "2階北"
+      },
+      "area": "2階北",
+      "scope": "block",
+      "url": "https://x.com/affection1995/status/1625779891882049537",
+      "source": "https://topicro.com/nipponbudokan-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "2階北西"
+      },
+      "area": "2階北西",
+      "row": "A",
+      "scope": "block",
+      "url": "https://x.com/asita555h/status/1625470275390410752",
+      "source": "https://topicro.com/nipponbudokan-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "2階西"
+      },
+      "area": "2階西",
+      "row": "K",
+      "scope": "block",
+      "url": "https://x.com/bashicoo/status/1625487908923916294",
+      "source": "https://topicro.com/nipponbudokan-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "2階南"
+      },
+      "area": "2階南",
+      "row": "X",
+      "scope": "block",
+      "url": "https://x.com/reirei_ryokuo/status/1624392648479080449",
+      "source": "https://topicro.com/nipponbudokan-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "2階東"
+      },
+      "area": "2階東",
+      "row": "U",
+      "scope": "block",
+      "photo": 2,
+      "url": "https://x.com/wwwaaa5551/status/1612115008539987969",
+      "source": "https://topicro.com/nipponbudokan-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "2階南"
+      },
+      "area": "2階南",
+      "row": "U",
+      "scope": "block",
+      "url": "https://x.com/dosukoi_cheese/status/1612131836448378880",
+      "source": "https://topicro.com/nipponbudokan-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "2階東"
+      },
+      "area": "2階東",
+      "row": "X",
+      "scope": "block",
+      "url": "https://x.com/H98RZ4SrTXTnvGw/status/1598881992757547008",
+      "source": "https://topicro.com/nipponbudokan-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "2階北西"
+      },
+      "area": "2階北西",
+      "scope": "block",
+      "url": "https://x.com/myanmer/status/1597873089777668096",
+      "source": "https://topicro.com/nipponbudokan-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "2階南"
+      },
+      "area": "2階南",
+      "row": "X",
+      "scope": "block",
+      "url": "https://x.com/YuriVegetable/status/1585994519559909377",
+      "source": "https://topicro.com/nipponbudokan-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "2階北西"
+      },
+      "area": "2階北西",
+      "row": "P",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/Fatguymagic/status/1585265537549889537",
+      "source": "https://topicro.com/nipponbudokan-view/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "budokan-2F-西-3-1"
+      },
+      "area": "西 N〜X列 22番〜",
+      "row": "R",
+      "seat": "36",
+      "seatVerified": true,
+      "url": "https://x.com/48Ryuusei/status/1579000850709893120",
+      "source": "https://topicro.com/nipponbudokan-view/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "budokan-2F-東-1-0"
+      },
+      "area": "東 B〜F列 8番〜",
+      "row": "D",
+      "seat": "10",
+      "seatVerified": true,
+      "url": "https://x.com/ueno_kanda/status/1579003116607115268",
+      "source": "https://topicro.com/nipponbudokan-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "2階北東"
+      },
+      "area": "2階北東",
+      "row": "T",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/chitose99/status/1567876262437466117",
+      "source": "https://topicro.com/nipponbudokan-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "2階北東"
+      },
+      "area": "2階北東",
+      "row": "X",
+      "scope": "block",
+      "url": "https://x.com/si_mm_/status/1538795882665345025",
+      "source": "https://topicro.com/nipponbudokan-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "2階南東"
+      },
+      "area": "2階南東",
+      "row": "F",
+      "scope": "block",
+      "url": "https://x.com/jiiya3415/status/1526219384401735680",
+      "source": "https://topicro.com/nipponbudokan-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "2階南"
+      },
+      "area": "2階南",
+      "row": "D",
+      "scope": "block",
+      "url": "https://x.com/verde__sakura/status/1468057390394544130",
+      "source": "https://topicro.com/nipponbudokan-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "2階北西"
+      },
+      "area": "2階北西",
+      "row": "N",
+      "scope": "block",
+      "url": "https://x.com/mitu_goma/status/1334053890178748419",
+      "source": "https://topicro.com/nipponbudokan-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "2階東"
+      },
+      "area": "2階東",
+      "row": "M",
+      "scope": "block",
+      "url": "https://x.com/TK59140990/status/1134603630680535040",
+      "source": "https://topicro.com/nipponbudokan-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "2階南西"
+      },
+      "area": "2階南西",
+      "row": "P",
+      "scope": "block",
+      "url": "https://x.com/bashicoo/status/1051431840240652289",
+      "source": "https://topicro.com/nipponbudokan-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "2階北西"
+      },
+      "area": "2階北西",
+      "scope": "block",
+      "url": "https://x.com/waka_pie/status/1009356553969811459",
+      "source": "https://topicro.com/nipponbudokan-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "2階西"
+      },
+      "area": "2階西",
+      "row": "V",
+      "scope": "block",
+      "url": "https://x.com/luv_SP_kem/status/924878698678906880",
+      "source": "https://topicro.com/nipponbudokan-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "2階南"
+      },
+      "area": "2階南",
+      "row": "N",
+      "scope": "block",
+      "url": "https://x.com/kyatsu6674/status/856790676654010368",
+      "source": "https://topicro.com/nipponbudokan-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "2階北西"
+      },
+      "area": "2階北西",
+      "scope": "block",
+      "url": "https://x.com/pocky8408/status/768801568657330176",
+      "source": "https://topicro.com/nipponbudokan-view/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "budokan-2F-南-2-3"
+      },
+      "area": "南 G〜M列 40番〜",
+      "row": "J",
+      "seat": "40",
+      "seatVerified": true,
+      "url": "https://x.com/ked_ksk/status/550570516814114816",
+      "source": "https://topicro.com/nipponbudokan-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "1階南東"
+      },
+      "area": "1階南東",
+      "row": "A",
+      "scope": "block",
+      "photo": 2,
+      "url": "https://x.com/_373sk/status/2100147898520678498",
+      "source": "https://miekatamap.com/nippon-budokan/1f/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "2階南西"
+      },
+      "area": "2階南西",
+      "row": "A",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/kou_25_2002/status/2100206020803137593",
+      "source": "https://miekatamap.com/nippon-budokan/2f/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "2階南西"
+      },
+      "area": "2階南西",
+      "row": "X",
+      "scope": "block",
+      "photo": 2,
+      "url": "https://x.com/seiwa7188/status/1761233201383760103",
+      "source": "https://miekatamap.com/nippon-budokan/2f/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "2階南西"
+      },
+      "area": "2階南西",
+      "scope": "block",
+      "photo": 2,
+      "url": "https://x.com/mai8901/status/2100055699837591865",
+      "source": "https://miekatamap.com/nippon-budokan/2f/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "2階南西"
+      },
+      "area": "2階南西",
+      "scope": "block",
+      "photo": 2,
+      "url": "https://x.com/dadada_nf/status/2101292422257074394",
+      "source": "https://miekatamap.com/nippon-budokan/2f/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "2階南東"
+      },
+      "area": "2階南東",
+      "row": "E",
+      "scope": "block",
+      "url": "https://x.com/bish_masa/status/1833798664067977339",
+      "source": "https://miekatamap.com/nippon-budokan/2f/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "2階南東"
+      },
+      "area": "2階南東",
+      "scope": "block",
+      "photo": 2,
+      "url": "https://x.com/ybZGUesdHw52804/status/1990949207201755171",
+      "source": "https://miekatamap.com/nippon-budokan/2f/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "2階南東"
+      },
+      "area": "2階南東",
+      "row": "W",
+      "scope": "block",
+      "url": "https://x.com/10_huit/status/2101481274745762212",
+      "source": "https://miekatamap.com/nippon-budokan/2f/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "2階東"
+      },
+      "area": "2階東",
+      "row": "W",
+      "scope": "block",
+      "url": "https://x.com/yo_gun_jsb/status/1798695375685271863",
+      "source": "https://miekatamap.com/nippon-budokan/2f/"
+    }
+  ],
+  "hiroshima-stand": [
+    {
+      "place": {
+        "kind": "zone",
+        "id": "D"
+      },
+      "area": "Dブロック",
+      "row": "21",
+      "scope": "block",
+      "url": "https://x.com/KanKichi_25/status/1867953929646141918",
+      "source": "https://mama-premama.com/greenarena-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "E"
+      },
+      "area": "Eブロック",
+      "row": "14",
+      "scope": "block",
+      "url": "https://x.com/koko_suwattayo/status/1864970634666873309",
+      "source": "https://mama-premama.com/greenarena-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "hiroshima-g-rear-3"
+      },
+      "area": "Gブロック",
+      "row": "16",
+      "seat": "11",
+      "seatVerified": true,
+      "url": "https://x.com/haru_ukyu/status/1812042671655174600",
+      "source": "https://mama-premama.com/greenarena-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "A"
+      },
+      "area": "Aブロック",
+      "row": "20",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/s_jhw0000/status/1760307861157282204",
+      "source": "https://mama-premama.com/greenarena-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "D"
+      },
+      "area": "Dブロック",
+      "row": "18",
+      "scope": "block",
+      "url": "https://x.com/Yuri661387/status/1708485285708013952",
+      "source": "https://mama-premama.com/greenarena-zaseki/"
+    }
+  ],
+  "k-arena-permanent-stands": [
+    {
+      "place": {
+        "kind": "section",
+        "id": "k-level5-34"
+      },
+      "area": "LEVEL5",
+      "row": "10",
+      "seat": "212",
+      "seatVerified": true,
+      "photo": 2,
+      "url": "https://x.com/tws42_dh/status/2091366018593812652",
+      "source": "https://adorehack.com/article/karena-yokohama-seat-view/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "k-level3-21"
+      },
+      "area": "LEVEL3",
+      "row": "17",
+      "seat": "50",
+      "seatVerified": true,
+      "photo": 1,
+      "url": "https://x.com/mzlxboop/status/2030326768037757256",
+      "source": "https://adorehack.com/article/karena-yokohama-seat-view/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "k-level5-35"
+      },
+      "area": "LEVEL5",
+      "row": "16",
+      "seat": "181",
+      "seatVerified": true,
+      "photo": 2,
+      "url": "https://x.com/mzlxboop/status/2030326768037757256",
+      "source": "https://adorehack.com/article/karena-yokohama-seat-view/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "k-level3-03"
+      },
+      "area": "LEVEL3",
+      "row": "11",
+      "seat": "134",
+      "seatVerified": true,
+      "photo": 3,
+      "url": "https://x.com/mzlxboop/status/2030326768037757256",
+      "source": "https://adorehack.com/article/karena-yokohama-seat-view/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "k-level3-02"
+      },
+      "area": "LEVEL3",
+      "row": "19",
+      "seat": "93",
+      "seatVerified": true,
+      "photo": 4,
+      "url": "https://x.com/mzlxboop/status/2030326768037757256",
+      "source": "https://adorehack.com/article/karena-yokohama-seat-view/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "k-level3-13"
+      },
+      "area": "LEVEL3",
+      "row": "12",
+      "seat": "187",
+      "seatVerified": true,
+      "photo": 1,
+      "url": "https://x.com/Susano_wizone/status/1976195113467744362",
+      "source": "https://oshitokotrip.com/k-arena-seat-view/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "k-level7-48"
+      },
+      "area": "LEVEL7",
+      "row": "22",
+      "seat": "130",
+      "seatVerified": true,
+      "photo": 2,
+      "url": "https://x.com/Susano_wizone/status/1976195113467744362",
+      "source": "https://oshitokotrip.com/k-arena-seat-view/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "k-level3-18"
+      },
+      "area": "LEVEL3",
+      "row": "12",
+      "seat": "16",
+      "seatVerified": true,
+      "photo": 3,
+      "url": "https://x.com/Susano_wizone/status/1976195113467744362",
+      "source": "https://oshitokotrip.com/k-arena-seat-view/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "k-level3-04"
+      },
+      "area": "LEVEL3",
+      "row": "19",
+      "seat": "138",
+      "seatVerified": true,
+      "photo": 1,
+      "url": "https://x.com/himeeeayaka/status/1794226733090316659",
+      "source": "https://curious103.com/karena/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "k-level5-34"
+      },
+      "area": "LEVEL5",
+      "row": "22",
+      "seat": "199",
+      "seatVerified": true,
+      "photo": 2,
+      "url": "https://x.com/himeeeayaka/status/1794226733090316659",
+      "source": "https://curious103.com/karena/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "k-level7-53"
+      },
+      "area": "LEVEL7",
+      "row": "11",
+      "seat": "252",
+      "seatVerified": true,
+      "photo": 1,
+      "url": "https://x.com/mfmm3001/status/1771390880500572342",
+      "source": "https://curious103.com/karena/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "k-level5-28"
+      },
+      "area": "LEVEL5",
+      "row": "8",
+      "seat": "162",
+      "seatVerified": true,
+      "photo": 2,
+      "url": "https://x.com/mfmm3001/status/1771390880500572342",
+      "source": "https://curious103.com/karena/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "k-level3-05"
+      },
+      "area": "LEVEL3",
+      "row": "14",
+      "seat": "115",
+      "seatVerified": true,
+      "photo": 3,
+      "url": "https://x.com/mfmm3001/status/1771390880500572342",
+      "source": "https://curious103.com/karena/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "k-level3-06"
+      },
+      "area": "LEVEL3",
+      "row": "11",
+      "seat": "106",
+      "seatVerified": true,
+      "photo": 4,
+      "url": "https://x.com/mfmm3001/status/1771390880500572342",
+      "source": "https://curious103.com/karena/"
+    }
+  ],
+  "kyocera-dome-fixed": [
+    {
+      "place": {
+        "kind": "section",
+        "id": "X_BM_34"
+      },
+      "area": "1塁側 下段",
+      "row": "6",
+      "seat": "370",
+      "seatVerified": true,
+      "photo": 1,
+      "event": "ENHYPENの過去公演",
+      "url": "https://x.com/luv_sunoo_0918/status/1879461461518639310",
+      "source": "https://mayu-blog-77.com/kyoceradomeosaka-seat/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "X_TP_57"
+      },
+      "area": "1塁側 上段",
+      "row": "8",
+      "seat": "414",
+      "seatVerified": true,
+      "photo": 2,
+      "event": "ENHYPENの過去公演",
+      "url": "https://x.com/luv_sunoo_0918/status/1879461461518639310",
+      "source": "https://mayu-blog-77.com/kyoceradomeosaka-seat/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "X_BM_32"
+      },
+      "area": "1塁側 下段",
+      "row": "12",
+      "seat": "331",
+      "seatVerified": true,
+      "photo": 4,
+      "event": "ENHYPENの過去公演",
+      "url": "https://x.com/luv_sunoo_0918/status/1879461461518639310",
+      "source": "https://mayu-blog-77.com/kyoceradomeosaka-seat/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "Y_TP_38"
+      },
+      "area": "3塁側 上段",
+      "row": "7",
+      "seat": "6",
+      "seatVerified": true,
+      "photo": 1,
+      "url": "https://x.com/02_shjw_04/status/1859463073742102804",
+      "source": "https://mayu-blog-77.com/kyoceradomeosaka-seat/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "Y_BM_20"
+      },
+      "area": "3塁側 下段",
+      "row": "2",
+      "seat": "82",
+      "seatVerified": true,
+      "photo": 2,
+      "url": "https://x.com/02_shjw_04/status/1859463073742102804",
+      "source": "https://mayu-blog-77.com/kyoceradomeosaka-seat/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "X_TP_54"
+      },
+      "area": "1塁側 上段",
+      "row": "8",
+      "seat": "347",
+      "seatVerified": true,
+      "photo": 3,
+      "url": "https://x.com/02_shjw_04/status/1859463073742102804",
+      "source": "https://mayu-blog-77.com/kyoceradomeosaka-seat/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "X_TP_01"
+      },
+      "area": "1塁側 上段",
+      "row": "1",
+      "seat": "3",
+      "seatVerified": true,
+      "photo": 4,
+      "url": "https://x.com/02_shjw_04/status/1859463073742102804",
+      "source": "https://mayu-blog-77.com/kyoceradomeosaka-seat/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "X_TP_45"
+      },
+      "area": "1塁側 上段",
+      "row": "10",
+      "seat": "165",
+      "seatVerified": true,
+      "photo": 1,
+      "url": "https://x.com/jakeeewoooo/status/1624658670566133760",
+      "source": "https://alwaysbeyourself2.com/kyoceradome_seat/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "Y_BM_41"
+      },
+      "area": "3塁側 下段",
+      "row": "18",
+      "seat": "141",
+      "seatVerified": true,
+      "photo": 3,
+      "url": "https://x.com/jakeeewoooo/status/1624658670566133760",
+      "source": "https://alwaysbeyourself2.com/kyoceradome_seat/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "Y_BM_31"
+      },
+      "area": "3塁側 下段",
+      "row": "17",
+      "seat": "309",
+      "seatVerified": true,
+      "photo": 4,
+      "url": "https://x.com/jakeeewoooo/status/1624658670566133760",
+      "source": "https://alwaysbeyourself2.com/kyoceradome_seat/"
+    }
+  ],
+  "makuhari-seats": [
+    {
+      "place": {
+        "kind": "zone",
+        "id": "H"
+      },
+      "area": "Hブロック",
+      "row": "9",
+      "scope": "block",
+      "url": "https://x.com/Stingray_HC58/status/2006685339419886037",
+      "source": "https://oshilivenavi.com/venue/makuhari-messe/seat-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "C"
+      },
+      "area": "Cブロック",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/wfpjy/status/2005599386727043301",
+      "source": "https://oshilivenavi.com/venue/makuhari-messe/seat-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "B"
+      },
+      "area": "Bブロック",
+      "row": "7",
+      "scope": "block",
+      "url": "https://x.com/shinee_ojtmk05/status/1890415825904861572",
+      "source": "https://oshilivenavi.com/venue/makuhari-messe/seat-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "C"
+      },
+      "area": "Cブロック",
+      "row": "9",
+      "scope": "block",
+      "photo": 2,
+      "url": "https://x.com/ojmktlkckl66/status/1843961378346021231",
+      "source": "https://oshilivenavi.com/venue/makuhari-messe/seat-view/"
+    }
+  ],
+  "marine-center": [
+    {
+      "place": {
+        "kind": "zone",
+        "id": "N"
+      },
+      "area": "2階 Nブロック",
+      "scope": "block",
+      "photo": 2,
+      "url": "https://x.com/BG_YM_2024/status/2065238097395429854",
+      "source": "https://live-kyokasho.jp/marinemesse-fukuoka/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "R"
+      },
+      "area": "2階 Rブロック",
+      "row": "2",
+      "scope": "block",
+      "url": "https://x.com/tomonkey02/status/2065267043411411175",
+      "source": "https://mama-premama.com/marinemesse-capacity/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "marine-G-outer-1"
+      },
+      "area": "1階 Gブロック",
+      "row": "12",
+      "seat": "1",
+      "seatVerified": true,
+      "url": "https://x.com/m_ynni/status/1973740441163247982",
+      "source": "https://mama-premama.com/marinemesse-capacity/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "N"
+      },
+      "area": "2階 Nブロック",
+      "row": "4",
+      "scope": "block",
+      "url": "https://x.com/Wendy_rv_luv/status/1958842705309835628",
+      "source": "https://curious103.com/marinemesse/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "marine-K-6"
+      },
+      "area": "2階 Kブロック",
+      "row": "2",
+      "seat": "14",
+      "seatVerified": true,
+      "photo": 1,
+      "url": "https://x.com/JUN_____RIIZE/status/1958505686813544810",
+      "source": "https://mama-premama.com/marinemesse-capacity/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "B"
+      },
+      "area": "1階 Bブロック",
+      "row": "5",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/zl49fk/status/1958348855327756495",
+      "source": "https://mama-premama.com/marinemesse-capacity/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "C"
+      },
+      "area": "1階 Cブロック",
+      "scope": "block",
+      "url": "https://x.com/dame_ningen1223/status/1954086498745106465",
+      "source": "https://curious103.com/marinemesse/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "A"
+      },
+      "area": "1階 Aブロック",
+      "scope": "block",
+      "url": "https://x.com/pampaka/status/1918278330245337193",
+      "source": "https://live-kyokasho.jp/marinemesse-fukuoka/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "marine-P-14"
+      },
+      "area": "2階 Pブロック",
+      "row": "2",
+      "seat": "19",
+      "seatVerified": true,
+      "photo": 2,
+      "url": "https://x.com/_y_x_y__js_/status/1914924335418204662",
+      "source": "https://www.shining50adventures.com/marinemesse-fukuoka-standing-seat-view/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "marine-O-5"
+      },
+      "area": "2階 Oブロック",
+      "row": "3",
+      "seat": "11",
+      "seatVerified": true,
+      "photo": 1,
+      "url": "https://x.com/_y_x_y__js_/status/1914924335418204662",
+      "source": "https://mama-premama.com/marinemesse-capacity/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "L"
+      },
+      "area": "2階 Lブロック",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/keidesu29/status/1843645946145775776",
+      "source": "https://mama-premama.com/marinemesse-capacity/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "A"
+      },
+      "area": "1階 Aブロック",
+      "row": "5",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/F10138/status/1817175335336849738",
+      "source": "https://kirakira-t-y.com/kiteretu/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "A"
+      },
+      "area": "1階 Aブロック",
+      "row": "10",
+      "scope": "block",
+      "url": "https://x.com/F10138/status/1817164350173634765",
+      "source": "https://kirakira-t-y.com/kiteretu/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "marine-A-front-73"
+      },
+      "area": "1階 Aブロック",
+      "row": "3",
+      "seat": "79",
+      "seatVerified": true,
+      "photo": 1,
+      "url": "https://x.com/zoo_nct28/status/1809181621247160603",
+      "source": "https://mama-premama.com/marinemesse-capacity/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "Q"
+      },
+      "area": "2階 Qブロック",
+      "row": "3",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/fullllchan_/status/1808462801691926697",
+      "source": "https://fesgeek.com/marinemesse-a/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "marine-B-outer-49"
+      },
+      "area": "1階 Bブロック",
+      "row": "15",
+      "seat": "50",
+      "seatVerified": true,
+      "photo": 1,
+      "url": "https://x.com/shiromukuromu/status/1607822237016686592",
+      "source": "https://fesgeek.com/marinemesse-a/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "G"
+      },
+      "area": "1階 Gブロック",
+      "scope": "block",
+      "url": "https://x.com/miii__mxxn/status/1556945335515111424",
+      "source": "https://curious103.com/marinemesse/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "A"
+      },
+      "area": "1階 Aブロック",
+      "row": "9",
+      "scope": "block",
+      "url": "https://x.com/shirokuma99999/status/611094326056062976",
+      "source": "https://mama-premama.com/marinemesse-capacity/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "marine-Q-7"
+      },
+      "area": "2階 Qブロック",
+      "row": "4",
+      "seat": "9",
+      "seatVerified": true,
+      "photo": 2,
+      "url": "https://x.com/tomonkey02/status/2065251139831120053",
+      "source": "https://oshilivenavi.com/venue/marine-messe-fukuoka/seat-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "A"
+      },
+      "area": "1階 Aブロック",
+      "row": "12",
+      "scope": "block",
+      "photo": 2,
+      "url": "https://x.com/funichima4u/status/1994793347387723927",
+      "source": "https://oshilivenavi.com/venue/marine-messe-fukuoka/seat-view/"
+    }
+  ],
+  "marine-concert": [
+    {
+      "place": {
+        "kind": "zone",
+        "id": "N"
+      },
+      "area": "2階 Nブロック",
+      "scope": "block",
+      "photo": 2,
+      "url": "https://x.com/BG_YM_2024/status/2065238097395429854",
+      "source": "https://live-kyokasho.jp/marinemesse-fukuoka/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "R"
+      },
+      "area": "2階 Rブロック",
+      "row": "2",
+      "scope": "block",
+      "url": "https://x.com/tomonkey02/status/2065267043411411175",
+      "source": "https://mama-premama.com/marinemesse-capacity/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "marine-G-outer-1"
+      },
+      "area": "1階 Gブロック",
+      "row": "12",
+      "seat": "1",
+      "seatVerified": true,
+      "url": "https://x.com/m_ynni/status/1973740441163247982",
+      "source": "https://mama-premama.com/marinemesse-capacity/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "N"
+      },
+      "area": "2階 Nブロック",
+      "row": "4",
+      "scope": "block",
+      "url": "https://x.com/Wendy_rv_luv/status/1958842705309835628",
+      "source": "https://curious103.com/marinemesse/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "marine-K-6"
+      },
+      "area": "2階 Kブロック",
+      "row": "2",
+      "seat": "14",
+      "seatVerified": true,
+      "photo": 1,
+      "url": "https://x.com/JUN_____RIIZE/status/1958505686813544810",
+      "source": "https://mama-premama.com/marinemesse-capacity/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "B"
+      },
+      "area": "1階 Bブロック",
+      "row": "5",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/zl49fk/status/1958348855327756495",
+      "source": "https://mama-premama.com/marinemesse-capacity/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "C"
+      },
+      "area": "1階 Cブロック",
+      "scope": "block",
+      "url": "https://x.com/dame_ningen1223/status/1954086498745106465",
+      "source": "https://curious103.com/marinemesse/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "A"
+      },
+      "area": "1階 Aブロック",
+      "scope": "block",
+      "url": "https://x.com/pampaka/status/1918278330245337193",
+      "source": "https://live-kyokasho.jp/marinemesse-fukuoka/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "marine-P-14"
+      },
+      "area": "2階 Pブロック",
+      "row": "2",
+      "seat": "19",
+      "seatVerified": true,
+      "photo": 2,
+      "url": "https://x.com/_y_x_y__js_/status/1914924335418204662",
+      "source": "https://www.shining50adventures.com/marinemesse-fukuoka-standing-seat-view/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "marine-O-5"
+      },
+      "area": "2階 Oブロック",
+      "row": "3",
+      "seat": "11",
+      "seatVerified": true,
+      "photo": 1,
+      "url": "https://x.com/_y_x_y__js_/status/1914924335418204662",
+      "source": "https://mama-premama.com/marinemesse-capacity/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "L"
+      },
+      "area": "2階 Lブロック",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/keidesu29/status/1843645946145775776",
+      "source": "https://mama-premama.com/marinemesse-capacity/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "A"
+      },
+      "area": "1階 Aブロック",
+      "row": "5",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/F10138/status/1817175335336849738",
+      "source": "https://kirakira-t-y.com/kiteretu/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "A"
+      },
+      "area": "1階 Aブロック",
+      "row": "10",
+      "scope": "block",
+      "url": "https://x.com/F10138/status/1817164350173634765",
+      "source": "https://kirakira-t-y.com/kiteretu/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "marine-A-front-73"
+      },
+      "area": "1階 Aブロック",
+      "row": "3",
+      "seat": "79",
+      "seatVerified": true,
+      "photo": 1,
+      "url": "https://x.com/zoo_nct28/status/1809181621247160603",
+      "source": "https://mama-premama.com/marinemesse-capacity/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "Q"
+      },
+      "area": "2階 Qブロック",
+      "row": "3",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/fullllchan_/status/1808462801691926697",
+      "source": "https://fesgeek.com/marinemesse-a/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "marine-B-outer-49"
+      },
+      "area": "1階 Bブロック",
+      "row": "15",
+      "seat": "50",
+      "seatVerified": true,
+      "photo": 1,
+      "url": "https://x.com/shiromukuromu/status/1607822237016686592",
+      "source": "https://fesgeek.com/marinemesse-a/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "G"
+      },
+      "area": "1階 Gブロック",
+      "scope": "block",
+      "url": "https://x.com/miii__mxxn/status/1556945335515111424",
+      "source": "https://curious103.com/marinemesse/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "A"
+      },
+      "area": "1階 Aブロック",
+      "row": "9",
+      "scope": "block",
+      "url": "https://x.com/shirokuma99999/status/611094326056062976",
+      "source": "https://mama-premama.com/marinemesse-capacity/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "marine-Q-7"
+      },
+      "area": "2階 Qブロック",
+      "row": "4",
+      "seat": "9",
+      "seatVerified": true,
+      "photo": 2,
+      "url": "https://x.com/tomonkey02/status/2065251139831120053",
+      "source": "https://oshilivenavi.com/venue/marine-messe-fukuoka/seat-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "A"
+      },
+      "area": "1階 Aブロック",
+      "row": "12",
+      "scope": "block",
+      "photo": 2,
+      "url": "https://x.com/funichima4u/status/1994793347387723927",
+      "source": "https://oshilivenavi.com/venue/marine-messe-fukuoka/seat-view/"
+    }
+  ],
+  "miyagi-stand": [
+    {
+      "place": {
+        "kind": "zone",
+        "id": "K"
+      },
+      "area": "Kブロック",
+      "row": "4",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/ljmj__0530/status/2099450221151564080",
+      "source": "https://mama-premama.com/sekisuiheim-capacity/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "E"
+      },
+      "area": "Eブロック",
+      "row": "5",
+      "scope": "block",
+      "url": "https://x.com/htk_1052/status/2080911657585508801",
+      "source": "https://mama-premama.com/sekisuiheim-capacity/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "P"
+      },
+      "area": "Pブロック",
+      "scope": "block",
+      "url": "https://x.com/CCichigo/status/1826575891780014476",
+      "source": "https://fesgeek.com/grande21/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "E"
+      },
+      "area": "Eブロック",
+      "seat": "3",
+      "scope": "block",
+      "url": "https://x.com/survival_michi/status/1810989257001164875",
+      "source": "https://fesgeek.com/grande21/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "Z"
+      },
+      "area": "Zブロック",
+      "scope": "block",
+      "url": "https://x.com/Heeseung_pen/status/1800069978798063862",
+      "source": "https://curious103.com/grande21/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "U"
+      },
+      "area": "Uブロック",
+      "row": "7",
+      "scope": "block",
+      "photo": 2,
+      "url": "https://x.com/viewsfromseat/status/1792467462673584152",
+      "source": "https://oshikatu-life.com/sekisuihaim-arena-seat-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "A"
+      },
+      "area": "Aブロック",
+      "scope": "block",
+      "photo": 2,
+      "url": "https://x.com/xoxo_omigene/status/1788550086995407287",
+      "source": "https://fesgeek.com/grande21/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "T"
+      },
+      "area": "Tブロック",
+      "scope": "block",
+      "url": "https://x.com/hunny_toast/status/1644685659477807107",
+      "source": "https://fesgeek.com/grande21/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "O"
+      },
+      "area": "Oブロック",
+      "seat": "2",
+      "scope": "block",
+      "url": "https://x.com/maskupglassdown/status/1604708383852212224",
+      "source": "https://mama-premama.com/sekisuiheim-capacity/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "R"
+      },
+      "area": "Rブロック",
+      "row": "2",
+      "scope": "block",
+      "url": "https://x.com/GreenTimotei/status/462750657233948673",
+      "source": "https://mama-premama.com/sekisuiheim-capacity/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "D"
+      },
+      "area": "Dブロック",
+      "row": "1",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/chigu_bump_mwam/status/1884870123343011881",
+      "source": "https://miekatamap.com/sekisui-heim-arena/2f/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "J"
+      },
+      "area": "Jブロック",
+      "row": "1",
+      "scope": "block",
+      "url": "https://x.com/MATORI_BG/status/1663537329087315968",
+      "source": "https://miekatamap.com/sekisui-heim-arena/2f/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "I"
+      },
+      "area": "Iブロック",
+      "row": "2",
+      "scope": "block",
+      "photo": 3,
+      "url": "https://x.com/kimchimuci/status/1826600812543705549",
+      "source": "https://miekatamap.com/sekisui-heim-arena/2f/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "D"
+      },
+      "area": "Dブロック",
+      "row": "6",
+      "scope": "block",
+      "photo": 2,
+      "url": "https://x.com/_nondayo_/status/2099486546827399505",
+      "source": "https://miekatamap.com/sekisui-heim-arena/2f/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "G"
+      },
+      "area": "Gブロック",
+      "row": "6",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/kimchimuci/status/1826600825856446495",
+      "source": "https://miekatamap.com/sekisui-heim-arena/2f/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "G"
+      },
+      "area": "Gブロック",
+      "row": "12",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/kimchimuci/status/1826600812543705549",
+      "source": "https://miekatamap.com/sekisui-heim-arena/2f/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "N"
+      },
+      "area": "Nブロック",
+      "row": "2",
+      "scope": "block",
+      "photo": 4,
+      "url": "https://x.com/_nondayo_/status/2099486546827399505",
+      "source": "https://miekatamap.com/sekisui-heim-arena/2f/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "X"
+      },
+      "area": "Xブロック",
+      "row": "10",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/_nondayo_/status/2099486546827399505",
+      "source": "https://miekatamap.com/sekisui-heim-arena/2f/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "V"
+      },
+      "area": "Vブロック",
+      "row": "12",
+      "scope": "block",
+      "photo": 4,
+      "url": "https://x.com/kimchimuci/status/1826600812543705549",
+      "source": "https://miekatamap.com/sekisui-heim-arena/2f/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "S"
+      },
+      "area": "Sブロック",
+      "row": "21",
+      "scope": "block",
+      "photo": 3,
+      "url": "https://x.com/_nondayo_/status/2099486546827399505",
+      "source": "https://miekatamap.com/sekisui-heim-arena/2f/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "Q"
+      },
+      "area": "Qブロック",
+      "row": "1",
+      "scope": "block",
+      "url": "https://x.com/miiiiina_a37/status/1819475062078296447",
+      "source": "https://miekatamap.com/sekisui-heim-arena/2f/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "V"
+      },
+      "area": "Vブロック",
+      "row": "1",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/s_me0810/status/2099989706973073542",
+      "source": "https://miekatamap.com/sekisui-heim-arena/2f/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "U"
+      },
+      "area": "Uブロック",
+      "row": "11",
+      "scope": "block",
+      "url": "https://x.com/gnu__mee__i/status/2025188465403724172",
+      "source": "https://miekatamap.com/sekisui-heim-arena/2f/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "T"
+      },
+      "area": "Tブロック",
+      "row": "16",
+      "scope": "block",
+      "photo": 2,
+      "url": "https://x.com/73panda_goods/status/1644690601999491073",
+      "source": "https://miekatamap.com/sekisui-heim-arena/2f/"
+    }
+  ],
+  "mufg-seats": [
+    {
+      "place": {
+        "kind": "section",
+        "id": "mufg-block-237"
+      },
+      "area": "237ブロック",
+      "scope": "block",
+      "url": "https://x.com/Kwpmomm/status/2000545048790999461",
+      "source": "https://www.shining50adventures.com/mufg-stadium-seat-view-live/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "mufg-block-354"
+      },
+      "area": "354ブロック",
+      "row": "11",
+      "scope": "block",
+      "url": "https://x.com/Tokya_Syo_1027/status/1999797878299246956",
+      "source": "https://www.shining50adventures.com/mufg-stadium-seat-view-live/"
+    }
+  ],
+  "nissan-seats": [
+    {
+      "place": {
+        "kind": "zone",
+        "id": "E12"
+      },
+      "area": "E12入口付近",
+      "row": "5",
+      "scope": "entrance",
+      "photo": 2,
+      "url": "https://x.com/389Na/status/1927712002547282121",
+      "source": "https://mama-premama.com/nissanstadium-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "N12"
+      },
+      "area": "N12入口付近",
+      "row": "17",
+      "scope": "entrance",
+      "photo": 1,
+      "url": "https://x.com/389Na/status/1927712002547282121",
+      "source": "https://mama-premama.com/nissanstadium-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "N23"
+      },
+      "area": "N23入口付近",
+      "row": "3",
+      "seat": "254",
+      "scope": "entrance",
+      "photo": 1,
+      "url": "https://x.com/koko_suwattayo/status/1912709618389905660",
+      "source": "https://www.shining50adventures.com/nissan-stadium-live-seat-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "W14"
+      },
+      "area": "W14入口付近",
+      "row": "9",
+      "scope": "entrance",
+      "photo": 1,
+      "url": "https://x.com/615h_913y/status/1886742645038571589",
+      "source": "https://mama-premama.com/nissanstadium-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "E13"
+      },
+      "area": "E13入口付近",
+      "row": "15",
+      "scope": "entrance",
+      "photo": 1,
+      "url": "https://x.com/__hgdn_w/status/1856924213476823509",
+      "source": "https://mama-premama.com/nissanstadium-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "W15"
+      },
+      "area": "W15入口付近",
+      "row": "8",
+      "scope": "entrance",
+      "url": "https://x.com/timutam/status/1827353770239381941",
+      "source": "https://mama-premama.com/nissanstadium-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "W23"
+      },
+      "area": "W23入口付近",
+      "row": "18",
+      "scope": "entrance",
+      "photo": 1,
+      "url": "https://x.com/shuaw__zi8/status/1817031356884615615",
+      "source": "https://www.shining50adventures.com/nissan-stadium-live-seat-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "E25"
+      },
+      "area": "E25入口付近",
+      "row": "18",
+      "scope": "entrance",
+      "photo": 1,
+      "url": "https://x.com/ottol_s2/status/1816786230128108017",
+      "source": "https://mama-premama.com/nissanstadium-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "W23"
+      },
+      "area": "W23入口付近",
+      "row": "24",
+      "scope": "entrance",
+      "photo": 1,
+      "url": "https://x.com/world_coups/status/1816655100179546393",
+      "source": "https://mama-premama.com/nissanstadium-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "N25"
+      },
+      "area": "N25入口付近",
+      "row": "29",
+      "seat": "403",
+      "scope": "entrance",
+      "url": "https://x.com/lboxq16/status/1816867280044843271",
+      "source": "https://mama-premama.com/nissanstadium-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "E13"
+      },
+      "area": "E13入口付近",
+      "row": "19",
+      "seat": "301",
+      "scope": "entrance",
+      "photo": 1,
+      "url": "https://x.com/hojicha_yo/status/1816449887229169932",
+      "source": "https://mama-premama.com/nissanstadium-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "E16"
+      },
+      "area": "E16入口付近",
+      "row": "22",
+      "seat": "694",
+      "scope": "entrance",
+      "url": "https://x.com/ut_sny/status/1816451785344872622",
+      "source": "https://mama-premama.com/nissanstadium-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "W16"
+      },
+      "area": "W16入口付近",
+      "row": "22",
+      "scope": "entrance",
+      "url": "https://x.com/GO4nap4fWf0m4QY/status/1816487499268829365",
+      "source": "https://mama-premama.com/nissanstadium-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "E13"
+      },
+      "area": "E13入口付近",
+      "row": "12",
+      "seat": "349",
+      "scope": "entrance",
+      "url": "https://x.com/momo__s2_p_q/status/1816586921487077856",
+      "source": "https://curious103.com/nissan-stadium/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "N24"
+      },
+      "area": "N24入口付近",
+      "row": "22",
+      "scope": "entrance",
+      "url": "https://x.com/xoj__s2/status/1816473314581479612",
+      "source": "https://mama-premama.com/nissanstadium-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "E24"
+      },
+      "area": "E24入口付近",
+      "row": "17",
+      "scope": "entrance",
+      "url": "https://x.com/otk_room/status/1816156455403422175",
+      "source": "https://mama-premama.com/nissanstadium-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "E21"
+      },
+      "area": "E21入口付近",
+      "scope": "entrance",
+      "photo": 2,
+      "url": "https://x.com/dN7zpCm5/status/1795357298476683522",
+      "source": "https://mama-premama.com/nissanstadium-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "W21"
+      },
+      "area": "W21入口付近",
+      "row": "19",
+      "seat": "125",
+      "scope": "entrance",
+      "url": "https://x.com/rinrinrenren5/status/1794897242874372393",
+      "source": "https://mama-premama.com/nissanstadium-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "E11"
+      },
+      "area": "E11入口付近",
+      "scope": "entrance",
+      "url": "https://x.com/k4ol2_/status/1794545694734475707",
+      "source": "https://mama-premama.com/nissanstadium-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "E14"
+      },
+      "area": "E14入口付近",
+      "row": "26",
+      "scope": "entrance",
+      "url": "https://x.com/tt_sel112/status/1794589983975829919",
+      "source": "https://mama-premama.com/nissanstadium-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "W12"
+      },
+      "area": "W12入口付近",
+      "row": "3",
+      "scope": "entrance",
+      "photo": 1,
+      "url": "https://x.com/zf1s3/status/1794384386126971203",
+      "source": "https://mama-premama.com/nissanstadium-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "W16"
+      },
+      "area": "W16入口付近",
+      "row": "14",
+      "seat": "628",
+      "scope": "entrance",
+      "url": "https://x.com/mikimama_yasuko/status/1794274410079338926",
+      "source": "https://mama-premama.com/nissanstadium-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "N15"
+      },
+      "area": "N15入口付近",
+      "row": "25",
+      "scope": "entrance",
+      "url": "https://x.com/riko__yoon/status/1794508059865178589",
+      "source": "https://mama-premama.com/nissanstadium-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "E22"
+      },
+      "area": "E22入口付近",
+      "row": "21",
+      "scope": "entrance",
+      "url": "https://x.com/jh_1004sd/status/1794447939320127763",
+      "source": "https://mama-premama.com/nissanstadium-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "W24"
+      },
+      "area": "W24入口付近",
+      "row": "11",
+      "scope": "entrance",
+      "url": "https://x.com/Kaoringoo9/status/1794273623123083418",
+      "source": "https://mama-premama.com/nissanstadium-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "W26"
+      },
+      "area": "W26入口付近",
+      "row": "9",
+      "scope": "entrance",
+      "url": "https://x.com/SvT_774/status/1794270209341296772",
+      "source": "https://mama-premama.com/nissanstadium-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "N21"
+      },
+      "area": "N21入口付近",
+      "row": "20",
+      "scope": "entrance",
+      "url": "https://x.com/riyuta080904/status/1794380835246031037",
+      "source": "https://mama-premama.com/nissanstadium-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "N24"
+      },
+      "area": "N24入口付近",
+      "scope": "entrance",
+      "url": "https://x.com/Chononu_0717/status/1794379518385471939",
+      "source": "https://mama-premama.com/nissanstadium-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "E26"
+      },
+      "area": "E26入口付近",
+      "row": "20",
+      "scope": "entrance",
+      "url": "https://x.com/tpskehrua/status/1794394522975441074",
+      "source": "https://curious103.com/nissan-stadium/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "W15"
+      },
+      "area": "W15入口付近",
+      "row": "16",
+      "scope": "entrance",
+      "url": "https://x.com/wonwoo_miiiii/status/1790541728078073859",
+      "source": "https://www.shining50adventures.com/nissan-stadium-live-seat-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "E13"
+      },
+      "area": "E13入口付近",
+      "row": "27",
+      "scope": "entrance",
+      "url": "https://x.com/ichi__17sc/status/1790181605597913437",
+      "source": "https://mama-premama.com/nissanstadium-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "W13"
+      },
+      "area": "W13入口付近",
+      "row": "13",
+      "scope": "entrance",
+      "url": "https://x.com/k__j__puppy/status/1790439377191202992",
+      "source": "https://mama-premama.com/nissanstadium-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "N12"
+      },
+      "area": "N12入口付近",
+      "row": "15",
+      "scope": "entrance",
+      "url": "https://x.com/JBM_sslove/status/1790269388710711571",
+      "source": "https://mama-premama.com/nissanstadium-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "N23"
+      },
+      "area": "N23入口付近",
+      "scope": "entrance",
+      "photo": 2,
+      "url": "https://x.com/Sae60967990/status/1790436171274723699",
+      "source": "https://mama-premama.com/nissanstadium-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "E23"
+      },
+      "area": "E23入口付近",
+      "row": "17",
+      "seat": "352",
+      "scope": "entrance",
+      "photo": 2,
+      "url": "https://x.com/shizue_touketu/status/2071939938241966428",
+      "source": "https://oshilivenavi.com/venue/nissan-stadium/seat-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "W14"
+      },
+      "area": "W14入口付近",
+      "row": "1",
+      "seat": "441",
+      "scope": "entrance",
+      "photo": 3,
+      "url": "https://x.com/u_h5i13/status/1816769133197082900",
+      "source": "https://miekatamap.com/nissan-stadium/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "E26"
+      },
+      "area": "E26入口付近",
+      "row": "16",
+      "scope": "entrance",
+      "photo": 2,
+      "url": "https://x.com/diin0_lvlv/status/1816465250562298284",
+      "source": "https://miekatamap.com/nissan-stadium/"
+    }
+  ],
+  "osaka-stand-current": [
+    {
+      "place": {
+        "kind": "section",
+        "id": "N"
+      },
+      "area": "スタンド Nブロック",
+      "row": "15",
+      "seat": "35",
+      "seatVerified": true,
+      "photo": 1,
+      "url": "https://x.com/mu_asami_lovin/status/2098436377390309739",
+      "source": "https://smart-list.info/oosakazyou-hall/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "A"
+      },
+      "area": "スタンド Aブロック",
+      "row": "6",
+      "seat": "42",
+      "seatVerified": true,
+      "photo": 2,
+      "url": "https://x.com/mu_asami_lovin/status/2098436377390309739",
+      "source": "https://smart-list.info/oosakazyou-hall/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "G"
+      },
+      "area": "スタンド Gブロック",
+      "row": "6",
+      "seat": "19",
+      "seatVerified": true,
+      "photo": 3,
+      "url": "https://x.com/mu_asami_lovin/status/2098436377390309739",
+      "source": "https://smart-list.info/oosakazyou-hall/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "F"
+      },
+      "area": "スタンド Fブロック",
+      "row": "17",
+      "seat": "20",
+      "seatVerified": true,
+      "photo": 1,
+      "url": "https://x.com/ta0810_momo/status/2096908702125326663",
+      "source": "https://smart-list.info/oosakazyou-hall/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "H"
+      },
+      "area": "スタンド Hブロック",
+      "row": "21",
+      "seat": "32",
+      "seatVerified": true,
+      "photo": 2,
+      "url": "https://x.com/ta0810_momo/status/2096908702125326663",
+      "source": "https://smart-list.info/oosakazyou-hall/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "D"
+      },
+      "area": "スタンド Dブロック",
+      "row": "6",
+      "seat": "13",
+      "seatVerified": true,
+      "photo": 3,
+      "url": "https://x.com/ta0810_momo/status/2096908702125326663",
+      "source": "https://smart-list.info/oosakazyou-hall/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "D"
+      },
+      "area": "スタンド Dブロック",
+      "row": "5",
+      "seat": "4",
+      "seatVerified": true,
+      "photo": 4,
+      "url": "https://x.com/ta0810_momo/status/2096908702125326663",
+      "source": "https://smart-list.info/oosakazyou-hall/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "A"
+      },
+      "area": "スタンド Aブロック",
+      "scope": "block",
+      "url": "https://x.com/MURaaaaaa2/status/2077310614758895647",
+      "source": "https://mama-premama.com/oosakajohole-miekata/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "C"
+      },
+      "area": "スタンド Cブロック",
+      "row": "17",
+      "scope": "block",
+      "url": "https://x.com/2qwi__/status/2074915106958586306",
+      "source": "https://mama-premama.com/oosakajohole-miekata/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "E"
+      },
+      "area": "スタンド Eブロック",
+      "row": "7",
+      "scope": "block",
+      "url": "https://x.com/BESTY_jun/status/1708356129234076055",
+      "source": "https://mama-premama.com/oosakajohole-miekata/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "M"
+      },
+      "area": "スタンド Mブロック",
+      "row": "4",
+      "scope": "block",
+      "url": "https://x.com/nndthk/status/1652196816094625793",
+      "source": "https://mama-premama.com/oosakajohole-miekata/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "E"
+      },
+      "area": "スタンド Eブロック",
+      "row": "4",
+      "scope": "block",
+      "url": "https://x.com/isfp__h/status/1636046764930396160",
+      "source": "https://mama-premama.com/oosakajohole-miekata/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "C"
+      },
+      "area": "スタンド Cブロック",
+      "row": "5",
+      "scope": "block",
+      "url": "https://x.com/atyv_mxnq/status/1634895122046525440",
+      "source": "https://mama-premama.com/oosakajohole-miekata/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "H"
+      },
+      "area": "スタンド Hブロック",
+      "row": "17",
+      "scope": "block",
+      "url": "https://x.com/mmrock_easy/status/1634810792393732096",
+      "source": "https://mama-premama.com/oosakajohole-miekata/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "G"
+      },
+      "area": "スタンド Gブロック",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/0_ngs_O/status/1590339014066069504",
+      "source": "https://mama-premama.com/oosakajohole-miekata/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "H"
+      },
+      "area": "スタンド Hブロック",
+      "scope": "block",
+      "photo": 2,
+      "url": "https://x.com/Hear_my_story_5/status/1469789059417784320",
+      "source": "https://smart-list.info/oosakazyou-hall/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "B"
+      },
+      "area": "スタンド Bブロック",
+      "scope": "block",
+      "photo": 2,
+      "url": "https://x.com/IKUTAKEDA/status/1205494222444355589",
+      "source": "https://smart-list.info/oosakazyou-hall/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "A"
+      },
+      "area": "スタンド Aブロック",
+      "row": "20",
+      "seat": "37",
+      "seatVerified": true,
+      "url": "https://x.com/biritbir/status/1191863919326838784",
+      "source": "https://mama-premama.com/oosakajohole-miekata/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "H"
+      },
+      "area": "スタンド Hブロック",
+      "row": "2",
+      "scope": "block",
+      "url": "https://x.com/ueno_kanda/status/1180359154579341312",
+      "source": "https://mama-premama.com/oosakajohole-miekata/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "J"
+      },
+      "area": "スタンド Jブロック",
+      "row": "3",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/Uno_Sue43/status/1159261475493408768",
+      "source": "https://mama-premama.com/oosakajohole-miekata/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "D"
+      },
+      "area": "スタンド Dブロック",
+      "row": "15",
+      "scope": "block",
+      "url": "https://x.com/Ender_yuina/status/1128954702681464833",
+      "source": "https://mama-premama.com/oosakajohole-miekata/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "M"
+      },
+      "area": "スタンド Mブロック",
+      "scope": "block",
+      "url": "https://x.com/ukrockjapan/status/681104907819024384",
+      "source": "https://smart-list.info/oosakazyou-hall/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "G"
+      },
+      "area": "スタンド Gブロック",
+      "scope": "block",
+      "url": "https://x.com/luv4yeol/status/574128116911579136",
+      "source": "https://smart-list.info/oosakazyou-hall/"
+    }
+  ],
+  "paypay-stand-reference": [
+    {
+      "place": {
+        "kind": "zone",
+        "id": "paypay-middle-1塁側"
+      },
+      "area": "1塁側 中段",
+      "row": "27",
+      "scope": "area",
+      "photo": 1,
+      "url": "https://x.com/lbnx62/status/2005229968620753089",
+      "source": "https://mama-premama.com/paypaydome-capa-miekata/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "paypay-upper-1塁側"
+      },
+      "area": "1塁側 後方",
+      "scope": "area",
+      "url": "https://x.com/snowdrop_yuzu/status/1987144858667262062",
+      "source": "https://live-kyokasho.jp/paypay-dome/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "paypay-middle-1塁側"
+      },
+      "area": "1塁側 中段",
+      "row": "27",
+      "seat": "82",
+      "scope": "area",
+      "photo": 1,
+      "url": "https://x.com/Fs7nO00/status/1875455902566035719",
+      "source": "https://live-kyokasho.jp/paypay-dome/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "paypay-upper-58"
+      },
+      "area": "1塁側 後方",
+      "row": "46",
+      "seat": "293",
+      "seatVerified": true,
+      "photo": 3,
+      "url": "https://x.com/Fs7nO00/status/1875455902566035719",
+      "source": "https://live-kyokasho.jp/paypay-dome/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "paypay-middle-1塁側"
+      },
+      "area": "1塁側 中段",
+      "row": "38",
+      "seat": "147",
+      "scope": "area",
+      "url": "https://x.com/riime_7/status/1875082551213306365",
+      "source": "https://mama-premama.com/paypaydome-capa-miekata/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "paypay-middle-3塁側"
+      },
+      "area": "3塁側 中段",
+      "row": "35",
+      "scope": "area",
+      "photo": 1,
+      "url": "https://x.com/y0ll4_s/status/1869370407104749788",
+      "source": "https://mama-premama.com/paypaydome-capa-miekata/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "paypay-middle-3塁側"
+      },
+      "area": "3塁側 中段",
+      "row": "21",
+      "scope": "area",
+      "photo": 1,
+      "url": "https://x.com/j0knu6/status/1869272505938284946",
+      "source": "https://mama-premama.com/paypaydome-capa-miekata/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "paypay-middle-3塁側"
+      },
+      "area": "3塁側 中段",
+      "row": "35",
+      "scope": "area",
+      "url": "https://x.com/_svtseat/status/1868646844500492328",
+      "source": "https://mama-premama.com/paypaydome-capa-miekata/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "paypay-middle-1塁側"
+      },
+      "area": "1塁側 中段",
+      "row": "22",
+      "scope": "area",
+      "photo": 4,
+      "url": "https://x.com/svt_dngy__/status/1998768627861065900",
+      "source": "https://miekatamap.com/mizuho-paypay-dome/first-base-side/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "paypay-middle-1塁側"
+      },
+      "area": "1塁側 中段",
+      "row": "26",
+      "scope": "area",
+      "photo": 4,
+      "url": "https://x.com/hovit_/status/1998730172766261429",
+      "source": "https://miekatamap.com/mizuho-paypay-dome/first-base-side/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "paypay-middle-1塁側"
+      },
+      "area": "1塁側 中段",
+      "row": "31",
+      "scope": "area",
+      "url": "https://x.com/a__cha0314/status/1743205602594324587",
+      "source": "https://miekatamap.com/mizuho-paypay-dome/first-base-side/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "paypay-middle-1塁側"
+      },
+      "area": "1塁側 中段",
+      "row": "33",
+      "scope": "area",
+      "photo": 2,
+      "url": "https://x.com/svt_dngy__/status/1998768627861065900",
+      "source": "https://miekatamap.com/mizuho-paypay-dome/first-base-side/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "paypay-middle-1塁側"
+      },
+      "area": "1塁側 中段",
+      "row": "36",
+      "scope": "area",
+      "url": "https://x.com/snst_0000/status/1872501655310340337",
+      "source": "https://miekatamap.com/mizuho-paypay-dome/first-base-side/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "paypay-middle-3塁側"
+      },
+      "area": "3塁側 中段",
+      "row": "31",
+      "scope": "area",
+      "url": "https://x.com/W0NGYUN/status/1870496165730586902",
+      "source": "https://miekatamap.com/mizuho-paypay-dome/third-base-side/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "paypay-middle-3塁側"
+      },
+      "area": "3塁側 中段",
+      "row": "38",
+      "scope": "area",
+      "url": "https://x.com/poikatsuakadesu/status/1873626808459071626",
+      "source": "https://miekatamap.com/mizuho-paypay-dome/third-base-side/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "paypay-middle-3塁側"
+      },
+      "area": "3塁側 中段",
+      "row": "38",
+      "scope": "area",
+      "photo": 2,
+      "url": "https://x.com/k_kg_05/status/1832024147146494458",
+      "source": "https://miekatamap.com/mizuho-paypay-dome/third-base-side/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "paypay-middle-3塁側"
+      },
+      "area": "3塁側 中段",
+      "row": "38",
+      "scope": "area",
+      "photo": 3,
+      "url": "https://x.com/svt_dngy__/status/1998768627861065900",
+      "source": "https://miekatamap.com/mizuho-paypay-dome/third-base-side/"
+    }
+  ],
+  "pia-arena-mm-seat-plans": [
+    {
+      "place": {
+        "kind": "zone",
+        "id": "4F"
+      },
+      "area": "4F",
+      "scope": "floor",
+      "url": "https://x.com/miiii_co_ega/status/1825082874598441268",
+      "source": "https://bluesea007.com/archives/6185"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "4F"
+      },
+      "area": "4F",
+      "row": "1",
+      "scope": "floor",
+      "url": "https://x.com/jw__trs/status/1702637437292585263",
+      "source": "https://bluesea007.com/archives/6185"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "4F"
+      },
+      "area": "4F",
+      "scope": "floor",
+      "url": "https://x.com/oo0mimo0oo/status/1695370159903633734",
+      "source": "https://bluesea007.com/archives/6185"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "3F"
+      },
+      "area": "3F",
+      "row": "8",
+      "scope": "floor",
+      "photo": 1,
+      "url": "https://x.com/__ily12/status/1613509340807467010",
+      "source": "https://bluesea007.com/archives/6185"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "4F"
+      },
+      "area": "4F",
+      "scope": "floor",
+      "url": "https://x.com/Toraphgu/status/1604381557183041537",
+      "source": "https://bluesea007.com/archives/6185"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "2F"
+      },
+      "area": "2F",
+      "row": "1",
+      "scope": "floor",
+      "url": "https://x.com/bymura/status/1496727885222006785",
+      "source": "https://bluesea007.com/archives/6185"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "2F"
+      },
+      "area": "2F",
+      "scope": "floor",
+      "url": "https://x.com/m0r1sk/status/1486707698347376643",
+      "source": "https://bluesea007.com/archives/6185"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "3F"
+      },
+      "area": "3F",
+      "scope": "floor",
+      "url": "https://x.com/Aoi_ENDer_0113/status/1467817066866835456",
+      "source": "https://bluesea007.com/archives/6185"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "2F"
+      },
+      "area": "2F",
+      "scope": "floor",
+      "photo": 3,
+      "url": "https://x.com/yblueearth/status/2081899851206496370",
+      "source": "https://oshilivenavi.com/venue/pia-arena-mm/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "2F-C-148"
+      },
+      "area": "2階",
+      "row": "4",
+      "seat": "162",
+      "seatVerified": true,
+      "photo": 4,
+      "url": "https://x.com/yblueearth/status/2081899851206496370",
+      "source": "https://oshilivenavi.com/venue/pia-arena-mm/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "2F"
+      },
+      "area": "2F",
+      "scope": "floor",
+      "photo": 1,
+      "url": "https://x.com/odeko___/status/1504427198228606978",
+      "source": "https://oshilivenavi.com/venue/pia-arena-mm/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "2F"
+      },
+      "area": "2F",
+      "scope": "floor",
+      "photo": 3,
+      "url": "https://x.com/odeko___/status/1504427198228606978",
+      "source": "https://oshilivenavi.com/venue/pia-arena-mm/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "2F"
+      },
+      "area": "2F",
+      "scope": "floor",
+      "photo": 4,
+      "url": "https://x.com/odeko___/status/1504427198228606978",
+      "source": "https://oshilivenavi.com/venue/pia-arena-mm/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "2F"
+      },
+      "area": "2F",
+      "row": "1",
+      "scope": "floor",
+      "url": "https://x.com/zenbukiiro/status/2092260335332004090",
+      "source": "https://oshilivenavi.com/venue/pia-arena-mm/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "2F-L-060"
+      },
+      "area": "2階 左側",
+      "row": "7",
+      "seat": "60",
+      "seatVerified": true,
+      "url": "https://x.com/1leo_822/status/2070498381492027771",
+      "source": "https://oshilivenavi.com/venue/pia-arena-mm/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "3F"
+      },
+      "area": "3F",
+      "row": "5",
+      "scope": "floor",
+      "photo": 3,
+      "url": "https://x.com/Eomsan113/status/2061747832789569587",
+      "source": "https://oshilivenavi.com/venue/pia-arena-mm/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "3F"
+      },
+      "area": "3F",
+      "row": "2",
+      "scope": "floor",
+      "photo": 4,
+      "url": "https://x.com/Eomsan113/status/2061747832789569587",
+      "source": "https://oshilivenavi.com/venue/pia-arena-mm/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "3F"
+      },
+      "area": "3F",
+      "scope": "floor",
+      "photo": 2,
+      "url": "https://x.com/odeko___/status/1504427198228606978",
+      "source": "https://oshilivenavi.com/venue/pia-arena-mm/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "3F"
+      },
+      "area": "3F",
+      "row": "2",
+      "scope": "floor",
+      "photo": 2,
+      "url": "https://x.com/jm053tfn/status/1880461618951422303",
+      "source": "https://oshilivenavi.com/venue/pia-arena-mm/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "3F"
+      },
+      "area": "3F",
+      "row": "6",
+      "scope": "floor",
+      "photo": 3,
+      "url": "https://x.com/jm053tfn/status/1880461618951422303",
+      "source": "https://oshilivenavi.com/venue/pia-arena-mm/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "4F"
+      },
+      "area": "4F",
+      "row": "4",
+      "scope": "floor",
+      "url": "https://x.com/kuyuka_r2/status/2096730166227837072",
+      "source": "https://oshilivenavi.com/venue/pia-arena-mm/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "4F"
+      },
+      "area": "4F",
+      "scope": "floor",
+      "url": "https://x.com/miki_sts/status/1698281245539742093",
+      "source": "https://oshilivenavi.com/venue/pia-arena-mm/"
+    }
+  ],
+  "ssa-seat-stadium": [
+    {
+      "place": {
+        "kind": "position",
+        "id": "stadium-door-212"
+      },
+      "area": "212扉付近",
+      "seat": "236",
+      "scope": "entrance",
+      "photo": 2,
+      "event": "改修前のスタジアムモード",
+      "url": "https://x.com/Emr15F/status/1993301188465565992",
+      "source": "https://oshilivenavi.com/venue/saitama-super-arena/seat-view/"
+    },
+    {
+      "place": {
+        "kind": "position",
+        "id": "stadium-door-201"
+      },
+      "area": "201扉付近",
+      "seat": "885",
+      "scope": "entrance",
+      "event": "改修前のスタジアムモード",
+      "url": "https://x.com/nnn__lz/status/2054943178558783928",
+      "source": "https://oshilivenavi.com/venue/saitama-super-arena/seat-view/"
+    }
+  ],
+  "tokyo-dome-fixed": [
+    {
+      "place": {
+        "kind": "section",
+        "id": "A09"
+      },
+      "area": "1階 1塁側 A09区画",
+      "row": "18",
+      "seat": "325",
+      "seatVerified": true,
+      "photo": 2,
+      "url": "https://x.com/_svtseat/status/1861734366285901930",
+      "source": "https://live-kyokasho.jp/tokyo-dome-2/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "A24"
+      },
+      "area": "1階 1塁側 A24区画",
+      "row": "1",
+      "seat": "24",
+      "seatVerified": true,
+      "photo": 2,
+      "url": "https://x.com/jehyon2014/status/1792792740423774353",
+      "source": "https://miekatamap.com/tokyo-dome/1f/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "E18"
+      },
+      "area": "2階 1塁側 E18区画",
+      "row": "11",
+      "scope": "block",
+      "url": "https://x.com/tyottomattenaa/status/1729000916052001133",
+      "source": "https://miekatamap.com/tokyo-dome/2f/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "D22"
+      },
+      "area": "2階 D22区画",
+      "row": "10",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/ILKT_wpykt123/status/2099533304173318550",
+      "source": "https://miekatamap.com/tokyo-dome/2f/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "A20"
+      },
+      "area": "1階 1塁側 A20区画",
+      "row": "4",
+      "seat": "105",
+      "seatVerified": true,
+      "photo": 2,
+      "url": "https://x.com/new_sarang/status/1699083357215502836",
+      "source": "https://miekatamap.com/tokyo-dome/1f/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "A20"
+      },
+      "area": "1階 1塁側 A20区画",
+      "row": "20",
+      "seat": "108",
+      "seatVerified": true,
+      "photo": 4,
+      "url": "https://x.com/_____2min/status/1860295800116642084",
+      "source": "https://miekatamap.com/tokyo-dome/1f/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "B04"
+      },
+      "area": "1階 1塁側 B04区画",
+      "row": "28",
+      "scope": "block",
+      "url": "https://x.com/ILKT_wpykt123/status/2099540580133138535",
+      "source": "https://miekatamap.com/tokyo-dome/1f/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "B07"
+      },
+      "area": "1階 1塁側 B07区画",
+      "row": "40",
+      "seat": "364",
+      "seatVerified": true,
+      "photo": 2,
+      "url": "https://x.com/1997_kook6/status/1792781256410948043",
+      "source": "https://miekatamap.com/tokyo-dome/1f/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "A38"
+      },
+      "area": "1階 3塁側 A38区画",
+      "row": "5",
+      "seat": "268",
+      "seatVerified": true,
+      "photo": 2,
+      "url": "https://x.com/_____2min/status/1860295800116642084",
+      "source": "https://miekatamap.com/tokyo-dome/1f/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "A46"
+      },
+      "area": "1階 3塁側 A46区画",
+      "row": "20",
+      "scope": "block",
+      "url": "https://x.com/ILKT_wpykt123/status/2099540204805910661",
+      "source": "https://miekatamap.com/tokyo-dome/1f/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "D25"
+      },
+      "area": "2階 1塁側 D25区画",
+      "row": "8",
+      "scope": "block",
+      "photo": 3,
+      "url": "https://x.com/nsy_oAII/status/1891400118076592529",
+      "source": "https://miekatamap.com/tokyo-dome/2f/"
+    }
+  ],
+  "tokyo-garden-theater-seat-plans": [
+    {
+      "place": {
+        "kind": "zone",
+        "id": "1C"
+      },
+      "area": "3F 1Cブロック",
+      "row": "9",
+      "scope": "block",
+      "url": "https://x.com/TakeKufan/status/2100546202056139227",
+      "source": "https://oshilivenavi.com/venue/tokyo-garden-theater/seat-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "1B"
+      },
+      "area": "3F 1Bブロック",
+      "row": "4",
+      "scope": "block",
+      "url": "https://x.com/1kyky2/status/2090211091477614908",
+      "source": "https://oshilivenavi.com/venue/tokyo-garden-theater/seat-view/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "1D-front"
+      },
+      "area": "3F 1Dブロック",
+      "row": "7",
+      "seat": "8",
+      "seatVerified": true,
+      "photo": 1,
+      "url": "https://x.com/0fuyo_nico0/status/2110571662836183546",
+      "source": "https://oshilivenavi.com/venue/tokyo-garden-theater/seat-view/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "2D-rear"
+      },
+      "area": "4F 2Dブロック",
+      "row": "6",
+      "seat": "16",
+      "seatVerified": true,
+      "photo": 1,
+      "url": "https://x.com/TAKI_tk05/status/1815443298619883827",
+      "source": "https://oshilivenavi.com/venue/tokyo-garden-theater/seat-view/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "2F-front"
+      },
+      "area": "4F 2Fブロック",
+      "row": "2",
+      "seat": "3",
+      "seatVerified": true,
+      "photo": 4,
+      "url": "https://x.com/TAKI_tk05/status/1815443298619883827",
+      "source": "https://oshilivenavi.com/venue/tokyo-garden-theater/seat-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "2D"
+      },
+      "area": "4F 2Dブロック",
+      "row": "8",
+      "scope": "block",
+      "url": "https://x.com/zoutonene/status/1923368449163624703",
+      "source": "https://oshilivenavi.com/venue/tokyo-garden-theater/seat-view/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "3C-front"
+      },
+      "area": "5F 3Cブロック",
+      "row": "4",
+      "seat": "9",
+      "seatVerified": true,
+      "photo": 2,
+      "url": "https://x.com/02__Taehyun02/status/2089645047172243955",
+      "source": "https://oshilivenavi.com/venue/tokyo-garden-theater/seat-view/"
+    }
+  ],
+  "vantelin-seat-reference": [
+    {
+      "place": {
+        "kind": "zone",
+        "id": "area-1"
+      },
+      "area": "1塁側",
+      "row": "41",
+      "seat": "486",
+      "scope": "area",
+      "url": "https://x.com/0zbpofGjnzFpm8t/status/1862512234490143164",
+      "source": "https://stage-seats.jp/nagoya-dome-seats/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "area-2"
+      },
+      "area": "3塁側",
+      "row": "58",
+      "scope": "area",
+      "url": "https://x.com/mai_aaashnybfmz/status/1827644047554728025",
+      "source": "https://happiness-life24.com/nagoya-dome/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "area-1"
+      },
+      "area": "1塁側",
+      "row": "34",
+      "seat": "263",
+      "scope": "area",
+      "photo": 1,
+      "url": "https://x.com/xuo_o8ht3/status/1734935261635883287",
+      "source": "https://happiness-life24.com/nagoya-dome/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "area-1"
+      },
+      "area": "1塁側",
+      "row": "4",
+      "seat": "188",
+      "scope": "area",
+      "photo": 2,
+      "url": "https://x.com/nyan_121212/status/1725874993052221748",
+      "source": "https://happiness-life24.com/nagoya-dome/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "area-2"
+      },
+      "area": "3塁側",
+      "row": "35",
+      "scope": "area",
+      "url": "https://x.com/Skz0202/status/1698156190289793476",
+      "source": "https://happiness-life24.com/nagoya-dome/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "area-2"
+      },
+      "area": "3塁側",
+      "row": "46",
+      "scope": "area",
+      "photo": 3,
+      "url": "https://x.com/my_luv_sg/status/1591275129715429376",
+      "source": "https://happiness-life24.com/nagoya-dome/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "area-1"
+      },
+      "area": "1塁側",
+      "row": "19",
+      "scope": "area",
+      "url": "https://x.com/mSm_dk_/status/1731316059586854981",
+      "source": "https://miekatamap.com/vantelin-dome-nagoya/lower/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "area-1"
+      },
+      "area": "1塁側",
+      "row": "40",
+      "scope": "area",
+      "photo": 2,
+      "url": "https://x.com/svt___mh8/status/1859075831047569440",
+      "source": "https://miekatamap.com/vantelin-dome-nagoya/lower/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "area-2"
+      },
+      "area": "3塁側",
+      "row": "10",
+      "scope": "area",
+      "photo": 2,
+      "url": "https://x.com/xuo_o8ht3/status/1737431406907887717",
+      "source": "https://miekatamap.com/vantelin-dome-nagoya/lower/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "area-2"
+      },
+      "area": "3塁側",
+      "row": "43",
+      "scope": "area",
+      "url": "https://x.com/loveontheyuka/status/1795459474989441057",
+      "source": "https://miekatamap.com/vantelin-dome-nagoya/lower/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "area-1"
+      },
+      "area": "1塁側",
+      "row": "52",
+      "scope": "area",
+      "photo": 2,
+      "url": "https://x.com/ebfbeht/status/1795597516358250577",
+      "source": "https://miekatamap.com/vantelin-dome-nagoya/upper/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "area-1"
+      },
+      "area": "1塁側",
+      "row": "60",
+      "scope": "area",
+      "photo": 1,
+      "url": "https://x.com/177hw/status/1990340281020056060",
+      "source": "https://miekatamap.com/vantelin-dome-nagoya/upper/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "area-2"
+      },
+      "area": "3塁側",
+      "row": "51",
+      "scope": "area",
+      "photo": 2,
+      "url": "https://x.com/naahoney_0812/status/1726104719427571842",
+      "source": "https://miekatamap.com/vantelin-dome-nagoya/upper/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "area-2"
+      },
+      "area": "3塁側",
+      "row": "59",
+      "scope": "area",
+      "photo": 1,
+      "url": "https://x.com/ll_0701ty/status/1742084763442352540",
+      "source": "https://miekatamap.com/vantelin-dome-nagoya/upper/"
+    }
+  ],
+  "ya-common-bowl-current": [
+    {
+      "place": {
+        "kind": "zone",
+        "id": "D"
+      },
+      "area": "Dブロック",
+      "row": "13",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/CS_u_u_/status/2101384889501364318",
+      "source": "https://smart-list.info/yokohama-arena/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "西"
+      },
+      "area": "スタンド 西ブロック",
+      "row": "8",
+      "scope": "block",
+      "photo": 2,
+      "url": "https://x.com/CS_u_u_/status/2101384889501364318",
+      "source": "https://smart-list.info/yokohama-arena/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "A"
+      },
+      "area": "Aブロック",
+      "row": "6",
+      "scope": "block",
+      "url": "https://x.com/akasatana192922/status/2012169427442135262",
+      "source": "https://smart-list.info/yokohama-arena/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "N-front-2"
+      },
+      "area": "スタンド 北ブロック",
+      "row": "5",
+      "seat": "10",
+      "seatVerified": true,
+      "url": "https://x.com/en___j29/status/1898550375113961588",
+      "source": "https://smart-list.info/yokohama-arena/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "北"
+      },
+      "area": "スタンド 北ブロック",
+      "row": "7",
+      "scope": "block",
+      "url": "https://x.com/__mxaepa__/status/1747271113753960579",
+      "source": "https://smart-list.info/yokohama-arena/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "南"
+      },
+      "area": "スタンド 南ブロック",
+      "scope": "block",
+      "url": "https://x.com/Park_megpyon6/status/1651490553685766145",
+      "source": "https://adorehack.com/article/yokohamaarena-seat-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "D"
+      },
+      "area": "Dブロック",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/frontale1846/status/1324987241500794880",
+      "source": "https://lignea.co.jp/yokohama-arena-seat/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "B"
+      },
+      "area": "Bブロック",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/Sato_o_shi/status/1131227734959632384",
+      "source": "https://smart-list.info/yokohama-arena/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "A"
+      },
+      "area": "Aブロック",
+      "row": "1",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/ume_pita/status/961589443516776451",
+      "source": "https://smart-list.info/yokohama-arena/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "C"
+      },
+      "area": "Cブロック",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/fixed_engine/status/961589171931439105",
+      "source": "https://smart-list.info/yokohama-arena/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "E"
+      },
+      "area": "Eブロック",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/Silver0723Black/status/961640613299986432",
+      "source": "https://smart-list.info/yokohama-arena/"
+    }
+  ],
+  "yoyogi-stand-reference": [
+    {
+      "place": {
+        "kind": "zone",
+        "id": "北1F"
+      },
+      "area": "北1階F",
+      "row": "16",
+      "scope": "block",
+      "photo": 2,
+      "url": "https://x.com/ukiuki_Z0/status/2059205321793634806",
+      "source": "https://oshilivenavi.com/venue/yoyogi-1st-gymnasium/seat-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "北1A"
+      },
+      "area": "北1階A",
+      "row": "4",
+      "scope": "block",
+      "photo": 3,
+      "url": "https://x.com/MANIAC04752970/status/1842297523014365328",
+      "source": "https://oshilivenavi.com/venue/yoyogi-1st-gymnasium/seat-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "北1F"
+      },
+      "area": "北1階F",
+      "row": "10",
+      "scope": "block",
+      "photo": 3,
+      "url": "https://x.com/ps0hn_/status/2012329103068975174",
+      "source": "https://oshilivenavi.com/venue/yoyogi-1st-gymnasium/seat-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "南1J"
+      },
+      "area": "南1階J",
+      "row": "7",
+      "scope": "block",
+      "url": "https://x.com/jiyujin_j/status/2076996952139690397",
+      "source": "https://oshilivenavi.com/venue/yoyogi-1st-gymnasium/seat-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "南1B"
+      },
+      "area": "南1階B",
+      "row": "8",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/ps0hn_/status/2012329103068975174",
+      "source": "https://oshilivenavi.com/venue/yoyogi-1st-gymnasium/seat-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "南1G"
+      },
+      "area": "南1階G",
+      "row": "8",
+      "scope": "block",
+      "url": "https://x.com/ps0hn_/status/2012722326903595233",
+      "source": "https://oshilivenavi.com/venue/yoyogi-1st-gymnasium/seat-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "北2D"
+      },
+      "area": "北2階D",
+      "scope": "block",
+      "photo": 2,
+      "url": "https://x.com/mosi_nex2y/status/2060742840981020990",
+      "source": "https://oshilivenavi.com/venue/yoyogi-1st-gymnasium/seat-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "北2G"
+      },
+      "area": "北2階G",
+      "row": "1",
+      "scope": "block",
+      "photo": 2,
+      "url": "https://x.com/beknown_y/status/2059129127291269467",
+      "source": "https://oshilivenavi.com/venue/yoyogi-1st-gymnasium/seat-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "南2A"
+      },
+      "area": "南2階A",
+      "scope": "block",
+      "photo": 2,
+      "url": "https://x.com/Anion1101/status/1991790682340741484",
+      "source": "https://oshilivenavi.com/venue/yoyogi-1st-gymnasium/seat-view/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "yoyogi-s2E-3"
+      },
+      "area": "南2階E",
+      "row": "7",
+      "seat": "9",
+      "seatVerified": true,
+      "photo": 2,
+      "url": "https://x.com/otaku_caco/status/2077371904491684015",
+      "source": "https://oshilivenavi.com/venue/yoyogi-1st-gymnasium/seat-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "南2F"
+      },
+      "area": "南2階F",
+      "row": "1",
+      "scope": "block",
+      "url": "https://x.com/do0_burger/status/2012508412316410275",
+      "source": "https://oshilivenavi.com/venue/yoyogi-1st-gymnasium/seat-view/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "南2E"
+      },
+      "area": "南2階E",
+      "scope": "block",
+      "photo": 2,
+      "url": "https://x.com/otaku_caco/status/2077371904491684015",
+      "source": "https://oshilivenavi.com/venue/yoyogi-1st-gymnasium/seat-view/"
+    }
+  ],
+  "zozo-seats": [
+    {
+      "place": {
+        "kind": "zone",
+        "id": "zozo-zone-lower-3塁側"
+      },
+      "area": "下段3塁側",
+      "row": "10",
+      "scope": "area",
+      "photo": 1,
+      "url": "https://x.com/ri9_ry10/status/2094736791589060609",
+      "source": "https://mama-premama.com/zozo-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "zozo-zone-upper-3塁側"
+      },
+      "area": "上段3塁側",
+      "scope": "area",
+      "photo": 2,
+      "url": "https://x.com/lazuri10cat/status/1936465055551455412",
+      "source": "https://mama-premama.com/zozo-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "zozo-zone-lower-1塁側"
+      },
+      "area": "下段1塁側",
+      "row": "20",
+      "scope": "area",
+      "url": "https://x.com/superksmksm/status/1935985131191513453",
+      "source": "https://mama-premama.com/zozo-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "zozo-zone-lower-1塁側"
+      },
+      "area": "下段1塁側",
+      "row": "25",
+      "seat": "59",
+      "scope": "area",
+      "photo": 2,
+      "url": "https://x.com/hamo170911091/status/1935966967107932658",
+      "source": "https://mama-premama.com/zozo-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "zozo-zone-upper-1塁側"
+      },
+      "area": "上段1塁側",
+      "row": "47",
+      "scope": "area",
+      "photo": 1,
+      "url": "https://x.com/zisyo_koinu/status/1790410696263671900",
+      "source": "https://mama-premama.com/zozo-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "zozo-zone-lower-1塁側"
+      },
+      "area": "下段1塁側",
+      "scope": "area",
+      "url": "https://x.com/marultra55/status/899197304254603264",
+      "source": "https://alwaysbeyourself2.com/zozomarinestudium_seats/"
+    }
+  ]
+}

@@ -219,6 +219,7 @@ export function TokyoDomeSeatLocator() {
   const [rowInput, setRowInput] = useState("");
   const [seatInput, setSeatInput] = useState("");
   const [selected, setSelected] = useState<TokyoDomeSection | null>(initial?.section ?? null);
+  const [photoRequest, setPhotoRequest] = useState(0);
   const [focusedCode, setFocusedCode] = useState(initial?.section.code ?? "B26");
   const [selectedRow, setSelectedRow] = useState<number | null>(null);
   const [selectedSeat, setSelectedSeat] = useState<number | null>(null);
@@ -513,6 +514,7 @@ export function TokyoDomeSeatLocator() {
   }
   function chooseArea(area:SeatArea,locate=false) {
     const section=parseTokyoDomeSection(area.code);if(!section)return;
+    setPhotoRequest(request => request + 1);
     const shouldMove=locate||!selected||interactiveViewBox.width>360;
     setFocusedCode(area.code);setSeatLevel(levelForPrefix(section.prefix));setSelected(section);setSelectedRow(null);setSelectedSeat(null);setError("");setNotice("");setCandidates([]);
     if(shouldMove)showSelectedView(section,area.label);else{resetGestures();}
@@ -524,6 +526,7 @@ export function TokyoDomeSeatLocator() {
     if (area) { chooseArea(area,true); return; }
     const special = SPECIAL_BY_CODE.get(code), section = parseTokyoDomeSection(code);
     if (!special || !section) return;
+    setPhotoRequest(request => request + 1);
     setSeatLevel("all"); setSelected(section); setSelectedRow(null); setSelectedSeat(null); setNotice(""); setError("");
     showSelectedView(section, special.label);
   }
@@ -554,6 +557,8 @@ export function TokyoDomeSeatLocator() {
       <p className="artist-kicker">Seat finder</p>
       <h2 id="tokyo-dome-map-title" className={`artist-heading ${styles.title}`}>東京ドームの座席を探す</h2>
       <DomeSeatFrame className={`mt-5 ${controls.seatFrame} ${styles.seatFrame}`} levels={SEAT_LEVELS} level={seatLevel}
+        seatView={{ diagram: "tokyo-dome-fixed", request: photoRequest, section: selected?.code, row: selectedRow?.toString(),
+          seat: selectedSeat?.toString(), onSelect: place => chooseCode(place.id) }}
         onLevel={id=>chooseLevel(id as SeatLevel)} directions={(["all","first","home","third","right","left"] as const).map(id=>({id,label:MAP_VIEWS[id].label}))}
         direction={direction} onDirection={id=>chooseDirection(id as keyof typeof MAP_VIEWS)} onZoom={zoomMap} onWhole={showWhole} shortcuts={[]}
         directionExtra={<form className={controls.ticketForm} onSubmit={handleSubmit} aria-label="チケットの座席情報で探す">
