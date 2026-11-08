@@ -1,0 +1,5 @@
+/sitemap.xml
+  Content-Type: application/xml; charset=utf-8
+
+https://:worker.:subdomain.workers.dev/sitemap.xml
+  X-Robots-Tag: noindex

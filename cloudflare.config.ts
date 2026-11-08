@@ -20,7 +20,7 @@ export default defineConfig({
     assets: {
       htmlHandling: "none",
       notFoundHandling: "none",
-      runWorkerFirst: ["/*", "!/_next/static/*", "!/images/*", "!/ads/*", "!/social/*"],
+      runWorkerFirst: ["/*", "!/_next/static/*", "!/images/*", "!/ads/*", "!/social/*", "!/sitemap.xml"],
     },
     triggers: enableSchedules
       ? [
