@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "allowImportingTsExtensions": true
+  },
+  "files": [
+    ".cloudflare/types/index.d.ts",
+    "cloudflare.config.ts",
+    "src/cloudflare-worker.ts"
+  ],
+  "include": []
+}

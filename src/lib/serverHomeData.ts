@@ -27,12 +27,14 @@ export async function getCachedUpcomingHomeEvents(): Promise<UpcomingEvent[]> {
   )();
 }
 
-export async function getCachedRealtimeFeed(limit = 20): Promise<HomeFeedItem[]> {
+export async function getCachedRealtimeFeed(
+  limit: number,
+  upcoming: Promise<UpcomingEvent[]>,
+): Promise<HomeFeedItem[]> {
   return unstable_cache(
     async () => {
       const client = createSupabasePublicClient();
       if (!client) return [];
-      const upcoming = getUpcomingHomeEvents(client);
       return getRealtimeFeedItems(client, limit, upcoming);
     },
     ["public-realtime-feed", String(limit)],

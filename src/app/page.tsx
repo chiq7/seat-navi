@@ -18,10 +18,7 @@ import seatDiscoveryStyles from "@/components/home/SeatDiscoveryCard.module.css"
 import { isSeatDiscoveryPreview, type SeatDiscoveryData } from "@/lib/seatDiscovery";
 import { loadSeatDiscovery, loadHomeSeatDiscovery } from "@/lib/serverSeatDiscovery";
 import { selectSeatDiscoveryHomeEvents } from "@/lib/homeSeatSelection";
-import {
-  type HomeFeedItem,
-  type UpcomingEvent,
-} from "@/lib/homeData";
+import type { HomeFeedItem } from "@/lib/homeData";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { getJstDateString } from "@/lib/artistPageData";
 import { getCachedRealtimeFeed, getCachedUpcomingHomeEvents } from "@/lib/serverHomeData";
@@ -34,53 +31,35 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-const getHomeRequestContext = cache(async () => {
-  const client = await createSupabaseServerClient();
-  if (!client) return null;
+const getHomeUpcomingEvents = cache(getCachedUpcomingHomeEvents);
 
+async function getHomeFavorites() {
+  const client = await createSupabaseServerClient({ requireSession: true });
+  if (!client) return { userId: null, slugs: new Set<string>() };
+  const { data: auth } = await client.auth.getUser();
+  const userId = auth.user?.id;
+  if (!userId) return { userId: null, slugs: new Set<string>() };
+  const { data: favorites } = await client
+    .from("favorite_artists")
+    .select("artist_slug")
+    .eq("user_id", userId);
   return {
-    client,
-    auth: client.auth.getUser(),
+    userId,
+    slugs: new Set((favorites ?? []).map((item: { artist_slug: string }) => item.artist_slug)),
   };
-});
-
-const getHomeEventState = cache(async () => {
-  const context = await getHomeRequestContext();
-  if (!context) {
-    return {
-      upcomingEvents: [] as UpcomingEvent[],
-      favoriteState: { userId: null, slugs: new Set<string>() },
-    };
-  }
-
-  const favoriteStatePromise = context.auth.then(async (authResult) => {
-    const userId = authResult.data.user?.id;
-    if (!userId) return { userId: null, slugs: new Set<string>() };
-
-    const { data: favorites } = await context.client
-      .from("favorite_artists")
-      .select("artist_slug")
-      .eq("user_id", userId);
-    return {
-      userId,
-      slugs: new Set((favorites ?? []).map((item: { artist_slug: string }) => item.artist_slug)),
-    };
-  });
-
-  const [upcomingEvents, favoriteState] = await Promise.all([
-    getCachedUpcomingHomeEvents(),
-    favoriteStatePromise,
-  ]);
-
-  return { upcomingEvents: upcomingEvents.filter(event => event.dateIso && event.dateIso >= getJstDateString()), favoriteState };
-});
+}
 
 async function HomeUpcomingSection() {
-  const { upcomingEvents, favoriteState } = await getHomeEventState();
-  const discoveryCards = await loadHomeSeatDiscovery(selectSeatDiscoveryHomeEvents(upcomingEvents, favoriteState.slugs)).catch(() => []);
+  const [upcomingEvents, favoriteState] = await Promise.all([
+    getHomeUpcomingEvents(),
+    getHomeFavorites(),
+  ]);
+  const today = getJstDateString();
+  const events = upcomingEvents.filter(event => event.dateIso && event.dateIso >= today);
+  const discoveryCards = await loadHomeSeatDiscovery(selectSeatDiscoveryHomeEvents(events, favoriteState.slugs)).catch(() => []);
   return (
     <UpcomingEventsSection
-      events={upcomingEvents}
+      events={events}
       favoriteUserId={favoriteState.userId}
       favoriteSlugs={favoriteState.slugs}
       discoveryCards={discoveryCards}
@@ -89,7 +68,7 @@ async function HomeUpcomingSection() {
 }
 
 async function HomeRealtimeSection() {
-  const feedItems: HomeFeedItem[] = await getCachedRealtimeFeed(20);
+  const feedItems: HomeFeedItem[] = await getCachedRealtimeFeed(20, getHomeUpcomingEvents());
   return <RealtimeFeedSection items={feedItems} />;
 }
 

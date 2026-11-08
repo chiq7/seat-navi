@@ -51,3 +51,6 @@ x-fan-candidates/
 next-env.d.ts
 
 .vercel
+/dist/
+.vinext/
+.cloudflare/

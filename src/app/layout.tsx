@@ -1,8 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Suspense } from "react";
 import Script from "next/script";
-import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import { AnalyticsNavigationTracker } from "@/components/analytics/AnalyticsNavigationTracker";
 import { VerificationNotice } from "@/components/analytics/VerificationNotice";
 import { gaBootstrapScript } from "@/lib/analyticsTraffic";
@@ -84,8 +82,6 @@ export default function RootLayout({
           {children}
           <Footer />
         </div>
-        <Analytics />
-        <SpeedInsights />
         {GA_ID && (
           <Suspense fallback={null}>
             <AnalyticsNavigationTracker />

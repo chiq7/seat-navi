@@ -5,11 +5,11 @@ import {classifyAnalyticsExclusion, createVerificationMarker, gaBootstrapScript}
 const now=1803380400000;
 const current=(role:string)=>JSON.stringify({v:1,role,startedAt:now-36000000});
 function run(persistent:string|null=null,legacy:string|null=null,pathname='/venues/belluna-dome',{
- search='', userAgent='Safari', referrer='https://chatgpt.com/?private=secret',
+ search='', userAgent='Safari', referrer='https://chatgpt.com/?private=secret', hostname='tixrepo.com',
 }={}){
  const listeners:Record<string,Function>={};let reloads=0;
  const w:any={dataLayer:[],dispatchEvent(){},addEventListener(name:string,fn:Function){listeners[name]=fn;}};
- const ctx={window:w,location:{origin:'https://tixrepo.com',pathname,search,reload(){reloads++;}},navigator:{userAgent},document:{referrer},URLSearchParams,localStorage:{getItem(){return persistent;}},sessionStorage:{getItem(){return legacy;}},Date:class extends Date{static now(){return now;}},Event:class{}};
+ const ctx={window:w,location:{origin:'https://'+hostname,hostname,pathname,search,reload(){reloads++;}},navigator:{userAgent},document:{referrer},URLSearchParams,localStorage:{getItem(){return persistent;}},sessionStorage:{getItem(){return legacy;}},Date:class extends Date{static now(){return now;}},Event:class{}};
  vm.runInNewContext(gaBootstrapScript('G-TEST123'),ctx);
  const commands=w.dataLayer.map((v:any)=>Array.from(v));
  const config=commands.find((v:any)=>v[0]==='config')?.[2];
@@ -21,6 +21,12 @@ test('persistent Codex/operator opt-out suppresses GA before configuration beyon
 });
 test('ordinary visits still configure collection without leaking query strings',()=>{
  const r=run();assert.equal(r.w['ga-disable-G-TEST123'],false);assert.equal(r.config.traffic_origin,'public_unmarked');assert.equal(r.config.page_location,'https://tixrepo.com/venues/belluna-dome');assert.equal(r.config.page_referrer,'https://chatgpt.com/');
+});
+test('the Cloudflare preview does not configure production analytics',()=>{
+ const r=run(null,null,'/',{hostname:'tixrepo.2222color.workers.dev'});
+ assert.equal(r.w['ga-disable-G-TEST123'],true);
+ assert.equal(r.config,undefined);
+ assert.equal(r.w.dataLayer.length,0);
 });
 test('a tagged external arrival passes the post identifier before the first page view',()=>{
  const r=run(null,null,'/venues/zozo-marine',{
