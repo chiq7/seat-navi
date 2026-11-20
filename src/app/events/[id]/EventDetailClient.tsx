@@ -237,7 +237,8 @@ export function EventDetailClient({
           .select("id, event_id, source_type, source_url, observed_at, seat_area, block, row_min, row_max, seat_min, seat_max, gate, level, confidence, evidence_summary, review_status")
           .in("event_id", groupEventIds)
           .eq("review_status", "approved")
-          .eq("seat_area", "arena")
+          // スタンドはXの公開投稿だけが公開対象（RLSで制限）。座席図の描画はアリーナのみ。
+          .in("seat_area", ["arena", "stand"])
           .order("observed_at", { ascending: false })
           .limit(500).abortSignal(controller.signal),
       ]);

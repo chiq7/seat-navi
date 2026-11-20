@@ -36,7 +36,7 @@ import {
   computeWatermarkPositions,
 } from "@/lib/arena-map/arenaMapLayout";
 import { externalObservationsToArenaReports } from "@/lib/external-seats/arena";
-import { formatXSeatPostLocation, X_ARENA_WITHOUT_BLOCK, xSeatPostSources } from "@/lib/external-seats/xSeatPosts";
+import { formatXSeatPostLocation, formatXStandSeatLocation, X_ARENA_WITHOUT_BLOCK, xSeatPostSources, xStandSeatPostSources } from "@/lib/external-seats/xSeatPosts";
 import type { ArenaMapReport } from "@/lib/arena-map/arenaMapTypes";
 import type { SeatPosition } from "@/lib/arena-map/arenaSeatDetails";
 import { ArenaSeatDetail } from "./ArenaSeatDetail";
@@ -147,6 +147,7 @@ export function ArenaReportMap({
     return [...byPosition.values()];
   }, [externalObservations, reports, seatOnlyReports]);
   const xSources = useMemo(() => xSeatPostSources(externalObservations), [externalObservations]);
+  const xStandSources = useMemo(() => xStandSeatPostSources(externalObservations), [externalObservations]);
   const xBlockNames = useMemo(() => new Set(xSources.map(item => item.block)
     .filter(block => block !== X_ARENA_WITHOUT_BLOCK)), [xSources]);
   const hasSeatOnlyCells = arenaReports.some(report => report.sourceKind === "seat_only");
@@ -761,6 +762,23 @@ export function ArenaReportMap({
             </li>
           ))}
         </ul>
+      )}
+
+      {!isCompact && xStandSources.length > 0 && (
+        <div className="mx-3 mt-2 sm:mx-4">
+          <p className="text-[11px] font-bold leading-5 text-[#71636c]">Xで共有されたスタンド・階層席（座席図には表示していません）</p>
+          <ul aria-label="Xで共有されたスタンド・階層席" className="mt-1 divide-y divide-[#e4c9d4] rounded-lg border border-[#e4c9d4] bg-white px-3">
+            {xStandSources.map(item => (
+              <li key={item.id} className="flex flex-wrap items-center justify-between gap-x-3 text-[13px]">
+                <span className="py-2 font-bold text-[#62545d]">
+                  {formatXStandSeatLocation(item.level, item.block, item.gate, item.row_min, item.seat_min)}
+                </span>
+                <a href={item.source_url} target="_blank" rel="noopener noreferrer"
+                  className="zr-focus inline-flex min-h-11 items-center font-bold text-[#7655b2] underline">Xの元投稿を見る</a>
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
 
       {explorePreview && !isCompact && (
