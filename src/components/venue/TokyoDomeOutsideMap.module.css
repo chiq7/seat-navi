@@ -23,5 +23,19 @@
 .gateChoices strong { display:block; margin-bottom:6px; font-size:12px; }
 .gateChoices>div { display:flex; gap:6px; }
 .map .gateChoices button { position:static; transform:none; flex:1; min-width:0; white-space:nowrap; padding:8px 6px; }
+.map .facilities[data-pin-density="compact"] {
+  padding:0; border:0; background:transparent; box-shadow:none;
+}
+.facilities[data-pin-density="compact"] .icons {
+  place-items:center; gap:0; min-width:28px; min-height:28px; padding:3px;
+  border:1px solid #cb8ba9; border-radius:8px; background:#fff;
+}
+.facilities[data-pin-density="compact"] .icons > span { width:18px; height:18px; }
+.facilities[data-pin-density="compact"] .icons > span:only-child { grid-column:1; }
+.facilities[data-pin-density="compact"][aria-pressed="true"] { outline:none; }
+.facilities[data-pin-density="compact"][aria-pressed="true"] .icons {
+  border-color:#a93164; background:#fff0f6; box-shadow:0 0 0 1px #a93164;
+}
+.facilities[data-pin-density="compact"]:focus-visible { outline:2px solid #a93164; outline-offset:0; }
 .gateChoices button,.stationChoices button { min-height:44px; padding:8px 12px; border:1px solid #dfb8ca; border-radius:8px; color:#a93164; background:#fff; font-size:12px; font-weight:750; }
 .stationChoices button[aria-pressed=true] { background:#fff0f6; }

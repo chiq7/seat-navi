@@ -1,15 +1,15 @@
-import type { Metadata } from "next";
+import { buildFileImageMetadata } from "@/lib/fileImageMetadata";
 import { Megaphone } from "lucide-react";
 import { Header } from "@/components/common/Header";
 import SiteNewsList from "@/components/news/SiteNewsList";
 import { SITE_NEWS } from "@/lib/siteNews";
 
-export const metadata: Metadata = {
+export const metadata = buildFileImageMetadata({
+  path: "/news",
   title: "ちけレポからのお知らせ｜ちけレポ",
   description: "ちけレポ運営からのイベント開催、機能更新、サービスに関するお知らせです。",
-  alternates: { canonical: "https://tixrepo.com/news" },
   robots: { index: true, follow: true },
-};
+});
 
 export default function SiteNewsPage() {
   return (

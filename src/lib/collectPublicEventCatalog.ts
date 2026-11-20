@@ -9,8 +9,12 @@ import { publicPageDataPaths, type HomePrograms, type PublicFeed } from "./publi
 import { isTestEvent } from "./seoData";
 import { PUBLIC_CATALOG_MAX_BYTES, readPublicEventCatalog } from "./publicEventCatalog";
 import type { CrawledEvent } from "./types";
+import type { PublicEventCatalog } from "./publicEventCatalog";
+import { readEventContributions } from "./eventIndexContent";
+import { collectEventModificationTimes, collectVenueActivity } from "./venueActivity";
+import { applyReviewedEventDate } from "./reviewedEventDates";
 
-export async function collectPublicEventCatalog(client: SupabaseClient, signal: AbortSignal) {
+export async function collectPublicEventCatalog(client: SupabaseClient, signal: AbortSignal, previous: PublicEventCatalog | null = null) {
   // All reads use the anonymous RLS role. A partial read never replaces the previous snapshot.
   const rows = await readSupabasePages<CrawledEvent & { created_at: string | null }>((from, to) =>
     client.from("events").select(`${EVENT_COLUMNS}, created_at`, { count: "exact" }).order("id").range(from, to).abortSignal(signal),
@@ -24,7 +28,9 @@ export async function collectPublicEventCatalog(client: SupabaseClient, signal: 
 
   const now = new Date();
   const today = getJstDateString(now);
-  const [upcoming, reviewed] = await Promise.all([getUpcomingHomeEvents(client, true), getReviewedTicketUpdates(client, now, true)]);
+  const [upcoming, reviewed, contributions] = await Promise.all([
+    getUpcomingHomeEvents(client, true), getReviewedTicketUpdates(client, now, true), readEventContributions(client),
+  ]);
   signal.throwIfAborted();
   const updatedAt = now.toISOString();
   const home = createPublicDataSnapshot(publicPageDataPaths.upcoming, { events: upcoming.filter(event => event.dateIso && event.dateIso >= today) }, updatedAt).data as HomePrograms;
@@ -46,8 +52,11 @@ export async function collectPublicEventCatalog(client: SupabaseClient, signal: 
     const eventId = item.href.match(/^\/events\/([^#?]+)(?:[#?]|$)/)?.[1];
     return !eventId || ids.has(eventId);
   });
-  const catalog = readPublicEventCatalog({ version: 1, updatedAt, events, home, feed });
+  const datedEvents = published.map(applyReviewedEventDate);
+  const venueActivity = collectVenueActivity(datedEvents, contributions.latest, previous, updatedAt);
+  const eventModifiedAt = collectEventModificationTimes(datedEvents, previous, updatedAt);
+  const catalog = readPublicEventCatalog({ version: 1, updatedAt, events, home, feed, venueActivity, eventModifiedAt });
   const json = JSON.stringify(catalog);
   if (new TextEncoder().encode(json).byteLength > PUBLIC_CATALOG_MAX_BYTES) throw new Error("Public catalog exceeds the storage limit");
-  return { catalog, json };
+  return { catalog, json, contributions };
 }

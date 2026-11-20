@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { SEARCH_VENUE_CATALOG } from "../src/data/searchVenueCatalog.ts";
+import destinations from "../src/data/searchVenueDestinations.json" with { type: "json" };
 import { ARTISTS } from "../src/lib/artists.ts";
 import { parseSearchQuery } from "../src/lib/searchQuery.ts";
 import { SEARCH_REGIONS, SEARCH_CONTENT_INTENTS, getSearchDiscoveryResults } from "../src/lib/searchDiscovery.ts";
@@ -84,10 +85,40 @@ test("all published venue guides have the documented feature destinations", () =
       席: `${base}#venue-seat-guide`,
       アクセス: `${base}#${venue.guideId === "tokyo-dome" ? "dome-access" : "venue-access"}`,
       トイレ: `${base}#${venue.guideId === "tokyo-dome" ? "dome-spots" : "venue-facilities"}`,
-      ロッカー: `${base}#${venue.guideId === "tokyo-dome" ? "dome-spots" : "venue-facilities"}`,
+      ロッカー: `${base}#venue-luggage`,
       キャパ: base, 日程: `${base}#upcoming-events-title`,
     };
     for (const [word, href] of Object.entries(expected)) assert.ok(discovery(`${venue.name} ${word}`).some(row => row.href === href), `${venue.name} ${word} -> ${href}`);
+    for (const name of forms([venue.name, ...venue.aliases, ...venue.eventVenueNames])) {
+      for (const term of ["見え方", "座席からの見え方", "座席からの写真"]) {
+        const links = discovery(`${name} ${term}`).map(row => row.href);
+        assert.equal(links.includes(`${base}#venue-seat-photos`), destinations.photos.includes(venue.guideId!), name + " " + term);
+        assert.equal(links.includes(`${base}#past-arena-photos`), destinations.arenaPhotos.includes(venue.guideId!), name + " " + term);
+      }
+      for (const [label, type] of [["授乳室", "nursing"], ["ベビールーム", "baby-room"], ["おむつ替え", "diaper"]] as const) {
+        const links = discovery(`${name} ${label}`).map(row => row.href);
+        assert.equal(links.includes(`${base}#venue-${type}`), destinations.babyFacilities[type].includes(venue.guideId!), name + " " + label);
+        assert.ok(!links.includes(`${base}#venue-baby`), name + " " + label);
+      }
+    }
+  }
+});
+
+test("specific facilities and verified ticket times avoid unrelated destinations", () => {
+  assert.deepEqual(discovery("日本武道館 おむつ替え"), []);
+  assert.deepEqual(discovery("日産スタジアム 授乳室"), []);
+  assert.ok(discovery("Kアリーナ おむつ替え").some(row => row.href === "/venues/k-arena#venue-diaper"));
+  assert.ok(discovery("日本武道館 授乳室").some(row => row.href === "/venues/budokan#venue-nursing"));
+  assert.ok(discovery("朱鷺メッセ 見え方").some(row => row.href === "/venues/toki-messe#past-arena-photos"));
+  const timing = (query: string) => discovery(query).filter(row => row.href.endsWith("#performance-ticket-timing")).map(row => row.href);
+  assert.deepEqual(timing("Da-iCE 座席発表"), [
+    "/events/ddc4ff8b65e43da66210#performance-ticket-timing", "/events/17d312f257e80eea69ff#performance-ticket-timing",
+  ]);
+  assert.deepEqual(timing("Da-iCE 発券日 2026-11-18"), ["/events/17d312f257e80eea69ff#performance-ticket-timing"]);
+  assert.equal(timing("ドリフェス 発券日").length, 3);
+  assert.equal(timing("テレビ朝日ドリームフェスティバル 2026 発券日").length, 3);
+  for (const query of ["発券日", "Da-iCE 大阪城ホール 発券日", "Da-iCE 2026-11-23 発券日", "Number_i 東京ガーデンシアター 座席発表"]) {
+    assert.deepEqual(timing(query), [], query);
   }
 });
 

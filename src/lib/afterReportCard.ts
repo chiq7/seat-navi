@@ -22,7 +22,7 @@ export function seatAreaShortLabel(type: string | null | undefined): string | nu
 
 /** 座席エリア(短縮)+ブロックを1トークンに連結し、列・番号と半角スペースでつなぐ */
 export function blockRowText(report: AfterReportCard): string | null {
-  const location = [seatAreaShortLabel(report.seat_area_type), report.seat_block].filter(Boolean).join("");
+  const location = [report.seat_description?.trim() || seatAreaShortLabel(report.seat_area_type), report.seat_block].filter(Boolean).join("");
   const parts = [
     location || null,
     withSuffix(report.seat_row, "列"),

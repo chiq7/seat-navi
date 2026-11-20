@@ -34,7 +34,7 @@ export function FacilityIcon({ item, size = 20 }: { item: Pick<GuideFacility, "p
 }
 
 type Props = { guide: DedicatedVenueGuide; items: GuideFacility[]; state: FinderState;
-  onFloor: (floor: string) => void; onSelect: (id: string) => void; onGroup: (ids: string[]) => void;
+  onFloor: (floor: string) => void; onSelect: (id: string) => void; onGroup: (ids: string[], trigger: HTMLButtonElement) => void;
   onOrigin: (origin: GuideOrigin | null) => void; onGate: (gate: GuideGate | null) => void;
   onClearSelection: () => void; embedded?: boolean; landmarksOnly?: boolean; selectionSummary?: ReactNode; compactFinder?: boolean };
 
@@ -59,6 +59,7 @@ export default function VenueFacilityMap({ guide, items, state, onFloor, onSelec
   });
   const frame = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ width: 640, height: 600 });
+  const compactPins = size.width <= 480;
   const [nearbyGates,setNearbyGates]=useState<{diagramId:string;ids:string[]}|null>(null);
   const [layer, setLayer] = useState<"equipment" | "food">("equipment");
   const rememberLayerFrame = useRef<number | null>(null);
@@ -107,6 +108,12 @@ export default function VenueFacilityMap({ guide, items, state, onFloor, onSelec
       kinds = ["women", "men", "mixed", ...Object.keys(facilityIcons).filter(kind => !["women", "men", "mixed", "accessible"].includes(kind)), "accessible"].filter(kind => kinds.includes(kind));
     }
     const group = { ...sourceGroup, kinds };
+    if (compactPins) {
+      const columns = Math.min(3, Math.max(1, kinds.length));
+      const rows = Math.ceil(kinds.length / columns);
+      return { ...group, columns, width: Math.max(44, columns * 18 + 12),
+        height: Math.max(44, rows * 18 + 10), accessibleBelow: false };
+    }
     const pairedToilets = compactFinder && kinds.includes("women") && kinds.includes("men");
     const accessibleBelow = compactFinder && kinds.includes("accessible") && kinds.some(kind => ["women", "men", "mixed"].includes(kind));
     const minimumColumns = pairedToilets ? 2 : 1;
@@ -140,8 +147,10 @@ export default function VenueFacilityMap({ guide, items, state, onFloor, onSelec
   const referencePoints = areaFinder ? guide.facilities.filter(item => item.anchor?.diagramId === diagram?.id)
     .map(item => ({ id: item.id, ...projectMapPoint(item.anchor!.x, item.anchor!.y, camera, size.width, size.height), kind: displayKind(item) })) : projected;
   const groups = areaFinder ? groupKyoceraFacilityAreas(projected, state.floor, state.purpose, state.scope, referencePoints).map(group => {
-    if (foodAreas) return { ...group, width: size.width < 500 ? 52 : 58, height: size.width < 500 ? 52 : 60, accessibleBelow: false };
+    if (foodAreas) return { ...group, width: compactPins ? 44 : size.width < 500 ? 52 : 58,
+      height: compactPins ? 44 : size.width < 500 ? 52 : 60, accessibleBelow: false };
     const fitted = compact(group);
+    if (compactPins) return fitted;
     return { ...fitted, width: Math.max(state.purpose === "赤ちゃん" ? 68 : size.width < 500 ? 52 : 58, fitted.width), height: Math.max(52, fitted.height + (kyoceraFloor && size.width < 500 && group.points.length > 1 ? 0 : 14)) };
   }) : rawGroups.map(compact);
   const markLabels = (displayDiagram?.landmarks ?? []).map(mark => {
@@ -277,12 +286,18 @@ export default function VenueFacilityMap({ guide, items, state, onFloor, onSelec
           return { kind, title, icon };
         });
         return <button key={label.id} className={styles.facilitySign} style={{ left: label.left, top: label.top, width: label.width, height: label.height }}
-          data-facility-group={label.id} data-spot-ids={members.map(item => item.id).join(" ")} data-kind-count={group.kinds.length} data-enhanced={compactFinder} data-accessible-below={group.accessibleBelow}
+          data-facility-group={label.id} data-spot-ids={members.map(item => item.id).join(" ")} data-kind-count={group.kinds.length} data-enhanced={compactFinder} data-accessible-below={group.accessibleBelow} data-pin-density={compactPins ? "compact" : undefined}
           aria-label={`${members.map(item => item.name).filter((value, i, all) => all.indexOf(value) === i).join("・")}を選ぶ`}
           aria-pressed={members.some(item => item.id === state.selectedId) || state.groupIds?.some(id => members.some(item => item.id === id)) || false}
           aria-expanded={areaFinder || members.length > 1 ? Boolean(state.groupIds?.length === members.length && members.every(item => state.groupIds!.includes(item.id))) : undefined}
-          onClick={() => { setLayer(activeLayer); if (!areaFinder && members.length === 1) onSelect(members[0].id); else onGroup(members.map(item => item.id)); }}>
-          {foodAreas ? <span className={styles.foodAreaSign}><FoodSign size={26} aria-hidden="true" /><small>飲食 {members.length}件</small></span> : kyoceraFloor && size.width<500 && members.length>1 ? <span className={kyoceraFloorStyles.countSign}>
+          onClick={event => { setLayer(activeLayer); if (!areaFinder && members.length === 1) onSelect(members[0].id); else onGroup(members.map(item => item.id), event.currentTarget); }}>
+          {compactPins ? <>
+            <span className={styles.compactFacilityFace} style={{ gridTemplateColumns: `repeat(${foodAreas ? 1 : group.columns},18px)` }}>
+              {foodAreas ? <FoodSign size={17} /> : pictograms.map(({kind,title,icon}) =>
+                <span key={kind} data-facility-kind={kind} title={title}><FacilityIcon item={icon} size={17} /></span>)}
+            </span>
+            {members.length > 1 && <small className={styles.compactFacilityCount}>{members.length}</small>}
+          </> : foodAreas ? <span className={styles.foodAreaSign}><FoodSign size={26} aria-hidden="true" /><small>飲食 {members.length}件</small></span> : kyoceraFloor && size.width<500 && members.length>1 ? <span className={kyoceraFloorStyles.countSign}>
             <span style={{display:"grid",gridTemplateColumns:`repeat(${group.columns},${narrowIconCell}px)`}}>{pictograms.map(({kind,title,icon})=>{
               return <span key={kind} data-facility-kind={kind} title={title} style={{width:narrowIconCell,height:narrowIconCell}}><FacilityIcon item={icon} size={narrowIconCell}/></span>;
             })}</span><small>{areaFinder ? state.purpose : activeLayer==="food"?"飲食":"設備"} {members.length}件</small></span> : <span className={styles.areaSign}>

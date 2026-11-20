@@ -1,6 +1,7 @@
 import { supabase } from "@/lib/supabase/client";
 import { findArtistBySlug, type Artist } from "@/lib/artists";
 import { getEventsForArtist } from "@/lib/events";
+import { getJstDateString } from "@/lib/artistPageData";
 import { parseEventTitle } from "@/lib/eventTitle";
 import { fmtDate } from "@/lib/artistPageHelpers";
 import type { CrawledEvent } from "@/lib/types";
@@ -27,7 +28,7 @@ export async function getSetlistOgInfo(slug: string): Promise<SetlistOgInfo | nu
   if (!artist) return null;
 
   const events = await getEventsForArtist(artist.slug);
-  const today = new Date().toISOString().split("T")[0];
+  const today = getJstDateString();
 
   const nextEvent = events
     .filter((ev) => ev.date && ev.date >= today)

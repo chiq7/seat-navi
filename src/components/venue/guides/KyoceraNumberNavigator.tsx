@@ -6,16 +6,28 @@ import { pathBounds, simplifiedRows, type DrawingBlock } from "./kyoceraMapDrawi
 import { arrowOverlapsRect, clearNumberArrow, compactNeighbourNumber, prioritizeSelectedNumberArrow, numberAnchorVisible, placeNumberLabel, rectanglesOverlap, type LabelRect, type NumberLabel } from "./kyoceraNumberLabels";
 import { SEAT_DRAG_THRESHOLD, seatTapAllowed, spatialSeatTarget } from "@/lib/seatMapInteraction";
 import { seatNumberBadge, seatNumberBadgeBounds, seatNumberArrowInk } from "@/lib/seatNumberBadge";
+import { seatViewPosts } from "@/lib/seatViewPosts";
 import gates from "@/data/venueGuides/kyocera-dome/seat-gates.json";
 import styles from "./KyoceraNumberNavigator.module.css";
 import { VenueOverviewArt, overviewArtworkOpacity } from "../template/VenueOverviewArt";
+import { useSeatMapTouch } from "../template/useSeatMapTouch";
+import { SEAT_PHOTO_MAP_COLOR, SeatPhotoMarker } from "../template/SeatViewPosts";
+import { seatPhotoOffsets, useSeatPhotoHitTest } from "../template/useSeatPhotoHitTest";
 
 type Props = { guide: DedicatedVenueGuide; blocks: DrawingBlock[]; level: string; selectedCode?: string; rowLabel: string | null;
   box: Box; onView: (box: Box) => void; onBlock: (block: DrawingBlock) => void; onWhole: () => void; onArea: (areaId: string) => void;
   onDirection: (direction: string) => void };
 type Contact = { x: number; y: number; startX: number; startY: number; code: string | null };
+const photoPosts = new Map(seatViewPosts("kyocera-dome-fixed").filter(post => post.place.kind === "section").map(post => [post.place.id, post]));
+const photoTarget = 28;
+const outfieldAreas = [{ id: "outfield-right", label: "ライト", x: .65, y: .25 }, { id: "outfield-left", label: "レフト", x: .35, y: .25 }];
+const infieldAreas = [{ id: "1塁側-下段", x: .67, y: .53 }, { id: "3塁側-下段", x: .33, y: .53 },
+  { id: "1塁側-上段", x: .83, y: .57 }, { id: "3塁側-上段", x: .17, y: .57 }, { id: "中央C-下段", x: .5, y: .76 }];
+
 export default function KyoceraNumberNavigator({ guide, blocks, level, selectedCode, rowLabel, box, onView, onBlock, onWhole, onArea, onDirection }: Props) {
   const frame = useRef<HTMLDivElement>(null);
+  const photoHitTest = useSeatPhotoHitTest();
+  const suppressMapClick = useSeatMapTouch(frame);
   const svg = useRef<SVGSVGElement>(null);
   const skipAnimation = useRef(false);
   const [focusedCode, setFocusedCode] = useState(blocks[0]?.code);
@@ -73,24 +85,30 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
     return { x: points.reduce((sum, p) => sum + p.x, 0) / points.length, y: points.reduce((sum, p) => sum + p.y, 0) / points.length,
       distance: points.length > 1 ? Math.hypot(points[0].x - points[1].x, points[0].y - points[1].y) : 0 };
   }
-  function start(event: ReactPointerEvent<SVGSVGElement>) {
+  function start(event: ReactPointerEvent<HTMLDivElement>) {
     if (event.pointerType === "mouse" && event.button !== 0) return;
-    event.preventDefault(); // SVG focus must not scroll the document on selection.
+    const control = (event.target as Element).closest("button");
+    if (!control && (event.pointerType !== "touch" || rendered.current[2] < 1584)) event.preventDefault();
     skipAnimation.current = true;
     onView([...rendered.current]); // Freeze an in-progress transition at the touched position.
     const rect = event.currentTarget.getBoundingClientRect();
-    const target = (event.target as Element).closest("[data-seat-block], [data-block-start]");
-    contacts.current.set(event.pointerId, { x: event.clientX - rect.left, y: event.clientY - rect.top, startX: event.clientX - rect.left, startY: event.clientY - rect.top, code: target?.getAttribute("data-seat-block") ?? target?.getAttribute("data-block-start") ?? null });
-    event.currentTarget.setPointerCapture(event.pointerId);
+    const target = (event.target as Element).closest("[data-seat-block], [data-block-start], [data-seat-photo-marker]");
+    const marker = target?.getAttribute("data-seat-photo-marker");
+    const code = marker?.slice("section:".length)
+      ?? target?.getAttribute("data-seat-block") ?? target?.getAttribute("data-block-start") ?? null;
+    contacts.current.set(event.pointerId, { x: event.clientX - rect.left, y: event.clientY - rect.top, startX: event.clientX - rect.left, startY: event.clientY - rect.top, code });
+    if (!control) event.currentTarget.setPointerCapture(event.pointerId);
+    suppressMapClick.current = contacts.current.size > 1;
     const c = centre(); gesture.current = { box: rendered.current, ...c }; if (contacts.current.size === 1) moved.current = false; else moved.current = true; setDragging(true);
   }
-  function move(event: ReactPointerEvent<SVGSVGElement>) {
+  function move(event: ReactPointerEvent<HTMLDivElement>) {
     if (!contacts.current.has(event.pointerId) || !gesture.current) return;
     const rect = event.currentTarget.getBoundingClientRect(), previous = contacts.current.get(event.pointerId)!;
     contacts.current.set(event.pointerId, { ...previous, x: event.clientX - rect.left, y: event.clientY - rect.top });
     const c = centre(), initial = gesture.current;
     if (Math.hypot(event.clientX - rect.left - previous.startX, event.clientY - rect.top - previous.startY) > SEAT_DRAG_THRESHOLD || contacts.current.size > 1) moved.current = true;
-    if (!moved.current) return;
+    if (!moved.current || (event.pointerType === "touch" && contacts.current.size === 1 && initial.box[2] >= 1584)) return;
+    suppressMapClick.current = true;
     const ratio = contacts.current.size > 1 && initial.distance ? initial.distance / Math.max(c.distance, 1) : 1;
     const width = Math.max(60, Math.min(1600, initial.box[2] * ratio)), height = width * initial.box[3] / initial.box[2];
     const p = projectMapPoint(0, 0, initial.box, size.width, size.height);
@@ -104,14 +122,16 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
   function cancel() {
     const ids = [...contacts.current.keys()];
     contacts.current.clear(); gesture.current = null; moved.current = true; setDragging(false);
-    for (const id of ids) if (svg.current?.hasPointerCapture(id)) svg.current.releasePointerCapture(id);
+    suppressMapClick.current = true;
+    for (const id of ids) if (frame.current?.hasPointerCapture(id)) frame.current.releasePointerCapture(id);
   }
-  function end(event: ReactPointerEvent<SVGSVGElement>) {
+  function end(event: ReactPointerEvent<HTMLDivElement>) {
     const contact = contacts.current.get(event.pointerId);
     if (!contact) return;
     const rect = event.currentTarget.getBoundingClientRect();
     const travel = Math.hypot(event.clientX - rect.left - contact.startX, event.clientY - rect.top - contact.startY);
     const tap = contacts.current.size === 1 && seatTapAllowed(travel, moved.current);
+    suppressMapClick.current ||= !tap;
     contacts.current.delete(event.pointerId);
     if (!contacts.current.size) { gesture.current = null; setDragging(false); }
     else { gesture.current = { box: rendered.current, ...centre() }; moved.current = true; }
@@ -286,6 +306,40 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
     }
     return { ...label, arrow: null, badgePath: null, badgeInk: undefined };
   });
+  const gateLabels = gates.gates.filter(g => !overview || [1, 5, 9, 12].includes(g.number)).flatMap(gate => {
+    const point = project(gate.x, gate.y);
+    return available(point.x, point.y, 64, 24) ? [{ gate, point }] : [];
+  });
+  const visibleInfield = infieldAreas.filter(area => level === "すべて" || area.id.endsWith(level));
+  const overviewObstacles = overview ? [...outfieldAreas, ...visibleInfield].map(area =>
+    ({ ...project(area.x * 1600, area.y * 1600), width: 64, height: 44 })) : [];
+  const markerObstacles = [
+    ...annotations.map(annotation => annotation.rect),
+    ...numberLabels.map(label => label.sign.rect),
+    ...rowEnds.map(row => row.rect),
+    ...overviewObstacles,
+  ];
+  const placedPhotos: LabelRect[] = [];
+  const photoMarkers = visible.flatMap(block => {
+    const post = photoPosts.get(block.code);
+    if (!post || (level !== "すべて" && block.tier !== level && block.code !== selectedCode)) return [];
+    const anchor = project(block.x, block.y);
+    if (anchor.x < 0 || anchor.x > size.width || anchor.y < 0 || anchor.y > size.height) return [];
+    const padding = photoTarget / 2 + 2;
+    const candidates = seatPhotoOffsets.map(([dx, dy]) => ({ x: anchor.x + dx, y: anchor.y + dy, width: photoTarget, height: photoTarget }))
+      .filter(({ x, y }) => x >= padding && x <= size.width - padding && y >= padding && y <= size.height - padding);
+    const fitsPhotos = (point: LabelRect) => placedPhotos.every(other => !rectanglesOverlap(point, other, 2));
+    const clear = candidates.filter(point => fitsPhotos(point)
+      && markerObstacles.every(other => !rectanglesOverlap(point, other, 2))
+      && numberLabels.every(label => !label.arrow || !arrowOverlapsRect(label.arrow.from, label.arrow.to, point, 3)));
+    const onBlock = (point: LabelRect, radius: number) => photoHitTest([block.path],
+      { x: (point.x - origin.x) / scale, y: (point.y - origin.y) / scale }, radius / scale);
+    const centered = clear[0]?.x === anchor.x && clear[0]?.y === anchor.y && onBlock(clear[0], 0);
+    const point = centered ? clear[0] : clear.find(point => onBlock(point, 10)) ?? clear.find(point => onBlock(point, 0));
+    if (!point) return [];
+    placedPhotos.push(point);
+    return [{ block, post, point }];
+  });
   const focusCode = visible.some(b => b.code === focusedCode) ? focusedCode : selectedBlock?.code ?? visible[0]?.code;
   function keyBlock(event: KeyboardEvent<SVGGElement>, block: DrawingBlock) {
     if (["Enter", " "].includes(event.key)) { event.preventDefault(); onBlock(block); return; }
@@ -294,10 +348,15 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
     event.preventDefault(); setFocusedCode(target.id);
     frame.current?.querySelector<SVGGElement>(`[data-seat-block="${target.id}"]`)?.focus({ preventScroll: true });
   }
-  return <div ref={frame} className={styles.canvas} data-testid="kyocera-seat-map" data-selected={selectedCode ?? ""} data-camera={box.join(" ")} data-map-mode="unified" data-number-badge-version="connected-v2" data-map-stage={overview ? "overview" : detail ? "detail" : "blocks"}
-    onPointerDownCapture={() => setTapHint("done")} onKeyDownCapture={() => setTapHint("done")}>
-    <svg ref={svg} viewBox={`0 0 ${size.width} ${size.height}`} role="group" aria-label={`${guide.name}の座席表`} onPointerDown={start} onPointerMove={move}
-      onPointerUp={end} onPointerCancel={cancel} onLostPointerCapture={event => { if (contacts.current.has(event.pointerId)) cancel(); }} onPointerLeave={event => { if (!event.currentTarget.hasPointerCapture(event.pointerId)) cancel(); }}>
+  return <>
+    <div ref={frame} className={styles.canvas} data-testid="kyocera-seat-map" data-selected={selectedCode ?? ""} data-camera={box.join(" ")} data-map-mode="unified" data-number-badge-version="connected-v2" data-map-stage={overview ? "overview" : detail ? "detail" : "blocks"}
+    style={{ touchAction: shown[2] >= 1584 ? "pan-y" : "none" }}
+    onPointerDownCapture={() => setTapHint("done")} onKeyDownCapture={() => setTapHint("done")}
+    onPointerDown={start} onPointerMove={move} onPointerUp={end} onPointerCancel={cancel}
+    onLostPointerCapture={event => { if (contacts.current.has(event.pointerId)) cancel(); }}
+    onPointerLeave={event => { if (contacts.current.has(event.pointerId) && !event.currentTarget.hasPointerCapture(event.pointerId)) cancel(); }}
+    onClickCapture={event => { if (suppressMapClick.current && event.detail !== 0) { event.preventDefault(); event.stopPropagation(); } }}>
+    <svg ref={svg} viewBox={`0 0 ${size.width} ${size.height}`} role="group" aria-label={`${guide.name}の座席表`}>
       <defs>
         {visible.map(b => <clipPath id={`seat-clip-${b.code}`} key={b.code}><path d={b.path} /></clipPath>)}
       </defs>
@@ -307,7 +366,8 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
           aria-label={`${block.label}・${block.tier} ${block.rowLabelIsPrinted ? `${block.rowLabel}列` : "列の印字なし（公式検索：0列）"} ${block.firstSeat}〜${block.lastSeat}番`} aria-pressed={block.code === selectedCode}
           onKeyDown={event => keyBlock(event, block)}>
           <path d={block.path} fill={block.code === selectedCode ? "#ac2e66" : block.special ? "#eadac1" : block.tier === "上段" ? "#c1b4da" : "#ebbad0"}
-            opacity={level !== "すべて" && block.tier !== level && block.code !== selectedCode ? .2 : 1} stroke={block.code === selectedCode ? "#5d263f" : "white"} strokeWidth={(block.code === selectedCode ? 2.5 : .6) / scale} />
+            opacity={level !== "すべて" && block.tier !== level && block.code !== selectedCode ? .2 : 1} stroke={block.code === selectedCode ? "#5d263f" : photoPosts.has(block.code) ? SEAT_PHOTO_MAP_COLOR : "white"}
+            strokeWidth={(block.code === selectedCode ? 2.5 : photoPosts.has(block.code) ? 2.2 : .6) / scale} />
           <title>{`${block.label}・${block.tier} ／ ${block.rowLabelIsPrinted ? `${block.rowLabel}列` : "列の印字なし（検索：0列）"} ／ ${block.firstSeat}〜${block.lastSeat}番`}</title>
         </g>)}
         
@@ -329,19 +389,31 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
         {centralLabels.filter(c => !placedLabels.some(l => l.block.code === c.code && l.showRange)).map(({ code, rect, letter }) => <text key={code} x={rect.x} y={rect.y + 4} textAnchor="middle" fontSize="12">{letter}</text>)}
         {focusRows && <g><text stroke="#fff" strokeWidth="3" paintOrder="stroke" strokeLinejoin="round" data-row-range={focusRows.code} x={focusRows.rect.x} y={focusRows.rect.y + 4} textAnchor="middle" fontSize="12" fontWeight="600" fill="#76576a">{focusRows.text}</text></g>}
         {rowEnds.map(({ rect: p, anchor, row, end }) => <g key={end} data-row-end={end}>{(p.x !== anchor.x || p.y !== anchor.y) && <path d={`M${anchor.x},${anchor.y}L${p.x},${p.y}`} stroke="#a93164" strokeWidth="1"/>}<rect x={p.x - 28} y={p.y - 14} width="56" height="28" rx="4" fill={rowLabel === row ? "#155786" : "#e8f3ff"} stroke="#23679a" /><text x={p.x} y={p.y + 4} textAnchor="middle" fontSize="12" fill={rowLabel === row ? "#fff" : "#155786"}>{row}列</text></g>)}
-        {gates.gates.filter(g => !overview || [1, 5, 9, 12].includes(g.number)).flatMap(gate => { const p = project(gate.x, gate.y); if (!available(p.x, p.y, 64, 24)) return [];
-          return [<g key={gate.id} data-seat-gate={gate.number}><rect x={p.x - 32} y={p.y - 12} width="64" height="24" rx="12" fill="#514452" /><text x={p.x} y={p.y + 4} fill="white" textAnchor="middle" fontSize="12">GATE {gate.number}</text></g>]; })}
+        {gateLabels.map(({ gate, point: p }) => <g key={gate.id} data-seat-gate={gate.number}><rect x={p.x - 32} y={p.y - 12} width="64" height="24" rx="12" fill="#514452" /><text x={p.x} y={p.y + 4} fill="white" textAnchor="middle" fontSize="12">GATE {gate.number}</text></g>)}
       </g>
+      {photoMarkers.map(({ block, post, point: { x, y } }) => <g key={block.code}>
+        <g data-seat-photo-marker={`section:${block.code}`} className={styles.photoMarker} role="button" tabIndex={0}
+          data-photo-x={x} data-photo-y={y} data-photo-placement="inside-block"
+          aria-label={`写真がある${post.area}を選ぶ`}
+          onClick={event => { if (event.detail === 0) onBlock(block); }}
+          onKeyDown={event => {
+            if (event.key !== "Enter" && event.key !== " ") return;
+            event.preventDefault(); setFocusedCode(block.code); onBlock(block);
+          }}>
+          <circle className={styles.photoTarget} cx={x} cy={y} r={photoTarget / 2} fill="transparent" />
+          <SeatPhotoMarker x={x} y={y} size={20} highlighted />
+        </g>
+      </g>)}
     </svg>
     {overview && <div className={styles.areaLabels} aria-label="座席エリアから拡大する" data-tap-hint={tapHint} onAnimationEnd={() => setTapHint("done")}>
-      {[{ id: "outfield-right", label: "ライト", x: .65, y: .25 }, { id: "outfield-left", label: "レフト", x: .35, y: .25 }].map(area => {
+      {outfieldAreas.map(area => {
         const p = project(area.x * 1600, area.y * 1600);
         return p.x >= 36 && p.x <= size.width - 36 && p.y >= 24 && p.y <= size.height - 24 ? <button key={area.id} type="button" className={styles.outfieldLabel} data-map-direction={area.id} aria-label={`外野${area.label}`} style={{ left: p.x, top: p.y }} onClick={() => onDirection(area.id)}>外野<small>{area.label}</small></button> : null;
       })}
-      {[{ id: "1塁側-下段", x: .67, y: .53 }, { id: "3塁側-下段", x: .33, y: .53 }, { id: "1塁側-上段", x: .83, y: .57 }, { id: "3塁側-上段", x: .17, y: .57 }, { id: "中央C-下段", x: .5, y: .76 }]
-        .filter(a => level === "すべて" || a.id.endsWith(level)).map(area => { const p = project(area.x * 1600, area.y * 1600); const seat = guide.seats.find(a => a.id === area.id)!;
+      {visibleInfield.map(area => { const p = project(area.x * 1600, area.y * 1600); const seat = guide.seats.find(a => a.id === area.id)!;
           return p.x >= 30 && p.x <= size.width - 30 && p.y >= 24 && p.y <= size.height - 24 ? <button key={area.id} type="button" style={{ left: p.x, top: p.y }} onClick={() => onArea(area.id)}>{seat.label.startsWith("中央") ? "中央" : seat.label}<small>{seat.type}</small></button> : null; })}
     </div>}
     <button type="button" className={styles.whole} onClick={onWhole}>全体図へ</button>
-  </div>;
+    </div>
+  </>;
 }

@@ -1,15 +1,27 @@
 import { cache } from "react";
 import { ARTISTS, findArtistBySlug, resolveArtist, type Artist } from "@/lib/artists";
-import { queryEventsForArtist } from "@/lib/events";
+import { catalogEventsForArtist, queryEventsForArtist } from "@/lib/events";
 import { isArtistOnlyEventTitle, parseEventTitle } from "@/lib/eventTitle";
 import { getEventWithArtist, getGroupedEventIds, getPredictionCount, getSeatReportCount, type EventOgInfo } from "@/lib/og/eventOgData";
 import { getReportOgInfo, type ReportOgInfo } from "@/lib/og/reportOgData";
 import { supabase } from "@/lib/supabase/client";
 import type { CrawledEvent } from "@/lib/types";
-import { dedupeVenueEventsForDisplay } from "@/lib/eventDisplay";
-import { readSupabasePages } from "@/lib/supabase/readPages";
+import { dedupeVenueEventsForDisplay, getSamePerformanceEventIds } from "@/lib/eventDisplay";
+import { readEventContributions } from "@/lib/eventIndexContent";
+import { canIndexEvent, performanceEditorialContent } from "@/lib/eventPublication";
+import { canIndexLiveReport } from "@/lib/liveReportSeo";
+import { applyReviewedEventDate } from "@/lib/reviewedEventDates";
+import type { PublicEventCatalog } from "@/lib/publicEventCatalog";
+import { getPublicVenueGuideId } from "@/lib/publicVenueGuides";
+import { latestRealTime } from "@/lib/venueActivity";
+import { seatSourcePublicationDates } from "@/lib/seatSourceArchive";
+import archiveArtistsWithSongs from "@/lib/archiveArtistsWithSongs.json";
+import type { SupabaseClient } from "@supabase/supabase-js";
 
-import { hasSetlistSongs } from "@/lib/setlistHelpers";
+import { hasSetlistSongs, readSetlistReviewSource } from "@/lib/setlistHelpers";
+import { canIndexPerformanceSetlist } from "@/lib/setlistSeo";
+import { getJstDateString } from "@/lib/artistPageData";
+import { readSupabasePages } from "@/lib/supabase/readPages";
 
 export const SITE_URL = "https://tixrepo.com";
 
@@ -112,90 +124,105 @@ export async function getArtistNewsCount(slug: string): Promise<number> {
 }
 
 type SitemapEventRow = CrawledEvent & { created_at: string | null };
-type TimestampRow = { id: string; event_id: string; created_at: string | null };
-type SetlistTimestampRow = TimestampRow & { updated_at: string | null; items: unknown };
-type ReportTimestampRow = TimestampRow & { id: string };
 type NewsTimestampRow = { id: string; artist_slug: string; created_at: string | null };
 
 export type SeoSitemapData = {
   artists: { slug: string; lastModified?: string }[];
   newsArtists: { slug: string; lastModified?: string }[];
   events: { id: string; lastModified?: string }[];
+  venueLastModified: Map<string, string>;
   setlistArtists: { slug: string; lastModified?: string }[];
+  setlistEvents: { slug: string; id: string; lastModified?: string }[];
   afterReportArtists: { slug: string; lastModified?: string }[];
   reports: { id: string; lastModified?: string }[];
 };
 
 function keepLatest(map: Map<string, string>, key: string, value: string | null | undefined) {
-  if (!value) return;
+  if (!value || !Number.isFinite(Date.parse(value))) return;
   const current = map.get(key);
-  if (!current || value > current) map.set(key, value);
+  if (!current || Date.parse(value) > Date.parse(current)) map.set(key, value);
 }
 
-export async function getSeoSitemapData(): Promise<SeoSitemapData> {
-  const [eventsResult, setlistsResult, reportsResult, seatsResult, predictionsResult, newsResult] = await Promise.all([
-    readSupabasePages<SitemapEventRow>((from, to) => supabase.from("events").select("id, title, venue, venue_id, date, genre, artist_slug, created_at", { count: "exact" }).order("id").range(from, to)),
-    readSupabasePages<SetlistTimestampRow>((from, to) => supabase.from("setlists").select("id, event_id, created_at, updated_at, items", { count: "exact" }).order("id").range(from, to)),
-    readSupabasePages<ReportTimestampRow>((from, to) => supabase.from("after_reports").select("id, event_id, created_at", { count: "exact" }).order("id").range(from, to)),
-    readSupabasePages<TimestampRow>((from, to) => supabase.from("seat_reports").select("id, event_id, created_at", { count: "exact" }).order("id").range(from, to)),
-    readSupabasePages<TimestampRow>((from, to) => supabase.from("fan_seat_predictions").select("id, event_id, created_at", { count: "exact" }).eq("approved", true).order("id").range(from, to)),
-    readSupabasePages<NewsTimestampRow>((from, to) => supabase.from("official_news_public").select("id, artist_slug, created_at", { count: "exact" }).order("id").range(from, to)),
+export async function getSeoSitemapData(client: SupabaseClient = supabase, collected?: Awaited<ReturnType<typeof readEventContributions>>, activity?: Pick<PublicEventCatalog, "eventModifiedAt" | "venueActivity"> | null): Promise<SeoSitemapData> {
+  const [eventsResult, content, newsResult] = await Promise.all([
+    readSupabasePages<SitemapEventRow>((from, to) =>
+      client.from("events").select("id, title, venue, venue_id, date, genre, artist_slug, created_at", { count: "exact" }).order("id").range(from, to), Infinity,
+    ),
+    collected ?? readEventContributions(client),
+    readSupabasePages<NewsTimestampRow>((from, to) =>
+      client.from("official_news_public").select("id, artist_slug, created_at", { count: "exact" }).order("id").range(from, to), Infinity,
+    ),
   ]);
 
-  const readFailure = [eventsResult, setlistsResult, reportsResult, seatsResult, predictionsResult, newsResult].find(result => result.error || result.limited);
+  const readFailure = [eventsResult, newsResult].find(result => result.error);
   if (readFailure) throw new Error("Sitemap content could not be loaded", { cause: readFailure.error });
 
-  const allEvents = (eventsResult.data as SitemapEventRow[]) ?? [];
-  const eventMap = new Map<string, CrawledEvent>(allEvents.map((event) => [event.id, event]));
+  if (eventsResult.limited || newsResult.limited) throw new Error("Sitemap source rows are incomplete");
+  const allEvents = eventsResult.data.map(applyReviewedEventDate);
+  const eventMap = new Map(allEvents.map(event => [event.id, event]));
   const publicEvents = allEvents.filter((event) => !isTestEvent(event));
   // 非代表URLのcanonicalとsitemapを矛盾させない。DB行や既存URLは削除しない。
   const canonicalPublicEvents = dedupeVenueEventsForDisplay(publicEvents);
+  const eventsByDate = Map.groupBy(publicEvents, event => event.date);
   const eventArtistSlug = new Map<string, string>();
   for (const event of publicEvents) {
     const slug = getPublicEventArtistSlug(event);
     if (slug) eventArtistSlug.set(event.id, slug);
   }
 
-  const latestByEvent = new Map<string, string>();
+  const latestByEvent = content.latest;
   const latestSetlistByArtist = new Map<string, string>();
   const latestReportByArtist = new Map<string, string>();
-  const artistsWithSetlists = new Set<string>();
+  const artistsWithSetlists = new Set<string>(archiveArtistsWithSongs.filter(slug => getSeoArtist(slug) && !isTestArtist(slug)));
+  const setlistEvents: SeoSitemapData["setlistEvents"] = [];
+  const today = getJstDateString();
   const artistsWithReports = new Set<string>();
+  const artistEventIds = new Map<string, Set<string>>();
+  function visibleToArtist(slug: string, id: string) {
+    if (!artistEventIds.has(slug)) {
+      artistEventIds.set(slug, new Set(catalogEventsForArtist(publicEvents, slug).map(event => event.id)));
+    }
+    return artistEventIds.get(slug)!.has(id);
+  }
 
   const publicSetlists = getPublicContentRows(
-    ((setlistsResult.data as SetlistTimestampRow[]) ?? []).filter(row => hasSetlistSongs(row.items)),
+    content.setlists,
     eventMap,
   );
   for (const { row, artistSlug: slug } of publicSetlists) {
     const modified = row.updated_at ?? row.created_at;
-    keepLatest(latestByEvent, row.event_id, modified);
     if (!slug) continue;
-    artistsWithSetlists.add(slug);
-    keepLatest(latestSetlistByArtist, slug, modified);
+    if (visibleToArtist(slug, row.event_id)) {
+      artistsWithSetlists.add(slug);
+      keepLatest(latestSetlistByArtist, slug, modified);
+    }
+    const event = eventMap.get(row.event_id);
+    if (event && findArtistBySlug(slug) && canIndexPerformanceSetlist(event, row.items, Boolean(readSetlistReviewSource(row.review_source)), today)) {
+      setlistEvents.push({ slug, id: event.id, lastModified: modified ?? undefined });
+    }
   }
 
   const publicReportEntries = getPublicContentRows(
-    (reportsResult.data as ReportTimestampRow[]) ?? [],
+    content.reports,
     eventMap,
   );
-  const publicReports: ReportTimestampRow[] = [];
+  const publicReports: typeof content.reports = [];
   for (const { row, artistSlug: slug } of publicReportEntries) {
-    publicReports.push(row);
-    keepLatest(latestByEvent, row.event_id, row.created_at);
-    if (!slug) continue;
+    const event = eventMap.get(row.event_id)!;
+    if (canIndexLiveReport(event, resolveArtist(event)?.name, false)) publicReports.push(row);
+    if (!slug || !visibleToArtist(slug, row.event_id)) continue;
     artistsWithReports.add(slug);
     keepLatest(latestReportByArtist, slug, row.created_at);
   }
 
-  for (const row of [
-    ...((seatsResult.data as TimestampRow[]) ?? []),
-    ...((predictionsResult.data as TimestampRow[]) ?? []),
-  ]) {
-    if (eventMap.has(row.event_id)) keepLatest(latestByEvent, row.event_id, row.created_at);
-  }
-
   const latestByArtist = new Map<string, string>();
+  const venueLastModified = new Map(Object.entries(seatSourcePublicationDates.venues));
+  for (const [id, record] of Object.entries(activity?.venueActivity ?? {})) {
+    keepLatest(venueLastModified, id, latestRealTime(record.updatedAt, record.changeObservedAt));
+  }
   for (const event of publicEvents) {
+    const venueId = getPublicVenueGuideId(event.venue_id, event.venue);
+    if (venueId) keepLatest(venueLastModified, venueId, latestRealTime(event.created_at, latestByEvent.get(event.id), activity?.eventModifiedAt?.[event.id]));
     const slug = eventArtistSlug.get(event.id);
     if (!slug) continue;
     // 公演日は更新日ではない。投稿更新かevents行の作成日時だけをlastmodに使う。
@@ -203,8 +230,10 @@ export async function getSeoSitemapData(): Promise<SeoSitemapData> {
   }
 
   const latestNewsByArtist = new Map<string, string>();
-  for (const news of (newsResult.data as NewsTimestampRow[]) ?? []) {
+  const artistsWithNews = new Set<string>();
+  for (const news of newsResult.data) {
     if (!findArtistBySlug(news.artist_slug) || isTestArtist(news.artist_slug)) continue;
+    artistsWithNews.add(news.artist_slug);
     keepLatest(latestNewsByArtist, news.artist_slug, news.created_at);
   }
 
@@ -215,20 +244,25 @@ export async function getSeoSitemapData(): Promise<SeoSitemapData> {
 
   return {
     artists,
-    newsArtists: [...latestNewsByArtist].map(([slug, lastModified]) => ({
+    venueLastModified,
+    newsArtists: [...artistsWithNews].map(slug => ({
       slug,
-      lastModified,
+      lastModified: latestNewsByArtist.get(slug),
     })),
-    events: canonicalPublicEvents.map((event) => ({
-      id: event.id,
-      ...(latestByEvent.get(event.id) || event.created_at
-        ? { lastModified: latestByEvent.get(event.id) ?? event.created_at ?? undefined }
-        : {}),
-    })),
+    events: canonicalPublicEvents.flatMap(event => {
+      const ids = getSamePerformanceEventIds(eventsByDate.get(event.date) ?? [], event);
+      const editorial = performanceEditorialContent(event, ids, eventArtistSlug.get(event.id) ?? null);
+      if (!canIndexEvent(event, editorial, ids.some(id => latestByEvent.has(id)))) return [];
+      const latest = latestRealTime(editorial.reviewedAt, ...ids.flatMap(id => [
+        eventMap.get(id)?.created_at, latestByEvent.get(id), seatSourcePublicationDates.events[id], activity?.eventModifiedAt?.[id],
+      ]));
+      return [{ id: event.id, lastModified: latest }];
+    }),
     setlistArtists: [...artistsWithSetlists].map((slug) => ({
       slug,
       ...(latestSetlistByArtist.get(slug) ? { lastModified: latestSetlistByArtist.get(slug) } : {}),
     })),
+    setlistEvents,
     afterReportArtists: [...artistsWithReports].map((slug) => ({
       slug,
       ...(latestReportByArtist.get(slug) ? { lastModified: latestReportByArtist.get(slug) } : {}),

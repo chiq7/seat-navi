@@ -1,5 +1,6 @@
 import "server-only";
 import { unstable_cache } from "next/cache";
+import { getJstDateString } from "./artistPageData";
 import {
   getRealtimeFeedItems,
   getUpcomingHomeEvents,
@@ -22,7 +23,7 @@ export async function getCachedUpcomingHomeEvents(): Promise<UpcomingEvent[]> {
       const client = createSupabasePublicClient();
       return client ? getUpcomingHomeEvents(client) : [];
     },
-    ["public-upcoming-home-events"],
+    ["public-upcoming-home-events", getJstDateString()],
     { revalidate: PUBLIC_UPCOMING_EVENTS_TTL_SECONDS, tags: ["home-events"] },
   )();
 }

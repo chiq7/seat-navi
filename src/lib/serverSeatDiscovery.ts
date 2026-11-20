@@ -1,7 +1,7 @@
 import "server-only";
 import { createSupabasePublicClient } from "./supabase/public";
 import { findArtistBySlug } from "./artists";
-import { resolveArtistHeroImage } from "./artistPageData";
+import { getJstDateString, resolveArtistHeroImage } from "./artistPageData";
 import type { SeatDiscoveryData, SeatDiscoveryEvent } from "./seatDiscovery";
 import type { SeatReport } from "./types";
 import type { ExternalSeatObservation } from "./external-seats/types";
@@ -10,6 +10,11 @@ import { eventSeatGroup } from "./arena-map/eventSeatGroup";
 import type { UpcomingEvent } from "./homeData";
 import { readArenaReports } from "./arena-map/readArenaReports";
 import { isEventPredictionEnabled } from "./arena-map/eventPredictionInput";
+import { isXSeatPostUrl } from "./external-seats/xSeatPosts";
+
+function publicObservation(item: ExternalSeatObservation): ExternalSeatObservation {
+  return { ...item, source_url: item.source_type === "other" && isXSeatPostUrl(item.source_url) ? item.source_url : null, evidence_summary: "" };
+}
 
 // Pilot configuration only. The card itself is artist/event independent.
 export const SEAT_DISCOVERY_PILOT = {
@@ -47,7 +52,7 @@ export async function loadSeatDiscovery(config: { artistSlug: string; venueId: s
       return { ...base, status: "ready", limited: read.limited,
         lottery: reportedDiscoveryLottery(base.events, ticketResult.data ?? [], ticketResult.count, Boolean(ticketResult.error)),
         reports: read.seats.data.map(report => ({ ...report, comment: null })),
-        externalObservations: read.external.data.map(item => ({ ...item, source_url: null, evidence_summary: "" })),
+        externalObservations: read.external.data.map(publicObservation),
       };
     }
     const [seatResult, externalResult, ticketResult] = await Promise.all([
@@ -55,7 +60,7 @@ export async function loadSeatDiscovery(config: { artistSlug: string; venueId: s
         .select("id,event_id,block,row_num,seat_num,lottery_type,lottery_round,lottery_name,fc_history,payment_method,created_at", { count: "exact" })
         .in("event_id", config.eventIds).order("created_at", { ascending: false }).limit(500),
       client.from("external_seat_observations")
-        .select("id,event_id,source_type,observed_at,seat_area,block,row_min,row_max,seat_min,seat_max,gate,level,confidence,review_status", { count: "exact" })
+        .select("id,event_id,source_type,source_url,observed_at,seat_area,block,row_min,row_max,seat_min,seat_max,gate,level,confidence,review_status", { count: "exact" })
         .in("event_id", config.eventIds).eq("review_status", "approved").eq("seat_area", "arena")
         .order("observed_at", { ascending: false }).limit(500),
       client.from("event_ticket_results").select("id,event_id,result,lost_application_count,seat_type,upgrade_result", { count: "exact" }).in("event_id", config.eventIds).order("created_at", { ascending: false }).limit(1000),
@@ -67,7 +72,7 @@ export async function loadSeatDiscovery(config: { artistSlug: string; venueId: s
       status: "ready",
       lottery: reportedDiscoveryLottery(base.events, ticketResult.data ?? [], ticketResult.count, Boolean(ticketResult.error)),
       reports: (seatResult.data ?? []).map(report => ({ ...report, comment: null })) as SeatReport[],
-      externalObservations: (externalResult.data ?? []).map(item => ({ ...item, source_url: null, evidence_summary: "" })) as ExternalSeatObservation[],
+      externalObservations: ((externalResult.data ?? []) as ExternalSeatObservation[]).map(publicObservation),
       limited: (seatResult.count ?? 0) > 500 || (externalResult.count ?? 0) > 500,
     };
   } catch {
@@ -79,7 +84,8 @@ export async function loadHomeSeatDiscovery(selected: UpcomingEvent[], client = 
   if (!client || !selected.length) return [];
   const result = await client.from("events").select("id,date,title,venue,venue_id,artist_slug", { count: "exact" }).in("artist_slug", selected.map(event => event.artistSlug)).order("date").limit(2000);
   if (result.error || !result.data || (result.count ?? 0) > result.data.length) return [];
-  const events = result.data.filter(event => Boolean(event.date)) as SeatDiscoveryEvent[];
+  const today = getJstDateString();
+  const events = result.data.filter(event => event.date && event.date >= today) as SeatDiscoveryEvent[];
   return Promise.all(selected.filter(event => events.some(item => item.id === event.id)).map(event => {
     const group = eventSeatGroup(events, event.id);
     return loadSeatDiscovery({ artistSlug: event.artistSlug, selectedEventId: event.id, eventIds: group.map(item => item.id), venueId: group[0]?.venue_id ?? null }, group, client);

@@ -10,10 +10,9 @@ import styles from "./HomeFeatureBanners.module.css";
 const banners = [
   {
     image: "/images/home-features/tixrepo-arena-prediction-final.webp",
-    alt: "アリーナ予想。センステの形と、自分の席の位置を予想",
-    href: "/search",
-    action: "公演を探す",
-    directory: "artists",
+    alt: "アリーナ予想。ステージの形と、自分の席の位置を予想",
+    href: "/#upcoming-events",
+    action: "開催が近い公演の座席情報を見る",
   },
   {
     image: "/images/home-features/tixrepo-seating-chart.webp",
@@ -25,8 +24,8 @@ const banners = [
   {
     image: "/images/home-features/tixrepo-onsite-reports.webp",
     alt: "現地レポ。参加者の写真や感想で、会場の雰囲気を知る",
-    href: "/news/how-to-use-tixrepo",
-    action: "現地レポの見方",
+    href: "/venues#seat-photos",
+    action: "会場の写真を見る",
   },
 ];
 

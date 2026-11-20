@@ -46,7 +46,7 @@ export default function ArtistNewsClient({ slug, initialNews }: { slug: string; 
   return (
     <main className="community-page pb-20 font-sans">
       <section className="community-hero">
-        <Header title="公式ニュース" backHref={`/artists/${slug}`} backLabel={`${artist.name}へ戻る`} />
+        <Header title="公式ニュース" backHref={`/artists/${slug}`} backLabel={`${artist.name}へ戻る`} breadcrumbParents={[{ href: `/artists/${slug}`, label: artist.name }]} />
         <div className="zr-container pb-10 pt-5 sm:pb-14 sm:pt-9">
           <Newspaper size={28} strokeWidth={1.6} className="text-[#ef4f87]" aria-hidden="true" />
           <p className="community-eyebrow mt-6">OFFICIAL NEWS</p>

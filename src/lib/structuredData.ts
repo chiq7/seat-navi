@@ -1,4 +1,4 @@
-const SITE_URL = "https://tixrepo.com";
+import { SITE_ALTERNATE_NAMES, SITE_NAME, SITE_URL } from "./metadata";
 
 export function serializeJsonLd(value: unknown): string {
   return JSON.stringify(value)
@@ -14,17 +14,17 @@ export function buildSiteStructuredData() {
       {
         "@type": "Organization",
         "@id": `${SITE_URL}/#organization`,
-        name: "ちけレポ",
-        alternateName: "TixRepo",
+        name: SITE_NAME,
+        alternateName: SITE_ALTERNATE_NAMES,
         url: SITE_URL,
         logo: `${SITE_URL}/icon.png`,
       },
       {
         "@type": "WebSite",
         "@id": `${SITE_URL}/#website`,
-        url: SITE_URL,
-        name: "ちけレポ",
-        alternateName: "TixRepo",
+        url: SITE_URL + "/",
+        name: SITE_NAME,
+        alternateName: SITE_ALTERNATE_NAMES,
         inLanguage: "ja",
         publisher: { "@id": `${SITE_URL}/#organization` },
       },
@@ -44,6 +44,7 @@ export type EventStructuredDataInput = {
   endDate?: string | null;
   venue: string;
   venueId: string | null;
+  venueAlternateNames?: readonly string[];
   /** 公式確認済みの会場プロフィールに限って渡す。 */
   venueAddress?: {
     postalCode: string;
@@ -72,6 +73,7 @@ export function buildEventStructuredData(input: EventStructuredDataInput) {
     location: {
       "@type": "Place",
       name: input.venue,
+      ...(input.venueAlternateNames?.length ? { alternateName: input.venueAlternateNames } : {}),
       ...(input.venueId ? { url: `${SITE_URL}/venues/${input.venueId}` } : {}),
       ...(input.venueAddress
         ? {

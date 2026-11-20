@@ -6,6 +6,7 @@ import { isArtistOnlyEventTitle } from "@/lib/eventTitle";
 import { isTestEvent } from "@/lib/seoData";
 import { createSupabasePublicClient } from "@/lib/supabase/public";
 import { dedupeVenueEventsForDisplay } from "@/lib/eventDisplay";
+import { getRequestPublicEventCatalog } from "@/lib/publicEventCatalogContext";
 import type { CrawledEvent } from "@/lib/types";
 
 export const SEO_VENUES = VENUES.map(({ id, name }) => ({ id, name }));
@@ -37,9 +38,18 @@ export async function readVenueEvents(venueId: string, client = createSupabasePu
 export async function getVenueEvents(venueId: string): Promise<CrawledEvent[]> {
   const venue = findSeoVenue(venueId);
   if (!venue) return [];
+  const catalog = await getRequestPublicEventCatalog();
+  if (catalog) return catalogVenueEvents(catalog.events, venue.id);
   return unstable_cache(
     () => readVenueEvents(venue.id),
     ["public-venue-events-v3", venue.id],
-    { revalidate: 3600, tags: [`venue-events:${venue.id}`] },
+    { revalidate: 900, tags: [`venue-events:${venue.id}`] },
   )();
+}
+
+export function catalogVenueEvents(events: readonly CrawledEvent[], venueId: string) {
+  const aliases = getVenueIdAliases(venueId);
+  const matches = events.filter(event => aliases.includes(event.venue_id))
+    .sort((a, b) => (a.date ?? "9999").localeCompare(b.date ?? "9999")).slice(0, 300);
+  return dedupeVenueEventsForDisplay(matches);
 }

@@ -20,6 +20,7 @@ type Props = {
   children?: ReactNode;
   authorMap?: Map<string, PostAuthor>;
   scopeLabel?: string;
+  photoHref?: string;
 };
 
 type TimelineProps = {
@@ -112,14 +113,13 @@ export function ReportTimelineList({
         })
       ) : (
         <div className="community-soft-panel rounded-[20px] px-5 py-5 text-center sm:px-8 sm:py-6">
-          <p className="text-[10px] font-black tracking-[0.2em] text-[#d64175]">NO REPORTS YET</p>
           <p className="mt-2 text-[16px] font-black tracking-[-0.03em]">{emptyText}</p>
           {reportHref && (
             <Link
               href={reportHref}
-              className="zr-focus mt-4 inline-flex min-h-11 items-center border border-white/35 px-4 text-[11px] font-black text-white transition-colors hover:bg-white hover:text-[#1c171b]"
+              className="zr-focus mt-4 inline-flex min-h-11 items-center rounded-xl bg-[#ad2157] px-4 text-[12px] font-bold text-white transition-colors hover:bg-[#8d1946]"
             >
-              最初の現地レポを投稿する
+              現地レポを投稿する
             </Link>
           )}
         </div>
@@ -128,24 +128,23 @@ export function ReportTimelineList({
   );
 }
 
-export default function ReportSection({ reports, afterHref, reportHref, children, authorMap, scopeLabel }: Props) {
+export default function ReportSection({ reports, afterHref, reportHref, children, authorMap, scopeLabel, photoHref }: Props) {
   const displayReports = reports.slice(0, 4);
 
   return (
     <section className="artist-section" id="reports">
-      <p className="artist-kicker">Live Reports</p>
-      <h2 className="artist-heading">席からの見え方・現地レポ</h2>
+      <h2 className="artist-heading">参加者の現地レポ</h2>
       {scopeLabel && <p className="mt-2 text-[12px] font-bold text-[#625a61]">{scopeLabel}</p>}
       <div className="mt-6 border border-divider bg-[#fff8fa]">
         {children && <div className="p-4 sm:p-5">{children}</div>}
         <div className="flex items-end justify-between gap-4 border-t border-divider bg-white px-5 py-3 sm:px-7">
           <div>
-            <p className="text-[10px] font-black tracking-[0.2em] text-[#f43679]">RECENT VOICES</p>
-            <h3 className="mt-1 text-[17px] font-black tracking-[-0.03em] text-[#1c171b]">現地レポタイムライン</h3>
+            <h3 className="text-[17px] font-black tracking-[-0.03em] text-[#1c171b]">届いた現地レポ</h3>
           </div>
-          <span className="mb-1 text-[9px] font-black tracking-[0.12em] text-[#817981]">{reports.length} REPORTS</span>
+          <span className="mb-1 text-[12px] font-bold text-[#817981]">{reports.length}件</span>
         </div>
         <ReportTimelineList reports={displayReports} reportHref={reportHref} authorMap={authorMap} />
+        {reports.length === 0 && photoHref && <Link href={photoHref} className="zr-focus flex min-h-12 items-center justify-center px-4 text-[13px] font-bold text-[#a41c53]">会場の座席写真を見る →</Link>}
         <div className="border-t border-divider bg-white">
           <Link href={afterHref} className="zr-focus group flex min-h-13 items-center justify-between px-5 text-[12px] font-black text-[#1c171b] sm:px-7">
             すべての現地レポを見る

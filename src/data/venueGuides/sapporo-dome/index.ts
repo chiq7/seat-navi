@@ -1,10 +1,11 @@
 import type { DedicatedVenueGuide, GuideDiagram, GuideFacility, GuideSource } from "../types";
 import current from "./current-facilities.json";
+import { venuePageDisplayNames } from "@/lib/venuePageDisplayNames";
 import { sapporoSeats, type SapporoMode } from "./config";
 export function makeSapporoGuide(mode:SapporoMode):DedicatedVenueGuide {
  const data=sapporoSeats[mode];
- return {venueId:"sapporo-dome",name:"大和ハウス プレミストドーム（札幌ドーム）",seatTypes:["スタンド"],
- seatNote:`${mode === "baseball" ? "野球・コンサート" : "サッカー"}モードの常設席参考図です。北・南・東・西側から区画を選べます。通路名（例：86通路）で周囲を表示し、地図の区画を選べます。通路検索は列・席の確定ではありません。19列の開始側代表8キーと、43・45通路間21番側の奇数列・41/43列を部分検索できます。追加列の目印は参考位置で、ほかの番号・券種境界・特殊席・公演アリーナは確認中です。`,
+ return {venueId:"sapporo-dome",name:venuePageDisplayNames["sapporo-dome"],seatTypes:["スタンド"],
+ seatNote:`${mode === "baseball" ? "野球・コンサート" : "サッカー"}モードの常設スタンドです。券面の通路名（例：86通路）を入力すると、その周りの座席を地図で探せます。番号で検索できるのは19列の一部と、43・45通路の間にある21番側の一部の席です。アリーナ席の配置は公演ごとに変わります。`,
  diagramNote:"フロア図は北が左・東が上。敷地図は別の向きです。入口中心・連続経路は未転記です。",
  seats:data.blocks.map(b=>({id:b.id,label:b.label,type:b.level,floor:b.level,x:b.center[0],y:b.center[1],rows:b.rows.map(r=>({label:r.label})),sourceIds:b.sourceIds})),
  sources:current.sources as GuideSource[],facilities:current.facilities as GuideFacility[],diagrams:current.diagrams as GuideDiagram[],

@@ -20,7 +20,7 @@ export default function OfficialNewsSection({ news, moreHref }: Props) {
 
   return (
     <section className="artist-section" id="official-news">
-      <p className="artist-kicker">Official News</p>
+      
       <h2 className="artist-heading">公式ニュース</h2>
       <div className="mt-6 border-t border-[#ded8dc]">
         <div>

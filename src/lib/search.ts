@@ -10,6 +10,8 @@ import { normalizeForSearch, searchTextScore } from "@/lib/keywordMatch";
 import { isTestArtist, isTestEvent } from "@/lib/seoData";
 import { isArtistOnlyEventTitle } from "@/lib/eventTitle";
 import { supabase } from "@/lib/supabase/client";
+import { findDisplayedEventRepresentative } from "@/lib/eventDisplay";
+import { getJstDateString } from "@/lib/artistPageData";
 import type { CrawledEvent } from "@/lib/types";
 
 /**
@@ -119,6 +121,7 @@ export function rankEventSearchResults(
   events: CrawledEvent[],
   matchedArtists: Artist[],
   limit = 30,
+  today = getJstDateString(),
 ): CrawledEvent[] {
   const artistRank = new Map(matchedArtists.map((artist, index) => [artist.slug, index]));
   const includeTextMatches = shouldSearchEventText(query);
@@ -127,12 +130,12 @@ export function rankEventSearchResults(
   const requestedVenues = SEARCH_VENUE_CATALOG.filter((venue) => parsed.venueIds.includes(venue.id));
   const regionVenues = parsed.regionIds.length ? SEARCH_VENUE_CATALOG.filter((venue) => matchesSearchRegions(venue, parsed.regionIds)) : [];
 
-  return events
-    .filter((event) => {
+  const publicEvents = events.filter((event) => {
       const artist = event.artist_slug ? ARTISTS.find((candidate) => candidate.slug === event.artist_slug) : null;
       return !isTestEvent(event) && !isArtistOnlyEventTitle(event.title, artist?.name)
         && (parsed.dates.length === 0 || Boolean(event.date && parsed.dates.includes(event.date)));
-    })
+    });
+  const matched = publicEvents
     .map((event) => {
       const matchedArtistIndex = event.artist_slug ? artistRank.get(event.artist_slug) : undefined;
       const eventArtist = event.artist_slug ? ARTISTS.find((artist) => artist.slug === event.artist_slug) : null;
@@ -158,10 +161,35 @@ export function rankEventSearchResults(
       );
       return { event, score: matchesAllTerms ? score : 0 };
     })
-    .filter(({ score }) => score > 0)
-    .sort((a, b) => b.score - a.score || (b.event.date ?? "").localeCompare(a.event.date ?? ""))
+    .filter(({ score }) => score > 0);
+  // Match all saved titles before choosing the display representative, so a
+  // title alias remains searchable even when its row is not the visible one.
+  const representatives = new Map<string, { event: CrawledEvent; score: number }>();
+  for (const { event, score } of matched) {
+    const representative = event.date ? findDisplayedEventRepresentative(publicEvents, event) ?? event : event;
+    const previous = representatives.get(representative.id);
+    if (!previous || score > previous.score) representatives.set(representative.id, { event: representative, score });
+  }
+  return [...representatives.values()]
+    .sort((a, b) => compareSearchEventDates(a.event, b.event, today) || b.score - a.score || a.event.id.localeCompare(b.event.id))
     .map(({ event }) => event)
     .slice(0, limit);
+}
+
+/** Upcoming dates first and nearest first; past performances remain a separate archive. */
+export function compareSearchEventDates(a: Pick<CrawledEvent, "date">, b: Pick<CrawledEvent, "date">, today: string): number {
+  const group = (date: string | null) => !date ? 2 : date >= today ? 0 : 1;
+  const category = group(a.date) - group(b.date);
+  if (category) return category;
+  return a.date && b.date ? (a.date >= today ? a.date.localeCompare(b.date) : b.date.localeCompare(a.date)) : 0;
+}
+
+export function groupSearchEventsByDate(events: CrawledEvent[], today = getJstDateString()) {
+  return [
+    { id: "upcoming", title: "これからの公演", events: events.filter(event => event.date && event.date >= today) },
+    { id: "past", title: "過去の公演", events: events.filter(event => event.date && event.date < today) },
+    { id: "undated", title: "日程未定の公演", events: events.filter(event => !event.date) },
+  ].filter(group => group.events.length > 0);
 }
 
 /**

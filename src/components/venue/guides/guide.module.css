@@ -105,6 +105,20 @@
 .foodAreaSign small { font-size:10px; line-height:13px; font-weight:600; white-space:nowrap; }
 .areaSign { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; }
 .areaSign > small { font-size:10px; line-height:12px; font-weight:600; white-space:nowrap; }
+.guide button.facilitySign[data-pin-density="compact"] {
+  display:grid; place-items:center; padding:0; border:0; background:transparent; box-shadow:none;
+}
+.compactFacilityFace {
+  display:grid; place-items:center; justify-content:center; min-width:28px; min-height:28px;
+  padding:3px; border:1px solid #cb8ba9; border-radius:8px; background:#fff;
+}
+.guide button.facilitySign[data-pin-density="compact"][aria-pressed="true"] .compactFacilityFace {
+  border-color:#a93164; background:#fff0f6; box-shadow:0 0 0 1px #a93164;
+}
+.compactFacilityCount {
+  position:absolute; right:1px; top:0; min-width:15px; height:15px; padding-inline:2px;
+  border-radius:8px; background:#a93164; color:#fff; text-align:center; font-size:10px; line-height:15px;
+}
 .mapKey { display:flex; gap:8px; flex-wrap:wrap; font-size:11px; padding:8px 12px; }
 .mapKey span:first-child { color:#376e9a; }
 .mapKey span:last-child { color:#a93164; }

@@ -215,7 +215,7 @@ function letterAt(index: number): string {
  * 報告状況に応じて必要な分だけ行・列を拡張した固定グリッドを組み立てる（グリッドは縮小しない）。
  * パースできない、または拡張後のグリッド範囲を超える報告は overflowBlocks（その他ブロック）に分離する。
  */
-export function buildFixedArenaGrid(reports: ArenaMapReport[]): ArenaGridResult {
+export function buildFixedArenaGrid(reports: ArenaMapReport[], additionalBlocks: ReadonlySet<string> = new Set()): ArenaGridResult {
   type Parsed = { report: ArenaMapReport; prefix: string; num: number; rowIndex: number };
   const parsed: Parsed[] = [];
   const failed: ArenaMapReport[] = [];
@@ -336,6 +336,14 @@ export function buildFixedArenaGrid(reports: ArenaMapReport[]): ArenaGridResult 
       if (p.report.seat_num < b.minSeat) b.minSeat = p.report.seat_num;
       if (p.report.seat_num > b.maxSeat) b.maxSeat = p.report.seat_num;
     }
+  }
+
+  for (const blockName of additionalBlocks) {
+    if (fixedMap.has(blockName) || overflowMap.has(blockName)) continue;
+    overflowMap.set(blockName, {
+      blockName, position: { row: 0, col: 0 }, cells: [],
+      minRow: 0, maxRow: 0, minSeat: 0, maxSeat: 0, hasReports: false,
+    });
   }
 
   // その他ブロック: 件数降順、同数はブロック名昇順

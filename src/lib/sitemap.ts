@@ -1,24 +1,44 @@
 import type { MetadataRoute } from "next";
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { getSeoSitemapData, SITE_URL } from "@/lib/seoData";
+import type { readEventContributions } from "@/lib/eventIndexContent";
 import { getPublicVenueGuideUpdatedAt, PUBLIC_VENUE_GUIDE_UPDATED_AT } from "@/lib/publicVenueGuides";
 import { VENUES } from "@/lib/eventCrawlerConfig";
 import { EVENT_DAY_PUBLICATIONS } from "@/data/eventDayPublications";
 import { eventDayGuidePath, matchPublishedEventDay } from "@/lib/eventDayPublication";
 import type { EventOgInfo } from "@/lib/og/eventOgData";
 import { ZOZO_LOWER_THIRD_PAGE } from "@/lib/venueSeatLinks";
+import { performanceSetlistPath } from "@/lib/setlistSeo";
+import { getSeatSources, publishedSeatSourceEventIds, seatSourcePublicationDates, sourceKinds, sourcePageHref, sourcePageSize, sourcePreviewLimit } from "@/lib/seatSourceArchive";
+import { SITE_NEWS } from "@/lib/siteNews";
+import { latestRealTime } from "@/lib/venueActivity";
+import type { PublicEventCatalog } from "@/lib/publicEventCatalog";
+
+function sourceListEntries(scope: "events" | "venues", id: string) {
+  const groups = getSeatSources(scope, id);
+  return sourceKinds.flatMap(kind => {
+    const count = groups[kind].length;
+    if (count <= sourcePreviewLimit) return [];
+    return Array.from({ length: Math.ceil(count / sourcePageSize) }, (_, index) =>
+      sitemapEntry(SITE_URL + sourcePageHref(`/${scope}/${id}`, kind, index + 1), seatSourcePublicationDates[scope][id]));
+  });
+}
 
 function sitemapEntry(
   url: string,
   lastModified?: string,
   extras?: Pick<MetadataRoute.Sitemap[number], "changeFrequency" | "priority">,
 ): MetadataRoute.Sitemap[number] {
-  return { url, ...(lastModified ? { lastModified } : {}), ...extras };
+  return { url, ...(lastModified ? { lastModified: new Date(lastModified).toISOString() } : {}), ...extras };
 }
 
 export async function getSitemapEntries(
   getPublicEvent: (eventId: string) => Promise<EventOgInfo | null>,
+  client?: SupabaseClient,
+  contributions?: Awaited<ReturnType<typeof readEventContributions>>,
+  activity?: Pick<PublicEventCatalog, "eventModifiedAt" | "venueActivity"> | null,
 ): Promise<MetadataRoute.Sitemap> {
-  const data = await getSeoSitemapData();
+  const data = await getSeoSitemapData(client, contributions, activity);
   const guides = await Promise.all(EVENT_DAY_PUBLICATIONS.filter(p => p.status === "published").map(async publication => {
     const info = await getPublicEvent(publication.identity.eventId);
     return info && !info.isTestData && matchPublishedEventDay(info.event, info.artist?.slug ?? info.event.artist_slug ?? null, EVENT_DAY_PUBLICATIONS)
@@ -29,10 +49,14 @@ export async function getSitemapEntries(
   return [
     sitemapEntry(`${SITE_URL}/`, undefined, { changeFrequency: "daily", priority: 1 }),
     sitemapEntry(`${SITE_URL}/about`, "2026-10-12", { changeFrequency: "monthly", priority: 0.6 }),
+    sitemapEntry(`${SITE_URL}/news`, SITE_NEWS.map(post => post.publishedAt).sort().at(-1)),
+    ...SITE_NEWS.map(post => sitemapEntry(`${SITE_URL}/news/${post.slug}`, post.publishedAt)),
+    ...VENUES.flatMap(venue => sourceListEntries("venues", venue.id)),
+    ...data.events.filter(event => publishedSeatSourceEventIds.has(event.id)).flatMap(event => sourceListEntries("events", event.id)),
     sitemapEntry(`${SITE_URL}/venues`, PUBLIC_VENUE_GUIDE_UPDATED_AT, { changeFrequency: "weekly", priority: 0.8 }),
     sitemapEntry(`${SITE_URL}${ZOZO_LOWER_THIRD_PAGE}`, "2026-11-07", { changeFrequency: "monthly" }),
     ...VENUES.map((venue) =>
-      sitemapEntry(`${SITE_URL}/venues/${venue.id}`, getPublicVenueGuideUpdatedAt(venue.id), {
+      sitemapEntry(`${SITE_URL}/venues/${venue.id}`, latestRealTime(getPublicVenueGuideUpdatedAt(venue.id), data.venueLastModified.get(venue.id)), {
         changeFrequency: "daily",
         priority: 0.8,
       }),
@@ -62,6 +86,7 @@ export async function getSitemapEntries(
         priority: 0.7,
       }),
     ),
+    ...data.setlistEvents.map(event => sitemapEntry(`${SITE_URL}${performanceSetlistPath(event.slug, event.id)}`, event.lastModified)),
     ...data.afterReportArtists.map((artist) =>
       sitemapEntry(`${SITE_URL}/artists/${artist.slug}/after-reports`, artist.lastModified, {
         changeFrequency: "weekly",
@@ -76,7 +101,7 @@ export async function getSitemapEntries(
       ),
     ),
     sitemapEntry(`${SITE_URL}/terms`, "2026-07-14", { changeFrequency: "yearly", priority: 0.3 }),
-    sitemapEntry(`${SITE_URL}/privacy`, "2026-11-09", { changeFrequency: "yearly", priority: 0.3 }),
+    sitemapEntry(`${SITE_URL}/privacy`, "2026-07-14", { changeFrequency: "yearly", priority: 0.3 }),
     sitemapEntry(`${SITE_URL}/contact`, "2026-07-14", { changeFrequency: "yearly", priority: 0.3 }),
   ];
 }

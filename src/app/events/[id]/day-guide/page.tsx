@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Breadcrumbs } from "@/components/common/Breadcrumbs";
 import { notFound } from "next/navigation";
 import EventDayPreview from "@/components/event-day/EventDayPreview";
 import { EVENT_DAY_PUBLICATIONS } from "@/data/eventDayPublications";
@@ -31,5 +32,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function EventDayGuidePage({ params }: PageProps) {
   const { id } = await params;
   const { summary } = await getGuide(id);
-  return <EventDayPreview day={summary} publicUrl={`${SITE_URL}${eventDayGuidePath(id)}`} />;
+  return <><Breadcrumbs parents={[{ href: `/events/${id}`, label: `${summary.artist} ${summary.tour}` }]} current="公演当日の案内" />
+    <EventDayPreview eventId={id} day={summary} publicUrl={`${SITE_URL}${eventDayGuidePath(id)}`} /></>;
 }

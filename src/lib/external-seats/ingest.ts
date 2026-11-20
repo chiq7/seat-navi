@@ -16,6 +16,8 @@ type IngestParams = {
 export type IngestResult = {
   parsed: number;
   accepted: number;
+  newSeats: number;
+  newArenaSeats: number;
   skippedInvalid: number;
   rows: Array<Record<string, unknown>>;
 };
@@ -31,10 +33,12 @@ export async function ingestExternalSeatText(params: IngestParams): Promise<Inge
   const parsed = parseExternalSeatText(params.text);
   const accepted = parsed.filter((row) =>
     row.seat_area !== "unknown" &&
-    row.row_min != null &&
+    row.row_min != null && row.row_min >= 1 &&
     row.row_max != null &&
-    row.seat_min != null &&
-    row.seat_max != null,
+    row.seat_min != null && row.seat_min >= 1 &&
+    row.seat_max != null &&
+    (params.ingestionMethod !== "crawler" || row.seat_area !== "arena" ||
+      (row.block && (row.row_max - row.row_min + 1) * (row.seat_max - row.seat_min + 1) <= 500)),
   );
   const observedAt = new Date().toISOString();
   const rows = accepted.map((row) => {
@@ -50,16 +54,28 @@ export async function ingestExternalSeatText(params: IngestParams): Promise<Inge
     return { ...base, source_key: sourceKey(params.eventId, params.sourceType, base) };
   });
 
+  let newSeats = 0;
+  let newArenaSeats = 0;
   if (!params.dryRun && rows.length > 0) {
-    const { error } = await params.supabase
-      .from("external_seat_observations")
-      .upsert(rows, { onConflict: "event_id,source_type,source_key" });
-    if (error) throw new Error(`外部席情報の保存に失敗しました: ${error.message}`);
+    const table = params.supabase.from("external_seat_observations");
+    const onConflict = "event_id,source_type,source_key";
+    if (params.ingestionMethod === "crawler") {
+      // Repeated fetches must preserve the first observation and any review decision.
+      const { data, error } = await table.upsert(rows, { onConflict, ignoreDuplicates: true }).select("seat_area");
+      if (error) throw new Error(`外部席情報の保存に失敗しました: ${error.message}`);
+      newSeats = data.length;
+      newArenaSeats = data.filter(row => row.seat_area === "arena").length;
+    } else {
+      const { error } = await table.upsert(rows, { onConflict });
+      if (error) throw new Error(`外部席情報の保存に失敗しました: ${error.message}`);
+    }
   }
 
   return {
     parsed: parsed.length,
     accepted: rows.length,
+    newSeats,
+    newArenaSeats,
     skippedInvalid: parsed.length - rows.length,
     rows,
   };

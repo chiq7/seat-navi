@@ -1,17 +1,20 @@
 "use client";
 
-import { use, useEffect, useMemo, useState } from "react";
+import { use, useEffect, useMemo, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   Sparkles,
+  Camera,
   Clock,
   ChevronRight,
 } from "lucide-react";
 import { supabase } from "@/lib/supabase/client";
+import { getEventDisplayVenueName } from "@/lib/publicVenueGuides";
 import { resolveArtist } from "@/lib/artists";
 import type { CrawledEvent, FanSeatPrediction, SeatReport } from "@/lib/types";
 import type { ExternalSeatObservation } from "@/lib/external-seats/types";
+import { isCurrentXSeatPost, isXSeatPostUrl } from "@/lib/external-seats/xSeatPosts";
 import type { ColorMode } from "@/lib/arena-map/arenaMapTypes";
 import { EventArenaMap } from "@/components/arena-map/EventArenaMap";
 import { SeatMapColorTabs } from "@/components/arena-map/SeatMapColorTabs";
@@ -24,15 +27,16 @@ import { ShareButton } from "@/components/common/ShareButton";
 import { AccountLink } from "@/components/auth/AccountLink";
 import { Header } from "@/components/common/Header";
 import PriorityPerformanceGuide from "@/components/seo/PriorityPerformanceGuide";
+import PerformanceTicketTiming from "@/components/seo/PerformanceTicketTiming";
 import PerformanceSeatLinks from "@/components/seo/PerformanceSeatLinks";
 import { matchPriorityPerformance } from "@/data/priorityPerformances";
 import { EmptyState } from "@/components/common/EmptyState";
 import { fetchVisiblePostAuthors, type PostAuthor } from "@/lib/postAuthors";
 import { focusedSeatPosition, isInteractiveSeatMapPilot, parseSeatReportId, SEAT_MAP_PILOT_EVENT_IDS } from "@/lib/arena-map/seatMapNavigation";
-import { eventSeatGroup } from "@/lib/arena-map/eventSeatGroup";
 import { isEventPredictionEnabled } from "@/lib/arena-map/eventPredictionInput";
 import { readArenaReports } from "@/lib/arena-map/readArenaReports";
 import { formatPublicDataTime } from "@/lib/publicPageData";
+import type { PublicEventCounts } from "@/lib/eventIndexContent";
 
 const SEAT_REPORT_FIELDS = "id, event_id, block, row_num, seat_num, lottery_type, fc_history, payment_method, lottery_round, lottery_name, comment, created_at";
 
@@ -62,7 +66,20 @@ export function EventDetailClient({
   params,
   initialEvent,
   initialRelatedEvents,
+  samePerformanceEventIds,
+  arenaPhotoMap,
+  seatSourceGuide,
+  liveReportIds = [],
+  contributionCounts = null,
+  setlistEventId,
+  sourceSeatCount = 0,
+  sourceMapCount = 0,
+  arenaPhotoCount,
+  featuredPhotoBlock,
+  venuePhotoGuide,
+  tourDates,
   venueMiniGuide: initialVenueMiniGuide,
+  venueAlternateNames,
   catalogUpdatedAt,
   catalogStale,
   dayGuideHref = null,
@@ -70,13 +87,25 @@ export function EventDetailClient({
   params: Promise<{ id: string }>;
   initialEvent: CrawledEvent;
   initialRelatedEvents: CrawledEvent[];
+  samePerformanceEventIds: string[];
+  arenaPhotoMap?: ReactNode;
+  seatSourceGuide?: ReactNode;
+  liveReportIds?: string[];
+  contributionCounts?: PublicEventCounts | null;
+  setlistEventId?: string;
+  sourceSeatCount?: number;
+  sourceMapCount?: number;
+  arenaPhotoCount?: number;
+  featuredPhotoBlock?: string;
+  venuePhotoGuide?: ReactNode;
+  tourDates?: ReactNode;
   venueMiniGuide: {
     venueName: string;
     capacityLabel: string;
     areaLabel: string;
-    venueHref: string | null;
     archiveHref: string | null;
   } | null;
+  venueAlternateNames?: ReactNode;
   catalogUpdatedAt?: string;
   catalogStale?: boolean;
   dayGuideHref?: string | null;
@@ -98,6 +127,8 @@ export function EventDetailClient({
   }
 
   const event = initialEvent;
+  const venueName = getEventDisplayVenueName(event.venue_id, event.venue);
+  const currentPerformanceIds = useMemo(() => [...new Set([eventId, ...samePerformanceEventIds])], [eventId, samePerformanceEventIds]);
   const [seatReports, setSeatReports] = useState<SeatReport[]>([]);
   const [externalSeatObservations, setExternalSeatObservations] = useState<ExternalSeatObservation[]>([]);
   const [seatReadState, setSeatReadState] = useState<"loading" | "ready" | "error">("loading");
@@ -121,7 +152,7 @@ export function EventDetailClient({
       const fanPredictionsRes = await supabase
           .from("fan_seat_predictions")
           .select("id, event_id, user_id, image_path, comment, prediction_tags, display_name, approved, created_at")
-          .eq("event_id", eventId)
+          .in("event_id", currentPerformanceIds)
           .eq("approved", true)
           .order("created_at", { ascending: false })
           .limit(20).abortSignal(controller.signal);
@@ -137,7 +168,7 @@ export function EventDetailClient({
     }
     void load();
     return () => controller.abort();
-  }, [eventId]);
+  }, [currentPerformanceIds]);
 
   useEffect(() => {
     if (fanSeatPredictions.length === 0) return;
@@ -171,15 +202,14 @@ export function EventDetailClient({
 
 
   const allRelatedEvents = useMemo(
-    () => (relatedEvents.length > 0 ? relatedEvents : [event]),
-    [relatedEvents, event],
+    () => [event, ...relatedEvents.filter(item => !currentPerformanceIds.includes(item.id))],
+    [relatedEvents, event, currentPerformanceIds],
   );
 
   const groupEventIds = useMemo(() => {
     if (interactiveSeatMap) return SEAT_MAP_PILOT_EVENT_IDS;
-    const group = eventSeatGroup(allRelatedEvents, event.id);
-    return group.length ? group.map(item => item.id) : [event.id];
-  }, [event, allRelatedEvents, interactiveSeatMap]);
+    return currentPerformanceIds;
+  }, [currentPerformanceIds, interactiveSeatMap]);
 
   useEffect(() => {
     if (groupEventIds.length === 0) return;
@@ -191,6 +221,8 @@ export function EventDetailClient({
     }, 5000) : undefined;
     async function loadGroupReports() {
       setSeatReadState("loading");
+      setSeatReports([]);
+      setExternalSeatObservations([]);
       try {
       const paged = isEventPredictionEnabled(eventId) ? await readArenaReports(supabase, groupEventIds) : null;
       const [seatResult, externalResult] = paged ? [paged.seats, paged.external] : await Promise.all([
@@ -219,11 +251,11 @@ export function EventDetailClient({
         if (cancelled || controller.signal.aborted) return;
         if (focused.data && !focused.error) reports.push(focused.data as SeatReport);
       }
-      setSeatReports(reports);
+      setSeatReports(reports.filter(report => groupEventIds.includes(report.event_id)));
       setSeatReadState("ready");
       setExternalReadFailed(Boolean(externalResult.error));
       // 移行適用前や一時障害時も既存の座席マップはそのまま表示する。
-      setExternalSeatObservations((externalResult.data as ExternalSeatObservation[] | null) ?? []);
+      setExternalSeatObservations(((externalResult.data as ExternalSeatObservation[] | null) ?? []).filter(item => groupEventIds.includes(item.event_id)));
       } catch {
         if (!cancelled) setSeatReadState("error");
       } finally {
@@ -249,8 +281,7 @@ export function EventDetailClient({
     return map;
   }, [seatReports]);
 
-  // マップ表示用：同一座席に複数報告がある場合、選択中の日程の報告を優先し、
-  // 無ければ取得順（既存の created_at 降順）のまま先頭のものを採用する。
+  // 通常図は同一公演回の保存IDだけ。限定合算図では選択日を優先する。
   const dedupedSeatReports = useMemo(() => {
     const result: SeatReport[] = [];
     for (const reps of seatReportsByPosition.values()) {
@@ -299,19 +330,35 @@ export function EventDetailClient({
   const officialSeatMap = event ? matchPriorityPerformance(event)?.seatMapSource : undefined;
   const catalogReadFailed = Boolean(catalogUpdatedAt) && seatReadState === "error";
   const reportsReady = !catalogUpdatedAt || (seatReadState === "ready" && !externalReadFailed && predictionsReady);
-  const hasReports = (seatReadState === "ready" && (seatReports.length > 0 || externalSeatObservations.length > 0))
+  const externalForEvent = externalSeatObservations.filter(item =>
+    !isXSeatPostUrl(item.source_url) || (currentPerformanceIds.includes(item.event_id) && isCurrentXSeatPost(item.observed_at)));
+  const hasReports = (seatReadState === "ready" && (seatReports.length > 0 || externalForEvent.length > 0))
     || (predictionsReady && fanSeatPredictions.length > 0);
+  const summary = [
+    ["座席レポ", sourceSeatCount + Math.max(contributionCounts?.seat_reports ?? 0, seatReports.length)],
+    ["アリーナ図の投稿", sourceMapCount],
+    ["アリーナ配置図", arenaPhotoMap ? 1 : 0],
+    ["当落報告", contributionCounts?.event_ticket_results ?? 0],
+    ["セトリ", contributionCounts?.setlists ?? 0],
+    ["現地レポ", contributionCounts?.after_reports ?? liveReportIds.length],
+    ["配置予想", Math.max(contributionCounts?.fan_seat_predictions ?? 0, fanSeatPredictions.length)],
+    ["外部の座席情報", Math.max(contributionCounts?.external_seat_observations ?? 0, externalForEvent.length)],
+    ["当日案内", dayGuideHref ? 1 : 0],
+  ] as const;
+  const published = summary.filter(([, count]) => count > 0);
+  const confirmedEmpty = contributionCounts !== null && published.length === 0;
   // Catalog-backed pages can render the venue link while live report counts are pending.
   const venueMiniGuide = !catalogUpdatedAt || !hasReports ? initialVenueMiniGuide : null;
 
   return (
     <div className="community-page">
-      <main className="pb-20">
+      <main className="pb-[calc(104px+env(safe-area-inset-bottom))]">
         {event ? (
           <>
           <section className="community-hero">
               <Header
-                title={venueMiniGuide || officialSeatMap ? "座席情報" : "座席予想"}
+                title="座席表"
+                breadcrumbLabel={event.title} breadcrumbParents={artist ? [{ href: backHref, label: artist.name }] : []} existingBreadcrumbSchema
                 backHref={backHref}
                 backLabel="アーティストページへ戻る"
                 rightSlot={
@@ -319,7 +366,7 @@ export function EventDetailClient({
                     <AccountLink iconSize={22} />
                     <ShareButton
                       url={`${typeof window !== "undefined" ? window.location.origin : ""}/events/${eventId}`}
-                      text={`${event.venue} ${fmtShortDate(event.date)} の座席表・座席予想 #ちけレポ`}
+                      text={`${venueName} ${fmtShortDate(event.date)} の座席表・配置予想 #ちけレポ`}
                       className="zr-focus flex h-11 w-11 items-center justify-center rounded-full text-[#665761] transition-colors active:bg-[#fff0f5]"
                     />
                   </div>
@@ -327,13 +374,25 @@ export function EventDetailClient({
               />
 
               <CompactHeroIntro
-                eyebrow="VENUE SEAT GUIDE"
-                title={officialSeatMap ? "公演の" : venueMiniGuide ? "座席情報を" : "座席表と"}
-                accent={officialSeatMap ? "座席表" : venueMiniGuide ? "募集中" : "アリーナ予想"}
+                eyebrow="座席ガイド"
+                title={officialSeatMap || published.length || !confirmedEmpty ? "公演の" : venueMiniGuide ? "座席情報を" : "座席表と"}
+                accent={officialSeatMap ? "座席表" : published.length || !confirmedEmpty ? "座席・ライブ情報" : venueMiniGuide ? "募集中" : "アリーナ予想"}
                 subtitle={event.title}
                 icon={<Sparkles size={21} strokeWidth={1.8} className="text-[#6176d7]" />}
               >
-                <CompactEventSummary date={event.date} venue={event.venue} className="mt-3" />
+                <CompactEventSummary date={event.date} venue={venueName} className="mt-3" />
+                {venueAlternateNames}
+                {published.length > 0 && <p data-event-content-summary className="mt-2 text-sm font-bold">
+                  この公演の{published.map(([label, count]) => `${label}${count}件`).join("・")}
+                </p>}
+                {artist && setlistEventId && <Link className="zr-focus mr-2 inline-flex min-h-11 items-center text-sm font-bold underline"
+                  href={`/artists/${artist.slug}/setlist?event=${encodeURIComponent(setlistEventId)}`}>この公演のセトリを見る</Link>}
+                {seatSourceGuide && <a href="#seat-source-posts" data-event-seat-source-summary className="zr-focus mr-2 mt-3 inline-flex min-h-11 items-center rounded-xl border border-[#d5adbd] bg-white px-4 text-sm font-bold text-[#85274d]">
+                  {[sourceSeatCount > 0 && `座席レポ${sourceSeatCount}件`, sourceMapCount > 0 && `アリーナ図の投稿${sourceMapCount}件`].filter(Boolean).join("・")}を見る
+                </a>}
+                {arenaPhotoMap && <a href="#arena-seat-photos" className="zr-focus mt-3 inline-flex min-h-11 items-center gap-2 rounded-xl bg-[#8a2850] px-4 text-sm font-bold text-white">
+                  <Camera size={17} aria-hidden="true" />この公演のアリーナ図・{featuredPhotoBlock ? featuredPhotoBlock + "の" : "座席"}写真を見る
+                </a>}
                 {catalogUpdatedAt && (catalogStale || catalogReadFailed) && (
                   <p className="mt-3 text-xs" role="status">
                     公演情報は{formatPublicDataTime(catalogUpdatedAt)}時点です。
@@ -342,6 +401,46 @@ export function EventDetailClient({
                 )}
               </CompactHeroIntro>
             </section>
+
+          {venueMiniGuide && (
+            <section id="seat-map" className="zr-container scroll-mt-4 pt-5" aria-labelledby="event-empty-title" data-event-empty-state={confirmedEmpty || undefined}>
+              
+              <h2 id="event-empty-title" className="artist-heading">{confirmedEmpty && reportsReady ? "座席の報告を募集中" : "会場の座席情報"}</h2>
+              {confirmedEmpty && reportsReady && <p className="mt-3 text-[13px] leading-6 text-[#71636c]">この公演の座席報告はまだありません。</p>}
+              <div className="mt-4 border-y border-[#ded8dc] bg-white px-4 py-3">
+                <p className="text-[14px] font-black text-[#40383d]">{venueMiniGuide.venueName}</p>
+                <p className="mt-1 truncate text-[10px] font-bold text-[#817981]">{[venueMiniGuide.capacityLabel, venueMiniGuide.areaLabel].filter(Boolean).join("｜")}</p>
+              </div>
+              {venueMiniGuide.archiveHref && (
+                <Link data-event-venue-archive href={venueMiniGuide.archiveHref} className="zr-focus mt-2 inline-flex min-h-11 items-center text-[11px] font-black text-[#7655b2]">
+                  過去の座席レポを見る →
+                </Link>
+              )}
+              <Link
+                href={`/report/ticket?event=${encodeURIComponent(eventId)}`}
+                className="zr-focus mt-3 flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[#f43679] px-5 text-[12px] font-black text-white"
+              >
+                <Sparkles size={16} aria-hidden="true" />座席を報告
+              </Link>
+            </section>
+          )}
+          {venuePhotoGuide}
+          {tourDates}
+          {!arenaPhotoMap && <div className="zr-container pt-4" data-event-map-pending>
+            <p className="rounded-lg bg-[#f8f3f6] px-3 py-2 text-sm text-[#634c59]">
+              <strong>この公演のアリーナ配置図は準備中です。</strong>
+              {sourceMapCount > 0 && " 下の「アリーナ図の投稿」で元投稿を確認できます。"}
+            </p>
+          </div>}
+          {seatSourceGuide}
+          {liveReportIds.length > 0 && <section className="zr-container py-5" aria-label="この公演の現地レポ">
+            <h2 className="artist-heading">参加者の現地レポ</h2>
+            <ul className="mt-2">{liveReportIds.map((id, i) => <li key={id}>
+              <Link prefetch={false} className="zr-focus inline-flex min-h-11 items-center font-bold text-[#8a2850] underline" href={`/report/live/detail?reportId=${encodeURIComponent(id)}`}>
+                {venueName}の現地レポを読む{liveReportIds.length > 1 ? `（${i + 1}）` : ""}
+              </Link>
+            </li>)}</ul>
+          </section>}
 
           <CompactEventPickerSection
             headingId="event-picker-title"
@@ -355,7 +454,7 @@ export function EventDetailClient({
             selectedEventId={eventId}
             onSelect={(id) => router.push(`/events/${id}`)}
             artistName={artist?.name}
-            footer={<PerformanceSeatLinks event={event} officialSeatMap={officialSeatMap} />}
+            footer={<PerformanceSeatLinks event={event} officialSeatMap={officialSeatMap} arenaPhotoCount={arenaPhotoCount} venueGuideInBanner={Boolean(venuePhotoGuide)} />}
           />
 
           {dayGuideHref && <section className="zr-container pt-5" aria-label="公演当日の案内">
@@ -368,47 +467,24 @@ export function EventDetailClient({
             </Link>
           </section>}
 
+          <PerformanceTicketTiming event={event} />
           <PriorityPerformanceGuide event={event} />
-          {venueMiniGuide ? (
-            <section className="zr-container py-6 sm:py-8" aria-labelledby="event-empty-title" data-event-empty-state>
-              <p className="artist-kicker">FIRST REPORT</p>
-              <h2 id="event-empty-title" className="artist-heading">{reportsReady ? "座席の報告を募集中" : "会場の座席情報"}</h2>
-              <p className="mt-3 text-[13px] leading-6 text-[#71636c]">
-                {reportsReady ? "座席表・アリーナ予想図の投稿はまだありません。" : "最新の座席報告は確認できしだい表示します。"}
-              </p>
-              <div className="mt-4 border-y border-[#ded8dc] bg-white px-4 py-3">
-                <p className="truncate text-[14px] font-black text-[#40383d]">
-                  {venueMiniGuide.venueHref ? <Link href={venueMiniGuide.venueHref}>{venueMiniGuide.venueName}</Link> : venueMiniGuide.venueName}
-                </p>
-                <p className="mt-1 truncate text-[10px] font-bold text-[#817981]">{venueMiniGuide.capacityLabel}｜{venueMiniGuide.areaLabel}</p>
-              </div>
-              {venueMiniGuide.archiveHref && (
-                <Link href={venueMiniGuide.archiveHref} className="zr-focus mt-2 inline-flex min-h-10 items-center text-[11px] font-black text-[#7655b2]">
-                  過去の座席レポを見る →
-                </Link>
-              )}
-              <Link
-                href={`/report/ticket?event=${encodeURIComponent(eventId)}`}
-                className="zr-focus mt-3 flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[#f43679] px-5 text-[12px] font-black text-white"
-              >
-                <Sparkles size={16} aria-hidden="true" />座席を報告
-              </Link>
-            </section>
-          ) : (<>
+          {arenaPhotoMap}
+          {!venueMiniGuide && (<>
           <section id="seat-map" className="scroll-mt-4 py-8 sm:py-10" aria-labelledby="seat-map-title">
               <div className="zr-container">
                 <div className="flex flex-col gap-4 border-b border-[#ded8dc] pb-4 sm:flex-row sm:items-end sm:justify-between">
                   <div>
-                    <p className="artist-kicker">Live Seat Map</p>
+                    
                     <h2 id="seat-map-title" className="artist-heading"><span className="inline-block">みんなの</span><span className="inline-block">座席表</span></h2>
                     <p className="mt-3 text-[12px] font-medium leading-6 text-[#817981]">
-                      {interactiveSeatMap ? `座席報告は${mapDetailEvents.map(ev => fmtShortDate(ev.date)).join("・")}合算` : "実際の座席報告を色分け。会場の座席表と照らし合わせて確認できます。"}
+                      {interactiveSeatMap ? `座席報告は${mapDetailEvents.map(ev => fmtShortDate(ev.date)).join("・")}合算` : `${fmtShortDate(event.date)}の座席報告です。実際の配置は公演の座席表で確認してください。`}
                     </p>
                   </div>
                   <p className="shrink-0 text-[10px] font-black tracking-[0.1em] text-[#817981]">
                     {interactiveSeatMap ? "" : dedupedSeatReports.length > 0
-                      ? `${dedupedSeatReports.length} SEAT REPORTS`
-                      : "最初の座席レポを募集中"}
+                      ? `座席報告${dedupedSeatReports.length}件`
+                      : externalForEvent.length > 0 ? `外部の座席情報${externalForEvent.length}件` : confirmedEmpty ? "最初の座席レポを募集中" : ""}
                   </p>
                 </div>
 
@@ -420,7 +496,7 @@ export function EventDetailClient({
                     key={`${eventId}:${initialSeat ? focusSeatReportId : "overview"}`}
                     eventId={eventId}
                     reports={interactiveSeatMap ? seatReports : dedupedSeatReports}
-                    externalObservations={externalSeatObservations}
+                    externalObservations={externalForEvent}
                     colorMode={colorMode}
                     mapFullBleed
                     interactive={interactiveSeatMap}
@@ -442,7 +518,7 @@ export function EventDetailClient({
                   href={`/events/${eventId}/fan-seat-prediction`}
                   className="zr-focus mt-4 flex min-h-12 w-full items-center justify-center gap-2 bg-[#f43679] px-6 text-[13px] font-black text-white shadow-[0_12px_28px_rgba(150,16,66,.20)]"
                 >
-                  <Sparkles size={17} />この会場のアリーナ予想図を投稿する
+                  <Sparkles size={17} />配置予想を投稿する
                 </Link>
               </div>
             </section>
@@ -450,8 +526,8 @@ export function EventDetailClient({
           <section className="zr-container py-8 sm:py-10" aria-labelledby="fan-prediction-title">
               <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
                 <div>
-                  <p className="artist-kicker">Fan Prediction</p>
-                  <h2 id="fan-prediction-title" className="artist-heading">ファンのアリーナ予想図</h2>
+                  
+                  <h2 id="fan-prediction-title" className="artist-heading">みんなの配置予想</h2>
                   <p className="mt-3 text-[12px] font-medium leading-6 text-[#817981]">会場構成を予想して、参考になった図に投票できます。</p>
                 </div>
                 <div className="grid h-11 shrink-0 grid-cols-2 overflow-hidden rounded-full border border-[#eadfe4] bg-white">
@@ -461,7 +537,7 @@ export function EventDetailClient({
                     aria-pressed={sortOrder === "hot"}
                     className={`zr-focus min-w-[88px] px-4 text-[11px] font-black ${sortOrder === "hot" ? "bg-[#fff0f5] text-[#c93868]" : "text-[#665a61]"}`}
                   >
-                    有力順
+                    参考になった順
                   </button>
                   <button
                     type="button"
@@ -487,14 +563,14 @@ export function EventDetailClient({
                 <div className="mt-6 grid gap-5 lg:grid-cols-2">
                   {topPrediction && (
                     <div className="min-w-0">
-                      <p className="mb-3 text-[10px] font-black tracking-[0.18em] text-[#f43679]">MOST TRUSTED / 01</p>
+                      <p className="mb-3 text-[10px] font-black tracking-[0.18em] text-[#f43679]">参考になった図</p>
                       <SeatPredictionCard
                         eventId={eventId}
                         predictionId={topPrediction.id}
                         imageUrl={imageSrc(topPrediction.image_path)}
                         comment={topPrediction.comment}
                         tags={topPrediction.prediction_tags}
-                        venue={event.venue}
+                        venue={venueName}
                         dateLabel={fmtShortDate(event.date)}
                         createdAt={topPrediction.created_at}
                         likeCount={voteCounts[topPrediction.id] ?? 0}
@@ -512,14 +588,14 @@ export function EventDetailClient({
                   )}
                   {otherPredictions.map((prediction, index) => (
                     <div key={prediction.id} className="min-w-0">
-                      <p className="mb-3 text-[10px] font-black tracking-[0.18em] text-[#817981]">PREDICTION / {String(index + 2).padStart(2, "0")}</p>
+                      <p className="mb-3 text-[10px] font-black tracking-[0.18em] text-[#817981]">配置予想 {index + 2}</p>
                       <SeatPredictionCard
                         eventId={eventId}
                         predictionId={prediction.id}
                         imageUrl={imageSrc(prediction.image_path)}
                         comment={prediction.comment}
                         tags={prediction.prediction_tags}
-                        venue={event.venue}
+                        venue={venueName}
                         dateLabel={fmtShortDate(event.date)}
                         createdAt={prediction.created_at}
                         likeCount={voteCounts[prediction.id] ?? 0}
@@ -554,3 +630,4 @@ export function EventDetailClient({
     </div>
   );
 }
+

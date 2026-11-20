@@ -19,11 +19,11 @@ export function tokyoDomeDuplicateReferenceId(guides: readonly {
   return matches.length===1 ? matches[0].id : null;
 }
 export const TOKYO_DOME_OVERVIEW_AREAS = [
-  { id: "left", label: "外野レフト", point: [420, 190], focus: [448, 142] },
-  { id: "right", label: "外野ライト", point: [738, 190], focus: [710, 142] },
-  { id: "third", label: "3塁側", point: [420, 365], focus: [349, 435] },
-  { id: "first", label: "1塁側", point: [738, 365], focus: [810, 435] },
-  { id: "home", label: "ホーム側", point: [579, 540], focus: [579, 550] },
+  { id: "left", label: "外野レフト", point: [481, 170], focus: [448, 142] },
+  { id: "right", label: "外野ライト", point: [677, 170], focus: [710, 142] },
+  { id: "third", label: "3塁側", point: [478, 332], focus: [349, 435] },
+  { id: "first", label: "1塁側", point: [680, 332], focus: [810, 435] },
+  { id: "home", label: "ホーム側", point: [579, 424], focus: [579, 550] },
 ] as const;
 
 /** The five major locations open at a readable scale without selecting a seat. */
@@ -49,10 +49,13 @@ export function layoutTokyoDomeSeatLabels(areas: readonly LabelArea[], box: Box,
   detailStage: boolean;
   numberedCodes: ReadonlySet<string>;
 }) {
-  if (box.width > 680) return [];
+  // Sparse names use only registered section anchors. Detailed labels are
+  // unchanged; the overview gives the ticket holder a few real landmarks.
+  const overviewCodes = new Set(["A05", "A15", "A25", "A35", "A45", "D05", "D15", "D25", "D35", "F05", "F15"]);
+  const visibleAreas = box.width > 680 ? areas.filter(area => overviewCodes.has(area.code)) : areas;
   // At close detail, confirmed end numbers identify the blocks. Unnumbered
   // blocks retain their name; neither source anchors nor hit targets change.
-  return areas.filter(area => !(display?.detailStage && box.width <= 120 && display.numberedCodes.has(area.code))).map(area => {
+  return visibleAreas.filter(area => !(display?.detailStage && box.width <= 120 && display.numberedCodes.has(area.code))).map(area => {
     const [x, y] = area.label;
     const rawAngle = Math.atan2(y - 300, x - 579) * 180 / Math.PI;
     const angle = Number((rawAngle > 90 ? rawAngle - 180 : rawAngle < -90 ? rawAngle + 180 : rawAngle).toFixed(3));

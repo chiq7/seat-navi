@@ -1,6 +1,7 @@
 import type { HomeFeedItem, UpcomingEvent } from "./homeData";
 import type { SeatDiscoveryData } from "./seatDiscovery";
 import type { CrawledEvent } from "./types";
+import type { VenueActivity } from "./venueActivity";
 
 export const STATIC_PUBLIC_PAGES = process.env.NEXT_PUBLIC_TIXREPO_STATIC_PAGES === "1";
 
@@ -17,7 +18,7 @@ export const publicPageDataPaths = {
   events: "/api/public/event-catalog",
 };
 
-export type VenuePrograms = { events: CrawledEvent[] | null; today: string };
+export type VenuePrograms = { events: CrawledEvent[] | null; today: string; activity?: VenueActivity };
 export type HomePrograms = { events: UpcomingEvent[]; discoveryCards: SeatDiscoveryData[] };
 export type PublicFeed = HomeFeedItem[];
 

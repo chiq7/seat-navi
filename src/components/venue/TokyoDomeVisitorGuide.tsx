@@ -1,3 +1,4 @@
+import { VenueProgramAnchor } from "@/components/venue/VenueProgramLinks";
 import { ArrowRight, ArrowUpRight, CreditCard, Luggage, Ticket, TrainFront, Armchair, CircleHelp, Utensils, Accessibility, DoorOpen, Smartphone } from "lucide-react";
 import { DOME_GUIDE_FAQ, DOME_GUIDE_SOURCES as sources, DOME_STATIONS, DOME_GUIDE_CHECKED_AT } from "@/data/tokyoDomeVisitorGuide";
 import { TokyoDomeGuideFinder } from "./TokyoDomeGuideFinder";
@@ -13,7 +14,13 @@ export function TokyoDomeGuideNav() {
     { id: "upcoming-events-title", label: "公演", icon: Ticket }, { id: "dome-faq", label: "質問", icon: CircleHelp },
   ];
   return <nav className={`zr-container ${styles.jumpNav}`} aria-label="東京ドームガイドの目次">
-    {links.map(({ id, label, icon: Icon }) => <a key={id} href={`#${id}`}><Icon size={26} aria-hidden="true" /><span>{label}</span></a>)}
+    {links.map(({ id, label, icon: Icon }) => {
+        const content = <><Icon size={26} aria-hidden="true" /><span>{label}</span></>;
+        const href = `#${id}`;
+        return id === "upcoming-events-title"
+          ? <VenueProgramAnchor key={id} fallbackHref={href}>{content}</VenueProgramAnchor>
+          : <a key={id} href={href}>{content}</a>;
+      })}
   </nav>;
 }
 
@@ -37,14 +44,14 @@ export function TokyoDomeVisitorGuide() {
       <div className={styles.prepareTiles}>
         <a href={sources.payment.url} target="_blank" rel="noopener noreferrer"><span className={styles.bigPictogram} aria-hidden="true"><CreditCard size={42} /><Smartphone size={29} /></span><strong>現金 ×</strong><span>カード・スマホ決済</span><small>場内</small></a>
         <VenueLuggageLink href="#dome-spots"><span className={styles.bigPictogram} aria-hidden="true"><Luggage size={45} /><ArrowRight size={22} /></span><strong>荷物</strong><span>ロッカー・預け先を探す</span><small>場内・周辺</small></VenueLuggageLink>
-        <a href="#upcoming-events-title"><span className={styles.bigPictogram} aria-hidden="true"><Ticket size={48} /></span><strong>チケット</strong><span>時刻・ゲート</span><small>公演の案内へ</small></a>
+        <VenueProgramAnchor><span className={styles.bigPictogram} aria-hidden="true"><Ticket size={48} /></span><strong>チケット</strong><span>時刻・ゲート</span><small>公演の案内へ</small></VenueProgramAnchor>
       </div>
     </section>
 
     <section id="dome-faq" aria-labelledby="dome-faq-title" className={styles.section}>
       <h2 id="dome-faq-title"><CircleHelp aria-hidden="true" />気になることだけ</h2>
       <div className={styles.faq}>{DOME_GUIDE_FAQ.map((item) => <details key={item.question}><summary>{item.question}</summary><p>{item.answer}</p><a href={sources[item.source].url} target="_blank" rel="noopener noreferrer">公式案内 ↗</a></details>)}</div>
-      <a className={styles.eventAction} href="#upcoming-events-title"><Ticket size={25} aria-hidden="true" /><strong>公演・座席レポを見る</strong><ArrowRight size={20} aria-hidden="true" /></a>
+      <VenueProgramAnchor className={styles.eventAction}><Ticket size={25} aria-hidden="true" /><strong>公演・座席レポを見る</strong><ArrowRight size={20} aria-hidden="true" /></VenueProgramAnchor>
       <details className={styles.explanation}><summary>情報元・確認日</summary><p>{DOME_GUIDE_CHECKED_AT} 確認</p><ul>{Object.entries(sources).map(([id, source]) => <li key={id}><a href={source.url} target="_blank" rel="noopener noreferrer">{source.label} ↗</a></li>)}</ul></details>
     </section>
   </div>;

@@ -17,6 +17,7 @@ export default function ReportLoading() {
       <section className="community-hero relative w-full overflow-hidden">
         <Header title="報告" backHref="/" backLabel="TOPへ戻る" />
         <CompactHeroIntro
+          headingTag="p"
           eyebrow="SHARE THE LIVE"
           title="ライブを"
           accent="報告する"

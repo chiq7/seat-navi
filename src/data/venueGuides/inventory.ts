@@ -1,3 +1,4 @@
+import { SAPPORO_DISPLAY_NAME } from "../../lib/venuePageDisplayNames";
 import { VENUES } from "@/lib/eventCrawlerConfig";
 import kEvidence from "./k-arena/floor-evidence.json";
 const kFloorNames = kEvidence.diagrams.map(diagram => diagram.floor).join("・");
@@ -187,7 +188,7 @@ export const venueGuideInventory: VenueGuideInventory[] = candidates.map(candida
       diagramRights:"publish-use-unconfirmed",uiQa:"partial" } satisfies VenueGuideInventory;
   }
   if (candidate.id === "sapporo-dome") {
-    return { venueId:candidate.id,name:"大和ハウス プレミストドーム（札幌ドーム）",status:"partial",checkedAt:"2026-10-10",officialUrl:candidate.home,
+    return { venueId:candidate.id,name:SAPPORO_DISPLAY_NAME,status:"partial",checkedAt:"2026-10-10",officialUrl:candidate.home,
       seatUrl:"https://www.sapporo-dome.co.jp/guide/",floorUrl:candidate.floor,accessUrl:"https://www.sapporo-dome.co.jp/access/subway/",evidence:"read",
       seatCoverage:"公式の野球・コンサート/サッカーを別モードで接続。各モード43・45通路間の21番側115番号と39列横通路を部分確認。その他の番号・券種/特殊席境界は未確認",
       imageAvailability:"現行公開2024公式座席PDF、公式詳細2画像、LiveWalker20240725補助PDFを部分照合。原図のpublic複製なし",

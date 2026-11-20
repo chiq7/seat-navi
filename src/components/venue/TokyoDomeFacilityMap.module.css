@@ -96,6 +96,21 @@
 .pin .groupCount { max-width:100%; font-size:12px; line-height:14px; text-align:center; white-space:nowrap; }
 .groupCount span { display:block; }
 .areaIcon { min-height:24px; }
+.root[data-pin-density="compact"] .pin {
+  padding:0; border:0; background:transparent; box-shadow:none;
+}
+.root[data-pin-density="compact"] .areaIcons {
+  align-content:center; justify-content:center; gap:0; min-width:28px; min-height:28px;
+  padding:3px; border:1px solid #cb8ba9; border-radius:8px; background:#fff;
+}
+.root[data-pin-density="compact"] .areaIcon { min-height:18px; }
+.root[data-pin-density="compact"] .pin[aria-pressed="true"] .areaIcons {
+  color:#a93164; border-color:#a93164; background:#fff0f6; box-shadow:0 0 0 1px #a93164;
+}
+.pin .compactCount {
+  position:absolute; right:1px; top:0; min-width:15px; height:15px; padding-inline:2px;
+  border-radius:8px; background:#a93164; color:#fff; text-align:center; font-size:10px; line-height:15px;
+}
 .concourseShape { fill:#fff6fa; stroke:#c599ae; }
 .seatingShape { fill:#efe3e9; stroke:#d9c7d0; }
 .orientation { background:#fff8fb; color:#786570; }

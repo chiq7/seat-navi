@@ -1,7 +1,10 @@
 "use client";
 
+import { getEventDisplayVenueName } from "@/lib/publicVenueGuides";
+
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
+import { countReportCardPhotos } from "@/lib/reportPhotoCount";
 import ArtistGroupPhoto from "@/components/common/ArtistGroupPhoto";
 import { getArtistGroupImage } from "@/lib/artistGroupImages";
 import Link from "next/link";
@@ -21,6 +24,7 @@ import { ReportTimelineList } from "@/components/artist-page/ReportSection";
 import type { InitialAfterReports } from "@/lib/publicArtistContent";
 import type { CrawledEvent } from "@/lib/types";
 import type { AfterReportCard } from "@/lib/artistPageTypes";
+import { useJstDay } from "@/lib/useJstDay";
 import {
   DEFAULT_ARTIST_HERO_IMAGE,
   resolveArtistHeroImage,
@@ -44,7 +48,7 @@ export default function AfterReportsClient({ slug, initial, initialEventId = nul
     return map;
   }, [events]);
 
-  const today = new Date().toISOString().split("T")[0];
+  const today = useJstDay();
   const nextEvent = useMemo(
     () =>
       events
@@ -60,11 +64,11 @@ export default function AfterReportsClient({ slug, initial, initialEventId = nul
       const event = eventMap.get(report.event_id);
       if (event && !seen.has(event.id)) {
         seen.add(event.id);
-        options.push({ id: event.id, label: `${fmtDate(event.date)} ${event.venue}`, date: event.date ?? "" });
+        options.push({ id: event.id, label: `${fmtDate(event.date)} ${getEventDisplayVenueName(undefined, event.venue)}`, date: event.date ?? "" });
       }
     }
     const selected = initialEventId ? eventMap.get(initialEventId) : undefined;
-    if (selected && !seen.has(selected.id)) options.push({ id: selected.id, label: `${fmtDate(selected.date)} ${selected.venue}`, date: selected.date ?? "" });
+    if (selected && !seen.has(selected.id)) options.push({ id: selected.id, label: `${fmtDate(selected.date)} ${getEventDisplayVenueName(undefined, selected.venue)}`, date: selected.date ?? "" });
     return options.sort((a, b) => b.date.localeCompare(a.date));
   }, [reports, eventMap, initialEventId]);
 
@@ -121,7 +125,8 @@ export default function AfterReportsClient({ slug, initial, initialEventId = nul
   }, [filteredReports, eventMap]);
 
   const hasActiveFilters = filterDate !== "all" || filterArea !== "all" || filterBlock !== "all";
-  const photoCount = reports.filter((report) => report.seat_view_photo_paths?.length).length;
+  const photoCount = countReportCardPhotos(filteredReports);
+  const selectedPerformance = eventMap.get(filterDate);
   const reportEvent = filterDate === "all" ? nextEvent : eventMap.get(filterDate);
   const reportHref = reportEvent ? `/report/live?event=${encodeURIComponent(reportEvent.id)}` : "/report/live";
 
@@ -145,7 +150,7 @@ export default function AfterReportsClient({ slug, initial, initialEventId = nul
 
   return (
     <main className="community-page pb-20 font-sans">
-      <section className={getArtistGroupImage(slug) ? "relative overflow-hidden bg-[#8d6578] text-white" : "relative min-h-[274px] overflow-hidden bg-[#8d6578] text-white sm:min-h-[348px]"}>
+      <section className={getArtistGroupImage(slug) ? "relative overflow-hidden bg-[#8d6578] text-white" : "relative flex min-h-[274px] flex-col overflow-hidden bg-[#8d6578] text-white sm:min-h-[348px]"}>
         {!getArtistGroupImage(slug) && <><Image
           src={heroImageSrc}
           alt=""
@@ -161,17 +166,17 @@ export default function AfterReportsClient({ slug, initial, initialEventId = nul
         <div className="absolute inset-0 bg-gradient-to-b from-[#765065]/48 via-[#8d6578]/18 to-[#8d6578]/92" />
         <div className="absolute inset-x-0 bottom-0 h-[72%] bg-gradient-to-t from-[#8d6578] via-[#8d6578]/84 to-transparent" /></>}
 
-        <Header title="現地レポ" backHref={`/artists/${slug}`} backLabel={`${artist.name}のページへ戻る`} />
+        <Header title="現地レポ" backHref={`/artists/${slug}`} backLabel={`${artist.name}のページへ戻る`} breadcrumbParents={[{ href: `/artists/${slug}`, label: artist.name }]} />
 
         {getArtistGroupImage(slug) && <ArtistGroupPhoto key={slug} slug={slug} name={artist.name} variant="hero" priority />}
-        <div className={getArtistGroupImage(slug) ? "zr-container relative z-10 pb-5 pt-5 sm:pb-7" : "zr-container absolute inset-x-0 bottom-0 z-10 pb-5 sm:pb-7"}>
+        <div className={`zr-container relative z-10 pb-5 pt-5 sm:pb-7 ${getArtistGroupImage(slug) ? "" : "mt-auto"}`}>
           <p className="text-[10px] font-black tracking-[0.24em] text-[#ffb1cb]">LIVE REPORTS</p>
           <h1 className="mt-2 text-[29px] font-black leading-[1.1] tracking-[-0.05em] sm:text-[44px]">現地レポ・座席からの見え方</h1>
-          <p className="mt-2 text-[11px] font-bold text-white/76 sm:text-[13px]">{artist.name}</p>
-          <div className="mt-3 grid grid-cols-3 border-y border-white/18 py-2.5 sm:mt-4 sm:py-3">
+          <p className="mt-2 text-[11px] font-bold text-white/90 sm:text-[13px]">{artist.name}{selectedPerformance ? ` · ${fmtDate(selectedPerformance.date)} ${getEventDisplayVenueName(undefined, selectedPerformance.venue)}` : ""}</p>
+          {filteredReports.length > 0 && <div className="mt-3 grid grid-cols-3 border-y border-white/18 py-2.5 sm:mt-4 sm:py-3">
             <div>
               <p className="text-[9px] font-bold tracking-[0.12em] text-white/42">REPORTS</p>
-              <p className="mt-0.5 text-[21px] font-black">{reports.length}</p>
+              <p className="mt-0.5 text-[21px] font-black">{filteredReports.length}</p>
             </div>
             <div className="border-l border-white/18 pl-4">
               <p className="text-[9px] font-bold tracking-[0.12em] text-white/42">PHOTOS</p>
@@ -179,14 +184,14 @@ export default function AfterReportsClient({ slug, initial, initialEventId = nul
             </div>
             <div className="border-l border-white/18 pl-4">
               <p className="text-[9px] font-bold tracking-[0.12em] text-white/42">VENUES</p>
-              <p className="mt-0.5 text-[21px] font-black">{new Set(events.map((event) => event.venue)).size}</p>
+              <p className="mt-0.5 text-[21px] font-black">{new Set(filteredReports.map(report => eventMap.get(report.event_id)?.venue).filter(Boolean)).size}</p>
             </div>
-          </div>
+          </div>}
         </div>
       </section>
 
       <div className="zr-container">
-        <section className="mt-5 border-y border-[#ded8dc] bg-white py-4 sm:mt-6 sm:px-4 sm:py-5" aria-labelledby="report-filter-title">
+        {filteredReports.length > 0 && <section className="mt-5 border-y border-[#ded8dc] bg-white py-4 sm:mt-6 sm:px-4 sm:py-5" aria-labelledby="report-filter-title">
           <div className="flex items-center justify-between gap-3">
             <div>
               <p className="artist-kicker">Find Your View</p>
@@ -250,15 +255,15 @@ export default function AfterReportsClient({ slug, initial, initialEventId = nul
               </button>
             )}
           </div>
-        </section>
+        </section>}
 
+        <h2 id="artist-seat-reports" className={filteredReports.length ? "mt-6 scroll-mt-20 text-lg font-bold" : "sr-only"}>{selectedPerformance ? `${fmtDate(selectedPerformance.date)} ${getEventDisplayVenueName(undefined, selectedPerformance.venue)}` : artist.name}の座席レポ・写真</h2>
         {filteredReports.length === 0 ? (
           <EmptyState
             className="my-8"
-            title="この条件の現地レポはまだありません"
-            icon={<SquarePen size={18} aria-hidden="true" />}
+            title={filterArea !== "all" || filterBlock !== "all" ? "この条件の現地レポはまだありません" : selectedPerformance ? "この公演の現地レポはまだありません" : "まだ現地レポがありません"}
             actionHref={reportHref}
-            actionLabel="投稿する"
+            actionLabel="現地レポを投稿する"
             actionIcon={<SquarePen size={14} aria-hidden="true" />}
             actionTone="primary"
           />
@@ -273,7 +278,7 @@ export default function AfterReportsClient({ slug, initial, initialEventId = nul
                     </p>
                     <h2 className="mt-1 flex items-center gap-2 text-[19px] font-black tracking-[-0.035em] sm:text-[23px]">
                       <MapPin size={18} strokeWidth={2} className="shrink-0 text-[#f43679]" />
-                      <span className="truncate">{group.event?.venue ?? "会場不明"}</span>
+                      <span className="truncate">{group.event?.venue ? getEventDisplayVenueName(undefined, group.event.venue) : "会場不明"}</span>
                     </h2>
                   </div>
                   <p className="shrink-0 text-[10px] font-black text-[#817981]">{group.reports.length} REPORTS</p>

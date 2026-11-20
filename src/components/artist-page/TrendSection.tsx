@@ -3,223 +3,75 @@
 import { useState } from "react";
 import { CalendarDays, ChevronDown, CreditCard, Ticket, UsersRound } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { computeTicketResultStats, computeArenaDetailStats, computeUpgradeDetailStats } from "@/lib/artistPageStats";
-import { detailRateText } from "@/lib/artistPageHelpers";
+import type { computeTicketResultStats, computeArenaDetailStats, computeUpgradeDetailStats } from "@/lib/artistPageStats";
 import { SegmentedControl } from "@/components/common/SegmentedControl";
 
 type TicketStats = ReturnType<typeof computeTicketResultStats>;
 type ArenaStats = ReturnType<typeof computeArenaDetailStats>;
 type UpgradeStats = ReturnType<typeof computeUpgradeDetailStats>;
-
-type Props = {
-  ticketStats: TicketStats;
-  arenaStats: ArenaStats;
-  upgradeStats: UpgradeStats;
-  title?: string;
-  /** 広告用など、アリーナ内訳を最初から見せる必要がある画面でのみ指定する。 */
-  defaultArenaRateOpen?: boolean;
-  reportCount?: number;
-};
-
-type Metric = { label: string; value: string; sample?: number };
-type MetricGroupData = { icon: LucideIcon; label: string; metrics: Metric[] };
+type Props = { ticketStats: TicketStats; arenaStats: ArenaStats; upgradeStats: UpgradeStats; title?: string; defaultArenaRateOpen?: boolean; reportCount?: number };
+type Count = { won: number; total: number };
+type Metric = Count & { label: string };
+type Group = { icon: LucideIcon; label: string; metrics: Metric[] };
 type ArenaTab = "arena" | "upgrade";
 
-function MetricGroup({ group, accent = false }: { group: MetricGroupData; accent?: boolean }) {
-  const Icon = group.icon;
-
-  return (
-    <section className="border-b border-r border-[#ded8dc] bg-white p-3 sm:p-4">
-      <div className="flex items-center gap-2">
-        <Icon size={16} strokeWidth={1.8} className={accent ? "text-[#f43679]" : "text-[#625a61]"} />
-        <h3 className="text-[12px] font-black text-[#1c171b]">{group.label}</h3>
-      </div>
-      <div
-        className="mt-3 grid border-l border-t border-[#eee8ec]"
-        style={{ gridTemplateColumns: `repeat(${group.metrics.length}, minmax(0, 1fr))` }}
-      >
-        {group.metrics.map((metric) => (
-          <div key={metric.label} className="min-w-0 border-b border-r border-[#eee8ec] px-0.5 py-1.5 text-center sm:px-2 sm:py-2">
-            <p className="truncate text-[9px] font-bold leading-4 text-[#817981]">{metric.label}</p>
-            <p className={`mt-0.5 text-[13px] font-black tracking-[-0.02em] sm:text-[14px] ${metric.value === "--" ? "text-[#aaa2a8]" : accent ? "text-[#f43679]" : "text-[#1c171b]"}`}>
-              {metric.value}
-            </p>
-            {metric.sample !== undefined && <p className="text-[10px] text-[#625a61]">n={metric.sample}</p>}
-          </div>
-        ))}
-      </div>
-    </section>
-  );
+function DataGrid({ groups, resultLabel = "当選" }: { groups: Group[]; resultLabel?: string }) {
+  return <div className="grid gap-3 sm:grid-cols-2">{groups.map(group => {
+    const Icon = group.icon;
+    return <section key={group.label} className="border border-[#ded8dc] bg-white p-3">
+      <h3 className="flex items-center gap-2 text-[12px] font-bold"><Icon size={16} aria-hidden="true" />{group.label}</h3>
+      <dl className="mt-2 divide-y divide-[#eee8ec]">{group.metrics.map(metric => <div key={metric.label} className="flex min-h-9 items-center justify-between gap-2 py-1 text-[12px]">
+        <dt>{metric.label}</dt><dd className="text-right text-[#625a61]">{metric.total > 0 ? <><strong className="text-[#40383d]">{resultLabel}{metric.won}件</strong><span className="ml-2">/ {metric.total}件</span></> : "報告なし"}</dd>
+      </div>)}</dl>
+    </section>;
+  })}</div>;
 }
 
-function DataGrid({ groups, accent = false }: { groups: MetricGroupData[]; accent?: boolean }) {
-  return (
-    <div className="grid grid-cols-2 border-l border-t border-[#ded8dc]">
-      {groups.map((group) => <MetricGroup key={group.label} group={group} accent={accent} />)}
-    </div>
-  );
+function metrics(labels: string[], counts: Count[]): Metric[] {
+  return labels.map((label, index) => ({ label, ...counts[index] }));
 }
 
 export default function TrendSection({ ticketStats, arenaStats, upgradeStats, title = "全公演", defaultArenaRateOpen = false, reportCount }: Props) {
   const [activeArenaTab, setActiveArenaTab] = useState<ArenaTab>("arena");
   const [isArenaRateOpen, setIsArenaRateOpen] = useState(defaultArenaRateOpen);
-  const summary = <div className="grid grid-cols-3 gap-2 border-b border-[#ded8dc] px-3 py-3">{[
-    { label: "チケット当選率", rate: ticketStats.rate },
-    { label: "通常アリーナ率", rate: ticketStats.normalArenaRate },
-    { label: "アプグレ当選率", rate: ticketStats.upgradeRate },
-  ].map(metric => <div key={metric.label} className="min-w-0"><p className="text-[10px] font-bold text-[#625a61]">{metric.label}</p><p className="mt-1 text-[24px] font-black leading-none text-[#3d3038]">{metric.rate ?? "—"}{metric.rate != null && <span className="ml-0.5 text-[12px] text-[#d64175]">%</span>}</p></div>)}</div>;
-  if (!ticketStats.total) return <section className="border-y border-[#ded8dc] bg-white" aria-label={`${title}の当落・座席データ`}>{summary}<p className="px-3 py-3 text-[12px] text-[#625a61]">当落報告を募集中 · 集計できる当落報告はまだありません。</p></section>;
-
-  const ticketGroups: MetricGroupData[] = [
-    {
-      icon: UsersRound,
-      label: "FC歴",
-      metrics: [
-        { label: "1年未満", value: detailRateText(ticketStats.fc.under1) },
-        { label: "1〜3年", value: detailRateText(ticketStats.fc.one3) },
-        { label: "3年以上", value: detailRateText(ticketStats.fc.over3) },
-      ],
-    },
-    {
-      icon: Ticket,
-      label: "申込枚数",
-      metrics: [
-        { label: "1枚", value: detailRateText(ticketStats.ticketCount.one) },
-        { label: "2枚", value: detailRateText(ticketStats.ticketCount.two) },
-        { label: "3枚", value: detailRateText(ticketStats.ticketCount.three) },
-        { label: "4枚", value: detailRateText(ticketStats.ticketCount.four) },
-      ],
-    },
-    {
-      icon: CalendarDays,
-      label: "抽選回",
-      metrics: [
-        { label: "1次抽選", value: detailRateText(ticketStats.lottery.first) },
-        { label: "2次抽選", value: detailRateText(ticketStats.lottery.second) },
-        { label: "その他", value: detailRateText(ticketStats.lottery.other) },
-      ],
-    },
-    {
-      icon: CreditCard,
-      label: "決済方法",
-      metrics: [
-        { label: "クレカ", value: detailRateText(ticketStats.payment.credit) },
-        { label: "その他", value: detailRateText(ticketStats.payment.other) },
-      ],
-    },
+  if (!ticketStats.total) return <section className="border-y border-[#ded8dc] bg-white px-4 py-4" aria-label={`${title}の当落報告`}><p className="text-[13px] text-[#625a61]">集計できる当落報告はまだありません。</p></section>;
+  const ticketGroups: Group[] = [
+    { icon: UsersRound, label: "ファンクラブ歴", metrics: metrics(["1年未満", "1〜3年", "3年以上"], ticketStats.counts.fc) },
+    { icon: Ticket, label: "申込枚数", metrics: metrics(["1枚", "2枚", "3枚", "4枚"], ticketStats.counts.ticketCount) },
+    { icon: CalendarDays, label: "抽選回", metrics: metrics(["1次抽選", "2次抽選", "その他"], ticketStats.counts.lottery) },
+    { icon: CreditCard, label: "支払い方法", metrics: metrics(["クレジットカード", "その他"], ticketStats.counts.payment) },
   ];
-
-  const arenaGroups: MetricGroupData[] = activeArenaTab === "arena"
-    ? [
-        {
-          icon: UsersRound,
-          label: "FC歴",
-          metrics: [
-            { label: "1年未満", value: detailRateText(arenaStats.fc.under1.rate) },
-            { label: "1〜3年", value: detailRateText(arenaStats.fc.one3.rate) },
-            { label: "3年以上", value: detailRateText(arenaStats.fc.over3.rate) },
-          ],
-        },
-        {
-          icon: Ticket,
-          label: "申込枚数",
-          metrics: [
-            { label: "1枚", value: detailRateText(arenaStats.ticketCount.one.rate) },
-            { label: "2枚", value: detailRateText(arenaStats.ticketCount.two.rate) },
-            { label: "3枚", value: detailRateText(arenaStats.ticketCount.three.rate) },
-            { label: "4枚", value: detailRateText(arenaStats.ticketCount.four.rate) },
-          ],
-        },
-        {
-          icon: CalendarDays,
-          label: "抽選回",
-          metrics: [
-            { label: "1次抽選", value: detailRateText(arenaStats.lottery.first.rate) },
-            { label: "2次抽選", value: detailRateText(arenaStats.lottery.second.rate) },
-            { label: "その他", value: detailRateText(arenaStats.lottery.other.rate) },
-          ],
-        },
-      ]
-    : [
-        {
-          icon: UsersRound,
-          label: "FC歴",
-          metrics: [
-            { label: "1年未満", value: detailRateText(upgradeStats.fc.under1.rate) },
-            { label: "1〜3年", value: detailRateText(upgradeStats.fc.one3.rate) },
-            { label: "3年以上", value: detailRateText(upgradeStats.fc.over3.rate) },
-          ],
-        },
-        {
-          icon: Ticket,
-          label: "申込枚数",
-          metrics: [
-            { label: "1枚", value: detailRateText(upgradeStats.ticketCount.one.rate) },
-            { label: "2枚", value: detailRateText(upgradeStats.ticketCount.two.rate) },
-            { label: "3枚", value: detailRateText(upgradeStats.ticketCount.three.rate) },
-            { label: "4枚", value: detailRateText(upgradeStats.ticketCount.four.rate) },
-          ],
-        },
-        {
-          icon: CreditCard,
-          label: "決済方法",
-          metrics: [
-            { label: "クレカ", value: detailRateText(upgradeStats.payment.credit.rate) },
-            { label: "その他", value: detailRateText(upgradeStats.payment.other.rate) },
-          ],
-        },
-      ];
-
-  return (
-    <section className="community-panel overflow-hidden" aria-label={`${title}の当落・座席データ`}>
-      <header className="bg-[#fff0f5] px-5 py-4 text-[#51454c] sm:px-6">
-        <p className="text-[10px] font-black tracking-[0.22em] text-[#d64175]">TICKET ANALYTICS</p>
-        <div className="mt-2 flex items-end justify-between gap-4">
-          <h2 className="text-[23px] font-black tracking-[-0.045em]">{title}の当落傾向</h2>
-          <span className="mb-1 text-[9px] font-black tracking-[0.14em] text-[#9b8b94]">ALL RESULTS</span>
-        </div>
-      </header>
-      {summary}
-      <p className="px-4 py-2 text-[12px] text-[#625a61]">{reportCount !== undefined ? `当落報告${reportCount}件 · ` : ""}当選{ticketStats.won}／申込結果{ticketStats.total}件</p>
-      <details className="px-4 text-[12px] text-[#625a61]"><summary className="zr-focus flex min-h-11 cursor-pointer items-center">集計の見方</summary><p className="pb-3">報告内の当選割合です。申込結果は当選数＋申告された落選申込数。同一人・同一公演の複数申込を含み、公式の当選確率ではありません。</p></details>
-
-      <div className="p-3 sm:p-5">
-        <DataGrid groups={ticketGroups.map((group, index) => ({ ...group, metrics: group.metrics.map((metric, i) => ({ ...metric, sample: [ticketStats.samples.fc, ticketStats.samples.ticketCount, ticketStats.samples.lottery, ticketStats.samples.payment][index][i] })) }))} />
-      </div>
-
-      <section className="border-t border-divider bg-[#fff8fa]" aria-labelledby="arena-rate-title">
-        <button
-          type="button"
-          aria-expanded={isArenaRateOpen}
-          aria-controls="arena-rate-details"
-          onClick={() => setIsArenaRateOpen((open) => !open)}
-          className="zr-focus flex min-h-[70px] w-full items-end justify-between gap-4 px-5 py-4 text-left sm:px-6"
-        >
-          <div>
-            <p className="text-[10px] font-black tracking-[0.2em] text-[#f43679]">SEAT RATE</p>
-            <h2 id="arena-rate-title" className="mt-1 text-[21px] font-black tracking-[-0.04em] text-[#1c171b]">アリーナ当選率</h2>
-          </div>
-          <span className="mb-1 inline-flex items-center gap-2 text-[10px] font-black tracking-[0.08em] text-[#625a61]">
-            {isArenaRateOpen ? "閉じる" : "詳細を見る"}
-            <ChevronDown size={16} className={`transition-transform ${isArenaRateOpen ? "rotate-180" : ""}`} />
-          </span>
-        </button>
-        {isArenaRateOpen && <div id="arena-rate-details">
-          <SegmentedControl
-            value={activeArenaTab}
-            onChange={setActiveArenaTab}
-            options={[
-              { value: "arena", label: "通常アリーナ" },
-              { value: "upgrade", label: "アプグレ" },
-            ]}
-            ariaLabel="アリーナ当選率の表示切替"
-            className="border-x-0 border-y"
-          />
-          <div className="p-3 sm:p-5">
-            <DataGrid groups={arenaGroups} accent />
-          </div>
-        </div>}
-      </section>
+  const seatStats = activeArenaTab === "arena" ? arenaStats : upgradeStats;
+  const arenaGroups: Group[] = [
+    { icon: UsersRound, label: "ファンクラブ歴", metrics: metrics(["1年未満", "1〜3年", "3年以上"], [seatStats.fc.under1, seatStats.fc.one3, seatStats.fc.over3]) },
+    { icon: Ticket, label: "申込枚数", metrics: metrics(["1枚", "2枚", "3枚", "4枚"], [seatStats.ticketCount.one, seatStats.ticketCount.two, seatStats.ticketCount.three, seatStats.ticketCount.four]) },
+    ...(activeArenaTab === "arena" ? [{ icon: CalendarDays, label: "抽選回", metrics: metrics(["1次抽選", "2次抽選", "その他"], [arenaStats.lottery.first, arenaStats.lottery.second, arenaStats.lottery.other]) }] : [{ icon: CreditCard, label: "支払い方法", metrics: metrics(["クレジットカード", "その他"], [upgradeStats.payment.credit, upgradeStats.payment.other]) }]),
+  ];
+  return <section className="community-panel overflow-hidden" aria-label={`${title}の当落・座席データ`}>
+    <header className="bg-[#fff0f5] px-4 py-4"><h2 className="text-[21px] font-black text-[#51454c]">集まった当落報告</h2><p className="mt-1 text-[12px] text-[#625a61]">{title}{reportCount !== undefined ? `・投稿${reportCount}件` : ""}</p></header>
+    <div className="grid grid-cols-2 gap-3 border-b border-[#ded8dc] px-4 py-4" data-ticket-count-summary>
+      <p className="text-[13px] text-[#625a61]">当選<strong className="ml-2 text-[24px] text-[#3d3038]">{ticketStats.won}<span className="text-[12px]">件</span></strong></p>
+      <p className="text-[13px] text-[#625a61]">落選<strong className="ml-2 text-[24px] text-[#3d3038]">{ticketStats.lost}<span className="text-[12px]">件</span></strong></p>
+      <p className="col-span-2 text-[12px] text-[#625a61]">申込結果{ticketStats.total}件の集計です。公式の当選確率ではありません。</p>
+    </div>
+    <details className="px-4 text-[12px] text-[#625a61]"><summary className="zr-focus flex min-h-11 cursor-pointer items-center">集計の見方・割合</summary>
+      <p className="pb-3">1件の投稿に複数の落選申込を含む場合があります。下の内訳は、各条件が入力された申込結果です。</p>
+      <ul className="space-y-2 pb-3">
+        <li>当選：{ticketStats.won} / {ticketStats.total}件（{ticketStats.rate}%）</li>
+        <li>通常チケットのアリーナ：{ticketStats.normalArenaWon} / {ticketStats.normalArenaCount}件{ticketStats.normalArenaRate == null ? "（報告なし）" : `（${ticketStats.normalArenaRate}%）`}</li>
+        <li>アップグレード当選：{ticketStats.upgradeWon} / {ticketStats.upgradeCount}件{ticketStats.upgradeRate == null ? "（報告なし）" : `（${ticketStats.upgradeRate}%）`}</li>
+      </ul>
+      <p className="pb-3">通常チケットのアリーナ率は、アップグレードが未申込か落選で、座席がアリーナかスタンドと分かる当選報告から計算します。アップグレード当選率は、申込結果が分かる報告だけを数えます。</p>
+    </details>
+    <details className="border-t border-[#ded8dc]"><summary className="zr-focus flex min-h-12 cursor-pointer items-center px-4 text-[13px] font-bold">条件別の報告を見る</summary><div className="p-3 sm:p-5"><DataGrid groups={ticketGroups} /></div></details>
+    <section className="border-t border-divider bg-[#fff8fa]" aria-labelledby="arena-rate-title">
+      <button type="button" aria-expanded={isArenaRateOpen} aria-controls="arena-rate-details" onClick={() => setIsArenaRateOpen(open => !open)} className="zr-focus flex min-h-14 w-full items-center justify-between gap-4 px-4 py-3 text-left">
+        <h2 id="arena-rate-title" className="text-[18px] font-black">座席・アップグレードの報告</h2><ChevronDown size={18} className={`shrink-0 transition-transform ${isArenaRateOpen ? "rotate-180" : ""}`} />
+      </button>
+      {isArenaRateOpen && <div id="arena-rate-details"><SegmentedControl value={activeArenaTab} onChange={setActiveArenaTab} options={[{ value: "arena", label: "通常チケット" }, { value: "upgrade", label: "アップグレード" }]} ariaLabel="座席報告の表示切替" className="border-x-0 border-y" />
+        <p className="px-4 pt-3 text-[12px] text-[#625a61]">{activeArenaTab === "arena" ? "座席種別が分かる当選報告のうち、アリーナだった件数です。" : "アップグレードの申込結果が分かる報告です。"}</p>
+        <div className="p-3 sm:p-5"><DataGrid groups={arenaGroups} resultLabel={activeArenaTab === "arena" ? "アリーナ" : "当選"} /></div>
+      </div>}
     </section>
-  );
+  </section>;
 }

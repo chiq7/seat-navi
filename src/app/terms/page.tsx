@@ -1,13 +1,13 @@
-import type { Metadata } from "next";
+import { buildFileImageMetadata } from "@/lib/fileImageMetadata";
 import Link from "next/link";
 import StaticPage from "@/components/common/StaticPage";
 
-export const metadata: Metadata = {
+export const metadata = buildFileImageMetadata({
+  path: "/terms",
   title: "利用規約｜ちけレポ",
   description: "ちけレポの利用規約です。",
-  alternates: { canonical: "https://tixrepo.com/terms" },
   robots: { index: true, follow: true },
-};
+});
 
 export default function TermsPage() {
   return (

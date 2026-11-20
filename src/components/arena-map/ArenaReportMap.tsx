@@ -36,6 +36,7 @@ import {
   computeWatermarkPositions,
 } from "@/lib/arena-map/arenaMapLayout";
 import { externalObservationsToArenaReports } from "@/lib/external-seats/arena";
+import { formatXSeatPostLocation, X_ARENA_WITHOUT_BLOCK, xSeatPostSources } from "@/lib/external-seats/xSeatPosts";
 import type { ArenaMapReport } from "@/lib/arena-map/arenaMapTypes";
 import type { SeatPosition } from "@/lib/arena-map/arenaSeatDetails";
 import { ArenaSeatDetail } from "./ArenaSeatDetail";
@@ -145,6 +146,9 @@ export function ArenaReportMap({
     }
     return [...byPosition.values()];
   }, [externalObservations, reports, seatOnlyReports]);
+  const xSources = useMemo(() => xSeatPostSources(externalObservations), [externalObservations]);
+  const xBlockNames = useMemo(() => new Set(xSources.map(item => item.block)
+    .filter(block => block !== X_ARENA_WITHOUT_BLOCK)), [xSources]);
   const hasSeatOnlyCells = arenaReports.some(report => report.sourceKind === "seat_only");
   const hasExternalCells = arenaReports.some((report) => report.sourceKind === "external");
   const showPositionLocators = isCompact && highlightPositionsPreview && arenaReports.length <= 12;
@@ -202,7 +206,7 @@ export function ArenaReportMap({
   // ─── レイアウト計算 ─────────────────────────────────────────────────────────
 
   const layout = useMemo(() => {
-    const { gridBlocks, overflowBlocks, gridRowPrefixes, gridColNums } = buildFixedArenaGrid(arenaReports);
+    const { gridBlocks, overflowBlocks, gridRowPrefixes, gridColNums } = buildFixedArenaGrid(arenaReports, xBlockNames);
     const gridCols = gridColNums.length;
     const gridRows = gridRowPrefixes.length;
     const svgW = computeDynamicSvgWidth(gridCols);
@@ -257,7 +261,7 @@ export function ArenaReportMap({
       overflowY,
       bandTop,
     };
-  }, [arenaReports, stageTop, showAllOverflow]);
+  }, [arenaReports, stageTop, showAllOverflow, xBlockNames]);
 
   // ─── 共有処理 ────────────────────────────────────────────────────────────────
 
@@ -455,6 +459,7 @@ export function ArenaReportMap({
       <svg
         ref={svgRef}
         viewBox={mapViewBox}
+        preserveAspectRatio={isCompact && positionOnlyPreview ? "xMidYMin meet" : undefined}
         data-arena-map-view={explorePreview ? (focusedBlock ? `block:${focusedBlock.blockName}` : "overview") : undefined}
         style={{
           width: explorePreview ? "100%" : `${svgW}px`,
@@ -596,9 +601,11 @@ export function ArenaReportMap({
             y={pb.svgY}
             width={BLOCK_W}
             height={BLOCK_H}
-            fill="none"
-            stroke="#d8cfd5"
-            strokeWidth={0.65}
+            data-x-seat-block={xBlockNames.has(pb.blockName) ? pb.blockName : undefined}
+            fill={xBlockNames.has(pb.blockName) ? "#eee5ff" : "none"}
+            fillOpacity={0.3}
+            stroke={xBlockNames.has(pb.blockName) ? "#7655b2" : "#d8cfd5"}
+            strokeWidth={xBlockNames.has(pb.blockName) ? 2 : 0.65}
             pointerEvents="none"
           />
         ))}
@@ -665,7 +672,11 @@ export function ArenaReportMap({
               }).join("");
               return (
                 <g key={ob.blockName}>
-                  <rect x={ox} y={oy} width={BLOCK_W} height={BLOCK_H} fill={UNREPORTED_FILL} />
+                  <rect x={ox} y={oy} width={BLOCK_W} height={BLOCK_H}
+                    data-x-seat-block={xBlockNames.has(ob.blockName) ? ob.blockName : undefined}
+                    fill={xBlockNames.has(ob.blockName) ? "#eee5ff" : UNREPORTED_FILL}
+                    stroke={xBlockNames.has(ob.blockName) ? "#7655b2" : undefined}
+                    strokeWidth={2} />
                   {hPath && (
                     <path d={hPath} stroke={GRID_STROKE} strokeWidth={GRID_STROKE_W} fill="none" />
                   )}
@@ -692,7 +703,7 @@ export function ArenaReportMap({
                     fontSize={6}
                     fontWeight="bold"
                   >
-                    {ob.blockName} ({ob.cells.length})
+                    {ob.blockName}{ob.cells.length > 0 ? ` (${ob.cells.length})` : ""}
                   </text>
                   {explorePreview && <rect x={ox} y={oy} width={BLOCK_W} height={BLOCK_H} fill="transparent" data-arena-block={ob.blockName} onClick={e => tapBlock(e, ob.blockName, ob.cells, ox, oy, cellW, cellH)} style={{ cursor: "pointer" }} />}
                 </g>
@@ -736,6 +747,21 @@ export function ArenaReportMap({
         )}
       </svg>
       </div>
+
+      {!isCompact && xSources.length > 0 && (
+        <ul aria-label="Xで共有された座席" className="mx-3 mt-2 divide-y divide-[#e4c9d4] rounded-lg border border-[#e4c9d4] bg-white px-3 sm:mx-4">
+          {xSources.map(item => (
+            <li key={item.id} className="flex flex-wrap items-center justify-between gap-x-3 text-[13px]">
+              <span className="py-2 font-bold text-[#62545d]">
+                {formatXSeatPostLocation(item.block, item.row_min, item.seat_min)}
+                {item.block === X_ARENA_WITHOUT_BLOCK ? "（ブロック不明）" : !item.row_min && !item.seat_min ? "（ブロックのみ）" : ""}
+              </span>
+              <a href={item.source_url} target="_blank" rel="noopener noreferrer"
+                className="zr-focus inline-flex min-h-11 items-center font-bold text-[#7655b2] underline">Xの元投稿を見る</a>
+            </li>
+          ))}
+        </ul>
+      )}
 
       {explorePreview && !isCompact && (
         <p className="mx-3 mt-2 flex flex-wrap gap-x-2 text-[10px] leading-4 text-[#71636c] sm:mx-4">

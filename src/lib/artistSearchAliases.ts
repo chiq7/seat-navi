@@ -5,7 +5,9 @@
  * ひらがな・カタカナ、空白・記号・全半角は normalizeForSearch で揃える。
  * 実在しない略称は作らず、正式名・keywordsと合わせて検索候補に使う。
  */
-export const ARTIST_SEARCH_ALIASES: Readonly<Record<string, readonly string[]>> = {
+// These are editorial readings and established names. Keep generated misspellings
+// and permissive matching in the search layer, outside this public name list.
+export const ARTIST_PUBLIC_ALIASES: Readonly<Record<string, readonly string[]>> = {
   nogizaka46: ["ノギザカ46", "ノギザカ"],
   sakurazaka46: ["サクラザカ46", "サクラザカ"],
   niziu: ["ニジュー"],
@@ -103,3 +105,5 @@ export const ARTIST_SEARCH_ALIASES: Readonly<Record<string, readonly string[]>> 
   domoto: ["ドウモト"],
   roirom: ["ロイロム"],
 };
+
+export const ARTIST_SEARCH_ALIASES = ARTIST_PUBLIC_ALIASES;

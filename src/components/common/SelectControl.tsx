@@ -11,6 +11,7 @@ type SelectControlProps = {
   variant?: "field" | "bare";
   tone?: "neutral" | "seat";
   disabled?: boolean;
+  wrappedValue?: string;
 };
 
 const fieldClass =
@@ -29,17 +30,21 @@ export function SelectControl({
   variant = "field",
   tone = "neutral",
   disabled = false,
+  wrappedValue,
 }: SelectControlProps) {
   const toneClass = tone === "seat" ? "text-[#5165c6]" : "text-[#665761]";
 
   return (
-    <span className={`relative block min-w-0 ${className ?? ""}`}>
+    <span className={`relative block min-w-0 ${wrappedValue ? "rounded-md focus-within:outline-2 focus-within:outline-[#922753]" : ""} ${className ?? ""}`}>
+      {wrappedValue && <span aria-hidden="true" className="flex min-h-11 items-center pr-9 text-[13px] font-black leading-[1.45] text-[#665761]">
+        <span data-selected-performance className="line-clamp-2 break-words">{wrappedValue}</span>
+      </span>}
       <select
         id={id}
         value={value}
         onChange={onChange}
         disabled={disabled}
-        className={`${variant === "field" ? fieldClass : bareClass} ${toneClass} ${selectClassName ?? ""}`}
+        className={`${variant === "field" ? fieldClass : bareClass} ${toneClass} ${selectClassName ?? ""} ${wrappedValue ? "absolute inset-0 size-full cursor-pointer opacity-0" : ""}`}
       >
         {children}
       </select>

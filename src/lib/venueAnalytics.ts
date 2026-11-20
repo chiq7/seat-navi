@@ -20,3 +20,7 @@ export function trackVenueFacilityOpen(purpose:string,scope:string,id?:string) {
 export function trackVenueAccess(id:string,mode:"local_map"|"official_map") {
   const venue=venueId(id);if(venue)trackEvent("venue_access_open",{venue_id:venue,map_type:mode});
 }
+export function trackVenueSeatPhotoShareClick(id:string, placement:"photo_unlock"|"photo_viewer") {
+  const venue=venueId(id);
+  if(venue)trackEvent("venue_seat_photo_share_click",{venue_id:venue,placement,share_destination:"x"});
+}

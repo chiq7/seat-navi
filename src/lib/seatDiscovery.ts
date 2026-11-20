@@ -1,7 +1,8 @@
 import type { SeatReport } from "./types";
 import type { ExternalSeatObservation } from "./external-seats/types";
 import { externalObservationsToArenaReports } from "./external-seats/arena";
-import { eligibleTicketReports } from "./ticketAnalyticsEligibility";
+import { X_ARENA_WITHOUT_BLOCK, xSeatPostSources } from "./external-seats/xSeatPosts";
+import { eligibleTicketReports, hasReportedStandardSeat } from "./ticketAnalyticsEligibility";
 
 export type SeatDiscoveryEvent = { id: string; date: string; title: string; venue: string; venue_id: string; artist_slug: string };
 // Only an audited aggregate may enable a percentage; table location alone is not provenance.
@@ -46,7 +47,7 @@ export function reportedDiscoveryLottery(events: SeatDiscoveryEvent[], rows: { i
   if (!eligible.length) return { status: "pending", reason: rows.length ? "unverified" : "empty" };
   const won = eligible.filter(row => row.result === "won").length;
   const lost = eligible.reduce((sum, row) => sum + row.lost_application_count, 0);
-  const normal = eligible.filter(row => row.result === "won" && row.seat_type != null && row.seat_type !== "unknown" && row.upgrade_result !== "applied_won");
+  const normal = eligible.filter(hasReportedStandardSeat);
   const upgrade = eligible.filter(row => row.upgrade_result === "applied_won" || row.upgrade_result === "applied_lost");
   return { status: "reported", eventIds: events.map(event => event.id), scopeLabel: `${events[0].venue} ${events.map(event => discoveryDateLabel(event.date)).join("・")}`, lotteryLabel: "抽選種別合算・報告内", won, lost, normalArena: { won: normal.filter(row => row.seat_type === "arena").length, total: normal.length }, upgrade: { won: upgrade.filter(row => row.upgrade_result === "applied_won").length, total: upgrade.length } };
 }
@@ -71,14 +72,16 @@ export function summarizeDiscovery(data: SeatDiscoveryData) {
   const seats = selectDiscoverySeats(reports, ids, data.selectedEventId);
   const external = data.externalObservations.filter(item => ids.includes(item.event_id) && item.review_status === "approved" && item.seat_area === "arena");
   const externalCells = externalObservationsToArenaReports(external);
+  const xSources = xSeatPostSources(external);
+  const xBlocks = xSources.map(item => item.block).filter(block => block !== X_ARENA_WITHOUT_BLOCK);
   return {
     seats,
     external,
     reportCount: reports.length,
     seatCount: seats.length,
     externalCount: external.length, // Source records, never expanded range cells.
-    hasMap: seats.length > 0 || externalCells.length > 0,
-    blocks: [...new Set([...seats.map(seat => seat.block), ...externalCells.map(cell => cell.block)])].sort(),
+    hasMap: seats.length > 0 || externalCells.length > 0 || xSources.length > 0,
+    blocks: [...new Set([...seats.map(seat => seat.block), ...externalCells.map(cell => cell.block), ...xBlocks])].sort(),
   };
 }
 

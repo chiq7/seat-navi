@@ -19,6 +19,7 @@ export function outsideFacilityGroups(spots: readonly DomeGuideSpot[]) {
   });
 }
 export function outsideMapLayout(spots: readonly DomeGuideSpot[], width: number, height: number) {
+  const compactPins = width <= 480;
   // The independent schematic uses more vertical spacing on a phone so that
   // gate labels stay around the dome instead of being repacked across it.
   const scale = { x: (width - 20) / OUTSIDE_MAP_SIZE.width, y: (height - 60) / OUTSIDE_MAP_SIZE.height };
@@ -29,7 +30,11 @@ export function outsideMapLayout(spots: readonly DomeGuideSpot[], width: number,
   const labels: MapLabel[] = [
     ...OUTSIDE_GATE_GROUPS.map(group => ({ id: group.id, kind: "gate" as const, ...project(group.x, group.y), width: group.gates.length > 1 ? width<315?60:66 : 46, height: group.gates.length > 2 ? 62 : 50, offset: { x: group.x < 350 ? -8 : 14, y:0 } })),
     ...OUTSIDE_STATIONS.map(station => ({ id: station.id, kind: "gate" as const, ...project(station.x, station.y), width: 80, height: 44,offset:station.id==="mita"?{x:-10,y:-30}:station.id==="jr-east"?{x:0,y:20}:undefined })),
-    ...groups.filter(group=>!Object.values(mergedZones).includes(group.id)).map(group => ({ id: group.id, kind: "facility" as const, ...project(group.x, group.y), width: Math.max(78, group.short.length * 11 + 10), height: group.kinds.length > 3 ? 76 : 56 })),
+    ...groups.filter(group => !Object.values(mergedZones).includes(group.id)).map(group => ({
+      id: group.id, kind: "facility" as const, ...project(group.x, group.y),
+      width: compactPins ? Math.max(44, Math.min(3, group.kinds.length) * 18 + 12) : Math.max(78, group.short.length * 11 + 10),
+      height: compactPins ? Math.max(44, Math.ceil(group.kinds.length / 3) * 18 + 10) : group.kinds.length > 3 ? 76 : 56,
+    })),
   ];
   // Keep north/south and east/west ordering. Generic collision repacking can
   // put a southwest gate northeast of the dome and is unsuitable here.

@@ -1,9 +1,15 @@
 "use client";
 
-import { createContext, useContext, useMemo, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useMemo, useState, type ComponentPropsWithoutRef, type ReactNode } from "react";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import type { ReportOptions } from "@/lib/reportEventSelection";
 import { InfoListRow } from "@/components/common/InfoListRow";
+import { Header } from "@/components/common/Header";
 import { STATIC_PUBLIC_PAGES, formatPublicDataTime, publicPageDataPaths, publicPageRefreshSeconds, type VenuePrograms } from "@/lib/publicPageData";
 import { useFreshPublicData } from "@/lib/useFreshPublicData";
+import { useJstDay } from "@/lib/useJstDay";
+import { latestRealTime, type VenueActivity } from "@/lib/venueActivity";
 import { ArrowDown, ArrowUpRight, MapPin, MoveRight, Users } from "lucide-react";
 import DiscoveryLink from "@/components/common/DiscoveryLink";
 import { formatEventDate } from "@/components/common/EventListRow";
@@ -12,10 +18,15 @@ import { parseEventTitle } from "@/lib/eventTitle";
 import type { CrawledEvent } from "@/lib/types";
 import styles from "./VenueProgramLinks.module.css";
 
+function programTarget(upcomingCount: number, pastCount: number) {
+  if (upcomingCount > 0) return "upcoming-events-title";
+  return pastCount > 0 ? "past-events-title" : null;
+}
+
 export function VenueProgramJump({ venueId, upcomingCount, pastCount }: { venueId: string; upcomingCount: number; pastCount: number }) {
-  if (upcomingCount === 0 && pastCount === 0) return null;
+  const target = programTarget(upcomingCount, pastCount);
+  if (!target) return null;
   const upcoming = upcomingCount > 0;
-  const target = upcoming ? "upcoming-events-title" : "past-events-title";
   return (
     <div className={`zr-container ${styles.jump}`}>
       <DiscoveryLink href={`#${target}`} className="zr-focus" discovery={{ source: "venue_jump", destination: "section", destinationId: target, venueId }}>
@@ -66,24 +77,79 @@ export function VenueProgramList({ venueId, events, emptyText, initialCount = 6 
   );
 }
 
-type VenueProgramsState = { available: boolean; upcoming: CrawledEvent[]; past: CrawledEvent[]; failed: boolean; staleAt: string | null; retry: () => void };
+type VenueProgramsState = { available: boolean; upcoming: CrawledEvent[]; past: CrawledEvent[]; activity: VenueActivity; failed: boolean; staleAt: string | null; retry: () => void };
 const ProgramsContext = createContext<VenueProgramsState | null>(null);
+
+/** Reuses the rendered list's JST boundary on both the server and client. */
+export function VenueProgramAnchor({ fallbackHref = "#upcoming-events-title", ...props }: Omit<ComponentPropsWithoutRef<"a">, "href"> & { fallbackHref?: string }) {
+  const programs = useContext(ProgramsContext);
+  if (!programs) return <a {...props} href={fallbackHref} />;
+  const target = programTarget(programs.upcoming.length, programs.past.length);
+  return target ? <a {...props} href={`#${target}`} /> : null;
+}
 
 export function VenueProgramsProvider({ venueId, initial, children }: { venueId: string; initial: VenuePrograms; children: ReactNode }) {
   const path = STATIC_PUBLIC_PAGES ? publicPageDataPaths.venue + venueId : undefined;
   const { data, failed, staleAt, retry } = useFreshPublicData(path, publicPageRefreshSeconds.venue, initial);
-  const { events, today } = data;
+  const { events } = data;
+  const today = useJstDay(initial.today);
+  const activity = {
+    updatedAt: latestRealTime(initial.activity?.updatedAt, data.activity?.updatedAt),
+    changeObservedAt: latestRealTime(initial.activity?.changeObservedAt, data.activity?.changeObservedAt),
+  };
   const { upcoming, past } = useMemo(() => ({
     upcoming: events?.filter(event => event.date && event.date >= today) ?? [],
     past: events?.filter(event => event.date && event.date < today).reverse() ?? [],
   }), [events, today]);
-  return <ProgramsContext value={{ available: events !== null, upcoming, past, failed, staleAt, retry }}>{children}</ProgramsContext>;
+  return <ProgramsContext value={{ available: events !== null, upcoming, past, activity, failed, staleAt, retry }}>{children}</ProgramsContext>;
+}
+
+export function VenueActivityDate() {
+  const { activity } = useVenuePrograms();
+  const date = latestRealTime(activity.updatedAt, activity.changeObservedAt);
+  if (!date) return null;
+  const label = date === activity.changeObservedAt ? "公演データの変更を確認" : "公演・投稿の最終更新";
+  return <p className="mt-2 text-xs text-[#706670]">{label}　<time data-venue-content-updated dateTime={date}>
+    {new Intl.DateTimeFormat("ja-JP", { dateStyle: "long", timeZone: "Asia/Tokyo" }).format(new Date(date))}
+  </time></p>;
 }
 
 function useVenuePrograms() {
   const programs = useContext(ProgramsContext);
   if (!programs) throw new Error("VenueProgramsProvider is missing");
   return programs;
+}
+
+/** Query context belongs to this visit; the shared HTML snapshot remains canonical. */
+export function VenueEventReturnLink({ venueId, venueName, headerName = venueName }: { venueId: string; venueName: string; headerName?: string }) {
+  const query = useSearchParams();
+  const values = query.getAll("fromEvent");
+  const id = values.length === 1 && /^[a-zA-Z0-9_-]{1,128}$/.test(values[0]) ? values[0] : null;
+  const { upcoming, past } = useVenuePrograms();
+  const known = id && (upcoming.find(e => e.id === id) ?? past.find(e => e.id === id));
+  const [extra, setExtra] = useState<{ venueId: string; id: string; title: string } | null>(null);
+  useEffect(() => {
+    if (!id || known) return;
+    // The public picker also covers duplicate-day records omitted from venue display lists.
+    const controller = new AbortController();
+    const params = new URLSearchParams({ venue: venueId, event: id });
+    fetch(`/api/public/report-events?${params}`, { signal: controller.signal }).then(async response => {
+      if (!response.ok) return;
+      const options: ReportOptions = await response.json();
+      const record = options.selectedEventId === id && options.events.find(event => event.id === id);
+      if (record && !controller.signal.aborted) setExtra({ venueId, id, title: record.title });
+    }).catch(() => {});
+    return () => controller.abort();
+  }, [id, known, venueId]);
+  const title = known ? known.title : extra?.id === id && extra?.venueId === venueId ? extra.title : null;
+  const previous = id && title ? `/events/${encodeURIComponent(id)}` : null;
+  return <><Header title={headerName} breadcrumbLabel={venueName} backHref={previous ?? "/venues"} backLabel={previous ? `${title}の公演ページに戻る` : "ライブ会場一覧へ戻る"}
+    breadcrumbParents={[{ href: "/venues", label: "ライブ会場一覧" }]} existingBreadcrumbSchema />
+  {previous && <div className="zr-container pt-2">
+    <Link data-event-return href={previous} className="zr-focus inline-flex min-h-11 items-center gap-2 rounded-xl border border-[#e7c5d3] bg-white px-3 py-2 text-xs font-bold leading-5 text-[#84234f]">
+      <span aria-hidden="true">←</span><span>先ほど見ていた公演（{title}）に戻る</span>
+    </Link>
+  </div>}</>;
 }
 
 export function VenueProgramNavigation({ venueId }: { venueId: string }) {

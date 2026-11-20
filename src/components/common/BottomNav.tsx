@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { Camera, LayoutGrid, ListMusic, Map, SquarePen } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
@@ -28,6 +28,8 @@ function Item({
   label: string;
   Icon: LucideIcon;
 }) {
+  const pathname = usePathname();
+  const current = Boolean(isActive && href && pathname === href.split("?")[0]);
   const color = isActive ? PINK : GRAY;
   const inner = (
     <>
@@ -45,6 +47,7 @@ function Item({
     isActive ? "bg-[#fff0f5]" : "hover:bg-[#fff9fb]"
   }`;
 
+  if (current) return <span aria-current="page" className={itemClassName} style={{ color }}>{inner}</span>;
   if (href === null) {
     return (
       <div className={`${itemClassName} cursor-default opacity-30`} style={{ color }}>
@@ -61,10 +64,12 @@ function Item({
 
 export function BottomNav({ active, artistSlug, eventId }: Props) {
   const router = useRouter();
+  const pathname = usePathname();
   const artistHref = artistSlug ? `/artists/${artistSlug}` : "/";
   const seatHref = eventId ? `/events/${eventId}` : null;
-  const afterHref = artistSlug ? `/artists/${artistSlug}/after-reports` : null;
-  const setlistHref = artistSlug ? `/artists/${artistSlug}/setlist` : null;
+  const setlistEvent = active === "event" && eventId ? `?event=${encodeURIComponent(eventId)}` : "";
+  const afterHref = artistSlug ? `/artists/${artistSlug}/after-reports${setlistEvent}` : null;
+  const setlistHref = artistSlug ? `/artists/${artistSlug}/setlist${setlistEvent}` : null;
   const reportHref = eventId
     ? `/report?event=${eventId}${artistSlug ? `&artist=${artistSlug}` : ""}`
     : artistSlug
@@ -74,12 +79,13 @@ export function BottomNav({ active, artistSlug, eventId }: Props) {
   // 常に表示されるナビは、次に使う主要画面を先読みしてタップ後の空白を作らない。
   useEffect(() => {
     [artistHref, reportHref, seatHref, afterHref, setlistHref]
-      .filter((href): href is string => href !== null)
+      .filter((href): href is string => href !== null && href.split("?")[0] !== pathname)
       .forEach((href) => router.prefetch(href));
-  }, [afterHref, artistHref, reportHref, router, seatHref, setlistHref]);
+  }, [afterHref, artistHref, pathname, reportHref, router, seatHref, setlistHref]);
 
   return (
     <nav
+      data-bottom-nav
       className="fixed bottom-0 left-1/2 z-50 flex min-h-[72px] w-full max-w-[620px] -translate-x-1/2 items-center rounded-t-[24px] border border-[#f0dfe6] bg-white/95 px-1.5 pb-[env(safe-area-inset-bottom)] shadow-[0_-12px_35px_rgba(105,63,80,0.09)] backdrop-blur-xl md:bottom-5 md:rounded-[24px] md:pb-0 lg:bg-white lg:shadow-[0_10px_30px_rgba(105,63,80,0.07)]"
       aria-label="ページ内ナビゲーション"
     >
@@ -93,13 +99,13 @@ export function BottomNav({ active, artistSlug, eventId }: Props) {
         <Item
           href={reportHref}
           isActive={active === "report"}
-          label="報告"
+          label="投稿する"
           Icon={SquarePen}
         />
         <Item
           href={seatHref}
           isActive={active === "event"}
-          label="座席予想"
+          label="座席表"
           Icon={Map}
         />
         <Item

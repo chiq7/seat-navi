@@ -1,4 +1,14 @@
 .section { padding: 28px 0; border-bottom: 1px solid #eadfe4; color: #4b4148; scroll-margin-top: 90px; }
+.seatReading { padding-block: 14px 16px; color: #4b4148; }
+.seatReading h2 { font-size: 16px; font-weight: 800; line-height: 1.6; }
+.seatReading h3 { margin-top: 8px; font-size: 14px; font-weight: 700; line-height: 1.6; }
+.seatReading p { margin-top: 5px; font-size: 13px; line-height: 1.8; }
+.seatReading details { margin-top: 4px; }
+.seatReading summary { min-height: 44px; padding: 12px 0; cursor: pointer; font-size: 13px; font-weight: 700; color: #a12b58; }
+.seatReading details[open] { padding-bottom: 8px; }
+.photoPreviews { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; max-width: 520px; margin: 12px 0; padding: 0; list-style: none; }
+.photoPreviews a { display: block; min-height: 44px; }
+.photoPreviews img { width: 100%; height: auto; aspect-ratio: 8 / 5; object-fit: cover; border-radius: 8px; }
 .section h2 { scroll-margin-top: 90px; font-size: clamp(21px, 3vw, 28px); font-weight: 900; line-height: 1.45; letter-spacing: -.03em; }
 .section h3 { margin-top: 24px; font-size: 17px; font-weight: 800; }
 .section p { margin-top: 10px; font-size: 14px; line-height: 1.85; }

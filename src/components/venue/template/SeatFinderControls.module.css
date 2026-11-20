@@ -1,0 +1,15 @@
+.form { display: grid; gap: 7px; min-width: 0; }
+.modes, .fields, .miss [role="group"] { display: flex; align-items: end; gap: 6px; }
+.modes button, .fields input, .fields button, .miss button { min-height: 44px; border: 1px solid #dec5d1; border-radius: 8px; background: white; }
+.modes button, .miss button { font-size: 13px; font-weight: 700; line-height: 1.35; color: #76364e; padding: 6px 10px; }
+.modes button { flex: 1; }
+.modes button[aria-pressed="true"] { color: #852348; background: #f9eaf0; border-color: #ba6b8b; }
+.fields label { display: grid; gap: 3px; flex: 1; min-width: 0; font-size: 12px; font-weight: 700; color: #5c4752; }
+.fields input { width: 100%; min-width: 0; padding: 6px 8px; font-size: 16px; color: #372632; }
+.fields button { background: #9e2c5a; border-color: #9e2c5a; color: white; padding: 6px 11px; white-space: nowrap; font-size: 13px; font-weight: 700; }
+.form :focus-visible, .miss button:focus-visible { outline: 3px solid #923251; outline-offset: 2px; }
+.miss { padding: 10px 12px; border-block: 1px solid #ead6df; background: #fff9fb; }
+.miss p { margin: 0 0 4px; font-size: 13px; line-height: 1.55; }
+.miss [role="alert"] { color: #a01d39; font-weight: 700; }
+.miss [role="group"] { flex-wrap: wrap; }
+.miss span { flex-basis: 100%; font-size: 12px; color: #5c4752; }

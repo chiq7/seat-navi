@@ -20,7 +20,7 @@ export default function TokyoDomeOutsideMap({ spots, selectedZone, selectedSpotI
   spots: readonly DomeGuideSpot[];
   selectedZone: DomeGuideMapZone | null;
   selectedSpotId: string | null;
-  onSelectZone: (zone: DomeGuideMapZone) => void;
+  onSelectZone: (zone: DomeGuideMapZone, trigger?: HTMLButtonElement) => void;
 }) {
   const [stationId, setStationId] = useState(initialStationId);
   const [gateNumber, setGateNumber] = useState("");
@@ -35,6 +35,7 @@ export default function TokyoDomeOutsideMap({ spots, selectedZone, selectedSpotI
     return () => observer.disconnect();
   }, []);
   const layout = outsideMapLayout(spots, size.width, size.height);
+  const compactPins = size.width <= 480;
   const selectedGate = OUTSIDE_GATES.find(gate => gate.number === gateNumber);
   const selectedStation = OUTSIDE_STATIONS.find(station => station.id === stationId);
   const selectedGroup = layout.groups.find(group => group.id === selectedZone || group.members.some(spot => spot.id === selectedSpotId));
@@ -91,11 +92,16 @@ export default function TokyoDomeOutsideMap({ spots, selectedZone, selectedSpotI
           const group=layout.groups.find(item=>item.id===layout.mergedZones[gate.id]);
           const numbers=selectedGate?.group===gate.id?[selectedGate.number]:gate.gates;
           return <button key={marker.id} type="button" style={position} className={styles.gate} aria-pressed={selectedGate?.group===gate.id || gateGroupId === gate.id} aria-label={`${gate.gates.join("・")}ゲート付近を選ぶ${group?`：${group.kinds.map(kind=>kindNames[kind]).join("・")}`:""}`} onClick={()=>{if (gate.gates.length === 1) chooseGate(gate.gates[0]); else { setGateNumber(""); setGateGroupId(gate.id); setStationId(""); onNearby?.(null); } if(group)onSelectZone(group.id);}} data-outside-gate={gate.id} data-outside-zone={group?.id} data-visible-facility-types={group?.kinds.length}>
-            <strong><span className={styles.gateNumbers}>{numbers.map(number=><span key={number}>{number}</span>)}</span><span className={styles.gateMeta}><small>G</small>{group&&group.kinds.map(kind=>{const Icon=DOME_FACILITY_SIGNS[kind];return <Icon key={kind} size={18} data-facility-kind={kind} aria-hidden="true"/>;})}</span></strong>
+            <strong><span className={styles.gateNumbers}>{numbers.map(number=><span key={number}>{number}</span>)}</span><span className={styles.gateMeta}><small>G</small>{group&&group.kinds.map(kind=>{const Icon=DOME_FACILITY_SIGNS[kind];return <Icon key={kind} size={compactPins ? 14 : 18} data-facility-kind={kind} aria-hidden="true"/>;})}</span></strong>
           </button>;
         }
         const group=layout.groups.find(item=>item.id===marker.id)!;
-        return <button key={marker.id} type="button" style={position} className={styles.facilities} data-outside-zone={group.id} data-visible-facility-types={group.kinds.length} aria-label={`${group.label}：${group.kinds.map(kind=>kindNames[kind]).join("・")}`} aria-pressed={selectedGroup?.id===group.id} onClick={()=>{clearPlace();onSelectZone(group.id);}}><span className={styles.icons}>{group.kinds.map(kind=>{const Icon=DOME_FACILITY_SIGNS[kind];return <span key={kind} data-facility-kind={kind} title={kindNames[kind]}><Icon size={22} aria-hidden="true"/>{kind==="atm"&&<small>ATM</small>}</span>;})}</span><span className={styles.caption}>{group.short}</span></button>;
+        return <button key={marker.id} type="button" style={position} className={styles.facilities} data-outside-zone={group.id} data-visible-facility-types={group.kinds.length} data-spot-ids={group.members.map(item=>item.id).join(" ")} data-pin-density={compactPins ? "compact" : undefined} aria-label={`${group.label}：${group.kinds.map(kind=>kindNames[kind]).join("・")}`} aria-pressed={selectedGroup?.id===group.id} onClick={event=>{clearPlace();onSelectZone(group.id,event.currentTarget);}}>
+          <span className={styles.icons} style={compactPins ? { gridTemplateColumns: `repeat(${Math.min(3, group.kinds.length)},18px)` } : undefined}>
+            {group.kinds.map(kind=>{const Icon=DOME_FACILITY_SIGNS[kind];return <span key={kind} data-facility-kind={kind} title={kindNames[kind]}><Icon size={compactPins ? 17 : 22} aria-hidden="true"/>{kind==="atm"&&<small>ATM</small>}</span>;})}
+          </span>
+          {!compactPins && <span className={styles.caption}>{group.short}</span>}
+        </button>;
       })}
       {pendingGateGroup && pendingGateMarker && <div className={styles.gateChoices} style={{left:Math.max(144,Math.min(size.width-144,pendingGateMarker.left)),top:Math.max(8,Math.min(size.height-104,pendingGateMarker.top+pendingGateMarker.height/2+8))}} role="group" aria-label="個別ゲートを選ぶ"><strong>ゲートを選ぶ</strong><div>{pendingGateGroup.gates.map(number => <button key={number} type="button" onClick={() => chooseGate(number)}>{number}ゲート</button>)}</div></div>}
     </div>

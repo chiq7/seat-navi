@@ -1,10 +1,11 @@
 import current from "./current-facilities.json";
+import { venuePageDisplayNames } from "@/lib/venuePageDisplayNames";
 import seats from "./stand-seats.json";
 import type { DedicatedVenueGuide, GuideDiagram, GuideFacility, GuideSource } from "../types";
 import type { GaishiMode } from "./config";
 
 export function makeGaishiGuide(mode: GaishiMode): DedicatedVenueGuide { return {
-  venueId: "gaishi-hall", name: "クロコくんホール（旧日本ガイシホール）", seatTypes: ["スタンド", ...(mode === "bleacher" ? ["ブリージャー席"] : [])],
+  venueId: "gaishi-hall", name: venuePageDisplayNames["gaishi-hall"], seatTypes: ["スタンド", ...(mode === "bleacher" ? ["ブリージャー席"] : [])],
   seatNote: "公式のA〜P・S区画を列・番号で探せます。E区画の列名は公式図に未掲載です。アリーナは公演ごとの配置です。",
   diagramNote: "館内・共用各階の設備と、金山・名古屋の荷物を区域から探せます。公演当日の開放区域は公演案内をご確認ください。",
   seats: seats[mode].blocks.map(b => ({ id: b.id, label: b.label, type: b.level === "bleacher" ? "ブリージャー席" : "スタンド", floor: b.level === "bleacher" ? "ブリージャー席" : "スタンド", x: b.center[0], y: b.center[1], rows: b.rows.filter(r => r.label).map(r => ({ label: r.label })), sourceIds: b.sourceIds })),

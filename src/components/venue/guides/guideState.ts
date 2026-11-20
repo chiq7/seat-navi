@@ -81,7 +81,8 @@ export type FinderAction =
   | { type: "query"; query: string }
   | { type: "select"; id: string | null }
   | { type: "toggle-facility"; id: string }
-  | { type: "group"; ids: string[] }
+  | { type: "group"; ids: string[]; open?: boolean }
+  | { type: "clear-group" }
   | { type: "origin"; origin: GuideOrigin | null }
   | { type: "gate"; gate: GuideGate | null }
   | { type: "reset" };
@@ -100,9 +101,10 @@ export function finderReducer(state: FinderState, action: FinderAction): FinderS
     case "select": return { ...state, selectedId: action.id, groupIds: null };
     // Only equipment signs toggle. Cards locate explicitly; gates/origins stay selected.
     case "toggle-facility": return { ...state, selectedId: state.selectedId === action.id ? null : action.id, groupIds: null };
-    case "group": return { ...state, selectedId: null, groupIds: state.groupIds
+    case "group": return { ...state, selectedId: null, groupIds: !action.open && state.groupIds
       && new Set(state.groupIds).size === new Set(action.ids).size
       && action.ids.every(id => state.groupIds!.includes(id)) ? null : action.ids };
+    case "clear-group": return { ...state, selectedId: null, groupIds: null };
     case "origin": return { ...state, origin: action.origin };
     case "gate": return { ...state, outsideGate: action.gate, groupIds: null,
       selectedId: action.gate?.landmarkId ?? (state.selectedId === state.outsideGate?.landmarkId ? null : state.selectedId) };

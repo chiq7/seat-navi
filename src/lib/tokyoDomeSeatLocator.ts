@@ -80,12 +80,9 @@ export function getTokyoDomeNumberReference(code: string, selectedRow: number | 
 /** Match only individually reviewed rows, including split intervals and gaps. */
 export function findTokyoDomeVerifiedSeats(row: number, seat: number, level: TokyoDomeSeatLevel = "all", direction: TokyoDomeSeatDirection = "all") {
   if (!Number.isSafeInteger(row) || !Number.isSafeInteger(seat) || row < 1 || seat < 1) return [];
-  if (["right", "left", "outfield"].includes(direction)) return [];
   return SEARCHABLE_BLOCKS.filter(block => {
     if (level !== "all" && level !== block.level) return false;
-    // The home-side camera includes these central blocks. The centre block is
-    // shared by the two side views; it must not be silently assigned to one side.
-    if (direction !== "all" && direction !== "home" && block.area !== direction && block.area !== "home") return false;
+    if (direction !== "all" && block.area !== direction) return false;
     const verifiedRow = block.rows.find(candidate => candidate.row === row);
     return verifiedRow?.intervals.some(([start, end]) => seat >= start && seat <= end) ?? false;
   });

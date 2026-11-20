@@ -6,16 +6,14 @@ import { VerificationNotice } from "@/components/analytics/VerificationNotice";
 import { gaBootstrapScript } from "@/lib/analyticsTraffic";
 import Footer from "@/components/common/Footer";
 import { buildSiteStructuredData, serializeJsonLd } from "@/lib/structuredData";
+import { HOME_DESCRIPTION as SITE_DESCRIPTION, HOME_TITLE as SITE_TITLE, SITE_NAME } from "@/lib/metadata";
 import "./globals.css";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 const BING_VERIFICATION = process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION;
 
-const SITE_TITLE = "ちけレポ｜ライブの座席表・当落・現地レポ";
-const SITE_DESCRIPTION =
-  "ライブ・コンサートの座席表、座席報告、アリーナ予想図、チケット当落、現地レポ、セットリストを共有。会場別の座席検索やアクセス・ロッカー情報と、ファンの投稿から席の見え方を確認できます。";
-
 export const metadata: Metadata = {
+  applicationName: SITE_NAME,
   metadataBase: new URL("https://tixrepo.com"),
   title: SITE_TITLE,
   description: SITE_DESCRIPTION,
@@ -41,7 +39,7 @@ export const metadata: Metadata = {
     description: SITE_DESCRIPTION,
     type: "website",
     url: "https://tixrepo.com",
-    siteName: "ちけレポ",
+    siteName: SITE_NAME,
     locale: "ja_JP",
     images: ["/opengraph-image"],
   },
@@ -71,12 +69,12 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
-      </head>
-      <body className="min-h-screen bg-background text-foreground antialiased">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: serializeJsonLd(buildSiteStructuredData()) }}
         />
+      </head>
+      <body className="min-h-screen bg-background text-foreground antialiased">
         <VerificationNotice />
         <div className="min-h-screen">
           {children}

@@ -4,6 +4,7 @@ type PageLoadingShellProps = {
   title: string;
   eyebrow: string;
   heading: string;
+  headingTag?: "h1" | "p";
   backHref?: string;
   backLabel?: string;
   blocks?: number;
@@ -14,6 +15,7 @@ export function PageLoadingShell({
   title,
   eyebrow,
   heading,
+  headingTag: Heading = "h1",
   backHref = "/",
   backLabel = "TOPへ戻る",
   blocks = 2,
@@ -21,10 +23,11 @@ export function PageLoadingShell({
   return (
     <main className="community-page pb-20">
       <section className="community-hero">
-        <Header title={title} backHref={backHref} backLabel={backLabel} />
+        <Header title={title} backHref={backHref} backLabel={backLabel}
+          breadcrumbParents={backHref === "/report" ? [{ href: "/report", label: "レポートを投稿" }] : undefined} />
         <div className="zr-container pb-6 pt-4 sm:pb-9 sm:pt-7">
           <p className="community-eyebrow">{eyebrow}</p>
-          <h1 className="mt-2 text-[28px] font-black tracking-[-0.05em] text-[#4b4148] sm:text-[36px]">{heading}</h1>
+          <Heading className="mt-2 text-[28px] font-black tracking-[-0.05em] text-[#4b4148] sm:text-[36px]">{heading}</Heading>
         </div>
       </section>
       <div className="zr-container space-y-4 py-7" aria-busy="true" aria-label={`${title}を読み込み中`}>

@@ -7,8 +7,8 @@ type Props = {
 
 export default function ArtistBoardPreview({ artistSlug, artistName }: Props) {
   return (
-    <section className="artist-section" id="fan-board">
-      <p className="artist-kicker">Fan board</p>
+    <section className="artist-section scroll-mt-20" id="fan-board">
+      
       <h2 className="artist-heading">ファン掲示板</h2>
       <div id="fan-board-form">
         <ArtistFanBoard artistSlug={artistSlug} artistName={artistName} />

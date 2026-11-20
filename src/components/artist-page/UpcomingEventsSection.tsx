@@ -17,7 +17,7 @@ export default function UpcomingEventsSection({ artistName, events }: Props) {
 
   return (
     <section className="artist-section" id="upcoming-events">
-      <p className="artist-kicker">Upcoming Live</p>
+      
       <h2 className="artist-heading">開催予定の公演</h2>
       {events.length === 0 ? (
         <EmptyState

@@ -1,5 +1,6 @@
 import type { CrawledEvent } from "@/lib/types";
-import type { AnalyticsReport, TicketResultAnalytics, AfterReportCard } from "@/lib/artistPageTypes";
+import type { AnalyticsReport, PublicTicketStat, AfterReportCard } from "@/lib/artistPageTypes";
+import { hasReportedSeatArea, hasReportedStandardSeat } from "./ticketAnalyticsEligibility";
 
 export type PastTour = {
   title: string;
@@ -27,9 +28,9 @@ export function computeSeatStats(
   return { normalArenaRate: pct(nonUpgradeArena, nonUpgradeCount) };
 }
 
-export function computeTicketResultStats(rows: TicketResultAnalytics[]) {
+export function computeTicketResultStats(rows: PublicTicketStat[]) {
   const pct = (won: number, total: number) => (total > 0 ? Math.round((won / total) * 1000) / 10 : null);
-  const buildRate = (subset: TicketResultAnalytics[]) => {
+  const buildRate = (subset: PublicTicketStat[]) => {
     let won = 0;
     let lost = 0;
     for (const row of subset) {
@@ -38,17 +39,18 @@ export function computeTicketResultStats(rows: TicketResultAnalytics[]) {
     }
     return { won, lost, total: won + lost, rate: pct(won, won + lost) };
   };
-  const groupRate = (predicate: (row: TicketResultAnalytics) => boolean) =>
+  const groupRate = (predicate: (row: PublicTicketStat) => boolean) =>
     buildRate(rows.filter(predicate)).rate;
+  const groupCounts = (predicate: (row: PublicTicketStat) => boolean) => buildRate(rows.filter(predicate));
   const result = buildRate(rows);
-  const sample = (predicate: (row: TicketResultAnalytics) => boolean) => buildRate(rows.filter(predicate)).total;
+  const sample = (predicate: (row: PublicTicketStat) => boolean) => buildRate(rows.filter(predicate)).total;
 
-  const wonWithSeatType = rows.filter((r) => r.result === "won" && r.seat_type != null && r.seat_type !== "unknown");
+  const wonWithSeatType = rows.filter(hasReportedSeatArea);
   const arenaRate = pct(
     wonWithSeatType.filter((r) => r.seat_type === "arena").length,
     wonWithSeatType.length,
   );
-  const wonNonUpgrade = wonWithSeatType.filter((r) => r.upgrade_result !== "applied_won");
+  const wonNonUpgrade = wonWithSeatType.filter(hasReportedStandardSeat);
   const normalArenaRate = pct(
     wonNonUpgrade.filter((r) => r.seat_type === "arena").length,
     wonNonUpgrade.length,
@@ -63,6 +65,12 @@ export function computeTicketResultStats(rows: TicketResultAnalytics[]) {
 
   return {
     ...result,
+    counts: {
+      fc: ["1年未満", "1〜3年", "3年以上"].map(value => groupCounts(r => r.fc_history === value)),
+      ticketCount: [1, 2, 3, 4].map(value => groupCounts(r => r.ticket_count === value)),
+      lottery: ["1次抽選", "2次抽選", "その他"].map(value => groupCounts(r => r.lottery_type === value)),
+      payment: ["クレカ", "その他"].map(value => groupCounts(r => r.payment_method === value)),
+    },
     samples: {
       fc: [sample(r => r.fc_history === "1年未満"), sample(r => r.fc_history === "1〜3年"), sample(r => r.fc_history === "3年以上")],
       ticketCount: [1, 2, 3, 4].map(count => sample(r => r.ticket_count === count)),
@@ -94,19 +102,21 @@ export function computeTicketResultStats(rows: TicketResultAnalytics[]) {
     upgradeRate,
     // 各率の算出母数（信頼性の低い少数サンプルでの数値表示を避ける用途などに使う）
     normalArenaCount: wonNonUpgrade.length,
+    normalArenaWon: wonNonUpgrade.filter(r => r.seat_type === "arena").length,
     upgradeCount: upgradeApplied.length,
+    upgradeWon: upgradeApplied.filter(r => r.upgrade_result === "applied_won").length,
   };
 }
 
-export function computeArenaDetailStats(rows: TicketResultAnalytics[]) {
+export function computeArenaDetailStats(rows: PublicTicketStat[]) {
   const pct = (arena: number, total: number) =>
     total > 0 ? Math.round((arena / total) * 1000) / 10 : null;
-  const groupRate = (predicate: (row: TicketResultAnalytics) => boolean) => {
-    const subset = rows.filter(
-      (r) => r.result === "won" && r.seat_type != null && r.seat_type !== "unknown" && r.upgrade_result !== "applied_won" && predicate(r),
-    );
+  const standardSeats = rows.filter(hasReportedStandardSeat);
+  const groupRate = (predicate: (row: PublicTicketStat) => boolean) => {
+    const subset = standardSeats.filter(predicate);
     return {
       rate: pct(subset.filter((r) => r.seat_type === "arena").length, subset.length),
+      won: subset.filter((r) => r.seat_type === "arena").length,
       total: subset.length,
     };
   };
@@ -135,10 +145,10 @@ export function computeArenaDetailStats(rows: TicketResultAnalytics[]) {
   };
 }
 
-export function computeUpgradeDetailStats(rows: TicketResultAnalytics[]) {
+export function computeUpgradeDetailStats(rows: PublicTicketStat[]) {
   const pct = (won: number, total: number) =>
     total > 0 ? Math.round((won / total) * 1000) / 10 : null;
-  const groupRate = (predicate: (row: TicketResultAnalytics) => boolean) => {
+  const groupRate = (predicate: (row: PublicTicketStat) => boolean) => {
     const subset = rows.filter(
       (r) =>
         (r.upgrade_result === "applied_won" || r.upgrade_result === "applied_lost") &&
@@ -146,6 +156,7 @@ export function computeUpgradeDetailStats(rows: TicketResultAnalytics[]) {
     );
     return {
       rate: pct(subset.filter((r) => r.upgrade_result === "applied_won").length, subset.length),
+      won: subset.filter((r) => r.upgrade_result === "applied_won").length,
       total: subset.length,
     };
   };

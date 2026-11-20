@@ -5,12 +5,14 @@ type SeoEditorialSectionProps = {
   title: string;
   profile: EditorialSeoProfile;
   className?: string;
+  reviewDateLabel?: string;
 };
 
 export default function SeoEditorialSection({
   title,
   profile,
   className = "",
+  reviewDateLabel = "情報確認日",
 }: SeoEditorialSectionProps) {
   return (
     <section className={className}>
@@ -44,7 +46,7 @@ export default function SeoEditorialSection({
         </div>
 
         <div className="border-t border-[#eadfe4] bg-[#f8f1f5] px-5 py-5 text-[#51454c] sm:px-7">
-          <p className="text-[9px] font-black tracking-[0.12em] text-[#91838c]">情報確認日：{profile.updatedAt}</p>
+          <p className="text-[9px] font-black tracking-[0.12em] text-[#91838c]">{reviewDateLabel}：{profile.updatedAt}</p>
           <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2">
             {profile.sources.map((source) => (
               <a

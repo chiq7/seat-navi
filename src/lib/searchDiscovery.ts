@@ -1,10 +1,14 @@
 import { SEARCH_VENUE_CATALOG, type SearchVenueCatalogEntry } from "@/data/searchVenueCatalog";
+import searchVenueDestinations from "@/data/searchVenueDestinations.json";
 import { findArtistBySlug, resolveArtist } from "@/lib/artists";
 import { isArtistOnlyEventTitle, parseEventTitle } from "@/lib/eventTitle";
 import { normalizeForSearch } from "@/lib/keywordMatch";
 import { getPublicVenueSeatGuideHref } from "@/lib/publicVenueGuides";
 import { eventMatchesSearchVenue } from "@/lib/searchVenueMatch";
 import type { CrawledEvent } from "@/lib/types";
+import { getRomajiSearchNames } from "@/lib/artistRomajiSearch";
+import { performanceTicketTimings } from "@/data/performanceTicketTimings";
+import { BABY_FACILITY_SEARCH, isBabyFacilitySearch } from "@/lib/venueFacilitySearch";
 
 export type SearchRegion = {
   id: string;
@@ -54,7 +58,7 @@ const CITY_REGIONS: SearchRegion[] = [
 ];
 
 /** A city never inherits all venues in its prefecture or a combined directory region. */
-export const SEARCH_REGIONS: readonly SearchRegion[] = [
+const BASE_SEARCH_REGIONS: readonly SearchRegion[] = [
   ...PREFECTURE_NAMES.map(([name, reading]) => ({
     id: `pref-${prefectureKey(name)}`, label: prefectureKey(name), prefectures: [name],
     aliases: [...new Set([name, prefectureKey(name), reading, name === "北海道" ? reading : `${reading}${name.endsWith("都") ? "と" : name.endsWith("府") ? "ふ" : "けん"}`])],
@@ -63,20 +67,53 @@ export const SEARCH_REGIONS: readonly SearchRegion[] = [
   ...CITY_REGIONS,
 ];
 
-export const SEARCH_CONTENT_INTENTS = [
+export const SEARCH_REGIONS: readonly SearchRegion[] = BASE_SEARCH_REGIONS.map(region => ({
+  ...region, aliases: [...new Set([...region.aliases, ...getRomajiSearchNames(region.aliases)])],
+}));
+
+const BASE_SEARCH_CONTENT_INTENTS = [
   { id: "seat", label: "席・座席表", terms: ["席", "座席", "座席表", "座席番号", "席番号", "座席番号の見方", "座席番号見方", "見方", "席の場所", "シートマップ", "せき", "ざせき", "ざせきひょう", "席種", "アリーナ", "アリーナ席", "スタンド", "スタンド席"] },
-  { id: "view", label: "席からの見え方・写真", terms: ["見え方", "席からの見え方", "座席の見え方", "席からの写真", "座席写真", "みえかた"] },
+  { id: "view", label: "席からの見え方・写真", terms: ["見え方", "席からの見え方", "座席からの見え方", "座席の見え方", "席からの写真", "座席からの写真", "座席写真", "みえかた"] },
   { id: "setlist", label: "セットリスト", terms: ["セトリ", "セットリスト", "曲順", "setlist"] },
   { id: "reports", label: "現地レポ", terms: ["現地レポ", "現地レポート", "ライブレポ", "ライブレポート", "レポ", "感想", "げんちれぽ"] },
   { id: "ticket", label: "当落・当選率", terms: ["当落", "当落結果", "当選率", "当選確率", "抽選結果", "当選", "落選", "倍率", "とうらく", "とうせんりつ"] },
+  { id: "ticket-timing", label: "発券・座席発表", terms: ["発券日", "発券開始", "発券いつ", "発券", "チケット受取", "チケット引取", "座席発表", "座席番号発表", "座席表示", "座席番号表示", "座席いつ", "座席番号いつ", "チケット表示"] },
   { id: "prediction", label: "アリーナ予想", terms: ["アリーナ予想", "アリーナ予想図", "アリーナ座席予想", "座席予想", "座席予想図", "アリーナ配置"] },
   { id: "access", label: "アクセス", terms: ["アクセス", "行き方", "最寄り駅", "最寄り", "道順", "いきかた", "もよりえき"] },
   { id: "facilities", label: "会場の設備", terms: ["設備", "トイレ", "お手洗い", "売店", "飲食", "グルメ", "せつび"] },
   { id: "luggage", label: "ロッカー・荷物", terms: ["ロッカー", "コインロッカー", "荷物", "荷物預かり", "荷物預け", "クローク", "にもつ"] },
+  { id: "baby", label: "赤ちゃん向け設備", terms: ["赤ちゃん", "ベビー設備"] },
+  { id: "nursing", ...BABY_FACILITY_SEARCH.nursing },
+  { id: "baby-room", ...BABY_FACILITY_SEARCH["baby-room"] },
+  { id: "diaper", ...BABY_FACILITY_SEARCH.diaper },
   { id: "schedule", label: "公演日程", terms: ["公演日程", "公演予定", "開催予定", "公演日", "日程", "スケジュール", "ライブ情報", "にってい"] },
   { id: "news", label: "公式ニュース", terms: ["公式ニュース", "公式NEWS", "ニュース", "news", "公式情報"] },
   { id: "capacity", label: "キャパ・収容人数", terms: ["キャパ", "キャパシティ", "収容人数", "収容数"] },
 ] as const;
+type ContentIntentId = typeof BASE_SEARCH_CONTENT_INTENTS[number]["id"];
+const INTENT_READINGS: Record<ContentIntentId, readonly string[]> = {
+  seat: ["ざせき", "ざせきひょう", "ざせきばんごう", "せきばんごう", "しーとまっぷ"],
+  view: ["みえかた", "しゃしん", "ざせきしゃしん", "せきからのみえかた"],
+  setlist: ["せとり", "せっとりすと", "きょくじゅん"],
+  reports: ["げんちれぽ", "げんちれぽーと", "らいぶれぽ", "かんそう"],
+  ticket: ["とうらく", "とうらくけっか", "とうせんりつ", "とうせんかくりつ", "ばいりつ"],
+  "ticket-timing": ["はっけん", "はっけんび", "はっけんかいし", "ざせきはっぴょう", "ざせきひょうじ"],
+  prediction: ["ありーなよそう", "ありーなよそうず", "ざせきよそう", "ありーなはいち"],
+  access: ["あくせす", "いきかた", "もよりえき", "みちじゅん"],
+  facilities: ["せつび", "といれ", "おてあらい", "ばいてん", "ぐるめ"],
+  luggage: ["ろっかー", "こいんろっかー", "にもつ", "にもつあずかり", "くろーく"],
+  baby: ["あかちゃん", "べびーせつび"],
+  nursing: ["じゅにゅうしつ", "じゅにゅう", "じゅにゅうすぺーす", "じゅにゅうぶーす"],
+  "baby-room": ["べびーるーむ", "べびーけあるーむ", "あかちゃんきゅうけいしつ"],
+  diaper: ["おむつがえ", "おむつこうかん", "おむつこうかんだい", "おむつがえだい"],
+  schedule: ["こうえんにってい", "こうえんよてい", "かいさいよてい", "こうえんび", "にってい", "すけじゅーる"],
+  news: ["こうしきにゅーす", "にゅーす", "こうしきじょうほう"],
+  capacity: ["きゃぱ", "きゃぱしてぃ", "しゅうようにんずう", "しゅうようすう"],
+};
+export const SEARCH_CONTENT_INTENTS = BASE_SEARCH_CONTENT_INTENTS.map(intent => {
+  const terms = [...intent.terms, ...INTENT_READINGS[intent.id]];
+  return { ...intent, terms: [...new Set([...terms, ...getRomajiSearchNames(terms)])] };
+});
 export type SearchContentIntent = typeof SEARCH_CONTENT_INTENTS[number]["id"];
 export const SEARCH_DISCOVERY_INTENT_TERMS: readonly string[] = SEARCH_CONTENT_INTENTS.flatMap(intent => [...intent.terms]);
 
@@ -192,14 +229,34 @@ export function getSearchDiscoveryResults(query: string, context: SearchDiscover
   });
 
   for (const intent of intentIds) {
-    const venueFunction = ["access", "facilities", "luggage", "capacity"].includes(intent);
+    if (intent === "ticket-timing") {
+      if (!hasVenueScope && !hasDateScope && !context.artistSlugs.length && !unknown) continue;
+      for (const timing of performanceTicketTimings) {
+        const venue = venues.find(candidate => candidate.guideId === timing.venueId);
+        if (!venue || (hasDateScope && !context.dates?.includes(timing.eventDate))) continue;
+        if (context.artistSlugs.length && !context.artistSlugs.some(slug => slug === timing.artistSlug
+          || events.some(event => event.id === timing.eventId && resolveArtist(event)?.slug === slug))) continue;
+        const subject = [timing.title, ...timing.aliases].map(normalizeForSearch);
+        if (!parsed.remainder.every(word => subject.some(name => name.includes(word)))) continue;
+        const day = timing.eventDate.slice(5).replace("-", "/");
+        add({
+          kind: "event", href: `/events/${timing.eventId}#performance-ticket-timing`,
+          title: `${timing.title} ${day}｜チケット受取・座席表示`,
+          description: `${venue.name}・${timing.scope}`,
+        });
+      }
+      continue;
+    }
+    const babyFacility = isBabyFacilitySearch(intent);
+    const venueFunction = babyFacility || ["access", "facilities", "luggage", "baby", "capacity"].includes(intent);
     const useEventVenues = events.length > 0 && (unknown || hasDateScope || (context.artistSlugs.length > 0 && venueFunction));
-    if (["seat", "access", "facilities", "luggage", "capacity", "schedule"].includes(intent) && (hasVenueScope || useEventVenues) && (!unknown || events.length > 0)) {
+    if ((venueFunction || intent === "seat" || intent === "schedule" || intent === "view") && (hasVenueScope || useEventVenues) && (!unknown || events.length > 0)) {
       for (const venue of venues) {
         if ((context.artistSlugs.length || unknown || hasDateScope) && !events.some(event => eventBelongsToVenue(event, venue))) continue;
         const guideId = venue.guideId;
         const seatHref = getPublicVenueSeatGuideHref(guideId);
         if (!guideId || !seatHref) {
+          if (intent === "view" || intent === "baby" || babyFacility) continue;
           const rows = events.filter(event => eventBelongsToVenue(event, venue));
           const description = venueFunction
             ? "この会場の専用ガイドは未掲載です。公演の公式案内から必要な情報を確認してください。"
@@ -211,7 +268,12 @@ export function getSearchDiscoveryResults(query: string, context: SearchDiscover
         }
         if (intent === "seat") add({ kind: "venue", href: seatHref, title: `${venue.name}の座席表`, description: "会場の座席案内を確認。公演ごとの仮設配置は、当日の公式案内と照合してください。" });
         if (intent === "access") add({ kind: "venue", href: `/venues/${guideId}#${guideId === "tokyo-dome" ? "dome-access" : "venue-access"}`, title: `${venue.name}へのアクセス`, description: "最寄り駅と会場へ向かう案内を確認できます。" });
-        if (intent === "facilities" || intent === "luggage") add({ kind: "venue", href: `/venues/${guideId}#${guideId === "tokyo-dome" ? "dome-spots" : "venue-facilities"}`, title: `${venue.name}の設備・荷物案内`, description: "会場ガイドに掲載された設備と利用条件を確認できます。空き状況は当日確認してください。" });
+        if (intent === "view" && searchVenueDestinations.photos.includes(guideId)) add({ kind: "venue", href: `/venues/${guideId}#venue-seat-photos`, title: `${venue.name}の座席写真`, description: "地図のカメラ印から、その区画に掲載されている写真を見られます。" });
+        if (intent === "view" && searchVenueDestinations.arenaPhotos.includes(guideId)) add({ kind: "venue", href: `/venues/${guideId}#past-arena-photos`, title: `${venue.name}の過去公演のアリーナ写真`, description: "公演日を選び、当日の配置図から写真を見られます。" });
+        if (intent === "luggage" && searchVenueDestinations.luggage.includes(guideId)) add({ kind: "venue", href: `/venues/${guideId}#venue-luggage`, title: `${venue.name}のロッカー・荷物預かり`, description: "案内がある預け先と利用条件を確認できます。" });
+        if (intent === "baby" && searchVenueDestinations.baby.includes(guideId)) add({ kind: "venue", href: `/venues/${guideId}#venue-baby`, title: `${venue.name}の赤ちゃん向け設備`, description: "会場ガイドに掲載された設備と場所を確認できます。" });
+        if (babyFacility && searchVenueDestinations.babyFacilities[intent].includes(guideId)) add({ kind: "venue", href: `/venues/${guideId}#venue-${intent}`, title: `${venue.name}の${BABY_FACILITY_SEARCH[intent].label}`, description: "掲載されている場所と利用条件を確認できます。" });
+        if (intent === "facilities" || (intent === "luggage" && !searchVenueDestinations.luggage.includes(guideId))) add({ kind: "venue", href: `/venues/${guideId}#${guideId === "tokyo-dome" ? "dome-spots" : "venue-facilities"}`, title: `${venue.name}の設備案内`, description: "会場ガイドに掲載された設備と利用条件を確認できます。" });
         if (intent === "capacity") add({ kind: "venue", href: `/venues/${guideId}`, title: `${venue.name}の会場ガイド`, description: "会場の規模や座席区画を確認。公演ごとの使用席数とは異なります。" });
         if (intent === "schedule") add({ kind: "venue", href: `/venues/${guideId}#upcoming-events-title`, title: `${venue.name}の公演予定`, description: "登録されている開催予定の公演を確認できます。" });
       }
@@ -238,7 +300,7 @@ export function getSearchDiscoveryResults(query: string, context: SearchDiscover
     if (intent === "prediction" && scopedEvents) events.forEach(event => addEvent(event, "座席・アリーナ予想の投稿状況", "ファンの予想図は公式配置とは異なります。未投稿の場合はその状態が表示されます。"));
 
     if (!context.artistSlugs.length && !hasVenueScope && !unknown && !hasDateScope) {
-      if (["seat", "access", "facilities", "luggage", "capacity"].includes(intent)) add({ kind: "guide", href: "/venues", title: `会場の${SEARCH_CONTENT_INTENTS.find(item => item.id === intent)?.label}を探す`, description: "会場を選んで、公開されているガイドを確認できます。" });
+      if (babyFacility || ["seat", "access", "facilities", "luggage", "baby", "capacity"].includes(intent)) add({ kind: "guide", href: "/venues", title: `会場の${SEARCH_CONTENT_INTENTS.find(item => item.id === intent)?.label}を探す`, description: "会場を選んで、公開されているガイドを確認できます。" });
       else if (intent === "schedule") add({ kind: "guide", href: "/", title: "開催予定の公演・アーティストを探す", description: "公演やアーティストを選んで日程を確認できます。" });
       else if (intent === "news") add({ kind: "guide", href: "/about", title: "アーティストの公式ニュースの探し方", description: "公演・アーティストの情報をつなぐ仕組みと、出典の確認方法を紹介します。" });
       else add({ kind: "guide", href: "/news/how-to-use-tixrepo", title: `${SEARCH_CONTENT_INTENTS.find(item => item.id === intent)?.label}の探し方`, description: "アーティストと公演を選び、当落・座席・レポ・セトリを確認する手順です。" });

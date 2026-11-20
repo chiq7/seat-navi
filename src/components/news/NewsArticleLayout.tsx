@@ -5,15 +5,18 @@ import { Header } from "@/components/common/Header";
 type Props = {
   kicker: string;
   title: ReactNode;
+  breadcrumbLabel?: string;
   lead: string;
   children: ReactNode;
 };
 
-export function NewsArticleLayout({ kicker, title, lead, children }: Props) {
+export function NewsArticleLayout({ kicker, title, breadcrumbLabel, lead, children }: Props) {
   return (
     <main className="community-page pb-16">
       <section className="community-hero">
-        <Header title="お知らせ" backHref="/news" backLabel="お知らせ一覧へ戻る" />
+        <Header title="お知らせ" backHref="/news" backLabel="お知らせ一覧へ戻る"
+          breadcrumbLabel={breadcrumbLabel ?? (typeof title === "string" ? title : undefined)}
+          breadcrumbParents={[{ href: "/news", label: "お知らせ" }]} existingBreadcrumbSchema={kicker === "TIXREPO EVENT"} />
         <div className="zr-container pb-11 pt-5 sm:pb-16 sm:pt-9">
           <Newspaper size={28} strokeWidth={1.6} className="text-[#ff5b96]" aria-hidden="true" />
           <p className="mt-6 text-[10px] font-black tracking-[0.22em] text-[#ff5b96]">{kicker}</p>

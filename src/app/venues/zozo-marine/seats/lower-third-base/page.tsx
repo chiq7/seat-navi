@@ -10,7 +10,8 @@ export const metadata = buildMeta({ path: ZOZO_LOWER_THIRD_PAGE, title: `${title
 
 export default function LowerThirdBasePage() {
   return <main className="community-page pb-16">
-    <Header title="ZOZOマリンスタジアム" backHref="/venues/zozo-marine#venue-seat-guide" backLabel="会場の座席表へ戻る" />
+    <Header title="ZOZOマリンスタジアム" backHref="/venues/zozo-marine#venue-seat-guide" backLabel="会場の座席表へ戻る"
+      breadcrumbLabel="下段3塁側の座席表" breadcrumbParents={[{ href: "/venues", label: "ライブ会場一覧" }, { href: "/venues/zozo-marine", label: "ZOZOマリンスタジアム" }]} />
     <div className="zr-container py-6">
       <h1 className="artist-heading">{title}</h1>
       <p className="mb-4 mt-3 text-sm leading-7">下段3塁側は、内野の3塁側にある常設スタンドの下段です。図では下段3塁側を拡大して表示しています。区画をタップすると、確認済みの列・番号の情報を見られます。</p>

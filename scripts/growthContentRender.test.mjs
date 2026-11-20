@@ -36,6 +36,18 @@ registerHooks({
 });
 
 const render = (Component, props) => renderToStaticMarkup(React.createElement(Component, props));
+function loadPage(relativePath, dependencies) {
+  const source = ts.transpileModule(readFileSync(path.join(root, relativePath), "utf8"), {
+    compilerOptions: { module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX, target: ts.ScriptTarget.ES2022 },
+  }).outputText;
+  const local = { exports: {} };
+  new Function("require", "module", "exports", source)(id => {
+    assert.ok(Object.hasOwn(dependencies, id), id);
+    return dependencies[id];
+  }, local, local.exports);
+  return local.exports.default;
+}
+
 const event = { id: "recorded", date: "2026-10-01", title: "Number_i LIVE TOUR", venue: "東京ドーム", artist_slug: "number-i" };
 test("read failures provide a retry and never assert empty content or expose error details", async () => {
   const { default: ErrorView } = await import("../src/app/artists/[slug]/error.tsx");
@@ -59,9 +71,21 @@ test("saved song is present without a browser query or an empty initial editor",
   const { SetlistClient } = await import("../src/app/artists/[slug]/setlist/SetlistClient.tsx");
   const value = { slug: "number-i" };
   const params = Object.assign(Promise.resolve(value), { status: "fulfilled", value });
-  const html = render(SetlistClient, { params, initialEvents: [event], initialSetlist: { eventId: event.id, items: [{ id: "song", type: "song", title: "保存済み検証曲" }] } });
+  const html = render(SetlistClient, { params, initialEvents: [event], hasPublishedSetlists: true, archivePreview: [], initialSetlist: { eventId: event.id, items: [{ id: "song", type: "song", title: "保存済み検証曲" }] } });
   assert.match(html, /保存済み検証曲/);
+  assert.match(html, /<details\b[^>]*data-setlist-editor[^>]*>[\s\S]*?<summary\b[^>]*>[\s\S]*?曲・MC・演出を追加[\s\S]*?<input id="setlist-song-title"/);
   assert.doesNotMatch(html, /この公演のセトリはまだ空です|投稿セットリストを読み込み中です/);
+});
+test("the five archived NCT DREAM shows expose their songs in initial HTML", async () => {
+  const { SetlistArchive } = await import("../src/components/setlist/SetlistArchive.tsx");
+  const source = JSON.parse(readFileSync(path.join(root, "public/_tixrepo/setlist-archive/nct-dream.json"), "utf8"));
+  const preview = JSON.parse(readFileSync(path.join(root, "src/lib/artistSetlistArchivePreviews.json"), "utf8"))["nct-dream"];
+  const html = render(SetlistArchive, { slug: "nct-dream", count: source.length, initialEvents: preview });
+  assert.equal(source.length, 5);
+  for (const show of source) {
+    assert.ok(html.includes(`data-archive-event="${show.key}"`));
+    assert.ok(html.includes(show.songs[0]));
+  }
 });
 test("every upcoming event has an ordinary link even in the closed disclosure", async () => {
   const { default: Upcoming } = await import("../src/components/artist-page/UpcomingEventsSection.tsx");
@@ -70,6 +94,18 @@ test("every upcoming event has an ordinary link even in the closed disclosure", 
   for (const row of events) assert.ok(html.includes(`href="/events/${row.id}"`));
   assert.match(html, /<details>/); assert.match(html, /<summary/);
 });
+test("the SSR venue chooser lists both sessions and accepts input only once its handlers are ready", async () => {
+  const { ReportEntryClient } = await import("../src/app/report/ReportEntryClient.tsx");
+  const early = { ...event, id: "early", title: "Number_i LIVE（1部・開演13:30）" };
+  const late = { ...event, id: "late", title: "Number_i LIVE（2部・開演18:00）" };
+  const html = render(ReportEntryClient, { initial: {
+    events: [early, late], venueName: event.venue, selectedEventId: null, unavailableEvent: false
+  } });
+  assert.match(html, /<fieldset\b[^>]*disabled[^>]*>[\s\S]*id="report-performance"/);
+  assert.match(html, /<option value="early">/);
+  assert.match(html, /<option value="late">/);
+});
+
 test("a selected performance survives the setlist submission link", async () => {
   const { ReportEventSelector } = await import("../src/components/report/ReportEventSelector.tsx");
   const html = render(ReportEventSelector, { selectedEvent: event, artistName: "Number_i", artistSlug: "number-i" });
@@ -114,7 +150,7 @@ test("performance seat links use exact official venue names and hide unverified 
   const { default: Links } = await import("../src/components/seo/PerformanceSeatLinks.tsx");
   for (const [venue, id] of [["クロコくんホール", "gaishi-hall"], ["KYOCERA DOME OSAKA", "kyocera-dome"]]) {
     const html = render(Links, { event: { ...event, venue_id: "official-feed", venue } });
-    assert.ok(html.includes(`href="/venues/${id}#venue-seat-guide"`));
+    assert.ok(html.includes(`href="/venues/${id}?fromEvent=${event.id}#venue-seat-guide"`));
     assert.match(html, /会場の常設座席表を見る/);
     assert.doesNotMatch(html, /主催者の公演シートマップ/);
   }
@@ -201,9 +237,10 @@ test("an unreported selected performance stays selected and keeps the same submi
     events: [event, { ...event, id: "empty-selected", venue: "札幌ドーム" }], authors: [],
     reports: [{ id: "other-report", event_id: event.id, memo: "他公演へ戻してはいけないレポ", seat_view_photo_paths: [] }],
   } });
-  assert.match(html, /この条件の現地レポはまだありません/);
+  assert.match(html, /この公演の現地レポはまだありません/);
+  assert.match(html, /id="artist-seat-reports"[^>]*>[^<]*札幌ドーム（大和ハウス プレミストドーム）の座席レポ・写真/);
   assert.doesNotMatch(html, /他公演へ戻してはいけないレポ/);
-  assert.match(html, /value="empty-selected" selected=""/);
+  assert.doesNotMatch(html, /<select|id="report-filter-title"|>REPORTS<|>PHOTOS<|>VENUES</);
   assert.ok(html.includes('href="/report/live?event=empty-selected"'));
 });
 
@@ -212,19 +249,13 @@ test("report page accepts only a single event belonging to the artist before ren
   const dependencies = {
     "react/jsx-runtime": jsxRuntime,
     "next/navigation": { notFound() { throw new Error("NOT_FOUND"); } },
+    "@/lib/metadata": {},
     "@/lib/seoData": { getSeoArtist: slug => slug === "number-i" ? { slug } : null },
     "@/lib/serverArtistContent": { getInitialArtistReports: async () => ({ events: [event], reports: [], authors: [] }) },
+    "@/lib/reportPhotoCount": await import("../src/lib/reportPhotoCount.ts"),
     "./AfterReportsClient": { default: () => null },
   };
-  const source = ts.transpileModule(readFileSync(path.join(root, "src/app/artists/[slug]/after-reports/page.tsx"), "utf8"), {
-    compilerOptions: { module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX, target: ts.ScriptTarget.ES2022 },
-  }).outputText;
-  const renderedModule = { exports: {} };
-  new Function("require", "module", "exports", source)(id => {
-    assert.ok(Object.hasOwn(dependencies, id), id);
-    return dependencies[id];
-  }, renderedModule, renderedModule.exports);
-  const Page = renderedModule.exports.default;
+  const Page = loadPage("src/app/artists/[slug]/after-reports/page.tsx", dependencies);
   const params = Promise.resolve({ slug: "number-i" });
   const selected = await Page({ params, searchParams: Promise.resolve({ event: event.id }) });
   assert.equal(selected.props.initialEventId, event.id);
@@ -233,4 +264,78 @@ test("report page accepts only a single event belonging to the artist before ren
   for (const invalid of ["unknown", "foreign-artist-event", "", [event.id], [event.id, "other"]]) {
     await assert.rejects(Page({ params, searchParams: Promise.resolve({ event: invalid }) }), /NOT_FOUND/);
   }
+});
+
+test("event SSR links to the venue and previews photos only with zero to three reports for this performance", async t => {
+  const knownVenue = {
+    id: "tokyo-dome", name: "東京ドーム", href: "/venues/tokyo-dome", count: 13,
+    photos: Array.from({ length: 6 }, (_, index) => ({
+      thumbnailUrl: `/test-photo-${index}.webp`, label: `D${index + 1}区画`, href: `/venues/tokyo-dome?section=D${index + 1}`,
+    })),
+  };
+  const eventRow = { ...event, venue_id: "tokyo-dome" };
+  let venue = knownVenue;
+  let count = null;
+  const reportReads = [];
+  const dependencies = {
+    "react/jsx-runtime": await import("react/jsx-runtime"), react: { cache: fn => fn }, "next/navigation": {},
+    "./EventDetailClient": await import("../src/app/events/[id]/EventDetailClient.tsx"),
+    "./EventVenuePhotos": await import("../src/app/events/[id]/EventVenuePhotos.tsx"),
+    "./EventTourDates": await import("../src/app/events/[id]/EventTourDates.tsx"),
+    "@/components/venue/SeatSourceArchive":{ SeatSourcePreview: () => null },
+    "@/lib/seatSourceArchive":await import("../src/lib/seatSourceArchive.ts"),
+    "@/components/seo/PublicAlternateNames": { default: () => null },
+    "@/lib/publicAlternateNames": { getEventVenueAlternateNames: () => [], getPublicVenueAlternateNames: () => [], getEventVenueForAlternateNames: () => null },
+    "@/components/arena-map/EventArenaPhotoMap": {}, "@/lib/eventArenaPhotos": { getEventArenaPhotoLayout: () => null },
+    "@/lib/serverSeatPhotoVenues": { ...await import("../src/lib/serverSeatPhotoVenues.ts"), getEventVenuePhotoPreview: () => venue },
+    "@/lib/serverPerformanceReportCount": { getPerformanceReportSummary: async (ids, countSeats) => { if (countSeats) reportReads.push(ids); return count === null ? null : { count, reportIds: ["saved-report"] }; } },
+    "@/lib/structuredData": { buildEventStructuredData: () => ({}), serializeJsonLd: JSON.stringify },
+    "@/lib/seoProfiles": { getVenueSeoProfile: () => null }, "@/lib/serverEventData": {}, "@/lib/metadata": await import("../src/lib/metadata.ts"),
+    "@/lib/serverStatsData": {}, "@/data/eventDayPublications": {}, "@/lib/eventDayPublication": { matchPublishedEventDay: () => null },
+    "@/lib/publicVenueGuides": { ...(await import("../src/lib/publicVenueGuides.ts")), getPublicVenueSeatGuideHref: () => venue.href },
+    "@/lib/publicEventCatalogContext": { getRequestPublicEventCatalog: async () => ({ events: [eventRow, { ...eventRow, id: "other-day", date: "2026-10-02" }], updatedAt: "2026-10-01T00:00:00Z" }) },
+    "@/lib/eventPublication": await import("../src/lib/eventPublication.ts"),
+    "@/lib/eventPageMetadata": await import("../src/lib/eventPageMetadata.ts"),
+    "@/lib/eventIndexContent": {readEventContributions: async (_client,ids) => {
+      reportReads.push(ids);
+      if (count === null) throw Error("offline");
+      return {counts:{seat_reports: Math.max(0,count-1),after_reports:Math.min(1,count),event_ticket_results:0,
+        fan_seat_predictions:0,external_seat_observations:0,setlists:0},reports:count ? [{id:"saved-report"}] : [],setlists:[]};
+    }}, "@/lib/supabase/public": {createSupabasePublicClient:()=>({})}, "@/lib/seoData": { isTestEvent: () => false },
+    "@/lib/og/eventOgData": { describePublicEvent: row => ({ event:row, tourName: row.title, dateLabel: row.date }) },
+    "@/lib/eventDisplay": await import("../src/lib/eventDisplay.ts"),
+    "@/lib/events": { catalogEventsForArtist: rows => rows }, "@/lib/publicEventCatalog": { isPublicEventCatalogStale: () => false },
+    "@/lib/artistPageData": { getJstDateString: () => "2026-10-01" },
+  };
+  const Page = loadPage("src/app/events/[id]/page.tsx", dependencies);
+  const value = { id: eventRow.id };
+  const params = Object.assign(Promise.resolve(value), { status: "fulfilled", value });
+  const renderPage = async () => renderToStaticMarkup(await Page({ params }));
+  for (const result of [0, 1, 2, 3, 4, null]) {
+    await t.test(`reported count ${result}`, async () => {
+      count = result;
+      const html = await renderPage();
+      assert.equal(html.match(/data-event-venue-banner=/g)?.length, 1);
+      assert.equal(html.includes("東京ドームの座席表・見え方写真（13枚）を見る"), true);
+      assert.deepEqual(reportReads.at(-1), [eventRow.id]);
+      assert.equal(html.includes("/report/live/detail?reportId=saved-report"), Boolean(result));
+      const visible = result !== null && result < 4;
+      assert.equal(html.includes("data-event-venue-photo-preview="), visible);
+      assert.equal(html.includes("data-event-venue-photo-link="), visible);
+      assert.equal(html.match(/data-event-venue-photo=/g)?.length ?? 0, visible ? 6 : 0);
+      assert.equal(html.includes("data-event-empty-state="), result === 0);
+      assert.equal(html.includes("data-event-content-summary="), Boolean(result));
+      assert.ok(html.indexOf("data-event-venue-banner=") < html.indexOf("data-compact-event-picker="));
+    });
+  }
+  await t.test("a public venue with no photos keeps its seat map without a photo count", async () => {
+    venue = { id: "edion-arena", name: "エディオンアリーナ大阪", href: "/venues/edion-arena", count: 0, photos: [] };
+    Object.assign(eventRow, { venue_id: venue.id, venue: venue.name });
+    const before = reportReads.length;
+    const html = await renderPage();
+    assert.match(html, /エディオンアリーナ大阪の座席表を見る/);
+    assert.ok(html.includes(`href="/venues/edion-arena?fromEvent=${eventRow.id}"`));
+    assert.doesNotMatch(html, /data-event-venue-photo-preview=|見え方写真（0枚）/);
+    assert.equal(reportReads.length, before + 1);
+  });
 });

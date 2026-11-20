@@ -51,7 +51,7 @@ export default function MapPreviewSection({ mapEvent }: Props) {
     <div className="border border-divider bg-white">
       <div className="flex items-end justify-between gap-3 border-b border-divider px-4 py-4 sm:px-6">
         <div>
-          <p className="text-[9px] font-black tracking-[0.18em] text-[#f43679]">LIVE SEAT MAP</p>
+          
           <h3 className="mt-1 text-[20px] font-black tracking-[-0.04em] text-[#1c171b]">みんなの座席報告</h3>
         </div>
       </div>

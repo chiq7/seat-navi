@@ -437,7 +437,7 @@ export function standSelectedNumberRun(data: StandMapData, block: StandBlock | u
   if (!/^\d+$/.test(n)) return null;
   const matches = block.rows.flatMap(r => normalizeSeatInput(r.label) === selectedRow
     ? r.segments.filter(s => Number(n) >= s.start && Number(n) <= s.end).map(segment => ({ row: r.label, segment })) : []);
-  return matches.length === 1 ? matches[0] : null;
+  return matches.length === 1 ? { ...matches[0], seat: String(Number(n)) } : null;
 }
 
 function referenceDisplayCenter(block: StandBlock): Point {

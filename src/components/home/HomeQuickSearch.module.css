@@ -1,0 +1,33 @@
+.section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: calc(100% - 32px);
+  max-width: 728px;
+  margin: 20px auto 4px;
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+  border: 1px solid #dfcad3;
+  border-radius: 12px;
+  background: #fff;
+  padding-left: 12px;
+  overflow: hidden;
+}
+
+.icon { flex-shrink: 0; color: #a41c53; }
+.form input { width: 100%; min-width: 0; height: 46px; font-size: 16px; border: 0; background: transparent; color: #27232a; }
+.form input:focus { outline: none; }
+.form:focus-within { outline: 2px solid #ad2157; outline-offset: 2px; }
+.form button { align-self: stretch; flex-shrink: 0; min-width: 52px; background: #ad2157; color: white; font-size: 14px; font-weight: 700; cursor: pointer; }
+.venues { display: inline-flex; align-items: center; min-height: 44px; color: #ad2157; font-size: 13px; font-weight: 700; white-space: nowrap; }
+@media (max-width: 420px) {
+  .section { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .form { width: 100%; box-sizing: border-box; }
+  .venues { justify-self: end; max-width: 100%; white-space: normal; }
+}

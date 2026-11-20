@@ -1,0 +1,2 @@
+import { parseSearchQuery } from "../src/lib/searchQuery.ts"; import { getSearchNameSuggestions,getSearchSpellingCandidates } from "../src/lib/searchSpellingSuggestion.ts";
+for(const query of ["ekopariina","まくはりめっせこくさいてんじじょういからじゅういちほーるいべんとほーる"])console.log(JSON.stringify({query,parsed:parseSearchQuery(query),matches:getSearchSpellingCandidates(query).map(({entity,matchedName})=>({id:entity.id,matchedName})),suggestions:getSearchNameSuggestions(query)}));

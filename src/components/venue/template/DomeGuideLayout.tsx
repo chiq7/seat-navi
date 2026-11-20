@@ -1,3 +1,4 @@
+import { VenueProgramAnchor } from "@/components/venue/VenueProgramLinks";
 import type { ReactNode } from "react";
 import { Armchair, CircleHelp, Luggage, Ticket, TrainFront, Utensils } from "lucide-react";
 import tokyo from "../TokyoDomeVisitorGuide.module.css";
@@ -23,7 +24,13 @@ export function DomeGuideHeader({ name, anchors={}, showHero=true }: { name: str
       </div>
     </section>}
     <nav className={`zr-container ${tokyo.jumpNav}`} aria-label="会場ガイドの目次">
-      {links.map(({ id, label, Icon }) => <a key={id} href={`#${anchors[id]??id}`}><Icon size={26} aria-hidden="true" /><span>{label}</span></a>)}
+      {links.map(({ id, label, Icon }) => {
+        const content = <><Icon size={26} aria-hidden="true" /><span>{label}</span></>;
+        const href = `#${anchors[id]??id}`;
+        return id === "upcoming-events-title"
+          ? <VenueProgramAnchor key={id} fallbackHref={href}>{content}</VenueProgramAnchor>
+          : <a key={id} href={href}>{content}</a>;
+      })}
     </nav>
   </>;
 }

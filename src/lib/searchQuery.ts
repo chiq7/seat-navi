@@ -1,5 +1,6 @@
 import { ARTISTS, type Artist } from "@/lib/artists";
 import { ARTIST_SEARCH_ALIASES } from "@/lib/artistSearchAliases";
+import { getRomajiSearchNames } from "@/lib/artistRomajiSearch";
 import { SEARCH_VENUE_CATALOG } from "@/data/searchVenueCatalog";
 import { VENUE_SEARCH_ALIASES } from "@/lib/venueSearchAliases";
 import { normalizeForSearch } from "@/lib/keywordMatch";
@@ -19,13 +20,23 @@ const INTENT_WORDS = [
   "アリーナ予想", "座席予想", "現地レポ", "アリーナ",
 ].map(normalizeForSearch).sort((a, b) => b.length - a.length);
 
+const romajiNamesByArtist = new Map(ARTISTS.map(artist => [
+  artist.slug,
+  getRomajiSearchNames(ARTIST_SEARCH_ALIASES[artist.slug] ?? []),
+]));
+
 export function getArtistSearchNames(artist: Artist): string[] {
-  return [...new Set([artist.name, ...artist.keywords, ...(ARTIST_SEARCH_ALIASES[artist.slug] ?? []), artist.slug])];
+  const names = [artist.name, ...artist.keywords, ...(ARTIST_SEARCH_ALIASES[artist.slug] ?? []), artist.slug];
+  return [...new Set([...names, ...(romajiNamesByArtist.get(artist.slug) ?? [])])];
 }
+
+const romajiNamesByVenue = new Map(SEARCH_VENUE_CATALOG.map(venue => [venue.id,
+  getRomajiSearchNames([venue.name, ...(VENUE_SEARCH_ALIASES[venue.id] ?? []), ...venue.aliases]),
+]));
 
 export function getVenueSearchNames(venue: { id: string; name: string }): string[] {
   const catalog = SEARCH_VENUE_CATALOG.find((entry) => entry.id === venue.id);
-  return [...new Set([venue.name, getPublicVenueName(venue.id, venue.name), ...(VENUE_SEARCH_ALIASES[venue.id] ?? []), ...(catalog?.aliases ?? []), ...(catalog?.eventVenueNames ?? [])])];
+  return [...new Set([venue.name, venue.id, getPublicVenueName(venue.id, venue.name), ...(VENUE_SEARCH_ALIASES[venue.id] ?? []), ...(catalog?.aliases ?? []), ...(catalog?.eventVenueNames ?? []), ...(romajiNamesByVenue.get(venue.id) ?? [])])];
 }
 
 type NameEntry = { kind: "artist" | "venue"; id: string; name: string };
@@ -60,6 +71,15 @@ export function parseSearchQuery(query: string): SearchQuery {
   }
   boundaries.add(compact.length);
   const occupied = Array.from({ length: compact.length }, () => false);
+  const intentSpans = INTENT_WORDS.flatMap(word => {
+    const spans: { start: number; end: number }[] = [];
+    for (let from = 0;;) {
+      const start = compact.indexOf(word, from);
+      if (start < 0) break;
+      spans.push({ start, end: start + word.length }); from = start + word.length;
+    }
+    return spans;
+  });
   const artists = new Set<string>();
   const venues = new Set<string>();
   // A complete artist + venue pair may join two Latin/digit edges without a
@@ -87,6 +107,9 @@ export function parseSearchQuery(query: string): SearchQuery {
       from = end;
       if (occupied.slice(start, end).some(Boolean)) continue;
       const latinStart = /^[a-z0-9]/.test(entry.name);
+      // A nickname inside a complete purpose word is not a venue or artist:
+      // じょうほ in こうしきじょうほう must not become 大阪城ホール.
+      if (intentSpans.some(span => span.start <= start && span.end >= end && (span.start < start || span.end > end))) continue;
       const latinEnd = /[a-z0-9]$/.test(entry.name);
       if (latinStart && /[a-z0-9]/.test(compact[start - 1] ?? "") && !boundaries.has(start) && !adjacentName(entry, start, true)) continue;
       if (latinEnd && /[a-z0-9]/.test(compact[end] ?? "") && !boundaries.has(end) && !adjacentName(entry, end, false)) continue;
@@ -135,3 +158,13 @@ export function parseSearchQuery(query: string): SearchQuery {
     remainder: [...new Set(discovery.remainder.map(stripIntent).filter(Boolean))],
   };
 }
+/** The shared search URL changes only after a user confirms a new term. */
+export function getCommittedSearchUrl(href: string, draft: string): URL | null {
+  const url = new URL(href);
+  const term = draft.trim();
+  if (term === (url.searchParams.get("q") ?? "")) return null;
+  if (term) url.searchParams.set("q", term);
+  else url.searchParams.delete("q");
+  return url;
+}
+

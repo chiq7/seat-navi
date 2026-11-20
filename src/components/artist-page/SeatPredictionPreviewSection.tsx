@@ -46,8 +46,8 @@ export default function SeatPredictionPreviewSection({
 }: Props) {
   return (
     <section className="artist-section" id="seat-map">
-      <p className="artist-kicker">Seat Map & Prediction</p>
-      <h2 className="artist-heading">座席表・座席予想</h2>
+      
+      <h2 className="artist-heading">座席表・配置予想</h2>
 
       <div className="mt-4 min-w-0 sm:mt-5">
         {mapEvent && venues.length > 0 && (
@@ -79,10 +79,10 @@ export default function SeatPredictionPreviewSection({
         <div className="mt-3 border border-divider bg-[#fff8fa] p-3 sm:p-5">
           <div className="mb-3 flex items-end justify-between gap-3">
             <div>
-              <p className="text-[9px] font-black tracking-[0.18em] text-[#f43679]">FAN PREDICTION</p>
-              <h3 className="mt-1 text-[20px] font-black tracking-[-0.04em] text-[#1c171b]">ファンの有力予想</h3>
+              
+              <h3 className="mt-1 text-[20px] font-black tracking-[-0.04em] text-[#1c171b]">みんなの配置予想</h3>
             </div>
-            <span className="text-[10px] font-black text-[#817981]">PICKED #01</span>
+            
           </div>
 
           {topPrediction ? (
@@ -102,20 +102,20 @@ export default function SeatPredictionPreviewSection({
             <div className="border border-dashed border-[#cfc6cc] bg-white px-5 py-6 text-center">
               <PenLine size={27} className="mx-auto text-[#f43679]" />
               <p className="mt-3 text-[15px] font-black text-[#1c171b]">まだ予想図がありません</p>
-              <p className="mt-1 text-[11px] font-medium text-[#817981]">最初の予想を投稿して、会場の座席表を完成させよう。</p>
+              <p className="mt-1 text-[11px] font-medium text-[#817981]">ステージや花道の配置予想を投稿できます。</p>
               {!mapEvent && emptyPostHref && (
                 <Link
                   href={emptyPostHref}
                   className="zr-focus mt-4 inline-flex min-h-11 items-center gap-2 bg-[#f43679] px-5 text-[12px] font-black text-white"
                 >
-                  予想図を投稿する<ArrowRight size={16} />
+                  配置予想を投稿する<ArrowRight size={16} />
                 </Link>
               )}
             </div>
           )}
         </div>
 
-        {mapEvent && detailHref && (
+        {topPrediction && mapEvent && detailHref && (
           <div className="border-b border-x border-divider bg-white">
             <Link href={detailHref} className="zr-focus group flex min-h-12 items-center justify-between px-5 text-[12px] font-black text-[#1c171b]">
               <span>すべての予想図を見る</span>

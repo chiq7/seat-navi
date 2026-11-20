@@ -16,6 +16,8 @@
     "test:official-tours": "node --test --experimental-test-isolation=none --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/officialTourSources.test.mts",
     "test:external-seats": "node --test --experimental-test-isolation=none --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/externalSeats.test.mts",
     "test:venue-seat-locator": "node --test --experimental-test-isolation=none --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/tokyoDomeSeatLocator.test.mts",
+    "test:seat-directions": "node --test --experimental-test-isolation=none --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/venueSeatDirections.test.mts",
+    "test:seat-directions:mobile": "node ./scripts/venueSeatDirections.mobile.mjs",
     "test:venue-guide": "node --test --experimental-test-isolation=none --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/tokyoDomeVisitorGuide.test.mts",
     "generate:kyocera-render-data": "node --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/generateKyoceraRenderData.mts",
     "test:arena-patterns": "node --test --experimental-test-isolation=none --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/arenaInferenceV3.test.mts",
@@ -46,7 +48,8 @@
     "react": "19.3.1",
     "react-dom": "19.3.1",
     "react-server-dom-webpack": "19.3.1",
-    "vinext": "1.4.4"
+    "vinext": "1.4.4",
+    "wanakana": "5.3.1"
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "2.0.0-beta.v.12",

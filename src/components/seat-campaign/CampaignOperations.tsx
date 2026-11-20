@@ -1,4 +1,5 @@
 "use client";
+import { Breadcrumbs } from "@/components/common/Breadcrumbs";
 import { useCallback,useEffect,useRef,useState } from "react";
 import type { CampaignEvent } from "@/lib/seat-campaign/model";
 import type { ReviewReport,ReviewDecision,UpdatePack } from "@/lib/seat-campaign/operations";
@@ -31,6 +32,7 @@ export default function CampaignOperations({event,localOnly}:{event:CampaignEven
   async function png(){if(!svg.current || stale)return;setBusy(true);try{await checkFresh();const blob=await renderMapImageAsPngBlob(svg.current,{scale:1}),name=`seat-update-${pack!.id.slice(0,12)}-${page+1}.png`;setPngFile({url:URL.createObjectURL(blob),name});downloadPngBlob(blob,name);setNotice("保存時点の集計画像を作成しました。保存が始まらない場合は下のPNGリンクを使ってください。");}catch(e){setError(e instanceof Error?e.message:"画像を保存できませんでした。");}finally{setBusy(false);}}
   async function copy(text:string){try{await checkFresh();await navigator.clipboard.writeText(text);setNotice("下書きをコピーしました。Xへの送信はしていません。");}catch(e){setError(e instanceof Error?e.message:"コピーできませんでした。");}}
   return <main className={styles.page}>
+    {!localOnly && <Breadcrumbs parents={[{ href: `/seat-campaign/${event.id}`, label: event.title }]} current="座席募集の運営確認" />}
     <div className={styles.preview}>{localOnly?"未公開・サンプル専用の運営確認":"運営用・確認と投稿準備"}</div>
     <h1>座席報告を確認して、更新を準備</h1><p>{event.title}<br/>{event.date} · {event.session} · {event.venue}</p>
     <p className={styles.note}>内容の照合と座席の位置・配置の確定は別です。未確認の番号や区画を追加しません。</p>

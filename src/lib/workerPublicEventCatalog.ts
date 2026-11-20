@@ -4,6 +4,7 @@ import {
   PUBLIC_CATALOG_KEY,
   PUBLIC_CATALOG_MAX_BYTES,
   readPublicEventCatalog,
+  type PublicEventCatalog,
 } from "./publicEventCatalog";
 
 type CatalogStore = {
@@ -19,11 +20,20 @@ type CatalogStore = {
 export async function refreshPublicEventCatalog(
   store: CatalogStore,
   scheduledTime: number,
-  collect: () => Promise<{ catalog: { updatedAt: string; events: unknown[] }; json: string }>,
+  collect: (previous: PublicEventCatalog | null) => Promise<{ catalog: { updatedAt: string; events: unknown[] }; json: string }>,
 ) {
   const previous = await store.head(PUBLIC_CATALOG_KEY);
   if (previous && previous.uploaded.getTime() >= scheduledTime) return { status: "already-current" };
-  const { catalog, json } = await collect();
+  let previousCatalog: PublicEventCatalog | null = null;
+  if (previous) {
+    const object = await store.get(PUBLIC_CATALOG_KEY);
+    if (!object || object.size > PUBLIC_CATALOG_MAX_BYTES) {
+      await object?.body.cancel();
+      throw new Error("Previous public catalog could not be compared");
+    }
+    previousCatalog = readPublicEventCatalog(await object.json());
+  }
+  const { catalog, json } = await collect(previousCatalog);
   const onlyIf = previous ? { etagMatches: previous.etag } : new Headers({ "If-None-Match": "*" });
   const result = await store.put(PUBLIC_CATALOG_KEY, json, {
     onlyIf,
@@ -60,16 +70,20 @@ export async function loadPublicEventCatalog(
       console.warn({ kind: "public_catalog_r2_read_failed" });
     }
   }
-  if (!catalog) {
+  if (!catalog || !catalog.venueActivity) {
+    // Legacy R2 snapshots still supply the most recent event catalog. During the
+    // rollout only, fill the missing venue dates from the verified build.
     try {
       const response = await assets.fetch(new Request(new URL(PUBLIC_CATALOG_ASSET, origin)));
       if (!response.ok) {
         await response.body?.cancel();
-        return null;
+        if (!catalog) return null;
+      } else {
+        const built = readPublicEventCatalog(await response.json());
+        catalog = catalog ? { ...catalog, venueActivity: built.venueActivity } : built;
       }
-      catalog = readPublicEventCatalog(await response.json());
     } catch {
-      return null;
+      if (!catalog) return null;
     }
   }
   if (cache) {

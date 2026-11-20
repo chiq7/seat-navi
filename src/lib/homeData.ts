@@ -4,8 +4,10 @@ import { isArtistOnlyEventTitle, parseEventTitle } from "@/lib/eventTitle";
 import { fmtDate, seatAreaLabel } from "@/lib/artistPageHelpers";
 import { getJstDateString } from "@/lib/artistPageData";
 import { isAllowedOfficialResaleUrl } from "@/lib/external-seats/sourcePolicy";
+import { formatXSeatPostLocation, isCurrentXSeatPost, isXSeatPostBlock, isXSeatPostUrl, X_SEAT_POST_EVIDENCE, X_SEAT_POST_MAX_AGE_MS, X_SEAT_POST_PREFIX } from "@/lib/external-seats/xSeatPosts";
 
 import { hasSetlistSongs } from "@/lib/setlistHelpers";
+import { filterPublishedFeedItems } from "@/lib/realtimeFeed";
 
 export type UpcomingEvent = {
   id: string;
@@ -31,21 +33,14 @@ type HomeEventRow = {
 };
 
 /** テストデータ公演（artist_slug==="test"、またはタイトルの【テストデータ】タグ）を判定する */
-function isTestEvent(event: { title: string; artist_slug?: string | null }, artist: Artist): boolean {
-  if (artist.slug === "test" || event.artist_slug === "test") return true;
-  return parseEventTitle(event.title, artist.name).isTestData;
+function isTestEvent(event: { title: string; artist_slug?: string | null }, artist?: Artist): boolean {
+  if (artist?.slug === "test" || event.artist_slug === "test") return true;
+  return parseEventTitle(event.title, artist?.name).isTestData;
 }
 
 /** 会場が確定していない公演は実在していても、TOPの発見・速報枠には出さない。 */
 export function isVagueHomeVenue(venue: string): boolean {
   return /(某所|未定|未発表|調整中|後日発表|\bTBA\b|\bTBD\b)/i.test(venue.normalize("NFKC"));
-}
-
-function toDateStr(d: Date): string {
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, "0");
-  const day = String(d.getDate()).padStart(2, "0");
-  return `${y}-${m}-${day}`;
 }
 
 function getEventName(event: HomeEventRow, artist: Artist): string {
@@ -70,17 +65,13 @@ function dedupeNearestByArtist<T>(
   getArtistSlug: (item: T) => string,
   getDateIso: (item: T) => string | null,
 ): T[] {
-  const now = Date.now();
   const bestByArtist = new Map<string, T>();
-  const bestDist = new Map<string, number>();
   for (const item of items) {
     const slug = getArtistSlug(item);
     const dateIso = getDateIso(item);
-    const dist = dateIso ? Math.abs(new Date(dateIso).getTime() - now) : Infinity;
-    const current = bestDist.get(slug);
-    if (current === undefined || dist < current) {
+    const previous = bestByArtist.get(slug);
+    if (previous === undefined || (dateIso && dateIso < (getDateIso(previous) ?? "9999"))) {
       bestByArtist.set(slug, item);
-      bestDist.set(slug, dist);
     }
   }
   return [...bestByArtist.values()];
@@ -90,16 +81,15 @@ function dedupeNearestByArtist<T>(
 
 /** 今日〜2ヶ月以内の公演を日付昇順で全アーティスト取得し、seat_reportsの実件数を付与する */
 export async function getUpcomingHomeEvents(client: SupabaseClient, requireComplete = false): Promise<UpcomingEvent[]> {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const until = new Date(today);
-  until.setMonth(until.getMonth() + 2);
+  const today = getJstDateString();
+  const until = new Date(today + "T00:00:00Z");
+  until.setUTCMonth(until.getUTCMonth() + 2);
 
   const { data, error } = await client
     .from("events")
     .select(EVENT_COLUMNS)
-    .gte("date", toDateStr(today))
-    .lte("date", toDateStr(until))
+    .gte("date", today)
+    .lte("date", until.toISOString().slice(0, 10))
     .order("date", { ascending: true })
     .limit(200);
 
@@ -266,32 +256,7 @@ type FeedCandidate = {
   created_at: string;
   type: HomeFeedType;
   detail: string;
-  collection?: { sourceUrl?: string };
 };
-
-type CollectedSeatFeedRow = { id: string; event_id: string; created_at: string; source_url: string | null };
-type NewEventFeedRow = { id: string; created_at: string };
-
-export function collectionFeedCandidates(seats: CollectedSeatFeedRow[], events: NewEventFeedRow[]): FeedCandidate[] {
-  const candidates: FeedCandidate[] = [];
-  const seatEvents = new Set<string>();
-  for (const seat of seats) {
-    if (!seat.source_url || !isAllowedOfficialResaleUrl(seat.source_url) || seatEvents.has(seat.event_id)) continue;
-    seatEvents.add(seat.event_id);
-    candidates.push({
-      id: `external-seat-${seat.id}`, event_id: seat.event_id, user_id: null, created_at: seat.created_at,
-      type: "公演情報", detail: "公式リセールのアリーナ座席情報を追加（外部参考）",
-      collection: { sourceUrl: seat.source_url },
-    });
-  }
-  for (const event of events) {
-    candidates.push({
-      id: `new-event-${event.id}`, event_id: event.id, user_id: null, created_at: event.created_at,
-      type: "公演情報", detail: "公演ページが追加されました", collection: {},
-    });
-  }
-  return candidates;
-}
 
 type SeatReportFeedRow = { id: string; event_id: string; user_id: string | null; created_at: string; block: string; row_num: number; seat_num: number };
 type PredictionFeedRow = { id: string; event_id: string; user_id: string | null; created_at: string };
@@ -301,6 +266,7 @@ type AfterReportFeedRow = {
   user_id: string | null;
   created_at: string;
   seat_area_type: string | null;
+  seat_description?: string | null;
   seat_block: string | null;
   seat_row: string | null;
   seat_number: string | null;
@@ -319,52 +285,6 @@ type TicketResultFeedRow = {
   created_at: string;
 };
 
-/** 実投稿数が増えるほど、集計対象外の補助カードを段階的に減らす。 */
-export function supplementalFeedCount(realItemCount: number): number {
-  if (realItemCount <= 0) return 5;
-  if (realItemCount === 1) return 3;
-  if (realItemCount === 2) return 2;
-  if (realItemCount <= 4) return 1;
-  return 0;
-}
-
-const SUPPLEMENTAL_COPY = [
-  "第1希望で当選しました！公演日までまだ先だけど今から楽しみです",
-  "今回は残念ながら全滅でした…。次の先行があればもう一度申し込みたい",
-  "最後の1公演だけ当選！結果を見るまでずっと緊張していました",
-  "友達とそれぞれ申し込んで、片方だけ当選しました",
-  "第一希望は落選、第二希望で当選しました。参加できるだけでうれしい！",
-  "当落メールを見るのが怖くて、しばらく開けませんでした",
-  "複数公演に申し込んで1公演当選。どの日も激戦だったのかな",
-  "初めて申し込んだ公演に当選しました！今から楽しみです",
-  "今回は落選でした。みなさんの結果も気になります",
-  "当選の文字を見た瞬間、思わず何度も確認しました",
-  "同行者と一緒に結果確認。無事に当選してひと安心です",
-  "次の申込みの参考にしたいので、みなさんの結果も教えてください",
-] as const;
-
-function buildCountdownDetail(remainingDays: number, index: number): string {
-  if (remainingDays === 0) {
-    const variants = [
-      "本日開催！座席が分かったら、ブロックや列をレポできます",
-      "いよいよ本番当日。会場で分かった座席情報を共有できます",
-    ] as const;
-    return variants[index % variants.length];
-  }
-  if (remainingDays === 1) {
-    const variants = [
-      "公演まであと1日。参加予定の方は準備できましたか？",
-      "明日開催！座席が分かったら、会場からレポできます",
-    ] as const;
-    return variants[index % variants.length];
-  }
-  const variants = [
-    `公演まであと${remainingDays}日。参加予定の方は準備できましたか？`,
-    `開催まであと${remainingDays}日。座席が分かったらレポで共有できます`,
-  ];
-  return variants[index % variants.length];
-}
-
 function normalizedFeedDetail(detail: string): string {
   return detail.normalize("NFKC").replace(/\s+/g, " ").trim().toLocaleLowerCase("ja-JP");
 }
@@ -373,64 +293,75 @@ function normalizedFeedDetail(detail: string): string {
 export function dedupeFeedItemsByDetail(items: HomeFeedItem[]): HomeFeedItem[] {
   const seen = new Set<string>();
   return items.filter((item) => {
-    const key = normalizedFeedDetail(item.detail);
+    const detail = normalizedFeedDetail(item.detail);
+    const key = item.source === "collection" ? `${item.href}\n${detail}` : detail;
     if (seen.has(key)) return false;
     seen.add(key);
     return true;
   });
 }
 
-function daysUntil(date: string | null, now: Date): number | null {
-  if (!date) return null;
-  const target = new Date(`${date}T00:00:00`);
-  const today = new Date(now);
-  today.setHours(0, 0, 0, 0);
-  return Math.round((target.getTime() - today.getTime()) / 86400000);
-}
-
-/**
- * DBへ保存しない編集部投稿・投稿イメージを作る。
- * sourceがrealではないため、当選率・投稿数・人気順の集計には入らない。
- */
-export function buildSupplementalFeedItems(
-  events: UpcomingEvent[],
-  realItemCount: number,
-  now = new Date(),
-): HomeFeedItem[] {
-  const count = supplementalFeedCount(realItemCount);
-  if (count === 0 || events.length === 0) return [];
-
-  return Array.from({ length: count }, (_, index) => {
-    const event = events[index % events.length];
-    const remainingDays = daysUntil(event.dateIso ?? null, now);
-    // 公演直前でも案内だけに偏らないよう、最大2件を編集部のカウントダウンにする。
-    const isCountdown = index < 2 && remainingDays !== null && remainingDays >= 0 && remainingDays <= 7;
-    const detail = isCountdown
-      ? buildCountdownDetail(remainingDays, index)
-      : SUPPLEMENTAL_COPY[index % SUPPLEMENTAL_COPY.length];
-
-    return {
-      id: `supplemental-${event.id}-${index}`,
-      type: isCountdown ? "公演情報" : "当落レポ",
-      detail,
-      artistName: event.artist,
-      venue: event.venue,
-      date: event.dateIso ?? null,
-      createdAt: now.toISOString(),
-      href: isCountdown
-        ? `/events/${encodeURIComponent(event.id)}`
-        : `/artists/${encodeURIComponent(event.artistSlug)}#ticket-data`,
-      xHandle: null,
-      source: isCountdown ? "editorial" : "sample",
-    };
-  });
-}
-
 const GENERATIONS_ARIAKE_EVENT_ID = "9b26c9b3aef538ae8438";
 const GENERATIONS_ARENA_SOURCE_KEY = "8117da818c4f81fb9c81c72f4cad4230220a23667f9b0c07df1f5f20d6b2926b";
 
-export async function getReviewedTicketUpdates(client: SupabaseClient, now: Date, requireComplete = false): Promise<HomeFeedItem[]> {
+type CollectedSeatUpdate = {
+  id: string;
+  block: string;
+  row_min: number | null;
+  seat_min: number | null;
+  source_url: string | null;
+  source_type: string;
+  observed_at: string;
+  created_at: string;
+  events: HomeEventRow;
+};
+
+async function getCollectedSeatUpdates(client: SupabaseClient, now: Date, requireComplete: boolean): Promise<HomeFeedItem[]> {
+  const recent = new Date(now.getTime() - 7 * 86_400_000).toISOString();
+  const freshX = new Date(now.getTime() - X_SEAT_POST_MAX_AGE_MS).toISOString();
+  const { data, error } = await client.from("external_seat_observations")
+    .select("id, block, row_min, seat_min, source_url, source_type, observed_at, created_at, events!inner(id, title, venue, date, artist_slug)")
+    .eq("review_status", "approved")
+    .eq("ingestion_method", "crawler")
+    .eq("seat_area", "arena")
+    .or(`and(source_type.in.(pia_resale,official_resale),created_at.gte.${recent}),and(source_type.eq.other,evidence_summary.eq.${X_SEAT_POST_EVIDENCE},source_url.like.${X_SEAT_POST_PREFIX}*,observed_at.gte.${freshX})`)
+    .not("block", "is", null)
+    .gte("events.date", getJstDateString(now))
+    .order("created_at", { ascending: false })
+    .limit(FEED_SOURCE_LIMIT);
+  if (error && requireComplete) throw new Error("Collected seat updates could not be read");
+  const rows = (data ?? []) as unknown as CollectedSeatUpdate[];
+  const seenSources = new Set<string>();
   const updates: HomeFeedItem[] = [];
+  for (const row of rows) {
+    const event = row.events;
+    const artist = resolveArtist(event);
+    const fromX = row.source_type === "other" && isXSeatPostUrl(row.source_url);
+    const sourceKey = fromX ? `x:${event.id}:${row.block}:${row.row_min}:${row.seat_min}` : `resale:${event.id}`;
+    if ((!artist && !fromX) || !event.date || isTestEvent(event, artist) || isVagueHomeVenue(event.venue)
+      || seenSources.has(sourceKey) || !row.source_url
+      || !(fromX ? isCurrentXSeatPost(row.observed_at, now.getTime()) : isAllowedOfficialResaleUrl(row.source_url))
+      || !(fromX ? isXSeatPostBlock(row.block) : /^[A-Z]\d{1,2}$/.test(row.block))) continue;
+    seenSources.add(sourceKey);
+    updates.push({
+      id: `external-seat-${row.id}`,
+      type: "公演情報",
+      detail: fromX ? `Xの公開投稿で${formatXSeatPostLocation(row.block, row.row_min, row.seat_min)}を確認` : `公式リセールでアリーナ${row.block}ブロックを確認（外部参考）`,
+      artistName: artist?.name ?? event.title,
+      venue: event.venue,
+      date: event.date,
+      createdAt: fromX ? row.observed_at : row.created_at,
+      href: `/events/${encodeURIComponent(event.id)}#seat-map`,
+      sourceUrl: row.source_url,
+      xHandle: null,
+      source: "collection",
+    });
+  }
+  return updates;
+}
+
+export async function getReviewedTicketUpdates(client: SupabaseClient, now: Date, requireComplete = false): Promise<HomeFeedItem[]> {
+  const updates = await getCollectedSeatUpdates(client, now, requireComplete);
   const resaleOpens = new Date("2026-11-07T15:00:00+09:00");
   const resaleCloses = new Date("2026-11-10T00:00:00+09:00");
   if (now >= resaleOpens && now < resaleCloses) {
@@ -457,17 +388,17 @@ export async function getReviewedTicketUpdates(client: SupabaseClient, now: Date
   return updates;
 }
 
-/** 当落・座席報告・座席予想・現地レポ・セトリの最新投稿を統合し、不足分だけ補助カードを返す */
+/** Only published reports and reviewed collections belong in the live feed. */
 export async function getRealtimeFeedItems(
   client: SupabaseClient,
   limit = 20,
   prefetchedUpcoming?: UpcomingEvent[] | Promise<UpcomingEvent[]>,
   requireComplete = false,
 ): Promise<HomeFeedItem[]> {
+  // Keep the existing call signature; example generation no longer needs upcoming events.
+  void prefetchedUpcoming;
   const now = new Date();
-  const jstToday = getJstDateString(now);
-  const recent = new Date(now.getTime() - 7 * 86_400_000).toISOString();
-  const [ticketResultsRes, seatReportsRes, predictionsRes, afterReportsRes, setlistsRes, reviewedUpdates, collectedSeats, newEvents] = await Promise.all([
+  const [ticketResultsRes, seatReportsRes, predictionsRes, afterReportsRes, setlistsRes, reviewedUpdates] = await Promise.all([
     client
       .from("event_ticket_results")
       .select("id, event_id, user_id, result, lost_application_count, comment, seat_type, seat_block, created_at")
@@ -486,25 +417,18 @@ export async function getRealtimeFeedItems(
       .limit(FEED_SOURCE_LIMIT),
     client
       .from("after_reports")
-      .select("id, event_id, user_id, created_at, seat_area_type, seat_block, seat_row, seat_number, seat_view_photo_paths")
+      .select("id, event_id, user_id, created_at, seat_area_type, seat_description, seat_block, seat_row, seat_number, seat_view_photo_paths")
       .order("created_at", { ascending: false })
       .limit(FEED_SOURCE_LIMIT),
     client
       .from("setlists")
       .select("id, event_id, created_at, items")
+      .is("review_source", null)
       .order("created_at", { ascending: false })
       .limit(FEED_SOURCE_LIMIT),
-    getReviewedTicketUpdates(client, now),
-    client.from("external_seat_observations")
-      .select("id, event_id, source_url, created_at")
-      .eq("review_status", "approved").eq("ingestion_method", "crawler").eq("seat_area", "arena")
-      .in("source_type", ["pia_resale", "official_resale"])
-      .gte("created_at", recent).order("created_at", { ascending: false }).limit(FEED_SOURCE_LIMIT),
-    client.from("events").select("id, created_at")
-      .gte("date", jstToday).gte("created_at", recent)
-      .order("created_at", { ascending: false }).limit(FEED_SOURCE_LIMIT),
+    getReviewedTicketUpdates(client, now, requireComplete),
   ]);
-  if (requireComplete && [ticketResultsRes, seatReportsRes, predictionsRes, afterReportsRes, setlistsRes, collectedSeats, newEvents].some(result => result.error)) {
+  if (requireComplete && [ticketResultsRes, seatReportsRes, predictionsRes, afterReportsRes, setlistsRes].some(result => result.error)) {
     throw new Error("Realtime feed source read failed");
   }
 
@@ -552,7 +476,7 @@ export async function getRealtimeFeedItems(
 
   const afterReportCandidates: FeedCandidate[] = ((afterReportsRes.data as AfterReportFeedRow[]) ?? []).map((r) => {
     const seatDesc = joinParts([
-      r.seat_area_type ? seatAreaLabel(r.seat_area_type) : null,
+      r.seat_description?.trim() || (r.seat_area_type ? seatAreaLabel(r.seat_area_type) : null),
       r.seat_block || null,
       withSuffix(r.seat_row, "列"),
       withSuffix(r.seat_number, "番"),
@@ -579,7 +503,6 @@ export async function getRealtimeFeedItems(
     ...predictionCandidates,
     ...afterReportCandidates,
     ...setlistCandidates,
-    ...collectionFeedCandidates(collectedSeats.data ?? [], newEvents.data ?? []),
   ];
 
   const eventIds = [...new Set(raw.map((r) => r.event_id))];
@@ -609,7 +532,7 @@ export async function getRealtimeFeedItems(
   );
 
   const items: HomeFeedItem[] = [...reviewedUpdates];
-  const today = toDateStr(new Date());
+  const today = getJstDateString();
   const excludedKnownTestItems = new Set([
     "座席予想:e939d7972373467b8f51",
     "現地レポ:641fd724715944a89352",
@@ -619,12 +542,11 @@ export async function getRealtimeFeedItems(
     if (!ev) continue;
     const artist = resolveArtist(ev);
     if (!artist || !ev.date || isTestEvent(ev, artist) || isVagueHomeVenue(ev.venue)) continue;
-    if (r.collection && ev.date < jstToday) continue;
     if (excludedKnownTestItems.has(`${r.type}:${r.id}`)) continue;
     // 現地レポと実施後のセトリ更新は、公演日を迎えるまで速報に出さない。
     if ((r.type === "現地レポ" || r.type === "セトリ") && ev.date && ev.date > today) continue;
 
-    const href = feedItemHref(r.type, ev.id, artist.slug, r.id) + (r.collection?.sourceUrl ? "#seat-map" : "");
+    const href = feedItemHref(r.type, ev.id, artist.slug, r.id);
 
     items.push({
       id: `${r.type}-${r.id}`,
@@ -635,27 +557,13 @@ export async function getRealtimeFeedItems(
       date: ev.date,
       createdAt: r.created_at,
       href,
-      ...(r.collection?.sourceUrl ? { sourceUrl: r.collection.sourceUrl } : {}),
       xHandle: r.user_id ? xHandleMap.get(r.user_id) ?? null : null,
-      source: r.collection ? "collection" : "real",
+      source: "real",
     });
   }
 
   items.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-  const uniqueItems = dedupeFeedItemsByDetail(items);
-  // 座席・セトリが多くても、実際に表示できる当落レポが育つまでは投稿イメージを残す。
-  const realTicketResultCount = uniqueItems.filter((item) => item.type === "当落レポ").length;
-  const supplementalCount = supplementalFeedCount(realTicketResultCount);
-  const cappedSupplementalCount = Math.min(supplementalCount, Math.max(0, limit));
-  const realItems = uniqueItems.slice(0, Math.max(0, limit - cappedSupplementalCount));
-  if (supplementalCount === 0) return realItems;
-
-  const upcoming = prefetchedUpcoming
-    ? await prefetchedUpcoming
-    : await getUpcomingHomeEvents(client, requireComplete);
-  const supplemental = buildSupplementalFeedItems(upcoming, realTicketResultCount)
-    .slice(0, cappedSupplementalCount);
-  return dedupeFeedItemsByDetail([...realItems, ...supplemental]).slice(0, limit);
+  return dedupeFeedItemsByDetail(filterPublishedFeedItems(items, now.getTime())).slice(0, Math.max(0, limit));
 }
 
 /** フィード表示用の短い日付（例: 7/12）。曜日は付けない */

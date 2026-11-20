@@ -1,5 +1,4 @@
-import { buildMeta } from "./metadata";
-import { venueGuideDescriptions } from "./venueGuideSeoContent";
+import { SAPPORO_DISPLAY_NAME, SAPPORO_OFFICIAL_NAME } from "./venuePageDisplayNames";
 import { VENUES, getVenueIdAliases } from "./eventCrawlerConfig";
 import { normalizeForMatch } from "./keywordMatch";
 
@@ -39,6 +38,7 @@ export function hasPublicVenueGuide(id: string): boolean {
 const EVENT_VENUE_NAMES: Readonly<Record<string, readonly string[]>> = {
   "gaishi-hall": ["クロコくんホール", "日本ガイシホール"],
   "kyocera-dome": ["KYOCERA DOME OSAKA"],
+  "sapporo-dome": [SAPPORO_OFFICIAL_NAME, "プレミストドーム", `${SAPPORO_OFFICIAL_NAME}（札幌ドーム）`],
 };
 
 export function getPublicVenueGuideId(id: string | null | undefined, name?: string | null): string | null {
@@ -62,22 +62,15 @@ export function getPublicVenueName(id: string, fallback: string): string {
   if (id === "gaishi-hall") return "クロコくんホール（旧日本ガイシホール）";
   if (id === "marine-messe") return "マリンメッセ福岡A館";
   if (id === "paypay-dome") return "みずほPayPayドーム福岡";
-  if (id === "sapporo-dome") return "大和ハウス プレミストドーム（札幌ドーム）";
+  if (id === "sapporo-dome") return SAPPORO_DISPLAY_NAME;
   if (id === "mufg-stadium") return "MUFGスタジアム（国立競技場）";
   if (id === "edion-arena") return "エディオンアリーナ大阪";
   return fallback;
 }
 
-export function buildPublicVenueMetadata(id: string, name: string, editorialDescription?: string) {
-  const publicName = getPublicVenueName(id, name);
-  const hasGuide = hasPublicVenueGuide(id);
-  const title = hasGuide
-    ? `${publicName}の座席表・アクセス・ロッカー・売店ガイド`
-    : `${publicName}の座席表・ライブ情報｜公演予定・座席レポ`;
-  const description = hasGuide && venueGuideDescriptions[id]
-    ? `${publicName}の座席表・会場ガイド。${venueGuideDescriptions[id]}`
-    : hasGuide
-      ? `${publicName}の座席を図から確認。トイレ・ロッカー・売店、周辺の荷物預かり、駅からのアクセスと公演予定・座席レポをまとめて確認できます。`
-      : editorialDescription ?? `${publicName}で開催されるライブ・コンサートの公演予定、座席報告、当落レポ、アリーナ予想をまとめて確認できます。`;
-  return buildMeta({ path: `/venues/${id}`, title, description });
+// Keep the source name in storage, and use the same Sapporo label on public event links.
+export function getEventDisplayVenueName(id: string | null | undefined, name: string): string {
+  if (id === "sapporo-dome") return SAPPORO_DISPLAY_NAME;
+  if (!/札幌ドーム|プレミストドーム/.test(name)) return name;
+  return getPublicVenueGuideId(id, name) === "sapporo-dome" ? SAPPORO_DISPLAY_NAME : name;
 }

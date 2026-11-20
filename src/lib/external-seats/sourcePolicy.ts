@@ -4,6 +4,8 @@ const OFFICIAL_RESALE_HOSTS = new Set([
   "ticket.tickebo.jp",
 ]);
 
+export const SEAT_RESALE_OPENING_SCHEDULE = "35 1 12,13 11 *";
+
 export function isAllowedOfficialResaleUrl(value: string): boolean {
   try {
     const url = new URL(value);
@@ -54,10 +56,26 @@ export function daysUntilEventInJst(eventDate: string | null | undefined, now = 
   return Math.round((eventDay - todayDay) / 86_400_000);
 }
 
-/** リセール公開が多い、公演の5〜3日前だけを巡回対象にする。 */
+/** 開始が前日や当日のリセールも拾えるよう、公演5日前から当日まで巡回する。 */
 export function isResaleCollectionWindow(eventDate: string | null | undefined, now = new Date()): boolean {
   const days = daysUntilEventInJst(eventDate, now);
-  return days !== null && days >= 3 && days <= 5;
+  return days !== null && days >= 0 && days <= 5;
+}
+
+/** ぴあの詳細では注意事項や券種名から座席を拾わず、券面の位置だけを抽出する。 */
+export function officialSeatText(html: string, sourceUrl: URL, targetDate: string): string {
+  if (sourceUrl.hostname !== "cloak.pia.jp") return htmlToVisibleText(html);
+  if (sourceUrl.pathname !== "/resale/item/detail") return "";
+
+  const dateRow = [...html.matchAll(/<tr\b[^>]*>([\s\S]*?)<\/tr>/gi)]
+    .map(([, body]) => htmlToVisibleText(body).normalize("NFKC"))
+    .find(text => /^公演日\s+/.test(text));
+  const date = dateRow?.match(/^公演日\s+(\d{4})\/(\d{1,2})\/(\d{1,2})(?!\d)/);
+  const listedDate = date && [date[1], date[2].padStart(2, "0"), date[3].padStart(2, "0")].join("-");
+  if (listedDate !== targetDate) throw new Error("リセールの公演日を照合できません");
+
+  return [...html.matchAll(/<p\b[^>]*\bclass=["'][^"']*\bsl_ticketPriceDetail_name\b[^"']*["'][^>]*>([\s\S]*?)<\/p>/gi)]
+    .map(([, body]) => htmlToVisibleText(body)).join("\n");
 }
 
 type RobotsRule = { path: string; allowed: boolean };
@@ -88,10 +106,16 @@ export function robotsAllowsPath(robotsText: string, targetUrl: string, userAgen
   const normalizedAgent = userAgent.toLowerCase();
   const exactGroups = groups.filter((group) => group.agents.some((agent) => agent !== "*" && normalizedAgent.includes(agent)));
   const applicable = exactGroups.length > 0 ? exactGroups : groups.filter((group) => group.agents.includes("*"));
-  const pathname = new URL(targetUrl).pathname;
+  const target = new URL(targetUrl);
+  const pathname = target.pathname + target.search;
   const matching = applicable
     .flatMap((group) => group.rules)
-    .filter((rule) => pathname.startsWith(rule.path))
+    .filter(({ path }) => {
+      const anchored = path.endsWith("$");
+      const expression = (anchored ? path.slice(0, -1) : path).split("*")
+        .map(segment => segment.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join(".*");
+      return new RegExp("^" + expression + (anchored ? "$" : "")).test(pathname);
+    })
     .sort((a, b) => b.path.length - a.path.length || Number(b.allowed) - Number(a.allowed));
   return matching[0]?.allowed ?? true;
 }

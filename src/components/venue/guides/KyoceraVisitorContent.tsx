@@ -1,3 +1,4 @@
+import { VenueProgramAnchor } from "@/components/venue/VenueProgramLinks";
 import { Accessibility, ArrowRight, ArrowUpRight, CircleHelp, CreditCard, DoorOpen, Luggage, Smartphone, Ticket, TrainFront } from "lucide-react";
 import content from "@/data/venueGuides/kyocera-dome/visitor-content.json";
 import VenueLuggageLink from "../template/VenueLuggageLink";
@@ -41,14 +42,14 @@ export default function KyoceraVisitorContent({guide}:{guide:DedicatedVenueGuide
       <div className={styles.prepareTiles}>
         <a href={payment.sources[0].url} target="_blank" rel="noopener noreferrer"><span className={styles.bigPictogram} aria-hidden="true"><CreditCard size={42} /><Smartphone size={29} /></span><strong>店ごとの決済</strong><span>カード・電子・コード決済</span><small>一部例外・PiTaPa対象外</small></a>
         <VenueLuggageLink href="#venue-facilities"><span className={styles.bigPictogram} aria-hidden="true"><Luggage size={45} /><ArrowRight size={22} /></span><strong>荷物</strong><span>ロッカー・預け先を探す</span><small>場内・周辺</small></VenueLuggageLink>
-        <a href="#upcoming-events-title"><span className={styles.bigPictogram} aria-hidden="true"><Ticket size={48} /></span><strong>時刻・指定入口</strong><span>入場は3F・公演案内を優先</span><small>座席・変更席を確認</small></a>
+        <VenueProgramAnchor><span className={styles.bigPictogram} aria-hidden="true"><Ticket size={48} /></span><strong>時刻・指定入口</strong><span>入場は3F・公演案内を優先</span><small>座席・変更席を確認</small></VenueProgramAnchor>
       </div>
       <details className={styles.explanation}><summary>支払い・荷物・券面の確認事項</summary>{[payment,baggage,ticket].map(item => <div key={item.id}><p><strong>{item.title}：</strong>{item.userText}</p><References item={item} /></div>)}<p>現金の取扱いは各店舗で確認してください。公演グッズは販売元の案内を確認してください。</p></details>
     </section>
     <section id="venue-faq" aria-labelledby="faq-heading" className={styles.section}>
       <h2 id="faq-heading"><CircleHelp aria-hidden="true" />気になることだけ</h2>
       <div className={styles.faq}>{content.faq.map(item => <details key={item.id} data-content-id={item.id}><summary>{item.title}</summary><p>{item.id === "faq-lockers" ? "2Fスタジアムモールのロッカーに加え、周辺の駅や店舗の荷物預かりを設備の「荷物」から探せます。大きさ・利用時間・予約可否を確認してください。" : item.userText}</p><References item={item} /></details>)}</div>
-      <a className={styles.eventAction} href="#upcoming-events-title"><Ticket size={25} aria-hidden="true" /><strong>公演・座席レポを見る</strong><ArrowRight size={20} aria-hidden="true" /></a>
+      <VenueProgramAnchor className={styles.eventAction}><Ticket size={25} aria-hidden="true" /><strong>公演・座席レポを見る</strong><ArrowRight size={20} aria-hidden="true" /></VenueProgramAnchor>
     </section>
   </div>;
 }

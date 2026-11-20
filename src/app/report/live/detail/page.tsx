@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { LiveReportDetailClient } from "./LiveReportDetailClient";
 import { getCachedSeoReport, SITE_URL } from "@/lib/seoData";
+import { buildSocialMetadata } from "@/lib/metadata";
+import { buildFileImageMetadata } from "@/lib/fileImageMetadata";
+import { canIndexLiveReport, liveReportTitle } from "@/lib/liveReportSeo";
 
 type PageProps = { searchParams: Promise<{ reportId?: string | string[]; demo?: string | string[] }> };
 
@@ -15,8 +18,13 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
   const isAdDemo = params.demo === "ad";
   if (isAdDemo) {
     return {
-      title: "現地レポの表示例｜ちけレポ",
-      robots: { index: false, follow: false },
+      ...buildFileImageMetadata({
+        path: "/report/live/detail?demo=ad",
+        title: "現地レポの表示例｜ちけレポ",
+        description: "座席からの見え方や会場の様子を伝える現地レポの表示例です。",
+        robots: { index: false, follow: true },
+      }),
+      alternates: { canonical: null },
     };
   }
   const rawReportId = params.reportId;
@@ -26,11 +34,9 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
   if (!info) notFound();
 
   const { event, artistName, isTestData, dateLabel, seatText } = info;
-  const name = artistName ?? "";
-
-  const title = `${event.venue} ${dateLabel} の現地レポ｜${name}｜ちけレポ`;
+  const title = liveReportTitle(event, artistName, dateLabel);
   const seatPart = seatText ? `座席${seatText}からの見え方、` : "";
-  const description = `${name} ${event.venue} ${dateLabel}の現地レポート。${seatPart}会場の様子。`;
+  const description = `${title.replace("｜ちけレポ", "")}。${seatPart}会場の様子を紹介します。`;
   const ogImagePath = `/api/og/report/${reportId}`;
   const canonical = `${SITE_URL}/report/live/detail?reportId=${encodeURIComponent(reportId)}`;
 
@@ -38,20 +44,8 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
     title,
     description,
     alternates: { canonical },
-    robots: { index: !isTestData, follow: true },
-    openGraph: {
-      title,
-      description,
-      url: canonical,
-      type: "article",
-      images: [{ url: ogImagePath, width: 1200, height: 630 }],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: [ogImagePath],
-    },
+    robots: { index: canIndexLiveReport(event, artistName, isTestData), follow: true },
+    ...buildSocialMetadata({ title, description, url: canonical, ogType: "article", image: ogImagePath }),
   };
 }
 

@@ -11,6 +11,7 @@ import { generateMonthlyPages, getVenueIdAliases, targetMonths } from "@/lib/eve
 import { ARTISTS, assignArtistSlug, type Artist } from "@/lib/artists";
 import { hasDistinctPerformanceSession } from "@/lib/eventIdentity";
 import { isArtistOnlyEventTitle } from "@/lib/eventTitle";
+import { reviewedEventDate } from "@/lib/reviewedEventDates";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type AnySupabaseClient = SupabaseClient<any, any, any>;
@@ -513,26 +514,10 @@ const JSON_RETRY_INSTRUCTION =
   "\n\n重要: 有効なJSONのみを返してください。前回の応答はJSONとして壊れていました。" +
   "タイトル文字列内に二重引用符(\")が含まれる場合は必ず \\\" にエスケープしてください。";
 
-export type EventExtractionModel = { name: string; complete(prompt: string): Promise<string> };
-
-export function extractEventsFromText(text: string, venue: { id: string; name: string }, claude: Anthropic) {
-  return extractEventsWithModel(text, venue, {
-    name: "Claude",
-    async complete(prompt) {
-      const msg = await claude.messages.create({
-        model: CLAUDE_MODEL,
-        max_tokens: 4096,
-        messages: [{ role: "user", content: prompt }],
-      });
-      return (msg.content[0] as { type: string; text: string }).text;
-    },
-  });
-}
-
-export async function extractEventsWithModel(
+export async function extractEventsFromText(
   text: string,
   venue: { id: string; name: string },
-  model: EventExtractionModel,
+  claude: Anthropic
 ): Promise<{ events: ExtractedEvent[]; error: string | null; elapsedMs: number }> {
   let truncated = text;
   if (text.length > MAX_TEXT_CHARS) {
@@ -542,27 +527,36 @@ export async function extractEventsWithModel(
   const basePrompt = EXTRACT_PROMPT(venue.name, truncated);
   const t0 = Date.now();
 
+  const callClaude = async (prompt: string): Promise<string> => {
+    const msg = await claude.messages.create({
+      model: CLAUDE_MODEL,
+      max_tokens: 4096,
+      messages: [{ role: "user", content: prompt }],
+    });
+    return (msg.content[0] as { type: string; text: string }).text;
+  };
+
   try {
-    const raw = await model.complete(basePrompt);
+    const raw = await callClaude(basePrompt);
     try {
       const events = parseEventsJson(raw);
       return { events, error: null, elapsedMs: Date.now() - t0 };
     } catch (parseErr) {
       if (!(parseErr instanceof BrokenJsonError)) throw parseErr;
       // 壊れたJSONの場合だけ、より厳格な指示を添えて1回だけ再試行する
-      console.warn(`  [${venue.name}] ${model.name}応答のJSON解析に失敗したため1回だけ再試行します: ${parseErr.message}`);
-      const retryRaw = await model.complete(basePrompt + JSON_RETRY_INSTRUCTION);
+      console.warn(`  [${venue.name}] Claude応答のJSON解析に失敗したため1回だけ再試行します: ${parseErr.message}`);
+      const retryRaw = await callClaude(basePrompt + JSON_RETRY_INSTRUCTION);
       try {
         const events = parseEventsJson(retryRaw);
         return { events, error: null, elapsedMs: Date.now() - t0 };
       } catch (retryErr) {
         const message = retryErr instanceof Error ? retryErr.message : String(retryErr);
-        return { events: [], error: `${model.name}抽出エラー(再試行後も壊れたJSON): ${message}`, elapsedMs: Date.now() - t0 };
+        return { events: [], error: `Claude抽出エラー(再試行後も壊れたJSON): ${message}`, elapsedMs: Date.now() - t0 };
       }
     }
   } catch (err) {
     const error = err instanceof Error ? err.message : String(err);
-    return { events: [], error: `${model.name}抽出エラー: ${error}`, elapsedMs: Date.now() - t0 };
+    return { events: [], error: `Claude抽出エラー: ${error}`, elapsedMs: Date.now() - t0 };
   }
 }
 
@@ -782,7 +776,9 @@ export function toEventRows(
       });
       continue;
     }
-    const dates = splitDateTokens(ev.date, pageYear, pageMonth, now);
+    const dates = splitDateTokens(ev.date, pageYear, pageMonth, now).map(date =>
+      reviewedEventDate({ title, venue_id: venue.id, date }) ?? date,
+    );
 
     if (dates.length === 0) {
       // YYYY-MM-DDへ正規化できない(不明/無効)場合は保存対象にせず、invalidDatesとして報告する
@@ -887,7 +883,8 @@ export async function upsertEvents(rows: EventRow[], sb: AnySupabaseClient): Pro
 export async function classifyAgainstExisting(
   rows: EventRow[],
   venueId: string,
-  sb: AnySupabaseClient
+  sb: AnySupabaseClient,
+  equivalentTitles?: ReadonlyMap<string, readonly string[]>,
 ): Promise<{
   newRows: EventRow[];
   matchedExisting: MatchedExistingEvent[];
@@ -920,15 +917,15 @@ export async function classifyAgainstExisting(
   const skippedAmbiguous: AmbiguousMatch[] = [];
 
   for (const row of rows) {
-    const normalized = normalizeTitleIgnoringSpacing(row.title);
+    const titles = new Set([row.title, ...(equivalentTitles?.get(row.id) ?? [])].map(normalizeTitleIgnoringSpacing));
     const sameSlot = existing.filter((event) => event.date === row.date);
-    const exactMatches = sameSlot.filter((event) => normalizeTitleIgnoringSpacing(event.title) === normalized);
+    const exactMatches = sameSlot.filter((event) => titles.has(normalizeTitleIgnoringSpacing(event.title)));
     const unresolvedArtistMatches = sameSlot.filter((event) => {
       if (event.date !== row.date) return false;
       return Boolean(
         row.artist_slug &&
         event.artist_slug === row.artist_slug &&
-        normalizeTitleIgnoringSpacing(event.title) !== normalized &&
+        !titles.has(normalizeTitleIgnoringSpacing(event.title)) &&
         !hasDistinctPerformanceSession(event.title, row.title)
       );
     });

@@ -1,13 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import { revalidateTag } from "next/cache";
 import { createClient } from "@supabase/supabase-js";
 import { getJstDateString } from "@/lib/artistPageData";
 import { ingestExternalSeatText } from "@/lib/external-seats/ingest";
 import {
   daysUntilEventInJst,
-  htmlToVisibleText,
   isAllowedOfficialResaleUrl,
   isResaleCollectionWindow,
+  officialSeatText,
   robotsAllowsPath,
 } from "@/lib/external-seats/sourcePolicy";
 import type { ExternalSeatSource } from "@/lib/external-seats/types";
@@ -34,24 +33,29 @@ export async function GET(request: NextRequest) {
     auth: { persistSession: false, autoRefreshToken: false },
   });
   const now = new Date();
-  const from = getJstDateString(new Date(now.getTime() + 3 * 86_400_000));
+  const from = getJstDateString(now);
   const to = getJstDateString(new Date(now.getTime() + 5 * 86_400_000));
   const { data, error } = await supabase
     .from("external_seat_sources")
-    .select("id, event_id, source_type, source_url, active, target_date, last_fetched_at")
+    .select("id, event_id, source_type, source_url, active, target_date, last_fetched_at, events!inner(date)")
     .eq("active", true)
+    .in("source_type", ["pia_resale", "official_resale"])
     .gte("target_date", from)
     .lte("target_date", to)
     .order("last_fetched_at", { ascending: true, nullsFirst: true })
     .limit(10);
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
-  const sources = (data ?? []) as ExternalSeatSource[];
+  const sources = (data ?? []) as unknown as (ExternalSeatSource & { events: { date: string | null } })[];
   const results: Array<Record<string, unknown>> = [];
-  const robotsByOrigin = new Map<string, { allowed: boolean; reason?: string }>();
+  const robotsByOrigin = new Map<string, { text: string } | { reason: string }>();
   for (const source of sources) {
     const eventDate = source.target_date;
     const daysUntil = daysUntilEventInJst(eventDate, now);
+    if (!eventDate || eventDate !== source.events.date) {
+      results.push({ sourceId: source.id, status: "skipped", reason: "公演日と巡回設定の日付が一致しません" });
+      continue;
+    }
     if (!isResaleCollectionWindow(eventDate, now)) {
       results.push({ sourceId: source.id, status: "skipped", reason: "巡回対象期間外", daysUntil });
       continue;
@@ -69,33 +73,36 @@ export async function GET(request: NextRequest) {
             headers: { "user-agent": BOT_USER_AGENT },
             signal: AbortSignal.timeout(10_000),
             cache: "no-store",
+            redirect: "manual",
           });
-          if (robotsResponse.ok) {
-            robots = robotsAllowsPath(await robotsResponse.text(), source.source_url, BOT_USER_AGENT)
-              ? { allowed: true }
-              : { allowed: false, reason: "robots.txtで取得不可" };
+          if (robotsResponse.ok && !robotsResponse.headers.get("content-type")?.includes("text/html")) {
+            robots = { text: await robotsResponse.text() };
           } else if (robotsResponse.status === 404) {
-            robots = { allowed: true };
+            robots = { text: "" };
           } else {
-            robots = { allowed: false, reason: `robots.txt HTTP ${robotsResponse.status}` };
+            await robotsResponse.body?.cancel();
+            robots = { reason: `robots.txtを確認できません（HTTP ${robotsResponse.status}）` };
           }
         } catch {
-          robots = { allowed: false, reason: "robots.txtを確認できません" };
+          robots = { reason: "robots.txtを確認できません" };
         }
         robotsByOrigin.set(sourceUrl.origin, robots);
       }
-      if (!robots.allowed) {
+      const blocked = "reason" in robots ? robots.reason
+        : robotsAllowsPath(robots.text, source.source_url, BOT_USER_AGENT) ? null : "robots.txtで取得不可";
+      if (blocked) {
         await supabase
           .from("external_seat_sources")
-          .update({ last_fetched_at: new Date().toISOString(), last_error: robots.reason })
+          .update({ last_fetched_at: new Date().toISOString(), last_error: blocked })
           .eq("id", source.id);
-        results.push({ sourceId: source.id, status: "skipped", reason: robots.reason, daysUntil });
+        results.push({ sourceId: source.id, status: "skipped", reason: blocked, daysUntil });
         continue;
       }
       const response = await fetch(source.source_url, {
         headers: { "user-agent": BOT_USER_AGENT },
         signal: AbortSignal.timeout(20_000),
         cache: "no-store",
+        redirect: "manual",
       });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const contentLength = Number(response.headers.get("content-length") ?? 0);
@@ -107,14 +114,17 @@ export async function GET(request: NextRequest) {
         eventId: source.event_id,
         sourceType: source.source_type,
         sourceUrl: source.source_url,
-        text: htmlToVisibleText(html),
+        text: officialSeatText(html, sourceUrl, eventDate),
         ingestionMethod: "crawler",
       });
       await supabase
         .from("external_seat_sources")
         .update({ last_fetched_at: new Date().toISOString(), last_error: null })
         .eq("id", source.id);
-      results.push({ sourceId: source.id, status: "ok", accepted: imported.accepted, daysUntil });
+      results.push({
+        sourceId: source.id, status: "ok", accepted: imported.accepted,
+        newSeats: imported.newSeats, newArenaSeats: imported.newArenaSeats, daysUntil,
+      });
     } catch (caught) {
       const message = caught instanceof Error ? caught.message.slice(0, 300) : "取得失敗";
       await supabase
@@ -125,6 +135,5 @@ export async function GET(request: NextRequest) {
     }
   }
 
-  if (results.some(result => result.status === "ok" && Number(result.accepted) > 0)) revalidateTag("feed", "max");
   return NextResponse.json({ processed: sources.length, results });
 }

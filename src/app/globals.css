@@ -24,6 +24,7 @@
   --radius-card: 16px;
   --space-section-mobile: 28px;
   --space-section-desktop: 40px;
+  --mobile-bottom-nav-height: 72px;
 }
 
 @theme inline {
@@ -219,6 +220,21 @@ body {
 }
 
 @media (max-width: 640px) {
+  body:has([data-bottom-nav], [data-report-detail-actions]) {
+    --bottom-clearance: calc(var(--mobile-bottom-nav-height) + 24px + env(safe-area-inset-bottom, 0px));
+  }
+
+  [data-bottom-nav] {
+    min-height: calc(var(--mobile-bottom-nav-height) + env(safe-area-inset-bottom, 0px));
+  }
+
+  main:has(> [data-bottom-nav]),
+  main:has(~ [data-bottom-nav]),
+  main:has(~ [data-report-detail-actions]),
+  body:has([data-bottom-nav], [data-report-detail-actions]) footer > .zr-container {
+    padding-bottom: var(--bottom-clearance);
+  }
+
   .zr-container {
     width: min(100% - 32px, 1240px);
   }

@@ -1,12 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import Image from "next/image";
 import ArtistGroupPhoto from "@/components/common/ArtistGroupPhoto";
 import { getArtistGroupImage } from "@/lib/artistGroupImages";
 import Link from "next/link";
 import { CalendarDays, MapPin } from "lucide-react";
-import { rateText } from "@/lib/artistPageHelpers";
 import { ShareButton } from "@/components/common/ShareButton";
 import { AccountLink } from "@/components/auth/AccountLink";
 import FavoriteArtistButton from "@/components/auth/FavoriteArtistButton";
@@ -15,15 +14,15 @@ import { DEFAULT_ARTIST_HERO_IMAGE, resolveArtistHeroImage } from "@/lib/artistP
 
 type Props = {
   artistName: string;
+  alternateNames?: ReactNode;
   slug: string;
   heroImage?: string | null;
   tourTitle: string;
   isTestData?: boolean;
   dateRange: string | null;
-  ticketRate: number | null;
-  normalArenaRate: number | null;
-  upgradeRate: number | null;
-  nextEvent: { date: string; venue: string } | null;
+  ticketSummary: { won: number; lost: number; total: number };
+  ticketStatus: "loading" | "error" | "ready";
+  nextEvent: { id: string; date: string; venue: string } | null;
   countdownDays: number | null;
 };
 
@@ -35,13 +34,13 @@ function fmtDateLabel(d: string): string {
 
 export default function HeroSection({
   artistName,
+  alternateNames,
   slug,
   heroImage,
   tourTitle,
   isTestData = false,
-  ticketRate,
-  normalArenaRate,
-  upgradeRate,
+  ticketSummary,
+  ticketStatus,
   nextEvent,
   countdownDays,
 }: Props) {
@@ -50,9 +49,8 @@ export default function HeroSection({
   const [heroImageSrc, setHeroImageSrc] = useState(configuredHeroImage);
 
   const summaryMetrics = [
-    { label: "チケット当選率", value: rateText(ticketRate) },
-    { label: "通常アリーナ率", value: rateText(normalArenaRate) },
-    { label: "アプグレ当選率", value: rateText(upgradeRate) },
+    { label: "当選の報告", value: ticketSummary.won },
+    { label: "落選の報告", value: ticketSummary.lost },
   ];
   const availableSummaryMetrics = summaryMetrics;
   const heightClass = nextEvent
@@ -95,13 +93,13 @@ export default function HeroSection({
         />
 
         {groupPhoto && <ArtistGroupPhoto key={slug} slug={slug} name={artistName} variant="hero" priority />}
-        <div className={groupPhoto ? "zr-container relative pb-5 pt-5 sm:pb-7" : "zr-container absolute inset-x-0 bottom-0 pb-5 sm:pb-7"}>
+        <div className={groupPhoto ? "zr-container relative pb-5 pt-5 sm:pb-7" : "zr-container relative pb-5 pt-3 sm:pb-7"}>
           <div className="max-w-[860px] rounded-[28px] bg-white/88 p-5 shadow-[0_14px_38px_rgba(129,55,83,.14)] backdrop-blur-md sm:p-7">
-          <p className="text-[10px] font-black tracking-[0.2em] text-[#e4487b]">FAN&apos;S LIVE NOTE</p>
           <div className="mt-2 flex flex-wrap items-center gap-2.5 sm:gap-4">
             <h1 className="min-w-0 text-[38px] font-black leading-none tracking-[-0.055em] text-[#2b252b] sm:text-[56px] lg:text-[72px]">{artistName}</h1>
             <FavoriteArtistButton artistSlug={slug} showLabel className="bg-white/95" />
           </div>
+          {alternateNames}
           <div className="mt-3 flex flex-wrap items-center gap-2">
             <p className="max-w-[680px] text-[14px] font-bold leading-6 text-[#594651] sm:text-[17px]">
               {nextEvent ? (tourTitle || artistName) : "次回公演 発表待ち"}
@@ -110,27 +108,27 @@ export default function HeroSection({
           </div>
 
           {nextEvent ? (
-          <div className="mt-5 grid rounded-2xl bg-[#fff4f8] px-4 sm:grid-cols-[1.35fr_.65fr] sm:px-5">
+          <Link href={`/events/${encodeURIComponent(nextEvent.id)}`} data-next-performance className="zr-focus mt-5 grid rounded-2xl bg-[#fff4f8] px-4 hover:bg-[#ffe7f0] sm:grid-cols-[1.35fr_.65fr] sm:px-5">
             <div className="flex min-w-0 items-center gap-4 py-3 sm:border-r sm:border-[#f1dce5] sm:pr-5">
               <CalendarDays size={18} className="shrink-0 text-[#ec4f84]" />
               <div className="min-w-0">
                 <p className="text-[11px] font-bold text-[#9b7284]">{fmtDateLabel(nextEvent.date)}</p>
-                <p className="mt-1 flex items-center gap-1.5 truncate text-[14px] font-bold text-[#443740]"><MapPin size={13} className="shrink-0 text-[#df6790]" />{nextEvent.venue}</p>
+                <p className="mt-1 flex items-center gap-1.5 break-words text-[14px] font-bold text-[#443740]"><MapPin size={13} className="shrink-0 text-[#df6790]" />{nextEvent.venue}</p>
               </div>
             </div>
             <div className="flex items-end justify-between border-t border-[#f1dce5] py-3 sm:border-t-0 sm:pl-5">
-              <span className="text-[10px] font-bold tracking-[0.12em] text-[#9b7284]">NEXT LIVE</span>
-              <p className="font-black leading-none text-[#e84a80]"><span className="text-[34px]">{countdownDays ?? "--"}</span><span className="ml-1 text-[10px] tracking-[0.12em]">DAYS</span></p>
+              <span className="text-[12px] font-bold text-[#9b7284]">次の公演 <span aria-hidden="true">→</span></span>
+              <p className="text-[14px] font-bold text-[#e84a80]">{countdownDays === 0 ? "今日開催" : countdownDays != null ? <>あと<span className="mx-1 text-[30px] font-black">{countdownDays}</span>日</> : "日程を確認"}</p>
             </div>
-          </div>
+          </Link>
           ) : (
             <div className="mt-5 flex min-h-12 items-center justify-between gap-3 rounded-2xl bg-[#fff4f8] px-4">
               <p className="text-[12px] font-bold text-[#876b79]">次回公演の発表を待っています</p>
-              <Link href={`/artists/${slug}/news`} className="shrink-0 text-[11px] font-black text-[#e84a80]">公式NEWS →</Link>
+              <Link href={`/artists/${slug}/news`} className="shrink-0 text-[11px] font-black text-[#e84a80]">公式ニュース →</Link>
             </div>
           )}
 
-          {availableSummaryMetrics.length > 0 && <div className={`grid pt-5 ${availableSummaryMetrics.length === 1 ? "grid-cols-1" : availableSummaryMetrics.length === 2 ? "grid-cols-2" : "grid-cols-3"}`}>
+          {ticketStatus === "ready" && ticketSummary.total > 0 ? <><div className="grid grid-cols-2 pt-4" data-ticket-hero-counts>
             {availableSummaryMetrics.map((metric, index) => (
               <div
                 key={metric.label}
@@ -138,11 +136,11 @@ export default function HeroSection({
               >
                 <p className="truncate text-[9px] font-bold text-[#967987] sm:text-[11px]">{metric.label}</p>
                 <p className="mt-1.5 text-[22px] font-black leading-none text-[#3d3038] sm:text-[28px]">
-                  {metric.value === "--" ? "—" : metric.value}{metric.value !== "--" && <span className="ml-0.5 text-[12px] text-[#e84a80]">%</span>}
+                  {metric.value}<span className="ml-0.5 text-[12px] text-[#e84a80]">件</span>
                 </p>
               </div>
             ))}
-          </div>}
+          </div><a href="#ticket-data" className="zr-focus mt-3 flex min-h-9 items-center text-[12px] font-bold text-[#a41c53]">申込結果{ticketSummary.total}件の内訳を見る →</a></> : <p className="mt-4 text-[12px] text-[#625a61]">{ticketStatus === "loading" ? "当落報告を読み込み中" : ticketStatus === "error" ? "当落報告を確認できません" : "当落の報告はまだありません"}</p>}
           </div>
         </div>
       </div>

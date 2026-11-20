@@ -1,5 +1,6 @@
 import type { ArenaMapReport } from "@/lib/arena-map/arenaMapTypes";
 import type { ExternalSeatObservation } from "./types";
+import { isCurrentXSeatPost, isXSeatPostUrl, X_ARENA_WITHOUT_BLOCK } from "./xSeatPosts";
 
 const MAX_EXPANDED_CELLS_PER_OBSERVATION = 500;
 
@@ -14,6 +15,8 @@ export function externalObservationsToArenaReports(
     if (
       observation.review_status !== "approved" ||
       observation.seat_area !== "arena" ||
+      (isXSeatPostUrl(observation.source_url) &&
+        (!isCurrentXSeatPost(observation.observed_at) || observation.block === X_ARENA_WITHOUT_BLOCK)) ||
       !observation.block ||
       observation.row_min == null ||
       observation.row_max == null ||

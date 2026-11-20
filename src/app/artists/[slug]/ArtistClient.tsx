@@ -1,18 +1,17 @@
 "use client";
 
-import { type ReactNode, use, useCallback, useEffect, useMemo, useState } from "react";
+import { type ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase/client";
 import { findArtistBySlug } from "@/lib/artists";
-import { getEventsForArtist } from "@/lib/events";
 import { queryLatestOfficialNewsForArtist } from "@/lib/officialNews";
 import type { CrawledEvent, OfficialNews } from "@/lib/types";
-import type { AnalyticsReport, TicketResultAnalytics, AfterReportCard } from "@/lib/artistPageTypes";
+import type { ArtistReportSummary, PublicTicketStat, TicketResultAnalytics, AfterReportCard } from "@/lib/artistPageTypes";
 import { computeTicketResultStats, computeArenaDetailStats, computeUpgradeDetailStats, computeLiveEffects } from "@/lib/artistPageStats";
 import { parseEventTitle } from "@/lib/eventTitle";
+import { useJstDay } from "@/lib/useJstDay";
 import {
   daysUntilJstDate,
-  getJstDateString,
   getPastEvents,
   getUpcomingEvents,
   selectNextEvent,
@@ -42,6 +41,8 @@ import { eventSeatGroup } from "@/lib/arena-map/eventSeatGroup";
 import { readArenaReports } from "@/lib/arena-map/readArenaReports";
 import { isEventPredictionEnabled } from "@/lib/arena-map/eventPredictionInput";
 import { eligibleTicketReports, UNVERIFIED_TICKET_IDS } from "@/lib/ticketAnalyticsEligibility";
+import type { SeatPhotoVenue } from "@/lib/serverSeatPhotoVenues";
+import { getEventDisplayVenueName, getPublicVenueGuideId } from "@/lib/publicVenueGuides";
 
 /**
  * 公演データ以外は端末側で取得するため、初回だけ下部に軽い骨組みを出す。
@@ -67,20 +68,77 @@ function ArtistDetailsPlaceholder() {
 }
 
 export function ArtistClient({
-  params,
+  slug,
   initialEvents,
+  initialDay,
   searchGuide,
+  alternateNames,
+  photoVenues = [],
+  seatPhotos,
+  photoCount = 0,
+  publicReportCount = null,
+  venuePhotoCounts = {},
 }: {
-  params: Promise<{ slug: string }>;
+  slug: string;
   initialEvents: CrawledEvent[];
+  initialDay: string;
   searchGuide?: ReactNode;
+  alternateNames?: ReactNode;
+  photoVenues?: SeatPhotoVenue[];
+  seatPhotos?: ReactNode;
+  photoCount?: number;
+  publicReportCount?: number | null;
+  venuePhotoCounts?: Readonly<Record<string, number>>;
 }) {
-  const { slug } = use(params);
   const artist = findArtistBySlug(slug);
   const seoProfile = getArtistSeoProfile(slug);
+  const mainRef = useRef<HTMLElement>(null);
 
-  const [events, setEvents] = useState<CrawledEvent[]>(initialEvents);
-  const [ticketResultReports, setTicketResultReports] = useState<TicketResultAnalytics[]>([]);
+  // Keep the chosen menu heading in view if late reports change the height above it.
+  // The next user gesture gives scrolling back to the reader immediately.
+  useEffect(() => {
+    const main = mainRef.current;
+    if (!main) return;
+    let target: HTMLElement | null = null;
+    const observer = new ResizeObserver(() => {
+      if (!target || location.hash !== "#" + target.id) return;
+      const margin = parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
+      if (Math.abs(target.getBoundingClientRect().top - margin) > 2) {
+        target.scrollIntoView({ block: "start", behavior: "instant" });
+      }
+    });
+    function stop() { observer.disconnect(); target = null; }
+    function watch(hash: string) {
+      stop();
+      if (hash !== "#ticket-data" && hash !== "#fan-board") return;
+      target = document.getElementById(hash.slice(1));
+      if (target && main) observer.observe(main);
+    }
+    function click(event: MouseEvent) {
+      const link = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>('a[href^="#"]') : null;
+      if (link && !event.ctrlKey && !event.metaKey && !event.shiftKey && !event.altKey) watch(link.hash);
+    }
+    const change = () => watch(location.hash);
+    change();
+    main.addEventListener("click", click);
+    window.addEventListener("hashchange", change);
+    const gestures = ["pointerdown", "touchmove", "wheel", "keydown"] as const;
+    for (const type of gestures) window.addEventListener(type, stop, { passive: true, capture: true });
+    return () => {
+      stop();
+      main.removeEventListener("click", click);
+      window.removeEventListener("hashchange", change);
+      for (const type of gestures) window.removeEventListener(type, stop, true);
+    };
+  }, [slug]);
+
+  const events = useMemo(() => initialEvents.map(event => {
+    const venue = getEventDisplayVenueName(event.venue_id, event.venue);
+    return venue === event.venue ? event : { ...event, venue };
+  }), [initialEvents]);
+  const [ticketResultReports, setTicketResultReports] = useState<PublicTicketStat[]>([]);
+  const [seatReportTimeline, setSeatReportTimeline] = useState<TicketResultAnalytics[]>([]);
+  const [timelineStatus, setTimelineStatus] = useState<"loading" | "ready" | "unavailable">("loading");
   const [seatCounts, setSeatCounts] = useState<Map<string, number>>(new Map());
   const [venueAfterReports, setVenueAfterReports] = useState<AfterReportCard[]>([]);
   const [officialNews, setOfficialNews] = useState<OfficialNews[]>([]);
@@ -95,66 +153,67 @@ export function ArtistClient({
   const [scopedSeats, setScopedSeats] = useState<{ targetId: string; reports: SeatReport[]; external: ExternalSeatObservation[]; status: "loading" | "ready" | "unavailable"; limited?: boolean } | null>(null);
   const [ticketDataLimited, setTicketDataLimited] = useState(false);
 
-  const loadData = useCallback(async (a: NonNullable<ReturnType<typeof findArtistBySlug>>) => {
-    setFetchError(null);
-    setTopPrediction(null);
-    setPostAuthorMap(new Map());
-    setOfficialNews([]);
-
-    try {
-      const allEvs = initialEvents.length > 0
-        ? initialEvents
-        : await getEventsForArtist(a.slug);
-      setEvents(allEvs);
-
-      queryLatestOfficialNewsForArtist(a.slug, 3).then((result) => setOfficialNews(result.data));
-
-      if (allEvs.length === 0) return;
-
-      const ids = allEvs.map(e => e.id);
-
-      const [seatRes, ticketResultRes] = await Promise.all([
-        supabase.from("seat_reports")
-          .select("id, event_id, block, row_num, seat_num, lottery_type, fc_history, payment_method, lottery_round, lottery_name, comment, created_at")
-          .in("event_id", ids)
-          .order("created_at", { ascending: false })
-          .limit(500),
-        supabase.from("event_ticket_results")
-          .select("id, event_id, user_id, result, lost_application_count, ticket_count, lottery_type, fc_history, payment_method, seat_type, upgrade_result, comment, seat_block, seat_row, seat_number, stand_direction, stand_floor, other_seat_info, created_at", { count: "exact" })
-          .in("event_id", ids)
-          .order("created_at", { ascending: false })
-          .limit(1000),
-      ]);
-      if (seatRes.error || ticketResultRes.error) throw new Error("Report read failed");
-      setTicketDataLimited((ticketResultRes.count ?? 0) > 1000);
-
-      const seatData = (seatRes.data as AnalyticsReport[]) ?? [];
-      const ticketResultData = (ticketResultRes.data as TicketResultAnalytics[]) ?? [];
-      const ticketAuthors = await fetchVisiblePostAuthors(ticketResultData.map((report) => report.user_id));
-      setPostAuthorMap((current) => new Map([...current, ...ticketAuthors]));
-
-      const sCounts = new Map<string, number>();
-      for (const r of seatData) sCounts.set(r.event_id, (sCounts.get(r.event_id) ?? 0) + 1);
-
-      setTicketResultReports(ticketResultData);
-      setSeatCounts(sCounts);
-    } catch {
-      setFetchError("データを読み込めませんでした。時間をおいてもう一度お試しください。");
-    } finally {
-      setLoading(false);
-    }
-  }, [initialEvents]);
-
   useEffect(() => {
     if (!artist) return;
+    const controller = new AbortController();
+    const { signal } = controller;
     setLoading(true);
+    setFetchError(null);
+    setTimelineStatus(events.length ? "loading" : "ready");
+    setTicketResultReports([]);
+    setTicketDataLimited(false);
+    setSeatCounts(new Map());
+    setSeatReportTimeline([]);
     setSelectedVenue(null);
     setPastMapOverride(null);
     setSelectedTourEventIds(null);
-    loadData(artist);
-  }, [artist, loadData]);
+    setTopPrediction(null);
+    setPostAuthorMap(new Map());
+    setOfficialNews([]);
+    void queryLatestOfficialNewsForArtist(slug, 3).then(result => {
+      if (!signal.aborted) setOfficialNews(result.data);
+    }).catch(() => {});
+    if (!events.length) {
+      setLoading(false);
+      return () => controller.abort();
+    }
+    async function loadStats() {
+      try {
+        const response = await fetch(`/api/public/artist-report-summary/${encodeURIComponent(slug)}`, { signal });
+        if (!response.ok) throw new Error("Artist report summary unavailable");
+        const summary: ArtistReportSummary = await response.json();
+        if (signal.aborted) return;
+        setTicketDataLimited(summary.ticketDataLimited);
+        setTicketResultReports(summary.tickets);
+        setSeatCounts(new Map(Object.entries(summary.seatCounts)));
+      } catch {
+        if (!signal.aborted) setFetchError("当落データを取得できません。時間をおいてもう一度お試しください。");
+      } finally {
+        if (!signal.aborted) setLoading(false);
+      }
+    }
+    async function loadTimeline() {
+      try {
+        const { data, error } = await supabase.from("event_ticket_results")
+          .select("id,event_id,user_id,result,lost_application_count,ticket_count,lottery_type,fc_history,payment_method,seat_type,upgrade_result,comment,seat_block,seat_row,seat_number,stand_direction,stand_floor,other_seat_info,created_at")
+          .in("event_id", events.map(e => e.id)).order("created_at", { ascending: false }).limit(3).abortSignal(signal);
+        if (signal.aborted) return;
+        if (error) throw error;
+        const latest = (data ?? []) as TicketResultAnalytics[];
+        setSeatReportTimeline(latest);
+        setTimelineStatus("ready");
+        const authors = await fetchVisiblePostAuthors(latest.map(report => report.user_id));
+        if (!signal.aborted) setPostAuthorMap(current => new Map([...current, ...authors]));
+      } catch {
+        if (!signal.aborted) setTimelineStatus("unavailable");
+      }
+    }
+    void loadStats();
+    void loadTimeline();
+    return () => controller.abort();
+  }, [artist, slug, events]);
 
-  const today = getJstDateString();
+  const today = useJstDay(initialDay);
 
   const upcomingEvents = useMemo(
     () => getUpcomingEvents(events, today),
@@ -239,12 +298,6 @@ export function ArtistClient({
     for (const ev of events) m.set(ev.id, ev);
     return m;
   }, [events]);
-
-  // 座席報告タイムライン：ツアー/会場で絞り込まず、アーティスト全体の新着3件（activity感の可視化が目的）
-  const seatReportTimeline = useMemo(
-    () => ticketResultReports.slice(0, 3),
-    [ticketResultReports],
-  );
 
   const countdownDays = useMemo(() => {
     return daysUntilJstDate(nearestUpcomingEvent?.date, today);
@@ -368,7 +421,7 @@ export function ArtistClient({
     async function loadVenueAfterReports() {
       const { data } = await supabase
         .from("after_reports")
-        .select("id, event_id, user_id, seat_area_type, seat_block, seat_row, seat_number, seat_view_photo_paths, main_stage, center_stage, fansa_rating, torokko, kyakukudari, silver_tape_rows, fansa, memo, created_at")
+        .select("id, event_id, user_id, seat_area_type, seat_description, seat_block, seat_row, seat_number, seat_view_photo_paths, main_stage, center_stage, fansa_rating, torokko, kyakukudari, silver_tape_rows, fansa, memo, created_at")
         .in("event_id", venueEventIds)
         .order("created_at", { ascending: false })
         .limit(200);
@@ -500,22 +553,29 @@ export function ArtistClient({
     );
   }
 
+  const nextVenueId = nearestUpcomingEvent && getPublicVenueGuideId(nearestUpcomingEvent.venue_id, nearestUpcomingEvent.venue);
+  const nextVenueName = nearestUpcomingEvent?.venue;
+  const nextVenuePhotos = nextVenueId && nextVenueName && venuePhotoCounts[nextVenueId] > 0
+    ? { id: nextVenueId, name: nextVenueName, count: venuePhotoCounts[nextVenueId] } : null;
+  const photoVenue = mapActiveVenue
+    ? photoVenues.find(venue => venue.id === getPublicVenueGuideId(undefined, mapActiveVenue))
+    : photoVenues[0];
   return (
-    <main className="min-h-screen bg-background font-sans text-foreground">
+    <main ref={mainRef} className="min-h-screen bg-background font-sans text-foreground">
       <HeroSection
         key={artist.slug}
         artistName={artist.name}
+        alternateNames={alternateNames}
         slug={slug}
         heroImage={artist.heroImage}
         tourTitle={nearestUpcomingEvent === null ? "公演発表待機中" : (nextEventTitle?.tourName ?? artist.name)}
         isTestData={nextEventTitle?.isTestData ?? false}
         dateRange={nextEventDateLabel}
-        ticketRate={ticketResultStats.rate}
-        normalArenaRate={ticketResultStats.normalArenaRate}
-        upgradeRate={ticketResultStats.upgradeRate}
+        ticketSummary={ticketResultStats}
+        ticketStatus={loading ? "loading" : fetchError || ticketDataLimited ? "error" : "ready"}
         nextEvent={
           nearestUpcomingEvent
-            ? { date: nearestUpcomingEvent.date!, venue: nearestUpcomingEvent.venue }
+            ? { id: nearestUpcomingEvent.id, date: nearestUpcomingEvent.date!, venue: nextVenueName ?? nearestUpcomingEvent.venue }
             : null
         }
         countdownDays={countdownDays}
@@ -531,10 +591,11 @@ export function ArtistClient({
           <div className="zr-container">
             <ArtistActionHub artistName={artist.name} slug={slug}
               seatHref={searchGuide ? "#artist-seat-guide" : null}
-              seatDescription={searchGuide ? "会場・公演日から探す" : undefined}
+              seatDescription={searchGuide ? "会場・日付で探す" : undefined}
+              photoCount={photoCount} publicReportCount={publicReportCount} nextVenuePhotos={nextVenuePhotos}
             />
 
-            <section className="py-2" aria-label="公演の表示切り替え">
+            <section id="artist-events" className="scroll-mt-20 py-2" aria-label="公演の表示切り替え">
               <div className="flex items-center gap-2 rounded-full bg-white p-1.5 shadow-sm">
                 <button
                   type="button"
@@ -557,31 +618,38 @@ export function ArtistClient({
           </div>
 
           {activeEventTab === "current" ? (
+            <div className="zr-container"><UpcomingEventsSection artistName={artist.name} events={upcomingEvents} /></div>
+          ) : (
+            <div className="zr-container py-8"><PastTourSection
+              tours={pastTourGroups}
+              onSelectEvent={handleSelectPastEvent}
+              onSelectTour={handleSelectTour}
+              artistName={artist?.name}
+            /></div>
+          )}
             <div className="zr-container">
-              <UpcomingEventsSection artistName={artist.name} events={upcomingEvents} />
-
-              {loading ? <ArtistDetailsPlaceholder /> : <>
               {/* ===== 座席データ区画: 全公演の傾向カード + 座席報告タイムライン ===== */}
-              <div id="ticket-data">
-                <section className="artist-section">
-                  <p className="artist-kicker">Ticket & Seat Data</p>
-                  <h2 className="artist-heading">当落・座席データ</h2>
-                  <p className="mt-2 text-[12px] font-bold text-[#625a61]">{fetchError ? "当落データを取得できません" : `${selectedTourEventIds ? "選択した過去公演" : "全公演"} · 当落報告${tourScopedTicketResultReports.length}件${ticketDataLimited ? "（取得上限超過・率は非表示）" : ""}`}</p>
+              <section id="ticket-data" className="artist-section scroll-mt-20" aria-labelledby="ticket-data-title">
+                <h2 className="artist-heading" id="ticket-data-title">当落・座席データ</h2>
+                {loading ? <ArtistDetailsPlaceholder /> : (
+                <>
+                  <p className="mt-2 text-[12px] font-bold text-[#625a61]">{fetchError ? "当落データを取得できません" : ticketDataLimited ? "当落報告が集計上限を超えたため、率は表示していません。" : `${selectedTourEventIds ? "選択した過去公演" : "全公演"} · 当落報告${tourScopedTicketResultReports.length}件`}</p>
                   {ticketResultReports.some(report => UNVERIFIED_TICKET_IDS.has(report.id)) && <p className="mt-1 text-[12px] text-[#625a61]">抽選条件未確認の座席記録は当選率に含めていません。</p>}
-                  {ticketResultReports.length > 0 ? (
+                  {ticketResultReports.length > 0 || seatReportTimeline.length > 0 || fetchError || timelineStatus !== "ready" ? (
                   <div className="mt-6 grid gap-4 lg:grid-cols-[1.25fr_.75fr]">
-                    <TrendSection
+                    {!fetchError && !ticketDataLimited && <TrendSection
                       ticketStats={trendTicketStats}
                       arenaStats={trendArenaStats}
                       upgradeStats={trendUpgradeStats}
                       reportCount={tourScopedTicketResultReports.length}
                       title={selectedTourEventIds ? "選択した過去公演" : "全公演"}
-                    />
+                    />}
                     <div className="min-w-0 border-t border-[#ded8dc] pt-5 lg:border-l lg:border-t-0 lg:pl-6 lg:pt-0">
                       <SeatReportTimelineSection
                         items={seatReportTimeline}
+                        emptyText={timelineStatus === "loading" ? "座席報告を読み込み中です。" : timelineStatus === "unavailable" ? "座席報告を取得できませんでした。" : undefined}
                         eventMap={eventMap}
-                        reportHref={ticketReportHref}
+                        reportHref={timelineStatus === "ready" ? ticketReportHref : undefined}
                         authorMap={postAuthorMap}
                       />
                     </div>
@@ -592,15 +660,17 @@ export function ArtistClient({
                     <div className="mt-5 flex min-h-[72px] items-center justify-between gap-4 border-y border-[#ded8dc] bg-white px-3 py-3 sm:px-4">
                       <div className="min-w-0">
                         <p className="text-[13px] font-black text-[#4b4148]">当落・座席レポはまだありません</p>
-                        <p className="mt-1 text-[10px] font-bold text-[#817981]">最初のレポから当選率が集計されます</p>
+                        <p className="mt-1 text-[12px] text-[#817981]">当選・落選の報告を募集しています</p>
                       </div>
                       <Link href={ticketReportHref} className="zr-focus shrink-0 text-[11px] font-black text-[#e84a80]">報告する →</Link>
                     </div>
                     </>
                   )}
-                </section>
-              </div>
+                </>
+                )}
+              </section>
 
+              {!loading && <>
               {/* ===== マップ・座席予想区画: 会場選択 + みんなの座席報告マップ + 予想図 + 詳細導線 ===== */}
               <div>
                 <SeatPredictionPreviewSection
@@ -622,23 +692,20 @@ export function ArtistClient({
                 afterHref={afterHref}
                 reportHref={liveReportHref}
                 authorMap={postAuthorMap}
+                photoHref={photoVenue && `/venues/${photoVenue.id}#seat-photo-title`}
               >
                 <LiveEffectsSection liveEffects={liveEffects} />
               </ReportSection>
 
-              <ArtistBoardPreview artistSlug={slug} artistName={artist.name} />
               </>}
+              <ArtistBoardPreview artistSlug={slug} artistName={artist.name} />
             </div>
-          ) : (
-            <div className="zr-container py-8"><PastTourSection
-              tours={pastTourGroups}
-              onSelectEvent={handleSelectPastEvent}
-              onSelectTour={handleSelectTour}
-              artistName={artist?.name}
-            /></div>
-          )}
 
-          {!loading && <div className="zr-container"><OfficialNewsSection news={officialNews} moreHref={`/artists/${slug}/news`} /></div>}
+          {seatPhotos && <div className="zr-container">{seatPhotos}</div>}
+          <div className="zr-container">
+            {loading || officialNews.length === 0 ? <Link className="zr-focus inline-flex min-h-11 items-center text-sm font-bold text-[#922753] underline" href={`/artists/${slug}/news`}>{artist.name}の公式ニュースを見る</Link>
+              : <OfficialNewsSection news={officialNews} moreHref={`/artists/${slug}/news`} />}
+          </div>
           {searchGuide && <div id="artist-seat-guide" className="zr-container scroll-mt-[90px]">{searchGuide}</div>}
           {!loading && seoProfile && artist && (
             <SeoEditorialSection

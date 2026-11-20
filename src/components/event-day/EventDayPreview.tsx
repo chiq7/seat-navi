@@ -10,7 +10,7 @@ import { EventDayReader } from "./EventDayReader";
 import { eventDayImageScale } from "@/lib/eventDayImage";
 import styles from "./EventDayPreview.module.css";
 
-export default function EventDayPreview({ day = EVENT_DAY_OSAKA_EXAMPLE, failFirstImage = false, textScale = 1, publicUrl }: { day?: EventDaySummary; failFirstImage?: boolean; textScale?: number; publicUrl?: string }) {
+export default function EventDayPreview({ day = EVENT_DAY_OSAKA_EXAMPLE, failFirstImage = false, textScale = 1, eventId, publicUrl }: { day?: EventDaySummary; failFirstImage?: boolean; textScale?: number; publicUrl?: string; eventId?: string }) {
   const svgRef = useRef<SVGSVGElement>(null);
   const [image, setImage] = useState<File | null>(null);
   const [imageError, setImageError] = useState(false);
@@ -46,7 +46,7 @@ export default function EventDayPreview({ day = EVENT_DAY_OSAKA_EXAMPLE, failFir
     : eventDayXHref(day);
 
   return <>
-    <EventDayReader day={day} textScale={textScale} tools={<>
+    <EventDayReader eventId={eventId} day={day} textScale={textScale} tools={<>
       <button className={styles.secondary} type="button" disabled={!image} onClick={save}><Download size={20} aria-hidden="true" />{image ? "画像を保存" : imageError ? "画像生成に失敗" : "画像を準備中…"}</button>
       <a className={styles.secondary} aria-label="Xで投稿文を開く" href={shareHref} target="_blank" rel="noopener noreferrer"><span className={styles.xMark} aria-hidden="true">𝕏</span>投稿文を開く<ExternalLink size={16} aria-hidden="true" /></a>
       <p role="status" className={styles.status}>{status}</p>

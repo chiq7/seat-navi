@@ -11,7 +11,7 @@ test("the public backup omits user reports and dated promotional examples", () =
     { id: "member", source: "real", xHandle: "account", detail: "member comment" },
     { id: "supplemental-1", source: "editorial", detail: "明日公演" },
     { id: "sample-1", source: "sample" },
-    { id: "official", source: "collection", date: "2026-11-10", xHandle: null },
+    { id: "official", source: "editorial", date: "2026-11-10", xHandle: null },
   ];
   const backup = createPublicDataSnapshot(paths.feed, value, savedAt);
   assert.deepEqual(readPublicDataSnapshot(paths.feed, backup, afterMidnight).data, [value[3]]);

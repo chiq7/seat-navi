@@ -2,11 +2,12 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { readFileSync } from "node:fs";
 import ts from "typescript";
+import * as setlistSeo from "../src/lib/setlistSeo.ts";
+import { readSupabasePages } from "../src/lib/supabase/readPages.ts";
 import * as setlistHelpers from "../src/lib/setlistHelpers.ts";
 import * as artists from "../src/lib/artists.ts";
 import * as eventTitle from "../src/lib/eventTitle.ts";
 import * as eventDisplay from "../src/lib/eventDisplay.ts";
-import * as readPages from "../src/lib/supabase/readPages.ts";
 import type { CrawledEvent } from "../src/lib/types.ts";
 
 // Execute the production modules with local query responses. No credentials or DB calls.
@@ -24,6 +25,18 @@ function loadModule<T>(file: string, dependencies: Record<string, unknown>): T {
 
 const { isTestEvent } = loadModule<typeof import("../src/lib/seoData.ts")>("src/lib/seoData.ts", {
   "@/lib/setlistHelpers": setlistHelpers,
+  "@/lib/eventIndexContent": {},
+  "@/lib/eventPublication": {},
+  "@/lib/liveReportSeo": {},
+  "@/lib/reviewedEventDates": {},
+  "@/lib/eventArenaPhotos": {},
+  "@/lib/publicVenueGuides": {},
+  "@/lib/venueActivity": {},
+  "@/lib/seatSourceArchive": {},
+  "@/lib/archiveArtistsWithSongs.json": { default: [] },
+    "@/lib/setlistSeo": setlistSeo,
+    "@/lib/artistPageData": { getJstDateString: () => "2026-11-17" },
+    "@/lib/supabase/readPages": { readSupabasePages },
   react: { cache: (fn: unknown) => fn },
   "@/lib/artists": artists,
   "@/lib/events": {},
@@ -31,7 +44,6 @@ const { isTestEvent } = loadModule<typeof import("../src/lib/seoData.ts")>("src/
   "@/lib/og/eventOgData": {},
   "@/lib/og/reportOgData": {},
   "@/lib/supabase/client": {},
-  "@/lib/supabase/readPages": readPages,
   "@/lib/eventDisplay": eventDisplay,
 });
 const { queryEventWithArtist } = loadModule<typeof import("../src/lib/og/eventOgData.ts")>("src/lib/og/eventOgData.ts", {
@@ -56,6 +68,7 @@ function publicModule(result: QueryResult) {
     "server-only": {},
     "next/cache": { unstable_cache: (fn: unknown) => fn },
     "@/lib/events": {},
+    "@/lib/publicEventCatalogContext": { getRequestPublicEventCatalog: async () => null },
     "@/lib/og/eventOgData": { queryEventWithArtist },
     "@/lib/seoData": { isTestEvent },
     "@/lib/supabase/public": { createSupabasePublicClient: () => clientFor(result) },

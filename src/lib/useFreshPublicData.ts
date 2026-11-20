@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { fetchFreshPublicData } from "./publicDataRefresh";
 
 /** Recheck on arrival, at the data's refresh interval, and on return to the tab. */
 export function useFreshPublicData<T>(path: string | undefined, seconds: number, initial: T) {
-  const [fresh, setFresh] = useState<{ path: string; data: T; staleAt: string | null }>();
-  const [failed, setFailed] = useState(false);
+  const [fresh, setFresh] = useState<{ path: string; data: T; staleAt: string | null; checkedAt: string; updatedAt: string | null }>();
+  const [status, setStatus] = useState<{ path: string; failed: boolean; refreshing: boolean }>();
   const [attempt, setAttempt] = useState(0);
 
   useEffect(() => {
@@ -16,19 +17,15 @@ export function useFreshPublicData<T>(path: string | undefined, seconds: number,
     async function refresh() {
       if (document.hidden || loading) return;
       loading = true;
+      setStatus({ path: endpoint, failed: false, refreshing: true });
       try {
-        const response = await fetch(endpoint, { signal: controller.signal, cache: "no-store" });
-        if (!response.ok) throw new Error("Public data request failed");
-        const data = await response.json() as T;
-        const updatedAt = response.headers.get("X-Tixrepo-Data-Updated-At");
-        const staleAt = response.headers.get("X-Tixrepo-Data-Stale") === "1" && updatedAt
-          && Number.isFinite(Date.parse(updatedAt)) ? updatedAt : null;
+        const result = await fetchFreshPublicData<T>(endpoint, { signal: controller.signal });
         if (!controller.signal.aborted) {
-          setFresh({ path: endpoint, data, staleAt });
-          setFailed(false);
+          setFresh({ path: endpoint, ...result });
+          setStatus({ path: endpoint, failed: false, refreshing: false });
         }
       } catch {
-        if (!controller.signal.aborted) setFailed(true);
+        if (!controller.signal.aborted) setStatus({ path: endpoint, failed: true, refreshing: false });
       } finally {
         loading = false;
       }
@@ -44,10 +41,14 @@ export function useFreshPublicData<T>(path: string | undefined, seconds: number,
   }, [path, seconds, attempt]);
 
   const current = fresh?.path === path ? fresh : undefined;
+  const currentStatus = status?.path === path ? status : undefined;
   return {
     data: current?.data ?? initial,
     staleAt: current?.staleAt ?? null,
-    failed,
+    lastSuccessAt: current?.checkedAt ?? null,
+    updatedAt: current?.updatedAt ?? null,
+    failed: currentStatus?.failed ?? false,
+    refreshing: currentStatus?.refreshing ?? false,
     retry: () => setAttempt(value => value + 1),
   };
 }

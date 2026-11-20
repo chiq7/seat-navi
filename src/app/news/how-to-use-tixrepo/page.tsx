@@ -1,62 +1,59 @@
-import type { Metadata } from "next";
+import { buildFileImageMetadata } from "@/lib/fileImageMetadata";
 import Link from "next/link";
 import { CheckCircle2, Search, Ticket, MapPinned, MessageSquareText, Music2 } from "lucide-react";
 import { NewsArticleLayout } from "@/components/news/NewsArticleLayout";
 
-const PAGE_URL = "https://tixrepo.com/news/how-to-use-tixrepo";
-
-export const metadata: Metadata = {
+export const metadata = buildFileImageMetadata({
+  path: "/news/how-to-use-tixrepo",
   title: "ちけレポでできること｜当落・座席・現地レポの使い方",
   description: "ちけレポでできることを紹介します。公演の探し方、当落・座席報告、現地レポ、セトリの確認方法をまとめました。",
-  alternates: { canonical: PAGE_URL },
   robots: { index: true, follow: true },
-  openGraph: {
-    title: "ちけレポでできること｜当落・座席・現地レポの使い方",
-    description: "当落・座席・現地レポ・セトリをまとめて確認する、ちけレポの使い方です。",
-    url: PAGE_URL,
-    type: "article",
-    locale: "ja_JP",
-  },
-};
+  ogType: "article",
+});
 
 const features = [
   {
     icon: <Search size={19} />,
     title: "公演を探す",
+    href: "/search",
     text: "アーティスト名や公演名から検索できます。アーティストページでは、開催予定・過去の公演を日付順で確認できます。",
   },
   {
     icon: <Ticket size={19} />,
     title: "当落結果を報告・確認する",
+    href: "/report/ticket",
     text: "当選・落選、申込区分などの報告を集め、公演ごとの当選傾向を見やすくします。",
   },
   {
     icon: <MapPinned size={19} />,
-    title: "座席情報とアリーナ予想図を見る",
-    text: "実際の座席報告と、みんなの予想図を公演ごとに確認できます。座席の見え方を考えるための材料として使えます。",
+    title: "会場の座席写真を見る",
+    href: "/venues#seat-photos",
+    text: "会場を選び、地図の印を押すと写真が開きます。公演ページでは、その日の座席報告と配置予想を確認できます。",
   },
   {
     icon: <MessageSquareText size={19} />,
     title: "現地レポを読む・投稿する",
+    href: "/search?q=%E7%8F%BE%E5%9C%B0%E3%83%AC%E3%83%9D",
     text: "会場で分かったことや参加時の感想を、現地レポとして共有できます。",
   },
   {
     icon: <Music2 size={19} />,
     title: "セトリを確認する",
+    href: "/search?q=%E3%82%BB%E3%83%88%E3%83%AA",
     text: "公演ごとに追加されたセットリストを確認できます。未登録の場合は、参加者が追加できます。",
   },
 ];
 
 export default function HowToUseTixRepoPage() {
   return (
-    <NewsArticleLayout kicker="HOW TO USE" title="ちけレポでできること" lead="ライブやイベントの当落・座席表・会場の見え方・現地レポ・セトリを、公演ごとに確認・共有できるサイトです。">
+    <NewsArticleLayout kicker="使い方" title="ちけレポでできること" lead="公演を探す。座席表から席の位置と写真を見る。参加した体験を共有する。">
       <div className="border-t border-divider bg-white">
           <section className="border-b border-[#ded8dc] p-5 sm:p-7">
             <h2 className="text-[16px] font-bold text-gray-900">使い方はシンプルです</h2>
             <ol className="mt-3 space-y-2.5 text-[13px] leading-6 text-gray-700">
-              <li className="flex gap-3"><span className="flex h-6 w-6 shrink-0 items-center justify-center bg-[#f43679] text-[11px] font-black text-white">1</span>アーティスト名や公演名で、参加する公演を探す</li>
-              <li className="flex gap-3"><span className="flex h-6 w-6 shrink-0 items-center justify-center bg-[#f43679] text-[11px] font-black text-white">2</span>当落や座席、現地で分かったことを必要な範囲で報告する</li>
-              <li className="flex gap-3"><span className="flex h-6 w-6 shrink-0 items-center justify-center bg-[#f43679] text-[11px] font-black text-white">3</span>みんなの報告から、次の申込や参加準備の参考にする</li>
+              <li className="flex gap-3"><span className="flex h-6 w-6 shrink-0 items-center justify-center bg-[#f43679] text-[11px] font-black text-white">1</span><Link href="/search" className="underline underline-offset-4">参加する公演を探す</Link></li>
+              <li className="flex gap-3"><span className="flex h-6 w-6 shrink-0 items-center justify-center bg-[#f43679] text-[11px] font-black text-white">2</span><Link href="/venues#seat-photos" className="underline underline-offset-4">会場の座席写真を見る</Link></li>
+              <li className="flex gap-3"><span className="flex h-6 w-6 shrink-0 items-center justify-center bg-[#f43679] text-[11px] font-black text-white">3</span><Link href="/report" className="underline underline-offset-4">自分の席や体験を投稿する</Link></li>
             </ol>
           </section>
 
@@ -67,7 +64,7 @@ export default function HowToUseTixRepoPage() {
                 <div key={feature.title} className="flex gap-3 py-3 first:pt-0 last:pb-0">
                   <div className="mt-0.5 shrink-0 text-[#FF6B9D]" aria-hidden="true">{feature.icon}</div>
                   <div>
-                    <h3 className="text-[14px] font-bold text-gray-900">{feature.title}</h3>
+                    <h3 className="text-[14px] font-bold text-gray-900"><Link href={feature.href} className="zr-focus inline-flex min-h-11 items-center text-[#a62b59] underline underline-offset-4">{feature.title}</Link></h3>
                     <p className="mt-1 text-[13px] leading-6 text-gray-600">{feature.text}</p>
                   </div>
                 </div>

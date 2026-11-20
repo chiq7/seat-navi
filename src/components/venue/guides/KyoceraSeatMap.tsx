@@ -5,7 +5,9 @@ import { useMemo, useState, type FormEvent } from "react";
 import { LocateFixed, X } from "lucide-react";
 import type { DedicatedVenueGuide, SeatArea } from "@/data/venueGuides/types";
 import { DomeSeatFrame } from "../template/DomeSeatFrame";
-import ReadySearchControl from "../template/ReadySearchControl";
+import { SeatPhotoMapSummary } from "../template/SeatViewPosts";
+import { nearSeatNumbers } from "../template/seatFinderLabels";
+import { SeatFinderControls, SeatFinderMiss, type FinderMode } from "../template/SeatFinderControls";
 import styles from "./KyoceraSeatMap.module.css";
 import type { Box } from "./mapGeometry";
 import KyoceraNumberNavigator from "./KyoceraNumberNavigator";
@@ -13,6 +15,9 @@ import { kyoceraBlockCamera, kyoceraDrawingBlocks, kyoceraAreaCamera, kyoceraMat
 import { findKyoceraSeats, normalizeKyoceraTicket, type KyoceraSeatCandidate } from "./kyoceraSeatSearch";
 import SeatSearchOffer from "@/components/seat-campaign/SeatSearchOffer";
 import { useVenueSeatTarget } from "../VenueSeatTarget";
+import { seatViewPosts } from "@/lib/seatViewPosts";
+
+const photoPlaceCount = new Set(seatViewPosts("kyocera-dome-fixed").map(post => post.place.kind + ":" + post.place.id)).size;
 
 type Props = { guide: DedicatedVenueGuide; selectedId: string | null; rowLabel: string | null; seatNumber: string;
   onSelect: (area: SeatArea) => void; onClear: () => void; onRow: (row: string | null) => void;
@@ -31,10 +36,14 @@ export default function KyoceraSeatMap({ guide, selectedId, rowLabel, seatNumber
   const [direction, setDirection] = useState(() => initial ? kyoceraSelectedDirection(initial, whole, "all") : "all");
   const [selectedCode, setSelectedCode] = useState<string | null>(initial?.code ?? null);
   const [photoRequest, setPhotoRequest] = useState(0);
+  const [photoFromTicket, setPhotoFromTicket] = useState(false);
   const [specialRow, setSpecialRow] = useState<string | null>(null);
   const [specialNumber, setSpecialNumber] = useState("");
   const [searchRow, setSearchRow] = useState("");
   const [number, setNumber] = useState("");
+  const [finderMode, setFinderMode] = useState<FinderMode>("ticket");
+  const [blockInput, setBlockInput] = useState("");
+  const [blockMatches, setBlockMatches] = useState<DrawingBlock[]>([]);
   const [error, setError] = useState("");
   const [candidates, setCandidates] = useState<KyoceraSeatCandidate[]>([]);
   const selected = blocks.find(b => b.code === selectedCode && (b.special || b.areaId === selectedId));
@@ -42,7 +51,7 @@ export default function KyoceraSeatMap({ guide, selectedId, rowLabel, seatNumber
   const currentNumber = selected?.special ? specialNumber : seatNumber;
   const emptyScope = !blocks.some(block => kyoceraMatchesArea(block, whole, direction, level));
   const feedback = error || (emptyScope ? "この組合せに表示できる席がありません。" : "");
-  function resetFeedback() { setError(""); setCandidates([]); }
+  function resetFeedback() { setError(""); setCandidates([]); setBlockMatches([]); }
   function clear() { onClear(); setSelectedCode(null); setSpecialRow(null); setSpecialNumber(""); resetFeedback(); }
   function showWhole() { clear(); setBox([...whole] as Box); setDirection("all"); setLevel("すべて"); }
   function showDirection(id: string, tier = level) {
@@ -51,7 +60,7 @@ export default function KyoceraSeatMap({ guide, selectedId, rowLabel, seatNumber
     setBox(kyoceraAreaCamera(blocks, whole, id, tier));
   }
   function chooseBlock(block: DrawingBlock) {
-    setPhotoRequest(request => request + 1);
+    setPhotoFromTicket(false);
     if (block.special) { onClear(); setSpecialRow(null); setSpecialNumber(""); }
     else { const area = guide.seats.find(a => a.id === block.areaId)!; onSelect(area); if (selectedId === area.id) onRow(null); }
     setSelectedCode(block.code); setDirection(kyoceraSelectedDirection(block, whole, direction)); setLevel(block.special ? "すべて" : block.tier); resetFeedback();
@@ -64,7 +73,7 @@ export default function KyoceraSeatMap({ guide, selectedId, rowLabel, seatNumber
     return [current[0] + (current[2] - width) / 2, current[1] + (current[3] - height) / 2, width, height];
   }); }
   function selectCandidate(candidate: KyoceraSeatCandidate, preferred = direction) {
-    setPhotoRequest(request => request + 1);
+    setPhotoFromTicket(true);
     const { block, row, number: seat } = candidate;
     if (block.special) { onClear(); setSpecialRow(row); setSpecialNumber(seat); }
     else { onTicket(guide.seats.find(area => area.id === block.areaId)!, row, seat); setSpecialRow(null); setSpecialNumber(""); }
@@ -73,8 +82,19 @@ export default function KyoceraSeatMap({ guide, selectedId, rowLabel, seatNumber
   }
   function search(scope = direction, tier = level) {
     clear();
+    if (finderMode === "block") {
+      const normalize = (name: string) => name.normalize("NFKC").toUpperCase().replace(/\s+/g, "").replace(/(?:ブロック|区画)$/, "");
+      const name = normalize(blockInput);
+      const found = name ? blocks.filter(block => kyoceraMatchesArea(block, whole, scope, tier)
+        && ([block.label, block.code, ...block.passages.map(passage => `${passage}通路`)].some(alias => normalize(alias) === name))) : [];
+      trackVenueSeatSearch(found.length > 1 ? "multiple" : found.length ? "area" : name ? "empty" : "invalid", found.length);
+      if (found.length === 1) { chooseBlock(found[0]); setBox(kyoceraBlockCamera(found[0], whole)); return; }
+      if (found.length > 1) { setBlockMatches(found); return; }
+      setError(name ? "券面の通路・区画名を確認してください。" : "券面の通路・区画名を入力してください。");
+      return;
+    }
     const input = normalizeKyoceraTicket(searchRow, number);
-    if (!input) { trackVenueSeatSearch("invalid"); setError("列と番号を確認してください。列は数字または英字、番号は数字で入力できます。"); return; }
+    if (!input) { trackVenueSeatSearch("invalid"); setError("列（数字または英字）と座席番号を両方入力してください。"); return; }
     const hits = findKyoceraSeats(blocks, whole, input, scope, tier);
     if (hits.length === 1) { trackVenueSeatSearch("matched",1); selectCandidate(hits[0], scope); return; }
     if (hits.length > 1) { trackVenueSeatSearch("multiple",hits.length); setCandidates(hits); return; }
@@ -90,19 +110,28 @@ export default function KyoceraSeatMap({ guide, selectedId, rowLabel, seatNumber
     clear(); setLevel(value);
     setBox(kyoceraAreaCamera(blocks, whole, direction, value));
   }
-  return <DomeSeatFrame className={styles.seatFrame} levels={levels} level={level} onLevel={showLevel}
-    seatView={{ diagram: "kyocera-dome-fixed", request: photoRequest, section: selected?.code, row: currentRow, seat: currentNumber, onSelect: place => {
-      const match = blocks.find(block => block.code === place.id);
-      if (match) chooseBlock(match);
-    } }}
+  const seatView = { diagram: "kyocera-dome-fixed", request: photoRequest, section: selected?.code,
+    row: photoFromTicket ? currentRow : null, seat: photoFromTicket ? currentNumber : null };
+  const input = finderMode === "ticket" ? normalizeKyoceraTicket(searchRow, number) : null;
+  const browseBlocks = error && input ? nearSeatNumbers(input.number, blocks.filter(item => kyoceraMatchesArea(item, whole, direction, level)),
+    item => item.rows.find(line => line.row === input.row)?.ranges.map(({ start, end }) => [start, end] as const) ?? [],
+    item => item.label) : [];
+  function browseBlock(block: DrawingBlock) {
+    chooseBlock(block); setBox(kyoceraBlockCamera(block, whole));
+  }
+  return <DomeSeatFrame className={styles.seatFrame} levels={levels} level={level} onLevel={showLevel} photoLegend="map"
+    seatView={seatView}
     directions={directions} direction={direction} onDirection={showDirection} onZoom={zoom} onWhole={showWhole} zoomLabel="座席図" shortcuts={[]}
-    directionExtra={<form className={styles.ticketForm} data-testid="kyocera-ticket-search" onSubmit={submit} aria-label="チケットの座席情報で探す">
-        <label>列<ReadySearchControl><input aria-label="検索する列" placeholder="例：8 / A" value={searchRow} onChange={e => { setSearchRow(e.target.value); resetFeedback(); }} required /></ReadySearchControl></label>
-        <label>番号<ReadySearchControl><input aria-label="検索する席番号" inputMode="numeric" placeholder="例：41" value={number} onChange={e => { setNumber(e.target.value); resetFeedback(); }} required /></ReadySearchControl></label>
-        <ReadySearchControl><button className={styles.searchSubmit} type="submit">場所を見る</button></ReadySearchControl>
-      </form>}>
-    {(feedback || candidates.length > 1) && <div className={styles.search}>
-      {feedback && <div className={styles.searchFeedback}><p className={styles.error} role="alert">{feedback}</p>{(direction !== "all" || level !== "すべて") && <button type="button" onClick={searchWhole}>全体から探す</button>}</div>}
+    directionExtra={<SeatFinderControls mode={finderMode} onMode={mode => { setFinderMode(mode); clear(); }}
+      row={searchRow} number={number} block={blockInput} blockHint="例：63通路" rowHint="例：8、A" numberHint="例：41" testId="kyocera-ticket-search"
+      onRow={value => { setSearchRow(value); resetFeedback(); }} onNumber={value => { setNumber(value); resetFeedback(); }}
+      onBlock={value => { setBlockInput(value); resetFeedback(); }} onSubmit={submit} />}>
+    {error && <SeatFinderMiss detail={error} advice={error.includes("公式資料") ? error : undefined} query={(finderMode === "ticket" ? !input : !blockInput.trim()) ? undefined : { scope: [level !== "すべて" && level, direction !== "all" && directions.find(item => item.id === direction)?.label].filter(Boolean).join("・") || "会場全体",
+      ...(finderMode === "ticket" ? { row: searchRow, number } : { block: blockInput }) }} choices={browseBlocks.map(item => ({ id: item.code, label: `${item.label}・${item.tier}` }))} choose={id => { const item = blocks.find(b => b.code === id); if (item) browseBlock(item); }} />}
+    {blockMatches.length > 1 && <div className={styles.candidates} aria-live="polite"><p>{blockMatches.length}区画が見つかりました。券面に合う場所を選んでください。</p>
+      <div>{blockMatches.map(item => <button key={item.code} type="button" onClick={() => browseBlock(item)}>{item.label}・{item.tier}<small>{item.passages.join("・")}通路・{item.rowLabel}列・{item.firstSeat}〜{item.lastSeat}番</small></button>)}</div></div>}
+    {((feedback && (!error || direction !== "all" || level !== "すべて")) || candidates.length > 1) && <div className={styles.search}>
+      {feedback && <div className={styles.searchFeedback}>{!error && <p className={styles.error} role="alert">{feedback}</p>}{(direction !== "all" || level !== "すべて") && <button type="button" onClick={searchWhole}>全体から探す</button>}</div>}
       {candidates.length > 1 && <div className={styles.candidates} data-testid="kyocera-seat-candidates" aria-live="polite">
         <p>{candidates[0].row}列{candidates[0].number}番の場所を選んでください</p>
         <div>{candidates.map(candidate => <button key={`${candidate.block.areaId}:${candidate.block.code}`} type="button" data-candidate-code={candidate.block.code} onClick={() => selectCandidate(candidate)}>
@@ -112,11 +141,12 @@ export default function KyoceraSeatMap({ guide, selectedId, rowLabel, seatNumber
       </div>}
     </div>}
     <div className={styles.selectionBand} data-testid="map-selection-summary" aria-live="polite">{selected ? <>
-      <div><strong>{selected.label}・{selected.tier}</strong><span>{selected.rowLabelIsPrinted ? `${selected.rowLabel}列（${selected.rows.length}列）` : "公式検索：0列"}・{selected.firstSeat}〜{selected.lastSeat}番{currentRow && selected.rowLabelIsPrinted && <> ／ <b className={styles.selectedRow}>{currentRow}列</b></>}{currentNumber && <> ・ <b className={styles.selectedSeat} data-selected-seat-number>選択：{currentNumber}番</b></>}</span></div>
+      <div><strong>{selected.label}・{selected.tier}</strong><span>{selected.passages.length > 0 && <>{selected.passages.join("・")}通路・</>}{selected.rowLabelIsPrinted ? `${selected.rowLabel}列（${selected.rows.length}列）` : "公式検索：0列"}・{selected.firstSeat}〜{selected.lastSeat}番{currentRow && selected.rowLabelIsPrinted && <> ／ <b className={styles.selectedRow}>{currentRow}列</b></>}{currentNumber && <> ・ <b className={styles.selectedSeat} data-selected-seat-number>選択：{currentNumber}番</b></>}</span></div>
       <button type="button" disabled={!selected} aria-label="選んだ場所を表示" onClick={() => selected && setBox(kyoceraBlockCamera(selected, whole))}><LocateFixed size={19} /></button>
       <button type="button" disabled={!selected} aria-label="座席の選択を解除" onClick={clear}><X size={18} /></button>
     </> : <span>{direction === "all" ? "座席の全体図" : `${directions.find(item => item.id === direction)?.label ?? "座席"}の範囲`}</span>}</div>
     {selected && currentRow && currentNumber && <SeatSearchOffer venueId="kyocera-dome" localOnly={process.env.NODE_ENV === "development"} key={`${selected.code}:${currentRow}:${currentNumber}`} row={currentRow} number={currentNumber} contextLabel={`${selected.label}・${selected.tier}`} />}
+    <SeatPhotoMapSummary selection={seatView} count={photoPlaceCount} onOpen={() => setPhotoRequest(request => request + 1)} />
     <KyoceraNumberNavigator guide={guide} blocks={blocks} level={level} selectedCode={selected?.code} rowLabel={currentRow}
       box={box} onView={setBox} onBlock={chooseBlock} onWhole={showWhole} onDirection={showDirection} onArea={areaId => {
         const area = guide.seats.find(a => a.id === areaId); if (!area) return;

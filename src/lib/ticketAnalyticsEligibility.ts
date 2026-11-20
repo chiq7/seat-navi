@@ -10,3 +10,13 @@ export const UNVERIFIED_TICKET_IDS = new Set([
 export function eligibleTicketReports<T extends Pick<TicketResultAnalytics, "id" | "result" | "lost_application_count">>(rows: T[]) {
   return rows.filter(row => !UNVERIFIED_TICKET_IDS.has(row.id) && (row.result === "won" || row.result === "lost") && Number.isSafeInteger(row.lost_application_count) && (row.lost_application_count ?? -1) >= 0 && (row.result !== "lost" || (row.lost_application_count ?? 0) > 0));
 }
+
+type SeatResult = { result: "won" | "lost"; seat_type?: string | null; upgrade_result?: string | null };
+
+export function hasReportedSeatArea(row: SeatResult) {
+  return row.result === "won" && (row.seat_type === "arena" || row.seat_type === "stand");
+}
+
+export function hasReportedStandardSeat(row: SeatResult) {
+  return hasReportedSeatArea(row) && (row.upgrade_result === "not_applied" || row.upgrade_result === "applied_lost");
+}

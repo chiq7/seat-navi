@@ -15,7 +15,7 @@ import { supabase } from "@/lib/supabase/client";
 import type { CrawledEvent, FanSeatPrediction } from "@/lib/types";
 
 const TICKET_COLUMNS = "id, event_id, user_id, result, lost_application_count, ticket_count, lottery_type, fc_history, payment_method, seat_type, upgrade_result, comment, seat_block, seat_row, seat_number, stand_direction, stand_floor, other_seat_info, created_at";
-const LIVE_COLUMNS = "id, event_id, user_id, seat_area_type, seat_block, seat_row, seat_number, seat_view_photo_paths, main_stage, center_stage, fansa_rating, torokko, kyakukudari, silver_tape_rows, fansa, memo, created_at";
+const LIVE_COLUMNS = "id, event_id, user_id, seat_area_type, seat_description, seat_block, seat_row, seat_number, seat_view_photo_paths, main_stage, center_stage, fansa_rating, torokko, kyakukudari, silver_tape_rows, fansa, memo, created_at";
 const PREDICTION_COLUMNS = "id, event_id, user_id, image_path, comment, prediction_tags, display_name, approved, created_at";
 
 type Profile = { display_name: string | null; x_handle: string | null; show_x_on_posts: boolean };

@@ -1,6 +1,8 @@
 "use client";
 
+import { getEventDisplayVenueName } from "@/lib/publicVenueGuides";
 import { useMemo } from "react";
+import { useJstDay } from "@/lib/useJstDay";
 import { CalendarDays } from "lucide-react";
 import { parseEventTitle } from "@/lib/eventTitle";
 import { SelectControl } from "@/components/common/SelectControl";
@@ -56,7 +58,7 @@ function EventRow({
     >
       <div className="min-w-0 flex-1">
         <p className={`truncate text-[12px] font-bold ${isSelected ? "text-[#FF6B9D]" : "text-gray-900"}`}>
-          {fmtDateShort(event.date)} {event.venue}
+          {fmtDateShort(event.date)} {getEventDisplayVenueName(event.venue_id, event.venue)}
         </p>
         <div className="mt-0.5 flex items-center gap-1">
           <span className="truncate text-[10px] text-gray-400">{tourName}</span>
@@ -89,6 +91,8 @@ export function EventPicker<T extends PickerEvent>({
   loading = false,
   className,
 }: EventPickerProps<T>) {
+  const calendarDay = useJstDay(today);
+  const todayStr = today ?? calendarDay;
   if (loading) {
     return (
       <div className={`h-[74px] animate-pulse border-y border-[#eadfe4] bg-white px-3 py-3 ${className ?? ""}`} aria-busy="true" aria-label="公演一覧を読み込み中">
@@ -105,8 +109,6 @@ export function EventPicker<T extends PickerEvent>({
       </p>
     );
   }
-
-  const todayStr = today ?? new Date().toISOString().split("T")[0];
 
   const upcoming = events
     .filter((ev) => ev.date && ev.date >= todayStr)
@@ -188,6 +190,8 @@ export type EventCarouselPickerProps<T extends PickerEvent = PickerEvent> = {
   className?: string;
   eyebrow?: string;
   includeTitle?: boolean;
+  wrapSelectedLabel?: boolean;
+  showVenueDay?: boolean;
   inputId?: string;
 };
 
@@ -199,16 +203,20 @@ export function EventCarouselPicker<T extends PickerEvent>({
   today,
   loading = false,
   className,
-  eyebrow = "SELECT LIVE DATE",
+  eyebrow = "公演日を選ぶ",
   includeTitle = false,
+  wrapSelectedLabel = false,
+  showVenueDay = true,
   inputId = "event-picker-select",
 }: EventCarouselPickerProps<T>) {
-  const todayStr = today ?? new Date().toISOString().split("T")[0];
+  const calendarDay = useJstDay(today);
+  const todayStr = today ?? calendarDay;
 
   // Day番号: 同一venue_id（無ければvenue文字列にフォールバック）内で日付昇順に採番する。
   // グループ内が1件のみ（1日限りの公演）の場合はDayを表示しない。
   const dayMap = useMemo(() => {
     const map = new Map<string, number>();
+    if (!showVenueDay) return map;
     const groups = new Map<string, T[]>();
     for (const ev of events) {
       const key = ev.venue_id ?? ev.venue ?? "";
@@ -221,7 +229,7 @@ export function EventCarouselPicker<T extends PickerEvent>({
       sorted.forEach((ev, i) => map.set(ev.id, i + 1));
     }
     return map;
-  }, [events]);
+  }, [events, showVenueDay]);
 
   const upcoming = useMemo(
     () =>
@@ -241,9 +249,14 @@ export function EventCarouselPicker<T extends PickerEvent>({
 
   const optionLabel = (event: T) => {
     const day = dayMap.get(event.id);
-    const base = `${fmtChipDate(event.date)}｜${event.venue}${day ? `｜Day${day}` : ""}`;
+    const session = event.title.match(/（(\d+部・開演\d{2}:\d{2})）$/)?.[1];
+    const dateLabel = fmtChipDate(event.date);
+    const base = session
+      ? `${dateLabel}｜${session}｜${getEventDisplayVenueName(event.venue_id, event.venue)}`
+      : `${dateLabel}｜${getEventDisplayVenueName(event.venue_id, event.venue)}${day ? `｜Day${day}` : ""}`;
     return includeTitle ? `${base}｜${event.title}` : base;
   };
+  const selected = wrapSelectedLabel && events.find(event => event.id === selectedEventId);
 
   if (loading) {
     return (
@@ -275,6 +288,7 @@ export function EventCarouselPicker<T extends PickerEvent>({
           value={selectedEventId ?? ""}
           onChange={(event) => onSelect(event.target.value)}
           variant="bare"
+          wrappedValue={selected ? optionLabel(selected) : undefined}
           selectClassName="truncate text-[13px] tracking-[-0.02em]"
         >
           {!selectedEventId && <option value="">公演を選択してください</option>}

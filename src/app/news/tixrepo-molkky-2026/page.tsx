@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { buildFileImageMetadata } from "@/lib/fileImageMetadata";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { CalendarDays, CircleDollarSign, Clock3, MapPin, Users } from "lucide-react";
@@ -8,26 +8,15 @@ import { serializeJsonLd } from "@/lib/structuredData";
 const PAGE_URL = "https://tixrepo.com/news/tixrepo-molkky-2026";
 const EVENT_NAME = "モルック初心者交流大会";
 
-export const metadata: Metadata = {
+export const metadata = buildFileImageMetadata({
+  path: "/news/tixrepo-molkky-2026",
   title: "モルック初心者交流大会を開催します｜ちけレポ",
-  description:
-    "ちけレポ開設記念・スポーツ体験イベント第1弾。2026年12月1日、駒沢オリンピック公園でモルック初心者交流大会を開催します。",
-  alternates: { canonical: PAGE_URL },
+  description: "ちけレポ開設記念・スポーツ体験イベント第1弾。2026年12月1日、駒沢オリンピック公園でモルック初心者交流大会を開催します。",
   robots: { index: true, follow: true },
-  openGraph: {
-    title: "モルック初心者交流大会を開催します｜ちけレポ",
-    description: "ちけレポ開設記念・スポーツ体験イベント第1弾。初心者歓迎のモルック交流大会です。",
-    url: PAGE_URL,
-    type: "article",
-    siteName: "ちけレポ",
-    locale: "ja_JP",
-  },
-  twitter: {
-    card: "summary",
-    title: "モルック初心者交流大会を開催します｜ちけレポ",
-    description: "初心者歓迎のモルック交流大会を開催します。",
-  },
-};
+  ogType: "article",
+  twitterCard: "summary",
+  fileTwitterImage: true,
+});
 
 const eventStructuredData = {
   "@context": "https://schema.org",
@@ -97,7 +86,7 @@ export default function TixRepoMolkkyNewsPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(eventStructuredData) }} />
-      <NewsArticleLayout kicker="TIXREPO EVENT" title={<>モルック初心者交流大会を<br />開催します</>} lead="木の棒を投げてピンを倒す、北欧生まれのスポーツ「モルック」。ルールを知らない方も、ひとりでの参加も歓迎です。">
+      <NewsArticleLayout kicker="TIXREPO EVENT" breadcrumbLabel={EVENT_NAME} title={<>モルック初心者交流大会を<br />開催します</>} lead="木の棒を投げてピンを倒す、北欧生まれのスポーツ「モルック」。ルールを知らない方も、ひとりでの参加も歓迎です。">
         <div className="border-t border-divider bg-white">
           <div className="px-5 py-2 sm:px-7">
             <DetailRow icon={<CalendarDays size={18} />} label="日時">2026年12月1日（火）13:00〜17:00</DetailRow>

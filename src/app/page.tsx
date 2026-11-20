@@ -4,9 +4,11 @@ import { Calendar, Map, Zap } from "lucide-react";
 import HomeVenueDirectory from "@/components/home/HomeVenueDirectory";
 import { VENUE_REGION_GROUPS } from "@/lib/venueRegions";
 import { SEO_VENUES } from "@/lib/venueSeo";
+import { getVenuePhotoCounts } from "@/lib/serverSeatPhotoVenues";
 import { getPublicVenueName, getPublicVenueSeatGuideHref } from "@/lib/publicVenueGuides";
 import HomeHeader from "@/components/home/HomeHeader";
 import HomeFeatureBanners from "@/components/home/HomeFeatureBanners";
+import HomeQuickSearch from "@/components/home/HomeQuickSearch";
 import HomeHeroPromoBanner from "@/components/home/HomeHeroPromoBanner";
 import UpcomingEventsSection from "@/components/home/UpcomingEventsSection";
 import RealtimeFeedSection from "@/components/home/RealtimeFeedSection";
@@ -23,11 +25,12 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { getJstDateString } from "@/lib/artistPageData";
 import { getCachedRealtimeFeed, getCachedUpcomingHomeEvents } from "@/lib/serverHomeData";
 import { STATIC_PUBLIC_PAGES } from "@/lib/publicPageData";
+import { getRequestPublicEventCatalog } from "@/lib/publicEventCatalogContext";
+import { HOME_DESCRIPTION, HOME_TITLE } from "@/lib/metadata";
 
 export const metadata: Metadata = {
-  title: "ちけレポ｜ライブの座席表・当落・現地レポ",
-  description:
-    "ライブ・コンサートの座席表、座席報告、アリーナ予想図、チケット当落、現地レポ、セットリストを共有。会場別の座席検索やアクセス・ロッカー情報と、ファンの投稿から席の見え方を確認できます。",
+  title: HOME_TITLE,
+  description: HOME_DESCRIPTION,
   alternates: { canonical: "https://tixrepo.com/" },
   robots: { index: true, follow: true },
 };
@@ -52,7 +55,7 @@ async function getHomeFavorites() {
 
 async function HomeUpcomingSection() {
   const [upcomingEvents, favoriteState] = await Promise.all([
-    getHomeUpcomingEvents(),
+    getRequestPublicEventCatalog().then(catalog => catalog?.home.events ?? getHomeUpcomingEvents()),
     getHomeFavorites(),
   ]);
   const today = getJstDateString();
@@ -62,9 +65,11 @@ async function HomeUpcomingSection() {
   return (
     <UpcomingEventsSection
       events={events}
+      initialDay={today}
       favoriteUserId={favoriteState.userId}
       favoriteSlugs={favoriteState.slugs}
       discoveryCards={discoveryCards}
+      venuePhotoCounts={getVenuePhotoCounts()}
       live={live}
     />
   );
@@ -150,7 +155,7 @@ async function SeatDiscoveryPilot({ state }: { state?: string }) {
     <section className={seatDiscoveryStyles.section} aria-label="座席カードのローカル試作">
       <div className={seatDiscoveryStyles.shell}>
         <p className={seatDiscoveryStyles.previewLabel}>ローカル試作 · {isPopulatedSample ? "サンプル：座席・当選率は架空の表示例" : isStateTest ? "表示テスト" : "実データ"}</p>
-        <SeatDiscoveryCard data={data} preview />
+        <SeatDiscoveryCard data={data} venuePhotoCounts={getVenuePhotoCounts()} preview />
       </div>
     </section>
   );
@@ -166,14 +171,17 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ "
     return venue && href ? [{ id, name: getPublicVenueName(id, venue.name), region: group.id, href }] : [];
   }));
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background" data-home-program-day={getJstDateString()}>
       <HomeHeader />
+      <nav aria-label="パンくずリスト" className="zr-container py-1 text-xs font-semibold text-[#65525c]"><span aria-current="page">トップ</span></nav>
       <main>
         <HomeFeatureBanners />
+        <p className="zr-container pt-3 text-[13px] leading-5 text-[#65525c]">ちけレポ（チケレポ・ちけれぽ）で、行きたいライブの座席表や席からの見え方を探せます。</p>
+        <HomeQuickSearch />
         {preview && <Suspense fallback={<FeaturedEventsSkeleton />}><SeatDiscoveryPilot state={query["seat-card-state"]} /></Suspense>}
-        <Suspense fallback={<UpcomingEventsSkeleton />}>
+        <div id="upcoming-events" className="scroll-mt-16"><Suspense fallback={<UpcomingEventsSkeleton />}>
           <HomeUpcomingSection />
-        </Suspense>
+        </Suspense></div>
         {STATIC_PUBLIC_PAGES ? <RealtimeFeedSection live /> : (
           <Suspense fallback={<RealtimeFeedSkeleton />}>
             <HomeRealtimeSection />

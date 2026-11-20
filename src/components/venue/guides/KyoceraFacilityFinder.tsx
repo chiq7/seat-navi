@@ -2,6 +2,8 @@
 import { trackVenueFacilityOpen } from "@/lib/venueAnalytics";
 
 import { useEffect, useRef, type ReactNode } from "react";
+import { useVenueFacilitySearchTarget } from "../template/useVenueFacilitySearchTarget";
+import { isBabyFacilitySearch, matchesGuideBabyFacility } from "@/lib/venueFacilitySearch";
 import { Accessibility, Baby, HeartPulse, Info, X } from "lucide-react";
 import type { DedicatedVenueGuide, GuideFacility } from "@/data/venueGuides/types";
 import { FoodSign, LockerSign, ToiletSign } from "../DomeFacilitySigns";
@@ -9,6 +11,7 @@ import VenueFacilityMap, { FacilityIcon } from "./VenueFacilityMap";
 import { filterGuideFacilities, resolveGuideOrigin, type FinderAction, type FinderState } from "./guideState";
 import { kyoceraAvailablePurposes, kyoceraFacilitiesForScope, kyoceraFacilityCamera, kyoceraFacilityLocation, pointInKyoceraCamera } from "./kyoceraFacilityState";
 import styles from "../template/VenueFacilityFinder.module.css";
+import { FacilityAreaResultsHeading, useFacilityResultNavigation } from "../template/FacilityResultNavigation";
 import VenueLandmarkSearch from "../template/VenueLandmarkSearch";
 import { VENUE_ACCESS_EVENT, type VenueAccessDetail } from "@/lib/venueAccess";
 import visitorContent from "@/data/venueGuides/kyocera-dome/visitor-content.json";
@@ -19,7 +22,22 @@ type Props = { guide: DedicatedVenueGuide; state: FinderState; onAction: (action
   detail: (item: GuideFacility) => string; sources: (item: GuideFacility) => ReactNode };
 
 export default function KyoceraFacilityFinder({ guide, state, onAction, detail, sources }: Props) {
-  const trigger = useRef<HTMLButtonElement | null>(null);
+  const finderRef = useRef<HTMLDivElement>(null);
+  const navigation = useFacilityResultNavigation(finderRef);
+  useVenueFacilitySearchTarget(finderRef, target => {
+    const purpose = target === "luggage" ? "荷物" : "赤ちゃん";
+    const specific = isBabyFacilitySearch(target);
+    const matches = guide.facilities.filter(f => specific ? matchesGuideBabyFacility(target, f) : f.purpose === purpose && f.kind !== "no-storage");
+    const item = matches.find(f => f.scope === "場内") ?? matches[0];
+    if (!item) return false;
+    onAction({ type: "scope", scope: item.scope });
+    if (item.scope === "場内") onAction({ type: "floor", floor: item.floor });
+    onAction({ type: "purpose", purpose: specific ? item.purpose : purpose });
+    onAction({ type: "query", query: "" });
+    onAction({ type: "origin", origin: null });
+    if (specific) onAction({ type: "select", id: item.id });
+    return true;
+  });
   useEffect(()=>{
     const open=()=>{onAction({type:"scope",scope:"場外"});onAction({type:"purpose",purpose:"荷物"});onAction({type:"query",query:""});};
     window.addEventListener("venue-open-luggage",open);return()=>window.removeEventListener("venue-open-luggage",open);
@@ -59,14 +77,14 @@ export default function KyoceraFacilityFinder({ guide, state, onAction, detail, 
   function showWhole() { change({ type: "select", id: null }); change({ type: "origin", origin: null }); }
   function choose(item: GuideFacility, button: HTMLButtonElement) {
     if(state.selectedId!==item.id)trackVenueFacilityOpen(item.purpose,state.scope,guide.venueId);
-    trigger.current = button;
     change({ type: "select", id: item.id });
+    navigation.openDetail(button);
   }
   function close() {
     change({ type: "select", id: null });
-    if (trigger.current?.isConnected) trigger.current.focus({ preventScroll: true });
+    navigation.backToList();
   }
-  return <div className={styles.finder} data-testid="kyocera-facility-finder" data-access-origin={state.origin?.landmarkId ?? ""}>
+  return <div className={styles.finder} ref={finderRef} data-testid="kyocera-facility-finder" data-access-origin={state.origin?.landmarkId ?? ""}>
     <div className={styles.toolbar}>
       <div className={styles.controlRow}><strong className={styles.rowLabel}>場所</strong><div className={styles.topRow}>
         <div className={styles.buttons} role="group" aria-label="利用する場所">{(["場内", "場外"] as const).map(scope => <button key={scope} type="button" aria-pressed={state.scope === scope} onClick={() => change({ type: "scope", scope })}>{scope === "場外" ? "場外・入場前" : scope}</button>)}</div>
@@ -87,20 +105,30 @@ export default function KyoceraFacilityFinder({ guide, state, onAction, detail, 
       {state.purpose === "トイレ" && <div className={styles.controlRow}><strong className={styles.rowLabel}>種類</strong><div className={styles.buttons} role="group" aria-label="トイレの種類">{toiletChoices.map(([value, label]) => <button key={value} type="button" disabled={filterGuideFacilities(guide.facilities, { ...state, toiletType: value }).length === 0} aria-pressed={state.toiletType === value} onClick={() => change({ type: "toilet", toiletType: state.toiletType === value ? "すべて" : value })}>{value === "accessible" && <Accessibility size={16} aria-hidden="true" />}{label}</button>)}</div></div>}
     </div>
     <div className={styles.body}>
-      <div className={styles.mapPanel}>
+      <div className={styles.mapPanel} data-facility-map-panel tabIndex={-1}>
         <div className={styles.panelHeading}><strong>{state.scope === "場外" ? "場外" : state.floor}・{state.purpose}{currentOrigin ? `／${currentOrigin.name}周辺` : ""}</strong>{currentOrigin && <button type="button" onClick={showWhole}>全体図へ</button>}</div>
         {diagram ? <VenueFacilityMap guide={guide} items={facilities.filter(item => item.anchor)} state={state} embedded compactFinder
-          onFloor={floor => change({ type: "floor", floor })} onSelect={id => { const item=guide.facilities.find(f=>f.id===id);if(item&&state.selectedId!==id)trackVenueFacilityOpen(item.purpose,state.scope,guide.venueId);trigger.current = document.activeElement instanceof HTMLButtonElement ? document.activeElement : null; change({ type: "toggle-facility", id }); }}
-          onGroup={ids => change({ type: "group", ids })} onOrigin={value => { change({ type: "select", id: null }); change({ type: "origin", origin: value }); }}
+          onFloor={floor => change({ type: "floor", floor })} onSelect={id => {
+            const item=guide.facilities.find(f=>f.id===id);
+            change({ type: "toggle-facility", id });
+            if (item && state.selectedId!==id) {
+              trackVenueFacilityOpen(item.purpose,state.scope,guide.venueId);
+              navigation.openDetail(document.activeElement instanceof HTMLButtonElement ? document.activeElement : null);
+            }
+          }}
+          onGroup={(ids, trigger) => { change({ type: "group", ids, open: true }); navigation.openList(trigger); }} onOrigin={value => { change({ type: "select", id: null }); change({ type: "origin", origin: value }); }}
           onGate={gate => { change({ type: "gate", gate }); }} onClearSelection={() => change({ type: "select", id: null })} />
           : <p className={styles.noMap}>この階の設備は、場所の案内から確認できます。</p>}
       </div>
       <div className={styles.results} id="venue-facility-results">
         {chosen && <section className={styles.detail} data-testid="map-destination-detail" aria-label="選んだ設備の詳細" aria-live="polite">
-          <div><strong><FacilityIcon item={chosen} />{chosen.name}</strong><button type="button" aria-label="設備の詳細を閉じる" onClick={close}><X size={18} aria-hidden="true" /></button></div>
+          <div><strong tabIndex={-1} data-facility-detail-heading><FacilityIcon item={chosen} />{chosen.name}</strong><button type="button" aria-label="設備の詳細を閉じる" onClick={close}><X size={18} aria-hidden="true" /></button></div>
           <p>{address(chosen)}</p><p>{chosen.storageKind ? chosen.detail : detail(chosen)}</p>{chosen.bookingUrl && <a className={styles.bookingLink} href={chosen.bookingUrl} target="_blank" rel="noopener noreferrer">{chosen.storageKind === "staffed" ? "料金・予約を見る" : "利用条件を見る"} ↗</a>}{sources(chosen)}
         </section>}
-        <div className={styles.panelHeading}><strong>{baggage ? "荷物の案内" : `${group ? "選んだ範囲" : currentOrigin ? "周辺の設備" : state.purpose} ${group ? group.length : currentOrigin ? mapped.length : visible.length}件`}</strong>{group && <button type="button" onClick={() => change({ type: "group", ids: state.groupIds! })}>一覧へ戻る</button>}</div>
+        {group ? <FacilityAreaResultsHeading count={group.length}
+          area={state.scope === "場外" ? "場外" : state.floor}
+          onReturn={() => { change({ type: "clear-group" }); navigation.backToMap(); }} />
+          : <div className={styles.panelHeading}><strong>{baggage ? "荷物の案内" : `${currentOrigin ? "周辺の設備" : state.purpose} ${currentOrigin ? mapped.length : visible.length}件`}</strong></div>}
         <div className={styles.list} data-result-cards>{rows.filter(item => item.anchor).map(item => <button key={item.id} type="button" className={styles.resultRow} data-facility-id={item.id} aria-pressed={chosen?.id === item.id} onClick={event => choose(item, event.currentTarget)}><FacilityIcon item={item} /><span><strong>{item.name}</strong><small>{address(item)}</small>{item.storageKind && <small>{item.storageKind === "staffed" ? "店で預ける・予約" : "コインロッカー"}</small>}</span><span aria-hidden="true">›</span></button>)}
         {!group && unplaced.length > 0 && <div className={styles.unplaced}><p>場所の案内</p>{unplaced.map(item => <button key={item.id} type="button" className={styles.resultRow} data-facility-id={item.id} aria-pressed={chosen?.id === item.id} onClick={event => choose(item, event.currentTarget)}><FacilityIcon item={item} /><span><strong>{item.name}</strong><small>{address(item)}</small>{item.storageKind && <small>{item.storageKind === "staffed" ? "店で預ける・予約" : "コインロッカー"}</small>}</span><span aria-hidden="true">›</span></button>)}</div>}
         </div>

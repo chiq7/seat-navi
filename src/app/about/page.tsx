@@ -10,22 +10,18 @@ export default function AboutPage() {
   return <StaticPage title="ちけレポについて">
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd({ "@context": "https://schema.org", "@type": "AboutPage", name: "ちけレポについて", url: `${SITE_URL}/about`, description, inLanguage: "ja" }) }} />
     <div className="space-y-9 [&_h2]:text-[18px] [&_h2]:font-black [&_h2]:leading-7 [&_h2]:text-[#4b4148] [&_p]:mt-3 [&_p]:text-[14px] [&_p]:leading-7 [&_a]:font-bold [&_a]:text-[#ad285b] [&_a]:underline [&_a]:underline-offset-4">
-      <p className="!mt-0">{description} 行く前の準備にも、公演後の振り返りにも、ほかのファンが共有した体験を役立てられます。</p>
+      <p className="!mt-0">ちけレポ（チケレポ・ちけれぽ）は、ライブの座席表・席からの写真・公演情報を探せる、ファンのための非公式サイトです。</p>
       <nav aria-label="ちけレポの主なページ" className="flex flex-wrap gap-x-5 gap-y-2">
         <Link href="/" className="inline-flex min-h-11 items-center">公演・アーティストを探す</Link>
         <Link href="/venues" className="inline-flex min-h-11 items-center">ライブ会場一覧</Link>
         <Link href="/report" className="inline-flex min-h-11 items-center">体験を報告する</Link>
       </nav>
-      <section><h2>ライブへ行く前の「知りたい」を探す</h2>
-        <p>チケットの席はどこか、駅からどう向かうか、大きな荷物をどこへ預けるか。初めての会場では、準備に必要な情報がいくつもの場所に分かれています。ちけレポは公演、アーティスト、会場をつなぎ、来場前に確認したい情報と実際に参加した人の報告を探しやすくまとめています。</p>
-        <p>公演日や会場から予定を調べる人、座席の位置や周辺設備を確認したい人、応募結果や現地の体験を共有したい人に向けたサイトです。<Link href="/search">検索ページ</Link>でも公演やアーティストを探せます。</p>
-      </section>
       <section><h2>会場ガイドで座席・設備・荷物を確認する</h2>
-        <p><Link href="/venues">会場ガイド</Link>では、座席の区画・階層・位置関係を図から探せます。列・番号を照合できた範囲はチケットの表記で検索でき、未対応の番号は確認中として案内します。場内のトイレ・売店・ロッカー、場外の主要駅・ゲート・周辺施設、駅や店舗の荷物預かりも、確認できた情報を図や一覧から探せます。</p>
+        <p><Link href="/venues">会場を選び</Link>、地図から自分の区画を探せます。写真の印を押すと、席からの写真がその場で開きます。列・番号での検索や、トイレ・ロッカー・駅からの道順も確認できます。</p>
         <p>会場モードや対象の棟が異なると配置も変わります。ライブの仮設アリーナ、展示ホールの客席、当日のステージや使用席は公演ごとの案内が必要です。常設席の参考図を、すべての公演に使える確定座席表として扱わないでください。</p>
       </section>
       <section><h2>アーティストと公演の情報をつなぐ</h2>
-        <p><Link href="/search">アーティスト名や公演名で検索</Link>すると、公演予定や公式ニュース、当落・座席の報告、現地レポ、セットリストを探せます。アリーナ予想図や席からの写真を探すときは、開催日と会場が合う公演を開いて、掲載されている座席情報を確認してください。</p>
+        <p><Link href="/search">アーティスト名や公演名で検索</Link>すると、日付・会場を選んで座席報告や現地レポを確認できます。会場の座席写真には、別の公演で撮影された参考写真も含まれます。</p>
         <p>公演情報は公式発表を優先して確認してください。受付方法、販売条件、時間の変更や入場規制は、主催者やプレイガイドの最新案内が優先されます。掲載がないことを、公演や設備が存在しないという意味には扱いません。</p>
       </section>
       <section><h2>当落・座席・現地レポを共有する</h2>
@@ -42,7 +38,7 @@ export default function AboutPage() {
         <p>変更に気づいた場合は、該当ページと確認できる公式案内を添えて<Link href="/contact">お問い合わせ</Link>からお知らせください。掲載情報と公式案内が異なる場合は、公式・主催者の最新案内を優先してください。</p>
       </section>
       <section><h2>お気に入りとマイページ</h2>
-        <p>ログインして利用できるお気に入りや<Link href="/mypage">マイページ</Link>もあります。公開情報の閲覧と、アカウントに関わる機能は分かれています。アカウントの利用は<Link href="/login">ログインページ</Link>から案内に沿って進められます。</p>
+        <p>座席表・写真・公演情報はログインせずに見られます。<Link href="/login">ログイン</Link>すると、お気に入りのアーティストを登録し、<Link href="/mypage">マイページ</Link>で確認できます。</p>
       </section>
       <section><h2>非公式の情報共有サイトとして</h2>
         <p>ちけレポは、アーティスト、所属事務所、興行主、会場、プレイガイドとは関係のない非公式サービスです。チケットの販売・当選・指定席や施設の空きを保証するサービスではありません。</p>

@@ -6,7 +6,9 @@ import { seatNumberArrowInk } from "@/lib/seatNumberBadge";
 import { tokyoDomeNumberBadge } from "@/lib/tokyoDomeNumberBadge";
 
 import { useCallback, useEffect, useRef, useState, type FormEvent, type PointerEvent as ReactPointerEvent } from "react";
-import ReadySearchControl, { useSeatControlsReady } from "./template/ReadySearchControl";
+import { useSeatControlsReady } from "./template/ReadySearchControl";
+import { nearSeatNumbers } from "./template/seatFinderLabels";
+import { SeatFinderControls, SeatFinderMiss, type FinderMode } from "./template/SeatFinderControls";
 import geometry from "@/data/tokyoDomeSeatGeometry.json";
 import { TOKYO_DOME_GATE_ANCHORS } from "@/data/tokyoDomeGateAnchors";
 import { TOKYO_DOME_INNER_GATE_BOUNDARIES, TOKYO_DOME_OUTER_GATE_BOUNDARIES, TOKYO_DOME_OVERVIEW_HOME_CAP } from "@/data/tokyoDomeGateStructure";
@@ -17,13 +19,17 @@ import { buildTokyoDomeBalconySegments } from "@/lib/tokyoDomeBalconySegments";
 import { findTokyoDomeVerifiedSeats, getTokyoDomeVerifiedRowRange, getTokyoDomeVerifiedSeatBlock, getTokyoDomeVerifiedPrintedRows, isTokyoDomeSectionRowSelectable, getTokyoDomeNumberReference, parseTokyoDomeSection, parseTokyoDomeSeatInput, type TokyoDomeSection } from "@/lib/tokyoDomeSeatLocator";
 import { sectionRowGuides } from "@/lib/tokyoDomeSeatRows";
 import { placeTokyoDomeRowMarker, tokyoDomeNumberClearOfRows, tokyoDomeDuplicateReferenceId, tokyoDomeSeatFocus, layoutTokyoDomeSeatLabels, TOKYO_DOME_OVERVIEW_AREAS, tokyoDomeOverviewView, tokyoDomeTierView } from "@/lib/tokyoDomeSeatLabels";
-import { LocateFixed, X } from "lucide-react";
+import { Camera, LocateFixed, X } from "lucide-react";
 import styles from "./TokyoDomeSeatLocator.module.css";
 import controls from "./guides/KyoceraSeatMap.module.css";
 import { TOKYO_DOME_SEAT_NUMBER_GUIDES } from "@/data/tokyoDomeSeatNumberGuides";
 import { spatialSeatTarget } from "@/lib/seatMapInteraction";
 import { placeNumberLabel } from "./guides/kyoceraNumberLabels";
+import { useSeatMapTouch } from "./template/useSeatMapTouch";
+import { SEAT_PHOTO_MAP_COLOR, SeatPhotoMapSummary, SeatPhotoMarker } from "./template/SeatViewPosts";
+import { seatPhotoOffsets, useSeatPhotoHitTest } from "./template/useSeatPhotoHitTest";
 import { DomeSeatFrame } from "./template/DomeSeatFrame";
+import { seatViewPosts } from "@/lib/seatViewPosts";
 import { getTokyoDomeVenueSeatSelection, TOKYO_DOME_SEAT_SELECTION_EVENT } from "@/lib/tokyoDomeVenueSelection";
 import { useVenueSeatTarget } from "./VenueSeatTarget";
 
@@ -40,6 +46,9 @@ const AREAS = SOURCE_AREAS.map((area) => ({
 }));
 const NUMBERED_AREA_CODES = new Set(AREAS.filter(area => getTokyoDomeVerifiedSeatBlock(area.code)?.numberEdge).map(area => area.code));
 const AREA_BY_CODE = new Map(AREAS.map((area) => [area.code, area]));
+const SEAT_PHOTO_DIAGRAM = "tokyo-dome-fixed";
+const PHOTO_SECTION_CODES = new Set(seatViewPosts(SEAT_PHOTO_DIAGRAM)
+  .filter(post => post.place.kind === "section").map(post => post.place.id));
 const BALCONY_SEGMENTS = buildTokyoDomeBalconySegments();
 const BALCONY_GROUP_PATHS = [...new Set(BALCONY_SEGMENTS.map((segment) => segment.sourcePath))];
 const BALCONY_DIVIDERS = [...new Map(BALCONY_SEGMENTS.flatMap((segment) => [segment.beforeDivider, segment.afterDivider])
@@ -133,10 +142,6 @@ const OVERVIEW_TONES: Record<string, readonly [string, string]> = {
   C: ["#e8d9c6", "#c8ae8d"], D: ["#c8d6e5", "#9db3cc"],
   E: ["#aebfd3", "#829fbf"], F: ["#b5d7cc", "#7fad9e"],
 };
-// Display-label positions only; the existing area focus and seat targets are unchanged.
-const OVERVIEW_LABEL_POINTS: Record<typeof TOKYO_DOME_OVERVIEW_AREAS[number]["id"], readonly [number, number]> = {
-  left: [405, 135], right: [753, 135], third: [320, 400], first: [838, 400], home: [579, 650],
-};
 const ZONE_NAMES = [
   { key: "A", label: "1階 前方" }, { key: "B", label: "1階 後方" },
   { key: "C", label: "バルコニー" }, { key: "D", label: "2階 前方" },
@@ -168,11 +173,18 @@ function directionForArea(area: SeatArea): keyof typeof MAP_VIEWS {
       : area.label[0] > 594 ? "first" : area.label[0] < 564 ? "third" : "home");
 }
 
+function rowRangeLabel(rows: SeatArea["rows"]) {
+  if (!rows) return "列範囲は未確認";
+  return rows[0] === rows[1] ? `${rows[0]}列のみ` : `${rows[0]}〜${rows[1]}列`;
+}
+
 export function TokyoDomeSeatLocator() {
   const target = useVenueSeatTarget();
   const [initial] = useState(() => {
-    if (target?.mode !== "fixed" || !getTokyoDomeVerifiedSeatBlock(target.section)) return null;
+    if (target?.mode !== "fixed") return null;
     const area = AREA_BY_CODE.get(target.section);
+    // Photo-only links identify the mapped block without selecting a row or seat.
+    if (!getTokyoDomeVerifiedSeatBlock(target.section) && !(area && !area.shared && PHOTO_SECTION_CODES.has(area.code))) return null;
     const section = area?.path ? parseTokyoDomeSection(area.code) : null;
     return area && section ? { area, section } : null;
   });
@@ -180,6 +192,25 @@ export function TokyoDomeSeatLocator() {
   const controlsReady = useSeatControlsReady();
   const mapSvgRef = useRef<SVGSVGElement>(null);
   const mapCanvasRef = useRef<HTMLDivElement>(null);
+  const [photoCenters, setPhotoCenters] = useState<ReadonlyMap<string, MapPoint>>(() => new Map());
+  useEffect(() => {
+    const svg = mapSvgRef.current;
+    if (!svg) return;
+    const frame = requestAnimationFrame(() => {
+      const centers = new Map<string, MapPoint>();
+      for (const path of svg.querySelectorAll<SVGPathElement>("path[data-seat-photo-outline]")) {
+        const bounds = path.getBBox();
+        if (bounds.width > 0 && bounds.height > 0) {
+          centers.set(path.getAttribute("data-seat-photo-outline")!, {
+            x: bounds.x + bounds.width / 2, y: bounds.y + bounds.height / 2,
+          });
+        }
+      }
+      setPhotoCenters(centers);
+    });
+    return () => cancelAnimationFrame(frame);
+  }, []);
+  const suppressMapClick = useSeatMapTouch(mapCanvasRef);
   const [canvasSize,setCanvasSize]=useState({width:900,height:650});
   useEffect(() => {
     const node = mapCanvasRef.current;
@@ -216,6 +247,8 @@ export function TokyoDomeSeatLocator() {
   const [seatLevel, setSeatLevel] = useState<SeatLevel>(initial ? levelForPrefix(initial.section.prefix) : "all");
   const [direction,setDirection]=useState<keyof typeof MAP_VIEWS>(() => initial ? directionForArea(initial.area) : "all");
   const [candidates,setCandidates]=useState<SeatArea[]>([]);
+  const [finderMode, setFinderMode] = useState<FinderMode>("ticket");
+  const [blockInput, setBlockInput] = useState("");
   const [rowInput, setRowInput] = useState("");
   const [seatInput, setSeatInput] = useState("");
   const [selected, setSelected] = useState<TokyoDomeSection | null>(initial?.section ?? null);
@@ -225,6 +258,7 @@ export function TokyoDomeSeatLocator() {
   const [selectedSeat, setSelectedSeat] = useState<number | null>(null);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
+  const [offsideArea, setOffsideArea] = useState<SeatArea | null>(null);
   const selectedArea = selected ? AREA_BY_CODE.get(selected.code) : undefined;
   const selectedSpecial = selected ? SPECIAL_BY_CODE.get(selected.code) : undefined;
   const selectedLabel = selectedArea?.label ?? selectedSpecial?.label;
@@ -264,8 +298,11 @@ export function TokyoDomeSeatLocator() {
     const y = (canvasSize.height - interactiveViewBox.height * screenScale) / 2 + (area.label[1] - interactiveViewBox.y) * screenScale;
     return x >= 0 && x <= canvasSize.width && y >= 0 && y <= canvasSize.height;
   });
+  const overviewPhotoCounts = new Map(TOKYO_DOME_OVERVIEW_AREAS.map(group => [group.id,
+    AREAS.filter(area => PHOTO_SECTION_CODES.has(area.code) && matchesLevel(area.code) && directionForArea(area) === group.id).length,
+  ]));
   const activeFocus = visibleAreas.some(area => area.code === focusedCode) ? focusedCode : visibleAreas.find(area => matchesLevel(area.code))?.code;
-  function keyArea(event: React.KeyboardEvent<SVGPathElement>, area: SeatArea) {
+  function keyArea(event: React.KeyboardEvent<SVGElement>, area: SeatArea) {
     if (["Enter", " "].includes(event.key)) { event.preventDefault(); chooseArea(area); return; }
     const next = spatialSeatTarget(visibleAreas.map(a => ({ id: a.code, x: a.label[0], y: a.label[1] })), area.code, event.key);
     if (!next) return;
@@ -320,6 +357,15 @@ export function TokyoDomeSeatLocator() {
   // Names provide orientation; row/number badges and their arrows take priority.
   // Keep original anchors and hit geometry. Only suppress a colliding caption.
   const captionObstacles = [
+    // Overview buttons float above the SVG. Reserve their visible captions and
+    // badges before placing small block names; their seat hit areas stay intact.
+    ...(!showDetail ? TOKYO_DOME_OVERVIEW_AREAS.flatMap(area => {
+      const [x, y] = area.point;
+      const hasCount = Boolean(overviewPhotoCounts.get(area.id));
+      const word = { x, y: y - (hasCount ? 9 / screenScale : 0),
+        width: (area.id === "home" ? 46 : 35) / screenScale, height: 17 / screenScale };
+      return hasCount ? [word, { x, y: y + 9 / screenScale, width: 40 / screenScale, height: 18 / screenScale }] : [word];
+    }) : []),
     ...displayedNumberGuides.flatMap(guide => {
       const sign = placeNumberLabel({ x: guide.point[0], y: guide.point[1] }, { x: guide.point[0] + guide.direction[0], y: guide.point[1] + guide.direction[1] }, 52 / screenScale, 28 / screenScale, 6 / screenScale, 20 / screenScale);
       return [
@@ -343,6 +389,30 @@ export function TokyoDomeSeatLocator() {
     captionObstacles.push({ x: label.x, y: label.y, width, height });
     return true;
   });
+
+  const photoHitTest = useSeatPhotoHitTest();
+  const photoObstacles = [...captionObstacles, ...TOKYO_DOME_GATE_ANCHORS.map(gate => ({
+    x: gate.label.x, y: gate.label.y, width: 68 / screenScale, height: 30 / screenScale,
+  }))];
+  const photoMarkers = showDetail ? visibleAreas.filter(area => matchesLevel(area.code) && PHOTO_SECTION_CODES.has(area.code)).flatMap(area => {
+    const balcony = BALCONY_SEGMENTS.find(segment => segment.code === area.code);
+    const shape = balcony?.sourcePath ?? area.path;
+    if (!shape) return [];
+    const center = photoCenters.get(area.code) ?? { x: area.label[0], y: area.label[1] };
+    const point = seatPhotoOffsets
+      .map(([dx, dy]) => ({ x: center.x + dx / screenScale, y: center.y + dy / screenScale }))
+      .find(point => point.x >= visibleMapBox.x + 14 / screenScale
+        && point.x <= visibleMapBox.x + visibleMapBox.width - 14 / screenScale
+        && point.y >= visibleMapBox.y + 14 / screenScale
+        && point.y <= visibleMapBox.y + visibleMapBox.height - 14 / screenScale
+        && photoObstacles.every(other => Math.abs(point.x - other.x) >= (28 / screenScale + other.width) / 2
+          || Math.abs(point.y - other.y) >= (28 / screenScale + other.height) / 2)
+        && photoHitTest([shape], point, 10 / screenScale)
+        && (!balcony || photoHitTest([balcony.regionPath], point, 10 / screenScale)));
+    if (!point) return [];
+    photoObstacles.push({ ...point, width: 28 / screenScale, height: 28 / screenScale });
+    return [{ area, ...point }];
+  }) : [];
 
   function resetGestures() {
     initialCanvasPending.current = false;
@@ -370,7 +440,9 @@ export function TokyoDomeSeatLocator() {
 
   function showMapView(view: keyof typeof MAP_VIEWS, level: SeatLevel = seatLevel) {
     setDirection(view);
-    const area = TOKYO_DOME_OVERVIEW_AREAS.find(area => area.id === view);
+    // Centre the tier preview independently of the ticket's direction filter.
+    const camera = view === "all" && level !== "all" ? (level === "outfield" ? "right" : "home") : view;
+    const area = TOKYO_DOME_OVERVIEW_AREAS.find(area => area.id === camera);
     const prefixes = SEAT_LEVELS.find(item => item.id === level)!.prefixes;
     animateTo(area ? constrainMapViewBox(level === "all" ? tokyoDomeOverviewView(area.id, canvasSize) : tokyoDomeTierView(area.id, prefixes, canvasSize, AREAS)) : parseMapViewBox(MAP_VIEWS[view].box));
     resetGestures();
@@ -426,22 +498,23 @@ export function TokyoDomeSeatLocator() {
     }
   }
 
-  function handleMapPointerDown(event: ReactPointerEvent<SVGSVGElement>) {
+  function handleMapPointerDown(event: ReactPointerEvent<HTMLDivElement>) {
     if (event.pointerType === "mouse" && event.button !== 0) return;
     hintFinishedRef.current = true; setTapHint(false);
-    event.preventDefault();
+    const control = (event.target as Element).closest("button");
+    if (!control && (event.pointerType !== "touch" || interactiveViewBox.width < FULL_MAP_VIEW_BOX.width * .99)) event.preventDefault();
     if(animationRef.current!==null)cancelAnimationFrame(animationRef.current);
     const target = event.target instanceof Element ? event.target.closest<SVGElement>("[data-seat-code]") : null;
-    event.currentTarget.setPointerCapture(event.pointerId);
+    if (!control) event.currentTarget.setPointerCapture(event.pointerId);
     const point = { x: event.clientX, y: event.clientY };
     pointerPositionsRef.current.set(event.pointerId, point);
     pointerStartsRef.current.set(event.pointerId, { point, code: target?.dataset.seatCode ?? null });
-    if (pointerPositionsRef.current.size === 1) didPanRef.current = false;
-    else didPanRef.current = true;
+    if (pointerPositionsRef.current.size === 1) { didPanRef.current = false; suppressMapClick.current = false; }
+    else { didPanRef.current = true; suppressMapClick.current = true; }
     startGesture();
   }
 
-  function handleMapPointerMove(event: ReactPointerEvent<SVGSVGElement>) {
+  function handleMapPointerMove(event: ReactPointerEvent<HTMLDivElement>) {
     if (!pointerPositionsRef.current.has(event.pointerId)) return;
     pointerPositionsRef.current.set(event.pointerId, { x: event.clientX, y: event.clientY });
     const svg = mapSvgRef.current;
@@ -466,7 +539,8 @@ export function TokyoDomeSeatLocator() {
       const dx = points[0].x - gesture.start.x;
       const dy = points[0].y - gesture.start.y;
       if (Math.hypot(dx, dy) > 6) didPanRef.current = true;
-      if (!didPanRef.current) return;
+      if (!didPanRef.current || (event.pointerType === "touch" && gesture.box.width >= FULL_MAP_VIEW_BOX.width * .99)) return;
+      suppressMapClick.current = true;
       setInteractiveViewBox(constrainMapViewBox({
         ...gesture.box,
         x: gesture.box.x - dx / mapScale(rect, gesture.box),
@@ -475,16 +549,17 @@ export function TokyoDomeSeatLocator() {
     }
   }
 
-  function handleMapPointerEnd(event: ReactPointerEvent<SVGSVGElement>) {
+  function handleMapPointerEnd(event: ReactPointerEvent<HTMLDivElement>) {
     if (!pointerPositionsRef.current.has(event.pointerId)) return;
     if (event.type !== "pointerup") {
-      const ids = [...pointerPositionsRef.current.keys()]; resetGestures(); didPanRef.current = true;
+      const ids = [...pointerPositionsRef.current.keys()]; resetGestures(); didPanRef.current = true; suppressMapClick.current = true;
       for (const id of ids) if (event.currentTarget.hasPointerCapture(id)) event.currentTarget.releasePointerCapture(id);
       return;
     }
     const start = pointerStartsRef.current.get(event.pointerId);
     const shouldSelect = event.type === "pointerup" && pointerPositionsRef.current.size === 1 && !didPanRef.current
       && start?.code && distance(start.point, { x: event.clientX, y: event.clientY }) <= 6;
+    suppressMapClick.current ||= didPanRef.current;
     pointerPositionsRef.current.delete(event.pointerId);
     pointerStartsRef.current.delete(event.pointerId);
     startGesture();
@@ -497,87 +572,147 @@ export function TokyoDomeSeatLocator() {
   }
 
   function clearSelection() {
+    setOffsideArea(null);
     setSelected(null); setSelectedRow(null); setSelectedSeat(null); setNotice(""); setError(""); setCandidates([]);
   }
 
   function showWhole() {clearSelection();setSeatLevel("all");showMapView("all", "all");}
   function chooseDirection(view:keyof typeof MAP_VIEWS) {
-    if(view==="all"){showWhole();return;}
+    if(view==="all"){clearSelection();showMapView("all");return;}
     const level = ["left", "right"].includes(view) ? "outfield" : seatLevel === "outfield" ? "all" : seatLevel;
     setSeatLevel(level);clearSelection();showMapView(view, level);
   }
   function chooseLevel(level:SeatLevel) {
     setSeatLevel(level);clearSelection();
     const view = level === "outfield" ? (["left", "right"].includes(direction) ? direction : "right")
-      : level === "all" ? direction : ["all", "left", "right", "outfield"].includes(direction) ? "home" : direction;
+      : level === "all" ? direction : ["left", "right", "outfield"].includes(direction) ? "all" : direction;
     showMapView(view, level);
   }
-  function chooseArea(area:SeatArea,locate=false) {
+  function chooseArea(area:SeatArea,source:"map" | "block" | "ticket" = "map") {
     const section=parseTokyoDomeSection(area.code);if(!section)return;
-    setPhotoRequest(request => request + 1);
-    const shouldMove=locate||!selected||interactiveViewBox.width>360;
-    setFocusedCode(area.code);setSeatLevel(levelForPrefix(section.prefix));setSelected(section);setSelectedRow(null);setSelectedSeat(null);setError("");setNotice("");setCandidates([]);
+    const nextDirection = directionForArea(area);
+    const changesSide = direction !== "all" && direction !== nextDirection;
+    if (source === "map" && changesSide) {
+      setError(""); setCandidates([]);
+      setNotice(`${area.code}は${MAP_VIEWS[nextDirection].label}の区画です。`);
+      setOffsideArea(area);
+      return;
+    }
+    setOffsideArea(null);
+    const shouldMove=source!=="map"||!selected||interactiveViewBox.width>360;
+    setFocusedCode(area.code);setSeatLevel(levelForPrefix(section.prefix));setSelected(section);setSelectedRow(null);setSelectedSeat(null);setError("");setCandidates([]);
+    setNotice(changesSide ? `${area.code}は${MAP_VIEWS[nextDirection].label}の区画です。${MAP_VIEWS[nextDirection].label}に切り替えました。` : "");
     if(shouldMove)showSelectedView(section,area.label);else{resetGestures();}
-    setDirection(directionForArea(area));
+    if (source !== "ticket") setDirection(nextDirection);
   }
 
-  function chooseCode(code: string) {
+  function chooseCode(code: string, source: "map" | "block" = "block") {
     const area = AREA_BY_CODE.get(code);
-    if (area) { chooseArea(area,true); return; }
+    if (area) { chooseArea(area,source); return; }
     const special = SPECIAL_BY_CODE.get(code), section = parseTokyoDomeSection(code);
     if (!special || !section) return;
-    setPhotoRequest(request => request + 1);
-    setSeatLevel("all"); setSelected(section); setSelectedRow(null); setSelectedSeat(null); setNotice(""); setError("");
+    setSeatLevel("all"); setSelected(section); setSelectedRow(null); setSelectedSeat(null); setNotice(""); setOffsideArea(null); setError("");
     showSelectedView(section, special.label);
   }
 
+  function chooseTicketSeat(area: SeatArea, row: number, seat: number) {
+    chooseArea(area,"ticket"); setSelectedRow(row); setSelectedSeat(seat);
+    setNotice("列の線は位置の目安です。");
+  }
+
+  const seatView = { diagram: SEAT_PHOTO_DIAGRAM, request: photoRequest, section: selected?.code,
+    row: selectedRow?.toString(), seat: selectedSeat?.toString() };
+  const photoSection = seatView.section;
+
   function handleSubmit(event:FormEvent<HTMLFormElement>) {
     event.preventDefault();clearSelection();
-    const input = parseTokyoDomeSeatInput(rowInput, seatInput);
+    const input = finderMode === "block" ? parseTokyoDomeSeatInput("", blockInput) : parseTokyoDomeSeatInput(rowInput, seatInput);
     if(input.kind === "section"){
       const target=AREA_BY_CODE.get(input.section.code);
+      if (!target && !SPECIAL_BY_CODE.has(input.section.code)) { trackVenueSeatSearch("empty"); setError("この区画は座席図で確認できません。"); return; }
       if(input.row !== null && !isTokyoDomeSectionRowSelectable(input.section.code,input.row,target?.rows)){trackVenueSeatSearch("unverified");setError("このブロックの列を確認してください。");return;}
       trackVenueSeatSearch("area",1);
       chooseCode(input.section.code);if(input.row !== null)setSelectedRow(input.row);
-      if(input.numberUnverified)setNotice(`${input.section.code}の区画を表示しています。この入力では席番号までは特定していません。`);
+      if(input.numberUnverified)setNotice(note=>note+`${input.section.code}の区画を表示しています。この入力では席番号までは特定していません。`);
       return;
     }
-    if(input.kind === "invalid"){trackVenueSeatSearch("invalid");setError("列と番号、または区画名（例：F17）を入力してください。");return;}
+    if(input.kind === "invalid"){
+      trackVenueSeatSearch("invalid");
+      const balconyGap = finderMode === "block" && /^C49(?:ブロック|区画)?$/i.test(blockInput.normalize("NFKC").replace(/[\s-]/g, ""));
+      setError(balconyGap ? "東京ドームの固定席図では、バルコニーのC49区画は掲載されていません。券面の区画名をご確認ください。"
+        : finderMode === "block" ? "券面の区画名を入力してください。" : "券面の列と座席番号を両方入力してください。");
+      return;
+    }
     const {row, seat}=input;
     if(["balcony","outfield"].includes(seatLevel)||["left","right","outfield"].includes(direction)){trackVenueSeatSearch("unverified");setError("この席種は地図、または区画名（例：F12）で探せます。列・番号検索は準備中です。");return;}
     const found=findTokyoDomeVerifiedSeats(row,seat,seatLevel,direction).flatMap(block=>{const area=AREA_BY_CODE.get(block.code);return area?[area]:[];});
     trackVenueSeatSearch(found.length===1?"matched":found.length>1?"multiple":"unverified",found.length);
-    if(!found.length){setError("この列・番号はまだ確認できていません。区画名（例：A25）で探すか、公式の座席図を確認してください。");return;}
+    if(!found.length){
+      setError("この列・番号は見つかりませんでした。");
+      return;
+    }
     if(found.length>1){setCandidates(found);return;}
-    chooseArea(found[0],true);setSelectedRow(row);setSelectedSeat(seat);setNotice("列の線は位置の目安です。");
+    chooseTicketSeat(found[0],row,seat);
   }
 
+  const searchInput = finderMode === "ticket" ? parseTokyoDomeSeatInput(rowInput, seatInput) : null;
+  const browseAreas = error && searchInput?.kind === "seat"
+    ? nearSeatNumbers(String(searchInput.seat), AREAS.filter(item => item.path && matchesLevel(item.code)
+      && (direction === "all" || directionForArea(item) === direction)),
+      item => getTokyoDomeVerifiedSeatBlock(item.code)?.rows.find(line => line.row === searchInput.row)?.intervals ?? [],
+      item => item.code) : [];
+  function resetFinderFeedback() { setError(""); setCandidates([]); }
   return <section className="border-y border-[#eddfe5] bg-[#fffafb] py-8 sm:py-10" aria-labelledby="tokyo-dome-map-title" inert={!controlsReady}>
     <div className="zr-container">
       <p className="artist-kicker">Seat finder</p>
       <h2 id="tokyo-dome-map-title" className={`artist-heading ${styles.title}`}>東京ドームの座席を探す</h2>
-      <DomeSeatFrame className={`mt-5 ${controls.seatFrame} ${styles.seatFrame}`} levels={SEAT_LEVELS} level={seatLevel}
-        seatView={{ diagram: "tokyo-dome-fixed", request: photoRequest, section: selected?.code, row: selectedRow?.toString(),
-          seat: selectedSeat?.toString(), onSelect: place => chooseCode(place.id) }}
+      <DomeSeatFrame className={`mt-5 ${controls.seatFrame} ${styles.seatFrame}`} levels={SEAT_LEVELS} level={seatLevel} compactMobileControls photoLegend="map"
+        seatView={seatView}
+        share={photoSection ? { venueId: "tokyo-dome", venueName: "東京ドーム", target: { mode: "fixed", section: photoSection } } : undefined}
         onLevel={id=>chooseLevel(id as SeatLevel)} directions={(["all","first","home","third","right","left"] as const).map(id=>({id,label:MAP_VIEWS[id].label}))}
-        direction={direction} onDirection={id=>chooseDirection(id as keyof typeof MAP_VIEWS)} onZoom={zoomMap} onWhole={showWhole} shortcuts={[]}
-        directionExtra={<form className={controls.ticketForm} onSubmit={handleSubmit} aria-label="チケットの座席情報で探す">
-          <label>列・区画<ReadySearchControl><input aria-label="列・区画" value={rowInput} placeholder="15 / F17" onChange={e=>{setRowInput(e.target.value);setError("");setCandidates([]);}}/></ReadySearchControl></label>
-          <label>番号・区画<ReadySearchControl><input aria-label="番号・ブロック名" value={seatInput} placeholder="55 / E23" onChange={e=>{setSeatInput(e.target.value);setError("");setCandidates([]);}}/></ReadySearchControl></label>
-          <ReadySearchControl><button className={controls.searchSubmit} type="submit">場所を見る</button></ReadySearchControl>
-        </form>}>
-        {error&&<p role="alert" className={styles.message}>{error} <a href="https://giants-seat.jp/seatmap/" target="_blank" rel="noopener noreferrer">公式の座席図 ↗</a></p>}
-        {candidates.length>0&&<div className={controls.candidates}><p>確認できた区画から選んでください</p><div>{candidates.map(area=><button type="button" key={area.code} onClick={()=>{chooseArea(area,true);setSelectedRow(Number(rowInput.normalize("NFKC").replace(/\s/g,"").replace(/列$/,"")));setSelectedSeat(Number(seatInput.normalize("NFKC").trim().replace(/番$/,"")));setNotice("列の線は位置の目安です。");}}>{SEAT_LEVELS.find(level=>level.id===levelForPrefix(area.code[0]))?.label}・{area.code}</button>)}</div></div>}
+        directionHint="ホーム側はバックネット裏・本塁側です。" direction={direction} onDirection={id=>chooseDirection(id as keyof typeof MAP_VIEWS)} onZoom={zoomMap} onWhole={showWhole} shortcuts={[]}
+        directionExtra={<SeatFinderControls mode={finderMode} onMode={mode => { setFinderMode(mode); clearSelection(); }}
+          row={rowInput} number={seatInput} block={blockInput} blockHint="例：A3、F17"
+          onRow={value => { setRowInput(value); resetFinderFeedback(); }} onNumber={value => { setSeatInput(value); resetFinderFeedback(); }}
+          onBlock={value => { setBlockInput(value); resetFinderFeedback(); }} onSubmit={handleSubmit} />}>
+        {error && <SeatFinderMiss detail={error}
+          advice={error.includes("C49") ? error : undefined}
+          query={(finderMode === "block" ? !blockInput.trim() : searchInput?.kind !== "seat") ? undefined : {
+            scope: [seatLevel !== "all" && SEAT_LEVELS.find(level => level.id === seatLevel)?.label, direction !== "all" && MAP_VIEWS[direction].label].filter(Boolean).join("・") || "会場全体",
+            ...(finderMode === "block" ? { block: blockInput } : { row: rowInput, number: seatInput }) }}
+          choices={browseAreas.map(item => ({ id: item.code, label: item.code }))} choose={chooseCode} />}
+        {candidates.length>0&&<div className={controls.candidates}><p>確認できた区画から選んでください</p><div>{candidates.map(area=><button type="button" key={area.code} onClick={()=>{
+          const input=parseTokyoDomeSeatInput(rowInput,seatInput);
+          if(input.kind==="seat")chooseTicketSeat(area,input.row,input.seat);
+        }}>{SEAT_LEVELS.find(level=>level.id===levelForPrefix(area.code[0]))?.label}・{area.code}</button>)}</div></div>}
         <div className={styles.selection} aria-live="polite" aria-label="選んだ座席">{selected ? <>
           <div className={styles.selectionName}><strong>{selected.code}</strong><span>{selectedZone??"記号の位置"}{selectedSide?`・${selectedSide}`:""}{selectedRow!==null&&<>・<b className={styles.selectedRow}>{selectedRow}列</b></>}{selectedSeat!==null&&<>・<b className={styles.selectedSeat} data-selected-seat-number>選択：{selectedSeat}番</b></>}</span></div>
-          {selectedArea?.rows&&<span>{selectedArea.rows[0]}〜{selectedArea.rows[1]}列</span>}
-          {selectedLabel&&<button type="button" onClick={()=>showSelectedView(selected,selectedLabel)} aria-label="選んだ場所を表示"><LocateFixed size={19}/></button>}
-          <button type="button" onClick={clearSelection} aria-label="座席の選択を解除"><X size={18}/></button>
-        </> : <div className={styles.overviewHeading}><strong>{seatLevel === "all" && direction === "all" ? "東京ドームの全体図" : `${SEAT_LEVELS.find(level => level.id === seatLevel)!.label}・${MAP_VIEWS[direction].label}`}</strong><span>区画をタップして、席の位置へ</span></div>}</div>
-        <div ref={mapCanvasRef} className={styles.map} data-view={showDetail ? "detail" : "overview"} aria-label="東京ドームの座席図">
+          {selectedArea&&<span>{rowRangeLabel(selectedArea.rows)}</span>}
+          <div className={styles.selectionActions}>
+            {selectedLabel&&<button type="button" onClick={()=>showSelectedView(selected,selectedLabel)} aria-label="選んだ場所を表示"><LocateFixed size={19}/></button>}
+            <button type="button" onClick={clearSelection} aria-label="座席の選択を解除"><X size={18}/></button>
+          </div>
+        </> : <div className={styles.overviewHeading}><strong>{seatLevel === "all" && direction === "all" ? "東京ドームの全体図" : `${SEAT_LEVELS.find(level => level.id === seatLevel)!.label}・${MAP_VIEWS[direction].label}`}</strong><span>区画をタップして拡大・アリーナ配置は公演別</span></div>}</div>
+        <SeatPhotoMapSummary selection={seatView} count={PHOTO_SECTION_CODES.size} onOpen={() => setPhotoRequest(request => request + 1)} />
+        {notice&&<p role="status" className={styles.hint}>{notice}</p>}
+        {offsideArea && <button type="button" className="zr-focus min-h-11 rounded-full border border-[#d4adb9] px-4 text-sm font-bold" onClick={() => chooseCode(offsideArea.code)}>
+          {MAP_VIEWS[directionForArea(offsideArea)].label}に切り替えて{offsideArea.code}を表示
+        </button>}
+        <div className={styles.mapFrame} data-tokyo-map-frame>
+        <div ref={mapCanvasRef} className={styles.map} data-view={showDetail ? "detail" : "overview"} aria-label="東京ドームの座席図"
+          style={{ touchAction: interactiveViewBox.width >= FULL_MAP_VIEW_BOX.width * .99 ? "pan-y" : "none" }}
+          onPointerDown={handleMapPointerDown} onPointerMove={handleMapPointerMove} onPointerUp={handleMapPointerEnd} onPointerCancel={handleMapPointerEnd} onLostPointerCapture={handleMapPointerEnd}
+          onPointerLeave={event => { if (!event.currentTarget.hasPointerCapture(event.pointerId)) handleMapPointerEnd(event); }}
+          onClickCapture={event => { if (suppressMapClick.current && event.detail !== 0) { event.preventDefault(); event.stopPropagation(); } }}>
             <svg ref={mapSvgRef} viewBox={serializeMapViewBox(interactiveViewBox)}
-              onPointerDown={handleMapPointerDown} onPointerMove={handleMapPointerMove} onPointerUp={handleMapPointerEnd} onPointerCancel={handleMapPointerEnd} onLostPointerCapture={handleMapPointerEnd} onPointerLeave={event => { if (!event.currentTarget.hasPointerCapture(event.pointerId)) handleMapPointerEnd(event); }}
-              className="block h-full w-full touch-none select-none cursor-grab active:cursor-grabbing" role="group"
+              onClick={event => {
+                // Pointer taps select on release, including when the canvas captured the pointer.
+                // Assistive-technology activation produces a click with no preceding pointer.
+                if (event.detail !== 0) return;
+                const code = (event.target as Element).closest("[data-seat-code]")?.getAttribute("data-seat-code");
+                if (code) chooseCode(code,"map");
+              }}
+              style={{ touchAction: "inherit" }} className="block h-full w-full select-none cursor-grab active:cursor-grabbing" role="group"
               aria-label={selected ? `${selected.code}を強調した東京ドームの座席区画図` : "区画名と列の目安を描いた東京ドーム座席図"}>
               <defs>
                 <linearGradient id="tokyo-bowl-surface" x1="0" y1="0" x2="0" y2="1"><stop stopColor="#fff"/><stop offset="1" stopColor="#e4eaf0"/></linearGradient>
@@ -615,8 +750,12 @@ export function TokyoDomeSeatLocator() {
                     className={area.shared ? undefined : "cursor-pointer"} data-seat-code={area.shared ? undefined : area.code}
                     onKeyDown={area.shared ? undefined : event => keyArea(event, area)} onFocus={() => setFocusedCode(area.code)}
                     tabIndex={area.shared ? undefined : area.code === activeFocus ? 0 : -1} role={area.shared ? undefined : "button"}
-                    aria-label={area.shared ? undefined : `${area.code}${area.rows ? `・${area.rows[0]}〜${area.rows[1]}列` : "・列範囲確認中"}を拡大`} />
+                    aria-label={area.shared ? undefined : `${area.code}・${rowRangeLabel(area.rows)}を拡大${PHOTO_SECTION_CODES.has(area.code) ? "（写真あり）" : ""}`} />
                   {!active && overviewOpacity > 0 && <path d={area.path!} fill={`url(#tokyo-tier-${area.code[0]})`} opacity={overviewOpacity} pointerEvents="none" aria-hidden="true"/>}
+                  {!area.shared && PHOTO_SECTION_CODES.has(area.code) && <path d={area.path!}
+                    data-seat-photo-outline={area.code} fill="none"
+                    stroke={SEAT_PHOTO_MAP_COLOR} strokeWidth={1.5}
+                    vectorEffect="non-scaling-stroke" pointerEvents="none" aria-hidden="true" />}
                   {rowGuides && overviewOpacity > 0 && <path d={rowGuides.lines} fill="none" stroke="#425c73" strokeWidth=".45" vectorEffect="non-scaling-stroke" opacity={overviewOpacity * .18} clipPath={`url(#tokyo-rows-${area.code})`} pointerEvents="none" aria-hidden="true"/>}
                   {detailStage && rowGuides && <g clipPath={`url(#tokyo-rows-${area.code})`} pointerEvents="none">
                     {<path d={rowGuides.lines} fill="none" stroke={active ? "#fff" : "#665f7a"} strokeWidth={showDetail ? "0.65" : "0.45"} vectorEffect="non-scaling-stroke" opacity={active ? "0.55" : showDetail ? "0.32" : "0.2"} />}
@@ -658,9 +797,8 @@ export function TokyoDomeSeatLocator() {
                 clipPath={`url(#tokyo-rows-${selectedArea.code})`} fill="#b9e3fb" fillOpacity="0.96"
                 stroke="#1673ad" strokeWidth="1.2" vectorEffect="non-scaling-stroke" pointerEvents="none" />}
               <g data-overview-art="floor-label" opacity={overviewOpacity} pointerEvents="none" aria-hidden="true" fill="#315b4c" textAnchor="middle" fontFamily="ui-sans-serif, sans-serif">
-                <text x="579" y="268" fontSize={17 / screenScale} fontWeight="800" letterSpacing=".08em">アリーナ</text>
-                <text x="579" y={268 + 20 / screenScale} fontSize={10 / screenScale}>公演ごとに</text>
-                <text x="579" y={268 + 34 / screenScale} fontSize={10 / screenScale}>配置が変わります</text>
+                <text x="579" y="253" fontSize={Math.min(17, Math.max(12, canvasSize.width / 26)) / screenScale}
+                  fontWeight="800">アリーナ</text>
               </g>
               {mapLabels.filter(label => !(verifiedNumberGuide && label.code === selected?.code)).map(label => <text key={label.code} data-seat-label={label.code} x={label.x} y={label.y}
                 transform={`rotate(${label.angle},${label.x},${label.y})`} textAnchor="middle" dominantBaseline="central"
@@ -684,8 +822,8 @@ export function TokyoDomeSeatLocator() {
               {TOKYO_DOME_GATE_ANCHORS.filter(gate => {
                 if (showDetail) return true;
                 if (!["GATE 11", "GATE 25", "GATE 40", "GATE 41"].includes(gate.gate)) return false;
-                return TOKYO_DOME_OVERVIEW_AREAS.every(area => Math.abs(OVERVIEW_LABEL_POINTS[area.id][0] - gate.label.x) * overviewScale >= 80
-                  || Math.abs(OVERVIEW_LABEL_POINTS[area.id][1] - gate.label.y) * overviewScale >= 36);
+                return TOKYO_DOME_OVERVIEW_AREAS.every(area => Math.abs(area.point[0] - gate.label.x) * overviewScale >= 80
+                  || Math.abs(area.point[1] - gate.label.y) * overviewScale >= 36);
               }).map((gate) => <g key={gate.gate} pointerEvents="none">
                 <rect x={gate.label.x - 31 / screenScale} y={gate.label.y - 12 / screenScale}
                   width={62 / screenScale} height={24 / screenScale} rx={6 / screenScale} fill="#393148" stroke="#fff" strokeWidth="1.2" vectorEffect="non-scaling-stroke" />
@@ -699,19 +837,36 @@ export function TokyoDomeSeatLocator() {
                 <rect x={selectedSpecial.label[0] - 17} y={selectedSpecial.label[1] - 33} width="34" height="13" rx="6.5" fill="#a82458" stroke="#fff" strokeWidth="1" vectorEffect="non-scaling-stroke" />
                 <text x={selectedSpecial.label[0]} y={selectedSpecial.label[1] - 24} textAnchor="middle" fontSize="6.2" fontWeight="900" fill="#fff">{selectedSpecial.code}</text>
               </g>}
+              {photoMarkers.map(({ area, x, y }) => <g key={area.code}>
+                <g data-seat-code={area.code} data-seat-photo-marker={area.code} role="button" tabIndex={0}
+                  data-photo-x={x} data-photo-y={y} data-photo-placement="inside-block"
+                  aria-label={`写真がある${area.code}区画を選ぶ`} onKeyDown={event => keyArea(event, area)} className={styles.photoMarker}>
+                  <circle cx={x} cy={y} r={13 / screenScale} fill="transparent" />
+                  <SeatPhotoMarker x={x} y={y} size={20 / screenScale} highlighted />
+                </g>
+              </g>)}
             </svg>
           {!showDetail && <div className={styles.areaLabels} aria-label="大きな場所から探す">
             {TOKYO_DOME_OVERVIEW_AREAS.map(area => <button key={area.id} type="button" data-major-area={area.id}
               className={tapHint ? styles.areaPrompt : undefined} onAnimationEnd={() => setTapHint(false)}
-              style={{left:(canvasSize.width-interactiveViewBox.width*screenScale)/2+(OVERVIEW_LABEL_POINTS[area.id][0]-interactiveViewBox.x)*screenScale,
-                top:(canvasSize.height-interactiveViewBox.height*screenScale)/2+(OVERVIEW_LABEL_POINTS[area.id][1]-interactiveViewBox.y)*screenScale}}
-              onClick={() => chooseDirection(area.id)}>{area.label}</button>)}
+              style={{left:(canvasSize.width-interactiveViewBox.width*screenScale)/2+(area.point[0]-interactiveViewBox.x)*screenScale,
+                top:(canvasSize.height-interactiveViewBox.height*screenScale)/2+(area.point[1]-interactiveViewBox.y)*screenScale}}
+              onClick={() => chooseDirection(area.id)}><span>{area.label.replace("外野", "")}</span>
+                {Boolean(overviewPhotoCounts.get(area.id)) && <span className={styles.areaPhotoCount} data-photo-area-count={area.id}>
+                  <Camera size={12} aria-hidden="true" />{overviewPhotoCounts.get(area.id)}<span className="sr-only">区画に写真あり</span>
+                </span>}
+              </button>)}
+          </div>}
+        </div>
+          {showDetail && <div className={styles.orientation} data-map-orientation>
+            {direction !== "all" && <strong>{MAP_VIEWS[direction].label}</strong>}
+            <span>← 3塁側　1塁側 →</span>
+            <span>↑ 外野側　↓ 本塁側</span>
           </div>}
         </div>
         <div className={styles.wholeButton}><button type="button" onClick={showWhole}>全体図へ</button></div>
         {/* Keep conditional notes below the canvas and whole-view control so selection cannot move either. */}
         {selectedSpecial&&<p className={styles.hint}>図の記号の位置です。個別の席・列は表示していません。</p>}
-        {notice&&<p className={styles.hint}>{notice}</p>}
         {selectedRowNote&&<p className={styles.hint}>{selectedRowNote}</p>}
         
         {detailStage && !verifiedNumberGuide && <p className={styles.hint}>この区画の番号方向は確認中です。</p>}

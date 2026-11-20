@@ -12,7 +12,7 @@ type Props = {
 
 // Keep venue-name units together on narrow screens without shortening the name.
 const venueNameParts: Readonly<Record<string, readonly string[]>> = {
-  "sapporo-dome": ["大和ハウス ", "プレミスト", "ドーム", "（札幌ドーム）"],
+  "sapporo-dome": ["札幌ドーム", "（大和ハウス ", "プレミスト", "ドーム）"],
   "miyagi-arena": ["セキスイハイム", "スーパー", "アリーナ"],
   "saitama-super-arena": ["さいたま", "スーパー", "アリーナ"],
   "zozo-marine": ["ZOZOマリン", "スタジアム"],

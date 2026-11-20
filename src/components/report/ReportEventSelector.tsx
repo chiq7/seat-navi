@@ -19,7 +19,7 @@ type ReportChoice = {
   tone: ReportTone;
 };
 
-function ReportChoiceLink({ choice, eventId, index }: { choice: ReportChoice; eventId?: string | null; index: number }) {
+function ReportChoiceLink({ choice, eventId }: { choice: ReportChoice; eventId?: string | null }) {
   const inner = (
     <>
       <div className="flex items-start justify-between gap-4">
@@ -28,9 +28,6 @@ function ReportChoiceLink({ choice, eventId, index }: { choice: ReportChoice; ev
           strokeWidth={1.7}
           className={REPORT_TONE_CLASSES[choice.tone].text}
         />
-        <span className="text-[9px] font-black tracking-[0.16em] text-[#958d93]">
-          {String(index + 1).padStart(2, "0")} / REPORT
-        </span>
       </div>
       <div className="mt-3 sm:mt-7">
         <h3 className="text-[15px] font-black leading-snug tracking-[-0.04em] text-[#40383d] sm:text-[27px]">
@@ -73,15 +70,22 @@ type Props = {
   selectedEvent: CrawledEvent | null;
   artistName: string | null;
   artistSlug: string | null;
+  venueId?: string | null;
+  requireSelection?: boolean;
 };
 
-export function ReportEventSelector({ selectedEvent, artistSlug }: Props) {
+export function ReportEventSelector({ selectedEvent, artistSlug, venueId, requireSelection }: Props) {
+  const params = new URLSearchParams();
+  if (selectedEvent) params.set("event", selectedEvent.id);
+  if (venueId) params.set("venue", venueId);
+  if (artistSlug && !selectedEvent) params.set("artist", artistSlug);
+  const query = params.size ? `?${params}` : "";
   const choices: ReportChoice[] = [
     {
-      href: selectedEvent ? `/report/ticket?event=${selectedEvent.id}` : null,
+      href: requireSelection ? null : `/report/ticket${query}`,
       type: "ticket",
       label: "当落・座席を報告",
-      description: "当選・落選、抽選種別、実際の座席をまとめて共有。",
+      description: "当落結果や、おおまかな座席位置を共有。",
       meta: "当落・座席フォームへ",
       Icon: BarChart3,
       tone: "ticket",
@@ -96,7 +100,7 @@ export function ReportEventSelector({ selectedEvent, artistSlug }: Props) {
       tone: "seat",
     },
     {
-      href: selectedEvent ? `/report/live?event=${selectedEvent.id}` : null,
+      href: requireSelection ? null : `/report/live${query}`,
       type: "live",
       label: "現地レポを投稿",
       description: "座席からの見え方、会場写真、ライブ演出をファンへ。",
@@ -105,11 +109,11 @@ export function ReportEventSelector({ selectedEvent, artistSlug }: Props) {
       tone: "live",
     },
     {
-      href: artistSlug ? `/artists/${artistSlug}/setlist${selectedEvent ? `?event=${encodeURIComponent(selectedEvent.id)}` : ""}` : null,
+      href: artistSlug && !requireSelection ? `/artists/${artistSlug}/setlist${selectedEvent ? `?event=${encodeURIComponent(selectedEvent.id)}` : ""}` : null,
       type: "setlist",
-      label: "セトリを投稿",
+      label: "セトリを見る・投稿する",
       description: "曲順、MC、演出メモをライブの記録として共有。",
-      meta: "セトリページへ",
+      meta: "セトリを見る・投稿する",
       Icon: ListMusic,
       tone: "setlist",
     },
@@ -117,19 +121,15 @@ export function ReportEventSelector({ selectedEvent, artistSlug }: Props) {
 
   return (
     <section className="zr-container py-6 sm:py-10" aria-labelledby="report-choice-title">
-      <p className="artist-kicker">Share Your Live</p>
       <h2 id="report-choice-title" className="artist-heading">何をレポートする？</h2>
-      <p className="mt-2 text-[11px] font-medium leading-5 text-[#817981] sm:mt-3 sm:text-[12px] sm:leading-6">
-        選んだ公演の当落、座席表、会場の様子を投稿できます。
-      </p>
+      <p className="mt-2 text-sm text-[#70636a]">当落・座席と現地レポはゲストでも投稿できます。</p>
 
       <div className="mt-4 grid grid-cols-1 gap-2.5 min-[360px]:grid-cols-2 sm:mt-6 sm:gap-3">
-        {choices.map((choice, index) => (
+        {choices.map(choice => (
           <ReportChoiceLink
             key={choice.type}
             choice={choice}
             eventId={selectedEvent?.id}
-            index={index}
           />
         ))}
       </div>

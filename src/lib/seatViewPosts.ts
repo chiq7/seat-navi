@@ -1,4 +1,5 @@
 import seatViewPostData from "@/data/seatViewPosts.json";
+import { reviewedSeatPhotos } from "@/lib/seatViewPhotoAssets";
 
 export type SeatViewPlace = {
   kind: "section" | "zone" | "position";
@@ -26,14 +27,18 @@ export type SeatViewSelection = {
   position?: string | null;
   row?: string | null;
   seat?: string | null;
-  onSelect: (place: SeatViewPlace) => void;
 };
 
 // Only reviewed posts are included. Seat IDs belong to a single diagram.
 const postsByDiagram = seatViewPostData as Readonly<Record<string, readonly SeatViewPost[]>>;
+const reviewedPostsByDiagram = Object.fromEntries(Object.entries(postsByDiagram).map(([diagram, posts]) => [
+  diagram, reviewedSeatPhotos(posts, post => JSON.stringify([
+    post.place.kind, post.place.id, post.row, post.seat, post.seatVerified, post.scope,
+  ])),
+]));
 
 export function seatViewPosts(diagram: string): readonly SeatViewPost[] {
-  return Object.hasOwn(postsByDiagram, diagram) ? postsByDiagram[diagram] : [];
+  return Object.hasOwn(reviewedPostsByDiagram, diagram) ? reviewedPostsByDiagram[diagram] : [];
 }
 
 export function seatViewMatch(post: SeatViewPost, selection: SeatViewSelection) {
@@ -46,4 +51,16 @@ export function seatViewMatch(post: SeatViewPost, selection: SeatViewSelection) 
     return "同じ列の参考";
   }
   return post.scope === "block" || post.place.kind === "zone" ? "同じブロックの参考" : "同じ区画の参考";
+}
+
+export function seatViewMatchesForSelection(posts: readonly SeatViewPost[], selection: SeatViewSelection) {
+  const matches = posts.flatMap<{ post: SeatViewPost; label: NonNullable<ReturnType<typeof seatViewMatch>> }>(post => {
+    const label = seatViewMatch(post, selection);
+    return label ? [{ post, label }] : [];
+  });
+  const exact = matches.filter(match => match.label === "同じ座席");
+  if (exact.length) return exact;
+  const priority = ({ post, label }: (typeof matches)[number]) =>
+    label === "同じ列の参考" ? 0 : post.place.kind === "section" ? 1 : 2;
+  return matches.sort((a, b) => priority(a) - priority(b));
 }

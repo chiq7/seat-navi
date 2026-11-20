@@ -24,7 +24,7 @@ export function completionResultCard(input: CompletionResultInput): PublicResult
     lotteryLabel: input.lotteryLabel,
     result: input.result,
     // No history is inferred from lottery type, comments or the number of applications.
-    seat: input.result === "won" ? { area: input.area, block: input.area === "アリーナ" ? block : input.area === "スタンド" ? stand : "", layout: "unverified" } : undefined,
+    seat: input.result === "won" && input.area ? { area: input.area, block: input.area === "アリーナ" ? block : input.area === "スタンド" ? stand : "", layout: "unverified" } : undefined,
   });
 }
 

@@ -4,33 +4,63 @@ import { useEffect, useRef, useState, useImperativeHandle, useId, type Ref } fro
 import { HeartPulse, Info, Milk, X, Cigarette } from "lucide-react";
 import { AccessibleSign, ChangingSign, ElevatorSign, FoodSign, LockerSign, MenSign, StairsSign, StrollerSign, ToiletSign, WomenSign } from "../DomeFacilitySigns";
 import type { DedicatedVenueGuide, GuideFacility } from "@/data/venueGuides/types";
-import { availablePurposes, changeFacilityOutsideView, changeFacilityPlace, facilitiesAroundLandmark, facilitiesForOutsideView, filterFacilities, groupsAroundLandmark, hasUsableLuggage, initialFacilityState, linkFacilitySeatFloor, purposes, resolveLandmarks, selectedFacilityGroup, visibleGroups, type FacilityConfig, type Purpose } from "./facilityFinderState";
+import { availablePurposes, changeFacilityOutsideView, changeFacilityPlace, facilitiesAroundLandmark, facilitiesForOutsideView, filterFacilities, groupsAroundLandmark, hasUsableLuggage, initialFacilityState, linkFacilitySeatFloor, purposes, resolveLandmarks, selectedFacilityGroup, visibleGroups, type FacilityConfig, type FacilityGroup, type Purpose } from "./facilityFinderState";
 import { mapProjection, type MapBox } from "./standMap";
+import { placeMapLabels } from "@/lib/facilityMapLabels";
 import styles from "./VenueFacilityFinder.module.css";
 import VenueGateLabel from "./VenueGateLabel";
 import { VENUE_ACCESS_EVENT, type VenueAccessDetail } from "@/lib/venueAccess";
 import mapStyles from "./VenueFacilityMapCanvas.module.css";
+import { FacilityAreaResultsHeading, useFacilityResultNavigation } from "./FacilityResultNavigation";
+import { useVenueFacilitySearchTarget } from "./useVenueFacilitySearchTarget";
+import { isBabyFacilitySearch, matchesGuideBabyFacility } from "@/lib/venueFacilitySearch";
+import { inScope } from "./facilityFinderState";
 
 const purposeIcons = { トイレ: ToiletSign, 荷物: LockerSign, 飲食: FoodSign, 赤ちゃん: Milk, 案内: Info, AED: HeartPulse };
 function FixtureIcon({ item, size = 23 }: { item: GuideFacility; size?: number }) {
   const Icon = item.kind === "no-storage" ? Info : item.kind === "stroller" ? StrollerSign : item.kind === "diaper" ? ChangingSign : item.kind === "stairs" || item.kind === "escalator" ? StairsSign : item.kind === "elevator" ? ElevatorSign : item.kind === "accessible-parking" ? AccessibleSign : item.kind === "smokingarea" ? Cigarette : item.toiletType === "women" ? WomenSign : item.toiletType === "men" ? MenSign : item.toiletType === "accessible" ? AccessibleSign : purposeIcons[item.purpose];
   return <Icon size={size} aria-hidden="true"/>;
 }
-function GroupIcon({ items }: { items: GuideFacility[] }) {
+function GroupIcon({ items, compact }: { items: GuideFacility[]; compact: boolean }) {
   const toilet = items[0].purpose === "トイレ";
-  if (items[0].purpose === "案内" && new Set(items.map(f => f.kind)).size > 1) return <Info size={28} aria-hidden="true"/>;
-  if (!toilet) return <FixtureIcon item={items[0]} size={28}/>;
+  const iconSize = compact ? 17 : 28;
+  if (items[0].purpose === "案内" && new Set(items.map(f => f.kind)).size > 1) return <Info size={iconSize} aria-hidden="true"/>;
+  if (!toilet) return <FixtureIcon item={items[0]} size={iconSize}/>;
   const types = new Set(items.map(f => f.toiletType));
-  return <span className={mapStyles.toiletIcon}><span>{types.has("mixed") || types.has("women") && types.has("men") ? <ToiletSign size={27}/> : types.has("women") ? <WomenSign size={26}/> : types.has("men") ? <MenSign size={26}/> : types.has("accessible") ? null : <ToiletSign size={27}/>}</span>{types.has("accessible") && <AccessibleSign size={23}/>}</span>;
+  return <span className={mapStyles.toiletIcon}><span>{types.has("mixed") || types.has("women") && types.has("men") ? <ToiletSign size={compact ? 17 : 27}/> : types.has("women") ? <WomenSign size={compact ? 17 : 26}/> : types.has("men") ? <MenSign size={compact ? 17 : 26}/> : types.has("accessible") ? null : <ToiletSign size={compact ? 17 : 27}/>}</span>{types.has("accessible") && <AccessibleSign size={compact ? 16 : 23}/>}</span>;
 }
 export type FacilityFinderHandle = { linkSeatFloor: (floor: string | null) => void; showLuggage: () => void };
 type Props = { guide: DedicatedVenueGuide; config: FacilityConfig; ref?: Ref<FacilityFinderHandle> };
+function groupGateAreas(groups: FacilityGroup[]): FacilityGroup[] {
+  const areas = new Map<string, FacilityGroup[]>();
+  for (const group of groups) {
+    const key = /ゲート側の掲載区域$/.test(group.area) ? group.area : group.id;
+    const members = areas.get(key) ?? [];
+    members.push(group);
+    areas.set(key, members);
+  }
+  return [...areas.values()].map(groups => {
+    const [first] = groups;
+    if (groups.length === 1) return first;
+    // These points are published as a gate-side area. Keep all individual
+    // facilities in the list and use an existing location for its map marker.
+    const x = groups.reduce((sum, group) => sum + group.x, 0) / groups.length;
+    const y = groups.reduce((sum, group) => sum + group.y, 0) / groups.length;
+    const nearest = groups.reduce((best, group) =>
+      Math.hypot(group.x - x, group.y - y) < Math.hypot(best.x - x, best.y - y) ? group : best, first);
+    return { ...nearest, id: "mobile-area:" + first.area, label: first.area.replace("の掲載区域", ""),
+      memberIds: [...new Set(groups.flatMap(group => group.memberIds))] };
+  });
+}
 export default function VenueFacilityFinder({ guide, config, ref }: Props) {
+  const finderRef = useRef<HTMLDivElement>(null);
+  const navigation = useFacilityResultNavigation(finderRef);
   const [state, setState] = useState(() => initialFacilityState(guide.facilities, config));
   const [outsideViewId, setOutsideViewId] = useState(() => config.outsideViews?.find(v => v.diagramId === config.outsideDiagramId)?.id ?? config.outsideDiagramId);
   const [landmarkText, setLandmarkText] = useState(""), [landmarkError, setLandmarkError] = useState("");
   const [landmarkCandidates, setLandmarkCandidates] = useState<string[]>([]);
   const [size, setSize] = useState({ width: 650, height: 430 });
+  const compactPins = size.width <= 480;
   const canvas = useRef<HTMLDivElement>(null);
   const landmarkInputId = useId();
   const outsideView = config.outsideViews?.find(v => v.id === outsideViewId) ?? config.outsideViews?.[0];
@@ -43,9 +73,11 @@ export default function VenueFacilityFinder({ guide, config, ref }: Props) {
   const filtered = facilitiesAroundLandmark(filterFacilities(viewFacilities, state, config), origin?.id ?? null, config);
   const candidates = visibleGroups(filtered, config.groups, diagram.id);
   const nearby = groupsAroundLandmark(candidates, diagram, origin, config);
+  const mapGroups = compactPins && !origin && diagram.id === "paypay-floor-3F" && state.purpose === "トイレ"
+    ? groupGateAreas(nearby) : nearby;
   const baseRadius = diagram.viewBox[2] * .27;
   const radius = origin && config.landmarkGroupIds?.[origin.id] !== undefined ? Math.max(baseRadius, ...nearby.map(g => Math.max(Math.abs(g.x - origin.x), Math.abs(g.y - origin.y) / .7) + diagram.viewBox[2] * .06)) : baseRadius;
-  const activeGroup = selectedFacilityGroup(state.group, nearby, config.groups, diagram.id);
+  const activeGroup = selectedFacilityGroup(state.group, mapGroups, config.groups, diagram.id);
   const mappedIds = new Set(nearby.flatMap(g => g.memberIds));
   const placed = filtered.filter(f => mappedIds.has(f.id) && (!activeGroup || activeGroup.memberIds.includes(f.id)));
   const allMappedIds = new Set(config.groups.filter(g => g.diagramId === diagram.id).flatMap(g => g.memberIds));
@@ -66,7 +98,7 @@ export default function VenueFacilityFinder({ guide, config, ref }: Props) {
     width: venueWidth,
   } : null;
   const occupied: number[][] = [];
-  const positions = nearby.filter(g => !mapMarks.some(m => g.memberIds.length === 1 && g.memberIds[0] === m.id)).map(g => {
+  let positions = mapGroups.filter(g => !mapMarks.some(m => g.memberIds.length === 1 && g.memberIds[0] === m.id)).map(g => {
     const p = projection.project([g.x, g.y]);
     let x = Math.max(27, Math.min(size.width - 27, p[0])), y = Math.max(32, Math.min(size.height - 32, p[1]));
     const offsets = [[0, 0], [-24, 0], [24, 0], [-52, 0], [52, 0], [0, -64], [0, 64], [-52, -64], [52, -64], [-52, 64], [52, 64]];
@@ -78,6 +110,22 @@ export default function VenueFacilityFinder({ guide, config, ref }: Props) {
     }
     occupied.push([x, y]); return { g, x, y, point: p };
   });
+  // In dense concourses the short offsets can all be taken. Repack those maps
+  // before placing landmarks so that each small badge stays separately tappable.
+  if (compactPins && positions.some((p, i) => positions.slice(i + 1)
+    .some(other => Math.abs(p.x - other.x) < 46 && Math.abs(p.y - other.y) < 48))) {
+    const reserved = venueBox ? [{ id: "facility-venue-name", kind: "gate" as const,
+      x: venueBox.x, y: venueBox.y, width: venueBox.width, height: venueHeight }] : [];
+    const labels = placeMapLabels([...reserved, ...positions.map(({ g, point }) => ({
+      id: g.id, kind: "facility" as const, x: point[0], y: point[1], width: 46, height: 48,
+    }))], size.width, size.height, { facilitiesFirst: true, keepFacilityAreas: true });
+    const repacked = new Map(labels.map(label => [label.id, label]));
+    positions = positions.map(position => {
+      const label = repacked.get(position.g.id);
+      return label ? { ...position, x: label.left, y: label.top } : position;
+    });
+    occupied.splice(0, occupied.length, ...positions.map(position => [position.x, position.y]));
+  }
   const markBoxes: { x: number; y: number; width: number }[] = venueBox ? [venueBox] : [];
   const markPositions = mapMarks.flatMap(m => {
     const point = projection.project([m.x, m.y]);
@@ -102,6 +150,27 @@ export default function VenueFacilityFinder({ guide, config, ref }: Props) {
     return [];
   });
   function clearLandmarkInput() { setLandmarkText(""); setLandmarkError(""); setLandmarkCandidates([]); }
+  useVenueFacilitySearchTarget(finderRef, target => {
+    const purpose = target === "luggage" ? "荷物" : "赤ちゃん";
+    const specific = isBabyFacilitySearch(target);
+    const findFacility = (facilities: GuideFacility[], scope: "場内" | "場外", floor: string) =>
+      facilities.find(f => specific && inScope(f, { scope, floor }, config) && matchesGuideBabyFacility(target, f));
+    const hasPurpose = (facilities: GuideFacility[], scope: "場内" | "場外", floor: string) => target === "luggage"
+      ? hasUsableLuggage(facilities, { scope, floor }, config)
+      : specific ? Boolean(findFacility(facilities, scope, floor))
+        : availablePurposes(facilities, { scope, floor }, config).includes(purpose);
+    const floor = [config.defaultFloor, ...config.floors].find(floor => hasPurpose(guide.facilities, "場内", floor));
+    const outside = config.outsideViews?.find(view => hasPurpose(facilitiesForOutsideView(guide.facilities, view, config), "場外", config.defaultFloor));
+    if (!floor && !outside && (config.outsideViews || !hasPurpose(guide.facilities, "場外", config.defaultFloor))) return false;
+    if (!floor && outside) setOutsideViewId(outside.id);
+    const scope = floor ? "場内" : "場外";
+    const level = floor ?? config.defaultFloor;
+    const facilities = scope === "場外" ? facilitiesForOutsideView(guide.facilities, outside, config) : guide.facilities;
+    const selected = findFacility(facilities, scope, level);
+    setState(s => ({ ...s, scope, floor: level, purpose: selected?.purpose ?? purpose, query: "", toilet: "", group: null, selected: selected?.id ?? null, origin: null }));
+    clearLandmarkInput();
+    return true;
+  });
   function place(patch: Parameters<typeof changeFacilityPlace>[1]) { setState(s => changeFacilityPlace(s, patch, patch.scope === "場外" ? facilitiesForOutsideView(guide.facilities, outsideView, config) : guide.facilities, config)); clearLandmarkInput(); }
   function outsideArea(id: string) { setOutsideViewId(id); setState(changeFacilityOutsideView); clearLandmarkInput(); }
   function purpose(p: Purpose) { setState(s => ({ ...s, purpose: p, query: "", toilet: "", group: null, selected: null })); }
@@ -147,11 +216,15 @@ export default function VenueFacilityFinder({ guide, config, ref }: Props) {
   function resultRow(f: GuideFacility) {
     const publicMeta = config.meta[f.id];
     const name = publicMeta?.name ?? f.name, location = publicMeta?.location ?? f.location;
-    return <button type="button" key={f.id} className={styles.resultRow} aria-pressed={state.selected === f.id} onClick={() => { if(state.selected!==f.id)trackVenueFacilityOpen(f.purpose,state.scope,guide.venueId);setState(s => ({ ...s, selected: f.id })); }}>
+    return <button type="button" key={f.id} className={styles.resultRow} data-facility-id={f.id} aria-pressed={state.selected === f.id} onClick={event => {
+      if (state.selected !== f.id) trackVenueFacilityOpen(f.purpose, state.scope, guide.venueId);
+      setState(s => ({ ...s, selected: f.id }));
+      navigation.openDetail(event.currentTarget);
+    }}>
       <FixtureIcon item={f}/><span><strong>{name}</strong><small>{f.floor}{location !== name ? `・${location}` : ""}</small></span><span aria-hidden="true">›</span>
     </button>;
   }
-  return <div className={`${styles.finder} ${mapStyles.finder}`} data-testid="venue-facility-finder">
+  return <div className={`${styles.finder} ${mapStyles.finder}`} ref={finderRef} data-testid="venue-facility-finder">
     <div className={styles.toolbar}>
       <div className={styles.controlRow}><span className={styles.rowLabel}>場所</span><div className={styles.topRow}>
         <div className={styles.buttons}>{(["場内", "場外"] as const).map(scope => <button type="button" key={scope} aria-pressed={scope === state.scope} onClick={() => place({ scope })}>{scope === "場外" ? "場外・入場前" : scope}</button>)}</div>
@@ -167,7 +240,7 @@ export default function VenueFacilityFinder({ guide, config, ref }: Props) {
       </form></div>
     </div>
     <div className={styles.body}>
-      <div className={styles.mapPanel}>
+      <div className={styles.mapPanel} data-facility-map-panel tabIndex={-1}>
         <div className={styles.panelHeading}><strong>{state.scope === "場内" ? state.floor : outsideView?.floorLabel ?? outsideView?.label ?? "会場・主要駅の位置関係"}{origin ? `・${config.landmarkLabels?.[origin.id] ?? origin.label}周辺` : ""}</strong><button type="button" onClick={whole}>全体図へ</button></div>
         {hasMap ? <div ref={canvas} className={mapStyles.canvas} data-testid="facility-map" data-diagram={diagram.id} data-access-origin={state.origin ?? ""}>
           <svg viewBox={camera.join(" ")} preserveAspectRatio="xMidYMid meet" aria-hidden="true">
@@ -175,16 +248,21 @@ export default function VenueFacilityFinder({ guide, config, ref }: Props) {
             {diagram.concoursePaths.map((d, i) => <path key={`concourse-${i}`} d={d} fill="none" stroke="#ece4eb" strokeWidth={14}/>)}
           </svg>
           <svg viewBox={`0 0 ${size.width} ${size.height}`} aria-hidden="true">{venueBox && venuePoint && Math.hypot(venueBox.x - venuePoint[0], venueBox.y - venuePoint[1]) > 8 && <line x1={venuePoint[0]} y1={venuePoint[1]} x2={venueBox.x} y2={venueBox.y} stroke="#c390a8"/>}{positions.filter(p => Math.hypot(p.x - p.point[0], p.y - p.point[1]) > 8).map(p => <line key={p.g.id} x1={p.point[0]} y1={p.point[1]} x2={p.x} y2={p.y} stroke="#c390a8"/>)}{markPositions.filter(p => Math.hypot(p.x - p.point[0], p.y - p.point[1]) > 8).map(p => <line key={p.m.id} x1={p.point[0]} y1={p.point[1]} x2={p.x} y2={p.y} stroke="#c7b395"/>)}</svg>
-          {positions.map(({ g, x, y }) => <button type="button" key={g.id} className={mapStyles.marker} style={{ left: x, top: y }} aria-pressed={state.group === g.id} aria-label={`${g.label}・${g.purpose} ${g.memberIds.length}件`} onClick={() => setState(s => ({ ...s, group: s.group === g.id ? null : g.id, selected: null }))}>
-            <GroupIcon items={g.memberIds.map(id => guide.facilities.find(f => f.id === id)!)}/>{g.memberIds.length > 1 && <small>{g.memberIds.length}</small>}
+          {positions.map(({ g, x, y }) => <button type="button" key={g.id} className={mapStyles.marker} style={{ left: x, top: y }} data-pin-density={compactPins ? "compact" : undefined} data-spot-ids={g.memberIds.join(" ")} aria-pressed={state.group === g.id} aria-label={`${g.label}・${g.purpose} ${g.memberIds.length}件`} onClick={event => {
+            setState(s => ({ ...s, group: g.id, selected: null }));
+            navigation.openList(event.currentTarget);
+          }}>
+            <span className={mapStyles.markerFace}><GroupIcon compact={compactPins} items={g.memberIds.map(id => guide.facilities.find(f => f.id === id)!)}/></span>{g.memberIds.length > 1 && <small>{g.memberIds.length}</small>}
           </button>)}
           {markPositions.map(({ m, x, y, label }) => <button type="button" className={mapStyles.landmark} key={m.id} style={{ left: x, top: y }} aria-pressed={state.origin === m.id} onClick={() => selectOrigin(m.id)}>{m.kind === "gate" ? <VenueGateLabel label={label}/> : label}</button>)}
           {state.scope === "場外" && <>{(!outsideView || outsideView.northUp || outsideView.northDirection) && <span className={mapStyles.north}>北 {outsideView?.northDirection ?? "↑"}</span>}<span className={mapStyles.schematic}>位置関係の略図</span>{venueLabel && venueBox && <span className={mapStyles.venueName} style={{ left: venueBox.x, top: venueBox.y, width: venueBox.width }}>{venueLabel.name}</span>}</>}
         </div> : <p className={styles.noMap}>場所の案内から設備を選んでください。</p>}
       </div>
       <div className={styles.results}>
-        <div className={styles.panelHeading}><strong>{activeGroup?.label ?? state.purpose}　地図 {placed.length}件{unplaced.length > 0 ? `・場所の案内 ${unplaced.length}件` : ""}</strong>{(state.group || state.query || state.toilet) && <button type="button" onClick={() => setState(s => ({ ...s, group: null, query: "", toilet: "", selected: null }))}>絞込み解除</button>}</div>
-        {item && <div className={styles.detail}><div><strong><FixtureIcon item={item}/>{config.meta[item.id]?.name ?? item.name}</strong><button type="button" aria-label="設備の詳細を閉じる" onClick={() => setState(s => ({ ...s, selected: null }))}><X size={18}/></button></div>
+        {activeGroup ? <FacilityAreaResultsHeading count={placed.length} area={activeGroup.area}
+          onReturn={() => { setState(s => ({ ...s, group: null, selected: null })); navigation.backToMap(); }} />
+          : <div className={styles.panelHeading}><strong>{state.purpose}　地図 {placed.length}件{unplaced.length > 0 ? `・場所の案内 ${unplaced.length}件` : ""}</strong>{(state.group || state.query || state.toilet) && <button type="button" onClick={() => setState(s => ({ ...s, group: null, query: "", toilet: "", selected: null }))}>絞込み解除</button>}</div>}
+        {item && <div className={styles.detail}><div><strong tabIndex={-1} data-facility-detail-heading><FixtureIcon item={item}/>{config.meta[item.id]?.name ?? item.name}</strong><button type="button" aria-label="設備の詳細を閉じる" onClick={() => { setState(s => ({ ...s, selected: null })); navigation.backToList(); }}><X size={18}/></button></div>
           <p>{item.floor}・{config.meta[item.id]?.location ?? item.location}</p><p>{config.meta[item.id]?.detail ?? item.detail}</p>
           {item.purpose === "荷物" && item.kind !== "no-storage" && <p>{item.kind === "baggage-port" ? "バゲッジポート" : item.storageKind === "staffed" ? "店舗での預かり" : "コインロッカー"}・{config.meta[item.id]?.accessCondition}</p>}
           {(item.purpose !== "荷物" || item.kind === "no-storage") && config.meta[item.id]?.accessCondition && <p>{config.meta[item.id].accessCondition}</p>}

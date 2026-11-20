@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Breadcrumbs } from "@/components/common/Breadcrumbs";
 import { VerificationAccess } from "@/components/analytics/VerificationAccess";
 
 export const metadata: Metadata = {
@@ -7,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function VerificationAccessPage() {
-  return <VerificationAccess />;
+  return <><Breadcrumbs current="運営者の確認アクセス" /><VerificationAccess /></>;
 }

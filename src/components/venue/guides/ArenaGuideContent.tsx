@@ -27,10 +27,11 @@ const modeKey=mode,resolved=resolveArenaView(definition,mode),{guide,seats,level
     <div className={`zr-container ${styles.content}`}>
       {isEdion && <aside className={styles.closure} aria-label="改修休館の案内"><strong>全館休館中</strong><p>{definition.closureNote}</p><a href="https://www.furitutaiikukaikan.ne.jp/" target="_blank" rel="noopener noreferrer">公式の休館・再開案内 ↗</a></aside>}
       <section id="venue-seats"><h2>{data.guide.name}の座席を探す</h2>
+        {venue === "saitama-super-arena" && <aside className={styles.closure} aria-label="座席図と改修工事について"><strong>改修前の参考配置です</strong><p>メインアリーナなどは2027年3月末まで休館予定です。再開後の席は公演の案内をご確認ください。</p><a href="https://www.saitama-arena.co.jp/news/2026/03303374.html" target="_blank" rel="noopener noreferrer">公式の休館案内 ↗</a></aside>}
         {definition.modes && <div className={styles.modes} aria-label={definition.modes.ariaLabel}><span>{definition.modes.caption}</span>{definition.modes.options.map(value=><button key={value.id} type="button" aria-pressed={mode === value.id} onClick={()=>{ if (value.id !== mode) setSeatView({mode:value.id,section:null}); }}>{value.label}</button>)}</div>}
         {isPrime && PrimeLocation && <PrimeLocation onRegion={showPrimeRegion}/>}
-        <div ref={primeNumbers}><StandSeatMap ref={isPrime ? primeMap : undefined} key={`${venue}-${modeKey}`} data={seats} levels={levels} areas={resolved.areas} initialSection={section} onEquipment={showEquipment}/></div>
-        <p className={styles.note}>{resolved.seatNote}</p>
+        <div ref={primeNumbers}><StandSeatMap ref={isPrime ? primeMap : undefined} key={`${venue}-${modeKey}`} data={seats} levels={levels} areas={resolved.areas} initialSection={section} onEquipment={showEquipment} venueId={venue}/></div>
+        {venue !== "saitama-super-arena" && <p className={styles.note}>{resolved.seatNote}</p>}
       </section>
       <section id="venue-facilities" ref={facilities}><h2>必要な設備を探す</h2>{"facilityNote" in data && <p className={styles.note}>{data.facilityNote}</p>}<VenueFacilityFinder key={`${venue}-${definition.preserveFacilitiesAcrossModes ? "fixed" : modeKey}`} ref={finder} guide={guide} config={facilityConfig}/></section>
       <section id="venue-access"><h2>駅から{data.guide.name}へ</h2><VenueAccessCards venueId={venue} destination={data.guide.name} entries={arenaAccessEntries(guide,data.access,data.officialRouteUrl ?? data.accessUrl)}/><p className={styles.note}>{"accessNote" in data ? data.accessNote : isEdion ? "距離は会場の公式案内です。全館休館中のため再開・入場口は公式案内を確認してください。" : "徒歩時間は公式案内の目安です。当日の入場口は公演案内に従ってください。"}<a href={data.accessUrl} target="_blank" rel="noopener noreferrer">駅・入場の案内 ↗</a></p></section>

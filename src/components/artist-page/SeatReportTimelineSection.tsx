@@ -70,7 +70,7 @@ export default function SeatReportTimelineSection({
     <section className="border border-divider bg-white" aria-label={title ?? undefined}>
       {title && (
         <header className="border-b border-divider px-4 py-3">
-          <p className="text-[9px] font-black tracking-[0.18em] text-[#f43679]">RECENT SEATS</p>
+          
           <h3 className="mt-1 text-[15px] font-black tracking-[-0.03em] text-[#1c171b]">{title}</h3>
         </header>
       )}
@@ -161,7 +161,7 @@ export default function SeatReportTimelineSection({
         </>
       ) : (
         <div className="community-soft-panel rounded-[20px] px-5 py-5 text-center">
-          <p className="text-[9px] font-black tracking-[0.18em] text-[#d64175]">NO SEAT REPORTS</p>
+          
           <p className="mt-3 text-[14px] font-black">{emptyText}</p>
           {reportHref && (
             <Link

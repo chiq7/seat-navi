@@ -3,3 +3,19 @@
 @media(max-width:480px){.landmarkForm{width:100%}.landmarkForm label{flex-basis:100%}.landmarkForm input{flex:1 1 120px;min-width:120px}}
 .landmark,.landmarkForm button{min-height:44px}
 .marker small{font-size:12px;min-width:18px;height:18px}
+.marker[data-pin-density="compact"] {
+  padding:0; background:transparent; border:0; box-shadow:none;
+}
+.marker[data-pin-density="compact"] .markerFace {
+  display:grid; place-items:center; min-width:28px; min-height:28px; padding:3px;
+  border:1px solid #cb8ba9; border-radius:8px; background:#fff;
+}
+.marker[data-pin-density="compact"] .toiletIcon { flex-direction:row; padding:0; }
+.marker[data-pin-density="compact"][aria-pressed="true"] { outline:none; }
+.marker[data-pin-density="compact"][aria-pressed="true"] .markerFace {
+  border-color:#a93164; background:#fff0f6; box-shadow:0 0 0 1px #a93164;
+}
+.marker[data-pin-density="compact"]:focus-visible { outline:2px solid #a93164; outline-offset:0; }
+.marker[data-pin-density="compact"] small {
+  right:1px; top:0; min-width:15px; height:15px; padding-inline:2px; font-size:10px; line-height:15px;
+}

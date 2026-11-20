@@ -16,7 +16,7 @@ export default function LoginCta() {
 
   return (
     <Link
-      href={loggedIn ? "/mypage" : "/login"}
+      href={loggedIn ? "/mypage" : "/login?next=/"}
       className="zr-focus group flex items-center gap-3 rounded-2xl bg-[#ffe9f1] p-4 transition hover:bg-[#ffe0ec]"
     >
       <div className="shrink-0">

@@ -12,6 +12,7 @@ export type AfterReportCard = {
   event_id: string;
   user_id: string | null;
   seat_area_type: string | null;
+  seat_description?: string | null;
   seat_block: string | null;
   seat_row: string | null;
   seat_number: string | null;
@@ -26,4 +27,14 @@ export type AfterReportCard = {
   fansa: boolean | null;
   memo: string | null;
   created_at: string;
+};
+
+export type PublicTicketStat = Pick<TicketResultAnalytics,
+  "id" | "event_id" | "result" | "lost_application_count" | "ticket_count" | "lottery_type" |
+  "fc_history" | "payment_method" | "seat_type" | "upgrade_result">;
+
+export type ArtistReportSummary = {
+  seatCounts: Record<string, number>;
+  tickets: PublicTicketStat[];
+  ticketDataLimited: boolean;
 };

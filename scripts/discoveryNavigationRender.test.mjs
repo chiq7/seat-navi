@@ -95,7 +95,7 @@ test("top banners expose all three destinations as ordinary links before hydrati
   const { default: HomeFeatureBanners } = await import("../src/components/home/HomeFeatureBanners.tsx");
   const html = render(HomeFeatureBanners, {});
   const links = [...html.matchAll(/<a\b[^>]*href="([^"]+)"/g)].map(match => match[1]);
-  assert.deepEqual(links, ["/search", "/venues", "/news/how-to-use-tixrepo"]);
+  assert.deepEqual(links, ["/#upcoming-events", "/venues", "/venues#seat-photos"]);
   assert.match(html, /<h1[^>]*>ちけレポでできること<\/h1>/);
 });
 
@@ -107,7 +107,7 @@ test("an upcoming event with no seat positions explains the arena map with a lab
     reports: [], externalObservations: [], status: "ready", limited: false,
   };
   const html = render(SeatDiscoveryCard, { data });
-  assert.match(html, /座席情報を募集中/);
+  assert.match(html, /座席の報告が届くと、図に位置が表示されます。/);
   assert.match(html, /アリーナ座席表の表示例/);
   assert.match(html, /<svg[^>]+aria-label="座席表（座席報告・参考・模式図）"/);
   assert.match(html, /href="\/venues\/tokyo-dome#venue-seat-guide"/);
@@ -138,4 +138,30 @@ test("discovery measurement permits identifiers only and navigation works withou
   const element = Link({ href: "/artists/number-i", discovery: context, children: "artist" });
   assert.equal(element.props.href, "/artists/number-i");
   assert.doesNotThrow(() => element.props.onClick());
+});
+
+
+test("the venue guide menu uses the same populated program section as the JST event list", async () => {
+  const { VenueProgramAnchor, VenueProgramsProvider } = await import("../src/components/venue/VenueProgramLinks.tsx");
+  const view = events => render(VenueProgramsProvider, { venueId: "osaka-jo-hall", initial: { events, today: "2026-11-19" },
+    children: React.createElement(VenueProgramAnchor, null, "公演") });
+  assert.match(view([{ ...event, date: "2026-11-19" }]), /href="#upcoming-events-title"/);
+  assert.match(view([{ ...event, date: "2026-11-18" }]), /href="#past-events-title"/);
+  assert.equal(view([]), "");
+  assert.equal(view(null), "");
+});
+
+test("all 26 published venues end with four different related seat-guide pages", async () => {
+  const { getRelatedSeatGuides } = await import("../src/lib/relatedVenues.ts");
+  for (const venue of venues) {
+    const cards = getRelatedSeatGuides(venue.id);
+    assert.equal(cards.length, 4, venue.id);
+    assert.equal(new Set(cards.map(card => card.id)).size, 4);
+    for (const card of cards) {
+      assert.notEqual(card.id, venue.id);
+      assert.ok(card.sameArea || card.similarSize);
+      assert.equal(card.href, getPublicVenueSeatGuideHref(card.id));
+      assert.ok(venues.some(other => other.id === card.id));
+    }
+  }
 });

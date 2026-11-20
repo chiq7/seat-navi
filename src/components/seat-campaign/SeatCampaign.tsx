@@ -1,4 +1,5 @@
 "use client";
+import { Breadcrumbs } from "@/components/common/Breadcrumbs";
 
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore, type FormEvent } from "react";
 import { campaignChanges, numberLabel, parseSeatInput, SEAT_KINDS, UNREPORTED_NOTE, type CampaignBaseline, type CampaignEvent, type CampaignSummary, type SeatKind } from "@/lib/seat-campaign/model";
@@ -154,6 +155,7 @@ function CampaignForm({ initial, initialView = "report", searchDraft }: { initia
     finally { setExporting(false); }
   }
   return <main className={styles.page}>
+    {!state.localOnly && <Breadcrumbs current={e.title + "の座席報告"} />}
     {state.localOnly && <div className={styles.preview}>未公開の動作確認版 · 入力はサンプルとしてローカル保存</div>}
     <header className={styles.header}>
       <a href={state.localOnly ? "/dev/venue-prediction-flow" : "/"} className={styles.brand}>ちけレポ</a>

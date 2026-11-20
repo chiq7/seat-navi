@@ -19,6 +19,9 @@
 .shell select,.shell input { min-height:44px; }
 .shell button:focus-visible,.shell select:focus-visible,.shell input:focus-visible,.shell a:focus-visible { outline:3px solid #b72e66; outline-offset:3px; }
 .directionExtra { width:100%; min-width:0; }
+.directionHint { flex-basis:100%; grid-column:1; grid-row:3; margin:0; color:#654b59; font-size:12px; line-height:1.5; }
+.mobileDirection { display:none; }
+.shortcuts:empty { display:none; }
 @media(min-width:960px) {
  .inlineControls { display:grid; grid-template-columns:minmax(0,1fr) 350px; align-items:center; gap:10px 16px; }
  .inlineControls .levels { grid-column:1; grid-row:1; }
@@ -28,6 +31,16 @@
  .inlineControls .directionExtra { grid-column:2; grid-row:2; }
  .inlineControls .shortcuts { grid-column:1 / -1; }
  .inlineControls .shortcuts:empty { display:none; }
+}
+.photoOutlineKey { width:14px; height:10px; border:1.5px solid #90254f; border-radius:3px; }
+@media(max-width:600px) {
+ .compactMobile .levels { display:grid; grid-template-columns:repeat(var(--mobile-level-columns),minmax(0,1fr)); }
+ .compactMobile .levels button { padding:6px 1px; font-size:12px; }
+ .shell.compactMobile .directions { display:none; }
+ .compactMobile .mobileDirection { display:flex; flex:1; min-width:0; align-items:center; gap:5px; font-size:12px; }
+ .compactMobile .mobileDirection select { min-width:0; width:100%; border:1px solid var(--edge); border-radius:9px; padding:0 6px; background:white; color:var(--ink); font-size:16px; }
+ .compactMobile .mobileDirection span { white-space:nowrap; }
+ .compactMobile .zoom { flex:none; }
 }
 @media(max-width:600px) {
  .shell { border-radius:18px; }
@@ -42,3 +55,14 @@
  .shortcuts { margin-top:3px; gap:3px; }
  .shortcuts button { font-size:12px; padding-inline:5px; }
 }
+.photoLegend {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+  margin: 0 12px 6px;
+  color: #782147;
+  font-size: 12px;
+  font-weight: 700;
+}
+

@@ -5,6 +5,7 @@ import { isPublicArenaGuideVenue } from "@/lib/publicVenueGuides";
 import ArenaGuide from "./ArenaGuide";
 import GuideLoadBoundary, { GuideLoading } from "./GuideLoadBoundary";
 import { VenueSeatTarget } from "../VenueSeatTarget";
+import VenueGuideAnchor from "../VenueGuideAnchor";
 import { parseVenueSeatLink, type VenueSeatLinkTarget } from "@/lib/venueSeatLinks";
 
 const dedicated = {
@@ -29,9 +30,9 @@ export default function PublicVenueGuide({ venue, target = null }: { venue: stri
     : null);
   const key = JSON.stringify([venue, activeTarget?.mode, activeTarget?.section]);
   if (isPublicArenaGuideVenue(venue)) {
-    return <VenueSeatTarget key={key} value={activeTarget}><ArenaGuide venue={venue} embedded /></VenueSeatTarget>;
+    return <VenueSeatTarget key={key} value={activeTarget}><VenueGuideAnchor venue={venue} /><ArenaGuide venue={venue} embedded /></VenueSeatTarget>;
   }
   if (venue !== "kyocera-dome" && venue !== "tokyo-dome" && venue !== "k-arena") return null;
   const Entry = dedicated[venue];
-  return <VenueSeatTarget key={key} value={activeTarget}><GuideLoadBoundary key={venue}><Entry /></GuideLoadBoundary></VenueSeatTarget>;
+  return <VenueSeatTarget key={key} value={activeTarget}><VenueGuideAnchor venue={venue} /><GuideLoadBoundary key={venue}><Entry /></GuideLoadBoundary></VenueSeatTarget>;
 }

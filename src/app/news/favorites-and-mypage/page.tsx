@@ -1,23 +1,15 @@
-import type { Metadata } from "next";
+import { buildFileImageMetadata } from "@/lib/fileImageMetadata";
 import Link from "next/link";
 import { Heart, History, LogIn, Sparkles } from "lucide-react";
 import { NewsArticleLayout } from "@/components/news/NewsArticleLayout";
 
-const PAGE_URL = "https://tixrepo.com/news/favorites-and-mypage";
-
-export const metadata: Metadata = {
+export const metadata = buildFileImageMetadata({
+  path: "/news/favorites-and-mypage",
   title: "推し登録とマイページの使い方｜ちけレポ",
   description: "ちけレポの推し登録とマイページを紹介します。推しの公演をTOPで見つけやすくし、自分の投稿履歴や当選率を確認できます。",
-  alternates: { canonical: PAGE_URL },
   robots: { index: true, follow: true },
-  openGraph: {
-    title: "推し登録とマイページの使い方｜ちけレポ",
-    description: "推しの公演をTOPで見つけやすくする推し登録と、投稿履歴を確認できるマイページを紹介します。",
-    url: PAGE_URL,
-    type: "article",
-    locale: "ja_JP",
-  },
-};
+  ogType: "article",
+});
 
 export default function FavoritesAndMypagePage() {
   return (

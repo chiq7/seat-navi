@@ -1,23 +1,22 @@
-import type { Metadata } from "next";
+import { buildFileImageMetadata } from "@/lib/fileImageMetadata";
 import Link from "next/link";
 import StaticPage from "@/components/common/StaticPage";
 
-export const metadata: Metadata = {
+export const metadata = buildFileImageMetadata({
+  path: "/privacy",
   title: "プライバシーポリシー｜ちけレポ",
   description: "ちけレポのプライバシーポリシーです。",
-  alternates: { canonical: "https://tixrepo.com/privacy" },
   robots: { index: true, follow: true },
-};
+});
 
 export default function PrivacyPage() {
   return (
     <StaticPage title="プライバシーポリシー">
       <div className="space-y-5">
-        <p className="text-right text-[11px] text-[#958d93]">最終更新日：2026年11月9日</p>
+        <p className="text-right text-[11px] text-[#958d93]">最終更新日：2026年7月14日</p>
         <section>
           <h2 className="text-[15px] font-black text-[#4b4148]">1. 取得する可能性がある情報</h2>
           <p>投稿内容、投稿画像、コメント、お問い合わせ内容、利用者が任意に提供したメールアドレス等を取得する場合があります。また、IPアドレス、ブラウザ・端末・OS情報、アクセス日時、閲覧ページ、Cookie、アクセスログ、エラーログ等を取得する場合があります。</p>
-          <p>流入の把握には、公開ページへのアクセス時に伝わった参照元のドメイン、サイト内の直前ページ、ブラウザーの種類から判定したアプリ名、公開のX投稿IDや短縮リンクを利用する場合があります。</p>
         </section>
         <section>
           <h2 className="text-[15px] font-black text-[#4b4148]">2. 利用目的</h2>
@@ -29,7 +28,7 @@ export default function PrivacyPage() {
         </section>
         <section>
           <h2 className="text-[15px] font-black text-[#4b4148]">4. 第三者提供・外部サービス</h2>
-          <p>法令に基づく場合等を除き、本人の同意なく個人情報を第三者へ提供しません。サービスの提供・運営にあたり、Cloudflare、Supabase、Google Analytics等の外部サービスを利用します。</p>
+          <p>法令に基づく場合等を除き、本人の同意なく個人情報を第三者へ提供しません。サービスの提供・運営にあたり、Supabase、Vercel等の外部サービスを利用します。</p>
         </section>
         <section>
           <h2 className="text-[15px] font-black text-[#4b4148]">5. Cookie等と安全管理</h2>

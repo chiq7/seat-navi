@@ -4,6 +4,7 @@ type CompactHeroIntroProps = {
   title: string;
   accent: string;
   eyebrow: string;
+  headingTag?: "h1" | "p";
   subtitle?: string;
   icon?: ReactNode;
   children?: ReactNode;
@@ -15,6 +16,7 @@ export function CompactHeroIntro({
   title,
   accent,
   eyebrow,
+  headingTag: Heading = "h1",
   subtitle,
   icon,
   children,
@@ -38,9 +40,9 @@ export function CompactHeroIntro({
           <p className="text-[9px] font-black uppercase tracking-[0.17em] text-[#ef4f87]">
             {eyebrow}
           </p>
-          <h1 className="mt-1 min-w-0 whitespace-nowrap text-[clamp(20px,6vw,36px)] font-black leading-none tracking-[-0.055em] text-[#40383d]">
+          <Heading className="mt-1 min-w-0 whitespace-nowrap text-[clamp(20px,6vw,36px)] font-black leading-none tracking-[-0.055em] text-[#40383d]">
             {title}<span className="text-[#ef4f87]">{accent}</span>
-          </h1>
+          </Heading>
           {subtitle ? (
             <p className="mt-2 truncate text-[10px] font-bold text-[#746a71] sm:text-[12px]">
               {subtitle}

@@ -95,6 +95,12 @@ export function findDisplayedEventRepresentative<T extends DisplayEventRow>(
   return group.reduce((best, event) => compareDisplayRepresentative(event, best) > 0 ? event : best);
 }
 
+/** Keep all saved IDs for this performance, without pooling another date or show. */
+export function getSamePerformanceEventIds(events: readonly DisplayEventRow[], target: DisplayEventRow): string[] {
+  if (!target.date) return [target.id];
+  return [...new Set([target.id, ...events.filter(event => areLikelySameDisplayedEvent(event, target)).map(event => event.id)])];
+}
+
 /**
  * 会場ページは1アーティスト・1日・1公演回を1件として扱う。
  * 日英タイトル等の重複は、アーティスト紐付け済み・日本語情報量が多い行を表示代表にする。

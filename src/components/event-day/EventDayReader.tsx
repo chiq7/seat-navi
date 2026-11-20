@@ -2,6 +2,7 @@
 
 import { useState, type ReactNode, type CSSProperties } from "react";
 import Link from "next/link";
+import { eventVenueHref } from "@/lib/eventVenueHref";
 import { MapPin, ChevronDown, Check } from "lucide-react";
 import { getEventDayActions, eventDayDeadlineLabel, eventDayActionHours, type EventDaySummary } from "@/lib/eventDaySummary";
 import { EVENT_DAY_GATE_NOTE } from "@/lib/eventDayMap";
@@ -25,7 +26,7 @@ function ActionDetails({ action }: { action: Action }) {
   </>;
 }
 
-export function EventDayReader({ day, tools, textScale = 1 }: { day: EventDaySummary; tools: ReactNode; textScale?: number }) {
+export function EventDayReader({ day, tools, eventId, textScale = 1 }: { eventId?: string; day: EventDaySummary; tools: ReactNode; textScale?: number }) {
   const actions = getEventDayActions(day);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const selected = actions.find(a => a.id === selectedId);
@@ -63,7 +64,7 @@ export function EventDayReader({ day, tools, textScale = 1 }: { day: EventDaySum
       </div>
       <section className={styles.tools} aria-label="保存と共有">{tools}</section>
       <nav className={styles.related} aria-label="関連案内">
-        <Link href={`/venues/${day.venueSlug}`}><MapPin size={20} aria-hidden="true" />座席・会場ガイド<span aria-hidden="true">↗</span></Link>
+        <Link href={eventId ? eventVenueHref(`/venues/${day.venueSlug}`, eventId) : `/venues/${day.venueSlug}`}><MapPin size={20} aria-hidden="true" />座席・会場ガイド<span aria-hidden="true">↗</span></Link>
         {day.eventHref && <Link href={day.eventHref}>この公演の座席・レポ<span aria-hidden="true">↗</span></Link>}
       </nav>
       <details className={styles.details}><summary>公式案内<ChevronDown size={18} aria-hidden="true" /></summary><ul>{day.sources.map(s => <li key={s.id}><a href={s.url} target="_blank" rel="noopener noreferrer">{s.title}<span aria-hidden="true"> ↗</span></a></li>)}</ul></details>

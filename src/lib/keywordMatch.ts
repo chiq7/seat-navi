@@ -28,6 +28,7 @@ const SEARCH_SEPARATORS = /[\s\-‐‑‒–—―_.・･:：/\\'’"“”()[\
 export function normalizeForSearch(s: string): string {
   return normalizeForMatch(s)
     .replace(/[ァ-ヶ]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) - 0x60))
+    .replace(/[āâēêīîōôūû]/g, (ch) => ch.normalize("NFD")[0])
     .replace(SEARCH_SEPARATORS, "");
 }
 

@@ -4,10 +4,8 @@ import { selectSeatDiscoveryHomeEvents } from "@/lib/homeSeatSelection";
 import { publicPageDataPaths, publicPageRefreshSeconds, type HomePrograms, type PublicFeed, type VenuePrograms } from "@/lib/publicPageData";
 import { loadHomeSeatDiscovery } from "@/lib/serverSeatDiscovery";
 import { createSupabasePublicClient } from "@/lib/supabase/public";
-import { getVenueIdAliases } from "@/lib/eventCrawlerConfig";
-import { dedupeVenueEventsForDisplay } from "@/lib/eventDisplay";
 import type { PublicEventCatalog } from "@/lib/publicEventCatalog";
-import { findSeoVenue, readVenueEvents } from "@/lib/venueSeo";
+import { catalogVenueEvents, findSeoVenue, readVenueEvents } from "@/lib/venueSeo";
 
 async function loadHomePrograms(signal: AbortSignal): Promise<HomePrograms> {
   const client = createSupabasePublicClient(signal);
@@ -38,11 +36,9 @@ export function publicPageDataRoute(path: string) {
   return {
     seconds: publicPageRefreshSeconds.venue,
     load: (signal: AbortSignal) => loadVenuePrograms(venueId, signal),
-    fromCatalog: (catalog: PublicEventCatalog): VenuePrograms => {
-      const aliases = getVenueIdAliases(venueId);
-      const events = catalog.events.filter(event => aliases.includes(event.venue_id))
-        .sort((a, b) => (a.date ?? "9999").localeCompare(b.date ?? "9999")).slice(0, 300);
-      return { events: dedupeVenueEventsForDisplay(events), today: getJstDateString() };
-    },
+    fromCatalog: (catalog: PublicEventCatalog): VenuePrograms => ({
+      events: catalogVenueEvents(catalog.events, venueId), today: getJstDateString(),
+      activity: catalog.venueActivity?.[venueId],
+    }),
   };
 }

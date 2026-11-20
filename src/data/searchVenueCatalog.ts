@@ -1,3 +1,4 @@
+import { SAPPORO_DISPLAY_NAME } from "../lib/venuePageDisplayNames";
 /**
  * Search-only venue identity catalogue, generated from the 839 public event audit.
  * Keeps raw event names/IDs intact; guideId is only set for already published guides.
@@ -319,8 +320,9 @@ export const SEARCH_VENUE_CATALOG: readonly SearchVenueCatalogEntry[] = [
   },
   {
     "id": "sapporo-dome",
-    "name": "大和ハウス プレミストドーム（札幌ドーム）",
+    "name": SAPPORO_DISPLAY_NAME,
     "aliases": [
+      "大和ハウス プレミストドーム（札幌ドーム）",
       "札幌ドーム",
       "大和ハウス プレミストドーム",
       "プレミストドーム",
@@ -3954,5 +3956,173 @@ export const SEARCH_VENUE_CATALOG: readonly SearchVenueCatalogEntry[] = [
       "https://www.bunka758.or.jp/facility/geijutsusouzou/files/pdf/kyakuseki_kihon_a.pdf",
       "https://www.bunka758.or.jp/facility/geijutsusouzou/document/"
     ]
-  }
+  },
+  {
+    "id": "ajinomoto-stadium",
+    "name": "味の素スタジアム",
+    "aliases": [
+      "味スタ"
+    ],
+    "eventVenueNames": [
+      "味の素スタジアム"
+    ],
+    "eventVenueIds": [
+      "ajinomoto-stadium"
+    ],
+    "eventIds": [
+      "0bb2a27cc8625cfe69af"
+    ],
+    "prefecture": "東京都",
+    "region": "関東",
+    "locality": "調布市",
+    "kind": "venue",
+    "sourceUrls": [
+      "https://www.fctokyo.co.jp/news/details/341005/"
+    ]
+  },
+  {
+    "id": "toyosu-pit",
+    "name": "豊洲PIT",
+    "aliases": [
+      "Toyosu PIT"
+    ],
+    "eventVenueNames": [
+      "豊洲PIT"
+    ],
+    "eventVenueIds": [
+      "official-venue-e98fde1c4db4"
+    ],
+    "eventIds": [
+      "13ac83417fd2b073615f"
+    ],
+    "prefecture": "東京都",
+    "region": "関東",
+    "locality": "江東区",
+    "kind": "venue",
+    "sourceUrls": [
+      "https://toyosu.pia-pit.jp/about/"
+    ]
+  },
+  {
+    "id": "jingu-stadium",
+    "name": "明治神宮野球場",
+    "aliases": [
+      "神宮球場"
+    ],
+    "eventVenueNames": [
+      "明治神宮野球場"
+    ],
+    "eventVenueIds": [
+      "official-venue-3b9f641d137b"
+    ],
+    "eventIds": [
+      "2adedb0263b517b21a6e"
+    ],
+    "prefecture": "東京都",
+    "region": "関東",
+    "locality": "新宿区",
+    "kind": "venue",
+    "sourceUrls": [
+      "https://www.jingu-stadium.com/about_kyujo/history/"
+    ]
+  },
+  {
+    "id": "keio-arena-tokyo",
+    "name": "京王アリーナTOKYO",
+    "aliases": [
+      "武蔵野の森総合スポーツプラザ"
+    ],
+    "eventVenueNames": [
+      "KEIO ARENA TOKYO",
+      "東京都・京王アリーナTOKYO"
+    ],
+    "eventVenueIds": [
+      "official-news-aef626a7ec6e1ec8",
+      "official-news-3238c08afd496ed1"
+    ],
+    "eventIds": [
+      "3b50d68f4aee27d217b3",
+      "9b82fcebcecd9365d576",
+      "bab14218298e9f28b421"
+    ],
+    "prefecture": "東京都",
+    "region": "関東",
+    "locality": "調布市",
+    "kind": "venue",
+    "sourceUrls": [
+      "https://keio-arena.tokyo/news/2025/04/9406.php"
+    ]
+  },
+  {
+    "id": "grand-cube-osaka",
+    "name": "グランキューブ大阪（大阪府立国際会議場）",
+    "aliases": [
+      "大阪国際会議場"
+    ],
+    "eventVenueNames": [
+      "グランキューブ大阪（大阪府立国際会議場）"
+    ],
+    "eventVenueIds": [
+      "official-venue-5770476f272a"
+    ],
+    "eventIds": [
+      "75ed563bd9d3c47bcc67",
+      "b96e4295dc52a43366e8"
+    ],
+    "prefecture": "大阪府",
+    "region": "関西",
+    "locality": "大阪市",
+    "kind": "venue",
+    "sourceUrls": [
+      "https://www.gco.co.jp/visitor/access/"
+    ]
+  },
+  {
+    "id": "miyakomesse-exhibition-hall-3",
+    "name": "みやこめっせ 3F第3展示場",
+    "aliases": [
+      "京都市勧業館 第3展示場"
+    ],
+    "eventVenueNames": [
+      "みやこめっせ 3F第3展示場"
+    ],
+    "eventVenueIds": [
+      "official-venue-449828f07a91"
+    ],
+    "eventIds": [
+      "88dafaeff529dc3f4993"
+    ],
+    "prefecture": "京都府",
+    "region": "関西",
+    "locality": "京都市",
+    "kind": "venue",
+    "sourceUrls": [
+      "https://www.miyakomesse.jp/planner/information/exhibition-hall3/"
+    ]
+  },
+  {
+    "id": "yokohama-stadium",
+    "name": "横浜スタジアム",
+    "aliases": [
+      "ハマスタ"
+    ],
+    "eventVenueNames": [
+      "横浜スタジアム"
+    ],
+    "eventVenueIds": [
+      "official-venue-052dac408546"
+    ],
+    "eventIds": [
+      "98a50fcb26127a6be360",
+      "a1b2335847120d34fe5d",
+      "f43be9b1a77f051c17ad"
+    ],
+    "prefecture": "神奈川県",
+    "region": "関東",
+    "locality": "横浜市",
+    "kind": "venue",
+    "sourceUrls": [
+      "https://www.baystars.co.jp/ticket/regular/seat_type.php"
+    ]
+  },
 ];

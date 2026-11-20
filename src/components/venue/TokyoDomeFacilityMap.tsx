@@ -17,7 +17,7 @@ export function StairsIcon({size=18,...props}:SVGProps<SVGSVGElement>&{size?:num
 }
 type Layer="floors"|"shops";
 const kindNames:Record<FacilityAnchor["kind"],string>={women:"女性トイレ",men:"男性トイレ",mixed:"男女トイレ",unisex:"共用トイレ",accessible:"バリアフリートイレ",locker:"ロッカー",baby:"授乳室",atm:"ATM",stairs:"階段",information:"案内",wash:"手洗い",charge:"ICチャージ",ticket:"チケット",food:"売店"};
-type Props={purpose:DomeGuidePurpose;floor:GuideFloor; spots:readonly DomeGuideSpot[]; mode:"food"|"equipment"; selectedId:string|null; origin:DomeGuideOrigin|null; onOrigin:(origin:DomeGuideOrigin|null)=>void; seat:TokyoDomeVenueSeatSelection|null; groupIds:string[]|null; onGroup:(ids:string[])=>void};
+type Props={purpose:DomeGuidePurpose;floor:GuideFloor; spots:readonly DomeGuideSpot[]; mode:"food"|"equipment"; selectedId:string|null; origin:DomeGuideOrigin|null; onOrigin:(origin:DomeGuideOrigin|null)=>void; seat:TokyoDomeVenueSeatSelection|null; groupIds:string[]|null; onGroup:(ids:string[],trigger:HTMLButtonElement)=>void};
 
 function diagram(id:FacilityFloorId,layer:Layer) {
   const source=context.floors.find((f)=>f.id===id)!;
@@ -37,6 +37,7 @@ export default function TokyoDomeFacilityMap({purpose,floor,spots,mode,selectedI
   const selected=spots.find(s=>s.id===selectedId);
   const layer:Layer=mode==="food"?"shops":"floors";
   const [size,setSize]=useState({width:600,height:500});
+  const compactPins = size.width <= 480;
   const landmarks=currentId?domeGuideLandmarks(currentId,layer):[];
   const originHere=currentId?resolveDomeGuideOrigin(origin,currentId,layer):undefined;
   const map=useRef<HTMLDivElement>(null);
@@ -74,16 +75,18 @@ export default function TokyoDomeFacilityMap({purpose,floor,spots,mode,selectedI
     const kinds=raw.filter(kind=>!mixed||!["women","men","mixed","unisex"].includes(kind));
     if(mixed)kinds.unshift("mixed");
     kinds.sort((a,b)=>Number(a==="accessible")-Number(b==="accessible"));
-    const columns=kinds.includes("accessible")?Math.max(1,kinds.length-1):Math.min(3,kinds.length);
-    const rows=kinds.includes("accessible")&&kinds.length>1?2:1;
-    return {...group,...position(group),points:group.members.map(item=>({id:item.id,kind:item.facilityAnchor!.kind,...position(item.facilityAnchor!)})),kinds,columns,width:Math.max(100,columns*28+14),height:rows*26+38};
+    const columns = compactPins ? Math.min(3, kinds.length) : kinds.includes("accessible") ? Math.max(1, kinds.length - 1) : Math.min(3, kinds.length);
+    const rows = compactPins ? Math.ceil(kinds.length / Math.max(1, columns)) : kinds.includes("accessible") && kinds.length > 1 ? 2 : 1;
+    const width = compactPins ? Math.max(44, columns * 18 + 12) : Math.max(100, columns * 28 + 14);
+    const height = compactPins ? Math.max(44, rows * 18 + 10) : rows * 26 + 38;
+    return {...group,...position(group),points:group.members.map(item=>({id:item.id,kind:item.facilityAnchor!.kind,...position(item.facilityAnchor!)})),kinds,columns,width,height};
   }).filter(group=>group.points.length);
   groups.forEach(group=>labels.push({id:group.id,kind:"facility",x:group.x,y:group.y,width:group.width,height:group.height}));
   const placed=placeMapLabels(labels,size.width,size.height,{facilitiesFirst:true,keepFacilityAreas:true});
   const outfield=currentId==="1f-outfield";
   const areaItems=shown.filter(item=>groupIds?.includes(item.id));
 
-  return <div className={styles.root} data-floor={currentId} data-map-interaction="landmark-zoom" aria-label={`${floorInfo.label}の施設図`}>
+  return <div className={styles.root} data-floor={currentId} data-map-interaction="landmark-zoom" data-pin-density={compactPins ? "compact" : undefined} aria-label={`${floorInfo.label}の施設図`}>
     <div className={styles.orientation}><span>{outfield?"レフト側":"3塁側"} ←</span><span>→ {outfield?"ライト側":"1塁側"}</span></div>
     <div ref={map} className={styles.map}>
       {data?<>
@@ -114,12 +117,13 @@ export default function TokyoDomeFacilityMap({purpose,floor,spots,mode,selectedI
         const group=groups.find(g=>g.id===p.id)!;
         const expanded=group.points.some(point=>areaItems.some(item=>item.id===point.id));
         const label=`${group.area}：${group.kinds.map(kind=>kindNames[kind as FacilityAnchor["kind"]]).join("・")} ${group.points.length}件`;
-        return <button key={p.id} type="button" className={styles.pin} data-facility-group={group.id} data-group-size={group.points.length} data-spot-ids={group.points.map(point=>point.id).join(" ")} data-kind={group.kinds.length===1?group.kinds[0]:"area"} aria-label={label} title={label} aria-expanded={expanded} aria-pressed={expanded} style={{...location,width:p.width,height:p.height}} onClick={()=>onGroup([...group.memberIds])}>
-          <span className={styles.areaIcons} style={{gridTemplateColumns:`repeat(${group.columns},24px)`}}>{group.kinds.map(kind=>{
+        return <button key={p.id} type="button" className={styles.pin} data-facility-group={group.id} data-group-size={group.points.length} data-spot-ids={group.points.map(point=>point.id).join(" ")} data-kind={group.kinds.length===1?group.kinds[0]:"area"} aria-label={label} title={label} aria-expanded={expanded} aria-pressed={expanded} style={{...location,width:p.width,height:p.height}} onClick={event=>onGroup([...group.memberIds],event.currentTarget)}>
+          <span className={styles.areaIcons} style={{gridTemplateColumns:`repeat(${group.columns},${compactPins ? 18 : 24}px)`}}>{group.kinds.map(kind=>{
             const facilityKind=kind as FacilityAnchor["kind"],Icon=icons[facilityKind];
-            return <span key={kind} data-area-kind={kind} className={styles.areaIcon} style={kind==="accessible"?{gridColumn:"1 / -1"}:undefined}><Icon size={24}/></span>;
+            return <span key={kind} data-area-kind={kind} className={styles.areaIcon} style={!compactPins && kind==="accessible"?{gridColumn:"1 / -1"}:undefined}><Icon size={compactPins ? 17 : 24}/></span>;
           })}
-          </span><small className={styles.groupCount}>{group.area}<span>{group.points.length}件</span></small>
+          </span>{compactPins ? group.points.length > 1 && <small className={styles.compactCount}>{group.points.length}</small>
+            : <small className={styles.groupCount}>{group.area}<span>{group.points.length}件</span></small>}
         </button>;
       })}
       </>:<div className={styles.none}>この階に該当する売店の掲載はありません。</div>}

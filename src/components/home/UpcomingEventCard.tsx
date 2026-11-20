@@ -1,3 +1,4 @@
+import { getEventDisplayVenueName, getPublicVenueGuideId, getPublicVenueName, getPublicVenueSeatGuideHref } from "@/lib/publicVenueGuides";
 import Link from "next/link";
 import FavoriteArtistButton from "@/components/auth/FavoriteArtistButton";
 import type { UpcomingEvent } from "@/lib/homeData";
@@ -6,6 +7,7 @@ export type { UpcomingEvent } from "@/lib/homeData";
 
 type UpcomingEventCardProps = {
   item: UpcomingEvent;
+  venuePhotoCounts?: Readonly<Record<string, number>>;
   backgroundImage?: string;
   featured?: boolean;
   favoriteUserId: string | null;
@@ -15,6 +17,7 @@ type UpcomingEventCardProps = {
 
 export default function UpcomingEventCard({
   item,
+  venuePhotoCounts,
   backgroundImage,
   featured,
   favoriteUserId,
@@ -37,7 +40,7 @@ export default function UpcomingEventCard({
             <p className="mt-1 truncate text-[9px] font-bold leading-4 text-[#514a50] sm:text-[10px]">{item.eventName}</p>
           </div>
           <div className="mt-auto flex items-center justify-between gap-2 pt-1.5">
-            <span className="min-w-0 flex-1 truncate text-[9px] font-medium text-[#817981]">{item.venue}</span>
+            <span className="min-w-0 flex-1 truncate text-[9px] font-medium text-[#817981]">{getEventDisplayVenueName(null, item.venue)}</span>
             <span className="shrink-0 text-[9px] font-bold text-[#ef4f87]">{reportLabel} →</span>
           </div>
         </Link>
@@ -51,20 +54,24 @@ export default function UpcomingEventCard({
     );
   }
 
+  const venueId = getPublicVenueGuideId(null, item.venue);
+  const venueHref = getPublicVenueSeatGuideHref(venueId);
+  const venueName = venueId ? getPublicVenueName(venueId, item.venue) : item.venue;
+  const photoCount = venueId ? venuePhotoCounts?.[venueId] : undefined;
   return (
-    <div className="group relative rounded-2xl border border-[#f0e3e8] bg-white px-3 shadow-[0_6px_18px_rgba(105,63,80,.035)]">
+    <article aria-label={item.artist + "の座席情報"} className="group relative rounded-2xl border border-[#f0e3e8] bg-white px-3 shadow-[0_6px_18px_rgba(105,63,80,.035)]">
       <Link
         href={`/artists/${item.artistSlug}`}
         className="zr-focus grid min-h-[92px] w-full grid-cols-[72px_1fr] items-center gap-3 py-3 pr-12 no-underline transition-colors hover:bg-[#fff7fa] sm:grid-cols-[96px_1fr_auto]"
       >
         <div className="border-r border-[#ded8dc] pr-3 text-center sm:pr-5">
-          <p className="text-[17px] font-black tabular-nums text-[#1c171b] sm:text-[18px]">{item.date}</p>
+          <time dateTime={item.dateIso ?? undefined} className="block text-[17px] font-black tabular-nums text-[#1c171b] sm:text-[18px]">{item.date}</time>
           <p className="mt-1 text-[9px] font-bold uppercase tracking-[0.14em] text-[#ef4f87] sm:mt-2">LIVE</p>
         </div>
         <div className="min-w-0">
           <p className="truncate text-[15px] font-black text-[#1c171b] sm:text-[16px]">{item.artist}</p>
           <p className="mt-1 truncate text-[11px] font-medium text-[#665e65]">{item.eventName}</p>
-          <p className="mt-1 truncate text-[10px] text-[#948c93] sm:mt-2">{item.venue}</p>
+          <p className="mt-1 truncate text-[10px] text-[#948c93] sm:mt-2">{getEventDisplayVenueName(null, item.venue)}</p>
         </div>
         <div className="hidden text-right sm:block">
           {reportCount > 0 ? (
@@ -77,12 +84,16 @@ export default function UpcomingEventCard({
           )}
         </div>
       </Link>
+      <div className="flex flex-wrap items-center justify-between gap-x-3 border-t border-[#f0e3e8] py-1 text-xs font-bold text-[#a41c53]">
+        {venueHref && <Link data-home-venue-link className="zr-focus inline-flex min-h-11 items-center" href={venueHref}>{venueName}の座席表{photoCount !== undefined && `（${photoCount}枚）`}</Link>}
+        <Link data-home-event-link className="zr-focus inline-flex min-h-11 items-center" href={`/events/${encodeURIComponent(item.id)}`}>{item.date}の座席・セトリを見る</Link>
+      </div>
       <FavoriteArtistButton
         artistSlug={item.artistSlug}
         initialUserId={favoriteUserId}
         initialFavorite={initialFavorite}
-        className="absolute right-1 top-1/2 z-10 -translate-y-1/2"
+        className="absolute right-1 top-10 z-10 -translate-y-1/2"
       />
-    </div>
+    </article>
   );
 }

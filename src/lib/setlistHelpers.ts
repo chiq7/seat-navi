@@ -5,6 +5,20 @@ export type EditableItem =
   | { id: string; type: "separator"; label: string }
   | { id: string; type: "tag"; label: string };
 
+export type SetlistReviewSource = {
+  kind: "verified_performance" | "official_recording";
+  url: string | null;
+};
+
+export function readSetlistReviewSource(value: unknown): SetlistReviewSource | null {
+  if (!value || typeof value !== "object" || !("kind" in value) || !("url" in value)) return null;
+  if (value.kind !== "verified_performance" && value.kind !== "official_recording") return null;
+  if (typeof value.url !== "string" || !value.url.startsWith("https://")) return null;
+  const archiveSource = /^https:\/\/(?:[^./]+\.)*rockinon\.com(?:[/:?#]|$)/i.test(value.url);
+  const hideLink = archiveSource || ("showLink" in value && value.showLink === false);
+  return { kind: value.kind, url: hideLink ? null : value.url };
+}
+
 /** Empty drafts and structural markers alone are not a published song list. */
 export function hasSetlistSongs(items: unknown): boolean {
   return Array.isArray(items) && items.some(item =>

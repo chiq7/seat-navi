@@ -1,9 +1,10 @@
 import { getJstDateString } from "./artistPageData";
+import { latestRealTime } from "./venueActivity";
 import { publicPageDataPaths, type HomePrograms, type PublicFeed, type VenuePrograms } from "./publicPageData";
 
 type PublicDataSnapshot = {
   updatedAt: string;
-  data: PublicFeed | HomePrograms | { events: NonNullable<VenuePrograms["events"]>; today: string };
+  data: PublicFeed | HomePrograms | (VenuePrograms & { events: NonNullable<VenuePrograms["events"]> });
 };
 
 export function publicDataSnapshotAsset(path: string) {
@@ -27,9 +28,11 @@ export function createPublicDataSnapshot(path: string, value: unknown, updatedAt
     const { events } = value as HomePrograms;
     return { updatedAt, data: { events, discoveryCards: [] } };
   }
-  const { today } = value as VenuePrograms;
+  const { today, activity } = value as VenuePrograms;
   if (typeof today !== "string") throw new Error("Missing venue programs date");
-  return { updatedAt, data: { events: value.events, today } };
+  return { updatedAt, data: { events: value.events, today, ...(activity ? { activity: {
+    updatedAt: latestRealTime(activity.updatedAt), changeObservedAt: latestRealTime(activity.changeObservedAt),
+  } } : {}) } };
 }
 
 export function readPublicDataSnapshot(path: string, value: unknown, now = new Date()) {

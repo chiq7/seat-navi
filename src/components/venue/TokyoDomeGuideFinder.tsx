@@ -1,4 +1,5 @@
 "use client";
+import { VenueProgramAnchor } from "@/components/venue/VenueProgramLinks";
 import { trackVenueFacilityOpen } from "@/lib/venueAnalytics";
 
 import { useEffect, useRef, useState } from "react";
@@ -29,7 +30,10 @@ import { tokyoFacilityAreas, tokyoLandmarkAreaIds } from "@/data/tokyoDomeFacili
 import { inTokyoStationScope, tokyoStationScope } from "@/data/tokyoDomeOutsideAreas";
 import VenueLandmarkSearch from "./template/VenueLandmarkSearch";
 import { TOKYO_DOME_ACCESS_EVENT } from "@/lib/tokyoDomeAccess";
-import { OUTSIDE_STATIONS } from "@/data/tokyoDomeOutsideGuide";
+import { OUTSIDE_STATIONS, OUTSIDE_ZONES } from "@/data/tokyoDomeOutsideGuide";
+import { FacilityAreaResultsHeading, useFacilityResultNavigation } from "./template/FacilityResultNavigation";
+import { useVenueFacilitySearchTarget } from "./template/useVenueFacilitySearchTarget";
+import { isBabyFacilitySearch, matchesBabyFacilitySearch } from "@/lib/venueFacilitySearch";
 const Baby=DOME_FACILITY_SIGNS.baby;
 
 type Purpose = DomeGuidePurpose;
@@ -76,12 +80,14 @@ function Spot({ item, selected, onLocate }: { item: DomeGuideSpot; selected: boo
     </summary>
     <div className={styles.spotDetail}><h3>{item.name}</h3><p>{item.description}</p>{item.accessCondition&&<p>{item.accessCondition}</p>}{item.reservation==="available"&&item.bookingUrl&&<a className={styles.bookingLink} href={item.bookingUrl} target="_blank" rel="noopener noreferrer">料金・予約方法を見る<ArrowUpRight size={16}/></a>}{staffedStorage ? <><p>料金は荷物の大きさ・利用日時により変わります。</p><a className={styles.bookingLink} href={item.bookingUrl} target="_blank" rel="noopener noreferrer">料金・予約を見る<ArrowUpRight size={16} aria-hidden="true" /></a></> : item.facilityAnchor ? null : item.area === "inside" || item.mapAccuracy === "unplaced" ? <p className={styles.mapUnplaced}>図上の個別位置は未確認</p> : <p className={styles.mapAccuracyNote}>地図は{item.mapAccuracy === "named-point" ? "公式に示された場所" : "公式の側・エリア"}を表示</p>}{(item.facilityAnchor || (item.area === "outside" && item.mapZone)) && <button type="button" className={styles.locateSpot} onClick={() => onLocate(item)}><MapPin size={15} aria-hidden="true" />この場所を図で見る</button>}
       {numberedHelp && <><button type="button" className={styles.locateSpot} onClick={()=>helpDialog.current?.showModal()}><Accessibility size={18} aria-hidden="true"/>係員に見せる</button><dialog ref={helpDialog} className={styles.staffDialog} aria-labelledby={`staff-${item.id}`}><button type="button" className={styles.staffClose} aria-label="係員向け案内を閉じる" onClick={()=>helpDialog.current?.close()}><X size={22}/></button><Accessibility size={42} aria-hidden="true"/><h3 id={`staff-${item.id}`}><span>バリアフリー</span><span>{item.name.replace("バリアフリー","")}</span></h3><strong>{item.location}</strong><p>このトイレの場所を教えてください</p><div className={styles.staffFeatures}>{item.description.includes("オストメイト")&&<span>オストメイト対応</span>}{item.description.includes("介護用ベッド")&&<span>介護用ベッドあり</span>}</div><small>公式掲載の設備です。現在の利用可否もご確認ください。</small></dialog></>}
-      {item.category==="food"&&<p className={styles.eventNote}><Info size={16} aria-hidden="true"/>当日の営業は未確認 <a href="#upcoming-events-title">参加公演の案内へ</a></p>}
+      {item.category==="food"&&<p className={styles.eventNote}><Info size={16} aria-hidden="true"/>当日の営業は未確認 <VenueProgramAnchor>参加公演の案内へ</VenueProgramAnchor></p>}
       {!staffedStorage && <details className={styles.spotSource}><summary>最新条件・出典を見る</summary><a href={item.guideUrl ?? (item.category === "locker" ? DOME_LOCKER_URL : DOME_GUIDE_SOURCES[domeSpotSource(item)].url)} target="_blank" rel="noopener noreferrer">{item.category === "locker" ? "ロッカーの利用条件" : "公式案内を開く"}<ArrowUpRight size={16} aria-hidden="true" /></a></details>}</div>
   </details>;
 }
 
 export function TokyoDomeGuideFinder() {
+  const finderRef = useRef<HTMLDivElement>(null);
+  const navigation = useFacilityResultNavigation(finderRef);
   const [outsideResetKey,setOutsideResetKey]=useState(0);
   const [landmarkResetKey,setLandmarkResetKey]=useState(0);
   const [purpose,setPurpose]=useState<Purpose>("toilet");
@@ -95,8 +101,24 @@ export function TokyoDomeGuideFinder() {
   const [selectedSpotId,setSelectedSpotId]=useState<string|null>(null);
   const [seatSelection,setSeatSelection]=useState<TokyoDomeVenueSeatSelection|null>(null);
   const [origin,setOrigin]=useState<DomeGuideOrigin|null>(null);
-  const trigger=useRef<HTMLButtonElement|null>(null);
   const clearPlace=()=>{setOutsideResetKey(key=>key+1);setLandmarkResetKey(key=>key+1);setNearbyStation(null);setSelectedZone(null);setGroupIds(null);setSelectedSpotId(null);setOrigin(null);};
+  useVenueFacilitySearchTarget(finderRef, target => {
+    const next = target === "luggage" ? "locker" : "baby";
+    const specific = isBabyFacilitySearch(target);
+    const matching = DOME_GUIDE_SPOTS.filter(s => matchesPurpose(s, next)
+      && (!specific || (s.sources.length > 0 && matchesBabyFacilitySearch(target, s.name, s.description))));
+    const spot = matching.find(s => s.area === "inside" && s.floor !== "各階")
+      ?? matching.find(s => s.area === "outside");
+    if (!spot) return false;
+    setArea(spot.area);
+    setFloor(spot.floor);
+    setPurpose(next);
+    setQuery("");
+    setToiletType("all");
+    clearPlace();
+    if (specific) setSelectedSpotId(spot.id);
+    return true;
+  });
   const scoped=(scope:GuideArea,level:GuideFloor)=>DOME_GUIDE_SPOTS.filter(s=>s.area===scope&&(scope==="outside"||s.floor===level));
   const chooseContext=(scope:GuideArea,level:GuideFloor)=>{
     setArea(scope);setFloor(level);setQuery("");clearPlace();setToiletType("all");
@@ -138,9 +160,18 @@ export function TokyoDomeGuideFinder() {
   const landmarks=currentFloor?domeGuideLandmarks(currentFloor,purpose==="food"?"shops":"floors"):[];
   const available=purposes.filter(p=>scoped(area,floor).some(s=>matchesPurpose(s,p.value))).map(p=>p.value);
   const title=purposes.find(p=>p.value===purpose)!.label;
-  const select=(id:string)=>{trigger.current=document.activeElement instanceof HTMLButtonElement?document.activeElement:null;if(selectedSpotId!==id)trackVenueFacilityOpen(purpose,area,"tokyo-dome");setSelectedSpotId(previous=>previous===id?null:id);};
-  const close=()=>{setSelectedSpotId(null);trigger.current?.focus({preventScroll:true});};
-  return <div className={controls.finder} data-testid="tokyo-facility-finder">
+  const select=(id:string,trigger:HTMLButtonElement)=>{
+    if(selectedSpotId===id){setSelectedSpotId(null);return;}
+    trackVenueFacilityOpen(purpose,area,"tokyo-dome");
+    setSelectedSpotId(id);
+    navigation.openDetail(trigger);
+  };
+  const close=()=>{setSelectedSpotId(null);navigation.backToList();};
+  function returnToMap() {
+    setGroupIds(null);setSelectedZone(null);setSelectedSpotId(null);
+    navigation.backToMap();
+  }
+  return <div className={controls.finder} ref={finderRef} data-testid="tokyo-facility-finder">
     {seatSelection&&<div className={styles.seatContext}><strong>選択席 {seatSelection.section}{seatSelection.row?`・${seatSelection.row}列`:""}</strong><a href="#dome-seats">座席を確認</a></div>}
     <div className={controls.toolbar}>
       <div className={controls.controlRow}><strong className={controls.rowLabel}>場所</strong><div className={controls.topRow}>
@@ -155,14 +186,16 @@ export function TokyoDomeGuideFinder() {
       {purpose==="toilet"&&<div className={controls.controlRow}><strong className={controls.rowLabel}>種類</strong><div className={controls.buttons} role="group" aria-label="トイレの種類">{([["women","女性"],["men","男性"],["accessible","バリアフリー"]] as const).map(([value,label])=><button key={value} type="button" aria-pressed={toiletType===value} disabled={!filterDomeGuideSpots({area,floor:area==="outside"?"all":floor,toiletType:value}).some(s=>matchesPurpose(s,"toilet"))} onClick={()=>{setToiletType(toiletType===value?"all":value);clearPlace();}}>{label}</button>)}</div></div>}
     </div>
     <div className={controls.body}>
-      <div id="dome-outside-map" className={controls.mapPanel} style={{scrollMarginTop:80}}><div className={controls.panelHeading}><strong>{area==="outside"?"場外":floor}・{title}{origin?`／${origin.label}`:""}</strong>{origin&&<button type="button" onClick={clearPlace}>この階全体へ</button>}</div>
-        {area==="inside"?<TokyoDomeFacilityMap floor={floor} spots={results} purpose={purpose} mode={purpose==="food"?"food":"equipment"} selectedId={selectedSpotId} origin={origin} onOrigin={next=>{setOrigin(next);setGroupIds(null);setSelectedSpotId(null);}} seat={seatSelection} groupIds={groupIds} onGroup={ids=>{setGroupIds(old=>old?.join()===ids.join()?null:ids);setSelectedSpotId(null);}}/>
-          :<TokyoDomeOutsideMap key={`${purpose}-${outsideResetKey}`} initialStationId={nearbyStation??""} onNearby={id=>{setNearbyStation(id);setGroupIds(null);setSelectedZone(null);setSelectedSpotId(null);}} spots={rows.filter(s=>s.mapZone)} selectedZone={selectedZone} selectedSpotId={selectedSpotId} onSelectZone={zone=>{setSelectedZone(old=>old===zone?null:zone);setGroupIds(null);setSelectedSpotId(null);}} compact/>}
+      <div id="dome-outside-map" className={controls.mapPanel} data-facility-map-panel tabIndex={-1} style={{scrollMarginTop:80}}><div className={controls.panelHeading}><strong>{area==="outside"?"場外":floor}・{title}{origin?`／${origin.label}`:""}</strong>{origin&&<button type="button" onClick={clearPlace}>この階全体へ</button>}</div>
+        {area==="inside"?<TokyoDomeFacilityMap floor={floor} spots={results} purpose={purpose} mode={purpose==="food"?"food":"equipment"} selectedId={selectedSpotId} origin={origin} onOrigin={next=>{setOrigin(next);setGroupIds(null);setSelectedSpotId(null);}} seat={seatSelection} groupIds={groupIds} onGroup={(ids,trigger)=>{setGroupIds(ids);setSelectedSpotId(null);navigation.openList(trigger);}}/>
+          :<TokyoDomeOutsideMap key={`${purpose}-${outsideResetKey}`} initialStationId={nearbyStation??""} onNearby={id=>{setNearbyStation(id);setGroupIds(null);setSelectedZone(null);setSelectedSpotId(null);}} spots={rows.filter(s=>s.mapZone)} selectedZone={selectedZone} selectedSpotId={selectedSpotId} onSelectZone={(zone,trigger)=>{setSelectedZone(trigger?zone:selectedZone===zone?null:zone);setGroupIds(null);setSelectedSpotId(null);if(trigger)navigation.openList(trigger);}} compact/>}
       </div>
       <div className={controls.results}>
-        {selected&&<section className={`${controls.detail} ${controls.tokyoDetail}`} aria-label="選んだ設備の詳細"><div><strong>{selected.name}</strong><button type="button" aria-label="設備の詳細を閉じる" onClick={close}><X size={18}/></button></div><p>{selected.location}</p><Spot key={selected.id} item={selected} selected onLocate={item=>setSelectedSpotId(item.id)}/></section>}
-        <div className={controls.panelHeading} aria-live="polite"><strong>{nearbyLabel ?? (groupIds||selectedZone?`選んだ範囲${groupArea?`・${groupArea}`:""}`:title)} {rows.length}件</strong>{(groupIds||selectedZone||nearbyStation)&&<button type="button" onClick={clearPlace}>一覧へ戻る</button>}</div>
-        <div className={controls.list}>{([{key:"mapped",label:"図上の設備",items:lists.mapped},{key:"unlocated",label:"場所の案内",items:[...lists.unlocated].sort((a,b)=>(a.outsideAreaName??a.location).localeCompare(b.outsideAreaName??b.location,"ja")||a.name.localeCompare(b.name,"ja"))}]).filter(list=>list.items.length).map(list=><section key={list.key} data-result-section={list.key} aria-label={`${list.label} ${list.items.length}件`}><div className={controls.panelHeading}><strong>{list.label} {list.items.length}件</strong></div>{list.items.map(item=>{const Icon=spotIcons[item.id]??Info;return <button key={item.id} type="button" className={controls.resultRow} data-spot-id={item.id} aria-pressed={selectedSpotId===item.id} onClick={()=>select(item.id)}><Icon size={22}/><span><strong>{item.name}</strong><small>{item.location}</small>{item.storageKind==="staffed"&&<small>店で預ける・予約{item.priceFrom!==undefined?`・${item.priceFrom}円／日〜`:""}</small>}{item.reservation==="available"&&<small>ロッカー・予約対応</small>}</span><span aria-hidden="true">›</span></button>;})}</section>)}</div>
+        {selected&&<section className={`${controls.detail} ${controls.tokyoDetail}`} aria-label="選んだ設備の詳細"><div><strong tabIndex={-1} data-facility-detail-heading>{selected.name}</strong><button type="button" aria-label="設備の詳細を閉じる" onClick={close}><X size={18}/></button></div><p>{selected.location}</p><Spot key={selected.id} item={selected} selected onLocate={item=>setSelectedSpotId(item.id)}/></section>}
+        {groupIds||selectedZone?<FacilityAreaResultsHeading count={rows.length}
+          area={groupArea??OUTSIDE_ZONES.find(zone=>zone.id===selectedZone)?.label} onReturn={returnToMap}/>
+          :<div className={controls.panelHeading} aria-live="polite"><strong>{nearbyLabel ?? title} {rows.length}件</strong>{nearbyStation&&<button type="button" onClick={clearPlace}>一覧へ戻る</button>}</div>}
+        <div className={controls.list}>{([{key:"mapped",label:"図上の設備",items:lists.mapped},{key:"unlocated",label:"場所の案内",items:[...lists.unlocated].sort((a,b)=>(a.outsideAreaName??a.location).localeCompare(b.outsideAreaName??b.location,"ja")||a.name.localeCompare(b.name,"ja"))}]).filter(list=>list.items.length).map(list=><section key={list.key} data-result-section={list.key} aria-label={`${list.label} ${list.items.length}件`}><div className={controls.panelHeading}><strong>{list.label} {list.items.length}件</strong></div>{list.items.map(item=>{const Icon=spotIcons[item.id]??Info;return <button key={item.id} type="button" className={controls.resultRow} data-spot-id={item.id} aria-pressed={selectedSpotId===item.id} onClick={event=>select(item.id,event.currentTarget)}><Icon size={22}/><span><strong>{item.name}</strong><small>{item.location}</small>{item.storageKind==="staffed"&&<small>店で預ける・予約{item.priceFrom!==undefined?`・${item.priceFrom}円／日〜`:""}</small>}{item.reservation==="available"&&<small>ロッカー・予約対応</small>}</span><span aria-hidden="true">›</span></button>;})}</section>)}</div>
         {!rows.length&&<div className={controls.empty}><p>この条件の掲載情報はありません。</p>{query&&<button type="button" onClick={()=>setQuery("")}>検索を解除</button>}{area==="inside"&&FACILITY_FLOORS.filter(f=>f.floor!==floor&&scoped("inside",f.floor).some(s=>matchesPurpose(s,purpose))).map(f=><button type="button" key={f.id} onClick={()=>chooseContext("inside",f.floor)}>{f.label}の{title}を見る</button>)}</div>}
       </div>
     </div>

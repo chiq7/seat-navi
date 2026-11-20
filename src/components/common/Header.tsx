@@ -4,15 +4,16 @@ import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import type { ReactNode } from "react";
 import { AccountLink } from "@/components/auth/AccountLink";
+import { Breadcrumbs, type BreadcrumbParent } from "./Breadcrumbs";
 
 const backControlClass =
   "zr-focus flex h-11 w-11 items-center justify-center rounded-full bg-accent-light text-foreground transition-colors active:bg-accent/15";
 
 const titleClass =
-  "truncate px-1 text-center text-[13px] font-black tracking-[-0.02em] text-foreground sm:text-[14px]";
+  "line-clamp-2 break-words px-1 text-center text-[13px] font-black leading-tight tracking-[-0.02em] text-foreground sm:text-[14px]";
 
 export type HeaderProps = {
-  /** 中央に表示するタイトル。1行固定・省略記号あり */
+  /** 中央に表示するタイトル。スマホでは最大2行まで */
   title: string;
   /** 戻る先URL。指定時はLinkとして遷移する */
   backHref?: string;
@@ -27,6 +28,9 @@ export type HeaderProps = {
   /** 本文側にh1がない静的ページで中央タイトルをh1にする */
   titleAsHeading?: boolean;
   className?: string;
+  breadcrumbLabel?: string;
+  breadcrumbParents?: readonly BreadcrumbParent[];
+  existingBreadcrumbSchema?: boolean;
 };
 
 /** 全ページ共通の追従ヘッダー。本文位置を保つスペーサーを含む。 */
@@ -39,6 +43,9 @@ export function Header({
   showAccount = true,
   titleAsHeading = false,
   className,
+  breadcrumbLabel = title,
+  breadcrumbParents,
+  existingBreadcrumbSchema,
 }: HeaderProps) {
   return (
     <>
@@ -46,7 +53,7 @@ export function Header({
         data-page-header
         className={`fixed inset-x-0 top-0 z-[60] h-14 border-b border-divider bg-white/90 shadow-[0_4px_18px_rgba(58,58,62,0.06)] backdrop-blur-xl sm:h-16 ${className ?? ""}`}
       >
-        <div className="zr-container grid h-full grid-cols-[88px_minmax(0,1fr)_88px] items-center">
+        <div className="zr-container grid h-full grid-cols-[minmax(44px,auto)_minmax(0,1fr)_minmax(44px,auto)] items-center sm:grid-cols-[88px_minmax(0,1fr)_88px]">
           <div className="flex justify-start">
             {onBack ? (
               <button type="button" onClick={onBack} aria-label={backLabel} className={backControlClass}>
@@ -67,6 +74,7 @@ export function Header({
         </div>
       </header>
       <div aria-hidden="true" className="h-14 sm:h-16" />
+      <Breadcrumbs current={breadcrumbLabel} parents={breadcrumbParents} existingSchema={existingBreadcrumbSchema} />
     </>
   );
 }

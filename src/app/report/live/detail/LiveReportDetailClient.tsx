@@ -1,5 +1,6 @@
 "use client";
 
+import { getEventDisplayVenueName } from "@/lib/publicVenueGuides";
 import { Suspense, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -55,6 +56,7 @@ type ReportRow = {
   user_id: string | null;
   event_id: string;
   seat_area_type: string | null;
+  seat_description?: string | null;
   seat_block: string | null;
   seat_row: string | null;
   seat_number: string | null;
@@ -78,6 +80,7 @@ type PublicAuthor = {
 type RelatedReport = {
   id: string;
   seat_area_type: string | null;
+  seat_description?: string | null;
   seat_block: string | null;
   seat_row: string | null;
   seat_number: string | null;
@@ -189,7 +192,7 @@ function LiveReportDetailPageInner() {
       setAuthor(null);
       const { data: reportData } = await supabase
         .from("after_reports")
-        .select("id, user_id, event_id, seat_area_type, seat_block, seat_row, seat_number, seat_view_photo_paths, main_stage, center_stage, fansa_rating, torokko, kyakukudari, silver_tape_rows, memo, created_at")
+        .select("id, user_id, event_id, seat_area_type, seat_description, seat_block, seat_row, seat_number, seat_view_photo_paths, main_stage, center_stage, fansa_rating, torokko, kyakukudari, silver_tape_rows, memo, created_at")
         .eq("id", reportId)
         .maybeSingle();
       if (cancelled) return;
@@ -217,7 +220,7 @@ function LiveReportDetailPageInner() {
       if (r.seat_block) {
         const { data: relatedData } = await supabase
           .from("after_reports")
-          .select("id, seat_area_type, seat_block, seat_row, seat_number, memo")
+          .select("id, seat_area_type, seat_description, seat_block, seat_row, seat_number, memo")
           .eq("event_id", r.event_id)
           .eq("seat_block", r.seat_block)
           .neq("id", r.id)
@@ -242,7 +245,7 @@ function LiveReportDetailPageInner() {
     return (
       <main className="community-page pb-20">
         <section className="community-hero">
-          <Header title="現地レポ" backHref="/report" backLabel="報告ページに戻る" />
+          <Header breadcrumbParents={[{ href: "/report", label: "レポートを投稿" }]} title="現地レポ" backHref="/report" backLabel="報告ページに戻る" />
           <div className="zr-container pb-6 pt-4 sm:pb-9 sm:pt-7">
             <p className="community-eyebrow">LIVE REPORT</p>
             <h1 className="mt-2 text-[28px] font-black tracking-[-0.05em] text-[#4b4148] sm:text-[36px]">現地の<span className="text-[#ef4f87]">ライブレポ</span></h1>
@@ -263,32 +266,17 @@ function LiveReportDetailPageInner() {
     );
   }
 
-  if (status === "not-found") {
-    return (
-      <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-gray-50">
-        <p className="text-sm text-gray-500">現地レポが見つかりません</p>
-        <Link
-          href="/report"
-          className="rounded-full bg-[#FF6B9D] px-5 py-2.5 text-xs font-bold text-white"
-        >
-          現地レポトップに戻る
+  if (status === "not-found" || status === "no-report") {
+    return <main className="community-page pb-20">
+      <Header title="現地レポ" backHref="/report" backLabel="報告ページに戻る"
+        breadcrumbParents={[{ href: "/report", label: "レポートを投稿" }]} />
+      <div className="zr-container py-8">
+        <h1 className="text-xl font-black">{status === "not-found" ? "現地レポが見つかりません" : "見るレポが指定されていません"}</h1>
+        <Link href="/report" className="zr-focus mt-4 inline-flex min-h-11 items-center rounded-full bg-[#a82c62] px-5 text-sm font-bold text-white">
+          レポート投稿のトップへ
         </Link>
       </div>
-    );
-  }
-
-  if (status === "no-report") {
-    return (
-      <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-gray-50 px-6 text-center">
-        <p className="text-sm text-gray-500">見るレポが指定されていません</p>
-        <Link
-          href="/report"
-          className="rounded-full bg-[#FF6B9D] px-5 py-2.5 text-xs font-bold text-white"
-        >
-          現地レポトップに戻る
-        </Link>
-      </div>
-    );
+    </main>;
   }
 
   if (!report || !event) return null;
@@ -304,7 +292,7 @@ function LiveReportDetailPageInner() {
   const overallLevel = mainLevel !== null || centerLevel !== null ? Math.max(mainLevel ?? 0, centerLevel ?? 0) : null;
   const ratingImg = overallLevel ? RATING_IMAGES[overallLevel] : null;
 
-  const seatAreaText = report.seat_area_type ? (SEAT_AREA_LABELS[report.seat_area_type] ?? report.seat_area_type) : null;
+  const seatAreaText = report.seat_description?.trim() || (report.seat_area_type ? (SEAT_AREA_LABELS[report.seat_area_type] ?? report.seat_area_type) : null);
   const blockText = withSuffix(report.seat_block, "ブロック");
   const rowSeatParts = [withSuffix(report.seat_row, "列"), withSuffix(report.seat_number, "番")].filter(
     (v): v is string => Boolean(v),
@@ -329,7 +317,7 @@ function LiveReportDetailPageInner() {
     <div className={`community-page pb-20 font-sans${isAdDemo ? " ad-demo-report" : ""}`}>
       {isAdDemo ? <style jsx global>{`nextjs-portal { display: none !important; }`}</style> : null}
       <section className="community-hero">
-        <Header
+        <Header breadcrumbParents={[{ href: "/report", label: "レポートを投稿" }]}
           title="現地レポ"
           backHref={backHref}
           backLabel="現地レポ一覧へ戻る"
@@ -338,7 +326,7 @@ function LiveReportDetailPageInner() {
               <AccountLink iconSize={22} />
               <ShareButton
                 url={`${typeof window !== "undefined" ? window.location.origin : ""}/report/live/detail?reportId=${report.id}`}
-                text={`${event.venue} ${fmtDate(event.date)} の現地レポ📸 #ちけレポ`}
+                text={`${getEventDisplayVenueName(event.venue_id, event.venue)} ${fmtDate(event.date)} の現地レポ📸 #ちけレポ`}
                 className="zr-focus flex h-11 w-11 items-center justify-center rounded-full text-[#665761] active:bg-[#fff0f5]"
               />
             </div>
@@ -349,7 +337,7 @@ function LiveReportDetailPageInner() {
           <h1 className={`community-title ${isAdDemo ? "mt-2" : "mt-3"}`}>この席から、<br /><span className="text-[#dd8053]">こう見えました。</span></h1>
           <div className={`${isAdDemo ? "mt-3" : "mt-6"} rounded-[22px] border border-white/80 bg-white/72 p-4 shadow-sm backdrop-blur-sm`}>
             <p className="text-[14px] font-black leading-6">{tourName || event.title}</p>
-            <p className="mt-1 text-[11px] font-bold text-[#817981]">{artist?.name ?? "アーティスト"} / {event.venue} / {fmtDate(event.date)}</p>
+            <p className="mt-1 text-[11px] font-bold text-[#817981]">{artist?.name ?? "アーティスト"} / {getEventDisplayVenueName(event.venue_id, event.venue)} / {fmtDate(event.date)}</p>
             <p className="mt-1 text-[9px] font-bold text-[#958d93]">投稿日 {fmtPostDate(report.created_at)}{isTestData ? " / テストデータ" : ""}</p>
           </div>
         </div>
@@ -421,7 +409,7 @@ function LiveReportDetailPageInner() {
             <h2 id="related-reports-title" className="artist-heading">同じブロックの他レポ</h2>
             <div className="mt-5 border-t border-divider">
               {related.map((r) => {
-                const rArea = r.seat_area_type ? (SEAT_AREA_LABELS[r.seat_area_type] ?? r.seat_area_type) : null;
+                const rArea = r.seat_description?.trim() || (r.seat_area_type ? (SEAT_AREA_LABELS[r.seat_area_type] ?? r.seat_area_type) : null);
                 const rParts = [rArea, withSuffix(r.seat_block, "ブロック"), withSuffix(r.seat_row, "列"), withSuffix(r.seat_number, "番")].filter((v): v is string => Boolean(v));
                 return (
                   <Link key={r.id} href={`/report/live/detail?reportId=${r.id}`} className="zr-focus flex min-h-[76px] items-center gap-3 border-b border-[#ded8dc] py-3 no-underline hover:bg-white">
@@ -437,12 +425,12 @@ function LiveReportDetailPageInner() {
 
         <Link href={`/events/${event.id}`} className="zr-focus mt-8 flex min-h-[68px] items-center gap-4 rounded-[20px] border border-[#d9def8] bg-[#eef0ff] px-4 text-[#5165c6]">
           <MapPinned size={24} className="shrink-0 text-[#6176d7]" aria-hidden="true" />
-          <span className="min-w-0 flex-1"><span className="block text-[13px] font-black">座席表・アリーナ予想図を見る</span><span className="mt-1 block truncate text-[10px] font-bold text-[#7b84bd]">{event.venue}</span></span>
+          <span className="min-w-0 flex-1"><span className="block text-[13px] font-black">座席表・アリーナ予想図を見る</span><span className="mt-1 block truncate text-[10px] font-bold text-[#7b84bd]">{getEventDisplayVenueName(event.venue_id, event.venue)}</span></span>
           <ChevronRight size={18} />
         </Link>
       </main>
 
-      <div className="fixed inset-x-0 bottom-0 z-50 border-t border-[#ded8dc] bg-white/95 px-4 pb-[max(18px,env(safe-area-inset-bottom))] pt-3 backdrop-blur">
+      <div data-report-detail-actions className="fixed inset-x-0 bottom-0 z-50 border-t border-[#ded8dc] bg-white/95 px-4 pb-[max(18px,env(safe-area-inset-bottom))] pt-3 backdrop-blur">
         <Link href={`/report/live?event=${event.id}`} className="zr-focus mx-auto flex min-h-[54px] w-full max-w-[720px] flex-col items-center justify-center bg-[#f43679] text-white">
           <span className="text-[13px] font-black">自分も現地レポを投稿する</span>
           <span className="mt-0.5 text-[9px] font-bold text-white/70">この会場の座席情報をシェア</span>
