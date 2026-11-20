@@ -32,6 +32,7 @@ import { focusedSeatPosition, isInteractiveSeatMapPilot, parseSeatReportId, SEAT
 import { eventSeatGroup } from "@/lib/arena-map/eventSeatGroup";
 import { isEventPredictionEnabled } from "@/lib/arena-map/eventPredictionInput";
 import { readArenaReports } from "@/lib/arena-map/readArenaReports";
+import { formatPublicDataTime } from "@/lib/publicPageData";
 
 const SEAT_REPORT_FIELDS = "id, event_id, block, row_num, seat_num, lottery_type, fc_history, payment_method, lottery_round, lottery_name, comment, created_at";
 
@@ -61,7 +62,9 @@ export function EventDetailClient({
   params,
   initialEvent,
   initialRelatedEvents,
-  venueMiniGuide,
+  venueMiniGuide: initialVenueMiniGuide,
+  catalogUpdatedAt,
+  catalogStale,
   dayGuideHref = null,
 }: {
   params: Promise<{ id: string }>;
@@ -74,6 +77,8 @@ export function EventDetailClient({
     venueHref: string | null;
     archiveHref: string | null;
   } | null;
+  catalogUpdatedAt?: string;
+  catalogStale?: boolean;
   dayGuideHref?: string | null;
 }) {
   const { id: eventId } = use(params);
@@ -99,6 +104,7 @@ export function EventDetailClient({
   const [externalReadFailed, setExternalReadFailed] = useState(false);
   const [predictionLimited, setPredictionLimited] = useState(false);
   const [fanSeatPredictions, setFanSeatPredictions] = useState<FanSeatPrediction[]>([]);
+  const [predictionsReady, setPredictionsReady] = useState(false);
   const [predictionAuthorMap, setPredictionAuthorMap] = useState<Map<string, PostAuthor>>(new Map());
   const relatedEvents = initialRelatedEvents;
   const [colorMode, setColorMode] = useState<ColorMode>("lottery");
@@ -108,21 +114,29 @@ export function EventDetailClient({
   const [toast, setToast] = useState(justAfterReported ? "投稿ありがとうございます！" : "");
 
   useEffect(() => {
+    const controller = new AbortController();
     async function load() {
+      setPredictionsReady(false);
+      setFanSeatPredictions([]);
       const fanPredictionsRes = await supabase
           .from("fan_seat_predictions")
           .select("id, event_id, user_id, image_path, comment, prediction_tags, display_name, approved, created_at")
           .eq("event_id", eventId)
           .eq("approved", true)
           .order("created_at", { ascending: false })
-          .limit(20);
+          .limit(20).abortSignal(controller.signal);
+      if (controller.signal.aborted) return;
       if (fanPredictionsRes.data) {
         const predictions = fanPredictionsRes.data as FanSeatPrediction[];
         setFanSeatPredictions(predictions);
-        setPredictionAuthorMap(await fetchVisiblePostAuthors(predictions.map((prediction) => prediction.user_id)));
+        const authors = await fetchVisiblePostAuthors(predictions.map(prediction => prediction.user_id));
+        if (controller.signal.aborted) return;
+        setPredictionAuthorMap(authors);
       }
+      setPredictionsReady(!fanPredictionsRes.error);
     }
-    load();
+    void load();
+    return () => controller.abort();
   }, [eventId]);
 
   useEffect(() => {
@@ -170,6 +184,11 @@ export function EventDetailClient({
   useEffect(() => {
     if (groupEventIds.length === 0) return;
     let cancelled = false;
+    const controller = new AbortController();
+    const deadline = catalogUpdatedAt ? setTimeout(() => {
+      controller.abort();
+      setSeatReadState("error");
+    }, 5000) : undefined;
     async function loadGroupReports() {
       setSeatReadState("loading");
       try {
@@ -180,7 +199,7 @@ export function EventDetailClient({
           .select(SEAT_REPORT_FIELDS)
           .in("event_id", groupEventIds)
           .order("created_at", { ascending: false })
-          .limit(500),
+          .limit(500).abortSignal(controller.signal),
         supabase
           .from("external_seat_observations")
           .select("id, event_id, source_type, source_url, observed_at, seat_area, block, row_min, row_max, seat_min, seat_max, gate, level, confidence, evidence_summary, review_status")
@@ -188,16 +207,16 @@ export function EventDetailClient({
           .eq("review_status", "approved")
           .eq("seat_area", "arena")
           .order("observed_at", { ascending: false })
-          .limit(500),
+          .limit(500).abortSignal(controller.signal),
       ]);
-      if (cancelled) return;
+      if (cancelled || controller.signal.aborted) return;
       setPredictionLimited(paged?.limited ?? false);
       if (seatResult.error) { setSeatReadState("error"); return; }
       const reports = (seatResult.data ?? []) as SeatReport[];
       // 最新500件の外でも、保存済みの対象報告だけは本人の参加日に限定して取得。
       if (focusSeatReportId && !reports.some(report => report.id === focusSeatReportId && report.event_id === eventId)) {
-        const focused = await supabase.from("seat_reports").select(SEAT_REPORT_FIELDS).eq("id", focusSeatReportId).eq("event_id", eventId).maybeSingle();
-        if (cancelled) return;
+        const focused = await supabase.from("seat_reports").select(SEAT_REPORT_FIELDS).eq("id", focusSeatReportId).eq("event_id", eventId).abortSignal(controller.signal).maybeSingle();
+        if (cancelled || controller.signal.aborted) return;
         if (focused.data && !focused.error) reports.push(focused.data as SeatReport);
       }
       setSeatReports(reports);
@@ -207,13 +226,17 @@ export function EventDetailClient({
       setExternalSeatObservations((externalResult.data as ExternalSeatObservation[] | null) ?? []);
       } catch {
         if (!cancelled) setSeatReadState("error");
+      } finally {
+        clearTimeout(deadline);
       }
     }
     loadGroupReports();
     return () => {
       cancelled = true;
+      clearTimeout(deadline);
+      controller.abort();
     };
-  }, [groupEventIds, eventId, focusSeatReportId]);
+  }, [groupEventIds, eventId, focusSeatReportId, catalogUpdatedAt]);
 
   // 位置数の集計には重複を除く。限定適用中の詳細マップには全日程の元報告を渡す。
   const seatReportsByPosition = useMemo(() => {
@@ -274,6 +297,12 @@ export function EventDetailClient({
   );
 
   const officialSeatMap = event ? matchPriorityPerformance(event)?.seatMapSource : undefined;
+  const catalogReadFailed = Boolean(catalogUpdatedAt) && seatReadState === "error";
+  const reportsReady = !catalogUpdatedAt || (seatReadState === "ready" && !externalReadFailed && predictionsReady);
+  const hasReports = (seatReadState === "ready" && (seatReports.length > 0 || externalSeatObservations.length > 0))
+    || (predictionsReady && fanSeatPredictions.length > 0);
+  // Catalog-backed pages can render the venue link while live report counts are pending.
+  const venueMiniGuide = !catalogUpdatedAt || !hasReports ? initialVenueMiniGuide : null;
 
   return (
     <div className="community-page">
@@ -305,6 +334,12 @@ export function EventDetailClient({
                 icon={<Sparkles size={21} strokeWidth={1.8} className="text-[#6176d7]" />}
               >
                 <CompactEventSummary date={event.date} venue={event.venue} className="mt-3" />
+                {catalogUpdatedAt && (catalogStale || catalogReadFailed) && (
+                  <p className="mt-3 text-xs" role="status">
+                    公演情報は{formatPublicDataTime(catalogUpdatedAt)}時点です。
+                    {catalogReadFailed && "最新の座席報告を取得できません。"}
+                  </p>
+                )}
               </CompactHeroIntro>
             </section>
 
@@ -337,8 +372,10 @@ export function EventDetailClient({
           {venueMiniGuide ? (
             <section className="zr-container py-6 sm:py-8" aria-labelledby="event-empty-title" data-event-empty-state>
               <p className="artist-kicker">FIRST REPORT</p>
-              <h2 id="event-empty-title" className="artist-heading">座席の報告を募集中</h2>
-              <p className="mt-3 text-[13px] leading-6 text-[#71636c]">座席表・アリーナ予想図の投稿はまだありません。</p>
+              <h2 id="event-empty-title" className="artist-heading">{reportsReady ? "座席の報告を募集中" : "会場の座席情報"}</h2>
+              <p className="mt-3 text-[13px] leading-6 text-[#71636c]">
+                {reportsReady ? "座席表・アリーナ予想図の投稿はまだありません。" : "最新の座席報告は確認できしだい表示します。"}
+              </p>
               <div className="mt-4 border-y border-[#ded8dc] bg-white px-4 py-3">
                 <p className="truncate text-[14px] font-black text-[#40383d]">
                   {venueMiniGuide.venueHref ? <Link href={venueMiniGuide.venueHref}>{venueMiniGuide.venueName}</Link> : venueMiniGuide.venueName}

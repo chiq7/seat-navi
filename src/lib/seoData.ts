@@ -7,6 +7,7 @@ import { getReportOgInfo, type ReportOgInfo } from "@/lib/og/reportOgData";
 import { supabase } from "@/lib/supabase/client";
 import type { CrawledEvent } from "@/lib/types";
 import { dedupeVenueEventsForDisplay } from "@/lib/eventDisplay";
+import { readSupabasePages } from "@/lib/supabase/readPages";
 
 import { hasSetlistSongs } from "@/lib/setlistHelpers";
 
@@ -111,10 +112,10 @@ export async function getArtistNewsCount(slug: string): Promise<number> {
 }
 
 type SitemapEventRow = CrawledEvent & { created_at: string | null };
-type TimestampRow = { event_id: string; created_at: string | null };
+type TimestampRow = { id: string; event_id: string; created_at: string | null };
 type SetlistTimestampRow = TimestampRow & { updated_at: string | null; items: unknown };
 type ReportTimestampRow = TimestampRow & { id: string };
-type NewsTimestampRow = { artist_slug: string; created_at: string | null };
+type NewsTimestampRow = { id: string; artist_slug: string; created_at: string | null };
 
 export type SeoSitemapData = {
   artists: { slug: string; lastModified?: string }[];
@@ -133,15 +134,15 @@ function keepLatest(map: Map<string, string>, key: string, value: string | null 
 
 export async function getSeoSitemapData(): Promise<SeoSitemapData> {
   const [eventsResult, setlistsResult, reportsResult, seatsResult, predictionsResult, newsResult] = await Promise.all([
-    supabase.from("events").select("id, title, venue, venue_id, date, genre, artist_slug, created_at").limit(10000),
-    supabase.from("setlists").select("event_id, created_at, updated_at, items").limit(10000),
-    supabase.from("after_reports").select("id, event_id, created_at").limit(10000),
-    supabase.from("seat_reports").select("event_id, created_at").limit(10000),
-    supabase.from("fan_seat_predictions").select("event_id, created_at").eq("approved", true).limit(10000),
-    supabase.from("official_news_public").select("artist_slug, created_at").limit(10000),
+    readSupabasePages<SitemapEventRow>((from, to) => supabase.from("events").select("id, title, venue, venue_id, date, genre, artist_slug, created_at", { count: "exact" }).order("id").range(from, to)),
+    readSupabasePages<SetlistTimestampRow>((from, to) => supabase.from("setlists").select("id, event_id, created_at, updated_at, items", { count: "exact" }).order("id").range(from, to)),
+    readSupabasePages<ReportTimestampRow>((from, to) => supabase.from("after_reports").select("id, event_id, created_at", { count: "exact" }).order("id").range(from, to)),
+    readSupabasePages<TimestampRow>((from, to) => supabase.from("seat_reports").select("id, event_id, created_at", { count: "exact" }).order("id").range(from, to)),
+    readSupabasePages<TimestampRow>((from, to) => supabase.from("fan_seat_predictions").select("id, event_id, created_at", { count: "exact" }).eq("approved", true).order("id").range(from, to)),
+    readSupabasePages<NewsTimestampRow>((from, to) => supabase.from("official_news_public").select("id, artist_slug, created_at", { count: "exact" }).order("id").range(from, to)),
   ]);
 
-  const readFailure = [eventsResult, setlistsResult, reportsResult, seatsResult, predictionsResult, newsResult].find(result => result.error);
+  const readFailure = [eventsResult, setlistsResult, reportsResult, seatsResult, predictionsResult, newsResult].find(result => result.error || result.limited);
   if (readFailure) throw new Error("Sitemap content could not be loaded", { cause: readFailure.error });
 
   const allEvents = (eventsResult.data as SitemapEventRow[]) ?? [];

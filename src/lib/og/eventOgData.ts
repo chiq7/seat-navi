@@ -45,7 +45,10 @@ export async function queryEventWithArtist(
   // 一時的な取得失敗を「存在しない公演」として404・負のキャッシュにしない。
   if (error) throw new Error("Public event lookup failed", { cause: error });
   if (!data) return null;
-  const event = data as CrawledEvent;
+  return describePublicEvent(data as CrawledEvent);
+}
+
+export function describePublicEvent(event: CrawledEvent): EventOgInfo {
   const artist = resolveArtist(event);
   const { tourName, isTestData } = parseEventTitle(event.title, artist?.name);
   return { event, artist, tourName, isTestData, dateLabel: fmtDate(event.date) };

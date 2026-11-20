@@ -1,7 +1,9 @@
 export const VERIFICATION_STORAGE_KEY = "tixrepo.verification.v1";
 export const ANALYTICS_EXCLUSION_KEY = "tixrepo.analytics-exclusion.v1";
+export const TRAFFIC_LOG_EXCLUSION_COOKIE = "tixrepo-log-excluded";
 export const VERIFICATION_ENTRY_PATH = "/verification-access";
 export const VERIFICATION_LIFETIME_MS = 2 * 60 * 60 * 1000;
+export const PRODUCTION_ORIGIN = "https://tixrepo.com";
 
 export type VerificationRole = "codex" | "operator";
 export type TrafficOrigin = "public_unmarked" | "verification_codex" | "verification_operator" | "unclassified";
@@ -58,17 +60,23 @@ export function beginVerification(role: VerificationRole): void {
   const value = JSON.stringify({ v: 1, role, startedAt: Date.now() });
   window.localStorage.setItem(ANALYTICS_EXCLUSION_KEY, value);
   if (window.localStorage.getItem(ANALYTICS_EXCLUSION_KEY) !== value) throw new Error("Verification storage unavailable");
+  if (window.location.origin === PRODUCTION_ORIGIN) {
+    document.cookie = `${TRAFFIC_LOG_EXCLUSION_COOKIE}=1; Path=/; Secure; SameSite=Lax; Max-Age=31536000`;
+  }
   window.location.assign("/");
 }
 
 export function endVerification(): void {
   window.localStorage.removeItem(ANALYTICS_EXCLUSION_KEY);
   window.sessionStorage.removeItem(VERIFICATION_STORAGE_KEY);
+  if (window.location.origin === PRODUCTION_ORIGIN) {
+    document.cookie = `${TRAFFIC_LOG_EXCLUSION_COOKIE}=; Path=/; Secure; SameSite=Lax; Max-Age=0`;
+  }
   window.location.replace(window.location.pathname === VERIFICATION_ENTRY_PATH ? "/" : VERIFICATION_ENTRY_PATH);
 }
 
 // Runs in the inline bootstrap, so it cannot depend on module-level values.
-function readLandingSignals(search: string, userAgent: string, referrer: string, origin: string) {
+export function readLandingSignals(search: string, userAgent: string, referrer: string, origin: string) {
   const query = new URLSearchParams(search);
   const readTag = (key: string) => {
     const value = query.get(key);
@@ -97,7 +105,7 @@ function readLandingSignals(search: string, userAgent: string, referrer: string,
 
 export function gaBootstrapScript(measurementId: string): string {
   if (!/^G-[A-Z0-9]+$/.test(measurementId)) throw new Error("Invalid GA measurement ID");
-  return `(function(w){var disabled=location.hostname.endsWith(".workers.dev")||location.pathname===${JSON.stringify(VERIFICATION_ENTRY_PATH)},origin='public_unmarked',persistent=null,legacy=null;try{persistent=localStorage.getItem(${JSON.stringify(ANALYTICS_EXCLUSION_KEY)});}catch(e){}try{legacy=sessionStorage.getItem(${JSON.stringify(VERIFICATION_STORAGE_KEY)});}catch(e){origin='unclassified';}var excluded=(${classifyAnalyticsExclusion.toString()})(persistent,Date.now());if(excluded!==null){disabled=true;origin=excluded;}else{origin=(${classifyVerificationMarker.toString()})(legacy,Date.now());if(origin==='verification_codex'||origin==='verification_operator')disabled=true;else if(legacy!==null){try{var old=JSON.parse(legacy);if(old.v===1&&['codex','operator'].includes(old.role)&&Number.isSafeInteger(old.startedAt)&&Number.isSafeInteger(old.expiresAt)&&old.startedAt<=Date.now()&&old.expiresAt>old.startedAt&&old.expiresAt-old.startedAt<=7200000){origin='verification_'+old.role;disabled=true;}}catch(e){}}}w.__tixrepoTrafficOrigin=origin;w['ga-disable-'+${JSON.stringify(measurementId)}]=disabled;w.addEventListener('storage',function(e){if(e.key===${JSON.stringify(ANALYTICS_EXCLUSION_KEY)}){w['ga-disable-'+${JSON.stringify(measurementId)}]=true;location.reload();}});if(disabled){w.dispatchEvent(new Event('tixrepo-traffic-ready'));return;}w.dataLayer=w.dataLayer||[];w.gtag=w.gtag||function(){w.dataLayer.push(arguments);};w.gtag('js',new Date());
+  return `(function(w){var disabled=location.origin!==${JSON.stringify(PRODUCTION_ORIGIN)}||location.pathname===${JSON.stringify(VERIFICATION_ENTRY_PATH)},origin='public_unmarked',persistent=null,legacy=null;try{persistent=localStorage.getItem(${JSON.stringify(ANALYTICS_EXCLUSION_KEY)});}catch(e){}try{legacy=sessionStorage.getItem(${JSON.stringify(VERIFICATION_STORAGE_KEY)});}catch(e){origin='unclassified';}var excluded=(${classifyAnalyticsExclusion.toString()})(persistent,Date.now());if(excluded!==null){disabled=true;origin=excluded;}else{origin=(${classifyVerificationMarker.toString()})(legacy,Date.now());if(origin==='verification_codex'||origin==='verification_operator')disabled=true;else if(legacy!==null){try{var old=JSON.parse(legacy);if(old.v===1&&['codex','operator'].includes(old.role)&&Number.isSafeInteger(old.startedAt)&&Number.isSafeInteger(old.expiresAt)&&old.startedAt<=Date.now()&&old.expiresAt>old.startedAt&&old.expiresAt-old.startedAt<=7200000){origin='verification_'+old.role;disabled=true;}}catch(e){}}}w.__tixrepoTrafficOrigin=origin;w['ga-disable-'+${JSON.stringify(measurementId)}]=disabled;w.addEventListener('storage',function(e){if(e.key===${JSON.stringify(ANALYTICS_EXCLUSION_KEY)}){w['ga-disable-'+${JSON.stringify(measurementId)}]=true;location.reload();}});if(disabled){w.dispatchEvent(new Event('tixrepo-traffic-ready'));return;}w.dataLayer=w.dataLayer||[];w.gtag=w.gtag||function(){w.dataLayer.push(arguments);};w.gtag('js',new Date());
 var landing=(${readLandingSignals.toString()})(location.search,navigator.userAgent,document.referrer,location.origin);
 w.gtag('config',${JSON.stringify(measurementId)},{...landing.campaign,traffic_origin:origin,page_location:location.origin+location.pathname,page_referrer:document.referrer?document.referrer.split(/[?#]/)[0]:''});
 if(landing.appEvent)w.gtag('event',landing.appEvent,{traffic_origin:origin});

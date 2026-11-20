@@ -15,13 +15,23 @@ import { EmptyState } from "@/components/common/EmptyState";
 import ReadySearchControl from "@/components/venue/template/ReadySearchControl";
 import { trackEvent } from "@/lib/analytics";
 import { findArtistBySlug, type Artist } from "@/lib/artists";
-import { getSearchEventDestination, searchArtists, searchEvents, searchVenues, type SearchVenue } from "@/lib/search";
+import { getSearchEventDestination, rankEventSearchResults, searchArtists, searchEvents, searchVenues, type SearchVenue } from "@/lib/search";
 import { parseSearchQuery } from "@/lib/searchQuery";
 import { getSearchDiscoveryResults, type SearchDiscoveryResult } from "@/lib/searchDiscovery";
 import { supabase } from "@/lib/supabase/client";
 import type { CrawledEvent } from "@/lib/types";
 import { isVagueHomeVenue } from "@/lib/homeData";
 import { isArtistOnlyEventTitle, parseEventTitle } from "@/lib/eventTitle";
+import { formatPublicDataTime, publicPageDataPaths, STATIC_PUBLIC_PAGES } from "@/lib/publicPageData";
+
+async function readSearchCatalog(signal: AbortSignal) {
+  const response = await fetch(publicPageDataPaths.events, { signal });
+  if (!response.ok) throw new Error("Public event catalog is unavailable");
+  const { events } = await response.json() as { events: CrawledEvent[] };
+  const savedAt = response.headers.get("X-Tixrepo-Data-Stale") === "1"
+    ? response.headers.get("X-Tixrepo-Data-Updated-At") : null;
+  return { events, savedAt };
+}
 
 const POPULAR_SEARCH_ARTIST_SLUGS = [
   "snow-man",
@@ -51,13 +61,16 @@ function SearchPageInner() {
   const searchParams = useSearchParams();
   const initialQuery = searchParams.get("q") ?? "";
 
-  const [query, setQuery] = useState(initialQuery);
+  const [query, setQuery] = useState(STATIC_PUBLIC_PAGES ? "" : initialQuery);
+  const [urlReady, setUrlReady] = useState(!STATIC_PUBLIC_PAGES);
   const [artistResults, setArtistResults] = useState<Artist[]>([]);
   const [venueResults, setVenueResults] = useState<SearchVenue[]>([]);
   const [eventResults, setEventResults] = useState<CrawledEvent[]>([]);
   const [discoveryResults, setDiscoveryResults] = useState<SearchDiscoveryResult[]>([]);
   const [resolvedQuery, setResolvedQuery] = useState("");
   const [loading, setLoading] = useState(false);
+  const [eventSearchState, setEventSearchState] = useState<"ready" | "loading" | "unavailable">("ready");
+  const [eventSearchSavedAt, setEventSearchSavedAt] = useState<string | null>(null);
   const [favoriteUserId, setFavoriteUserId] = useState<string | null>(null);
   const [favoriteSlugs, setFavoriteSlugs] = useState<Set<string>>(new Set());
   const [favoritesReady, setFavoritesReady] = useState(false);
@@ -91,15 +104,19 @@ function SearchPageInner() {
 
   useEffect(() => {
     let cancelled = false;
+    const controller = new AbortController();
     async function loadRecentEvents() {
       const now = new Date();
       const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
-      const { data } = await supabase
+      const catalog = STATIC_PUBLIC_PAGES ? await readSearchCatalog(controller.signal).catch(() => null) : null;
+      if (cancelled) return;
+      const data = catalog ? catalog.events.filter(event => event.date && event.date >= today)
+        .sort((a, b) => (a.date ?? "").localeCompare(b.date ?? "")).slice(0, 30) : (await supabase
         .from("events")
         .select("id, title, venue, venue_id, date, genre, lottery_types, artist_slug")
         .gte("date", today)
         .order("date", { ascending: true })
-        .limit(30);
+        .limit(30).abortSignal(controller.signal)).data;
       if (cancelled) return;
       const safeRows = ((data as CrawledEvent[]) ?? []).filter((event) => {
         const artist = event.artist_slug ? findArtistBySlug(event.artist_slug) : null;
@@ -112,7 +129,7 @@ function SearchPageInner() {
       setRecentEventsLoading(false);
     }
     void loadRecentEvents();
-    return () => { cancelled = true; };
+    return () => { cancelled = true; controller.abort(); };
   }, []);
 
   function updateFavorite(artistSlug: string, favorite: boolean) {
@@ -124,19 +141,32 @@ function SearchPageInner() {
     });
   }
 
+  useEffect(() => {
+    if (!STATIC_PUBLIC_PAGES) return;
+    setQuery(initialQuery);
+    setUrlReady(true);
+  }, [initialQuery]);
+
   // クエリ変更時にURLを同期(共有可能な検索結果URLにするため)
   useEffect(() => {
+    if (!urlReady) return;
     const params = new URLSearchParams(searchParams.toString());
     if (query) params.set("q", query);
     else params.delete("q");
-    router.replace(`/search${params.toString() ? `?${params.toString()}` : ""}`, { scroll: false });
+    const href = `/search${params.size ? `?${params.toString()}` : ""}`;
+    if (STATIC_PUBLIC_PAGES) {
+      if (window.location.pathname + window.location.search !== href) window.history.replaceState(null, "", href);
+    } else {
+      router.replace(href, { scroll: false });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query]);
+  }, [query, urlReady]);
 
   // 検索実行(200msデバウンス)
   useEffect(() => {
     const trimmed = query.trim();
     let cancelled = false;
+    setEventSearchSavedAt(null);
     if (trimmed.length < 1) {
       setArtistResults([]);
       setVenueResults([]);
@@ -144,24 +174,40 @@ function SearchPageInner() {
       setDiscoveryResults([]);
       setResolvedQuery("");
       setLoading(false);
+      setEventSearchState("ready");
       return;
     }
 
+    const controller = new AbortController();
     setLoading(true);
+    setEventSearchState("loading");
     const timer = setTimeout(async () => {
-      const [artists, events] = await Promise.all([
-        Promise.resolve(searchArtists(trimmed)),
-        searchEvents(trimmed),
-      ]);
-      if (cancelled) return;
-      const venues = searchVenues(trimmed, 200, events);
-      const discovery = getSearchDiscoveryResults(trimmed, { ...parseSearchQuery(trimmed), events });
-      setArtistResults(artists);
-      setVenueResults(venues);
-      setEventResults(events);
-      setDiscoveryResults(discovery);
-      setResolvedQuery(trimmed);
+      const artists = searchArtists(trimmed);
+      const parsed = parseSearchQuery(trimmed);
+      function showResults(events: CrawledEvent[]) {
+        const venues = searchVenues(trimmed, 200, events);
+        const discovery = getSearchDiscoveryResults(trimmed, { ...parsed, events });
+        setArtistResults(artists);
+        setVenueResults(venues);
+        setEventResults(events);
+        setDiscoveryResults(discovery);
+        return { venues, discovery };
+      }
+      showResults([]);
       setLoading(false);
+
+      const deadline = setTimeout(() => controller.abort(), 4000);
+      const catalog = STATIC_PUBLIC_PAGES ? await readSearchCatalog(controller.signal).catch(() => null) : null;
+      const result = catalog
+        ? rankEventSearchResults(trimmed, catalog.events, artists)
+        : await searchEvents(trimmed, 30, controller.signal).catch(() => null);
+      clearTimeout(deadline);
+      if (cancelled) return;
+      const events = result ?? [];
+      const { venues, discovery } = showResults(events);
+      setResolvedQuery(trimmed);
+      setEventSearchState(result === null ? "unavailable" : "ready");
+      setEventSearchSavedAt(catalog?.savedAt ?? null);
       if (lastTrackedQuery.current !== trimmed) {
         lastTrackedQuery.current = trimmed;
         trackEvent("search", {
@@ -175,7 +221,7 @@ function SearchPageInner() {
       }
     }, 200);
 
-    return () => { cancelled = true; clearTimeout(timer); };
+    return () => { cancelled = true; clearTimeout(timer); controller.abort(); };
   }, [query]);
 
   const hasQuery = query.trim().length > 0;
@@ -272,7 +318,13 @@ function SearchPageInner() {
           </div>
         )}
 
-        {hasQuery && !loading && !hasResults && (
+        {hasQuery && !loading && eventSearchState === "unavailable" && (
+          <p role="status" className="mb-4 text-sm">公演の検索結果を取得できません。会場・座席表は引き続き探せます。</p>
+        )}
+        {hasQuery && !loading && eventSearchSavedAt && (
+          <p role="status" className="mb-4 text-sm">{formatPublicDataTime(eventSearchSavedAt)}時点の公演情報で検索しています。</p>
+        )}
+        {hasQuery && !loading && eventSearchState === "ready" && !hasResults && (
           <EmptyState
             title="検索結果が見つかりませんでした"
             icon={<Search size={18} aria-hidden="true" />}

@@ -6,6 +6,10 @@ import { createHash } from "node:crypto";
 import { patchCssModules } from "vite-css-modules";
 import path from "node:path";
 
+if (process.env.TIXREPO_CLOUDFLARE_MODE === "free-preview") {
+  process.env.NEXT_PUBLIC_TIXREPO_STATIC_PAGES = "1";
+}
+
 export default defineConfig({
   build: { sourcemap: false },
   plugins: [

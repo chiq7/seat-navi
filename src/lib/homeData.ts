@@ -2,6 +2,8 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { resolveArtist, type Artist } from "@/lib/artists";
 import { isArtistOnlyEventTitle, parseEventTitle } from "@/lib/eventTitle";
 import { fmtDate, seatAreaLabel } from "@/lib/artistPageHelpers";
+import { getJstDateString } from "@/lib/artistPageData";
+import { isAllowedOfficialResaleUrl } from "@/lib/external-seats/sourcePolicy";
 
 import { hasSetlistSongs } from "@/lib/setlistHelpers";
 
@@ -87,13 +89,13 @@ function dedupeNearestByArtist<T>(
 // ─── 開催が近い公演 ──────────────────────────────────────────────────────────
 
 /** 今日〜2ヶ月以内の公演を日付昇順で全アーティスト取得し、seat_reportsの実件数を付与する */
-export async function getUpcomingHomeEvents(client: SupabaseClient): Promise<UpcomingEvent[]> {
+export async function getUpcomingHomeEvents(client: SupabaseClient, requireComplete = false): Promise<UpcomingEvent[]> {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const until = new Date(today);
   until.setMonth(until.getMonth() + 2);
 
-  const { data } = await client
+  const { data, error } = await client
     .from("events")
     .select(EVENT_COLUMNS)
     .gte("date", toDateStr(today))
@@ -101,13 +103,20 @@ export async function getUpcomingHomeEvents(client: SupabaseClient): Promise<Upc
     .order("date", { ascending: true })
     .limit(200);
 
+  if (requireComplete && error) throw new Error("Upcoming event read failed");
   const rows = (data as HomeEventRow[]) ?? [];
 
-  const validRows: { ev: HomeEventRow; artist: Artist }[] = [];
+  const validRows: { ev: HomeEventRow; artist: Artist; eventName: string }[] = [];
+  const tourDates = new Map<string, Array<string | null>>();
   for (const ev of rows) {
     const artist = resolveArtist(ev);
     if (!artist || isTestEvent(ev, artist) || isArtistOnlyEventTitle(ev.title, artist.name) || isVagueHomeVenue(ev.venue)) continue;
-    validRows.push({ ev, artist });
+    const eventName = getEventName(ev, artist);
+    validRows.push({ ev, artist, eventName });
+    const tourKey = `${artist.slug}:${eventName}`;
+    const dates = tourDates.get(tourKey) ?? [];
+    dates.push(ev.date);
+    tourDates.set(tourKey, dates);
   }
   if (validRows.length === 0) return [];
 
@@ -116,25 +125,18 @@ export async function getUpcomingHomeEvents(client: SupabaseClient): Promise<Upc
   deduped.sort((a, b) => (a.ev.date ?? "").localeCompare(b.ev.date ?? ""));
 
   const eventIds = deduped.map(({ ev }) => ev.id);
-  const { data: reportRows } = await client
+  const { data: reportRows, error: reportError } = await client
     .from("seat_reports")
     .select("event_id")
     .in("event_id", eventIds);
+  if (requireComplete && reportError) throw new Error("Upcoming event report counts read failed");
 
   const counts = new Map<string, number>();
   for (const r of (reportRows as { event_id: string }[]) ?? []) {
     counts.set(r.event_id, (counts.get(r.event_id) ?? 0) + 1);
   }
 
-  return deduped.map(({ ev, artist }) => {
-    const eventName = getEventName(ev, artist);
-    const periodDates = validRows
-      .filter((candidate) => (
-        candidate.artist.slug === artist.slug
-        && getEventName(candidate.ev, candidate.artist) === eventName
-      ))
-      .map((candidate) => candidate.ev.date);
-
+  return deduped.map(({ ev, artist, eventName }) => {
     return {
       id: ev.id,
       artistSlug: artist.slug,
@@ -142,7 +144,7 @@ export async function getUpcomingHomeEvents(client: SupabaseClient): Promise<Upc
       eventName,
       date: fmtDate(ev.date),
       dateIso: ev.date,
-      period: formatEventPeriod(periodDates),
+      period: formatEventPeriod(tourDates.get(`${artist.slug}:${eventName}`) ?? []),
       venue: ev.venue,
       count: (counts.get(ev.id) ?? 0).toLocaleString("ja-JP"),
     };
@@ -209,7 +211,7 @@ export async function getFeaturedHomeEvents(client: SupabaseClient, topN = 5): P
 
 export type HomeFeedType = "当落レポ" | "公演情報" | "座席報告" | "座席予想" | "現地レポ" | "セトリ";
 
-export type HomeFeedSource = "real" | "editorial" | "sample";
+export type HomeFeedSource = "real" | "editorial" | "sample" | "collection";
 
 export type HomeFeedItem = {
   id: string;
@@ -221,6 +223,7 @@ export type HomeFeedItem = {
   date: string | null;
   createdAt: string;
   href: string;
+  sourceUrl?: string;
   /** 投稿者がプロフィールで公開を許可した場合だけ表示するXユーザー名。 */
   xHandle: string | null;
   /** 実投稿と、集計対象外の編集部投稿・投稿イメージを表示側で区別する。 */
@@ -263,7 +266,32 @@ type FeedCandidate = {
   created_at: string;
   type: HomeFeedType;
   detail: string;
+  collection?: { sourceUrl?: string };
 };
+
+type CollectedSeatFeedRow = { id: string; event_id: string; created_at: string; source_url: string | null };
+type NewEventFeedRow = { id: string; created_at: string };
+
+export function collectionFeedCandidates(seats: CollectedSeatFeedRow[], events: NewEventFeedRow[]): FeedCandidate[] {
+  const candidates: FeedCandidate[] = [];
+  const seatEvents = new Set<string>();
+  for (const seat of seats) {
+    if (!seat.source_url || !isAllowedOfficialResaleUrl(seat.source_url) || seatEvents.has(seat.event_id)) continue;
+    seatEvents.add(seat.event_id);
+    candidates.push({
+      id: `external-seat-${seat.id}`, event_id: seat.event_id, user_id: null, created_at: seat.created_at,
+      type: "公演情報", detail: "公式リセールのアリーナ座席情報を追加（外部参考）",
+      collection: { sourceUrl: seat.source_url },
+    });
+  }
+  for (const event of events) {
+    candidates.push({
+      id: `new-event-${event.id}`, event_id: event.id, user_id: null, created_at: event.created_at,
+      type: "公演情報", detail: "公演ページが追加されました", collection: {},
+    });
+  }
+  return candidates;
+}
 
 type SeatReportFeedRow = { id: string; event_id: string; user_id: string | null; created_at: string; block: string; row_num: number; seat_num: number };
 type PredictionFeedRow = { id: string; event_id: string; user_id: string | null; created_at: string };
@@ -401,7 +429,7 @@ export function buildSupplementalFeedItems(
 const GENERATIONS_ARIAKE_EVENT_ID = "9b26c9b3aef538ae8438";
 const GENERATIONS_ARENA_SOURCE_KEY = "8117da818c4f81fb9c81c72f4cad4230220a23667f9b0c07df1f5f20d6b2926b";
 
-async function getReviewedTicketUpdates(client: SupabaseClient, now: Date): Promise<HomeFeedItem[]> {
+export async function getReviewedTicketUpdates(client: SupabaseClient, now: Date, requireComplete = false): Promise<HomeFeedItem[]> {
   const updates: HomeFeedItem[] = [];
   const resaleOpens = new Date("2026-11-07T15:00:00+09:00");
   const resaleCloses = new Date("2026-11-10T00:00:00+09:00");
@@ -414,10 +442,11 @@ async function getReviewedTicketUpdates(client: SupabaseClient, now: Date): Prom
     });
   }
   if (now >= resaleOpens && now < new Date("2026-11-09T00:00:00+09:00")) {
-    const { data } = await client.from("external_seat_observations")
+    const { data, error } = await client.from("external_seat_observations")
       .select("observed_at").eq("event_id", GENERATIONS_ARIAKE_EVENT_ID)
       .eq("source_type", "ticketjam").eq("source_key", GENERATIONS_ARENA_SOURCE_KEY)
       .eq("review_status", "approved").maybeSingle();
+    if (error && requireComplete) throw new Error("Reviewed ticket update read failed");
     if (data) updates.push({
       id: "generations-ariake-arena-reference-20261108", type: "公演情報",
       detail: "アリーナD1の座席範囲を追加しました（外部参考）",
@@ -433,8 +462,12 @@ export async function getRealtimeFeedItems(
   client: SupabaseClient,
   limit = 20,
   prefetchedUpcoming?: UpcomingEvent[] | Promise<UpcomingEvent[]>,
+  requireComplete = false,
 ): Promise<HomeFeedItem[]> {
-  const [ticketResultsRes, seatReportsRes, predictionsRes, afterReportsRes, setlistsRes, reviewedUpdates] = await Promise.all([
+  const now = new Date();
+  const jstToday = getJstDateString(now);
+  const recent = new Date(now.getTime() - 7 * 86_400_000).toISOString();
+  const [ticketResultsRes, seatReportsRes, predictionsRes, afterReportsRes, setlistsRes, reviewedUpdates, collectedSeats, newEvents] = await Promise.all([
     client
       .from("event_ticket_results")
       .select("id, event_id, user_id, result, lost_application_count, comment, seat_type, seat_block, created_at")
@@ -461,8 +494,19 @@ export async function getRealtimeFeedItems(
       .select("id, event_id, created_at, items")
       .order("created_at", { ascending: false })
       .limit(FEED_SOURCE_LIMIT),
-    getReviewedTicketUpdates(client, new Date()),
+    getReviewedTicketUpdates(client, now),
+    client.from("external_seat_observations")
+      .select("id, event_id, source_url, created_at")
+      .eq("review_status", "approved").eq("ingestion_method", "crawler").eq("seat_area", "arena")
+      .in("source_type", ["pia_resale", "official_resale"])
+      .gte("created_at", recent).order("created_at", { ascending: false }).limit(FEED_SOURCE_LIMIT),
+    client.from("events").select("id, created_at")
+      .gte("date", jstToday).gte("created_at", recent)
+      .order("created_at", { ascending: false }).limit(FEED_SOURCE_LIMIT),
   ]);
+  if (requireComplete && [ticketResultsRes, seatReportsRes, predictionsRes, afterReportsRes, setlistsRes, collectedSeats, newEvents].some(result => result.error)) {
+    throw new Error("Realtime feed source read failed");
+  }
 
   const publicTicketResults = ((ticketResultsRes.data as TicketResultFeedRow[]) ?? [])
     .filter((r) => !r.comment?.trim().startsWith("[TEST]"));
@@ -535,11 +579,12 @@ export async function getRealtimeFeedItems(
     ...predictionCandidates,
     ...afterReportCandidates,
     ...setlistCandidates,
+    ...collectionFeedCandidates(collectedSeats.data ?? [], newEvents.data ?? []),
   ];
 
   const eventIds = [...new Set(raw.map((r) => r.event_id))];
   const userIds = [...new Set(raw.map((r) => r.user_id).filter((id): id is string => Boolean(id)))];
-  const [{ data: eventsData }, { data: profilesData }] = await Promise.all([
+  const [eventsResult, profilesResult] = await Promise.all([
     eventIds.length > 0
       ? client.from("events").select(EVENT_COLUMNS).in("id", eventIds)
       : Promise.resolve({ data: [] }),
@@ -551,6 +596,11 @@ export async function getRealtimeFeedItems(
           .eq("show_x_on_posts", true)
       : Promise.resolve({ data: [] }),
   ]);
+  if (requireComplete && ("error" in eventsResult && eventsResult.error || "error" in profilesResult && profilesResult.error)) {
+    throw new Error("Realtime feed event or profile read failed");
+  }
+  const { data: eventsData } = eventsResult;
+  const { data: profilesData } = profilesResult;
   const eventMap = new Map(((eventsData as HomeEventRow[]) ?? []).map((e) => [e.id, e]));
   const xHandleMap = new Map(
     ((profilesData ?? []) as Array<{ id: string; x_handle: string | null; show_x_on_posts: boolean }>)
@@ -569,11 +619,12 @@ export async function getRealtimeFeedItems(
     if (!ev) continue;
     const artist = resolveArtist(ev);
     if (!artist || !ev.date || isTestEvent(ev, artist) || isVagueHomeVenue(ev.venue)) continue;
+    if (r.collection && ev.date < jstToday) continue;
     if (excludedKnownTestItems.has(`${r.type}:${r.id}`)) continue;
     // 現地レポと実施後のセトリ更新は、公演日を迎えるまで速報に出さない。
     if ((r.type === "現地レポ" || r.type === "セトリ") && ev.date && ev.date > today) continue;
 
-    const href = feedItemHref(r.type, ev.id, artist.slug, r.id);
+    const href = feedItemHref(r.type, ev.id, artist.slug, r.id) + (r.collection?.sourceUrl ? "#seat-map" : "");
 
     items.push({
       id: `${r.type}-${r.id}`,
@@ -584,8 +635,9 @@ export async function getRealtimeFeedItems(
       date: ev.date,
       createdAt: r.created_at,
       href,
+      ...(r.collection?.sourceUrl ? { sourceUrl: r.collection.sourceUrl } : {}),
       xHandle: r.user_id ? xHandleMap.get(r.user_id) ?? null : null,
-      source: "real",
+      source: r.collection ? "collection" : "real",
     });
   }
 
@@ -600,7 +652,7 @@ export async function getRealtimeFeedItems(
 
   const upcoming = prefetchedUpcoming
     ? await prefetchedUpcoming
-    : await getUpcomingHomeEvents(client);
+    : await getUpcomingHomeEvents(client, requireComplete);
   const supplemental = buildSupplementalFeedItems(upcoming, realTicketResultCount)
     .slice(0, cappedSupplementalCount);
   return dedupeFeedItemsByDetail([...realItems, ...supplemental]).slice(0, limit);

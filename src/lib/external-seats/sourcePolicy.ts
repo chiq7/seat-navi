@@ -7,7 +7,8 @@ const OFFICIAL_RESALE_HOSTS = new Set([
 export function isAllowedOfficialResaleUrl(value: string): boolean {
   try {
     const url = new URL(value);
-    return url.protocol === "https:" && OFFICIAL_RESALE_HOSTS.has(url.hostname.toLowerCase());
+    return url.protocol === "https:" && !url.username && !url.password && !url.port
+      && OFFICIAL_RESALE_HOSTS.has(url.hostname.toLowerCase());
   } catch {
     return false;
   }

@@ -513,10 +513,26 @@ const JSON_RETRY_INSTRUCTION =
   "\n\n重要: 有効なJSONのみを返してください。前回の応答はJSONとして壊れていました。" +
   "タイトル文字列内に二重引用符(\")が含まれる場合は必ず \\\" にエスケープしてください。";
 
-export async function extractEventsFromText(
+export type EventExtractionModel = { name: string; complete(prompt: string): Promise<string> };
+
+export function extractEventsFromText(text: string, venue: { id: string; name: string }, claude: Anthropic) {
+  return extractEventsWithModel(text, venue, {
+    name: "Claude",
+    async complete(prompt) {
+      const msg = await claude.messages.create({
+        model: CLAUDE_MODEL,
+        max_tokens: 4096,
+        messages: [{ role: "user", content: prompt }],
+      });
+      return (msg.content[0] as { type: string; text: string }).text;
+    },
+  });
+}
+
+export async function extractEventsWithModel(
   text: string,
   venue: { id: string; name: string },
-  claude: Anthropic
+  model: EventExtractionModel,
 ): Promise<{ events: ExtractedEvent[]; error: string | null; elapsedMs: number }> {
   let truncated = text;
   if (text.length > MAX_TEXT_CHARS) {
@@ -526,36 +542,27 @@ export async function extractEventsFromText(
   const basePrompt = EXTRACT_PROMPT(venue.name, truncated);
   const t0 = Date.now();
 
-  const callClaude = async (prompt: string): Promise<string> => {
-    const msg = await claude.messages.create({
-      model: CLAUDE_MODEL,
-      max_tokens: 4096,
-      messages: [{ role: "user", content: prompt }],
-    });
-    return (msg.content[0] as { type: string; text: string }).text;
-  };
-
   try {
-    const raw = await callClaude(basePrompt);
+    const raw = await model.complete(basePrompt);
     try {
       const events = parseEventsJson(raw);
       return { events, error: null, elapsedMs: Date.now() - t0 };
     } catch (parseErr) {
       if (!(parseErr instanceof BrokenJsonError)) throw parseErr;
       // 壊れたJSONの場合だけ、より厳格な指示を添えて1回だけ再試行する
-      console.warn(`  [${venue.name}] Claude応答のJSON解析に失敗したため1回だけ再試行します: ${parseErr.message}`);
-      const retryRaw = await callClaude(basePrompt + JSON_RETRY_INSTRUCTION);
+      console.warn(`  [${venue.name}] ${model.name}応答のJSON解析に失敗したため1回だけ再試行します: ${parseErr.message}`);
+      const retryRaw = await model.complete(basePrompt + JSON_RETRY_INSTRUCTION);
       try {
         const events = parseEventsJson(retryRaw);
         return { events, error: null, elapsedMs: Date.now() - t0 };
       } catch (retryErr) {
         const message = retryErr instanceof Error ? retryErr.message : String(retryErr);
-        return { events: [], error: `Claude抽出エラー(再試行後も壊れたJSON): ${message}`, elapsedMs: Date.now() - t0 };
+        return { events: [], error: `${model.name}抽出エラー(再試行後も壊れたJSON): ${message}`, elapsedMs: Date.now() - t0 };
       }
     }
   } catch (err) {
     const error = err instanceof Error ? err.message : String(err);
-    return { events: [], error: `Claude抽出エラー: ${error}`, elapsedMs: Date.now() - t0 };
+    return { events: [], error: `${model.name}抽出エラー: ${error}`, elapsedMs: Date.now() - t0 };
   }
 }
 

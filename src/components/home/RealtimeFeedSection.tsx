@@ -1,10 +1,15 @@
+"use client";
+
 import { ChevronRight, Zap } from "lucide-react";
 import type { HomeFeedItem } from "@/lib/homeData";
 import { EmptyState } from "@/components/common/EmptyState";
 import RealtimeFeedItem from "./RealtimeFeedItem";
+import { formatPublicDataTime, publicPageDataPaths, publicPageRefreshSeconds, type PublicFeed } from "@/lib/publicPageData";
+import { useFreshPublicData } from "@/lib/useFreshPublicData";
 
 type RealtimeFeedSectionProps = {
-  items: HomeFeedItem[];
+  items?: HomeFeedItem[];
+  live?: boolean;
 };
 
 type ArtistFeedGroup = {
@@ -28,8 +33,11 @@ function groupItemsByArtist(items: HomeFeedItem[]): ArtistFeedGroup[] {
   return [...groups.values()];
 }
 
-export default function RealtimeFeedSection({ items }: RealtimeFeedSectionProps) {
-  const artistGroups = groupItemsByArtist(items);
+export default function RealtimeFeedSection({ items, live }: RealtimeFeedSectionProps) {
+  const { data, failed, staleAt, retry } = useFreshPublicData<PublicFeed | null>(
+    live ? publicPageDataPaths.feed : undefined, publicPageRefreshSeconds.feed, items ?? null,
+  );
+  const artistGroups = groupItemsByArtist(data ?? []);
 
   return (
     <section className="bg-[#fff0f5] py-6 text-[#2b252b] sm:py-8">
@@ -39,16 +47,20 @@ export default function RealtimeFeedSection({ items }: RealtimeFeedSectionProps)
             <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-white text-[#e84a80]">
               <Zap size={16} aria-hidden="true" />
             </span>
-            <h2 className="text-[18px] font-black tracking-[-0.04em]">リアルタイム速報</h2>
+            <h2 className="text-[18px] font-black tracking-[-0.04em]">{staleAt ? "保存済みの公演速報" : "リアルタイム速報"}</h2>
           </div>
           {artistGroups.length > 1 && (
             <ChevronRight className="text-[#d83d72]" size={18} aria-hidden="true" />
           )}
         </div>
 
+        {failed && (
+          <p className="mb-2 text-sm" role="status">速報を更新できませんでした。<button type="button" className="zr-focus ml-2 min-h-11 underline" onClick={retry}>再試行</button></p>
+        )}
+        {staleAt && <p className="mb-2 text-sm" role="status">{formatPublicDataTime(staleAt)}に保存した速報です。現在の受付状況は公式案内をご確認ください。</p>}
         {artistGroups.length > 0 ? (
           <div
-            aria-label="アーティストごとの最新速報。横にスクロールできます"
+            aria-label="アーティストごとの速報。横にスクロールできます"
             className="flex snap-x snap-mandatory gap-2.5 overflow-x-auto overscroll-x-contain pb-2 pr-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d83d72]"
             role="list"
             tabIndex={0}
@@ -66,14 +78,16 @@ export default function RealtimeFeedSection({ items }: RealtimeFeedSectionProps)
                 </h3>
                 <div className="divide-y divide-[#f1e6eb] px-3.5">
                   {group.items.map((item) => (
-                    <RealtimeFeedItem key={item.id} item={item} />
+                    <RealtimeFeedItem key={item.id} item={item} saved={Boolean(staleAt)} />
                   ))}
                 </div>
               </section>
             ))}
           </div>
+        ) : data === null ? (
+          !failed && <div className="min-h-[104px] rounded-xl bg-white px-4 py-5 text-sm" role="status">速報を読み込み中です</div>
         ) : (
-          <EmptyState title="今日の速報はまだありません" icon={<Zap size={18} aria-hidden="true" />} />
+          <EmptyState title={staleAt ? "表示できる保存済みの速報はありません" : "今日の速報はまだありません"} icon={<Zap size={18} aria-hidden="true" />} />
         )}
       </div>
     </section>

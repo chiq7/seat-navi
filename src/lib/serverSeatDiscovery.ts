@@ -20,7 +20,7 @@ export const SEAT_DISCOVERY_PILOT = {
 };
 
 /** Public SELECTs only. No writes; no private author/comment fields for card aggregates. */
-export async function loadSeatDiscovery(config: { artistSlug: string; venueId: string | null; eventIds: string[]; selectedEventId: string } = SEAT_DISCOVERY_PILOT, knownEvents?: SeatDiscoveryEvent[]): Promise<SeatDiscoveryData> {
+export async function loadSeatDiscovery(config: { artistSlug: string; venueId: string | null; eventIds: string[]; selectedEventId: string } = SEAT_DISCOVERY_PILOT, knownEvents?: SeatDiscoveryEvent[], client = createSupabasePublicClient()): Promise<SeatDiscoveryData> {
   const artist = findArtistBySlug(config.artistSlug);
   const base: SeatDiscoveryData = {
     artistSlug: config.artistSlug,
@@ -31,7 +31,6 @@ export async function loadSeatDiscovery(config: { artistSlug: string; venueId: s
     // The pilot's historical rows have unresolved resale provenance. Do not publish a rate.
     lottery: { status: "pending" },
   };
-  const client = createSupabasePublicClient();
   if (!client) return base;
   try {
     const eventQuery = client.from("events").select("id,date,title,venue,venue_id,artist_slug").in("id", config.eventIds).eq("artist_slug", config.artistSlug).order("date");
@@ -76,14 +75,13 @@ export async function loadSeatDiscovery(config: { artistSlug: string; venueId: s
   }
 }
 
-export async function loadHomeSeatDiscovery(selected: UpcomingEvent[]): Promise<SeatDiscoveryData[]> {
-  const client = createSupabasePublicClient();
+export async function loadHomeSeatDiscovery(selected: UpcomingEvent[], client = createSupabasePublicClient()): Promise<SeatDiscoveryData[]> {
   if (!client || !selected.length) return [];
   const result = await client.from("events").select("id,date,title,venue,venue_id,artist_slug", { count: "exact" }).in("artist_slug", selected.map(event => event.artistSlug)).order("date").limit(2000);
   if (result.error || !result.data || (result.count ?? 0) > result.data.length) return [];
   const events = result.data.filter(event => Boolean(event.date)) as SeatDiscoveryEvent[];
   return Promise.all(selected.filter(event => events.some(item => item.id === event.id)).map(event => {
     const group = eventSeatGroup(events, event.id);
-    return loadSeatDiscovery({ artistSlug: event.artistSlug, selectedEventId: event.id, eventIds: group.map(item => item.id), venueId: group[0]?.venue_id ?? null }, group);
+    return loadSeatDiscovery({ artistSlug: event.artistSlug, selectedEventId: event.id, eventIds: group.map(item => item.id), venueId: group[0]?.venue_id ?? null }, group, client);
   }));
 }

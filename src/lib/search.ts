@@ -173,7 +173,7 @@ export function rankEventSearchResults(
  * 短い英字の語中誤爆（IVE → LIVE等）はsearchTextScoreで除外する。
  * 1文字入力ではタイトル・会場の総当たりをせず、該当アーティストの公演だけを表示する。
  */
-export async function searchEvents(query: string, limit = 30): Promise<CrawledEvent[]> {
+export async function searchEvents(query: string, limit = 30, signal?: AbortSignal): Promise<CrawledEvent[]> {
   const q = query.trim();
   if (q.length < 1) return [];
 
@@ -226,9 +226,12 @@ export async function searchEvents(query: string, limit = 30): Promise<CrawledEv
     return request.order("date", { ascending: false }).limit(PREFETCH_CAP);
   });
   const dateRequest = parsed.dates.length ? supabase.from("events").select(columns).in("date", parsed.dates).limit(PREFETCH_CAP) : emptyResult;
-  const results = await Promise.all([...textQueries, entityRequest, ...venueQueries, dateRequest]);
-  for (const result of results) {
-    if (result.error) console.error(result.error);
+  const requests = [...textQueries, entityRequest, ...venueQueries, dateRequest];
+  const results = await Promise.all(requests.map(request =>
+    signal && "abortSignal" in request ? request.abortSignal(signal) : request,
+  ));
+  if (signal?.aborted || (results.some(result => result.error) && results.every(result => !result.data))) {
+    throw new Error("Event search is unavailable");
   }
 
   const merged = new Map<string, CrawledEvent>();

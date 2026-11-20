@@ -37,10 +37,12 @@ export async function queryEventsForArtist(
   if (options.throwOnError && (slugResult.error || keywordResult.error)) {
     throw new Error("Public artist events could not be loaded", { cause: slugResult.error ?? keywordResult.error });
   }
-  const bySlug = slugResult.data;
-  const byKeyword = keywordResult.data;
+  return mergeArtistEvents(artistSlug, (slugResult.data as CrawledEvent[]) ?? [], (keywordResult.data as CrawledEvent[]) ?? []);
+}
 
-  const rows = ((bySlug as CrawledEvent[]) ?? [])
+export function mergeArtistEvents(artistSlug: string, bySlug: CrawledEvent[], byKeyword: CrawledEvent[]): CrawledEvent[] {
+  const artist = findArtistBySlug(artistSlug);
+  const rows = bySlug
     .filter((event) => !isArtistOnlyEventTitle(event.title, artist?.name))
     .map((event) => ({
       ...event,
@@ -53,13 +55,31 @@ export async function queryEventsForArtist(
   // keywordMatchesTitle(findArtistByKeywordと共通の判定関数)で行う。
   // ILIKEだけでは "EXO" が "EXOFIRE" のような無関係タイトルにも一致してしまうため、
   // ILIKEはあくまで候補を広く拾うための事前フィルタとして使い、単独では確定させない。
-  const extra = ((byKeyword as CrawledEvent[]) ?? [])
+  const extra = byKeyword
     .filter((event) => resolveUniqueArtistMatch(event.title).artist?.slug === artistSlug)
     .filter((event) => !isArtistOnlyEventTitle(event.title, artist.name))
     .filter((e) => !rows.some((r) => r.id === e.id))
     .map((event) => ({ ...event, artist_match_source: "keyword" as const }));
 
   return dedupeVenueEventsForDisplay([...rows, ...extra]).sort(compareUpcomingEvents);
+}
+
+/** Apply the same narrow title prefilter used by the database before resolving aliases. */
+export function catalogEventsForArtist(events: readonly CrawledEvent[], artistSlug: string): CrawledEvent[] {
+  const artist = findArtistBySlug(artistSlug);
+  const terms = artist ? [...new Set([artist.name, ...artist.keywords])].map(term =>
+    new RegExp(term.replace(/[.*+?^$${}()|[\]\\]/g, "\\$&").replaceAll("%", ".*").replaceAll("_", "."), "isu"),
+  ) : [];
+  const bySlug: CrawledEvent[] = [];
+  const byKeyword: CrawledEvent[] = [];
+  for (const event of events) {
+    if (event.artist_slug === artistSlug) {
+      bySlug.push(event);
+    } else if (!event.artist_slug) {
+      if (terms.some(term => term.test(event.title))) byKeyword.push(event);
+    }
+  }
+  return mergeArtistEvents(artistSlug, bySlug, byKeyword);
 }
 
 /** 指定artistSlugの公演一覧をブラウザから取得する互換ラッパー。 */

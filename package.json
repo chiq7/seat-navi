@@ -28,9 +28,9 @@
     "sync:official-news-events": "node --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/syncOfficialNewsEvents.mts",
     "sync:official-tours": "node --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/syncOfficialTourSources.mts",
     "dev:vinext": "vite dev --port 3001",
-    "build:vinext": "vite build && npm run prepare:cloudflare-sitemap && npm run prepare:cloudflare-venue",
+    "build:vinext": "vite build && npm run prepare:cloudflare-sitemap && npm run prepare:cloudflare-pages",
     "prepare:cloudflare-sitemap": "node --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/prepareCloudflareSitemap.mts",
-    "prepare:cloudflare-venue": "node --experimental-strip-types ./scripts/prepareCloudflareVenue.mts",
+    "prepare:cloudflare-pages": "node --experimental-strip-types --import ./scripts/ts-loader.mjs ./scripts/prepareCloudflarePages.mts",
     "start:vinext": "vite preview",
     "deploy:vinext": "vinext-cloudflare deploy"
   },

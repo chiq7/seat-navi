@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { cache } from "react";
 import { EventDetailClient } from "./EventDetailClient";
 import { buildEventStructuredData, serializeJsonLd } from "@/lib/structuredData";
 import { getVenueSeoProfile } from "@/lib/seoProfiles";
@@ -9,6 +10,11 @@ import { getCachedEventStats } from "@/lib/serverStatsData";
 import { EVENT_DAY_PUBLICATIONS } from "@/data/eventDayPublications";
 import { eventDayGuidePath, matchPublishedEventDay } from "@/lib/eventDayPublication";
 import { getPublicVenueSeatGuideHref } from "@/lib/publicVenueGuides";
+import { getRequestPublicEventCatalog } from "@/lib/publicEventCatalogContext";
+import { describePublicEvent } from "@/lib/og/eventOgData";
+import { findDisplayedEventRepresentative } from "@/lib/eventDisplay";
+import { catalogEventsForArtist } from "@/lib/events";
+import { isPublicEventCatalogStale } from "@/lib/publicEventCatalog";
 
 type PageProps = {
   params: Promise<{ id: string }>;
@@ -18,23 +24,30 @@ function appendVenueOnce(label: string, venue: string): string {
   return label.includes(venue) ? label : `${label} ${venue}`;
 }
 
+const getPageEvent = cache(async (id: string) => {
+  const catalog = await getRequestPublicEventCatalog();
+  const event = catalog?.events.find(candidate => candidate.id === id);
+  if (event && catalog) return { info: describePublicEvent(event), catalog };
+  const info = await getCachedPublicEvent(id);
+  if (!info) notFound();
+  return { info, catalog: null };
+});
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { id: eventId } = await params;
-  const info = await getCachedPublicEvent(eventId);
-  if (!info) notFound();
+  const { info, catalog } = await getPageEvent(eventId);
 
   const { event, artist, tourName, isTestData, dateLabel } = info;
   const artistName = artist?.name ?? event.title;
-  const [{ seatReports, predictions }, canonicalEventId] = await Promise.all([
-    getCachedEventStats(info),
-    getCachedCanonicalEventId(info),
-  ]);
+  const [counts, canonicalEventId] = catalog
+    ? [null, event.date ? findDisplayedEventRepresentative(catalog.events.filter(row => row.date === event.date), event)?.id ?? event.id : event.id] as const
+    : await Promise.all([getCachedEventStats(info), getCachedCanonicalEventId(info)]);
   const ogImagePath = `/api/og/event/${eventId}`;
   const title = `${artistName} ${event.venue} ${dateLabel}｜座席表・当落・現地レポ｜ちけレポ`;
 
   const countParts = [
-    seatReports > 0 ? `座席報告${seatReports}件` : null,
-    predictions > 0 ? `座席予想${predictions}件` : null,
+    counts && counts.seatReports > 0 ? `座席報告${counts.seatReports}件` : null,
+    counts && counts.predictions > 0 ? `座席予想${counts.predictions}件` : null,
   ].filter((v): v is string => Boolean(v));
   const countText = countParts.length > 0 ? `${countParts.join("、")}。` : "";
   const descriptionSubject = appendVenueOnce(`${artistName} ${tourName}`, event.venue);
@@ -54,19 +67,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function EventDetailPage({ params }: PageProps) {
   const { id } = await params;
-  const info = await getCachedPublicEvent(id);
-  if (!info) notFound();
+  const { info, catalog } = await getPageEvent(id);
 
   const { event, artist, tourName, dateLabel } = info;
   const artistSlug = artist?.slug ?? event.artist_slug ?? null;
   const dayGuide = matchPublishedEventDay(event, artistSlug, EVENT_DAY_PUBLICATIONS);
-  const [counts, initialRelatedEvents] = await Promise.all([
-    getCachedEventStats(info),
-    artistSlug ? getCachedArtistEvents(artistSlug) : Promise.resolve([event]),
-  ]);
+  const [counts, initialRelatedEvents] = catalog
+    ? [null, artistSlug ? catalogEventsForArtist(catalog.events, artistSlug) : [event]] as const
+    : await Promise.all([getCachedEventStats(info), artistSlug ? getCachedArtistEvents(artistSlug) : Promise.resolve([event])]);
   const venueProfile = event.venue_id ? getVenueSeoProfile(event.venue_id) : null;
   const venueHref = getPublicVenueSeatGuideHref(event.venue_id, event.venue)?.split("#")[0] ?? null;
-  const venueMiniGuide = counts.seatReports === 0 && counts.predictions === 0 && !counts.hasExternalArena
+  const venueMiniGuide = !counts || (counts.seatReports === 0 && counts.predictions === 0 && !counts.hasExternalArena)
     ? {
         venueName: event.venue,
         capacityLabel: venueProfile ? `最大${venueProfile.capacity.toLocaleString("ja-JP")}人` : "会場の座席情報",
@@ -102,6 +113,8 @@ export default async function EventDetailPage({ params }: PageProps) {
         initialEvent={event}
         initialRelatedEvents={initialRelatedEvents.length > 0 ? initialRelatedEvents : [event]}
         venueMiniGuide={venueMiniGuide}
+        catalogUpdatedAt={catalog?.updatedAt}
+        catalogStale={catalog ? isPublicEventCatalogStale(catalog.updatedAt) : false}
         dayGuideHref={dayGuide ? eventDayGuidePath(event.id) : null}
       />
     </>

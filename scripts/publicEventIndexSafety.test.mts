@@ -6,6 +6,7 @@ import * as setlistHelpers from "../src/lib/setlistHelpers.ts";
 import * as artists from "../src/lib/artists.ts";
 import * as eventTitle from "../src/lib/eventTitle.ts";
 import * as eventDisplay from "../src/lib/eventDisplay.ts";
+import * as readPages from "../src/lib/supabase/readPages.ts";
 import type { CrawledEvent } from "../src/lib/types.ts";
 
 // Execute the production modules with local query responses. No credentials or DB calls.
@@ -30,6 +31,7 @@ const { isTestEvent } = loadModule<typeof import("../src/lib/seoData.ts")>("src/
   "@/lib/og/eventOgData": {},
   "@/lib/og/reportOgData": {},
   "@/lib/supabase/client": {},
+  "@/lib/supabase/readPages": readPages,
   "@/lib/eventDisplay": eventDisplay,
 });
 const { queryEventWithArtist } = loadModule<typeof import("../src/lib/og/eventOgData.ts")>("src/lib/og/eventOgData.ts", {

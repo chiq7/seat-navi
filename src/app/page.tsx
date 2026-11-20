@@ -22,6 +22,7 @@ import type { HomeFeedItem } from "@/lib/homeData";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { getJstDateString } from "@/lib/artistPageData";
 import { getCachedRealtimeFeed, getCachedUpcomingHomeEvents } from "@/lib/serverHomeData";
+import { STATIC_PUBLIC_PAGES } from "@/lib/publicPageData";
 
 export const metadata: Metadata = {
   title: "ちけレポ｜ライブの座席表・当落・現地レポ",
@@ -56,13 +57,15 @@ async function HomeUpcomingSection() {
   ]);
   const today = getJstDateString();
   const events = upcomingEvents.filter(event => event.dateIso && event.dateIso >= today);
-  const discoveryCards = await loadHomeSeatDiscovery(selectSeatDiscoveryHomeEvents(events, favoriteState.slugs)).catch(() => []);
+  const live = STATIC_PUBLIC_PAGES && !favoriteState.userId;
+  const discoveryCards = live ? [] : await loadHomeSeatDiscovery(selectSeatDiscoveryHomeEvents(events, favoriteState.slugs)).catch(() => []);
   return (
     <UpcomingEventsSection
       events={events}
       favoriteUserId={favoriteState.userId}
       favoriteSlugs={favoriteState.slugs}
       discoveryCards={discoveryCards}
+      live={live}
     />
   );
 }
@@ -171,9 +174,11 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ "
         <Suspense fallback={<UpcomingEventsSkeleton />}>
           <HomeUpcomingSection />
         </Suspense>
-        <Suspense fallback={<RealtimeFeedSkeleton />}>
-          <HomeRealtimeSection />
-        </Suspense>
+        {STATIC_PUBLIC_PAGES ? <RealtimeFeedSection live /> : (
+          <Suspense fallback={<RealtimeFeedSkeleton />}>
+            <HomeRealtimeSection />
+          </Suspense>
+        )}
         <HomeVenueDirectory regions={venueRegions} venues={venueLinks} />
         <HomeHeroPromoBanner />
         <section className="bg-section py-4 sm:py-6" aria-label="マイページ">

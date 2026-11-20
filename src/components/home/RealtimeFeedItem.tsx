@@ -21,17 +21,14 @@ const tagStyles: Record<HomeFeedItem["type"], { bg: string; color: string }> = {
   セトリ: { bg: "#edf6ff", color: "#397fb8" },
 };
 
-export default function RealtimeFeedItem({ item }: { item: HomeFeedItem }) {
+export default function RealtimeFeedItem({ item, saved }: { item: HomeFeedItem; saved?: boolean }) {
   const Icon = feedIcons[item.type];
   const tag = tagStyles[item.type];
   const tagLabel = item.source === "sample" ? "投稿イメージ" : item.type;
 
-  return (
-    <Link
-      href={item.href}
-      aria-label={`${item.artistName} ${tagLabel}: ${item.detail}。${item.venue} ${fmtFeedDate(item.date)}を開く`}
-      className="group flex min-h-[76px] min-w-0 items-start gap-2.5 py-2.5 no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d83d72]"
-    >
+  const cardClass = "group flex min-h-[76px] min-w-0 items-start gap-2.5 py-2.5 no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d83d72]";
+  const content = (
+    <>
       <span
         className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl"
         style={{ backgroundColor: tag.bg, color: tag.color }}
@@ -53,6 +50,24 @@ export default function RealtimeFeedItem({ item }: { item: HomeFeedItem }) {
           {item.xHandle ? ` · @${item.xHandle}` : ""}
         </span>
       </span>
+    </>
+  );
+  const card = saved && item.href.startsWith("/") && !item.href.startsWith("/events/") ? (
+    <div className={cardClass}>{content}</div>
+  ) : (
+    <Link href={item.href} className={cardClass} aria-label={`${item.artistName} ${tagLabel}: ${item.detail}。${item.venue} ${fmtFeedDate(item.date)}を開く`}>
+      {content}
     </Link>
+  );
+  if (!item.sourceUrl) return card;
+
+  return (
+    <div>
+      {card}
+      <a className="zr-focus -mt-2 mb-1 inline-flex min-h-11 items-center pl-[42px] text-[11px] font-semibold underline"
+        href={item.sourceUrl} target="_blank" rel="noopener noreferrer">
+        出典の公式リセール情報
+      </a>
+    </div>
   );
 }

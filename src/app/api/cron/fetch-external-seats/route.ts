@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidateTag } from "next/cache";
 import { createClient } from "@supabase/supabase-js";
+import { getJstDateString } from "@/lib/artistPageData";
 import { ingestExternalSeatText } from "@/lib/external-seats/ingest";
 import {
   daysUntilEventInJst,
@@ -31,10 +33,15 @@ export async function GET(request: NextRequest) {
   const supabase = createClient(supabaseUrl, serviceRoleKey, {
     auth: { persistSession: false, autoRefreshToken: false },
   });
+  const now = new Date();
+  const from = getJstDateString(new Date(now.getTime() + 3 * 86_400_000));
+  const to = getJstDateString(new Date(now.getTime() + 5 * 86_400_000));
   const { data, error } = await supabase
     .from("external_seat_sources")
     .select("id, event_id, source_type, source_url, active, target_date, last_fetched_at")
     .eq("active", true)
+    .gte("target_date", from)
+    .lte("target_date", to)
     .order("last_fetched_at", { ascending: true, nullsFirst: true })
     .limit(10);
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
@@ -44,8 +51,8 @@ export async function GET(request: NextRequest) {
   const robotsByOrigin = new Map<string, { allowed: boolean; reason?: string }>();
   for (const source of sources) {
     const eventDate = source.target_date;
-    const daysUntil = daysUntilEventInJst(eventDate);
-    if (!isResaleCollectionWindow(eventDate)) {
+    const daysUntil = daysUntilEventInJst(eventDate, now);
+    if (!isResaleCollectionWindow(eventDate, now)) {
       results.push({ sourceId: source.id, status: "skipped", reason: "巡回対象期間外", daysUntil });
       continue;
     }
@@ -118,5 +125,6 @@ export async function GET(request: NextRequest) {
     }
   }
 
+  if (results.some(result => result.status === "ok" && Number(result.accepted) > 0)) revalidateTag("feed", "max");
   return NextResponse.json({ processed: sources.length, results });
 }

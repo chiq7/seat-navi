@@ -76,7 +76,7 @@ export async function getSitemapEntries(
       ),
     ),
     sitemapEntry(`${SITE_URL}/terms`, "2026-07-14", { changeFrequency: "yearly", priority: 0.3 }),
-    sitemapEntry(`${SITE_URL}/privacy`, "2026-07-14", { changeFrequency: "yearly", priority: 0.3 }),
+    sitemapEntry(`${SITE_URL}/privacy`, "2026-11-09", { changeFrequency: "yearly", priority: 0.3 }),
     sitemapEntry(`${SITE_URL}/contact`, "2026-07-14", { changeFrequency: "yearly", priority: 0.3 }),
   ];
 }
