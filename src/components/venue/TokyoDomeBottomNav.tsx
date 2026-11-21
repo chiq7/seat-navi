@@ -35,24 +35,23 @@ export default function TokyoDomeBottomNav() {
   }, []);
 
   useEffect(() => {
-    let frame = 0;
-    const update = () => {
-      frame = 0;
-      // Sections land about 80–110px from the top after a jump; a short one (the photo strip) must still win.
-      const line = Math.min(window.innerHeight * 0.4, 200);
-      let best: { top: number; tab: Tab } | null = null;
-      for (const [id, tab] of SECTION_TAB) {
-        const top = document.getElementById(id)?.getBoundingClientRect().top;
-        if (top !== undefined && top <= line && (!best || top > best.top)) best = { top, tab };
-      }
-      setActive(best?.tab ?? "seats");
-    };
-    const onScroll = () => { if (!frame) frame = requestAnimationFrame(update); };
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    const events = ["resize", "hashchange", "scrollend"];
-    events.forEach(name => window.addEventListener(name, onScroll));
-    return () => { window.removeEventListener("scroll", onScroll); events.forEach(name => window.removeEventListener(name, onScroll)); if (frame) cancelAnimationFrame(frame); };
+    // A thin reading line ~200px from the top: the section under it is lit. The browser reports crossings,
+    // so nothing runs on each scroll frame. Sections land ~80–110px from the top after a jump.
+    const line = Math.round(Math.min(window.innerHeight * 0.4, 200));
+    const tabOf = new globalThis.Map<Element, Tab>(); // "Map" here is the icon import
+    for (const [id, tab] of SECTION_TAB) {
+      const element = document.getElementById(id);
+      const block = element?.tagName === "H2" ? element.closest("section") ?? element : element;
+      if (block) tabOf.set(block, tab);
+    }
+    const under = new Set<Element>();
+    const observer = new IntersectionObserver(entries => {
+      for (const entry of entries) { if (entry.isIntersecting) under.add(entry.target); else under.delete(entry.target); }
+      const hit = [...under].sort((a, b) => b.getBoundingClientRect().top - a.getBoundingClientRect().top)[0];
+      if (hit) setActive(tabOf.get(hit)!);
+    }, { rootMargin: `-${line}px 0px -${Math.max(0, window.innerHeight - line - 1)}px 0px` });
+    tabOf.forEach((_, block) => observer.observe(block));
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {

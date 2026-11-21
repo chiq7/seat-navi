@@ -588,10 +588,27 @@ export function TokyoDomeSeatLocator() {
     // for the map before the browser can start scrolling, so the pinch reaches the pointer handlers.
     const canvas = mapCanvasRef.current;
     if (!canvas) return;
-    const claim = (event: TouchEvent) => { if (event.touches.length >= 2 && event.cancelable) event.preventDefault(); };
-    canvas.addEventListener("touchstart", claim, { passive: false });
-    canvas.addEventListener("touchmove", claim, { passive: false });
-    return () => { canvas.removeEventListener("touchstart", claim); canvas.removeEventListener("touchmove", claim); };
+    const holdMove = (event: TouchEvent) => { if (event.cancelable) event.preventDefault(); };
+    const release = (event: TouchEvent) => {
+      if (event.touches.length >= 2) return;
+      canvas.removeEventListener("touchmove", holdMove);
+      canvas.removeEventListener("touchend", release);
+      canvas.removeEventListener("touchcancel", release);
+    };
+    const start = (event: TouchEvent) => {
+      if (event.touches.length < 2) return;
+      if (event.cancelable) event.preventDefault();
+      canvas.addEventListener("touchmove", holdMove, { passive: false });
+      canvas.addEventListener("touchend", release);
+      canvas.addEventListener("touchcancel", release);
+    };
+    canvas.addEventListener("touchstart", start, { passive: false });
+    return () => {
+      canvas.removeEventListener("touchstart", start);
+      canvas.removeEventListener("touchmove", holdMove);
+      canvas.removeEventListener("touchend", release);
+      canvas.removeEventListener("touchcancel", release);
+    };
   }, []);
 
   useEffect(() => {
@@ -714,7 +731,7 @@ export function TokyoDomeSeatLocator() {
   function chooseLevel(level:SeatLevel) {
     setSeatLevel(level);clearSelection();
     const view = level === "outfield" ? (["left", "right"].includes(direction) ? direction : "right")
-      : level === "all" ? direction : ["left", "right", "outfield"].includes(direction) ? "all" : direction;
+      : ["left", "right", "outfield"].includes(direction) ? "all" : direction;
     showMapView(view, level);
   }
   function chooseArea(area:SeatArea,source:"map" | "block" | "ticket" = "map") {

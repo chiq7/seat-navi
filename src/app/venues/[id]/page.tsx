@@ -25,6 +25,7 @@ import { getVenueArenaPhotoArchives } from "@/data/venueArenaPhotoArchives";
 import { SeatSourcePreview } from "@/components/venue/SeatSourceArchive";
 import { getSeatSources, seatSourcePermalink, sourceKinds } from "@/lib/seatSourceArchive";
 import { ArenaMapsProvider, type ArenaMapPost } from "@/components/venue/ArenaMapsSheet";
+import arenaMapPhotos from "@/data/arenaMapPhotos.json";
 import { getVenuePhotoCovers } from "@/lib/serverSeatPhotoVenues";
 import VenuePhotoStrip from "@/components/venue/VenuePhotoStrip";
 import compactStyles from "@/components/venue/VenueCompact.module.css";
@@ -58,7 +59,9 @@ export default async function VenuePage({ params, searchParams }: Props) {
   const arenaMaps: ArenaMapPost[] = sources.arena_map.map(post => {
     const row = post.rows[0];
     const [, date = "", title = row.eventLabel] = row.eventLabel.match(/^(\d{4}\/\d{2}\/\d{2})\s+(.+)$/) ?? [];
-    return { id: post.sourceId, url: seatSourcePermalink(row), date, title, eventId: row.eventId };
+    const photo = (arenaMapPhotos.posts as Record<string, { media: string; width: number; height: number; user: string }>)[post.sourceId];
+    return { id: post.sourceId, url: seatSourcePermalink(row), date, title, eventId: row.eventId,
+      image: photo && /^[\w-]+$/.test(photo.media) ? { src: `https://pbs.twimg.com/media/${photo.media}?format=jpg&name=large`, width: photo.width, height: photo.height, user: photo.user } : null };
   });
   const seatTarget = hasGuide ? parseVenueSeatLink(await searchParams) : null;
   const { displayName: publicName, officialName, alternateNames, photos } = getVenuePageContent(venue.id, venue.name);

@@ -51,7 +51,7 @@ export function Header({
     <>
       <header
         data-page-header
-        className={`fixed inset-x-0 top-0 z-[60] h-14 border-b border-divider bg-white/90 shadow-[0_4px_18px_rgba(58,58,62,0.06)] backdrop-blur-xl sm:h-16 ${className ?? ""}`}
+        className={`fixed inset-x-0 top-0 z-[60] h-14 border-b border-divider bg-white shadow-[0_4px_18px_rgba(58,58,62,0.06)] sm:h-16 ${className ?? ""}`}
       >
         <div className="zr-container grid h-full grid-cols-[minmax(44px,auto)_minmax(0,1fr)_minmax(44px,auto)] items-center sm:grid-cols-[88px_minmax(0,1fr)_88px]">
           <div className="flex justify-start">

@@ -1,28 +1,32 @@
-.sheet { position:fixed; inset:auto 0 0 0; width:100%; max-width:560px; max-height:92dvh; margin:0 auto; padding:0; border:0; border-radius:20px 20px 0 0; background:#fff; color:#44333d; overflow:hidden; }
+.sheet { position:fixed; inset:auto 0 0 0; width:100%; max-width:560px; height:min(92dvh,760px); max-height:92dvh; margin:0 auto; padding:0; border:0; border-radius:20px 20px 0 0; background:#fff; color:#44333d; overflow:hidden; }
 .sheet[open] { display:grid; grid-template-rows:auto auto minmax(0,1fr) auto; }
 .sheet::backdrop { background:#2b1f2699; }
-.head { display:flex; align-items:center; justify-content:space-between; padding:12px 12px 6px 16px; }
-.head h2 { display:flex; align-items:baseline; gap:8px; margin:0; font-size:17px; font-weight:900; }
+.head { display:flex; align-items:center; gap:8px; padding:10px 10px 4px 16px; }
+.head h2 { display:flex; align-items:baseline; gap:8px; margin:0 auto 0 0; font-size:17px; font-weight:900; }
 .head small { color:#8b7a84; font-size:12px; font-weight:800; font-variant-numeric:tabular-nums; }
-.close { display:grid; place-items:center; width:40px; height:40px; border-radius:999px; background:#f6eef2; color:#7a3a58; cursor:pointer; }
-.chips { display:flex; gap:6px; padding:2px 12px 10px; overflow-x:auto; scrollbar-width:none; }
+.xLink { display:inline-flex; align-items:center; gap:4px; min-width:0; max-width:46%; min-height:36px; padding:0 10px; border:1px solid #ecd2de; border-radius:999px; color:#7a3a58; font-size:12px; font-weight:800; text-decoration:none; }
+.xLink span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.close { display:grid; flex:0 0 auto; place-items:center; width:40px; height:40px; border-radius:999px; background:#f6eef2; color:#7a3a58; cursor:pointer; }
+.chips { display:flex; gap:6px; padding:4px 12px 8px; overflow-x:auto; scrollbar-width:none; overscroll-behavior-x:contain; }
 .chips::-webkit-scrollbar { display:none; }
-.chips button { display:flex; flex:0 0 auto; flex-direction:column; align-items:flex-start; max-width:150px; min-height:44px; padding:5px 12px; border:1px solid #ecd2de; border-radius:12px; background:#fff; color:#725965; text-align:left; cursor:pointer; }
+.chips button { display:flex; flex:0 0 auto; flex-direction:column; align-items:flex-start; max-width:140px; min-height:40px; padding:4px 10px; border:1px solid #ecd2de; border-radius:12px; background:#fff; color:#725965; text-align:left; cursor:pointer; }
 .chips b { color:#a93164; font-size:11px; font-weight:900; font-variant-numeric:tabular-nums; }
 .chips span { max-width:100%; overflow:hidden; font-size:12px; font-weight:800; text-overflow:ellipsis; white-space:nowrap; }
 .chips button[aria-pressed=true] { border-color:#a93164; background:#a93164; color:#fff; }
 .chips button[aria-pressed=true] b { color:#ffd9e7; }
 .pages { display:flex; min-height:0; overflow-x:auto; overflow-y:hidden; scroll-snap-type:x mandatory; scrollbar-width:none; overscroll-behavior-x:contain; }
 .pages::-webkit-scrollbar { display:none; }
-.page { display:grid; flex:0 0 100%; grid-template-rows:minmax(0,1fr) auto; min-height:0; padding:0 12px; scroll-snap-align:start; scroll-snap-stop:always; }
-.embed { display:block; width:100%; height:min(58dvh,560px); border:0; border-radius:12px; background:#f6eef2; }
-.actions { display:flex; gap:8px; padding:8px 0 4px; }
-.actions a { display:inline-flex; flex:1 1 0; align-items:center; justify-content:center; gap:6px; min-height:44px; border:1px solid #ecd2de; border-radius:12px; background:#fff; color:#96305b; font-size:13px; font-weight:800; text-decoration:none; }
-.actions .primary { border-color:#a93164; background:#a93164; color:#fff; }
-.pager { display:grid; grid-template-columns:48px minmax(0,1fr) 48px; align-items:center; gap:6px; padding:6px 12px calc(10px + env(safe-area-inset-bottom)); border-top:1px solid #f0e1e8; }
-.pager button { display:grid; place-items:center; width:48px; height:44px; border:1px solid #ecd2de; border-radius:12px; background:#fff; color:#96305b; cursor:pointer; }
+/* The photo sits in the middle of the page, as large as fits. */
+.page { display:grid; flex:0 0 100%; place-items:center; min-height:0; padding:0 12px; scroll-snap-align:start; scroll-snap-stop:always; }
+.photo { display:block; width:auto; height:auto; max-width:100%; max-height:100%; border-radius:12px; background:#f6eef2; object-fit:contain; }
+.placeholder { width:100%; height:100%; border-radius:12px; background:#f6eef2; }
+.embed { display:block; width:100%; height:100%; border:0; border-radius:12px; background:#f6eef2; }
+.pager { display:grid; grid-template-columns:44px minmax(0,1fr) 44px; align-items:center; gap:6px; padding:6px 10px calc(8px + env(safe-area-inset-bottom)); border-top:1px solid #f0e1e8; }
+.pager button { display:grid; place-items:center; width:44px; height:44px; border:1px solid #ecd2de; border-radius:12px; background:#fff; color:#96305b; cursor:pointer; }
 .pager button:disabled { border-color:#eee9eb; background:#f7f5f6; color:#c9bfc4; cursor:default; }
-.pager p { display:grid; min-width:0; margin:0; text-align:center; }
-.pager b { color:#a93164; font-size:12px; font-weight:900; font-variant-numeric:tabular-nums; }
-.pager span { overflow:hidden; font-size:13px; font-weight:800; text-overflow:ellipsis; white-space:nowrap; }
+.current { display:grid; min-width:0; margin:0; padding:2px 4px; border-radius:10px; color:#44333d; text-align:center; text-decoration:none; }
+.current b { color:#a93164; font-size:12px; font-weight:900; font-variant-numeric:tabular-nums; }
+.current span { overflow:hidden; font-size:13px; font-weight:800; text-overflow:ellipsis; white-space:nowrap; }
+.current small { color:#a93164; font-size:11px; font-weight:800; }
+a.current:active { background:#fff0f6; }
 .sheet button:focus-visible, .sheet a:focus-visible { outline:3px solid #a93164; outline-offset:2px; }
