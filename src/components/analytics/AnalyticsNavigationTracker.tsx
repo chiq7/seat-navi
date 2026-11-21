@@ -31,6 +31,29 @@ export function AnalyticsNavigationTracker() {
     });
   }, [currentUrl]);
 
+  // Report funnel: which screen of the posting flow was reached (entry / live / ticket / ...).
+  useEffect(() => {
+    if (!pathname.startsWith("/report")) return;
+    trackEvent("report_form_view", { report_step: pathname.split("/")[2] || "entry" });
+  }, [pathname]);
+
+  // Report funnel: a link into the posting flow was tapped, and from which page and placement.
+  useEffect(() => {
+    const onClick = (event: MouseEvent) => {
+      const link = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>("a[href]") : null;
+      if (!link || window.location.pathname.startsWith("/report")) return;
+      const url = new URL(link.href, window.location.href);
+      if (url.origin !== window.location.origin || !url.pathname.startsWith("/report")) return;
+      trackEvent("report_cta_click", {
+        placement: link.dataset.reportCta ?? "link",
+        page_type: window.location.pathname.split("/")[1] || "home",
+        report_step: url.pathname.split("/")[2] || "entry",
+      });
+    };
+    document.addEventListener("click", onClick, { capture: true });
+    return () => document.removeEventListener("click", onClick, { capture: true });
+  }, []);
+
   return null;
 }
 

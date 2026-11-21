@@ -30,7 +30,7 @@ import { getVenuePhotoCovers } from "@/lib/serverSeatPhotoVenues";
 import VenuePhotoStrip from "@/components/venue/VenuePhotoStrip";
 import compactStyles from "@/components/venue/VenueCompact.module.css";
 import { TokyoDomeGuideNav } from "@/components/venue/TokyoDomeVisitorGuide";
-import { PenLine } from "lucide-react";
+import { Camera, ChevronRight } from "lucide-react";
 
 const SITE_URL = "https://tixrepo.com";
 
@@ -158,12 +158,15 @@ export default async function VenuePage({ params, searchParams }: Props) {
 
       {/* Tokyo Dome shows seat posts as photos and arena maps from the seat map, so the post list is left out. */}
       {!compact && <SeatSourcePreview scope="venues" id={venue.id} />}
-      {compact && <div className="zr-container pb-2">
-        <Link href={`/report?venue=${encodeURIComponent(venue.id)}`} className="zr-focus flex min-h-12 items-center justify-center gap-2 rounded-xl border border-[#ecd2de] bg-white text-sm font-bold text-[#96305b]">
-          <PenLine size={16} aria-hidden="true" />この会場のライブを報告する
+      {compact && <div className={`${compactStyles.photoList} ${compactStyles.later}`}><VenueSeatReadingGuide venueId={venue.id} name={publicName} photoPreview={photos} gallery /></div>}
+      {/* Visitors usually arrive before their show, so the invitation is for any past visit, not today's seat. */}
+      {compact && <div className="zr-container pb-3">
+        <Link href={`/report?venue=${encodeURIComponent(venue.id)}`} data-report-cta="venue_photo_list" className={`zr-focus ${compactStyles.postCta}`}>
+          <Camera size={22} aria-hidden="true" />
+          <span><strong>{publicName}の座席写真を投稿</strong><small>過去のライブの1枚でもOK・ログイン不要</small></span>
+          <ChevronRight size={18} aria-hidden="true" />
         </Link>
       </div>}
-      {compact && <div className={`${compactStyles.photoList} ${compactStyles.later}`}><VenueSeatReadingGuide venueId={venue.id} name={publicName} photoPreview={photos} gallery /></div>}
       {photoArchives.length > 0 && <section id="past-arena-photos" className="zr-container scroll-mt-[90px] py-6" aria-labelledby="past-arena-photos-heading">
         <h2 id="past-arena-photos-heading" className="artist-heading">過去公演のアリーナ配置と写真</h2>
         <p className="mt-1 mb-3 text-sm text-[#68525e]">アリーナの配置は公演ごとに変わります。</p>
