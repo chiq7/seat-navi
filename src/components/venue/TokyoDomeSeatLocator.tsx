@@ -33,6 +33,7 @@ import { DomeSeatFrame } from "./template/DomeSeatFrame";
 import { seatViewPosts } from "@/lib/seatViewPosts";
 import { announceTokyoDomeMapScope, getTokyoDomeVenueSeatSelection, TOKYO_DOME_SEAT_SELECTION_EVENT } from "@/lib/tokyoDomeVenueSelection";
 import { useArenaMaps } from "./ArenaMapsSheet";
+import SeatPhotoRequest from "./SeatPhotoRequest";
 import { useVenueSeatTarget } from "./VenueSeatTarget";
 
 type SeatArea = { code: string; label: [number, number]; path: string | null; shared: boolean; rows: [number, number] | null };
@@ -780,7 +781,8 @@ export function TokyoDomeSeatLocator() {
             <button type="button" onClick={clearSelection} aria-label="座席の選択を解除"><X size={18}/></button>
           </div>
         </> : <div className={styles.overviewHeading}><strong>{seatLevel === "all" && direction === "all" ? "東京ドームの全体図" : `${SEAT_LEVELS.find(level => level.id === seatLevel)!.label}・${MAP_VIEWS[direction].label}`}</strong><span>区画をタップで拡大</span></div>}</div>
-        <SeatPhotoMapSummary selection={seatView} count={PHOTO_SECTION_CODES.size} onOpen={() => setPhotoRequest(request => request + 1)} />
+        <SeatPhotoMapSummary selection={seatView} count={PHOTO_SECTION_CODES.size} onOpen={() => setPhotoRequest(request => request + 1)}
+          emptySlot={selectedArea && !PHOTO_SECTION_CODES.has(selectedArea.code) ? <SeatPhotoRequest venueId="tokyo-dome" section={selectedArea.code} /> : undefined} />
         {notice&&<p role="status" className={styles.hint}>{notice}</p>}
         {offsideArea && <button type="button" className="zr-focus min-h-11 rounded-full border border-[#d4adb9] px-4 text-sm font-bold" onClick={() => chooseCode(offsideArea.code)}>
           {MAP_VIEWS[directionForArea(offsideArea)].label}に切り替えて{offsideArea.code}を表示

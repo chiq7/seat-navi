@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type PointerEvent } from "react";
+import { useEffect, useRef, useState, type PointerEvent, type ReactNode } from "react";
 import { Camera, ChevronLeft, ChevronRight, ExternalLink, Link2, X } from "lucide-react";
 import { seatViewInlinePhotoUrl, seatViewPhotoSourceUrl, seatViewSingleImageEmbedUrl, seatViewXStatusId } from "@/lib/seatViewPhotoAssets";
 import { seatViewMatchesForSelection, seatViewPosts, type seatViewMatch, type SeatViewPost, type SeatViewSelection } from "@/lib/seatViewPosts";
@@ -15,10 +15,12 @@ export type SeatPhotoShare = { venueId: string; venueName: string; target: Venue
 
 export const SEAT_PHOTO_MAP_COLOR = "#713d67";
 
-export function SeatPhotoMapSummary({ selection, count, onOpen }: {
+export function SeatPhotoMapSummary({ selection, count, onOpen, emptySlot }: {
   selection: SeatViewSelection;
   count: number;
   onOpen: () => void;
+  /** Shown instead of the "no photo yet" line for a chosen place without photos (e.g. a request button). */
+  emptySlot?: ReactNode;
 }) {
   const summary = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -42,7 +44,7 @@ export function SeatPhotoMapSummary({ selection, count, onOpen }: {
   const first = matches[0];
   return <div ref={summary} id="venue-seat-photos" className={`${styles.mapPhotoSummary} scroll-mt-[90px]`} data-seat-photo-summary>
     {first ? <SeatPhotoPreview key={first.post.url + ":" + first.post.photo}
-      match={first} count={matches.length} onClick={onOpen} /> : <>
+      match={first} count={matches.length} onClick={onOpen} /> : hasSelection && emptySlot ? emptySlot : <>
       <span className={styles.mapPhotoHeading}><Camera size={19} aria-hidden="true" />
         {hasSelection ? "この区画の写真はまだありません" : <>写真がある区画<span>{count}か所</span></>}
       </span>

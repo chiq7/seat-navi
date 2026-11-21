@@ -24,3 +24,8 @@ export function trackVenueSeatPhotoShareClick(id:string, placement:"photo_unlock
   const venue=venueId(id);
   if(venue)trackEvent("venue_seat_photo_share_click",{venue_id:venue,placement,share_destination:"x"});
 }
+/** A visitor asked for a seat-view photo of a block. The block itself is not sent. */
+export function trackVenueSeatPhotoRequest(id:string) {
+  const venue=venueId(id);
+  if(venue)trackEvent("venue_seat_photo_request",{venue_id:venue});
+}
