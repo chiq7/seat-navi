@@ -40,7 +40,7 @@ export default function ContactPage() {
             rel="noreferrer"
             className="zr-focus flex min-h-11 items-center justify-center gap-2 rounded-[14px] border border-[#ded8dc] bg-white px-4 text-[12px] font-black text-[#665a61] no-underline"
           >
-            公式X（@tixrepo）へ
+            公式Xを見る
             <ExternalLink size={15} className="text-[#f43679]" />
           </a>
         </div>

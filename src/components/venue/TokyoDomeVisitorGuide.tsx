@@ -5,6 +5,7 @@ import { TokyoDomeGuideFinder } from "./TokyoDomeGuideFinder";
 import { tokyoDomeAccessStation, TOKYO_DOME_STATION_WALKING, TOKYO_DOME_ACCESS_EVENT } from "@/lib/tokyoDomeAccess";
 import VenueAccessCards from "./template/VenueAccessCards";
 import VenueLuggageLink from "./template/VenueLuggageLink";
+import TokyoDomeBottomNav from "./TokyoDomeBottomNav";
 import styles from "./TokyoDomeVisitorGuide.module.css";
 
 export function TokyoDomeGuideNav() {
@@ -13,7 +14,7 @@ export function TokyoDomeGuideNav() {
     { id: "dome-access", label: "アクセス", icon: TrainFront }, { id: "dome-prepare", label: "持ち物", icon: Luggage }, { id: "seat-source-posts", label: "レポ", icon: MessageSquareText },
     { id: "upcoming-events-title", label: "公演", icon: Ticket }, { id: "dome-faq", label: "質問", icon: CircleHelp },
   ];
-  return <nav className={`zr-container ${styles.chipNav}`} aria-label="東京ドームガイドの目次">
+  return <><TokyoDomeBottomNav /><nav className={`zr-container ${styles.chipNav}`} aria-label="東京ドームガイドの目次">
     {links.map(({ id, label, icon: Icon }) => {
         const content = <><Icon size={16} aria-hidden="true" /><span>{label}</span></>;
         const href = `#${id}`;
@@ -21,7 +22,7 @@ export function TokyoDomeGuideNav() {
           ? <VenueProgramAnchor key={id} fallbackHref={href}>{content}</VenueProgramAnchor>
           : <a key={id} href={href}>{content}</a>;
       })}
-  </nav>;
+  </nav></>;
 }
 
 export function TokyoDomeVisitorGuide() {

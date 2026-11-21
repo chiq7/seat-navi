@@ -378,6 +378,8 @@
 .chipNav a:hover { background:#fff0f6; }
 .chipNav a:focus-visible { outline:3px solid #a93164; outline-offset:2px; }
 @media (min-width: 640px) { .chipNav { top:64px; } }
+/* Phones use the bottom bar (TokyoDomeBottomNav) instead of the top chips. */
+@media (max-width: 767px) { .chipNav { display:none; } }
 .chipLink { display:inline-flex; align-items:center; gap:3px; min-height:36px; margin:8px 0 4px; padding:0 12px; border:1px solid #ecd2de; border-radius:999px; background:#fff7fa; color:#96305b; font-size:12px; font-weight:800; text-decoration:none; }
 .faq a.chipLink { min-height:36px; }
 /* 東京ドーム：設備検索を1行ずつにまとめ、一覧の二重スクロールをなくす */
