@@ -23,7 +23,11 @@
 .form button { min-height:42px; padding:8px 20px; border-radius:10px; background:var(--rose); color:#fff; font-size:13px; font-weight:800; }
 .searchTitle { margin:0 0 9px; font-size:12px; font-weight:800; }
 .message { margin:8px 0 0; font-size:12px; color:#a52c5b; line-height:1.6; }
-.map { position:relative; height:clamp(480px,70vh,650px); background:#fff; overflow:hidden; }
+.map { position:relative; height:clamp(480px,70vh,650px); background:#fff; overflow:hidden; contain:paint; }
+/* Resting picture of the map (see TokyoDomeSeatLocator): shown instead of the live SVG until the map is touched. */
+.mapSnapshot { position:absolute; inset:0; display:none; width:100%; height:100%; pointer-events:none; user-select:none; }
+.map[data-snapshot]:not([data-moving]) .mapSnapshot { display:block; }
+.map[data-snapshot]:not([data-moving]) > svg { visibility:hidden; }
 /* touch-action comes from the canvas: pan-y on the whole map (page scroll), none when zoomed. */
 .map svg { display:block; width:100%; height:100%; touch-action:inherit; user-select:none; cursor:grab; }
 /* While a finger or the camera moves the map, overlays placed for the last resting view are hidden. */

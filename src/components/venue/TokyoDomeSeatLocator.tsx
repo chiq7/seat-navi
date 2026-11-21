@@ -338,6 +338,7 @@ export function TokyoDomeSeatLocator() {
   const wheelCommitRef = useRef<number | null>(null);
   useLayoutEffect(() => { if (!movingRef.current) liveBoxRef.current = interactiveViewBox; }, [interactiveViewBox]);
   function paintBox(box: MapViewBox) {
+    wakeMap();
     liveBoxRef.current = box;
     mapSvgRef.current?.setAttribute("viewBox", serializeMapViewBox(box));
     if (!movingRef.current) { movingRef.current = true; mapCanvasRef.current?.setAttribute("data-moving", ""); }
@@ -348,6 +349,45 @@ export function TokyoDomeSeatLocator() {
     mapCanvasRef.current?.removeAttribute("data-moving");
     setInteractiveViewBox(liveBoxRef.current);
   }
+  // While the map rests, a picture of it replaces the live SVG: phones repaint a still image cheaply when the
+  // page scrolls, but redraw hundreds of vector shapes (with gradients and non-scaling strokes) again and again.
+  // Any touch, key or state change brings the live SVG straight back; a new picture is taken once it settles.
+  const snapshotRef = useRef<HTMLImageElement>(null);
+  const snapshotUrlRef = useRef<string | null>(null);
+  const snapshotTimerRef = useRef<number | null>(null);
+  function wakeMap() {
+    if (snapshotTimerRef.current !== null) { clearTimeout(snapshotTimerRef.current); snapshotTimerRef.current = null; }
+    mapCanvasRef.current?.removeAttribute("data-snapshot");
+  }
+  function scheduleSnapshot() {
+    if (snapshotTimerRef.current !== null) clearTimeout(snapshotTimerRef.current);
+    snapshotTimerRef.current = window.setTimeout(() => {
+      snapshotTimerRef.current = null;
+      const svg = mapSvgRef.current, canvas = mapCanvasRef.current, image = snapshotRef.current;
+      if (!svg || !canvas || !image || movingRef.current || pointerPositionsRef.current.size > 0 || canvas.contains(document.activeElement)) return;
+      const { width, height } = svg.getBoundingClientRect();
+      if (width < 2 || height < 2) return;
+      const copy = svg.cloneNode(true) as SVGSVGElement;
+      copy.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+      copy.setAttribute("width", String(Math.round(width)));
+      copy.setAttribute("height", String(Math.round(height)));
+      copy.setAttribute("font-family", getComputedStyle(svg).fontFamily + ", sans-serif");
+      const url = URL.createObjectURL(new Blob([new XMLSerializer().serializeToString(copy)], { type: "image/svg+xml" }));
+      const previous = snapshotUrlRef.current;
+      snapshotUrlRef.current = url;
+      image.src = url;
+      image.decode().then(() => {
+        if (snapshotUrlRef.current !== url || movingRef.current || pointerPositionsRef.current.size > 0) return;
+        canvas.setAttribute("data-snapshot", "");
+        if (previous) URL.revokeObjectURL(previous);
+      }).catch(() => undefined);
+    }, 400);
+  }
+  useLayoutEffect(() => { wakeMap(); scheduleSnapshot(); });
+  useEffect(() => () => {
+    if (snapshotTimerRef.current !== null) clearTimeout(snapshotTimerRef.current);
+    if (snapshotUrlRef.current) URL.revokeObjectURL(snapshotUrlRef.current);
+  }, []);
   const showDetail = interactiveViewBox.width <= 680;
   // Fade the illustration through the existing camera motion; detail is unchanged.
   const overviewOpacity = Math.max(0, Math.min(1, (interactiveViewBox.width - 520) / 380));
@@ -650,7 +690,10 @@ export function TokyoDomeSeatLocator() {
     const control = (event.target as Element).closest("button");
     if (!control && (event.pointerType !== "touch" || liveBoxRef.current.width < FULL_MAP_VIEW_BOX.width * .99)) event.preventDefault();
     if(animationRef.current!==null)cancelAnimationFrame(animationRef.current);
-    const target = event.target instanceof Element ? event.target.closest<SVGElement>("[data-seat-code]") : null;
+    const fromPicture = event.currentTarget.hasAttribute("data-snapshot");
+    wakeMap();
+    const hit = fromPicture && !control ? document.elementFromPoint(event.clientX, event.clientY) : event.target;
+    const target = hit instanceof Element ? hit.closest<SVGElement>("[data-seat-code]") : null;
     if (!control) event.currentTarget.setPointerCapture(event.pointerId);
     const point = { x: event.clientX, y: event.clientY };
     pointerPositionsRef.current.set(event.pointerId, point);
@@ -710,7 +753,7 @@ export function TokyoDomeSeatLocator() {
     pointerStartsRef.current.delete(event.pointerId);
     startGesture();
     if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
-    if (pointerPositionsRef.current.size === 0) { didPanRef.current = false; commitBox(); }
+    if (pointerPositionsRef.current.size === 0) { didPanRef.current = false; commitBox(); scheduleSnapshot(); }
     if (shouldSelect && start?.code) {
       const area = AREA_BY_CODE.get(start.code);
       if (area) chooseArea(area);
@@ -855,8 +898,14 @@ export function TokyoDomeSeatLocator() {
         <div ref={mapCanvasRef} className={styles.map} data-view={showDetail ? "detail" : "overview"} data-whole={!selected && direction === "all" && seatLevel === "all" ? "" : undefined} aria-label="東京ドームの座席図"
           style={{ touchAction: interactiveViewBox.width >= FULL_MAP_VIEW_BOX.width * .99 ? "pan-y" : "none" }}
           onPointerDown={handleMapPointerDown} onPointerMove={handleMapPointerMove} onPointerUp={handleMapPointerEnd} onPointerCancel={handleMapPointerEnd} onLostPointerCapture={handleMapPointerEnd}
-          onPointerLeave={event => { if (!event.currentTarget.hasPointerCapture(event.pointerId)) handleMapPointerEnd(event); }}
+          onFocusCapture={wakeMap} onBlurCapture={scheduleSnapshot} onPointerEnter={event => { if (event.pointerType === "mouse") wakeMap(); }}
+          onPointerLeave={event => {
+            if (!event.currentTarget.hasPointerCapture(event.pointerId)) handleMapPointerEnd(event);
+            if (event.pointerType === "mouse" && !event.currentTarget.hasPointerCapture(event.pointerId)) scheduleSnapshot();
+          }}
           onClickCapture={event => { if (suppressMapClick.current && event.detail !== 0 && !(event.target as Element).closest("[data-map-control]")) { event.preventDefault(); event.stopPropagation(); } }}>
+            {/* eslint-disable-next-line @next/next/no-img-element -- a local picture of the map above, not a content image */}
+            <img ref={snapshotRef} className={styles.mapSnapshot} alt="" aria-hidden="true" decoding="async" />
             <svg ref={mapSvgRef} viewBox={serializeMapViewBox(interactiveViewBox)}
               onClick={event => {
                 // Pointer taps select on release, including when the canvas captured the pointer.
@@ -889,7 +938,7 @@ export function TokyoDomeSeatLocator() {
                   fontSize={14 / screenScale} fontWeight="900" fill="#3f6f5c">アリーナ</text>}
               </g>}
               <g data-overview-art="structure" opacity={overviewOpacity} pointerEvents="none" aria-hidden="true">
-                <path d={OVERVIEW_SURFACES.bowl} fill="url(#tokyo-bowl-surface)" stroke="#d8e1e8" strokeWidth="2" filter="url(#tokyo-bowl-shadow)"/>
+                <path d={OVERVIEW_SURFACES.bowl} fill="url(#tokyo-bowl-surface)" stroke="#d8e1e8" strokeWidth="2"/>
                 <path d={OVERVIEW_SURFACES.bowl} fill="none" stroke="#fff" strokeWidth="7"/>
                 <path d={OVERVIEW_SURFACES.floor} fill="url(#tokyo-floor-surface)" stroke="#e8eee9" strokeWidth="12"/>
                 <path d={OVERVIEW_SURFACES.floor} fill="url(#tokyo-floor-stripes)" stroke="#719886" strokeWidth="1.5"/>
