@@ -29,3 +29,8 @@ export function trackVenueSeatPhotoRequest(id:string) {
   const venue=venueId(id);
   if(venue)trackEvent("venue_seat_photo_request",{venue_id:venue});
 }
+/** A visitor opened X to post their own seat-view photo. */
+export function trackVenueSeatPhotoPostClick(id:string, placement:"empty_block"|"photo_row") {
+  const venue=venueId(id);
+  if(venue)trackEvent("venue_seat_photo_post_click",{venue_id:venue,placement,share_destination:"x"});
+}

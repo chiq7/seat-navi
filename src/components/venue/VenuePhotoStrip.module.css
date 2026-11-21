@@ -3,7 +3,8 @@
 .head h2 { margin:0; min-width:0; overflow:hidden; font-size:16px; font-weight:900; color:#4b4148; text-overflow:ellipsis; white-space:nowrap; }
 .head h2 small { margin-left:2px; color:#8b7a84; font-size:12px; font-weight:800; }
 .row li[data-near] .tile { outline:2px solid #a93164; outline-offset:-2px; }
-.all { display:inline-flex; align-items:center; gap:2px; margin-left:auto; min-height:36px; padding:0 6px 0 12px; border:1px solid #ecd2de; border-radius:999px; background:#fff; color:#96305b; font-size:13px; font-weight:800; }
+.head h2 { margin-right:auto; }
+.all { display:inline-flex; align-items:center; gap:2px; min-height:36px; padding:0 6px 0 12px; border:1px solid #ecd2de; border-radius:999px; background:#fff; color:#96305b; font-size:13px; font-weight:800; }
 .row { display:flex; gap:8px; margin:8px -16px 0; padding:0 16px 6px; overflow-x:auto; list-style:none; scroll-snap-type:x mandatory; scrollbar-width:none; }
 .row::-webkit-scrollbar { display:none; }
 .row li { flex:0 0 150px; scroll-snap-align:start; }

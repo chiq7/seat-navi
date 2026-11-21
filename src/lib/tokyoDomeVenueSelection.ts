@@ -32,7 +32,7 @@ export function getTokyoDomeVenueSeatSelection(
 }
 
 /** What the seat map is showing: a short name for it and its block codes, most relevant first. Empty when nothing is chosen. */
-export type TokyoDomeMapScope = { label: string | null; codes: string[] };
+export type TokyoDomeMapScope = { label: string | null; codes: string[]; section?: string };
 export const TOKYO_DOME_MAP_SCOPE_EVENT = "tixrepo:tokyo-dome-map-scope";
 let currentMapScope: TokyoDomeMapScope = { label: null, codes: [] };
 /** The seat map announces its scope; listeners that mount later read the latest one. */

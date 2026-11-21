@@ -5,6 +5,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Camera, ChevronRight } from "lucide-react";
 import { TOKYO_DOME_MAP_SCOPE_EVENT, readTokyoDomeMapScope, type TokyoDomeMapScope } from "@/lib/tokyoDomeVenueSelection";
 import OpenDetailsLink from "./OpenDetailsLink";
+import SeatPhotoPostLink from "./SeatPhotoPostLink";
 import styles from "./VenuePhotoStrip.module.css";
 
 export type StripPhoto = { label: string; href: string; count: number; thumbnailUrl: string | null };
@@ -29,7 +30,7 @@ function mixedByTier(photos: StripPhoto[]) {
  * Seat-view photos as one swipeable row, directly under the seat search. Once a floor, a side or a
  * block is chosen on the seat map, photos from that part of the venue move to the front.
  */
-export default function VenuePhotoStrip({ photos, count, allTargetId }: { photos: StripPhoto[]; count: number; allTargetId: string }) {
+export default function VenuePhotoStrip({ photos, count, allTargetId, venueId, venueName }: { photos: StripPhoto[]; count: number; allTargetId: string; venueId: string; venueName: string }) {
   const row = useRef<HTMLUListElement>(null);
   const [scope, setScope] = useState<TokyoDomeMapScope | null>(null);
   const withImage = useMemo(() => mixedByTier(photos.filter(photo => photo.thumbnailUrl)), [photos]);
@@ -55,6 +56,7 @@ export default function VenuePhotoStrip({ photos, count, allTargetId }: { photos
     <div className={styles.head}>
       <Camera size={17} aria-hidden="true" />
       <h2 id="venue-photo-strip-title">{following ? <>{scope!.label}<small>の見え方 {matchedPhotos}枚</small></> : "席からの見え方"}</h2>
+      <SeatPhotoPostLink venueId={venueId} venueName={venueName} section={scope?.section} placement="photo_row" variant="pill" />
       <OpenDetailsLink targetId={allTargetId} className={styles.all}>{count}枚<ChevronRight size={15} aria-hidden="true" /></OpenDetailsLink>
     </div>
     <ul ref={row} className={styles.row}>
@@ -64,6 +66,7 @@ export default function VenuePhotoStrip({ photos, count, allTargetId }: { photos
           <span>{photo.label}</span>
         </a>
       </li>)}
+      <li><SeatPhotoPostLink venueId={venueId} venueName={venueName} section={scope?.section} placement="photo_row" variant="tile" /></li>
     </ul>
   </section>;
 }

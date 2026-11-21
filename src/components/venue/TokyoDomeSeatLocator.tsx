@@ -34,6 +34,7 @@ import { seatViewPosts } from "@/lib/seatViewPosts";
 import { announceTokyoDomeMapScope, getTokyoDomeVenueSeatSelection, TOKYO_DOME_SEAT_SELECTION_EVENT } from "@/lib/tokyoDomeVenueSelection";
 import { useArenaMaps } from "./ArenaMapsSheet";
 import SeatPhotoRequest from "./SeatPhotoRequest";
+import SeatPhotoPostLink from "./SeatPhotoPostLink";
 import { useVenueSeatTarget } from "./VenueSeatTarget";
 
 type SeatArea = { code: string; label: [number, number]; path: string | null; shared: boolean; rows: [number, number] | null };
@@ -216,8 +217,9 @@ export function TokyoDomeSeatLocator() {
     if (target?.mode !== "fixed") return null;
     const area = AREA_BY_CODE.get(target.section);
     // Photo-only links identify the mapped block without selecting a row or seat.
-    if (!getTokyoDomeVerifiedSeatBlock(target.section) && !(area && !area.shared && PHOTO_SECTION_CODES.has(area.code))) return null;
-    const section = area?.path ? parseTokyoDomeSection(area.code) : null;
+    // Blocks without a photo open too: links in visitors' X posts point at the block they sat in.
+    if (!getTokyoDomeVerifiedSeatBlock(target.section) && !area) return null;
+    const section = area ? parseTokyoDomeSection(area.code) : null; // balcony blocks have no outline of their own but are still selectable
     return area && section ? { area, section } : null;
   });
   const initialCanvasPending = useRef(Boolean(initial));
@@ -308,7 +310,7 @@ export function TokyoDomeSeatLocator() {
       const near = AREAS.filter(area => !area.shared)
         .map(area => ({ code: area.code, distance: Math.hypot(area.label[0] - labelX, area.label[1] - labelY) }))
         .sort((a, b) => a.distance - b.distance).slice(0, 16);
-      announceTokyoDomeMapScope({ label: `${selectedCode}の近く`, codes: near.map(area => area.code) });
+      announceTokyoDomeMapScope({ label: `${selectedCode}の近く`, codes: near.map(area => area.code), section: selectedCode });
       return;
     }
     if (seatLevel === "all" && direction === "all") { announceTokyoDomeMapScope({ label: null, codes: [] }); return; }
@@ -782,7 +784,10 @@ export function TokyoDomeSeatLocator() {
           </div>
         </> : <div className={styles.overviewHeading}><strong>{seatLevel === "all" && direction === "all" ? "東京ドームの全体図" : `${SEAT_LEVELS.find(level => level.id === seatLevel)!.label}・${MAP_VIEWS[direction].label}`}</strong><span>区画をタップで拡大</span></div>}</div>
         <SeatPhotoMapSummary selection={seatView} count={PHOTO_SECTION_CODES.size} onOpen={() => setPhotoRequest(request => request + 1)}
-          emptySlot={selectedArea && !PHOTO_SECTION_CODES.has(selectedArea.code) ? <SeatPhotoRequest venueId="tokyo-dome" section={selectedArea.code} /> : undefined} />
+          emptySlot={selectedArea && !PHOTO_SECTION_CODES.has(selectedArea.code) ? <div className={styles.emptyPhotoActions}>
+            <SeatPhotoRequest venueId="tokyo-dome" section={selectedArea.code} />
+            <SeatPhotoPostLink venueId="tokyo-dome" venueName="東京ドーム" section={selectedArea.code} row={selectedRow} placement="empty_block" />
+          </div> : undefined} />
         {notice&&<p role="status" className={styles.hint}>{notice}</p>}
         {offsideArea && <button type="button" className="zr-focus min-h-11 rounded-full border border-[#d4adb9] px-4 text-sm font-bold" onClick={() => chooseCode(offsideArea.code)}>
           {MAP_VIEWS[directionForArea(offsideArea)].label}に切り替えて{offsideArea.code}を表示
