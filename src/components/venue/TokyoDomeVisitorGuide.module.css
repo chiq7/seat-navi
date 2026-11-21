@@ -402,4 +402,5 @@
 .filterRow button[aria-pressed=true] b { color:#a93164; }
 .filterRow button:disabled { color:#b6abb0; background:#f7f5f6; cursor:default; }
 .pickRow button:focus-visible, .filterRow button:focus-visible { outline:3px solid #a93164; outline-offset:2px; }
+@media (min-width: 720px) { .pickRow, .filterRow { max-width:640px; } }
 .finderScope div:has(> :global([data-result-section])) { max-height:none; overflow:visible; }

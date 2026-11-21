@@ -12,4 +12,10 @@
 .tile img { display:block; width:150px; height:104px; object-fit:cover; }
 .tile span { position:absolute; left:6px; bottom:6px; max-width:calc(100% - 12px); overflow:hidden; padding:2px 7px; border-radius:999px; background:#000000a6; color:#fff; font-size:11px; font-weight:800; white-space:nowrap; text-overflow:ellipsis; }
 .tile:focus-visible, .all:focus-visible { outline:3px solid #a93164; outline-offset:2px; }
-@media (min-width: 720px) { .row { margin-inline:0; padding-inline:0; } .row li { flex-basis:160px; } .tile img { width:160px; height:110px; } }
+@media (min-width: 720px) {
+  .row { display:grid; grid-template-columns:repeat(auto-fill,minmax(170px,1fr)); margin-inline:0; padding-inline:0; overflow:visible; scroll-snap-type:none; }
+  .row li { flex:none; }
+  /* Eleven photos and the post tile fill whole rows of four or six. */
+  .row li:nth-last-child(2) { display:none; }
+  .tile img { width:100%; height:auto; aspect-ratio:160 / 110; }
+}
