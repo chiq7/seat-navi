@@ -612,12 +612,19 @@ export function TokyoDomeSeatLocator() {
     hintFinishedRef.current = true; setTapHint(false);
     if(animationRef.current!==null)cancelAnimationFrame(animationRef.current);
     if(window.matchMedia("(prefers-reduced-motion: reduce)").matches){paintBox(next);commitBox();return;}
+    // A glide the eye can follow: zoom changes evenly in scale (not in width, which made most of a zoom-in
+    // happen in the first frames), eased in and out, and longer the further the zoom goes.
     const from=liveBoxRef.current;let start:number|null=null;
+    const ratio=next.width/from.width;
+    const duration=Math.round(Math.min(900,420+170*Math.abs(Math.log(ratio))));
+    const fromCenter={x:from.x+from.width/2,y:from.y+from.height/2},toCenter={x:next.x+next.width/2,y:next.y+next.height/2};
     const step=(now:number)=>{
       start??=now;
-      const duration=from.width>680||next.width>680?420:220;
-      const progress=Math.min(1,(now-start)/duration),eased=1-Math.pow(1-progress,3);
-      paintBox(progress<1?{x:from.x+(next.x-from.x)*eased,y:from.y+(next.y-from.y)*eased,width:from.width+(next.width-from.width)*eased,height:from.height+(next.height-from.height)*eased}:next);
+      const progress=Math.min(1,(now-start)/duration);
+      const eased=progress<.5?4*progress**3:1-Math.pow(-2*progress+2,3)/2;
+      const scale=Math.pow(ratio,eased),width=from.width*scale,height=from.height*scale;
+      const cx=fromCenter.x+(toCenter.x-fromCenter.x)*eased,cy=fromCenter.y+(toCenter.y-fromCenter.y)*eased;
+      paintBox(progress<1?{x:cx-width/2,y:cy-height/2,width,height}:next);
       animationRef.current=progress<1?requestAnimationFrame(step):null;
       if(progress>=1)commitBox();
     };
@@ -792,7 +799,22 @@ export function TokyoDomeSeatLocator() {
     }
   }
 
+  // When choosing or clearing a block adds or removes cards above the map, the page scrolls by the same
+  // amount so the map itself stays where the finger is.
+  const mapHoldRef = useRef<number | null>(null);
+  function holdMapInPlace() {
+    const top = mapCanvasRef.current?.getBoundingClientRect().top;
+    if (top !== undefined && mapHoldRef.current === null) mapHoldRef.current = top;
+  }
+  useLayoutEffect(() => {
+    const held = mapHoldRef.current;
+    if (held === null) return;
+    mapHoldRef.current = null;
+    const top = mapCanvasRef.current?.getBoundingClientRect().top;
+    if (top !== undefined && Math.abs(top - held) > 1) window.scrollBy({ top: top - held, behavior: "instant" });
+  });
   function clearSelection() {
+    holdMapInPlace();
     setOffsideArea(null);
     setSelected(null); setSelectedRow(null); setSelectedSeat(null); setNotice(""); setError(""); setCandidates([]);
   }
@@ -819,6 +841,7 @@ export function TokyoDomeSeatLocator() {
       setOffsideArea(area);
       return;
     }
+    holdMapInPlace();
     setOffsideArea(null);
     const shouldMove=source!=="map"||!selected||interactiveViewBox.width>360;
     setFocusedCode(area.code);setSeatLevel(levelForPrefix(section.prefix));setSelected(section);setSelectedRow(null);setSelectedSeat(null);setError("");setCandidates([]);
