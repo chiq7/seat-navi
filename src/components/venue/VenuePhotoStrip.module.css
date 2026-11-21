@@ -15,7 +15,5 @@
 @media (min-width: 720px) {
   .row { display:grid; grid-template-columns:repeat(auto-fill,minmax(170px,1fr)); margin-inline:0; padding-inline:0; overflow:visible; scroll-snap-type:none; }
   .row li { flex:none; }
-  /* Eleven photos and the post tile fill whole rows of four or six. */
-  .row li:nth-last-child(2) { display:none; }
   .tile img { width:100%; height:auto; aspect-ratio:160 / 110; }
 }

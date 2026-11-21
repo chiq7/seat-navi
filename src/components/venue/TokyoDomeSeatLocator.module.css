@@ -165,8 +165,6 @@
 .miniMap svg { display:block; width:100%; height:auto; }
 .miniMap span { display:block; color:#96305b; font-size:10px; font-weight:900; line-height:14px; text-align:center; }
 .miniMap:focus-visible { outline:3px solid #a93164; outline-offset:2px; }
-.emptyPhotoActions { display:grid; flex:1 1 100%; gap:6px; width:100%; min-width:0; }
-@media (min-width: 720px) { .emptyPhotoActions { grid-template-columns:repeat(2,minmax(0,340px)); align-items:start; gap:10px; } }
 /* Phones: what the map shows is a small tag on the map itself, not a separate row above it. */
 .scopeChip { display:none; }
 @media (max-width: 600px) {
