@@ -84,7 +84,7 @@ function Spot({ item, selected, onLocate }: { item: DomeGuideSpot; selected: boo
   </details>;
 }
 
-export function TokyoDomeGuideFinder() {
+export function TokyoDomeGuideFinder({ onReady }: { onReady?: () => void } = {}) {
   const finderRef = useRef<HTMLDivElement>(null);
   const navigation = useFacilityResultNavigation(finderRef);
   const [outsideResetKey,setOutsideResetKey]=useState(0);
@@ -143,6 +143,7 @@ export function TokyoDomeGuideFinder() {
     window.addEventListener(TOKYO_DOME_ACCESS_EVENT,openStation);
     window.addEventListener(TOKYO_DOME_SEAT_SELECTION_EVENT,handler);
     window.addEventListener("venue-open-luggage",baggage);
+    onReady?.();
     return()=>{window.removeEventListener(TOKYO_DOME_ACCESS_EVENT,openStation);window.removeEventListener(TOKYO_DOME_SEAT_SELECTION_EVENT,handler);window.removeEventListener("venue-open-luggage",baggage);};
   },[]);
   const category=purposes.find(p=>p.value===purpose)!.category;

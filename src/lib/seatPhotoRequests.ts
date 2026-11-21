@@ -1,10 +1,24 @@
 "use client";
 
-import { anonymousSupabase } from "@/lib/supabase/client";
-
-/** "この席の写真がほしい": how many visitors wait for a photo of each block, and this visitor's own requests. */
+/**
+ * "この席の写真がほしい": how many visitors wait for a photo of each block, and this visitor's own requests.
+ * Talks to the two database functions with plain fetch, so the venue page does not load the Supabase SDK (~220KB).
+ */
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
+const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "";
 const VOTER_KEY_STORAGE = "seat-navi-voter-key";
 const REQUESTED_STORAGE = "tixrepo:seat-photo-requests:v1";
+
+async function rpc<T>(name: string, body: Record<string, string>): Promise<T> {
+  const response = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${name}`, {
+    method: "POST",
+    headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}`, "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  const data: unknown = await response.json().catch(() => null);
+  if (!response.ok) throw new Error(typeof data === "object" && data && "message" in data ? String(data.message) : `rpc_${response.status}`);
+  return data as T;
+}
 
 function voterKey() {
   const existing = localStorage.getItem(VOTER_KEY_STORAGE);
@@ -36,10 +50,8 @@ const countsByVenue = new Map<string, Promise<Map<string, number>>>();
 export function seatPhotoRequestCounts(venueId: string) {
   let pending = countsByVenue.get(venueId);
   if (!pending) {
-    pending = Promise.resolve(anonymousSupabase.rpc("seat_photo_request_counts", { p_venue: venueId })).then(({ data, error }) => {
-      if (error) throw error;
-      return new Map(((data ?? []) as { section: string; requests: number }[]).map(row => [row.section, Number(row.requests)]));
-    });
+    pending = rpc<{ section: string; requests: number }[]>("seat_photo_request_counts", { p_venue: venueId })
+      .then(rows => new Map((rows ?? []).map(row => [row.section, Number(row.requests)])));
     pending.catch(() => countsByVenue.delete(venueId));
     countsByVenue.set(venueId, pending);
   }
@@ -49,11 +61,11 @@ export function seatPhotoRequestCounts(venueId: string) {
 export type SeatPhotoRequestResult = { ok: true; count: number } | { ok: false; reason: "rate" | "failed" };
 export async function requestSeatPhoto(venueId: string, section: string): Promise<SeatPhotoRequestResult> {
   try {
-    const { data, error } = await anonymousSupabase.rpc("seat_photo_request_add", { p_venue: venueId, p_section: section, p_voter: voterKey() });
-    if (error) return { ok: false, reason: error.message.includes("rate_limited") ? "rate" : "failed" };
-    const count = Number(data) || 1;
+    const count = Number(await rpc<number>("seat_photo_request_add", { p_venue: venueId, p_section: section, p_voter: voterKey() })) || 1;
     rememberRequest(venueId, section);
     void countsByVenue.get(venueId)?.then(counts => counts.set(section, count)).catch(() => undefined);
     return { ok: true, count };
-  } catch { return { ok: false, reason: "failed" }; }
+  } catch (error) {
+    return { ok: false, reason: error instanceof Error && error.message.includes("rate_limited") ? "rate" : "failed" };
+  }
 }

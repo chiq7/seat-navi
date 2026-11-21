@@ -89,12 +89,18 @@ export function VenueProgramList({ venueId, events, emptyText, initialCount = 6,
   return (
     <div>
       {renderRows(events.slice(0, visibleCount))}
-      {remaining.length > 0 && <details className={styles.more}>
-        <summary className="zr-focus">残り{remaining.length}公演を見る</summary>
-        {renderRows(remaining)}
-      </details>}
+      {remaining.length > 0 && <MoreRows count={remaining.length}>{() => renderRows(remaining)}</MoreRows>}
     </div>
   );
+}
+
+/** Builds the extra rows only once opened: dozens of hidden rows were rendered and hydrated on every visit. */
+function MoreRows({ count, children }: { count: number; children: () => ReactNode }) {
+  const [opened, setOpened] = useState(false);
+  return <details className={styles.more} onToggle={event => { if (event.currentTarget.open) setOpened(true); }}>
+    <summary className="zr-focus">残り{count}公演を見る</summary>
+    {opened && children()}
+  </details>;
 }
 
 type VenueProgramsState = { available: boolean; upcoming: CrawledEvent[]; past: CrawledEvent[]; activity: VenueActivity; failed: boolean; staleAt: string | null; retry: () => void };

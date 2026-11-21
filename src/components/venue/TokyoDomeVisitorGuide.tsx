@@ -1,7 +1,7 @@
 import { VenueProgramAnchor } from "@/components/venue/VenueProgramLinks";
 import { ArrowRight, ArrowUpRight, Camera, CreditCard, Luggage, Ticket, TrainFront, Armchair, CircleHelp, Utensils, Accessibility, DoorOpen, Smartphone } from "lucide-react";
 import { DOME_GUIDE_FAQ, DOME_GUIDE_SOURCES as sources, DOME_STATIONS, DOME_GUIDE_CHECKED_AT } from "@/data/tokyoDomeVisitorGuide";
-import { TokyoDomeGuideFinder } from "./TokyoDomeGuideFinder";
+import LazyFacilityFinder from "./LazyFacilityFinder";
 import { tokyoDomeAccessStation, TOKYO_DOME_STATION_WALKING, TOKYO_DOME_ACCESS_EVENT } from "@/lib/tokyoDomeAccess";
 import VenueAccessCards from "./template/VenueAccessCards";
 import VenueLuggageLink from "./template/VenueLuggageLink";
@@ -29,7 +29,7 @@ export function TokyoDomeVisitorGuide() {
   return <div className={`zr-container ${styles.guide}`}>
     <section id="dome-spots" aria-labelledby="dome-spots-title" className={styles.section}>
       <h2 id="dome-spots-title">必要な設備を探す</h2>
-      <div className={styles.finderScope}><TokyoDomeGuideFinder /></div>
+      <div className={styles.finderScope}><LazyFacilityFinder /></div>
     </section>
 
     <section id="dome-access" aria-labelledby="dome-access-title" className={styles.section}>

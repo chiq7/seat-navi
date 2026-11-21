@@ -5,7 +5,7 @@ import { trackVenueSeatSearch } from "@/lib/venueAnalytics";
 import { seatNumberArrowInk } from "@/lib/seatNumberBadge";
 import { tokyoDomeNumberBadge } from "@/lib/tokyoDomeNumberBadge";
 
-import { useCallback, useEffect, useRef, useState, type FormEvent, type PointerEvent as ReactPointerEvent, useLayoutEffect } from "react";
+import { useCallback, useEffect, useRef, useState, type FormEvent, type PointerEvent as ReactPointerEvent, useLayoutEffect, useMemo } from "react";
 import { useSeatControlsReady } from "./template/ReadySearchControl";
 import { nearSeatNumbers } from "./template/seatFinderLabels";
 import { SeatFinderMiss, type FinderMode } from "./template/SeatFinderControls";
@@ -67,6 +67,8 @@ const BALCONY_DIVIDERS = [...new Map(BALCONY_SEGMENTS.flatMap((segment) => [segm
   .map((divider) => [`${divider[0].join(",")}-${divider[1].join(",")}`, divider])).values()];
 const SHAPES = [...new Map(AREAS.filter((area) => area.path && /^[ABDEF]/.test(area.code)).map((area) => [area.path!, area])).values()]
   .sort((left, right) => Number(right.shared) - Number(left.shared));
+// The drop shadow under the bowl is one solid fill, so all block outlines can share a single path element.
+const SHADOW_PATH = [...SHAPES.map(area => area.path!), ...BALCONY_GROUP_PATHS].join(" ");
 const ROW_GUIDES = new Map(AREAS.filter((area) => area.path && area.rows && !area.shared)
   .map((area) => [area.code, sectionRowGuides(area.path!, area.rows!, area.label, getTokyoDomeVerifiedPrintedRows(area.code))]));
 
@@ -359,6 +361,13 @@ export function TokyoDomeSeatLocator() {
   };
   const overviewScale = Math.min(canvasSize.width / FULL_MAP_VIEW_BOX.width, canvasSize.height / FULL_MAP_VIEW_BOX.height);
   const detailStage=Boolean(selected)&&interactiveViewBox.width<=360;
+  // Whole-map shading per seat tier, leaving out the chosen block (it is drawn highlighted).
+  const selectedShapeCode = selected?.code;
+  const tierShading = useMemo(() => {
+    const byTier: Record<string, string[]> = {};
+    for (const area of SHAPES) if (area.code !== selectedShapeCode || area.shared) (byTier[area.code[0]] ??= []).push(area.path!);
+    return Object.fromEntries(Object.entries(byTier).map(([tier, paths]) => [tier, paths.join(" ")]));
+  }, [selectedShapeCode]);
   const sourceMapLabels = layoutTokyoDomeSeatLabels(AREAS.filter(area => matchesLevel(area.code)), interactiveViewBox, {
     screenScale, detailStage,
     numberedCodes: NUMBERED_AREA_CODES,
@@ -847,7 +856,8 @@ export function TokyoDomeSeatLocator() {
                 {Object.entries(OVERVIEW_TONES).map(([tier, tones]) => <linearGradient key={tier} id={`tokyo-tier-${tier}`} x1="0" y1="0" x2="0.2" y2="1"><stop stopColor={tones[0]}/><stop offset="1" stopColor={tones[1]}/></linearGradient>)}
                 <pattern id="tokyo-floor-stripes" patternUnits="userSpaceOnUse" width="44" height="44" patternTransform="rotate(-35)"><rect width="22" height="44" fill="#fff" opacity=".07"/></pattern>
                 <filter id="tokyo-bowl-shadow" x="-15%" y="-15%" width="130%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="4" floodColor="#314a61" floodOpacity=".17"/></filter>
-                {SHAPES.filter((area) => ROW_GUIDES.has(area.code)).map((area) => <clipPath key={area.code} id={`tokyo-rows-${area.code}`}><path d={area.path!} /></clipPath>)}
+                {/* Row clip paths are only used once the map is zoomed in (rows are not drawn on the whole map). */}
+                {detailStage && SHAPES.filter((area) => ROW_GUIDES.has(area.code)).map((area) => <clipPath key={area.code} id={`tokyo-rows-${area.code}`}><path d={area.path!} /></clipPath>)}
                 
                 {BALCONY_GROUP_PATHS.map((path, index) => <clipPath key={index} id={`tokyo-balcony-${index}`}><path d={path} /></clipPath>)}
               </defs>
@@ -868,8 +878,7 @@ export function TokyoDomeSeatLocator() {
                 <path d={OVERVIEW_SURFACES.floor} fill="url(#tokyo-floor-stripes)" stroke="#719886" strokeWidth="1.5"/>
                 {/* Existing block footprints make the stepped bowl, including its aisle gaps. */}
                 <g transform="translate(0 4)" fill="#596e82" opacity=".25">
-                  {SHAPES.map(area => <path key={area.path} d={area.path!}/>)}
-                  {BALCONY_GROUP_PATHS.map((path, index) => <path key={index} d={path}/>)}
+                  <path d={SHADOW_PATH}/>
                 </g>
               </g>
               {SHAPES.map((area) => {
@@ -883,18 +892,19 @@ export function TokyoDomeSeatLocator() {
                     onKeyDown={area.shared ? undefined : event => keyArea(event, area)} onFocus={() => setFocusedCode(area.code)}
                     tabIndex={area.shared ? undefined : area.code === activeFocus ? 0 : -1} role={area.shared ? undefined : "button"}
                     aria-label={area.shared ? undefined : `${area.code}・${rowRangeLabel(area.rows)}を拡大${PHOTO_SECTION_CODES.has(area.code) ? "（写真あり）" : ""}`} />
-                  {!active && overviewOpacity > 0 && <path d={area.path!} fill={`url(#tokyo-tier-${area.code[0]})`} opacity={overviewOpacity} pointerEvents="none" aria-hidden="true"/>}
                   {!area.shared && PHOTO_SECTION_CODES.has(area.code) && <path d={area.path!}
                     data-seat-photo-outline={area.code} fill="none"
                     stroke={SEAT_PHOTO_MAP_COLOR} strokeWidth={1.5}
                     vectorEffect="non-scaling-stroke" pointerEvents="none" aria-hidden="true" />}
-                  {rowGuides && overviewOpacity > 0 && <path d={rowGuides.lines} fill="none" stroke="#425c73" strokeWidth=".45" vectorEffect="non-scaling-stroke" opacity={overviewOpacity * .18} clipPath={`url(#tokyo-rows-${area.code})`} pointerEvents="none" aria-hidden="true"/>}
                   {detailStage && rowGuides && <g clipPath={`url(#tokyo-rows-${area.code})`} pointerEvents="none">
                     {<path d={rowGuides.lines} fill="none" stroke={active ? "#fff" : "#665f7a"} strokeWidth={showDetail ? "0.65" : "0.45"} vectorEffect="non-scaling-stroke" opacity={active ? "0.55" : showDetail ? "0.32" : "0.2"} />}
                   </g>}
                   {selectedMarker && <circle cx={selectedMarker[0]} cy={selectedMarker[1]} r="1.9" fill="#075985" stroke="#fff" strokeWidth="1.2" vectorEffect="non-scaling-stroke" pointerEvents="none" />}
                 </g>;
               })}
+              {overviewOpacity > 0 && <g pointerEvents="none" aria-hidden="true" data-tier-shading="">
+                {Object.entries(tierShading).map(([tier, d]) => <path key={tier} d={d} fill={`url(#tokyo-tier-${tier})`} opacity={overviewOpacity * (matchesLevel(tier) ? 1 : .16)} />)}
+              </g>}
               {!showDetail && <g pointerEvents="none" aria-hidden="true">
                 {/* 全体図ではGATE構造帯を座席より前に置き、縮小時だけ細かな外周差を整理する。 */}
                 <g fill="none" stroke="#f1e8ed" strokeWidth="34" strokeLinecap="round" strokeLinejoin="round">
