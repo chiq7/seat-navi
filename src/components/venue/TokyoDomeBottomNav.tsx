@@ -14,7 +14,7 @@ const MAIN: { tab: Exclude<Tab, "more">; id: string; label: string; Icon: typeof
   { tab: "access", id: "dome-access", label: "アクセス", Icon: TrainFront },
 ];
 
-/** Page sections in any order; the last one whose top has passed 40% of the screen decides the lit tab. */
+/** Page sections in any order; the last one whose top has passed the reading line decides the lit tab. */
 const SECTION_TAB: [string, Tab][] = [
   ["dome-seats", "seats"], ["dome-photos", "photos"], ["dome-spots", "spots"], ["dome-access", "access"],
   ["dome-prepare", "more"], ["dome-faq", "more"], ["seat-source-posts", "more"], ["seat-photo-title", "photos"],
@@ -31,7 +31,8 @@ export default function TokyoDomeBottomNav() {
     let frame = 0;
     const update = () => {
       frame = 0;
-      const line = window.innerHeight * 0.4;
+      // Sections land about 80–110px from the top after a jump; a short one (the photo strip) must still win.
+      const line = Math.min(window.innerHeight * 0.4, 200);
       let best: { top: number; tab: Tab } | null = null;
       for (const [id, tab] of SECTION_TAB) {
         const top = document.getElementById(id)?.getBoundingClientRect().top;
