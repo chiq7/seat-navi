@@ -41,11 +41,11 @@ export default function VenuePhotoStrip({ photos, count, allTargetId }: { photos
     return () => window.removeEventListener(TOKYO_DOME_MAP_SCOPE_EVENT, update);
   }, []);
 
-  const { ordered, matched } = useMemo(() => {
+  const { ordered, matched, matchedPhotos } = useMemo(() => {
     const rank = new Map((scope?.codes ?? []).map((code, index) => [code, index]));
     const near = withImage.filter(photo => rank.has(blockCode(photo) ?? ""))
       .sort((a, b) => rank.get(blockCode(a)!)! - rank.get(blockCode(b)!)!);
-    return { ordered: [...near, ...withImage.filter(photo => !near.includes(photo))], matched: near.length };
+    return { ordered: [...near, ...withImage.filter(photo => !near.includes(photo))], matched: near.length, matchedPhotos: near.reduce((sum, photo) => sum + photo.count, 0) };
   }, [withImage, scope]);
   useEffect(() => { row.current?.scrollTo({ left: 0 }); }, [scope]);
 
@@ -54,7 +54,7 @@ export default function VenuePhotoStrip({ photos, count, allTargetId }: { photos
   return <section id="dome-photos" className={`zr-container ${styles.strip}`} aria-labelledby="venue-photo-strip-title" data-photo-scope={following ? scope!.label! : undefined}>
     <div className={styles.head}>
       <Camera size={17} aria-hidden="true" />
-      <h2 id="venue-photo-strip-title">{following ? <>{scope!.label}<small>の見え方 {matched}か所</small></> : "席からの見え方"}</h2>
+      <h2 id="venue-photo-strip-title">{following ? <>{scope!.label}<small>の見え方 {matchedPhotos}枚</small></> : "席からの見え方"}</h2>
       <OpenDetailsLink targetId={allTargetId} className={styles.all}>{count}枚<ChevronRight size={15} aria-hidden="true" /></OpenDetailsLink>
     </div>
     <ul ref={row} className={styles.row}>
