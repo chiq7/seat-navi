@@ -52,7 +52,6 @@ export function TokyoDomeVisitorGuide() {
     <section id="dome-faq" aria-labelledby="dome-faq-title" className={styles.section}>
       <h2 id="dome-faq-title"><CircleHelp aria-hidden="true" />気になることだけ</h2>
       <div className={styles.faq}>{DOME_GUIDE_FAQ.map((item) => <details key={item.question}><summary>{item.question}</summary><p>{item.answer}</p><a className={styles.chipLink} href={sources[item.source].url} target="_blank" rel="noopener noreferrer">公式案内<ArrowUpRight size={14} aria-hidden="true" /></a></details>)}</div>
-      <VenueProgramAnchor className={styles.eventAction}><Ticket size={25} aria-hidden="true" /><strong>公演・座席レポを見る</strong><ArrowRight size={20} aria-hidden="true" /></VenueProgramAnchor>
       <details className={styles.explanation}><summary>情報元・確認日</summary><p>{DOME_GUIDE_CHECKED_AT} 確認</p><ul>{Object.entries(sources).map(([id, source]) => <li key={id}><a href={source.url} target="_blank" rel="noopener noreferrer">{source.label} ↗</a></li>)}</ul></details>
     </section>
   </div>;

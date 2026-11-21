@@ -212,6 +212,19 @@ function rowRangeLabel(rows: SeatArea["rows"]) {
 }
 
 
+/** The block under a point near (x, y): rings of 5, 10 and 15px around a tap that missed every block. */
+function nearestSeatCode(x: number, y: number): string | null {
+  for (const radius of [5, 10, 15]) {
+    for (let step = 0; step < 8; step += 1) {
+      const angle = step * Math.PI / 4;
+      const hit = document.elementFromPoint(x + radius * Math.cos(angle), y + radius * Math.sin(angle));
+      const code = hit instanceof SVGElement ? hit.closest<SVGElement>("[data-seat-code]")?.dataset.seatCode : undefined;
+      if (code) return code;
+    }
+  }
+  return null;
+}
+
 type SeatShapesProps = {
   selectedCode: string | null; selectedRow: number | null; seatLevel: SeatLevel; detailStage: boolean; showDetail: boolean;
   activeFocus: string | null; onKey: (event: React.KeyboardEvent<SVGElement>, area: SeatArea) => void; onFocusCode: (code: string) => void;
@@ -733,8 +746,12 @@ export function TokyoDomeSeatLocator() {
     const target = event.target instanceof Element ? event.target.closest<SVGElement>("[data-seat-code]") : null;
     if (!control) event.currentTarget.setPointerCapture(event.pointerId);
     const point = { x: event.clientX, y: event.clientY };
+    // On the whole map a 1F block is only ~7px tall, so a finger often lands on the white gap between blocks:
+    // that tap goes to the nearest block instead of doing nothing. Zoomed in, blocks are big and gaps stay gaps.
+    const code = target?.dataset.seatCode
+      ?? (!control && liveBoxRef.current.width > 680 ? nearestSeatCode(point.x, point.y) : null);
     pointerPositionsRef.current.set(event.pointerId, point);
-    pointerStartsRef.current.set(event.pointerId, { point, code: target?.dataset.seatCode ?? null });
+    pointerStartsRef.current.set(event.pointerId, { point, code: code ?? null });
     if (pointerPositionsRef.current.size === 1) { didPanRef.current = false; suppressMapClick.current = false; }
     else { didPanRef.current = true; suppressMapClick.current = true; }
     startGesture();

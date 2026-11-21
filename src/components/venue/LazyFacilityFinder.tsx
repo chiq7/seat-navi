@@ -3,7 +3,8 @@
 import { lazy, Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { TOKYO_DOME_ACCESS_EVENT } from "@/lib/tokyoDomeAccess";
 
-const TokyoDomeGuideFinder = lazy(() => import("./TokyoDomeGuideFinder").then(module => ({ default: module.TokyoDomeGuideFinder })));
+const loadFinder = () => import("./TokyoDomeGuideFinder");
+const TokyoDomeGuideFinder = lazy(() => loadFinder().then(module => ({ default: module.TokyoDomeGuideFinder })));
 
 const FORWARDED_EVENTS = [TOKYO_DOME_ACCESS_EVENT, "venue-open-luggage"] as const;
 const wantsFinderNow = () => /^#(?:venue-|dome-spots|dome-outside-map)/.test(window.location.hash);
@@ -25,11 +26,16 @@ export default function LazyFacilityFinder() {
       ? new IntersectionObserver(entries => { if (entries.some(entry => entry.isIntersecting)) setLoad(true); }, { rootMargin: "0px" })
       : null;
     if (element && observer) observer.observe(element); else setLoad(true);
+    // Fetch the code once the page is idle (nothing is drawn yet), so scrolling down finds it ready instead of
+    // showing an empty frame while it downloads.
+    const hasIdle = typeof window.requestIdleCallback === "function";
+    const idle = hasIdle ? window.requestIdleCallback(() => void loadFinder(), { timeout: 4000 }) : setTimeout(() => void loadFinder(), 2500);
     const onHash = () => { if (wantsFinderNow()) setLoad(true); };
     const capture = (event: Event) => { pending.current = event; setLoad(true); };
     window.addEventListener("hashchange", onHash);
     for (const name of FORWARDED_EVENTS) window.addEventListener(name, capture);
     return () => {
+      if (hasIdle) window.cancelIdleCallback(idle as number); else clearTimeout(idle);
       observer?.disconnect();
       window.removeEventListener("hashchange", onHash);
       for (const name of FORWARDED_EVENTS) window.removeEventListener(name, capture);

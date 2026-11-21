@@ -1,6 +1,6 @@
 import { venueSearchIntents } from "@/lib/venueSearchIntents";
 import Image from "next/image";
-import { Camera } from "lucide-react";
+import { Camera, ChevronDown } from "lucide-react";
 import { getVenuePhotoCovers, getVenuePhotoIndex, type EventVenuePhotoPreview } from "@/lib/serverSeatPhotoVenues";
 import styles from "./SearchContentGuides.module.css";
 
@@ -27,11 +27,16 @@ export default function VenueSeatReadingGuide({ venueId, name, photoPreview, pho
         <h2 id="seat-reading-title">{name}のアリーナ・スタンド座席表と座席番号の見方</h2>
         <h3>{guide.focus}</h3>
         <p>{guide.lead}</p>
-        <a className={`${styles.link} zr-focus`} href={seatSection}>{venueId === "toki-messe" ? "ホールの位置を見る" : "座席表を見る"}</a>
+        {/* The gallery page (Tokyo Dome) has the map at the top and a 座席 tab in the bottom bar: no text link back. */}
+        {!gallery && <a className={`${styles.link} zr-focus`} href={seatSection}>{venueId === "toki-messe" ? "ホールの位置を見る" : "座席表を見る"}</a>}
       </section>
       <section aria-labelledby="seat-photo-title" data-published-photos={photoPreview?.count ?? 0}>
         <details open={photosOpen}>
-          <summary className="zr-focus"><h2 id="seat-photo-title" className="inline">{name}の座席からの見え方・写真一覧（{photoPreview?.count ?? 0}枚）</h2></summary>
+          {gallery
+            ? <summary className={`zr-focus ${styles.galleryToggle}`}><Camera size={20} aria-hidden="true" />
+              <h2 id="seat-photo-title">{name}の座席からの見え方・写真一覧<b>{photoPreview?.count ?? 0}枚</b></h2>
+              <ChevronDown size={18} aria-hidden="true" /></summary>
+            : <summary className="zr-focus"><h2 id="seat-photo-title" className="inline">{name}の座席からの見え方・写真一覧（{photoPreview?.count ?? 0}枚）</h2></summary>}
           <p id="venue-photo-list" className="scroll-mt-20">{guide.detail}</p>
           {photoIndex.length === 0 ? <p>この会場の座席写真はまだありません。</p> : venueId === "toki-messe"
             ? <a href="#past-arena-photos" className={`${styles.link} zr-focus`}>公演日の配置図で写真を見る</a>

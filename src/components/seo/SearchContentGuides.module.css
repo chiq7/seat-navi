@@ -6,6 +6,14 @@
 .seatReading details { margin-top: 4px; }
 .seatReading summary { min-height: 44px; padding: 12px 0; cursor: pointer; font-size: 13px; font-weight: 700; color: #a12b58; }
 .seatReading details[open] { padding-bottom: 8px; }
+/* Gallery pages: the full photo list opens from a card-like button, not a line of pink text. */
+.seatReading summary.galleryToggle { display:flex; align-items:center; gap:10px; min-height:52px; margin-top:6px; padding:8px 12px; border:1px solid #ecd2de; border-radius:14px; background:#fff; list-style:none; }
+.seatReading summary.galleryToggle::-webkit-details-marker { display:none; }
+.seatReading summary.galleryToggle h2 { flex:1; min-width:0; font-size:14px; font-weight:800; line-height:1.4; color:#4b4148; }
+.seatReading summary.galleryToggle b { margin-left:6px; color:#a12b58; font-weight:900; white-space:nowrap; }
+.seatReading summary.galleryToggle > svg:last-child { flex:none; transition:transform .15s; }
+.seatReading details[open] > summary.galleryToggle > svg:last-child { transform:rotate(180deg); }
+.seatReading summary.galleryToggle:active { background:#fff1f6; }
 .photoPreviews { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; max-width: 520px; margin: 12px 0; padding: 0; list-style: none; }
 .photoPreviews a { display: block; min-height: 44px; }
 .photoPreviews img { width: 100%; height: auto; aspect-ratio: 8 / 5; object-fit: cover; border-radius: 8px; }
