@@ -28,6 +28,12 @@ export default function TokyoDomeBottomNav() {
   const [open, setOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
 
+  // Room below the page for the fixed bar (a body class instead of a body:has() rule, which re-checks the whole page on every change).
+  useEffect(() => {
+    document.body.classList.add("domeBottomBar");
+    return () => document.body.classList.remove("domeBottomBar");
+  }, []);
+
   useEffect(() => {
     let frame = 0;
     const update = () => {
@@ -70,11 +76,11 @@ export default function TokyoDomeBottomNav() {
     <div className={styles.bar}>
       {MAIN.map(({ tab, id, label, Icon }) => <a key={id} href={`#${id}`} data-active={active === tab || undefined}
         aria-current={active === tab ? "location" : undefined} onClick={() => { setOpen(false); setActive(tab); }}>
-        <Icon size={22} aria-hidden="true" /><span>{label}</span>
+        <Icon size={20} aria-hidden="true" /><span>{label}</span>
       </a>)}
       <button type="button" data-active={active === "more" || open || undefined} aria-expanded={open} aria-controls="dome-more-sheet"
         onClick={() => setOpen(value => !value)}>
-        {open ? <X size={22} aria-hidden="true" /> : <Ellipsis size={22} aria-hidden="true" />}<span>{open ? "閉じる" : "その他"}</span>
+        {open ? <X size={20} aria-hidden="true" /> : <Ellipsis size={20} aria-hidden="true" />}<span>{open ? "閉じる" : "その他"}</span>
       </button>
     </div>
   </nav>;

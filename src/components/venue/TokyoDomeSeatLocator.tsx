@@ -5,7 +5,7 @@ import { trackVenueSeatSearch } from "@/lib/venueAnalytics";
 import { seatNumberArrowInk } from "@/lib/seatNumberBadge";
 import { tokyoDomeNumberBadge } from "@/lib/tokyoDomeNumberBadge";
 
-import { useCallback, useEffect, useRef, useState, type FormEvent, type PointerEvent as ReactPointerEvent } from "react";
+import { useCallback, useEffect, useRef, useState, type FormEvent, type PointerEvent as ReactPointerEvent, useLayoutEffect } from "react";
 import { useSeatControlsReady } from "./template/ReadySearchControl";
 import { nearSeatNumbers } from "./template/seatFinderLabels";
 import { SeatFinderMiss, type FinderMode } from "./template/SeatFinderControls";
@@ -329,6 +329,23 @@ export function TokyoDomeSeatLocator() {
     : undefined;
   const [interactiveViewBox, setInteractiveViewBox] = useState<MapViewBox>(() => initial
     ? parseMapViewBox(selectedMapViewBox(initial.section, initial.area.label)) : FULL_MAP_VIEW_BOX);
+  // Pan, pinch, wheel and camera animation paint this box straight onto the SVG and commit to React
+  // state once when they end: re-rendering ~1,300 seat paths on every finger move made the map stutter.
+  const liveBoxRef = useRef(interactiveViewBox);
+  const movingRef = useRef(false);
+  const wheelCommitRef = useRef<number | null>(null);
+  useLayoutEffect(() => { if (!movingRef.current) liveBoxRef.current = interactiveViewBox; }, [interactiveViewBox]);
+  function paintBox(box: MapViewBox) {
+    liveBoxRef.current = box;
+    mapSvgRef.current?.setAttribute("viewBox", serializeMapViewBox(box));
+    if (!movingRef.current) { movingRef.current = true; mapCanvasRef.current?.setAttribute("data-moving", ""); }
+  }
+  function commitBox() {
+    if (!movingRef.current) return;
+    movingRef.current = false;
+    mapCanvasRef.current?.removeAttribute("data-moving");
+    setInteractiveViewBox(liveBoxRef.current);
+  }
   const showDetail = interactiveViewBox.width <= 680;
   // Fade the illustration through the existing camera motion; detail is unchanged.
   const overviewOpacity = Math.max(0, Math.min(1, (interactiveViewBox.width - 520) / 380));
@@ -511,14 +528,15 @@ export function TokyoDomeSeatLocator() {
   function animateTo(next:MapViewBox) {
     hintFinishedRef.current = true; setTapHint(false);
     if(animationRef.current!==null)cancelAnimationFrame(animationRef.current);
-    if(window.matchMedia("(prefers-reduced-motion: reduce)").matches){setInteractiveViewBox(next);return;}
-    const from=interactiveViewBox;let start:number|null=null;
+    if(window.matchMedia("(prefers-reduced-motion: reduce)").matches){paintBox(next);commitBox();return;}
+    const from=liveBoxRef.current;let start:number|null=null;
     const step=(now:number)=>{
       start??=now;
       const duration=from.width>680||next.width>680?420:220;
       const progress=Math.min(1,(now-start)/duration),eased=1-Math.pow(1-progress,3);
-      setInteractiveViewBox({x:from.x+(next.x-from.x)*eased,y:from.y+(next.y-from.y)*eased,width:from.width+(next.width-from.width)*eased,height:from.height+(next.height-from.height)*eased});
+      paintBox(progress<1?{x:from.x+(next.x-from.x)*eased,y:from.y+(next.y-from.y)*eased,width:from.width+(next.width-from.width)*eased,height:from.height+(next.height-from.height)*eased}:next);
       animationRef.current=progress<1?requestAnimationFrame(step):null;
+      if(progress>=1)commitBox();
     };
     animationRef.current=requestAnimationFrame(step);
   }
@@ -547,12 +565,24 @@ export function TokyoDomeSeatLocator() {
     if (!svg) return;
     const rect = svg.getBoundingClientRect();
     const point = clientPoint ?? { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
-    setInteractiveViewBox((current) => {
-      const nextWidth = Math.max(MIN_MAP_VIEW_WIDTH, Math.min(FULL_MAP_VIEW_BOX.width, current.width * factor));
-      const actualFactor = nextWidth / current.width;
-      const nextHeight = current.height * actualFactor;
-      return boxAtAnchor(rect, { ...current, width: nextWidth, height: nextHeight }, mapPointAtClient(rect, current, point), point);
-    });
+    const current = liveBoxRef.current;
+    const nextWidth = Math.max(MIN_MAP_VIEW_WIDTH, Math.min(FULL_MAP_VIEW_BOX.width, current.width * factor));
+    const nextHeight = current.height * (nextWidth / current.width);
+    paintBox(boxAtAnchor(rect, { ...current, width: nextWidth, height: nextHeight }, mapPointAtClient(rect, current, point), point));
+    if (wheelCommitRef.current !== null) clearTimeout(wheelCommitRef.current);
+    wheelCommitRef.current = window.setTimeout(() => { wheelCommitRef.current = null; commitBox(); }, 160);
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- paintBox/commitBox only touch refs and a state setter
+  }, []);
+
+  useEffect(() => {
+    // The whole map lets one finger scroll the page (touch-action: pan-y). A second finger claims the touch
+    // for the map before the browser can start scrolling, so the pinch reaches the pointer handlers.
+    const canvas = mapCanvasRef.current;
+    if (!canvas) return;
+    const claim = (event: TouchEvent) => { if (event.touches.length >= 2 && event.cancelable) event.preventDefault(); };
+    canvas.addEventListener("touchstart", claim, { passive: false });
+    canvas.addEventListener("touchmove", claim, { passive: false });
+    return () => { canvas.removeEventListener("touchstart", claim); canvas.removeEventListener("touchmove", claim); };
   }, []);
 
   useEffect(() => {
@@ -569,17 +599,20 @@ export function TokyoDomeSeatLocator() {
 
 
 
+  // The SVG's screen box is read once per gesture; reading it on every move forced a layout per finger event.
+  const gestureRectRef = useRef<DOMRect | null>(null);
   function startGesture() {
+    gestureRectRef.current = mapSvgRef.current?.getBoundingClientRect() ?? null;
     const points = [...pointerPositionsRef.current.values()];
     if (points.length >= 2) {
       gestureRef.current = {
         kind: "pinch",
         startDistance: distance(points[0], points[1]),
         startMidpoint: midpoint(points[0], points[1]),
-        box: interactiveViewBox,
+        box: liveBoxRef.current,
       };
     } else if (points.length === 1) {
-      gestureRef.current = { kind: "pan", start: points[0], box: interactiveViewBox };
+      gestureRef.current = { kind: "pan", start: points[0], box: liveBoxRef.current };
     } else {
       gestureRef.current = null;
     }
@@ -589,7 +622,7 @@ export function TokyoDomeSeatLocator() {
     if (event.pointerType === "mouse" && event.button !== 0) return;
     hintFinishedRef.current = true; setTapHint(false);
     const control = (event.target as Element).closest("button");
-    if (!control && (event.pointerType !== "touch" || interactiveViewBox.width < FULL_MAP_VIEW_BOX.width * .99)) event.preventDefault();
+    if (!control && (event.pointerType !== "touch" || liveBoxRef.current.width < FULL_MAP_VIEW_BOX.width * .99)) event.preventDefault();
     if(animationRef.current!==null)cancelAnimationFrame(animationRef.current);
     const target = event.target instanceof Element ? event.target.closest<SVGElement>("[data-seat-code]") : null;
     if (!control) event.currentTarget.setPointerCapture(event.pointerId);
@@ -607,7 +640,7 @@ export function TokyoDomeSeatLocator() {
     const svg = mapSvgRef.current;
     const gesture = gestureRef.current;
     if (!svg || !gesture) return;
-    const rect = svg.getBoundingClientRect();
+    const rect = gestureRectRef.current ?? svg.getBoundingClientRect();
     const points = [...pointerPositionsRef.current.values()];
 
     if (gesture.kind === "pinch" && points.length >= 2) {
@@ -618,7 +651,7 @@ export function TokyoDomeSeatLocator() {
       const actualScale = nextWidth / gesture.box.width;
       const nextHeight = gesture.box.height * actualScale;
       didPanRef.current = true;
-      setInteractiveViewBox(boxAtAnchor(rect, { ...gesture.box, width: nextWidth, height: nextHeight }, mapPointAtClient(rect, gesture.box, gesture.startMidpoint), currentMidpoint));
+      paintBox(boxAtAnchor(rect, { ...gesture.box, width: nextWidth, height: nextHeight }, mapPointAtClient(rect, gesture.box, gesture.startMidpoint), currentMidpoint));
       return;
     }
 
@@ -628,7 +661,7 @@ export function TokyoDomeSeatLocator() {
       if (Math.hypot(dx, dy) > 6) didPanRef.current = true;
       if (!didPanRef.current || (event.pointerType === "touch" && gesture.box.width >= FULL_MAP_VIEW_BOX.width * .99)) return;
       suppressMapClick.current = true;
-      setInteractiveViewBox(constrainMapViewBox({
+      paintBox(constrainMapViewBox({
         ...gesture.box,
         x: gesture.box.x - dx / mapScale(rect, gesture.box),
         y: gesture.box.y - dy / mapScale(rect, gesture.box),
@@ -639,7 +672,7 @@ export function TokyoDomeSeatLocator() {
   function handleMapPointerEnd(event: ReactPointerEvent<HTMLDivElement>) {
     if (!pointerPositionsRef.current.has(event.pointerId)) return;
     if (event.type !== "pointerup") {
-      const ids = [...pointerPositionsRef.current.keys()]; resetGestures(); didPanRef.current = true; suppressMapClick.current = true;
+      const ids = [...pointerPositionsRef.current.keys()]; resetGestures(); didPanRef.current = true; suppressMapClick.current = true; commitBox();
       for (const id of ids) if (event.currentTarget.hasPointerCapture(id)) event.currentTarget.releasePointerCapture(id);
       return;
     }
@@ -651,7 +684,7 @@ export function TokyoDomeSeatLocator() {
     pointerStartsRef.current.delete(event.pointerId);
     startGesture();
     if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
-    if (pointerPositionsRef.current.size === 0) didPanRef.current = false;
+    if (pointerPositionsRef.current.size === 0) { didPanRef.current = false; commitBox(); }
     if (shouldSelect && start?.code) {
       const area = AREA_BY_CODE.get(start.code);
       if (area) chooseArea(area);
@@ -797,7 +830,7 @@ export function TokyoDomeSeatLocator() {
           style={{ touchAction: interactiveViewBox.width >= FULL_MAP_VIEW_BOX.width * .99 ? "pan-y" : "none" }}
           onPointerDown={handleMapPointerDown} onPointerMove={handleMapPointerMove} onPointerUp={handleMapPointerEnd} onPointerCancel={handleMapPointerEnd} onLostPointerCapture={handleMapPointerEnd}
           onPointerLeave={event => { if (!event.currentTarget.hasPointerCapture(event.pointerId)) handleMapPointerEnd(event); }}
-          onClickCapture={event => { if (suppressMapClick.current && event.detail !== 0) { event.preventDefault(); event.stopPropagation(); } }}>
+          onClickCapture={event => { if (suppressMapClick.current && event.detail !== 0 && !(event.target as Element).closest("[data-map-control]")) { event.preventDefault(); event.stopPropagation(); } }}>
             <svg ref={mapSvgRef} viewBox={serializeMapViewBox(interactiveViewBox)}
               onClick={event => {
                 // Pointer taps select on release, including when the canvas captured the pointer.
@@ -967,8 +1000,8 @@ export function TokyoDomeSeatLocator() {
                 </span>}
               </button>)}
           </div>}
-          {arenaMaps && arenaButtonInView && <button type="button" className={styles.arenaMaps} data-arena-maps-button=""
-            style={{ left: arenaButton.left, top: arenaButton.top }} onPointerDown={event => event.stopPropagation()} onClick={arenaMaps.open}
+          {arenaMaps && arenaButtonInView && <button type="button" className={styles.arenaMaps} data-arena-maps-button="" data-map-control=""
+            style={{ left: arenaButton.left, top: arenaButton.top }} onPointerDown={event => { event.stopPropagation(); suppressMapClick.current = false; }} onClick={arenaMaps.open}
             aria-label={`アリーナ図を見る（${arenaMaps.count}公演）`}>
             <MapIcon size={14} aria-hidden="true" />アリーナ図<b>{arenaMaps.count}</b>
           </button>}
@@ -976,7 +1009,7 @@ export function TokyoDomeSeatLocator() {
             style={{ left: fieldPointer.left, top: fieldPointer.top }} aria-hidden="true">
             <ArrowUp size={14} style={{ transform: `rotate(${fieldPointer.angle}deg)` }} />アリーナ
           </span>}
-          {showDetail && <button type="button" className={styles.miniMap} onPointerDown={event => event.stopPropagation()} onClick={showWhole} aria-label="全体図に戻る" data-mini-map="">
+          {showDetail && <button type="button" className={styles.miniMap} onPointerDown={event => { event.stopPropagation(); suppressMapClick.current = false; }} onClick={showWhole} aria-label="全体図に戻る" data-mini-map="" data-map-control="">
             <svg viewBox={MAP_VIEWS.all.box} aria-hidden="true">
               <path d={OVERVIEW_SURFACES.bowl} fill="#efe6ea" stroke="#d9c6cf" strokeWidth="8" />
               <path d={OVERVIEW_SURFACES.floor} fill="#bfdccc" />
