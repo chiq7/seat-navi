@@ -117,14 +117,14 @@ export default async function VenuePage({ params, searchParams }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(structuredData) }}
       />
-      <section className={compact ? "bg-[#fffafb]" : "community-hero"}>
+      <section className={compact ? `bg-[#fffafb] ${compactStyles.top}` : "community-hero"}>
         <Suspense fallback={<Header title={headerName} breadcrumbLabel={publicName} backHref="/venues" backLabel="ライブ会場一覧へ戻る"
           breadcrumbParents={[{ href: "/venues", label: "ライブ会場一覧" }]} existingBreadcrumbSchema />}>
           <VenueEventReturnLink venueId={venue.id} venueName={publicName} headerName={headerName} />
         </Suspense>
 
-        {compact ? <div className="zr-container pb-1 pt-3 sm:pt-5">
-          <h1 className="text-[22px] font-black leading-tight tracking-[-0.04em] text-[#4b4148] sm:text-[32px]"><span className="text-[#ef4f87]">{publicName}</span>の座席表・見え方</h1>
+        {compact ? <div className="zr-container pb-1 pt-2 sm:pt-5">
+          <h1 className="text-[18px] font-black leading-tight tracking-[-0.03em] text-[#4b4148] sm:text-[32px]"><span className="text-[#ef4f87]">{publicName}</span>の座席表・見え方</h1>
         </div> : <div className="zr-container pb-6 pt-4 sm:pb-9 sm:pt-7">
           <p className="community-eyebrow">VENUE LIVE GUIDE</p>
           <h1 className="mt-2 text-[28px] font-black tracking-[-0.05em] text-[#4b4148] sm:text-[38px]"><span className="text-[#ef4f87]">{publicName}</span>の座席表{hasGuide && <span className="mt-1 block text-[20px] sm:text-[28px]">アクセス・会場ガイド</span>}</h1>

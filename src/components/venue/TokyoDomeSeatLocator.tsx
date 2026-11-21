@@ -724,10 +724,8 @@ export function TokyoDomeSeatLocator() {
     const control = (event.target as Element).closest("button");
     if (!control && (event.pointerType !== "touch" || liveBoxRef.current.width < FULL_MAP_VIEW_BOX.width * .99)) event.preventDefault();
     if(animationRef.current!==null)cancelAnimationFrame(animationRef.current);
-    const fromPicture = event.currentTarget.hasAttribute("data-snapshot");
     wakeMap();
-    const hit = fromPicture && !control ? document.elementFromPoint(event.clientX, event.clientY) : event.target;
-    const target = hit instanceof Element ? hit.closest<SVGElement>("[data-seat-code]") : null;
+    const target = event.target instanceof Element ? event.target.closest<SVGElement>("[data-seat-code]") : null;
     if (!control) event.currentTarget.setPointerCapture(event.pointerId);
     const point = { x: event.clientX, y: event.clientY };
     pointerPositionsRef.current.set(event.pointerId, point);
@@ -1093,6 +1091,7 @@ export function TokyoDomeSeatLocator() {
                 </span>}
               </button>)}
           </div>}
+          {!selected && <span className={styles.scopeChip} aria-hidden="true">{seatLevel === "all" && direction === "all" ? "全体図" : `${SEAT_LEVELS.find(level => level.id === seatLevel)!.label}・${MAP_VIEWS[direction].label}`}</span>}
           {arenaMaps && arenaButtonInView && <button type="button" className={styles.arenaMaps} data-arena-maps-button="" data-map-control=""
             style={{ left: arenaButton.left, top: arenaButton.top }} onPointerDown={event => { event.stopPropagation(); suppressMapClick.current = false; }} onClick={arenaMaps.open}
             aria-label={`アリーナ図を見る（${arenaMaps.count}公演）`}>

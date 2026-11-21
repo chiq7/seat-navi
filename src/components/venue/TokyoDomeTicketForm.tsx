@@ -1,7 +1,7 @@
 "use client";
 
 import type { FormEvent } from "react";
-import { MapPin, Search, Ticket } from "lucide-react";
+import { MapPin, Search } from "lucide-react";
 import styles from "./TokyoDomeTicketForm.module.css";
 
 export type TicketLevel = "all" | "lower" | "upper" | "balcony" | "outfield";
@@ -35,11 +35,6 @@ export function TokyoDomeTicketForm(props: Props) {
   const sides = props.level === "outfield" ? OUTFIELD_SIDES : INFIELD_SIDES;
   const blockHint = props.level === "outfield" ? "F12" : props.level === "balcony" ? "C20" : "A16";
   return <form className={styles.form} onSubmit={props.onSubmit} aria-label="チケットの座席で検索" data-seat-finder-form>
-    <div className={styles.head}>
-      <Ticket size={18} aria-hidden="true" /><strong>チケットの席</strong>
-      {!props.blockOnly && <button type="button" className={styles.modeToggle} aria-pressed={props.byBlock} disabled={!props.ready}
-        onClick={() => props.onBlockMode(!props.byBlock)}><MapPin size={14} aria-hidden="true" />区画名</button>}
-    </div>
     <div className={styles.line} role="group" aria-label="階">
       <span className={styles.label} aria-hidden="true">階</span>
       <div className={styles.chips}>{LEVELS.map(item => <button key={item.id} type="button" disabled={!props.ready}
@@ -62,6 +57,9 @@ export function TokyoDomeTicketForm(props: Props) {
             onChange={event => props.onNumber(event.target.value)} /></label>
         </>}
       <button type="submit" className={styles.submit} disabled={!props.ready} aria-label="席の場所を見る"><Search size={18} aria-hidden="true" /><span>探す</span></button>
+      {!props.blockOnly && <button type="button" className={styles.modeToggle} aria-pressed={props.byBlock} disabled={!props.ready}
+        aria-label={props.byBlock ? "列・番号で探す" : "区画名で探す"} onClick={() => props.onBlockMode(!props.byBlock)}>
+        <MapPin size={14} aria-hidden="true" /><span>{props.byBlock ? "列番" : "区画"}</span></button>}
     </div>
   </form>;
 }

@@ -6,3 +6,5 @@
 /* Blocks far below the seat map are laid out and painted only when they near the screen, so the first
    screen does not wait for the gallery, event lists and venue notes. */
 .later { content-visibility:auto; contain-intrinsic-size:auto 900px; }
+/* Phones: the back button already leads to the venue list, so the breadcrumb row gives its height to the map. */
+@media (max-width: 600px) { .top nav[aria-label="パンくずリスト"] { display:none; } }
