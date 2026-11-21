@@ -15,7 +15,7 @@ function safeNext(value: string | null): string {
 }
 
 export default function LoginPage() {
-  return <Suspense fallback={<PageLoadingShell title="ログイン" eyebrow="MY TIXREPO" heading="ログインして記録を保存" backHref="/" blocks={1} />}><LoginPageInner /></Suspense>;
+  return <Suspense fallback={<PageLoadingShell title="ログイン" eyebrow="マイちけレポ" heading="ログインして記録を保存" backHref="/" blocks={1} />}><LoginPageInner /></Suspense>;
 }
 
 function LoginPageInner() {
@@ -105,7 +105,7 @@ function LoginPageInner() {
       <section className="community-hero">
         <Header title={mode === "login" ? "ログイン" : "新規登録"} backHref="/" backLabel="TOPへ戻る" showAccount={false} />
         <div className="mx-auto w-[calc(100%-32px)] max-w-[560px] pb-7 pt-4 sm:pb-10 sm:pt-7">
-          <p className="community-eyebrow">MY TIXREPO</p>
+          <p className="community-eyebrow">マイちけレポ</p>
           <h1 className="mt-2 text-[28px] font-black leading-[1.2] tracking-[-0.05em] text-[#4b4148] sm:text-[34px]">
             {mode === "login" ? <>ライブの記録を、<span className="text-[#f43679]">自分の場所へ。</span></> : <>ライブ記録を、<span className="text-[#f43679]">始めよう。</span></>}
           </h1>

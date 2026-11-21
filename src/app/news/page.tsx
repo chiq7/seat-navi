@@ -18,7 +18,7 @@ export default function SiteNewsPage() {
         <Header title="お知らせ" backHref="/" backLabel="TOPへ戻る" />
         <div className="zr-container pb-10 pt-5 sm:pb-14 sm:pt-9">
           <Megaphone size={28} strokeWidth={1.6} className="text-[#ef4f87]" aria-hidden="true" />
-          <p className="community-eyebrow mt-6">TIXREPO JOURNAL</p>
+          <p className="community-eyebrow mt-6">ちけレポのお知らせ</p>
           <h1 className="community-title mt-3">ちけレポからの、<br /><span className="text-[#ef4f87]">新しいお知らせ。</span></h1>
           <p className="community-subtitle mt-5">イベント開催、機能更新、サービスの使い方をお知らせします。</p>
         </div>

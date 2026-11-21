@@ -28,7 +28,7 @@ export default function Footer() {
             ライブ会場一覧
           </Link>
         </div>
-        <p className="text-[8px] tracking-[0.12em] text-[#a4959e] md:col-span-2 md:text-right md:text-[9px]">© TIXREPO</p>
+        <p className="text-[8px] tracking-[0.12em] text-[#a4959e] md:col-span-2 md:text-right md:text-[9px]">© ちけレポ</p>
       </div>
     </footer>
   );

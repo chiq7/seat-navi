@@ -86,7 +86,7 @@ export default function TixRepoMolkkyNewsPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(eventStructuredData) }} />
-      <NewsArticleLayout kicker="TIXREPO EVENT" breadcrumbLabel={EVENT_NAME} title={<>モルック初心者交流大会を<br />開催します</>} lead="木の棒を投げてピンを倒す、北欧生まれのスポーツ「モルック」。ルールを知らない方も、ひとりでの参加も歓迎です。">
+      <NewsArticleLayout kicker="ちけレポのイベント" breadcrumbLabel={EVENT_NAME} title={<>モルック初心者交流大会を<br />開催します</>} lead="木の棒を投げてピンを倒す、北欧生まれのスポーツ「モルック」。ルールを知らない方も、ひとりでの参加も歓迎です。">
         <div className="border-t border-divider bg-white">
           <div className="px-5 py-2 sm:px-7">
             <DetailRow icon={<CalendarDays size={18} />} label="日時">2026年12月1日（火）13:00〜17:00</DetailRow>

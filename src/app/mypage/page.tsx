@@ -291,7 +291,7 @@ export default function MyPage() {
         <section className="community-hero">
           <Header title="マイページ" backHref="/" backLabel="TOPへ戻る" showAccount={false} />
           <div className="zr-container pb-6 pt-4 sm:pb-9 sm:pt-7">
-            <p className="community-eyebrow">MY TIXREPO</p>
+            <p className="community-eyebrow">マイちけレポ</p>
             <h1 className="mt-2 text-[28px] font-black tracking-[-0.05em] text-[#4b4148] sm:text-[36px]">わたしの<span className="text-[#ef4f87]">ライブ記録</span></h1>
           </div>
         </section>
@@ -336,7 +336,7 @@ export default function MyPage() {
       <section className="community-hero">
         <Header title="マイページ" backHref="/" backLabel="TOPへ戻る" showAccount={false} />
         <div className="zr-container pb-6 pt-4 sm:pb-9 sm:pt-7">
-          <p className="community-eyebrow">MY TIXREPO</p>
+          <p className="community-eyebrow">マイちけレポ</p>
           <h1 className="mt-2 text-[28px] font-black tracking-[-0.05em] text-[#4b4148] sm:text-[36px]">わたしの<span className="text-[#ef4f87]">ライブ記録</span></h1>
           <div className="mt-4 grid border-y border-white/85 bg-white/65 px-1 backdrop-blur-sm sm:grid-cols-[1fr_160px]">
             <div className="flex min-w-0 items-center gap-3 py-3 sm:border-r sm:border-[#eadfe4] sm:pr-5">
