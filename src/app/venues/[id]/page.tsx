@@ -23,7 +23,9 @@ import { buildPublicVenueMetadata, getVenuePageContent } from "@/lib/venuePageMe
 import { parseVenueSeatLink, ZOZO_LOWER_THIRD_PAGE } from "@/lib/venueSeatLinks";
 import { getVenueArenaPhotoArchives } from "@/data/venueArenaPhotoArchives";
 import { SeatSourcePreview } from "@/components/venue/SeatSourceArchive";
-import { getSeatSources, sourceKinds } from "@/lib/seatSourceArchive";
+import { getSeatSources, seatSourcePermalink, sourceKinds } from "@/lib/seatSourceArchive";
+import { ArenaMapsProvider, type ArenaMapPost } from "@/components/venue/ArenaMapsSheet";
+import { getVenuePhotoCovers } from "@/lib/serverSeatPhotoVenues";
 import VenuePhotoStrip from "@/components/venue/VenuePhotoStrip";
 import compactStyles from "@/components/venue/VenueCompact.module.css";
 import { TokyoDomeGuideNav } from "@/components/venue/TokyoDomeVisitorGuide";
@@ -52,6 +54,12 @@ export default async function VenuePage({ params, searchParams }: Props) {
 
   const hasGuide = hasPublicVenueGuide(venue.id);
   const sources = getSeatSources("venues", venue.id);
+  // Arena-layout posts (one X post per show) open from the arena of the seat map.
+  const arenaMaps: ArenaMapPost[] = sources.arena_map.map(post => {
+    const row = post.rows[0];
+    const [, date = "", title = row.eventLabel] = row.eventLabel.match(/^(\d{4}\/\d{2}\/\d{2})\s+(.+)$/) ?? [];
+    return { id: post.sourceId, url: seatSourcePermalink(row), date, title, eventId: row.eventId };
+  });
   const seatTarget = hasGuide ? parseVenueSeatLink(await searchParams) : null;
   const { displayName: publicName, officialName, alternateNames, photos } = getVenuePageContent(venue.id, venue.name);
   const headerName = publicName.split(/[（(]/, 1)[0].trim() || venue.name;
@@ -139,11 +147,14 @@ export default async function VenuePage({ params, searchParams }: Props) {
           </a>
         </div>}
         {venue.id === "zozo-marine" && <div className="zr-container"><a className="zr-focus inline-flex min-h-11 items-center text-sm font-bold text-[#a62b59] underline" href={ZOZO_LOWER_THIRD_PAGE}>下段3塁側の座席表を見る</a></div>}
-        <PublicVenueGuide venue={venue.id} target={seatTarget}
-          afterSeats={compact ? <VenuePhotoStrip preview={photos} allTargetId="seat-photo-title" /> : undefined} />
+        <ArenaMapsProvider posts={compact ? arenaMaps : []}>
+          <PublicVenueGuide venue={venue.id} target={seatTarget}
+            afterSeats={compact ? <VenuePhotoStrip photos={getVenuePhotoCovers(venue.id)} count={photos?.count ?? 0} allTargetId="seat-photo-title" /> : undefined} />
+        </ArenaMapsProvider>
       </div>}
 
-      <div className={compact ? compactStyles.sources : undefined}><SeatSourcePreview scope="venues" id={venue.id} kinds={compact ? ["arena_map"] : undefined} /></div>
+      {/* Tokyo Dome shows seat posts as photos and arena maps from the seat map, so the post list is left out. */}
+      {!compact && <SeatSourcePreview scope="venues" id={venue.id} />}
       {compact && <div className="zr-container pb-2">
         <Link href={`/report?venue=${encodeURIComponent(venue.id)}`} className="zr-focus flex min-h-12 items-center justify-center gap-2 rounded-xl border border-[#ecd2de] bg-white text-sm font-bold text-[#96305b]">
           <PenLine size={16} aria-hidden="true" />この会場のライブを報告する

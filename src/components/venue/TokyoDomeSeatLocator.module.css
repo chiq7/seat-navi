@@ -155,6 +155,11 @@
 .miniMap svg { display:block; width:100%; height:auto; }
 .miniMap span { display:block; color:#96305b; font-size:10px; font-weight:900; line-height:14px; text-align:center; }
 .miniMap:focus-visible { outline:3px solid #a93164; outline-offset:2px; }
+.arenaMaps { position:absolute; z-index:2; display:inline-flex; align-items:center; gap:4px; height:30px; min-height:30px; padding:0 6px 0 9px; border:2px solid #fff; border-radius:999px; background:#3f6f5c; color:#fff; font-size:12px; font-weight:900; white-space:nowrap; transform:translate(-50%,-50%); box-shadow:0 2px 8px #0000002e; cursor:pointer; }
+.seatFrame .map button.arenaMaps, .map button.arenaMaps { height:30px; min-height:30px; }
+.map .arenaMaps svg { flex:0 0 14px; width:14px; height:14px; cursor:pointer; }
+.arenaMaps b { min-width:20px; padding:0 5px; border-radius:999px; background:#fff; color:#3f6f5c; font-size:11px; line-height:18px; text-align:center; }
+.arenaMaps:focus-visible { outline:3px solid #a93164; outline-offset:2px; }
 .fieldPointer { position:absolute; z-index:2; display:inline-flex; align-items:center; gap:2px; padding:3px 9px 3px 6px; border-radius:999px; background:#3f6f5c; color:#fff; font-size:11px; font-weight:900; white-space:nowrap; transform:translate(-50%,-50%); pointer-events:none; box-shadow:0 1px 4px #0003; }
 .zoneKey { display:flex; gap:10px; margin:0; padding:7px 10px; overflow-x:auto; border-top:1px solid #f0e3e9; background:#fffafc; list-style:none; scrollbar-width:none; }
 .zoneKey::-webkit-scrollbar { display:none; }

@@ -20,7 +20,7 @@ import { buildTokyoDomeBalconySegments } from "@/lib/tokyoDomeBalconySegments";
 import { findTokyoDomeVerifiedSeats, getTokyoDomeVerifiedRowRange, getTokyoDomeVerifiedSeatBlock, getTokyoDomeVerifiedPrintedRows, isTokyoDomeSectionRowSelectable, getTokyoDomeNumberReference, parseTokyoDomeSection, parseTokyoDomeSeatInput, type TokyoDomeSection } from "@/lib/tokyoDomeSeatLocator";
 import { sectionRowGuides } from "@/lib/tokyoDomeSeatRows";
 import { placeTokyoDomeRowMarker, tokyoDomeNumberClearOfRows, tokyoDomeDuplicateReferenceId, tokyoDomeSeatFocus, layoutTokyoDomeSeatLabels, TOKYO_DOME_OVERVIEW_AREAS, tokyoDomeOverviewView, tokyoDomeTierView } from "@/lib/tokyoDomeSeatLabels";
-import { ArrowUp, Camera, LocateFixed, X } from "lucide-react";
+import { ArrowUp, Camera, LocateFixed, Map as MapIcon, X } from "lucide-react";
 import styles from "./TokyoDomeSeatLocator.module.css";
 import controls from "./guides/KyoceraSeatMap.module.css";
 import { TOKYO_DOME_SEAT_NUMBER_GUIDES } from "@/data/tokyoDomeSeatNumberGuides";
@@ -31,7 +31,8 @@ import { SEAT_PHOTO_MAP_COLOR, SeatPhotoMapSummary, SeatPhotoMarker } from "./te
 import { seatPhotoOffsets, useSeatPhotoHitTest } from "./template/useSeatPhotoHitTest";
 import { DomeSeatFrame } from "./template/DomeSeatFrame";
 import { seatViewPosts } from "@/lib/seatViewPosts";
-import { getTokyoDomeVenueSeatSelection, TOKYO_DOME_SEAT_SELECTION_EVENT } from "@/lib/tokyoDomeVenueSelection";
+import { announceTokyoDomeMapScope, getTokyoDomeVenueSeatSelection, TOKYO_DOME_SEAT_SELECTION_EVENT } from "@/lib/tokyoDomeVenueSelection";
+import { useArenaMaps } from "./ArenaMapsSheet";
 import { useVenueSeatTarget } from "./VenueSeatTarget";
 
 type SeatArea = { code: string; label: [number, number]; path: string | null; shared: boolean; rows: [number, number] | null };
@@ -274,6 +275,7 @@ export function TokyoDomeSeatLocator() {
   const pointerStartsRef = useRef(new Map<number, { point: MapPoint; code: string | null }>());
   const gestureRef = useRef<MapGesture | null>(null);
   const didPanRef = useRef(false);
+  const arenaMaps = useArenaMaps();
   const [seatLevel, setSeatLevel] = useState<SeatLevel>(initial ? levelForPrefix(initial.section.prefix) : "all");
   const [direction,setDirection]=useState<keyof typeof MAP_VIEWS>(() => initial ? directionForArea(initial.area) : "all");
   const [candidates,setCandidates]=useState<SeatArea[]>([]);
@@ -298,6 +300,25 @@ export function TokyoDomeSeatLocator() {
       detail: selected ? getTokyoDomeVenueSeatSelection(selected.code, selectedRow, selectedLabel) : null,
     }));
   }, [selected, selectedRow, selectedLabel]);
+  // Tell the photo row which part of the venue is on the map: the blocks around a chosen block, or the chosen floor and side.
+  const selectedCode = selected?.code, labelX = selectedLabel?.[0], labelY = selectedLabel?.[1];
+  useEffect(() => {
+    if (selectedCode && labelX !== undefined && labelY !== undefined) {
+      const near = AREAS.filter(area => !area.shared)
+        .map(area => ({ code: area.code, distance: Math.hypot(area.label[0] - labelX, area.label[1] - labelY) }))
+        .sort((a, b) => a.distance - b.distance).slice(0, 16);
+      announceTokyoDomeMapScope({ label: `${selectedCode}の近く`, codes: near.map(area => area.code) });
+      return;
+    }
+    if (seatLevel === "all" && direction === "all") { announceTokyoDomeMapScope({ label: null, codes: [] }); return; }
+    const level = SEAT_LEVELS.find(item => item.id === seatLevel)!;
+    const outfieldSide = direction === "left" || direction === "right" || direction === "outfield";
+    announceTokyoDomeMapScope({
+      label: [seatLevel !== "all" && !outfieldSide && level.label, direction !== "all" && MAP_VIEWS[direction].label].filter(Boolean).join("・"),
+      codes: AREAS.filter(area => !area.shared && (seatLevel === "all" || level.prefixes.includes(area.code[0]))
+        && (direction === "all" || directionForArea(area) === direction)).map(area => area.code),
+    });
+  }, [selectedCode, labelX, labelY, seatLevel, direction]);
   const selectedZone = selectedArea ? ZONE_NAMES.find((zone) => zone.key === selectedArea.code[0])?.label : undefined;
   const selectedSide = verifiedBlock ? { first: "1塁側", home: "ホーム側", third: "3塁側", left: "外野レフト", right: "外野ライト" }[verifiedBlock.area]
     : selectedArea?.code.startsWith("F") ? "外野側" : selectedLabel
@@ -432,6 +453,13 @@ export function TokyoDomeSeatLocator() {
     x: (canvasSize.width - interactiveViewBox.width * screenScale) / 2 + (FIELD_CENTER.x - interactiveViewBox.x) * screenScale,
     y: (canvasSize.height - interactiveViewBox.height * screenScale) / 2 + (FIELD_CENTER.y - interactiveViewBox.y) * screenScale,
   };
+  // The arena opens the shows' arena-layout posts. In the whole view the button takes the place of the "アリーナ" caption.
+  const arenaAnchor = showDetail ? FIELD_CENTER : { x: 579, y: 240 }; // between the outfield and base-side captions
+  const arenaButton = {
+    left: (canvasSize.width - interactiveViewBox.width * screenScale) / 2 + (arenaAnchor.x - interactiveViewBox.x) * screenScale,
+    top: (canvasSize.height - interactiveViewBox.height * screenScale) / 2 + (arenaAnchor.y - interactiveViewBox.y) * screenScale,
+  };
+  const arenaButtonInView = arenaButton.left >= 56 && arenaButton.left <= canvasSize.width - 56 && arenaButton.top >= 24 && arenaButton.top <= canvasSize.height - 24;
   const fieldInView = fieldScreen.x >= 40 && fieldScreen.x <= canvasSize.width - 40 && fieldScreen.y >= 30 && fieldScreen.y <= canvasSize.height - 30;
   const fieldPointer = fieldInView ? null : (() => {
     const cx = canvasSize.width / 2, cy = canvasSize.height / 2;
@@ -790,7 +818,7 @@ export function TokyoDomeSeatLocator() {
               </g>
               {showDetail && <g data-detail-field="" pointerEvents="none" aria-hidden="true">
                 <path d={OVERVIEW_SURFACES.floor} fill="#d6eadf" stroke="#9cc3b0" strokeWidth="1.4" vectorEffect="non-scaling-stroke" />
-                {fieldInView && <text x={FIELD_CENTER.x} y={FIELD_CENTER.y} textAnchor="middle" dominantBaseline="central"
+                {fieldInView && !arenaMaps && <text x={FIELD_CENTER.x} y={FIELD_CENTER.y} textAnchor="middle" dominantBaseline="central"
                   fontSize={14 / screenScale} fontWeight="900" fill="#3f6f5c">アリーナ</text>}
               </g>}
               <g data-overview-art="structure" opacity={overviewOpacity} pointerEvents="none" aria-hidden="true">
@@ -860,7 +888,7 @@ export function TokyoDomeSeatLocator() {
                 data-selected-row-band={selectedRow} d={ROW_GUIDES.get(selectedArea.code)!.band(selectedRow)!}
                 clipPath={`url(#tokyo-rows-${selectedArea.code})`} fill="#b9e3fb" fillOpacity="0.96"
                 stroke="#1673ad" strokeWidth="1.2" vectorEffect="non-scaling-stroke" pointerEvents="none" />}
-              <g data-overview-art="floor-label" opacity={overviewOpacity} pointerEvents="none" aria-hidden="true" fill="#315b4c" textAnchor="middle" fontFamily="ui-sans-serif, sans-serif">
+              <g data-overview-art="floor-label" opacity={arenaMaps ? 0 : overviewOpacity} pointerEvents="none" aria-hidden="true" fill="#315b4c" textAnchor="middle" fontFamily="ui-sans-serif, sans-serif">
                 <text x="579" y="253" fontSize={Math.min(17, Math.max(12, canvasSize.width / 26)) / screenScale}
                   fontWeight="800">アリーナ</text>
               </g>
@@ -932,6 +960,11 @@ export function TokyoDomeSeatLocator() {
                 </span>}
               </button>)}
           </div>}
+          {arenaMaps && arenaButtonInView && <button type="button" className={styles.arenaMaps} data-arena-maps-button=""
+            style={{ left: arenaButton.left, top: arenaButton.top }} onPointerDown={event => event.stopPropagation()} onClick={arenaMaps.open}
+            aria-label={`アリーナ図を見る（${arenaMaps.count}公演）`}>
+            <MapIcon size={14} aria-hidden="true" />アリーナ図<b>{arenaMaps.count}</b>
+          </button>}
           {showDetail && fieldPointer && <span className={styles.fieldPointer} data-field-pointer=""
             style={{ left: fieldPointer.left, top: fieldPointer.top }} aria-hidden="true">
             <ArrowUp size={14} style={{ transform: `rotate(${fieldPointer.angle}deg)` }} />アリーナ

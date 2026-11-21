@@ -1,5 +1,5 @@
 import { VenueProgramAnchor } from "@/components/venue/VenueProgramLinks";
-import { ArrowRight, ArrowUpRight, Camera, Map as MapIcon, CreditCard, Luggage, Ticket, TrainFront, Armchair, CircleHelp, Utensils, Accessibility, DoorOpen, Smartphone } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Camera, CreditCard, Luggage, Ticket, TrainFront, Armchair, CircleHelp, Utensils, Accessibility, DoorOpen, Smartphone } from "lucide-react";
 import { DOME_GUIDE_FAQ, DOME_GUIDE_SOURCES as sources, DOME_STATIONS, DOME_GUIDE_CHECKED_AT } from "@/data/tokyoDomeVisitorGuide";
 import { TokyoDomeGuideFinder } from "./TokyoDomeGuideFinder";
 import { tokyoDomeAccessStation, TOKYO_DOME_STATION_WALKING, TOKYO_DOME_ACCESS_EVENT } from "@/lib/tokyoDomeAccess";
@@ -11,7 +11,7 @@ import styles from "./TokyoDomeVisitorGuide.module.css";
 export function TokyoDomeGuideNav() {
   const links = [
     { id: "dome-seats", label: "座席", icon: Armchair }, { id: "dome-photos", label: "写真", icon: Camera }, { id: "dome-spots", label: "設備・売店", icon: Utensils },
-    { id: "dome-access", label: "アクセス", icon: TrainFront }, { id: "dome-prepare", label: "持ち物", icon: Luggage }, { id: "seat-source-posts", label: "アリーナ図", icon: MapIcon },
+    { id: "dome-access", label: "アクセス", icon: TrainFront }, { id: "dome-prepare", label: "持ち物", icon: Luggage },
     { id: "upcoming-events-title", label: "公演", icon: Ticket }, { id: "dome-faq", label: "質問", icon: CircleHelp },
   ];
   return <><TokyoDomeBottomNav /><nav className={`zr-container ${styles.chipNav}`} aria-label="東京ドームガイドの目次">

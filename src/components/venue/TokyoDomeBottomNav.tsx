@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Armchair, Camera, CircleHelp, Ellipsis, Luggage, Map, Ticket, TrainFront, Utensils, X } from "lucide-react";
 import { VenueProgramAnchor } from "./VenueProgramLinks";
+import { OPEN_ARENA_MAPS_EVENT } from "./ArenaMapsSheet";
 import styles from "./TokyoDomeBottomNav.module.css";
 
 type Tab = "seats" | "photos" | "spots" | "access" | "more";
@@ -17,7 +18,7 @@ const MAIN: { tab: Exclude<Tab, "more">; id: string; label: string; Icon: typeof
 /** Page sections in any order; the last one whose top has passed the reading line decides the lit tab. */
 const SECTION_TAB: [string, Tab][] = [
   ["dome-seats", "seats"], ["dome-photos", "photos"], ["dome-spots", "spots"], ["dome-access", "access"],
-  ["dome-prepare", "more"], ["dome-faq", "more"], ["seat-source-posts", "more"], ["seat-photo-title", "photos"],
+  ["dome-prepare", "more"], ["dome-faq", "more"], ["seat-photo-title", "photos"],
   ["upcoming-events-title", "more"], ["past-events-title", "more"],
 ];
 
@@ -62,7 +63,7 @@ export default function TokyoDomeBottomNav() {
   return <nav ref={navRef} className={styles.nav} aria-label="東京ドームガイドの目次" data-dome-bottom-nav>
     {open && <div id="dome-more-sheet" className={styles.sheet} onClick={event => { if ((event.target as HTMLElement).closest("a")) setOpen(false); }}>
       <a href="#dome-prepare">{tile(Luggage, "持ち物")}</a>
-      <a href="#seat-source-posts">{tile(Map, "アリーナ図")}</a>
+      <button type="button" onClick={() => { setOpen(false); window.dispatchEvent(new Event(OPEN_ARENA_MAPS_EVENT)); }}>{tile(Map, "アリーナ図")}</button>
       <VenueProgramAnchor fallbackHref="#upcoming-events-title">{tile(Ticket, "公演")}</VenueProgramAnchor>
       <a href="#dome-faq">{tile(CircleHelp, "質問")}</a>
     </div>}
