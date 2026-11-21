@@ -1,5 +1,5 @@
 import { VenueProgramAnchor } from "@/components/venue/VenueProgramLinks";
-import { ArrowRight, ArrowUpRight, CreditCard, Luggage, Ticket, TrainFront, Armchair, CircleHelp, Utensils, Accessibility, DoorOpen, Smartphone } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Camera, MessageSquareText, CreditCard, Luggage, Ticket, TrainFront, Armchair, CircleHelp, Utensils, Accessibility, DoorOpen, Smartphone } from "lucide-react";
 import { DOME_GUIDE_FAQ, DOME_GUIDE_SOURCES as sources, DOME_STATIONS, DOME_GUIDE_CHECKED_AT } from "@/data/tokyoDomeVisitorGuide";
 import { TokyoDomeGuideFinder } from "./TokyoDomeGuideFinder";
 import { tokyoDomeAccessStation, TOKYO_DOME_STATION_WALKING, TOKYO_DOME_ACCESS_EVENT } from "@/lib/tokyoDomeAccess";
@@ -9,13 +9,13 @@ import styles from "./TokyoDomeVisitorGuide.module.css";
 
 export function TokyoDomeGuideNav() {
   const links = [
-    { id: "dome-seats", label: "座席", icon: Armchair }, { id: "dome-spots", label: "設備・売店", icon: Utensils },
-    { id: "dome-access", label: "アクセス", icon: TrainFront }, { id: "dome-prepare", label: "持ち物", icon: Luggage },
+    { id: "dome-seats", label: "座席", icon: Armchair }, { id: "dome-photos", label: "写真", icon: Camera }, { id: "dome-spots", label: "設備・売店", icon: Utensils },
+    { id: "dome-access", label: "アクセス", icon: TrainFront }, { id: "dome-prepare", label: "持ち物", icon: Luggage }, { id: "seat-source-posts", label: "レポ", icon: MessageSquareText },
     { id: "upcoming-events-title", label: "公演", icon: Ticket }, { id: "dome-faq", label: "質問", icon: CircleHelp },
   ];
-  return <nav className={`zr-container ${styles.jumpNav}`} aria-label="東京ドームガイドの目次">
+  return <nav className={`zr-container ${styles.chipNav}`} aria-label="東京ドームガイドの目次">
     {links.map(({ id, label, icon: Icon }) => {
-        const content = <><Icon size={26} aria-hidden="true" /><span>{label}</span></>;
+        const content = <><Icon size={16} aria-hidden="true" /><span>{label}</span></>;
         const href = `#${id}`;
         return id === "upcoming-events-title"
           ? <VenueProgramAnchor key={id} fallbackHref={href}>{content}</VenueProgramAnchor>
@@ -28,13 +28,13 @@ export function TokyoDomeVisitorGuide() {
   return <div className={`zr-container ${styles.guide}`}>
     <section id="dome-spots" aria-labelledby="dome-spots-title" className={styles.section}>
       <h2 id="dome-spots-title">必要な設備を探す</h2>
-      <TokyoDomeGuideFinder />
+      <div className={styles.finderScope}><TokyoDomeGuideFinder /></div>
     </section>
 
     <section id="dome-access" aria-labelledby="dome-access-title" className={styles.section}>
       <h2 id="dome-access-title"><TrainFront aria-hidden="true" />駅から東京ドームへ</h2>
       <VenueAccessCards venueId="tokyo-dome" destination="東京ドーム" eventName={TOKYO_DOME_ACCESS_EVENT} entries={DOME_STATIONS.flatMap(station => station.exit.split("・").map(exit => ({ ...station, exit }))).map((station,index)=>({id:`tokyo-${index}`,from:station.name,exit:station.exit,line:station.line.replace("中央・総武線（各駅停車）","中央・総武線").replace("東京メトロ",""),time:TOKYO_DOME_STATION_WALKING.label,sourceUrl:sources.access.url,targetId:tokyoDomeAccessStation(station.line,station.exit)!.id}))}/>
-      <p className={styles.walkNote}>駅からの目安です。出口・入場ゲート・混雑によって所要時間は変わります。<a href={TOKYO_DOME_STATION_WALKING.sourceUrl} target="_blank" rel="noopener noreferrer">公式の徒歩圏案内 ↗</a></p>
+      <a className={styles.chipLink} href={TOKYO_DOME_STATION_WALKING.sourceUrl} target="_blank" rel="noopener noreferrer">公式の徒歩案内<ArrowUpRight size={14} aria-hidden="true" /></a>
       <div className={styles.twoActions}><a href={sources.gates.url} target="_blank" rel="noopener noreferrer"><DoorOpen aria-hidden="true" /><span>入場ゲート<small>チケットの指定を確認</small></span><ArrowUpRight size={16} aria-hidden="true" /></a><a href={sources.access.url} target="_blank" rel="noopener noreferrer"><Accessibility aria-hidden="true" /><span>段差のないルート<small>水道橋駅西口はEVなし</small></span><ArrowUpRight size={16} aria-hidden="true" /></a></div>
       <details className={styles.explanation}><summary>アクセスの補足</summary>{DOME_STATIONS.map((station) => <p key={station.line}><strong>{station.line} {station.name}：</strong>{station.note}</p>)}<p>東京都文京区後楽1-3-61。出口の対応図です。実際の道順は地図・公式ルートで確認できます。</p></details>
     </section>
@@ -50,7 +50,7 @@ export function TokyoDomeVisitorGuide() {
 
     <section id="dome-faq" aria-labelledby="dome-faq-title" className={styles.section}>
       <h2 id="dome-faq-title"><CircleHelp aria-hidden="true" />気になることだけ</h2>
-      <div className={styles.faq}>{DOME_GUIDE_FAQ.map((item) => <details key={item.question}><summary>{item.question}</summary><p>{item.answer}</p><a href={sources[item.source].url} target="_blank" rel="noopener noreferrer">公式案内 ↗</a></details>)}</div>
+      <div className={styles.faq}>{DOME_GUIDE_FAQ.map((item) => <details key={item.question}><summary>{item.question}</summary><p>{item.answer}</p><a className={styles.chipLink} href={sources[item.source].url} target="_blank" rel="noopener noreferrer">公式案内<ArrowUpRight size={14} aria-hidden="true" /></a></details>)}</div>
       <VenueProgramAnchor className={styles.eventAction}><Ticket size={25} aria-hidden="true" /><strong>公演・座席レポを見る</strong><ArrowRight size={20} aria-hidden="true" /></VenueProgramAnchor>
       <details className={styles.explanation}><summary>情報元・確認日</summary><p>{DOME_GUIDE_CHECKED_AT} 確認</p><ul>{Object.entries(sources).map(([id, source]) => <li key={id}><a href={source.url} target="_blank" rel="noopener noreferrer">{source.label} ↗</a></li>)}</ul></details>
     </section>

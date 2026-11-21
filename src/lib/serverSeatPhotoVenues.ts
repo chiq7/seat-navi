@@ -187,6 +187,22 @@ export function getVenuePhotoIndex(id: string) {
   return [...groups.values()];
 }
 
+/** Same groups as getVenuePhotoIndex, each with the newest photo's small thumbnail as its cover. */
+export function getVenuePhotoCovers(id: string) {
+  const images = [...venueGalleryImages(id, `/venues/${encodeURIComponent(id)}`)].sort((a, b) => b.postedAt - a.postedAt);
+  const seen = new Set<string>();
+  const groups = new Map<string, { label: string; href: string; count: number; thumbnailUrl: string | null }>();
+  for (const image of images) {
+    if (seen.has(image.imageUrl)) continue;
+    seen.add(image.imageUrl);
+    const key = image.href + "\n" + image.label;
+    const group = groups.get(key);
+    if (group) { group.count++; group.thumbnailUrl ??= thumbnailUrl(image.imageUrl) ?? null; }
+    else groups.set(key, { label: image.label, href: image.href, count: 1, thumbnailUrl: thumbnailUrl(image.imageUrl) ?? null });
+  }
+  return [...groups.values()];
+}
+
 export function getEventVenuePhotoPreview(
   venueId: string | null | undefined, venueName?: string | null,
 ): EventVenuePhotoPreview | null {

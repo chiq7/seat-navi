@@ -1,6 +1,6 @@
 "use client";
 import dynamic from "next/dynamic";
-import { useSyncExternalStore } from "react";
+import { useSyncExternalStore, type ReactNode } from "react";
 import { isPublicArenaGuideVenue } from "@/lib/publicVenueGuides";
 import ArenaGuide from "./ArenaGuide";
 import GuideLoadBoundary, { GuideLoading } from "./GuideLoadBoundary";
@@ -8,8 +8,9 @@ import { VenueSeatTarget } from "../VenueSeatTarget";
 import VenueGuideAnchor from "../VenueGuideAnchor";
 import { parseVenueSeatLink, type VenueSeatLinkTarget } from "@/lib/venueSeatLinks";
 
+const TokyoDomeEntry = dynamic(() => import("./publicEntries/tokyo-dome"), { loading: GuideLoading });
 const dedicated = {
-  "tokyo-dome": dynamic(() => import("./publicEntries/tokyo-dome"), { loading: GuideLoading }),
+  "tokyo-dome": TokyoDomeEntry,
   "kyocera-dome": dynamic(() => import("./publicEntries/kyocera-dome"), { loading: GuideLoading }),
   "k-arena": dynamic(() => import("./publicEntries/k-arena"), { loading: GuideLoading }),
 };
@@ -19,7 +20,7 @@ function subscribeToLocation(callback: () => void) {
   return () => window.removeEventListener("popstate", callback);
 }
 
-export default function PublicVenueGuide({ venue, target = null }: { venue: string; target?: VenueSeatLinkTarget | null }) {
+export default function PublicVenueGuide({ venue, target = null, afterSeats }: { venue: string; target?: VenueSeatLinkTarget | null; afterSeats?: ReactNode }) {
   // A shared HTML/RSC snapshot has no seat query until the browser loads the actual URL.
   const query = useSyncExternalStore(subscribeToLocation, () => window.location.search, () => "");
   const params = new URLSearchParams(query);
@@ -34,5 +35,5 @@ export default function PublicVenueGuide({ venue, target = null }: { venue: stri
   }
   if (venue !== "kyocera-dome" && venue !== "tokyo-dome" && venue !== "k-arena") return null;
   const Entry = dedicated[venue];
-  return <VenueSeatTarget key={key} value={activeTarget}><VenueGuideAnchor venue={venue} /><GuideLoadBoundary key={venue}><Entry /></GuideLoadBoundary></VenueSeatTarget>;
+  return <VenueSeatTarget key={key} value={activeTarget}><VenueGuideAnchor venue={venue} /><GuideLoadBoundary key={venue}>{venue === "tokyo-dome" ? <TokyoDomeEntry afterSeats={afterSeats} /> : <Entry />}</GuideLoadBoundary></VenueSeatTarget>;
 }

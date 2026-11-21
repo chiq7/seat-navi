@@ -1,0 +1,12 @@
+.strip { padding-block:14px 6px; scroll-margin-top:110px; }
+.head { display:flex; align-items:center; gap:6px; color:#a93164; }
+.head h2 { margin:0; font-size:16px; font-weight:900; color:#4b4148; }
+.all { display:inline-flex; align-items:center; gap:2px; margin-left:auto; min-height:36px; padding:0 6px 0 12px; border:1px solid #ecd2de; border-radius:999px; background:#fff; color:#96305b; font-size:13px; font-weight:800; }
+.row { display:flex; gap:8px; margin:8px -16px 0; padding:0 16px 6px; overflow-x:auto; list-style:none; scroll-snap-type:x mandatory; scrollbar-width:none; }
+.row::-webkit-scrollbar { display:none; }
+.row li { flex:0 0 150px; scroll-snap-align:start; }
+.tile { position:relative; display:block; overflow:hidden; border-radius:12px; background:#f3e6ec; }
+.tile img { display:block; width:150px; height:104px; object-fit:cover; }
+.tile span { position:absolute; left:6px; bottom:6px; max-width:calc(100% - 12px); overflow:hidden; padding:2px 7px; border-radius:999px; background:#000000a6; color:#fff; font-size:11px; font-weight:800; white-space:nowrap; text-overflow:ellipsis; }
+.tile:focus-visible, .all:focus-visible { outline:3px solid #a93164; outline-offset:2px; }
+@media (min-width: 720px) { .row { margin-inline:0; padding-inline:0; } .row li { flex-basis:160px; } .tile img { width:160px; height:110px; } }

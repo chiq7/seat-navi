@@ -24,6 +24,10 @@ import { parseVenueSeatLink, ZOZO_LOWER_THIRD_PAGE } from "@/lib/venueSeatLinks"
 import { getVenueArenaPhotoArchives } from "@/data/venueArenaPhotoArchives";
 import { SeatSourcePreview } from "@/components/venue/SeatSourceArchive";
 import { getSeatSources, sourceKinds } from "@/lib/seatSourceArchive";
+import VenuePhotoStrip from "@/components/venue/VenuePhotoStrip";
+import compactStyles from "@/components/venue/VenueCompact.module.css";
+import { TokyoDomeGuideNav } from "@/components/venue/TokyoDomeVisitorGuide";
+import { Camera, MessageSquareText, PenLine } from "lucide-react";
 
 const SITE_URL = "https://tixrepo.com";
 
@@ -56,6 +60,9 @@ export default async function VenuePage({ params, searchParams }: Props) {
     getVenueEvents(venue.id).catch(() => null), getRequestPublicEventCatalog().catch(() => null),
   ]);
   const profile = getVenueSeoProfile(venue.id);
+  // 東京ドームを基準にしたスマホ優先レイアウト。検証後に他会場へ広げる。
+  const compact = venue.id === "tokyo-dome";
+  const reportCount = sources.seat_view.length;
   const venueUrl = `${SITE_URL}/venues/${venue.id}`;
   const structuredData = {
     "@context": "https://schema.org",
@@ -100,13 +107,19 @@ export default async function VenuePage({ params, searchParams }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(structuredData) }}
       />
-      <section className="community-hero">
+      <section className={compact ? "bg-[#fffafb]" : "community-hero"}>
         <Suspense fallback={<Header title={headerName} breadcrumbLabel={publicName} backHref="/venues" backLabel="ライブ会場一覧へ戻る"
           breadcrumbParents={[{ href: "/venues", label: "ライブ会場一覧" }]} existingBreadcrumbSchema />}>
           <VenueEventReturnLink venueId={venue.id} venueName={publicName} headerName={headerName} />
         </Suspense>
 
-        <div className="zr-container pb-6 pt-4 sm:pb-9 sm:pt-7">
+        {compact ? <div className="zr-container pb-1 pt-3 sm:pt-5">
+          <h1 className="text-[22px] font-black leading-tight tracking-[-0.04em] text-[#4b4148] sm:text-[32px]"><span className="text-[#ef4f87]">{publicName}</span>の座席表・見え方</h1>
+          <div className="mt-2 flex flex-wrap gap-2 text-[12px] font-bold">
+            {(photos?.count ?? 0) > 0 && <a href="#dome-photos" className="zr-focus inline-flex min-h-8 items-center gap-1 rounded-full border border-[#ecd2de] bg-white px-3 text-[#96305b]"><Camera size={14} aria-hidden="true" />写真{photos!.count}枚</a>}
+            {reportCount > 0 && <a href="#seat-source-posts" className="zr-focus inline-flex min-h-8 items-center gap-1 rounded-full border border-[#ecd2de] bg-white px-3 text-[#96305b]"><MessageSquareText size={14} aria-hidden="true" />座席レポ{reportCount}件</a>}
+          </div>
+        </div> : <div className="zr-container pb-6 pt-4 sm:pb-9 sm:pt-7">
           <p className="community-eyebrow">VENUE LIVE GUIDE</p>
           <h1 className="mt-2 text-[28px] font-black tracking-[-0.05em] text-[#4b4148] sm:text-[38px]"><span className="text-[#ef4f87]">{publicName}</span>の座席表{hasGuide && <span className="mt-1 block text-[20px] sm:text-[28px]">アクセス・会場ガイド</span>}</h1>
           <p className="mt-2 text-[13px] font-medium leading-6 text-[#6c5c66]">{hasGuide ? "自分の席から、荷物の預け先・売店まで。ライブへ行く日の準備をここで。" : "公演予定・座席報告・現地レポを確認できます。"}</p>
@@ -118,22 +131,30 @@ export default async function VenuePage({ params, searchParams }: Props) {
             この会場のライブを報告する
           </Link>
           {!hasGuide && <VenueProgramSummary />}
-        </div>
+        </div>}
       </section>
 
-      <VenueSeatReadingGuide venueId={venue.id} name={publicName} photoPreview={photos} />
+      {compact && <TokyoDomeGuideNav />}
+      {!compact && <VenueSeatReadingGuide venueId={venue.id} name={publicName} photoPreview={photos} />}
       {hasGuide && <div id="venue-seat-guide" className="scroll-mt-[90px]">
-        <VenueProgramNavigation venueId={venue.id} />
+        {!compact && <VenueProgramNavigation venueId={venue.id} />}
         {photoArchives.length > 0 && <div className="zr-container mb-3">
           <a href="#past-arena-photos" className="zr-focus inline-flex min-h-11 items-center rounded-xl border border-[#c784a3] bg-[#fff7fa] px-4 text-sm font-bold text-[#8f2f59]">
             過去公演の配置・写真を見る
           </a>
         </div>}
         {venue.id === "zozo-marine" && <div className="zr-container"><a className="zr-focus inline-flex min-h-11 items-center text-sm font-bold text-[#a62b59] underline" href={ZOZO_LOWER_THIRD_PAGE}>下段3塁側の座席表を見る</a></div>}
-        <PublicVenueGuide venue={venue.id} target={seatTarget} />
+        <PublicVenueGuide venue={venue.id} target={seatTarget}
+          afterSeats={compact ? <VenuePhotoStrip preview={photos} allTargetId="seat-photo-title" /> : undefined} />
       </div>}
 
-      <SeatSourcePreview scope="venues" id={venue.id} />
+      <div className={compact ? compactStyles.sources : undefined}><SeatSourcePreview scope="venues" id={venue.id} /></div>
+      {compact && <div className="zr-container pb-2">
+        <Link href={`/report?venue=${encodeURIComponent(venue.id)}`} className="zr-focus flex min-h-12 items-center justify-center gap-2 rounded-xl border border-[#ecd2de] bg-white text-sm font-bold text-[#96305b]">
+          <PenLine size={16} aria-hidden="true" />この会場のライブを報告する
+        </Link>
+      </div>}
+      {compact && <div className={compactStyles.photoList}><VenueSeatReadingGuide venueId={venue.id} name={publicName} photoPreview={photos} gallery /></div>}
       {photoArchives.length > 0 && <section id="past-arena-photos" className="zr-container scroll-mt-[90px] py-6" aria-labelledby="past-arena-photos-heading">
         <h2 id="past-arena-photos-heading" className="artist-heading">過去公演のアリーナ配置と写真</h2>
         <p className="mt-1 mb-3 text-sm text-[#68525e]">アリーナの配置は公演ごとに変わります。</p>
@@ -150,6 +171,7 @@ export default async function VenuePage({ params, searchParams }: Props) {
         <SeatSearchOffer venueId={venue.id} />
         <VenueProgramSections venueId={venue.id} publicName={publicName} />
 
+        {compact && <div className="pt-4 text-xs text-[#706670]"><PublicAlternateNames names={alternateNames} /><VenueActivityDate /></div>}
         {profile && (
           <SeoEditorialSection
             title={`${publicName}とは`}

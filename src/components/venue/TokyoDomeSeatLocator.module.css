@@ -134,3 +134,23 @@
 /* Tokyo only: row and searched-number roles stay distinct from number references. */
 .selectedRow { color:#155786; background:#e8f3ff; border-radius:4px; padding:2px 4px; white-space:nowrap; }
 .selectedSeat { color:#663b00; background:#fff0a8; border:1px solid #c38a19; border-radius:4px; padding:2px 5px; white-space:nowrap; }
+/* 東京ドーム：スマホで1行に収める */
+.seatFrame .overviewHeading { flex-direction:row; align-items:baseline; flex-wrap:nowrap; gap:8px; }
+.seatFrame .overviewHeading strong { flex:0 0 auto; }
+.seatFrame .overviewHeading span { overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
+.seatFrame .selection:has(.overviewHeading) { min-height:0; height:auto; padding-block:10px; }
+.seatFrame :global([data-seat-photo-summary]):not(:has(button)) { flex-direction:row; align-items:center; gap:8px; min-height:0; padding-block:8px; }
+.seatFrame :global([data-seat-photo-summary]):not(:has(button)) > span:last-child { display:none; }
+
+/* 東京ドーム：写真があることを目で分かるようにする */
+.seatFrame :global([data-seat-photo-summary]) { padding:8px 12px; background:#fff; }
+.seatFrame :global([data-seat-photo-summary]):not(:has(button)) > span:first-child { display:inline-flex; align-items:center; gap:6px; padding:5px 12px; border-radius:999px; background:#90254f; color:#fff; font-size:13px; }
+.seatFrame :global([data-seat-photo-summary]):not(:has(button)) > span:first-child > span { color:#ffd9e8; font-weight:800; }
+.seatFrame :global([data-seat-photo-preview]) { gap:12px; min-height:0; padding:2px 0; }
+.seatFrame :global([data-seat-photo-preview]) > span:first-child { width:120px; height:80px; border-radius:12px; box-shadow:0 0 0 2px #90254f; }
+.seatFrame :global([data-seat-photo-preview]) > span:first-child img { object-fit:cover; }
+.seatFrame :global([data-seat-photo-preview]) > span:nth-child(2) > span { display:none; }
+.seatFrame :global([data-seat-photo-preview]) > span:nth-child(2) > strong { display:inline-flex; width:fit-content; padding:9px 14px; border-radius:999px; background:#90254f; color:#fff; font-size:15px; }
+.seatFrame :global([data-seat-photo-preview]) > span:nth-child(2) > strong > span { background:#ffffff33; color:#fff; }
+/* 東京ドーム：全体図はドームの形に合わせた高さにして上下の余白をなくす */
+@media (max-width:600px) { .seatFrame .map[data-whole] { height:auto; aspect-ratio:900 / 760; } }

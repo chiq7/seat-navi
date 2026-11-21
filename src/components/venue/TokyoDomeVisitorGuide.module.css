@@ -372,3 +372,16 @@
  .mapHeading strong { max-width:100%; }
 }
 @media(max-width:360px) { .cutawayFloors { left:34%; } }
+.chipNav { position:sticky; top:56px; z-index:40; display:flex; gap:6px; overflow-x:auto; padding-block:8px; background:#fffafb; border-bottom:1px solid #f0e1e8; scrollbar-width:none; }
+.chipNav::-webkit-scrollbar { display:none; }
+.chipNav a { display:inline-flex; flex:0 0 auto; align-items:center; gap:4px; min-height:36px; padding:0 12px; border:1px solid #ecd2de; border-radius:999px; background:#fff; color:#96305b; font-size:13px; font-weight:800; white-space:nowrap; }
+.chipNav a:hover { background:#fff0f6; }
+.chipNav a:focus-visible { outline:3px solid #a93164; outline-offset:2px; }
+@media (min-width: 640px) { .chipNav { top:64px; } }
+.chipLink { display:inline-flex; align-items:center; gap:3px; min-height:36px; margin:8px 0 4px; padding:0 12px; border:1px solid #ecd2de; border-radius:999px; background:#fff7fa; color:#96305b; font-size:12px; font-weight:800; text-decoration:none; }
+.faq a.chipLink { min-height:36px; }
+/* 東京ドーム：設備検索を1行ずつにまとめ、一覧の二重スクロールをなくす */
+.finderScope :global([role="group"][aria-label="フロアを選ぶ"]),
+.finderScope :global([role="group"][aria-label="利用する場所"]) { flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none; max-width:100%; }
+.finderScope :global([role="group"][aria-label="フロアを選ぶ"]) button { flex:0 0 auto; white-space:nowrap; }
+.finderScope div:has(> :global([data-result-section])) { max-height:none; overflow:visible; }

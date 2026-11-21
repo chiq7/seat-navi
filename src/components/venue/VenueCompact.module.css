@@ -1,0 +1,5 @@
+/* 東京ドーム基準のスマホ向け：文字リンクをボタンにする */
+.sources [data-seat-source] a[target="_blank"] { gap:4px; margin-top:8px; padding:0 14px; border:1px solid #ecd2de; border-radius:999px; background:#fff7fa; color:#96305b; text-decoration:none; font-size:13px; }
+.sources [data-seat-source] a:not([target]) { color:#7a3a58; text-decoration:none; }
+.sources [data-seat-source-kind] > a { display:flex; justify-content:center; width:100%; border-radius:12px; text-decoration:none; }
+.photoList h2, .photoList summary { scroll-margin-top:120px; }

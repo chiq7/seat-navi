@@ -19,14 +19,15 @@ type Props = {
   directionHint?: string; directionExtra?: ReactNode; seatView?: SeatViewSelection;
   share?: SeatPhotoShare;
   compactMobileControls?: boolean; photoLegend?: "camera" | "outline" | "map";
-  
+  /** Replaces the shared level/direction/search controls (Tokyo Dome ticket form). */
+  customControls?: ReactNode;
 };
 
 // Presentation extracted from Tokyo Dome. Venue-specific geometry, search and
 // seat/facility state remain in each controller; the operation surface is shared.
 export function DomeSeatFrame({ levels, level, onLevel, directions, direction, onDirection,
   onZoom, onWhole, zoomLabel = "地図", shortcuts, children, className = "", directionHint, directionExtra, seatView,
-  compactMobileControls = true, photoLegend = "camera", share }: Props) {
+  compactMobileControls = true, photoLegend = "camera", share, customControls }: Props) {
   const ready = useSeatControlsReady();
   const hintId = useId();
   const panelId = `seat-view-${useId()}`;
@@ -40,7 +41,7 @@ export function DomeSeatFrame({ levels, level, onLevel, directions, direction, o
   </div>;
   return <div className={`${styles.shell} ${compactMobileControls ? styles.compactMobile : ""} ${className}`} data-seat-template="tokyo-dome" inert={!ready}
     style={{ "--level-count": levels.length, "--mobile-level-columns": Math.min(5, levels.length) } as CSSProperties}>
-    <div className={`${styles.controls} ${directionExtra ? styles.inlineControls : ""}`}>
+    {customControls ?? <div className={`${styles.controls} ${directionExtra ? styles.inlineControls : ""}`}>
       <div className={styles.levels} role="group" aria-label="席の種類">
         {levels.map(item => <button key={item.id} type="button" disabled={!ready} aria-pressed={level === item.id} onClick={() => onLevel(item.id)}>
           <i style={{ background: item.color }} aria-hidden="true" />{item.label}
@@ -68,7 +69,7 @@ export function DomeSeatFrame({ levels, level, onLevel, directions, direction, o
           {item.label}<ChevronDown size={14} aria-hidden="true" />
         </button>)}
       </div>
-    </div>
+    </div>}
     {posts.length > 0 && photoLegend !== "map" && <p className={styles.photoLegend}>{photoLegend === "outline"
       ? <><span className={styles.photoOutlineKey} aria-hidden="true" />囲み・小点の区画に写真あり</>
       : <><Camera size={15} aria-hidden="true" />写真あり</>}</p>}
