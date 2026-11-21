@@ -80,11 +80,6 @@
 }
 .map { overflow-anchor:none; }
 .mapFrame { overflow:hidden; background:#fff; }
-.orientation { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:3px 12px; padding:5px 8px; border-block:1px solid #e9dfe5; color:#493b45; background:#fbf8fa; font-size:11px; line-height:1.4; }
-.orientation span { white-space:nowrap; }
-.orientation strong { color:var(--rose); }
-.wholeButton { display:flex; justify-content:flex-end; padding:8px 12px; }
-.wholeButton button { min-height:44px; padding:8px 12px; border:1px solid #dfb8ca; border-radius:8px; color:#a93164; background:white; font-size:12px; }
 @media(max-width:600px) {
  .selection { min-height:76px; height:76px; padding-block:6px; gap:5px; }
  .selectionName { max-width:calc(100% - 140px); }
@@ -154,3 +149,15 @@
 .seatFrame :global([data-seat-photo-preview]) > span:nth-child(2) > strong > span { background:#ffffff33; color:#fff; }
 /* 東京ドーム：全体図はドームの形に合わせた高さにして上下の余白をなくす */
 @media (max-width:600px) { .seatFrame .map[data-whole] { height:auto; aspect-ratio:900 / 760; } }
+
+/* Zoomed map aids: mini-map (also the way back), arena pointer, colour key. */
+.miniMap { position:absolute; top:8px; right:8px; z-index:3; display:block; width:78px; padding:4px 4px 2px; border:1px solid #e3cbd6; border-radius:12px; background:#ffffffeb; box-shadow:0 2px 8px #4b414826; cursor:pointer; }
+.miniMap svg { display:block; width:100%; height:auto; }
+.miniMap span { display:block; color:#96305b; font-size:10px; font-weight:900; line-height:14px; text-align:center; }
+.miniMap:focus-visible { outline:3px solid #a93164; outline-offset:2px; }
+.fieldPointer { position:absolute; z-index:2; display:inline-flex; align-items:center; gap:2px; padding:3px 9px 3px 6px; border-radius:999px; background:#3f6f5c; color:#fff; font-size:11px; font-weight:900; white-space:nowrap; transform:translate(-50%,-50%); pointer-events:none; box-shadow:0 1px 4px #0003; }
+.zoneKey { display:flex; gap:10px; margin:0; padding:7px 10px; overflow-x:auto; border-top:1px solid #f0e3e9; background:#fffafc; list-style:none; scrollbar-width:none; }
+.zoneKey::-webkit-scrollbar { display:none; }
+.zoneKey li { display:inline-flex; align-items:center; gap:4px; flex:0 0 auto; color:#5c4753; font-size:11.5px; font-weight:800; }
+.zoneKey i { width:12px; height:12px; border-radius:3px; box-shadow:inset 0 0 0 1px #0000001a; }
+@media (max-width:600px) { .seatFrame .map { transition:height .3s ease; } }
