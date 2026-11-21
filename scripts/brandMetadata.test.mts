@@ -3,14 +3,15 @@ import test from "node:test";
 import { buildMeta, MIN_PHOTO_COUNT_FOR_TITLE, seatPhotoTitle, withSiteTitle } from "../src/lib/metadata.ts";
 import { buildSiteStructuredData } from "../src/lib/structuredData.ts";
 
-test("home has one WebSite with its existing identity and the four preferred aliases", () => {
+test("home has one WebSite with its existing identity and the Japanese aliases only", () => {
   const data = buildSiteStructuredData();
   const sites = data["@graph"].filter(entry => entry["@type"] === "WebSite");
   assert.equal(sites.length, 1);
   assert.equal(data["@context"], "https://schema.org");
   assert.equal(sites[0].name, "ちけレポ");
   assert.equal(sites[0].url, "https://tixrepo.com/");
-  assert.deepEqual(sites[0].alternateName, ["チケレポ", "ちけれぽ", "tixrepo", "TixRepo"]);
+  assert.deepEqual(sites[0].alternateName, ["チケレポ", "ちけれぽ"]);
+  assert.ok(!JSON.stringify(data).includes("TixRepo"));
   assert.equal(sites[0].publisher?.["@id"], "https://tixrepo.com/#organization");
 });
 

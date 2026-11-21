@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 
 export const SITE_URL = "https://tixrepo.com";
 export const SITE_NAME = "ちけレポ";
-export const SITE_ALTERNATE_NAMES = ["チケレポ", "ちけれぽ", "tixrepo", "TixRepo"] as const;
-export const SITE_DISPLAY_NAME = `${SITE_NAME}（チケレポ / TixRepo）`;
-export const HOME_TITLE = `${SITE_DISPLAY_NAME}｜ライブの座席表・見え方写真・セトリ`;
-export const HOME_DESCRIPTION = `${SITE_DISPLAY_NAME}で、ライブ会場の座席表と席からの見え方写真を確認できます。アーティストや公演日から、チケットの当落、セットリスト、現地レポも探せます。`;
+export const SITE_ALTERNATE_NAMES = ["チケレポ", "ちけれぽ"] as const;
+export const SITE_DISPLAY_NAME = `${SITE_NAME}（チケレポ）`;
+export const HOME_TITLE = `ライブの座席表・見え方写真・セトリ｜${SITE_DISPLAY_NAME}`;
+export const HOME_DESCRIPTION = `ライブ会場の座席表と席からの見え方写真を、${SITE_DISPLAY_NAME}で確認できます。アーティストや公演日から、チケットの当落、セットリスト、現地レポも探せます。`;
 export const DEFAULT_OG_IMAGE = "/opengraph-image";
 export const DEFAULT_DESCRIPTION =
   "ライブの当落結果、座席報告、現地レポ、セトリをファン同士で共有できるライブ情報コミュニティです。";
