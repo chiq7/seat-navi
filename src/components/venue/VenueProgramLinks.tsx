@@ -10,7 +10,7 @@ import { STATIC_PUBLIC_PAGES, formatPublicDataTime, publicPageDataPaths, publicP
 import { useFreshPublicData } from "@/lib/useFreshPublicData";
 import { useJstDay } from "@/lib/useJstDay";
 import { latestRealTime, type VenueActivity } from "@/lib/venueActivity";
-import { ArrowDown, ArrowUpRight, MapPin, MoveRight, Users } from "lucide-react";
+import { ArrowDown, ArrowUpRight, ChevronRight, MapPin, MicVocal, MoveRight, Users } from "lucide-react";
 import DiscoveryLink from "@/components/common/DiscoveryLink";
 import { formatEventDate } from "@/components/common/EventListRow";
 import { resolveArtist } from "@/lib/artists";
@@ -36,9 +36,29 @@ export function VenueProgramJump({ venueId, upcomingCount, pastCount }: { venueI
   );
 }
 
-export function VenueProgramList({ venueId, events, emptyText, initialCount = 6 }: { venueId: string; events: CrawledEvent[]; emptyText: string; initialCount?: number }) {
+export function VenueProgramList({ venueId, events, emptyText, initialCount = 6, compact = false }: { venueId: string; events: CrawledEvent[]; emptyText: string; initialCount?: number; compact?: boolean }) {
   if (events.length === 0) return <p className={styles.empty}>{emptyText}</p>;
-  const renderRows = (rows: CrawledEvent[]) => (
+  // Compact: one tappable row per event (date, artist, tour) with a small artist button beside it.
+  const renderRows = (rows: CrawledEvent[]) => compact ? (
+    <ul className={styles.list}>
+      {rows.map(event => {
+        const artist = resolveArtist(event);
+        const { tourName, isTestData } = parseEventTitle(event.title, artist?.name);
+        return (
+          <li key={event.id} className={styles.row}>
+            <DiscoveryLink href={`/events/${event.id}`} className={`zr-focus ${styles.rowMain}`} discovery={{ source: "venue_event", destination: "event", destinationId: event.id, venueId }} aria-label={`${tourName} ${formatEventDate(event.date)}の公演の座席・レポを見る`}>
+              <time dateTime={event.date ?? undefined}>{formatEventDate(event.date)}</time>
+              <span className={styles.rowText}><strong>{artist?.name ?? tourName}{isTestData && " TEST"}</strong>{artist && tourName !== artist.name && <small>{tourName}</small>}</span>
+              <ChevronRight size={18} aria-hidden="true" />
+            </DiscoveryLink>
+            {artist && <DiscoveryLink href={`/artists/${artist.slug}`} className={`zr-focus ${styles.rowArtist}`} discovery={{ source: "venue_artist", destination: "artist", destinationId: artist.slug, venueId }} aria-label={`${artist.name}のアーティストページを見る`}>
+              <MicVocal size={18} aria-hidden="true" /><span>アーティスト</span>
+            </DiscoveryLink>}
+          </li>
+        );
+      })}
+    </ul>
+  ) : (
     <ul className={styles.list}>
       {rows.map(event => {
         const artist = resolveArtist(event);
@@ -174,7 +194,7 @@ export function VenueProgramSummary() {
   );
 }
 
-export function VenueProgramSections({ venueId, publicName }: { venueId: string; publicName: string }) {
+export function VenueProgramSections({ venueId, publicName, compact = false }: { venueId: string; publicName: string; compact?: boolean }) {
   const { available, upcoming, past, failed, staleAt, retry } = useVenuePrograms();
   const pastArtists = Array.from(
     new Map(
@@ -186,20 +206,20 @@ export function VenueProgramSections({ venueId, publicName }: { venueId: string;
   ).slice(0, 30);
   return (
     <>
-        <section className="py-8 sm:py-10" aria-labelledby="upcoming-events-title">
-          <p className="artist-kicker">Upcoming Live</p>
-          <h2 id="upcoming-events-title" className="artist-heading scroll-mt-[90px]">これからの公演・アーティスト {available && <small>（{upcoming.length}件）</small>}</h2>
-          <p className="mt-2 flex items-center gap-2 text-[11px] font-bold text-[#817981]"><MapPin size={14} className="text-[#f43679]" />{publicName}のライブ予定</p>
+        <section className={compact ? "py-5" : "py-8 sm:py-10"} aria-labelledby="upcoming-events-title">
+          {!compact && <p className="artist-kicker">Upcoming Live</p>}
+          <h2 id="upcoming-events-title" className="artist-heading scroll-mt-[90px]">{compact ? "これからの公演" : "これからの公演・アーティスト"} {available && <small>（{upcoming.length}件）</small>}</h2>
+          {!compact && <p className="mt-2 flex items-center gap-2 text-[11px] font-bold text-[#817981]"><MapPin size={14} className="text-[#f43679]" />{publicName}のライブ予定</p>}
           {failed && available && <p className="mt-3 text-sm" role="status">最新の公演一覧を読み込めませんでした。<button type="button" className="zr-focus ml-2 min-h-11 underline" onClick={retry}>再試行</button></p>}
           {staleAt && <p className="mt-3 text-sm" role="status">{formatPublicDataTime(staleAt)}時点の公演一覧です。</p>}
-          <div className="mt-3">{available ? <VenueProgramList venueId={venueId} events={upcoming} emptyText={staleAt ? "保存分に開催予定はありません" : "現在、登録されている開催予定はありません"} initialCount={3} /> : <p role="status">公演一覧を読み込めませんでした。<a className="zr-focus ml-2 inline-flex min-h-11 items-center font-bold underline" href={`/venues/${venueId}#upcoming-events-title`}>もう一度読み込む</a></p>}</div>
+          <div className="mt-3">{available ? <VenueProgramList venueId={venueId} events={upcoming} emptyText={staleAt ? "保存分に開催予定はありません" : "現在、登録されている開催予定はありません"} initialCount={3} compact={compact} /> : <p role="status">公演一覧を読み込めませんでした。<a className="zr-focus ml-2 inline-flex min-h-11 items-center font-bold underline" href={`/venues/${venueId}#upcoming-events-title`}>もう一度読み込む</a></p>}</div>
         </section>
 
         {past.length > 0 && (
-          <section className="py-8 sm:py-10" aria-labelledby="past-events-title">
-            <p className="artist-kicker">Live Archive</p>
+          <section className={compact ? "py-5" : "py-8 sm:py-10"} aria-labelledby="past-events-title">
+            {!compact && <p className="artist-kicker">Live Archive</p>}
             <h2 id="past-events-title" className="artist-heading scroll-mt-[90px]">過去の公演・座席レポ</h2>
-            <div className="mt-3"><VenueProgramList venueId={venueId} events={past.slice(0, 30)} emptyText="過去の公演はありません" /></div>
+            <div className="mt-3"><VenueProgramList venueId={venueId} events={past.slice(0, 30)} emptyText="過去の公演はありません" compact={compact} /></div>
           </section>
         )}
 

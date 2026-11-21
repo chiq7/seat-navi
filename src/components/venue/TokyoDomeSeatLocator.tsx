@@ -494,12 +494,13 @@ export function TokyoDomeSeatLocator() {
 
   function showMapView(view: keyof typeof MAP_VIEWS, level: SeatLevel = seatLevel) {
     setDirection(view);
-    // Centre the tier preview independently of the ticket's direction filter.
-    const camera = view === "all" && level !== "all" ? (level === "outfield" ? "right" : "home") : view;
+    // Picking only a floor keeps the whole map: its blocks stay lit and the rest dim, so the user can
+    // see both sides before choosing one. The map zooms once a side or a block is tapped.
+    const camera = view;
     const area = TOKYO_DOME_OVERVIEW_AREAS.find(area => area.id === camera);
     const prefixes = SEAT_LEVELS.find(item => item.id === level)!.prefixes;
     const fitted = view !== "all" ? sideFitView(view, prefixes, openMapSize(mapCanvasRef.current?.clientWidth ?? canvasSize.width)) : null;
-    animateTo(fitted ?? (area ? constrainMapViewBox(level === "all" ? tokyoDomeOverviewView(area.id, canvasSize) : tokyoDomeTierView(area.id, prefixes, canvasSize, AREAS)) : parseMapViewBox(MAP_VIEWS[view].box)));
+    animateTo(fitted ?? (area ? constrainMapViewBox(level === "all" || view === "all" ? tokyoDomeOverviewView(area.id, canvasSize) : tokyoDomeTierView(area.id, prefixes, canvasSize, AREAS)) : parseMapViewBox(MAP_VIEWS[view].box)));
     resetGestures();
   }
 

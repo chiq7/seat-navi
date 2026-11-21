@@ -27,7 +27,7 @@ import { getSeatSources, sourceKinds } from "@/lib/seatSourceArchive";
 import VenuePhotoStrip from "@/components/venue/VenuePhotoStrip";
 import compactStyles from "@/components/venue/VenueCompact.module.css";
 import { TokyoDomeGuideNav } from "@/components/venue/TokyoDomeVisitorGuide";
-import { Camera, MessageSquareText, PenLine } from "lucide-react";
+import { PenLine } from "lucide-react";
 
 const SITE_URL = "https://tixrepo.com";
 
@@ -62,7 +62,6 @@ export default async function VenuePage({ params, searchParams }: Props) {
   const profile = getVenueSeoProfile(venue.id);
   // 東京ドームを基準にしたスマホ優先レイアウト。検証後に他会場へ広げる。
   const compact = venue.id === "tokyo-dome";
-  const reportCount = sources.seat_view.length;
   const venueUrl = `${SITE_URL}/venues/${venue.id}`;
   const structuredData = {
     "@context": "https://schema.org",
@@ -115,10 +114,6 @@ export default async function VenuePage({ params, searchParams }: Props) {
 
         {compact ? <div className="zr-container pb-1 pt-3 sm:pt-5">
           <h1 className="text-[22px] font-black leading-tight tracking-[-0.04em] text-[#4b4148] sm:text-[32px]"><span className="text-[#ef4f87]">{publicName}</span>の座席表・見え方</h1>
-          <div className="mt-2 flex flex-wrap gap-2 text-[12px] font-bold">
-            {(photos?.count ?? 0) > 0 && <a href="#dome-photos" className="zr-focus inline-flex min-h-8 items-center gap-1 rounded-full border border-[#ecd2de] bg-white px-3 text-[#96305b]"><Camera size={14} aria-hidden="true" />写真{photos!.count}枚</a>}
-            {reportCount > 0 && <a href="#seat-source-posts" className="zr-focus inline-flex min-h-8 items-center gap-1 rounded-full border border-[#ecd2de] bg-white px-3 text-[#96305b]"><MessageSquareText size={14} aria-hidden="true" />座席レポ{reportCount}件</a>}
-          </div>
         </div> : <div className="zr-container pb-6 pt-4 sm:pb-9 sm:pt-7">
           <p className="community-eyebrow">VENUE LIVE GUIDE</p>
           <h1 className="mt-2 text-[28px] font-black tracking-[-0.05em] text-[#4b4148] sm:text-[38px]"><span className="text-[#ef4f87]">{publicName}</span>の座席表{hasGuide && <span className="mt-1 block text-[20px] sm:text-[28px]">アクセス・会場ガイド</span>}</h1>
@@ -148,7 +143,7 @@ export default async function VenuePage({ params, searchParams }: Props) {
           afterSeats={compact ? <VenuePhotoStrip preview={photos} allTargetId="seat-photo-title" /> : undefined} />
       </div>}
 
-      <div className={compact ? compactStyles.sources : undefined}><SeatSourcePreview scope="venues" id={venue.id} /></div>
+      <div className={compact ? compactStyles.sources : undefined}><SeatSourcePreview scope="venues" id={venue.id} kinds={compact ? ["arena_map"] : undefined} /></div>
       {compact && <div className="zr-container pb-2">
         <Link href={`/report?venue=${encodeURIComponent(venue.id)}`} className="zr-focus flex min-h-12 items-center justify-center gap-2 rounded-xl border border-[#ecd2de] bg-white text-sm font-bold text-[#96305b]">
           <PenLine size={16} aria-hidden="true" />この会場のライブを報告する
@@ -169,7 +164,7 @@ export default async function VenuePage({ params, searchParams }: Props) {
 
       <div className="zr-container">
         <SeatSearchOffer venueId={venue.id} />
-        <VenueProgramSections venueId={venue.id} publicName={publicName} />
+        <VenueProgramSections venueId={venue.id} publicName={publicName} compact={compact} />
 
         {compact && <div className="pt-4 text-xs text-[#706670]"><PublicAlternateNames names={alternateNames} /><VenueActivityDate /></div>}
         {profile && (

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Armchair, Camera, CircleHelp, Ellipsis, Luggage, MessageSquareText, Ticket, TrainFront, Utensils, X } from "lucide-react";
+import { Armchair, Camera, CircleHelp, Ellipsis, Luggage, Map, Ticket, TrainFront, Utensils, X } from "lucide-react";
 import { VenueProgramAnchor } from "./VenueProgramLinks";
 import styles from "./TokyoDomeBottomNav.module.css";
 
@@ -62,7 +62,7 @@ export default function TokyoDomeBottomNav() {
   return <nav ref={navRef} className={styles.nav} aria-label="東京ドームガイドの目次" data-dome-bottom-nav>
     {open && <div id="dome-more-sheet" className={styles.sheet} onClick={event => { if ((event.target as HTMLElement).closest("a")) setOpen(false); }}>
       <a href="#dome-prepare">{tile(Luggage, "持ち物")}</a>
-      <a href="#seat-source-posts">{tile(MessageSquareText, "レポ")}</a>
+      <a href="#seat-source-posts">{tile(Map, "アリーナ図")}</a>
       <VenueProgramAnchor fallbackHref="#upcoming-events-title">{tile(Ticket, "公演")}</VenueProgramAnchor>
       <a href="#dome-faq">{tile(CircleHelp, "質問")}</a>
     </div>}

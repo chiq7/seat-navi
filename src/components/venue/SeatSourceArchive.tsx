@@ -25,16 +25,25 @@ function SourceCards({ posts, linkEvents, offset = 0 }: { posts: SeatSourceGroup
     </li>)}</ul>;
 }
 
-export function SeatSourcePreview({ scope, id, sectionId = "seat-source-posts" }: { scope: "venues" | "events"; id: string; sectionId?: string }) {
+/** `kinds` limits the section, e.g. arena maps only where seat posts already show as photos on the page. */
+export function SeatSourcePreview({ scope, id, sectionId = "seat-source-posts", kinds = sourceKinds }: { scope: "venues" | "events"; id: string; sectionId?: string; kinds?: readonly SeatSourceKind[] }) {
   const groups = getSeatSources(scope, id);
-  if (!sourceKinds.some(kind => groups[kind].length)) return null;
+  if (!kinds.some(kind => groups[kind].length)) return null;
+  const only = kinds.length === 1 ? kinds[0] : null;
   const prefix = `/${scope}/${encodeURIComponent(id)}/seat-sources`;
   return <section id={sectionId} aria-labelledby={sectionId + "-title"} className="zr-container scroll-mt-20 py-6">
-    <h2 id={sectionId + "-title"} className="artist-heading">{scope === "venues" ? "この会場" : "この公演"}の座席・アリーナ図の投稿</h2>
-    {sourceKinds.map(kind => groups[kind].length > 0 && <div key={kind} className="mt-4" data-seat-source-kind={kind} data-post-count={groups[kind].length}>
-      <h3 className="text-sm font-bold">{sourceKindNames[kind]}（{groups[kind].length}件）</h3>
-      <SourceCards posts={groups[kind].slice(0, previewLimit)} linkEvents={scope === "venues"} />
-      {groups[kind].length > previewLimit && <Link prefetch={false} className={action + " mt-2"} href={`${prefix}?kind=${kind}`}>
+    <h2 id={sectionId + "-title"} className="artist-heading">{only ? `${sourceKindNames[only]}（${groups[only].length}件）` : `${scope === "venues" ? "この会場" : "この公演"}の座席・アリーナ図の投稿`}</h2>
+    {kinds.map(kind => groups[kind].length > 0 && <div key={kind} className={only ? "mt-2" : "mt-4"} data-seat-source-kind={kind} data-post-count={groups[kind].length}>
+      {!only && <h3 className="text-sm font-bold">{sourceKindNames[kind]}（{groups[kind].length}件）</h3>}
+      {only === "arena_map"
+        // One row per event: the row opens the X post that shows that show's arena layout.
+        ? <ul className="mt-1 border-t border-[#eadce1]">{groups[kind].slice(0, 4).map(post => <li key={post.sourceId} data-arena-source={post.sourceId} className="border-b border-[#eadce1]">
+          <a className="zr-focus flex min-h-[52px] items-center gap-2 py-1 text-sm font-bold text-[#44333d] no-underline" href={seatSourcePermalink(post.rows[0])} rel="external noopener noreferrer" target="_blank">
+            <span className="min-w-0 flex-1 truncate">{post.rows[0].eventLabel || post.rows[0].position}</span>
+            <span className="shrink-0 rounded-full border border-[#ecd2de] bg-[#fff7fa] px-3 py-1.5 text-xs text-[#96305b]">図を見る ↗<span className="sr-only">（Xの投稿・新しいタブ）</span></span>
+          </a></li>)}</ul>
+        : <SourceCards posts={groups[kind].slice(0, previewLimit)} linkEvents={scope === "venues"} />}
+      {groups[kind].length > (only === "arena_map" ? 4 : previewLimit) && <Link prefetch={false} className={action + " mt-2"} href={`${prefix}?kind=${kind}`}>
         {sourceKindNames[kind]}をすべて見る（{groups[kind].length}件）</Link>}
     </div>)}
   </section>;

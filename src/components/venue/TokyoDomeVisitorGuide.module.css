@@ -383,7 +383,23 @@
 .chipLink { display:inline-flex; align-items:center; gap:3px; min-height:36px; margin:8px 0 4px; padding:0 12px; border:1px solid #ecd2de; border-radius:999px; background:#fff7fa; color:#96305b; font-size:12px; font-weight:800; text-decoration:none; }
 .faq a.chipLink { min-height:36px; }
 /* 東京ドーム：設備検索を1行ずつにまとめ、一覧の二重スクロールをなくす */
-.finderScope :global([role="group"][aria-label="フロアを選ぶ"]),
-.finderScope :global([role="group"][aria-label="利用する場所"]) { flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none; max-width:100%; }
-.finderScope :global([role="group"][aria-label="フロアを選ぶ"]) button { flex:0 0 auto; white-space:nowrap; }
+/* Tap-only picker: what (6 icons) → where (6 places with counts) → toilet type. No row labels, no text search. */
+.picker { display:grid; gap:8px; padding:10px; }
+.pickRow { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:4px; }
+.pickRow button { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; min-height:56px; padding:4px 0; border:1px solid #ecd2de; border-radius:12px; background:#fff; color:#725965; font-size:11px; font-weight:800; line-height:1.2; cursor:pointer; }
+.pickRow button span { white-space:nowrap; }
+.pickRow button[aria-pressed=true] { background:#a93164; border-color:#a93164; color:#fff; }
+.pickRow button:disabled { background:#f4f2f3; border-color:#eee9eb; color:#b6abb0; cursor:default; }
+.placeRow button { min-height:48px; font-size:12px; }
+.placeRow .longPlace { font-size:10px; letter-spacing:-.03em; }
+@media (max-width: 400px) { .picker { padding:10px 8px; } .pickRow { gap:3px; } }
+.placeRow b, .filterRow b { font-size:10px; font-weight:800; color:#a93164; }
+.placeRow button[aria-pressed=true] b, .filterRow button[aria-pressed=true] b { color:#ffd9e7; }
+.placeRow button:disabled b { color:#c9bfc4; }
+.filterRow { display:flex; gap:6px; overflow-x:auto; scrollbar-width:none; }
+.filterRow button { display:inline-flex; flex:1 0 auto; align-items:center; justify-content:center; gap:4px; min-height:40px; padding:0 10px; border:1px solid #ecd2de; border-radius:999px; background:#fff; color:#725965; font-size:12px; font-weight:800; white-space:nowrap; cursor:pointer; }
+.filterRow button[aria-pressed=true] { background:#fff0f6; border-color:#a93164; color:#a93164; }
+.filterRow button[aria-pressed=true] b { color:#a93164; }
+.filterRow button:disabled { color:#b6abb0; background:#f7f5f6; cursor:default; }
+.pickRow button:focus-visible, .filterRow button:focus-visible { outline:3px solid #a93164; outline-offset:2px; }
 .finderScope div:has(> :global([data-result-section])) { max-height:none; overflow:visible; }

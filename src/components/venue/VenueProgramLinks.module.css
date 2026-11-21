@@ -12,6 +12,15 @@
 .actions { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 8px; }
 .actions a { display: flex; flex: 1 1 148px; align-items: center; justify-content: center; gap: 7px; min-height: 44px; padding: 10px; border: 1px solid #dec7d1; border-radius: 8px; color: #922b50; background: #fff; font-size: 13px; font-weight: 700; line-height: 1.6; overflow-wrap: anywhere; }
 .actions .eventLink { background: #fff0f5; }
+.row { display: flex; align-items: stretch; gap: 6px; padding: 5px 0; border-bottom: 1px solid #ded8dc; }
+.rowMain { display: grid; flex: 1 1 auto; grid-template-columns: 74px minmax(0, 1fr) 18px; align-items: center; gap: 8px; min-width: 0; min-height: 52px; padding: 4px 2px; border-radius: 10px; color: #40343d; text-decoration: none; }
+.rowMain time { color: #a52d58; font-size: 12px; font-weight: 800; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.rowMain svg { color: #b98aa0; }
+.rowText { display: grid; min-width: 0; }
+.rowText strong { overflow: hidden; font-size: 14px; font-weight: 800; line-height: 1.4; text-overflow: ellipsis; white-space: nowrap; }
+.rowText small { overflow: hidden; color: #66575f; font-size: 11px; line-height: 1.4; text-overflow: ellipsis; white-space: nowrap; }
+.rowArtist { display: flex; flex: 0 0 62px; flex-direction: column; align-items: center; justify-content: center; gap: 2px; border: 1px solid #ecd2de; border-radius: 10px; background: #fff; color: #922b50; font-size: 9px; font-weight: 800; text-decoration: none; white-space: nowrap; }
+@media (hover: hover) { .rowMain:hover { background: #fff5f8; } .rowArtist:hover { border-color: #a52d58; background: #fff5f8; } }
 .more { margin-top: 16px; }
 .more summary { width: fit-content; max-width: 100%; min-height: 44px; margin: 0 auto 16px; padding: 12px 20px; border-radius: 999px; background: #fff0f5; color: #922b50; font-size: 13px; font-weight: 700; cursor: pointer; }
 @media (min-width: 640px) { .card { grid-template-columns: 106px minmax(0, 1fr); padding-inline: 12px; } .actions { grid-column: 2; } .actions a { flex: 0 1 auto; padding-inline: 16px; } }
