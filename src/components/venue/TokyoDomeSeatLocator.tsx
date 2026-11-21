@@ -5,7 +5,7 @@ import { trackVenueSeatSearch } from "@/lib/venueAnalytics";
 import { seatNumberArrowInk } from "@/lib/seatNumberBadge";
 import { tokyoDomeNumberBadge } from "@/lib/tokyoDomeNumberBadge";
 
-import { useCallback, useEffect, useRef, useState, type FormEvent, type PointerEvent as ReactPointerEvent, useLayoutEffect, useMemo } from "react";
+import { useCallback, useEffect, useRef, useState, type FormEvent, type PointerEvent as ReactPointerEvent, useLayoutEffect, useMemo, memo } from "react";
 import { useSeatControlsReady } from "./template/ReadySearchControl";
 import { nearSeatNumbers } from "./template/seatFinderLabels";
 import { SeatFinderMiss, type FinderMode } from "./template/SeatFinderControls";
@@ -212,6 +212,37 @@ function rowRangeLabel(rows: SeatArea["rows"]) {
   if (!rows) return "列範囲は未確認";
   return rows[0] === rows[1] ? `${rows[0]}列のみ` : `${rows[0]}〜${rows[1]}列`;
 }
+
+
+type SeatShapesProps = {
+  selectedCode: string | null; selectedRow: number | null; seatLevel: SeatLevel; detailStage: boolean; showDetail: boolean;
+  activeFocus: string | null; onKey: (event: React.KeyboardEvent<SVGElement>, area: SeatArea) => void; onFocusCode: (code: string) => void;
+};
+const SeatShapes = memo(function SeatShapes({ selectedCode, selectedRow, seatLevel, detailStage, showDetail, activeFocus, onKey, onFocusCode }: SeatShapesProps) {
+  const prefixes = SEAT_LEVELS.find(level => level.id === seatLevel)!.prefixes;
+  const matchesLevel = (code: string) => seatLevel === "all" || prefixes.includes(code[0]);
+  return <>{SHAPES.map((area) => {
+    const active = selectedCode === area.code && !area.shared;
+    const rowGuides = ROW_GUIDES.get(area.code);
+    const selectedMarker = active && selectedRow !== null ? rowGuides?.marker(selectedRow) : null;
+    return <g key={area.path} opacity={matchesLevel(area.code) ? 1 : .16}>
+      <path d={area.path!} fill={active ? "#db3d7b" : ZONE_COLORS[area.code[0]]}
+        stroke={active ? "#71254a" : "#fff"} strokeWidth={active ? 2.2 : 1.6} vectorEffect="non-scaling-stroke"
+        className={area.shared ? undefined : "cursor-pointer"} data-seat-code={area.shared ? undefined : area.code}
+        onKeyDown={area.shared ? undefined : event => onKey(event, area)} onFocus={() => onFocusCode(area.code)}
+        tabIndex={area.shared ? undefined : area.code === activeFocus ? 0 : -1} role={area.shared ? undefined : "button"}
+        aria-label={area.shared ? undefined : `${area.code}・${rowRangeLabel(area.rows)}を拡大${PHOTO_SECTION_CODES.has(area.code) ? "（写真あり）" : ""}`} />
+      {!area.shared && PHOTO_SECTION_CODES.has(area.code) && <path d={area.path!}
+        data-seat-photo-outline={area.code} fill="none"
+        stroke={SEAT_PHOTO_MAP_COLOR} strokeWidth={1.5}
+        vectorEffect="non-scaling-stroke" pointerEvents="none" aria-hidden="true" />}
+      {detailStage && rowGuides && <g clipPath={`url(#tokyo-rows-${area.code})`} pointerEvents="none">
+        <path d={rowGuides.lines} fill="none" stroke={active ? "#fff" : "#665f7a"} strokeWidth={showDetail ? "0.65" : "0.45"} vectorEffect="non-scaling-stroke" opacity={active ? "0.55" : showDetail ? "0.32" : "0.2"} />
+      </g>}
+      {selectedMarker && <circle cx={selectedMarker[0]} cy={selectedMarker[1]} r="1.9" fill="#075985" stroke="#fff" strokeWidth="1.2" vectorEffect="non-scaling-stroke" pointerEvents="none" />}
+    </g>;
+  })}</>;
+});
 
 export function TokyoDomeSeatLocator() {
   const target = useVenueSeatTarget();
@@ -422,6 +453,8 @@ export function TokyoDomeSeatLocator() {
     AREAS.filter(area => PHOTO_SECTION_CODES.has(area.code) && matchesLevel(area.code) && directionForArea(area) === group.id).length,
   ]));
   const activeFocus = visibleAreas.some(area => area.code === focusedCode) ? focusedCode : visibleAreas.find(area => matchesLevel(area.code))?.code;
+  const keyAreaRef = useRef<(event: React.KeyboardEvent<SVGElement>, area: SeatArea) => void>(() => undefined);
+  const stableKeyArea = useCallback((event: React.KeyboardEvent<SVGElement>, area: SeatArea) => keyAreaRef.current(event, area), []);
   function keyArea(event: React.KeyboardEvent<SVGElement>, area: SeatArea) {
     if (["Enter", " "].includes(event.key)) { event.preventDefault(); chooseArea(area); return; }
     const next = spatialSeatTarget(visibleAreas.map(a => ({ id: a.code, x: a.label[0], y: a.label[1] })), area.code, event.key);
@@ -565,6 +598,7 @@ export function TokyoDomeSeatLocator() {
     return [{ area, ...point }];
   }) : [];
 
+  keyAreaRef.current = keyArea;
   function resetGestures() {
     initialCanvasPending.current = false;
     pointerPositionsRef.current.clear();
@@ -947,27 +981,10 @@ export function TokyoDomeSeatLocator() {
                   <path d={SHADOW_PATH}/>
                 </g>
               </g>
-              {SHAPES.map((area) => {
-                const active = selected?.code === area.code && !area.shared;
-                const rowGuides = ROW_GUIDES.get(area.code);
-                const selectedMarker = active && selectedRow !== null ? rowGuides?.marker(selectedRow) : null;
-                return <g key={area.path} opacity={matchesLevel(area.code) ? 1 : .16}>
-                  <path d={area.path!} fill={active ? "#db3d7b" : ZONE_COLORS[area.code[0]]}
-                    stroke={active ? "#71254a" : "#fff"} strokeWidth={active ? 2.2 : 1.6} vectorEffect="non-scaling-stroke"
-                    className={area.shared ? undefined : "cursor-pointer"} data-seat-code={area.shared ? undefined : area.code}
-                    onKeyDown={area.shared ? undefined : event => keyArea(event, area)} onFocus={() => setFocusedCode(area.code)}
-                    tabIndex={area.shared ? undefined : area.code === activeFocus ? 0 : -1} role={area.shared ? undefined : "button"}
-                    aria-label={area.shared ? undefined : `${area.code}・${rowRangeLabel(area.rows)}を拡大${PHOTO_SECTION_CODES.has(area.code) ? "（写真あり）" : ""}`} />
-                  {!area.shared && PHOTO_SECTION_CODES.has(area.code) && <path d={area.path!}
-                    data-seat-photo-outline={area.code} fill="none"
-                    stroke={SEAT_PHOTO_MAP_COLOR} strokeWidth={1.5}
-                    vectorEffect="non-scaling-stroke" pointerEvents="none" aria-hidden="true" />}
-                  {detailStage && rowGuides && <g clipPath={`url(#tokyo-rows-${area.code})`} pointerEvents="none">
-                    {<path d={rowGuides.lines} fill="none" stroke={active ? "#fff" : "#665f7a"} strokeWidth={showDetail ? "0.65" : "0.45"} vectorEffect="non-scaling-stroke" opacity={active ? "0.55" : showDetail ? "0.32" : "0.2"} />}
-                  </g>}
-                  {selectedMarker && <circle cx={selectedMarker[0]} cy={selectedMarker[1]} r="1.9" fill="#075985" stroke="#fff" strokeWidth="1.2" vectorEffect="non-scaling-stroke" pointerEvents="none" />}
-                </g>;
-              })}
+              {/* The ~300 block shapes are a memoised part: they change only when the chosen block, row, tier
+                  or zoom stage changes, not on every camera move. */}
+              <SeatShapes selectedCode={selected?.code ?? null} selectedRow={selectedRow} seatLevel={seatLevel}
+                  detailStage={detailStage} showDetail={showDetail} activeFocus={activeFocus ?? null} onKey={stableKeyArea} onFocusCode={setFocusedCode} />
               {overviewOpacity > 0 && <g pointerEvents="none" aria-hidden="true" data-tier-shading="">
                 {Object.entries(tierShading).map(([tier, d]) => <path key={tier} d={d} fill={`url(#tokyo-tier-${tier})`} opacity={overviewOpacity * (matchesLevel(tier) ? 1 : .16)} />)}
               </g>}

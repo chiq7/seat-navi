@@ -35,23 +35,30 @@ export default function TokyoDomeBottomNav() {
   }, []);
 
   useEffect(() => {
-    // A thin reading line ~200px from the top: the section under it is lit. The browser reports crossings,
-    // so nothing runs on each scroll frame. Sections land ~80–110px from the top after a jump.
+    // A thin reading line ~200px from the top: the last section whose top has passed it is lit. The browser
+    // reports when a section edge crosses the line, so nothing runs on each scroll frame. Sections that mount
+    // later (the guide loads in parts) are picked up on the next check.
     const line = Math.round(Math.min(window.innerHeight * 0.4, 200));
-    const tabOf = new globalThis.Map<Element, Tab>(); // "Map" here is the icon import
-    for (const [id, tab] of SECTION_TAB) {
+    const blocks = () => SECTION_TAB.flatMap(([id, tab]) => {
       const element = document.getElementById(id);
       const block = element?.tagName === "H2" ? element.closest("section") ?? element : element;
-      if (block) tabOf.set(block, tab);
-    }
-    const under = new Set<Element>();
-    const observer = new IntersectionObserver(entries => {
-      for (const entry of entries) { if (entry.isIntersecting) under.add(entry.target); else under.delete(entry.target); }
-      const hit = [...under].sort((a, b) => b.getBoundingClientRect().top - a.getBoundingClientRect().top)[0];
-      if (hit) setActive(tabOf.get(hit)!);
-    }, { rootMargin: `-${line}px 0px -${Math.max(0, window.innerHeight - line - 1)}px 0px` });
-    tabOf.forEach((_, block) => observer.observe(block));
-    return () => observer.disconnect();
+      return block ? [[block, tab] as const] : [];
+    });
+    let observer: IntersectionObserver | null = null;
+    const pick = () => {
+      let best: { top: number; tab: Tab } | null = null;
+      for (const [block, tab] of blocks()) {
+        observer?.observe(block);
+        const top = block.getBoundingClientRect().top;
+        if (top <= line && (!best || top > best.top)) best = { top, tab };
+      }
+      setActive(best?.tab ?? "seats");
+    };
+    observer = new IntersectionObserver(pick, { rootMargin: `-${line}px 0px -${Math.max(0, window.innerHeight - line - 1)}px 0px` });
+    pick();
+    const timers = [600, 2000, 5000].map(delay => window.setTimeout(pick, delay));
+    window.addEventListener("hashchange", pick);
+    return () => { observer?.disconnect(); timers.forEach(clearTimeout); window.removeEventListener("hashchange", pick); };
   }, []);
 
   useEffect(() => {

@@ -163,7 +163,7 @@ export default async function VenuePage({ params, searchParams }: Props) {
           <PenLine size={16} aria-hidden="true" />この会場のライブを報告する
         </Link>
       </div>}
-      {compact && <div className={compactStyles.photoList}><VenueSeatReadingGuide venueId={venue.id} name={publicName} photoPreview={photos} gallery /></div>}
+      {compact && <div className={`${compactStyles.photoList} ${compactStyles.later}`}><VenueSeatReadingGuide venueId={venue.id} name={publicName} photoPreview={photos} gallery /></div>}
       {photoArchives.length > 0 && <section id="past-arena-photos" className="zr-container scroll-mt-[90px] py-6" aria-labelledby="past-arena-photos-heading">
         <h2 id="past-arena-photos-heading" className="artist-heading">過去公演のアリーナ配置と写真</h2>
         <p className="mt-1 mb-3 text-sm text-[#68525e]">アリーナの配置は公演ごとに変わります。</p>
@@ -176,7 +176,7 @@ export default async function VenuePage({ params, searchParams }: Props) {
         </details>)}
       </section>}
 
-      <div className="zr-container">
+      <div className={compact ? `zr-container ${compactStyles.later}` : "zr-container"}>
         <SeatSearchOffer venueId={venue.id} />
         <VenueProgramSections venueId={venue.id} publicName={publicName} compact={compact} />
 

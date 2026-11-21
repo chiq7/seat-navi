@@ -45,13 +45,14 @@
   --color-live-soft: var(--category-live-soft);
   --color-setlist: var(--category-setlist);
   --color-setlist-soft: var(--category-setlist-soft);
-  --font-sans: "Noto Sans JP", system-ui, -apple-system, sans-serif;
+  /* The phone's own Japanese font (Hiragino on iPhone, Noto Sans CJK on Android): no web font to download. */
+  --font-sans: system-ui, -apple-system, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Noto Sans CJK JP", Meiryo, sans-serif;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: "Noto Sans JP", system-ui, -apple-system, sans-serif;
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
 

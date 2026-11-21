@@ -3,3 +3,6 @@
 .sources [data-seat-source] a:not([target]) { color:#7a3a58; text-decoration:none; }
 .sources [data-seat-source-kind] > a { display:flex; justify-content:center; width:100%; border-radius:12px; text-decoration:none; }
 .photoList h2, .photoList summary { scroll-margin-top:120px; }
+/* Blocks far below the seat map are laid out and painted only when they near the screen, so the first
+   screen does not wait for the gallery, event lists and venue notes. */
+.later { content-visibility:auto; contain-intrinsic-size:auto 900px; }

@@ -65,10 +65,8 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
+        {/* No web font: the Noto Sans JP stylesheet blocked the first paint and pulled ~120 font files, each
+            re-laying out the page. The system Japanese font is used instead (see --font-sans in globals.css). */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: serializeJsonLd(buildSiteStructuredData()) }}
