@@ -14,12 +14,12 @@ export type ArenaMapPost = {
 /** Fired by controls outside the seat map (the bottom bar) to open the sheet. */
 export const OPEN_ARENA_MAPS_EVENT = "tixrepo:open-arena-maps";
 
-const ArenaMapsContext = createContext<{ count: number; open: () => void } | null>(null);
+const ArenaMapsContext = createContext<{ count: number; posts: ArenaMapPost[]; open: (at?: number) => void } | null>(null);
 /** Null where the page has no arena maps, so the map draws no arena button. */
 export function useArenaMaps() { return useContext(ArenaMapsContext); }
 
 const embedUrl = (id: string) => `https://platform.twitter.com/embed/Tweet.html?id=${id}&lang=ja&dnt=true&conversation=none`;
-const shortDate = (date: string) => date.replace(/^(\d{4})\/0?(\d+)\/0?(\d+)$/, (_, y, m, d) => `${y.slice(2)}.${m}/${d}`);
+export const shortDate = (date: string) => date.replace(/^(\d{4})\/0?(\d+)\/0?(\d+)$/, (_, y, m, d) => `${y.slice(2)}.${m}/${d}`);
 
 /**
  * Holds the arena-layout posts of a venue and shows them in a bottom sheet, one show per page,
@@ -36,18 +36,23 @@ export function ArenaMapsProvider({ posts, children }: { posts: ArenaMapPost[]; 
   const [index, setIndex] = useState(0);
   const [seen, setSeen] = useState<ReadonlySet<number>>(() => new Set([0, 1]));
 
-  const open = useCallback(() => {
+  // Opens on the newest show, or on the show that was tapped in the list under the seat photos.
+  const open = useCallback((at?: number) => {
     if (!posts.length || dialog.current?.open) return;
-    setIndex(0); setOpened(true); target.current = null;
+    const start = typeof at === "number" ? Math.max(0, Math.min(posts.length - 1, at)) : 0;
+    setIndex(start); setOpened(true); target.current = null;
+    setSeen(current => new Set([...current, start - 1, start, start + 1]));
     dialog.current?.showModal();
-    pages.current?.scrollTo({ left: 0 });
-    chips.current?.scrollTo({ left: 0 });
+    const strip = pages.current;
+    strip?.scrollTo({ left: strip.clientWidth * start });
+    if (start === 0) chips.current?.scrollTo({ left: 0 });
   }, [posts.length]);
-  const context = useMemo(() => posts.length ? { count: posts.length, open } : null, [posts.length, open]);
+  const context = useMemo(() => posts.length ? { count: posts.length, posts, open } : null, [posts, open]);
 
   useEffect(() => {
-    window.addEventListener(OPEN_ARENA_MAPS_EVENT, open);
-    return () => window.removeEventListener(OPEN_ARENA_MAPS_EVENT, open);
+    const fromEvent = () => open();
+    window.addEventListener(OPEN_ARENA_MAPS_EVENT, fromEvent);
+    return () => window.removeEventListener(OPEN_ARENA_MAPS_EVENT, fromEvent);
   }, [open]);
 
   // Load the page on screen and its neighbours; keep anything already loaded.

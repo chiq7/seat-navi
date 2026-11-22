@@ -28,6 +28,7 @@ import { ArenaMapsProvider, type ArenaMapPost } from "@/components/venue/ArenaMa
 import arenaMapPhotos from "@/data/arenaMapPhotos.json";
 import { getVenuePhotoCovers } from "@/lib/serverSeatPhotoVenues";
 import VenuePhotoStrip from "@/components/venue/VenuePhotoStrip";
+import ArenaMapStrip from "@/components/venue/ArenaMapStrip";
 import compactStyles from "@/components/venue/VenueCompact.module.css";
 import { TokyoDomeGuideNav } from "@/components/venue/TokyoDomeVisitorGuide";
 import { Camera, ChevronRight } from "lucide-react";
@@ -152,7 +153,7 @@ export default async function VenuePage({ params, searchParams }: Props) {
         {venue.id === "zozo-marine" && <div className="zr-container"><a className="zr-focus inline-flex min-h-11 items-center text-sm font-bold text-[#a62b59] underline" href={ZOZO_LOWER_THIRD_PAGE}>下段3塁側の座席表を見る</a></div>}
         <ArenaMapsProvider posts={compact ? arenaMaps : []}>
           <PublicVenueGuide venue={venue.id} target={seatTarget}
-            afterSeats={compact ? <VenuePhotoStrip photos={getVenuePhotoCovers(venue.id)} count={photos?.count ?? 0} allTargetId="seat-photo-title" /> : undefined} />
+            afterSeats={compact ? <><VenuePhotoStrip photos={getVenuePhotoCovers(venue.id)} count={photos?.count ?? 0} allTargetId="seat-photo-title" /><ArenaMapStrip /></> : undefined} />
         </ArenaMapsProvider>
       </div>}
 

@@ -17,7 +17,8 @@
  * ■ 各値
  *   placement:  絵の中心 x, 中心 y, 幅。客席の外形に当てはめた円（グラウンド）の中心と、その直径。
  *               絵は図の線の下に敷くので、はみ出した部分は客席の形の下に隠れる。
- *   drawScale:  placement の幅に対して実際に描く割合。
+ *   drawScale:  placement の幅に対して実際に描く割合。1 だと絵が客席の線に接して、どこまでがグラウンドか
+ *               わからなくなる。東京ドームは 0.55（スマホで客席から約1cm離れる）。
  *   cameraArea: 省略可。地図の表示範囲に必ず含める四角 [x, y, 幅, 高さ]（図の外に絵を置くときだけ使う）。
  */
 export type FieldArtImage = { href: string; width: number; height: number };
@@ -38,7 +39,7 @@ export type VenueFieldArt = {
  */
 export const TOKYO_DOME_FIELD_ART: VenueFieldArt = {
   image: { href: "/images/venues/tokyo-dome-field-stage.webp", width: 720, height: 589 },
-  drawScale: 1,
+  drawScale: 0.55,
   spots: {
     "1f-infield:floors": { placement: [292.3, 503.7, 156.4] },
     "1f-outfield:floors": { placement: [294.1, 426.5, 284.2] },

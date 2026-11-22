@@ -1121,7 +1121,7 @@ export function TokyoDomeSeatLocator() {
               </button>)}
           </div>}
           {arenaMaps && arenaButtonInView && <button type="button" className={styles.arenaMaps} data-arena-maps-button="" data-map-control=""
-            style={{ left: arenaButton.left, top: arenaButton.top }} onPointerDown={event => { event.stopPropagation(); suppressMapClick.current = false; }} onClick={arenaMaps.open}
+            style={{ left: arenaButton.left, top: arenaButton.top }} onPointerDown={event => { event.stopPropagation(); suppressMapClick.current = false; }} onClick={() => arenaMaps.open()}
             aria-label={`アリーナ図を見る（${arenaMaps.count}公演）`}>
             <MapIcon size={14} aria-hidden="true" />アリーナ図<b>{arenaMaps.count}</b>
           </button>}
