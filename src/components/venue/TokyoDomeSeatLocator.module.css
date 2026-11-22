@@ -183,3 +183,5 @@
 .zoneKey li { display:inline-flex; align-items:center; gap:4px; flex:0 0 auto; color:#5c4753; font-size:11.5px; font-weight:800; }
 .zoneKey i { width:12px; height:12px; border-radius:3px; box-shadow:inset 0 0 0 1px #0000001a; }
 @media (max-width:600px) { .seatFrame .map { transition:height .3s ease; } }
+.selectionActions .nearPhotos { display:inline-flex; gap:5px; padding:0 12px; border:1px solid #ecd2de; border-radius:999px; background:#fff; white-space:nowrap; }
+.selectionActions .nearPhotos b { padding:1px 6px; border-radius:999px; background:#90254f; color:#fff; font-size:11px; }

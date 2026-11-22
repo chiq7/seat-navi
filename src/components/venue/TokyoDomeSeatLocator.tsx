@@ -31,7 +31,7 @@ import { SEAT_PHOTO_MAP_COLOR, SeatPhotoMapSummary, SeatPhotoMarker } from "./te
 import { seatPhotoOffsets, useSeatPhotoHitTest } from "./template/useSeatPhotoHitTest";
 import { DomeSeatFrame } from "./template/DomeSeatFrame";
 import { seatViewPosts } from "@/lib/seatViewPosts";
-import { announceTokyoDomeMapScope, getTokyoDomeVenueSeatSelection, TOKYO_DOME_SEAT_SELECTION_EVENT } from "@/lib/tokyoDomeVenueSelection";
+import { announceTokyoDomeMapScope, getTokyoDomeVenueSeatSelection, TOKYO_DOME_NEAR_PHOTOS_EVENT, TOKYO_DOME_SEAT_SELECTION_EVENT, type TokyoDomeNearPhotos } from "@/lib/tokyoDomeVenueSelection";
 import { useArenaMaps } from "./ArenaMapsSheet";
 import { useVenueSeatTarget } from "./VenueSeatTarget";
 
@@ -185,7 +185,11 @@ function directionForArea(area: SeatArea): keyof typeof MAP_VIEWS {
       : area.label[0] > 594 ? "first" : area.label[0] < 564 ? "third" : "home");
 }
 
-/** Every block of one side (and tier) in one screen, shaped to the canvas so nothing is letterboxed. */
+/**
+ * Every block of one side (and tier) in one screen, shaped to the canvas so nothing is letterboxed —
+ * but never closer than a tapped block's view: the home side has only two blocks per tier (A25/B25, D26/E26),
+ * and fitting just those zoomed to the limit.
+ */
 function sideFitView(view: keyof typeof MAP_VIEWS, prefixes: string, canvas: { width: number; height: number }): MapViewBox | null {
   const areas = AREAS.filter(area => !area.shared && prefixes.includes(area.code[0]) && directionForArea(area) === view);
   if (areas.length === 0) return null;
@@ -196,6 +200,13 @@ function sideFitView(view: keyof typeof MAP_VIEWS, prefixes: string, canvas: { w
   const aspect = canvas.width / canvas.height;
   if (width / height < aspect) { const next = height * aspect; x -= (next - width) / 2; width = next; }
   else { const next = width / aspect; y -= (next - height) / 2; height = next; }
+  const blockWidth = selectedMapWidth(canvas.width);
+  const minWidth = canvas.width / Math.min(canvas.width / blockWidth, canvas.height / (blockWidth * .88));
+  if (width < minWidth) {
+    const grow = minWidth / width;
+    x -= width * (grow - 1) / 2; y -= height * (grow - 1) / 2;
+    width *= grow; height *= grow;
+  }
   return { x, y, width, height };
 }
 
@@ -349,6 +360,14 @@ export function TokyoDomeSeatLocator() {
   }, [selected, selectedRow, selectedLabel]);
   // Tell the photo row which part of the venue is on the map: the blocks around a chosen block, or the chosen floor and side.
   const selectedCode = selected?.code, labelX = selectedLabel?.[0], labelY = selectedLabel?.[1];
+  // A block without photos of its own points to the photo row below, using the count that row lists first for it.
+  const [nearPhotos, setNearPhotos] = useState<TokyoDomeNearPhotos | null>(null);
+  useEffect(() => {
+    const update = (event: Event) => setNearPhotos((event as CustomEvent<TokyoDomeNearPhotos>).detail);
+    window.addEventListener(TOKYO_DOME_NEAR_PHOTOS_EVENT, update);
+    return () => window.removeEventListener(TOKYO_DOME_NEAR_PHOTOS_EVENT, update);
+  }, []);
+  const nearPhotoCount = selectedCode && !PHOTO_COUNTS.get(selectedCode) && nearPhotos?.section === selectedCode ? nearPhotos.count : 0;
   useEffect(() => {
     if (selectedCode && labelX !== undefined && labelY !== undefined) {
       const near = AREAS.filter(area => !area.shared)
@@ -951,11 +970,14 @@ export function TokyoDomeSeatLocator() {
           <div className={styles.selectionName}><strong>{selected.code}</strong><span>{selectedZone??"記号の位置"}{selectedSide?`・${selectedSide}`:""}{selectedRow!==null&&<>・<b className={styles.selectedRow}>{selectedRow}列</b></>}{selectedSeat!==null&&<>・<b className={styles.selectedSeat} data-selected-seat-number>選択：{selectedSeat}番</b></>}</span></div>
           {selectedArea&&<span>{rowRangeLabel(selectedArea.rows)}</span>}
           <div className={styles.selectionActions}>
+            {nearPhotoCount>0&&<button type="button" className={styles.nearPhotos} aria-label={`近くの区画の写真 ${nearPhotoCount}枚を見る`}
+              onClick={()=>document.getElementById("dome-photos")?.scrollIntoView({block:"start",behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"instant":"smooth"})}>
+              <Camera size={15} aria-hidden="true"/>近くの写真<b>{nearPhotoCount}</b></button>}
             {selectedLabel&&<button type="button" onClick={()=>showSelectedView(selected,selectedLabel)} aria-label="選んだ場所を表示"><LocateFixed size={19}/></button>}
             <button type="button" onClick={clearSelection} aria-label="座席の選択を解除"><X size={18}/></button>
           </div>
         </> : <div className={styles.overviewHeading}><strong>{seatLevel === "all" && direction === "all" ? "東京ドームの全体図" : `${SEAT_LEVELS.find(level => level.id === seatLevel)!.label}・${MAP_VIEWS[direction].label}`}</strong><span>区画をタップで拡大</span></div>}</div>
-        <SeatPhotoMapSummary selection={seatView} count={PHOTO_SECTION_CODES.size} onOpen={() => setPhotoRequest(request => request + 1)} />
+        <SeatPhotoMapSummary selection={seatView} count={PHOTO_SECTION_CODES.size} onOpen={() => setPhotoRequest(request => request + 1)} emptySlot={false} />
         {notice&&<p role="status" className={styles.hint}>{notice}</p>}
         {offsideArea && <button type="button" className="zr-focus min-h-11 rounded-full border border-[#d4adb9] px-4 text-sm font-bold" onClick={() => chooseCode(offsideArea.code)}>
           {MAP_VIEWS[directionForArea(offsideArea)].label}に切り替えて{offsideArea.code}を表示
