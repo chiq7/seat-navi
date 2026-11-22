@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Camera, ChevronRight } from "lucide-react";
-import { TOKYO_DOME_MAP_SCOPE_EVENT, announceTokyoDomeNearPhotos, readTokyoDomeMapScope, type TokyoDomeMapScope } from "@/lib/tokyoDomeVenueSelection";
+import { TOKYO_DOME_MAP_SCOPE_EVENT, readTokyoDomeMapScope, type TokyoDomeMapScope } from "@/lib/tokyoDomeVenueSelection";
 import OpenDetailsLink from "./OpenDetailsLink";
 import styles from "./VenuePhotoStrip.module.css";
 
@@ -48,7 +48,6 @@ export default function VenuePhotoStrip({ photos, count, allTargetId }: { photos
     return { ordered: [...near, ...withImage.filter(photo => !near.includes(photo))], matched: near.length, matchedPhotos: near.reduce((sum, photo) => sum + photo.count, 0) };
   }, [withImage, scope]);
   useEffect(() => { row.current?.scrollTo({ left: 0 }); }, [scope]);
-  useEffect(() => { if (scope?.section) announceTokyoDomeNearPhotos({ section: scope.section, count: matchedPhotos }); }, [scope, matchedPhotos]);
 
   if (withImage.length === 0) return null;
   const following = Boolean(scope?.label && matched > 0);

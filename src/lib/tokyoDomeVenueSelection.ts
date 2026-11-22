@@ -41,10 +41,3 @@ export function announceTokyoDomeMapScope(scope: TokyoDomeMapScope) {
   window.dispatchEvent(new CustomEvent(TOKYO_DOME_MAP_SCOPE_EVENT, { detail: scope }));
 }
 export function readTokyoDomeMapScope() { return currentMapScope; }
-
-/** The photo row answers a block's scope with how many photos it now lists first for that block. */
-export type TokyoDomeNearPhotos = { section: string; count: number };
-export const TOKYO_DOME_NEAR_PHOTOS_EVENT = "tixrepo:tokyo-dome-near-photos";
-export function announceTokyoDomeNearPhotos(detail: TokyoDomeNearPhotos) {
-  window.dispatchEvent(new CustomEvent(TOKYO_DOME_NEAR_PHOTOS_EVENT, { detail }));
-}

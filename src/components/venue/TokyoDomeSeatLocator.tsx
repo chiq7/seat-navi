@@ -31,7 +31,7 @@ import { SEAT_PHOTO_MAP_COLOR, SeatPhotoMapSummary, SeatPhotoMarker } from "./te
 import { seatPhotoOffsets, useSeatPhotoHitTest } from "./template/useSeatPhotoHitTest";
 import { DomeSeatFrame } from "./template/DomeSeatFrame";
 import { seatViewPosts } from "@/lib/seatViewPosts";
-import { announceTokyoDomeMapScope, getTokyoDomeVenueSeatSelection, TOKYO_DOME_NEAR_PHOTOS_EVENT, TOKYO_DOME_SEAT_SELECTION_EVENT, type TokyoDomeNearPhotos } from "@/lib/tokyoDomeVenueSelection";
+import { announceTokyoDomeMapScope, getTokyoDomeVenueSeatSelection, TOKYO_DOME_SEAT_SELECTION_EVENT } from "@/lib/tokyoDomeVenueSelection";
 import { useArenaMaps } from "./ArenaMapsSheet";
 import { useVenueSeatTarget } from "./VenueSeatTarget";
 
@@ -86,7 +86,12 @@ type MapGesture =
   | { kind: "pinch"; startDistance: number; startMidpoint: MapPoint; box: MapViewBox };
 
 const FULL_MAP_VIEW_BOX = parseMapViewBox(MAP_VIEWS.all.box);
-const MIN_MAP_VIEW_WIDTH = 82;
+/**
+ * The map has three resting zooms — the whole dome, one side (floor + side), one block — and the block view is
+ * also the closest anyone can pinch to: row lines are readable there, and closer only loses the surroundings.
+ * Set from the canvas width (see selectedMapWidth) once the map is measured.
+ */
+let minMapViewWidth = 180;
 
 function parseMapViewBox(value: string): MapViewBox {
   const [x, y, width, height] = value.split(" ").map(Number);
@@ -128,7 +133,7 @@ function boxAtAnchor(rect: DOMRect, next: MapViewBox, anchor: MapPoint, client: 
 
 function constrainMapViewBox(next: MapViewBox): MapViewBox {
   const maxWidth = FULL_MAP_VIEW_BOX.width;
-  const width = Math.max(MIN_MAP_VIEW_WIDTH, Math.min(maxWidth, next.width));
+  const width = Math.max(minMapViewWidth, Math.min(maxWidth, next.width));
   const scale = width / next.width;
   const height = Math.min(FULL_MAP_VIEW_BOX.height, next.height * scale);
   const padding=width<maxWidth?{x:width/2,y:height/2}:{x:0,y:0};
@@ -306,6 +311,7 @@ export function TokyoDomeSeatLocator() {
     if (!node) return;
     const observer = new ResizeObserver(([entry]) => {
       const { width, height } = entry.contentRect;
+      if (width > 1) minMapViewWidth = selectedMapWidth(width);
       setCanvasSize({ width, height });
       if (width > 1 && initial && initialCanvasPending.current) {
         initialCanvasPending.current = false;
@@ -359,14 +365,6 @@ export function TokyoDomeSeatLocator() {
   }, [selected, selectedRow, selectedLabel]);
   // Tell the photo row which part of the venue is on the map: the blocks around a chosen block, or the chosen floor and side.
   const selectedCode = selected?.code, labelX = selectedLabel?.[0], labelY = selectedLabel?.[1];
-  // A block without photos of its own points to the photo row below, using the count that row lists first for it.
-  const [nearPhotos, setNearPhotos] = useState<TokyoDomeNearPhotos | null>(null);
-  useEffect(() => {
-    const update = (event: Event) => setNearPhotos((event as CustomEvent<TokyoDomeNearPhotos>).detail);
-    window.addEventListener(TOKYO_DOME_NEAR_PHOTOS_EVENT, update);
-    return () => window.removeEventListener(TOKYO_DOME_NEAR_PHOTOS_EVENT, update);
-  }, []);
-  const nearPhotoCount = selectedCode && !PHOTO_COUNTS.get(selectedCode) && nearPhotos?.section === selectedCode ? nearPhotos.count : 0;
   useEffect(() => {
     if (selectedCode && labelX !== undefined && labelY !== undefined) {
       const near = AREAS.filter(area => !area.shared)
@@ -576,9 +574,6 @@ export function TokyoDomeSeatLocator() {
   const photoObstacles = [...captionObstacles, ...TOKYO_DOME_GATE_ANCHORS.map(gate => ({
     x: gate.label.x, y: gate.label.y, width: 68 / screenScale, height: 30 / screenScale,
   }))];
-  // A whole-side view: block names carry the photo highlight, so marks are only added where no name is drawn.
-  const sideOverview = showDetail && !selected && interactiveViewBox.width > 360;
-  const labelledCodes = new Set(mapLabels.map(label => label.code));
   // Orientation aids for the zoomed map: where the arena is, which part of the dome is on screen, and what the colours mean.
   const fieldScreen = {
     x: (canvasSize.width - interactiveViewBox.width * screenScale) / 2 + (FIELD_CENTER.x - interactiveViewBox.x) * screenScale,
@@ -618,14 +613,19 @@ export function TokyoDomeSeatLocator() {
         && point.y <= visibleMapBox.y + visibleMapBox.height - 14 / screenScale
         && photoObstacles.every(other => Math.abs(point.x - other.x) >= (28 / screenScale + other.width) / 2
           || Math.abs(point.y - other.y) >= (28 / screenScale + other.height) / 2));
-    // Thin blocks on a whole-side view cannot hold the mark inside; then it sits on the block's centre line.
-    const point = sideOverview && labelledCodes.has(area.code) ? undefined : candidates.find(point => photoHitTest([shape], point, 10 / screenScale)
+    // Every block with photos shows its mark at every zoom where blocks are drawn: a clear spot inside the block,
+    // else any spot on it, else its centre (then the block's own name gives way to the mark).
+    const centreVisible = center.x >= visibleMapBox.x && center.x <= visibleMapBox.x + visibleMapBox.width
+      && center.y >= visibleMapBox.y && center.y <= visibleMapBox.y + visibleMapBox.height;
+    const clear = candidates.find(point => photoHitTest([shape], point, 10 / screenScale)
         && (!balcony || photoHitTest([balcony.regionPath], point, 10 / screenScale)))
-      ?? (sideOverview ? candidates.find(point => photoHitTest([shape], point, 0)) : undefined);
+      ?? candidates.find(point => photoHitTest([shape], point, 0));
+    const point = clear ?? (centreVisible ? center : undefined);
     if (!point) return [];
     photoObstacles.push({ ...point, width: 28 / screenScale, height: 28 / screenScale });
-    return [{ area, ...point }];
+    return [{ area, ...point, coversName: !clear }];
   }) : [];
+  const coveredNames = new Set(photoMarkers.filter(marker => marker.coversName).map(marker => marker.area.code));
 
   keyAreaRef.current = keyArea;
   function resetGestures() {
@@ -668,7 +668,7 @@ export function TokyoDomeSeatLocator() {
     const area = TOKYO_DOME_OVERVIEW_AREAS.find(area => area.id === camera);
     const prefixes = SEAT_LEVELS.find(item => item.id === level)!.prefixes;
     const fitted = view !== "all" ? sideFitView(view, prefixes, openMapSize(mapCanvasRef.current?.clientWidth ?? canvasSize.width)) : null;
-    animateTo(fitted ?? (area ? constrainMapViewBox(level === "all" || view === "all" ? tokyoDomeOverviewView(area.id, canvasSize) : tokyoDomeTierView(area.id, prefixes, canvasSize, AREAS)) : parseMapViewBox(MAP_VIEWS[view].box)));
+    animateTo(fitted ? constrainMapViewBox(fitted) : (area ? constrainMapViewBox(level === "all" || view === "all" ? tokyoDomeOverviewView(area.id, canvasSize) : tokyoDomeTierView(area.id, prefixes, canvasSize, AREAS)) : parseMapViewBox(MAP_VIEWS[view].box)));
     resetGestures();
   }
 
@@ -685,9 +685,12 @@ export function TokyoDomeSeatLocator() {
     const rect = svg.getBoundingClientRect();
     const point = clientPoint ?? { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
     const current = liveBoxRef.current;
-    const nextWidth = Math.max(MIN_MAP_VIEW_WIDTH, Math.min(FULL_MAP_VIEW_BOX.width, current.width * factor));
+    const nextWidth = Math.max(minMapViewWidth, Math.min(FULL_MAP_VIEW_BOX.width, current.width * factor));
     const nextHeight = current.height * (nextWidth / current.width);
-    paintBox(boxAtAnchor(rect, { ...current, width: nextWidth, height: nextHeight }, mapPointAtClient(rect, current, point), point));
+    const next = boxAtAnchor(rect, { ...current, width: nextWidth, height: nextHeight }, mapPointAtClient(rect, current, point), point);
+    // The +/- buttons glide like every other camera move; a wheel or trackpad pinch follows the hand directly.
+    if (!clientPoint) { animateTo(next); return; }
+    paintBox(next);
     if (wheelCommitRef.current !== null) clearTimeout(wheelCommitRef.current);
     wheelCommitRef.current = window.setTimeout(() => { wheelCommitRef.current = null; commitBox(); }, 160);
   // eslint-disable-next-line react-hooks/exhaustive-deps -- paintBox/commitBox only touch refs and a state setter
@@ -788,7 +791,7 @@ export function TokyoDomeSeatLocator() {
       const currentDistance = Math.max(1, distance(points[0], points[1]));
       const currentMidpoint = midpoint(points[0], points[1]);
       const rawScale = gesture.startDistance / currentDistance;
-      const nextWidth = Math.max(MIN_MAP_VIEW_WIDTH, Math.min(FULL_MAP_VIEW_BOX.width, gesture.box.width * rawScale));
+      const nextWidth = Math.max(minMapViewWidth, Math.min(FULL_MAP_VIEW_BOX.width, gesture.box.width * rawScale));
       const actualScale = nextWidth / gesture.box.width;
       const nextHeight = gesture.box.height * actualScale;
       didPanRef.current = true;
@@ -832,22 +835,7 @@ export function TokyoDomeSeatLocator() {
     }
   }
 
-  // When choosing or clearing a block adds or removes cards above the map, the page scrolls by the same
-  // amount so the map itself stays where the finger is.
-  const mapHoldRef = useRef<number | null>(null);
-  function holdMapInPlace() {
-    const top = mapCanvasRef.current?.getBoundingClientRect().top;
-    if (top !== undefined && mapHoldRef.current === null) mapHoldRef.current = top;
-  }
-  useLayoutEffect(() => {
-    const held = mapHoldRef.current;
-    if (held === null) return;
-    mapHoldRef.current = null;
-    const top = mapCanvasRef.current?.getBoundingClientRect().top;
-    if (top !== undefined && Math.abs(top - held) > 1) window.scrollBy({ top: top - held, behavior: "instant" });
-  });
   function clearSelection() {
-    holdMapInPlace();
     setSelected(null); setSelectedRow(null); setSelectedSeat(null); setNotice(""); setError(""); setCandidates([]);
   }
 
@@ -868,7 +856,6 @@ export function TokyoDomeSeatLocator() {
     const nextDirection = directionForArea(area);
     const changesSide = direction !== "all" && direction !== nextDirection;
     // A block tapped on the map is selected at once, even on another side; the side buttons follow it.
-    holdMapInPlace();
     const shouldMove=source!=="map"||!selected||interactiveViewBox.width>360;
     setFocusedCode(area.code);setSeatLevel(levelForPrefix(section.prefix));setSelected(section);setSelectedRow(null);setSelectedSeat(null);setError("");setCandidates([]);
     setNotice(changesSide && source !== "map" ? `${area.code}は${MAP_VIEWS[nextDirection].label}の区画です。${MAP_VIEWS[nextDirection].label}に切り替えました。` : "");
@@ -962,16 +949,13 @@ export function TokyoDomeSeatLocator() {
           <div className={styles.selectionName}><strong>{selected.code}</strong><span>{selectedZone??"記号の位置"}{selectedSide?`・${selectedSide}`:""}{selectedRow!==null&&<>・<b className={styles.selectedRow}>{selectedRow}列</b></>}{selectedSeat!==null&&<>・<b className={styles.selectedSeat} data-selected-seat-number>選択：{selectedSeat}番</b></>}</span></div>
           {selectedArea&&<span>{rowRangeLabel(selectedArea.rows)}</span>}
           <div className={styles.selectionActions}>
-            {nearPhotoCount>0&&<button type="button" className={styles.nearPhotos} aria-label={`近くの区画の写真 ${nearPhotoCount}枚を見る`}
-              onClick={()=>document.getElementById("dome-photos")?.scrollIntoView({block:"start",behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"instant":"smooth"})}>
-              <Camera size={15} aria-hidden="true"/>近くの写真<b>{nearPhotoCount}</b></button>}
             {selectedLabel&&<button type="button" onClick={()=>showSelectedView(selected,selectedLabel)} aria-label="選んだ場所を表示"><LocateFixed size={19}/></button>}
             <button type="button" onClick={clearSelection} aria-label="座席の選択を解除"><X size={18}/></button>
           </div>
         </> : <div className={styles.overviewHeading}><strong>{seatLevel === "all" && direction === "all" ? "東京ドームの全体図" : `${SEAT_LEVELS.find(level => level.id === seatLevel)!.label}・${MAP_VIEWS[direction].label}`}</strong><span>区画をタップで拡大</span></div>}</div>
-        <SeatPhotoMapSummary selection={seatView} count={PHOTO_SECTION_CODES.size} onOpen={() => setPhotoRequest(request => request + 1)} emptySlot={false} />
-        {notice&&<p role="status" className={styles.hint}>{notice}</p>}
+        <SeatPhotoMapSummary selection={seatView} count={PHOTO_SECTION_CODES.size} onOpen={() => setPhotoRequest(request => request + 1)} />
         <div className={styles.mapFrame} data-tokyo-map-frame>
+        {notice&&<p role="status" className={styles.mapNotice}>{notice}</p>}
         <div ref={mapCanvasRef} className={styles.map} data-view={showDetail ? "detail" : "overview"} data-whole={!selected && direction === "all" && seatLevel === "all" ? "" : undefined} aria-label="東京ドームの座席図"
           style={{ touchAction: interactiveViewBox.width >= FULL_MAP_VIEW_BOX.width * .99 ? "pan-y" : "none" }}
           onPointerDown={handleMapPointerDown} onPointerMove={handleMapPointerMove} onPointerUp={handleMapPointerEnd} onPointerCancel={handleMapPointerEnd} onLostPointerCapture={handleMapPointerEnd}
@@ -1068,13 +1052,12 @@ export function TokyoDomeSeatLocator() {
                 <text x="579" y="253" fontSize={Math.min(17, Math.max(12, canvasSize.width / 26)) / screenScale}
                   fontWeight="800">アリーナ</text>
               </g>
-              {mapLabels.filter(label => !(verifiedNumberGuide && label.code === selected?.code)).map(label => <text key={label.code} data-seat-label={label.code} x={label.x} y={label.y}
+              {mapLabels.filter(label => !(verifiedNumberGuide && label.code === selected?.code) && !coveredNames.has(label.code)).map(label => <text key={label.code} data-seat-label={label.code} x={label.x} y={label.y}
                 transform={`rotate(${label.angle},${label.x},${label.y})`} textAnchor="middle" dominantBaseline="central"
                 fontSize={label.fontSize} fontWeight="650" fontFamily="ui-sans-serif, sans-serif"
-                data-photo-label={sideOverview && PHOTO_SECTION_CODES.has(label.code) ? "" : undefined}
-                fill={selected?.code === label.code || (sideOverview && PHOTO_SECTION_CODES.has(label.code)) ? "#fff" : "#483340"}
-                stroke={selected?.code === label.code || (sideOverview && PHOTO_SECTION_CODES.has(label.code)) ? "#a93164" : "#fff"}
-                strokeWidth={selected?.code === label.code ? 3 : sideOverview && PHOTO_SECTION_CODES.has(label.code) ? 6 : 2.5} strokeLinejoin="round" vectorEffect="non-scaling-stroke" paintOrder="stroke" pointerEvents="all" data-seat-code={label.code} style={{cursor:"pointer"}}>{label.code}</text>)}
+                fill={selected?.code === label.code ? "#fff" : "#483340"}
+                stroke={selected?.code === label.code ? "#a93164" : "#fff"}
+                strokeWidth={selected?.code === label.code ? 3 : 2.5} strokeLinejoin="round" vectorEffect="non-scaling-stroke" paintOrder="stroke" pointerEvents="all" data-seat-code={label.code} style={{cursor:"pointer"}}>{label.code}</text>)}
               <g pointerEvents="none" aria-label="席番号の目印と増える方向">{displayedNumberGuides.map(guide => {
                 const active = guide.id === verifiedNumberGuide?.id;
                 return <g key={guide.id} data-seat-number={guide.number} data-number-block={guide.id === verifiedNumberGuide?.id ? selected?.code : undefined}>
@@ -1136,7 +1119,6 @@ export function TokyoDomeSeatLocator() {
                 </span>}
               </button>)}
           </div>}
-          {!selected && <span className={styles.scopeChip} aria-hidden="true">{seatLevel === "all" && direction === "all" ? "全体図" : `${SEAT_LEVELS.find(level => level.id === seatLevel)!.label}・${MAP_VIEWS[direction].label}`}</span>}
           {arenaMaps && arenaButtonInView && <button type="button" className={styles.arenaMaps} data-arena-maps-button="" data-map-control=""
             style={{ left: arenaButton.left, top: arenaButton.top }} onPointerDown={event => { event.stopPropagation(); suppressMapClick.current = false; }} onClick={arenaMaps.open}
             aria-label={`アリーナ図を見る（${arenaMaps.count}公演）`}>
@@ -1156,9 +1138,10 @@ export function TokyoDomeSeatLocator() {
             <span>全体</span>
           </button>}
         </div>
-          {showDetail && visibleZones.length > 0 && <ul className={styles.zoneKey} aria-label="色の見方" data-zone-key="">
-            {visibleZones.map(zone => <li key={zone.key}><i style={{ background: ZONE_COLORS[zone.key] }} />{zone.label}</li>)}
-          </ul>}
+          {/* Always present (every zone on the whole map) so the frame keeps one height at every zoom. */}
+          <ul className={styles.zoneKey} aria-label="色の見方" data-zone-key="">
+            {(showDetail && visibleZones.length > 0 ? visibleZones : ZONE_KEY).map(zone => <li key={zone.key}><i style={{ background: ZONE_COLORS[zone.key] }} />{zone.label}</li>)}
+          </ul>
         </div>
         {/* Keep conditional notes below the canvas and whole-view control so selection cannot move either. */}
         {selectedSpecial&&<p className={styles.hint}>図の記号の位置です。個別の席・列は表示していません。</p>}

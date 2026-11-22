@@ -19,8 +19,8 @@ export function SeatPhotoMapSummary({ selection, count, onOpen, emptySlot }: {
   selection: SeatViewSelection;
   count: number;
   onOpen: () => void;
-  /** Shown instead of the "no photo yet" line for a chosen place without photos (e.g. a request button); false shows nothing. */
-  emptySlot?: ReactNode | false;
+  /** Shown instead of the "no photo yet" line for a chosen place without photos (e.g. a request button). */
+  emptySlot?: ReactNode;
 }) {
   const summary = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -42,7 +42,6 @@ export function SeatPhotoMapSummary({ selection, count, onOpen, emptySlot }: {
   const matches = seatViewMatchesForSelection(seatViewPosts(selection.diagram), selection);
   const hasSelection = Boolean(selection.section || selection.zone || selection.position);
   const first = matches[0];
-  if (!first && hasSelection && emptySlot === false) return null;
   return <div ref={summary} id="venue-seat-photos" className={`${styles.mapPhotoSummary} scroll-mt-[90px]`} data-seat-photo-summary>
     {first ? <SeatPhotoPreview key={first.post.url + ":" + first.post.photo}
       match={first} count={matches.length} onClick={onOpen} /> : hasSelection && emptySlot ? emptySlot : <>

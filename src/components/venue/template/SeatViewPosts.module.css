@@ -105,7 +105,9 @@
   white-space: nowrap;
 }
 .panel {
-  flex: 1;
+  /* Sized by its content, then shrinks and scrolls inside the dialog's max-height. "flex: 1" (a 0% basis) collapsed
+     the panel to nothing in iOS Safari, whose dialog height is not definite, leaving only the header visible. */
+  flex: 1 1 auto;
   min-height: 0;
   padding: 12px 16px calc(16px + env(safe-area-inset-bottom));
   overflow-y: auto;
