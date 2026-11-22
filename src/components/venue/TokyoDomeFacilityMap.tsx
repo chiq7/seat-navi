@@ -39,6 +39,11 @@ function FloorGeometry({data}:{data:NonNullable<ReturnType<typeof diagram>>}) {
   return <><g className={styles.seatingShape}>{data.seating.map((d,i)=><path key={i} d={d}/>)}</g><g className={styles.concourseShape}>{data.paths.map((d,i)=><path key={i} d={d}/>)}</g><g className={styles.boundaryShape}>{data.boundaries.map((d,i)=><path key={i} d={d}/>)}</g></>;
 }
 
+/** What the two plan colours mean; shown in the map's heading row so it takes no line of its own. */
+export function FacilityPlanLegend() {
+  return <span className={styles.legend}><span><i className={styles.concourseSwatch}/>通路</span><span><i className={styles.seatSwatch}/>客席</span></span>;
+}
+
 export default function TokyoDomeFacilityMap({purpose,floor,spots,mode,selectedId,origin,onOrigin,seat,groupIds,onGroup}:Props) {
   const currentId=facilityFloorId(floor);
   const selected=spots.find(s=>s.id===selectedId);
@@ -71,8 +76,16 @@ export default function TokyoDomeFacilityMap({purpose,floor,spots,mode,selectedI
   const catalog=floorSpots(DOME_GUIDE_SPOTS,currentId,layer).filter(item=>matchesDomeGuidePurpose(item,purpose)&&item.category===(purpose==="food"?"food":purpose==="locker"?"locker":"facility"));
   const nearbyIds=originHere?new Set(tokyoLandmarkAreaIds(currentId,layer,purpose,crop,catalog)):null;
   const shown=allShown.filter(s=>!nearbyIds||nearbyIds.has(s.id));
-  const fit=Math.min((size.width-40)/cw,(size.height-56)/ch);const dx=(size.width-cw*fit)/2,dy=(size.height-ch*fit)/2;
-  const position=(a:Pick<FacilityAnchor,"x"|"y">)=>({x:dx+(a.x-cx)*fit,y:dy+(a.y-cy)*fit});
+  // The map is as tall as the plan needs (no empty bands above and below), leaving room for the selected-seat note
+  // on top and the side tags at the bottom. Phones cap it so the map can stay on screen above the list.
+  const seatHere=Boolean(seat&&facilityFloorId(seat.floor??"")===currentId);
+  // The drawn area is the camera plus the stage art (whole-floor view), so the art is never cut off. Pads leave half a
+  // mark above and below the plan, and the bottom band for the side tags.
+  const [vx,vy,vw,vh]=art&&!originHere?(()=>{const x0=Math.min(cx,art.x),y0=Math.min(cy,art.y),x1=Math.max(cx+cw,art.x+art.width),y1=Math.max(cy+ch,art.y+art.height);return [x0,y0,x1-x0,y1-y0];})():crop;
+  const topPad=seatHere?50:26,bottomPad=28;
+  const mapHeight=Math.round(Math.max(220,Math.min(compactPins?320:520,(size.width-40)*vh/vw+topPad+bottomPad)));
+  const fit=Math.min((size.width-40)/vw,(mapHeight-topPad-bottomPad)/vh);const dx=(size.width-vw*fit)/2,dy=topPad+(mapHeight-topPad-bottomPad-vh*fit)/2;
+  const position=(a:Pick<FacilityAnchor,"x"|"y">)=>({x:dx+(a.x-vx)*fit,y:dy+(a.y-vy)*fit});
   const selectedHere=selected?.facilityAnchor?.floorId===currentId?selected:undefined;
   const floorGates=layer==="floors"?FACILITY_GATES.filter((g)=>g.floorId===currentId):(SHOP_GATES[currentId]??[]).map(([number,x,y])=>({number,x,y}));
   const passages=(layer==="floors"?FACILITY_PASSAGE_LABELS:SHOP_PASSAGE_LABELS)[currentId]??[];
@@ -116,17 +129,32 @@ export default function TokyoDomeFacilityMap({purpose,floor,spots,mode,selectedI
       merged=true;
     }
   }
-  groups=groups.map(g=>({...g,x:Math.max(g.width/2+4,Math.min(size.width-g.width/2-4,g.x)),y:Math.max(g.height/2+4,Math.min(size.height-g.height/2-4,g.y))}));
-  const placed=placeMapLabels(labels,size.width,size.height,{reserved:groups.map(g=>({x:g.x,y:g.y,width:g.width,height:g.height}))});
+  groups=groups.map(g=>({...g,x:Math.max(g.width/2+4,Math.min(size.width-g.width/2-4,g.x)),y:Math.max(g.height/2+4,Math.min(mapHeight-g.height/2-4,g.y))}));
+  // Which side is which, written in the field beside the stage (left = 3塁側 as the plan is drawn), on the first
+  // spot clear of every mark. Without the art in view (zoomed to a gate) they sit at the map's left and right edges.
   const outfield=currentId==="1f-outfield";
+  const sideNames=outfield?["レフト側","ライト側"]:["3塁側","1塁側"];
+  const sideW=outfield?60:46,sideH=18;
+  const fieldAt=art&&!originHere?position({x:art.x+art.width/2,y:art.y+art.height/2}):null;
+  const artHalf=art&&fieldAt?art.width*fit/2:0;
+  const sideLabels=[-1,1].map((dir,i)=>{
+    const start={x:fieldAt?fieldAt.x+dir*(artHalf+sideW/2+6):dir<0?sideW/2+8:size.width-sideW/2-8,y:fieldAt?fieldAt.y:mapHeight/2};
+    const clear=(c:{x:number;y:number})=>c.x-sideW/2>=4&&c.x+sideW/2<=size.width-4&&!groups.some(g=>Math.abs(g.x-c.x)<(g.width+sideW)/2+3&&Math.abs(g.y-c.y)<(g.height+sideH)/2+3);
+    const tries=[0,1,2,3].flatMap(step=>[-1,1,0].map(v=>({x:start.x+dir*step*14,y:start.y+v*(step===0&&v!==0?0:step*16)})));
+    const at=tries.find(clear)??start;
+    return {name:sideNames[i],x:at.x,y:at.y,width:sideW,height:sideH};
+  });
+  // So is the stage art: names laid on it would read as part of the stage.
+  const artBox=art?(()=>{const at=position({x:art.x+art.width/2,y:art.y+art.height/2});return [{x:at.x,y:at.y,width:art.width*fit,height:art.height*fit}];})():[];
+  const placed=placeMapLabels(labels,size.width,mapHeight,{reserved:[...groups.map(g=>({x:g.x,y:g.y,width:g.width,height:g.height})),...sideLabels,...artBox]});
   const areaItems=shown.filter(item=>groupIds?.includes(item.id));
 
   return <div className={styles.root} data-floor={currentId} data-map-interaction="landmark-zoom" data-pin-density={compactPins ? "compact" : undefined} aria-label={`${floorInfo.label}の施設図`}>
-    <div ref={map} className={styles.map}>
+    <div ref={map} className={styles.map} style={{height:mapHeight}}>
       {data?<>
       <div className={styles.canvas}>
-        <svg viewBox={`0 0 ${size.width} ${size.height}`} aria-hidden="true">
-          <g transform={`translate(${dx},${dy}) scale(${fit}) translate(${-cx},${-cy})`}>
+        <svg viewBox={`0 0 ${size.width} ${mapHeight}`} aria-hidden="true">
+          <g transform={`translate(${dx},${dy}) scale(${fit}) translate(${-vx},${-vy})`}>
             {art&&<FieldLandmark box={art}/>}
             <FloorGeometry data={data}/>
             {selectedHere&&<circle data-destination-anchor={selectedHere.id} cx={selectedHere.facilityAnchor!.x} cy={selectedHere.facilityAnchor!.y} r={9/fit} strokeWidth={3/fit} className={styles.selectedAnchor}/>}
@@ -134,11 +162,9 @@ export default function TokyoDomeFacilityMap({purpose,floor,spots,mode,selectedI
           </g>
         </svg>
       </div>
-      {seat&&facilityFloorId(seat.floor??"")===currentId&&<div className={styles.mapTitle}><small>選択席 {seat.section}{seat.row!==null?`・${seat.row}列`:""}</small></div>}
-      {/* Which arm is which side, on the map itself (the plan is seen from the stands, the field at the top). */}
-      <span className={`${styles.sideTag} ${styles.sideLeft}`} aria-hidden="true">← {outfield?"レフト側":"3塁側"}</span>
-      <span className={`${styles.sideTag} ${styles.sideRight}`} aria-hidden="true">{outfield?"ライト側":"1塁側"} →</span>
-      <svg className={styles.leaders} viewBox={`0 0 ${size.width} ${size.height}`} aria-hidden="true">
+      {seatHere&&seat&&<div className={styles.mapTitle}><small>選択席 {seat.section}{seat.row!==null?`・${seat.row}列`:""}</small></div>}
+      {sideLabels.map(side=><span key={side.name} className={styles.sideName} style={{left:side.x,top:side.y,width:side.width}} aria-hidden="true">{side.name}</span>)}
+      <svg className={styles.leaders} viewBox={`0 0 ${size.width} ${mapHeight}`} aria-hidden="true">
         {groups.filter(group=>group.points.length>1).map(group=>{
           const xs=group.points.map(point=>point.x),ys=group.points.map(point=>point.y),x=Math.min(...xs)-5,y=Math.min(...ys)-5;
           return <rect key={group.id} data-area-coverage={group.id} x={x} y={y} width={Math.max(...xs)-x+5} height={Math.max(...ys)-y+5} rx={6} className={styles.areaCoverage}/>;
@@ -171,6 +197,5 @@ export default function TokyoDomeFacilityMap({purpose,floor,spots,mode,selectedI
       })}
       </>:<div className={styles.none}>この階に該当する売店の掲載はありません。</div>}
     </div>
-    <div className={styles.legend}><span><i className={styles.concourseSwatch}/>通路側</span>{data&&data.seating.length>0&&<span><i className={styles.seatSwatch}/>客席側</span>}</div>
   </div>;
 }

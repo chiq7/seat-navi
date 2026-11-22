@@ -18,7 +18,7 @@ import { outsideFacilityKind } from "@/lib/domeOutsideMapDisplay";
 import type { DomeGuideOrigin } from "@/lib/domeGuideLandmarks";
 import { TOKYO_DOME_SEAT_SELECTION_EVENT, type TokyoDomeVenueSeatSelection } from "@/lib/tokyoDomeVenueSelection";
 import styles from "./TokyoDomeVisitorGuide.module.css";
-import TokyoDomeFacilityMap, { StairsIcon } from "./TokyoDomeFacilityMap";
+import TokyoDomeFacilityMap, { FacilityPlanLegend, StairsIcon } from "./TokyoDomeFacilityMap";
 import TokyoDomeOutsideMap from "./TokyoDomeOutsideMap";
 import { matchesDomeGuidePurpose, type DomeGuidePurpose } from "@/lib/domeGuideDisplay";
 import { DOME_FACILITY_SIGNS, ToiletSign as Toilet, LockerSign as Luggage, FoodSign as Utensils, type DomeSignIcon } from "./DomeFacilitySigns";
@@ -89,6 +89,16 @@ function Spot({ item, selected, onLocate }: { item: DomeGuideSpot; selected: boo
 
 export function TokyoDomeGuideFinder({ onReady }: { onReady?: () => void } = {}) {
   const finderRef = useRef<HTMLDivElement>(null);
+  const mapPanelRef = useRef<HTMLDivElement>(null);
+  // On phones the facility map stays at the top while the list scrolls under it, so a tapped facility's mark is
+  // always in sight. Its height is handed to CSS so jumps to the detail stop just below the map, not behind it.
+  useEffect(() => {
+    const panel = mapPanelRef.current, finder = finderRef.current;
+    if (!panel || !finder) return;
+    const observer = new ResizeObserver(() => finder.style.setProperty("--facility-map-height", `${Math.round(panel.getBoundingClientRect().height)}px`));
+    observer.observe(panel);
+    return () => observer.disconnect();
+  }, []);
   const navigation = useFacilityResultNavigation(finderRef);
   const [outsideResetKey,setOutsideResetKey]=useState(0);
   const [,setLandmarkResetKey]=useState(0);
@@ -207,7 +217,7 @@ export function TokyoDomeGuideFinder({ onReady }: { onReady?: () => void } = {})
       {purpose==="toilet"&&<div className={styles.filterRow} role="group" aria-label="トイレの種類">{([["all","すべて"],["women","女性"],["men","男性"],["accessible","車いす"]] as const).map(([value,label])=>{const n=countFor(area,floor,"toilet",value);return <button key={value} type="button" aria-pressed={toiletType===value} disabled={n===0} onClick={()=>{setToiletType(value);clearPlace();}}>{value==="accessible"&&<Accessibility size={15} aria-hidden="true"/>}{label}<b>{n}</b></button>;})}</div>}
     </div>
     <div className={controls.body}>
-      <div id="dome-outside-map" className={controls.mapPanel} data-facility-map-panel tabIndex={-1} style={{scrollMarginTop:80}}><div className={controls.panelHeading}><strong>{area==="outside"?"場外":floor}・{title}{origin?`／${origin.label}`:""}</strong>{origin&&<button type="button" onClick={clearPlace}>この階全体へ</button>}</div>
+      <div ref={mapPanelRef} id="dome-outside-map" className={`${controls.mapPanel} ${area==="inside"?styles.stickyMap:""}`} data-facility-map-panel tabIndex={-1} style={{scrollMarginTop:80}}><div className={controls.panelHeading}><strong>{area==="outside"?"場外":floor}・{title}{origin?`／${origin.label}`:""}</strong>{area==="inside"&&<FacilityPlanLegend/>}{origin&&<button type="button" onClick={clearPlace}>この階全体へ</button>}</div>
         {area==="inside"?<TokyoDomeFacilityMap floor={floor} spots={results} purpose={purpose} mode={purpose==="food"?"food":"equipment"} selectedId={selectedSpotId} origin={origin} onOrigin={next=>{setOrigin(next);setGroupIds(null);setSelectedSpotId(null);}} seat={seatSelection} groupIds={groupIds} onGroup={(ids,trigger)=>{setGroupIds(ids);setSelectedSpotId(null);navigation.openList(trigger);}}/>
           :<TokyoDomeOutsideMap key={`${purpose}-${outsideResetKey}`} initialStationId={nearbyStation??""} onNearby={id=>{setNearbyStation(id);setGroupIds(null);setSelectedZone(null);setSelectedSpotId(null);}} spots={rows.filter(s=>s.mapZone)} selectedZone={selectedZone} selectedSpotId={selectedSpotId} onSelectZone={(zone,trigger)=>{setSelectedZone(trigger?zone:selectedZone===zone?null:zone);setGroupIds(null);setSelectedSpotId(null);if(trigger)navigation.openList(trigger);}} compact/>}
       </div>

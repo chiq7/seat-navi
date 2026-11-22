@@ -111,11 +111,14 @@
   position:absolute; right:1px; top:0; min-width:15px; height:15px; padding-inline:2px;
   border-radius:8px; background:#a93164; color:#fff; text-align:center; font-size:10px; line-height:15px;
 }
-.concourseShape { fill:#fff6fa; stroke:#c599ae; }
-.seatingShape { fill:#efe3e9; stroke:#d9c7d0; }
+.concourseShape { fill:#fff; stroke:#cf7fa2; }
+.seatingShape { fill:#e9e7ea; stroke:#d5d1d6; }
 .orientation { background:#fff8fb; color:#786570; }
 
-/* 3塁側・1塁側は図の左右下に置く */
-.sideTag { position:absolute; bottom:10px; z-index:2; padding:4px 10px; border:1px solid #e3cbd6; border-radius:999px; background:#ffffffeb; color:#653457; font-size:12px; font-weight:900; pointer-events:none; }
-.sideLeft { left:10px; }
-.sideRight { right:10px; }
+/* 3塁側・1塁側はグラウンドのステージ横に文字だけで置く */
+.sideName { position:absolute; z-index:2; transform:translate(-50%,-50%); color:#7d4f68; font-size:11px; font-weight:900; line-height:18px; text-align:center; white-space:nowrap; pointer-events:none;
+  text-shadow:0 0 3px #fff,0 0 3px #fff,0 0 2px #fff; }
+.legend { display:inline-flex; gap:10px; margin-left:auto; padding:0; font-size:11px; color:#7c6c83; }
+.legend > span { display:flex; align-items:center; gap:4px; }
+.concourseSwatch { background:#fff; border-color:#cf7fa2; }
+.seatSwatch { background:#e9e7ea; border-color:#d5d1d6; }
