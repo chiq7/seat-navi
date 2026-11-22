@@ -94,7 +94,7 @@ export default function TokyoDomeFacilityMap({purpose,floor,spots,mode,selectedI
         <svg viewBox={`0 0 ${size.width} ${size.height}`} aria-hidden="true">
           <g transform={`translate(${dx},${dy}) scale(${fit}) translate(${-cx},${-cy})`}>
             <FloorGeometry data={data}/>
-            {selectedHere&&<circle data-destination-anchor={selectedHere.id} cx={selectedHere.facilityAnchor!.x} cy={selectedHere.facilityAnchor!.y} r={6/fit} className={styles.selectedAnchor}/>}
+            {selectedHere&&<circle data-destination-anchor={selectedHere.id} cx={selectedHere.facilityAnchor!.x} cy={selectedHere.facilityAnchor!.y} r={9/fit} strokeWidth={3/fit} className={styles.selectedAnchor}/>}
             {originHere&&<circle data-origin-anchor={originHere.id} cx={originHere.x} cy={originHere.y} r={10/fit} className={styles.originAnchor} strokeWidth={3/fit}/>}
           </g>
         </svg>
@@ -115,7 +115,8 @@ export default function TokyoDomeFacilityMap({purpose,floor,spots,mode,selectedI
         }
         if(p.kind==="passage")return <span key={p.id} className={styles.passageLabel} style={{...location,width:p.width}} data-landmark="passage">{p.id.replace("passage-","").replace("–","〜")}<small>通路</small></span>;
         const group=groups.find(g=>g.id===p.id)!;
-        const expanded=group.points.some(point=>areaItems.some(item=>item.id===point.id));
+        // The pin holding the facility open in the detail is highlighted too, so the detail's place is findable on the map.
+        const expanded=group.points.some(point=>areaItems.some(item=>item.id===point.id)||point.id===selectedHere?.id);
         const label=`${group.area}：${group.kinds.map(kind=>kindNames[kind as FacilityAnchor["kind"]]).join("・")} ${group.points.length}件`;
         return <button key={p.id} type="button" className={styles.pin} data-facility-group={group.id} data-group-size={group.points.length} data-spot-ids={group.points.map(point=>point.id).join(" ")} data-kind={group.kinds.length===1?group.kinds[0]:"area"} aria-label={label} title={label} aria-expanded={expanded} aria-pressed={expanded} style={{...location,width:p.width,height:p.height}} onClick={event=>onGroup([...group.memberIds],event.currentTarget)}>
           <span className={styles.areaIcons} style={{gridTemplateColumns:`repeat(${group.columns},${compactPins ? 18 : 24}px)`}}>{group.kinds.map(kind=>{

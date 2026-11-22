@@ -1,21 +1,13 @@
-import { ChevronDown } from "lucide-react";
-import { seatPhotoCaption, seatPhotoCredit, seatPhotoPosition } from "@/lib/seatPhotoCaption";
+import { SEAT_VERIFIED_LABEL, seatPhotoCredit } from "@/lib/seatPhotoCaption";
 import styles from "@/components/venue/template/SeatViewPosts.module.css";
 
-export function SeatPhotoCreditLine({ event, verified, relation }: {
-  event?: string; verified?: boolean; relation?: string;
-}) {
+/** The photo's date, performance and verified seat when they are known; nothing when none is. */
+export function SeatPhotoCreditLine({ event, verified }: { event?: string; verified?: boolean }) {
   const { day, name } = seatPhotoCredit(event);
-  const caption = seatPhotoCaption(event, verified, relation);
-  return <details className={styles.eventContext} data-seat-photo-caption>
-    <summary className="zr-focus" aria-label={caption + "。撮影情報の詳細"}>
-      {day || name ? <>
-        <span>{day || "撮影日不明"}</span>
-        <span className={styles.creditName}>{name || "公演名不明"}</span>
-      </> : <span className={styles.creditName}>撮影公演・日付は不明</span>}
-      <span>{seatPhotoPosition(verified)}</span>
-      <ChevronDown size={15} aria-hidden="true" />
-    </summary>
-    <p>{caption}</p>
-  </details>;
+  if (!day && !name && !verified) return null;
+  return <p className={styles.eventContext} data-seat-photo-caption>
+    {day && <span>{day}</span>}
+    {name && <span className={styles.creditName}>{name}</span>}
+    {verified && <span>{SEAT_VERIFIED_LABEL}</span>}
+  </p>;
 }

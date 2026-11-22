@@ -9,18 +9,17 @@ test("the Sapporo C2 event label preserves the original block without verifying 
   const photo = layout?.photos.find(entry => entry.block === "C2");
   assert.ok(photo);
   assert.notEqual(photo.seatVerified, true);
-  assert.equal(seatPhotoCaption("2026年11月15日・YOASOBI", photo.seatVerified, "この公演の同じブロック"),
-    "2026年11月15日・YOASOBI ｜ この公演の同じブロック ｜ 撮影位置は投稿者申告（参考）");
+  assert.equal(seatPhotoCaption("2026年11月15日・YOASOBI", photo.seatVerified), "2026年11月15日・YOASOBI");
 });
 
 test("the Tokyo D22 fixed stand example does not inherit an unrecorded performance or date", () => {
   const [match] = seatViewMatchesForSelection(seatViewPosts("tokyo-dome-fixed"), { diagram: "tokyo-dome-fixed", request: 1, section: "D22" });
-  assert.equal(photoSelectionCaption(match), "撮影公演・日付は不明 ｜ 同じブロックの参考写真 ｜ 撮影位置は投稿者申告（参考）");
+  assert.equal(photoSelectionCaption(match), "");
 });
 
-test("captions keep a source's known name or date without inventing the other", () => {
-  assert.match(seatPhotoCaption("2024 MAMA AWARDS", true), /MAMA AWARDS（撮影日不明） ｜ 座席番号を照合済み/);
-  assert.match(seatPhotoCaption("2026年2月14日", false), /2月14日（公演名不明）/);
-  assert.match(seatPhotoCaption("2024-12-01 Vaundy「FUSION」", false, "過去公演の同じブロックの参考写真"), /2024-12-01 Vaundy「FUSION」 ｜ 過去公演の同じブロックの参考写真/);
+test("captions show only what is known, with no 'unknown' or 'reference' notes", () => {
+  assert.equal(seatPhotoCaption("2024 MAMA AWARDS", true), "2024 MAMA AWARDS ｜ 座席番号を照合済み");
+  assert.equal(seatPhotoCaption("2026年2月14日", false), "2026年2月14日");
+  assert.equal(seatPhotoCaption(undefined, false), "");
 });
 

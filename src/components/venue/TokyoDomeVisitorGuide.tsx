@@ -35,7 +35,6 @@ export function TokyoDomeVisitorGuide() {
     <section id="dome-access" aria-labelledby="dome-access-title" className={styles.section}>
       <h2 id="dome-access-title"><TrainFront aria-hidden="true" />駅から東京ドームへ</h2>
       <VenueAccessCards venueId="tokyo-dome" destination="東京ドーム" eventName={TOKYO_DOME_ACCESS_EVENT} entries={DOME_STATIONS.flatMap(station => station.exit.split("・").map(exit => ({ ...station, exit }))).map((station,index)=>({id:`tokyo-${index}`,from:station.name,exit:station.exit,line:station.line.replace("中央・総武線（各駅停車）","中央・総武線").replace("東京メトロ",""),time:TOKYO_DOME_STATION_WALKING.label,sourceUrl:sources.access.url,targetId:tokyoDomeAccessStation(station.line,station.exit)!.id}))}/>
-      <a className={styles.chipLink} href={TOKYO_DOME_STATION_WALKING.sourceUrl} target="_blank" rel="noopener noreferrer">公式の徒歩案内<ArrowUpRight size={14} aria-hidden="true" /></a>
       <div className={styles.twoActions}><a href={sources.gates.url} target="_blank" rel="noopener noreferrer"><DoorOpen aria-hidden="true" /><span>入場ゲート<small>チケットの指定を確認</small></span><ArrowUpRight size={16} aria-hidden="true" /></a><a href={sources.access.url} target="_blank" rel="noopener noreferrer"><Accessibility aria-hidden="true" /><span>段差のないルート<small>水道橋駅西口はEVなし</small></span><ArrowUpRight size={16} aria-hidden="true" /></a></div>
       <details className={styles.explanation}><summary>アクセスの補足</summary>{DOME_STATIONS.map((station) => <p key={station.line}><strong>{station.line} {station.name}：</strong>{station.note}</p>)}<p>東京都文京区後楽1-3-61。出口の対応図です。実際の道順は地図・公式ルートで確認できます。</p></details>
     </section>
@@ -51,8 +50,8 @@ export function TokyoDomeVisitorGuide() {
 
     <section id="dome-faq" aria-labelledby="dome-faq-title" className={styles.section}>
       <h2 id="dome-faq-title"><CircleHelp aria-hidden="true" />気になることだけ</h2>
-      <div className={styles.faq}>{DOME_GUIDE_FAQ.map((item) => <details key={item.question}><summary>{item.question}</summary><p>{item.answer}</p><a className={styles.chipLink} href={sources[item.source].url} target="_blank" rel="noopener noreferrer">公式案内<ArrowUpRight size={14} aria-hidden="true" /></a></details>)}</div>
-      <details className={styles.explanation}><summary>情報元・確認日</summary><p>{DOME_GUIDE_CHECKED_AT} 確認</p><ul>{Object.entries(sources).map(([id, source]) => <li key={id}><a href={source.url} target="_blank" rel="noopener noreferrer">{source.label} ↗</a></li>)}</ul></details>
+      <div className={styles.faq}>{DOME_GUIDE_FAQ.map((item) => <details key={item.question}><summary>{item.question}</summary><p>{item.answer}</p></details>)}</div>
+      <details className={styles.explanation}><summary>情報元・確認日</summary><p>{DOME_GUIDE_CHECKED_AT} 確認。設備の位置は公式フロア図・バリアフリー案内をもとに表示しています（一部は側・エリアのみ）。公演時の利用・通行は場内の案内に従ってください。</p><ul>{Object.entries(sources).map(([id, source]) => <li key={id}><a href={source.url} target="_blank" rel="noopener noreferrer">{source.label} ↗</a></li>)}<li><a href={TOKYO_DOME_STATION_WALKING.sourceUrl} target="_blank" rel="noopener noreferrer">駅からの徒歩案内（PDF） ↗</a></li></ul></details>
     </section>
   </div>;
 }

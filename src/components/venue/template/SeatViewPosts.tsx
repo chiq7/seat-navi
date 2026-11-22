@@ -7,7 +7,7 @@ import { seatViewMatchesForSelection, seatViewPosts, type seatViewMatch, type Se
 import { venueSeatSectionHref, type VenueSeatLinkTarget } from "@/lib/venueSeatLinks";
 import { trackVenueSeatPhotoShareClick } from "@/lib/venueAnalytics";
 import { SeatPhotoCreditLine } from "@/components/common/SeatPhotoCreditLine";
-import { photoSelectionCaption, photoSelectionRelation } from "@/lib/seatPhotoCaption";
+import { photoSelectionCaption } from "@/lib/seatPhotoCaption";
 import styles from "./SeatViewPosts.module.css";
 
 export type SeatViewMatch = { post: SeatViewPost; label: NonNullable<ReturnType<typeof seatViewMatch>>; context?: string };
@@ -66,7 +66,7 @@ function SeatPhotoPreview({ match, count, onClick }: { match: SeatViewMatch; cou
     </span>
     <span className={styles.photoPreviewCopy}>
       <strong>写真を見る<span>{count}枚</span></strong>
-      <span>{photoSelectionCaption(match)}</span>
+      {photoSelectionCaption(match) && <span>{photoSelectionCaption(match)}</span>}
     </span>
     <ChevronRight size={20} aria-hidden="true" />
   </button>;
@@ -223,7 +223,7 @@ export function SeatViewDialog({ matches, panelId, onClose, compact = false, sha
     }}>
     <header className={styles.dialogHeader}>
       <h3 id={`${panelId}-title`} aria-live={compact ? "polite" : undefined}>
-        {compact ? <span>{location}<small className={styles.photoRelation}>{photoSelectionRelation(match)}</small></span> : <><Camera size={18} aria-hidden="true" />座席の写真</>}
+        {compact ? <span>{location}</span> : <><Camera size={18} aria-hidden="true" />座席の写真</>}
       </h3>
       <button type="button" onClick={onClose} autoFocus aria-label={compact ? "座席表に戻る" : undefined}>
         {!compact && "座席表に戻る"}<X size={18} aria-hidden="true" />
@@ -234,7 +234,7 @@ export function SeatViewDialog({ matches, panelId, onClose, compact = false, sha
       onPointerUp={compact && hasMorePhotos ? finishSwipe : undefined}
       onPointerCancel={compact && hasMorePhotos ? () => { swipeStart.current = null; } : undefined}>
       {!compact && <p className={styles.context}><strong>{location}</strong></p>}
-      <SeatPhotoCreditLine key={index} event={post.event} verified={post.seatVerified} relation={photoSelectionRelation(match)} />
+      <SeatPhotoCreditLine key={index} event={post.event} verified={post.seatVerified} />
       <SeatPhoto key={`${index}:${post.url}:${post.photo ?? 1}`} post={post} location={location} />
       {hasMorePhotos && <div className={styles.pager} role="group" aria-label="座席写真を切り替える">
         <button type="button" disabled={index === 0} onClick={() => changePhoto(index - 1)} aria-label={compact ? "前の写真" : undefined}>

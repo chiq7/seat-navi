@@ -57,7 +57,7 @@
 .seatingShape { fill:#e8eff0; stroke:#b0c2c5; stroke-width:.65; }
 .concourseShape { fill:#fff9ef; stroke:#9b8b90; stroke-width:.85; }
 .boundaryShape { fill:none; stroke:#9b8b90; stroke-width:.7; }
-.selectedAnchor { fill:#b92865; stroke:#fff; stroke-width:1; }
+.selectedAnchor { fill:#b92865; stroke:#fff; }
 .originAnchor { fill:#dce9ff; stroke:#365ba8; }
 .mapTitle { position:absolute; top:13px; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; gap:3px; align-items:center; font-size:13px; font-weight:700; color:#536773; pointer-events:none; white-space:nowrap; }
 .mapTitle small { font-size:11px; padding:3px 8px; background:#fff0f6; border-radius:6px; color:#9b2555; }

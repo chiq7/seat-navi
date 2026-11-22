@@ -113,16 +113,12 @@
 }
 .context { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; margin: 6px 0; font-size: 14px; }
 .status { margin: 4px 0; font-size: 13px; line-height: 1.6; }
-.photoRelation { display: inline; margin-inline-start: .55em; color: #745c6b; font-size: 12px; font-weight: 550; }
-.eventContext { grid-column: 1 / -1; min-width: 0; margin: 0; color: #65525c; font-size: 12px; line-height: 1.5; }
-.eventContext summary {
-  display: flex; align-items: center; gap: 6px; min-height: 44px; cursor: pointer; list-style: none; white-space: nowrap;
+.eventContext {
+  grid-column: 1 / -1; display: flex; align-items: center; gap: 6px; min-width: 0; margin: 0; padding: 6px 0;
+  color: #65525c; font-size: 12px; line-height: 1.5; white-space: nowrap;
 }
-.eventContext summary::-webkit-details-marker { display: none; }
-.eventContext summary > :not(.creditName) { flex: none; }
+.eventContext > :not(.creditName) { flex: none; }
 .creditName { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
-.eventContext[open] svg { transform: rotate(180deg); }
-.eventContext p { margin: 0 0 8px; overflow-wrap: anywhere; }
 .status { padding: 12px; margin-top: 8px; border-radius: 10px; background: #f7eff3; }
 .embed { grid-column: 1 / -1; width: 100%; height: min(52dvh, 460px); border: 0; }
 .status button { display: block; min-height: 44px; color: #822044; font-weight: 700; }
@@ -191,8 +187,9 @@
 .mapPhotoHint { color: #65545e; font-size: 12px; line-height: 1.5; }
 .photoPreview { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 56px; padding: 0; border: 0; background: #fff; text-align: left; color: #653457; cursor: pointer; }
 .photoPreview:focus-visible { outline: 2px solid #713d67; outline-offset: 3px; }
-.photoPreviewImage { display: grid; place-items: center; flex: none; width: 76px; height: 52px; border-radius: 8px; overflow: hidden; background: #f3eff1; }
-.photoPreviewImage img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.photoPreviewImage { position: relative; display: grid; place-items: center; flex: none; width: 76px; height: 52px; border-radius: 8px; overflow: hidden; background: #f3eff1; }
+/* Pinned to the frame: as a grid item a tall photo grew the row and showed only its top. */
+.photoPreviewImage img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: contain; object-position: center; }
 .photoPreviewCopy { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
 .photoPreviewCopy strong { display: flex; align-items: center; gap: 8px; font-size: 14px; }
 .photoPreviewCopy strong > span { border-radius: 5px; padding: 2px 6px; background: #f6edf4; font-size: 12px; font-weight: 600; }

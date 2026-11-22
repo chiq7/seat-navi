@@ -27,7 +27,7 @@ export function SeatPhotoGallery({ photos }: { photos: ScopedSeatPhoto[] }) {
           <img src={photo.thumbnail} alt="" width={240} height={150} loading="lazy" decoding="async" referrerPolicy="no-referrer" className="aspect-[8/5] w-full rounded-lg bg-[#f4ecf1] object-cover" />
           <span className="mt-1 block text-xs font-bold">{photo.venue}</span>
           <span className="block text-xs text-[#695862]">{photo.label}</span>
-          <span className="block break-words text-xs text-[#695862]">{seatPhotoCaption(photo.event, photo.seatVerified)}</span>
+          {seatPhotoCaption(photo.event, photo.seatVerified) && <span className="block break-words text-xs text-[#695862]">{seatPhotoCaption(photo.event, photo.seatVerified)}</span>}
         </button>
       </li>)}
     </ul>;

@@ -9,9 +9,9 @@ import {
   Accessibility, X,
 } from "lucide-react";
 import {
-  DOME_GUIDE_SPOTS, DOME_GUIDE_SOURCES, DOME_LOCKER_URL,
+  DOME_GUIDE_SPOTS, DOME_LOCKER_URL,
   filterDomeGuideSpots, type DomeGuideMapZone, type DomeGuideSpot,
-  domeSpotSource, splitDomeGuideResults,
+  splitDomeGuideResults,
   type GuideArea, type GuideCategory, type GuideFloor, type DomeToiletFilter,
 } from "@/data/tokyoDomeVisitorGuide";
 import { outsideFacilityKind } from "@/lib/domeOutsideMapDisplay";
@@ -59,6 +59,9 @@ function spotIcon(item: DomeGuideSpot): DomeSignIcon {
   if (item.description.includes("ラーメン")) return Soup;
   return Utensils;
 }
+/** Source and "check on the day" boilerplate is collected once under 情報元・確認日, not repeated in every detail. */
+const boilerplate = /掲載|アイコンを押す|場内案内|場内スタッフ|公式案内/;
+const usefulDescription = (text: string) => text.split(/(?<=。)/).filter(sentence => !boilerplate.test(sentence)).join("");
 function matchesPurpose(item: DomeGuideSpot, purpose: Purpose) {
   const category = purposes.find(option=>option.value===purpose)!.category;
   return (category==="all"||item.category===category)&&matchesDomeGuidePurpose(item,purpose);
@@ -77,10 +80,10 @@ function Spot({ item, selected, onLocate }: { item: DomeGuideSpot; selected: boo
       <span className={styles.spotMain}><strong>{title}</strong><span><MapPin size={12} aria-hidden="true" />{item.location}</span>{staffedStorage && <small className={styles.storageHint}>店で預ける・予約{item.priceFrom !== undefined ? `・${item.priceFrom.toLocaleString("ja-JP")}円／日〜` : ""}</small>}{item.category === "food" && item.area === "inside" && <small>{item.name}</small>}</span>
       <span className={styles.spotEnd}><ChevronDown size={18} aria-hidden="true" /></span>
     </summary>
-    <div className={styles.spotDetail}><h3>{item.name}</h3><p>{item.description}</p>{item.accessCondition&&<p>{item.accessCondition}</p>}{item.reservation==="available"&&item.bookingUrl&&<a className={styles.bookingLink} href={item.bookingUrl} target="_blank" rel="noopener noreferrer">料金・予約方法を見る<ArrowUpRight size={16}/></a>}{staffedStorage ? <><p>料金は荷物の大きさ・利用日時により変わります。</p><a className={styles.bookingLink} href={item.bookingUrl} target="_blank" rel="noopener noreferrer">料金・予約を見る<ArrowUpRight size={16} aria-hidden="true" /></a></> : item.facilityAnchor ? null : item.area === "inside" || item.mapAccuracy === "unplaced" ? <p className={styles.mapUnplaced}>図上の個別位置は未確認</p> : <p className={styles.mapAccuracyNote}>地図は{item.mapAccuracy === "named-point" ? "公式に示された場所" : "公式の側・エリア"}を表示</p>}{(item.facilityAnchor || (item.area === "outside" && item.mapZone)) && <button type="button" className={styles.locateSpot} onClick={() => onLocate(item)}><MapPin size={15} aria-hidden="true" />この場所を図で見る</button>}
+    <div className={styles.spotDetail}><h3>{item.name}</h3>{usefulDescription(item.description) && <p>{usefulDescription(item.description)}</p>}{item.accessCondition&&<p>{item.accessCondition}</p>}{item.reservation==="available"&&item.bookingUrl&&<a className={styles.bookingLink} href={item.bookingUrl} target="_blank" rel="noopener noreferrer">料金・予約方法を見る<ArrowUpRight size={16}/></a>}{staffedStorage ? <><p>料金は荷物の大きさ・利用日時により変わります。</p><a className={styles.bookingLink} href={item.bookingUrl} target="_blank" rel="noopener noreferrer">料金・予約を見る<ArrowUpRight size={16} aria-hidden="true" /></a></> : null}{(item.facilityAnchor || (item.area === "outside" && item.mapZone)) && <button type="button" className={styles.locateSpot} onClick={() => onLocate(item)}><MapPin size={15} aria-hidden="true" />この場所を図で見る</button>}
       {numberedHelp && <><button type="button" className={styles.locateSpot} onClick={()=>helpDialog.current?.showModal()}><Accessibility size={18} aria-hidden="true"/>係員に見せる</button><dialog ref={helpDialog} className={styles.staffDialog} aria-labelledby={`staff-${item.id}`}><button type="button" className={styles.staffClose} aria-label="係員向け案内を閉じる" onClick={()=>helpDialog.current?.close()}><X size={22}/></button><Accessibility size={42} aria-hidden="true"/><h3 id={`staff-${item.id}`}><span>バリアフリー</span><span>{item.name.replace("バリアフリー","")}</span></h3><strong>{item.location}</strong><p>このトイレの場所を教えてください</p><div className={styles.staffFeatures}>{item.description.includes("オストメイト")&&<span>オストメイト対応</span>}{item.description.includes("介護用ベッド")&&<span>介護用ベッドあり</span>}</div><small>公式掲載の設備です。現在の利用可否もご確認ください。</small></dialog></>}
       {item.category==="food"&&<p className={styles.eventNote}><Info size={16} aria-hidden="true"/>当日の営業は未確認 <VenueProgramAnchor>参加公演の案内へ</VenueProgramAnchor></p>}
-      {!staffedStorage && <details className={styles.spotSource}><summary>最新条件・出典を見る</summary><a href={item.guideUrl ?? (item.category === "locker" ? DOME_LOCKER_URL : DOME_GUIDE_SOURCES[domeSpotSource(item)].url)} target="_blank" rel="noopener noreferrer">{item.category === "locker" ? "ロッカーの利用条件" : "公式案内を開く"}<ArrowUpRight size={16} aria-hidden="true" /></a></details>}</div>
+      {!staffedStorage && item.category === "locker" && <a className={styles.bookingLink} href={item.guideUrl ?? DOME_LOCKER_URL} target="_blank" rel="noopener noreferrer">ロッカーの料金・空き<ArrowUpRight size={16} aria-hidden="true" /></a>}</div>
   </details>;
 }
 
@@ -178,6 +181,19 @@ export function TokyoDomeGuideFinder({ onReady }: { onReady?: () => void } = {})
     navigation.openDetail(trigger);
   };
   const close=()=>{setSelectedSpotId(null);navigation.backToList();};
+  /** The detail's spot is already marked on the map; scroll that mark into view and blink it so the tap visibly does something. */
+  const locate=()=>{
+    const finder=finderRef.current;
+    const id=selected?.id;
+    const pin=id?finder?.querySelector<HTMLElement>(`[data-spot-ids~="${CSS.escape(id)}"]`):null;
+    const mark=finder?.querySelector<SVGElement>("[data-destination-anchor]");
+    const target=pin??mark??finder?.querySelector<HTMLElement>("[data-facility-map-panel]");
+    if(!target)return;
+    const rect=target.getBoundingClientRect();
+    if(rect.top<76||rect.bottom>window.innerHeight-48)target.scrollIntoView({block:"center",behavior:"instant"});
+    const blink=[{opacity:1},{opacity:.2},{opacity:1},{opacity:.2},{opacity:1}];
+    for(const element of [pin,mark])element?.animate(blink,{duration:1000});
+  };
   function returnToMap() {
     setGroupIds(null);setSelectedZone(null);setSelectedSpotId(null);
     navigation.backToMap();
@@ -196,7 +212,7 @@ export function TokyoDomeGuideFinder({ onReady }: { onReady?: () => void } = {})
           :<TokyoDomeOutsideMap key={`${purpose}-${outsideResetKey}`} initialStationId={nearbyStation??""} onNearby={id=>{setNearbyStation(id);setGroupIds(null);setSelectedZone(null);setSelectedSpotId(null);}} spots={rows.filter(s=>s.mapZone)} selectedZone={selectedZone} selectedSpotId={selectedSpotId} onSelectZone={(zone,trigger)=>{setSelectedZone(trigger?zone:selectedZone===zone?null:zone);setGroupIds(null);setSelectedSpotId(null);if(trigger)navigation.openList(trigger);}} compact/>}
       </div>
       <div className={controls.results}>
-        {selected&&<section className={`${controls.detail} ${controls.tokyoDetail}`} aria-label="選んだ設備の詳細"><div><strong tabIndex={-1} data-facility-detail-heading>{selected.name}</strong><button type="button" aria-label="設備の詳細を閉じる" onClick={close}><X size={18}/></button></div><p>{selected.location}</p><Spot key={selected.id} item={selected} selected onLocate={item=>setSelectedSpotId(item.id)}/></section>}
+        {selected&&<section className={`${controls.detail} ${controls.tokyoDetail}`} aria-label="選んだ設備の詳細"><div><strong tabIndex={-1} data-facility-detail-heading>{selected.name}</strong><button type="button" aria-label="設備の詳細を閉じる" onClick={close}><X size={18}/></button></div><p>{selected.location}</p><Spot key={selected.id} item={selected} selected onLocate={locate}/></section>}
         {groupIds||selectedZone?<FacilityAreaResultsHeading count={rows.length}
           area={groupArea??OUTSIDE_ZONES.find(zone=>zone.id===selectedZone)?.label} onReturn={returnToMap}/>
           :<div className={controls.panelHeading} aria-live="polite"><strong>{nearbyLabel ?? title} {rows.length}件</strong>{nearbyStation&&<button type="button" onClick={clearPlace}>一覧へ戻る</button>}</div>}
