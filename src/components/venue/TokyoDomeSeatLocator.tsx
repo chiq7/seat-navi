@@ -1123,7 +1123,11 @@ export function TokyoDomeSeatLocator() {
           {arenaMaps && arenaButtonInView && <button type="button" className={styles.arenaMaps} data-arena-maps-button="" data-map-control=""
             style={{ left: arenaButton.left, top: arenaButton.top }} onPointerDown={event => { event.stopPropagation(); suppressMapClick.current = false; }} onClick={() => arenaMaps.open()}
             aria-label={`アリーナ図を見る（${arenaMaps.count}公演）`}>
-            <MapIcon size={14} aria-hidden="true" />アリーナ図<b>{arenaMaps.count}</b>
+            {/* The newest show's own arena-map photo, so the button reads as "pictures of the arena layout". */}
+            {arenaMaps.posts.find(post => post.image)?.image
+              // eslint-disable-next-line @next/next/no-img-element -- the post's own image on X, shown as posted
+              ? <img className={styles.arenaThumb} src={arenaMaps.posts.find(post => post.image)!.image!.src.replace(/([?&]name=)\w+/, "$1thumb")} alt="" width={22} height={22} decoding="async" referrerPolicy="no-referrer" />
+              : <MapIcon size={14} aria-hidden="true" />}アリーナ図<b>{arenaMaps.count}</b>
           </button>}
           {showDetail && fieldPointer && <span className={styles.fieldPointer} data-field-pointer=""
             style={{ left: fieldPointer.left, top: fieldPointer.top }} aria-hidden="true">

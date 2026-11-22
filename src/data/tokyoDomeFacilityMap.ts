@@ -167,6 +167,49 @@ export const SHOP_PASSAGE_LABELS:Partial<Record<FacilityFloorId,readonly (readon
   "4f-infield":[["14",58,813],["13",82,845],["12",101,876],["11",127,902],["10",154,927],["9",191,962],["8",273,988],["7",350,988],["6",405,981],["5",451,953],["4",482,922],["3",515,883],["2",538,853],["1",562,813]],
   "1f-outfield":[["49",98,1279],["50",138,1246],["51",169,1213],["52",217,1186],["53",240,1174],["54",374,1175],["55",398,1186],["56",442,1213],["57",483,1246],["58",518,1283]],
 };
+/** [a,b,c,d,e,f]: food-map x = a·x + b·y + c, y = d·x + e·y + f for a point (x, y) on the facility plan. */
+export type ShopPlanTransform = readonly [number, number, number, number, number, number];
+export function toShopPlan(m: ShopPlanTransform, x: number, y: number): [number, number] {
+  return [m[0] * x + m[1] * y + m[2], m[3] * x + m[4] * y + m[5]];
+}
+/**
+ * The food-stand positions were traced from another official map than the facility plans, so their coordinates differ.
+ * Food maps therefore draw the facility plan (same drawing, same scale as the toilets and the rest) moved into food-map
+ * coordinates. The move is fitted by least squares on the gates and passage numbers both maps show.
+ */
+export const SHOP_PLAN_FROM_FLOOR: Partial<Record<FacilityFloorId, ShopPlanTransform>> = Object.fromEntries(
+  (Object.keys(SHOP_DIAGRAMS) as FacilityFloorId[]).flatMap(floorId => {
+    const pairs: (readonly [number, number, number, number])[] = [];
+    for (const [number, x, y] of SHOP_GATES[floorId] ?? []) {
+      const gate = FACILITY_GATES.find(g => g.floorId === floorId && g.number === number);
+      if (gate) pairs.push([gate.x, gate.y, x, y]);
+    }
+    for (const [label, x, y] of SHOP_PASSAGE_LABELS[floorId] ?? []) {
+      const passage = FACILITY_PASSAGE_LABELS[floorId]?.find(p => p[0] === label);
+      if (passage) pairs.push([passage[1], passage[2], x, y]);
+    }
+    if (pairs.length < 4) return [];
+    const normal = [[0, 0, 0], [0, 0, 0], [0, 0, 0]], forX = [0, 0, 0], forY = [0, 0, 0];
+    for (const [x, y, X, Y] of pairs) {
+      const row = [x, y, 1];
+      for (let i = 0; i < 3; i++) { for (let j = 0; j < 3; j++) normal[i][j] += row[i] * row[j]; forX[i] += row[i] * X; forY[i] += row[i] * Y; }
+    }
+    const [[a, b, c], [d, e, f], [g, h, i]] = normal;
+    const det = a * (e * i - f * h) - b * (d * i - f * g) + c * (d * h - e * g);
+    const inverse = [[e * i - f * h, c * h - b * i, b * f - c * e], [f * g - d * i, a * i - c * g, c * d - a * f], [d * h - e * g, b * g - a * h, a * e - b * d]].map(row => row.map(v => v / det));
+    const solve = (v: number[]) => inverse.map(row => row[0] * v[0] + row[1] * v[1] + row[2] * v[2]);
+    return [[floorId, [...solve(forX), ...solve(forY)] as unknown as ShopPlanTransform]];
+  }),
+);
+/** The facility plan's frame, moved into food-map coordinates (null when the floor has no food map transform). */
+export function shopPlanCrop(floorId: FacilityFloorId, floorCrop: readonly number[]): [number, number, number, number] | null {
+  const m = SHOP_PLAN_FROM_FLOOR[floorId];
+  if (!m) return null;
+  const [x, y, w, h] = floorCrop;
+  const corners = [[x, y], [x + w, y], [x, y + h], [x + w, y + h]].map(([px, py]) => toShopPlan(m, px, py));
+  const xs = corners.map(c => c[0]), ys = corners.map(c => c[1]);
+  return [Math.min(...xs), Math.min(...ys), Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys)];
+}
 export function facilityFloorId(floor:string):FacilityFloorId|undefined { return FACILITY_FLOORS.find((f)=>f.floor===floor)?.id; }
 export function getFacilityAnchor(id:string) { return FACILITY_ANCHORS.find((a)=>a.id===id) ?? SHOP_ANCHORS.find((a)=>a.id===id); }
 export function matchesFacilityPassage(id:string,passage:number) { return getFacilityAnchor(id)?.passages.some(([start,end])=>start<=passage&&passage<=end) ?? false; }

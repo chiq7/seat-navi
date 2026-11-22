@@ -400,8 +400,9 @@
 @media (min-width: 720px) { .pickRow, .filterRow { max-width:640px; } }
 .finderScope div:has(> :global([data-result-section])) { max-height:none; overflow:visible; }
 
-/* Phones: the facility map sticks under the site header while the list scrolls beneath it. */
+/* The facility map sticks under the site header while the list scrolls beneath it (beside it on PC). */
+.stickyMap { position:sticky; top:56px; z-index:6; align-self:start; background:#fff; }
 @media (max-width:767px) {
-  .stickyMap { position:sticky; top:56px; z-index:6; background:#fff; box-shadow:0 8px 10px -10px #4b414866; }
+  .stickyMap { box-shadow:0 8px 10px -10px #4b414866; }
   .stickyMap + * [data-facility-detail-heading][tabindex], .stickyMap + * [data-facility-area-results-heading][tabindex] { scroll-margin-top:calc(var(--facility-map-height, 0px) + 68px); }
 }

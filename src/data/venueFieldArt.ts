@@ -29,7 +29,7 @@ export type FieldArtSpot = {
 export type VenueFieldArt = {
   image: FieldArtImage;
   drawScale: number;
-  /** Key: `${floorId}:${layer}` — layer "floors" is the facility plan, "shops" the food-stand plan. */
+  /** Key: `${floorId}:floors` (the facility plan). 飲食の図も同じ設備図を使うので、ここに置けば飲食にも出る。 */
   spots: Readonly<Record<string, FieldArtSpot>>;
 };
 
@@ -46,10 +46,6 @@ export const TOKYO_DOME_FIELD_ART: VenueFieldArt = {
     "2f-infield:floors": { placement: [292, 358.8, 171.8] },
     "3f-infield:floors": { placement: [297.6, 157.3, 219] },
     "4f-infield:floors": { placement: [297.6, 473.6, 263.4] },
-    "1f-infield:shops": { placement: [302.1, 66.1, 199.8] },
-    "1f-outfield:shops": { placement: [317.8, 1364.5, 184.8] },
-    "2f-infield:shops": { placement: [312.9, 528.6, 224] },
-    "4f-infield:shops": { placement: [308.3, 763.1, 266.4] },
   },
 };
 

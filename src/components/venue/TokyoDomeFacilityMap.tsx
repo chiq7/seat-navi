@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type SVGProps } from "react";
-import { FACILITY_FLOORS, FACILITY_GATES, FACILITY_PASSAGE_LABELS, SHOP_DIAGRAMS, SHOP_GATES, SHOP_PASSAGE_LABELS, facilityFloorId, type FacilityAnchor, type FacilityFloorId } from "@/data/tokyoDomeFacilityMap";
+import { FACILITY_FLOORS, FACILITY_GATES, FACILITY_PASSAGE_LABELS, SHOP_DIAGRAMS, SHOP_GATES, SHOP_PASSAGE_LABELS, SHOP_PLAN_FROM_FLOOR, facilityFloorId, shopPlanCrop, toShopPlan, type FacilityAnchor, type FacilityFloorId } from "@/data/tokyoDomeFacilityMap";
 import context from "@/data/tokyoDomeFacilityContext.json";
 import { placeMapLabels, type MapLabel } from "@/lib/facilityMapLabels";
 import { matchesDomeGuidePurpose, type DomeGuidePurpose } from "@/lib/domeGuideDisplay";
@@ -22,11 +22,15 @@ type Props={purpose:DomeGuidePurpose;floor:GuideFloor; spots:readonly DomeGuideS
 
 function diagram(id:FacilityFloorId,layer:Layer) {
   const source=context.floors.find((f)=>f.id===id)!;
+  const floorPlan={paths:source.concourse.map((p)=>p.d),seating:source.seating.map((p)=>p.d),boundaries:source.boundaries.map((p)=>p.d)};
   if(layer==="shops") {
+    // Food maps show the same facility plan, moved into food-map coordinates (see SHOP_PLAN_FROM_FLOOR).
+    const matrix=SHOP_PLAN_FROM_FLOOR[id]??null,crop=shopPlanCrop(id,source.crop);
+    if(matrix&&crop)return {crop,...floorPlan,matrix};
     const shop=SHOP_DIAGRAMS[id];
-    return shop?{crop:shop.crop,paths:shop.paths,seating:[] as string[],boundaries:[] as string[]}:null;
+    return shop?{crop:shop.crop,paths:shop.paths,seating:[] as string[],boundaries:[] as string[],matrix:null}:null;
   }
-  return {crop:source.crop,paths:source.concourse.map((p)=>p.d),seating:source.seating.map((p)=>p.d),boundaries:source.boundaries.map((p)=>p.d)};
+  return {crop:source.crop,...floorPlan,matrix:null};
 }
 /** The field illustration (see src/data/venueFieldArt.ts for the image, its size and where it sits on each plan). */
 function FieldLandmark({box}:{box:{x:number;y:number;width:number;height:number}}) {
@@ -66,7 +70,14 @@ export default function TokyoDomeFacilityMap({purpose,floor,spots,mode,selectedI
 
   const data=diagram(currentId,layer);const floorInfo=FACILITY_FLOORS.find((f)=>f.id===currentId)!;
   const allShown=floorSpots(spots,currentId,layer);
-  const art=fieldArtLayout(TOKYO_DOME_FIELD_ART,`${currentId}:${layer}`);
+  // The stage art is placed on the facility plan; food maps carry it over with the plan.
+  const artPlan=fieldArtLayout(TOKYO_DOME_FIELD_ART,`${currentId}:floors`);
+  const planMatrix=data?.matrix??null;
+  const art=layer==="floors"?artPlan:artPlan&&planMatrix?(()=>{
+    const corners=[[artPlan.x,artPlan.y],[artPlan.x+artPlan.width,artPlan.y],[artPlan.x,artPlan.y+artPlan.height],[artPlan.x+artPlan.width,artPlan.y+artPlan.height]].map(([x,y])=>toShopPlan(planMatrix,x,y));
+    const xs=corners.map(c=>c[0]),ys=corners.map(c=>c[1]);
+    return {x:Math.min(...xs),y:Math.min(...ys),width:Math.max(...xs)-Math.min(...xs),height:Math.max(...ys)-Math.min(...ys),cameraArea:null};
+  })():null;
   // The camera's "whole plan" includes the illustration, so no screen size crops it.
   const plan=data?.crop??[0,0,600,400];
   const whole=art?.cameraArea?(()=>{const a=art.cameraArea,x0=Math.min(plan[0],a.x),y0=Math.min(plan[1],a.y),x1=Math.max(plan[0]+plan[2],a.x+a.width),y1=Math.max(plan[1]+plan[3],a.y+a.height);return [x0,y0,x1-x0,y1-y0];})():plan;
@@ -155,8 +166,10 @@ export default function TokyoDomeFacilityMap({purpose,floor,spots,mode,selectedI
       <div className={styles.canvas}>
         <svg viewBox={`0 0 ${size.width} ${mapHeight}`} aria-hidden="true">
           <g transform={`translate(${dx},${dy}) scale(${fit}) translate(${-vx},${-vy})`}>
-            {art&&<FieldLandmark box={art}/>}
-            <FloorGeometry data={data}/>
+            <g transform={planMatrix?`matrix(${planMatrix[0]},${planMatrix[3]},${planMatrix[1]},${planMatrix[4]},${planMatrix[2]},${planMatrix[5]})`:undefined}>
+              {art&&artPlan&&<FieldLandmark box={artPlan}/>}
+              <FloorGeometry data={data}/>
+            </g>
             {selectedHere&&<circle data-destination-anchor={selectedHere.id} cx={selectedHere.facilityAnchor!.x} cy={selectedHere.facilityAnchor!.y} r={9/fit} strokeWidth={3/fit} className={styles.selectedAnchor}/>}
             {originHere&&<circle data-origin-anchor={originHere.id} cx={originHere.x} cy={originHere.y} r={10/fit} className={styles.originAnchor} strokeWidth={3/fit}/>}
           </g>
