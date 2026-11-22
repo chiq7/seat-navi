@@ -7,6 +7,7 @@ import GuideLoadBoundary, { GuideLoading } from "./GuideLoadBoundary";
 import { VenueSeatTarget } from "../VenueSeatTarget";
 import VenueGuideAnchor from "../VenueGuideAnchor";
 import { parseVenueSeatLink, type VenueSeatLinkTarget } from "@/lib/venueSeatLinks";
+import { GuidePageSlots } from "./GuidePageSlots";
 
 const TokyoDomeEntry = dynamic(() => import("./publicEntries/tokyo-dome"), { loading: GuideLoading });
 const dedicated = {
@@ -20,7 +21,7 @@ function subscribeToLocation(callback: () => void) {
   return () => window.removeEventListener("popstate", callback);
 }
 
-export default function PublicVenueGuide({ venue, target = null, afterSeats }: { venue: string; target?: VenueSeatLinkTarget | null; afterSeats?: ReactNode }) {
+export default function PublicVenueGuide({ venue, target = null, afterSeats, pageNav = false }: { venue: string; target?: VenueSeatLinkTarget | null; afterSeats?: ReactNode; pageNav?: boolean }) {
   // A shared HTML/RSC snapshot has no seat query until the browser loads the actual URL.
   const query = useSyncExternalStore(subscribeToLocation, () => window.location.search, () => "");
   const params = new URLSearchParams(query);
@@ -31,9 +32,9 @@ export default function PublicVenueGuide({ venue, target = null, afterSeats }: {
     : null);
   const key = JSON.stringify([venue, activeTarget?.mode, activeTarget?.section]);
   if (isPublicArenaGuideVenue(venue)) {
-    return <VenueSeatTarget key={key} value={activeTarget}><VenueGuideAnchor venue={venue} /><ArenaGuide venue={venue} embedded /></VenueSeatTarget>;
+    return <GuidePageSlots afterSeats={afterSeats} pageNav={pageNav}><VenueSeatTarget key={key} value={activeTarget}><VenueGuideAnchor venue={venue} /><ArenaGuide venue={venue} embedded /></VenueSeatTarget></GuidePageSlots>;
   }
   if (venue !== "kyocera-dome" && venue !== "tokyo-dome" && venue !== "k-arena") return null;
   const Entry = dedicated[venue];
-  return <VenueSeatTarget key={key} value={activeTarget}><VenueGuideAnchor venue={venue} /><GuideLoadBoundary key={venue}>{venue === "tokyo-dome" ? <TokyoDomeEntry afterSeats={afterSeats} /> : <Entry />}</GuideLoadBoundary></VenueSeatTarget>;
+  return <GuidePageSlots afterSeats={afterSeats} pageNav={pageNav}><VenueSeatTarget key={key} value={activeTarget}><VenueGuideAnchor venue={venue} /><GuideLoadBoundary key={venue}>{venue === "tokyo-dome" ? <TokyoDomeEntry afterSeats={afterSeats} /> : <Entry />}</GuideLoadBoundary></VenueSeatTarget></GuidePageSlots>;
 }

@@ -1,0 +1,8 @@
+/* Kyocera plans are filled outlines (not centre lines like the template plans): walkways are white areas with a
+   pink outline, seats and other venue shapes are grey. Same colours as Tokyo Dome and the template finder. */
+.contextArea { fill:#e9e7ea; stroke:none; }
+.contextLine { fill:none; stroke:#d5d1d6; }
+.concourseArea { fill:#fff; stroke:#cf7fa2; stroke-linejoin:round; }
+.originDot { fill:#dce9ff; stroke:#365ba8; }
+.destinationDot { fill:#a93164; stroke:#fff; }
+.landmark[data-selected="true"] { background:#fff0f5; border-color:#a93164; color:#81234c; outline:2px solid #a93164; }

@@ -58,3 +58,34 @@ export function fieldArtLayout(art: VenueFieldArt, key: string) {
   const area = spot.cameraArea ? { x: spot.cameraArea[0], y: spot.cameraArea[1], width: spot.cameraArea[2], height: spot.cameraArea[3] } : null;
   return { x: cx - width / 2, y: cy - height / 2, width, height, cameraArea: area };
 }
+
+/**
+ * 東京ドーム以外の会場の設備図（共通テンプレート VenueFacilityFinder）に敷く絵。
+ *
+ * ■ キー
+ *   `${venueId}:${diagramId}`（例: "k-arena:k-arena-level3-floor-desktop"）。diagramId は guide.diagrams の id。
+ *   登録がない図には何も描かない。登録すれば、その図に自動で絵と左右の名前が出る。
+ *
+ * ■ 各値（単位はすべてその図の座標＝diagram.viewBox と同じ単位。ピクセルではない）
+ *   image:      絵のファイルとピクセルサイズ（上の「絵だけを差し替えるとき」と同じ扱い）。
+ *   placement:  [中心 x, 中心 y, 幅]。公式図で確かめた位置だけを書く。推測で置かない。
+ *   drawScale:  placement の幅に対して実際に描く割合（東京ドームは 0.55）。
+ *   cameraArea: 省略可。図の外に絵を置くときだけ、表示範囲に必ず含める四角 [x, y, 幅, 高さ]。
+ *   sideNames:  省略可。絵の左右に置く名前 [左, 右]（例: ["3塁側", "1塁側"]、["ステージ側", "ステージ反対側"]）。
+ *               図の向きどおりの左右で書く。
+ */
+export type DiagramFieldArt = FieldArtSpot & {
+  image: FieldArtImage;
+  drawScale: number;
+  sideNames?: readonly [left: string, right: string];
+};
+
+export const VENUE_DIAGRAM_FIELD_ART: Readonly<Record<string, DiagramFieldArt>> = {};
+
+/** The art for one template diagram, laid out like fieldArtLayout, or null when nothing is registered. */
+export function diagramFieldArt(venueId: string, diagramId: string, entries: Readonly<Record<string, DiagramFieldArt>> = VENUE_DIAGRAM_FIELD_ART) {
+  const entry = entries[`${venueId}:${diagramId}`];
+  if (!entry) return null;
+  const layout = fieldArtLayout({ image: entry.image, drawScale: entry.drawScale, spots: { spot: entry } }, "spot")!;
+  return { ...layout, image: entry.image, sideNames: entry.sideNames ?? null };
+}

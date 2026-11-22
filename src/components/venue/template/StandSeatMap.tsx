@@ -4,13 +4,15 @@ import { VenueProgramAnchor } from "@/components/venue/VenueProgramLinks";
 import SeatSearchOffer from "@/components/seat-campaign/SeatSearchOffer";
 import { trackVenueSeatSearch } from "@/lib/venueAnalytics";
 
-import { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState, useId, type PointerEvent } from "react";
-import { ChevronDown, ChevronRight, Crosshair, Info, ListOrdered, X } from "lucide-react";
+import { forwardRef, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useRef, useState, useId, type PointerEvent } from "react";
+import { ChevronDown, ChevronRight, Crosshair, Info, ListOrdered, Map as MapIcon, X } from "lucide-react";
 import { DomeSeatFrame } from "./DomeSeatFrame";
 import { useSeatMapTouch } from "./useSeatMapTouch";
 import { SEAT_PHOTO_MAP_COLOR, SeatPhotoMapSummary, SeatPhotoMarker } from "./SeatViewPosts";
 import { seatPhotoOffsets, useSeatPhotoHitTest } from "./useSeatPhotoHitTest";
-import { seatViewPosts, type SeatViewPlace } from "@/lib/seatViewPosts";
+import { seatViewMatchesForSelection, seatViewPosts, type SeatViewPlace } from "@/lib/seatViewPosts";
+import { announceTokyoDomeMapScope, type TokyoDomeMapScope } from "@/lib/tokyoDomeVenueSelection";
+import { useArenaMaps } from "@/components/venue/ArenaMapsSheet";
 import { seatNumberBadge, seatNumberBadgeBounds, seatNumberArrowInk, seatNumberBadgeTipDistance } from "@/lib/seatNumberBadge";
 import { SeatFinderControls, SeatFinderMiss, type FinderMode } from "./SeatFinderControls";
 import { directionName, nearSeatNumbers, seatLevelName } from "./seatFinderLabels";
@@ -26,6 +28,29 @@ type Gesture = { points: Map<number, Point>; start: Point; last: Point; travel: 
 const freshGesture = (): Gesture => ({ points: new Map(), start: [0, 0], last: [0, 0], travel: 0, multi: false, block: null, photo: null, distance: 0 });
 const photoDiameter = 18;
 const photoTarget = 28;
+/** The block under a point near (x, y): rings of 5, 10 and 15px around a tap that missed every block. */
+function nearestBlockId(x: number, y: number): string | null {
+  for (const radius of [5, 10, 15]) for (let step = 0; step < 8; step += 1) {
+    const angle = step * Math.PI / 4;
+    const hit = document.elementFromPoint(x + radius * Math.cos(angle), y + radius * Math.sin(angle));
+    const id = hit instanceof SVGElement ? hit.closest("[data-block-id]")?.getAttribute("data-block-id") : null;
+    if (id) return id;
+  }
+  return null;
+}
+/** Template scope for the page's photo row: ids are seat sections (blocks/zones), matched against photo links. */
+export type StandMapScope = TokyoDomeMapScope & { match: "section"; labels: string[] };
+/** Tokyo Dome's glide: zoom changes evenly in scale, eased in and out, longer the further it goes. */
+function glideDuration(fromWidth: number, toWidth: number) {
+  return Math.round(Math.min(900, 420 + 170 * Math.abs(Math.log(toWidth / fromWidth))));
+}
+function glideFrame(from: MapBox, to: MapBox, progress: number): MapBox {
+  const eased = progress < .5 ? 4 * progress ** 3 : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+  const width = from[2] * Math.pow(to[2] / from[2], eased), height = from[3] * Math.pow(to[3] / from[3], eased);
+  const cx = from[0] + from[2] / 2 + (to[0] + to[2] / 2 - from[0] - from[2] / 2) * eased;
+  const cy = from[1] + from[3] / 2 + (to[1] + to[3] / 2 - from[1] - from[3] / 2) * eased;
+  return [cx - width / 2, cy - height / 2, width, height];
+}
 const rowSummary = (block: StandBlock) => {
   const rows = standDisplayRows(block);
   return block.rowNameLookup === "unavailable" ? "列名は公式図に未掲載" : rows.length === 1 ? `${rows[0].label}列` : rows.length ? `${rows[0].label}〜${rows.at(-1)!.label}列` : "位置のみ";
@@ -43,6 +68,10 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   const overviewBox: MapBox = useMemo(() => data.diagramId === "pia-arena-mm-seat-plans"
     ? [data.viewBox[0] - 180, data.viewBox[1] - 180, data.viewBox[2] + 360, data.viewBox[3] + 360]
     : data.viewBox as MapBox, [data.diagramId, data.viewBox]);
+  // One zoom rule for every venue: the closest anyone can zoom is where the selected block's
+  // row lines and labels are read (the template's "closest detail"); pinch, wheel, buttons and
+  // camera moves all clamp to it.
+  const minSpan = data.detailSpan * .45;
   const [initial] = useState(() => initialSection ? resolveStandSeatSection(data, initialSection) : null);
   const initialBlock = initial?.block, initialZone = initial?.zone;
   const [level, setLevel] = useState(initialBlock?.level ?? initialZone?.level ?? "all"), [area, setArea] = useState(initialBlock?.area ?? initialZone?.area ?? "all");
@@ -58,11 +87,16 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   const [photoFromTicket, setPhotoFromTicket] = useState(false);
   const [view, setView] = useState<MapBox>(() => {
     const target = initialBlock ? standDetailCamera(initialBlock, data) : initialZone ? standZoneCamera(data, initialZone) : overviewBox;
-    return initial ? clampCamera(target, overviewBox, data.detailSpan * .45) : overviewBox;
+    return initial ? clampCamera(target, overviewBox, minSpan) : overviewBox;
   }), [size, setSize] = useState({ width: 900, height: 620 });
   const [pulse, setPulse] = useState(false);
-  
+  const arenaMaps = useArenaMaps();
+
   const stage = useRef<HTMLDivElement>(null), svg = useRef<SVGSVGElement>(null), frame = useRef<number | null>(null);
+  // Live camera (camera) vs. the camera the labels were last laid out for (renderedView): see paint().
+  const inner = useRef<SVGSVGElement>(null), overlay = useRef<SVGGElement>(null), sizeRef = useRef(size);
+  const renderedView = useRef(view), moving = useRef(false), wheelCommit = useRef<number | null>(null);
+  const announcedScope = useRef("");
   const camera = useRef(view), gesture = useRef(freshGesture()), interacted = useRef(Boolean(initial));
   const suppressMapClick = useSeatMapTouch(stage);
   const allowPageScroll = view[2] >= overviewBox[2] * .99;
@@ -113,21 +147,59 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
             <title>{`${seatLevelName(b.level, levels.find(item => item.id === b.level)?.label)} ${b.balcony ? "バルコニー " : ""}${blockDisplayTitle(b, "")}・${rowSummary(b)}`}</title>
           </path>), [block, data.blocks, data.wholeBlockLabels, data.zones, level, levels, pulse, selected, whole]);
 
-  function stop() { if (frame.current !== null) cancelAnimationFrame(frame.current); frame.current = null; }
+  // A stopped glide or gesture keeps the camera where it is; labels are laid out again for it.
+  function cancelGlide() { if (frame.current !== null) cancelAnimationFrame(frame.current); frame.current = null; }
+  function stop() { cancelGlide(); if (!gesture.current.points.size) commit(); }
   function interaction() { initialCanvasPending.current = false; interacted.current = true; setPulse(false); stop(); }
-  function renderCamera(next: MapBox) { camera.current = next; setView(next); }
+  // Glides, pans, pinches and wheel zooms paint the camera straight onto the SVG and commit to React
+  // once when they end (Tokyo Dome's paintBox/commitBox): laying out every label on each frame made
+  // the map stutter on phones. Screen-space labels follow with one transform until the commit.
+  function paint(next: MapBox) {
+    camera.current = next;
+    const { width, height } = sizeRef.current;
+    inner.current?.setAttribute("viewBox", next.join(" "));
+    const from = mapProjection(renderedView.current, width, height), to = mapProjection(next, width, height);
+    const ratio = to.scale / from.scale, origin = from.project([0, 0]), target = to.project([0, 0]);
+    overlay.current?.setAttribute("transform", `translate(${target[0] - origin[0] * ratio} ${target[1] - origin[1] * ratio}) scale(${ratio})`);
+    stage.current?.setAttribute("data-camera", next.map(n => n.toFixed(2)).join(","));
+    if (!moving.current) { moving.current = true; stage.current?.setAttribute("data-moving", ""); }
+  }
+  function commit() {
+    if (wheelCommit.current !== null) { clearTimeout(wheelCommit.current); wheelCommit.current = null; }
+    if (!moving.current) return;
+    moving.current = false;
+    stage.current?.removeAttribute("data-moving");
+    setView([...camera.current] as MapBox);
+  }
+  function follow(next: MapBox) { paint(clampCamera(next, overviewBox, minSpan)); }
   function move(next: MapBox, animate = true) {
-    stop(); const target = clampCamera(next, overviewBox, data.detailSpan * .45);
-    if (!animate || window.matchMedia("(prefers-reduced-motion: reduce)").matches) { renderCamera(target); return; }
-    const from = [...camera.current] as MapBox, start = performance.now();
-    const duration = overviewArt && Math.max(from[2], target[2]) >= overviewBox[2] * .85 ? 420 : 220;
+    stop(); const target = clampCamera(next, overviewBox, minSpan);
+    if (!animate || window.matchMedia("(prefers-reduced-motion: reduce)").matches) { paint(target); commit(); return; }
+    const from = [...camera.current] as MapBox, duration = glideDuration(from[2], target[2]);
+    let start: number | null = null;
     function tick(now: number) {
-      const progress = Math.min(1, (now - start) / duration), eased = 1 - (1 - progress) ** 3;
-      renderCamera(from.map((n, i) => n + (target[i] - n) * eased) as MapBox);
-      if (progress < 1) frame.current = requestAnimationFrame(tick); else frame.current = null;
+      start ??= now;
+      const progress = Math.min(1, (now - start) / duration);
+      paint(progress < 1 ? glideFrame(from, target, progress) : target);
+      if (progress < 1) frame.current = requestAnimationFrame(tick); else { frame.current = null; commit(); }
     }
     frame.current = requestAnimationFrame(tick);
   }
+  // A side, level or zone is never framed closer than a tapped block (Tokyo Dome's sideFitView
+  // floor), so choosing a block from it never zooms out.
+  function notCloserThanBlock(box: MapBox): MapBox {
+    const { width, height } = sizeRef.current;
+    const blockScale = mapProjection([0, 0, data.detailSpan, data.detailSpan], width, height).scale;
+    const grow = mapProjection(box, width, height).scale / blockScale;
+    if (!(grow > 1)) return box;
+    return [box[0] - box[2] * (grow - 1) / 2, box[1] - box[3] * (grow - 1) / 2, box[2] * grow, box[3] * grow];
+  }
+  useLayoutEffect(() => {
+    renderedView.current = view;
+    // Labels were just laid out for this camera; a gesture still in progress re-derives its offset.
+    if (moving.current) paint(camera.current);
+    else { camera.current = view; overlay.current?.removeAttribute("transform"); }
+  }, [view, size]);
   function clearResult() { setSelected(null); resetFinderFeedback(); setPosition(null); }
   function resetFinderFeedback() { setMatches([]); setError(""); setSearchMiss(false); }
   function reset() { interaction(); clearResult(); setZone(null); setLevel("all"); setArea("all"); move(overviewBox as MapBox); }
@@ -138,7 +210,7 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
     const next = data.regionViews?.[`${nextLevel}:${nextArea}`] as MapBox | undefined ?? (nextLevel === "all" && nextArea === "all" ? overviewBox
       : nextLevel === "all" && data.areaViews?.[nextArea] ? data.areaViews[nextArea] as MapBox
       : nextArea === "all" && data.levelViews?.[nextLevel] ? data.levelViews[nextLevel] as MapBox : boundsOf(targets));
-    move(next);
+    move(nextLevel === "all" && nextArea === "all" ? next : notCloserThanBlock(next));
     const center: Point = [next[0] + next[2] / 2, next[1] + next[3] / 2];
     setFocused([...targets].sort((a, b) => Math.hypot(a.center[0] - center[0], a.center[1] - center[1]) - Math.hypot(b.center[0] - center[0], b.center[1] - center[1]))[0].id);
   }
@@ -148,12 +220,15 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
     setPhotoFromTicket(false);
     interaction(); clearResult(); setZone(id); setLevel(target.level); setArea(target.area);
     const members = data.blocks.filter(b => target.blockIds.includes(b.id));
-    move(standZoneCamera(data, target)); setFocused(members[0].id);
+    move(notCloserThanBlock(standZoneCamera(data, target))); setFocused(members[0].id);
   }
   function select(b: StandBlock, recenter = false, fromTicket = false) {
     setPhotoFromTicket(fromTicket);
     interaction(); setSelected(b.id); setZone(b.zone ?? null); setFocused(b.id); setLevel(b.level); setArea(b.area); resetFinderFeedback(); setPosition(null);
-    if (!selected || recenter) move(standDetailCamera(b, data, size));
+    // Same rule for every selection (Tokyo Dome): go to the block view unless the map is already
+    // at block zoom or closer, where a neighbouring block is picked without moving the camera.
+    const target = standDetailCamera(b, data, size);
+    if (!selected || recenter || camera.current[2] > clampCamera(target, overviewBox, minSpan)[2] * 1.02) move(target);
   }
   function choosePosition(target: StandPosition) {
     setPhotoFromTicket(false);
@@ -206,7 +281,7 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   }
   function zoom(factor: number) {
     interaction(); const c = camera.current;
-    let next = clampCamera(zoomCamera(c, factor, [c[0] + c[2] / 2, c[1] + c[3] / 2]), overviewBox, data.detailSpan * .45);
+    let next = clampCamera(zoomCamera(c, factor, [c[0] + c[2] / 2, c[1] + c[3] / 2]), overviewBox, minSpan);
     const run = standSelectedNumberRun(data, block, row, number);
     if (run) {
       const text = `${run.row}列 ${block?.numberPrefix ?? ""}${run.segment.start}`;
@@ -233,8 +308,11 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
     if (g.points.size === 1) {
       const target = event.target as Element;
       g.start = p; g.last = p; g.travel = 0;
-      g.block = target.closest("[data-block-id]")?.getAttribute("data-block-id") ?? null;
       g.photo = target.closest("[data-seat-photo-marker]")?.getAttribute("data-seat-photo-marker") ?? null;
+      // Zoomed out, blocks are thin and a finger often lands in the gap between them: that tap goes
+      // to the nearest block (Tokyo Dome's nearestSeatCode). At block zoom, gaps stay gaps.
+      g.block = target.closest("[data-block-id]")?.getAttribute("data-block-id")
+        ?? (!control && !g.photo && camera.current[2] > data.detailSpan * 1.05 ? nearestBlockId(event.clientX, event.clientY) : null);
     }
     if (g.points.size > 1) { suppressMapClick.current = true; g.multi = true; const [a, b] = [...g.points.values()]; g.distance = Math.hypot(a[0] - b[0], a[1] - b[1]); g.last = [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2]; }
   }
@@ -248,11 +326,11 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
       const distance = Math.max(1, Math.hypot(a[0] - b[0], a[1] - b[1]));
       const next = zoomCamera(c, g.distance / distance, currentProjection.unproject(g.last));
       const scale = mapProjection(next, size.width, size.height).scale;
-      move([next[0] - (middle[0] - g.last[0]) / scale, next[1] - (middle[1] - g.last[1]) / scale, next[2], next[3]], false);
+      follow([next[0] - (middle[0] - g.last[0]) / scale, next[1] - (middle[1] - g.last[1]) / scale, next[2], next[3]]);
       g.distance = distance; g.last = middle;
     } else if (g.travel > 6 && !(event.pointerType === "touch" && allowPageScroll)) {
       suppressMapClick.current = true;
-      move([c[0] - (p[0] - g.last[0]) / currentProjection.scale, c[1] - (p[1] - g.last[1]) / currentProjection.scale, c[2], c[3]], false); g.last = p;
+      follow([c[0] - (p[0] - g.last[0]) / currentProjection.scale, c[1] - (p[1] - g.last[1]) / currentProjection.scale, c[2], c[3]]); g.last = p;
     }
   }
   function up(event: PointerEvent<HTMLDivElement>) {
@@ -261,6 +339,7 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
     g.points.delete(event.pointerId);
     if (g.points.size) { g.last = [...g.points.values()][0]; return; }
     const { block: id, photo } = g, tap = isSeatTap(g.travel, g.multi); gesture.current = freshGesture();
+    commit();
     suppressMapClick.current ||= !tap;
     if (!tap) return;
     const photoAnchor = photoAnchors.find(item => item.key === photo);
@@ -274,7 +353,7 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
       const { width, height } = entries[0].contentRect;
       const canvas = { width, height };
       if (!hasStandCanvasArea(canvas)) return;
-      setSize(canvas);
+      sizeRef.current = canvas; setSize(canvas);
       if (initialBlock && initialCanvasPending.current) {
         initialCanvasPending.current = false;
         const next = clampCamera(standDetailCamera(initialBlock, data, canvas), overviewBox, data.detailSpan * .45);
@@ -285,7 +364,7 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
     resize.observe(el);
     const observer = new IntersectionObserver(entries => { if (entries.some(e => e.isIntersecting)) { if (!interacted.current) setPulse(true); observer.disconnect(); } }, { threshold: .2 });
     observer.observe(el);
-    const cancel = () => { gesture.current = freshGesture(); };
+    const cancel = () => { gesture.current = freshGesture(); commit(); };
     window.addEventListener("blur", cancel); document.addEventListener("visibilitychange", cancel);
     return () => { resize.disconnect(); observer.disconnect(); stop(); window.removeEventListener("blur", cancel); document.removeEventListener("visibilitychange", cancel); };
   }, [data, initialBlock, overviewBox]);
@@ -293,8 +372,12 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
     const el = svg.current!;
     const wheel = (event: WheelEvent) => {
       if (!event.ctrlKey && !event.metaKey) return;
-      event.preventDefault(); interaction(); const c = camera.current;
-      move(zoomCamera(c, Math.exp(Math.max(-100, Math.min(100, event.deltaY)) * .004), mapProjection(c, size.width, size.height).unproject(point(event))), false);
+      // Wheel zoom follows the hand and commits once it pauses (not on every wheel event).
+      event.preventDefault(); initialCanvasPending.current = false; interacted.current = true; setPulse(false); cancelGlide();
+      const c = camera.current;
+      follow(zoomCamera(c, Math.exp(Math.max(-100, Math.min(100, event.deltaY)) * .004), mapProjection(c, size.width, size.height).unproject(point(event))));
+      if (wheelCommit.current !== null) clearTimeout(wheelCommit.current);
+      wheelCommit.current = window.setTimeout(() => { wheelCommit.current = null; commit(); }, 160);
     };
     el.addEventListener("wheel", wheel, { passive: false });
     return () => el.removeEventListener("wheel", wheel);
@@ -316,6 +399,42 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [size.width, size.height, data, block, row, number]);
 
+  // Tell the page's photo row which part of the venue is on the map (Tokyo Dome's map scope):
+  // the blocks around a chosen block, a chosen zone/position, or the chosen level and side.
+  useEffect(() => {
+    const zonesOf = (ids: string[]) => [...new Set(ids.flatMap(id => {
+      const item = data.blocks.find(b => b.id === id);
+      return [id, ...(data.zones ?? []).filter(z => z.id === item?.zone || z.blockIds.includes(id)).map(z => z.id)];
+    }))];
+    const photoLabels = (kind: string, id: string) => seatViewPosts(data.diagramId).filter(post => post.place.kind === kind && post.place.id === id).map(post => post.area);
+    const levelLabel = (id: string) => levels.find(l => l.id === id)?.label ?? id;
+    const send = (label: string | null, codes: string[], labels: string[] = [], section?: string) => {
+      const scope: StandMapScope = { label, codes, section, labels, match: "section" };
+      // The photo row scrolls back to its start on every new scope; repeat announcements are skipped.
+      const key = JSON.stringify(scope);
+      if (key === announcedScope.current) return;
+      announcedScope.current = key;
+      announceTokyoDomeMapScope(scope);
+    };
+    const chosen = data.blocks.find(b => b.id === selected);
+    if (chosen) {
+      const near = [...data.blocks].sort((a, b) => Math.hypot(a.center[0] - chosen.center[0], a.center[1] - chosen.center[1])
+        - Math.hypot(b.center[0] - chosen.center[0], b.center[1] - chosen.center[1])).slice(0, 16).map(b => b.id);
+      send(`${blockDisplayTitle(chosen, "")}の近く`, zonesOf(near), [], chosen.id);
+    } else if (position) {
+      send(`${position.label}付近`, [], photoLabels("position", position.id));
+    } else if (zone) {
+      const target = data.zones?.find(z => z.id === zone);
+      send(target?.label ?? zone, [zone, ...(target?.blockIds ?? [])], photoLabels("zone", zone));
+    } else if (level === "all" && area === "all") {
+      send(null, []);
+    } else {
+      const ids = data.blocks.filter(b => (level === "all" || b.level === level) && (area === "all" || b.area === area)).map(b => b.id);
+      send([level !== "all" && seatLevelName(level, levelLabel(level)), area !== "all" && directionName(areas.find(a => a.id === area)?.label ?? area)].filter(Boolean).join("・"), zonesOf(ids));
+    }
+  }, [data, levels, areas, selected, position, zone, level, area]);
+  useEffect(() => () => { announcedScope.current = ""; announceTokyoDomeMapScope({ label: null, codes: [] }); }, []);
+
   // Floor buttons above the map remain available; whole-map numbers take priority over duplicate floor tags.
   const levelTags = whole && !wholeNumbers && !data.zones ? levels.filter(l => !data.wholeBlockLabels || data.blocks.filter(b => b.level === l.id).length === 1) : [];
   
@@ -329,7 +448,8 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   const buttonBounds = [...levelTags.map(l => { const p = projection.project(l.point); return [p[0], p[1], Math.max(64, l.label.length * 14 + 28), 44]; }),
     ...zoneTags.map(z => { const p = zonePositions.get(z.id)!; return [p[0], p[1], overviewAreaLabelWidth(z.label), 44]; }),
     ...areaTags.map(a => { const p = areaPositions.get(a.id)!; return [p[0], p[1], overviewAreaLabelWidth(a.label), 44]; })];
-  const occupied = [...buttonBounds];
+  // Passive names keep clear of the corner arena-map button (approximate pill footprint).
+  const occupied = [...buttonBounds, ...(arenaMaps ? [[size.width - 76, 30, 140, 44]] : [])];
   const labels: { id: string; text: string; x: number; y: number; width: number; height: number; kind: "row" | "number" | "block"; selected: boolean; plain: boolean; anchor?: Point }[] = [];
   const selectedRowLabel = (label: typeof labels[number]) => label.kind === "row" && (label.id === "selected-row" ||
     (Boolean(highlightedRow) && (label.id === "first-row" || label.id === "last-row") && normalizeSeatInput(label.text.replace(/列$/, "")) === normalizeSeatInput(highlightedRow)));
@@ -498,9 +618,18 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   }
   
   
+  const seatViewRow = labelRun ? String(labelRun.row) : highlightedRow;
+  const seatView = { diagram: data.diagramId, request: photoRequest, section: block?.id, zone, position: position?.id,
+    row: photoFromTicket ? seatViewRow : null, seat: photoFromTicket ? labelRun?.seat : null };
+  // The chosen place's own camera mark gives way while its photo card is shown on the map.
+  const photoCardShown = photoAnchors.length > 0 && (block || zone || position)
+    && seatViewMatchesForSelection(seatViewPosts(data.diagramId), seatView).length > 0;
+  const cardedPhotoKey = !photoCardShown ? null : block ? `section:${block.id}` : position ? `position:${position.id}` : `zone:${zone}`;
   const photoOccupied: number[][] = [];
+  const coveredLabels = new Set<string>();
   const photoMarkers = photoAnchors.flatMap(item => {
     if (level !== "all" && item.level !== level) return [];
+    if (item.key === cardedPhotoKey) return [];
     const anchor = projection.project(item.point);
     if (anchor[0] < 0 || anchor[0] > size.width || anchor[1] < 0 || anchor[1] > size.height) return [];
     const fits = (point: Point, boxes: number[][]) => boxes.every(([x, y, w, h]) =>
@@ -509,8 +638,8 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
     const inside = (point: Point) => standLabelInsideCanvas(point, photoTarget, photoTarget, size);
     const candidates = [...seatPhotoOffsets.map(candidate), ...item.centers.map(projection.project)]
       .filter(inside).sort((a, b) => Math.hypot(a[0] - anchor[0], a[1] - anchor[1]) - Math.hypot(b[0] - anchor[0], b[1] - anchor[1]));
-    // Never trade a readable block/row label for a camera. The photo-bearing
-    // block remains outlined and tappable even when no separate marker fits.
+    // Prefer a clear spot on the block; if none fits, the mark still shows at the block centre and
+    // the block's own (passive) name gives way to it (Tokyo Dome). Row/number guides are never covered.
     const obstacles = [...occupied, ...photoOccupied];
     const clear = candidates.filter(point => fits(point, obstacles));
     const onBlock = (point: Point, radius: number) => photoHitTest(item.paths, {
@@ -520,15 +649,17 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
     // At overview scale, a zone can contain many very thin seat strips.
     // Its badge may straddle an aisle, but its centre must remain on its own seats.
     const centered = item.place.kind === "section" && inside(anchor) && fits(anchor, obstacles) && onBlock(anchor, 0);
-    const point = centered ? anchor : clear.find(point => onBlock(point, photoDiameter / 2))
+    const placed = centered ? anchor : clear.find(point => onBlock(point, photoDiameter / 2))
       ?? clear.find(point => onBlock(point, 0));
+    const point = placed ?? (inside(anchor) ? anchor : null);
     if (!point) return [];
+    if (!placed) {
+      if (item.place.kind === "section") coveredLabels.add(item.place.id);
+      for (const l of labels) if (!l.selected && !fits(point, [[l.x, l.y, l.width, l.height]])) coveredLabels.add(l.id);
+    }
     photoOccupied.push([...point, photoTarget, photoTarget]);
     return [{ ...item, anchor, point }];
   });
-  const seatViewRow = labelRun ? String(labelRun.row) : highlightedRow;
-  const seatView = { diagram: data.diagramId, request: photoRequest, section: block?.id, zone, position: position?.id,
-    row: photoFromTicket ? seatViewRow : null, seat: photoFromTicket ? labelRun?.seat : null };
   const focusable = shown.filter(b => { const p = projection.project(b.center); return p[0] > 0 && p[0] < size.width && p[1] > 0 && p[1] < size.height; });
   const sectionExample = data.zones?.[0]?.label || data.blocks[0].aliases.find(alias => alias.length <= 12) || data.blocks[0].label;
   const fallbackBlocks = searchMiss && finderMode === "ticket" && !blockOnlySearch
@@ -538,6 +669,11 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   const missingInput = finderMode === "block" || blockOnlySearch ? !blockInput.trim() : !number.trim();
   const inputAdvice = error === data.numberLookupNote ? undefined
     : /数字で入力|列欄に|列を空欄にして番号/.test(error) ? error : undefined;
+  const finderFeedback = searchMiss || Boolean(error) || matches.length > 0;
+  const arenaImage = arenaMaps?.posts.find(post => post.image)?.image;
+  const arenaThumb = arenaImage ? arenaImage.src.replace(/([?&]name=)\w+/, "$1thumb") : null;
+  // Bottom-centred venue notes on small whole views stay above the photo/legend overlay.
+  const footerLift = (photoAnchors.length ? 44 : 0) + (data.blocks.some(item => item.numberLookup === "unavailable") ? 30 : 0);
   return <DomeSeatFrame className={data.levelViews ? styles.levelControls : undefined} levels={[{ id: "all", label: "すべて" }, ...levels]} level={level} onLevel={id => chooseRegion(id, "all")} photoLegend="map"
     directions={availableAreas} direction={area} onDirection={id => chooseRegion(level, id)} onZoom={zoom} onWhole={reset} shortcuts={[]}
     seatView={seatView}
@@ -550,32 +686,6 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
         blockHint={`例：${sectionExample}`} onRow={value => { setRow(value); resetFinderFeedback(); }}
         onNumber={value => { setNumber(value); resetFinderFeedback(); }} onBlock={value => { setBlockInput(value); resetFinderFeedback(); }} onSubmit={search} /></>}>
     
-    {searchMiss && <SeatFinderMiss detail={error}
-      advice={inputAdvice} query={missingInput ? undefined : { scope: [levels.find(l => l.id === level)?.label, area !== "all" && directionName(areas.find(item => item.id === area)?.label ?? area)].filter(Boolean).join("・") || "会場全体",
-        row: finderMode === "ticket" && !blockOnlySearch ? row : undefined, number: finderMode === "ticket" && !blockOnlySearch ? number : undefined,
-        block: finderMode === "block" || blockOnlySearch ? blockInput : undefined }}
-      onReset={level === "all" && area === "all" && !zone ? undefined : reset}
-      choices={fallbackBlocks.map(item => ({ id: item.id, label: blockDisplayTitle(item, "") }))}
-      choose={id => { const item = data.blocks.find(b => b.id === id); if (item) { setRow(""); setNumber(""); select(item, true); } }} />}
-    {error && !searchMiss && <div className={styles.message} role="status">{error}<button type="button" onClick={reset}>条件を解除</button></div>}
-    {matches.length > 0 && <section className={styles.searchResults} data-seat-search-results aria-label="座席の検索結果">
-      <div className={styles.resultsHeading} role="status">
-        <strong>{matches.length}区画が見つかりました</strong>
-        <p>席種・列で絞るか、区画を選んでください。</p>
-      </div>
-      <ul className={styles.candidateList} aria-label="座席の検索候補">
-        {matches.map(b => {
-          const levelLabel = seatLevelName(b.level, levels.find(l => l.id === b.level)?.label);
-          return <li key={b.id}><button className={styles.candidateButton} type="button" data-seat-candidate={b.id} onClick={() => select(b, true, finderMode === "ticket" && !blockOnlySearch)}>
-            <span className={styles.candidateCopy}>
-              <strong>{blockDisplayTitle(b, levelLabel)}</strong>
-              <span className={styles.candidateMeta}><span>{levelLabel}{b.balcony && !levelLabel.includes("バルコニー") ? "・バルコニー" : ""}</span><span>{rowSummary(b)}</span></span>
-            </span>
-            <ChevronRight size={18} aria-hidden="true" />
-          </button></li>;
-        })}
-      </ul>
-    </section>}
     <div className={styles.selection} aria-live="polite" aria-label="選んだ座席">
       <div className={`${styles.selectionCopy} ${labelRun ? styles.ticketSelectionCopy : ""}`}>{block ? <>
         <span className={styles.selectionMeta}>{selectedLevelLabel}{block.balcony && !selectedLevelLabel.includes("バルコニー") ? "・バルコニー" : ""}<span>{selectedRows}</span></span>
@@ -585,78 +695,125 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
       {block && <><button type="button" aria-label="選んだ場所を表示" onClick={() => block && move(standDetailCamera(block, data, size))}><Crosshair size={19}/></button>
       <button type="button" aria-label="座席の選択を解除" onClick={clearResult}><X size={19}/></button></>}
     </div>
-    <SeatPhotoMapSummary selection={seatView} count={photoAnchors.length} onOpen={() => setPhotoRequest(request => request + 1)} />
-    {data.blocks.some(item => item.numberLookup === "unavailable") && <p className={styles.coverageNote} data-seat-number-legend><Info size={16} aria-hidden="true" />
-      <span>参考区画（座席番号は未確認）{block?.numberLookup === "unavailable" && <span role="status">　この区画の正確な番号範囲は未確認です。</span>}</span></p>}
     <p id={instructionId} className={styles.srOnly}>矢印キーで画面内のブロックを選び、Enterで拡大します。地図をドラッグして移動できます。</p>
-    <div className={`${styles.stage} ${overviewArt ? styles.venueOverview : ""} ${data.zones ? styles.zonedStage : ""} ${data.diagramId === "vantelin-prime-unfolded" ? styles.unfoldedStage : ""}`} ref={stage} data-testid="stand-seat-map" data-diagram-id={data.diagramId} data-camera={view.map(n => n.toFixed(2)).join(",")} data-selected={selected ?? ""} data-selected-zone={zone ?? ""} data-selected-position={position?.id ?? ""} style={{ touchAction: allowPageScroll ? "pan-y" : "none" }}
-      onPointerDown={down} onPointerMove={drag} onPointerUp={up}
-      onPointerCancel={() => { gesture.current = freshGesture(); suppressMapClick.current = true; }}
-      onLostPointerCapture={e => { if (gesture.current.points.has(e.pointerId)) gesture.current = freshGesture(); }}
-      onPointerLeave={e => { if (!e.currentTarget.hasPointerCapture(e.pointerId)) gesture.current = freshGesture(); }}
-      onClickCapture={event => { if (suppressMapClick.current && event.detail !== 0) { event.preventDefault(); event.stopPropagation(); } }}>
-      <svg ref={svg} viewBox={`0 0 ${size.width} ${size.height}`} role="group" aria-label="座席の全体図" aria-describedby={instructionId} tabIndex={0}
-        onKeyDown={e => {
-          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); const b = focusable.find(b => b.id === focused) ?? focusable[0]; if (b) select(b); }
-          if (e.key.startsWith("Arrow")) { e.preventDefault(); interaction(); const current = focusable.find(b => b.id === focused) ?? focusable[0]; if (!current) return;
-            const axis = e.key === "ArrowLeft" || e.key === "ArrowRight" ? 0 : 1, sign = e.key === "ArrowLeft" || e.key === "ArrowUp" ? -1 : 1;
-            const next = focusable.filter(b => (b.center[axis] - current.center[axis]) * sign > 0).sort((a, b) => Math.hypot(a.center[0] - current.center[0], a.center[1] - current.center[1]) - Math.hypot(b.center[0] - current.center[0], b.center[1] - current.center[1]))[0];
-            if (next) setFocused(next.id);
-          }
-        }}>
-        <svg width={size.width} height={size.height} viewBox={view.join(" ")}>
-          {overviewArt && <VenueOverviewArt diagramId={data.diagramId} blocks={data.blocks} opacity={artOpacity} unit={artUnit}/> }
-          {data.contextLabels?.filter(l => !standRedundantContextText(l.text, block, closestDetail)
-            && !(whole && size.width < 500 && data.diagramId === "vantelin-prime-unfolded")).map((l, i) => {
-              const footer = whole && size.width < 500 && ["belluna-seats", "paypay-stand-reference", "mufg-seats", "koshien-seats", "vantelin-seat-reference", "makuhari-seats", "sapporo-baseball", "sapporo-soccer"].includes(data.diagramId) && l.text.includes("公演");
-              const lines = footer && l.text.length * 12 > size.width - 24 && l.text.includes("・") ? [l.text.slice(0, l.text.indexOf("・") + 1), l.text.slice(l.text.indexOf("・") + 1)] : [l.text];
-              const point = footer ? projection.unproject([size.width / 2, size.height - 14 - (lines.length - 1) * 16]) : l.point;
-              return <text key={`context-${i}`} data-context-label={l.text} x={point[0]} y={point[1]} textAnchor="middle" fill={artOpacity > 0 ? "#405563" : "#a38b98"} fontSize={(footer ? 12 : 14) / projection.scale} pointerEvents="none">{lines.map((line, index) => <tspan key={index} x={point[0]} dy={index ? 16 / projection.scale : 0}>{line}</tspan>)}</text>;
-            })}
-          {blockShapes}
-          {overviewArt && <StandOverviewTexture blocks={data.blocks} opacity={selected ? 0 : artOpacity} selected={selected} unit={artUnit}/> }
-          {data.blocks.filter(b => photoSectionIds.has(b.id) && (level === "all" || b.level === level)).map(b =>
-            <path key={`photo-outline-${b.id}`} data-seat-photo-outline={b.id} d={b.path} fill="none"
-              stroke={SEAT_PHOTO_MAP_COLOR} strokeWidth={1.5}
-              vectorEffect="non-scaling-stroke" pointerEvents="none" />)}
-          
-          {block?.rows.flatMap((r, ri) => r.segments.map((s, i) => <polyline key={`${ri}-${i}`} points={(s.points ?? [s.a, s.b]).map(p => p.join(",")).join(" ")} fill="none" stroke={highlightedRow && normalizeSeatInput(r.label) === highlightedRow ? "#1673ad" : "#fff"} vectorEffect="non-scaling-stroke" strokeOpacity={highlightedRow && normalizeSeatInput(r.label) === highlightedRow ? .95 : .35} strokeWidth={highlightedRow && normalizeSeatInput(r.label) === highlightedRow ? 2.2 : .45} pointerEvents="none"/>))}
-          {block && !block.rows.length && block.referenceRows?.map(r => <line key={`reference-${r.label}`} x1={r.a[0]} y1={r.a[1]} x2={r.b[0]} y2={r.b[1]} stroke="#fff" vectorEffect="non-scaling-stroke" strokeOpacity=".5" strokeWidth=".6" pointerEvents="none"/>)}
-          {data.blocks.filter(b => b.id === focused).map(b => <path key={b.id} d={b.path} fill="none" stroke="#512e47" strokeWidth={3 / projection.scale} className={styles.keyboardFocus} pointerEvents="none"/>)}
-        </svg>
-        {zoneTags.map(z => { const p = zonePositions.get(z.id)!, anchor = projection.project(z.point); return Math.hypot(p[0] - anchor[0], p[1] - anchor[1]) > 8
-          ? <line key={`zone-stem-${z.id}`} x1={anchor[0]} y1={anchor[1]} x2={p[0]} y2={p[1]} stroke="#d5a0ba" strokeWidth="1.2" pointerEvents="none"/> : null; })}
-        {rowStems.map((stem, i) => <line key={`row-stem-${i}`} x1={stem.a[0]} y1={stem.a[1]} x2={stem.b[0]} y2={stem.b[1]} stroke="#a93164" strokeWidth="1.2" pointerEvents="none"/>)}
+    {/* Everything that reacts to a search or a selection sits on the map, so nothing above it grows
+        or shrinks and the map never jumps (Tokyo Dome's mapNotice / photoOverlay). */}
+    <div className={styles.mapFrame} data-arena={arenaMaps ? "" : undefined}>
+      <div className={`${styles.stage} ${overviewArt ? styles.venueOverview : ""} ${data.zones ? styles.zonedStage : ""} ${data.diagramId === "vantelin-prime-unfolded" ? styles.unfoldedStage : ""}`} ref={stage} data-testid="stand-seat-map" data-diagram-id={data.diagramId} data-camera={view.map(n => n.toFixed(2)).join(",")} data-selected={selected ?? ""} data-selected-zone={zone ?? ""} data-selected-position={position?.id ?? ""} style={{ touchAction: allowPageScroll ? "pan-y" : "none" }}
+        onPointerDown={down} onPointerMove={drag} onPointerUp={up}
+        onPointerCancel={() => { gesture.current = freshGesture(); suppressMapClick.current = true; commit(); }}
+        onLostPointerCapture={e => { if (gesture.current.points.has(e.pointerId)) { gesture.current = freshGesture(); commit(); } }}
+        onPointerLeave={e => { if (!e.currentTarget.hasPointerCapture(e.pointerId) && gesture.current.points.has(e.pointerId)) { gesture.current = freshGesture(); commit(); } }}
+        onClickCapture={event => { if (suppressMapClick.current && event.detail !== 0) { event.preventDefault(); event.stopPropagation(); } }}>
+        <svg ref={svg} viewBox={`0 0 ${size.width} ${size.height}`} role="group" aria-label="座席の全体図" aria-describedby={instructionId} tabIndex={0}
+          onKeyDown={e => {
+            if (e.key === "Enter" || e.key === " ") { e.preventDefault(); const b = focusable.find(b => b.id === focused) ?? focusable[0]; if (b) select(b); }
+            if (e.key.startsWith("Arrow")) { e.preventDefault(); interaction(); const current = focusable.find(b => b.id === focused) ?? focusable[0]; if (!current) return;
+              const axis = e.key === "ArrowLeft" || e.key === "ArrowRight" ? 0 : 1, sign = e.key === "ArrowLeft" || e.key === "ArrowUp" ? -1 : 1;
+              const next = focusable.filter(b => (b.center[axis] - current.center[axis]) * sign > 0).sort((a, b) => Math.hypot(a.center[0] - current.center[0], a.center[1] - current.center[1]) - Math.hypot(b.center[0] - current.center[0], b.center[1] - current.center[1]))[0];
+              if (next) setFocused(next.id);
+            }
+          }}>
+          <svg ref={inner} width={size.width} height={size.height} viewBox={view.join(" ")}>
+            {overviewArt && <VenueOverviewArt diagramId={data.diagramId} blocks={data.blocks} opacity={artOpacity} unit={artUnit}/> }
+            {data.contextLabels?.filter(l => !standRedundantContextText(l.text, block, closestDetail)
+              && !(whole && size.width < 500 && data.diagramId === "vantelin-prime-unfolded")).map((l, i) => {
+                const footer = whole && size.width < 500 && ["belluna-seats", "paypay-stand-reference", "mufg-seats", "koshien-seats", "vantelin-seat-reference", "makuhari-seats", "sapporo-baseball", "sapporo-soccer"].includes(data.diagramId) && l.text.includes("公演");
+                const lines = footer && l.text.length * 12 > size.width - 24 && l.text.includes("・") ? [l.text.slice(0, l.text.indexOf("・") + 1), l.text.slice(l.text.indexOf("・") + 1)] : [l.text];
+                const point = footer ? projection.unproject([size.width / 2, size.height - 14 - footerLift - (lines.length - 1) * 16]) : l.point;
+                return <text key={`context-${i}`} data-context-label={l.text} x={point[0]} y={point[1]} textAnchor="middle" fill={artOpacity > 0 ? "#405563" : "#a38b98"} fontSize={(footer ? 12 : 14) / projection.scale} pointerEvents="none">{lines.map((line, index) => <tspan key={index} x={point[0]} dy={index ? 16 / projection.scale : 0}>{line}</tspan>)}</text>;
+              })}
+            {blockShapes}
+            {overviewArt && <StandOverviewTexture blocks={data.blocks} opacity={selected ? 0 : artOpacity} selected={selected} unit={artUnit}/> }
+            {data.blocks.filter(b => photoSectionIds.has(b.id) && (level === "all" || b.level === level)).map(b =>
+              <path key={`photo-outline-${b.id}`} data-seat-photo-outline={b.id} d={b.path} fill="none"
+                stroke={SEAT_PHOTO_MAP_COLOR} strokeWidth={1.5}
+                vectorEffect="non-scaling-stroke" pointerEvents="none" />)}
+            
+            {block?.rows.flatMap((r, ri) => r.segments.map((s, i) => <polyline key={`${ri}-${i}`} points={(s.points ?? [s.a, s.b]).map(p => p.join(",")).join(" ")} fill="none" stroke={highlightedRow && normalizeSeatInput(r.label) === highlightedRow ? "#1673ad" : "#fff"} vectorEffect="non-scaling-stroke" strokeOpacity={highlightedRow && normalizeSeatInput(r.label) === highlightedRow ? .95 : .35} strokeWidth={highlightedRow && normalizeSeatInput(r.label) === highlightedRow ? 2.2 : .45} pointerEvents="none"/>))}
+            {block && !block.rows.length && block.referenceRows?.map(r => <line key={`reference-${r.label}`} x1={r.a[0]} y1={r.a[1]} x2={r.b[0]} y2={r.b[1]} stroke="#fff" vectorEffect="non-scaling-stroke" strokeOpacity=".5" strokeWidth=".6" pointerEvents="none"/>)}
+            {data.blocks.filter(b => b.id === focused).map(b => <path key={b.id} d={b.path} fill="none" stroke="#512e47" strokeWidth={3 / projection.scale} className={styles.keyboardFocus} pointerEvents="none"/>)}
+          </svg>
+          {/* Screen-space layer: follows a moving camera with one transform until the commit (see paint). */}
+          <g ref={overlay}>
+          {zoneTags.map(z => { const p = zonePositions.get(z.id)!, anchor = projection.project(z.point); return Math.hypot(p[0] - anchor[0], p[1] - anchor[1]) > 8
+            ? <line key={`zone-stem-${z.id}`} x1={anchor[0]} y1={anchor[1]} x2={p[0]} y2={p[1]} stroke="#d5a0ba" strokeWidth="1.2" pointerEvents="none"/> : null; })}
+          {rowStems.map((stem, i) => <line key={`row-stem-${i}`} x1={stem.a[0]} y1={stem.a[1]} x2={stem.b[0]} y2={stem.b[1]} stroke="#a93164" strokeWidth="1.2" pointerEvents="none"/>)}
 
-        {labels.filter(l => l.anchor).map(l => <line key={`label-stem-${l.id}`} x1={l.anchor![0]} y1={l.anchor![1]} x2={l.x} y2={l.y} stroke="#a93164" strokeWidth="1" pointerEvents="none"/>)}
-        {labels.map(l => <g key={l.id} data-annotation={l.id} data-annotation-kind={l.kind} transform={`translate(${l.x},${l.y})`} data-block-id={l.selected ? undefined : l.id} className={l.selected ? undefined : `${styles.block} ${wholeNumbers && pulse ? styles.blockPrompt : ""}`} pointerEvents={l.selected || (!whole && l.kind === "block") ? "none" : "all"}>
-          <title>{data.blocks.find(b => b.id === l.id)?.label ?? l.text}</title>
-          {l.kind === "number" ? <><path data-number-badge="" data-connected-number-arrow={l.id === "start-number" && arrow ? "" : undefined} d={seatNumberBadge(l.id === "start-number" && arrow ? [arrow.end[0] - arrow.start[0], arrow.end[1] - arrow.start[1]] : [0, 0], l.width, l.height, l.id === "start-number" && arrow ? Math.hypot(arrow.end[0] - arrow.start[0], arrow.end[1] - arrow.start[1]) : 0)} fill="#fff" stroke={l.selected ? "#81294d" : "#d5c5cd"} strokeWidth={l.selected ? 2 : 1}/>
-            {l.id === "start-number" && arrow && <path data-number-arrow-ink="" d={seatNumberArrowInk([arrow.end[0] - arrow.start[0], arrow.end[1] - arrow.start[1]], l.width, l.height, Math.hypot(arrow.end[0] - arrow.start[0], arrow.end[1] - arrow.start[1]))} fill="none" stroke="#a93164" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round"/>}</>
-            : !l.plain && (l.selected || whole || l.kind === "row") && <rect x={-l.width / 2} y={-l.height / 2} width={l.width} height={l.height} rx={l.kind === "row" ? 4 : 12} fill={l.kind === "row" ? selectedRowLabel(l) ? "#155786" : "#e8f3ff" : "#fff"} fillOpacity={l.selected ? 1 : .87} stroke={l.kind === "row" ? "#23679a" : "none"} strokeWidth="1.3"/>}
-          <text textAnchor="middle" y="5" fill={l.kind === "row" ? selectedRowLabel(l) ? "#fff" : "#155786" : l.selected ? "#522e45" : "#5b4652"} fontSize={l.selected && !l.plain ? 14 : 12} fontWeight={l.selected && !l.plain ? 800 : 600}
-            stroke={l.plain ? "#fff" : undefined} strokeWidth="3" strokeLinejoin="round" paintOrder="stroke"
-            style={{ fontVariantNumeric: "tabular-nums" }}>{l.text}</text>
-        </g>)}
-        {photoMarkers.map(({ key, place, label, point: [x, y] }) => <g key={key}>
-          <g data-seat-photo-marker={key} className={styles.photoMarker} role="button" tabIndex={0}
-            data-photo-x={x} data-photo-y={y} data-photo-placement="inside-block"
-            aria-label={`写真がある${label}を選ぶ`}
-            onClick={event => { if (event.detail === 0) selectPhotoPlace(place); }}
-            onKeyDown={event => {
-              if (event.key !== "Enter" && event.key !== " ") return;
-              event.preventDefault(); event.stopPropagation(); selectPhotoPlace(place);
-            }}>
-            <circle className={styles.photoTarget} cx={x} cy={y} r={photoTarget / 2} fill="transparent" />
-            <SeatPhotoMarker x={x} y={y} size={photoDiameter} highlighted />
+          {labels.filter(l => l.anchor && !coveredLabels.has(l.id)).map(l => <line key={`label-stem-${l.id}`} x1={l.anchor![0]} y1={l.anchor![1]} x2={l.x} y2={l.y} stroke="#a93164" strokeWidth="1" pointerEvents="none"/>)}
+          {labels.filter(l => !coveredLabels.has(l.id)).map(l => <g key={l.id} data-annotation={l.id} data-annotation-kind={l.kind} transform={`translate(${l.x},${l.y})`} data-block-id={l.selected ? undefined : l.id} className={l.selected ? undefined : `${styles.block} ${wholeNumbers && pulse ? styles.blockPrompt : ""}`} pointerEvents={l.selected || (!whole && l.kind === "block") ? "none" : "all"}>
+            <title>{data.blocks.find(b => b.id === l.id)?.label ?? l.text}</title>
+            {l.kind === "number" ? <><path data-number-badge="" data-connected-number-arrow={l.id === "start-number" && arrow ? "" : undefined} d={seatNumberBadge(l.id === "start-number" && arrow ? [arrow.end[0] - arrow.start[0], arrow.end[1] - arrow.start[1]] : [0, 0], l.width, l.height, l.id === "start-number" && arrow ? Math.hypot(arrow.end[0] - arrow.start[0], arrow.end[1] - arrow.start[1]) : 0)} fill="#fff" stroke={l.selected ? "#81294d" : "#d5c5cd"} strokeWidth={l.selected ? 2 : 1}/>
+              {l.id === "start-number" && arrow && <path data-number-arrow-ink="" d={seatNumberArrowInk([arrow.end[0] - arrow.start[0], arrow.end[1] - arrow.start[1]], l.width, l.height, Math.hypot(arrow.end[0] - arrow.start[0], arrow.end[1] - arrow.start[1]))} fill="none" stroke="#a93164" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round"/>}</>
+              : !l.plain && (l.selected || whole || l.kind === "row") && <rect x={-l.width / 2} y={-l.height / 2} width={l.width} height={l.height} rx={l.kind === "row" ? 4 : 12} fill={l.kind === "row" ? selectedRowLabel(l) ? "#155786" : "#e8f3ff" : "#fff"} fillOpacity={l.selected ? 1 : .87} stroke={l.kind === "row" ? "#23679a" : "none"} strokeWidth="1.3"/>}
+            <text textAnchor="middle" y="5" fill={l.kind === "row" ? selectedRowLabel(l) ? "#fff" : "#155786" : l.selected ? "#522e45" : "#5b4652"} fontSize={l.selected && !l.plain ? 14 : 12} fontWeight={l.selected && !l.plain ? 800 : 600}
+              stroke={l.plain ? "#fff" : undefined} strokeWidth="3" strokeLinejoin="round" paintOrder="stroke"
+              style={{ fontVariantNumeric: "tabular-nums" }}>{l.text}</text>
+          </g>)}
+          {photoMarkers.map(({ key, place, label, point: [x, y] }) => <g key={key}>
+            <g data-seat-photo-marker={key} className={styles.photoMarker} role="button" tabIndex={0}
+              data-photo-x={x} data-photo-y={y} data-photo-placement="inside-block"
+              aria-label={`写真がある${label}を選ぶ`}
+              onClick={event => { if (event.detail === 0) selectPhotoPlace(place); }}
+              onKeyDown={event => {
+                if (event.key !== "Enter" && event.key !== " ") return;
+                event.preventDefault(); event.stopPropagation(); selectPhotoPlace(place);
+              }}>
+              <circle className={styles.photoTarget} cx={x} cy={y} r={photoTarget / 2} fill="transparent" />
+              <SeatPhotoMarker x={x} y={y} size={photoDiameter} highlighted />
+            </g>
+          </g>)}
           </g>
-        </g>)}
-      </svg>
-      {position && <span className={styles.front}>{position.label}付近</span>}
-      {whole && !data.overviewAreas && <span className={styles.front}>{data.frontLabel ?? "↑ ステージ方向"}</span>}
-      {zoneTags.map(z => { const p = zonePositions.get(z.id)!; return <button type="button" key={z.id} data-zone-id={z.id} aria-label={`${z.label}ブロックを拡大`} className={`${styles.zoneTag} ${pulse ? styles.zonePulse : ""}`} style={{ left: p[0], top: p[1] }} onClick={() => chooseZone(z.id)}><span>{z.label}</span></button>; })}
-      {areaTags.map(a => { const p = areaPositions.get(a.id)!; return <button type="button" key={a.id} data-area-id={a.id} aria-label={`${a.label}${a.label.endsWith("側") ? "" : "側"}を拡大`} className={`${styles.zoneTag} ${pulse ? styles.zonePulse : ""}`} style={{ left: p[0], top: p[1] }} onClick={() => chooseRegion("all", a.area)}><span>{a.label}</span></button>; })}
-      {levelTags.map(l => { const p = projection.project(l.point); return <button type="button" key={l.id} className={`${styles.levelTag} ${pulse ? styles.pulse : ""}`} style={{ left: p[0], top: p[1] }} onClick={() => chooseRegion(l.id, "all")}>{l.label}</button>; })}
+        </svg>
+        {position && <span className={styles.front}>{position.label}付近</span>}
+        {whole && !data.overviewAreas && <span className={styles.front}>{data.frontLabel ?? "↑ ステージ方向"}</span>}
+        {zoneTags.map(z => { const p = zonePositions.get(z.id)!; return <button type="button" key={z.id} data-zone-id={z.id} aria-label={`${z.label}ブロックを拡大`} className={`${styles.zoneTag} ${pulse ? styles.zonePulse : ""}`} style={{ left: p[0], top: p[1] }} onClick={() => chooseZone(z.id)}><span>{z.label}</span></button>; })}
+        {areaTags.map(a => { const p = areaPositions.get(a.id)!; return <button type="button" key={a.id} data-area-id={a.id} aria-label={`${a.label}${a.label.endsWith("側") ? "" : "側"}を拡大`} className={`${styles.zoneTag} ${pulse ? styles.zonePulse : ""}`} style={{ left: p[0], top: p[1] }} onClick={() => chooseRegion("all", a.area)}><span>{a.label}</span></button>; })}
+        {levelTags.map(l => { const p = projection.project(l.point); return <button type="button" key={l.id} className={`${styles.levelTag} ${pulse ? styles.pulse : ""}`} style={{ left: p[0], top: p[1] }} onClick={() => chooseRegion(l.id, "all")}>{l.label}</button>; })}
+      </div>
+      {finderFeedback && <div className={styles.mapNotice} data-seat-map-notice="">
+        <button type="button" className={styles.noticeClose} aria-label="検索の案内を閉じる" onClick={resetFinderFeedback}><X size={16} aria-hidden="true"/></button>
+        {searchMiss && <SeatFinderMiss detail={error}
+          advice={inputAdvice} query={missingInput ? undefined : { scope: [levels.find(l => l.id === level)?.label, area !== "all" && directionName(areas.find(item => item.id === area)?.label ?? area)].filter(Boolean).join("・") || "会場全体",
+            row: finderMode === "ticket" && !blockOnlySearch ? row : undefined, number: finderMode === "ticket" && !blockOnlySearch ? number : undefined,
+            block: finderMode === "block" || blockOnlySearch ? blockInput : undefined }}
+          onReset={level === "all" && area === "all" && !zone ? undefined : reset}
+          choices={fallbackBlocks.map(item => ({ id: item.id, label: blockDisplayTitle(item, "") }))}
+          choose={id => { const item = data.blocks.find(b => b.id === id); if (item) { setRow(""); setNumber(""); select(item, true); } }} />}
+        {error && !searchMiss && <div className={styles.message} role="status">{error}<button type="button" onClick={reset}>条件を解除</button></div>}
+        {matches.length > 0 && <section className={styles.searchResults} data-seat-search-results aria-label="座席の検索結果">
+          <div className={styles.resultsHeading} role="status">
+            <strong>{matches.length}区画が見つかりました</strong>
+            <p>席種・列で絞るか、区画を選んでください。</p>
+          </div>
+          <ul className={styles.candidateList} aria-label="座席の検索候補">
+            {matches.map(b => {
+              const levelLabel = seatLevelName(b.level, levels.find(l => l.id === b.level)?.label);
+              return <li key={b.id}><button className={styles.candidateButton} type="button" data-seat-candidate={b.id} onClick={() => select(b, true, finderMode === "ticket" && !blockOnlySearch)}>
+                <span className={styles.candidateCopy}>
+                  <strong>{blockDisplayTitle(b, levelLabel)}</strong>
+                  <span className={styles.candidateMeta}><span>{levelLabel}{b.balcony && !levelLabel.includes("バルコニー") ? "・バルコニー" : ""}</span><span>{rowSummary(b)}</span></span>
+                </span>
+                <ChevronRight size={18} aria-hidden="true" />
+              </button></li>;
+            })}
+          </ul>
+        </section>}
+      </div>}
+      {arenaMaps && <button type="button" className={styles.arenaMaps} data-arena-maps-button="" onClick={() => arenaMaps.open()}
+        aria-label={`アリーナ図を見る（${arenaMaps.count}公演）`}>
+        <span className={styles.arenaPill}>
+          {/* The newest show's own arena-map photo, so the button reads as "pictures of the arena layout". */}
+          {/* eslint-disable-next-line @next/next/no-img-element -- the post's own image on X, shown as posted */}
+          {arenaThumb ? <img className={styles.arenaThumb} src={arenaThumb} alt="" width={22} height={22} decoding="async" referrerPolicy="no-referrer" />
+            : <MapIcon size={14} aria-hidden="true" />}アリーナ図<b>{arenaMaps.count}</b>
+        </span>
+      </button>}
+      <div className={styles.photoOverlay}>
+        {data.blocks.some(item => item.numberLookup === "unavailable") && <p className={styles.coverageNote} data-seat-number-legend><Info size={14} aria-hidden="true" />
+          <span>参考区画（座席番号は未確認）{block?.numberLookup === "unavailable" && <span role="status"><br/>この区画の正確な番号範囲は未確認です。</span>}</span></p>}
+        <SeatPhotoMapSummary selection={seatView} count={photoAnchors.length} onOpen={() => setPhotoRequest(request => request + 1)} />
+      </div>
     </div>
     <div className={styles.mapActions}>{data.diagramId === "vantelin-prime-unfolded" && <span className={styles.primeOrientation}>ツイン：3塁側 L／1塁側 R<br/>ボックス：4F／レストラン：3F</span>}<button type="button" className={styles.whole} onClick={reset}>全体図へ</button></div>
     {block && labelRun && <SeatSearchOffer row={String(labelRun.row)} number={normalizeSeatInput(number)} contextLabel={selectedTitle} />}

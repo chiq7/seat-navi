@@ -16,6 +16,7 @@ import SeoEditorialSection from "@/components/seo/SeoEditorialSection";
 import PublicAlternateNames from "@/components/seo/PublicAlternateNames";
 import PublicVenueGuide from "@/components/venue/guides/PublicVenueGuide";
 import { getVenueSeoProfile } from "@/lib/seoProfiles";
+import { VENUE_CAPACITIES } from "@/data/venueCapacities";
 import { serializeJsonLd } from "@/lib/structuredData";
 import { SEO_VENUES, findSeoVenue, getVenueEvents } from "@/lib/venueSeo";
 import { hasPublicVenueGuide } from "@/lib/publicVenueGuides";
@@ -31,7 +32,7 @@ import VenuePhotoStrip from "@/components/venue/VenuePhotoStrip";
 import ArenaMapStrip from "@/components/venue/ArenaMapStrip";
 import compactStyles from "@/components/venue/VenueCompact.module.css";
 import { TokyoDomeGuideNav } from "@/components/venue/TokyoDomeVisitorGuide";
-import { Camera, ChevronRight } from "lucide-react";
+import { Camera, ChevronRight, Users } from "lucide-react";
 
 const SITE_URL = "https://tixrepo.com";
 
@@ -73,7 +74,16 @@ export default async function VenuePage({ params, searchParams }: Props) {
   ]);
   const profile = getVenueSeoProfile(venue.id);
   // 東京ドームを基準にしたスマホ優先レイアウト。検証後に他会場へ広げる。
-  const compact = venue.id === "tokyo-dome";
+  // Every venue with a guide uses the mobile-first layout first built for Tokyo Dome.
+  const compact = hasGuide;
+  // Capacity is one of the first things people look up, so it sits right under the page title.
+  const capacityText = profile?.facts.find(fact => fact.label.includes("収容"))?.value
+    ?? (profile?.capacity ? `約${profile.capacity.toLocaleString("ja-JP")}人` : null);
+  const capacity = capacityText ? { main: capacityText.replace(/（[^）]*）$/, ""), note: capacityText.match(/（([^）]*)）$/)?.[1] }
+    : VENUE_CAPACITIES[venue.id] ?? null;
+  const capacityLine = capacity && <p className={compactStyles.capacity}>
+    <Users size={16} aria-hidden="true" /><span>収容人数</span><b>{capacity.main}</b>{capacity.note && <small>{capacity.note}</small>}
+  </p>;
   const venueUrl = `${SITE_URL}/venues/${venue.id}`;
   const structuredData = {
     "@context": "https://schema.org",
@@ -126,9 +136,11 @@ export default async function VenuePage({ params, searchParams }: Props) {
 
         {compact ? <div className="zr-container pb-1 pt-2 sm:pt-5">
           <h1 className="text-[18px] font-black leading-tight tracking-[-0.03em] text-[#4b4148] sm:text-[32px]"><span className="text-[#ef4f87]">{publicName}</span>の座席表・見え方</h1>
+          {capacityLine}
         </div> : <div className="zr-container pb-6 pt-4 sm:pb-9 sm:pt-7">
           <p className="community-eyebrow">VENUE LIVE GUIDE</p>
           <h1 className="mt-2 text-[28px] font-black tracking-[-0.05em] text-[#4b4148] sm:text-[38px]"><span className="text-[#ef4f87]">{publicName}</span>の座席表{hasGuide && <span className="mt-1 block text-[20px] sm:text-[28px]">アクセス・会場ガイド</span>}</h1>
+          {capacityLine}
           <p className="mt-2 text-[13px] font-medium leading-6 text-[#6c5c66]">{hasGuide ? "自分の席から、荷物の預け先・売店まで。ライブへ行く日の準備をここで。" : "公演予定・座席報告・現地レポを確認できます。"}</p>
           <PublicAlternateNames names={alternateNames} />
           <VenueActivityDate />
@@ -141,7 +153,7 @@ export default async function VenuePage({ params, searchParams }: Props) {
         </div>}
       </section>
 
-      {compact && <TokyoDomeGuideNav />}
+      {compact && <TokyoDomeGuideNav venueId={venue.id} name={headerName} />}
       {!compact && <VenueSeatReadingGuide venueId={venue.id} name={publicName} photoPreview={photos} />}
       {hasGuide && <div id="venue-seat-guide" className="scroll-mt-[90px]">
         {!compact && <VenueProgramNavigation venueId={venue.id} />}
@@ -152,7 +164,7 @@ export default async function VenuePage({ params, searchParams }: Props) {
         </div>}
         {venue.id === "zozo-marine" && <div className="zr-container"><a className="zr-focus inline-flex min-h-11 items-center text-sm font-bold text-[#a62b59] underline" href={ZOZO_LOWER_THIRD_PAGE}>下段3塁側の座席表を見る</a></div>}
         <ArenaMapsProvider posts={compact ? arenaMaps : []}>
-          <PublicVenueGuide venue={venue.id} target={seatTarget}
+          <PublicVenueGuide venue={venue.id} target={seatTarget} pageNav={compact}
             afterSeats={compact ? <><VenuePhotoStrip photos={getVenuePhotoCovers(venue.id)} count={photos?.count ?? 0} allTargetId="seat-photo-title" /><ArenaMapStrip /></> : undefined} />
         </ArenaMapsProvider>
       </div>}
@@ -191,7 +203,7 @@ export default async function VenuePage({ params, searchParams }: Props) {
             reviewDateLabel="施設情報の出典確認日"
             profile={profile}
             foldSections={compact}
-            sourcesElsewhere={compact}
+            sourcesElsewhere={venue.id === "tokyo-dome"}
             className="py-8 sm:py-10"
           />
         )}

@@ -9,22 +9,25 @@ import styles from "./KArenaGuide.module.css";
 import VenueAccessCards from "../template/VenueAccessCards";
 import { arenaAccessEntries } from "@/lib/venueAccess";
 import { useVenueSeatTarget } from "../VenueSeatTarget";
+import { AfterSeats, useGuidePageSlots } from "./GuidePageSlots";
 
 export default function KArenaGuide({ embedded=false }: { embedded?: boolean }) {
   const target = useVenueSeatTarget();
+  const { pageNav } = useGuidePageSlots();
   const finder = useRef<FacilityFinderHandle>(null);
   const facilities = useRef<HTMLElement>(null);
   function revealFacilities() { facilities.current?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" }); }
   function showEquipment(floor: string | null) { finder.current?.linkSeatFloor(floor); revealFacilities(); }
   function showLuggage() { finder.current?.showLuggage(); revealFacilities(); }
   return <div className={styles.guide}>
-    <DomeGuideHeader name="Kアリーナ横浜" showHero={!embedded}/>
+    <DomeGuideHeader name="Kアリーナ横浜" showHero={!embedded} showNav={!pageNav}/>
     <div className={`zr-container ${styles.content}`}>
       <section id="venue-seats"><h2>Kアリーナ横浜の座席を探す</h2>
         <StandSeatMap data={kArenaStandSeats} levels={kArenaLevels} areas={kArenaAreas} initialSection={target?.mode === "fixed" ? target.section : null} onEquipment={showEquipment}/>
         <a className={styles.linkButton} href="https://k-arena.com/seat/">公式で座席からの見え方を見る</a>
         <p className={styles.note}>公演別のアリーナ配置は、主催者の座席案内をご確認ください。</p>
       </section>
+      <AfterSeats nested/>
       <section id="venue-facilities" ref={facilities}><h2>必要な設備を探す</h2>
         <VenueFacilityFinder ref={finder} guide={kArenaGuide} config={kArenaFacilityConfig}/>
       </section>

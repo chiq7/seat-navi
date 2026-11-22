@@ -6,7 +6,7 @@ import styles from "./DomeGuideLayout.module.css";
 
 // Presentation slots reuse Tokyo's current layout without moving venue state,
 // geometry, sources, or production-page dependencies into this component.
-export function DomeGuideHeader({ name, anchors={}, showHero=true }: { name: string; anchors?:Record<string,string>; showHero?: boolean }) {
+export function DomeGuideHeader({ name, anchors={}, showHero=true, showNav=true }: { name: string; anchors?:Record<string,string>; showHero?: boolean; showNav?: boolean }) {
   const links = [
     { id: "venue-seats", label: "座席", Icon: Armchair },
     { id: "venue-facilities", label: "設備・売店", Icon: Utensils },
@@ -23,7 +23,7 @@ export function DomeGuideHeader({ name, anchors={}, showHero=true }: { name: str
         <p className="mt-2 text-[13px] font-medium leading-6 text-[#6c5c66]">自分の席から、荷物の預け先・売店まで。ライブへ行く日の準備をここで。</p>
       </div>
     </section>}
-    <nav className={`zr-container ${tokyo.jumpNav}`} aria-label="会場ガイドの目次">
+    {showNav && <nav className={`zr-container ${tokyo.jumpNav}`} aria-label="会場ガイドの目次">
       {links.map(({ id, label, Icon }) => {
         const content = <><Icon size={26} aria-hidden="true" /><span>{label}</span></>;
         const href = `#${anchors[id]??id}`;
@@ -31,7 +31,7 @@ export function DomeGuideHeader({ name, anchors={}, showHero=true }: { name: str
           ? <VenueProgramAnchor key={id} fallbackHref={href}>{content}</VenueProgramAnchor>
           : <a key={id} href={href}>{content}</a>;
       })}
-    </nav>
+    </nav>}
   </>;
 }
 

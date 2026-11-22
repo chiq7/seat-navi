@@ -7,15 +7,18 @@ import VenueAccessCards from "./template/VenueAccessCards";
 import VenueLuggageLink from "./template/VenueLuggageLink";
 import TokyoDomeBottomNav from "./TokyoDomeBottomNav";
 import { getVenueSeoProfile } from "@/lib/seoProfiles";
+import { guideSectionIds } from "@/lib/venueGuideSections";
 import styles from "./TokyoDomeVisitorGuide.module.css";
 
-export function TokyoDomeGuideNav() {
+/** The venue page's section nav (chips on top, a fixed bar on phones), for any venue with a guide. */
+export function TokyoDomeGuideNav({ venueId = "tokyo-dome", name = "東京ドーム" }: { venueId?: string; name?: string }) {
+  const ids = guideSectionIds(venueId);
   const links = [
-    { id: "dome-seats", label: "座席", icon: Armchair }, { id: "dome-photos", label: "写真", icon: Camera }, { id: "dome-spots", label: "設備・売店", icon: Utensils },
-    { id: "dome-access", label: "アクセス", icon: TrainFront }, { id: "dome-prepare", label: "持ち物", icon: Luggage },
-    { id: "upcoming-events-title", label: "公演", icon: Ticket }, { id: "dome-faq", label: "質問", icon: CircleHelp },
+    { id: ids.seats, label: "座席", icon: Armchair }, { id: ids.photos, label: "写真", icon: Camera }, { id: ids.spots, label: "設備・売店", icon: Utensils },
+    { id: ids.access, label: "アクセス", icon: TrainFront }, { id: ids.prepare, label: "持ち物", icon: Luggage },
+    { id: "upcoming-events-title", label: "公演", icon: Ticket }, { id: ids.faq, label: "質問", icon: CircleHelp },
   ];
-  return <><TokyoDomeBottomNav /><nav className={`zr-container ${styles.chipNav}`} aria-label="東京ドームガイドの目次">
+  return <><TokyoDomeBottomNav ids={ids} name={name} /><nav className={`zr-container ${styles.chipNav}`} aria-label={`${name}ガイドの目次`}>
     {links.map(({ id, label, icon: Icon }) => {
         const content = <><Icon size={16} aria-hidden="true" /><span>{label}</span></>;
         const href = `#${id}`;

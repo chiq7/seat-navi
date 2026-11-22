@@ -19,7 +19,7 @@ import { groupKyoceraFacilityAreas } from "./kyoceraFacilityAreas";
 const facilityIcons = { women: WomenSign, men: MenSign, accessible: AccessibleSign, mixed: ToiletSign,
   locker: LockerSign, baby: Baby, aed: HeartPulse, food: FoodSign, elevator: ElevatorSign,
   escalator: MoveVertical, ticket: Ticket, phone: Phone, battery: Plug, smoking: Cigarette, information: Info };
-function facilityIconKind(item: Pick<GuideFacility, "purpose" | "toiletType" | "kind">): keyof typeof facilityIcons {
+export function facilityIconKind(item: Pick<GuideFacility, "purpose" | "toiletType" | "kind">): keyof typeof facilityIcons {
   if (item.purpose === "トイレ") return item.toiletType === "women" ? "women" : item.toiletType === "men" ? "men" : item.toiletType === "accessible" ? "accessible" : "mixed";
   if (item.purpose === "荷物") return "locker";
   if (item.purpose === "赤ちゃん") return "baby";

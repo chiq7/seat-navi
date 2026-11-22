@@ -1,6 +1,10 @@
 export const VERIFICATION_STORAGE_KEY = "tixrepo.verification.v1";
 export const ANALYTICS_EXCLUSION_KEY = "tixrepo.analytics-exclusion.v1";
 export const VERIFICATION_ENTRY_PATH = "/verification-access";
+// Used by the navigation log (src/lib/navigationLog.ts). The production snapshot of this file (759cbe3) dropped them
+// while the log still imports them; exporting them changes nothing the GA bootstrap does.
+export const TRAFFIC_LOG_EXCLUSION_COOKIE = "tixrepo-log-excluded";
+export const PRODUCTION_ORIGIN = "https://tixrepo.com";
 export const VERIFICATION_LIFETIME_MS = 2 * 60 * 60 * 1000;
 
 export type VerificationRole = "codex" | "operator";
@@ -68,7 +72,7 @@ export function endVerification(): void {
 }
 
 // Runs in the inline bootstrap, so it cannot depend on module-level values.
-function readLandingSignals(search: string, userAgent: string, referrer: string, origin: string) {
+export function readLandingSignals(search: string, userAgent: string, referrer: string, origin: string) {
   const query = new URLSearchParams(search);
   const readTag = (key: string) => {
     const value = query.get(key);

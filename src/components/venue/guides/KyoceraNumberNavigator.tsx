@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent, type KeyboardEvent } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent, type KeyboardEvent } from "react";
 import type { DedicatedVenueGuide } from "@/data/venueGuides/types";
 import { projectMapPoint, type Box } from "./mapGeometry";
 import { pathBounds, simplifiedRows, type DrawingBlock } from "./kyoceraMapDrawing";
@@ -14,25 +14,58 @@ import { useSeatMapTouch } from "../template/useSeatMapTouch";
 import { SEAT_PHOTO_MAP_COLOR, SeatPhotoMarker } from "../template/SeatViewPosts";
 import { seatPhotoOffsets, useSeatPhotoHitTest } from "../template/useSeatPhotoHitTest";
 
+
 type Props = { guide: DedicatedVenueGuide; blocks: DrawingBlock[]; level: string; selectedCode?: string; rowLabel: string | null;
-  box: Box; onView: (box: Box) => void; onBlock: (block: DrawingBlock) => void; onWhole: () => void; onArea: (areaId: string) => void;
-  onDirection: (direction: string) => void };
+  box: Box; onView: (box: Box) => void; onBlock: (block: DrawingBlock) => void; onArea: (areaId: string) => void;
+  onDirection: (direction: string) => void;
+  /** The block whose photo card is shown on the map: its own camera mark gives way to the card. */
+  cardedCode?: string };
 type Contact = { x: number; y: number; startX: number; startY: number; code: string | null };
 const photoPosts = new Map(seatViewPosts("kyocera-dome-fixed").filter(post => post.place.kind === "section").map(post => [post.place.id, post]));
 const photoTarget = 28;
+// Wider than a block view (kyoceraBlockCamera's 230): blocks are thin and a tap may land between them.
+const NEAR_MISS_WIDTH = 250;
 const outfieldAreas = [{ id: "outfield-right", label: "ライト", x: .65, y: .25 }, { id: "outfield-left", label: "レフト", x: .35, y: .25 }];
 const infieldAreas = [{ id: "1塁側-下段", x: .67, y: .53 }, { id: "3塁側-下段", x: .33, y: .53 },
   { id: "1塁側-上段", x: .83, y: .57 }, { id: "3塁側-上段", x: .17, y: .57 }, { id: "中央C-下段", x: .5, y: .76 }];
+/** Tokyo Dome's glide (as StandSeatMap): zoom changes evenly in scale, eased in and out, longer the further it goes. */
+function glideDuration(fromWidth: number, toWidth: number) {
+  return Math.round(Math.min(900, 420 + 170 * Math.abs(Math.log(toWidth / fromWidth))));
+}
+function glideFrame(from: Box, to: Box, progress: number): Box {
+  const eased = progress < .5 ? 4 * progress ** 3 : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+  const width = from[2] * Math.pow(to[2] / from[2], eased), height = from[3] * Math.pow(to[3] / from[3], eased);
+  const cx = from[0] + from[2] / 2 + (to[0] + to[2] / 2 - from[0] - from[2] / 2) * eased;
+  const cy = from[1] + from[3] / 2 + (to[1] + to[3] / 2 - from[1] - from[3] / 2) * eased;
+  return [cx - width / 2, cy - height / 2, width, height];
+}
+const sameBox = (a: readonly number[], b: readonly number[]) => a.every((n, i) => Math.abs(n - b[i]) < .01);
+/** The block under a point near (x, y): rings of 5, 10 and 15px around a tap that missed every block. */
+function nearestBlockCode(x: number, y: number): string | null {
+  for (const radius of [5, 10, 15]) for (let step = 0; step < 8; step += 1) {
+    const angle = step * Math.PI / 4;
+    const hit = document.elementFromPoint(x + radius * Math.cos(angle), y + radius * Math.sin(angle));
+    const code = hit instanceof SVGElement ? hit.closest("[data-seat-block]")?.getAttribute("data-seat-block") : null;
+    if (code) return code;
+  }
+  return null;
+}
 
-export default function KyoceraNumberNavigator({ guide, blocks, level, selectedCode, rowLabel, box, onView, onBlock, onWhole, onArea, onDirection }: Props) {
+export default function KyoceraNumberNavigator({ guide, blocks, level, selectedCode, rowLabel, box, onView, onBlock, onArea, onDirection, cardedCode }: Props) {
   const frame = useRef<HTMLDivElement>(null);
   const photoHitTest = useSeatPhotoHitTest();
   const suppressMapClick = useSeatMapTouch(frame);
   const svg = useRef<SVGSVGElement>(null);
-  const skipAnimation = useRef(false);
+  const inner = useRef<SVGSVGElement>(null), overlay = useRef<SVGGElement>(null);
   const [focusedCode, setFocusedCode] = useState(blocks[0]?.code);
   const [size, setSize] = useState({ width: 640, height: 560 });
-  const [shown, setShown] = useState<Box>(box);
+  const sizeRef = useRef(size);
+  // `view` is the camera the labels are laid out for; `camera` is the live one. Glides, pans, pinches and
+  // wheel zooms paint the camera straight onto the SVG and commit once when they end (Tokyo Dome's
+  // paintBox/commitBox, as StandSeatMap): laying out every label on each frame made the map stutter.
+  const [view, setView] = useState<Box>(box);
+  const camera = useRef<Box>(box), renderedView = useRef<Box>(box);
+  const moving = useRef(false), glide = useRef<number | null>(null), wheelCommit = useRef<number | null>(null);
   const footprints = useMemo(() => blocks.map(b => ({ id: b.code, path: b.path, level: b.tier })), [blocks]);
   // Source outlines and unselected row geometry are constant while the camera moves.
   const geometry = useMemo(() => new Map(blocks.map(b => [b.code, {
@@ -42,35 +75,71 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
     const selected = blocks.find(b => b.code === selectedCode);
     return selected ? simplifiedRows(selected, rowLabel) : null;
   }, [blocks, selectedCode, rowLabel]);
-  const artOpacity = overviewArtworkOpacity(shown[2], 1600, 550);
-  const rendered = useRef<Box>(box);
+  const artOpacity = overviewArtworkOpacity(view[2], 1600, 550);
   const contacts = useRef(new Map<number, Contact>());
   const gesture = useRef<{ box: Box; x: number; y: number; distance: number } | null>(null);
   const moved = useRef(false);
-  const [dragging, setDragging] = useState(false);
   const [tapHint, setTapHint] = useState<"pending" | "active" | "done">("pending");
   useEffect(() => {
-    const observer = new ResizeObserver(([entry]) => setSize({ width: entry.contentRect.width, height: entry.contentRect.height }));
+    const observer = new ResizeObserver(([entry]) => {
+      const next = { width: entry.contentRect.width, height: entry.contentRect.height };
+      if (next.width > 0 && next.height > 0) { sizeRef.current = next; setSize(next); }
+    });
     if (svg.current) observer.observe(svg.current); return () => observer.disconnect();
   }, []);
+  function paint(next: Box) {
+    camera.current = next;
+    const { width, height } = sizeRef.current;
+    inner.current?.setAttribute("viewBox", next.join(" "));
+    // Screen-space labels follow the moving camera with one transform until the commit.
+    const from = projectMapPoint(0, 0, renderedView.current, width, height), to = projectMapPoint(0, 0, next, width, height);
+    const ratio = to.scale / from.scale;
+    overlay.current?.setAttribute("transform", `translate(${to.x - from.x * ratio} ${to.y - from.y * ratio}) scale(${ratio})`);
+    frame.current?.setAttribute("data-camera", next.map(n => n.toFixed(2)).join(" "));
+    if (!moving.current) { moving.current = true; frame.current?.setAttribute("data-moving", ""); }
+  }
+  /** Lays the labels out for the live camera. A camera the user moved is also handed to the seat map. */
+  function commit(fromUser: boolean) {
+    if (wheelCommit.current !== null) { clearTimeout(wheelCommit.current); wheelCommit.current = null; }
+    if (!moving.current) return;
+    moving.current = false;
+    frame.current?.removeAttribute("data-moving");
+    const next = [...camera.current] as Box;
+    setView(next);
+    if (fromUser) onView(next);
+  }
+  function cancelGlide() { if (glide.current !== null) cancelAnimationFrame(glide.current); glide.current = null; }
+  // A new camera from the seat map (block, side, level, zoom buttons) glides there; reduced motion jumps.
   useEffect(() => {
-    const from = rendered.current, start = performance.now(); let request = 0;
-    const duration = skipAnimation.current || dragging || window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : Math.max(from[2], box[2]) >= 1360 ? 420 : 220;
+    if (sameBox(box, camera.current)) { if (!moving.current) setView(current => sameBox(current, box) ? current : box); return; }
+    cancelGlide();
+    const target = [...box] as Box;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { paint(target); commit(false); return; }
+    const from = [...camera.current] as Box, duration = glideDuration(from[2], target[2]);
+    let started: number | null = null;
     function tick(now: number) {
-      const fraction = duration ? Math.min(1, (now - start) / duration) : 1;
-      const eased = 1 - (1 - fraction) ** 3;
-      const next = from.map((n, i) => n + (box[i] - n) * eased) as Box;
-      rendered.current = next; setShown(next);
-      if (fraction < 1) request = requestAnimationFrame(tick);
+      started ??= now;
+      const progress = Math.min(1, (now - started) / duration);
+      paint(progress < 1 ? glideFrame(from, target, progress) : target);
+      if (progress < 1) glide.current = requestAnimationFrame(tick); else { glide.current = null; commit(false); }
     }
-    skipAnimation.current = false;
-    request = requestAnimationFrame(tick); return () => cancelAnimationFrame(request);
-  }, [box, dragging]);
-  const project = (x: number, y: number) => projectMapPoint(x, y, shown, size.width, size.height);
+    glide.current = requestAnimationFrame(tick);
+    return cancelGlide;
+    // paint/commit only touch refs and stable setters.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [box]);
+  useLayoutEffect(() => {
+    renderedView.current = view;
+    // Labels were just laid out for this camera; a glide or gesture still in progress re-derives its offset.
+    if (moving.current) paint(camera.current);
+    else { camera.current = view; overlay.current?.removeAttribute("transform"); }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [view, size]);
+  const project = (x: number, y: number) => projectMapPoint(x, y, view, size.width, size.height);
   const origin = project(0, 0), scale = origin.scale;
-  
-  const overview = Math.max(shown[2], shown[3]) > 950;
-  const areaScale = Math.max(shown[2], shown[3]) > 550;
+
+  const overview = Math.max(view[2], view[3]) > 950;
+  const areaScale = Math.max(view[2], view[3]) > 550;
   const detail = !overview && !areaScale && Boolean(selectedCode);
   if (!overview && tapHint !== "done") setTapHint("done");
   useEffect(() => {
@@ -88,18 +157,19 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
   function start(event: ReactPointerEvent<HTMLDivElement>) {
     if (event.pointerType === "mouse" && event.button !== 0) return;
     const control = (event.target as Element).closest("button");
-    if (!control && (event.pointerType !== "touch" || rendered.current[2] < 1584)) event.preventDefault();
-    skipAnimation.current = true;
-    onView([...rendered.current]); // Freeze an in-progress transition at the touched position.
+    if (!control && (event.pointerType !== "touch" || camera.current[2] < 1584)) event.preventDefault();
+    cancelGlide(); // Freeze an in-progress glide at the touched position; it is committed when the touch ends.
     const rect = event.currentTarget.getBoundingClientRect();
     const target = (event.target as Element).closest("[data-seat-block], [data-block-start], [data-seat-photo-marker]");
     const marker = target?.getAttribute("data-seat-photo-marker");
+    // Zoomed out, a finger often lands in the gap between thin blocks: that tap goes to the nearest block.
     const code = marker?.slice("section:".length)
-      ?? target?.getAttribute("data-seat-block") ?? target?.getAttribute("data-block-start") ?? null;
+      ?? target?.getAttribute("data-seat-block") ?? target?.getAttribute("data-block-start")
+      ?? (!control && camera.current[2] > NEAR_MISS_WIDTH ? nearestBlockCode(event.clientX, event.clientY) : null);
     contacts.current.set(event.pointerId, { x: event.clientX - rect.left, y: event.clientY - rect.top, startX: event.clientX - rect.left, startY: event.clientY - rect.top, code });
     if (!control) event.currentTarget.setPointerCapture(event.pointerId);
     suppressMapClick.current = contacts.current.size > 1;
-    const c = centre(); gesture.current = { box: rendered.current, ...c }; if (contacts.current.size === 1) moved.current = false; else moved.current = true; setDragging(true);
+    const c = centre(); gesture.current = { box: camera.current, ...c }; moved.current = contacts.current.size !== 1;
   }
   function move(event: ReactPointerEvent<HTMLDivElement>) {
     if (!contacts.current.has(event.pointerId) || !gesture.current) return;
@@ -116,14 +186,14 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
     const nextScale = Math.min(size.width / width, size.height / height);
     const left = sourceX - (c.x - (size.width - width * nextScale) / 2) / nextScale;
     const top = sourceY - (c.y - (size.height - height * nextScale) / 2) / nextScale;
-    skipAnimation.current = true;
-    onView([Math.max(-width / 2, Math.min(1600 - width / 2, left)), Math.max(-height / 2, Math.min(1600 - height / 2, top)), width, height]);
+    paint([Math.max(-width / 2, Math.min(1600 - width / 2, left)), Math.max(-height / 2, Math.min(1600 - height / 2, top)), width, height]);
   }
   function cancel() {
     const ids = [...contacts.current.keys()];
-    contacts.current.clear(); gesture.current = null; moved.current = true; setDragging(false);
+    contacts.current.clear(); gesture.current = null; moved.current = true;
     suppressMapClick.current = true;
     for (const id of ids) if (frame.current?.hasPointerCapture(id)) frame.current.releasePointerCapture(id);
+    commit(true);
   }
   function end(event: ReactPointerEvent<HTMLDivElement>) {
     const contact = contacts.current.get(event.pointerId);
@@ -133,32 +203,38 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
     const tap = contacts.current.size === 1 && seatTapAllowed(travel, moved.current);
     suppressMapClick.current ||= !tap;
     contacts.current.delete(event.pointerId);
-    if (!contacts.current.size) { gesture.current = null; setDragging(false); }
-    else { gesture.current = { box: rendered.current, ...centre() }; moved.current = true; }
     if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
+    if (contacts.current.size) { gesture.current = { box: camera.current, ...centre() }; moved.current = true; return; }
+    gesture.current = null;
+    commit(true);
     if (tap && contact.code) { const block = blocks.find(b => b.code === contact.code); if (block) { setFocusedCode(block.code); onBlock(block); } }
   }
   useEffect(() => {
     const el = svg.current!;
     const wheel = (event: WheelEvent) => {
       if (!event.ctrlKey && !event.metaKey) return;
-      event.preventDefault(); setTapHint("done");
-      const current = rendered.current, rect = el.getBoundingClientRect();
-      const p = projectMapPoint(0, 0, current, size.width, size.height);
+      // Wheel zoom follows the hand and commits once it pauses (not on every wheel event).
+      event.preventDefault(); setTapHint("done"); cancelGlide();
+      const current = camera.current, rect = el.getBoundingClientRect(), { width: w, height: h } = sizeRef.current;
+      const p = projectMapPoint(0, 0, current, w, h);
       const x = event.clientX - rect.left, y = event.clientY - rect.top;
       const width = Math.max(60, Math.min(1600, current[2] * Math.exp(Math.max(-100, Math.min(100, event.deltaY)) * .004)));
-      const height = current[3] * width / current[2], nextScale = Math.min(size.width / width, size.height / height);
-      skipAnimation.current = true;
-      onView([(x - p.x) / p.scale - (x - (size.width - width * nextScale) / 2) / nextScale,
-        (y - p.y) / p.scale - (y - (size.height - height * nextScale) / 2) / nextScale, width, height]);
+      const height = current[3] * width / current[2], nextScale = Math.min(w / width, h / height);
+      paint([(x - p.x) / p.scale - (x - (w - width * nextScale) / 2) / nextScale,
+        (y - p.y) / p.scale - (y - (h - height * nextScale) / 2) / nextScale, width, height]);
+      if (wheelCommit.current !== null) clearTimeout(wheelCommit.current);
+      wheelCommit.current = window.setTimeout(() => { wheelCommit.current = null; commit(true); }, 160);
     };
     el.addEventListener("wheel", wheel, { passive: false });
     return () => el.removeEventListener("wheel", wheel);
-  }, [onView, size.width, size.height]);
+    // Camera and size are read from refs so wheel never uses a stale frame.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   useEffect(() => {
-    const reset = () => { contacts.current.clear(); gesture.current = null; moved.current = true; setDragging(false); };
+    const reset = () => { contacts.current.clear(); gesture.current = null; moved.current = true; commit(true); };
     window.addEventListener("blur", reset); document.addEventListener("visibilitychange", reset);
-    return () => { window.removeEventListener("blur", reset); document.removeEventListener("visibilitychange", reset); };
+    return () => { window.removeEventListener("blur", reset); document.removeEventListener("visibilitychange", reset); cancelGlide(); };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const annotations: { rect: LabelRect; from?: NumberLabel["from"]; to?: NumberLabel["to"] }[] = [];
   const visible = blocks.filter(block => { const b = geometry.get(block.code)!.bounds; const a = project(b.left, b.top), z = project(b.right, b.bottom); return z.x >= 0 && a.x <= size.width && z.y >= 0 && a.y <= size.height; });
@@ -170,7 +246,7 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
     const p = project(a.x, a.y), q = project(b.x, b.y);
     return Math.hypot(p.x - size.width / 2, p.y - size.height / 2) - Math.hypot(q.x - size.width / 2, q.y - size.height / 2);
   })[0] : undefined;
-  const closestView = shown[2] <= 90;
+  const closestView = view[2] <= 90;
   const focusRows = !closestView && focusBlock ? (() => {
     const p = project(focusBlock.x, focusBlock.y), text = focusBlock.rows.length === 1 ? `${focusBlock.rows[0].row}列` : `${focusBlock.rows[0].row}〜${focusBlock.rows.at(-1)!.row}列`;
     const rect = { x: p.x, y: p.y, width: text.length * 7 + 12, height: 24 };
@@ -320,9 +396,13 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
     ...overviewObstacles,
   ];
   const placedPhotos: LabelRect[] = [];
+  // Blocks whose own label gives way to their camera mark (no clear spot fitted, so the mark sits at the centre).
+  const coveredCodes = new Set<string>();
   const photoMarkers = visible.flatMap(block => {
     const post = photoPosts.get(block.code);
     if (!post || (level !== "すべて" && block.tier !== level && block.code !== selectedCode)) return [];
+    // The selected block's mark gives way while its photo card is shown on the map.
+    if (block.code === cardedCode) return [];
     const anchor = project(block.x, block.y);
     if (anchor.x < 0 || anchor.x > size.width || anchor.y < 0 || anchor.y > size.height) return [];
     const padding = photoTarget / 2 + 2;
@@ -335,8 +415,12 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
     const onBlock = (point: LabelRect, radius: number) => photoHitTest([block.path],
       { x: (point.x - origin.x) / scale, y: (point.y - origin.y) / scale }, radius / scale);
     const centered = clear[0]?.x === anchor.x && clear[0]?.y === anchor.y && onBlock(clear[0], 0);
-    const point = centered ? clear[0] : clear.find(point => onBlock(point, 10)) ?? clear.find(point => onBlock(point, 0));
+    const placed = centered ? clear[0] : clear.find(point => onBlock(point, 10)) ?? clear.find(point => onBlock(point, 0));
+    // Every block with photos keeps its mark (Tokyo Dome): with no clear spot it sits at the block centre.
+    const fallback = { x: anchor.x, y: anchor.y, width: photoTarget, height: photoTarget };
+    const point = placed ?? (anchor.x >= padding && anchor.x <= size.width - padding && anchor.y >= padding && anchor.y <= size.height - padding ? fallback : null);
     if (!point) return [];
+    if (!placed) coveredCodes.add(block.code);
     placedPhotos.push(point);
     return [{ block, post, point }];
   });
@@ -349,36 +433,41 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
     frame.current?.querySelector<SVGGElement>(`[data-seat-block="${target.id}"]`)?.focus({ preventScroll: true });
   }
   return <>
-    <div ref={frame} className={styles.canvas} data-testid="kyocera-seat-map" data-selected={selectedCode ?? ""} data-camera={box.join(" ")} data-map-mode="unified" data-number-badge-version="connected-v2" data-map-stage={overview ? "overview" : detail ? "detail" : "blocks"}
-    style={{ touchAction: shown[2] >= 1584 ? "pan-y" : "none" }}
+    <div ref={frame} className={styles.canvas} data-testid="kyocera-seat-map" data-selected={selectedCode ?? ""} data-camera={view.join(" ")} data-map-mode="unified" data-number-badge-version="connected-v2" data-map-stage={overview ? "overview" : detail ? "detail" : "blocks"}
+    style={{ touchAction: view[2] >= 1584 ? "pan-y" : "none" }}
     onPointerDownCapture={() => setTapHint("done")} onKeyDownCapture={() => setTapHint("done")}
     onPointerDown={start} onPointerMove={move} onPointerUp={end} onPointerCancel={cancel}
     onLostPointerCapture={event => { if (contacts.current.has(event.pointerId)) cancel(); }}
     onPointerLeave={event => { if (contacts.current.has(event.pointerId) && !event.currentTarget.hasPointerCapture(event.pointerId)) cancel(); }}
     onClickCapture={event => { if (suppressMapClick.current && event.detail !== 0) { event.preventDefault(); event.stopPropagation(); } }}>
     <svg ref={svg} viewBox={`0 0 ${size.width} ${size.height}`} role="group" aria-label={`${guide.name}の座席表`}>
+      {/* Source-space layer: a moving camera repaints only this viewBox (same fit as projectMapPoint). */}
+      <svg ref={inner} width={size.width} height={size.height} viewBox={view.join(" ")}>
       <defs>
         {visible.map(b => <clipPath id={`seat-clip-${b.code}`} key={b.code}><path d={b.path} /></clipPath>)}
       </defs>
-      <g transform={`translate(${origin.x} ${origin.y}) scale(${scale})`}>
+      <g>
         <VenueOverviewArt diagramId="kyocera-seat-original" blocks={footprints} opacity={artOpacity} unit={16}/>
         {blocks.map(block => <g key={block.code} data-seat-block={block.code} data-source-block={block.sourceCode} data-area-id={block.areaId} role="button" tabIndex={block.code === focusCode ? 0 : -1} onFocus={() => setFocusedCode(block.code)}
           aria-label={`${block.label}・${block.tier} ${block.rowLabelIsPrinted ? `${block.rowLabel}列` : "列の印字なし（公式検索：0列）"} ${block.firstSeat}〜${block.lastSeat}番`} aria-pressed={block.code === selectedCode}
           onKeyDown={event => keyBlock(event, block)}>
           <path d={block.path} fill={block.code === selectedCode ? "#ac2e66" : block.special ? "#eadac1" : block.tier === "上段" ? "#c1b4da" : "#ebbad0"}
             opacity={level !== "すべて" && block.tier !== level && block.code !== selectedCode ? .2 : 1} stroke={block.code === selectedCode ? "#5d263f" : photoPosts.has(block.code) ? SEAT_PHOTO_MAP_COLOR : "white"}
-            strokeWidth={(block.code === selectedCode ? 2.5 : photoPosts.has(block.code) ? 2.2 : .6) / scale} />
+            strokeWidth={block.code === selectedCode ? 2.5 : photoPosts.has(block.code) ? 2.2 : .6} vectorEffect="non-scaling-stroke" />
           <title>{`${block.label}・${block.tier} ／ ${block.rowLabelIsPrinted ? `${block.rowLabel}列` : "列の印字なし（検索：0列）"} ／ ${block.firstSeat}〜${block.lastSeat}番`}</title>
         </g>)}
         
         {detail && visible.filter(b => (level === "すべて" || b.tier === level || b.code === selectedCode) && (b.code === selectedCode || Math.max(...[geometry.get(b.code)!.bounds].map(r => Math.max(r.right - r.left, r.bottom - r.top))) * scale >= 65)).map(block => <g key={`rows:${block.code}`} clipPath={`url(#seat-clip-${block.code})`} pointerEvents="none" data-row-guides={block.code}>
           {(block.code === selectedCode ? selectedDrawing! : geometry.get(block.code)!.drawing).rows.map(row => <line key={row.row} data-row-line={row.row} x1={row.from.x} y1={row.from.y} x2={row.to.x} y2={row.to.y}
-            stroke={row.selected ? "#1673ad" : block.code === selectedCode ? "#ffe6f0" : "#ab7593"} strokeWidth={(row.selected ? 2 : .6) / scale} opacity={row.selected ? 1 : .65} />)}
+            stroke={row.selected ? "#1673ad" : block.code === selectedCode ? "#ffe6f0" : "#ab7593"} strokeWidth={row.selected ? 2 : .6} vectorEffect="non-scaling-stroke" opacity={row.selected ? 1 : .65} />)}
         </g>)}
       </g>
+      </svg>
+      {/* Screen-space layer: follows a moving camera with one transform until the commit (see paint). */}
+      <g ref={overlay}>
       <g pointerEvents="none" className={styles.numbers}>
-        {blockLabels.map(({ block, drawing, p, text, fontSize }) => <text key={block.code} data-block-start={block.code} data-start-number={drawing.seatStart} x={p.x} y={p.y} dominantBaseline="central" textAnchor="middle" fontSize={fontSize} fill="#672442" pointerEvents="all" style={{ cursor: "pointer" }} aria-hidden="true">{text}</text>)}
-        {numberLabels.map(({ block, drawing, sign: { rect }, arrow, badgePath, badgeInk, rowRange, rangeRect, compact }) => <g key={block.code} data-number-guide={block.code} data-reference-row={drawing.referenceRow} data-start-number={drawing.seatStart} data-compact-number={compact || undefined}>
+        {blockLabels.filter(({ block }) => !coveredCodes.has(block.code)).map(({ block, drawing, p, text, fontSize }) => <text key={block.code} data-block-start={block.code} data-start-number={drawing.seatStart} x={p.x} y={p.y} dominantBaseline="central" textAnchor="middle" fontSize={fontSize} fill="#672442" pointerEvents="all" style={{ cursor: "pointer" }} aria-hidden="true">{text}</text>)}
+        {numberLabels.filter(({ block }) => block.code === selectedCode || !coveredCodes.has(block.code)).map(({ block, drawing, sign: { rect }, arrow, badgePath, badgeInk, rowRange, rangeRect, compact }) => <g key={block.code} data-number-guide={block.code} data-reference-row={drawing.referenceRow} data-start-number={drawing.seatStart} data-compact-number={compact || undefined}>
           <title>{block.rowLabelIsPrinted ? `${drawing.referenceRow}列の番号目安。列によって端の番号が変わります。` : "FBの印字された開始番号と番号が増える向き。検索の列は0です。"}</title>
 
           <path data-number-badge="" data-connected-number-arrow={arrow ? "" : undefined} transform={`translate(${rect.x} ${rect.y})`} d={badgePath ?? seatNumberBadge([0, 0], rect.width, rect.height, 0, compact ? 3 : 5)} fill="#fff" stroke={block.code === selectedCode ? "#ac2e66" : "#d5c5cd"} strokeWidth={block.code === selectedCode ? 2 : 1} />
@@ -404,6 +493,7 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
           <SeatPhotoMarker x={x} y={y} size={20} highlighted />
         </g>
       </g>)}
+      </g>
     </svg>
     {overview && <div className={styles.areaLabels} aria-label="座席エリアから拡大する" data-tap-hint={tapHint} onAnimationEnd={() => setTapHint("done")}>
       {outfieldAreas.map(area => {
@@ -413,7 +503,6 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
       {visibleInfield.map(area => { const p = project(area.x * 1600, area.y * 1600); const seat = guide.seats.find(a => a.id === area.id)!;
           return p.x >= 30 && p.x <= size.width - 30 && p.y >= 24 && p.y <= size.height - 24 ? <button key={area.id} type="button" style={{ left: p.x, top: p.y }} onClick={() => onArea(area.id)}>{seat.label.startsWith("中央") ? "中央" : seat.label}<small>{seat.type}</small></button> : null; })}
     </div>}
-    <button type="button" className={styles.whole} onClick={onWhole}>全体図へ</button>
     </div>
   </>;
 }

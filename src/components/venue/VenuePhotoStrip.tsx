@@ -11,6 +11,20 @@ export type StripPhoto = { label: string; href: string; count: number; thumbnail
 
 const SHOWN = 12;
 const blockCode = (photo: StripPhoto) => photo.label.match(/([A-Z]\d{1,3})/)?.[1] ?? null;
+/** Other venues' seat maps announce seat-section ids (blocks/zones) plus place names (see StandSeatMap). */
+type MapScope = TokyoDomeMapScope & { match?: "section"; labels?: string[] };
+const seatSection = (photo: StripPhoto) => {
+  const query = photo.href.split("#")[0].split("?")[1];
+  return query ? new URLSearchParams(query).get("seatSection") : null;
+};
+/** Position in the scope, or undefined when the photo is outside it. Tokyo Dome matches its block code in the label. */
+function scopeRank(scope: MapScope | null, rank: Map<string, number>, photo: StripPhoto) {
+  if (scope?.match !== "section") return rank.get(blockCode(photo) ?? "");
+  const section = seatSection(photo);
+  if (section !== null && rank.has(section)) return rank.get(section);
+  const at = (scope.labels ?? []).findIndex(label => photo.label === label || photo.label.startsWith(label + "・") || photo.label.startsWith(label + "（"));
+  return at < 0 ? undefined : rank.size + at;
+}
 
 /** Before anything is chosen: take turns between the seat tiers so the row is not one corner of the venue. */
 function mixedByTier(photos: StripPhoto[]) {
@@ -31,7 +45,7 @@ function mixedByTier(photos: StripPhoto[]) {
  */
 export default function VenuePhotoStrip({ photos, count, allTargetId }: { photos: StripPhoto[]; count: number; allTargetId: string }) {
   const row = useRef<HTMLUListElement>(null);
-  const [scope, setScope] = useState<TokyoDomeMapScope | null>(null);
+  const [scope, setScope] = useState<MapScope | null>(null);
   const withImage = useMemo(() => mixedByTier(photos.filter(photo => photo.thumbnailUrl)), [photos]);
 
   useEffect(() => {
@@ -43,8 +57,8 @@ export default function VenuePhotoStrip({ photos, count, allTargetId }: { photos
 
   const { ordered, matched, matchedPhotos } = useMemo(() => {
     const rank = new Map((scope?.codes ?? []).map((code, index) => [code, index]));
-    const near = withImage.filter(photo => rank.has(blockCode(photo) ?? ""))
-      .sort((a, b) => rank.get(blockCode(a)!)! - rank.get(blockCode(b)!)!);
+    const near = withImage.filter(photo => scopeRank(scope, rank, photo) !== undefined)
+      .sort((a, b) => scopeRank(scope, rank, a)! - scopeRank(scope, rank, b)!);
     return { ordered: [...near, ...withImage.filter(photo => !near.includes(photo))], matched: near.length, matchedPhotos: near.reduce((sum, photo) => sum + photo.count, 0) };
   }, [withImage, scope]);
   useEffect(() => { row.current?.scrollTo({ left: 0 }); }, [scope]);

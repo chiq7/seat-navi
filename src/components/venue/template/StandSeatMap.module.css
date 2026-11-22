@@ -83,3 +83,36 @@
 .ticketSelection{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;font-size:12px}
 .selectedRow{color:#155786;background:#e8f3ff;border-radius:4px;padding:2px 4px;white-space:nowrap}
 .selectedSeat{color:#663b00;background:#fff0a8;border:1px solid #c38a19;border-radius:4px;padding:2px 5px;white-space:nowrap}
+
+/*
+ * Tokyo Dome rule for every venue: nothing around the map grows or shrinks with a search or a
+ * selection, so the map never moves. Search feedback, coverage notes, the photo card and the
+ * arena-map button all sit on the map.
+ */
+.mapFrame{position:relative;overflow:hidden;overflow-anchor:none}
+/* HTML tags are placed for the resting camera; hide them while a glide or gesture moves the map. */
+.stage[data-moving] .zoneTag,.stage[data-moving] .levelTag{visibility:hidden}
+.mapNotice{position:absolute;left:8px;right:8px;top:8px;z-index:5;max-height:calc(100% - 96px);overflow:auto;overscroll-behavior:contain;border:1px solid #e3cbd6;border-radius:12px;background:#fffffff7;box-shadow:0 4px 14px #4b414833}
+.mapFrame[data-arena] .mapNotice{top:52px;max-height:calc(100% - 140px)}
+.noticeClose{position:sticky;top:0;float:right;z-index:1;display:grid;place-items:center;width:44px;height:44px;margin:0 0 0 4px;border-radius:10px;background:#fffffff2;color:#7a3b55}
+.mapNotice>[data-seat-finder-miss]{border:0;background:transparent}
+.mapNotice .message{border-top:0}
+.mapNotice .searchResults{border-top:0;background:transparent}
+.mapNotice .candidateList{max-height:none;overflow:visible}
+.photoOverlay{position:absolute;left:8px;right:8px;bottom:8px;z-index:4;display:flex;flex-direction:column;align-items:flex-start;gap:6px;pointer-events:none}
+/* The resting "photos here" pill lets taps reach the blocks under it; a photo card takes them. */
+.photoOverlay>[data-seat-photo-summary]:has(button){pointer-events:auto}
+.photoOverlay .coverageNote{max-width:100%;padding:4px 10px;border:1px solid #e3cbd6;border-radius:10px;background:#fffffff2;line-height:1.5;box-shadow:0 2px 8px #4b414826}
+.photoOverlay .coverageNote>svg{margin-top:2px}
+.photoOverlay [data-seat-photo-summary]{box-sizing:border-box;width:auto;max-width:100%;min-height:0;height:auto;padding:6px 10px 6px 6px;border:1px solid #e3cbd6;border-radius:14px;background:#fffffff5;box-shadow:0 4px 14px #4b414833}
+.photoOverlay [data-seat-photo-summary]:not(:has(button)){flex-direction:row;align-items:center;padding:0;border:0;background:none;box-shadow:none}
+.photoOverlay [data-seat-photo-summary]:not(:has(button))>span:last-child{display:none}
+.photoOverlay [data-seat-photo-summary]:not(:has(button))>span:first-child{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;background:#90254f;color:#fff;font-size:13px;box-shadow:0 2px 8px #4b414833}
+.photoOverlay [data-seat-photo-summary]:not(:has(button))>span:first-child>span{color:#ffd9e8;font-weight:800}
+.photoOverlay [data-seat-photo-preview]{width:auto;gap:10px;min-height:0;background:transparent}
+.arenaMaps{position:absolute;top:4px;right:4px;z-index:4;display:grid;place-items:center;padding:0 4px;border:0;background:transparent;cursor:pointer}
+.arenaPill{display:inline-flex;align-items:center;gap:4px;height:30px;padding:0 6px 0 9px;border:2px solid #fff;border-radius:999px;background:#a93164;color:#fff;font-size:12px;font-weight:900;white-space:nowrap;box-shadow:0 2px 8px #0000002e}
+.arenaPill>svg{flex:0 0 14px}
+.arenaPill b{min-width:20px;padding:0 5px;border-radius:999px;background:#fff;color:#a93164;font-size:11px;line-height:18px;text-align:center}
+.arenaThumb{flex:0 0 22px;width:22px;height:22px;margin-left:-5px;border-radius:50%;object-fit:cover;background:#fff;box-shadow:0 0 0 1px #ffffffb3}
+@media(max-width:420px){.mapFrame[data-arena] .front{top:48px}}

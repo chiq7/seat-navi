@@ -20,6 +20,7 @@ import KyoceraFacilityFinder from "./KyoceraFacilityFinder";
 import { initialKyoceraFinderState, kyoceraFinderReducer } from "./kyoceraFacilityState";
 import { kyoceraDrawingBlocks } from "./kyoceraMapDrawing";
 import { useVenueSeatTarget } from "../VenueSeatTarget";
+import { AfterSeats, useGuidePageSlots } from "./GuidePageSlots";
 
 function Sources({ guide, ids }: { guide: DedicatedVenueGuide; ids: string[] }) {
   return <span className={styles.sources}>{ids.map(id => {
@@ -45,6 +46,7 @@ function kyoceraFacilityDetail(item: GuideFacility) {
 }
 
 export default function VerifiedVenueGuide({ guide, embedded=false }: { guide: DedicatedVenueGuide; embedded?: boolean }) {
+  const { pageNav } = useGuidePageSlots();
   const kyocera = guide.venueId === "kyocera-dome";
   const target = useVenueSeatTarget();
   const guideRoot = useRef<HTMLDivElement>(null);
@@ -235,7 +237,7 @@ export default function VerifiedVenueGuide({ guide, embedded=false }: { guide: D
   </>;
 
   return <div ref={guideRoot} data-dome-guide={kyocera || undefined} className={`${styles.guide}${kyocera ? ` ${domeStyles.root}` : ""}`} onPointerDownCapture={cancelFocusReturn}>
-    {kyocera ? <DomeGuideHeader name={guide.name} showHero={!embedded} /> : <nav className={styles.jumpNav} aria-label="会場ガイドの目次">{[["venue-seats", "座席"], ["venue-facilities", "設備"], ["venue-access", "アクセス"], ["venue-prep", "準備"], ["venue-faq", "FAQ"]].map(([id, label]) => <a key={id} href={`#${id}`}>{label}</a>)}<VenueProgramAnchor fallbackHref={guide.venueId === "kyocera-dome" ? "#upcoming-events-title" : `/venues/${guide.venueId}#upcoming-events-title`}>公演</VenueProgramAnchor></nav>}
+    {kyocera ? <DomeGuideHeader name={guide.name} showHero={!embedded} showNav={!pageNav} /> : <nav className={styles.jumpNav} aria-label="会場ガイドの目次">{[["venue-seats", "座席"], ["venue-facilities", "設備"], ["venue-access", "アクセス"], ["venue-prep", "準備"], ["venue-faq", "FAQ"]].map(([id, label]) => <a key={id} href={`#${id}`}>{label}</a>)}<VenueProgramAnchor fallbackHref={guide.venueId === "kyocera-dome" ? "#upcoming-events-title" : `/venues/${guide.venueId}#upcoming-events-title`}>公演</VenueProgramAnchor></nav>}
     <section id="venue-seats" className={kyocera ? "border-y border-[#eddfe5] bg-[#fffafb] py-8 sm:py-10" : styles.section} aria-labelledby="seat-heading"><div className={kyocera ? "zr-container" : undefined}>
       <p className={kyocera ? "artist-kicker" : styles.eyebrow}>Seat finder</p><h2 id="seat-heading" className={kyocera ? `artist-heading ${tokyoSeatStyles.title}` : undefined}>{guide.name}の座席を探す</h2>
       <div className={kyocera ? "mt-5" : undefined}>{guide.seats.length > 0 ? <VenueSeatMap guide={guide} selectedId={selectedId} rowLabel={rowLabel} seatNumber={seatNumber} onSelect={selectArea} onClear={clearSeat} onRow={chooseRow} onTicket={chooseTicket} />
@@ -246,6 +248,7 @@ export default function VerifiedVenueGuide({ guide, embedded=false }: { guide: D
       {selected && <a className={styles.seatToFacilities} href="#venue-facilities" onClick={() => { dispatch({ type: "seat", floor: selected.floor }); setShowAll(false); }}>{selected.floor}の設備を探す ↓</a>}
       <p className={styles.caption}>アリーナ配置・ステージ・当日の入口は公演案内を優先してください。</p>
     </div></section>
+    {kyocera && <AfterSeats />}
 
     <section id="venue-facilities" className={kyocera ? tokyoStyles.section : styles.section} aria-labelledby="facilities-heading"><div className={kyocera ? `zr-container ${tokyoStyles.guide}` : undefined}>
       <div className={styles.eyebrow}>FACILITIES</div><h2 id="facilities-heading">必要な設備を探す</h2>
