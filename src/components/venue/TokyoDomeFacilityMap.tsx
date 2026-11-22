@@ -27,6 +27,46 @@ function diagram(id:FacilityFloorId,layer:Layer) {
   }
   return {crop:source.crop,paths:source.concourse.map((p)=>p.d),seating:source.seating.map((p)=>p.d),boundaries:source.boundaries.map((p)=>p.d)};
 }
+/**
+ * The field inside the bowl, drawn as a landmark so the plan reads at a glance (which way the arena is, which arm is
+ * the 3rd/1st-base side). The floor plans carry no field, so its centre and size come from a circle fitted through the
+ * seating outline (the concourse when a plan has no seating): the field is the open disc inside it.
+ */
+const fieldCache=new Map<string,{x:number;y:number;r:number}|null>();
+function fieldOf(key:string,data:NonNullable<ReturnType<typeof diagram>>) {
+  if(fieldCache.has(key))return fieldCache.get(key)!;
+  const source=data.seating.length?data.seating:data.paths;
+  const points=source.flatMap(d=>{const n=(d.match(/-?\d+(?:\.\d+)?/g)??[]).map(Number);const out:[number,number][]=[];for(let i=0;i+1<n.length;i+=2)out.push([n[i],n[i+1]]);return out;});
+  let field:{x:number;y:number;r:number}|null=null;
+  if(points.length>=6){
+    // Least-squares circle (Kasa): solve for x²+y² = a·x + b·y + c.
+    let sx=0,sy=0,sxx=0,syy=0,sxy=0,sxz=0,syz=0,sz=0;
+    for(const [x,y] of points){const z=x*x+y*y;sx+=x;sy+=y;sxx+=x*x;syy+=y*y;sxy+=x*y;sxz+=x*z;syz+=y*z;sz+=z;}
+    const m=[[sxx,sxy,sx],[sxy,syy,sy],[sx,sy,points.length]],v=[sxz,syz,sz];
+    const det=(q:number[][])=>q[0][0]*(q[1][1]*q[2][2]-q[1][2]*q[2][1])-q[0][1]*(q[1][0]*q[2][2]-q[1][2]*q[2][0])+q[0][2]*(q[1][0]*q[2][1]-q[1][1]*q[2][0]);
+    const d=det(m);
+    if(Math.abs(d)>1e-9){
+      const col=(k:number)=>det(m.map((row,i)=>row.map((value,j)=>j===k?v[i]:value)));
+      const x=col(0)/d/2,y=col(1)/d/2;
+      const distances=points.map(([px,py])=>Math.hypot(px-x,py-y)).sort((a,b)=>a-b);
+      const inner=distances[Math.floor(distances.length*.05)];
+      field={x,y,r:inner*(data.seating.length?.9:.55)};
+    }
+  }
+  fieldCache.set(key,field);
+  return field;
+}
+function FieldLandmark({field,scale}:{field:{x:number;y:number;r:number};scale:number}) {
+  const {x,y,r}=field;
+  // Every plan has home plate down the page: the infield stands sit around it, the outfield stands face it from the top.
+  const home=y+r*.75, second=y-r*.25, bases=y+r*.25;
+  const labelY=y-r*.55;
+  return <g className={styles.field} aria-hidden="true" data-field-landmark="">
+    <circle cx={x} cy={y} r={r} className={styles.fieldTurf}/>
+    <path d={`M${x} ${home} L${x+r*.5} ${bases} L${x} ${second} L${x-r*.5} ${bases} Z`} className={styles.fieldDiamond} strokeWidth={1.5/scale}/>
+    <text x={x} y={labelY} textAnchor="middle" dominantBaseline="central" fontSize={12/scale} className={styles.fieldLabel}>グラウンド・アリーナ</text>
+  </g>;
+}
 function floorSpots(spots:readonly DomeGuideSpot[],id:FacilityFloorId,layer:Layer) { return spots.filter((s)=>s.facilityAnchor?.floorId===id&&s.facilityAnchor.source===layer); }
 function FloorGeometry({data}:{data:NonNullable<ReturnType<typeof diagram>>}) {
   return <><g className={styles.seatingShape}>{data.seating.map((d,i)=><path key={i} d={d}/>)}</g><g className={styles.concourseShape}>{data.paths.map((d,i)=><path key={i} d={d}/>)}</g><g className={styles.boundaryShape}>{data.boundaries.map((d,i)=><path key={i} d={d}/>)}</g></>;
@@ -84,22 +124,26 @@ export default function TokyoDomeFacilityMap({purpose,floor,spots,mode,selectedI
   groups.forEach(group=>labels.push({id:group.id,kind:"facility",x:group.x,y:group.y,width:group.width,height:group.height}));
   const placed=placeMapLabels(labels,size.width,size.height,{facilitiesFirst:true,keepFacilityAreas:true});
   const outfield=currentId==="1f-outfield";
+  const field=data?fieldOf(`${currentId}:${layer}`,data):null;
   const areaItems=shown.filter(item=>groupIds?.includes(item.id));
 
   return <div className={styles.root} data-floor={currentId} data-map-interaction="landmark-zoom" data-pin-density={compactPins ? "compact" : undefined} aria-label={`${floorInfo.label}の施設図`}>
-    <div className={styles.orientation}><span>{outfield?"レフト側":"3塁側"} ←</span><span>→ {outfield?"ライト側":"1塁側"}</span></div>
     <div ref={map} className={styles.map}>
       {data?<>
       <div className={styles.canvas}>
         <svg viewBox={`0 0 ${size.width} ${size.height}`} aria-hidden="true">
           <g transform={`translate(${dx},${dy}) scale(${fit}) translate(${-cx},${-cy})`}>
+            {field&&<FieldLandmark field={field} scale={fit}/>}
             <FloorGeometry data={data}/>
             {selectedHere&&<circle data-destination-anchor={selectedHere.id} cx={selectedHere.facilityAnchor!.x} cy={selectedHere.facilityAnchor!.y} r={9/fit} strokeWidth={3/fit} className={styles.selectedAnchor}/>}
             {originHere&&<circle data-origin-anchor={originHere.id} cx={originHere.x} cy={originHere.y} r={10/fit} className={styles.originAnchor} strokeWidth={3/fit}/>}
           </g>
         </svg>
       </div>
-      <div className={styles.mapTitle}><span>{outfield?"外野席側":"客席側"}</span>{seat&&facilityFloorId(seat.floor??"")===currentId&&<small>選択席 {seat.section}{seat.row!==null?`・${seat.row}列`:""}</small>}</div>
+      {seat&&facilityFloorId(seat.floor??"")===currentId&&<div className={styles.mapTitle}><small>選択席 {seat.section}{seat.row!==null?`・${seat.row}列`:""}</small></div>}
+      {/* Which arm is which side, on the map itself (the plan is seen from the stands, the field at the top). */}
+      <span className={`${styles.sideTag} ${styles.sideLeft}`} aria-hidden="true">← {outfield?"レフト側":"3塁側"}</span>
+      <span className={`${styles.sideTag} ${styles.sideRight}`} aria-hidden="true">{outfield?"ライト側":"1塁側"} →</span>
       <svg className={styles.leaders} viewBox={`0 0 ${size.width} ${size.height}`} aria-hidden="true">
         {groups.filter(group=>group.points.length>1).map(group=>{
           const xs=group.points.map(point=>point.x),ys=group.points.map(point=>point.y),x=Math.min(...xs)-5,y=Math.min(...ys)-5;

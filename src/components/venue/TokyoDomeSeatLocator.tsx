@@ -91,7 +91,7 @@ const FULL_MAP_VIEW_BOX = parseMapViewBox(MAP_VIEWS.all.box);
  * also the closest anyone can pinch to: row lines are readable there, and closer only loses the surroundings.
  * Set from the canvas width (see selectedMapWidth) once the map is measured.
  */
-let minMapViewWidth = 180;
+let minMapViewWidth = 352;
 
 function parseMapViewBox(value: string): MapViewBox {
   const [x, y, width, height] = value.split(" ").map(Number);
@@ -180,8 +180,9 @@ function selectedMapViewBox(section: TokyoDomeSection, label: [number, number], 
   return serializeMapViewBox(constrainMapViewBox({x:focus[0]-width/2,y:focus[1]-width*.44,width,height:width*.88}));
 }
 
-function selectedMapWidth(canvasWidth: number) {
-  return Math.max(140, Math.min(320, canvasWidth * .48));
+/** A chosen block's view: the widest view that still draws row lines (they appear at 360 and below). */
+function selectedMapWidth(_canvasWidth: number) {
+  return 352;
 }
 
 function directionForArea(area: SeatArea): keyof typeof MAP_VIEWS {
@@ -600,7 +601,8 @@ export function TokyoDomeSeatLocator() {
     return { x: x0, y: y0, width: Math.max(30, x1 - x0), height: Math.max(30, y1 - y0) };
   })();
   const visibleZones = ZONE_KEY.filter(zone => sourceMapLabels.some(label => label.code[0] === zone.key && matchesLevel(label.code)));
-  const photoMarkers = showDetail ? visibleAreas.filter(area => matchesLevel(area.code) && PHOTO_SECTION_CODES.has(area.code)).flatMap(area => {
+  const photoMarkers = showDetail ? visibleAreas.filter(area => matchesLevel(area.code) && PHOTO_SECTION_CODES.has(area.code)
+    && !(detailStage && area.code === selected?.code)).flatMap(area => {
     const balcony = BALCONY_SEGMENTS.find(segment => segment.code === area.code);
     const shape = balcony?.sourcePath ?? area.path;
     if (!shape) return [];
@@ -953,7 +955,6 @@ export function TokyoDomeSeatLocator() {
             <button type="button" onClick={clearSelection} aria-label="座席の選択を解除"><X size={18}/></button>
           </div>
         </> : <div className={styles.overviewHeading}><strong>{seatLevel === "all" && direction === "all" ? "東京ドームの全体図" : `${SEAT_LEVELS.find(level => level.id === seatLevel)!.label}・${MAP_VIEWS[direction].label}`}</strong><span>区画をタップで拡大</span></div>}</div>
-        <SeatPhotoMapSummary selection={seatView} count={PHOTO_SECTION_CODES.size} onOpen={() => setPhotoRequest(request => request + 1)} />
         <div className={styles.mapFrame} data-tokyo-map-frame>
         {notice&&<p role="status" className={styles.mapNotice}>{notice}</p>}
         <div ref={mapCanvasRef} className={styles.map} data-view={showDetail ? "detail" : "overview"} data-whole={!selected && direction === "all" && seatLevel === "all" ? "" : undefined} aria-label="東京ドームの座席図"
@@ -1138,6 +1139,11 @@ export function TokyoDomeSeatLocator() {
             <span>全体</span>
           </button>}
         </div>
+          {/* The photo card sits on the map, where people are looking, instead of in a row above it that is off screen
+              while the map fills the screen. It overlays the map, so nothing around the map moves. */}
+          <div className={styles.photoOverlay}>
+            <SeatPhotoMapSummary selection={seatView} count={PHOTO_SECTION_CODES.size} onOpen={() => setPhotoRequest(request => request + 1)} />
+          </div>
           {/* Always present (every zone on the whole map) so the frame keeps one height at every zoom. */}
           <ul className={styles.zoneKey} aria-label="色の見方" data-zone-key="">
             {(showDetail && visibleZones.length > 0 ? visibleZones : ZONE_KEY).map(zone => <li key={zone.key}><i style={{ background: ZONE_COLORS[zone.key] }} />{zone.label}</li>)}

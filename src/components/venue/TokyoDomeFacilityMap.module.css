@@ -114,3 +114,12 @@
 .concourseShape { fill:#fff6fa; stroke:#c599ae; }
 .seatingShape { fill:#efe3e9; stroke:#d9c7d0; }
 .orientation { background:#fff8fb; color:#786570; }
+
+/* グラウンド（アリーナ）を図の中に描き、向きの目印にする */
+.fieldTurf { fill:#cfe7d6; stroke:#9cc9ab; stroke-width:.8; }
+.fieldDiamond { fill:#e9d3b8; stroke:#ffffff; }
+.fieldLabel { fill:#2f6a49; font-weight:900; letter-spacing:.04em; paint-order:stroke; stroke:#cfe7d6; stroke-width:3px; stroke-linejoin:round; }
+/* 3塁側・1塁側は図の左右下に置く */
+.sideTag { position:absolute; bottom:10px; z-index:2; padding:4px 10px; border:1px solid #e3cbd6; border-radius:999px; background:#ffffffeb; color:#653457; font-size:12px; font-weight:900; pointer-events:none; }
+.sideLeft { left:10px; }
+.sideRight { right:10px; }
