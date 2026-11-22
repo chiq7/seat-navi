@@ -7,7 +7,7 @@ export const OUTSIDE_EVIDENCE = {
   access: "https://www.tokyo-dome.co.jp/dome/access/",
   services: "https://www.tokyo-dome.co.jp/guide/",
   child: "https://www.tokyo-dome.co.jp/guide/child.html",
-  laqua: "https://www.laqua.jp/shops-restaurants/service/",
+  laqua: "https://www.tokyo-dome.co.jp/laqua/guide",
 } as const;
 
 // Independent schematic, not surveyed coordinates. Relationships were checked

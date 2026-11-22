@@ -190,6 +190,8 @@ export default async function VenuePage({ params, searchParams }: Props) {
             title={`${publicName}とは`}
             reviewDateLabel="施設情報の出典確認日"
             profile={profile}
+            foldSections={compact}
+            sourcesElsewhere={compact}
             className="py-8 sm:py-10"
           />
         )}
