@@ -56,15 +56,19 @@ function fieldOf(key:string,data:NonNullable<ReturnType<typeof diagram>>) {
   fieldCache.set(key,field);
   return field;
 }
+/** Concert-day field illustration (stage at the outfield end, arena blocks); 640×589, transparent background. */
+const FIELD_ART = { href: "/images/venues/tokyo-dome-field.webp", width: 640, height: 589 };
 function FieldLandmark({field,scale}:{field:{x:number;y:number;r:number};scale:number}) {
   const {x,y,r}=field;
-  // Every plan has home plate down the page: the infield stands sit around it, the outfield stands face it from the top.
-  const home=y+r*.75, second=y-r*.25, bases=y+r*.25;
-  const labelY=y-r*.55;
-  return <g className={styles.field} aria-hidden="true" data-field-landmark="">
-    <circle cx={x} cy={y} r={r} className={styles.fieldTurf}/>
-    <path d={`M${x} ${home} L${x+r*.5} ${bases} L${x} ${second} L${x-r*.5} ${bases} Z`} className={styles.fieldDiamond} strokeWidth={1.5/scale}/>
-    <text x={x} y={labelY} textAnchor="middle" dominantBaseline="central" fontSize={12/scale} className={styles.fieldLabel}>グラウンド・アリーナ</text>
+  // The illustration fills the open disc inside the bowl, stage up the page (the outfield end on every plan).
+  const width=r*2, height=width*FIELD_ART.height/FIELD_ART.width, top=y-height/2;
+  const tag=(label:string,cx:number,cy:number)=>{
+    const w=(label.length*11+16)/scale, h=20/scale;
+    return <g key={label}><rect x={cx-w/2} y={cy-h/2} width={w} height={h} rx={h/2} className={styles.fieldTag}/><text x={cx} y={cy} textAnchor="middle" dominantBaseline="central" fontSize={11/scale} className={styles.fieldTagText}>{label}</text></g>;
+  };
+  return <g aria-hidden="true" data-field-landmark="">
+    <image href={FIELD_ART.href} x={x-width/2} y={top} width={width} height={height} preserveAspectRatio="xMidYMid meet"/>
+    {tag("ステージ",x,top+height*.06)}
   </g>;
 }
 function floorSpots(spots:readonly DomeGuideSpot[],id:FacilityFloorId,layer:Layer) { return spots.filter((s)=>s.facilityAnchor?.floorId===id&&s.facilityAnchor.source===layer); }
