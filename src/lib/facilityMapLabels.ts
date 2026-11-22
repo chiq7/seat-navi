@@ -7,8 +7,13 @@ export type MapLabel = {
 export type PlacedMapLabel = MapLabel & { left: number; top: number };
 
 // Move labels only. The original point remains the end of the leader line.
-export function placeMapLabels(labels: readonly MapLabel[], width: number, height: number, options?: { facilitiesFirst?: boolean; keepFacilityAreas?: boolean }): PlacedMapLabel[] {
-  const placed: PlacedMapLabel[] = [];
+export function placeMapLabels(labels: readonly MapLabel[], width: number, height: number, options?: {
+  facilitiesFirst?: boolean; keepFacilityAreas?: boolean;
+  /** Boxes already on the map (centre x/y, width, height) that labels must avoid; they never move and are not returned. */
+  reserved?: readonly { x: number; y: number; width: number; height: number }[];
+}): PlacedMapLabel[] {
+  const reserved: PlacedMapLabel[] = (options?.reserved ?? []).map((box, index) => ({ id: `reserved-${index}`, kind: "facility", ...box, left: box.x, top: box.y }));
+  const placed: PlacedMapLabel[] = [...reserved];
   const priority = options?.facilitiesFirst ? { gate: 0, facility: 1, stairs: 2, passage: 3 } : { gate: 0, passage: 1, stairs: 2, facility: 3 };
   const overlap = (a: PlacedMapLabel, b: PlacedMapLabel) =>
     Math.max(0, Math.min(a.left + a.width / 2 + 3, b.left + b.width / 2 + 3) - Math.max(a.left - a.width / 2 - 3, b.left - b.width / 2 - 3)) *
@@ -44,9 +49,9 @@ export function placeMapLabels(labels: readonly MapLabel[], width: number, heigh
     if (best && !(label.kind === "passage" && bestScore >= 1000)) placed.push(best);
   }
   if(options?.facilitiesFirst) {
-    const facilities=placed.filter(p=>p.kind==="facility");
+    const facilities=placed.filter(p=>p.kind==="facility"&&!reserved.includes(p));
     if(facilities.some(a=>placed.some(b=>a.id!==b.id&&overlap(a,b)>0))) {
-      const fixed=placed.filter(p=>p.kind==="gate"||p.kind==="stairs");
+      const fixed=[...reserved,...placed.filter(p=>p.kind==="gate"||p.kind==="stairs")];
       // Group cards have variable dimensions. Repack whole cards, never hide members.
       const critical=[...fixed,...facilities];
       const arrangements:{fixed:PlacedMapLabel[];order:PlacedMapLabel[];compact?:boolean}[]=[
@@ -54,9 +59,9 @@ export function placeMapLabels(labels: readonly MapLabel[], width: number, heigh
         {fixed,order:[...facilities].sort((a,b)=>b.height-a.height||b.width-a.width)},
         {fixed,order:[...facilities].sort((a,b)=>a.y-b.y||a.x-b.x)},
         // On very small maps, gate labels may also move with their leader lines.
-        {fixed:[],order:[...critical].sort((a,b)=>b.width*b.height-a.width*a.height)},
-        {fixed:[],order:[...critical].sort((a,b)=>b.height-a.height||b.width-a.width)},
-        {fixed:[],order:[...critical].sort((a,b)=>b.width*b.height-a.width*a.height),compact:true},
+        {fixed:reserved,order:[...critical].filter(p=>!reserved.includes(p)).sort((a,b)=>b.width*b.height-a.width*a.height)},
+        {fixed:reserved,order:[...critical].filter(p=>!reserved.includes(p)).sort((a,b)=>b.height-a.height||b.width-a.width)},
+        {fixed:reserved,order:[...critical].filter(p=>!reserved.includes(p)).sort((a,b)=>b.width*b.height-a.width*a.height),compact:true},
       ];
       for(const arrangement of arrangements) {
         const repacked=new Map<string,PlacedMapLabel>();
@@ -72,10 +77,10 @@ export function placeMapLabels(labels: readonly MapLabel[], width: number, heigh
           repacked.set(label.id,best);
         }
         if(repacked.size!==arrangement.order.length)continue;
-        const reserved=[...arrangement.fixed,...repacked.values()];
-        return placed.flatMap(p=>repacked.has(p.id)?[repacked.get(p.id)!]:p.kind==="passage"&&reserved.some(r=>overlap(p,r)>0)?[]:[p]);
+        const taken=[...arrangement.fixed,...repacked.values()];
+        return placed.filter(p=>!reserved.includes(p)).flatMap(p=>repacked.has(p.id)?[repacked.get(p.id)!]:p.kind==="passage"&&taken.some(r=>overlap(p,r)>0)?[]:[p]);
       }
     }
   }
-  return placed;
+  return placed.filter(p=>!reserved.includes(p));
 }

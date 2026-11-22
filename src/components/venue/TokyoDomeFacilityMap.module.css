@@ -115,9 +115,6 @@
 .seatingShape { fill:#efe3e9; stroke:#d9c7d0; }
 .orientation { background:#fff8fb; color:#786570; }
 
-/* ライブ当日のグラウンド（ステージ・アリーナ）の絵を図の中に置き、向きの目印にする。絵はGeminiで作成 */
-.fieldTag { fill:#c8336f; stroke:#ffffff; stroke-width:1.5px; vector-effect:non-scaling-stroke; }
-.fieldTagText { fill:#ffffff; font-weight:900; letter-spacing:.04em; }
 /* 3塁側・1塁側は図の左右下に置く */
 .sideTag { position:absolute; bottom:10px; z-index:2; padding:4px 10px; border:1px solid #e3cbd6; border-radius:999px; background:#ffffffeb; color:#653457; font-size:12px; font-weight:900; pointer-events:none; }
 .sideLeft { left:10px; }

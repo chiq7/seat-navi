@@ -10,6 +10,7 @@ import { DOME_FACILITY_SIGNS as icons } from "./DomeFacilitySigns";
 import { DOME_GUIDE_SPOTS, type DomeGuideSpot, type GuideFloor } from "@/data/tokyoDomeVisitorGuide";
 import type { TokyoDomeVenueSeatSelection } from "@/lib/tokyoDomeVenueSelection";
 import { domeGuideLandmarks, resolveDomeGuideOrigin, domeFacilityCamera, type DomeGuideOrigin } from "@/lib/domeGuideLandmarks";
+import { TOKYO_DOME_FIELD_ART, fieldArtLayout } from "@/data/venueFieldArt";
 import styles from "./TokyoDomeFacilityMap.module.css";
 
 export function StairsIcon({size=18,...props}:SVGProps<SVGSVGElement>&{size?:number}) {
@@ -27,48 +28,10 @@ function diagram(id:FacilityFloorId,layer:Layer) {
   }
   return {crop:source.crop,paths:source.concourse.map((p)=>p.d),seating:source.seating.map((p)=>p.d),boundaries:source.boundaries.map((p)=>p.d)};
 }
-/**
- * The field inside the bowl, drawn as a landmark so the plan reads at a glance (which way the arena is, which arm is
- * the 3rd/1st-base side). The floor plans carry no field, so its centre and size come from a circle fitted through the
- * seating outline (the concourse when a plan has no seating): the field is the open disc inside it.
- */
-const fieldCache=new Map<string,{x:number;y:number;r:number}|null>();
-function fieldOf(key:string,data:NonNullable<ReturnType<typeof diagram>>) {
-  if(fieldCache.has(key))return fieldCache.get(key)!;
-  const source=data.seating.length?data.seating:data.paths;
-  const points=source.flatMap(d=>{const n=(d.match(/-?\d+(?:\.\d+)?/g)??[]).map(Number);const out:[number,number][]=[];for(let i=0;i+1<n.length;i+=2)out.push([n[i],n[i+1]]);return out;});
-  let field:{x:number;y:number;r:number}|null=null;
-  if(points.length>=6){
-    // Least-squares circle (Kasa): solve for x²+y² = a·x + b·y + c.
-    let sx=0,sy=0,sxx=0,syy=0,sxy=0,sxz=0,syz=0,sz=0;
-    for(const [x,y] of points){const z=x*x+y*y;sx+=x;sy+=y;sxx+=x*x;syy+=y*y;sxy+=x*y;sxz+=x*z;syz+=y*z;sz+=z;}
-    const m=[[sxx,sxy,sx],[sxy,syy,sy],[sx,sy,points.length]],v=[sxz,syz,sz];
-    const det=(q:number[][])=>q[0][0]*(q[1][1]*q[2][2]-q[1][2]*q[2][1])-q[0][1]*(q[1][0]*q[2][2]-q[1][2]*q[2][0])+q[0][2]*(q[1][0]*q[2][1]-q[1][1]*q[2][0]);
-    const d=det(m);
-    if(Math.abs(d)>1e-9){
-      const col=(k:number)=>det(m.map((row,i)=>row.map((value,j)=>j===k?v[i]:value)));
-      const x=col(0)/d/2,y=col(1)/d/2;
-      const distances=points.map(([px,py])=>Math.hypot(px-x,py-y)).sort((a,b)=>a-b);
-      const inner=distances[Math.floor(distances.length*.05)];
-      field={x,y,r:inner*(data.seating.length?.9:.55)};
-    }
-  }
-  fieldCache.set(key,field);
-  return field;
-}
-/** Concert-day field illustration (stage at the outfield end, arena blocks); 640×589, transparent background. */
-const FIELD_ART = { href: "/images/venues/tokyo-dome-field.webp", width: 640, height: 589 };
-function FieldLandmark({field,scale}:{field:{x:number;y:number;r:number};scale:number}) {
-  const {x,y,r}=field;
-  // The illustration fills the open disc inside the bowl, stage up the page (the outfield end on every plan).
-  const width=r*2, height=width*FIELD_ART.height/FIELD_ART.width, top=y-height/2;
-  const tag=(label:string,cx:number,cy:number)=>{
-    const w=(label.length*11+16)/scale, h=20/scale;
-    return <g key={label}><rect x={cx-w/2} y={cy-h/2} width={w} height={h} rx={h/2} className={styles.fieldTag}/><text x={cx} y={cy} textAnchor="middle" dominantBaseline="central" fontSize={11/scale} className={styles.fieldTagText}>{label}</text></g>;
-  };
+/** The field illustration (see src/data/venueFieldArt.ts for the image, its size and where it sits on each plan). */
+function FieldLandmark({box}:{box:{x:number;y:number;width:number;height:number}}) {
   return <g aria-hidden="true" data-field-landmark="">
-    <image href={FIELD_ART.href} x={x-width/2} y={top} width={width} height={height} preserveAspectRatio="xMidYMid meet"/>
-    {tag("ステージ",x,top+height*.06)}
+    <image href={TOKYO_DOME_FIELD_ART.image.href} x={box.x} y={box.y} width={box.width} height={box.height} preserveAspectRatio="xMidYMid meet"/>
   </g>;
 }
 function floorSpots(spots:readonly DomeGuideSpot[],id:FacilityFloorId,layer:Layer) { return spots.filter((s)=>s.facilityAnchor?.floorId===id&&s.facilityAnchor.source===layer); }
@@ -87,6 +50,10 @@ export default function TokyoDomeFacilityMap({purpose,floor,spots,mode,selectedI
   const map=useRef<HTMLDivElement>(null);
   useEffect(()=>{
     if(!map.current) return;
+    // Read the size now as well: the observer reports only after a rendering frame (never in a background tab), so
+    // the plan would otherwise be laid out at the default size first.
+    const now=map.current.getBoundingClientRect();
+    if(now.width>0&&now.height>0)setSize(size=>size.width===now.width&&size.height===now.height?size:{width:now.width,height:now.height});
     const observer=new ResizeObserver(([entry])=>setSize({width:entry.contentRect.width,height:entry.contentRect.height}));
     observer.observe(map.current);return()=>observer.disconnect();
   },[currentId]);
@@ -94,7 +61,10 @@ export default function TokyoDomeFacilityMap({purpose,floor,spots,mode,selectedI
 
   const data=diagram(currentId,layer);const floorInfo=FACILITY_FLOORS.find((f)=>f.id===currentId)!;
   const allShown=floorSpots(spots,currentId,layer);
-  const whole=data?.crop??[0,0,600,400];
+  const art=fieldArtLayout(TOKYO_DOME_FIELD_ART,`${currentId}:${layer}`);
+  // The camera's "whole plan" includes the illustration, so no screen size crops it.
+  const plan=data?.crop??[0,0,600,400];
+  const whole=art?.cameraArea?(()=>{const a=art.cameraArea,x0=Math.min(plan[0],a.x),y0=Math.min(plan[1],a.y),x1=Math.max(plan[0]+plan[2],a.x+a.width),y1=Math.max(plan[1]+plan[3],a.y+a.height);return [x0,y0,x1-x0,y1-y0];})():plan;
   const crop=domeFacilityCamera(whole,originHere);
   const [cx,cy,cw,ch]=crop;
   const inFrame=(p:{x:number;y:number})=>p.x>=cx&&p.x<=cx+cw&&p.y>=cy&&p.y<=cy+ch;
@@ -113,8 +83,10 @@ export default function TokyoDomeFacilityMap({purpose,floor,spots,mode,selectedI
     if((originHere&&!inFrame({x,y}))||(!chosen&&index%Math.max(1,Math.ceil(passages.length/4))!==0))return;
     labels.push({id:`passage-${label}`,kind:chosen?"gate":"passage",...position({x,y}),width:chosen?112:label.length*8+38,height:chosen?44:22,offset:{x:0,y:-12}});
   });
-  const groups=tokyoFacilityAreas(shown,currentId,layer,purpose).map(group=>{
-    const raw=[...new Set(group.members.map(item=>item.facilityAnchor!.kind))];
+  // Facility marks sit exactly on their place, never moved or tied to it by a line. Marks that would overlap there are
+  // shown as one mark counting both; passage and gate labels move around the marks instead.
+  const pinShape=(members:readonly DomeGuideSpot[])=>{
+    const raw=[...new Set(members.map(item=>item.facilityAnchor!.kind))];
     const mixed=raw.includes("mixed")||raw.includes("unisex")||(raw.includes("women")&&raw.includes("men"));
     const kinds=raw.filter(kind=>!mixed||!["women","men","mixed","unisex"].includes(kind));
     if(mixed)kinds.unshift("mixed");
@@ -123,12 +95,30 @@ export default function TokyoDomeFacilityMap({purpose,floor,spots,mode,selectedI
     const rows = compactPins ? Math.ceil(kinds.length / Math.max(1, columns)) : kinds.includes("accessible") && kinds.length > 1 ? 2 : 1;
     const width = compactPins ? Math.max(44, columns * 18 + 12) : Math.max(100, columns * 28 + 14);
     const height = compactPins ? Math.max(44, rows * 18 + 10) : rows * 26 + 38;
-    return {...group,...position(group),points:group.members.map(item=>({id:item.id,kind:item.facilityAnchor!.kind,...position(item.facilityAnchor!)})),kinds,columns,width,height};
-  }).filter(group=>group.points.length);
-  groups.forEach(group=>labels.push({id:group.id,kind:"facility",x:group.x,y:group.y,width:group.width,height:group.height}));
-  const placed=placeMapLabels(labels,size.width,size.height,{facilitiesFirst:true,keepFacilityAreas:true});
+    return {kinds,columns,width,height};
+  };
+  type Pin={id:string;area:string;x:number;y:number;members:DomeGuideSpot[];memberIds:string[];points:{id:string;kind:FacilityAnchor["kind"];x:number;y:number}[]}&ReturnType<typeof pinShape>;
+  let groups:Pin[]=tokyoFacilityAreas(shown,currentId,layer,purpose).map(group=>({
+    id:group.id,area:group.area,...position(group),members:[...group.members],memberIds:[...group.memberIds],
+    points:group.members.map(item=>({id:item.id,kind:item.facilityAnchor!.kind,...position(item.facilityAnchor!)})),
+    ...pinShape(group.members),
+  })).filter(group=>group.points.length);
+  const touching=(a:Pin,b:Pin)=>Math.abs(a.x-b.x)<(a.width+b.width)/2+2&&Math.abs(a.y-b.y)<(a.height+b.height)/2+2;
+  for(let merged=true;merged;){
+    merged=false;
+    for(let i=0;i<groups.length&&!merged;i++)for(let j=i+1;j<groups.length&&!merged;j++){
+      const a=groups[i],b=groups[j];
+      if(!touching(a,b))continue;
+      const members=[...a.members,...b.members],wa=a.members.length,wb=b.members.length;
+      const pin:Pin={id:`${a.id}+${b.id}`,area:`${a.area}・${b.area}`,x:(a.x*wa+b.x*wb)/(wa+wb),y:(a.y*wa+b.y*wb)/(wa+wb),
+        members,memberIds:[...a.memberIds,...b.memberIds],points:[...a.points,...b.points],...pinShape(members)};
+      groups=[...groups.slice(0,i),pin,...groups.slice(i+1,j),...groups.slice(j+1)];
+      merged=true;
+    }
+  }
+  groups=groups.map(g=>({...g,x:Math.max(g.width/2+4,Math.min(size.width-g.width/2-4,g.x)),y:Math.max(g.height/2+4,Math.min(size.height-g.height/2-4,g.y))}));
+  const placed=placeMapLabels(labels,size.width,size.height,{reserved:groups.map(g=>({x:g.x,y:g.y,width:g.width,height:g.height}))});
   const outfield=currentId==="1f-outfield";
-  const field=data?fieldOf(`${currentId}:${layer}`,data):null;
   const areaItems=shown.filter(item=>groupIds?.includes(item.id));
 
   return <div className={styles.root} data-floor={currentId} data-map-interaction="landmark-zoom" data-pin-density={compactPins ? "compact" : undefined} aria-label={`${floorInfo.label}の施設図`}>
@@ -137,7 +127,7 @@ export default function TokyoDomeFacilityMap({purpose,floor,spots,mode,selectedI
       <div className={styles.canvas}>
         <svg viewBox={`0 0 ${size.width} ${size.height}`} aria-hidden="true">
           <g transform={`translate(${dx},${dy}) scale(${fit}) translate(${-cx},${-cy})`}>
-            {field&&<FieldLandmark field={field} scale={fit}/>}
+            {art&&<FieldLandmark box={art}/>}
             <FloorGeometry data={data}/>
             {selectedHere&&<circle data-destination-anchor={selectedHere.id} cx={selectedHere.facilityAnchor!.x} cy={selectedHere.facilityAnchor!.y} r={9/fit} strokeWidth={3/fit} className={styles.selectedAnchor}/>}
             {originHere&&<circle data-origin-anchor={originHere.id} cx={originHere.x} cy={originHere.y} r={10/fit} className={styles.originAnchor} strokeWidth={3/fit}/>}
@@ -157,16 +147,20 @@ export default function TokyoDomeFacilityMap({purpose,floor,spots,mode,selectedI
       </svg>
       {placed.map((p)=>{
         const location={left:p.left,top:p.top};
+        if(p.kind==="facility")return null;
         if(p.kind==="gate"){
           const chosen=isOriginLabel(p.id),landmark=landmarks.find((l)=>l.id===`${currentId}:${p.id.replace("gate-","gate:").replace("passage-","passage:")}`);
           return <button key={p.id} type="button" className={`${styles.gateLabel} ${chosen?styles.originLabel:""}`} style={{...location,width:p.width}} data-landmark={p.id.startsWith("gate-")?"gate":"passage"} aria-pressed={chosen} aria-label={chosen?`選んだ場所：${landmark?.label}`:`${landmark?.label}を目印に選ぶ`} onClick={()=>{if(landmark)onOrigin(landmark);}}>{chosen&&<small>選んだ場所</small>}{p.id.startsWith("gate-")?`GATE ${p.id.replace("gate-","")}`:landmark?.label}</button>;
         }
         if(p.kind==="passage")return <span key={p.id} className={styles.passageLabel} style={{...location,width:p.width}} data-landmark="passage">{p.id.replace("passage-","").replace("–","〜")}<small>通路</small></span>;
-        const group=groups.find(g=>g.id===p.id)!;
+        return null;
+      })}
+      {groups.map(group=>{
+        const location={left:group.x,top:group.y};
         // The pin holding the facility open in the detail is highlighted too, so the detail's place is findable on the map.
         const expanded=group.points.some(point=>areaItems.some(item=>item.id===point.id)||point.id===selectedHere?.id);
         const label=`${group.area}：${group.kinds.map(kind=>kindNames[kind as FacilityAnchor["kind"]]).join("・")} ${group.points.length}件`;
-        return <button key={p.id} type="button" className={styles.pin} data-facility-group={group.id} data-group-size={group.points.length} data-spot-ids={group.points.map(point=>point.id).join(" ")} data-kind={group.kinds.length===1?group.kinds[0]:"area"} aria-label={label} title={label} aria-expanded={expanded} aria-pressed={expanded} style={{...location,width:p.width,height:p.height}} onClick={event=>onGroup([...group.memberIds],event.currentTarget)}>
+        return <button key={group.id} type="button" className={styles.pin} data-facility-group={group.id} data-group-size={group.points.length} data-spot-ids={group.points.map(point=>point.id).join(" ")} data-kind={group.kinds.length===1?group.kinds[0]:"area"} aria-label={label} title={label} aria-expanded={expanded} aria-pressed={expanded} style={{...location,width:group.width,height:group.height}} onClick={event=>onGroup([...group.memberIds],event.currentTarget)}>
           <span className={styles.areaIcons} style={{gridTemplateColumns:`repeat(${group.columns},${compactPins ? 18 : 24}px)`}}>{group.kinds.map(kind=>{
             const facilityKind=kind as FacilityAnchor["kind"],Icon=icons[facilityKind];
             return <span key={kind} data-area-kind={kind} className={styles.areaIcon} style={!compactPins && kind==="accessible"?{gridColumn:"1 / -1"}:undefined}><Icon size={compactPins ? 17 : 24}/></span>;
