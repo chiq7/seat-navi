@@ -348,7 +348,6 @@ export function TokyoDomeSeatLocator() {
   const [selectedSeat, setSelectedSeat] = useState<number | null>(null);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
-  const [offsideArea, setOffsideArea] = useState<SeatArea | null>(null);
   const selectedArea = selected ? AREA_BY_CODE.get(selected.code) : undefined;
   const selectedSpecial = selected ? SPECIAL_BY_CODE.get(selected.code) : undefined;
   const selectedLabel = selectedArea?.label ?? selectedSpecial?.label;
@@ -849,7 +848,6 @@ export function TokyoDomeSeatLocator() {
   });
   function clearSelection() {
     holdMapInPlace();
-    setOffsideArea(null);
     setSelected(null); setSelectedRow(null); setSelectedSeat(null); setNotice(""); setError(""); setCandidates([]);
   }
 
@@ -869,17 +867,11 @@ export function TokyoDomeSeatLocator() {
     const section=parseTokyoDomeSection(area.code);if(!section)return;
     const nextDirection = directionForArea(area);
     const changesSide = direction !== "all" && direction !== nextDirection;
-    if (source === "map" && changesSide) {
-      setError(""); setCandidates([]);
-      setNotice(`${area.code}は${MAP_VIEWS[nextDirection].label}の区画です。`);
-      setOffsideArea(area);
-      return;
-    }
+    // A block tapped on the map is selected at once, even on another side; the side buttons follow it.
     holdMapInPlace();
-    setOffsideArea(null);
     const shouldMove=source!=="map"||!selected||interactiveViewBox.width>360;
     setFocusedCode(area.code);setSeatLevel(levelForPrefix(section.prefix));setSelected(section);setSelectedRow(null);setSelectedSeat(null);setError("");setCandidates([]);
-    setNotice(changesSide ? `${area.code}は${MAP_VIEWS[nextDirection].label}の区画です。${MAP_VIEWS[nextDirection].label}に切り替えました。` : "");
+    setNotice(changesSide && source !== "map" ? `${area.code}は${MAP_VIEWS[nextDirection].label}の区画です。${MAP_VIEWS[nextDirection].label}に切り替えました。` : "");
     if(shouldMove)showSelectedView(section,area.label);else{resetGestures();}
     if (source !== "ticket") setDirection(nextDirection);
   }
@@ -889,7 +881,7 @@ export function TokyoDomeSeatLocator() {
     if (area) { chooseArea(area,source); return; }
     const special = SPECIAL_BY_CODE.get(code), section = parseTokyoDomeSection(code);
     if (!special || !section) return;
-    setSeatLevel("all"); setSelected(section); setSelectedRow(null); setSelectedSeat(null); setNotice(""); setOffsideArea(null); setError("");
+    setSeatLevel("all"); setSelected(section); setSelectedRow(null); setSelectedSeat(null); setNotice(""); setError("");
     showSelectedView(section, special.label);
   }
 
@@ -979,9 +971,6 @@ export function TokyoDomeSeatLocator() {
         </> : <div className={styles.overviewHeading}><strong>{seatLevel === "all" && direction === "all" ? "東京ドームの全体図" : `${SEAT_LEVELS.find(level => level.id === seatLevel)!.label}・${MAP_VIEWS[direction].label}`}</strong><span>区画をタップで拡大</span></div>}</div>
         <SeatPhotoMapSummary selection={seatView} count={PHOTO_SECTION_CODES.size} onOpen={() => setPhotoRequest(request => request + 1)} emptySlot={false} />
         {notice&&<p role="status" className={styles.hint}>{notice}</p>}
-        {offsideArea && <button type="button" className="zr-focus min-h-11 rounded-full border border-[#d4adb9] px-4 text-sm font-bold" onClick={() => chooseCode(offsideArea.code)}>
-          {MAP_VIEWS[directionForArea(offsideArea)].label}に切り替えて{offsideArea.code}を表示
-        </button>}
         <div className={styles.mapFrame} data-tokyo-map-frame>
         <div ref={mapCanvasRef} className={styles.map} data-view={showDetail ? "detail" : "overview"} data-whole={!selected && direction === "all" && seatLevel === "all" ? "" : undefined} aria-label="東京ドームの座席図"
           style={{ touchAction: interactiveViewBox.width >= FULL_MAP_VIEW_BOX.width * .99 ? "pan-y" : "none" }}

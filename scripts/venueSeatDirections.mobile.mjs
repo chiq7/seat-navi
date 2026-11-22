@@ -131,15 +131,11 @@ async function tokyo(page,record) {
   }
   assert.ok(point,"No touch target for D22");
   await page.touchscreen.tap(point.x,point.y);
-  const info=frame.getByRole("status").filter({hasText:"D22は1塁側の区画です。"});
-  await info.waitFor();
-  assert.equal(await direction.inputValue(),"third");
-  assert.doesNotMatch(await selected.innerText(),/D22/);
-  record.checks.push({action:"D22をタップ",point,direction:await direction.inputValue(),message:await info.innerText()});
-  await saveScreen(page,info,"tokyo-d22-confirm-390");
-  await frame.getByRole("button",{name:"1塁側に切り替えてD22を表示"}).tap();
-  assert.equal(await direction.inputValue(),"first");assert.match(await selected.innerText(),/D22/);
-  await frame.getByRole("status").filter({hasText:"1塁側に切り替えました。"}).waitFor();
+  // A block tapped on the map is selected at once, even on another side; the side follows it without a message.
+  await selected.filter({hasText:"D22"}).waitFor();
+  assert.equal(await direction.inputValue(),"first");
+  record.checks.push({action:"D22をタップ",point,direction:await direction.inputValue()});
+  await saveScreen(page,selected,"tokyo-d22-selected-390");
   await direction.selectOption("third");
   await form.getByRole("button",{name:"区画名で探す"}).tap();
   await form.getByLabel("ブロック・区画名").fill("Ｄ２２");
