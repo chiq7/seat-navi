@@ -28,13 +28,14 @@ export default function RealtimeFeedSection({ items, live }: RealtimeFeedSection
             <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-white text-[#e84a80]">
               <Zap size={16} aria-hidden="true" />
             </span>
-            <h2 className="text-[18px] font-black tracking-[-0.04em]">{staleAt ? "保存済みの公演速報" : "リアルタイム速報"}</h2>
+            <h2 className="text-[18px] font-black tracking-[-0.04em]">{staleAt ? "保存済みの報告" : "みんなの新着報告"}</h2>
           </div>
         </div>
 
         {failed && (
           <p className="mb-2 text-sm" role="status">速報を更新できませんでした。{lastSuccessAt && "前回の表示を残しています。"}<button type="button" className="zr-focus ml-2 min-h-11 underline" onClick={retry}>再試行</button></p>
         )}
+        {!staleAt && <p className="mb-1 text-[12px] text-[#5d4f57]">ファンから届いた当落・座席・セトリの報告の新しい順です。</p>}
         {!staleAt && lastSuccessAt && <p className="mb-2 text-xs text-[#68525e]">最終確認：<time dateTime={lastSuccessAt}>{formatPublicDataTime(lastSuccessAt)}</time>{refreshing && " · 更新中"}</p>}
         {staleAt && <p className="mb-2 text-sm" role="status">{formatPublicDataTime(staleAt)}に保存した速報です。現在の受付状況は公式案内をご確認ください。</p>}
         {publishedItems.length > 0 ? (

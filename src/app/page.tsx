@@ -113,7 +113,7 @@ function UpcomingEventsSkeleton() {
 function RealtimeFeedSkeleton() {
   return (
     <section className="mt-3" aria-hidden="true">
-      <SectionHeader icon={<Zap size={16} color="#FF6B9D" />} title="リアルタイム速報" />
+      <SectionHeader icon={<Zap size={16} color="#FF6B9D" />} title="みんなの新着報告" />
       <div className="mx-4 divide-y divide-gray-100 rounded-xl border border-gray-100 bg-white shadow-sm">
         {[0, 1, 2].map((index) => (
           <div key={index} className="animate-pulse px-3 py-3">

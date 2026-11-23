@@ -16,7 +16,8 @@ import { predictionDetailHref, type PredictionView } from "@/lib/arena-map/predi
 
 const ignoreAddress = () => {};
 
-export default function SeatDiscoveryCard({ data, favoriteControl, venuePhotoCounts, preview = false, historical = false }: { data: SeatDiscoveryData; favoriteControl?: ReactNode; venuePhotoCounts?: Readonly<Record<string, number>>; preview?: boolean; historical?: boolean; sourceNote?: string }) {
+/** `showExample`: the empty "表示例" map is shown once per list (first card); later cards without reports stay short. */
+export default function SeatDiscoveryCard({ data, favoriteControl, venuePhotoCounts, preview = false, historical = false, showExample = true }: { data: SeatDiscoveryData; favoriteControl?: ReactNode; venuePhotoCounts?: Readonly<Record<string, number>>; preview?: boolean; historical?: boolean; sourceNote?: string; showExample?: boolean }) {
   const [chosenEventId, setChosenEventId] = useState<string>();
   const days = data.events.map(event => ({
     event,
@@ -38,7 +39,7 @@ export default function SeatDiscoveryCard({ data, favoriteControl, venuePhotoCou
   const tourTitle = event?.title.startsWith(data.artistName) ? event.title.slice(data.artistName.length).trim() : event?.title;
   const ready = data.status === "ready";
   const hasMap = ready && Boolean(summary?.hasMap);
-  const showMapExample = ready && !data.limited && !historical;
+  const showMapExample = showExample && ready && !data.limited && !historical;
   const venueId = getPublicVenueGuideId(event?.venue_id, event?.venue);
   const venueSeatHref = getPublicVenueSeatGuideHref(venueId);
   const venueName = venueId ? getPublicVenueName(venueId, event?.venue ?? "") : event?.venue;

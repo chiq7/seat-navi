@@ -48,7 +48,7 @@ export default function UpcomingEventsSection({ events: initialEvents, favoriteU
       {staleAt && events.length === 0 && <p className="text-sm">保存分に開催予定はありません。</p>}
       {!staleAt && !failed && !events.length && !discoveryCards.length && <p className="text-sm text-[#706670]">現在、掲載中の開催予定はありません。</p>}
       <div className="grid gap-3 md:grid-cols-2 md:gap-x-5">
-        {visibleCards.map(data => <SeatDiscoveryCard key={data.artistSlug} data={data} venuePhotoCounts={venuePhotoCounts} favoriteControl={<FavoriteArtistButton artistSlug={data.artistSlug} initialUserId={favoriteUserId} initialFavorite={favoriteSlugs.has(data.artistSlug)} />} />)}
+        {visibleCards.map((data, index) => <SeatDiscoveryCard key={data.artistSlug} data={data} showExample={index === 0} venuePhotoCounts={venuePhotoCounts} favoriteControl={<FavoriteArtistButton artistSlug={data.artistSlug} initialUserId={favoriteUserId} initialFavorite={favoriteSlugs.has(data.artistSlug)} />} />)}
         {visibleEvents.map((item) => (
           <UpcomingEventCard
             key={item.id}
@@ -66,7 +66,7 @@ export default function UpcomingEventsSection({ events: initialEvents, favoriteU
             <ChevronDown size={15} className="transition-transform group-open:rotate-180" aria-hidden="true" />
           </summary>
           <div className="mt-5 grid gap-3 md:grid-cols-2">
-            {remainingCards.map(data => <SeatDiscoveryCard key={data.artistSlug} data={data} venuePhotoCounts={venuePhotoCounts} favoriteControl={<FavoriteArtistButton artistSlug={data.artistSlug} initialUserId={favoriteUserId} initialFavorite={favoriteSlugs.has(data.artistSlug)} />} />)}
+            {remainingCards.map(data => <SeatDiscoveryCard key={data.artistSlug} data={data} showExample={false} venuePhotoCounts={venuePhotoCounts} favoriteControl={<FavoriteArtistButton artistSlug={data.artistSlug} initialUserId={favoriteUserId} initialFavorite={favoriteSlugs.has(data.artistSlug)} />} />)}
             {remainingEvents.map((item) => (
               <UpcomingEventCard
                 key={item.id}

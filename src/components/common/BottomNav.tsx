@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect } from "react";
-import { Camera, LayoutGrid, ListMusic, Map, SquarePen } from "lucide-react";
+import { Building2, Camera, Home, LayoutGrid, ListMusic, Map, Search, SquarePen, UserRound } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 export type ActiveTab = "artist" | "report" | "event" | "after-report" | "setlist";
@@ -62,6 +62,8 @@ function Item({
   );
 }
 
+const NAV_CLASS = "fixed bottom-0 left-1/2 z-50 flex min-h-[72px] w-full max-w-[620px] -translate-x-1/2 items-center rounded-t-[24px] border border-[#f0dfe6] bg-white/95 px-1.5 pb-[env(safe-area-inset-bottom)] shadow-[0_-12px_35px_rgba(105,63,80,0.09)] backdrop-blur-xl md:bottom-5 md:rounded-[24px] md:pb-0 lg:bg-white lg:shadow-[0_10px_30px_rgba(105,63,80,0.07)]";
+
 export function BottomNav({ active, artistSlug, eventId }: Props) {
   const router = useRouter();
   const pathname = usePathname();
@@ -83,10 +85,24 @@ export function BottomNav({ active, artistSlug, eventId }: Props) {
       .forEach((href) => router.prefetch(href));
   }, [afterHref, artistHref, pathname, reportHref, router, seatHref, setlistHref]);
 
+  // Without an artist or show there is nothing for the artist tabs to open, so show the site-wide menu instead of
+  // three greyed-out tabs.
+  if (!artistSlug && !eventId) return (
+    <nav data-bottom-nav data-bottom-nav-site className={NAV_CLASS} aria-label="サイトのナビゲーション">
+      <div className="flex w-full items-center justify-around gap-0.5">
+        <Item href="/" isActive={false} label="ホーム" Icon={Home} />
+        <Item href="/report" isActive={active === "report"} label="投稿する" Icon={SquarePen} />
+        <Item href="/venues" isActive={false} label="会場" Icon={Building2} />
+        <Item href="/search" isActive={false} label="検索" Icon={Search} />
+        <Item href="/mypage" isActive={false} label="マイページ" Icon={UserRound} />
+      </div>
+    </nav>
+  );
+
   return (
     <nav
       data-bottom-nav
-      className="fixed bottom-0 left-1/2 z-50 flex min-h-[72px] w-full max-w-[620px] -translate-x-1/2 items-center rounded-t-[24px] border border-[#f0dfe6] bg-white/95 px-1.5 pb-[env(safe-area-inset-bottom)] shadow-[0_-12px_35px_rgba(105,63,80,0.09)] backdrop-blur-xl md:bottom-5 md:rounded-[24px] md:pb-0 lg:bg-white lg:shadow-[0_10px_30px_rgba(105,63,80,0.07)]"
+      className={NAV_CLASS}
       aria-label="ページ内ナビゲーション"
     >
       <div className="flex w-full items-center justify-around gap-0.5">
@@ -105,7 +121,7 @@ export function BottomNav({ active, artistSlug, eventId }: Props) {
         <Item
           href={seatHref}
           isActive={active === "event"}
-          label="座席表"
+          label="公演"
           Icon={Map}
         />
         <Item
