@@ -15,6 +15,7 @@ import { AccountLink } from "@/components/auth/AccountLink";
 import { ShareButton } from "@/components/common/ShareButton";
 import { Header } from "@/components/common/Header";
 import { PageLoadingShell } from "@/components/common/PageLoadingShell";
+import { excludeHiddenLiveReports, isHiddenLiveReport } from "@/data/hiddenLiveReports";
 
 const RATING_IMAGES: Record<number, string> = {
   5: "/images/reports/overall-rating/rating-5-kamiseki.png",
@@ -87,35 +88,6 @@ type RelatedReport = {
   memo: string | null;
 };
 
-const AD_DEMO_REPORT: ReportRow = {
-  id: "ad-demo-live-report",
-  user_id: null,
-  event_id: "ad-demo-live-event",
-  seat_area_type: "stand_1f",
-  seat_block: "A",
-  seat_row: "20",
-  seat_number: "85",
-  seat_view_photo_paths: ["/images/ads/ad-demo-seat-view.png"],
-  main_stage: "5",
-  center_stage: "5",
-  fansa_rating: "4",
-  torokko: "5",
-  kyakukudari: "2",
-  silver_tape_rows: 1,
-  memo: "メインステージはほぼ正面で、肉眼でも表情を追いやすかったです。ステージ全体の照明やフォーメーションも見渡せて、演出を取りこぼしにくい席でした。\n\nセンターステージに来たときは距離感が一気に近くなり、トロッコも通路側を通るタイミングではかなり近く感じました。銀テは自分の列にも届く量で、推しを近くで見たい人にも、花道や全体演出を楽しみたい人にもおすすめできる神席だと思います。",
-  created_at: "2026-09-13T10:00:00.000Z",
-};
-
-const AD_DEMO_EVENT: CrawledEvent = {
-  id: "ad-demo-live-event",
-  title: "現地レポの投稿例",
-  venue: "サンプル会場",
-  venue_id: "ad-demo-venue",
-  date: "2026-09-13",
-  genre: "kpop",
-  artist_slug: null,
-};
-
 function withSuffix(v: string | null | undefined, suffix: string): string | null {
   if (!v) return null;
   return v.endsWith(suffix) ? v : `${v}${suffix}`;
@@ -167,7 +139,6 @@ export function LiveReportDetailClient() {
 function LiveReportDetailPageInner() {
   const searchParams = useSearchParams();
   const reportId = searchParams.get("reportId");
-  const isAdDemo = searchParams.get("demo") === "ad";
 
   const [status, setStatus] = useState<Status>("loading");
   const [report, setReport] = useState<ReportRow | null>(null);
@@ -177,14 +148,6 @@ function LiveReportDetailPageInner() {
 
   /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
-    if (isAdDemo) {
-      setReport(AD_DEMO_REPORT);
-      setEvent(AD_DEMO_EVENT);
-      setRelated([]);
-      setAuthor(null);
-      setStatus("ok");
-      return;
-    }
     if (!reportId) { setStatus("no-report"); return; }
     let cancelled = false;
 
@@ -196,7 +159,7 @@ function LiveReportDetailPageInner() {
         .eq("id", reportId)
         .maybeSingle();
       if (cancelled) return;
-      if (!reportData) { setStatus("not-found"); return; }
+      if (!reportData || isHiddenLiveReport((reportData as { id: string }).id)) { setStatus("not-found"); return; }
       const r = reportData as ReportRow;
 
       if (r.user_id) {
@@ -218,9 +181,9 @@ function LiveReportDetailPageInner() {
 
       let relatedRows: RelatedReport[] = [];
       if (r.seat_block) {
-        const { data: relatedData } = await supabase
+        const { data: relatedData } = await excludeHiddenLiveReports(supabase
           .from("after_reports")
-          .select("id, seat_area_type, seat_description, seat_block, seat_row, seat_number, memo")
+          .select("id, seat_area_type, seat_description, seat_block, seat_row, seat_number, memo"))
           .eq("event_id", r.event_id)
           .eq("seat_block", r.seat_block)
           .neq("id", r.id)
@@ -238,7 +201,7 @@ function LiveReportDetailPageInner() {
 
     load();
     return () => { cancelled = true; };
-  }, [isAdDemo, reportId]);
+  }, [reportId]);
   /* eslint-enable react-hooks/set-state-in-effect */
 
   if (status === "loading") {
@@ -314,8 +277,7 @@ function LiveReportDetailPageInner() {
   ].filter((m) => (m.kind === "gauge" ? m.raw !== null : m.value !== null));
 
   return (
-    <div className={`community-page pb-20 font-sans${isAdDemo ? " ad-demo-report" : ""}`}>
-      {isAdDemo ? <style jsx global>{`nextjs-portal { display: none !important; }`}</style> : null}
+    <div className={`community-page pb-20 font-sans`}>
       <section className="community-hero">
         <Header breadcrumbParents={[{ href: "/report", label: "レポートを投稿" }]}
           title="現地レポ"
@@ -332,10 +294,10 @@ function LiveReportDetailPageInner() {
             </div>
           }
         />
-        <div className={`zr-container ${isAdDemo ? "pb-5 pt-3" : "pb-9 pt-5"}`}>
+        <div className={`zr-container pb-9 pt-5`}>
           <p className="community-eyebrow">LIVE VIEW REPORT</p>
-          <h1 className={`community-title ${isAdDemo ? "mt-2" : "mt-3"}`}>この席から、<br /><span className="text-[#dd8053]">こう見えました。</span></h1>
-          <div className={`${isAdDemo ? "mt-3" : "mt-6"} rounded-[22px] border border-white/80 bg-white/72 p-4 shadow-sm backdrop-blur-sm`}>
+          <h1 className={`community-title mt-3`}>この席から、<br /><span className="text-[#dd8053]">こう見えました。</span></h1>
+          <div className={`mt-6 rounded-[22px] border border-white/80 bg-white/72 p-4 shadow-sm backdrop-blur-sm`}>
             <p className="text-[14px] font-black leading-6">{tourName || event.title}</p>
             <p className="mt-1 text-[11px] font-bold text-[#817981]">{artist?.name ?? "アーティスト"} / {getEventDisplayVenueName(event.venue_id, event.venue)} / {fmtDate(event.date)}</p>
             <p className="mt-1 text-[9px] font-bold text-[#958d93]">投稿日 {fmtPostDate(report.created_at)}{isTestData ? " / テストデータ" : ""}</p>
@@ -343,8 +305,8 @@ function LiveReportDetailPageInner() {
         </div>
       </section>
 
-      <main className={`zr-container ${isAdDemo ? "py-5" : "py-8"}`}>
-        <section aria-label="現地レポ写真" className={`relative w-full overflow-hidden bg-[#f3e8ee] ${isAdDemo ? "aspect-[16/8]" : "aspect-[16/10]"}`}>
+      <main className={`zr-container py-8`}>
+        <section aria-label="現地レポ写真" className={`relative w-full overflow-hidden bg-[#f3e8ee] aspect-[16/10]`}>
           {photos.length > 0 ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img src={photos[0]} alt="座席から見た会場の様子" className="h-full w-full object-cover" />
@@ -358,19 +320,19 @@ function LiveReportDetailPageInner() {
           )}
         </section>
 
-        <section className={`community-panel ${isAdDemo ? "mt-5 p-4" : "mt-9 p-5 sm:p-7"}`} aria-labelledby="seat-view-title">
-          <div className={`flex items-start justify-between gap-4 border-b border-[#ded8dc] ${isAdDemo ? "relative min-h-[110px] pb-3" : "pb-5"}`}>
+        <section className={`community-panel mt-9 p-5 sm:p-7`} aria-labelledby="seat-view-title">
+          <div className={`flex items-start justify-between gap-4 border-b border-[#ded8dc] pb-5`}>
             <div className="min-w-0 flex-1">
               <p className="artist-kicker">Seat View</p>
               <h2 id="seat-view-title" className="artist-heading">この席の見え方</h2>
               {(seatAreaText || blockText || rowSeatParts.length > 0) && (
-                <div className={isAdDemo ? "mt-2 pr-[120px]" : "mt-4"}>
+                <div className="mt-4">
                   <p className="text-[18px] font-black">{[seatAreaText, blockText].filter(Boolean).join(" ") || "座席エリア不明"}</p>
                   {rowSeatParts.length > 0 && <p className="mt-1 text-[12px] font-bold text-[#817981]">{rowSeatParts.join(" / ")}</p>}
                 </div>
               )}
             </div>
-            {ratingImg && overallLevel && <Image src={ratingImg} alt={`総合評価 ${overallLevel}`} width={132} height={66} className={`h-auto shrink-0 object-contain ${isAdDemo ? "absolute bottom-3 right-6 w-[112px]" : "w-[86px]"}`} />}
+            {ratingImg && overallLevel && <Image src={ratingImg} alt={`総合評価 ${overallLevel}`} width={132} height={66} className={`h-auto shrink-0 object-contain w-[86px]`} />}
           </div>
 
           {meterRows.length > 0 && (
@@ -379,7 +341,7 @@ function LiveReportDetailPageInner() {
                 const color = METER_COLORS[m.label];
                 const value = m.kind === "gauge" ? meterValue(m.raw) : 0;
                 return (
-                  <div key={m.label} className={`grid grid-cols-[30px_76px_1fr_42px] items-center gap-2 ${isAdDemo ? "min-h-[52px]" : "min-h-[66px]"}`}>
+                  <div key={m.label} className={`grid grid-cols-[30px_76px_1fr_42px] items-center gap-2 min-h-[66px]`}>
                     <Image src={METER_ICONS[m.label]} alt="" width={30} height={30} className="object-contain" />
                     <span className="text-[10px] font-black text-[#544e52]">{m.label}</span>
                     {m.kind === "gauge" ? (
@@ -392,9 +354,9 @@ function LiveReportDetailPageInner() {
             </div>
           )}
 
-          <div className={`border-t border-[#ded8dc] ${isAdDemo ? "pt-3" : "pt-5"}`}>
+          <div className={`border-t border-[#ded8dc] pt-5`}>
             <p className="text-[9px] font-black tracking-[0.18em] text-[#817981]">COMMENT</p>
-            <p className={`mt-3 break-words text-[13px] font-medium leading-7 text-[#544e52]${isAdDemo ? " max-w-full whitespace-pre-wrap break-all pr-2 text-[12px] leading-6" : ""}`}>{report.memo || "コメントはありません"}</p>
+            <p className={`mt-3 break-words text-[13px] font-medium leading-7 text-[#544e52]`}>{report.memo || "コメントはありません"}</p>
           </div>
           {author?.show_x_on_posts && author.x_handle && (
             <a href={`https://x.com/${author.x_handle}`} target="_blank" rel="noopener noreferrer" className="zr-focus mt-5 inline-flex min-h-11 items-center gap-1.5 border border-[#ded8dc] px-3 text-[10px] font-black text-[#1c171b] no-underline">

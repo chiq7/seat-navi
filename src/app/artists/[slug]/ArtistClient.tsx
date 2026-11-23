@@ -43,6 +43,7 @@ import { isEventPredictionEnabled } from "@/lib/arena-map/eventPredictionInput";
 import { eligibleTicketReports, UNVERIFIED_TICKET_IDS } from "@/lib/ticketAnalyticsEligibility";
 import type { SeatPhotoVenue } from "@/lib/serverSeatPhotoVenues";
 import { getEventDisplayVenueName, getPublicVenueGuideId } from "@/lib/publicVenueGuides";
+import { excludeHiddenLiveReports } from "@/data/hiddenLiveReports";
 
 /**
  * 公演データ以外は端末側で取得するため、初回だけ下部に軽い骨組みを出す。
@@ -419,10 +420,10 @@ export function ArtistClient({
     }
     let cancelled = false;
     async function loadVenueAfterReports() {
-      const { data } = await supabase
+      const { data } = await excludeHiddenLiveReports(supabase
         .from("after_reports")
         .select("id, event_id, user_id, seat_area_type, seat_description, seat_block, seat_row, seat_number, seat_view_photo_paths, main_stage, center_stage, fansa_rating, torokko, kyakukudari, silver_tape_rows, fansa, memo, created_at")
-        .in("event_id", venueEventIds)
+        .in("event_id", venueEventIds))
         .order("created_at", { ascending: false })
         .limit(200);
       const reports = (data as AfterReportCard[]) ?? [];

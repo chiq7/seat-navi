@@ -6,6 +6,8 @@
 .avatar { position: relative; width: 44px; height: 44px; flex-shrink: 0; overflow: hidden; border-radius: 9px; background: #fff1f6; }
 .avatar > [data-artist-group-photo] { width: 100%; height: 100%; }
 .identity { min-width: 0; flex: 1; }
+.identityLink { display: grid; min-height: 44px; align-content: center; color: inherit; text-decoration: none; }
+.identityLink .tour { display: block; }
 .title { display: inline-flex; align-items: center; gap: 4px; color: #40383d; font-size: 20px; font-weight: 900; line-height: 1.2; overflow-wrap: anywhere; }
 .title svg { flex-shrink: 0; }
 .tour { margin-top: 3px; color: #706670; font-size: 12px; line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }

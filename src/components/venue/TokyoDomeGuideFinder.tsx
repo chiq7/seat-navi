@@ -151,7 +151,13 @@ export function TokyoDomeGuideFinder({ onReady }: { onReady?: () => void } = {})
       const id=(event as CustomEvent<unknown>).detail;
       if(typeof id!=="string"||!OUTSIDE_STATIONS.some(station=>station.id===id))return;
       setPurpose("locker");setArea("outside");setQuery("");setNearbyStation(id);setOutsideResetKey(key=>key+1);setSelectedSpotId(null);setGroupIds(null);setSelectedZone(null);setOrigin(null);
-      requestAnimationFrame(()=>document.getElementById("dome-outside-map")?.scrollIntoView({behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"instant":"smooth",block:"start"}));
+      // Wait for the outside map to render, then bring the chosen station itself (not the top of the map) into view.
+      requestAnimationFrame(()=>requestAnimationFrame(()=>{
+        const behavior=window.matchMedia("(prefers-reduced-motion: reduce)").matches?"instant":"smooth";
+        const station=document.querySelector<HTMLElement>(`#dome-outside-map [data-outside-station="${id}"]`);
+        if(station)station.scrollIntoView({behavior,block:"center"});
+        else document.getElementById("dome-outside-map")?.scrollIntoView({behavior,block:"start"});
+      }));
     };
     window.addEventListener(TOKYO_DOME_ACCESS_EVENT,openStation);
     window.addEventListener(TOKYO_DOME_SEAT_SELECTION_EVENT,handler);

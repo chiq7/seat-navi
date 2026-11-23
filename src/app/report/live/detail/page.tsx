@@ -3,10 +3,9 @@ import { notFound } from "next/navigation";
 import { LiveReportDetailClient } from "./LiveReportDetailClient";
 import { getCachedSeoReport, SITE_URL } from "@/lib/seoData";
 import { buildSocialMetadata } from "@/lib/metadata";
-import { buildFileImageMetadata } from "@/lib/fileImageMetadata";
 import { canIndexLiveReport, liveReportTitle } from "@/lib/liveReportSeo";
 
-type PageProps = { searchParams: Promise<{ reportId?: string | string[]; demo?: string | string[] }> };
+type PageProps = { searchParams: Promise<{ reportId?: string | string[] }> };
 
 /**
  * このページは元々 "use client" のため generateMetadata を持てない。
@@ -15,18 +14,6 @@ type PageProps = { searchParams: Promise<{ reportId?: string | string[]; demo?: 
  */
 export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
   const params = await searchParams;
-  const isAdDemo = params.demo === "ad";
-  if (isAdDemo) {
-    return {
-      ...buildFileImageMetadata({
-        path: "/report/live/detail?demo=ad",
-        title: "現地レポの表示例｜ちけレポ",
-        description: "座席からの見え方や会場の様子を伝える現地レポの表示例です。",
-        robots: { index: false, follow: true },
-      }),
-      alternates: { canonical: null },
-    };
-  }
   const rawReportId = params.reportId;
   const reportId = typeof rawReportId === "string" ? rawReportId : null;
   if (!reportId) notFound();
@@ -51,7 +38,6 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
 
 export default async function Page({ searchParams }: PageProps) {
   const params = await searchParams;
-  if (params.demo === "ad") return <LiveReportDetailClient />;
   const rawReportId = params.reportId;
   const reportId = typeof rawReportId === "string" ? rawReportId : null;
   if (!reportId || !(await getCachedSeoReport(reportId))) notFound();

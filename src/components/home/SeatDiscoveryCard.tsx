@@ -56,10 +56,11 @@ export default function SeatDiscoveryCard({ data, favoriteControl, venuePhotoCou
             ? <ArtistGroupPhoto key={data.artistSlug} slug={data.artistSlug} name={data.artistName} />
             : <Image src={data.image} alt="" fill sizes="44px" className="object-cover" />}
         </div>
-        <div className={styles.identity}>
-          <Link href={links.artist} className={"zr-focus " + styles.title}>{data.artistName}<ArrowUpRight size={16} aria-hidden="true" /></Link>
-          <p className={styles.tour}>{tourTitle || (ready ? "公演の座席情報" : "公演情報を読み込めませんでした")}</p>
-        </div>
+        {/* Name and tour together open the artist page, the hub for every date of this artist. */}
+        <Link href={links.artist} className={"zr-focus " + styles.identity + " " + styles.identityLink}>
+          <span className={styles.title}>{data.artistName}<ArrowUpRight size={16} aria-hidden="true" /></span>
+          <span className={styles.tour}>{tourTitle || (ready ? "公演の座席情報" : "公演情報を読み込めませんでした")}</span>
+        </Link>
         {favoriteControl}
       </header>
 
@@ -101,7 +102,7 @@ export default function SeatDiscoveryCard({ data, favoriteControl, venuePhotoCou
           <Link href={links.report} className={"zr-focus " + styles.secondary}><Plus size={16} aria-hidden="true" />座席を報告</Link>
         </div>
         <Link href={links.map} data-home-event-link className={"zr-focus " + styles.detailLink}>
-          {hasMap && <Map size={16} aria-hidden="true" />}{discoveryDateLabel(event.date)}の座席・セトリを見る<ArrowUpRight size={14} aria-hidden="true" />
+          {hasMap && <Map size={16} aria-hidden="true" />}{discoveryDateLabel(event.date)}の座席・アリーナ図を見る<ArrowUpRight size={14} aria-hidden="true" />
         </Link>
       </div>}
 

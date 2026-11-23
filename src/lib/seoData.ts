@@ -22,6 +22,7 @@ import { hasSetlistSongs, readSetlistReviewSource } from "@/lib/setlistHelpers";
 import { canIndexPerformanceSetlist } from "@/lib/setlistSeo";
 import { getJstDateString } from "@/lib/artistPageData";
 import { readSupabasePages } from "@/lib/supabase/readPages";
+import { excludeHiddenLiveReports } from "@/data/hiddenLiveReports";
 
 export const SITE_URL = "https://tixrepo.com";
 
@@ -99,7 +100,7 @@ export async function getArtistContentCounts(slug: string): Promise<{ setlists: 
 
   const [setlistResult, reportResult] = await Promise.all([
     supabase.from("setlists").select("event_id, items").in("event_id", eventIds),
-    supabase.from("after_reports").select("event_id").in("event_id", eventIds),
+    excludeHiddenLiveReports(supabase.from("after_reports").select("event_id")).in("event_id", eventIds),
   ]);
   if (setlistResult.error || reportResult.error) {
     throw new Error("Public content counts could not be loaded", { cause: setlistResult.error ?? reportResult.error });

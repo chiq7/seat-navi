@@ -52,8 +52,9 @@ function clientFor(responses: Record<string, Result>) {
   return { client: client as unknown as SupabaseClient, calls };
 }
 
-test("the nearest upcoming performance opens first; an explicit earlier show retains its songs", () => {
-  assert.deepEqual(selectInitialSetlist(events, records, "2026-10-31"), { eventId: "next", items: [], source: null });
+test("the latest show with songs opens first; with no songs anywhere the nearest upcoming show opens", () => {
+  assert.deepEqual(selectInitialSetlist(events, records, "2026-10-31"), { eventId: "recent", items, source: null });
+  assert.deepEqual(selectInitialSetlist(events, [], "2026-10-31"), { eventId: "next", items: [], source: null });
   assert.deepEqual(selectInitialSetlist(events, records, "2026-10-31", "recent"), { eventId: "recent", items, source: null });
 });
 test("explicit submission links retain an empty upcoming performance", () => {
@@ -134,6 +135,7 @@ test("strict server event lookup rejects a partial/failed artist query", async (
 });
 function seoWith(responses: Record<string, Result>, archivedArtists: string[] = []) {
   return loadModule<typeof import("../src/lib/seoData.ts")>("src/lib/seoData.ts", {
+  "@/data/hiddenLiveReports": { excludeHiddenLiveReports: (query: unknown) => query, isHiddenLiveReport: () => false },
     "@/lib/setlistHelpers": setlistHelpers,
     "@/lib/eventIndexContent": eventIndexContent,
     "@/lib/eventPublication": eventPublication,
@@ -197,6 +199,7 @@ test("realtime feed excludes empty setlist updates while retaining actual songs 
     external_seat_observations: { data: [], error: null }, seat_reports: { data: [], error: null },
     after_reports: { data: [{ id: "report", event_id: "old", created_at: "2020-01-03" }], error: null } });
   const home = loadModule<typeof import("../src/lib/homeData.ts")>("src/lib/homeData.ts", {
+  "@/data/hiddenLiveReports": { excludeHiddenLiveReports: (query: unknown) => query, isHiddenLiveReport: () => false },
     "@/lib/artists": artists, "@/lib/eventTitle": eventTitle, "@/lib/setlistHelpers": setlistHelpers,
     "@/lib/setlistSeo": setlistSeo,
     "@/lib/artistPageData": { getJstDateString: () => "2026-11-17" },
@@ -291,6 +294,7 @@ test("event metadata and sitemap switch together on the first and last real cont
     "@/lib/serverSeatPhotoVenues":await import("../src/lib/serverSeatPhotoVenues.ts"), "@/lib/structuredData":{}, "@/lib/seoProfiles":{},
     "@/lib/serverEventData":{}, "@/lib/metadata":metadata, "@/lib/serverStatsData":{}, "@/data/eventDayPublications":{},
     "@/lib/eventDayPublication":{}, "@/lib/publicVenueGuides":await import("../src/lib/publicVenueGuides.ts"), "@/lib/eventIndexContent":eventIndexContent,
+    "@/lib/setlistHelpers":await import("../src/lib/setlistHelpers.ts"), "@/lib/setlistSeo":await import("../src/lib/setlistSeo.ts"),
     "@/lib/eventPublication":eventPublication, "@/lib/eventPageMetadata":await import("../src/lib/eventPageMetadata.ts"),
     "@/lib/publicEventCatalogContext":{getRequestPublicEventCatalog:async()=>({events: [...events, ...sessions, ...sapporoShows, ...archived]}),getFallbackEventIndex:async()=>fallback},
     "@/lib/supabase/public":{createSupabasePublicClient:()=>client}, "@/lib/seoData":seo, "@/lib/eventDisplay":eventDisplay,

@@ -9,6 +9,8 @@ type CompactHeroIntroProps = {
   icon?: ReactNode;
   children?: ReactNode;
   className?: string;
+  /** Let a long title (an artist name plus a date) wrap instead of running off the screen. */
+  wrapTitle?: boolean;
 };
 
 /** アーティストTOP以外で使う、機能名が1行で伝わるコンパクトなヒーロー本文。 */
@@ -21,6 +23,7 @@ export function CompactHeroIntro({
   icon,
   children,
   className,
+  wrapTitle = false,
 }: CompactHeroIntroProps) {
   return (
     <div
@@ -40,7 +43,7 @@ export function CompactHeroIntro({
           <p className="text-[9px] font-black uppercase tracking-[0.17em] text-[#ef4f87]">
             {eyebrow}
           </p>
-          <Heading className="mt-1 min-w-0 whitespace-nowrap text-[clamp(20px,6vw,36px)] font-black leading-none tracking-[-0.055em] text-[#40383d]">
+          <Heading className={`mt-1 min-w-0 ${wrapTitle ? "text-balance leading-tight" : "whitespace-nowrap leading-none"} text-[clamp(20px,6vw,36px)] font-black tracking-[-0.055em] text-[#40383d]`}>
             {title}<span className="text-[#ef4f87]">{accent}</span>
           </Heading>
           {subtitle ? (

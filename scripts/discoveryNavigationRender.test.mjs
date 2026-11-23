@@ -95,7 +95,7 @@ test("top banners expose all three destinations as ordinary links before hydrati
   const { default: HomeFeatureBanners } = await import("../src/components/home/HomeFeatureBanners.tsx");
   const html = render(HomeFeatureBanners, {});
   const links = [...html.matchAll(/<a\b[^>]*href="([^"]+)"/g)].map(match => match[1]);
-  assert.deepEqual(links, ["/#upcoming-events", "/venues", "/venues#seat-photos"]);
+  assert.deepEqual(links, ["/venues", "/#upcoming-events", "/venues#seat-photos"]);
   assert.match(html, /<h1[^>]*>ちけレポでできること<\/h1>/);
 });
 

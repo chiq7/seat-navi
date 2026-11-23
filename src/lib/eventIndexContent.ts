@@ -3,6 +3,7 @@ import { hasSetlistSongs } from "./setlistHelpers";
 import { readSupabasePages } from "./supabase/readPages";
 import { publishedSeatSourceEventIds } from "./seatSourceArchive";
 import { X_SEAT_POST_MAX_AGE_MS, X_SEAT_POST_PREFIX } from "./external-seats/xSeatPosts";
+import { excludeHiddenLiveReports } from "@/data/hiddenLiveReports";
 
 type PostRow = { id: string; event_id: string; created_at: string | null };
 export type IndexSetlist = PostRow & { updated_at: string | null; items: unknown; review_source: unknown };
@@ -18,6 +19,7 @@ function contributionsQuery(client: SupabaseClient, table: PostTable, all: boole
     : table === "external_seat_observations" ? "id,event_id,created_at:observed_at" : "id,event_id,created_at";
   const query = client.from(table).select(columns, all ? { count: "exact" } : {});
   if (table === "fan_seat_predictions") query.eq("approved", true);
+  if (table === "after_reports") excludeHiddenLiveReports(query);
   if (table === "external_seat_observations") {
     const cutoff = new Date(now.getTime() - X_SEAT_POST_MAX_AGE_MS).toISOString();
     // Identical to the visibility window on the event map for normalized X post URLs.

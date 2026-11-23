@@ -5,9 +5,12 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   Sparkles,
-  Camera,
   Clock,
   ChevronRight,
+  Map as MapIcon,
+  Music2,
+  MapPin,
+  MessageSquareText,
 } from "lucide-react";
 import { supabase } from "@/lib/supabase/client";
 import { getEventDisplayVenueName } from "@/lib/publicVenueGuides";
@@ -55,6 +58,8 @@ function imageSrc(path: string): string {
   return supabase.storage.from("fan-seat-predictions").getPublicUrl(path).data.publicUrl;
 }
 
+const eventTileClass = "zr-focus flex min-h-12 items-center gap-2 rounded-xl border border-[#e9cdd9] bg-white px-3 py-2 text-[13px] font-black text-[#85274d]";
+
 function fmtShortDate(d: string | null): string {
   if (!d) return "日程未定";
   const [y, m, day] = d.split("-").map(Number);
@@ -71,7 +76,8 @@ export function EventDetailClient({
   seatSourceGuide,
   liveReportIds = [],
   contributionCounts = null,
-  setlistEventId,
+  setlistHref,
+  venueSeatHref = null,
   sourceSeatCount = 0,
   sourceMapCount = 0,
   arenaPhotoCount,
@@ -92,7 +98,9 @@ export function EventDetailClient({
   seatSourceGuide?: ReactNode;
   liveReportIds?: string[];
   contributionCounts?: PublicEventCounts | null;
-  setlistEventId?: string;
+  /** Verified per-show setlist page when there is one, otherwise the setlist list opened on this show. */
+  setlistHref?: string;
+  venueSeatHref?: string | null;
   sourceSeatCount?: number;
   sourceMapCount?: number;
   arenaPhotoCount?: number;
@@ -358,7 +366,7 @@ export function EventDetailClient({
           <>
           <section className="community-hero">
               <Header
-                title="座席表"
+                title="公演"
                 breadcrumbLabel={event.title} breadcrumbParents={artist ? [{ href: backHref, label: artist.name }] : []} existingBreadcrumbSchema
                 backHref={backHref}
                 backLabel="アーティストページへ戻る"
@@ -375,10 +383,11 @@ export function EventDetailClient({
               />
 
               <CompactHeroIntro
-                eyebrow="座席ガイド"
-                title={officialSeatMap || published.length || !confirmedEmpty ? "公演の" : venueMiniGuide ? "座席情報を" : "座席表と"}
-                accent={officialSeatMap ? "座席表" : published.length || !confirmedEmpty ? "座席・ライブ情報" : venueMiniGuide ? "募集中" : "アリーナ予想"}
+                eyebrow="公演"
+                title={artist ? artist.name + " " : ""}
+                accent={fmtShortDate(event.date)}
                 subtitle={event.title}
+                wrapTitle
                 icon={<Sparkles size={21} strokeWidth={1.8} className="text-[#6176d7]" />}
               >
                 <CompactEventSummary date={event.date} venue={venueName} className="mt-3" />
@@ -386,14 +395,22 @@ export function EventDetailClient({
                 {published.length > 0 && <p data-event-content-summary className="mt-2 text-sm font-bold">
                   この公演の{published.map(([label, count]) => `${label}${count}件`).join("・")}
                 </p>}
-                {artist && setlistEventId && <Link className="zr-focus mr-2 inline-flex min-h-11 items-center text-sm font-bold underline"
-                  href={`/artists/${artist.slug}/setlist?event=${encodeURIComponent(setlistEventId)}`}>この公演のセトリを見る</Link>}
-                {seatSourceGuide && <a href="#seat-source-posts" data-event-seat-source-summary className="zr-focus mr-2 mt-3 inline-flex min-h-11 items-center rounded-xl border border-[#d5adbd] bg-white px-4 text-sm font-bold text-[#85274d]">
-                  {[sourceSeatCount > 0 && `座席レポ${sourceSeatCount}件`, sourceMapCount > 0 && `アリーナ図の投稿${sourceMapCount}件`].filter(Boolean).join("・")}を見る
-                </a>}
-                {arenaPhotoMap && <a href="#arena-seat-photos" className="zr-focus mt-3 inline-flex min-h-11 items-center gap-2 rounded-xl bg-[#8a2850] px-4 text-sm font-bold text-white">
-                  <Camera size={17} aria-hidden="true" />この公演のアリーナ図・{featuredPhotoBlock ? featuredPhotoBlock + "の" : "座席"}写真を見る
-                </a>}
+                {/* One place for this date: the same choices as the artist page's tabs, as tiles. */}
+                <nav aria-label="この公演の情報" className="mt-3 grid grid-cols-2 gap-2" data-event-sections>
+                  <a href={arenaPhotoMap ? "#arena-seat-photos" : "#seat-map"} className={eventTileClass}>
+                    <MapIcon size={18} aria-hidden="true" className="shrink-0" /><span className="min-w-0"><span className="block">アリーナ図・座席</span>
+                    {featuredPhotoBlock && <span className="block truncate text-[10px] font-bold text-[#8a6f7d]">{featuredPhotoBlock}の写真あり</span>}</span>
+                  </a>
+                  {setlistHref && <Link href={setlistHref} prefetch={false} className={eventTileClass} data-event-setlist-link>
+                    <Music2 size={18} aria-hidden="true" className="shrink-0" /><span>セトリ</span>
+                  </Link>}
+                  {venueSeatHref && <Link href={venueSeatHref} prefetch={false} className={eventTileClass}>
+                    <MapPin size={18} aria-hidden="true" className="shrink-0" /><span>会場の座席表</span>
+                  </Link>}
+                  {liveReportIds.length > 0 && artist && <Link href={`/artists/${artist.slug}/after-reports?event=${encodeURIComponent(eventId)}`} prefetch={false} className={eventTileClass}>
+                    <MessageSquareText size={18} aria-hidden="true" className="shrink-0" /><span>現地レポ</span>
+                  </Link>}
+                </nav>
                 {catalogUpdatedAt && (catalogStale || catalogReadFailed) && (
                   <p className="mt-3 text-xs" role="status">
                     公演情報は{formatPublicDataTime(catalogUpdatedAt)}時点です。
@@ -402,46 +419,6 @@ export function EventDetailClient({
                 )}
               </CompactHeroIntro>
             </section>
-
-          {venueMiniGuide && (
-            <section id="seat-map" className="zr-container scroll-mt-4 pt-5" aria-labelledby="event-empty-title" data-event-empty-state={confirmedEmpty || undefined}>
-              
-              <h2 id="event-empty-title" className="artist-heading">{confirmedEmpty && reportsReady ? "座席の報告を募集中" : "会場の座席情報"}</h2>
-              {confirmedEmpty && reportsReady && <p className="mt-3 text-[13px] leading-6 text-[#71636c]">この公演の座席報告はまだありません。</p>}
-              <div className="mt-4 border-y border-[#ded8dc] bg-white px-4 py-3">
-                <p className="text-[14px] font-black text-[#40383d]">{venueMiniGuide.venueName}</p>
-                <p className="mt-1 truncate text-[10px] font-bold text-[#817981]">{[venueMiniGuide.capacityLabel, venueMiniGuide.areaLabel].filter(Boolean).join("｜")}</p>
-              </div>
-              {venueMiniGuide.archiveHref && (
-                <Link data-event-venue-archive href={venueMiniGuide.archiveHref} className="zr-focus mt-2 inline-flex min-h-11 items-center text-[11px] font-black text-[#7655b2]">
-                  過去の座席レポを見る →
-                </Link>
-              )}
-              <Link
-                href={`/report/ticket?event=${encodeURIComponent(eventId)}`}
-                className="zr-focus mt-3 flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[#f43679] px-5 text-[12px] font-black text-white"
-              >
-                <Sparkles size={16} aria-hidden="true" />座席を報告
-              </Link>
-            </section>
-          )}
-          {venuePhotoGuide}
-          {tourDates}
-          {!arenaPhotoMap && <div className="zr-container pt-4" data-event-map-pending>
-            <p className="rounded-lg bg-[#f8f3f6] px-3 py-2 text-sm text-[#634c59]">
-              <strong>この公演のアリーナ配置図は準備中です。</strong>
-              {sourceMapCount > 0 && " 下の「アリーナ図の投稿」で元投稿を確認できます。"}
-            </p>
-          </div>}
-          {seatSourceGuide}
-          {liveReportIds.length > 0 && <section className="zr-container py-5" aria-label="この公演の現地レポ">
-            <h2 className="artist-heading">参加者の現地レポ</h2>
-            <ul className="mt-2">{liveReportIds.map((id, i) => <li key={id}>
-              <Link prefetch={false} className="zr-focus inline-flex min-h-11 items-center font-bold text-[#8a2850] underline" href={`/report/live/detail?reportId=${encodeURIComponent(id)}`}>
-                {venueName}の現地レポを読む{liveReportIds.length > 1 ? `（${i + 1}）` : ""}
-              </Link>
-            </li>)}</ul>
-          </section>}
 
           <CompactEventPickerSection
             headingId="event-picker-title"
@@ -457,7 +434,6 @@ export function EventDetailClient({
             artistName={artist?.name}
             footer={<PerformanceSeatLinks event={event} officialSeatMap={officialSeatMap} arenaPhotoCount={arenaPhotoCount} venueGuideInBanner={Boolean(venuePhotoGuide)} />}
           />
-
           {dayGuideHref && <section className="zr-container pt-5" aria-label="公演当日の案内">
             <Link href={dayGuideHref} data-event-day-guide-link
               className="zr-focus flex min-h-16 items-center gap-3 rounded-2xl border border-[#e9bfd1] bg-[#fff6fa] px-4 py-3 text-[#8e2858]">
@@ -467,10 +443,35 @@ export function EventDetailClient({
               <ChevronRight size={20} aria-hidden="true" className="shrink-0" />
             </Link>
           </section>}
-
-          <PerformanceTicketTiming event={event} />
-          <PriorityPerformanceGuide event={event} />
           {arenaPhotoMap}
+          {!arenaPhotoMap && <div className="zr-container pt-4" data-event-map-pending>
+            <p className="rounded-lg bg-[#f8f3f6] px-3 py-2 text-sm text-[#634c59]">
+              <strong>この公演のアリーナ配置図は準備中です。</strong>
+              {sourceMapCount > 0 && " 下の「アリーナ図の投稿」で元投稿を確認できます。"}
+            </p>
+          </div>}
+          {venueMiniGuide && (
+            <section id="seat-map" className="zr-container scroll-mt-4 pt-5" aria-labelledby="event-empty-title" data-event-empty-state={confirmedEmpty || undefined}>
+              
+              <h2 id="event-empty-title" className="artist-heading">{confirmedEmpty && reportsReady ? "座席の報告を募集中" : "会場の座席情報"}</h2>
+              {confirmedEmpty && reportsReady && <p className="mt-3 text-[13px] leading-6 text-[#71636c]">この公演の座席報告はまだありません。</p>}
+              <div className="mt-4 border-y border-[#ded8dc] bg-white px-4 py-3">
+                <p className="text-[14px] font-black text-[#40383d]">{venueMiniGuide.venueName}</p>
+                <p className="mt-1 truncate text-[10px] font-bold text-[#817981]">{[venueMiniGuide.capacityLabel, venueMiniGuide.areaLabel].filter(Boolean).join("｜")}</p>
+              </div>
+              {venueMiniGuide.archiveHref && (
+                <Link data-event-venue-archive href={venueMiniGuide.archiveHref} className={eventTileClass + " mt-2 w-full justify-between"}>
+                  <span>この会場の過去の座席レポ</span><ChevronRight size={18} aria-hidden="true" className="shrink-0" />
+                </Link>
+              )}
+              <Link
+                href={`/report/ticket?event=${encodeURIComponent(eventId)}`}
+                className="zr-focus mt-3 flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[#f43679] px-5 text-[12px] font-black text-white"
+              >
+                <Sparkles size={16} aria-hidden="true" />座席を報告
+              </Link>
+            </section>
+          )}
           {!venueMiniGuide && (<>
           <section id="seat-map" className="scroll-mt-4 py-8 sm:py-10" aria-labelledby="seat-map-title">
               <div className="zr-container">
@@ -615,6 +616,19 @@ export function EventDetailClient({
               )}
             </section>
           </>)}
+          <PerformanceTicketTiming event={event} />
+          <PriorityPerformanceGuide event={event} />
+          {seatSourceGuide}
+          {liveReportIds.length > 0 && <section className="zr-container py-5" aria-label="この公演の現地レポ">
+            <h2 className="artist-heading">参加者の現地レポ</h2>
+            <ul className="mt-2">{liveReportIds.map((id, i) => <li key={id}>
+              <Link prefetch={false} className="zr-focus inline-flex min-h-11 items-center font-bold text-[#8a2850] underline" href={`/report/live/detail?reportId=${encodeURIComponent(id)}`}>
+                {venueName}の現地レポを読む{liveReportIds.length > 1 ? `（${i + 1}）` : ""}
+              </Link>
+            </li>)}</ul>
+          </section>}
+          {venuePhotoGuide}
+          {tourDates}
           </>
         ) : (
           <div className="zr-container py-24 text-center text-sm font-bold text-[#817981]">公演が見つかりません</div>

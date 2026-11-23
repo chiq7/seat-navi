@@ -86,7 +86,7 @@ export default function UpcomingEventCard({
       </Link>
       <div className="flex flex-wrap items-center justify-between gap-x-3 border-t border-[#f0e3e8] py-1 text-xs font-bold text-[#a41c53]">
         {venueHref && <Link data-home-venue-link className="zr-focus inline-flex min-h-11 items-center" href={venueHref}>{venueName}の座席表{photoCount !== undefined && `（${photoCount}枚）`}</Link>}
-        <Link data-home-event-link className="zr-focus inline-flex min-h-11 items-center" href={`/events/${encodeURIComponent(item.id)}`}>{item.date}の座席・セトリを見る</Link>
+        <Link data-home-event-link className="zr-focus inline-flex min-h-11 items-center" href={`/events/${encodeURIComponent(item.id)}`}>{item.date}の座席・アリーナ図を見る</Link>
       </div>
       <FavoriteArtistButton
         artistSlug={item.artistSlug}

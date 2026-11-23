@@ -296,6 +296,7 @@ test("event SSR links to the venue and previews photos only with zero to three r
     "@/lib/publicEventCatalogContext": { getRequestPublicEventCatalog: async () => ({ events: [eventRow, { ...eventRow, id: "other-day", date: "2026-10-02" }], updatedAt: "2026-10-01T00:00:00Z" }) },
     "@/lib/eventPublication": await import("../src/lib/eventPublication.ts"),
     "@/lib/eventPageMetadata": await import("../src/lib/eventPageMetadata.ts"),
+    "@/lib/setlistHelpers": await import("../src/lib/setlistHelpers.ts"), "@/lib/setlistSeo": await import("../src/lib/setlistSeo.ts"),
     "@/lib/eventIndexContent": {readEventContributions: async (_client,ids) => {
       reportReads.push(ids);
       if (count === null) throw Error("offline");
@@ -325,7 +326,8 @@ test("event SSR links to the venue and previews photos only with zero to three r
       assert.equal(html.match(/data-event-venue-photo=/g)?.length ?? 0, visible ? 6 : 0);
       assert.equal(html.includes("data-event-empty-state="), result === 0);
       assert.equal(html.includes("data-event-content-summary="), Boolean(result));
-      assert.ok(html.indexOf("data-event-venue-banner=") < html.indexOf("data-compact-event-picker="));
+      // The show page leads with this date (switcher, arena map, reports); the venue banner follows.
+      assert.ok(html.indexOf("data-event-venue-banner=") > html.indexOf("data-compact-event-picker="));
     });
   }
   await t.test("a public venue with no photos keeps its seat map without a photo count", async () => {

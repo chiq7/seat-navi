@@ -8,6 +8,7 @@ import { formatXSeatPostLocation, isCurrentXSeatPost, isXSeatPostBlock, isXSeatP
 
 import { hasSetlistSongs } from "@/lib/setlistHelpers";
 import { filterPublishedFeedItems } from "@/lib/realtimeFeed";
+import { excludeHiddenLiveReports } from "@/data/hiddenLiveReports";
 
 export type UpcomingEvent = {
   id: string;
@@ -228,9 +229,11 @@ export function feedItemHref(
   itemId: string,
 ): string {
   if (type === "現地レポ") return `/report/live/detail?reportId=${encodeURIComponent(itemId)}`;
-  if (type === "セトリ") return `/artists/${encodeURIComponent(artistSlug)}/setlist`;
+  if (type === "セトリ") return `/artists/${encodeURIComponent(artistSlug)}/setlist?event=${encodeURIComponent(eventId)}`;
   if (type === "当落レポ") return `/artists/${encodeURIComponent(artistSlug)}#ticket-data`;
   if (type === "座席予想") return `/events/${encodeURIComponent(eventId)}#fan-prediction-title`;
+  // Land on the seat map that shows this report, not the top of the show page.
+  if (type === "座席報告") return `/events/${encodeURIComponent(eventId)}?seat_report=${encodeURIComponent(itemId)}#seat-map`;
   return `/events/${encodeURIComponent(eventId)}`;
 }
 
@@ -415,9 +418,9 @@ export async function getRealtimeFeedItems(
       .eq("approved", true)
       .order("created_at", { ascending: false })
       .limit(FEED_SOURCE_LIMIT),
-    client
+    excludeHiddenLiveReports(client
       .from("after_reports")
-      .select("id, event_id, user_id, created_at, seat_area_type, seat_description, seat_block, seat_row, seat_number, seat_view_photo_paths")
+      .select("id, event_id, user_id, created_at, seat_area_type, seat_description, seat_block, seat_row, seat_number, seat_view_photo_paths"))
       .order("created_at", { ascending: false })
       .limit(FEED_SOURCE_LIMIT),
     client

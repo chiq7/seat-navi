@@ -73,24 +73,6 @@
   background: #fff9fb;
 }
 
-.controls {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.playback {
-  display: grid;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-  color: #8a3858;
-  border-radius: 50%;
-}
-
-.playback:hover {
-  background: #fff3f7;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .card {
     transition: none;

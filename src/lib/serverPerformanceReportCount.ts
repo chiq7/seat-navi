@@ -1,6 +1,7 @@
 import "server-only";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { createSupabasePublicClient } from "./supabase/public";
+import { isHiddenLiveReport } from "@/data/hiddenLiveReports";
 
 /** The preview uses 0–3; 4 represents four or more. Bound both reads on popular shows. */
 type ReportSummary = { count: number; reportIds: string[] };
@@ -9,10 +10,11 @@ async function queryPerformanceReportSummary(client: SupabaseClient, ids: readon
   if (!ids.length) return null;
   const [seats, reports] = await Promise.all([
     countSeats ? client.from("seat_reports").select("event_id").in("event_id", ids).limit(4) : { data: [], error: null },
-    client.from("after_reports").select("id").in("event_id", ids).limit(4),
+    client.from("after_reports").select("id").in("event_id", ids).limit(8),
   ]);
   if (seats.error || reports.error || !seats.data || !reports.data) return null;
-  return { count: Math.min(4, seats.data.length + reports.data.length), reportIds: reports.data.map(row => row.id) };
+  const visible = reports.data.filter(row => !isHiddenLiveReport(row.id)).slice(0, 4);
+  return { count: Math.min(4, seats.data.length + visible.length), reportIds: visible.map(row => row.id) };
 }
 
 export async function queryPerformanceReportCount(client: SupabaseClient, ids: readonly string[]): Promise<number | null> {

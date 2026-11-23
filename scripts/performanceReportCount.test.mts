@@ -8,7 +8,8 @@ const code = ts.transpileModule(readFileSync("src/lib/serverPerformanceReportCou
 }).outputText;
 const local = { exports: {} as typeof import("../src/lib/serverPerformanceReportCount") };
 new Function("require", "exports", code)((id: string) => {
-  assert.ok(["server-only","./supabase/public"].includes(id)); return {};
+  assert.ok(["server-only","./supabase/public","@/data/hiddenLiveReports"].includes(id));
+  return id === "@/data/hiddenLiveReports" ? { isHiddenLiveReport: (reportId: string) => reportId === "hidden-test" } : {};
 }, local.exports);
 
 function client(seats: string[], reports: string[], failed = false) {
@@ -19,7 +20,7 @@ function client(seats: string[], reports: string[], failed = false) {
       return {in(key: string, ids: string[]) {
         assert.equal(key, "event_id");
         return {limit(max: number) {
-          assert.equal(max, 4);
+          assert.equal(max, table === "seat_reports" ? 4 : 8);
           const rows = (table === "seat_reports" ? seats : reports).filter(id => ids.includes(id)).slice(0, max);
           return {data: failed ? null : rows.map((id, i) => table === "seat_reports" ? {event_id: id} : {id: `report-${i}`}), error: failed ? Error("offline") : null};
         }};

@@ -2,7 +2,8 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import type { CrawledEvent } from "@/lib/types";
 import type { AfterReportCard } from "@/lib/artistPageTypes";
 import type { PostAuthor } from "@/lib/postAuthors";
-import { readSetlistReviewSource, type EditableItem, type SetlistReviewSource } from "@/lib/setlistHelpers";
+import { hasSetlistSongs, readSetlistReviewSource, type EditableItem, type SetlistReviewSource } from "@/lib/setlistHelpers";
+import { excludeHiddenLiveReports } from "@/data/hiddenLiveReports";
 
 export type SetlistRecord = { event_id: string; items: EditableItem[]; source?: SetlistReviewSource | null };
 export type InitialSetlist = { eventId: string | null; items: EditableItem[]; source: SetlistReviewSource | null };
@@ -24,7 +25,11 @@ export function selectInitialSetlist(
     .sort((a, b) => (a.date ?? "").localeCompare(b.date ?? "") || a.id.localeCompare(b.id));
   const past = events.filter(event => event.date && event.date < today)
     .sort((a, b) => (b.date ?? "").localeCompare(a.date ?? "") || a.id.localeCompare(b.id));
-  const eventId = (requested ?? upcoming[0] ?? past[0])?.id ?? null;
+  // Without a requested show, open the latest past show that has songs (verified first), so visitors see a
+  // finished setlist instead of the empty next show. The picker still reaches upcoming shows for editing.
+  const withSongs = past.filter(event => hasSetlistSongs(byEvent.get(event.id)?.items));
+  const latestWithSongs = withSongs.find(event => byEvent.get(event.id)?.source) ?? withSongs[0];
+  const eventId = (requested ?? latestWithSongs ?? upcoming[0] ?? past[0])?.id ?? null;
   const record = eventId ? byEvent.get(eventId) : undefined;
   return { eventId, items: record?.items ?? [], source: record?.source ?? null };
 }
@@ -42,8 +47,8 @@ export async function queryPublicSetlists(client: SupabaseClient, events: Crawle
 
 export async function queryPublicAfterReports(client: SupabaseClient, events: CrawledEvent[]): Promise<InitialAfterReports> {
   if (!events.length) return { events, reports: [], authors: [] };
-  const { data, error } = await client.from("after_reports")
-    .select("id, event_id, user_id, seat_area_type, seat_description, seat_block, seat_row, seat_number, seat_view_photo_paths, main_stage, center_stage, fansa_rating, torokko, kyakukudari, silver_tape_rows, fansa, memo, created_at")
+  const { data, error } = await excludeHiddenLiveReports(client.from("after_reports")
+    .select("id, event_id, user_id, seat_area_type, seat_description, seat_block, seat_row, seat_number, seat_view_photo_paths, main_stage, center_stage, fansa_rating, torokko, kyakukudari, silver_tape_rows, fansa, memo, created_at"))
     .in("event_id", events.map(event => event.id)).order("created_at", { ascending: false }).limit(500);
   if (error) throw new Error("Public reports could not be loaded", { cause: error });
   const allowed = new Set(events.map(event => event.id));

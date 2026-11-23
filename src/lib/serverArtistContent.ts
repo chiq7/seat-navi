@@ -6,6 +6,7 @@ import { queryEventsForArtist } from "@/lib/events";
 import { queryAllOfficialNewsForArtist } from "@/lib/officialNews";
 import { queryPublicAfterReports, queryPublicSetlists } from "@/lib/publicArtistContent";
 import { isTestEvent } from "@/lib/seoData";
+import { excludeHiddenLiveReports } from "@/data/hiddenLiveReports";
 
 function publicClient() {
   const client = createSupabasePublicClient();
@@ -26,7 +27,7 @@ const publicArtistEvents = cache(async (slug: string) =>
 const countPublicReports = unstable_cache(async (eventIds: string[]) => {
   const client = createSupabasePublicClient(AbortSignal.timeout(2500));
   if (!client) throw new Error("Public report count unavailable");
-  const { count, error } = await client.from("after_reports").select("id", { count: "exact", head: true }).in("event_id", eventIds);
+  const { count, error } = await excludeHiddenLiveReports(client.from("after_reports").select("id", { count: "exact", head: true })).in("event_id", eventIds);
   if (error || count == null) throw new Error("Public report count unavailable");
   return count;
 }, ["artist-public-report-count-v1"], { revalidate: 300 });

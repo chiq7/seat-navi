@@ -24,6 +24,7 @@ function loadModule<T>(file: string, dependencies: Record<string, unknown>): T {
 }
 
 const { isTestEvent } = loadModule<typeof import("../src/lib/seoData.ts")>("src/lib/seoData.ts", {
+  "@/data/hiddenLiveReports": { excludeHiddenLiveReports: (query: unknown) => query, isHiddenLiveReport: () => false },
   "@/lib/setlistHelpers": setlistHelpers,
   "@/lib/eventIndexContent": {},
   "@/lib/eventPublication": {},

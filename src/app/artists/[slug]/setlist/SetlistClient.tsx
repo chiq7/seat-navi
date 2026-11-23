@@ -5,7 +5,7 @@ import Image from "next/image";
 import ArtistGroupPhoto from "@/components/common/ArtistGroupPhoto";
 import { getArtistGroupImage } from "@/lib/artistGroupImages";
 import Link from "next/link";
-import { Film, ListEnd, ListStart, MessageCircle, Mic2, Music2, Plus, Sparkles, Star, Zap } from "lucide-react";
+import { Film, ListEnd, ListStart, MessageCircle, Mic2, Music2, Plus, Sparkles, Star, Zap, ChevronRight } from "lucide-react";
 import { anonymousSupabase, supabase } from "@/lib/supabase/client";
 import { findArtistBySlug } from "@/lib/artists";
 import { MISSING_PERFORMANCE_MESSAGE } from "@/lib/requestedPerformance";
@@ -411,19 +411,20 @@ export function SetlistClient({
         />}
 
         {performanceLinks.length > 0 && (
-          <section className="zr-container pb-4">
-            <details className="rounded-xl border border-[#eadfe4] bg-white p-3">
-              <summary className="zr-focus cursor-pointer text-sm font-bold text-[#84234f]">確認済みの公演別セトリ（{performanceLinks.length}件）</summary>
-              <ul className="mt-2 divide-y divide-[#eadfe4]">
-                {performanceLinks.map(link => (
-                  <li key={link.href}>
-                    <Link href={link.href} prefetch={false} className="zr-focus flex min-h-11 items-center px-2 text-sm underline">
-                      {link.label}{link.recording ? "（公式映像収録版）" : ""}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </details>
+          <section className="zr-container pb-4" aria-labelledby="verified-setlists-title" data-verified-setlists>
+            <h2 id="verified-setlists-title" className="text-[15px] font-black text-[#40383d]">確認済みのセトリ（{performanceLinks.length}公演）</h2>
+            {/* Verified per-show setlists are the main content here, so they are tiles, not a collapsed list. */}
+            <ul className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-2">
+              {performanceLinks.slice(0, 6).map(link => <VerifiedSetlistTile key={link.href} link={link} />)}
+            </ul>
+            {performanceLinks.length > 6 && (
+              <details className="mt-2">
+                <summary className="zr-focus flex min-h-11 cursor-pointer items-center justify-center rounded-xl border border-[#eadfe4] bg-white text-sm font-bold text-[#84234f]">ほかの{performanceLinks.length - 6}公演を見る</summary>
+                <ul className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-2">
+                  {performanceLinks.slice(6).map(link => <VerifiedSetlistTile key={link.href} link={link} />)}
+                </ul>
+              </details>
+            )}
           </section>
         )}
         <SetlistArchive key={slug} slug={slug} count={archivedShows} initialEvents={archivePreview} />
@@ -497,4 +498,19 @@ export function SetlistClient({
       <BottomNav active="setlist" artistSlug={slug} eventId={selectedEventId ?? undefined} />
     </div>
   );
+}
+
+type VerifiedSetlistLink = { href: string; date: string; label: string; recording: boolean };
+
+function VerifiedSetlistTile({ link }: { link: VerifiedSetlistLink }) {
+  const [day, ...rest] = link.label.split(" ");
+  return <li className="min-w-0">
+    <Link href={link.href} prefetch={false} className="zr-focus flex min-h-14 items-center gap-3 rounded-xl border border-[#eadfe4] bg-white px-3 py-2 text-[#40383d]">
+      <span className="min-w-0 flex-1">
+        <span className="block text-[13px] font-black">{day}{link.recording ? "・公式映像収録版" : ""}</span>
+        <span className="mt-0.5 block truncate text-[11px] font-bold text-[#706670]">{rest.join(" ")}</span>
+      </span>
+      <ChevronRight size={18} aria-hidden="true" className="shrink-0 text-[#a93164]" />
+    </Link>
+  </li>;
 }

@@ -19,7 +19,9 @@ import { getCachedEventStats } from "@/lib/serverStatsData";
 import { canIndexEvent, hasConfirmedPerformanceDate, performanceEditorialContent } from "@/lib/eventPublication";
 import { getEventDisplayVenueName, getPublicVenueSeatGuideHref } from "@/lib/publicVenueGuides";
 import { getRequestPublicEventCatalog, getFallbackEventIndex } from "@/lib/publicEventCatalogContext";
-import { readEventContributions } from "@/lib/eventIndexContent";
+import { readEventContributions, type IndexSetlist } from "@/lib/eventIndexContent";
+import { readSetlistReviewSource } from "@/lib/setlistHelpers";
+import { canIndexPerformanceSetlist, performanceSetlistPath } from "@/lib/setlistSeo";
 import { createSupabasePublicClient } from "@/lib/supabase/public";
 import { isTestEvent } from "@/lib/seoData";
 import { describePublicEvent } from "@/lib/og/eventOgData";
@@ -161,7 +163,8 @@ export default async function EventDetailPage({ params }: PageProps) {
         initialRelatedEvents={initialRelatedEvents.length > 0 ? initialRelatedEvents : [event]}
         samePerformanceEventIds={samePerformanceEventIds}
         contributionCounts={live?.counts ?? null}
-        setlistEventId={live?.setlists.find(row => row.event_id === event.id)?.event_id ?? live?.setlists[0]?.event_id}
+        setlistHref={eventSetlistHref(artistSlug, event, live?.setlists ?? [])}
+        venueSeatHref={venueGuideHref}
         liveReportIds={live?.reports.map(row => row.id) ?? []}
         arenaPhotoCount={arenaPhotoLayout?.photos.length ?? 0}
         featuredPhotoBlock={arenaPhotoLayout?.featuredPhotoBlock}
@@ -180,4 +183,15 @@ export default async function EventDetailPage({ params }: PageProps) {
       />
     </>
   );
+}
+
+/** The verified per-show setlist page when this show has one, else the setlist list opened on this show. */
+function eventSetlistHref(artistSlug: string | null, event: CrawledEvent, setlists: readonly IndexSetlist[]) {
+  if (!artistSlug) return undefined;
+  const own = setlists.find(row => row.event_id === event.id);
+  if (own && readSetlistReviewSource(own.review_source) && canIndexPerformanceSetlist(event, own.items, true, getJstDateString())) {
+    return performanceSetlistPath(artistSlug, event.id);
+  }
+  const shown = own ?? setlists[0];
+  return shown ? `/artists/${encodeURIComponent(artistSlug)}/setlist?event=${encodeURIComponent(shown.event_id)}` : undefined;
 }

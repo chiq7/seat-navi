@@ -5,6 +5,7 @@ import { fmtDate } from "@/lib/artistPageHelpers";
 import type { CrawledEvent } from "@/lib/types";
 import { EVENT_COLUMNS } from "@/lib/og/eventOgData";
 import { AsyncLocalStorage } from "node:async_hooks";
+import { isHiddenLiveReport } from "@/data/hiddenLiveReports";
 
 const SEAT_AREA_LABELS: Record<string, string> = {
   arena: "アリーナ",
@@ -57,7 +58,7 @@ export async function getReportOgInfo(reportId: string): Promise<ReportOgInfo | 
     .eq("id", reportId)
     .maybeSingle();
   if (reportError) throw new Error("Public report lookup failed", { cause: reportError });
-  if (!reportData) return null;
+  if (!reportData || isHiddenLiveReport((reportData as { id: string }).id)) return null;
   const report = reportData as AfterReportRow;
 
   const { data: eventData, error: eventError } = await supabase

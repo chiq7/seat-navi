@@ -2,24 +2,23 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Pause, Play } from "lucide-react";
-import { useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import DiscoveryLink from "@/components/common/DiscoveryLink";
 import styles from "./HomeFeatureBanners.module.css";
 
 const banners = [
-  {
-    image: "/images/home-features/tixrepo-arena-prediction-final.webp",
-    alt: "アリーナ予想。ステージの形と、自分の席の位置を予想",
-    href: "/#upcoming-events",
-    action: "開催が近い公演の座席情報を見る",
-  },
   {
     image: "/images/home-features/tixrepo-seating-chart.webp",
     alt: "座席表。会場の座席表で、自分の席を調べる",
     href: "/venues",
     action: "会場の座席表を見る",
     directory: "venues",
+  },
+  {
+    image: "/images/home-features/tixrepo-arena-prediction-final.webp",
+    alt: "アリーナ予想。ステージの形と、自分の席の位置を予想",
+    href: "/#upcoming-events",
+    action: "開催が近い公演の座席情報を見る",
   },
   {
     image: "/images/home-features/tixrepo-onsite-reports.webp",
@@ -31,18 +30,9 @@ const banners = [
 
 const edgeCount = 2;
 const slides = [...banners.slice(-edgeCount), ...banners, ...banners.slice(0, edgeCount)];
-const autoplayDelay = 6000;
-const motionPreference = "(prefers-reduced-motion: reduce)";
-
-function subscribeToMotionPreference(onChange: () => void) {
-  const media = window.matchMedia(motionPreference);
-  media.addEventListener("change", onChange);
-  return () => media.removeEventListener("change", onChange);
-}
-
-function prefersReducedMotion() {
-  return window.matchMedia(motionPreference).matches;
-}
+// Each banner rests 2 s, then glides to the next over 1.2 s (the browser's own smooth scroll felt abrupt).
+const restMs = 2000;
+const glideMs = 1200;
 
 function centeredSlideIndex(rail: HTMLUListElement) {
   const center = rail.scrollLeft + rail.clientWidth / 2;
@@ -59,16 +49,41 @@ function centeredSlideIndex(rail: HTMLUListElement) {
   return nearest;
 }
 
-function centerSlide(rail: HTMLUListElement, index: number, behavior: ScrollBehavior) {
+function slideLeft(rail: HTMLUListElement, index: number) {
   const slide = rail.children.item(index) as HTMLElement | null;
-  if (slide) rail.scrollTo({ left: slide.offsetLeft + (slide.offsetWidth - rail.clientWidth) / 2, behavior });
+  return slide ? slide.offsetLeft + (slide.offsetWidth - rail.clientWidth) / 2 : null;
+}
+
+function centerSlide(rail: HTMLUListElement, index: number, behavior: ScrollBehavior) {
+  const left = slideLeft(rail, index);
+  if (left !== null) rail.scrollTo({ left, behavior });
+}
+
+/** Eased scroll to a slide. Snapping is off while it runs so the browser does not cut the glide short. Returns a cancel. */
+function glideToSlide(rail: HTMLUListElement, index: number) {
+  const to = slideLeft(rail, index);
+  if (to === null) return () => {};
+  const from = rail.scrollLeft;
+  const start = performance.now();
+  let frame = 0;
+  rail.style.scrollSnapType = "none";
+  const finish = () => { rail.style.scrollSnapType = ""; };
+  const step = (now: number) => {
+    const t = Math.min(1, (now - start) / glideMs);
+    const eased = t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2;
+    rail.scrollLeft = from + (to - from) * eased;
+    if (t < 1) frame = requestAnimationFrame(step); else finish();
+  };
+  frame = requestAnimationFrame(step);
+  return () => { cancelAnimationFrame(frame); finish(); };
 }
 
 export default function HomeFeatureBanners() {
   const railRef = useRef<HTMLUListElement>(null);
-  const [autoplay, setAutoplay] = useState<boolean | null>(null);
-  const reducedMotion = useSyncExternalStore(subscribeToMotionPreference, prefersReducedMotion, () => false);
-  const playing = autoplay ?? !reducedMotion;
+  // Slides on its own, also when the OS asks for reduced motion (owner's choice). Touching, scrolling or focusing
+  // the banners stops it for good.
+  const [stopped, setStopped] = useState(false);
+  const playing = !stopped;
 
   useLayoutEffect(() => {
     const rail = railRef.current;
@@ -100,17 +115,21 @@ export default function HomeFeatureBanners() {
   useEffect(() => {
     const rail = railRef.current;
     if (!rail || !playing) return;
+    let cancelGlide = () => {};
     const timer = window.setInterval(() => {
       const { top, bottom } = rail.getBoundingClientRect();
       const hovering = window.matchMedia("(hover: hover)").matches && rail.matches(":hover");
       if (document.hidden || hovering || bottom <= 0 || top >= window.innerHeight) return;
-      centerSlide(rail, centeredSlideIndex(rail) + 1, reducedMotion ? "instant" : "smooth");
-    }, autoplayDelay);
-    return () => window.clearInterval(timer);
-  }, [playing, reducedMotion]);
+      cancelGlide = glideToSlide(rail, centeredSlideIndex(rail) + 1);
+    }, restMs + glideMs);
+    return () => {
+      window.clearInterval(timer);
+      cancelGlide();
+    };
+  }, [playing]);
 
   function pauseOnInteraction() {
-    setAutoplay(false);
+    setStopped(true);
   }
 
   return (
@@ -147,11 +166,6 @@ export default function HomeFeatureBanners() {
             );
           })}
         </ul>
-        <div className={styles.controls}>
-          <button type="button" className={`zr-focus ${styles.playback}`} aria-controls="home-feature-banners" aria-label={playing ? "バナーの自動切り替えを停止" : "バナーの自動切り替えを再生"} onClick={() => setAutoplay(!playing)}>
-            {playing ? <Pause size={15} aria-hidden="true" /> : <Play size={15} aria-hidden="true" />}
-          </button>
-        </div>
       </div>
     </section>
   );

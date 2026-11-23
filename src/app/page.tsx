@@ -173,10 +173,8 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ "
   return (
     <div className="min-h-screen bg-background" data-home-program-day={getJstDateString()}>
       <HomeHeader />
-      <nav aria-label="パンくずリスト" className="zr-container py-1 text-xs font-semibold text-[#65525c]"><span aria-current="page">トップ</span></nav>
       <main>
         <HomeFeatureBanners />
-        <p className="zr-container pt-3 text-[13px] leading-5 text-[#65525c]">ちけレポ（チケレポ・ちけれぽ）で、行きたいライブの座席表や席からの見え方を探せます。</p>
         <HomeQuickSearch />
         {preview && <Suspense fallback={<FeaturedEventsSkeleton />}><SeatDiscoveryPilot state={query["seat-card-state"]} /></Suspense>}
         <div id="upcoming-events" className="scroll-mt-16"><Suspense fallback={<UpcomingEventsSkeleton />}>
