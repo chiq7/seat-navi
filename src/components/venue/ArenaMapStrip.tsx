@@ -1,6 +1,7 @@
 "use client";
 
-import { ChevronRight, Map as MapIcon } from "lucide-react";
+import Link from "next/link";
+import { ChevronRight, Map as MapIcon, Plus } from "lucide-react";
 import { shortDate, useArenaMaps } from "./ArenaMapsSheet";
 import styles from "./VenuePhotoStrip.module.css";
 
@@ -10,7 +11,7 @@ const thumbnail = (src: string) => src.replace(/([?&]name=)\w+/, "$1small");
  * Past shows' arena layouts as one swipeable row under the seat photos, newest first.
  * A tap opens the arena-map sheet on that show. Images are the posts' own images on X, loaded only near the screen.
  */
-export default function ArenaMapStrip() {
+export default function ArenaMapStrip({ reportHref }: { reportHref?: string }) {
   const arenaMaps = useArenaMaps();
   if (!arenaMaps) return null;
   const { posts, count, open } = arenaMaps;
@@ -30,6 +31,11 @@ export default function ArenaMapStrip() {
           <span><b>{shortDate(post.date)}</b>{post.title}</span>
         </button>
       </li>)}
+      {/* The way in for people who were there: their show's arena map or seat photo. */}
+      {reportHref && <li><Link href={reportHref} prefetch={false} className={`${styles.tile} ${styles.arenaTile} ${styles.postTile}`}>
+        <i aria-hidden="true"><Plus size={28} /></i>
+        <span><b>投稿する</b>あなたの公演のアリーナ図・座席写真</span>
+      </Link></li>}
     </ul>
   </section>;
 }

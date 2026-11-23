@@ -174,7 +174,7 @@ export default async function VenuePage({ params, searchParams }: Props) {
         </div>}
         <ArenaMapsProvider posts={compact ? arenaMaps : []}>
           <PublicVenueGuide venue={venue.id} target={seatTarget} pageNav={compact}
-            afterSeats={compact ? <><VenuePhotoStrip photos={getVenuePhotoCovers(venue.id)} count={photos?.count ?? 0} allTargetId="seat-photo-title" /><ArenaMapStrip /></> : undefined} />
+            afterSeats={compact ? <><VenuePhotoStrip photos={getVenuePhotoCovers(venue.id)} count={photos?.count ?? 0} allTargetId="seat-photo-title" /><ArenaMapStrip reportHref={`/report?venue=${encodeURIComponent(venue.id)}`} /></> : undefined} />
         </ArenaMapsProvider>
       </div>}
 
@@ -188,8 +188,6 @@ export default async function VenuePage({ params, searchParams }: Props) {
           <ChevronRight size={18} aria-hidden="true" />
         </Link>
       </div>}
-      {/* Every source X post for this venue's seat photos and arena maps (the former list pages forward here). */}
-      {compact && <SeatSourcePreview scope="venues" id={venue.id} />}
       {arenaPhotoShows.length > 0 && <section className="zr-container py-4" aria-labelledby="arena-photo-shows-heading" data-arena-photo-shows>
         <h2 id="arena-photo-shows-heading" className="text-[16px] font-black text-[#40383d]">公演ごとのアリーナ配置と写真</h2>
         <ul className="mt-2 grid gap-2">{arenaPhotoShows.map(show => <li key={show.id} className="min-w-0">

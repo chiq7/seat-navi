@@ -25,3 +25,8 @@
   .arenaTile { width:100%; height:auto; aspect-ratio:160 / 110; }
   .arenaTile img { height:100%; }
 }
+/* Last tile in the arena-map row: invite a post instead of showing one. */
+.postTile { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; background:#fff7fa; border-style:dashed; border-color:#d9a4bb; color:#a93164; text-decoration:none; }
+.postTile i { position:static; display:flex; color:#a93164; }
+.postTile span { position:static; max-width:100%; padding:0 6px; background:none; color:#7a4a60; font-size:10px; white-space:normal; text-align:center; line-height:1.3; }
+.postTile span b { display:block; color:#a93164; font-size:12px; }

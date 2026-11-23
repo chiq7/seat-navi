@@ -1,5 +1,5 @@
 {
-  "_note": "Arena-layout X posts shown on venue pages: the post's (only) photo, read from X's public embed data on 2026-11-21. Images load from X (pbs.twimg.com); nothing is re-hosted.",
+  "_note": "Arena-layout X posts shown on venue pages: the post's layout photo (the only photo, or the one showing the map), read from X's public embed data on 2026-11-21 (Tokyo Dome) and 2026-11-23 (other venues). Images load from X (pbs.twimg.com); nothing is re-hosted.",
   "posts": {
     "2118613575510192448": {
       "media": "HWbT0PbaIAEWYol",
@@ -72,6 +72,222 @@
       "width": 1536,
       "height": 2048,
       "user": "hidemaru5757"
+    },
+    "1783058388269830368": {
+      "media": "GL6yJoIaUAA8Hc2",
+      "width": 1536,
+      "height": 2048,
+      "user": "boc_post_7188"
+    },
+    "1832421548818575871": {
+      "media": "GW4Rrsda8AMxm2z",
+      "width": 1403,
+      "height": 2048,
+      "user": "panchan0115"
+    },
+    "1847205516520661302": {
+      "media": "GaKXn4naoAAYTx-",
+      "width": 2048,
+      "height": 1536,
+      "user": "hnmki_i"
+    },
+    "1855147574564462674": {
+      "media": "Gb7O4lVbwAA26pN",
+      "width": 1536,
+      "height": 2048,
+      "user": "banapi"
+    },
+    "1953020545571717370": {
+      "media": "GxqF0cKawAMsExi",
+      "width": 1477,
+      "height": 1108,
+      "user": "madamadaokawari"
+    },
+    "1096332061357424643": {
+      "media": "Dzb0LyGVYAEiByT",
+      "width": 2048,
+      "height": 1708,
+      "user": "memecorn720"
+    },
+    "1336601792642105347": {
+      "media": "EoyQEu2UUAEV0K3",
+      "width": 1440,
+      "height": 1080,
+      "user": "bettsy07"
+    },
+    "1834129793614242084": {
+      "media": "GXQjUjybgAARhSF",
+      "width": 2048,
+      "height": 1536,
+      "user": "otokogumi2022re"
+    },
+    "1923655405470875648": {
+      "media": "GrIyXqcW0AAOVB4",
+      "width": 2048,
+      "height": 1536,
+      "user": "G9Cif"
+    },
+    "1814651297024651376": {
+      "media": "GS7vvNhbIAMUsJ8",
+      "width": 2048,
+      "height": 1536,
+      "user": "Bz178Takmatsu"
+    },
+    "1885585314544251004": {
+      "media": "Girx2ICbMAAY97r",
+      "width": 2048,
+      "height": 1536,
+      "user": "bictorymoss"
+    },
+    "1956625947752566956": {
+      "media": "GydU7NbbgAEUU42",
+      "width": 2048,
+      "height": 1364,
+      "user": "mkt_hello"
+    },
+    "1999418265173709234": {
+      "media": "G79cQ21agAIFWmw",
+      "width": 2048,
+      "height": 1538,
+      "user": "nobuFZ0221"
+    },
+    "2062174644728467677": {
+      "media": "HJ5Q50Sa8AAmYGb",
+      "width": 2048,
+      "height": 1536,
+      "user": "megakoalaaaaaaa"
+    },
+    "2064003964384006577": {
+      "media": "HKTQqwAbYAAT2vE",
+      "width": 1024,
+      "height": 768,
+      "user": "nana_yuzu_14"
+    },
+    "2065707062089363917": {
+      "media": "HKrdn85awAA8eAP",
+      "width": 576,
+      "height": 1024,
+      "user": "kazyoshi2525"
+    },
+    "1871821464317604051": {
+      "media": "GfoLsrwa0AAN1qM",
+      "width": 739,
+      "height": 1024,
+      "user": "_mxrqx_"
+    },
+    "1940319428526440576": {
+      "media": "Gu1mOufWAAA_gg2",
+      "width": 1536,
+      "height": 2048,
+      "user": "yk___0704"
+    },
+    "1948999953612754975": {
+      "media": "Gww9IMja4AAWvft",
+      "width": 1108,
+      "height": 1477,
+      "user": "haru_uzev"
+    },
+    "1890757408802095595": {
+      "media": "Gj1R1tfbYAA6fcG",
+      "width": 1536,
+      "height": 2048,
+      "user": "hijiyuu"
+    },
+    "1800819195409801697": {
+      "media": "GP3LgfMbQAAXwVR",
+      "width": 1024,
+      "height": 768,
+      "user": "loser_finchel"
+    },
+    "1867849221174694315": {
+      "media": "Gevu9shbsAI6rXH",
+      "width": 1536,
+      "height": 2048,
+      "user": "raaaaameeeeen_"
+    },
+    "1900820391180071131": {
+      "media": "GmESDu0b0AAzCz5",
+      "width": 1536,
+      "height": 2048,
+      "user": "mirteey"
+    },
+    "2098688631653482880": {
+      "media": "HSAKIcxbYAAskO5",
+      "width": 768,
+      "height": 1024,
+      "user": "mintwarau"
+    },
+    "1063700612997500928": {
+      "media": "DsMGEO7UUAADu4T",
+      "width": 960,
+      "height": 1704,
+      "user": "shurvival"
+    },
+    "1736011878458097910": {
+      "media": "GBeNmWEaUAA0j_U",
+      "width": 720,
+      "height": 757,
+      "user": "J5k2xdoJafH2clZ"
+    },
+    "1739944817453359248": {
+      "media": "GCWGZ2ZacAA74wg",
+      "width": 768,
+      "height": 1024,
+      "user": "twice_74h"
+    },
+    "1753663904763588775": {
+      "media": "GFZEBe8aoAAQB72",
+      "width": 2048,
+      "height": 1536,
+      "user": "shoto0111mha"
+    },
+    "2020136734831362214": {
+      "media": "HAj3pmbb0AAyFSu",
+      "width": 2048,
+      "height": 1536,
+      "user": "hgdn_fan3104"
+    },
+    "1966755063248154732": {
+      "media": "G0tRSuabcAAqd_D",
+      "width": 3024,
+      "height": 4032,
+      "user": "ha619ko"
+    },
+    "2116057942407696661": {
+      "media": "HV2_dxpbwAAKUCe",
+      "width": 3024,
+      "height": 4032,
+      "user": "tri_ihiikun"
+    },
+    "2121503565659459844": {
+      "media": "HXEYPkbawAEC9jO",
+      "width": 1536,
+      "height": 2048,
+      "user": "KK66ae"
+    },
+    "2121504337482698822": {
+      "media": "HXEY8YKa8AAgGaM",
+      "width": 4000,
+      "height": 3000,
+      "user": "gisuke_hokkaido"
+    },
+    "2121874546957734374": {
+      "media": "HXJpo8ibQAApJON",
+      "width": 2048,
+      "height": 1536,
+      "user": "hayate130"
+    },
+    "1860293812494737626": {
+      "media": "GdEXWusagAApOw1",
+      "width": 1536,
+      "height": 2048,
+      "user": "ko1xx6_111"
+    },
+    "2118619859869462921": {
+      "media": "HWbZh_3a8AAbs8f",
+      "width": 1536,
+      "height": 2048,
+      "user": "MiNT43432997"
     }
   }
 }
