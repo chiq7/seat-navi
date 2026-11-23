@@ -42,7 +42,7 @@ export function EventListRow({ event, artistName = null, secondary, actionLabel,
           <span className="min-w-0 [overflow-wrap:anywhere]">{secondary}</span>
           {isTestData && <span className="shrink-0 text-[8px] font-black text-[#a2939b]">TEST</span>}
         </p>
-        {actionLabel && <p className="mt-1 text-[11px] font-bold text-[#d62a6b]">{actionLabel}</p>}
+        {actionLabel && <p className="mt-1 inline-flex rounded-full bg-[#fff0f5] px-2 py-0.5 text-[11px] font-bold text-[#c0285f]">{actionLabel}</p>}
       </div>
       <MoveRight size={16} className="shrink-0 text-[#f43679] transition-transform group-hover:translate-x-1" aria-hidden="true" />
     </Link>

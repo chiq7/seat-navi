@@ -11,6 +11,7 @@ import {
   Music2,
   MapPin,
   MessageSquareText,
+  PenLine,
 } from "lucide-react";
 import { supabase } from "@/lib/supabase/client";
 import { getEventDisplayVenueName } from "@/lib/publicVenueGuides";
@@ -39,6 +40,7 @@ import { focusedSeatPosition, isInteractiveSeatMapPilot, parseSeatReportId, SEAT
 import { isEventPredictionEnabled } from "@/lib/arena-map/eventPredictionInput";
 import { readArenaReports } from "@/lib/arena-map/readArenaReports";
 import { formatPublicDataTime } from "@/lib/publicPageData";
+import { getJstDateString } from "@/lib/artistPageData";
 import type { PublicEventCounts } from "@/lib/eventIndexContent";
 
 const SEAT_REPORT_FIELDS = "id, event_id, block, row_num, seat_num, lottery_type, fc_history, payment_method, lottery_round, lottery_name, comment, created_at";
@@ -409,6 +411,11 @@ export function EventDetailClient({
                   </Link>}
                   {liveReportIds.length > 0 && artist && <Link href={`/artists/${artist.slug}/after-reports?event=${encodeURIComponent(eventId)}`} prefetch={false} className={eventTileClass}>
                     <MessageSquareText size={18} aria-hidden="true" className="shrink-0" /><span>現地レポ</span>
+                  </Link>}
+                  {/* From the show day on, people who went are invited to write theirs. */}
+                  {event.date && event.date <= getJstDateString() && <Link href={`/report/live?event=${encodeURIComponent(eventId)}`} prefetch={false}
+                    className="zr-focus col-span-2 flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#c63b6c] px-3 py-2 text-[13px] font-black text-white" data-event-write-report>
+                    <PenLine size={18} aria-hidden="true" className="shrink-0" /><span>行った人は現地レポを書く</span>
                   </Link>}
                 </nav>
                 {catalogUpdatedAt && (catalogStale || catalogReadFailed) && (

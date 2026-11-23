@@ -36,7 +36,7 @@ function ReportChoiceLink({ choice, eventId }: { choice: ReportChoice; eventId?:
         <p className="mt-1.5 text-[12px] font-bold leading-5 text-[#817981] sm:mt-2 sm:min-h-[40px]">
           {choice.description}
         </p>
-        <p className={`mt-1.5 flex items-center gap-1 text-[12px] font-black leading-5 sm:mt-3 sm:gap-2 ${choice.href ? "text-[#ef4f87]" : "text-[#aaa2a8]"}`}>
+        <p className={`mt-2 inline-flex min-h-9 items-center gap-1 self-start whitespace-nowrap rounded-full px-3 text-[12px] font-black leading-5 sm:mt-3 sm:gap-2 ${choice.href ? "bg-white text-[#d63a72] shadow-sm" : "bg-white/60 text-[#aaa2a8]"}`}>
           {choice.href ? choice.meta : "先に公演を選択してください"}
           {choice.href && <MoveRight size={16} className="shrink-0 transition-transform group-hover:translate-x-1" />}
         </p>
@@ -86,7 +86,7 @@ export function ReportEventSelector({ selectedEvent, artistSlug, venueId, requir
       type: "ticket",
       label: "当落・座席を報告",
       description: "当落結果や、おおまかな座席位置を共有。",
-      meta: "当落・座席フォームへ",
+      meta: "報告する",
       Icon: BarChart3,
       tone: "ticket",
     },
@@ -95,7 +95,7 @@ export function ReportEventSelector({ selectedEvent, artistSlug, venueId, requir
       type: "arena_prediction",
       label: "アリーナ予想図",
       description: "会場の座席表を見ながら、花道やセンステ構成を予想。",
-      meta: "座席予想を投稿",
+      meta: "予想する",
       Icon: Map,
       tone: "seat",
     },
@@ -104,7 +104,7 @@ export function ReportEventSelector({ selectedEvent, artistSlug, venueId, requir
       type: "live",
       label: "現地レポを投稿",
       description: "座席からの見え方、会場写真、ライブ演出をファンへ。",
-      meta: "現地レポフォームへ",
+      meta: "書く",
       Icon: Camera,
       tone: "live",
     },
@@ -113,7 +113,7 @@ export function ReportEventSelector({ selectedEvent, artistSlug, venueId, requir
       type: "setlist",
       label: "セトリを見る・投稿する",
       description: "曲順、MC、演出メモをライブの記録として共有。",
-      meta: "セトリを見る・投稿する",
+      meta: "開く",
       Icon: ListMusic,
       tone: "setlist",
     },

@@ -27,6 +27,7 @@ import { SeatSourcePreview } from "@/components/venue/SeatSourceArchive";
 import { getSeatSources, seatSourcePermalink, sourceKinds } from "@/lib/seatSourceArchive";
 import { ArenaMapsProvider, type ArenaMapPost } from "@/components/venue/ArenaMapsSheet";
 import arenaMapPhotos from "@/data/arenaMapPhotos.json";
+import eventArenaPhotoData from "@/data/eventArenaPhotos.json";
 import { getVenuePhotoCovers } from "@/lib/serverSeatPhotoVenues";
 import VenuePhotoStrip from "@/components/venue/VenuePhotoStrip";
 import ArenaMapStrip from "@/components/venue/ArenaMapStrip";
@@ -73,6 +74,15 @@ export default async function VenuePage({ params, searchParams }: Props) {
     getVenueEvents(venue.id).catch(() => null), getRequestPublicEventCatalog().catch(() => null),
   ]);
   const profile = getVenueSeoProfile(venue.id);
+  // Shows at this venue whose arena layout and photos are on their show page; listed so those pages are reachable.
+  const archivedIds = new Set(photoArchives.map(archive => archive.id));
+  const arenaPhotoShows = Object.entries(eventArenaPhotoData as Record<string, { venueId: string; date: string; photos?: unknown[] }>)
+    .filter(([id, layout]) => layout.venueId === venue.id && !archivedIds.has(id))
+    .map(([id, layout]) => {
+      const event = catalog?.events.find(item => item.id === id) ?? events?.find(item => item.id === id);
+      return { id, date: layout.date, photos: layout.photos?.length ?? 0, title: event ? event.title : null };
+    })
+    .sort((a, b) => b.date.localeCompare(a.date));
   // 東京ドームを基準にしたスマホ優先レイアウト。検証後に他会場へ広げる。
   // Every venue with a guide uses the mobile-first layout first built for Tokyo Dome.
   const compact = hasGuide;
@@ -180,6 +190,16 @@ export default async function VenuePage({ params, searchParams }: Props) {
       </div>}
       {/* Every source X post for this venue's seat photos and arena maps (the former list pages forward here). */}
       {compact && <SeatSourcePreview scope="venues" id={venue.id} />}
+      {arenaPhotoShows.length > 0 && <section className="zr-container py-4" aria-labelledby="arena-photo-shows-heading" data-arena-photo-shows>
+        <h2 id="arena-photo-shows-heading" className="text-[16px] font-black text-[#40383d]">公演ごとのアリーナ配置と写真</h2>
+        <ul className="mt-2 grid gap-2">{arenaPhotoShows.map(show => <li key={show.id} className="min-w-0">
+          <Link href={`/events/${encodeURIComponent(show.id)}#arena-seat-photos`} prefetch={false} className="zr-focus flex min-h-14 items-center gap-3 rounded-xl border border-[#e9cdd9] bg-white px-3 py-2">
+            <Camera size={18} aria-hidden="true" className="shrink-0 text-[#a12b58]" />
+            <span className="min-w-0 flex-1"><span className="block text-[12px] font-black text-[#a12b58]">{show.date.replaceAll("-", "/")}{show.photos > 0 && `・写真${show.photos}枚`}</span>
+              <span className="block truncate text-[13px] font-bold text-[#40383d]">{show.title ?? "公演のアリーナ配置"}</span></span>
+            <ChevronRight size={18} aria-hidden="true" className="shrink-0 text-[#a12b58]" />
+          </Link></li>)}</ul>
+      </section>}
       {photoArchives.length > 0 && <section id="past-arena-photos" className="zr-container scroll-mt-[90px] py-6" aria-labelledby="past-arena-photos-heading">
         <h2 id="past-arena-photos-heading" className="artist-heading">過去公演のアリーナ配置と写真</h2>
         <p className="mt-1 mb-3 text-sm text-[#68525e]">アリーナの配置は公演ごとに変わります。</p>
