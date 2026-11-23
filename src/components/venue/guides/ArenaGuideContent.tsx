@@ -7,6 +7,7 @@ import {resolveArenaSeatLink,resolveArenaView,type ArenaGuideDefinition} from '.
 import {useVenueSeatTarget} from '../VenueSeatTarget';
 import styles from './KArenaGuide.module.css';
 import VenueAccessCards from '../template/VenueAccessCards';
+import InsidePhotos from './InsidePhotos';
 import {AfterSeats,useGuidePageSlots} from './GuidePageSlots';
 import {arenaAccessEntries} from '@/lib/venueAccess';
 export default function ArenaGuideContent({definition,embedded=false,primeLocation:PrimeLocation}:{definition:ArenaGuideDefinition;embedded?:boolean;primeLocation?:ComponentType<{onRegion:(level:string,area:string)=>void}>}){
@@ -37,6 +38,7 @@ const modeKey=mode,resolved=resolveArenaView(definition,mode),{guide,seats,level
       </section>
       <AfterSeats nested/>
       <section id="venue-facilities" ref={facilities}><h2>必要な設備を探す</h2>{"facilityNote" in data && <p className={styles.note}>{data.facilityNote}</p>}<VenueFacilityFinder key={`${venue}-${definition.preserveFacilitiesAcrossModes ? "fixed" : modeKey}`} ref={finder} guide={guide} config={facilityConfig}/></section>
+      {data.insidePhotos && <InsidePhotos data={data.insidePhotos}/>}
       <section id="venue-access"><h2>駅から{data.guide.name}へ</h2><VenueAccessCards venueId={venue} destination={data.guide.name} entries={arenaAccessEntries(guide,data.access,data.officialRouteUrl ?? data.accessUrl)}/><p className={styles.note}>{"accessNote" in data ? data.accessNote : isEdion ? "距離は会場の公式案内です。全館休館中のため再開・入場口は公式案内を確認してください。" : "徒歩時間は公式案内の目安です。当日の入場口は公演案内に従ってください。"}<a href={data.accessUrl} target="_blank" rel="noopener noreferrer">駅・入場の案内 ↗</a></p></section>
       <section id="venue-prep"><h2>出発前の準備</h2><div className={styles.prep}>
         <article><h3>大きな荷物</h3><p>{data.luggage}</p><button type="button" onClick={showLuggage}>ロッカー・荷物預かりを探す ↓</button></article>

@@ -21,11 +21,15 @@ export type ArenaVenueData = {
   luggage: string;
   preparationTitle: string;
   preparation: string;
+  // Optional photos taken inside the venue (toilets, vending machines, lockers, shops), with the facts read on site.
+  insidePhotos?: InsidePhotos;
   // Optional "car / parking" card: the venue's own stance, with buttons into the place list.
   parking?: { text: string; meetup?: string };
   eventsUrl: string;
   faq: string[][];
 };
+export type InsidePhoto = { src: string; width: number; height: number; alt: string; caption: string };
+export type InsidePhotos = { heading: string; note: string; groups: { id: string; title: string; text: string; photos: InsidePhoto[] }[] };
 export type ArenaView = Pick<ArenaVenueData, "guide" | "seats" | "levels" | "areas" | "facilities" | "seatNote">;
 export type ArenaGuideDefinition = {
   venueId: string;
