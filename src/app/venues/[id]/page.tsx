@@ -21,7 +21,7 @@ import { serializeJsonLd } from "@/lib/structuredData";
 import { SEO_VENUES, findSeoVenue, getVenueEvents } from "@/lib/venueSeo";
 import { hasPublicVenueGuide } from "@/lib/publicVenueGuides";
 import { buildPublicVenueMetadata, getVenuePageContent } from "@/lib/venuePageMetadata";
-import { parseVenueSeatLink, ZOZO_LOWER_THIRD_PAGE } from "@/lib/venueSeatLinks";
+import { parseVenueSeatLink } from "@/lib/venueSeatLinks";
 import { getVenueArenaPhotoArchives } from "@/data/venueArenaPhotoArchives";
 import { SeatSourcePreview } from "@/components/venue/SeatSourceArchive";
 import { getSeatSources, seatSourcePermalink, sourceKinds } from "@/lib/seatSourceArchive";
@@ -162,7 +162,6 @@ export default async function VenuePage({ params, searchParams }: Props) {
             過去公演の配置・写真を見る
           </a>
         </div>}
-        {venue.id === "zozo-marine" && <div className="zr-container"><a className="zr-focus inline-flex min-h-11 items-center rounded-xl border border-[#e9cdd9] bg-white px-3 text-sm font-bold text-[#a62b59]" href={ZOZO_LOWER_THIRD_PAGE}>下段3塁側の座席表を見る</a></div>}
         <ArenaMapsProvider posts={compact ? arenaMaps : []}>
           <PublicVenueGuide venue={venue.id} target={seatTarget} pageNav={compact}
             afterSeats={compact ? <><VenuePhotoStrip photos={getVenuePhotoCovers(venue.id)} count={photos?.count ?? 0} allTargetId="seat-photo-title" /><ArenaMapStrip /></> : undefined} />

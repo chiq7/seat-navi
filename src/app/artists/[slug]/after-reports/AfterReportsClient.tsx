@@ -20,7 +20,7 @@ import { BottomNav } from "@/components/common/BottomNav";
 import { Header } from "@/components/common/Header";
 import { SelectControl } from "@/components/common/SelectControl";
 import { EmptyState } from "@/components/common/EmptyState";
-import { ReportTimelineList } from "@/components/artist-page/ReportSection";
+import { ReportExample, ReportTimelineList } from "@/components/artist-page/ReportSection";
 import type { InitialAfterReports } from "@/lib/publicArtistContent";
 import type { CrawledEvent } from "@/lib/types";
 import type { AfterReportCard } from "@/lib/artistPageTypes";
@@ -258,7 +258,8 @@ export default function AfterReportsClient({ slug, initial, initialEventId = nul
         </section>}
 
         <h2 id="artist-seat-reports" className={filteredReports.length ? "mt-6 scroll-mt-20 text-lg font-bold" : "sr-only"}>{selectedPerformance ? `${fmtDate(selectedPerformance.date)} ${getEventDisplayVenueName(undefined, selectedPerformance.venue)}` : artist.name}の座席レポ・写真</h2>
-        {filteredReports.length === 0 ? (
+        {filteredReports.length === 0 ? (<>
+          {filterArea === "all" && filterBlock === "all" && <ReportExample className="mt-6 rounded-lg border-t" />}
           <EmptyState
             className="my-8"
             title={filterArea !== "all" || filterBlock !== "all" ? "この条件の現地レポはまだありません" : selectedPerformance ? "この公演の現地レポはまだありません" : "まだ現地レポがありません"}
@@ -267,7 +268,7 @@ export default function AfterReportsClient({ slug, initial, initialEventId = nul
             actionIcon={<SquarePen size={14} aria-hidden="true" />}
             actionTone="primary"
           />
-        ) : (
+        </>) : (
           <div className="pb-10">
             {groupedReports.map((group) => (
               <section key={group.event?.id ?? group.date} className="py-7 sm:py-9">

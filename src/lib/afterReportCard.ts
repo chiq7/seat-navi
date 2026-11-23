@@ -34,6 +34,7 @@ export function blockRowText(report: AfterReportCard): string | null {
 export function getReportPhotoUrl(report: AfterReportCard): string | null {
   const path = report.seat_view_photo_paths?.[0];
   if (!path) return null;
+  if (path.startsWith("/")) return path;
   return supabase.storage.from("after-report-photos").getPublicUrl(path).data.publicUrl;
 }
 

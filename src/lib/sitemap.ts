@@ -7,7 +7,6 @@ import { VENUES } from "@/lib/eventCrawlerConfig";
 import { EVENT_DAY_PUBLICATIONS } from "@/data/eventDayPublications";
 import { eventDayGuidePath, matchPublishedEventDay } from "@/lib/eventDayPublication";
 import type { EventOgInfo } from "@/lib/og/eventOgData";
-import { ZOZO_LOWER_THIRD_PAGE } from "@/lib/venueSeatLinks";
 import { performanceSetlistPath } from "@/lib/setlistSeo";
 import { SITE_NEWS } from "@/lib/siteNews";
 import { latestRealTime } from "@/lib/venueActivity";
@@ -41,7 +40,6 @@ export async function getSitemapEntries(
     sitemapEntry(`${SITE_URL}/news`, SITE_NEWS.map(post => post.publishedAt).sort().at(-1)),
     ...SITE_NEWS.map(post => sitemapEntry(`${SITE_URL}/news/${post.slug}`, post.publishedAt)),
     sitemapEntry(`${SITE_URL}/venues`, PUBLIC_VENUE_GUIDE_UPDATED_AT, { changeFrequency: "weekly", priority: 0.8 }),
-    sitemapEntry(`${SITE_URL}${ZOZO_LOWER_THIRD_PAGE}`, "2026-11-07", { changeFrequency: "monthly" }),
     ...VENUES.map((venue) =>
       sitemapEntry(`${SITE_URL}/venues/${venue.id}`, latestRealTime(getPublicVenueGuideUpdatedAt(venue.id), data.venueLastModified.get(venue.id)), {
         changeFrequency: "daily",
