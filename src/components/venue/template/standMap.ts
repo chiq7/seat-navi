@@ -191,7 +191,10 @@ export function standDetailCamera(block: StandBlock, data: StandMapData, canvas?
     // breathing room at 320px. This changes search framing, not zoom limits.
     return clampCamera([room[0] - 52, room[1], room[2] + 104, room[3]], data.viewBox, data.detailSpan * .45);
   }
-  const view = clampCamera(detailBox(block, data.detailSpan), data.viewBox, data.detailSpan * .45);
+  // A tiny reference-only block (no number badge to fit) opens a little closer, so the block
+  // itself is large enough to find; numbered blocks keep their badge-fitting frame below.
+  const tinyReference = !block.numberReference && !block.focusPoint && Math.max(block.box[2], block.box[3]) < data.detailSpan * .12;
+  const view = clampCamera(detailBox(block, tinyReference ? data.detailSpan * .6 : data.detailSpan), data.viewBox, data.detailSpan * .45);
   if (block.focusPoint || !block.numberReference) return view;
   const unnumberedRows = block.rowNameLookup === "unavailable";
   if (!unnumberedRows && !canvas) return view;
@@ -519,6 +522,63 @@ export function standLabelInsideCanvas(point: Readonly<Point>, width: number, he
   const epsilon = 1e-7;
   return point[0] >= width / 2 + 2 - epsilon && point[0] <= canvas.width - width / 2 - 2 + epsilon
     && point[1] >= height / 2 + 3 - epsilon && point[1] <= canvas.height - height / 2 - 3 + epsilon;
+}
+
+/** Outline points of a block path (absolute M/L/C/Z): one ring per subpath. Curve control points are kept as corners. */
+export function standPathRings(path: string): Point[][] {
+  return path.split(/(?=M)/).map(part => {
+    const numbers = part.match(/-?\d*\.?\d+(?:e[-+]?\d+)?/gi)?.map(Number) ?? [];
+    const ring: Point[] = [];
+    for (let i = 0; i + 1 < numbers.length; i += 2) ring.push([numbers[i], numbers[i + 1]]);
+    return ring;
+  }).filter(ring => ring.length >= 3);
+}
+function insideRings(point: Readonly<Point>, rings: Point[][]) {
+  let inside = false;
+  for (const ring of rings) for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+    const [xi, yi] = ring[i], [xj, yj] = ring[j];
+    if ((yi > point[1]) !== (yj > point[1]) && point[0] < (xj - xi) * (point[1] - yi) / (yj - yi) + xi) inside = !inside;
+  }
+  return inside;
+}
+function segmentsCross(a: Point, b: Point, c: Point, d: Point) {
+  const turn = (p: Point, q: Point, r: Point) => (q[0] - p[0]) * (r[1] - p[1]) - (q[1] - p[1]) * (r[0] - p[0]);
+  return turn(a, b, c) * turn(a, b, d) < 0 && turn(c, d, a) * turn(c, d, b) < 0;
+}
+/** True when a centred screen rectangle (plus padding) touches the selected block's screen outline. */
+export function standRectTouchesRings(center: Readonly<Point>, width: number, height: number, rings: Point[][], padding = 2) {
+  if (!rings.length) return false;
+  const x0 = center[0] - width / 2 - padding, x1 = center[0] + width / 2 + padding, y0 = center[1] - height / 2 - padding, y1 = center[1] + height / 2 + padding;
+  const corners: Point[] = [[x0, y0], [x1, y0], [x1, y1], [x0, y1]];
+  if (rings.some(ring => ring.some(([x, y]) => x >= x0 && x <= x1 && y >= y0 && y <= y1))) return true;
+  if ([...corners, [center[0], center[1]]].some(p => insideRings(p, rings))) return true;
+  return rings.some(ring => ring.some((p, i) => {
+    const q = ring[(i + 1) % ring.length];
+    return corners.some((c, k) => segmentsCross(p, q, c, corners[(k + 1) % 4]));
+  }));
+}
+/** Share (0-1) of a screen outline's area hidden by a centred rectangle, by grid sampling. Tiny outlines count as fully hidden. */
+export function standRectCoverShare(center: Readonly<Point>, width: number, height: number, rings: Point[][]) {
+  const points = rings.flat();
+  if (!points.length) return 0;
+  const xs = points.map(p => p[0]), ys = points.map(p => p[1]);
+  const minX = Math.min(...xs), maxX = Math.max(...xs), minY = Math.min(...ys), maxY = Math.max(...ys);
+  let inside = 0, covered = 0;
+  for (let i = 0; i < 16; i++) for (let j = 0; j < 16; j++) {
+    const p: Point = [minX + (maxX - minX) * (i + .5) / 16, minY + (maxY - minY) * (j + .5) / 16];
+    if (!insideRings(p, rings)) continue;
+    inside++;
+    if (Math.abs(p[0] - center[0]) <= width / 2 && Math.abs(p[1] - center[1]) <= height / 2) covered++;
+  }
+  if (inside < 4) return standRectTouchesRings(center, width, height, rings, 0) ? 1 : 0;
+  return covered / inside;
+}
+/** Screen box [minX, minY, maxX, maxY] of outline rings. */
+export function standRingsBox(rings: Point[][]): [number, number, number, number] | null {
+  const points = rings.flat();
+  if (!points.length) return null;
+  const xs = points.map(p => p[0]), ys = points.map(p => p[1]);
+  return [Math.min(...xs), Math.min(...ys), Math.max(...xs), Math.max(...ys)];
 }
 
 export function fitStandArrowToCanvas(arrow: {start: Point; end: Point} | null, canvas: {width: number; height: number}) {

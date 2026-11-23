@@ -1,7 +1,7 @@
 "use client";
 import { trackVenueFacilityOpen } from "@/lib/venueAnalytics";
 import { useEffect, useRef, useState, useImperativeHandle, useId, type Ref } from "react";
-import { HeartPulse, Info, Milk, X, Cigarette } from "lucide-react";
+import { HeartPulse, Info, Milk, X, Cigarette, CircleParking, Trees } from "lucide-react";
 import { AccessibleSign, ChangingSign, ElevatorSign, FoodSign, LockerSign, MenSign, StairsSign, StrollerSign, ToiletSign, WomenSign } from "../DomeFacilitySigns";
 import type { DedicatedVenueGuide, GuideFacility } from "@/data/venueGuides/types";
 import { availablePurposes, changeFacilityOutsideView, changeFacilityPlace, facilitiesAroundLandmark, facilitiesForOutsideView, filterFacilities, groupsAroundLandmark, hasUsableLuggage, initialFacilityState, linkFacilitySeatFloor, purposes, resolveLandmarks, selectedFacilityGroup, visibleGroups, type FacilityConfig, type FacilityGroup, type Purpose } from "./facilityFinderState";
@@ -19,7 +19,7 @@ import { inScope } from "./facilityFinderState";
 
 const purposeIcons = { トイレ: ToiletSign, 荷物: LockerSign, 飲食: FoodSign, 赤ちゃん: Milk, 案内: Info, AED: HeartPulse };
 function FixtureIcon({ item, size = 23 }: { item: GuideFacility; size?: number }) {
-  const Icon = item.kind === "no-storage" ? Info : item.kind === "stroller" ? StrollerSign : item.kind === "diaper" ? ChangingSign : item.kind === "stairs" || item.kind === "escalator" ? StairsSign : item.kind === "elevator" ? ElevatorSign : item.kind === "accessible-parking" ? AccessibleSign : item.kind === "smokingarea" ? Cigarette : item.toiletType === "women" ? WomenSign : item.toiletType === "men" ? MenSign : item.toiletType === "accessible" ? AccessibleSign : purposeIcons[item.purpose];
+  const Icon = item.kind === "no-storage" ? Info : item.kind === "stroller" ? StrollerSign : item.kind === "diaper" ? ChangingSign : item.kind === "stairs" || item.kind === "escalator" ? StairsSign : item.kind === "elevator" ? ElevatorSign : item.kind === "accessible-parking" ? AccessibleSign : item.kind === "smokingarea" ? Cigarette : item.kind === "parking" ? CircleParking : item.kind === "park" ? Trees : item.toiletType === "women" ? WomenSign : item.toiletType === "men" ? MenSign : item.toiletType === "accessible" ? AccessibleSign : purposeIcons[item.purpose];
   return <Icon size={size} aria-hidden="true"/>;
 }
 function GroupIcon({ items, compact }: { items: GuideFacility[]; compact: boolean }) {
@@ -30,7 +30,7 @@ function GroupIcon({ items, compact }: { items: GuideFacility[]; compact: boolea
   const types = new Set(items.map(f => f.toiletType));
   return <span className={mapStyles.toiletIcon}><span>{types.has("mixed") || types.has("women") && types.has("men") ? <ToiletSign size={compact ? 17 : 27}/> : types.has("women") ? <WomenSign size={compact ? 17 : 26}/> : types.has("men") ? <MenSign size={compact ? 17 : 26}/> : types.has("accessible") ? null : <ToiletSign size={compact ? 17 : 27}/>}</span>{types.has("accessible") && <AccessibleSign size={compact ? 16 : 23}/>}</span>;
 }
-export type FacilityFinderHandle = { linkSeatFloor: (floor: string | null) => void; showLuggage: () => void };
+export type FacilityFinderHandle = { linkSeatFloor: (floor: string | null) => void; showLuggage: () => void; showNearby?: (purpose: Purpose, query?: string) => void };
 // Map frame pads (px): half a mark above/below the plan and room for the corner notes.
 const PAD_X = 20, PAD_TOP = 26, PAD_BOTTOM = 28;
 // A mark's tap box (px); also the size used to decide when two marks overlap.
@@ -260,6 +260,13 @@ export default function VenueFacilityFinder({ guide, config, ref }: Props) {
       setState(s => ({ ...s, scope: currentHasLuggage ? s.scope : "場外", purpose: "荷物", query: "", toilet: "", group: null, selected: null, origin: null }));
       clearLandmarkInput();
     },
+    // Places outside the venue (parking, places to meet): the venue-and-station view, one purpose.
+    showNearby(nextPurpose, query = "") {
+      const view = config.outsideViews?.find(v => availablePurposes(facilitiesForOutsideView(guide.facilities, v, config), { scope: "場外", floor: state.floor }, config).includes(nextPurpose));
+      if (view) setOutsideViewId(view.id);
+      setState(s => ({ ...s, scope: "場外", purpose: nextPurpose, query, toilet: "", group: null, selected: null, origin: null }));
+      clearLandmarkInput();
+    },
   }));
   useEffect(() => {
     const open = (event: Event) => {
@@ -299,7 +306,7 @@ export default function VenueFacilityFinder({ guide, config, ref }: Props) {
       <p>{f.floor}・{meta?.location ?? f.location}</p><p>{meta?.detail ?? f.detail}</p>
       {f.purpose === "荷物" && f.kind !== "no-storage" && <p>{f.kind === "baggage-port" ? "バゲッジポート" : f.storageKind === "staffed" ? "店舗での預かり" : "コインロッカー"}・{meta?.accessCondition}</p>}
       {(f.purpose !== "荷物" || f.kind === "no-storage") && meta?.accessCondition && <p>{meta.accessCondition}</p>}
-      {(meta?.url || f.bookingUrl) && <a href={f.bookingUrl ?? meta?.url} target="_blank" rel="noopener noreferrer">{f.bookingUrl ? "予約・利用条件" : (f.purpose === "荷物" && f.kind !== "no-storage") || f.purpose === "飲食" ? "料金・利用案内" : "利用案内"} ↗</a>}
+      {(meta?.url || f.bookingUrl) && <a href={f.bookingUrl ?? meta?.url} target="_blank" rel="noopener noreferrer">{f.bookingUrl ? "予約・利用条件" : f.kind === "parking" ? "駐車場の公式ページ" : f.purpose === "飲食" && f.scope === "場外" && f.kind !== "convenience-store" ? "公式の店舗ページ" : f.kind === "park" ? "公園の公式ページ" : (f.purpose === "荷物" && f.kind !== "no-storage") || f.purpose === "飲食" ? "料金・利用案内" : "利用案内"} ↗</a>}
     </div>;
   }
   const band = Math.max(14, 7 / fit);

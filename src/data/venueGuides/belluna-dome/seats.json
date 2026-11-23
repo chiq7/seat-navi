@@ -28,7 +28,6 @@
       ],
       "rows": [],
       "neighbors": [
-        "belluna-shape-4516",
         "belluna-shape-540",
         "belluna-shape-2683"
       ],
@@ -60,11 +59,7 @@
         908.325
       ],
       "rows": [],
-      "neighbors": [
-        "belluna-shape-4515",
-        "belluna-shape-806",
-        "belluna-shape-794"
-      ],
+      "neighbors": [],
       "numberReference": null,
       "numberLookup": "unavailable",
       "equipmentFloor": null,
@@ -5923,8 +5918,7 @@
       "rows": [],
       "neighbors": [
         "belluna-shape-679",
-        "belluna-shape-670",
-        "belluna-shape-778"
+        "belluna-shape-670"
       ],
       "numberReference": null,
       "numberLookup": "unavailable",
@@ -6021,7 +6015,6 @@
       ],
       "rows": [],
       "neighbors": [
-        "belluna-shape-780",
         "belluna-shape-682",
         "belluna-shape-679"
       ],
@@ -6054,7 +6047,6 @@
       ],
       "rows": [],
       "neighbors": [
-        "belluna-shape-782",
         "belluna-shape-684",
         "belluna-shape-681"
       ],
@@ -6120,7 +6112,6 @@
       ],
       "rows": [],
       "neighbors": [
-        "belluna-shape-784",
         "belluna-shape-685",
         "belluna-shape-682"
       ],
@@ -6153,7 +6144,6 @@
       ],
       "rows": [],
       "neighbors": [
-        "belluna-shape-786",
         "belluna-shape-684",
         "belluna-shape-686"
       ],
@@ -6186,7 +6176,6 @@
       ],
       "rows": [],
       "neighbors": [
-        "belluna-shape-788",
         "belluna-shape-685",
         "belluna-shape-692"
       ],
@@ -6219,9 +6208,7 @@
       ],
       "rows": [],
       "neighbors": [
-        "belluna-shape-792",
-        "belluna-shape-688",
-        "belluna-shape-790"
+        "belluna-shape-688"
       ],
       "numberReference": null,
       "numberLookup": "unavailable",
@@ -6252,7 +6239,6 @@
       ],
       "rows": [],
       "neighbors": [
-        "belluna-shape-796",
         "belluna-shape-695",
         "belluna-shape-687"
       ],
@@ -6385,8 +6371,7 @@
       "rows": [],
       "neighbors": [
         "belluna-shape-686",
-        "belluna-shape-687",
-        "belluna-shape-790"
+        "belluna-shape-687"
       ],
       "numberReference": null,
       "numberLookup": "unavailable",
@@ -6683,9 +6668,7 @@
       ],
       "rows": [],
       "neighbors": [
-        "belluna-shape-794",
-        "belluna-shape-688",
-        "belluna-shape-796"
+        "belluna-shape-688"
       ],
       "numberReference": null,
       "numberLookup": "unavailable",
@@ -8039,765 +8022,6 @@
       ]
     },
     {
-      "id": "belluna-shape-778",
-      "level": "stand",
-      "area": "3塁内野",
-      "label": "3塁内野・参考区画",
-      "aliases": [],
-      "balcony": false,
-      "path": "M148.250,674.097 L166.410,666.535 L157.914,648.723 L141.213,654.825 Z",
-      "box": [
-        141.213,
-        648.723,
-        25.197,
-        25.374
-      ],
-      "center": [
-        153.812,
-        661.41
-      ],
-      "rows": [],
-      "neighbors": [
-        "belluna-shape-798",
-        "belluna-shape-678",
-        "belluna-shape-670"
-      ],
-      "numberReference": null,
-      "numberLookup": "unavailable",
-      "equipmentFloor": null,
-      "sourceIds": [
-        "seat2026"
-      ],
-      "seatNote": "2026公式図の参考領域です。券種境界・全列番号・特殊席との個別対応は確認中です。",
-      "zone": "3塁内野"
-    },
-    {
-      "id": "belluna-shape-780",
-      "level": "stand",
-      "area": "3塁内野",
-      "label": "3塁内野・参考区画",
-      "aliases": [],
-      "balcony": false,
-      "path": "M181.038,714.426 L190.479,709.555 L180.740,692.687 L171.090,697.194 Z",
-      "box": [
-        171.09,
-        692.687,
-        19.389,
-        21.739
-      ],
-      "center": [
-        180.785,
-        703.556
-      ],
-      "rows": [],
-      "neighbors": [
-        "belluna-shape-814",
-        "belluna-shape-681",
-        "belluna-shape-782"
-      ],
-      "numberReference": null,
-      "numberLookup": "unavailable",
-      "equipmentFloor": null,
-      "sourceIds": [
-        "seat2026"
-      ],
-      "seatNote": "2026公式図の参考領域です。券種境界・全列番号・特殊席との個別対応は確認中です。",
-      "zone": "3塁内野"
-    },
-    {
-      "id": "belluna-shape-782",
-      "level": "stand",
-      "area": "3塁内野",
-      "label": "3塁内野・参考区画",
-      "aliases": [],
-      "balcony": false,
-      "path": "M194.577,735.749 L203.791,730.459 L193.191,713.819 L183.749,718.753 Z",
-      "box": [
-        183.749,
-        713.819,
-        20.042,
-        21.93
-      ],
-      "center": [
-        193.77,
-        724.784
-      ],
-      "rows": [],
-      "neighbors": [
-        "belluna-shape-812",
-        "belluna-shape-682",
-        "belluna-shape-780"
-      ],
-      "numberReference": null,
-      "numberLookup": "unavailable",
-      "equipmentFloor": null,
-      "sourceIds": [
-        "seat2026"
-      ],
-      "seatNote": "2026公式図の参考領域です。券種境界・全列番号・特殊席との個別対応は確認中です。",
-      "zone": "3塁内野"
-    },
-    {
-      "id": "belluna-shape-784",
-      "level": "stand",
-      "area": "3塁内野",
-      "label": "3塁内野・参考区画",
-      "aliases": [],
-      "balcony": false,
-      "path": "M209.034,757.091 L218.030,751.455 L207.321,735.016 L198.105,740.262 Z",
-      "box": [
-        198.105,
-        735.016,
-        19.925,
-        22.075
-      ],
-      "center": [
-        208.068,
-        746.053
-      ],
-      "rows": [],
-      "neighbors": [
-        "belluna-shape-810",
-        "belluna-shape-684",
-        "belluna-shape-786"
-      ],
-      "numberReference": null,
-      "numberLookup": "unavailable",
-      "equipmentFloor": null,
-      "sourceIds": [
-        "seat2026"
-      ],
-      "seatNote": "2026公式図の参考領域です。券種境界・全列番号・特殊席との個別対応は確認中です。",
-      "zone": "3塁内野"
-    },
-    {
-      "id": "belluna-shape-786",
-      "level": "stand",
-      "area": "3塁内野",
-      "label": "3塁内野・参考区画",
-      "aliases": [],
-      "balcony": false,
-      "path": "M223.142,777.782 L231.897,771.744 L221.156,756.152 L212.189,761.747 Z",
-      "box": [
-        212.189,
-        756.152,
-        19.708,
-        21.63
-      ],
-      "center": [
-        222.043,
-        766.967
-      ],
-      "rows": [],
-      "neighbors": [
-        "belluna-shape-808",
-        "belluna-shape-685",
-        "belluna-shape-784"
-      ],
-      "numberReference": null,
-      "numberLookup": "unavailable",
-      "equipmentFloor": null,
-      "sourceIds": [
-        "seat2026"
-      ],
-      "seatNote": "2026公式図の参考領域です。券種境界・全列番号・特殊席との個別対応は確認中です。",
-      "zone": "3塁内野"
-    },
-    {
-      "id": "belluna-shape-788",
-      "level": "stand",
-      "area": "3塁内野",
-      "label": "3塁内野・参考区画",
-      "aliases": [],
-      "balcony": false,
-      "path": "M238.199,798.792 L246.647,792.360 L235.450,776.953 L226.869,783.206 Z",
-      "box": [
-        226.869,
-        776.953,
-        19.778,
-        21.839
-      ],
-      "center": [
-        236.758,
-        787.873
-      ],
-      "rows": [],
-      "neighbors": [
-        "belluna-shape-816",
-        "belluna-shape-686",
-        "belluna-shape-790"
-      ],
-      "numberReference": null,
-      "numberLookup": "unavailable",
-      "equipmentFloor": null,
-      "sourceIds": [
-        "seat2026"
-      ],
-      "seatNote": "2026公式図の参考領域です。券種境界・全列番号・特殊席との個別対応は確認中です。",
-      "zone": "3塁内野"
-    },
-    {
-      "id": "belluna-shape-790",
-      "level": "stand",
-      "area": "3塁内野",
-      "label": "3塁内野・参考区画",
-      "aliases": [],
-      "balcony": false,
-      "path": "M252.959,818.289 L261.179,811.570 L249.599,796.815 L241.174,803.344 Z",
-      "box": [
-        241.174,
-        796.815,
-        20.005,
-        21.474
-      ],
-      "center": [
-        251.176,
-        807.552
-      ],
-      "rows": [],
-      "neighbors": [
-        "belluna-shape-800",
-        "belluna-shape-818",
-        "belluna-shape-792"
-      ],
-      "numberReference": null,
-      "numberLookup": "unavailable",
-      "equipmentFloor": null,
-      "sourceIds": [
-        "seat2026"
-      ],
-      "seatNote": "2026公式図の参考領域です。券種境界・全列番号・特殊席との個別対応は確認中です。",
-      "zone": "3塁内野"
-    },
-    {
-      "id": "belluna-shape-792",
-      "level": "stand",
-      "area": "3塁内野",
-      "label": "3塁内野・参考区画",
-      "aliases": [],
-      "balcony": false,
-      "path": "M268.414,837.427 L276.342,830.351 L264.015,815.128 L255.766,821.808 Z",
-      "box": [
-        255.766,
-        815.128,
-        20.576,
-        22.299
-      ],
-      "center": [
-        266.054,
-        826.277
-      ],
-      "rows": [],
-      "neighbors": [
-        "belluna-shape-802",
-        "belluna-shape-687",
-        "belluna-shape-819"
-      ],
-      "numberReference": null,
-      "numberLookup": "unavailable",
-      "equipmentFloor": null,
-      "sourceIds": [
-        "seat2026"
-      ],
-      "seatNote": "2026公式図の参考領域です。券種境界・全列番号・特殊席との個別対応は確認中です。",
-      "zone": "3塁内野"
-    },
-    {
-      "id": "belluna-shape-794",
-      "level": "stand",
-      "area": "3塁内野",
-      "label": "3塁内野・参考区画",
-      "aliases": [],
-      "balcony": false,
-      "path": "M301.111,873.862 L308.492,866.179 L295.809,851.585 L288.182,858.990 Z",
-      "box": [
-        288.182,
-        851.585,
-        20.31,
-        22.277
-      ],
-      "center": [
-        298.337,
-        862.724
-      ],
-      "rows": [],
-      "neighbors": [
-        "belluna-shape-806",
-        "belluna-shape-695",
-        "belluna-shape-796"
-      ],
-      "numberReference": null,
-      "numberLookup": "unavailable",
-      "equipmentFloor": null,
-      "sourceIds": [
-        "seat2026"
-      ],
-      "seatNote": "2026公式図の参考領域です。券種境界・全列番号・特殊席との個別対応は確認中です。",
-      "zone": "3塁内野"
-    },
-    {
-      "id": "belluna-shape-796",
-      "level": "stand",
-      "area": "3塁内野",
-      "label": "3塁内野・参考区画",
-      "aliases": [],
-      "balcony": false,
-      "path": "M285.355,855.387 L293.014,848.019 L280.117,833.183 L272.108,840.146 Z",
-      "box": [
-        272.108,
-        833.183,
-        20.906,
-        22.204
-      ],
-      "center": [
-        282.561,
-        844.285
-      ],
-      "rows": [],
-      "neighbors": [
-        "belluna-shape-804",
-        "belluna-shape-688",
-        "belluna-shape-820"
-      ],
-      "numberReference": null,
-      "numberLookup": "unavailable",
-      "equipmentFloor": null,
-      "sourceIds": [
-        "seat2026"
-      ],
-      "seatNote": "2026公式図の参考領域です。券種境界・全列番号・特殊席との個別対応は確認中です。",
-      "zone": "3塁内野"
-    },
-    {
-      "id": "belluna-shape-798",
-      "level": "stand",
-      "area": "3塁内野",
-      "label": "3塁内野・参考区画",
-      "aliases": [],
-      "balcony": false,
-      "path": "M158.277,697.799 L178.228,688.235 L169.063,670.995 L149.399,679.057 Z",
-      "box": [
-        149.399,
-        670.995,
-        28.829,
-        26.804
-      ],
-      "center": [
-        163.813,
-        684.397
-      ],
-      "rows": [],
-      "neighbors": [
-        "belluna-shape-778",
-        "belluna-shape-780",
-        "belluna-shape-814"
-      ],
-      "numberReference": null,
-      "numberLookup": "unavailable",
-      "equipmentFloor": null,
-      "sourceIds": [
-        "seat2026"
-      ],
-      "seatNote": "2026公式図の参考領域です。券種境界・全列番号・特殊席との個別対応は確認中です。",
-      "zone": "3塁内野"
-    },
-    {
-      "id": "belluna-shape-800",
-      "level": "stand",
-      "area": "3塁内野",
-      "label": "3塁内野・参考区画",
-      "aliases": [],
-      "balcony": false,
-      "path": "M244.772,825.009 L250.252,820.529 L238.526,805.439 L232.911,809.832 Z",
-      "box": [
-        232.911,
-        805.439,
-        17.341,
-        19.57
-      ],
-      "center": [
-        241.582,
-        815.224
-      ],
-      "rows": [],
-      "neighbors": [
-        "belluna-shape-818",
-        "belluna-shape-790",
-        "belluna-shape-802"
-      ],
-      "numberReference": null,
-      "numberLookup": "unavailable",
-      "equipmentFloor": null,
-      "sourceIds": [
-        "seat2026"
-      ],
-      "seatNote": "2026公式図の参考領域です。券種境界・全列番号・特殊席との個別対応は確認中です。",
-      "zone": "3塁内野"
-    },
-    {
-      "id": "belluna-shape-802",
-      "level": "stand",
-      "area": "3塁内野",
-      "label": "3塁内野・参考区画",
-      "aliases": [],
-      "balcony": false,
-      "path": "M260.551,844.503 L265.837,839.784 L253.082,824.035 L247.546,828.575 Z",
-      "box": [
-        247.546,
-        824.035,
-        18.291,
-        20.468
-      ],
-      "center": [
-        256.692,
-        834.269
-      ],
-      "rows": [],
-      "neighbors": [
-        "belluna-shape-819",
-        "belluna-shape-792",
-        "belluna-shape-800"
-      ],
-      "numberReference": null,
-      "numberLookup": "unavailable",
-      "equipmentFloor": null,
-      "sourceIds": [
-        "seat2026"
-      ],
-      "seatNote": "2026公式図の参考領域です。券種境界・全列番号・特殊席との個別対応は確認中です。",
-      "zone": "3塁内野"
-    },
-    {
-      "id": "belluna-shape-804",
-      "level": "stand",
-      "area": "3塁内野",
-      "label": "3塁内野・参考区画",
-      "aliases": [],
-      "balcony": false,
-      "path": "M277.393,863.008 L282.768,857.840 L269.641,842.261 L264.064,847.109 Z",
-      "box": [
-        264.064,
-        842.261,
-        18.704,
-        20.747
-      ],
-      "center": [
-        273.416,
-        852.634
-      ],
-      "rows": [],
-      "neighbors": [
-        "belluna-shape-820",
-        "belluna-shape-796",
-        "belluna-shape-802"
-      ],
-      "numberReference": null,
-      "numberLookup": "unavailable",
-      "equipmentFloor": null,
-      "sourceIds": [
-        "seat2026"
-      ],
-      "seatNote": "2026公式図の参考領域です。券種境界・全列番号・特殊席との個別対応は確認中です。",
-      "zone": "3塁内野"
-    },
-    {
-      "id": "belluna-shape-806",
-      "level": "stand",
-      "area": "3塁内野",
-      "label": "3塁内野・参考区画",
-      "aliases": [],
-      "balcony": false,
-      "path": "M289.520,886.203 L298.682,876.490 L285.671,861.524 L275.069,871.660 Z",
-      "box": [
-        275.069,
-        861.524,
-        23.613,
-        24.679
-      ],
-      "center": [
-        286.876,
-        873.864
-      ],
-      "rows": [],
-      "neighbors": [
-        "belluna-shape-794",
-        "belluna-shape-820",
-        "belluna-shape-804"
-      ],
-      "numberReference": null,
-      "numberLookup": "unavailable",
-      "equipmentFloor": null,
-      "sourceIds": [
-        "seat2026"
-      ],
-      "seatNote": "2026公式図の参考領域です。券種境界・全列番号・特殊席との個別対応は確認中です。",
-      "zone": "3塁内野"
-    },
-    {
-      "id": "belluna-shape-808",
-      "level": "stand",
-      "area": "3塁内野",
-      "label": "3塁内野・参考区画",
-      "aliases": [],
-      "balcony": false,
-      "path": "M209.938,787.011 L220.265,779.697 L209.151,763.566 L198.657,770.128 Z",
-      "box": [
-        198.657,
-        763.566,
-        21.608,
-        23.445
-      ],
-      "center": [
-        209.461,
-        775.288
-      ],
-      "rows": [],
-      "neighbors": [
-        "belluna-shape-786",
-        "belluna-shape-810",
-        "belluna-shape-816"
-      ],
-      "numberReference": null,
-      "numberLookup": "unavailable",
-      "equipmentFloor": null,
-      "sourceIds": [
-        "seat2026"
-      ],
-      "seatNote": "2026公式図の参考領域です。券種境界・全列番号・特殊席との個別対応は確認中です。",
-      "zone": "3塁内野"
-    },
-    {
-      "id": "belluna-shape-810",
-      "level": "stand",
-      "area": "3塁内野",
-      "label": "3塁内野・参考区画",
-      "aliases": [],
-      "balcony": false,
-      "path": "M196.293,765.325 L206.102,759.003 L195.100,742.005 L184.949,747.589 Z",
-      "box": [
-        184.949,
-        742.005,
-        21.153,
-        23.32
-      ],
-      "center": [
-        195.525,
-        753.665
-      ],
-      "rows": [],
-      "neighbors": [
-        "belluna-shape-784",
-        "belluna-shape-808",
-        "belluna-shape-812"
-      ],
-      "numberReference": null,
-      "numberLookup": "unavailable",
-      "equipmentFloor": null,
-      "sourceIds": [
-        "seat2026"
-      ],
-      "seatNote": "2026公式図の参考領域です。券種境界・全列番号・特殊席との個別対応は確認中です。",
-      "zone": "3塁内野"
-    },
-    {
-      "id": "belluna-shape-812",
-      "level": "stand",
-      "area": "3塁内野",
-      "label": "3塁内野・参考区画",
-      "aliases": [],
-      "balcony": false,
-      "path": "M182.322,742.800 L191.538,737.513 L180.634,720.396 L171.008,725.283 Z",
-      "box": [
-        171.008,
-        720.396,
-        20.53,
-        22.404
-      ],
-      "center": [
-        181.273,
-        731.598
-      ],
-      "rows": [],
-      "neighbors": [
-        "belluna-shape-782",
-        "belluna-shape-814",
-        "belluna-shape-810"
-      ],
-      "numberReference": null,
-      "numberLookup": "unavailable",
-      "equipmentFloor": null,
-      "sourceIds": [
-        "seat2026"
-      ],
-      "seatNote": "2026公式図の参考領域です。券種境界・全列番号・特殊席との個別対応は確認中です。",
-      "zone": "3塁内野"
-    },
-    {
-      "id": "belluna-shape-814",
-      "level": "stand",
-      "area": "3塁内野",
-      "label": "3塁内野・参考区画",
-      "aliases": [],
-      "balcony": false,
-      "path": "M169.434,720.486 L177.922,716.050 L167.904,698.697 L160.476,702.156 Z",
-      "box": [
-        160.476,
-        698.697,
-        17.446,
-        21.789
-      ],
-      "center": [
-        169.199,
-        709.592
-      ],
-      "rows": [],
-      "neighbors": [
-        "belluna-shape-780",
-        "belluna-shape-812",
-        "belluna-shape-798"
-      ],
-      "numberReference": null,
-      "numberLookup": "unavailable",
-      "equipmentFloor": null,
-      "sourceIds": [
-        "seat2026"
-      ],
-      "seatNote": "2026公式図の参考領域です。券種境界・全列番号・特殊席との個別対応は確認中です。",
-      "zone": "3塁内野"
-    },
-    {
-      "id": "belluna-shape-816",
-      "level": "stand",
-      "area": "3塁内野",
-      "label": "3塁内野・参考区画",
-      "aliases": [],
-      "balcony": false,
-      "path": "M224.807,809.142 L235.416,800.935 L224.040,785.334 L213.311,793.037 Z",
-      "box": [
-        213.311,
-        785.334,
-        22.105,
-        23.808
-      ],
-      "center": [
-        224.364,
-        797.238
-      ],
-      "rows": [],
-      "neighbors": [
-        "belluna-shape-788",
-        "belluna-shape-800",
-        "belluna-shape-818"
-      ],
-      "numberReference": null,
-      "numberLookup": "unavailable",
-      "equipmentFloor": null,
-      "sourceIds": [
-        "seat2026"
-      ],
-      "seatNote": "2026公式図の参考領域です。券種境界・全列番号・特殊席との個別対応は確認中です。",
-      "zone": "3塁内野"
-    },
-    {
-      "id": "belluna-shape-818",
-      "level": "stand",
-      "area": "3塁内野",
-      "label": "3塁内野・参考区画",
-      "aliases": [],
-      "balcony": false,
-      "path": "M226.741,814.568 L232.911,809.825 L244.772,825.008 L238.778,829.944 Z",
-      "box": [
-        226.741,
-        809.825,
-        18.031,
-        20.119
-      ],
-      "center": [
-        235.757,
-        819.885
-      ],
-      "rows": [],
-      "neighbors": [
-        "belluna-shape-800",
-        "belluna-shape-790",
-        "belluna-shape-819"
-      ],
-      "numberReference": null,
-      "numberLookup": "unavailable",
-      "equipmentFloor": null,
-      "sourceIds": [
-        "seat2026"
-      ],
-      "seatNote": "2026公式図の参考領域です。券種境界・全列番号・特殊席との個別対応は確認中です。",
-      "zone": "3塁内野"
-    },
-    {
-      "id": "belluna-shape-819",
-      "level": "stand",
-      "area": "3塁内野",
-      "label": "3塁内野・参考区画",
-      "aliases": [],
-      "balcony": false,
-      "path": "M241.394,833.334 L247.563,828.590 L260.552,844.503 L254.364,849.939 Z",
-      "box": [
-        241.394,
-        828.59,
-        19.158,
-        21.349
-      ],
-      "center": [
-        250.973,
-        839.265
-      ],
-      "rows": [],
-      "neighbors": [
-        "belluna-shape-802",
-        "belluna-shape-792",
-        "belluna-shape-818"
-      ],
-      "numberReference": null,
-      "numberLookup": "unavailable",
-      "equipmentFloor": null,
-      "sourceIds": [
-        "seat2026"
-      ],
-      "seatNote": "2026公式図の参考領域です。券種境界・全列番号・特殊席との個別対応は確認中です。",
-      "zone": "3塁内野"
-    },
-    {
-      "id": "belluna-shape-820",
-      "level": "stand",
-      "area": "3塁内野",
-      "label": "3塁内野・参考区画",
-      "aliases": [],
-      "balcony": false,
-      "path": "M257.535,852.612 L264.210,846.980 L277.390,863.084 L270.992,868.923 Z",
-      "box": [
-        257.535,
-        846.98,
-        19.855,
-        21.943
-      ],
-      "center": [
-        267.462,
-        857.952
-      ],
-      "rows": [],
-      "neighbors": [
-        "belluna-shape-804",
-        "belluna-shape-796",
-        "belluna-shape-819"
-      ],
-      "numberReference": null,
-      "numberLookup": "unavailable",
-      "equipmentFloor": null,
-      "sourceIds": [
-        "seat2026"
-      ],
-      "seatNote": "2026公式図の参考領域です。券種境界・全列番号・特殊席との個別対応は確認中です。",
-      "zone": "3塁内野"
-    },
-    {
       "id": "belluna-shape-2578",
       "level": "stand",
       "area": "3塁内野",
@@ -9115,8 +8339,7 @@
       "rows": [],
       "neighbors": [
         "belluna-shape-2632",
-        "belluna-shape-2631",
-        "belluna-shape-2645"
+        "belluna-shape-2631"
       ],
       "numberReference": null,
       "numberLookup": "unavailable",
@@ -10115,7 +9338,6 @@
       "rows": [],
       "neighbors": [
         "belluna-shape-2610",
-        "belluna-shape-2643",
         "belluna-shape-2730"
       ],
       "numberReference": null,
@@ -10148,8 +9370,7 @@
       "rows": [],
       "neighbors": [
         "belluna-shape-2610",
-        "belluna-shape-2633",
-        "belluna-shape-2647"
+        "belluna-shape-2633"
       ],
       "numberReference": null,
       "numberLookup": "unavailable",
@@ -10181,8 +9402,7 @@
       "rows": [],
       "neighbors": [
         "belluna-shape-2634",
-        "belluna-shape-2632",
-        "belluna-shape-2649"
+        "belluna-shape-2632"
       ],
       "numberReference": null,
       "numberLookup": "unavailable",
@@ -10389,8 +9609,7 @@
       ],
       "neighbors": [
         "belluna-shape-2633",
-        "belluna-shape-2635",
-        "belluna-shape-2651"
+        "belluna-shape-2635"
       ],
       "numberReference": {
         "row": "29",
@@ -10447,8 +9666,7 @@
       "rows": [],
       "neighbors": [
         "belluna-shape-2634",
-        "belluna-shape-2636",
-        "belluna-shape-2653"
+        "belluna-shape-2636"
       ],
       "numberReference": null,
       "numberLookup": "unavailable",
@@ -10480,8 +9698,7 @@
       "rows": [],
       "neighbors": [
         "belluna-shape-2637",
-        "belluna-shape-2635",
-        "belluna-shape-2655"
+        "belluna-shape-2635"
       ],
       "numberReference": null,
       "numberLookup": "unavailable",
@@ -10513,8 +9730,7 @@
       "rows": [],
       "neighbors": [
         "belluna-shape-2638",
-        "belluna-shape-2636",
-        "belluna-shape-2657"
+        "belluna-shape-2636"
       ],
       "numberReference": null,
       "numberLookup": "unavailable",
@@ -10546,8 +9762,7 @@
       "rows": [],
       "neighbors": [
         "belluna-shape-2637",
-        "belluna-shape-2639",
-        "belluna-shape-2659"
+        "belluna-shape-2639"
       ],
       "numberReference": null,
       "numberLookup": "unavailable",
@@ -10680,369 +9895,6 @@
         "belluna-shape-2641",
         "belluna-shape-2671",
         "belluna-shape-2640"
-      ],
-      "numberReference": null,
-      "numberLookup": "unavailable",
-      "equipmentFloor": null,
-      "sourceIds": [
-        "seat2026"
-      ],
-      "seatNote": "2026公式図の参考領域です。券種境界・全列番号・特殊席との個別対応は確認中です。",
-      "zone": "1塁内野"
-    },
-    {
-      "id": "belluna-shape-2643",
-      "level": "stand",
-      "area": "1塁内野",
-      "label": "1塁内野・参考区画",
-      "aliases": [],
-      "balcony": false,
-      "path": "M1048.283,343.979 L1041.528,346.226 L1045.245,363.713 L1052.059,361.743 Z",
-      "box": [
-        1041.528,
-        343.979,
-        10.531,
-        19.734
-      ],
-      "center": [
-        1046.794,
-        353.846
-      ],
-      "rows": [],
-      "neighbors": [
-        "belluna-shape-2631",
-        "belluna-shape-2645",
-        "belluna-shape-2610"
-      ],
-      "numberReference": null,
-      "numberLookup": "unavailable",
-      "equipmentFloor": null,
-      "sourceIds": [
-        "seat2026"
-      ],
-      "seatNote": "2026公式図の参考領域です。券種境界・全列番号・特殊席との個別対応は確認中です。",
-      "zone": "1塁内野"
-    },
-    {
-      "id": "belluna-shape-2645",
-      "level": "stand",
-      "area": "1塁内野",
-      "label": "1塁内野・参考区画",
-      "aliases": [],
-      "balcony": false,
-      "path": "M1060.262,365.583 L1049.962,368.279 L1052.367,386.202 L1062.984,384.156 Z",
-      "box": [
-        1049.962,
-        365.583,
-        13.022,
-        20.619
-      ],
-      "center": [
-        1056.473,
-        375.893
-      ],
-      "rows": [],
-      "neighbors": [
-        "belluna-shape-2647",
-        "belluna-shape-2643",
-        "belluna-shape-2610"
-      ],
-      "numberReference": null,
-      "numberLookup": "unavailable",
-      "equipmentFloor": null,
-      "sourceIds": [
-        "seat2026"
-      ],
-      "seatNote": "2026公式図の参考領域です。券種境界・全列番号・特殊席との個別対応は確認中です。",
-      "zone": "1塁内野"
-    },
-    {
-      "id": "belluna-shape-2647",
-      "level": "stand",
-      "area": "1塁内野",
-      "label": "1塁内野・参考区画",
-      "aliases": [],
-      "balcony": false,
-      "path": "M1068.303,387.717 L1057.649,389.896 L1058.699,407.895 L1069.323,406.301 Z",
-      "box": [
-        1057.649,
-        387.717,
-        11.674,
-        20.178
-      ],
-      "center": [
-        1063.486,
-        397.806
-      ],
-      "rows": [],
-      "neighbors": [
-        "belluna-shape-2645",
-        "belluna-shape-2649",
-        "belluna-shape-2632"
-      ],
-      "numberReference": null,
-      "numberLookup": "unavailable",
-      "equipmentFloor": null,
-      "sourceIds": [
-        "seat2026"
-      ],
-      "seatNote": "2026公式図の参考領域です。券種境界・全列番号・特殊席との個別対応は確認中です。",
-      "zone": "1塁内野"
-    },
-    {
-      "id": "belluna-shape-2649",
-      "level": "stand",
-      "area": "1塁内野",
-      "label": "1塁内野・参考区画",
-      "aliases": [],
-      "balcony": false,
-      "path": "M1072.727,411.306 L1065.631,412.359 L1065.316,430.434 L1072.406,429.652 Z",
-      "box": [
-        1065.316,
-        411.306,
-        7.411,
-        19.128
-      ],
-      "center": [
-        1069.021,
-        420.87
-      ],
-      "rows": [],
-      "neighbors": [
-        "belluna-shape-2651",
-        "belluna-shape-2647",
-        "belluna-shape-2633"
-      ],
-      "numberReference": null,
-      "numberLookup": "unavailable",
-      "equipmentFloor": null,
-      "sourceIds": [
-        "seat2026"
-      ],
-      "seatNote": "2026公式図の参考領域です。券種境界・全列番号・特殊席との個別対応は確認中です。",
-      "zone": "1塁内野"
-    },
-    {
-      "id": "belluna-shape-2651",
-      "level": "stand",
-      "area": "1塁内野",
-      "label": "1塁内野・参考区画",
-      "aliases": [],
-      "balcony": false,
-      "path": "M1079.368,434.001 L1068.446,435.159 L1067.163,453.622 L1077.827,453.064 Z",
-      "box": [
-        1067.163,
-        434.001,
-        12.205,
-        19.621
-      ],
-      "center": [
-        1073.265,
-        443.812
-      ],
-      "rows": [],
-      "neighbors": [
-        "belluna-shape-2649",
-        "belluna-shape-2653",
-        "belluna-shape-2634"
-      ],
-      "numberReference": null,
-      "numberLookup": "unavailable",
-      "equipmentFloor": null,
-      "sourceIds": [
-        "seat2026"
-      ],
-      "seatNote": "2026公式図の参考領域です。券種境界・全列番号・特殊席との個別対応は確認中です。",
-      "zone": "1塁内野"
-    },
-    {
-      "id": "belluna-shape-2653",
-      "level": "stand",
-      "area": "1塁内野",
-      "label": "1塁内野・参考区画",
-      "aliases": [],
-      "balcony": false,
-      "path": "M1081.012,457.531 L1070.160,458.200 L1067.214,476.800 L1077.992,476.601 Z",
-      "box": [
-        1067.214,
-        457.531,
-        13.798,
-        19.269
-      ],
-      "center": [
-        1074.113,
-        467.165
-      ],
-      "rows": [],
-      "neighbors": [
-        "belluna-shape-2651",
-        "belluna-shape-2655",
-        "belluna-shape-2635"
-      ],
-      "numberReference": null,
-      "numberLookup": "unavailable",
-      "equipmentFloor": null,
-      "sourceIds": [
-        "seat2026"
-      ],
-      "seatNote": "2026公式図の参考領域です。券種境界・全列番号・特殊席との個別対応は確認中です。",
-      "zone": "1塁内野"
-    },
-    {
-      "id": "belluna-shape-2655",
-      "level": "stand",
-      "area": "1塁内野",
-      "label": "1塁内野・参考区画",
-      "aliases": [],
-      "balcony": false,
-      "path": "M1083.713,481.945 L1072.795,481.963 L1068.882,500.439 L1079.640,500.810 Z",
-      "box": [
-        1068.882,
-        481.945,
-        14.831,
-        18.865
-      ],
-      "center": [
-        1076.298,
-        491.378
-      ],
-      "rows": [],
-      "neighbors": [
-        "belluna-shape-2657",
-        "belluna-shape-2653",
-        "belluna-shape-2636"
-      ],
-      "numberReference": null,
-      "numberLookup": "unavailable",
-      "equipmentFloor": null,
-      "sourceIds": [
-        "seat2026"
-      ],
-      "seatNote": "2026公式図の参考領域です。券種境界・全列番号・特殊席との個別対応は確認中です。",
-      "zone": "1塁内野"
-    },
-    {
-      "id": "belluna-shape-2657",
-      "level": "stand",
-      "area": "1塁内野",
-      "label": "1塁内野・参考区画",
-      "aliases": [],
-      "balcony": false,
-      "path": "M1081.015,505.962 L1070.162,505.443 L1065.209,523.930 L1075.946,524.862 Z",
-      "box": [
-        1065.209,
-        505.443,
-        15.806,
-        19.419
-      ],
-      "center": [
-        1073.112,
-        515.153
-      ],
-      "rows": [],
-      "neighbors": [
-        "belluna-shape-2655",
-        "belluna-shape-2659",
-        "belluna-shape-2637"
-      ],
-      "numberReference": null,
-      "numberLookup": "unavailable",
-      "equipmentFloor": null,
-      "sourceIds": [
-        "seat2026"
-      ],
-      "seatNote": "2026公式図の参考領域です。券種境界・全列番号・特殊席との個別対応は確認中です。",
-      "zone": "1塁内野"
-    },
-    {
-      "id": "belluna-shape-2659",
-      "level": "stand",
-      "area": "1塁内野",
-      "label": "1塁内野・参考区画",
-      "aliases": [],
-      "balcony": false,
-      "path": "M1077.641,530.791 L1070.422,530.107 L1064.865,547.217 L1072.010,548.126 Z",
-      "box": [
-        1064.865,
-        530.107,
-        12.776,
-        18.019
-      ],
-      "center": [
-        1071.253,
-        539.117
-      ],
-      "rows": [],
-      "neighbors": [
-        "belluna-shape-2657",
-        "belluna-shape-2661",
-        "belluna-shape-2638"
-      ],
-      "numberReference": null,
-      "numberLookup": "unavailable",
-      "equipmentFloor": null,
-      "sourceIds": [
-        "seat2026"
-      ],
-      "seatNote": "2026公式図の参考領域です。券種境界・全列番号・特殊席との個別対応は確認中です。",
-      "zone": "1塁内野"
-    },
-    {
-      "id": "belluna-shape-2661",
-      "level": "stand",
-      "area": "1塁内野",
-      "label": "1塁内野・参考区画",
-      "aliases": [],
-      "balcony": false,
-      "path": "M1075.956,554.241 L1065.674,552.794 L1059.644,571.354 L1070.154,573.349 Z",
-      "box": [
-        1059.644,
-        552.794,
-        16.312,
-        20.555
-      ],
-      "center": [
-        1067.8,
-        563.072
-      ],
-      "rows": [],
-      "neighbors": [
-        "belluna-shape-2659",
-        "belluna-shape-2663",
-        "belluna-shape-2639"
-      ],
-      "numberReference": null,
-      "numberLookup": "unavailable",
-      "equipmentFloor": null,
-      "sourceIds": [
-        "seat2026"
-      ],
-      "seatNote": "2026公式図の参考領域です。券種境界・全列番号・特殊席との個別対応は確認中です。",
-      "zone": "1塁内野"
-    },
-    {
-      "id": "belluna-shape-2663",
-      "level": "stand",
-      "area": "1塁内野",
-      "label": "1塁内野・参考区画",
-      "aliases": [],
-      "balcony": false,
-      "path": "M1070.653,579.383 L1060.472,577.405 L1054.055,596.041 L1064.405,598.583 Z",
-      "box": [
-        1054.055,
-        577.405,
-        16.598,
-        21.178
-      ],
-      "center": [
-        1062.354,
-        587.994
-      ],
-      "rows": [],
-      "neighbors": [
-        "belluna-shape-2661",
-        "belluna-shape-2640",
-        "belluna-shape-2659"
       ],
       "numberReference": null,
       "numberLookup": "unavailable",
@@ -13375,74 +12227,7 @@
       "rows": [],
       "neighbors": [
         "belluna-shape-2629",
-        "belluna-shape-2631",
-        "belluna-shape-2643"
-      ],
-      "numberReference": null,
-      "numberLookup": "unavailable",
-      "equipmentFloor": null,
-      "sourceIds": [
-        "seat2026"
-      ],
-      "seatNote": "2026公式図の参考領域です。券種境界・全列番号・特殊席との個別対応は確認中です。",
-      "zone": "1塁内野"
-    },
-    {
-      "id": "belluna-shape-4515",
-      "level": "stand",
-      "area": "3塁内野",
-      "label": "3塁内野・参考区画",
-      "aliases": [],
-      "balcony": false,
-      "path": "M291.419,915.054 L296.732,909.366 L310.914,922.408 L305.806,928.257 Z",
-      "box": [
-        291.419,
-        909.366,
-        19.495,
-        18.891
-      ],
-      "center": [
-        301.166,
-        918.811
-      ],
-      "rows": [],
-      "neighbors": [
-        "belluna-shape-18",
-        "belluna-shape-806",
-        "belluna-shape-446"
-      ],
-      "numberReference": null,
-      "numberLookup": "unavailable",
-      "equipmentFloor": null,
-      "sourceIds": [
-        "seat2026"
-      ],
-      "seatNote": "2026公式図の参考領域です。券種境界・全列番号・特殊席との個別対応は確認中です。",
-      "zone": "3塁内野"
-    },
-    {
-      "id": "belluna-shape-4516",
-      "level": "stand",
-      "area": "1塁内野",
-      "label": "1塁内野・参考区画",
-      "aliases": [],
-      "balcony": false,
-      "path": "M882.741,926.675 L877.395,921.019 L891.293,907.675 L896.813,913.136 Z",
-      "box": [
-        877.395,
-        907.675,
-        19.418,
-        19.0
-      ],
-      "center": [
-        887.104,
-        917.175
-      ],
-      "rows": [],
-      "neighbors": [
-        "belluna-shape-16",
-        "belluna-shape-540",
-        "belluna-shape-590"
+        "belluna-shape-2631"
       ],
       "numberReference": null,
       "numberLookup": "unavailable",
@@ -16233,36 +15018,12 @@
         "belluna-shape-703",
         "belluna-shape-704",
         "belluna-shape-705",
-        "belluna-shape-778",
-        "belluna-shape-780",
-        "belluna-shape-782",
-        "belluna-shape-784",
-        "belluna-shape-786",
-        "belluna-shape-788",
-        "belluna-shape-790",
-        "belluna-shape-792",
-        "belluna-shape-794",
-        "belluna-shape-796",
-        "belluna-shape-798",
-        "belluna-shape-800",
-        "belluna-shape-802",
-        "belluna-shape-804",
-        "belluna-shape-806",
-        "belluna-shape-808",
-        "belluna-shape-810",
-        "belluna-shape-812",
-        "belluna-shape-814",
-        "belluna-shape-816",
-        "belluna-shape-818",
-        "belluna-shape-819",
-        "belluna-shape-820",
         "belluna-shape-2578",
         "belluna-shape-2579",
         "belluna-shape-2580",
         "belluna-shape-2581",
         "belluna-shape-2584",
-        "belluna-shape-2585",
-        "belluna-shape-4515"
+        "belluna-shape-2585"
       ],
       "viewBox": [
         82.479,
@@ -16324,17 +15085,6 @@
         "belluna-shape-2640",
         "belluna-shape-2641",
         "belluna-shape-2642",
-        "belluna-shape-2643",
-        "belluna-shape-2645",
-        "belluna-shape-2647",
-        "belluna-shape-2649",
-        "belluna-shape-2651",
-        "belluna-shape-2653",
-        "belluna-shape-2655",
-        "belluna-shape-2657",
-        "belluna-shape-2659",
-        "belluna-shape-2661",
-        "belluna-shape-2663",
         "belluna-shape-2671",
         "belluna-shape-2672",
         "belluna-shape-2673",
@@ -16366,8 +15116,7 @@
         "belluna-shape-2699",
         "belluna-shape-2716",
         "belluna-shape-2726",
-        "belluna-shape-2730",
-        "belluna-shape-4516"
+        "belluna-shape-2730"
       ],
       "viewBox": [
         654.265,

@@ -21,6 +21,8 @@ export type ArenaVenueData = {
   luggage: string;
   preparationTitle: string;
   preparation: string;
+  // Optional "car / parking" card: the venue's own stance, with buttons into the place list.
+  parking?: { text: string; meetup?: string };
   eventsUrl: string;
   faq: string[][];
 };

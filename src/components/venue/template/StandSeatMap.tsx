@@ -17,7 +17,7 @@ import { seatNumberBadge, seatNumberBadgeBounds, seatNumberArrowInk, seatNumberB
 import { SeatFinderControls, SeatFinderMiss, type FinderMode } from "./SeatFinderControls";
 import { directionName, nearSeatNumbers, seatLevelName } from "./seatFinderLabels";
 import { boundsOf, fitStandArrowToCanvas, edgeNumberGuide, fitStandNumberGuide, clampCamera, standDetailCamera, standRowDetailTransition, isSeatTap, labelCoversOtherBlock, mapProjection, normalizeSeatInput, placeVisibleRowLabel, searchStandSeats, standContextLabel, standDisplayRows, standVisibleRowHints, standLabelOrder, standGroupReferenceLabels, standReferenceLabelKey, standRedundantContextLabel, standRedundantContextText, standLabelInsideCanvas, standSelectedNumberRun, standSelectedRow, youngEdgeMidpoint, zoomCamera, zoneLabelPositions, type MapBox, type Point, type StandBlock, type StandMapData, type StandPosition } from "./standMap";
-import { hasStandCanvasArea, overviewAreaLabelPosition, overviewAreaLabelWidth, resolveStandSeatSection, standZoneCamera } from "./standMap";
+import { hasStandCanvasArea, overviewAreaLabelPosition, overviewAreaLabelWidth, resolveStandSeatSection, standPathRings, standRectCoverShare, standRectTouchesRings, standRingsBox, standZoneCamera } from "./standMap";
 import styles from "./StandSeatMap.module.css";
 import { VenueOverviewArt, StandOverviewTexture, overviewArtworkOpacity, VENUE_OVERVIEW_PROFILES } from "./VenueOverviewArt";
 
@@ -59,7 +59,7 @@ const rowSummary = (block: StandBlock) => {
 // Reuse the source name while omitting only exact metadata repeated beside it.
 const blockDisplayTitle = (block: StandBlock, levelLabel: string) =>
   block.label.split("・").filter(part => part.trim() !== rowSummary(block) && part.trim() !== levelLabel)
-    .map(part => part === "参考区画" && block.numberLookup === "unavailable" ? "番号未確認" : part).join("・") || block.label;
+    .map(part => part === "参考区画" && block.numberLookup === "unavailable" && !block.numberReference ? "番号未確認" : part).join("・") || block.label;
 
 const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap({ data, levels, areas, initialSection, onEquipment, venueId }, ref) {
   
@@ -110,6 +110,11 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   const selectedTitle = block ? blockDisplayTitle(block, selectedLevelLabel) : "";
   const highlightedRow = standSelectedRow(data, block, row);
   const projection = mapProjection(view, size.width, size.height);
+  // The selected block's outline on screen: labels for other places keep off it, and its own
+  // name moves beside it when the name would hide the block.
+  const selectedRings = useMemo(() => block ? standPathRings(block.path) : [], [block]);
+  const selectedScreenRings = selectedRings.map(ring => ring.map(point => projection.project(point)));
+  const selectedScreenBox = standRingsBox(selectedScreenRings);
   const photoHitTest = useSeatPhotoHitTest();
   const photoAnchors = useMemo(() => {
     const entries = new Map(seatViewPosts(data.diagramId).map(post => [`${post.place.kind}:${post.place.id}`, post]));
@@ -141,11 +146,15 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   const artUnit = Math.min(data.viewBox[2], data.viewBox[3]) / 100;
   const closestDetail = Boolean(block) && view[2] <= data.detailSpan * .55;
   const groupReferenceLabels = standGroupReferenceLabels(data, block, view[2]);
-  const blockShapes = useMemo(() => (block?.selectionPaintOnTop ? [...data.blocks.filter(b => b.id !== block.id), block] : data.blocks).map(b => <path key={b.id} d={b.path} fillRule="evenodd" data-block-id={b.id} className={`${styles.block} ${whole && pulse && data.wholeBlockLabels && !data.zones ? styles.blockPrompt : ""}`}
-            fill={b.id === selected ? "#a93164" : levels.find(l => l.id === b.level)!.color}
-            opacity={level === "all" || b.level === level || selected ? 1 : .17} stroke={b.id === selected ? "#682840" : "#fff"} strokeWidth={b.id === selected ? 1.8 : 1}>
+  // A chosen zone (a side, a stand, a lettered area) is tinted as a whole, like a chosen block.
+  const zoneMembers = useMemo(() => new Set(!selected && zone ? data.zones?.find(z => z.id === zone)?.blockIds ?? [] : []), [data.zones, selected, zone]);
+  // The chosen block (and a chosen zone) is always painted last, so no neighbouring or
+  // overlapping shape can hide it.
+  const blockShapes = useMemo(() => [...data.blocks.filter(b => b.id !== block?.id && !zoneMembers.has(b.id)), ...data.blocks.filter(b => zoneMembers.has(b.id)), ...(block ? [block] : [])].map(b => <path key={b.id} d={b.path} fillRule="evenodd" data-block-id={b.id} data-zone-member={zoneMembers.has(b.id) ? "" : undefined} className={`${styles.block} ${whole && pulse && data.wholeBlockLabels && !data.zones ? styles.blockPrompt : ""}`}
+            fill={b.id === selected ? "#a93164" : zoneMembers.has(b.id) ? "#c4527f" : levels.find(l => l.id === b.level)!.color}
+            opacity={level === "all" || b.level === level || selected || zoneMembers.has(b.id) ? 1 : .17} stroke={b.id === selected || zoneMembers.has(b.id) ? "#682840" : "#fff"} strokeWidth={b.id === selected ? 1.8 : zoneMembers.has(b.id) ? 1.2 : 1}>
             <title>{`${seatLevelName(b.level, levels.find(item => item.id === b.level)?.label)} ${b.balcony ? "バルコニー " : ""}${blockDisplayTitle(b, "")}・${rowSummary(b)}`}</title>
-          </path>), [block, data.blocks, data.wholeBlockLabels, data.zones, level, levels, pulse, selected, whole]);
+          </path>), [block, data.blocks, data.wholeBlockLabels, data.zones, level, levels, pulse, selected, whole, zoneMembers]);
 
   // A stopped glide or gesture keeps the camera where it is; labels are laid out again for it.
   function cancelGlide() { if (frame.current !== null) cancelAnimationFrame(frame.current); frame.current = null; }
@@ -449,7 +458,11 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
     ...zoneTags.map(z => { const p = zonePositions.get(z.id)!; return [p[0], p[1], overviewAreaLabelWidth(z.label), 44]; }),
     ...areaTags.map(a => { const p = areaPositions.get(a.id)!; return [p[0], p[1], overviewAreaLabelWidth(a.label), 44]; })];
   // Passive names keep clear of the corner arena-map button (approximate pill footprint).
-  const occupied = [...buttonBounds, ...(arenaMaps ? [[size.width - 76, 30, 140, 44]] : [])];
+  // The photo pill and the reference-area note sit over the bottom of the map: names there would be hidden.
+  const legendShown = data.blocks.some(item => item.numberLookup === "unavailable") && (!block || block.numberLookup === "unavailable");
+  const bottomCover = 8 + (photoAnchors.length ? 56 : 0) + (legendShown ? 34 : 0) + (photoAnchors.length && legendShown ? 6 : 0);
+  const bottomBox = bottomCover > 8 ? [size.width / 2, size.height - bottomCover / 2, size.width, bottomCover] : null;
+  const occupied = [...buttonBounds, ...(arenaMaps ? [[size.width - 76, 30, 140, 44]] : []), ...(bottomBox && !whole ? [bottomBox] : [])];
   const labels: { id: string; text: string; x: number; y: number; width: number; height: number; kind: "row" | "number" | "block"; selected: boolean; plain: boolean; anchor?: Point }[] = [];
   const selectedRowLabel = (label: typeof labels[number]) => label.kind === "row" && (label.id === "selected-row" ||
     (Boolean(highlightedRow) && (label.id === "first-row" || label.id === "last-row") && normalizeSeatInput(label.text.replace(/列$/, "")) === normalizeSeatInput(highlightedRow)));
@@ -473,13 +486,47 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
       // Plain context names are passive; they cannot redirect a tap to a different block.
       if (!important && !plainName && labelCoversOtherBlock(id, [x, y], w, h, blockCenters)) continue;
       if (!important && occupied.some(r => Math.abs(x - r[0]) < (w + r[2]) / 2 + 4 && Math.abs(y - r[1]) < (h + r[3]) / 2 + 3)) continue;
+      // Another place's name or number never lies on the selected block.
+      if (!important && standRectTouchesRings([x, y], w, h, selectedScreenRings, 1)) continue;
+      // The same caption twice close together reads as one place labelled twice: keep the first.
+      if (!important && !whole && labels.some(l => l.text === text && Math.hypot(l.x - x, l.y - y) < 160)) continue;
       occupied.push([x, y, w, h]); labels.push({ id, text, x, y, width: w, height: h, kind, selected: important, plain: plainName, anchor: dx || dy ? position : undefined }); return;
     }
   }
   let arrow: { start: Point; end: Point } | null = null;
   const rowStems: { a: Point; b: Point }[] = [];
   const displayRows = block ? standDisplayRows(block) : [];
-  if (block && !displayRows.length) addLabel("selected-block", blockDisplayTitle(block, ""), projection.project(block.numberLookup === "unavailable" ? standContextLabel(data, block, closestDetail).point : block.center), true);
+  // The selected block's own name: on the block when it leaves most of the block visible,
+  // otherwise just beside it with a short stem, so the pink block itself stays in view.
+  function addSelectedBlockName(text: string, position: Point) {
+    const textWidth = [...text].reduce((sum, char) => sum + 14 * (char.charCodeAt(0) < 128 ? .6 : 1), 0);
+    const w = Math.max(48, textWidth + 14), h = 26;
+    const box = selectedScreenBox;
+    const clearOf = (point: Point) => standLabelInsideCanvas(point, w, h, size)
+      && !occupied.some(r => Math.abs(point[0] - r[0]) < (w + r[2]) / 2 + 4 && Math.abs(point[1] - r[1]) < (h + r[3]) / 2 + 3);
+    if (!box || (standRectCoverShare(position, w, h, selectedScreenRings) <= .3 && clearOf(position))) { addLabel("selected-block", text, position, true); return; }
+    const cx = (box[0] + box[2]) / 2, cy = (box[1] + box[3]) / 2;
+    const candidates: Point[] = [[cx, box[1] - h / 2 - 12], [cx, box[3] + h / 2 + 12], [box[2] + w / 2 + 12, cy], [box[0] - w / 2 - 12, cy],
+      [cx, box[1] - h / 2 - 44], [cx, box[3] + h / 2 + 44]];
+    const point = candidates.find(p => clearOf(p) && !standRectTouchesRings(p, w, h, selectedScreenRings, 3));
+    if (!point) { addLabel("selected-block", text, position, true); return; }
+    // The stem meets the block at its outline point nearest the name.
+    const near = selectedScreenRings.flat().reduce((best, p) => Math.hypot(p[0] - point[0], p[1] - point[1]) < Math.hypot(best[0] - point[0], best[1] - point[1]) ? p : best, [cx, cy]);
+    occupied.push([point[0], point[1], w, h]);
+    labels.push({ id: "selected-block", text, x: point[0], y: point[1], width: w, height: h, kind: text.includes("番") && !text.endsWith("番側") ? "number" : "block", selected: true, plain: false, anchor: near });
+  }
+  const chosenZone = !block && zone ? data.zones?.find(z => z.id === zone) : undefined;
+  if (chosenZone && !whole) {
+    // The zone's name sits just above the tinted blocks (below them when there is no room),
+    // so the blocks' own start numbers inside the zone stay visible.
+    const memberBlocks = data.blocks.filter(b => zoneMembers.has(b.id));
+    const [bx, by, bw, bh] = memberBlocks.length ? boundsOf(memberBlocks, 0) : [chosenZone.point[0], chosenZone.point[1], 0, 0];
+    const top = projection.project([bx + bw / 2, by]), bottom = projection.project([bx + bw / 2, by + bh]);
+    const above: Point = [top[0], top[1] - 20], below: Point = [bottom[0], bottom[1] + 20];
+    const fitsAt = (p: Point) => standLabelInsideCanvas(p, 60, 26, size) && !(bottomBox && Math.abs(p[1] - bottomBox[1]) < (26 + bottomBox[3]) / 2 + 3);
+    addLabel("selected-zone", chosenZone.label, memberBlocks.length ? fitsAt(above) ? above : fitsAt(below) ? below : projection.project([bx + bw / 2, by + bh / 2]) : projection.project(chosenZone.point), true);
+  }
+  if (block && !displayRows.length) addSelectedBlockName(blockDisplayTitle(block, ""), projection.project(block.numberLookup === "unavailable" ? standContextLabel(data, block, closestDetail).point : block.center));
   if (block && displayRows.length) {
     const first = displayRows[0], lastRow = displayRows.at(-1)!;
     const last = block.referenceRows?.some(row => row.label === lastRow.label)
@@ -488,8 +535,13 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
     const fm = [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2], lm = [(la[0] + lb[0]) / 2, (la[1] + lb[1]) / 2];
     const depth = Math.hypot(lm[0] - fm[0], lm[1] - fm[1]);
     const tangent = Math.max(1, Math.hypot(b[0] - a[0], b[1] - a[1]));
-    const dx = depth > 1 ? (lm[0] - fm[0]) / depth : -(b[1] - a[1]) / tangent;
-    const dy = depth > 1 ? (lm[1] - fm[1]) / depth : (b[0] - a[0]) / tangent;
+    let dx = depth > 1 ? (lm[0] - fm[0]) / depth : -(b[1] - a[1]) / tangent;
+    let dy = depth > 1 ? (lm[1] - fm[1]) / depth : (b[0] - a[0]) / tangent;
+    // A single known row lies on the block's edge: its tag goes outward, away from the block's middle.
+    if (depth <= 1) {
+      const middle = projection.project(block.center);
+      if ((fm[0] - middle[0]) * -dx + (fm[1] - middle[1]) * -dy < 0) { dx = -dx; dy = -dy; }
+    }
     const rowObstacles: number[][] = [];
     const selectedRun = closestDetail ? standSelectedNumberRun(data, block, row, number) : null;
     const reference = selectedRun ? { start: selectedRun.segment.start, young: selectedRun.segment.a, older: selectedRun.segment.end === selectedRun.segment.start ? selectedRun.segment.a : selectedRun.segment.points?.find(p => Math.hypot(p[0] - selectedRun.segment.a[0], p[1] - selectedRun.segment.a[1]) > .001) ?? selectedRun.segment.b } : block.numberReference;
@@ -516,6 +568,17 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
       // sourced number edge at the joined arrow tip, including diagonal tips.
       if (data.diagramId === "k-arena-permanent-stands" && block.id === "k-level7-62" && length > .001 && length < labelWidth
         && anchor[0] >= 9 && anchor[0] <= size.width - 9 && anchor[1] >= 9 && anchor[1] <= size.height - 9) {
+        const u: Point = [(old[0] - young[0]) / length, (old[1] - young[1]) / length];
+        const offset = seatNumberBadgeTipDistance(u, labelWidth, 28, 20);
+        if (offset !== null) {
+          const outside: Point = [anchor[0] - u[0] * offset, anchor[1] - u[1] * offset];
+          if (standLabelInsideCanvas(outside, labelWidth, 28, size)) numberAnchor = outside;
+        }
+      }
+      // Any block the start badge would mostly hide: the badge steps back behind the
+      // young edge and its arrow tip stays on that edge (the Yoyogi / K Arena rule, for every venue).
+      if (numberAnchor === anchor && length > .001 && anchor[0] >= 9 && anchor[0] <= size.width - 9 && anchor[1] >= 9 && anchor[1] <= size.height - 9
+        && standRectCoverShare(anchor, labelWidth, 28, selectedScreenRings) > .4) {
         const u: Point = [(old[0] - young[0]) / length, (old[1] - young[1]) / length];
         const offset = seatNumberBadgeTipDistance(u, labelWidth, 28, 20);
         if (offset !== null) {
@@ -641,17 +704,21 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
     // Prefer a clear spot on the block; if none fits, the mark still shows at the block centre and
     // the block's own (passive) name gives way to it (Tokyo Dome). Row/number guides are never covered.
     const obstacles = [...occupied, ...photoOccupied];
-    const clear = candidates.filter(point => fits(point, obstacles));
+    const ownBlock = item.place.kind === "section" && item.place.id === block?.id;
+    const offSelected = (point: Point) => ownBlock || !standRectTouchesRings(point, photoTarget - 6, photoTarget - 6, selectedScreenRings, 0);
+    const clear = candidates.filter(point => fits(point, obstacles) && offSelected(point));
     const onBlock = (point: Point, radius: number) => photoHitTest(item.paths, {
         x: item.point[0] + (point[0] - anchor[0]) / projection.scale,
         y: item.point[1] + (point[1] - anchor[1]) / projection.scale,
       }, radius / projection.scale);
     // At overview scale, a zone can contain many very thin seat strips.
     // Its badge may straddle an aisle, but its centre must remain on its own seats.
-    const centered = item.place.kind === "section" && inside(anchor) && fits(anchor, obstacles) && onBlock(anchor, 0);
+    const centered = item.place.kind === "section" && inside(anchor) && fits(anchor, obstacles) && onBlock(anchor, 0) && offSelected(anchor);
     const placed = centered ? anchor : clear.find(point => onBlock(point, photoDiameter / 2))
       ?? clear.find(point => onBlock(point, 0));
-    const point = placed ?? (inside(anchor) ? anchor : null);
+    // The centre fallback never covers the chosen place's own name, row or number tags.
+    const onSelectedTag = labels.some(l => l.selected && !fits(anchor, [[l.x, l.y, l.width, l.height]]));
+    const point = placed ?? (inside(anchor) && !onSelectedTag && offSelected(anchor) ? anchor : null);
     if (!point) return [];
     if (!placed) {
       if (item.place.kind === "section") coveredLabels.add(item.place.id);
@@ -673,7 +740,7 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   const arenaImage = arenaMaps?.posts.find(post => post.image)?.image;
   const arenaThumb = arenaImage ? arenaImage.src.replace(/([?&]name=)\w+/, "$1thumb") : null;
   // Bottom-centred venue notes on small whole views stay above the photo/legend overlay.
-  const footerLift = (photoAnchors.length ? 44 : 0) + (data.blocks.some(item => item.numberLookup === "unavailable") ? 30 : 0);
+  const footerLift = (photoAnchors.length ? 44 : 0) + (legendShown ? 30 : 0);
   return <DomeSeatFrame className={data.levelViews ? styles.levelControls : undefined} levels={[{ id: "all", label: "すべて" }, ...levels]} level={level} onLevel={id => chooseRegion(id, "all")} photoLegend="map"
     directions={availableAreas} direction={area} onDirection={id => chooseRegion(level, id)} onZoom={zoom} onWhole={reset} shortcuts={[]}
     seatView={seatView}
@@ -717,6 +784,11 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
           <svg ref={inner} width={size.width} height={size.height} viewBox={view.join(" ")}>
             {overviewArt && <VenueOverviewArt diagramId={data.diagramId} blocks={data.blocks} opacity={artOpacity} unit={artUnit}/> }
             {data.contextLabels?.filter(l => !standRedundantContextText(l.text, block, closestDetail)
+              && !(block && standRectTouchesRings(projection.project(l.point).map((n, axis) => axis ? n - 5 : n), [...l.text].reduce((sum, char) => sum + 14 * (char.charCodeAt(0) < 128 ? .6 : 1), 0), 18, selectedScreenRings, 2))
+              // A fixed caption that would be cut at the map's left or right edge is left out at this zoom.
+              && !(!whole && (() => { const p = projection.project(l.point), w = [...l.text].reduce((sum, char) => sum + 14 * (char.charCodeAt(0) < 128 ? .6 : 1), 0); return p[0] - w / 2 < 2 || p[0] + w / 2 > size.width - 2; })())
+              && !(!whole && (() => { const p = projection.project(l.point), w = [...l.text].reduce((sum, char) => sum + 14 * (char.charCodeAt(0) < 128 ? .6 : 1), 0);
+                return labels.some(t => t.selected && Math.abs(p[0] - t.x) < (w + t.width) / 2 + 2 && Math.abs(p[1] - 5 - t.y) < (18 + t.height) / 2 + 2); })())
               && !(whole && size.width < 500 && data.diagramId === "vantelin-prime-unfolded")).map((l, i) => {
                 const footer = whole && size.width < 500 && ["belluna-seats", "paypay-stand-reference", "mufg-seats", "koshien-seats", "vantelin-seat-reference", "makuhari-seats", "sapporo-baseball", "sapporo-soccer"].includes(data.diagramId) && l.text.includes("公演");
                 const lines = footer && l.text.length * 12 > size.width - 24 && l.text.includes("・") ? [l.text.slice(0, l.text.indexOf("・") + 1), l.text.slice(l.text.indexOf("・") + 1)] : [l.text];
@@ -738,6 +810,15 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
           <g ref={overlay}>
           {zoneTags.map(z => { const p = zonePositions.get(z.id)!, anchor = projection.project(z.point); return Math.hypot(p[0] - anchor[0], p[1] - anchor[1]) > 8
             ? <line key={`zone-stem-${z.id}`} x1={anchor[0]} y1={anchor[1]} x2={p[0]} y2={p[1]} stroke="#d5a0ba" strokeWidth="1.2" pointerEvents="none"/> : null; })}
+          {selectedScreenBox && Math.max(selectedScreenBox[2] - selectedScreenBox[0], selectedScreenBox[3] - selectedScreenBox[1]) >= 18
+            && Math.min(selectedScreenBox[2] - selectedScreenBox[0], selectedScreenBox[3] - selectedScreenBox[1]) < 8 && <g data-selected-thin="" pointerEvents="none">
+            {selectedScreenRings.map((ring, i) => <polygon key={`halo-${i}`} points={ring.map(p => p.join(",")).join(" ")} fill="none" stroke="#fff" strokeWidth="8" strokeLinejoin="round"/>)}
+            {selectedScreenRings.map((ring, i) => <polygon key={`thin-${i}`} points={ring.map(p => p.join(",")).join(" ")} fill="#a93164" stroke="#a93164" strokeWidth="5" strokeLinejoin="round"/>)}
+          </g>}
+          {selectedScreenBox && Math.max(selectedScreenBox[2] - selectedScreenBox[0], selectedScreenBox[3] - selectedScreenBox[1]) < 18 && <g data-selected-ring="" pointerEvents="none">
+            <circle cx={(selectedScreenBox[0] + selectedScreenBox[2]) / 2} cy={(selectedScreenBox[1] + selectedScreenBox[3]) / 2} r={15} fill="none" stroke="#fff" strokeWidth="5"/>
+            <circle cx={(selectedScreenBox[0] + selectedScreenBox[2]) / 2} cy={(selectedScreenBox[1] + selectedScreenBox[3]) / 2} r={15} fill="none" stroke="#a93164" strokeWidth="2.5"/>
+          </g>}
           {rowStems.map((stem, i) => <line key={`row-stem-${i}`} x1={stem.a[0]} y1={stem.a[1]} x2={stem.b[0]} y2={stem.b[1]} stroke="#a93164" strokeWidth="1.2" pointerEvents="none"/>)}
 
           {labels.filter(l => l.anchor && !coveredLabels.has(l.id)).map(l => <line key={`label-stem-${l.id}`} x1={l.anchor![0]} y1={l.anchor![1]} x2={l.x} y2={l.y} stroke="#a93164" strokeWidth="1" pointerEvents="none"/>)}
@@ -810,8 +891,8 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
         </span>
       </button>}
       <div className={styles.photoOverlay}>
-        {data.blocks.some(item => item.numberLookup === "unavailable") && <p className={styles.coverageNote} data-seat-number-legend><Info size={14} aria-hidden="true" />
-          <span>参考区画（座席番号は未確認）{block?.numberLookup === "unavailable" && <span role="status"><br/>この区画の正確な番号範囲は未確認です。</span>}</span></p>}
+        {data.blocks.some(item => item.numberLookup === "unavailable") && (!block || block.numberLookup === "unavailable") && <p className={styles.coverageNote} data-seat-number-legend><Info size={14} aria-hidden="true" />
+          <span role={block?.numberLookup === "unavailable" ? "status" : undefined}>{block?.numberLookup === "unavailable" ? block.numberReference ? "番号は参考表示です（この区画は未確認）" : "この区画は座席番号が未確認の参考区画です" : "参考区画（座席番号は未確認）"}</span></p>}
         <SeatPhotoMapSummary selection={seatView} count={photoAnchors.length} onOpen={() => setPhotoRequest(request => request + 1)} />
       </div>
     </div>

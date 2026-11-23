@@ -8,6 +8,7 @@ import { yokohamaStationFacilities, yokohamaStationGroups, yokohamaStationMeta, 
 import { yokohamaExteriorGroups, yokohamaExteriorNearby } from "./exterior";
 import { yokohamaTransferMeta } from "./transfer-storage";
 import { yokohamaOperatorMeta } from "./operator-facilities";
+import { yokohamaNearbyFacilities, yokohamaNearbyMeta } from "./nearby";
 import { yokohamaInsideFacilities, yokohamaInsideMeta } from "./inside-services";
 export const yokohamaStandSeats = standData as StandMapData;
 export const yokohamaLevels = [
@@ -54,6 +55,7 @@ for (const f of facilities.filter(f => f.scope === "場外")) meta[f.id].outside
 Object.assign(meta, yokohamaStationMeta);
 Object.assign(meta, yokohamaTransferMeta);
 for (const [id, operatorMeta] of Object.entries(yokohamaOperatorMeta)) meta[id] = { ...meta[id], ...operatorMeta };
+for (const [id, nearbyMeta] of Object.entries(yokohamaNearbyMeta)) meta[id] = { ...meta[id], ...nearbyMeta };
 for (const f of yokohamaOutsideFacilities.filter(f => f.id.startsWith("ya-mugic"))) meta[f.id].accessCondition = f.purpose === "飲食" ? "外側入口・1人1品以上の注文" : "外側入口・店舗の受付時間を確認";
 meta["ya-lawson-arena"].area = "横浜アリーナ";
 meta["ya-lawson-arena"].accessCondition = "外側入口・会場入場前";
@@ -75,7 +77,7 @@ export const yokohamaFacilityConfig: FacilityConfig = {
   landmarkFacilityIds: {
     "ya-subway-area": stationIds,
     "ya-jr-station": yokohamaOutsideFacilities.filter(f => f.id.startsWith("ya-cubic-") || ["ya-multi-platform", "ya-multi-shinohara"].includes(f.id)).map(f => f.id),
-    "ya-main-area": [...facilities.filter(f => f.scope === "場外").map(f => f.id), ...yokohamaOutsideFacilities.filter(f => f.id.startsWith("ya-mugic") || f.id === "ya-lawson-arena").map(f => f.id)],
+    "ya-main-area": [...facilities.filter(f => f.scope === "場外").map(f => f.id), ...yokohamaOutsideFacilities.filter(f => f.id.startsWith("ya-mugic") || f.id === "ya-lawson-arena").map(f => f.id), ...yokohamaNearbyFacilities.map(f => f.id)],
     ...yokohamaStationNearby,
     ...yokohamaExteriorNearby,
   },

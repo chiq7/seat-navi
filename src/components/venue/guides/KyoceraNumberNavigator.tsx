@@ -333,18 +333,23 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
   const placedRows: typeof rowEnds = [];
   for (const row of rowEnds) {
     const anchor = { ...row.rect };
-    const obstacles = [...placedLabels.map(label => {
+    // Only the chosen block's own number badge outranks its row ends; neighbouring
+    // badges that would sit on a row end give way below (priorityLabels).
+    const obstacles = [...placedLabels.filter(label => label.block.code === selectedCode).map(label => {
       const { rect, from, to } = label.sign;
       const bounds = seatNumberBadgeBounds([to.x - from.x, to.y - from.y], rect.width, rect.height, Math.hypot(to.x - from.x, to.y - from.y), label.compact ? 3 : 5);
       return { ...bounds, x: rect.x + bounds.x, y: rect.y + bounds.y };
-    }), ...placedRows.map(row => row.rect)];
-    const shifts = [[0, 0], [0, -34], [0, 34], [-60, 0], [60, 0], [-60, -34], [60, 34]];
+    }), ...placedRows.map(row => row.rect), ...centralLabels.map(label => label.rect)];
+    const shifts = [[0, 0], [0, -34], [0, 34], [-60, 0], [60, 0], [-60, -34], [60, 34], [-60, 34], [60, -34], [0, -56], [0, 56]];
     const chosen = shifts.map(([dx, dy]) => ({ ...anchor, x: anchor.x + dx, y: anchor.y + dy }))
       .find(rect => rect.x >= 30 && rect.x <= size.width - 30 && rect.y >= 16 && rect.y <= size.height - 16
         && obstacles.every(other => !rectanglesOverlap(rect, other, 3)));
     if (chosen && Math.hypot(chosen.x - row.anchor.x, chosen.y - row.anchor.y) <= 64) { Object.assign(row.rect, chosen); placedRows.push(row); }
   }
   rowEnds.splice(0, rowEnds.length, ...placedRows);
+  // The photo button (bottom left) and the arena-map button (top right) float over the map:
+  // a neighbouring badge underneath them would only show a fragment, so it is left out.
+  const overlayCover: LabelRect[] = [{ x: 160, y: size.height - 42, width: 320, height: 84 }, { x: size.width - 80, y: 30, width: 150, height: 46 }];
   const numberPriority = prioritizeSelectedNumberArrow(placedLabels, selectedCode ?? null, reserved);
   const priorityLabels: typeof placedLabels = [];
   const labelPriorityOrigin = selectedBlock ? project(selectedBlock.x, selectedBlock.y) : { x: size.width / 2, y: size.height / 2 };
@@ -352,7 +357,7 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
     || Math.hypot(a.sign.rect.x - labelPriorityOrigin.x, a.sign.rect.y - labelPriorityOrigin.y) - Math.hypot(b.sign.rect.x - labelPriorityOrigin.x, b.sign.rect.y - labelPriorityOrigin.y))) {
     // Compact neighbouring badges can still collide. Preserve the selected
     // marker and actual row ends; omit only the overlapping passive badge.
-    if (label.block.code !== selectedCode && [...rowEnds.map(row => row.rect), ...priorityLabels.map(other => other.sign.rect)]
+    if (label.block.code !== selectedCode && [...rowEnds.map(row => row.rect), ...priorityLabels.map(other => other.sign.rect), ...overlayCover]
       .some(rect => rectanglesOverlap(rect, label.sign.rect, 4))) continue;
     priorityLabels.push(label);
   }

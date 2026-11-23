@@ -73,7 +73,8 @@
 .detail details { margin-top:8px; }
 .detail summary { cursor:pointer; }
 .detail a { display:inline-flex; align-items:center; min-height:44px; }
-.detail a:not(.bookingLink) { color:#913455; text-decoration:underline; }
+.detail a:not(.bookingLink) { color:#913455; text-decoration:none; font-weight:700; gap:6px; margin-top:4px; padding:8px 14px; border:1px solid #e3bdce; border-radius:10px; background:#fff; }
+.detail a:not(.bookingLink):hover, .detail a:not(.bookingLink):focus-visible { background:#fff3f8; border-color:#b96b8e; }
 .filters { display:flex; flex-wrap:wrap; gap:6px; }
 
 .tokyoDetail > details { border:0; padding:0; background:transparent; box-shadow:none; }

@@ -33,6 +33,7 @@ import { DomeSeatFrame } from "./template/DomeSeatFrame";
 import { seatViewPosts } from "@/lib/seatViewPosts";
 import { announceTokyoDomeMapScope, getTokyoDomeVenueSeatSelection, TOKYO_DOME_SEAT_SELECTION_EVENT } from "@/lib/tokyoDomeVenueSelection";
 import { useArenaMaps } from "./ArenaMapsSheet";
+import { standPathRings, standRingsBox } from "./template/standMap";
 import { useVenueSeatTarget } from "./VenueSeatTarget";
 
 type SeatArea = { code: string; label: [number, number]; path: string | null; shared: boolean; rows: [number, number] | null };
@@ -523,20 +524,50 @@ export function TokyoDomeSeatLocator() {
   const visibleEdgeMarkers = selectedEdgeMarkers.filter(({anchor}) => anchor
     && anchor[0] >= visibleMapBox.x && anchor[0] <= visibleMapBox.x + visibleMapBox.width
     && anchor[1] >= visibleMapBox.y && anchor[1] <= visibleMapBox.y + visibleMapBox.height);
-  const clearNumberGuides = numberGuides.filter(guide => {
+  // Neighbouring start badges never stack on each other: the one nearer the chosen block wins.
+  const keptGuideBoxes: number[][] = [];
+  if (verifiedNumberGuide) keptGuideBoxes.push([verifiedNumberGuide.point[0] - 34 / screenScale, verifiedNumberGuide.point[1] - 20 / screenScale, verifiedNumberGuide.point[0] + 34 / screenScale, verifiedNumberGuide.point[1] + 20 / screenScale]);
+  const guideOrigin = selectedLabel ?? [interactiveViewBox.x + interactiveViewBox.width / 2, interactiveViewBox.y + interactiveViewBox.height / 2];
+  const clearNumberGuides = [...numberGuides].sort((a, b) => Math.hypot(a.point[0] - guideOrigin[0], a.point[1] - guideOrigin[1]) - Math.hypot(b.point[0] - guideOrigin[0], b.point[1] - guideOrigin[1])).filter(guide => {
     const sign = placeNumberLabel({ x: guide.point[0], y: guide.point[1] }, { x: guide.point[0] + guide.direction[0], y: guide.point[1] + guide.direction[1] }, 52 / screenScale, 28 / screenScale, 6 / screenScale, 20 / screenScale);
     const end = { x: sign.from.x + guide.direction[0] * 20 / screenScale, y: sign.from.y + guide.direction[1] * 20 / screenScale };
     const left = Math.min(guide.point[0] - 28 / screenScale, sign.from.x - 7 / screenScale, end.x - 7 / screenScale);
     const right = Math.max(guide.point[0] + 28 / screenScale, sign.from.x + 7 / screenScale, end.x + 7 / screenScale);
     const top = Math.min(guide.point[1] - 16 / screenScale, sign.from.y - 7 / screenScale, end.y - 7 / screenScale);
     const bottom = Math.max(guide.point[1] + 16 / screenScale, sign.from.y + 7 / screenScale, end.y + 7 / screenScale);
-    return left >= visibleMapBox.x && right <= visibleMapBox.x + visibleMapBox.width
+    const pad = 3 / screenScale;
+    const keep = left >= visibleMapBox.x && right <= visibleMapBox.x + visibleMapBox.width
       && top >= visibleMapBox.y && bottom <= visibleMapBox.y + visibleMapBox.height
-      && tokyoDomeNumberClearOfRows(guide.point, selectedEdgeMarkers.map(marker => marker.point), screenScale);
+      && tokyoDomeNumberClearOfRows(guide.point, selectedEdgeMarkers.map(marker => marker.point), screenScale)
+      && keptGuideBoxes.every(([l, t, r, b]) => left > r + pad || right < l - pad || top > b + pad || bottom < t - pad);
+    if (keep) keptGuideBoxes.push([left, top, right, bottom]);
+    return keep;
   });
   const displayedNumberGuides = verifiedNumberGuide ? [...clearNumberGuides, verifiedNumberGuide] : clearNumberGuides;
   // Names provide orientation; row/number badges and their arrows take priority.
   // Keep original anchors and hit geometry. Only suppress a colliding caption.
+  const guideObstacles = [
+    ...displayedNumberGuides.flatMap(guide => {
+      const sign = placeNumberLabel({ x: guide.point[0], y: guide.point[1] }, { x: guide.point[0] + guide.direction[0], y: guide.point[1] + guide.direction[1] }, 52 / screenScale, 28 / screenScale, 6 / screenScale, 20 / screenScale);
+      return [{ x: guide.point[0], y: guide.point[1], width: 58 / screenScale, height: 34 / screenScale },
+        { x: sign.from.x + guide.direction[0] * 10 / screenScale, y: sign.from.y + guide.direction[1] * 10 / screenScale,
+          width: (Math.abs(guide.direction[0]) * 20 + 14) / screenScale, height: (Math.abs(guide.direction[1]) * 20 + 14) / screenScale }];
+    }),
+    ...visibleEdgeMarkers.flatMap(marker => marker.point ? [{ x: marker.point[0], y: marker.point[1], width: 62 / screenScale, height: 34 / screenScale }] : []),
+  ];
+  // GATE tags give way to the chosen block and to the number/row badges.
+  const selectedShapeBox = (() => {
+    if (!selectedArea) return null;
+    const balcony = BALCONY_SEGMENTS.find(segment => segment.code === selectedArea.code);
+    const path = balcony?.regionPath ?? selectedArea.path;
+    return path ? standRingsBox(standPathRings(path)) : null;
+  })();
+  const gateClear = (gate: { label: { x: number; y: number } }) => {
+    const w = 64 / screenScale, h = 26 / screenScale;
+    if (selectedShapeBox && gate.label.x + w / 2 > selectedShapeBox[0] && gate.label.x - w / 2 < selectedShapeBox[2]
+      && gate.label.y + h / 2 > selectedShapeBox[1] && gate.label.y - h / 2 < selectedShapeBox[3]) return false;
+    return guideObstacles.every(other => Math.abs(gate.label.x - other.x) >= (w + other.width) / 2 || Math.abs(gate.label.y - other.y) >= (h + other.height) / 2);
+  };
   const captionObstacles = [
     // Overview buttons float above the SVG. Reserve their visible captions and
     // badges before placing small block names; their seat hit areas stay intact.
@@ -622,7 +653,9 @@ export function TokyoDomeSeatLocator() {
     const clear = candidates.find(point => photoHitTest([shape], point, 10 / screenScale)
         && (!balcony || photoHitTest([balcony.regionPath], point, 10 / screenScale)))
       ?? candidates.find(point => photoHitTest([shape], point, 0));
-    const point = clear ?? (centreVisible ? center : undefined);
+    // The centre fallback never covers a seat-number or row badge.
+    const onGuide = guideObstacles.some(other => Math.abs(center.x - other.x) < (24 / screenScale + other.width) / 2 && Math.abs(center.y - other.y) < (24 / screenScale + other.height) / 2);
+    const point = clear ?? (centreVisible && !onGuide ? center : undefined);
     if (!point) return [];
     photoObstacles.push({ ...point, width: 28 / screenScale, height: 28 / screenScale });
     return [{ area, ...point, coversName: !clear }];
@@ -1049,6 +1082,11 @@ export function TokyoDomeSeatLocator() {
                 data-selected-row-band={selectedRow} d={ROW_GUIDES.get(selectedArea.code)!.band(selectedRow)!}
                 clipPath={`url(#tokyo-rows-${selectedArea.code})`} fill="#b9e3fb" fillOpacity="0.96"
                 stroke="#1673ad" strokeWidth="1.2" vectorEffect="non-scaling-stroke" pointerEvents="none" />}
+              {/* A chosen block smaller than a fingertip on screen gets a ring, so it can be found. */}
+              {detailStage && selectedShapeBox && Math.max(selectedShapeBox[2] - selectedShapeBox[0], selectedShapeBox[3] - selectedShapeBox[1]) * screenScale < 18 && <g data-selected-ring="" pointerEvents="none">
+                <circle cx={(selectedShapeBox[0] + selectedShapeBox[2]) / 2} cy={(selectedShapeBox[1] + selectedShapeBox[3]) / 2} r={15 / screenScale} fill="none" stroke="#fff" strokeWidth="5" vectorEffect="non-scaling-stroke" />
+                <circle cx={(selectedShapeBox[0] + selectedShapeBox[2]) / 2} cy={(selectedShapeBox[1] + selectedShapeBox[3]) / 2} r={15 / screenScale} fill="none" stroke="#a93164" strokeWidth="2.5" vectorEffect="non-scaling-stroke" />
+              </g>}
               <g data-overview-art="floor-label" opacity={arenaMaps ? 0 : overviewOpacity} pointerEvents="none" aria-hidden="true" fill="#315b4c" textAnchor="middle" fontFamily="ui-sans-serif, sans-serif">
                 <text x="579" y="253" fontSize={Math.min(17, Math.max(12, canvasSize.width / 26)) / screenScale}
                   fontWeight="800">アリーナ</text>
@@ -1075,7 +1113,7 @@ export function TokyoDomeSeatLocator() {
               </g>)}
               {TOKYO_DOME_GATE_ANCHORS.filter(gate => {
                 // A whole-side view is for finding the block; gates return once a block is chosen.
-                if (showDetail) return Boolean(selected) || interactiveViewBox.width <= 360;
+                if (showDetail) return (Boolean(selected) || interactiveViewBox.width <= 360) && gateClear(gate);
                 if (!["GATE 11", "GATE 25", "GATE 40", "GATE 41"].includes(gate.gate)) return false;
                 return TOKYO_DOME_OVERVIEW_AREAS.every(area => Math.abs(area.point[0] - gate.label.x) * overviewScale >= 80
                   || Math.abs(area.point[1] - gate.label.y) * overviewScale >= 36);

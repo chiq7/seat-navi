@@ -2,6 +2,7 @@ import type { GuideDiagram, GuideFacility, GuideSource } from "../types";
 import { yokohamaStationFacilities } from "./station";
 import { yokohamaTransferSources, yokohamaTransferStorage } from "./transfer-storage";
 import { yokohamaOperatorFacilities, yokohamaOperatorSources } from "./operator-facilities";
+import { yokohamaNearbyFacilities, yokohamaNearbySources } from "./nearby";
 export const yokohamaOutsideSources: GuideSource[] = [
   { id: "ya-cubic-locker", title: "キュービックプラザ新横浜・ロッカー", url: "https://www.cubicplaza.com/facilities/coin-locker", checkedAt: "2026-10-07", scope: "7設置区域ごとの寸法（幅/奥行/高さ）、料金・日額/12時間上限、24時間/4:30〜24:30を確認。精密な機器点・決済方法は未確認。", usage: "facts-only" },
   { id: "ya-cubic-service", title: "キュービックプラザ新横浜・設備", url: "https://www.cubicplaza.com/facilities/", checkedAt: "2026-10-07", scope: "横浜線改札内ロッカー、多目的トイレとおむつ替えの9階、3F/6F授乳室、3F/10F AED、1F/2F ATM。室入口・設備台数は別確認。", usage: "facts-only" },
@@ -11,6 +12,7 @@ export const yokohamaOutsideSources: GuideSource[] = [
   { id: "ya-tokyu-station", title: "東急・新横浜駅平面図", url: "https://www.tokyu.co.jp/area/shin-yokohama/station/", checkedAt: "2026-10-07", scope: "現行ページの2024年6月25日付B1F平面図。出口7/8/5B、北/南改札、ロッカー3区域、男女/多機能トイレ2区域、AED2記号、地上/デッキへのEV3記号。連続経路・当日の開放・機器全数は別確認。", usage: "facts-only" },
   ...yokohamaTransferSources,
   ...yokohamaOperatorSources,
+  ...yokohamaNearbySources,
 ];
 const luggage = (id: string, name: string, floor: string, location: string, detail: string, sourceIds: string[], staffed = false): GuideFacility => ({ id, name, floor, location, detail, sourceIds, purpose: "荷物", scope: "場外", precision: "text-only", storageKind: staffed ? "staffed" : "coin" });
 const cubic = (id: string, name: string, floor: string, purpose: GuideFacility["purpose"], kind: string, detail: string): GuideFacility => ({ id: `ya-cubic-${id}`, name: `キュービックプラザ・${name}`, floor, purpose, kind, scope: "場外", precision: "text-only", location: "新横浜駅・キュービックプラザ", detail, sourceIds: ["ya-cubic-service"] });
@@ -27,6 +29,7 @@ export const yokohamaOutsideFacilities: GuideFacility[] = [
   ...yokohamaStationFacilities,
   ...yokohamaTransferStorage,
   ...yokohamaOperatorFacilities,
+  ...yokohamaNearbyFacilities,
   luggage("ya-mugic-cloak", "Studio MUGIC 荷物預かり", "1F", "横浜アリーナ併設・Studio MUGIC", "30L専用袋に入る荷物を600円（税込）で預かります。予約不要。受付日と時間は店舗のXで案内されます。", ["ya-mugic"], true),
   luggage("ya-mugic-locker", "Studio MUGIC 店頭ロッカー", "1F", "横浜アリーナ併設・Studio MUGICの店頭", "コインロッカーの設置案内があります。サイズ・料金・決済方法・取り出せる時間は店舗で確認してください。スタッフへ預ける30L袋のクロークとは別のサービスです。", ["ya-mugic"]),
   { id: "ya-lawson-arena", name: "ローソン 横浜アリーナ店", floor: "1F", purpose: "飲食", kind: "convenience-store", scope: "場外", precision: "diagram-point", location: "横浜アリーナ併設・外側の店舗入口", detail: "24時間営業・年中無休。店舗には外から入ります。横浜アリーナの客席・ロビーからは入れません。", sourceIds: ["ya-exterior-services", "floor-outside-map"], anchor: { diagramId: "ya-venue-exterior", x: 83, y: 486, sourceIds: ["floor-outside-map"], reference: "公式施設外図の店舗引出線の終点。入口矢印・個別ドア・ロッカー機器点とは区別する。" } },

@@ -19,6 +19,7 @@ const modeKey=mode,resolved=resolveArenaView(definition,mode),{guide,seats,level
   function revealFacilities() { facilities.current?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" }); }
   function showEquipment(floor: string | null) { finder.current?.linkSeatFloor(floor); revealFacilities(); }
   function showLuggage() { finder.current?.showLuggage(); revealFacilities(); }
+  function showNearby(purpose: "案内" | "飲食", query = "") { finder.current?.showNearby?.(purpose, query); revealFacilities(); }
   function showPrimeRegion(level: string, area: string) {
     primeMap.current?.showRegion(level, area);
     primeNumbers.current?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
@@ -40,6 +41,8 @@ const modeKey=mode,resolved=resolveArenaView(definition,mode),{guide,seats,level
       <section id="venue-prep"><h2>出発前の準備</h2><div className={styles.prep}>
         <article><h3>大きな荷物</h3><p>{data.luggage}</p><button type="button" onClick={showLuggage}>ロッカー・荷物預かりを探す ↓</button></article>
         <article><h3>{data.preparationTitle}</h3><p>{data.preparation}</p></article>
+        {data.parking && <article><h3>車・駐車場</h3><p>{data.parking.text}</p><button type="button" onClick={()=>showNearby("案内","駐車場")}>周辺の駐車場を見る ↓</button></article>}
+        {data.parking?.meetup && <article><h3>公演前後の待ち合わせ</h3><p>{data.parking.meetup}</p><button type="button" onClick={()=>showNearby("飲食","周辺のお店")}>周辺のお店を見る ↓</button></article>}
       </div></section>
       {!embedded && <section id="upcoming-events-title"><h2>公演の案内</h2><a className={styles.linkButton} href={data.eventsUrl} target="_blank" rel="noopener noreferrer">{data.guide.name}の公演予定 ↗</a></section>}
       <section id="venue-faq"><h2>よくある質問</h2>{data.faq.map(([question, answer]) => <details key={question}><summary>{question}</summary><p>{answer}</p></details>)}</section>

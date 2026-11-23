@@ -143,6 +143,14 @@
       "checkedAt": "2026-10-10",
       "scope": "本文と記号を確認した主要区域。精密入口・当日開放は未確定",
       "usage": "facts-only"
+    },
+    {
+      "id": "seat-left-printed13",
+      "title": "公式レフト外野席詳細図（保存原本照合）",
+      "url": "https://koshien.hanshin.co.jp/stadium_seat/img/pdf/left.pdf",
+      "checkedAt": "2026-10-29",
+      "scope": "レフト外野の同一区画13段341〜348番を保存公式原図で確認。現在の配信図との同一性と公演ごとの使用席は未確認。",
+      "usage": "facts-only"
     }
   ],
   "facilities": [
