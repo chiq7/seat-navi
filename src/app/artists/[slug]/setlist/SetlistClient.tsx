@@ -431,9 +431,9 @@ export function SetlistClient({
         {!hasPublishedSetlists && !hasSetlistSongs(setlistItems) && !unavailableEvent &&
           <div className="zr-container py-4 text-sm" data-setlist-list-empty>
             <p>このアーティストの公開セトリはまだありません。</p>
-            <div className="flex flex-wrap gap-x-4">
-              <Link href={`/artists/${slug}#artist-events`} className="zr-focus inline-flex min-h-11 items-center font-bold text-[#84234f] underline">公演一覧を見る</Link>
-              <Link href={venueSeatGuideHref && selectedEvent ? eventVenueHref(venueSeatGuideHref, selectedEvent.id) : "/venues"} className="zr-focus inline-flex min-h-11 items-center font-bold text-[#84234f] underline">
+            <div className="mt-2 flex flex-wrap gap-2">
+              <Link href={`/artists/${slug}#artist-events`} className="zr-focus inline-flex min-h-11 items-center gap-1 rounded-xl border border-[#e9cdd9] bg-white px-3 text-[13px] font-bold text-[#8a2850]">公演一覧を見る</Link>
+              <Link href={venueSeatGuideHref && selectedEvent ? eventVenueHref(venueSeatGuideHref, selectedEvent.id) : "/venues"} className="zr-focus inline-flex min-h-11 items-center gap-1 rounded-xl border border-[#e9cdd9] bg-white px-3 text-[13px] font-bold text-[#8a2850]">
                 {venueSeatGuideHref ? "この会場の座席表を見る" : "会場の座席表を探す"}
               </Link>
             </div>
@@ -470,7 +470,7 @@ export function SetlistClient({
                 <p className="text-sm font-black text-[#84234f]">{reviewSource.kind === "official_recording" ? "公式映像収録版" : "出典確認済み"}</p>
                 {reviewSource.kind === "official_recording" && <p className="mt-1 text-xs text-[#665861]">DVD・Blu-rayの収録順です。</p>}
               </div>
-              {reviewSource.url && <a className="zr-focus inline-flex min-h-11 items-center px-2 text-xs font-bold text-[#84234f] underline" href={reviewSource.url} target="_blank" rel="noopener noreferrer">出典を見る</a>}
+              {reviewSource.url && <a className="zr-focus inline-flex min-h-11 items-center rounded-lg border border-[#e9cdd9] bg-white px-3 text-xs font-bold text-[#84234f]" href={reviewSource.url} target="_blank" rel="noopener noreferrer">出典を見る</a>}
             </div>
           )}
           <fieldset disabled={!selectedEventId || readStatus !== "ready"} className="min-w-0 disabled:opacity-60">

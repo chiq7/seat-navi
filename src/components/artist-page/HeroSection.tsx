@@ -124,7 +124,7 @@ export default function HeroSection({
           ) : (
             <div className="mt-5 flex min-h-12 items-center justify-between gap-3 rounded-2xl bg-[#fff4f8] px-4">
               <p className="text-[12px] font-bold text-[#876b79]">次回公演の発表を待っています</p>
-              <Link href={`/artists/${slug}/news`} className="shrink-0 text-[11px] font-black text-[#e84a80]">公式ニュース →</Link>
+              <Link href={`/artists/${slug}/news`} className="zr-focus inline-flex min-h-11 shrink-0 items-center rounded-xl border border-[#e9cdd9] bg-white px-3 text-[12px] font-black text-[#c63b6c]">公式ニュース</Link>
             </div>
           )}
 
@@ -140,7 +140,7 @@ export default function HeroSection({
                 </p>
               </div>
             ))}
-          </div><a href="#ticket-data" className="zr-focus mt-3 flex min-h-9 items-center text-[12px] font-bold text-[#a41c53]">申込結果{ticketSummary.total}件の内訳を見る →</a></> : <p className="mt-4 text-[12px] text-[#625a61]">{ticketStatus === "loading" ? "当落報告を読み込み中" : ticketStatus === "error" ? "当落報告を確認できません" : "当落の報告はまだありません"}</p>}
+          </div><a href="#ticket-data" className="zr-focus mt-3 flex min-h-11 items-center justify-center rounded-xl border border-[#e9cdd9] bg-white px-3 text-[12px] font-bold text-[#a41c53]">申込結果{ticketSummary.total}件の内訳を見る</a></> : <p className="mt-4 text-[12px] text-[#625a61]">{ticketStatus === "loading" ? "当落報告を読み込み中" : ticketStatus === "error" ? "当落報告を確認できません" : "当落の報告はまだありません"}</p>}
           </div>
         </div>
       </div>

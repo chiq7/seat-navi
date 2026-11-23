@@ -9,20 +9,9 @@ import { eventDayGuidePath, matchPublishedEventDay } from "@/lib/eventDayPublica
 import type { EventOgInfo } from "@/lib/og/eventOgData";
 import { ZOZO_LOWER_THIRD_PAGE } from "@/lib/venueSeatLinks";
 import { performanceSetlistPath } from "@/lib/setlistSeo";
-import { getSeatSources, publishedSeatSourceEventIds, seatSourcePublicationDates, sourceKinds, sourcePageHref, sourcePageSize, sourcePreviewLimit } from "@/lib/seatSourceArchive";
 import { SITE_NEWS } from "@/lib/siteNews";
 import { latestRealTime } from "@/lib/venueActivity";
 import type { PublicEventCatalog } from "@/lib/publicEventCatalog";
-
-function sourceListEntries(scope: "events" | "venues", id: string) {
-  const groups = getSeatSources(scope, id);
-  return sourceKinds.flatMap(kind => {
-    const count = groups[kind].length;
-    if (count <= sourcePreviewLimit) return [];
-    return Array.from({ length: Math.ceil(count / sourcePageSize) }, (_, index) =>
-      sitemapEntry(SITE_URL + sourcePageHref(`/${scope}/${id}`, kind, index + 1), seatSourcePublicationDates[scope][id]));
-  });
-}
 
 function sitemapEntry(
   url: string,
@@ -51,8 +40,6 @@ export async function getSitemapEntries(
     sitemapEntry(`${SITE_URL}/about`, "2026-10-12", { changeFrequency: "monthly", priority: 0.6 }),
     sitemapEntry(`${SITE_URL}/news`, SITE_NEWS.map(post => post.publishedAt).sort().at(-1)),
     ...SITE_NEWS.map(post => sitemapEntry(`${SITE_URL}/news/${post.slug}`, post.publishedAt)),
-    ...VENUES.flatMap(venue => sourceListEntries("venues", venue.id)),
-    ...data.events.filter(event => publishedSeatSourceEventIds.has(event.id)).flatMap(event => sourceListEntries("events", event.id)),
     sitemapEntry(`${SITE_URL}/venues`, PUBLIC_VENUE_GUIDE_UPDATED_AT, { changeFrequency: "weekly", priority: 0.8 }),
     sitemapEntry(`${SITE_URL}${ZOZO_LOWER_THIRD_PAGE}`, "2026-11-07", { changeFrequency: "monthly" }),
     ...VENUES.map((venue) =>

@@ -73,7 +73,7 @@ export default async function Page({ params }: PageProps) {
         seatPhotos={photos.length > 0 && <section id="artist-seat-photos" className="artist-section scroll-mt-20">
           <h2 className="artist-heading">{artist.name}の公演で撮影された座席写真</h2>
           <SeatPhotoGallery photos={photos} />
-          <a className="zr-focus inline-flex min-h-11 items-center font-bold text-[#a41c53] underline" href={`/artists/${slug}/after-reports#artist-seat-reports`}>参加者の座席レポ・投稿写真を見る</a>
+          <a className="zr-focus inline-flex min-h-11 items-center gap-1 rounded-xl border border-[#e9cdd9] bg-white px-3 text-[13px] font-bold text-[#8a2850] mt-2" href={`/artists/${slug}/after-reports#artist-seat-reports`}>参加者の座席レポ・投稿写真を見る</a>
         </section>}
         alternateNames={<PublicAlternateNames names={alternateNames} />}
         searchGuide={

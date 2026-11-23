@@ -185,7 +185,7 @@ function SuccessScreen({
               href={`/artists/${artistSlug}/after-reports`}
               className="community-secondary-button min-h-16 px-4"
             >
-              現地レポ一覧を見る →
+              現地レポ一覧を見る
             </Link>
           )}
         </div>

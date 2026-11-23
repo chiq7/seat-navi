@@ -162,14 +162,13 @@ export default async function VenuePage({ params, searchParams }: Props) {
             過去公演の配置・写真を見る
           </a>
         </div>}
-        {venue.id === "zozo-marine" && <div className="zr-container"><a className="zr-focus inline-flex min-h-11 items-center text-sm font-bold text-[#a62b59] underline" href={ZOZO_LOWER_THIRD_PAGE}>下段3塁側の座席表を見る</a></div>}
+        {venue.id === "zozo-marine" && <div className="zr-container"><a className="zr-focus inline-flex min-h-11 items-center rounded-xl border border-[#e9cdd9] bg-white px-3 text-sm font-bold text-[#a62b59]" href={ZOZO_LOWER_THIRD_PAGE}>下段3塁側の座席表を見る</a></div>}
         <ArenaMapsProvider posts={compact ? arenaMaps : []}>
           <PublicVenueGuide venue={venue.id} target={seatTarget} pageNav={compact}
             afterSeats={compact ? <><VenuePhotoStrip photos={getVenuePhotoCovers(venue.id)} count={photos?.count ?? 0} allTargetId="seat-photo-title" /><ArenaMapStrip /></> : undefined} />
         </ArenaMapsProvider>
       </div>}
 
-      {/* Tokyo Dome shows seat posts as photos and arena maps from the seat map, so the post list is left out. */}
       {!compact && <SeatSourcePreview scope="venues" id={venue.id} />}
       {compact && <div className={`${compactStyles.photoList} ${compactStyles.later}`}><VenueSeatReadingGuide venueId={venue.id} name={publicName} photoPreview={photos} gallery /></div>}
       {/* Visitors usually arrive before their show, so the invitation is for any past visit, not today's seat. */}
@@ -180,6 +179,8 @@ export default async function VenuePage({ params, searchParams }: Props) {
           <ChevronRight size={18} aria-hidden="true" />
         </Link>
       </div>}
+      {/* Every source X post for this venue's seat photos and arena maps (the former list pages forward here). */}
+      {compact && <SeatSourcePreview scope="venues" id={venue.id} />}
       {photoArchives.length > 0 && <section id="past-arena-photos" className="zr-container scroll-mt-[90px] py-6" aria-labelledby="past-arena-photos-heading">
         <h2 id="past-arena-photos-heading" className="artist-heading">過去公演のアリーナ配置と写真</h2>
         <p className="mt-1 mb-3 text-sm text-[#68525e]">アリーナの配置は公演ごとに変わります。</p>

@@ -663,7 +663,7 @@ export function ArtistClient({
                         <p className="text-[13px] font-black text-[#4b4148]">当落・座席レポはまだありません</p>
                         <p className="mt-1 text-[12px] text-[#817981]">当選・落選の報告を募集しています</p>
                       </div>
-                      <Link href={ticketReportHref} className="zr-focus shrink-0 text-[11px] font-black text-[#e84a80]">報告する →</Link>
+                      <Link href={ticketReportHref} className="zr-focus inline-flex min-h-11 shrink-0 items-center rounded-xl border border-[#e9cdd9] bg-white px-3 text-[12px] font-black text-[#c63b6c]">報告する</Link>
                     </div>
                     </>
                   )}
@@ -704,7 +704,7 @@ export function ArtistClient({
 
           {seatPhotos && <div className="zr-container">{seatPhotos}</div>}
           <div className="zr-container">
-            {loading || officialNews.length === 0 ? <Link className="zr-focus inline-flex min-h-11 items-center text-sm font-bold text-[#922753] underline" href={`/artists/${slug}/news`}>{artist.name}の公式ニュースを見る</Link>
+            {loading || officialNews.length === 0 ? <Link className="zr-focus inline-flex min-h-11 items-center gap-1 rounded-xl border border-[#e9cdd9] bg-white px-3 text-[13px] font-bold text-[#8a2850]" href={`/artists/${slug}/news`}>{artist.name}の公式ニュースを見る</Link>
               : <OfficialNewsSection news={officialNews} moreHref={`/artists/${slug}/news`} />}
           </div>
           {searchGuide && <div id="artist-seat-guide" className="zr-container scroll-mt-[90px]">{searchGuide}</div>}

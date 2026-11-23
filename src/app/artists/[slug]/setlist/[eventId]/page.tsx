@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Breadcrumbs } from "@/components/common/Breadcrumbs";
+import { Header } from "@/components/common/Header";
+import { BottomNav } from "@/components/common/BottomNav";
 import Link from "next/link";
 import { eventVenueHref } from "@/lib/eventVenueHref";
 import { notFound } from "next/navigation";
@@ -58,10 +59,13 @@ export default async function PerformanceSetlistPage({ params }: Props) {
   const linkClass = "zr-focus inline-flex min-h-11 items-center rounded-full border border-[#eadfe4] px-4 text-sm font-bold text-[#84234f]";
 
   return (
-    <main className="zr-container mx-auto pb-20 pt-6 sm:pt-10">
-      <Breadcrumbs current={`${setlistPerformanceDate(date)} ${getEventDisplayVenueName(event.venue_id, event.venue)}`} parents={[
+    <>
+    {/* Same frame as the artist, show and setlist list pages: header with back, bottom menu. */}
+    <Header title="セトリ" backHref={artistSetlistPath(slug)} backLabel="セトリ一覧へ戻る"
+      breadcrumbLabel={`${setlistPerformanceDate(date)} ${getEventDisplayVenueName(event.venue_id, event.venue)}`} breadcrumbParents={[
         { href: `/artists/${slug}`, label: artist.name }, { href: artistSetlistPath(slug), label: "セトリ一覧" },
       ]} />
+    <main className="zr-container mx-auto pb-[calc(104px+env(safe-area-inset-bottom))] pt-4 sm:pt-8">
       <header className="mb-8 rounded-2xl border border-[#eadfe4] bg-[#fff6fa] p-5 sm:p-8">
         <h1 className="text-2xl font-black leading-snug text-[#462436] sm:text-4xl">
           {heading}{recording ? "（公式映像収録版）" : ""}
@@ -88,5 +92,7 @@ export default async function PerformanceSetlistPage({ params }: Props) {
         </ol>
       </section>
     </main>
+    <BottomNav active="setlist" artistSlug={slug} eventId={eventId} />
+    </>
   );
 }

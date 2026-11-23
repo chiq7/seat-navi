@@ -131,7 +131,7 @@ export default async function EventDetailPage({ params }: PageProps) {
         capacityLabel: venueProfile ? `最大${venueProfile.capacity.toLocaleString("ja-JP")}人` : "会場の座席情報",
         areaLabel: venueProfile ? `${venueProfile.address.region}${venueProfile.address.locality}` : "",
         archiveHref: venueHref && photoVenue && getSeatSources("venues", photoVenue.id).seat_view.length
-          ? `${venueHref}/seat-sources?kind=seat_view` : null,
+          ? `${venueHref}#seat-source-posts` : null,
       }
     : null;
   const artistName = artist?.name ?? null;

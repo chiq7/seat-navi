@@ -144,7 +144,7 @@ export default function ReportSection({ reports, afterHref, reportHref, children
           <span className="mb-1 text-[12px] font-bold text-[#817981]">{reports.length}件</span>
         </div>
         <ReportTimelineList reports={displayReports} reportHref={reportHref} authorMap={authorMap} />
-        {reports.length === 0 && photoHref && <Link href={photoHref} className="zr-focus flex min-h-12 items-center justify-center px-4 text-[13px] font-bold text-[#a41c53]">会場の座席写真を見る →</Link>}
+        {reports.length === 0 && photoHref && <Link href={photoHref} className="zr-focus flex min-h-12 items-center justify-center rounded-xl border border-[#e9cdd9] bg-white px-4 text-[13px] font-bold text-[#a41c53]">会場の座席写真を見る</Link>}
         <div className="border-t border-divider bg-white">
           <Link href={afterHref} className="zr-focus group flex min-h-13 items-center justify-between px-5 text-[12px] font-black text-[#1c171b] sm:px-7">
             すべての現地レポを見る

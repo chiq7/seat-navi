@@ -13,7 +13,7 @@ import styles from "./SearchContentGuides.module.css";
 function VenueSeatButton({ id, name, href }: { id: string; name: string; href: string }) {
   const count = getEventVenuePhotoPreview(id, name)?.count ?? 0;
   return <Link data-artist-venue-guide={id} className={`${styles.action} zr-focus`} href={href}>
-    {getPublicVenueName(id, name)}の{count ? `座席表・写真（${count}枚）` : "座席表・アクセス"}を見る →
+    {getPublicVenueName(id, name)}の{count ? `座席表・写真（${count}枚）` : "座席表・アクセス"}を見る
   </Link>;
 }
 
@@ -24,7 +24,7 @@ function EventDateLinks({ events, allEvents }: { events: CrawledEvent[]; allEven
     className={`${styles.link} zr-focus`}
     title={event.title}
     aria-label={`${event.date} ${event.title}の座席・レポを見る`}
-  >{event.date?.replaceAll("-", "/")} {allEvents.filter(other => other.date === event.date).length > 1 && `（${event.title}）`}公演の座席・レポ →</Link>)}</div>;
+  >{event.date?.replaceAll("-", "/")} {allEvents.filter(other => other.date === event.date).length > 1 && `（${event.title}）`}公演の座席・レポ</Link>)}</div>;
 }
 
 function VenueRow({ venue }: { venue: ArtistSeatGuideVenue }) {
@@ -73,7 +73,7 @@ export default function ArtistSeatSearchGuide({ slug, events }: { slug: string; 
         const matched = events.filter(event => matchPriorityPerformance(event) === day);
         const venueHref = getPublicVenueSeatGuideHref(day.venueId);
         return <div className={styles.row} key={day.date}><div><strong>{day.date.replaceAll("-", "/")} {day.venue}</strong><p className={styles.dates}>{day.title} / 開演 {day.starts.join("・")}</p>
-          <div className={styles.links}>{matched.map(event => <Link key={event.id} href={`/events/${event.id}`} className={`${styles.link} zr-focus`}>公演の座席・レポを見る →</Link>)}<a href={day.source} className={`${styles.link} zr-focus`} target="_blank" rel="noopener noreferrer">公式案内 ↗</a></div>
+          <div className={styles.links}>{matched.map(event => <Link key={event.id} href={`/events/${event.id}`} className={`${styles.link} zr-focus`}>公演の座席・レポを見る</Link>)}<a href={day.source} className={`${styles.link} zr-focus`} target="_blank" rel="noopener noreferrer">公式案内 ↗</a></div>
         </div>{venueHref && <VenueSeatButton id={day.venueId} name={day.venue} href={venueHref} />}</div>;
       })}</div>
       <p>ステージ・花道・アリーナのブロックは公演ごとに変わります。座席の表示日時は購入先と公式案内を確認してください。終了公演の記録も、次の公演と同じ配置と断定せず参考にしてください。</p>
@@ -94,7 +94,7 @@ export default function ArtistSeatSearchGuide({ slug, events }: { slug: string; 
       return <div className={styles.row} key={stop.venueId}><div>
         <strong>{getPublicVenueName(stop.venueId, stop.name)}</strong><p className={styles.dates}>{stop.dates.map(date => date.replaceAll("-", "/")).join("・")}</p>
         {stop.venueId === "vantelin-dome" && <p className={styles.dates}>1月10日は昼・夜の2公演。券面の開演時刻も確認してください。</p>}
-        {matched.length > 0 && <div className={styles.links}>{matched.map(event => <Link key={event.id} href={`/events/${event.id}`} className={`${styles.link} zr-focus`}>{event.date?.slice(5).replace("-", "/")} 公演の座席・レポ →</Link>)}</div>}
+        {matched.length > 0 && <div className={styles.links}>{matched.map(event => <Link key={event.id} href={`/events/${event.id}`} className={`${styles.link} zr-focus`}>{event.date?.slice(5).replace("-", "/")} 公演の座席・レポ</Link>)}</div>}
       </div><VenueSeatButton id={stop.venueId} name={stop.name} href={getPublicVenueSeatGuideHref(stop.venueId) ?? `/venues/${stop.venueId}`} /></div>;
     })}</div>
     <ol className={styles.steps}><li>チケットの会場名と日付を確認して、上の会場を選びます。</li><li>スタンドは席種・方向を選び、列・番号で検索します。同じ列・番号が複数ある場合は候補から選べます。</li><li>アリーナのブロック名・ステージ位置は公演ごとに異なります。別日や過去ツアーの配置を今回の確定図として使わないでください。</li></ol>

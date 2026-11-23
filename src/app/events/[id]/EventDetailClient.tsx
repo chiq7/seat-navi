@@ -622,7 +622,7 @@ export function EventDetailClient({
           {liveReportIds.length > 0 && <section className="zr-container py-5" aria-label="この公演の現地レポ">
             <h2 className="artist-heading">参加者の現地レポ</h2>
             <ul className="mt-2">{liveReportIds.map((id, i) => <li key={id}>
-              <Link prefetch={false} className="zr-focus inline-flex min-h-11 items-center font-bold text-[#8a2850] underline" href={`/report/live/detail?reportId=${encodeURIComponent(id)}`}>
+              <Link prefetch={false} className={eventTileClass + " mt-2"} href={`/report/live/detail?reportId=${encodeURIComponent(id)}`}>
                 {venueName}の現地レポを読む{liveReportIds.length > 1 ? `（${i + 1}）` : ""}
               </Link>
             </li>)}</ul>

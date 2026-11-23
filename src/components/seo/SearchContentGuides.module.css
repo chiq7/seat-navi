@@ -27,8 +27,9 @@
 .dates { margin: 4px 0 0 !important; font-size: 13px !important; }
 .action { display: inline-flex; min-height: 44px; align-items: center; justify-content: center; padding: 10px 14px; border-radius: 8px; color: #fff; background: #a92e60; font-size: 13px; font-weight: 800; text-decoration: none; }
 .action:hover { background: #85204a; }
-.link { display: inline-flex; align-items: center; min-height: 44px; color: #a12b58; font-size: 14px; font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
-.links { display: flex; flex-wrap: wrap; gap: 0 18px; }
+/* Choices are buttons, not underlined text with arrows. */
+.link { display: inline-flex; align-items: center; min-height: 44px; padding: 6px 12px; border: 1px solid #e9cdd9; border-radius: 12px; background: #fff; color: #a12b58; font-size: 14px; font-weight: 700; text-decoration: none; }
+.links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
 .steps { padding-left: 24px; margin: 16px 0; font-size: 14px; line-height: 1.9; }
 .steps li { padding: 4px 0; }
 .excerpt { list-style: none; margin: 16px 0; padding: 0; }
