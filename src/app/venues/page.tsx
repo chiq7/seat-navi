@@ -46,7 +46,7 @@ function VenueList({ venueIds }: { venueIds: readonly string[] }) {
             className="group"
           >
             <span className="flex flex-col items-center gap-1 text-[#f43679]"><Building2 size={20} strokeWidth={1.7} /><span className="text-[8px] font-black">{String(index + 1).padStart(2, "0")}</span></span>
-            <span className="min-w-0"><span className="block text-[15px] font-black leading-6 tracking-[-0.035em] text-[#4b4148]">{name}</span><span className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px] font-bold text-[#706670]"><span className="inline-flex items-center gap-1"><MapPin size={12} />{hasGuide ? "座席・設備・アクセス" : "公演・座席レポ"}</span>{(photoCountByVenue[venue.id] ?? 0) > 0 && <span className="inline-flex items-center gap-1 text-[#a62b59]"><Camera size={13} aria-hidden="true" />写真あり・{photoCountByVenue[venue.id]}枚</span>}</span></span>
+            <span className="min-w-0"><span className="block text-[15px] font-black leading-6 tracking-[-0.035em] text-[#4b4148]">{name}</span><span className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px] font-bold text-[#706670]"><span className="inline-flex items-center gap-1"><MapPin size={12} />{hasGuide ? "座席・設備・アクセス" : "公演・座席レポ"}</span>{(photoCountByVenue[venue.id] ?? 0) > 0 && <span className="inline-flex items-center gap-1 text-[#a62b59]"><Camera size={13} aria-hidden="true" />写真あり・{photoCountByVenue[venue.id]}枚</span>}{(photoCountByVenue[venue.id] ?? 0) === 0 && <span className="inline-flex items-center gap-1 text-[#8a7f87]"><Camera size={13} aria-hidden="true" />写真はまだありません</span>}</span></span>
             <MoveRight size={17} className="shrink-0 text-[#f43679] transition-transform group-hover:translate-x-1" />
           </InfoListRow>
         );

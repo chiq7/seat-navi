@@ -3,6 +3,7 @@
 import { useRef, useState, type FormEvent } from "react";
 import { CheckCircle2, Send, XCircle } from "lucide-react";
 import { Header } from "@/components/common/Header";
+import { BottomNav } from "@/components/common/BottomNav";
 import { FormActionButton } from "@/components/common/FormActions";
 import { ReportPerformancePicker, useReportEventSelection } from "@/components/report/ReportPerformancePicker";
 import type { ReportOptions } from "@/lib/reportEventSelection";
@@ -56,12 +57,13 @@ export function TicketReport({ initial }: { initial?: ReportOptions }) {
       : { ...previous, [name]: value });
   }
 
-  function choice(name: keyof TicketFields, label: string, options: string[]) {
+  function choice(name: keyof TicketFields, label: string, options: string[], hint?: string) {
     return <label className="block text-sm font-bold">{label}
       <select className={inputClass} value={fields[name]} onChange={e => field(name, e.target.value)}>
         <option value="">{name === "fcHistory" ? "未加入・回答しない" : "選択しない"}</option>
         {options.map(option => <option key={option} value={option}>{option}{name === "count" ? "枚" : ""}</option>)}
       </select>
+      {hint && <span className="mt-1 block text-xs font-normal leading-5 text-[#67545f]">{hint}</span>}
     </label>;
   }
 
@@ -115,7 +117,7 @@ export function TicketReport({ initial }: { initial?: ReportOptions }) {
       card={pending.card} savedSeatReportId={completedSeatReportId(pending.writes)} />;
   }
 
-  return <div className="community-page pb-16 font-sans">
+  return <div className="community-page pb-20 font-sans">
     <Header breadcrumbParents={[{ href: reportHref, label: "レポートを投稿" }]} title="当落・座席を報告" backHref={reportHref} backLabel="報告メニューへ戻る" />
     <main>
       <div className="zr-container pt-5">
@@ -152,7 +154,7 @@ export function TicketReport({ initial }: { initial?: ReportOptions }) {
           <details className="rounded-xl border border-[#e6d8df] bg-white px-3">
             <summary className="zr-focus cursor-pointer py-3 text-sm font-bold">申込情報・ひとことを追加（任意）</summary>
             <div className="space-y-3 pb-4">
-              {choice("lottery", "抽選種別", ["FC1次", "FC2次", "一般", "アップグレード", "復活当選", "制作開放", "その他"])}
+              {choice("lottery", "抽選種別", ["FC1次", "FC2次", "一般", "アップグレード", "復活当選", "制作開放", "その他"], "FC1次・FC2次：ファンクラブ先行の1回目・2回目。復活当選：一度落選したあと、追加で当選したもの。制作開放：公演の直前に追加で売り出される席。")}
               {choice("count", "申込枚数", ["1", "2", "3", "4"])}
               {result === "won" && <>{choice("ticketType", "申込席種", ["通常", "条件付き"])}
                 {choice("upgrade", "アップグレード", ["未申込", "当選", "落選"])}</>}
@@ -171,6 +173,7 @@ export function TicketReport({ initial }: { initial?: ReportOptions }) {
         </FormActionButton>
       </form>
     </main>
+    <BottomNav active="report" artistSlug={event ? resolveArtist(event)?.slug : undefined} eventId={event?.id} />
   </div>;
 }
 

@@ -1,6 +1,6 @@
 import { VENUES } from "./eventCrawlerConfig";
 import { findArtistByKeyword } from "./artists";
-import { getPublicVenueGuideId, getPublicVenueName, getPublicVenueSeatGuideHref } from "./publicVenueGuides";
+import { getEventDisplayVenueName, getPublicVenueGuideId, getPublicVenueName, getPublicVenueSeatGuideHref } from "./publicVenueGuides";
 import { seatViewPosts } from "./seatViewPosts";
 import { seatViewInlinePhotoUrl, seatViewPhotoSourceUrl, seatViewXStatusId } from "./seatViewPhotoAssets";
 import { getArtistSeatGuideVenues } from "./artistSeatGuide";
@@ -165,7 +165,7 @@ export function getArtistSeatPhotos(name: string, events: readonly CrawledEvent[
       if (!image) continue;
       results.set(image, { image, thumbnail: thumbnailUrl(image) ?? image, source: seatViewPhotoSourceUrl(photo),
         label: `アリーナ ${photo.block}ブロック${photo.row ? `・${photo.row}列` : ""}`,
-        href: `/events/${encodeURIComponent(event.id)}#arena-seat-photos`, venue: event.venue, seatVerified: photo.seatVerified, event: `${layout.date} ${event.title}` });
+        href: `/events/${encodeURIComponent(event.id)}#arena-seat-photos`, venue: getEventDisplayVenueName(event.venue_id, event.venue), seatVerified: photo.seatVerified, event: `${layout.date} ${event.title}` });
     }
   }
   return [...results.values()];

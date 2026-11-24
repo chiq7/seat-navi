@@ -69,8 +69,11 @@ export function getPublicVenueName(id: string, fallback: string): string {
 }
 
 // Keep the source name in storage, and use the same Sapporo label on public event links.
+// PayPay Dome is shown under its current name (みずほPayPayドーム福岡) everywhere, like the venue page.
 export function getEventDisplayVenueName(id: string | null | undefined, name: string): string {
   if (id === "sapporo-dome") return SAPPORO_DISPLAY_NAME;
+  if (id === "paypay-dome") return getPublicVenueName("paypay-dome", name);
+  if (/PayPayドーム|ペイペイドーム|福岡ドーム/i.test(name) && getPublicVenueGuideId(id, name) === "paypay-dome") return getPublicVenueName("paypay-dome", name);
   if (!/札幌ドーム|プレミストドーム/.test(name)) return name;
   return getPublicVenueGuideId(id, name) === "sapporo-dome" ? SAPPORO_DISPLAY_NAME : name;
 }

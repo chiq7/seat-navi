@@ -91,7 +91,8 @@ export default function TrendSection({ ticketStats, arenaStats, upgradeStats, ti
         <span className="mb-1 inline-flex items-center gap-2 text-[10px] font-black tracking-[0.08em] text-[#625a61]">{isArenaRateOpen ? "閉じる" : "詳細を見る"}<ChevronDown size={16} aria-hidden="true" className={`transition-transform ${isArenaRateOpen ? "rotate-180" : ""}`} /></span>
       </button>
       {isArenaRateOpen && <div id="arena-rate-details"><SegmentedControl value={activeArenaTab} onChange={setActiveArenaTab} options={[{ value: "arena", label: "通常アリーナ" }, { value: "upgrade", label: "アプグレ" }]} ariaLabel="アリーナ・アプグレの表示切替" className="border-x-0 border-y" />
-        <p className="px-4 pt-3 text-[12px] text-[#625a61]">{activeArenaTab === "arena" ? "座席種別が分かる当選報告のうち、アリーナだった割合です。" : "アップグレードの申込結果が分かる報告のうち、当選の割合です。"}</p>
+        <p className="px-4 pt-3 text-[12px] text-[#625a61]">アプグレ＝アップグレード席。通常の席とは別枠で申し込む、良い席や特典が付く席種です。</p>
+        <p className="px-4 pt-1 text-[12px] text-[#625a61]">{activeArenaTab === "arena" ? "座席種別が分かる当選報告のうち、アリーナだった割合です。" : "アップグレードの申込結果が分かる報告のうち、当選の割合です。"}</p>
         <div className="p-3 sm:p-5"><DataGrid groups={arenaGroups} accent /></div>
       </div>}
     </section>

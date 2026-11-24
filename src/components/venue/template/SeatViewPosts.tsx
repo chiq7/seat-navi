@@ -39,14 +39,15 @@ export function SeatPhotoMapSummary({ selection, count, onOpen, emptySlot }: {
     };
   }, [count]);
   if (!count) return null;
-  const matches = seatViewMatchesForSelection(seatViewPosts(selection.diagram), selection);
+  const posts = seatViewPosts(selection.diagram);
+  const matches = seatViewMatchesForSelection(posts, selection);
   const hasSelection = Boolean(selection.section || selection.zone || selection.position);
   const first = matches[0];
   return <div ref={summary} id="venue-seat-photos" className={`${styles.mapPhotoSummary} scroll-mt-[90px]`} data-seat-photo-summary>
     {first ? <SeatPhotoPreview key={first.post.url + ":" + first.post.photo}
       match={first} count={matches.length} onClick={onOpen} /> : hasSelection && emptySlot ? emptySlot : <>
       <span className={styles.mapPhotoHeading}><Camera size={19} aria-hidden="true" />
-        {hasSelection ? "この区画の写真はまだありません" : <>写真がある区画<span>{count}か所</span></>}
+        {hasSelection ? "この区画の写真はまだありません" : posts.length > count ? <>写真{posts.length}枚<span>{count}か所で撮影</span></> : <>写真がある区画<span>{count}か所</span></>}
       </span>
       <span className={styles.mapPhotoHint}>カメラ印の場所を選んで確認</span>
     </>}
