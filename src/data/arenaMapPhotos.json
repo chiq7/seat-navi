@@ -1,5 +1,5 @@
 {
-  "_note": "Arena-layout X posts shown on venue pages: the post's layout photo (the only photo, or the one showing the map), read from X's public embed data on 2026-11-21 (Tokyo Dome) and 2026-11-23 (other venues). Images load from X (pbs.twimg.com); nothing is re-hosted.",
+  "_note": "Arena-layout X posts shown on venue pages: the post's layout photo (the only photo, or the one showing the map), read from X's public embed data on 2026-11-21 (Tokyo Dome) 2026-11-23 (other venues) and 2026-11-24 (additions from the Muse seat DB). Images load from X (pbs.twimg.com); nothing is re-hosted.",
   "posts": {
     "2118613575510192448": {
       "media": "HWbT0PbaIAEWYol",
@@ -288,6 +288,132 @@
       "width": 1536,
       "height": 2048,
       "user": "MiNT43432997"
+    },
+    "1893210688857764173": {
+      "media": "GkYJFW4bgAAWWtF",
+      "width": 2048,
+      "height": 1536,
+      "user": "abe_chan_band"
+    },
+    "1865314742828699725": {
+      "media": "GeLt3kXakAMbaC1",
+      "width": 2048,
+      "height": 1536,
+      "user": "yasushi39"
+    },
+    "2113622370485477887": {
+      "media": "HVUYO2JbsAEKMiI",
+      "width": 1536,
+      "height": 2048,
+      "user": "tk8ykYz"
+    },
+    "2025759494828093521": {
+      "media": "HBzxhNpaYAA9gAm",
+      "width": 2048,
+      "height": 1153,
+      "user": "DAHLIA0717_RS"
+    },
+    "1864891337075757082": {
+      "media": "GeFsyEqakAASza0",
+      "width": 1573,
+      "height": 2048,
+      "user": "e8407365055887"
+    },
+    "1913501494273339626": {
+      "media": "Go4fdgmXAAA2bxz",
+      "width": 1080,
+      "height": 798,
+      "user": "patelabhiup"
+    },
+    "1563534008340074496": {
+      "media": "FbLJ5BkacAIdZgh",
+      "width": 2048,
+      "height": 1536,
+      "user": "ryuji_rily92"
+    },
+    "1854077134010261711": {
+      "media": "GbsBTxrbkAABAuZ",
+      "width": 1152,
+      "height": 2048,
+      "user": "LDHMUSIC2"
+    },
+    "1962014315936112647": {
+      "media": "Gzp5nkpacAAAVHL",
+      "width": 1536,
+      "height": 2048,
+      "user": "tsukapon612"
+    },
+    "1869638317840736567": {
+      "media": "GfJKI0XbAAE3qtK",
+      "width": 1536,
+      "height": 2048,
+      "user": "dsyr_llom"
+    },
+    "1867816924132135365": {
+      "media": "GevRlhebsAMNmUB",
+      "width": 1536,
+      "height": 2048,
+      "user": "qq_7nf"
+    },
+    "868355188746104832": {
+      "media": "DA0Ebo6UMAA65Sj",
+      "width": 1536,
+      "height": 2048,
+      "user": "ayatop6636BB"
+    },
+    "1800418093413568849": {
+      "media": "GPxetk8bwAAH9Jc",
+      "width": 1536,
+      "height": 2048,
+      "user": "yu190p"
+    },
+    "1870508939026338208": {
+      "media": "GfVh9uybwAAu_5y",
+      "width": 684,
+      "height": 1403,
+      "user": "king3636aim"
+    },
+    "1897557280822104283": {
+      "media": "GlV6RZ6WoAAhMHB",
+      "width": 1848,
+      "height": 2184,
+      "user": "0make1nu"
+    },
+    "2022554418189865231": {
+      "media": "HBGOhLMakAI7PNt",
+      "width": 2195,
+      "height": 1646,
+      "user": "ebimomochan"
+    },
+    "2096004241207013647": {
+      "media": "HRaAvpIaMAAtm2J",
+      "width": 1536,
+      "height": 1845,
+      "user": "10969kota"
+    },
+    "1935968518572589356": {
+      "media": "Gt3xGi1bwAIiMvc",
+      "width": 1024,
+      "height": 828,
+      "user": "wanitake"
+    },
+    "1789191895023063537": {
+      "media": "GNR8ivybYAAD5Yb",
+      "width": 1152,
+      "height": 2048,
+      "user": "sibasan_kp"
+    },
+    "1728311502136824159": {
+      "media": "F_wyJkba0AApQkj",
+      "width": 1024,
+      "height": 768,
+      "user": "AeYrAiMkEa"
+    },
+    "1703292425983443335": {
+      "media": "F6NPbcwa0AA0yy7",
+      "width": 1536,
+      "height": 2048,
+      "user": "_rollkyabetsu"
     }
   }
 }
