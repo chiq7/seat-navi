@@ -39,10 +39,19 @@ export function withSiteTitle(text: string): string {
   return subject && subject !== SITE_NAME ? `${subject} - ${SITE_NAME}` : SITE_NAME;
 }
 
-export const MIN_PHOTO_COUNT_FOR_TITLE = 5;
+/** A small number reads as "only this many", so below this the title just says photos exist. */
+export const MIN_PHOTO_COUNT_FOR_TITLE = 20;
+
+export function hasSeatPhotos(count: number): boolean {
+  return Number.isInteger(count) && count >= 1;
+}
+
+export function showsPhotoCount(count: number): boolean {
+  return Number.isInteger(count) && count >= MIN_PHOTO_COUNT_FOR_TITLE;
+}
 
 export function seatPhotoTitle(subject: string, count: number): string {
-  const prefix = Number.isInteger(count) && count >= MIN_PHOTO_COUNT_FOR_TITLE ? `【写真${count}枚】` : "";
+  const prefix = showsPhotoCount(count) ? `【写真${count}枚】` : hasSeatPhotos(count) ? "【写真あり】" : "";
   return withSiteTitle(prefix + subject);
 }
 

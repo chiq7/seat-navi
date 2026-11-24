@@ -1,4 +1,4 @@
-import { MIN_PHOTO_COUNT_FOR_TITLE, seatPhotoTitle } from "./metadata";
+import { hasSeatPhotos, seatPhotoTitle, showsPhotoCount } from "./metadata";
 import { hasConfirmedPerformanceDate } from "./eventPublication";
 import { getEventDisplayVenueName } from "./publicVenueGuides";
 import type { CrawledEvent } from "./types";
@@ -40,7 +40,7 @@ export function getEventPageText(event: CrawledEvent, artistName: string | undef
   const dateParts = event.date && hasConfirmedPerformanceDate(event) ? event.date.split("-").map(Number) : null;
   const [year, month, day] = dateParts ?? [];
   const date = dateParts ? `（${year}年${month}月${day}日${session ? "・" + session : ""}）` : session ? ` ${session}` : "";
-  const manyPhotos = photoCount >= MIN_PHOTO_COUNT_FOR_TITLE;
+  const manyPhotos = hasSeatPhotos(photoCount);
   const subject = artist + " " + venueName + "の" + (manyPhotos ? "座席・見え方" : "座席表・見え方・感想");
   const fullTitle = seatPhotoTitle(subject + date, photoCount);
   const compactDate = dateParts && Array.from(fullTitle).length > 65
@@ -50,7 +50,7 @@ export function getEventPageText(event: CrawledEvent, artistName: string | undef
   return {
     name, title,
     description: manyPhotos
-      ? `${lead}の座席表・各席からの見え方写真を${photoCount}枚掲載！アリーナ・スタンドの距離感や参加者の座席レビューをチェックできます。`
+      ? `${lead}の座席表・各席からの見え方写真を${showsPhotoCount(photoCount) ? `${photoCount}枚` : ""}掲載！アリーナ・スタンドの距離感や参加者の座席レビューをチェックできます。`
       : `${lead}の座席表や見え方情報、参加者の感想まとめ。ライブ前後の座席チェック・見え方投稿にも活用できます。`,
   };
 }

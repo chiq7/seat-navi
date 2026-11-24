@@ -16,9 +16,10 @@ test("home has one WebSite with its existing identity and the Japanese aliases o
 });
 
 test("seat photo badges start at five and brand suffixes are idempotent", () => {
-  assert.equal(MIN_PHOTO_COUNT_FOR_TITLE, 5);
-  for (const n of [0, 1, 3, 4, -1, NaN]) assert.equal(seatPhotoTitle("座席表", n), "座席表 - ちけレポ");
-  assert.equal(seatPhotoTitle("座席表", 5), "【写真5枚】座席表 - ちけレポ");
+  assert.equal(MIN_PHOTO_COUNT_FOR_TITLE, 20);
+  for (const n of [0, -1, NaN, 2.5]) assert.equal(seatPhotoTitle("座席表", n), "座席表 - ちけレポ");
+  for (const n of [1, 5, 19]) assert.equal(seatPhotoTitle("座席表", n), "【写真あり】座席表 - ちけレポ");
+  assert.equal(seatPhotoTitle("座席表", 20), "【写真20枚】座席表 - ちけレポ");
   assert.equal(seatPhotoTitle("座席表", 55), "【写真55枚】座席表 - ちけレポ");
   for (const value of ["座席表 - ちけレポ", "座席表｜ちけレポ", "座席表 - ちけレポ - ちけレポ"]) {
     assert.equal(withSiteTitle(value), "座席表 - ちけレポ");

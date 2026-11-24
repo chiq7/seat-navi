@@ -1,4 +1,4 @@
-import { buildMeta, MIN_PHOTO_COUNT_FOR_TITLE, seatPhotoTitle } from "./metadata";
+import { buildMeta, hasSeatPhotos, seatPhotoTitle, showsPhotoCount } from "./metadata";
 import { getPublicVenueAlternateNames } from "./publicAlternateNames";
 import { getPublicVenueName } from "./publicVenueGuides";
 import { getEventVenuePhotoPreview } from "./serverSeatPhotoVenues";
@@ -22,13 +22,13 @@ export function buildPublicVenueMetadata(id: string, name: string) {
   const count = photos?.count ?? 0;
   const aliases = alternateNames.slice(0, id === "k-arena" || id === "osaka-jo-hall" ? 1 : 3);
   const intro = preferredNames[id] ?? (aliases.length ? `${officialName}（${aliases.join("・")}）` : displayName);
-  const manyPhotos = count >= MIN_PHOTO_COUNT_FOR_TITLE;
+  const manyPhotos = hasSeatPhotos(count);
   const title = seatPhotoTitle(`${displayName}の座席表・見え方${manyPhotos ? "" : "まとめ"}`, count);
   const venueDetail = ["edion-arena", "toki-messe", "saitama-super-arena"].includes(id)
     ? venueSearchIntents[id].description
     : "アリーナ・スタンドのブロック構成や列・座席番号の見方、アクセス・ロッカー情報などをチェックできます。";
   const description = manyPhotos
-    ? `${intro}のライブ座席表と、各席からのリアルな見え方写真を${count}枚掲載！${venueDetail}`
+    ? `${intro}のライブ座席表と、各席からのリアルな見え方写真を${showsPhotoCount(count) ? `${count}枚` : ""}掲載！${venueDetail}`
     : `${intro}のライブ座席表やアリーナ・スタンドからの見え方・座席情報をまとめたページです。各席からのリアルな見え方写真・レビューも随時募集中！`;
   return buildMeta({ path: `/venues/${id}`, title, description });
 }

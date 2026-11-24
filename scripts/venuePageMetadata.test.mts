@@ -9,12 +9,14 @@ test("all venue titles use the visible venue name and the number of photos publi
     const page = getVenuePageContent(venue.id, venue.name);
     const metadata = buildPublicVenueMetadata(venue.id, venue.name);
     const count = page.photos?.count ?? 0;
-    const expected = `${count >= 5 ? `【写真${count}枚】` : ""}${page.displayName}の座席表・見え方${count >= 5 ? "" : "まとめ"} - ちけレポ`;
+    const prefix = count >= 20 ? `【写真${count}枚】` : count >= 1 ? "【写真あり】" : "";
+    const expected = `${prefix}${page.displayName}の座席表・見え方${count >= 1 ? "" : "まとめ"} - ちけレポ`;
     assert.equal(metadata.title, expected, venue.id);
     assert.equal(metadata.openGraph?.title, expected, venue.id);
     assert.equal(metadata.twitter?.title, expected, venue.id);
     assert.equal(metadata.openGraph?.siteName, "ちけレポ", venue.id);
-    if (count >= 5) assert.ok(metadata.description?.includes(`${count}枚掲載`), venue.id);
+    if (count >= 20) assert.ok(metadata.description?.includes(`${count}枚掲載`), venue.id);
+    else if (count >= 1) assert.ok(metadata.description?.includes("見え方写真を掲載！"), venue.id);
     else {
       assert.doesNotMatch(metadata.description ?? "", /[0-9]枚掲載/);
       assert.match(metadata.description ?? "", /随時募集中/);

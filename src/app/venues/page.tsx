@@ -57,7 +57,7 @@ function VenueList({ venueIds }: { venueIds: readonly string[] }) {
 
 export const metadata = buildFileImageMetadata({
   path: "/venues",
-  title: seatPhotoTitle("ライブ会場一覧・座席表｜公演予定・会場の見え方", new Set(directoryPhotos.map(photo => photo.image)).size),
+  title: seatPhotoTitle("ライブ会場一覧・座席表｜公演予定・会場の見え方", Object.values(photoCountByVenue).reduce((sum, n) => sum + n, 0)),
   description: "東京ドーム、京セラドーム大阪、バンテリンドームナゴヤなど主要ライブ会場の座席表、トイレ・ロッカー・売店、アクセスと公演予定を確認できます。",
 });
 

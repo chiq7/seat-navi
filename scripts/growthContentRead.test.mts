@@ -235,7 +235,7 @@ test("a verified tour without an artist directory row uses its credited name onl
     date:"2026-10-27", title:"BUMP OF CHICKEN TOUR 2026-2027 Ratio Clavis" };
   assert.equal(artists.resolveArtist(show), undefined);
   const result = getEventPageText(show, undefined, 4);
-  assert.equal(result.title, "BUMP OF CHICKEN 有明アリーナの座席表・見え方・感想（2026年10月27日） - ちけレポ");
+  assert.equal(result.title, "【写真あり】BUMP OF CHICKEN 有明アリーナの座席・見え方（2026年10月27日） - ちけレポ");
   assert.ok(result.description.startsWith("BUMP OF CHICKENの有明アリーナ公演"));
   assert.equal(result.name, show.title);
   const other = { ...show, title:"有明カバーフェス BUMP OF CHICKEN 特集" };
@@ -307,17 +307,18 @@ test("event metadata and sitemap switch together on the first and last real cont
     const slots: Record<string,string> = {noon:"・昼公演",night:"・夜公演","8a245469a779c68ec996":"・1部・開演13:30","143e69b211c469756732":"・2部・開演18:00"};
     const slot = slots[show.id] ?? "";
     const date = show.date ? `（${show.date === "2024-06-19" ? "2024年6月19日" : "2026年10月1日"}${slot}）` : "";
-    // Tokyo has six visible preview tiles at 0 reports (55 linked photos in the entire venue).
-    assert.equal(meta.title, `【写真6枚】Number_i 東京ドームの座席・見え方${date} - ちけレポ`);
+    // Tokyo shows six preview tiles at 0 reports: below the count threshold, so the title only says photos exist.
+    assert.equal(meta.title, `【写真あり】Number_i 東京ドームの座席・見え方${date} - ちけレポ`);
     assert.ok(meta.description?.includes(`Number_iの東京ドーム公演${date}`));
-    assert.ok(meta.description?.includes("6枚掲載"));
+    assert.ok(meta.description?.includes("見え方写真を掲載！"));
+    assert.doesNotMatch(meta.description ?? "", /[0-9]枚掲載/);
     if (!show.date) assert.doesNotMatch(meta.description ?? "", /開催予定|開催される|開催された/);
   }
-  // Both pages link to the same venue's gallery, which now has five photos (the title threshold); 11/15 adds its own arena photo.
+  // Both pages link to the same venue gallery; a handful of photos is labelled as present, not counted.
   for (const show of sapporoShows) {
     const meta = await generateMetadata({params:Promise.resolve({id:show.id})});
     const day = Number(show.date.slice(-2));
-    const expected = `【写真${day === 15 ? 6 : 5}枚】YOASOBI 札幌ドーム（大和ハウス プレミストドーム）の座席・見え方（2026年11月${day}日） - ちけレポ`;
+    const expected = `【写真あり】YOASOBI 札幌ドーム（大和ハウス プレミストドーム）の座席・見え方（2026年11月${day}日） - ちけレポ`;
     assert.equal(meta.title, expected);
     assert.equal(meta.openGraph?.title, expected);
     assert.equal(meta.twitter?.title, expected);
@@ -364,7 +365,7 @@ test("artist social and search titles use its own gallery, retaining the artist-
     assert.equal(count > 0, slug === "seventeen");
     const meta = await generateMetadata({params:Promise.resolve({slug})});
     const title = String(meta.title);
-    assert.ok(title.startsWith((count >= 5 ? `【写真${count}枚】` : "") + artist.name));
+    assert.ok(title.startsWith((count >= 20 ? `【写真${count}枚】` : count >= 1 ? "【写真あり】" : "") + artist.name));
     assert.ok(title.endsWith(" - ちけレポ"));
     assert.equal(meta.openGraph?.title, title);
     assert.equal(meta.twitter?.title, title);
