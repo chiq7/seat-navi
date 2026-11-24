@@ -28,7 +28,8 @@ import { getSeatSources, seatSourcePermalink, sourceKinds } from "@/lib/seatSour
 import { ArenaMapsProvider, type ArenaMapPost } from "@/components/venue/ArenaMapsSheet";
 import arenaMapPhotos from "@/data/arenaMapPhotos.json";
 import eventArenaPhotoData from "@/data/eventArenaPhotos.json";
-import { getVenuePhotoCovers } from "@/lib/serverSeatPhotoVenues";
+import { getVenueFloorPhotos, getVenuePhotoCovers, VENUE_FLOOR_PHOTOS_ID } from "@/lib/serverSeatPhotoVenues";
+import { SeatPhotoGallery } from "@/components/common/SeatPhotoGallery";
 import VenuePhotoStrip from "@/components/venue/VenuePhotoStrip";
 import ArenaMapStrip from "@/components/venue/ArenaMapStrip";
 import compactStyles from "@/components/venue/VenueCompact.module.css";
@@ -70,6 +71,7 @@ export default async function VenuePage({ params, searchParams }: Props) {
   const { displayName: publicName, officialName, alternateNames, photos } = getVenuePageContent(venue.id, venue.name);
   const headerName = publicName.split(/[（(]/, 1)[0].trim() || venue.name;
   const photoArchives = getVenueArenaPhotoArchives(venue.id);
+  const floorPhotos = getVenueFloorPhotos(venue.id);
   const [events, catalog] = await Promise.all([
     getVenueEvents(venue.id).catch(() => null), getRequestPublicEventCatalog().catch(() => null),
   ]);
@@ -208,6 +210,12 @@ export default async function VenuePage({ params, searchParams }: Props) {
           <EventArenaPhotoMap layout={archive.layout} eventTitle={archive.title} sectionId={`arena-seat-photos-${archive.id}`}
             mapTitle={archive.kind === "standing" ? "公演当日のスタンディング区画" : undefined} />
         </details>)}
+      </section>}
+
+      {floorPhotos.length > 0 && <section id={VENUE_FLOOR_PHOTOS_ID} className="zr-container scroll-mt-[90px] py-6" aria-labelledby={`${VENUE_FLOOR_PHOTOS_ID}-heading`}>
+        <h2 id={`${VENUE_FLOOR_PHOTOS_ID}-heading`} className="artist-heading">アリーナ席・会場内からの写真（{floorPhotos.length}枚）</h2>
+        <p className="mt-1 text-sm text-[#68525e]">公演ごとの配置図がない写真です。ブロックや列は投稿に書かれたままです。ステージまでの距離感の目安にしてください。</p>
+        <SeatPhotoGallery photos={floorPhotos} />
       </section>}
 
       <div className={compact ? `zr-container ${compactStyles.later}` : "zr-container"}>

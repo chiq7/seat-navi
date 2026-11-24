@@ -1194,6 +1194,19 @@
       "photo": 1,
       "url": "https://x.com/sakimo_enhypen/status/1733137651518357686",
       "source": "https://x.com/sakimo_enhypen/status/1733137651518357686"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "belluna-shape-399"
+      },
+      "area": "3塁側 211ブロック",
+      "row": "38",
+      "scope": "block",
+      "photo": 1,
+      "event": "MUSIC BANK",
+      "url": "https://x.com/sunoo_fromen624/status/1804366946294731052",
+      "source": "https://x.com/sunoo_fromen624/status/1804366946294731052"
     }
   ],
   "budokan-reference-stands": [
@@ -2912,6 +2925,19 @@
       "seat": "1",
       "seatVerified": true,
       "photo": 1,
+      "url": "https://x.com/pom_bomm/status/1671384018527588352",
+      "source": "https://alwaysbeyourself2.com/kyoceradome_seat/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "A_BM_02"
+      },
+      "area": "中央A 下段",
+      "row": "14",
+      "seat": "1",
+      "seatVerified": true,
+      "photo": 2,
       "url": "https://x.com/pom_bomm/status/1671384018527588352",
       "source": "https://alwaysbeyourself2.com/kyoceradome_seat/"
     }

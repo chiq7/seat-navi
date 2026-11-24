@@ -5,6 +5,7 @@ import { seatViewPosts } from "./seatViewPosts";
 import { seatViewInlinePhotoUrl, seatViewPhotoSourceUrl, seatViewXStatusId } from "./seatViewPhotoAssets";
 import { getArtistSeatGuideVenues } from "./artistSeatGuide";
 import { getVenueArenaPhotoArchives } from "../data/venueArenaPhotoArchives";
+import venueFloorPhotoData from "../data/venueFloorPhotos.json";
 import { getEventArenaPhotoLayout, type EventArenaPhotoLayout } from "./eventArenaPhotos";
 import { venueSeatSectionHref } from "./venueSeatLinks";
 import type { CrawledEvent } from "./types";
@@ -87,6 +88,26 @@ export function getRenderedEventPhotos(layout: EventArenaPhotoLayout | null, ven
   return { showPreview, count: images.size };
 }
 
+/**
+ * Photos taken inside the venue (mostly arena floor) whose show has no arena map.
+ * Labels keep the block/row as the post wrote it; the photo shows the distance to the stage.
+ */
+export type VenueFloorPhoto = { url: string; photo: number; label: string; event?: string; date?: string };
+export const VENUE_FLOOR_PHOTOS_ID = "venue-floor-photos";
+const floorPhotos: Readonly<Record<string, readonly VenueFloorPhoto[]>> = venueFloorPhotoData;
+function venueFloorPhotos(id: string): readonly VenueFloorPhoto[] {
+  return floorPhotos[id] ?? [];
+}
+
+/** The floor-photo section of /venues/[id]; newest first. */
+export function getVenueFloorPhotos(id: string): ScopedSeatPhoto[] {
+  const name = VENUES.find(venue => venue.id === id)?.name ?? id;
+  return venueGalleryImages(id, `/venues/${encodeURIComponent(id)}`)
+    .filter(image => image.section.startsWith("floor/"))
+    .sort((a, b) => b.postedAt - a.postedAt)
+    .map(image => ({ ...galleryTile(id, name, image), href: `/venues/${encodeURIComponent(id)}#venue-seat-guide` }));
+}
+
 // Only the two galleries rendered by /venues/[id] belong in its count. Photos on
 // individual event pages may have different layouts and no link from this venue.
 const galleryByVenue = new Map<string, GalleryImage[]>();
@@ -118,7 +139,15 @@ function venueGalleryImages(id: string, href: string): GalleryImage[] {
         href: `${href}#arena-seat-photos-${archiveId}`,
       }];
     }));
-  const gallery = [...fixed, ...arena];
+  const floor = venueFloorPhotos(id).flatMap(photo => {
+    const imageUrl = seatViewInlinePhotoUrl(photo);
+    if (!imageUrl) return [];
+    return [{
+      imageUrl, section: `floor/${photo.url}/${photo.photo}`, performance: photo.event, date: photo.date, source: seatViewPhotoSourceUrl({ ...photo, source: photo.url }),
+      postedAt: photoTimestamp(photo.url, imageUrl, photo.date), label: photo.label, href: `${href}#${VENUE_FLOOR_PHOTOS_ID}`,
+    }];
+  });
+  const gallery = [...fixed, ...arena, ...floor];
   galleryByVenue.set(id, gallery);
   return gallery;
 }

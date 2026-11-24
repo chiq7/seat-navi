@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { getVenueArenaPhotoArchives } from "@/data/venueArenaPhotoArchives";
 import { getPublicVenueGuideId, PUBLIC_VENUE_GUIDE_IDS } from "@/lib/publicVenueGuides";
-import { getEventVenuePhotoPreview, getRenderedEventPhotos, getSeatPhotoVenues } from "@/lib/serverSeatPhotoVenues";
+import { getEventVenuePhotoPreview, getRenderedEventPhotos, getSeatPhotoVenues, getVenueFloorPhotos, VENUE_FLOOR_PHOTOS_ID } from "@/lib/serverSeatPhotoVenues";
 import { getEventArenaPhotoLayout } from "@/lib/eventArenaPhotos";
 import { seatViewInlinePhotoUrl } from "@/lib/seatViewPhotoAssets";
 import { seatViewPosts } from "@/lib/seatViewPosts";
@@ -30,7 +30,9 @@ test("all guides count each reviewed fixed-seat or venue-archive photo once and 
     const preview = getEventVenuePhotoPreview(id)!;
     const archives = new Set(getVenueArenaPhotoArchives(id).flatMap(a =>
       a.layout.photos.map(p => seatViewInlinePhotoUrl(p))));
-    assert.equal(preview.count, (stands.get(id) ?? 0) + archives.size, id);
+    // Photos inside the venue without a show map are listed in their own section.
+    const floor = new Set(getVenueFloorPhotos(id).map(p => p.image));
+    assert.equal(preview.count, (stands.get(id) ?? 0) + archives.size + floor.size, id);
     assert.equal(preview.photos.length, Math.min(preview.count, 6), id);
     assert.equal(new Set(preview.photos.map(p => p.thumbnailUrl)).size, preview.photos.length);
     for (const p of preview.photos) {
@@ -80,7 +82,8 @@ test("each deep link can select a real section in the public map's own mode or a
       const url = new URL(photo.href, "https://tixrepo.com");
       const section = url.searchParams.get("seatSection");
       if (!section) {
-        if (url.hash !== "#venue-seat-guide")
+        if (url.hash === `#${VENUE_FLOOR_PHOTOS_ID}`) assert.ok(getVenueFloorPhotos(id).length > 0, id);
+        else if (url.hash !== "#venue-seat-guide")
           assert.ok(getVenueArenaPhotoArchives(id).some(a => url.hash === `#arena-seat-photos-${a.id}`));
         continue;
       }
