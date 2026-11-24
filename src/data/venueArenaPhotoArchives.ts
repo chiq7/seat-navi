@@ -60,7 +60,103 @@ const fusionBlocks = [
   }),
 ];
 
+
+// SUPER BEAVER at ZOZO Marine (2025-06-20/21): the venue board shows the stage along the outfield side
+// with columns A (nearest) to F and numbers 1-17; row 9 of A-C is the runway. Stage turned to the top here.
+const superBeaverZozoRows: Record<string, number[]> = {
+  A: [1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 16, 17],
+  B: [1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 16, 17],
+  C: [3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15],
+  D: [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+  E: [6, 7, 8, 9, 10, 11, 12],
+  F: [6, 7, 8, 9, 10, 11, 12],
+};
+const superBeaverZozoBlocks = Object.entries(superBeaverZozoRows).flatMap(([letter, numbers], band) =>
+  numbers.map(number => {
+    const left = 20 + (number - 1) * 34, top = 80 + band * 45;
+    return { id: `${letter}${number}`, points: rectangle(left, top, left + 30, top + 38) };
+  }));
+
+// ONE OK ROCK DETOX JAPAN TOUR FINAL at ZOZO Marine (2026-09-05/06): eight standing blocks.
+const oneOkRockZozoBlocks = [
+  { id: "A1", points: rectangle(30, 80, 140, 140) }, { id: "A2", points: rectangle(150, 80, 270, 140) }, { id: "A3", points: rectangle(280, 80, 390, 140) },
+  { id: "B1", points: rectangle(60, 150, 160, 205) }, { id: "B2", points: rectangle(170, 150, 260, 205) }, { id: "B3", points: rectangle(270, 150, 360, 205) },
+  { id: "C1", points: rectangle(110, 215, 205, 290) }, { id: "C2", points: rectangle(215, 215, 310, 290) },
+];
+
+// ONE OK ROCK DETOX JAPAN TOUR 2025 at Nissan Stadium (2025-08-30/31): columns A (nearest the stage)
+// to J (no I), numbers 1-17. Stage turned to the top here.
+const oneOkRockNissanRows: Record<string, number[]> = {
+  A: Array.from({ length: 17 }, (_, i) => i + 1), B: Array.from({ length: 17 }, (_, i) => i + 1),
+  C: Array.from({ length: 17 }, (_, i) => i + 1), D: Array.from({ length: 16 }, (_, i) => i + 1),
+  E: Array.from({ length: 17 }, (_, i) => i + 1), F: Array.from({ length: 15 }, (_, i) => i + 2),
+  G: Array.from({ length: 17 }, (_, i) => i + 1), H: Array.from({ length: 17 }, (_, i) => i + 1),
+  J: [2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16],
+};
+const oneOkRockNissanBlocks = Object.entries(oneOkRockNissanRows).flatMap(([letter, numbers], band) =>
+  numbers.map(number => {
+    const left = 20 + (number - 1) * 33, top = 70 + band * 36;
+    return { id: `${letter}${number}`, points: rectangle(left, top, left + 29, top + 30) };
+  }));
+
+const xPhoto = (block: string, user: string, id: string, photo: number, extra: { row?: string; positionLabel?: string } = {}) => {
+  const url = `https://x.com/${user}/status/${id}`;
+  return { block, url, photo, source: url, ...extra };
+};
+
 export const venueArenaPhotoArchives: Partial<Record<string, readonly Archive[]>> = {
+  "zozo-marine": [
+    {
+      id: "super-beaver-2025-06-20",
+      title: "SUPER BEAVER ZOZOマリンスタジアム公演",
+      kind: "seated",
+      layout: {
+        date: "2025-06-20",
+        venueId: "zozo-marine",
+        layoutSource: "https://x.com/i/web/status/1935968518572589356/photo/1",
+        viewBox: [0, 0, 620, 360],
+        stage: rectangle(71, 20, 560, 62),
+        subStage: rectangle(292, 62, 322, 208),
+        blocks: superBeaverZozoBlocks,
+        photos: [
+          xPhoto("A6", "waraukadonihasa", "1937603327170347075", 1, { row: "7" }),
+          xPhoto("A3", "ayami530SPBV", "1936938214067220693", 1, { row: "2", positionLabel: "番号は写真から推定" }),
+          xPhoto("E9", "super_superyu", "1936351650723266906", 1, { positionLabel: "番号は写真から推定" }),
+          xPhoto("D6", "tomo_luke_", "1935979423540597036", 1),
+        ],
+      },
+    },
+    {
+      id: "one-ok-rock-2026-09-05",
+      title: "ONE OK ROCK DETOX JAPAN TOUR FINAL 2026",
+      kind: "standing",
+      layout: {
+        date: "2026-09-05",
+        venueId: "zozo-marine",
+        layoutSource: "https://x.com/i/web/status/2096004241207013647/photo/1",
+        viewBox: [0, 0, 420, 310],
+        stage: rectangle(110, 20, 310, 60),
+        blocks: oneOkRockZozoBlocks,
+        photos: [xPhoto("B2", "rs10969_", "2096155722740552129", 1, { positionLabel: "スタンディング" })],
+      },
+    },
+  ],
+  "nissan-stadium": [
+    {
+      id: "one-ok-rock-2025-08-30",
+      title: "ONE OK ROCK『DETOX JAPAN TOUR 2025』",
+      kind: "seated",
+      layout: {
+        date: "2025-08-30",
+        venueId: "nissan-stadium",
+        layoutSource: "https://x.com/i/web/status/1962014315936112647/photo/1",
+        viewBox: [0, 0, 600, 400],
+        stage: rectangle(40, 20, 560, 55),
+        blocks: oneOkRockNissanBlocks,
+        photos: [xPhoto("E9", "_hii_mr_", "1961764049785655680", 1, { positionLabel: "番号は写真から推定" })],
+      },
+    },
+  ],
   "toki-messe": [
     {
       id: "hi-standard-2026-01-12",
