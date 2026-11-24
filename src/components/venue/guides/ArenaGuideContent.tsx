@@ -39,12 +39,15 @@ const modeKey=mode,resolved=resolveArenaView(definition,mode),{guide,seats,level
       <AfterSeats nested/>
       <section id="venue-facilities" ref={facilities}><h2>必要な設備を探す</h2>{"facilityNote" in data && <p className={styles.note}>{data.facilityNote}</p>}<VenueFacilityFinder key={`${venue}-${definition.preserveFacilitiesAcrossModes ? "fixed" : modeKey}`} ref={finder} guide={guide} config={facilityConfig}/></section>
       {data.insidePhotos && <InsidePhotos data={data.insidePhotos}/>}
-      <section id="venue-access"><h2>駅から{data.guide.name}へ</h2><VenueAccessCards venueId={venue} destination={data.guide.name} entries={arenaAccessEntries(guide,data.access,data.officialRouteUrl ?? data.accessUrl)}/><p className={styles.note}>{"accessNote" in data ? data.accessNote : isEdion ? "距離は会場の公式案内です。全館休館中のため再開・入場口は公式案内を確認してください。" : "徒歩時間は公式案内の目安です。当日の入場口は公演案内に従ってください。"}<a href={data.accessUrl} target="_blank" rel="noopener noreferrer">駅・入場の案内 ↗</a></p></section>
+      <section id="venue-access"><h2>駅から{data.guide.name}へ</h2><VenueAccessCards venueId={venue} destination={data.guide.name} entries={arenaAccessEntries(guide,data.access,data.officialRouteUrl ?? data.accessUrl)}/><p className={styles.note}>{"accessNote" in data ? data.accessNote : isEdion ? "距離は会場の公式案内です。全館休館中のため再開・入場口は公式案内を確認してください。" : "徒歩時間は公式案内の目安です。当日の入場口は公演案内に従ってください。"}</p><a className={`${styles.linkButton} ${styles.accessLink}`} href={data.accessUrl} target="_blank" rel="noopener noreferrer">駅・入場の公式案内 ↗</a>
+        {data.parking && <div className={`${styles.prep} ${styles.nearbyCards}`}>
+          <article><h3>車・駐車場</h3><p>{data.parking.text}</p><button type="button" onClick={()=>showNearby("案内","駐車場")}>周辺の駐車場を見る ↑</button></article>
+          {data.parking.meetup && <article><h3>公演前後の待ち合わせ</h3><p>{data.parking.meetup}</p><div className={styles.buttonRow}><button type="button" onClick={()=>showNearby("飲食","周辺のお店")}>周辺のお店を見る ↑</button>{data.parking.park && <button type="button" onClick={()=>showNearby("案内",data.parking!.park!)}>{data.parking.park}を見る ↑</button>}</div></article>}
+        </div>}
+      </section>
       <section id="venue-prep"><h2>出発前の準備</h2><div className={styles.prep}>
         <article><h3>大きな荷物</h3><p>{data.luggage}</p><button type="button" onClick={showLuggage}>ロッカー・荷物預かりを探す ↓</button></article>
         <article><h3>{data.preparationTitle}</h3><p>{data.preparation}</p></article>
-        {data.parking && <article><h3>車・駐車場</h3><p>{data.parking.text}</p><button type="button" onClick={()=>showNearby("案内","駐車場")}>周辺の駐車場を見る ↓</button></article>}
-        {data.parking?.meetup && <article><h3>公演前後の待ち合わせ</h3><p>{data.parking.meetup}</p><button type="button" onClick={()=>showNearby("飲食","周辺のお店")}>周辺のお店を見る ↓</button></article>}
       </div></section>
       {!embedded && <section id="upcoming-events-title"><h2>公演の案内</h2><a className={styles.linkButton} href={data.eventsUrl} target="_blank" rel="noopener noreferrer">{data.guide.name}の公演予定 ↗</a></section>}
       <section id="venue-faq"><h2>よくある質問</h2>{data.faq.map(([question, answer]) => <details key={question}><summary>{question}</summary><p>{answer}</p></details>)}</section>

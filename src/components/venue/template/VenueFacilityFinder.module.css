@@ -26,7 +26,7 @@
 .areaResultsHeading p { margin:2px 0 0; color:#786570; font-size:12px; overflow-wrap:anywhere; }
 .finder .areaResultsHeading button { display:inline-flex; align-items:center; gap:4px; flex:none; }
 .areaResultsHeading h3,.detail [data-facility-detail-heading],.mapPanel[tabindex] { scroll-margin-top:80px; }
-.finder .panelHeading button { border:0; padding:4px 8px; font-size:12px; color:var(--rose); }
+.finder .panelHeading button { flex:none; min-height:36px; border:1px solid #e3bdce; border-radius:10px; padding:4px 12px; background:#fff; font-size:12px; font-weight:700; color:var(--rose); }
 .list { max-height:500px; overflow:auto; }
 .finder .resultRow { display:flex; align-items:center; gap:10px; width:100%; min-height:62px; text-align:left; padding:10px 14px; border:0; border-bottom:1px solid var(--edge); border-radius:0; background:#fff; color:var(--ink); }
 .finder .resultRow[aria-pressed=true] { padding:10px 14px; background:#fff0f6; border:0; border-bottom:1px solid var(--edge); box-shadow:inset 3px 0 var(--rose); }

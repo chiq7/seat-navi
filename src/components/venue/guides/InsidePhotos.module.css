@@ -12,3 +12,14 @@
 .row li:has(img[width="900"]) img{height:158px}
 .row figcaption{font-size:12px;line-height:1.6;color:#6d5864;margin-top:6px}
 @media(min-width:768px){.row figure,.row img{width:200px}.row img{height:266px}}
+.zoom{position:relative;display:block;padding:0;border:0;background:none;border-radius:12px;cursor:zoom-in}
+.zoom:focus-visible{outline:3px solid #a93164;outline-offset:3px}
+.zoomBadge{position:absolute;right:8px;bottom:8px;padding:3px 8px;border-radius:999px;background:#2b1c24cc;color:#fff;font-size:11px;font-weight:700;line-height:1.5}
+.viewer{width:min(100vw - 16px,960px);max-width:none;max-height:calc(100dvh - 16px);margin:auto;padding:12px;border:0;border-radius:16px;background:#fff;display:none;flex-direction:column;gap:10px}
+.viewer[open]{display:flex}
+.viewer::backdrop{background:#1a1016d9}
+.viewer figure{margin:0;min-height:0;display:flex;flex-direction:column;gap:8px}
+.viewer img{display:block;width:100%;height:auto;max-height:calc(100dvh - 130px);object-fit:contain;border-radius:10px;background:#f5eef1}
+.viewer figcaption{font-size:13px;line-height:1.7;color:#4b3a44}
+.close{align-self:stretch;min-height:44px;border:1px solid #e3bdce;border-radius:10px;background:#fff;color:#a93164;font-size:14px;font-weight:700}
+.close:focus-visible{outline:3px solid #a93164;outline-offset:2px}

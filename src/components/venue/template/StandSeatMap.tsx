@@ -543,7 +543,8 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
       if ((fm[0] - middle[0]) * -dx + (fm[1] - middle[1]) * -dy < 0) { dx = -dx; dy = -dy; }
     }
     const rowObstacles: number[][] = [];
-    const selectedRun = closestDetail ? standSelectedNumberRun(data, block, row, number) : null;
+    // A seat search that hit shows the searched row's start number at once, not only after zooming in.
+    const selectedRun = labelRun;
     const reference = selectedRun ? { start: selectedRun.segment.start, young: selectedRun.segment.a, older: selectedRun.segment.end === selectedRun.segment.start ? selectedRun.segment.a : selectedRun.segment.points?.find(p => Math.hypot(p[0] - selectedRun.segment.a[0], p[1] - selectedRun.segment.a[1]) > .001) ?? selectedRun.segment.b } : block.numberReference;
     if (reference) {
       const young = projection.project(reference.young), old = projection.project(reference.older);
@@ -756,7 +757,8 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
     <div className={styles.selection} aria-live="polite" aria-label="選んだ座席">
       <div className={`${styles.selectionCopy} ${labelRun ? styles.ticketSelectionCopy : ""}`}>{block ? <>
         <span className={styles.selectionMeta}>{selectedLevelLabel}{block.balcony && !selectedLevelLabel.includes("バルコニー") ? "・バルコニー" : ""}<span>{selectedRows}</span></span>
-        <strong>{selectedTitle}</strong>
+        {/* A searched seat shows its own row and number beside the name, so a name built from another seat ("1列344番周辺") is left out. */}
+        <strong>{labelRun ? selectedTitle.split("・").filter(part => !/^\d+列\d+番(周辺)?$/.test(part.trim())).join("・") || selectedTitle : selectedTitle}</strong>
         {labelRun && <span className={styles.ticketSelection}><b className={styles.selectedRow}>{labelRun.row}列</b><b className={styles.selectedSeat} data-selected-seat-number>選択：{normalizeSeatInput(number)}番</b></span>}
       </> : <><strong>{zone ? data.zones?.find(z => z.id === zone)?.label ?? zone : level === "all" ? (overviewArt ? "全体図から区画を選ぶ" : "座席の全体図") : levels.find(l => l.id === level)?.label ?? level}</strong><span className={styles.selectionHint}>{blockOnlySearch ? "会場内の区画をタップして確認" : "区画をタップすると、列・番号の詳細へ"}</span></>}</div>
       {block && <><button type="button" aria-label="選んだ場所を表示" onClick={() => block && move(standDetailCamera(block, data, size))}><Crosshair size={19}/></button>

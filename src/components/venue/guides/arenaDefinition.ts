@@ -24,7 +24,7 @@ export type ArenaVenueData = {
   // Optional photos taken inside the venue (toilets, vending machines, lockers, shops), with the facts read on site.
   insidePhotos?: InsidePhotos;
   // Optional "car / parking" card: the venue's own stance, with buttons into the place list.
-  parking?: { text: string; meetup?: string };
+  parking?: { text: string; meetup?: string; park?: string };
   eventsUrl: string;
   faq: string[][];
 };

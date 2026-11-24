@@ -4,7 +4,7 @@
 .ticketSelectionCopy{grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:3px 5px}
 .ticketSelectionCopy .selectionMeta{grid-column:1 / -1}
 .ticketSelectionCopy .ticketSelection{margin-top:0;gap:4px;flex-wrap:nowrap}
-.selectionCopy strong{font-size:16px;line-height:1.45;color:#59283e;overflow-wrap:anywhere;text-wrap:balance}
+.selectionCopy strong{font-size:16px;line-height:1.45;color:#59283e;overflow-wrap:anywhere;word-break:auto-phrase;text-wrap:balance}
 .selectionMeta{display:flex;flex-wrap:wrap;gap:2px 10px;font-size:12px;line-height:1.5;color:#765965}
 .selectionMeta>span{font-variant-numeric:tabular-nums}
 .selectionHint{font-size:12px;line-height:1.5;color:#765965}

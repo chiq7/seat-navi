@@ -145,7 +145,7 @@ export default function VenueFacilityFinder({ guide, config, ref }: Props) {
   const mappedIds = new Set(nearby.flatMap(g => g.memberIds));
   const placed = filtered.filter(f => mappedIds.has(f.id) && (!activeGroup || activeGroup.memberIds.includes(f.id)));
   const allMappedIds = new Set(config.groups.filter(g => g.diagramId === diagram.id).flatMap(g => g.memberIds));
-  const unplaced = activeGroup ? [] : filtered.filter(f => !allMappedIds.has(f.id) && (!origin || config.landmarkFacilityIds?.[origin.id] !== undefined || origin.kind !== "station" || config.meta[f.id]?.area === origin.label)).sort((a, b) => `${config.meta[a.id]?.area} ${a.name}`.localeCompare(`${config.meta[b.id]?.area} ${b.name}`, "ja"));
+  const unplaced = activeGroup ? [] : filtered.filter(f => !allMappedIds.has(f.id) && (!origin || config.landmarkFacilityIds?.[origin.id] !== undefined || origin.kind !== "station" || config.meta[f.id]?.area === origin.label)).sort((a, b) => (config.meta[a.id]?.order ?? 1e9) - (config.meta[b.id]?.order ?? 1e9) || `${config.meta[a.id]?.area} ${a.name}`.localeCompare(`${config.meta[b.id]?.area} ${b.name}`, "ja"));
   const rows = [...placed, ...unplaced];
   // A selection made elsewhere (search link) may not be among the rows; it is then shown above the list.
   const item = rows.find(f => f.id === state.selected) ?? filtered.find(f => f.id === state.selected);

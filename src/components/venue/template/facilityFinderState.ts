@@ -25,7 +25,7 @@ export function isFacilityGroupAnchorCompatible(facility: GuideFacility, group: 
     (original.evidence.canvasWidth ?? original.evidence.width) === (display.evidence.canvasWidth ?? display.evidence.width) &&
     (original.evidence.imageOffsetX ?? 0) === (display.evidence.imageOffsetX ?? 0);
 }
-export type FacilityMeta = { location: string; detail: string; area: string; accessCondition: string; scopes?: ("場内" | "場外")[]; outsideViewIds?: string[]; url?: string; name?: string };
+export type FacilityMeta = { location: string; detail: string; area: string; accessCondition: string; scopes?: ("場内" | "場外")[]; outsideViewIds?: string[]; url?: string; name?: string; /** List position among places without a map spot (lower first), e.g. walking minutes. */ order?: number };
 export type FacilityOutsideView = { id: string; label: string; diagramId: string; landmarkIds?: string[]; venueLabel?: { name: string; point: number[] }; floorLabel?: string; northUp?: boolean; northDirection?: "↑" | "←" | "→" | "↓" };
 export type FacilityConfig = {
   defaultFloor: string; floors: string[]; groups: FacilityGroup[]; meta: Record<string, FacilityMeta>;
