@@ -4739,5 +4739,71 @@
     "note": "会場のアリーナ座席案内図。",
     "eventLabel": "Hey! Say! JUMP DOME TOUR 2025-2026 S say",
     "photoNumber": 1
+  },
+  {
+    "kind": "arena_map",
+    "venueId": "k-arena",
+    "eventId": null,
+    "sourceId": "1710551130860876022",
+    "sourceUrl": "https://x.com/mbts06137/status/1710551130860876022",
+    "position": "アリーナ",
+    "note": "サム・スミス公演の席種図（GOLD/SS/S/A）。2枚目はLEVEL1座席番号の投稿者予想で不確実、3・4枚目は他会場の図。",
+    "eventLabel": "サム・スミス",
+    "photoNumber": 1
+  },
+  {
+    "kind": "arena_map",
+    "venueId": "k-arena",
+    "eventId": null,
+    "sourceId": "1716433268407726579",
+    "sourceUrl": "https://x.com/naomu_da/status/1716433268407726579",
+    "position": "アリーナ",
+    "note": "公演名の記載なし（同日はKing & Prince公演とみられる）。花道・リフター・ゴンドラ位置を投稿者が書き込んだ図。3枚目は見えない範囲を黒塗りした図。",
+    "eventLabel": "2023/10/22",
+    "photoNumber": 2
+  },
+  {
+    "kind": "arena_map",
+    "venueId": "k-arena",
+    "eventId": null,
+    "sourceId": "1794337163158733241",
+    "sourceUrl": "https://x.com/Rena_alphaz_xg/status/1794337163158733241",
+    "position": "アリーナ",
+    "note": "XG公演の座席図（VVIP・VIP・一般指定アリーナ／スタンド）。1枚目は一般的な会場座席表。",
+    "eventLabel": "2024/05/26 XG",
+    "photoNumber": 2
+  },
+  {
+    "kind": "arena_map",
+    "venueId": "k-arena",
+    "eventId": null,
+    "sourceId": "1899742279298175026",
+    "sourceUrl": "https://x.com/korone1117/status/1899742279298175026",
+    "position": "アリーナ",
+    "note": "LEVEL1座席案内掲示。1〜140番、1〜42列、102/103GATE。日付は投稿日3/12で公演日は未確認。",
+    "eventLabel": "TOMORROW X TOGETHER WORLD TOUR <ACT : PROMISE> - EP. 2 - IN JAPAN",
+    "photoNumber": 1
+  },
+  {
+    "kind": "arena_map",
+    "venueId": "k-arena",
+    "eventId": null,
+    "sourceId": "1980168779209544083",
+    "sourceUrl": "https://x.com/Cypressunia/status/1980168779209544083",
+    "position": "アリーナ",
+    "note": "公式の座席区分図（SS/S/A指定・PA位置・エントリーズシート）。8/26・8/27共通。",
+    "eventLabel": "2025/08/26 サカナクション SAKANAQUARIUM 2025 怪獣 追加公演",
+    "photoNumber": 2
+  },
+  {
+    "kind": "arena_map",
+    "venueId": "k-arena",
+    "eventId": null,
+    "sourceId": "2124149494849958264",
+    "sourceUrl": "https://x.com/Sa9yapan/status/2124149494849958264",
+    "position": "アリーナ",
+    "note": "会場掲示のアリーナ客席案内図。1〜140番・4〜34列・GATE101〜104。赤丸は投稿者の書き込み。",
+    "eventLabel": "テレビ朝日ドリームフェスティバル2026",
+    "photoNumber": 1
   }
 ]
