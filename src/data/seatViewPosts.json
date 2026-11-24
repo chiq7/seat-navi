@@ -669,6 +669,19 @@
       "event": "Lady Gaga「The Chromatica Ball」（2022年）",
       "url": "https://x.com/ponyrena/status/1566949528090988544",
       "source": "https://mama-premama.com/belluna-capacity/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "3塁内野"
+      },
+      "area": "3塁側",
+      "row": "19",
+      "seat": "13",
+      "scope": "area",
+      "photo": 1,
+      "url": "https://x.com/KOREANPOP_GOODS/status/2123485290077778365",
+      "source": "https://x.com/KOREANPOP_GOODS/status/2123485290077778365"
     }
   ],
   "budokan-reference-stands": [
