@@ -4533,17 +4533,6 @@
   },
   {
     "kind": "arena_map",
-    "venueId": "ariake-arena",
-    "eventId": null,
-    "sourceId": "1851472337339891865",
-    "sourceUrl": "https://x.com/ZadkineMachen/status/1851472337339891865",
-    "position": "アリーナ",
-    "note": "公式の席種配置図（SS・S・A席）。",
-    "eventLabel": "2025/02/27 NEW ORDER",
-    "photoNumber": 1
-  },
-  {
-    "kind": "arena_map",
     "venueId": "hiroshima-arena",
     "eventId": null,
     "sourceId": "1824831559935091002",
@@ -4552,28 +4541,6 @@
     "note": "会場掲示のアリーナブロック客席案内図。",
     "eventLabel": "2024/08/17 稲葉浩志 Koshi Inaba LIVE 2024 ～enIV～",
     "photoNumber": 1
-  },
-  {
-    "kind": "arena_map",
-    "venueId": "k-arena",
-    "eventId": null,
-    "sourceId": "1814449136906973614",
-    "sourceUrl": "https://x.com/yataroden/status/1814449136906973614",
-    "position": "アリーナ",
-    "note": "会場公式サイトの座席表（通常配置）。",
-    "eventLabel": "",
-    "photoNumber": 1
-  },
-  {
-    "kind": "arena_map",
-    "venueId": "k-arena",
-    "eventId": null,
-    "sourceId": "2061584120392888771",
-    "sourceUrl": "https://x.com/noachamMM/status/2061584120392888771",
-    "position": "アリーナ",
-    "note": "公式の券種配置図（簡易イメージ）。",
-    "eventLabel": "iLiFE!",
-    "photoNumber": 4
   },
   {
     "kind": "arena_map",
@@ -4605,29 +4572,7 @@
     "sourceUrl": "https://x.com/chuson_odr/status/1927591738853503344",
     "position": "アリーナ",
     "note": "会場のアリーナブロック案内図（公演不明）。",
-    "eventLabel": "",
-    "photoNumber": 2
-  },
-  {
-    "kind": "arena_map",
-    "venueId": "osaka-jo-hall",
-    "eventId": null,
-    "sourceId": "1809540702248005910",
-    "sourceUrl": "https://x.com/bz_vermillion/status/1809540702248005910",
-    "position": "アリーナ",
-    "note": "アリーナ席配置図（SS1〜20・C・Dブロック）。",
-    "eventLabel": "稲葉浩志 Koshi Inaba LIVE 2024 〜enIV〜",
-    "photoNumber": 1
-  },
-  {
-    "kind": "arena_map",
-    "venueId": "osaka-jo-hall",
-    "eventId": null,
-    "sourceId": "2053475722677960819",
-    "sourceUrl": "https://x.com/sakana_drops/status/2053475722677960819",
-    "position": "アリーナ",
-    "note": "公式の座席図（緑枠は投稿者の書き込み）。",
-    "eventLabel": "SAKANAQUARIUM 2026 透明",
+    "eventLabel": "公演不明（2025年5月の投稿）",
     "photoNumber": 2
   },
   {
@@ -4643,46 +4588,13 @@
   },
   {
     "kind": "arena_map",
-    "venueId": "saitama-super-arena",
-    "eventId": null,
-    "sourceId": "1910905417670287459",
-    "sourceUrl": "https://x.com/zf1s3/status/1910905417670287459",
-    "position": "アリーナ",
-    "note": "ファン作成の予想図（回答集計）。",
-    "eventLabel": "j-hope Tour 'HOPE ON THE STAGE' in JAPAN",
-    "photoNumber": 1
-  },
-  {
-    "kind": "arena_map",
-    "venueId": "saitama-super-arena",
-    "eventId": null,
-    "sourceId": "1725692879715373156",
-    "sourceUrl": "https://x.com/oO0Sisi0Oo/status/1725692879715373156",
-    "position": "アリーナ",
-    "note": "チケットサイトのたまアリ座席表（汎用）。",
-    "eventLabel": "",
-    "photoNumber": 1
-  },
-  {
-    "kind": "arena_map",
-    "venueId": "sapporo-dome",
-    "eventId": null,
-    "sourceId": "2116056093218734527",
-    "sourceUrl": "https://x.com/abb_apple_/status/2116056093218734527",
-    "position": "アリーナ",
-    "note": "ファン作成の手描き図（ステージ構成）。",
-    "eventLabel": "Snow Man DOME TOUR 2026-2027 ALL SUITE",
-    "photoNumber": 1
-  },
-  {
-    "kind": "arena_map",
     "venueId": "toki-messe",
     "eventId": null,
     "sourceId": "1832358137434927586",
     "sourceUrl": "https://x.com/1208_honey/status/1832358137434927586",
     "position": "アリーナ",
     "note": "会場のブロック案内図（A〜E、STAGE・花道）。",
-    "eventLabel": "福山雅治（2024年 新潟公演）",
+    "eventLabel": "2024/09/07 福山雅治 新潟公演",
     "photoNumber": 1
   },
   {
@@ -4695,17 +4607,6 @@
     "note": "会場のアリーナブロック案内図。",
     "eventLabel": "レッド・ホット・チリ・ペッパーズ 東京ドーム公演（2024年5月）",
     "photoNumber": 1
-  },
-  {
-    "kind": "arena_map",
-    "venueId": "tokyo-dome",
-    "eventId": null,
-    "sourceId": "1792006429756530868",
-    "sourceUrl": "https://x.com/DOMMY_RECORD/status/1792006429756530868",
-    "position": "アリーナ",
-    "note": "会場のアリーナブロック案内図（前年）。",
-    "eventLabel": "レッド・ホット・チリ・ペッパーズ 東京ドーム公演（2023年）",
-    "photoNumber": 2
   },
   {
     "kind": "arena_map",
@@ -4726,7 +4627,7 @@
     "sourceUrl": "https://x.com/pushmyphone/status/1794278319489478953",
     "position": "アリーナ",
     "note": "会場掲示のアリーナブロック案内図。",
-    "eventLabel": "SEVENTEEN TOUR 'FOLLOW' AGAIN TO JAPAN",
+    "eventLabel": "2024/05/25 SEVENTEEN TOUR 'FOLLOW' AGAIN TO JAPAN",
     "photoNumber": 1
   },
   {
@@ -4744,56 +4645,12 @@
     "kind": "arena_map",
     "venueId": "k-arena",
     "eventId": null,
-    "sourceId": "1710551130860876022",
-    "sourceUrl": "https://x.com/mbts06137/status/1710551130860876022",
-    "position": "アリーナ",
-    "note": "サム・スミス公演の席種図（GOLD/SS/S/A）。2枚目はLEVEL1座席番号の投稿者予想で不確実、3・4枚目は他会場の図。",
-    "eventLabel": "サム・スミス",
-    "photoNumber": 1
-  },
-  {
-    "kind": "arena_map",
-    "venueId": "k-arena",
-    "eventId": null,
-    "sourceId": "1716433268407726579",
-    "sourceUrl": "https://x.com/naomu_da/status/1716433268407726579",
-    "position": "アリーナ",
-    "note": "公演名の記載なし（同日はKing & Prince公演とみられる）。花道・リフター・ゴンドラ位置を投稿者が書き込んだ図。3枚目は見えない範囲を黒塗りした図。",
-    "eventLabel": "2023/10/22",
-    "photoNumber": 2
-  },
-  {
-    "kind": "arena_map",
-    "venueId": "k-arena",
-    "eventId": null,
-    "sourceId": "1794337163158733241",
-    "sourceUrl": "https://x.com/Rena_alphaz_xg/status/1794337163158733241",
-    "position": "アリーナ",
-    "note": "XG公演の座席図（VVIP・VIP・一般指定アリーナ／スタンド）。1枚目は一般的な会場座席表。",
-    "eventLabel": "2024/05/26 XG",
-    "photoNumber": 2
-  },
-  {
-    "kind": "arena_map",
-    "venueId": "k-arena",
-    "eventId": null,
     "sourceId": "1899742279298175026",
     "sourceUrl": "https://x.com/korone1117/status/1899742279298175026",
     "position": "アリーナ",
     "note": "LEVEL1座席案内掲示。1〜140番、1〜42列、102/103GATE。日付は投稿日3/12で公演日は未確認。",
-    "eventLabel": "TOMORROW X TOGETHER WORLD TOUR <ACT : PROMISE> - EP. 2 - IN JAPAN",
+    "eventLabel": "2025/03/12 TOMORROW X TOGETHER WORLD TOUR <ACT : PROMISE> - EP. 2 - IN JAPAN",
     "photoNumber": 1
-  },
-  {
-    "kind": "arena_map",
-    "venueId": "k-arena",
-    "eventId": null,
-    "sourceId": "1980168779209544083",
-    "sourceUrl": "https://x.com/Cypressunia/status/1980168779209544083",
-    "position": "アリーナ",
-    "note": "公式の座席区分図（SS/S/A指定・PA位置・エントリーズシート）。8/26・8/27共通。",
-    "eventLabel": "2025/08/26 サカナクション SAKANAQUARIUM 2025 怪獣 追加公演",
-    "photoNumber": 2
   },
   {
     "kind": "arena_map",
@@ -4803,7 +4660,7 @@
     "sourceUrl": "https://x.com/Sa9yapan/status/2124149494849958264",
     "position": "アリーナ",
     "note": "会場掲示のアリーナ客席案内図。1〜140番・4〜34列・GATE101〜104。赤丸は投稿者の書き込み。",
-    "eventLabel": "テレビ朝日ドリームフェスティバル2026",
+    "eventLabel": "2026/11/22・23 テレビ朝日ドリームフェスティバル2026",
     "photoNumber": 1
   }
 ]
