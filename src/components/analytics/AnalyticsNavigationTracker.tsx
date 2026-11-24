@@ -24,9 +24,11 @@ export function AnalyticsNavigationTracker() {
     if (firstUrl.current === currentUrl) return;
     firstUrl.current = currentUrl;
 
+    // Send the URL once, as page_location only. Sending page_path as well
+    // recorded the query twice ("?a=b?a=b") in GA4.
+    // The fragment is left out: an in-page jump is not a new page.
     trackEvent("page_view", {
-      page_location: currentUrl === "/search" ? window.location.origin + currentUrl : window.location.href,
-      page_path: currentUrl,
+      page_location: window.location.origin + currentUrl,
       page_title: document.title,
     });
   }, [currentUrl]);
