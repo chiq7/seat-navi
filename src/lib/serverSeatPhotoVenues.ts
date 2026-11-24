@@ -23,8 +23,9 @@ const diagrams: Readonly<Record<string, readonly string[]>> = {
   "nissan-stadium": ["nissan-seats"], "osaka-jo-hall": ["osaka-stand-current"],
   "paypay-dome": ["paypay-stand-reference"], "pia-arena-mm": ["pia-arena-mm-seat-plans"],
   "tokyo-garden-theater": ["tokyo-garden-theater-seat-plans"],
-  "vantelin-dome": ["vantelin-seat-reference"], "yokohama-arena": ["ya-common-bowl-current"],
+  "vantelin-dome": ["vantelin-seat-reference", "vantelin-prime-unfolded"], "yokohama-arena": ["ya-common-bowl-current"],
   "yoyogi": ["yoyogi-stand-reference"], "zozo-marine": ["zozo-seats"],
+  "toki-messe": ["toki-seats-exhibition"],
 };
 
 export type SeatPhotoVenue = { id: string; name: string; href: string; count: number };
@@ -35,6 +36,7 @@ export type EventVenuePhotoPreview = SeatPhotoVenue & { photos: PreviewTile[] };
 const modesByDiagram: Readonly<Record<string, string>> = {
   "makuhari-seats": "event", "marine-concert": "concert", "marine-center": "center",
   "sapporo-baseball": "baseball", "ssa-seat-arena": "arena", "ssa-seat-stadium": "stadium",
+  "vantelin-prime-unfolded": "prime", "toki-seats-exhibition": "exhibition",
 };
 
 type GalleryImage = {

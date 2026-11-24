@@ -252,6 +252,66 @@
       "event": "SEKAI NO OWARI「Tarkus」",
       "url": "https://x.com/Take_sekai_085/status/806401752631312384",
       "source": "https://smart-list.info/saitama-superarena/"
+    },
+    {
+      "place": {
+        "kind": "position",
+        "id": "arena-door-411"
+      },
+      "area": "400レベル 411扉",
+      "row": "2",
+      "scope": "entrance",
+      "photo": 1,
+      "url": "https://x.com/BOMCHI_0313_/status/1643154633282711552",
+      "source": "https://x.com/BOMCHI_0313_/status/1643154633282711552"
+    },
+    {
+      "place": {
+        "kind": "position",
+        "id": "arena-door-236"
+      },
+      "area": "200レベル 236扉",
+      "row": "6",
+      "scope": "entrance",
+      "photo": 1,
+      "event": "TOMORROW X TOGETHER",
+      "url": "https://x.com/m_sootxt/status/1648501498136133633",
+      "source": "https://x.com/m_sootxt/status/1648501498136133633"
+    },
+    {
+      "place": {
+        "kind": "position",
+        "id": "arena-door-216"
+      },
+      "area": "200レベル 216扉 スタンドほぼ最後列",
+      "scope": "entrance",
+      "photo": 3,
+      "url": "https://x.com/___n_iki/status/1797253298938167553",
+      "source": "https://x.com/___n_iki/status/1797253298938167553"
+    },
+    {
+      "place": {
+        "kind": "position",
+        "id": "arena-door-334"
+      },
+      "area": "300レベル 334扉",
+      "row": "2",
+      "scope": "entrance",
+      "photo": 1,
+      "url": "https://x.com/shinee_ojtmk05/status/1850541498565378249",
+      "source": "https://x.com/shinee_ojtmk05/status/1850541498565378249"
+    },
+    {
+      "place": {
+        "kind": "position",
+        "id": "arena-door-510"
+      },
+      "area": "500レベル 510扉",
+      "row": "1",
+      "scope": "entrance",
+      "photo": 1,
+      "url": "https://x.com/yououou02/status/1915735927932285205",
+      "source": "https://x.com/yououou02/status/1915735927932285205"
     }
   ],
   "gaishi-fixed": [
@@ -330,6 +390,30 @@
       "event": "宇多田ヒカル「Laughter in the Dark Tour 2018」",
       "url": "https://x.com/keita_simpson/status/1065535398003146753",
       "source": "https://report-newage.com/29361"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "gaishi-E-stand-21"
+      },
+      "area": "西側 ブリージア席（ステージ正面・低い位置）付近（写真から推定）",
+      "scope": "area",
+      "photo": 1,
+      "event": "LUNA SEA（2023年12月）",
+      "url": "https://x.com/38_utusemi/status/1736358317549813992",
+      "source": "https://x.com/38_utusemi/status/1736358317549813992"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "gaishi-E-stand-21"
+      },
+      "area": "西側 ブリージア席（ステージ正面・低い位置）付近（写真から推定）",
+      "scope": "area",
+      "photo": 1,
+      "event": "新しい地図「NAKAMA to MEETING Vol.2」",
+      "url": "https://x.com/winterinaki/status/1646041461564248064",
+      "source": "https://x.com/winterinaki/status/1646041461564248064"
     }
   ],
   "koshien-seats": [
@@ -370,6 +454,43 @@
       "event": "AAA",
       "url": "https://x.com/aaaaa_nishi0914/status/1898983113910292730",
       "source": "https://kokemomo55.com/mrs-greenapple-live-seat/"
+    },
+    {
+      "place": {
+        "kind": "position",
+        "id": "sapporo-baseball-passage-65"
+      },
+      "area": "スタンド 66通路付近（65通路の隣）",
+      "row": "58",
+      "scope": "area",
+      "photo": 1,
+      "event": "Snow Man",
+      "url": "https://x.com/AsOvn__/status/1989871842417676586",
+      "source": "https://x.com/AsOvn__/status/1989871842417676586"
+    },
+    {
+      "place": {
+        "kind": "position",
+        "id": "sapporo-baseball-passage-106"
+      },
+      "area": "スタンド ステージ正面・最後列付近（写真から推定）",
+      "scope": "area",
+      "photo": 1,
+      "event": "YOASOBI 札幌公演",
+      "url": "https://x.com/tamatamadeap/status/2121537223606849965",
+      "source": "https://x.com/tamatamadeap/status/2121537223606849965"
+    },
+    {
+      "place": {
+        "kind": "position",
+        "id": "sapporo-baseball-passage-109"
+      },
+      "area": "スタンド 110通路付近（前方）",
+      "scope": "area",
+      "photo": 1,
+      "event": "YOASOBI 超惑星（2026年11月14日）",
+      "url": "https://x.com/ailes05_micoto/status/2121632058015719537",
+      "source": "https://x.com/ailes05_micoto/status/2121632058015719537"
     }
   ],
   "ariake-fixed-stand": [
@@ -866,6 +987,57 @@
       "event": "n.SSign「BIRTH OF COSMO」",
       "url": "https://x.com/begin51995581/status/1723257597627973959",
       "source": "https://chipisblog.com/ariakearena-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "ariake-D-08"
+      },
+      "area": "2階 D ステージ寄り付近（写真から推定）",
+      "row": "21",
+      "scope": "area",
+      "photo": 1,
+      "url": "https://x.com/uxlph/status/1652310995229110272",
+      "source": "https://x.com/uxlph/status/1652310995229110272"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "ariake-G-08"
+      },
+      "area": "3階 ステージ正面（G）前方付近（写真から推定）",
+      "row": "3",
+      "scope": "area",
+      "photo": 1,
+      "event": "&TEAM「SECOND TO NONE」",
+      "url": "https://x.com/tandaishinsyou/status/1814660249737175446",
+      "source": "https://x.com/tandaishinsyou/status/1814660249737175446"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "ariake-B-05"
+      },
+      "area": "2階 Bブロック",
+      "row": "16",
+      "seat": "52",
+      "seatVerified": true,
+      "photo": 1,
+      "event": "TREASURE",
+      "url": "https://x.com/c1jw_o/status/1819755009074139238",
+      "source": "https://x.com/c1jw_o/status/1819755009074139238"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "ariake-F-15"
+      },
+      "area": "4階 F 前列・席番後半付近（写真から推定）",
+      "scope": "area",
+      "photo": 1,
+      "event": "XG 1st WORLD TOUR",
+      "url": "https://x.com/lllsep102/status/1893297321074454782",
+      "source": "https://x.com/lllsep102/status/1893297321074454782"
     }
   ],
   "belluna-seats": [
@@ -999,6 +1171,29 @@
       "photo": 1,
       "url": "https://x.com/Seun_In289/status/1765931155831001159",
       "source": "https://chipisblog.com/bellunadome-live-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "belluna-shape-693"
+      },
+      "area": "3塁側 307ブロック付近（写真から推定）",
+      "scope": "area",
+      "photo": 1,
+      "event": "SEVENTEEN",
+      "url": "https://x.com/yunnnnki99/status/1723204091386732637",
+      "source": "https://x.com/yunnnnki99/status/1723204091386732637"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "belluna-shape-576"
+      },
+      "area": "ネット裏 223ブロック",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/sakimo_enhypen/status/1733137651518357686",
+      "source": "https://x.com/sakimo_enhypen/status/1733137651518357686"
     }
   ],
   "budokan-reference-stands": [
@@ -2362,6 +2557,30 @@
       "photo": 1,
       "url": "https://x.com/muji_huni/status/1764580540110561540",
       "source": "https://curious103.com/karena/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "k-level5-31"
+      },
+      "area": "LEVEL5 正面中央付近（写真から推定）",
+      "row": "10",
+      "scope": "area",
+      "photo": 1,
+      "url": "https://x.com/Ajipon_shiitake/status/1885920117227450789",
+      "source": "https://x.com/Ajipon_shiitake/status/1885920117227450789"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "k-level7-57"
+      },
+      "area": "LEVEL7 701ゲート付近",
+      "row": "14",
+      "scope": "area",
+      "photo": 3,
+      "url": "https://x.com/zerose_rimi/status/1904890361560129593",
+      "source": "https://x.com/zerose_rimi/status/1904890361560129593"
     }
   ],
   "kyocera-dome-fixed": [
@@ -3376,6 +3595,18 @@
       "photo": 1,
       "url": "https://x.com/hH5jTUEvjMSTjZk/status/1759456584093348026",
       "source": "https://lignea.co.jp/marine-messe-fukuoka-seat/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "marine-L-1"
+      },
+      "area": "2階 南スタンド東寄り（L）最後方付近（写真から推定）",
+      "scope": "area",
+      "photo": 1,
+      "event": "すとぷり10周年ライブ 福岡公演",
+      "url": "https://x.com/sayacos_yade/status/2080984207917301844",
+      "source": "https://x.com/sayacos_yade/status/2080984207917301844"
     }
   ],
   "miyagi-stand": [
@@ -3703,6 +3934,30 @@
       "event": "BUMP OF CHICKEN TOUR 2023「be there」宮城公演",
       "url": "https://x.com/LAMP0w0_0H066/status/1645380159518957569",
       "source": "https://mama-premama.com/sekisuiheim-capacity/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "miyagi-g-rear-1"
+      },
+      "area": "スタンド後方（長辺側）付近（写真から推定）",
+      "scope": "area",
+      "photo": 1,
+      "event": "The Colors",
+      "url": "https://x.com/TfKei/status/1127135642633162753",
+      "source": "https://x.com/TfKei/status/1127135642633162753"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "miyagi-t-rear-1"
+      },
+      "area": "スタンド後方（長辺側）付近（写真から推定）",
+      "scope": "area",
+      "photo": 1,
+      "event": "Travis Japan",
+      "url": "https://x.com/xxx_graphixx/status/1751214759717097521",
+      "source": "https://x.com/xxx_graphixx/status/1751214759717097521"
     }
   ],
   "mufg-seats": [
@@ -4039,6 +4294,30 @@
       "event": "MUSIC BANK",
       "url": "https://x.com/Tokya_Syo_1027/status/1999805644686385502",
       "source": "https://www.shining50adventures.com/mufg-stadium-seat-view-live/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "mufg-f2-south"
+      },
+      "area": "2層 サイドスタンド ステージ横付近（写真から推定）",
+      "scope": "area",
+      "photo": 1,
+      "event": "=LOVE（国立競技場）",
+      "url": "https://x.com/haru_ikonoijoy/status/2068303046892040522",
+      "source": "https://x.com/haru_ikonoijoy/status/2068303046892040522"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "mufg-f1-south"
+      },
+      "area": "1層 サイドスタンド ステージ横付近（写真から推定）",
+      "scope": "area",
+      "photo": 1,
+      "event": "=LOVE（国立競技場）",
+      "url": "https://x.com/yanai_san_/status/2068244977562661186",
+      "source": "https://x.com/yanai_san_/status/2068244977562661186"
     }
   ],
   "nissan-seats": [
@@ -5923,6 +6202,69 @@
       "event": "Nissy",
       "url": "https://x.com/_Alaaan24/status/1672124971748057093",
       "source": "https://mama-premama.com/paypaydome-capa-miekata/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "paypay-upper-3塁側"
+      },
+      "area": "3塁側スタンド 14通路",
+      "row": "45",
+      "scope": "area",
+      "photo": 1,
+      "url": "https://x.com/jjtmtdmj/status/1681991799831949312",
+      "source": "https://x.com/jjtmtdmj/status/1681991799831949312"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "paypay-upper-1塁側"
+      },
+      "area": "1塁側スタンド 9通路（注釈付き指定席）",
+      "row": "47",
+      "scope": "area",
+      "photo": 4,
+      "url": "https://x.com/snst_0000/status/1731537376084893810",
+      "source": "https://x.com/snst_0000/status/1731537376084893810"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "paypay-upper-1塁側"
+      },
+      "area": "1塁側スタンド 8通路",
+      "row": "46",
+      "scope": "area",
+      "photo": 1,
+      "event": "SEVENTEEN",
+      "url": "https://x.com/choi8_8skmn/status/1743277027367772455",
+      "source": "https://x.com/choi8_8skmn/status/1743277027367772455"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "paypay-upper-1塁側"
+      },
+      "area": "1塁側スタンド 12通路",
+      "row": "46",
+      "scope": "area",
+      "photo": 1,
+      "event": "SEVENTEEN",
+      "url": "https://x.com/momo_hana31/status/1998793839155491129",
+      "source": "https://x.com/momo_hana31/status/1998793839155491129"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "paypay-upper-3塁側"
+      },
+      "area": "3塁側スタンド 18通路",
+      "row": "55",
+      "scope": "area",
+      "photo": 2,
+      "event": "SEVENTEEN",
+      "url": "https://x.com/momo_hana31/status/1998793839155491129",
+      "source": "https://x.com/momo_hana31/status/1998793839155491129"
     }
   ],
   "pia-arena-mm-seat-plans": [
@@ -7033,6 +7375,520 @@
       "event": "SEVENTEEN",
       "url": "https://x.com/xxxitoxxx/status/1696350520003436618",
       "source": "https://oshitokotrip.com/tokyo-dome-seat-view/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "A15"
+      },
+      "area": "1階 1塁側 A15区画",
+      "row": "5",
+      "seat": "208",
+      "seatVerified": true,
+      "photo": 1,
+      "event": "SMTOWN LIVE 2022",
+      "url": "https://x.com/mnbnmdr/status/1563319522094104578",
+      "source": "https://x.com/mnbnmdr/status/1563319522094104578"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "E18"
+      },
+      "area": "2階 1塁側 40ゲート付近（ゲート番号から推定）",
+      "row": "16",
+      "scope": "area",
+      "photo": 1,
+      "url": "https://x.com/_prfm_333_/status/1648300978205257728",
+      "source": "https://x.com/_prfm_333_/status/1648300978205257728"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "A37"
+      },
+      "area": "1階 3塁側付近（写真から推定）",
+      "row": "11",
+      "scope": "area",
+      "photo": 1,
+      "url": "https://x.com/wo0ha2/status/1656926155713429504",
+      "source": "https://x.com/wo0ha2/status/1656926155713429504"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "A04"
+      },
+      "area": "1階 1塁側 A04区画",
+      "row": "12",
+      "seat": "423",
+      "seatVerified": true,
+      "photo": 3,
+      "url": "https://x.com/yj_ww_tiger/status/1698965672515256380",
+      "source": "https://x.com/yj_ww_tiger/status/1698965672515256380"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "A20"
+      },
+      "area": "1階 1塁側 A20区画",
+      "row": "22",
+      "scope": "block",
+      "photo": 2,
+      "event": "SMTOWN",
+      "url": "https://x.com/nctzen_22/status/1759912156894728535",
+      "source": "https://x.com/nctzen_22/status/1759912156894728535"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "A41"
+      },
+      "area": "1階 3塁側 A41区画",
+      "row": "8",
+      "scope": "block",
+      "photo": 3,
+      "event": "SMTOWN",
+      "url": "https://x.com/nctzen_22/status/1759912156894728535",
+      "source": "https://x.com/nctzen_22/status/1759912156894728535"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "A37"
+      },
+      "area": "1階 3塁側 A37区画",
+      "row": "13",
+      "seat": "245",
+      "seatVerified": true,
+      "photo": 2,
+      "url": "https://x.com/t_gers37/status/1764605676243112325",
+      "source": "https://x.com/t_gers37/status/1764605676243112325"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "A07"
+      },
+      "area": "1塁側 エキサイトシート 7通路付近（通路番号から推定）",
+      "scope": "area",
+      "photo": 2,
+      "url": "https://x.com/youngwo_0201/status/1792546944126161081",
+      "source": "https://x.com/youngwo_0201/status/1792546944126161081"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "A26"
+      },
+      "area": "1階 3塁側 A26区画",
+      "row": "24",
+      "seat": "27",
+      "seatVerified": true,
+      "photo": 1,
+      "url": "https://x.com/t_gers37/status/1792822972815921391",
+      "source": "https://x.com/t_gers37/status/1792822972815921391"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "A46"
+      },
+      "area": "1階 3塁側 44通路付近（通路番号から推定）",
+      "row": "19",
+      "scope": "area",
+      "photo": 1,
+      "url": "https://x.com/Xiaojun_0117/status/1792857342972670393",
+      "source": "https://x.com/Xiaojun_0117/status/1792857342972670393"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "A40"
+      },
+      "area": "1階 3塁側 A40付近（写真の座席番号から推定）",
+      "row": "10",
+      "scope": "area",
+      "photo": 2,
+      "event": "MISAMO",
+      "url": "https://x.com/namo_1ove/status/1879026655232143550",
+      "source": "https://x.com/namo_1ove/status/1879026655232143550"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "A12"
+      },
+      "area": "1階 1塁側 A12区画",
+      "row": "24",
+      "seat": "265",
+      "seatVerified": true,
+      "photo": 2,
+      "url": "https://x.com/lljeoungwoo/status/1983488439153733672",
+      "source": "https://x.com/lljeoungwoo/status/1983488439153733672"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "A23"
+      },
+      "area": "1階 1塁側 A23区画",
+      "row": "16",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/IPeachmomo/status/2024079285909418041",
+      "source": "https://x.com/IPeachmomo/status/2024079285909418041"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "A07"
+      },
+      "area": "1階 1塁側 7通路付近（通路番号から推定）",
+      "row": "25",
+      "scope": "area",
+      "photo": 1,
+      "event": "RIIZE",
+      "url": "https://x.com/ps0hn_/status/2024514291051999605",
+      "source": "https://x.com/ps0hn_/status/2024514291051999605"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "A37"
+      },
+      "area": "1階 3塁側 A37区画",
+      "row": "19",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/4jk_117/status/2048224438903312464",
+      "source": "https://x.com/4jk_117/status/2048224438903312464"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "D25"
+      },
+      "area": "2階 1塁側 センター寄り付近（写真から推定）",
+      "row": "2",
+      "scope": "area",
+      "photo": 3,
+      "event": "SEVENTEEN",
+      "url": "https://x.com/hanhao_U/status/2050439940673261997",
+      "source": "https://x.com/hanhao_U/status/2050439940673261997"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "E28"
+      },
+      "area": "2階 3塁側 ホーム寄り後方付近（写真から推定）",
+      "scope": "area",
+      "photo": 1,
+      "event": "TWICE",
+      "url": "https://x.com/kavem_1804/status/1516753157996437504",
+      "source": "https://x.com/kavem_1804/status/1516753157996437504"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "E21"
+      },
+      "area": "2階 1塁側 6通路付近（通路番号から推定）",
+      "row": "21",
+      "scope": "area",
+      "photo": 1,
+      "url": "https://x.com/tulipa_112_2/status/1591030444212244481",
+      "source": "https://x.com/tulipa_112_2/status/1591030444212244481"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "E28"
+      },
+      "area": "2階 3塁側 E28区画",
+      "row": "15",
+      "scope": "block",
+      "photo": 1,
+      "event": "SEVENTEEN",
+      "url": "https://x.com/j___wo/status/1656908244324065281",
+      "source": "https://x.com/j___wo/status/1656908244324065281"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "A36"
+      },
+      "area": "3塁側 エキサイトシート 34通路付近（写真内の表記から推定）",
+      "scope": "area",
+      "photo": 1,
+      "url": "https://x.com/dkyui2323/status/1695283907921584173",
+      "source": "https://x.com/dkyui2323/status/1695283907921584173"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "A33"
+      },
+      "area": "1階 3塁側 A33区画",
+      "row": "15",
+      "seat": "165",
+      "seatVerified": true,
+      "photo": 1,
+      "url": "https://x.com/yj_ww_tiger/status/1698965672515256380",
+      "source": "https://x.com/yj_ww_tiger/status/1698965672515256380"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "A35"
+      },
+      "area": "1階 3塁側 A35区画",
+      "row": "15",
+      "seat": "204",
+      "seatVerified": true,
+      "photo": 2,
+      "url": "https://x.com/yj_ww_tiger/status/1698965672515256380",
+      "source": "https://x.com/yj_ww_tiger/status/1698965672515256380"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "D31"
+      },
+      "area": "2階 3塁側 D31区画",
+      "row": "5",
+      "seat": "102",
+      "seatVerified": true,
+      "photo": 4,
+      "url": "https://x.com/yj_ww_tiger/status/1698965672515256380",
+      "source": "https://x.com/yj_ww_tiger/status/1698965672515256380"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "D34"
+      },
+      "area": "2階 3塁側 D34区画",
+      "row": "4",
+      "scope": "block",
+      "photo": 1,
+      "event": "SMTOWN",
+      "url": "https://x.com/nctzen_22/status/1759912156894728535",
+      "source": "https://x.com/nctzen_22/status/1759912156894728535"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "B33"
+      },
+      "area": "1階 3塁側 B33区画",
+      "row": "27",
+      "seat": "171",
+      "seatVerified": true,
+      "photo": 1,
+      "url": "https://x.com/youngwo_0201/status/1792546944126161081",
+      "source": "https://x.com/youngwo_0201/status/1792546944126161081"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "E12"
+      },
+      "area": "2階 1塁側 E12区画",
+      "row": "14",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/yeon_haech96/status/1792687624928612793",
+      "source": "https://x.com/yeon_haech96/status/1792687624928612793"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "B19"
+      },
+      "area": "1階 1塁側 B19区画",
+      "row": "45",
+      "seat": "133",
+      "seatVerified": true,
+      "photo": 3,
+      "url": "https://x.com/rinnaey_0411/status/1823690760442798146",
+      "source": "https://x.com/rinnaey_0411/status/1823690760442798146"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "E26"
+      },
+      "area": "2階 1塁側 E26区画",
+      "row": "20",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/rinnaey_0411/status/1823690760442798146",
+      "source": "https://x.com/rinnaey_0411/status/1823690760442798146"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "B46"
+      },
+      "area": "1階 3塁側 B46区画",
+      "row": "47",
+      "scope": "block",
+      "photo": 1,
+      "event": "aespa",
+      "url": "https://x.com/jjenlimny/status/1823855313780662688",
+      "source": "https://x.com/jjenlimny/status/1823855313780662688"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "A44"
+      },
+      "area": "1階 3塁側 A44区画",
+      "row": "19",
+      "seat": "386",
+      "seatVerified": true,
+      "photo": 2,
+      "url": "https://x.com/ant0nlly321/status/1823935002473861524",
+      "source": "https://x.com/ant0nlly321/status/1823935002473861524"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "E38"
+      },
+      "area": "2階 3塁側 E38区画",
+      "row": "26",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/jjenlimny/status/1824099978085900560",
+      "source": "https://x.com/jjenlimny/status/1824099978085900560"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "B34"
+      },
+      "area": "1階 3塁側 23ゲート付近（ゲート番号から推定）",
+      "row": "35",
+      "scope": "area",
+      "photo": 1,
+      "url": "https://x.com/rainy_night01/status/1852590851555459320",
+      "source": "https://x.com/rainy_night01/status/1852590851555459320"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "B27"
+      },
+      "area": "1階 3塁側 ホーム寄り 22ゲート付近（写真から推定）",
+      "row": "29",
+      "scope": "area",
+      "photo": 1,
+      "event": "SEVENTEEN",
+      "url": "https://x.com/dkshiawasedeite/status/1864804565394297088",
+      "source": "https://x.com/dkshiawasedeite/status/1864804565394297088"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "C44"
+      },
+      "area": "1塁側 バルコニー ホーム寄り付近（写真から推定）",
+      "scope": "area",
+      "photo": 1,
+      "event": "MISAMO",
+      "url": "https://x.com/namo_1ove/status/1879026655232143550",
+      "source": "https://x.com/namo_1ove/status/1879026655232143550"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "E28"
+      },
+      "area": "2階 3塁側 E28区画",
+      "row": "27",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/m___319un/status/1953420973169889515",
+      "source": "https://x.com/m___319un/status/1953420973169889515"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "E25"
+      },
+      "area": "2階 1塁側 E25区画",
+      "row": "22",
+      "scope": "block",
+      "photo": 1,
+      "event": "SMTOWN",
+      "url": "https://x.com/lils_lily__/status/1953430651207901372",
+      "source": "https://x.com/lils_lily__/status/1953430651207901372"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "E17"
+      },
+      "area": "2階 1塁側 E17区画",
+      "row": "11",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/lljeoungwoo/status/1983488439153733672",
+      "source": "https://x.com/lljeoungwoo/status/1983488439153733672"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "D07"
+      },
+      "area": "2階 1塁側 1通路付近（通路番号から推定）",
+      "row": "9",
+      "scope": "area",
+      "photo": 2,
+      "event": "Mrs. GREEN APPLE バベルの塔",
+      "url": "https://x.com/hcj143s2/status/1999807316632445284",
+      "source": "https://x.com/hcj143s2/status/1999807316632445284"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "E14"
+      },
+      "area": "2階 1塁側 4通路付近（通路番号から推定）",
+      "row": "15",
+      "scope": "area",
+      "photo": 1,
+      "event": "Mrs. GREEN APPLE バベルの塔",
+      "url": "https://x.com/hcj143s2/status/1999807316632445284",
+      "source": "https://x.com/hcj143s2/status/1999807316632445284"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "A10"
+      },
+      "area": "1階 1塁側 A10区画",
+      "row": "26",
+      "scope": "block",
+      "photo": 1,
+      "event": "BLACKPINK DEADLINE",
+      "url": "https://x.com/sashishuui/status/2012436931528077360",
+      "source": "https://x.com/sashishuui/status/2012436931528077360"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "E30"
+      },
+      "area": "2階 3塁側付近（写真から推定）",
+      "scope": "area",
+      "photo": 3,
+      "url": "https://x.com/ymm_rtsn91/status/2071075932128129389",
+      "source": "https://x.com/ymm_rtsn91/status/2071075932128129389"
     }
   ],
   "tokyo-garden-theater-seat-plans": [
@@ -7155,6 +8011,18 @@
       "photo": 1,
       "url": "https://x.com/kchan_3chan/status/2115743606980198594",
       "source": "https://x.com/kchan_3chan/status/2115743606980198594"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "1I-front"
+      },
+      "area": "3F バルコニー1 ステージ右手・ステージ際付近（写真から推定）",
+      "row": "3",
+      "scope": "area",
+      "photo": 1,
+      "url": "https://x.com/manmaruayachan/status/1619623224505163776",
+      "source": "https://x.com/manmaruayachan/status/1619623224505163776"
     }
   ],
   "vantelin-seat-reference": [
@@ -7603,6 +8471,31 @@
       "event": "乃木坂46 真夏の全国ツアー2024",
       "url": "https://x.com/kaluxel/status/1827326902370980170",
       "source": "https://stage-seats.jp/nagoya-dome-seats/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "area-0"
+      },
+      "area": "バックネット側 スタンド付近（写真から推定）",
+      "scope": "area",
+      "photo": 1,
+      "event": "桑田佳祐 LIVE TOUR 2022",
+      "url": "https://x.com/cannon_na6c/status/1594336824314720259",
+      "source": "https://x.com/cannon_na6c/status/1594336824314720259"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "vantelin-number-lower-front-L-241"
+      },
+      "area": "3塁側 下段 37通路",
+      "row": "10",
+      "scope": "block",
+      "photo": 1,
+      "event": "TOMORROW X TOGETHER",
+      "url": "https://x.com/rxuyvy/status/1817817645024194989",
+      "source": "https://x.com/rxuyvy/status/1817817645024194989"
     }
   ],
   "ya-common-bowl-current": [
@@ -8108,6 +9001,109 @@
       "event": "SUPER BEAVER 都会のラクダSP・2025年6月20日",
       "url": "https://x.com/superbeaver326/status/1936225178599801077",
       "source": "https://mama-premama.com/zozo-zaseki/"
+    }
+  ],
+  "vantelin-prime-unfolded": [
+    {
+      "place": {
+        "kind": "section",
+        "id": "vantelin-prime-twin-R-20"
+      },
+      "area": "1塁側 4階 プライムツイン",
+      "row": "2",
+      "seat": "22",
+      "seatVerified": true,
+      "scope": "block",
+      "photo": 1,
+      "event": "NCT DREAM「THE DREAM SHOW 3」",
+      "url": "https://x.com/youngwo_0201/status/1795387319543034215",
+      "source": "https://x.com/youngwo_0201/status/1795387319543034215"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "vantelin-prime-twin-L-28"
+      },
+      "area": "4階 テーブル付き席 最前列・3塁側付近（写真から推定）",
+      "scope": "area",
+      "photo": 1,
+      "event": "SEVENTEEN「FOLLOW」",
+      "url": "https://x.com/chinabluelove/status/1732165743691870260",
+      "source": "https://x.com/chinabluelove/status/1732165743691870260"
+    }
+  ],
+  "toki-seats-exhibition": [
+    {
+      "place": {
+        "kind": "section",
+        "id": "toki-ex-b"
+      },
+      "area": "展示ホール Eブロック（後方の段上）付近（写真から推定）",
+      "scope": "area",
+      "photo": 1,
+      "event": "SixTONES「MILESixTONES」",
+      "url": "https://x.com/lgm_tarabagani/status/2051327442963595550",
+      "source": "https://x.com/lgm_tarabagani/status/2051327442963595550"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "toki-ex-a"
+      },
+      "area": "展示ホール Cブロック最前列付近（写真から推定）",
+      "scope": "area",
+      "photo": 3,
+      "event": "MAN WITH A MISSION「PLAY WHAT U WANT TOUR 2025」",
+      "url": "https://x.com/M3OXPzH1C4hsEAf/status/1894578312066064483",
+      "source": "https://x.com/M3OXPzH1C4hsEAf/status/1894578312066064483"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "toki-ex-a"
+      },
+      "area": "展示ホール Bブロック最前付近（写真から推定）",
+      "scope": "area",
+      "photo": 1,
+      "event": "MAN WITH A MISSION「PLAY WHAT U WANT TOUR 2025」",
+      "url": "https://x.com/R3pyon/status/1893457494699016306",
+      "source": "https://x.com/R3pyon/status/1893457494699016306"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "toki-ex-a"
+      },
+      "area": "展示ホール Aブロック 7〜8列目付近（写真から推定）",
+      "scope": "area",
+      "photo": 1,
+      "event": "MAN WITH A MISSION「PLAY WHAT U WANT TOUR 2025」",
+      "url": "https://x.com/takemikk/status/1893294764117602508",
+      "source": "https://x.com/takemikk/status/1893294764117602508"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "toki-ex-b"
+      },
+      "area": "展示ホール D3ブロック付近（写真から推定）",
+      "scope": "area",
+      "photo": 1,
+      "event": "SHINee（2014年新潟公演）",
+      "url": "https://x.com/denoneew/status/530355039756222465",
+      "source": "https://x.com/denoneew/status/530355039756222465"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "toki-ex-b"
+      },
+      "area": "展示ホール E5ブロック（最後方）付近（写真から推定）",
+      "scope": "area",
+      "photo": 2,
+      "event": "SHINee（2014年新潟公演）",
+      "url": "https://x.com/denoneew/status/530355039756222465",
+      "source": "https://x.com/denoneew/status/530355039756222465"
     }
   ]
 }

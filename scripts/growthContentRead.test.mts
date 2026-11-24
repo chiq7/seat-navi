@@ -313,11 +313,11 @@ test("event metadata and sitemap switch together on the first and last real cont
     assert.ok(meta.description?.includes("6枚掲載"));
     if (!show.date) assert.doesNotMatch(meta.description ?? "", /開催予定|開催される|開催された/);
   }
-  // Only 11/15 has a photo for that performance. Both pages link to the same venue's gallery.
+  // Both pages link to the same venue's gallery, which now has five photos (the title threshold); 11/15 adds its own arena photo.
   for (const show of sapporoShows) {
     const meta = await generateMetadata({params:Promise.resolve({id:show.id})});
     const day = Number(show.date.slice(-2));
-    const expected = `YOASOBI 札幌ドーム（大和ハウス プレミストドーム）の座席表・見え方・感想（2026年11月${day}日） - ちけレポ`;
+    const expected = `【写真${day === 15 ? 6 : 5}枚】YOASOBI 札幌ドーム（大和ハウス プレミストドーム）の座席・見え方（2026年11月${day}日） - ちけレポ`;
     assert.equal(meta.title, expected);
     assert.equal(meta.openGraph?.title, expected);
     assert.equal(meta.twitter?.title, expected);

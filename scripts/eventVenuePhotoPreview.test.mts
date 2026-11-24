@@ -41,7 +41,7 @@ test("all guides count each reviewed fixed-seat or venue-archive photo once and 
       assert.equal(new URL(p.href, "https://tixrepo.com").pathname, `/venues/${id}`);
     }
   }
-  assert.ok(getEventVenuePhotoPreview("toki-messe")!.photos.every(p => p.href.includes("#arena-seat-photos-")));
+  assert.ok(getEventVenuePhotoPreview("toki-messe")!.photos.every(p => p.href.includes("#arena-seat-photos-") || p.href.includes("seatMode=exhibition")));
   assert.ok(getEventVenuePhotoPreview("koshien")!.photos.some(p => p.thumbnailUrl.startsWith("https://assets.st-note.com/")));
 });
 
