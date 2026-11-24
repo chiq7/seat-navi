@@ -36,6 +36,45 @@
       "scope": "entrance",
       "source": "https://x.com/akko_39/status/1677697989664735237",
       "url": "https://x.com/akko_39/status/1677697989664735237"
+    },
+    {
+      "place": {
+        "kind": "position",
+        "id": "arena-door-412"
+      },
+      "area": "400レベル 412・413扉",
+      "row": "7",
+      "scope": "entrance",
+      "photo": 1,
+      "event": "YOASOBI 電光石火ツアー",
+      "url": "https://x.com/SAEKI10272669/status/1665316769869725696",
+      "source": "https://curious103.com/saitama-arena/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "arena-seat-163"
+      },
+      "area": "400レベル 408・409扉",
+      "row": "15",
+      "seat": "200",
+      "seatVerified": true,
+      "photo": 1,
+      "event": "あいみょん",
+      "url": "https://x.com/_mermaid34/status/1643257850049990658",
+      "source": "https://curious103.com/saitama-arena/"
+    },
+    {
+      "place": {
+        "kind": "position",
+        "id": "arena-door-234"
+      },
+      "area": "200レベル 234扉",
+      "row": "5",
+      "scope": "entrance",
+      "photo": 1,
+      "url": "https://x.com/ribo_mo/status/1643155350252818433",
+      "source": "https://fesgeek.com/ssa-seats/"
     }
   ],
   "gaishi-fixed": [
@@ -505,6 +544,44 @@
       "photo": 1,
       "url": "https://x.com/tomneco/status/2115630129196179745",
       "source": "https://x.com/tomneco/status/2115630129196179745"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "ariake-D-07"
+      },
+      "area": "2階 Dブロック",
+      "row": "15",
+      "seat": "80",
+      "seatVerified": true,
+      "photo": 1,
+      "url": "https://x.com/rian42009/status/1834800641044287505",
+      "source": "https://curious103.com/ariakearena/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "ariake-D-07"
+      },
+      "area": "2階 Dブロック",
+      "row": "24",
+      "photo": 2,
+      "event": "TREASURE FAN MEETING 〜HELLO AGAIN〜（2023年）",
+      "url": "https://x.com/Natchanct007/status/1708788832186089591",
+      "source": "https://chipisblog.com/ariakearena-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "G"
+      },
+      "area": "3階 Gブロック",
+      "row": "1",
+      "scope": "block",
+      "photo": 2,
+      "event": "TREASURE FAN MEETING 〜HELLO AGAIN〜（2023年）",
+      "url": "https://x.com/Natchanct007/status/1708133533880029254",
+      "source": "https://chipisblog.com/ariakearena-zaseki/"
     }
   ],
   "belluna-seats": [
@@ -531,6 +608,67 @@
       "photo": 1,
       "url": "https://x.com/ecchieko/status/2101595382568694081",
       "source": "https://x.com/ecchieko/status/2101595382568694081"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "belluna-shape-2678"
+      },
+      "area": "1塁側 113ブロック",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/txt__beom__001/status/1989005079614230684",
+      "source": "https://mama-premama.com/belluna-capacity/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "belluna-shape-633"
+      },
+      "area": "3塁側 314ブロック",
+      "scope": "block",
+      "photo": 2,
+      "event": "Stray Kids ファンミーティング（2024年4月）",
+      "url": "https://x.com/ChanBv03/status/1804456714483400883",
+      "source": "https://mariri-express.com/enhypen-saitama/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "ネット裏"
+      },
+      "area": "3塁側 204ブロック",
+      "row": "12",
+      "scope": "area",
+      "photo": 1,
+      "event": "MUSIC BANK（ミューバン）",
+      "url": "https://x.com/sisnk_/status/1732963244757905869",
+      "source": "https://mama-premama.com/belluna-capacity/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "belluna-shape-405"
+      },
+      "area": "3塁側 209ブロック",
+      "scope": "block",
+      "photo": 1,
+      "event": "AAA",
+      "url": "https://x.com/soccer19971209/status/1582722349912424449",
+      "source": "https://mama-premama.com/belluna-capacity/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "belluna-shape-2695"
+      },
+      "area": "1塁側 118ブロック",
+      "row": "18",
+      "scope": "block",
+      "photo": 1,
+      "event": "Lady Gaga「The Chromatica Ball」（2022年）",
+      "url": "https://x.com/ponyrena/status/1566949528090988544",
+      "source": "https://mama-premama.com/belluna-capacity/"
     }
   ],
   "budokan-reference-stands": [
@@ -1162,6 +1300,30 @@
       "scope": "block",
       "url": "https://x.com/Yuri661387/status/1708485285708013952",
       "source": "https://mama-premama.com/greenarena-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "F"
+      },
+      "area": "Fブロック",
+      "row": "24",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/kimmi_Chwe1013/status/1812326651608572372",
+      "source": "https://mama-premama.com/greenarena-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "C"
+      },
+      "area": "Cブロック",
+      "row": "17",
+      "scope": "block",
+      "photo": 1,
+      "url": "https://x.com/kimmi_Chwe1013/status/1811978897329951199",
+      "source": "https://mama-premama.com/greenarena-zaseki/"
     }
   ],
   "k-arena-permanent-stands": [
@@ -1559,6 +1721,20 @@
       "photo": 2,
       "url": "https://x.com/yh_nyan4/status/2041496276806901843",
       "source": "https://x.com/yh_nyan4/status/2041496276806901843"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "k-level5-36"
+      },
+      "area": "LEVEL5 501ゲート",
+      "row": "22",
+      "seat": "16",
+      "seatVerified": true,
+      "photo": 1,
+      "event": "The Performance（2025年3月）",
+      "url": "https://x.com/allin___613/status/1904754660306546752",
+      "source": "https://adorehack.com/article/karena-yokohama-seat-view/"
     }
   ],
   "kyocera-dome-fixed": [
@@ -1879,6 +2055,19 @@
       "photo": 2,
       "url": "https://x.com/_6sny/status/1993304615929233687",
       "source": "https://x.com/_6sny/status/1993304615929233687"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "A_BM_02"
+      },
+      "area": "中央A 下段",
+      "row": "14",
+      "seat": "1",
+      "seatVerified": true,
+      "photo": 1,
+      "url": "https://x.com/pom_bomm/status/1671384018527588352",
+      "source": "https://alwaysbeyourself2.com/kyoceradome_seat/"
     }
   ],
   "makuhari-seats": [
@@ -2452,6 +2641,18 @@
       "photo": 1,
       "url": "https://x.com/bknbxxx0204/status/2027706740100550717",
       "source": "https://x.com/bknbxxx0204/status/2027706740100550717"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "F"
+      },
+      "area": "1階 Fブロック",
+      "scope": "block",
+      "photo": 1,
+      "event": "2022年12月30日・UVERworld",
+      "url": "https://x.com/mayumaron0708/status/1608806268759867393",
+      "source": "https://fesgeek.com/marinemesse-a/"
     }
   ],
   "miyagi-stand": [
@@ -3040,6 +3241,54 @@
       "photo": 1,
       "url": "https://x.com/matoe96424817/status/2073446369386516953",
       "source": "https://x.com/matoe96424817/status/2073446369386516953"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "mufg-block-144"
+      },
+      "area": "1層北サイド 144ブロック",
+      "scope": "block",
+      "photo": 1,
+      "event": "世界陸上2025（陸上開催時の写真）",
+      "url": "https://x.com/sydsylatte35/status/1999383495781802019",
+      "source": "https://stage-seats.jp/jns-e-seat/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "mufg-block-137"
+      },
+      "area": "1層バック 137ブロック",
+      "scope": "block",
+      "photo": 2,
+      "event": "世界陸上2025（陸上開催時の写真）",
+      "url": "https://x.com/sydsylatte35/status/1999383495781802019",
+      "source": "https://stage-seats.jp/jns-e-seat/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "mufg-block-230"
+      },
+      "area": "2層バック 230ブロック",
+      "scope": "block",
+      "photo": 3,
+      "event": "世界陸上2025（陸上開催時の写真）",
+      "url": "https://x.com/sydsylatte35/status/1999383495781802019",
+      "source": "https://stage-seats.jp/jns-e-seat/"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "mufg-block-129"
+      },
+      "area": "1層バック 129ブロック",
+      "scope": "block",
+      "photo": 4,
+      "event": "世界陸上2025（陸上開催時の写真）",
+      "url": "https://x.com/sydsylatte35/status/1999383495781802019",
+      "source": "https://stage-seats.jp/jns-e-seat/"
     }
   ],
   "nissan-seats": [
@@ -3699,6 +3948,33 @@
       "photo": 4,
       "url": "https://x.com/ano_seokmin/status/1816385015204438308",
       "source": "https://x.com/ano_seokmin/status/1816385015204438308"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "N12"
+      },
+      "area": "N12入口付近",
+      "row": "2",
+      "seat": "132",
+      "scope": "entrance",
+      "photo": 1,
+      "event": "TWICE",
+      "url": "https://x.com/yjhksy25/status/1816506583293313309",
+      "source": "https://mama-premama.com/nissanstadium-zaseki/"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "E15"
+      },
+      "area": "E15入口付近",
+      "row": "28",
+      "scope": "entrance",
+      "photo": 1,
+      "event": "関ジャニ∞（過去公演）",
+      "url": "https://x.com/catjunpi0610/status/1790374563886604732",
+      "source": "https://mama-premama.com/nissanstadium-zaseki/"
     }
   ],
   "osaka-stand-current": [
@@ -6468,6 +6744,19 @@
       "seatVerified": true,
       "source": "https://x.com/SEVENTEEN2WD/status/808265685231026176",
       "url": "https://x.com/SEVENTEEN2WD/status/808265685231026176"
+    },
+    {
+      "place": {
+        "kind": "section",
+        "id": "B-front-3"
+      },
+      "area": "固定席 アリーナB",
+      "row": "5",
+      "seat": "39",
+      "seatVerified": true,
+      "photo": 1,
+      "url": "https://x.com/orizuru_1790073/status/1107666783073243136",
+      "source": "https://adorehack.com/article/yokohamaarena-seat-view/"
     }
   ],
   "yoyogi-stand-reference": [
@@ -6746,6 +7035,20 @@
       "photo": 1,
       "url": "https://x.com/take_teni/status/2121868910014456123",
       "source": "https://x.com/take_teni/status/2121868910014456123"
+    },
+    {
+      "place": {
+        "kind": "zone",
+        "id": "zozo-zone-lower-バックネット裏"
+      },
+      "area": "フロア2 3塁側バックネット裏 208通路",
+      "row": "26",
+      "seat": "6",
+      "scope": "area",
+      "photo": 1,
+      "event": "KCON JAPAN 2024",
+      "url": "https://x.com/05ll05l9/status/1789423390249377951",
+      "source": "https://mama-premama.com/zozo-zaseki/"
     }
   ]
 }
