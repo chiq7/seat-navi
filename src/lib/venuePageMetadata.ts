@@ -4,6 +4,7 @@ import { getPublicVenueName } from "./publicVenueGuides";
 import { getEventVenuePhotoPreview } from "./serverSeatPhotoVenues";
 import { SAPPORO_OFFICIAL_NAME, venuePageDisplayNames } from "./venuePageDisplayNames";
 import { venueSearchIntents } from "./venueSearchIntents";
+import { venueShareImage } from "./seatShare";
 
 const preferredNames: Readonly<Partial<Record<string, string>>> = venuePageDisplayNames;
 
@@ -30,5 +31,7 @@ export function buildPublicVenueMetadata(id: string, name: string) {
   const description = manyPhotos
     ? `${intro}のライブ座席表と、各席からのリアルな見え方写真を${showsPhotoCount(count) ? `${count}枚` : ""}掲載！${venueDetail}`
     : `${intro}のライブ座席表やアリーナ・スタンドからの見え方・座席情報をまとめたページです。各席からのリアルな見え方写真・レビューも随時募集中！`;
-  return buildMeta({ path: `/venues/${id}`, title, description });
+  // The venue's own share picture (its seat map) when one has been drawn; otherwise the site picture.
+  const image = venueShareImage(id);
+  return buildMeta({ path: `/venues/${id}`, title, description, ...(image ? { image, imageAlt: `${displayName}の座席表` } : {}) });
 }

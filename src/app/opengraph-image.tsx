@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Tix Repo（ちけレポ）";
+export const alt = "ちけレポ｜座席表と席からの見え方写真";
+// Production serves public/images/tixrepo-opengraph.png for this path (cloudflare-worker.ts); this drawing is only the fallback.
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export const revalidate = 86400;

@@ -6,7 +6,8 @@ export const SITE_ALTERNATE_NAMES = ["チケレポ", "ちけれぽ"] as const;
 export const SITE_DISPLAY_NAME = `${SITE_NAME}（チケレポ）`;
 export const HOME_TITLE = `ライブの座席表・見え方写真・セトリ｜${SITE_DISPLAY_NAME}`;
 export const HOME_DESCRIPTION = `ライブ会場の座席表と席からの見え方写真を、${SITE_DISPLAY_NAME}で確認できます。アーティストや公演日から、チケットの当落、セットリスト、現地レポも探せます。`;
-export const DEFAULT_OG_IMAGE = "/opengraph-image";
+// The query marks the image version so LINE / X fetch the new picture instead of a cached one.
+export const DEFAULT_OG_IMAGE = "/opengraph-image?v=20261125";
 export const DEFAULT_DESCRIPTION =
   "ライブの当落結果、座席報告、現地レポ、セトリをファン同士で共有できるライブ情報コミュニティです。";
 

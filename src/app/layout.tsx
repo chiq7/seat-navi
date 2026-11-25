@@ -6,7 +6,7 @@ import { VerificationNotice } from "@/components/analytics/VerificationNotice";
 import { gaBootstrapScript } from "@/lib/analyticsTraffic";
 import Footer from "@/components/common/Footer";
 import { buildSiteStructuredData, serializeJsonLd } from "@/lib/structuredData";
-import { HOME_DESCRIPTION as SITE_DESCRIPTION, HOME_TITLE as SITE_TITLE, SITE_NAME } from "@/lib/metadata";
+import { HOME_DESCRIPTION as SITE_DESCRIPTION, HOME_TITLE as SITE_TITLE, SITE_NAME, DEFAULT_OG_IMAGE } from "@/lib/metadata";
 import "./globals.css";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
@@ -41,13 +41,13 @@ export const metadata: Metadata = {
     url: "https://tixrepo.com",
     siteName: SITE_NAME,
     locale: "ja_JP",
-    images: ["/opengraph-image"],
+    images: [DEFAULT_OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
-    images: ["/opengraph-image"],
+    images: [DEFAULT_OG_IMAGE],
   },
 };
 
