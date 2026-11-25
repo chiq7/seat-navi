@@ -28,9 +28,10 @@ export default function PublicVenueGuide({ venue, target = null, afterSeats, pag
   const modes = params.getAll("seatMode");
   const sections = params.getAll("seatSection");
   const activeTarget = target ?? (modes.length <= 1 && sections.length === 1
-    ? parseVenueSeatLink({ seatMode: modes[0], seatSection: sections[0] })
+    ? parseVenueSeatLink({ seatMode: modes[0], seatSection: sections[0], seatRow: params.get("seatRow") ?? undefined,
+      seatNumber: params.get("seatNumber") ?? undefined, seatOpen: params.get("seatOpen") ?? undefined })
     : null);
-  const key = JSON.stringify([venue, activeTarget?.mode, activeTarget?.section]);
+  const key = JSON.stringify([venue, activeTarget?.mode, activeTarget?.section, activeTarget?.row, activeTarget?.number, activeTarget?.open]);
   if (isPublicArenaGuideVenue(venue)) {
     return <GuidePageSlots afterSeats={afterSeats} pageNav={pageNav}><VenueSeatTarget key={key} value={activeTarget}><VenueGuideAnchor venue={venue} /><ArenaGuide venue={venue} embedded /></VenueSeatTarget></GuidePageSlots>;
   }

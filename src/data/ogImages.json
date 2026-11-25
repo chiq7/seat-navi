@@ -26,6 +26,32 @@
     "yoyogi",
     "zozo-marine"
   ],
+  "shareDiagrams": {
+    "k-arena": "k-arena-permanent-stands",
+    "ariake-arena": "ariake-fixed-stand",
+    "belluna-dome": "belluna-seats",
+    "budokan": "budokan-reference-stands",
+    "edion-arena": "edion-fixed-seats",
+    "gaishi-hall": "gaishi-fixed",
+    "hiroshima-arena": "hiroshima-stand",
+    "koshien": "koshien-seats",
+    "makuhari-messe": "makuhari-seats",
+    "marine-messe": "marine-concert",
+    "miyagi-arena": "miyagi-stand",
+    "mufg-stadium": "mufg-seats",
+    "nissan-stadium": "nissan-seats",
+    "osaka-jo-hall": "osaka-stand-current",
+    "paypay-dome": "paypay-stand-reference",
+    "pia-arena-mm": "pia-arena-mm-seat-plans",
+    "saitama-super-arena": "ssa-seat-arena",
+    "sapporo-dome": "sapporo-baseball",
+    "toki-messe": "toki-seats-exhibition",
+    "tokyo-garden-theater": "tokyo-garden-theater-seat-plans",
+    "vantelin-dome": "vantelin-seat-reference",
+    "yokohama-arena": "ya-common-bowl-current",
+    "yoyogi": "yoyogi-stand-reference",
+    "zozo-marine": "zozo-seats"
+  },
   "seats": {
     "k-arena": [
       "k-level3-01",
@@ -90,6 +116,191 @@
       "k-level7-60",
       "k-level7-61",
       "k-level7-62"
-    ]
+    ],
+    "ariake-arena": [
+      "ariake-B-05",
+      "ariake-B-07",
+      "ariake-B-08",
+      "ariake-D-05",
+      "ariake-D-07",
+      "ariake-D-08",
+      "ariake-E-10",
+      "ariake-F-12",
+      "ariake-F-13",
+      "ariake-F-15",
+      "ariake-F-19",
+      "ariake-G-02",
+      "ariake-G-03",
+      "ariake-G-07",
+      "ariake-G-08",
+      "ariake-G-13",
+      "ariake-H-06",
+      "ariake-H-15"
+    ],
+    "belluna-dome": [
+      "belluna-shape-399",
+      "belluna-shape-405",
+      "belluna-shape-576",
+      "belluna-shape-633",
+      "belluna-shape-664",
+      "belluna-shape-693",
+      "belluna-shape-705",
+      "belluna-shape-2678",
+      "belluna-shape-2690",
+      "belluna-shape-2695",
+      "belluna-shape-2720"
+    ],
+    "budokan": [
+      "budokan-1F-北-0-2",
+      "budokan-2F-東-1-0",
+      "budokan-2F-南-1-1",
+      "budokan-2F-南-2-3",
+      "budokan-2F-南-3-1",
+      "budokan-2F-西-3-1"
+    ],
+    "edion-arena": [],
+    "gaishi-hall": [
+      "gaishi-I-stand-1",
+      "gaishi-E-stand-21",
+      "gaishi-G-stand-26",
+      "gaishi-D-stand-30",
+      "gaishi-F-stand-84",
+      "gaishi-I-stand-88",
+      "gaishi-I-stand-91"
+    ],
+    "hiroshima-arena": [
+      "hiroshima-d-front-16",
+      "hiroshima-g-rear-3",
+      "hiroshima-g-rear-5"
+    ],
+    "koshien": [],
+    "makuhari-messe": [
+      "makuhari-f3-b-1"
+    ],
+    "marine-messe": [
+      "marine-A-rear-37",
+      "marine-A-front-73",
+      "marine-A-front-85",
+      "marine-G-outer-1",
+      "marine-C-outer-6",
+      "marine-B-outer-49",
+      "marine-K-6",
+      "marine-L-1",
+      "marine-L-6",
+      "marine-P-14",
+      "marine-Q-7",
+      "marine-O-5"
+    ],
+    "miyagi-arena": [
+      "miyagi-g-rear-1",
+      "miyagi-t-rear-1"
+    ],
+    "mufg-stadium": [
+      "mufg-block-112",
+      "mufg-block-122",
+      "mufg-block-127",
+      "mufg-block-129",
+      "mufg-block-132",
+      "mufg-block-137",
+      "mufg-block-142",
+      "mufg-block-144",
+      "mufg-block-223",
+      "mufg-block-230",
+      "mufg-block-237",
+      "mufg-block-253",
+      "mufg-block-337",
+      "mufg-block-348",
+      "mufg-block-354"
+    ],
+    "nissan-stadium": [
+      "nissan-e24-4",
+      "nissan-e11-2",
+      "nissan-n24-2",
+      "nissan-w13-5",
+      "nissan-w25-1"
+    ],
+    "osaka-jo-hall": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "I",
+      "J",
+      "M",
+      "N",
+      "BOX",
+      "G",
+      "H"
+    ],
+    "paypay-dome": [
+      "paypay-front-17",
+      "paypay-front-4",
+      "paypay-upper-72",
+      "paypay-upper-58"
+    ],
+    "pia-arena-mm": [
+      "2F-L-060",
+      "2F-C-148",
+      "3F-C-178"
+    ],
+    "saitama-super-arena": [
+      "arena-seat-21",
+      "arena-seat-104",
+      "arena-seat-110",
+      "arena-seat-107",
+      "arena-seat-129",
+      "arena-seat-140",
+      "arena-seat-148",
+      "arena-seat-154",
+      "arena-seat-163",
+      "arena-seat-207",
+      "arena-seat-222",
+      "arena-seat-228",
+      "arena-seat-229",
+      "arena-seat-231"
+    ],
+    "sapporo-dome": [
+      "sapporo-baseball-152"
+    ],
+    "toki-messe": [
+      "toki-ex-a",
+      "toki-ex-b"
+    ],
+    "tokyo-garden-theater": [
+      "1D-front",
+      "1I-front",
+      "2B-front",
+      "2D-rear",
+      "2F-front",
+      "3B-front",
+      "3C-front"
+    ],
+    "vantelin-dome": [
+      "vantelin-number-upper-L-21",
+      "vantelin-number-panorama-front-R-1",
+      "vantelin-number-R-121",
+      "vantelin-number-lower-front-L-241",
+      "vantelin-number-lower-front-R-161",
+      "vantelin-number-panorama-back-L-201",
+      "vantelin-number-panorama-front-R-141",
+      "vantelin-number-upper-L-221",
+      "vantelin-number-upper-L-401",
+      "vantelin-number-upper-L-481",
+      "vantelin-number-upper-L-521",
+      "vantelin-number-upper-R-461",
+      "vantelin-number-panorama-front-R-461"
+    ],
+    "yokohama-arena": [
+      "B-front-3",
+      "E-back-3",
+      "N-front-2",
+      "W-front-9"
+    ],
+    "yoyogi": [
+      "yoyogi-s2E-3"
+    ],
+    "zozo-marine": []
   }
 }

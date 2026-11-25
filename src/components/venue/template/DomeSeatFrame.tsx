@@ -17,6 +17,8 @@ type Props = {
   onZoom: (factor: number) => void; onWhole: () => void;
   zoomLabel?: string; shortcuts: readonly Shortcut[]; children: ReactNode; className?: string;
   directionHint?: string; directionExtra?: ReactNode; seatView?: SeatViewSelection;
+  /** Which of the selection's photos the enlarged viewer opens on. */
+  seatViewIndex?: number;
   share?: SeatPhotoShare;
   compactMobileControls?: boolean; photoLegend?: "camera" | "outline" | "map";
   /** Replaces the shared level/direction/search controls (Tokyo Dome ticket form). */
@@ -26,7 +28,7 @@ type Props = {
 // Presentation extracted from Tokyo Dome. Venue-specific geometry, search and
 // seat/facility state remain in each controller; the operation surface is shared.
 export function DomeSeatFrame({ levels, level, onLevel, directions, direction, onDirection,
-  onZoom, onWhole, zoomLabel = "地図", shortcuts, children, className = "", directionHint, directionExtra, seatView,
+  onZoom, onWhole, zoomLabel = "地図", shortcuts, children, className = "", directionHint, directionExtra, seatView, seatViewIndex = 0,
   compactMobileControls = true, photoLegend = "camera", share, customControls }: Props) {
   const ready = useSeatControlsReady();
   const hintId = useId();
@@ -76,6 +78,6 @@ export function DomeSeatFrame({ levels, level, onLevel, directions, direction, o
     {children}
     {matches.length > 0 && request > dismissedRequest && <SeatViewDialog
       key={matches.map(({ post }) => post.url + ":" + (post.photo ?? "")).join("|")}
-      panelId={panelId} matches={matches} compact share={share} onClose={() => setDismissedRequest(request)} />}
+      panelId={panelId} matches={matches} initialIndex={seatViewIndex} compact share={share} onClose={() => setDismissedRequest(request)} />}
   </div>;
 }

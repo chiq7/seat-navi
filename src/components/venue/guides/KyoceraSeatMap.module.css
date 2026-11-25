@@ -56,3 +56,7 @@
 .selectedRow{color:#155786;background:#e8f3ff;border-radius:4px;padding:2px 4px;white-space:nowrap}
 .selectedSeat{color:#663b00;background:#fff0a8;border:1px solid #c38a19;border-radius:4px;padding:2px 5px;white-space:nowrap}
 .selectionBand > div { max-height:100%; overflow:auto; }
+
+/* Full-screen map (phones): the mini-map sits top left, clear of the arena-map button on the right. */
+.miniMap[data-mini-map] { top:calc(64px + env(safe-area-inset-top)); left:8px; right:auto; }
+.backToSeat[data-back-to-seat] { top:calc(64px + env(safe-area-inset-top)); }

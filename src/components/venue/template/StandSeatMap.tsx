@@ -2,13 +2,17 @@
 
 import { VenueProgramAnchor } from "@/components/venue/VenueProgramLinks";
 import SeatSearchOffer from "@/components/seat-campaign/SeatSearchOffer";
-import { trackVenueSeatSearch } from "@/lib/venueAnalytics";
+import { trackVenueSeatPhotoOpen, trackVenueSeatSearch, trackVenueSeatSectionSelect } from "@/lib/venueAnalytics";
 
-import { forwardRef, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useRef, useState, useId, type PointerEvent } from "react";
-import { ChevronDown, ChevronRight, Crosshair, Info, ListOrdered, Map as MapIcon, X } from "lucide-react";
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useRef, useState, useId, useSyncExternalStore, type PointerEvent } from "react";
+import { Camera, ChevronDown, ChevronRight, Crosshair, Info, ListOrdered, Map as MapIcon, Maximize2, Send, X } from "lucide-react";
 import { DomeSeatFrame } from "./DomeSeatFrame";
 import { useSeatMapTouch } from "./useSeatMapTouch";
 import { SEAT_PHOTO_MAP_COLOR, SeatPhotoMapSummary, SeatPhotoMarker } from "./SeatViewPosts";
+import { SeatPhotoEmptySheet, SeatPhotoSheet, SeatPhotoSheetTab, type SheetNeighbor, type SheetRows } from "./SeatPhotoSheet";
+import { seatViewInlinePhotoUrl } from "@/lib/seatViewPhotoAssets";
+import { SeatShareSheet } from "./SeatShareSheet";
+import { SEAT_SHARE_DIAGRAMS } from "@/lib/seatShare";
 import { seatPhotoOffsets, useSeatPhotoHitTest } from "./useSeatPhotoHitTest";
 import { seatViewMatchesForSelection, seatViewPosts, type SeatViewPlace } from "@/lib/seatViewPosts";
 import { announceTokyoDomeMapScope, type TokyoDomeMapScope } from "@/lib/tokyoDomeVenueSelection";
@@ -19,10 +23,27 @@ import { directionName, nearSeatNumbers, seatLevelName } from "./seatFinderLabel
 import { boundsOf, fitStandArrowToCanvas, edgeNumberGuide, fitStandNumberGuide, clampCamera, standDetailCamera, standRowDetailTransition, isSeatTap, labelCoversOtherBlock, mapProjection, normalizeSeatInput, placeVisibleRowLabel, searchStandSeats, standContextLabel, standDisplayRows, standVisibleRowHints, standLabelOrder, standGroupReferenceLabels, standReferenceLabelKey, standRedundantContextLabel, standRedundantContextText, standLabelInsideCanvas, standSelectedNumberRun, standSelectedRow, youngEdgeMidpoint, zoomCamera, zoneLabelPositions, type MapBox, type Point, type StandBlock, type StandMapData, type StandPosition } from "./standMap";
 import { hasStandCanvasArea, overviewAreaLabelPosition, overviewAreaLabelWidth, resolveStandSeatSection, standPathRings, standRectCoverShare, standRectTouchesRings, standRingsBox, standZoneCamera } from "./standMap";
 import styles from "./StandSeatMap.module.css";
+import { blockDisplayTitle, blockLongName, blockRowGap, blockShortName, frontRow, rowSummary, seatOnSegment } from "./seatLabels";
 import { VenueOverviewArt, StandOverviewTexture, overviewArtworkOpacity, VENUE_OVERVIEW_PROFILES } from "./VenueOverviewArt";
 
 type Choice = { id: string; label: string; color: string; point: Point };
-type Props = { data: StandMapData; levels: Choice[]; areas: { id: string; label: string }[]; initialSection?: string | null; onEquipment: (floor: string | null) => void; venueId?: string };
+type Props = { data: StandMapData; levels: Choice[]; areas: { id: string; label: string }[]; initialSection?: string | null; onEquipment: (floor: string | null) => void; venueId?: string;
+  /** Phones: the page shows a still preview; a tap opens the full-screen map with the photo board. */
+  immersive?: boolean; venueName?: string;
+  /** From a "この席を送る" link: the ticket's row / number, and opening the full-screen map at once. */
+  initialRow?: string; initialNumber?: string; initialOpen?: boolean };
+/** Phone widths get the full-screen map; wider screens keep the map inside the page. */
+const IMMERSIVE_QUERY = "(max-width: 767px)";
+function subscribeImmersive(callback: () => void) {
+  const query = window.matchMedia(IMMERSIVE_QUERY);
+  query.addEventListener("change", callback);
+  return () => query.removeEventListener("change", callback);
+}
+const HINT_KEY = "tixrepo:seat-map-photo-hint";
+/** What the full-screen map frames once laid out: a block (by id), or a zone / position / level area (by box). */
+type FrameRequest = { id: string; zoom: boolean; animate: boolean; box?: MapBox };
+/** Full screen opens where five rows take about this many pixels, so every fifth row's tag can be read. */
+const FIVE_ROWS_PX = 22;
 export type StandSeatMapHandle = { showRegion: (level: string, area: string) => void };
 type Gesture = { points: Map<number, Point>; start: Point; last: Point; travel: number; multi: boolean; block: string | null; photo: string | null; distance: number };
 const freshGesture = (): Gesture => ({ points: new Map(), start: [0, 0], last: [0, 0], travel: 0, multi: false, block: null, photo: null, distance: 0 });
@@ -51,17 +72,7 @@ function glideFrame(from: MapBox, to: MapBox, progress: number): MapBox {
   const cy = from[1] + from[3] / 2 + (to[1] + to[3] / 2 - from[1] - from[3] / 2) * eased;
   return [cx - width / 2, cy - height / 2, width, height];
 }
-const rowSummary = (block: StandBlock) => {
-  const rows = standDisplayRows(block);
-  return block.rowNameLookup === "unavailable" ? "列名は公式図に未掲載" : rows.length === 1 ? `${rows[0].label}列` : rows.length ? `${rows[0].label}〜${rows.at(-1)!.label}列` : "位置のみ";
-};
-
-// Reuse the source name while omitting only exact metadata repeated beside it.
-const blockDisplayTitle = (block: StandBlock, levelLabel: string) =>
-  block.label.split("・").filter(part => part.trim() !== rowSummary(block) && part.trim() !== levelLabel)
-    .map(part => part === "参考区画" && block.numberLookup === "unavailable" && !block.numberReference ? "番号未確認" : part).join("・") || block.label;
-
-const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap({ data, levels, areas, initialSection, onEquipment, venueId }, ref) {
+const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap({ data, levels, areas, initialSection, onEquipment, venueId, immersive = false, venueName, initialRow, initialNumber, initialOpen }, ref) {
   
   // The three stacked floor plans need room for their outer rim and heading.
   // This pads the overview and outer pan bounds; seat geometry and floor/detail target definitions stay intact.
@@ -75,7 +86,7 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   const [initial] = useState(() => initialSection ? resolveStandSeatSection(data, initialSection) : null);
   const initialBlock = initial?.block, initialZone = initial?.zone;
   const [level, setLevel] = useState(initialBlock?.level ?? initialZone?.level ?? "all"), [area, setArea] = useState(initialBlock?.area ?? initialZone?.area ?? "all");
-  const [row, setRow] = useState(""), [number, setNumber] = useState("");
+  const [row, setRow] = useState(initialBlock && initialRow ? initialRow : ""), [number, setNumber] = useState(initialBlock && initialNumber ? initialNumber : "");
   const [finderMode, setFinderMode] = useState<FinderMode>("ticket");
   const [blockInput, setBlockInput] = useState("");
   const [searchMiss, setSearchMiss] = useState(false);
@@ -84,13 +95,33 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   const [matches, setMatches] = useState<StandBlock[]>([]), [error, setError] = useState("");
   const [position, setPosition] = useState<StandPosition | null>(null);
   const [photoRequest, setPhotoRequest] = useState(0);
-  const [photoFromTicket, setPhotoFromTicket] = useState(false);
+  const [photoFromTicket, setPhotoFromTicket] = useState(Boolean(initialBlock && initialRow));
+  const [shareOpen, setShareOpen] = useState(false);
+  // Only the seat map a venue opens with can be sent (the share link opens that map).
+  const canShare = Boolean(venueId && SEAT_SHARE_DIAGRAMS[venueId] === data.diagramId);
   const [view, setView] = useState<MapBox>(() => {
     const target = initialBlock ? standDetailCamera(initialBlock, data) : initialZone ? standZoneCamera(data, initialZone) : overviewBox;
     return initial ? clampCamera(target, overviewBox, minSpan) : overviewBox;
   }), [size, setSize] = useState({ width: 900, height: 620 });
   const [pulse, setPulse] = useState(false);
   const arenaMaps = useArenaMaps();
+  // Full-screen map (phones): the page keeps a still preview; the photo board rises over the map.
+  const narrow = useSyncExternalStore(subscribeImmersive, () => window.matchMedia(IMMERSIVE_QUERY).matches, () => false);
+  const immersiveMode = immersive && narrow;
+  const [fullscreen, setFullscreen] = useState(false);
+  const [sheetOpen, setSheetOpen] = useState(true);
+  const [sheetPhoto, setSheetPhoto] = useState(0);
+  const [slotHeight, setSlotHeight] = useState<number>();
+  const [frameTick, setFrameTick] = useState(0);
+  const [hintSeen, setHintSeen] = useState(true);
+  const fullscreenRef = useRef(false), lockedRef = useRef(false), pushedHistory = useRef(false);
+  const pageScroll = useRef(0), frameRequest = useRef<FrameRequest | null>(null);
+  const frameElement = useRef<HTMLDivElement>(null), sheetElement = useRef<HTMLDivElement>(null), closeButton = useRef<HTMLButtonElement>(null), openButton = useRef<HTMLButtonElement>(null), tabElement = useRef<HTMLButtonElement>(null);
+  // The small venue map: tapping it pulls back to the whole venue; "選んだ席に戻る" returns to this camera.
+  const [overviewReturn, setOverviewReturn] = useState<MapBox | null>(null);
+  const [openCount, setOpenCount] = useState(0);
+  const mapLocked = immersiveMode && !fullscreen;
+  fullscreenRef.current = fullscreen; lockedRef.current = mapLocked;
 
   const stage = useRef<HTMLDivElement>(null), svg = useRef<SVGSVGElement>(null), frame = useRef<number | null>(null);
   // Live camera (camera) vs. the camera the labels were last laid out for (renderedView): see paint().
@@ -98,8 +129,35 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   const renderedView = useRef(view), moving = useRef(false), wheelCommit = useRef<number | null>(null);
   const announcedScope = useRef("");
   const camera = useRef(view), gesture = useRef(freshGesture()), interacted = useRef(Boolean(initial));
-  const suppressMapClick = useSeatMapTouch(stage);
-  const allowPageScroll = view[2] >= overviewBox[2] * .99;
+  const suppressMapClick = useSeatMapTouch(stage, lockedRef);
+  // The still preview always lets the page scroll; the full-screen map never does.
+  const allowPageScroll = mapLocked || (!fullscreen && view[2] >= overviewBox[2] * .99);
+  // Full screen, the venue drawing has walls: its edges stop at the screen edges (the bottom edge at the
+  // photo board's top), it never zooms out smaller than the whole venue, and never into blank space.
+  // The walls stand at the seats' own outline (with a small margin), not at the drawing's blank border.
+  const wallBox = useMemo<MapBox>(() => { const [x, y, w, h] = boundsOf(data.blocks, 0); const pad = Math.max(w, h) * .03; return [x - pad, y - pad, w + pad * 2, h + pad * 2]; }, [data.blocks]);
+  /** How much of the map the photo board (or its folded title) covers, measured from the map's bottom. */
+  function boardHeight() {
+    const sheet = (sheetElement.current ?? tabElement.current)?.getBoundingClientRect(), map = stage.current?.getBoundingClientRect();
+    return sheet && map ? Math.max(0, Math.min(map.height * .7, map.bottom - sheet.top)) : 0;
+  }
+  function wallCamera(box: MapBox): MapBox {
+    const { width, height } = sizeRef.current;
+    const board = boardHeight();
+    const usable = Math.max(120, height - board);
+    const [ox, oy, ow, oh] = wallBox;
+    const widest = Math.min(width / (ow * 1.04), usable / (oh * 1.04));
+    const closest = Math.min(width, usable) / minSpan;
+    const scale = Math.max(widest, Math.min(closest, mapProjection(box, width, height).scale));
+    const viewWidth = width / scale, usableHeight = usable / scale;
+    let cx = box[0] + box[2] / 2;
+    cx = viewWidth >= ow ? ox + ow / 2 : Math.max(ox + viewWidth / 2, Math.min(ox + ow - viewWidth / 2, cx));
+    // The camera box covers the whole stage; the part above the board is what must stay on the drawing.
+    let top = box[1] + box[3] / 2 - height / scale / 2;
+    top = usableHeight >= oh ? oy - (usableHeight - oh) / 2 : Math.max(oy, Math.min(oy + oh - usableHeight, top));
+    return [cx - viewWidth / 2, top, viewWidth, height / scale];
+  }
+  const fitCamera = (box: MapBox) => fullscreenRef.current ? wallCamera(box) : clampCamera(box, overviewBox, minSpan);
   const initialCanvasPending = useRef(Boolean(initialBlock));
   const previousSize = useRef(size);
   const uid = useId().replace(/:/g, ""), instructionId = `${uid}-keys`;
@@ -180,9 +238,9 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
     stage.current?.removeAttribute("data-moving");
     setView([...camera.current] as MapBox);
   }
-  function follow(next: MapBox) { paint(clampCamera(next, overviewBox, minSpan)); }
+  function follow(next: MapBox) { paint(fitCamera(next)); }
   function move(next: MapBox, animate = true) {
-    stop(); const target = clampCamera(next, overviewBox, minSpan);
+    stop(); const target = fitCamera(next);
     if (!animate || window.matchMedia("(prefers-reduced-motion: reduce)").matches) { paint(target); commit(); return; }
     const from = [...camera.current] as MapBox, duration = glideDuration(from[2], target[2]);
     let start: number | null = null;
@@ -219,7 +277,8 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
     const next = data.regionViews?.[`${nextLevel}:${nextArea}`] as MapBox | undefined ?? (nextLevel === "all" && nextArea === "all" ? overviewBox
       : nextLevel === "all" && data.areaViews?.[nextArea] ? data.areaViews[nextArea] as MapBox
       : nextArea === "all" && data.levelViews?.[nextLevel] ? data.levelViews[nextLevel] as MapBox : boundsOf(targets));
-    move(nextLevel === "all" && nextArea === "all" ? next : notCloserThanBlock(next));
+    const box = nextLevel === "all" && nextArea === "all" ? next : notCloserThanBlock(next);
+    if (!showArea(box)) move(box);
     const center: Point = [next[0] + next[2] / 2, next[1] + next[3] / 2];
     setFocused([...targets].sort((a, b) => Math.hypot(a.center[0] - center[0], a.center[1] - center[1]) - Math.hypot(b.center[0] - center[0], b.center[1] - center[1]))[0].id);
   }
@@ -229,11 +288,34 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
     setPhotoFromTicket(false);
     interaction(); clearResult(); setZone(id); setLevel(target.level); setArea(target.area);
     const members = data.blocks.filter(b => target.blockIds.includes(b.id));
-    move(notCloserThanBlock(standZoneCamera(data, target))); setFocused(members[0].id);
+    const box = notCloserThanBlock(standZoneCamera(data, target));
+    if (!showArea(box)) move(box);
+    setFocused(members[0].id);
   }
-  function select(b: StandBlock, recenter = false, fromTicket = false) {
+  /** Phones: an area chosen on the still preview opens the full-screen map framed on it (with its photo board);
+   * in full screen the area is framed above the board. Returns false on the page-sized map. */
+  function showArea(box: MapBox) {
+    if (!immersiveMode) return false;
+    const request: FrameRequest = { id: "", zoom: true, animate: true, box };
+    if (!fullscreenRef.current) { openFullscreen(request); return true; }
+    setSheetOpen(true); setSheetPhoto(0); setOverviewReturn(null);
+    frameRequest.current = request; setFrameTick(tick => tick + 1);
+    return true;
+  }
+  function select(b: StandBlock, recenter = false, fromTicket = false, source: "map" | "search" | "step" = recenter || fromTicket ? "search" : "map") {
     setPhotoFromTicket(fromTicket);
     interaction(); setSelected(b.id); setZone(b.zone ?? null); setFocused(b.id); setLevel(b.level); setArea(b.area); resetFinderFeedback(); setPosition(null);
+    trackVenueSeatSectionSelect(source, photoSectionIds.has(b.id), immersiveMode ? "sheet" : "card");
+    // Phones: a block chosen on the still preview (or found by the seat search) opens the
+    // full-screen map on it, with its photo board.
+    // A searched seat opens with the photo board folded to its title, so the map shows the seat, its rows and aisles.
+    const fold = fromTicket && photoSectionIds.has(b.id);
+    if (immersiveMode && !fullscreenRef.current) { openFullscreen({ id: b.id, zoom: true, animate: true }, fold); return; }
+    if (fullscreenRef.current) {
+      setSheetOpen(!fold); setSheetPhoto(0); setOverviewReturn(null);
+      frameRequest.current = { id: b.id, zoom: recenter, animate: true }; setFrameTick(tick => tick + 1);
+      return;
+    }
     // Same rule for every selection (Tokyo Dome): go to the block view unless the map is already
     // at block zoom or closer, where a neighbouring block is picked without moving the camera.
     const target = standDetailCamera(b, data, size);
@@ -242,8 +324,8 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   function choosePosition(target: StandPosition) {
     setPhotoFromTicket(false);
     interaction(); clearResult(); setPosition(target); setLevel(target.level); setArea("all"); setZone(null);
-    const [x, y] = target.point, span = target.span;
-    move([x - span / 2, y - span / 2, span, span]);
+    const [x, y] = target.point, span = target.span, box: MapBox = [x - span / 2, y - span / 2, span, span];
+    if (!showArea(box)) move(box);
   }
   function selectPhotoPlace(place: SeatViewPlace) {
     if (place.kind === "zone") {
@@ -262,6 +344,130 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
       select(section);
     }
   }
+  // ── Full-screen map (phones) ──
+  // The same map element is lifted out of the page (position: fixed), so the search, selection and
+  // photo board all share one state. A placeholder keeps the page's height; the page scroll is
+  // remembered and given back on close (× or the phone's back).
+  function openFullscreen(request: FrameRequest | null, fold = false) {
+    if (fullscreenRef.current) return;
+    pageScroll.current = window.scrollY;
+    setSlotHeight(frameElement.current?.parentElement?.getBoundingClientRect().height);
+    frameRequest.current = request;
+    setSheetOpen(!fold); setSheetPhoto(0);
+    setFullscreen(true); fullscreenRef.current = true; setOpenCount(count => count + 1);
+    if (!hintSeen) { setHintSeen(true); try { localStorage.setItem(HINT_KEY, "1"); } catch { /* private mode */ } }
+    try { window.history.pushState({ tixrepoSeatMap: "open" }, ""); pushedHistory.current = true; } catch { pushedHistory.current = false; }
+  }
+  // × and Escape go back one history step, so the phone's back button and × behave the same.
+  function requestClose() {
+    if (!fullscreenRef.current) return;
+    if (pushedHistory.current) { pushedHistory.current = false; window.history.back(); return; }
+    closeFullscreen();
+  }
+  const closeFullscreen = useCallback(() => {
+    if (!fullscreenRef.current) return;
+    fullscreenRef.current = false;
+    setFullscreen(false);
+  }, []);
+  useEffect(() => {
+    if (!fullscreen) return;
+    const onPop = () => { pushedHistory.current = false; closeFullscreen(); };
+    const onKey = (event: KeyboardEvent) => { if (event.key === "Escape" && !document.querySelector("dialog[open]")) { event.preventDefault(); requestClose(); } };
+    window.addEventListener("popstate", onPop);
+    window.addEventListener("keydown", onKey);
+    return () => { window.removeEventListener("popstate", onPop); window.removeEventListener("keydown", onKey); };
+    // requestClose only reads refs.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fullscreen, closeFullscreen]);
+  // Turning the phone wide leaves full screen (the page map takes over again).
+  useEffect(() => { if (!immersiveMode && fullscreenRef.current) requestClose(); });
+  useEffect(() => { try { setHintSeen(localStorage.getItem(HINT_KEY) === "1"); } catch { setHintSeen(false); } }, []);
+  // A "この席を送る" link opens straight into the full-screen map on that block (phones only).
+  const autoOpened = useRef(false);
+  useEffect(() => {
+    if (autoOpened.current || !initialOpen || !immersiveMode || !initialBlock) return;
+    autoOpened.current = true;
+    openFullscreen({ id: initialBlock.id, zoom: true, animate: false }, Boolean(initialRow && initialNumber && photoSectionIds.has(initialBlock.id)));
+    // Runs once when the phone layout is known.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [immersiveMode]);
+  // Entering or leaving full screen: measure the new canvas at once, show the whole venue, and on
+  // leaving give the page back where it was.
+  const wasFullscreen = useRef(false);
+  useLayoutEffect(() => {
+    if (wasFullscreen.current === fullscreen) return;
+    wasFullscreen.current = fullscreen;
+    const root = document.documentElement;
+    const element = stage.current;
+    if (element) {
+      const rect = element.getBoundingClientRect();
+      const canvas = { width: rect.width, height: rect.height };
+      if (hasStandCanvasArea(canvas)) { sizeRef.current = canvas; previousSize.current = canvas; setSize(canvas); }
+    }
+    cancelGlide(); paint(fullscreen ? wallCamera(overviewBox) : overviewBox); commit();
+    if (fullscreen) {
+      const overflow = root.style.overflow;
+      root.style.overflow = "hidden";
+      // A tap's own focus lands on the map after this; give it to × once the tap is over.
+      const focusClose = () => closeButton.current?.focus({ preventScroll: true });
+      focusClose();
+      const timer = window.setTimeout(focusClose, 80);
+      return () => { root.style.overflow = overflow; window.clearTimeout(timer); };
+    }
+    setSlotHeight(undefined);
+    // The browser's own back may also try to restore an older scroll position: hold ours for a few frames.
+    const y = pageScroll.current;
+    window.scrollTo(0, y);
+    let frames = 0, id = 0;
+    const hold = () => { if (Math.abs(window.scrollY - y) > 2) window.scrollTo(0, y); if (++frames < 6) id = requestAnimationFrame(hold); };
+    id = requestAnimationFrame(hold);
+    openButton.current?.focus({ preventScroll: true });
+    return () => cancelAnimationFrame(id);
+    // Only the switch itself re-frames; the camera helpers read refs.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fullscreen]);
+  // A block chosen in full screen: zoom to it from far out; closer in, keep the zoom and move the map
+  // only as far as needed to show the block above the photo board.
+  useLayoutEffect(() => {
+    const request = frameRequest.current;
+    if (!fullscreen || !request) return;
+    frameRequest.current = null;
+    if (request.box) {
+      const { width, height } = sizeRef.current, visible = Math.max(140, height - boardHeight() - 8), area = request.box;
+      const fitScale = Math.min(width / area[2], visible / area[3]), cx = area[0] + area[2] / 2, cy = area[1] + area[3] / 2;
+      move([cx - width / 2 / fitScale, cy - visible / 2 / fitScale, width / fitScale, height / fitScale], request.animate);
+      return;
+    }
+    const target = data.blocks.find(b => b.id === request.id);
+    if (!target) return;
+    const { width, height } = sizeRef.current;
+    const visible = Math.max(140, height - boardHeight() - 8);
+    // Close enough that every fifth row's tag can be read, never so close that the block overflows the
+    // visible map (the small venue map in the corner keeps the wider picture). A searched seat is centred.
+    const run = standSelectedNumberRun(data, target, row, number);
+    const seatPoint = run ? seatOnSegment(run.segment, Number(run.seat)) : null;
+    const gap = blockRowGap(target), [, , bw, bh] = target.box;
+    // The block takes at most about half the visible height, so the level in front of / behind it peeks in.
+    const fit = Math.min(width * .86 / bw, visible * .52 / bh);
+    const scale = Math.max(width / (bw * 3.4), Math.min(gap > 0 ? FIVE_ROWS_PX / (5 * gap) : fit, fit));
+    const [cx, cy] = seatPoint ?? target.center;
+    const framed: MapBox = [cx - width / 2 / scale, cy - visible / 2 / scale, width / scale, height / scale];
+    // From far out (or a search) zoom to the block's own view; otherwise keep the current zoom.
+    const zoomIn = request.zoom || mapProjection(camera.current, width, height).scale < scale / 1.02;
+    const base = zoomIn ? framed : camera.current;
+    // Then move only as far as needed for the whole block to show above the board.
+    const projection = mapProjection(base, width, height);
+    const seatOnScreen = seatPoint && projection.project(seatPoint);
+    const box = seatOnScreen ? [seatOnScreen[0] - 60, seatOnScreen[1] - 40, seatOnScreen[0] + 60, seatOnScreen[1] + 40]
+      : standRingsBox(standPathRings(target.path).map(ring => ring.map(point => projection.project(point))));
+    const margin = 18;
+    const shift = (low: number, high: number, start: number, end: number) => high - low > end - start - margin * 2 ? (start + end) / 2 - (low + high) / 2
+      : low < start + margin ? start + margin - low : high > end - margin ? end - margin - high : 0;
+    const dx = box ? shift(box[0], box[2], 0, width) : 0, dy = box ? shift(box[1], box[3], 0, visible) : 0;
+    if (!zoomIn && !dx && !dy) return;
+    move([base[0] - dx / projection.scale, base[1] - dy / projection.scale, base[2], base[3]], request.animate);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fullscreen, frameTick, sheetOpen]);
   function search(event: React.FormEvent) {
     event.preventDefault(); interaction();
     resetFinderFeedback();
@@ -308,11 +514,12 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   function down(event: PointerEvent<HTMLDivElement>) {
     if (event.pointerType === "mouse" && event.button !== 0) return;
     const control = (event.target as Element).closest("button");
-    if (!control && (event.pointerType !== "touch" || !allowPageScroll)) event.preventDefault();
+    // The still preview never takes the pointer: the page scrolls and a tap opens the full-screen map.
+    if (!control && !mapLocked && (event.pointerType !== "touch" || !allowPageScroll)) event.preventDefault();
     interaction();
     const g = gesture.current, p = point(event);
     g.points.set(event.pointerId, p);
-    if (!control) event.currentTarget.setPointerCapture(event.pointerId);
+    if (!control && !mapLocked) event.currentTarget.setPointerCapture(event.pointerId);
     if (g.points.size === 1) suppressMapClick.current = false;
     if (g.points.size === 1) {
       const target = event.target as Element;
@@ -329,6 +536,7 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
     const g = gesture.current; if (!g.points.has(event.pointerId)) return;
     const p = point(event); g.points.set(event.pointerId, p);
     g.travel = Math.max(g.travel, Math.hypot(p[0] - g.start[0], p[1] - g.start[1]));
+    if (mapLocked) { if (g.points.size > 1) g.multi = true; return; }
     const c = camera.current, currentProjection = mapProjection(c, size.width, size.height);
     if (g.points.size > 1) {
       const [a, b] = [...g.points.values()], middle = [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2];
@@ -355,6 +563,7 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
     if (photoAnchor) { selectPhotoPlace(photoAnchor.place); return; }
     const target = id && data.blocks.find(b => b.id === id);
     if (target) select(target);
+    else if (mapLocked) openFullscreen(selected ? { id: selected, zoom: true, animate: true } : null);
   }
   useEffect(() => {
     const el = stage.current!;
@@ -363,6 +572,8 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
       const canvas = { width, height };
       if (!hasStandCanvasArea(canvas)) return;
       sizeRef.current = canvas; setSize(canvas);
+      // Phone bars appearing or the phone turning: the full-screen map keeps to its walls at the new size.
+      if (fullscreenRef.current && !gesture.current.points.size && frame.current === null) { paint(wallCamera(camera.current)); commit(); }
       if (initialBlock && initialCanvasPending.current) {
         initialCanvasPending.current = false;
         const next = clampCamera(standDetailCamera(initialBlock, data, canvas), overviewBox, data.detailSpan * .45);
@@ -380,7 +591,7 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   useEffect(() => {
     const el = svg.current!;
     const wheel = (event: WheelEvent) => {
-      if (!event.ctrlKey && !event.metaKey) return;
+      if ((!event.ctrlKey && !event.metaKey && !fullscreenRef.current) || lockedRef.current) return;
       // Wheel zoom follows the hand and commits once it pauses (not on every wheel event).
       event.preventDefault(); initialCanvasPending.current = false; interacted.current = true; setPulse(false); cancelGlide();
       const c = camera.current;
@@ -396,6 +607,8 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
 
   useEffect(() => {
     const before = previousSize.current; previousSize.current = size;
+    // Phones switch between the preview and full screen on purpose; the full-screen framing decides there.
+    if (immersiveMode) return;
     if (before.width === size.width && before.height === size.height) return;
     const run = standSelectedNumberRun(data, block, row, number);
     if (!run) return;
@@ -460,9 +673,11 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   // Passive names keep clear of the corner arena-map button (approximate pill footprint).
   // The photo pill and the reference-area note sit over the bottom of the map: names there would be hidden.
   const legendShown = data.blocks.some(item => item.numberLookup === "unavailable") && (!block || block.numberLookup === "unavailable");
-  const bottomCover = 8 + (photoAnchors.length ? 56 : 0) + (legendShown ? 34 : 0) + (photoAnchors.length && legendShown ? 6 : 0);
+  const cardShown = photoAnchors.length > 0 && !mapLocked;
+  const bottomCover = fullscreen ? 8 : 8 + (cardShown ? 56 : 0) + (legendShown ? 34 : 0) + (cardShown && legendShown ? 6 : 0);
   const bottomBox = bottomCover > 8 ? [size.width / 2, size.height - bottomCover / 2, size.width, bottomCover] : null;
-  const occupied = [...buttonBounds, ...(arenaMaps ? [[size.width - 76, 30, 140, 44]] : []), ...(bottomBox && !whole ? [bottomBox] : [])];
+  const occupied = [...buttonBounds, ...(arenaMaps ? [[size.width - 76, 30, 140, 44]] : []), ...(bottomBox && !whole ? [bottomBox] : []),
+    ...(fullscreen ? [[72, 22, 140, 32], [size.width - 50, 102, 100, 110]] : [])];
   const labels: { id: string; text: string; x: number; y: number; width: number; height: number; kind: "row" | "number" | "block"; selected: boolean; plain: boolean; anchor?: Point }[] = [];
   const selectedRowLabel = (label: typeof labels[number]) => label.kind === "row" && (label.id === "selected-row" ||
     (Boolean(highlightedRow) && (label.id === "first-row" || label.id === "last-row") && normalizeSeatInput(label.text.replace(/列$/, "")) === normalizeSeatInput(highlightedRow)));
@@ -682,9 +897,86 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   }
   
   
+  // Full screen: a searched seat's own point and tag, the other end number of its row (the start number
+  // already has its badge), and a tag on every fifth row of the chosen block once five rows are ~20px apart.
+  const clearOfLabels = (x: number, y: number, w: number, h: number) => labels.every(l => Math.abs(x - l.x) >= (w + l.width) / 2 + 2 || Math.abs(y - l.y) >= (h + l.height) / 2 + 2);
+  const seatMark = fullscreen && block && labelRun ? (() => {
+    const point = projection.project(seatOnSegment(labelRun.segment, Number(labelRun.seat)));
+    const a = projection.project(labelRun.segment.a), b = projection.project(labelRun.segment.b);
+    const length = Math.hypot(b[0] - a[0], b[1] - a[1]) || 1, ux = (b[0] - a[0]) / length, uy = (b[1] - a[1]) / length;
+    const endText = `${block.numberPrefix ?? ""}${labelRun.segment.end}番`, endWidth = Math.max(44, endText.length * 8 + 16);
+    const end: Point = [b[0] + ux * (endWidth / 2 + 8), b[1] + uy * (endWidth / 2 + 8)];
+    const text = `${labelRun.row}列${labelRun.seat}番付近`, width = Math.max(96, [...text].reduce((sum, char) => sum + 13 * (char.charCodeAt(0) < 128 ? .62 : 1), 0) + 20);
+    const tagX = Math.min(size.width - width / 2 - 4, Math.max(width / 2 + 4, point[0]));
+    const tagY = [point[1] - 34, point[1] + 34, point[1] - 64].find(y => y > 16 && y < size.height - 16 && clearOfLabels(tagX, y, width, 28)) ?? point[1] - 34;
+    return { point, text, width, tagX, tagY, end, endText, endWidth, showEnd: labelRun.segment.end !== labelRun.segment.start && clearOfLabels(end[0], end[1], endWidth, 24) };
+  })() : null;
+  const fifthRows = fullscreen && block && block.rowNameLookup !== "unavailable" ? (() => {
+    const gap = blockRowGap(block) * projection.scale;
+    if (gap * 5 < 20) return [];
+    const taken = new Set(labels.filter(l => l.kind === "row").map(l => normalizeSeatInput(l.text.replace(/列$/, ""))));
+    return block.rows.flatMap(r => {
+      const value = Number.parseInt(r.label, 10), segment = r.segments[0];
+      const active = !labelRun && Boolean(highlightedRow) && normalizeSeatInput(r.label) === highlightedRow;
+      if (!segment || taken.has(normalizeSeatInput(r.label)) || !(active || (Number.isFinite(value) && value % 5 === 0))) return [];
+      const a = projection.project(segment.a), b = projection.project(segment.b);
+      const length = Math.hypot(b[0] - a[0], b[1] - a[1]) || 1;
+      const text = `${r.label}列`, w = text.length * 7 + 12;
+      // Just inside the row's first-seat end, on the row line itself.
+      const x = a[0] + (b[0] - a[0]) / length * (w / 2 + 3), y = a[1] + (b[1] - a[1]) / length * (w / 2 + 3);
+      if (x < w / 2 || x > size.width - w / 2 || y < 10 || y > size.height - 10 || (!active && !clearOfLabels(x, y, w, 18))
+        || (seatMark && Math.abs(x - seatMark.point[0]) < (w + seatMark.width) / 2 && Math.abs(y - seatMark.point[1] + 24) < 26)) return [];
+      return [{ key: r.label, text, x, y, w, active }];
+    });
+  })() : [];
+  // The small venue map (full screen, zoomed in): venue outline, stage side, the chosen block and the part on screen.
+  const miniMap = fullscreen && !overviewReturn && (() => {
+    const shownBottom = size.height - (fullscreen ? boardHeight() : 0);
+    const [x0, y0] = projection.unproject([0, 0]), [x1, y1] = projection.unproject([size.width, shownBottom]);
+    if (x1 - x0 > wallBox[2] * .8 && y1 - y0 > wallBox[3] * .8) return null;
+    const view: MapBox = [Math.max(wallBox[0], x0), Math.max(wallBox[1], y0), 0, 0];
+    view[2] = Math.min(wallBox[0] + wallBox[2], x1) - view[0]; view[3] = Math.min(wallBox[1] + wallBox[3], y1) - view[1];
+    return { view, stage: !data.frontLabel && !data.zones, height: Math.min(100, Math.round(84 * wallBox[3] / wallBox[2])) };
+  })();
+  // Full screen: when the level in front of or behind the chosen block is off the visible map, say so at that edge.
+  const levelHints = fullscreen && block && !overviewReturn ? (() => {
+    const shownBottom = size.height - boardHeight();
+    const [x0, y0] = projection.unproject([0, 0]), [x1, y1] = projection.unproject([size.width, shownBottom]);
+    const order = levels.map(l => { const own = data.blocks.filter(b => b.level === l.id); return { l, own, y: own.reduce((sum, b) => sum + b.center[1], 0) / Math.max(1, own.length) }; })
+      .filter(item => item.own.length).sort((a, b) => a.y - b.y);
+    const at = order.findIndex(item => item.l.id === block.level);
+    const seen = (own: StandBlock[]) => own.some(b => b.box[0] < x1 && b.box[0] + b.box[2] > x0 && b.box[1] < y1 && b.box[1] + b.box[3] > y0);
+    const name = (item: (typeof order)[number]) => seatLevelName(item.l.id, item.l.label);
+    return { up: at > 0 && !seen(order[at - 1].own) ? name(order[at - 1]) : null,
+      down: at >= 0 && at < order.length - 1 && !seen(order[at + 1].own) ? name(order[at + 1]) : null, bottom: shownBottom };
+  })() : null;
   const seatViewRow = labelRun ? String(labelRun.row) : highlightedRow;
   const seatView = { diagram: data.diagramId, request: photoRequest, section: block?.id, zone, position: position?.id,
     row: photoFromTicket ? seatViewRow : null, seat: photoFromTicket ? labelRun?.seat : null };
+  // Full screen: the chosen block's photos on the board, and the blocks with photos on the same
+  // level in seat-number order for 前の区画 / 次の区画.
+  const shortName = (item: StandBlock) => blockShortName(item, data.blocks);
+  const blockName = (item: StandBlock) => blockLongName(item, data.blocks, levels);
+  const chosenZoneForSheet = !block && zone ? data.zones?.find(z => z.id === zone) : undefined;
+  const sheetPlace = !fullscreen ? null : block ? { key: block.id, title: `${selectedLevelLabel}・${blockDisplayTitle(block, "")}`, long: blockName(block) }
+    : position ? { key: `position:${position.id}`, title: `${position.label}付近`, long: `${position.label}付近` }
+    : chosenZoneForSheet ? (() => { const levelName = seatLevelName(chosenZoneForSheet.level, levels.find(l => l.id === chosenZoneForSheet.level)?.label);
+      // A zone named like its level ("2F" on the 2F plan) is not repeated.
+      return { key: `zone:${chosenZoneForSheet.id}`, title: levelName === chosenZoneForSheet.label ? levelName : `${levelName}・${chosenZoneForSheet.label}`, long: chosenZoneForSheet.label }; })() : null;
+  const sheetMatches = sheetPlace ? seatViewMatchesForSelection(seatViewPosts(data.diagramId), seatView) : [];
+  const photoBlocksOnLevel = fullscreen && block ? data.blocks.filter(b => b.level === block.level && photoSectionIds.has(b.id))
+    .sort((a, b) => (a.numberReference?.start ?? 1e9) - (b.numberReference?.start ?? 1e9) || frontRow(a) - frontRow(b) || a.id.localeCompare(b.id, "ja", { numeric: true })) : [];
+  const sheetAt = block ? photoBlocksOnLevel.findIndex(b => b.id === block.id) : -1;
+  const neighbor = (item: StandBlock | undefined, source: "step" | "map"): SheetNeighbor => item ? { label: shortName(item), go: () => select(item, false, false, source) } : null;
+  const nearbyPhotoBlock = block && fullscreen && !sheetMatches.length ? [...photoBlocksOnLevel]
+    .sort((a, b) => Math.hypot(a.center[0] - block.center[0], a.center[1] - block.center[1]) - Math.hypot(b.center[0] - block.center[0], b.center[1] - block.center[1]))[0] : undefined;
+  const sheetRows: SheetRows = fullscreen && block && block.rowNameLookup !== "unavailable" && block.numberLookup !== "unavailable" && block.rows.length ? {
+    rows: block.rows.map(r => ({ label: r.label, numbers: r.segments.map(segment => `${block.numberPrefix ?? ""}${segment.start}${segment.end !== segment.start ? `〜${segment.end}` : ""}番`).join("・") })),
+    active: block.rows.find(r => highlightedRow && normalizeSeatInput(r.label) === highlightedRow)?.label ?? null,
+    choose: label => { setRow(label); setNumber(""); setPhotoFromTicket(false); frameRequest.current = { id: block.id, zoom: false, animate: true }; setFrameTick(tick => tick + 1); },
+  } : null;
+  const sheetShown = sheetOpen && sheetPlace && sheetMatches.length ? sheetPlace.key : "";
+  useEffect(() => { if (sheetShown) trackVenueSeatPhotoOpen("sheet", sheetMatches.length); }, [sheetShown]); // eslint-disable-line react-hooks/exhaustive-deps
   // The chosen place's own camera mark gives way while its photo card is shown on the map.
   const photoCardShown = photoAnchors.length > 0 && (block || zone || position)
     && seatViewMatchesForSelection(seatViewPosts(data.diagramId), seatView).length > 0;
@@ -741,10 +1033,10 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   const arenaImage = arenaMaps?.posts.find(post => post.image)?.image;
   const arenaThumb = arenaImage ? arenaImage.src.replace(/([?&]name=)\w+/, "$1thumb") : null;
   // Bottom-centred venue notes on small whole views stay above the photo/legend overlay.
-  const footerLift = (photoAnchors.length ? 44 : 0) + (legendShown ? 30 : 0);
+  const footerLift = (cardShown ? 44 : 0) + (legendShown ? 30 : 0);
   return <DomeSeatFrame className={data.levelViews ? styles.levelControls : undefined} levels={[{ id: "all", label: "すべて" }, ...levels]} level={level} onLevel={id => chooseRegion(id, "all")} photoLegend="map"
     directions={availableAreas} direction={area} onDirection={id => chooseRegion(level, id)} onZoom={zoom} onWhole={reset} shortcuts={[]}
-    seatView={seatView}
+    seatView={seatView} seatViewIndex={sheetPhoto}
     directionExtra={<>
       {blockOnlySearch && <p className={styles.eventSeatingNote}>{data.numberLookupNote ?? "この図は区画名で探せます。列・番号は公演の案内をご確認ください。"}
         {venueId && <VenueProgramAnchor fallbackHref={`/venues/${venueId}#upcoming-events-title`}>この会場の公演を見る →</VenueProgramAnchor>}
@@ -767,8 +1059,25 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
     <p id={instructionId} className={styles.srOnly}>矢印キーで画面内のブロックを選び、Enterで拡大します。地図をドラッグして移動できます。</p>
     {/* Everything that reacts to a search or a selection sits on the map, so nothing above it grows
         or shrinks and the map never jumps (Tokyo Dome's mapNotice / photoOverlay). */}
-    <div className={styles.mapFrame} data-arena={arenaMaps ? "" : undefined}>
-      <div className={`${styles.stage} ${overviewArt ? styles.venueOverview : ""} ${data.zones ? styles.zonedStage : ""} ${data.diagramId === "vantelin-prime-unfolded" ? styles.unfoldedStage : ""}`} ref={stage} data-testid="stand-seat-map" data-diagram-id={data.diagramId} data-camera={view.map(n => n.toFixed(2)).join(",")} data-selected={selected ?? ""} data-selected-zone={zone ?? ""} data-selected-position={position?.id ?? ""} style={{ touchAction: allowPageScroll ? "pan-y" : "none" }}
+    <div className={styles.mapSlot} style={slotHeight ? { height: slotHeight } : undefined}>
+    <div ref={frameElement} className={`${styles.mapFrame} ${fullscreen ? styles.immersive : ""}`} data-arena={arenaMaps ? "" : undefined}
+      data-seat-map-fullscreen={fullscreen ? "" : undefined} role={fullscreen ? "dialog" : undefined} aria-modal={fullscreen || undefined}
+      aria-label={fullscreen ? `${venueName ?? ""}の座席表` : undefined}>
+      {fullscreen && <div className={styles.immersiveBar}>
+        <button ref={closeButton} type="button" className={styles.immersiveClose} aria-label="座席表を閉じる" onClick={requestClose}><X size={22} aria-hidden="true"/></button>
+        <div className={styles.immersiveTitle} aria-live="polite">
+          {venueName && <span>{venueName}</span>}
+          <strong>{sheetPlace?.long ?? "区画をタップすると写真が見られます"}</strong>
+        </div>
+        {canShare && block && <button type="button" className={styles.immersiveShare} onClick={() => setShareOpen(true)} data-seat-share-open="">
+          <Send size={17} aria-hidden="true"/>この席を送る</button>}
+      </div>}
+      {shareOpen && block && venueId && <SeatShareSheet venueName={venueName ?? ""} blockName={blockName(block)} onClose={() => setShareOpen(false)}
+        share={{ venue: venueId, section: block.id, ...(labelRun ? { row: String(labelRun.row), number: normalizeSeatInput(number) } : {}) }} />}
+      <div className={`${styles.stage} ${overviewArt ? styles.venueOverview : ""} ${data.zones ? styles.zonedStage : ""} ${data.diagramId === "vantelin-prime-unfolded" ? styles.unfoldedStage : ""} ${immersive ? styles.previewCapable : ""}`} ref={stage} data-testid="stand-seat-map" data-diagram-id={data.diagramId} data-camera={view.map(n => n.toFixed(2)).join(",")} data-selected={selected ?? ""} data-selected-zone={zone ?? ""} data-selected-position={position?.id ?? ""} style={{ touchAction: mapLocked ? "pan-y pinch-zoom" : allowPageScroll ? "pan-y" : "none",
+          // The still preview is as tall as the venue drawing at this width, plus room for the top tags.
+          height: mapLocked ? Math.min(460, Math.round(size.width * overviewBox[3] / overviewBox[2]) + 76) : undefined,
+          "--map-ratio": overviewBox[3] / overviewBox[2] } as React.CSSProperties} data-map-preview={mapLocked ? "" : undefined}
         onPointerDown={down} onPointerMove={drag} onPointerUp={up}
         onPointerCancel={() => { gesture.current = freshGesture(); suppressMapClick.current = true; commit(); }}
         onLostPointerCapture={e => { if (gesture.current.points.has(e.pointerId)) { gesture.current = freshGesture(); commit(); } }}
@@ -833,6 +1142,22 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
               stroke={l.plain ? "#fff" : undefined} strokeWidth="3" strokeLinejoin="round" paintOrder="stroke"
               style={{ fontVariantNumeric: "tabular-nums" }}>{l.text}</text>
           </g>)}
+          {fifthRows.map(tag => <g key={`fifth-${tag.key}`} data-row-tag={tag.key} transform={`translate(${tag.x},${tag.y})`} pointerEvents="none">
+            <rect x={-tag.w / 2} y={-9} width={tag.w} height={18} rx={4} fill={tag.active ? "#155786" : "#e8f3ff"} fillOpacity={tag.active ? 1 : .92} stroke="#23679a" strokeWidth=".8"/>
+            <text textAnchor="middle" y="4" fill={tag.active ? "#fff" : "#155786"} fontSize="11" fontWeight="700" style={{ fontVariantNumeric: "tabular-nums" }}>{tag.text}</text>
+          </g>)}
+          {seatMark?.showEnd && <g data-row-end="" transform={`translate(${seatMark.end[0]},${seatMark.end[1]})`} pointerEvents="none">
+            <rect x={-seatMark.endWidth / 2} y={-12} width={seatMark.endWidth} height={24} rx={12} fill="#fff" stroke="#81294d" strokeWidth="1.4"/>
+            <text textAnchor="middle" y="5" fill="#522e45" fontSize="12" fontWeight="800" style={{ fontVariantNumeric: "tabular-nums" }}>{seatMark.endText}</text>
+          </g>}
+          {seatMark && <g data-seat-mark="" pointerEvents="none">
+            <circle cx={seatMark.point[0]} cy={seatMark.point[1]} r={8} fill="#ef2d62" stroke="#fff" strokeWidth="3"/>
+            <line x1={seatMark.point[0]} y1={seatMark.point[1] + (seatMark.tagY < seatMark.point[1] ? -9 : 9)} x2={seatMark.tagX} y2={seatMark.tagY + (seatMark.tagY < seatMark.point[1] ? 14 : -14)} stroke="#ef2d62" strokeWidth="2"/>
+            <g transform={`translate(${seatMark.tagX},${seatMark.tagY})`}>
+              <rect x={-seatMark.width / 2} y={-14} width={seatMark.width} height={28} rx={14} fill="#ef2d62" stroke="#fff" strokeWidth="2"/>
+              <text textAnchor="middle" y="5" fill="#fff" fontSize="13" fontWeight="800" style={{ fontVariantNumeric: "tabular-nums" }}>{seatMark.text}</text>
+            </g>
+          </g>}
           {photoMarkers.map(({ key, place, label, point: [x, y] }) => <g key={key}>
             <g data-seat-photo-marker={key} className={styles.photoMarker} role="button" tabIndex={0}
               data-photo-x={x} data-photo-y={y} data-photo-placement="inside-block"
@@ -849,12 +1174,27 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
           </g>
         </svg>
         {position && <span className={styles.front}>{position.label}付近</span>}
+        {/* Zoomed in full screen, the stage side stays readable. */}
+        {fullscreen && !whole && !position && <span className={styles.frontChip}>{data.frontLabel || "↑ ステージ方向"}</span>}
+        {levelHints?.up && <span className={`${styles.levelHint} ${styles.levelHintUp}`} data-level-hint="up">↑ {levelHints.up}</span>}
+        {levelHints?.down && <span className={styles.levelHint} data-level-hint="down" style={{ top: levelHints.bottom - 40 }}>↓ {levelHints.down}</span>}
+        {miniMap && <button type="button" key={`mini-${openCount}`} className={styles.miniMap} data-mini-map="" aria-label="全体図：押すと会場全体を表示" onClick={() => {
+          setOverviewReturn([...camera.current] as MapBox); move(wallCamera(overviewBox)); }} style={{ height: miniMap.height + 18 }}>
+          <svg viewBox={wallBox.join(" ")} width="100%" height={miniMap.height - 8} aria-hidden="true">
+            {miniMap.stage && <rect x={wallBox[0] + wallBox[2] * .3} y={wallBox[1] + wallBox[3] * .01} width={wallBox[2] * .4} height={wallBox[3] * .07} rx={wallBox[3] * .02} fill="#8a8fa8"/>}
+            {data.blocks.map(b => <path key={b.id} d={b.path} fill={b.id === selected ? "#ef2d62" : "#e5d3dc"} stroke={b.id === selected ? "#ef2d62" : "none"} strokeWidth={wallBox[2] * .012}/>)}
+            <rect x={miniMap.view[0]} y={miniMap.view[1]} width={miniMap.view[2]} height={miniMap.view[3]} fill="#1673ad1f" stroke="#1673ad" strokeWidth={2} vectorEffect="non-scaling-stroke"/>
+          </svg>
+          <span className={styles.miniMapCaption}><Maximize2 size={10} aria-hidden="true"/>全体図</span>
+        </button>}
+        {fullscreen && overviewReturn && <button type="button" className={styles.backToSeat} data-back-to-seat="" onClick={() => { move(overviewReturn); setOverviewReturn(null); }}>
+          <Crosshair size={16} aria-hidden="true"/>選んだ席に戻る</button>}
         {whole && !data.overviewAreas && <span className={styles.front}>{data.frontLabel ?? "↑ ステージ方向"}</span>}
         {zoneTags.map(z => { const p = zonePositions.get(z.id)!; return <button type="button" key={z.id} data-zone-id={z.id} aria-label={`${z.label}ブロックを拡大`} className={`${styles.zoneTag} ${pulse ? styles.zonePulse : ""}`} style={{ left: p[0], top: p[1] }} onClick={() => chooseZone(z.id)}><span>{z.label}</span></button>; })}
         {areaTags.map(a => { const p = areaPositions.get(a.id)!; return <button type="button" key={a.id} data-area-id={a.id} aria-label={`${a.label}${a.label.endsWith("側") ? "" : "側"}を拡大`} className={`${styles.zoneTag} ${pulse ? styles.zonePulse : ""}`} style={{ left: p[0], top: p[1] }} onClick={() => chooseRegion("all", a.area)}><span>{a.label}</span></button>; })}
         {levelTags.map(l => { const p = projection.project(l.point); return <button type="button" key={l.id} className={`${styles.levelTag} ${pulse ? styles.pulse : ""}`} style={{ left: p[0], top: p[1] }} onClick={() => chooseRegion(l.id, "all")}>{l.label}</button>; })}
       </div>
-      {finderFeedback && <div className={styles.mapNotice} data-seat-map-notice="">
+      {finderFeedback && !fullscreen && <div className={styles.mapNotice} data-seat-map-notice="">
         <button type="button" className={styles.noticeClose} aria-label="検索の案内を閉じる" onClick={resetFinderFeedback}><X size={16} aria-hidden="true"/></button>
         {searchMiss && <SeatFinderMiss detail={error}
           advice={inputAdvice} query={missingInput ? undefined : { scope: [levels.find(l => l.id === level)?.label, area !== "all" && directionName(areas.find(item => item.id === area)?.label ?? area)].filter(Boolean).join("・") || "会場全体",
@@ -892,11 +1232,30 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
             : <MapIcon size={14} aria-hidden="true" />}アリーナ図<b>{arenaMaps.count}</b>
         </span>
       </button>}
-      <div className={styles.photoOverlay}>
+      {!fullscreen && <div className={`${styles.photoOverlay} ${immersive ? styles.previewCapable : ""}`}>
         {data.blocks.some(item => item.numberLookup === "unavailable") && (!block || block.numberLookup === "unavailable") && <p className={styles.coverageNote} data-seat-number-legend><Info size={14} aria-hidden="true" />
           <span role={block?.numberLookup === "unavailable" ? "status" : undefined}>{block?.numberLookup === "unavailable" ? block.numberReference ? "番号は参考表示です（この区画は未確認）" : "この区画は座席番号が未確認の参考区画です" : "参考区画（座席番号は未確認）"}</span></p>}
-        <SeatPhotoMapSummary selection={seatView} count={photoAnchors.length} onOpen={() => setPhotoRequest(request => request + 1)} />
-      </div>
+        {mapLocked ? null
+        : <SeatPhotoMapSummary selection={seatView} count={photoAnchors.length} onOpen={() => {
+          trackVenueSeatPhotoOpen("card", seatViewMatchesForSelection(seatViewPosts(data.diagramId), seatView).length);
+          setPhotoRequest(request => request + 1);
+        }} />}
+      </div>}
+      {sheetPlace && (sheetMatches.length
+        ? sheetOpen ? <SeatPhotoSheet key={`${sheetPlace.key}|${seatView.row ?? ""}|${seatView.seat ?? ""}`} sheetRef={sheetElement} title={sheetPlace.title} matches={sheetMatches}
+            previous={block ? neighbor(photoBlocksOnLevel[sheetAt - 1], "step") : null} next={block && sheetAt >= 0 ? neighbor(photoBlocksOnLevel[sheetAt + 1], "step") : null}
+            onFold={() => setSheetOpen(false)} onEnlarge={index => { setSheetPhoto(index); setPhotoRequest(request => request + 1); }} />
+          : <SeatPhotoSheetTab tabRef={tabElement} count={sheetMatches.length} image={seatViewInlinePhotoUrl(sheetMatches[0].post)?.replace("name=large", "name=thumb")}
+              onOpen={() => { if (block) frameRequest.current = { id: block.id, zoom: false, animate: true }; setSheetOpen(true); }} />
+        : sheetOpen && <SeatPhotoEmptySheet key={sheetPlace.key} sheetRef={sheetElement} title={sheetPlace.long} nearby={block ? neighbor(nearbyPhotoBlock, "step") : null} onFold={() => setSheetOpen(false)} rows={block ? sheetRows : null} />)}
+    </div>
+      {/* Rendered for phones before hydration too (CSS hides it on wide screens), so the page does not jump. */}
+      {immersive && !fullscreen && <div className={styles.previewOpen} id={mapLocked ? "venue-seat-photos" : undefined}>
+        {!hintSeen && photoAnchors.length > 0 && <p className={styles.previewHint}><Camera size={14} aria-hidden="true"/>カメラ印の区画をタップすると、席からの見え方が見られます</p>}
+        <button ref={openButton} type="button" onClick={() => openFullscreen(selected ? { id: selected, zoom: true, animate: true } : null)}>
+          <Camera size={18} aria-hidden="true"/><span>座席表を開いて写真を見る</span>
+        </button>
+      </div>}
     </div>
     <div className={styles.mapActions}>{data.diagramId === "vantelin-prime-unfolded" && <span className={styles.primeOrientation}>ツイン：3塁側 L／1塁側 R<br/>ボックス：4F／レストラン：3F</span>}<button type="button" className={styles.whole} onClick={reset}>全体図へ</button></div>
     {block && labelRun && <SeatSearchOffer row={String(labelRun.row)} number={normalizeSeatInput(number)} contextLabel={selectedTitle} />}

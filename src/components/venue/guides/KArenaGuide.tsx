@@ -23,7 +23,8 @@ export default function KArenaGuide({ embedded=false }: { embedded?: boolean }) 
     <DomeGuideHeader name="Kアリーナ横浜" showHero={!embedded} showNav={!pageNav}/>
     <div className={`zr-container ${styles.content}`}>
       <section id="venue-seats"><h2>Kアリーナ横浜の座席を探す</h2>
-        <StandSeatMap data={kArenaStandSeats} levels={kArenaLevels} areas={kArenaAreas} initialSection={target?.mode === "fixed" ? target.section : null} onEquipment={showEquipment}/>
+        <StandSeatMap data={kArenaStandSeats} levels={kArenaLevels} areas={kArenaAreas} initialSection={target?.mode === "fixed" ? target.section : null} onEquipment={showEquipment} immersive venueName="Kアリーナ横浜"
+          venueId="k-arena" initialRow={target?.row} initialNumber={target?.number} initialOpen={target?.open}/>
         <a className={styles.linkButton} href="https://k-arena.com/seat/">公式で座席からの見え方を見る</a>
         <p className={styles.note}>公演別のアリーナ配置は、主催者の座席案内をご確認ください。</p>
       </section>

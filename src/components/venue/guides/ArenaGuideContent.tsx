@@ -33,7 +33,8 @@ const modeKey=mode,resolved=resolveArenaView(definition,mode),{guide,seats,level
         {venue === "saitama-super-arena" && <aside className={styles.closure} aria-label="座席図と改修工事について"><strong>改修前の参考配置です</strong><p>メインアリーナなどは2027年3月末まで休館予定です。再開後の席は公演の案内をご確認ください。</p><a href="https://www.saitama-arena.co.jp/news/2026/03303374.html" target="_blank" rel="noopener noreferrer">公式の休館案内 ↗</a></aside>}
         {definition.modes && <div className={styles.modes} aria-label={definition.modes.ariaLabel}><span>{definition.modes.caption}</span>{definition.modes.options.map(value=><button key={value.id} type="button" aria-pressed={mode === value.id} onClick={()=>{ if (value.id !== mode) setSeatView({mode:value.id,section:null}); }}>{value.label}</button>)}</div>}
         {isPrime && PrimeLocation && <PrimeLocation onRegion={showPrimeRegion}/>}
-        <div ref={primeNumbers}><StandSeatMap ref={isPrime ? primeMap : undefined} key={`${venue}-${modeKey}`} data={seats} levels={levels} areas={resolved.areas} initialSection={section} onEquipment={showEquipment} venueId={venue}/></div>
+        <div ref={primeNumbers}><StandSeatMap ref={isPrime ? primeMap : undefined} key={`${venue}-${modeKey}`} data={seats} levels={levels} areas={resolved.areas} initialSection={section} onEquipment={showEquipment} venueId={venue}
+          immersive venueName={data.guide.name} {...(target && section && target.section === section ? { initialRow: target.row, initialNumber: target.number, initialOpen: target.open } : {})}/></div>
         {venue !== "saitama-super-arena" && <p className={styles.note}>{resolved.seatNote}</p>}
       </section>
       <AfterSeats nested/>

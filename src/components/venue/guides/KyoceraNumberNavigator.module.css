@@ -27,3 +27,6 @@
 .areaLabels button:hover,.areaLabels button:focus-visible{background:#fff3f8;border-color:#b96b8e;color:#913152}
 /* HTML area buttons are placed for the resting camera; hide them while a glide or gesture moves the map. */
 .canvas[data-moving] .areaLabels { visibility:hidden; }
+
+/* Phones: the full-screen map (template/immersiveMap): the canvas fills the screen under the top bar. */
+[data-seat-map-fullscreen] .canvas { position:absolute; top:calc(56px + env(safe-area-inset-top)); left:0; right:0; bottom:0; height:auto; scroll-margin-top:0; }

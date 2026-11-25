@@ -157,7 +157,7 @@
   max-height: min(calc(var(--seat-viewport-height, 100dvh) * .65), 520px);
   touch-action: pan-y pinch-zoom;
 }
-.compact .original { justify-self: start; }
+.compact .original { justify-self: start; min-height: 40px; padding: 0 14px; border: 1px solid #e3cbd6; border-radius: 999px; background: #fff; color: #7a3b55; font-weight: 750; text-decoration: none; }
 .compact .pager {
   grid-column: 2;
   flex-wrap: nowrap;

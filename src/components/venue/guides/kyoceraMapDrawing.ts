@@ -177,3 +177,24 @@ export function simplifiedRows(block: DrawingBlock, selectedRow: string | null =
   const high = { x: low.x + across.x * 40, y: low.y + across.y * 40 };
   return { rows, low, high, seatStart, referenceRow: reference.row, front: at(start, 0), back: at(end, 0) };
 }
+
+/** Side, level and aisle ("3塁側・下段・18通路"): what the full-screen map shows; the map itself shows which block. */
+export function kyoceraBlockShortName(block: DrawingBlock): string {
+  const tier = block.tier === "公式の別区分" ? "別区分" : block.tier;
+  return [block.label, tier, block.passages.length ? `${block.passages.join("・")}通路` : ""].filter(Boolean).join("・");
+}
+
+/** The name a fan can tell apart from every other block: side and level, the aisle, and the rows when
+ * two blocks share an aisle ("中央A・下段・12通路・1〜4列"), and the seat numbers when they share the rows too. The full-screen map's top bar and "この席を送る" use it. */
+export function kyoceraBlockName(block: DrawingBlock, blocks: readonly DrawingBlock[]): string {
+  const tier = block.tier === "公式の別区分" ? "別区分" : block.tier;
+  const aisle = block.passages.length ? `${block.passages.join("・")}通路` : "";
+  const base = [block.label, tier, aisle].filter(Boolean).join("・");
+  const same = blocks.filter(other => other.label === block.label && other.tier === block.tier && other.passages.join() === block.passages.join());
+  if (same.length < 2) return base;
+  const seats = `${block.firstSeat}〜${block.lastSeat}番`;
+  if (!block.rowLabelIsPrinted) return `${base}・${seats}`;
+  // Blocks side by side on one aisle share their rows too: the seat numbers tell them apart.
+  const rows = `${block.rowLabel}列`;
+  return same.some(other => other !== block && other.rowLabel === block.rowLabel) ? `${base}・${rows}・${seats}` : `${base}・${rows}`;
+}

@@ -1,8 +1,8 @@
 "use client";
 import { trackVenueSeatSearch } from "@/lib/venueAnalytics";
 
-import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
-import { ChevronRight, LocateFixed, Map as MapIcon, X } from "lucide-react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type FormEvent } from "react";
+import { ChevronRight, Crosshair, LocateFixed, Map as MapIcon, Maximize2, X } from "lucide-react";
 import type { DedicatedVenueGuide, SeatArea } from "@/data/venueGuides/types";
 import { DomeSeatFrame } from "../template/DomeSeatFrame";
 import { SeatPhotoMapSummary } from "../template/SeatViewPosts";
@@ -15,13 +15,18 @@ import { announceTokyoDomeMapScope } from "@/lib/tokyoDomeVenueSelection";
 import { useArenaMaps } from "@/components/venue/ArenaMapsSheet";
 import type { Box } from "./mapGeometry";
 import KyoceraNumberNavigator from "./KyoceraNumberNavigator";
-import { kyoceraBlockCamera, kyoceraDrawingBlocks, kyoceraAreaCamera, kyoceraMatchesArea, kyoceraSelectedDirection, type DrawingBlock } from "./kyoceraMapDrawing";
+import { kyoceraBlockCamera, kyoceraDrawingBlocks, kyoceraAreaCamera, kyoceraMatchesArea, kyoceraSelectedDirection, kyoceraBlockName, kyoceraBlockShortName, type DrawingBlock } from "./kyoceraMapDrawing";
 import { findKyoceraSeats, normalizeKyoceraTicket, type KyoceraSeatCandidate } from "./kyoceraSeatSearch";
 import SeatSearchOffer from "@/components/seat-campaign/SeatSearchOffer";
 import { useVenueSeatTarget } from "../VenueSeatTarget";
 import { seatViewMatchesForSelection, seatViewPosts } from "@/lib/seatViewPosts";
+import { fitAboveBoard, ImmersiveBar, ImmersiveFrame, ImmersiveOpenButton, useImmersiveMap } from "../template/immersiveMap";
+import { SeatPhotoEmptySheet, SeatPhotoSheet, SeatPhotoSheetTab, type SheetNeighbor } from "../template/SeatPhotoSheet";
+import { SeatShareSheet } from "../template/SeatShareSheet";
+import { seatViewInlinePhotoUrl } from "@/lib/seatViewPhotoAssets";
 
 const photoPlaceCount = new Set(seatViewPosts("kyocera-dome-fixed").map(post => post.place.kind + ":" + post.place.id)).size;
+const PHOTO_CODES = new Set(seatViewPosts("kyocera-dome-fixed").filter(post => post.place.kind === "section").map(post => post.place.id));
 // kyoceraBlockCamera never frames a regular block closer than this; sides and levels are never framed closer.
 const BLOCK_VIEW = 230;
 /** A side or level is never framed closer than a block view, so choosing a block from it never zooms out. */
@@ -62,6 +67,68 @@ export default function KyoceraSeatMap({ guide, selectedId, rowLabel, seatNumber
   const [dismissedScope, setDismissedScope] = useState("");
   const arenaMaps = useArenaMaps();
   const announcedScope = useRef("");
+  // ── Phones: still preview in the page; a tap opens the full-screen map with the photo board ──
+  const [sheetOpen, setSheetOpen] = useState(true);
+  const [sheetPhoto, setSheetPhoto] = useState(0);
+  const [shareOpen, setShareOpen] = useState(false);
+  const pendingView = useRef<(() => void) | null>(null);
+  const [viewTick, setViewTick] = useState(0);
+  // The camera the mini-map's "全体図" left, for "選んだ席に戻る".
+  const [overviewReturn, setOverviewReturn] = useState<Box | null>(null);
+  const miniView = useRef<SVGRectElement>(null);
+  const shell = useImmersiveMap({ enabled: true, onOpened: () => { const run = pendingView.current; pendingView.current = null; run?.(); } });
+  const frameRef = shell.frameRef, mapRef = shell.mapRef, boardHeight = shell.boardHeight;
+  const canvas = useCallback(() => frameRef.current?.querySelector<HTMLElement>("[data-testid='kyocera-seat-map']") ?? null, [frameRef]);
+  const inFullscreen = useCallback(() => Boolean(frameRef.current?.hasAttribute("data-seat-map-fullscreen")), [frameRef]);
+  /** Full screen: `target` fitted into the part of the map above the photo board. */
+  const aboveBoard = useCallback((target: Box): Box => {
+    const map = canvas(), rect = map?.getBoundingClientRect();
+    if (!map || !rect || !inFullscreen()) return target;
+    mapRef.current = map;
+    return fitAboveBoard(target, rect.width, rect.height, boardHeight());
+  }, [canvas, inFullscreen, mapRef, boardHeight]);
+  const sheetRef = shell.sheetRef;
+  const setBoard = useCallback((node: HTMLElement | null) => { sheetRef.current = node; }, [sheetRef]);
+  /** Full screen: a camera step that waits until the board for the new choice is on screen. */
+  function afterRender(step: () => void) { pendingView.current = step; setViewTick(tick => tick + 1); }
+  useLayoutEffect(() => {
+    if (!viewTick || !inFullscreen()) return;
+    const run = pendingView.current; pendingView.current = null; run?.();
+  }, [viewTick, inFullscreen]);
+  // Closing goes back to the whole map, as the still preview shows it.
+  const wasFullscreen = useRef(false);
+  useLayoutEffect(() => {
+    if (wasFullscreen.current && !shell.fullscreen) { setBox([...whole] as Box); setOverviewReturn(null); }
+    wasFullscreen.current = shell.fullscreen;
+  }, [shell.fullscreen, whole]);
+  useLayoutEffect(() => {
+    const rect = canvas()?.getBoundingClientRect(), mark = miniView.current;
+    if (!rect || !mark || !rect.width) return;
+    mapRef.current = canvas();
+    const scale = Math.min(rect.width / box[2], rect.height / box[3]);
+    const left = box[0] + box[2] / 2 - rect.width / 2 / scale, top = box[1] + box[3] / 2 - rect.height / 2 / scale;
+    const shown = [Math.max(whole[0], left), Math.max(whole[1], top),
+      Math.min(whole[0] + whole[2], left + rect.width / scale), Math.min(whole[1] + whole[3], top + (rect.height - boardHeight()) / scale)];
+    mark.setAttribute("x", String(shown[0])); mark.setAttribute("y", String(shown[1]));
+    mark.setAttribute("width", String(Math.max(0, shown[2] - shown[0]))); mark.setAttribute("height", String(Math.max(0, shown[3] - shown[1])));
+  });
+  /** A chosen block: from the preview it opens the full-screen map; on it, it is framed above the board. */
+  /** Full screen: the block with its neighbours around it, as wide as the rows and numbers are still drawn
+   * (the map draws them while the whole camera, board included, stays under 550 wide and tall). */
+  function blockView(block: DrawingBlock): Box {
+    const target = kyoceraBlockCamera(block, whole), rect = canvas()?.getBoundingClientRect();
+    if (!rect || !inFullscreen()) return target;
+    const width = Math.max(Math.min(target[2], target[3]), Math.min(300, rect.width * 540 / rect.height));
+    const cx = target[0] + target[2] / 2, cy = target[1] + target[3] / 2;
+    return aboveBoard([cx - width / 2, cy - 40, width, 80]);
+  }
+  function frameBlock(block: DrawingBlock) {
+    setOverviewReturn(null);
+    const camera = () => setBox(blockView(block));
+    if (shell.immersive && !inFullscreen()) { pendingView.current = camera; shell.open(); }
+    else if (inFullscreen()) afterRender(camera);
+    else setBox(kyoceraBlockCamera(block, whole));
+  }
   const selected = blocks.find(b => b.code === selectedCode && (b.special || b.areaId === selectedId));
   const currentRow = selected?.special ? specialRow : rowLabel;
   const currentNumber = selected?.special ? specialNumber : seatNumber;
@@ -80,6 +147,8 @@ export default function KyoceraSeatMap({ guide, selectedId, rowLabel, seatNumber
     if (block.special) { onClear(); setSpecialRow(null); setSpecialNumber(""); }
     else { const area = guide.seats.find(a => a.id === block.areaId)!; onSelect(area); if (selectedId === area.id) onRow(null); }
     setSelectedCode(block.code); setDirection(kyoceraSelectedDirection(block, whole, direction)); setLevel(block.special ? "すべて" : block.tier); resetFeedback();
+    setSheetOpen(true); setSheetPhoto(0);
+    if (shell.immersive) { frameBlock(block); return; }
     // Same rule as Tokyo Dome: go to the block view unless the map is already at block zoom or closer,
     // where a neighbouring block is picked without moving the camera.
     const target = kyoceraBlockCamera(block, whole);
@@ -96,7 +165,8 @@ export default function KyoceraSeatMap({ guide, selectedId, rowLabel, seatNumber
     if (block.special) { onClear(); setSpecialRow(row); setSpecialNumber(seat); }
     else { onTicket(guide.seats.find(area => area.id === block.areaId)!, row, seat); setSpecialRow(null); setSpecialNumber(""); }
     setSelectedCode(block.code); setDirection(kyoceraSelectedDirection(block, whole, preferred)); setLevel(block.special ? "すべて" : block.tier);
-    setBox(kyoceraBlockCamera(block, whole)); resetFeedback();
+    setSheetOpen(!PHOTO_CODES.has(block.code)); setSheetPhoto(0);
+    frameBlock(block); resetFeedback();
   }
   function search(scope = direction, tier = level) {
     clear();
@@ -106,7 +176,7 @@ export default function KyoceraSeatMap({ guide, selectedId, rowLabel, seatNumber
       const found = name ? blocks.filter(block => kyoceraMatchesArea(block, whole, scope, tier)
         && ([block.label, block.code, ...block.passages.map(passage => `${passage}通路`)].some(alias => normalize(alias) === name))) : [];
       trackVenueSeatSearch(found.length > 1 ? "multiple" : found.length ? "area" : name ? "empty" : "invalid", found.length);
-      if (found.length === 1) { chooseBlock(found[0]); setBox(kyoceraBlockCamera(found[0], whole)); return; }
+      if (found.length === 1) { chooseBlock(found[0]); frameBlock(found[0]); return; }
       if (found.length > 1) { setBlockMatches(found); return; }
       setError(name ? "券面の通路・区画名を確認してください。" : "券面の通路・区画名を入力してください。");
       return;
@@ -135,8 +205,33 @@ export default function KyoceraSeatMap({ guide, selectedId, rowLabel, seatNumber
     item => item.rows.find(line => line.row === input.row)?.ranges.map(({ start, end }) => [start, end] as const) ?? [],
     item => item.label) : [];
   function browseBlock(block: DrawingBlock) {
-    chooseBlock(block); setBox(kyoceraBlockCamera(block, whole));
+    chooseBlock(block); frameBlock(block);
   }
+  // The board: this block's photos, or a nearby block that has some.
+  const sheetMatches = shell.fullscreen && selected ? seatViewMatchesForSelection(seatViewPosts("kyocera-dome-fixed"), seatView) : [];
+  const placeTitle = selected ? kyoceraBlockShortName(selected) : null;
+  const middle = useMemo(() => ({ x: blocks.reduce((sum, b) => sum + b.x, 0) / blocks.length, y: blocks.reduce((sum, b) => sum + b.y, 0) / blocks.length }), [blocks]);
+  // 前の区画 / 次の区画: the blocks with photos on the same level, in order around the stands.
+  const photoNeighbours = selected ? blocks.filter(b => PHOTO_CODES.has(b.code) && b.tier === selected.tier)
+    .sort((a, b) => Math.atan2(a.y - middle.y, a.x - middle.x) - Math.atan2(b.y - middle.y, b.x - middle.x)) : [];
+  const sheetAt = selected ? photoNeighbours.findIndex(b => b.code === selected.code) : -1;
+  const goTo = (block: DrawingBlock | undefined): SheetNeighbor => block ? { label: kyoceraBlockShortName(block), go: () => chooseBlock(block) } : null;
+  const nearbyPhoto = selected && !sheetMatches.length ? blocks.filter(b => PHOTO_CODES.has(b.code))
+    .sort((a, b) => Math.hypot(a.x - selected.x, a.y - selected.y) - Math.hypot(b.x - selected.x, b.y - selected.y))[0] : undefined;
+  // A "この席を送る" link opens straight into the full-screen map on that block (phones only).
+  const autoOpened = useRef(false);
+  useEffect(() => {
+    if (autoOpened.current || !target?.open || !initial || !shell.immersive) return;
+    autoOpened.current = true;
+    if (target.row && target.number) {
+      setPhotoFromTicket(true);
+      if (initial.special) { setSpecialRow(target.row); setSpecialNumber(target.number); }
+      else { const area = guide.seats.find(a => a.id === initial.areaId); if (area) onTicket(area, target.row, target.number); }
+      setSheetOpen(!PHOTO_CODES.has(initial.code));
+    }
+    frameBlock(initial);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [shell.immersive]);
   // Tell the page's photo row which part of the venue is on the map (as StandSeatMap): the blocks around a
   // chosen block, or the chosen level and side. Photo links carry the block code as seatSection.
   useEffect(() => {
@@ -164,7 +259,7 @@ export default function KyoceraSeatMap({ guide, selectedId, rowLabel, seatNumber
   const arenaImage = arenaMaps?.posts.find(post => post.image)?.image;
   const arenaThumb = arenaImage ? arenaImage.src.replace(/([?&]name=)\w+/, "$1thumb") : null;
   return <DomeSeatFrame className={styles.seatFrame} levels={levels} level={level} onLevel={showLevel} photoLegend="map"
-    seatView={seatView}
+    seatView={seatView} seatViewIndex={sheetPhoto}
     directions={directions} direction={direction} onDirection={showDirection} onZoom={zoom} onWhole={showWhole} zoomLabel="座席図" shortcuts={[]}
     directionExtra={<SeatFinderControls mode={finderMode} onMode={mode => { setFinderMode(mode); clear(); }}
       row={searchRow} number={number} block={blockInput} blockHint="例：63通路" rowHint="例：8、A" numberHint="例：41" testId="kyocera-ticket-search"
@@ -172,16 +267,21 @@ export default function KyoceraSeatMap({ guide, selectedId, rowLabel, seatNumber
       onBlock={value => { setBlockInput(value); resetFeedback(); }} onSubmit={submit} />}>
     <div className={styles.selectionBand} data-testid="map-selection-summary" aria-live="polite">{selected ? <>
       <div><strong>{selected.label}・{selected.tier}</strong><span>{selected.passages.length > 0 && <>{selected.passages.join("・")}通路・</>}{selected.rowLabelIsPrinted ? `${selected.rowLabel}列（${selected.rows.length}列）` : "公式検索：0列"}・{selected.firstSeat}〜{selected.lastSeat}番{currentRow && selected.rowLabelIsPrinted && <> ／ <b className={styles.selectedRow}>{currentRow}列</b></>}{currentNumber && <> ・ <b className={styles.selectedSeat} data-selected-seat-number>選択：{currentNumber}番</b></>}</span></div>
-      <button type="button" disabled={!selected} aria-label="選んだ場所を表示" onClick={() => selected && setBox(kyoceraBlockCamera(selected, whole))}><LocateFixed size={19} /></button>
+      <button type="button" disabled={!selected} aria-label="選んだ場所を表示" onClick={() => selected && frameBlock(selected)}><LocateFixed size={19} /></button>
       <button type="button" disabled={!selected} aria-label="座席の選択を解除" onClick={clear}><X size={18} /></button>
     </> : <span>{direction === "all" ? "座席の全体図" : `${directions.find(item => item.id === direction)?.label ?? "座席"}の範囲`}</span>}</div>
     {/* Everything that reacts to a search or a selection sits on the map, so nothing above it grows or
         shrinks and the map never moves (Tokyo Dome's mapNotice / photoOverlay, as StandSeatMap). */}
-    <div className={stand.mapFrame} data-arena={arenaMaps ? "" : undefined}>
-    <KyoceraNumberNavigator guide={guide} blocks={blocks} level={level} selectedCode={selected?.code} rowLabel={currentRow} cardedCode={cardShown ? selected?.code : undefined}
-      box={box} onView={setBox} onBlock={chooseBlock} onDirection={showDirection} onArea={areaId => {
+    <ImmersiveFrame frameRef={shell.frameRef} slotHeight={shell.slotHeight} fullscreen={shell.fullscreen} className={stand.mapFrame} label={`${guide.name}の座席表`} data-arena={arenaMaps ? "" : undefined}>
+    {shell.fullscreen && <ImmersiveBar closeRef={shell.closeRef} onClose={shell.requestClose} venueName={guide.name} title={placeTitle} onShare={selected ? () => setShareOpen(true) : undefined} />}
+    {shareOpen && selected && placeTitle && <SeatShareSheet venueName={guide.name} blockName={kyoceraBlockName(selected, blocks)} onClose={() => setShareOpen(false)}
+      share={{ venue: "kyocera-dome", section: selected.code, ...(currentRow && currentNumber ? { row: currentRow, number: currentNumber } : {}) }} />}
+    <KyoceraNumberNavigator guide={guide} blocks={blocks} level={level} selectedCode={selected?.code} rowLabel={currentRow} cardedCode={cardShown && !shell.immersive ? selected?.code : undefined}
+      box={box} onView={setBox} onBlock={chooseBlock} locked={shell.locked} onLockedTap={shell.open}
+      onDirection={id => { showDirection(id); if (shell.locked) shell.open(); }} onArea={areaId => {
         const area = guide.seats.find(a => a.id === areaId); if (!area) return;
         setLevel(area.type); showDirection(area.label === "1塁側" ? "first" : area.label === "3塁側" ? "third" : "home", area.type);
+        if (shell.locked) shell.open();
       }} />
     {noticeShown && <div className={stand.mapNotice} data-seat-map-notice="">
       <button type="button" className={stand.noticeClose} aria-label="検索の案内を閉じる" onClick={() => { resetFeedback(); if (scopeNotice) setDismissedScope(scopeKey); }}><X size={16} aria-hidden="true"/></button>
@@ -211,11 +311,29 @@ export default function KyoceraSeatMap({ guide, selectedId, rowLabel, seatNumber
           : <MapIcon size={14} aria-hidden="true" />}アリーナ図<b>{arenaMaps.count}</b>
       </span>
     </button>}
-    <div className={stand.photoOverlay}>
+    {shell.fullscreen && !overviewReturn && box[2] < whole[2] * .8 && <button type="button" key={`mini-${shell.openCount}`} className={`${stand.miniMap} ${styles.miniMap}`} data-mini-map=""
+      aria-label="全体図：押すと会場全体を表示" onClick={() => { setOverviewReturn([...box] as Box); setBox(aboveBoard([...whole] as Box)); }}>
+      <svg viewBox={whole.join(" ")} width="100%" height={70} aria-hidden="true">
+        {blocks.map(b => <path key={b.code} d={b.path} fill={b.code === selected?.code ? "#ef2d62" : "#e5d3dc"} stroke={b.code === selected?.code ? "#ef2d62" : "none"} strokeWidth={whole[2] * .012} />)}
+        <rect ref={miniView} fill="#1673ad1f" stroke="#1673ad" strokeWidth={2} vectorEffect="non-scaling-stroke" />
+      </svg>
+      <span className={stand.miniMapCaption}><Maximize2 size={10} aria-hidden="true" />全体図</span>
+    </button>}
+    {shell.fullscreen && overviewReturn && selected && <button type="button" className={`${stand.backToSeat} ${styles.backToSeat}`} data-back-to-seat=""
+      onClick={() => { setBox(overviewReturn); setOverviewReturn(null); }}><Crosshair size={16} aria-hidden="true" />選んだ席に戻る</button>}
+    {!shell.immersive && <div className={stand.photoOverlay}>
       <SeatPhotoMapSummary selection={seatView} count={photoPlaceCount} onOpen={() => setPhotoRequest(request => request + 1)} />
-    </div>
-    </div>
-    <div className={stand.mapActions}><button type="button" className={stand.whole} onClick={showWhole}>全体図へ</button></div>
+    </div>}
+    {shell.fullscreen && selected && placeTitle && (sheetMatches.length
+      ? sheetOpen ? <SeatPhotoSheet key={`${selected.code}|${currentRow ?? ""}|${currentNumber}`} sheetRef={setBoard} title={placeTitle} matches={sheetMatches}
+          previous={sheetAt >= 0 ? goTo(photoNeighbours[sheetAt - 1]) : null} next={sheetAt >= 0 ? goTo(photoNeighbours[sheetAt + 1]) : null}
+          onFold={() => setSheetOpen(false)} onEnlarge={index => { setSheetPhoto(index); setPhotoRequest(request => request + 1); }} />
+        : <SeatPhotoSheetTab tabRef={setBoard} count={sheetMatches.length} image={seatViewInlinePhotoUrl(sheetMatches[0].post)?.replace("name=large", "name=thumb")}
+            onOpen={() => { setSheetOpen(true); afterRender(() => setBox(blockView(selected))); }} />
+      : sheetOpen && <SeatPhotoEmptySheet key={selected.code} sheetRef={setBoard} title={placeTitle} nearby={goTo(nearbyPhoto)} onFold={() => setSheetOpen(false)} />)}
+    </ImmersiveFrame>
+    {shell.locked ? <ImmersiveOpenButton openRef={shell.openRef} hint={!shell.hintSeen} onOpen={() => { if (selected) frameBlock(selected); else shell.open(); }} />
+      : !shell.immersive && <div className={stand.mapActions}><button type="button" className={stand.whole} onClick={showWhole}>全体図へ</button></div>}
     {selected && currentRow && currentNumber && <SeatSearchOffer venueId="kyocera-dome" localOnly={process.env.NODE_ENV === "development"} key={`${selected.code}:${currentRow}:${currentNumber}`} row={currentRow} number={currentNumber} contextLabel={`${selected.label}・${selected.tier}`} />}
     {selected && <p className={styles.note}>{selected.rowLabelIsPrinted ? "列線は等間隔の目安。矢印は番号が増える向きです。端の番号は列によって変わります。" : "FBは列の印字がない席です。検索では0列を入力してください。矢印は番号が増える向きです。"}</p>}
     {selected && <details className={styles.rowDetails} key={selected.code} data-testid="selected-block-numbers" data-block-code={selected.code}>

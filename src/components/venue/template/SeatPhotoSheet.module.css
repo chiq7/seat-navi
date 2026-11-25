@@ -1,0 +1,62 @@
+/* The photo board that rises from the bottom of the full-screen seat map (about 40% of the screen). */
+.sheet{position:absolute;left:0;right:0;bottom:0;z-index:6;display:flex;flex-direction:column;height:calc(min(44%,440px) - 34px);min-height:266px;
+  padding:0 12px calc(10px + env(safe-area-inset-bottom));border-radius:18px 18px 0 0;background:#fff;
+  box-shadow:0 -10px 28px #4b41482e;animation:rise .24s cubic-bezier(.2,.8,.2,1)}
+@keyframes rise{from{transform:translateY(24px);opacity:.4}}
+@media(prefers-reduced-motion:reduce){.sheet{animation:none}}
+.head{position:relative;display:flex;align-items:center;gap:8px;min-height:50px;padding-top:8px;touch-action:none}
+.grip{position:absolute;top:6px;left:50%;width:40px;height:4px;margin-left:-20px;border-radius:2px;background:#e4d3db}
+.head h3{flex:1;min-width:0;display:flex;align-items:baseline;gap:8px;margin:0;font-size:15px;line-height:1.35;color:#59283e;font-weight:800}
+.place{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.count{flex:none;font-size:13px;font-weight:700;color:#8a6375;font-variant-numeric:tabular-nums}
+.fold{flex:none;display:grid;place-items:center;width:44px;height:44px;margin-right:-8px;padding:0;border:0;border-radius:50%;background:transparent;color:#913152}
+
+.photos{position:relative;flex:1;min-height:0;border-radius:12px;background:#f6eef2;overflow:hidden}
+.strip{position:absolute;inset:0;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;touch-action:pan-x}
+.strip::-webkit-scrollbar{display:none}
+.slide{position:relative;flex:0 0 100%;height:100%;scroll-snap-align:center;scroll-snap-stop:always}
+/* The whole photo, never cropped, centred in the frame (portrait or landscape); the frame's size does not depend on the photo. */
+.photoButton{position:absolute;inset:0;display:block;width:100%;height:100%;padding:0;border:0;background:transparent;cursor:zoom-in}
+.photoButton img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain;object-position:center;user-select:none;-webkit-user-drag:none}
+.enlarge{position:absolute;right:8px;bottom:8px;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#ffffffe6;color:#6d3550;box-shadow:0 1px 5px #0000002b}
+.loading{position:absolute;inset:0;display:grid;place-items:center;font-size:13px;color:#8a6375}
+.photoMissing{display:grid;justify-items:center;gap:6px;padding:12px;font-size:13px;color:#765965;text-align:center}
+.photoMissing button{min-height:40px;padding:0 12px;border:1px solid #e3cbd6;border-radius:10px;background:#fff;color:#913152;font-weight:700}
+.step{position:absolute;top:50%;z-index:1;display:grid;place-items:center;width:36px;height:36px;margin-top:-18px;border:0;border-radius:50%;background:#ffffffe0;color:#6d3550;box-shadow:0 1px 6px #00000029}
+.step:disabled{opacity:0;pointer-events:none}
+.stepBack{left:6px}.stepOn{right:6px}
+@media(hover:none){.step{display:none}}
+
+.meta{display:flex;align-items:center;gap:8px;min-height:34px;padding-top:4px}
+.credit{position:absolute;left:8px;bottom:8px;z-index:1;max-width:calc(100% - 60px);display:flex;gap:2px 8px;margin:0;padding:3px 10px;border-radius:999px;background:#1d1219b8;overflow:hidden;font-size:11px;line-height:1.4;color:#fff;white-space:nowrap;pointer-events:none}
+.credit>span{flex:none}
+.credit>.creditName{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.source{flex:none;display:inline-flex;align-items:center;gap:3px;min-height:30px;padding:0 9px;border:1px solid #e3cbd6;border-radius:999px;background:#fff;color:#7a3b55;font-size:12px;font-weight:700;text-decoration:none}
+
+.neighbors{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding-top:8px}
+.neighbor{display:flex;align-items:center;gap:4px;min-height:50px;padding:0 10px;border:1px solid #e3bfd0;border-radius:12px;background:#fff7fa;color:#913152;text-align:left}
+.neighbor span{min-width:0;flex:1;display:grid;line-height:1.25}
+.neighbor strong{font-size:14px}
+.neighbor small{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px;color:#8a6375}
+.neighborNext{text-align:right}
+.neighbor:disabled{opacity:.38}
+
+/* No photos: a thin board, the map stays wide. */
+.thin{height:auto;min-height:0;gap:8px;padding-top:14px;touch-action:none}
+.emptyLine{display:flex;align-items:center;gap:7px;margin:0;font-size:14px;font-weight:700;color:#59283e}
+.emptyLine>svg{flex:none;color:#a07088}
+.nearby{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:48px;padding:0 12px;border:1px solid #d9a6bd;border-radius:12px;background:#a93164;color:#fff;font-size:14px;text-align:left}
+.nearby strong{margin:0 2px}
+
+.tab{position:absolute;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));z-index:6;transform:translateX(-50%);display:inline-flex;align-items:center;gap:6px;min-height:46px;padding:0 16px;border:2px solid #fff;border-radius:999px;background:#a93164;color:#fff;font-size:14px;font-weight:800;white-space:nowrap;box-shadow:0 4px 14px #4b414840}
+.tab b{padding:0 7px;border-radius:999px;background:#fff;color:#a93164;font-size:12px;line-height:20px}
+.tab img{width:40px;height:30px;margin-left:-8px;border-radius:8px;object-fit:cover;border:1.5px solid #fff}
+.tab{gap:8px;padding:0 14px 0 12px}
+.rowToggle{flex:none;display:inline-flex;align-items:center;gap:4px;min-height:30px;padding:0 10px;border:1px solid #b9d3e8;border-radius:999px;background:#f2f8fd;color:#155786;font-size:12px;font-weight:800}
+.rowList{position:absolute;inset:0;margin:0;padding:4px;list-style:none;overflow-y:auto;overscroll-behavior:contain;background:#fff;display:grid;align-content:start;gap:4px}
+.rowList button{display:flex;align-items:center;gap:10px;width:100%;min-height:40px;padding:0 12px;border:1px solid #e6eef5;border-radius:10px;background:#fff;color:#2d3a46;text-align:left;font-size:13px}
+.rowList button[aria-pressed=true]{border-color:#1673ad;background:#e8f3ff}
+.rowList b{flex:none;min-width:44px;color:#155786;font-variant-numeric:tabular-nums}
+.rowList span{font-variant-numeric:tabular-nums;color:#4d5a66}
+.emptyHead{display:flex;align-items:center;gap:8px;justify-content:space-between}
+.emptyRows{position:relative;height:min(36vh,260px)}

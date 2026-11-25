@@ -24,3 +24,15 @@ export function trackVenueSeatPhotoShareClick(id:string, placement:"photo_unlock
   const venue=venueId(id);
   if(venue)trackEvent("venue_seat_photo_share_click",{venue_id:venue,placement,share_destination:"x"});
 }
+/** A seat block chosen on the map ("map"), by the seat search ("search") or with 前の区画/次の区画 ("step"). */
+export function trackVenueSeatSectionSelect(source:"map"|"search"|"step", hasPhoto:boolean, ui:"card"|"sheet") {
+  const id=venueId();if(id)trackEvent("venue_seat_section_select",{venue_id:id,select_source:source,has_photo:hasPhoto,seat_ui:ui});
+}
+/** A seat photo shown: the old photo card's viewer ("card") or the full-screen map's photo board ("sheet"). */
+export function trackVenueSeatPhotoOpen(ui:"card"|"sheet", count:number) {
+  const id=venueId();if(id)trackEvent("venue_seat_photo_open",{venue_id:id,seat_ui:ui,photo_count:Number.isFinite(count)?Math.max(0,Math.min(999,Math.floor(count))):0});
+}
+/** "この席を送る": which way the seat was sent. */
+export function trackVenueSeatShare(destination:"line"|"x"|"copy"|"native") {
+  const id=venueId();if(id)trackEvent("venue_seat_share",{venue_id:id,share_destination:destination});
+}

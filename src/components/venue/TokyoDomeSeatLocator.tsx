@@ -20,7 +20,8 @@ import { buildTokyoDomeBalconySegments } from "@/lib/tokyoDomeBalconySegments";
 import { findTokyoDomeVerifiedSeats, getTokyoDomeVerifiedRowRange, getTokyoDomeVerifiedSeatBlock, getTokyoDomeVerifiedPrintedRows, isTokyoDomeSectionRowSelectable, getTokyoDomeNumberReference, parseTokyoDomeSection, parseTokyoDomeSeatInput, type TokyoDomeSection } from "@/lib/tokyoDomeSeatLocator";
 import { sectionRowGuides } from "@/lib/tokyoDomeSeatRows";
 import { placeTokyoDomeRowMarker, tokyoDomeNumberClearOfRows, tokyoDomeDuplicateReferenceId, tokyoDomeSeatFocus, layoutTokyoDomeSeatLabels, TOKYO_DOME_OVERVIEW_AREAS, tokyoDomeOverviewView, tokyoDomeTierView } from "@/lib/tokyoDomeSeatLabels";
-import { ArrowUp, Camera, LocateFixed, Map as MapIcon, X } from "lucide-react";
+import { ArrowUp, Camera, Crosshair, LocateFixed, Map as MapIcon, X } from "lucide-react";
+import stand from "./template/StandSeatMap.module.css";
 import styles from "./TokyoDomeSeatLocator.module.css";
 import controls from "./guides/KyoceraSeatMap.module.css";
 import { TOKYO_DOME_SEAT_NUMBER_GUIDES } from "@/data/tokyoDomeSeatNumberGuides";
@@ -30,11 +31,15 @@ import { useSeatMapTouch } from "./template/useSeatMapTouch";
 import { SEAT_PHOTO_MAP_COLOR, SeatPhotoMapSummary, SeatPhotoMarker } from "./template/SeatViewPosts";
 import { seatPhotoOffsets, useSeatPhotoHitTest } from "./template/useSeatPhotoHitTest";
 import { DomeSeatFrame } from "./template/DomeSeatFrame";
-import { seatViewPosts } from "@/lib/seatViewPosts";
+import { seatViewMatchesForSelection, seatViewPosts } from "@/lib/seatViewPosts";
 import { announceTokyoDomeMapScope, getTokyoDomeVenueSeatSelection, TOKYO_DOME_SEAT_SELECTION_EVENT } from "@/lib/tokyoDomeVenueSelection";
 import { useArenaMaps } from "./ArenaMapsSheet";
 import { standPathRings, standRingsBox } from "./template/standMap";
 import { useVenueSeatTarget } from "./VenueSeatTarget";
+import { fitAboveBoard, ImmersiveBar, ImmersiveFrame, ImmersiveOpenButton, useImmersiveMap } from "./template/immersiveMap";
+import { SeatPhotoEmptySheet, SeatPhotoSheet, SeatPhotoSheetTab, type SheetNeighbor } from "./template/SeatPhotoSheet";
+import { SeatShareSheet } from "./template/SeatShareSheet";
+import { seatViewInlinePhotoUrl } from "@/lib/seatViewPhotoAssets";
 
 type SeatArea = { code: string; label: [number, number]; path: string | null; shared: boolean; rows: [number, number] | null };
 const SOURCE_AREAS = geometry.sections as SeatArea[];
@@ -352,10 +357,50 @@ export function TokyoDomeSeatLocator() {
   const [selected, setSelected] = useState<TokyoDomeSection | null>(initial?.section ?? null);
   const [photoRequest, setPhotoRequest] = useState(0);
   const [focusedCode, setFocusedCode] = useState(initial?.section.code ?? "B26");
-  const [selectedRow, setSelectedRow] = useState<number | null>(null);
-  const [selectedSeat, setSelectedSeat] = useState<number | null>(null);
+  const [selectedRow, setSelectedRow] = useState<number | null>(() => initial && target?.row && /^\d+$/.test(target.row) ? Number(target.row) : null);
+  const [selectedSeat, setSelectedSeat] = useState<number | null>(() => initial && target?.number && /^\d+$/.test(target.number) ? Number(target.number) : null);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
+  // ── Phones: still preview in the page; a tap opens the full-screen map with the photo board ──
+  const [sheetOpen, setSheetOpen] = useState(true);
+  const [sheetPhoto, setSheetPhoto] = useState(0);
+  const [shareOpen, setShareOpen] = useState(false);
+  const pendingView = useRef<(() => void) | null>(null);
+  const [viewTick, setViewTick] = useState(0);
+  // Full screen: the camera the mini-map's "全体" left, for "選んだ席に戻る" (the chosen block stays chosen).
+  const [overviewReturn, setOverviewReturn] = useState<MapViewBox | null>(null);
+  const shell = useImmersiveMap({ enabled: true, onOpened: () => {
+    const run = pendingView.current; pendingView.current = null;
+    if (run) run(); else { paintBox(FULL_MAP_VIEW_BOX); commitBox(); }
+  } });
+  const lockedRef = useRef(false); lockedRef.current = shell.locked;
+  const inFullscreen = () => Boolean(shell.frameRef.current?.hasAttribute("data-seat-map-fullscreen"));
+  /** Full screen: a camera step that waits until the board for the new choice is on screen. */
+  function afterRender(step: () => void) { pendingView.current = step; setViewTick(tick => tick + 1); }
+  useLayoutEffect(() => {
+    if (!viewTick || !inFullscreen()) return;
+    const run = pendingView.current; pendingView.current = null; run?.();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [viewTick]);
+  const wasFullscreen = useRef(false);
+  useLayoutEffect(() => {
+    if (wasFullscreen.current && !shell.fullscreen) { paintBox(FULL_MAP_VIEW_BOX); commitBox(); setOverviewReturn(null); }
+    wasFullscreen.current = shell.fullscreen;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [shell.fullscreen]);
+  useEffect(() => { shell.mapRef.current = mapCanvasRef.current; });
+  const sheetRefObject = shell.sheetRef;
+  const setBoard = useCallback((node: HTMLElement | null) => { sheetRefObject.current = node; }, [sheetRefObject]);
+  // A "この席を送る" link opens straight into the full-screen map on that block (phones only).
+  const autoOpened = useRef(false);
+  useEffect(() => {
+    if (autoOpened.current || !target?.open || !initial || !shell.immersive) return;
+    autoOpened.current = true;
+    setSheetOpen(!(target.row && target.number && PHOTO_SECTION_CODES.has(initial.area.code)));
+    pendingView.current = () => showSelectedView(initial.section, initial.area.label);
+    shell.open();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [shell.immersive]);
   const selectedArea = selected ? AREA_BY_CODE.get(selected.code) : undefined;
   const selectedSpecial = selected ? SPECIAL_BY_CODE.get(selected.code) : undefined;
   const selectedLabel = selectedArea?.label ?? selectedSpecial?.label;
@@ -708,7 +753,12 @@ export function TokyoDomeSeatLocator() {
   }
 
   function showSelectedView(section: TokyoDomeSection, label: [number, number]) {
-    animateTo(parseMapViewBox(selectedMapViewBox(section, label, selectedMapWidth(mapCanvasRef.current?.clientWidth ?? 840))));
+    const box = parseMapViewBox(selectedMapViewBox(section, label, selectedMapWidth(mapCanvasRef.current?.clientWidth ?? 840)));
+    const rect = mapCanvasRef.current?.getBoundingClientRect();
+    if (inFullscreen() && rect) {
+      const [x, y, width, height] = fitAboveBoard([box.x, box.y, box.width, box.height], rect.width, rect.height, shell.boardHeight());
+      animateTo({ x, y, width, height });
+    } else animateTo(box);
     resetGestures();
   }
 
@@ -744,7 +794,7 @@ export function TokyoDomeSeatLocator() {
       canvas.removeEventListener("touchcancel", release);
     };
     const start = (event: TouchEvent) => {
-      if (event.touches.length < 2) return;
+      if (event.touches.length < 2 || lockedRef.current) return;
       if (event.cancelable) event.preventDefault();
       canvas.addEventListener("touchmove", holdMove, { passive: false });
       canvas.addEventListener("touchend", release);
@@ -763,7 +813,7 @@ export function TokyoDomeSeatLocator() {
     const svg = mapSvgRef.current;
     if (!svg) return;
     const onWheel = (event: WheelEvent) => {
-      if (!event.ctrlKey && !event.metaKey) return;
+      if ((!event.ctrlKey && !event.metaKey && !inFullscreen()) || lockedRef.current) return;
       event.preventDefault();
       zoomMap(Math.exp(event.deltaY * 0.0015), { x: event.clientX, y: event.clientY });
     };
@@ -796,11 +846,11 @@ export function TokyoDomeSeatLocator() {
     if (event.pointerType === "mouse" && event.button !== 0) return;
     hintFinishedRef.current = true; setTapHint(false);
     const control = (event.target as Element).closest("button");
-    if (!control && (event.pointerType !== "touch" || liveBoxRef.current.width < FULL_MAP_VIEW_BOX.width * .99)) event.preventDefault();
+    if (!control && !lockedRef.current && (event.pointerType !== "touch" || liveBoxRef.current.width < FULL_MAP_VIEW_BOX.width * .99)) event.preventDefault();
     if(animationRef.current!==null)cancelAnimationFrame(animationRef.current);
     wakeMap();
     const target = event.target instanceof Element ? event.target.closest<SVGElement>("[data-seat-code]") : null;
-    if (!control) event.currentTarget.setPointerCapture(event.pointerId);
+    if (!control && !lockedRef.current) event.currentTarget.setPointerCapture(event.pointerId);
     const point = { x: event.clientX, y: event.clientY };
     // On the whole map a 1F block is only ~7px tall, so a finger often lands on the white gap between blocks:
     // that tap goes to the nearest block instead of doing nothing. Zoomed in, blocks are big and gaps stay gaps.
@@ -819,6 +869,11 @@ export function TokyoDomeSeatLocator() {
     const svg = mapSvgRef.current;
     const gesture = gestureRef.current;
     if (!svg || !gesture) return;
+    if (lockedRef.current) {
+      const begun = pointerStartsRef.current.get(event.pointerId);
+      if (pointerPositionsRef.current.size > 1 || (begun && distance(begun.point, { x: event.clientX, y: event.clientY }) > 6)) didPanRef.current = true;
+      return;
+    }
     const rect = gestureRectRef.current ?? svg.getBoundingClientRect();
     const points = [...pointerPositionsRef.current.values()];
 
@@ -867,6 +922,8 @@ export function TokyoDomeSeatLocator() {
     if (shouldSelect && start?.code) {
       const area = AREA_BY_CODE.get(start.code);
       if (area) chooseArea(area);
+    } else if (lockedRef.current && event.type === "pointerup" && !didPanRef.current && start && distance(start.point, { x: event.clientX, y: event.clientY }) <= 6) {
+      shell.open();
     }
   }
 
@@ -888,13 +945,17 @@ export function TokyoDomeSeatLocator() {
   }
   function chooseArea(area:SeatArea,source:"map" | "block" | "ticket" = "map") {
     const section=parseTokyoDomeSection(area.code);if(!section)return;
+    setOverviewReturn(null);
     const nextDirection = directionForArea(area);
     const changesSide = direction !== "all" && direction !== nextDirection;
     // A block tapped on the map is selected at once, even on another side; the side buttons follow it.
     const shouldMove=source!=="map"||!selected||interactiveViewBox.width>360;
     setFocusedCode(area.code);setSeatLevel(levelForPrefix(section.prefix));setSelected(section);setSelectedRow(null);setSelectedSeat(null);setError("");setCandidates([]);
     setNotice(changesSide && source !== "map" ? `${area.code}は${MAP_VIEWS[nextDirection].label}の区画です。${MAP_VIEWS[nextDirection].label}に切り替えました。` : "");
-    if(shouldMove)showSelectedView(section,area.label);else{resetGestures();}
+    setSheetOpen(!(source === "ticket" && PHOTO_SECTION_CODES.has(area.code))); setSheetPhoto(0);
+    if (shell.immersive && !inFullscreen()) { pendingView.current = () => showSelectedView(section, area.label); shell.open(); }
+    else if (inFullscreen()) afterRender(() => showSelectedView(section, area.label));
+    else if(shouldMove)showSelectedView(section,area.label);else{resetGestures();}
     if (source !== "ticket") setDirection(nextDirection);
   }
 
@@ -915,6 +976,14 @@ export function TokyoDomeSeatLocator() {
   const seatView = { diagram: SEAT_PHOTO_DIAGRAM, request: photoRequest, section: selected?.code,
     row: selectedRow?.toString(), seat: selectedSeat?.toString() };
   const photoSection = seatView.section;
+  const sheetMatches = shell.fullscreen && selected ? seatViewMatchesForSelection(seatViewPosts(SEAT_PHOTO_DIAGRAM), seatView) : [];
+  const placeTitle = selected ? `${selectedZone ? `${selectedZone}・` : ""}${selected.code}` : null;
+  const photoNeighbours = selected ? [...PHOTO_SECTION_CODES].filter(code => code[0] === selected.code[0] && AREA_BY_CODE.has(code))
+    .sort((a, b) => a.localeCompare(b, "ja", { numeric: true })) : [];
+  const sheetAt = selected ? photoNeighbours.indexOf(selected.code) : -1;
+  const goTo = (code: string | undefined): SheetNeighbor => { const area = code ? AREA_BY_CODE.get(code) : undefined; return area ? { label: area.code, go: () => chooseArea(area, "block") } : null; };
+  const nearbyPhoto = selected && selectedLabel && !sheetMatches.length ? photoNeighbours.map(code => AREA_BY_CODE.get(code)!)
+    .sort((a, b) => Math.hypot(a.label[0] - selectedLabel[0], a.label[1] - selectedLabel[1]) - Math.hypot(b.label[0] - selectedLabel[0], b.label[1] - selectedLabel[1]))[0]?.code : undefined;
 
   const blockOnly = seatLevel === "balcony" || seatLevel === "outfield";
   const effectiveMode: FinderMode = blockOnly ? "block" : finderMode;
@@ -960,7 +1029,7 @@ export function TokyoDomeSeatLocator() {
     <div className="zr-container">
       <h2 id="tokyo-dome-map-title" className="sr-only">東京ドームの座席を探す</h2>
       <DomeSeatFrame className={`${controls.seatFrame} ${styles.seatFrame}`} levels={SEAT_LEVELS} level={seatLevel} compactMobileControls photoLegend="map"
-        seatView={seatView}
+        seatView={seatView} seatViewIndex={sheetPhoto}
         share={photoSection ? { venueId: "tokyo-dome", venueName: "東京ドーム", target: { mode: "fixed", section: photoSection } } : undefined}
         onLevel={id=>chooseLevel(id as SeatLevel)} directions={(["all","first","home","third","right","left"] as const).map(id=>({id,label:MAP_VIEWS[id].label}))}
         directionHint="ホーム側はバックネット裏・本塁側です。" direction={direction} onDirection={id=>chooseDirection(id as keyof typeof MAP_VIEWS)} onZoom={zoomMap} onWhole={showWhole} shortcuts={[]}
@@ -988,10 +1057,14 @@ export function TokyoDomeSeatLocator() {
             <button type="button" onClick={clearSelection} aria-label="座席の選択を解除"><X size={18}/></button>
           </div>
         </> : <div className={styles.overviewHeading}><strong>{seatLevel === "all" && direction === "all" ? "東京ドームの全体図" : `${SEAT_LEVELS.find(level => level.id === seatLevel)!.label}・${MAP_VIEWS[direction].label}`}</strong><span>区画をタップで拡大</span></div>}</div>
-        <div className={styles.mapFrame} data-tokyo-map-frame>
+        <ImmersiveFrame frameRef={shell.frameRef} slotHeight={shell.slotHeight} fullscreen={shell.fullscreen} className={styles.mapFrame} label="東京ドームの座席表" data-tokyo-map-frame="">
+        {shell.fullscreen && <ImmersiveBar closeRef={shell.closeRef} onClose={shell.requestClose} venueName="東京ドーム" title={selected ? `${placeTitle}${selectedSide ? `（${selectedSide}）` : ""}` : null} onShare={selected ? () => setShareOpen(true) : undefined} />}
+        {shareOpen && selected && placeTitle && <SeatShareSheet venueName="東京ドーム" blockName={placeTitle} onClose={() => setShareOpen(false)}
+          share={{ venue: "tokyo-dome", section: selected.code, ...(selectedRow !== null ? { row: String(selectedRow) } : {}), ...(selectedSeat !== null ? { number: String(selectedSeat) } : {}) }} />}
         {notice&&<p role="status" className={styles.mapNotice}>{notice}</p>}
         <div ref={mapCanvasRef} className={styles.map} data-view={showDetail ? "detail" : "overview"} data-whole={!selected && direction === "all" && seatLevel === "all" ? "" : undefined} aria-label="東京ドームの座席図"
-          style={{ touchAction: interactiveViewBox.width >= FULL_MAP_VIEW_BOX.width * .99 ? "pan-y" : "none" }}
+          style={{ touchAction: shell.locked ? "pan-y pinch-zoom" : shell.fullscreen ? "none" : interactiveViewBox.width >= FULL_MAP_VIEW_BOX.width * .99 ? "pan-y" : "none",
+            height: shell.locked ? Math.min(460, Math.round(canvasSize.width * FULL_MAP_VIEW_BOX.height / FULL_MAP_VIEW_BOX.width) + 40) : undefined }}
           onPointerDown={handleMapPointerDown} onPointerMove={handleMapPointerMove} onPointerUp={handleMapPointerEnd} onPointerCancel={handleMapPointerEnd} onLostPointerCapture={handleMapPointerEnd}
           onFocusCapture={wakeMap} onBlurCapture={scheduleSnapshot} onPointerEnter={event => { if (event.pointerType === "mouse") wakeMap(); }}
           onPointerLeave={event => {
@@ -1171,7 +1244,13 @@ export function TokyoDomeSeatLocator() {
             style={{ left: fieldPointer.left, top: fieldPointer.top }} aria-hidden="true">
             <ArrowUp size={14} style={{ transform: `rotate(${fieldPointer.angle}deg)` }} />アリーナ
           </span>}
-          {showDetail && <button type="button" className={styles.miniMap} onPointerDown={event => { event.stopPropagation(); suppressMapClick.current = false; }} onClick={showWhole} aria-label="全体図に戻る" data-mini-map="" data-map-control="">
+          {showDetail && <button type="button" className={styles.miniMap} onPointerDown={event => { event.stopPropagation(); suppressMapClick.current = false; }} onClick={() => {
+            if (!shell.fullscreen || !selected) { showWhole(); return; }
+            const rect = mapCanvasRef.current?.getBoundingClientRect();
+            setOverviewReturn({ ...liveBoxRef.current });
+            const all = FULL_MAP_VIEW_BOX, [x, y, width, height] = rect ? fitAboveBoard([all.x, all.y, all.width, all.height], rect.width, rect.height, shell.boardHeight()) : [all.x, all.y, all.width, all.height];
+            animateTo({ x, y, width, height });
+          }} aria-label="全体図に戻る" data-mini-map="" data-map-control="">
             <svg viewBox={MAP_VIEWS.all.box} aria-hidden="true">
               <path d={OVERVIEW_SURFACES.bowl} fill="#efe6ea" stroke="#d9c6cf" strokeWidth="8" />
               <path d={OVERVIEW_SURFACES.floor} fill="#bfdccc" />
@@ -1180,17 +1259,30 @@ export function TokyoDomeSeatLocator() {
             </svg>
             <span>全体</span>
           </button>}
+          {shell.fullscreen && overviewReturn && selected && <button type="button" className={`${stand.backToSeat} ${styles.backToSeat}`} data-back-to-seat="" data-map-control=""
+            onPointerDown={event => { event.stopPropagation(); suppressMapClick.current = false; }}
+            onClick={() => { animateTo(overviewReturn); setOverviewReturn(null); }}><Crosshair size={16} aria-hidden="true" />選んだ席に戻る</button>}
         </div>
           {/* The photo card sits on the map, where people are looking, instead of in a row above it that is off screen
               while the map fills the screen. It overlays the map, so nothing around the map moves. */}
-          <div className={styles.photoOverlay}>
+          {!shell.immersive && <div className={styles.photoOverlay}>
             <SeatPhotoMapSummary selection={seatView} count={PHOTO_SECTION_CODES.size} onOpen={() => setPhotoRequest(request => request + 1)} />
-          </div>
+          </div>}
+          {shell.fullscreen && selected && placeTitle && (sheetMatches.length
+            ? sheetOpen ? <SeatPhotoSheet key={`${selected.code}|${selectedRow ?? ""}|${selectedSeat ?? ""}`} sheetRef={setBoard} title={placeTitle} matches={sheetMatches}
+                previous={goTo(photoNeighbours[sheetAt - 1])} next={sheetAt >= 0 ? goTo(photoNeighbours[sheetAt + 1]) : null}
+                onFold={() => setSheetOpen(false)} onEnlarge={index => { setSheetPhoto(index); setPhotoRequest(request => request + 1); }} />
+              : <SeatPhotoSheetTab tabRef={setBoard} count={sheetMatches.length} image={seatViewInlinePhotoUrl(sheetMatches[0].post)?.replace("name=large", "name=thumb")}
+                  onOpen={() => { setSheetOpen(true); if (selectedLabel) afterRender(() => showSelectedView(selected, selectedLabel)); }} />
+            : sheetOpen && <SeatPhotoEmptySheet key={selected.code} sheetRef={setBoard} title={placeTitle} nearby={goTo(nearbyPhoto)} onFold={() => setSheetOpen(false)} />)}
           {/* Always present (every zone on the whole map) so the frame keeps one height at every zoom. */}
           <ul className={styles.zoneKey} aria-label="色の見方" data-zone-key="">
             {(showDetail && visibleZones.length > 0 ? visibleZones : ZONE_KEY).map(zone => <li key={zone.key}><i style={{ background: ZONE_COLORS[zone.key] }} />{zone.label}</li>)}
           </ul>
-        </div>
+        </ImmersiveFrame>
+        {shell.locked && <ImmersiveOpenButton openRef={shell.openRef} hint={!shell.hintSeen} onOpen={() => {
+          if (selected && selectedLabel) pendingView.current = () => showSelectedView(selected, selectedLabel);
+          shell.open(); }} />}
         {/* Keep conditional notes below the canvas and whole-view control so selection cannot move either. */}
         {selectedSpecial&&<p className={styles.hint}>図の記号の位置です。個別の席・列は表示していません。</p>}
         {selectedRowNote&&<p className={styles.hint}>{selectedRowNote}</p>}

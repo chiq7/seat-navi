@@ -193,3 +193,8 @@
 .mapFrame { position:relative; }
 .mapNotice { position:absolute; left:8px; right:96px; top:8px; z-index:4; margin:0; padding:7px 10px; border:1px solid #e3cbd6; border-radius:10px; background:#fffffff2; color:#4b4148; font-size:12px; font-weight:700; line-height:1.5; pointer-events:none; }
 
+
+/* Phones: the full-screen map (immersiveMap): the map fills the screen under the top bar; the colour key gives way. */
+.mapFrame[data-seat-map-fullscreen] .map { position:absolute; top:calc(56px + env(safe-area-inset-top)); left:0; right:0; bottom:0; height:auto; }
+.mapFrame[data-seat-map-fullscreen] .zoneKey { display:none; }
+.backToSeat[data-back-to-seat] { top:12px; }

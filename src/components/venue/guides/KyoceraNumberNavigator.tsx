@@ -19,7 +19,9 @@ type Props = { guide: DedicatedVenueGuide; blocks: DrawingBlock[]; level: string
   box: Box; onView: (box: Box) => void; onBlock: (block: DrawingBlock) => void; onArea: (areaId: string) => void;
   onDirection: (direction: string) => void;
   /** The block whose photo card is shown on the map: its own camera mark gives way to the card. */
-  cardedCode?: string };
+  cardedCode?: string;
+  /** Phones: the still preview in the page. The page scrolls through it and a tap opens the full-screen map. */
+  locked?: boolean; onLockedTap?: () => void };
 type Contact = { x: number; y: number; startX: number; startY: number; code: string | null };
 const photoPosts = new Map(seatViewPosts("kyocera-dome-fixed").filter(post => post.place.kind === "section").map(post => [post.place.id, post]));
 const photoTarget = 28;
@@ -51,10 +53,12 @@ function nearestBlockCode(x: number, y: number): string | null {
   return null;
 }
 
-export default function KyoceraNumberNavigator({ guide, blocks, level, selectedCode, rowLabel, box, onView, onBlock, onArea, onDirection, cardedCode }: Props) {
+export default function KyoceraNumberNavigator({ guide, blocks, level, selectedCode, rowLabel, box, onView, onBlock, onArea, onDirection, cardedCode, locked = false, onLockedTap }: Props) {
   const frame = useRef<HTMLDivElement>(null);
   const photoHitTest = useSeatPhotoHitTest();
-  const suppressMapClick = useSeatMapTouch(frame);
+  const lockedRef = useRef(locked);
+  useLayoutEffect(() => { lockedRef.current = locked; }, [locked]);
+  const suppressMapClick = useSeatMapTouch(frame, lockedRef);
   const svg = useRef<SVGSVGElement>(null);
   const inner = useRef<SVGSVGElement>(null), overlay = useRef<SVGGElement>(null);
   const [focusedCode, setFocusedCode] = useState(blocks[0]?.code);
@@ -157,7 +161,7 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
   function start(event: ReactPointerEvent<HTMLDivElement>) {
     if (event.pointerType === "mouse" && event.button !== 0) return;
     const control = (event.target as Element).closest("button");
-    if (!control && (event.pointerType !== "touch" || camera.current[2] < 1584)) event.preventDefault();
+    if (!control && !lockedRef.current && (event.pointerType !== "touch" || camera.current[2] < 1584)) event.preventDefault();
     cancelGlide(); // Freeze an in-progress glide at the touched position; it is committed when the touch ends.
     const rect = event.currentTarget.getBoundingClientRect();
     const target = (event.target as Element).closest("[data-seat-block], [data-block-start], [data-seat-photo-marker]");
@@ -167,7 +171,7 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
       ?? target?.getAttribute("data-seat-block") ?? target?.getAttribute("data-block-start")
       ?? (!control && camera.current[2] > NEAR_MISS_WIDTH ? nearestBlockCode(event.clientX, event.clientY) : null);
     contacts.current.set(event.pointerId, { x: event.clientX - rect.left, y: event.clientY - rect.top, startX: event.clientX - rect.left, startY: event.clientY - rect.top, code });
-    if (!control) event.currentTarget.setPointerCapture(event.pointerId);
+    if (!control && !lockedRef.current) event.currentTarget.setPointerCapture(event.pointerId);
     suppressMapClick.current = contacts.current.size > 1;
     const c = centre(); gesture.current = { box: camera.current, ...c }; moved.current = contacts.current.size !== 1;
   }
@@ -177,7 +181,7 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
     contacts.current.set(event.pointerId, { ...previous, x: event.clientX - rect.left, y: event.clientY - rect.top });
     const c = centre(), initial = gesture.current;
     if (Math.hypot(event.clientX - rect.left - previous.startX, event.clientY - rect.top - previous.startY) > SEAT_DRAG_THRESHOLD || contacts.current.size > 1) moved.current = true;
-    if (!moved.current || (event.pointerType === "touch" && contacts.current.size === 1 && initial.box[2] >= 1584)) return;
+    if (!moved.current || lockedRef.current || (event.pointerType === "touch" && contacts.current.size === 1 && initial.box[2] >= 1584)) return;
     suppressMapClick.current = true;
     const ratio = contacts.current.size > 1 && initial.distance ? initial.distance / Math.max(c.distance, 1) : 1;
     const width = Math.max(60, Math.min(1600, initial.box[2] * ratio)), height = width * initial.box[3] / initial.box[2];
@@ -207,12 +211,14 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
     if (contacts.current.size) { gesture.current = { box: camera.current, ...centre() }; moved.current = true; return; }
     gesture.current = null;
     commit(true);
-    if (tap && contact.code) { const block = blocks.find(b => b.code === contact.code); if (block) { setFocusedCode(block.code); onBlock(block); } }
+    const block = tap && contact.code ? blocks.find(b => b.code === contact.code) : undefined;
+    if (block) { setFocusedCode(block.code); onBlock(block); }
+    else if (tap && lockedRef.current) onLockedTap?.();
   }
   useEffect(() => {
     const el = svg.current!;
     const wheel = (event: WheelEvent) => {
-      if (!event.ctrlKey && !event.metaKey) return;
+      if ((!event.ctrlKey && !event.metaKey) || lockedRef.current) return;
       // Wheel zoom follows the hand and commits once it pauses (not on every wheel event).
       event.preventDefault(); setTapHint("done"); cancelGlide();
       const current = camera.current, rect = el.getBoundingClientRect(), { width: w, height: h } = sizeRef.current;
@@ -439,7 +445,7 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
   }
   return <>
     <div ref={frame} className={styles.canvas} data-testid="kyocera-seat-map" data-selected={selectedCode ?? ""} data-camera={view.join(" ")} data-map-mode="unified" data-number-badge-version="connected-v2" data-map-stage={overview ? "overview" : detail ? "detail" : "blocks"}
-    style={{ touchAction: view[2] >= 1584 ? "pan-y" : "none" }}
+    style={{ touchAction: locked ? "pan-y pinch-zoom" : view[2] >= 1584 ? "pan-y" : "none" }} data-map-preview={locked ? "" : undefined}
     onPointerDownCapture={() => setTapHint("done")} onKeyDownCapture={() => setTapHint("done")}
     onPointerDown={start} onPointerMove={move} onPointerUp={end} onPointerCancel={cancel}
     onLostPointerCapture={event => { if (contacts.current.has(event.pointerId)) cancel(); }}

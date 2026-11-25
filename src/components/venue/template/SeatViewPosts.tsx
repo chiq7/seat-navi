@@ -142,14 +142,16 @@ function SeatPhotoShareActions({ share }: { share: SeatPhotoShare }) {
   </div>;
 }
 
-export function SeatViewDialog({ matches, panelId, onClose, compact = false, share }: {
+export function SeatViewDialog({ matches, panelId, onClose, compact = false, share, initialIndex = 0 }: {
   matches: SeatViewMatch[];
+  /** The photo to open on (the one shown on the seat map's photo board). */
+  initialIndex?: number;
   panelId: string;
   onClose: () => void;
   compact?: boolean;
   share?: SeatPhotoShare;
 }) {
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(() => Math.max(0, Math.min(matches.length - 1, initialIndex)));
   const dialog = useRef<HTMLDialogElement>(null);
   const panel = useRef<HTMLDivElement>(null);
   const backdropPress = useRef(false);

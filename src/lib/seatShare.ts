@@ -6,8 +6,9 @@ import ogImages from "@/data/ogImages.json";
 export const SITE_ORIGIN = "https://tixrepo.com";
 /** Changes whenever the pictures are redrawn, so LINE / X fetch them again instead of a cached copy. */
 export const SHARE_IMAGE_VERSION = ogImages.version;
-/** Venues whose seat map can send a single block (the full-screen map is on for these). */
-export const SEAT_SHARE_VENUES = ["k-arena"] as const;
+/** Venues whose seat map can send a single block, each with the seat map (diagram) the link opens on. */
+export const SEAT_SHARE_DIAGRAMS: Readonly<Record<string, string>> = ogImages.shareDiagrams;
+export const SEAT_SHARE_VENUES = Object.keys(SEAT_SHARE_DIAGRAMS);
 
 const VENUE_IMAGES = new Set<string>(ogImages.venues);
 const SEAT_IMAGES: Readonly<Record<string, readonly string[]>> = ogImages.seats;
@@ -26,7 +27,8 @@ export function cleanSeatPart(value: unknown): string | undefined {
   return /^[0-9A-Za-z]{1,6}$/.test(text) ? text : undefined;
 }
 
-export type SeatShare = { venue: string; section: string; row?: string; number?: string };
+/** mode: which of the venue's seat maps (only the share page fills it in; the default is "fixed"). */
+export type SeatShare = { venue: string; section: string; row?: string; number?: string; mode?: string };
 
 export function seatSharePath({ venue, section, row, number }: SeatShare): string {
   const query = new URLSearchParams();
@@ -37,8 +39,8 @@ export function seatSharePath({ venue, section, row, number }: SeatShare): strin
 }
 
 /** Where the share link lands: the venue page, opened full screen on that block. */
-export function seatShareTarget({ venue, section, row, number }: SeatShare): string {
-  const query = new URLSearchParams({ seatMode: "fixed", seatSection: section, seatOpen: "1" });
+export function seatShareTarget({ venue, section, row, number, mode = "fixed" }: SeatShare): string {
+  const query = new URLSearchParams({ seatMode: mode, seatSection: section, seatOpen: "1" });
   if (row) query.set("seatRow", row);
   if (number) query.set("seatNumber", number);
   return `/venues/${encodeURIComponent(venue)}?${query}#venue-seat-guide`;
