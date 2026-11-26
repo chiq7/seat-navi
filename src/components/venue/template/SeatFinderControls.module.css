@@ -13,3 +13,13 @@
 .miss [role="alert"] { color: #a01d39; font-weight: 700; }
 .miss [role="group"] { flex-wrap: wrap; }
 .miss span { flex-basis: 100%; font-size: 12px; color: #5c4752; }
+/* The ticket in one line: place, row, number, search. */
+.ticket { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, .85fr) minmax(0, 1fr) auto; align-items: end; gap: 6px; min-width: 0; }
+.ticket[data-layout="wide"] { grid-template-columns: minmax(0, .85fr) minmax(0, 1fr) auto; }
+.ticket[data-layout="wide"] label[data-field="place"] { grid-column: 1 / -1; }
+.ticket[data-layout="place"] { grid-template-columns: minmax(0, 1fr) auto; }
+.ticket label { display: grid; gap: 3px; min-width: 0; font-size: 12px; font-weight: 700; color: #5c4752; white-space: nowrap; }
+.ticket input { width: 100%; min-width: 0; min-height: 44px; padding: 6px 8px; border: 1px solid #dec5d1; border-radius: 8px; background: white; font-size: 16px; color: #372632; }
+.ticket input::placeholder { font-size: 14px; color: #a8929d; }
+.ticket button { display: inline-flex; align-items: center; justify-content: center; gap: 5px; min-height: 44px; padding: 0 14px; border: 1px solid #9e2c5a; border-radius: 8px; background: #9e2c5a; color: white; font-size: 15px; font-weight: 700; white-space: nowrap; }
+@media (max-width: 374px) { .ticket { gap: 4px; } .ticket input { padding-inline: 6px; } .ticket input::placeholder { font-size: 13px; } .ticket button { padding: 0 10px; } }

@@ -3,11 +3,11 @@
 // a still preview in the page, opening into a full-screen map with a top bar and the photo board.
 // The map element itself is lifted out of the page (position: fixed) so its state stays as it is.
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore, type ReactNode, type RefObject } from "react";
-import { Camera, Send, X } from "lucide-react";
+import { Send, X } from "lucide-react";
 import styles from "./StandSeatMap.module.css";
+import { trackSeatMapFullscreen } from "@/lib/uiAnalytics";
 
 const QUERY = "(max-width: 767px)";
-const HINT_KEY = "tixrepo:seat-map-photo-hint";
 function subscribe(callback: () => void) {
   const query = window.matchMedia(QUERY);
   query.addEventListener("change", callback);
@@ -27,10 +27,9 @@ export function useImmersiveMap({ enabled, onOpened }: { enabled: boolean; onOpe
   const immersive = enabled && narrow;
   const [fullscreen, setFullscreen] = useState(false);
   const [slotHeight, setSlotHeight] = useState<number>();
-  const [hintSeen, setHintSeen] = useState(true);
   const [openCount, setOpenCount] = useState(0);
   const fullscreenRef = useRef(false), pushed = useRef(false), pageScroll = useRef(0);
-  const frameRef = useRef<HTMLDivElement>(null), closeRef = useRef<HTMLButtonElement>(null), openRef = useRef<HTMLButtonElement>(null);
+  const frameRef = useRef<HTMLDivElement>(null), closeRef = useRef<HTMLButtonElement>(null);
   const sheetRef = useRef<HTMLElement | null>(null), mapRef = useRef<HTMLElement | null>(null);
   const opened = useRef(onOpened); opened.current = onOpened;
   const locked = immersive && !fullscreen;
@@ -40,16 +39,20 @@ export function useImmersiveMap({ enabled, onOpened }: { enabled: boolean; onOpe
     pageScroll.current = window.scrollY;
     setSlotHeight(frameRef.current?.parentElement?.getBoundingClientRect().height);
     fullscreenRef.current = true; setFullscreen(true); setOpenCount(count => count + 1);
-    setHintSeen(true); try { localStorage.setItem(HINT_KEY, "1"); } catch { /* private mode */ }
+    openedAt.current = Date.now(); trackSeatMapFullscreen("open");
     try { window.history.pushState({ tixrepoSeatMap: "open" }, ""); pushed.current = true; } catch { pushed.current = false; }
   }, []);
-  const close = useCallback(() => { if (!fullscreenRef.current) return; fullscreenRef.current = false; setFullscreen(false); }, []);
+  const openedAt = useRef(0);
+  const close = useCallback(() => {
+    if (!fullscreenRef.current) return;
+    fullscreenRef.current = false; setFullscreen(false);
+    trackSeatMapFullscreen("close", (Date.now() - openedAt.current) / 1000);
+  }, []);
   const requestClose = useCallback(() => {
     if (!fullscreenRef.current) return;
     if (pushed.current) { pushed.current = false; window.history.back(); return; }
     close();
   }, [close]);
-  useEffect(() => { try { setHintSeen(localStorage.getItem(HINT_KEY) === "1"); } catch { setHintSeen(false); } }, []);
   useEffect(() => { if (!immersive && fullscreenRef.current) requestClose(); }, [immersive, requestClose]);
   useEffect(() => {
     if (!fullscreen) return;
@@ -75,7 +78,6 @@ export function useImmersiveMap({ enabled, onOpened }: { enabled: boolean; onOpe
     let frames = 0, id = 0;
     const hold = () => { if (Math.abs(window.scrollY - y) > 2) window.scrollTo(0, y); if (++frames < 6) id = requestAnimationFrame(hold); };
     id = requestAnimationFrame(hold);
-    openRef.current?.focus({ preventScroll: true });
     return () => cancelAnimationFrame(id);
   }, [fullscreen]);
 
@@ -85,16 +87,18 @@ export function useImmersiveMap({ enabled, onOpened }: { enabled: boolean; onOpe
     return sheet && map ? Math.max(0, Math.min(map.height * .7, map.bottom - sheet.top)) : 0;
   }, []);
 
-  return { immersive, fullscreen, locked, open, requestClose, slotHeight, hintSeen, openCount, frameRef, closeRef, openRef, sheetRef, mapRef, boardHeight };
+  return { immersive, fullscreen, locked, open, requestClose, slotHeight, openCount, frameRef, closeRef, sheetRef, mapRef, boardHeight };
 }
 
 export type ImmersiveMap = ReturnType<typeof useImmersiveMap>;
 
 /** The slot keeping the page's height and the frame that becomes the full-screen map. */
-export function ImmersiveFrame({ frameRef, slotHeight, fullscreen, className, children, label, ...rest }: {
+export function ImmersiveFrame({ frameRef, slotHeight, fullscreen, className, children, label, anchor, ...rest }: {
   frameRef: RefObject<HTMLDivElement | null>; slotHeight?: number; fullscreen: boolean; className: string; children: ReactNode; label: string;
+  /** The still map carries the page's "#venue-seat-photos" anchor: a tap on it opens the map with its photos. */
+  anchor?: boolean;
 } & Record<`data-${string}`, string | undefined>) {
-  return <div className={styles.mapSlot} style={slotHeight ? { height: slotHeight } : undefined}>
+  return <div className={styles.mapSlot} id={anchor ? "venue-seat-photos" : undefined} style={slotHeight ? { height: slotHeight } : undefined}>
     <div ref={frameRef} className={`${className} ${fullscreen ? styles.immersive : ""}`} {...rest}
       data-seat-map-fullscreen={fullscreen ? "" : undefined} role={fullscreen ? "dialog" : undefined} aria-modal={fullscreen || undefined}
       aria-label={fullscreen ? label : undefined}>
@@ -114,10 +118,3 @@ export function ImmersiveBar({ closeRef, onClose, venueName, title, onShare }: {
   </div>;
 }
 
-/** Below the still preview: the button that opens the full-screen map (and a first-time hint). */
-export function ImmersiveOpenButton({ openRef, hint, onOpen }: { openRef: RefObject<HTMLButtonElement | null>; hint: boolean; onOpen: () => void }) {
-  return <div className={styles.previewOpen} id="venue-seat-photos">
-    {hint && <p className={styles.previewHint}><Camera size={14} aria-hidden="true" />カメラ印の区画をタップすると、席からの見え方が見られます</p>}
-    <button ref={openRef} type="button" onClick={onOpen}><Camera size={18} aria-hidden="true" /><span>座席表を開いて写真を見る</span></button>
-  </div>;
-}

@@ -6,6 +6,7 @@ import { seatViewInlinePhotoUrl, seatViewXStatusId } from "@/lib/seatViewPhotoAs
 import { seatPhotoCredit, SEAT_VERIFIED_LABEL } from "@/lib/seatPhotoCaption";
 import type { SeatViewMatch } from "./SeatViewPosts";
 import styles from "./SeatPhotoSheet.module.css";
+import { trackUi } from "@/lib/uiAnalytics";
 
 /** A neighbouring block with photos on the same level, reached with the 前の区画 / 次の区画 buttons. */
 export type SheetNeighbor = { label: string; go: () => void } | null;
@@ -82,6 +83,7 @@ export function SeatPhotoSheet({ title, matches, previous, next, onFold, onEnlar
   const several = matches.length > 1;
 
   function settle(current: number) {
+    if (current !== index) trackUi("photo_swipe");
     setIndex(current);
     setSeen(seenBefore => seenBefore.has(current - 1) && seenBefore.has(current + 1) ? seenBefore : new Set([...seenBefore, current - 1, current, current + 1]));
   }

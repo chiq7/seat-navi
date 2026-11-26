@@ -20,7 +20,7 @@ import { findKyoceraSeats, normalizeKyoceraTicket, type KyoceraSeatCandidate } f
 import SeatSearchOffer from "@/components/seat-campaign/SeatSearchOffer";
 import { useVenueSeatTarget } from "../VenueSeatTarget";
 import { seatViewMatchesForSelection, seatViewPosts } from "@/lib/seatViewPosts";
-import { fitAboveBoard, ImmersiveBar, ImmersiveFrame, ImmersiveOpenButton, useImmersiveMap } from "../template/immersiveMap";
+import { fitAboveBoard, ImmersiveBar, ImmersiveFrame, useImmersiveMap } from "../template/immersiveMap";
 import { SeatPhotoEmptySheet, SeatPhotoSheet, SeatPhotoSheetTab, type SheetNeighbor } from "../template/SeatPhotoSheet";
 import { SeatShareSheet } from "../template/SeatShareSheet";
 import { seatViewInlinePhotoUrl } from "@/lib/seatViewPhotoAssets";
@@ -272,12 +272,12 @@ export default function KyoceraSeatMap({ guide, selectedId, rowLabel, seatNumber
     </> : <span>{direction === "all" ? "座席の全体図" : `${directions.find(item => item.id === direction)?.label ?? "座席"}の範囲`}</span>}</div>
     {/* Everything that reacts to a search or a selection sits on the map, so nothing above it grows or
         shrinks and the map never moves (Tokyo Dome's mapNotice / photoOverlay, as StandSeatMap). */}
-    <ImmersiveFrame frameRef={shell.frameRef} slotHeight={shell.slotHeight} fullscreen={shell.fullscreen} className={stand.mapFrame} label={`${guide.name}の座席表`} data-arena={arenaMaps ? "" : undefined}>
+    <ImmersiveFrame frameRef={shell.frameRef} slotHeight={shell.slotHeight} fullscreen={shell.fullscreen} className={stand.mapFrame} label={`${guide.name}の座席表`} anchor={shell.locked} data-arena={arenaMaps ? "" : undefined}>
     {shell.fullscreen && <ImmersiveBar closeRef={shell.closeRef} onClose={shell.requestClose} venueName={guide.name} title={placeTitle} onShare={selected ? () => setShareOpen(true) : undefined} />}
     {shareOpen && selected && placeTitle && <SeatShareSheet venueName={guide.name} blockName={kyoceraBlockName(selected, blocks)} onClose={() => setShareOpen(false)}
       share={{ venue: "kyocera-dome", section: selected.code, ...(currentRow && currentNumber ? { row: currentRow, number: currentNumber } : {}) }} />}
     <KyoceraNumberNavigator guide={guide} blocks={blocks} level={level} selectedCode={selected?.code} rowLabel={currentRow} cardedCode={cardShown && !shell.immersive ? selected?.code : undefined}
-      box={box} onView={setBox} onBlock={chooseBlock} locked={shell.locked} onLockedTap={shell.open}
+      box={box} onView={setBox} onBlock={chooseBlock} locked={shell.locked} onLockedTap={() => { if (selected) frameBlock(selected); else shell.open(); }}
       onDirection={id => { showDirection(id); if (shell.locked) shell.open(); }} onArea={areaId => {
         const area = guide.seats.find(a => a.id === areaId); if (!area) return;
         setLevel(area.type); showDirection(area.label === "1塁側" ? "first" : area.label === "3塁側" ? "third" : "home", area.type);
@@ -332,8 +332,7 @@ export default function KyoceraSeatMap({ guide, selectedId, rowLabel, seatNumber
             onOpen={() => { setSheetOpen(true); afterRender(() => setBox(blockView(selected))); }} />
       : sheetOpen && <SeatPhotoEmptySheet key={selected.code} sheetRef={setBoard} title={placeTitle} nearby={goTo(nearbyPhoto)} onFold={() => setSheetOpen(false)} />)}
     </ImmersiveFrame>
-    {shell.locked ? <ImmersiveOpenButton openRef={shell.openRef} hint={!shell.hintSeen} onOpen={() => { if (selected) frameBlock(selected); else shell.open(); }} />
-      : !shell.immersive && <div className={stand.mapActions}><button type="button" className={stand.whole} onClick={showWhole}>全体図へ</button></div>}
+    {!shell.immersive && <div className={stand.mapActions}><button type="button" className={stand.whole} onClick={showWhole}>全体図へ</button></div>}
     {selected && currentRow && currentNumber && <SeatSearchOffer venueId="kyocera-dome" localOnly={process.env.NODE_ENV === "development"} key={`${selected.code}:${currentRow}:${currentNumber}`} row={currentRow} number={currentNumber} contextLabel={`${selected.label}・${selected.tier}`} />}
     {selected && <p className={styles.note}>{selected.rowLabelIsPrinted ? "列線は等間隔の目安。矢印は番号が増える向きです。端の番号は列によって変わります。" : "FBは列の印字がない席です。検索では0列を入力してください。矢印は番号が増える向きです。"}</p>}
     {selected && <details className={styles.rowDetails} key={selected.code} data-testid="selected-block-numbers" data-block-code={selected.code}>

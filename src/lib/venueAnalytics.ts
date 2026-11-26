@@ -7,9 +7,10 @@ function venueId(explicit?: string): string | null {
   const id = explicit ?? (typeof window === "undefined" ? undefined : window.location.pathname.match(/^\/(?:venues|dev\/venue-guides)\/([a-z0-9-]+)\/?$/)?.[1]);
   return id && /^[a-z0-9-]{1,64}$/.test(id) ? id : null;
 }
-export function trackVenueSeatSearch(result: SeatSearchResult, count = 0) {
+/** `fields`: which boxes of the one-line ticket form were filled ("place", "seat", "place_seat", "none"). */
+export function trackVenueSeatSearch(result: SeatSearchResult, count = 0, fields?: string) {
   const id=venueId();if(!id)return;
-  trackEvent("venue_seat_search",{venue_id:id,result_type:result,result_count:Number.isFinite(count)?Math.max(0,Math.min(999,Math.floor(count))):0});
+  trackEvent("venue_seat_search",{venue_id:id,result_type:result,result_count:Number.isFinite(count)?Math.max(0,Math.min(999,Math.floor(count))):0,...(fields?{search_fields:fields}:{})});
 }
 export function trackVenueFacilityOpen(purpose:string,scope:string,id?:string) {
   const venue=venueId(id);if(!venue)return;

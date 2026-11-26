@@ -17,12 +17,14 @@ import { seatPhotoOffsets, useSeatPhotoHitTest } from "./useSeatPhotoHitTest";
 import { seatViewMatchesForSelection, seatViewPosts, type SeatViewPlace } from "@/lib/seatViewPosts";
 import { announceTokyoDomeMapScope, type TokyoDomeMapScope } from "@/lib/tokyoDomeVenueSelection";
 import { useArenaMaps } from "@/components/venue/ArenaMapsSheet";
-import { seatNumberBadge, seatNumberBadgeBounds, seatNumberArrowInk, seatNumberBadgeTipDistance } from "@/lib/seatNumberBadge";
-import { SeatFinderControls, SeatFinderMiss, type FinderMode } from "./SeatFinderControls";
-import { directionName, nearSeatNumbers, seatLevelName } from "./seatFinderLabels";
-import { boundsOf, fitStandArrowToCanvas, edgeNumberGuide, fitStandNumberGuide, clampCamera, standDetailCamera, standRowDetailTransition, isSeatTap, labelCoversOtherBlock, mapProjection, normalizeSeatInput, placeVisibleRowLabel, searchStandSeats, standContextLabel, standDisplayRows, standVisibleRowHints, standLabelOrder, standGroupReferenceLabels, standReferenceLabelKey, standRedundantContextLabel, standRedundantContextText, standLabelInsideCanvas, standSelectedNumberRun, standSelectedRow, youngEdgeMidpoint, zoomCamera, zoneLabelPositions, type MapBox, type Point, type StandBlock, type StandMapData, type StandPosition } from "./standMap";
+import { seatNumberBadge } from "@/lib/seatNumberBadge";
+import { SeatFinderMiss, SeatTicketForm } from "./SeatFinderControls";
+import { findSeat, seatFieldKeys, seatHintIsWide, seatPlaceField, seatRowHint, WHOLE_VENUE } from "./seatFinder";
+import { directionName, nearSeatNumbers, seatLevelName, seatQueryDescription } from "./seatFinderLabels";
+import { boundsOf, fitStandNumberGuide, clampCamera, standDetailCamera, standRowDetailTransition, isSeatTap, labelCoversOtherBlock, mapProjection, normalizeSeatInput, standContextLabel, standDisplayRows, standLabelOrder, standGroupReferenceLabels, standReferenceLabelKey, standRedundantContextLabel, standRedundantContextText, standLabelInsideCanvas, standSelectedNumberRun, standSelectedRow, zoomCamera, zoneLabelPositions, type MapBox, type Point, type StandBlock, type StandMapData, type StandPosition } from "./standMap";
 import { hasStandCanvasArea, overviewAreaLabelPosition, overviewAreaLabelWidth, resolveStandSeatSection, standPathRings, standRectCoverShare, standRectTouchesRings, standRingsBox, standZoneCamera } from "./standMap";
 import styles from "./StandSeatMap.module.css";
+import { trackSeatMapFullscreen } from "@/lib/uiAnalytics";
 import { blockDisplayTitle, blockLongName, blockRowGap, blockShortName, fanName, frontRow, rowSummary, seatOnSegment } from "./seatLabels";
 import { VenueOverviewArt, StandOverviewTexture, overviewArtworkOpacity, VENUE_OVERVIEW_PROFILES } from "./VenueOverviewArt";
 
@@ -39,7 +41,6 @@ function subscribeImmersive(callback: () => void) {
   query.addEventListener("change", callback);
   return () => query.removeEventListener("change", callback);
 }
-const HINT_KEY = "tixrepo:seat-map-photo-hint";
 /** What the full-screen map frames once laid out: a block (by id), or a zone / position / level area (by box). */
 type FrameRequest = { id: string; zoom: boolean; animate: boolean; box?: MapBox };
 /** Full screen opens where five rows take about this many pixels, so every fifth row's tag can be read. */
@@ -87,7 +88,8 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   const initialBlock = initial?.block, initialZone = initial?.zone;
   const [level, setLevel] = useState(initialBlock?.level ?? initialZone?.level ?? "all"), [area, setArea] = useState(initialBlock?.area ?? initialZone?.area ?? "all");
   const [row, setRow] = useState(initialBlock && initialRow ? initialRow : ""), [number, setNumber] = useState(initialBlock && initialNumber ? initialNumber : "");
-  const [finderMode, setFinderMode] = useState<FinderMode>("ticket");
+  // Candidates listed by a row-and-number search open with the seat marked and the photo board folded.
+  const [matchesFromSeat, setMatchesFromSeat] = useState(false);
   const [blockInput, setBlockInput] = useState("");
   const [searchMiss, setSearchMiss] = useState(false);
   const [selected, setSelected] = useState<string | null>(initialBlock?.id ?? null), [focused, setFocused] = useState(initialBlock?.id ?? initialZone?.blockIds[0] ?? data.blocks[0].id);
@@ -113,10 +115,9 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   const [sheetPhoto, setSheetPhoto] = useState(0);
   const [slotHeight, setSlotHeight] = useState<number>();
   const [frameTick, setFrameTick] = useState(0);
-  const [hintSeen, setHintSeen] = useState(true);
   const fullscreenRef = useRef(false), lockedRef = useRef(false), pushedHistory = useRef(false);
   const pageScroll = useRef(0), frameRequest = useRef<FrameRequest | null>(null);
-  const frameElement = useRef<HTMLDivElement>(null), sheetElement = useRef<HTMLDivElement>(null), closeButton = useRef<HTMLButtonElement>(null), openButton = useRef<HTMLButtonElement>(null), tabElement = useRef<HTMLButtonElement>(null);
+  const frameElement = useRef<HTMLDivElement>(null), sheetElement = useRef<HTMLDivElement>(null), closeButton = useRef<HTMLButtonElement>(null), tabElement = useRef<HTMLButtonElement>(null);
   // The small venue map: tapping it pulls back to the whole venue; "選んだ席に戻る" returns to this camera.
   const [overviewReturn, setOverviewReturn] = useState<MapBox | null>(null);
   const [openCount, setOpenCount] = useState(0);
@@ -190,6 +191,20 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
     });
   }, [data]);
   const photoSectionIds = useMemo(() => new Set(photoAnchors.filter(item => item.place.kind === "section").map(item => item.place.id)), [photoAnchors]);
+  // Levels, sides and zones that hold at least one photo: their name on the whole-venue map carries the camera.
+  const photoPlaces = useMemo(() => {
+    const levelIds = new Set<string>(), areaIds = new Set<string>(), zoneIds = new Set<string>();
+    for (const item of photoAnchors) {
+      levelIds.add(item.level);
+      if (item.place.kind === "zone") zoneIds.add(item.place.id);
+      if (item.place.kind !== "section") continue;
+      const owner = data.blocks.find(candidate => candidate.id === item.place.id);
+      if (!owner) continue;
+      areaIds.add(owner.area);
+      for (const z of data.zones ?? []) if (z.id === owner.zone || z.blockIds.includes(owner.id)) zoneIds.add(z.id);
+    }
+    return { levelIds, areaIds, zoneIds };
+  }, [data, photoAnchors]);
   
   
   
@@ -304,6 +319,8 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   }
   function select(b: StandBlock, recenter = false, fromTicket = false, source: "map" | "search" | "step" = recenter || fromTicket ? "search" : "map") {
     setPhotoFromTicket(fromTicket);
+    // A block picked on the map (not found by the search) is no longer the place typed in the form.
+    if (source !== "search") setBlockInput("");
     interaction(); setSelected(b.id); setZone(b.zone ?? null); setFocused(b.id); setLevel(b.level); setArea(b.area); resetFinderFeedback(); setPosition(null);
     trackVenueSeatSectionSelect(source, photoSectionIds.has(b.id), immersiveMode ? "sheet" : "card");
     // Phones: a block chosen on the still preview (or found by the seat search) opens the
@@ -348,6 +365,7 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   // The same map element is lifted out of the page (position: fixed), so the search, selection and
   // photo board all share one state. A placeholder keeps the page's height; the page scroll is
   // remembered and given back on close (× or the phone's back).
+  const openedAt = useRef(0);
   function openFullscreen(request: FrameRequest | null, fold = false) {
     if (fullscreenRef.current) return;
     pageScroll.current = window.scrollY;
@@ -355,7 +373,7 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
     frameRequest.current = request;
     setSheetOpen(!fold); setSheetPhoto(0);
     setFullscreen(true); fullscreenRef.current = true; setOpenCount(count => count + 1);
-    if (!hintSeen) { setHintSeen(true); try { localStorage.setItem(HINT_KEY, "1"); } catch { /* private mode */ } }
+    openedAt.current = Date.now(); trackSeatMapFullscreen("open");
     try { window.history.pushState({ tixrepoSeatMap: "open" }, ""); pushedHistory.current = true; } catch { pushedHistory.current = false; }
   }
   // × and Escape go back one history step, so the phone's back button and × behave the same.
@@ -368,6 +386,7 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
     if (!fullscreenRef.current) return;
     fullscreenRef.current = false;
     setFullscreen(false);
+    trackSeatMapFullscreen("close", (Date.now() - openedAt.current) / 1000);
   }, []);
   useEffect(() => {
     if (!fullscreen) return;
@@ -381,7 +400,6 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   }, [fullscreen, closeFullscreen]);
   // Turning the phone wide leaves full screen (the page map takes over again).
   useEffect(() => { if (!immersiveMode && fullscreenRef.current) requestClose(); });
-  useEffect(() => { try { setHintSeen(localStorage.getItem(HINT_KEY) === "1"); } catch { setHintSeen(false); } }, []);
   // A "この席を送る" link opens straight into the full-screen map on that block (phones only).
   const autoOpened = useRef(false);
   useEffect(() => {
@@ -415,13 +433,16 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
       return () => { root.style.overflow = overflow; window.clearTimeout(timer); };
     }
     setSlotHeight(undefined);
+    // Phones have no level, direction or "whole map" control on the page: with no block chosen, the page map
+    // goes back to the whole venue and drops any search note.
+    if (!selected) { setZone(null); setLevel("all"); setArea("all"); setPosition(null); resetFinderFeedback(); }
     // The browser's own back may also try to restore an older scroll position: hold ours for a few frames.
     const y = pageScroll.current;
     window.scrollTo(0, y);
     let frames = 0, id = 0;
     const hold = () => { if (Math.abs(window.scrollY - y) > 2) window.scrollTo(0, y); if (++frames < 6) id = requestAnimationFrame(hold); };
     id = requestAnimationFrame(hold);
-    openButton.current?.focus({ preventScroll: true });
+    stage.current?.focus({ preventScroll: true });
     return () => cancelAnimationFrame(id);
     // Only the switch itself re-frames; the camera helpers read refs.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -468,31 +489,28 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
     move([base[0] - dx / projection.scale, base[1] - dy / projection.scale, base[2], base[3]], request.animate);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fullscreen, frameTick, sheetOpen]);
+  // Phones show no level or direction filter on the page, so a search there always covers the whole venue.
+  const searchScope = immersiveMode ? WHOLE_VENUE : { level, area, zone };
   function search(event: React.FormEvent) {
     event.preventDefault(); interaction();
     resetFinderFeedback();
-    if (finderMode === "block" || blockOnlySearch) {
-      const query = normalizeSeatInput(blockInput);
-      const named = (item: {label: string; aliases: string[]}) => query !== "" && [item.label, ...item.aliases].some(name => normalizeSeatInput(name) === query);
-      const zoneTarget = data.zones?.find(item => named(item) && (level === "all" || level === item.level) && (area === "all" || area === item.area));
-      if (zoneTarget) { trackVenueSeatSearch("area", 1); chooseZone(zoneTarget.id); return; }
-      const point = data.positionTargets?.find(item => named(item) && (level === "all" || level === item.level));
-      if (point) { trackVenueSeatSearch("area", 1); choosePosition(point); return; }
-      const blocks = shown.filter(item => (area === "all" || area === item.area) && (named(item) || normalizeSeatInput(item.id) === query));
-      trackVenueSeatSearch(blocks.length > 1 ? "multiple" : blocks.length ? "area" : query ? "empty" : "invalid", blocks.length);
-      if (blocks.length === 1) { select(blocks[0], true); return; }
-      clearResult(); setMatches(blocks);
-      if (!blocks.length) { setSearchMiss(true); setError(query ? "" : "券面の区画名を入力してください。"); }
-      return;
-    }
-    const result = searchStandSeats(data, level, area, row, number, zone);
-    trackVenueSeatSearch(result.zone || result.position || result.notice ? "area" : result.matches.length > 1 ? "multiple" : result.matches.length === 1 ? "matched" : /確認中|未対応|区画名で|公式図に列名/.test(result.error) ? "unverified" : /入力/.test(result.error) ? "invalid" : "empty", result.matches.length);
-    if (result.zone) { chooseZone(result.zone.id); setError(result.notice ?? ""); return; }
-    if (result.position) { choosePosition(result.position); return; }
-    setPosition(null);
-    setError(result.error); setMatches(result.matches.length > 1 ? result.matches : []);
-    if (result.matches.length === 1) { select(result.matches[0], true, true); setError(result.notice ?? ""); }
-    else { setSelected(null); setSearchMiss(!result.matches.length); }
+    // Put the phone keyboard away: it would cover the result on the map.
+    const typing = document.activeElement;
+    if (typing instanceof HTMLElement && typing.closest("[data-seat-finder-form]")) typing.blur();
+    const input = { place: blockInput, row: blockOnlySearch ? "" : row, number: blockOnlySearch ? "" : number };
+    const fields = [input.place.trim() && "place", (input.row.trim() || input.number.trim()) && "seat"].filter(Boolean).join("_") || "none";
+    const result = findSeat(data, levels, input, searchScope);
+    if (result.kind === "zone") { trackVenueSeatSearch("area", 1, fields); chooseZone(result.zone.id); setError(result.notice ?? ""); return; }
+    if (result.kind === "position") { trackVenueSeatSearch("area", 1, fields); choosePosition(result.position); return; }
+    if (result.kind === "level") { trackVenueSeatSearch("area", 1, fields); chooseRegion(result.level, "all"); return; }
+    if (result.kind === "block") { trackVenueSeatSearch(result.seat ? "matched" : "area", 1, fields); select(result.block, true, result.seat); setError(result.notice ?? ""); return; }
+    setPosition(null); setSelected(null);
+    if (result.kind === "candidates") { trackVenueSeatSearch("multiple", result.blocks.length, fields); setMatchesFromSeat(result.seat);
+      // In reading order: level by level, then by name (the data is in drawing order).
+      const levelOrder = (id: string) => levels.findIndex(item => item.id === id);
+      setMatches([...result.blocks].sort((a, b) => levelOrder(a.level) - levelOrder(b.level) || a.label.localeCompare(b.label, "ja", { numeric: true }))); return; }
+    trackVenueSeatSearch(fields === "none" ? "invalid" : /確認中|未対応|区画名で|公式図に列名/.test(result.error) ? "unverified" : /入力/.test(result.error) ? "invalid" : "empty", 0, fields);
+    setError(result.error); setSearchMiss(true);
   }
   function zoom(factor: number) {
     interaction(); const c = camera.current;
@@ -657,19 +675,27 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   }, [data, levels, areas, selected, position, zone, level, area]);
   useEffect(() => () => { announcedScope.current = ""; announceTokyoDomeMapScope({ label: null, codes: [] }); }, []);
 
-  // Floor buttons above the map remain available; whole-map numbers take priority over duplicate floor tags.
-  const levelTags = whole && !wholeNumbers && !data.zones ? levels.filter(l => !data.wholeBlockLabels || data.blocks.filter(b => b.level === l.id).length === 1) : [];
+  // Whole venue: each level is named once on the map (its name carries the camera when it has photos).
+  const levelTags = whole && !data.zones ? levels.filter(l => !data.wholeBlockLabels || data.blocks.filter(b => b.level === l.id).length === 1) : [];
   
   const gaishiOverview = data.diagramId.startsWith("gaishi-");
   const zoneTags = whole ? (data.zones ?? []).filter(z => !z.hideOnWhole || (gaishiOverview && ["A", "E", "I", "M"].includes(z.id))) : [];
   const areaTags = whole && !gaishiOverview ? data.overviewAreas ?? [] : [];
   const zonePositions = zoneLabelPositions(zoneTags, view, size.width, size.height);
+  // A zone name under the corner arena-map button steps aside (left of it, else below it) when that spot is free.
+  if (arenaMaps) for (const z of zoneTags) {
+    const p = zonePositions.get(z.id)!, tagWidth = (tag: typeof z) => overviewAreaLabelWidth(tag.label) + (photoPlaces.zoneIds.has(tag.id) ? 16 : 0), w = tagWidth(z);
+    if (!(p[1] < 52 && p[0] + w / 2 > size.width - 124)) continue;
+    const free = (spot: Point) => spot[0] >= w / 2 + 4 && zoneTags.every(other => { const q = zonePositions.get(other.id)!; return other.id === z.id || Math.abs(q[0] - spot[0]) >= (tagWidth(other) + w) / 2 + 2 || Math.abs(q[1] - spot[1]) >= 30; });
+    const spot = ([[size.width - 126 - w / 2, p[1]], [p[0], 54]] as Point[]).find(free);
+    if (spot) { p[0] = spot[0]; p[1] = spot[1]; }
+  }
   const areaPositions = new Map(areaTags.map(a => {
     return [a.id, overviewAreaLabelPosition(a.point, a.label, view, size.width, size.height)];
   }));
-  const buttonBounds = [...levelTags.map(l => { const p = projection.project(l.point); return [p[0], p[1], Math.max(64, l.label.length * 14 + 28), 44]; }),
-    ...zoneTags.map(z => { const p = zonePositions.get(z.id)!; return [p[0], p[1], overviewAreaLabelWidth(z.label), 44]; }),
-    ...areaTags.map(a => { const p = areaPositions.get(a.id)!; return [p[0], p[1], overviewAreaLabelWidth(a.label), 44]; })];
+  const buttonBounds = [...levelTags.map(l => { const p = projection.project(l.point); return [p[0], p[1], Math.max(64, l.label.length * 14 + 28) + (photoPlaces.levelIds.has(l.id) ? 16 : 0), 44]; }),
+    ...zoneTags.map(z => { const p = zonePositions.get(z.id)!; return [p[0], p[1], overviewAreaLabelWidth(z.label) + (photoPlaces.zoneIds.has(z.id) ? 16 : 0), 44]; }),
+    ...areaTags.map(a => { const p = areaPositions.get(a.id)!; return [p[0], p[1], overviewAreaLabelWidth(a.label) + (photoPlaces.areaIds.has(a.area) ? 16 : 0), 44]; })];
   // Passive names keep clear of the corner arena-map button (approximate pill footprint).
   // The photo pill and the reference-area note sit over the bottom of the map: names there would be hidden.
   const legendShown = data.blocks.some(item => item.numberLookup === "unavailable") && (!block || block.numberLookup === "unavailable");
@@ -677,10 +703,8 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   const bottomCover = fullscreen ? 8 : 8 + (cardShown ? 56 : 0) + (legendShown ? 34 : 0) + (cardShown && legendShown ? 6 : 0);
   const bottomBox = bottomCover > 8 ? [size.width / 2, size.height - bottomCover / 2, size.width, bottomCover] : null;
   const occupied = [...buttonBounds, ...(arenaMaps ? [[size.width - 76, 30, 140, 44]] : []), ...(bottomBox && !whole ? [bottomBox] : []),
-    ...(fullscreen ? [[72, 22, 140, 32], [size.width - 50, 102, 100, 110]] : [])];
-  const labels: { id: string; text: string; x: number; y: number; width: number; height: number; kind: "row" | "number" | "block"; selected: boolean; plain: boolean; anchor?: Point }[] = [];
-  const selectedRowLabel = (label: typeof labels[number]) => label.kind === "row" && (label.id === "selected-row" ||
-    (Boolean(highlightedRow) && (label.id === "first-row" || label.id === "last-row") && normalizeSeatInput(label.text.replace(/列$/, "")) === normalizeSeatInput(highlightedRow)));
+    ...(fullscreen ? [[size.width - 50, 102, 100, 110]] : [])];
+  const labels: { id: string; text: string; x: number; y: number; width: number; height: number; kind: "number" | "block"; selected: boolean; plain: boolean; photo: boolean; anchor?: Point }[] = [];
   const blockCenters = shown.flatMap(b => [b.center, ...(b.labelAvoidancePoints ?? [])].map(point => ({ id: b.id, point: projection.project(point) })));
   // Keep context captions off both ends of the interval chosen by the seat search.
   const labelRun = standSelectedNumberRun(data, block, row, number);
@@ -688,28 +712,28 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
     const id = block.id;
     blockCenters.push(...[labelRun.segment.a, labelRun.segment.b].map(point => ({ id, point: projection.project(point) })));
   }
-  function addLabel(id: string, text: string, position: Point, important = false, width?: number, fixed = false, rowHint = false) {
-    const kind = rowHint || id === "first-row" || id === "last-row" || id === "selected-row" ? "row" : text.includes("番") && !text.endsWith("番側") ? "number" : "block";
-    const plainName = rowHint || (!whole && kind === "block" && !important);
-    const fontSize = important && !rowHint ? 14 : 12;
+  // A name sits at its own place and never moves: where it does not fit, it is left out, so nothing jumps
+  // while the map is zoomed. A place with photos carries a small camera inside its name (one mark per place).
+  function addLabel(id: string, text: string, position: Point, important = false, width?: number) {
+    const kind = text.includes("番") && !text.endsWith("番側") ? "number" : "block";
+    const plainName = !whole && kind === "block" && !important;
+    const photo = !important && photoSectionIds.has(id);
+    const fontSize = important ? 14 : 12;
     const textWidth = [...text].reduce((sum, char) => sum + fontSize * (char.charCodeAt(0) < 128 ? .6 : 1), 0);
-    const w = width ?? (plainName ? textWidth + 6 : Math.max(important || text.length > 2 ? 48 : 32, textWidth + 14)), h = plainName ? 18 : wholeNumbers && kind === "number" ? 22 : kind === "block" ? 26 : 28;
-    const offsets = important || wholeNumbers || fixed ? [[0, 0]] : [[0, 0], [-12, 12], [12, 12], [-12, -12], [12, -12], [0, 28], [0, -28]];
-    for (const [dx, dy] of offsets) {
-      const x = position[0] + dx, y = position[1] + dy;
-      if (!standLabelInsideCanvas([x, y], w, h, size)) continue;
-      // Plain context names are passive; they cannot redirect a tap to a different block.
-      if (!important && !plainName && labelCoversOtherBlock(id, [x, y], w, h, blockCenters)) continue;
-      if (!important && occupied.some(r => Math.abs(x - r[0]) < (w + r[2]) / 2 + 4 && Math.abs(y - r[1]) < (h + r[3]) / 2 + 3)) continue;
-      // Another place's name or number never lies on the selected block.
-      if (!important && standRectTouchesRings([x, y], w, h, selectedScreenRings, 1)) continue;
-      // The same caption twice close together reads as one place labelled twice: keep the first.
-      if (!important && !whole && labels.some(l => l.text === text && Math.hypot(l.x - x, l.y - y) < 160)) continue;
-      occupied.push([x, y, w, h]); labels.push({ id, text, x, y, width: w, height: h, kind, selected: important, plain: plainName, anchor: dx || dy ? position : undefined }); return;
-    }
+    const w = (width ?? (plainName ? textWidth + 16 : Math.max(important || text.length > 2 ? 48 : 32, textWidth + 14))) + (photo ? 15 : 0);
+    const h = plainName || (wholeNumbers && kind === "number") ? 22 : kind === "block" ? 26 : 28;
+    // A name at the edge of the map is pulled in just enough to show whole (at most 12px, so it stays on its block).
+    const x = Math.min(size.width - w / 2 - 2, Math.max(w / 2 + 2, position[0])), y = Math.min(size.height - h / 2 - 2, Math.max(h / 2 + 2, position[1]));
+    if (Math.hypot(x - position[0], y - position[1]) > 12 || !standLabelInsideCanvas([x, y], w, h, size)) return;
+    // Passive names (zoomed in) cannot redirect a tap to a different block.
+    if (!important && !plainName && labelCoversOtherBlock(id, [x, y], w, h, blockCenters)) return;
+    if (!important && occupied.some(r => Math.abs(x - r[0]) < (w + r[2]) / 2 + 4 && Math.abs(y - r[1]) < (h + r[3]) / 2 + 3)) return;
+    // Another place's name or number never lies on the selected block.
+    if (!important && standRectTouchesRings([x, y], w, h, selectedScreenRings, 1)) return;
+    // The same caption twice close together reads as one place labelled twice: keep the first.
+    if (!important && !whole && labels.some(l => l.text === text && Math.hypot(l.x - x, l.y - y) < 160)) return;
+    occupied.push([x, y, w, h]); labels.push({ id, text, x, y, width: w, height: h, kind, selected: important, plain: plainName, photo });
   }
-  let arrow: { start: Point; end: Point } | null = null;
-  const rowStems: { a: Point; b: Point }[] = [];
   const displayRows = block ? standDisplayRows(block) : [];
   // The selected block's own name: on the block when it leaves most of the block visible,
   // otherwise just beside it with a short stem, so the pink block itself stays in view.
@@ -728,7 +752,7 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
     // The stem meets the block at its outline point nearest the name.
     const near = selectedScreenRings.flat().reduce((best, p) => Math.hypot(p[0] - point[0], p[1] - point[1]) < Math.hypot(best[0] - point[0], best[1] - point[1]) ? p : best, [cx, cy]);
     occupied.push([point[0], point[1], w, h]);
-    labels.push({ id: "selected-block", text, x: point[0], y: point[1], width: w, height: h, kind: text.includes("番") && !text.endsWith("番側") ? "number" : "block", selected: true, plain: false, anchor: near });
+    labels.push({ id: "selected-block", text, x: point[0], y: point[1], width: w, height: h, kind: text.includes("番") && !text.endsWith("番側") ? "number" : "block", selected: true, plain: false, photo: false, anchor: near });
   }
   const chosenZone = !block && zone ? data.zones?.find(z => z.id === zone) : undefined;
   if (chosenZone && !whole) {
@@ -742,130 +766,30 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
     addLabel("selected-zone", chosenZone.label, memberBlocks.length ? fitsAt(above) ? above : fitsAt(below) ? below : projection.project([bx + bw / 2, by + bh / 2]) : projection.project(chosenZone.point), true);
   }
   if (block && !displayRows.length) addSelectedBlockName(blockDisplayTitle(block, ""), projection.project(block.numberLookup === "unavailable" ? standContextLabel(data, block, closestDetail).point : block.center));
-  if (block && displayRows.length) {
-    const first = displayRows[0], lastRow = displayRows.at(-1)!;
-    const last = block.referenceRows?.some(row => row.label === lastRow.label)
-      ? lastRow : block.rows.length ? block.rowEdges?.last ?? block.rows.at(-1)!.segments.at(-1)! : lastRow;
-    const a = projection.project(first.a), b = projection.project(first.b), la = projection.project(last.a), lb = projection.project(last.b);
-    const fm = [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2], lm = [(la[0] + lb[0]) / 2, (la[1] + lb[1]) / 2];
-    const depth = Math.hypot(lm[0] - fm[0], lm[1] - fm[1]);
-    const tangent = Math.max(1, Math.hypot(b[0] - a[0], b[1] - a[1]));
-    let dx = depth > 1 ? (lm[0] - fm[0]) / depth : -(b[1] - a[1]) / tangent;
-    let dy = depth > 1 ? (lm[1] - fm[1]) / depth : (b[0] - a[0]) / tangent;
-    // A single known row lies on the block's edge: its tag goes outward, away from the block's middle.
-    if (depth <= 1) {
-      const middle = projection.project(block.center);
-      if ((fm[0] - middle[0]) * -dx + (fm[1] - middle[1]) * -dy < 0) { dx = -dx; dy = -dy; }
-    }
-    const rowObstacles: number[][] = [];
-    // A seat search that hit shows the searched row's start number at once, not only after zooming in.
-    const selectedRun = labelRun;
-    const reference = selectedRun ? { start: selectedRun.segment.start, young: selectedRun.segment.a, older: selectedRun.segment.end === selectedRun.segment.start ? selectedRun.segment.a : selectedRun.segment.points?.find(p => Math.hypot(p[0] - selectedRun.segment.a[0], p[1] - selectedRun.segment.a[1]) > .001) ?? selectedRun.segment.b } : block.numberReference;
-    if (reference) {
-      const young = projection.project(reference.young), old = projection.project(reference.older);
-      const numberText = `${block.numberPrefix ?? ""}${reference.start}`;
-      const labelWidth = Math.max(48, numberText.length * 8 + 28);
-      const anchor = selectedRun ? young : projection.project(youngEdgeMidpoint(block));
-      // For the narrow Yoyogi F sliver, put the badge outside and keep the arrow tip at the sourced edge.
-      const length = Math.hypot(old[0] - young[0], old[1] - young[1]);
-      let numberAnchor = anchor;
-      if (data.diagramId === "yoyogi-stand-reference" && block.id === "yoyogi-s1F-2" && length > .001 && length < labelWidth
-        && anchor[0] >= 0 && anchor[0] <= size.width && anchor[1] >= 0 && anchor[1] <= size.height) {
-        const ux = (old[0] - young[0]) / length, uy = (old[1] - young[1]) / length;
-        // This sourced edge is nearly horizontal: the arrow exits the straight
-        // vertical side of the badge. Its 20px tip then lands on the source edge.
-        const straightSide = Math.abs(ux) > .001 && Math.abs(uy / ux) * labelWidth / 2 <= 9;
-        const offset = straightSide ? labelWidth / (2 * Math.abs(ux)) + 20 : 0;
-        const outside: Point = [anchor[0] - ux * offset, anchor[1] - uy * offset];
-        if (straightSide && anchor[0] >= 9 && anchor[0] <= size.width - 9 && anchor[1] >= 9 && anchor[1] <= size.height - 9
-          && standLabelInsideCanvas(outside, labelWidth, 28, size)) numberAnchor = outside;
-      }
-      // This two-seat K Arena block is shorter than its badge. Preserve the
-      // sourced number edge at the joined arrow tip, including diagonal tips.
-      if (data.diagramId === "k-arena-permanent-stands" && block.id === "k-level7-62" && length > .001 && length < labelWidth
-        && anchor[0] >= 9 && anchor[0] <= size.width - 9 && anchor[1] >= 9 && anchor[1] <= size.height - 9) {
-        const u: Point = [(old[0] - young[0]) / length, (old[1] - young[1]) / length];
-        const offset = seatNumberBadgeTipDistance(u, labelWidth, 28, 20);
-        if (offset !== null) {
-          const outside: Point = [anchor[0] - u[0] * offset, anchor[1] - u[1] * offset];
-          if (standLabelInsideCanvas(outside, labelWidth, 28, size)) numberAnchor = outside;
-        }
-      }
-      // Any block the start badge would mostly hide: the badge steps back behind the
-      // young edge and its arrow tip stays on that edge (the Yoyogi / K Arena rule, for every venue).
-      if (numberAnchor === anchor && length > .001 && anchor[0] >= 9 && anchor[0] <= size.width - 9 && anchor[1] >= 9 && anchor[1] <= size.height - 9
-        && standRectCoverShare(anchor, labelWidth, 28, selectedScreenRings) > .4) {
-        const u: Point = [(old[0] - young[0]) / length, (old[1] - young[1]) / length];
-        const offset = seatNumberBadgeTipDistance(u, labelWidth, 28, 20);
-        if (offset !== null) {
-          const outside: Point = [anchor[0] - u[0] * offset, anchor[1] - u[1] * offset];
-          if (standLabelInsideCanvas(outside, labelWidth, 28, size)) numberAnchor = outside;
-        }
-      }
-      const guide = edgeNumberGuide(numberAnchor, young, old, labelWidth);
-      addLabel("start-number", `${numberText}番`, guide.number, true, labelWidth);
-      rowObstacles.push([...guide.number, labelWidth, 28]);
-      if (labels.some(l => l.id === "start-number")) arrow = fitStandArrowToCanvas(guide.arrow, size);
-      if (arrow) {
-        const bounds = seatNumberBadgeBounds([arrow.end[0] - arrow.start[0], arrow.end[1] - arrow.start[1]], labelWidth, 28, Math.hypot(arrow.end[0] - arrow.start[0], arrow.end[1] - arrow.start[1]));
-        const obstacle = [guide.number[0] + bounds.x, guide.number[1] + bounds.y, bounds.width, bounds.height];
-        rowObstacles.push(obstacle);
-        occupied.push(obstacle); // Neighbour tags must not cover the selected arrowhead.
-      }
-    }
-    if (selectedRun && block.rowNameLookup !== "unavailable") {
-      const anchor = projection.project(selectedRun.segment.a), width = Math.max(48, `${selectedRun.row}列`.length * 14 + 14);
-      const point = placeVisibleRowLabel([anchor[0] - dx * 44, anchor[1] - dy * 44], [-dx, -dy], width, rowObstacles, anchor, size);
-      const clear = rowObstacles.every(r => Math.abs(point[0] - r[0]) >= (width + r[2]) / 2 + 4 || Math.abs(point[1] - r[1]) >= (28 + r[3]) / 2 + 3);
-      if (clear && Math.hypot(point[0] - anchor[0], point[1] - anchor[1]) <= 64) {
-        addLabel("selected-row", `${selectedRun.row}列`, point, true, width);
-        if (labels.some(l => l.id === "selected-row")) { rowStems.push({ a: anchor, b: point }); rowObstacles.push([...point, width, 28]); }
-      }
-    }
-    if (block.rowNameLookup !== "unavailable") {
-      const firstOffset = displayRows.length === 1 ? 44 : 21;
-      for (const [id, row, point, direction, anchor] of [
-        ["first-row", displayRows[0], [fm[0] - dx * firstOffset, fm[1] - dy * firstOffset], [-dx, -dy], fm],
-        ...(lastRow !== displayRows[0] ? [["last-row", lastRow, [lm[0] + dx * 21, lm[1] + dy * 21], [dx, dy], lm] as const] : []),
-      ] as const) {
-        if (selectedRun && normalizeSeatInput(row.label) === normalizeSeatInput(selectedRun.row)) continue;
-        const text = `${row.label}列`;
-        const width = Math.max(48, [...text].reduce((sum, char) => sum + 14 * (char.charCodeAt(0) < 128 ? .6 : 1), 0) + 14);
-        const placed = placeVisibleRowLabel(point, direction, width, rowObstacles, anchor, size);
-        // If no clear nearby placement exists, retain the row in the summary/table.
-        // Never cover a fixed number or direction to force a boundary tag onto the map.
-        if (rowObstacles.some(r => Math.abs(placed[0] - r[0]) < (width + r[2]) / 2 + 4 && Math.abs(placed[1] - r[1]) < (28 + r[3]) / 2 + 3)) continue;
-        addLabel(id, text, placed, true, width);
-        rowObstacles.push([...placed, width, 28]);
-      }
-    }
-    // At a tight zoom both boundary markers can be outside while real rows
-    // remain visible. Add only a few passive row names, anchored to those lines.
-    if (closestDetail && block.rowNameLookup !== "unavailable" && displayRows.length > 2
-      && (!labels.some(l => l.id === "first-row") || !labels.some(l => l.id === "last-row"))) {
-      const alreadyNamed = new Set(labels.filter(l => l.kind === "row").map(l => normalizeSeatInput(l.text)));
-      if (selectedRun) alreadyNamed.add(normalizeSeatInput(selectedRun.row));
-      const candidates = standVisibleRowHints(block, view, size).filter(r => !alreadyNamed.has(normalizeSeatInput(r.label)));
-      const order = [...new Set([0, candidates.length - 1, Math.floor(candidates.length / 2), ...candidates.map((_, i) => i)])];
-      const placedHints: Point[] = [];
-      for (const index of order) {
-        const hint = candidates[index]; if (!hint || placedHints.length >= 3) continue;
-        const text = `${hint.label}列`, width = Math.max(32, [...text].reduce((sum, char) => sum + 12 * (char.charCodeAt(0) < 128 ? .6 : 1), 0) + 6);
-        const desired = hint.anchor.map((n, axis) => n + hint.outward[axis] * (width / 2 + 8));
-        const point = placeVisibleRowLabel(desired, hint.outward, width, rowObstacles, hint.anchor, size);
-        if (Math.hypot(point[0] - hint.anchor[0], point[1] - hint.anchor[1]) > 64
-          || placedHints.some(p => Math.hypot(p[0] - point[0], p[1] - point[1]) < 44)
-          || rowObstacles.some(r => Math.abs(point[0] - r[0]) < (width + r[2]) / 2 + 4 && Math.abs(point[1] - r[1]) < (22 + r[3]) / 2 + 3)) continue;
-        const id = `visible-row-${index}`;
-        addLabel(id, text, point, true, width, false, true);
-        if (!labels.some(l => l.id === id)) continue;
-        placedHints.push(point); rowObstacles.push([...point, width, 22]);
-        rowStems.push({ a: hint.anchor, b: point });
-      }
-    }
-    for (const [id, anchor] of [["first-row", fm], ["last-row", lm]] as const) {
-      const label = labels.find(l => l.id === id);
-      if (label) rowStems.push({ a: anchor, b: [label.x, label.y] });
+  // The chosen block's rows: a ruler down one side of the block (the first row, every fifth, the last), each tag
+  // on its own row line just inside that end. A tag that would touch another one is left out.
+  const ruler: { key: string; text: string; x: number; y: number; w: number; active: boolean }[] = [];
+  const activeRow = labelRun ? normalizeSeatInput(String(labelRun.row)) : highlightedRow;
+  if (block && block.rowNameLookup !== "unavailable" && displayRows.length) {
+    const rowsOnScreen = displayRows.map(r => {
+      const own = block.rows.find(item => item.label === r.label);
+      return { label: r.label, points: (own?.segments.length ? own.segments.flatMap(segment => [segment.a, segment.b]) : [r.a, r.b]).map(point => projection.project(point)) };
+    });
+    // Rows that run across the screen are tagged at their left end, rows that run down it at their top end.
+    const firstA = projection.project(displayRows[0].a), firstB = projection.project(displayRows[0].b);
+    const axis = Math.abs(firstB[0] - firstA[0]) >= Math.abs(firstB[1] - firstA[1]) ? 0 : 1;
+    const fifth = rowsOnScreen.flatMap((r, index) => { const value = Number.parseInt(r.label, 10); return (Number.isFinite(value) ? value % 5 === 0 : (index + 1) % 5 === 0) ? [index] : []; });
+    const wanted = [...new Set([...rowsOnScreen.flatMap((r, index) => activeRow && normalizeSeatInput(r.label) === activeRow ? [index] : []), 0, rowsOnScreen.length - 1, ...fifth])];
+    for (const index of wanted) {
+      const r = rowsOnScreen[index];
+      const start = r.points.reduce((a, b) => b[axis] < a[axis] ? b : a), far = r.points.reduce((a, b) => b[axis] > a[axis] ? b : a);
+      const length = Math.hypot(far[0] - start[0], far[1] - start[1]) || 1;
+      const text = `${r.label}列`, w = [...text].reduce((sum, char) => sum + 11 * (char.charCodeAt(0) < 128 ? .62 : 1), 0) + 10;
+      const x = start[0] + (far[0] - start[0]) / length * (w / 2 + 3), y = start[1] + (far[1] - start[1]) / length * (w / 2 + 3);
+      if (x < w / 2 || x > size.width - w / 2 || y < 10 || y > size.height - 10) continue;
+      if (occupied.some(o => Math.abs(x - o[0]) < (w + o[2]) / 2 + 2 && Math.abs(y - o[1]) < (18 + o[3]) / 2 + 2)) continue;
+      if (ruler.some(tag => Math.abs(tag.x - x) < (tag.w + w) / 2 + 2 && Math.abs(tag.y - y) < 20)) continue;
+      ruler.push({ key: r.label, text, x, y, w, active: Boolean(activeRow) && normalizeSeatInput(r.label) === activeRow });
     }
   }
   const referenceLabels = new Set<string>();
@@ -879,6 +803,8 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
     if (b.id === selected) continue;
     if (whole && data.blocks.filter(o => o.level === b.level).length === 1) continue;
     if (wholeNumbers && b.label.includes("番") && b.numberReference) {
+      // On a phone the whole venue shows its levels only: a handful of start numbers that happen to fit say little.
+      if (whole && levelTags.length && size.width < 500) continue;
       const text = `${b.numberReference.start}番`;
       addLabel(b.id, text, projection.project(b.center), false, Math.max(34, `${b.numberReference.start}`.length * 7 + 22));
     } else {
@@ -890,45 +816,37 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
       const referenceKey = standReferenceLabelKey(b, groupReferenceLabels);
       if (referenceKey && referenceLabels.has(referenceKey)) continue;
       const before = labels.length;
-      addLabel(b.id, context.text === b.label ? blockDisplayTitle(b, "") : context.text, projection.project(context.point), false, undefined, context.fixed);
+      addLabel(b.id, context.text === b.label ? blockDisplayTitle(b, "") : context.text, projection.project(context.point));
       if (referenceKey && labels.length > before) referenceLabels.add(referenceKey);
       if (captionKey && labels.length > before) contextCaptions.add(captionKey);
     }
   }
   
   
-  // Full screen: a searched seat's own point and tag, the other end number of its row (the start number
-  // already has its badge), and a tag on every fifth row of the chosen block once five rows are ~20px apart.
-  const clearOfLabels = (x: number, y: number, w: number, h: number) => labels.every(l => Math.abs(x - l.x) >= (w + l.width) / 2 + 2 || Math.abs(y - l.y) >= (h + l.height) / 2 + 2);
-  const seatMark = fullscreen && block && labelRun ? (() => {
+  // A searched seat: its own point and tag, and the first and last number of its run as small numbers just
+  // inside the two ends. The still map on a phone shows the point only.
+  const clearOfLabels = (x: number, y: number, w: number, h: number) => labels.every(l => Math.abs(x - l.x) >= (w + l.width) / 2 + 2 || Math.abs(y - l.y) >= (h + l.height) / 2 + 2)
+    && ruler.every(tag => Math.abs(x - tag.x) >= (w + tag.w) / 2 + 2 || Math.abs(y - tag.y) >= (h + 18) / 2 + 2);
+  const seatMark = block && labelRun ? (() => {
     const point = projection.project(seatOnSegment(labelRun.segment, Number(labelRun.seat)));
     const a = projection.project(labelRun.segment.a), b = projection.project(labelRun.segment.b);
     const length = Math.hypot(b[0] - a[0], b[1] - a[1]) || 1, ux = (b[0] - a[0]) / length, uy = (b[1] - a[1]) / length;
-    const endText = `${block.numberPrefix ?? ""}${labelRun.segment.end}番`, endWidth = Math.max(44, endText.length * 8 + 16);
-    const end: Point = [b[0] + ux * (endWidth / 2 + 8), b[1] + uy * (endWidth / 2 + 8)];
+    const numbers: { key: string; text: string; x: number; y: number; w: number }[] = [];
+    if (!mapLocked && labelRun.segment.end !== labelRun.segment.start) for (const [value, end, inward] of [[labelRun.segment.start, a, 1], [labelRun.segment.end, b, -1]] as const) {
+      const text = `${block.numberPrefix ?? ""}${value}`, w = text.length * 6.5 + 8;
+      // Just outside that end of the run (in the aisle), or just inside it; left out when neither spot is clear.
+      const spot = [-(w / 2 + 5), w / 2 + 4].map(offset => [end[0] + ux * inward * offset, end[1] + uy * inward * offset]).find(([x, y]) =>
+        x >= w / 2 && x <= size.width - w / 2 && y >= 8 && y <= size.height - 8 && Math.hypot(x - point[0], y - point[1]) >= w / 2 + 10
+        && ruler.every(tag => Math.abs(tag.x - x) >= (tag.w + w) / 2 + 2 || Math.abs(tag.y - y) >= 17)
+        && numbers.every(other => Math.hypot(other.x - x, other.y - y) >= (other.w + w) / 2 + 2)
+        && labels.every(l => Math.abs(x - l.x) >= (w + l.width) / 2 + 2 || Math.abs(y - l.y) >= (16 + l.height) / 2 + 2));
+      if (spot) numbers.push({ key: String(value), text, x: spot[0], y: spot[1], w });
+    }
     const text = `${labelRun.row}列${labelRun.seat}番付近`, width = Math.max(96, [...text].reduce((sum, char) => sum + 13 * (char.charCodeAt(0) < 128 ? .62 : 1), 0) + 20);
     const tagX = Math.min(size.width - width / 2 - 4, Math.max(width / 2 + 4, point[0]));
     const tagY = [point[1] - 34, point[1] + 34, point[1] - 64].find(y => y > 16 && y < size.height - 16 && clearOfLabels(tagX, y, width, 28)) ?? point[1] - 34;
-    return { point, text, width, tagX, tagY, end, endText, endWidth, showEnd: labelRun.segment.end !== labelRun.segment.start && clearOfLabels(end[0], end[1], endWidth, 24) };
+    return { point, text, width, tagX, tagY, numbers, pill: !mapLocked };
   })() : null;
-  const fifthRows = fullscreen && block && block.rowNameLookup !== "unavailable" ? (() => {
-    const gap = blockRowGap(block) * projection.scale;
-    if (gap * 5 < 20) return [];
-    const taken = new Set(labels.filter(l => l.kind === "row").map(l => normalizeSeatInput(l.text.replace(/列$/, ""))));
-    return block.rows.flatMap(r => {
-      const value = Number.parseInt(r.label, 10), segment = r.segments[0];
-      const active = !labelRun && Boolean(highlightedRow) && normalizeSeatInput(r.label) === highlightedRow;
-      if (!segment || taken.has(normalizeSeatInput(r.label)) || !(active || (Number.isFinite(value) && value % 5 === 0))) return [];
-      const a = projection.project(segment.a), b = projection.project(segment.b);
-      const length = Math.hypot(b[0] - a[0], b[1] - a[1]) || 1;
-      const text = `${r.label}列`, w = text.length * 7 + 12;
-      // Just inside the row's first-seat end, on the row line itself.
-      const x = a[0] + (b[0] - a[0]) / length * (w / 2 + 3), y = a[1] + (b[1] - a[1]) / length * (w / 2 + 3);
-      if (x < w / 2 || x > size.width - w / 2 || y < 10 || y > size.height - 10 || (!active && !clearOfLabels(x, y, w, 18))
-        || (seatMark && Math.abs(x - seatMark.point[0]) < (w + seatMark.width) / 2 && Math.abs(y - seatMark.point[1] + 24) < 26)) return [];
-      return [{ key: r.label, text, x, y, w, active }];
-    });
-  })() : [];
   // The small venue map (full screen, zoomed in): venue outline, stage side, the chosen block and the part on screen.
   const miniMap = fullscreen && !overviewReturn && (() => {
     const shownBottom = size.height - (fullscreen ? boardHeight() : 0);
@@ -985,9 +903,15 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   const coveredLabels = new Set<string>();
   const photoMarkers = photoAnchors.flatMap(item => {
     if (level !== "all" && item.level !== level) return [];
+    // Seen from afar the names carry the cameras. A camera of its own shows only up close, for a place whose name is not on screen.
+    if (view[2] >= data.viewBox[2] * .9) return [];
+    if (item.place.kind === "section" && labels.some(l => l.photo && l.id === item.place.id)) return [];
+    // A block too small on screen to hold its name holds no camera either: both come back on zooming in.
+    const owner = item.place.kind === "section" ? data.blocks.find(candidate => candidate.id === item.place.id) : undefined;
+    if (owner && Math.min(owner.box[2], owner.box[3]) * projection.scale < 28) return [];
     if (item.key === cardedPhotoKey) return [];
     const anchor = projection.project(item.point);
-    if (anchor[0] < 0 || anchor[0] > size.width || anchor[1] < 0 || anchor[1] > size.height) return [];
+    if (anchor[0] < 24 || anchor[0] > size.width - 24 || anchor[1] < 24 || anchor[1] > size.height - 24) return [];
     const fits = (point: Point, boxes: number[][]) => boxes.every(([x, y, w, h]) =>
       Math.abs(x - point[0]) >= (w + photoTarget) / 2 + 2 || Math.abs(y - point[1]) >= (h + photoTarget) / 2 + 2);
     const candidate = ([dx, dy]: number[]): Point => [anchor[0] + dx, anchor[1] + dy];
@@ -1011,7 +935,7 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
       ?? clear.find(point => onBlock(point, 0));
     // The centre fallback never covers the chosen place's own name, row or number tags.
     const onSelectedTag = labels.some(l => l.selected && !fits(anchor, [[l.x, l.y, l.width, l.height]]));
-    const point = placed ?? (inside(anchor) && !onSelectedTag && offSelected(anchor) ? anchor : null);
+    const point = placed ?? (item.place.kind !== "section" && inside(anchor) && !onSelectedTag && offSelected(anchor) ? anchor : null);
     if (!point) return [];
     if (!placed) {
       if (item.place.kind === "section") coveredLabels.add(item.place.id);
@@ -1021,12 +945,17 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
     return [{ ...item, anchor, point }];
   });
   const focusable = shown.filter(b => { const p = projection.project(b.center); return p[0] > 0 && p[0] < size.width && p[1] > 0 && p[1] < size.height; });
-  const sectionExample = data.zones?.[0]?.label || data.blocks[0].aliases.find(alias => alias.length <= 12) || data.blocks[0].label;
-  const fallbackBlocks = searchMiss && finderMode === "ticket" && !blockOnlySearch
-    ? nearSeatNumbers(number, shown.filter(item => (area === "all" || item.area === area) && (!zone || item.zone === zone || data.zones?.find(z => z.id === zone)?.blockIds.includes(item.id))),
+  const stageNote = data.overviewAreas ? "" : data.frontLabel ?? "↑ ステージ方向";
+  const placeField = seatPlaceField(data), fieldKeys = seatFieldKeys(data), placeText = blockInput.trim();
+  const formLayout = blockOnlySearch ? "place" : seatHintIsWide(placeField.hint) ? "wide" : "row";
+  const fallbackBlocks = searchMiss && !placeText && !blockOnlySearch
+    ? nearSeatNumbers(number, data.blocks.filter(item => (searchScope.level === "all" || item.level === searchScope.level) && (searchScope.area === "all" || item.area === searchScope.area)
+        && (!searchScope.zone || item.zone === searchScope.zone || data.zones?.find(z => z.id === searchScope.zone)?.blockIds.includes(item.id))),
       item => item.rows.find(line => normalizeSeatInput(line.label) === normalizeSeatInput(row))?.segments.map(({ start, end }) => [start, end] as const) ?? [],
       item => item.label) : [];
-  const missingInput = finderMode === "block" || blockOnlySearch ? !blockInput.trim() : !number.trim();
+  const missMessage = placeText ? `「${placeText}」は見つかりませんでした。地図から選べます。`
+    : blockOnlySearch || !number.trim() ? error || `${placeField.label}${blockOnlySearch ? "" : "・列・番号"}を入力してください。`
+    : `${seatQueryDescription({ scope: "", row, number })}は見つかりませんでした。${placeField.label}を入れるか、地図から選んでください。`;
   const inputAdvice = error === data.numberLookupNote ? undefined
     : /数字で入力|列欄に|列を空欄にして番号/.test(error) ? error : undefined;
   const finderFeedback = searchMiss || Boolean(error) || matches.length > 0;
@@ -1034,32 +963,33 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   const arenaThumb = arenaImage ? arenaImage.src.replace(/([?&]name=)\w+/, "$1thumb") : null;
   // Bottom-centred venue notes on small whole views stay above the photo/legend overlay.
   const footerLift = (cardShown ? 44 : 0) + (legendShown ? 30 : 0);
+  const selectionCopy = <div className={`${styles.selectionCopy} ${labelRun ? styles.ticketSelectionCopy : ""}`}>{block ? <>
+        <span className={styles.selectionMeta}>{selectedLevelLabel}{block.balcony && !selectedLevelLabel.includes("バルコニー") ? "・バルコニー" : ""}<span>{selectedRows}</span></span>
+        {/* A searched seat shows its own row and number beside the name, so a name built from another seat ("1列344番周辺") is left out. */}
+        <strong>{labelRun ? selectedTitle.split("・").filter(part => !/^\d+列\d+番(周辺)?$/.test(part.trim())).join("・") || selectedTitle : selectedTitle}</strong>
+        {labelRun && <span className={styles.ticketSelection}><b className={styles.selectedRow}>{labelRun.row}列</b><b className={styles.selectedSeat} data-selected-seat-number>選択：{normalizeSeatInput(number)}番</b></span>}
+      </> : <><strong>{zone ? data.zones?.find(z => z.id === zone)?.label ?? zone : level === "all" ? (overviewArt ? "全体図から区画を選ぶ" : "座席の全体図") : levels.find(l => l.id === level)?.label ?? level}</strong><span className={styles.selectionHint}>{blockOnlySearch ? "会場内の区画をタップして確認" : "区画をタップすると、列・番号の詳細へ"}</span></>}</div>;
   return <DomeSeatFrame className={data.levelViews ? styles.levelControls : undefined} levels={[{ id: "all", label: "すべて" }, ...levels]} level={level} onLevel={id => chooseRegion(id, "all")} photoLegend="map"
-    directions={availableAreas} direction={area} onDirection={id => chooseRegion(level, id)} onZoom={zoom} onWhole={reset} shortcuts={[]}
+    directions={availableAreas} direction={area} onDirection={id => chooseRegion(level, id)} onZoom={zoom} onWhole={reset} shortcuts={[]} simpleMobile={immersive}
     seatView={seatView} seatViewIndex={sheetPhoto}
     directionExtra={<>
       {blockOnlySearch && <p className={styles.eventSeatingNote}>{data.numberLookupNote ?? "この図は区画名で探せます。列・番号は公演の案内をご確認ください。"}
         {venueId && <VenueProgramAnchor fallbackHref={`/venues/${venueId}#upcoming-events-title`}>この会場の公演を見る →</VenueProgramAnchor>}
       </p>}
-      <SeatFinderControls mode={finderMode} blockOnly={blockOnlySearch} onMode={mode => { setFinderMode(mode); setRow(""); setNumber(""); clearResult(); }}
-        row={row} number={number} block={blockInput} rowHint={data.rowSearchPlaceholder} numberHint={data.numberSidePrefixes ? `例：${data.numberSidePrefixes[0]}55` : undefined}
-        blockHint={`例：${sectionExample}`} onRow={value => { setRow(value); resetFinderFeedback(); }}
-        onNumber={value => { setNumber(value); resetFinderFeedback(); }} onBlock={value => { setBlockInput(value); resetFinderFeedback(); }} onSubmit={search} /></>}>
+      <SeatTicketForm placeLabel={placeField.label} placeHint={placeField.hint} layout={formLayout}
+        place={blockInput} row={row} number={number} rowHint={seatRowHint(data, formLayout === "row")} numberHint={data.numberSidePrefixes ? `例：${data.numberSidePrefixes[0]}5` : undefined}
+        rowKeys={fieldKeys.row} numberKeys={fieldKeys.number} onPlace={value => { setBlockInput(value); resetFinderFeedback(); }}
+        onRow={value => { setRow(value); resetFinderFeedback(); }} onNumber={value => { setNumber(value); resetFinderFeedback(); }} onSubmit={search} /></>}>
     
-    <div className={styles.selection} aria-live="polite" aria-label="選んだ座席">
-      <div className={`${styles.selectionCopy} ${labelRun ? styles.ticketSelectionCopy : ""}`}>{block ? <>
-        <span className={styles.selectionMeta}>{selectedLevelLabel}{block.balcony && !selectedLevelLabel.includes("バルコニー") ? "・バルコニー" : ""}<span>{selectedRows}</span></span>
-        {/* A searched seat shows its own row and number beside the name, so a name built from another seat ("1列344番周辺") is left out. */}
-        <strong>{labelRun ? selectedTitle.split("・").filter(part => !/^\d+列\d+番(周辺)?$/.test(part.trim())).join("・") || selectedTitle : selectedTitle}</strong>
-        {labelRun && <span className={styles.ticketSelection}><b className={styles.selectedRow}>{labelRun.row}列</b><b className={styles.selectedSeat} data-selected-seat-number>選択：{normalizeSeatInput(number)}番</b></span>}
-      </> : <><strong>{zone ? data.zones?.find(z => z.id === zone)?.label ?? zone : level === "all" ? (overviewArt ? "全体図から区画を選ぶ" : "座席の全体図") : levels.find(l => l.id === level)?.label ?? level}</strong><span className={styles.selectionHint}>{blockOnlySearch ? "会場内の区画をタップして確認" : "区画をタップすると、列・番号の詳細へ"}</span></>}</div>
+    <div className={`${styles.selection} ${immersive ? styles.selectionAbove : ""}`} aria-live="polite" aria-label="選んだ座席">
+      {selectionCopy}
       {block && <><button type="button" aria-label="選んだ場所を表示" onClick={() => block && move(standDetailCamera(block, data, size))}><Crosshair size={19}/></button>
       <button type="button" aria-label="座席の選択を解除" onClick={clearResult}><X size={19}/></button></>}
     </div>
     <p id={instructionId} className={styles.srOnly}>矢印キーで画面内のブロックを選び、Enterで拡大します。地図をドラッグして移動できます。</p>
     {/* Everything that reacts to a search or a selection sits on the map, so nothing above it grows
         or shrinks and the map never jumps (Tokyo Dome's mapNotice / photoOverlay). */}
-    <div className={styles.mapSlot} style={slotHeight ? { height: slotHeight } : undefined}>
+    <div className={styles.mapSlot} id={mapLocked ? "venue-seat-photos" : undefined} style={slotHeight ? { height: slotHeight } : undefined}>
     <div ref={frameElement} className={`${styles.mapFrame} ${fullscreen ? styles.immersive : ""}`} data-arena={arenaMaps ? "" : undefined}
       data-seat-map-fullscreen={fullscreen ? "" : undefined} role={fullscreen ? "dialog" : undefined} aria-modal={fullscreen || undefined}
       aria-label={fullscreen ? `${venueName ?? ""}の座席表` : undefined}>
@@ -1074,7 +1004,7 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
       </div>}
       {shareOpen && block && venueId && <SeatShareSheet venueName={venueName ?? ""} blockName={blockName(block)} onClose={() => setShareOpen(false)}
         share={{ venue: venueId, section: block.id, ...(labelRun ? { row: String(labelRun.row), number: normalizeSeatInput(number) } : {}) }} />}
-      <div className={`${styles.stage} ${overviewArt ? styles.venueOverview : ""} ${data.zones ? styles.zonedStage : ""} ${data.diagramId === "vantelin-prime-unfolded" ? styles.unfoldedStage : ""} ${immersive ? styles.previewCapable : ""}`} ref={stage} data-testid="stand-seat-map" data-diagram-id={data.diagramId} data-camera={view.map(n => n.toFixed(2)).join(",")} data-selected={selected ?? ""} data-selected-zone={zone ?? ""} data-selected-position={position?.id ?? ""} style={{ touchAction: mapLocked ? "pan-y pinch-zoom" : allowPageScroll ? "pan-y" : "none",
+      <div className={`${styles.stage} ${overviewArt ? styles.venueOverview : ""} ${data.zones ? styles.zonedStage : ""} ${data.diagramId === "vantelin-prime-unfolded" ? styles.unfoldedStage : ""} ${immersive ? styles.previewCapable : ""}`} ref={stage} tabIndex={-1} data-testid="stand-seat-map" data-diagram-id={data.diagramId} data-camera={view.map(n => n.toFixed(2)).join(",")} data-selected={selected ?? ""} data-selected-zone={zone ?? ""} data-selected-position={position?.id ?? ""} style={{ touchAction: mapLocked ? "pan-y pinch-zoom" : allowPageScroll ? "pan-y" : "none",
           // The still preview is as tall as the venue drawing at this width, plus room for the top tags.
           height: mapLocked ? Math.min(460, Math.round(size.width * overviewBox[3] / overviewBox[2]) + 76) : undefined,
           "--map-ratio": overviewBox[3] / overviewBox[2] } as React.CSSProperties} data-map-preview={mapLocked ? "" : undefined}
@@ -1100,7 +1030,9 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
               && !(!whole && (() => { const p = projection.project(l.point), w = [...l.text].reduce((sum, char) => sum + 14 * (char.charCodeAt(0) < 128 ? .6 : 1), 0); return p[0] - w / 2 < 2 || p[0] + w / 2 > size.width - 2; })())
               && !(!whole && (() => { const p = projection.project(l.point), w = [...l.text].reduce((sum, char) => sum + 14 * (char.charCodeAt(0) < 128 ? .6 : 1), 0);
                 return labels.some(t => t.selected && Math.abs(p[0] - t.x) < (w + t.width) / 2 + 2 && Math.abs(p[1] - 5 - t.y) < (18 + t.height) / 2 + 2); })())
-              && !(whole && size.width < 500 && data.diagramId === "vantelin-prime-unfolded")).map((l, i) => {
+              && !(whole && size.width < 500 && data.diagramId === "vantelin-prime-unfolded")
+              && !(whole && (() => { const p = projection.project(l.point), w = [...l.text].reduce((sum, char) => sum + 14 * (char.charCodeAt(0) < 128 ? .6 : 1), 0);
+                return buttonBounds.some(r => Math.abs(p[0] - r[0]) < (w + r[2]) / 2 + 2 && Math.abs(p[1] - 5 - r[1]) < (18 + 28) / 2 + 2); })())).map((l, i) => {
                 const footer = whole && size.width < 500 && ["belluna-seats", "paypay-stand-reference", "mufg-seats", "koshien-seats", "vantelin-seat-reference", "makuhari-seats", "sapporo-baseball", "sapporo-soccer"].includes(data.diagramId) && l.text.includes("公演");
                 const lines = footer && l.text.length * 12 > size.width - 24 && l.text.includes("・") ? [l.text.slice(0, l.text.indexOf("・") + 1), l.text.slice(l.text.indexOf("・") + 1)] : [l.text];
                 const point = footer ? projection.unproject([size.width / 2, size.height - 14 - footerLift - (lines.length - 1) * 16]) : l.point;
@@ -1130,33 +1062,33 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
             <circle cx={(selectedScreenBox[0] + selectedScreenBox[2]) / 2} cy={(selectedScreenBox[1] + selectedScreenBox[3]) / 2} r={15} fill="none" stroke="#fff" strokeWidth="5"/>
             <circle cx={(selectedScreenBox[0] + selectedScreenBox[2]) / 2} cy={(selectedScreenBox[1] + selectedScreenBox[3]) / 2} r={15} fill="none" stroke="#a93164" strokeWidth="2.5"/>
           </g>}
-          {rowStems.map((stem, i) => <line key={`row-stem-${i}`} x1={stem.a[0]} y1={stem.a[1]} x2={stem.b[0]} y2={stem.b[1]} stroke="#a93164" strokeWidth="1.2" pointerEvents="none"/>)}
 
           {labels.filter(l => l.anchor && !coveredLabels.has(l.id)).map(l => <line key={`label-stem-${l.id}`} x1={l.anchor![0]} y1={l.anchor![1]} x2={l.x} y2={l.y} stroke="#a93164" strokeWidth="1" pointerEvents="none"/>)}
-          {labels.filter(l => !coveredLabels.has(l.id)).map(l => <g key={l.id} data-annotation={l.id} data-annotation-kind={l.kind} transform={`translate(${l.x},${l.y})`} data-block-id={l.selected ? undefined : l.id} className={l.selected ? undefined : `${styles.block} ${wholeNumbers && pulse ? styles.blockPrompt : ""}`} pointerEvents={l.selected || (!whole && l.kind === "block") ? "none" : "all"}>
+          {labels.filter(l => !coveredLabels.has(l.id)).map(l => <g key={l.id} data-annotation={l.id} data-annotation-kind={l.kind} data-annotation-photo={l.photo ? "" : undefined} transform={`translate(${l.x},${l.y})`} data-block-id={l.selected ? undefined : l.id} className={l.selected ? undefined : `${styles.block} ${wholeNumbers && pulse ? styles.blockPrompt : ""}`} pointerEvents={l.selected || (!whole && l.kind === "block") ? "none" : "all"}>
             <title>{data.blocks.find(b => b.id === l.id)?.label ?? l.text}</title>
-            {l.kind === "number" ? <><path data-number-badge="" data-connected-number-arrow={l.id === "start-number" && arrow ? "" : undefined} d={seatNumberBadge(l.id === "start-number" && arrow ? [arrow.end[0] - arrow.start[0], arrow.end[1] - arrow.start[1]] : [0, 0], l.width, l.height, l.id === "start-number" && arrow ? Math.hypot(arrow.end[0] - arrow.start[0], arrow.end[1] - arrow.start[1]) : 0)} fill="#fff" stroke={l.selected ? "#81294d" : "#d5c5cd"} strokeWidth={l.selected ? 2 : 1}/>
-              {l.id === "start-number" && arrow && <path data-number-arrow-ink="" d={seatNumberArrowInk([arrow.end[0] - arrow.start[0], arrow.end[1] - arrow.start[1]], l.width, l.height, Math.hypot(arrow.end[0] - arrow.start[0], arrow.end[1] - arrow.start[1]))} fill="none" stroke="#a93164" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round"/>}</>
-              : !l.plain && (l.selected || whole || l.kind === "row") && <rect x={-l.width / 2} y={-l.height / 2} width={l.width} height={l.height} rx={l.kind === "row" ? 4 : 12} fill={l.kind === "row" ? selectedRowLabel(l) ? "#155786" : "#e8f3ff" : "#fff"} fillOpacity={l.selected ? 1 : .87} stroke={l.kind === "row" ? "#23679a" : "none"} strokeWidth="1.3"/>}
-            <text textAnchor="middle" y="5" fill={l.kind === "row" ? selectedRowLabel(l) ? "#fff" : "#155786" : l.selected ? "#522e45" : "#5b4652"} fontSize={l.selected && !l.plain ? 14 : 12} fontWeight={l.selected && !l.plain ? 800 : 600}
-              stroke={l.plain ? "#fff" : undefined} strokeWidth="3" strokeLinejoin="round" paintOrder="stroke"
+            {l.kind === "number" ? <path data-number-badge="" d={seatNumberBadge([0, 0], l.width, l.height, 0)} fill="#fff" stroke={l.selected ? "#81294d" : "#d5c5cd"} strokeWidth={l.selected ? 2 : 1}/>
+              : <rect x={-l.width / 2} y={-l.height / 2} width={l.width} height={l.height} rx={l.height / 2} fill="#fff" fillOpacity={l.selected ? 1 : .94} stroke={l.selected ? "none" : "#e3cbd6"} strokeWidth=".8"/>}
+            <text textAnchor="middle" x={l.photo ? -7.5 : 0} y={l.selected ? 5 : 4.5} fill={l.selected ? "#522e45" : "#4b2a3a"} fontSize={l.selected ? 14 : 12} fontWeight={l.selected ? 800 : 700}
               style={{ fontVariantNumeric: "tabular-nums" }}>{l.text}</text>
+            {l.photo && <Camera x={l.width / 2 - 18} y={-6} size={12} color="#a93164" strokeWidth={2.4} aria-hidden="true"/>}
           </g>)}
-          {fifthRows.map(tag => <g key={`fifth-${tag.key}`} data-row-tag={tag.key} transform={`translate(${tag.x},${tag.y})`} pointerEvents="none">
-            <rect x={-tag.w / 2} y={-9} width={tag.w} height={18} rx={4} fill={tag.active ? "#155786" : "#e8f3ff"} fillOpacity={tag.active ? 1 : .92} stroke="#23679a" strokeWidth=".8"/>
-            <text textAnchor="middle" y="4" fill={tag.active ? "#fff" : "#155786"} fontSize="11" fontWeight="700" style={{ fontVariantNumeric: "tabular-nums" }}>{tag.text}</text>
+          {ruler.map(tag => <g key={`row-${tag.key}`} data-row-tag={tag.key} transform={`translate(${tag.x},${tag.y})`} pointerEvents="none">
+            <rect x={-tag.w / 2} y={-9} width={tag.w} height={18} rx={6} fill={tag.active ? "#fff" : "#8a2450"}/>
+            <text textAnchor="middle" y="4" fill={tag.active ? "#a93164" : "#fff"} fontSize="11" fontWeight="800" style={{ fontVariantNumeric: "tabular-nums" }}>{tag.text}</text>
           </g>)}
-          {seatMark?.showEnd && <g data-row-end="" transform={`translate(${seatMark.end[0]},${seatMark.end[1]})`} pointerEvents="none">
-            <rect x={-seatMark.endWidth / 2} y={-12} width={seatMark.endWidth} height={24} rx={12} fill="#fff" stroke="#81294d" strokeWidth="1.4"/>
-            <text textAnchor="middle" y="5" fill="#522e45" fontSize="12" fontWeight="800" style={{ fontVariantNumeric: "tabular-nums" }}>{seatMark.endText}</text>
-          </g>}
+          {seatMark?.numbers.map(tag => <g key={`run-${tag.key}`} data-row-end={tag.key} transform={`translate(${tag.x},${tag.y})`} pointerEvents="none">
+            <rect x={-tag.w / 2} y={-8} width={tag.w} height={16} rx={5} fill="#8a2450"/>
+            <text textAnchor="middle" y="3.5" fill="#ffd9e6" fontSize="10" fontWeight="800" style={{ fontVariantNumeric: "tabular-nums" }}>{tag.text}</text>
+          </g>)}
           {seatMark && <g data-seat-mark="" pointerEvents="none">
-            <circle cx={seatMark.point[0]} cy={seatMark.point[1]} r={8} fill="#ef2d62" stroke="#fff" strokeWidth="3"/>
-            <line x1={seatMark.point[0]} y1={seatMark.point[1] + (seatMark.tagY < seatMark.point[1] ? -9 : 9)} x2={seatMark.tagX} y2={seatMark.tagY + (seatMark.tagY < seatMark.point[1] ? 14 : -14)} stroke="#ef2d62" strokeWidth="2"/>
-            <g transform={`translate(${seatMark.tagX},${seatMark.tagY})`}>
-              <rect x={-seatMark.width / 2} y={-14} width={seatMark.width} height={28} rx={14} fill="#ef2d62" stroke="#fff" strokeWidth="2"/>
-              <text textAnchor="middle" y="5" fill="#fff" fontSize="13" fontWeight="800" style={{ fontVariantNumeric: "tabular-nums" }}>{seatMark.text}</text>
-            </g>
+            <circle cx={seatMark.point[0]} cy={seatMark.point[1]} r={seatMark.pill ? 8 : 5} fill="#ef2d62" stroke="#fff" strokeWidth={seatMark.pill ? 3 : 2}/>
+            {seatMark.pill && <>
+              <line x1={seatMark.point[0]} y1={seatMark.point[1] + (seatMark.tagY < seatMark.point[1] ? -9 : 9)} x2={seatMark.tagX} y2={seatMark.tagY + (seatMark.tagY < seatMark.point[1] ? 14 : -14)} stroke="#ef2d62" strokeWidth="2"/>
+              <g transform={`translate(${seatMark.tagX},${seatMark.tagY})`}>
+                <rect x={-seatMark.width / 2} y={-14} width={seatMark.width} height={28} rx={14} fill="#ef2d62" stroke="#fff" strokeWidth="2"/>
+                <text textAnchor="middle" y="5" fill="#fff" fontSize="13" fontWeight="800" style={{ fontVariantNumeric: "tabular-nums" }}>{seatMark.text}</text>
+              </g>
+            </>}
           </g>}
           {photoMarkers.map(({ key, place, label, point: [x, y] }) => <g key={key}>
             <g data-seat-photo-marker={key} className={styles.photoMarker} role="button" tabIndex={0}
@@ -1174,8 +1106,6 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
           </g>
         </svg>
         {position && <span className={styles.front}>{position.label}付近</span>}
-        {/* Zoomed in full screen, the stage side stays readable. */}
-        {fullscreen && !whole && !position && <span className={styles.frontChip}>{data.frontLabel || "↑ ステージ方向"}</span>}
         {levelHints?.up && <span className={`${styles.levelHint} ${styles.levelHintUp}`} data-level-hint="up">↑ {levelHints.up}</span>}
         {levelHints?.down && <span className={styles.levelHint} data-level-hint="down" style={{ top: levelHints.bottom - 40 }}>↓ {levelHints.down}</span>}
         {miniMap && <button type="button" key={`mini-${openCount}`} className={styles.miniMap} data-mini-map="" aria-label="全体図：押すと会場全体を表示" onClick={() => {
@@ -1189,30 +1119,26 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
         </button>}
         {fullscreen && overviewReturn && <button type="button" className={styles.backToSeat} data-back-to-seat="" onClick={() => { move(overviewReturn); setOverviewReturn(null); }}>
           <Crosshair size={16} aria-hidden="true"/>選んだ席に戻る</button>}
-        {whole && !data.overviewAreas && <span className={styles.front}>{data.frontLabel ?? "↑ ステージ方向"}</span>}
-        {zoneTags.map(z => { const p = zonePositions.get(z.id)!; return <button type="button" key={z.id} data-zone-id={z.id} aria-label={`${z.label}ブロックを拡大`} className={`${styles.zoneTag} ${pulse ? styles.zonePulse : ""}`} style={{ left: p[0], top: p[1] }} onClick={() => chooseZone(z.id)}><span>{z.label}</span></button>; })}
-        {areaTags.map(a => { const p = areaPositions.get(a.id)!; return <button type="button" key={a.id} data-area-id={a.id} aria-label={`${a.label}${a.label.endsWith("側") ? "" : "側"}を拡大`} className={`${styles.zoneTag} ${pulse ? styles.zonePulse : ""}`} style={{ left: p[0], top: p[1] }} onClick={() => chooseRegion("all", a.area)}><span>{a.label}</span></button>; })}
-        {levelTags.map(l => { const p = projection.project(l.point); return <button type="button" key={l.id} className={`${styles.levelTag} ${pulse ? styles.pulse : ""}`} style={{ left: p[0], top: p[1] }} onClick={() => chooseRegion(l.id, "all")}>{l.label}</button>; })}
+        {zoneTags.map(z => { const p = zonePositions.get(z.id)!; return <button type="button" key={z.id} data-zone-id={z.id} aria-label={`${z.label}ブロックを拡大`} className={`${styles.zoneTag} ${pulse ? styles.zonePulse : ""}`} style={{ left: p[0], top: p[1] }} onClick={() => chooseZone(z.id)}><span>{z.label}{photoPlaces.zoneIds.has(z.id) && <Camera size={12} aria-hidden="true"/>}</span></button>; })}
+        {areaTags.map(a => { const p = areaPositions.get(a.id)!; return <button type="button" key={a.id} data-area-id={a.id} aria-label={`${a.label}${a.label.endsWith("側") ? "" : "側"}を拡大`} className={`${styles.zoneTag} ${pulse ? styles.zonePulse : ""}`} style={{ left: p[0], top: p[1] }} onClick={() => chooseRegion("all", a.area)}><span>{a.label}{photoPlaces.areaIds.has(a.area) && <Camera size={12} aria-hidden="true"/>}</span></button>; })}
+        {levelTags.map(l => { const p = projection.project(l.point); return <button type="button" key={l.id} className={`${styles.levelTag} ${pulse ? styles.pulse : ""}`} style={{ left: p[0], top: p[1] }} onClick={() => chooseRegion(l.id, "all")}>{l.label}{photoPlaces.levelIds.has(l.id) && <Camera size={12} aria-hidden="true"/>}</button>; })}
       </div>
       {finderFeedback && !fullscreen && <div className={styles.mapNotice} data-seat-map-notice="">
         <button type="button" className={styles.noticeClose} aria-label="検索の案内を閉じる" onClick={resetFinderFeedback}><X size={16} aria-hidden="true"/></button>
-        {searchMiss && <SeatFinderMiss detail={error}
-          advice={inputAdvice} query={missingInput ? undefined : { scope: [levels.find(l => l.id === level)?.label, area !== "all" && directionName(areas.find(item => item.id === area)?.label ?? area)].filter(Boolean).join("・") || "会場全体",
-            row: finderMode === "ticket" && !blockOnlySearch ? row : undefined, number: finderMode === "ticket" && !blockOnlySearch ? number : undefined,
-            block: finderMode === "block" || blockOnlySearch ? blockInput : undefined }}
-          onReset={level === "all" && area === "all" && !zone ? undefined : reset}
+        {searchMiss && <SeatFinderMiss detail={error} message={missMessage} advice={inputAdvice}
+          onReset={immersiveMode || (level === "all" && area === "all" && !zone) ? undefined : reset}
           choices={fallbackBlocks.map(item => ({ id: item.id, label: blockDisplayTitle(item, "") }))}
           choose={id => { const item = data.blocks.find(b => b.id === id); if (item) { setRow(""); setNumber(""); select(item, true); } }} />}
         {error && !searchMiss && <div className={styles.message} role="status">{error}<button type="button" onClick={reset}>条件を解除</button></div>}
         {matches.length > 0 && <section className={styles.searchResults} data-seat-search-results aria-label="座席の検索結果">
           <div className={styles.resultsHeading} role="status">
-            <strong>{matches.length}区画が見つかりました</strong>
-            <p>席種・列で絞るか、区画を選んでください。</p>
+            <strong>{matches.length}件あります</strong>
+            <p>{placeText ? "席に合うものを選んでください。" : `${placeField.label}を入れると1つに絞れます。`}</p>
           </div>
           <ul className={styles.candidateList} aria-label="座席の検索候補">
             {matches.map(b => {
               const levelLabel = seatLevelName(b.level, levels.find(l => l.id === b.level)?.label);
-              return <li key={b.id}><button className={styles.candidateButton} type="button" data-seat-candidate={b.id} onClick={() => select(b, true, finderMode === "ticket" && !blockOnlySearch)}>
+              return <li key={b.id}><button className={styles.candidateButton} type="button" data-seat-candidate={b.id} onClick={() => select(b, true, matchesFromSeat)}>
                 <span className={styles.candidateCopy}>
                   <strong>{blockDisplayTitle(b, levelLabel)}</strong>
                   <span className={styles.candidateMeta}><span>{levelLabel}{b.balcony && !levelLabel.includes("バルコニー") ? "・バルコニー" : ""}</span><span>{rowSummary(b)}</span></span>
@@ -1249,15 +1175,15 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
               onOpen={() => { if (block) frameRequest.current = { id: block.id, zoom: false, animate: true }; setSheetOpen(true); }} />
         : sheetOpen && <SeatPhotoEmptySheet key={sheetPlace.key} sheetRef={sheetElement} title={sheetPlace.long} nearby={block ? neighbor(nearbyPhotoBlock, "step") : null} onFold={() => setSheetOpen(false)} rows={block ? sheetRows : null} />)}
     </div>
-      {/* Rendered for phones before hydration too (CSS hides it on wide screens), so the page does not jump. */}
-      {immersive && !fullscreen && <div className={styles.previewOpen} id={mapLocked ? "venue-seat-photos" : undefined}>
-        {!hintSeen && photoAnchors.length > 0 && <p className={styles.previewHint}><Camera size={14} aria-hidden="true"/>カメラ印の区画をタップすると、席からの見え方が見られます</p>}
-        <button ref={openButton} type="button" onClick={() => openFullscreen(selected ? { id: selected, zoom: true, animate: true } : null)}>
-          <Camera size={18} aria-hidden="true"/><span>座席表を開いて写真を見る</span>
-        </button>
-      </div>}
     </div>
-    <div className={styles.mapActions}>{data.diagramId === "vantelin-prime-unfolded" && <span className={styles.primeOrientation}>ツイン：3塁側 L／1塁側 R<br/>ボックス：4F／レストラン：3F</span>}<button type="button" className={styles.whole} onClick={reset}>全体図へ</button></div>
+    {/* Which side faces the stage or arena: one line under the map, never over the blocks. */}
+    {stageNote && <p className={styles.mapNote}>{stageNote}</p>}
+    {/* Phones: the chosen place is named under the map, so nothing above the map changes height. */}
+    {immersive && block && <div className={`${styles.selection} ${styles.selectionBelow}`} aria-label="選んだ座席">
+      {selectionCopy}
+      <button type="button" aria-label="座席の選択を解除" onClick={() => { reset(); setBlockInput(""); setRow(""); setNumber(""); }}><X size={19}/></button>
+    </div>}
+    <div className={`${styles.mapActions} ${immersive ? (data.diagramId === "vantelin-prime-unfolded" ? styles.phoneNoWhole : styles.phoneHidden) : ""}`}>{data.diagramId === "vantelin-prime-unfolded" && <span className={styles.primeOrientation}>ツイン：3塁側 L／1塁側 R<br/>ボックス：4F／レストラン：3F</span>}<button type="button" className={styles.whole} onClick={reset}>全体図へ</button></div>
     {block && labelRun && <SeatSearchOffer row={String(labelRun.row)} number={normalizeSeatInput(number)} contextLabel={selectedTitle} />}
     {block && <div className={styles.footer} key={block.id} aria-label="選択した区画の詳細">
       {block.numberLookup === "partial" && <p className={styles.coverageNote}><Info size={16} aria-hidden="true"/><span>この区画は、資料で確認できた列・番号だけを掲載しています。</span></p>}

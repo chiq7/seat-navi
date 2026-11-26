@@ -36,7 +36,7 @@ import { announceTokyoDomeMapScope, getTokyoDomeVenueSeatSelection, TOKYO_DOME_S
 import { useArenaMaps } from "./ArenaMapsSheet";
 import { standPathRings, standRingsBox } from "./template/standMap";
 import { useVenueSeatTarget } from "./VenueSeatTarget";
-import { fitAboveBoard, ImmersiveBar, ImmersiveFrame, ImmersiveOpenButton, useImmersiveMap } from "./template/immersiveMap";
+import { fitAboveBoard, ImmersiveBar, ImmersiveFrame, useImmersiveMap } from "./template/immersiveMap";
 import { SeatPhotoEmptySheet, SeatPhotoSheet, SeatPhotoSheetTab, type SheetNeighbor } from "./template/SeatPhotoSheet";
 import { SeatShareSheet } from "./template/SeatShareSheet";
 import { seatViewInlinePhotoUrl } from "@/lib/seatViewPhotoAssets";
@@ -923,6 +923,8 @@ export function TokyoDomeSeatLocator() {
       const area = AREA_BY_CODE.get(start.code);
       if (area) chooseArea(area);
     } else if (lockedRef.current && event.type === "pointerup" && !didPanRef.current && start && distance(start.point, { x: event.clientX, y: event.clientY }) <= 6) {
+      // A tap on the still map opens it, on the chosen seat when there is one.
+      if (selected && selectedLabel) pendingView.current = () => showSelectedView(selected, selectedLabel);
       shell.open();
     }
   }
@@ -1057,12 +1059,13 @@ export function TokyoDomeSeatLocator() {
             <button type="button" onClick={clearSelection} aria-label="座席の選択を解除"><X size={18}/></button>
           </div>
         </> : <div className={styles.overviewHeading}><strong>{seatLevel === "all" && direction === "all" ? "東京ドームの全体図" : `${SEAT_LEVELS.find(level => level.id === seatLevel)!.label}・${MAP_VIEWS[direction].label}`}</strong><span>区画をタップで拡大</span></div>}</div>
-        <ImmersiveFrame frameRef={shell.frameRef} slotHeight={shell.slotHeight} fullscreen={shell.fullscreen} className={styles.mapFrame} label="東京ドームの座席表" data-tokyo-map-frame="">
+        <ImmersiveFrame frameRef={shell.frameRef} slotHeight={shell.slotHeight} fullscreen={shell.fullscreen} className={styles.mapFrame} label="東京ドームの座席表" anchor={shell.locked} data-tokyo-map-frame="">
         {shell.fullscreen && <ImmersiveBar closeRef={shell.closeRef} onClose={shell.requestClose} venueName="東京ドーム" title={selected ? `${placeTitle}${selectedSide ? `（${selectedSide}）` : ""}` : null} onShare={selected ? () => setShareOpen(true) : undefined} />}
         {shareOpen && selected && placeTitle && <SeatShareSheet venueName="東京ドーム" blockName={placeTitle} onClose={() => setShareOpen(false)}
           share={{ venue: "tokyo-dome", section: selected.code, ...(selectedRow !== null ? { row: String(selectedRow) } : {}), ...(selectedSeat !== null ? { number: String(selectedSeat) } : {}) }} />}
         {notice&&<p role="status" className={styles.mapNotice}>{notice}</p>}
         <div ref={mapCanvasRef} className={styles.map} data-view={showDetail ? "detail" : "overview"} data-whole={!selected && direction === "all" && seatLevel === "all" ? "" : undefined} aria-label="東京ドームの座席図"
+          data-map-preview={shell.locked ? "" : undefined}
           style={{ touchAction: shell.locked ? "pan-y pinch-zoom" : shell.fullscreen ? "none" : interactiveViewBox.width >= FULL_MAP_VIEW_BOX.width * .99 ? "pan-y" : "none",
             height: shell.locked ? Math.min(460, Math.round(canvasSize.width * FULL_MAP_VIEW_BOX.height / FULL_MAP_VIEW_BOX.width) + 40) : undefined }}
           onPointerDown={handleMapPointerDown} onPointerMove={handleMapPointerMove} onPointerUp={handleMapPointerEnd} onPointerCancel={handleMapPointerEnd} onLostPointerCapture={handleMapPointerEnd}
@@ -1280,9 +1283,6 @@ export function TokyoDomeSeatLocator() {
             {(showDetail && visibleZones.length > 0 ? visibleZones : ZONE_KEY).map(zone => <li key={zone.key}><i style={{ background: ZONE_COLORS[zone.key] }} />{zone.label}</li>)}
           </ul>
         </ImmersiveFrame>
-        {shell.locked && <ImmersiveOpenButton openRef={shell.openRef} hint={!shell.hintSeen} onOpen={() => {
-          if (selected && selectedLabel) pendingView.current = () => showSelectedView(selected, selectedLabel);
-          shell.open(); }} />}
         {/* Keep conditional notes below the canvas and whole-view control so selection cannot move either. */}
         {selectedSpecial&&<p className={styles.hint}>図の記号の位置です。個別の席・列は表示していません。</p>}
         {selectedRowNote&&<p className={styles.hint}>{selectedRowNote}</p>}

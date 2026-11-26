@@ -66,3 +66,9 @@
   font-weight: 700;
 }
 
+/* Phones, stand maps: the ticket boxes are the only control above the map. */
+@media(max-width:767px) {
+ .shell.simpleMobile .levels,.shell.simpleMobile .directions,.shell.simpleMobile .mobileDirection,.shell.simpleMobile .zoom { display:none; }
+ .shell.simpleMobile .tools { margin-top:0; }
+ .shell.simpleMobile .controls { padding:12px 10px 10px; }
+}

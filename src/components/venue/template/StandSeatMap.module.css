@@ -111,19 +111,15 @@
 .photoOverlay [data-seat-photo-summary]:not(:has(button))>span:first-child>span{color:#ffd9e8;font-weight:800}
 .photoOverlay [data-seat-photo-preview]{width:auto;gap:10px;min-height:0;background:transparent}
 .arenaMaps{position:absolute;top:4px;right:4px;z-index:4;display:grid;place-items:center;padding:0 4px;border:0;background:transparent;cursor:pointer}
-.arenaPill{display:inline-flex;align-items:center;gap:4px;height:30px;padding:0 6px 0 9px;border:2px solid #fff;border-radius:999px;background:#a93164;color:#fff;font-size:12px;font-weight:900;white-space:nowrap;box-shadow:0 2px 8px #0000002e}
+.arenaPill{display:inline-flex;align-items:center;gap:4px;height:30px;padding:0 8px 0 9px;border:1.5px solid #a93164;border-radius:999px;background:#fff;color:#a93164;font-size:12px;font-weight:900;white-space:nowrap;box-shadow:0 2px 8px #0000001f}
 .arenaPill>svg{flex:0 0 14px}
-.arenaPill b{min-width:20px;padding:0 5px;border-radius:999px;background:#fff;color:#a93164;font-size:11px;line-height:18px;text-align:center}
+.arenaPill b{padding-left:2px;color:#a93164;font-size:12px;line-height:18px;text-align:center}
 .arenaThumb{flex:0 0 22px;width:22px;height:22px;margin-left:-5px;border-radius:50%;object-fit:cover;background:#fff;box-shadow:0 0 0 1px #ffffffb3}
 @media(max-width:420px){.mapFrame[data-arena] .front{top:48px}}
 
 /* ── Phones: still preview in the page, full-screen map with a photo board ── */
-.mapSlot{position:relative}
+.mapSlot{position:relative;scroll-margin-top:90px}
 .stage[data-map-preview]{cursor:pointer}
-.previewOpen{display:grid;gap:8px;padding:4px 12px 12px}
-.previewOpen>button{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:48px;padding:0 14px;border:2px solid #fff;border-radius:14px;background:#a93164;color:#fff;font-size:15px;font-weight:800;box-shadow:0 4px 14px #4b414840}
-.previewHint{display:flex;align-items:flex-start;gap:6px;margin:0;padding:6px 10px;border:1px solid #e3cbd6;border-radius:10px;background:#fffffff5;color:#59283e;font-size:12px;line-height:1.5;}
-.previewHint>svg{flex:none;margin-top:2px;color:#90254f}
 /* [data-seat-map-fullscreen] outranks a map's own ".mapFrame{position:relative}" (Tokyo Dome, Kyocera Dome). */
 .immersive,.immersive[data-seat-map-fullscreen]{position:fixed;inset:0;z-index:120;background:#fff;overscroll-behavior:contain;animation:spread .22s cubic-bezier(.2,.8,.2,1)}
 @keyframes spread{from{opacity:0;transform:scale(.97)}}
@@ -137,7 +133,6 @@
 .immersive .arenaMaps{top:calc(60px + env(safe-area-inset-top))}
 /* Before hydration a phone already gets the preview's size and button (no jump when the script runs). */
 @media(max-width:767px){.stage.previewCapable{height:min(460px,calc(var(--map-ratio) * (100vw - 58px) + 76px))}.photoOverlay.previewCapable [data-seat-photo-summary]{display:none}}
-@media(min-width:768px){.previewOpen{display:none}}
 .stage.previewCapable{-webkit-tap-highlight-color:transparent}
 .immersiveShare{flex:none;display:inline-flex;align-items:center;gap:5px;min-height:40px;padding:0 12px;border:0;border-radius:12px;background:#a93164;color:#fff;font-size:13px;font-weight:800;white-space:nowrap}
 .frontChip{position:absolute;top:8px;left:8px;z-index:3;padding:4px 10px;border:1px solid #e3cbd6;border-radius:999px;background:#fffffff0;color:#6d4b5c;font-size:12px;font-weight:700;pointer-events:none;box-shadow:0 2px 6px #4b414818}
@@ -150,3 +145,13 @@
 .miniMapCaption{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:800;color:#7a3b55;line-height:1}
 .levelHint{position:absolute;left:50%;z-index:3;transform:translateX(-50%);padding:5px 12px;border:1px solid #c9bde6;border-radius:999px;background:#fffffff0;color:#4e3f7a;font-size:12px;font-weight:800;pointer-events:none;box-shadow:0 2px 6px #4b414818}
 .levelHintUp{top:8px}
+/* Phones (still map): the page keeps the ticket boxes and the map; the chosen place is named under the map. */
+.selectionBelow{display:none;height:auto;min-height:64px;border-bottom:0}
+@media(max-width:767px){.selectionAbove,.phoneHidden,.phoneNoWhole .whole{display:none}.selectionBelow{display:flex}}
+.stage:focus{outline:none}
+/* One line under the map: which side faces the stage or arena. */
+.mapNote{margin:0;padding:5px 12px 7px;text-align:center;color:#8a7480;font-size:11px;font-weight:600;line-height:1.4}
+/* Names of zones, sides and levels carry the camera when they hold photos. */
+.zoneTag span{display:inline-flex;align-items:center;justify-content:center;gap:3px}
+.zoneTag span svg,.levelTag svg{flex:none;color:#a93164}
+.levelTag{display:inline-flex;align-items:center;justify-content:center;gap:4px}

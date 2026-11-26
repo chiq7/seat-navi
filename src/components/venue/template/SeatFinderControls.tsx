@@ -1,6 +1,7 @@
 "use client";
 
 import type { FormEvent } from "react";
+import { Search } from "lucide-react";
 import ReadySearchControl from "./ReadySearchControl";
 import { seatQueryDescription, type SeatFinderQuery } from "./seatFinderLabels";
 import styles from "./SeatFinderControls.module.css";
@@ -32,15 +33,45 @@ export function SeatFinderControls(props: Props) {
   </form>;
 }
 
-export function SeatFinderMiss({ query, detail, advice, choices, choose, onReset }: {
+type TicketProps = {
+  placeLabel: string; placeHint: string;
+  /** "wide": the place box takes its own line. "place": this map has no row or number to search. */
+  layout?: "row" | "wide" | "place";
+  place: string; row: string; number: string;
+  onPlace: (value: string) => void; onRow: (value: string) => void; onNumber: (value: string) => void;
+  rowHint?: string; numberHint?: string; rowKeys?: "numeric" | "text"; numberKeys?: "numeric" | "text"; testId?: string;
+  onSubmit: (event: FormEvent<HTMLFormElement>) => void;
+};
+
+/** The ticket in one line: the place printed on it (block, door, level…), row and number. Any box may be left empty. */
+export function SeatTicketForm(props: TicketProps) {
+  const layout = props.layout ?? "row";
+  return <form className={styles.form} data-seat-finder-form data-testid={props.testId} onSubmit={props.onSubmit} aria-label="チケットの座席で検索">
+    <div className={styles.ticket} data-layout={layout}>
+      <label data-field="place">{props.placeLabel}<ReadySearchControl><input value={props.place} placeholder={`例：${props.placeHint}`} enterKeyHint="search"
+        autoComplete="off" autoCapitalize="characters" autoCorrect="off" spellCheck={false} onChange={event => props.onPlace(event.target.value)} /></ReadySearchControl></label>
+      {layout !== "place" && <>
+        <label data-field="row">列<ReadySearchControl><input value={props.row} placeholder={props.rowHint ?? "例：5"} inputMode={props.rowKeys} enterKeyHint="search"
+          autoComplete="off" autoCapitalize="characters" autoCorrect="off" spellCheck={false} onChange={event => props.onRow(event.target.value)} /></ReadySearchControl></label>
+        <label data-field="number">番号<ReadySearchControl><input value={props.number} placeholder={props.numberHint ?? "例：55"} inputMode={props.numberKeys} enterKeyHint="search"
+          autoComplete="off" autoCapitalize="characters" autoCorrect="off" spellCheck={false} onChange={event => props.onNumber(event.target.value)} /></ReadySearchControl></label>
+      </>}
+      <ReadySearchControl><button type="submit" aria-label="席の場所を見る"><Search size={17} aria-hidden="true" /><span>探す</span></button></ReadySearchControl>
+    </div>
+  </form>;
+}
+
+export function SeatFinderMiss({ query, detail, advice, choices, choose, onReset, message: ownMessage }: {
   query?: SeatFinderQuery;
+  /** Replaces the sentence built from `query` (the one-line ticket form writes its own). */
+  message?: string;
   detail?: string; advice?: string; choices: { id: string; label: string }[]; choose: (id: string) => void; onReset?: () => void;
 }) {
   const input = query && seatQueryDescription(query);
   const description = query?.block?.trim() ? `「${input}」` : input;
   const nextStep = query?.block?.trim() ? "チケットの区画名を確認するか、下の座席図から選んでください。"
     : "チケットの方向・階を確認するか、ブロック名で探してください。";
-  const message = description && query
+  const message = ownMessage ? ownMessage : description && query
     ? `${query.scope}では${description}は見つかりませんでした。${nextStep}`
     : detail || "チケットの列・座席番号、またはブロック名を入力してください。";
   return <div className={styles.miss} data-seat-finder-miss>

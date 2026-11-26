@@ -21,6 +21,8 @@ type Props = {
   seatViewIndex?: number;
   share?: SeatPhotoShare;
   compactMobileControls?: boolean; photoLegend?: "camera" | "outline" | "map";
+  /** Phones: only `directionExtra` (the ticket boxes) stays above the map; levels, directions and zoom live in the full-screen map. */
+  simpleMobile?: boolean;
   /** Replaces the shared level/direction/search controls (Tokyo Dome ticket form). */
   customControls?: ReactNode;
 };
@@ -29,7 +31,7 @@ type Props = {
 // seat/facility state remain in each controller; the operation surface is shared.
 export function DomeSeatFrame({ levels, level, onLevel, directions, direction, onDirection,
   onZoom, onWhole, zoomLabel = "地図", shortcuts, children, className = "", directionHint, directionExtra, seatView, seatViewIndex = 0,
-  compactMobileControls = true, photoLegend = "camera", share, customControls }: Props) {
+  compactMobileControls = true, photoLegend = "camera", share, customControls, simpleMobile = false }: Props) {
   const ready = useSeatControlsReady();
   const hintId = useId();
   const panelId = `seat-view-${useId()}`;
@@ -41,7 +43,7 @@ export function DomeSeatFrame({ levels, level, onLevel, directions, direction, o
     {directions.map(item => <button key={item.id} type="button" disabled={!ready} aria-pressed={direction === item.id}
       onClick={() => onDirection(item.id)}>{directionName(item.label)}</button>)}
   </div>;
-  return <div className={`${styles.shell} ${compactMobileControls ? styles.compactMobile : ""} ${className}`} data-seat-template="tokyo-dome" inert={!ready}
+  return <div className={`${styles.shell} ${compactMobileControls ? styles.compactMobile : ""} ${simpleMobile ? styles.simpleMobile : ""} ${className}`} data-seat-template="tokyo-dome" inert={!ready}
     style={{ "--level-count": levels.length, "--mobile-level-columns": Math.min(5, levels.length) } as CSSProperties}>
     {customControls ?? <div className={`${styles.controls} ${directionExtra ? styles.inlineControls : ""}`}>
       <div className={styles.levels} role="group" aria-label="席の種類">
