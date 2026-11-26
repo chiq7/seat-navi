@@ -211,9 +211,10 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
     if (contacts.current.size) { gesture.current = { box: camera.current, ...centre() }; moved.current = true; return; }
     gesture.current = null;
     commit(true);
+    // The still map on a phone is a door, not a picker: a tap opens the whole map, wherever the finger landed.
+    if (tap && lockedRef.current) { suppressMapClick.current = true; onLockedTap?.(); return; }
     const block = tap && contact.code ? blocks.find(b => b.code === contact.code) : undefined;
     if (block) { setFocusedCode(block.code); onBlock(block); }
-    else if (tap && lockedRef.current) onLockedTap?.();
   }
   useEffect(() => {
     const el = svg.current!;

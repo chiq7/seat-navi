@@ -913,19 +913,22 @@ export function TokyoDomeSeatLocator() {
     const start = pointerStartsRef.current.get(event.pointerId);
     const shouldSelect = event.type === "pointerup" && pointerPositionsRef.current.size === 1 && !didPanRef.current
       && start?.code && distance(start.point, { x: event.clientX, y: event.clientY }) <= 6;
-    suppressMapClick.current ||= didPanRef.current;
+    // The still map on a phone is a door, not a picker: a tap opens the whole map, wherever the finger landed.
+    const lockedTap = lockedRef.current && pointerPositionsRef.current.size === 1 && !didPanRef.current
+      && Boolean(start) && distance(start!.point, { x: event.clientX, y: event.clientY }) <= 6;
+    suppressMapClick.current ||= didPanRef.current || lockedTap;
     pointerPositionsRef.current.delete(event.pointerId);
     pointerStartsRef.current.delete(event.pointerId);
     startGesture();
     if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
     if (pointerPositionsRef.current.size === 0) { didPanRef.current = false; commitBox(); scheduleSnapshot(); }
-    if (shouldSelect && start?.code) {
-      const area = AREA_BY_CODE.get(start.code);
-      if (area) chooseArea(area);
-    } else if (lockedRef.current && event.type === "pointerup" && !didPanRef.current && start && distance(start.point, { x: event.clientX, y: event.clientY }) <= 6) {
-      // A tap on the still map opens it, on the chosen seat when there is one.
+    if (lockedTap) {
+      // On the chosen seat when there is one, else the whole map.
       if (selected && selectedLabel) pendingView.current = () => showSelectedView(selected, selectedLabel);
       shell.open();
+    } else if (shouldSelect && start?.code) {
+      const area = AREA_BY_CODE.get(start.code);
+      if (area) chooseArea(area);
     }
   }
 

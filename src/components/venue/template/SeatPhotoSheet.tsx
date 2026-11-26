@@ -116,6 +116,8 @@ export function SeatPhotoSheet({ title, matches, previous, next, onFold, onEnlar
       {several && <>
         <button type="button" className={`${styles.step} ${styles.stepBack}`} disabled={index === 0} onClick={() => show(index - 1)} aria-label="前の写真"><ChevronLeft size={20} aria-hidden="true" /></button>
         <button type="button" className={`${styles.step} ${styles.stepOn}`} disabled={index === matches.length - 1} onClick={() => show(index + 1)} aria-label="次の写真"><ChevronRight size={20} aria-hidden="true" /></button>
+        {/* How many photos this place has and which one is showing: it tells that the photo can be swiped. */}
+        <span className={styles.dots} aria-hidden="true">{matches.length <= 8 ? matches.map((item, i) => <i key={i} data-on={i === index ? "" : undefined} />) : <b>{index + 1}/{matches.length}</b>}</span>
       </>}
       {/* The performance and the verified seat ride on the photo's lower edge, so the board needs no extra line. */}
       {(credit.day || credit.name || post.seatVerified) && <p className={styles.credit}>{credit.day && <span>{credit.day}</span>}

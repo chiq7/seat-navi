@@ -577,11 +577,13 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
     commit();
     suppressMapClick.current ||= !tap;
     if (!tap) return;
+    // The still map on a phone is a door, not a picker: wherever the finger lands, a tap opens the whole venue
+    // full screen (on the chosen seat when one is already chosen). The names on it do not act either.
+    if (mapLocked) { suppressMapClick.current = true; openFullscreen(selected ? { id: selected, zoom: true, animate: true } : null); return; }
     const photoAnchor = photoAnchors.find(item => item.key === photo);
     if (photoAnchor) { selectPhotoPlace(photoAnchor.place); return; }
     const target = id && data.blocks.find(b => b.id === id);
     if (target) select(target);
-    else if (mapLocked) openFullscreen(selected ? { id: selected, zoom: true, animate: true } : null);
   }
   useEffect(() => {
     const el = stage.current!;
@@ -792,6 +794,24 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
       ruler.push({ key: r.label, text, x, y, w, active: Boolean(activeRow) && normalizeSeatInput(r.label) === activeRow });
     }
   }
+  // Where the chosen block's seat numbers begin and which way they run: one small tag at that end of its row.
+  // (A searched seat shows the two ends of its own run instead; the still map on a phone is too small for it.)
+  const startNumber = block?.numberReference && block.numberLookup !== "unavailable" && !labelRun && !mapLocked ? (() => {
+    const young = projection.project(block.numberReference.young), older = projection.project(block.numberReference.older);
+    const length = Math.hypot(older[0] - young[0], older[1] - young[1]);
+    if (length < 1) return null;
+    const ux = (older[0] - young[0]) / length, uy = (older[1] - young[1]) / length;
+    const text = `${block.numberPrefix ?? ""}${block.numberReference.start}番`, w = [...text].reduce((sum, char) => sum + 11 * (char.charCodeAt(0) < 128 ? .62 : 1), 0) + 22;
+    // Just inside that end of the row, past the row's own tag when it sits there.
+    let offset = w / 2 + 3;
+    const rowTag = ruler.find(tag => Math.abs(tag.x - (young[0] + ux * offset)) < (tag.w + w) / 2 + 2 && Math.abs(tag.y - (young[1] + uy * offset)) < 17);
+    if (rowTag) offset += rowTag.w + 3;
+    const x = young[0] + ux * offset, y = young[1] + uy * offset;
+    if (x < w / 2 || x > size.width - w / 2 || y < 10 || y > size.height - 10) return null;
+    if (ruler.some(tag => Math.abs(tag.x - x) < (tag.w + w) / 2 + 2 && Math.abs(tag.y - y) < 19)) return null;
+    if (occupied.some(o => Math.abs(x - o[0]) < (w + o[2]) / 2 + 2 && Math.abs(y - o[1]) < (18 + o[3]) / 2 + 2)) return null;
+    return { text, x, y, w, angle: Math.atan2(uy, ux) * 180 / Math.PI, side: ux < -.5 ? -1 : 1 };
+  })() : null;
   const referenceLabels = new Set<string>();
   const contextCaptions = new Set<string>();
   if (block?.numberLookup === "unavailable" && labels.some(item => item.id === "selected-block")) {
@@ -1076,6 +1096,11 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
             <rect x={-tag.w / 2} y={-9} width={tag.w} height={18} rx={6} fill={tag.active ? "#fff" : "#8a2450"}/>
             <text textAnchor="middle" y="4" fill={tag.active ? "#a93164" : "#fff"} fontSize="11" fontWeight="800" style={{ fontVariantNumeric: "tabular-nums" }}>{tag.text}</text>
           </g>)}
+          {startNumber && <g data-start-number="" transform={`translate(${startNumber.x},${startNumber.y})`} pointerEvents="none">
+            <rect x={-startNumber.w / 2} y={-9} width={startNumber.w} height={18} rx={6} fill="#8a2450"/>
+            <text textAnchor="middle" x={-5 * startNumber.side} y="4" fill="#fff" fontSize="11" fontWeight="800" style={{ fontVariantNumeric: "tabular-nums" }}>{startNumber.text}</text>
+            <path d="M-3,-3.5 L3,0 L-3,3.5 Z" fill="#ffd9e6" transform={`translate(${startNumber.side * (startNumber.w / 2 - 8)},0) rotate(${startNumber.angle})`}/>
+          </g>}
           {seatMark?.numbers.map(tag => <g key={`run-${tag.key}`} data-row-end={tag.key} transform={`translate(${tag.x},${tag.y})`} pointerEvents="none">
             <rect x={-tag.w / 2} y={-8} width={tag.w} height={16} rx={5} fill="#8a2450"/>
             <text textAnchor="middle" y="3.5" fill="#ffd9e6" fontSize="10" fontWeight="800" style={{ fontVariantNumeric: "tabular-nums" }}>{tag.text}</text>

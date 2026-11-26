@@ -149,6 +149,8 @@
 .selectionBelow{display:none;height:auto;min-height:64px;border-bottom:0}
 @media(max-width:767px){.selectionAbove,.phoneHidden,.phoneNoWhole .whole{display:none}.selectionBelow{display:flex}}
 .stage:focus{outline:none}
+/* The map's own focus ring is for the keyboard: a finger or mouse press on the map draws none. */
+.stage>svg:focus:not(:focus-visible){outline:none}
 /* One line under the map: which side faces the stage or arena. */
 .mapNote{margin:0;padding:5px 12px 7px;text-align:center;color:#8a7480;font-size:11px;font-weight:600;line-height:1.4}
 /* Names of zones, sides and levels carry the camera when they hold photos. */

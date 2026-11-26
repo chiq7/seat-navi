@@ -22,10 +22,9 @@
 .loading{position:absolute;inset:0;display:grid;place-items:center;font-size:13px;color:#8a6375}
 .photoMissing{display:grid;justify-items:center;gap:6px;padding:12px;font-size:13px;color:#765965;text-align:center}
 .photoMissing button{min-height:40px;padding:0 12px;border:1px solid #e3cbd6;border-radius:10px;background:#fff;color:#913152;font-weight:700}
-.step{position:absolute;top:50%;z-index:1;display:grid;place-items:center;width:36px;height:36px;margin-top:-18px;border:0;border-radius:50%;background:#ffffffe0;color:#6d3550;box-shadow:0 1px 6px #00000029}
+.step{position:absolute;top:50%;z-index:1;display:grid;place-items:center;width:40px;height:40px;margin-top:-20px;border:0;border-radius:50%;background:#ffffffe0;color:#6d3550;box-shadow:0 1px 6px #00000029}
 .step:disabled{opacity:0;pointer-events:none}
 .stepBack{left:6px}.stepOn{right:6px}
-@media(hover:none){.step{display:none}}
 
 .meta{display:flex;align-items:center;gap:8px;min-height:34px;padding-top:4px}
 .credit{position:absolute;left:8px;bottom:8px;z-index:1;max-width:calc(100% - 60px);display:flex;gap:2px 8px;margin:0;padding:3px 10px;border-radius:999px;background:#1d1219b8;overflow:hidden;font-size:11px;line-height:1.4;color:#fff;white-space:nowrap;pointer-events:none}
@@ -34,11 +33,13 @@
 .source{flex:none;display:inline-flex;align-items:center;gap:3px;min-height:30px;padding:0 9px;border:1px solid #e3cbd6;border-radius:999px;background:#fff;color:#7a3b55;font-size:12px;font-weight:700;text-decoration:none}
 
 .neighbors{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding-top:8px}
-.neighbor{display:flex;align-items:center;gap:4px;min-height:50px;padding:0 10px;border:1px solid #e3bfd0;border-radius:12px;background:#fff7fa;color:#913152;text-align:left}
-.neighbor span{min-width:0;flex:1;display:grid;line-height:1.25}
+.neighbor{display:flex;align-items:center;gap:4px;min-height:44px;padding:0 10px;border:1px solid #e3bfd0;border-radius:12px;background:#fff7fa;color:#913152;text-align:left}
+.neighbor span{min-width:0;flex:1;display:flex;align-items:baseline;gap:6px;line-height:1.25}
 .neighbor strong{font-size:14px}
-.neighbor small{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px;color:#8a6375}
+.neighbor strong{flex:none}
+.neighbor small{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;color:#8a6375}
 .neighborNext{text-align:right}
+.neighborNext span{justify-content:flex-end}
 .neighbor:disabled{opacity:.38}
 
 /* No photos: a thin board, the map stays wide. */
@@ -60,3 +61,8 @@
 .rowList span{font-variant-numeric:tabular-nums;color:#4d5a66}
 .emptyHead{display:flex;align-items:center;gap:8px;justify-content:space-between}
 .emptyRows{position:relative;height:min(36vh,260px)}
+/* Which photo of this place is showing. */
+.dots{position:absolute;top:8px;left:50%;z-index:1;transform:translateX(-50%);display:flex;align-items:center;gap:5px;padding:4px 7px;border-radius:999px;background:#1d121980;pointer-events:none}
+.dots i{width:6px;height:6px;border-radius:50%;background:#ffffff73}
+.dots i[data-on]{background:#fff}
+.dots b{color:#fff;font-size:11px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
