@@ -23,7 +23,7 @@ import { directionName, nearSeatNumbers, seatLevelName } from "./seatFinderLabel
 import { boundsOf, fitStandArrowToCanvas, edgeNumberGuide, fitStandNumberGuide, clampCamera, standDetailCamera, standRowDetailTransition, isSeatTap, labelCoversOtherBlock, mapProjection, normalizeSeatInput, placeVisibleRowLabel, searchStandSeats, standContextLabel, standDisplayRows, standVisibleRowHints, standLabelOrder, standGroupReferenceLabels, standReferenceLabelKey, standRedundantContextLabel, standRedundantContextText, standLabelInsideCanvas, standSelectedNumberRun, standSelectedRow, youngEdgeMidpoint, zoomCamera, zoneLabelPositions, type MapBox, type Point, type StandBlock, type StandMapData, type StandPosition } from "./standMap";
 import { hasStandCanvasArea, overviewAreaLabelPosition, overviewAreaLabelWidth, resolveStandSeatSection, standPathRings, standRectCoverShare, standRectTouchesRings, standRingsBox, standZoneCamera } from "./standMap";
 import styles from "./StandSeatMap.module.css";
-import { blockDisplayTitle, blockLongName, blockRowGap, blockShortName, frontRow, rowSummary, seatOnSegment } from "./seatLabels";
+import { blockDisplayTitle, blockLongName, blockRowGap, blockShortName, fanName, frontRow, rowSummary, seatOnSegment } from "./seatLabels";
 import { VenueOverviewArt, StandOverviewTexture, overviewArtworkOpacity, VENUE_OVERVIEW_PROFILES } from "./VenueOverviewArt";
 
 type Choice = { id: string; label: string; color: string; point: Point };
@@ -958,11 +958,11 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   const shortName = (item: StandBlock) => blockShortName(item, data.blocks);
   const blockName = (item: StandBlock) => blockLongName(item, data.blocks, levels);
   const chosenZoneForSheet = !block && zone ? data.zones?.find(z => z.id === zone) : undefined;
-  const sheetPlace = !fullscreen ? null : block ? { key: block.id, title: `${selectedLevelLabel}・${blockDisplayTitle(block, "")}`, long: blockName(block) }
+  const sheetPlace = !fullscreen ? null : block ? { key: block.id, title: fanName(`${selectedLevelLabel}・${blockDisplayTitle(block, "")}`), long: blockName(block) }
     : position ? { key: `position:${position.id}`, title: `${position.label}付近`, long: `${position.label}付近` }
     : chosenZoneForSheet ? (() => { const levelName = seatLevelName(chosenZoneForSheet.level, levels.find(l => l.id === chosenZoneForSheet.level)?.label);
       // A zone named like its level ("2F" on the 2F plan) is not repeated.
-      return { key: `zone:${chosenZoneForSheet.id}`, title: levelName === chosenZoneForSheet.label ? levelName : `${levelName}・${chosenZoneForSheet.label}`, long: chosenZoneForSheet.label }; })() : null;
+      return { key: `zone:${chosenZoneForSheet.id}`, title: fanName(levelName === chosenZoneForSheet.label ? levelName : `${levelName}・${chosenZoneForSheet.label}`), long: fanName(chosenZoneForSheet.label) }; })() : null;
   const sheetMatches = sheetPlace ? seatViewMatchesForSelection(seatViewPosts(data.diagramId), seatView) : [];
   const photoBlocksOnLevel = fullscreen && block ? data.blocks.filter(b => b.level === block.level && photoSectionIds.has(b.id))
     .sort((a, b) => (a.numberReference?.start ?? 1e9) - (b.numberReference?.start ?? 1e9) || frontRow(a) - frontRow(b) || a.id.localeCompare(b.id, "ja", { numeric: true })) : [];

@@ -41,7 +41,7 @@ test("the share page shows that block's name and picture, escapes input and keep
   assert.deepEqual(seatSharePage("not-a-venue", "x", new URLSearchParams()), { status: 404 });
 });
 
-test("every listed share picture exists, and venue pages use their own picture", () => {
+test("every listed share picture exists, and venue pages use the site picture", () => {
   for (const venue of ogImages.venues) assert.ok(existsSync(path.join(root, "public/og/venues", `${venue}.jpg`)), venue);
   for (const [venue, sections] of Object.entries(ogImages.seats)) for (const section of sections) {
     assert.ok(existsSync(path.join(root, "public/og/seats", venue, `${section}.jpg`)), section);
@@ -49,7 +49,7 @@ test("every listed share picture exists, and venue pages use their own picture",
   assert.equal(venueShareImage("k-arena"), `/og/venues/k-arena.jpg?v=${ogImages.version}`);
   assert.equal(seatShareImage("k-arena", "unknown"), venueShareImage("k-arena"));
   const metadata = buildPublicVenueMetadata("k-arena", "Kアリーナ横浜");
-  assert.match(String((metadata.openGraph?.images as { url: string }[])[0].url), /\/og\/venues\/k-arena\.jpg/);
+  assert.match(String((metadata.openGraph?.images as { url: string }[])[0].url), /\/opengraph-image\?v=/);
 });
 
 test("a seat sits on its row line, spaced evenly from the row's first number", async () => {
@@ -71,8 +71,8 @@ test("Tokyo Dome and Kyocera Dome blocks can be sent: the share page names the b
   if (tokyo.status === 200) {
     assert.match(tokyo.html, /<meta property="og:title" content="東京ドーム 1階 前方・A20 10列12番の席はここ｜ちけレポ">/);
     assert.match(tokyo.html, /\/venues\/tokyo-dome\?seatMode=fixed&amp;seatSection=A20&amp;seatOpen=1&amp;seatRow=10&amp;seatNumber=12/);
-    // No picture is drawn for the domes yet: the site's own picture stands in.
-    assert.match(tokyo.html, /og:image" content="https:\/\/tixrepo\.com\/opengraph-image/);
+    // No block pictures for Tokyo Dome: its venue picture (the seat map) stands in.
+    assert.match(tokyo.html, /og:image" content="https:\/\/tixrepo\.com\/og\/venues\/tokyo-dome\.jpg\?v=/);
   }
   const kyocera = seatSharePage("kyocera-dome", "X_BM_07", new URLSearchParams());
   assert.equal(kyocera.status, 200);
@@ -81,4 +81,13 @@ test("Tokyo Dome and Kyocera Dome blocks can be sent: the share page names the b
     assert.match(kyocera.html, /seatSection=X_BM_07&amp;seatOpen=1/);
   }
   assert.deepEqual(seatSharePage("kyocera-dome", "no-such-block", new URLSearchParams()), { status: 302, location: "/venues/kyocera-dome" });
+});
+
+test("names fans read leave out the seat data's editor words", async () => {
+  const { fanName } = await import("../src/components/venue/template/seatLabels.ts");
+  assert.equal(fanName("スタンド・東側・番号未確認・位置のみ"), "スタンド・東側");
+  assert.equal(fanName("中段・3塁側・中段の参考区画・位置のみ"), "中段・3塁側");
+  assert.equal(fanName("下段・レフト側 下段・位置のみ"), "下段・レフト側");
+  assert.equal(fanName("固定席・改修前・A・A列1番側"), "固定席・A・A列1番側");
+  assert.equal(fanName("LEVEL5・193番〜・10〜20列"), "LEVEL5・193番〜・10〜20列");
 });

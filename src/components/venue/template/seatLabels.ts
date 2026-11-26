@@ -13,6 +13,18 @@ export const rowSummary = (block: StandBlock) => {
   return block.rowNameLookup === "unavailable" ? "列名は公式図に未掲載" : rows.length === 1 ? `${rows[0].label}列` : rows.length ? `${rows[0].label}〜${rows.at(-1)!.label}列` : "位置のみ";
 };
 
+/** Words the seat data keeps for its editors (how sure a block's position or numbers are) are left out of the
+ * names fans read in the full-screen map, the photo board and "この席を送る":
+ * "スタンド・東側・番号未確認・位置のみ" → "スタンド・東側", "中段・3塁側・中段の参考区画" → "中段・3塁側". */
+const EDITOR_WORDS = new Set(["位置のみ", "番号未確認", "参考区画", "改修前", "列名は公式図に未掲載"]);
+export function fanName(name: string): string {
+  const parts = name.split("・").map(part => part.trim().replace(/の参考区画$/, "")).filter(part => part && !EDITOR_WORDS.has(part));
+  // A level repeated inside a later part goes too: "下段・レフト側 下段" → "下段・レフト側".
+  const trimmed = parts.map((part, index) => parts.slice(0, index).reduce((text, earlier) => text.endsWith(` ${earlier}`) ? text.slice(0, -earlier.length - 1) : text, part));
+  const unique = trimmed.filter((part, index) => trimmed.indexOf(part) === index);
+  return unique.join("・") || name;
+}
+
 // Reuse the source name while omitting only exact metadata repeated beside it.
 export const blockDisplayTitle = (block: StandBlock, levelLabel: string) =>
   block.label.split("・").filter(part => part.trim() !== rowSummary(block) && part.trim() !== levelLabel)
@@ -21,12 +33,12 @@ export const blockDisplayTitle = (block: StandBlock, levelLabel: string) =>
 /** Front and back halves of one stand share a name ("79番〜"): their row range tells them apart. */
 export function blockShortName(block: StandBlock, blocks: readonly StandBlock[]) {
   const title = blockDisplayTitle(block, "");
-  return blocks.some(other => other.id !== block.id && other.level === block.level && other.label === block.label) ? `${title}・${rowSummary(block)}` : title;
+  return fanName(blocks.some(other => other.id !== block.id && other.level === block.level && other.label === block.label) ? `${title}・${rowSummary(block)}` : title);
 }
 
 /** "LEVEL5・212番〜" (with the row range when the name alone is shared by two blocks). */
 export function blockLongName(block: StandBlock, blocks: readonly StandBlock[], levels: readonly { id: string; label: string }[]) {
-  return `${seatLevelName(block.level, levels.find(l => l.id === block.level)?.label)}・${blockShortName(block, blocks)}`;
+  return fanName(`${seatLevelName(block.level, levels.find(l => l.id === block.level)?.label)}・${blockShortName(block, blocks)}`);
 }
 
 type Pt = [number, number];

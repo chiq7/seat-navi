@@ -4662,5 +4662,93 @@
     "note": "会場掲示のアリーナ客席案内図。1〜140番・4〜34列・GATE101〜104。赤丸は投稿者の書き込み。",
     "eventLabel": "2026/11/22・23 テレビ朝日ドリームフェスティバル2026",
     "photoNumber": 1
+  },
+  {
+    "kind": "arena_map",
+    "venueId": "kyocera-dome",
+    "eventId": null,
+    "sourceId": "2123727844534792469",
+    "sourceUrl": "https://x.com/Kanon_LUNE0903/status/2123727844534792469",
+    "position": "アリーナ",
+    "note": "赤いARENA MAPの現地掲示。長方形のSTAGEと周囲の黄緑の区画が確認できる。",
+    "eventLabel": "2026 MAMA AWARDS（京セラドーム大阪 11/20・21）",
+    "photoNumber": 1
+  },
+  {
+    "kind": "arena_map",
+    "venueId": "ariake-arena",
+    "eventId": null,
+    "sourceId": "2123395750025654415",
+    "sourceUrl": "https://x.com/mc_2ddfzk/status/2123395750025654415",
+    "position": "アリーナ",
+    "note": "来場者の4枚目。現地に掲示された案内板を斜めから撮影し、アリーナの座席配列・舞台と花道・公演ロゴが写る。掲示物の枠や反射、周囲の壁面も確認。",
+    "eventLabel": "HiGH&LOW THE 戦国 LOVE&HATE（有明アリーナ、2026年11月18・19日）",
+    "photoNumber": 4
+  },
+  {
+    "kind": "arena_map",
+    "venueId": "tokyo-garden-theater",
+    "eventId": null,
+    "sourceId": "2123078163584696591",
+    "sourceUrl": "https://x.com/fmikya_n/status/2123078163584696591",
+    "position": "アリーナ",
+    "note": "来場者の3枚目。AR1〜AR3と現在地がある現地掲示のアリーナ客席案内板。B・C・XB・XC・E・F・Gの座席配列の一部が写る。図はこの公演の投稿から確認し、全体と当日の変更有無は未確認。",
+    "eventLabel": "Da-iCE DAY HALL PHASE 2026 Side B（東京ガーデンシアター、2026年11月18日）",
+    "photoNumber": 3
+  },
+  {
+    "kind": "arena_map",
+    "venueId": "sapporo-dome",
+    "eventId": null,
+    "sourceId": "2122260371406995951",
+    "sourceUrl": "https://x.com/mr_tanakazu/status/2122260371406995951",
+    "position": "アリーナ",
+    "note": "公演2日目の来場投稿の5枚目。現地の青い照明と左右の柵が写るアリーナ座席案内板の写真。公演名・日付・STAGEと花道・A〜Dのブロック、下部への導線が読める。別投稿の同じ掲示板より全体が入っている。",
+    "eventLabel": "YOASOBI 札幌ドーム（2026年11月14・15日、ハーフモード）",
+    "photoNumber": 5
+  },
+  {
+    "kind": "arena_map",
+    "venueId": "kyocera-dome",
+    "eventId": null,
+    "sourceId": "2121493934035886528",
+    "sourceUrl": "https://x.com/mopopoke6/status/2121493934035886528",
+    "position": "アリーナ",
+    "note": "11月14日の開演前投稿。現地の青い柵に取り付けられたARENA MAPの写真。公演名・STAGE・花道とA・B・C・L・Rの区画表示を確認。掲示のC5の隣にはA6と印刷されている。別投稿ではこの箇所に丸を付け、C6の表記誤りと指摘。掲示の原写真を残し、該当区画の確定は保留。",
+    "eventLabel": "INI CITY OF LIGHTS（京セラドーム大阪、2026年11月14・15日）",
+    "photoNumber": 1
+  },
+  {
+    "kind": "arena_map",
+    "venueId": "paypay-dome",
+    "eventId": null,
+    "sourceId": "2121577220624019462",
+    "sourceUrl": "https://x.com/Hakatanomori/status/2121577220624019462",
+    "position": "アリーナ",
+    "note": "案内板の周囲とフラッシュ撮影禁止・規制退場の掲示も見え、現地の掲示。画面右がステージ。",
+    "eventLabel": "Fujii Kaze「Prema World Tour」（PayPayドーム、11/14・15）",
+    "photoNumber": 1
+  },
+  {
+    "kind": "arena_map",
+    "venueId": "paypay-dome",
+    "eventId": null,
+    "sourceId": "2121504673890959802",
+    "sourceUrl": "https://x.com/impesso/status/2121504673890959802",
+    "position": "アリーナ",
+    "note": "現地案内板を正面寄りから撮影。画面左がSTAGEで、アボカド、ブロッコリーなどの区画と中央の現在位置・コンコース矢印を確認。",
+    "eventLabel": "Fujii Kaze「Prema World Tour」（PayPayドーム、11/14・15）",
+    "photoNumber": 1
+  },
+  {
+    "kind": "arena_map",
+    "venueId": "budokan",
+    "eventId": null,
+    "sourceId": "2120479734018531580",
+    "sourceUrl": "https://x.com/dacchies_hp/status/2120479734018531580",
+    "position": "アリーナ",
+    "note": "会場内の壁に掲示された当日のアリーナ図。STAGEと現在地の印が写る。",
+    "eventLabel": "BEYOOOOONDS CONCERT 2026 [IT'S SHOOOOOWTIME BUDOOOOOKAN！]",
+    "photoNumber": 3
   }
 ]
