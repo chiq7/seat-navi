@@ -7,7 +7,7 @@ import { forwardRef, useCallback, useEffect, useImperativeHandle, useLayoutEffec
 import { Camera, ChevronDown, ChevronRight, Crosshair, Info, ListOrdered, Map as MapIcon, Maximize2, Send, X } from "lucide-react";
 import { DomeSeatFrame } from "./DomeSeatFrame";
 import { useSeatMapTouch } from "./useSeatMapTouch";
-import { SeatPhotoMapSummary, SeatPhotoMarker } from "./SeatViewPosts";
+import { SeatPhotoMapSummary } from "./SeatViewPosts";
 import { glideDuration, startGlide, type Glide } from "./cameraGlide";
 import { afterPaint } from "@/lib/seatMapInteraction";
 import { SeatPhotoEmptySheet, SeatPhotoSheet, SeatPhotoSheetTab, type SheetNeighbor, type SheetRows } from "./SeatPhotoSheet";
@@ -52,7 +52,7 @@ export type StandSeatMapHandle = { showRegion: (level: string, area: string) => 
 type Gesture = { points: Map<number, Point>; start: Point; last: Point; travel: number; multi: boolean; block: string | null; photo: string | null; distance: number };
 const freshGesture = (): Gesture => ({ points: new Map(), start: [0, 0], last: [0, 0], travel: 0, multi: false, block: null, photo: null, distance: 0 });
 const photoDiameter = 18;
-const photoTarget = 28;
+const photoTarget = 32;
 /** The block under a point near (x, y): rings of 5, 10 and 15px around a tap that missed every block. */
 function nearestBlockId(x: number, y: number): string | null {
   for (const radius of [5, 10, 15]) for (let step = 0; step < 8; step += 1) {
@@ -191,10 +191,11 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   const photoSigns = useMemo(() => {
     const signs = new Map<string, { count: number; thumb: string | null }>();
     for (const post of seatViewPosts(data.diagramId)) {
-      if (post.place.kind !== "section") continue;
-      const sign = signs.get(post.place.id) ?? { count: 0, thumb: null };
+      // a block's photos under its own id; a zone's or a position's under "zone:id" / "position:id"
+      const key = post.place.kind === "section" ? post.place.id : `${post.place.kind}:${post.place.id}`;
+      const sign = signs.get(key) ?? { count: 0, thumb: null };
       sign.count += 1; sign.thumb ??= seatViewInlinePhotoUrl(post)?.replace("name=large", "name=120x120") ?? null;
-      signs.set(post.place.id, sign);
+      signs.set(key, sign);
     }
     return signs;
   }, [data]);
@@ -846,8 +847,12 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
       const r = rowsOnScreen[index];
       const far = r.points.reduce((a, b) => along(b) > along(a) ? b : a), near = r.points.reduce((a, b) => along(b) < along(a) ? b : a);
       const length = Math.hypot(far[0] - near[0], far[1] - near[1]) || 1;
-      const active = r.label === activeName, mark = rowDigitSize(r.label, active), out = active ? mark.width / 2 + 4 : 9, w = mark.width;
-      const x = far[0] + (far[0] - near[0]) / length * out, y = far[1] + (far[1] - near[1]) / length * out;
+      const ux = (far[0] - near[0]) / length, uy = (far[1] - near[1]) / length;
+      // a row stops short of the block's edge: the number stands outside the block and clear of its thick outline
+      let edge = 0;
+      while (edge < 28) { const [mx, my] = projection.unproject([far[0] + ux * (edge + 1), far[1] + uy * (edge + 1)]); if (!photoHitTest([block.path], { x: mx, y: my })) break; edge += 1; }
+      const active = r.label === activeName, mark = rowDigitSize(r.label, active), out = edge + (active ? mark.width / 2 + 6 : 11), w = mark.width;
+      const x = far[0] + ux * out, y = far[1] + uy * out;
       // (whole on the map, and not under the photo board)
       if (x < w / 2 || x > size.width - w / 2 || y < 8 || y > size.height - (fullscreen ? boardHeight() : 0) - 8) continue;
       if (occupied.some(o => Math.abs(x - o[0]) < (w + o[2]) / 2 + 2 && Math.abs(y - o[1]) < (mark.height + o[3]) / 2 + 2)) continue;
@@ -1215,7 +1220,7 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
                 event.preventDefault(); event.stopPropagation(); selectPhotoPlace(place);
               }}>
               <circle className={styles.photoTarget} cx={x} cy={y} r={photoTarget / 2} fill="transparent" />
-              <SeatPhotoMarker x={x} y={y} size={photoDiameter} highlighted />
+              <g transform={`translate(${x},${y})`}><PhotoDot id={key.replace(/[^A-Za-z0-9_-]/g, "_")} count={photoSigns.get(key)?.count ?? 1} thumb={photoSigns.get(key)?.thumb} /></g>
             </g>
           </g>)}
           </g>

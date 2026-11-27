@@ -12,10 +12,15 @@ export const PHOTO_SIGN_LOADED = "tixrepo-photo-sign-loaded";
 // A small photo is fetched once and kept as data, so it also shows while a map stands as one still picture
 // (a picture of the map cannot load anything from another site).
 const pictures = new Map<string, string | null>(), listeners = new Set<() => void>();
+// X does not keep every size of every picture (some new photos have no "120x120"): the next sizes up are tried.
+const LARGER = ["240x240", "small"];
 function fetchPicture(url: string) {
   if (pictures.has(url)) return;
   pictures.set(url, null);
-  fetch(url, { referrerPolicy: "no-referrer" }).then(response => response.ok ? response.blob() : Promise.reject(new Error("no picture")))
+  const sizes = [url, ...LARGER.map(size => url.replace(/([?&]name=)[\w]+/, `$1${size}`))].filter((item, index, all) => all.indexOf(item) === index);
+  const load = (at: number): Promise<Blob> => fetch(sizes[at], { referrerPolicy: "no-referrer" })
+    .then(response => response.ok ? response.blob() : at + 1 < sizes.length ? load(at + 1) : Promise.reject(new Error("no picture")));
+  load(0)
     .then(blob => new Promise<string>((resolve, reject) => { const reader = new FileReader(); reader.onload = () => resolve(String(reader.result)); reader.onerror = () => reject(reader.error); reader.readAsDataURL(blob); }))
     .then(data => { pictures.set(url, data); for (const tell of listeners) tell(); window.dispatchEvent(new Event(PHOTO_SIGN_LOADED)); })
     .catch(() => undefined);

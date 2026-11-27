@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import Script from "next/script";
 import { AnalyticsNavigationTracker } from "@/components/analytics/AnalyticsNavigationTracker";
 import { UiClickTracker } from "@/components/analytics/UiClickTracker";
+import XPhotoFallback from "@/components/common/XPhotoFallback";
 import { VerificationNotice } from "@/components/analytics/VerificationNotice";
 import { gaBootstrapScript } from "@/lib/analyticsTraffic";
 import Footer from "@/components/common/Footer";
@@ -86,6 +87,7 @@ export default function RootLayout({
         )}
         {/* Sends nothing without the GA tag (trackEvent checks for it), so it is always mounted. */}
         <UiClickTracker />
+        <XPhotoFallback />
         {GA_ID && (
           <>
             <Script
