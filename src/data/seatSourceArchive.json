@@ -6334,5 +6334,82 @@
     "note": "場内に掲示されたアリーナ座席配置図。メインステージと十字の花道、アリーナの列・番号、「現在地」あり。",
     "eventLabel": "学園アイドルマスター LIVE TOUR -標- ファイナル公演（Kアリーナ横浜 2026/11/8）",
     "photoNumber": 2
+  },
+  {
+    "kind": "arena_map",
+    "venueId": "osaka-jo-hall",
+    "eventId": null,
+    "sourceId": "2124766101473259965",
+    "sourceUrl": "https://x.com/haya1004rock/status/2124766101473259965",
+    "position": "アリーナ",
+    "note": "アリーナ席の入口に掲示された客席案内図（STAGE・桟橋・1〜74番・1〜50列・アリーナ1〜3扉・現在地）。",
+    "eventLabel": "TOMOO Arena Tour 2026 emerge 大阪城ホール 2026/11/23",
+    "photoNumber": 1
+  },
+  {
+    "kind": "arena_map",
+    "venueId": "pia-arena-mm",
+    "eventId": null,
+    "sourceId": "2125191781004492875",
+    "sourceUrl": "https://x.com/55momotaro/status/2125191781004492875",
+    "position": "アリーナ",
+    "note": "会場に掲示された客席案内図（STAGE・1〜84番・1〜46列のブロック）。",
+    "eventLabel": "秦基博 20th Anniversary LIVE ぴあアリーナMM 2026/11/08",
+    "photoNumber": 2
+  },
+  {
+    "kind": "arena_map",
+    "venueId": "makuhari-messe",
+    "eventId": null,
+    "sourceId": "1864789212467466728",
+    "sourceUrl": "https://x.com/myhair_awesome/status/1864789212467466728",
+    "position": "アリーナ",
+    "note": "舞台から中央花道を延ばし、A〜Cはその左右、D列中央にD3。現在地を記載。",
+    "eventLabel": "2024-12-05 櫻坂46 10th Single BACKS LIVE!!",
+    "photoNumber": 2
+  },
+  {
+    "kind": "arena_map",
+    "venueId": "marine-messe",
+    "eventId": null,
+    "sourceId": "2117583332515225705",
+    "sourceUrl": "https://x.com/m13833536/status/2117583332515225705",
+    "position": "アリーナ",
+    "note": "北端のSTAGE、アリーナA1〜A7・B1〜B7・C1〜C7・D1〜D7、1階スタンドA〜C・F・G、2階H〜S。",
+    "eventLabel": "GENERATIONS LIVE TOUR 2026 “PARALLEL QUEST”（マリンメッセ福岡）",
+    "photoNumber": 1
+  },
+  {
+    "kind": "arena_map",
+    "venueId": "mufg-stadium",
+    "eventId": null,
+    "sourceId": "2116855209821618414",
+    "sourceUrl": "https://x.com/ke_APEX/status/2116855209821618414",
+    "position": "アリーナ",
+    "note": "会場掲示のアリーナ図。STAGE前にA〜C列（橙が前方エリア）、後方にD〜J列のブロック、現在位の札。",
+    "eventLabel": "2026-04-18 Mrs. GREEN APPLE「ZENJIN MITO TO IM/MUTABLE」",
+    "photoNumber": 2
+  },
+  {
+    "kind": "arena_map",
+    "venueId": "hiroshima-arena",
+    "eventId": null,
+    "sourceId": "2126239686020726813",
+    "sourceUrl": "https://x.com/zSyKMRtZSyeL6VT/status/2126239686020726813",
+    "position": "アリーナ",
+    "note": "右のSTAGEから中央へ花道、アリーナ1〜44列と番号、下にN・M・L-GATEと現在地。",
+    "eventLabel": "BUMP OF CHICKEN TOUR ホームシック衛星2024（広島グリーンアリーナ）",
+    "photoNumber": 1
+  },
+  {
+    "kind": "arena_map",
+    "venueId": "nissan-stadium",
+    "eventId": null,
+    "sourceId": "2120907722480922954",
+    "sourceUrl": "https://x.com/ec7hBQq7kuQ0JYj/status/2120907722480922954",
+    "position": "アリーナ",
+    "note": "会場に掲示されたARENA MAP。STAGEの前に野菜名のブロック（とまと・ブロッコリー・じゃがいも・だいこん・にんじん・かぼちゃ・れんこん・きゅうり・なすび）が並び、各1〜15列・1〜196番、現在地つき。",
+    "eventLabel": "2024年 藤井風 日産スタジアム公演（本文）",
+    "photoNumber": 1
   }
 ]
