@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="zr-container grid gap-4 pb-[calc(76px+env(safe-area-inset-bottom))] pt-8 md:grid-cols-[1fr_auto] md:items-end md:gap-x-7 md:gap-y-5 md:pb-11 md:pt-11">
         <div>
           <Link href="/" className="zr-focus inline-flex rounded-md p-1" aria-label="ちけレポ トップへ">
-            <Image src="/images/logo.png" alt="ちけレポ" width={144} height={36} className="h-8 w-auto" />
+            <Image src="/images/logo.webp" alt="ちけレポ" width={144} height={36} className="h-8 w-auto" />
           </Link>
           <p className="mt-3 max-w-[520px] text-[11px] leading-5 text-[#81747c] md:mt-4 md:text-[12px] md:leading-6">ちけレポ（チケレポ）は、ライブ・コンサートの座席表や各席からの見え方写真を共有できるレビューサイトです。</p>
         </div>

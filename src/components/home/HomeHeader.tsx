@@ -8,7 +8,7 @@ export default function HomeHeader() {
     <header className="relative z-50 border-b border-[#f3e3e9] bg-white/95 backdrop-blur">
       <div className="zr-container flex h-[64px] items-center gap-4 md:h-[74px]">
         <Link href="/" className="zr-focus flex min-h-11 shrink-0 items-center rounded-md">
-          <Image src="/images/logo.png" alt="ちけレポ" width={132} height={34} priority className="h-7 w-auto object-contain md:h-8" />
+          <Image src="/images/logo.webp" alt="ちけレポ" width={132} height={34} priority className="h-7 w-auto object-contain md:h-8" />
         </Link>
 
         <nav className="ml-4 hidden items-center gap-7 text-[13px] font-bold text-[#554a52] lg:flex">

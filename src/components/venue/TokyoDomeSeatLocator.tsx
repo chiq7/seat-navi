@@ -2,8 +2,6 @@
 
 import SeatSearchOffer from "@/components/seat-campaign/SeatSearchOffer";
 import { trackVenueSeatSearch } from "@/lib/venueAnalytics";
-import { seatNumberArrowInk } from "@/lib/seatNumberBadge";
-import { tokyoDomeNumberBadge } from "@/lib/tokyoDomeNumberBadge";
 
 import { useCallback, useEffect, useRef, useState, type FormEvent, type PointerEvent as ReactPointerEvent, useLayoutEffect, useMemo, memo } from "react";
 import { useSeatControlsReady } from "./template/ReadySearchControl";
@@ -19,17 +17,19 @@ import { TOKYO_DOME_NARROW_ROW_CORRECTIONS, TOKYO_DOME_SHAPE_CORRECTIONS } from 
 import { buildTokyoDomeBalconySegments } from "@/lib/tokyoDomeBalconySegments";
 import { findTokyoDomeVerifiedSeats, getTokyoDomeVerifiedRowRange, getTokyoDomeVerifiedSeatBlock, getTokyoDomeVerifiedPrintedRows, isTokyoDomeSectionRowSelectable, getTokyoDomeNumberReference, parseTokyoDomeSection, parseTokyoDomeSeatInput, type TokyoDomeSection } from "@/lib/tokyoDomeSeatLocator";
 import { sectionRowGuides } from "@/lib/tokyoDomeSeatRows";
-import { placeTokyoDomeRowMarker, tokyoDomeNumberClearOfRows, tokyoDomeDuplicateReferenceId, tokyoDomeSeatFocus, layoutTokyoDomeSeatLabels, TOKYO_DOME_OVERVIEW_AREAS, tokyoDomeOverviewView, tokyoDomeTierView } from "@/lib/tokyoDomeSeatLabels";
+import { tokyoDomeSeatFocus, layoutTokyoDomeSeatLabels, TOKYO_DOME_OVERVIEW_AREAS, tokyoDomeOverviewView, tokyoDomeTierView } from "@/lib/tokyoDomeSeatLabels";
 import { ArrowUp, Camera, Crosshair, LocateFixed, Map as MapIcon, X } from "lucide-react";
 import stand from "./template/StandSeatMap.module.css";
 import styles from "./TokyoDomeSeatLocator.module.css";
 import controls from "./guides/KyoceraSeatMap.module.css";
 import { TOKYO_DOME_SEAT_NUMBER_GUIDES } from "@/data/tokyoDomeSeatNumberGuides";
-import { spatialSeatTarget } from "@/lib/seatMapInteraction";
-import { placeNumberLabel } from "./guides/kyoceraNumberLabels";
+import { afterPaint, spatialSeatTarget } from "@/lib/seatMapInteraction";
 import { useSeatMapTouch } from "./template/useSeatMapTouch";
-import { SEAT_PHOTO_MAP_COLOR, SeatPhotoMapSummary, SeatPhotoMarker } from "./template/SeatViewPosts";
-import { seatPhotoOffsets, useSeatPhotoHitTest } from "./template/useSeatPhotoHitTest";
+import { SeatPhotoMapSummary } from "./template/SeatViewPosts";
+import { glideDuration, nudgedView, startGlide, type CameraBox, type Glide } from "./template/cameraGlide";
+import { RowDigit, rowDigitSize, rulerPicks, RULER_INK, StartDisc, startDiscBox } from "./template/rowRuler";
+import { PHOTO_DOT, PHOTO_SIGN_LOADED, PhotoDot, photoDotSpots } from "./template/photoSign";
+import { useSeatPhotoHitTest } from "./template/useSeatPhotoHitTest";
 import { DomeSeatFrame } from "./template/DomeSeatFrame";
 import { seatViewMatchesForSelection, seatViewPosts } from "@/lib/seatViewPosts";
 import { announceTokyoDomeMapScope, getTokyoDomeVenueSeatSelection, TOKYO_DOME_SEAT_SELECTION_EVENT } from "@/lib/tokyoDomeVenueSelection";
@@ -52,14 +52,21 @@ const AREAS = SOURCE_AREAS.map((area) => ({
   shared: TOKYO_DOME_SHAPE_CORRECTIONS[area.code] ? false : area.shared,
   rows: getTokyoDomeVerifiedRowRange(area.code) ?? area.rows ?? TOKYO_DOME_ROW_CORRECTIONS[area.code] ?? TOKYO_DOME_NARROW_ROW_CORRECTIONS[area.code] ?? null,
 }));
-const NUMBERED_AREA_CODES = new Set(AREAS.filter(area => getTokyoDomeVerifiedSeatBlock(area.code)?.numberEdge).map(area => area.code));
 const AREA_BY_CODE = new Map(AREAS.map((area) => [area.code, area]));
 const SEAT_PHOTO_DIAGRAM = "tokyo-dome-fixed";
 const PHOTO_SECTION_CODES = new Set(seatViewPosts(SEAT_PHOTO_DIAGRAM)
   .filter(post => post.place.kind === "section").map(post => post.place.id));
-/** The room a name gives the camera it carries. */
-const CAMERA_ROOM = 15;
-/** Middle of the arena floor; the zoomed map points here so the stage side stays obvious. */
+/** How many photos each block has, and a small picture of the first one. */
+const PHOTO_SIGNS = (() => {
+  const signs = new Map<string, { count: number; thumb: string | null }>();
+  for (const post of seatViewPosts(SEAT_PHOTO_DIAGRAM)) {
+    if (post.place.kind !== "section") continue;
+    const sign = signs.get(post.place.id) ?? { count: 0, thumb: null };
+    sign.count += 1; sign.thumb ??= seatViewInlinePhotoUrl(post)?.replace("name=large", "name=120x120") ?? null;
+    signs.set(post.place.id, sign);
+  }
+  return signs;
+})();
 const FIELD_CENTER = { x: 579, y: 290 };
 const ZONE_KEY = [
   { key: "A", label: "1階前" }, { key: "B", label: "1階後" }, { key: "D", label: "2階前" },
@@ -186,9 +193,14 @@ function selectedMapViewBox(section: TokyoDomeSection, label: [number, number], 
   return serializeMapViewBox(constrainMapViewBox({x:focus[0]-width/2,y:focus[1]-width*.44,width,height:width*.88}));
 }
 
-/** A chosen block's view: the widest view that still draws row lines (they appear at 360 and below). */
-function selectedMapWidth(_canvasWidth: number) {
-  return 352;
+/** Rows are drawn once they stand far enough apart on the screen to be counted: this many pixels per map unit. */
+const ROW_SCALE = 2.4;
+/** A side's view never comes closer than this many map units across. */
+const SIDE_MIN_WIDTH = 352;
+/** A chosen block's view: about three pixels per map unit, so its rows can be counted (a wider map shows more). */
+function selectedMapWidth(canvasWidth: number, canvasHeight = Infinity) {
+  // the view is 0.88 as tall as it is wide: on a wide, short map the height is what limits the zoom
+  return Math.min(352, Math.max(120, Math.min(canvasWidth, canvasHeight / .88) / 3));
 }
 
 function directionForArea(area: SeatArea): keyof typeof MAP_VIEWS {
@@ -212,7 +224,7 @@ function sideFitView(view: keyof typeof MAP_VIEWS, prefixes: string, canvas: { w
   const aspect = canvas.width / canvas.height;
   if (width / height < aspect) { const next = height * aspect; x -= (next - width) / 2; width = next; }
   else { const next = width / aspect; y -= (next - height) / 2; height = next; }
-  const blockWidth = selectedMapWidth(canvas.width);
+  const blockWidth = SIDE_MIN_WIDTH;
   const minWidth = canvas.width / Math.min(canvas.width / blockWidth, canvas.height / (blockWidth * .88));
   if (width < minWidth) {
     const grow = minWidth / width;
@@ -249,10 +261,10 @@ function nearestSeatCode(x: number, y: number): string | null {
 }
 
 type SeatShapesProps = {
-  selectedCode: string | null; selectedRow: number | null; seatLevel: SeatLevel; detailStage: boolean; showDetail: boolean;
+  selectedCode: string | null; selectedRow: number | null; seatLevel: SeatLevel; /** rows are drawn */ detailStage: boolean;
   activeFocus: string | null; onKey: (event: React.KeyboardEvent<SVGElement>, area: SeatArea) => void; onFocusCode: (code: string) => void;
 };
-const SeatShapes = memo(function SeatShapes({ selectedCode, selectedRow, seatLevel, detailStage, showDetail, activeFocus, onKey, onFocusCode }: SeatShapesProps) {
+const SeatShapes = memo(function SeatShapes({ selectedCode, selectedRow, seatLevel, detailStage, activeFocus, onKey, onFocusCode }: SeatShapesProps) {
   const prefixes = SEAT_LEVELS.find(level => level.id === seatLevel)!.prefixes;
   const matchesLevel = (code: string) => seatLevel === "all" || prefixes.includes(code[0]);
   return <>{SHAPES.map((area) => {
@@ -266,12 +278,8 @@ const SeatShapes = memo(function SeatShapes({ selectedCode, selectedRow, seatLev
         onKeyDown={area.shared ? undefined : event => onKey(event, area)} onFocus={() => onFocusCode(area.code)}
         tabIndex={area.shared ? undefined : area.code === activeFocus ? 0 : -1} role={area.shared ? undefined : "button"}
         aria-label={area.shared ? undefined : `${area.code}・${rowRangeLabel(area.rows)}を拡大${PHOTO_SECTION_CODES.has(area.code) ? "（写真あり）" : ""}`} />
-      {!area.shared && PHOTO_SECTION_CODES.has(area.code) && <path d={area.path!}
-        data-seat-photo-outline={area.code} fill="none"
-        stroke={SEAT_PHOTO_MAP_COLOR} strokeWidth={1.5}
-        vectorEffect="non-scaling-stroke" pointerEvents="none" aria-hidden="true" />}
       {detailStage && rowGuides && <g clipPath={`url(#tokyo-rows-${area.code})`} pointerEvents="none">
-        <path d={rowGuides.lines} fill="none" stroke={active ? "#fff" : "#665f7a"} strokeWidth={showDetail ? "0.65" : "0.45"} vectorEffect="non-scaling-stroke" opacity={active ? "0.55" : showDetail ? "0.32" : "0.2"} />
+        <path d={rowGuides.lines} fill="none" stroke={active ? "#fff" : RULER_INK} strokeWidth={active ? "1" : "0.8"} vectorEffect="non-scaling-stroke" opacity={active ? "0.92" : "0.3"} />
       </g>}
       {selectedMarker && <circle cx={selectedMarker[0]} cy={selectedMarker[1]} r="1.9" fill="#075985" stroke="#fff" strokeWidth="1.2" vectorEffect="non-scaling-stroke" pointerEvents="none" />}
     </g>;
@@ -293,24 +301,6 @@ export function TokyoDomeSeatLocator() {
   const controlsReady = useSeatControlsReady();
   const mapSvgRef = useRef<SVGSVGElement>(null);
   const mapCanvasRef = useRef<HTMLDivElement>(null);
-  const [photoCenters, setPhotoCenters] = useState<ReadonlyMap<string, MapPoint>>(() => new Map());
-  useEffect(() => {
-    const svg = mapSvgRef.current;
-    if (!svg) return;
-    const frame = requestAnimationFrame(() => {
-      const centers = new Map<string, MapPoint>();
-      for (const path of svg.querySelectorAll<SVGPathElement>("path[data-seat-photo-outline]")) {
-        const bounds = path.getBBox();
-        if (bounds.width > 0 && bounds.height > 0) {
-          centers.set(path.getAttribute("data-seat-photo-outline")!, {
-            x: bounds.x + bounds.width / 2, y: bounds.y + bounds.height / 2,
-          });
-        }
-      }
-      setPhotoCenters(centers);
-    });
-    return () => cancelAnimationFrame(frame);
-  }, []);
   const suppressMapClick = useSeatMapTouch(mapCanvasRef);
   const [canvasSize,setCanvasSize]=useState({width:900,height:650});
   useEffect(() => {
@@ -318,11 +308,11 @@ export function TokyoDomeSeatLocator() {
     if (!node) return;
     const observer = new ResizeObserver(([entry]) => {
       const { width, height } = entry.contentRect;
-      if (width > 1) minMapViewWidth = selectedMapWidth(width);
+      if (width > 1) minMapViewWidth = selectedMapWidth(width, height > 1 ? height : undefined);
       setCanvasSize({ width, height });
       if (width > 1 && initial && initialCanvasPending.current) {
         initialCanvasPending.current = false;
-        setInteractiveViewBox(parseMapViewBox(selectedMapViewBox(initial.section, initial.area.label, selectedMapWidth(width))));
+        setInteractiveViewBox(parseMapViewBox(selectedMapViewBox(initial.section, initial.area.label, selectedMapWidth(width, height > 1 ? height : undefined))));
       }
     });
     observer.observe(node);
@@ -371,7 +361,7 @@ export function TokyoDomeSeatLocator() {
   const [overviewReturn, setOverviewReturn] = useState<MapViewBox | null>(null);
   const shell = useImmersiveMap({ enabled: true, onOpened: () => {
     const run = pendingView.current; pendingView.current = null;
-    if (run) run(); else { paintBox(FULL_MAP_VIEW_BOX); commitBox(); }
+    if (run) run(); else { dropGlide(); paintBox(FULL_MAP_VIEW_BOX); commitBox(); }
   } });
   const lockedRef = useRef(false); lockedRef.current = shell.locked;
   const inFullscreen = () => Boolean(shell.frameRef.current?.hasAttribute("data-seat-map-fullscreen"));
@@ -384,7 +374,9 @@ export function TokyoDomeSeatLocator() {
   }, [viewTick]);
   const wasFullscreen = useRef(false);
   useLayoutEffect(() => {
-    if (wasFullscreen.current && !shell.fullscreen) { paintBox(FULL_MAP_VIEW_BOX); commitBox(); setOverviewReturn(null); }
+    // Closing ends the choice (x and the phone's back alike): the page map is the whole venue again with nothing
+    // chosen, so the next tap on it opens the whole venue and not the place chosen before.
+    if (wasFullscreen.current && !shell.fullscreen) { dropGlide(); paintBox(FULL_MAP_VIEW_BOX); commitBox(); setOverviewReturn(null); clearSelection(); setSeatLevel("all"); setDirection("all"); }
     wasFullscreen.current = shell.fullscreen;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shell.fullscreen]);
@@ -401,6 +393,7 @@ export function TokyoDomeSeatLocator() {
     shell.open();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shell.immersive]);
+  useLayoutEffect(() => { for (const pressed of mapSvgRef.current?.querySelectorAll("[data-pressed]") ?? []) pressed.removeAttribute("data-pressed"); }, [selected]);
   const selectedArea = selected ? AREA_BY_CODE.get(selected.code) : undefined;
   const selectedSpecial = selected ? SPECIAL_BY_CODE.get(selected.code) : undefined;
   const selectedLabel = selectedArea?.label ?? selectedSpecial?.label;
@@ -442,12 +435,18 @@ export function TokyoDomeSeatLocator() {
   const movingRef = useRef(false);
   const wheelCommitRef = useRef<number | null>(null);
   useLayoutEffect(() => { if (!movingRef.current) liveBoxRef.current = interactiveViewBox; }, [interactiveViewBox]);
-  function paintBox(box: MapViewBox) {
+  // A glide draws the map once and moves that picture (cameraGlide): `liveBoxRef` is then the view on screen,
+  // `drawBox` the view the map is drawn for. Pans, pinches and wheel zooms paint each view they pass.
+  function paintBox(box: MapViewBox) { liveBoxRef.current = box; drawBox(box); }
+  function drawBox(box: MapViewBox) {
     wakeMap();
-    liveBoxRef.current = box;
     mapSvgRef.current?.setAttribute("viewBox", serializeMapViewBox(box));
     if (!movingRef.current) { movingRef.current = true; mapCanvasRef.current?.setAttribute("data-moving", ""); }
   }
+  const glideRef = useRef<Glide | null>(null);
+  function dropGlide() { glideRef.current?.stop(); glideRef.current = null; }
+  /** Ends a glide where it is: the view it had reached is painted. */
+  function stopGlide() { if (!glideRef.current) return; dropGlide(); paintBox(liveBoxRef.current); }
   function commitBox() {
     if (!movingRef.current) return;
     movingRef.current = false;
@@ -489,6 +488,13 @@ export function TokyoDomeSeatLocator() {
     }, 400);
   }
   useLayoutEffect(() => { wakeMap(); scheduleSnapshot(); });
+  // A small photo that arrives later is drawn into the live map: the still picture is taken again.
+  useEffect(() => {
+    const retake = () => { wakeMap(); scheduleSnapshot(); };
+    window.addEventListener(PHOTO_SIGN_LOADED, retake);
+    return () => window.removeEventListener(PHOTO_SIGN_LOADED, retake);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   useEffect(() => () => {
     if (snapshotTimerRef.current !== null) clearTimeout(snapshotTimerRef.current);
     if (snapshotUrlRef.current) URL.revokeObjectURL(snapshotUrlRef.current);
@@ -505,7 +511,9 @@ export function TokyoDomeSeatLocator() {
     width: canvasSize.width / screenScale, height: canvasSize.height / screenScale,
   };
   const overviewScale = Math.min(canvasSize.width / FULL_MAP_VIEW_BOX.width, canvasSize.height / FULL_MAP_VIEW_BOX.height);
-  const detailStage=Boolean(selected)&&interactiveViewBox.width<=360;
+  // Rows show on every block once they can be counted; the chosen block then gets its row numbers and start mark.
+  const rowStage = showDetail && screenScale >= ROW_SCALE;
+  const detailStage = Boolean(selected) && rowStage;
   // Whole-map shading per seat tier, leaving out the chosen block (it is drawn highlighted).
   const selectedShapeCode = selected?.code;
   const tierShading = useMemo(() => {
@@ -513,10 +521,7 @@ export function TokyoDomeSeatLocator() {
     for (const area of SHAPES) if (area.code !== selectedShapeCode || area.shared) (byTier[area.code[0]] ??= []).push(area.path!);
     return Object.fromEntries(Object.entries(byTier).map(([tier, paths]) => [tier, paths.join(" ")]));
   }, [selectedShapeCode]);
-  const sourceMapLabels = layoutTokyoDomeSeatLabels(AREAS.filter(area => matchesLevel(area.code)), interactiveViewBox, {
-    screenScale, detailStage,
-    numberedCodes: NUMBERED_AREA_CODES,
-  });
+  const sourceMapLabels = layoutTokyoDomeSeatLabels(AREAS.filter(area => matchesLevel(area.code)), interactiveViewBox, { screenScale });
   const visibleAreas = AREAS.filter(area => {
     if (area.shared || (!area.path && !BALCONY_SEGMENTS.some(segment => segment.code === area.code))) return false;
     const x = (canvasSize.width - interactiveViewBox.width * screenScale) / 2 + (area.label[0] - interactiveViewBox.x) * screenScale;
@@ -546,60 +551,52 @@ export function TokyoDomeSeatLocator() {
   })() : null;
   
   
-  const duplicateReferenceId = verifiedNumberGuide && verifiedBlock && verifiedEdge
-    ? tokyoDomeDuplicateReferenceId(TOKYO_DOME_SEAT_NUMBER_GUIDES, {
-      level: verifiedBlock.level, number: verifiedNumberGuide.number, edge: verifiedEdge.edge,
-    }) : null;
-  const numberGuides=detailStage?TOKYO_DOME_SEAT_NUMBER_GUIDES.filter(guide=>
-    guide.id !== duplicateReferenceId && (seatLevel==="all"||guide.level===seatLevel) && (!verifiedNumberGuide ||
-      Math.abs(guide.point[0]-verifiedNumberGuide.point[0])*screenScale>80 || Math.abs(guide.point[1]-verifiedNumberGuide.point[1])*screenScale>38)) : [];
-  const selectedEdgeMarkers = (() => {
-    const occupied = [...TOKYO_DOME_GATE_ANCHORS.map(gate=>({x:gate.label.x,y:gate.label.y,halfWidth:17,halfHeight:7})),
-      ...(verifiedNumberGuide ? [{x:verifiedNumberGuide.point[0],y:verifiedNumberGuide.point[1],halfWidth:28/screenScale,halfHeight:18/screenScale}] : [])];
-    const rows = [...new Set([...(selectedArea?.rows ?? []), ...(selectedRow !== null ? [selectedRow] : [])])];
-    return rows.map(row => {
-      const anchor = selectedArea ? ROW_GUIDES.get(selectedArea.code)?.marker(row) : null;
-      if (!anchor) return {row,point:null,anchor:null};
-      const point = placeTokyoDomeRowMarker(anchor,occupied,screenScale,visibleMapBox);
-      occupied.push({x:point[0],y:point[1],halfWidth:28/screenScale,halfHeight:16/screenScale});
-      return {row,anchor,point};
-    });
+  // The chosen block: row numbers beside it like the marks of a ruler (on the side its seat numbers run toward), and
+  // one round mark where its numbers start. No boxes, no leader lines; the other blocks show their row lines only.
+  type MarkBox = { x: number; y: number; width: number; height: number };
+  const inView = (box: MarkBox) => box.x - box.width / 2 >= visibleMapBox.x && box.x + box.width / 2 <= visibleMapBox.x + visibleMapBox.width
+    && box.y - box.height / 2 >= visibleMapBox.y && box.y + box.height / 2 <= visibleMapBox.y + visibleMapBox.height;
+  const apart = (a: MarkBox, b: MarkBox, gap = 0) => Math.abs(a.x - b.x) >= (a.width + b.width) / 2 + gap || Math.abs(a.y - b.y) >= (a.height + b.height) / 2 + gap;
+  const startDiscs: { id: string; number: number; x: number; y: number; direction: readonly number[]; own: boolean }[] = [];
+  const discBoxes: MarkBox[] = [];
+  const discAt = (guide: { point: readonly number[]; direction: readonly number[] }) => ({ x: guide.point[0] - guide.direction[0] * 12 / screenScale, y: guide.point[1] - guide.direction[1] * 12 / screenScale });
+  if (verifiedNumberGuide) {
+    const at = discAt(verifiedNumberGuide);
+    startDiscs.push({ id: verifiedNumberGuide.id, number: verifiedNumberGuide.number, ...at, direction: verifiedNumberGuide.direction, own: true });
+    discBoxes.push(startDiscBox(at.x, at.y, verifiedNumberGuide.direction[0], verifiedNumberGuide.direction[1], 1 / screenScale));
+  }
+  const rowDigits = (() => {
+    const guides = detailStage && selectedArea ? ROW_GUIDES.get(selectedArea.code) : null;
+    if (!guides) return [];
+    const toward = verifiedEdge ? [verifiedEdge.opposite[0] - verifiedEdge.numberEdgeMiddle[0], verifiedEdge.opposite[1] - verifiedEdge.numberEdgeMiddle[1]] : guides.across;
+    const side: -1 | 1 = toward[0] * guides.across[0] + toward[1] * guides.across[1] < 0 ? -1 : 1;
+    const placed: (MarkBox & { row: number; active: boolean })[] = [];
+    // the searched row first, so a neighbour gives way to it rather than the other way round
+    const picks = rulerPicks(guides.rows.map(String), selectedRow !== null ? String(selectedRow) : null).map(index => guides.rows[index])
+      .sort((a, b) => Number(b === selectedRow) - Number(a === selectedRow));
+    for (const row of picks) {
+      const end = guides.end(row, side);
+      if (!end) continue;
+      const active = row === selectedRow, size = rowDigitSize(String(row), active), out = (active ? size.width / 2 + 4 : 9) / screenScale;
+      const box = { x: end[0] + guides.across[0] * side * out, y: end[1] + guides.across[1] * side * out, width: size.width / screenScale, height: size.height / screenScale };
+      if (!inView(box) || !placed.every(other => apart(box, other, 1 / screenScale)) || !discBoxes.every(other => apart(box, other))) continue;
+      placed.push({ row, ...box, active });
+    }
+    return placed;
   })();
-  // An off-canvas row anchor must not leave a fragment of its badge at the edge.
-  const visibleEdgeMarkers = selectedEdgeMarkers.filter(({anchor}) => anchor
-    && anchor[0] >= visibleMapBox.x && anchor[0] <= visibleMapBox.x + visibleMapBox.width
-    && anchor[1] >= visibleMapBox.y && anchor[1] <= visibleMapBox.y + visibleMapBox.height);
-  // Neighbouring start badges never stack on each other: the one nearer the chosen block wins.
-  const keptGuideBoxes: number[][] = [];
-  if (verifiedNumberGuide) keptGuideBoxes.push([verifiedNumberGuide.point[0] - 34 / screenScale, verifiedNumberGuide.point[1] - 20 / screenScale, verifiedNumberGuide.point[0] + 34 / screenScale, verifiedNumberGuide.point[1] + 20 / screenScale]);
-  const guideOrigin = selectedLabel ?? [interactiveViewBox.x + interactiveViewBox.width / 2, interactiveViewBox.y + interactiveViewBox.height / 2];
-  const clearNumberGuides = [...numberGuides].sort((a, b) => Math.hypot(a.point[0] - guideOrigin[0], a.point[1] - guideOrigin[1]) - Math.hypot(b.point[0] - guideOrigin[0], b.point[1] - guideOrigin[1])).filter(guide => {
-    const sign = placeNumberLabel({ x: guide.point[0], y: guide.point[1] }, { x: guide.point[0] + guide.direction[0], y: guide.point[1] + guide.direction[1] }, 52 / screenScale, 28 / screenScale, 6 / screenScale, 20 / screenScale);
-    const end = { x: sign.from.x + guide.direction[0] * 20 / screenScale, y: sign.from.y + guide.direction[1] * 20 / screenScale };
-    const left = Math.min(guide.point[0] - 28 / screenScale, sign.from.x - 7 / screenScale, end.x - 7 / screenScale);
-    const right = Math.max(guide.point[0] + 28 / screenScale, sign.from.x + 7 / screenScale, end.x + 7 / screenScale);
-    const top = Math.min(guide.point[1] - 16 / screenScale, sign.from.y - 7 / screenScale, end.y - 7 / screenScale);
-    const bottom = Math.max(guide.point[1] + 16 / screenScale, sign.from.y + 7 / screenScale, end.y + 7 / screenScale);
-    const pad = 3 / screenScale;
-    const keep = left >= visibleMapBox.x && right <= visibleMapBox.x + visibleMapBox.width
-      && top >= visibleMapBox.y && bottom <= visibleMapBox.y + visibleMapBox.height
-      && tokyoDomeNumberClearOfRows(guide.point, selectedEdgeMarkers.map(marker => marker.point), screenScale)
-      && keptGuideBoxes.every(([l, t, r, b]) => left > r + pad || right < l - pad || top > b + pad || bottom < t - pad);
-    if (keep) keptGuideBoxes.push([left, top, right, bottom]);
-    return keep;
-  });
-  const displayedNumberGuides = verifiedNumberGuide ? [...clearNumberGuides, verifiedNumberGuide] : clearNumberGuides;
-  // Names provide orientation; row/number badges and their arrows take priority.
-  // Keep original anchors and hit geometry. Only suppress a colliding caption.
-  const guideObstacles = [
-    ...displayedNumberGuides.flatMap(guide => {
-      const sign = placeNumberLabel({ x: guide.point[0], y: guide.point[1] }, { x: guide.point[0] + guide.direction[0], y: guide.point[1] + guide.direction[1] }, 52 / screenScale, 28 / screenScale, 6 / screenScale, 20 / screenScale);
-      return [{ x: guide.point[0], y: guide.point[1], width: 58 / screenScale, height: 34 / screenScale },
-        { x: sign.from.x + guide.direction[0] * 10 / screenScale, y: sign.from.y + guide.direction[1] * 10 / screenScale,
-          width: (Math.abs(guide.direction[0]) * 20 + 14) / screenScale, height: (Math.abs(guide.direction[1]) * 20 + 14) / screenScale }];
-    }),
-    ...visibleEdgeMarkers.flatMap(marker => marker.point ? [{ x: marker.point[0], y: marker.point[1], width: 62 / screenScale, height: 34 / screenScale }] : []),
-  ];
+  // A block whose own start is not confirmed shows the confirmed starts around it instead, in the same round form.
+  if (detailStage && !verifiedNumberGuide) {
+    const origin = selectedLabel ?? [interactiveViewBox.x + interactiveViewBox.width / 2, interactiveViewBox.y + interactiveViewBox.height / 2];
+    for (const guide of TOKYO_DOME_SEAT_NUMBER_GUIDES.filter(guide => seatLevel === "all" || guide.level === seatLevel)
+      .sort((a, b) => Math.hypot(a.point[0] - origin[0], a.point[1] - origin[1]) - Math.hypot(b.point[0] - origin[0], b.point[1] - origin[1]))) {
+      const at = discAt(guide), box = startDiscBox(at.x, at.y, guide.direction[0], guide.direction[1], 1 / screenScale);
+      if (!inView(box) || !discBoxes.every(other => apart(box, other, 3 / screenScale)) || !rowDigits.every(other => apart(box, other))) continue;
+      startDiscs.push({ id: guide.id, number: guide.number, ...at, direction: guide.direction, own: false }); discBoxes.push(box);
+    }
+  }
+  // Names provide orientation; the row numbers and the start mark take priority. Names keep their own anchors
+  // and hit geometry: a name that would touch a mark is left out.
+  const guideObstacles: MarkBox[] = [...discBoxes, ...rowDigits.map(({ x, y, width, height }) => ({ x, y, width, height }))];
   // GATE tags give way to the chosen block and to the number/row badges.
   const selectedShapeBox = (() => {
     if (!selectedArea) return null;
@@ -630,30 +627,19 @@ export function TokyoDomeSeatLocator() {
         width: (area.id === "home" ? 46 : 35) / screenScale, height: 17 / screenScale };
       return hasCount ? [word, { x, y: y + 9 / screenScale, width: 40 / screenScale, height: 18 / screenScale }] : [word];
     }) : []),
-    ...displayedNumberGuides.flatMap(guide => {
-      const sign = placeNumberLabel({ x: guide.point[0], y: guide.point[1] }, { x: guide.point[0] + guide.direction[0], y: guide.point[1] + guide.direction[1] }, 52 / screenScale, 28 / screenScale, 6 / screenScale, 20 / screenScale);
-      return [
-        { x: guide.point[0], y: guide.point[1], width: 58 / screenScale, height: 34 / screenScale },
-        { x: sign.from.x + guide.direction[0] * 10 / screenScale, y: sign.from.y + guide.direction[1] * 10 / screenScale,
-          width: (Math.abs(guide.direction[0]) * 20 + 14) / screenScale, height: (Math.abs(guide.direction[1]) * 20 + 14) / screenScale },
-      ];
-    }),
-    ...visibleEdgeMarkers.flatMap(marker => marker.point ? [{ x: marker.point[0], y: marker.point[1], width: 62 / screenScale, height: 34 / screenScale }] : []),
+    ...guideObstacles,
+    // The small venue map stands over the top right corner: a name under it would show as a fragment.
+    ...(showDetail ? [{ x: visibleMapBox.x + (canvasSize.width - 50) / screenScale, y: visibleMapBox.y + 52 / screenScale, width: 100 / screenScale, height: 104 / screenScale }] : []),
     // Zoomed in, a block name gives way to the GATE tags on screen.
     ...(showDetail ? shownGates.map(gate => ({ x: gate.label.x, y: gate.label.y, width: 64 / screenScale, height: 26 / screenScale })) : []),
   ];
-  // Zoomed in, the name of a block with photos carries the camera, in a pill (as on the stand maps). Those names are
-  // placed first, after the chosen block's own. The chosen block shows none: its photos are already open.
-  const nameCarriesCamera = (code: string) => showDetail && PHOTO_SECTION_CODES.has(code) && code !== selected?.code;
-  const namePillWidth = (code: string) => code.length * 12 * .65 + 14 + CAMERA_ROOM;
+  // A name is plain text at its own place and never moves.
   const mapLabels = [...sourceMapLabels].sort((a, b) => {
     const origin = selectedLabel ?? [interactiveViewBox.x + interactiveViewBox.width / 2, interactiveViewBox.y + interactiveViewBox.height / 2];
-    return Number(b.code === selected?.code) - Number(a.code === selected?.code) || Number(nameCarriesCamera(b.code)) - Number(nameCarriesCamera(a.code))
+    return Number(b.code === selected?.code) - Number(a.code === selected?.code)
       || Math.hypot(a.x - origin[0], a.y - origin[1]) - Math.hypot(b.x - origin[0], b.y - origin[1]);
   }).filter(label => {
-    if (verifiedNumberGuide && label.code === selected?.code) return false;
-    const photo = nameCarriesCamera(label.code);
-    const width = photo ? namePillWidth(label.code) / screenScale : label.code.length * label.fontSize * .65 + 6 / screenScale, height = (photo ? 22 : 20) / screenScale;
+    const width = label.code.length * label.fontSize * .65 + 6 / screenScale, height = 20 / screenScale;
     if (label.x - width / 2 < visibleMapBox.x || label.x + width / 2 > visibleMapBox.x + visibleMapBox.width
       || label.y - height / 2 < visibleMapBox.y || label.y + height / 2 > visibleMapBox.y + visibleMapBox.height) return false;
     if (captionObstacles.some(other => Math.abs(label.x - other.x) < (width + other.width) / 2
@@ -661,11 +647,33 @@ export function TokyoDomeSeatLocator() {
     captionObstacles.push({ x: label.x, y: label.y, width, height });
     return true;
   });
-
+  // Zoomed in, a block with photos shows its own photo, small and round: on the block itself, just behind the name
+  // (away from the arena), else just in front of it. Where neither spot is on the block and free, it is left out
+  // and comes back on zooming in. Nothing else moves for it.
   const photoHitTest = useSeatPhotoHitTest();
-  const photoObstacles = [...captionObstacles, ...TOKYO_DOME_GATE_ANCHORS.map(gate => ({
-    x: gate.label.x, y: gate.label.y, width: 68 / screenScale, height: 30 / screenScale,
-  }))];
+  // The photo board gets its height one frame after a block is chosen: the spots are worked out again then.
+  const [, setBoardTick] = useState(0);
+  const boardKey = `${selected?.code ?? ""}|${sheetOpen}|${shell.fullscreen}`;
+  useEffect(() => { const frame = requestAnimationFrame(() => setBoardTick(tick => tick + 1)); return () => cancelAnimationFrame(frame); }, [boardKey]);
+  const namedCodes = new Set(mapLabels.map(label => label.code));
+  const photoDots = showDetail ? visibleAreas.filter(area => area.path && !area.shared && matchesLevel(area.code) && PHOTO_SECTION_CODES.has(area.code) && area.code !== selected?.code).flatMap(area => {
+    const [x, y] = area.label, length = Math.hypot(x - 579, y - 300) || 1, ux = (x - 579) / length, uy = (y - 300) / length;
+    const named = namedCodes.has(area.code), nameWidth = named ? area.code.length * 12 * .65 + 6 : 0, nameHeight = named ? 20 : 0;
+    const size = PHOTO_DOT / screenScale;
+    for (const [dx, dy] of named ? photoDotSpots(nameWidth, nameHeight, ux, uy) : [[0, 0]]) {
+      const box = { x: x + dx / screenScale, y: y + dy / screenScale, width: size, height: size };
+      // (whole on the map, and not under the photo board)
+      if (box.x - size / 2 < visibleMapBox.x || box.x + size / 2 > visibleMapBox.x + visibleMapBox.width || box.y - size / 2 < visibleMapBox.y
+        || box.y + size / 2 > visibleMapBox.y + (canvasSize.height - (shell.fullscreen ? shell.boardHeight() : 0)) / screenScale) continue;
+      if (!photoHitTest([area.path!], { x: box.x, y: box.y }, 6 / screenScale)) continue;
+      // (its own name stands right beside it by design; every other name and mark keeps clear)
+      if (captionObstacles.some(other => !(named && other.x === x && other.y === y) && Math.abs(box.x - other.x) < (size + other.width) / 2 && Math.abs(box.y - other.y) < (size + other.height) / 2)) continue;
+      captionObstacles.push(box);
+      return [{ code: area.code, x: box.x, y: box.y }];
+    }
+    return [];
+  }) : [];
+
   // Orientation aids for the zoomed map: where the arena is, which part of the dome is on screen, and what the colours mean.
   const fieldScreen = {
     x: (canvasSize.width - interactiveViewBox.width * screenScale) / 2 + (FIELD_CENTER.x - interactiveViewBox.x) * screenScale,
@@ -683,7 +691,13 @@ export function TokyoDomeSeatLocator() {
     const cx = canvasSize.width / 2, cy = canvasSize.height / 2;
     const dx = fieldScreen.x - cx, dy = fieldScreen.y - cy;
     const t = Math.min(dx ? (cx - 52) / Math.abs(dx) : Infinity, dy ? (cy - 22) / Math.abs(dy) : Infinity);
-    return { left: cx + dx * t, top: cy + dy * t, angle: Math.atan2(dy, dx) * 180 / Math.PI + 90 };
+    const at = { left: cx + dx * t, top: cy + dy * t, angle: Math.atan2(dy, dx) * 180 / Math.PI + 90 };
+    // It never lies on the chosen block or on that block's marks.
+    const toScreen = (x: number, y: number) => [(x - visibleMapBox.x) * screenScale, (y - visibleMapBox.y) * screenScale];
+    const covers = (left: number, top: number, right: number, bottom: number) => at.left + 52 > left && at.left - 52 < right && at.top + 18 > top && at.top - 18 < bottom;
+    if (selectedShapeBox) { const [l, t0] = toScreen(selectedShapeBox[0], selectedShapeBox[1]), [r, b] = toScreen(selectedShapeBox[2], selectedShapeBox[3]); if (covers(l - 4, t0 - 4, r + 4, b + 4)) return null; }
+    for (const mark of guideObstacles) { const [x, y] = toScreen(mark.x, mark.y); if (covers(x - mark.width * screenScale / 2, y - mark.height * screenScale / 2, x + mark.width * screenScale / 2, y + mark.height * screenScale / 2)) return null; }
+    return at;
   })();
   const miniFrame = (() => {
     const x0 = Math.max(FULL_MAP_VIEW_BOX.x, visibleMapBox.x), y0 = Math.max(FULL_MAP_VIEW_BOX.y, visibleMapBox.y);
@@ -692,30 +706,6 @@ export function TokyoDomeSeatLocator() {
     return { x: x0, y: y0, width: Math.max(30, x1 - x0), height: Math.max(30, y1 - y0) };
   })();
   const visibleZones = ZONE_KEY.filter(zone => sourceMapLabels.some(label => label.code[0] === zone.key && matchesLevel(label.code)));
-  // A camera of its own shows only for a block whose name is not on screen, and only where it sits wholly on that
-  // block: a block too thin to hold it shows none (its outline still marks it). Both come back on zooming in.
-  const namedCodes = new Set(mapLabels.map(label => label.code));
-  const photoMarkers = showDetail ? visibleAreas.filter(area => matchesLevel(area.code) && PHOTO_SECTION_CODES.has(area.code)
-    && area.code !== selected?.code && !namedCodes.has(area.code)).flatMap(area => {
-    const balcony = BALCONY_SEGMENTS.find(segment => segment.code === area.code);
-    const shape = balcony?.sourcePath ?? area.path;
-    if (!shape) return [];
-    const center = photoCenters.get(area.code) ?? { x: area.label[0], y: area.label[1] };
-    const candidates = seatPhotoOffsets
-      .map(([dx, dy]) => ({ x: center.x + dx / screenScale, y: center.y + dy / screenScale }))
-      .filter(point => point.x >= visibleMapBox.x + 14 / screenScale
-        && point.x <= visibleMapBox.x + visibleMapBox.width - 14 / screenScale
-        && point.y >= visibleMapBox.y + 14 / screenScale
-        && point.y <= visibleMapBox.y + visibleMapBox.height - 14 / screenScale
-        && photoObstacles.every(other => Math.abs(point.x - other.x) >= (28 / screenScale + other.width) / 2
-          || Math.abs(point.y - other.y) >= (28 / screenScale + other.height) / 2));
-    const point = candidates.find(point => photoHitTest([shape], point, 10 / screenScale)
-        && (!balcony || photoHitTest([balcony.regionPath], point, 10 / screenScale)));
-    if (!point) return [];
-    photoObstacles.push({ ...point, width: 28 / screenScale, height: 28 / screenScale });
-    return [{ area, ...point }];
-  }) : [];
-
   keyAreaRef.current = keyArea;
   function resetGestures() {
     initialCanvasPending.current = false;
@@ -724,29 +714,20 @@ export function TokyoDomeSeatLocator() {
     gestureRef.current = null;
   }
 
-  const animationRef=useRef<number|null>(null);
-  useEffect(()=>()=>{if(animationRef.current!==null)cancelAnimationFrame(animationRef.current);},[]);
+  useEffect(() => () => { glideRef.current?.stop(); glideRef.current = null; }, []);
   function animateTo(next:MapViewBox) {
     hintFinishedRef.current = true; setTapHint(false);
-    if(animationRef.current!==null)cancelAnimationFrame(animationRef.current);
-    if(window.matchMedia("(prefers-reduced-motion: reduce)").matches){paintBox(next);commitBox();return;}
-    // A glide the eye can follow: zoom changes evenly in scale (not in width, which made most of a zoom-in
-    // happen in the first frames), eased in and out, and longer the further the zoom goes.
-    const from=liveBoxRef.current;let start:number|null=null;
-    const ratio=next.width/from.width;
-    const duration=Math.round(Math.min(900,420+170*Math.abs(Math.log(ratio))));
-    const fromCenter={x:from.x+from.width/2,y:from.y+from.height/2},toCenter={x:next.x+next.width/2,y:next.y+next.height/2};
-    const step=(now:number)=>{
-      start??=now;
-      const progress=Math.min(1,(now-start)/duration);
-      const eased=progress<.5?4*progress**3:1-Math.pow(-2*progress+2,3)/2;
-      const scale=Math.pow(ratio,eased),width=from.width*scale,height=from.height*scale;
-      const cx=fromCenter.x+(toCenter.x-fromCenter.x)*eased,cy=fromCenter.y+(toCenter.y-fromCenter.y)*eased;
-      paintBox(progress<1?{x:cx-width/2,y:cy-height/2,width,height}:next);
-      animationRef.current=progress<1?requestAnimationFrame(step):null;
-      if(progress>=1)commitBox();
-    };
-    animationRef.current=requestAnimationFrame(step);
+    stopGlide();
+    const layer = mapSvgRef.current, rect = layer?.getBoundingClientRect(), from = liveBoxRef.current;
+    const unchanged = Math.abs(from.x - next.x) < .01 && Math.abs(from.y - next.y) < .01 && Math.abs(from.width - next.width) < .01 && Math.abs(from.height - next.height) < .01;
+    if (!layer || !rect || rect.width < 2 || unchanged || window.matchMedia("(prefers-reduced-motion: reduce)").matches) { paintBox(next); commitBox(); return; }
+    // A glide the eye can follow: zoom changes evenly in scale, eased in and out, and longer the further the zoom
+    // goes. The map is drawn once and moved as a picture, so the phone keeps up with it (see cameraGlide).
+    const box = (view: MapViewBox): CameraBox => [view.x, view.y, view.width, view.height];
+    const view = (at: CameraBox): MapViewBox => ({ x: at[0], y: at[1], width: at[2], height: at[3] });
+    glideRef.current = startGlide(layer, { from: box(from), to: box(next), size: { width: rect.width, height: rect.height }, duration: glideDuration(from.width, next.width),
+      draw: drawn => drawBox(view(drawn)), track: at => { liveBoxRef.current = view(at); },
+      done: () => { glideRef.current = null; paintBox(next); commitBox(); } });
   }
 
   function showMapView(view: keyof typeof MAP_VIEWS, level: SeatLevel = seatLevel) {
@@ -761,19 +742,36 @@ export function TokyoDomeSeatLocator() {
     resetGestures();
   }
 
-  function showSelectedView(section: TokyoDomeSection, label: [number, number]) {
-    const box = parseMapViewBox(selectedMapViewBox(section, label, selectedMapWidth(mapCanvasRef.current?.clientWidth ?? 840)));
+  /** The camera for a chosen block. `keepZoom` (a block picked on the full-screen map): already at block zoom or
+   *  closer, the zoom stays and the map moves only as far as the block needs to show whole above the photo board. */
+  function showSelectedView(section: TokyoDomeSection, label: [number, number], keepZoom = false) {
+    const canvasWidth = mapCanvasRef.current?.clientWidth ?? 840, close = selectedMapWidth(canvasWidth, mapCanvasRef.current?.clientHeight || undefined);
+    const area = AREA_BY_CODE.get(section.code);
+    const path = area ? BALCONY_SEGMENTS.find(segment => segment.code === area.code)?.regionPath ?? area.path : undefined;
+    const shape = path ? standRingsBox(standPathRings(path)) : null;
+    // The view holds the whole block with room beside it for the row numbers and the start mark (about 34px a side).
+    const room = 34 * close / canvasWidth;
+    const needed = shape ? Math.max(shape[2] - shape[0] + room * 2, (shape[3] - shape[1] + room * 2) / .88) : 0;
+    const viewWidth = Math.min(SIDE_MIN_WIDTH, Math.max(close, needed));
+    const box = shape && needed > close
+      ? constrainMapViewBox({ x: (shape[0] + shape[2] - viewWidth) / 2, y: (shape[1] + shape[3] - viewWidth * .88) / 2, width: viewWidth, height: viewWidth * .88 })
+      : parseMapViewBox(selectedMapViewBox(section, label, viewWidth));
     const rect = mapCanvasRef.current?.getBoundingClientRect();
     if (inFullscreen() && rect) {
       const [x, y, width, height] = fitAboveBoard([box.x, box.y, box.width, box.height], rect.width, rect.height, shell.boardHeight());
-      animateTo({ x, y, width, height });
+      const live = liveBoxRef.current;
+      if (keepZoom && shape && live.width <= width * 1.02) {
+        const [nx, ny, nw, nh] = nudgedView([live.x, live.y, live.width, live.height], { left: shape[0], top: shape[1], right: shape[2], bottom: shape[3] },
+          { width: rect.width, height: rect.height }, Math.max(140, rect.height - shell.boardHeight() - 8), 36);
+        animateTo({ x: nx, y: ny, width: nw, height: nh });
+      } else animateTo({ x, y, width, height });
     } else animateTo(box);
     resetGestures();
   }
 
   const zoomMap = useCallback((factor: number, clientPoint?: MapPoint) => {
     hintFinishedRef.current = true; setTapHint(false);
-    if(animationRef.current!==null)cancelAnimationFrame(animationRef.current);
+    stopGlide();
     const svg = mapSvgRef.current;
     if (!svg) return;
     const rect = svg.getBoundingClientRect();
@@ -856,7 +854,7 @@ export function TokyoDomeSeatLocator() {
     hintFinishedRef.current = true; setTapHint(false);
     const control = (event.target as Element).closest("button");
     if (!control && !lockedRef.current && (event.pointerType !== "touch" || liveBoxRef.current.width < FULL_MAP_VIEW_BOX.width * .99)) event.preventDefault();
-    if(animationRef.current!==null)cancelAnimationFrame(animationRef.current);
+    stopGlide();
     wakeMap();
     const target = event.target instanceof Element ? event.target.closest<SVGElement>("[data-seat-code]") : null;
     if (!control && !lockedRef.current) event.currentTarget.setPointerCapture(event.pointerId);
@@ -937,7 +935,8 @@ export function TokyoDomeSeatLocator() {
       shell.open();
     } else if (shouldSelect && start?.code) {
       const area = AREA_BY_CODE.get(start.code);
-      if (area) chooseArea(area);
+      // The block takes its colour the moment it is touched; the rest of the screen follows.
+      if (area) { mapSvgRef.current?.querySelector(`path[data-seat-code="${area.code}"]`)?.setAttribute("data-pressed", ""); afterPaint(() => chooseArea(area)); }
     }
   }
 
@@ -968,7 +967,7 @@ export function TokyoDomeSeatLocator() {
     setNotice(changesSide && source !== "map" ? `${area.code}は${MAP_VIEWS[nextDirection].label}の区画です。${MAP_VIEWS[nextDirection].label}に切り替えました。` : "");
     setSheetOpen(!(source === "ticket" && PHOTO_SECTION_CODES.has(area.code))); setSheetPhoto(0);
     if (shell.immersive && !inFullscreen()) { pendingView.current = () => showSelectedView(section, area.label); shell.open(); }
-    else if (inFullscreen()) afterRender(() => showSelectedView(section, area.label));
+    else if (inFullscreen()) afterRender(() => showSelectedView(section, area.label, source !== "ticket"));
     else if(shouldMove)showSelectedView(section,area.label);else{resetGestures();}
     if (source !== "ticket") setDirection(nextDirection);
   }
@@ -992,6 +991,13 @@ export function TokyoDomeSeatLocator() {
   const photoSection = seatView.section;
   const sheetMatches = shell.fullscreen && selected ? seatViewMatchesForSelection(seatViewPosts(SEAT_PHOTO_DIAGRAM), seatView) : [];
   const placeTitle = selected ? `${selectedZone ? `${selectedZone}・` : ""}${selected.code}` : null;
+  // The block's rows and seat numbers, said once in the bar (numbers only where every row is confirmed).
+  const placeDetail = (() => {
+    if (!selectedArea?.rows) return null;
+    const seats = verifiedBlock && verifiedBlock.rowCoverage !== "representative" ? verifiedBlock.rows.flatMap(row => row.intervals.flat()) : [];
+    const rows = selectedArea.rows[0] === selectedArea.rows[1] ? `${selectedArea.rows[0]}列` : `${selectedArea.rows[0]}〜${selectedArea.rows[1]}列`;
+    return seats.length ? `${rows}・${Math.min(...seats)}〜${Math.max(...seats)}番` : rows;
+  })();
   const photoNeighbours = selected ? [...PHOTO_SECTION_CODES].filter(code => code[0] === selected.code[0] && AREA_BY_CODE.has(code))
     .sort((a, b) => a.localeCompare(b, "ja", { numeric: true })) : [];
   const sheetAt = selected ? photoNeighbours.indexOf(selected.code) : -1;
@@ -1072,7 +1078,7 @@ export function TokyoDomeSeatLocator() {
           </div>
         </> : <div className={styles.overviewHeading}><strong>{seatLevel === "all" && direction === "all" ? "東京ドームの全体図" : `${SEAT_LEVELS.find(level => level.id === seatLevel)!.label}・${MAP_VIEWS[direction].label}`}</strong></div>}</div>
         <ImmersiveFrame frameRef={shell.frameRef} slotHeight={shell.slotHeight} fullscreen={shell.fullscreen} className={styles.mapFrame} label="東京ドームの座席表" anchor={shell.locked} data-tokyo-map-frame="">
-        {shell.fullscreen && <ImmersiveBar closeRef={shell.closeRef} onClose={shell.requestClose} venueName="東京ドーム" title={selected ? `${placeTitle}${selectedSide ? `（${selectedSide}）` : ""}` : null} onShare={selected ? () => setShareOpen(true) : undefined} />}
+        {shell.fullscreen && <ImmersiveBar closeRef={shell.closeRef} onClose={shell.requestClose} venueName="東京ドーム" detail={placeDetail} title={selected ? `${placeTitle}${selectedSide ? `（${selectedSide}）` : ""}` : null} onShare={selected ? () => setShareOpen(true) : undefined} />}
         {shareOpen && selected && placeTitle && <SeatShareSheet venueName="東京ドーム" blockName={placeTitle} onClose={() => setShareOpen(false)}
           share={{ venue: "tokyo-dome", section: selected.code, ...(selectedRow !== null ? { row: String(selectedRow) } : {}), ...(selectedSeat !== null ? { number: String(selectedSeat) } : {}) }} />}
         {notice&&<p role="status" className={styles.mapNotice}>{notice}</p>}
@@ -1106,7 +1112,7 @@ export function TokyoDomeSeatLocator() {
                 <pattern id="tokyo-floor-stripes" patternUnits="userSpaceOnUse" width="44" height="44" patternTransform="rotate(-35)"><rect width="22" height="44" fill="#fff" opacity=".07"/></pattern>
                 <filter id="tokyo-bowl-shadow" x="-15%" y="-15%" width="130%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="4" floodColor="#314a61" floodOpacity=".17"/></filter>
                 {/* Row clip paths are only used once the map is zoomed in (rows are not drawn on the whole map). */}
-                {detailStage && SHAPES.filter((area) => ROW_GUIDES.has(area.code)).map((area) => <clipPath key={area.code} id={`tokyo-rows-${area.code}`}><path d={area.path!} /></clipPath>)}
+                {rowStage && SHAPES.filter((area) => ROW_GUIDES.has(area.code)).map((area) => <clipPath key={area.code} id={`tokyo-rows-${area.code}`}><path d={area.path!} /></clipPath>)}
                 
                 {BALCONY_GROUP_PATHS.map((path, index) => <clipPath key={index} id={`tokyo-balcony-${index}`}><path d={path} /></clipPath>)}
               </defs>
@@ -1133,7 +1139,7 @@ export function TokyoDomeSeatLocator() {
               {/* The ~300 block shapes are a memoised part: they change only when the chosen block, row, tier
                   or zoom stage changes, not on every camera move. */}
               <SeatShapes selectedCode={selected?.code ?? null} selectedRow={selectedRow} seatLevel={seatLevel}
-                  detailStage={detailStage} showDetail={showDetail} activeFocus={activeFocus ?? null} onKey={stableKeyArea} onFocusCode={setFocusedCode} />
+                  detailStage={rowStage} activeFocus={activeFocus ?? null} onKey={stableKeyArea} onFocusCode={setFocusedCode} />
               {overviewOpacity > 0 && <g pointerEvents="none" aria-hidden="true" data-tier-shading="">
                 {Object.entries(tierShading).map(([tier, d]) => <path key={tier} d={d} fill={`url(#tokyo-tier-${tier})`} opacity={overviewOpacity * (matchesLevel(tier) ? 1 : .16)} />)}
               </g>}
@@ -1166,12 +1172,12 @@ export function TokyoDomeSeatLocator() {
               <g pointerEvents="none">
                 {BALCONY_DIVIDERS.map((divider) => <path key={`${divider[0].join("-")}-${divider[1].join("-")}`} d={`M${divider[0][0]},${divider[0][1]} L${divider[1][0]},${divider[1][1]}`} fill="none" stroke="#fff" strokeWidth="1.05" vectorEffect="non-scaling-stroke" />)}
               </g>
-              {detailStage && selectedArea && selectedRow !== null && ROW_GUIDES.get(selectedArea.code)?.band(selectedRow) && <path
+              {rowStage && selectedArea && selectedRow !== null && ROW_GUIDES.get(selectedArea.code)?.band(selectedRow) && <path
                 data-selected-row-band={selectedRow} d={ROW_GUIDES.get(selectedArea.code)!.band(selectedRow)!}
                 clipPath={`url(#tokyo-rows-${selectedArea.code})`} fill="#b9e3fb" fillOpacity="0.96"
                 stroke="#1673ad" strokeWidth="1.2" vectorEffect="non-scaling-stroke" pointerEvents="none" />}
               {/* A chosen block smaller than a fingertip on screen gets a ring, so it can be found. */}
-              {detailStage && selectedShapeBox && Math.max(selectedShapeBox[2] - selectedShapeBox[0], selectedShapeBox[3] - selectedShapeBox[1]) * screenScale < 18 && <g data-selected-ring="" pointerEvents="none">
+              {selected && showDetail && selectedShapeBox && Math.max(selectedShapeBox[2] - selectedShapeBox[0], selectedShapeBox[3] - selectedShapeBox[1]) * screenScale < 18 && <g data-selected-ring="" pointerEvents="none">
                 <circle cx={(selectedShapeBox[0] + selectedShapeBox[2]) / 2} cy={(selectedShapeBox[1] + selectedShapeBox[3]) / 2} r={15 / screenScale} fill="none" stroke="#fff" strokeWidth="5" vectorEffect="non-scaling-stroke" />
                 <circle cx={(selectedShapeBox[0] + selectedShapeBox[2]) / 2} cy={(selectedShapeBox[1] + selectedShapeBox[3]) / 2} r={15 / screenScale} fill="none" stroke="#a93164" strokeWidth="2.5" vectorEffect="non-scaling-stroke" />
               </g>}
@@ -1179,33 +1185,21 @@ export function TokyoDomeSeatLocator() {
                 <text x="579" y="253" fontSize={Math.min(17, Math.max(12, canvasSize.width / 26)) / screenScale}
                   fontWeight="800">アリーナ</text>
               </g>
-              {mapLabels.filter(label => !(verifiedNumberGuide && label.code === selected?.code)).map(label => nameCarriesCamera(label.code)
-                ? <g key={label.code} data-seat-label={label.code} data-name-pill={label.code} data-annotation-photo="" data-seat-code={label.code}
-                  transform={`translate(${label.x} ${label.y}) scale(${1 / screenScale})`} pointerEvents="all" style={{cursor:"pointer"}}>
-                  <rect x={-namePillWidth(label.code) / 2} y={-11} width={namePillWidth(label.code)} height={22} rx={11} fill="#fff" fillOpacity=".94" stroke="#e3cbd6" strokeWidth=".8" />
-                  <text x={-CAMERA_ROOM / 2} textAnchor="middle" dominantBaseline="central" fontSize="12" fontWeight="650" fontFamily="ui-sans-serif, sans-serif" fill="#483340">{label.code}</text>
-                  <Camera x={namePillWidth(label.code) / 2 - 19} y={-6} size={12} color="#a93164" strokeWidth={2.4} />
-                </g>
-                : <text key={label.code} data-seat-label={label.code} x={label.x} y={label.y}
+              {mapLabels.map(label => <text key={label.code} data-seat-label={label.code} x={label.x} y={label.y}
                 transform={`rotate(${label.angle},${label.x},${label.y})`} textAnchor="middle" dominantBaseline="central"
                 fontSize={label.fontSize} fontWeight="650" fontFamily="ui-sans-serif, sans-serif"
                 fill={selected?.code === label.code ? "#fff" : "#483340"}
-                stroke={selected?.code === label.code ? "#a93164" : "#fff"}
+                stroke={selected?.code === label.code ? "#db3d7b" : "#fff"}
                 strokeWidth={selected?.code === label.code ? 3 : 2.5} strokeLinejoin="round" vectorEffect="non-scaling-stroke" paintOrder="stroke" pointerEvents="all" data-seat-code={label.code} style={{cursor:"pointer"}}>{label.code}</text>)}
-              <g pointerEvents="none" aria-label="席番号の目印と増える方向">{displayedNumberGuides.map(guide => {
-                const active = guide.id === verifiedNumberGuide?.id;
-                return <g key={guide.id} data-seat-number={guide.number} data-number-block={guide.id === verifiedNumberGuide?.id ? selected?.code : undefined}>
-                  
-                  <path data-number-badge="" data-number-arrow="" data-connected-number-arrow="" data-shaft-px="3" data-head-px="8" d={tokyoDomeNumberBadge(guide.direction)} transform={`translate(${guide.point[0]} ${guide.point[1]}) scale(${1/screenScale})`} fill="#fff" stroke={active?"#a93164":"#d5c5cd"} strokeWidth={active?2:1} strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
-                  <path data-number-arrow-ink="" d={seatNumberArrowInk(guide.direction)} transform={`translate(${guide.point[0]} ${guide.point[1]}) scale(${1/screenScale})`} fill="none" stroke="#a93164" strokeWidth={active ? 2 : 1.6} strokeLinejoin="round" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
-                  <text x={guide.point[0]} y={guide.point[1]} textAnchor="middle" dominantBaseline="central" fontSize={(active?14:12) / screenScale} fontWeight="800" fill="#783b59">{guide.number}番</text>
-                </g>;
-              })}</g>
-              {detailStage && visibleEdgeMarkers.map(({ row, point, anchor }) => point && <g key={`edge-${row}`} pointerEvents="none">
-                {anchor&&(anchor[0]!==point[0]||anchor[1]!==point[1])&&<path d={`M${anchor[0]},${anchor[1]}L${point[0]},${point[1]}`} stroke="#913455" strokeWidth=".6"/>}
-                <rect data-row-badge="" x={point[0] - 28 / screenScale} y={point[1] - 14 / screenScale} width={56 / screenScale} height={28 / screenScale} rx={4 / screenScale} fill={row===selectedRow?"#155786":"#e8f3ff"} stroke="#23679a" strokeWidth="1.2" vectorEffect="non-scaling-stroke" />
-                <text x={point[0]} y={point[1] + 4 / screenScale} textAnchor="middle" fontSize={12 / screenScale} fontWeight="900" fill={row===selectedRow?"#fff":"#155786"}>{row}列</text>
+              {photoDots.map(dot => <g key={dot.code} data-photo-dot={dot.code} data-seat-code={dot.code} transform={`translate(${dot.x} ${dot.y}) scale(${1 / screenScale})`}
+                pointerEvents="all" style={{ cursor: "pointer" }} fontFamily="ui-sans-serif, sans-serif">
+                <PhotoDot id={dot.code} count={PHOTO_SIGNS.get(dot.code)?.count ?? 1} thumb={PHOTO_SIGNS.get(dot.code)?.thumb} />
               </g>)}
+              <g pointerEvents="none" aria-label="席番号の目印と増える方向" fontFamily="ui-sans-serif, sans-serif">{startDiscs.map(disc => <g key={disc.id} data-seat-number={disc.number} data-number-block={disc.own ? selected?.code : undefined}>
+                <StartDisc x={disc.x} y={disc.y} text={String(disc.number)} ux={disc.direction[0]} uy={disc.direction[1]} unit={1 / screenScale} />
+              </g>)}</g>
+              <g pointerEvents="none" aria-label="列の目印" fontFamily="ui-sans-serif, sans-serif">{rowDigits.map(digit =>
+                <RowDigit key={digit.row} x={digit.x} y={digit.y} text={String(digit.row)} active={digit.active} unit={1 / screenScale} />)}</g>
               {shownGates.map((gate) => <g key={gate.gate} pointerEvents="none">
                 <rect x={gate.label.x - 31 / screenScale} y={gate.label.y - 12 / screenScale}
                   width={62 / screenScale} height={24 / screenScale} rx={6 / screenScale} fill="#393148" stroke="#fff" strokeWidth="1.2" vectorEffect="non-scaling-stroke" />
@@ -1219,14 +1213,6 @@ export function TokyoDomeSeatLocator() {
                 <rect x={selectedSpecial.label[0] - 17} y={selectedSpecial.label[1] - 33} width="34" height="13" rx="6.5" fill="#a82458" stroke="#fff" strokeWidth="1" vectorEffect="non-scaling-stroke" />
                 <text x={selectedSpecial.label[0]} y={selectedSpecial.label[1] - 24} textAnchor="middle" fontSize="6.2" fontWeight="900" fill="#fff">{selectedSpecial.code}</text>
               </g>}
-              {photoMarkers.map(({ area, x, y }) => <g key={area.code}>
-                <g data-seat-code={area.code} data-seat-photo-marker={area.code} role="button" tabIndex={0}
-                  data-photo-x={x} data-photo-y={y} data-photo-placement="inside-block"
-                  aria-label={`写真がある${area.code}区画を選ぶ`} onKeyDown={event => keyArea(event, area)} className={styles.photoMarker}>
-                  <circle cx={x} cy={y} r={13 / screenScale} fill="transparent" />
-                  <SeatPhotoMarker x={x} y={y} size={20 / screenScale} highlighted />
-                </g>
-              </g>)}
             </svg>
           {!showDetail && <div className={styles.areaLabels} aria-label="大きな場所から探す">
             {TOKYO_DOME_OVERVIEW_AREAS.map(area => <button key={area.id} type="button" data-major-area={area.id}

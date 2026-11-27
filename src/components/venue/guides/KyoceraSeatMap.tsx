@@ -20,6 +20,7 @@ import SeatSearchOffer from "@/components/seat-campaign/SeatSearchOffer";
 import { useVenueSeatTarget } from "../VenueSeatTarget";
 import { seatViewMatchesForSelection, seatViewPosts } from "@/lib/seatViewPosts";
 import { fitAboveBoard, ImmersiveBar, ImmersiveFrame, useImmersiveMap } from "../template/immersiveMap";
+import { nudgedView } from "../template/cameraGlide";
 import { SeatPhotoEmptySheet, SeatPhotoSheet, SeatPhotoSheetTab, type SheetNeighbor } from "../template/SeatPhotoSheet";
 import { SeatShareSheet } from "../template/SeatShareSheet";
 import { seatViewInlinePhotoUrl } from "@/lib/seatViewPhotoAssets";
@@ -91,12 +92,13 @@ export default function KyoceraSeatMap({ guide, selectedId, rowLabel, seatNumber
     if (!viewTick || !inFullscreen()) return;
     const run = pendingView.current; pendingView.current = null; run?.();
   }, [viewTick, inFullscreen]);
-  // Closing goes back to the whole map, as the still preview shows it.
-  const wasFullscreen = useRef(false);
+  // Closing ends the choice (x and the phone's back alike): the page map is the whole venue again with nothing
+  // chosen, so the next tap on it opens the whole venue and not the place chosen before.
+  const wasFullscreen = useRef(false), endChoice = useRef(() => {});
   useLayoutEffect(() => {
-    if (wasFullscreen.current && !shell.fullscreen) { setBox([...whole] as Box); setOverviewReturn(null); }
+    if (wasFullscreen.current && !shell.fullscreen) { endChoice.current(); setOverviewReturn(null); }
     wasFullscreen.current = shell.fullscreen;
-  }, [shell.fullscreen, whole]);
+  }, [shell.fullscreen]);
   useLayoutEffect(() => {
     const rect = canvas()?.getBoundingClientRect(), mark = miniView.current;
     if (!rect || !mark || !rect.width) return;
@@ -118,9 +120,16 @@ export default function KyoceraSeatMap({ guide, selectedId, rowLabel, seatNumber
     const cx = target[0] + target[2] / 2, cy = target[1] + target[3] / 2;
     return aboveBoard([cx - width / 2, cy - 40, width, 80]);
   }
-  function frameBlock(block: DrawingBlock) {
+  /** `keepZoom` (a block picked on the full-screen map): already at block zoom or closer, the zoom stays and the map
+   *  moves only as far as the block needs to show whole above the photo board. */
+  function frameBlock(block: DrawingBlock, keepZoom = false) {
     setOverviewReturn(null);
-    const camera = () => setBox(blockView(block));
+    const camera = () => setBox(current => {
+      const target = blockView(block), rect = canvas()?.getBoundingClientRect(), shape = pathBounds([block.path]);
+      if (!keepZoom || !rect || !shape || current[2] > target[2] * 1.02) return target;
+      const next = nudgedView(current, shape, { width: rect.width, height: rect.height }, Math.max(140, rect.height - boardHeight() - 8));
+      return next === current ? current : [...next] as Box;
+    });
     if (shell.immersive && !inFullscreen()) { pendingView.current = camera; shell.open(); }
     else if (inFullscreen()) afterRender(camera);
     else setBox(kyoceraBlockCamera(block, whole));
@@ -142,6 +151,7 @@ export default function KyoceraSeatMap({ guide, selectedId, rowLabel, seatNumber
   function resetFeedback() { setError(""); setCandidates([]); }
   function clear() { onClear(); setSelectedCode(null); setSpecialRow(null); setSpecialNumber(""); resetFeedback(); }
   function showWhole() { clear(); setBox([...whole] as Box); setDirection("all"); setLevel("すべて"); }
+  endChoice.current = showWhole;
   function showDirection(id: string, tier = level) {
     if (id === "all") { showWhole(); return; }
     clear(); setDirection(id); setLevel(tier);
@@ -153,7 +163,7 @@ export default function KyoceraSeatMap({ guide, selectedId, rowLabel, seatNumber
     else { const area = guide.seats.find(a => a.id === block.areaId)!; onSelect(area); if (selectedId === area.id) onRow(null); }
     setSelectedCode(block.code); setDirection(kyoceraSelectedDirection(block, whole, direction)); setLevel(block.special ? "すべて" : block.tier); resetFeedback();
     setSheetOpen(true); setSheetPhoto(0);
-    if (shell.immersive) { frameBlock(block); return; }
+    if (shell.immersive) { frameBlock(block, true); return; }
     // Same rule as Tokyo Dome: go to the block view unless the map is already at block zoom or closer,
     // where a neighbouring block is picked without moving the camera.
     const target = kyoceraBlockCamera(block, whole);
@@ -282,7 +292,7 @@ export default function KyoceraSeatMap({ guide, selectedId, rowLabel, seatNumber
     {/* Everything that reacts to a search or a selection sits on the map, so nothing above it grows or
         shrinks and the map never moves (Tokyo Dome's mapNotice / photoOverlay, as StandSeatMap). */}
     <ImmersiveFrame frameRef={shell.frameRef} slotHeight={shell.slotHeight} fullscreen={shell.fullscreen} className={stand.mapFrame} label={`${guide.name}の座席表`} anchor={shell.locked}>
-    {shell.fullscreen && <ImmersiveBar closeRef={shell.closeRef} onClose={shell.requestClose} venueName={guide.name} title={placeTitle} onShare={selected ? () => setShareOpen(true) : undefined} />}
+    {shell.fullscreen && <ImmersiveBar closeRef={shell.closeRef} onClose={shell.requestClose} venueName={guide.name} title={placeTitle} detail={selected ? `${selected.rowLabelIsPrinted ? `${selected.rowLabel}列・` : ""}${selected.firstSeat}〜${selected.lastSeat}番` : null} onShare={selected ? () => setShareOpen(true) : undefined} />}
     {shareOpen && selected && placeTitle && <SeatShareSheet venueName={guide.name} blockName={kyoceraBlockName(selected, blocks)} onClose={() => setShareOpen(false)}
       share={{ venue: "kyocera-dome", section: selected.code, ...(currentRow && currentNumber ? { row: currentRow, number: currentNumber } : {}) }} />}
     <KyoceraNumberNavigator guide={guide} blocks={blocks} level={level} selectedCode={selected?.code} rowLabel={currentRow}

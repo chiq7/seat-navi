@@ -108,12 +108,14 @@ export function ImmersiveFrame({ frameRef, slotHeight, fullscreen, className, ch
 }
 
 /** Top bar of the full-screen map: ×, venue, what is chosen, and "この席を送る" when it can be sent. */
-export function ImmersiveBar({ closeRef, onClose, venueName, title, onShare }: {
+export function ImmersiveBar({ closeRef, onClose, venueName, title, detail, onShare }: {
   closeRef: RefObject<HTMLButtonElement | null>; onClose: () => void; venueName: string; title: string | null; onShare?: () => void;
+  /** The chosen block's rows and seat numbers ("27〜45列・221〜231番"); it takes the small line the venue's name has. */
+  detail?: string | null;
 }) {
   return <div className={styles.immersiveBar}>
     <button ref={closeRef} type="button" className={styles.immersiveClose} aria-label="座席表を閉じる" onClick={onClose}><X size={22} aria-hidden="true" /></button>
-    <div className={styles.immersiveTitle} aria-live="polite"><span>{venueName}</span><strong>{title ?? "区画をタップすると写真が見られます"}</strong></div>
+    <div className={styles.immersiveTitle} aria-live="polite"><span data-place-detail={title && detail ? "" : undefined}>{title && detail ? detail : venueName}</span><strong>{title ?? "区画をタップすると写真が見られます"}</strong></div>
     {onShare && <button type="button" className={styles.immersiveShare} onClick={onShare} data-seat-share-open=""><Send size={17} aria-hidden="true" />この席を送る</button>}
   </div>;
 }

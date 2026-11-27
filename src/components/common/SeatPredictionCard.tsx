@@ -120,7 +120,7 @@ export function SeatPredictionCard({
         <div className="mb-1.5 flex justify-center">
           <div className="h-[50px] w-[300px] max-w-full">
             <Image
-              src="/images/seat-prediction/rank-1-title.png"
+              src="/images/seat-prediction/rank-1-title.webp"
               alt="座席予想1位の投稿"
               width={300}
               height={50}
@@ -160,7 +160,7 @@ export function SeatPredictionCard({
         style={
           isTop
             ? {
-                backgroundImage: "url('/images/arena-prediction/rank-1-bg5.png')",
+                backgroundImage: "url('/images/arena-prediction/rank-1-bg5.webp')",
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }

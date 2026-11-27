@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import type { NextRequest } from "next/server";
 import { getArtistOgInfo, type ArtistOgNextEvent } from "@/lib/og/artistOgData";
 import { SIZE, OG_IMAGE_OPTIONS, fallbackImage, getLogoDataUrl, Logo, TestDataBadge, readPublicImageDataUrl } from "@/lib/og/ogShared";
-import { DEFAULT_ARTIST_HERO_IMAGE, resolveArtistHeroImage } from "@/lib/artistPageData";
+import { DEFAULT_ARTIST_HERO_OG_IMAGE, resolveArtistHeroImage } from "@/lib/artistPageData";
 
 export const runtime = "nodejs";
 
@@ -217,8 +217,8 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ slug
     if (!info) return fallbackImage();
 
     const logoDataUrl = getLogoDataUrl();
-    const heroPath = resolveArtistHeroImage(info.artist.heroImage).replace(/^\/+/, "");
-    const fallbackHeroPath = DEFAULT_ARTIST_HERO_IMAGE.replace(/^\/+/, "");
+    const heroPath = resolveArtistHeroImage(info.artist.heroImage, DEFAULT_ARTIST_HERO_OG_IMAGE).replace(/^\/+/, "");
+    const fallbackHeroPath = DEFAULT_ARTIST_HERO_OG_IMAGE.replace(/^\/+/, "");
     const heroDataUrl = readPublicImageDataUrl(heroPath) ?? readPublicImageDataUrl(fallbackHeroPath);
 
     return renderArtistImage({

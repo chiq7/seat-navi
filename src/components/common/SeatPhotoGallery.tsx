@@ -27,7 +27,7 @@ export function SeatPhotoGallery({ photos }: { photos: ScopedSeatPhoto[] }) {
           <img src={photo.thumbnail} alt="" width={240} height={150} loading="lazy" decoding="async" referrerPolicy="no-referrer" className="aspect-[8/5] w-full rounded-lg bg-[#f4ecf1] object-cover" />
           <span className="mt-1 block text-xs font-bold">{photo.venue}</span>
           <span className="block text-xs text-[#695862]">{photo.label}</span>
-          {seatPhotoCaption(photo.event, photo.seatVerified) && <span className="block break-words text-xs text-[#695862]">{seatPhotoCaption(photo.event, photo.seatVerified)}</span>}
+          {seatPhotoCaption(photo.event) && <span className="block break-words text-xs text-[#695862]">{seatPhotoCaption(photo.event)}</span>}
         </button>
       </li>)}
     </ul>;
@@ -48,7 +48,7 @@ export function SeatPhotoGallery({ photos }: { photos: ScopedSeatPhoto[] }) {
           <button type="button" className="zr-focus min-h-11 min-w-11 shrink-0 text-lg" aria-label="写真を閉じる" onClick={() => dialog.current?.close()}>×</button>
         </div>
         {selected && <>
-          <SeatPhotoCreditLine key={selected.image} event={selected.event} verified={selected.seatVerified} />
+          <SeatPhotoCreditLine key={selected.image} event={selected.event} />
           {failed ? <p role="status" className="py-4 text-sm">写真を読み込めませんでした。<button type="button" className="zr-focus min-h-11 underline" onClick={() => setFailed(false)}>再読み込み</button></p> :
             <div className={styles.imageFrame} aria-busy={!loaded}>
               {!loaded && <span className={styles.loading} role="status" data-photo-loading>写真を読み込み中…</span>}

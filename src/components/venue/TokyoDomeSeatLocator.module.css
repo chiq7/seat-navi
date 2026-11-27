@@ -117,6 +117,8 @@
 .overviewHeading strong { font-size:14px; font-weight:800; letter-spacing:.03em; color:#3c4c5e; }
 .overviewHeading span { font-size:12px; color:#746671; }
 .map [data-seat-code]:hover { filter:brightness(1.05); }
+/* A block being chosen: its colour comes with the touch, before the map is laid out again. */
+.map path[data-pressed] { fill:#db3d7b; }
 .seatFrame .map .areaLabels button { width:54px; height:28px; min-height:28px; padding:0; border:0; border-radius:4px; color:#344d60; background:transparent; box-shadow:none; font-size:11px; text-shadow:0 1px 2px #ffffffb3; }
 .seatFrame .map .areaLabels button[data-major-area="home"] { width:48px; }
 .seatFrame .map .areaLabels button { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; height:44px; min-height:44px; width:44px; }

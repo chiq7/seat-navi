@@ -18,21 +18,21 @@ import { PageLoadingShell } from "@/components/common/PageLoadingShell";
 import { excludeHiddenLiveReports, isHiddenLiveReport } from "@/data/hiddenLiveReports";
 
 const RATING_IMAGES: Record<number, string> = {
-  5: "/images/reports/overall-rating/rating-5-kamiseki.png",
-  4: "/images/reports/overall-rating/rating-4-ryoseki.png",
-  3: "/images/reports/overall-rating/rating-3-futsu.png",
-  2: "/images/reports/overall-rating/rating-2-bimyo.png",
-  1: "/images/reports/overall-rating/rating-1-kyomu.png",
+  5: "/images/reports/overall-rating/rating-5-kamiseki.webp",
+  4: "/images/reports/overall-rating/rating-4-ryoseki.webp",
+  3: "/images/reports/overall-rating/rating-3-futsu.webp",
+  2: "/images/reports/overall-rating/rating-2-bimyo.webp",
+  1: "/images/reports/overall-rating/rating-1-kyomu.webp",
 };
 
 // 表示順: メインステージ→センステ→ファンサ→トロッコ→客降り→銀テ
 const METER_ICONS: Record<string, string> = {
-  "メインステージ": "/images/reports/local-report-detail/main-stage-icon.png",
-  "センステ": "/images/reports/local-report-detail/center-stage-icon.png",
-  "ファンサ": "/images/reports/local-report-detail/fanservice-icon.png",
-  "トロッコ": "/images/reports/local-report-detail/trolley-icon.png",
-  "客降り": "/images/reports/local-report-detail/aisle-walk-icon.png",
-  "銀テ": "/images/reports/local-report-detail/silver-tape-icon.png",
+  "メインステージ": "/images/reports/local-report-detail/main-stage-icon.webp",
+  "センステ": "/images/reports/local-report-detail/center-stage-icon.webp",
+  "ファンサ": "/images/reports/local-report-detail/fanservice-icon.webp",
+  "トロッコ": "/images/reports/local-report-detail/trolley-icon.webp",
+  "客降り": "/images/reports/local-report-detail/aisle-walk-icon.webp",
+  "銀テ": "/images/reports/local-report-detail/silver-tape-icon.webp",
 };
 
 const METER_COLORS: Record<string, string> = {

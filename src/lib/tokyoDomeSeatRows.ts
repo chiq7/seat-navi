@@ -63,6 +63,22 @@ export function sectionRowGuides(path: string, rows: RowRange, label: Point, pri
   }
 
   const step = (outer - inner) / count;
+  /** Where the middle of a row meets the block's outline: its two ends, measured along `across`. */
+  function span(row: number): { position: number; from: number; to: number } | null {
+    const index = rowNumbers.indexOf(row);
+    if (index < 0) return null;
+    const position = inner + (index + 0.5) * step;
+    const crossings: number[] = [];
+    for (let at = 0; at < points.length; at += 1) {
+      const start = points[at], end = points[(at + 1) % points.length];
+      const from = start[0] * outward[0] + start[1] * outward[1], to = end[0] * outward[0] + end[1] * outward[1];
+      if ((from <= position && position < to) || (to <= position && position < from)) {
+        const ratio = (position - from) / (to - from);
+        crossings.push((start[0] + (end[0] - start[0]) * ratio) * across[0] + (start[1] + (end[1] - start[1]) * ratio) * across[1]);
+      }
+    }
+    return crossings.length < 2 ? null : { position, from: Math.min(...crossings), to: Math.max(...crossings) };
+  }
   function marker(row: number): Point | null {
     const index = rowNumbers.indexOf(row);
     if (index < 0) return null;
@@ -87,6 +103,19 @@ export function sectionRowGuides(path: string, rows: RowRange, label: Point, pri
   return {
     lines: Array.from({ length: count - 1 }, (_, index) => lineAt(inner + (index + 1) * step)).join(" "),
     marker,
+    /** The rows the block has, front to back. */
+    rows: rowNumbers,
+    /** Rows run along this unit direction; `side` 1 is the end further along it. */
+    across,
+    /** How far apart two rows are, in map units. */
+    pitch: step,
+    /** The end of a row on one side of the block. */
+    end(row: number, side: -1 | 1): Point | null {
+      const found = span(row);
+      if (!found) return null;
+      const reach = side === 1 ? found.to : found.from;
+      return [outward[0] * found.position + across[0] * reach, outward[1] * found.position + across[1] * reach];
+    },
     band(row: number) {
       const index = rowNumbers.indexOf(row);
       if (index < 0) return null;

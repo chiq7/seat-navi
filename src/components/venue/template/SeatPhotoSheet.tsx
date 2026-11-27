@@ -3,7 +3,7 @@
 import { useRef, useState, type PointerEvent, type ReactNode, type Ref } from "react";
 import { Camera, ChevronDown, ChevronLeft, ChevronRight, ChevronUp, ListOrdered, Maximize2 } from "lucide-react";
 import { seatViewInlinePhotoUrl, seatViewXStatusId } from "@/lib/seatViewPhotoAssets";
-import { seatPhotoCredit, SEAT_VERIFIED_LABEL } from "@/lib/seatPhotoCaption";
+import { seatPhotoCredit } from "@/lib/seatPhotoCaption";
 import type { SeatViewMatch } from "./SeatViewPosts";
 import styles from "./SeatPhotoSheet.module.css";
 import { trackUi } from "@/lib/uiAnalytics";
@@ -119,9 +119,9 @@ export function SeatPhotoSheet({ title, matches, previous, next, onFold, onEnlar
         {/* How many photos this place has and which one is showing: it tells that the photo can be swiped. */}
         <span className={styles.dots} aria-hidden="true">{matches.length <= 8 ? matches.map((item, i) => <i key={i} data-on={i === index ? "" : undefined} />) : <b>{index + 1}/{matches.length}</b>}</span>
       </>}
-      {/* The performance and the verified seat ride on the photo's lower edge, so the board needs no extra line. */}
-      {(credit.day || credit.name || post.seatVerified) && <p className={styles.credit}>{credit.day && <span>{credit.day}</span>}
-        {credit.name && <span className={styles.creditName}>{credit.name}</span>}{post.seatVerified && <span>{SEAT_VERIFIED_LABEL}</span>}</p>}
+      {/* The performance rides on the photo's lower edge, so the board needs no extra line. */}
+      {(credit.day || credit.name) && <p className={styles.credit}>{credit.day && <span>{credit.day}</span>}
+        {credit.name && <span className={styles.creditName}>{credit.name}</span>}</p>}
     </div>
     <nav className={styles.neighbors} aria-label="写真のある隣の区画">
       <NeighborButton neighbor={previous} direction="previous" />

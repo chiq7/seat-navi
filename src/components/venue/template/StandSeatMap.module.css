@@ -164,3 +164,5 @@
 .nameTag span svg{flex:none;color:#a93164}
 .nameTag:hover span,.nameTag:focus-visible span{background:#fff0f6;border-color:#8d325b}
 .stage[data-moving] .nameTag{visibility:hidden}
+/* A block being chosen: its colour comes with the touch, before the map is laid out again. */
+.stage path[data-pressed]{fill:#a93164}

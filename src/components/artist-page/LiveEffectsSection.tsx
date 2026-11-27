@@ -5,11 +5,11 @@ type Props = {
 };
 
 const EFFECT_DEFS: { key: string; label: string; activeIcon: string; inactiveIcon: string }[] = [
-  { key: "center-stage", label: "センターステージ", activeIcon: "/images/reports/ive-effects/center-stage-active.png", inactiveIcon: "/images/reports/ive-effects/center-stage-inactive.png" },
-  { key: "trolley", label: "トロッコ", activeIcon: "/images/reports/ive-effects/trolley-active.png", inactiveIcon: "/images/reports/ive-effects/trolley-inactive.png" },
-  { key: "aisle-walk", label: "客席への登場", activeIcon: "/images/reports/ive-effects/aisle-walk-active.png", inactiveIcon: "/images/reports/ive-effects/aisle-walk-inactive.png" },
-  { key: "silver-tape", label: "銀テープ", activeIcon: "/images/reports/ive-effects/silver-tape-active.png", inactiveIcon: "/images/reports/ive-effects/silver-tape-inactive.png" },
-  { key: "fanservice", label: "ファンサービス", activeIcon: "/images/reports/ive-effects/fanservice-active.png", inactiveIcon: "/images/reports/ive-effects/fanservice-inactive.png" },
+  { key: "center-stage", label: "センターステージ", activeIcon: "/images/reports/ive-effects/center-stage-active.webp", inactiveIcon: "/images/reports/ive-effects/center-stage-inactive.webp" },
+  { key: "trolley", label: "トロッコ", activeIcon: "/images/reports/ive-effects/trolley-active.webp", inactiveIcon: "/images/reports/ive-effects/trolley-inactive.webp" },
+  { key: "aisle-walk", label: "客席への登場", activeIcon: "/images/reports/ive-effects/aisle-walk-active.webp", inactiveIcon: "/images/reports/ive-effects/aisle-walk-inactive.webp" },
+  { key: "silver-tape", label: "銀テープ", activeIcon: "/images/reports/ive-effects/silver-tape-active.webp", inactiveIcon: "/images/reports/ive-effects/silver-tape-inactive.webp" },
+  { key: "fanservice", label: "ファンサービス", activeIcon: "/images/reports/ive-effects/fanservice-active.webp", inactiveIcon: "/images/reports/ive-effects/fanservice-inactive.webp" },
 ];
 
 export default function LiveEffectsSection({ liveEffects }: Props) {

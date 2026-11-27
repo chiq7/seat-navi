@@ -7,7 +7,9 @@ import { forwardRef, useCallback, useEffect, useImperativeHandle, useLayoutEffec
 import { Camera, ChevronDown, ChevronRight, Crosshair, Info, ListOrdered, Map as MapIcon, Maximize2, Send, X } from "lucide-react";
 import { DomeSeatFrame } from "./DomeSeatFrame";
 import { useSeatMapTouch } from "./useSeatMapTouch";
-import { SEAT_PHOTO_MAP_COLOR, SeatPhotoMapSummary, SeatPhotoMarker } from "./SeatViewPosts";
+import { SeatPhotoMapSummary, SeatPhotoMarker } from "./SeatViewPosts";
+import { glideDuration, startGlide, type Glide } from "./cameraGlide";
+import { afterPaint } from "@/lib/seatMapInteraction";
 import { SeatPhotoEmptySheet, SeatPhotoSheet, SeatPhotoSheetTab, type SheetNeighbor, type SheetRows } from "./SeatPhotoSheet";
 import { seatViewInlinePhotoUrl } from "@/lib/seatViewPhotoAssets";
 import { SeatShareSheet } from "./SeatShareSheet";
@@ -63,17 +65,9 @@ function nearestBlockId(x: number, y: number): string | null {
 }
 /** Template scope for the page's photo row: ids are seat sections (blocks/zones), matched against photo links. */
 export type StandMapScope = TokyoDomeMapScope & { match: "section"; labels: string[] };
-/** Tokyo Dome's glide: zoom changes evenly in scale, eased in and out, longer the further it goes. */
-function glideDuration(fromWidth: number, toWidth: number) {
-  return Math.round(Math.min(900, 420 + 170 * Math.abs(Math.log(toWidth / fromWidth))));
-}
-function glideFrame(from: MapBox, to: MapBox, progress: number): MapBox {
-  const eased = progress < .5 ? 4 * progress ** 3 : 1 - Math.pow(-2 * progress + 2, 3) / 2;
-  const width = from[2] * Math.pow(to[2] / from[2], eased), height = from[3] * Math.pow(to[3] / from[3], eased);
-  const cx = from[0] + from[2] / 2 + (to[0] + to[2] / 2 - from[0] - from[2] / 2) * eased;
-  const cy = from[1] + from[3] / 2 + (to[1] + to[3] / 2 - from[1] - from[3] / 2) * eased;
-  return [cx - width / 2, cy - height / 2, width, height];
-}
+import { RowDigit, rowDigitSize, rulerPicks, RULER_INK, StartDisc, startDiscBox } from "./rowRuler";
+import { PHOTO_DOT, PhotoDot, photoDotSpots } from "./photoSign";
+
 const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap({ data, levels, areas, initialSection, onEquipment, venueId, immersive = false, venueName, initialRow, initialNumber, initialOpen }, ref) {
   
   // The three stacked floor plans need room for their outer rim and heading.
@@ -127,7 +121,7 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   const mapLocked = immersiveMode && !fullscreen;
   fullscreenRef.current = fullscreen; lockedRef.current = mapLocked;
 
-  const stage = useRef<HTMLDivElement>(null), svg = useRef<SVGSVGElement>(null), frame = useRef<number | null>(null);
+  const stage = useRef<HTMLDivElement>(null), svg = useRef<SVGSVGElement>(null), glide = useRef<Glide | null>(null);
   // Live camera (camera) vs. the camera the labels were last laid out for (renderedView): see paint().
   const inner = useRef<SVGSVGElement>(null), overlay = useRef<SVGGElement>(null), sizeRef = useRef(size);
   const renderedView = useRef(view), moving = useRef(false), wheelCommit = useRef<number | null>(null);
@@ -193,6 +187,17 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
         paths: members.map(block => block.path), centers: members.map(block => block.center) }] : [];
     });
   }, [data]);
+  // How many photos each block has, and a small picture of the first one (for the round photo on the map).
+  const photoSigns = useMemo(() => {
+    const signs = new Map<string, { count: number; thumb: string | null }>();
+    for (const post of seatViewPosts(data.diagramId)) {
+      if (post.place.kind !== "section") continue;
+      const sign = signs.get(post.place.id) ?? { count: 0, thumb: null };
+      sign.count += 1; sign.thumb ??= seatViewInlinePhotoUrl(post)?.replace("name=large", "name=120x120") ?? null;
+      signs.set(post.place.id, sign);
+    }
+    return signs;
+  }, [data]);
   const photoSectionIds = useMemo(() => new Set(photoAnchors.filter(item => item.place.kind === "section").map(item => item.place.id)), [photoAnchors]);
   // Levels, sides and zones that hold at least one photo: their name on the whole-venue map carries the camera.
   const photoPlaces = useMemo(() => {
@@ -226,6 +231,17 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   const zoneMembers = useMemo(() => new Set(!selected && zone ? data.zones?.find(z => z.id === zone)?.blockIds ?? [] : []), [data.zones, selected, zone]);
   // The chosen block (and a chosen zone) is always painted last, so no neighbouring or
   // overlapping shape can hide it.
+  // How far apart two rows of a block are, in map units (0 where the block has fewer than two drawn rows).
+  const rowGaps = useMemo(() => new Map(data.blocks.map(b => {
+    const [first, second] = b.rows.filter(r => r.segments.length);
+    if (!first || !second) return [b.id, 0] as const;
+    const a = first.segments[0].a, e = first.segments[0].b, length = Math.hypot(e[0] - a[0], e[1] - a[1]);
+    // rows known only by their place (segments without length) are not lines to count
+    if (length < .5) return [b.id, 0] as const;
+    const dx = (e[0] - a[0]) / length, dy = (e[1] - a[1]) / length;
+    const vx = second.segments[0].a[0] - a[0], vy = second.segments[0].a[1] - a[1], on = vx * dx + vy * dy;
+    return [b.id, Math.hypot(vx - on * dx, vy - on * dy)] as const;
+  })), [data]);
   const blockShapes = useMemo(() => [...data.blocks.filter(b => b.id !== block?.id && !zoneMembers.has(b.id)), ...data.blocks.filter(b => zoneMembers.has(b.id)), ...(block ? [block] : [])].map(b => <path key={b.id} d={b.path} fillRule="evenodd" data-block-id={b.id} data-zone-member={zoneMembers.has(b.id) ? "" : undefined} className={`${styles.block} ${whole && pulse && data.wholeBlockLabels && !data.zones ? styles.blockPrompt : ""}`}
             fill={b.id === selected ? "#a93164" : zoneMembers.has(b.id) ? "#c4527f" : levels.find(l => l.id === b.level)!.color}
             opacity={level === "all" || b.level === level || selected || zoneMembers.has(b.id) ? 1 : .17} stroke={b.id === selected || zoneMembers.has(b.id) ? "#682840" : "#fff"} strokeWidth={b.id === selected ? 1.8 : zoneMembers.has(b.id) ? 1.2 : 1}>
@@ -233,20 +249,22 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
           </path>), [block, data.blocks, data.wholeBlockLabels, data.zones, level, levels, pulse, selected, whole, zoneMembers]);
 
   // A stopped glide or gesture keeps the camera where it is; labels are laid out again for it.
-  function cancelGlide() { if (frame.current !== null) cancelAnimationFrame(frame.current); frame.current = null; }
+  function dropGlide() { glide.current?.stop(); glide.current = null; }
+  function cancelGlide() { if (!glide.current) return; dropGlide(); paint(camera.current); }
   function stop() { cancelGlide(); if (!gesture.current.points.size) commit(); }
   function interaction() { initialCanvasPending.current = false; interacted.current = true; setPulse(false); stop(); }
-  // Glides, pans, pinches and wheel zooms paint the camera straight onto the SVG and commit to React
-  // once when they end (Tokyo Dome's paintBox/commitBox): laying out every label on each frame made
-  // the map stutter on phones. Screen-space labels follow with one transform until the commit.
-  function paint(next: MapBox) {
-    camera.current = next;
+  // Pans, pinches and wheel zooms paint the camera straight onto the SVG and commit to React once when they
+  // end (Tokyo Dome's paintBox/commitBox): laying out every label on each frame made the map stutter on
+  // phones. Screen-space labels follow with one transform until the commit. A glide draws the map once and
+  // moves that picture (cameraGlide): `camera` is then the view on screen, `draw` the view the map is drawn for.
+  const cameraMark = (box: MapBox) => stage.current?.setAttribute("data-camera", box.map(n => n.toFixed(2)).join(","));
+  function paint(next: MapBox) { camera.current = next; draw(next); cameraMark(next); }
+  function draw(next: MapBox) {
     const { width, height } = sizeRef.current;
     inner.current?.setAttribute("viewBox", next.join(" "));
     const from = mapProjection(renderedView.current, width, height), to = mapProjection(next, width, height);
     const ratio = to.scale / from.scale, origin = from.project([0, 0]), target = to.project([0, 0]);
     overlay.current?.setAttribute("transform", `translate(${target[0] - origin[0] * ratio} ${target[1] - origin[1] * ratio}) scale(${ratio})`);
-    stage.current?.setAttribute("data-camera", next.map(n => n.toFixed(2)).join(","));
     if (!moving.current) { moving.current = true; stage.current?.setAttribute("data-moving", ""); }
   }
   function commit() {
@@ -258,17 +276,11 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   }
   function follow(next: MapBox) { paint(fitCamera(next)); }
   function move(next: MapBox, animate = true) {
-    stop(); const target = fitCamera(next);
-    if (!animate || window.matchMedia("(prefers-reduced-motion: reduce)").matches) { paint(target); commit(); return; }
-    const from = [...camera.current] as MapBox, duration = glideDuration(from[2], target[2]);
-    let start: number | null = null;
-    function tick(now: number) {
-      start ??= now;
-      const progress = Math.min(1, (now - start) / duration);
-      paint(progress < 1 ? glideFrame(from, target, progress) : target);
-      if (progress < 1) frame.current = requestAnimationFrame(tick); else { frame.current = null; commit(); }
-    }
-    frame.current = requestAnimationFrame(tick);
+    stop(); const target = fitCamera(next), layer = svg.current, from = [...camera.current] as MapBox;
+    if (!animate || !layer || from.every((n, index) => Math.abs(n - target[index]) < .01) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) { paint(target); commit(); return; }
+    glide.current = startGlide(layer, { from, to: target, size: sizeRef.current, duration: glideDuration(from[2], target[2]),
+      draw: box => draw(box as MapBox), track: box => { camera.current = box as MapBox; cameraMark(camera.current); },
+      done: () => { glide.current = null; paint(target); commit(); } });
   }
   // A side, level or zone is never framed closer than a tapped block (Tokyo Dome's sideFitView
   // floor), so choosing a block from it never zooms out.
@@ -281,10 +293,11 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   }
   useLayoutEffect(() => {
     renderedView.current = view;
-    // Labels were just laid out for this camera; a gesture still in progress re-derives its offset.
-    if (moving.current) paint(camera.current);
+    // Labels were just laid out for this camera; a glide or gesture still in progress re-derives its offset.
+    if (moving.current) draw(glide.current ? glide.current.drawn as MapBox : camera.current);
     else { camera.current = view; overlay.current?.removeAttribute("transform"); }
   }, [view, size]);
+  useLayoutEffect(() => { for (const pressed of svg.current?.querySelectorAll("[data-pressed]") ?? []) pressed.removeAttribute("data-pressed"); }, [selected]);
   function clearResult() { setSelected(null); resetFinderFeedback(); setPosition(null); }
   function resetFinderFeedback() { setMatches([]); setError(""); setSearchMiss(false); }
   function reset() { interaction(); clearResult(); setZone(null); setLevel("all"); setArea("all"); move(overviewBox as MapBox); }
@@ -425,7 +438,7 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
       const canvas = { width: rect.width, height: rect.height };
       if (hasStandCanvasArea(canvas)) { sizeRef.current = canvas; previousSize.current = canvas; setSize(canvas); }
     }
-    cancelGlide(); paint(fullscreen ? wallCamera(overviewBox) : overviewBox); commit();
+    dropGlide(); paint(fullscreen ? wallCamera(overviewBox) : overviewBox); commit();
     if (fullscreen) {
       const overflow = root.style.overflow;
       root.style.overflow = "hidden";
@@ -436,9 +449,9 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
       return () => { root.style.overflow = overflow; window.clearTimeout(timer); };
     }
     setSlotHeight(undefined);
-    // Phones have no level, direction or "whole map" control on the page: with no block chosen, the page map
-    // goes back to the whole venue and drops any search note.
-    if (!selected) { setZone(null); setLevel("all"); setArea("all"); setPosition(null); resetFinderFeedback(); }
+    // Closing ends the choice (x and the phone's back alike): the page map is the whole venue again, with nothing
+    // chosen and no search note, so the next tap on it opens the whole venue and not the place chosen before.
+    clearResult(); setZone(null); setLevel("all"); setArea("all");
     // The browser's own back may also try to restore an older scroll position: hold ours for a few frames.
     const y = pageScroll.current;
     window.scrollTo(0, y);
@@ -586,7 +599,8 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
     const photoAnchor = photoAnchors.find(item => item.key === photo);
     if (photoAnchor) { selectPhotoPlace(photoAnchor.place); return; }
     const target = id && data.blocks.find(b => b.id === id);
-    if (target) select(target);
+    // The block takes its colour the moment it is touched; the rest of the screen follows.
+    if (target) { svg.current?.querySelector(`path[data-block-id="${target.id}"]`)?.setAttribute("data-pressed", ""); afterPaint(() => select(target)); }
   }
   useEffect(() => {
     const el = stage.current!;
@@ -596,7 +610,7 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
       if (!hasStandCanvasArea(canvas)) return;
       sizeRef.current = canvas; setSize(canvas);
       // Phone bars appearing or the phone turning: the full-screen map keeps to its walls at the new size.
-      if (fullscreenRef.current && !gesture.current.points.size && frame.current === null) { paint(wallCamera(camera.current)); commit(); }
+      if (fullscreenRef.current && !gesture.current.points.size && !glide.current) { paint(wallCamera(camera.current)); commit(); }
       if (initialBlock && initialCanvasPending.current) {
         initialCanvasPending.current = false;
         const next = clampCamera(standDetailCamera(initialBlock, data, canvas), overviewBox, data.detailSpan * .45);
@@ -749,7 +763,7 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   function addLabel(id: string, text: string, position: Point, important = false, width?: number) {
     const kind = text.includes("番") && !text.endsWith("番側") ? "number" : "block";
     const plainName = !whole && kind === "block" && !important;
-    const photo = !important && photoSectionIds.has(id);
+    const photo = whole && !important && photoSectionIds.has(id);
     const fontSize = important ? 14 : 12;
     const textWidth = [...text].reduce((sum, char) => sum + fontSize * (char.charCodeAt(0) < 128 ? .6 : 1), 0);
     const full = (width ?? (plainName ? textWidth + 16 : Math.max(important || text.length > 2 ? 48 : 32, textWidth + 14))) + (photo ? 15 : 0);
@@ -773,6 +787,9 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
     }
   }
   const displayRows = block ? standDisplayRows(block) : [];
+  const [vx, vy, vw, vh] = view;
+  const rowNeighbours = whole ? [] : shown.filter(b => b.id !== block?.id && b.box[0] < vx + vw && b.box[0] + b.box[2] > vx && b.box[1] < vy + vh && b.box[1] + b.box[3] > vy
+    && (rowGaps.get(b.id) ?? 0) * projection.scale >= 3.6);
   // The selected block's own name: on the block when it leaves most of the block visible,
   // otherwise just beside it with a short stem, so the pink block itself stays in view.
   function addSelectedBlockName(text: string, position: Point) {
@@ -811,23 +828,31 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   if (block && block.rowNameLookup !== "unavailable" && displayRows.length) {
     const rowsOnScreen = displayRows.map(r => {
       const own = block.rows.find(item => item.label === r.label);
-      return { label: r.label, points: (own?.segments.length ? own.segments.flatMap(segment => [segment.a, segment.b]) : [r.a, r.b]).map(point => projection.project(point)) };
+      // (a row known only by its place has segments without length: its drawn edge gives the two ends)
+      return { label: r.label, points: [...(own?.segments.flatMap(segment => [segment.a, segment.b]) ?? []), r.a, r.b].map(point => projection.project(point)) };
     });
-    // Rows that run across the screen are tagged at their left end, rows that run down it at their top end.
+    // The numbers stand on the side the seat numbers run toward (the start mark has the other side). Without a known
+    // start: the left end of rows that run across the screen, the top end of rows that run down it.
     const firstA = projection.project(displayRows[0].a), firstB = projection.project(displayRows[0].b);
-    const axis = Math.abs(firstB[0] - firstA[0]) >= Math.abs(firstB[1] - firstA[1]) ? 0 : 1;
-    const fifth = rowsOnScreen.flatMap((r, index) => { const value = Number.parseInt(r.label, 10); return (Number.isFinite(value) ? value % 5 === 0 : (index + 1) % 5 === 0) ? [index] : []; });
-    const wanted = [...new Set([...rowsOnScreen.flatMap((r, index) => activeRow && normalizeSeatInput(r.label) === activeRow ? [index] : []), 0, rowsOnScreen.length - 1, ...fifth])];
-    for (const index of wanted) {
+    const run = block.numberReference && block.numberLookup !== "unavailable" ? (() => {
+      const young = projection.project(block.numberReference.young), older = projection.project(block.numberReference.older), length = Math.hypot(older[0] - young[0], older[1] - young[1]);
+      return length < 1 ? null : [(older[0] - young[0]) / length, (older[1] - young[1]) / length] as Point;
+    })() : null;
+    const toward: Point = run ?? (Math.abs(firstB[0] - firstA[0]) >= Math.abs(firstB[1] - firstA[1]) ? [-1, 0] : [0, -1]);
+    const along = (point: Point) => point[0] * toward[0] + point[1] * toward[1];
+    const names = rowsOnScreen.map(r => r.label), activeName = activeRow ? names.find(name => normalizeSeatInput(name) === activeRow) ?? null : null;
+    // the searched row first, so a neighbour gives way to it
+    for (const index of rulerPicks(names, activeName).sort((a, b) => Number(names[b] === activeName) - Number(names[a] === activeName))) {
       const r = rowsOnScreen[index];
-      const start = r.points.reduce((a, b) => b[axis] < a[axis] ? b : a), far = r.points.reduce((a, b) => b[axis] > a[axis] ? b : a);
-      const length = Math.hypot(far[0] - start[0], far[1] - start[1]) || 1;
-      const text = `${r.label}列`, w = [...text].reduce((sum, char) => sum + 11 * (char.charCodeAt(0) < 128 ? .62 : 1), 0) + 10;
-      const x = start[0] + (far[0] - start[0]) / length * (w / 2 + 3), y = start[1] + (far[1] - start[1]) / length * (w / 2 + 3);
-      if (x < w / 2 || x > size.width - w / 2 || y < 10 || y > size.height - 10) continue;
-      if (occupied.some(o => Math.abs(x - o[0]) < (w + o[2]) / 2 + 2 && Math.abs(y - o[1]) < (18 + o[3]) / 2 + 2)) continue;
-      if (ruler.some(tag => Math.abs(tag.x - x) < (tag.w + w) / 2 + 2 && Math.abs(tag.y - y) < 20)) continue;
-      ruler.push({ key: r.label, text, x, y, w, active: Boolean(activeRow) && normalizeSeatInput(r.label) === activeRow });
+      const far = r.points.reduce((a, b) => along(b) > along(a) ? b : a), near = r.points.reduce((a, b) => along(b) < along(a) ? b : a);
+      const length = Math.hypot(far[0] - near[0], far[1] - near[1]) || 1;
+      const active = r.label === activeName, mark = rowDigitSize(r.label, active), out = active ? mark.width / 2 + 4 : 9, w = mark.width;
+      const x = far[0] + (far[0] - near[0]) / length * out, y = far[1] + (far[1] - near[1]) / length * out;
+      // (whole on the map, and not under the photo board)
+      if (x < w / 2 || x > size.width - w / 2 || y < 8 || y > size.height - (fullscreen ? boardHeight() : 0) - 8) continue;
+      if (occupied.some(o => Math.abs(x - o[0]) < (w + o[2]) / 2 + 2 && Math.abs(y - o[1]) < (mark.height + o[3]) / 2 + 2)) continue;
+      if (ruler.some(tag => Math.abs(tag.x - x) < (tag.w + w) / 2 + 1 && Math.abs(tag.y - y) < 13)) continue;
+      ruler.push({ key: r.label, text: r.label, x, y, w, active }); occupied.push([x, y, w, mark.height]);
     }
   }
   // Where the chosen block's seat numbers begin and which way they run: one small tag at that end of its row.
@@ -837,16 +862,18 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
     const length = Math.hypot(older[0] - young[0], older[1] - young[1]);
     if (length < 1) return null;
     const ux = (older[0] - young[0]) / length, uy = (older[1] - young[1]) / length;
-    const text = `${block.numberPrefix ?? ""}${block.numberReference.start}番`, w = [...text].reduce((sum, char) => sum + 11 * (char.charCodeAt(0) < 128 ? .62 : 1), 0) + 22;
-    // Just inside that end of the row, past the row's own tag when it sits there.
-    let offset = w / 2 + 3;
-    const rowTag = ruler.find(tag => Math.abs(tag.x - (young[0] + ux * offset)) < (tag.w + w) / 2 + 2 && Math.abs(tag.y - (young[1] + uy * offset)) < 17);
-    if (rowTag) offset += rowTag.w + 3;
-    const x = young[0] + ux * offset, y = young[1] + uy * offset;
-    if (x < w / 2 || x > size.width - w / 2 || y < 10 || y > size.height - 10) return null;
-    if (ruler.some(tag => Math.abs(tag.x - x) < (tag.w + w) / 2 + 2 && Math.abs(tag.y - y) < 19)) return null;
-    if (occupied.some(o => Math.abs(x - o[0]) < (w + o[2]) / 2 + 2 && Math.abs(y - o[1]) < (18 + o[3]) / 2 + 2)) return null;
-    return { text, x, y, w, angle: Math.atan2(uy, ux) * 180 / Math.PI, side: ux < -.5 ? -1 : 1 };
+    // A round mark just outside that end of the row, its arrow the way the numbers count up; where that spot is
+    // taken (the small venue map, a button, the map's edge) the mark stands just inside the block instead.
+    const others = occupied.filter(o => !ruler.some(tag => tag.x === o[0] && tag.y === o[1]));
+    for (const step of [-12, 12]) {
+      const x = young[0] + ux * step, y = young[1] + uy * step, box = startDiscBox(x, y, ux, uy);
+      if (box.x - box.width / 2 < 2 || box.x + box.width / 2 > size.width - 2 || box.y - box.height / 2 < 2 || box.y + box.height / 2 > size.height - (fullscreen ? boardHeight() : 0) - 2) continue;
+      if (ruler.some(tag => Math.abs(tag.x - box.x) < (tag.w + box.width) / 2 + 1 && Math.abs(tag.y - box.y) < (14 + box.height) / 2 + 1)) continue;
+      if (others.some(o => Math.abs(box.x - o[0]) < (box.width + o[2]) / 2 + 2 && Math.abs(box.y - o[1]) < (box.height + o[3]) / 2 + 2)) continue;
+      occupied.push([box.x, box.y, box.width, box.height]);
+      return { text: `${block.numberPrefix ?? ""}${block.numberReference.start}`, x, y, ux, uy };
+    }
+    return null;
   })() : null;
   const referenceLabels = new Set<string>();
   const contextCaptions = new Set<string>();
@@ -909,6 +936,31 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
     const tagY = [point[1] - 34, point[1] + 34, point[1] - 64].find(y => y > 16 && y < size.height - 16 && clearOfLabels(tagX, y, width, 28)) ?? point[1] - 34;
     return { point, text, width, tagX, tagY, numbers, pill: !mapLocked };
   })() : null;
+  // Zoomed in, a block with photos shows its own photo, small and round: on the block itself, just behind its name
+  // (away from the arena floor), else just in front of it. Where neither spot is on the block and free it is left
+  // out, and comes back on zooming in. No name moves for it.
+  const photoDots = whole ? [] : photoAnchors.filter(item => item.place.kind === "section" && item.place.id !== block?.id && (level === "all" || item.level === level)).flatMap(item => {
+    const name = labels.find(l => l.id === item.place.id && !l.selected) ?? null;
+    const at = name ? [name.x, name.y] as Point : projection.project(item.point);
+    const away = projection.project(arenaPoint ?? [overviewBox[0] + overviewBox[2] / 2, overviewBox[1] + overviewBox[3] / 2]);
+    const length = Math.hypot(at[0] - away[0], at[1] - away[1]) || 1, ux = (at[0] - away[0]) / length, uy = (at[1] - away[1]) / length;
+    // (a name's box is kept wider than its ink: the photo stands by the ink)
+    const half = PHOTO_DOT / 2;
+    const bottom = size.height - (fullscreen ? boardHeight() : 0);
+    for (const [dx, dy] of name ? photoDotSpots(Math.max(12, name.width - 12), 18, ux, uy) : [[0, 0]]) {
+      const x = at[0] + dx, y = at[1] + dy;
+      if (x < half + 2 || x > size.width - half - 2 || y < half + 2 || y > bottom - half - 2) continue;
+      const [mx, my] = projection.unproject([x, y]);
+      if (!photoHitTest(item.paths, { x: mx, y: my }, 6 / projection.scale)) continue;
+      if (standRectTouchesRings([x, y], PHOTO_DOT, PHOTO_DOT, selectedScreenRings, 1)) continue;
+      if (occupied.some(o => !(name && o[0] === name.x && o[1] === name.y) && Math.abs(x - o[0]) < (PHOTO_DOT + o[2]) / 2 + 1 && Math.abs(y - o[1]) < (PHOTO_DOT + o[3]) / 2 + 1)) continue;
+      if (seatMark && (Math.hypot(x - seatMark.point[0], y - seatMark.point[1]) < half + 12
+        || (seatMark.pill && Math.abs(x - seatMark.tagX) < (PHOTO_DOT + seatMark.width) / 2 + 2 && Math.abs(y - seatMark.tagY) < (PHOTO_DOT + 28) / 2 + 2))) continue;
+      occupied.push([x, y, PHOTO_DOT, PHOTO_DOT]);
+      return [{ id: item.place.id, x, y }];
+    }
+    return [];
+  });
   // The small venue map (full screen, zoomed in): venue outline, stage side, the chosen block and the part on screen.
   const miniMap = fullscreen && !overviewReturn && (() => {
     const shownBottom = size.height - (fullscreen ? boardHeight() : 0);
@@ -963,7 +1015,7 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
   const cardedPhotoKey = !photoCardShown ? null : block ? `section:${block.id}` : position ? `position:${position.id}` : `zone:${zone}`;
   const photoOccupied: number[][] = [];
   const coveredLabels = new Set<string>();
-  const photoMarkers = photoAnchors.flatMap(item => {
+  const photoMarkers = photoAnchors.filter(item => item.place.kind !== "section").flatMap(item => {
     if (level !== "all" && item.level !== level) return [];
     // Seen from afar the names carry the cameras. A camera of its own shows only up close, for a place whose name is not on screen.
     if (view[2] >= data.viewBox[2] * .9) return [];
@@ -1101,12 +1153,11 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
                 return buttonBounds.some(r => Math.abs(p[0] - r[0]) < (w + r[2]) / 2 + 2 && Math.abs(p[1] - 5 - r[1]) < (18 + 28) / 2 + 2); })())).map((l, i) => <text key={`context-${i}`} data-context-label={l.text} x={l.point[0]} y={l.point[1]} textAnchor="middle" fill={artOpacity > 0 ? "#405563" : "#a38b98"} fontSize={14 / projection.scale} pointerEvents="none">{l.text}</text>)}
             {blockShapes}
             {overviewArt && <StandOverviewTexture blocks={data.blocks} opacity={selected ? 0 : artOpacity} selected={selected} unit={artUnit}/> }
-            {data.blocks.filter(b => photoSectionIds.has(b.id) && (level === "all" || b.level === level)).map(b =>
-              <path key={`photo-outline-${b.id}`} data-seat-photo-outline={b.id} d={b.path} fill="none"
-                stroke={SEAT_PHOTO_MAP_COLOR} strokeWidth={1.5}
-                vectorEffect="non-scaling-stroke" pointerEvents="none" />)}
             
-            {block?.rows.flatMap((r, ri) => r.segments.map((s, i) => <polyline key={`${ri}-${i}`} points={(s.points ?? [s.a, s.b]).map(p => p.join(",")).join(" ")} fill="none" stroke={highlightedRow && normalizeSeatInput(r.label) === highlightedRow ? "#1673ad" : "#fff"} vectorEffect="non-scaling-stroke" strokeOpacity={highlightedRow && normalizeSeatInput(r.label) === highlightedRow ? .95 : .35} strokeWidth={highlightedRow && normalizeSeatInput(r.label) === highlightedRow ? 2.2 : .45} pointerEvents="none"/>))}
+            {rowNeighbours.map(b => <g key={`rows-${b.id}`} data-row-guides={b.id} pointerEvents="none" fill="none" stroke={RULER_INK} strokeOpacity=".3" strokeWidth=".8">
+              {b.rows.flatMap((r, ri) => r.segments.map((s, i) => <polyline key={`${ri}-${i}`} points={(s.points ?? [s.a, s.b]).map(p => p.join(",")).join(" ")} vectorEffect="non-scaling-stroke"/>))}
+            </g>)}
+            {block?.rows.flatMap((r, ri) => r.segments.map((s, i) => <polyline key={`${ri}-${i}`} points={(s.points ?? [s.a, s.b]).map(p => p.join(",")).join(" ")} fill="none" stroke={highlightedRow && normalizeSeatInput(r.label) === highlightedRow ? "#1673ad" : "#fff"} vectorEffect="non-scaling-stroke" strokeOpacity={highlightedRow && normalizeSeatInput(r.label) === highlightedRow ? .95 : .92} strokeWidth={highlightedRow && normalizeSeatInput(r.label) === highlightedRow ? 2.2 : 1} pointerEvents="none"/>))}
             {block && !block.rows.length && block.referenceRows?.map(r => <line key={`reference-${r.label}`} x1={r.a[0]} y1={r.a[1]} x2={r.b[0]} y2={r.b[1]} stroke="#fff" vectorEffect="non-scaling-stroke" strokeOpacity=".5" strokeWidth=".6" pointerEvents="none"/>)}
             {data.blocks.filter(b => b.id === focused).map(b => <path key={b.id} d={b.path} fill="none" stroke="#512e47" strokeWidth={3 / projection.scale} className={styles.keyboardFocus} pointerEvents="none"/>)}
           </svg>
@@ -1127,21 +1178,19 @@ const StandSeatMap = forwardRef<StandSeatMapHandle, Props>(function StandSeatMap
           {labels.filter(l => l.anchor && !coveredLabels.has(l.id)).map(l => <line key={`label-stem-${l.id}`} x1={l.anchor![0]} y1={l.anchor![1]} x2={l.x} y2={l.y} stroke="#a93164" strokeWidth="1" pointerEvents="none"/>)}
           {labels.filter(l => !coveredLabels.has(l.id)).map(l => <g key={l.id} data-annotation={l.id} data-annotation-kind={l.kind} data-annotation-photo={l.photo ? "" : undefined} transform={`translate(${l.x},${l.y})`} data-block-id={l.selected ? undefined : l.id} className={l.selected ? undefined : `${styles.block} ${wholeNumbers && pulse ? styles.blockPrompt : ""}`} pointerEvents={l.selected || (!whole && l.kind === "block") ? "none" : "all"}>
             <title>{data.blocks.find(b => b.id === l.id)?.label ?? l.text}</title>
-            {l.kind === "number" ? <path data-number-badge="" d={seatNumberBadge([0, 0], l.width, l.height, 0)} fill="#fff" stroke={l.selected ? "#81294d" : "#d5c5cd"} strokeWidth={l.selected ? 2 : 1}/>
-              : <rect x={-l.width / 2} y={-l.height / 2} width={l.width} height={l.height} rx={l.height / 2} fill="#fff" fillOpacity={l.selected ? 1 : .94} stroke={l.selected ? "none" : "#e3cbd6"} strokeWidth=".8"/>}
+            {/* Zoomed in, another block's name is plain text on the map; a block with photos keeps its pill and camera. */}
+            {!whole && !l.selected && !l.photo ? null : l.kind === "number" ? <path data-number-badge="" d={seatNumberBadge([0, 0], l.width, l.height, 0)} fill="#fff" stroke={l.selected ? "#81294d" : "#d5c5cd"} strokeWidth={l.selected ? 2 : 1}/>
+              : <rect x={-l.width / 2} y={-l.height / 2} width={l.width} height={l.height} rx={l.height / 2} fill="#fff" fillOpacity={l.selected ? 1 : l.photo ? .96 : .94} stroke={l.selected ? "none" : l.photo ? "#d9b3c5" : "#e3cbd6"} strokeWidth={l.photo ? 1 : .8}/>}
             <text textAnchor="middle" x={l.photo ? -7.5 : 0} y={l.selected ? 5 : 4.5} fill={l.selected ? "#522e45" : "#4b2a3a"} fontSize={l.selected ? 14 : 12} fontWeight={l.selected ? 800 : 700}
+              {...(!whole && !l.selected && !l.photo ? { stroke: "#fff", strokeWidth: 2.8, paintOrder: "stroke", strokeLinejoin: "round" as const } : {})}
               style={{ fontVariantNumeric: "tabular-nums" }}>{l.text}</text>
             {l.photo && <Camera x={l.width / 2 - 18} y={-6} size={12} color="#a93164" strokeWidth={2.4} aria-hidden="true"/>}
           </g>)}
-          {ruler.map(tag => <g key={`row-${tag.key}`} data-row-tag={tag.key} transform={`translate(${tag.x},${tag.y})`} pointerEvents="none">
-            <rect x={-tag.w / 2} y={-9} width={tag.w} height={18} rx={6} fill={tag.active ? "#fff" : "#8a2450"}/>
-            <text textAnchor="middle" y="4" fill={tag.active ? "#a93164" : "#fff"} fontSize="11" fontWeight="800" style={{ fontVariantNumeric: "tabular-nums" }}>{tag.text}</text>
+          {photoDots.map(dot => <g key={`photo-dot-${dot.id}`} data-photo-dot={dot.id} transform={`translate(${dot.x},${dot.y})`} pointerEvents="none">
+            <PhotoDot id={dot.id.replace(/[^A-Za-z0-9_-]/g, "_")} count={photoSigns.get(dot.id)?.count ?? 1} thumb={photoSigns.get(dot.id)?.thumb} />
           </g>)}
-          {startNumber && <g data-start-number="" transform={`translate(${startNumber.x},${startNumber.y})`} pointerEvents="none">
-            <rect x={-startNumber.w / 2} y={-9} width={startNumber.w} height={18} rx={6} fill="#8a2450"/>
-            <text textAnchor="middle" x={-5 * startNumber.side} y="4" fill="#fff" fontSize="11" fontWeight="800" style={{ fontVariantNumeric: "tabular-nums" }}>{startNumber.text}</text>
-            <path d="M-3,-3.5 L3,0 L-3,3.5 Z" fill="#ffd9e6" transform={`translate(${startNumber.side * (startNumber.w / 2 - 8)},0) rotate(${startNumber.angle})`}/>
-          </g>}
+          {ruler.map(tag => <g key={`row-${tag.key}`} data-row-tag={tag.key}><RowDigit x={tag.x} y={tag.y} text={tag.text} active={tag.active} /></g>)}
+          {startNumber && <g data-start-number=""><StartDisc x={startNumber.x} y={startNumber.y} text={startNumber.text} ux={startNumber.ux} uy={startNumber.uy} /></g>}
           {seatMark?.numbers.map(tag => <g key={`run-${tag.key}`} data-row-end={tag.key} transform={`translate(${tag.x},${tag.y})`} pointerEvents="none">
             <rect x={-tag.w / 2} y={-8} width={tag.w} height={16} rx={5} fill="#8a2450"/>
             <text textAnchor="middle" y="3.5" fill="#ffd9e6" fontSize="10" fontWeight="800" style={{ fontVariantNumeric: "tabular-nums" }}>{tag.text}</text>

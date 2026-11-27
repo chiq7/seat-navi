@@ -237,7 +237,7 @@ export function SeatViewDialog({ matches, panelId, onClose, compact = false, sha
       onPointerUp={compact && hasMorePhotos ? finishSwipe : undefined}
       onPointerCancel={compact && hasMorePhotos ? () => { swipeStart.current = null; } : undefined}>
       {!compact && <p className={styles.context}><strong>{location}</strong></p>}
-      <SeatPhotoCreditLine key={index} event={post.event} verified={post.seatVerified} />
+      <SeatPhotoCreditLine key={index} event={post.event} />
       <SeatPhoto key={`${index}:${post.url}:${post.photo ?? 1}`} post={post} location={location} />
       {hasMorePhotos && <div className={styles.pager} role="group" aria-label="座席写真を切り替える">
         <button type="button" disabled={index === 0} onClick={() => changePhoto(index - 1)} aria-label={compact ? "前の写真" : undefined}>

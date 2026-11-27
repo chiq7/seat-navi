@@ -101,8 +101,8 @@ export function ReportExample({ className = "" }: { className?: string }) {
 
 /** 神席/良席バッジは背景画像で表現する(after-reports一覧ページと同じ) */
 function overallBadgeBgImage(label: string | null): string | null {
-  if (label === "神席") return "/images/after-reports/kamiseki-bg1.png";
-  if (label === "良席") return "/images/after-reports/ryoseki-bg1.png";
+  if (label === "神席") return "/images/after-reports/kamiseki-bg1.webp";
+  if (label === "良席") return "/images/after-reports/ryoseki-bg1.webp";
   return null;
 }
 

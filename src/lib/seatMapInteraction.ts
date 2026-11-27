@@ -14,3 +14,8 @@ export function spatialSeatTarget<T extends Point & { id: string }>(items: reado
   }).filter(item => item.along > .01)
     .sort((a, b) => (a.along + a.across * 2) - (b.along + b.across * 2))[0]?.item;
 }
+
+/** Runs `step` once the browser has painted what was just changed (a block's pressed colour), so a slow update never holds it back. */
+export function afterPaint(step: () => void) {
+  requestAnimationFrame(() => window.setTimeout(step, 0));
+}

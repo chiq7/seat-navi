@@ -9,7 +9,7 @@ test("the Sapporo C2 event label preserves the original block without verifying 
   const photo = layout?.photos.find(entry => entry.block === "C2");
   assert.ok(photo);
   assert.notEqual(photo.seatVerified, true);
-  assert.equal(seatPhotoCaption("2026年11月15日・YOASOBI", photo.seatVerified), "2026年11月15日・YOASOBI");
+  assert.equal(seatPhotoCaption("2026年11月15日・YOASOBI"), "2026年11月15日・YOASOBI");
 });
 
 test("the Tokyo D22 fixed stand example does not inherit an unrecorded performance or date", () => {
@@ -17,9 +17,9 @@ test("the Tokyo D22 fixed stand example does not inherit an unrecorded performan
   assert.equal(photoSelectionCaption(match), "");
 });
 
-test("captions show only what is known, with no 'unknown' or 'reference' notes", () => {
-  assert.equal(seatPhotoCaption("2024 MAMA AWARDS", true), "2024 MAMA AWARDS ｜ 座席番号を照合済み");
-  assert.equal(seatPhotoCaption("2026年2月14日", false), "2026年2月14日");
-  assert.equal(seatPhotoCaption(undefined, false), "");
+test("a caption is the stored show and nothing else: no 'unknown', 'reference' or 'verified' notes", () => {
+  assert.equal(seatPhotoCaption("2024 MAMA AWARDS"), "2024 MAMA AWARDS");
+  assert.equal(seatPhotoCaption(" 2026年2月14日 "), "2026年2月14日");
+  assert.equal(seatPhotoCaption(undefined), "");
 });
 

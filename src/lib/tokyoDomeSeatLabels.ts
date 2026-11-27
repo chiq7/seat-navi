@@ -44,18 +44,13 @@ export function tokyoDomeTierView(id: typeof TOKYO_DOME_OVERVIEW_AREAS[number]["
 }
 
 /** SVG clips labels at the canvas edge, including the extra space from aspect-ratio fitting. */
-export function layoutTokyoDomeSeatLabels(areas: readonly LabelArea[], box: Box, display?: {
-  screenScale: number;
-  detailStage: boolean;
-  numberedCodes: ReadonlySet<string>;
-}) {
+export function layoutTokyoDomeSeatLabels(areas: readonly LabelArea[], box: Box, display?: { screenScale: number }) {
   // Sparse names use only registered section anchors. Detailed labels are
   // unchanged; the overview gives the ticket holder a few real landmarks.
   const overviewCodes = new Set(["A05", "A15", "A25", "A35", "A45", "D05", "D15", "D25", "D35", "F05", "F15"]);
   const visibleAreas = box.width > 680 ? areas.filter(area => overviewCodes.has(area.code)) : areas;
-  // At close detail, confirmed end numbers identify the blocks. Unnumbered
-  // blocks retain their name; neither source anchors nor hit targets change.
-  return visibleAreas.filter(area => !(display?.detailStage && box.width <= 120 && display.numberedCodes.has(area.code))).map(area => {
+  // A block keeps its name at every zoom; neither source anchors nor hit targets change.
+  return visibleAreas.map(area => {
     const [x, y] = area.label;
     const rawAngle = Math.atan2(y - 300, x - 579) * 180 / Math.PI;
     const angle = Number((rawAngle > 90 ? rawAngle - 180 : rawAngle < -90 ? rawAngle + 180 : rawAngle).toFixed(3));

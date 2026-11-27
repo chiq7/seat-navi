@@ -1,11 +1,13 @@
 import type { Artist } from "@/lib/artists";
 import type { CrawledEvent } from "@/lib/types";
 
-export const DEFAULT_ARTIST_HERO_IMAGE = "/images/hero/artist-top.png";
+// Pages show the light WebP; the share image (OG) draws the PNG, which its image renderer reads for certain.
+export const DEFAULT_ARTIST_HERO_IMAGE = "/images/hero/artist-top.webp";
+export const DEFAULT_ARTIST_HERO_OG_IMAGE = "/images/hero/artist-top.png";
 
-export function resolveArtistHeroImage(heroImage?: string | null): string {
+export function resolveArtistHeroImage(heroImage?: string | null, fallback = DEFAULT_ARTIST_HERO_IMAGE): string {
   const value = heroImage?.trim();
-  return value && value.startsWith("/") ? value : DEFAULT_ARTIST_HERO_IMAGE;
+  return value && value.startsWith("/") ? value : fallback;
 }
 
 /** DateをAsia/Tokyoの暦日 YYYY-MM-DD に変換する。 */
