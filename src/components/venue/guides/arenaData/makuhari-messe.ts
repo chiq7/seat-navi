@@ -3,7 +3,7 @@ import { makuhariSeats, makuhariLevels, makuhariAreas, makuhariFacilityConfig, t
 import type { ArenaGuideDefinition, ArenaVenueData } from '../arenaDefinition';
 const data: ArenaVenueData = {
     guide: makuhariGuide, seats: makuhariSeats.event, levels: makuhariLevels("event"), areas: makuhariAreas("event"), facilities: makuhariFacilityConfig(),
-    seatNote: makuhariGuide.seatNote, facilityNote: "イベントホール・展示場・国際会議場は棟と階を選んでください。ロッカーは棟によって大きさ・料金・利用対象が異なります。",
+    seatNote: makuhariGuide.seatNote, 
     access: [["海浜幕張駅", "JR京葉線／南口", "徒歩約5分"], ["幕張豊砂駅", "JR京葉線", "徒歩約20分"], ["幕張本郷駅", "JR総武線・京成線／バス乗り場1", "バス約17分"]],
     luggage: "展示場・イベントホール・屋外、海浜幕張駅とプレナ・アウトレット・スークのロッカーを探せます。イベントホールの小型は来場者限定です。終演後の取り出し時刻も確認してください。",
     preparationTitle: "公演の棟と入場口を確認", preparation: "イベントホールと展示ホールは別の棟です。展示ホールや可動席・アリーナの配置は公演ごとに異なります。チケットの会場名と主催者の入場口案内を確認してください。",

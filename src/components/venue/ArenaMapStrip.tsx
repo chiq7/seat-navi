@@ -8,7 +8,7 @@ import styles from "./VenuePhotoStrip.module.css";
 const thumbnail = (src: string) => src.replace(/([?&]name=)\w+/, "$1small");
 
 /**
- * Past shows' arena layouts as one swipeable row under the seat photos, newest first.
+ * Past shows' arena layouts as one swipeable row right under the seat map (above the seat photos), newest first.
  * A tap opens the arena-map sheet on that show. Images are the posts' own images on X, loaded only near the screen.
  */
 export default function ArenaMapStrip({ reportHref }: { reportHref?: string }) {

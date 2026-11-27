@@ -103,7 +103,8 @@
 
 @media(max-width:600px){.map{height:440px;}}
 
-.areaLabels{position:absolute;inset:0;pointer-events:none;}
+/* Above the live SVG (z-index 1), or the SVG takes the press meant for a place name. */
+.areaLabels{position:absolute;inset:0;z-index:2;pointer-events:none;}
 .areaLabels button{position:absolute;transform:translate(-50%,-50%);pointer-events:auto;width:90px;height:44px;border:1px solid #d2a4bb;border-radius:9px;padding:4px;color:#833755;background:#fffdfef2;font-size:12px;font-weight:800;white-space:nowrap;}
 .areaLabels button:focus-visible{outline:3px solid #b72e66;outline-offset:3px;}
 .areaLabels button:hover{background:#fff0f6;}

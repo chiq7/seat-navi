@@ -3,7 +3,7 @@ import { koshienSeats, koshienLevels, koshienAreas, koshienFacilityConfig } from
 import type { ArenaGuideDefinition, ArenaVenueData } from '../arenaDefinition';
 const data: ArenaVenueData = {
     guide:koshienGuide,seats:koshienSeats,levels:koshienLevels,areas:koshienAreas,facilities:koshienFacilityConfig,
-    seatNote:koshienGuide.seatNote,facilityNote:"内野・アルプスと外野の各階、敷地・駅・甲子園プラス・梅田の店舗を切り替えます。点は参考区域です。公演時の開放・営業は当日案内を確認してください。",
+    seatNote:koshienGuide.seatNote,
     access:[["甲子園駅","阪神本線・西口/東口","駅前広場から球場外周へ"]],
     luggage:"球場内にはロッカー・手荷物預かりがありません。甲子園駅、甲子園プラス2階、大阪梅田駅、梅田の予約預かり店舗を場所一覧から探せます。",
     preparationTitle:"入場前に預け先と回収時刻を確認",preparation:"甲子園プラスのロッカーは歴史館営業中のみ利用でき、営業時間外・休館日は取り出せません。公式FAQは球場の再入場不可を案内しています。公演独自の運用は主催者へ確認してください。",

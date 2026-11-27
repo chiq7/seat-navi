@@ -4,7 +4,7 @@ import type { ArenaGuideDefinition, ArenaVenueData } from '../arenaDefinition';
 const data: ArenaVenueData = {
     guide: marineMesseGuide, seats: marineSeats.concert, levels: marineLevels, areas: marineAreas, facilities: marineFacilityConfig,
     seatNote: "アリーナの配置・使用席・座席番号は、公演の案内をご確認ください。",
-    facilityNote: "会場A館の1F・2Fです。B館の設備とは別です。図に位置がない設備は場所一覧から確認できます。",
+    facilityNote: "会場A館の1F・2Fです。B館の設備とは別です。",
     access: [["呉服町駅", "福岡市地下鉄 箱崎線", "徒歩15分"], ["中洲川端駅", "福岡市地下鉄 空港線・箱崎線", "徒歩18分"]],
     luggage: "1Fエントランスロビー両側のロッカーと、ベイサイドプレイス博多・主要駅のロッカーを探せます。",
     preparationTitle: "バスと帰りの荷物", preparation: "博多駅西日本シティ銀行前F、天神ソラリアステージ前2Aからマリンメッセ前へ。ベイサイドのロッカーは23:00〜翌6:30、駅は終電後に取り出せません。",

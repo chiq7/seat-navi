@@ -22,6 +22,9 @@
 .rowArtist { display: flex; flex: 0 0 62px; flex-direction: column; align-items: center; justify-content: center; gap: 2px; border: 1px solid #ecd2de; border-radius: 10px; background: #fff; color: #922b50; font-size: 9px; font-weight: 800; text-decoration: none; white-space: nowrap; }
 @media (hover: hover) { .rowMain:hover { background: #fff5f8; } .rowArtist:hover { border-color: #a52d58; background: #fff5f8; } }
 .more { margin-top: 16px; }
-.more summary { width: fit-content; max-width: 100%; min-height: 44px; margin: 0 auto 16px; padding: 12px 20px; border-radius: 999px; background: #fff0f5; color: #922b50; font-size: 13px; font-weight: 700; cursor: pointer; }
+.more summary { width: fit-content; max-width: 100%; min-height: 44px; margin: 0 auto; padding: 12px 20px; border-radius: 999px; background: #fff0f5; color: #922b50; font-size: 13px; font-weight: 700; cursor: pointer; }
+.more[open] summary { margin-bottom: 16px; }
+/* An artist on a venue page: the shared row is sized for dated news (84px, a 72px date column). */
+.artistRow.artistRow { min-height: 56px; grid-template-columns: 28px minmax(0, 1fr) 18px; padding-block: 6px; }
 @media (min-width: 640px) { .card { grid-template-columns: 106px minmax(0, 1fr); padding-inline: 12px; } .actions { grid-column: 2; } .actions a { flex: 0 1 auto; padding-inline: 16px; } }
 @media (hover: hover) { .actions a:hover, .jump a:hover { border-color: #a52d58; background: #fff5f8; } }

@@ -21,7 +21,6 @@
 .selectionBand span { font-size:12px; line-height:1.5; color:#65525e; font-variant-numeric:tabular-nums; }
 .selectionBand button { width:44px; height:44px; flex-shrink:0; display:grid; place-items:center; color:#a93164; background:white; border:1px solid #e4c6d4; border-radius:8px; }
 .selectionBand button:disabled { opacity:.3; }
-.note { margin:0; padding:10px 14px; color:#786570; font-size:12px; line-height:1.6; border-top:1px solid #eedee5; }
 .rowDetails { border-top:1px solid #eedee5; background:white; }
 .rowDetails summary { min-height:44px; padding:12px 14px; color:#493340; font-size:13px; font-weight:800; cursor:pointer; }
 .rowDetails summary:focus-visible { outline:3px solid #a93164; outline-offset:-3px; }
@@ -60,3 +59,6 @@
 /* Full-screen map (phones): the mini-map sits top left, clear of the arena-map button on the right. */
 .miniMap[data-mini-map] { top:calc(64px + env(safe-area-inset-top)); left:8px; right:auto; }
 .backToSeat[data-back-to-seat] { top:calc(64px + env(safe-area-inset-top)); }
+/* Phones (still map): the page keeps the ticket boxes and the map; the chosen place is named under the map. */
+.selectionBand.selectionBelow { display:none; height:auto; min-height:64px; border-bottom:0; border-top:1px solid #eedee5; }
+@media(max-width:767px) { .selectionBand.selectionAbove { display:none; } .selectionBand.selectionBelow { display:flex; } }

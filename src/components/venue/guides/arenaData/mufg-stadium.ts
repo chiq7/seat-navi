@@ -3,7 +3,7 @@ import { mufgSeats, mufgLevels, mufgAreas, mufgFacilityConfig } from "@/data/ven
 import type { ArenaGuideDefinition, ArenaVenueData } from '../arenaDefinition';
 const data: ArenaVenueData = {
     guide:mufgGuide,seats:mufgSeats,levels:mufgLevels,areas:mufgAreas,facilities:mufgFacilityConfig,
-    seatNote:mufgGuide.seatNote,facilityNote:"1層は1F、2層は2F、3層は4F。3Fコンコースは改修中です。設備の点は参考区域で、公演当日の開放・店舗営業を確認してください。",
+    seatNote:mufgGuide.seatNote,facilityNote:"1層は1F、2層は2F、3層は4F。3Fコンコースは改修中です。",
     access:[["国立競技場駅","都営大江戸線・A2出口","徒歩1分"],["千駄ケ谷駅","JR総武線各駅停車","徒歩5分"],["信濃町駅","JR総武線各駅停車","徒歩5分"],["外苑前駅","東京メトロ銀座線・3番出口","徒歩9分"]],
     luggage:"最寄り3駅のロッカー、新宿駅のロッカーと新宿西口の予約預かり店舗を場所一覧から探せます。会場内・敷地の一般荷物預かりは確認中です。",
     preparationTitle:"入場前に預け先と回収時間を確認",preparation:"国立競技場駅の掲載3区域は改札外です。JR千駄ケ谷・信濃町は個別位置・利用条件を現地表示で確認してください。予約店舗は新宿にあり、会場最寄りではありません。",

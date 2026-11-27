@@ -13,7 +13,6 @@ import { DomeGuideHeader, DomeFinderLayout } from "../template/DomeGuideLayout";
 import { DomeFloorPicker } from "../template/DomeFloorPicker";
 import tokyoStyles from "../TokyoDomeVisitorGuide.module.css";
 import domeStyles from "../template/DomeGuideLayout.module.css";
-import tokyoSeatStyles from "../TokyoDomeSeatLocator.module.css";
 import KyoceraVisitorContent from "./KyoceraVisitorContent";
 import kyoceraQuality from "./KyoceraSeatMap.module.css";
 import KyoceraFacilityFinder from "./KyoceraFacilityFinder";
@@ -238,20 +237,19 @@ export default function VerifiedVenueGuide({ guide, embedded=false }: { guide: D
 
   return <div ref={guideRoot} data-dome-guide={kyocera || undefined} className={`${styles.guide}${kyocera ? ` ${domeStyles.root}` : ""}`} onPointerDownCapture={cancelFocusReturn}>
     {kyocera ? <DomeGuideHeader name={guide.name} showHero={!embedded} showNav={!pageNav} /> : <nav className={styles.jumpNav} aria-label="会場ガイドの目次">{[["venue-seats", "座席"], ["venue-facilities", "設備"], ["venue-access", "アクセス"], ["venue-prep", "準備"], ["venue-faq", "FAQ"]].map(([id, label]) => <a key={id} href={`#${id}`}>{label}</a>)}<VenueProgramAnchor fallbackHref={guide.venueId === "kyocera-dome" ? "#upcoming-events-title" : `/venues/${guide.venueId}#upcoming-events-title`}>公演</VenueProgramAnchor></nav>}
-    <section id="venue-seats" className={kyocera ? "border-y border-[#eddfe5] bg-[#fffafb] py-8 sm:py-10" : styles.section} aria-labelledby="seat-heading"><div className={kyocera ? "zr-container" : undefined}>
-      <p className={kyocera ? "artist-kicker" : styles.eyebrow}>Seat finder</p><h2 id="seat-heading" className={kyocera ? `artist-heading ${tokyoSeatStyles.title}` : undefined}>{guide.name}の座席を探す</h2>
-      <div className={kyocera ? "mt-5" : undefined}>{guide.seats.length > 0 ? <VenueSeatMap guide={guide} selectedId={selectedId} rowLabel={rowLabel} seatNumber={seatNumber} onSelect={selectArea} onClear={clearSeat} onRow={chooseRow} onTicket={chooseTicket} />
+    <section id="venue-seats" className={kyocera ? "border-y border-[#eddfe5] bg-[#fffafb] pt-6 pb-2 sm:py-10" : styles.section} aria-labelledby="seat-heading"><div className={kyocera ? "zr-container" : undefined}>
+      {!kyocera && <p className={styles.eyebrow}>Seat finder</p>}<h2 id="seat-heading" className={kyocera ? "text-[20px] font-extrabold tracking-[-.035em] text-[#493340]" : undefined}>{guide.name}の座席を探す</h2>
+      <div className={kyocera ? "mt-3.5" : undefined}>{guide.seats.length > 0 ? <VenueSeatMap guide={guide} selectedId={selectedId} rowLabel={rowLabel} seatNumber={seatNumber} onSelect={selectArea} onClear={clearSeat} onRow={chooseRow} onTicket={chooseTicket} />
         : <div className={styles.empty} data-testid="seat-data-pending"><strong>座席検索は確認中です</strong><p>{guide.seatNote}</p><Sources guide={guide} ids={guide.sources.filter(source => source.id.includes("seat")).map(source => source.id)} /></div>}</div>
       {row && guide.venueId !== "kyocera-dome" && <div className={styles.rowDetail}>
         {seatNumbers.length > 0 ? <><label>席番号で通路を確認（任意）<select aria-label="席番号" value={seatNumber} onChange={event => setSeatNumber(event.target.value)}><option value="">席番号を選ぶ</option>{seatNumbers.map(number => <option key={number} value={number}>{number}番</option>)}</select></label><p aria-live="polite">{passage ? `公式検索に掲載された通路：${passage}` : "席番号を選ぶと掲載通路を確認できます。"}</p></> : <p>席番号・欠番は公式詳細図で確認してください。</p>}
       </div>}
       {selected && <a className={styles.seatToFacilities} href="#venue-facilities" onClick={() => { dispatch({ type: "seat", floor: selected.floor }); setShowAll(false); }}>{selected.floor}の設備を探す ↓</a>}
-      <p className={styles.caption}>アリーナ配置・ステージ・当日の入口は公演案内を優先してください。</p>
     </div></section>
     {kyocera && <AfterSeats />}
 
     <section id="venue-facilities" className={kyocera ? tokyoStyles.section : styles.section} aria-labelledby="facilities-heading"><div className={kyocera ? `zr-container ${tokyoStyles.guide}` : undefined}>
-      <div className={styles.eyebrow}>FACILITIES</div><h2 id="facilities-heading">必要な設備を探す</h2>
+      {!kyocera && <div className={styles.eyebrow}>FACILITIES</div>}<h2 id="facilities-heading">必要な設備を探す</h2>
       {guide.seats.length === 0 && <p className={styles.caption}>{guide.diagramNote}</p>}
       {selected && <div className={styles.seatContext} data-testid="seat-facility-context"><strong>選択中：{selected.label}・{selected.type}{rowLabel ? `・${rowLabel}列` : ""}</strong><span>{kyocera ? `選択席は${selected.floor}側／今は${state.scope === "場外" ? "場外" : state.floor === "すべて" ? "全階" : state.floor}を表示しています。` : `${selected.floor}の設備案内へ連携しています。最寄り設備・到達経路を保証するものではありません。`}</span><a href="#venue-seats">座席を確認 ↑</a></div>}
       {kyocera ? <KyoceraFacilityFinder guide={guide} state={state} onAction={dispatch} detail={kyoceraFacilityDetail} sources={item => <KyoceraFacilityLinks guide={guide} item={item} />} /> : <>

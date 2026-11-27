@@ -11,7 +11,8 @@
 .numbers text { stroke:#fff8; stroke-width:.8px; }
 .areaLabels { position:absolute; inset:0; pointer-events:none; }
 .areaLabels button { pointer-events:auto; position:absolute; transform:translate(-50%,-50%); border:1px solid #d2a4bb; border-radius:9px; background:#fffdfef0; color:#833755; font-size:12px; font-weight:800; min-width:44px; min-height:44px; padding:5px 10px; line-height:1.3; box-shadow:0 2px 6px #7a34590b; }
-.areaLabels small { display:block; font-size:12px; font-weight:500; }
+.areaLabels small { display:flex; align-items:center; justify-content:center; gap:3px; font-size:12px; font-weight:500; }
+.areaLabels small svg { flex:none; color:#a93164; }
 .areaLabels .outfieldLabel { min-width:48px; min-height:44px; }
 .areaLabels[data-tap-hint="active"] button { animation:areaTapHint 2.2s ease-in-out 3; }
 @keyframes areaTapHint {
@@ -20,7 +21,8 @@
 }
 @media(prefers-reduced-motion:reduce) { .areaLabels[data-tap-hint="active"] button { animation:none; } }
 
-@media(max-width:600px) { .canvas { height:440px; scroll-margin-top:240px; } .areaLabels button { padding:4px 5px; font-size:12px; } }
+/* Phones: the still map is as tall as the drawing (square) plus a little air. */
+@media(max-width:600px) { .canvas { height:min(440px,calc(100vw - 6px)); scroll-margin-top:240px; } .areaLabels button { padding:4px 5px; font-size:12px; } }
 
 .canvas{background:radial-gradient(ellipse at 50% 42%,#fff 35%,#f5f7f8 100%)}
 .areaLabels button{border-color:#c4cfd7;border-radius:18px;background:#fffffff5;color:#3b5263;box-shadow:0 3px 10px #253c4d12}
@@ -30,3 +32,8 @@
 
 /* Phones: the full-screen map (template/immersiveMap): the canvas fills the screen under the top bar. */
 [data-seat-map-fullscreen] .canvas { position:absolute; top:calc(56px + env(safe-area-inset-top)); left:0; right:0; bottom:0; height:auto; scroll-margin-top:0; }
+/* The arena-map button on the field: placed for the resting camera, like the area names. */
+.arenaSpot { position:absolute; z-index:2; transform:translate(-50%,-50%); display:grid; place-items:center; min-height:44px; padding:0 4px; border:0; background:transparent; cursor:pointer; }
+.arenaSpot:focus-visible { outline:none; }
+.arenaSpot:focus-visible > span { outline:3px solid #30253b; outline-offset:2px; }
+.canvas[data-moving] .arenaSpot { visibility:hidden; }

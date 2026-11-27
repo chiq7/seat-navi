@@ -17,6 +17,7 @@ import { resolveArtist } from "@/lib/artists";
 import { parseEventTitle } from "@/lib/eventTitle";
 import type { CrawledEvent } from "@/lib/types";
 import styles from "./VenueProgramLinks.module.css";
+import compactStyles from "./VenueCompact.module.css";
 
 function programTarget(upcomingCount: number, pastCount: number) {
   if (upcomingCount > 0) return "upcoming-events-title";
@@ -212,9 +213,9 @@ export function VenueProgramSections({ venueId, publicName, compact = false }: {
   ).slice(0, 30);
   return (
     <>
-        <section className={compact ? "py-5" : "py-8 sm:py-10"} aria-labelledby="upcoming-events-title">
+        <section className={compact ? compactStyles.block : "py-8 sm:py-10"} aria-labelledby="upcoming-events-title">
           {!compact && <p className="artist-kicker">Upcoming Live</p>}
-          <h2 id="upcoming-events-title" className="artist-heading scroll-mt-[90px]">{compact ? "これからの公演" : "これからの公演・アーティスト"} {available && <small>（{upcoming.length}件）</small>}</h2>
+          <h2 id="upcoming-events-title" className={`${compact ? compactStyles.heading : "artist-heading"} scroll-mt-[90px]`}>{compact ? "これからの公演" : "これからの公演・アーティスト"} {available && <small>（{upcoming.length}件）</small>}</h2>
           {!compact && <p className="mt-2 flex items-center gap-2 text-[11px] font-bold text-[#817981]"><MapPin size={14} className="text-[#f43679]" />{publicName}のライブ予定</p>}
           {failed && available && <p className="mt-3 text-sm" role="status">最新の公演一覧を読み込めませんでした。<button type="button" className="zr-focus ml-2 min-h-11 underline" onClick={retry}>再試行</button></p>}
           {staleAt && <p className="mt-3 text-sm" role="status">{formatPublicDataTime(staleAt)}時点の公演一覧です。</p>}
@@ -222,23 +223,24 @@ export function VenueProgramSections({ venueId, publicName, compact = false }: {
         </section>
 
         {past.length > 0 && (
-          <section className={compact ? "py-5" : "py-8 sm:py-10"} aria-labelledby="past-events-title">
+          <section className={compact ? compactStyles.block : "py-8 sm:py-10"} aria-labelledby="past-events-title">
             {!compact && <p className="artist-kicker">Live Archive</p>}
-            <h2 id="past-events-title" className="artist-heading scroll-mt-[90px]">過去の公演・座席レポ</h2>
+            <h2 id="past-events-title" className={`${compact ? compactStyles.heading : "artist-heading"} scroll-mt-[90px]`}>過去の公演・座席レポ</h2>
             <div className="mt-3"><VenueProgramList venueId={venueId} events={past.slice(0, 30)} emptyText="過去の公演はありません" compact={compact} /></div>
           </section>
         )}
 
         {pastArtists.length > 0 && (
-          <section className="py-8 sm:py-10" aria-labelledby="venue-artists-title">
-            <p className="artist-kicker">Artists Archive</p>
-            <h2 id="venue-artists-title" className="artist-heading">この会場で公演したアーティスト</h2>
+          <section className={compact ? compactStyles.block : "py-8 sm:py-10"} aria-labelledby="venue-artists-title">
+            {!compact && <p className="artist-kicker">Artists Archive</p>}
+            <h2 id="venue-artists-title" className={compact ? compactStyles.heading : "artist-heading"}>この会場で公演したアーティスト</h2>
             <div className="mt-3 border-y border-[#ded8dc] bg-white">
               {pastArtists.slice(0, 8).map((artist) => (
                 <InfoListRow
                   key={artist.slug}
                   href={`/artists/${artist.slug}`}
                   ariaLabel={`${artist.name}のアーティストページを見る`}
+                  className={compact ? styles.artistRow : undefined}
                 >
                   <Users size={16} className="justify-self-center text-[#f43679]" /><span className="truncate text-[14px] font-black text-[#4b4148]">{artist.name}</span><MoveRight size={17} className="text-[#f43679]" />
                 </InfoListRow>
@@ -249,7 +251,7 @@ export function VenueProgramSections({ venueId, publicName, compact = false }: {
                 <summary className="zr-focus mx-auto flex min-h-11 w-fit cursor-pointer list-none items-center rounded-full bg-[#fff0f5] px-5 text-[12px] font-black text-[#c93868]">残り{pastArtists.length - 8}組を見る</summary>
                 <div className="mt-4 border-y border-[#ded8dc] bg-white">
                   {pastArtists.slice(8).map((artist) => (
-                    <InfoListRow key={artist.slug} href={`/artists/${artist.slug}`} ariaLabel={`${artist.name}のアーティストページを見る`}>
+                    <InfoListRow key={artist.slug} href={`/artists/${artist.slug}`} ariaLabel={`${artist.name}のアーティストページを見る`} className={compact ? styles.artistRow : undefined}>
                       <Users size={16} className="justify-self-center text-[#f43679]" /><span className="truncate text-[14px] font-black text-[#4b4148]">{artist.name}</span><MoveRight size={17} className="text-[#f43679]" />
                     </InfoListRow>
                   ))}

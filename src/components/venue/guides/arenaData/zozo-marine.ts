@@ -3,7 +3,7 @@ import { zozoSeats, zozoLevels, zozoAreas, zozoFacilityConfig } from "@/data/ven
 import type { ArenaGuideDefinition, ArenaVenueData } from '../arenaDefinition';
 const data: ArenaVenueData = {
     guide:zozoMarineGuide,seats:zozoSeats,levels:zozoLevels,areas:zozoAreas,facilities:zozoFacilityConfig,
-    seatNote:zozoMarineGuide.seatNote,facilityNote:"場内1〜4Fと敷地・駅・店舗を切り替えます。点は参考区域です。営業・入場・公演時の開放は当日案内を確認してください。",
+    seatNote:zozoMarineGuide.seatNote,
     access:[["海浜幕張駅","JR京葉線・南口","徒歩約15分"]],
     luggage:"場内209通路、外周チケット窓口、ベビーカーゾーンのロッカー、海浜幕張駅改札外3か所、東京駅と予約預かり店舗を探せます。",
     preparationTitle:"球場ロッカーは事前払い・24時間単位",preparation:"2026年6月19日からSPACERの利用方式が変更。場内ロッカーは入場後の営業時間内に利用します。取り出し時間・サイズと当日の敷地立入条件も確認してください。",

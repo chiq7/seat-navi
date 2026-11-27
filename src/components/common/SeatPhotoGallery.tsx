@@ -35,8 +35,8 @@ export function SeatPhotoGallery({ photos }: { photos: ScopedSeatPhoto[] }) {
 
   return <>
     {grid(photos.slice(0, 4))}
-    {photos.length > 4 && <details className="mt-2">
-      <summary className="zr-focus cursor-pointer py-3 text-sm font-bold text-[#a41c53]">ほかの{photos.length - 4}枚を見る</summary>
+    {photos.length > 4 && <details className="mt-4">
+      <summary className="zr-focus mx-auto flex min-h-11 w-fit cursor-pointer list-none items-center rounded-full bg-[#fff0f5] px-5 text-[13px] font-bold text-[#922b50] [&::-webkit-details-marker]:hidden">ほかの{photos.length - 4}枚を見る</summary>
       {grid(photos.slice(4))}
     </details>}
     <dialog ref={dialog} aria-labelledby={titleId} data-gallery-dialog onClose={() => setSelected(null)}

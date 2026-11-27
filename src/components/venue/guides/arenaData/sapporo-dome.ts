@@ -3,7 +3,7 @@ import { sapporoSeats, sapporoLevels, sapporoAreas, sapporoFacilityConfig, type 
 import type { ArenaGuideDefinition, ArenaVenueData } from '../arenaDefinition';
 const data: ArenaVenueData = {
     guide:sapporoDomeGuide,seats:sapporoSeats.baseball,levels:sapporoLevels,areas:sapporoAreas,facilities:sapporoFacilityConfig,
-    seatNote:sapporoDomeGuide.seatNote,facilityNote:"館内の各階、敷地・入場前、福住駅、札幌・さっぽろ駅と街の店舗を切り替えます。地下2階は関係者、4階は券種による専用区域です。",
+    seatNote:sapporoDomeGuide.seatNote,facilityNote:"地下2階は関係者、4階は券種による専用区域です。",
     access:[["福住駅","地下鉄東豊線／3番出口","徒歩約10分"]],
     luggage:"入場後の館内5区域、入場前2区域のロッカー、福住・さっぽろ・JR札幌のロッカーとヤマト3店舗の有人預かりを探せます。",
     preparationTitle:"取り出し時間と100円硬貨",preparation:"会場ロッカーは当日限り、100円硬貨のみ。料金のほかに返却される預り金100円が必要です。総合案内は営業日の17時、館内はイベント終了までに取り出してください。",

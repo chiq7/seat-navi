@@ -1,14 +1,17 @@
 "use client";
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent, type KeyboardEvent } from "react";
+import { Camera, Map as MapIcon } from "lucide-react";
 import type { DedicatedVenueGuide } from "@/data/venueGuides/types";
 import { projectMapPoint, type Box } from "./mapGeometry";
-import { pathBounds, simplifiedRows, type DrawingBlock } from "./kyoceraMapDrawing";
+import { kyoceraMatchesArea, pathBounds, simplifiedRows, type DrawingBlock } from "./kyoceraMapDrawing";
 import { arrowOverlapsRect, clearNumberArrow, compactNeighbourNumber, prioritizeSelectedNumberArrow, numberAnchorVisible, placeNumberLabel, rectanglesOverlap, type LabelRect, type NumberLabel } from "./kyoceraNumberLabels";
 import { SEAT_DRAG_THRESHOLD, seatTapAllowed, spatialSeatTarget } from "@/lib/seatMapInteraction";
-import { seatNumberBadge, seatNumberBadgeBounds, seatNumberArrowInk } from "@/lib/seatNumberBadge";
+import { seatNumberBadge, seatNumberBadgeBounds, seatNumberArrowInk, seatNumberBadgeTipDistance } from "@/lib/seatNumberBadge";
 import { seatViewPosts } from "@/lib/seatViewPosts";
 import gates from "@/data/venueGuides/kyocera-dome/seat-gates.json";
 import styles from "./KyoceraNumberNavigator.module.css";
+import stand from "../template/StandSeatMap.module.css";
+import { useArenaMaps } from "../ArenaMapsSheet";
 import { VenueOverviewArt, overviewArtworkOpacity } from "../template/VenueOverviewArt";
 import { useSeatMapTouch } from "../template/useSeatMapTouch";
 import { SEAT_PHOTO_MAP_COLOR, SeatPhotoMarker } from "../template/SeatViewPosts";
@@ -18,13 +21,17 @@ import { seatPhotoOffsets, useSeatPhotoHitTest } from "../template/useSeatPhotoH
 type Props = { guide: DedicatedVenueGuide; blocks: DrawingBlock[]; level: string; selectedCode?: string; rowLabel: string | null;
   box: Box; onView: (box: Box) => void; onBlock: (block: DrawingBlock) => void; onArea: (areaId: string) => void;
   onDirection: (direction: string) => void;
-  /** The block whose photo card is shown on the map: its own camera mark gives way to the card. */
-  cardedCode?: string;
   /** Phones: the still preview in the page. The page scrolls through it and a tap opens the full-screen map. */
   locked?: boolean; onLockedTap?: () => void };
 type Contact = { x: number; y: number; startX: number; startY: number; code: string | null };
 const photoPosts = new Map(seatViewPosts("kyocera-dome-fixed").filter(post => post.place.kind === "section").map(post => [post.place.id, post]));
 const photoTarget = 28;
+/** The room a name gives the camera it carries. */
+const CAMERA_ROOM = 15;
+/** The canvas before the browser has measured it. */
+const UNMEASURED = { width: 640, height: 560 };
+/** The middle of the field, clear of the outfield and base-side names: where the arena floor is laid for a show. */
+const ARENA_FLOOR = { x: 800, y: 624 };
 // Wider than a block view (kyoceraBlockCamera's 230): blocks are thin and a tap may land between them.
 const NEAR_MISS_WIDTH = 250;
 const outfieldAreas = [{ id: "outfield-right", label: "ライト", x: .65, y: .25 }, { id: "outfield-left", label: "レフト", x: .35, y: .25 }];
@@ -53,16 +60,17 @@ function nearestBlockCode(x: number, y: number): string | null {
   return null;
 }
 
-export default function KyoceraNumberNavigator({ guide, blocks, level, selectedCode, rowLabel, box, onView, onBlock, onArea, onDirection, cardedCode, locked = false, onLockedTap }: Props) {
+export default function KyoceraNumberNavigator({ guide, blocks, level, selectedCode, rowLabel, box, onView, onBlock, onArea, onDirection, locked = false, onLockedTap }: Props) {
   const frame = useRef<HTMLDivElement>(null);
   const photoHitTest = useSeatPhotoHitTest();
   const lockedRef = useRef(locked);
   useLayoutEffect(() => { lockedRef.current = locked; }, [locked]);
   const suppressMapClick = useSeatMapTouch(frame, lockedRef);
+  const arenaMaps = useArenaMaps();
   const svg = useRef<SVGSVGElement>(null);
   const inner = useRef<SVGSVGElement>(null), overlay = useRef<SVGGElement>(null);
   const [focusedCode, setFocusedCode] = useState(blocks[0]?.code);
-  const [size, setSize] = useState({ width: 640, height: 560 });
+  const [size, setSize] = useState(UNMEASURED);
   const sizeRef = useRef(size);
   // `view` is the camera the labels are laid out for; `camera` is the live one. Glides, pans, pinches and
   // wheel zooms paint the camera straight onto the SVG and commit once when they end (Tokyo Dome's
@@ -143,6 +151,10 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
   const origin = project(0, 0), scale = origin.scale;
 
   const overview = Math.max(view[2], view[3]) > 950;
+  // The arena-map button stands on the field while that spot is on screen (as on the stand maps).
+  const arenaAt = project(ARENA_FLOOR.x, ARENA_FLOOR.y), arenaWidth = 107 + String(arenaMaps?.count ?? 0).length * 7;
+  const arenaShown = Boolean(arenaMaps) && size !== UNMEASURED && arenaAt.x >= arenaWidth / 2 + 6 && arenaAt.x <= size.width - arenaWidth / 2 - 6 && arenaAt.y >= 22 && arenaAt.y <= size.height - 22;
+  const arenaImage = arenaMaps?.posts.find(post => post.image)?.image;
   const areaScale = Math.max(view[2], view[3]) > 550;
   const detail = !overview && !areaScale && Boolean(selectedCode);
   if (!overview && tapHint !== "done") setTapHint("done");
@@ -294,9 +306,11 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
   const reserved = annotations.map(a => a.rect);
   // Before choosing a block, keep a single start-number marker at its centre.
   // Faded tiers remain context; their labels return at the detailed scale.
+  // A block with photos is named first: its start number stands in a pill that carries the camera (as on the stand maps).
+  const carriesCamera = (block: DrawingBlock) => photoPosts.has(block.code) && block.code !== selectedCode;
   const blockLabels = overview || detail ? [] : [...visible].sort((a, b) => {
     const p = geometry.get(a.code)!.bounds, q = geometry.get(b.code)!.bounds;
-    return (q.right - q.left) * (q.bottom - q.top) - (p.right - p.left) * (p.bottom - p.top);
+    return Number(carriesCamera(b)) - Number(carriesCamera(a)) || (q.right - q.left) * (q.bottom - q.top) - (p.right - p.left) * (p.bottom - p.top);
   }).flatMap(block => {
     if (level !== "すべて" && block.tier !== level && block.code !== selectedCode) return [];
     const bounds = geometry.get(block.code)!.bounds, a = project(bounds.left, bounds.top), z = project(bounds.right, bounds.bottom);
@@ -305,11 +319,12 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
     const units = [...text].reduce((sum, char) => sum + (/\d|[A-Z]/.test(char) ? .7 : char === " " ? .35 : 1), 0);
     const fontSize = 12;
     if (z.y - a.y < 18 || z.x - a.x < 18) return [];
-    const rect = { x: p.x, y: p.y, width: units * fontSize, height: fontSize * 1.4 };
+    const photo = carriesCamera(block);
+    const rect = { x: p.x, y: p.y, width: units * fontSize + (photo ? 14 + CAMERA_ROOM : 0), height: photo ? 22 : fontSize * 1.4 };
     if (fontSize < 8 || p.x - rect.width / 2 < 2 || p.x + rect.width / 2 > size.width - 2 || p.y - rect.height / 2 < 2 || p.y + rect.height / 2 > size.height - 2) return [];
     if (annotations.some(label => rectanglesOverlap(rect, label.rect, 2))) return [];
     annotations.push({ rect });
-    return [{ block, drawing, p, text, fontSize }];
+    return [{ block, drawing, p, text, fontSize, photo, width: rect.width }];
   });
   const placedLabels = [...visible].sort((a, b) => Number(b.code === selectedCode) - Number(a.code === selectedCode)).flatMap(block => {
     if (!detail) return [];
@@ -325,16 +340,18 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
     const rowRange = block.label.startsWith("中央") ? `${block.label.replace("中央", "")}・${rowsText}` : rowsText;
     const fullyVisible = a.x >= 0 && a.y >= 0 && z.x <= size.width && z.y <= size.height;
     const rangeReadable = !closestView && block.rowLabelIsPrinted && block.code !== selectedCode && block.code !== focusRows?.code && fullyVisible && Math.min(width, height) >= 28 && Math.max(width, height) >= 30;
-    const sign = placeNumberLabel(low, high, Math.max(48, String(drawing.seatStart).length * 8 + 20));
+    // A neighbour with photos: its number badge carries the camera. The chosen block's photos are already open.
+    const photo = carriesCamera(block);
+    const sign = placeNumberLabel(low, high, Math.max(48, String(drawing.seatStart).length * 8 + 20) + (photo ? CAMERA_ROOM : 0));
     // An off-canvas fixed anchor must not leave a misleading badge fragment.
     if (!numberAnchorVisible(sign, size.width, size.height)) return [];
     annotations.push(sign);
-    return [{ block, drawing, sign, rowRange, rangeReadable, compact: false, showRange: false, rangeRect: null as LabelRect | null }];
+    return [{ block, drawing, sign, photo, rowRange, rangeReadable, compact: false, showRange: false, rangeRect: null as LabelRect | null }];
   });
   for (const label of placedLabels) {
     if (label.block.code === selectedCode) continue;
     const compact = compactNeighbourNumber(label.sign, project(label.drawing.high.x, label.drawing.high.y), label.drawing.seatStart,
-      placedLabels.filter(other => other !== label).map(other => other.sign.rect));
+      placedLabels.filter(other => other !== label).map(other => other.sign.rect), label.photo ? CAMERA_ROOM - 1 : 0);
     Object.assign(label.sign, compact.sign); label.compact = compact.compact;
   }
   const placedRows: typeof rowEnds = [];
@@ -354,9 +371,9 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
     if (chosen && Math.hypot(chosen.x - row.anchor.x, chosen.y - row.anchor.y) <= 64) { Object.assign(row.rect, chosen); placedRows.push(row); }
   }
   rowEnds.splice(0, rowEnds.length, ...placedRows);
-  // The photo button (bottom left) and the arena-map button (top right) float over the map:
+  // The photo button (bottom left) and the arena-map button (on the field) float over the map:
   // a neighbouring badge underneath them would only show a fragment, so it is left out.
-  const overlayCover: LabelRect[] = [{ x: 160, y: size.height - 42, width: 320, height: 84 }, { x: size.width - 80, y: 30, width: 150, height: 46 }];
+  const overlayCover: LabelRect[] = [{ x: 160, y: size.height - 42, width: 320, height: 84 }, ...(arenaShown ? [{ x: arenaAt.x, y: arenaAt.y, width: arenaWidth + 8, height: 40 }] : [])];
   const numberPriority = prioritizeSelectedNumberArrow(placedLabels, selectedCode ?? null, reserved);
   const priorityLabels: typeof placedLabels = [];
   const labelPriorityOrigin = selectedBlock ? project(selectedBlock.x, selectedBlock.y) : { x: size.width / 2, y: size.height / 2 };
@@ -368,20 +385,33 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
       .some(rect => rectanglesOverlap(rect, label.sign.rect, 4))) continue;
     priorityLabels.push(label);
   }
-  // Number anchors have priority. Add a quiet row range underneath wherever
-  // it fits, rather than displacing a neighbouring block's young number.
+  // Number anchors have priority. A neighbour's quiet row range is written on that block itself, never on the block
+  // next to it: straight after the tip of its number's arrow, the way its numbers run. Where it does not fit there
+  // (a small block, or the next block's badge in the way) it is left out, and comes back on zooming in.
+  const liesOnBlock = (block: DrawingBlock, x: number, y: number) => photoHitTest([block.path], { x: (x - origin.x) / scale, y: (y - origin.y) / scale });
+  const arrowTip = (sign: NumberLabel, compact: boolean) => {
+    const dx = sign.to.x - sign.from.x, dy = sign.to.y - sign.from.y, length = Math.hypot(dx, dy);
+    const reach = length < 8 ? null : seatNumberBadgeTipDistance([dx, dy], sign.rect.width, sign.rect.height, length, compact ? 3 : 5);
+    return reach === null ? null : { x: sign.rect.x + dx / length * reach, y: sign.rect.y + dy / length * reach, ux: dx / length, uy: dy / length };
+  };
+  const drawnArrows = priorityLabels.flatMap(label => { const tip = arrowTip(label.sign, label.compact); return tip ? [{ from: label.sign.rect, to: tip }] : []; });
   for (const label of priorityLabels) {
-    if (!label.rangeReadable) continue;
-    const rect = { x: label.sign.rect.x, y: label.sign.rect.y + 32, width: label.rowRange.length * 7 + 12, height: 24 };
-    if (rect.x - rect.width / 2 < 4 || rect.x + rect.width / 2 > size.width - 4 || rect.y + rect.height / 2 > size.height - 4) continue;
-    const others = reserved.filter(rect => !centralLabels.some(c => c.code === label.block.code && c.rect === rect));
-    // A supplementary neighbour range must not suppress the selected number's direction.
-    if (priorityLabels.some(other => other.block.code === selectedCode && arrowOverlapsRect(other.sign.from, other.sign.to, rect, 3))
-      || [...others, ...priorityLabels.map(other => other.sign.rect), ...priorityLabels.flatMap(other => other.rangeRect ? [other.rangeRect] : [])].some(other => rectanglesOverlap(rect, other, 3))) continue;
+    const tip = label.rangeReadable ? arrowTip(label.sign, label.compact) : null;
+    if (!tip) continue;
+    const width = [...label.rowRange].reduce((sum, char) => sum + (char.charCodeAt(0) < 128 ? 7 : 12), 0) + 4, height = 14;
+    const reach = Math.abs(tip.ux) * width / 2 + Math.abs(tip.uy) * height / 2 + 3;
+    const rect = { x: tip.x + tip.ux * reach, y: tip.y + tip.uy * reach, width, height };
+    if (rect.x - width / 2 < 4 || rect.x + width / 2 > size.width - 4 || rect.y - height / 2 < 4 || rect.y + height / 2 > size.height - 4) continue;
+    if (![[0, 0], [-1, 0], [1, 0], [0, -1], [0, 1]].every(([sx, sy]) => liesOnBlock(label.block, rect.x + sx * Math.max(0, width / 2 - 6), rect.y + sy * (height / 2 - 2)))) continue;
+    const taken = [...reserved.filter(rect => !centralLabels.some(c => c.code === label.block.code && c.rect === rect)),
+      ...priorityLabels.map(other => other.sign.rect), ...priorityLabels.flatMap(other => other.rangeRect ? [other.rangeRect] : [])];
+    // A supplementary range never touches a number's direction arrow.
+    if (drawnArrows.some(arrow => arrowOverlapsRect(arrow.from, arrow.to, rect, 2)) || taken.some(other => rectanglesOverlap(rect, other, 2))) continue;
     label.rangeRect = rect; label.showRange = true; annotations.push({ rect });
   }
   const numberLabels = priorityLabels.map(label => {
-    const candidate = clearNumberArrow(label.sign, [...reserved, ...priorityLabels.map(other => other.sign.rect), ...priorityLabels.flatMap(other => other.rangeRect ? [other.rangeRect] : [])]);
+    // The row ranges were placed clear of every arrow (above), so they never shorten one.
+    const candidate = clearNumberArrow(label.sign, [...reserved, ...priorityLabels.map(other => other.sign.rect)]);
     if (!candidate) return { ...label, arrow: null, badgePath: null, badgeInk: undefined };
     const dx = candidate.to.x - candidate.from.x, dy = candidate.to.y - candidate.from.y, length = Math.hypot(dx, dy);
     // Keep the whole joined outline inside the viewport; shorten only along the sourced direction.
@@ -399,22 +429,25 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
     return available(point.x, point.y, 64, 24) ? [{ gate, point }] : [];
   });
   const visibleInfield = infieldAreas.filter(area => level === "すべて" || area.id.endsWith(level));
-  const overviewObstacles = overview ? [...outfieldAreas, ...visibleInfield].map(area =>
-    ({ ...project(area.x * 1600, area.y * 1600), width: 64, height: 44 })) : [];
+  const overviewObstacles = [...(overview ? [...outfieldAreas, ...visibleInfield].map(area =>
+    ({ ...project(area.x * 1600, area.y * 1600), width: 64, height: 44 })) : []), ...(arenaShown ? [{ ...arenaAt, width: arenaWidth, height: 34 }] : [])];
   const markerObstacles = [
     ...annotations.map(annotation => annotation.rect),
     ...numberLabels.map(label => label.sign.rect),
     ...rowEnds.map(row => row.rect),
     ...overviewObstacles,
   ];
+  // The central blocks' letters stand at a fixed spot: one that would lie under a badge, a row tag or the line to it is left out.
+  const centralLetters = centralLabels.filter(c => !placedLabels.some(l => l.block.code === c.code && l.showRange)
+    && ![...numberLabels.map(label => label.sign.rect), ...rowEnds.map(row => row.rect)].some(rect => rectanglesOverlap(c.rect, rect, 1))
+    && !rowEnds.some(row => arrowOverlapsRect(row.anchor, row.rect, c.rect, 1)));
   const placedPhotos: LabelRect[] = [];
-  // Blocks whose own label gives way to their camera mark (no clear spot fitted, so the mark sits at the centre).
-  const coveredCodes = new Set<string>();
-  const photoMarkers = visible.flatMap(block => {
+  // Seen from afar the names carry the cameras: the area names on the whole venue, the start numbers closer in.
+  // A camera of its own shows only for a block whose name is not on screen, and only on a clear spot of that block.
+  const named = new Set([...blockLabels, ...numberLabels].map(label => label.block.code));
+  const photoMarkers = overview ? [] : visible.flatMap(block => {
     const post = photoPosts.get(block.code);
-    if (!post || (level !== "すべて" && block.tier !== level && block.code !== selectedCode)) return [];
-    // The selected block's mark gives way while its photo card is shown on the map.
-    if (block.code === cardedCode) return [];
+    if (!post || named.has(block.code) || block.code === selectedCode || (level !== "すべて" && block.tier !== level)) return [];
     const anchor = project(block.x, block.y);
     if (anchor.x < 0 || anchor.x > size.width || anchor.y < 0 || anchor.y > size.height) return [];
     const padding = photoTarget / 2 + 2;
@@ -424,18 +457,16 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
     const clear = candidates.filter(point => fitsPhotos(point)
       && markerObstacles.every(other => !rectanglesOverlap(point, other, 2))
       && numberLabels.every(label => !label.arrow || !arrowOverlapsRect(label.arrow.from, label.arrow.to, point, 3)));
-    const onBlock = (point: LabelRect, radius: number) => photoHitTest([block.path],
-      { x: (point.x - origin.x) / scale, y: (point.y - origin.y) / scale }, radius / scale);
-    const centered = clear[0]?.x === anchor.x && clear[0]?.y === anchor.y && onBlock(clear[0], 0);
-    const placed = centered ? clear[0] : clear.find(point => onBlock(point, 10)) ?? clear.find(point => onBlock(point, 0));
-    // Every block with photos keeps its mark (Tokyo Dome): with no clear spot it sits at the block centre.
-    const fallback = { x: anchor.x, y: anchor.y, width: photoTarget, height: photoTarget };
-    const point = placed ?? (anchor.x >= padding && anchor.x <= size.width - padding && anchor.y >= padding && anchor.y <= size.height - padding ? fallback : null);
+    // The camera sits wholly on its own block: a block too small on screen to hold it shows none (its outline still
+    // marks it), and both come back on zooming in.
+    const point = clear.find(point => photoHitTest([block.path], { x: (point.x - origin.x) / scale, y: (point.y - origin.y) / scale }, 10 / scale));
     if (!point) return [];
-    if (!placed) coveredCodes.add(block.code);
     placedPhotos.push(point);
     return [{ block, post, point }];
   });
+  // The area names of the whole venue: which of them hold at least one photo (in the level being shown).
+  const whole = guide.seatMap!.viewBox;
+  const areaPhotos = (direction: string, tier = level) => blocks.some(block => photoPosts.has(block.code) && kyoceraMatchesArea(block, whole, direction, tier));
   const focusCode = visible.some(b => b.code === focusedCode) ? focusedCode : selectedBlock?.code ?? visible[0]?.code;
   function keyBlock(event: KeyboardEvent<SVGGElement>, block: DrawingBlock) {
     if (["Enter", " "].includes(event.key)) { event.preventDefault(); onBlock(block); return; }
@@ -461,11 +492,11 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
       <g>
         <VenueOverviewArt diagramId="kyocera-seat-original" blocks={footprints} opacity={artOpacity} unit={16}/>
         {blocks.map(block => <g key={block.code} data-seat-block={block.code} data-source-block={block.sourceCode} data-area-id={block.areaId} role="button" tabIndex={block.code === focusCode ? 0 : -1} onFocus={() => setFocusedCode(block.code)}
-          aria-label={`${block.label}・${block.tier} ${block.rowLabelIsPrinted ? `${block.rowLabel}列` : "列の印字なし（公式検索：0列）"} ${block.firstSeat}〜${block.lastSeat}番`} aria-pressed={block.code === selectedCode}
+          aria-label={`${block.label}・${block.tier} ${block.rowLabelIsPrinted ? `${block.rowLabel}列` : "列の印字なし（公式検索：0列）"} ${block.firstSeat}〜${block.lastSeat}番${photoPosts.has(block.code) ? "・写真あり" : ""}`} aria-pressed={block.code === selectedCode}
           onKeyDown={event => keyBlock(event, block)}>
           <path d={block.path} fill={block.code === selectedCode ? "#ac2e66" : block.special ? "#eadac1" : block.tier === "上段" ? "#c1b4da" : "#ebbad0"}
             opacity={level !== "すべて" && block.tier !== level && block.code !== selectedCode ? .2 : 1} stroke={block.code === selectedCode ? "#5d263f" : photoPosts.has(block.code) ? SEAT_PHOTO_MAP_COLOR : "white"}
-            strokeWidth={block.code === selectedCode ? 2.5 : photoPosts.has(block.code) ? 2.2 : .6} vectorEffect="non-scaling-stroke" />
+            strokeWidth={block.code === selectedCode ? 2.5 : photoPosts.has(block.code) ? (overview ? 1.2 : 2.2) : .6} vectorEffect="non-scaling-stroke" />
           <title>{`${block.label}・${block.tier} ／ ${block.rowLabelIsPrinted ? `${block.rowLabel}列` : "列の印字なし（検索：0列）"} ／ ${block.firstSeat}〜${block.lastSeat}番`}</title>
         </g>)}
         
@@ -478,16 +509,23 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
       {/* Screen-space layer: follows a moving camera with one transform until the commit (see paint). */}
       <g ref={overlay}>
       <g pointerEvents="none" className={styles.numbers}>
-        {blockLabels.filter(({ block }) => !coveredCodes.has(block.code)).map(({ block, drawing, p, text, fontSize }) => <text key={block.code} data-block-start={block.code} data-start-number={drawing.seatStart} x={p.x} y={p.y} dominantBaseline="central" textAnchor="middle" fontSize={fontSize} fill="#672442" pointerEvents="all" style={{ cursor: "pointer" }} aria-hidden="true">{text}</text>)}
-        {numberLabels.filter(({ block }) => block.code === selectedCode || !coveredCodes.has(block.code)).map(({ block, drawing, sign: { rect }, arrow, badgePath, badgeInk, rowRange, rangeRect, compact }) => <g key={block.code} data-number-guide={block.code} data-reference-row={drawing.referenceRow} data-start-number={drawing.seatStart} data-compact-number={compact || undefined}>
+        {blockLabels.map(({ block, drawing, p, text, fontSize, photo, width }) => photo
+          ? <g key={block.code} data-block-start={block.code} data-start-number={drawing.seatStart} data-name-pill="" data-annotation-photo="" transform={`translate(${p.x} ${p.y})`} pointerEvents="all" style={{ cursor: "pointer" }} aria-hidden="true">
+            <rect x={-width / 2} y={-11} width={width} height={22} rx={11} fill="#fff" fillOpacity=".94" stroke="#e3cbd6" strokeWidth=".8" />
+            <text x={-CAMERA_ROOM / 2} dominantBaseline="central" textAnchor="middle" fontSize={fontSize} fill="#672442">{text}</text>
+            <Camera x={width / 2 - 19} y={-6} size={12} color="#a93164" strokeWidth={2.4} />
+          </g>
+          : <text key={block.code} data-block-start={block.code} data-start-number={drawing.seatStart} x={p.x} y={p.y} dominantBaseline="central" textAnchor="middle" fontSize={fontSize} fill="#672442" pointerEvents="all" style={{ cursor: "pointer" }} aria-hidden="true">{text}</text>)}
+        {numberLabels.map(({ block, drawing, sign: { rect }, arrow, badgePath, badgeInk, rowRange, rangeRect, compact, photo }) => <g key={block.code} data-number-guide={block.code} data-reference-row={drawing.referenceRow} data-start-number={drawing.seatStart} data-compact-number={compact || undefined} data-annotation-photo={photo ? "" : undefined}>
           <title>{block.rowLabelIsPrinted ? `${drawing.referenceRow}列の番号目安。列によって端の番号が変わります。` : "FBの印字された開始番号と番号が増える向き。検索の列は0です。"}</title>
 
           <path data-number-badge="" data-connected-number-arrow={arrow ? "" : undefined} transform={`translate(${rect.x} ${rect.y})`} d={badgePath ?? seatNumberBadge([0, 0], rect.width, rect.height, 0, compact ? 3 : 5)} fill="#fff" stroke={block.code === selectedCode ? "#ac2e66" : "#d5c5cd"} strokeWidth={block.code === selectedCode ? 2 : 1} />
           {badgeInk && <path data-number-arrow-ink="" transform={`translate(${rect.x} ${rect.y})`} d={badgeInk} fill="none" stroke="#a93164" strokeWidth={block.code === selectedCode ? 2 : 1.6} strokeLinejoin="round" strokeLinecap="round"/>}
-          <text data-number-text="" x={rect.x} y={rect.y + (compact ? 4 : 5)} textAnchor="middle" fontSize={block.code === selectedCode ? 14 : 12} fill="#672442">{drawing.seatStart}{!compact && <tspan fontSize="12">番</tspan>}</text>
-          {rangeRect && <g><text stroke="#fff" strokeWidth="3" paintOrder="stroke" strokeLinejoin="round" data-row-range={block.code} x={rangeRect.x} y={rangeRect.y + 4} textAnchor="middle" fontSize="12" fontWeight="600" fill="#76576a">{rowRange}</text></g>}
+          <text data-number-text="" x={rect.x - (photo ? (compact ? 6.5 : 7.5) : 0)} y={rect.y + (compact ? 4 : 5)} textAnchor="middle" fontSize={block.code === selectedCode ? 14 : 12} fill="#672442">{drawing.seatStart}{!compact && <tspan fontSize="12">番</tspan>}</text>
+          {photo && <Camera x={rect.x + rect.width / 2 - (compact ? 14 : 18)} y={rect.y - (compact ? 5.5 : 6)} size={compact ? 11 : 12} color="#a93164" strokeWidth={2.4} />}
+          {rangeRect && <g><text stroke="#fff" strokeWidth="3" paintOrder="stroke" strokeLinejoin="round" data-row-range={block.code} x={rangeRect.x} y={rangeRect.y} dominantBaseline="central" textAnchor="middle" fontSize="12" fontWeight="600" fill="#76576a">{rowRange}</text></g>}
         </g>)}
-        {centralLabels.filter(c => !placedLabels.some(l => l.block.code === c.code && l.showRange)).map(({ code, rect, letter }) => <text key={code} x={rect.x} y={rect.y + 4} textAnchor="middle" fontSize="12">{letter}</text>)}
+        {centralLetters.map(({ code, rect, letter }) => <text key={code} data-central-letter={code} x={rect.x} y={rect.y + 4} textAnchor="middle" fontSize="12" fill="#672442" stroke="#fff" strokeWidth="3" paintOrder="stroke" strokeLinejoin="round">{letter}</text>)}
         {focusRows && <g><text stroke="#fff" strokeWidth="3" paintOrder="stroke" strokeLinejoin="round" data-row-range={focusRows.code} x={focusRows.rect.x} y={focusRows.rect.y + 4} textAnchor="middle" fontSize="12" fontWeight="600" fill="#76576a">{focusRows.text}</text></g>}
         {rowEnds.map(({ rect: p, anchor, row, end }) => <g key={end} data-row-end={end}>{(p.x !== anchor.x || p.y !== anchor.y) && <path d={`M${anchor.x},${anchor.y}L${p.x},${p.y}`} stroke="#a93164" strokeWidth="1"/>}<rect x={p.x - 28} y={p.y - 14} width="56" height="28" rx="4" fill={rowLabel === row ? "#155786" : "#e8f3ff"} stroke="#23679a" /><text x={p.x} y={p.y + 4} textAnchor="middle" fontSize="12" fill={rowLabel === row ? "#fff" : "#155786"}>{row}列</text></g>)}
         {gateLabels.map(({ gate, point: p }) => <g key={gate.id} data-seat-gate={gate.number}><rect x={p.x - 32} y={p.y - 12} width="64" height="24" rx="12" fill="#514452" /><text x={p.x} y={p.y + 4} fill="white" textAnchor="middle" fontSize="12">GATE {gate.number}</text></g>)}
@@ -510,11 +548,20 @@ export default function KyoceraNumberNavigator({ guide, blocks, level, selectedC
     {overview && <div className={styles.areaLabels} aria-label="座席エリアから拡大する" data-tap-hint={tapHint} onAnimationEnd={() => setTapHint("done")}>
       {outfieldAreas.map(area => {
         const p = project(area.x * 1600, area.y * 1600);
-        return p.x >= 36 && p.x <= size.width - 36 && p.y >= 24 && p.y <= size.height - 24 ? <button key={area.id} type="button" className={styles.outfieldLabel} data-map-direction={area.id} aria-label={`外野${area.label}`} style={{ left: p.x, top: p.y }} onClick={() => onDirection(area.id)}>外野<small>{area.label}</small></button> : null;
+        return p.x >= 36 && p.x <= size.width - 36 && p.y >= 24 && p.y <= size.height - 24 ? <button key={area.id} type="button" className={styles.outfieldLabel} data-map-direction={area.id} aria-label={`外野${area.label}`} style={{ left: p.x, top: p.y }} onClick={() => onDirection(area.id)}>外野<small>{area.label}{areaPhotos(area.id) && <Camera size={12} aria-hidden="true" />}</small></button> : null;
       })}
       {visibleInfield.map(area => { const p = project(area.x * 1600, area.y * 1600); const seat = guide.seats.find(a => a.id === area.id)!;
-          return p.x >= 30 && p.x <= size.width - 30 && p.y >= 24 && p.y <= size.height - 24 ? <button key={area.id} type="button" style={{ left: p.x, top: p.y }} onClick={() => onArea(area.id)}>{seat.label.startsWith("中央") ? "中央" : seat.label}<small>{seat.type}</small></button> : null; })}
+          return p.x >= 30 && p.x <= size.width - 30 && p.y >= 24 && p.y <= size.height - 24 ? <button key={area.id} type="button" style={{ left: p.x, top: p.y }} onClick={() => onArea(area.id)}>{seat.label.startsWith("中央") ? "中央" : seat.label}<small>{seat.type}{areaPhotos(seat.label === "1塁側" ? "first" : seat.label === "3塁側" ? "third" : "home", seat.type) && <Camera size={12} aria-hidden="true" />}</small></button> : null; })}
     </div>}
+    {/* On the field: it opens the shows' arena layouts, from the still map too (its press never reaches the map). */}
+    {arenaMaps && arenaShown && <button type="button" className={styles.arenaSpot} data-arena-maps-button="" style={{ left: arenaAt.x, top: arenaAt.y }}
+      onPointerDown={event => { event.stopPropagation(); suppressMapClick.current = false; }} onClick={() => arenaMaps.open()} aria-label={`アリーナ図を見る（${arenaMaps.count}公演）`}>
+      <span className={stand.arenaPill}>
+        {/* eslint-disable-next-line @next/next/no-img-element -- the post's own image on X, shown as posted */}
+        {arenaImage ? <img className={stand.arenaThumb} src={arenaImage.src.replace(/([?&]name=)\w+/, "$1thumb")} alt="" width={22} height={22} decoding="async" referrerPolicy="no-referrer" />
+          : <MapIcon size={14} aria-hidden="true" />}アリーナ図<b>{arenaMaps.count}</b>
+      </span>
+    </button>}
     </div>
   </>;
 }

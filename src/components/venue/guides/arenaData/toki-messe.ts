@@ -4,9 +4,7 @@ import type { ArenaGuideDefinition, ArenaVenueData } from '../arenaDefinition';
 const data: ArenaVenueData = {
     guide:tokiGuide,seats:tokiSeats.exhibition,levels:tokiLevels("exhibition"),areas:tokiAreas("exhibition"),facilities:makeTokiFacilityConfig(),
     seatNote:tokiGuide.seatNote,
-    facilityNote:"展示場・入口・会議場・エスプラナードを階で選べます。万代島ビルの店舗と新潟駅の荷物は「場外・入場前」から探せます。",
     access:[["新潟駅", "1Fバスターミナル17番／佐渡汽船線・朱鷺メッセ下車", "バス約17分"],["新潟駅", "万代橋方面から会場へ", "徒歩約25分"]],
-    accessNote:"バスの時間は乗車の目安です。当日の使用入口・運行は公式案内をご確認ください。",
     accessUrl:"https://www.tokimesse.com/visitor/access/",officialRouteUrl:"https://www.tokimesse.com/visitor/access/",routeLabel:"徒歩・バスの来場案内 ↗",eventsUrl:"https://www.tokimesse.com/visitor/event/index",
     luggage:"館内1F・2Fのロッカー、新潟駅のロッカーと有人預かりを探せます。返金式と大型有料ではサイズ・料金が異なります。",
     preparationTitle:"100円硬貨と公演の会場名",preparation:"無料の返金式ロッカーは100円硬貨が必要です。1Fは20時、2Fは22時まで。展示ホールとメインホールは別室なので、券面の会場名と指定入口を確認してください。",

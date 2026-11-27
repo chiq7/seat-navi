@@ -35,12 +35,11 @@ const modeKey=mode,resolved=resolveArenaView(definition,mode),{guide,seats,level
         {isPrime && PrimeLocation && <PrimeLocation onRegion={showPrimeRegion}/>}
         <div ref={primeNumbers}><StandSeatMap ref={isPrime ? primeMap : undefined} key={`${venue}-${modeKey}`} data={seats} levels={levels} areas={resolved.areas} initialSection={section} onEquipment={showEquipment} venueId={venue}
           immersive venueName={data.guide.name} {...(target && section && target.section === section ? { initialRow: target.row, initialNumber: target.number, initialOpen: target.open } : {})}/></div>
-        {venue !== "saitama-super-arena" && <p className={styles.note}>{resolved.seatNote}</p>}
       </section>
       <AfterSeats nested/>
       <section id="venue-facilities" ref={facilities}><h2>必要な設備を探す</h2>{"facilityNote" in data && <p className={styles.note}>{data.facilityNote}</p>}<VenueFacilityFinder key={`${venue}-${definition.preserveFacilitiesAcrossModes ? "fixed" : modeKey}`} ref={finder} guide={guide} config={facilityConfig}/></section>
       {data.insidePhotos && <InsidePhotos data={data.insidePhotos}/>}
-      <section id="venue-access"><h2>駅から{data.guide.name}へ</h2><VenueAccessCards venueId={venue} destination={data.guide.name} entries={arenaAccessEntries(guide,data.access,data.officialRouteUrl ?? data.accessUrl)}/><p className={styles.note}>{"accessNote" in data ? data.accessNote : isEdion ? "距離は会場の公式案内です。全館休館中のため再開・入場口は公式案内を確認してください。" : "徒歩時間は公式案内の目安です。当日の入場口は公演案内に従ってください。"}</p><a className={`${styles.linkButton} ${styles.accessLink}`} href={data.accessUrl} target="_blank" rel="noopener noreferrer">駅・入場の公式案内 ↗</a>
+      <section id="venue-access"><h2>駅から{data.guide.name}へ</h2><VenueAccessCards venueId={venue} destination={data.guide.name} entries={arenaAccessEntries(guide,data.access,data.officialRouteUrl ?? data.accessUrl)}/>{"accessNote" in data && <p className={styles.note}>{data.accessNote}</p>}<a className={`${styles.linkButton} ${styles.accessLink}`} href={data.accessUrl} target="_blank" rel="noopener noreferrer">駅・入場の公式案内 ↗</a>
         {data.parking && <div className={`${styles.prep} ${styles.nearbyCards}`}>
           <article><h3>車・駐車場</h3><p>{data.parking.text}</p><button type="button" onClick={()=>showNearby("案内","駐車場")}>周辺の駐車場を見る ↑</button></article>
           {data.parking.meetup && <article><h3>公演前後の待ち合わせ</h3><p>{data.parking.meetup}</p><div className={styles.buttonRow}><button type="button" onClick={()=>showNearby("飲食","周辺のお店")}>周辺のお店を見る ↑</button>{data.parking.park && <button type="button" onClick={()=>showNearby("案内",data.parking!.park!)}>{data.parking.park}を見る ↑</button>}</div></article>}

@@ -4,7 +4,6 @@ import type { ArenaGuideDefinition, ArenaVenueData } from '../arenaDefinition';
 const data: ArenaVenueData = {
     guide:budokanGuide,seats:budokanStandSeats,levels:budokanLevels,areas:budokanAreas,facilities:budokanFacilityConfig,
     seatNote:"スタンドは方角・階と列・番号で探せます。アリーナ・使用席は公演ごとの配置です。",
-    facilityNote:"1F・2Fのトイレや売店を探せます。男女の割り当て・設備の開放は当日の案内をご確認ください。",
     access:[["九段下駅","東京メトロ東西線・半蔵門線／都営新宿線・2番出口","徒歩5分"],["竹橋駅","東京メトロ東西線／1番出口","徒歩12分"]],
     luggage:"館内にコインロッカーはありません。九段下駅の改札内・改札外、6番出口付近と竹橋駅のロッカーを探せます。",
     preparationTitle:"入場前の過ごし方",preparation:"中道場棟や北の丸公園のトイレ、敷地内の飲食店を設備欄で探せます。公園内は全面禁煙です。",

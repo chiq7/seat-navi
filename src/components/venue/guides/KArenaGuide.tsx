@@ -26,7 +26,6 @@ export default function KArenaGuide({ embedded=false }: { embedded?: boolean }) 
         <StandSeatMap data={kArenaStandSeats} levels={kArenaLevels} areas={kArenaAreas} initialSection={target?.mode === "fixed" ? target.section : null} onEquipment={showEquipment} immersive venueName="Kアリーナ横浜"
           venueId="k-arena" initialRow={target?.row} initialNumber={target?.number} initialOpen={target?.open}/>
         <a className={styles.linkButton} href="https://k-arena.com/seat/">公式で座席からの見え方を見る</a>
-        <p className={styles.note}>公演別のアリーナ配置は、主催者の座席案内をご確認ください。</p>
       </section>
       <AfterSeats nested/>
       <section id="venue-facilities" ref={facilities}><h2>必要な設備を探す</h2>
@@ -34,7 +33,7 @@ export default function KArenaGuide({ embedded=false }: { embedded?: boolean }) 
       </section>
       <section id="venue-access"><h2>駅からKアリーナ横浜へ</h2>
         <VenueAccessCards venueId="k-arena" destination="Kアリーナ横浜" entries={arenaAccessEntries(kArenaGuide,[["横浜駅","JR・各線／東口","徒歩9分"],["新高島駅","みなとみらい線／4 臨港パーク口","徒歩5分"],["みなとみらい駅","みなとみらい線／2 いちょう通り口","徒歩12分"]],"https://k-arena.com/access/")}/>
-        <p className={styles.note}>徒歩時間は公式案内の目安です。公演当日の入口・規制退場は現地案内に従ってください。<a href="https://k-arena.com/access/" target="_blank" rel="noopener noreferrer">入退場の案内 ↗</a></p>
+        <a className={`${styles.linkButton} ${styles.accessLink}`} href="https://k-arena.com/access/" target="_blank" rel="noopener noreferrer">駅・入場の公式案内 ↗</a>
       </section>
       <section id="venue-prep"><h2>出発前の準備</h2><div className={styles.prep}>
         <article><h3>大きな荷物</h3><p>館内ロッカーは小型。キャリーケースは屋外の大型ロッカーやK-Arena Shopの預かりを確認してください。</p><button type="button" onClick={showLuggage}>ロッカー・荷物預かりを探す ↓</button></article>

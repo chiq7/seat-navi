@@ -4,7 +4,6 @@ import type { ArenaGuideDefinition, ArenaVenueData } from '../arenaDefinition';
 const data: ArenaVenueData = {
     guide: gaishiHallGuide, seats: gaishiStandSeats, levels: gaishiLevels("fixed"), areas: gaishiAreas, facilities: gaishiFacilityConfig,
     seatNote: "チケットや主催者の図に合わせて、ブリージャー席の有無を選んでください。アリーナ・使用席は公演ごとの配置です。",
-    facilityNote: "館内は1F・2F。共用設備と駅の荷物は「場外・入場前」から探せます。当日の開放区域は公演案内をご確認ください。",
     access: [["笠寺駅", "JR東海道本線", "徒歩3分"], ["本笠寺駅", "名鉄名古屋本線", "徒歩15分"], ["大江駅", "名鉄常滑線", "徒歩15分"]],
     luggage: "館内1Fロビー中央のロッカーと、金山・名古屋の駅ロッカー、名古屋の店舗預かりを探せます。",
     preparationTitle: "大会期間中の利用", preparation: "大会に伴い、ホールの一般利用は2026年8月6日〜11月30日まで休止予定です。大会への来場は主催者の入口・交通案内をご確認ください。",

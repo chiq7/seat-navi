@@ -4,7 +4,7 @@ import type { ArenaGuideDefinition, ArenaVenueData } from '../arenaDefinition';
 const data: ArenaVenueData = {
     guide:yoyogiGuide,seats:yoyogiStandSeats,levels:yoyogiLevels,areas:yoyogiAreas,facilities:yoyogiFacilityConfig,
     seatNote:"スタンドは北1A・南2Lなどの区画名と列・番号で探せます。アリーナは公演ごとの配置です。",
-    facilityNote:"設備のB1F・1F・2Fはチケットの階とは別です。場所が分からないAEDなどは「階未確認」から確認できます。",
+    facilityNote:"設備のB1F・1F・2Fはチケットの階とは別です。",
     access:[["原宿駅","JR山手線","徒歩5分"],["明治神宮前駅","東京メトロ千代田線・副都心線","徒歩5分"],["代々木公園駅","東京メトロ千代田線","徒歩10分"],["渋谷駅","JRほか各線","徒歩15分"]],
     luggage:"館内にコインロッカーはありません。原宿・明治神宮前・代々木公園・渋谷駅のロッカーと、原宿の予約できる店舗預かりを探せます。",
     preparationTitle:"入口と館内の移動",preparation:"通常の出入口は原宿口です。館内にエレベーター・エスカレーターはありません。車いすでの来場は公演主催者の案内をご確認ください。",

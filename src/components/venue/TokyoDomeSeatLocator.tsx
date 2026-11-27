@@ -57,8 +57,8 @@ const AREA_BY_CODE = new Map(AREAS.map((area) => [area.code, area]));
 const SEAT_PHOTO_DIAGRAM = "tokyo-dome-fixed";
 const PHOTO_SECTION_CODES = new Set(seatViewPosts(SEAT_PHOTO_DIAGRAM)
   .filter(post => post.place.kind === "section").map(post => post.place.id));
-const PHOTO_COUNTS = seatViewPosts(SEAT_PHOTO_DIAGRAM).filter(post => post.place.kind === "section")
-  .reduce((counts, post) => counts.set(post.place.id, (counts.get(post.place.id) ?? 0) + 1), new Map<string, number>());
+/** The room a name gives the camera it carries. */
+const CAMERA_ROOM = 15;
 /** Middle of the arena floor; the zoomed map points here so the stage side stays obvious. */
 const FIELD_CENTER = { x: 579, y: 290 };
 const ZONE_KEY = [
@@ -613,6 +613,13 @@ export function TokyoDomeSeatLocator() {
       && gate.label.y + h / 2 > selectedShapeBox[1] && gate.label.y - h / 2 < selectedShapeBox[3]) return false;
     return guideObstacles.every(other => Math.abs(gate.label.x - other.x) >= (w + other.width) / 2 || Math.abs(gate.label.y - other.y) >= (h + other.height) / 2);
   };
+  const shownGates = TOKYO_DOME_GATE_ANCHORS.filter(gate => {
+    // A whole-side view is for finding the block; gates return once a block is chosen.
+    if (showDetail) return (Boolean(selected) || interactiveViewBox.width <= 360) && gateClear(gate);
+    if (!["GATE 11", "GATE 25", "GATE 40", "GATE 41"].includes(gate.gate)) return false;
+    return TOKYO_DOME_OVERVIEW_AREAS.every(area => Math.abs(area.point[0] - gate.label.x) * overviewScale >= 80
+      || Math.abs(area.point[1] - gate.label.y) * overviewScale >= 36);
+  });
   const captionObstacles = [
     // Overview buttons float above the SVG. Reserve their visible captions and
     // badges before placing small block names; their seat hit areas stay intact.
@@ -632,13 +639,21 @@ export function TokyoDomeSeatLocator() {
       ];
     }),
     ...visibleEdgeMarkers.flatMap(marker => marker.point ? [{ x: marker.point[0], y: marker.point[1], width: 62 / screenScale, height: 34 / screenScale }] : []),
+    // Zoomed in, a block name gives way to the GATE tags on screen.
+    ...(showDetail ? shownGates.map(gate => ({ x: gate.label.x, y: gate.label.y, width: 64 / screenScale, height: 26 / screenScale })) : []),
   ];
+  // Zoomed in, the name of a block with photos carries the camera, in a pill (as on the stand maps). Those names are
+  // placed first, after the chosen block's own. The chosen block shows none: its photos are already open.
+  const nameCarriesCamera = (code: string) => showDetail && PHOTO_SECTION_CODES.has(code) && code !== selected?.code;
+  const namePillWidth = (code: string) => code.length * 12 * .65 + 14 + CAMERA_ROOM;
   const mapLabels = [...sourceMapLabels].sort((a, b) => {
     const origin = selectedLabel ?? [interactiveViewBox.x + interactiveViewBox.width / 2, interactiveViewBox.y + interactiveViewBox.height / 2];
-    return Math.hypot(a.x - origin[0], a.y - origin[1]) - Math.hypot(b.x - origin[0], b.y - origin[1]);
+    return Number(b.code === selected?.code) - Number(a.code === selected?.code) || Number(nameCarriesCamera(b.code)) - Number(nameCarriesCamera(a.code))
+      || Math.hypot(a.x - origin[0], a.y - origin[1]) - Math.hypot(b.x - origin[0], b.y - origin[1]);
   }).filter(label => {
     if (verifiedNumberGuide && label.code === selected?.code) return false;
-    const width = label.code.length * label.fontSize * .65 + 6 / screenScale, height = 20 / screenScale;
+    const photo = nameCarriesCamera(label.code);
+    const width = photo ? namePillWidth(label.code) / screenScale : label.code.length * label.fontSize * .65 + 6 / screenScale, height = (photo ? 22 : 20) / screenScale;
     if (label.x - width / 2 < visibleMapBox.x || label.x + width / 2 > visibleMapBox.x + visibleMapBox.width
       || label.y - height / 2 < visibleMapBox.y || label.y + height / 2 > visibleMapBox.y + visibleMapBox.height) return false;
     if (captionObstacles.some(other => Math.abs(label.x - other.x) < (width + other.width) / 2
@@ -677,8 +692,11 @@ export function TokyoDomeSeatLocator() {
     return { x: x0, y: y0, width: Math.max(30, x1 - x0), height: Math.max(30, y1 - y0) };
   })();
   const visibleZones = ZONE_KEY.filter(zone => sourceMapLabels.some(label => label.code[0] === zone.key && matchesLevel(label.code)));
+  // A camera of its own shows only for a block whose name is not on screen, and only where it sits wholly on that
+  // block: a block too thin to hold it shows none (its outline still marks it). Both come back on zooming in.
+  const namedCodes = new Set(mapLabels.map(label => label.code));
   const photoMarkers = showDetail ? visibleAreas.filter(area => matchesLevel(area.code) && PHOTO_SECTION_CODES.has(area.code)
-    && !(detailStage && area.code === selected?.code)).flatMap(area => {
+    && area.code !== selected?.code && !namedCodes.has(area.code)).flatMap(area => {
     const balcony = BALCONY_SEGMENTS.find(segment => segment.code === area.code);
     const shape = balcony?.sourcePath ?? area.path;
     if (!shape) return [];
@@ -691,21 +709,12 @@ export function TokyoDomeSeatLocator() {
         && point.y <= visibleMapBox.y + visibleMapBox.height - 14 / screenScale
         && photoObstacles.every(other => Math.abs(point.x - other.x) >= (28 / screenScale + other.width) / 2
           || Math.abs(point.y - other.y) >= (28 / screenScale + other.height) / 2));
-    // Every block with photos shows its mark at every zoom where blocks are drawn: a clear spot inside the block,
-    // else any spot on it, else its centre (then the block's own name gives way to the mark).
-    const centreVisible = center.x >= visibleMapBox.x && center.x <= visibleMapBox.x + visibleMapBox.width
-      && center.y >= visibleMapBox.y && center.y <= visibleMapBox.y + visibleMapBox.height;
-    const clear = candidates.find(point => photoHitTest([shape], point, 10 / screenScale)
-        && (!balcony || photoHitTest([balcony.regionPath], point, 10 / screenScale)))
-      ?? candidates.find(point => photoHitTest([shape], point, 0));
-    // The centre fallback never covers a seat-number or row badge.
-    const onGuide = guideObstacles.some(other => Math.abs(center.x - other.x) < (24 / screenScale + other.width) / 2 && Math.abs(center.y - other.y) < (24 / screenScale + other.height) / 2);
-    const point = clear ?? (centreVisible && !onGuide ? center : undefined);
+    const point = candidates.find(point => photoHitTest([shape], point, 10 / screenScale)
+        && (!balcony || photoHitTest([balcony.regionPath], point, 10 / screenScale)));
     if (!point) return [];
     photoObstacles.push({ ...point, width: 28 / screenScale, height: 28 / screenScale });
-    return [{ area, ...point, coversName: !clear }];
+    return [{ area, ...point }];
   }) : [];
-  const coveredNames = new Set(photoMarkers.filter(marker => marker.coversName).map(marker => marker.area.code));
 
   keyAreaRef.current = keyArea;
   function resetGestures() {
@@ -1061,7 +1070,7 @@ export function TokyoDomeSeatLocator() {
             {selectedLabel&&<button type="button" onClick={()=>showSelectedView(selected,selectedLabel)} aria-label="選んだ場所を表示"><LocateFixed size={19}/></button>}
             <button type="button" onClick={clearSelection} aria-label="座席の選択を解除"><X size={18}/></button>
           </div>
-        </> : <div className={styles.overviewHeading}><strong>{seatLevel === "all" && direction === "all" ? "東京ドームの全体図" : `${SEAT_LEVELS.find(level => level.id === seatLevel)!.label}・${MAP_VIEWS[direction].label}`}</strong><span>区画をタップで拡大</span></div>}</div>
+        </> : <div className={styles.overviewHeading}><strong>{seatLevel === "all" && direction === "all" ? "東京ドームの全体図" : `${SEAT_LEVELS.find(level => level.id === seatLevel)!.label}・${MAP_VIEWS[direction].label}`}</strong></div>}</div>
         <ImmersiveFrame frameRef={shell.frameRef} slotHeight={shell.slotHeight} fullscreen={shell.fullscreen} className={styles.mapFrame} label="東京ドームの座席表" anchor={shell.locked} data-tokyo-map-frame="">
         {shell.fullscreen && <ImmersiveBar closeRef={shell.closeRef} onClose={shell.requestClose} venueName="東京ドーム" title={selected ? `${placeTitle}${selectedSide ? `（${selectedSide}）` : ""}` : null} onShare={selected ? () => setShareOpen(true) : undefined} />}
         {shareOpen && selected && placeTitle && <SeatShareSheet venueName="東京ドーム" blockName={placeTitle} onClose={() => setShareOpen(false)}
@@ -1170,7 +1179,14 @@ export function TokyoDomeSeatLocator() {
                 <text x="579" y="253" fontSize={Math.min(17, Math.max(12, canvasSize.width / 26)) / screenScale}
                   fontWeight="800">アリーナ</text>
               </g>
-              {mapLabels.filter(label => !(verifiedNumberGuide && label.code === selected?.code) && !coveredNames.has(label.code)).map(label => <text key={label.code} data-seat-label={label.code} x={label.x} y={label.y}
+              {mapLabels.filter(label => !(verifiedNumberGuide && label.code === selected?.code)).map(label => nameCarriesCamera(label.code)
+                ? <g key={label.code} data-seat-label={label.code} data-name-pill={label.code} data-annotation-photo="" data-seat-code={label.code}
+                  transform={`translate(${label.x} ${label.y}) scale(${1 / screenScale})`} pointerEvents="all" style={{cursor:"pointer"}}>
+                  <rect x={-namePillWidth(label.code) / 2} y={-11} width={namePillWidth(label.code)} height={22} rx={11} fill="#fff" fillOpacity=".94" stroke="#e3cbd6" strokeWidth=".8" />
+                  <text x={-CAMERA_ROOM / 2} textAnchor="middle" dominantBaseline="central" fontSize="12" fontWeight="650" fontFamily="ui-sans-serif, sans-serif" fill="#483340">{label.code}</text>
+                  <Camera x={namePillWidth(label.code) / 2 - 19} y={-6} size={12} color="#a93164" strokeWidth={2.4} />
+                </g>
+                : <text key={label.code} data-seat-label={label.code} x={label.x} y={label.y}
                 transform={`rotate(${label.angle},${label.x},${label.y})`} textAnchor="middle" dominantBaseline="central"
                 fontSize={label.fontSize} fontWeight="650" fontFamily="ui-sans-serif, sans-serif"
                 fill={selected?.code === label.code ? "#fff" : "#483340"}
@@ -1190,13 +1206,7 @@ export function TokyoDomeSeatLocator() {
                 <rect data-row-badge="" x={point[0] - 28 / screenScale} y={point[1] - 14 / screenScale} width={56 / screenScale} height={28 / screenScale} rx={4 / screenScale} fill={row===selectedRow?"#155786":"#e8f3ff"} stroke="#23679a" strokeWidth="1.2" vectorEffect="non-scaling-stroke" />
                 <text x={point[0]} y={point[1] + 4 / screenScale} textAnchor="middle" fontSize={12 / screenScale} fontWeight="900" fill={row===selectedRow?"#fff":"#155786"}>{row}列</text>
               </g>)}
-              {TOKYO_DOME_GATE_ANCHORS.filter(gate => {
-                // A whole-side view is for finding the block; gates return once a block is chosen.
-                if (showDetail) return (Boolean(selected) || interactiveViewBox.width <= 360) && gateClear(gate);
-                if (!["GATE 11", "GATE 25", "GATE 40", "GATE 41"].includes(gate.gate)) return false;
-                return TOKYO_DOME_OVERVIEW_AREAS.every(area => Math.abs(area.point[0] - gate.label.x) * overviewScale >= 80
-                  || Math.abs(area.point[1] - gate.label.y) * overviewScale >= 36);
-              }).map((gate) => <g key={gate.gate} pointerEvents="none">
+              {shownGates.map((gate) => <g key={gate.gate} pointerEvents="none">
                 <rect x={gate.label.x - 31 / screenScale} y={gate.label.y - 12 / screenScale}
                   width={62 / screenScale} height={24 / screenScale} rx={6 / screenScale} fill="#393148" stroke="#fff" strokeWidth="1.2" vectorEffect="non-scaling-stroke" />
                 <text x={gate.label.x} y={gate.label.y + 4 / screenScale} textAnchor="middle"
@@ -1214,15 +1224,7 @@ export function TokyoDomeSeatLocator() {
                   data-photo-x={x} data-photo-y={y} data-photo-placement="inside-block"
                   aria-label={`写真がある${area.code}区画を選ぶ`} onKeyDown={event => keyArea(event, area)} className={styles.photoMarker}>
                   <circle cx={x} cy={y} r={13 / screenScale} fill="transparent" />
-                  {(PHOTO_COUNTS.get(area.code) ?? 0) > 1
-                    ? <g data-photo-count={PHOTO_COUNTS.get(area.code)} transform={`translate(${x} ${y}) scale(${1 / screenScale})`}>
-                      <rect x="-19" y="-11" width="38" height="22" rx="11" fill="#a93164" stroke="#fff" strokeWidth="1.5" />
-                      <g transform="translate(-14 -6) scale(.5)" fill="none" stroke="#fff" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" /><circle cx="12" cy="13" r="3" />
-                      </g>
-                      <text x="8" y="0.5" textAnchor="middle" dominantBaseline="central" fontSize="12" fontWeight="900" fill="#fff">{PHOTO_COUNTS.get(area.code)}</text>
-                    </g>
-                    : <SeatPhotoMarker x={x} y={y} size={20 / screenScale} highlighted />}
+                  <SeatPhotoMarker x={x} y={y} size={20 / screenScale} highlighted />
                 </g>
               </g>)}
             </svg>

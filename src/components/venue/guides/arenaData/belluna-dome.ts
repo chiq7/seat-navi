@@ -3,7 +3,7 @@ import { bellunaSeats, bellunaLevels, bellunaAreas, bellunaFacilityConfig } from
 import type { ArenaGuideDefinition, ArenaVenueData } from '../arenaDefinition';
 const data: ArenaVenueData = {
     guide:bellunaDomeGuide,seats:bellunaSeats,levels:bellunaLevels,areas:bellunaAreas,facilities:bellunaFacilityConfig,
-    seatNote:bellunaDomeGuide.seatNote,facilityNote:"座席図と設備図は向きが異なります。場内と獅子ビル・センタービル・専用ラウンジ、敷地・駅・予約預かりを分けて探せます。",
+    seatNote:bellunaDomeGuide.seatNote,facilityNote:"座席図と設備図は向きが異なります。",
     access:[["西武球場前駅","西武狭山線・山口線","駅から敷地へ"]],
     luggage:"ドーム内にロッカーはありません。西武球場前・西所沢・所沢の改札内ロッカーと、所沢の予約預かり店舗を設備の場所一覧から探せます。",
     preparationTitle:"改札内と取り出し時間を確認",preparation:"最寄りのSPACERは西武球場前駅の改札内・トイレ入口左です。所沢駅南改札のSPACERは23時まで、ほかの掲載3か所は23:59まで。改札内の利用には乗車券が必要です。",

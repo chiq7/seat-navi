@@ -10,6 +10,8 @@ type SeoEditorialSectionProps = {
   foldSections?: boolean;
   /** The page lists its sources in one place elsewhere, so this section shows none. */
   sourcesElsewhere?: boolean;
+  /** The heading's look on a page that does not use the large section headings; the English label above it is left out too. */
+  headingClassName?: string;
 };
 
 export default function SeoEditorialSection({
@@ -19,6 +21,7 @@ export default function SeoEditorialSection({
   reviewDateLabel = "情報確認日",
   foldSections = false,
   sourcesElsewhere = false,
+  headingClassName,
 }: SeoEditorialSectionProps) {
   const sections = profile.sections.map((section) => (
     <div key={section.heading} className="border-b border-[#ded8dc] px-5 py-5 last:border-b-0 sm:grid sm:grid-cols-[180px_1fr] sm:gap-7 sm:px-7 sm:py-6">
@@ -29,8 +32,8 @@ export default function SeoEditorialSection({
   if (foldSections) {
     return (
       <section className={className}>
-        <p className="artist-kicker">About &amp; Access</p>
-        <h2 className="artist-heading">{title}</h2>
+        {!headingClassName && <p className="artist-kicker">About &amp; Access</p>}
+        <h2 className={headingClassName ?? "artist-heading"}>{title}</h2>
         <div className="mt-5 border border-[#ded8dc] bg-white sm:mt-7">
           <p className="px-5 py-5 text-[13px] font-medium leading-7 text-[#625a61] sm:px-7 sm:py-6">{profile.summary}</p>
           <dl className="grid grid-cols-2 border-t border-[#ded8dc] sm:grid-cols-4">
@@ -53,8 +56,8 @@ export default function SeoEditorialSection({
   }
   return (
     <section className={className}>
-      <p className="artist-kicker">About &amp; Access</p>
-      <h2 className="artist-heading">{title}</h2>
+      {!headingClassName && <p className="artist-kicker">About &amp; Access</p>}
+      <h2 className={headingClassName ?? "artist-heading"}>{title}</h2>
       <div className="mt-5 sm:mt-7">
         <input id="seo-editorial-toggle" type="checkbox" className="peer sr-only sm:hidden" />
         <label htmlFor="seo-editorial-toggle" className="zr-focus flex min-h-12 cursor-pointer items-center justify-between rounded-full bg-[#fff0f5] px-5 text-[12px] font-black text-[#c93868] sm:hidden">

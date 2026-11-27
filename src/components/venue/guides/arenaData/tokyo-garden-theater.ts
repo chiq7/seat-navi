@@ -5,7 +5,7 @@ const data: ArenaVenueData = {
     guide: tokyoGardenTheaterGuide, seats: gardenStandSeats, levels: gardenLevels, areas: gardenAreas, facilities: gardenFacilityConfig,
     seatNote: "2Fアリーナは公演ごとの配置です。バルコニーは階・区画と列・番号で探せます。使用する席や車いすエリアは公演案内をご確認ください。",
     access: [["有明駅", "ゆりかもめ／2B出口", "徒歩4分"], ["有明テニスの森駅", "ゆりかもめ／2A出口", "徒歩5分"], ["国際展示場駅", "りんかい線／A出口", "徒歩7分"]],
-    facilityNote: "館内2〜5F、入場前のロッカー、近くの店舗・駅・交通設備を探せます。入口は公演によって2Fまたは3Fです。",
+    facilityNote: "入口は公演によって2Fまたは3Fです。",
     luggage: "館内・ホテル・モール・最寄り3駅のロッカー、新橋・豊洲・大崎で乗換時に預ける場所も探せます。新橋の店舗預かりは予約が必要です。",
     preparationTitle: "シアターの荷物の支払い", preparation: "シアターのロッカーは電子マネー・クレジットカード、バゲッジポートは電子マネーのみ。現金は使えません。駅やモールの条件は設備欄をご確認ください。",
     accessUrl: "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/faq/", eventsUrl: "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/",

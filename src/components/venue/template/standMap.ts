@@ -175,6 +175,23 @@ export function boundsOf(blocks: StandBlock[], padding = 28): MapBox {
   return [x - padding, y - padding, Math.max(...blocks.map(b => b.box[0] + b.box[2])) - x + padding * 2,
     Math.max(...blocks.map(b => b.box[1] + b.box[3])) - y + padding * 2];
 }
+/** What a drawing writes on its arena floor. */
+export const ARENA_CAPTION = "アリーナ";
+/** Drawings whose seat blocks ring an arena floor that carries no caption: the floor is the middle of the ring. */
+const RING_AROUND_ARENA = new Set(["osaka-stand-current", "ya-common-bowl-current", "ariake-fixed-stand", "budokan-reference-stands", "ssa-seat-arena", "ssa-seat-stadium",
+  "miyagi-stand", "hiroshima-stand", "edion-fixed-seats", "edion-second-seats", "yoyogi-stand-reference"]);
+/**
+ * Where the arena floor is on a drawing: at its "アリーナ" caption, else in the middle of the ring of seat blocks.
+ * Null for a drawing without a floor of its own (a hall's levels drawn apart, a hall that is all floor).
+ */
+export function standArenaPoint(data: StandMapData): Point | null {
+  const caption = data.contextLabels?.find(label => label.text === ARENA_CAPTION);
+  if (caption) return caption.point;
+  const blocks = data.blocks.filter(block => block.path);
+  if (!RING_AROUND_ARENA.has(data.diagramId) || !blocks.length) return null;
+  const [x, y, width, height] = boundsOf(blocks, 0);
+  return [x + width / 2, y + height / 2];
+}
 export function detailBox(block: StandBlock, span: number): MapBox {
   const size = Math.max(span, block.box[2] * 1.7, block.box[3] * 1.65);
   const center = block.focusPoint ?? referenceDisplayCenter(block);

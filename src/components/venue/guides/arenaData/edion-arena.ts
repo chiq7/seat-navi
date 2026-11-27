@@ -3,7 +3,7 @@ import { edionSeats, edionLevels, edionAreas, edionFacilityConfig, makeEdionFaci
 import type { ArenaGuideDefinition, ArenaVenueData } from '../arenaDefinition';
 const data: ArenaVenueData = {
     guide: edionGuide, seats: edionSeats.first, levels: edionLevels("first"), areas: edionAreas("first"), facilities: edionFacilityConfig,
-    seatNote: edionGuide.seatNote, facilityNote: "全館休館中です。館内は改修前の参考図です。駅・店舗の荷物は場外の一覧から探せます。",
+    seatNote: edionGuide.seatNote, facilityNote: "全館休館中です。館内は改修前の参考図です。",
     access: [["地下鉄なんば駅", "5番出口", "350m"], ["南海なんば駅", "南出口", "250m"], ["大阪難波駅", "近鉄・阪神", "600m"], ["JRなんば駅", "JR・OCAT", "800m"]],
     luggage: "一般観客用の館内預かりは確認中です。競技者用ロッカー室は別用途です。南海・地下鉄・OCATと難波の店舗預かりを一覧から探せます。",
     preparationTitle: "全館休館と取り出し時間を確認", preparation: "2027年1月まで全館休館中です。再開日・再開後の配置は公式案内を確認してください。駅ロッカーは区域によって営業時間が異なり、トラベルハブの受け取りは18:30までです。",

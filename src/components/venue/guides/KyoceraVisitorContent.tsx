@@ -30,7 +30,6 @@ export default function KyoceraVisitorContent({guide}:{guide:DedicatedVenueGuide
     <section id="venue-access" aria-labelledby="outside-heading" className={styles.section}>
       <h2 id="outside-heading"><TrainFront aria-hidden="true" />駅から京セラドーム大阪へ</h2>
       <VenueAccessCards venueId="kyocera-dome" destination="京セラドーム大阪" entries={stationDisplay.flatMap(station=> (station.exit==="1・2出口" ? ["1番出口","2番出口"] : [station.exit]).map(exit=>({...station,exit}))).map((station,index)=>({id:`kyocera-${index}`,from:station.name,exit:station.exit,line:station.line,time:station.walk,sourceUrl:"https://www.kyoceradome-osaka.jp/access/",...accessTarget(guide,{from:station.name,line:station.line,exit:station.exit})}))}/>
-      <p className={styles.walkNote}>徒歩は駅からの目安です。入場ゲート・混雑によって所要時間は変わります。</p>
       <div className={styles.twoActions}><a href={support.sources[0].url} target="_blank" rel="noopener noreferrer"><DoorOpen aria-hidden="true" /><span>指定入口を確認<small>入場ゲートは3F</small></span><ArrowUpRight size={16} aria-hidden="true" /></a><a href={elevator.sources[0].url} target="_blank" rel="noopener noreferrer"><Accessibility aria-hidden="true" /><span>エレベーター<small>東口付近から3Fへ</small></span><ArrowUpRight size={16} aria-hidden="true" /></a></div>
       <details className={styles.explanation}><summary>駅・入口・利用経路の補足</summary>
         {content.access.map(item => <div key={item.id}><p><strong>{item.title}：</strong>{item.userText}</p><References item={item} /></div>)}

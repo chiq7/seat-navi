@@ -8,6 +8,11 @@
 .later { content-visibility:auto; contain-intrinsic-size:auto 900px; }
 /* Phones: the back button already leads to the venue list, so the breadcrumb row gives its height to the map. */
 @media (max-width: 600px) { .top nav[aria-label="パンくずリスト"] { display:none; } }
+/* The rows under the guide keep the guide's own rhythm: its heading size, and one gap above each row. */
+.heading { margin:0; color:#493340; font-size:20px; font-weight:850; letter-spacing:-.035em; line-height:1.5; }
+.heading small { color:#7a6872; font-size:13px; font-weight:700; letter-spacing:0; }
+@media (max-width: 767px) { .heading { font-size:18px; } }
+.block { padding-top:36px; }
 .postCta { display:flex; align-items:center; gap:10px; min-height:60px; padding:8px 12px; border:1px solid #ecd2de; border-radius:14px; background:#fff7fa; color:#96305b; text-decoration:none; }
 .postCta span { display:grid; flex:1; min-width:0; }
 .postCta strong { font-size:14px; font-weight:900; }

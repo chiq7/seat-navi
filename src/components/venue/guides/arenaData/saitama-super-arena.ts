@@ -4,7 +4,7 @@ import type { ArenaGuideDefinition, ArenaVenueData } from '../arenaDefinition';
 const data: ArenaVenueData = {
     guide: saitamaSuperArenaGuide, seats: saitamaSeats.arena, levels: saitamaLevels("arena"), areas: saitamaAreas, facilities: saitamaFacilityConfig("arena"),
     seatNote: "図は改修前の参考配置です。現在の愛称はGMOアリーナさいたま。メインアリーナ等は2027年3月末まで改修休館予定です。",
-    facilityNote: "1〜5Fの参考配置です。利用できる区域・営業再開後の変更は公演案内をご確認ください。",
+    facilityNote: "改修前の参考配置です。",
     access: [["さいたま新都心駅", "JR京浜東北線・宇都宮線・高崎線", "徒歩3分"], ["北与野駅", "JR埼京線", "徒歩7分"]],
     luggage: "館内1Fインフォメーション横、けやきひろば1Fの4か所、さいたま新都心駅・北与野駅・コクーンシティのロッカーを案内します。駅の改札内や閉館後に取り出せない施設は利用条件をご確認ください。",
     preparationTitle: "会場モードと使用席", preparation: "チケット・主催者案内のメインアリーナモード／スタジアムモードを選んでください。アリーナ席・ステージ位置・使用席は公演ごとの配置です。",

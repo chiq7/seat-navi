@@ -7,7 +7,6 @@
 .selectionCopy strong{font-size:16px;line-height:1.45;color:#59283e;overflow-wrap:anywhere;word-break:auto-phrase;text-wrap:balance}
 .selectionMeta{display:flex;flex-wrap:wrap;gap:2px 10px;font-size:12px;line-height:1.5;color:#765965}
 .selectionMeta>span{font-variant-numeric:tabular-nums}
-.selectionHint{font-size:12px;line-height:1.5;color:#765965}
 .selection button{display:grid;place-items:center;border:1px solid #e9ccd9;border-radius:9px;background:#fff;color:#a93164}
 .selection button:disabled{opacity:.3}
 .stage{position:relative;height:620px;overflow:hidden;background:#fff;touch-action:none;user-select:none}.stage>svg{width:100%;height:100%;display:block;outline-offset:-4px}.block{cursor:pointer}.levelTag{position:absolute;transform:translate(-50%,-50%);border:1px solid #d495b1;border-radius:11px;background:#fff;color:#9c2d5b;padding:8px 14px;font-size:13px;font-weight:800;box-shadow:0 3px 10px #9b3e5610}.pulse{animation:tapPulse 1.7s ease-in-out 3}.mapActions{display:flex;justify-content:flex-end;padding:8px 12px;border-top:1px solid #eedee5}.whole{border:1px solid #d7a3ba;border-radius:10px;padding:8px 12px;background:#fff;color:#913152;font-size:12px}.keyboardFocus{visibility:hidden}.stage>svg:focus-visible .keyboardFocus{visibility:visible}
@@ -37,8 +36,6 @@
 @keyframes tapPulse{50%{box-shadow:0 0 0 7px #a9316418;background:#fff0f6}}@media(prefers-reduced-motion:reduce){.pulse{animation:none}}@media(max-width:767px){.stage{height:510px}.selection{padding-inline:10px}.levelTag{padding:6px 9px;font-size:12px}.search button{padding:8px}.selectionCopy strong{font-size:14px}}@media(max-width:360px){.stage{height:460px}}
 .front{position:absolute;top:4px;left:50%;transform:translateX(-50%);color:#896675;background:#fff;padding:2px 8px;border-radius:8px;font-size:12px;pointer-events:none}
 .photoMarker{cursor:pointer}
-.eventSeatingNote{margin:0 0 8px;color:#65525c;font-size:12px;line-height:1.6}
-.eventSeatingNote a{display:inline-flex;align-items:center;min-height:44px;margin-left:6px;color:#822044;font-weight:750;text-decoration:underline;text-underline-offset:3px}
 .photoMarker:focus-visible{outline:none}
 .photoMarker:focus-visible .photoTarget{stroke:#2666b0;stroke-width:2}
 .blockPrompt{animation:blockPrompt 1.7s ease-in-out 3}@keyframes blockPrompt{50%{fill-opacity:.65}}@media(prefers-reduced-motion:reduce){.blockPrompt{animation:none}}
@@ -132,7 +129,7 @@
 .immersiveTitle strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:15px;color:#59283e}
 .immersive .arenaMaps{top:calc(60px + env(safe-area-inset-top))}
 /* Before hydration a phone already gets the preview's size and button (no jump when the script runs). */
-@media(max-width:767px){.stage.previewCapable{height:min(460px,calc(var(--map-ratio) * (100vw - 58px) + 76px))}.photoOverlay.previewCapable [data-seat-photo-summary]{display:none}}
+@media(max-width:767px){.stage.previewCapable{height:min(460px,calc(var(--map-ratio) * (100vw - 58px) + var(--map-room,76px)))}.photoOverlay.previewCapable [data-seat-photo-summary]{display:none}}
 .stage.previewCapable{-webkit-tap-highlight-color:transparent}
 .immersiveShare{flex:none;display:inline-flex;align-items:center;gap:5px;min-height:40px;padding:0 12px;border:0;border-radius:12px;background:#a93164;color:#fff;font-size:13px;font-weight:800;white-space:nowrap}
 .frontChip{position:absolute;top:8px;left:8px;z-index:3;padding:4px 10px;border:1px solid #e3cbd6;border-radius:999px;background:#fffffff0;color:#6d4b5c;font-size:12px;font-weight:700;pointer-events:none;box-shadow:0 2px 6px #4b414818}
@@ -152,8 +149,18 @@
 /* The map's own focus ring is for the keyboard: a finger or mouse press on the map draws none. */
 .stage>svg:focus:not(:focus-visible){outline:none}
 /* One line under the map: which side faces the stage or arena. */
-.mapNote{margin:0;padding:5px 12px 7px;text-align:center;color:#8a7480;font-size:11px;font-weight:600;line-height:1.4}
 /* Names of zones, sides and levels carry the camera when they hold photos. */
 .zoneTag span{display:inline-flex;align-items:center;justify-content:center;gap:3px}
 .zoneTag span svg,.levelTag svg{flex:none;color:#a93164}
 .levelTag{display:inline-flex;align-items:center;justify-content:center;gap:4px}
+/* The arena-map button on the arena floor of the drawing: placed like the names, for the resting camera. */
+.arenaSpot{position:absolute;z-index:2;transform:translate(-50%,-50%);display:grid;place-items:center;min-height:44px;padding:0 4px;border:0;background:transparent;cursor:pointer}
+.arenaSpot:focus-visible{outline:none}
+.arenaSpot:focus-visible .arenaPill{outline:3px solid #30253b;outline-offset:2px}
+.stage[data-moving] .arenaSpot{visibility:hidden}
+/* A level that is a single block stands among the block names: its name is drawn like theirs, inside a 44px tap area. */
+.nameTag{position:absolute;transform:translate(-50%,-50%);display:grid;place-items:center;min-width:44px;height:44px;padding:0;border:0;background:transparent;cursor:pointer;outline-offset:-3px}
+.nameTag span{display:inline-flex;align-items:center;gap:3px;height:26px;padding-inline:9px;border:1px solid #e3cbd6;border-radius:13px;background:#fffffff0;color:#4b2a3a;font-size:12px;font-weight:700;white-space:nowrap}
+.nameTag span svg{flex:none;color:#a93164}
+.nameTag:hover span,.nameTag:focus-visible span{background:#fff0f6;border-color:#8d325b}
+.stage[data-moving] .nameTag{visibility:hidden}

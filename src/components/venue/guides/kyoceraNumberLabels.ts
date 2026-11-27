@@ -46,10 +46,10 @@ export function placeNumberLabel(low: Point, high: Point, width: number, height 
     to: { x: low.x + direction.x * (clearance + arrowLength), y: low.y + direction.y * (clearance + arrowLength) } };
 }
 
-/** A neighbouring number can lose its repeated unit, but never its fixed anchor. */
-export function compactNeighbourNumber(sign: NumberLabel, high: Point, number: number, obstacles: LabelRect[]) {
+/** A neighbouring number can lose its repeated unit, but never its fixed anchor. `extra` is the room of a mark the badge carries. */
+export function compactNeighbourNumber(sign: NumberLabel, high: Point, number: number, obstacles: LabelRect[], extra = 0) {
   const compact = obstacles.some(rect => rectanglesOverlap(sign.rect, rect, 3));
-  return { compact, sign: compact ? placeNumberLabel(sign.rect, high, String(number).length * 7 + 4, 18) : sign };
+  return { compact, sign: compact ? placeNumberLabel(sign.rect, high, String(number).length * 7 + 4 + extra, 18) : sign };
 }
 
 export function numberBadgePath(rect: LabelRect, cut = 5) {

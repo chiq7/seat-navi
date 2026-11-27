@@ -174,16 +174,17 @@ export default async function VenuePage({ params, searchParams }: Props) {
             過去公演の配置・写真を見る
           </a>
         </div>}
+        {/* Right under the seat map: the past shows' arena layouts come first, then the seat photos. */}
         <ArenaMapsProvider posts={compact ? arenaMaps : []}>
           <PublicVenueGuide venue={venue.id} target={seatTarget} pageNav={compact}
-            afterSeats={compact ? <><VenuePhotoStrip photos={getVenuePhotoCovers(venue.id)} count={photos?.count ?? 0} allTargetId="seat-photo-title" /><ArenaMapStrip reportHref={`/report?venue=${encodeURIComponent(venue.id)}`} /></> : undefined} />
+            afterSeats={compact ? <><ArenaMapStrip reportHref={`/report?venue=${encodeURIComponent(venue.id)}`} /><VenuePhotoStrip photos={getVenuePhotoCovers(venue.id)} count={photos?.count ?? 0} allTargetId="seat-photo-title" /></> : undefined} />
         </ArenaMapsProvider>
       </div>}
 
       {!compact && <SeatSourcePreview scope="venues" id={venue.id} />}
       {compact && <div className={`${compactStyles.photoList} ${compactStyles.later}`}><VenueSeatReadingGuide venueId={venue.id} name={publicName} photoPreview={photos} gallery /></div>}
       {/* Visitors usually arrive before their show, so the invitation is for any past visit, not today's seat. */}
-      {compact && <div className="zr-container pb-3">
+      {compact && <div className="zr-container">
         <Link href={`/report?venue=${encodeURIComponent(venue.id)}`} data-report-cta="venue_photo_list" className={`zr-focus ${compactStyles.postCta}`}>
           <Camera size={22} aria-hidden="true" />
           <span><strong>{publicName}の座席写真を投稿</strong><small>過去のライブの1枚でもOK・ログイン不要</small></span>
@@ -200,21 +201,19 @@ export default async function VenuePage({ params, searchParams }: Props) {
             <ChevronRight size={18} aria-hidden="true" className="shrink-0 text-[#a12b58]" />
           </Link></li>)}</ul>
       </section>}
-      {photoArchives.length > 0 && <section id="past-arena-photos" className="zr-container scroll-mt-[90px] py-6" aria-labelledby="past-arena-photos-heading">
-        <h2 id="past-arena-photos-heading" className="artist-heading">過去公演のアリーナ配置と写真</h2>
-        <p className="mt-1 mb-3 text-sm text-[#68525e]">アリーナの配置は公演ごとに変わります。</p>
-        {photoArchives.map((archive, index) => <details key={archive.id} open={index === 0} className="mb-3 rounded-xl border border-[#eadfe4] bg-white">
+      {photoArchives.length > 0 && <section id="past-arena-photos" className={`zr-container scroll-mt-[90px] ${compact ? compactStyles.block : "py-6"}`} aria-labelledby="past-arena-photos-heading">
+        <h2 id="past-arena-photos-heading" className={compact ? compactStyles.heading : "artist-heading"}>過去公演のアリーナ配置と写真</h2>
+        <div className="mt-3">{photoArchives.map((archive, index) => <details key={archive.id} open={index === 0} className="mb-3 rounded-xl border border-[#eadfe4] bg-white">
           <summary className="zr-focus cursor-pointer px-4 py-3 text-sm font-bold text-[#653457]">
             {archive.title} <time dateTime={archive.layout.date}>{archive.layout.date.replaceAll("-", "/")}</time>
           </summary>
           <EventArenaPhotoMap layout={archive.layout} eventTitle={archive.title} sectionId={`arena-seat-photos-${archive.id}`}
-            mapTitle={archive.kind === "standing" ? "公演当日のスタンディング区画" : undefined} />
-        </details>)}
+            mapTitle={archive.kind === "standing" ? "公演当日のスタンディング区画" : undefined} headingClassName={compact ? compactStyles.heading : undefined} />
+        </details>)}</div>
       </section>}
 
-      {floorPhotos.length > 0 && <section id={VENUE_FLOOR_PHOTOS_ID} className="zr-container scroll-mt-[90px] py-6" aria-labelledby={`${VENUE_FLOOR_PHOTOS_ID}-heading`}>
-        <h2 id={`${VENUE_FLOOR_PHOTOS_ID}-heading`} className="artist-heading">アリーナ席・会場内からの写真（{floorPhotos.length}枚）</h2>
-        <p className="mt-1 text-sm text-[#68525e]">公演ごとの配置図がない写真です。ブロックや列は投稿に書かれたままです。ステージまでの距離感の目安にしてください。</p>
+      {floorPhotos.length > 0 && <section id={VENUE_FLOOR_PHOTOS_ID} className={`zr-container scroll-mt-[90px] ${compact ? compactStyles.block : "py-6"}`} aria-labelledby={`${VENUE_FLOOR_PHOTOS_ID}-heading`}>
+        <h2 id={`${VENUE_FLOOR_PHOTOS_ID}-heading`} className={compact ? compactStyles.heading : "artist-heading"}>アリーナ席・会場内からの写真（{floorPhotos.length}枚）</h2>
         <SeatPhotoGallery photos={floorPhotos} />
       </section>}
 
@@ -230,7 +229,8 @@ export default async function VenuePage({ params, searchParams }: Props) {
             profile={profile}
             foldSections={compact}
             sourcesElsewhere={venue.id === "tokyo-dome"}
-            className="py-8 sm:py-10"
+            className={compact ? `${compactStyles.block} pb-8` : "py-8 sm:py-10"}
+            headingClassName={compact ? compactStyles.heading : undefined}
           />
         )}
         <RelatedVenueCards venueId={venue.id} />

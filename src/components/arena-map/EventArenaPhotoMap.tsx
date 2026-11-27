@@ -29,12 +29,14 @@ function interiorPoint(points: Points) {
 }
 
 export function EventArenaPhotoMap({
-  layout, eventTitle, sectionId = "arena-seat-photos", mapTitle: customTitle,
+  layout, eventTitle, sectionId = "arena-seat-photos", mapTitle: customTitle, headingClassName = "artist-heading",
 }: {
   layout: EventArenaPhotoLayout;
   eventTitle: string;
   sectionId?: string;
   mapTitle?: string;
+  /** The heading's look, where the page around it does not use the large section headings. */
+  headingClassName?: string;
 }) {
   const dialogId = useId();
   const svg = useRef<SVGSVGElement>(null);
@@ -79,13 +81,13 @@ export function EventArenaPhotoMap({
   const mapTitle = customTitle ?? (isReference ? "アリーナの撮影位置の目安" : "公演のアリーナ座席図");
 
   return <section id={sectionId} className="zr-container scroll-mt-[120px] py-6 sm:py-8" aria-labelledby={`${dialogId}-heading`}>
-    <h2 id={`${dialogId}-heading`} className="artist-heading">{mapTitle}</h2>
+    <h2 id={`${dialogId}-heading`} className={headingClassName}>{mapTitle}</h2>
     <p className="mt-1 flex flex-wrap items-baseline gap-x-2 text-xs text-[#68525e]">
       <time dateTime={layout.date} className="font-bold tabular-nums">{dateLabel}</time>
       <span className="min-w-0 break-words">{eventTitle}</span>
     </p>
     <p id={`${dialogId}-guide`} className="mb-2 mt-3 flex flex-wrap items-center gap-1.5 rounded-lg bg-[#f6edf4] px-3 py-2.5 text-[13px] font-bold text-[#653457]">
-      <Camera size={16} className="shrink-0" aria-hidden="true" /><span>写真あり・{layout.photos.length}枚</span><span className="text-xs font-medium">カメラ印をタップ</span>
+      <Camera size={16} className="shrink-0" aria-hidden="true" /><span>写真あり・{layout.photos.length}枚</span>
     </p>
     <svg ref={svg} viewBox={layout.viewBox.join(" ")} role="group" aria-label={mapTitle}
       aria-describedby={`${dialogId}-guide`}

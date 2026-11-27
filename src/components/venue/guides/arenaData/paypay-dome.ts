@@ -4,7 +4,7 @@ import type { ArenaGuideDefinition, ArenaVenueData } from '../arenaDefinition';
 const data: ArenaVenueData = {
     guide: paypayDomeGuide, seats: paypayStandSeats, levels: paypayLevels, areas: paypayAreas, facilities: paypayFacilityConfig,
     seatNote: paypayDomeGuide.seatNote,
-    facilityNote: "館内1〜6F、デッキ・外周、唐人町駅、博多駅、ドーム外の店舗を切り替えて探せます。4〜6Fは券種による利用範囲をご確認ください。",
+    facilityNote: "4〜6Fは券種によって入れる範囲が変わります。",
     access: [["唐人町駅", "福岡市地下鉄 空港線／3番出口", "徒歩約15分"]],
     luggage: "デッキ・外周のロッカー、唐人町駅・博多駅のロッカーとCrosta博多の有人預かりを探せます。会場のコインロッカー以外での荷物預かりはありません。",
     preparationTitle: "終演後に取り出せる場所を選ぶ", preparation: "Crosta博多は20時まで。会場ロッカーは0時を跨ぐと2日利用扱いです。料金と決済方法は2026年7月16日に変更されているため、個別案内をご確認ください。",

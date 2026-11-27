@@ -4,7 +4,6 @@ import type { ArenaGuideDefinition, ArenaVenueData } from '../arenaDefinition';
 const data: ArenaVenueData = {
     guide: vantelinDomeGuide, seats: vantelinStandSeats, levels: vantelinLevels, areas: vantelinAreas, facilities: vantelinFacilityConfig,
     seatNote: vantelinDomeGuide.seatNote,
-    facilityNote: "館内2〜5Fの設備と、場外のゲート・周辺モール・駅を切り替えて探せます。図に載せていない設備も場所一覧から選べます。",
     access: [["ナゴヤドーム前矢田駅", "地下鉄名城線・ゆとりーとライン／地下鉄1番出口", "徒歩5分"], ["大曽根駅", "JR中央本線・名鉄瀬戸線", "徒歩15分"]],
     luggage: "館内2Fのロッカー5区域、近隣モールの無料ロッカー6区域、乗換駅のJR名古屋12区域と周辺3件を探せます。タカシマヤ有人預かりは20時まで。最寄り矢田・大曽根の個別ロッカー位置は確認中です。会場による有人預かりはありません。",
     preparationTitle: "ロッカーの支払いと取り出し", preparation: "館内は小300円・中500円・大600円。100円硬貨のみで、イベント終了までに取り出してください。38通路前には大型がありません。公演により利用できない場合があります。",

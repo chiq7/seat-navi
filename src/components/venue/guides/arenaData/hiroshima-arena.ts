@@ -3,10 +3,10 @@ import { hiroshimaSeats, hiroshimaLevels, hiroshimaAreas, hiroshimaFacilityConfi
 import type { ArenaGuideDefinition, ArenaVenueData } from '../arenaDefinition';
 const data: ArenaVenueData = {
     guide: hiroshimaGuide, seats: hiroshimaSeats, levels: hiroshimaLevels, areas: hiroshimaAreas, facilities: hiroshimaFacilityConfig,
-    seatNote: hiroshimaGuide.seatNote, facilityNote: "大アリーナと本館は棟・階を選んでください。本館ロッカーと駅・バスセンターの荷物は一覧から探せます。",
+    seatNote: hiroshimaGuide.seatNote, 
     access: [["県庁前駅", "アストラムライン／西2出口（基町クレド側）", "下車後、会場へ"], ["広島バスセンター・紙屋町", "広島駅からバス", "車内約10分"], ["紙屋町西・原爆ドーム前", "路面電車／広島駅から紙屋町西", "車内約15分"]],
     officialRouteUrl: "https://h-jigyoudan.or.jp/sports-center/center-overview/#access", routeLabel: "公式の交通・駐車場案内 ↗",
-    accessNote: "バス・電車の時間は広島駅から下車地点までの目安です。公演の入場口までの徒歩時間ではありません。使用入口と当日の運行は主催者案内を確認してください。",
+    accessNote: "時間は広島駅から下車地点までの目安です。入場口までの徒歩は含みません。",
     luggage: "本館B1の授乳室横に13口のコインロッカーがあります。21時以降は取り出せません。大きな荷物はバスセンターや広島駅北側2FのCrostaも一覧から確認できます。",
     preparationTitle: "終演後の荷物受け取りを確認", preparation: `${hiroshimaNotice} 本館ロッカーは21時まで、Crosta広島は20時まで。バスセンターのロッカーと有人預かりは利用時間が異なります。`,
     accessUrl: "https://h-jigyoudan.or.jp/sports-center/center-overview/", eventsUrl: "https://h-jigyoudan.or.jp/sports-center/",
