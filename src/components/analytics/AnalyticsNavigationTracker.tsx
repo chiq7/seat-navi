@@ -2,36 +2,46 @@
 
 import { useEffect, useRef } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
-import { trackEvent } from "@/lib/analytics";
+import { setAnalyticsPage, trackEvent } from "@/lib/analytics";
 
 /**
  * GA4の初回page_viewはgtag configへ任せ、App Routerでの画面遷移だけを追加送信する。
  */
-export function AnalyticsNavigationTracker() {
+export function AnalyticsNavigationTracker({ measurementId }: { measurementId: string }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const firstUrl = useRef<string | null>(null);
+  const firstPath = useRef<string | null>(null);
   const query = searchParams.toString();
-  // The search box can preserve a chosen result in the current history entry.
-  // A change of search terms on this screen is recorded by the search event.
-  const currentUrl = pathname === "/search" ? pathname : `${pathname}${query ? `?${query}` : ""}`;
 
   useEffect(() => {
-    if (firstUrl.current === null) {
-      firstUrl.current = currentUrl;
+    // A new page is a new path. A query change on the same page (choosing a seat
+    // block, a search term, a show in a form) is a choice on that page, not a page view.
+    if (firstPath.current === null) {
+      firstPath.current = pathname;
       return;
     }
-    if (firstUrl.current === currentUrl) return;
-    firstUrl.current = currentUrl;
+    if (firstPath.current === pathname) return;
+    firstPath.current = pathname;
 
     // Send the URL once, as page_location only. Sending page_path as well
     // recorded the query twice ("?a=b?a=b") in GA4.
     // The fragment is left out: an in-page jump is not a new page.
+    // Campaign tags are read once, at landing (readLandingSignals). Left in the URL here,
+    // going back to the landing page would hand them to GA again, unchecked, mid-visit.
+    const kept = new URLSearchParams(query);
+    for (const key of [...kept.keys()]) if (key.startsWith("utm_")) kept.delete(key);
+    const keptQuery = kept.toString();
+    const pageLocation = `${window.location.origin}${pathname}${keptQuery ? `?${keptQuery}` : ""}`;
     trackEvent("page_view", {
-      page_location: window.location.origin + currentUrl,
+      page_location: pageLocation,
       page_title: document.title,
     });
-  }, [currentUrl]);
+    // Without this, every later event, scroll and engagement time on this page
+    // was recorded under the page the visit started on.
+    setAnalyticsPage(measurementId, pageLocation);
+    // The query is read for the new page only; its own changes are not page views.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname, measurementId]);
 
   // Report funnel: which screen of the posting flow was reached (entry / live / ticket / ...).
   useEffect(() => {
@@ -58,4 +68,3 @@ export function AnalyticsNavigationTracker() {
 
   return null;
 }
-

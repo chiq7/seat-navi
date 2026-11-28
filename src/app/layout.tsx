@@ -82,7 +82,7 @@ export default function RootLayout({
         </div>
         {GA_ID && (
           <Suspense fallback={null}>
-            <AnalyticsNavigationTracker />
+            <AnalyticsNavigationTracker measurementId={GA_ID} />
           </Suspense>
         )}
         {/* Sends nothing without the GA tag (trackEvent checks for it), so it is always mounted. */}
